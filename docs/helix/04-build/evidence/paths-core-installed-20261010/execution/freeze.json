@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "bytes": 2337,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/command.json",
+      "sha256": "cfd70d7966ebc1df59d423a5f8bf3db875d4083ccbaaa502555d7b9c3335cb8d"
+    },
+    {
+      "bytes": 618,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/cases.json",
+      "sha256": "639302347ed55867c6ca7e37094b36596421742475c555d4f0ccf2e0c4d0ebed"
+    },
+    {
+      "bytes": 2119,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/command.json",
+      "sha256": "f55051d48edd3164edeacb4a6a38d7c8fc2081a33663c3a73c7abfbbffe802bd"
+    },
+    {
+      "bytes": 4418,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/driver.py",
+      "sha256": "cac8be42ff9ec89decbb327f7a4d78109cbce171aa2be449ed6381f57679bcae"
+    },
+    {
+      "bytes": 59644,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/resources.json",
+      "sha256": "bd96abda73bfe9de8b8436c9defb9bef0ad410f50be6db4583361bdf75ffcfa1"
+    },
+    {
+      "bytes": 29096,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/runtime.json",
+      "sha256": "2837f2be98021efadf150b525e88acc99711f331e71fd46d7170a4bce370c355"
+    },
+    {
+      "bytes": 13820,
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/source-inventory.json",
+      "sha256": "e56eb84bb3a0f147101ed9b6ecced2d0e2eaaaf030350cea4b49f5e207259252"
+    }
+  ],
+  "resources": {
+    "files": 237,
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/resources.json",
+    "sha256": "bd96abda73bfe9de8b8436c9defb9bef0ad410f50be6db4583361bdf75ffcfa1"
+  },
+  "scope": "Corrected explicit237 resource metadata; same original driver/env/argv/outputs and acceptedinputbytes. No execution."
+}

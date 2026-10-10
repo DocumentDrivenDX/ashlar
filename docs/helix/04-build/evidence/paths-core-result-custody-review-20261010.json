@@ -1,0 +1,125 @@
+{
+  "verdict": "actual core result custody checks pass",
+  "sourceAndPackageResources": {
+    "files": 237,
+    "bytes": 49400980,
+    "openingClosingAndCurrentMatch": true
+  },
+  "processes": [
+    {
+      "phase": "install",
+      "exitCode": 0,
+      "durationSeconds": 0.8320108329999999,
+      "captureBytes": {
+        "stdout": 56,
+        "stderr": 110
+      },
+      "captureLimitBytes": {
+        "stdout": 1048576,
+        "stderr": 1048576
+      },
+      "environmentKeys": [
+        "PATH",
+        "PYTHONDONTWRITEBYTECODE",
+        "PYTHONPATH"
+      ],
+      "scope": "Root two-process core execution; ordinary bounded files, no durability/OTel/native guarantee."
+    },
+    {
+      "phase": "reopen",
+      "exitCode": 0,
+      "durationSeconds": 0.49339016699999994,
+      "captureBytes": {
+        "stdout": 55,
+        "stderr": 110
+      },
+      "captureLimitBytes": {
+        "stdout": 1048576,
+        "stderr": 1048576
+      },
+      "environmentKeys": [
+        "PATH",
+        "PYTHONDONTWRITEBYTECODE",
+        "PYTHONPATH"
+      ],
+      "scope": "Root two-process core execution; ordinary bounded files, no durability/OTel/native guarantee."
+    }
+  ],
+  "installedTree": {
+    "files": 9,
+    "reportVectorsEqual": true,
+    "currentAllMatch": true
+  },
+  "schemas": [
+    {
+      "bytes": 3511,
+      "name": "compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "bytes": 62086,
+      "name": "compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "name": "logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "name": "application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18066,
+      "name": "backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "readySha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc",
+  "retainedArtifacts": [
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/install.stdout",
+      "bytes": 56,
+      "sha256": "4a3b8cc94e225ce3be71b2dd5fd09632dbb4f817c178cb4333225c4a14d3aba3"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/install.stderr",
+      "bytes": 110,
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/install-process.json",
+      "bytes": 415,
+      "sha256": "e596a1ec8baf8a8371586607a1441a53d8b0baeb801d0b278fa76a5a5f999f7c"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/install-report.json",
+      "bytes": 65298,
+      "sha256": "15d3e5a34132cedc07eb800a46ac195e250ffeceb2c8cd45c7ea7cd41977351c"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen.stdout",
+      "bytes": 55,
+      "sha256": "094a4eb8afced8a2b02b746f78e4b69504ddfcf93a78e52684dcdef757bb1b43"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen.stderr",
+      "bytes": 110,
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen-process.json",
+      "bytes": 415,
+      "sha256": "9ec9fb8c41b73a227f5d637a6938e0350b99b7c2b90bfbbe01144a29371faecf"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/reopen-report.json",
+      "bytes": 66723,
+      "sha256": "b450923c049224cc81db04ae6eb64681a101ef470bf9f956a01c7dd9f92647b3"
+    }
+  ],
+  "stderrScope": "Each phase retained exact110-byte Python launcher confstr warning; no empty stderr claim. Successful driver terminal/status and capture bounds are independent of this retained warning.",
+  "limitations": "Read-only exact results/custody check; no compiler re-execution, native/wheel/new-CLI qualification or physical package absence assertion."
+}

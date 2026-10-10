@@ -1,0 +1,19 @@
+{
+  "phase": "reopen",
+  "exitCode": 0,
+  "durationSeconds": 0.49339016699999994,
+  "captureBytes": {
+    "stdout": 55,
+    "stderr": 110
+  },
+  "captureLimitBytes": {
+    "stdout": 1048576,
+    "stderr": 1048576
+  },
+  "environmentKeys": [
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONPATH"
+  ],
+  "scope": "Root two-process core execution; ordinary bounded files, no durability/OTel/native guarantee."
+}

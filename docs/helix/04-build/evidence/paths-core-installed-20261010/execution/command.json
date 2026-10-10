@@ -1,0 +1,58 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/private/tmp/ashlar-paths-install-compile-20261010-a/driver.py",
+        "install"
+      ],
+      "phase": "install"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/private/tmp/ashlar-paths-install-compile-20261010-a/driver.py",
+        "reopen"
+      ],
+      "phase": "reopen"
+    }
+  ],
+  "cwd": "/private/tmp/ashlar-paths-install-compile-20261010-a",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/private/tmp/ashlar-paths-install-compile-20261010-a/source/src"
+  },
+  "freshOutputs": [
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/installation",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/install-report.json",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/reopen-report.json",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/positive-paths.actual-response",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/legacy-namespace.actual-response",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-0.actual-response",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-1.actual-response",
+    "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-2.actual-response"
+  ],
+  "indexRevision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+  "indexSha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+  "limits": {
+    "phaseSeconds": 180,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576
+  },
+  "resources": {
+    "files": 237,
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/resources.json",
+    "sha256": "bd96abda73bfe9de8b8436c9defb9bef0ad410f50be6db4583361bdf75ffcfa1"
+  },
+  "reviewMetadata": {
+    "correspondenceChecked": true,
+    "driverRootAndOutputs": "/private/tmp/ashlar-paths-install-compile-20261010-a",
+    "supersedes": "A command gate only; all original A files unchanged"
+  },
+  "runtimeObservation": "runtime.json",
+  "scope": "Preparation only. No fixture platform overrides. Root actual two sequential processes after independent review. Original accepted response bytes; no compiler/native support transfer.",
+  "sourceCommit": "b91ccaee0f7b06caa15a559cf64bfa569dbed1db"
+}

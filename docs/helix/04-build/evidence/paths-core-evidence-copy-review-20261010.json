@@ -1,0 +1,15 @@
+{
+  "verdict": "approved exact selected evidence copy B",
+  "manifest": {
+    "path": "/private/tmp/ashlar-paths-install-evidence-20261010-b/manifest.json",
+    "bytes": 10015,
+    "sha256": "8072989d49da3452856f74289d7dbb264e72d2ba77b8b0684e065eba73861c3e"
+  },
+  "copiedFiles": 35,
+  "copiedBytes": 1328631,
+  "allCopiedBytesEqualOriginals": true,
+  "fullSelectedTreeClosedNoSymlinks": true,
+  "originalReadyProvenanceRetained": true,
+  "preservedScope": "Actual core indexed install and five unchanged compiler responses; API package=None fresh-process restart. Original package retained only for independent custody/schema comparison. No wheel/new CLI/native/cloud/OTel or durability claim.",
+  "scopeLimits": "Selected35-file evidence plus manifest, not full source/runtime/package distribution. All external source/package/runtime references retained as original descriptors. Actual result acceptance is separate and must accompany this copy review. No artifact rewrite, replay, compiler or native execution."
+}

@@ -1,0 +1,73 @@
+{
+  "verdict": "approved actual indexed core installation and five exact compiler responses",
+  "rootExecution": {
+    "reportedToolSession": 93517,
+    "reportedTerminalCode": 0,
+    "retainedPhaseRecords": [
+      {
+        "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/install-process.json",
+        "bytes": 415,
+        "sha256": "e596a1ec8baf8a8371586607a1441a53d8b0baeb801d0b278fa76a5a5f999f7c"
+      },
+      {
+        "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen-process.json",
+        "bytes": 415,
+        "sha256": "9ec9fb8c41b73a227f5d637a6938e0350b99b7c2b90bfbbe01144a29371faecf"
+      }
+    ]
+  },
+  "approvedCommand": {
+    "path": "/private/tmp/astra-paths-install-command-review-20261010-b.json",
+    "bytes": 4557,
+    "sha256": "d83b81f2a57e613e42cd2192b83c5055752949505918d909148ef0a0b7c43627"
+  },
+  "actualCustodyReview": {
+    "path": "/private/tmp/astra-paths-core-result-custody-review-20261010-b.json",
+    "bytes": 4251,
+    "sha256": "b67767ff41d3e9f5ee405699cdd64c86248426036f3d697cb56e3870017be3f8"
+  },
+  "independentResultReview": {
+    "path": "/private/tmp/astra-paths-installed-result-review-20261010-b.json",
+    "bytes": 13688,
+    "sha256": "d729e57266430986b1816f427f23792b7450f50e8f128547e69a79732e8b2484"
+  },
+  "actualReports": [
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/install-report.json",
+      "bytes": 65298,
+      "sha256": "15d3e5a34132cedc07eb800a46ac195e250ffeceb2c8cd45c7ea7cd41977351c"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/reopen-report.json",
+      "bytes": 66723,
+      "sha256": "b450923c049224cc81db04ae6eb64681a101ef470bf9f956a01c7dd9f92647b3"
+    }
+  ],
+  "conclusions": [
+    "Separate actual install and fresh-process reopen completed exit0 in0.832010833s and0.493390167s within the reviewed180s per-phase bounds.",
+    "Exact237 selected source/package/index/runtime resources agree with both opening/closing reports and independent current byte checks.",
+    "Installed exact9-file tree, ready/provenance/executable/backend and five schemas match trustedc8 index/a757 and approved Paths530 package descriptors; cleanupPending is false.",
+    "All five complete raw compiler responses equal independently accepted original corpus expected bytes: collection positive, oldnamespace WFT-VERSION refusal and fresh all-four-table binding versions0/7/57.",
+    "The core API reopens with package=None; original package remains available to independent harness comparisons and custody checks.",
+    "Both outer stderr files preserve exact110-byte Python confstr warning; no empty outer stderr claim."
+  ],
+  "archive": {
+    "selectedCopyReview": {
+      "path": "/private/tmp/astra-paths-core-evidence-copy-review-20261010-b.json",
+      "bytes": 1018,
+      "sha256": "47ca0498137c19a3c087f3e94e487ed8a8ce406c9edb6c3a7c3e47fcc97c132e"
+    },
+    "manifest": {
+      "path": "/private/tmp/ashlar-paths-install-evidence-20261010-b/manifest.json",
+      "bytes": 10015,
+      "sha256": "8072989d49da3452856f74289d7dbb264e72d2ba77b8b0684e065eba73861c3e"
+    },
+    "durableCopy": "All35 manifest entries independently byte-compared to originals at /Users/erik/Projects/ashlar/docs/helix/04-build/evidence/paths-core-installed-20261010; exact36-file tree inclmanifest, no extra files.",
+    "scope": "Selected immutable evidence; runtime binaries and source/package external inventory bytes are not bundled; actualready/provenance retained."
+  },
+  "limits": [
+    "Reviewer used read-only file/JSON/hash inspection, without compiler replay/install/native execution.",
+    "Actual execution covers committedb91 core APIs and Paths530 candidate binary; not new composition CLI or wheel.",
+    "No native SQL/source/ACK authority, physical original-package absence, cloud support, hermetic/fullOS closure, crash durability, OTel receiver or machine-proof claim."
+  ]
+}

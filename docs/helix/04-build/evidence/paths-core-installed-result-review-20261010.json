@@ -1,0 +1,430 @@
+{
+  "verdict": "PASS",
+  "scope": "Read-only actual core installation/reopen output correspondence and installed-byte custody. No replay, compiler, install or native/DB operation executed by reviewer; no native/source/ACK authority qualification.",
+  "reports": [
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/install-report.json",
+      "bytes": 65298,
+      "sha256": "15d3e5a34132cedc07eb800a46ac195e250ffeceb2c8cd45c7ea7cd41977351c"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/reopen-report.json",
+      "bytes": 66723,
+      "sha256": "b450923c049224cc81db04ae6eb64681a101ef470bf9f956a01c7dd9f92647b3"
+    }
+  ],
+  "priorInputReview": {
+    "path": "/private/tmp/astra-paths-install-command-inputs-review-20261010-b.json",
+    "sha256": "34920e62b8d68c8c6171c26dccadcfd0034cf1b6ca12e9d33a23c9364e7d65d4"
+  },
+  "originalCorpus": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+    "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68"
+  },
+  "fiveActualPairs": [
+    {
+      "id": "positive-paths",
+      "request": {
+        "path": "positive-paths.request",
+        "bytes": 55374,
+        "sha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2"
+      },
+      "actualResponse": {
+        "path": "positive-paths.actual-response",
+        "bytes": 99372,
+        "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+      },
+      "originalCaseIds": [
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed"
+      ],
+      "detail": {
+        "status": "compiled",
+        "bound": 2,
+        "hops": 2,
+        "publication": {
+          "id": "original-commerce-publication-1",
+          "manifestUuid": "360f670c-33d7-4084-8db6-2e70e360838c",
+          "tables": [
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "edge_current"
+              ],
+              "uuid": "f9b4c46d-f0a7-4701-ac91-1c2f639b05c2",
+              "version": 2
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "object_current"
+              ],
+              "uuid": "1813c883-d7c3-4f19-838f-7f81cf868989",
+              "version": 2
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "tombstone"
+              ],
+              "uuid": "8cafe780-f333-4301-bc97-2554c710b5c0",
+              "version": 1
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "whole_source_history"
+              ],
+              "uuid": "33dbab1d-c7ff-4dd9-b2ba-cc6a45b34631",
+              "version": 2
+            }
+          ]
+        },
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ]
+      }
+    },
+    {
+      "id": "legacy-namespace",
+      "request": {
+        "path": "legacy-namespace.request",
+        "bytes": 3203,
+        "sha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d"
+      },
+      "actualResponse": {
+        "path": "legacy-namespace.actual-response",
+        "bytes": 244,
+        "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+      },
+      "originalCaseIds": [
+        "legacy:columns-native:64-empty-column-column"
+      ],
+      "detail": {
+        "status": "blocked",
+        "diagnostic": "WFT-VERSION",
+        "noArtifact": true
+      }
+    },
+    {
+      "id": "fresh-binding-0",
+      "request": {
+        "path": "fresh-binding-0.request",
+        "bytes": 55381,
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face"
+      },
+      "actualResponse": {
+        "path": "fresh-binding-0.actual-response",
+        "bytes": 99864,
+        "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+      },
+      "originalCaseIds": [
+        "controls:fresh-binding-0"
+      ],
+      "detail": {
+        "status": "compiled",
+        "bound": 2,
+        "hops": 2,
+        "publication": {
+          "id": "fresh-paths-publication-0",
+          "manifestUuid": "df76d088-a3c3-5e8f-8b85-fcd9cb115a03",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_0"
+              ],
+              "uuid": "ae1fa64e-7026-5a49-bcc4-554715bd74cf",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_1"
+              ],
+              "uuid": "86c42e00-1c8a-54eb-9320-dfcc42cdfdb3",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_2"
+              ],
+              "uuid": "caac2516-9876-5e86-bd60-cffad4904cab",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_3"
+              ],
+              "uuid": "6a3fadb8-d598-5576-8771-e99d782e8885",
+              "version": 0
+            }
+          ]
+        },
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ]
+      }
+    },
+    {
+      "id": "fresh-binding-1",
+      "request": {
+        "path": "fresh-binding-1.request",
+        "bytes": 55381,
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987"
+      },
+      "actualResponse": {
+        "path": "fresh-binding-1.actual-response",
+        "bytes": 99864,
+        "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+      },
+      "originalCaseIds": [
+        "controls:fresh-binding-1"
+      ],
+      "detail": {
+        "status": "compiled",
+        "bound": 2,
+        "hops": 2,
+        "publication": {
+          "id": "fresh-paths-publication-1",
+          "manifestUuid": "8cfdb80e-b1d3-58df-b13f-70c20473d810",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_0"
+              ],
+              "uuid": "cfd72202-4bfa-5f24-9f32-0afb9496799e",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_1"
+              ],
+              "uuid": "8302c300-3d02-579c-9a73-6a9a996297ff",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_2"
+              ],
+              "uuid": "18bfa071-d63b-52d4-b760-1f67642dbd9e",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_3"
+              ],
+              "uuid": "9d241787-768a-5f3a-b365-98e2dd060480",
+              "version": 7
+            }
+          ]
+        },
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ]
+      }
+    },
+    {
+      "id": "fresh-binding-2",
+      "request": {
+        "path": "fresh-binding-2.request",
+        "bytes": 55385,
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4"
+      },
+      "actualResponse": {
+        "path": "fresh-binding-2.actual-response",
+        "bytes": 100007,
+        "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+      },
+      "originalCaseIds": [
+        "controls:fresh-binding-2"
+      ],
+      "detail": {
+        "status": "compiled",
+        "bound": 2,
+        "hops": 2,
+        "publication": {
+          "id": "fresh-paths-publication-2",
+          "manifestUuid": "7d34f892-31fb-5b0a-92d3-cc5cc62e939f",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_0"
+              ],
+              "uuid": "48717840-ffb4-568e-91cb-572568f572ab",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_1"
+              ],
+              "uuid": "157c2f11-36cd-5772-8d21-1c9c31cbba87",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_2"
+              ],
+              "uuid": "e8d98a95-bad5-5ca1-89e6-163164ef139f",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_3"
+              ],
+              "uuid": "de282eb0-fa2d-543b-a87c-a4d2597daefe",
+              "version": 57
+            }
+          ]
+        },
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ]
+      }
+    }
+  ],
+  "installedTree": [
+    {
+      "bytes": 8273840,
+      "mode": "0o555",
+      "path": "weft-paths",
+      "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+    },
+    {
+      "bytes": 45893,
+      "mode": "0o444",
+      "path": "provenance.json",
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+    },
+    {
+      "bytes": 1407,
+      "mode": "0o444",
+      "path": "ready.json",
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+    },
+    {
+      "bytes": 51125,
+      "mode": "0o444",
+      "path": "backend-manifest.json",
+      "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+    },
+    {
+      "bytes": 3511,
+      "mode": "0o444",
+      "path": "schemas/compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "bytes": 62086,
+      "mode": "0o444",
+      "path": "schemas/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "mode": "0o444",
+      "path": "schemas/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "mode": "0o444",
+      "path": "schemas/application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18066,
+      "mode": "0o444",
+      "path": "schemas/backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "ready": {
+    "path": "ready.json",
+    "bytes": 1407,
+    "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+  },
+  "provenance": {
+    "path": "provenance.json",
+    "bytes": 45893,
+    "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+  },
+  "schemaBundle": [
+    {
+      "bytes": 3511,
+      "name": "compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "bytes": 62086,
+      "name": "compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "name": "logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "name": "application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18066,
+      "name": "backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "custody": {
+    "bothPhaseResourceVectorsMatchOriginal237": true,
+    "sameReadyAndInstalledFilesAcrossProcesses": true,
+    "bothPhasesCleanupPendingFalse": true,
+    "closingFilesUnchanged": 46
+  },
+  "processObservation": "Both process records exit0 and match retained streams; outer interpreter stderr contains the recorded confstr/DARWIN_USER_TEMP_DIR fallback warning. Compiler responses remain exact retained bytes.",
+  "limits": [
+    "Five cases are finite indexed compiler transport evidence, not a rerun of the entire512 corpus or native query proof.",
+    "Restart API used package=None; qualification harness retained the original package for schema/custody comparison.",
+    "Parent reviews terminal wrapper/runtime/source custody; selected runtime closure is not full host dylib closure."
+  ],
+  "scriptSha256": "a2a9d94159926b986839fd84ffe2bc3c713ee9dd831fcbb85d624bd38d592632"
+}

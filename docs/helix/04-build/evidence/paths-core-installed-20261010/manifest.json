@@ -1,0 +1,226 @@
+{
+  "scope": "Actual core indexed install and five unchanged compiler responses; API package=None fresh-process restart. Original package retained only for independent custody/schema comparison. No wheel/new CLI/native/cloud/OTel or durability claim.",
+  "ashlarSourceCommit": "b91ccaee0f7b06caa15a559cf64bfa569dbed1db",
+  "weftIndexCommit": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+  "rootExecSession": 93517,
+  "rootExecTerminalCode": 0,
+  "phaseOrder": [
+    "install",
+    "reopen"
+  ],
+  "files": [
+    {
+      "path": "command-inputs/cases.json",
+      "bytes": 618,
+      "sha256": "639302347ed55867c6ca7e37094b36596421742475c555d4f0ccf2e0c4d0ebed",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/cases.json"
+    },
+    {
+      "path": "command-inputs/driver.py",
+      "bytes": 4418,
+      "sha256": "cac8be42ff9ec89decbb327f7a4d78109cbce171aa2be449ed6381f57679bcae",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/driver.py"
+    },
+    {
+      "path": "command-inputs/resources.json",
+      "bytes": 59644,
+      "sha256": "bd96abda73bfe9de8b8436c9defb9bef0ad410f50be6db4583361bdf75ffcfa1",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/resources.json"
+    },
+    {
+      "path": "command-inputs/runtime.json",
+      "bytes": 29096,
+      "sha256": "2837f2be98021efadf150b525e88acc99711f331e71fd46d7170a4bce370c355",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/runtime.json"
+    },
+    {
+      "path": "command-inputs/source-inventory.json",
+      "bytes": 13820,
+      "sha256": "e56eb84bb3a0f147101ed9b6ecced2d0e2eaaaf030350cea4b49f5e207259252",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/source-inventory.json"
+    },
+    {
+      "path": "command-inputs/install-report.json",
+      "bytes": 65298,
+      "sha256": "15d3e5a34132cedc07eb800a46ac195e250ffeceb2c8cd45c7ea7cd41977351c",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/install-report.json"
+    },
+    {
+      "path": "command-inputs/reopen-report.json",
+      "bytes": 66723,
+      "sha256": "b450923c049224cc81db04ae6eb64681a101ef470bf9f956a01c7dd9f92647b3",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/reopen-report.json"
+    },
+    {
+      "path": "inputs/fresh-binding-0.request",
+      "bytes": 55381,
+      "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-0.request"
+    },
+    {
+      "path": "inputs/fresh-binding-0.response",
+      "bytes": 99864,
+      "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-0.response"
+    },
+    {
+      "path": "inputs/fresh-binding-1.request",
+      "bytes": 55381,
+      "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-1.request"
+    },
+    {
+      "path": "inputs/fresh-binding-1.response",
+      "bytes": 99864,
+      "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-1.response"
+    },
+    {
+      "path": "inputs/fresh-binding-2.request",
+      "bytes": 55385,
+      "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-2.request"
+    },
+    {
+      "path": "inputs/fresh-binding-2.response",
+      "bytes": 100007,
+      "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/fresh-binding-2.response"
+    },
+    {
+      "path": "inputs/legacy-namespace.request",
+      "bytes": 3203,
+      "sha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/legacy-namespace.request"
+    },
+    {
+      "path": "inputs/legacy-namespace.response",
+      "bytes": 244,
+      "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/legacy-namespace.response"
+    },
+    {
+      "path": "inputs/positive-paths.request",
+      "bytes": 55374,
+      "sha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/positive-paths.request"
+    },
+    {
+      "path": "inputs/positive-paths.response",
+      "bytes": 99372,
+      "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/inputs/positive-paths.response"
+    },
+    {
+      "path": "actual/fresh-binding-0.actual-response",
+      "bytes": 99864,
+      "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-0.actual-response"
+    },
+    {
+      "path": "actual/fresh-binding-1.actual-response",
+      "bytes": 99864,
+      "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-1.actual-response"
+    },
+    {
+      "path": "actual/fresh-binding-2.actual-response",
+      "bytes": 100007,
+      "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/fresh-binding-2.actual-response"
+    },
+    {
+      "path": "actual/legacy-namespace.actual-response",
+      "bytes": 244,
+      "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/legacy-namespace.actual-response"
+    },
+    {
+      "path": "actual/positive-paths.actual-response",
+      "bytes": 99372,
+      "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/positive-paths.actual-response"
+    },
+    {
+      "path": "execution/freeze.json",
+      "bytes": 1763,
+      "sha256": "4210a9c5f906437964cea9e1e3afda881f7f2d85b07776e6c1d0af126a22bbbf",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/freeze.json"
+    },
+    {
+      "path": "execution/command.json",
+      "bytes": 2337,
+      "sha256": "cfd70d7966ebc1df59d423a5f8bf3db875d4083ccbaaa502555d7b9c3335cb8d",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/command.json"
+    },
+    {
+      "path": "execution/root-runner.py",
+      "bytes": 3749,
+      "sha256": "5f928790a84213d0401e4c954ac0bb53c9f965296d420cc9a66e73f93e9fc545",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/root-runner.py"
+    },
+    {
+      "path": "execution/install-process.json",
+      "bytes": 415,
+      "sha256": "e596a1ec8baf8a8371586607a1441a53d8b0baeb801d0b278fa76a5a5f999f7c",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/install-process.json"
+    },
+    {
+      "path": "execution/reopen-process.json",
+      "bytes": 415,
+      "sha256": "9ec9fb8c41b73a227f5d637a6938e0350b99b7c2b90bfbbe01144a29371faecf",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen-process.json"
+    },
+    {
+      "path": "execution/install.stdout",
+      "bytes": 56,
+      "sha256": "4a3b8cc94e225ce3be71b2dd5fd09632dbb4f817c178cb4333225c4a14d3aba3",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/install.stdout"
+    },
+    {
+      "path": "execution/install.stderr",
+      "bytes": 110,
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/install.stderr"
+    },
+    {
+      "path": "execution/reopen.stdout",
+      "bytes": 55,
+      "sha256": "094a4eb8afced8a2b02b746f78e4b69504ddfcf93a78e52684dcdef757bb1b43",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen.stdout"
+    },
+    {
+      "path": "execution/reopen.stderr",
+      "bytes": 110,
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-b/reopen.stderr"
+    },
+    {
+      "path": "reviews/astra-paths-install-command-review-20261010-b.json",
+      "bytes": 4557,
+      "sha256": "d83b81f2a57e613e42cd2192b83c5055752949505918d909148ef0a0b7c43627",
+      "source": "/private/tmp/astra-paths-install-command-review-20261010-b.json"
+    },
+    {
+      "path": "reviews/astra-paths-install-command-inputs-review-20261010-b.json",
+      "bytes": 4721,
+      "sha256": "34920e62b8d68c8c6171c26dccadcfd0034cf1b6ca12e9d33a23c9364e7d65d4",
+      "source": "/private/tmp/astra-paths-install-command-inputs-review-20261010-b.json"
+    },
+    {
+      "path": "availability/ready.json",
+      "bytes": 1407,
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/installation/ready.json"
+    },
+    {
+      "path": "availability/provenance.json",
+      "bytes": 45893,
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602",
+      "source": "/private/tmp/ashlar-paths-install-compile-20261010-a/installation/provenance.json"
+    }
+  ],
+  "sourceAndRuntime": "Hash inventory only; committed Ashlar/Weft source is referenced, runtime binaries are not bundled.",
+  "captureLimits": "Each phase180s; stdout/stderr1MiB each; ordinary files, no durability promise.",
+  "supersedes": "A retained; retain original installed ready and provenance descriptors, no executable/runtime binary."
+}

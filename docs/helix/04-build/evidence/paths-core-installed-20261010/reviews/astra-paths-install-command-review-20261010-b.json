@@ -1,0 +1,68 @@
+{
+  "verdict": "approved bounded sequential core installation/compile command B for root execution",
+  "command": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/command.json",
+    "bytes": 2337,
+    "sha256": "cfd70d7966ebc1df59d423a5f8bf3db875d4083ccbaaa502555d7b9c3335cb8d"
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/freeze.json",
+    "bytes": 1763,
+    "sha256": "4210a9c5f906437964cea9e1e3afda881f7f2d85b07776e6c1d0af126a22bbbf"
+  },
+  "rootWrapper": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/root-runner.py",
+    "bytes": 3749,
+    "sha256": "5f928790a84213d0401e4c954ac0bb53c9f965296d420cc9a66e73f93e9fc545"
+  },
+  "inputReview": {
+    "path": "/private/tmp/astra-paths-install-command-inputs-review-20261010-b.json",
+    "bytes": 4721,
+    "sha256": "34920e62b8d68c8c6171c26dccadcfd0034cf1b6ca12e9d33a23c9364e7d65d4"
+  },
+  "driver": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/driver.py",
+    "bytes": 4418,
+    "sha256": "cac8be42ff9ec89decbb327f7a4d78109cbce171aa2be449ed6381f57679bcae"
+  },
+  "independentWrapperControls": {
+    "passed": 4,
+    "script": {
+      "path": "/private/tmp/astra-paths-core-command-wrapper-probe-20261010-b.py",
+      "bytes": 3187,
+      "sha256": "bf7b887deccacea43a370dded9dc798c92d3426e71b113557db26cc848e79998"
+    },
+    "log": {
+      "path": "/private/tmp/astra-paths-core-command-wrapper-probe-20261010-b.log",
+      "bytes": 385,
+      "sha256": "9ef86e8c84560f598cb10584de5396723b10666949e7ef537fb5e44637775e8d"
+    },
+    "cases": [
+      "second capture-open cancellation closes first stream without spawning",
+      "original KeyboardInterrupt survives cleanup failure, child reaped and pipes closed",
+      "closing freeze verification attempted and cannot replace phase primary",
+      "actual controlled fake child output overflow and deadline refuse without success record"
+    ]
+  },
+  "verified": {
+    "source": "Exact committed b91ccaee0f7b06caa15a559cf64bfa569dbed1db selected56-file source export, separate from new integration source.",
+    "trustedIndex": "Exact c8d825808a27e15517c1fc93c3fba0faffc2406e/a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864 and reviewed70-file Paths530 package.",
+    "resources": "237 unique selected files49,400,980B; exact corrected B resource descriptor, opening/closing hashes independently checked.",
+    "runtime": "Observed Python3.9.6 darwin arm64 macOS27.0.1;116 retained module/interpreter observations,20 Ashlar imports from committed export; selected resources, not full OS dylib closure.",
+    "cases": "Five original request/expected raw pairs byte-identical to independently accepted/full512 corpus receipt: positive collection, oldnamespace exact04 WFT-VERSION fence, all-four-table fresh versions0/7/57.",
+    "controlFlow": "Install then separate fresh-process reopen with package=None, original request and response bytes; retained five schema bytes compare with original package and installed inventory; repeat trusted index/ready verification.",
+    "bounds": "Explicit minimal child environment; 180 seconds per phase and1MiB per stdout/stderr; inner compiler30s,16MiB stdout,4096B stderr; fresh exclusive outputs; completed reports released after closing custody.",
+    "findingsResolved": "A stale resource descriptor superseded by exact B; initial root wrapper partial-open ownership/kill cleanup masking/failure closing verification corrected by wrapper5f928790."
+  },
+  "executionConditions": [
+    "Root executes exact frozen commands with the reviewed wrapper and fresh output/log paths, preserves real stdout/stderr and terminal outcomes.",
+    "Only proceed to reopen after install terminal0; wrapper already enforces this.",
+    "Revalidate freeze/custody before and after execution; retain failed/cancelled attempts separately.",
+    "Do not interpret this approval as actual completion; independently review resulting ready/provenance/schema/response receipts."
+  ],
+  "scopeLimits": [
+    "No compiler, actual package installation, native engine or SQL executed by reviewer; controlled fake Python children only.",
+    "Claim package=None API restart; original package remains available for the independent harness schema comparison and custody checks, so physical package absence is not tested.",
+    "This is core API execution, not the new composition CLI, installed wheel, native source/ACK/query qualification, cloud support, hermetic runtime, OTel receiver delivery or machine proof."
+  ]
+}

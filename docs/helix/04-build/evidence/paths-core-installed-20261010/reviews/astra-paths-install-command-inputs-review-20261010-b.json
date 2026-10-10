@@ -1,0 +1,117 @@
+{
+  "verdict": "PASS for read-only exact input/resource custody; execution authorization remains parent-owned",
+  "scope": "No driver phase, install, compiler, native engine, database or index mutation executed.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/freeze.json",
+    "sha256": "4210a9c5f906437964cea9e1e3afda881f7f2d85b07776e6c1d0af126a22bbbf"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-b/command.json",
+    "sha256": "cfd70d7966ebc1df59d423a5f8bf3db875d4083ccbaaa502555d7b9c3335cb8d"
+  },
+  "source": {
+    "commit": "b91ccaee0f7b06caa15a559cf64bfa569dbed1db",
+    "exactGitTreeFiles": 56,
+    "gitModeBlobShaBytesVerified": true,
+    "readOnlyExportModes": "56 Git100644 entries intentionally exported0444; only write bits removed"
+  },
+  "index": {
+    "revision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+    "sha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+    "exactCommittedBytes": true
+  },
+  "package": {
+    "files": 70,
+    "exactCustodyHashesLengthsAndSet": true
+  },
+  "resources": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/resources.json",
+    "sha256": "bd96abda73bfe9de8b8436c9defb9bef0ad410f50be6db4583361bdf75ffcfa1",
+    "files": 237,
+    "bytes": 49400980,
+    "exactSelectedUnion": true
+  },
+  "runtimeObservation": {
+    "path": "/private/tmp/ashlar-paths-install-compile-20261010-a/runtime.json",
+    "sha256": "2837f2be98021efadf150b525e88acc99711f331e71fd46d7170a4bce370c355",
+    "selectedFiles": 116,
+    "sourceExportProjectModules": 20,
+    "version": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": [
+      "darwin",
+      "arm64",
+      "27.0.1"
+    ],
+    "scope": "Selected loaded module files and actual interpreter/launcher; full macOS dylib closure not claimed."
+  },
+  "originalCorpus": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+    "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68"
+  },
+  "fiveExactPairs": [
+    {
+      "id": "positive-paths",
+      "originalCaseIds": [
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed"
+      ],
+      "requestBytes": 55374,
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "responseBytes": 99372,
+      "responseSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "tableVersion": null
+    },
+    {
+      "id": "legacy-namespace",
+      "originalCaseIds": [
+        "legacy:columns-native:64-empty-column-column"
+      ],
+      "requestBytes": 3203,
+      "requestSha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d",
+      "responseBytes": 244,
+      "responseSha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "tableVersion": null
+    },
+    {
+      "id": "fresh-binding-0",
+      "originalCaseIds": [
+        "controls:fresh-binding-0"
+      ],
+      "requestBytes": 55381,
+      "requestSha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "responseBytes": 99864,
+      "responseSha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "tableVersion": 0
+    },
+    {
+      "id": "fresh-binding-1",
+      "originalCaseIds": [
+        "controls:fresh-binding-1"
+      ],
+      "requestBytes": 55381,
+      "requestSha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "responseBytes": 99864,
+      "responseSha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "tableVersion": 7
+    },
+    {
+      "id": "fresh-binding-2",
+      "originalCaseIds": [
+        "controls:fresh-binding-2"
+      ],
+      "requestBytes": 55385,
+      "requestSha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "responseBytes": 100007,
+      "responseSha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "tableVersion": 57
+    }
+  ],
+  "closingFilesUnchanged": 242,
+  "limits": [
+    "Retained import observation verified by bytes and export correspondence; not rerun here.",
+    "Installed restart API has package=None, but this driver retains the package for expected-schema comparison and custody.",
+    "Selected runtime files do not establish complete macOS dynamic-library closure.",
+    "Compiler/native behavior qualification is not inferred from these prepared input checks."
+  ],
+  "scriptSha256": "ab44752987ff454a335e2ada38bcc5de31ac73b4e0bed64e39585e98f6e8d202"
+}
