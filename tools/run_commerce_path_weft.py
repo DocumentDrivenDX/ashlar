@@ -5,6 +5,7 @@ no source authority. The outer composition must close its reader and stop Spark
 before publishing the provisional evidence returned here.
 """
 from dataclasses import dataclass
+from contextlib import contextmanager
 from copy import deepcopy
 from collections import Counter
 from decimal import Decimal
@@ -247,6 +248,26 @@ def _source_receipt(port, revision, request, artifact, checks, maximum):
         'originalRequestText', 'originalReceiptText', 'receiptSha256')}
 
 
+@contextmanager
+def _preserving_interval(provider, context):
+    """Keep the original execution failure across owned interval cleanup."""
+    primary = None
+    try:
+        with provider.interval(context):
+            try:
+                yield
+            except BaseException as error:
+                primary = error
+                raise
+    except BaseException as error:
+        if primary is None:
+            raise
+        if error is not primary:
+            primary.interval_cleanup_failed = True
+    if primary is not None:
+        raise primary from None
+
+
 def execute_commerce_path(opened, request: dict, artifact: dict, trusted_recompiled: dict,
                           *, config: PathExecutionConfig, original_oracle: Callable) -> dict:
     """Return provisional evidence only after all held checks and interval closure."""
@@ -273,7 +294,7 @@ def execute_commerce_path(opened, request: dict, artifact: dict, trusted_recompi
     evidence = {'native_schemas': [], 'guards': [], 'public_source': None}
     adapter = HeldFrameAdapter(provider, context, config.capture)
     completed = False
-    with provider.interval(context):
+    with _preserving_interval(provider, context):
         provider.runtime(context)
         resolved = provider.resolve(context)
         provider.admit_binding(binding, resolved, context)
