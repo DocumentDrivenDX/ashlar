@@ -1,0 +1,227 @@
+{
+  "archive": {
+    "bytes": 1203788,
+    "path": "/private/tmp/ashlar-count-star-installed-cli-evidence-d.tar.gz",
+    "sha256": "df84676c91bc4baf378e8a8051656320556b58c9d9c85153d8e32b054459ee32"
+  },
+  "decodedTarMemberBytes": 3360661,
+  "exclusions": "No Git/source tar/wheel/compiler/tool executable copies. Inner observations gzip retains all108 actual rawstdout/stderr records; original80 corpus and14 gallery requestbytes retained separately.",
+  "format": "ashlar-installed-count-star-cli-evidence/0.1",
+  "members": [
+    {
+      "bytes": 235,
+      "path": "actual/archive.json",
+      "sha256": "1df144e32d593138754b86b50d615e1fc3294c14450aacc6ecdf53ca4bb89c1f"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 849,
+      "path": "actual/ashlar-count-star-installed-cli-c-outcome.json",
+      "sha256": "a2d02ef00c47f38a60503cee94012af7d8e986a10a5e3934d669f4773f15bf74"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/ashlar-count-star-installed-cli-c.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/ashlar-count-star-installed-cli-c.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 234,
+      "path": "actual/cli-install.json",
+      "sha256": "86564b16f0b94ad76412e9855479f7856813d61bc1dc8d85e2a805849a72d065"
+    },
+    {
+      "bytes": 34,
+      "path": "actual/cli-install.stderr",
+      "sha256": "fb799b2821d7b31ea043f56ce57e237c293f401846bb7a43a7d4607ee23d58c7"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/cli-install.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8050,
+      "path": "actual/gallery-admission.json",
+      "sha256": "5d99ab8db59de76492b50ea61d1cb8a34c19d88bad903128a08e396dcf28e12e"
+    },
+    {
+      "bytes": 236,
+      "path": "actual/gallery-author.json",
+      "sha256": "808348d2a2c688e7f9c4792a3cc979ab9d8437c58b0f0058f380e0bf8771fc5f"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/gallery-author.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/gallery-author.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1555532,
+      "path": "actual/gallery-requests.json",
+      "sha256": "a6efec09de195ec51452d062dc1355ae9d411c801e066c887e7086465be53bdc"
+    },
+    {
+      "bytes": 238,
+      "path": "actual/gallery-validate.json",
+      "sha256": "24203efdd98a3d7202c75868ccbe314bc14a10d8acd91107c2badbea1902d248"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/gallery-validate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/gallery-validate.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11787,
+      "path": "actual/installed-RECORD.csv",
+      "sha256": "cc3186cb4ec09e46d9bca875441e0fccaf55e09c3fdd0beeab1b893aaff20537"
+    },
+    {
+      "bytes": 203,
+      "path": "actual/installed-console.txt",
+      "sha256": "94caab7b74d0f9084a943269be61d6fe4ea048cae8babdd2c9af02e53248311d"
+    },
+    {
+      "bytes": 453446,
+      "path": "actual/observations.jsonl.gz",
+      "sha256": "f443926b48a132dbe385aeb3cdcb5eee04bb49c6d3111bf51b61992d064e3842"
+    },
+    {
+      "bytes": 235,
+      "path": "actual/pip-install.json",
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/pip-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "path": "actual/pip-install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 552,
+      "path": "actual/result.json",
+      "sha256": "9c5e8f900533b093dc199addeb08f181357ae1e0c4886cb95003ab2c6f19c581"
+    },
+    {
+      "bytes": 226,
+      "path": "actual/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 17237,
+      "path": "actual/wheel-inventory.json",
+      "sha256": "a9415305e38eb95bbeef411759243bb17852e1c50399e4abdf283f12e38fb3ae"
+    },
+    {
+      "bytes": 229,
+      "path": "actual/wheel.json",
+      "sha256": "fc764e71831bc425eff135f6d93ce047341ef8387585b56eaf212493202db726"
+    },
+    {
+      "bytes": 0,
+      "path": "actual/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 747,
+      "path": "actual/wheel.stdout",
+      "sha256": "85d17333ab043da7326941602b21c11512278fafbe2496b118ccb49ac0a7752d"
+    },
+    {
+      "bytes": 635113,
+      "path": "reviewed/actual-80-cases-d.json.gz",
+      "sha256": "81cdac9213c064ccf78ff90cd8fa643b78ed245d11977bcb87b36439b3890f35"
+    },
+    {
+      "bytes": 5043,
+      "path": "reviewed/ashlar-count-star-host-independent-review-20261010-b.json",
+      "sha256": "4292eaef39c3d3480c146ac61a62fb8f9874858c36cae09f9447b93029e1d927"
+    },
+    {
+      "bytes": 931,
+      "path": "reviewed/ashlar-count-star-installed-cli-actual-root-review-c.json",
+      "sha256": "89633cc592643961f7448c2bd7f1fccee959e750859ead81727fc1c6628e99df"
+    },
+    {
+      "bytes": 3216,
+      "path": "reviewed/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 480345,
+      "path": "reviewed/ashlar-count-star-installed-cli-command-c.json",
+      "sha256": "4a762279058248d2a244b59fff745d14345996a66cc96a9a928759a553e91c75"
+    },
+    {
+      "bytes": 1753,
+      "path": "reviewed/ashlar-count-star-installed-cli-command-independent-review-c.json",
+      "sha256": "0a22a7d626b8a02f75a4b63f4dcc6f88b653fab2b09f6b2b60bd53ec63d7845c"
+    },
+    {
+      "bytes": 1472,
+      "path": "reviewed/ashlar-count-star-installed-cli-controls-b.py",
+      "sha256": "cc75803caaeafb6d55257d9743f9ec1a249fe69f1cbf73b4c6976f67fb7d5b16"
+    },
+    {
+      "bytes": 131461,
+      "path": "reviewed/ashlar-count-star-installed-cli-result-inventory-c.json",
+      "sha256": "781a5ebe2e48cee00a5c988e355d1c920793dc64c099b06846377e14ac843c3e"
+    },
+    {
+      "bytes": 11154,
+      "path": "reviewed/ashlar-count-star-installed-cli-runner-c.py",
+      "sha256": "5e0712778b78b186dde83fe9bda65f4425fc3d69b4ac8021aab4f8fd89ac7e13"
+    },
+    {
+      "bytes": 33123,
+      "path": "reviewed/ashlar-count-star-installed-cli-source-inventory-b.json",
+      "sha256": "0fc6601c3caf9dd3e1c6c06897d048b66028415ae9d37ce43274bef301a90934"
+    },
+    {
+      "bytes": 4263,
+      "path": "reviewed/ashlar-count-star-installed-gallery-c.py",
+      "sha256": "ebc832e4f005f0273d15d89914afc0f25d900172ec455de7990908b7afb707d1"
+    },
+    {
+      "bytes": 2541,
+      "path": "reviewed/launch-reviewed-parity-g.py",
+      "sha256": "0b238f4b0cb5544f93cf669f9839562292d518c43fdb4ed52fdee84ee507bb9e"
+    }
+  ],
+  "supersedesArchiveOnly": {
+    "bytes": 1203355,
+    "path": "/private/tmp/ashlar-count-star-installed-cli-evidence-c.tar.gz",
+    "sha256": "ac664ae2cca09b466fb862aa1520173c2125f638e228a2e79514ab07da68a77f"
+  }
+}

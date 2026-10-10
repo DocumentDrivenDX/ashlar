@@ -39,6 +39,10 @@ execution still requires the resolved vector and all compiler host obligations.
 For a complete local publication and indexed scalar/count/relationship workflow,
 follow the [commerce setup and query guide](COMMERCE-INDEXED-WEFT.md).
 
+Use the [COUNT(*) installation and gallery guide](COUNT-STAR-WEFT.md) to select
+the additive count-star profile, compile fourteen original commerce intents and
+run its publication-bound query command with explicit host prerequisites.
+
 ## Prepare the original commerce graph
 
 ```sh

@@ -56,6 +56,42 @@ query, String projection and global count on one publication. Its immutable
 compiler profile selects the original single-edge fixture; parallel-edge degree,
 observable truncation and two-hop paths require separate qualification.
 
+## Count complete commerce occurrences
+
+Select the [COUNT(*) compiler and host workflow](COUNT-STAR-WEFT.md) for these
+four exact intents alongside the ten original path/property cases:
+
+```sql
+SELECT COUNT(*) AS rows FROM order_lines l
+```
+
+Count all admitted line occurrences, including repeated rows. Empty input yields
+zero; this is a row count rather than a distinct object or destination count.
+
+```sql
+SELECT l.product_id,COUNT(*) AS rows FROM order_lines l GROUP BY l.product_id ORDER BY l.product_id
+```
+
+Preserve each complete product group and its exact integer count.
+
+```sql
+SELECT l.product_id,COUNT(*) AS rows FROM order_lines l GROUP BY l.product_id HAVING COUNT(*)>0 ORDER BY l.product_id
+```
+
+Apply the threshold to each complete group after integrity and capacity checks.
+
+```sql
+SELECT l.id,COUNT(*) AS rows FROM order_lines l CROSS JOIN EXPAND_PATHS(l."order_lines.product_id", "products.supplier_id") AS p GROUP BY l.id HAVING COUNT(*)>0 ORDER BY l.id
+```
+
+Count independent two-edge path occurrences per line. Parallel edges produce
+separate occurrences even when destinations match. Distinct destinations cannot
+replace this bag count. Capacity checks cover complete expanded bags before
+`HAVING`; a filter cannot hide an overflow. Both threshold examples produce a
+positive group on the original single-line commerce source. The native command
+compares complete results with an independent original-source oracle under its
+publication/source holds; compilation alone does not establish native results.
+
 ## Run the cases
 
 Select your existing fresh commerce publication, the exact Delta4 jar directory
