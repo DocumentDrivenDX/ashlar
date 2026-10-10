@@ -1,0 +1,136 @@
+{
+  "decision": "PASS: finite installed legacy indexed commerce three-query execution and custody",
+  "report": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/queries/report.json",
+    "sha256": "68e9b732a7f5ef6cfcdb8ba35454694d3699a38287f5b3d51fa20f7f85327904",
+    "bytes": 3519178
+  },
+  "publicationReport": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/report.json",
+    "sha256": "62d088a5a6734a2cd5073886165a821b959e00b78c7820d4c854c9cf5fc3958b",
+    "bytes": 469983
+  },
+  "process": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-process.json",
+    "sha256": "226d28e93bfc86dbf240de6da4da50d713dbbe1d62bffc14c8c9ce4a9c22efa3",
+    "bytes": 40729
+  },
+  "preflight": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-preflight.json",
+    "sha256": "cbb918bed7b06e4b0be282c3dd75634fe6091c2f2c34c897ae32c095458e196e",
+    "bytes": 558
+  },
+  "terminal": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-terminal.json",
+    "sha256": "560e4c773862760e57335b3c181b63da6fbc0c840459c73198fd01b9c1eab207",
+    "bytes": 78
+  },
+  "cleanup": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-cleanup.json",
+    "sha256": "4ea5c852332dbdd6223ad52e3d0cc329a33ad023b3718030e74bac5cff49764a",
+    "bytes": 642
+  },
+  "reviewedCommand": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+    "sha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+    "bytes": 1111333
+  },
+  "queryStdout": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query.stdout",
+    "sha256": "8aa8acc1037a9abaa9c89c4b8cf075b30d1b3794cda9607308670d9f4d3abfce",
+    "bytes": 98
+  },
+  "queryStderr": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query.stderr",
+    "sha256": "87d064c0f84bc959498662d7dbd70eb8c689a7adc1f90344b051efb81f1b62f6",
+    "bytes": 598
+  },
+  "independentResultReview": {
+    "path": "/private/tmp/astra-installed-commerce-query-results-review-20261010-b.json",
+    "sha256": "b222604da0c65ae3815a65316436e0aba34d1f6daea10ce2015b65c63692f696",
+    "bytes": 4762
+  },
+  "originalPublicationReview": {
+    "path": "/private/tmp/astra-installed-commerce-publication-review-20261010-b.json",
+    "sha256": "7e5c078d78c568e7365b1c80732382acb7389368a92b3fe22494c53c2fb16921",
+    "bytes": 4504
+  },
+  "checks": {
+    "cases": 3,
+    "closedIntervals": 4,
+    "ordinaryACKObservations": 8,
+    "distinctOrdinarySessions": 4,
+    "sourceGuards": 13,
+    "nativeSchemas": 2,
+    "originalPublicationFilesPreserved": 77,
+    "closingPublicationFiles": 79,
+    "nativeFilesPreserved": 66,
+    "selectedResourcesRehashed": 4888,
+    "selectedResourceBytes": 1363863214,
+    "receiptMutationRefusals": [
+      "ack-bytes",
+      "ack-position",
+      "scope",
+      "source-signature",
+      "ordinary-session",
+      "opening-request",
+      "opening-manifest",
+      "same-session"
+    ]
+  },
+  "compilerCorrespondence": [
+    {
+      "name": "string-projection",
+      "requestSha256": "b6130a1b30c0742079bd1fc4c1133537425be921668a7f193913310ca2609400",
+      "requestBytes": 34788,
+      "responseSha256": "1cd15a65d61da142075cfd0adab0bc3526ef13061c127a55b2dff23eaeec29bd",
+      "responseBytes": 10249,
+      "sqlSha256": "e57368cff0ca9e93c809738399c1d815b56c9c9150e2e8d43e60f778e2be1440",
+      "parameterVectorSha256": "c0dcda88df9e6904cc98e70766edb10e76189389cc2a43a45005bb39b3fb4fd8"
+    },
+    {
+      "name": "global-count",
+      "requestSha256": "c854d430e4e824ef61bc4cc6cc2b24581236896dc3cda30ecf85f9319e10edc5",
+      "requestBytes": 33319,
+      "responseSha256": "ddf394b741796dc783eba71e51fcccc3314e6f912de92593266d38a33fedc0ba",
+      "responseBytes": 10001,
+      "sqlSha256": "5784258454358281af3c18d6d51ebb92cdf53463c7afc61c8d5f49f1368bc5e7",
+      "parameterVectorSha256": "b7ec26ec85fdf116476eb30370c66877b8d41a6521ce80b8ef147263e45ecc66"
+    },
+    {
+      "name": "relationship",
+      "requestSha256": "98d64e44f522636e00d9fbc55b25b10183f7242944212222b9b3899badd5bef0",
+      "artifactSerializationSha256": "2f78c0bf5d4fcb4b7e92f2edcb3c3ca0479b753c43da088f6491e7bf72ccc3ba",
+      "rawResponseHashPersisted": false,
+      "sqlSha256": "a92bc7519dfd3d36b083c2a32db6f20dc0175109d80a041ab4112f5155ccfaf5",
+      "parameterVectorSha256": "0d7439d50d0395547c37491cb50e1af5e1c771c302ce36401331231943f05912"
+    }
+  ],
+  "addedCoordinationSidecars": [
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/operations.sqlite-shm",
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "bytes": 32768
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/operations.sqlite-wal",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "scope": [
+    "Exact installed D wheel and legacy indexed ab899 candidate execute unchanged source String projection, global COUNT and first-hop RELATED_KEYS.",
+    "All three requests independently reconstructed from original model/bindings/manifest/registry; scalar full response serialization reproduces actual recorded response hashes. Relationship full artifact retained and internally validated; actual reviewed host invokes compiler twice and compares before native execution.",
+    "Exact artifact SQL and parameter maps flow unmodified through reviewed installed provider; full same-publication resolver/UUID guards and all emitted source guards precede result SQL; closing resolver and original protected ACK complete before release.",
+    "Four closed intervals retain the identical original publication ACK request, manifest and receipt bytes, exact source signature and ordinary session identities.",
+    "Independent child checks exact raw-graph row bags, all13 zero guard observations, two complete native schemas and15 mutation refusals.",
+    "Root exact command terminal0 and no drift, exclusive lease through terminal, cleanup zeroSpark; installed source releases report only after reader closure and Spark.stop.",
+    "All77 original publication files remain exact; two coordination sidecars are additions. All66 native data/log files remain exact. No cause of sidecar creation inferred."
+  ],
+  "limitations": [
+    "No reviewer compiler, Spark/Delta, SQL, SQLite or PostgreSQL execution. Parent and child review only retained actual receipts, source and immutable files.",
+    "Relationship report retains complete parsed artifact but no separate raw response digest; no claim of independently reproduced original transport bytes for that case.",
+    "Selected4888 resource inventory is not complete host dynamic-library or external SDK closure; no hermetic/reproducible build claim.",
+    "This is one finite private local original-commerce workflow under observed Python3.11/Spark3.5.3 publication and Spark4.0.1/Delta4 query profiles, not cloud/Truss authority, general relationship multiplicity/two-hop or Paths04 indexed package qualification."
+  ]
+}

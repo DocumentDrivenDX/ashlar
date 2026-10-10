@@ -1,0 +1,2734 @@
+{
+  "phase": "publish",
+  "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+  "sqlite": "3.53.1",
+  "versions": {
+    "pyspark": "3.5.3",
+    "delta-spark": "3.2.1",
+    "psycopg": "3.2.13",
+    "graphframes-py": "0.12.3"
+  },
+  "jars": [
+    "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-spark_2.12-3.2.1.jar",
+    "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-storage-3.2.1.jar",
+    "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+    "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-spark3_2.12-0.12.3.jar"
+  ],
+  "loadedModules": [
+    {
+      "module": "__future__",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/__future__.py",
+      "sha256": "981d4c398849f9ebcab72300d9c1fe288fd6d7f28957b3b3fa3a493a5836d95c",
+      "bytes": 5218
+    },
+    {
+      "module": "__main__",
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-a/probe.py",
+      "sha256": "b73ff65da6cd9028f1ea9333f7f68d4332404deded10a6b6af2c89e86cea9a99",
+      "bytes": 2375
+    },
+    {
+      "module": "_collections_abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_collections_abc.py",
+      "sha256": "ec646ef7e27aae261adef3c57b9d18822c6526b3e9562dabb9f3cb4e6803066c",
+      "bytes": 30193
+    },
+    {
+      "module": "_compat_pickle",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_compat_pickle.py",
+      "sha256": "12c8356a3d40bd0a336f13d7c6e2bed50d5c1a876563766a3175a6b328b5855e",
+      "bytes": 8761
+    },
+    {
+      "module": "_compression",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_compression.py",
+      "sha256": "3ad5d60627477a60939ee44fc1bb3a05dbe8fb52f0f75039b8f5d8f1a278b981",
+      "bytes": 5681
+    },
+    {
+      "module": "_frozen_importlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/_bootstrap.py",
+      "sha256": "2aa31b7369a9725ce893fed35e33a2ffb1c908ecc7411a34d7975cb25a28f695",
+      "bytes": 48223
+    },
+    {
+      "module": "_frozen_importlib_external",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/_bootstrap_external.py",
+      "sha256": "3f6722d00f362179a1394d97e3bce5e51611d0ffa8a36b3bb6bf6439b56d8bf2",
+      "bytes": 68984
+    },
+    {
+      "module": "_osx_support",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_osx_support.py",
+      "sha256": "363d3240acbba18a270bd3161f1ddb478f8492dc14fc451b2dc314db5c5ee09c",
+      "bytes": 22023
+    },
+    {
+      "module": "_sitebuiltins",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_sitebuiltins.py",
+      "sha256": "b9388bc1d6d12ed6be12da420ab1feca40f99c0e33ec315d92b1e01cb69b25bc",
+      "bytes": 3128
+    },
+    {
+      "module": "_sysconfigdata__darwin_darwin",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_sysconfigdata__darwin_darwin.py",
+      "sha256": "8382c7e567d45a25e972d0ce157ba7badcf0a75ed9b9c98038c5d5cfd2f425df",
+      "bytes": 43985
+    },
+    {
+      "module": "_virtualenv",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/_virtualenv.py",
+      "sha256": "cfb3db86aaa53bb62b5ff764970bec2d71c9228590a0ebec57f6ec926cc0bf1a",
+      "bytes": 5246
+    },
+    {
+      "module": "_weakrefset",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/_weakrefset.py",
+      "sha256": "91895a451d06e9f521a1171b31b9b19bc9740f35af00d4fa106338ab7167c9ac",
+      "bytes": 5893
+    },
+    {
+      "module": "abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/abc.py",
+      "sha256": "e558702a95cdce3febd289da021715d2b92bc43995b8a1bc58dfa1c3d8010287",
+      "bytes": 6538
+    },
+    {
+      "module": "ashlar",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/__init__.py",
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6",
+      "bytes": 1293
+    },
+    {
+      "module": "ashlar.apply",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/apply.py",
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1",
+      "bytes": 6553
+    },
+    {
+      "module": "ashlar.binding",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/binding.py",
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b",
+      "bytes": 6813
+    },
+    {
+      "module": "ashlar.catalog",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/catalog.py",
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f",
+      "bytes": 4926
+    },
+    {
+      "module": "ashlar.commerce_source",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746",
+      "bytes": 5680
+    },
+    {
+      "module": "ashlar.manifest",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/manifest.py",
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c",
+      "bytes": 6578
+    },
+    {
+      "module": "ashlar.native",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/native.py",
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98",
+      "bytes": 4279
+    },
+    {
+      "module": "ashlar.publication",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/publication.py",
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0",
+      "bytes": 6264
+    },
+    {
+      "module": "ashlar.publisher",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/publisher.py",
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c",
+      "bytes": 6750
+    },
+    {
+      "module": "ashlar.recovery",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/recovery.py",
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841",
+      "bytes": 3589
+    },
+    {
+      "module": "ashlar.schema",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/schema.py",
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b",
+      "bytes": 4334
+    },
+    {
+      "module": "ashlar.schema_policies",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/schema_policies.py",
+      "sha256": "9624fd24dce680d314c547cb08e87d6f4b1a190ee1781856bee63e1a85b08f4e",
+      "bytes": 1324
+    },
+    {
+      "module": "ashlar.semantic_policy",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/semantic_policy.py",
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8",
+      "bytes": 7593
+    },
+    {
+      "module": "ashlar.singleton",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/singleton.py",
+      "sha256": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41",
+      "bytes": 4947
+    },
+    {
+      "module": "ashlar.source",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/source.py",
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2",
+      "bytes": 4356
+    },
+    {
+      "module": "ashlar.source_checkpoint",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/source_checkpoint.py",
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625",
+      "bytes": 9270
+    },
+    {
+      "module": "ashlar.staging",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/staging.py",
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545",
+      "bytes": 7338
+    },
+    {
+      "module": "ashlar.stored_publisher",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/stored_publisher.py",
+      "sha256": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202",
+      "bytes": 9299
+    },
+    {
+      "module": "ashlar.whole_entity",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar/whole_entity.py",
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f",
+      "bytes": 2019
+    },
+    {
+      "module": "ashlar_host",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/__init__.py",
+      "sha256": "b758ede6ea77a5ae0f8c84eb4324603907fc0245f4d76042e6d2a701a8f04f92",
+      "bytes": 305
+    },
+    {
+      "module": "ashlar_host.commerce",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/commerce.py",
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a",
+      "bytes": 3296
+    },
+    {
+      "module": "ashlar_host.config",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/config.py",
+      "sha256": "6ce81cacfd0f13d9427cde502782eac80b65cb6ae82aa7687421b0e29ce4ff3f",
+      "bytes": 2591
+    },
+    {
+      "module": "ashlar_host.resources",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/__init__.py",
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb",
+      "bytes": 148
+    },
+    {
+      "module": "ashlar_host.source",
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/source.py",
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a",
+      "bytes": 3982
+    },
+    {
+      "module": "ast",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ast.py",
+      "sha256": "c513073798bdbf3cdef09327d0d2d381a53213a13a4ba3f02729695327539406",
+      "bytes": 61444
+    },
+    {
+      "module": "asyncio",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/__init__.py",
+      "sha256": "d70b5f90b186ae41464b740f0ee1f2c2ab2dcf02f1403e749edc48002ba27426",
+      "bytes": 1188
+    },
+    {
+      "module": "asyncio.base_events",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/base_events.py",
+      "sha256": "cc9ac9cf0cea307701991c275fda4d972228f6d174451ffa116800fb0fb856ca",
+      "bytes": 75384
+    },
+    {
+      "module": "asyncio.base_futures",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/base_futures.py",
+      "sha256": "385a1fd5e8688f1f79e0fdfea8c27d7ca6dd78a770f0bd9a438863628a7589fb",
+      "bytes": 2004
+    },
+    {
+      "module": "asyncio.base_subprocess",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/base_subprocess.py",
+      "sha256": "d69ba8f97bf8c89564cadce49427574ddb98103a5db6f04b98798240332e7adf",
+      "bytes": 8869
+    },
+    {
+      "module": "asyncio.base_tasks",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/base_tasks.py",
+      "sha256": "70f6b21a2371eaa8e7a3beab9700cd1920329b02708975ae6c9450dc77d64502",
+      "bytes": 2644
+    },
+    {
+      "module": "asyncio.constants",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/constants.py",
+      "sha256": "7c2efc8c6c767227f25c5c14b7e1e6ff0237b78879ba8d6587d44ed1c360ed30",
+      "bytes": 1326
+    },
+    {
+      "module": "asyncio.coroutines",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/coroutines.py",
+      "sha256": "8b60928d13116c28bbd2e1df0a34a6cc87c3416d89c31291677ed63f77b54580",
+      "bytes": 3400
+    },
+    {
+      "module": "asyncio.events",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/events.py",
+      "sha256": "7276ed5173080703d41a4a9e54d73b45fe159d8f67d86c196b2ce1eb82d7d983",
+      "bytes": 28641
+    },
+    {
+      "module": "asyncio.exceptions",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/exceptions.py",
+      "sha256": "a5971f88be14cd1417d59adf539ae48c5d818f95362a4e0eb00017e3690ab37b",
+      "bytes": 1752
+    },
+    {
+      "module": "asyncio.format_helpers",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/format_helpers.py",
+      "sha256": "6377b672b3f4ba8b6f0f7a5f0ea00cde24c8cddc0ca764e3329f302763477f59",
+      "bytes": 2404
+    },
+    {
+      "module": "asyncio.futures",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/futures.py",
+      "sha256": "a1b23b2d0a1333a27115676a934157057b3007306957f005100e1ff27276baed",
+      "bytes": 14212
+    },
+    {
+      "module": "asyncio.locks",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/locks.py",
+      "sha256": "3c8d4862ec147ca51c6a18a160ff2c954ecf90ac2348a3ec0bc4907216a11eb9",
+      "bytes": 19014
+    },
+    {
+      "module": "asyncio.log",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/log.py",
+      "sha256": "80e4cc3ded4b138baba486519e7444801a23d6ac35f229d336a407a96af7e8d2",
+      "bytes": 124
+    },
+    {
+      "module": "asyncio.mixins",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/mixins.py",
+      "sha256": "8f4a3e16eca845ebfba422550cbcee7340ec8166d2bff6b750a8ed0de6b9ae3c",
+      "bytes": 481
+    },
+    {
+      "module": "asyncio.protocols",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/protocols.py",
+      "sha256": "1d1b49988c338b4ef06e30f9e92d9db2e00080c341f0a3f573bb8312deb8aff6",
+      "bytes": 6957
+    },
+    {
+      "module": "asyncio.queues",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/queues.py",
+      "sha256": "8f020744ebd1f557dcb051a1530b504447660df906c2127a94bbcc8450ea7ef9",
+      "bytes": 7974
+    },
+    {
+      "module": "asyncio.runners",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/runners.py",
+      "sha256": "0f11dcd59cd7f9e24a092d55dd1e7037288f3a524da53e882114b11326de21dd",
+      "bytes": 6842
+    },
+    {
+      "module": "asyncio.selector_events",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/selector_events.py",
+      "sha256": "c7859582a5b505f0ab2bb6e5f0d17f4475b58598f56c5166e2edf3b766e8cc68",
+      "bytes": 45400
+    },
+    {
+      "module": "asyncio.sslproto",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/sslproto.py",
+      "sha256": "c747273038c3d27d0447f84eace19faf6c0e2730a0aa89639f9a40af41b5d180",
+      "bytes": 31739
+    },
+    {
+      "module": "asyncio.staggered",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/staggered.py",
+      "sha256": "ff289bdc20a50ad9620393479d785bc653e71c2e3298f53ab27907cd136498e9",
+      "bytes": 5992
+    },
+    {
+      "module": "asyncio.streams",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/streams.py",
+      "sha256": "995c45d23a1335a529ba62d690e282f7639c7f1cf48eed9efdb5b02e606c69a3",
+      "bytes": 27503
+    },
+    {
+      "module": "asyncio.subprocess",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/subprocess.py",
+      "sha256": "027198037c8735a75231f660fbb51b626b4e83ccde40b0eb872a60bb4fdac2b4",
+      "bytes": 7682
+    },
+    {
+      "module": "asyncio.taskgroups",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/taskgroups.py",
+      "sha256": "553c0ce39014fff454bdd4454bd53c6599890375b5fdd528ac19334c9221b650",
+      "bytes": 8471
+    },
+    {
+      "module": "asyncio.tasks",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/tasks.py",
+      "sha256": "e88c1a5e5ddd4fff195ad3d086fb774f9fda4956d3b1711f403576804a4ba5c7",
+      "bytes": 34433
+    },
+    {
+      "module": "asyncio.threads",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/threads.py",
+      "sha256": "39d37295383641565f0c08bd992e2f661dc8051eb17e890b834fce96bde0910e",
+      "bytes": 790
+    },
+    {
+      "module": "asyncio.timeouts",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/timeouts.py",
+      "sha256": "3e40ca0dca3e54776579797837cd4936d73d04aae09fe0cf83ce1e5449d00163",
+      "bytes": 5321
+    },
+    {
+      "module": "asyncio.transports",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/transports.py",
+      "sha256": "940108bc133de399f38928cad3274f463096168d8a3ee5148f2478d3cb636f1c",
+      "bytes": 10722
+    },
+    {
+      "module": "asyncio.trsock",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/trsock.py",
+      "sha256": "c0eac37debcc51b702b808f6b7ed3e417343f5ff5f57125dad600a27eb082328",
+      "bytes": 2475
+    },
+    {
+      "module": "asyncio.unix_events",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/asyncio/unix_events.py",
+      "sha256": "a68a39b8ac56468a005d86c708e66e13d6d163f9c787b4fe70442bb2f8c1f198",
+      "bytes": 51915
+    },
+    {
+      "module": "base64",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/base64.py",
+      "sha256": "7de2ffc30db7b791f482ee8e6cba30a7b69452324d466231f29395be00154b4b",
+      "bytes": 21028
+    },
+    {
+      "module": "bisect",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/bisect.py",
+      "sha256": "e5b2ff166f48a06e70ae831d8c9b47283fcd0c254306eee12d3dae9c55e11526",
+      "bytes": 3135
+    },
+    {
+      "module": "bz2",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/bz2.py",
+      "sha256": "76ab3252924e71e859d7d90e8d3db13b6554975cfcac0fdadced4de7f8779330",
+      "bytes": 11847
+    },
+    {
+      "module": "cProfile",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/cProfile.py",
+      "sha256": "0a97cf92d0e3efd2e08c2f9b0f0fb8e52a2b26978550804d8e59435201f3fa84",
+      "bytes": 6346
+    },
+    {
+      "module": "calendar",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/calendar.py",
+      "sha256": "15903bacf6416869a58abff7d1680e16f26e9bd0186ad0562a0668d05f076fd9",
+      "bytes": 24731
+    },
+    {
+      "module": "codecs",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/codecs.py",
+      "sha256": "f16a81d14e7f73931ecf9f9f2e17c10bc0ca29bbe38b0243f6919b70882fcfea",
+      "bytes": 37150
+    },
+    {
+      "module": "collections",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/collections/__init__.py",
+      "sha256": "64b09e7062bb7f41e080900d414988c289624aea0ee6ca4037f1e317a11374ee",
+      "bytes": 52018
+    },
+    {
+      "module": "collections.abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/collections/abc.py",
+      "sha256": "9cb4208f99128a0489b6c8e6c61637617dd7d4250c59e065491957eda084dd10",
+      "bytes": 119
+    },
+    {
+      "module": "concurrent",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/concurrent/__init__.py",
+      "sha256": "87ad5c8954dd56fbbca04517bf87477ff4dce575170c7dd1281d7ef1f4214ac8",
+      "bytes": 38
+    },
+    {
+      "module": "concurrent.futures",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/concurrent/futures/__init__.py",
+      "sha256": "9bcec785db3eddc6d462883957ba6d3ff4370501fece505101444bae542883e8",
+      "bytes": 1558
+    },
+    {
+      "module": "concurrent.futures._base",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/concurrent/futures/_base.py",
+      "sha256": "8c6d5f09f7c535d40fa1c30ebfcb35e0601c2abf32286a82cf151af7ddf72473",
+      "bytes": 22833
+    },
+    {
+      "module": "contextlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextlib.py",
+      "sha256": "d732c045bc7450997f97b2f79cfdb1546b68d2655e89ab3170f3b19b3930d83c",
+      "bytes": 27414
+    },
+    {
+      "module": "contextvars",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextvars.py",
+      "sha256": "5ed260be8d1f4fe92261b7810b4bb1e8539c42093d7493f677d076e1a87f459a",
+      "bytes": 129
+    },
+    {
+      "module": "copy",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/copy.py",
+      "sha256": "27dcfc53a4b9d4fbc3d90c74e549eb6eca9301524d6d2fbff9a6589cf51b6fd5",
+      "bytes": 8681
+    },
+    {
+      "module": "copyreg",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/copyreg.py",
+      "sha256": "5499e1be7ba52d4715a911ae65ef2d703db9379d21fff2a07fad8877c318e070",
+      "bytes": 7677
+    },
+    {
+      "module": "csv",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/csv.py",
+      "sha256": "05c688620a98076289b09943788f840175cac8d299956e33fe9b4502a6526525",
+      "bytes": 16776
+    },
+    {
+      "module": "ctypes",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/__init__.py",
+      "sha256": "a31058a86719567745b80200dcc40218663e7516026a79ac0911d97c67574f71",
+      "bytes": 17902
+    },
+    {
+      "module": "ctypes._endian",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/_endian.py",
+      "sha256": "38dc998ee2d180a64d4fe561b79287b19850df405f48fe72dede7a65d71de844",
+      "bytes": 2536
+    },
+    {
+      "module": "ctypes.macholib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/macholib/__init__.py",
+      "sha256": "1e77c01eec8f167ed10b754f153c0c743c8e5196ae9c81dffc08f129ab56dbfd",
+      "bytes": 154
+    },
+    {
+      "module": "ctypes.macholib.dyld",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/macholib/dyld.py",
+      "sha256": "eb8e7b17f1533bc3e86e23e8695f7a5e4b7a99ef1b1575d10af54f389161b655",
+      "bytes": 5024
+    },
+    {
+      "module": "ctypes.macholib.dylib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/macholib/dylib.py",
+      "sha256": "f19ee056b18165cc6735efab0b4ca3508be9405b9646c38113316c15e8278a6f",
+      "bytes": 960
+    },
+    {
+      "module": "ctypes.macholib.framework",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/macholib/framework.py",
+      "sha256": "302439e40d9cbdd61b8b7cffd0b7e1278a6811b635044ee366a36e0d991f62da",
+      "bytes": 1105
+    },
+    {
+      "module": "ctypes.util",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ctypes/util.py",
+      "sha256": "a54310b64a080b0103f3de5df86b21d884bc2985760f3596ab85d458eae8cba5",
+      "bytes": 13959
+    },
+    {
+      "module": "dataclasses",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/dataclasses.py",
+      "sha256": "77a41ea9eb35d959781087b72ef5b452218b57b9d8f2d28688d45a40ca7f8a09",
+      "bytes": 58472
+    },
+    {
+      "module": "datetime",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/datetime.py",
+      "sha256": "cc9bcb0f1c2f44e1a6cd51882979e113e973c2e65ed84b9aaedabb48d47aa356",
+      "bytes": 91832
+    },
+    {
+      "module": "decimal",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/decimal.py",
+      "sha256": "000c00bad31d126b054c6ec7f3e02b27c0f9a4d579f987d3c4f879cee1bacb81",
+      "bytes": 320
+    },
+    {
+      "module": "delta",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/delta/__init__.py",
+      "sha256": "59fa1d8387ae2a73bfbeb9e4c14c9d69107e89cf7e95e38d37239225ea544094",
+      "bytes": 753
+    },
+    {
+      "module": "delta._typing",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/delta/_typing.py",
+      "sha256": "a42c1b9166822ea2278dc1d8a7ce89089849e8bfadf4fcdeaf9d6afcfcf9be95",
+      "bytes": 870
+    },
+    {
+      "module": "delta.exceptions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/delta/exceptions.py",
+      "sha256": "ed20ab40c9d13d923e29960c2991512a2a5630c7fbca1921a9e5f2ab46a9f0b9",
+      "bytes": 5214
+    },
+    {
+      "module": "delta.pip_utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/delta/pip_utils.py",
+      "sha256": "d4ad6a6063de3839faf916aa8775fd2ce18288ebc2409c1a4982c05016e8c29f",
+      "bytes": 3255
+    },
+    {
+      "module": "delta.tables",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/delta/tables.py",
+      "sha256": "64a872c8bd8fd8b5555c458a97b9bb3426340bec3d424ac6d4b2068b1c5c6407",
+      "bytes": 56056
+    },
+    {
+      "module": "dis",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/dis.py",
+      "sha256": "2e8d70c8cd2f4ce1fab5574f4a5ee81f5572d929da00067d14e6f6582356d240",
+      "bytes": 28906
+    },
+    {
+      "module": "email",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/__init__.py",
+      "sha256": "e4f46e3414c4602c9abb8b404a45e84412fc49dbe38a3d163f9575132dc7c93e",
+      "bytes": 1764
+    },
+    {
+      "module": "email._encoded_words",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/_encoded_words.py",
+      "sha256": "4178321600c0a19ca04cfe8542ce44487f339d15d89a473b58cea63c0b230217",
+      "bytes": 8541
+    },
+    {
+      "module": "email._parseaddr",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/_parseaddr.py",
+      "sha256": "4308932872acbf4a674312a45a49b870e48026e3dfedc878ee2f512ddf2f30ba",
+      "bytes": 17821
+    },
+    {
+      "module": "email._policybase",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/_policybase.py",
+      "sha256": "3db4bf3be5bdba13ab9a78ce30784c330d6dbc657b4e9142210dc8b264cfd424",
+      "bytes": 15534
+    },
+    {
+      "module": "email.base64mime",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/base64mime.py",
+      "sha256": "e2b4b87a5f42a8c5780e343f675513bbcc6abdd23fa14f8f1a7d4f7d72304770",
+      "bytes": 3551
+    },
+    {
+      "module": "email.charset",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/charset.py",
+      "sha256": "3ccb2e860390656664d271f08da8c0bae9a4297cc7e90be664d7c82d364e442f",
+      "bytes": 17118
+    },
+    {
+      "module": "email.encoders",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/encoders.py",
+      "sha256": "690b275529788cc48e8f541a2aef321dc31e92f75764ac7924896db72d8a9555",
+      "bytes": 1778
+    },
+    {
+      "module": "email.errors",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/errors.py",
+      "sha256": "dbfb4bbfc85e9d556d3385dc6356518846d8a122bc643b171ea61b6e8dc42c8b",
+      "bytes": 3814
+    },
+    {
+      "module": "email.feedparser",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/feedparser.py",
+      "sha256": "ca333e0462c96505d8c510f260192256306fa889c011c6f2eaa8d50c70503cce",
+      "bytes": 22802
+    },
+    {
+      "module": "email.header",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/header.py",
+      "sha256": "4d9baa908ad5288dd8fad8cf20b3802ffac77ba1642727804a633b201c56e5ca",
+      "bytes": 24092
+    },
+    {
+      "module": "email.iterators",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/iterators.py",
+      "sha256": "1080a2d03779176d6d45f6ecd976dbe69f5579f7e4e83b75224c3f92fd258102",
+      "bytes": 2129
+    },
+    {
+      "module": "email.message",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/message.py",
+      "sha256": "275f2d0a31e1331cd90014039c4c150fe5822c3e981638cc31d4973ee0fb27eb",
+      "bytes": 48210
+    },
+    {
+      "module": "email.parser",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/parser.py",
+      "sha256": "7a665bc106e9d4f6f8f2c8de53b2c1d5b97f5105cc7da638b82d731f6f9e354e",
+      "bytes": 5038
+    },
+    {
+      "module": "email.quoprimime",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/quoprimime.py",
+      "sha256": "77b454bd3ba3b5e3776be28ae3a0fd8de5d1e50d5b8ee10dd539c37c2bd68082",
+      "bytes": 9864
+    },
+    {
+      "module": "email.utils",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/email/utils.py",
+      "sha256": "014848ca9a7f3a747e0ae8e0814f5c5734301bea880d73618ea0fd61e53b0342",
+      "bytes": 17222
+    },
+    {
+      "module": "encodings",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/encodings/__init__.py",
+      "sha256": "78c4744d407690f321565488710b5aaf6486b5afa8d185637aa1e7633ab59cd8",
+      "bytes": 5884
+    },
+    {
+      "module": "encodings.aliases",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/encodings/aliases.py",
+      "sha256": "6fdcc49ba23a0203ae6cf28e608f8e6297d7c4d77d52e651db3cb49b9564c6d2",
+      "bytes": 15677
+    },
+    {
+      "module": "encodings.utf_8",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/encodings/utf_8.py",
+      "sha256": "ba0cac060269583523ca9506473a755203037c57d466a11aa89a30a5f6756f3d",
+      "bytes": 1005
+    },
+    {
+      "module": "enum",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/enum.py",
+      "sha256": "01addb65722daecee235caf6b345e4a910b1882aacc29e4fb846e0e0904043e6",
+      "bytes": 79583
+    },
+    {
+      "module": "fnmatch",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/fnmatch.py",
+      "sha256": "6683da36e47af523f3f41e18ad244d837783e19e98911cc0b7415dea81494ebc",
+      "bytes": 5999
+    },
+    {
+      "module": "functools",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/functools.py",
+      "sha256": "6d80018a3fa9fed44c5b78f881987ee3ab3fb1238b077b4e6dcb4b76da7db73b",
+      "bytes": 38413
+    },
+    {
+      "module": "genericpath",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/genericpath.py",
+      "sha256": "34497be8d2eb70df61e94cb2ee1938433145c977a56b36be37cc41a3a71d32c2",
+      "bytes": 5246
+    },
+    {
+      "module": "graphframes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/__init__.py",
+      "sha256": "92c7f60201df4a0518ecf7a51a5caa1850e38d8530a6feb6c5435d1b76384118",
+      "bytes": 84
+    },
+    {
+      "module": "graphframes.graphframe",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/graphframe.py",
+      "sha256": "e4277aab0c4fae0224f83e845051390bfef1f0942fcaea609213a82f20361a3c",
+      "bytes": 67409
+    },
+    {
+      "module": "graphframes.internal",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/internal/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "module": "graphframes.internal.utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/internal/utils.py",
+      "sha256": "f1b48ab02f02b67f9030390f0a877ce3d83d471c5ad5e864c815746f80f672f1",
+      "bytes": 1857
+    },
+    {
+      "module": "hashlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/hashlib.py",
+      "sha256": "e2bffb462e4d43e6637b9450e259e8ba2a56626ba3037d68aa1cee68b3f61d4a",
+      "bytes": 11765
+    },
+    {
+      "module": "heapq",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/heapq.py",
+      "sha256": "6d43277e5c76fc0f073cd388fcff852d14d068f6bb6d4886c340f8b75a1229a9",
+      "bytes": 23024
+    },
+    {
+      "module": "importlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/__init__.py",
+      "sha256": "49ad4fdc8139026f7f3773e3f50f09207ff6bd8e92a2c382545525235448e525",
+      "bytes": 6089
+    },
+    {
+      "module": "importlib._abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/_abc.py",
+      "sha256": "e24fa90513d1fd6e10df30dc28044dfcad857b88161c79de10f7109c18227e8d",
+      "bytes": 1852
+    },
+    {
+      "module": "importlib._bootstrap",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/_bootstrap.py",
+      "sha256": "2aa31b7369a9725ce893fed35e33a2ffb1c908ecc7411a34d7975cb25a28f695",
+      "bytes": 48223
+    },
+    {
+      "module": "importlib._bootstrap_external",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/_bootstrap_external.py",
+      "sha256": "3f6722d00f362179a1394d97e3bce5e51611d0ffa8a36b3bb6bf6439b56d8bf2",
+      "bytes": 68984
+    },
+    {
+      "module": "importlib.abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/abc.py",
+      "sha256": "10c316fd409976a2b5a0a379451048e418cce21d2b792820738debe5e2b74c5e",
+      "bytes": 10969
+    },
+    {
+      "module": "importlib.machinery",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/machinery.py",
+      "sha256": "d045cd7ecf2a12b6ecbfbef79eb114e87ef2ebd756f5b705f73e6f3266e3dede",
+      "bytes": 880
+    },
+    {
+      "module": "importlib.metadata",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/__init__.py",
+      "sha256": "bc6d98cd94459ad3b6ea5cb75cde38383647655054f065b897176f7635d2d8bc",
+      "bytes": 31109
+    },
+    {
+      "module": "importlib.metadata._adapters",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_adapters.py",
+      "sha256": "07a7c28b9fbc98b543154663de4ac8e67028fa62a9d5d1ffa886afc88c85ac9b",
+      "bytes": 1862
+    },
+    {
+      "module": "importlib.metadata._collections",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_collections.py",
+      "sha256": "089d0e4c21c88d6034648552e2fa0e440b27d91e11d9c40112d3ec6442690126",
+      "bytes": 743
+    },
+    {
+      "module": "importlib.metadata._functools",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_functools.py",
+      "sha256": "3ec636fb8aeb297e1155e442d681a9d65075a660bd78a37cf3f7fe6c3f6e3a80",
+      "bytes": 2895
+    },
+    {
+      "module": "importlib.metadata._itertools",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_itertools.py",
+      "sha256": "72faffdaff0145bc5c225e71e6575fa9d1e3848f188bcb3cca4e741bf9e6ea34",
+      "bytes": 2068
+    },
+    {
+      "module": "importlib.metadata._meta",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_meta.py",
+      "sha256": "c920f8096b01e6a23a15375520bf3de6b418504df58d6e506f2fb203395d4512",
+      "bytes": 1134
+    },
+    {
+      "module": "importlib.metadata._text",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/metadata/_text.py",
+      "sha256": "1c2b0592c66924b7933f734493f9e0ac079755146d4ebb7287d78e001a113f80",
+      "bytes": 2166
+    },
+    {
+      "module": "importlib.resources",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/resources/__init__.py",
+      "sha256": "7af3e6d7690b818a939bea5bce6eb46cebae9ae993f08a41356169d2e332af31",
+      "bytes": 506
+    },
+    {
+      "module": "importlib.resources._adapters",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/resources/_adapters.py",
+      "sha256": "a39d6d3f686956da213f7de0498c809063692df60306ac7162c69dca24598b51",
+      "bytes": 4504
+    },
+    {
+      "module": "importlib.resources._common",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/resources/_common.py",
+      "sha256": "d4c487b710c16cbb061999417d2bf297ce6f21309f9d81d353d6e627b1126d8c",
+      "bytes": 2891
+    },
+    {
+      "module": "importlib.resources._legacy",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/resources/_legacy.py",
+      "sha256": "4cc2e4c7a68433a53cc484443d7a8666b31b5214e23d4b8f97a1120fb45d623e",
+      "bytes": 3494
+    },
+    {
+      "module": "importlib.resources.abc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/resources/abc.py",
+      "sha256": "d106439f012fb61aa2410e779fcd979ac1d3d677a85e0db5588baf8080100ea8",
+      "bytes": 4571
+    },
+    {
+      "module": "importlib.util",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/importlib/util.py",
+      "sha256": "a1f26649b3409cc90627d3657dd8d38d159bd7e7a2ce34ecca1297119701f608",
+      "bytes": 12717
+    },
+    {
+      "module": "inspect",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/inspect.py",
+      "sha256": "7a134c67f2256307547f2f0b81eb6f89b652c078ab22e59c062770ba9736c6ff",
+      "bytes": 123419
+    },
+    {
+      "module": "io",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/io.py",
+      "sha256": "12636601d4f488b583cff41668c3a386c3b2d93499df09de0df9d9a2a4b95194",
+      "bytes": 4320
+    },
+    {
+      "module": "ipaddress",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ipaddress.py",
+      "sha256": "ba8d3389ff084fcb232b48204ec04f2b3ea4bd0eadf7b18c814947d185de2c64",
+      "bytes": 81414
+    },
+    {
+      "module": "json",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/json/__init__.py",
+      "sha256": "d5d41e2c29049515d295d81a6d40b4890fbec8d8482cfb401630f8ef2f77e4d5",
+      "bytes": 14020
+    },
+    {
+      "module": "json.decoder",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/json/decoder.py",
+      "sha256": "9f02654649816145bc76f8c210a5fe3ba1de142d4d97a1c93105732e747c285b",
+      "bytes": 12473
+    },
+    {
+      "module": "json.encoder",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/json/encoder.py",
+      "sha256": "af7bd40a0d0d0a3e726a9b4b3a2a543019f6ab97a340d0162a9c29ca9da97869",
+      "bytes": 16070
+    },
+    {
+      "module": "json.scanner",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/json/scanner.py",
+      "sha256": "8604d9d03786d0d509abb49e9f069337278ea988c244069ae8ca2c89acc2cb08",
+      "bytes": 2425
+    },
+    {
+      "module": "keyword",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/keyword.py",
+      "sha256": "afbe73afb68d32fa998e5ff3d081090deec457152470f5331cc2bd430a0e9d2a",
+      "bytes": 1061
+    },
+    {
+      "module": "linecache",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/linecache.py",
+      "sha256": "c985113d9219c02950916e75090158bccf44cacac09014741b1c59b07968d111",
+      "bytes": 5649
+    },
+    {
+      "module": "locale",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/locale.py",
+      "sha256": "ac828df41b2fac93ba3e66a2735216c98c0e1853b8dfb9b859e301fe64153feb",
+      "bytes": 79095
+    },
+    {
+      "module": "logging",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/logging/__init__.py",
+      "sha256": "fb2531d0c21738a13eb38093e22c5c7bb651c309dcc79fa444227ce841859c7f",
+      "bytes": 80677
+    },
+    {
+      "module": "lzma",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/lzma.py",
+      "sha256": "58fb9d2fdc8a8af7b25e218f17ea3b51bdfa53bdf40f440ab33c605974ca5c2e",
+      "bytes": 13277
+    },
+    {
+      "module": "ntpath",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ntpath.py",
+      "sha256": "258e9f1fb694c4f73314fa5bf13ec03db90f1b136549de82b4e12af7a98f38e2",
+      "bytes": 28766
+    },
+    {
+      "module": "numbers",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/numbers.py",
+      "sha256": "6d70991643a109e9c99e94d6ea2734a995fa8e89114a70ea09737413fa9ae292",
+      "bytes": 10348
+    },
+    {
+      "module": "numpy",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__init__.py",
+      "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+      "bytes": 26277
+    },
+    {
+      "module": "numpy.__config__",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__config__.py",
+      "sha256": "b02473cfebd4ba6a949daa461555ca904020b0a56b7474eace0c8da7730b3feb",
+      "bytes": 4867
+    },
+    {
+      "module": "numpy._array_api_info",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_array_api_info.py",
+      "sha256": "ce6ec789062aca14aa165dc9586ece2e1130f891843eaefeefea968575aa559f",
+      "bytes": 10385
+    },
+    {
+      "module": "numpy._core",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/__init__.py",
+      "sha256": "837ce8aec8693095d2e1c7c306d385d1785a50be97a009935c64cae04e3555d2",
+      "bytes": 6662
+    },
+    {
+      "module": "numpy._core._add_newdocs",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_add_newdocs.py",
+      "sha256": "bdb68c6da2f3a1048cb2d6123afb6ede6f2bee88c88acb4d330c5485dc1324ce",
+      "bytes": 216086
+    },
+    {
+      "module": "numpy._core._add_newdocs_scalars",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_add_newdocs_scalars.py",
+      "sha256": "db6f2b889f9dcfd7d5df64ef3a430f532b3fdbfc279c3b94f8451b1757a16efb",
+      "bytes": 12933
+    },
+    {
+      "module": "numpy._core._asarray",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_asarray.py",
+      "sha256": "f5aa779032cd51c8ca49039fae454fcebd2d64647513576d0884ff61e68525d2",
+      "bytes": 3894
+    },
+    {
+      "module": "numpy._core._dtype",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_dtype.py",
+      "sha256": "70ce899e3a072d445608780df15990ca37a28838dcc210792ff7cf30e7b5bae3",
+      "bytes": 10547
+    },
+    {
+      "module": "numpy._core._dtype_ctypes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_dtype_ctypes.py",
+      "sha256": "28f3e56a40ec3e4b938523abe6a1705b48c9f559e36ef5b811684e6c21d81881",
+      "bytes": 3726
+    },
+    {
+      "module": "numpy._core._exceptions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_exceptions.py",
+      "sha256": "5fc120d61ab5b94f0bf7088ec05a368d1aba4b4be78c27606051e3de1016f42a",
+      "bytes": 5159
+    },
+    {
+      "module": "numpy._core._internal",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_internal.py",
+      "sha256": "c15b426aca730fccd5261139ee1a825abaf298d21d2522aa7f37338cd44598ee",
+      "bytes": 29437
+    },
+    {
+      "module": "numpy._core._methods",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_methods.py",
+      "sha256": "724facf7e63c5b8fcc2fac14bf31a02cb048d9e28f516d86502ba5077a425476",
+      "bytes": 9393
+    },
+    {
+      "module": "numpy._core._multiarray_umath",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_multiarray_umath.cpython-311-darwin.so",
+      "sha256": "2a5f2e415c5e582109b015eafd0da1ce887b3e3006969369fe2e5e5b27720acd",
+      "bytes": 3678264
+    },
+    {
+      "module": "numpy._core._string_helpers",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_string_helpers.py",
+      "sha256": "e929a0a22ea80f60ae9e3c014abf41676d079029ef5ba9d33db953394de95a78",
+      "bytes": 2845
+    },
+    {
+      "module": "numpy._core._type_aliases",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_type_aliases.py",
+      "sha256": "a4d4a14f10ba6af2c1d912fbf8f38eb69150469e773bee5480e4f1962cf58296",
+      "bytes": 3755
+    },
+    {
+      "module": "numpy._core._ufunc_config",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/_ufunc_config.py",
+      "sha256": "0e938bb63600619bfe9028e8f285f9ddcd925b62d0220690ec4a650a48ac45a5",
+      "bytes": 15611
+    },
+    {
+      "module": "numpy._core.arrayprint",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/arrayprint.py",
+      "sha256": "f7a7c9a96b764436f675560f2dda3990d0d042ae8aa898d2baa40e7f5918209b",
+      "bytes": 65271
+    },
+    {
+      "module": "numpy._core.einsumfunc",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/einsumfunc.py",
+      "sha256": "b91287b000d50c68c3be44597f9d968d4e18a967c729143aa5efe012bf4f847d",
+      "bytes": 57930
+    },
+    {
+      "module": "numpy._core.fromnumeric",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+      "sha256": "6055d8e195cf7aaae417d23bda203cd35014e3db3d7c28a32e7eb71e858e945f",
+      "bytes": 142658
+    },
+    {
+      "module": "numpy._core.function_base",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/function_base.py",
+      "sha256": "b8b8f508410c567b0ea4b44db18e28eb09c62e9ec33680fcefdea7de82eeb9c1",
+      "bytes": 19677
+    },
+    {
+      "module": "numpy._core.getlimits",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/getlimits.py",
+      "sha256": "46d3015808f29584e67eab482f52542a02fb6f0c95c2ca1bd386dc42b9a9ed72",
+      "bytes": 15003
+    },
+    {
+      "module": "numpy._core.memmap",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/memmap.py",
+      "sha256": "c88b10ea7f64a59ba58204492459136e35709c1e257a8ca2cef529736894e27f",
+      "bytes": 12651
+    },
+    {
+      "module": "numpy._core.multiarray",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/multiarray.py",
+      "sha256": "ae9b35e60d0150e2ade05d45c1a31dbfeee627dbe668b2b7a1bfc2e3fe53f77f",
+      "bytes": 56786
+    },
+    {
+      "module": "numpy._core.numeric",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/numeric.py",
+      "sha256": "d75e4d3072e59b477cad20f088d964f6b41c840e7304d3f76fe9f6832d760a9f",
+      "bytes": 83038
+    },
+    {
+      "module": "numpy._core.numerictypes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/numerictypes.py",
+      "sha256": "d7924b057d26fcc4206a21ffc81048e6096fd2f5ee794d1aae74b9e915df5319",
+      "bytes": 15967
+    },
+    {
+      "module": "numpy._core.overrides",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/overrides.py",
+      "sha256": "2bdc18ac0e766e23be366f0605d0f382ea9272d2500e8baf03821e91395fc555",
+      "bytes": 7480
+    },
+    {
+      "module": "numpy._core.printoptions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/printoptions.py",
+      "sha256": "345a6fcb96e78dbbea9ca7aa42dd2f784131a400180153688865c7de98255807",
+      "bytes": 1056
+    },
+    {
+      "module": "numpy._core.records",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/records.py",
+      "sha256": "fd40158fe835806fa832a449440e04f414f72331b733825fc58dd48e6255330d",
+      "bytes": 36754
+    },
+    {
+      "module": "numpy._core.shape_base",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/shape_base.py",
+      "sha256": "1d6e897dfdb7edf2d71e8ed75254a6e7106b1a947592f88d91af96d1ad2c469e",
+      "bytes": 32712
+    },
+    {
+      "module": "numpy._core.umath",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/umath.py",
+      "sha256": "450a42560a838a2260e85f23c8398b7d09e7a8d8dd4170376e0d920463060c0b",
+      "bytes": 2140
+    },
+    {
+      "module": "numpy._distributor_init",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_distributor_init.py",
+      "sha256": "14148976054795071ae41ad011560fa059ba2924c98481675ad59b1241214d2a",
+      "bytes": 421
+    },
+    {
+      "module": "numpy._expired_attrs_2_0",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_expired_attrs_2_0.py",
+      "sha256": "735b4637a636441b0324e9498dcff127231ea3a1d321d939c75048c6dfab2684",
+      "bytes": 3771
+    },
+    {
+      "module": "numpy._globals",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_globals.py",
+      "sha256": "d37b1eb1df7d7ae55fdc2bd9d757631344be0bacfe56d8456062b60b23e3722b",
+      "bytes": 4155
+    },
+    {
+      "module": "numpy._pytesttester",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_pytesttester.py",
+      "sha256": "0e39582fcb8834dd9759ade79e55fa80f1aea0b8dcc750627bf3d0cdba767290",
+      "bytes": 6328
+    },
+    {
+      "module": "numpy._typing",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/__init__.py",
+      "sha256": "33034ac192a99a0eecf9babd14db781811274926d04a6923f92a71b66329a229",
+      "bytes": 5466
+    },
+    {
+      "module": "numpy._typing._array_like",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_array_like.py",
+      "sha256": "10f6547c94a36a6bec589e91b39670c00ff916106961da227dc555b557163e7d",
+      "bytes": 4188
+    },
+    {
+      "module": "numpy._typing._char_codes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_char_codes.py",
+      "sha256": "8f4ee7a64f3635bec8adadb3ed94e553751c38fc2dda033ba992ab3cb7634f8f",
+      "bytes": 8764
+    },
+    {
+      "module": "numpy._typing._dtype_like",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_dtype_like.py",
+      "sha256": "1a299be0d4de9405780e7c09bceebd8aad17f7fbdd438071433dd0232632f4c1",
+      "bytes": 3907
+    },
+    {
+      "module": "numpy._typing._nbit",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_nbit.py",
+      "sha256": "2926cac0e2adb686fee72b53e6f095907ac3327d181efca9b534f28ffe8061cc",
+      "bytes": 632
+    },
+    {
+      "module": "numpy._typing._nbit_base",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_nbit_base.py",
+      "sha256": "9cf669b1096db91e41d22680605f6a0f685efe45e79acb2ffd185a50d16c5beb",
+      "bytes": 3058
+    },
+    {
+      "module": "numpy._typing._nested_sequence",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_nested_sequence.py",
+      "sha256": "c2678328b566bc49c1f5e61d77f982355584a1caa6068f0686929661018541ec",
+      "bytes": 2639
+    },
+    {
+      "module": "numpy._typing._scalars",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_scalars.py",
+      "sha256": "2e15d8d814c799e60acde2197e98efb8c9fee5e38b8d4da7f73ef3d65e5b29ff",
+      "bytes": 944
+    },
+    {
+      "module": "numpy._typing._shape",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_shape.py",
+      "sha256": "e9c16ff8b6d2c86f6695f4813861b2ba5f50fc652b95c1d00bd2596be9b6d1c0",
+      "bytes": 275
+    },
+    {
+      "module": "numpy._typing._ufunc",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_typing/_ufunc.py",
+      "sha256": "1ce91a13eeb05747dddeb9876460b7f580072087fcb72be5cde903e32e064310",
+      "bytes": 156
+    },
+    {
+      "module": "numpy._utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_utils/__init__.py",
+      "sha256": "8559d9ec2d0c09235b330f99caaf8c282612b5a197e91cea14c9e787b79de1d1",
+      "bytes": 3477
+    },
+    {
+      "module": "numpy._utils._convertions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_utils/_convertions.py",
+      "sha256": "d3133175e2cece20e61ec44cffc96e121e12fa441d328320e86c4d0c36acebd9",
+      "bytes": 329
+    },
+    {
+      "module": "numpy._utils._inspect",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_utils/_inspect.py",
+      "sha256": "cc5b890011f4f03d4a82afde79c6240f53a0834397a75b78a2a8d9c4cd2474b9",
+      "bytes": 7436
+    },
+    {
+      "module": "numpy.dtypes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/dtypes.py",
+      "sha256": "cee3f0802d228c5da80d100e27a23d24a85a26e857140ca00722d06a856d4f9e",
+      "bytes": 1312
+    },
+    {
+      "module": "numpy.exceptions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/exceptions.py",
+      "sha256": "df16e967d97b1779a1c2dca6be5d2fa84e346a237c6e471e6a8f1a5df66c9795",
+      "bytes": 7709
+    },
+    {
+      "module": "numpy.lib",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/__init__.py",
+      "sha256": "cd81aea847cfaaaecb0db89da7162cf068023409a8278c50805bc5dd7289e518",
+      "bytes": 3004
+    },
+    {
+      "module": "numpy.lib._array_utils_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_array_utils_impl.py",
+      "sha256": "1985a2c8da8b43b0c6512057cf46db47a000a994ad0c8c147bbb6c6d9fffd793",
+      "bytes": 1697
+    },
+    {
+      "module": "numpy.lib._arraypad_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_arraypad_impl.py",
+      "sha256": "69f17907431860505f879f7ac0f69be927464119e4068583b5f84f11fee63131",
+      "bytes": 33519
+    },
+    {
+      "module": "numpy.lib._arraysetops_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_arraysetops_impl.py",
+      "sha256": "9f896cc0ddc2f4f94ed7cf0b28fa5dba777ec77df3c44788afcd6448d55416b4",
+      "bytes": 37341
+    },
+    {
+      "module": "numpy.lib._arrayterator_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_arrayterator_impl.py",
+      "sha256": "1ed3800c81ee1bd0036db3138268783ff9ae91ed55fbc13e14d10eddb54e18f0",
+      "bytes": 7218
+    },
+    {
+      "module": "numpy.lib._datasource",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_datasource.py",
+      "sha256": "ce4f956e7e099431c455adc37ba0373608e79e2cd2262f8717466fbc0e98228e",
+      "bytes": 22731
+    },
+    {
+      "module": "numpy.lib._format_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_format_impl.py",
+      "sha256": "2a90cc1f9fc635b13815c166b03eda58e1fb11f8ac511e4d9b6d67d147e83691",
+      "bytes": 36884
+    },
+    {
+      "module": "numpy.lib._function_base_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py",
+      "sha256": "b2310fd26d09b566bc50c94be4d3032866503c16a75a5ff67ae994a4a7aea7c9",
+      "bytes": 193738
+    },
+    {
+      "module": "numpy.lib._histograms_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_histograms_impl.py",
+      "sha256": "52dbbb68041ced9a6c1e7ff4e288149d9ab565c7477e2a5cabd791abcd7ba155",
+      "bytes": 38432
+    },
+    {
+      "module": "numpy.lib._index_tricks_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_index_tricks_impl.py",
+      "sha256": "0cde783785ad86729ac3dc079a9f77ae8e1abb7d11d2cde9e35447ec91463e2b",
+      "bytes": 31519
+    },
+    {
+      "module": "numpy.lib._iotools",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_iotools.py",
+      "sha256": "d23b69be99792feff5383236d45fb58b5f6dd5edcbfbac09c517750922dec0bd",
+      "bytes": 30876
+    },
+    {
+      "module": "numpy.lib._nanfunctions_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_nanfunctions_impl.py",
+      "sha256": "62d1c87a064ab166c6795a192ea7dd4004797f7b63d7a9a33c86cec6ca05e4b4",
+      "bytes": 71399
+    },
+    {
+      "module": "numpy.lib._npyio_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py",
+      "sha256": "557dbdca775fdf05ab660f6694c5d25194634426ddb2a22a7e1706828dc83b82",
+      "bytes": 98636
+    },
+    {
+      "module": "numpy.lib._polynomial_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_polynomial_impl.py",
+      "sha256": "048794e3f17a3923deb56fdfa30544f29d03775bafb13bb57c9737b928130521",
+      "bytes": 44125
+    },
+    {
+      "module": "numpy.lib._scimath_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_scimath_impl.py",
+      "sha256": "6f9ffec91cd62483bc75afd9e01f2a41eebc8fc9693bc82db4696f18da65cadc",
+      "bytes": 15684
+    },
+    {
+      "module": "numpy.lib._shape_base_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_shape_base_impl.py",
+      "sha256": "c9858af506f79e40dae1a4fee13900a06216aa78b95813d0a952156c7c37b311",
+      "bytes": 39013
+    },
+    {
+      "module": "numpy.lib._stride_tricks_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_stride_tricks_impl.py",
+      "sha256": "d4ff05ee3167787eff06d5fbe0ebdc23a48d9f6890a733e348aa266e1355366c",
+      "bytes": 19115
+    },
+    {
+      "module": "numpy.lib._twodim_base_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_twodim_base_impl.py",
+      "sha256": "0fe52393e90c6565cc23ac1b8ba44fb347a02e084827309ece0468ac88b085c8",
+      "bytes": 33923
+    },
+    {
+      "module": "numpy.lib._type_check_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_type_check_impl.py",
+      "sha256": "d2b5b3bcb84c16ab9ddbeca1e7c45515063c0f61a98146039a77e99782b7b563",
+      "bytes": 19914
+    },
+    {
+      "module": "numpy.lib._ufunclike_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_ufunclike_impl.py",
+      "sha256": "2987a20d544c11fcfdf243a4c3e5d1cb47be8eb4f38c238399d946252afb8cd3",
+      "bytes": 6014
+    },
+    {
+      "module": "numpy.lib._utils_impl",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_utils_impl.py",
+      "sha256": "96db16f4c329de4d6fc3b22789d8584f97e8f60ae0c33eb6e1fbd17a21c3c967",
+      "bytes": 23499
+    },
+    {
+      "module": "numpy.lib._version",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/_version.py",
+      "sha256": "0affabe9bf73540e9b0febf2158f2d09746ef5de4eb069e3a976a57d8d9194e0",
+      "bytes": 4783
+    },
+    {
+      "module": "numpy.lib.array_utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/array_utils.py",
+      "sha256": "5db732849f52d0894d9cff4dcbacb280b30400259650f34e53cbdebe3d531292",
+      "bytes": 144
+    },
+    {
+      "module": "numpy.lib.format",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/format.py",
+      "sha256": "9e9274789853eee28d2b96b49423067e226ff91e23c8d86220f7996c970d5c1b",
+      "bytes": 477
+    },
+    {
+      "module": "numpy.lib.introspect",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/introspect.py",
+      "sha256": "e97a1b86c7a928352ff339a83e47d53391206421afeb53f63ca97f6916c49074",
+      "bytes": 2749
+    },
+    {
+      "module": "numpy.lib.mixins",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/mixins.py",
+      "sha256": "cd047e8888c2492796c5ea4ae62fbbba34967f0163ad467fab18deac88a4c3a6",
+      "bytes": 7195
+    },
+    {
+      "module": "numpy.lib.npyio",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/npyio.py",
+      "sha256": "79a3ef7c7192cd413bd132471cb3823c85fd1b98a132e0447b1cbafcf36127d4",
+      "bytes": 68
+    },
+    {
+      "module": "numpy.lib.scimath",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/scimath.py",
+      "sha256": "aa315a41eab4cc4225ee02aa3a16a3fef9820bf29a15dc9398774b514912a792",
+      "bytes": 169
+    },
+    {
+      "module": "numpy.lib.stride_tricks",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/lib/stride_tricks.py",
+      "sha256": "c74fc17f097270102547706fa714e775e3fde9d1c14ff7c049b9134d3cc16202",
+      "bytes": 88
+    },
+    {
+      "module": "numpy.linalg",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/linalg/__init__.py",
+      "sha256": "b50025b9aa09f4e77b1a67d7c03b8915a86cc1549179084da21a1a1a5d613d02",
+      "bytes": 2076
+    },
+    {
+      "module": "numpy.linalg._linalg",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/linalg/_linalg.py",
+      "sha256": "e47d0e2aed21361291cd6651999a59e6479ba5866abb8eabb1dbea5b0d1618ac",
+      "bytes": 114861
+    },
+    {
+      "module": "numpy.linalg._umath_linalg",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/linalg/_umath_linalg.cpython-311-darwin.so",
+      "sha256": "baec46cf85c469c2a4ec12f05440b8b2e3e36d34531d9ee9cf113e6235f19de5",
+      "bytes": 154848
+    },
+    {
+      "module": "numpy.matrixlib",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/matrixlib/__init__.py",
+      "sha256": "52de88a9f8ee03e930c28e8704e6008058d75c2fe1ed857fdc7c83b0a33bd9d9",
+      "bytes": 243
+    },
+    {
+      "module": "numpy.matrixlib.defmatrix",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/matrixlib/defmatrix.py",
+      "sha256": "c29c3a95953d5faaa9f30009a240d7b76441acbd5e5ea96606dfa88c8c18ce55",
+      "bytes": 30875
+    },
+    {
+      "module": "numpy.version",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/version.py",
+      "sha256": "833eb1051581de6bf4d23cd6f090e0fa4cbab6c548463dc718b5be62920fa2d7",
+      "bytes": 293
+    },
+    {
+      "module": "opcode",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/opcode.py",
+      "sha256": "e6fc6dc49ced415d6ec285aaf1076148b8c4cb253d3a4d2384a7bab994d394bf",
+      "bytes": 10447
+    },
+    {
+      "module": "operator",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/operator.py",
+      "sha256": "b2af20f67667203c1730e686cc5d0427becc94db4c97f1d3efe3ed2158473f6a",
+      "bytes": 10965
+    },
+    {
+      "module": "os",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/os.py",
+      "sha256": "8a5d4ac7b87c6c5b31fcb5081f7f7c06f8403a2fdb3eb23692c48933baeb899e",
+      "bytes": 39530
+    },
+    {
+      "module": "os.path",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/posixpath.py",
+      "sha256": "aa5c97446b9d11a3b6d5a5f949a814243bbda8f2862d70bd9f18ad6961bb001c",
+      "bytes": 17072
+    },
+    {
+      "module": "pathlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pathlib.py",
+      "sha256": "3b21ac188fd9ac20bacc8ccd976fabd5d8ccf5000f8e157d3dfff005b228fb3d",
+      "bytes": 48566
+    },
+    {
+      "module": "pickle",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pickle.py",
+      "sha256": "227b9550b1491f5ed3bf7b444a97f91113d47a3bb0e82fb49da24cbc255d407f",
+      "bytes": 65132
+    },
+    {
+      "module": "pkgutil",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pkgutil.py",
+      "sha256": "54e8463bc398757aeb01253996c0ef12e2ba8fefdef89dd2e54b15bd70669228",
+      "bytes": 24638
+    },
+    {
+      "module": "platform",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/platform.py",
+      "sha256": "4a3cc68ba7354f8d5cc28c55315a7d77b77dcdbbaa3a092572a636b5fb5b6938",
+      "bytes": 42273
+    },
+    {
+      "module": "posixpath",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/posixpath.py",
+      "sha256": "aa5c97446b9d11a3b6d5a5f949a814243bbda8f2862d70bd9f18ad6961bb001c",
+      "bytes": 17072
+    },
+    {
+      "module": "profile",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/profile.py",
+      "sha256": "4d87bdc8b85bf0a9bdee3e9d975a8a1a0c7360cb264fb68c4c48a102e718e3a3",
+      "bytes": 22883
+    },
+    {
+      "module": "pstats",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pstats.py",
+      "sha256": "d62d1e6a626ebd92187419bfe075a76997cce26fe99dd4520786d4a82b6ff10c",
+      "bytes": 29356
+    },
+    {
+      "module": "psycopg",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/__init__.py",
+      "sha256": "5f1607a193cb63e60a0c5687209d2bd0e3029760b9559e9968f31d6b5d82c778",
+      "bytes": 3423
+    },
+    {
+      "module": "psycopg._acompat",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_acompat.py",
+      "sha256": "2ef0152b55633e375239c13ba8da3d81a0855283ba3b142c8a1dedb34118ae5b",
+      "bytes": 2684
+    },
+    {
+      "module": "psycopg._adapters_map",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_adapters_map.py",
+      "sha256": "8d4caebb82a89e5b662449119aefca5c015aede7a0286d70d2220aa52533f4b9",
+      "bytes": 10650
+    },
+    {
+      "module": "psycopg._capabilities",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_capabilities.py",
+      "sha256": "7ceda92129b13cfd9ff8443cd1895cbe115fa13b52ee43c96101416aeac7905a",
+      "bytes": 4952
+    },
+    {
+      "module": "psycopg._cmodule",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_cmodule.py",
+      "sha256": "d7bb5516799ff9ace28653ae3b4ff51dd3c3b578d435fedbf56a27cda7b40011",
+      "bytes": 872
+    },
+    {
+      "module": "psycopg._column",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_column.py",
+      "sha256": "c26f09f2ce367fa6bdf97f412d1e6fb1decb0d2e3d33efff068e2dd7f0ac66dd",
+      "bytes": 2999
+    },
+    {
+      "module": "psycopg._compat",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_compat.py",
+      "sha256": "a7241a481cd2ff9a853906ba73d25e91ebd7da98ef2aa229b51d313444d5d656",
+      "bytes": 1745
+    },
+    {
+      "module": "psycopg._connection_base",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_connection_base.py",
+      "sha256": "047afac6019de9f1d3313e1c35ac1d76d6a985b50d9dd96144814bfcb8cf645b",
+      "bytes": 23947
+    },
+    {
+      "module": "psycopg._connection_info",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_connection_info.py",
+      "sha256": "168cadc0bd2b9fa51b331ee1727a46d2f6cd73f65f1fb2fadfb1bb005331048d",
+      "bytes": 5932
+    },
+    {
+      "module": "psycopg._conninfo_attempts",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_conninfo_attempts.py",
+      "sha256": "9e081d1fe49a639f4cf0f2d54bce359ac6b7524acc2ed9b170cc0dd004fec7d3",
+      "bytes": 3501
+    },
+    {
+      "module": "psycopg._conninfo_attempts_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_conninfo_attempts_async.py",
+      "sha256": "7fe10d9b648df37f6f89689c7389cda6abac077eac5cfc58e5320c0c8002eb54",
+      "bytes": 3590
+    },
+    {
+      "module": "psycopg._conninfo_utils",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_conninfo_utils.py",
+      "sha256": "008bda02cdd0a7c7b029fcfced01ba9fdbbd67da0e862f1089306c799b013575",
+      "bytes": 3164
+    },
+    {
+      "module": "psycopg._copy",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_copy.py",
+      "sha256": "10feb0b0af87e30f5166131d9512b39fc969f5e4b5df138ec51b9f24859bf2ba",
+      "bytes": 9708
+    },
+    {
+      "module": "psycopg._copy_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_copy_async.py",
+      "sha256": "f87f7fa0830a195067ed6c0509ca206119a83c38a2190731502a112516a44f43",
+      "bytes": 9947
+    },
+    {
+      "module": "psycopg._copy_base",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_copy_base.py",
+      "sha256": "7f8d660d03dc81f00cc7dfd28f31f881f0e536d83dbcc05d83c46bddf360f745",
+      "bytes": 13853
+    },
+    {
+      "module": "psycopg._cursor_base",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_cursor_base.py",
+      "sha256": "8ee5ab1a96a461d6ede54db71d880799656f5fc9167d23de4f71aef320e65913",
+      "bytes": 21664
+    },
+    {
+      "module": "psycopg._encodings",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_encodings.py",
+      "sha256": "3d137de3957cb2e874a22983c2cccc1a185b9be3fd2b3b82e95458a3f7d38bf7",
+      "bytes": 4073
+    },
+    {
+      "module": "psycopg._enums",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_enums.py",
+      "sha256": "e6009e7ffb187bd51d684e27fd198359e1784df40ec1015e8a48eb933f588af2",
+      "bytes": 1691
+    },
+    {
+      "module": "psycopg._oids",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_oids.py",
+      "sha256": "98923c1db46b4ec6cad0b2209e71b9c4f1fede1c4d51c968b6a52eae6ca8dacd",
+      "bytes": 1875
+    },
+    {
+      "module": "psycopg._pipeline",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_pipeline.py",
+      "sha256": "1448864658cefa7aee20a61bb7255f6fc49b832c1c377b520789e46cb70e9f1a",
+      "bytes": 2165
+    },
+    {
+      "module": "psycopg._pipeline_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_pipeline_async.py",
+      "sha256": "af9c9a8670382419329b1f5352ac1af75994959ca7c0b32a5385fdfa5037c25f",
+      "bytes": 2108
+    },
+    {
+      "module": "psycopg._pipeline_base",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_pipeline_base.py",
+      "sha256": "8f892873645f2d083b55171bff5eb2c8ec5f07012cb7c69715c960b7320139e0",
+      "bytes": 6666
+    },
+    {
+      "module": "psycopg._preparing",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_preparing.py",
+      "sha256": "b867a5615337a04d21d2f7260e0f2ad7c8fa04efda4e1bb0600539c86e2266c2",
+      "bytes": 6279
+    },
+    {
+      "module": "psycopg._queries",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_queries.py",
+      "sha256": "2e12182b0246bc3d848cd67c3da7e43a9e28a5ffd30c5f7db1487ee079237201",
+      "bytes": 13532
+    },
+    {
+      "module": "psycopg._server_cursor",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_server_cursor.py",
+      "sha256": "beb5f2bfccef57c912d9e9a4af1d9a41af172e73c99d51d3cec68d419eca3402",
+      "bytes": 4240
+    },
+    {
+      "module": "psycopg._server_cursor_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_server_cursor_async.py",
+      "sha256": "b906dd7888968793e4f1fa77b6a57d9b69bf3a4740a47f9893d4fd959892476e",
+      "bytes": 4305
+    },
+    {
+      "module": "psycopg._server_cursor_base",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_server_cursor_base.py",
+      "sha256": "77c4a736f8187ade24e6e7e238a2ffa679e82f53ed7605603d41a0c9d034964b",
+      "bytes": 6989
+    },
+    {
+      "module": "psycopg._struct",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_struct.py",
+      "sha256": "84ffa93e65bd9a395f808509d2dfa1757c57e334a80bf95582aa4f2c13aa0103",
+      "bytes": 1997
+    },
+    {
+      "module": "psycopg._tpc",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_tpc.py",
+      "sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "bytes": 3529
+    },
+    {
+      "module": "psycopg._transformer",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_transformer.py",
+      "sha256": "9839012ee4b16d70c6d537243e0232649c74d329f951753c0e5b8e1a61d68c06",
+      "bytes": 451
+    },
+    {
+      "module": "psycopg._typeinfo",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_typeinfo.py",
+      "sha256": "df3b400ebec2794344384d4b834dcb29c5a189a85b595a8acfe48dd66aada3cb",
+      "bytes": 10620
+    },
+    {
+      "module": "psycopg._typemod",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_typemod.py",
+      "sha256": "519c0715f9d66d7ab167d508541ac9877eb9f7da686406998fae6ff04b1b209b",
+      "bytes": 2498
+    },
+    {
+      "module": "psycopg._tz",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_tz.py",
+      "sha256": "9886b76e5a555677cb544bb4bf4435f9366b27407df80f9db45b8307e3e58a45",
+      "bytes": 1186
+    },
+    {
+      "module": "psycopg._wrappers",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/_wrappers.py",
+      "sha256": "c0a66dfdaafc42e46010a0bab6ec1a9985c2c01d4fec8650b268187553a50215",
+      "bytes": 3126
+    },
+    {
+      "module": "psycopg.abc",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/abc.py",
+      "sha256": "0fffd32a02c47477d78beee1e1304926f56f020a7f62ed38e98f757093b6c798",
+      "bytes": 7673
+    },
+    {
+      "module": "psycopg.adapt",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/adapt.py",
+      "sha256": "7d957b9c6a6a57650ac22c4bbb9d24d5f6ffb20d2e9ba4ae575ac21959f5dfa3",
+      "bytes": 5195
+    },
+    {
+      "module": "psycopg.client_cursor",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/client_cursor.py",
+      "sha256": "9d1a376dc91c2a3de764601c5f3aec3cfe3984431f6b195e8159def7031d6b3f",
+      "bytes": 2681
+    },
+    {
+      "module": "psycopg.connection",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/connection.py",
+      "sha256": "d45bf17c4073530bc5bc84eac9afe9cf581608afc7fe29ee19207e74cab6a08d",
+      "bytes": 18709
+    },
+    {
+      "module": "psycopg.connection_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/connection_async.py",
+      "sha256": "97efc713434e9c6b011f76ce0c7c3445b5d9465714f9289625a5f2c9a4758c91",
+      "bytes": 20922
+    },
+    {
+      "module": "psycopg.conninfo",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/conninfo.py",
+      "sha256": "f59c7138b3d6001b8d069e0c52697f48a40dd8b395ca20a6f6cef35c5bed6a36",
+      "bytes": 4471
+    },
+    {
+      "module": "psycopg.copy",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/copy.py",
+      "sha256": "fd5ef68e9d835ebd931ecaa8f52e9c6a1bde328d10b819777e78a0b74ac699b7",
+      "bytes": 806
+    },
+    {
+      "module": "psycopg.cursor",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/cursor.py",
+      "sha256": "3459853ab854d6912cb45534d88cfaad16da1ef4937cb2f81660d75bc04ab430",
+      "bytes": 9193
+    },
+    {
+      "module": "psycopg.cursor_async",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/cursor_async.py",
+      "sha256": "4d3e1f8e339ac34790614a3f99302756bba186e130eef09fc83eb356a2f207f7",
+      "bytes": 9473
+    },
+    {
+      "module": "psycopg.dbapi20",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/dbapi20.py",
+      "sha256": "17abbdaa086a73345fc43cba4621999e6c25400c476af96b58cbb4cbadd6c78c",
+      "bytes": 3284
+    },
+    {
+      "module": "psycopg.errors",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/errors.py",
+      "sha256": "9a76aac329cbfd7220a3572f2bf8988712e4dd1b6e5b7a7bcd42d4ee66f9b493",
+      "bytes": 46315
+    },
+    {
+      "module": "psycopg.generators",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/generators.py",
+      "sha256": "9ff3f4e458f13dd6c9597ce78d15f8a9fc32a90c2a76bdc9ea4981123b4f8f63",
+      "bytes": 12699
+    },
+    {
+      "module": "psycopg.postgres",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/postgres.py",
+      "sha256": "133982b2b02c0dfc6e0b28f6d28f870d8c39d6de7707fcce96439ca46c0a9137",
+      "bytes": 6413
+    },
+    {
+      "module": "psycopg.pq",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/pq/__init__.py",
+      "sha256": "7edacc4f10fda3bd11c5f90f3fc5378a8939f3e8b624bd97a258ff3ad0b9d1c7",
+      "bytes": 3989
+    },
+    {
+      "module": "psycopg.pq._enums",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/pq/_enums.py",
+      "sha256": "fa1a16d893690911b3dfc89a2fd0f44eb740b541c869fb96170252b264722216",
+      "bytes": 6004
+    },
+    {
+      "module": "psycopg.pq.abc",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/pq/abc.py",
+      "sha256": "d49ea4a6bcfa44981f6da087a6c2ea161d4d9ddfd10db1232a47d60ac19f823d",
+      "bytes": 8047
+    },
+    {
+      "module": "psycopg.pq.misc",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/pq/misc.py",
+      "sha256": "d90ebc90e2745c556cb1419a1417db05c2acc4c3bd69435534f31177bc113615",
+      "bytes": 6731
+    },
+    {
+      "module": "psycopg.raw_cursor",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/raw_cursor.py",
+      "sha256": "f00ede45a5898b16d0b7877f5cf2507097bd5436a81165817a2352acf6ec08b9",
+      "bytes": 2202
+    },
+    {
+      "module": "psycopg.rows",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/rows.py",
+      "sha256": "72e0a87d32ceb93a7a1599a00efd4e643311f9d5f38306e4a0ece0717439e919",
+      "bytes": 7877
+    },
+    {
+      "module": "psycopg.sql",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/sql.py",
+      "sha256": "06e6e5567c2c8ac3fe80a473db123695b54c43d2609fb10631065feda5c7bb01",
+      "bytes": 16563
+    },
+    {
+      "module": "psycopg.transaction",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/transaction.py",
+      "sha256": "f6bb34a1d997fb274a9f2219d1b9ed028f925df9b341dda9fd0766305272b8af",
+      "bytes": 9244
+    },
+    {
+      "module": "psycopg.types",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/__init__.py",
+      "sha256": "24f02457811f917c1db2befafd4d43b10575f5cf1a40d481ea482e7786e15de3",
+      "bytes": 181
+    },
+    {
+      "module": "psycopg.types.array",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/array.py",
+      "sha256": "0d6171b0e3c8af0674653d06a0b99d49b783d438c628b8a74d2b4d7d2e395b91",
+      "bytes": 15348
+    },
+    {
+      "module": "psycopg.types.bool",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/bool.py",
+      "sha256": "d062501be0a6e4fe4d807f137cb363f67fdee5c930e365e7b110629d7d24e39c",
+      "bytes": 1163
+    },
+    {
+      "module": "psycopg.types.composite",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/composite.py",
+      "sha256": "5143d402b791d94f882afe1330f6ed40a7561433f913b9817ce14b6b3dfebb52",
+      "bytes": 11897
+    },
+    {
+      "module": "psycopg.types.datetime",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/datetime.py",
+      "sha256": "5d8c3bbedabe59bd2fe57a13aab464536f2bf3ffc9b63fc9f5f8707c1b949a20",
+      "bytes": 25504
+    },
+    {
+      "module": "psycopg.types.enum",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/enum.py",
+      "sha256": "a3445f8c13c24413a76d6faff1ebc3c7b84f19fa5db1f8359b9603ffbd99302e",
+      "bytes": 7179
+    },
+    {
+      "module": "psycopg.types.json",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/json.py",
+      "sha256": "9eaeeb981784cf476b9dc7062bff0b08b30dd5c2d0fc35d4d37b5174e9504610",
+      "bytes": 9727
+    },
+    {
+      "module": "psycopg.types.multirange",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/multirange.py",
+      "sha256": "ea0dc70c9f1a6cf861bd64291f07d5c66fb123965b0a69a782b4d9f8ecc6834d",
+      "bytes": 17582
+    },
+    {
+      "module": "psycopg.types.net",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/net.py",
+      "sha256": "48d0af8091f0c40bb32944b19e99dc7fa2bda21a4819e8f0ddc8309a04ce50de",
+      "bytes": 6850
+    },
+    {
+      "module": "psycopg.types.none",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/none.py",
+      "sha256": "832fce26a13562c949d91222c7412adf1d01f083dfa07f8671cdac40c20ed12c",
+      "bytes": 666
+    },
+    {
+      "module": "psycopg.types.numeric",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/numeric.py",
+      "sha256": "110e118bf8938f1fb3415a904121807f2f34121a2ae58c640a1a60a439dfcbff",
+      "bytes": 15463
+    },
+    {
+      "module": "psycopg.types.numpy",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/numpy.py",
+      "sha256": "34f2d46c31723632af3533fa761a14bb5abcd2ddde41d1ebae77ad28083c95b8",
+      "bytes": 3273
+    },
+    {
+      "module": "psycopg.types.range",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/range.py",
+      "sha256": "b4c8fb149e2ba434d7e4389c895003d6b1afa28001c7cb9a11d076b0b315e86c",
+      "bytes": 21411
+    },
+    {
+      "module": "psycopg.types.string",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/string.py",
+      "sha256": "911acad422939a9e2574720ca638e897fda4b1801bfa9c0cbdc6fafd9677fc00",
+      "bytes": 7629
+    },
+    {
+      "module": "psycopg.types.uuid",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/types/uuid.py",
+      "sha256": "92587fff76aa78ec25edf1a113fa1869f63dccaf4165794099cf3854a6af443b",
+      "bytes": 1630
+    },
+    {
+      "module": "psycopg.version",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/version.py",
+      "sha256": "24b5a8a6b22c0b91d5725ca19fb2f355f56936d65853e5282d0c0018c1019587",
+      "bytes": 232
+    },
+    {
+      "module": "psycopg.waiting",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/waiting.py",
+      "sha256": "a674db1c59f05f48f3865b7dfb51a34ee9e5f595e3011fba1ba1ed4063bbe748",
+      "bytes": 13978
+    },
+    {
+      "module": "psycopg_binary",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg_binary/__init__.py",
+      "sha256": "e64c70f50767f2e6c88b88a4f769b164eb23af950ed2fc2ae53e52d018425868",
+      "bytes": 402
+    },
+    {
+      "module": "psycopg_binary._psycopg",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg_binary/_psycopg.cpython-311-darwin.so",
+      "sha256": "fe35dd65e322c329bfe3ef318693a9157b497d25fa5e8a8c0c8c3073d46e9e18",
+      "bytes": 806480
+    },
+    {
+      "module": "psycopg_binary.pq",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg_binary/pq.cpython-311-darwin.so",
+      "sha256": "2739b953fb16eb412b14715bd219f016098ff594f33c15f0a1d0423c7536c43b",
+      "bytes": 373856
+    },
+    {
+      "module": "psycopg_binary.version",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg_binary/version.py",
+      "sha256": "01c85c2d67e86b2f74da6acfde3d50cb79d0d85e503b3348bfc632d0d77016b7",
+      "bytes": 246
+    },
+    {
+      "module": "py4j",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/__init__.py",
+      "sha256": "310e023bede5377c068b2257df325cca4218aa205b604ccfacb9860f27172eef",
+      "bytes": 111
+    },
+    {
+      "module": "py4j.clientserver",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/clientserver.py",
+      "sha256": "f73bc981005875833219855317638d3372c5e91d08d4bdab926b08a7fc629d3b",
+      "bytes": 28513
+    },
+    {
+      "module": "py4j.compat",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/compat.py",
+      "sha256": "db545e72eb4758295fc96984c46ce112964843350ee4b206523d9de697bce9a9",
+      "bytes": 2329
+    },
+    {
+      "module": "py4j.finalizer",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/finalizer.py",
+      "sha256": "f25aca1810174eae9f8c0d36cc6667f2e3afe12050c16c94ac0e330e57ec384c",
+      "bytes": 4306
+    },
+    {
+      "module": "py4j.java_collections",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/java_collections.py",
+      "sha256": "023cc500df69270ef14b3c636350056977117da65da4901397c81d040810b83f",
+      "bytes": 18289
+    },
+    {
+      "module": "py4j.java_gateway",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/java_gateway.py",
+      "sha256": "608dc5c429c3dbbf4e2bb12a4000a74558d7385aadce2f3d97b506a998ed3686",
+      "bytes": 97610
+    },
+    {
+      "module": "py4j.protocol",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/protocol.py",
+      "sha256": "5132648e9cda3387e118ac89dd176857b24d027a8dd94aa7572ca198755a3148",
+      "bytes": 14805
+    },
+    {
+      "module": "py4j.signals",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/signals.py",
+      "sha256": "22d8d9381d1ac88a2e1007275d1e41ef48d21149fae019582707b2d34e78732d",
+      "bytes": 4361
+    },
+    {
+      "module": "py4j.version",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/py4j/version.py",
+      "sha256": "24e894a58f82f66208537d9a1425d2f773ae73471387204d2a4fe90efe7f58fd",
+      "bytes": 25
+    },
+    {
+      "module": "pydoc",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pydoc.py",
+      "sha256": "8ec708a846132f72b35184595c1a6498518f3ee63b10fc8244be8f225f582e78",
+      "bytes": 112650
+    },
+    {
+      "module": "pyspark",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/__init__.py",
+      "sha256": "6471d29a9475ab3e6a705c22ac4c7a97a4a6b765ec428e657effe99bd2e466df",
+      "bytes": 5461
+    },
+    {
+      "module": "pyspark._globals",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/_globals.py",
+      "sha256": "f813190d1a83971dcca9da1ecfa756c2a19e31b15b8edc1ac5a891d81722eabd",
+      "bytes": 2275
+    },
+    {
+      "module": "pyspark.accumulators",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/accumulators.py",
+      "sha256": "e05653bf8fe964f30b0988bdef0f4dc19eaa68c1da7692f515c2e354966c8177",
+      "bytes": 11304
+    },
+    {
+      "module": "pyspark.broadcast",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/broadcast.py",
+      "sha256": "d9964dbc717a56e6875c3359f31e84b8e3ea4b9cac0765cf26810d9eeecedab2",
+      "bytes": 12476
+    },
+    {
+      "module": "pyspark.cloudpickle",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/cloudpickle/__init__.py",
+      "sha256": "71d0cdaf31e0723b3f4db73c1ec531a0cbc3a49556c39b0ca503ebd95f984603",
+      "bytes": 330
+    },
+    {
+      "module": "pyspark.cloudpickle.cloudpickle",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/cloudpickle/cloudpickle.py",
+      "sha256": "b5d494a8c693d4e41c49a8aba4c08fa969fa9e956971d8cbb936e15230f5d5af",
+      "bytes": 35137
+    },
+    {
+      "module": "pyspark.cloudpickle.cloudpickle_fast",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/cloudpickle/cloudpickle_fast.py",
+      "sha256": "fcd6c92f31b95fd8d28eee4a69aa5041fa56913ee90fbc9c21e960893a86324b",
+      "bytes": 34137
+    },
+    {
+      "module": "pyspark.cloudpickle.compat",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/cloudpickle/compat.py",
+      "sha256": "213383531d14fdbedc8694b8eff4a2ab1ed83f5acc614a491fa077ac100d9966",
+      "bytes": 508
+    },
+    {
+      "module": "pyspark.conf",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/conf.py",
+      "sha256": "d157ed73d539934ba7d51f84ff722b391b803afcea4dbc71be932ed045a00a99",
+      "bytes": 9269
+    },
+    {
+      "module": "pyspark.context",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/context.py",
+      "sha256": "26e4046eb37a38bf50957defe15b1ddeea851b101ea810b95825f73cdd67ffca",
+      "bytes": 91147
+    },
+    {
+      "module": "pyspark.errors",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/__init__.py",
+      "sha256": "82e7b3b001bcc4e9263d27e1015fb5ad5426d757c642c86692a329a61c7d6b80",
+      "bytes": 2112
+    },
+    {
+      "module": "pyspark.errors.error_classes",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/error_classes.py",
+      "sha256": "c7a3515993bb529d4f2f9467f04230b0b3893251f9747cba4862ef5add846f80",
+      "bytes": 25678
+    },
+    {
+      "module": "pyspark.errors.exceptions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/exceptions/__init__.py",
+      "sha256": "7346ca62321a7dfa2a926ed981a479dceeb8a47df7058cd2cc5c4d14fc1e4a35",
+      "bytes": 784
+    },
+    {
+      "module": "pyspark.errors.exceptions.base",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/exceptions/base.py",
+      "sha256": "acb3e7d77a28e966ec21cb2651581b21c83d3ce243eed2c0096767a5fcb569ba",
+      "bytes": 5818
+    },
+    {
+      "module": "pyspark.errors.exceptions.captured",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/exceptions/captured.py",
+      "sha256": "83555e99839f94cfd29755595e71c91112cd26be1acc400f4e7cdd510b022fc0",
+      "bytes": 10878
+    },
+    {
+      "module": "pyspark.errors.utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/errors/utils.py",
+      "sha256": "b5f05fd899b7d3564acfe1cd12205b79299307cc4d9b620ea2c7fa1a7fd43e8b",
+      "bytes": 4452
+    },
+    {
+      "module": "pyspark.files",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/files.py",
+      "sha256": "ea28e4904ae5bfab6e5cb6ed29ec2c2cbdaf449e999a92f1a2b2505bbbb76d7b",
+      "bytes": 5166
+    },
+    {
+      "module": "pyspark.find_spark_home",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/find_spark_home.py",
+      "sha256": "d08ee1ba12382ef5a1bfe1b33306d8098883f7ac2f594e089a4f992836108cf0",
+      "bytes": 4079
+    },
+    {
+      "module": "pyspark.java_gateway",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/java_gateway.py",
+      "sha256": "9eaf99b0ebda949ad46e9dd71e0efe439b96d2d6cd59414b298b19f5c8431dac",
+      "bytes": 10253
+    },
+    {
+      "module": "pyspark.join",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/join.py",
+      "sha256": "c263244386404c5498daff287c9f38712ff072ce5ab6e862e35dd5623f5a8032",
+      "bytes": 3999
+    },
+    {
+      "module": "pyspark.profiler",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/profiler.py",
+      "sha256": "3dd9275e07b432fcb10922c5303a2707527fe2428cf95efa1a1cb9a82de95c7c",
+      "bytes": 17288
+    },
+    {
+      "module": "pyspark.rdd",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/rdd.py",
+      "sha256": "fe7393a9e83133f5ae20486436ea687f7dc33719cefa16cc4c77242d57233dde",
+      "bytes": 175821
+    },
+    {
+      "module": "pyspark.rddsampler",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/rddsampler.py",
+      "sha256": "feb78468f165dee9e62e2958853ab01ae424527b5113e1aba355272815243756",
+      "bytes": 4242
+    },
+    {
+      "module": "pyspark.resource",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/resource/__init__.py",
+      "sha256": "1a9fe77139f4c222a5819f02f92c6789a988775271042569b1723ec9f389bf0a",
+      "bytes": 1348
+    },
+    {
+      "module": "pyspark.resource.information",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/resource/information.py",
+      "sha256": "1922e0ef52f29e45c33b8da4311089692922b07104ac9b855131bd9ccda32c12",
+      "bytes": 1959
+    },
+    {
+      "module": "pyspark.resource.profile",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/resource/profile.py",
+      "sha256": "fa044313ce0a23f40e989fc9c52f41f00b6e2e07d890c33b52163ae98accce2f",
+      "bytes": 11064
+    },
+    {
+      "module": "pyspark.resource.requests",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/resource/requests.py",
+      "sha256": "797438393f155b78258f014c1d4d9483369fc939dd9c6404b3e8715a774be18f",
+      "bytes": 18208
+    },
+    {
+      "module": "pyspark.resultiterable",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/resultiterable.py",
+      "sha256": "281fd38fdd57be1ae33f398c19fc7965fa209efa2550ebde9cdfde2f2513b0a9",
+      "bytes": 1407
+    },
+    {
+      "module": "pyspark.serializers",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/serializers.py",
+      "sha256": "e83902cd772718d3f9327f2a0896b516c755dc13e9cac2c4f84115832715c2c8",
+      "bytes": 21761
+    },
+    {
+      "module": "pyspark.shuffle",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/shuffle.py",
+      "sha256": "175937c0bab4793574233bac3f9d2c1a1e6f6849e16dde21acb2b07bb7579baa",
+      "bytes": 28060
+    },
+    {
+      "module": "pyspark.sql",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/__init__.py",
+      "sha256": "58add0ab06de25a9863bd733579541e7fae6cc06ef41baac3c154c6b422c1136",
+      "bytes": 2792
+    },
+    {
+      "module": "pyspark.sql.catalog",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/catalog.py",
+      "sha256": "5830aab79625e8e492f382fd76197160c453a0ccf51fc8e78afe8deab06984f9",
+      "bytes": 40361
+    },
+    {
+      "module": "pyspark.sql.column",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/column.py",
+      "sha256": "efef523effa29d798df1754ba804f6b917e5cf0f87b93161fce483d458705ce0",
+      "bytes": 44599
+    },
+    {
+      "module": "pyspark.sql.conf",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/conf.py",
+      "sha256": "eb90b67b6a4d98d4592129b4e0035958d3075edccaedc76b28ed5cfb8f18ba17",
+      "bytes": 3333
+    },
+    {
+      "module": "pyspark.sql.context",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/context.py",
+      "sha256": "b79c16212ec66d7fcb046036e7c533eb426dc3e41bb4c4714cd2239c98397d3a",
+      "bytes": 27930
+    },
+    {
+      "module": "pyspark.sql.dataframe",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/dataframe.py",
+      "sha256": "07000ca215e1e4f56579497c6fe71d901fbcbea78a9a6d145404b4ccea1567e0",
+      "bytes": 197766
+    },
+    {
+      "module": "pyspark.sql.functions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/functions.py",
+      "sha256": "6d6d7ca54d5a18eaccccc94f16cd56313a6f02343bdbdb326645f9c469edee26",
+      "bytes": 474244
+    },
+    {
+      "module": "pyspark.sql.group",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/group.py",
+      "sha256": "765fb8437b7d2621cc29db221dd4c91164e89337213a990c0e52dd2be8af0b28",
+      "bytes": 17417
+    },
+    {
+      "module": "pyspark.sql.observation",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/observation.py",
+      "sha256": "d3d5ed79cec36c06d927189df8aac11e49b7c0a7b62f59cf6faed065c61ad330",
+      "bytes": 5526
+    },
+    {
+      "module": "pyspark.sql.pandas",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/__init__.py",
+      "sha256": "c80f13a4408f2c73661ffa4b2f4819418755854ba49c4902836afa15be6e1fcc",
+      "bytes": 959
+    },
+    {
+      "module": "pyspark.sql.pandas.conversion",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/conversion.py",
+      "sha256": "1dc1e4b31a633b6a29924fc10fb0b784f08308a449d7e43e1205fb5c8d5b8d1f",
+      "bytes": 28087
+    },
+    {
+      "module": "pyspark.sql.pandas.functions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/functions.py",
+      "sha256": "c8610a0783e329e9d084cbd276ca109d41bc6c039de143a92775abf1607c1831",
+      "bytes": 29385
+    },
+    {
+      "module": "pyspark.sql.pandas.group_ops",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/group_ops.py",
+      "sha256": "508ae7384344a6430739172a87ab579a1c0a8167eee926e5c6e56237c75ab831",
+      "bytes": 21716
+    },
+    {
+      "module": "pyspark.sql.pandas.map_ops",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/map_ops.py",
+      "sha256": "55aa881501f06bd04632f9852288db08e3c265780066820a89c69a1e7ae00126",
+      "bytes": 8083
+    },
+    {
+      "module": "pyspark.sql.pandas.serializers",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/serializers.py",
+      "sha256": "d512483ce8bbec28d41ebc32087c04a4c6c0bbedfe0d736eaf4c6e54963ac855",
+      "bytes": 40053
+    },
+    {
+      "module": "pyspark.sql.pandas.typehints",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/typehints.py",
+      "sha256": "46444cdc3c2cf9b7d576347d1f42ae0c7be05a1332c671b4baacb713fdaea4f9",
+      "bytes": 6945
+    },
+    {
+      "module": "pyspark.sql.pandas.types",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/types.py",
+      "sha256": "c968e18949a4288f1d88c434e10a8ba2495a551b6ac13475339e74c6b9a11e14",
+      "bytes": 34912
+    },
+    {
+      "module": "pyspark.sql.pandas.utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/pandas/utils.py",
+      "sha256": "89ff9f4d6b3e5a3c3ba342b90814363980d0db66cf66ce76dff0eb673209fb06",
+      "bytes": 3198
+    },
+    {
+      "module": "pyspark.sql.readwriter",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/readwriter.py",
+      "sha256": "1a8a4d35b072de3a348aa5e153ec8cbbe72cad76c233939cf709db6f580fcd8b",
+      "bytes": 76786
+    },
+    {
+      "module": "pyspark.sql.session",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/session.py",
+      "sha256": "18de3cdf623a49f9812c3a66dda20a2ce301e235cbe2674183401ef90ccf75c4",
+      "bytes": 69247
+    },
+    {
+      "module": "pyspark.sql.sql_formatter",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/sql_formatter.py",
+      "sha256": "7810bbe54dc97a26ba66dff723da80218650aa7b724ff7bab02fb93c055d475e",
+      "bytes": 3321
+    },
+    {
+      "module": "pyspark.sql.streaming",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/streaming/__init__.py",
+      "sha256": "bced32e92e9d3275ff4eb1e65ea9d3dfa2dfc71da42ec019d3fa0389c054364f",
+      "bytes": 1116
+    },
+    {
+      "module": "pyspark.sql.streaming.listener",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/streaming/listener.py",
+      "sha256": "14a7b728b42f291b196e7eba2add7dbe548b128cb4edf2493d336d1da80a1db1",
+      "bytes": 32601
+    },
+    {
+      "module": "pyspark.sql.streaming.query",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/streaming/query.py",
+      "sha256": "e518068cd8cfef168124692d64f70792ff326fd4e80ae651ef60300b5b5a2467",
+      "bytes": 23533
+    },
+    {
+      "module": "pyspark.sql.streaming.readwriter",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/streaming/readwriter.py",
+      "sha256": "869a59293c3be1be0f54dccb970f9dddaf754282f22e0c85c34f89236083a38b",
+      "bytes": 60592
+    },
+    {
+      "module": "pyspark.sql.streaming.state",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/streaming/state.py",
+      "sha256": "91bceee8ec3a3b52c5cec4a841745322799d716bb13572d378665106cccb1978",
+      "bytes": 9851
+    },
+    {
+      "module": "pyspark.sql.types",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/types.py",
+      "sha256": "c761e19534aece4811fbc2878cdc69c72d209fba4282f9aa1da54d2ab4b8fa4e",
+      "bytes": 85610
+    },
+    {
+      "module": "pyspark.sql.udf",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/udf.py",
+      "sha256": "f6c963043aaec5875250819936e417fbd86cb6b4e1deed9361feb15490e2805a",
+      "bytes": 33391
+    },
+    {
+      "module": "pyspark.sql.udtf",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/udtf.py",
+      "sha256": "9af0eb814fe4384e69d37a706e5efe5e6457ada306a45df3018973846c55cc59",
+      "bytes": 11262
+    },
+    {
+      "module": "pyspark.sql.utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/utils.py",
+      "sha256": "27d919a79da21b37afe4489cf312baf1ef3ff3a973dd653bb54f59f499f1136c",
+      "bytes": 10708
+    },
+    {
+      "module": "pyspark.sql.window",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/sql/window.py",
+      "sha256": "790eb77761a5eee2163cd40cd8a29f06ad267fe905409fccad9dde7e0d6a4b0e",
+      "bytes": 17763
+    },
+    {
+      "module": "pyspark.statcounter",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/statcounter.py",
+      "sha256": "d8101c92facab1a7f2bb2f256964655f3aa771890ea75a3025f88033dff700d7",
+      "bytes": 5556
+    },
+    {
+      "module": "pyspark.status",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/status.py",
+      "sha256": "1eaa303353440d367d4d6e3eca32e3cb3c6411021ea6ec6d762a4222c7258795",
+      "bytes": 4009
+    },
+    {
+      "module": "pyspark.storagelevel",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/storagelevel.py",
+      "sha256": "e3dc10f1bbed7482690ccb488f2bb441ffffc37510cfdcd7265d13b457bd00dc",
+      "bytes": 3834
+    },
+    {
+      "module": "pyspark.taskcontext",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/taskcontext.py",
+      "sha256": "ffc57febd71088064cc52b3c54822db7de7325791448fc75852998472bfacd75",
+      "bytes": 16015
+    },
+    {
+      "module": "pyspark.traceback_utils",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/traceback_utils.py",
+      "sha256": "c5a6c2007b31520e8813502b23bed015ae90b56a8b00dea8a7eadaea1166dc86",
+      "bytes": 2717
+    },
+    {
+      "module": "pyspark.util",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/util.py",
+      "sha256": "b80513352b90dfbbd982e0d730da7962fe6ff51e3a1326a0298f28d959afc1ee",
+      "bytes": 15037
+    },
+    {
+      "module": "pyspark.version",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/version.py",
+      "sha256": "a32ac1fb77431b71585dbc6fae033e102df605058a41d73ec40e3f17b75bdf55",
+      "bytes": 27
+    },
+    {
+      "module": "queue",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/queue.py",
+      "sha256": "f6c37fc37cd7440979f7d22d40ee818fa3b714c573610c08fa52911d541193f0",
+      "bytes": 11496
+    },
+    {
+      "module": "quopri",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/quopri.py",
+      "sha256": "7070b61e5a582423a1bb405e3d23cb3e26c4faafcb142a8cbb88ec3f2d6104e9",
+      "bytes": 7268
+    },
+    {
+      "module": "random",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/random.py",
+      "sha256": "b931a2d452db89ab9e1f79d59b66ce194dbd6748049cfe44699726da52b9c956",
+      "bytes": 32162
+    },
+    {
+      "module": "re",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/re/__init__.py",
+      "sha256": "029ead61f362489e9bb034f4c2503abee95462056541e9ad07715de3c353b0da",
+      "bytes": 15889
+    },
+    {
+      "module": "re._casefix",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/re/_casefix.py",
+      "sha256": "41572ac50cf96b04496e676d8a6708898bb8e752e06dad34ed4c50c5d8f1fe40",
+      "bytes": 5446
+    },
+    {
+      "module": "re._compiler",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/re/_compiler.py",
+      "sha256": "c05067f8bfa4c13cbbf1eedc4d5cafc9b621bcb6ebc5771ba0518a18095af15a",
+      "bytes": 26089
+    },
+    {
+      "module": "re._constants",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/re/_constants.py",
+      "sha256": "3e4463dc8ba87c4a3563be46d2d593e82ca9a0fb91768cfe5a07554ed3de82c5",
+      "bytes": 5930
+    },
+    {
+      "module": "re._parser",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/re/_parser.py",
+      "sha256": "4748e39c77d6dc14f81af80e68a62ad99031a8182d5e0b219a6666d0cfb1626f",
+      "bytes": 42420
+    },
+    {
+      "module": "reprlib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/reprlib.py",
+      "sha256": "264433cc232332db871666b3bb6e4c2cb97b092cb8d5056a45ec2e53daea2b1c",
+      "bytes": 5437
+    },
+    {
+      "module": "selectors",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/selectors.py",
+      "sha256": "1eeb102373e18c96311203f30c516e785bd8642275aa0bd66e43a284c9692385",
+      "bytes": 19671
+    },
+    {
+      "module": "shlex",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/shlex.py",
+      "sha256": "42ab6060f316e121e374e6621d8c1c98b8db323903c3df289a810c45a8ae46a7",
+      "bytes": 13501
+    },
+    {
+      "module": "shutil",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/shutil.py",
+      "sha256": "f6da78257f31823dc53dc4fa72b27da59205d7dcfa97aa0f0683e546db91e26b",
+      "bytes": 55953
+    },
+    {
+      "module": "signal",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/signal.py",
+      "sha256": "0363c964c90ac0b3e515de5749205e6e6454051a1211058375d84d91eab6071a",
+      "bytes": 2495
+    },
+    {
+      "module": "site",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/site.py",
+      "sha256": "0577e4b379d8ef4aa0ecf88a264ef18c10f72ea72119afae36524d1aae77c9bf",
+      "bytes": 22987
+    },
+    {
+      "module": "socket",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/socket.py",
+      "sha256": "64360e73e3db69396d45d5ee256e8306b3653212ab96ae4a130070488cddbb30",
+      "bytes": 37557
+    },
+    {
+      "module": "socketserver",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/socketserver.py",
+      "sha256": "a1402df8627949d0b72591e742795fcd48f911172610d4e3c2f16bd7dcae8128",
+      "bytes": 27586
+    },
+    {
+      "module": "sqlite3",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/sqlite3/__init__.py",
+      "sha256": "29878411a7bcefcd56a3751fe689dea2c99bda75a13a485d78898834a323f0c0",
+      "bytes": 2536
+    },
+    {
+      "module": "sqlite3.dbapi2",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/sqlite3/dbapi2.py",
+      "sha256": "e49882f895bbbdad7e5af6a9079edffaae9b82bba3fd664281acb607db56c346",
+      "bytes": 3305
+    },
+    {
+      "module": "ssl",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ssl.py",
+      "sha256": "8a8f855a5f233136fc214e87b8cf7b63d5b7b663f796f4650cd0910988128f62",
+      "bytes": 55688
+    },
+    {
+      "module": "stat",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/stat.py",
+      "sha256": "052af0327eae6941b69b05c088b3e748f79995635f80ac4cc7125eb333eb4c77",
+      "bytes": 5485
+    },
+    {
+      "module": "string",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/string.py",
+      "sha256": "24aeae1f0526250f442022022bf98df9a823b1cb330543ee79e70e44907462e9",
+      "bytes": 11786
+    },
+    {
+      "module": "struct",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/struct.py",
+      "sha256": "9c231f9497caf513a22dee8f790b07f969b0e45854a0bdd6dd84b492e08c2856",
+      "bytes": 257
+    },
+    {
+      "module": "subprocess",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/subprocess.py",
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9",
+      "bytes": 88725
+    },
+    {
+      "module": "sysconfig",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/sysconfig.py",
+      "sha256": "c16887bf792dc21f27fe5d2ca4ee271f131b7f6a88593def43be52cfbc846759",
+      "bytes": 30315
+    },
+    {
+      "module": "tempfile",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/tempfile.py",
+      "sha256": "ea4b01b1dfd4ab1f3974a98c216879770a4f7db060bf233a48e3a4223487c836",
+      "bytes": 31873
+    },
+    {
+      "module": "textwrap",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/textwrap.py",
+      "sha256": "62867e40cdea6669b361f72af4d7daf0359f207c92cbeddfc7c7506397c1f31c",
+      "bytes": 19718
+    },
+    {
+      "module": "threading",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/threading.py",
+      "sha256": "f8b8d9ebd040e1373d76e73c23c683f7c7c204add96bf9d8d9c21ac751cf5252",
+      "bytes": 58231
+    },
+    {
+      "module": "token",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/token.py",
+      "sha256": "2cabb6a81cafa84b475fc852c20b6bad45955ec0f88063720a831495215f776b",
+      "bytes": 2386
+    },
+    {
+      "module": "tokenize",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/tokenize.py",
+      "sha256": "79aa94ebe1761811ea9b2da2ada409a8cb9abd7c6eac241d0c181a36684bb609",
+      "bytes": 26336
+    },
+    {
+      "module": "traceback",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/traceback.py",
+      "sha256": "c40d394aad6a3456d6b62385732a7d6272fb3444e9fa388710efefe75070201d",
+      "bytes": 40547
+    },
+    {
+      "module": "types",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/types.py",
+      "sha256": "0c08fbb650c37535a7d8361fc12029e3f4c72a418cf564e8779dae14b979e5ba",
+      "bytes": 10067
+    },
+    {
+      "module": "typing",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/typing.py",
+      "sha256": "eff3df4f1d65e13d690b8f427cada4dd3b88431dd1e7f319fda1bd0062113203",
+      "bytes": 120951
+    },
+    {
+      "module": "typing_extensions",
+      "path": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/typing_extensions.py",
+      "sha256": "4040ca1a1ecbee00d1385c12a93084d1c5bd46f0b774f07e5ae7e91c4f55e696",
+      "bytes": 165012
+    },
+    {
+      "module": "urllib",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/urllib/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "module": "urllib.parse",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/urllib/parse.py",
+      "sha256": "16d609efe91f08901df42c3176a6046e34e97fd39813954871d5a16e89e6b454",
+      "bytes": 44836
+    },
+    {
+      "module": "uuid",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/uuid.py",
+      "sha256": "e936b632e7b14cbdad7da077edf59d1de77f5a4c8507a5e7d0028b1d336d9883",
+      "bytes": 27597
+    },
+    {
+      "module": "warnings",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/warnings.py",
+      "sha256": "47328418f0365f0897a2d3789f684dbaba1d5b9c492871f1b72a35b8e2e92021",
+      "bytes": 21110
+    },
+    {
+      "module": "weakref",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/weakref.py",
+      "sha256": "56f8d313fb74019e53eb9287400702fbce788b7fe30e097b0b6e06296f3f080c",
+      "bytes": 21513
+    },
+    {
+      "module": "zipfile",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/zipfile.py",
+      "sha256": "6f39d6578b4edcf5d3901748e7c8fa8a156e5fb942ab7ad9d2ff04e0879bdaf7",
+      "bytes": 96163
+    },
+    {
+      "module": "zipimport",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/zipimport.py",
+      "sha256": "e84b98dd13d3a8ae3ff2094ef2889dcead41d754f0531686f0b70b8d225676cc",
+      "bytes": 30897
+    },
+    {
+      "module": "zoneinfo",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/zoneinfo/__init__.py",
+      "sha256": "ac7fb403e4371d07482ef2fda81dbcf6879484e9fc41d4be42c156d7e54c68a8",
+      "bytes": 703
+    },
+    {
+      "module": "zoneinfo._common",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/zoneinfo/_common.py",
+      "sha256": "67deaf0ba41aa4865e007297677207485a89b75629eea0ee5c472be8a3e83bf6",
+      "bytes": 5294
+    },
+    {
+      "module": "zoneinfo._tzpath",
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/zoneinfo/_tzpath.py",
+      "sha256": "90326cdd057e1161f1049c6c4a8b486d8ade35371c44fc3fb42dd13f2bedd6b6",
+      "bytes": 5096
+    }
+  ],
+  "noGateway": true,
+  "noActiveContext": true,
+  "installedPackage": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages"
+}

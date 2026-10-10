@@ -1,0 +1,26 @@
+{
+  "Id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+  "Image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+  "labels": {
+    "ashlar.purpose": "end-to-end-development"
+  },
+  "state": {
+    "Running": true,
+    "OOMKilled": false,
+    "Status": "running"
+  },
+  "limits": {
+    "Memory": 536870912,
+    "NanoCpus": 1000000000,
+    "CpuQuota": 0,
+    "CpuPeriod": 0
+  },
+  "ports": {
+    "5432/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "15432"
+      }
+    ]
+  }
+}

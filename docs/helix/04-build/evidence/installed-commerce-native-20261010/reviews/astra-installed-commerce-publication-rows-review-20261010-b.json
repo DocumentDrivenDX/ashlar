@@ -1,0 +1,548 @@
+{
+  "format": "astra-installed-commerce-publication-raw-rows-review/0.1",
+  "verdict": "PASS",
+  "scope": "Offline complete original Commerce publication current/history cells; Delta metadata and active Parquet. No engine, compiler, SQL, PostgreSQL, SQLite connection, native rerun, or new broader qualification. ACK/source producer authority reviewed separately by parent. Native schema is deliberately nullable true, not baseline NOT NULL enforcement.",
+  "report": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/report.json",
+    "sha256": "62d088a5a6734a2cd5073886165a821b959e00b78c7820d4c854c9cf5fc3958b",
+    "bytes": 469983
+  },
+  "reviewerScript": {
+    "path": "/private/tmp/astra-installed-commerce-publication-rows-review-20261010-b.py",
+    "sha256": "0f5f6e5e9a48f62a2e488b954a6103c54d252acf8c98dbf75f0c2cbb1889d2f8",
+    "bytes": 12745
+  },
+  "runtime": {
+    "executable": "/Users/erik/Projects/tablespec/.venv/bin/python",
+    "python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]",
+    "pyarrow": "22.0.0"
+  },
+  "sourceInputs": [
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/original-ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/original-graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/development-bindings.json",
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe",
+      "bytes": 9226
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/source.jsonl",
+      "sha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482",
+      "bytes": 25547
+    },
+    {
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+      "bytes": 3996
+    }
+  ],
+  "checks": {
+    "sourceMatchesInstalledOriginalResources": true,
+    "completeOriginalRecordPrimaryKeys": 11,
+    "authoredRelationshipOccurrencesAndFullEndpoints": 10,
+    "completeSigned64DevelopmentIdentities": 21,
+    "completePropertyBindings": 34,
+    "sourceEventBytesDerivedFromOriginalGraph": 21,
+    "objectRows": 11,
+    "edgeRows": 10,
+    "historyRows": 21,
+    "tombstones": 0,
+    "allCurrentHistoryCells": 513,
+    "allFourRowBagsMatchIndependentSourceDerivation": true,
+    "allSixNativeSchemasUUIDsAndVersionsMatch": true,
+    "nativeManifestMatchesRetainedReport": true,
+    "closingInspectedFilesUnchanged": true
+  },
+  "tables": [
+    {
+      "role": "object_current",
+      "uuid": "be3dfcf4-5a5b-4092-9f1d-dc87ab3c26c3",
+      "version": 2,
+      "rowCount": 11,
+      "activeParquetFiles": 1,
+      "orderedColumns": [
+        [
+          "source_system",
+          "STRING"
+        ],
+        [
+          "type_id",
+          "BIGINT"
+        ],
+        [
+          "id",
+          "BIGINT"
+        ],
+        [
+          "logical_key_json",
+          "STRING"
+        ],
+        [
+          "schema_revision",
+          "STRING"
+        ],
+        [
+          "entity_version",
+          "BIGINT"
+        ],
+        [
+          "props_json",
+          "STRING"
+        ],
+        [
+          "retained_json",
+          "STRING"
+        ],
+        [
+          "root_id",
+          "BIGINT"
+        ],
+        [
+          "source_feed",
+          "STRING"
+        ],
+        [
+          "source_epoch",
+          "STRING"
+        ],
+        [
+          "source_position",
+          "BIGINT"
+        ],
+        [
+          "published_at",
+          "TIMESTAMP"
+        ],
+        [
+          "lookup_hash",
+          "STRING"
+        ],
+        [
+          "apply_batch_id",
+          "STRING"
+        ],
+        [
+          "source_cursor_json",
+          "STRING"
+        ],
+        [
+          "source_delivery_id",
+          "STRING"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "d807b9cece3c3474be4540e675085cfb951b479934931c1b611d6efb8954c5c9"
+    },
+    {
+      "role": "edge_current",
+      "uuid": "efb5ca0b-a7be-4540-acc6-e554e2bf7fba",
+      "version": 2,
+      "rowCount": 10,
+      "activeParquetFiles": 1,
+      "orderedColumns": [
+        [
+          "source_system",
+          "STRING"
+        ],
+        [
+          "rel_type_id",
+          "BIGINT"
+        ],
+        [
+          "id",
+          "BIGINT"
+        ],
+        [
+          "source_type",
+          "BIGINT"
+        ],
+        [
+          "source_id",
+          "BIGINT"
+        ],
+        [
+          "target_type",
+          "BIGINT"
+        ],
+        [
+          "target_id",
+          "BIGINT"
+        ],
+        [
+          "schema_revision",
+          "STRING"
+        ],
+        [
+          "entity_version",
+          "BIGINT"
+        ],
+        [
+          "props_json",
+          "STRING"
+        ],
+        [
+          "retained_json",
+          "STRING"
+        ],
+        [
+          "order_key",
+          "STRING"
+        ],
+        [
+          "source_feed",
+          "STRING"
+        ],
+        [
+          "source_epoch",
+          "STRING"
+        ],
+        [
+          "source_position",
+          "BIGINT"
+        ],
+        [
+          "published_at",
+          "TIMESTAMP"
+        ],
+        [
+          "lookup_hash",
+          "STRING"
+        ],
+        [
+          "apply_batch_id",
+          "STRING"
+        ],
+        [
+          "source_cursor_json",
+          "STRING"
+        ],
+        [
+          "source_delivery_id",
+          "STRING"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "dbce8f94de1627b5ae68170f5f771b7e3dfb122bc35a5dcf2f5a7d30e24eaf1c"
+    },
+    {
+      "role": "tombstone",
+      "uuid": "9ae27807-ece4-40d6-a493-119ba2afc823",
+      "version": 1,
+      "rowCount": 0,
+      "activeParquetFiles": 0,
+      "orderedColumns": [
+        [
+          "source_system",
+          "STRING"
+        ],
+        [
+          "entity_kind",
+          "STRING"
+        ],
+        [
+          "type_id",
+          "BIGINT"
+        ],
+        [
+          "id",
+          "BIGINT"
+        ],
+        [
+          "entity_version",
+          "BIGINT"
+        ],
+        [
+          "source_feed",
+          "STRING"
+        ],
+        [
+          "source_epoch",
+          "STRING"
+        ],
+        [
+          "source_position",
+          "BIGINT"
+        ],
+        [
+          "source_cursor_json",
+          "STRING"
+        ],
+        [
+          "source_delivery_id",
+          "STRING"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "026fd0f7-8c17-43e6-98d2-9d34dd2b887d",
+      "version": 2,
+      "rowCount": 21,
+      "activeParquetFiles": 1,
+      "orderedColumns": [
+        [
+          "feed",
+          "STRING"
+        ],
+        [
+          "epoch",
+          "STRING"
+        ],
+        [
+          "delivery_id",
+          "STRING"
+        ],
+        [
+          "digest",
+          "STRING"
+        ],
+        [
+          "change_json",
+          "STRING"
+        ],
+        [
+          "raw_base64",
+          "STRING"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "2d54a456670d120b88e77e24ae60004ffa8e22928ba6dcc9ee55258967af503f"
+    },
+    {
+      "role": "attempts",
+      "uuid": "b86a723f-e8f2-454f-861c-f84805c12ac8",
+      "version": 6,
+      "rowCount": 5,
+      "activeParquetFiles": 5,
+      "orderedColumns": [
+        [
+          "stream",
+          "STRING"
+        ],
+        [
+          "batch_id",
+          "STRING"
+        ],
+        [
+          "phase",
+          "STRING"
+        ],
+        [
+          "request_digest",
+          "STRING"
+        ],
+        [
+          "payload_json",
+          "STRING"
+        ],
+        [
+          "payload_digest",
+          "STRING"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "c006a619a07694970bbf07c3bd79fb099c66cc41b3fe54e93a0c0485c9594003"
+    },
+    {
+      "role": "manifest",
+      "uuid": "125560c0-fa66-4c22-a789-74bc86ed0c02",
+      "version": 2,
+      "rowCount": 1,
+      "activeParquetFiles": 1,
+      "orderedColumns": [
+        [
+          "publication_id",
+          "STRING"
+        ],
+        [
+          "profile_version",
+          "STRING"
+        ],
+        [
+          "table_versions_json",
+          "STRING"
+        ],
+        [
+          "source_progress_json",
+          "STRING"
+        ],
+        [
+          "schema_revisions_json",
+          "STRING"
+        ],
+        [
+          "validation_report_json",
+          "STRING"
+        ],
+        [
+          "recorded_at",
+          "TIMESTAMP"
+        ]
+      ],
+      "nullable": true,
+      "rowsSha256": "5fada3b687cf2128d644ca244dc4a99ef7932d5ec6fbecc8802c859194671f4a"
+    }
+  ],
+  "inspectedDeltaAndActiveParquetFiles": [
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/object_current/_delta_log/00000000000000000000.json",
+      "sha256": "7c439fea9f9994378591eed7bc2f9c74ee84c8e647b4b6dfd56a394c9d618d2f",
+      "bytes": 2033
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/object_current/_delta_log/00000000000000000001.json",
+      "sha256": "91cadd2580f01ce0ced2a3f8edca7b94df18f5fb3c3828736d63fdd7199e4925",
+      "bytes": 2795
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/object_current/_delta_log/00000000000000000002.json",
+      "sha256": "7420c870df7dde242c1a2421ac5dc1f6a8f7a95090806129cca75a51d009d734",
+      "bytes": 2717
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/object_current/part-00000-76dabdc4-05ee-46f0-87fa-b404189ccdce-c000.snappy.parquet",
+      "sha256": "8583f357e73c796669d1fd936c409d2d8f2cf2a0d2869e307026cee212e0c602",
+      "bytes": 10265
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/edge_current/_delta_log/00000000000000000000.json",
+      "sha256": "081d7403120f50aec4a41b2be2ec7ed5750ff936ae1330101b52c31e65f0d64f",
+      "bytes": 2267
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/edge_current/_delta_log/00000000000000000001.json",
+      "sha256": "2dc018c0ef4d0c4091087e8eb6ac9614e667b7e06603ce49c213dee6c759d370",
+      "bytes": 3029
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/edge_current/_delta_log/00000000000000000002.json",
+      "sha256": "41fe341af65e27ed38d5c6263321a335e473fb1a1faf42b9fb1255ded972a2a0",
+      "bytes": 2727
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/edge_current/part-00000-534992d0-225e-4ad2-954e-05eebaaf8122-c000.snappy.parquet",
+      "sha256": "fa52393c6ba8b26e684f6cd0ca382bb0cea09dad2618eb7a361a1af0b6b40db1",
+      "bytes": 11425
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/tombstone/_delta_log/00000000000000000000.json",
+      "sha256": "288961960cab0055ecf216355537127fefceefea82038de6b36ed46339437294",
+      "bytes": 1455
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/tombstone/_delta_log/00000000000000000001.json",
+      "sha256": "0ead966ea5a25ba185898bba98db709b4a9b0fb82c270f5e1045217b8b970ee8",
+      "bytes": 2217
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/whole_source_history/_delta_log/00000000000000000000.json",
+      "sha256": "5c41f677d00d1c3e83de815aecdb88765758725623ecd6cfd0509d9d7dccba28",
+      "bytes": 1109
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/whole_source_history/_delta_log/00000000000000000001.json",
+      "sha256": "f94c4cc484be8eb039bc640f341bba74ff23b34c0c7496513038a7552cf94e3b",
+      "bytes": 1871
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/whole_source_history/_delta_log/00000000000000000002.json",
+      "sha256": "93d927c2bf6fd982e5c0b7a5597dce6b0bceea195dcc5694790b503fe88808df",
+      "bytes": 1655
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/whole_source_history/part-00000-67f9d5f0-658c-4da0-8101-bd9b7facaea4-c000.snappy.parquet",
+      "sha256": "e9d41916f7035234488a59deb66c9964a370b1a20bcecfa8dbb97a9c2b1aeb7a",
+      "bytes": 21911
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000000.json",
+      "sha256": "84e46deeedbb05d86d1f1f3c5c99b6613d196d57dc177c72b54385999ebda3e6",
+      "bytes": 1121
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000001.json",
+      "sha256": "9e26977a1b412aa2c99d82a80ad0e902b6b4a55e14aea733b8922ecb61afdc3f",
+      "bytes": 1883
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000002.json",
+      "sha256": "167f14b78c0e41ff982ea6d3ca85124ef79c72d9afb0a4eeccbd471528493d26",
+      "bytes": 2837
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000003.json",
+      "sha256": "3b7ab3e7b80352feac5aaf3cf45973206b12b74f5c07947a909e295d57852a9d",
+      "bytes": 2836
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000004.json",
+      "sha256": "4ea1763db1ad3ad274de1add23c304949f4c7312f8fc8e847fac4b4bea514e01",
+      "bytes": 2834
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000005.json",
+      "sha256": "4d759e00c3ede6f2e22e639e3e80a6931f63b682d67d40304e28d19a8f66f5f4",
+      "bytes": 2839
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/_delta_log/00000000000000000006.json",
+      "sha256": "f99464340d41aefc17c96e1612f60546cc930c0b605aca97e2240d04b039ae40",
+      "bytes": 2849
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/part-00000-56353d50-29b4-4989-b909-e8bba1062f9c-c000.snappy.parquet",
+      "sha256": "219967fdc97f9c0dc387cc4898c0ee7a9e2f26b0174be1ce95382fa0cfc5b75e",
+      "bytes": 12162
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/part-00000-ba6d023c-fa3a-4d98-b1ee-7218d89c7404-c000.snappy.parquet",
+      "sha256": "135d96e66c35f2ebbe1afadc002e6e66315f848d1db2cdac078320ba70d19c7c",
+      "bytes": 12161
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/part-00000-4dcd1eea-e805-4209-84f8-0e9fa5acb00d-c000.snappy.parquet",
+      "sha256": "f4517af1ec349d611efc2ffdd46bac4e357cf3a08b0392a2559cf9dad76f40b0",
+      "bytes": 66347
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/part-00000-83f13508-ca36-4433-9757-ed3632392f24-c000.snappy.parquet",
+      "sha256": "977582911f6189969a87b90be7fc402f9ce8837372ecd7b54b44dcfdf4f7a194",
+      "bytes": 66368
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/attempts/part-00000-105a2c53-3afc-444b-b7dd-d434b193b642-c000.snappy.parquet",
+      "sha256": "93875e4c8a58063b280043607daea6d48230adfe9a5e68335262f9fffc70a24e",
+      "bytes": 89097
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/manifest/_delta_log/00000000000000000000.json",
+      "sha256": "b06716d81d977b711e0902035d6947bbb582ea41e8aeddf49d456666fd7a25aa",
+      "bytes": 1257
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/manifest/_delta_log/00000000000000000001.json",
+      "sha256": "05b80e0ec317ff491a8b233fbbd5bb01ce1d14467795d626b4df3c8d9da1f236",
+      "bytes": 2019
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/manifest/_delta_log/00000000000000000002.json",
+      "sha256": "e461caa2e9aa4fe669abfcc4cd349b0b8486ed80568c29d556aabafcf818e9b4",
+      "bytes": 3282
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/manifest/part-00000-09cf8125-71a1-412f-b4f9-d1af0077ecc5-c000.snappy.parquet",
+      "sha256": "1771e24338b9f37750e1696b3f221ebf28ce1196ed8a1c6d2bdae38fa9580b9b",
+      "bytes": 27683
+    }
+  ]
+}

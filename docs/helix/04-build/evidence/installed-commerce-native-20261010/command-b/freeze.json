@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+      "sha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+      "bytes": 1111333
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/execution.json",
+      "sha256": "86e9b617bc82a7a4c073c167bbcf57da8e7c022a9958b3684ee5ead7099af887",
+      "bytes": 1442
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/launch.py",
+      "sha256": "307937e56e300f8b30f3c85286141e67a2f62ef45bcbb2567243ee06d67e108a",
+      "bytes": 2772
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/pg-observation.json",
+      "sha256": "45705e50f9d6695b4f7b6e9509b23310fc7c1711560f13148d31fd3d34c23975",
+      "bytes": 545
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/probe.py",
+      "sha256": "1ce150d39c2a94ebe6c7a99edb2b1dca1d9b4fa7e97d7960c5ee83fe08656982",
+      "bytes": 2404
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-imports.json",
+      "sha256": "aad76b6d1b1e9c0d2f241b596f851c57899c7a1f71f59424f404c163ef4d9b4a",
+      "bytes": 119161
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-imports.json",
+      "sha256": "ac297fd93a8d44ecb4d8150fccd6c62984e00712dc7bdeb360e2f324f8aea305",
+      "bytes": 124635
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "resourceCount": 4888,
+  "compilerExecuted": false,
+  "nativeExecuted": false,
+  "preflights": "Both installed public runtime_paths pass; no gateway/context. Root exact2JAR copies selected.",
+  "supersedes": "826cace57226c521b56e9dc000f97f815510960792fa1014a3313e31effae6fa",
+  "delta": "Command2MiB finite bound accommodates selected4888 resource vector; single read per custody entry. FreshB outputs, phase recipes otherwise unchanged."
+}

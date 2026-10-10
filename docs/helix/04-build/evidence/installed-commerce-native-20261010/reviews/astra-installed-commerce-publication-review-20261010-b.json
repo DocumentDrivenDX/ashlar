@@ -1,0 +1,91 @@
+{
+  "decision": "Publication source/publicreceipt/ACK/journal/cleanup custody PASS; raw native row review supplied separately before query gate",
+  "report": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/report.json",
+    "sha256": "62d088a5a6734a2cd5073886165a821b959e00b78c7820d4c854c9cf5fc3958b",
+    "bytes": 469983
+  },
+  "processReceipt": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-process.json",
+    "sha256": "fde11ddac87e47a375faaf383951318d8e4cd631bcc2ecc3f5256ab0ab60c8bb",
+    "bytes": 20392
+  },
+  "cleanup": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-cleanup.json",
+    "sha256": "f5c7f682ac2096288f4bc14a24dc66656f64302b782057416058f9a422648b81",
+    "bytes": 136
+  },
+  "preflight": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-preflight.json",
+    "sha256": "e4ab7b7c741ddeb04a83a7ec923488de7feb58aa06af5e7d561713c92013caaa",
+    "bytes": 558
+  },
+  "terminal": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-terminal.json",
+    "sha256": "380c6b02146b99ce08aeaf16bbed7779c61f41eebb796075422d835c38156f63",
+    "bytes": 79
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/source.jsonl",
+    "sha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482",
+    "bytes": 25547
+  },
+  "publicReceipt": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/public-dataset.json",
+    "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16",
+    "bytes": 2037521
+  },
+  "journal": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/operations.sqlite",
+    "sha256": "9408a737055bec75664276e5c23e0d94328925efa71b2072e51b610799491138",
+    "bytes": 7204864
+  },
+  "counts": {
+    "sourceEvents": 21,
+    "objects": 11,
+    "edges": 10,
+    "history": 21,
+    "tombstones": 0,
+    "publicKeys": 11,
+    "negativePublicControls": 3,
+    "journalOperationsCommitted": 9,
+    "journalPlans": 1,
+    "journalArtifacts": 1,
+    "journalSourcePlans": 1,
+    "publicationFiles": 77
+  },
+  "nativeVersions": {
+    "local.commerce.edge_current": 2,
+    "local.commerce.object_current": 2,
+    "local.commerce.tombstone": 1,
+    "local.commerce.whole_source_history": 2
+  },
+  "protectedACK": {
+    "position": "1",
+    "scope": {
+      "consumer": "private-local-pipeline",
+      "epoch": "original-commerce-v1",
+      "feed": "private-original-commerce-fixture",
+      "installation_id": "73e22107-66ae-4f2e-8501-dd01c82bde6b",
+      "scope_id": "9dc247b8-1ca4-43b8-9c76-5cce5f32969b",
+      "service_schema": "ashlar_ack_pipeline_afc0f0c6c36e"
+    },
+    "requestSha256": "8fde1b80674747810602d44893e176eabbfaef23673c58bd215b91dfcd8f6c93",
+    "manifestSha256": "407703881fad925801ee93143dfd46f6cd761ee4b34fc21997cbde2d287731af",
+    "receiptSha256": "c85fbac5a6eda59a39d40b57a5c4ea4c5bc88de162dcc2da4d2ad6c9bd3caafb"
+  },
+  "checks": [
+    "Original installed model/graph and canonical development transaction rebuilt byte-for-byte; all21 source record envelopes and full protected source request retained.",
+    "Fresh actual public c7 receipt preserves original model/source and complete11record/11key/10relationship occurrence inventory and three negative controls.",
+    "Actual ordinary-role protected ACK receipt hashes bind exact source request and publication manifest, position1 scope and payload digest.",
+    "Byte-identical disposable SQLite copy has9committed operations, oneplan/artifact/sourceplan matching original ACK request and full native manifest.",
+    "Root terminal0, zeroSpark cleanup, solelease/ordinaryrole preflight, all77closing file hashes unchanged after read-only review.",
+    "Source emits report only after transport.close and Spark.stop and final runtime recheck; reportqualification remains actual source docstring."
+  ],
+  "limitations": [
+    "No native/SQL/PG/compiler execution by reviewer; SQLite copy only, original journal untouched.",
+    "Public receipt provenance remains unverified original-document provenance; actual producer version/source-custody and finite dataset scope are distinct.",
+    "Native raw Delta/Parquet source-cell correspondence is a separate child review required before query.",
+    "No Paths04/indexed-distribution replacement or universal installed native profile claim."
+  ]
+}

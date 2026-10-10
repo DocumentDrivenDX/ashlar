@@ -1,0 +1,42 @@
+{
+  "commandSha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+  "phases": [
+    {
+      "phase": "publish",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/ashlar-installed-commerce-command-20261010-b/launch.py",
+        "--command",
+        "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+        "--sha256",
+        "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+        "--phase",
+        "publish"
+      ],
+      "cwd": "/private/tmp/ashlar-installed-commerce-command-20261010-b",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
+    },
+    {
+      "phase": "query",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/ashlar-installed-commerce-command-20261010-b/launch.py",
+        "--command",
+        "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+        "--sha256",
+        "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+        "--phase",
+        "query"
+      ],
+      "cwd": "/private/tmp/ashlar-installed-commerce-command-20261010-b",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
+    }
+  ],
+  "status": "NOT EXECUTED; independent command review and root exclusive per-phase grant required"
+}

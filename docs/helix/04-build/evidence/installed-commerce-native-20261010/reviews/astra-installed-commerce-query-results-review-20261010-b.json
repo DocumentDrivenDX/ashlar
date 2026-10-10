@@ -1,0 +1,119 @@
+{
+  "format": "astra-installed-commerce-query-results-review/0.1",
+  "verdict": "PASS",
+  "scope": "Exactly the installed original-Commerce three executed cases: one String projection, one global COUNT(*), one first-hop bounded RELATED_KEYS. Independent finite original-source result/guard/schema correspondence; no compiler, SQL, engine or database invocation. Parent separately reviews compiler custody, ACK intervals, full resource closure and lifecycle. No general parallel-edge, two-hop, all-profile or cloud qualification inferred.",
+  "report": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/queries/report.json",
+    "sha256": "68e9b732a7f5ef6cfcdb8ba35454694d3699a38287f5b3d51fa20f7f85327904",
+    "bytes": 3519178
+  },
+  "script": {
+    "path": "/private/tmp/astra-installed-commerce-query-results-review-20261010-b.py",
+    "sha256": "fd14a16aab862b3b4405b07094db34b939212270f0c6e5f6a1beca28c1d9e51d",
+    "bytes": 12884
+  },
+  "preObservationSourceExpectations": {
+    "path": "/private/tmp/astra-installed-commerce-query-source-expectations-20261010-b.json",
+    "sha256": "a7b99024cacf85f2f012010e6230e7e9a6cd9b711aa011a32dc45f444c3d47a7",
+    "bytes": 713
+  },
+  "publicationRawRowsReceipt": {
+    "path": "/private/tmp/astra-installed-commerce-publication-rows-review-20261010-b.json",
+    "sha256": "2d2cc0d7e4c3e6c10e9bdf19f02848cd3d3c2566a6d7bd7c68f64769e71547e7",
+    "bytes": 17108
+  },
+  "expectedAndActual": {
+    "string-projection": [
+      {
+        "id": "[42,0,\"P1\"]"
+      }
+    ],
+    "global-count": [
+      {
+        "n": "1"
+      }
+    ],
+    "relationship": [
+      {
+        "id": "[42,0,\"P1\"]",
+        "suppliers": {
+          "items": [
+            [
+              "[42,0,\"S1\"]"
+            ]
+          ],
+          "truncated": false
+        }
+      }
+    ]
+  },
+  "checks": {
+    "exactOriginalModelBytesInThreeRequests": true,
+    "exactLexicalStringKeysPreserved": true,
+    "countTextCarrierExact": "1",
+    "relationshipItems": 1,
+    "relationshipTruncated": false,
+    "reportedGuards": 13,
+    "reportedGuardBagsExactZero": true,
+    "guardInventoryExactVsArtifacts": true,
+    "finiteGuardSourceGrounds": "Original selected product/supplier keys and carrier IDs are unique/non-null; authored endpoints exist with exact types/revision; scoped relationship has one signed64 edge ID; source degree 1 and target degree 1 satisfy 1..1 and 0..* respectively.",
+    "relationshipNativeSchemaObservations": 2,
+    "nativeSchemasMatchDeltaMetadata": true,
+    "nativeIDsAndEndpoints": "BIGINT",
+    "nativeNullability": true,
+    "outputLogicalNullability": false,
+    "parameterSlotsMatchOriginalBindings": true,
+    "pinnedCurrentVersions": 2,
+    "closingReportUnchanged": true
+  },
+  "mutationControlsRejected": [
+    "String lexical key collapsed",
+    "Count carrier changed to JSON number",
+    "Count changed",
+    "Supplier lexical key collapsed",
+    "Supplier bag duplicated",
+    "Truncation flipped",
+    "Raw carrier differs from decoded",
+    "Guard reports nonzero",
+    "Guard omitted",
+    "Guard SQL altered",
+    "Native id changed from BIGINT",
+    "Native nullable changed",
+    "Native UUID changed",
+    "Property binding slot changed",
+    "Bound changed"
+  ],
+  "artifacts": [
+    {
+      "case": "string-projection",
+      "sqlSha256": "e57368cff0ca9e93c809738399c1d815b56c9c9150e2e8d43e60f778e2be1440",
+      "guardSqlSha256": [
+        "6d06e6ae87415360579e2badcea26fbe1d2d70b271d02dffb812106c84424b4a"
+      ]
+    },
+    {
+      "case": "global-count",
+      "sqlSha256": "5784258454358281af3c18d6d51ebb92cdf53463c7afc61c8d5f49f1368bc5e7",
+      "guardSqlSha256": [
+        "4abdfac08a3fc749f34a24ff4dc73c70b372b460975ae6992f7726072f1ad7de"
+      ]
+    },
+    {
+      "case": "relationship",
+      "sqlSha256": "a92bc7519dfd3d36b083c2a32db6f20dc0175109d80a041ab4112f5155ccfaf5",
+      "guardSqlSha256": [
+        "d928c3855b299e76415b65fe31729598941db8bef8087a3140f10c9ebbbf32d1",
+        "12d8c3ab92bac22121b02c9844682970b57a31b05a2ed08c656e58b4d40f3bd9",
+        "a5fe9e0a21d59cf56194dc97e15feedad7a2efc9e7f2496d284dea611b0520a2",
+        "6458775d40be204df57b945c415b23b8719248a17a50ac63ebff104c60c7c5d1",
+        "96ecdffe3ee75fd44f0b3e5d5fc44bffa8a8841e6daa994725c6b237acb3d3a3",
+        "323002918a709e2c82a50ab4ea6077119feb27d9da8ad7652a35ac9cd57a406b",
+        "48b05b4368c912f9a6858ba55cafcd965a43389447237cd5a36bb130369b28d4",
+        "cecda5606ed22ac53ae10abf35ed7a006d83ed82ff02ebc937223b2a38e365a8",
+        "6d06e6ae87415360579e2badcea26fbe1d2d70b271d02dffb812106c84424b4a",
+        "322984bb66cc41e1ec9f90d8185f164e139f03449fd61513ab8bbb74e6cdd2be",
+        "1c4703ff30cdbbc2bda71214e161e9653fe42837f35b9b1e791244c0f3a06a00"
+      ]
+    }
+  ]
+}

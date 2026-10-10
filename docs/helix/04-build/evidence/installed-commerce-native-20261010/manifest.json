@@ -1,0 +1,374 @@
+{
+  "scope": "Exact selected installedD-wheel original-commerce publication/query workflow observations, source and reviews. Query aggregate review pending. All77 original files preserved; onlySQLiteSHM32768/WAL0 added. Uses indexedab899 compiler02, not Paths04. External4888 selected resource files/runtime/native77 table+journal+credential carrier files remain hash-bound at retainedpaths, not bundled; postgres-installation credential content excluded. Earlier source/commandA provenance is external and explicitly qualified in retainedreviews. No realTruss/Fabric/Unity production authority or blanket nativequery support claim.",
+  "entries": [
+    {
+      "archive": "command-b/freeze.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/freeze.json",
+      "bytes": 2337,
+      "sha256": "adfb98b4fa2f75b053f3e0a8f3034bc3c98cf834f8afb214c58a879a45225c13",
+      "encoding": "identity",
+      "archiveBytes": 2337,
+      "archiveSha256": "adfb98b4fa2f75b053f3e0a8f3034bc3c98cf834f8afb214c58a879a45225c13"
+    },
+    {
+      "archive": "command-b/command.json.gz",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+      "bytes": 1111333,
+      "sha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+      "encoding": "gzip",
+      "archiveBytes": 242522,
+      "archiveSha256": "5ecfe43305f01496a13ee2b198e32d5d9c202b8056bbd02403eea82f1019e5df"
+    },
+    {
+      "archive": "command-b/execution.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/execution.json",
+      "bytes": 1442,
+      "sha256": "86e9b617bc82a7a4c073c167bbcf57da8e7c022a9958b3684ee5ead7099af887",
+      "encoding": "identity",
+      "archiveBytes": 1442,
+      "archiveSha256": "86e9b617bc82a7a4c073c167bbcf57da8e7c022a9958b3684ee5ead7099af887"
+    },
+    {
+      "archive": "command-b/launch.py",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/launch.py",
+      "bytes": 2772,
+      "sha256": "307937e56e300f8b30f3c85286141e67a2f62ef45bcbb2567243ee06d67e108a",
+      "encoding": "identity",
+      "archiveBytes": 2772,
+      "archiveSha256": "307937e56e300f8b30f3c85286141e67a2f62ef45bcbb2567243ee06d67e108a"
+    },
+    {
+      "archive": "command-b/pg-observation.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/pg-observation.json",
+      "bytes": 545,
+      "sha256": "45705e50f9d6695b4f7b6e9509b23310fc7c1711560f13148d31fd3d34c23975",
+      "encoding": "identity",
+      "archiveBytes": 545,
+      "archiveSha256": "45705e50f9d6695b4f7b6e9509b23310fc7c1711560f13148d31fd3d34c23975"
+    },
+    {
+      "archive": "command-b/probe.py",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/probe.py",
+      "bytes": 2404,
+      "sha256": "1ce150d39c2a94ebe6c7a99edb2b1dca1d9b4fa7e97d7960c5ee83fe08656982",
+      "encoding": "identity",
+      "archiveBytes": 2404,
+      "archiveSha256": "1ce150d39c2a94ebe6c7a99edb2b1dca1d9b4fa7e97d7960c5ee83fe08656982"
+    },
+    {
+      "archive": "command-b/publish-imports.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-imports.json",
+      "bytes": 119161,
+      "sha256": "aad76b6d1b1e9c0d2f241b596f851c57899c7a1f71f59424f404c163ef4d9b4a",
+      "encoding": "identity",
+      "archiveBytes": 119161,
+      "archiveSha256": "aad76b6d1b1e9c0d2f241b596f851c57899c7a1f71f59424f404c163ef4d9b4a"
+    },
+    {
+      "archive": "command-b/publish-probe.stderr",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-probe.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity",
+      "archiveBytes": 0,
+      "archiveSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "command-b/query-imports.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-imports.json",
+      "bytes": 124635,
+      "sha256": "ac297fd93a8d44ecb4d8150fccd6c62984e00712dc7bdeb360e2f324f8aea305",
+      "encoding": "identity",
+      "archiveBytes": 124635,
+      "archiveSha256": "ac297fd93a8d44ecb4d8150fccd6c62984e00712dc7bdeb360e2f324f8aea305"
+    },
+    {
+      "archive": "command-b/query-probe.stderr",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-probe.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity",
+      "archiveBytes": 0,
+      "archiveSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "root-publish-a.py",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-a.py",
+      "bytes": 2372,
+      "sha256": "17a8e996e19b457da6be1ad5a172b050c36cb1bd22d04474f974e1cc6e1b56b8",
+      "encoding": "identity",
+      "archiveBytes": 2372,
+      "archiveSha256": "17a8e996e19b457da6be1ad5a172b050c36cb1bd22d04474f974e1cc6e1b56b8"
+    },
+    {
+      "archive": "root-publish-b.py",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-b.py",
+      "bytes": 2363,
+      "sha256": "ee80306e4a596a2e08182f6f1bb90a56fe56d3736cd35859d44ebfb80fff5e38",
+      "encoding": "identity",
+      "archiveBytes": 2363,
+      "archiveSha256": "ee80306e4a596a2e08182f6f1bb90a56fe56d3736cd35859d44ebfb80fff5e38"
+    },
+    {
+      "archive": "root-publish-a-outcome.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-a-outcome.json",
+      "bytes": 127,
+      "sha256": "26624be56f4035323898a62ca0a176272a44774a3f40983b4416ffbb4aab54b2",
+      "encoding": "identity",
+      "archiveBytes": 127,
+      "archiveSha256": "26624be56f4035323898a62ca0a176272a44774a3f40983b4416ffbb4aab54b2"
+    },
+    {
+      "archive": "root-query-a.py",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-a.py",
+      "bytes": 2356,
+      "sha256": "804315cf360748f2c84040e5ece183408984f7b06d312e186e9fbec2e056c1e7",
+      "encoding": "identity",
+      "archiveBytes": 2356,
+      "archiveSha256": "804315cf360748f2c84040e5ece183408984f7b06d312e186e9fbec2e056c1e7"
+    },
+    {
+      "archive": "root-publish-preflight.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-preflight.json",
+      "bytes": 558,
+      "sha256": "e4ab7b7c741ddeb04a83a7ec923488de7feb58aa06af5e7d561713c92013caaa",
+      "encoding": "identity",
+      "archiveBytes": 558,
+      "archiveSha256": "e4ab7b7c741ddeb04a83a7ec923488de7feb58aa06af5e7d561713c92013caaa"
+    },
+    {
+      "archive": "root-query-preflight.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-preflight.json",
+      "bytes": 558,
+      "sha256": "cbb918bed7b06e4b0be282c3dd75634fe6091c2f2c34c897ae32c095458e196e",
+      "encoding": "identity",
+      "archiveBytes": 558,
+      "archiveSha256": "cbb918bed7b06e4b0be282c3dd75634fe6091c2f2c34c897ae32c095458e196e"
+    },
+    {
+      "archive": "root-publish-terminal.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-terminal.json",
+      "bytes": 79,
+      "sha256": "380c6b02146b99ce08aeaf16bbed7779c61f41eebb796075422d835c38156f63",
+      "encoding": "identity",
+      "archiveBytes": 79,
+      "archiveSha256": "380c6b02146b99ce08aeaf16bbed7779c61f41eebb796075422d835c38156f63"
+    },
+    {
+      "archive": "root-query-terminal.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-terminal.json",
+      "bytes": 78,
+      "sha256": "560e4c773862760e57335b3c181b63da6fbc0c840459c73198fd01b9c1eab207",
+      "encoding": "identity",
+      "archiveBytes": 78,
+      "archiveSha256": "560e4c773862760e57335b3c181b63da6fbc0c840459c73198fd01b9c1eab207"
+    },
+    {
+      "archive": "root-publish-cleanup.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-publish-cleanup.json",
+      "bytes": 136,
+      "sha256": "f5c7f682ac2096288f4bc14a24dc66656f64302b782057416058f9a422648b81",
+      "encoding": "identity",
+      "archiveBytes": 136,
+      "archiveSha256": "f5c7f682ac2096288f4bc14a24dc66656f64302b782057416058f9a422648b81"
+    },
+    {
+      "archive": "root-query-cleanup.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/root-query-cleanup.json",
+      "bytes": 642,
+      "sha256": "4ea5c852332dbdd6223ad52e3d0cc329a33ad023b3718030e74bac5cff49764a",
+      "encoding": "identity",
+      "archiveBytes": 642,
+      "archiveSha256": "4ea5c852332dbdd6223ad52e3d0cc329a33ad023b3718030e74bac5cff49764a"
+    },
+    {
+      "archive": "publish-process.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-process.json",
+      "bytes": 20392,
+      "sha256": "fde11ddac87e47a375faaf383951318d8e4cd631bcc2ecc3f5256ab0ab60c8bb",
+      "encoding": "identity",
+      "archiveBytes": 20392,
+      "archiveSha256": "fde11ddac87e47a375faaf383951318d8e4cd631bcc2ecc3f5256ab0ab60c8bb"
+    },
+    {
+      "archive": "query-process.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-process.json",
+      "bytes": 40729,
+      "sha256": "226d28e93bfc86dbf240de6da4da50d713dbbe1d62bffc14c8c9ce4a9c22efa3",
+      "encoding": "identity",
+      "archiveBytes": 40729,
+      "archiveSha256": "226d28e93bfc86dbf240de6da4da50d713dbbe1d62bffc14c8c9ce4a9c22efa3"
+    },
+    {
+      "archive": "publish.stdout",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish.stdout",
+      "bytes": 102,
+      "sha256": "2daee4032bbcefacecf3e13de54eeeb20f37427c34b94cdd1d70c01a31fb19cf",
+      "encoding": "identity",
+      "archiveBytes": 102,
+      "archiveSha256": "2daee4032bbcefacecf3e13de54eeeb20f37427c34b94cdd1d70c01a31fb19cf"
+    },
+    {
+      "archive": "publish.stderr",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish.stderr",
+      "bytes": 462,
+      "sha256": "6150ad3b8085079d8e99850bb34962cf1a5bf054e03adf3e6b62b9483efd20b7",
+      "encoding": "identity",
+      "archiveBytes": 462,
+      "archiveSha256": "6150ad3b8085079d8e99850bb34962cf1a5bf054e03adf3e6b62b9483efd20b7"
+    },
+    {
+      "archive": "query.stdout",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query.stdout",
+      "bytes": 98,
+      "sha256": "8aa8acc1037a9abaa9c89c4b8cf075b30d1b3794cda9607308670d9f4d3abfce",
+      "encoding": "identity",
+      "archiveBytes": 98,
+      "archiveSha256": "8aa8acc1037a9abaa9c89c4b8cf075b30d1b3794cda9607308670d9f4d3abfce"
+    },
+    {
+      "archive": "query.stderr",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query.stderr",
+      "bytes": 598,
+      "sha256": "87d064c0f84bc959498662d7dbd70eb8c689a7adc1f90344b051efb81f1b62f6",
+      "encoding": "identity",
+      "archiveBytes": 598,
+      "archiveSha256": "87d064c0f84bc959498662d7dbd70eb8c689a7adc1f90344b051efb81f1b62f6"
+    },
+    {
+      "archive": "publication/report.json.gz",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/report.json",
+      "bytes": 469983,
+      "sha256": "62d088a5a6734a2cd5073886165a821b959e00b78c7820d4c854c9cf5fc3958b",
+      "encoding": "gzip",
+      "archiveBytes": 47104,
+      "archiveSha256": "2878c32a68cc6a62b47eff43acfee48c7eb17e4f25781efae1d24b66a6d28df3"
+    },
+    {
+      "archive": "publication/source.jsonl",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/source.jsonl",
+      "bytes": 25547,
+      "sha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482",
+      "encoding": "identity",
+      "archiveBytes": 25547,
+      "archiveSha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482"
+    },
+    {
+      "archive": "publication/original-ontology.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/original-ontology.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "encoding": "identity",
+      "archiveBytes": 27544,
+      "archiveSha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "archive": "publication/original-graph.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/original-graph.json",
+      "bytes": 23078,
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "encoding": "identity",
+      "archiveBytes": 23078,
+      "archiveSha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "archive": "publication/development-bindings.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/development-bindings.json",
+      "bytes": 9226,
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe",
+      "encoding": "identity",
+      "archiveBytes": 9226,
+      "archiveSha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe"
+    },
+    {
+      "archive": "publication/public-dataset.json.gz",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/public-dataset.json",
+      "bytes": 2037521,
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16",
+      "encoding": "gzip",
+      "archiveBytes": 28590,
+      "archiveSha256": "5e2d3adddba870c950a8338e3d8e24492213446402250145ef16b04b4662d498"
+    },
+    {
+      "archive": "publication/public-dataset-call.json",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/public-dataset-call.json",
+      "bytes": 331,
+      "sha256": "39f3bccd7e26548b97acff32c09109a482b174e2a6d7d3edc11af33ac4e3d67b",
+      "encoding": "identity",
+      "archiveBytes": 331,
+      "archiveSha256": "39f3bccd7e26548b97acff32c09109a482b174e2a6d7d3edc11af33ac4e3d67b"
+    },
+    {
+      "archive": "query/report.json.gz",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/queries/report.json",
+      "bytes": 3519178,
+      "sha256": "68e9b732a7f5ef6cfcdb8ba35454694d3699a38287f5b3d51fa20f7f85327904",
+      "encoding": "gzip",
+      "archiveBytes": 314102,
+      "archiveSha256": "a28c544abef114bd0841522f6630174eb6e5f595f84d85327b10096891f8473c"
+    },
+    {
+      "archive": "query/fresh-public-dataset.json.gz",
+      "original": "/private/tmp/ashlar-installed-commerce-command-20261010-b/queries/fresh-public-dataset.json",
+      "bytes": 2037521,
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16",
+      "encoding": "gzip",
+      "archiveBytes": 28590,
+      "archiveSha256": "5e2d3adddba870c950a8338e3d8e24492213446402250145ef16b04b4662d498"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-native-grant-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-native-grant-review-20261010-b.json",
+      "bytes": 2873,
+      "sha256": "70c481c59d94b14960e0b3ac491bb785cac47e92d30f6d5d0e9ac01c9515eac4",
+      "encoding": "identity",
+      "archiveBytes": 2873,
+      "archiveSha256": "70c481c59d94b14960e0b3ac491bb785cac47e92d30f6d5d0e9ac01c9515eac4"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-readiness-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-readiness-review-20261010-b.json",
+      "bytes": 9248,
+      "sha256": "36648afe70e70e9115cd78a5b9dbf02dbc127799f102cdd759043103a8587f3d",
+      "encoding": "identity",
+      "archiveBytes": 9248,
+      "archiveSha256": "36648afe70e70e9115cd78a5b9dbf02dbc127799f102cdd759043103a8587f3d"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-publication-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-publication-review-20261010-b.json",
+      "bytes": 4504,
+      "sha256": "7e5c078d78c568e7365b1c80732382acb7389368a92b3fe22494c53c2fb16921",
+      "encoding": "identity",
+      "archiveBytes": 4504,
+      "archiveSha256": "7e5c078d78c568e7365b1c80732382acb7389368a92b3fe22494c53c2fb16921"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-publication-rows-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-publication-rows-review-20261010-b.json",
+      "bytes": 17108,
+      "sha256": "2d2cc0d7e4c3e6c10e9bdf19f02848cd3d3c2566a6d7bd7c68f64769e71547e7",
+      "encoding": "identity",
+      "archiveBytes": 17108,
+      "archiveSha256": "2d2cc0d7e4c3e6c10e9bdf19f02848cd3d3c2566a6d7bd7c68f64769e71547e7"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-query-grant-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-query-grant-review-20261010-b.json",
+      "bytes": 4657,
+      "sha256": "39a985f53d85624b76c27be847f9df1092df4ac0413464e043d92c38af2f7326",
+      "encoding": "identity",
+      "archiveBytes": 4657,
+      "archiveSha256": "39a985f53d85624b76c27be847f9df1092df4ac0413464e043d92c38af2f7326"
+    },
+    {
+      "archive": "reviews/astra-installed-commerce-query-results-review-20261010-b.json",
+      "original": "/private/tmp/astra-installed-commerce-query-results-review-20261010-b.json",
+      "bytes": 4762,
+      "sha256": "b222604da0c65ae3815a65316436e0aba34d1f6daea10ce2015b65c63692f696",
+      "encoding": "identity",
+      "archiveBytes": 4762,
+      "archiveSha256": "b222604da0c65ae3815a65316436e0aba34d1f6daea10ce2015b65c63692f696"
+    }
+  ]
+}

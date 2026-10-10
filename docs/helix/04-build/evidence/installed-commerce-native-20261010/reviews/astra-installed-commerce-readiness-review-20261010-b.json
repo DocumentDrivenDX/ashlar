@@ -1,0 +1,208 @@
+{
+  "status": "approved-selected-installed-resources-and-retained-runtime-preflight-scope",
+  "freeze": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/freeze.json",
+    "sha256": "adfb98b4fa2f75b053f3e0a8f3034bc3c98cf834f8afb214c58a879a45225c13",
+    "bytes": 2337
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+    "sha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+    "bytes": 1111333
+  },
+  "openingResourceReview": {
+    "path": "/private/tmp/astra-installed-commerce-resource-check-20261010-b.json",
+    "sha256": "7d455b1c32f2642755fe14f3e3411291eb819ab5c53559657dfc6a38e11117d0",
+    "bytes": 22629
+  },
+  "selectedFiles": 4888,
+  "selectedBytes": 1363863214,
+  "wheelReview": {
+    "path": "/private/tmp/astra-host-wheel-integration-review-20261010-d.json",
+    "sha256": "d7b3ff88c5416605d820ef7146c590e6a828ea3d23d48d0d99693f7d3a162063",
+    "bytes": 7577
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "sha256": "57a13eb1a53edaf08b1d5f22e342e8f30a6665d1844e1b3178e0f7125f85ca07",
+    "bytes": 186993
+  },
+  "installedPackageEntriesVerified": 82,
+  "packageEntryDigest": "532de98febda3a7999c45ff7503d033f9196c56ab309f9f830216ba25cc79e01",
+  "hostFreezeSha256": "b91ce7bc766567161a1b663f469d529dfbbe019167f5f3209eef5fd8a1ed5e5c",
+  "importObservations": [
+    {
+      "receipt": {
+        "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publish-imports.json",
+        "sha256": "aad76b6d1b1e9c0d2f241b596f851c57899c7a1f71f59424f404c163ef4d9b4a",
+        "bytes": 119161
+      },
+      "phase": "publish",
+      "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+      "sqlite": "3.53.1",
+      "versions": {
+        "pyspark": "3.5.3",
+        "delta-spark": "3.2.1",
+        "psycopg": "3.2.13",
+        "graphframes-py": "0.12.3"
+      },
+      "loadedModules": 452,
+      "runtimeModuleDescriptorsPinned": 451,
+      "installedAshlarModules": [
+        "ashlar",
+        "ashlar.apply",
+        "ashlar.binding",
+        "ashlar.catalog",
+        "ashlar.commerce_source",
+        "ashlar.manifest",
+        "ashlar.native",
+        "ashlar.publication",
+        "ashlar.publisher",
+        "ashlar.recovery",
+        "ashlar.schema",
+        "ashlar.schema_policies",
+        "ashlar.semantic_policy",
+        "ashlar.singleton",
+        "ashlar.source",
+        "ashlar.source_checkpoint",
+        "ashlar.staging",
+        "ashlar.stored_publisher",
+        "ashlar.whole_entity",
+        "ashlar_host",
+        "ashlar_host.commerce",
+        "ashlar_host.config",
+        "ashlar_host.resources",
+        "ashlar_host.source"
+      ],
+      "noGateway": true,
+      "noActiveContext": true,
+      "probeProvenance": "A execution; publish original bytes exactly reconstructed by single inactive-query-branch jars-path substitution, query matches retained A/B probe exactly. B has fresh destination paths; no B preflight rerun claimed."
+    },
+    {
+      "receipt": {
+        "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/query-imports.json",
+        "sha256": "ac297fd93a8d44ecb4d8150fccd6c62984e00712dc7bdeb360e2f324f8aea305",
+        "bytes": 124635
+      },
+      "phase": "query",
+      "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+      "sqlite": "3.53.1",
+      "versions": {
+        "pyspark": "4.0.1",
+        "delta-spark": "4.0.0",
+        "psycopg": "3.2.13"
+      },
+      "loadedModules": 470,
+      "runtimeModuleDescriptorsPinned": 469,
+      "installedAshlarModules": [
+        "ashlar",
+        "ashlar.apply",
+        "ashlar.binding",
+        "ashlar.catalog",
+        "ashlar.commerce_source",
+        "ashlar.manifest",
+        "ashlar.native",
+        "ashlar.publication",
+        "ashlar.publisher",
+        "ashlar.recovery",
+        "ashlar.schema",
+        "ashlar.schema_policies",
+        "ashlar.semantic_policy",
+        "ashlar.singleton",
+        "ashlar.source",
+        "ashlar.source_checkpoint",
+        "ashlar.staging",
+        "ashlar.stored_publisher",
+        "ashlar.whole_entity",
+        "ashlar_host",
+        "ashlar_host.commerce",
+        "ashlar_host.config",
+        "ashlar_host.resources",
+        "ashlar_host.source"
+      ],
+      "noGateway": true,
+      "noActiveContext": true,
+      "probeProvenance": "A execution; publish original bytes exactly reconstructed by single inactive-query-branch jars-path substitution, query matches retained A/B probe exactly. B has fresh destination paths; no B preflight rerun claimed."
+    }
+  ],
+  "JDKs": [
+    {
+      "phase": "publish",
+      "JAVA_HOME": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime",
+      "release": {
+        "path": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime/release",
+        "sha256": "286725f6fd67aaad1902e5bcf61e7e0d6584768cc4c76a1cd9a59f9c2b1d642d",
+        "bytes": 521
+      },
+      "version": "JAVA_VERSION=\"17.0.9\"",
+      "selectedFiles": 199
+    },
+    {
+      "phase": "query",
+      "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+      "release": {
+        "path": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/release",
+        "sha256": "7b6f4e84249287203d8e1857254307a6b2dc0643b1efdeef5fa2aeaf791866f0",
+        "bytes": 1232
+      },
+      "version": "JAVA_VERSION=\"21.0.12.1\"",
+      "selectedFiles": 527
+    }
+  ],
+  "publicProducer": {
+    "source": "/private/tmp/ashlar-umf-dataset-45473",
+    "commit": "c7c95e1c4ea5b72541f47fa0350ca467ff02f395",
+    "gitStatusClean": true,
+    "priorManifest": {
+      "path": "/private/tmp/ashlar-indexed-commerce-umf-resources-20261010-a.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199
+    },
+    "selectedReferencesIdentical": 865,
+    "packagedScript": {
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/check_commerce_dataset.ts",
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d",
+      "bytes": 5901
+    },
+    "model": {
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    "graph": {
+      "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078
+    }
+  },
+  "priorQualificationReferences": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-python311-native-20261010/astra-indexed-commerce-actual-e-review-20261010.json",
+      "sha256": "f56214cff17144a3d3be17d51943b3b6b7ae6671994bf21bd36b1ae9adc8b7f8",
+      "bytes": 5310
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-python311-native-20261010/astra-indexed-commerce-query-e-review-20261010.json",
+      "sha256": "044af0a9bdcc1424bcdb6d0811627d9939e7b29772fa0f63f77eb970026bb9f6",
+      "bytes": 2059
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-python311-native-20261010/ashlar-indexed-commerce-native-command-20261010-e.json",
+      "sha256": "43920a1b9272e947ca7b430bfee7c686742d59bc160270a68412ec7312afada2",
+      "bytes": 5719
+    }
+  ],
+  "priorScope": "Original private indexed scalar projection/count plus first-hop RELATED_KEYS, original source21events/native11objects10edges21history; prior source checkout/native evidence is not automatic installed-wheel execution qualification. Separate Paths04 does not participate.",
+  "notes": [
+    "Resource vector is selected file-content custody, including resolved symlink contents; it is not complete host/dynamic-loader or universal SDK byte closure.",
+    "Historical import probes remain A executions; all loaded runtime module descriptors except script __main__ are included in B vector and match. Original publish script was exactly reconstructed by hash to establish its inactive query-only difference.",
+    "SDK metadata consumed by importlib.metadata.version is not universally retained in selected vector; expected version observations and runtime_paths admission/rechecks remain required.",
+    "No native process/engine/PG connection or compiler was invoked by this review; only file hashing/zip comparisons/retained observations and read-only Git source status."
+  ],
+  "conditions": "Parent exact launcher/phase review and fresh exclusive runtime/PG grant remain necessary. Publish first; require independent report/native/source/ACK/cleanup review before query. All selected resources must match opening/closing custody during each actual phase.",
+  "script": {
+    "path": "/private/tmp/astra-installed-commerce-readiness-review-20261010-b.py",
+    "sha256": "f271d6699839d7ec27c065d7cbcae56ad5a7e08c4626df30d7c8cd5df36d3496",
+    "bytes": 9092
+  }
+}

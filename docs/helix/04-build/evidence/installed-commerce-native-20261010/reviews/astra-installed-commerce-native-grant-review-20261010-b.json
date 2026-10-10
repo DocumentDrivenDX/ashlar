@@ -1,0 +1,51 @@
+{
+  "decision": "Conditional approval for root-owned publish phase only of exact installed-commerce command B",
+  "command": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/command.json",
+    "sha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58"
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/freeze.json",
+    "sha256": "adfb98b4fa2f75b053f3e0a8f3034bc3c98cf834f8afb214c58a879a45225c13"
+  },
+  "execution": {
+    "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/execution.json",
+    "sha256": "86e9b617bc82a7a4c073c167bbcf57da8e7c022a9958b3684ee5ead7099af887"
+  },
+  "reviews": [
+    {
+      "path": "/private/tmp/astra-installed-commerce-command-review-20261010-b.json",
+      "sha256": "44bd7b41365ea05ab9bc8fc070abb8fd2ad254fd7d2e6b15841230d806f66177",
+      "bytes": 2753
+    },
+    {
+      "path": "/private/tmp/astra-installed-commerce-readiness-review-20261010-b.json",
+      "sha256": "36648afe70e70e9115cd78a5b9dbf02dbc127799f102cdd759043103a8587f3d",
+      "bytes": 9248
+    }
+  ],
+  "verifiedScope": {
+    "selectedResources": 4888,
+    "selectedBytes": 1363863214,
+    "installedWheelEntries": 82,
+    "originalUMFResourceReferences": 865,
+    "phaseProcessSeconds": 180,
+    "eachStreamBytes": 16777216,
+    "workers": 1,
+    "driverMemoryMiB": 512
+  },
+  "conditions": [
+    "Root refresh exact privatePG container/image/127.0.0.1:15432/512MiB1CPU/ordinaryrole health and zeroSpark/Puppy process observation; acquire sole native lease.",
+    "Reverify exact vector immediately before launch and after terminal completion.",
+    "Execute only explicit publish phase argv/cwd/environment, installedD production files and package resources.",
+    "Query phase remains withheld until actual publication report/full original source/current/history/tombstones/UUID/version/protectedACK/cleanup independently pass and new root exclusive grant is issued."
+  ],
+  "qualification": [
+    "The current installedD wheel is independently reviewed source/package evidence; actual installed native publication is not yet qualified.",
+    "Publish recorded import observation originated in A, with exact reconstructed inactive-query-path-only script delta; query A observation directly matches retained script. B destination changes do not change active runtime configuration.",
+    "SDK metadata file closure and host dynamic-library closure are not complete; actual recorded version observations and source runtime_paths rechecks remain required.",
+    "No Paths04 native/distribution package claim; query uses historical indexed ab899 backend02.",
+    "Prior native original-commerce evidence supports scoped runtime selection, not automatic qualification of this installed realization."
+  ],
+  "result": "PASS with explicit prelaunch and between-phase gates"
+}

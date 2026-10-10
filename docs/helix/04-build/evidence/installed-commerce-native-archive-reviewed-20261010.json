@@ -1,0 +1,27 @@
+{
+  "format": "astra-installed-commerce-native-archive-copy-review/0.1",
+  "verdict": "PASS",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/installed-commerce-native-20261010/manifest.json",
+    "bytes": 17754,
+    "sha256": "5a43618eb55e52dd8635e4d9349e4d88525481bf9e75a3eeaea762ac04332fb3"
+  },
+  "reviewerScript": {
+    "path": "/private/tmp/astra-installed-commerce-native-archive-review-20261010-a.py",
+    "bytes": 2941,
+    "sha256": "d109e6ac2cbe6dcbfb3905f8e7f794398205c665ffddcad4d2705af385b642d3"
+  },
+  "entries": 41,
+  "filesIncludingManifest": 42,
+  "exactOriginalCopies": 41,
+  "singleMemberGzipDecodedOriginals": [
+    "command-b/command.json.gz",
+    "publication/report.json.gz",
+    "publication/public-dataset.json.gz",
+    "query/report.json.gz",
+    "query/fresh-public-dataset.json.gz"
+  ],
+  "nestedCommandFreezeDescriptorsMatched": 9,
+  "scope": "Exact byte-copy, hash/length, single-member decompression and nested command-freeze closure only. Five gzip payloads reproduce original command/report/public receipts. Historical query-aggregate-pending wording remains as captured and will be superseded by separate parent aggregate review. Runtime/native external resources are explicitly hash-bound but not bundled; no executable, wheel, JAR, Parquet, SQLite journal or postgres-installation credential content is archived. No compiler, native engine or database invocation; no independent requalification of copied evidence.",
+  "closingManifestUnchanged": true
+}

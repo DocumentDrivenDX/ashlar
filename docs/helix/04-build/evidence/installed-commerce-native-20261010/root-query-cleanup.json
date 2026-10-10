@@ -1,0 +1,19 @@
+{
+  "observedAt": "2026-10-10T10:26:53.661230+00:00",
+  "sparkProcessIds": [],
+  "original77FilesUnchanged": true,
+  "addedFiles": [
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/operations.sqlite-shm",
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "bytes": 32768
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-command-20261010-b/publication/operations.sqlite-wal",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "phase": "query",
+  "nativeProcessTerminalExit": 0
+}
