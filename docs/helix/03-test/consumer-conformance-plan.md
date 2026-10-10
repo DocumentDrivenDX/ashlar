@@ -173,3 +173,44 @@ Weft and engine work when an external prerequisite is unavailable.
 The [execution plan](../04-build/end-to-end-plan.md) owns results and pending
 work. The [pre-cleanup test plan](../04-build/evidence/documentation-history-20261009/docs/helix/03-test/consumer-conformance-plan.original.txt)
 preserves historical execution/status notes verbatim.
+
+## Module, configuration and diagnostic verification
+
+Run `python3 tools/check_module_boundaries.py` with the same policy locally,
+pre-commit and CI. Test the actual checker: one allowed edge succeeds and a new
+forbidden edge/private cross-module import fails. Inventory exact existing debt;
+removing a baseline entry must expose its still-present violation. Dynamic import,
+API/type ownership and mutation boundaries need named semantic review evidence.
+
+Configuration tests construct explicit settings without a developer .env,
+exercise each source precedence and origin, and refuse missing/invalid operator
+fields before SDK construction. Inject synthetic secrets and control characters;
+assert they are absent from every console, file, exporter and subprocess artifact.
+Browser settings tests reject Node-only/secret configuration and unknown keys.
+
+For an OTel support claim, test an actual exporter/receiver with Resource,
+timestamps, severity, event attributes and valid optional trace correlation;
+JSONL parsing is insufficient. Exercise exporter outage, oversized records,
+bounded queue overflow, concurrent attempts, no active span, shutdown failure and
+capture loss. Verify one ingestion route and explicit loss disclosure. Diagnostic
+failure must not advance progress, fabricate a commit or release a held result.
+One-shot runners inherit no HTTP-service SLO or new scale benchmark requirement.
+
+## Formal analysis and implementation correspondence
+
+PUB-F1–F4 and PUB-L1 in TD-001 initially require precise semantic review and
+implementation correspondence. A bounded executable transition analysis raises
+assurance only after its actual evidence is reviewed.
+The owning model records its exact command/tool version, bounds and assumptions;
+retain completed exploration, success/recovery witnesses and deliberate
+broken-guard counterexamples. No currently green model is presumed by this plan.
+The command must return failure for a property violation or incomplete search.
+
+Map each transition/guard to actual publisher, recovery, resolver and protected
+ACK code plus existing small contract/native tests. Reuse exact missing-journal,
+original-submission absence, lost COMMIT response, manifest-before-ACK and
+closing UUID/pin refusal controls. Qualify current-core fixture proof separately
+from required public-UMF admitted commerce evolution/relationship and two-source
+coverage; never count structural synthetic edges as public semantic admission.
+Recheck affected model/code/config correspondence after changes. Model-green
+cannot substitute for real durable effects, ordinary-role ACK or source authority.
