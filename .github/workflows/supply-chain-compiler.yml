@@ -1,0 +1,17 @@
+name: Supply-chain compiler source controls
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  portable-source-request:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_installed_request.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_installed_oracle.py

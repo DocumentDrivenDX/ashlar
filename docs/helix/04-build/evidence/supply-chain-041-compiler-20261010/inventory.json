@@ -1,0 +1,191 @@
+{
+  "format": "ashlar-supply-chain-041-retained-evidence/0.1",
+  "members": [
+    {
+      "path": "actual/excursion-0.request",
+      "bytes": 55199,
+      "sha256": "6d9b35d4127cd1d5b972d064538ab622cc1cf86bd1e5bef11ff81fa49cda2659"
+    },
+    {
+      "path": "actual/excursion-0.response",
+      "bytes": 25067,
+      "sha256": "f55b6f2af3250d495c4eb2697ba10bb9fe402d51a3ef03bda548f83583fe93c2"
+    },
+    {
+      "path": "actual/excursion-1.request",
+      "bytes": 55199,
+      "sha256": "6d9b35d4127cd1d5b972d064538ab622cc1cf86bd1e5bef11ff81fa49cda2659"
+    },
+    {
+      "path": "actual/excursion-1.response",
+      "bytes": 25067,
+      "sha256": "f55b6f2af3250d495c4eb2697ba10bb9fe402d51a3ef03bda548f83583fe93c2"
+    },
+    {
+      "path": "actual/lineage-0.request",
+      "bytes": 55335,
+      "sha256": "c6bd7f2ca0fc6e5204390f1ce5bffe9bc0819a9f92531714b042ec504aefec30"
+    },
+    {
+      "path": "actual/lineage-0.response",
+      "bytes": 47118,
+      "sha256": "d5e34fea62b92d228bf0f09f0378913e979dae91bd88fd233da15856787d7266"
+    },
+    {
+      "path": "actual/lineage-1.request",
+      "bytes": 55335,
+      "sha256": "c6bd7f2ca0fc6e5204390f1ce5bffe9bc0819a9f92531714b042ec504aefec30"
+    },
+    {
+      "path": "actual/lineage-1.response",
+      "bytes": 47118,
+      "sha256": "d5e34fea62b92d228bf0f09f0378913e979dae91bd88fd233da15856787d7266"
+    },
+    {
+      "path": "actual/observations.jsonl",
+      "bytes": 1690750,
+      "sha256": "6a2658060164567c836f910e8810ca27e50fd6c74c5336c8d1480ab8699df3c9"
+    },
+    {
+      "path": "actual/replay-0.request",
+      "bytes": 55224,
+      "sha256": "65b2fc163dd574c3d9832e4ea6f35bccefccdee4035a6886a520d845e6ff2cdb"
+    },
+    {
+      "path": "actual/replay-0.response",
+      "bytes": 19452,
+      "sha256": "aab97c6114a980cef521916781cb82739a9d416b1bbfe440e8bdefa0fb2a3621"
+    },
+    {
+      "path": "actual/replay-1.request",
+      "bytes": 55224,
+      "sha256": "65b2fc163dd574c3d9832e4ea6f35bccefccdee4035a6886a520d845e6ff2cdb"
+    },
+    {
+      "path": "actual/replay-1.response",
+      "bytes": 19452,
+      "sha256": "aab97c6114a980cef521916781cb82739a9d416b1bbfe440e8bdefa0fb2a3621"
+    },
+    {
+      "path": "actual/result.json",
+      "bytes": 1268434,
+      "sha256": "ea9cacf80afaaf47dc020a9ac0be79635dff34f3a46db7c10ac51f5320ff6646"
+    },
+    {
+      "path": "actual/sensor-0.request",
+      "bytes": 55182,
+      "sha256": "d90bb7c74f3e0f2155df3f1d2492e7316b0fbbc72ee99829dd8127fb602ebbde"
+    },
+    {
+      "path": "actual/sensor-0.response",
+      "bytes": 15879,
+      "sha256": "48bbf50715b11dd3087266ccfa2eadc4c9e44504c529460e1515d18026f9ce48"
+    },
+    {
+      "path": "actual/sensor-1.request",
+      "bytes": 55182,
+      "sha256": "d90bb7c74f3e0f2155df3f1d2492e7316b0fbbc72ee99829dd8127fb602ebbde"
+    },
+    {
+      "path": "actual/sensor-1.response",
+      "bytes": 15879,
+      "sha256": "48bbf50715b11dd3087266ccfa2eadc4c9e44504c529460e1515d18026f9ce48"
+    },
+    {
+      "path": "actual/split-excursion-0.request",
+      "bytes": 55313,
+      "sha256": "2c03ffaeac9f9567c950703aa24bb2edd0975bb6615d204dc215c1b773444344"
+    },
+    {
+      "path": "actual/split-excursion-0.response",
+      "bytes": 38337,
+      "sha256": "771d35125d2bf5013554c0a19ff70e6bac8841aa0013aa901a6da0c5e613488b"
+    },
+    {
+      "path": "actual/split-excursion-1.request",
+      "bytes": 55313,
+      "sha256": "2c03ffaeac9f9567c950703aa24bb2edd0975bb6615d204dc215c1b773444344"
+    },
+    {
+      "path": "actual/split-excursion-1.response",
+      "bytes": 38337,
+      "sha256": "771d35125d2bf5013554c0a19ff70e6bac8841aa0013aa901a6da0c5e613488b"
+    },
+    {
+      "path": "records/ashlar-count-star-fresh-capture-e.py",
+      "bytes": 2622,
+      "sha256": "704d26623b73470fe6ed47976c636e54cd8173682a59bbd6e05ee3d71c824f93"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-actual-independent-review-b.json",
+      "bytes": 6599,
+      "sha256": "8f99e753f2f081f17432985c78bd123dbba903eeba0df66ed5d62ae2f0f951ea"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-b.capture.json",
+      "bytes": 566,
+      "sha256": "41552485d8928db6e49ed80b86960ecdbb1e7266dbf8c04885117944d8c3efe8"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-b.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-b.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-command-a.json",
+      "bytes": 95226,
+      "sha256": "eaae7ab7427bc0cf75755d124a64d96d7ebc7c997c1161c59c267f0f8f9800fa"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-command-b.json",
+      "bytes": 95226,
+      "sha256": "499c23083e9bde4ce85baeed1b902a85d51beb2ee78ffaac8e4e232ace72f035"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-result-freeze-b.json",
+      "bytes": 6494,
+      "sha256": "6bc680306ecc79baa29b4cc9f30bbd5540ff2b5bd5d23a6e0ec9b1c7649a37ae"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-runner-a.py",
+      "bytes": 4798,
+      "sha256": "9e27f39cd8149bb0dd71df64b2449193a52390b868bd36f7f75e283bc33e5c70"
+    },
+    {
+      "path": "records/ashlar-supply-chain-041-compile-runner-b.py",
+      "bytes": 4798,
+      "sha256": "bb0114c8c68176e3b794d4735c5182190c49b62d972966849f841d829ad2ba1a"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-independent-review-b.json",
+      "bytes": 2913,
+      "sha256": "a346d128f57cff2075564f744b8855f8c63fd4fcd52fdd455633bb10168ea71a"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-source-freeze-a.json",
+      "bytes": 3010,
+      "sha256": "8bd408ce7b4a9c11972f2029189edd99703929d2e5f2cee6a4e8540262687fa9"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-source-freeze-b.json",
+      "bytes": 3234,
+      "sha256": "1c4d43d4b4bb444cbb3477dfe633b646211cea28bb4b8f98c5acecf073b48c5d"
+    },
+    {
+      "path": "records/launch-reviewed-parity-g.py",
+      "bytes": 2541,
+      "sha256": "0b238f4b0cb5544f93cf669f9839562292d518c43fdb4ed52fdee84ee507bb9e"
+    }
+  ],
+  "qualification": "Five original supply-chain041 requests compiled twice with existing installed889base+reviewed source overlay and indexed5dd compiler, offline admission and independent original complete source bags. No newly installed host wheel/native SQL/source ACK/publication authority.",
+  "archive": {
+    "path": "/private/tmp/ashlar-supply-chain-041-evidence-b.tar.gz",
+    "bytes": 298455,
+    "sha256": "0a46fa91044d76f9679e5abc97dff347623c9152db627b59d26223214e3b2f2e"
+  }
+}

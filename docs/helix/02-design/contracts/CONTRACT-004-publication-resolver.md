@@ -453,6 +453,22 @@ ten commerce intents remain in the query gallery; plain row count, grouped row
 count, grouped COUNT(*) HAVING and expanded occurrence COUNT(*) HAVING are added.
 The five required supply-chain intents remain separate required coverage.
 
+The installed supply-chain request builder MUST preserve all five original SQL
+statements, complete UMF 0.8 module bytes, development carrier identities and
+present-null property encoding. Its selected `supply_chain_count_star_request`
+port derives the request from the exact original pack/model/graph and supplied
+publication metadata. `compile_supply_chain_cases` MUST prepare the complete
+corpus before compiler effects, retain original request/response bytes before
+parsing, freshly recompile each request and apply the pinned offline 0.4.1
+schemas and closed host admission. A 0.4.0 refusal cannot satisfy required
+0.4.1 coverage. The independent original graph oracle MUST retain complete
+result bags, including both lineage rows and independent replay events before
+HAVING; it MUST NOT consume compiler SQL or native results as expected values.
+These compilation ports grant no publication/source/ACK authority. Native
+execution MUST separately hold the complete original source and publication
+through every guard, result comparison and closing check under the lifecycle
+requirements above; installed library code MUST NOT import checkout tools.
+
 The selected host MUST refuse unknown capabilities or owning obligations and
 preserve the original SQL, full module documents, binding text and ordered
 parameter values. Its independent oracle MUST count original source occurrence
