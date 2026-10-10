@@ -193,6 +193,34 @@ component invariants; actual native results and successful reader/client/Spark
 cleanup are required for the installed workflow. Neither the historical compiler
 profile nor its native receipts qualify a newly selected compiler implicitly.
 
+For `query-commerce-paths --profile paths-keys`, independently qualify all ten
+original commerce cases under the selected new compiler and immutable index.
+Retain the original Paths profile's compiler/refusal cases. Pure one-hop decoder
+tests exercise closed descriptors/carriers, exact pins, original bytes, composite
+String tuple order, equal-key multiplicity, empty/bound/bound-plus-one markers,
+malformed Unicode/JSON/numeric atoms and finite byte limits. Decoder tests do not
+prove full-bag or native ordering semantics.
+
+Component admission/execution tests require exact one-hop collection/ordinal
+obligation inventories, complete consumed-edge schema observations even for
+empty or standalone tables, unknown/duplicate obligation refusal and all existing
+closing/cancellation gates. Explicitly refuse unmatched LEFT roots, grouped or
+aggregate collections, expansion mixing and non-String keys. Tiny actual native
+fixtures cover parallel edges, forward/inverse traversal and composite key order
+against independent source expectations. Returned key tuples prove key order
+and occurrence multiplicity; equal tuples cannot reveal edge tie-breaking.
+Retain an independent native ordinal-to-original-edge witness for negative,
+zero and positive BIGINT IDs and review its correspondence to the actual lowering.
+Do not infer edge order from identical returned key tuples. Verify complete
+native edge non-null/uniqueness and guarded DECIMAL ordinal overflow behavior;
+an artificial counter boundary may test the arithmetic guard, but cannot claim
+a physically enumerated population of that size. Full-bag checks must precede
+truncation and must not inherit the legacy ROW_NUMBER implementation.
+
+Refresh TD-001 PUB-F1/PUB-F2 correspondence for the profile: no result before
+successful held and outer closure, and no source progress change. Review the
+unchanged publication model separately from query semantic/native qualification.
+
 ## Evidence and performance policy
 
 Fixture, simulated contract, native target and engine execution evidence are

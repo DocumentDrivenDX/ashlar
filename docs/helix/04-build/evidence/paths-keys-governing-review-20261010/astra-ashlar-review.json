@@ -1,0 +1,88 @@
+{
+  "format": "astra-ashlar-paths-keys-contract-review/0.1",
+  "verdict": "approved exact Ashlar four-document B governing slice only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-keys-governing-freeze-20261010-b/manifest.json",
+    "bytes": 1028,
+    "sha256": "09455e81162a6a5e612e12a73513e972c61af54ae6da3cf615d12719739fc521"
+  },
+  "baseCommit": "40cde8ffe682804481077bd0263dea9380193659",
+  "files": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 27014,
+      "sha256": "484fdda6f359f5f0934acfb222e615bf41328d4d95f48190fb78558379cfdce1"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 30053,
+      "sha256": "a9d4acf0bcd9eb86dab11078add7a6e75a3239ac2694c0aa55ed8f9dbc1c4b19"
+    },
+    {
+      "path": "docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "bytes": 6177,
+      "sha256": "224c130afc42ea702ee686f58060d6fb5d87ac7a42a2c63da1be59bf55f292c7"
+    },
+    {
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 19094,
+      "sha256": "ef83a08f286ab57e1b6511228536700bf4734c085d67ea5f055343108cb224e9"
+    }
+  ],
+  "checks": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "frontmatterByteEquivalent": true,
+      "currentMatchesFrozenHash": true
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "frontmatterByteEquivalent": true,
+      "currentMatchesFrozenHash": true
+    },
+    {
+      "path": "docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "frontmatterByteEquivalent": true,
+      "currentMatchesFrozenHash": true
+    },
+    {
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "frontmatterByteEquivalent": true,
+      "currentMatchesFrozenHash": true
+    }
+  ],
+  "diffCheck": true,
+  "findings": [],
+  "resolvedFinding": {
+    "original": "TP A could imply identical returned key tuples prove signed-edge tie-break order.",
+    "correction": "B explicitly separates cell key-order/multiplicity from independent native ordinal-to-original-edge witness and actual lowering correspondence; also names LEFT-root/grouped/aggregate/expansion/non-String refusals."
+  },
+  "semanticAssessment": [
+    "Explicit paths-keys selection names separate backend/version/target; absent profile preserves original Paths route, unknown values refuse before compiler/engine, trusted index/realization/platform cannot be caller-authored.",
+    "String-only required-root monomorphic one-hop scope preserves required original commerce capability without claiming unrelated typed-key, LEFT or aggregate support. Required schema/source/non-null/unique edge and full-bag ordinal obligations are independent of decoder checks and output bounds.",
+    "Existing compile04 relatedKeys descriptor selects only the inherited result02 closed carrier; result04 path-only schema is not misrepresented. Exact atoms, tuple order, duplicate occurrences and original UTF8 bytes retained; decoder does not establish truncation truth or edge order.",
+    "All ten original source-derived query intents remain required under fresh selected profile evidence. No property-join substitution for authored one-hop, SQL repair, ACK progression, native-evidence transfer, or claim of current implementation.",
+    "TD001 explicitly maps existing PUB-F1 held vector/provisional-to-final release and PUB-F2 no-progress properties to admission/execution/outer owners, with unchanged state model and required refreshed correspondence. Query ordering/encoding/capacity remains independent semantic/native qualification."
+  ],
+  "helix": {
+    "modularity": "Named pure decoder API/types/dependencies/forbidden integrations in ADR; host admission/execution/outer owners remain unchanged and subject to actual checker/semantic review.",
+    "configuration": "One typed profile selection; explicit bounded configuration, no trust/profile discovery or fallback; portable library and SDK-free composition boundaries retained.",
+    "observability": "Existing ADR/TP bounded safe diagnostics and exact OTel contract/receiver gates preserved; no instrumentation/support claim.",
+    "formal": "Precise-only stable-property mapping, conditional existing assumptions and explicit no machine/crash-durability proof retained."
+  },
+  "dependencies": [
+    "Final Weft CONTRACT005 payload/manifest/lowering design remains separately reviewed. A current requested clarification assigns full-source NULL-edge refusal explicitly to the new owning check; this Ashlar contract already requires that refusal.",
+    "Implementation, actual schema/guard checks, compiler/package/index admission, fresh installed native ten-case qualification, and runtime lifecycle evidence require their own reviews."
+  ],
+  "independentChild": {
+    "path": "/private/tmp/astra-paths-keys-governing-targeted-review-20261010-a.json",
+    "bytes": 3753,
+    "sha256": "b75ab4912735f3355d0eeae3a31192af03dfc5cebe4b9884de3963034f0c04cb"
+  },
+  "foundationAudit": {
+    "path": "/private/tmp/astra-helix-paths-foundations-audit-20261010-a.json",
+    "bytes": 8297,
+    "sha256": "a309991f24bc3f03b98f7f5ebca406267a32fd370acb4b7ecab24d7eab155014"
+  },
+  "operations": "Read-only document/source correspondence review and hash/frontmatter/diff checks. No source/Git mutation, compiler, installer, SDK, native engine or database execution."
+}

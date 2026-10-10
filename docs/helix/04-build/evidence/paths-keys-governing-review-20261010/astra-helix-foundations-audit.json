@@ -1,0 +1,115 @@
+{
+  "format": "astra-helix-paths-foundations-audit/0.1",
+  "commit": "40cde8ffe682804481077bd0263dea9380193659",
+  "scope": "Read-only existing Paths-host governance against selected installed HELIX0.15.4 practices, including portable-library override. No unseen new one-hop draft approval.",
+  "verdict": "No normative discrepancy or blocking foundation rewrite required for this scoped request. Do not claim all observability delivery or mechanical assurance complete.",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/concerns.md",
+      "bytes": 6050,
+      "sha256": "2d40001eb5462513def7b28c912aa539bbecc2696594aacd50433a0328ca2cca"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/toolkit-delivery-plan.md",
+      "bytes": 14828,
+      "sha256": "70a9ff183ef038600c6f93d1af1facab1f884a18f9c4e57b5c8cdb6651daad0d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 26613,
+      "sha256": "6b09813946bc64d6e8b10867e714cd39cd286e9ddb861cb602497579de1b590a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 26377,
+      "sha256": "41d537e4c5b5264d417940a1a8d889c66e9e6de570388b6aa71df5aa0a760f2b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 17161,
+      "sha256": "ba542393398c4a6399214d885c43bd368745df57913117f70a514dc89534baba"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "bytes": 4517,
+      "sha256": "b028a7ddb4f56196119d043ede9047fa8958d1025ffc988a6be99c0411d8c355"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.pre-commit-config.yaml",
+      "bytes": 253,
+      "sha256": "dfa2f79c57804f8132573e9b04b2080db02ce3266da5a5d626854fc4699bfcbc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 1656,
+      "sha256": "a90670e4493427a10d5484ae51841063e655e16b9e4b2b3881a342c5e9d5c206"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/path_execution.py",
+      "bytes": 22553,
+      "sha256": "f42d4ceb62ebfb00a626f2d8cab74d38df950f42bdfc4b9bb875aff09f5b5c8b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/paths_query.py",
+      "bytes": 17974,
+      "sha256": "ca5b4c87c849c9ade9e9d0083cf94a3932fb6bed7714799b700e380f0cf7cbac"
+    }
+  ],
+  "practices": [
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/modularity-and-encapsulation/practices.md",
+      "bytes": 4078,
+      "sha256": "ac0ba86836f318a443e404053e9018e9165e367077307a1746cc2b2306d04fcb"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/python-uv/practices.md",
+      "bytes": 3843,
+      "sha256": "14d8e5e4f0a24a410884070a205ef137f7575c89f9f67465bc82a368ca9ca0c0"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/o11y-otel/practices.md",
+      "bytes": 8161,
+      "sha256": "af3a6cf39fe5ab641fc52f3e59645e1261e9396531549cf54453ffa5c4930eba"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/formal-methods/practices.md",
+      "bytes": 4666,
+      "sha256": "f9c3e143176e2f0e9f9d02a8e44e48b29891b1e0e33a578ca0d09d67d5e83410"
+    }
+  ],
+  "dispositions": {
+    "modularity": {
+      "status": "governed",
+      "evidence": "Concerns23; delivery plan60; ADR119-212 actual module/API/dependency table, integration owners, typed composition, checker and named semantic limits. Same checker command occurs in precommit and CI. New one-hop API must remain in named pure decode/admission/execution owners.",
+      "limits": "AST checking does not prove cycles, dynamic imports, value ownership, or authority; those remain semantic review."
+    },
+    "configuration": {
+      "status": "governed with explicit project override",
+      "evidence": "Concerns43-57 retains portable3.9 dependency-free core, prefers richer host configuration without retroactively imposing dependencies; ADR214-232 governs precedence/ownership/secrets/injection and preserves individually qualified explicit profiles; TP238-242 governs early refusal/isolated settings/redaction.",
+      "limits": "No framework migration, ambient fallback, operator trust override, or undocumented configuration source is authorized by this audit."
+    },
+    "observability": {
+      "status": "normative foundation present; exact integration delivery intentionally pending",
+      "evidence": "Plan62 sequences exact contract/capture/receiver/privacy/failure work. ADR234-246 specifies operation/event/metric ownership, clean protocol output, pre-sink privacy, bounds/loss/shutdown and explicitly gates exact schema/version/order/retention/export mapping. TP244-250 requires actual receiver/mapping/outage/privacy/queue/shutdown evidence.",
+      "remaining": "Before diagnostic pilot or OTel support claim, author/review the exact diagnostic contract and perform applicable mapping/receiver, failure/privacy/retention tests. Current native/source receipts are not OTel proof. This acknowledged prerequisite is not a contradiction requiring duplicate foundation prose."
+    },
+    "formal": {
+      "status": "precise-only scope and mechanical gates explicit",
+      "evidence": "Concerns62-69 excludes engine query semantics from publication model. TD00142-77 records states/guards/assumptions/PUB-F1-F4/PUB-L1; TP252-269 requires current correspondence and bounded witnesses/negative controls before mechanical claims.",
+      "pathsCorrespondenceDisposition": {
+        "PUB-F1": "Unchanged immutable-publication/read-release property: path_execution.execute_commerce_path holds provider interval, admits opening and closing full binding/vector/native custody, refuses incomplete body, and returns provisional evidence only after closed-interval custody. paths_query owns outer source/resource checks, reader close, Spark stop, and staged no-clobber final report availability. Existing exact E source review and cancellation/closing/report tests cover these code seams; future one-hop changes must refresh that review.",
+        "PUB-F2": "Query-only Paths workflow has no source-progress or ACK-advance operation. It reads protected ACK/context custody and withholds release on mismatch; no publication/ACK model transition is added. New one-hop decoding must not introduce such effects.",
+        "PUB-F3-F4-L1": "Publisher/recovery/feed interleaving state machine is unchanged by decoder/lowering semantics; no new model/analyzer run is implied. Any future shared publication/ACK transition change reopens correspondence.",
+        "querySemantics": "Key order, multiplicity, scalar exactness, one-hop decimal-prefix/overflow semantics remain governed by Weft contracts plus independent semantic/native tests, not inferred from publication model."
+      },
+      "remaining": "Record refreshed property-to-code/test correspondence for the future one-hop slice. A review receipt with unchanged-model disposition is sufficient; do not duplicate the model or claim machine proof."
+    }
+  },
+  "oneHopDecision": "Root selected exact DECIMAL prefix for future one-hop, with independently enforced full-population NULL/overflow guard. Preserve existing530 two-hop decimal ordinal algorithm. No ROW_NUMBER INT32 restriction should be added to a decimal algorithm merely because an earlier proposal used ROW_NUMBER. Actual draft/lowering/schema/host changes remain independently reviewable.",
+  "verification": "Read governing artifacts/practices and actual precommit/CI wiring; inspected existing mapped function locations. No tests rerun, no SDK/compiler/native/database execution, no source or Git mutation. Root-reported current checker/12 checker tests/3 config tests are not relabeled independent execution here.",
+  "priorSourceReview": {
+    "path": "/private/tmp/astra-installed-commerce-paths-source-review-20261010-e.json",
+    "bytes": 12487,
+    "sha256": "3faf611f254620602b739b1435248c6b587ef0cd30d7581ea30ee8b9db70dde7"
+  }
+}

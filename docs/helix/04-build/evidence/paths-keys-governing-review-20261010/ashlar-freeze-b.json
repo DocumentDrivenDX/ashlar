@@ -1,0 +1,27 @@
+{
+  "root": "/Users/erik/Projects/ashlar",
+  "scope": "governing draft only; no implementation/native qualification",
+  "files": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 27014,
+      "sha256": "484fdda6f359f5f0934acfb222e615bf41328d4d95f48190fb78558379cfdce1"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 30053,
+      "sha256": "a9d4acf0bcd9eb86dab11078add7a6e75a3239ac2694c0aa55ed8f9dbc1c4b19"
+    },
+    {
+      "path": "docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "bytes": 6177,
+      "sha256": "224c130afc42ea702ee686f58060d6fb5d87ac7a42a2c63da1be59bf55f292c7"
+    },
+    {
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 19094,
+      "sha256": "ef83a08f286ab57e1b6511228536700bf4734c085d67ea5f055343108cb224e9"
+    }
+  ],
+  "previousManifestSha256": "6f401203e21533dff666b2629e9506492fa34c4b17d02eaff85dae4960437ec6"
+}

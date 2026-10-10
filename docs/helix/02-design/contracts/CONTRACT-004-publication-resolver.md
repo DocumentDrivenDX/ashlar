@@ -417,6 +417,60 @@ failure; incomplete or uncertain closure MUST withhold success. The private loca
 commerce profile establishes no production Truss authority, end-user delegation,
 Unity Catalog retention or cloud execution claim.
 
+### Explicit Paths profile with one-hop keys
+
+`query-commerce-paths --profile paths-keys` MUST select the independently indexed
+`ashlar.databricks.paths-keys` backend, version `0.4.0-paths-keys-candidate`,
+interface `weft-backend/0.3.0`, target `spark4-delta4-paths-keys-candidate`.
+Omitting `--profile`, or selecting `paths`, retains the original Paths profile.
+Unknown profiles refuse before compiler or engine construction. The immutable
+typed host configuration owns this selection; neither SQL nor operator file
+locations can override trusted realization/index/platform pins. All explicit
+artifact, row, cell and total-capture bounds remain mandatory. Installation or
+qualification failure MUST NOT cause profile fallback or metadata relabeling.
+
+The new profile admits required-root, nongrouped, nonaggregate `RELATED_KEYS`
+over one monomorphic authored relationship with complete required String keys,
+including composite keys and authored inverse traversal. Potentially unmatched
+LEFT roots and mixing with path expansion refuse. The selected original logical
+expression and its `relatedKeys` result representation MUST correspond exactly
+in relationship, starting scan, terminal Record, ordered key Fields/types and
+bound. Weft CONTRACT-005 owns the exact capability and closed obligation payloads;
+no new language/IR/compile wire version is implied.
+
+Ashlar MUST independently admit both `ashlar.relatedKeys.collectionIntegrity`
+and `ashlar.relatedKeys.ordinalCapacity`, including their complete ordered output
+inventories and the original pinned consumed-edge schemas. Native BIGINT identity
+schema must be observed under the same publication hold even for an empty edge
+table or a table absent from `binding.records`. Complete-source non-null and
+unique edge IDs, endpoint/key/source correspondence, full-bag encoding and exact
+ordinal capacity must pass before the user result is released. A bound or
+bound-plus-one prefix never proves capacity of the complete per-owner bag.
+Authored degree counts distinct neighboring Records; collection occurrences
+retain independent parallel edges even when projected key tuples are equal.
+
+`decode_related_keys(representation, raw, *, model_pins, config)` is a pure
+portable API. `RelatedKeysDecodeConfig.maximum_cell_bytes` is an explicit positive
+integer at most 16 MiB, excluding Boolean values. `DecodedRelatedKeys` retains
+`original:bytes`, `items:tuple` of original ordered String tuples, and
+`truncated:bool`. Pins and descriptors require prior host admission. The closed
+carrier is exactly `{items:[StringTuple,...],truncated:boolean}`, selected from
+Weft's inherited `weft-application-result/0.2.0` `relatedKeys` definition through
+the original result descriptor. The 0.4 path-only result schema cannot attest this
+carrier. Duplicate JSON members, native numeric atoms, invalid Unicode, NUL key
+atoms, unknown members, wrong tuple arity, descending String key order and
+over-bound items refuse. A true marker requires a full bound of items. Equal
+tuples and every original byte remain intact; the pure decoder cannot establish
+full-bag completeness, edge tie-breaking or truncation truth. Those require
+the owning held checks, reviewed lowering and independent native oracle.
+
+The installed commerce workflow MUST run the same ten source-derived query cases
+with this profile, including the one-hop collection, two-hop collection/counts,
+positive grouping, original property join and exact arithmetic. Success needs
+fresh compiler, package, schema and native evidence for the selected profile;
+existing profile receipts cannot qualify it. Query-only progress and outer
+cleanup/release rules above apply unchanged.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).

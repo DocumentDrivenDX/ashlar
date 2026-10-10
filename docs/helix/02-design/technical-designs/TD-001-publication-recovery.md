@@ -39,6 +39,33 @@ criteria, including success, exact replay, changed intent refusal, publication
 before ACK recovery and closing-context refusal. No interface or source semantic
 validator is introduced by the assurance model.
 
+### Paths held-read correspondence
+
+CONTRACT-004's selected Paths and Paths-keys reads preserve the existing state
+model and precise-specification assurance level. `ashlar_host.path_admission`
+owns original compiler/model/binding and obligation admission;
+`path_execution` owns the guarded held interval, complete schema observations,
+checks, bounded capture, descriptor-selected decoding and final same-vector
+recheck. Its returned evidence is provisional. `paths_query` owns final source,
+compiler, protected-ACK and publication correspondence, reader/client closure,
+Spark shutdown and complete report publication.
+
+PUB-F1 maps to opening/closing original publication equality, interval closure
+and the outer release gate: any admission, native, decoder, closing or cleanup
+failure withholds success. Test drift, partial capture, cancellation and
+reader/Spark close failures through these public boundaries. PUB-F2 maps to the
+read-only workflow and exact opening/closing protected-ACK readback; execution
+has no progress-mutation port. A successful query is not a new publication or
+source ACK. Preserve the primary failure through cleanup; a report published
+after all gates does not promise power-loss durability.
+
+One-hop admission and decoding extend the checked representation and guard
+inventory, not publication or ACK transitions. Review this unchanged-model
+disposition and its mapped controls after profile/host changes. Key order,
+bag enumeration, native capacity and arithmetic remain outside this publication
+model and require independent semantic/native evidence. No new analyzer run or
+mechanical assurance follows from this correspondence.
+
 ## Formal Specification: publication and ACK
 
 Scope FR-4/US-004 and CONTRACT-001/004: reviewed precise specification of
@@ -74,4 +101,3 @@ Model finite identities as exact tokens, preserving separation of feeds and
 operations; exclude cloud IAM, uncoordinated administrator mutation, real timing,
 physical retention and engine semantics. These require independent host/native
 qualification. Incomplete exploration or timeout is unknown, not passing evidence.
-
