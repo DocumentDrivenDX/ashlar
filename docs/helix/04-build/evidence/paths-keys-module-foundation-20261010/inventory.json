@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "bytes": 891,
+      "original": "/private/tmp/ashlar-paths-keys-module-foundation-freeze-20261010-a/manifest.json",
+      "path": "freeze.json",
+      "sha256": "707f2ed25b7a8659e93adea6dadab79be2bb1dae9af42568d5abacef62c00ac9"
+    },
+    {
+      "bytes": 6328,
+      "original": "/private/tmp/astra-paths-keys-module-foundation-review-20261010-a.json",
+      "path": "review.json",
+      "sha256": "849f6344008729e4068971fde19a7e55005a89571542054b70ee0731af3f664b"
+    },
+    {
+      "bytes": 1418,
+      "original": "/private/tmp/astra-paths-keys-module-foundation-tests-20261010-a.log",
+      "path": "tests.log",
+      "sha256": "7b327b29326613af8c973f6368162868ab47b795241b74c64fe7789c46d913a7"
+    },
+    {
+      "bytes": 94,
+      "original": "/private/tmp/astra-paths-keys-module-foundation-checker-20261010-a.log",
+      "path": "checker.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    }
+  ],
+  "format": "ashlar-module-foundation-evidence/0.1",
+  "scope": "Desired ownership and actualchecker classification/allow/deny controls only; no package installation or native claim."
+}

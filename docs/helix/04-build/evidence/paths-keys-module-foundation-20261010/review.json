@@ -1,0 +1,191 @@
+{
+  "actualCommands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_module_boundaries.py",
+        "-v"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "environmentOverride": {
+        "PYTHONPATH": "tools:src"
+      },
+      "exitCode": 0,
+      "log": {
+        "bytes": 1418,
+        "path": "/private/tmp/astra-paths-keys-module-foundation-tests-20261010-a.log",
+        "sha256": "7b327b29326613af8c973f6368162868ab47b795241b74c64fe7789c46d913a7"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "tools/check_module_boundaries.py"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "log": {
+        "bytes": 94,
+        "path": "/private/tmp/astra-paths-keys-module-foundation-checker-20261010-a.log",
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    }
+  ],
+  "baseCommit": "731695096cd0c41933ac09b1b9a1dfe25367286a",
+  "checks": {
+    "actualRepositoryChecker": "passed",
+    "adrFrontmatterPreserved": true,
+    "baselineUnchanged": true,
+    "boundaryTestsPassed": 14,
+    "extraAliasAndPrivateControls": [
+      {
+        "expectedRefusal": "consumer-to-producer",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "core-to-composition",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "core-to-tools",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "core-to-sdk",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "core-to-host-composition",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "private-cross-module",
+        "role": "weft_paths_keys_package"
+      },
+      {
+        "expectedRefusal": "consumer-to-producer",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "core-to-composition",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "core-to-tools",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "core-to-sdk",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "core-to-host-composition",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "private-cross-module",
+        "role": "weft_paths_keys_installation"
+      },
+      {
+        "expectedRefusal": "consumer-to-producer",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "expectedRefusal": "core-to-composition",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "expectedRefusal": "core-to-tools",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "expectedRefusal": "core-to-sdk",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "expectedRefusal": "core-to-host-composition",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "expectedRefusal": "private-cross-module",
+        "role": "_weft_installation_mechanics"
+      },
+      {
+        "publicInstallAllowed": true,
+        "role": "weft_paths_keys_distribution"
+      },
+      {
+        "expectedRefusal": "core-to-tools",
+        "role": "weft_paths_keys_distribution"
+      },
+      {
+        "expectedRefusal": "core-to-sdk",
+        "role": "weft_paths_keys_distribution"
+      },
+      {
+        "expectedRefusal": "core-to-host-composition",
+        "role": "weft_paths_keys_distribution"
+      },
+      {
+        "expectedRefusal": "private-cross-module",
+        "role": "weft_paths_keys_distribution"
+      }
+    ],
+    "originalCheckerAlgorithmUnchangedExceptFourRoleNames": true,
+    "originalTestMethodsUnchanged": true,
+    "sourceHashesOpeningClosing": true
+  },
+  "decision": "approved-governance-and-checker-only",
+  "format": "independent-module-foundation-review/0.1",
+  "freeze": {
+    "bytes": 891,
+    "path": "/private/tmp/ashlar-paths-keys-module-foundation-freeze-20261010-a/manifest.json",
+    "sha256": "707f2ed25b7a8659e93adea6dadab79be2bb1dae9af42568d5abacef62c00ac9"
+  },
+  "helix0154": {
+    "configuration": "Desired-state public selection and profile proof constants stay with owning modules; private mechanism cannot acquire unchecked caller layouts. No implementation or config behavior added.",
+    "formal": "Static boundary positive/negative controls and explicit checker limitations; no type-ownership/cycle/dynamic-import proof or production availability claim.",
+    "modularity": "Separate proof, installation, fixed composition and private transport/file mechanism responsibilities; four named roles enforced for specific forbidden static import directions. No baseline waiver.",
+    "observability": "No telemetry runtime/export/receiver integration or assurance claimed."
+  },
+  "limitations": [
+    "This approves the three exact ADR/checker/test files only, not implementations of the four planned modules.",
+    "Private mechanics/profile ownership and dependency cycles still require semantic review when implementation is introduced; static role classification does not prove those properties.",
+    "No compiler, native engine, package installation, index change or Git mutation was performed."
+  ],
+  "remainingBlockers": [],
+  "reviewedFiles": [
+    {
+      "bytes": 29014,
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "7d3cd3eabf446c3c1c01a9de365af5b2c97660ef8962282e694e1cbee15a3728"
+    },
+    {
+      "bytes": 6584,
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "3db80fdb6e620bac514340a882a7f88ffccb28d42728cff5fb6b5c0ed2a91de8"
+    },
+    {
+      "bytes": 11313,
+      "path": "tests/test_module_boundaries.py",
+      "sha256": "0b1a01d86dcf2387bb76a3d047e212332dd165f444c4ba50a198ff75d8aa717a"
+    }
+  ],
+  "script": {
+    "bytes": 6525,
+    "path": "/private/tmp/astra-paths-keys-module-foundation-review-20261010-a.py",
+    "sha256": "90e16b229624450cb7f7467c3fc33831efd80ab23de7544edc45bc550619d86c"
+  }
+}

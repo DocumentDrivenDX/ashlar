@@ -1,0 +1,82 @@
+{
+  "compiledSourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "files": [
+    {
+      "bytes": 91894,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/command.json",
+      "path": "command.json",
+      "sha256": "432dbaffecf712d0139e4c5e958f6596c0ce0e373c627cb35ab530939c3bf6ed"
+    },
+    {
+      "bytes": 1336,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/freeze.json",
+      "path": "freeze.json",
+      "sha256": "abd64e14b5642f6780cf7be26033b81fdb29e1bacd1f30326ddc8b30132de069"
+    },
+    {
+      "bytes": 2395,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/run.py",
+      "path": "run.py",
+      "sha256": "840c3258220a58f415f4ded3247979270f3ca7340b0f681306c145eebcf168fe"
+    },
+    {
+      "bytes": 6214,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/bounded-launcher.py",
+      "path": "bounded-launcher.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+    },
+    {
+      "bytes": 322,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/outcome.json",
+      "path": "outcome.json",
+      "sha256": "d1a393da41f77e25147feddeb7cb580bea9a9a178c3733100cd7f1ae94b7d02b"
+    },
+    {
+      "bytes": 114,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/assembly.stdout",
+      "path": "assembly.stdout",
+      "sha256": "d20e8f69fe9ac1e33efcbf11a594b00b8e64c56d1173ff8bb94d186b2397df56"
+    },
+    {
+      "bytes": 110,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/assembly.stderr",
+      "path": "assembly.stderr",
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61"
+    },
+    {
+      "bytes": 4979,
+      "original": "/private/tmp/astra-paths-keys-assembly-source-review-20261010-c.json",
+      "path": "source-review.json",
+      "sha256": "d739bb925f00c0b14d00c44e23bf67725d6dd2da5e54cb9bb23a8004eaca282f"
+    },
+    {
+      "bytes": 4559,
+      "original": "/private/tmp/astra-paths-keys-assembly-command-review-20261010-a.json",
+      "path": "command-review.json",
+      "sha256": "16e8ef617fe30a078e7a31b9ca19dbd38648e8ac68a90649b2265bcf689d89af"
+    },
+    {
+      "bytes": 45266,
+      "original": "/private/tmp/astra-paths-keys-assembly-output-review-20261010-a.json",
+      "path": "output-review.json",
+      "sha256": "c58445b06f18e7181ffc0ff531cfa8daee39fde2bb666d98fa5b9d8f86f2229c"
+    },
+    {
+      "bytes": 7066,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/package/manifest.json",
+      "path": "package-manifest.json",
+      "sha256": "414d343f917bffa5eca34b6d9d87a4fd2234486c6351b95879f1061afb17302d"
+    },
+    {
+      "bytes": 34922,
+      "original": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/package/assembly-custody.json",
+      "path": "package-custody.json",
+      "sha256": "03e897e9d9e0b849e3a480710a9a3cc440537d439e3ba1a25385c48c9fef2f27"
+    }
+  ],
+  "format": "ashlar-qualified-inert-assembly/0.1",
+  "packageBytes": 47778857,
+  "packageFiles": 127,
+  "scope": "Independently reviewed127file inert package assembly;74current protocol cases,48capabilities,8transport controls. No public index/installation/native/source/publication/ACK authority claim.",
+  "weftAssemblerCommit": "6a42631f1e0e68796747e666e8043e9e4b91e8aa"
+}

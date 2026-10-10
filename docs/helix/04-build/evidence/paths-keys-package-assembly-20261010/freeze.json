@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "bytes": 23157,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/assemble-paths-distribution.py",
+      "sha256": "623e1c174e98e6415f86010784a0fd61e53c7f2a368f0a555d2bc36b1d8a6159"
+    },
+    {
+      "bytes": 6214,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/bounded-launcher.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+    },
+    {
+      "bytes": 5634,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/ci-delta.yml",
+      "sha256": "bbec44559433b51d47389a2349c59bd3f9d61fb4205d018d695e4857383700d2"
+    },
+    {
+      "bytes": 91894,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/command.json",
+      "sha256": "432dbaffecf712d0139e4c5e958f6596c0ce0e373c627cb35ab530939c3bf6ed"
+    },
+    {
+      "bytes": 18716,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/paths_keys_distribution.py",
+      "sha256": "5e981a454bbfbc31b797559dd6d4c4ee67d0114fc5922ff7d437c63a13f8a2c0"
+    },
+    {
+      "bytes": 2395,
+      "path": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/run.py",
+      "sha256": "840c3258220a58f415f4ded3247979270f3ca7340b0f681306c145eebcf168fe"
+    }
+  ],
+  "format": "ashlar-inert-assembly-command-freeze/0.1"
+}

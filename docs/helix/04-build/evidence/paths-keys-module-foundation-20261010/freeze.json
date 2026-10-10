@@ -1,0 +1,27 @@
+{
+  "format": "ashlar-paths-keys-module-foundation-review/0.1",
+  "files": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "7d3cd3eabf446c3c1c01a9de365af5b2c97660ef8962282e694e1cbee15a3728",
+      "bytes": 29014
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "3db80fdb6e620bac514340a882a7f88ffccb28d42728cff5fb6b5c0ed2a91de8",
+      "bytes": 6584
+    },
+    {
+      "path": "tests/test_module_boundaries.py",
+      "sha256": "0b1a01d86dcf2387bb76a3d047e212332dd165f444c4ba50a198ff75d8aa717a",
+      "bytes": 11313
+    }
+  ],
+  "tests": {
+    "interpreter": "/usr/bin/python3",
+    "boundaryTests": 14,
+    "repositoryChecker": "pass",
+    "diffCheck": "pass"
+  },
+  "scope": "Governed roles and AST allow/deny controls only; no package implementation, native execution or availability claim."
+}

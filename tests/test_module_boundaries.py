@@ -113,6 +113,47 @@ class BoundaryTests(unittest.TestCase):
             (root / 'src/ashlar' / name).write_text('from .weft_paths_distribution import open_paths_distribution\n')
         self.assertEqual({e[3] for e in scan(root)}, {'portable-to-runtime', 'core-to-composition'})
 
+    def test_paths_keys_consumers_and_private_mechanics_exact_boundaries(self):
+        for name in ('weft_paths_keys_package', 'weft_paths_keys_installation',
+                     '_weft_installation_mechanics'):
+            with self.subTest(module=name):
+                root = self.tree('')
+                path = root / 'src/ashlar' / (name + '.py')
+                path.write_text('from .publication import Descriptor\n')
+                self.assertEqual(check(root, self.policy()), ([], []))
+                for statement, reason in (
+                    ('from .publisher import Attempt', 'consumer-to-producer'),
+                    ('from .weft_paths_keys_distribution import composition', 'core-to-composition'),
+                    ('from tools.adapter import execute', 'core-to-tools'),
+                    ('import pyspark', 'core-to-sdk'),
+                    ('from ashlar_host.paths_query import query_commerce_paths', 'core-to-host-composition'),
+                    ('from .publication import _hidden', 'private-cross-module')):
+                    path.write_text(statement + '\n')
+                    new, stale = check(root, self.policy())
+                    self.assertEqual({edge[3] for edge in new}, {reason})
+                    self.assertFalse(stale)
+
+    def test_paths_keys_composition_role_is_closed(self):
+        root = self.tree('')
+        path = root / 'src/ashlar/weft_paths_keys_distribution.py'
+        path.write_text('from .weft_paths_keys_installation import install\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+        for statement, reason in (
+            ('from tools.adapter import execute', 'core-to-tools'),
+            ('import pyspark', 'core-to-sdk'),
+            ('from ashlar_host.paths_query import query_commerce_paths', 'core-to-host-composition'),
+            ('from .weft_paths_keys_installation import _hidden', 'private-cross-module')):
+            path.write_text(statement + '\n')
+            self.assertEqual({edge[3] for edge in check(root, self.policy())[0]}, {reason})
+        path.write_text('from .weft_paths_keys_installation import install\n')
+        for name, reason in (('weft_paths_keys_package', 'core-to-composition'),
+                             ('weft_paths_keys_installation', 'core-to-composition'),
+                             ('schema', 'portable-to-runtime')):
+            probe = root / 'src/ashlar' / (name + '.py')
+            probe.write_text('from .weft_paths_keys_distribution import composition\n')
+            self.assertEqual({edge[3] for edge in check(root, self.policy())[0]}, {reason})
+            probe.unlink()
+
     def test_installed_host_has_owned_public_edges(self):
         root = self.tree('from ashlar_host.commerce import publish_commerce\n')
         host = root / 'src/ashlar_host'
