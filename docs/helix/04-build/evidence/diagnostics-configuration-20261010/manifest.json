@@ -1,0 +1,29 @@
+{
+  "format": "ashlar-diagnostics-configuration-freeze/0.1",
+  "sourceBase": "d6fc9fb8eb000306b0ac3673d881e0f035127963",
+  "files": [
+    {
+      "path": "src/ashlar_host/config.py",
+      "bytes": 10498,
+      "sha256": "0d53617c05b5992255a9009dab4519c829be44dccaa000fa3e314140e2c51346"
+    },
+    {
+      "path": "tests/test_diagnostics_configuration.py",
+      "bytes": 8064,
+      "sha256": "c557eb3d79ed0128d38d2715631a6194cd829aa80ce2a12775acd69ab1239bd9"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 30805,
+      "sha256": "0b39061df58deb31f4f78b24ae4a710f5af975c2e40646e660d689910c4b73d6"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 2987,
+      "sha256": "4eccba3e604c2389e114dd2d7e7920189f8d280a1667df262a45dcb06dd54e21"
+    }
+  ],
+  "scope": "C006 typed settings/secret wrapper/admission only. Required injected settings, immutable origins, bounded TLS/header/limits checks; no SDK discovery, event capture, receiver or operation integration claim.",
+  "previousFreeze": "/private/tmp/ashlar-diagnostics-configuration-freeze-20261010-a/manifest.json",
+  "correction": "Ordinary attribute deletion cannot mutate an admitted SecretText; deletion regression preserves original secret value."
+}

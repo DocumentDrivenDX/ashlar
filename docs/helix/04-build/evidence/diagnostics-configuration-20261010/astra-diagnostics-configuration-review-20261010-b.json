@@ -1,0 +1,169 @@
+{
+  "format": "independent-diagnostics-configuration-review/0.1",
+  "decision": "approved-source-only-exact-B-four-files",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-configuration-freeze-20261010-b/manifest.json",
+    "bytes": 1313,
+    "sha256": "3b856013bb32ec408386968abbc76ad7866b1ac5939a021754fe6595f6b4a34d"
+  },
+  "sourceBase": "d6fc9fb8eb000306b0ac3673d881e0f035127963",
+  "files": [
+    {
+      "path": "src/ashlar_host/config.py",
+      "bytes": 10498,
+      "sha256": "0d53617c05b5992255a9009dab4519c829be44dccaa000fa3e314140e2c51346"
+    },
+    {
+      "path": "tests/test_diagnostics_configuration.py",
+      "bytes": 8064,
+      "sha256": "c557eb3d79ed0128d38d2715631a6194cd829aa80ce2a12775acd69ab1239bd9"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 30805,
+      "sha256": "0b39061df58deb31f4f78b24ae4a710f5af975c2e40646e660d689910c4b73d6"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 2987,
+      "sha256": "4eccba3e604c2389e114dd2d7e7920189f8d280a1667df262a45dcb06dd54e21"
+    }
+  ],
+  "governingContract": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    }
+  ],
+  "checks": [
+    "All4 immutable frozen and live source hashes match.",
+    "All prior named config classes/functions are AST-identical to the declared committed base.",
+    "Config exact9 fields, secret headers, TLS/origin rules and ten finite budget axes correspond to C006; no environment/default discovery in constructor.",
+    "Secret string/repr/settings serialization safe; original-A ordinary deletion counterexample now refuses while retaining exact secret.",
+    "All numeric limits reject booleans, out-of-bounds and cross-limit conflicts; all10 inclusive extrema independently admit with compatible limits.",
+    "Origins copied to read-only snapshot; required operator leaves reject TOML/default origins.",
+    "Absolute non-symlink regular custom-CA admission refuses FIFO/dir/missing; this validates metadata only and does not claim certificate parse/runtime file custody.",
+    "Malformed URI/Unicode/header/type controls return fixed HostError; injected admission KeyboardInterrupt retains original object.",
+    "ADR exact two additional owned public type names only; frontmatter/rest byte-identical.",
+    "CI exact one appended focused strict standard-library test line; no earlier line or baseline changed."
+  ],
+  "tests": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_diagnostics_configuration.py",
+        "-v"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "environmentOverlay": {
+        "PYTHONPATH": "src"
+      },
+      "tests": 7,
+      "exitCode": 0,
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-configuration-tests-20261010-b-py39.log",
+        "bytes": 940,
+        "sha256": "652f41fb129485c7ac5ff47d591de27be8c93b125f581853a1000df09d2bf229"
+      }
+    },
+    {
+      "argv": [
+        "/private/tmp/truss-python-report-schema-env/bin/python",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_diagnostics_configuration.py",
+        "-v"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "environmentOverlay": {
+        "PYTHONPATH": "src"
+      },
+      "tests": 7,
+      "exitCode": 0,
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-configuration-tests-20261010-b-py311.log",
+        "bytes": 1292,
+        "sha256": "b5c337e802b9f8f6f162c9527ec55f5d85c7ffdfc115aee768e6b9e08632002e"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "/private/tmp/astra-diagnostics-configuration-controls-20261010-b.py"
+      ],
+      "exitCode": 0,
+      "receipt": {
+        "path": "/private/tmp/astra-diagnostics-configuration-controls-20261010-b.json",
+        "bytes": 2031,
+        "sha256": "db3ad8bf4cd1c7fa5b18842187da4027a24433cf1f450594460833407ead54b6"
+      },
+      "script": {
+        "path": "/private/tmp/astra-diagnostics-configuration-controls-20261010-b.py",
+        "bytes": 5274,
+        "sha256": "93c316b181ba8536424f6f081b7c1448aba4a89d6759469f1cd0e02820bc56a0"
+      },
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-configuration-controls-20261010-b.log",
+        "bytes": 175,
+        "sha256": "b6374d90882d59494039aade098160ed757902fbfdd1c36c24ee1801eea99aaa"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "tools/check_module_boundaries.py"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "environmentOverlay": {
+        "PYTHONPATH": "src:tools"
+      },
+      "exitCode": 0,
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-configuration-boundaries-20261010-b.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    }
+  ],
+  "counterexampleAndResolution": {
+    "id": "DC-001",
+    "priorReceipt": {
+      "path": "/private/tmp/astra-diagnostics-configuration-controls-20261010-a.json",
+      "bytes": 2334,
+      "sha256": "f6fa790bc398505e5dc268eab8a31c58f5506a583b0e054e047ffd3847c8f0c3"
+    },
+    "status": "resolved",
+    "change": "Only __delattr__ refusal and deletion/value-preservation regression differ B from A."
+  },
+  "remainingBlockers": [],
+  "scope": {
+    "modularity": "Typed host-only configuration; no SDK/native ownership or portable-core dependency changes.",
+    "configuration": "Finite explicit immutable snapshots admitted independently of ambient values; source-layer validation, not full config composition/transport closure.",
+    "observability": "Redacted secrets and bounded origin-only metadata groundwork; no diagnostic emitter/SDK/receiver/exporter implementation or runtime assurance.",
+    "formal": "Precise admission/cancellation/immutability controls and old-body correspondence, no analyzer or model proof; no hostile reflection/object.__setattr__ security claim."
+  },
+  "execution": "No actual SDK acquisition/install/import, receiver, compiler/native process or Git/source mutation. Only receipt/probe files written."
+}

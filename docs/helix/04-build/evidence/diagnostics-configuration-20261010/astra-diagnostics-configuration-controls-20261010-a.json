@@ -1,0 +1,67 @@
+{
+  "format": "astra-diagnostics-config-controls/0.1",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-configuration-freeze-20261010-a/manifest.json",
+    "bytes": 1074,
+    "sha256": "cbbca889435dbb5f7e60edf35eda6ee70dc3d0b08d9d613a8da5538486a9b88e"
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/config.py",
+      "bytes": 10415,
+      "sha256": "0fa97236aa1fc71cd6618072a179f840103034ecc94358e6a1f098240fb9999b"
+    },
+    {
+      "path": "tests/test_diagnostics_configuration.py",
+      "bytes": 7923,
+      "sha256": "f6327c7261391277aed57507588edd4e42ebf8acf9c464364a1386ea8fce6194"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 30805,
+      "sha256": "0b39061df58deb31f4f78b24ae4a710f5af975c2e40646e660d689910c4b73d6"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 2987,
+      "sha256": "4eccba3e604c2389e114dd2d7e7920189f8d280a1667df262a45dcb06dd54e21"
+    }
+  ],
+  "oldNamedBodiesASTUnchanged": [
+    "HostError",
+    "_path",
+    "_bound",
+    "PrivatePostgresConfig",
+    "ProducerConfig",
+    "PublishCommerceConfig",
+    "QueryCommerceConfig",
+    "QueryCommercePathsConfig"
+  ],
+  "passedControls": [
+    "all10 axes both inclusive boundaries admit with compatible cross limits",
+    "non-loopback-or-wrong-scheme-test-policy",
+    "non-loopback-or-wrong-scheme-test-policy",
+    "non-loopback-or-wrong-scheme-test-policy",
+    "safe-invalid-url",
+    "safe-invalid-url",
+    "safe-invalid-url",
+    "safe-invalid-url",
+    "strict-value-type-or-encoding",
+    "strict-value-type-or-encoding",
+    "strict-value-type-or-encoding",
+    "strict-value-type-or-encoding",
+    "nonregular-ca-refusal",
+    "nonregular-ca-refusal",
+    "exact KeyboardInterrupt preserved by admission"
+  ],
+  "findings": [
+    {
+      "id": "DC-001",
+      "severity": "P2",
+      "finding": "SecretText ordinary __delattr__ is not blocked; deleting existing slot invalidates an admitted immutable configuration.",
+      "reproduction": "secret=SecretText(...); del secret._SecretText__value; secret._reveal() raises AttributeError",
+      "fix": "Add __delattr__ refusal and a deletion regression."
+    }
+  ],
+  "scope": "Source/configuration and fake admission ports only; no SDK/native/network/receiver proof."
+}
