@@ -97,12 +97,29 @@ def gremlin_plan(profile,name,scans,joins,predicates,outputs,group,records,field
     def scan(s):
         a,r=s.split(':');identity=next(f['record_identity']for f in profile['fields']if f['record_identity'][2]==r);typ=json.dumps({'document':identity[0],'module':identity[1],'element':identity[2]},sort_keys=True,separators=(',',':'))
         return ".V().hasLabel('"+label+"').has('original_type',"+bound(typ)+").as('"+a+"')"
+    # This one finite original case uses scan-local scalar filters, before the
+    # cross-scan equality join. Source presence stays explicit; no null coercion.
+    local_zero={}
+    if profile['pack']=='ecology' and name=='zero':
+        if list(predicates)!=['o.count=INTEGER:0','o.detection=STRING:not-detected','NOT_NULL:e.amount']:
+            raise ValueError('Exact original zero predicates required')
+        for token,family in [('o.count','integer'),('o.detection','string'),('e.amount','decimal')]:
+            alias,field=token.split('.');metadata=fields[(records[alias],field)]
+            if metadata['original_field']['scalarType']!=family or metadata['original_field']['cardinality']!='one':
+                raise ValueError('Admitted original scalar filter meaning required')
+        local_zero['o']=".has('"+column('o.count')[1]+"',eq(0)).has('"+column('o.detection')[1]+"',eq("+bound('not-detected')+"))"
+        amount=fields[(records['e'],'amount')]
+        local_zero['e']=".has('"+amount['presence_column']+"',eq("+bound('present')+"))"
     optional={j[9:].split('.')[0]for j in joins if j.startswith('OPTIONAL:')};text='g';available=set()
-    pending=[j for j in joins if not j.startswith('OPTIONAL:')]+list(predicates)
+    pending=[j for j in joins if not j.startswith('OPTIONAL:')]+([] if local_zero else list(predicates))
     for s in scans:
         a=s.split(':')[0]
         if a not in optional:
-            text+=scan(s);available.add(a)
+            fragment=scan(s)
+            if a in local_zero:
+                marker=".as('"+a+"')"
+                fragment=fragment[:-len(marker)]+local_zero[a]+marker
+            text+=fragment;available.add(a)
             ready=[p for p in pending if set(re.findall(r'([a-z]+)\.',p))<=available]
             for p in ready:text+='.where('+condition(p)+')';pending.remove(p)
     if pending:raise ValueError('Every original predicate must bind existing scan occurrences')

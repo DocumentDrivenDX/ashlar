@@ -25,6 +25,20 @@ class NativeScenarioQueryTests(unittest.TestCase):
         self.assertIn("__.coalesce(__.select('p').values('original_key'),__.constant(null))",script)
         self.assertIn("__.coalesce(__.select('f').values('original_key'),__.constant(null))",script)
         self.assertEqual(len(names),10)
+    def test_zero_pushdown_uses_admitted_scalars_and_explicit_presence(self):
+        import copy
+        profile=self.profiles()[1]
+        script,bindings,names=query_plan(profile,'zero','Gremlin')
+        self.assertIn(".has('integer_50',eq(0))",script)
+        self.assertIn(".has('presence_5',eq(",script)
+        self.assertLess(script.index(".has('integer_50'"),script.index(".as('o')"))
+        self.assertLess(script.index(".has('presence_5'"),script.index(".as('e')"))
+        self.assertNotIn("select('e').values('field_5')",script)
+        self.assertIn(".where(eq('ashlarComparedValue",script)
+        self.assertIn('not-detected',bindings.values());self.assertIn('present',bindings.values())
+        changed=copy.deepcopy(profile)
+        next(f for f in changed['fields']if f['identity'][2]=='occurrences.count')['original_field']['scalarType']='string'
+        with self.assertRaises(ValueError):query_plan(changed,'zero','Gremlin')
     def test_complete_closing_source_change_refuses(self):
         from unittest.mock import patch
         prepared={'reports':[]}
