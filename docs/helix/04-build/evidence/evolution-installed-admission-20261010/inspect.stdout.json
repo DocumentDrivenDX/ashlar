@@ -1,0 +1,17 @@
+{
+  "portable_module": "/private/tmp/ashlar-evolution-installed-20261010-a/venv/lib/python3.11/site-packages/ashlar/commerce_evolution.py",
+  "host_module": "/private/tmp/ashlar-evolution-installed-20261010-a/venv/lib/python3.11/site-packages/ashlar_host/evolution_admission.py",
+  "sdk_free": true,
+  "resource_count": 7,
+  "resource_hashes": {
+    "source-closure.json": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+    "check_evolution.ts": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+    "seed-candidate.json": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+    "seed-public.json.gz": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+    "candidate.json": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+    "public-presence.json.gz": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+    "original-model.json": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+    "baseline.sql": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+  },
+  "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]"
+}

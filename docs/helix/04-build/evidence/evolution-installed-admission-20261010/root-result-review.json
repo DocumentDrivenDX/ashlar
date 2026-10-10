@@ -1,0 +1,13 @@
+{
+  "reviewer": "root independent of package author",
+  "verdict": "approved-installed-public-admission",
+  "result_sha256": "c74b5dbbda04fab1e3ac3eb356aa5986b5bf9973dd6ff0e299bba2fa50e6c7bc",
+  "checks": [
+    "112 wheel source files compared independently byte-for-byte with exact commit",
+    "Isolated installed module paths asserted; PYTHONPATH absent",
+    "Actual fresh public receipt exact expected SHA verified by installed API and runner",
+    "Four source-qualified batch IDs,45changes,19prior transition pairs; boundedmetadata/custody retained",
+    "Terminal zero and empty stderr"
+  ],
+  "limits": "Installed semantic admission only; no source/native graph/ACK authority, ingestion/publication/recovery qualification"
+}

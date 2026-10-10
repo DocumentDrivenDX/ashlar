@@ -1,0 +1,37 @@
+{
+  "qualification": "Installed public source admission only; no graph publication, native ingest, source or ACK authority.",
+  "commit": "02e23cdf16c9c8fe0c4719b54d7e1bdc6688f499",
+  "module": "/private/tmp/ashlar-evolution-installed-20261010-a/venv/lib/python3.11/site-packages/ashlar_host/evolution_admission.py",
+  "elapsed_seconds": 29.848505417001434,
+  "metadata": {
+    "profile": "ashlar-commerce-evolution-private-source-admission/0.2",
+    "qualification": "Fixed public source/data semantics only; no source, writer, publication or ACK authority.",
+    "umf_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+    "public_receipt_sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576",
+    "custody": {
+      "bytes": 57325271,
+      "files": 7698,
+      "revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+      "runtime_scope": "Conservative static public index import closure and complete transitive runtime packages; trusted OS/stdlib/Git administration is not hermetic.",
+      "source_closure_sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6"
+    },
+    "source_system": "installed-evolution-A-20261010",
+    "epoch": "installed-qualification-20261010-a",
+    "batch_identity_profile": "source-epoch-qualified/0.1",
+    "batch_ids": [
+      "[\"installed-evolution-A-20261010\",\"installed-qualification-20261010-a\",\"R1\"]",
+      "[\"installed-evolution-A-20261010\",\"installed-qualification-20261010-a\",\"R2-update\"]",
+      "[\"installed-evolution-A-20261010\",\"installed-qualification-20261010-a\",\"R3-delete\"]",
+      "[\"installed-evolution-A-20261010\",\"installed-qualification-20261010-a\",\"R4-additive-candidate\"]"
+    ],
+    "registry_sha256": "517cd85e14b33804d80b03a556a241bcf5821299e21421435850ff414076a253",
+    "schema_revisions": [
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "f053cd4d9412c6ae091ec5f3d649e06558f89379d1f33c836eda66229f1f2b65"
+    ]
+  },
+  "change_count": 45,
+  "transition_count": 19
+}

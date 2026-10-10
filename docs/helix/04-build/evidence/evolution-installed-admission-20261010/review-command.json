@@ -1,0 +1,19 @@
+{
+  "status": "Prepared, not executed",
+  "cwd": "/private/tmp/ashlar-evolution-installed-20261010-a",
+  "argv": [
+    "/usr/bin/env",
+    "-u",
+    "PYTHONPATH",
+    "/private/tmp/ashlar-evolution-installed-20261010-a/venv/bin/python",
+    "-I",
+    "/private/tmp/ashlar-evolution-installed-20261010-a/run-installed-admission.py"
+  ],
+  "scope": "Actual installed public UMF evolution source admission, no native graph or ACK",
+  "output_files": [
+    "/private/tmp/ashlar-evolution-installed-20261010-a/actual-admission-result.json"
+  ],
+  "timeout_seconds_per_selected_child": 60,
+  "maximum_child_stream_bytes": 1048576,
+  "maximum_receipt_bytes": 4194304
+}

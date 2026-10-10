@@ -1,0 +1,95 @@
+{
+  "scope": "Installed semantic admission only; no source/native graph/ACK authority, ingestion/publication/recovery qualification",
+  "files": [
+    {
+      "path": "actual-admission-result.json",
+      "bytes": 2186,
+      "sha256": "c74b5dbbda04fab1e3ac3eb356aa5986b5bf9973dd6ff0e299bba2fa50e6c7bc"
+    },
+    {
+      "path": "ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 827311,
+      "sha256": "c997afd3cf13c76a389c0aacb2db2ef32564fb741ae6bca7ee3d247d56e719ed"
+    },
+    {
+      "path": "build.stderr.log",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "build.stdout.log",
+      "bytes": 802,
+      "sha256": "3ffc59d84a1bfc6fc7da5a989bd73cf4ba1f3e3d03354f04dc68ce0d020655c0"
+    },
+    {
+      "path": "inspect-installed.py",
+      "bytes": 697,
+      "sha256": "4a11ce56f3aa9619d4df9125b172a613c83e0041cc37314edd62022928b08564"
+    },
+    {
+      "path": "inspect.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inspect.stdout.json",
+      "bytes": 1171,
+      "sha256": "2b0f3f97eb133fa80adbbb93e2cf07e5d0ce0a806a6413f8a079b01b56e96539"
+    },
+    {
+      "path": "install.stderr.log",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "install.stdout.log",
+      "bytes": 225,
+      "sha256": "1652ce1b60b1324bae8f2c7c3609bc2f3391acb39655841bf54fa2a959191c79"
+    },
+    {
+      "path": "qualification-freeze.json",
+      "bytes": 3301,
+      "sha256": "865fdbb5daccd379ea36945e958628b11199493502e1441c02188c8b8b515ffb"
+    },
+    {
+      "path": "review-command.json",
+      "bytes": 662,
+      "sha256": "1a02221a45030edc23c6f6a7a4c5f8eb0fcf7a357118a15213a78726b8562368"
+    },
+    {
+      "path": "root-command-review.json",
+      "bytes": 557,
+      "sha256": "167ce17df7864a07758704c7e01545702a9eb26d5b14e6e5d77a9363533d1465"
+    },
+    {
+      "path": "root-result-review.json",
+      "bytes": 734,
+      "sha256": "ff0e444ebad58dc22f124dc8a62f449587b9eedc38e31f0462e31788f95f3a16"
+    },
+    {
+      "path": "run-installed-admission.py",
+      "bytes": 1561,
+      "sha256": "851df3a725ca897f7770831b541b221ed236a3b469c9942d5cb2e4580c31e0d6"
+    },
+    {
+      "path": "run.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "run.stdout.log",
+      "bytes": 2186,
+      "sha256": "c74b5dbbda04fab1e3ac3eb356aa5986b5bf9973dd6ff0e299bba2fa50e6c7bc"
+    },
+    {
+      "path": "source-freeze.json",
+      "bytes": 19302,
+      "sha256": "8ca22f780c99626d10a691e837ba3a25284537db571dbde04d04ddfb6398c86d"
+    },
+    {
+      "path": "wheel-inspection.json",
+      "bytes": 25017,
+      "sha256": "9c93b66db2209b6a2909d5ed07369bbec8dbbe075de5e77d5a25220c58a3efc1"
+    }
+  ]
+}

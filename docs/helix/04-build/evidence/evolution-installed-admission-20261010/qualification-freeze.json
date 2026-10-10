@@ -1,0 +1,86 @@
+{
+  "source_commit": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "clean_source": true,
+  "executables": {
+    "bun": {
+      "selected_path": "/opt/homebrew/bin/bun",
+      "resolved_path": "/opt/homebrew/Cellar/bun/1.4.2/bin/bun",
+      "sha256": "4d410fa7e06d8cb3c6694c85cb61f3024cc4cd5cbe78764c58692384ee06e6b9",
+      "bytes": 58079568
+    },
+    "git": {
+      "selected_path": "/usr/bin/git",
+      "resolved_path": "/usr/bin/git",
+      "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2",
+      "bytes": 200560
+    }
+  },
+  "command_executed": false,
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/build.stderr.log",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/build.stdout.log",
+      "bytes": 802,
+      "sha256": "3ffc59d84a1bfc6fc7da5a989bd73cf4ba1f3e3d03354f04dc68ce0d020655c0"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/inspect-installed.py",
+      "bytes": 697,
+      "sha256": "4a11ce56f3aa9619d4df9125b172a613c83e0041cc37314edd62022928b08564"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/inspect.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/inspect.stdout.json",
+      "bytes": 1171,
+      "sha256": "2b0f3f97eb133fa80adbbb93e2cf07e5d0ce0a806a6413f8a079b01b56e96539"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/install.stderr.log",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/install.stdout.log",
+      "bytes": 225,
+      "sha256": "1652ce1b60b1324bae8f2c7c3609bc2f3391acb39655841bf54fa2a959191c79"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/review-command.json",
+      "bytes": 662,
+      "sha256": "1a02221a45030edc23c6f6a7a4c5f8eb0fcf7a357118a15213a78726b8562368"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/run-installed-admission.py",
+      "bytes": 1561,
+      "sha256": "851df3a725ca897f7770831b541b221ed236a3b469c9942d5cb2e4580c31e0d6"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/source-export.tar",
+      "bytes": 2764800,
+      "sha256": "196e5f18c35c17aa7f03a7bfc008490912bc8fc875229b6a628cc69c8e573aa1"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/source-freeze.json",
+      "bytes": 19302,
+      "sha256": "8ca22f780c99626d10a691e837ba3a25284537db571dbde04d04ddfb6398c86d"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/wheel-inspection.json",
+      "bytes": 25017,
+      "sha256": "9c93b66db2209b6a2909d5ed07369bbec8dbbe075de5e77d5a25220c58a3efc1"
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-installed-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 827311,
+      "sha256": "c997afd3cf13c76a389c0aacb2db2ef32564fb741ae6bca7ee3d247d56e719ed"
+    }
+  ]
+}

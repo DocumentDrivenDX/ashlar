@@ -1,0 +1,9 @@
+{
+  "verdict": "approved-exact-installed-command",
+  "reviewer": "root independent of package author",
+  "wheel_sha256": "c997afd3cf13c76a389c0aacb2db2ef32564fb741ae6bca7ee3d247d56e719ed",
+  "source_files_byte_exact": 112,
+  "command_sha256": "1a02221a45030edc23c6f6a7a4c5f8eb0fcf7a357118a15213a78726b8562368",
+  "script_sha256": "851df3a725ca897f7770831b541b221ed236a3b469c9942d5cb2e4580c31e0d6",
+  "scope": "Actual installed public semantic admission only; selected resources/60s child lifecycle; no native publication/source/ACK or credential effects"
+}
