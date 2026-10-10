@@ -1,0 +1,77 @@
+{
+  "decision": "approved for exact compiler realization and retained compilation corpus only",
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "sourceInventory": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source-inventory.json",
+    "bytes": 527981,
+    "sha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8"
+  },
+  "buildCommand": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build-command.json",
+    "bytes": 1766,
+    "sha256": "720dfab2837833dfd64801cc424e42fc2830151b4d692b87f6e21df32d44aae6"
+  },
+  "buildSummary": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build-replay-receipt.json",
+    "bytes": 662,
+    "sha256": "f8f16dcd0873a19bafcf7b200313b3ca5da264457817636c3835ffa5df56f4bc"
+  },
+  "buildLog": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build.log",
+    "bytes": 8016,
+    "sha256": "03a6e5dc4329440a63c42e411160d94a6fd9b072795e90bd036b2262a99e575a"
+  },
+  "replay": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/native-cli-replay.json",
+    "bytes": 1647771,
+    "sha256": "7ad78f27e4f7eb7b0a506012cd001833b9e852a0e0c85f81ca352d063a246154"
+  },
+  "binary": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+    "bytes": 8274496,
+    "sha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b"
+  },
+  "independentChecks": {
+    "completeSource": {
+      "files": 1839,
+      "bytes": 267249597,
+      "exactGitPathsModesBlobsSha256": true,
+      "openingClosingSourceUnchanged": true
+    },
+    "replay": {
+      "fullObservations": 21,
+      "distinctRequestObjects": 19,
+      "compiledObservations": 17,
+      "originalCompleteResponseJsonEquality": true,
+      "actualParentStdoutBytesEqual": true,
+      "allExit0StderrEmpty": true,
+      "binaryHashBeforeAfterEveryLaunch": true
+    },
+    "postBuildToolObservationRechecked": true
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-path-native-cli-build-review-20261010-a.py",
+      "bytes": 3707,
+      "sha256": "bbc1ec74ce983ae4a3dadf64fe73c9895b454025d12babfd3651ae0f391d7a68"
+    },
+    {
+      "path": "/private/tmp/astra-path-native-cli-build-controls-20261010-a.json",
+      "bytes": 8332,
+      "sha256": "c84598de0be1f8a34d5e1793a82db96654e12ee945cba19aca9684b791a565c6"
+    },
+    {
+      "path": "/private/tmp/astra-path-native-cli-build-review-20261010-c.log",
+      "bytes": 65,
+      "sha256": "33a35bef3e9385859cfe8fed5b2147a8d28927e5b2bdac684bf237ca8d9e41aa"
+    }
+  ],
+  "reviewProbeHistory": "Two initial verifier assertions incorrectly required unique test labels then21 unique requests; original corpus actually21 observations/19 unique request objects. Both failed before compiler replay; corrected verifier preserves every original case in order. Original failure logs retained separately.",
+  "limits": [
+    "No native SQL parsing/execution or host obligation discharge",
+    "No public index/installation/trust selection from these compilation cases alone",
+    "Shared Cargo target/dependency cache and inherited environment not fully closed; no deterministic binary reproduction or complete external closure claim",
+    "Actual executable default host target and observed Rust1.90 only; no cross-platform build claim"
+  ],
+  "helix": "Owned explicit feature/CLI boundary; recorded config/limits and constant safe transport failures. Finite source/compilation correspondence, no OTel or unbounded formal proof."
+}

@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "sourceInventorySha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8",
+  "sourceClosingVerified": true,
+  "binarySha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b",
+  "binaryBytes": 8274496,
+  "buildLogSha256": "03a6e5dc4329440a63c42e411160d94a6fd9b072795e90bd036b2262a99e575a",
+  "replaySha256": "7ad78f27e4f7eb7b0a506012cd001833b9e852a0e0c85f81ca352d063a246154",
+  "fullResponses": 21,
+  "qualification": "Actual native CLI build and complete compilation response parity only; no indexed package, engine execution, or host obligation discharge"
+}

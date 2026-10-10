@@ -1,0 +1,205 @@
+{
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "sourceFiles": 1839,
+  "sourceBytes": 267249597,
+  "exactGitBlobModeLengthSha": true,
+  "openingClosingSourceVerified": true,
+  "binary": {
+    "bytes": 8274496,
+    "sha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b"
+  },
+  "all21RawStdoutMatch": true,
+  "uniqueRequests": 19,
+  "cases": [
+    {
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "stdoutSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "stdoutBytes": 234,
+      "status": "blocked",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "requestSha256": "92f0285b32bcee48b0e5b8ea8916ceb9ee0b6231594335aeacfd12186db055f3",
+      "stdoutSha256": "48a4201161624c2c18566fab33211e5da9247078bd86c966a17e44066e4b1e0f",
+      "stdoutBytes": 48006,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "requestSha256": "d12c8b6586634b8ddc10d31f71aad3292c7d309d061d8132a97f5516e9863ecf",
+      "stdoutSha256": "7c248dddc53d465e28e419603c247467d071fb5924785a740f85e678c4cd6b2d",
+      "stdoutBytes": 84522,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "dac192242c9881ffc202910ecc8dd1125071784e2b94bb5d965afd442aed326f",
+      "stdoutSha256": "8f4cc31ad5151c0990b294f424bb2aeb7fb85a50313845b56c33fcb5c6355ea6",
+      "stdoutBytes": 14634,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "stdoutSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa",
+      "stdoutBytes": 88526,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "stdoutSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "stdoutBytes": 99372,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "stdoutSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "stdoutBytes": 99372,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "requestSha256": "9c98cde61dff3b1e0fedf724157591d1d018d731842ef1ad708d6ec9b0ad2e03",
+      "stdoutSha256": "6ae0cfd0edc7c8310f12ae39d599ef400be3bf030f86ea6c4450d8795015346b",
+      "stdoutBytes": 100408,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "2b63294f45bb6eeafcc085d799d85be1e826f1d528c40223fd50e41b4768d099",
+      "stdoutSha256": "74f281b3718eff4a9443d4dd80fca45831174315af8a6e14d2c94c204c5efcc6",
+      "stdoutBytes": 117635,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "requestSha256": "074581eff7c05a68010b04d32142fd00f38be424c2724895e4604795ca420c86",
+      "stdoutSha256": "cc9411f86ce0c507b3dc89927403b177e7fb899c723bf92a52ece02e01680ba4",
+      "stdoutBytes": 115556,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "requestSha256": "48922be05e137ea4e2ccfcc2cd1c441aeb6ffc75ca3f8299392c2c9a19797b68",
+      "stdoutSha256": "629beae35b31b8e7232e2152690df64dca2aa3215a011f855d5482be30cd1d02",
+      "stdoutBytes": 113301,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "requestSha256": "e337e3b21552ca36fc39a481b9e093f745105b4ede84eb25dc21553c10809654",
+      "stdoutSha256": "3c4d6fca3d5b13c45348651c2dd24e08823a519ae581d0f175a0439e96d0ff62",
+      "stdoutBytes": 131004,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "requestSha256": "b48f5e12363eaf50547d69d0f3610e31fb528296528cd744483a5df403c39444",
+      "stdoutSha256": "b8a1b3bf18dec575f6fe781eabef90a00082c8e4ed41e9ea87095894adbbf02a",
+      "stdoutBytes": 84512,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "3a7615ea14211c1e29ea2120d44d6f337f2e5e69f64d358668ba0f4d51fd3956",
+      "stdoutSha256": "4a89d8bafe8239dde337cbb208d483c10b040b65c0fe1e5b66ddbcc183e5b734",
+      "stdoutBytes": 237,
+      "status": "blocked",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "27225b875cf7fafc419eb0bc73932259321ecf123d83a0918a4f5d945dc099c1",
+      "stdoutSha256": "7574daeabb953d8ed86faca3df0bf8658adabf2ec7512874208491447c07c045",
+      "stdoutBytes": 247,
+      "status": "blocked",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "55279a36e813e3f70e86a298129ecb28e91ddfaf32330f8328f1fc2d5560c5f7",
+      "stdoutSha256": "a7bbc1178076e22d900c4666d694467d3a0342103bf31fc111e2fdece4bff6da",
+      "stdoutBytes": 89343,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "stdoutSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa",
+      "stdoutBytes": 88526,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "16b12b2ef2c7cfdb42e6cd068e6c16927b1adbe9fde92b2a8dcc9c7e0764de30",
+      "stdoutSha256": "b7772e720c2779fccff6658692db18e42ed955c4278291ab842b23bc0b88d522",
+      "stdoutBytes": 87648,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "requestSha256": "5b6a992f8ae144ca36ea0f326f4e3e195aaa545d464bf7f95d36356a9ba1bb68",
+      "stdoutSha256": "7f07dfc0fc916ddd0311c121c0e15dc1a18afa5a6ebf0b194c0745149b726821",
+      "stdoutBytes": 116861,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "a045ffb00fc863b995350eb63c809fad5e44cd246bc204deaa856fe82655f4be",
+      "stdoutSha256": "b6ef9bd3caed3c6a1c0f1335ee1f42ff7983ddabde4d59794ee595c7a61bc91c",
+      "stdoutBytes": 252,
+      "status": "blocked",
+      "exit": 0,
+      "stderrBytes": 0
+    },
+    {
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "4dd0f91e344e9b49eec5ded6f2905aa5965af74f497c366e6478c8005aa13f34",
+      "stdoutSha256": "eaabdbe813b1748a615e6db925329d0d50dc552c192cf91dadbfeaf007380cfc",
+      "stdoutBytes": 94743,
+      "status": "compiled",
+      "exit": 0,
+      "stderrBytes": 0
+    }
+  ],
+  "scope": "Pure compiler execution only; no engine, indexed realization, native SQL or host obligations"
+}

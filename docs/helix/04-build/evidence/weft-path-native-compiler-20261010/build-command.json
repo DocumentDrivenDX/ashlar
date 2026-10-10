@@ -1,0 +1,39 @@
+{
+  "session": 74009,
+  "terminalExit": 0,
+  "cwd": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source",
+  "argv": [
+    "cargo",
+    "build",
+    "--offline",
+    "--release",
+    "-p",
+    "weft-runtime",
+    "--features",
+    "ashlar-databricks-paths",
+    "--bin",
+    "weft-paths",
+    "--locked"
+  ],
+  "explicitEnvironmentOverrides": {
+    "PATH": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+    "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+    "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/private/tmp/ashlar-weft-distribution-d2d/target"
+  },
+  "stdoutStderrCapture": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build.log",
+  "toolsObservedAfterBuild": {
+    "cargo": {
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/cargo",
+      "sha256": "b617f75ab3fadd5d764368413b7e87532dfa45039aac431f9c0af883b824a6e6",
+      "version": "cargo 1.90.0 (840b83a10 2025-07-30)\n"
+    },
+    "rustc": {
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/rustc",
+      "sha256": "b2011d06d5c7efff7b48b1e1aec6106989e44f3a5ad1d171e06a41c0fbc3ffea",
+      "version": "rustc 1.90.0 (1159e78c4 2025-09-14)\nbinary: rustc\ncommit-hash: 1159e78c4747b02ef996e55082b704c09b970588\ncommit-date: 2025-09-14\nhost: aarch64-apple-darwin\nrelease: 1.90.0\nLLVM version: 20.1.8\n"
+    }
+  },
+  "scope": "Actual command metadata and post-build tool observation. Shared existing Cargo target/dependency cache and inherited process environment were reused; no deterministic reproduction or complete external dependency closure claim."
+}

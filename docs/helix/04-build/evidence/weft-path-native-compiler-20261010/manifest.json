@@ -1,0 +1,61 @@
+{
+  "entries": [
+    {
+      "bytes": 527981,
+      "originalPath": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source-inventory.json",
+      "path": "source-inventory.json",
+      "sha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8"
+    },
+    {
+      "bytes": 1766,
+      "originalPath": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build-command.json",
+      "path": "build-command.json",
+      "sha256": "720dfab2837833dfd64801cc424e42fc2830151b4d692b87f6e21df32d44aae6"
+    },
+    {
+      "bytes": 662,
+      "originalPath": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build-replay-receipt.json",
+      "path": "build-replay-receipt.json",
+      "sha256": "f8f16dcd0873a19bafcf7b200313b3ca5da264457817636c3835ffa5df56f4bc"
+    },
+    {
+      "bytes": 8016,
+      "originalPath": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/build.log",
+      "path": "build.log",
+      "sha256": "03a6e5dc4329440a63c42e411160d94a6fd9b072795e90bd036b2262a99e575a"
+    },
+    {
+      "bytes": 1647771,
+      "originalPath": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/native-cli-replay.json",
+      "path": "native-cli-replay.json",
+      "sha256": "7ad78f27e4f7eb7b0a506012cd001833b9e852a0e0c85f81ca352d063a246154"
+    },
+    {
+      "bytes": 3707,
+      "originalPath": "/private/tmp/astra-path-native-cli-build-review-20261010-a.py",
+      "path": "astra-path-native-cli-build-review-20261010-a.py",
+      "sha256": "bbc1ec74ce983ae4a3dadf64fe73c9895b454025d12babfd3651ae0f391d7a68"
+    },
+    {
+      "bytes": 8332,
+      "originalPath": "/private/tmp/astra-path-native-cli-build-controls-20261010-a.json",
+      "path": "astra-path-native-cli-build-controls-20261010-a.json",
+      "sha256": "c84598de0be1f8a34d5e1793a82db96654e12ee945cba19aca9684b791a565c6"
+    },
+    {
+      "bytes": 65,
+      "originalPath": "/private/tmp/astra-path-native-cli-build-review-20261010-c.log",
+      "path": "astra-path-native-cli-build-review-20261010-c.log",
+      "sha256": "33a35bef3e9385859cfe8fed5b2147a8d28927e5b2bdac684bf237ca8d9e41aa"
+    },
+    {
+      "bytes": 3512,
+      "originalPath": "/private/tmp/astra-path-native-cli-build-final-review-20261010-a.json",
+      "path": "astra-path-native-cli-build-final-review-20261010-a.json",
+      "sha256": "3dca0e088a47ab21e100774f2f7389e9e329e3c765415caa655c8368f99466cd"
+    }
+  ],
+  "format": "ashlar-reviewed-native-compiler-evidence/0.1",
+  "scope": "Exact reviewed native compiler build/replay evidence only; source Git inventory retained, executable and full export not vendored. No indexed package, source authority, native query or deterministic dependency-closure claim.",
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc"
+}
