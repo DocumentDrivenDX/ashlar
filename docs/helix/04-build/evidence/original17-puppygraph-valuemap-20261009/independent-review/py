@@ -1,0 +1,90 @@
+import pathlib,json,hashlib,base64,collections,importlib
+from prepare_pack_query_cases import prepare
+root=pathlib.Path('/Users/erik/Projects/ashlar');raw=pathlib.Path('/private/tmp/ashlar-original17-puppy-gremlin-20261009-g.json').read_bytes();sha=lambda b:hashlib.sha256(b).hexdigest()
+assert sha(raw)=='449c25782d3c3199d8755e89aa84f65de622f03e7bb9729e45bfbb22fdab0a2f';r=json.loads(raw)
+p=json.loads(pathlib.Path('/private/tmp/ashlar-original17-puppy-preparation-20261009-a/receipt.json').read_bytes())
+enc=lambda x:json.dumps(x,sort_keys=True,ensure_ascii=False,separators=(',',':'))
+bag=lambda xs:collections.Counter(map(enc,xs))
+assert r['language']=='Gremlin' and r['native_map_profile']=='ashlar-puppygraph-1.13-flat-valuemap/0.1' and r['original_authored_cases']==17
+assert r['opening']==r['closing'];obs=r['opening'];assert obs['catalog_observed']is False
+assert obs['requested_model_sha256']=='d92d77a57bebeb05a2fc1f126f2f830ab36530181e2a2015f4c995600bd69cfc' and obs['observed_model_sha256']=='b340f3679750ad08c922b4a28e94e3b0bd79348b4e54509fafa881af5c9ce03e'
+assert obs['container']['memory']==3221225472 and obs['container']['nano_cpus']==2000000000 and obs['container']['image']=='sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee'
+expecteddb=json.loads(pathlib.Path('/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/databases.json').read_bytes());assert len(expecteddb)==6 and obs['databases']==expecteddb
+assert len(r['original_files'])==22
+for fn,d in r['original_files'].items():assert sha(pathlib.Path(fn).read_bytes())==d,fn
+casecount=0;chunkcount=0;longs=[];case_summaries=[]
+for actual,prepared in zip(r['reports'],p['reports']):
+ profile=prepared['profile'];pack=profile['pack'];assert actual['pack']==pack
+ original=prepare(pack);expectedcases={c['original_scenario']['id']:c for c in original['cases']};graph=json.loads(base64.b64decode(profile['source_admission']['original_graph_base64']));objects={o['key']:o for o in graph['objects']}
+ assert graph==json.loads(pathlib.Path('/private/tmp/ashlar-'+pack+'-native-publication-20261009-a/original-graph.json').read_bytes())
+ # Independently verify every prepared lexical/presence/finite-integer cell against original graph.
+ nodes=prepared['nodes'];assert len(nodes)==len(objects)
+ for node in nodes:
+  source=objects[node['original_key']]
+  for field in profile['fields']:
+   member=field['record_identity'][2]==source['type']['element'];token=source['values'].get(field['identity'][2]) if member else None
+   state='nonmember' if not member else 'absent' if field['identity'][2]not in source['values'] else 'present-null' if token is None else 'present'
+   assert node[field['presence_column']]==state,(pack,field['identity'],state,node[field['presence_column']])
+   assert node[field['lexical_column']]==token
+   col=field['signed64_column']
+   if col:
+    expected=None if token is None else int(token)
+    assert node[col]==expected and (expected is None or type(node[col])is int and -2**63<=expected<2**63)
+    if expected is not None:longs.append((pack,node['original_key'],col,token,expected))
+ for phase in ['carriers','closing_carriers']:
+  for kind,role in [('node','nodes'),('edge','edges')]:
+   expected=prepared[role];bykey={n['carrier_key']:n for n in expected};allcols=set();label='Scenario'+pack.title()+kind.title();nlabel='Scenario'+pack.title()+'Node'
+   for chunk in actual[phase][kind]['chunks']:
+    chunkcount+=1;names=chunk['columns'];cols=['carrier_id'if n=='id'else'carrier_key'if n=='graph_id'else n for n in names];allcols.update(cols)
+    rawrows=chunk['original_native_rows'];decoded=chunk['decoded_projected_rows'];assert len(rawrows)==len(bykey)==len(decoded)
+    seen=set();rebuilt=[]
+    for n in rawrows:
+     assert set(n)==({'cells','native_id'}if kind=='node'else{'cells','native_id','native_src','native_dst'})
+     m=n['cells'];assert type(m)is dict and set(m)<=set(cols);key=m['carrier_key'];assert key not in seen;seen.add(key);e=bykey[key]
+     d={}
+     for col,name in zip(cols,names):
+      v=m.get(col);assert type(v)is type(e[col]) and v==e[col],(pack,phase,kind,col,v,e[col]);d[name]=v
+     assert n['native_id']=={'@type':'g:String','@value':label+'['+key+']'}
+     if kind=='edge':
+      assert n['native_src']=={'@type':'g:String','@value':nlabel+'['+e['src']+']'} and n['native_dst']=={'@type':'g:String','@value':nlabel+'['+e['dst']+']'}
+     rebuilt.append(d)
+    assert seen==set(bykey) and bag(rebuilt)==bag(decoded)
+   assert allcols==set(expected[0])-{'id','graph_id'},(pack,kind,'missing',set(expected[0])-allcols)
+   assert all(n['id']==n['carrier_id'] and n['graph_id']==n['carrier_key'] for n in expected)
+ assert len(actual['cases'])==len(expectedcases)
+ for c in actual['cases']:
+  name=c['original_scenario']['id'];oracle=expectedcases[name];assert c['original_scenario']==oracle['original_scenario'];expected=oracle['original_graph_expected'];rows=c['actual_ordered_cells'];arity=3 if name=='evidence-links' else len(expected[0])if expected else 1
+  logical=[]
+  for row in rows:
+   cells=row[:arity]
+   for j,x in enumerate(cells):
+    if name in ['media','connected-measurements']and j==1:assert type(x)is int and 0<=x<2**63;cells[j]=str(x)
+    else:assert x is None or type(x)is str
+   logical.append(cells)
+  assert bag(logical)==bag(expected) and c['validated']==logical,(pack,name)
+  if name=='connected-measurements':assert logical==expected
+  if name=='evidence-links':
+   witnesses=[]
+   for i in objects.values():
+    if i['type']['element']!='interpretations':continue
+    for e in objects.values():
+     if e['type']['element']!='interpretation_evidence'or e['values']['interpretation_evidence.interpretation_id']!=i['values']['interpretations.id']:continue
+     matches=[]
+     for rec,foreign in [('pottery_results','pottery_result_id'),('fauna_results','fauna_result_id')]:
+      ref=e['values']['interpretation_evidence.'+foreign];matches.append([o for o in objects.values()if o['type']['element']==rec and ref is not None and o['values'][rec+'.id']==ref]or[None])
+     for pottery in matches[0]:
+      for fauna in matches[1]:
+       v=lambda o,f:None if o is None else o['values'][o['type']['element']+'.'+f]
+       state=lambda o,f:None if o is None else 'present-null' if v(o,f)is None else 'present'
+       witnesses.append([i['values']['interpretations.author'],v(pottery,'form'),v(fauna,'taxon'),i['key'],e['key'],i['values']['interpretations.id'],None if pottery is None else pottery['key'],None if fauna is None else fauna['key'],state(pottery,'form'),state(fauna,'taxon')])
+   assert bag(rows)==bag(witnesses) and all(a[5]<=b[5]for a,b in zip(rows,rows[1:]))
+  casecount+=1;case_summaries.append({'pack':pack,'case':name,'rows':len(rows)})
+assert casecount==17 and chunkcount==80 and len(longs)==7
+journal=[json.loads(l)for l in pathlib.Path('/private/tmp/ashlar-original17-puppy-gremlin-20261009-g.attempts.jsonl').read_text().splitlines()];assert len(journal)==194
+for a,b in zip(journal[::2],journal[1::2]):
+ assert a['outcome']=='submitted-before-native-query' and b['outcome']=='native-query-completed' and a['script']==b['script'] and a['bindings']==b['bindings'] and a['stage']==b['stage']
+ assert b['opening']==b['closing']==obs
+ if a['stage']['stage']=='authored-case':
+  rr=next(x for x in r['reports']if x['pack']==a['stage']['pack']);cc=next(c for c in rr['cases']if c['original_scenario']['id']==a['stage']['case']);assert (cc['query'],cc['bindings'],len(cc['actual_ordered_cells']))==(a['script'],a['bindings'],b['native_rows'])
+review={'format':'astra-original17-gremlin-review/0.1','report_sha256':sha(raw),'original_authored_cases':17,'carrier_chunk_queries':80,'total_queries':97,'per_query_six_database_model_holds':97,'original_files_verified':22,'exact_signed64_observations':longs,'cases':case_summaries,'qualification':'Original finite two-pack Gremlin native relational translations only; full source/carrier parity and optional presence witnesses verified; no capacity-scale/production/general semantic support claim.'}
+pathlib.Path('/private/tmp/astra-original17-gremlin-review-20261009.json').write_text(json.dumps(review,indent=2)+'\n');print(json.dumps({k:v for k,v in review.items()if k not in ['cases','exact_signed64_observations']},indent=2))

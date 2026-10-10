@@ -1,0 +1,148 @@
+{
+  "format": "astra-original17-gremlin-review/0.1",
+  "report_sha256": "449c25782d3c3199d8755e89aa84f65de622f03e7bb9729e45bfbb22fdab0a2f",
+  "original_authored_cases": 17,
+  "carrier_chunk_queries": 80,
+  "total_queries": 97,
+  "per_query_six_database_model_holds": 97,
+  "original_files_verified": 22,
+  "exact_signed64_observations": [
+    [
+      "archaeology",
+      "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]",
+      "integer_49",
+      "-800",
+      -800
+    ],
+    [
+      "archaeology",
+      "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]",
+      "integer_52",
+      "-700",
+      -700
+    ],
+    [
+      "archaeology",
+      "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]",
+      "integer_49",
+      "-750",
+      -750
+    ],
+    [
+      "archaeology",
+      "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]",
+      "integer_52",
+      "-650",
+      -650
+    ],
+    [
+      "ecology",
+      "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC1\\\"]\"]]",
+      "integer_50",
+      "3",
+      3
+    ],
+    [
+      "ecology",
+      "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC2\\\"]\"]]",
+      "integer_50",
+      "0",
+      0
+    ],
+    [
+      "ecology",
+      "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC3\\\"]\"]]",
+      "integer_50",
+      "1",
+      1
+    ]
+  ],
+  "cases": [
+    {
+      "pack": "archaeology",
+      "case": "cycle",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "dating",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "media",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "missing-media",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "specialists",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "lineage",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "evidence-links",
+      "rows": 2
+    },
+    {
+      "pack": "archaeology",
+      "case": "sample",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "effort-event",
+      "rows": 0
+    },
+    {
+      "pack": "ecology",
+      "case": "connected-measurements",
+      "rows": 2
+    },
+    {
+      "pack": "ecology",
+      "case": "censor",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "match",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "effort",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "zero",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "network",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "comparability",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "fishing",
+      "rows": 1
+    }
+  ],
+  "qualification": "Original finite two-pack Gremlin native relational translations only; full source/carrier parity and optional presence witnesses verified; no capacity-scale/production/general semantic support claim."
+}
