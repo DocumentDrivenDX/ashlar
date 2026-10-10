@@ -1,0 +1,26 @@
+{
+  "verdict": "approved-source-only",
+  "review": {
+    "path": "/private/tmp/astra-evolution-boundary-role-review-20261010-a.json",
+    "sha256": "19cacff37c9f3974155900f67040cb3fb8d0deaf3b9b3a0c1dafe62345f4c152"
+  },
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_module_boundaries.py",
+      "bytes": 6623,
+      "sha256": "f50cd6d3d4600df44020b9ccb21c3611bb6d6b070ac35b0594f80fa3cc9cb365"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_module_boundaries.py",
+      "bytes": 13983,
+      "sha256": "a7cb775caacef31f1a0f706aaafeee2938661b032a7a7742dfcd0a8fc308f05d"
+    }
+  ],
+  "checks": [
+    "Parent independently inspected exact two-file diff",
+    "Child17tests/19actualASTcontrols/real checker evidence inspected and hashes reverified",
+    "Only portable evolution source-state role added; existing tests and baseline unchanged"
+  ],
+  "findings": [],
+  "limits": "AST dependency enforcement only; no semantic/runtime/authority/native qualification."
+}

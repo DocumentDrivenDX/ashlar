@@ -1,0 +1,22 @@
+test_actual_repository_policy (test_module_boundaries.BoundaryTests) ... ok
+test_compiler_installer_and_composition_roles (test_module_boundaries.BoundaryTests) ... ok
+test_exact_baseline_no_blanket_or_new_symbol (test_module_boundaries.BoundaryTests) ... ok
+test_installed_host_has_owned_public_edges (test_module_boundaries.BoundaryTests) ... ok
+test_model_runtime_and_consumer_producer_directions (test_module_boundaries.BoundaryTests) ... ok
+test_otel_host_owner_and_public_composition_edges_are_allowed (test_module_boundaries.BoundaryTests) ... ok
+test_otel_vendor_is_forbidden_in_every_core_location (test_module_boundaries.BoundaryTests) ... ok
+test_package_members_qualified_chain_and_native_libraries (test_module_boundaries.BoundaryTests) ... ok
+test_path_decoder_role_has_real_allow_and_deny_controls (test_module_boundaries.BoundaryTests) ... ok
+test_paths_composition_is_an_exact_host_role (test_module_boundaries.BoundaryTests) ... ok
+test_paths_keys_composition_role_is_closed (test_module_boundaries.BoundaryTests) ... ok
+test_paths_keys_consumers_and_private_mechanics_exact_boundaries (test_module_boundaries.BoundaryTests) ... ok
+test_paths_package_and_installer_have_consumer_boundaries (test_module_boundaries.BoundaryTests) ... ok
+test_policy_refuses_duplicate_unowned_and_unknown (test_module_boundaries.BoundaryTests) ... ok
+test_portable_evolution_role_allows_source_and_forbids_runtime (test_module_boundaries.BoundaryTests) ... ok
+test_real_allowed_and_forbidden_edges (test_module_boundaries.BoundaryTests) ... ok
+test_recursive_role_relative_and_alias_checks (test_module_boundaries.BoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.738s
+
+OK

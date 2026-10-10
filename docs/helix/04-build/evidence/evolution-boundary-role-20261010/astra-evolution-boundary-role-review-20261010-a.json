@@ -1,0 +1,126 @@
+{
+  "format": "astra-boundary-role-source-review/0.1",
+  "verdict": "PASS",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_module_boundaries.py",
+      "bytes": 6623,
+      "sha256": "f50cd6d3d4600df44020b9ccb21c3611bb6d6b070ac35b0594f80fa3cc9cb365"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_module_boundaries.py",
+      "bytes": 13983,
+      "sha256": "a7cb775caacef31f1a0f706aaafeee2938661b032a7a7742dfcd0a8fc308f05d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/module_boundaries.json",
+      "bytes": 32059,
+      "sha256": "c3908bfb870c1a8871d3f8192da7580be9e3c30361fa4f99b762960b1c571599"
+    }
+  ],
+  "baselinePolicyUnchanged": true,
+  "checkerOnlyAddition": "commerce_evolution to source_state",
+  "existingTestASTsUnchanged": true,
+  "independentRealASTControls": [
+    {
+      "target": "source",
+      "expect": "allowed"
+    },
+    {
+      "target": "apply",
+      "expect": "allowed"
+    },
+    {
+      "target": "whole_entity",
+      "expect": "allowed"
+    },
+    {
+      "target": "source_checkpoint",
+      "expect": "allowed"
+    },
+    {
+      "target": "schema",
+      "expect": "allowed"
+    },
+    {
+      "target": "native",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "staging",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "attempt_store",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "schema_registry",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "pins",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "authority",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "retention_policy",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "weft_distribution",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "weft_paths_distribution",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "target": "weft_paths_keys_distribution",
+      "expect": "portable-to-runtime"
+    },
+    {
+      "import": "from ashlar_host import driver",
+      "expect": "core-to-host-composition"
+    },
+    {
+      "import": "import pyspark",
+      "expect": "core-to-sdk"
+    },
+    {
+      "import": "import opentelemetry.sdk",
+      "expect": "core-to-sdk"
+    },
+    {
+      "import": "from tools import fixture_oracle",
+      "expect": "core-to-tools"
+    }
+  ],
+  "actualScan": {
+    "new": [],
+    "stale": []
+  },
+  "scope": "Static AST checker and stdlib temporary test trees only; no inspected source modules executed, no SDK/native/compiler/network or Git mutation.",
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "ownerTests": {
+    "runtime": "Python 3.9.6 -B -S",
+    "command": "PYTHONPATH=src:tools /usr/bin/python3 -B -S -m unittest discover -s tests -p test_module_boundaries.py -v",
+    "passed": 17
+  },
+  "actualCheckerCommand": "PYTHONPATH=src:tools /usr/bin/python3 -B -S tools/check_module_boundaries.py",
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-evolution-boundary-role-review-20261010-a.py",
+      "bytes": 3105,
+      "sha256": "f2c8abcfff33b2af5f20d0a3744692746295cfd82d0f2bdd6d8debc0f773c651"
+    },
+    {
+      "path": "/private/tmp/astra-evolution-boundary-role-review-20261010-a.log",
+      "bytes": 3279,
+      "sha256": "c5128ada4e17dc236bc40ef730316c3d38befb605ca399b06d57d6c7972c9b9b"
+    }
+  ]
+}

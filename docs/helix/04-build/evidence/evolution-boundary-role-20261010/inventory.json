@@ -1,0 +1,50 @@
+{
+  "scope": "Reviewed AST dependency-role enforcement; no native or semantic qualification",
+  "files": [
+    {
+      "file": "ashlar-evolution-boundary-role-20261010-after.stderr.log",
+      "bytes": 1734,
+      "sha256": "cdddc082748f993663529a5ca248e3d9787de163053e1ddc535cf26edcdd7fc0"
+    },
+    {
+      "file": "ashlar-evolution-boundary-role-20261010-after.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "ashlar-evolution-boundary-role-20261010-before.json",
+      "bytes": 127,
+      "sha256": "d164bd07a3abbfc6b40a1695a864a861f81b875d0cc8206c4f4d2743801095d5"
+    },
+    {
+      "file": "astra-evolution-boundary-role-endorsement-20261010-a.json",
+      "bytes": 1010,
+      "sha256": "11a5b122f914147eb27dc83e61452dd532169177886d863138b44d89110fd325"
+    },
+    {
+      "file": "astra-evolution-boundary-role-review-20261010-a.json",
+      "bytes": 3432,
+      "sha256": "19cacff37c9f3974155900f67040cb3fb8d0deaf3b9b3a0c1dafe62345f4c152"
+    },
+    {
+      "file": "astra-evolution-boundary-role-review-20261010-a.log",
+      "bytes": 3279,
+      "sha256": "c5128ada4e17dc236bc40ef730316c3d38befb605ca399b06d57d6c7972c9b9b"
+    },
+    {
+      "file": "astra-evolution-boundary-role-review-20261010-a.py",
+      "bytes": 3105,
+      "sha256": "f2c8abcfff33b2af5f20d0a3744692746295cfd82d0f2bdd6d8debc0f773c651"
+    },
+    {
+      "file": "check_module_boundaries.py",
+      "bytes": 6623,
+      "sha256": "f50cd6d3d4600df44020b9ccb21c3611bb6d6b070ac35b0594f80fa3cc9cb365"
+    },
+    {
+      "file": "test_module_boundaries.py",
+      "bytes": 13983,
+      "sha256": "a7cb775caacef31f1a0f706aaafeee2938661b032a7a7742dfcd0a8fc308f05d"
+    }
+  ]
+}
