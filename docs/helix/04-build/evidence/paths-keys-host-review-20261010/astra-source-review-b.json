@@ -1,0 +1,166 @@
+{
+  "actualChecks": [
+    {
+      "details": "All10 compiled new fixtures admit; all10 retained blocked artifacts refuse. All40 original request/response texts equal the committed source-review artifacts. Twenty-four independent matched-recompile mutations refuse, including arbitrary backend, pins/root, missing/drifting standalone native schemas, incomplete mixed ordinal inventory, Boolean positions, unknown/duplicate guard members, phase/partial flags, and rehashed source key subset changes.",
+      "ownerTests": 12,
+      "result": "passed",
+      "runtime": "Python3.11.17/jsonschema4.23.0/referencing0.35.1",
+      "scope": "admission under actual offline public schemas",
+      "skips": 0
+    },
+    {
+      "details": "Child executes current and exact prior baseline admission modules: all17 complete original-profile admissions and4 refusal messages equal. Default paths backend and profile remain unchanged.",
+      "result": "passed",
+      "scope": "original profile correspondence"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "/private/tmp/astra-host-paths-keys-execution-probe-20261010-a.py",
+        "-v"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "details": "Seven independent methods plus six imported owner methods. All10 compiled artifact cases retain complete original guards/slots before query and standalone native declarations before SQL. Ordinal failure refuses empty-output query; standalone edge BIGINT mismatch refuses beforeSQL. Explicit old profile cannot reach the new decoder or provider. Duplicate key occurrences and originalbytes survive. Decode KeyboardInterrupt remains the same object through failing interval cleanup; closing ACK-custody refusal returns no provisional result.",
+      "environmentOverrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:tests:tools"
+      },
+      "result": "passed",
+      "tests": 13
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "test_installed_path_host",
+        "-v"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "details": "Includes unchanged separate-process legacy behavior/cleanup suite; migration correction does not skip that suite.",
+      "environmentOverrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:tests:tools"
+      },
+      "result": "passed",
+      "topLevelTests": 3
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "tools/check_module_boundaries.py"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "environmentOverrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:tests:tools"
+      },
+      "observedStdout": "Module import boundaries pass; dynamic imports/type ownership/cycles require semantic review.",
+      "result": "passed"
+    }
+  ],
+  "baseCommit": "4ba719fe48c429ea22d30bc5a8ed27df75f0a0f9",
+  "correspondence": {
+    "execution": "Admission and immutable snapshots precede provider callbacks. Every native table/declaration is observed under the same held context evenempty. Unchanged source/publicsource checks precede dependent checks; exact emitted SQL and ordered slots run without rewriting. All owning guards are retained before the user query; bounded capture selects the pure RelatedKeys decoder only after configured profile admission.",
+    "model": "Complete original pinned Record/Field/key membership, ordered key shape, authored forward/inverse relationship and required starting scan are checked independently of trusted recompile equality; String-only/nonaggregate/required-root fences remain governed.",
+    "obligations": "Both closed collectionIntegrity/ordinalCapacity inventories exactly cover selected output positions, including repeats and mixed one/two-hop outputs. Separate edge schemas bind exact original table/UUID/version and BIGINT id, including tables absent from binding.records.",
+    "release": "Pure decoder retains originalbytes and duplicate String tuples; it does not prove native bag/truncation. Existing independent lexical oracle comparison, closing original source/native vector checks and interval/ACK custody remain mandatory. The returned evidence is provisional; outer reader/engine cleanup and final persistence remain caller responsibilities.",
+    "selection": "Immutable explicit profile admits only exact new backend/version/interface/target and owning capability inventory. Original paths remains default and strictly refuses newprofile artifacts. No selection from artifact labels can override configured profile."
+  },
+  "evidence": [
+    {
+      "bytes": 14099,
+      "path": "/private/tmp/astra-paths-keys-host-admission-review-20261010-a.json",
+      "sha256": "c69b5c02e8c7d5d160819cbd78e644ea47598d8518d0e75a6591e5a5b4f94941"
+    },
+    {
+      "bytes": 6862,
+      "path": "/private/tmp/astra-host-paths-keys-execution-probe-20261010-a.py",
+      "sha256": "96ad024c6200ab84d53cdfa3b3fe34ac062507a5eb46a7c2adadd3e259e055cc"
+    },
+    {
+      "bytes": 1401,
+      "path": "/private/tmp/astra-host-paths-keys-execution-probe-20261010-a.log",
+      "sha256": "f79f51d2d4ec55d2f8c3c385b3756375df2d40e6587901261448c4a64ec35119"
+    },
+    {
+      "bytes": 418,
+      "path": "/private/tmp/astra-paths-keys-host-regression-20261010-b.log",
+      "sha256": "8472f23d76649cb1e6c24b7a1a01f636e9411ba65fe7bd66c327ef0882fd6c39"
+    },
+    {
+      "bytes": 2517,
+      "path": "/private/tmp/astra-paths-keys-host-execution-regression-20261010-a.log",
+      "sha256": "e838b583d0411a308f5697183b56db63291450d56b6a9bcaa8b1162a77b6d238"
+    }
+  ],
+  "findings": [],
+  "format": "astra-independent-host-source-review/0.1",
+  "freeze": {
+    "bytes": 2109,
+    "path": "/private/tmp/ashlar-paths-keys-host-freeze-20261010-b/manifest.json",
+    "sha256": "d144acfe4630b1e816602532ab06062edec69749cefefbaca6f217222532d287"
+  },
+  "helixPractices": {
+    "configuration": "Explicit typed immutable profile and existing finite artifact/capture/decoder limits; no environment, credential, platform or trust discovery added.",
+    "formal": "Finite source/model/inventory and hold-release correspondence controls support scoped PATH-K/PUB fence obligations; mocked providers do not establish actual source authority, native schemas, protected ACK or mechanical/unbounded proof.",
+    "modularity": "Installed host admission owns artifact/profile/model and obligation interpretation; execution owns held-port sequencing and dispatch; core pure RelatedKeys decoder owns carrier syntax. Actual module checker passes; no SDK imports added to these pure modules.",
+    "observability": "Fixed payload-free refusal messages and original cancellation identity retained; bounded evidence only. No OTLP/receiver/configuration proof claim."
+  },
+  "limits": [
+    "No compiler invocation, Cargo, installation, engine/SQL execution or native qualification was performed for this review.",
+    "Retained debug compiler responses are source component fixtures, not a freshly qualified/released/indexed realization.",
+    "Trusted recompiler, public-schema validator, public-source verifier, native publication provider and independent oracle are owned injected ports; tests using mocks do not certify those authorities.",
+    "The outer public host still deliberately refuses paths-keys until separately trusted installation/composition is wired; this slice does not enable a native CLI workflow.",
+    "No new CI workflow file is included in this six-file freeze. Focused admission/execution suite wiring, if added, requires its own exact review; existing installed legacy suite remains active."
+  ],
+  "noSourceOrGitMutationByReviewer": true,
+  "openingClosingFrozenBytesExact": true,
+  "resolvedFinding": {
+    "original": "A intentionally extended admission and execution while the existing installed-host migration test still demanded whole-AST identity to checkout tools; actual CI test failed in those two modules.",
+    "successorB": "Retains capture AST equivalence, explicitly pins original default profile/backend, and retains the unchanged existing actual public legacy artifact/guard/capture/cleanup suite with at least40 controls. Three top-level successor tests independently pass."
+  },
+  "reviewedFiles": [
+    {
+      "bytes": 34970,
+      "path": "src/ashlar_host/path_admission.py",
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c"
+    },
+    {
+      "bytes": 12923,
+      "path": "tests/test_host_paths_keys_admission.py",
+      "sha256": "363e3a4cc506ad4f1daca242b11bb56df847066e40a8a19b60a3e45fcf9be8a8"
+    },
+    {
+      "bytes": 122890,
+      "path": "tests/fixtures/weft_paths_keys_admission.json.zlib",
+      "sha256": "27c8f5910658b90c45c14002a26ae3e0b8f2ae966b95930f21c49d71aeaa0e51"
+    },
+    {
+      "bytes": 22997,
+      "path": "src/ashlar_host/path_execution.py",
+      "sha256": "13541da851c5857d0b59281a3f4f6689ab051cb4cd1b3eb671b2eae5cd0506e8"
+    },
+    {
+      "bytes": 4970,
+      "path": "tests/test_host_paths_keys_execution.py",
+      "sha256": "27df928a4543734f00b7e32f9467fb8311ce97faa84176b5ab5ec24d184bd62f"
+    },
+    {
+      "bytes": 7401,
+      "path": "tests/test_installed_path_host.py",
+      "sha256": "b5aa9c511772d665be6fe3421bf578295b41dff327e36370b23c2db0bf072f9b"
+    }
+  ],
+  "verdict": "approved-source-only"
+}

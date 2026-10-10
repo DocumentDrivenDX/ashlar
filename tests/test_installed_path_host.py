@@ -14,27 +14,29 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class InstalledPathHostTests(unittest.TestCase):
-    def test_migration_preserves_owned_definitions(self):
-        for source, target in [('weft_path_plan.py', 'path_admission.py'),
-                               ('weft_path_capture.py', 'path_capture.py'),
-                               ('run_commerce_path_weft.py', 'path_execution.py')]:
-            with self.subTest(source=source):
-                before = ast.parse((ROOT / 'tools' / source).read_text())
-                after = ast.parse((ROOT / 'src/ashlar_host' / target).read_text())
-                for tree in (before, after):
-                    for node in tree.body:
-                        if isinstance(node, ast.ImportFrom) and node.module in ('weft_path_plan', 'weft_path_capture'):
-                            node.module = {'weft_path_plan': 'path_admission', 'weft_path_capture': 'path_capture'}[node.module]
-                            node.level = 1
-                # Reviewed corrective successor: only these cleanup functions
-                # depart from the exact tool definitions. Behavioral controls
-                # below retain the original exception through failing cleanup.
-                corrected = {'path_execution.py': '_preserving_interval',
-                             'path_capture.py': '_capture_string_frame'}.get(target)
-                if corrected:
-                    for tree in (before, after):
-                        tree.body = [node for node in tree.body if not (isinstance(node, ast.FunctionDef) and node.name == corrected)]
-                self.assertEqual(ast.dump(before, include_attributes=False), ast.dump(after, include_attributes=False))
+    def test_capture_migration_preserves_unchanged_definitions(self):
+        before = ast.parse((ROOT / 'tools/weft_path_capture.py').read_text())
+        after = ast.parse((ROOT / 'src/ashlar_host/path_capture.py').read_text())
+        # Capture retains its original surface plus the reviewed cleanup fix.
+        for tree in (before, after):
+            tree.body = [node for node in tree.body if not (
+                isinstance(node, ast.FunctionDef) and node.name == '_capture_string_frame')]
+        self.assertEqual(ast.dump(before, include_attributes=False),
+                         ast.dump(after, include_attributes=False))
+
+    def test_original_profile_remains_the_default_admission(self):
+        from ashlar_host.path_admission import (PathAdmissionConfig,
+            PathSchemaValidation, BACKEND)
+        from test_weft_path_plan import SCHEMAS
+        config = PathAdmissionConfig(16777216,
+            PathSchemaValidation(SCHEMAS, lambda *args: None))
+        self.assertEqual(config.profile, 'paths')
+        self.assertEqual(dict(BACKEND), {
+            'backendId': 'ashlar.databricks.paths',
+            'backendVersion': '0.4.0-paths-candidate',
+            'interfaceVersion': 'weft-backend/0.3.0',
+            'targetProfile': 'spark4-delta4-paths-candidate'})
+        # Actual legacy artifact, guard and cleanup behavior is exercised below.
 
     def test_installed_public_guards_and_cleanup(self):
         script = '''

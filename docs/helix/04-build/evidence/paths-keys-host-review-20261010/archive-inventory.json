@@ -1,0 +1,52 @@
+[
+  {
+    "original": {
+      "bytes": 14099,
+      "path": "/private/tmp/astra-paths-keys-host-admission-review-20261010-a.json",
+      "sha256": "c69b5c02e8c7d5d160819cbd78e644ea47598d8518d0e75a6591e5a5b4f94941"
+    },
+    "archive": "astra-paths-keys-host-admission-review-20261010-a.json",
+    "encoding": "identity",
+    "archiveSha256": "c69b5c02e8c7d5d160819cbd78e644ea47598d8518d0e75a6591e5a5b4f94941"
+  },
+  {
+    "original": {
+      "bytes": 6862,
+      "path": "/private/tmp/astra-host-paths-keys-execution-probe-20261010-a.py",
+      "sha256": "96ad024c6200ab84d53cdfa3b3fe34ac062507a5eb46a7c2adadd3e259e055cc"
+    },
+    "archive": "astra-host-paths-keys-execution-probe-20261010-a.py",
+    "encoding": "identity",
+    "archiveSha256": "96ad024c6200ab84d53cdfa3b3fe34ac062507a5eb46a7c2adadd3e259e055cc"
+  },
+  {
+    "original": {
+      "bytes": 1401,
+      "path": "/private/tmp/astra-host-paths-keys-execution-probe-20261010-a.log",
+      "sha256": "f79f51d2d4ec55d2f8c3c385b3756375df2d40e6587901261448c4a64ec35119"
+    },
+    "archive": "astra-host-paths-keys-execution-probe-20261010-a.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "112d0bc62f3998ca912b0253acca37dbfa9355f2d5ab050e2108e115d2b8be88"
+  },
+  {
+    "original": {
+      "bytes": 418,
+      "path": "/private/tmp/astra-paths-keys-host-regression-20261010-b.log",
+      "sha256": "8472f23d76649cb1e6c24b7a1a01f636e9411ba65fe7bd66c327ef0882fd6c39"
+    },
+    "archive": "astra-paths-keys-host-regression-20261010-b.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "118ffa440da37715a4e839a8eae0867b3a899f641e835a3bdf09e705a9a96f5f"
+  },
+  {
+    "original": {
+      "bytes": 2517,
+      "path": "/private/tmp/astra-paths-keys-host-execution-regression-20261010-a.log",
+      "sha256": "e838b583d0411a308f5697183b56db63291450d56b6a9bcaa8b1162a77b6d238"
+    },
+    "archive": "astra-paths-keys-host-execution-regression-20261010-a.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "b3c357ebca1cfe9b7d772a118214154289e6179a1b698188cc1715c6b061a061"
+  }
+]

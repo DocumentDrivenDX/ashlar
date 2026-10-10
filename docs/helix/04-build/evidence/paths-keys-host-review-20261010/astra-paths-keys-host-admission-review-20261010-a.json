@@ -1,0 +1,427 @@
+{
+  "actualOfflineSchemaPositives": [
+    "arithmetic_and_collection",
+    "composite",
+    "empty_outer",
+    "inverse",
+    "mixed_reverse_order",
+    "original",
+    "repeated_expressions",
+    "required_root_with_left_other",
+    "scalar_only",
+    "two_roots"
+  ],
+  "blockedOriginalCandidates": [
+    "aggregate",
+    "bound0",
+    "bound1001",
+    "candidate_off",
+    "expansion_mix",
+    "group",
+    "left_root",
+    "numeric_key",
+    "optional_key",
+    "wrong_profile"
+  ],
+  "commandRun": "PYTHONDONTWRITEBYTECODE=1 /private/tmp/truss-python-report-schema-env/bin/python -B /private/tmp/astra-paths-keys-host-admission-review-20261010-a.py",
+  "fixture": {
+    "compressedSha256": "27c8f5910658b90c45c14002a26ae3e0b8f2ae966b95930f21c49d71aeaa0e51",
+    "decodedBytes": 1904762,
+    "decodedSha256": "6e0ec2e463936b1699633b470ca8c8da6581a2b2a068eba9d24281ff93b42515",
+    "originalPairs": [
+      {
+        "bytes": 55343,
+        "name": "aggregate",
+        "role": "request",
+        "sha256": "4db5ef3acdf073cd5dcf3175606e31324ce5e691897143b0d895fa5d66f42e1b"
+      },
+      {
+        "bytes": 217,
+        "name": "aggregate",
+        "role": "response",
+        "sha256": "152b79a0ba084507222839f4c2ff24b5a44d73873181467e2f655fcd48f8b496"
+      },
+      {
+        "bytes": 55365,
+        "name": "arithmetic_and_collection",
+        "role": "request",
+        "sha256": "858881744d40d28ffc7b86765aba7282ec34ea9ebb10bbf80ff0d60b76663d56"
+      },
+      {
+        "bytes": 56850,
+        "name": "arithmetic_and_collection",
+        "role": "response",
+        "sha256": "9082d8824f324e7dcc2420ddb7b856e24dfc808b689226285adf124aefd34cc9"
+      },
+      {
+        "bytes": 55339,
+        "name": "bound0",
+        "role": "request",
+        "sha256": "ec78daacd663ea373a4ada6bad1a95dc108a4299144724c341af12ff39bf5714"
+      },
+      {
+        "bytes": 270,
+        "name": "bound0",
+        "role": "response",
+        "sha256": "fa1a16bf5bfd37f63c98a64b0d909f07e5ae2ef0958ee280945372b2b1306920"
+      },
+      {
+        "bytes": 55342,
+        "name": "bound1001",
+        "role": "request",
+        "sha256": "a537bf8874bda8c4b895fc14889763f330c169187afb76a5fdeaf7547bc03c5b"
+      },
+      {
+        "bytes": 270,
+        "name": "bound1001",
+        "role": "response",
+        "sha256": "073f39ce27c1118bf9aace918411f09c6c2bd3a3900ca29d1fdc835aa400c4e7"
+      },
+      {
+        "bytes": 55340,
+        "name": "candidate_off",
+        "role": "request",
+        "sha256": "239626507cccb5e0ee8ee404fde80295bd2cedca9e9e6e00c922575815f43e28"
+      },
+      {
+        "bytes": 234,
+        "name": "candidate_off",
+        "role": "response",
+        "sha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7"
+      },
+      {
+        "bytes": 42016,
+        "name": "composite",
+        "role": "request",
+        "sha256": "398bb696c9ad8bba157b5bbc0514b29b24ad2cd8c772896c63097a2f1141b960"
+      },
+      {
+        "bytes": 51836,
+        "name": "composite",
+        "role": "response",
+        "sha256": "772af197f4a6cbc0fed707ef9d69d7cc5057a06271f41b3f7af9a3cdc8aac333"
+      },
+      {
+        "bytes": 55390,
+        "name": "empty_outer",
+        "role": "request",
+        "sha256": "551d7ebbc3fa1d342b86f37a2b34d05904c7c8a961f3ea2aded8fac08b624580"
+      },
+      {
+        "bytes": 53780,
+        "name": "empty_outer",
+        "role": "response",
+        "sha256": "c0e9c0a4135c5dbd47228223979955ae61601713186323a84f33d520d49f4f23"
+      },
+      {
+        "bytes": 55422,
+        "name": "expansion_mix",
+        "role": "request",
+        "sha256": "caeabbec4a5a9ac9ccd9ca493e96ea7148923517d9c970773e0508882ed12652"
+      },
+      {
+        "bytes": 283,
+        "name": "expansion_mix",
+        "role": "response",
+        "sha256": "42c2baaf5c140e365225ce92a03f84d701dc8dabb075f832a33aee4c1d6149ee"
+      },
+      {
+        "bytes": 55353,
+        "name": "group",
+        "role": "request",
+        "sha256": "f73d1c2313915ff3f33565127d5e5c53e40ff8d31ded92b986720f95c6be3342"
+      },
+      {
+        "bytes": 217,
+        "name": "group",
+        "role": "response",
+        "sha256": "152b79a0ba084507222839f4c2ff24b5a44d73873181467e2f655fcd48f8b496"
+      },
+      {
+        "bytes": 41989,
+        "name": "inverse",
+        "role": "request",
+        "sha256": "0f8c0374c8436f5a124a42866fdd2ee3dfad0525f2222637d97af3a2dc5b8b8c"
+      },
+      {
+        "bytes": 44644,
+        "name": "inverse",
+        "role": "response",
+        "sha256": "c9165df836790fa31429f3c0c82a674adb938af4f74d1e2a62de8ca28c453434"
+      },
+      {
+        "bytes": 55380,
+        "name": "left_root",
+        "role": "request",
+        "sha256": "5e9d4cd0558abaeca82a1b67a114363ba4dc4c0c014368e61dfa0c09d73a6a33"
+      },
+      {
+        "bytes": 255,
+        "name": "left_root",
+        "role": "response",
+        "sha256": "fdbb4884897fb8ff17cccdfbd9c5861d7f0998fdc323b07a95cf412130e47767"
+      },
+      {
+        "bytes": 55494,
+        "name": "mixed_reverse_order",
+        "role": "request",
+        "sha256": "69a881d59940d9bfcd8a088a9e93d58deb5f32ac570e676983a051898ef92be6"
+      },
+      {
+        "bytes": 154375,
+        "name": "mixed_reverse_order",
+        "role": "response",
+        "sha256": "5314c26f98e81aa035b4cd8558e7617f7d7f533f9dfbd7b459695c294607559d"
+      },
+      {
+        "bytes": 41962,
+        "name": "numeric_key",
+        "role": "request",
+        "sha256": "403e7109f5aa0f07e75689f61bfd0cbe6f0701d508c19072ae5b7035b9c43112"
+      },
+      {
+        "bytes": 246,
+        "name": "numeric_key",
+        "role": "response",
+        "sha256": "6ee9f1d8b9ab24308f59a8cc5f766f6394d025ae410fa73d528579813a642e90"
+      },
+      {
+        "bytes": 41967,
+        "name": "optional_key",
+        "role": "request",
+        "sha256": "1b9817c6f3aa1bf8786b1bb1693b3e982e3d6458365de684af524cc9076fc934"
+      },
+      {
+        "bytes": 247,
+        "name": "optional_key",
+        "role": "response",
+        "sha256": "9dc6ea6473533f4c173d8eebbf9cca7913773445a52d3f562c7eaebf539aaa17"
+      },
+      {
+        "bytes": 55339,
+        "name": "original",
+        "role": "request",
+        "sha256": "e2a9a8ad5d3409ad46c5fc96ab500905d11774119f4aa12345aab5bbb4ef6a43"
+      },
+      {
+        "bytes": 48062,
+        "name": "original",
+        "role": "response",
+        "sha256": "26b92f879a256ecc5e4fe48cd68f3ceab9163e011ed82a5956a1eef134afd22f"
+      },
+      {
+        "bytes": 55378,
+        "name": "repeated_expressions",
+        "role": "request",
+        "sha256": "a6585c63a51abd41c1c5bf7cf897459e9e7b1a6975874add9a3199183b04dac2"
+      },
+      {
+        "bytes": 55625,
+        "name": "repeated_expressions",
+        "role": "response",
+        "sha256": "0ade985781d4ec82870922e7c924fc681d9c13f9f8debe81cac73447ee303cdb"
+      },
+      {
+        "bytes": 55380,
+        "name": "required_root_with_left_other",
+        "role": "request",
+        "sha256": "aae9452d2ae6552c269d22c59b24584aa742ea8f1abf384a7631c03cc418ab4a"
+      },
+      {
+        "bytes": 60391,
+        "name": "required_root_with_left_other",
+        "role": "response",
+        "sha256": "c8ee14b138e2816af12e8acfe67a8428622fdaaf796460bbd8b99f5e60b699cc"
+      },
+      {
+        "bytes": 55281,
+        "name": "scalar_only",
+        "role": "request",
+        "sha256": "189902c2cc7c3ecd38e562629cea96e137d14927cd2c93e42fddfa486f024537"
+      },
+      {
+        "bytes": 12009,
+        "name": "scalar_only",
+        "role": "response",
+        "sha256": "7adfcfbe8282c0ccaf658428b803ab9dd4af46da6f014aac70f8559b656f26d3"
+      },
+      {
+        "bytes": 55406,
+        "name": "two_roots",
+        "role": "request",
+        "sha256": "d9708825cce2ecedb5d3ee6163e29ce6d22a7b41ce24539e9bd3c4d2928cff04"
+      },
+      {
+        "bytes": 69467,
+        "name": "two_roots",
+        "role": "response",
+        "sha256": "8a0027b3536e12e376f42a9246dde498bfc8f5e9298e8ce5d4573336e273b67b"
+      },
+      {
+        "bytes": 55334,
+        "name": "wrong_profile",
+        "role": "request",
+        "sha256": "dcf11e9bdd6742767b5246f392090be8f5dbcf78756df01ed281f8b8834c0686"
+      },
+      {
+        "bytes": 217,
+        "name": "wrong_profile",
+        "role": "response",
+        "sha256": "d0d3fea3e62601431d8b906817fc33baf79e92d2a84fd28bde17fdf875c72ef8"
+      }
+    ]
+  },
+  "format": "independent-source-review/0.1",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-keys-host-freeze-20261010-a/manifest.json",
+    "sha256": "61f1a087f8484e70882644a43cf6acdf50aa55d2e154d7d37590f70e9de7549d"
+  },
+  "independentMutations": [
+    {
+      "control": "arbitrary backend with synchronized request/response",
+      "refusal": "Explicit compiled paths profile required"
+    },
+    {
+      "control": "wrong target version",
+      "refusal": "Original selected target differs"
+    },
+    {
+      "control": "foreign module SHA",
+      "refusal": "Original full model pins differ"
+    },
+    {
+      "control": "foreign root occurrence",
+      "refusal": "Original required root scan differs"
+    },
+    {
+      "control": "nullable inherited key carrier",
+      "refusal": "Exact required one-hop output role required"
+    },
+    {
+      "control": "generic presence substitution",
+      "refusal": "Pinned public schema validation refused"
+    },
+    {
+      "control": "standalone schema UUID mismatch",
+      "refusal": "Complete original one-hop inventory differs"
+    },
+    {
+      "control": "standalone schema extra entry member",
+      "refusal": "Complete original one-hop inventory differs"
+    },
+    {
+      "control": "standalone schema missing empty-edge declaration",
+      "refusal": "Complete original one-hop inventory differs"
+    },
+    {
+      "control": "Boolean output position",
+      "refusal": "Exact original output positions required"
+    },
+    {
+      "control": "collection reordered output inventory",
+      "refusal": "Complete original one-hop inventory differs"
+    },
+    {
+      "control": "capacity excludes two-hop mixed collection",
+      "refusal": "Exact full-bag ordinal capacity required"
+    },
+    {
+      "control": "capacity duplicate checks",
+      "refusal": "Complete ordered per-output collection checks required"
+    },
+    {
+      "control": "capacity unbounded or narrowed maximum",
+      "refusal": "Exact full-bag ordinal capacity required"
+    },
+    {
+      "control": "capacity prefix guard wrong kind",
+      "refusal": "Complete ordered per-output collection checks required"
+    },
+    {
+      "control": "capacity check uses binding failure",
+      "refusal": "Original exact SQL guard metadata required"
+    },
+    {
+      "control": "guard phase after query",
+      "refusal": "Same-held-publication guard phase required"
+    },
+    {
+      "control": "partial result permission",
+      "refusal": "Exact collection visibility/success required"
+    },
+    {
+      "control": "unselected extra guard",
+      "refusal": "Unknown, missing or unselected obligation"
+    },
+    {
+      "control": "relationship source guard omission",
+      "refusal": "Complete emitted check inventory required"
+    },
+    {
+      "control": "original required key becomes optional after exact rehash",
+      "refusal": "Required exact String authored key required"
+    },
+    {
+      "control": "original key becomes constrained String after exact rehash",
+      "refusal": "Required exact String authored key required"
+    },
+    {
+      "control": "original key becomes many after exact rehash",
+      "refusal": "Required exact String authored key required"
+    },
+    {
+      "control": "original key becomes Integer after exact rehash",
+      "refusal": "Required exact String authored key required"
+    }
+  ],
+  "limits": [
+    "Trusted schema and freshly recompiled response are explicit caller-owned ports; matched mutation controls do not confer compiler authenticity.",
+    "Raw document correspondence is local; original public-source validation and held native guards remain mandatory external authorities.",
+    "No compiler/Cargo/native/DB/build/install execution, no owner source edits; parent reviews execution and integration files.",
+    "Existing installed-host AST-equality migration test is separately being corrected by owner; this review proves original21 behavioral admission parity only."
+  ],
+  "oldProfile": {
+    "baselineCommit": "4ba719fe48c429ea22d30bc5a8ed27df75f0a0f9",
+    "baselineSourceSha256": "d6eaa20320c97f607ad6d59578b81653e564d94e1af6daa3537a02640f70d8d2",
+    "equalCompleteAdmissions": 17,
+    "equalRefusals": 4
+  },
+  "ownerTests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:tools /private/tmp/truss-python-report-schema-env/bin/python -B -m unittest test_host_paths_keys_admission -v",
+    "passed": 12,
+    "skipped": 0
+  },
+  "runtime": {
+    "jsonschema": "4.23.0",
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "referencing": "0.35.1"
+  },
+  "schemas": {
+    "compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+    "compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+    "logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+  },
+  "script": {
+    "path": "/private/tmp/astra-paths-keys-host-admission-review-20261010-a.py",
+    "sha256": "b05ee7ed5d4b38cb639b1e8ba3e5cfbca9b38eea1e75b7b16c7fe2f08f030ac5"
+  },
+  "sourceFiles": [
+    {
+      "bytes": 34970,
+      "path": "src/ashlar_host/path_admission.py",
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c"
+    },
+    {
+      "bytes": 12923,
+      "path": "tests/test_host_paths_keys_admission.py",
+      "sha256": "363e3a4cc506ad4f1daca242b11bb56df847066e40a8a19b60a3e45fcf9be8a8"
+    },
+    {
+      "bytes": 122890,
+      "path": "tests/fixtures/weft_paths_keys_admission.json.zlib",
+      "sha256": "27c8f5910658b90c45c14002a26ae3e0b8f2ae966b95930f21c49d71aeaa0e51"
+    }
+  ],
+  "sourceOpeningClosingEqual": true,
+  "verdict": "admission-scope-approved"
+}

@@ -1,0 +1,55 @@
+{
+  "actualLocalRuntime": "/usr/bin/python3 Python3.9.6; exact arguments excluding interpreter executable alias",
+  "base": "4ba719fe48c429ea22d30bc5a8ed27df75f0a0f9",
+  "commands": [
+    "PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_keys_admission.py",
+    "PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_keys_execution.py"
+  ],
+  "exactDelta": "Exactly two SDK-free strict unittest discovery lines; all existing steps and Python3.12 CI selection unchanged.",
+  "findings": [],
+  "format": "independent-ci-source-review/0.1",
+  "freeze": {
+    "bytes": 608,
+    "path": "/private/tmp/ashlar-paths-keys-host-ci-freeze-20261010-b/manifest.json",
+    "sha256": "04cec64d8767d02c9b602ea596f9f852bef9b0589182a32c615a38b4367e3699"
+  },
+  "limitations": [
+    "This reviews the workflow source and local Python3.9 execution, not a completed future GitHub Python3.12 run.",
+    "No source/public-authority, package/index/native qualification or telemetry/model-proof claim."
+  ],
+  "linkedSourceApproval": {
+    "bytes": 9545,
+    "path": "/private/tmp/astra-paths-keys-host-source-review-20261010-b.json",
+    "sha256": "cba0d558f2c3bd12d70510c2df02aa3f09ec081d153cfc0f1e26ee8a39ec9651"
+  },
+  "logs": [
+    {
+      "bytes": 123,
+      "path": "/private/tmp/astra-paths-keys-host-ci-admission-20261010-b.log",
+      "sha256": "31f896ff3b0b6b72e09843f20c4b95dcd18ce9718b1cd4e3889c178176b6678e"
+    },
+    {
+      "bytes": 104,
+      "path": "/private/tmp/astra-paths-keys-host-ci-execution-20261010-b.log",
+      "sha256": "e74ab9a3faf1f73c555141c10b3795b7b1b6fc3005ebc1e6e24fe7e1a33fd98a"
+    }
+  ],
+  "modularity": "tools is present only for inherited fixture helper imports inside tests; production host module dependencies are unchanged and verified by the source review/module checker. No SDK/package/dependency installation or compiler/native invocation added.",
+  "results": {
+    "admission": {
+      "reason": "Explicit real-schema dependency test; separately executed without skips under qualified existing Python3.11 schema environment recorded by combined source review.",
+      "run": 12,
+      "skipped": 1
+    },
+    "execution": {
+      "run": 6,
+      "skipped": 0
+    }
+  },
+  "verdict": "approved-source-only",
+  "workflow": {
+    "bytes": 2063,
+    "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+    "sha256": "52af875bfe10c23727613a8dfc306c3b61a17256cd8e1d8f3ead1e43e34b8cbf"
+  }
+}

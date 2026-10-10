@@ -17,6 +17,8 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_cli.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_paths_host_configuration.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_weft_related_keys_decode.py
+      - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_keys_admission.py
+      - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_keys_execution.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_query.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_installed_path_host.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_weft_paths_package.py

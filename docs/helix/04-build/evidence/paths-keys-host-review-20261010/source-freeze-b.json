@@ -1,0 +1,48 @@
+{
+  "format": "ashlar-paths-keys-host-source-freeze/0.1",
+  "baseCommit": "4ba719fe48c429ea22d30bc5a8ed27df75f0a0f9",
+  "files": [
+    {
+      "path": "src/ashlar_host/path_admission.py",
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c",
+      "bytes": 34970
+    },
+    {
+      "path": "tests/test_host_paths_keys_admission.py",
+      "sha256": "363e3a4cc506ad4f1daca242b11bb56df847066e40a8a19b60a3e45fcf9be8a8",
+      "bytes": 12923
+    },
+    {
+      "path": "tests/fixtures/weft_paths_keys_admission.json.zlib",
+      "sha256": "27c8f5910658b90c45c14002a26ae3e0b8f2ae966b95930f21c49d71aeaa0e51",
+      "bytes": 122890
+    },
+    {
+      "path": "src/ashlar_host/path_execution.py",
+      "sha256": "13541da851c5857d0b59281a3f4f6689ab051cb4cd1b3eb671b2eae5cd0506e8",
+      "bytes": 22997
+    },
+    {
+      "path": "tests/test_host_paths_keys_execution.py",
+      "sha256": "27df928a4543734f00b7e32f9467fb8311ce97faa84176b5ab5ec24d184bd62f",
+      "bytes": 4970
+    },
+    {
+      "path": "tests/test_installed_path_host.py",
+      "sha256": "b5aa9c511772d665be6fe3421bf578295b41dff327e36370b23c2db0bf072f9b",
+      "bytes": 7401
+    }
+  ],
+  "admissionFreeze": {
+    "path": "/private/tmp/ashlar-paths-keys-admission-freeze-20261010-a/manifest.json",
+    "sha256": "b024cc151ef67a7e25d1c510d402d78e8aa3d898a2d074a580936d1ce2f884bf"
+  },
+  "executionControls": {
+    "passed": 6,
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -m unittest test_host_paths_keys_execution -v",
+    "boundary": "actual checker passed"
+  },
+  "scope": "Source-only admission and execution-port controls; no installation, compiler invocation, engine execution or native qualification.",
+  "supersedesFreezeSha256": "61f1a087f8484e70882644a43cf6acdf50aa55d2e154d7d37590f70e9de7549d",
+  "migrationRegressionCorrection": "Keep unchanged capture equivalence; pin original default admission and retain full existing public legacy guard/cleanup suite. New profile admission/execution need behavioral conformance, not full AST identity to old tool code."
+}

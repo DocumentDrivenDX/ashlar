@@ -16,6 +16,7 @@ from typing import Callable, Optional
 
 from ashlar.weft_decode import decode_exact_scalar, ExactScalar
 from ashlar.weft_path_decode import PathDecodeConfig, decode_related_paths
+from ashlar.weft_related_keys_decode import RelatedKeysDecodeConfig, decode_related_keys
 from .path_admission import PathAdmissionConfig, admit_path_artifact
 from .path_capture import PathCaptureConfig, capture_string_frame
 
@@ -359,6 +360,11 @@ def execute_commerce_path(opened, request: dict, artifact: dict, trusted_recompi
                 if rep['kind'] == 'relatedPaths':
                     _require(value is not None, 'Tagged path output cannot be native NULL')
                     values.append(decode_related_paths(rep, value, model_pins=artifact['modelPins'], config=config.decoder))
+                elif rep['kind'] == 'relatedKeys':
+                    _require(value is not None, 'Key collection cannot be native NULL')
+                    values.append(decode_related_keys(rep, value,
+                        model_pins=artifact['modelPins'],
+                        config=RelatedKeysDecodeConfig(config.decoder.maximum_cell_bytes)))
                 else:
                     expression = output['expression']
                     numeric_admitted = arithmetic and expression['op'] in ('arithmetic', 'sum')

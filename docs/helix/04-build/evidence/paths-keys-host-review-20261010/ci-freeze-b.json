@@ -1,0 +1,11 @@
+{
+  "format": "paths-keys-host-ci-review-freeze/0.1",
+  "sourceFreezeSha256": "d144acfe4630b1e816602532ab06062edec69749cefefbaca6f217222532d287",
+  "supersedes": "2de918eb03c1a8174f07c7e7a72586e008d0b275f48493128e5b721f5a6c1198",
+  "file": {
+    "path": ".github/workflows/module-boundaries.yml",
+    "sha256": "52af875bfe10c23727613a8dfc306c3b61a17256cd8e1d8f3ead1e43e34b8cbf",
+    "bytes": 2063
+  },
+  "scope": "Two narrow SDK-free discovery commands; tools on test fixture path only, host source never imports tools. Real-schema explicitly skipped in -S; separately tested existing3.11 real validator."
+}

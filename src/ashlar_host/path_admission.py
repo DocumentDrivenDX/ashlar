@@ -24,6 +24,9 @@ SCHEMA_SHA256 = MappingProxyType({
 BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths', backendVersion='0.4.0-paths-candidate',
                                interfaceVersion='weft-backend/0.3.0', targetProfile='spark4-delta4-paths-candidate'))
 
+PATHS_KEYS_BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths-keys', backendVersion='0.4.0-paths-keys-candidate',
+    interfaceVersion='weft-backend/0.3.0', targetProfile='spark4-delta4-paths-keys-candidate'))
+
 
 def _require(condition, message):
     if not condition:
@@ -171,8 +174,10 @@ class PathSchemaValidation:
 class PathAdmissionConfig:
     maximum_artifact_bytes: int
     schema_validation: PathSchemaValidation
+    profile: str = 'paths'
 
     def __post_init__(self):
+        _require(type(self.profile) is str and self.profile in ('paths', 'paths-keys'), 'Explicit supported path profile required')
         _require(type(self.maximum_artifact_bytes) is int and 1 <= self.maximum_artifact_bytes <= 16 * 1024 * 1024,
                  'Explicit finite artifact limit required')
         _require(type(self.schema_validation) is PathSchemaValidation, 'Trusted pinned schema port required')
@@ -216,6 +221,88 @@ def _checks(parameters, failure):
                  'Original exact SQL guard metadata required')
 
 
+def _exact_metadata(actual, expected):
+    # JSON equality distinguishes Boolean from Integer in generic obligation parameters.
+    return json.dumps(actual, sort_keys=True, separators=(',', ':')) == json.dumps(expected, sort_keys=True, separators=(',', ':'))
+
+
+def _authored_string_key(request, record_identity, key, maximum):
+    """Local source correspondence, not a substitute for public UMF admission."""
+    candidates = [m for m in request['modules'] if m['pin']['documentId'] == record_identity['documentId']
+                  and m['pin']['revision'] == record_identity['revision']]
+    _require(len(candidates) == 1, 'Original Record source required')
+    document = _parse(candidates[0]['documentJson'], maximum)
+    _require(document['id'] == record_identity['documentId'], 'Original document identity differs')
+    modules = [m for m in document['modules'] if m['id'] == record_identity['module']]
+    _require(len(modules) == 1, 'Original selected module required')
+    records = [e for e in modules[0]['elements'] if e['id'] == record_identity['element'] and e['kind'] == 'record']
+    _require(len(records) == 1, 'Original selected Record required')
+    record = records[0]
+    keys = [k for k in record.get('keys', []) if k['id'] == key['id']]
+    _require(len(keys) == 1 and bool(keys[0]['fields']), 'Original authored key required')
+    original_fields = keys[0]['fields']
+    _require(len({(f['module'], f['element']) for f in original_fields}) == len(original_fields)
+             and all(f in record['members'] for f in original_fields), 'Distinct original member key Fields required')
+    fields, types = [], []
+    for reference in original_fields:
+        selected = [e for m in document['modules'] if m['id'] == reference['module']
+                    for e in m['elements'] if e['id'] == reference['element'] and e['kind'] == 'field']
+        _require(len(selected) == 1, 'Original key Field required')
+        field = selected[0]
+        _require(field.get('scalarType') == 'string' and field.get('cardinality') == 'one'
+                 and field.get('nullability') == 'required' and not field.get('facets', {}), 'Required exact String authored key required')
+        fields.append(dict(documentId=record_identity['documentId'], revision=record_identity['revision'], **reference))
+        types.append(dict(family='string', facets={}, nullable=False))
+    _require(key == dict(id=keys[0]['id'], fields=fields, types=types), 'Complete ordered original String key differs')
+    return document
+
+
+def _admit_keys_relationship(request, binding, plan, expression, maximum):
+    _closed(expression, ('op', 'scan', 'relationship', 'bound'))
+    _require(type(expression['bound']) is int and 1 <= expression['bound'] <= 1000, 'Exact bounded one-hop collection required')
+    hop = expression['relationship']
+    _closed(hop, ('identity', 'inverse', 'from', 'to', 'sourceKey', 'targetKey', 'sourceMultiplicity', 'targetMultiplicity', 'targetLifecycle'))
+    _require(type(hop['inverse']) is bool, 'Exact original direction required')
+    scans = [plan['source']] + [j['right'] for j in plan['joins']]
+    visible = [scan for scan in scans if scan['occurrence'] == expression['scan']]
+    _require(len(visible) == 1 and visible[0]['record'] == hop['from']
+             and visible[0]['pin']['documentId'] == hop['from']['documentId']
+             and visible[0]['pin']['revision'] == hop['from']['revision']
+             and visible[0]['pin'] in plan['modulePins'], 'Original required root scan differs')
+    _require(not any(j.get('kind', 'inner') == 'left' and j['right']['occurrence'] == expression['scan'] for j in plan['joins']), 'Potentially absent collection root refused')
+    _require(plan['aggregate'] is False and plan['groups'] == [] and plan.get('having') is None and plan.get('pathExpansion') is None, 'Nonaggregate nonexpanded one-hop profile required')
+    pair = (hop['identity']['documentId'], hop['identity']['revision'])
+    _require(all((record['documentId'], record['revision']) == pair for record in (hop['from'], hop['to'])), 'Original relationship revision differs')
+    document = _authored_string_key(request, hop['from'], hop['sourceKey'], maximum)
+    _authored_string_key(request, hop['to'], hop['targetKey'], maximum)
+    original = [r for m in document['modules'] if m['id'] == hop['identity']['module']
+                for r in m.get('relationships', []) if r['id'] == hop['identity']['relationship']]
+    _require(len(original) == 1, 'Original authored relationship required')
+    definition = original[0]
+    _require(definition.get('directed') is True and len(definition['source']) == len(definition['target']) == 1, 'Monomorphic original relationship required')
+    source, target = (definition['target'][0], definition['source'][0]) if hop['inverse'] else (definition['source'][0], definition['target'][0])
+    for endpoint, identity, key in ((source, hop['from'], hop['sourceKey']), (target, hop['to'], hop['targetKey'])):
+        _require(endpoint['module'] == identity['module'] and endpoint['element'] == identity['element'], 'Original authored endpoint differs')
+        if 'key' in endpoint:
+            _require(endpoint['key'] == key['id'], 'Original selected endpoint key differs')
+    # RelationshipRead preserves authored multiplicity/lifecycle labels even for inverse traversal.
+    source_m, target_m = definition['sourceMultiplicity'], definition['targetMultiplicity']
+    _require(not hop['inverse'] or type(definition.get('inverse')) is str and bool(definition['inverse']), 'Authored inverse traversal required')
+    forward_source = hop['to'] if hop['inverse'] else hop['from']
+    forward_key = hop['targetKey'] if hop['inverse'] else hop['sourceKey']
+    source_record = next(e for m in document['modules'] if m['id'] == forward_source['module']
+                         for e in m['elements'] if e['id'] == forward_source['element'])
+    source_keys = source_record['keys']
+    primary = [key for key in source_keys if key.get('primary') is True]
+    chosen = primary[0] if len(primary) == 1 else source_keys[0] if not primary and len(source_keys) == 1 else None
+    _require(chosen is not None and chosen['id'] == forward_key['id'], 'Original source endpoint key selection differs')
+    _require(hop['sourceMultiplicity'] == source_m and hop['targetMultiplicity'] == target_m
+             and hop['targetLifecycle'] == definition.get('targetLifecycle', 'independent'), 'Original relationship semantics differ')
+    mapped = [r for r in binding['relationships'] if r['logical'] == hop['identity']]
+    _require(len(mapped) == 1 and mapped[0]['acceptedDefinition'] == definition, 'Original accepted relationship definition differs')
+    return _mapped_relationship(binding, hop)
+
+
 def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict, *, config: PathAdmissionConfig) -> PathAdmission:
     """Admit complete selected paths profile metadata before execution callbacks.
 
@@ -225,6 +312,7 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
     obligation and closing fence; this function performs none of those operations.
     """
     _require(type(config) is PathAdmissionConfig, 'Explicit path admission configuration required')
+    backend = BACKEND if config.profile == 'paths' else PATHS_KEYS_BACKEND
     request, artifact, recompiled = (_snapshot(v, config.maximum_artifact_bytes) for v in (request, artifact, trusted_recompiled))
     _require(artifact == recompiled, 'Exact trusted public recompilation required')
     port = config.schema_validation
@@ -236,10 +324,10 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
         _require(outcome is None, 'Schema port must validate rather than return a claim')
     _require(request['interfaceVersion'] == artifact['interfaceVersion'] == 'weft-compile/0.4.0'
              and request['dialect'] == artifact['dialect'] == 'weft-sql/0.4.0'
-             and artifact['status'] == 'compiled' and artifact['backend'] == dict(BACKEND), 'Explicit compiled paths profile required')
-    _require(artifact['targetContext']['id'] == BACKEND['targetProfile'] and artifact['targetContext']['engine'] == 'spark-sql' and artifact['targetContext']['engineVersion'] == '4.0.1' and artifact['targetContext']['storageLayoutRevision'] == 'ashlar-delta/0.3' and artifact['targetContext']['publicationRevision'] == 'ashlar-resolver/0.1-candidate', 'Exact declared candidate runtime profile required')
+             and artifact['status'] == 'compiled' and artifact['backend'] == dict(backend), 'Explicit compiled paths profile required')
+    _require(artifact['targetContext']['id'] == backend['targetProfile'] and artifact['targetContext']['engine'] == 'spark-sql' and artifact['targetContext']['engineVersion'] == '4.0.1' and artifact['targetContext']['storageLayoutRevision'] == 'ashlar-delta/0.3' and artifact['targetContext']['publicationRevision'] == 'ashlar-resolver/0.1-candidate', 'Exact declared candidate runtime profile required')
     target = request['target']
-    _require(all(target[k] == BACKEND[k] for k in ('backendId', 'backendVersion', 'targetProfile')), 'Original selected target differs')
+    _require(all(target[k] == backend[k] for k in ('backendId', 'backendVersion', 'targetProfile')), 'Original selected target differs')
     binding = _parse(target['bindingJson'], config.maximum_artifact_bytes)
     _require(hashlib.sha256(target['bindingJson'].encode('utf8')).hexdigest() == target['bindingSha256'] == artifact['bindingSha256'], 'Original binding hash differs')
     _require(binding['profile'] == 'ashlar-databricks-candidate/0.1.0' and artifact['modelPins'] == binding['modelPins'], 'Original full model pins differ')
@@ -261,12 +349,28 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
         expr = output['expression']
         if expr['op'] == 'relatedPaths':
             paths.append(dict(path=expr['path'], bound=expr['bound'], edgeEncoding='signed64-decimal/0.1'))
+    collections = []
+    keys_collections = []
+    keys_tables = []
+    for position, output in enumerate(plan['outputs'], 1):
+        expr = output['expression']
+        if expr['op'] in ('relatedKeys', 'relatedPaths'):
+            collections.append(dict(outputPosition=position, kind=expr['op']))
+        if expr['op'] == 'relatedKeys':
+            _require(config.profile == 'paths-keys', 'One-hop profile not selected')
+            table = _admit_keys_relationship(request, binding, plan, expr, config.maximum_artifact_bytes)
+            keys_collections.append(dict(outputPosition=position, startScan=expr['scan'], relationship=expr['relationship'], bound=expr['bound']))
+            keys_tables.append(dict(outputPosition=position, relationship=expr['relationship']['identity'], table=table, identityColumn='id', nativeType='BIGINT'))
     expansion = plan.get('pathExpansion')
     if expansion:
         paths.append(dict(path=expansion['path'], edgeEncoding='signed64-decimal/0.1'))
     required = {'ashlar.candidate.publication', 'ashlar.candidate.scalarIntegrity'}
     if paths:
         required |= {'ashlar.candidate.relationshipIntegrity', 'ashlar.path.occurrenceIntegrity'}
+    if keys_collections:
+        required |= {'ashlar.candidate.relationshipIntegrity', 'ashlar.relatedKeys.collectionIntegrity'}
+    if config.profile == 'paths-keys' and collections:
+        required.add('ashlar.relatedKeys.ordinalCapacity')
     count_kinds = set()
     if expansion:
         count_kinds = {('pathRows' if out['expression']['op'] == 'count' else 'targetDistinct')
@@ -290,6 +394,7 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
                 'ashlar.candidate.relationshipIntegrity': 'WFT-BINDING', 'ashlar.path.occurrenceIntegrity': 'WFT-BINDING',
                 'ashlar.path.countCapacity': 'WFT-CAPABILITY', 'outerJoin.matchIntegrity': 'WFT-OBLIGATION',
                 'weft.output.positioned': 'WFT-OBLIGATION', 'ashlar.arithmetic.exact': 'WFT-CAPABILITY'}
+    failures.update({'ashlar.relatedKeys.collectionIntegrity': 'WFT-BINDING', 'ashlar.relatedKeys.ordinalCapacity': 'WFT-CAPABILITY'})
     parameter_keys = {
         'ashlar.candidate.publication': ('layoutRevision', 'layoutSha256', 'modelPins', 'nativeProfile', 'payloadValidation', 'publication', 'publicationPhase', 'requirements', 'visibility'),
         'ashlar.candidate.scalarIntegrity': ('checks', 'noPartialPublication', 'parameters', 'phase', 'samePublicationRequired', 'success'),
@@ -300,6 +405,9 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
         'weft.output.positioned': ('columns', 'profile'),
         'ashlar.arithmetic.exact': ('checks', 'guardOrder', 'maxScale', 'nativeRepresentation', 'noPartialPublication', 'phase', 'result', 'samePublicationRequired', 'success'),
     }
+    parameter_keys.update({
+        'ashlar.relatedKeys.collectionIntegrity': ('checks', 'collections', 'edgeSchemas', 'noPartialPublication', 'phase', 'samePublicationRequired', 'success'),
+        'ashlar.relatedKeys.ordinalCapacity': ('checks', 'collections', 'maximum', 'nativeRepresentation', 'noPartialPublication', 'phase', 'samePublicationRequired', 'success')})
     for name, obligation in owning.items():
         _closed(obligation, ('id', 'owner', 'failureCode', 'parameters'))
         _closed(obligation['parameters'], parameter_keys[name])
@@ -333,6 +441,23 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
             for h, hop in enumerate(entry['path']['hops']):
                 edge_schemas.append(dict(pathIndex=i, hop=h, relationship=hop['identity'], table=_mapped_relationship(binding, hop), identityColumn='id', nativeType='BIGINT'))
         _require(occurrence['edgeSchemas'] == edge_schemas, 'Exact per-hop pinned schema inventory required')
+    if keys_collections:
+        params = owning['ashlar.relatedKeys.collectionIntegrity']['parameters']
+        _require(_exact_metadata(params['collections'], keys_collections) and _exact_metadata(params['edgeSchemas'], keys_tables), 'Complete original one-hop inventory differs')
+        edge_schemas.extend(keys_tables)
+    for name, inventory, kind in (('ashlar.relatedKeys.collectionIntegrity', keys_collections, 'collectionEncoding'),
+                                  ('ashlar.relatedKeys.ordinalCapacity', collections, 'fullOccurrencePrefix')):
+        if name not in owning:
+            continue
+        params = owning[name]['parameters']
+        _require(params['noPartialPublication'] is True and params['success'] == 'one exact STRING count equal to 0 per check', 'Exact collection visibility/success required')
+        if name.endswith('ordinalCapacity'):
+            _require(_exact_metadata(params['collections'], inventory) and params['nativeRepresentation'] == 'decimal38'
+                     and params['maximum'] == '99999999999999999999999999999999999999', 'Exact full-bag ordinal capacity required')
+        for check in params['checks']:
+            _closed(check, ('outputPosition', 'kind', 'sql', 'failureCode'))
+        _require(all(type(c['outputPosition']) is int for c in params['checks']), 'Exact original output positions required')
+        _require([(c['outputPosition'], c['kind']) for c in params['checks']] == [(c['outputPosition'], kind) for c in inventory], 'Complete ordered per-output collection checks required')
     count_checks = []
     if count_kinds:
         count_checks = owning['ashlar.path.countCapacity']['parameters']['checks']
@@ -350,6 +475,9 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
             if right:
                 expected['outerJoin'] = dict(scan=right[0]['occurrence'], record=right[0]['record'])
             _require(representation == expected and column['nullable'] is False, 'Exact path output role required')
+        if expr['op'] == 'relatedKeys':
+            expected = dict(kind='relatedKeys', relationship=expr['relationship']['identity'], key=expr['relationship']['targetKey'], bound=expr['bound'])
+            _require(representation == expected and column['nullable'] is False, 'Exact required one-hop output role required')
         if expr['op'] == 'countDistinctPathTargets':
             hop = expansion['path']['hops'][1]
             expected = dict(kind='scalar', carrier='text', decoder='exact-integer', logicalType=dict(family='integer', facets={}, nullable=False),
@@ -372,7 +500,8 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
             records = [r for r in binding['records'] if r['logical'] == original['record']]
             _require(len(records) == 1 and records[0]['kind'] == 'object' and scan['scan'] == original['occurrence'] and scan['record'] == original['record'] and scan['table'] == _table(binding, records[0]['table']), 'Exact LEFT schema source required')
     consumed_relationships = [h['identity'] for entry in paths for h in entry['path']['hops']]
-    if paths:
+    consumed_relationships += [entry['relationship']['identity'] for entry in keys_collections]
+    if consumed_relationships:
         rel_checks = owning['ashlar.candidate.relationshipIntegrity']['parameters']['checks']
         for check in rel_checks:
             _closed(check, ('relationship', 'sql', 'failureCode'))
