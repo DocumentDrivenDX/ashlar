@@ -1,0 +1,5 @@
+The retained original supply-chain publication was reopened through its held read-only reader after fresh public UMF dataset validation. The new public receipt exactly matched the retained original receipt. All six original Delta table files and main journal bytes passed closing custody checks.
+
+The split-excursion count returned `LOT1, 2` and passed. The excursion query returned decimal text `17.00`, while the independent original lexical oracle expected `17`; execution refused that comparison and withheld the complete report. The other three native queries were not executed. The archive preserves original request/compiler response observations, raw native schema and rows, bounded command receipts and independent review. It also preserves the earlier E/F failures. It contains no runtime or compiler binaries.
+
+This evidence qualifies the failed diagnostic and its retained observations. It does not qualify all five native queries, a corrected oracle, installed native execution, PostgreSQL, protected ACK, Unity Catalog or a remote source.

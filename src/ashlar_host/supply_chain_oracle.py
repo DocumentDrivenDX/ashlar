@@ -3,7 +3,7 @@
 Original candidate row identities/values are preserved. Public finite-dataset
 admission remains separate; no canonical storage IDs or engine acceptance.
 """
-import hashlib,json
+import hashlib,json,re
 from decimal import Decimal
 MODEL_SHA='53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a'
 GRAPH_SHA='2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13'
@@ -39,6 +39,24 @@ def original_graph_oracle(model_bytes,graph_bytes):
             'cases':{'split-excursion':split,'excursion':excursion,'replay':replay,'lineage':lineage,'sensor':sensors}}
 
 
+
+def _spark041_decimal_text(value,precision,scale):
+    """Independent fixed-scale expected carrier for this selected Spark profile.
+
+    No actual cell is repaired. Original graph lexical values remain unchanged.
+    Negative-zero source spelling is outside this helper's qualified subset.
+    """
+    if (type(precision)is not int or type(scale)is not int or not 1<=precision<=38
+            or not 0<=scale<=precision or type(value)is not str
+            or len(value)>precision+3 or re.fullmatch('-?(0|[1-9][0-9]*)(?:\.[0-9]+)?',value)is None):
+        raise ValueError('Closed original fixed decimal required')
+    negative=value.startswith('-');whole,separator,fraction=value.lstrip('-').partition('.')
+    if len(fraction)>scale or (whole!='0'and len(whole)>precision-scale):
+        raise ValueError('Original decimal cannot be represented without loss')
+    if negative and not any(char!='0'for char in whole+fraction):
+        raise ValueError('Negative zero target spelling is not qualified')
+    return ('-'if negative else '')+whole+('.'+fraction.ljust(scale,'0')if scale else '')
+
 def supply_chain_result_oracle(case_id, model_bytes, graph_bytes):
     """Complete original graph result bag; no compiler SQL/native rows consumed."""
     outputs = {
@@ -54,6 +72,14 @@ def supply_chain_result_oracle(case_id, model_bytes, graph_bytes):
         raise ValueError('Immutable original source bytes required')
     original = original_graph_oracle(model_bytes, graph_bytes)
     rows = [[row[name] for name in outputs[case_id]] for row in original['cases'][case_id]]
+    if case_id=='excursion':
+        model=json.loads(model_bytes)
+        fields=[field for module in model['modules']for field in module['elements']
+                if field['id']=='sensor_readings.value']
+        if len(fields)!=1 or fields[0].get('scalarType')!='decimal' or set(fields[0].get('facets',{}))!={'precision','scale'}:
+            raise ValueError('Original selected fixed decimal definition required')
+        facets=fields[0]['facets']
+        rows=[[row[0],_spark041_decimal_text(row[1],facets['precision'],facets['scale']),row[2]]for row in rows]
     return {'rows': rows, 'witnesses': {'case': case_id, 'complete_result_occurrences': len(rows),
             'original_objects': len(original['objects']), 'original_edges': len(original['edges'])},
-            'scope': 'Complete independent original supply-chain graph bag; no ORDER BY or source/native authority'}
+            'scope': 'Complete independent original supply-chain graph bag for selected Spark041 fixed-scale decimal output; original graph lexical tokens unchanged. No ORDER BY or source/native authority'}

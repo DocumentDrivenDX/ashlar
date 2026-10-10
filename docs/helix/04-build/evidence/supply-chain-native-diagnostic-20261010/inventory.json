@@ -1,0 +1,279 @@
+{
+  "archive": {
+    "bytes": 484298,
+    "sha256": "f3a660a405ca5a855ad5862f4dfa9d66a2ee8b0cf2f659b17e1b995605fad5b1"
+  },
+  "files": [
+    {
+      "bytes": 1691280,
+      "member": "actual-h/compiler-observations.jsonl",
+      "sha256": "7bb1ea4e50c973816610b21cb04d743941db18b24054e75f9e883cb1e5987376",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h/compiler-observations.jsonl"
+    },
+    {
+      "bytes": 565,
+      "member": "actual-h/native-observations.jsonl",
+      "sha256": "b4832fddfbbb8eb087eaf3bc8723006119c35be365a03ab91d13566ff8744a0b",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h/native-observations.jsonl"
+    },
+    {
+      "bytes": 562,
+      "member": "actual-h/outer.receipt.json",
+      "sha256": "6b5672ff5d3eac4f7cc12c633d9112ed19462751a65d250148b011fbd69a3cb5",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.outer.receipt.json"
+    },
+    {
+      "bytes": 0,
+      "member": "actual-h/outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.outer.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "actual-h/outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.outer.stdout"
+    },
+    {
+      "bytes": 4795730,
+      "member": "actual-h/public-dataset.json",
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h/public-dataset.json"
+    },
+    {
+      "bytes": 393,
+      "member": "actual-h/receipt.json",
+      "sha256": "2eb877d7b53d577c7bf8f49b443101ec27e615d5600b45be2340b5e79e1aa495",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.receipt.json"
+    },
+    {
+      "bytes": 2287,
+      "member": "actual-h/stderr",
+      "sha256": "46629f88a538f28a03b340f8acf8aa33a7a5811eaa8fa9747bd88f3efcafa7f9",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "actual-h/stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-h.stdout"
+    },
+    {
+      "bytes": 1473,
+      "member": "failure-e/freeze.json",
+      "sha256": "f8eb1a39cb3438dee6c2e04ae46902700b63c3159849e49e39d3ef46f6e493e8",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-failure-freeze-e.json"
+    },
+    {
+      "bytes": 907,
+      "member": "failure-e/outer.receipt.json",
+      "sha256": "76ff186b668ceeaf4d460a8b1193ff890bd7bff2461d43cf1ccc786526676a49",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.outer.receipt.json"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-e/outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.outer.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-e/outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.outer.stdout"
+    },
+    {
+      "bytes": 357,
+      "member": "failure-e/receipt.json",
+      "sha256": "6f28713b2143313d3825ec95fc3780d79c7ca41e8133c0b2297c9df9346fea7b",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.receipt.json"
+    },
+    {
+      "bytes": 1009,
+      "member": "failure-e/stderr",
+      "sha256": "4cc14e7453d093f2507b9ff6d7adb00e275a50e526f7665d91bf9f1061adbd86",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-e/stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-e.stdout"
+    },
+    {
+      "bytes": 1343,
+      "member": "failure-f/freeze.json",
+      "sha256": "af71f0fc5141d7d76cfd96120fcd0d471520b42c1929f83a5706513490a39bd2",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-failure-freeze-f.json"
+    },
+    {
+      "bytes": 907,
+      "member": "failure-f/outer.receipt.json",
+      "sha256": "68c781c7814b3a1ba9b730d1933647ff8668f9a55fbeb83d2b968d6b91cc8e98",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.outer.receipt.json"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-f/outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.outer.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-f/outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.outer.stdout"
+    },
+    {
+      "bytes": 357,
+      "member": "failure-f/receipt.json",
+      "sha256": "18c2925254b8b5f4c04db2438a11cd9c8b1ee6ae88d8a0186c672ce2ecdd8495",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.receipt.json"
+    },
+    {
+      "bytes": 2910,
+      "member": "failure-f/stderr",
+      "sha256": "59b4afa886bc7fcfbfbd15f376ad5238a319ad0da1f420b47230447f89f09fc3",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.stderr"
+    },
+    {
+      "bytes": 0,
+      "member": "failure-f/stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f.stdout"
+    },
+    {
+      "bytes": 38541,
+      "member": "original/graph/fixture.json",
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13",
+      "source": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/graph/fixture.json"
+    },
+    {
+      "bytes": 34293,
+      "member": "original/ontology.json",
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a",
+      "source": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/ontology.json"
+    },
+    {
+      "bytes": 15021,
+      "member": "original/pack.json",
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22",
+      "source": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/pack.json"
+    },
+    {
+      "bytes": 4560,
+      "member": "prior/command-e.json",
+      "sha256": "b303d5027a5d693c53e07c874c1f70cf8f7211bba04ca96e8eba16588d24b121",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-command-e.json"
+    },
+    {
+      "bytes": 5281,
+      "member": "prior/command-f.json",
+      "sha256": "90fdfb016712a038d5fce86427b0edb45b8fc0a8d5a481a5557a00b042fb39e4",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-command-f.json"
+    },
+    {
+      "bytes": 1829,
+      "member": "prior/command-independent-review-e.json",
+      "sha256": "7c57ca2dd0d35946dc6392310e91698ad258b57c2d26ca44d226803ea35d596b",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-command-independent-review-e.json"
+    },
+    {
+      "bytes": 1499,
+      "member": "prior/command-independent-review-f.json",
+      "sha256": "a8721aab42f8bf1f2d13287952d6f46fb9d39b2995fca04f202f5a05aed74d68",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-command-independent-review-f.json"
+    },
+    {
+      "bytes": 2692,
+      "member": "prior/metadata-f.json",
+      "sha256": "d6a67db9f3df35bb95a00121079e08a83a2aaab9418229f823d226a44b1d9e58",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-metadata-f.json"
+    },
+    {
+      "bytes": 2209,
+      "member": "recipe/actual-freeze-h.json",
+      "sha256": "09ab379f00b576a3c236b730788a17fb52dc7f1348a4f251bbaf44325abe1ad9",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-actual-freeze-h.json"
+    },
+    {
+      "bytes": 1501,
+      "member": "recipe/actual-independent-review-h.json",
+      "sha256": "f90258a89e1d60afd295a21b17d942cf1d966381e925da980f08ca8a187b4e6f",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-actual-independent-review-h.json"
+    },
+    {
+      "bytes": 1004848,
+      "member": "recipe/closure-h.json",
+      "sha256": "b50e5be8d613f33b60339eba522ed871e35dc0984a82b83ad988ed1701cd3c00",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-closure-h.json"
+    },
+    {
+      "bytes": 5593,
+      "member": "recipe/command-h.json",
+      "sha256": "e1afef154d715e086d113346c7138c35a6d1b909cc67b218ae7376e60a8fa9d7",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-command-h.json"
+    },
+    {
+      "bytes": 1814,
+      "member": "recipe/command-independent-review-h.json",
+      "sha256": "c4d97cfe375eb5f1a0739eb27cead3135a9ac9b7d2d546972b3cc26d537299c3",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-command-independent-review-h.json"
+    },
+    {
+      "bytes": 2340,
+      "member": "recipe/freeze-h.json",
+      "sha256": "35e2199fec68aa1ae7f9935d98ad0668382c96a1e14a7905ee50f44528caf9bb",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-freeze-h.json"
+    },
+    {
+      "bytes": 933,
+      "member": "recipe/launcher-controls-h.py",
+      "sha256": "ff690001c523dcb7fa7944f681a75b41207b741182114fa2d92644950d4f4b20",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-launcher-controls-h.py"
+    },
+    {
+      "bytes": 2854,
+      "member": "recipe/launcher-h.py",
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py"
+    },
+    {
+      "bytes": 7599,
+      "member": "recipe/probe-h.py",
+      "sha256": "01d64f881d505dd9f9b88f3219b5efe7ff8bcbca84e1e325feed8bdc1ba9ee90",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-probe-h.py"
+    },
+    {
+      "bytes": 4245,
+      "member": "recipe/runner-h.py",
+      "sha256": "30cb83029bf70ffc8811ef49cfd51186f027ddbeba0e07d8cb40fa7d84643502",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-runner-h.py"
+    },
+    {
+      "bytes": 35403,
+      "member": "recipe/source-inventory-g.json",
+      "sha256": "df8f12cae467c1ac2f7b778a2a47bc0a573770adaebf134019e37dd153166d46",
+      "source": "/private/tmp/ashlar-supply-chain-native-read-source-inventory-g.json"
+    },
+    {
+      "bytes": 4795730,
+      "member": "retained-f/public-dataset.json",
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f/public-dataset.json"
+    },
+    {
+      "bytes": 1551,
+      "member": "retained-f/registry.json",
+      "sha256": "9b325b21959f7775d1dd7d04dfbd872afe7dc2d718b0a5f7d27a2f6b333a9023",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f/registry.json"
+    },
+    {
+      "bytes": 80592,
+      "member": "retained-f/request.json",
+      "sha256": "1586844acccdf9f00f4d3957db8f66996ff0005c85d096b5a7799e3769a0a39e",
+      "source": "/private/tmp/ashlar-supply-chain-finite-native-f/request.json"
+    }
+  ],
+  "scope": "Actual retained-publication diagnostic H terminal1: countquery agreed, excursion decimal17.00 versus independentlexical17 refused. No fullnative success, correction, ingest/replay or protectedACK claim. E/Ffirstfailures preserved."
+}
