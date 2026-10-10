@@ -111,3 +111,10 @@ input:focus-visible,.file-button:focus-within{outline:3px solid #7b8d20;outline-
 .ontology-caption{margin:8px 0}.definition-list label{display:flex;align-items:center;gap:10px;font-size:12px}.definition-list select{margin:0;min-width:220px;font-size:13px}.field-toolbar:after{content:'Scroll table for more columns →';font-size:11px;color:var(--muted)}
 @media(min-width:1500px){.field-toolbar:after{display:none}}
 @media(max-width:600px){.details-table td:first-child{min-width:210px;width:210px;max-width:210px}.details-table td:first-child .ref-link{max-width:180px;display:inline-block;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}.definition-list label{align-items:start;flex-direction:column;gap:4px}.definition-list select{min-width:0;width:100%}}
+
+/* Keep navigation and tools together, leaving more room for schema content. */
+body:has(.explorer-main)>header{padding-top:14px;padding-bottom:14px}
+.page-top{padding:14px 0 2px}.page-top h1{font-size:25px;margin:4px 0}.page-top .intro{margin:4px 0}
+.inspector-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.inspector-toolbar .breadcrumbs{flex:1;min-width:220px;margin:0}.inspector-toolbar .workspace-actions{margin:0;flex-shrink:0}
+.field-toolbar:after{content:none}.table-scroll-hint{font-size:11px;color:var(--muted);margin:5px 0}.table-scroll-hint[hidden]{display:none}
+@media(max-width:600px){.page-top h1{font-size:23px}.inspector-toolbar{gap:8px}.inspector-toolbar .breadcrumbs{flex-basis:100%}}
