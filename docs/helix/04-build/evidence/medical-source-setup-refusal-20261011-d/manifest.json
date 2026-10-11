@@ -1,0 +1,43 @@
+{
+  "profile": "ashlar-medical-source-setup-refusal/0.1",
+  "source_revision": "d59354aa6d36a23f70ec3fb425fe45fc0eac9fe6",
+  "process": {
+    "session": 36389,
+    "exit_code": 1,
+    "terminal": true
+  },
+  "files": [
+    {
+      "path": "configuration.json",
+      "bytes": 951,
+      "sha256": "40edc3f1829b403a36add8be90482ef388dd4c91f8261cf4d7caad7b1d1f1eb8"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 86,
+      "sha256": "dc86a5af141a3893c354de98adb64dd3d70388b8b9ab7e67daad111a63b3c0c0"
+    },
+    {
+      "path": "created-container.json",
+      "bytes": 505,
+      "sha256": "2b76af204bb26e11415e2123267f17e9f5f27252d7e34d66e26deba6e096f059"
+    },
+    {
+      "path": "static-diagnosis.json",
+      "bytes": 1253,
+      "sha256": "d826ef2dab230b8112f6d9c6d0decb7a9880a0e9317eea528c0a3ba9a95b3c8e"
+    }
+  ],
+  "owned_container_cleanup": {
+    "verification": "docker container ls --all --filter name=ashlar-private-outbox-original-medical-c --format ID Names Status",
+    "exit_code": 0,
+    "stdout_bytes": 0,
+    "container_absent": true
+  },
+  "qualification": "Actual failed private source setup; no source inventory or publication. Generic stderr does not identify the primary exception. Static diagnosis demonstrates the selected namespace is rejected by source_signature; native SQLSTATE was not captured. The owned container was verified absent after cleanup. Existing initialized Delta tables were not used by this command."
+}

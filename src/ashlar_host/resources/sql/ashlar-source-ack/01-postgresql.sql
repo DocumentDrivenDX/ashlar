@@ -34,7 +34,7 @@ CREATE FUNCTION __ACK_SCHEMA__.source_signature(source_namespace name) RETURNS j
 LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$
 DECLARE ns record;b record;h record;f record;attrs jsonb;
 BEGIN
- IF source_namespace::text !~ '^ashlar_ack_source_[a-z0-9_]+$' THEN RAISE EXCEPTION 'ACK_SOURCE_NAMESPACE_UNSUPPORTED'; END IF;
+ IF source_namespace::text !~ '^[a-z][a-z0-9_]{0,62}$' THEN RAISE EXCEPTION 'ACK_SOURCE_NAMESPACE_UNSUPPORTED'; END IF;
  SELECT oid,nspname,nspowner,nspacl INTO STRICT ns FROM pg_namespace WHERE nspname=source_namespace;
  SELECT oid,relowner,relkind,relpersistence,relrowsecurity,relforcerowsecurity,relacl,reloptions INTO STRICT b FROM pg_class WHERE relnamespace=ns.oid AND relname='batch';
  SELECT oid,relowner,relkind,relpersistence,relrowsecurity,relforcerowsecurity,relacl,reloptions INTO STRICT h FROM pg_class WHERE relnamespace=ns.oid AND relname='head';

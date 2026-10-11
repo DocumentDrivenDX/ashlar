@@ -1,0 +1,23 @@
+{
+  "scope": "Read-only static source diagnosis; no actual exceptioncode proof, no provisioning/retry",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/setup_private_outbox_fixture.py",
+      "bytes": 19827,
+      "sha256": "c7fe63e8a1b4bd122e096af042ad294d55e75d8a8536ae6839fdb8cfcdc682d9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/sql/ashlar-source-ack/01-postgresql.sql",
+      "bytes": 11829,
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9"
+    }
+  ],
+  "finding": {
+    "setupCall": "initialize register_source(installation_id,source.schema)",
+    "selectedNamespace": "ashlar_medical_source",
+    "actualPredicate": "^ashlar_ack_source_[a-z0-9_]+$",
+    "deterministicRefusalCode": "ACK_SOURCE_NAMESPACE_UNSUPPORTED",
+    "qualification": "Static owning route unavoidable if setup reaches register_source; generic actual stderr does not independently attribute first failure."
+  },
+  "recommendedDiagnostic": "Closed fixed phase enum + qualified exception type and allowed SQLSTATE only; no messages/queries/locals/sourceidentities; bounded primarysafe retention from public Runtime instance observers. No retry until narrow native namespace acceptance is governed/reviewed."
+}

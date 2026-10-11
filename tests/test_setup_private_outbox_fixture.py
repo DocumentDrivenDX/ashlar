@@ -3,6 +3,7 @@ from dataclasses import replace
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -21,6 +22,24 @@ def source(label,ordinal):
 
 
 class Tests(unittest.TestCase):
+    def test_packaged_native_source_namespace_predicate_matches_explicit_identifier_owner(self):
+        packaged=(RESOURCE_ROOT/'sql/ashlar-source-ack/01-postgresql.sql').read_text()
+        original=(Path(__file__).resolve().parents[1]/'sql/ashlar-source-ack/01-postgresql.sql').read_text()
+        self.assertEqual(packaged,original)
+        rendered=owner.render_ddl('ashlar_ack_medical','medical_ack')
+        predicate=re.search(r"IF source_namespace::text !~ '([^']+)' THEN RAISE EXCEPTION 'ACK_SOURCE_NAMESPACE_UNSUPPORTED'",rendered).group(1)
+        self.assertEqual(predicate,'^[a-z][a-z0-9_]{0,62}$')
+        for name in ('ashlar_medical_source','ashlar_ack_source_old','source','a'*63):
+            self.assertIsNotNone(re.fullmatch(predicate,name));owner.identifier(name)
+        for name in ('','A','x.y','a;DROP','a"b','a'*64,'x\n','_source'):
+            self.assertIsNone(re.fullmatch(predicate,name))
+            with self.assertRaises(ValueError):owner.identifier(name)
+        # Catalog/physical/append ownership and signature content remain present;
+        # safe spelling does not confer registration or ordinary session rights.
+        for gate in ('ACK_SOURCE_OWNER_OR_KIND_UNSUPPORTED','ACK_SOURCE_SCHEMA_UNSUPPORTED',
+                'pg_get_constraintdef','pg_get_triggerdef','prosecdef','relrowsecurity'):
+            self.assertIn(gate,rendered)
+
     def test_public_ack_renderer_preserves_old_bytes_and_quotes_explicit_roles(self):
         original=(RESOURCE_ROOT/'sql/ashlar-source-ack/01-postgresql.sql').read_text()
         self.assertEqual(owner.render_ddl('ashlar_ack_test','ashlar_ack_role'),
