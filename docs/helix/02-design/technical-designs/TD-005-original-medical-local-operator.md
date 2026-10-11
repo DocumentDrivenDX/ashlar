@@ -72,7 +72,8 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_configuration.py` | Closed immutable selections, bounded input custody, source registration, runtime, six targets, capacity and secret-free handoff/report encoding |
 | `original_medical_local_setup.py` | Fresh root/installation lease, generated-schema native creation, observed UUID/version-zero emptiness and public journal initialization |
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
-| `medical_process_supervision.py` | Typed native phase pipe ownership under CONTRACT-001; bounded whole/native deadlines and process-group cleanup, without importing command composition or granting data authority |
+| `medical_process_supervision.py` | Typed worker native phase pipe ownership under CONTRACT-001, without importing command composition or granting data authority |
+| `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
 
 Reuse `ashlar.medical_source.build_transaction`, public `ProducerConfig` and
 invocation custody patterns, `OutboxSourceRegistration`,

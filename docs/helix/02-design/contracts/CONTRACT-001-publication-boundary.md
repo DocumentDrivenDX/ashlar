@@ -732,6 +732,16 @@ bytes MUST refuse. Reader and ACK authority MUST renew independently at closing;
 this port MUST NOT open a writer connection or call append. Settled replay uses
 this port, never the append/reply-loss recovery path.
 
+`OriginalMedicalSourceOwner.renew_original(batch, context=context)` MUST attempt
+the captured original ordinary reader and ACK authority independently, including
+when the current registration, factories or bound owner have drifted. It MUST
+refuse that drift without selecting a replacement login. The reader MUST compare
+the complete original head-one transaction; ACK renewal MUST verify the original
+scope, signature and ordinary privileges. Each acquired connection MUST receive
+independent closing observations, rollback and close with primary-preserving
+cleanup. This closing port MUST NOT append or submit ACKs; it grants no authority
+to continue a failed publication.
+
 `MedicalReadSourceFactory` MUST accept only an exact
 `OutboxAuthorityRegistration` for the historical medical feed/epoch and preserve
 its reader/ACK connection factories. `NativeDriver.bind_query_sources(factory)`,
@@ -779,3 +789,17 @@ supervision claim. Begin MUST precede native session acquisition/imports, and en
 MUST follow successful native cleanup. This channel carries no source/native/ACK
 authority, credentials or configuration values; it is separate from diagnostics
 and does not alter any other workflow's deadline.
+
+`medical_worker_capture.capture_original_medical_worker` owns parent capture of
+the explicitly selected worker argv, directory, closed environment and exact
+`OriginalMedicalBounds`. It MUST enforce both deadlines, independently cap stdout
+and stderr, and validate phase and canonical worker exit observations. A retained
+session leader MUST preserve process-group ownership after worker exit; every
+outcome MUST kill and reap the owned leader and terminate surviving descendants.
+The parent MUST renew selected custody and refuse changed bounds, preserve primary
+cancellation, and close its own pipes. Worker capture is a transport obligation,
+not source, native retention or publication acceptance.
+Failure MUST retain bounded original diagnostic prefixes and observed phase/status
+on the unchanged primary exception as `medical_capture`, with `complete: false`.
+This private carrier MUST NOT automatically log its bytes or claim that truncated
+prefixes are complete output. Final custody renewal MUST run on every outcome.
