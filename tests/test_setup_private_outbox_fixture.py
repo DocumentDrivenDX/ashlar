@@ -21,6 +21,47 @@ def source(label,ordinal):
 
 
 class Tests(unittest.TestCase):
+    def test_public_ack_renderer_preserves_old_bytes_and_quotes_explicit_roles(self):
+        original=(RESOURCE_ROOT/'sql/ashlar-source-ack/01-postgresql.sql').read_text()
+        self.assertEqual(owner.render_ddl('ashlar_ack_test','ashlar_ack_role'),
+            original.replace('__ACK_SCHEMA__','ashlar_ack_test').replace('__ACK_ROLE__','ashlar_ack_role'))
+        actual=owner.render_ddl('ashlar_ack_medical','medical_ack')
+        expected=original.replace('__ACK_SCHEMA__','ashlar_ack_medical').replace("'__ACK_ROLE__'","'medical_ack'").replace('__ACK_ROLE__','"medical_ack"')
+        self.assertEqual(actual,expected)
+        self.assertIn('CREATE ROLE "medical_ack" NOLOGIN;',actual)
+        self.assertIn("pg_has_role(session_user,'medical_ack','MEMBER')",actual)
+        for namespace,role in [('public','medical_ack'),('ashlar_ack_test','bad;DROP'),('ashlar_ack_test','x"y'),('ashlar_ack_test','A'),('ashlar_ack_test','a'*64)]:
+            with self.subTest(namespace=namespace,role=role),self.assertRaises(ValueError):owner.render_ddl(namespace,role)
+
+    def test_one_medical_source_exact_names_uses_existing_privilege_and_inventory_owner(self):
+        medical=owner.Source(AckScope('ashlar_ack_medical',
+            '00000000-0000-0000-0000-000000000003',
+            '10000000-0000-0000-0000-000000000003','original-medical',
+            'private-original-medical-fixture','original-medical-v1'),
+            'ashlar_medical_source','medical_writer','medical_reader','medical_ack')
+        self.settings=replace(self.settings,sources=(medical,),port=25436,database='original_medical')
+        result=owner.setup(self.settings,self.runtime)
+        self.assertEqual(len(result['sources']),1)
+        self.assertEqual(result['sources'][0]['scope'],owner.asdict(medical.scope))
+        self.assertEqual(result['sources'][0]['binding']['source_schema'],medical.schema)
+        self.assertEqual(len(result['ordinary_sessions']),3)
+        self.assertEqual(len(result['ddl_sha256']),3)
+        self.assertTrue(self.admin_closed)
+        outbox,ack,login=owner.ddl(medical)
+        self.assertIn('medical_writer',outbox);self.assertIn('medical_ack',ack)
+        self.assertNotIn('GRANT',login)
+        self.assertIn('NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS',login)
+
+    def test_cardinality_and_explicit_identifier_collisions_refuse_before_effects(self):
+        for sources in ((),self.settings.sources+(source('c',3),)):
+            with self.subTest(sources=sources),self.assertRaises(ValueError):replace(self.settings,sources=sources)
+        for name in ('bad; DROP ROLE x','Capital','x.y','a'*64,''):
+            for field in ('schema','writer','reader','ack'):
+                with self.subTest(name=name,field=field),self.assertRaises(ValueError):replace(self.settings.sources[0],**{field:name})
+        with self.assertRaises(ValueError):replace(self.settings.sources[0],writer=self.settings.sources[0].reader)
+        with self.assertRaises(ValueError):replace(self.settings,sources=(self.settings.sources[0],replace(self.settings.sources[1],writer=self.settings.sources[0].writer)))
+        self.assertEqual(self.commands,[]);self.assertFalse(self.settings.output.exists())
+
     def test_public_runtime_connect_selects_local_trust_without_ambient_credentials(self):
         connection=object()
         connect=MagicMock(return_value=connection)

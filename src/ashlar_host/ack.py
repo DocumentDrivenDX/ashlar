@@ -43,10 +43,17 @@ class AckScope:
             raise AckError('Explicit original consumer/feed/epoch required')
 
 def render_ddl(namespace, role):
-    if any((type(v) is not str or len(v) > 63 or (not re.fullmatch('ashlar_ack_[a-z0-9_]+', v)) for v in (namespace, role))):
+    if (type(namespace) is not str or len(namespace) > 63
+            or not re.fullmatch('ashlar_ack_[a-z0-9_]+', namespace)
+            or type(role) is not str or not re.fullmatch('[a-z][a-z0-9_]{0,62}', role)):
         raise AckError('Fresh safe private service identifiers required')
     source = RESOURCE_ROOT / 'sql/ashlar-source-ack/01-postgresql.sql'
-    return source.read_text().replace('__ACK_SCHEMA__', namespace).replace('__ACK_ROLE__', role)
+    text = source.read_text().replace('__ACK_SCHEMA__', namespace)
+    # Preserve the original prefixed rendering bytes. New explicit identifiers
+    # are quoted in SQL positions, but the pg_has_role name is a text literal.
+    if role.startswith('ashlar_ack_'):
+        return text.replace('__ACK_ROLE__', role)
+    return text.replace("'__ACK_ROLE__'", "'" + role + "'").replace('__ACK_ROLE__', '"' + role + '"')
 
 def receipt_bytes(scope, request_bytes, manifest_bytes):
     if any((type(v) is not bytes or not 0 < len(v) <= 4194304 for v in (request_bytes, manifest_bytes))):

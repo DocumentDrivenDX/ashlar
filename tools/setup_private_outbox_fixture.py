@@ -45,8 +45,8 @@ class Source:
         values=asdict(self.scope)
         if any(type(v) is not str for v in values.values()):raise ValueError('Exact scope text required')
         object.__setattr__(self,'scope',AckScope(**values))
-        identifier(self.schema,'ashlar_ack_source_')
-        for role in (self.writer,self.reader,self.ack):identifier(role,'ashlar_ack_')
+        identifier(self.schema)
+        for role in (self.writer,self.reader,self.ack):identifier(role)
         identifier(self.scope.service_schema,'ashlar_ack_')
         if len(set((self.writer,self.reader,self.ack,self.schema,self.scope.service_schema)))!=5:
             raise ValueError('Separate original namespaces and ordinary roles required')
@@ -76,11 +76,11 @@ class Settings:
         identifier(self.database)
         if self.database in ('postgres','template0','template1'):raise ValueError('Dedicated empty fixture database required')
         if type(self.authentication) is not str or self.authentication!='isolated-loopback-trust':raise ValueError('Explicit test authentication required')
-        if type(self.sources) is not tuple or len(self.sources)!=2 or any(type(s) is not Source for s in self.sources):raise ValueError('Two exact independent source definitions required')
+        if type(self.sources) is not tuple or not 1<=len(self.sources)<=2 or any(type(s) is not Source for s in self.sources):raise ValueError('One or two exact independent source definitions required')
         for source in self.sources:source.__post_init__()
         identities=[s.scope.feed for s in self.sources]
         names=[n for s in self.sources for n in (s.schema,s.writer,s.reader,s.ack,s.scope.service_schema)]
-        if len(set(identities))!=2 or len(set(names))!=10 or len({s.scope.scope_id for s in self.sources})!=2 or len({s.scope.installation_id for s in self.sources})!=2:raise ValueError('Distinct original source scopes and roles required')
+        if len(set(identities))!=len(self.sources) or len(set(names))!=5*len(self.sources) or len({s.scope.scope_id for s in self.sources})!=len(self.sources) or len({s.scope.installation_id for s in self.sources})!=len(self.sources):raise ValueError('Distinct original source scopes and roles required')
         if (type(self.output) is not type(Path()) or not self.output.is_absolute()
                 or self.output.parent.resolve()!=self.output.parent or not self.output.parent.is_dir()):raise ValueError('Explicit canonical exclusive inventory directory required')
 
@@ -292,7 +292,7 @@ def main():
     value=json.loads(raw,object_pairs_hook=pairs,parse_int=integer,parse_constant=lambda value:(_ for _ in ()).throw(ValueError('Nonfinite fixture configuration')))
     if type(value) is not dict or set(value)!= {'docker','docker_host','image','container','port','database','authentication','sources','output'}:raise ValueError('Closed fixture settings required')
     sources=[]
-    if type(value['sources']) is not list or len(value['sources'])!=2:raise ValueError('Two source definitions required')
+    if type(value['sources']) is not list or not 1<=len(value['sources'])<=2:raise ValueError('One or two source definitions required')
     for selected in value['sources']:
         if type(selected) is not dict or set(selected)!= {'scope','schema','writer','reader','ack'}:raise ValueError('Closed source settings required')
         sources.append(Source(AckScope(**selected['scope']),selected['schema'],selected['writer'],selected['reader'],selected['ack']))
