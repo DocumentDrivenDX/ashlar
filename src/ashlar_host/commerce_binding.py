@@ -42,4 +42,3 @@ def compiler_request(sql, model, bindings, manifest, registry, aliases, *, field
     binding = {'profile': 'ashlar-databricks-candidate/0.1.0', 'layoutRevision': 'ashlar-delta/0.3', 'layoutSha256': LAYOUT_SHA, 'modelPins': [pin], 'publication': {'id': manifest['publication_id'], 'manifestUuid': native[next((t for t in native if t.endswith('.manifest')))]['uuid'], 'tables': tables}, 'records': records}
     raw = encoded(binding)
     return {'interfaceVersion': 'weft-compile/0.2.0', 'dialect': 'weft-sql/0.2.0', 'sql': sql, 'modules': [{'documentJson': model.decode(), 'pin': pin, 'selectedModuleIds': ['domain']}], 'target': {'backendId': 'ashlar.databricks', 'backendVersion': '0.1.0-candidate', 'targetProfile': 'dbsql-candidate', 'bindingJson': raw, 'bindingSha256': hashlib.sha256(raw.encode()).hexdigest()}, 'options': {'allowCandidate': True}}
-
