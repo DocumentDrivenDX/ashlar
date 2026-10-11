@@ -1,0 +1,263 @@
+{
+  "bounds": {
+    "actual_cumulative_cell_bytes": 3719940,
+    "cell_bytes": 1048576,
+    "rows": 10000,
+    "total_bytes": 16777216
+  },
+  "current_targets": [
+    {
+      "parquet": [
+        {
+          "bytes": 52586,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current/part-00000-756a6734-a5af-4f3c-aacb-921c19371fef-c000.snappy.parquet",
+          "sha256": "277b0a619d4f95047a8e457adac1012f185f5272c17a2b0ff603bb3af835a49a"
+        }
+      ],
+      "row_sha256": "abbfc14534dfaf44feda83e562b0b55e83193e35841e3f279babb5364b2fa741",
+      "rows": 51,
+      "table": "local.original_medical.object_current",
+      "uuid": "83d9e673-49a9-4602-bb81-b01195947fa9",
+      "version": 2
+    },
+    {
+      "parquet": [
+        {
+          "bytes": 19527,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current/part-00000-4018502b-dc44-4cda-b065-cd32d044ef70-c000.snappy.parquet",
+          "sha256": "4c734ae3d33424349d2ca52f670ca19f9a222145ee4ab8cf037c1badfc1df2d0"
+        }
+      ],
+      "row_sha256": "ad037ca44912635fbbf44ae63004e038a796d71de83f1ae534d772347ede88d0",
+      "rows": 62,
+      "table": "local.original_medical.edge_current",
+      "uuid": "e062de8e-88b3-4226-818f-22905bad144c",
+      "version": 2
+    },
+    {
+      "parquet": [],
+      "row_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "rows": 0,
+      "table": "local.original_medical.tombstone",
+      "uuid": "e9bfc3e5-dd61-4f16-ba22-f3aa87bdc509",
+      "version": 1
+    },
+    {
+      "parquet": [
+        {
+          "bytes": 138692,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history/part-00000-e989dfd9-d307-4a29-b72a-ec8c4aa0711d-c000.snappy.parquet",
+          "sha256": "aa3fe299a8f7393daeccce513278838b8baa898a1c10a75ef509fa4502cdea38"
+        }
+      ],
+      "row_sha256": "2054bc74ca641af174d4f331bf9b7f8b6fe2840da11ac0e7724fef9bf717f6e0",
+      "rows": 113,
+      "table": "local.original_medical.whole_source_history",
+      "uuid": "bfa27f6b-0911-426a-ad81-20731335e7da",
+      "version": 2
+    },
+    {
+      "parquet": [
+        {
+          "bytes": 94650,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/part-00000-43bd4073-d865-4b65-8592-2e4be13925ef-c000.snappy.parquet",
+          "sha256": "2015dbab3ab521fea92bfeade078abb5dc2d3c1db1fce0e823d282dd4cb2b96b"
+        },
+        {
+          "bytes": 94649,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/part-00000-b9e7e7c4-6ee7-4044-96c6-d9a4656c9c30-c000.snappy.parquet",
+          "sha256": "a0715cdfe0920df82f7221ba0f21bdf4d4abd316bee2014ea9d0aab067cb22e7"
+        }
+      ],
+      "row_sha256": "468a72d6f88840a51c5ab481dc3d450275833499e944b290515e25fe8ba3dd8b",
+      "rows": 2,
+      "table": "local.original_medical.attempts",
+      "uuid": "d33cee14-17e0-42e7-bee3-136e9b235c42",
+      "version": 3
+    },
+    {
+      "parquet": [],
+      "row_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "rows": 0,
+      "table": "local.original_medical.manifest",
+      "uuid": "e74976c3-6bbd-4b9a-9ff7-9a0fcdf8b151",
+      "version": 1
+    }
+  ],
+  "log_pins": [
+    {
+      "bytes": 1120,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/_delta_log/00000000000000000000.json",
+      "sha256": "6e5b3d053f71c9953af307481f091d1985c24fa17ace1da954e849a271d5f662"
+    },
+    {
+      "bytes": 1916,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/_delta_log/00000000000000000001.json",
+      "sha256": "6714a6b96ca911162ab1d2aa79d9026fe1e64d3069c07366e4504ac9af5eea19"
+    },
+    {
+      "bytes": 2868,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/_delta_log/00000000000000000002.json",
+      "sha256": "c00185cf7d6f231deea433f5eef46ef2069f43fde35605a7f64bd2d1cc4ff5f2"
+    },
+    {
+      "bytes": 2868,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/_delta_log/00000000000000000003.json",
+      "sha256": "8b90d73e86c7790bc96fe910b879c1461a21887df4ab8d6b9d2954b366a5f8bf"
+    },
+    {
+      "bytes": 2033,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current/_delta_log/00000000000000000000.json",
+      "sha256": "c071d92898cfcf5968ff682e7293c08d134bfc7b9bf2b2586a89c3a01a70b23c"
+    },
+    {
+      "bytes": 2828,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current/_delta_log/00000000000000000001.json",
+      "sha256": "90ae13c62b56ebcc3345c41107c623c146f30b2cb13cb2d7c75e0cd35022dfde"
+    },
+    {
+      "bytes": 2663,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current/_delta_log/00000000000000000002.json",
+      "sha256": "1845f44c2c9cdda4c37e44fc4ab07b078ab6146463df4e54be630313d26a8d5f"
+    },
+    {
+      "bytes": 2267,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current/_delta_log/00000000000000000000.json",
+      "sha256": "83221c01917aae06702aa6857d98b0078bb072d961adaaf22195d1c2e77d9972"
+    },
+    {
+      "bytes": 3062,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current/_delta_log/00000000000000000001.json",
+      "sha256": "72fef07c7f9a25211bee33b74140c75252db08e58454592ed9bc9bbaa1f91f23"
+    },
+    {
+      "bytes": 2722,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current/_delta_log/00000000000000000002.json",
+      "sha256": "b67a084d57d2fd0970020d68c81bdf1366e82e7b6607f83a5a21a74b2f77d420"
+    },
+    {
+      "bytes": 1108,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history/_delta_log/00000000000000000000.json",
+      "sha256": "b9166d64afd9fdc30598f3bdb6d48333440a7dbe3f952726c5378a2cf803895c"
+    },
+    {
+      "bytes": 1904,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history/_delta_log/00000000000000000001.json",
+      "sha256": "0d82f65e2b28c0231da0da36479cc610fa3f91b17841583963a0dcba748ef4e2"
+    },
+    {
+      "bytes": 1659,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history/_delta_log/00000000000000000002.json",
+      "sha256": "d20c496bef601a2fce60cf2b62c8b6e20d1f21370de10c97aa36e325a155459d"
+    },
+    {
+      "bytes": 1455,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/tombstone/_delta_log/00000000000000000000.json",
+      "sha256": "79006faeca97d9e179961df575fcdb141b69e35e7c01533d1679b074fb1a0a7d"
+    },
+    {
+      "bytes": 2250,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/tombstone/_delta_log/00000000000000000001.json",
+      "sha256": "edf60f460266e069aeb2acd1bd6a24fc144b6acf66ce4ab33864ba09c1cc19ec"
+    },
+    {
+      "bytes": 1256,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/manifest/_delta_log/00000000000000000000.json",
+      "sha256": "0806e0a0350b5f1580e161d72f59e2df5d0dc2714e8d780432692492f327f02b"
+    },
+    {
+      "bytes": 2052,
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/manifest/_delta_log/00000000000000000001.json",
+      "sha256": "0a778283094657fb82fa93fe32118e96d75c196f6f908ccc09a3f176580da1e6"
+    }
+  ],
+  "profile": "ashlar-medical-partial-native-receipt-correspondence/0.1",
+  "qualification": "Actual read-only DuckDB1.4.1 Parquet/Delta JSON correspondence to five ORIGINAL SQLite committed receipts and current six targets only. No independent original-pack semantic pass, publication authority, native recovery reconciliation, success publication, durable ACK or primary failure cause claim. No Spark, writer, effects, repair, reset or retry. SQLite mode=ro/query_only closed; in-memory DuckDB closed.",
+  "receipts": [
+    {
+      "metadata_and_snapshot_exact": true,
+      "operation": "attempt:bc3c2618c34bc3766ff07035bb4d13043d663c7b1f52f8c72428161189eb441b:701cf5641ce9e6ef136a60b933c03bff7e021d012d68b6638745e2b849a4f85d",
+      "parquet": [
+        {
+          "bytes": 94650,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/part-00000-43bd4073-d865-4b65-8592-2e4be13925ef-c000.snappy.parquet",
+          "sha256": "2015dbab3ab521fea92bfeade078abb5dc2d3c1db1fce0e823d282dd4cb2b96b"
+        }
+      ],
+      "receipt_sha256": "07107595a3c29c8699170c0542743ea82492cd7c7314ae368079d802d6bdbe1a",
+      "row_sha256": "fa3892fd343d295416f7fe0b0ce6374e413c93ba61dee37380cd916b64c390e4",
+      "rows": 1,
+      "table": "local.original_medical.attempts",
+      "version": 2
+    },
+    {
+      "metadata_and_snapshot_exact": true,
+      "operation": "attempt:bc3c2618c34bc3766ff07035bb4d13043d663c7b1f52f8c72428161189eb441b:1be10e07586fb2101482cef3cb2cbf4876622f0572f04ad839ee9608332c99f3",
+      "parquet": [
+        {
+          "bytes": 94650,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/part-00000-43bd4073-d865-4b65-8592-2e4be13925ef-c000.snappy.parquet",
+          "sha256": "2015dbab3ab521fea92bfeade078abb5dc2d3c1db1fce0e823d282dd4cb2b96b"
+        },
+        {
+          "bytes": 94649,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts/part-00000-b9e7e7c4-6ee7-4044-96c6-d9a4656c9c30-c000.snappy.parquet",
+          "sha256": "a0715cdfe0920df82f7221ba0f21bdf4d4abd316bee2014ea9d0aab067cb22e7"
+        }
+      ],
+      "receipt_sha256": "1fafeac9a142f693803bcf59dcf80d26b79a3d57f0b76b8cc173407fca24691e",
+      "row_sha256": "468a72d6f88840a51c5ab481dc3d450275833499e944b290515e25fe8ba3dd8b",
+      "rows": 2,
+      "table": "local.original_medical.attempts",
+      "version": 3
+    },
+    {
+      "metadata_and_snapshot_exact": true,
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:0",
+      "parquet": [
+        {
+          "bytes": 52586,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current/part-00000-756a6734-a5af-4f3c-aacb-921c19371fef-c000.snappy.parquet",
+          "sha256": "277b0a619d4f95047a8e457adac1012f185f5272c17a2b0ff603bb3af835a49a"
+        }
+      ],
+      "receipt_sha256": "dba6e444abc7f4ebf5bc7f7cf61e8c03a0d347a986fe81fa836366490604a763",
+      "row_sha256": "abbfc14534dfaf44feda83e562b0b55e83193e35841e3f279babb5364b2fa741",
+      "rows": 51,
+      "table": "local.original_medical.object_current",
+      "version": 2
+    },
+    {
+      "metadata_and_snapshot_exact": true,
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:1",
+      "parquet": [
+        {
+          "bytes": 19527,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current/part-00000-4018502b-dc44-4cda-b065-cd32d044ef70-c000.snappy.parquet",
+          "sha256": "4c734ae3d33424349d2ca52f670ca19f9a222145ee4ab8cf037c1badfc1df2d0"
+        }
+      ],
+      "receipt_sha256": "c710f7695900aaf25f98b12729fd52a6c900552643aaadeed903c9ccbdfdbf77",
+      "row_sha256": "ad037ca44912635fbbf44ae63004e038a796d71de83f1ae534d772347ede88d0",
+      "rows": 62,
+      "table": "local.original_medical.edge_current",
+      "version": 2
+    },
+    {
+      "metadata_and_snapshot_exact": true,
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:2",
+      "parquet": [
+        {
+          "bytes": 138692,
+          "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history/part-00000-e989dfd9-d307-4a29-b72a-ec8c4aa0711d-c000.snappy.parquet",
+          "sha256": "aa3fe299a8f7393daeccce513278838b8baa898a1c10a75ef509fa4502cdea38"
+        }
+      ],
+      "receipt_sha256": "a7e09236a47d3f664f218b126e22a6f617437471d8b9ee75df0d3851b667c781",
+      "row_sha256": "2054bc74ca641af174d4f331bf9b7f8b6fe2840da11ac0e7724fef9bf717f6e0",
+      "rows": 113,
+      "table": "local.original_medical.whole_source_history",
+      "version": 2
+    }
+  ]
+}

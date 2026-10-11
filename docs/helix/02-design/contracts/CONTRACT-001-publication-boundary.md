@@ -669,6 +669,31 @@ MUST refuse. Independently renew native and ordinary source/ACK authority at
 opening, use and closing. A missing existing journal or exclusion record MUST
 refuse without creating or repairing it.
 
+`recover-original-medical --configuration PATH` owns partial-publication recovery
+under `OriginalMedicalRecoveryConfig` and
+`ashlar-original-medical-local-recovery/0.1`. Its host entry is
+`recover_original_medical_local(config, supervision=...)`. The configuration
+selects the existing installation and a pinned original request; it does not
+require or fabricate a completed publication descriptor. Before native effects,
+require the complete existing journal, original plan and source transaction,
+exact request correspondence and current six-target/source/ACK custody.
+Read the already committed head-one source through `read_original`; never append
+it again, initialize a journal or replace original operation records.
+
+Recovery MUST use the same `DeltaAttemptStore`, `StoredPublisherBackend` and
+`publish_outbox_transaction` protocol. Before issuing remaining effects,
+reconcile original committed receipts and uncertain handles through their owning
+native recovery ports. Missing, conflicting or unprovable originals MUST refuse.
+`NativeDriver.preflight_original_medical_recovery(plan, context=..., bounds=...)`
+MUST verify the exact original source plan and complete effect-intent inventory
+and inspect every already committed ordinal through the native receipt owner
+before the publisher can issue any remaining effect. A later corrupted receipt
+MUST NOT be discovered only after an earlier missing ordinal is executed.
+Full medical schema/bag validation and durable publication precede protected ACK;
+independent closing precedes the success receipt. Fresh publication remains
+fresh-only and settled replay remains committed-only. A lost diagnostic does
+not prove a cause and cannot substitute for current recovery evidence.
+
 The lower `publication_planning.py` module owns the pure
 `request_for(stream, transaction, predecessor, revisions)` and
 `local_effect_plan(generated, prior_rows, tables)` surfaces. The driver MUST retain

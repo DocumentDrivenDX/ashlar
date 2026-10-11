@@ -1,0 +1,115 @@
+{
+  "profile": "ashlar-medical-partial-native-receipt-evidence/0.1",
+  "source_revision": "7b56f7546f9f0e2e16dcf410e9c27ecab5934e17",
+  "files": [
+    {
+      "path": "audit.json",
+      "bytes": 12475,
+      "sha256": "342b752cb078167c96f6cfe2edb2901fd6f5485fc40e02223de7c6e60d7c7a07"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 5366,
+      "sha256": "630bcafa4b866a48b3dc8fccc0ee23a51ede55e0dcfd736dde4aa1aad3471fb5"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000000.json",
+      "bytes": 1120,
+      "sha256": "6e5b3d053f71c9953af307481f091d1985c24fa17ace1da954e849a271d5f662"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000001.json",
+      "bytes": 1916,
+      "sha256": "6714a6b96ca911162ab1d2aa79d9026fe1e64d3069c07366e4504ac9af5eea19"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000002.json",
+      "bytes": 2868,
+      "sha256": "c00185cf7d6f231deea433f5eef46ef2069f43fde35605a7f64bd2d1cc4ff5f2"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000003.json",
+      "bytes": 2868,
+      "sha256": "8b90d73e86c7790bc96fe910b879c1461a21887df4ab8d6b9d2954b366a5f8bf"
+    },
+    {
+      "path": "delta-logs/object_current/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "c071d92898cfcf5968ff682e7293c08d134bfc7b9bf2b2586a89c3a01a70b23c"
+    },
+    {
+      "path": "delta-logs/object_current/00000000000000000001.json",
+      "bytes": 2828,
+      "sha256": "90ae13c62b56ebcc3345c41107c623c146f30b2cb13cb2d7c75e0cd35022dfde"
+    },
+    {
+      "path": "delta-logs/object_current/00000000000000000002.json",
+      "bytes": 2663,
+      "sha256": "1845f44c2c9cdda4c37e44fc4ab07b078ab6146463df4e54be630313d26a8d5f"
+    },
+    {
+      "path": "delta-logs/edge_current/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "83221c01917aae06702aa6857d98b0078bb072d961adaaf22195d1c2e77d9972"
+    },
+    {
+      "path": "delta-logs/edge_current/00000000000000000001.json",
+      "bytes": 3062,
+      "sha256": "72fef07c7f9a25211bee33b74140c75252db08e58454592ed9bc9bbaa1f91f23"
+    },
+    {
+      "path": "delta-logs/edge_current/00000000000000000002.json",
+      "bytes": 2722,
+      "sha256": "b67a084d57d2fd0970020d68c81bdf1366e82e7b6607f83a5a21a74b2f77d420"
+    },
+    {
+      "path": "delta-logs/whole_source_history/00000000000000000000.json",
+      "bytes": 1108,
+      "sha256": "b9166d64afd9fdc30598f3bdb6d48333440a7dbe3f952726c5378a2cf803895c"
+    },
+    {
+      "path": "delta-logs/whole_source_history/00000000000000000001.json",
+      "bytes": 1904,
+      "sha256": "0d82f65e2b28c0231da0da36479cc610fa3f91b17841583963a0dcba748ef4e2"
+    },
+    {
+      "path": "delta-logs/whole_source_history/00000000000000000002.json",
+      "bytes": 1659,
+      "sha256": "d20c496bef601a2fce60cf2b62c8b6e20d1f21370de10c97aa36e325a155459d"
+    },
+    {
+      "path": "delta-logs/tombstone/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "79006faeca97d9e179961df575fcdb141b69e35e7c01533d1679b074fb1a0a7d"
+    },
+    {
+      "path": "delta-logs/tombstone/00000000000000000001.json",
+      "bytes": 2250,
+      "sha256": "edf60f460266e069aeb2acd1bd6a24fc144b6acf66ce4ab33864ba09c1cc19ec"
+    },
+    {
+      "path": "delta-logs/manifest/00000000000000000000.json",
+      "bytes": 1256,
+      "sha256": "0806e0a0350b5f1580e161d72f59e2df5d0dc2714e8d780432692492f327f02b"
+    },
+    {
+      "path": "delta-logs/manifest/00000000000000000001.json",
+      "bytes": 2052,
+      "sha256": "0a778283094657fb82fa93fe32118e96d75c196f6f908ccc09a3f176580da1e6"
+    }
+  ],
+  "verification": {
+    "agent_terminal": "12d645",
+    "root_terminal": "4cc4d8",
+    "root_exit": 0,
+    "audit_sha256": "342b752cb078167c96f6cfe2edb2901fd6f5485fc40e02223de7c6e60d7c7a07"
+  },
+  "qualification": "Actual read-only DuckDB1.4.1 Parquet/Delta JSON correspondence to five ORIGINAL SQLite committed receipts and current six targets only. No independent original-pack semantic pass, publication authority, native recovery reconciliation, success publication, durable ACK or primary failure cause claim. No Spark, writer, effects, repair, reset or retry. SQLite mode=ro/query_only closed; in-memory DuckDB closed.",
+  "limits": {
+    "actual_cumulative_cell_bytes": 3719940,
+    "cell_bytes": 1048576,
+    "rows": 10000,
+    "total_bytes": 16777216
+  },
+  "retention": "Parquet files and original SQLite receipts remain pinned in the audit; no copies of those data bags are retained here. The audit compares original native receipt correspondence only and grants no publication authority."
+}

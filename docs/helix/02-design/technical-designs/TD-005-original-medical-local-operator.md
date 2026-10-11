@@ -211,6 +211,27 @@ drift and capacity refusal, before emitting the read receipt.
 
 ## Bounds, lifecycle and diagnostics
 
+`OriginalMedicalRecoveryConfig` selects a pinned request and the existing
+installation under `ashlar-original-medical-local-recovery/0.1`.
+`recover_original_medical_local` in `original_medical_local_publication.py`
+composes ordinary head-one original readback and the existing shared publisher
+recovery owners. It performs no source append or initialization. Require complete
+existing journal/plan/ordinal custody and exact retained request correspondence
+before effects; inspect committed originals and reconcile uncertain handles
+through their owning ports before proceeding. A completed recovery must preserve
+source head/batch identity, validate all four bags and six schemas, durably publish
+and ACK, and close independently. Test missing/conflicting custody, interruption,
+cancellation and recovery reentry as well as actual partial-journal continuation.
+
+Failure diagnostics must expose a bounded, closed classification of the owning
+failure and observed worker status/native phase, without exception text, stack,
+SQL, source values, paths or credentials on public streams. Distinguish native
+and whole-worker deadlines at the actual supervising guard. Missing evidence
+remains unknown. Preserve the original exception and cancellation identity even
+if diagnostic retention or cleanup fails; diagnostics never authorize success.
+The existing bounded private `medical_capture` is the source of observed facts,
+not a basis for reconstructing a capture discarded by an earlier invocation.
+
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and
 origin profile, local[1], 512MiB and a 300-second native child limit. Historical
 runtime qualification and any newly selected profile require their own evidence;
