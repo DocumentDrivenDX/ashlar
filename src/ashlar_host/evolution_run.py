@@ -343,6 +343,24 @@ class EvolutionRunLedger:
 
 
 @dataclass(frozen=True)
+class EvolutionRunRequestSelection:
+    """Bounded passive routing bytes; no request semantics or authority grant."""
+    plan_sha256: str
+    request_json: bytes
+
+    def __post_init__(self):
+        if (type(self.plan_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.plan_sha256)
+                or type(self.request_json) is not bytes or not 0 < len(self.request_json) <= 8 * 1024 * 1024):
+            raise EvolutionPlanError('Bounded passive original request selection required')
+
+    def document(self):
+        value = decode(self.request_json)
+        if type(value) is not dict:
+            raise EvolutionPlanError('Passive request routing object required')
+        return value
+
+
+@dataclass(frozen=True)
 class EvolutionRunAttemptJournal:
     ledger: EvolutionRunLedger = field(repr=False)
     ordinal: int
@@ -359,6 +377,29 @@ class EvolutionRunAttemptJournal:
         if (raw, digest) != (plan.raw, plan.sha256): raise EvolutionPlanError('Exact retained original run attempt required')
         if self.ledger.policy.admit_attempt(self.ledger.original, self.ordinal, plan, context) is not None:
             raise EvolutionPlanError('Current original run attempt admission incomplete')
+    def select_original_request(self, *, expected_sha256, context):
+        """Route original request bytes locally; held load still owns admission."""
+        if (context is not self.ledger.context or type(expected_sha256) is not str
+                or not re.fullmatch('[0-9a-f]{64}', expected_sha256)):
+            raise EvolutionPlanError('Original run context and selected digest required')
+        inventory = self.ledger._inventory()
+        primary = None; selection = None
+        def renew_original():
+            if self.ledger._inventory().slots != inventory.slots:
+                raise EvolutionPlanError('Original ledger changed during passive selection')
+        try:
+            _, state, raw, digest, descriptor = inventory.slots[self.ordinal]
+            if state == 'unprepared' or digest != expected_sha256:
+                raise EvolutionPlanError('Retained original attempt digest required')
+            plan = EvolutionAttemptPlan(raw)
+            if plan.sha256 != digest:
+                raise EvolutionPlanError('Exact retained original run attempt required')
+            selection = EvolutionRunRequestSelection(plan.sha256, encoded(plan.document()['request']))
+        except BaseException as error:
+            primary = error
+        finish(primary, [renew_original])
+        return selection
+
     def load(self, *, expected_sha256, context):
         if context is not self.ledger.context:
             raise EvolutionPlanError('Original run context required')

@@ -823,59 +823,81 @@ class NativeDriver:
         from ashlar.attempt_store import DeltaAttemptStore
         from ashlar.stored_publisher import StoredPublisherBackend
         from ashlar.publisher import publish_batch
-        from .lifecycle import owned_context
+        from .lifecycle import owned_context, finish
         if (type(journal) not in (EvolutionPlanJournal, EvolutionRunAttemptJournal) or (original_plan is None) == (expected_sha256 is None)
                 or (original_plan is not None and type(original_plan) is not EvolutionAttemptPlan)):
             raise PermissionError('Distinct original fresh or retained resume required')
         owner = self
+        selection = None
+        selected_digest = original_plan.sha256 if original_plan is not None else expected_sha256
         @contextmanager
         def _held_evolution_context():
             owner.require(context)
-            yield
-            owner.require(context)
+            primary = None
+            try:
+                yield
+            except BaseException as error:
+                primary = error
+            finish(primary, [lambda: owner.require(context)])
         class Driver:
             @contextmanager
             def writer(self, stream, supplied):
                 owner.require(supplied)
                 with owned_context(_held_evolution_context()):
-                    plan = original_plan if original_plan is not None else journal.load(
-                        expected_sha256=expected_sha256, context=supplied)
-                    owner.admit_evolution_plan(plan, context=supplied, fresh=original_plan is not None)
-                    if original_plan is not None:
-                        journal.retain(plan, context=supplied)
-                    owner.policy.activate_evolution(plan, supplied, journal.policy)
-                    value = plan.document()
-                    effects = LocalDeltaEffects(owner.transport)
-                    if original_plan is not None:
-                        effects.prepare('effects:' + value['request']['request_digest'],
-                            value['request']['request_digest'], value['selected_steps'], context=supplied)
-                    elif type(journal) is EvolutionRunAttemptJournal and journal.ledger.slot(journal.ordinal)[0] == 'retained':
-                        # Positive original run reservation proves this composition never entered
-                        # any native phase; missing local/native records are not that proof.
-                        journal.not_started(plan, supplied)
-                        owner.admit_evolution_plan(plan, context=supplied, fresh=True)
-                        effects.prepare_unsubmitted('effects:' + value['request']['request_digest'],
-                            value['request']['request_digest'], value['selected_steps'],
-                            reservation=journal, plan=plan, context=supplied)
-                    else:
-                        effects.observe('effects:' + value['request']['request_digest'],
-                            value['request']['request_digest'], value['selected_steps'], context=supplied)
-                    if type(journal) is EvolutionRunAttemptJournal:
-                        journal.start(plan, supplied)
-                    yield
-                    closing = journal.load(expected_sha256=plan.sha256, context=supplied)
-                    if closing.raw != plan.raw:
-                        raise PermissionError('Closing exact original attempt differs')
-                    owner.source_admit(value['request'])
-                    owner.admission_facts()
+                    plan = None; primary = None
+                    def renew_plan():
+                        closing = journal.load(expected_sha256=selected_digest, context=supplied)
+                        if plan is not None and closing.raw != plan.raw:
+                            raise PermissionError('Closing exact original attempt differs')
+                        if selection is not None and (closing.sha256 != selection.plan_sha256
+                                or encoded(closing.document()['request']).encode() != selection.request_json):
+                            raise PermissionError('Closing original request differs from passive selection')
+                    try:
+                        plan = original_plan if original_plan is not None else journal.load(
+                            expected_sha256=expected_sha256, context=supplied)
+                        owner.admit_evolution_plan(plan, context=supplied, fresh=original_plan is not None)
+                        if original_plan is not None:
+                            journal.retain(plan, context=supplied)
+                        if selection is not None:
+                            if (plan.sha256 != selection.plan_sha256 or plan.sha256 != selected_digest
+                                    or encoded(plan.document()['request']).encode() != selection.request_json):
+                                raise PermissionError('Held original request differs from passive selection')
+                        owner.policy.activate_evolution(plan, supplied, journal.policy)
+                        value = plan.document()
+                        effects = LocalDeltaEffects(owner.transport)
+                        if original_plan is not None:
+                            effects.prepare('effects:' + value['request']['request_digest'],
+                                value['request']['request_digest'], value['selected_steps'], context=supplied)
+                        elif type(journal) is EvolutionRunAttemptJournal and journal.ledger.slot(journal.ordinal)[0] == 'retained':
+                            # Positive original run reservation proves this composition never entered
+                            # any native phase; missing local/native records are not that proof.
+                            journal.not_started(plan, supplied)
+                            owner.admit_evolution_plan(plan, context=supplied, fresh=True)
+                            effects.prepare_unsubmitted('effects:' + value['request']['request_digest'],
+                                value['request']['request_digest'], value['selected_steps'],
+                                reservation=journal, plan=plan, context=supplied)
+                        else:
+                            effects.observe('effects:' + value['request']['request_digest'],
+                                value['request']['request_digest'], value['selected_steps'], context=supplied)
+                        if type(journal) is EvolutionRunAttemptJournal:
+                            journal.start(plan, supplied)
+                        yield
+                    except BaseException as error:
+                        primary = error
+                    finish(primary, [renew_plan, lambda: owner.source_admit(request),
+                        owner.admission_facts, lambda: owner.require(supplied)])
             def apply(self, request, supplied): return owner.apply(request, supplied)
             def recover_apply(self, request, supplied): return owner.recover_apply(request, supplied)
             def validate(self, request, artifact, descriptor, supplied): return owner.validate(request, artifact, descriptor, supplied)
             def acknowledge(self, request, descriptor, supplied): return owner.acknowledge(request, descriptor, supplied)
-        # Resume selection is read-only; the authoritative load is renewed held.
-        plan = original_plan if original_plan is not None else journal.load(
-            expected_sha256=expected_sha256, context=context)
-        request = plan.document()['request']
+        # Passive routing grants no admission; the authoritative load is held.
+        if original_plan is None and type(journal) is EvolutionRunAttemptJournal:
+            selection = journal.select_original_request(expected_sha256=expected_sha256, context=context)
+            request = selection.document()
+        else:
+            plan = original_plan if original_plan is not None else journal.load(
+                expected_sha256=expected_sha256, context=context)
+            request = plan.document()['request']
         from ashlar.staging import batch_from_row
         raw = json.loads(request['source_batch_json'])
         batch = batch_from_row({'source_profile': raw['profile'], 'feed': raw['feed'], 'epoch': raw['epoch'],

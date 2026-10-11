@@ -178,6 +178,169 @@ class Tests(unittest.TestCase):
         self.host.policy.admit_ledger = opening_drift
         with self.assertRaises(EvolutionPlanError): ledger.attempt(0).start(plan, self.driver.context)
 
+    def test_passive_selection_has_no_authority_and_exact_original_request(self):
+        from ashlar_host.evolution_run import EvolutionRunRequestSelection, encoded
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger(); journal = ledger.attempt(0)
+        inventory = ledger._inventory; reads = []
+        def local(): reads.append('local'); return inventory()
+        ledger._inventory = local
+        with patch.object(self.driver, 'admit_evolution_run_ledger', side_effect=AssertionError('passive native grant')):
+            selection = journal.select_original_request(expected_sha256=plan.sha256, context=self.driver.context)
+        self.assertEqual(reads, ['local', 'local'])
+        self.assertEqual(selection.plan_sha256, plan.sha256)
+        self.assertEqual(selection.request_json, encoded(plan.document()['request']))
+        self.assertEqual(selection.document(), plan.document()['request'])
+        passive = EvolutionRunRequestSelection(plan.sha256, b'{}')
+        self.assertEqual(passive.document(), {})  # construction grants no semantics
+        with self.assertRaises(EvolutionPlanError):
+            journal.select_original_request(expected_sha256=plan.sha256, context=object())
+        reads.clear()
+        with self.assertRaises(EvolutionPlanError):
+            journal.select_original_request(expected_sha256='f' * 64, context=self.driver.context)
+        self.assertEqual(reads, ['local', 'local'])
+        def drift():
+            view = inventory()
+            if not reads:
+                ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+            reads.append('read'); return view
+        reads.clear(); ledger._inventory = drift
+        with self.assertRaises(EvolutionPlanError):
+            journal.select_original_request(expected_sha256=plan.sha256, context=self.driver.context)
+
+        ledger.connection.execute('UPDATE original_slot SET descriptor=NULL WHERE ordinal=7')
+        ledger._inventory = local; reads.clear()
+        primary = KeyboardInterrupt('passive selection cancelled')
+        def cancel(*args):
+            ledger.connection.execute('CREATE TABLE passive_drift(id INTEGER)')
+            raise primary
+        with patch('ashlar_host.evolution_run.EvolutionRunRequestSelection', side_effect=cancel):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                journal.select_original_request(expected_sha256=plan.sha256, context=self.driver.context)
+        self.assertIs(caught.exception, primary)
+        self.assertEqual(reads, ['local', 'local'])
+        ledger.connection.execute('DROP TABLE passive_drift')
+
+    def test_passive_driver_selection_is_bound_before_activation_and_closes_opening_error(self):
+        from ashlar_host.evolution_run import EvolutionRunAttemptJournal, EvolutionRunRequestSelection, encoded
+        ledger, plan = self.retained_ledger(); journal = ledger.attempt(0)
+        original_load = EvolutionRunAttemptJournal.load
+        original_select = EvolutionRunAttemptJournal.select_original_request
+        events = []; primary = KeyboardInterrupt('opening plan gate cancelled')
+        actual_facts = self.driver.admission_facts
+        actual_activate = self.driver.policy.activate_evolution
+        submission_activations = []
+        def activation(plan, context, admission):
+            if admission is journal.policy:
+                submission_activations.append(admission)
+                self.fail('unvalidated publication activated')
+            return actual_activate(plan, context, admission)
+        def facts():
+            events.append(('facts', None)); return actual_facts()
+        def load(owner, **kwargs):
+            events.append(('load', kwargs['expected_sha256'])); return original_load(owner, **kwargs)
+        def select(owner, **kwargs):
+            events.append(('passive', kwargs['expected_sha256'])); return original_select(owner, **kwargs)
+        def publish(backend, stream, batch, **kwargs):
+            with backend.writer(stream, self.driver.context): self.fail('opening cancellation yielded')
+        with patch.object(EvolutionRunAttemptJournal, 'load', load), patch.object(
+                EvolutionRunAttemptJournal, 'select_original_request', select), patch(
+                'ashlar.publisher.publish_batch', publish), patch.object(self.driver, 'admit_evolution_plan',
+                side_effect=primary), patch.object(self.driver.policy, 'activate_evolution',
+                side_effect=activation), patch.object(
+                self.driver, 'source_admit', side_effect=lambda *args: events.append(('source', None))), patch.object(
+                self.driver, 'admission_facts', side_effect=facts):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                self.driver._publish_evolution_attempt(journal, context=self.driver.context, expected_sha256=plan.sha256)
+        self.assertIs(caught.exception, primary)
+        self.assertEqual([x[0] for x in events if x[0] != 'facts'], ['passive', 'load', 'load', 'source'])
+        self.assertEqual(events[-1][0], 'facts')
+        changed = dict(plan.document()['request']); changed['stream'] = 'foreign-stream'
+        for selection in (EvolutionRunRequestSelection(plan.sha256, encoded(changed)),
+                EvolutionRunRequestSelection('f' * 64, encoded(plan.document()['request']))):
+            with patch.object(EvolutionRunAttemptJournal, 'select_original_request', return_value=selection), patch(
+                    'ashlar.publisher.publish_batch', publish), patch.object(self.driver.policy, 'activate_evolution',
+                    side_effect=activation):
+                with self.assertRaises(PermissionError):
+                    self.driver._publish_evolution_attempt(journal, context=self.driver.context, expected_sha256=plan.sha256)
+
+        self.assertEqual(submission_activations, [])
+
+    def test_passive_held_body_cancellation_renews_all_original_gates(self):
+        from ashlar_host.evolution_run import EvolutionRunAttemptJournal
+        ledger, plan = self.retained_ledger(); journal = ledger.attempt(0)
+        load = EvolutionRunAttemptJournal.load; source = self.driver.source_admit
+        facts = self.driver.admission_facts; events = []
+        primary = KeyboardInterrupt('held publication body cancelled')
+        def original_load(owner, **kwargs):
+            events.append('load'); return load(owner, **kwargs)
+        def current_source(*args):
+            events.append('source'); source(*args)
+            if 'body' in events: raise ValueError('independent closing failure')
+        def current_facts():
+            events.append('facts'); return facts()
+        def publish(backend, stream, batch, **kwargs):
+            with backend.driver.writer(stream, self.driver.context):
+                events.append('body'); raise primary
+        with patch.object(EvolutionRunAttemptJournal, 'load', original_load), patch(
+                'ashlar.publisher.publish_batch', publish), patch.object(self.driver, 'source_admit', current_source), patch.object(
+                self.driver, 'admission_facts', current_facts):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                self.driver._publish_evolution_attempt(journal, context=self.driver.context, expected_sha256=plan.sha256)
+        self.assertIs(caught.exception, primary)
+        body = events.index('body')
+        self.assertIn('load', events[body + 1:])
+        self.assertIn('source', events[body + 1:])
+        self.assertEqual(events[-1], 'facts')
+
+    def test_fresh_retain_cancellation_uses_original_digest_and_independent_closing(self):
+        from ashlar_host.evolution_plan import EvolutionPlanJournal
+        ledger, plan = self.retained_ledger()
+        journal = EvolutionPlanJournal(self.host.root / 'fresh-attempt.json',
+            SimpleNamespace(admit=lambda *args: None))
+        events = []; primary = KeyboardInterrupt('fresh original retain cancelled')
+        facts = self.driver.admission_facts
+        def closing(owner, **kwargs):
+            events.append(('load', kwargs['expected_sha256']))
+            raise ValueError('missing original after failed retain')
+        def publish(backend, stream, batch, **kwargs):
+            with backend.driver.writer(stream, self.driver.context): self.fail('failed retain yielded')
+        with patch.object(EvolutionPlanJournal, 'retain', side_effect=primary), patch.object(
+                EvolutionPlanJournal, 'load', closing), patch('ashlar.publisher.publish_batch', publish), patch.object(
+                self.driver, 'source_admit', side_effect=lambda *args: events.append(('source', None))), patch.object(
+                self.driver, 'admission_facts', side_effect=lambda: facts()):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                self.driver._publish_evolution_attempt(journal, context=self.driver.context, original_plan=plan)
+        self.assertIs(caught.exception, primary)
+        self.assertIn(('load', plan.sha256), events)
+        self.assertIn(('source', None), events)
+
+    def test_first_held_load_failure_still_attempts_all_independent_closing(self):
+        from ashlar_host.evolution_run import EvolutionRunAttemptJournal
+        ledger, plan = self.retained_ledger(); journal = ledger.attempt(0)
+        actual_load = EvolutionRunAttemptJournal.load; loads = []; events = []
+        source = self.driver.source_admit; facts = self.driver.admission_facts; require = self.driver.require
+        primary = PermissionError('first authoritative opening load refused')
+        def load(owner, **kwargs):
+            loads.append(kwargs['expected_sha256']); events.append('load')
+            if len(loads) == 1: raise primary
+            return actual_load(owner, **kwargs)
+        def closing_source(*args): events.append('source'); return source(*args)
+        def current_facts(): events.append('facts'); return facts()
+        def current_require(context): events.append('require'); return require(context)
+        def publish(backend, stream, batch, **kwargs):
+            with backend.driver.writer(stream, self.driver.context): self.fail('opening load failure yielded')
+        with patch.object(EvolutionRunAttemptJournal, 'load', load), patch('ashlar.publisher.publish_batch', publish), patch.object(
+                self.driver, 'source_admit', closing_source), patch.object(self.driver, 'admission_facts', current_facts), patch.object(
+                self.driver, 'require', current_require):
+            with self.assertRaises(PermissionError) as caught:
+                self.driver._publish_evolution_attempt(journal, context=self.driver.context, expected_sha256=plan.sha256)
+        self.assertIs(caught.exception, primary)
+        self.assertEqual(loads, [plan.sha256, plan.sha256])
+        self.assertIn('source', events[events.index('load') + 1:])
+        self.assertIn('facts', events[events.index('load') + 1:])
+        self.assertEqual(events[-1], 'require')
+
     def test_load_opening_callback_cannot_bless_changed_inventory(self):
         from ashlar_host.evolution_plan import EvolutionPlanError
         ledger, plan = self.retained_ledger()
