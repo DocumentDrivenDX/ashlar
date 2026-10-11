@@ -44,6 +44,18 @@ def original_native_equal(supplied, expected):
         return supplied == expected
     return False
 
+def _medical_descriptor_equal(supplied, expected):
+    """Compare the public resolver's frozen containers to an already bounded raw view."""
+    from types import MappingProxyType
+    if type(expected) is dict:
+        return (type(supplied) in (dict, MappingProxyType) and len(supplied) == len(expected)
+            and all(type(key) is str and key in supplied and _medical_descriptor_equal(supplied[key], value)
+                    for key, value in expected.items()))
+    if type(expected) is list:
+        return (type(supplied) in (list, tuple) and len(supplied) == len(expected)
+            and all(_medical_descriptor_equal(a, b) for a,b in zip(supplied, expected)))
+    return original_native_equal(supplied, expected)
+
 def original_history_equal(supplied, expected):
     """Exact complete native history carriers, including Spark timestamp cells."""
     from datetime import datetime, timezone
@@ -971,6 +983,221 @@ class NativeDriver:
             schema_revisions_json=request['schema_revisions_json'], context=context,
             source_checkpoint_json=request['source_checkpoint_json'])
 
+    def bind_original_medical_publication(self, plan, *, bounds):
+        """Bind exact pure correspondence; this port grants no native authority."""
+        from .medical_publication_plan import MedicalPublicationPlan
+        from .original_medical_publication import MedicalAdmission
+        from .evolution_verification_types import VerificationBounds
+        from .delta_custody import LocalDeltaTransport, DeltaTarget
+        from dataclasses import asdict
+        from types import MappingProxyType
+        if (type(self) is not NativeDriver or type(plan) is not MedicalPublicationPlan
+                or type(bounds) is not VerificationBounds or type(self.transport) is not LocalDeltaTransport
+                or type(self.source_admission) is not MedicalAdmission or self.held or self.pin_held
+                or getattr(self, 'query_source_factory', None) is not None
+                or getattr(self, '_medical_publication_binding', None) is not None
+                or type(self.source_sessions) is not RegisteredOutboxSources
+                or type(self.ack_sessions) is not RegisteredOutboxAcks
+                or getattr(self.transport, '_registered', False) is not True):
+            raise PermissionError('Fresh exact registered medical publication binding required')
+        bounds.__post_init__(); plan.require_admission(self.source_admission)
+        value = plan.snapshot()
+        roles = ('object_current', 'edge_current', 'tombstone', 'whole_source_history', 'attempts', 'manifest')
+        if (self.tables != value['tables'] or set(self.transport.targets) != set(value['tables'].values())
+                or any(type(self.transport.targets[value['tables'][role]]) is not DeltaTarget for role in roles)
+                or self.source_sessions.metadata()['registrations'] != self.ack_sessions.metadata()['registrations']
+                or len(self.source_sessions.registrations) != 1
+                or (self.source_sessions.registrations[0].scope.feed, self.source_sessions.registrations[0].scope.epoch)
+                    != ('private-original-medical-fixture', 'original-medical-v1')):
+            raise PermissionError('Complete original medical native/source inventory required')
+        binding = MappingProxyType(dict(plan=plan, bounds=bounds, view=encoded(value),
+            bounds_view=encoded(asdict(bounds)), transport=self.transport, policy=self.policy,
+            admission=self.source_admission, source=self.source_sessions, ack=self.ack_sessions,
+            source_view=encoded(self.source_sessions.metadata()), ack_view=encoded(self.ack_sessions.metadata()),
+            targets=tuple(self.transport.targets[value['tables'][role]] for role in roles),
+            target_views=tuple((target.table, str(target.path), target.uuid) for target in
+                (self.transport.targets[value['tables'][role]] for role in roles)),
+            source_policy=self.source_sessions.policy,
+            closing_source=RegisteredOutboxSources(self.source_sessions.registrations, self.source_sessions.policy),
+            closing_ack=RegisteredOutboxAcks(self.ack_sessions.registrations),
+            source_factories=tuple(item.connection_factory for item in self.source_sessions.registrations),
+            ack_factories=tuple(item.connection_factory for item in self.ack_sessions.registrations),
+            ack_policies=tuple(item.policy for item in self.ack_sessions.registrations)))
+        self._require_medical_publication_binding(binding)
+        self._medical_publication_binding = binding
+        self._original_medical_publication_binding = binding
+
+    def _require_medical_publication_binding(self, binding):
+        from dataclasses import asdict
+        if (getattr(self, '_original_medical_publication_binding', binding) is not binding
+                or (getattr(self, '_original_medical_publication_binding', None) is not None
+                    and getattr(self, '_medical_publication_binding', None) is not binding)):
+            raise PermissionError('Original medical construction binding replaced')
+        plan = binding['plan']; value = plan.snapshot()
+        plan.require_admission(self.source_admission)
+        if (self.transport is not binding['transport'] or self.policy is not binding['policy']
+                or self.source_admission is not binding['admission']
+                or self.source_sessions is not binding['source'] or self.ack_sessions is not binding['ack']
+                or getattr(self, 'query_source_factory', None) is not None
+                or encoded(value) != binding['view'] or encoded(asdict(binding['bounds'])) != binding['bounds_view']
+                or encoded(self.source_sessions.metadata()) != binding['source_view']
+                or encoded(self.ack_sessions.metadata()) != binding['ack_view']
+                or self.admission_facts() != value['source_admission'] or self.tables != value['tables']
+                or set(self.transport.targets) != {target.table for target in binding['targets']}
+                or any(self.transport.targets[target.table] is not target for target in binding['targets'])
+                or tuple((target.table, str(target.path), target.uuid) for target in binding['targets']) != binding['target_views']
+                or self.source_sessions.policy is not binding['source_policy']
+                or any(a is not b for a,b in zip(binding['source_factories'],
+                    (item.connection_factory for item in self.source_sessions.registrations)))
+                or any(a is not b for a,b in zip(binding['ack_factories'],
+                    (item.connection_factory for item in self.ack_sessions.registrations)))
+                or any(a is not b for a,b in zip(binding['ack_policies'],
+                    (item.policy for item in self.ack_sessions.registrations)))
+                or getattr(self.transport, '_registered', False) is not True):
+            raise PermissionError('Original medical publication binding changed')
+        active = self.policy.active
+        correspondences = {'request':'request', 'steps':'selected_steps', 'expected':'expected',
+            'publication_id':'publication_id', 'previous_progress':'previous_progress', 'progress':'progress',
+            'previous_expected':'previous_expected', 'generated_steps':'generated_steps',
+            'elisions':'zero_match_elisions', 'recorded_at':'recorded_at'}
+        if (type(active) is not dict or any(not original_native_equal(active.get(key), value[field])
+                                          for key, field in correspondences.items())
+                or encoded(self.columns) != encoded(value['columns'])):
+            raise PermissionError('Original complete medical active plan differs')
+        return value
+
+    def _medical_publication_native(self, binding, target, versions):
+        transport = binding['transport']
+        detail = transport._detail(target)
+        from urllib.parse import urlsplit, unquote
+        location = detail.get('location')
+        if type(location) is not str:
+            raise PermissionError('Original medical native location required')
+        uri = urlsplit(location)
+        if (uri.scheme != 'file' or uri.netloc or uri.query or uri.fragment
+                or Path(unquote(uri.path.rstrip('/'))) != target.path):
+            raise PermissionError('Original medical native location changed')
+        history = transport.original_history(target)
+        if target.table in versions and not any(type(item.get('version')) is int
+                and item['version'] == versions[target.table] for item in history):
+            raise PermissionError('Selected original medical version not retained')
+
+    def _medical_publication_ack_scope(self, binding, context):
+        from .lifecycle import finish
+        item = binding['closing_ack'].registrations[0]
+        connection = binding['ack_factories'][0](context); error = None
+        policy = binding['ack_policies'][0]
+        try: policy.admit_scope(item.source.scope, Session(connection), context)
+        except BaseException as caught: error = caught
+        finish(error, [lambda: policy.admit_scope(item.source.scope, Session(connection), context),
+                       connection.rollback, connection.close])
+
+    def _medical_publication_capture(self, binding, role, versions, remaining):
+        value = json.loads(binding['view']); table = value['tables'][role]
+        snapshot, schema = binding['transport'].bounded_snapshot(binding['transport'].targets[table],
+            versions[table], remaining_bytes=remaining)
+        if (not original_native_equal(schema, json.loads(value['schemas'][role]))
+                or not original_native_equal(snapshot['schema'], [[name, family.lower()] for name, family in value['columns'][role]])
+                or snapshot['row_sha256'] != sha(encoded(snapshot['rows']))
+                or not original_native_equal(snapshot['rows'], sorted(value['expected'][role], key=encoded))):
+            raise PermissionError('Complete independent original medical schema/bag differs')
+        size = len(encoded({'schema': schema, 'rows': snapshot['rows']}).encode())
+        if size > remaining:
+            raise PermissionError('Cumulative medical four-bag budget exceeded')
+        return snapshot, schema, size
+
+    def _medical_publication_source(self, binding, context):
+        from .lifecycle import finish
+        source = binding['source']
+        def current():
+            if (self.source_sessions is not source or encoded(source.metadata()) != binding['source_view']
+                    or source.policy is not binding['source_policy']
+                    or any(a is not b for a,b in zip(binding['source_factories'],
+                        (item.connection_factory for item in source.registrations)))):
+                raise PermissionError('Original medical source closing registration changed')
+        finish(None, [current, lambda: binding['closing_source'].admit(
+            json.loads(binding['view'])['request'], context=context)])
+
+    def _medical_publication_closing_callbacks(self, binding, context, versions):
+        total = [0]
+        def close_role(role):
+            _, _, size = self._medical_publication_capture(binding, role, versions,
+                binding['bounds'].total_bytes-total[0])
+            total[0] += size
+        return [*(lambda role=role: close_role(role) for role in
+                    ('object_current', 'edge_current', 'tombstone', 'whole_source_history')),
+            lambda: self._require_medical_publication_binding(binding),
+            *(lambda target=target: self._medical_publication_native(binding, target, versions)
+              for target in binding['targets']),
+            lambda: self._medical_publication_source(binding, context),
+            lambda: self._medical_publication_ack_scope(binding, context),
+            lambda: self.require(context)]
+
+    def observe_original_medical_publication(self, plan, descriptor, *, context, bounds):
+        """Bounded independent full generated schemas and immutable native bags."""
+        from ashlar.publication import Descriptor
+        from .lifecycle import finish, owned_context
+        from contextlib import nullcontext
+        binding = getattr(self, '_medical_publication_binding', None)
+        self.require(context)
+        if (binding is None or plan is not binding['plan'] or bounds is not binding['bounds']
+                or type(descriptor) is not Descriptor):
+            raise PermissionError('Exact bound original medical observation required')
+        from types import MappingProxyType
+        if (type(descriptor.raw) not in (dict, MappingProxyType) or set(descriptor.raw) != set(FIELDS)
+                or any(type(item) is not str or len(item) > bounds.input_bytes
+                       or len(item.encode('utf-8')) > bounds.input_bytes for item in descriptor.raw.values())
+                or len(encoded(dict(descriptor.raw)).encode()) > bounds.input_bytes
+                or len(descriptor.versions) != 4):
+            raise PermissionError('Bounded complete original medical descriptor required')
+        row = dict(descriptor.raw)
+        roles = ('object_current', 'edge_current', 'tombstone', 'whole_source_history')
+        value = json.loads(binding['view'])
+        if (row != self.policy.active.get('manifest') or descriptor.publication_id != value['publication_id']
+                or descriptor.profile != PROFILE or dict(descriptor.versions) != json.loads(row['table_versions_json'])
+                or set(descriptor.versions) != {value['tables'][role] for role in roles}
+                or any(type(version) is not int or version < 0 for version in descriptor.versions.values())
+                or dict(descriptor.revisions) != json.loads(value['request']['schema_revisions_json'])
+                or not _medical_descriptor_equal(descriptor.source_progress, json.loads(row['source_progress_json']))
+                or not _medical_descriptor_equal(descriptor.validation_report, json.loads(row['validation_report_json']))
+                or not original_native_equal(json.loads(row['source_progress_json']), value['progress'])
+                or row['schema_revisions_json'] != value['request']['schema_revisions_json']):
+            raise PermissionError('Complete original medical descriptor differs')
+        vector = manifest_pin_vector(row, {target.table: target.uuid for target in binding['targets']
+                                          if target.table in descriptor.versions}, authority='private-local-process')
+        observations = {}; schemas = {}; result = None
+        transport = binding['transport']
+        if self.pin_held and getattr(self, '_held_original_vector', None) != vector:
+            raise PermissionError('Exact already-acquired original medical vector required')
+        current_bounds = getattr(transport, 'observation_bounds', None)
+        if current_bounds is not None and current_bounds is not bounds:
+            raise PermissionError('Original medical capture bound interval differs')
+        interval = nullcontext() if current_bounds is bounds else transport.bounded_observations(bounds)
+        with owned_context(interval):
+            pins = nullcontext() if self.pin_held else self.hold(vector, context=context)
+            with owned_context(pins):
+                error = None; total = 0
+                try:
+                    self._require_medical_publication_binding(binding)
+                    if getattr(self, '_held_original_vector', None) != vector:
+                        raise PermissionError('Original medical held vector changed')
+                    self.validate_manifest(row, context)
+                    for target in binding['targets']:
+                        self._medical_publication_native(binding, target, descriptor.versions)
+                    self._medical_publication_source(binding, context)
+                    self._medical_publication_ack_scope(binding, context)
+                    for role in roles:
+                        snapshot, schema, size = self._medical_publication_capture(binding, role,
+                            descriptor.versions, bounds.total_bytes-total)
+                        observations[role] = snapshot; schemas[role] = schema; total += size
+                except BaseException as caught: error = caught
+                # Fixed four roles are independent closing owners even if opening failed.
+                finish(error, self._medical_publication_closing_callbacks(binding, context, descriptor.versions))
+                result = {'descriptor':row, 'vector': {table:{'uuid':transport.targets[table].uuid,
+                    'version':version} for table,version in descriptor.versions.items()},
+                    'bags':observations, 'schemas':schemas}
+        return result
+
     def bind_query_sources(self, factory):
         """Bind one original read-only source before entering its held interval.
 
@@ -1267,6 +1494,14 @@ class NativeDriver:
 
     def source_admit(self, request):
         self.admission_facts()
+        binding = getattr(self, '_original_medical_publication_binding', None)
+        if binding is not None:
+            self.require(self.context)
+            if not original_native_equal(request, json.loads(binding['view'])['request']):
+                raise PermissionError('Original bound medical source request differs')
+            self._medical_publication_source(binding, self.context)
+            self.admission_facts()
+            return
         if self.source_sessions is not None:
             self.require(self.context)
             if encoded(self.source_sessions.metadata()) != self.original_source_sessions:
@@ -1362,6 +1597,22 @@ class NativeDriver:
         return self._apply(request, context, True)
 
     def validate_manifest(self, row, context):
+        from .lifecycle import owned_context
+        from contextlib import nullcontext
+        binding = getattr(self, '_medical_publication_binding', None)
+        if (self.admission_facts()['profile'] != 'ashlar-original-medical-public-dataset-admission/0.1'
+                or getattr(self, 'query_source_factory', None) is not None):
+            return self._validate_manifest_body(row, context)
+        if binding is None:
+            raise PermissionError('Bound complete medical publication validation required')
+        current = getattr(self.transport, 'observation_bounds', None)
+        if current is not None and current is not binding['bounds']:
+            raise PermissionError('Original medical manifest capture bounds differ')
+        interval = nullcontext() if current is binding['bounds'] else self.transport.bounded_observations(binding['bounds'])
+        with owned_context(interval):
+            return self._validate_manifest_body(row, context)
+
+    def _validate_manifest_body(self, row, context):
         self.require(context)
         active = self.policy.active
         if row != active['manifest']:
@@ -1370,11 +1621,20 @@ class NativeDriver:
             raise PermissionError('Manifest original admitted source profile differs')
         validate_union(active['previous_progress'], active['request'], row)
         self.source_admit(active['request'])
-        for (role, expected) in active['expected'].items():
-            target = self.transport.targets[self.tables[role]]
-            version = json.loads(row['table_versions_json'])[target.table]
-            if self.transport._snapshot(target, version)['rows'] != sorted(expected, key=encoded):
-                raise ValueError('Original exact publication snapshot differs: ' + role)
+        binding = getattr(self, '_medical_publication_binding', None)
+        if binding is not None:
+            self._require_medical_publication_binding(binding)
+            total = 0; versions = json.loads(row['table_versions_json'])
+            for role in ('object_current', 'edge_current', 'tombstone', 'whole_source_history'):
+                _, _, size = self._medical_publication_capture(binding, role, versions,
+                    binding['bounds'].total_bytes-total)
+                total += size
+        else:
+            for (role, expected) in active['expected'].items():
+                target = self.transport.targets[self.tables[role]]
+                version = json.loads(row['table_versions_json'])[target.table]
+                if self.transport._snapshot(target, version)['rows'] != sorted(expected, key=encoded):
+                    raise ValueError('Original exact publication snapshot differs: ' + role)
         for role in active['expected']:
             self.transport._detail(self.transport.targets[self.tables[role]])
 
@@ -1385,14 +1645,33 @@ class NativeDriver:
 
     @contextmanager
     def hold(self, vector, *, context):
+        from .lifecycle import owned_context
+        from contextlib import nullcontext
+        binding = getattr(self, '_original_medical_publication_binding', None)
+        interval = nullcontext()
+        if binding is not None:
+            current = getattr(self.transport, 'observation_bounds', None)
+            if current is not None and current is not binding['bounds']:
+                raise PermissionError('Original medical pin capture bounds differ')
+            if current is None:
+                interval = self.transport.bounded_observations(binding['bounds'])
+        with owned_context(interval):
+            with owned_context(self._hold(vector, context=context)):
+                yield
+
+    @contextmanager
+    def _hold(self, vector, *, context):
         self.require(context)
         if self.pin_held:
             raise PermissionError('No nested private pin interval')
-        row = self.policy.active['manifest']
-        expected = manifest_pin_vector(row, {t: self.transport.targets[t].uuid for t in json.loads(row['table_versions_json'])}, authority='private-local-process')
+        row = dict(self.policy.active['manifest'])
+        original_versions = json.loads(row['table_versions_json'])
+        expected = manifest_pin_vector(row, {t: self.transport.targets[t].uuid for t in original_versions}, authority='private-local-process')
         if vector != expected:
             raise PermissionError('Original complete held native vector differs')
         medical_closing=getattr(self,'_original_medical_read_closing',None)
+        publication_binding=getattr(self,'_original_medical_publication_binding',None)
+        self._held_original_vector = vector
         self.pin_held = True
         primary = None
         admitted = False
@@ -1406,6 +1685,9 @@ class NativeDriver:
             try:
                 from .lifecycle import finish
                 callbacks=[lambda: self.validate_manifest(row, context)] if admitted else []
+                if publication_binding is not None:
+                    callbacks.extend(self._medical_publication_closing_callbacks(publication_binding, context,
+                        original_versions))
                 if medical_closing is not None:
                     def close_medical():
                         if type(medical_closing)is not _OriginalGraphSourceRenewal or medical_closing.owner is not self:raise PermissionError('Actual medical closing owner required')
@@ -1414,6 +1696,7 @@ class NativeDriver:
                 finish(primary,callbacks)
             finally:
                 self.pin_held = False
+                self._held_original_vector = None
 
     def authorize(self, context, publication_id, tables):
         self.require(context)
@@ -1448,7 +1731,14 @@ class NativeDriver:
     def admit_publication(self, scope, request, resolved, session, context):
         if request != self.policy.active['request']:
             raise PermissionError('Original ACK request differs')
-        self.validate_manifest(dict(resolved.descriptor.raw), context)
+        if self.admission_facts()['profile'] == 'ashlar-original-medical-public-dataset-admission/0.1':
+            binding = getattr(self, '_medical_publication_binding', None)
+            if binding is None or not self.pin_held:
+                raise PermissionError('Bound original medical protected ACK observation required')
+            self.observe_original_medical_publication(binding['plan'], resolved.descriptor,
+                context=context, bounds=binding['bounds'])
+        else:
+            self.validate_manifest(dict(resolved.descriptor.raw), context)
 
     def acknowledge(self, request, descriptor, context):
         if getattr(self,'query_source_factory',None) is not None:
