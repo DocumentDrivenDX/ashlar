@@ -1,0 +1,9 @@
+# Fresh installed original-commerce local initialization
+
+The installed public `initialize-original-commerce` command passed on immutable Ashlar `e979c4086d5e458b4a86c88fd96a76b43ab3bd2f`, with explicit Python3.11/Spark3.5.3/Delta3.2.1/JDK17 selections. All six bounded phases exited zero, substantive source/runtime/native/installed closing passed, and the selected terminal process census was empty. Elapsed time was 22.819 seconds; this finite run is not a performance benchmark.
+
+Independent passive review verified six distinct actual native UUIDs, complete UMF-generated schemas and empty bags, fresh version-zero creation and exact version-one installation registration/properties. All six reservations and the canonical SQLite registry and four empty effect tables matched. The retained handoff equals command stdout, binds installation `07c04255-73c9-40f3-a16a-000000000001`, and has SHA-256 `5550a0e057ac9415fc32e1d93d8ad97cbaa6bb1fddead7a6ed404efab6a3a57d`.
+
+The archive preserves all 66 original actual files, including complete native files and the journal snapshot before any later publication, plus exact recipes, configurations and independent receipts. Safe regular members map to unchanged original bytes in `inventory.json`. SDK binaries, wheels and installed package payloads are excluded; their recorded pins remain in original custody records. The separately retained B/C/D failures remain honest incomplete attempts; this run created a different fresh root and did not reset or adopt their partial state.
+
+Qualification is fresh isolated local initialization only. No PostgreSQL append, protected ACK progress, publication, query, managed UC, Truss, cloud or production support follows. The handoff is correspondence; any publication must independently renew current installation, original ordinary source and protected ACK authority. Later live native changes do not rewrite these initialization snapshots.
