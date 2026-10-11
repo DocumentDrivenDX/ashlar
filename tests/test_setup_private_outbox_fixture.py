@@ -2,9 +2,11 @@
 from dataclasses import replace
 import hashlib
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch,MagicMock
 from ashlar_host.ack import AckScope
 from ashlar_host.resources import RESOURCE_ROOT
@@ -19,6 +21,20 @@ def source(label,ordinal):
 
 
 class Tests(unittest.TestCase):
+    def test_public_runtime_connect_selects_local_trust_without_ambient_credentials(self):
+        connection=object()
+        connect=MagicMock(return_value=connection)
+        ambient={'PGPASSWORD':'ambient-password','PGPASSFILE':'/ambient/passfile',
+            'PGSSLMODE':'require','PGGSSENCMODE':'require','PGOPTIONS':'-c statement_timeout=0',
+            'PGHOST':'remote.example','PGPORT':'9999','PGUSER':'ambient-role','PGDATABASE':'ambient-db'}
+        with patch.dict(os.environ,ambient),patch.dict('sys.modules',{'psycopg':SimpleNamespace(connect=connect)}):
+            actual=owner.Runtime().connect(self.settings,self.settings.sources[0].reader)
+        self.assertIs(actual,connection)
+        connect.assert_called_once_with(host='127.0.0.1',port=25432,dbname='private_outbox_test',
+            user='ashlar_ack_reader_a',password='',passfile='/dev/null',sslmode='disable',
+            gssencmode='disable',connect_timeout=2,
+            options='-c statement_timeout=5000 -c lock_timeout=1000')
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name).resolve()

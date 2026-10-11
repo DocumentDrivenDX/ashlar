@@ -128,7 +128,8 @@ class Runtime:
     def connect(self, settings, role):
         import psycopg
         return psycopg.connect(host='127.0.0.1',port=settings.port,dbname=settings.database,
-            user=role,connect_timeout=2,options='-c statement_timeout=5000 -c lock_timeout=1000')
+            user=role,password='',passfile='/dev/null',sslmode='disable',gssencmode='disable',
+            connect_timeout=2,options='-c statement_timeout=5000 -c lock_timeout=1000')
 
 
 def connection_operation(connection, operation, *, commit=False):
