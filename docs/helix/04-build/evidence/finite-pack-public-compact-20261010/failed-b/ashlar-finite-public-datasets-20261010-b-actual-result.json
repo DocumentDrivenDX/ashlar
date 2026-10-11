@@ -1,0 +1,70 @@
+{
+  "profile": "ashlar-finite-public-dataset-actual-result/0.1",
+  "command_sha256": "2efd40599f64d89f2b5a765a6aab0f03d6741700c80a93d9c64a2e226cc76dc0",
+  "author_session": 19025,
+  "terminal_chunk": "b1ef63",
+  "exit": 1,
+  "observations": "17f21b: owned public producer capture refused on first archaeology call. Both inner/outer closingcustody true. Directory exists empty; no public dataset receipt, original oracle artifact or report emitted; ecology notattempted. Owning transport wraps closed HostError without retaining producerstderr on failure, so errorcategory cannot be attributed to timeout vs producersemantic/runtimefailure from these logs. No retry.",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.stderr",
+      "bytes": 892,
+      "sha256": "e8c105dc0e814fe3c416cd04db8fe2c4953b5c99b7fdd846c2f86aa237219c17"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.receipt.json",
+      "bytes": 358,
+      "sha256": "57645a2918652de7b56c14c8083b69c026c79deba0f85ec97dd20ae5d1c6f0fd"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.receipt.json",
+      "bytes": 842,
+      "sha256": "002fac3c8c2c298dda25fc56d4d377589a269401686b10949e0fd9c4625e3b0b"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-command.json",
+      "bytes": 3868,
+      "sha256": "2efd40599f64d89f2b5a765a6aab0f03d6741700c80a93d9c64a2e226cc76dc0"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-metadata.json",
+      "bytes": 1634,
+      "sha256": "a68a581318d47cb0f08e5d2a9ad6571985573cfa8c03574be5daf0cb445f1023"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-probe.py",
+      "bytes": 4382,
+      "sha256": "0b57c344f82f653c7ddb3bd744942dced910521cdc2919cd76f08c0fe832a1cb"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-runner.py",
+      "bytes": 3920,
+      "sha256": "7a838341c4ba5454f5ec22a4be842d7218d4ace3334b527019742abd30d0dc18"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-closure.json",
+      "bytes": 607330,
+      "sha256": "d13c06d76c3e22f8d5a5582c4092a9c8868e52a7e208d823a31e0c783f9bb998"
+    }
+  ],
+  "output_directory": {
+    "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b",
+    "inventory": []
+  },
+  "scope": "One failed approved Bun-only attempt. No public UMF positivequalification, source/nativeauthority, Spark/Delta/Weftquery/PG/ACK/install/cloudclaim. Source/runtime/selectedoriginalclosure renewed readonly before freezing; no actual operation repeated."
+}

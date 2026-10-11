@@ -1,0 +1,34 @@
+{
+  "command": "/private/tmp/ashlar-finite-public-datasets-20261010-c-command.json",
+  "command_sha256": "3b1b9206e8db0dab586be7a1502b1227dd4b9376857b4e451130ccc21a726c9d",
+  "actual_command": [
+    "/usr/bin/python3",
+    "-B",
+    "-I",
+    "-S",
+    "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+    "--command",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-command.json",
+    "--sha256",
+    "3b1b9206e8db0dab586be7a1502b1227dd4b9376857b4e451130ccc21a726c9d",
+    "--phase",
+    "public-datasets",
+    "--receipt",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.receipt.json"
+  ],
+  "source_revision": "83528d6249cb86a883ed2b36652fc546ae6eae85",
+  "prepared_only": true,
+  "limits": {
+    "producerSecondsEach": 5,
+    "producerStreamBytesEach": 1048576,
+    "probeSeconds": 120,
+    "outerSeconds": 150,
+    "publicReceiptBytesEach": 33554432,
+    "originalOracleBytesEach": 1048576,
+    "reportBytes": 1048576,
+    "packs": 2,
+    "probeStreamBytesEach": 2097152,
+    "outerStreamBytesEach": 16777216
+  },
+  "qualification": "Two actual pinned public UMF07357 compact1.0.0 dataset operations for original declared0.8 archaeology39records/46relationships and ecology40/54. Original8/9SQLcaseinventories and pureindependentoracles retained, not compiled/executed. No FinitePackSource/currentauthority, Spark/Delta/PG/install/cloud/benchmark or protectedACK claim. Existing supervisor ordinary -c uses pinned Python3.9 framework/global startup pth and absentuser/global startup gates; OSbase trust, no sandbox/isolation claim. Closingcustody and ownedchild cleanup required before result."
+}

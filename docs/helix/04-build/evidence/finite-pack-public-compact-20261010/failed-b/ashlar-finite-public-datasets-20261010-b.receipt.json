@@ -1,0 +1,11 @@
+{
+  "result": {
+    "exitCode": 1,
+    "stdoutBytes": 0,
+    "stderrBytes": 892
+  },
+  "openingClosingCustody": true,
+  "failureType": null,
+  "sourceRevision": "b24042c9640782155b8fbca0352c3f44b5cf26ef",
+  "qualification": "Actual public UMF finite dataset operations only; no Spark/Delta/query/native/source authority/installedwheel/PG/ACK/cloud claim."
+}

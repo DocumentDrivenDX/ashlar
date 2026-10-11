@@ -1,0 +1,335 @@
+{
+  "profile": "ashlar-evidence-copy-inventory/0.1",
+  "copies": [
+    {
+      "archive": "actual-c/ecology-original-cases-oracle.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-original-cases-oracle.json",
+      "bytes": 58143,
+      "sha256": "418285c390522440a3a5850ec32325dfa48b949b522e2fe42660f06489e69a5c"
+    },
+    {
+      "archive": "actual-c/report.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c/report.json",
+      "bytes": 3546,
+      "sha256": "3c9778a616db473ec700b4584fd2aaa9a8c79da1c3e3e1841fb1d6c636e207da"
+    },
+    {
+      "archive": "actual-c/ecology-public-dataset.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-public-dataset.json",
+      "bytes": 1035062,
+      "sha256": "8711f676f3837e6e8f58859dbbdf9b554118dc0c92ffc3f454ea77db297b3428"
+    },
+    {
+      "archive": "actual-c/archaeology-original-cases-oracle.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-original-cases-oracle.json",
+      "bytes": 59994,
+      "sha256": "130d3244ca2d7ae1a091df691b43a020b151ecd177fd6b827c4e8631d48c6f53"
+    },
+    {
+      "archive": "actual-c/archaeology-public-dataset.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-public-dataset.json",
+      "bytes": 1106427,
+      "sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326"
+    },
+    {
+      "archive": "originals/archaeology/ontology.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/ontology.json",
+      "bytes": 83068,
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+    },
+    {
+      "archive": "originals/archaeology/graph/fixture.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/graph/fixture.json",
+      "bytes": 81564,
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+    },
+    {
+      "archive": "originals/archaeology/pack.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/pack.json",
+      "bytes": 28986,
+      "sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f"
+    },
+    {
+      "archive": "originals/ecology/ontology.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/ontology.json",
+      "bytes": 62701,
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee"
+    },
+    {
+      "archive": "originals/ecology/graph/fixture.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/graph/fixture.json",
+      "bytes": 77070,
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668"
+    },
+    {
+      "archive": "originals/ecology/pack.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/pack.json",
+      "bytes": 23485,
+      "sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-command.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-command.json",
+      "bytes": 3906,
+      "sha256": "3b1b9206e8db0dab586be7a1502b1227dd4b9376857b4e451130ccc21a726c9d"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-metadata.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-metadata.json",
+      "bytes": 1643,
+      "sha256": "9f24f7d77fb7a7c71682c10ea47d64b4a798d12ec1deb876da0307cafd036ff8"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-probe.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-probe.py",
+      "bytes": 4905,
+      "sha256": "990cfe714a868477bff73a41c0ae4f9d6aac040363e3d55b953758f960328587"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-runner.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-runner.py",
+      "bytes": 3920,
+      "sha256": "b0530b01d52e5083b8267d0c63578da2812afb3121d112105b5ed28f272b5909"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-closure.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-closure.json",
+      "bytes": 888632,
+      "sha256": "89648f3aca73904c9eeca564d7218356b464b7f70fb0816ff02dc9095f5f97eb"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-artifact-control.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-artifact-control.py",
+      "bytes": 1355,
+      "sha256": "d9fb609c216fd52d76030edc181a7d50194e1abfaffb02766e6fd245919fc5cf"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c-actual-result.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-actual-result.json",
+      "bytes": 4116,
+      "sha256": "5b5fc6c25d9f407b38150c338a2e96bc197dc3967ea50585011b7e50a8bb3f1e"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.receipt.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.receipt.json",
+      "bytes": 358,
+      "sha256": "454a17f844c25375c99162fbbe5a2554f0bea92aa2ac58e3ec71d9aca175bd99"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.outer.receipt.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.receipt.json",
+      "bytes": 851,
+      "sha256": "db3f07b3f0d584b005f4407b75c4972d1aa412ca8205763c39e6b32734d94497"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.stdout",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.stdout",
+      "bytes": 263,
+      "sha256": "52251e3475aec7f7562f30907e741e807bafef36980b492985f39c8943c4a1ac"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.stderr",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.outer.stdout",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "recipe-c/ashlar-finite-public-datasets-20261010-c.outer.stderr",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-command.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-command.json",
+      "bytes": 3868,
+      "sha256": "2efd40599f64d89f2b5a765a6aab0f03d6741700c80a93d9c64a2e226cc76dc0"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-metadata.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-metadata.json",
+      "bytes": 1634,
+      "sha256": "a68a581318d47cb0f08e5d2a9ad6571985573cfa8c03574be5daf0cb445f1023"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-probe.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-probe.py",
+      "bytes": 4382,
+      "sha256": "0b57c344f82f653c7ddb3bd744942dced910521cdc2919cd76f08c0fe832a1cb"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-runner.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-runner.py",
+      "bytes": 3920,
+      "sha256": "7a838341c4ba5454f5ec22a4be842d7218d4ace3334b527019742abd30d0dc18"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-closure.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-closure.json",
+      "bytes": 607330,
+      "sha256": "d13c06d76c3e22f8d5a5582c4092a9c8868e52a7e208d823a31e0c783f9bb998"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-artifact-control.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-artifact-control.py",
+      "bytes": 1355,
+      "sha256": "af29f455d8daf3f1beb9fa45e3bcee24d3f75d32c524e9ab3008dd9430df84da"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b-actual-result.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-actual-result.json",
+      "bytes": 3258,
+      "sha256": "42521da5aaa02ca1652cee9460c543a7edde74de604b4df66eacffa325b37ca5"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.receipt.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.receipt.json",
+      "bytes": 358,
+      "sha256": "57645a2918652de7b56c14c8083b69c026c79deba0f85ec97dd20ae5d1c6f0fd"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.outer.receipt.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.receipt.json",
+      "bytes": 842,
+      "sha256": "002fac3c8c2c298dda25fc56d4d377589a269401686b10949e0fd9c4625e3b0b"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.stdout",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.stderr",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.stderr",
+      "bytes": 892,
+      "sha256": "e8c105dc0e814fe3c416cd04db8fe2c4953b5c99b7fdd846c2f86aa237219c17"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.outer.stdout",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "failed-b/ashlar-finite-public-datasets-20261010-b.outer.stderr",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b.outer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "failed-b/failure-analysis.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-b-failure-analysis.json",
+      "bytes": 2348,
+      "sha256": "21f59fdc3553d18bd2d33e446057ddb002f8d860f49ca101f162ebf1c27b21f2"
+    },
+    {
+      "archive": "source/finite_pack.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-source/src/ashlar_host/finite_pack.py",
+      "bytes": 3060,
+      "sha256": "34bb4a3c7f1b5735accb2038055690970211d8c039d12de3723dc31d0ddbaeca"
+    },
+    {
+      "archive": "source/finite_dataset.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-source/src/ashlar_host/finite_dataset.py",
+      "bytes": 10233,
+      "sha256": "ff67f7f933dfd898493f2c1a69a3e707576f39e97f90c6ca4a57b66eedf8d65d"
+    },
+    {
+      "archive": "source/resources/check_finite_pack_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-source/src/ashlar_host/resources/check_finite_pack_dataset.ts",
+      "bytes": 6945,
+      "sha256": "8ad1397cfdab5f6dfd992a139e421ae74acbe2377cddbed7d283dd6b5ae01e6b"
+    },
+    {
+      "archive": "source/lifecycle.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-source/src/ashlar_host/lifecycle.py",
+      "bytes": 1676,
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    },
+    {
+      "archive": "source/evolution_producer.py",
+      "original": "/private/tmp/ashlar-finite-public-datasets-20261010-c-source/src/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0"
+    },
+    {
+      "archive": "failed-b/umf-fc78/src/model/dataset-values.ts",
+      "original": "/private/tmp/ashlar-umf-supply-chain-land-de11/src/model/dataset-values.ts",
+      "bytes": 16645,
+      "sha256": "c0714a1a9f4158818d22770f0ac2e12b79827334cc26208dfc0acefb0f76346b"
+    },
+    {
+      "archive": "failed-b/umf-fc78/src/model/json.ts",
+      "original": "/private/tmp/ashlar-umf-supply-chain-land-de11/src/model/json.ts",
+      "bytes": 2504,
+      "sha256": "b2c3f48bb779972af5beadfb22ec1db48c793dcdaf572293afa62904016465e7"
+    },
+    {
+      "archive": "source/umf-07357/src/model/dataset-values-compact.ts",
+      "original": "/private/tmp/ashlar-umf-compact-clean-07357ead/src/model/dataset-values-compact.ts",
+      "bytes": 5054,
+      "sha256": "98d4e3b287ba593ee8e079feb64bc6094bf5de79f28fae3019533d515777b83a"
+    },
+    {
+      "archive": "source/umf-07357/src/model/dataset-values.ts",
+      "original": "/private/tmp/ashlar-umf-compact-clean-07357ead/src/model/dataset-values.ts",
+      "bytes": 18686,
+      "sha256": "7c19229f3e238b37e05a14715db829d809ff37272e812eb04a50d3ad8ea2c308"
+    },
+    {
+      "archive": "source/umf-07357/src/model/internal/value-context.ts",
+      "original": "/private/tmp/ashlar-umf-compact-clean-07357ead/src/model/internal/value-context.ts",
+      "bytes": 9572,
+      "sha256": "b7658bbb65f3d909ef1176e4c101c75cd4978b84f044e29d07d4f8b08635844c"
+    },
+    {
+      "archive": "source/umf-07357/docs/helix/02-design/contracts/CONTRACT-056-core-dataset-compact.md",
+      "original": "/private/tmp/ashlar-umf-compact-clean-07357ead/docs/helix/02-design/contracts/CONTRACT-056-core-dataset-compact.md",
+      "bytes": 10768,
+      "sha256": "80942e98ec279870d2e0b664e2dbf92e8817d941d0201efe326d6a902079ef2f"
+    },
+    {
+      "archive": "review/ashlar-finite-public-datasets-independent-command-review-c.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-independent-command-review-c.json",
+      "bytes": 1715,
+      "sha256": "181dbee8e588fb9f1674185736c5e09821cecb769094e7716cd7b09f9fbbae18"
+    },
+    {
+      "archive": "review/ashlar-finite-public-datasets-independent-actual-review-c.json",
+      "original": "/private/tmp/ashlar-finite-public-datasets-independent-actual-review-c.json",
+      "bytes": 1733,
+      "sha256": "5ba81699ae7d4c075aed8945a52e18636535ac9229019f4c59bf281d07a81136"
+    },
+    {
+      "archive": "review/ashlar-shared-finite-compact-source-freeze-c.json",
+      "original": "/private/tmp/ashlar-shared-finite-compact-source-freeze-c.json",
+      "bytes": 1788,
+      "sha256": "009ed267a39e3bf7d98fe5d038999646b77143e36962531d91daf0ca4e4c8475"
+    },
+    {
+      "archive": "review/ashlar-shared-finite-compact-independent-review-c.json",
+      "original": "/private/tmp/ashlar-shared-finite-compact-independent-review-c.json",
+      "bytes": 1331,
+      "sha256": "4d27addc3ce8d16ddc864e6f8d3432c092acd92d6df145d1f4f25f7606f05f91"
+    },
+    {
+      "archive": "recipe-c/ashlar-count-star-installed-cli-capture-a.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "archive": "recipe-c/ashlar-supply-chain-native-read-launcher-h.py",
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "bytes": 2854,
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ]
+}

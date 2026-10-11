@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-finite-public-datasets-20261010-b-probe.py", line 23, in <module>
+    producer=HeldFiniteDataset(config,original/'ontology.json',original/'graph/fixture.json',output)
+  File "/private/tmp/ashlar-finite-public-datasets-20261010-a-source/src/ashlar_host/finite_dataset.py", line 53, in __init__
+    self.stdout,self.stderr=capture([str(config.bun),str(self.script),str(config.source),str(output),str(model),str(graph),str(config.git),config.definition.name],cwd=output.parent,environment=self.environment,timeout_seconds=config.timeout_seconds,maximum_output_bytes=config.maximum_output_bytes)
+  File "/private/tmp/ashlar-finite-public-datasets-20261010-a-source/src/ashlar_host/evolution_producer.py", line 154, in capture
+    raise HostError('evolution-producer-refused')
+ashlar_host.config.HostError: evolution-producer-refused

@@ -1,0 +1,43 @@
+{
+  "profile": "ashlar-finite-public-dataset-failure-analysis/0.1",
+  "actual_result": {
+    "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-actual-result.json",
+    "sha256": "42521da5aaa02ca1652cee9460c543a7edde74de604b4df66eacffa325b37ca5"
+  },
+  "correction": "Original result conservatively said category timeout/semantic/runtime unknown. Frozen traceback line154 is specifically completed producer_status !=0 branch; nonzero publicproducer exit is known. Exact upstream stderr/error code was discarded by owning capture and remains unknown.",
+  "observations": [
+    "7a7d00 frozen capture line153/154 and UMF LIMITS",
+    "0893aa public full ABI recomputation and precomposition guards",
+    "89e6eb independent exact original source/input counters; no actualproducer invocation"
+  ],
+  "static_guards": {
+    "archaeology": {
+      "source_values": 2271,
+      "source_bytes": 47347,
+      "input_values": 2422,
+      "input_bytes": 60568,
+      "copies": 183,
+      "byte_guard": 9149045,
+      "value_guard": 434969,
+      "semantic_work_guard": 1271760
+    },
+    "ecology": {
+      "source_values": 1724,
+      "source_bytes": 35477,
+      "input_values": 2301,
+      "input_bytes": 59981,
+      "copies": 177,
+      "byte_guard": 6759277,
+      "value_guard": 323556,
+      "semantic_work_guard": 875792
+    }
+  },
+  "limits": {
+    "byte_guard": 4000000,
+    "value_guard": 100000,
+    "semantic_work_guard": 1000000
+  },
+  "conclusion": "Both original whole datasets deterministically exceed selected public fullABI precomposition guards. Host32MiB receipt bound cannot alter that semanticwork limit. No actualpositive datasetqualification. Preserve original whole source/version/lexical/null/relationship inventory; select or extend independentlypinned publiccompact ABI rather than silently reducing source or lifting hostbudget.",
+  "proposed_diagnostics": "A reviewed direct bounded sameexactpublicscript transport can retain rawnonzeroexit/stderr without claiming HeldFiniteDataset pass. Longer-term optional immutable bounded observation port in owningcapture after cleanup/before closed refusal; ordinary/cancellation write failures use owninglifecycle precedence, no observation authority grant.",
+  "execution": "No retry or diagnostic/publicproducer operation executed after Bfailure; analysis read-only."
+}

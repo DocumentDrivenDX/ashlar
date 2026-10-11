@@ -1,0 +1,74 @@
+{
+  "source_revision": "83528d6249cb86a883ed2b36652fc546ae6eae85",
+  "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+  "observations": [
+    {
+      "pack": "archaeology",
+      "facts": {
+        "name": "archaeology",
+        "model_sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+        "graph_sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+        "pack_sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f",
+        "objects": 39,
+        "edges": 46,
+        "present_nulls": 13,
+        "case_ids": [
+          "cycle",
+          "dating",
+          "media",
+          "missing-media",
+          "specialists",
+          "lineage",
+          "evidence-links",
+          "sample"
+        ],
+        "umf_version": "0.8.0",
+        "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+        "source_system": "private-original-archaeology-fixture"
+      },
+      "receipt": "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-public-dataset.json",
+      "receipt_bytes": 1106427,
+      "receipt_sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326",
+      "source_stdout": "Admitted original archaeology dataset; three negative controls refused\n",
+      "source_stderr": "",
+      "original_cases_oracle": "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-original-cases-oracle.json",
+      "oracle_sha256": "130d3244ca2d7ae1a091df691b43a020b151ecd177fd6b827c4e8631d48c6f53",
+      "qualification": "Actual public finite dataset validation and pure independent original query bags only; original SQL retained, not compiled or executed. No source/native/writer/publication/ACK authority."
+    },
+    {
+      "pack": "ecology",
+      "facts": {
+        "name": "ecology",
+        "model_sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+        "graph_sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+        "pack_sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481",
+        "objects": 40,
+        "edges": 54,
+        "present_nulls": 7,
+        "case_ids": [
+          "effort-event",
+          "connected-measurements",
+          "censor",
+          "match",
+          "effort",
+          "zero",
+          "network",
+          "comparability",
+          "fishing"
+        ],
+        "umf_version": "0.8.0",
+        "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+        "source_system": "private-original-ecology-fixture"
+      },
+      "receipt": "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-public-dataset.json",
+      "receipt_bytes": 1035062,
+      "receipt_sha256": "8711f676f3837e6e8f58859dbbdf9b554118dc0c92ffc3f454ea77db297b3428",
+      "source_stdout": "Admitted original ecology dataset; three negative controls refused\n",
+      "source_stderr": "",
+      "original_cases_oracle": "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-original-cases-oracle.json",
+      "oracle_sha256": "418285c390522440a3a5850ec32325dfa48b949b522e2fe42660f06489e69a5c",
+      "qualification": "Actual public finite dataset validation and pure independent original query bags only; original SQL retained, not compiled or executed. No source/native/writer/publication/ACK authority."
+    }
+  ],
+  "scope": "Existing Bun public UMF dataset operation only; no Spark/Delta/PG/install/cloud/benchmark. Original declaredUMF0.8 and whole unknown receipt content retained."
+}

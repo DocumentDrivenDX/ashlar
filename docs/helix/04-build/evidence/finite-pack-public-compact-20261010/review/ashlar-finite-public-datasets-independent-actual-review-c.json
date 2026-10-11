@@ -1,0 +1,35 @@
+{
+  "decision": "approve scoped actual public validation evidence",
+  "actual_freeze_sha256": "5b5fc6c25d9f407b38150c338a2e96bc197dc3967ea50585011b7e50a8bb3f1e",
+  "checks": [
+    {
+      "pack": "archaeology",
+      "records": 39,
+      "relationships": 46,
+      "pureCases": 8,
+      "negativeControls": 3
+    },
+    {
+      "pack": "ecology",
+      "records": 40,
+      "relationships": 54,
+      "pureCases": 9,
+      "negativeControls": 3
+    }
+  ],
+  "complete_frozen_file_hashes": true,
+  "complete_3813_closing_custody": true,
+  "inner_outer_exit_zero": true,
+  "review": "Exact original whole source and supplied record/key/relationship inventory/endpoints retained; sole local source references at every fragment site. Six actual negative controls carry owning error codes. Complete original pure cases/oracles independently recomputed in JSON carrier semantics; record-level context warnings retained while dataset-level completeness true.",
+  "checks_chunks": [
+    "7645e0 full hashes/closing custody before reviewer tuple comparison",
+    "8eb282 independent JSON original case/oracle equality",
+    "8bc047 full hashes/closing/source/counts/endpoints/fragments/controls/pure JSON checks before receipt schema assumption",
+    "749ec8 exact distinct inner/outer receipt shapes"
+  ],
+  "reviewer_corrections": [
+    "Direct Python tuple/list comparison replaced by JSON carrier equality",
+    "Outer receipt exitCode is top-level, unlike inner result.exitCode; exact original receipts unchanged"
+  ],
+  "scope": "Bun public compact validation and complete verification only. No SQL compile/execution, FinitePackSource/current authority, Spark/Delta/native publisher/ACK/installed wheel/cloud claim. No native rerun."
+}

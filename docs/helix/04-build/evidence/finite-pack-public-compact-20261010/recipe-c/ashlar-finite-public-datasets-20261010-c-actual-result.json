@@ -1,0 +1,85 @@
+{
+  "profile": "ashlar-public-compact-dataset-result/0.1",
+  "source_revision": "83528d6249cb86a883ed2b36652fc546ae6eae85",
+  "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+  "session": 52920,
+  "terminal_chunk": "582120",
+  "inspection_closing_chunk": "b2472b",
+  "exit_code": 0,
+  "all3813_closing_pins": true,
+  "files": {
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-original-cases-oracle.json": {
+      "bytes": 58143,
+      "sha256": "418285c390522440a3a5850ec32325dfa48b949b522e2fe42660f06489e69a5c"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c/report.json": {
+      "bytes": 3546,
+      "sha256": "3c9778a616db473ec700b4584fd2aaa9a8c79da1c3e3e1841fb1d6c636e207da"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c/ecology-public-dataset.json": {
+      "bytes": 1035062,
+      "sha256": "8711f676f3837e6e8f58859dbbdf9b554118dc0c92ffc3f454ea77db297b3428"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-original-cases-oracle.json": {
+      "bytes": 59994,
+      "sha256": "130d3244ca2d7ae1a091df691b43a020b151ecd177fd6b827c4e8631d48c6f53"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c/archaeology-public-dataset.json": {
+      "bytes": 1106427,
+      "sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-command.json": {
+      "bytes": 3906,
+      "sha256": "3b1b9206e8db0dab586be7a1502b1227dd4b9376857b4e451130ccc21a726c9d"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-metadata.json": {
+      "bytes": 1643,
+      "sha256": "9f24f7d77fb7a7c71682c10ea47d64b4a798d12ec1deb876da0307cafd036ff8"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-runner.py": {
+      "bytes": 3920,
+      "sha256": "b0530b01d52e5083b8267d0c63578da2812afb3121d112105b5ed28f272b5909"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-probe.py": {
+      "bytes": 4905,
+      "sha256": "990cfe714a868477bff73a41c0ae4f9d6aac040363e3d55b953758f960328587"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c-closure.json": {
+      "bytes": 888632,
+      "sha256": "89648f3aca73904c9eeca564d7218356b464b7f70fb0816ff02dc9095f5f97eb"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.receipt.json": {
+      "bytes": 358,
+      "sha256": "454a17f844c25375c99162fbbe5a2554f0bea92aa2ac58e3ec71d9aca175bd99"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.receipt.json": {
+      "bytes": 851,
+      "sha256": "db3f07b3f0d584b005f4407b75c4972d1aa412ca8205763c39e6b32734d94497"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.stdout": {
+      "bytes": 263,
+      "sha256": "52251e3475aec7f7562f30907e741e807bafef36980b492985f39c8943c4a1ac"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/ashlar-finite-public-datasets-independent-command-review-c.json": {
+      "bytes": 1715,
+      "sha256": "181dbee8e588fb9f1674185736c5e09821cecb769094e7716cd7b09f9fbbae18"
+    }
+  },
+  "previous_failed_attempt": {
+    "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-actual-result.json",
+    "sha256": "42521da5aaa02ca1652cee9460c543a7edde74de604b4df66eacffa325b37ca5"
+  },
+  "qualification": "Two actual public compact validate+verify executions for whole original declaredUMF0.8 archaeology39/46 and ecology40/54, three negativecontrols each and original8/9SQLcases/pureoracles retained. No SQLcompile/execution/Spark/Delta/PG/native/source/writer/publication/ACK admission claim."
+}

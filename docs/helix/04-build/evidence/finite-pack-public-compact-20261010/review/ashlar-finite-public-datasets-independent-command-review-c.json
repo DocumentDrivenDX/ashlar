@@ -1,0 +1,31 @@
+{
+  "decision": "approve exact bounded Bun-only operation pending root launch authorization",
+  "metadata_sha256": "9f24f7d77fb7a7c71682c10ea47d64b4a798d12ec1deb876da0307cafd036ff8",
+  "command_sha256": "3b1b9206e8db0dab586be7a1502b1227dd4b9376857b4e451130ccc21a726c9d",
+  "checks": {
+    "full3813openingClosure": "9b697a",
+    "semanticSourceReads": [
+      "83247b",
+      "d30037"
+    ]
+  },
+  "review": [
+    "Pinned compact public validate and complete verify run for both original whole datasets plus three negative controls each. Whole source and record/key/target-key references retained; cases/oracles complete and bounded, SQL not executed.",
+    "Held producer renews original clean pinned repository/input/resource/receipt before return and after artifact retention. Same public receipt bytes required on closing.",
+    "Owned process-group bounded capture kills/reaps and attempts independent stream cleanup; opening/closing closure checked. Explicit receipt write/close retains cancellation priority; probe artifact writes use owned_context.",
+    "No current source policy or FinitePackSource instantiated; supplied-dataset-only/unverified semantics remain separate from source/native/ACK authority."
+  ],
+  "limits": {
+    "producerSecondsEach": 5,
+    "producerStreamBytesEach": 1048576,
+    "probeSeconds": 120,
+    "outerSeconds": 150,
+    "publicReceiptBytesEach": 33554432,
+    "originalOracleBytesEach": 1048576,
+    "reportBytes": 1048576,
+    "packs": 2,
+    "probeStreamBytesEach": 2097152,
+    "outerStreamBytesEach": 16777216
+  },
+  "scope": "Actual claims await sole author terminal/raw receipts; no Spark/Delta/install/cloud or query qualification. No child launched during review."
+}

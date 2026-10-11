@@ -1,0 +1,18 @@
+{
+  "decision": "approve source/doc landing",
+  "freeze_sha256": "009ed267a39e3bf7d98fe5d038999646b77143e36962531d91daf0ca4e4c8475",
+  "source": {
+    "src/ashlar_host/finite_pack.py": "34bb4a3c7f1b5735accb2038055690970211d8c039d12de3723dc31d0ddbaeca",
+    "src/ashlar_host/finite_dataset.py": "ff67f7f933dfd898493f2c1a69a3e707576f39e97f90c6ca4a57b66eedf8d65d",
+    "src/ashlar_host/resources/check_finite_pack_dataset.ts": "8ad1397cfdab5f6dfd992a139e421ae74acbe2377cddbed7d283dd6b5ae01e6b",
+    "tests/test_finite_pack.py": "0d5351e5c9794d00535d276d3e8abeb50705c132091de9bd291f41b98691b884",
+    "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md": "afbc07f1aecdc7f17a6f5b9cf7b44caa291936c26b51241fcca97f89ba7ff94d"
+  },
+  "checks": {
+    "independent_finite_controls": 11,
+    "chunk": "66c7f8",
+    "exitCode": 0
+  },
+  "review": "Pinned upstream compact API validates and complete-verifies source/input/result; sole local sourceRef anchors retained top-level original. Outer0.2 distinguishes profile, unchanged depth/value/byte/work budgets and legacy producer. All record/key/targetKey reference positions reject substitution; unknown original source content retained via complete canonical equality.",
+  "scope": "Source and inert ports only; no actual Bun/native/current source authority qualification."
+}

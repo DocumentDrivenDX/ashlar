@@ -1,0 +1,91 @@
+{
+  "profile": "ashlar-finite-public-dataset-operation/0.1",
+  "captureModule": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+  "resources": [
+    {
+      "path": "/usr/bin/python3",
+      "bytes": 200560,
+      "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-c-runner.py",
+      "bytes": 3920,
+      "sha256": "b0530b01d52e5083b8267d0c63578da2812afb3121d112105b5ed28f272b5909"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-c-closure.json",
+      "bytes": 888632,
+      "sha256": "89648f3aca73904c9eeca564d7218356b464b7f70fb0816ff02dc9095f5f97eb"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-c-probe.py",
+      "bytes": 4905,
+      "sha256": "990cfe714a868477bff73a41c0ae4f9d6aac040363e3d55b953758f960328587"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-public-datasets-20261010-c-artifact-control.py",
+      "bytes": 1355,
+      "sha256": "d9fb609c216fd52d76030edc181a7d50194e1abfaffb02766e6fd245919fc5cf"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "bytes": 2854,
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "commands": [
+    {
+      "phase": "public-datasets",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-I",
+        "-S",
+        "/private/tmp/ashlar-finite-public-datasets-20261010-c-runner.py",
+        "b0530b01d52e5083b8267d0c63578da2812afb3121d112105b5ed28f272b5909"
+      ],
+      "cwd": "/private/tmp",
+      "stdout": "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stdout",
+      "stderr": "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.stderr",
+      "timeoutSeconds": 150
+    }
+  ],
+  "limits": {
+    "producerSecondsEach": 5,
+    "producerStreamBytesEach": 1048576,
+    "probeSeconds": 120,
+    "outerSeconds": 150,
+    "publicReceiptBytesEach": 33554432,
+    "originalOracleBytesEach": 1048576,
+    "reportBytes": 1048576,
+    "packs": 2,
+    "probeStreamBytesEach": 2097152,
+    "outerStreamBytesEach": 16777216
+  },
+  "qualification": "Two actual pinned public UMF07357 compact1.0.0 dataset operations for original declared0.8 archaeology39records/46relationships and ecology40/54. Original8/9SQLcaseinventories and pureindependentoracles retained, not compiled/executed. No FinitePackSource/currentauthority, Spark/Delta/PG/install/cloud/benchmark or protectedACK claim. Existing supervisor ordinary -c uses pinned Python3.9 framework/global startup pth and absentuser/global startup gates; OSbase trust, no sandbox/isolation claim. Closingcustody and ownedchild cleanup required before result.",
+  "outputs": [
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.stdout",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.stderr",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.receipt.json",
+    "/private/tmp/ashlar-finite-public-datasets-20261010-c.outer.receipt.json"
+  ],
+  "supersedes": {
+    "path": "/private/tmp/ashlar-finite-public-datasets-20261010-b-command.json",
+    "sha256": "2efd40599f64d89f2b5a765a6aab0f03d6741700c80a93d9c64a2e226cc76dc0",
+    "reason": "B completed producer nonzero failure preserved; C selects existing public compact API, exact landed source83528, original complete inputs and unchanged limits."
+  },
+  "source_revision": "83528d6249cb86a883ed2b36652fc546ae6eae85"
+}
