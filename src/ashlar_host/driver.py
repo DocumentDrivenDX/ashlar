@@ -1092,14 +1092,14 @@ class NativeDriver:
         finish(error, [lambda: policy.admit_scope(item.source.scope, Session(connection), context),
                        connection.rollback, connection.close])
 
-    def _medical_publication_capture(self, binding, role, versions, remaining):
+    def _medical_publication_capture(self, binding, role, versions, remaining, *, previous=False):
         value = json.loads(binding['view']); table = value['tables'][role]
         snapshot, schema = binding['transport'].bounded_snapshot(binding['transport'].targets[table],
             versions[table], remaining_bytes=remaining)
         if (not original_native_equal(schema, json.loads(value['schemas'][role]))
                 or not original_native_equal(snapshot['schema'], [[name, family.lower()] for name, family in value['columns'][role]])
                 or snapshot['row_sha256'] != sha(encoded(snapshot['rows']))
-                or not original_native_equal(snapshot['rows'], sorted(value['expected'][role], key=encoded))):
+                or not original_native_equal(snapshot['rows'], sorted(value['previous_expected' if previous else 'expected'][role], key=encoded))):
             raise PermissionError('Complete independent original medical schema/bag differs')
         size = len(encoded({'schema': schema, 'rows': snapshot['rows']}).encode())
         if size > remaining:
@@ -1527,6 +1527,11 @@ class NativeDriver:
         if getattr(self,'query_source_factory',None) is not None:
             raise PermissionError('Registered query source cannot publish')
         self.require(context)
+        medical_binding = getattr(self, '_original_medical_publication_binding', None)
+        if medical_binding is not None:
+            self._require_medical_publication_binding(medical_binding)
+            if getattr(self.transport, 'observation_bounds', None) is not medical_binding['bounds']:
+                raise PermissionError('Original medical apply requires its bound capture interval')
         self.source_admit(request)
         active = self.policy.active
         if active['request'] != request:
@@ -1538,10 +1543,16 @@ class NativeDriver:
             if recovery:
                 raise LocalDeltaError('Original source plan custody absent; no replacement')
             anchors = {}
+            prior_total = 0
             for (role, rows) in active['previous_expected'].items():
                 target = self.transport.targets[self.tables[role]]
                 version = int(self.transport.original_history(target)[0]['version'])
-                snapshot = self.transport._snapshot(target, version)
+                if medical_binding is None:
+                    snapshot = self.transport._snapshot(target, version)
+                else:
+                    snapshot, _, size = self._medical_publication_capture(medical_binding, role,
+                        {target.table: version}, medical_binding['bounds'].total_bytes-prior_total, previous=True)
+                    prior_total += size
                 if snapshot['rows'] != sorted(rows, key=encoded):
                     raise ValueError('Complete original prior native state differs: ' + role)
                 anchors[target.table] = {'uuid': target.uuid, 'version': version, 'snapshot': snapshot}
@@ -1556,9 +1567,17 @@ class NativeDriver:
             retained = json.loads(original_plan)
             if {k: v for (k, v) in retained.items() if k != 'observed_native_prior'} != source_plan:
                 raise LocalDeltaError('Original exact source plan differs')
+            prior_total = 0
             for (table, anchor) in retained['observed_native_prior'].items():
                 target = self.transport.targets[table]
-                if anchor['uuid'] != target.uuid or encoded(self.transport._snapshot(target, anchor['version'])) != encoded(anchor['snapshot']):
+                if medical_binding is None:
+                    observed = self.transport._snapshot(target, anchor['version'])
+                else:
+                    role = next(role for role in active['previous_expected'] if self.tables[role] == table)
+                    observed, _, size = self._medical_publication_capture(medical_binding, role,
+                        {table: anchor['version']}, medical_binding['bounds'].total_bytes-prior_total, previous=True)
+                    prior_total += size
+                if anchor['uuid'] != target.uuid or encoded(observed) != encoded(anchor['snapshot']):
                     raise LocalDeltaError('Original no-op prior native evidence differs')
         if not self.transport.db.execute('SELECT 1 FROM local_plan WHERE operation=?', ('effects:' + request['request_digest'],)).fetchone() and recovery:
             raise LocalDeltaError('Original whole effect plan absent; no replacement')
@@ -1573,10 +1592,16 @@ class NativeDriver:
             return row[1]
         versions = {}
         parity = {}
+        final_total = 0
         for role in ('object_current', 'edge_current', 'tombstone', 'whole_source_history'):
             target = self.transport.targets[self.tables[role]]
             version = int(self.transport.original_history(target)[0]['version'])
-            snapshot = self.transport._snapshot(target, version)
+            if medical_binding is None:
+                snapshot = self.transport._snapshot(target, version)
+            else:
+                snapshot, _, size = self._medical_publication_capture(medical_binding, role,
+                    {target.table: version}, medical_binding['bounds'].total_bytes-final_total)
+                final_total += size
             if snapshot['rows'] != sorted(active['expected'][role], key=encoded):
                 raise ValueError('Independent complete source oracle differs: ' + role)
             versions[target.table] = version

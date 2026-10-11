@@ -13,7 +13,7 @@ from ashlar_host.evolution_verification_types import VerificationBounds
 import test_medical_publication_sources as sources
 
 class Tests(unittest.TestCase):
- def fixture(self,stack):
+ def fixture(self,stack,*,total_bytes=16777216):
   f=sources.Tests();f.setUp();self.addCleanup(f.doCleanups)
   f.selection=replace(f.selection,targets=tuple(replace(t,table='local.original_medical.'+t.table.split('.')[-1])for t in f.selection.targets))
   owner,acks=f.owner(stack);d=owner.driver;d.held=False;d.pin_held=False;f.head=1
@@ -25,7 +25,7 @@ class Tests(unittest.TestCase):
   row=dict(publication_id=value['publication_id'],profile_version=PROFILE,table_versions_json=encoded(versions),schema_revisions_json=value['request']['schema_revisions_json'],source_progress_json=encoded(value['progress']),validation_report_json=encoded(dict(complete=True,predecessor=value['request']['predecessor'],request_digest=value['request']['request_digest'],source_admission=value['source_admission'])),recorded_at=value['recorded_at'])
   active['manifest']=row;d.policy=SimpleNamespace(active=active);d.scope_ports={f.batch.feed:{'scope':f.scope,'source':'medical_source','signature':'a'*64}}
   d.source_sessions=owner.sources();d.original_source_sessions=encoded(d.source_sessions.metadata());d.ack_sessions=acks;d.original_ack_sessions=encoded(acks.metadata())
-  bounds=VerificationBounds(262144,10000,1048576,16777216,1048576,1048576)
+  bounds=VerificationBounds(262144,10000,1048576,total_bytes,1048576,1048576)
   transport=d.transport;transport._registered=True;transport.observation_bounds=None;transport.bounded_calls=[];transport.remaining=[];transport.native_calls=[];transport.fail_role=None;transport.cancel=None
   def detail(target):
    self.assertIs(transport.observation_bounds,bounds);transport.native_calls.append(target.table)
