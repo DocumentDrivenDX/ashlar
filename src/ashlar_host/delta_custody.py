@@ -214,6 +214,8 @@ class LocalDeltaTransport:
                     self.db.execute('INSERT INTO local_installation VALUES(1,?)', (registry,))
                     self.db.execute('CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)')
                     self.db.execute('CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)')
+                    self.db.execute('CREATE TABLE local_publication_artifact (request_digest TEXT PRIMARY KEY,request TEXT NOT NULL,artifact TEXT NOT NULL)')
+                    self.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
             if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(registry,)]:
                 raise LocalDeltaError('Original journal installation/registry differs')
             for (name, columns) in {'local_installation': ['id', 'original'], 'local_operation': ['operation', 'intent', 'intent_sha', 'before_version', 'state', 'receipt'], 'local_plan': ['operation', 'original', 'digest']}.items():

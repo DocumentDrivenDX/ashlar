@@ -104,6 +104,57 @@ class Tests(unittest.TestCase):
             self.assertNotIn(table, names)
         self.assertEqual(self.closes, ['transport', 'transport'])
 
+    def test_fresh_public_initializer_enters_registered_factory_and_retained_missing_tables_refuse(self):
+        from test_local_delta_custody import FakeSpark, Policy
+        root = self.fixture.root
+        target_path = root / 'fresh-native-target'; target_path.mkdir()
+        target = DeltaTarget('local.fresh.object_current', target_path, 'original-uuid')
+        spark = FakeSpark()
+        journal = root / 'fresh-native-journal.sqlite'
+        transport = LocalDeltaTransport.initialize(spark, journal, 'fresh-installation',
+            (target,), Policy(), context=self.driver.context)
+        self.addCleanup(transport.close)
+        # The real public factory must accept the fresh initializer's journal,
+        # without a driver constructor or harness SQL creating missing tables.
+        owner = NativeDriver.with_registered_evolution(transport, self.driver.policy,
+            self.driver.context, self.driver.tables, self.driver.allowed_changes,
+            self.driver.columns, source_admission=self.driver.source_admission,
+            source_sessions=self.driver.source_sessions,
+            ack_factory=lambda constructing: self.driver.ack_sessions)
+        self.assertIs(type(owner), NativeDriver)
+        for table, expected in (
+                ('local_publication_artifact', ['request_digest', 'request', 'artifact']),
+                ('local_source_plan', ['request_digest', 'original'])):
+            self.assertEqual([row[1] for row in transport.db.execute(
+                'PRAGMA table_info(' + table + ')')], expected)
+        transport.close()
+        # Legacy three-table transport reopening is unchanged. It grants no
+        # registered evolution permission and must not repair absent custody.
+        connection = sqlite3.connect(journal)
+        with connection:
+            connection.execute('DROP TABLE local_publication_artifact')
+            connection.execute('DROP TABLE local_source_plan')
+        connection.close()
+        reopened = LocalDeltaTransport(spark, journal, 'fresh-installation',
+            (target,), Policy())
+        self.addCleanup(reopened.close)
+        called = []
+        with self.assertRaises(PermissionError):
+            NativeDriver.with_registered_evolution(reopened, self.driver.policy,
+                self.driver.context, self.driver.tables, self.driver.allowed_changes,
+                self.driver.columns, source_admission=self.driver.source_admission,
+                source_sessions=self.driver.source_sessions,
+                ack_factory=lambda constructing: called.append(constructing))
+        self.assertEqual(called, [])
+        check = sqlite3.connect(journal)
+        try:
+            names = {row[0] for row in check.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'")}
+            self.assertNotIn('local_publication_artifact', names)
+            self.assertNotIn('local_source_plan', names)
+        finally:
+            check.close()
+
     def test_original_factory_cancel_and_cleanup_cancel_priority(self):
         for kind in (KeyboardInterrupt, SystemExit, GeneratorExit):
             cancellation = kind()
