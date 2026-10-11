@@ -1,0 +1,430 @@
+{
+  "format": "ashlar-042-installed-cli-failure-evidence/0.1",
+  "members": [
+    {
+      "bytes": 235,
+      "member": "actual/archive.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/archive.json",
+      "sha256": "1b88d81c6a869b6a6dd35e611ccaa37d90e620a4aed15e7e786e49504608fea6"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/archive.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 115147,
+      "member": "actual/generated-custody.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/generated-custody.json",
+      "sha256": "fa713efb541dcf8f08bd28f235e1b5afd2d6cf0956735392e17e6aff588750e9"
+    },
+    {
+      "bytes": 231,
+      "member": "actual/install.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/install.json",
+      "sha256": "b03fa9e2d5d875b41021b88203d38fe0ad8d7532c6d477a6e6f0b32c33d311ce"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/install.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "member": "actual/install.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 17814,
+      "member": "actual/installed-RECORD.csv",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-RECORD.csv",
+      "sha256": "bacb538f86da163d0a826f22ea123dbd65118d2561443ca973d0ac5220817b16"
+    },
+    {
+      "bytes": 241,
+      "member": "actual/installed-compiler.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-compiler.json",
+      "sha256": "440b340d4a423a39f6df2be3bb98ebd2aa036a157d296d0ea73966c69e7b6594"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/installed-compiler.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-compiler.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 96,
+      "member": "actual/installed-compiler.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-compiler.stdout",
+      "sha256": "dfe198fb18c799b1aad7054d8b3c5da41fef8bc44aaffccdf51182ea340ab219"
+    },
+    {
+      "bytes": 203,
+      "member": "actual/installed-console.txt",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-console.txt",
+      "sha256": "679d658a98cd4666760f022f61c45a6aebb13092c44de457dab5cbcd05f86492"
+    },
+    {
+      "bytes": 239,
+      "member": "actual/installed-help.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-help.json",
+      "sha256": "4dc3826685592bec726f308dfff9ccfcd8f9d769f8b33e74fa771402ebe392c3"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/installed-help.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-help.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3271,
+      "member": "actual/installed-help.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-help.stdout",
+      "sha256": "f8ea2e82a32de15471aa96011df3363315824b61680171bc1f6d1ce75f4ee015"
+    },
+    {
+      "bytes": 242,
+      "member": "actual/installed-invalid.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-invalid.json",
+      "sha256": "2f38fe490eeb8bcfb66edaa28470fa073a7189f6c71dd18a51f951e46eae7f24"
+    },
+    {
+      "bytes": 21,
+      "member": "actual/installed-invalid.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-invalid.stderr",
+      "sha256": "47aac2162e12b38b78902d5f27dc30393d3bdcc24c22628d90e94cbc5df3bbfa"
+    },
+    {
+      "bytes": 182,
+      "member": "actual/installed-invalid.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/installed-invalid.stdout",
+      "sha256": "40026379e7b5600ea03e99c38f379738c9818adf0f3e3c8c94fc494d57eacd27"
+    },
+    {
+      "bytes": 5841,
+      "member": "actual/preparation.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/preparation.json",
+      "sha256": "0393688f95eb50fd15123a81bb1db2b93d85c12723aabe6231273e7a86d049d2"
+    },
+    {
+      "bytes": 226,
+      "member": "actual/venv.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/venv.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/venv.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 26017,
+      "member": "actual/wheel-inventory.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/wheel-inventory.json",
+      "sha256": "aa0e7953116bc2ac63d72b795879ce41ccb6aebe5e1028781ecffb6e89a00128"
+    },
+    {
+      "bytes": 229,
+      "member": "actual/wheel.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/wheel.json",
+      "sha256": "963ec8460645522393e5ebb0238928c0c74cc40ad9c0c8a4347e9140d1d20b20"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 748,
+      "member": "actual/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/wheel.stdout",
+      "sha256": "69db1ff09b5f09d1510237f26e574f9eb1bd1058ecbe3b6175d98feb42782fcf"
+    },
+    {
+      "bytes": 53868,
+      "member": "actual/qualification/installation/backend-manifest.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/backend-manifest.json",
+      "sha256": "33de51e60a1f2eb46813abe8601d90dc7cbe67d6a6b248890dcc70842bfcbe6e"
+    },
+    {
+      "bytes": 55261,
+      "member": "actual/qualification/installation/provenance.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/provenance.json",
+      "sha256": "f5a28dff16b3a48c0d61ba077715381f7b009900af073294fa9d07e866439ff2"
+    },
+    {
+      "bytes": 1457,
+      "member": "actual/qualification/installation/ready.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/ready.json",
+      "sha256": "b4842fe871931e6c5e7fb0b6109883b569b3d89ab2effecb084865e3975de2c0"
+    },
+    {
+      "bytes": 2281,
+      "member": "actual/qualification/installation/schemas/application-result-v0.4.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/schemas/application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18068,
+      "member": "actual/qualification/installation/schemas/backend-manifest-v0.3.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/schemas/backend-manifest-v0.3.2.schema.json",
+      "sha256": "e7d6eb558a80569b0cdd01a72342aa3f8d0fde2e41d3529724854aa5c6d3291d"
+    },
+    {
+      "bytes": 3513,
+      "member": "actual/qualification/installation/schemas/compile-request-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/schemas/compile-request-v0.4.2.schema.json",
+      "sha256": "8a0da7aa576b0fc08fd65621cf99e70b47a26828c719dee1c1d8d9c974298de8"
+    },
+    {
+      "bytes": 62090,
+      "member": "actual/qualification/installation/schemas/compile-response-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/schemas/compile-response-v0.4.2.schema.json",
+      "sha256": "1967e1cabee8dc80119376ad15d0e58e16c916962d414d78fdc0247603b42da3"
+    },
+    {
+      "bytes": 43626,
+      "member": "actual/qualification/installation/schemas/logical-plan-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/schemas/logical-plan-v0.4.2.schema.json",
+      "sha256": "a70ff489be0a9621b43623f1d69f0a1490345c8a1a4bf654121b88f0c7dd8ac1"
+    },
+    {
+      "bytes": 8688144,
+      "member": "actual/qualification/installation/weft-implicit-arithmetic",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/installation/weft-implicit-arithmetic",
+      "sha256": "8e1e43aa81b312a124e88698477e1392f6c538451d5cb8f582a38934c776e55a"
+    },
+    {
+      "bytes": 55381,
+      "member": "actual/qualification/observations/fulfillment-0.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/fulfillment-0.request",
+      "sha256": "42bab1233d6a656f3534c4ea0c8798a8cdf5e94799cf05c46ec133f4bb19ae21"
+    },
+    {
+      "bytes": 35412,
+      "member": "actual/qualification/observations/fulfillment-0.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/fulfillment-0.response",
+      "sha256": "57ee20e12513173f82b263826c3667af5220d09f51e9517ec1a66794611272a3"
+    },
+    {
+      "bytes": 55381,
+      "member": "actual/qualification/observations/fulfillment-1.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/fulfillment-1.request",
+      "sha256": "42bab1233d6a656f3534c4ea0c8798a8cdf5e94799cf05c46ec133f4bb19ae21"
+    },
+    {
+      "bytes": 35412,
+      "member": "actual/qualification/observations/fulfillment-1.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/fulfillment-1.response",
+      "sha256": "57ee20e12513173f82b263826c3667af5220d09f51e9517ec1a66794611272a3"
+    },
+    {
+      "bytes": 55450,
+      "member": "actual/qualification/observations/partial-return-0.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/partial-return-0.request",
+      "sha256": "cbf147f96bf7b8e7d698cb8d69afdbfd1c8c5222b30b46a14a5573ecc72f9976"
+    },
+    {
+      "bytes": 52790,
+      "member": "actual/qualification/observations/partial-return-0.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/partial-return-0.response",
+      "sha256": "60a7caeb6eda72e3f7d16d8b4fdcc4b84bbd3a43499685d73f22136fa173bafb"
+    },
+    {
+      "bytes": 55450,
+      "member": "actual/qualification/observations/partial-return-1.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/partial-return-1.request",
+      "sha256": "cbf147f96bf7b8e7d698cb8d69afdbfd1c8c5222b30b46a14a5573ecc72f9976"
+    },
+    {
+      "bytes": 52790,
+      "member": "actual/qualification/observations/partial-return-1.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/partial-return-1.response",
+      "sha256": "60a7caeb6eda72e3f7d16d8b4fdcc4b84bbd3a43499685d73f22136fa173bafb"
+    },
+    {
+      "bytes": 55445,
+      "member": "actual/qualification/observations/refund-0.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/refund-0.request",
+      "sha256": "e7e57ee667fc624f52643b6dfe33d3b2b4794d4846dd29bbb395081ac31f8c3e"
+    },
+    {
+      "bytes": 51452,
+      "member": "actual/qualification/observations/refund-0.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/refund-0.response",
+      "sha256": "01c39d34dc51d133abdb7d9f1fb06474c8b30e4564c6fe266dfb82c66c0320f7"
+    },
+    {
+      "bytes": 55445,
+      "member": "actual/qualification/observations/refund-1.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/refund-1.request",
+      "sha256": "e7e57ee667fc624f52643b6dfe33d3b2b4794d4846dd29bbb395081ac31f8c3e"
+    },
+    {
+      "bytes": 51452,
+      "member": "actual/qualification/observations/refund-1.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/refund-1.response",
+      "sha256": "01c39d34dc51d133abdb7d9f1fb06474c8b30e4564c6fe266dfb82c66c0320f7"
+    },
+    {
+      "bytes": 55385,
+      "member": "actual/qualification/observations/settlement-0.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/settlement-0.request",
+      "sha256": "2448de0510fc8a0542792e21a984c18b7dee892afa2ad7ec31d2b2158bf24e41"
+    },
+    {
+      "bytes": 33126,
+      "member": "actual/qualification/observations/settlement-0.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/settlement-0.response",
+      "sha256": "20fa79d9c76c75645c11df177190c7c08ea174765cef64b9c64c1d89a631d2b1"
+    },
+    {
+      "bytes": 55385,
+      "member": "actual/qualification/observations/settlement-1.request",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/settlement-1.request",
+      "sha256": "2448de0510fc8a0542792e21a984c18b7dee892afa2ad7ec31d2b2158bf24e41"
+    },
+    {
+      "bytes": 33126,
+      "member": "actual/qualification/observations/settlement-1.response",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/observations/settlement-1.response",
+      "sha256": "20fa79d9c76c75645c11df177190c7c08ea174765cef64b9c64c1d89a631d2b1"
+    },
+    {
+      "bytes": 3971,
+      "member": "actual/qualification/qualification.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-a/qualification/qualification.json",
+      "sha256": "ad1c2831170a81103f31623ab4055b8768b8c04eb886322571dd997754f6bbde"
+    },
+    {
+      "bytes": 2283,
+      "member": "recipe/ashlar-042-installed-cli-command-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-command-a.json",
+      "sha256": "7f70384123fa74db2f1e2201f5494e3a8ea4848b78d353100038f3bbfe1d3b0e"
+    },
+    {
+      "bytes": 3158,
+      "member": "recipe/ashlar-042-installed-cli-metadata-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-metadata-a.json",
+      "sha256": "8d81fdcc36dee841baf6fe71476374852cb21bfc3d76879530e9391ea3c55154"
+    },
+    {
+      "bytes": 15218,
+      "member": "recipe/ashlar-042-installed-cli-runner-a.py",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-runner-a.py",
+      "sha256": "aed8daad06e3e6690acfd0f9fd310d3cb4be14c3987be42d3d4bd97de4367089"
+    },
+    {
+      "bytes": 5105,
+      "member": "recipe/ashlar-042-installed-cli-compiler-probe-a.py",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-compiler-probe-a.py",
+      "sha256": "993c467f5eb4b89c34144f1bf9f4e8b6432c4f6d3d841564d7c726ed6931919d"
+    },
+    {
+      "bytes": 2245,
+      "member": "recipe/ashlar-042-installed-cli-invalid-probe-a.py",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-invalid-probe-a.py",
+      "sha256": "121ed758c9dd9e7a515ad58f01648fb2f28dc8d13fbc81a6ae6c2bab8934e4c8"
+    },
+    {
+      "bytes": 3824738,
+      "member": "recipe/ashlar-042-installed-cli-closure-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-closure-a.json",
+      "sha256": "d992506fca1f350b8417c60940374d33a4e3abb04283d6c899a0d0955dc5458e"
+    },
+    {
+      "bytes": 29933,
+      "member": "recipe/ashlar-042-installed-cli-source-inventory-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-source-inventory-a.json",
+      "sha256": "a990459f7f4d784887408b47578dd9f7ff6b053a4d063b0674c9b64d5bed3be8"
+    },
+    {
+      "bytes": 32669,
+      "member": "recipe/ashlar-042-installed-cli-inputs-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-inputs-a.json",
+      "sha256": "5422339b3c239951b66cd008033b904307f88751c07b582fdf309187613b894f"
+    },
+    {
+      "bytes": 3274,
+      "member": "recipe/ashlar-042-installed-cli-independent-command-review-a.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-independent-command-review-a.json",
+      "sha256": "3a70683eabda98955202a1aa792e9eb4579e60e0565209088ee00200d9f7e192"
+    },
+    {
+      "bytes": 0,
+      "member": "recipe/ashlar-042-installed-cli-a.stdout",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-a.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "recipe/ashlar-042-installed-cli-a.stderr",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-a.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 162503,
+      "member": "actual/whole-output-descriptors.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-failure-a.json",
+      "sha256": "ff4b5ab225e6d33dfdacf8e95f01b61098fe0a3fa26133f4d0bbf4bf7bf3cadb"
+    },
+    {
+      "bytes": 27544,
+      "member": "original/model.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "bytes": 23078,
+      "member": "original/graph.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/graph/fixture.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "bytes": 12489,
+      "member": "original/pack.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/pack.json",
+      "sha256": "1a03b93174be64e83f8b9e79b115570fe5950e2277780041553f3ef0a782ef1a"
+    },
+    {
+      "bytes": 462824,
+      "member": "original/publicationMetadata.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-outbox-publication-20261009/report.json",
+      "sha256": "19f3027c1fe9a372867913d3b43d5f36e57ad6ea23ecd572b871611ccd0e07b0"
+    },
+    {
+      "bytes": 3216,
+      "member": "recipe/ashlar-count-star-installed-cli-capture-a.py",
+      "originalPath": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 2854,
+      "member": "recipe/ashlar-supply-chain-native-read-launcher-h.py",
+      "originalPath": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ],
+  "omissions": "Runtime and copied interpreter/wheel/duplicate source binaries are descriptors only.",
+  "terminal": {
+    "chunk": "9588b1",
+    "exitCode": 1,
+    "reason": "Outer capture240s TimeoutError Build deadline exceeded; no whole command pass",
+    "session": 13442
+  },
+  "wholeActualDescriptor": {
+    "bytes": 80774330,
+    "files": 662
+  }
+}
