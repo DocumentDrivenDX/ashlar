@@ -1,0 +1,306 @@
+{
+  "format": "ashlar-original-commerce-installed-query-evidence/0.1",
+  "archive": {
+    "path": "actual.tar.gz",
+    "size": 1796027,
+    "sha256": "7a5087c98cad99e3f6cf04b4d489e6747bfd1d8e7a3a56f34fc1e1648a8098c8"
+  },
+  "members": [
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/backend-manifest.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/backend-manifest.json",
+      "size": 53868,
+      "sha256": "33de51e60a1f2eb46813abe8601d90dc7cbe67d6a6b248890dcc70842bfcbe6e"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/provenance.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/provenance.json",
+      "size": 55261,
+      "sha256": "f5a28dff16b3a48c0d61ba077715381f7b009900af073294fa9d07e866439ff2"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/ready.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/ready.json",
+      "size": 1457,
+      "sha256": "b4842fe871931e6c5e7fb0b6109883b569b3d89ab2effecb084865e3975de2c0"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/application-result-v0.4.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/application-result-v0.4.schema.json",
+      "size": 2281,
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/backend-manifest-v0.3.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/backend-manifest-v0.3.2.schema.json",
+      "size": 18068,
+      "sha256": "e7d6eb558a80569b0cdd01a72342aa3f8d0fde2e41d3529724854aa5c6d3291d"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/compile-request-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/compile-request-v0.4.2.schema.json",
+      "size": 3513,
+      "sha256": "8a0da7aa576b0fc08fd65621cf99e70b47a26828c719dee1c1d8d9c974298de8"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/compile-response-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/compile-response-v0.4.2.schema.json",
+      "size": 62090,
+      "sha256": "1967e1cabee8dc80119376ad15d0e58e16c916962d414d78fdc0247603b42da3"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/logical-plan-v0.4.2.schema.json",
+      "originalPath": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation/schemas/logical-plan-v0.4.2.schema.json",
+      "size": 43626,
+      "sha256": "a70ff489be0a9621b43623f1d69f0a1490345c8a1a4bf654121b88f0c7dd8ac1"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-independent-query-review-g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-independent-query-review-g.py",
+      "size": 4939,
+      "sha256": "c485a493fbc21111e4b3e2da88683f99f0ae3a3797f7e0c89ab3e09520447021"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/installed-host.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/installed-host.json",
+      "size": 52585,
+      "sha256": "5ec901d12bb466548534cb16a71144a404b9bdc5e08cfcf327d1f9b38cd797bc"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/outer-receipt.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/outer-receipt.json",
+      "size": 2648,
+      "sha256": "e5c22fc7e018ea1540b7ea7222e1cd7647d86282b770d53d50a43914c2c94fc6"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query/fresh-public-dataset.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query/fresh-public-dataset.json",
+      "size": 2037521,
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query/report.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query/report.json",
+      "size": 14197911,
+      "sha256": "adaef7b3cc3f9f18f4e00928c16c2a2ef38a3d66536cd2b5e013b82d80a3dc3b"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query-install.stderr",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query-install.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query-install.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query-install.stdout",
+      "size": 175,
+      "sha256": "27e73cee0e0f94b64d04ca06160187e46019bb87bf1d2390ba0ca0acf9df431a"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query-venv.stderr",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query-venv.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query-venv.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query-venv.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query.stderr",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query.stderr",
+      "size": 4833,
+      "sha256": "280eab6744910d9733072ffa5b8471997dee366dbedfea419df1dc3bf5f654e9"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/query.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/query.stdout",
+      "size": 93,
+      "sha256": "6311b13477aadb636e5d24ca226bdcfed4304d59127f6d51f428351fdfe5da17"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/wheel/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/wheel/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "size": 1090121,
+      "sha256": "c8a46e270539a884938356e71658337c9e0a94109e58185ad99a13fe95c0dab5"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/wheel.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/wheel.stdout",
+      "size": 705,
+      "sha256": "42142e38a1cf960e09c262edd3966ba45f6c980f1d3eb759562e0594173555a7"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-query-20261011-g/whole-result.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-query-20261011-g/whole-result.json",
+      "size": 371,
+      "sha256": "0683b11da7e5ab96ca9f6fa8b4f01beb56bc1f623426fdbcd51eaf94c9a56651"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-independent-actual-review-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-independent-actual-review-g.json",
+      "size": 2475,
+      "sha256": "e337594b91a98949bff38cbf2cab6e1af9807592a5b5cba3c34b3b9817883df9"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-independent-command-review-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-independent-command-review-g.json",
+      "size": 1130,
+      "sha256": "46a2350650bd281f62d6800bddc75c7be9401ad7c85beb80125d5b1306532512"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-f/java-list-modules.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-f/java-list-modules.stdout",
+      "size": 1709,
+      "sha256": "75efbaec60c266183b2006f0248ccb0599f242f3d7b6c92b7ce6e6a0fb5dddce"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-f/java-version.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-f/java-version.stdout",
+      "size": 157,
+      "sha256": "ce1268c1b4ace94ce26349777badf0215909e523fb31a9b564a17052a16b7639"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-f/java21-correspondence.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-f/java21-correspondence.json",
+      "size": 1234,
+      "sha256": "77daa2ca0e799a8b1a162202934060126cafc476781721754a97b4eea7644a03"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/actual-freeze-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/actual-freeze-g.json",
+      "size": 3728,
+      "sha256": "9acecce401cfd2626e2b922bec1b139215dee4abd8a0313160c30fb489919622"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/command-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/command-g.json",
+      "size": 62833,
+      "sha256": "e8fcb380f844c1cdd830615fa16a0136686d8d4b826bb241296c5759538e7712"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/entry-g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/entry-g.py",
+      "size": 1707,
+      "sha256": "77bf80b5c11884e27d830e4e05ee277d7d3ff6ca048e34c1f1c55fecb4ab8d49"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/commerce_original_scenarios.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/commerce_original_scenarios.py",
+      "size": 7002,
+      "sha256": "c8a231085480b491c41bdc9ffaea76ed138b72e37f04372b8663cac5f3daaf5d"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/implicit_arithmetic_profile.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/implicit_arithmetic_profile.py",
+      "size": 6091,
+      "sha256": "af7169b0ee1570bf434c7baab11fb227458dcb87b447cc313174048669fb189c"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/publication_reader.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/publication_reader.py",
+      "size": 28528,
+      "sha256": "3fcf21197d1cc300e898a20ed7a5cef0170d5a5686b6c196eb481461579bafbe"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/read_only_transport.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source/src/ashlar_host/read_only_transport.py",
+      "size": 5030,
+      "sha256": "4f8c4752ed218c157694cab84706375888451f0df88c5fedb0c5d1400ea075f9"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source-inventory.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/host-source-inventory.json",
+      "size": 59213,
+      "sha256": "688047207a750daa8b24d3a14f312a1c175c02fc51f786dd2698735b3ed4b120"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/launch-g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/launch-g.py",
+      "size": 2364,
+      "sha256": "54803e8e703ae473fcbd26883d9ac71f8b793209b35934d2c8154405f29d2317"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/outer-g.stderr",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/outer-g.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/outer-g.stdout",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/outer-g.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/owned-process-census-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/owned-process-census-g.json",
+      "size": 192,
+      "sha256": "66d87c7641a9af3288c91c0490729259f7bcde9d071a09c684d25e3ad77c7948"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/provider-g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/provider-g.py",
+      "size": 3749,
+      "sha256": "d331b27ee79b22ab541b2d3befc2ce844315038e2a10b765030aed0215f859af"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/query-recipe-freeze-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/query-recipe-freeze-g.json",
+      "size": 2513,
+      "sha256": "883c7bcb43ba51dc80fb77745dad53122b0b78ca0006b5a8ee9686ba0b3457f1"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/run-settings-g.json",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/run-settings-g.json",
+      "size": 1179,
+      "sha256": "5aada9e86f07023243b768c01f1d98fd0553a57fe63111744e7a4334c9fb0154"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/runner-g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/runner-g.py",
+      "size": 9774,
+      "sha256": "7f619106ab316b4afadb86cb5e9dbb77b30f3cb4f6e82d05a3163c18a521e632"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-commerce-workflow-prep-g/test_recipe_g.py",
+      "originalPath": "/private/tmp/ashlar-original-commerce-workflow-prep-g/test_recipe_g.py",
+      "size": 3038,
+      "sha256": "069cb5c10527bf1ebfff945269b3dfbd2c7e1095b93964952075be2162eafdfe"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-original-reader-capacity-independent-source-review-b.json",
+      "originalPath": "/private/tmp/ashlar-original-reader-capacity-independent-source-review-b.json",
+      "size": 1042,
+      "sha256": "3a8be0ee605d6487ee1e5a898fa93f8360c053b64319cedacba615b8afbadd9d"
+    }
+  ],
+  "unchangedOriginalPublicationReferences": [
+    {
+      "repositoryPath": "docs/helix/04-build/evidence/original-commerce-publication-query-20261011-ef/actual.tar.gz",
+      "size": 4383448,
+      "sha256": "7743a2e362f6ee65bd83096772da2f41937e4b48945568cfd3c5dbc3a0d02c9a",
+      "landedCommit": "4ccc29d603a8276bb121e23af033e04828adf531"
+    },
+    {
+      "repositoryPath": "docs/helix/04-build/evidence/original-commerce-publication-query-20261011-ef/inventory.json",
+      "size": 80634,
+      "sha256": "f587e1ef34b6309a46dbd25447cfaba5954babd8201337bc74b61e74a21b9c09",
+      "landedCommit": "4ccc29d603a8276bb121e23af033e04828adf531"
+    },
+    {
+      "repositoryPath": "docs/helix/04-build/evidence/original-commerce-publication-query-20261011-ef/README.md",
+      "size": 1455,
+      "sha256": "349f45e260571df8b6de898b3308aca3cbf00c19ed55d666ae36b51aeabdca63",
+      "landedCommit": "4ccc29d603a8276bb121e23af033e04828adf531"
+    }
+  ]
+}
