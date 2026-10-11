@@ -5,7 +5,7 @@ from contextlib import contextmanager
 from ashlar.publication import resolve_publication
 from .source_identity import SOURCE_SHA
 from .delta_custody import encoded
-LAYOUT_SHA = 'ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e'
+from .commerce_binding import compiler_request, LAYOUT_SHA
 
 class ReaderCleanupState:
     """One reader's actual cleanup failure facts; no exception payload retention."""
@@ -41,44 +41,6 @@ def _close_observed(action, state, primary):
         raise
 
 
-def compiler_request(sql, model, bindings, manifest, registry, aliases, *, fields=False):
-    """Bind original qualified model identities to explicitly admitted carriers."""
-    if hashlib.sha256(model).hexdigest() != SOURCE_SHA or json.loads(model)['umf'] != '0.8.0':
-        raise ValueError('Exact original model bytes required')
-    versions = json.loads(manifest['table_versions_json'])
-    native = {r['table']: r for r in registry}
-    if len(native) != len(registry) or {t.split('.')[-1] for t in versions} != {'object_current', 'edge_current', 'tombstone', 'whole_source_history'} or set(json.loads(manifest['source_progress_json'])) != {'private-original-commerce-fixture'}:
-        raise ValueError('Complete original commerce publication/source inventory required')
-    if set(aliases) != set(versions) or len(set(aliases.values())) != len(aliases):
-        raise ValueError('Complete injective original catalog alias inventory required')
-    if any((name not in native for name in versions)):
-        raise ValueError('Original publication registry incomplete')
-    tables = [{'name': aliases[t].split('.'), 'uuid': native[t]['uuid'], 'version': v} for (t, v) in sorted(versions.items())]
-    object_table = next((t for t in versions if t.endswith('.object_current')))
-    index = sorted(versions).index(object_table)
-    pin = {'documentId': 'urn:umf:domain:commerce', 'revision': SOURCE_SHA, 'sha256': SOURCE_SHA, 'umfVersion': '0.8.0'}
-    records = []
-    for element in ('products', 'suppliers'):
-        entry = next((b for b in bindings['types'] if b['identity'] == ['object', 'domain', element]))
-        logical = {'documentId': pin['documentId'], 'module': 'domain', 'element': element, 'revision': SOURCE_SHA}
-        properties = []
-        if fields:
-            if bindings['profile'] != 'ashlar-commerce-development-bindings/0.2':
-                raise ValueError('Field homes require explicit canonical development property-ID bindings')
-            document = json.loads(model)
-            record = next((e for m in document['modules'] if m['id'] == 'domain' for e in m['elements'] if e['id'] == element))
-            property_inventory = {tuple(p['identity']): p['property_id'] for p in bindings['properties']}
-            if len(property_inventory) != len(bindings['properties']) or len(set(property_inventory.values())) != len(property_inventory):
-                raise ValueError('Injective explicit qualified Field carrier map required')
-            for member in record['members']:
-                identity = (pin['documentId'], member['module'], member['element'])
-                if identity not in property_inventory:
-                    raise ValueError('Missing original qualified Field carrier binding')
-                properties.append({'logical': {'documentId': identity[0], 'module': identity[1], 'element': identity[2], 'revision': SOURCE_SHA}, 'home': {'kind': 'props', 'propertyId': property_inventory[identity]}})
-        records.append({'kind': 'object', 'logical': logical, 'sourceSystem': 'private-original-commerce-fixture', 'typeId': entry['type_id'], 'table': index, 'schemaRevision': SOURCE_SHA, 'properties': properties})
-    binding = {'profile': 'ashlar-databricks-candidate/0.1.0', 'layoutRevision': 'ashlar-delta/0.3', 'layoutSha256': LAYOUT_SHA, 'modelPins': [pin], 'publication': {'id': manifest['publication_id'], 'manifestUuid': native[next((t for t in native if t.endswith('.manifest')))]['uuid'], 'tables': tables}, 'records': records}
-    raw = encoded(binding)
-    return {'interfaceVersion': 'weft-compile/0.2.0', 'dialect': 'weft-sql/0.2.0', 'sql': sql, 'modules': [{'documentJson': model.decode(), 'pin': pin, 'selectedModuleIds': ['domain']}], 'target': {'backendId': 'ashlar.databricks', 'backendVersion': '0.1.0-candidate', 'targetProfile': 'dbsql-candidate', 'bindingJson': raw, 'bindingSha256': hashlib.sha256(raw.encode()).hexdigest()}, 'options': {'allowCandidate': True}}
 
 def execute_guarded(provider, request, artifact, *, context):
     """Full resolver/pin closure encloses checks, SQL and buffered-result release.
@@ -340,6 +302,18 @@ class PublicationProvider:
         schema = [[f.name, f.dataType.simpleString().upper()] for f in frame.schema.fields]
         return {'schema': schema, 'rows': [list(row) for row in frame.collect()]}
 
+def original_commerce_reader_bindings(model, bindings, manifest, registry, aliases):
+    """Reconstruct closed original reader carrier shapes; bytes grant no authority."""
+    from .commerce_path_request import commerce_path_request
+    request=compiler_request('',model,bindings,manifest,registry,aliases)
+    originals=[request['target']['bindingJson'].encode('utf8')]
+    if bindings['profile']=='ashlar-commerce-development-bindings/0.2':
+        field_request=compiler_request('',model,bindings,manifest,registry,aliases,fields=True)
+        originals.append(field_request['target']['bindingJson'].encode('utf8'))
+        complete_request=commerce_path_request('',model,bindings,manifest,registry,aliases,profile='paths-keys')
+        originals.append(complete_request['target']['bindingJson'].encode('utf8'))
+    return tuple(originals)
+
 @contextmanager
 def open_commerce_reader(spark, publication, *, cleanup_state=None):
     """Open original custody/authority ports without submitting native writes.
@@ -399,10 +373,7 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None):
         policy.active = {'request': request, 'steps': plan['selected_steps'], 'expected': expected, 'manifest': manifest, 'publication_id': manifest['publication_id'], 'previous_progress': {}, 'progress': json.loads(manifest['source_progress_json']), 'previous_expected': plan['complete_prior_oracle'], 'generated_steps': plan['generated_steps'], 'elisions': plan['zero_match_elisions']}
         aliases = {t: t.replace('local.', 'spark_catalog.', 1) for t in json.loads(manifest['table_versions_json'])}
         req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
-        original_bindings = [req['target']['bindingJson'].encode('utf8')]
-        if bindings['profile'] == 'ashlar-commerce-development-bindings/0.2':
-            field_request = compiler_request('', model, bindings, manifest, original_report['table_registry'], aliases, fields=True)
-            original_bindings.append(field_request['target']['bindingJson'].encode('utf8'))
+        original_bindings = original_commerce_reader_bindings(model, bindings, manifest, original_report['table_registry'], aliases)
         provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state, original_bindings=tuple(original_bindings))
         yield SimpleNamespace(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode())
         if native_files() != original_native:

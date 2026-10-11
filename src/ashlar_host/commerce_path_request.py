@@ -8,7 +8,7 @@ import json
 import re
 
 from .delta_custody import encoded
-from .publication_reader import compiler_request as base_request
+from .commerce_binding import compiler_request as base_request
 from .source_identity import SOURCE_SHA
 from .path_admission import BACKEND, PATHS_KEYS_BACKEND
 

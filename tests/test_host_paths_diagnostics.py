@@ -253,6 +253,7 @@ class DiagnosticWorkflowTests(unittest.TestCase):
                         expected={}, model=b'{}', graph=b'{}',
                         bindings={'profile':'ashlar-commerce-development-bindings/0.1'}, original_native={},
                         compiler_request=lambda *args: {'target': {'bindingJson': '{}'}},
+                        original_commerce_reader_bindings=lambda *args: (b'{}',),
                         PublicationProvider=provider_factory,
                         native_files=native_files, cleanup_state=state)
                     exec(fragment, namespace)
