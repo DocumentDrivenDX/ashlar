@@ -656,6 +656,45 @@ UUID/location, retention and full four-role bags under actual exclusion/pins. It
 permits existing-record SELECT/read-transaction commit only, never source append,
 prepare/effect/ACK submission, journal repair or mutable-latest fallback.
 
+`MedicalPublicationPlan` MUST bind an exact `MedicalAdmission`, its complete
+original `OutboxTransaction`, deterministic request and independent four-role
+oracle. Construction and renewal MUST preserve the original feed/epoch,
+checkpoint, declared schema revisions and generated effect correspondence;
+caller-supplied expected bags or a commerce admission cannot confer this grant.
+
+`NativeDriver.observe_original_medical_publication(plan, descriptor,
+context=context, bounds=bounds)` MUST require that exact construction-bound plan
+and admission, a held native writer and matching pins throughout capture,
+complete original descriptor/vector
+and all six current registry bindings. `bounds` MUST be exact `VerificationBounds`
+selected within the owning medical configuration's limits. The observation MUST
+compare all four selected immutable-version bags to the independent medical
+oracle and their complete schemas to checked UMF-generated carrier schemas,
+including field order, types, nullability and metadata. Bounds apply before
+transfer, cumulatively across all four roles. Identity-only snapshots, row counts
+or inferred schemas cannot satisfy this check.
+
+The medical publication adapter MUST require this observation before delegating
+protected ACK to the shared publisher. The actual protected ACK publication
+admission MUST renew the same observation within its acquired pin interval;
+an earlier adapter check cannot substitute for that current check. Observation
+MUST reuse an already held matching pin interval or acquire and close one under
+the held writer, never nest or bypass the shared pin gate. Settled replay MUST
+perform the same
+observation, including when no ACK needs submission. Each acquired role MUST
+receive an independent closing observation; all six current UUID/location and
+retention facts and ordinary source/ACK custody MUST renew before release even
+after failure or cancellation. No observation may be cached across intervals or
+used to grant source append, phase resubmission or journal repair.
+
+`OriginalMedicalSourceOwner.read_original(batch, context=context)` MUST require
+its exact construction-bound medical batch and current installation/source
+authority, then independently read the complete original head-one transaction
+through the registered ordinary reader. Head zero, later progress or different
+bytes MUST refuse. Reader and ACK authority MUST renew independently at closing;
+this port MUST NOT open a writer connection or call append. Settled replay uses
+this port, never the append/reply-loss recovery path.
+
 `MedicalReadSourceFactory` MUST accept only an exact
 `OutboxAuthorityRegistration` for the historical medical feed/epoch and preserve
 its reader/ACK connection factories. `NativeDriver.bind_query_sources(factory)`,

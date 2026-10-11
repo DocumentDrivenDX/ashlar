@@ -133,10 +133,35 @@ native publication; different bytes, epoch or further progress refuse. Native
 publication follows the existing request/attempt/handle protocol, full independent
 four-role oracle and durable descriptor validation before protected ACK.
 
+`medical_publication_plan.py` owns `MedicalPublicationPlan` under CONTRACT-001.
+It depends on the public medical admission/oracle and graph/effect planners,
+but not on the native driver or command composition. Original transaction and
+request correspondence are renewed before activation; generated schemas come
+from `local_physical_carriers.py`, never from observed native columns.
+`original_medical_local_publication.py` composes the owning configured entrypoints
+`publish_original_medical_local` and `replay_original_medical_local`. Publication
+uses public `publish_outbox_transaction`, the shared attempt store and stored
+publisher backend; this module cannot implement a second phase or ACK protocol.
+
+The driver owns `observe_original_medical_publication` as specified by
+CONTRACT-001, using the existing bounded transport capture internally. A thin
+medical adapter delegates shared publisher ports and requires that full schema
+and bag observation before ACK. Committed replay also requires the guard when
+ACK is already present. The driver may import the lower plan owner, never the
+command composition. Focused controls must prove schema metadata/nullability
+drift refuses before ACK, original transaction/request/descriptor drift refuses,
+all four role closings run after failure, and exact primary cancellation survives
+cleanup. Native execution remains separately qualified.
+
 Settled replay observes the same original request, descriptor, source progress and
 ACK; full native histories and bags remain unchanged. Replay may reconcile a
 missing required ACK only through the governing publisher recovery protocol, and
-must not be described as read-only verification. Read-only reopen uses existing
+must not be described as read-only verification. `medical_publication_sources.py`
+owns the narrow `OriginalMedicalSourceOwner.read_original` port in CONTRACT-001.
+Replay selects this ordinary reader port; it cannot reach the append path or
+writer connection. Controls prove head-one full-byte readback and zero writer
+acquisitions, including on missing source, drift and cancellation.
+Read-only reopen uses existing
 registry/reservations and an independently selected immutable publication, proves
 current source/ACK authority with existing-record SELECT readback, holds actual
 pins, and compares complete four-role bags. It creates no native tables, request,
