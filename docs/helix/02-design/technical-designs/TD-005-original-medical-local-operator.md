@@ -250,6 +250,16 @@ Installed native commands own isolated process-group supervision and descendant
 reaping, not just a Python deadline around JVM work. Current sessions cannot be
 silently reused. Renew actual source/native/lease/runtime/config custody on every
 acquired interval, including opening failure, body failure, timeout and cancellation.
+The parent measures the configured whole-invocation deadline from worker launch
+and the separate 300-second native deadline from the worker's entry into native
+session acquisition. The native interval includes session opening, work and
+cleanup; it ends only after successful session/context cleanup. A bounded private
+control channel identifies that interval independently of stdout/stderr. Missing,
+duplicate, out-of-order or malformed control messages refuse; a successful child
+exit cannot conceal an unfinished native interval. Timeout or cancellation kills
+and reaps the owned process group, including descendants that outlive the worker.
+These limits belong to this medical profile and do not alter another workflow's
+deadline or reuse a current Spark session.
 Attempt independent closing checks while their leases/pins remain live; release
 resources afterwards through primary-preserving cleanup. Retain incomplete owned
 state on uncertainty; evidence failure does not imply rollback. Release bounded
