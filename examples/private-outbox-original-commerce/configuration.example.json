@@ -1,0 +1,40 @@
+{
+  "docker": "/usr/local/bin/docker",
+  "docker_host": "unix:///Users/erik/.orbstack/run/docker.sock",
+  "image": "postgres@sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+  "container": "ashlar-private-outbox-original-local-a",
+  "port": 25435,
+  "database": "truss_e2e",
+  "authentication": "isolated-loopback-trust",
+  "output": "/private/tmp/ashlar-private-outbox-original-commerce-a",
+  "sources": [
+    {
+      "scope": {
+        "service_schema": "ashlar_ack_service_original_a",
+        "scope_id": "b8b59d98-131e-460d-a2b1-000000000001",
+        "installation_id": "07c04255-73c9-40f3-a16a-000000000001",
+        "consumer": "private-original-commerce-local-a",
+        "feed": "private-original-commerce-fixture",
+        "epoch": "original-commerce-v1"
+      },
+      "schema": "ashlar_ack_source_original_a",
+      "writer": "ashlar_ack_writer_original_a",
+      "reader": "ashlar_ack_reader_original_a",
+      "ack": "ashlar_ack_role_original_a"
+    },
+    {
+      "scope": {
+        "service_schema": "ashlar_ack_service_original_unused",
+        "scope_id": "b8b59d98-131e-460d-a2b1-000000000002",
+        "installation_id": "07c04255-73c9-40f3-a16a-000000000002",
+        "consumer": "private-original-commerce-unused",
+        "feed": "private-unused-fixture",
+        "epoch": "unused-private-epoch"
+      },
+      "schema": "ashlar_ack_source_original_unused",
+      "writer": "ashlar_ack_writer_original_unused",
+      "reader": "ashlar_ack_reader_original_unused",
+      "ack": "ashlar_ack_role_original_unused"
+    }
+  ]
+}
