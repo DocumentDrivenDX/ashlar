@@ -1,0 +1,92 @@
+{
+  "profile": "ashlar-medical-recovery-refusal-independent/0.1",
+  "result": "failed-attempt-state-unchanged",
+  "freezeSha256": "d50a6b363c56071a223537ab92b6e76d159bf2b9d706171af0cc45c28f3b258e",
+  "auditESha256": "342b752cb078167c96f6cfe2edb2901fd6f5485fc40e02223de7c6e60d7c7a07",
+  "journal": {
+    "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/operations.sqlite",
+    "bytes": 8601600,
+    "sha256": "ab927f4e3b58d0832b1f70ea4c0c3eb04f515640ad51057ae42f386f82a2bfd6",
+    "counts": {
+      "local_installation": 1,
+      "local_operation": 5,
+      "local_plan": 1,
+      "local_publication_artifact": 0,
+      "local_source_plan": 1
+    },
+    "states": [
+      [
+        "committed",
+        5
+      ]
+    ],
+    "matchesPreFAndReadOnlyClosing": true
+  },
+  "nativeTargets": [
+    {
+      "table": "local.original_medical.object_current",
+      "uuid": "83d9e673-49a9-4602-bb81-b01195947fa9",
+      "version": 2,
+      "logCount": 3,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    },
+    {
+      "table": "local.original_medical.edge_current",
+      "uuid": "e062de8e-88b3-4226-818f-22905bad144c",
+      "version": 2,
+      "logCount": 3,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    },
+    {
+      "table": "local.original_medical.tombstone",
+      "uuid": "e9bfc3e5-dd61-4f16-ba22-f3aa87bdc509",
+      "version": 1,
+      "logCount": 2,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    },
+    {
+      "table": "local.original_medical.whole_source_history",
+      "uuid": "bfa27f6b-0911-426a-ad81-20731335e7da",
+      "version": 2,
+      "logCount": 3,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    },
+    {
+      "table": "local.original_medical.attempts",
+      "uuid": "d33cee14-17e0-42e7-bee3-136e9b235c42",
+      "version": 3,
+      "logCount": 4,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    },
+    {
+      "table": "local.original_medical.manifest",
+      "uuid": "e74976c3-6bbd-4b9a-9ff7-9a0fcdf8b151",
+      "version": 1,
+      "logCount": 2,
+      "allRetainedLogPinsUnchanged": true,
+      "completeGeneratedSchemaParity": true,
+      "retainedParquetPinsUnchanged": true
+    }
+  ],
+  "output": {
+    "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery-output",
+    "entries": [],
+    "stdoutBytes": 0,
+    "parentFailure": {
+      "cause": "child-exit",
+      "native_phase": "ready",
+      "status": 2
+    }
+  },
+  "scope": "Read-only JSON/file hashes and SQLite mode=ro/query_only inspection. Native logs, versions, complete generated schemas and retained Parquet bytes match E audit. No Spark, native process, effects, repair or source/ACK SELECT performed; no current source/ACK authority or recovery/publication pass claim."
+}

@@ -1,0 +1,277 @@
+{
+  "profile": "ashlar-medical-installed-recovery-command-freeze/0.1",
+  "sourceRevision": "f2ddc788b4d7951701e06f235296c0ec720c3563",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/command.json",
+      "bytes": 923,
+      "sha256": "5edc557f94dd9c35ee366465c231dfa5105371fee9f583021395adeccfd110a7"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/configuration.json",
+      "bytes": 6035,
+      "sha256": "44528bd0186dd36a7aaffc61f4648c6dc5227241e5dd3f414c5735260672c3bb"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/runtime-selection.json",
+      "bytes": 8120,
+      "sha256": "acdf59424fd12699f816300934a088b7dd41f45e6757f175ff99697c9be6ee04"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/namespace.json",
+      "bytes": 732953,
+      "sha256": "55d42d80733843ee53c38e02ec84b0dd6fce6c1674537c3d885b1c2dfca5d3b2"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/metadata.json",
+      "bytes": 787673,
+      "sha256": "052e526dfff3dc532f23f94ac69d16334e2d6a42e3e7ef476a91ba1182b5ee3d"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/closure.json",
+      "bytes": 727436,
+      "sha256": "eeb21263086fa1c587f89f8080a01a61ff6e0e03e94bf0532eba3fe4c29f962a"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/source-inventory.json",
+      "bytes": 41646,
+      "sha256": "0d0b6a4ff7728d5fb190e92744d7a9b3f1fedb07cf1b8d8a7a41abac840baf46"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/wheel-payload-inventory.json",
+      "bytes": 41598,
+      "sha256": "79a92e94e8087b28a86cac5f20a212e984be9bb92e4e6eb9029fe22455550706"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/schemas.json",
+      "bytes": 12472,
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/import-custody-observation.json",
+      "bytes": 901,
+      "sha256": "57d07b5561f448c806a6e21da962f6058955ccf79a8dfe3ee63e2ae299a810b1"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/preparation-facts.json",
+      "bytes": 403,
+      "sha256": "e433b7e0a7f1888459f21639be0781ef389f9a6de00f07373e9a345f69f5e17c"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/prepare-runtime.py",
+      "bytes": 8021,
+      "sha256": "edcae28e584cdbec7667da74160aa7c65adcd1bec7690cbbf0895851be67c9c0"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/check-runtime.py",
+      "bytes": 2710,
+      "sha256": "39ebb476f1e619304c12a9d97902ee2e249837408ba2b940d8d239e98b870db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/observe-source.py",
+      "bytes": 2674,
+      "sha256": "e4226366b09cf58515f92e9f0acc75071a3a6055dc0488b0e09f2d151978d5ab"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/source-readonly-observation.json",
+      "bytes": 677,
+      "sha256": "38b813bfbbbaf1befc752bfd0fa3f952e3f58b312e1d949187e4c8d4d4253ced"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/partial-journal-observation.json",
+      "bytes": 543,
+      "sha256": "ba14d493123cc76ff0a5c2751dbb1caef1e7d6c9d0e53c378cd3a869e1eb9db4"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-f/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1223914,
+      "sha256": "e41e0de1c59affb1c32dcbca90a0b2ab130f21cf97db0e20cf22112934790645"
+    }
+  ],
+  "selectedResources": [
+    {
+      "path": "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+      "bytes": 18058560,
+      "sha256": "4158f03e1bae2b759f25a1ba1fbdab8bfb7161eba4caf22e28f0915986625bbc"
+    },
+    {
+      "bytes": 51584,
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/java",
+      "sha256": "2aee02a39a0817c27501e853728c28b79f48d114dbde7c88cbf698ecf1680f63"
+    },
+    {
+      "bytes": 29,
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/lib/jvm.cfg",
+      "sha256": "aa9efb969444c1484e29adecab55a122458090616e766b2f1230ef05bc3867e0"
+    },
+    {
+      "bytes": 58079568,
+      "path": "/opt/homebrew/Cellar/bun/1.4.2/bin/bun",
+      "sha256": "4d410fa7e06d8cb3c6694c85cb61f3024cc4cd5cbe78764c58692384ee06e6b9"
+    },
+    {
+      "bytes": 200560,
+      "path": "/usr/bin/git",
+      "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2"
+    },
+    {
+      "bytes": 7727374,
+      "path": "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-spark_2.13-4.0.0.jar",
+      "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e"
+    },
+    {
+      "bytes": 69732,
+      "path": "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-storage-4.0.0.jar",
+      "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+    },
+    {
+      "bytes": 5054,
+      "path": "/Users/erik/Projects/tablespec/.venv/lib/python3.12/site-packages/pyspark/__init__.py",
+      "sha256": "e1776e11568f4231f8079502270a2c84828f335ef61cc60561b225d636c7bcdc"
+    },
+    {
+      "bytes": 4082,
+      "path": "/Users/erik/Projects/tablespec/.venv/lib/python3.12/site-packages/pyspark-4.0.1.dist-info/METADATA",
+      "sha256": "15feac5dad3993948e38faf5695a73bbadde463739e6905037f1646bc95a0266"
+    },
+    {
+      "bytes": 753,
+      "path": "/private/tmp/ashlar-indexed-delta4-python-20261010-a/delta/__init__.py",
+      "sha256": "59fa1d8387ae2a73bfbeb9e4c14c9d69107e89cf7e95e38d37239225ea544094"
+    },
+    {
+      "bytes": 1949,
+      "path": "/private/tmp/ashlar-indexed-delta4-python-20261010-a/delta_spark-4.0.0.dist-info/METADATA",
+      "sha256": "4b2dede7719f3e04d5530cb0768d61dd8c25a1773607d6424722a72aeef08b35"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-psycopg312-20261011-a/lib/python3.12/site-packages/typing_extensions.py",
+      "bytes": 165012,
+      "sha256": "4040ca1a1ecbee00d1385c12a93084d1c5bd46f0b774f07e5ae7e91c4f55e696"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-psycopg312-20261011-a/lib/python3.12/site-packages/psycopg/__init__.py",
+      "bytes": 3423,
+      "sha256": "5f1607a193cb63e60a0c5687209d2bd0e3029760b9559e9968f31d6b5d82c778"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-psycopg312-20261011-a/lib/python3.12/site-packages/psycopg_binary/__init__.py",
+      "bytes": 402,
+      "sha256": "e64c70f50767f2e6c88b88a4f769b164eb23af950ed2fc2ae53e52d018425868"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-psycopg312-20261011-a/lib/python3.12/site-packages/psycopg-3.2.13.dist-info/METADATA",
+      "bytes": 4475,
+      "sha256": "8d7f2fbac4fbd46d8da97b448bab8315091e367748a0cb79dc5387965c5c2b37"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-psycopg312-20261011-a/lib/python3.12/site-packages/psycopg_binary-3.2.13.dist-info/METADATA",
+      "bytes": 2850,
+      "sha256": "4acafde79dfed2b37e234946066430b6b450be80328b3c6629c24dbe0fd6b33e"
+    }
+  ],
+  "originalReferences": [
+    {
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/installation.json",
+      "bytes": 18832,
+      "sha256": "276be8936b28c2a4ddaebdaaf47da4d78e9b76f6746c38dcdf6a6578bb642c9a"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-publication-installed-prep-e/publication-output/request.json",
+      "bytes": 382102,
+      "sha256": "9de61334ad159bd4d1cc8373c7cbb2d1a4025e1c654cd76b90b0275859a2e3ea"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-source-fixture-prep-e/fixture-inventory/inventory.json",
+      "bytes": 2230,
+      "sha256": "736224b3f69b3c36c0d1ac824503a61bb69d3504f102bd7ab789383bba167e09"
+    }
+  ],
+  "command": {
+    "profile": "ashlar-medical-installed-recovery-command/0.1",
+    "argv": [
+      "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+      "-I",
+      "-B",
+      "-m",
+      "ashlar",
+      "recover-original-medical",
+      "--configuration",
+      "/private/tmp/ashlar-medical-recovery-installed-prep-f/configuration.json"
+    ],
+    "cwd": "/private/tmp/ashlar-medical-recovery-installed-prep-f",
+    "stdout": "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stdout",
+    "stderr": "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stderr",
+    "nativeSeconds": 300,
+    "workerWholeSeconds": 510,
+    "scope": "Preparation only. Actual reviewed CLI parent owns deadlines/processgroup cleanup and emits closed cause/status/nativephase on failure. Original partial Cjournal/native state and Erequest/source are selected; no initialization, sourceappend, newfixture or effects duringpreparation."
+  },
+  "facts": {
+    "closureFiles": 2886,
+    "namespaceEntries": 3469,
+    "referenceBytes": 2248062,
+    "selectedFiles": 16,
+    "selectedBytes": 84375407,
+    "scope": "Recovery preparation/import correspondence only; exact existing Cinstallation/Erequest and current registered Esource selection. No recovery effects or native authority granted by records.",
+    "sourceRevision": "f2ddc788b4d7951701e06f235296c0ec720c3563"
+  },
+  "checks": {
+    "normalWheel": {
+      "session": 88050,
+      "exit": 0,
+      "terminal": "89bb4a"
+    },
+    "offlineInstall": {
+      "session": 13514,
+      "exit": 0,
+      "terminal": "8e707d"
+    },
+    "finiteDescriptors": {
+      "session": 70724,
+      "exit": 0,
+      "terminal": "845f41"
+    },
+    "actualParserHandoffRequestImportsRecord": {
+      "session": 6698,
+      "exit": 0,
+      "terminal": "d8add3",
+      "members": 244
+    },
+    "ordinaryReaderAckOpeningClosing": {
+      "exit": 0,
+      "chunk": "bad063",
+      "head": 1,
+      "batches": 1,
+      "ackPosition": 0,
+      "receiptPresent": false,
+      "warnings": "Two /dev/null passfile warnings retained; explicitnoambient credentials"
+    },
+    "localJournalReadOnlyParity": {
+      "states": [
+        [
+          "committed",
+          5
+        ]
+      ],
+      "counts": {
+        "local_plan": 1,
+        "local_source_plan": 1,
+        "local_publication_artifact": 0
+      }
+    }
+  },
+  "freshAbsence": {
+    "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery-output": true,
+    "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stdout": true,
+    "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stderr": true
+  },
+  "scope": "Exact original partial recovery preparation only. Generator historical unused native-root/native-output local variables are absent; actual SELECTED original C native root exists and is not replaced. No initializer selected/rerun, no newsourcefixture, noappend/ACKsubmit/nativeeffects. C/E historic artifacts unchanged; current installedsite supersedes earlierselection onlyfor F execution. Prior qualified SDKhashes reused with currentfinite metadata/namespace and selectedfile renewal, nowholeSDKrehash.",
+  "launchAuthorized": false,
+  "reviewPending": true,
+  "supersedes": {
+    "path": "/private/tmp/ashlar-medical-installed-recovery-command-freeze-f.json",
+    "bytes": 11133,
+    "sha256": "ea0ffe23d347f4fd6590f982348621bb96ed09d9c3c2083c3c57573c9ff8754d"
+  },
+  "metadataCorrection": "Replaced inherited unprovisioned-initializer facts scope with actual recovery-selection scope; measuredcounts/resourcepins unchanged. Generator retained as actually executed with inherited informational scope; all actualconfiguration/profile/source checks separately retained."
+}

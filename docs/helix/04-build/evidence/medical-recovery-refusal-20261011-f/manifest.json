@@ -1,0 +1,50 @@
+{
+  "profile": "ashlar-medical-recovery-refusal/0.1",
+  "source_revision": "f2ddc788b4d7951701e06f235296c0ec720c3563",
+  "process": {
+    "session": 19294,
+    "exit_code": 2,
+    "terminal": true,
+    "reaped": true,
+    "terminal_chunk": "f49342"
+  },
+  "diagnostic": {
+    "cause": "child-exit",
+    "native_phase": "ready",
+    "status": 2
+  },
+  "execution_environment": "Default workspace shell sandbox; no escalation used for this attempt. A sandbox cause has not been established.",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 923,
+      "sha256": "5edc557f94dd9c35ee366465c231dfa5105371fee9f583021395adeccfd110a7"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 6035,
+      "sha256": "44528bd0186dd36a7aaffc61f4648c6dc5227241e5dd3f414c5735260672c3bb"
+    },
+    {
+      "path": "independent-state-audit.json",
+      "bytes": 3150,
+      "sha256": "9347c710e84a53682b1d68db459daabeeceaf5cf8041946fcc897acc21f592c3"
+    },
+    {
+      "path": "preparation-freeze.json",
+      "bytes": 11702,
+      "sha256": "d50a6b363c56071a223537ab92b6e76d159bf2b9d706171af0cc45c28f3b258e"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 99,
+      "sha256": "790349709ae79637845ccb15acfa89951162ae0eb9a62034883b75d0d4979d41"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Actual installed public recovery refused before native phase begin. Independent read-only journal/Delta log and retained Parquet hash parity confirms unchanged retained partial state. Empty recovery output; no publication, recovery, replay, read-only reopen, or durable ACK pass. Current PostgreSQL source/ACK not observed by closing audit. Exact underlying refusal remains under investigation; no retry, reset, reappend, SDK mutation or capacity change."
+}

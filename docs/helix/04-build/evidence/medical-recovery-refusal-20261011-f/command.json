@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-medical-installed-recovery-command/0.1",
+  "argv": [
+    "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "recover-original-medical",
+    "--configuration",
+    "/private/tmp/ashlar-medical-recovery-installed-prep-f/configuration.json"
+  ],
+  "cwd": "/private/tmp/ashlar-medical-recovery-installed-prep-f",
+  "stdout": "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stdout",
+  "stderr": "/private/tmp/ashlar-medical-recovery-installed-prep-f/recovery.stderr",
+  "nativeSeconds": 300,
+  "workerWholeSeconds": 510,
+  "scope": "Preparation only. Actual reviewed CLI parent owns deadlines/processgroup cleanup and emits closed cause/status/nativephase on failure. Original partial Cjournal/native state and Erequest/source are selected; no initialization, sourceappend, newfixture or effects duringpreparation."
+}
