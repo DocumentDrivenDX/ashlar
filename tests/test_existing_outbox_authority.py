@@ -78,10 +78,35 @@ class Tests(unittest.TestCase):
         gates = [(sql, args) for sql, args in queries if "AS installation_write" in sql]
         self.assertTrue(gates)
         for sql, args in gates:
-            self.assertEqual((args['batch'], args['head'], args['append']), (101, 102, 103))
+            self.assertEqual((args['batch'], args['head'], args['append']), ('101', '102', '103'))
             self.assertIn("current_user,CAST(:append AS oid),'EXECUTE'", sql)
             self.assertIn("current_user,CAST(:batch AS oid),'INSERT", sql)
             self.assertNotIn('GRANT', sql)
+
+    def test_real_session_adapter_accepts_checked_oid_decimal_parameters(self):
+        from ashlar_host.existing_outbox_authority import privileges
+        outer = self
+        executions = []
+        class Cursor:
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def execute(self, sql, parameters):
+                executions.append((sql, dict(parameters)))
+                rows = outer.observe(sql, parameters, 'ordinary_ack').rows
+                self.description = [SimpleNamespace(name=key) for key in rows[0]]
+                self.values = [tuple(row[key] for key in rows[0]) for row in rows]
+            def fetchmany(self, maximum): return self.values[:maximum]
+        class Connection:
+            def cursor(self): return Cursor()
+        privileges(Session(Connection()), self.selected, ack=True)
+        self.assertEqual(len(executions), 2)
+        sql, parameters = executions[-1]
+        self.assertEqual((parameters['batch'], parameters['head'], parameters['append']), ('101', '102', '103'))
+        self.assertTrue(all(type(value) is str for value in parameters.values()))
+        self.assertIn('CAST(%(batch)s AS oid)', sql)
+        self.assertIn('CAST(%(head)s AS oid)', sql)
+        self.assertIn('CAST(%(append)s AS oid)', sql)
+        self.assertNotIn(':batch', sql)
 
     def test_function_oid_may_equal_relation_oid_from_separate_catalog(self):
         for oid in (101, 102):

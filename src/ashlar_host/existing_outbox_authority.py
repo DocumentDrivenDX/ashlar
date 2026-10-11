@@ -110,8 +110,8 @@ def privileges(session, selected, *, ack):
              'observe': service + '.observe(uuid,bigint)',
              'ack': service + '.ack(uuid,bigint,bigint,text,bytea,bytea,bytea,bytea)',
              'scope': service + '.consumer_scope', 'receipt': service + '.receipt',
-             'installation': service + '.installation', 'batch': source_oids['batch'],
-             'head': source_oids['head'], 'append': source_oids['append'], 'source': source},
+             'installation': service + '.installation', 'batch': str(source_oids['batch']),
+             'head': str(source_oids['head']), 'append': str(source_oids['append']), 'source': source},
             ('usage', 'create', 'binding', 'observe', 'ack', 'installation_write', 'batch_write',
              'head_write', 'append', 'source_owner', 'scope_write', 'receipt_write', 'owner'))
         expected = {'usage': True, 'create': False, 'binding': True, 'observe': True,
