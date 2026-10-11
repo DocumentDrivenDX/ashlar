@@ -35,6 +35,14 @@ class Spark:
             return Frame([Row(id=t['id'],location=Path(path).as_uri(),partitionColumns=[],properties=t['properties'],minReaderVersion=1,minWriterVersion=2)])
         return Frame(t['history'])
 class Tests(unittest.TestCase):
+    def test_selected_journal_budget_refuses_after_creation_and_closes_native(self):
+        self.config=replace(self.config,bounds=replace(self.config.bounds,journal_bytes=1))
+        with self.ports(),self.assertRaisesRegex(PermissionError,'journal main-file budget exceeded'):
+            initialize_original_medical_local(self.config)
+        self.assertIn('session-close',self.events)
+        self.assertIn('transport-close',self.events)
+        self.assertTrue((self.config.root/'operations.sqlite').exists())
+
     def test_supervision_refuses_foreign_owner_before_initialization(self):
         with self.assertRaises(ValueError):
             initialize_original_medical_local(self.config, supervision=object())

@@ -9,6 +9,7 @@ from pathlib import Path
 import stat
 from urllib.parse import urlsplit,unquote
 from .delta_custody import DeltaTarget,LocalDeltaTransport
+from .medical_installation import require_medical_journal_budget
 from .driver import PrivatePolicy
 from .lifecycle import finish,owned_context
 from .local_physical_carriers import original_local_physical_carriers,ORIGINAL_LOCAL_PHYSICAL_PROVENANCE
@@ -53,6 +54,7 @@ class MedicalBootstrapPolicy(PrivatePolicy):
         self.root_fd=root_fd;self.output_fd=output_fd;self.lock_fd=lock_fd;self.parents=parents
         self.identities=(_identity(config.root,root_fd,mode=0o700),_identity(config.output,output_fd,mode=0o700),_identity(config.root/'.evolution-operator.lock',lock_fd,False,0o600))
         self.original_config=_bounded(_configuration(config),config.bounds.input_bytes)
+        self.original_journal=config.root/'operations.sqlite';self.original_journal_bytes=config.bounds.journal_bytes
     def renew(self):
         def config():
             self.config.__post_init__()
@@ -62,7 +64,10 @@ class MedicalBootstrapPolicy(PrivatePolicy):
                 if _identity(path)!=original:raise PermissionError('Medical initialization parent changed')
             actual=(_identity(self.config.root,self.root_fd,mode=0o700),_identity(self.config.output,self.output_fd,mode=0o700),_identity(self.config.root/'.evolution-operator.lock',self.lock_fd,False,0o600))
             if actual!=self.identities:raise PermissionError('Medical bootstrap root/output/lock changed')
-        finish(None,[config,directories,self.custody.renew,self.dataset.renew,self.schemas])
+        def journal():
+            if self.original_journal.exists()or self.original_journal.is_symlink():
+                require_medical_journal_budget(self.original_journal,self.original_journal_bytes)
+        finish(None,[config,directories,journal,self.custody.renew,self.dataset.renew,self.schemas])
     @contextmanager
     def writer(self,*args):
         primary=None
