@@ -1,7 +1,8 @@
 """Installed medical initialization with explicit runtime and worker custody."""
-from contextlib import redirect_stdout
+from contextlib import contextmanager, redirect_stdout
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -73,6 +74,20 @@ def run_original_medical_initialization_command(configuration):
     return result
 
 
+@contextmanager
+def _worker_diagnostic_interval():
+    """Keep Python and inherited native fd-one writes outside the JSON protocol."""
+    descriptor=None;primary=None
+    try:
+        sys.stdout.flush();sys.stderr.flush()
+        descriptor=os.dup(1)
+        os.dup2(2,1)
+        with redirect_stdout(sys.stderr):yield
+    except BaseException as error:primary=error
+    finish(primary,[sys.stderr.flush]+([] if descriptor is None else
+        [lambda:os.dup2(descriptor,1),lambda:os.close(descriptor)]))
+
+
 def _worker_main():
     import argparse
     parser=argparse.ArgumentParser()
@@ -83,8 +98,10 @@ def _worker_main():
     phase=OriginalMedicalNativePhase(args.native_phase_fd)
     file=InvocationFile.read(Path(args.configuration),MAX_CONFIGURATION)
     config=_initialization(file.raw)
+    if hashlib.sha256(file.raw).hexdigest()!=args.sha256:
+        raise PermissionError('Original selected medical worker configuration differs')
     # Native/producer diagnostics cannot enter the result protocol.
-    with redirect_stdout(sys.stderr):
+    with _worker_diagnostic_interval():
         result=execute_original_medical_initialization(Path(args.configuration),
             expected_sha256=args.sha256,phase=phase)
     file.renew(MAX_CONFIGURATION)

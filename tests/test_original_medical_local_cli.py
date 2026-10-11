@@ -86,3 +86,22 @@ class Tests(unittest.TestCase):
         code="import sys;sys.path.insert(0,"+repr(str(root/'src'))+");from ashlar.cli import main;sys.argv=['ashlar','initialize-original-medical','--help'];\ntry:main()\nexcept SystemExit as e:assert e.code==0\nassert not any(n.startswith('ashlar_host')or n.startswith('pyspark')for n in sys.modules)"
         result=subprocess.run([sys.executable,'-I','-B','-S','-c',code],stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
         self.assertEqual(result.returncode,0,result.stderr)
+
+    def test_actual_diagnostic_interval_routes_python_and_native_stdout(self):
+        root=Path(__file__).resolve().parents[1]
+        code="import sys,os;sys.path.insert(0,"+repr(str(root/'src'))+");from ashlar_host.original_medical_local_cli import _worker_diagnostic_interval;\nwith _worker_diagnostic_interval():\n print('python diagnostic');os.write(1,b'native diagnostic\\n')\nprint('protocol')"
+        result=subprocess.run([sys.executable,'-I','-B','-S','-c',code],stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(result.stdout,b'protocol\n')
+        self.assertEqual(set(result.stderr.splitlines()),{b'python diagnostic',b'native diagnostic'})
+    def test_diagnostic_cancellation_attempts_restore_and_descriptor_close(self):
+        from ashlar_host.original_medical_local_cli import _worker_diagnostic_interval
+        cancel=KeyboardInterrupt();calls=[]
+        def dup2(old,new):
+            calls.append((old,new))
+            if old==901:raise OSError('secondary restore error')
+        with patch('ashlar_host.original_medical_local_cli.os.dup',return_value=901),patch('ashlar_host.original_medical_local_cli.os.dup2',side_effect=dup2),patch('ashlar_host.original_medical_local_cli.os.close')as close:
+            with self.assertRaises(KeyboardInterrupt)as caught:
+                with _worker_diagnostic_interval():raise cancel
+        self.assertIs(caught.exception,cancel);self.assertEqual(calls,[(2,1),(901,1)])
+        close.assert_called_once_with(901)
