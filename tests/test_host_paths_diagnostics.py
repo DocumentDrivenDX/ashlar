@@ -219,7 +219,10 @@ class DiagnosticWorkflowTests(unittest.TestCase):
                             SystemExit(), GeneratorExit()):
                 with self.subTest(observed=observed, primary=type(primary).__name__):
                     state = reader_owner.ReaderCleanupState() if observed else None
-                    closes, guards = [], []
+                    closes, guards, selected = [], [], []
+                    def provider_factory(*args, **kwargs):
+                        selected.append(kwargs['original_bindings'])
+                        return SimpleNamespace(_reader_closed=False)
                     manifest = {'table_versions_json': '{}', 'source_progress_json': '{}',
                                 'publication_id': 'synthetic'}
                     class Database:
@@ -247,13 +250,15 @@ class DiagnosticWorkflowTests(unittest.TestCase):
                         AckScope=lambda **kwargs: SimpleNamespace(service_schema='ashlar_ack_pipeline_synthetic'),
                         NativeDriver=lambda *args, **kwargs: object(), batch=SimpleNamespace(feed='synthetic'),
                         admission=SimpleNamespace(changes=[]), fixture_columns=lambda *args: [],
-                        expected={}, model=b'{}', graph=b'{}', bindings={}, original_native={},
+                        expected={}, model=b'{}', graph=b'{}',
+                        bindings={'profile':'ashlar-commerce-development-bindings/0.1'}, original_native={},
                         compiler_request=lambda *args: {'target': {'bindingJson': '{}'}},
-                        PublicationProvider=lambda *args, **kwargs: SimpleNamespace(_reader_closed=False),
+                        PublicationProvider=provider_factory,
                         native_files=native_files, cleanup_state=state)
                     exec(fragment, namespace)
                     with self.assertRaises(BaseException) as caught:
                         with contextmanager(namespace['exercise'])(): pass
+                    self.assertEqual(selected, [(b'{}',)])
                     self.assertEqual(guards, [True])
                     self.assertIs(caught.exception, primary)
                     self.assertTrue(primary.cleanup_failed)
