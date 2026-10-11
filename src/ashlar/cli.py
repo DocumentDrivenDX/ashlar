@@ -98,7 +98,19 @@ def main():
     for name in ('publish-finite-pack','query-finite-pack'):
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
+    graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
+    for option in ('configuration', 'provider', 'provider-sha256'):
+        graphframes.add_argument('--' + option, required=True)
     args = parser.parse_args()
+    if args.command == 'query-graphframes':
+        from ashlar_host.graphframes_cli import run_graphframes_command
+        try:
+            answer = run_graphframes_command(args.configuration, args.provider, args.provider_sha256)
+            print(json.dumps(answer, sort_keys=True, separators=(',', ':')))
+        except Exception:
+            print('ashlar selected GraphFrames release refused', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command in ('publish-finite-pack','query-finite-pack'):
         from ashlar_host.pack_native_cli import run_finite_pack_command
         try:
