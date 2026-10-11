@@ -1,0 +1,55 @@
+{
+  "profile": "ashlar-safe-original-evidence/0.1",
+  "members": [
+    {
+      "member": "originals/result.json",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic-a/result.json",
+      "bytes": 221,
+      "sha256": "933015de2f96651d5a3c5b671c121cce596a9d52d48a75fc39c4266772f5604a"
+    },
+    {
+      "member": "originals/git-observation.json",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic-a/git-observation.json",
+      "bytes": 463,
+      "sha256": "87b61a487b9eabccf1bbba25f179ffbaca33ee6893698b8924e6067f2c2920c3"
+    },
+    {
+      "member": "originals/git-tmpdir-observation.json",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic-a/git-tmpdir-observation.json",
+      "bytes": 493,
+      "sha256": "81bc4cb5d0ebacf58af2da4f635628c0044ab9e7a09ad0bff9b9fe3bafbd74c2"
+    },
+    {
+      "member": "originals/diagnosis.json",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic-a/diagnosis.json",
+      "bytes": 2075,
+      "sha256": "d91b13407d8fbfc8d5e54c84ffad33146d4983c6dfa79daf337051e96c38ed37"
+    },
+    {
+      "member": "originals/ashlar-medical-f-passive-check.py",
+      "original": "/private/tmp/ashlar-medical-f-passive-check.py",
+      "bytes": 1807,
+      "sha256": "ecf2fb01729bbbfc68d4fa5f65cce40e85e0a6b669ed9f14c2b5c7bbfc842e7b"
+    },
+    {
+      "member": "originals/ashlar-medical-f-producer-diagnostic.py",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic.py",
+      "bytes": 1228,
+      "sha256": "a8cb776f25dc36ec55c4c0ad8a0b6175072c0b084b921cf5d1b01e7d484cb8a9"
+    },
+    {
+      "member": "originals/ashlar-medical-f-git-diagnostic.py",
+      "original": "/private/tmp/ashlar-medical-f-git-diagnostic.py",
+      "bytes": 1030,
+      "sha256": "9e8cc50a90d8b33229d05784b39a4681ae68b1345ee8fdafaef17f82134205a8"
+    }
+  ],
+  "omittedPrivateOriginals": [
+    {
+      "member": "originals/exception.txt",
+      "original": "/private/tmp/ashlar-medical-f-producer-diagnostic-a/exception.txt",
+      "bytes": 1372,
+      "sha256": "639773200eac3fc4308fa2c0d93ad0a155197bd9730d6a3bf1efd9a0fb20e82d"
+    }
+  ]
+}

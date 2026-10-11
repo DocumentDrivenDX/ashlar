@@ -1,0 +1,7 @@
+# Explicit private producer temporary directory
+
+Installed F filesystem/input/handoff checks passed without SDK imports. Packaged `HeldMedicalDataset` then refused before Bun dataset execution: both bounded read-only Git probes returned the exact pinned HEAD and clean status, but emitted a Darwin `confstr` temporary-directory warning. The strict producer rejects any Git stderr. Repeating only those probes with `TMPDIR` equal to the canonical private held diagnostic parent returned empty stderr and passed the unchanged HEAD/status/stderr gate.
+
+The source correction selects the already held output parent as `TMPDIR`, independently of ambient settings. Tests retain warning refusal and parent identity/mode renewal. Seven byte-exact safe originals are retained with original paths and hashes in the inventory. The raw exception/stack remains private and is referenced only by path, size and hash in the inventory; it is excluded from the archive. Diagnostic scripts are scoped retained evidence, not public command output.
+
+This demonstrates a compatible pre-native refusal and a narrow environment correction. The original F worker exception was not retained, so its primary cause remains unattributed. No Bun dataset, native session, lease, recovery, source append or ACK operation ran in these probes; no SDK or original F output was changed. This is not medical publication or recovery qualification.

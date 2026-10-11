@@ -98,7 +98,7 @@ class HeldMedicalDataset:
         if not stat.S_ISDIR(parent.st_mode)or parent.st_uid!=os.getuid()or stat.S_IMODE(parent.st_mode)!=0o700:raise ValueError('Private original producer output parent required')
         self.parent_identity=(parent.st_dev,parent.st_ino,parent.st_uid,parent.st_mode)
         self.output=output;self.script=MedicalFile(RESOURCE_ROOT/'check_medical_dataset.ts',1048576);self.script_bytes=self.script.read()
-        self.environment={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC','GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_SYSTEM':'/dev/null','GIT_TERMINAL_PROMPT':'0'}
+        self.environment={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC','GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_SYSTEM':'/dev/null','GIT_TERMINAL_PROMPT':'0','TMPDIR':str(output.parent)}
         primary=None
         try:
             self._pin()

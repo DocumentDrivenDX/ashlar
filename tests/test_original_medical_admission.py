@@ -52,6 +52,31 @@ class MedicalAdmissionTests(unittest.TestCase):
             self.assertEqual(held(*held.originals),self.observed());meta=held.metadata()
         self.assertEqual(meta['actual_revalidation']['receipt']['residuals'],self.public['receipt']['residuals']);self.assertEqual(meta['actual_revalidation']['booleanReceipts'],self.public['booleanReceipts'])
         self.assertEqual(held.originals,(self.model,self.graph,self.baseline))
+    def test_producer_tmpdir_is_held_private_parent_not_ambient(self):
+        with patch.dict(os.environ,{'TMPDIR':'/foreign/ambient'},clear=False):held=self.held()
+        self.assertEqual(held.environment['TMPDIR'],str(self.root))
+        self.assertTrue(self.calls)
+        self.assertTrue(all(kwargs['environment']['TMPDIR']==str(self.root) for _,kwargs in self.calls))
+
+    def test_git_warning_still_refuses_before_bun(self):
+        def warning(argv,**kwargs):
+            self.calls.append((argv,kwargs))
+            self.assertEqual(kwargs['environment']['TMPDIR'],str(self.root))
+            return (UMF_PIN+'\n').encode(),b'git warning\n'
+        with patch('ashlar_host.medical_producer.capture',side_effect=warning),self.assertRaises(PermissionError):
+            HeldMedicalDataset(self.cfg,*self.paths,self.root/'actual.json')
+        self.assertTrue(all(argv[0]==str(self.cfg.git)for argv,_ in self.calls))
+        self.assertFalse((self.root/'actual.json').exists())
+
+    def test_tmpdir_parent_drift_refuses_even_with_successful_producer(self):
+        def changed(argv,**kwargs):
+            result=self.capture(argv,**kwargs)
+            if argv[0]==str(self.cfg.bun):os.chmod(self.root,0o755)
+            return result
+        with patch('ashlar_host.medical_producer.capture',side_effect=changed),self.assertRaises(PermissionError):
+            HeldMedicalDataset(self.cfg,*self.paths,self.root/'actual.json')
+        os.chmod(self.root,0o700)
+
     def test_admission_full113_and_original_unknown_warning_custody(self):
         owner=self.admission()
         with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):
