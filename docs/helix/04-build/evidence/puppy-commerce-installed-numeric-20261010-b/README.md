@@ -1,0 +1,7 @@
+# Installed exact commerce numerical preparation
+
+The public installed API from Ashlar `6fb8bb82e5726df1d839658c9b644f8221ae7455` prepared the original retained commerce fixture using cached DuckDB 1.5.6 and Python 3.12.14. The whole command exited 0; opening and closing custody passed. Read-only reopening retained all 11 node and 10 edge rows, exact native columns/types, original numeric and lexical fields, endpoints, and carrier aliases independently matched to graph IDs/local IDs. The sealed database hash matches the public preparation receipt.
+
+`actual.tar.gz` retains whole original source/export/public-dataset inputs, raw native captures before comparison, database/model/receipt, installed wheel and RECORD, exact commands/helpers, phase logs, full actual/runtime descriptor inventories and independent reviews. `inventory.json` maps 52 members to their unchanged original bytes. One expressly labelled retrospective root-reported verification record has no original path and is not a process receipt. Copied interpreters and cached runtime binaries remain descriptor-only. Superseded recipe A was never executed; B adds retained native readback and held source/database renewal.
+
+This qualifies actual installed numerical preparation under an explicitly selected retained private fixture policy. The genuine original public producer receipt was validated without rerunning the producer. It does not qualify source activation, production authority, PuppyGraph activation, or the four original graph queries; those remain separate work.

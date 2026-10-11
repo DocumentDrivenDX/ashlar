@@ -1,0 +1,324 @@
+{
+  "descriptorOnly": "Full598-file actual inventory and original runtime closure retain copied Python/SDK/stdlib custody; these binaries are not duplicated.",
+  "format": "ashlar-evidence-inventory/0.1",
+  "members": [
+    {
+      "bytes": 235,
+      "name": "actual/archive.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/archive.json",
+      "sha256": "65c67d909d8d4f71251c9d3ce8ba6d96a2b754863696d9ea870be31edcd79dd8"
+    },
+    {
+      "bytes": 0,
+      "name": "actual/archive.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3573760,
+      "name": "actual/archive.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/archive.stdout",
+      "sha256": "35bc84b96e7a15ebdc610ace90c9a760da57e6e9b2a32dd02433edc9dad66065"
+    },
+    {
+      "bytes": 112286,
+      "name": "actual/generated-custody.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/generated-custody.json",
+      "sha256": "dfb3beede3afda909b4a2938afffa6b82ad12cffbb90ef74fef48d948b837993"
+    },
+    {
+      "bytes": 231,
+      "name": "actual/install.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/install.json",
+      "sha256": "b03fa9e2d5d875b41021b88203d38fe0ad8d7532c6d477a6e6f0b32c33d311ce"
+    },
+    {
+      "bytes": 0,
+      "name": "actual/install.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "name": "actual/install.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 16531,
+      "name": "actual/installed-RECORD.csv",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/installed-RECORD.csv",
+      "sha256": "d4e594fec11c825d554487776d8804fef7f09b8747db085fd9ea762ffba45da6"
+    },
+    {
+      "bytes": 212,
+      "name": "actual/installed-console.txt",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/installed-console.txt",
+      "sha256": "03f09262747613ab5781aad539f53063ca0420e02259759388bd8d2112567709"
+    },
+    {
+      "bytes": 4725,
+      "name": "actual/numeric-preparation.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric-preparation.json",
+      "sha256": "3445208958b25b0f887934ed2369565c6a7c9024848c04e8d48ac66bda76a8a8"
+    },
+    {
+      "bytes": 241,
+      "name": "actual/numeric-prepare.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric-prepare.json",
+      "sha256": "d010e6f866b1f6472ceb7338f090b6c435815d9398f4f7b991d6429f4798da38"
+    },
+    {
+      "bytes": 729,
+      "name": "actual/numeric-prepare.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric-prepare.stderr",
+      "sha256": "ae25a41f530ed0263167364e80343a3b0dd83f6ad6f514a84d234ed5be19f29d"
+    },
+    {
+      "bytes": 185,
+      "name": "actual/numeric-prepare.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric-prepare.stdout",
+      "sha256": "793dec8278f5ca19133c22003b1adc775866d15bf91e666f6bfb7af501bf342f"
+    },
+    {
+      "bytes": 798720,
+      "name": "actual/numeric/commerce-exact.duckdb",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric/commerce-exact.duckdb",
+      "sha256": "74494e8cbeab5e5f812a7713a501a149c54d8b4c44907d3c83fa9b1a55de9031"
+    },
+    {
+      "bytes": 6770,
+      "name": "actual/numeric/model.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric/model.json",
+      "sha256": "406f34da6f25f32ecb42501b257fcedaf01c6986bf62db4c726b45b968168525"
+    },
+    {
+      "bytes": 123314,
+      "name": "actual/numeric/receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/numeric/receipt.json",
+      "sha256": "a40ef431bb7ce4f6d2aae9c21ffbc60e82a35f7c86684f462344b0c730256cff"
+    },
+    {
+      "bytes": 9226,
+      "name": "actual/original-bindings.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/original-bindings.json",
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe"
+    },
+    {
+      "bytes": 6092,
+      "name": "actual/preparation.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/preparation.json",
+      "sha256": "42d05f980e11fbae1c3f25bebed6b8644e477f8d7c757040f45a3846a3b27dae"
+    },
+    {
+      "bytes": 23160,
+      "name": "actual/readonly-edges.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/readonly-edges.json",
+      "sha256": "80a022ed9a64a25f372cd8ee2c8519dfa3a20c0f433397a0e19863a5a582abc2"
+    },
+    {
+      "bytes": 22618,
+      "name": "actual/readonly-nodes.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/readonly-nodes.json",
+      "sha256": "489f039060dab3eb19f117b1d38da4954dadf31d983f081b8951f6b53980f2df"
+    },
+    {
+      "bytes": 226,
+      "name": "actual/venv.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "name": "actual/venv.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "actual/venv.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 24175,
+      "name": "actual/wheel-inventory.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/wheel-inventory.json",
+      "sha256": "73b0ea5438c6469c3a2bfa4e2d542f60d8467d88c278dc10e8b6b03375b28616"
+    },
+    {
+      "bytes": 229,
+      "name": "actual/wheel.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/wheel.json",
+      "sha256": "4ce63760acb8634943275b89ea46765c6d8ef8b2a173d6deed19f55ecf53095e"
+    },
+    {
+      "bytes": 0,
+      "name": "actual/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 757,
+      "name": "actual/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/wheel.stdout",
+      "sha256": "7dc3bf888d13cb60c858a0bdf540c24357f52aa1c05382303a5aa62d3ff8c471"
+    },
+    {
+      "bytes": 1055566,
+      "name": "installed/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-20261010-b/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "6fa48bb967a903c166212328fc5c36bc81e1333fdc3d34f9af3f4cf19834bd5c"
+    },
+    {
+      "bytes": 2037521,
+      "name": "original/commerce-public-dataset-20261009.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-public-dataset-20261009.json",
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16"
+    },
+    {
+      "bytes": 900067,
+      "name": "original/custody.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-graph-export-20261009/custody.json",
+      "sha256": "667f5c8260fe6a37c1838495434c08aaa5ee1331aad507b8a65bac6167c731f8"
+    },
+    {
+      "bytes": 23078,
+      "name": "original/fixture.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/graph/fixture.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "bytes": 27544,
+      "name": "original/ontology.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "bytes": 12489,
+      "name": "original/pack.json",
+      "originalPath": "/Users/erik/Projects/ashlar/examples/domain-packs/commerce/upstream/pack.json",
+      "sha256": "1a03b93174be64e83f8b9e79b115570fe5950e2277780041553f3ef0a782ef1a"
+    },
+    {
+      "bytes": 131524,
+      "name": "original/release.graph.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-graph-export-20261009/release.graph.json",
+      "sha256": "eeef228c5fa69720ac082dc3e19adbd63cebe17d1cdf877af250c8a9908aaed6"
+    },
+    {
+      "bytes": 143538,
+      "name": "recipe/actual-freeze-b.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-actual-freeze-b.json",
+      "sha256": "cca2e3db938825886b31a7f5dd0a702e3821d86d20631e05efd2c898450e474e"
+    },
+    {
+      "bytes": 4914518,
+      "name": "recipe/closure-a.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-closure-a.json",
+      "sha256": "606d36c72fc31d083a27f80690ff1571a5d3cf3f4aa4c97f7c7ce662b9c9fb43"
+    },
+    {
+      "bytes": 2969,
+      "name": "recipe/command-b.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-command-b.json",
+      "sha256": "02fa32457dc59c2a49b057951b123a48b3475e879124e0eceb0de372817c1fcb"
+    },
+    {
+      "bytes": 1328,
+      "name": "recipe/independent-command-review-b.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-independent-command-review-b.json",
+      "sha256": "214351ff392e3614a95cd468fb7c650a8e0cd1ef53f3385604f89282d1501970"
+    },
+    {
+      "bytes": 2853,
+      "name": "recipe/launcher-b.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-launcher-b.py",
+      "sha256": "34427a8d31e6c748ada08f4c90dd30c8592651371a4b9638a015f29d2266e04d"
+    },
+    {
+      "bytes": 3950,
+      "name": "recipe/metadata-b.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-metadata-b.json",
+      "sha256": "7d50b1c197ef6aca8c8a18dd5515970960c7d9e50c059b1b151a9317a1079ef7"
+    },
+    {
+      "bytes": 669,
+      "name": "recipe/outer-b.receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-outer-b.receipt.json",
+      "sha256": "3f79298e0bfcc47efab04e1b0ae0e3ae745f1def85b67b0388657b448a246728"
+    },
+    {
+      "bytes": 8862,
+      "name": "recipe/probe-b.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-probe-b.py",
+      "sha256": "535fe0420db3c012445d0ec55c14d93bc428866fa9da97721967ee87db053d56"
+    },
+    {
+      "bytes": 110,
+      "name": "recipe/runner-b.outer.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-runner-b.outer.stderr",
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61"
+    },
+    {
+      "bytes": 0,
+      "name": "recipe/runner-b.outer.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-runner-b.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 14472,
+      "name": "recipe/runner-b.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-runner-b.py",
+      "sha256": "091777d07aa6fc3e0f3d32e9501a9f1b3d1689182f89af252107e38e1c006462"
+    },
+    {
+      "bytes": 214,
+      "name": "recipe/runner-b.receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-runner-b.receipt.json",
+      "sha256": "012511a61b4837c94d6610480ac51cf53ca5e1617b5e74b43d99229785e2a3a5"
+    },
+    {
+      "bytes": 35364,
+      "name": "recipe/source-inventory-a.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-source-inventory-a.json",
+      "sha256": "d88711a6757e69839aeaaee91693dc58b27d189fc20c7d426c8fa11f7483e434"
+    },
+    {
+      "bytes": 1447,
+      "name": "reviews/independent-actual-review-b.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-independent-actual-review-b.json",
+      "sha256": "cf6ebad7a3f6629f0cfdd7a48902a2c12ba59c7a5baccd67ae82f7a14b617fdf"
+    },
+    {
+      "bytes": 390,
+      "name": "reviews/root-reported-verification.json",
+      "originalPath": null,
+      "sha256": "a12c0d3e5a9071ef9e1b20ebde98968cfaf18584aa67ea060b4b2f770d258ae1"
+    },
+    {
+      "bytes": 2969,
+      "name": "superseded-unexecuted/command-a.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-command-a.json",
+      "sha256": "a0ad6b6a73469c6129e04e32cba87a30585ce5970beb9e6094324c328986f124"
+    },
+    {
+      "bytes": 3950,
+      "name": "superseded-unexecuted/metadata-a.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-metadata-a.json",
+      "sha256": "8e1c080f77e740d9b1551dc7bfe7e42c11e6c87f62b92bfb1d12365dd0c84558"
+    },
+    {
+      "bytes": 7122,
+      "name": "superseded-unexecuted/probe-a.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-probe-a.py",
+      "sha256": "3d60f42bdbf0b92355cf41bbe0d0fad0df18be388aff0a406926737a12ae712e"
+    },
+    {
+      "bytes": 14472,
+      "name": "superseded-unexecuted/runner-a.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-installed-runner-a.py",
+      "sha256": "bbaa31fa30a4c9e7b90bcf9559d26c75671b855d69b25ac4e015fb4dadc15375"
+    }
+  ]
+}
