@@ -9,6 +9,42 @@ from .read_only_transport import ReadOnlyTransport
 from .commerce_binding import compiler_request, LAYOUT_SHA
 from .ordinary_query_connection import OrdinaryQueryConnectionFactory, acquire_ordinary_query_connection
 
+def original_commerce_reader_roles(report,source_factory):
+    """Explicit selected role carriers; historical reports retain old spelling."""
+    import re
+    if type(report) is not dict:raise ValueError('Exact retained original report required')
+    scope=report['protected_ack_scope']
+    if type(scope) is not dict or type(scope.get('service_schema')) is not str or type(report.get('source_schema')) is not str:
+        raise ValueError('Exact original source namespaces required')
+    if report.get('source_ports_profile') == 'ashlar-explicit-original-commerce-source/0.1':
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if type(source_factory) is not CommerceQuerySourceFactory:raise ValueError('Explicit original source factory required')
+        source_factory.__post_init__()
+        reader=report.get('source_role');ack=report.get('ack_role')
+        if any(type(value) is not str or not re.fullmatch('[a-z][a-z0-9_]{0,62}',value) for value in (reader,ack)) or reader==ack:
+            raise ValueError('Explicit original source/ACK role registration required')
+        selected=source_factory.registration
+        if selected.source_role!=reader or selected.ack_role!=ack:
+            raise ValueError('Original explicit role registration differs')
+        return reader,ack
+    if any(key in report for key in ('source_ports_profile','source_role','ack_role')):
+        raise ValueError('Unknown or incomplete original source role profile')
+    return report['source_schema']+'_reader',scope['service_schema'].replace('pipeline_','operator_')
+
+def original_commerce_reader_installation(report,publication):
+    """Select original existing installation; opening validates retained registry."""
+    from pathlib import Path
+    import re
+    if type(report) is not dict or type(publication) is not type(Path()):raise ValueError('Exact original layout carriers required')
+    if report.get('source_ports_profile')=='ashlar-explicit-original-commerce-source/0.1':
+        value=report.get('original_journal_path');installation=report.get('installation_id')
+        if type(value) is not str or type(installation) is not str or not re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,1023}',installation):raise ValueError('Exact original journal/installation required')
+        journal=Path(value)
+        if not journal.is_absolute() or str(journal)!=value or journal.resolve()!=journal or journal.is_symlink() or not journal.is_file():raise ValueError('Original existing canonical journal required')
+        return journal,installation
+    if any(key in report for key in ('source_ports_profile','original_journal_path','installation_id')):raise ValueError('Unknown or incomplete original installation profile')
+    return publication/'operations.sqlite','private-original-commerce'
+
 class ReaderCleanupState:
     """One reader's actual cleanup failure facts; no exception payload retention."""
     __slots__ = ('_failed', '_cleanup_only', '_claimed')
@@ -357,7 +393,8 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
         context = object()
         policy = PrivatePolicy(context, targets)
         policy.initializing = False
-        transport = ReadOnlyTransport.open(spark, publication / 'operations.sqlite', 'private-original-commerce', targets, policy)
+        journal,installation=original_commerce_reader_installation(original_report,publication)
+        transport = ReadOnlyTransport.open(spark, journal, installation, targets, policy)
         (request_raw, artifact_raw) = transport.db.execute('SELECT request,artifact FROM local_publication_artifact').fetchone()
         request = json.loads(request_raw)
         artifact = json.loads(artifact_raw)
@@ -366,8 +403,8 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
             raise ValueError('Original immutable artifact/report manifest differs')
         scope = AckScope(**original_report['protected_ack_scope'])
         source = original_report['source_schema']
-        role = scope.service_schema.replace('pipeline_', 'operator_')
-        port = {'scope': scope, 'source': source, 'reader': source + '_reader', 'role': role, 'signature': original_report['source_signature_sha256']}
+        reader_role,role=original_commerce_reader_roles(original_report,source_factory)
+        port = {'scope': scope, 'source': source, 'reader': reader_role, 'role': role, 'signature': original_report['source_signature_sha256']}
         tables = {t.table.split('.')[-1]: t.table for t in targets}
         driver = NativeDriver(transport, policy, context, tables, {batch.feed: port}, admission.changes, fixture_columns(ROOT), source_admission=admission)
         plan = json.loads(transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?', (request['request_digest'],)).fetchone()[0])

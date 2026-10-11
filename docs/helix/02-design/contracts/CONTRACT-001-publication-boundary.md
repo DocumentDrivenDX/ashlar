@@ -428,3 +428,25 @@ unknown groups/options and invalid finite bounds MUST refuse before effects.
 | Two source and consumer/ACK registrations and ordinary session factories | Independently authorized source operator injection | Complete actual identity and current source/ACK rights; descriptors alone grant none |
 | Native runtime/JAR locations and writer/exclusivity/retention ports | Operator locations/authority; developer runtime/hash profile | Exact selected Python3.11 native profile, independent authority; portable core remains3.9 |
 | Input/receipt/report/result limits, deadlines and diagnostics | Developer admissible ceilings; operator finite selections | Typed non-bool bounds, no silent truncation, CONTRACT-006 privacy/loss; no unimplemented hard native deadline claim |
+
+## Explicit original-commerce publication source
+
+The separately selected original-commerce publication host MUST accept explicit
+ordinary writer, registered reader and protected ACK session ports for the exact
+`private-original-commerce-fixture` feed and `original-commerce-v1` epoch.
+It MUST reuse the admitted original transaction bytes, model, graph and independent
+complete oracle. Source registrations, roles and signatures MUST be checked under
+the actual held installation lease; provider configuration MUST NOT provision,
+discover credentials or grant authority. The complete six-table UUID registry,
+native reservations and journal MUST already exist under separately authorized
+initialization and be empty before publication effects. The installation lock
+MUST exclude other cooperating operators of that same installation.
+
+This entry point admits initial publication and exact same-invocation replay.
+A source head of one MAY reuse only the complete exact original already-appended
+transaction after current source admission; it MUST NOT append a replacement.
+A changed transaction, larger head, nonempty native state or missing original
+journal MUST refuse. This source-append recovery does not authorize general
+process-restart publication recovery. Protected ACK MUST follow the durable,
+fully admitted publication vector. Closing source, runtime and installation
+custody and resource cleanup MUST complete before releasing the report.

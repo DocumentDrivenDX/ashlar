@@ -649,3 +649,11 @@ cleanup/release rules above apply unchanged.
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
 The [original contract text](../../04-build/evidence/contract-history-20261009/CONTRACT-004-publication-resolver.original.txt)
 preserves prior execution diaries verbatim; those results do not amend this contract.
+
+The explicit original-commerce publication source profile MUST retain its
+original journal path, installation identity and ordinary reader/ACK roles.
+The reader MUST use these exact typed selected values and independently admit
+the current original registry, reservations, source registration and complete
+publication vector; report fields are correspondence, never authority. It MUST
+refuse missing, aliased or changed original journal custody. Historical reports
+without this explicit profile retain their existing layout and role selection.
