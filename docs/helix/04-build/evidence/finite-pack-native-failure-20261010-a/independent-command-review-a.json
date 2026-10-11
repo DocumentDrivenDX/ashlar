@@ -1,0 +1,22 @@
+{
+  "decision": "approve two exact serial bounded native commands pending root authorization",
+  "metadata_sha256": "574470bc7f33080b5177824127c293e3d3ae0a1a2670f9fa91d96c337720116c",
+  "command_sha256": "a3168d7aec408ac7b8d462a3998aa99fb3bb68862dc2a75b43ecc053400a1129",
+  "checks": {
+    "full5563OpeningClosure": "01fcbd",
+    "immutable163GitSourceFiles": "01fcbd",
+    "sourceRevision": "b50f791d99691650e4f1921347c5f02eed3b935c",
+    "semanticReads": [
+      "13cee6",
+      "79ca52"
+    ],
+    "reviewedSourceCapture": "8a7e1feb29a266342bc029eeedf444c98de5a0fd3e6f21d91f72d5d6758db085"
+  },
+  "review": [
+    "Each closed original pack fresh private installation holds actual local source lease, original public compact dataset validation, mandatory current source/native registry policy and four-role independent wholebag oracle. No existing table mutations or absence-derived repair.",
+    "Owned six-table Delta publication, exact replay requires unchanged history, read-only committed reopen requires original five durable phases and exact manifest/source plus actual UUID/version-pinned completebags. Public capture retains actualphase payload bytes and native row cells; closing gates before report. Original8/9cases/oracles retained, not queried.",
+    "Existingcached Spark4/Delta4/Python3.11/JDK21/twoexactJAR selection with local1/512m/onepartition limits unchanged. Independent300s capture under360s outer, boundedstreams and original inputs/reports. Processgroup kill/reap and allcleanup callbacks on cancellation; resource closure renewed before receipts.",
+    "Immutable b50 source snapshot and pinned07357 compact API, complete runtime/input/SDK byte custody; explicit root serial coordination is not a fabricated shared file lease. Each command individually authorized; no automatic retry."
+  ],
+  "scope": "No child/SDK/native initialization during review. Actual local publication qualification awaits terminal/raw actual evidence; no installedwheel/PG/UC/protectedACK/query/cloud/benchmark claim."
+}

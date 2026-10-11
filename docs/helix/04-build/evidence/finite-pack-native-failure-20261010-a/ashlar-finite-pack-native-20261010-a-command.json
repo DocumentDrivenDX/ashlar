@@ -1,0 +1,109 @@
+{
+  "profile": "ashlar-original-finite-pack-native-operation/0.1",
+  "captureModule": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+  "resources": [
+    {
+      "path": "/usr/bin/python3",
+      "bytes": 200560,
+      "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-pack-native-20261010-a-runner.py",
+      "bytes": 4529,
+      "sha256": "c02392f6005e1087c85e747533a30e9b1858af57cfd6fdb9e2e5b77cf34b6c6d"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-pack-native-20261010-a-closure.json",
+      "bytes": 1259860,
+      "sha256": "c5274c3857ee5f083863c87490c99b10f3391143cf9a552e4c9320370692be81"
+    },
+    {
+      "path": "/private/tmp/ashlar-finite-pack-native-probe-20261010-a.py",
+      "bytes": 2831,
+      "sha256": "2b99010a99b031cd58b5dc8510a044d69ccc49b28aa5fbebbfa7f77815800164"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "bytes": 2854,
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "commands": [
+    {
+      "phase": "archaeology",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-I",
+        "-S",
+        "/private/tmp/ashlar-finite-pack-native-20261010-a-runner.py",
+        "c02392f6005e1087c85e747533a30e9b1858af57cfd6fdb9e2e5b77cf34b6c6d",
+        "archaeology"
+      ],
+      "cwd": "/private/tmp",
+      "stdout": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stdout",
+      "stderr": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stderr",
+      "timeoutSeconds": 360
+    },
+    {
+      "phase": "ecology",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-I",
+        "-S",
+        "/private/tmp/ashlar-finite-pack-native-20261010-a-runner.py",
+        "c02392f6005e1087c85e747533a30e9b1858af57cfd6fdb9e2e5b77cf34b6c6d",
+        "ecology"
+      ],
+      "cwd": "/private/tmp",
+      "stdout": "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.stdout",
+      "stderr": "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.stderr",
+      "timeoutSeconds": 360
+    }
+  ],
+  "outputs": [
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.stdout",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.stderr",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.receipt.json",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.receipt.json",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stdout",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stderr",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.stdout",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.stderr",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.receipt.json",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.receipt.json",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.stdout",
+    "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.stderr"
+  ],
+  "sourceRevision": "b50f791d99691650e4f1921347c5f02eed3b935c",
+  "umfRevision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+  "limits": {
+    "nativeChildSecondsEach": 300,
+    "outerSecondsEach": 360,
+    "streamsEach": 16777216,
+    "memory": "512m",
+    "master": "local[1]",
+    "tablesEach": 6,
+    "publicProducerSeconds": 5,
+    "publicReceiptBytes": 33554432,
+    "nativeReportBytes": 67108864,
+    "operationIntentBytes": 8388608
+  },
+  "serialization": "Explicit root serial lane coordination and sole author launch/poll, separate sequential native processes; no shared execution file lease claimed. Each actual fresh installation holds its own PrivateFiniteLease. No automatic retry.",
+  "qualification": "Two selected fresh local finite original pack publications, unchanged no-effect replay, committed read-only reopen and actual complete5phase/fourrolebag captures. Original UMF0.8 semantics/nulls/lexicals/unknowncontent retained. No SQLcompilation/execution/UC/remote/PG/ACK/install/benchmark claim. Existing ordinary producer supervisor startupclosure/absentpaths verified, OSbase trust/no sandbox claim."
+}

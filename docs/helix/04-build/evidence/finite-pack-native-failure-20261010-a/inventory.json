@@ -1,0 +1,136 @@
+{
+  "copies": [
+    {
+      "archive": "ashlar-finite-pack-native-20261010-a-command.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-command.json",
+      "bytes": 4769,
+      "sha256": "a3168d7aec408ac7b8d462a3998aa99fb3bb68862dc2a75b43ecc053400a1129"
+    },
+    {
+      "archive": "ashlar-finite-pack-native-20261010-a-metadata.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-metadata.json",
+      "bytes": 1401,
+      "sha256": "574470bc7f33080b5177824127c293e3d3ae0a1a2670f9fa91d96c337720116c"
+    },
+    {
+      "archive": "ashlar-finite-pack-native-20261010-a-runner.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-runner.py",
+      "bytes": 4529,
+      "sha256": "c02392f6005e1087c85e747533a30e9b1858af57cfd6fdb9e2e5b77cf34b6c6d"
+    },
+    {
+      "archive": "ashlar-finite-pack-native-20261010-a-closure.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-closure.json",
+      "bytes": 1259860,
+      "sha256": "c5274c3857ee5f083863c87490c99b10f3391143cf9a552e4c9320370692be81"
+    },
+    {
+      "archive": "ashlar-finite-pack-native-20261010-a-archaeology-actual-failure.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology-actual-failure.json",
+      "bytes": 23169,
+      "sha256": "6f75614aa9cff3848408aa5967cd5cb6470ddb711eb476c52443a5a0f8cfc7a5"
+    },
+    {
+      "archive": "probe.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-probe-20261010-a.py",
+      "bytes": 2831,
+      "sha256": "2b99010a99b031cd58b5dc8510a044d69ccc49b28aa5fbebbfa7f77815800164"
+    },
+    {
+      "archive": "actual-archaeology.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "actual-archaeology.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.stderr",
+      "bytes": 2325,
+      "sha256": "0f3e27623f75e00294c0691f4986356a05465ba1485ffc211f138c86f170daab"
+    },
+    {
+      "archive": "actual-archaeology.receipt.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.receipt.json",
+      "bytes": 357,
+      "sha256": "ff88c8b9caaebc013e680f40ed19e8bbcac6a26b0663fd074c445382dfa61a49"
+    },
+    {
+      "archive": "actual-archaeology.outer.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "actual-archaeology.outer.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "actual-archaeology.outer.receipt.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.receipt.json",
+      "bytes": 692,
+      "sha256": "434881a03e8b7a1af4f8d885837e4309695b289ee79e8bcc03751242100bb061"
+    },
+    {
+      "archive": "original-native-inputs/public-dataset.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology/public-dataset.json",
+      "bytes": 1106427,
+      "sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326"
+    },
+    {
+      "archive": "original-native-inputs/request.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology/request.json",
+      "bytes": 167948,
+      "sha256": "5a3cba91a8bb48cc75df0146c18e6e36f660e28866273ce97e24e40d326491bf"
+    },
+    {
+      "archive": "original-native-inputs/registry.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology/registry.json",
+      "bytes": 1545,
+      "sha256": "401533029947d7a7b837ed2e7f91b83cceb695b739d1368bd1b0e0c5f56da26d"
+    },
+    {
+      "archive": "original-source/finite_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-source/src/ashlar_host/finite_native.py",
+      "bytes": 9339,
+      "sha256": "919131adde11a8946ded215d24f64c4bd333daa7abe47382a546867e961b1789"
+    },
+    {
+      "archive": "original-source/finite_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-source/src/ashlar_host/finite_publication.py",
+      "bytes": 14332,
+      "sha256": "5aefcaebc6cd0794141b56c21c6020708d78349a2326ca3f691cab5f697d2668"
+    },
+    {
+      "archive": "original-source/finite_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-source/src/ashlar_host/finite_projection.py",
+      "bytes": 7117,
+      "sha256": "524034472f44d4932a8459083e775b54466f4b337c4e63d8f590fbbbfc1696ac"
+    },
+    {
+      "archive": "original-source/finite_dataset.py",
+      "original": "/private/tmp/ashlar-finite-pack-native-20261010-a-source/src/ashlar_host/finite_dataset.py",
+      "bytes": 10413,
+      "sha256": "a1aab5fde9b0d9077ae1ccec9a6ebe88215e69506940229f7898bbb288cf1443"
+    },
+    {
+      "archive": "independent-command-review-a.json",
+      "original": "/private/tmp/ashlar-finite-pack-native-independent-command-review-a.json",
+      "bytes": 2027,
+      "sha256": "12a17b8aa6529dfff9425212363aceac7a9e7de2f20c25972c6e452b5dab70a1"
+    },
+    {
+      "archive": "helpers/ashlar-count-star-installed-cli-capture-a.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "archive": "helpers/ashlar-supply-chain-native-read-launcher-h.py",
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "bytes": 2854,
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ]
+}

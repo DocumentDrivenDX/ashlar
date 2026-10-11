@@ -1,0 +1,11 @@
+{
+  "result": {
+    "exitCode": 1,
+    "stdoutBytes": 0,
+    "stderrBytes": 2325
+  },
+  "openingClosingCustody": true,
+  "failureType": null,
+  "sourceRevision": "b50f791d99691650e4f1921347c5f02eed3b935c",
+  "qualification": "One exact committed-source finite native run; no installed wheel, PostgreSQL, protected ACK, Unity Catalog or paid cloud claim."
+}

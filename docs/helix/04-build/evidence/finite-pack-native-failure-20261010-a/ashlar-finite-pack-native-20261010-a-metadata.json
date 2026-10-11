@@ -1,0 +1,38 @@
+{
+  "preparedOnly": true,
+  "command": "/private/tmp/ashlar-finite-pack-native-20261010-a-command.json",
+  "sha256": "a3168d7aec408ac7b8d462a3998aa99fb3bb68862dc2a75b43ecc053400a1129",
+  "actualCommands": [
+    [
+      "/usr/bin/python3",
+      "-B",
+      "-I",
+      "-S",
+      "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "--command",
+      "/private/tmp/ashlar-finite-pack-native-20261010-a-command.json",
+      "--sha256",
+      "a3168d7aec408ac7b8d462a3998aa99fb3bb68862dc2a75b43ecc053400a1129",
+      "--phase",
+      "archaeology",
+      "--receipt",
+      "/private/tmp/ashlar-finite-pack-native-20261010-a-archaeology.outer.receipt.json"
+    ],
+    [
+      "/usr/bin/python3",
+      "-B",
+      "-I",
+      "-S",
+      "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "--command",
+      "/private/tmp/ashlar-finite-pack-native-20261010-a-command.json",
+      "--sha256",
+      "a3168d7aec408ac7b8d462a3998aa99fb3bb68862dc2a75b43ecc053400a1129",
+      "--phase",
+      "ecology",
+      "--receipt",
+      "/private/tmp/ashlar-finite-pack-native-20261010-a-ecology.outer.receipt.json"
+    ]
+  ],
+  "serialization": "Explicit root serial lane coordination and sole author launch/poll, separate sequential native processes; no shared execution file lease claimed. Each actual fresh installation holds its own PrivateFiniteLease. No automatic retry."
+}
