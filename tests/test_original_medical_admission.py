@@ -59,9 +59,15 @@ class MedicalAdmissionTests(unittest.TestCase):
             for change in changes_from_batch(self.batch):owner.admit(change)
         self.assertEqual(len(owner.changes),113);self.assertEqual((evidence.model,evidence.graph,evidence.baseline),(self.model,self.graph,self.baseline));self.assertEqual(evidence.revalidation,self.observed())
         self.assertEqual(json.loads(evidence.baseline)['booleanReceipts'],self.public['booleanReceipts']);self.assertEqual(json.loads(evidence.revalidation)['receipt']['provenance'],self.public['receipt']['provenance'])
+        self.assertEqual(meta['source_transaction_sha256'],hashlib.sha256(self.batch.begin+b''.join(record.raw for record in self.batch.records)+self.batch.commit).hexdigest())
         self.assertEqual(meta['record_count'],51);self.assertLess(len(json.dumps(meta,separators=(',',':')).encode()),1048576)
         for item,raw in zip(meta['evidence']['files'],(evidence.model,evidence.graph,evidence.baseline,evidence.bindings,evidence.revalidation)):
             self.assertEqual(item['bytes'],len(raw));self.assertEqual(item['sha256'],hashlib.sha256(raw).hexdigest())
+    def test_replaced_batch_refuses_before_producer_renewal(self):
+        owner=self.admission();owner.batch=replace(self.batch,feed='changed-medical-feed')
+        with patch.object(owner.producer,'renew')as renew,self.assertRaises(PermissionError):owner.metadata()
+        renew.assert_not_called()
+
     def test_aggregate_original_inputs_refuse_before_read_or_public_call(self):
         for path in self.paths:path.write_bytes(b'x'*1500000)
         with patch.object(MedicalFile,'read')as read,patch('ashlar_host.medical_producer.capture')as capture,self.assertRaises(ValueError):HeldMedicalDataset(self.cfg,*self.paths,self.root/'actual.json')

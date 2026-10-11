@@ -36,9 +36,10 @@ class MedicalAdmission:
         verify_medical_revalidation(*self.originals,self.revalidation)
         rebuilt,expected=build_transaction(*self.originals,source_system=batch.feed,binding_profile='ashlar-medical-development-bindings/0.2')
         if rebuilt!=batch or expected!=bindings:raise PermissionError('Complete original medical batch/bindings differ')
-        self.batch=batch;self.bindings_bytes=json.dumps(bindings,ensure_ascii=False,separators=(',',':')).encode();self.changes=changes_from_batch(batch)
+        self.batch=batch;self.original_batch=batch;self.source_transaction_sha256=hashlib.sha256(batch.begin+b''.join(record.raw for record in batch.records)+batch.commit).hexdigest();self.bindings_bytes=json.dumps(bindings,ensure_ascii=False,separators=(',',':')).encode();self.changes=changes_from_batch(batch)
         if len(self.changes)!=113 or any(c.operation!='create'or c.state.schema_revision!=SOURCE_SHA for c in self.changes):raise PermissionError('Complete original medical creates required')
     def renew(self):
+        if type(self.batch)is not SourceBatch or self.batch!=self.original_batch:raise PermissionError('Original medical source batch changed')
         def input(f,original):
             if f.read()!=original:raise PermissionError('Original medical admission drift')
         def producer():
@@ -51,7 +52,7 @@ class MedicalAdmission:
         return MedicalAdmissionEvidence(*self.originals,self.bindings_bytes,self.revalidation)
     def metadata(self):
         self.renew()
-        return {'profile':'ashlar-original-medical-public-dataset-admission/0.1','declared_umf':'0.8.0','umf_revision':UMF_PIN,'source_sha256':SOURCE_SHA,'graph_sha256':GRAPH_SHA,'public_receipt_sha256':PUBLIC_SHA,'bindings_sha256':hashlib.sha256(self.bindings_bytes).hexdigest(),'revalidation_sha256':hashlib.sha256(self.revalidation).hexdigest(),'evidence':{'profile':'ashlar-original-medical-admission-evidence/0.1','files':[{'role':role,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}for role,raw in zip(('model','graph','baseline','bindings','revalidation'),(*self.originals,self.bindings_bytes,self.revalidation))]},'record_count':51,'edge_count':62,'history_count':113,'boolean_receipt_count':3,'dataset_valid':True,'dataset_complete':True,'qualification':'Supplied historical medical dataset only; complete raw warnings/unknowns/provenance available through evidence(); no native/source/ACK authority'}
+        return {'profile':'ashlar-original-medical-public-dataset-admission/0.1','declared_umf':'0.8.0','umf_revision':UMF_PIN,'source_sha256':SOURCE_SHA,'graph_sha256':GRAPH_SHA,'public_receipt_sha256':PUBLIC_SHA,'source_transaction_sha256':self.source_transaction_sha256,'bindings_sha256':hashlib.sha256(self.bindings_bytes).hexdigest(),'revalidation_sha256':hashlib.sha256(self.revalidation).hexdigest(),'evidence':{'profile':'ashlar-original-medical-admission-evidence/0.1','files':[{'role':role,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}for role,raw in zip(('model','graph','baseline','bindings','revalidation'),(*self.originals,self.bindings_bytes,self.revalidation))]},'record_count':51,'edge_count':62,'history_count':113,'boolean_receipt_count':3,'dataset_valid':True,'dataset_complete':True,'qualification':'Supplied historical medical dataset only; complete raw warnings/unknowns/provenance available through evidence(); no native/source/ACK authority'}
     def admit(self,change):
         self.renew()
         if type(change)is not Change or change not in self.changes:raise PermissionError('No admitted original medical change')
