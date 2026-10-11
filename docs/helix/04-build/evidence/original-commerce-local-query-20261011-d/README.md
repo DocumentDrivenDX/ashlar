@@ -1,0 +1,11 @@
+# Fresh original-commerce installed query D
+
+All four unchanged original Weft 0.4.2 queries passed against the freshly initialized and published original commerce installation: partial return, fulfillment, settlement and refund. Independent review rebuilt original requests and verified raw compiler/recompile equality, complete lexical and numeric occurrence bags, all 45 declared native guard observations, the original 34 properties and nine relationships, source/ACK correspondence and native closing custody.
+
+The isolated local run used the installed source `e979c4086d5e458b4a86c88fd96a76b43ab3bd2f`, Python 3.11.17 with SQLite 3.53.1, Spark 4.0.1, Delta 4.0.0 and JDK 21. All six captured phases exited zero. Reader closure, Spark shutdown, public journal registration closing and outer closing passed; the selected terminal worker census was empty. The observed 90.234 seconds is a finite test result, not a performance benchmark.
+
+All 82 original native file hashes remained exact. The only separately classified namespace additions were the owned regular single-link `operations.sqlite-wal` (zero bytes) and `operations.sqlite-shm` (32,768 bytes). Neither is adopted as an original authority baseline. Public registration/capacity corroboration supplies no native or source authority by itself; actual held source/ACK and complete native-vector checks remain required.
+
+`inventory.json` maps 124 safe regular archive members to exact original bytes: 121 actual records, the actual freeze, independent full-result review and its passive review script. Selected runtime resources and installed files remain pinned by descriptors; SDK binaries and the installed environment are not copied. Initialization evidence is in `../original-commerce-local-initialization-20261011-e/` (landed `79ddbe4542a17ea22b356dc7336f182e46630385`); publication evidence is in `../original-commerce-local-publication-20261011-a/` (landed `c2e0730ea0a74d1bf156ad15015bf54be457e660`). The earlier query A failure remains separate.
+
+This qualifies the bounded original local fixture and four-query subset. It establishes no general recovery, production PostgreSQL security, managed Unity Catalog, cloud or real Truss support.
