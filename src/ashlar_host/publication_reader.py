@@ -6,6 +6,7 @@ from ashlar.publication import resolve_publication
 from .source_identity import SOURCE_SHA
 from .delta_custody import encoded
 from .commerce_binding import compiler_request, LAYOUT_SHA
+from .ordinary_query_connection import OrdinaryQueryConnectionFactory, acquire_ordinary_query_connection
 
 class ReaderCleanupState:
     """One reader's actual cleanup failure facts; no exception payload retention."""
@@ -111,7 +112,12 @@ class ReadOnlyTransport:
 
 class PublicationProvider:
 
-    def __init__(self, driver, aliases, scope_port, request_bytes, manifest_bytes, expected_binding, *, context, cleanup_state=None, original_bindings=()):
+    def __init__(self, driver, aliases, scope_port, request_bytes, manifest_bytes, expected_binding, *, context, cleanup_state=None, original_bindings=(), ordinary_session=None):
+        if ordinary_session is not None:
+            if type(ordinary_session) is not OrdinaryQueryConnectionFactory:
+                raise ValueError('ordinary-query-connection-factory-required')
+            ordinary_session.__post_init__()
+        self.ordinary_session = ordinary_session
         if cleanup_state is not None and type(cleanup_state) is not ReaderCleanupState:
             raise ValueError('invalid-reader-cleanup-state')
         self.cleanup_state = cleanup_state
@@ -207,7 +213,6 @@ class PublicationProvider:
     @contextmanager
     def interval(self, context):
         from ashlar.manifest import manifest_pin_vector
-        from .connection import connect
         from .postgres import Session
         if context is not self.context or self.active or self._reader_closed:
             raise PermissionError('Original nonnested private consumer required')
@@ -220,7 +225,11 @@ class PublicationProvider:
         vector = manifest_pin_vector(row, {t: self.driver.transport.targets[t].uuid for t in versions}, authority='private-local-process')
         with owned_context(self.driver.writer('read-only-compiler-consumer', context)):
             with owned_context(self.driver.hold(vector, context=context)):
-                connection = connect(self.port['role'])
+                if self.ordinary_session is None:
+                    from .connection import connect
+                    connection = connect(self.port['role'])
+                else:
+                    connection = acquire_ordinary_query_connection(self.ordinary_session, self.port['role'])
                 primary = None
                 try:
                     session = Session(connection)
@@ -315,7 +324,7 @@ def original_commerce_reader_bindings(model, bindings, manifest, registry, alias
     return tuple(originals)
 
 @contextmanager
-def open_commerce_reader(spark, publication, *, cleanup_state=None):
+def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_session=None):
     """Open original custody/authority ports without submitting native writes.
 
     Caller owns Spark lifetime. The private reader retains original journal,
@@ -323,6 +332,10 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None):
     pin policy. Consumers must use provider.interval(context); no alias setup
     or user SQL is performed by this factory.
     """
+    if ordinary_session is not None:
+        if type(ordinary_session) is not OrdinaryQueryConnectionFactory:
+            raise ValueError('ordinary-query-connection-factory-required')
+        ordinary_session.__post_init__()
     if cleanup_state is not None:
         if type(cleanup_state) is not ReaderCleanupState or cleanup_state._claimed:
             raise ValueError('invalid-reader-cleanup-state')
@@ -374,7 +387,7 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None):
         aliases = {t: t.replace('local.', 'spark_catalog.', 1) for t in json.loads(manifest['table_versions_json'])}
         req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
         original_bindings = original_commerce_reader_bindings(model, bindings, manifest, original_report['table_registry'], aliases)
-        provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state, original_bindings=tuple(original_bindings))
+        provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state, original_bindings=tuple(original_bindings), ordinary_session=ordinary_session)
         yield SimpleNamespace(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode())
         if native_files() != original_native:
             raise ValueError('Read-only consumer changed original native bytes')
