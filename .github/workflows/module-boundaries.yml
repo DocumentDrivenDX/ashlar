@@ -57,6 +57,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_commerce_query_sources.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_original_commerce_publication.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_commerce_local_configuration test_original_commerce_local_setup test_original_commerce_local_cli
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_evolution_stage_observer
       - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_setup_private_outbox_fixture.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_existing_outbox_authority.py'
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_local_delta_custody.py'
