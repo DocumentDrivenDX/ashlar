@@ -1,0 +1,460 @@
+{
+  "archive": {
+    "bytes": 865567,
+    "sha256": "2cb76261169e36cbb2712f18da056cfdaa0fb38cff43cbdce193ecfb87e6e1d2"
+  },
+  "format": "ashlar-public-graphframes-ecology-evidence/0.1",
+  "members": [
+    {
+      "bytes": 176,
+      "member": "actual/output/engine/edges/.part-00000-64591700-9cab-4977-b6c6-33a478005525-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/edges/.part-00000-64591700-9cab-4977-b6c6-33a478005525-c000.snappy.parquet.crc",
+      "sha256": "20e25a768f2c96f56c0f19824f791c77ab99f051a15f318acba8ea4c6f052bf9"
+    },
+    {
+      "bytes": 48,
+      "member": "actual/output/engine/edges/_delta_log/.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/edges/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "51c1910dbafd9bf2bb5358655330b001045de0145cd5ec35414ac8fc8f7837b7"
+    },
+    {
+      "bytes": 4823,
+      "member": "actual/output/engine/edges/_delta_log/00000000000000000000.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/edges/_delta_log/00000000000000000000.json",
+      "sha256": "545985f16aec39c0c6ca3f93880dd8b2a5a0e02e2987b21215a74cb692ff5f97"
+    },
+    {
+      "bytes": 20998,
+      "member": "actual/output/engine/edges/part-00000-64591700-9cab-4977-b6c6-33a478005525-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/edges/part-00000-64591700-9cab-4977-b6c6-33a478005525-c000.snappy.parquet",
+      "sha256": "fdc644df4df7e41be25de49d7c58fef68d99186b2c77e308872cfefb3d0ebf2f"
+    },
+    {
+      "bytes": 993138,
+      "member": "actual/output/engine/input.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/input.json",
+      "sha256": "cc484011f9f7b4aeb50a11fc550de4de2734bd7b558ba572a7eb6aef7154b42d"
+    },
+    {
+      "bytes": 556,
+      "member": "actual/output/engine/nodes/.part-00000-b5c59b0e-608a-431a-9ebd-789f9053d1c6-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/nodes/.part-00000-b5c59b0e-608a-431a-9ebd-789f9053d1c6-c000.snappy.parquet.crc",
+      "sha256": "af89c802766c22e3772536f018ecd9d8c73ebb8b0c84b4a55478f89e7cbb5261"
+    },
+    {
+      "bytes": 152,
+      "member": "actual/output/engine/nodes/_delta_log/.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/nodes/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "7340f4cab6858cc17c52f15228d1b18347674d95d7adb5e123b916e77ca732dd"
+    },
+    {
+      "bytes": 17930,
+      "member": "actual/output/engine/nodes/_delta_log/00000000000000000000.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/nodes/_delta_log/00000000000000000000.json",
+      "sha256": "9139b9e3d054fdfe9816e28c8bd806d08232d634fad01a199758cf909edf742d"
+    },
+    {
+      "bytes": 69967,
+      "member": "actual/output/engine/nodes/part-00000-b5c59b0e-608a-431a-9ebd-789f9053d1c6-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/nodes/part-00000-b5c59b0e-608a-431a-9ebd-789f9053d1c6-c000.snappy.parquet",
+      "sha256": "96949029a189c231134aa6551936ddcf436a569a1cfcfbaa2c5d95c7453cd014"
+    },
+    {
+      "bytes": 622130,
+      "member": "actual/output/engine/observations.jsonl",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/observations.jsonl",
+      "sha256": "41d71abd055e2218469a5a2b458c2564047781c7553aa5efb9caf75569bb5947"
+    },
+    {
+      "bytes": 253412,
+      "member": "actual/output/engine/result.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/result.json",
+      "sha256": "5a910517a9af568d582f8cb23be5b0414fc7a71dc337e0bbd1747df47ea8f2e8"
+    },
+    {
+      "bytes": 1349,
+      "member": "actual/output/engine/transport.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/engine/transport.json",
+      "sha256": "8db8b3e5dd17da8aa25e1aae5e37e8ec36f0876a944db42cef78a1b701a86da0"
+    },
+    {
+      "bytes": 328,
+      "member": "actual/output/observation-0.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-0.json",
+      "sha256": "0c635e0fea6c143fedada8af55e3866e3078f9b016ee18629486a191251fc136"
+    },
+    {
+      "bytes": 328,
+      "member": "actual/output/observation-1.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-1.json",
+      "sha256": "503e0f059a8d4f6ebf0faf2042e12fa64bee7659100195d416607fb2b84e9eb0"
+    },
+    {
+      "bytes": 252,
+      "member": "actual/output/observation-10.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-10.json",
+      "sha256": "4dbe4daf28832a9fde482409b060427a39778d56600ac1db1679c0329f985ef8"
+    },
+    {
+      "bytes": 297,
+      "member": "actual/output/observation-11.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-11.json",
+      "sha256": "6c0bbff95942b31df2a301e3859bb2440f96c0b4ae7afa6509e6b6b128f27d06"
+    },
+    {
+      "bytes": 269,
+      "member": "actual/output/observation-12.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-12.json",
+      "sha256": "7b4e67d73557c4750594565267cdac28aed27bc4d5e2644081480b3f32fc7075"
+    },
+    {
+      "bytes": 481,
+      "member": "actual/output/observation-13.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-13.json",
+      "sha256": "bb606d656f3272e1f1e5b331e392507c6ccd471f0ebf5e9bdfa14f19297ac37e"
+    },
+    {
+      "bytes": 202,
+      "member": "actual/output/observation-14.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-14.json",
+      "sha256": "04a12d5fc38f40750bf78292f0318c4866f0d6a35bf43c91967071991eb501b9"
+    },
+    {
+      "bytes": 51279,
+      "member": "actual/output/observation-15.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-15.json",
+      "sha256": "238cc0c2f859b26fdc979bb6aa47f7d101b5c1c0093b55b180f00c6bdab148a5"
+    },
+    {
+      "bytes": 91471,
+      "member": "actual/output/observation-16.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-16.json",
+      "sha256": "85f7cf5c4fe6c5c883d1cbd7e5ab86d8066a8b44ba72323e5e0bf9a8c0b4f45f"
+    },
+    {
+      "bytes": 14298,
+      "member": "actual/output/observation-17.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-17.json",
+      "sha256": "079e93b38350ca6edcfbb58ef71694750afb288296eb3b0cb405d119d0453d8f"
+    },
+    {
+      "bytes": 23686,
+      "member": "actual/output/observation-18.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-18.json",
+      "sha256": "0555e66fbd3c26a3f18cc94e40c028ff7b0c2a7a9c9154dfc31f96a3232f65e2"
+    },
+    {
+      "bytes": 5490,
+      "member": "actual/output/observation-19.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-19.json",
+      "sha256": "a09d9d592d2d5b725c627d7dec5056e92ec211021c42e1402614f49ca8c4b591"
+    },
+    {
+      "bytes": 121189,
+      "member": "actual/output/observation-2.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-2.json",
+      "sha256": "ccf7ecaf2740f4237852743777bc261ccefe002adc416065c1d54aef6ac707ec"
+    },
+    {
+      "bytes": 1954,
+      "member": "actual/output/observation-20.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-20.json",
+      "sha256": "9555f28168365d154e9de9c614e66749bd37fb2093bce3ede97734b558dbe29e"
+    },
+    {
+      "bytes": 632,
+      "member": "actual/output/observation-21.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-21.json",
+      "sha256": "2f844a65ea173d5f61b95c1c227dfe7cc368e408f67082e8260ce35d2c31e15d"
+    },
+    {
+      "bytes": 2227,
+      "member": "actual/output/observation-22.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-22.json",
+      "sha256": "93d5275741e43f44d72fd7484b87bc026042b14f84aa8b7e35be56f64fe941e0"
+    },
+    {
+      "bytes": 783,
+      "member": "actual/output/observation-23.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-23.json",
+      "sha256": "eff6edbd81c053483b6292df69b07fc55b8ab0cfbb7576d0b20d685a8208be36"
+    },
+    {
+      "bytes": 121184,
+      "member": "actual/output/observation-24.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-24.json",
+      "sha256": "d85e9caaed916adde14928b7392d76e1b2e17dde1f9fdfc483c842efbe9caa4d"
+    },
+    {
+      "bytes": 328,
+      "member": "actual/output/observation-25.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-25.json",
+      "sha256": "f70329de4c8064ab07c980d2f2a72cac86070b310b86e35529aa297fc6c8f6c1"
+    },
+    {
+      "bytes": 91485,
+      "member": "actual/output/observation-26.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-26.json",
+      "sha256": "6b660d4ef5633d420bb1533b7d938186664af6bfd3a124f2e8165c25f3615c75"
+    },
+    {
+      "bytes": 328,
+      "member": "actual/output/observation-27.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-27.json",
+      "sha256": "c34c353c610e6ef8617abad53ec50edcb0f84844d7a5d292785d2a681a6a599f"
+    },
+    {
+      "bytes": 333,
+      "member": "actual/output/observation-3.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-3.json",
+      "sha256": "53e0e973139d636d2cab8bc233a9f4548b2d6779d0fcddd1bdc4564f4776c47e"
+    },
+    {
+      "bytes": 91490,
+      "member": "actual/output/observation-4.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-4.json",
+      "sha256": "bad181c2a6f5fb677c8418697ccc747084198efcd0e3b026bf54453de1fb163b"
+    },
+    {
+      "bytes": 333,
+      "member": "actual/output/observation-5.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-5.json",
+      "sha256": "0ce80b2c104c9923c801c00df3a624034e683ffd5d0aaeba11da5473c4170d9a"
+    },
+    {
+      "bytes": 252,
+      "member": "actual/output/observation-6.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-6.json",
+      "sha256": "3f102ae053e315fc327f70ef315284bb0074607927a8a1e9f651f2a368692398"
+    },
+    {
+      "bytes": 657,
+      "member": "actual/output/observation-7.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-7.json",
+      "sha256": "f01b630c0fc72da9de8156e3adaa8ef3a8aa239e898a278a8076a298fcd3fd29"
+    },
+    {
+      "bytes": 354,
+      "member": "actual/output/observation-8.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-8.json",
+      "sha256": "be130ccc35d9460c1c477e4a31f89f2e90c3b3ce3504e8f1060869b7d057f238"
+    },
+    {
+      "bytes": 220,
+      "member": "actual/output/observation-9.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/observation-9.json",
+      "sha256": "9ef6ce853edb779e7a19383b6524fe9e0c0384d53235ee327725bac8873abc30"
+    },
+    {
+      "bytes": 1035062,
+      "member": "actual/output/public-dataset.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/public-dataset.json",
+      "sha256": "8711f676f3837e6e8f58859dbbdf9b554118dc0c92ffc3f454ea77db297b3428"
+    },
+    {
+      "bytes": 253679,
+      "member": "actual/output/report.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/output/report.json",
+      "sha256": "84c0b88e3ad3853a8be0cd5294bb4d56ad03b144943623d98a7657aee64d0205"
+    },
+    {
+      "bytes": 241,
+      "member": "actual/public-query.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-query.json",
+      "sha256": "9fc7ce00530b6f2d19f4ed34e3a9e303fcc512d89e3bd8cf8e9a100c6e224665"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/public-query.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-query.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 253679,
+      "member": "actual/public-query.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-query.stdout",
+      "sha256": "84c0b88e3ad3853a8be0cd5294bb4d56ad03b144943623d98a7657aee64d0205"
+    },
+    {
+      "bytes": 238,
+      "member": "actual/public-setup.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-setup.json",
+      "sha256": "f0af0ef2fc6bd999aad2af86f7cd7580371eb3a765253d380171036d6d4915fc"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/public-setup.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-setup.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 367,
+      "member": "actual/public-setup.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/public-setup.stdout",
+      "sha256": "cea94d4ba34bdb221bee1cd2e1e524545acf507ace54bc969e08fb7655ef70e7"
+    },
+    {
+      "bytes": 915,
+      "member": "actual/result.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/result.json",
+      "sha256": "801fb3ae033962b99fd52887e3321e2eeedce14ed3b073855a56c08e839d1841"
+    },
+    {
+      "bytes": 359,
+      "member": "actual/setup-result.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/setup-result.json",
+      "sha256": "80bb50e36cf376213daf2db08c0928915b0ad0250929824fe166d9e921bad6f0"
+    },
+    {
+      "bytes": 1383,
+      "member": "actual/setup/invocation.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/setup/invocation.json",
+      "sha256": "687def39f7e4ba732f8baa830e68878cf7a72196cbc6f1f0f41685a3c48f095c"
+    },
+    {
+      "bytes": 1745,
+      "member": "actual/setup/operator.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/setup/operator.json",
+      "sha256": "6b1d6012c1c52521740757e83ac1432eed9c289a5e2d41818de52a5884c965c9"
+    },
+    {
+      "bytes": 407,
+      "member": "actual/setup/provider.py",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-operation-c/setup/provider.py",
+      "sha256": "46f07dcd85ad034372774337acb4e60021d355ccf1ff04355e445e67f1f133fe"
+    },
+    {
+      "bytes": 731,
+      "member": "receipts/ashlar-graphframes-local-ecology-outer-c.receipt.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-outer-c.receipt.json",
+      "sha256": "8d09eeeec9bae4da583e6ab24b05d31abc74fb1746a762551b2fbbc08f1647c0"
+    },
+    {
+      "bytes": 0,
+      "member": "receipts/ashlar-graphframes-local-ecology-runner-c.outer.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-runner-c.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "receipts/ashlar-graphframes-local-ecology-runner-c.outer.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-runner-c.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 210,
+      "member": "receipts/ashlar-graphframes-local-ecology-runner-c.receipt.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-runner-c.receipt.json",
+      "sha256": "149e2c9a8840305b7833f7b00130a1eba3b21a4df0dbd29c134e2e56c4675a70"
+    },
+    {
+      "bytes": 12463,
+      "member": "recipe/actual-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-actual-c.json",
+      "sha256": "124403f14bf6265ea03482bfbcc38a918f7164468eae9165df65a38eae0bd73f"
+    },
+    {
+      "bytes": 4390,
+      "member": "recipe/metadata-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-metadata-c.json",
+      "sha256": "d279b8492c163327dba6a8c89b366179d8cc62b3dc343bcda8541c4a583728f5"
+    },
+    {
+      "bytes": 3805,
+      "member": "recipe/command-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-command-c.json",
+      "sha256": "bdf0e206194d2deeeb6f6bfc31dd7775dafc77c655c8ddaddf171c72aef872e5"
+    },
+    {
+      "bytes": 1680905,
+      "member": "recipe/closure-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-closure-c.json",
+      "sha256": "2972004d0b3f41010a9e9ff110bac1506046c1cf065e964214992c767c323417"
+    },
+    {
+      "bytes": 7646,
+      "member": "recipe/runner-c.py",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-runner-c.py",
+      "sha256": "03dccb5752a011b4c6616322b40b9f330b37ed11472a129f3b8aa21328b5b62d"
+    },
+    {
+      "bytes": 2617,
+      "member": "recipe/setup-c.py",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-setup-c.py",
+      "sha256": "5b0bf15ab148ba832000736fe05134ae7e355f03620d7e0ec02f0d1a5b047962"
+    },
+    {
+      "bytes": 1239,
+      "member": "recipe/independent-command-review-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-independent-command-review-c.json",
+      "sha256": "a3605cab1f4e979b093e8632e4561f08c13625b2c08e3f7d76e9f089f270f3e2"
+    },
+    {
+      "bytes": 1055,
+      "member": "recipe/independent-actual-review-c.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-independent-actual-review-c.json",
+      "sha256": "5e4098615a99d9ddf1dd2d607108df71a87530d046fdb8ea4c9cce4b9b062789"
+    },
+    {
+      "bytes": 2733,
+      "member": "inputs/selected-operator.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-inputs-c/selected-operator.json",
+      "sha256": "29fa6b186da776aea037f09eb9b21fcf7cddfe3ebf6b286a53a7a3fbffecf319"
+    },
+    {
+      "bytes": 3028086,
+      "member": "inputs/custody.json",
+      "original": "/private/tmp/ashlar-graphframes-local-ecology-inputs-c/custody.json",
+      "sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add"
+    },
+    {
+      "bytes": 3216,
+      "member": "helpers/capture-a.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 2854,
+      "member": "helpers/outer-launcher-h.py",
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    },
+    {
+      "bytes": 62701,
+      "member": "inputs/original/ontology.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/ontology.json",
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee"
+    },
+    {
+      "bytes": 77070,
+      "member": "inputs/original/graph/fixture.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/graph/fixture.json",
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668"
+    },
+    {
+      "bytes": 23485,
+      "member": "inputs/original/pack.json",
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/ecology/upstream/pack.json",
+      "sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481"
+    }
+  ],
+  "prior_installation_commit": "f5f244b99aa14aeee22782a7506ca218c87fe000",
+  "prior_installation_files": [
+    {
+      "bytes": 1301,
+      "path": "docs/helix/04-build/evidence/graphframes-public-installation-20261010-b/README.md",
+      "sha256": "d73c64504054304a9b2a4809b42de26746d9bbdc01d7ac6300737706a74395d1"
+    },
+    {
+      "bytes": 2645481,
+      "path": "docs/helix/04-build/evidence/graphframes-public-installation-20261010-b/actual.tar.gz",
+      "sha256": "0ec48ae8ded9e649678c3fbc0b734085721e3d0e7c4e3870fcd9736dd9b32074"
+    },
+    {
+      "bytes": 11594,
+      "path": "docs/helix/04-build/evidence/graphframes-public-installation-20261010-b/inventory.json",
+      "sha256": "4fc1fb6053bfc9133c7df99c00d0fdca16289bfea0f867aaa7ac43c3e9a54a2b"
+    }
+  ],
+  "qualification": "All57 actual files retained. Shared installed wheel/SDK/JDK/interpreters/runtime candidate remain in prior installation evidence and original7404file descriptor closure; no runtime binaries duplicated."
+}
