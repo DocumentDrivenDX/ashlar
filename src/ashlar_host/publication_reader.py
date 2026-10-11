@@ -2,12 +2,98 @@
 from .lifecycle import finish, owned_context
 import hashlib, json
 from contextlib import contextmanager
+from dataclasses import dataclass, field
 from ashlar.publication import resolve_publication
 from .source_identity import SOURCE_SHA
 from .delta_custody import encoded
 from .read_only_transport import ReadOnlyTransport, original_read_capacity
 from .commerce_binding import compiler_request, LAYOUT_SHA
 from .ordinary_query_connection import OrdinaryQueryConnectionFactory, acquire_ordinary_query_connection
+
+@dataclass(frozen=True)
+class OpenedCommerceReader:
+    """Original port correspondence only; every use needs the active owner."""
+    provider: object
+    driver: object
+    admission: object
+    independent_expected: dict
+    context: object
+    original_native_files: dict
+    native_files: object
+    aliases: dict
+    original_report: dict
+    model: bytes
+    graph: bytes
+    bindings: dict
+    manifest: dict
+    request_bytes: bytes
+    manifest_bytes: bytes
+    publication: object
+    _original: str = field(init=False, repr=False)
+    _ports: tuple = field(init=False, repr=False)
+
+    def __post_init__(self):
+        from .driver import NativeDriver
+        from .commerce_admission import CommerceAdmission
+        from .supply_chain_request import source_snapshot
+        from pathlib import Path
+        if (type(self.provider) is not PublicationProvider or type(self.driver) is not NativeDriver
+                or type(self.admission) is not CommerceAdmission
+                or self.provider.driver is not self.driver or self.provider.context is not self.context
+                or self.driver.context is not self.context or self.driver.source_admission is not self.admission
+                or any(type(raw) is not bytes for raw in (self.model,self.graph,self.request_bytes,self.manifest_bytes))
+                or not callable(self.native_files) or type(self.publication)is not type(Path())
+                or not self.publication.is_absolute() or self.publication.is_symlink()):
+            raise ValueError('Exact original opened reader port correspondence required')
+        for name in ('independent_expected','original_native_files','aliases','original_report','bindings','manifest'):
+            object.__setattr__(self,name,source_snapshot(getattr(self,name)))
+        object.__setattr__(self,'_ports',self._port_identity())
+        object.__setattr__(self,'_original',self._correspondence())
+
+    def _port_identity(self):
+        return (self.provider,self.driver,self.admission,self.context,self.driver.transport,
+                self.driver.policy,self.provider.ordinary_session,getattr(self.driver,'query_source_factory',None),self.driver.source_sessions)
+
+    def _correspondence(self):
+        from .supply_chain_request import source_snapshot
+        from .evolution_producer import snapshot
+        from .delta_custody import DeltaTarget
+        if any(type(t)is not DeltaTarget for t in self.driver.transport.targets.values()):raise PermissionError('Exact original native target carriers required')
+        if self.publication.is_symlink()or not self.publication.is_dir():raise PermissionError('Original publication directory required')
+        info=self.publication.stat()
+        if json.loads(snapshot(self.publication/'report.json',16777216))!=self.original_report:raise PermissionError('Original retained publication report changed')
+        return encoded(source_snapshot({'model':self.model.hex(),'graph':self.graph.hex(),
+            'request':self.request_bytes.hex(),'manifest_text':self.manifest_bytes.hex(),
+            'manifest':self.manifest,'bindings':self.bindings,'report':self.original_report,
+            'aliases':self.aliases,'native':self.original_native_files,'expected':self.independent_expected,
+            'targets':[{ 'table':t.table,'uuid':t.uuid,'path':str(t.path)} for t in self.driver.transport.targets.values()],
+            'admission':self.admission.metadata(),'publication':str(self.publication),
+            'publication_identity':[info.st_dev,info.st_ino],
+            'registered_source':None if getattr(self.driver,'query_source_factory',None)is None else self.driver.query_source_factory.metadata()}))
+
+    def require_current(self, context):
+        from .driver import NativeDriver
+        from .commerce_admission import CommerceAdmission
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if (context is not self.context or type(self.provider) is not PublicationProvider
+                or type(self.driver) is not NativeDriver or type(self.admission) is not CommerceAdmission
+                or self.provider.driver is not self.driver or self.provider.context is not context
+                or self.driver.source_admission is not self.admission or self.provider._reader_closed
+                or not self.provider.active or not self.driver.pin_held
+                or type(self.provider.ordinary_session)is not OrdinaryQueryConnectionFactory
+                or type(getattr(self.driver,'query_source_factory',None))is not CommerceQuerySourceFactory):
+            raise PermissionError('Current explicit ordinary source and full reader interval required')
+        if any(current is not original for current,original in zip(self._port_identity(),self._ports)):
+            raise PermissionError('Original actual reader ports replaced')
+        self.driver.require(context)
+        if self._correspondence()!=self._original or self.provider.request_bytes!=self.request_bytes or self.provider.manifest_bytes!=self.manifest_bytes:
+            raise PermissionError('Original opened reader correspondence changed')
+        self.driver.validate_manifest(self.manifest,context)
+        self.driver.source_admit(json.loads(self.request_bytes))
+        self.provider.renew_current_ack(context)
+        if self.native_files()!=self.original_native_files:
+            raise PermissionError('Original complete native carrier bytes changed')
+        return None
 
 def original_commerce_reader_roles(report,source_factory):
     """Explicit selected role carriers; historical reports retain old spelling."""
@@ -123,6 +209,19 @@ def execute_guarded(provider, request, artifact, *, context):
     return {'rows': answer, 'integrity': checks, 'qualification': __doc__}
 
 class PublicationProvider:
+
+    def renew_current_ack(self, context):
+        """Observe the current ordinary ACK inside the already held interval."""
+        from .postgres import Session
+        if context is not self.context or not self.active or self._reader_closed or self.ordinary_session is None:
+            raise PermissionError('Active explicit ordinary ACK interval required')
+        self.driver.require(context)
+        if not self.driver.pin_held:raise PermissionError('Original complete pin interval required')
+        connection=acquire_ordinary_query_connection(self.ordinary_session,self.port['role']);primary=None
+        try:self._ack(Session(connection))
+        except BaseException as error:primary=error
+        finish(primary,[connection.rollback,connection.close])
+        return None
 
     def __init__(self, driver, aliases, scope_port, request_bytes, manifest_bytes, expected_binding, *, context, cleanup_state=None, original_bindings=(), ordinary_session=None):
         if ordinary_session is not None:
@@ -365,7 +464,6 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
             raise ValueError('invalid-reader-cleanup-state')
         object.__setattr__(cleanup_state, '_claimed', True)
     from pathlib import Path
-    from types import SimpleNamespace
     from .source_identity import build_transaction
     from .schema_rows import fixture_columns
     from .delta_custody import DeltaTarget
@@ -415,7 +513,7 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
         req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
         original_bindings = original_commerce_reader_bindings(model, bindings, manifest, original_report['table_registry'], aliases)
         provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state, original_bindings=tuple(original_bindings), ordinary_session=ordinary_session)
-        yield SimpleNamespace(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode())
+        yield OpenedCommerceReader(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode(),publication=publication.resolve())
         if native_files() != original_native:
             raise ValueError('Read-only consumer changed original native bytes')
     except BaseException as error:

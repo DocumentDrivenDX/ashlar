@@ -648,6 +648,21 @@ success requires engine shutdown, closing materialization checks and all owning
 source, pin and policy contexts to close successfully; partial evidence cannot
 authorize a result or replace those checks.
 
+The installed original-commerce GraphFrames profile MUST preserve the declared
+UMF0.8 model, exact original graph and transaction, development identity bindings,
+and independently admitted current ordinary source and protected-ACK custody.
+Its live mode MUST retain the complete original six-table publication reader
+interval through isolated engine execution and closing renewal. It MUST prove
+all four unchanged authored commerce scenarios and seven common graph operations,
+including complete node/edge carriers, relationship occurrence bags, one/two-hop
+walks, grouped counts, singleton and a nonvacuous filtered limit. Original scalar
+lexical tokens, presence states and unused fields MUST survive independently of
+selected finite native arithmetic; no general unbounded Integer promotion follows.
+Raw arithmetic guards and results MUST be retained before comparison. An opened
+reader carrier establishes correspondence only: current driver, source, pins and
+ordinary protected-ACK admission remain mandatory on every use. Existing installed
+archaeology/ecology and retained-export profiles MUST retain their boundaries.
+
 A source adapter claiming Truss layout 0.2 MUST preserve shared object/edge ID
 allocation and unique relationship/source/target edge rules. Generic parallel-edge
 fixtures qualify carrier capacity only; incompatible producer duplicates must be

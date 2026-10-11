@@ -24,6 +24,15 @@ class Tests(TestCase):
   del config['custody_sha256']
   with self.assertRaises(ValueError):parse_graphframes_invocation(json.dumps(config).encode())
 
+ def test_original_commerce_profile_explicit_publication_no_offline_fallback(self):
+  from ashlar_host.graphframes_cli import CommerceGraphFramesInvocation,COMMERCE_PROFILE
+  config=self.config();config.update(profile=COMMERCE_PROFILE,publication='/operator/original-publication')
+  selected=parse_graphframes_invocation(json.dumps(config).encode());self.assertIs(type(selected),CommerceGraphFramesInvocation);self.assertEqual(selected.publication,Path('/operator/original-publication'))
+  for change in ({'mode':'protected-ack-export'},{'publication':'/operator/output'},{'publication':'relative'}, {'release':'/operator/release'}):
+   with self.assertRaises(ValueError):parse_graphframes_invocation(json.dumps(dict(config,**change)).encode())
+  del config['publication']
+  with self.assertRaises(ValueError):parse_graphframes_invocation(json.dumps(config).encode())
+
  def test_installed_public_cli_dispatch_and_redacted_refusal(self):
   import contextlib,io
   from unittest import mock

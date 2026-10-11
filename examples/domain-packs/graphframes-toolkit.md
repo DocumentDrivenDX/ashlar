@@ -186,3 +186,26 @@ retained before semantic comparison. Capacity overflow, observer refusal, source
 or runtime drift, and cleanup failures withhold the final report. Original raw
 observations remain available for diagnosis. A successful final report follows
 child cleanup and all outer host contexts closing successfully.
+
+For the exact original commerce UMF0.8 source, select configuration profile
+`ashlar-original-commerce-graphframes-invocation/0.1`, mode `live-publication`,
+and add an absolute `publication` path to the existing runtime, pack and output
+configuration. Output must be separate from that retained publication. The same
+installed `ashlar query-graphframes` command runs its unchanged four original
+scenarios and seven common operations. Original lexical values, presence states,
+unused fields and every relationship occurrence remain independently checked;
+selected quantity arithmetic uses exact-or-refuse decimal38 and the authored
+amount fields use decimal18,2. Logical Integer remains unbounded.
+
+The explicitly selected provider's `open_graphframes(invocation, release, custody)`
+must yield a `CommerceGraphFramesSession` from the public commerce owner. Its
+`opened` value comes from actual `open_commerce_reader` with explicit ordinary
+source and protected-ACK factories; a report or named carrier grants no authority.
+The provider owns canonical Spark4 reader lifetime and shutdown. The shared public
+`execute_commerce_graphframes_release` owner keeps that real interval held while
+the separate Py3.11/Spark3.5.3/Delta3.2.1/GraphFrames0.12.3 process executes, then
+renews the current original source, ACK and full native vector. The CLI releases
+the final report only after the provider closes. This commerce profile has no
+retained-export fallback and performs no append, bootstrap or republication.
+Native qualification is separately recorded in execution evidence; source controls
+alone do not qualify the installed engine workflow.

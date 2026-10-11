@@ -302,63 +302,81 @@ def _write_owned(path,raw):
 
 
 def execute_graphframes_release(session,runtime,pack_bytes,observe):
- """Execute all original cases and common topology under the selected host hold.
-
- Observation files survive a worker refusal. A final result is released only after
- child cleanup, runtime and source renewal, and every outer authority close.
- """
+ """Original seventeen cases under the unchanged exact pack source profile."""
  from .graphframes_pack_scenarios import prepare_scenarios
  if type(runtime)is not GraphFramesRuntimeConfig or not callable(observe):raise ValueError('Exact runtime and owned sink required')
  runtime.renew()
+ with hold_graphframes_session(session)as(release,renew_authority):
+  original=_source(session.source)
+  profile=prepare_scenarios(session.source.definition,original[1],original[2],pack_bytes,json.loads(release.payload))
+  result=_execute_prepared_graphframes(runtime,session.runtime_policy,session.runtime_context,release,profile,renew_authority,observe)
+ return result
+
+
+def execute_commerce_graphframes_release(session,runtime,pack_bytes,observe):
+ """Closed public commerce dispatch sharing the single owned worker lifetime."""
+ from .commerce_graphframes_release import CommerceGraphFramesSession,hold_commerce_graphframes_session
+ if type(session)is not CommerceGraphFramesSession or type(runtime)is not GraphFramesRuntimeConfig or not callable(observe):raise ValueError('Exact commerce session/runtime and owned sink required')
+ runtime.renew()
+ with hold_commerce_graphframes_session(session,pack_bytes)as(release,profile,renew):
+  result=_execute_prepared_graphframes(runtime,session.runtime_policy,session.runtime_context,release,profile,renew,observe)
+ return result
+
+
+def _execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release,profile,renew_authority,observe):
+ """Internal closed-profile seam; public owning sessions supply current renewal."""
+ if type(runtime)is not GraphFramesRuntimeConfig or type(release)is not GraphRelease or not callable(observe):raise ValueError('Exact runtime/release and owned sink required')
+ profile=source_snapshot(profile)
+ if profile.get('pack')not in ('archaeology','ecology','commerce')or(profile['pack']=='commerce'and profile.get('profile')!='original-commerce/0.1'):raise ValueError('Closed packaged GraphFrames profile required')
+ runtime.renew();renew_authority()
  if runtime.work.exists():raise ValueError('Fresh owned GraphFrames output required')
  runtime.work.mkdir(mode=0o700)
  identity=(runtime.work.stat().st_dev,runtime.work.stat().st_ino)
- result=None
- with hold_graphframes_session(session)as(release,renew_authority):
-  original=_source(session.source)
-  inventory=session.runtime_policy.admit_graphframes_runtime(runtime,session.runtime_context)
-  if type(inventory)is not GraphFramesRuntimeInventory:raise PermissionError('Actual complete installed runtime inventory admission required')
-  inventory.verify(runtime)
-  profile=prepare_scenarios(session.source.definition,original[1],original[2],pack_bytes,json.loads(release.payload))
-  request={'format':'ashlar-graphframes-worker/0.1','profile':profile,'release':json.loads(release.payload),'versions':VERSIONS,'maximum_evidence_bytes':runtime.maximum_evidence_bytes,'jars':{name:str(runtime.jars/name)for name in JARS}}
-  raw=(json.dumps(request,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()
-  input_path=runtime.work/'input.json';_write_owned(input_path,raw);os.chmod(input_path,0o400)
-  def renew():
-   renew_graphframes_runtime(runtime,inventory,session.runtime_policy,session.runtime_context);renew_authority()
-   if runtime.work.is_symlink()or(runtime.work.stat().st_dev,runtime.work.stat().st_ino)!=identity or snapshot(input_path,16777216)!=raw:raise ValueError('Owned worker correspondence changed')
-  environment={'PATH':str(runtime.java_home/'bin')+':/usr/bin:/bin','JAVA_HOME':str(runtime.java_home),'HOME':str(runtime.work),'TMPDIR':str(runtime.work),'PYSPARK_PYTHON':str(runtime.python),'PYSPARK_DRIVER_PYTHON':str(runtime.python)}
-  primary=None;observed_records=[]
-  try:
-   capture_graphframes_worker([str(runtime.python),'-I','-B','-m','ashlar_host.graphframes_release','--worker',str(input_path),str(runtime.work)],cwd=runtime.work,environment=environment,renew=renew,timeout_seconds=runtime.timeout_seconds,maximum_output_bytes=runtime.maximum_stream_bytes,retain_transport=lambda value:_write_owned(runtime.work/'transport.json',(json.dumps(value,sort_keys=True,separators=(',',':'))+'\n').encode()))
-  except BaseException as error:primary=error
-  def retain():
-   path=runtime.work/'observations.jsonl'
-   if path.exists():
-    observations=snapshot(path,runtime.maximum_evidence_bytes)
-    for line in observations.splitlines():
-     value=json.loads(line);observed_records.append(source_snapshot(value))
-     if observe(source_snapshot(value))is not None:raise ValueError('Raw observation sink refused')
-  finish(primary,[retain,renew])
-  result=json.loads(snapshot(runtime.work/'result.json',runtime.maximum_evidence_bytes))
-  from .graphframes_pack_scenarios import validate_case,bag,common_oracle
-  import base64
-  if type(result.get('cases'))is not list or [r.get('original_scenario')for r in result['cases']]!=[c['original_scenario']for c in profile['cases']]:raise ValueError('Complete unchanged original case order required')
-  for record in result['cases']:
-   raw_witness=[v for v in observed_records if v.get('kind')=='original-scenario'and v.get('case')==record['original_scenario']['id']]
-   if len(raw_witness)!=1 or raw_witness[0].get('schema')!=record['schema']or raw_witness[0].get('rows')!=record['rows']or raw_witness[0].get('original_scenario')!=record['original_scenario']:raise ValueError('Complete actual raw scenario witness differs')
-   validate_scenario_evidence(profile,record)
-  expected_common=common_oracle(json.loads(original[2]))
-  if type(result.get('common'))is not dict:raise ValueError('Complete common topology evidence required')
-  for name in ('one-hop','two-hop','grouped-count','singleton','filtered-limit','isolates'):
-   if bag(result['common'].get(name,[]))!=bag(expected_common[name]):raise ValueError('Parent original common occurrence bag differs')
-  if result['common'].get('filtered-total')!=expected_common['filtered-total']:raise ValueError('Parent original filtered membership differs')
-  if bag(result['common'].get('all-objects',[]))!=bag(request['release']['nodes'])or bag(result['common'].get('all-edges',[]))!=bag(request['release']['edges']):raise ValueError('Parent complete original canonical carrier bags differ')
-  if type(result)is not dict or result.get('format')!='ashlar-original-pack-graphframes/0.1' or result.get('pack')!=original[0]or result.get('all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
-  inventory.verify(runtime)
-  validate_derived_evidence(result,request['release'],observed_records,runtime.work)
-  validate_common_evidence(result,request['release'],profile,observed_records)
-  validate_projected_carrier_evidence(profile,observed_records)
-  renew()
+ inventory=runtime_policy.admit_graphframes_runtime(runtime,runtime_context)
+ if type(inventory)is not GraphFramesRuntimeInventory:raise PermissionError('Actual complete installed runtime inventory admission required')
+ inventory.verify(runtime)
+ request={'format':'ashlar-graphframes-worker/0.1','profile':profile,'release':json.loads(release.payload),'versions':VERSIONS,'maximum_evidence_bytes':runtime.maximum_evidence_bytes,'jars':{name:str(runtime.jars/name)for name in JARS}}
+ raw=(json.dumps(request,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()
+ input_path=runtime.work/'input.json';_write_owned(input_path,raw);os.chmod(input_path,0o400)
+ def renew():
+  renew_graphframes_runtime(runtime,inventory,runtime_policy,runtime_context);renew_authority()
+  if runtime.work.is_symlink()or(runtime.work.stat().st_dev,runtime.work.stat().st_ino)!=identity or snapshot(input_path,16777216)!=raw:raise ValueError('Owned worker correspondence changed')
+ environment={'PATH':str(runtime.java_home/'bin')+':/usr/bin:/bin','JAVA_HOME':str(runtime.java_home),'TMPDIR':str(runtime.work),'PYSPARK_PYTHON':str(runtime.python),'PYSPARK_DRIVER_PYTHON':str(runtime.python)}
+ primary=None;observed_records=[]
+ try:
+  capture_graphframes_worker([str(runtime.python),'-I','-B','-m','ashlar_host.graphframes_release','--worker',str(input_path),str(runtime.work)],cwd=runtime.work,environment=environment,renew=renew,timeout_seconds=runtime.timeout_seconds,maximum_output_bytes=runtime.maximum_stream_bytes,retain_transport=lambda value:_write_owned(runtime.work/'transport.json',(json.dumps(value,sort_keys=True,separators=(',',':'))+'\n').encode()))
+ except BaseException as error:primary=error
+ def retain():
+  path=runtime.work/'observations.jsonl'
+  if path.exists():
+   observations=snapshot(path,runtime.maximum_evidence_bytes)
+   for line in observations.splitlines():
+    value=json.loads(line);observed_records.append(source_snapshot(value))
+    if observe(source_snapshot(value))is not None:raise ValueError('Raw observation sink refused')
+ finish(primary,[retain,renew])
+ result=json.loads(snapshot(runtime.work/'result.json',runtime.maximum_evidence_bytes))
+ from .graphframes_pack_scenarios import validate_case,bag,common_oracle
+ import base64
+ if type(result.get('cases'))is not list or [r.get('original_scenario')for r in result['cases']]!=[c['original_scenario']for c in profile['cases']]:raise ValueError('Complete unchanged original case order required')
+ for record in result['cases']:
+  raw_witness=[v for v in observed_records if v.get('kind')=='original-scenario'and v.get('case')==record['original_scenario']['id']]
+  if len(raw_witness)!=1 or raw_witness[0].get('schema')!=record['schema']or raw_witness[0].get('rows')!=record['rows']or raw_witness[0].get('original_scenario')!=record['original_scenario']:raise ValueError('Complete actual raw scenario witness differs')
+  validate_scenario_evidence(profile,record)
+ expected_common=common_oracle(json.loads(base64.b64decode(profile['source_admission']['original_graph_base64'],validate=True)))
+ if type(result.get('common'))is not dict:raise ValueError('Complete common topology evidence required')
+ for name in ('one-hop','two-hop','grouped-count','singleton','filtered-limit','isolates'):
+  if bag(result['common'].get(name,[]))!=bag(expected_common[name]):raise ValueError('Parent original common occurrence bag differs')
+ if result['common'].get('filtered-total')!=expected_common['filtered-total']:raise ValueError('Parent original filtered membership differs')
+ if bag(result['common'].get('all-objects',[]))!=bag(request['release']['nodes'])or bag(result['common'].get('all-edges',[]))!=bag(request['release']['edges']):raise ValueError('Parent complete original canonical carrier bags differ')
+ if type(result)is not dict or result.get('format')!='ashlar-original-pack-graphframes/0.1' or result.get('pack')!=profile['pack']or result.get('all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
+ inventory.verify(runtime)
+ validate_derived_evidence(result,request['release'],observed_records,runtime.work)
+ validate_common_evidence(result,request['release'],profile,observed_records)
+ validate_projected_carrier_evidence(profile,observed_records)
+ if profile['pack']=='commerce':
+  from .commerce_graphframes_scenarios import validate_arithmetic_evidence
+  validate_arithmetic_evidence(profile,observed_records)
+ renew()
  runtime.renew()
  return source_snapshot(result)
 
@@ -407,7 +425,10 @@ def graphframes_worker(input_path,output):
     if witness!=derived[role]or versions!=[[0]]:raise ValueError('Distinct immutable derived Delta vector changed')
   parity('before-query')
   vertices=frames['nodes'].withColumnRenamed('id','carrier_id').withColumnRenamed('graph_id','id');edges=frames['edges'].withColumnRenamed('id','carrier_id').withColumnRenamed('graph_id','id');graphframe=GraphFrame(vertices,edges)
-  cases=execute_scenarios(graphframe,profile,observe)
+  if profile.get('pack')=='commerce':
+   from .commerce_graphframes_scenarios import execute_commerce_graphframes_scenarios
+   cases=execute_commerce_graphframes_scenarios(graphframe,profile,observe)
+  else:cases=execute_scenarios(graphframe,profile,observe)
   common=execute_common_graphframes(graphframe,profile,release,observe)
   parity('closing');result={'format':'ashlar-original-pack-graphframes/0.1','pack':profile['pack'],'cases':cases,'common':common,'derived_snapshots':derived,'original_snapshots':release['snapshots'],'all_original_cases_passed':len(cases),'full_carrier_parity':True,'authority_scope':'Parent-selected live hold or separately admitted retained protected-ACK export; this worker establishes no authority.'}
  except BaseException as error:primary=error
@@ -481,7 +502,10 @@ def validate_projected_carrier_evidence(profile,observations):
 
 def validate_scenario_evidence(profile,record):
  """Keep reported logical cells and independent oracle bound to original facts."""
- from .graphframes_pack_scenarios import validate_case
+ if profile.get('pack')=='commerce':
+  from .commerce_graphframes_scenarios import validate_case
+ else:
+  from .graphframes_pack_scenarios import validate_case
  record=source_snapshot(record)
  if type(record)is not dict or set(record)!={'original_scenario','schema','rows','logical_rows','independent_expected'}or type(record['original_scenario'])is not dict or set(record['original_scenario'])!={'id','sql'}or any(type(v)is not str for v in record['original_scenario'].values()):raise ValueError('Closed original scenario evidence required')
  originals=[c for c in profile['cases']if c['original_scenario']==record['original_scenario']]
@@ -533,7 +557,7 @@ def validate_derived_evidence(result,release,observations,work):
  import uuid
  from urllib.parse import urlsplit,unquote
  keys={'format','pack','cases','common','derived_snapshots','original_snapshots','all_original_cases_passed','full_carrier_parity','authority_scope'}
- if type(result)is not dict or set(result)!=keys or result['format']!='ashlar-original-pack-graphframes/0.1'or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['all_original_cases_passed'])is not int or result['all_original_cases_passed']!=(8 if result['pack']=='archaeology'else 9)or len(result['cases'])!=result['all_original_cases_passed']or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
+ if type(result)is not dict or set(result)!=keys or result['format']!='ashlar-original-pack-graphframes/0.1'or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology','commerce')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['all_original_cases_passed'])is not int or result['all_original_cases_passed']!=({'archaeology':8,'ecology':9,'commerce':4}[result['pack']])or len(result['cases'])!=result['all_original_cases_passed']or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
  for case in result['cases']:
   if type(case)is not dict or set(case)!={'original_scenario','schema','rows','logical_rows','independent_expected'}or type(case['original_scenario'])is not dict or set(case['original_scenario'])!={'id','sql'}or any(type(v)is not str for v in case['original_scenario'].values()):raise ValueError('Closed unchanged original case evidence required')
  if result.get('original_snapshots')!=release['snapshots']:raise ValueError('Original complete publication vector differs')

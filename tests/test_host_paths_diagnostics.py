@@ -242,6 +242,7 @@ class DiagnosticWorkflowTests(unittest.TestCase):
                     namespace = dict(vars(reader_owner))
                     namespace.update(spark=None, publication=Path('/synthetic'), targets=[],
                         ROOT=Path('/synthetic'), SimpleNamespace=SimpleNamespace,
+                        OpenedCommerceReader=SimpleNamespace,
                         PrivatePolicy=lambda *args: SimpleNamespace(initializing=True),
                         ReadOnlyTransport=SimpleNamespace(open=lambda *args, **kwargs: Transport()),
                         original_read_capacity=lambda *args: None,

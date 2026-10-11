@@ -15,6 +15,7 @@ from ashlar.graph_release import GraphRelease
 from .lifecycle import owned_context
 
 PROFILE='ashlar-graphframes-invocation/0.1'
+COMMERCE_PROFILE='ashlar-original-commerce-graphframes-invocation/0.1'
 def _digest(value):
  if type(value)is not str or not re.fullmatch('[0-9a-f]{64}',value):raise ValueError('Exact externally selected digest required')
  return value
@@ -54,16 +55,34 @@ class GraphFramesInvocation:
    _digest(self.release_sha256);_digest(self.custody_sha256)
   elif any(v is not None for v in (self.release,self.release_sha256,self.custody,self.custody_sha256)):raise ValueError('Live mode cannot acquire retained export fallback')
 
+@dataclass(frozen=True)
+class CommerceGraphFramesInvocation:
+ mode:str
+ pack:Path
+ publication:Path
+ output:Path
+ runtime:GraphFramesRuntimeConfig
+ def __post_init__(self):
+  if type(self.mode)is not str or self.mode!='live-publication':raise ValueError('Explicit original commerce live profile required')
+  if any(type(p)is not type(Path())or not p.is_absolute()for p in (self.pack,self.publication,self.output)):raise ValueError('Exact original commerce paths required')
+  if type(self.runtime)is not GraphFramesRuntimeConfig or self.runtime.work!=self.output/'engine':raise ValueError('Separate explicitly selected engine output required')
+  self.runtime.__post_init__()
+  if self.publication==self.output or self.publication in self.output.parents or self.output in self.publication.parents:raise ValueError('Observation output must be separate from original publication')
+
 def parse_graphframes_invocation(raw):
  if type(raw)is not bytes or not 0<len(raw)<=MAX_CONFIG:raise ValueError('Bounded exact invocation bytes required')
  value=json.loads(raw,object_pairs_hook=_pairs,parse_int=_integer,parse_float=lambda _:(_ for _ in ()).throw(ValueError('Float configuration refused')),parse_constant=lambda _:(_ for _ in ()).throw(ValueError('Nonfinite configuration refused')))
  common={'profile','mode','pack','output','runtime'}
- if type(value)is not dict or value.get('profile')!=PROFILE or type(value.get('mode'))is not str:raise ValueError('Closed selected GraphFrames invocation required')
+ if type(value)is not dict or type(value.get('profile'))is not str or value['profile']not in (PROFILE,COMMERCE_PROFILE)or type(value.get('mode'))is not str:raise ValueError('Closed selected GraphFrames invocation required')
+ commerce=value['profile']==COMMERCE_PROFILE
+ if commerce and value['mode']!='live-publication':raise ValueError('No original commerce retained-export fallback')
+ if commerce:common=common|{'publication'}
  expected=common|({'release','release_sha256','custody','custody_sha256'}if value['mode']=='protected-ack-export'else set())
  if set(value)!=expected:raise ValueError('Closed mode-specific invocation required')
  runtime=value['runtime'];keys={'python','python_sha256','java_home','java_sha256','worker_revision','worker_inventory_sha256','sdk_inventory_sha256','jars','timeout_seconds','maximum_stream_bytes','maximum_evidence_bytes'}
  if type(runtime)is not dict or set(runtime)!=keys:raise ValueError('Exact isolated runtime configuration required')
  output=_path(value['output']);config=GraphFramesRuntimeConfig(_path(runtime['python']),_digest(runtime['python_sha256']),_path(runtime['java_home']),_digest(runtime['java_sha256']),runtime['worker_revision'],_digest(runtime['worker_inventory_sha256']),_digest(runtime['sdk_inventory_sha256']),_path(runtime['jars']),output/'engine',runtime['timeout_seconds'],runtime['maximum_stream_bytes'],runtime['maximum_evidence_bytes'])
+ if commerce:return CommerceGraphFramesInvocation(value['mode'],_path(value['pack']),_path(value['publication']),output,config)
  return GraphFramesInvocation(value['mode'],_path(value['pack']),output,config,*((_path(value['release']),_digest(value['release_sha256']),_path(value['custody']),_digest(value['custody_sha256']))if value['mode']=='protected-ack-export'else (None,None,None,None)))
 
 def run_graphframes_command(configuration,provider_path,provider_sha256):
@@ -96,10 +115,17 @@ def run_graphframes_command(configuration,provider_path,provider_sha256):
   if total>invocation.runtime.maximum_evidence_bytes or count>=128:raise ValueError('Complete raw observation budget exceeded')
   retain(invocation.output,'observation-'+str(count)+'.json',raw,output_identity);count+=1
  with owned_context(module.open_graphframes(invocation,release,custody))as session:
-  expected=GraphFramesOfflineSession if invocation.mode=='protected-ack-export'else GraphFramesPublicationSession
+  commerce=type(invocation)is CommerceGraphFramesInvocation
+  if commerce:
+   from .commerce_graphframes_release import CommerceGraphFramesSession
+   from .graphframes_release import execute_commerce_graphframes_release
+   expected=CommerceGraphFramesSession
+  else:expected=GraphFramesOfflineSession if invocation.mode=='protected-ack-export'else GraphFramesPublicationSession
   if type(session)is not expected:raise ValueError('Provider cannot substitute authority mode')
+  if commerce and session.opened.publication!=invocation.publication:raise ValueError('Provider differs from explicitly selected original publication')
   if expected is GraphFramesOfflineSession and(session.release!=release or session.custody_bytes!=custody or session.custody_sha256!=invocation.custody_sha256):raise ValueError('Provider retained export correspondence differs')
-  result=execute_graphframes_release(session,invocation.runtime,pack,observe)
+  if commerce:result=execute_commerce_graphframes_release(session,invocation.runtime,pack,observe)
+  else:result=execute_graphframes_release(session,invocation.runtime,pack,observe)
   renew()
  renew()
  report={'format':'ashlar-installed-graphframes/0.1','mode':invocation.mode,'observations':count,'result':result,'scope':'All original pack cases and common topology under the explicitly admitted host mode; retained export mode does not assert current canonical availability.'}
