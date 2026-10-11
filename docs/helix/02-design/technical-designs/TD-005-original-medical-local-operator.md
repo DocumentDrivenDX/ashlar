@@ -142,11 +142,21 @@ digest or elision rules, and prove existing commerce/evolution correspondence
 before using them in the medical plan. Original transaction and
 request correspondence are renewed before activation; generated schemas come
 from `local_physical_carriers.py`, never from observed native columns.
+Pure plan computation validates complete public medical admission at opening
+and independently at closing, derives exact original changes through public
+`changes_from_batch`, and applies only a closed nominal membership check during
+graph planning. This avoids repeated producer calls for every record while
+retaining complete original batch correspondence and refusal of closing drift.
+It grants no effect authority or exemption from current native/source/ACK gates.
 `original_medical_local_publication.py` composes the owning configured entrypoints
 `publish_original_medical_local` and `replay_original_medical_local`. Publication
 uses public `publish_outbox_transaction`, the shared attempt store and stored
 publisher backend; this module cannot implement a second phase or ACK protocol.
 
+The command composition binds its exact plan and capture limits once through
+`bind_original_medical_publication`, after existing registered driver construction
+and before acquiring the writer. Binding retains the original complete active
+request/effect/oracle view; it cannot activate a replacement or confer authority.
 The driver owns `observe_original_medical_publication` as specified by
 CONTRACT-001, using the existing bounded transport capture internally. A thin
 medical adapter delegates shared publisher ports and requires that full schema

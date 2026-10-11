@@ -671,6 +671,34 @@ oracle. Construction and renewal MUST preserve the original feed/epoch,
 checkpoint, declared schema revisions and generated effect correspondence;
 caller-supplied expected bags or a commerce admission cannot confer this grant.
 
+Its constructor is `MedicalPublicationPlan(admission, transaction, tables)`, with
+an exact six-role mapping to `local.original_medical.<role>`. Read-only `admission`
+and `transaction` properties preserve construction identities. `renew()` MUST
+recompute complete original correspondence; `require_admission(actual)` MUST
+require that same admission object, and `require_request(request)` MUST require
+the exact original primitive request. Both renew before accepting. `snapshot()`
+MUST renew and return a detached complete JSON view with exactly these members:
+`profile`, `request`, `publication_id`, `materialized_at`, `recorded_at`, `tables`,
+`columns`, `schemas`, `generated_provenance_sha256`, `source_admission`,
+`generated_steps`, `selected_steps`, `zero_match_elisions`, `previous_expected`,
+`expected`, `previous_progress` and `progress`. `schemas` retains all four checked
+generated `schemaJson` values; mutating a returned view MUST NOT change the plan.
+The original profile fixes stream `private-original-medical`, predecessor
+`explicit-original-medical-origin`, publication `original-medical-publication-1`
+and materialization time `2026-10-09T12:00:00+00:00`; these development selections
+cannot confer accepted Truss or production identity.
+
+`NativeDriver.bind_original_medical_publication(plan, bounds=bounds)` MUST accept
+one exact `MedicalPublicationPlan` and exact `VerificationBounds` before writer
+or pin acquisition, only on an exact existing `NativeDriver` with registered
+ordinary source/ACK owners and `LocalDeltaTransport`. It MUST require the driver's
+construction-bound medical admission, all six original target bindings, current
+original admission metadata and the plan's complete active request/effect/oracle
+correspondence. It MUST retain the same plan and bounds objects and their original
+complete views. A query-bound driver, duplicate binding, foreign profile or
+subsequent replacement MUST refuse. Binding grants no additional authority and
+cannot replace installation, source, native retention or publisher guards.
+
 `NativeDriver.observe_original_medical_publication(plan, descriptor,
 context=context, bounds=bounds)` MUST require that exact construction-bound plan
 and admission, a held native writer and matching pins throughout capture,
