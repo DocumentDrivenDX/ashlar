@@ -1,0 +1,58 @@
+[
+  {
+    "table": "r1_nodes",
+    "operationId": "d1f7e9a6-3965-4549-8e83-c64e28892daf",
+    "status": 200,
+    "body": {
+      "status": "Succeeded",
+      "createdTimeUtc": "2026-10-11T21:21:28.6960112",
+      "lastUpdatedTimeUtc": "2026-10-11T21:21:46.6181281",
+      "percentComplete": 100,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    }
+  },
+  {
+    "table": "r1_edges",
+    "operationId": "74667433-688f-48c8-8034-13289007dc36",
+    "status": 200,
+    "body": {
+      "status": "Succeeded",
+      "createdTimeUtc": "2026-10-11T21:21:30.0805603",
+      "lastUpdatedTimeUtc": "2026-10-11T21:21:49.9414387",
+      "percentComplete": 100,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    }
+  },
+  {
+    "table": "r2_nodes",
+    "operationId": "3fd97670-b3c5-4553-94c1-43112e7650c0",
+    "status": 200,
+    "body": {
+      "status": "Succeeded",
+      "createdTimeUtc": "2026-10-11T21:21:30.9618062",
+      "lastUpdatedTimeUtc": "2026-10-11T21:21:56.4409312",
+      "percentComplete": 100,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    }
+  },
+  {
+    "table": "r2_edges",
+    "operationId": "a0315a91-3591-45fd-b7e6-067d9a780fe8",
+    "status": 200,
+    "body": {
+      "status": "Succeeded",
+      "createdTimeUtc": "2026-10-11T21:21:31.9599897",
+      "lastUpdatedTimeUtc": "2026-10-11T21:21:59.884713",
+      "percentComplete": 100,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    }
+  }
+]

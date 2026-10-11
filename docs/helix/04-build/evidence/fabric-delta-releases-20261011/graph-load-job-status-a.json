@@ -1,0 +1,40 @@
+[
+  {
+    "release": "r1",
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "46d36771-7ba3-43d2-aab8-3abd3a822178",
+          "itemId": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+          "jobType": "Refresh",
+          "invokeType": "Manual",
+          "status": "NotStarted",
+          "failureReason": null,
+          "rootActivityId": "ac5be2b0-5d00-48df-b5d2-9b5b81d1ed74",
+          "startTimeUtc": "2026-10-11T21:32:20.1092356",
+          "endTimeUtc": null
+        }
+      ]
+    }
+  },
+  {
+    "release": "r2",
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "484d1a3e-98a2-49f5-91a3-deacf2728b0f",
+          "itemId": "fe883e8f-7f7d-42d0-a58d-299eafbb4e36",
+          "jobType": "Refresh",
+          "invokeType": "Manual",
+          "status": "NotStarted",
+          "failureReason": null,
+          "rootActivityId": "48ec71b4-3cab-4581-9bf5-e3e5d87b0797",
+          "startTimeUtc": "2026-10-11T21:32:03.616945",
+          "endTimeUtc": null
+        }
+      ]
+    }
+  }
+]

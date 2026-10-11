@@ -1,0 +1,14 @@
+[
+  {
+    "release": "r1",
+    "status": 400,
+    "query": "MATCH (n:AshlarNode) RETURN count(n) AS node_count",
+    "body": "{\"requestId\":\"1c31eac6-d202-422c-88a6-4bffd20462f9\",\"errorCode\":\"GraphNotQueryable\",\"message\":\"The graph is not yet ready for querying. Wait for the initial load to complete, or check the refresh status if you already triggered one.\",\"isRetriable\":false}"
+  },
+  {
+    "release": "r2",
+    "status": 400,
+    "query": "MATCH (n:AshlarNode) RETURN count(n) AS node_count",
+    "body": "{\"requestId\":\"e5c357af-301d-48b6-b760-44ddd8b84458\",\"errorCode\":\"GraphNotQueryable\",\"message\":\"The graph is not yet ready for querying. Wait for the initial load to complete, or check the refresh status if you already triggered one.\",\"isRetriable\":false}"
+  }
+]

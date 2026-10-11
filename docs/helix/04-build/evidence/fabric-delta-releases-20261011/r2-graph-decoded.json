@@ -1,0 +1,427 @@
+{
+  "graphType.json": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/graphType/1.0.0/schema.json",
+    "nodeTypes": [
+      {
+        "alias": "AshlarNode",
+        "labels": [
+          "AshlarNode"
+        ],
+        "primaryKeyProperties": [
+          "graph_id"
+        ],
+        "properties": [
+          {
+            "name": "apply_batch_id",
+            "type": "STRING"
+          },
+          {
+            "name": "entity_version",
+            "type": "STRING"
+          },
+          {
+            "name": "graph_id",
+            "type": "STRING"
+          },
+          {
+            "name": "id",
+            "type": "STRING"
+          },
+          {
+            "name": "logical_key_json",
+            "type": "STRING"
+          },
+          {
+            "name": "lookup_hash",
+            "type": "STRING"
+          },
+          {
+            "name": "props_json",
+            "type": "STRING"
+          },
+          {
+            "name": "published_at",
+            "type": "STRING"
+          },
+          {
+            "name": "retained_json",
+            "type": "STRING"
+          },
+          {
+            "name": "root_id",
+            "type": "STRING"
+          },
+          {
+            "name": "schema_revision",
+            "type": "STRING"
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "STRING"
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "STRING"
+          },
+          {
+            "name": "source_epoch",
+            "type": "STRING"
+          },
+          {
+            "name": "source_feed",
+            "type": "STRING"
+          },
+          {
+            "name": "source_position",
+            "type": "STRING"
+          },
+          {
+            "name": "source_system",
+            "type": "STRING"
+          },
+          {
+            "name": "type_id",
+            "type": "STRING"
+          }
+        ]
+      }
+    ],
+    "edgeTypes": [
+      {
+        "alias": "AshlarEdge",
+        "labels": [
+          "AshlarEdge"
+        ],
+        "sourceNodeType": {
+          "alias": "AshlarNode"
+        },
+        "destinationNodeType": {
+          "alias": "AshlarNode"
+        },
+        "properties": [
+          {
+            "name": "apply_batch_id",
+            "type": "STRING"
+          },
+          {
+            "name": "dst",
+            "type": "STRING"
+          },
+          {
+            "name": "entity_version",
+            "type": "STRING"
+          },
+          {
+            "name": "graph_id",
+            "type": "STRING"
+          },
+          {
+            "name": "id",
+            "type": "STRING"
+          },
+          {
+            "name": "lookup_hash",
+            "type": "STRING"
+          },
+          {
+            "name": "order_key",
+            "type": "STRING"
+          },
+          {
+            "name": "props_json",
+            "type": "STRING"
+          },
+          {
+            "name": "published_at",
+            "type": "STRING"
+          },
+          {
+            "name": "rel_type_id",
+            "type": "STRING"
+          },
+          {
+            "name": "retained_json",
+            "type": "STRING"
+          },
+          {
+            "name": "schema_revision",
+            "type": "STRING"
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "STRING"
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "STRING"
+          },
+          {
+            "name": "source_epoch",
+            "type": "STRING"
+          },
+          {
+            "name": "source_feed",
+            "type": "STRING"
+          },
+          {
+            "name": "source_id",
+            "type": "STRING"
+          },
+          {
+            "name": "source_position",
+            "type": "STRING"
+          },
+          {
+            "name": "source_system",
+            "type": "STRING"
+          },
+          {
+            "name": "source_type",
+            "type": "STRING"
+          },
+          {
+            "name": "src",
+            "type": "STRING"
+          },
+          {
+            "name": "target_id",
+            "type": "STRING"
+          },
+          {
+            "name": "target_type",
+            "type": "STRING"
+          }
+        ]
+      }
+    ]
+  },
+  "dataSources.json": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/dataSources/1.0.0/schema.json",
+    "dataSources": [
+      {
+        "name": "r2_nodes",
+        "type": "DeltaTable",
+        "properties": {
+          "path": "abfss://0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793@onelake.dfs.fabric.microsoft.com/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/r2_nodes"
+        }
+      },
+      {
+        "name": "r2_edges",
+        "type": "DeltaTable",
+        "properties": {
+          "path": "abfss://0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793@onelake.dfs.fabric.microsoft.com/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/r2_edges"
+        }
+      }
+    ]
+  },
+  "graphDefinition.json": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/graphDefinition/1.0.0/schema.json",
+    "nodeTables": [
+      {
+        "id": "R2_nodes",
+        "nodeTypeAlias": "AshlarNode",
+        "dataSourceName": "r2_nodes",
+        "propertyMappings": [
+          {
+            "propertyName": "apply_batch_id",
+            "sourceColumn": "apply_batch_id"
+          },
+          {
+            "propertyName": "entity_version",
+            "sourceColumn": "entity_version"
+          },
+          {
+            "propertyName": "graph_id",
+            "sourceColumn": "graph_id"
+          },
+          {
+            "propertyName": "id",
+            "sourceColumn": "id"
+          },
+          {
+            "propertyName": "logical_key_json",
+            "sourceColumn": "logical_key_json"
+          },
+          {
+            "propertyName": "lookup_hash",
+            "sourceColumn": "lookup_hash"
+          },
+          {
+            "propertyName": "props_json",
+            "sourceColumn": "props_json"
+          },
+          {
+            "propertyName": "published_at",
+            "sourceColumn": "published_at"
+          },
+          {
+            "propertyName": "retained_json",
+            "sourceColumn": "retained_json"
+          },
+          {
+            "propertyName": "root_id",
+            "sourceColumn": "root_id"
+          },
+          {
+            "propertyName": "schema_revision",
+            "sourceColumn": "schema_revision"
+          },
+          {
+            "propertyName": "source_cursor_json",
+            "sourceColumn": "source_cursor_json"
+          },
+          {
+            "propertyName": "source_delivery_id",
+            "sourceColumn": "source_delivery_id"
+          },
+          {
+            "propertyName": "source_epoch",
+            "sourceColumn": "source_epoch"
+          },
+          {
+            "propertyName": "source_feed",
+            "sourceColumn": "source_feed"
+          },
+          {
+            "propertyName": "source_position",
+            "sourceColumn": "source_position"
+          },
+          {
+            "propertyName": "source_system",
+            "sourceColumn": "source_system"
+          },
+          {
+            "propertyName": "type_id",
+            "sourceColumn": "type_id"
+          }
+        ]
+      }
+    ],
+    "edgeTables": [
+      {
+        "id": "R2_edges",
+        "edgeTypeAlias": "AshlarEdge",
+        "dataSourceName": "r2_edges",
+        "sourceNodeKeyColumns": [
+          "src"
+        ],
+        "destinationNodeKeyColumns": [
+          "dst"
+        ],
+        "propertyMappings": [
+          {
+            "propertyName": "apply_batch_id",
+            "sourceColumn": "apply_batch_id"
+          },
+          {
+            "propertyName": "dst",
+            "sourceColumn": "dst"
+          },
+          {
+            "propertyName": "entity_version",
+            "sourceColumn": "entity_version"
+          },
+          {
+            "propertyName": "graph_id",
+            "sourceColumn": "graph_id"
+          },
+          {
+            "propertyName": "id",
+            "sourceColumn": "id"
+          },
+          {
+            "propertyName": "lookup_hash",
+            "sourceColumn": "lookup_hash"
+          },
+          {
+            "propertyName": "order_key",
+            "sourceColumn": "order_key"
+          },
+          {
+            "propertyName": "props_json",
+            "sourceColumn": "props_json"
+          },
+          {
+            "propertyName": "published_at",
+            "sourceColumn": "published_at"
+          },
+          {
+            "propertyName": "rel_type_id",
+            "sourceColumn": "rel_type_id"
+          },
+          {
+            "propertyName": "retained_json",
+            "sourceColumn": "retained_json"
+          },
+          {
+            "propertyName": "schema_revision",
+            "sourceColumn": "schema_revision"
+          },
+          {
+            "propertyName": "source_cursor_json",
+            "sourceColumn": "source_cursor_json"
+          },
+          {
+            "propertyName": "source_delivery_id",
+            "sourceColumn": "source_delivery_id"
+          },
+          {
+            "propertyName": "source_epoch",
+            "sourceColumn": "source_epoch"
+          },
+          {
+            "propertyName": "source_feed",
+            "sourceColumn": "source_feed"
+          },
+          {
+            "propertyName": "source_id",
+            "sourceColumn": "source_id"
+          },
+          {
+            "propertyName": "source_position",
+            "sourceColumn": "source_position"
+          },
+          {
+            "propertyName": "source_system",
+            "sourceColumn": "source_system"
+          },
+          {
+            "propertyName": "source_type",
+            "sourceColumn": "source_type"
+          },
+          {
+            "propertyName": "src",
+            "sourceColumn": "src"
+          },
+          {
+            "propertyName": "target_id",
+            "sourceColumn": "target_id"
+          },
+          {
+            "propertyName": "target_type",
+            "sourceColumn": "target_type"
+          }
+        ]
+      }
+    ]
+  },
+  "stylingConfiguration.json": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/stylingConfiguration/1.0.0/schema.json",
+    "modelLayout": null,
+    "visualFormat": null
+  },
+  "graphSettings.json": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/graphSettings/1.0.0/schema.json"
+  },
+  ".platform": {
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+    "metadata": {
+      "type": "GraphModel",
+      "displayName": "Ashlar_R2"
+    },
+    "config": {
+      "version": "2.0",
+      "logicalId": "00000000-0000-0000-0000-000000000000"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "profile": "ashlar-fabric-delta-release-evidence/0.1",
+  "workspace": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+  "lakehouse": "ee66f2e8-9072-4a48-8364-ecd2f2967c3e",
+  "capacity": "approved free trial, West US 3",
+  "passed": [
+    "Four exclusive OneLake Parquet uploads with byte-identical readback",
+    "Four schema-enabled dbo Delta table load operations succeeded",
+    "Actual version-zero Delta metadata preserves all 18 node and 23 edge STRING nullable columns",
+    "Full committed native Parquet rows and multiplicities equal pinned R1/R2 release exports",
+    "Independently reviewed graph definitions submitted once and both operations succeeded"
+  ],
+  "pending": [
+    "Initial graph ingestion completion",
+    "Actual Fabric GQL full scalar parity and release isolation",
+    "Public Fabric reader against actual engine"
+  ],
+  "observations": [
+    "First count query on each graph returned HTTP400 GraphNotQueryable during initial loading. This is not a query pass.",
+    "R2 editor Save initially reported invalid elements; after dismissing, editor showed data load in progress. No second Save or refresh submitted.",
+    "This qualifies frozen synthetic release export ingestion, not continued retention of the old original publication.",
+    "No credentials retained; graph mapping preparation preserves original unknown definition parts.",
+    "Read-only job list reports exactly one Refresh job per graph, both NotStarted; no duplicate refresh submitted."
+  ],
+  "sources": [
+    "https://learn.microsoft.com/en-us/rest/api/fabric/lakehouse/tables/load-schema-table(beta)",
+    "https://learn.microsoft.com/en-us/fabric/onelake/table-apis/delta-table-apis-overview",
+    "https://learn.microsoft.com/en-us/fabric/graph/manage-data"
+  ],
+  "files": [
+    {
+      "path": "delta-readback/r1_edges-0.parquet",
+      "bytes": 10977,
+      "sha256": "35fd5819a3570c5b7129d7c104c007487c64b2e2b306d3272d0d87a4e9bb8417"
+    },
+    {
+      "path": "delta-readback/r1_edges.delta.json",
+      "bytes": 4888,
+      "sha256": "25c9d716d0d2f95c3ec1182e66fc5a9019d68c48ef021a84dd8344890ea0b59d"
+    },
+    {
+      "path": "delta-readback/r1_nodes-0.parquet",
+      "bytes": 8563,
+      "sha256": "7fc0baca42268a1dfa20ed7b8560e1d4744b369c34b88d810fad7270b30e1e5a"
+    },
+    {
+      "path": "delta-readback/r1_nodes.delta.json",
+      "bytes": 4133,
+      "sha256": "28fec8eb543f0a6bd7d987ad094e61c9bc158f732d678c32f3661bb0ea3e4aef"
+    },
+    {
+      "path": "delta-readback/r2_edges-0.parquet",
+      "bytes": 11382,
+      "sha256": "026310c8a29258f0b8eee32cc08be998494183b1f7c9ab39ca23c09d0e49c279"
+    },
+    {
+      "path": "delta-readback/r2_edges.delta.json",
+      "bytes": 4925,
+      "sha256": "3b60f56f7b74538a3495e1b5e31302a47b3fe3063b7d607110062ddce7e8f0be"
+    },
+    {
+      "path": "delta-readback/r2_nodes-0.parquet",
+      "bytes": 8785,
+      "sha256": "649bfbf3fa7bf2a4924ffcf7ebc98e57917c3533119b32020c3b78894dd7b617"
+    },
+    {
+      "path": "delta-readback/r2_nodes.delta.json",
+      "bytes": 4160,
+      "sha256": "ffc0ce55501ac41abb867a60deffaece32e7be45b6ef09751485bf7b0fa9c1ef"
+    },
+    {
+      "path": "delta-readback-report.json",
+      "bytes": 1480,
+      "sha256": "29eabdc49882dc3ccd60f61c19128f60293ee7985f47c0ca35538748c3cedbea"
+    },
+    {
+      "path": "gql-count-first-a.json",
+      "bytes": 800,
+      "sha256": "6159482d36ff58f9604c4b69f49d8105eeb1a9dc10edb1a9b5a57ae144e46b2d"
+    },
+    {
+      "path": "graph-load-job-status-a.json",
+      "bytes": 1035,
+      "sha256": "d42c1be0cb5562a4ac6d2bb08bdd5f4320e2477f5098923aa5b5f545271b4fe5"
+    },
+    {
+      "path": "graph-mapping-status-a.json",
+      "bytes": 830,
+      "sha256": "f4b99de1eb0250cef1631b0245ead0cf8a62c336b337ec6f29d62dd33ebcb2cd"
+    },
+    {
+      "path": "graph-mapping-submissions.json",
+      "bytes": 1222,
+      "sha256": "2944830d8ff033bc6965e3109855e74656410b3c2192d709251ba9f0726a7b96"
+    },
+    {
+      "path": "graph-r2-create-status-b.json",
+      "bytes": 574,
+      "sha256": "efc97dde2d2bdb21e0441279fdf366e25af82f7348f53df34a40a75e39292b33"
+    },
+    {
+      "path": "loaded-table-metadata.json",
+      "bytes": 1799,
+      "sha256": "8e7249f88849360b1c736a1a2fca6fd5bfe658fd321287e79f37cdc71f573ff2"
+    },
+    {
+      "path": "mapping-independent-review.json",
+      "bytes": 5944,
+      "sha256": "acc202d7958305625fcda0e0077f8e24536102cbb5d49828ce0b3b07d60a5275"
+    },
+    {
+      "path": "onelake-upload.json",
+      "bytes": 2221,
+      "sha256": "1a788c07fa4b8f8573be58408eabbd2bcbf80d75fc7946e452a0dba72eef7333"
+    },
+    {
+      "path": "r1-graph-decoded.json",
+      "bytes": 10984,
+      "sha256": "3f132bc19b52090c73aff9661a00cfbbc6c3860289dc682f0a9c20c2e74b8895"
+    },
+    {
+      "path": "r1-graph-request.json",
+      "bytes": 8464,
+      "sha256": "9ab9f9b1fe4a0c0e00190485bc539e95f01eb54433364846b3a77879dac1cf2f"
+    },
+    {
+      "path": "r1_edges.parquet",
+      "bytes": 4469,
+      "sha256": "0fcbe2ba81e733d331f5c666e93522862da39d4c77dbe550e69af4c7b7240bc5"
+    },
+    {
+      "path": "r1_nodes.parquet",
+      "bytes": 3346,
+      "sha256": "979b624c9d34f70493e839b62ed99adcfe19ce1ad5be4c62ebb9ee0dd097f4c9"
+    },
+    {
+      "path": "r2-graph-decoded.json",
+      "bytes": 10984,
+      "sha256": "9104842e3f84b97e67c8c8523a05eb2e3ef3bcff510cb2a1895d39c991154d26"
+    },
+    {
+      "path": "r2-graph-request.json",
+      "bytes": 8614,
+      "sha256": "db4b9e15e3bb45ae6c2ac9e531bfc063713aba3fae2f7e9fc5f4455b60dad135"
+    },
+    {
+      "path": "r2_edges.parquet",
+      "bytes": 4841,
+      "sha256": "7b144297c62ce382483d7a9088692bf1df7f7eecfc6cdf3a8e566b0cf5fddbac"
+    },
+    {
+      "path": "r2_nodes.parquet",
+      "bytes": 3529,
+      "sha256": "9ebb577607af9ec62a467db55610091ae994afd4848e22abbb5d4754dc5c6f06"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 2013,
+      "sha256": "11633ba6addfe694cf56f3c2ed4718f63d9f7f854b4ae9b1f22cc581e07be70e"
+    },
+    {
+      "path": "schema-delta-load-status-a.json",
+      "bytes": 1538,
+      "sha256": "dfdf2ebf26bfd300452d27a0c61f8428da52fac33aff53b119a089aaa97f84bc"
+    },
+    {
+      "path": "schema-delta-load-submissions.json",
+      "bytes": 2655,
+      "sha256": "1a3bf4df7d66678bf14fd443ec1f3fe737adda2f11c7fb4719d95251f1856ab2"
+    },
+    {
+      "path": "table-list-preflight.json",
+      "bytes": 260,
+      "sha256": "55c8763411ccbaf0d20e26b1d9aec004d4863428f461dc799e45e6a2847d3adf"
+    }
+  ]
+}

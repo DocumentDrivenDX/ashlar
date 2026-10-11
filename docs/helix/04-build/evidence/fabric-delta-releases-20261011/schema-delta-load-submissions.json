@@ -1,0 +1,87 @@
+{
+  "profile": "ashlar-fabric-schema-delta-load-submissions/0.1",
+  "workspace": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+  "lakehouse": "ee66f2e8-9072-4a48-8364-ecd2f2967c3e",
+  "observations": [
+    {
+      "preflight": {
+        "tables": [],
+        "next_page_token": null
+      },
+      "status": 200
+    },
+    {
+      "table": "r1_nodes",
+      "submitted": true,
+      "request": {
+        "relativePath": "Files/r1_nodes.parquet",
+        "pathType": "File",
+        "mode": "Append",
+        "recursive": false,
+        "formatOptions": {
+          "format": "Parquet"
+        }
+      },
+      "status": 202,
+      "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/d1f7e9a6-3965-4549-8e83-c64e28892daf",
+      "operationId": "d1f7e9a6-3965-4549-8e83-c64e28892daf",
+      "retryAfter": "15",
+      "response": ""
+    },
+    {
+      "table": "r1_edges",
+      "submitted": true,
+      "request": {
+        "relativePath": "Files/r1_edges.parquet",
+        "pathType": "File",
+        "mode": "Append",
+        "recursive": false,
+        "formatOptions": {
+          "format": "Parquet"
+        }
+      },
+      "status": 202,
+      "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/74667433-688f-48c8-8034-13289007dc36",
+      "operationId": "74667433-688f-48c8-8034-13289007dc36",
+      "retryAfter": "15",
+      "response": ""
+    },
+    {
+      "table": "r2_nodes",
+      "submitted": true,
+      "request": {
+        "relativePath": "Files/r2_nodes.parquet",
+        "pathType": "File",
+        "mode": "Append",
+        "recursive": false,
+        "formatOptions": {
+          "format": "Parquet"
+        }
+      },
+      "status": 202,
+      "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/3fd97670-b3c5-4553-94c1-43112e7650c0",
+      "operationId": "3fd97670-b3c5-4553-94c1-43112e7650c0",
+      "retryAfter": "15",
+      "response": ""
+    },
+    {
+      "table": "r2_edges",
+      "submitted": true,
+      "request": {
+        "relativePath": "Files/r2_edges.parquet",
+        "pathType": "File",
+        "mode": "Append",
+        "recursive": false,
+        "formatOptions": {
+          "format": "Parquet"
+        }
+      },
+      "status": 202,
+      "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/a0315a91-3591-45fd-b7e6-067d9a780fe8",
+      "operationId": "a0315a91-3591-45fd-b7e6-067d9a780fe8",
+      "retryAfter": "15",
+      "response": ""
+    }
+  ],
+  "qualification": "Once-only tiny schema-scoped free-trial Delta load submissions; completion and parity pending."
+}

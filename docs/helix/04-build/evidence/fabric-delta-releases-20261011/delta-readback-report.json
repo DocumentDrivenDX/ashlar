@@ -1,0 +1,42 @@
+{
+  "profile": "ashlar-fabric-delta-readback/0.1",
+  "tables": [
+    {
+      "table": "r1_nodes",
+      "nativeTableId": "7bb6439a-0ec9-4c17-893b-0cf8a9bf6c5f",
+      "deltaVersion": 0,
+      "rows": 3,
+      "completeSchemaStringsAndNullability": true,
+      "fullRowParity": true,
+      "deltaLogSha256": "28fec8eb543f0a6bd7d987ad094e61c9bc158f732d678c32f3661bb0ea3e4aef"
+    },
+    {
+      "table": "r1_edges",
+      "nativeTableId": "42d67496-22bc-41ce-bb88-732ccdbb4870",
+      "deltaVersion": 0,
+      "rows": 3,
+      "completeSchemaStringsAndNullability": true,
+      "fullRowParity": true,
+      "deltaLogSha256": "25c9d716d0d2f95c3ec1182e66fc5a9019d68c48ef021a84dd8344890ea0b59d"
+    },
+    {
+      "table": "r2_nodes",
+      "nativeTableId": "eaa22dd0-53a0-46b5-9b6f-19a405be57a3",
+      "deltaVersion": 0,
+      "rows": 3,
+      "completeSchemaStringsAndNullability": true,
+      "fullRowParity": true,
+      "deltaLogSha256": "ffc0ce55501ac41abb867a60deffaece32e7be45b6ef09751485bf7b0fa9c1ef"
+    },
+    {
+      "table": "r2_edges",
+      "nativeTableId": "d39ebd0c-914d-4962-93e3-c02ec7d2b011",
+      "deltaVersion": 0,
+      "rows": 4,
+      "completeSchemaStringsAndNullability": true,
+      "fullRowParity": true,
+      "deltaLogSha256": "3b60f56f7b74538a3495e1b5e31302a47b3fe3063b7d607110062ddce7e8f0be"
+    }
+  ],
+  "qualification": "Actual Fabric native Delta version0 complete schema and all carrier row fields match frozen release; no Graph/GQL pass yet."
+}

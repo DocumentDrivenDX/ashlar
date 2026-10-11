@@ -1,0 +1,92 @@
+{
+  "profile": "ashlar-fabric-onelake-upload/0.1",
+  "workspace": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+  "lakehouse": "ee66f2e8-9072-4a48-8364-ecd2f2967c3e",
+  "observations": [
+    {
+      "file": "r1_nodes.parquet",
+      "expectedSha256": "979b624c9d34f70493e839b62ed99adcfe19ce1ad5be4c62ebb9ee0dd097f4c9",
+      "bytes": 3346,
+      "stages": [
+        {
+          "create": 201
+        },
+        {
+          "append": 202
+        },
+        {
+          "flush": 200
+        },
+        {
+          "readback": 200,
+          "exactBytes": true,
+          "sha256": "979b624c9d34f70493e839b62ed99adcfe19ce1ad5be4c62ebb9ee0dd097f4c9"
+        }
+      ]
+    },
+    {
+      "file": "r1_edges.parquet",
+      "expectedSha256": "0fcbe2ba81e733d331f5c666e93522862da39d4c77dbe550e69af4c7b7240bc5",
+      "bytes": 4469,
+      "stages": [
+        {
+          "create": 201
+        },
+        {
+          "append": 202
+        },
+        {
+          "flush": 200
+        },
+        {
+          "readback": 200,
+          "exactBytes": true,
+          "sha256": "0fcbe2ba81e733d331f5c666e93522862da39d4c77dbe550e69af4c7b7240bc5"
+        }
+      ]
+    },
+    {
+      "file": "r2_nodes.parquet",
+      "expectedSha256": "9ebb577607af9ec62a467db55610091ae994afd4848e22abbb5d4754dc5c6f06",
+      "bytes": 3529,
+      "stages": [
+        {
+          "create": 201
+        },
+        {
+          "append": 202
+        },
+        {
+          "flush": 200
+        },
+        {
+          "readback": 200,
+          "exactBytes": true,
+          "sha256": "9ebb577607af9ec62a467db55610091ae994afd4848e22abbb5d4754dc5c6f06"
+        }
+      ]
+    },
+    {
+      "file": "r2_edges.parquet",
+      "expectedSha256": "7b144297c62ce382483d7a9088692bf1df7f7eecfc6cdf3a8e566b0cf5fddbac",
+      "bytes": 4841,
+      "stages": [
+        {
+          "create": 201
+        },
+        {
+          "append": 202
+        },
+        {
+          "flush": 200
+        },
+        {
+          "readback": 200,
+          "exactBytes": true,
+          "sha256": "7b144297c62ce382483d7a9088692bf1df7f7eecfc6cdf3a8e566b0cf5fddbac"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact immutable Parquet file bytes only; no Delta load or GQL qualification."
+}

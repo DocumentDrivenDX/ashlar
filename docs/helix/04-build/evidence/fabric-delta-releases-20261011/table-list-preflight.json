@@ -1,0 +1,4 @@
+{
+  "status": 400,
+  "body": "{\"requestId\":\"c1ffe9f8-bad6-4eb4-8295-e30028a45641\",\"errorCode\":\"UnsupportedOperationForSchemasEnabledLakehouse\",\"message\":\"The operation is not supported for Lakehouse with schemas enabled.\",\"isRetriable\":false}"
+}

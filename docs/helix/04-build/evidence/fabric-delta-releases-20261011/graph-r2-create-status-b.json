@@ -1,0 +1,18 @@
+{
+  "status": {
+    "status": "Succeeded",
+    "createdTimeUtc": "2026-10-11T21:31:44.8042389",
+    "lastUpdatedTimeUtc": "2026-10-11T21:32:04.3144813",
+    "percentComplete": 100,
+    "error": null,
+    "blobInfoId": null,
+    "resultContentType": null
+  },
+  "result": {
+    "id": "fe883e8f-7f7d-42d0-a58d-299eafbb4e36",
+    "type": "GraphModel",
+    "displayName": "Ashlar_R2",
+    "description": "Immutable tiny synthetic Ashlar R2 release a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+    "workspaceId": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793"
+  }
+}

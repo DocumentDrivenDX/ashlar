@@ -1,0 +1,41 @@
+{
+  "preflight": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+          "type": "GraphModel",
+          "displayName": "Ashlar_R1",
+          "description": "",
+          "workspaceId": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+          "logicalId": null
+        }
+      ]
+    },
+    "operationId": null,
+    "location": null
+  },
+  "submissions": [
+    {
+      "release": "r1",
+      "requestSha256": "9ab9f9b1fe4a0c0e00190485bc539e95f01eb54433364846b3a77879dac1cf2f",
+      "response": {
+        "status": 202,
+        "body": null,
+        "operationId": "a475d4d0-4e18-4471-b3b9-c3246e7aa07f",
+        "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/a475d4d0-4e18-4471-b3b9-c3246e7aa07f"
+      }
+    },
+    {
+      "release": "r2",
+      "requestSha256": "db4b9e15e3bb45ae6c2ac9e531bfc063713aba3fae2f7e9fc5f4455b60dad135",
+      "response": {
+        "status": 202,
+        "body": null,
+        "operationId": "705c10d5-6dbb-418f-bae3-b2ffd907c0b7",
+        "location": "https://wabi-west-us3-a-primary-redirect.analysis.windows.net/v1/operations/705c10d5-6dbb-418f-bae3-b2ffd907c0b7"
+      }
+    }
+  ]
+}

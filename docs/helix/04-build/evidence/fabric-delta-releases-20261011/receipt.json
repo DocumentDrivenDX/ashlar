@@ -1,0 +1,51 @@
+{
+  "profile": "ashlar-fabric-parquet-preparation/0.1",
+  "duckdb": "1.4.1",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r1_nodes.parquet",
+      "bytes": 3346,
+      "sha256": "979b624c9d34f70493e839b62ed99adcfe19ce1ad5be4c62ebb9ee0dd097f4c9",
+      "release": "R1",
+      "sourceSha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+      "role": "nodes",
+      "rows": 3,
+      "allColumnsNullableStrings": true,
+      "exactFullRowReadback": true
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r1_edges.parquet",
+      "bytes": 4469,
+      "sha256": "0fcbe2ba81e733d331f5c666e93522862da39d4c77dbe550e69af4c7b7240bc5",
+      "release": "R1",
+      "sourceSha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+      "role": "edges",
+      "rows": 3,
+      "allColumnsNullableStrings": true,
+      "exactFullRowReadback": true
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r2_nodes.parquet",
+      "bytes": 3529,
+      "sha256": "9ebb577607af9ec62a467db55610091ae994afd4848e22abbb5d4754dc5c6f06",
+      "release": "R2",
+      "sourceSha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+      "role": "nodes",
+      "rows": 3,
+      "allColumnsNullableStrings": true,
+      "exactFullRowReadback": true
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r2_edges.parquet",
+      "bytes": 4841,
+      "sha256": "7b144297c62ce382483d7a9088692bf1df7f7eecfc6cdf3a8e566b0cf5fddbac",
+      "release": "R2",
+      "sourceSha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+      "role": "edges",
+      "rows": 4,
+      "allColumnsNullableStrings": true,
+      "exactFullRowReadback": true
+    }
+  ],
+  "qualification": "Tiny frozen synthetic R1/R2 whole-release carrier, all canonical text and nulls preserved. Local Parquet readback only; no Fabric ingest, graph mapping, GQL or source retention claim."
+}

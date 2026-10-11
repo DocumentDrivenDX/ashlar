@@ -1,0 +1,138 @@
+{
+  "profile": "ashlar-fabric-graph-requests-independent-review/0.1",
+  "outcome": "approved",
+  "pins": [
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/delta-readback-report.json",
+      "bytes": 1480,
+      "sha256": "29eabdc49882dc3ccd60f61c19128f60293ee7985f47c0ca35538748c3cedbea"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/receipt.json",
+      "bytes": 2013,
+      "sha256": "11633ba6addfe694cf56f3c2ed4718f63d9f7f854b4ae9b1f22cc581e07be70e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppygraph-releases-20261009/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.graph.json",
+      "bytes": 6078,
+      "sha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r1-graph-request.json",
+      "bytes": 8464,
+      "sha256": "9ab9f9b1fe4a0c0e00190485bc539e95f01eb54433364846b3a77879dac1cf2f"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r1-graph-decoded.json",
+      "bytes": 10984,
+      "sha256": "3f132bc19b52090c73aff9661a00cfbbc6c3860289dc682f0a9c20c2e74b8895"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/delta-readback/r1_nodes.delta.json",
+      "bytes": 4133,
+      "sha256": "28fec8eb543f0a6bd7d987ad094e61c9bc158f732d678c32f3661bb0ea3e4aef"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/delta-readback/r1_edges.delta.json",
+      "bytes": 4888,
+      "sha256": "25c9d716d0d2f95c3ec1182e66fc5a9019d68c48ef021a84dd8344890ea0b59d"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-graphSettings.json",
+      "bytes": 131,
+      "sha256": "3bc8593307e5790142d9c01f618c0ebd30752720b9286041a737f0284b9b0363"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-stylingConfiguration.json",
+      "bytes": 187,
+      "sha256": "de271198758d07ba88a78a02e18a921d031f7d15c097c1bd981596e2245d240b"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-platform",
+      "bytes": 297,
+      "sha256": "91bab69d7431af95f2b546fc3e621212bd2d8d96ea2ad4a8368ddfa66247b31a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppygraph-releases-20261009/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.graph.json",
+      "bytes": 6999,
+      "sha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r2-graph-request.json",
+      "bytes": 8614,
+      "sha256": "db4b9e15e3bb45ae6c2ac9e531bfc063713aba3fae2f7e9fc5f4455b60dad135"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/r2-graph-decoded.json",
+      "bytes": 10984,
+      "sha256": "9104842e3f84b97e67c8c8523a05eb2e3ef3bcff510cb2a1895d39c991154d26"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/delta-readback/r2_nodes.delta.json",
+      "bytes": 4160,
+      "sha256": "ffc0ce55501ac41abb867a60deffaece32e7be45b6ef09751485bf7b0fa9c1ef"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/delta-readback/r2_edges.delta.json",
+      "bytes": 4925,
+      "sha256": "3b60f56f7b74538a3495e1b5e31302a47b3fe3063b7d607110062ddce7e8f0be"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-graphSettings.json",
+      "bytes": 131,
+      "sha256": "3bc8593307e5790142d9c01f618c0ebd30752720b9286041a737f0284b9b0363"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-stylingConfiguration.json",
+      "bytes": 187,
+      "sha256": "de271198758d07ba88a78a02e18a921d031f7d15c097c1bd981596e2245d240b"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-releases-20261011-a/original-platform",
+      "bytes": 297,
+      "sha256": "91bab69d7431af95f2b546fc3e621212bd2d8d96ea2ad4a8368ddfa66247b31a"
+    }
+  ],
+  "mappingResults": [
+    {
+      "release": "r1",
+      "nodes": 3,
+      "edges": 3,
+      "parallelGroups": 1,
+      "selfLoops": 1,
+      "isolatedNodes": 1,
+      "nodeProperties": 18,
+      "edgeProperties": 23,
+      "requestBytes": 8464
+    },
+    {
+      "release": "r2",
+      "nodes": 3,
+      "edges": 4,
+      "parallelGroups": 1,
+      "selfLoops": 2,
+      "isolatedNodes": 1,
+      "nodeProperties": 18,
+      "edgeProperties": 23,
+      "requestBytes": 8614
+    }
+  ],
+  "checkReceipts": [
+    {
+      "path": "/private/tmp/ashlar-fabric-graph-request-checks-a.json",
+      "sha256": "ab9c73c5cdbe144ef9b882016de3a3bacc8107fe4b5a9a08b7f74d3efd695702"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-graph-local-parquet-independent-check-a.json",
+      "sha256": "70a4c4d9edabce3b4e7f0d829b5099db4dacb1f1d3834c32a5357ae4816906e9"
+    }
+  ],
+  "observations": [
+    "Exact decoded request Base64 correspondence and unique six part paths.",
+    "Complete18 node/23edge original carrier properties STRING with identity column mappings. Node primary key graph_id, edge endpoints src/dst resolve original canonical node IDs.",
+    "Separate r1/r2 DeltaTable paths and table names. Every original full row/multiplicity matches downloaded native version0 Parquet; metadata/log SHA/schema STRING+nullable verified.",
+    "Parallel edges, self loops and isolated nodes are preserved by unfiltered full-row mapping; runtime graph cardinality remains unqualified.",
+    "Original graphSettings/styling and other unmodified top-level definition members preserved; platform only displayName intentionally selected separately per release, config/unknown content unchanged."
+  ],
+  "scope": "Offline request preparation approval plus read-only retained Fabric Delta log/Parquet parity; no API submission, live authority refresh, graph import, GQL result, edge identity runtime or whole Fabric qualification."
+}

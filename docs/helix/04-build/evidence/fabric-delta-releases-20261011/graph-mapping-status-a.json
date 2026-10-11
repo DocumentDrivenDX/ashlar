@@ -1,0 +1,33 @@
+[
+  {
+    "release": "r1",
+    "status": {
+      "status": "Succeeded",
+      "createdTimeUtc": "2026-10-11T21:31:44.087389",
+      "lastUpdatedTimeUtc": "2026-10-11T21:31:52.8618964",
+      "percentComplete": 100,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    },
+    "result": {
+      "id": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+      "type": "GraphModel",
+      "displayName": "Ashlar_R1",
+      "description": "",
+      "workspaceId": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793"
+    }
+  },
+  {
+    "release": "r2",
+    "status": {
+      "status": "Running",
+      "createdTimeUtc": "2026-10-11T21:31:44.8042389",
+      "lastUpdatedTimeUtc": "2026-10-11T21:31:44.8042389",
+      "percentComplete": null,
+      "error": null,
+      "blobInfoId": null,
+      "resultContentType": null
+    }
+  }
+]
