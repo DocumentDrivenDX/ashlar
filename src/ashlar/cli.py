@@ -95,7 +95,19 @@ def main():
     preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
     for option in ('configuration','provider','provider-sha256'):
         preparation.add_argument('--'+option,required=True)
+    for name in ('publish-finite-pack','query-finite-pack'):
+        command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
+        command.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command in ('publish-finite-pack','query-finite-pack'):
+        from ashlar_host.pack_native_cli import run_finite_pack_command
+        try:
+            answer=run_finite_pack_command(args.configuration,'publish'if args.command=='publish-finite-pack'else'query')
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar original finite pack operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'prepare-puppy-release':
         from ashlar_host.puppy_carrier_cli import run_puppy_preparation
         try:answer=run_puppy_preparation(args.configuration,args.provider,args.provider_sha256)

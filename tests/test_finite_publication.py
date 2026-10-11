@@ -212,3 +212,93 @@ class NativeCompositionControls(unittest.TestCase):
   manifest=json.loads(artifact)['manifest'];metadata=fixture.source.metadata()
   self.assertEqual(json.loads(artifact)['effects'],proof);self.assertEqual(manifest['recorded_at'],'1791547200000000');self.assertEqual(json.loads(manifest['source_progress_json']),{fixture.source.batch.feed:{'profile':'ashlar-immutable-file-replay/0.1','source_transaction_sha256':metadata['source_transaction_sha256'],'request_digest':request['request_digest']}})
   report=json.loads(manifest['validation_report_json']);self.assertEqual(report['source_admission'],metadata);self.assertEqual(report['source_oracle_sha256'],hashlib.sha256(owner.encoded(expected).encode()).hexdigest());self.assertEqual(report['zero_match_elisions'],elisions);self.assertEqual(report['ack_profile'],'immutable-file-replay-only')
+ def setUp(self):
+  Controls.setUp(self)
+ def source(self,name):return Controls.source(self,name)
+ def driver(self,source,admit=lambda *a:None):return Controls.driver(self,source,admit)
+ def reopen_inputs(self):
+  from ashlar_host.finite_native import FinitePackNativeConfig
+  source=self.source('archaeology');pack=self.root/'original.pack';pack.write_bytes(self.helper.inputs('archaeology')[2])
+  output=self.root/'installation';output.mkdir(mode=0o700)
+  from ashlar_host.finite_dataset import FiniteDatasetConfig
+  old=source.producer.config;selected=FiniteDatasetConfig(old.definition,self.root/'selected-umf',old.bun,old.git,old.timeout_seconds,old.maximum_output_bytes,old.maximum_receipt_bytes)
+  config=FinitePackNativeConfig(output,self.root/'jars',pack,self.root/'archaeology.model',self.root/'archaeology.graph',selected)
+  tables={r:'local.finitepack.'+r for r in GRAPH_ROLES|{'attempts','manifest'}}
+  registry={'installation':'original-finite-archaeology','publication_id':'original-finite-archaeology-publication','tables':tables,'targets':[{'table':table,'path':str(output/role),'uuid':'00000000-0000-0000-0000-'+str(i).zfill(12)}for i,(role,table)in enumerate(sorted(tables.items()))],'operation_capacity':None}
+  for role in tables:(output/role).mkdir()
+  (self.root/'observations').mkdir(mode=0o700)
+  return config,registry,source
+ def test_retained_registry_refuses_missing_roles_changed_paths_capacity_and_duplicate_custody(self):
+  from ashlar_host.finite_native import _finite_registry,_retained_json
+  config,registry,_=self.reopen_inputs();_,tables,targets=_finite_registry(config,registry);self.assertEqual(len(targets),6)
+  changes=[]
+  bad=copy.deepcopy(registry);bad['targets'].pop();changes.append(bad)
+  bad=copy.deepcopy(registry);bad['targets'][0]['path']='/substitute';changes.append(bad)
+  bad=copy.deepcopy(registry);bad['operation_capacity']={'max_intent_bytes':True};changes.append(bad)
+  bad=copy.deepcopy(registry);bad['targets'][1]=bad['targets'][0];changes.append(bad)
+  bad=copy.deepcopy(registry);bad['publication_id']='other';changes.append(bad)
+  for bad in changes:
+   with self.assertRaises(ValueError):_finite_registry(config,bad)
+  for raw in (b'{"x":1,"x":2}',b'{"x":1.0}',b'{"x":'+b'1'*100+b'}'):
+   with self.assertRaises(ValueError):_retained_json(raw)
+ def test_reopen_missing_registry_refuses_before_lease_producer_or_sdk(self):
+  from ashlar_host import finite_native as native
+  config,_,_=self.reopen_inputs()
+  with mock.patch.object(native,'finite_runtime',return_value=[]),mock.patch.object(native,'PrivateFiniteLease')as lease,mock.patch.object(native,'HeldFiniteDataset')as producer,mock.patch.object(native,'open_finite_spark')as sdk:
+   with self.assertRaises(FileNotFoundError):
+    with native.open_finite_pack_publication(config,self.root/'observations/fresh.json'):pass
+   lease.assert_not_called();producer.assert_not_called();sdk.assert_not_called()
+ def test_reopen_producer_cancellation_releases_actual_existing_lease(self):
+  from ashlar_host import finite_native as native
+  config,registry,source=self.reopen_inputs();(config.output/'registry.json').write_text(json.dumps(registry));(config.output/'request.json').write_text(json.dumps(finite_pack_request(source)))
+  original=PrivateFiniteLease(config.output,create=True);original.close();failure=KeyboardInterrupt('producer cancelled')
+  with mock.patch.object(native,'finite_runtime',return_value=[]),mock.patch.object(native,'HeldFiniteDataset',side_effect=failure),mock.patch.object(native,'open_finite_spark')as sdk:
+   with self.assertRaises(KeyboardInterrupt)as caught:
+    with native.open_finite_pack_publication(config,self.root/'observations/fresh.json'):pass
+   self.assertIs(caught.exception,failure);sdk.assert_not_called()
+  renewed=PrivateFiniteLease(config.output,create=False);renewed.close()
+ def test_query_aliases_check_actual_identity_return_copies_and_refuse_conflict(self):
+  from ashlar_host import finite_native as native
+  source=self.source('archaeology');driver=self.driver(source);driver.request=finite_pack_request(source);driver.manifest={'original':'manifest'}
+  targets={driver.tables[r]:SimpleNamespace(uuid='uuid-'+r,path=self.root/r)for r in GRAPH_ROLES};driver.transport.targets=targets
+  details={};statements=[]
+  for role in GRAPH_ROLES:details['spark_catalog.ashlarfinite_archaeology.'+role]={'id':'uuid-'+role,'location':'file:'+str(self.root/role)}
+  def sql(statement):
+   statements.append(statement);name=statement.removeprefix('DESCRIBE DETAIL ').replace('`','')
+   return SimpleNamespace(first=lambda:SimpleNamespace(asDict=lambda:copy.deepcopy(details[name])))
+  driver.transport.spark=SimpleNamespace(sql=sql,catalog=SimpleNamespace(tableExists=lambda alias:alias in details))
+  with mock.patch.object(driver,'admit_current'),mock.patch.object(driver,'require'):
+   driver.held=True;first=native.finite_pack_query_aliases(driver);first.clear();self.assertEqual(len(native.finite_pack_query_aliases(driver)),4)
+   details[next(iter(details))]['id']='substitute'
+   with self.assertRaises(ValueError):native.finite_pack_query_aliases(driver)
+   self.assertTrue(all(statement.startswith('DESCRIBE DETAIL ')for statement in statements))
+ def test_reopen_yields_restored_driver_and_preserves_body_cancel_through_closing_cancel(self):
+  from ashlar_host import finite_native as native
+  config,registry,source=self.reopen_inputs();request=finite_pack_request(source)
+  (config.output/'registry.json').write_text(json.dumps(registry));(config.output/'request.json').write_text(json.dumps(request))
+  lease=PrivateFiniteLease(config.output,create=True);lease.close();spark=SimpleNamespace(stop=mock.Mock());transport=SimpleNamespace(close=mock.Mock());driver=SimpleNamespace(manifest={'original':'manifest'},restore_committed=mock.Mock(),capture_committed=mock.Mock(),writer=mock.Mock())
+  from contextlib import nullcontext
+  driver.writer.side_effect=lambda *a:nullcontext()
+  body=KeyboardInterrupt('body');closing=SystemExit('closing')
+  with mock.patch.object(native,'finite_runtime',return_value=[]),mock.patch.object(native,'HeldFiniteDataset',return_value=source.producer),mock.patch.object(native,'FinitePackSource',return_value=source),mock.patch.object(native,'open_finite_spark',return_value=spark),mock.patch.object(native.ReadOnlyTransport,'open',return_value=transport),mock.patch.object(native,'FiniteFileDriver',return_value=driver),mock.patch.object(native,'_query_aliases',return_value={}),mock.patch.object(native,'finite_pack_query_aliases',side_effect=closing):
+   with self.assertRaises(KeyboardInterrupt)as caught:
+    with native.open_finite_pack_publication(config,self.root/'observations/fresh.json')as actual:
+     self.assertIs(actual,driver);driver.restore_committed.assert_called_once_with(request);raise body
+   self.assertIs(caught.exception,body);self.assertEqual(driver.capture_committed.call_count,2);transport.close.assert_called_once();spark.stop.assert_called_once()
+  renewed=PrivateFiniteLease(config.output,create=False);renewed.close()
+ def test_actual_cli_parse_and_open_accept_separate_owned_observation_directory(self):
+  from ashlar_host import finite_native as native,pack_native_cli as cli
+  config,registry,source=self.reopen_inputs();producer=config.producer
+  raw={'profile':cli.PROFILE,'mode':'query','pack':'archaeology','publication':str(config.output),'jars':str(config.jars),'pack_file':str(config.pack),'model':str(config.model),'graph':str(config.graph),'output':str(self.root/'observations'),'operation_capacity':None,'producer':{'source':str(self.root/'selected-umf'),'bun':str(producer.bun),'git':str(producer.git),'timeout_seconds':5,'maximum_output_bytes':1048576,'maximum_receipt_bytes':33554432},'query':{'index':str(self.root/'query-index.json'),'installation':str(self.root/'compiler'),'maximum_artifact_bytes':1048576,'maximum_rows':1000,'maximum_cell_bytes':1048576,'maximum_total_cell_bytes':1048576,'maximum_observation_bytes':1048576}}
+  invocation=cli.parse_finite_pack_invocation(json.dumps(raw).encode(),'query')
+  (config.output/'registry.json').write_text(json.dumps(registry));(config.output/'request.json').write_text(json.dumps(finite_pack_request(source)))
+  lease=PrivateFiniteLease(config.output,create=True);lease.close();failure=KeyboardInterrupt('reached supplied actual producer port')
+  with mock.patch.object(native,'finite_runtime',return_value=[]),mock.patch.object(native,'HeldFiniteDataset',side_effect=failure)as producer_port,mock.patch.object(native,'open_finite_spark')as sdk:
+   with self.assertRaises(KeyboardInterrupt)as caught:
+    with cli._open(invocation.native,invocation.output/'public-dataset.json'):pass
+   self.assertIs(caught.exception,failure);self.assertEqual(producer_port.call_args.args[-1],invocation.output/'public-dataset.json');sdk.assert_not_called()
+  (self.root/'observations').chmod(0o755)
+  with mock.patch.object(native,'finite_runtime',return_value=[]),mock.patch.object(native,'HeldFiniteDataset')as producer_port:
+   with self.assertRaises(ValueError):
+    with cli._open(invocation.native,invocation.output/'public-dataset.json'):pass
+   producer_port.assert_not_called()
