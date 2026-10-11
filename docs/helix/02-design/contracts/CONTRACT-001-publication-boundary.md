@@ -604,3 +604,65 @@ MUST preserve full eight-publication/32-bag, retained old-read, exact replay, du
 two-source ACK/restart, missing-journal refusal and uncertain-operation obligations.
 Separately verified bags cannot replace recovery or discharge PUB-L1. Decomposed
 verification does not guarantee completion within a selected finite budget.
+
+## Installed original historical medical local operator
+
+The historical medical development profile MUST preserve original declared UMF0.8
+model/graph bytes, complete public compact-dataset and Boolean lexical admission,
+unknowns/warnings and `ashlar-medical-development-bindings/0.2` identities. Its
+complete materialization is 51 objects, 62 independent edges, zero tombstones and
+113 history records. Development identities are not accepted Truss IDs.
+
+The installed commands `initialize-original-medical`, `publish-original-medical`,
+`replay-original-medical` and `read-original-medical` each require
+`--configuration PATH`. Exact owning configuration types are respectively
+`OriginalMedicalInitializationConfig`, `OriginalMedicalPublicationConfig`,
+`OriginalMedicalReplayConfig` and `OriginalMedicalReadConfig`; closed profiles are
+`ashlar-original-medical-local-initialization/0.1`,
+`ashlar-original-medical-local-publication/0.1`,
+`ashlar-original-medical-local-replay/0.1` and
+`ashlar-original-medical-local-read/0.1`. Corresponding exact typed host entries
+are `initialize_original_medical_local`, `publish_original_medical_local`,
+`replay_original_medical_local` and `read_original_medical_local`.
+
+Configurations MUST explicitly select original intake/producer pins, compatible
+qualified native runtime/origins/JAR profile, current source/ACK registrations,
+installation/root/journal/six-target handoff/capacity, exclusive output and finite
+input/row/cell/total/stream/receipt/process limits. Unknown/duplicate members,
+malformed or aliased paths, nonfinite or boolean/float integer substitutions and
+ambient credential/runtime discovery MUST refuse. Package pins grant no authority;
+portable Ashlar Python support is distinct from selected native SDK compatibility.
+
+Initialization MUST select an authorized absent private root, actual shared lease,
+checked UMF-generated schemas and observed six UUIDs/empty version-zero bags before
+public journal initialization, followed by its exact registration-stage checks.
+All other commands MUST refuse missing/incomplete/foreign journal custody without
+initialization or repair. Handoff grants no authority. `OriginalMedicalSourcePorts`
+MUST bind exact public source/ACK registrations and independent current ordinary
+sessions to the same native installation. One dedicated medical outbox source and
+protected ACK scope suffice. Explicit loopback-trust development authentication
+MUST close ambient libpq routing/configuration/credential discovery. Publication
+MUST NOT provision sources, roles or grants; file-only progress cannot replace ACK.
+
+Recompute complete original compact/Boolean receipts before native acquisition.
+Current source/writer/retention authority, six-target identity and full original
+bags MUST remain mandatory. Head-zero append or exact head-one original readback
+recovery are the only admitted source states. Existing request/attempt/uncertain
+handle semantics and durable manifest validation precede protected ACK. Settled
+replay MUST preserve histories, bags, descriptor and progress; missing ACK recovery
+uses the governed publisher protocol. Read-only reopen MUST independently admit
+existing journal schema, original descriptor/versions, current source/ACK,
+UUID/location, retention and full four-role bags under actual exclusion/pins. It
+permits existing-record SELECT/read-transaction commit only, never source append,
+prepare/effect/ACK submission, journal repair or mutable-latest fallback.
+
+Each command MUST own finite separate-process supervision/descendant cleanup,
+within native 300 seconds/local[1]/512MiB for this small functional profile. Bounds
+hold before buffering/serialization; operation-intent capacity is not journal-file
+capacity. Every acquired interval independently attempts required current closing
+on opening/body failure, timeout and cancellation while authority remains held,
+then releases resources with primary-error precedence. Successful closing/cleanup
+precede bounded evidence; retained incomplete state is not rollback. CONTRACT-006
+owns privacy. [TD-005](../technical-designs/TD-005-original-medical-local-operator.md)
+owns composition and MED-F1–F4/MED-L1. No medical query/engine, managed-UC or real
+Truss qualification is implied; original eight-publication recovery remains due.

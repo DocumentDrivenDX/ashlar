@@ -443,3 +443,40 @@ publication calls (PREP-F3). A fresh installed-package fixture run supplies
 runtime evidence separately from inert controls. This corpus does not satisfy
 P10's accepted catalog, protected mutation, complete feed, checkpoint/replay or
 durable ACK requirements.
+
+## Installed original historical medical operator controls
+
+Exercise CONTRACT-001's four installed medical commands and TD-005 outside the
+checkout, using only packaged owners, explicit original model/graph/producer and
+selected compatible native runtime origins. Preserve declared UMF0.8, historical
+pack version, unknown content/warnings, complete 48 qualified properties and all
+three Boolean token/value pairs (MED-F1). Recompute actual public compact-dataset
+and Boolean lexical admission; changed token/model/graph/receipt, missing or
+incomplete proof and unsupported profile refuse before native effects.
+
+Use one dedicated ordinary-role PostgreSQL outbox source with exact protected ACK
+scope and installation correspondence, not file-only progress or another fixture's
+scope. Refuse ambient authentication, wrong role/privilege/schema/signature,
+epoch/head/content drift, forged ports and substituted root/lock/native UUIDs
+(MED-F2). Fresh setup observes all six generated native schemas, empty version 0 and
+public registration stages. Existing roots and missing/replaced journals refuse
+without repair; non-initializing commands must never call the initializer.
+
+Through actual public publisher owners compare full independent 51-object/62-edge/
+0-tombstone/113-history bags, original request/vector and protected ACK bytes/scope;
+prove ACK follows durable full validation (MED-F3). Stop/reopen the installed
+process, select the same publication and compare every schema/value/presence/
+lexical/multiplicity witness. Settled exact replay leaves native histories,
+descriptor and progress unchanged; read-only reopen makes no ACK/source/native
+business mutation (MED-F4). Lost retention/current authority must refuse old reads.
+
+Actual-owner inert controls cover source append reply loss/head-one exact reuse,
+uncertain original handles, aggregate row/cell/byte limits before buffering,
+exclusive output, failed acquisition, closing revocation, timeout and cancellation
+plus cleanup failures. Assert independent checks while pins/lease remain held,
+original primary identity, every acquired cleanup attempt and withheld final
+receipt (MED-L1). Independent oracles consume original model/graph values rather
+than compiler/transaction output. Native acceptance separately records explicit
+runtime versions/origins, all complete bags and current closing. No fabricated
+medical query/engine case or abstract simulation closes this installed workflow;
+P04 full eight-run, P07 engine corpus and P10 real feed remain independently due.
