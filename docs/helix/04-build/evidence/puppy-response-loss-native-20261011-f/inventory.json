@@ -1,0 +1,1562 @@
+{
+  "archive": {
+    "bytes": 1103934,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppy-response-loss-native-20261011-f/actual.tar.gz",
+    "sha256": "29873cf799027e79abe29b476fa93a49a48916556c5aeb84360d9a2136dcc126"
+  },
+  "exclusions": "Runtime/SDK/interpreter binaries, wheel archives, unpacked source/venv and sourcearchive stdout omitted. Exact whole actual freeze and source/wheel/RECORD/console inventories retain their descriptors. Tiny source database bytes and original C/D/E failures remain in exact referenced prior archive.",
+  "format": "ashlar-evidence-inventory/0.1",
+  "members": [
+    {
+      "bytes": 193189,
+      "name": "f/actual-freeze.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-actual-freeze-f.json",
+      "sha256": "d371bf0914ef143d9035495198e89604a0c19d83d44b30f338df54bc82d9ae28"
+    },
+    {
+      "bytes": 235,
+      "name": "f/actual/archive.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/archive.json",
+      "sha256": "1dcb1551bb11b2141cad362a4bc44965dbc5d0a869017b96a83b6a549a53c1e9"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/archive.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/cleanup-list.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/cleanup-list.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/cleanup-list.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/cleanup-list.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 117520,
+      "name": "f/actual/generated-custody.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/generated-custody.json",
+      "sha256": "a619fbaf69d8c35350abbcbc2e949daf22e9c4465081fe278d8045b9f4a23603"
+    },
+    {
+      "bytes": 231,
+      "name": "f/actual/install.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/install.json",
+      "sha256": "b03fa9e2d5d875b41021b88203d38fe0ad8d7532c6d477a6e6f0b32c33d311ce"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/install.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "name": "f/actual/install.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 17995,
+      "name": "f/actual/installed-RECORD.csv",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/installed-RECORD.csv",
+      "sha256": "7e6964a171551847d48bd2565d92eac5e0bf7525be5e2b2ddd16b24399b312ab"
+    },
+    {
+      "bytes": 205,
+      "name": "f/actual/installed-console.txt",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/installed-console.txt",
+      "sha256": "d9bdf0ee74623a5d6d6250758681abb9a8f3038b976a5c44eaa97c836f97b047"
+    },
+    {
+      "bytes": 47,
+      "name": "f/actual/native-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native-process.json",
+      "sha256": "50786275b8bd003b2aeda91c1bc12120d9de6e50324418404a3c1a2a3627a98e"
+    },
+    {
+      "bytes": 13049,
+      "name": "f/actual/native-runtime.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native-runtime.json",
+      "sha256": "ae3eb4f320d1ba84d7e868a97fb2fbc2ba9f6ed95b94ce9e722df36c65fb4574"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 60,
+      "name": "f/actual/native/gremlin-readiness.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/gremlin-readiness.json",
+      "sha256": "0c0987c9ba68628055ed40bc1d641459d67f8254348a4650ecde4f1359e0e38a"
+    },
+    {
+      "bytes": 241,
+      "name": "f/actual/native/http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/http-records.json",
+      "sha256": "83454fe8ea7f56da5a5a7a13a299bcf7319425d6b1432d6926425f69be1214a9"
+    },
+    {
+      "bytes": 65,
+      "name": "f/actual/native/launched-id.txt",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/launched-id.txt",
+      "sha256": "666a6915f62d718ff928424e9a71914dd69ca7295c4d25726842dea95c8107ca"
+    },
+    {
+      "bytes": 42095,
+      "name": "f/actual/native/native-engine.log",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/native-engine.log",
+      "sha256": "86436930e7642a57e987a9ddd1beb38a9d70eca3bb049afa4017406acfb8bd9e"
+    },
+    {
+      "bytes": 5164,
+      "name": "f/actual/native/native-readiness.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/native-readiness.json",
+      "sha256": "3a5e07586d7341347595f45a83fea548e77a7b92cba6ee61d7c14dd27c896592"
+    },
+    {
+      "bytes": 11191,
+      "name": "f/actual/native/proxy/forwarded-request.bin",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/proxy/forwarded-request.bin",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 79,
+      "name": "f/actual/native/proxy/terminal.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/proxy/terminal.json",
+      "sha256": "ec0857b4eaae7017eaeb9c96bcd47cb54d75e8c0fcb7c3589e1cab4f75dd63ca"
+    },
+    {
+      "bytes": 191,
+      "name": "f/actual/native/proxy/upstream-response-headers.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/proxy/upstream-response-headers.json",
+      "sha256": "92e39da1c33fa213efe857d16d19686048c3593bc0570b4eeee342fbe02924ac"
+    },
+    {
+      "bytes": 4086,
+      "name": "f/actual/native/proxy/upstream-response.bin",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/proxy/upstream-response.bin",
+      "sha256": "c9e5c9416b55d5fa1fa7cd0479d1e9ca89ce3a52f88c83c15e5f065f26bf5967"
+    },
+    {
+      "bytes": 243,
+      "name": "f/actual/native/proxy/upstream-response.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/proxy/upstream-response.json",
+      "sha256": "7db270265154de60ba93c334ad216dbf0ee6b0e890246939d1b24694bc138552"
+    },
+    {
+      "bytes": 393,
+      "name": "f/actual/native/r1-activate-cypher-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-activate-cypher-configuration.json",
+      "sha256": "ce19da9a519cff916936c1e6f34bf52de2ca0408067420c115dd23707d1db1d5"
+    },
+    {
+      "bytes": 1891,
+      "name": "f/actual/native/r1-activate-cypher-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-activate-cypher-operator-original.json",
+      "sha256": "a3ab2369ff097db6fa0f410bc1435ef600ad68187002fc5e034e98f44ca1a91e"
+    },
+    {
+      "bytes": 417,
+      "name": "f/actual/native/r1-activate-cypher-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-activate-cypher-process.json",
+      "sha256": "3af196a5d21acd75f2fbe953bae1e89f46d4e2f4a504a72a2758988b1f87254c"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r1-activate-cypher.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-activate-cypher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 429,
+      "name": "f/actual/native/r1-activate-cypher.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-activate-cypher.stdout",
+      "sha256": "7e2efcb236204db526b6a8a496587a6134bd0e324854b8fa4b316d685534adbd"
+    },
+    {
+      "bytes": 589,
+      "name": "f/actual/native/r1-read-after-r2-cypher-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-cypher-configuration.json",
+      "sha256": "0cc52c34e5dbdfa9667653304023b827c2a221f51e0066482c9eb7e89505958d"
+    },
+    {
+      "bytes": 13048,
+      "name": "f/actual/native/r1-read-after-r2-cypher-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-cypher-operator-original.json",
+      "sha256": "96701016b742594665c24605a2051dc89f28ff140663aca50a2f411962a1b1cf"
+    },
+    {
+      "bytes": 418,
+      "name": "f/actual/native/r1-read-after-r2-cypher-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-cypher-process.json",
+      "sha256": "3bb10f085d20ce5775e9e1b55d5b527f75f9bb2677e70cb5fb5288a7a3bcf249"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r1-read-after-r2-cypher.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-cypher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 439,
+      "name": "f/actual/native/r1-read-after-r2-cypher.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-cypher.stdout",
+      "sha256": "31f7d16e1ab76eaf2b9f85a9c1a3cd87e2cf67d65a56df27b46130b49855c37b"
+    },
+    {
+      "bytes": 590,
+      "name": "f/actual/native/r1-read-after-r2-gremlin-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-gremlin-configuration.json",
+      "sha256": "c77a859e0215073fdb84ebf9b2cba6e50fe3e2f45cc6bd4d11fe47a67c90fa8c"
+    },
+    {
+      "bytes": 13049,
+      "name": "f/actual/native/r1-read-after-r2-gremlin-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-gremlin-operator-original.json",
+      "sha256": "ae3eb4f320d1ba84d7e868a97fb2fbc2ba9f6ed95b94ce9e722df36c65fb4574"
+    },
+    {
+      "bytes": 419,
+      "name": "f/actual/native/r1-read-after-r2-gremlin-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-gremlin-process.json",
+      "sha256": "c3b55c18973f0576d01e94860258eb52aa73c5fd28776a9e90f80832f6437b57"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r1-read-after-r2-gremlin.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 441,
+      "name": "f/actual/native/r1-read-after-r2-gremlin.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-after-r2-gremlin.stdout",
+      "sha256": "c4d520803f40b485617179b355932830c97f5e27eebecd82212db265a8bb9283"
+    },
+    {
+      "bytes": 581,
+      "name": "f/actual/native/r1-read-gremlin-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-gremlin-configuration.json",
+      "sha256": "e4210bfd4b9f3cf1ac94602f675d1071aac7fe352976cd8bd808eaf6ec3cc910"
+    },
+    {
+      "bytes": 7469,
+      "name": "f/actual/native/r1-read-gremlin-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-gremlin-operator-original.json",
+      "sha256": "2c5eb6d5babbc010003dea770bb2bd6c079fd98fd0c5e53dc331d0f393a92db4"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/native/r1-read-gremlin-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-gremlin-process.json",
+      "sha256": "292f79a69458626b86ccb426f6bb43a7d22b2ba7cc3461483f1302f325fbf463"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r1-read-gremlin.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 423,
+      "name": "f/actual/native/r1-read-gremlin.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r1-read-gremlin.stdout",
+      "sha256": "ab6e27645138bdcf439e9caa6e5fed8373523d6a8eb698739948f5d16ca41c50"
+    },
+    {
+      "bytes": 388,
+      "name": "f/actual/native/r2-lost-reply-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-lost-reply-configuration.json",
+      "sha256": "2393c3ad6afc8e6c37f7155ec3ad54c08f98c44c741f0ada51a11c585c0adede"
+    },
+    {
+      "bytes": 7467,
+      "name": "f/actual/native/r2-lost-reply-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-lost-reply-operator-original.json",
+      "sha256": "1089929fa8617660563bd1e41f50e0a8f7baabe66691ddd12de009a9204394de"
+    },
+    {
+      "bytes": 411,
+      "name": "f/actual/native/r2-lost-reply-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-lost-reply-process.json",
+      "sha256": "e6a806d6538fd720b9146f111b04affeb6ce8bd4a0209c24a6540fab7cb3d590"
+    },
+    {
+      "bytes": 43,
+      "name": "f/actual/native/r2-lost-reply.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-lost-reply.stderr",
+      "sha256": "c8277750ab0bc15468c7cd0bba8df0d7e2d9aa1d76033b85b7e12275e4ce557e"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r2-lost-reply.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-lost-reply.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 596,
+      "name": "f/actual/native/r2-read-gremlin-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-read-gremlin-configuration.json",
+      "sha256": "0bbf6f5f2807b08ae282f117c3a7c21f348fbb4acbd3ef080dacdc98df624533"
+    },
+    {
+      "bytes": 13049,
+      "name": "f/actual/native/r2-read-gremlin-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-read-gremlin-operator-original.json",
+      "sha256": "ae3eb4f320d1ba84d7e868a97fb2fbc2ba9f6ed95b94ce9e722df36c65fb4574"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/native/r2-read-gremlin-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-read-gremlin-process.json",
+      "sha256": "320419d6a61e08b08c16cc615ea85703800bb5226b4770555fcb649d49a31188"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r2-read-gremlin.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-read-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 423,
+      "name": "f/actual/native/r2-read-gremlin.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-read-gremlin.stdout",
+      "sha256": "b8decab7ac3990980a7e20a9858e6cdab79d1d8fe3fe8d6be42183262e3c5828"
+    },
+    {
+      "bytes": 391,
+      "name": "f/actual/native/r2-replay-cypher-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-cypher-configuration.json",
+      "sha256": "777f016ea2a6160375c9d8f0c7b0ba6fc43ba0706a3bc9dcd3a770d1ad7ac5f8"
+    },
+    {
+      "bytes": 13048,
+      "name": "f/actual/native/r2-replay-cypher-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-cypher-operator-original.json",
+      "sha256": "96701016b742594665c24605a2051dc89f28ff140663aca50a2f411962a1b1cf"
+    },
+    {
+      "bytes": 415,
+      "name": "f/actual/native/r2-replay-cypher-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-cypher-process.json",
+      "sha256": "8ab7f55823e38d00b7640437a57f9d8ff4968f4fce0b72a141671f6592ade620"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r2-replay-cypher.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-cypher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 425,
+      "name": "f/actual/native/r2-replay-cypher.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-cypher.stdout",
+      "sha256": "9fab6f48cfaea400e775934aeb0823e575e50cbc051507f79946a42e39e091c6"
+    },
+    {
+      "bytes": 392,
+      "name": "f/actual/native/r2-replay-gremlin-configuration.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-gremlin-configuration.json",
+      "sha256": "2cffc0460d37fb612c9897c54b5f86f018338c96c3b44fb07739ec723173d4a1"
+    },
+    {
+      "bytes": 13049,
+      "name": "f/actual/native/r2-replay-gremlin-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-gremlin-operator-original.json",
+      "sha256": "ae3eb4f320d1ba84d7e868a97fb2fbc2ba9f6ed95b94ce9e722df36c65fb4574"
+    },
+    {
+      "bytes": 416,
+      "name": "f/actual/native/r2-replay-gremlin-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-gremlin-process.json",
+      "sha256": "8d52df710fa2ceaccb34d49ec068e1257fb6901972cf7f4401f52580d5f0fbc8"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r2-replay-gremlin.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 427,
+      "name": "f/actual/native/r2-replay-gremlin.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-replay-gremlin.stdout",
+      "sha256": "3885299d588c2b5bfa63f9fd6238d264834a3b7ce2fc5069286d9fcdfe5e1493"
+    },
+    {
+      "bytes": 7467,
+      "name": "f/actual/native/r2-resume-operator-original.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-resume-operator-original.json",
+      "sha256": "1089929fa8617660563bd1e41f50e0a8f7baabe66691ddd12de009a9204394de"
+    },
+    {
+      "bytes": 717,
+      "name": "f/actual/native/r2-resume-process.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-resume-process.json",
+      "sha256": "946cd6e1593f0b3a5e79d3c551b4d575f39c82ed5f3963fd746a1ec75a01fcd4"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/native/r2-resume.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-resume.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 459,
+      "name": "f/actual/native/r2-resume.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/r2-resume.stdout",
+      "sha256": "d204ce3c27d4a4df58ce18a52bdae625756399878dc9cfd2a2c6e7336e4803b1"
+    },
+    {
+      "bytes": 112181,
+      "name": "f/actual/native/summary.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/native/summary.json",
+      "sha256": "8f40206d28dba82f739f82c61cbd54ee19a041e3bfcbec9e410af5caa875e9bc"
+    },
+    {
+      "bytes": 113512,
+      "name": "f/actual/preparation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/preparation.json",
+      "sha256": "fac39d6b70211a136e13ca35eabbf72c7937c787a18a2eaf601716d54fd67374"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r1-activate-cypher/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/activation.json",
+      "sha256": "a9448b6d46fb07a320e84bd3a5a61c8819bce963fe26beac7ebbb10d9fb2d3df"
+    },
+    {
+      "bytes": 12575,
+      "name": "f/actual/r1-activate-cypher/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/installed-imports.json",
+      "sha256": "2c88f6cfec2584a3538c49166249a931a2c98e82de2ab6bc5476ba1c947e9e21"
+    },
+    {
+      "bytes": 43632,
+      "name": "f/actual/r1-activate-cypher/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native-http-records.json",
+      "sha256": "2726f9162244da5290a64423cf777b532a60c8d1782d82e9574baead70aba254"
+    },
+    {
+      "bytes": 2,
+      "name": "f/actual/r1-activate-cypher/native/0001-before.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0001-before.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "bytes": 5611,
+      "name": "f/actual/r1-activate-cypher/native/0002-request.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0002-request.json",
+      "sha256": "dcf6a7894e4436c7269e597dbb0bc26e25c29ac63f15b30b2ca34f54145b58db"
+    },
+    {
+      "bytes": 4387,
+      "name": "f/actual/r1-activate-cypher/native/0003-upload.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0003-upload.json",
+      "sha256": "4b2b56ea51b58b083f20432f15f58cc307cc0f8c64b16a1a1f7772d21f5c6b48"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-activate-cypher/native/0004-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0004-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-activate-cypher/native/0005-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0005-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 2944,
+      "name": "f/actual/r1-activate-cypher/native/0006-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0006-query.json",
+      "sha256": "717cb1f06bcd749bec59039361b7dfdfa9392aed09834ebdfa212eb125c15575"
+    },
+    {
+      "bytes": 4603,
+      "name": "f/actual/r1-activate-cypher/native/0007-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0007-query.json",
+      "sha256": "68dc1db3e3b2ef786aee1d26c39c7dc4582dd9364f23e385fc4b703f468d0d2a"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-activate-cypher/native/0008-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0008-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-activate-cypher/native/0009-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0009-observed.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-activate-cypher/native/0010-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0010-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 2944,
+      "name": "f/actual/r1-activate-cypher/native/0011-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0011-query.json",
+      "sha256": "717cb1f06bcd749bec59039361b7dfdfa9392aed09834ebdfa212eb125c15575"
+    },
+    {
+      "bytes": 4603,
+      "name": "f/actual/r1-activate-cypher/native/0012-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0012-query.json",
+      "sha256": "68dc1db3e3b2ef786aee1d26c39c7dc4582dd9364f23e385fc4b703f468d0d2a"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-activate-cypher/native/0013-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0013-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-activate-cypher/native/0014-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/native/0014-observed.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-activate-cypher/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/observation.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 352,
+      "name": "f/actual/r1-activate-cypher/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/original-intent.json",
+      "sha256": "bc97e4b7f66d466a301fb1f5513db82021194629e7035e2b4f51cf044d62a873"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r1-activate-cypher/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-activate-cypher/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r1-read-after-r2-cypher/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/activation.json",
+      "sha256": "a9448b6d46fb07a320e84bd3a5a61c8819bce963fe26beac7ebbb10d9fb2d3df"
+    },
+    {
+      "bytes": 12576,
+      "name": "f/actual/r1-read-after-r2-cypher/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/installed-imports.json",
+      "sha256": "71a949132982e8794ece12563b7f1020927fb75d4d4914e553a66002a4e57065"
+    },
+    {
+      "bytes": 25631,
+      "name": "f/actual/r1-read-after-r2-cypher/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native-http-records.json",
+      "sha256": "547b4189f323dafb50542a7e5f085c0f4bd200886ea55849e67eba0b91db0cdf"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r1-read-after-r2-cypher/native/0001-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native/0001-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 2944,
+      "name": "f/actual/r1-read-after-r2-cypher/native/0002-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native/0002-query.json",
+      "sha256": "717cb1f06bcd749bec59039361b7dfdfa9392aed09834ebdfa212eb125c15575"
+    },
+    {
+      "bytes": 4603,
+      "name": "f/actual/r1-read-after-r2-cypher/native/0003-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native/0003-query.json",
+      "sha256": "68dc1db3e3b2ef786aee1d26c39c7dc4582dd9364f23e385fc4b703f468d0d2a"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r1-read-after-r2-cypher/native/0004-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-after-r2-cypher/native/0005-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/native/0005-observed.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-after-r2-cypher/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/observation.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/r1-read-after-r2-cypher/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/original-intent.json",
+      "sha256": "d4014f484667513f3a35e94d7c2e1a489c8d5362b015b9bc6ce50089360d5fce"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r1-read-after-r2-cypher/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-cypher/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r1-read-after-r2-gremlin/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/activation.json",
+      "sha256": "a9448b6d46fb07a320e84bd3a5a61c8819bce963fe26beac7ebbb10d9fb2d3df"
+    },
+    {
+      "bytes": 12577,
+      "name": "f/actual/r1-read-after-r2-gremlin/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/installed-imports.json",
+      "sha256": "2fd95cf261bfcdbc51ee69168647849e77332faaeb20fe999bb1c72cb6aba4ca"
+    },
+    {
+      "bytes": 25631,
+      "name": "f/actual/r1-read-after-r2-gremlin/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native-http-records.json",
+      "sha256": "547b4189f323dafb50542a7e5f085c0f4bd200886ea55849e67eba0b91db0cdf"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0001-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0001-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3859,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0002-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0002-gremlin-native-query.json",
+      "sha256": "0fac31cc6dad26949e4236349507c37232db9d4745a523194fd9390ccdd65d59"
+    },
+    {
+      "bytes": 3769,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0003-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0003-query.json",
+      "sha256": "4ee94e4fac4185613a0d6adefc61e2cb133bdaf52996f17c6ffb137c88fd9ac4"
+    },
+    {
+      "bytes": 5937,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0004-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0004-gremlin-native-query.json",
+      "sha256": "6ac78984975d03ed45cd53d3e034108e9e736353b8d8cd5c9a4e8f7cb70a6ec6"
+    },
+    {
+      "bytes": 5667,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0005-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0005-query.json",
+      "sha256": "8d09a4364135e54b0860cc6563bda4eea74b1610895d0c3c3e1bc4c282052937"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0006-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0006-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-after-r2-gremlin/native/0007-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/native/0007-observed.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-after-r2-gremlin/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/observation.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/r1-read-after-r2-gremlin/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/original-intent.json",
+      "sha256": "a1c2f6bc356846559026c61c4fea40b1eea3ef3470b39fc7f86ac6f68cd38f4a"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r1-read-after-r2-gremlin/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-after-r2-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r1-read-gremlin/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/activation.json",
+      "sha256": "a9448b6d46fb07a320e84bd3a5a61c8819bce963fe26beac7ebbb10d9fb2d3df"
+    },
+    {
+      "bytes": 12568,
+      "name": "f/actual/r1-read-gremlin/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/installed-imports.json",
+      "sha256": "001f2089a8eef41802e3d43a9a5e7437d38a38c1b05c4595c8ab00839d30bd79"
+    },
+    {
+      "bytes": 12903,
+      "name": "f/actual/r1-read-gremlin/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native-http-records.json",
+      "sha256": "2f2c4142005962afde69fbbc89c5cba3021d77436aec5ea4af880ec9f6d0e865"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-read-gremlin/native/0001-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0001-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 3859,
+      "name": "f/actual/r1-read-gremlin/native/0002-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0002-gremlin-native-query.json",
+      "sha256": "0fac31cc6dad26949e4236349507c37232db9d4745a523194fd9390ccdd65d59"
+    },
+    {
+      "bytes": 3769,
+      "name": "f/actual/r1-read-gremlin/native/0003-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0003-query.json",
+      "sha256": "4ee94e4fac4185613a0d6adefc61e2cb133bdaf52996f17c6ffb137c88fd9ac4"
+    },
+    {
+      "bytes": 5937,
+      "name": "f/actual/r1-read-gremlin/native/0004-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0004-gremlin-native-query.json",
+      "sha256": "6ac78984975d03ed45cd53d3e034108e9e736353b8d8cd5c9a4e8f7cb70a6ec6"
+    },
+    {
+      "bytes": 5667,
+      "name": "f/actual/r1-read-gremlin/native/0005-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0005-query.json",
+      "sha256": "8d09a4364135e54b0860cc6563bda4eea74b1610895d0c3c3e1bc4c282052937"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r1-read-gremlin/native/0006-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0006-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-gremlin/native/0007-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/native/0007-observed.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 12685,
+      "name": "f/actual/r1-read-gremlin/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/observation.json",
+      "sha256": "3dc6f5d40d2eb29e4bc8da824039bdbdea1d6f947ff1fafe7e6ecd955d42068a"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/r1-read-gremlin/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/original-intent.json",
+      "sha256": "719251fde10fed106f1be89dd8b05d5a50df4b1fdc6bc6e6499ad52c82c1194b"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r1-read-gremlin/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r1-read-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/activation.json",
+      "sha256": "68e726de0ea3830917d490730aa30e06dc795e6970fdbdb63093cc6e78d4b951"
+    },
+    {
+      "bytes": 12875,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/installed-imports.json",
+      "sha256": "3205db70dd750e087adbe3bbfbfd09218c8aba6a378f66378ff0204309c6265b"
+    },
+    {
+      "bytes": 76891,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native-http-records.json",
+      "sha256": "e101f2046e21fa5dbbdfb2e9e0b8c4bd4b79a0da1ed32ee4ccde6a8184a214f6"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0001-before.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0001-before.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11191,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0002-request.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0002-request.json",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0003-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0003-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0004-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3019,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0005-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0005-query.json",
+      "sha256": "a11518e6a08e25b483078b8fcb72cb0c572cf34469acdcd05a59cea650c04b8d"
+    },
+    {
+      "bytes": 5987,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0006-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0006-query.json",
+      "sha256": "d99d96a77fc5c1f15ab99ce84df7ad0bb1def49424291ec8e4edb212686b2106"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0007-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0007-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0008-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0008-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0009-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0009-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3019,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0010-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0010-query.json",
+      "sha256": "a11518e6a08e25b483078b8fcb72cb0c572cf34469acdcd05a59cea650c04b8d"
+    },
+    {
+      "bytes": 5987,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0011-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0011-query.json",
+      "sha256": "d99d96a77fc5c1f15ab99ce84df7ad0bb1def49424291ec8e4edb212686b2106"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0012-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0012-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/native/0013-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/native/0013-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/observation.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 511,
+      "name": "f/actual/r2-lost-reply/attempts/attempt-00/recovery-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/attempts/attempt-00/recovery-intent.json",
+      "sha256": "9c985ed027724c99ca327bd1ca832006caf76731992ccbf79e223556077625b1"
+    },
+    {
+      "bytes": 12570,
+      "name": "f/actual/r2-lost-reply/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/installed-imports.json",
+      "sha256": "28b8c89f95bbdc21b863a9d0c4458d42d0c35cf29a48088a28c4c6a15dc2a78b"
+    },
+    {
+      "bytes": 19371,
+      "name": "f/actual/r2-lost-reply/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/native-http-records.json",
+      "sha256": "ea76f5b1f4aa8e285025b25835c070adf18f0d0a5048cb2019d0798ba603768a"
+    },
+    {
+      "bytes": 5610,
+      "name": "f/actual/r2-lost-reply/native/0001-before.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/native/0001-before.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 11191,
+      "name": "f/actual/r2-lost-reply/native/0002-request.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/native/0002-request.json",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 352,
+      "name": "f/actual/r2-lost-reply/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/original-intent.json",
+      "sha256": "b9c2216133fd1ff5314f56321a70cef2441ec13c55dc8f9e90cf9c84fff65f54"
+    },
+    {
+      "bytes": 137,
+      "name": "f/actual/r2-lost-reply/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-lost-reply/provider-outcome.json",
+      "sha256": "a066b744a1f3d643f70997638e51e4c5de455cad6837ad7c4c0682a0980a844e"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r2-read-gremlin/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/activation.json",
+      "sha256": "68e726de0ea3830917d490730aa30e06dc795e6970fdbdb63093cc6e78d4b951"
+    },
+    {
+      "bytes": 12568,
+      "name": "f/actual/r2-read-gremlin/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/installed-imports.json",
+      "sha256": "e125a27c756e87067dfdd4ddde5dbc2d4f07eb324169762ed4cd3e34dee858aa"
+    },
+    {
+      "bytes": 25631,
+      "name": "f/actual/r2-read-gremlin/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native-http-records.json",
+      "sha256": "547b4189f323dafb50542a7e5f085c0f4bd200886ea55849e67eba0b91db0cdf"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-read-gremlin/native/0001-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0001-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3934,
+      "name": "f/actual/r2-read-gremlin/native/0002-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0002-gremlin-native-query.json",
+      "sha256": "449e09ae0920e97f055cb689a71b420456cbb129d7b4180f8e255470e8d28f59"
+    },
+    {
+      "bytes": 3844,
+      "name": "f/actual/r2-read-gremlin/native/0003-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0003-query.json",
+      "sha256": "f61c9ec6e4bc3d77db451f120f1e8702d60e3f2ced5a807c1bec1a4ab1a975c1"
+    },
+    {
+      "bytes": 7411,
+      "name": "f/actual/r2-read-gremlin/native/0004-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0004-gremlin-native-query.json",
+      "sha256": "c845c2ef2ffb3b7cfb341454a39b921f0cf5ad964529531d5b579df8ae263607"
+    },
+    {
+      "bytes": 7051,
+      "name": "f/actual/r2-read-gremlin/native/0005-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0005-query.json",
+      "sha256": "e90f714da336b2d00807572a9c5a0a5e0ebdd9f67327703b9ceb0b6bf0f44bcd"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-read-gremlin/native/0006-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0006-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-read-gremlin/native/0007-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/native/0007-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-read-gremlin/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/observation.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 410,
+      "name": "f/actual/r2-read-gremlin/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/original-intent.json",
+      "sha256": "349831a4f43c76d36fd41e9b00b643def971470d5f1753510a4910efb8e7fee4"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r2-read-gremlin/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-read-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r2-replay-cypher/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/activation.json",
+      "sha256": "68e726de0ea3830917d490730aa30e06dc795e6970fdbdb63093cc6e78d4b951"
+    },
+    {
+      "bytes": 12573,
+      "name": "f/actual/r2-replay-cypher/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/installed-imports.json",
+      "sha256": "96bc362722077415b8657d7955cddd8631db0d101b6eb342be468f48fd57468b"
+    },
+    {
+      "bytes": 76891,
+      "name": "f/actual/r2-replay-cypher/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native-http-records.json",
+      "sha256": "e101f2046e21fa5dbbdfb2e9e0b8c4bd4b79a0da1ed32ee4ccde6a8184a214f6"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0001-before.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0001-before.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11191,
+      "name": "f/actual/r2-replay-cypher/native/0002-request.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0002-request.json",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0003-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0003-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0004-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3019,
+      "name": "f/actual/r2-replay-cypher/native/0005-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0005-query.json",
+      "sha256": "a11518e6a08e25b483078b8fcb72cb0c572cf34469acdcd05a59cea650c04b8d"
+    },
+    {
+      "bytes": 5987,
+      "name": "f/actual/r2-replay-cypher/native/0006-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0006-query.json",
+      "sha256": "d99d96a77fc5c1f15ab99ce84df7ad0bb1def49424291ec8e4edb212686b2106"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0007-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0007-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-cypher/native/0008-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0008-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0009-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0009-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3019,
+      "name": "f/actual/r2-replay-cypher/native/0010-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0010-query.json",
+      "sha256": "a11518e6a08e25b483078b8fcb72cb0c572cf34469acdcd05a59cea650c04b8d"
+    },
+    {
+      "bytes": 5987,
+      "name": "f/actual/r2-replay-cypher/native/0011-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0011-query.json",
+      "sha256": "d99d96a77fc5c1f15ab99ce84df7ad0bb1def49424291ec8e4edb212686b2106"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-cypher/native/0012-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0012-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-cypher/native/0013-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/native/0013-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-cypher/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/observation.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 352,
+      "name": "f/actual/r2-replay-cypher/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/original-intent.json",
+      "sha256": "3bf929c213e83794c8583cc16a5e73e3e3664d03354d346f890304647f4eae94"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r2-replay-cypher/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-cypher/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "f/actual/r2-replay-gremlin/activation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/activation.json",
+      "sha256": "68e726de0ea3830917d490730aa30e06dc795e6970fdbdb63093cc6e78d4b951"
+    },
+    {
+      "bytes": 12574,
+      "name": "f/actual/r2-replay-gremlin/installed-imports.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/installed-imports.json",
+      "sha256": "abe5b0e0a63c3b32490795794dddf3dd70515e8daf6e93596a03867e7608dfd0"
+    },
+    {
+      "bytes": 76891,
+      "name": "f/actual/r2-replay-gremlin/native-http-records.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native-http-records.json",
+      "sha256": "e101f2046e21fa5dbbdfb2e9e0b8c4bd4b79a0da1ed32ee4ccde6a8184a214f6"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0001-before.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0001-before.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11191,
+      "name": "f/actual/r2-replay-gremlin/native/0002-request.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0002-request.json",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0003-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0003-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0004-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3934,
+      "name": "f/actual/r2-replay-gremlin/native/0005-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0005-gremlin-native-query.json",
+      "sha256": "449e09ae0920e97f055cb689a71b420456cbb129d7b4180f8e255470e8d28f59"
+    },
+    {
+      "bytes": 3844,
+      "name": "f/actual/r2-replay-gremlin/native/0006-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0006-query.json",
+      "sha256": "f61c9ec6e4bc3d77db451f120f1e8702d60e3f2ced5a807c1bec1a4ab1a975c1"
+    },
+    {
+      "bytes": 7411,
+      "name": "f/actual/r2-replay-gremlin/native/0007-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0007-gremlin-native-query.json",
+      "sha256": "c845c2ef2ffb3b7cfb341454a39b921f0cf5ad964529531d5b579df8ae263607"
+    },
+    {
+      "bytes": 7051,
+      "name": "f/actual/r2-replay-gremlin/native/0008-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0008-query.json",
+      "sha256": "e90f714da336b2d00807572a9c5a0a5e0ebdd9f67327703b9ceb0b6bf0f44bcd"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0009-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0009-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-gremlin/native/0010-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0010-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0011-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0011-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3934,
+      "name": "f/actual/r2-replay-gremlin/native/0012-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0012-gremlin-native-query.json",
+      "sha256": "449e09ae0920e97f055cb689a71b420456cbb129d7b4180f8e255470e8d28f59"
+    },
+    {
+      "bytes": 3844,
+      "name": "f/actual/r2-replay-gremlin/native/0013-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0013-query.json",
+      "sha256": "f61c9ec6e4bc3d77db451f120f1e8702d60e3f2ced5a807c1bec1a4ab1a975c1"
+    },
+    {
+      "bytes": 7411,
+      "name": "f/actual/r2-replay-gremlin/native/0014-gremlin-native-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0014-gremlin-native-query.json",
+      "sha256": "c845c2ef2ffb3b7cfb341454a39b921f0cf5ad964529531d5b579df8ae263607"
+    },
+    {
+      "bytes": 7051,
+      "name": "f/actual/r2-replay-gremlin/native/0015-query.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0015-query.json",
+      "sha256": "e90f714da336b2d00807572a9c5a0a5e0ebdd9f67327703b9ceb0b6bf0f44bcd"
+    },
+    {
+      "bytes": 11202,
+      "name": "f/actual/r2-replay-gremlin/native/0016-schema.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0016-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-gremlin/native/0017-observed.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/native/0017-observed.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 14152,
+      "name": "f/actual/r2-replay-gremlin/observation.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/observation.json",
+      "sha256": "008b76dfe998c4a95e0bd9625e5df54e53fdcf97bc3ce68cf2a06f518668e8f1"
+    },
+    {
+      "bytes": 352,
+      "name": "f/actual/r2-replay-gremlin/original-intent.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/original-intent.json",
+      "sha256": "d954aaf58763474fd48ffc92744cb45823f18a49d0db20f48855c7c1ee6b527d"
+    },
+    {
+      "bytes": 54,
+      "name": "f/actual/r2-replay-gremlin/provider-outcome.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/r2-replay-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 272,
+      "name": "f/actual/runner-receipt.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/runner-receipt.json",
+      "sha256": "bac8531d0af01e3aebb5553941225d56f858538ec510da438dbabf3f88d1d4f8"
+    },
+    {
+      "bytes": 226,
+      "name": "f/actual/venv.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/venv.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/venv.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 26284,
+      "name": "f/actual/wheel-inventory.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/wheel-inventory.json",
+      "sha256": "53f32f95c421822e554956eb7f7558312c3fe1e5f1944e8ac892acf6e5366e7b"
+    },
+    {
+      "bytes": 229,
+      "name": "f/actual/wheel.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/wheel.json",
+      "sha256": "b0e81ae1398ff2eb9dd22be04aa5ac2be6c3df685e40947dd51f2cd5152715a2"
+    },
+    {
+      "bytes": 0,
+      "name": "f/actual/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 750,
+      "name": "f/actual/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-20261011-f/wheel.stdout",
+      "sha256": "368866c166a41b69a2ce7c3f32d1a8b46f75e51aa0ca600a0ccf8a0a5fcf17d7"
+    },
+    {
+      "bytes": 5817,
+      "name": "f/command.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-command-f.json",
+      "sha256": "9150f064c821e2eab738e6a44fc3caa0987516ce147c4383f17cfe41add1b1d1"
+    },
+    {
+      "bytes": 8342,
+      "name": "f/metadata.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-metadata-f.json",
+      "sha256": "95e8ad5a0e528c99d5200e9fc6fdbaca2d63b26c3e7373ef985a426c9c00551e"
+    },
+    {
+      "bytes": 792,
+      "name": "f/outer.receipt.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-outer-f.receipt.json",
+      "sha256": "3915526648741f098a31bc6b4950a2529ce0789d682cbc17498d1db32c43888e"
+    },
+    {
+      "bytes": 0,
+      "name": "f/outer.stderr",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-outer-f.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "f/outer.stdout",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-outer-f.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5863,
+      "name": "f/recipe-freeze.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-recipe-freeze-f.json",
+      "sha256": "6cfaac5362d0a6ef8577061ed338a8276ec5b4dcd757db706e68369c37826c2a"
+    },
+    {
+      "bytes": 6999,
+      "name": "original/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.graph.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppygraph-releases-20261009/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.graph.json",
+      "sha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a"
+    },
+    {
+      "bytes": 6078,
+      "name": "original/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.graph.json",
+      "originalPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppygraph-releases-20261009/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.graph.json",
+      "sha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7"
+    },
+    {
+      "bytes": 5612,
+      "name": "original/carriers/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/model.json",
+      "originalPath": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-puppy-carrier-short-i82hlx9p/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/model.json",
+      "sha256": "5e02256d5555e7da7c8137a9dae7a56df3a637005e43061d3ab054b245ead2b9"
+    },
+    {
+      "bytes": 576,
+      "name": "original/carriers/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/receipt.json",
+      "originalPath": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-puppy-carrier-short-i82hlx9p/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/receipt.json",
+      "sha256": "18ec3db9e7374289d606d14bc73a98d9f270cc50ce440bbb47808d0b49a10a20"
+    },
+    {
+      "bytes": 5612,
+      "name": "original/carriers/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/model.json",
+      "originalPath": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-puppy-carrier-short-i82hlx9p/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/model.json",
+      "sha256": "640434fcc46866b5a2740a106e61017c6220d3f57a7903043246c996f1047014"
+    },
+    {
+      "bytes": 576,
+      "name": "original/carriers/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/receipt.json",
+      "originalPath": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-puppy-carrier-short-i82hlx9p/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/receipt.json",
+      "sha256": "247ecd81683fe8706a16fdd80d70878ffe29e51a12b81b5c488f685d38e64633"
+    },
+    {
+      "bytes": 3216,
+      "name": "recipes/ashlar-count-star-installed-cli-capture-a.py",
+      "originalPath": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 1450,
+      "name": "recipes/ashlar-p06-neo4j-import-control-a.py",
+      "originalPath": "/private/tmp/ashlar-p06-neo4j-import-control-a.py",
+      "sha256": "68efd20867f09dc5d3e40b0cf440899b537aed48024178065184301c048a5806"
+    },
+    {
+      "bytes": 155099,
+      "name": "recipes/ashlar-p06-neo4j-private-preparation-freeze-a.json",
+      "originalPath": "/private/tmp/ashlar-p06-neo4j-private-preparation-freeze-a.json",
+      "sha256": "fef41bd95115bba813116eafb29063f119c5dcd4784a8081a0b630ef695e7a97"
+    },
+    {
+      "bytes": 5275690,
+      "name": "recipes/ashlar-p06-response-loss-closure-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-closure-f.json",
+      "sha256": "0a6fe975910b9671beb8ad14255b9ca3a466a95ed4f8609368bfa169b579b71c"
+    },
+    {
+      "bytes": 2420,
+      "name": "recipes/ashlar-p06-response-loss-launch-controls-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-launch-controls-f.py",
+      "sha256": "23d732e04d1fdeec0a4faf67b3851e87b07dfc8f3cebd7fc9c6d19aa9590ed09"
+    },
+    {
+      "bytes": 323,
+      "name": "recipes/ashlar-p06-response-loss-launch-controls-result-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-launch-controls-result-f.json",
+      "sha256": "cea55bd4ed27060f3b530bb09650d7c12e8dd31f26e7e4c91ec65771008208a7"
+    },
+    {
+      "bytes": 3283,
+      "name": "recipes/ashlar-p06-response-loss-launch-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-launch-f.py",
+      "sha256": "529286fda439ea01202b57fc75dfc422f026b6a8c444dd6b1910a81c481a9c24"
+    },
+    {
+      "bytes": 18048,
+      "name": "recipes/ashlar-p06-response-loss-native-probe-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-native-probe-f.py",
+      "sha256": "dae38bf6236f80c839d37add0e0e0a5ee0043f73fe6cc3ba9c8f418ba91a2192"
+    },
+    {
+      "bytes": 3566,
+      "name": "recipes/ashlar-p06-response-loss-policy-control-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-policy-control-f.py",
+      "sha256": "82daf196df761ec668d9a7d13e835ba416de4e4e8593a5391b3d3e9410a96991"
+    },
+    {
+      "bytes": 611,
+      "name": "recipes/ashlar-p06-response-loss-policy-control-result-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-policy-control-result-f.json",
+      "sha256": "46e64cd7c0e93d0b143fd95bc276e4d6833d3552dd4dfedcd1adef8409cf5cec"
+    },
+    {
+      "bytes": 9618,
+      "name": "recipes/ashlar-p06-response-loss-provider-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-provider-f.py",
+      "sha256": "3a3c877d3b855a78d10ceaa0c50c50a2b9c9312352d5ec76bac5723cddfad71f"
+    },
+    {
+      "bytes": 9938,
+      "name": "recipes/ashlar-p06-response-loss-proxy-controls-g.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-proxy-controls-g.py",
+      "sha256": "83a39d8dc83f7e06b260d373c9b6582e78e1716581b44a2e954063c5b411321c"
+    },
+    {
+      "bytes": 1120,
+      "name": "recipes/ashlar-p06-response-loss-proxy-freeze-g.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-proxy-freeze-g.json",
+      "sha256": "3f8be342f9e63f62486b01b2a27acfe1358b217f2a160c223b1fca9bf8663ccf"
+    },
+    {
+      "bytes": 14985,
+      "name": "recipes/ashlar-p06-response-loss-proxy-g.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-proxy-g.py",
+      "sha256": "72fd2c7eac4ff7d77b0f54d0c18c5498f5149385f7ad0fa315bc93e546586c24"
+    },
+    {
+      "bytes": 1972,
+      "name": "recipes/ashlar-p06-response-loss-proxy-independent-review-g.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-proxy-independent-review-g.json",
+      "sha256": "a09559409abd8dbf408cb384618a4caab563ec1414d3e68e7bffff2e877e917c"
+    },
+    {
+      "bytes": 831,
+      "name": "recipes/ashlar-p06-response-loss-qualified-version-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-qualified-version-f.json",
+      "sha256": "130c0d5d2af7d3da0f26d318881db74e7800db93deeb71017576916727867f17"
+    },
+    {
+      "bytes": 17856,
+      "name": "recipes/ashlar-p06-response-loss-runner-f.py",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-runner-f.py",
+      "sha256": "621c0b56b1f8e3f217e3ae77007e2a33ac06bd3eaed2f0f6c2e271ae7701010c"
+    },
+    {
+      "bytes": 38448,
+      "name": "recipes/ashlar-p06-response-loss-source-inventory-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-source-inventory-f.json",
+      "sha256": "460dea8a8a9edc34068dc62778949af92b7b27eebe9d87b0fb45534f660e0db5"
+    },
+    {
+      "bytes": 110603,
+      "name": "recipes/import-control.json",
+      "originalPath": "/private/tmp/ashlar-p06-neo4j-private-a/import-control.json",
+      "sha256": "51af9607cc0dc0c75e66a2c173397e762fe8021098d0e07307d89a024c3b4400"
+    },
+    {
+      "bytes": 1763,
+      "name": "reviews/ashlar-p06-response-loss-actual-failure-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-actual-failure-freeze-c.json",
+      "sha256": "44d86e9236c88f30502b2df242a174e41871bd73ba9c85c6caf55881bd477d6e"
+    },
+    {
+      "bytes": 148320,
+      "name": "reviews/ashlar-p06-response-loss-actual-failure-freeze-d.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-actual-failure-freeze-d.json",
+      "sha256": "abba9ea3f6711273c53903450edbbd46b8aac095270042f18e94efef71dbca64"
+    },
+    {
+      "bytes": 163561,
+      "name": "reviews/ashlar-p06-response-loss-actual-failure-freeze-e.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-actual-failure-freeze-e.json",
+      "sha256": "820c19ffd9f20686c02b18e5eb4c0d0850cb5d2842a7fa1e626f8fd4f797fb75"
+    },
+    {
+      "bytes": 1960,
+      "name": "reviews/ashlar-p06-response-loss-independent-actual-review-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-independent-actual-review-f.json",
+      "sha256": "756f870c5e23720abfa9288239f7be53dff5d2d62e971b06b04ce489268c40c0"
+    },
+    {
+      "bytes": 1812,
+      "name": "reviews/ashlar-p06-response-loss-independent-command-review-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-independent-command-review-f.json",
+      "sha256": "2b657903bc46f2f4ee0ab67454dbf01e09dcbf1f3b2458cb7540538a420b12c7"
+    },
+    {
+      "bytes": 258,
+      "name": "reviews/ashlar-p06-response-loss-owned-process-census-f.json",
+      "originalPath": "/private/tmp/ashlar-p06-response-loss-owned-process-census-f.json",
+      "sha256": "382160701e85a5129d3454d5d7967a1128d7f363a81e075556ec56c93a7a33d5"
+    },
+    {
+      "bytes": 144171,
+      "name": "reviews/inventory.json",
+      "originalPath": "/private/tmp/ashlar-p06-neo4j-private-a/inventory.json",
+      "sha256": "2e7543ace65f6748089a40297a9f7e85b1c17155414f1006ee0a5e03c83ed1d3"
+    },
+    {
+      "bytes": 7910,
+      "name": "reviews/pypi.json",
+      "originalPath": "/private/tmp/ashlar-p06-neo4j-private-a/pypi.json",
+      "sha256": "63544675a35bd40e7f73512e34c7ca5a6e25e1d8146da1e277a0d1ce3a04d96a"
+    }
+  ],
+  "priorEvidence": {
+    "commit": "01d13625",
+    "files": [
+      {
+        "bytes": 2530,
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppy-response-loss-native-20261011-e/README.md",
+        "sha256": "a5a9e61662da010f4f8d6e16bf8197cc229e32daabd21b1326555d08f68f2153"
+      },
+      {
+        "bytes": 51150,
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppy-response-loss-native-20261011-e/inventory.json",
+        "sha256": "0cf61659ffdcefdd3482cf36bfd58519d1874d48e5052e8b03da73e841915f16"
+      },
+      {
+        "bytes": 2444379,
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/puppy-response-loss-native-20261011-e/actual.tar.gz",
+        "sha256": "2a4c8be3db0ece66c368305b5d92f08f6ca2b3ee2a4c791cff9b994ef289c920"
+      }
+    ],
+    "scope": "Original C/D/E failures and tiny source carrier database bytes retained in unchanged prior archive; source/model/receipt originals repeated here for direct semantic review."
+  }
+}
