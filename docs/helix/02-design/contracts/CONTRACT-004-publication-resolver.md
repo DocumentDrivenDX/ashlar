@@ -453,6 +453,33 @@ ten commerce intents remain in the query gallery; plain row count, grouped row
 count, grouped COUNT(*) HAVING and expanded occurrence COUNT(*) HAVING are added.
 The five required supply-chain intents remain separate required coverage.
 
+### Separately selected implicit arithmetic labels
+
+An explicit `implicit-arithmetic` profile MUST select
+`0.4.2-implicit-arithmetic-labels-candidate` with the exact paired
+`weft-compile/0.4.2`, `weft-sql/0.4.2` and `weft-ir/0.4.2` interfaces.
+Its immutable owned profile descriptor MUST bind the backend, target, public
+compiler entrypoint, complete capability set and three offline schema names and
+digests together. Arbitrary caller-supplied versions and implicit upgrades from
+`count-star` MUST refuse. Installation requires independently admitted indexed
+0.4.2 products; existing 0.4.1 package evidence MUST NOT qualify them.
+
+Original commerce SQL, module bytes and binding bytes MUST remain unchanged.
+Fresh public recompilation and exact artifact correspondence precede admission.
+Weft owns expression interpretation and implicit labels. The host MAY compare
+an admitted UTF8 source span with its exact original substring; it MUST NOT parse
+or repair SQL to manufacture a label. Complete ordered physical carriers MUST
+preserve logical names, output ordinals and exact values, including repeated
+field labels. Unknown capabilities, malformed spans, name collisions and mixed
+version pairs MUST refuse before execution.
+
+The separately typed host configuration MUST retain all existing source,
+publication, retention, integrity, capacity and closing obligations. Query-only
+execution MUST NOT advance source progress. All four original commerce scenarios,
+including the unnamed partial-return arithmetic projection, require actual
+publication-bound execution and independent complete-result comparison. Compiler
+acceptance alone does not satisfy this requirement.
+
 The installed supply-chain request builder MUST preserve all five original SQL
 statements, complete UMF 0.8 module bytes, development carrier identities and
 present-null property encoding. Its selected `supply_chain_count_star_request`
