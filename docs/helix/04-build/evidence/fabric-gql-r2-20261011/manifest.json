@@ -1,0 +1,35 @@
+{
+  "profile": "ashlar-fabric-gql-r2-evidence/0.1",
+  "passed": [
+    "Actual R2 GQL node count 3",
+    "All 18/23 STRING node/edge scalar columns, nulls, complete rows and multiplicities equal pinned original R2 release"
+  ],
+  "pending": [
+    "R1 GQL",
+    "Traversal and endpoint corpus",
+    "R1/R2 release-isolation recheck",
+    "Public Fabric reader integration"
+  ],
+  "files": [
+    {
+      "path": "gql-r2-count-after-load-a.json",
+      "bytes": 714,
+      "sha256": "bbb4d735572009bb568a429cad4e33dc5f74461dda4a8e09076547a62f57a3f2"
+    },
+    {
+      "path": "gql-r2-full-after-load-b.json",
+      "bytes": 14876,
+      "sha256": "5cb07ca67b0e25b18d28ea5c93661c57fb578aad4ef06c9a070385a0750346d0"
+    },
+    {
+      "path": "gql-r2-full-parity-b.json",
+      "bytes": 530,
+      "sha256": "eebac7d90bae69553ca40d57d4596c21eb30ac9b7a278c1ae8714485d88eaf75"
+    },
+    {
+      "path": "graph-load-job-status-b.json",
+      "bytes": 896,
+      "sha256": "9fc184552ec1ee94208bfb358f2a6408e170e62c652aa8a99b8023b21d9fd1bb"
+    }
+  ]
+}

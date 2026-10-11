@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-fabric-live-gql-parity/0.1",
+  "releaseSha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+  "results": [
+    {
+      "kind": "nodes",
+      "rows": 3,
+      "fullScalarAndMultiplicityParity": true
+    },
+    {
+      "kind": "edges",
+      "rows": 4,
+      "fullScalarAndMultiplicityParity": true
+    }
+  ],
+  "scope": "Actual REST beta GQL full scalar row parity for R2 only. R1, traversal/endpoint corpus, release-isolation recheck and public reader integration remain pending."
+}

@@ -1,0 +1,35 @@
+{
+  "query": "MATCH (n:AshlarNode) RETURN count(n) AS node_count",
+  "readTimeoutSeconds": 60,
+  "status": 200,
+  "body": {
+    "status": {
+      "code": "00000",
+      "description": "note: successful completion",
+      "diagnostics": {
+        "OPERATION": "query",
+        "OPERATION_CODE": "0",
+        "CURRENT_SCHEMA": "/",
+        "_graphaneGqlStatus": {
+          "gqlType": "STRING",
+          "value": "00000"
+        }
+      }
+    },
+    "result": {
+      "kind": "TABLE",
+      "columns": [
+        {
+          "name": "node_count",
+          "gqlType": "UINT64",
+          "jsonType": "number|string"
+        }
+      ],
+      "data": [
+        {
+          "node_count": 3
+        }
+      ]
+    }
+  }
+}
