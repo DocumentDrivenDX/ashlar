@@ -6,11 +6,27 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from ashlar_host.local_physical_carriers import original_local_physical_carriers, ORIGINAL_LOCAL_PHYSICAL_PROVENANCE
+from ashlar_host.local_physical_carriers import original_local_physical_carriers, original_local_materialization_columns, ORIGINAL_LOCAL_PHYSICAL_PROVENANCE
 from ashlar_host.original_commerce_local_setup import generated_carriers
 
 
 class LocalPhysicalCarrierTests(unittest.TestCase):
+    def test_generated_columns_match_independent_original_sql_fixture(self):
+        from ashlar_host.schema_rows import fixture_columns
+        expected = fixture_columns(Path(__file__).resolve().parents[1])
+        self.assertEqual(original_local_materialization_columns(), expected)
+        self.assertEqual(tuple(original_local_materialization_columns()),
+            ('object_current','edge_current','tombstone','whole_source_history'))
+
+    def test_columns_use_fixed_package_without_checkout_reads_and_reject_resource_drift(self):
+        with patch('pathlib.Path.read_text', side_effect=AssertionError('Checkout SQL read')):
+            columns = original_local_materialization_columns()
+        self.assertEqual(tuple(map(len, columns.values())), (17,20,10,6))
+        selected, root = self.selected_copy()
+        path = root/'runtime-carriers.generated.json'; path.write_bytes(path.read_bytes()+b' ')
+        with patch('ashlar_host.local_physical_carriers.files', return_value=selected), self.assertRaises(ValueError):
+            original_local_materialization_columns()
+
     def test_complete_actual_packaged_parity_preserves_original_profiles_and_provenance(self):
         expected=files('ashlar_host').joinpath('resources','original-commerce-local')
         raw=expected.joinpath('runtime-carriers.generated.json').read_bytes()

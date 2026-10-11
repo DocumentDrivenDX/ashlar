@@ -41,3 +41,20 @@ def original_local_physical_carriers():
         if layout['name']!=[role]or layout['partitionBy']or layout['clusterBy']or layout['properties']:
             raise ValueError('Exact reviewed local layout required')
     return generated
+
+
+def original_local_materialization_columns():
+    """Ordered SQL carrier types from the fixed, verified generated resource.
+
+    This projects the reviewed physical profile only; it does not interpret an
+    arbitrary UMF document or confer domain/source admission.
+    """
+    generated = original_local_physical_carriers()
+    types = {'string':'STRING', 'long':'BIGINT', 'timestamp':'TIMESTAMP'}
+    columns = {}
+    for role in _ROLES[:4]:
+        fields = json.loads(generated['carriers'][role]['schemaJson'])['fields']
+        if any(field['type'] not in types for field in fields):
+            raise ValueError('Unsupported fixed physical SQL carrier type')
+        columns[role] = tuple((field['name'], types[field['type']]) for field in fields)
+    return columns
