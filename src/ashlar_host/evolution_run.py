@@ -279,7 +279,8 @@ class EvolutionRunLedger:
                         raise EvolutionPlanError('Bounded original publication descriptor required')
         return EvolutionRunLedgerView(tuple(slots))
 
-    def admit(self):
+    def _admitted_inventory(self):
+        """Return only the exact original view whose full admission completed."""
         inventory = self._inventory()
         slots = list(inventory.slots)
         if self.policy.admit_run(self.original, self.context) is not None:
@@ -290,6 +291,10 @@ class EvolutionRunLedger:
                 or self.connection.execute('SELECT ordinal,state,original,digest,descriptor FROM original_slot ORDER BY ordinal').fetchall() != slots):
             raise EvolutionPlanError('Original ledger changed during current admission')
         self._filesystem_custody()
+        return inventory
+
+    def admit(self):
+        self._admitted_inventory()
 
     def slot(self, ordinal):
         if type(ordinal) is not int or not 0 <= ordinal < 8: raise EvolutionPlanError('Original schedule ordinal required')
@@ -355,10 +360,26 @@ class EvolutionRunAttemptJournal:
         if self.ledger.policy.admit_attempt(self.ledger.original, self.ordinal, plan, context) is not None:
             raise EvolutionPlanError('Current original run attempt admission incomplete')
     def load(self, *, expected_sha256, context):
-        state, raw, digest, descriptor = self.ledger.slot(self.ordinal)
-        if state == 'unprepared' or digest != expected_sha256:
-            raise EvolutionPlanError('Retained original attempt digest required')
-        plan = EvolutionAttemptPlan(raw); self.admit(plan, context); return plan
+        if context is not self.ledger.context:
+            raise EvolutionPlanError('Original run context required')
+        inventory = self.ledger._admitted_inventory()
+        primary = None; plan = None
+        def renew_original():
+            if self.ledger._inventory().slots != inventory.slots:
+                raise EvolutionPlanError('Original ledger changed during attempt admission')
+        try:
+            _, state, raw, digest, descriptor = inventory.slots[self.ordinal]
+            if state == 'unprepared' or digest != expected_sha256:
+                raise EvolutionPlanError('Retained original attempt digest required')
+            plan = EvolutionAttemptPlan(raw)
+            if (raw, digest) != (plan.raw, plan.sha256):
+                raise EvolutionPlanError('Exact retained original run attempt required')
+            if self.ledger.policy.admit_attempt(self.ledger.original, self.ordinal, plan, context) is not None:
+                raise EvolutionPlanError('Current original run attempt admission incomplete')
+        except BaseException as error:
+            primary = error
+        finish(primary, [renew_original])
+        return plan
     def not_started(self, plan, context):
         self.admit(plan, context)
         if self.ledger.slot(self.ordinal)[0] != 'retained':

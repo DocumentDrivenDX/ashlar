@@ -34,6 +34,143 @@ class Tests(unittest.TestCase):
         return self.driver.admit_evolution_run_ledger(self.original, EvolutionRunLedgerView(tuple(slots)),
             context=self.driver.context, attempt_admission=self.admission)
 
+    def retained_ledger(self):
+        from ashlar_host.evolution_run import EvolutionRunLedger
+        policy = NativeEvolutionRunPolicy(self.driver, self.host.policy)
+        ledger = EvolutionRunLedger.open(self.host.path, policy,
+            context=self.driver.context, original=self.original)
+        self.addCleanup(ledger.close)
+        plan = self.driver.plan_evolution_transaction(self.original, 0, {}, context=self.driver.context)
+        ledger.retain(0, plan)
+        return ledger, plan
+
+    def after_opening_callback(self, ledger, effect):
+        # The public native policy stays real and frozen; inject only its
+        # independently supplied authority's callback after full opening.
+        if not hasattr(ledger, '_test_original_admission'):
+            ledger._test_original_admission = ledger._admitted_inventory
+            ledger._test_original_authority = self.host.policy.admit_attempt
+        gate = {'opened': False}
+        def opening():
+            gate['opened'] = False
+            view = ledger._test_original_admission()
+            gate['opened'] = True
+            return view
+        def authority(*args):
+            ledger._test_original_authority(*args)
+            if gate['opened']: effect(*args)
+        ledger._admitted_inventory = opening
+        self.host.policy.admit_attempt = authority
+
+    def test_load_one_full_admission_and_current_attempt_policy(self):
+        ledger, plan = self.retained_ledger()
+        history = self.driver.transport.original_history
+        full = self.driver.admit_evolution_run_ledger
+        attempt = self.host.policy.admit_attempt
+        events = []
+        def histories(target):
+            events.append('history'); return history(target)
+        def admission(*args, **kwargs):
+            events.append('full'); return full(*args, **kwargs)
+        def current_attempt(*args):
+            events.append('attempt'); return attempt(*args)
+        self.driver.transport.original_history = histories
+        self.driver.admit_evolution_run_ledger = admission
+        self.host.policy.admit_attempt = current_attempt
+        loaded = ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        self.assertEqual(loaded.raw, plan.raw)
+        self.assertEqual(events.count('full'), 1)
+        self.assertEqual(events.count('history'), 16)
+        self.assertGreaterEqual(events.count('attempt'), 1)
+        events.clear(); self.assertIsNone(ledger.admit())
+        self.assertEqual(events.count('full'), 1)
+        events.clear(); ledger.slot(0)
+        self.assertEqual(events.count('full'), 1)
+        events.clear(); ledger.attempt(0).admit(plan, self.driver.context)
+        self.assertEqual(events.count('full'), 1)
+        self.driver.admit_evolution_run_ledger = lambda *args, **kwargs: self.fail('wrong context entered native admission')
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=object())
+
+    def test_load_opening_callback_cannot_bless_changed_inventory(self):
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        original = self.host.policy.admit_ledger
+        def mutate(*args):
+            original(*args)
+            ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+        self.host.policy.admit_ledger = mutate
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+
+    def test_load_closing_catches_callback_unrelated_slot_or_schema_change(self):
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        def change_slot(*args):
+            ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+        self.after_opening_callback(ledger, change_slot)
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        ledger.connection.execute('UPDATE original_slot SET descriptor=NULL WHERE ordinal=7')
+        def change_schema(*args):
+            ledger.connection.execute('CREATE TABLE foreign_table(id INTEGER)')
+        self.after_opening_callback(ledger, change_schema)
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        ledger.connection.execute('DROP TABLE foreign_table')
+        def cancel_after_change(*args):
+            ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+            raise primary
+        primary = KeyboardInterrupt('current callback cancellation')
+        self.after_opening_callback(ledger, cancel_after_change)
+        with self.assertRaises(KeyboardInterrupt) as observed:
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        self.assertIs(observed.exception, primary)
+
+    def test_load_callback_file_or_parent_replacement_refuses(self):
+        import os
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        path = ledger.path; saved = path.with_name('original-saved.sqlite')
+        def replace_file(*args):
+            path.rename(saved); path.write_bytes(saved.read_bytes())
+        self.after_opening_callback(ledger, replace_file)
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        path.unlink(); saved.rename(path)
+        parent = path.parent; old_parent = parent.with_name(parent.name + '-saved')
+        def replace_parent(*args):
+            parent.rename(old_parent); parent.mkdir(mode=0o700)
+            os.link(old_parent / path.name, path)
+        self.after_opening_callback(ledger, replace_parent)
+        try:
+            with self.assertRaises(EvolutionPlanError):
+                ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        finally:
+            path.unlink(); parent.rmdir(); old_parent.rename(parent)
+
+    def test_load_rejected_digest_renews_and_current_authority_revocation_refuses(self):
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        inventory = ledger._inventory; reads = []
+        def observe_inventory():
+            reads.append('inventory'); return inventory()
+        ledger._inventory = observe_inventory
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(0).load(expected_sha256='f' * 64, context=self.driver.context)
+        self.assertEqual(len(reads), 2)
+        with self.assertRaises(EvolutionPlanError):
+            ledger.attempt(1).load(expected_sha256='f' * 64, context=self.driver.context)
+        def revoked(*args):
+            self.driver.held = False
+            raise PermissionError('Actual held authority revoked')
+        self.after_opening_callback(ledger, revoked)
+        try:
+            with self.assertRaises(PermissionError):
+                ledger.attempt(0).load(expected_sha256=plan.sha256, context=self.driver.context)
+        finally: self.driver.held = True
+
     def test_empty_original_inventory_observes_all_eight_qualified_scopes(self):
         self.admit(self.empty)
         import json
