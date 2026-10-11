@@ -76,4 +76,3 @@ class OriginalMedicalInstallationLease:
             if owner is not None:owner.closed=True
             if fd is not None:os.close(fd)
         finish(primary,([lambda:owner.renew(context)] if owner is not None else [])+([lambda:LocalDeltaTransport.require_existing_journal(operator.journal,operator.installation_id,operator.targets,capacity=operator.capacity)]if locked else[])+[close])
-
