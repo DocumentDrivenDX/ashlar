@@ -255,7 +255,8 @@ class DiagnosticWorkflowTests(unittest.TestCase):
                         compiler_request=lambda *args: {'target': {'bindingJson': '{}'}},
                         original_commerce_reader_bindings=lambda *args: (b'{}',),
                         PublicationProvider=provider_factory,
-                        native_files=native_files, cleanup_state=state, ordinary_session=None)
+                        native_files=native_files, cleanup_state=state, ordinary_session=None,
+                        source_factory=None)
                     exec(fragment, namespace)
                     with self.assertRaises(BaseException) as caught:
                         with contextmanager(namespace['exercise'])(): pass
