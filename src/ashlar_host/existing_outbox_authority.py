@@ -66,18 +66,42 @@ def ordinary(session, role, database):
         raise OutboxAuthorityError('Current ordinary role/database/isolation differs')
 
 
+def source_privilege_oids(session, namespace):
+    """Resolve negative privilege targets through catalogs without source USAGE."""
+    rows = session.query(
+        "SELECT c.relname AS kind,c.oid AS oid FROM pg_catalog.pg_class c "
+        "JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace "
+        "WHERE n.nspname=:namespace AND c.relname IN ('batch','head') AND c.relkind='r' "
+        "UNION ALL SELECT 'append' AS kind,p.oid AS oid FROM pg_catalog.pg_proc p "
+        "JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace "
+        "WHERE n.nspname=:namespace AND p.proname='append' AND p.prokind='f' "
+        "AND p.pronargs=2 AND p.proargtypes=CAST('25 25' AS oidvector)",
+        {'namespace': namespace}).rows
+    if (type(rows) is not list or len(rows) != 3
+            or any(type(row) is not dict or set(row) != {'kind', 'oid'}
+                or type(row['kind']) is not str or row['kind'] not in ('batch', 'head', 'append')
+                or type(row['oid']) is not int or not 0 < row['oid'] <= 4294967295
+                for row in rows)
+            or {row['kind'] for row in rows} != {'batch', 'head', 'append'}
+            or next(row['oid'] for row in rows if row['kind'] == 'batch')
+                == next(row['oid'] for row in rows if row['kind'] == 'head')):
+        raise OutboxAuthorityError('Exact original source catalog objects required')
+    return {row['kind']: row['oid'] for row in rows}
+
+
 def privileges(session, selected, *, ack):
     source = selected.source.source_schema; service = selected.source.scope.service_schema
     if ack:
+        source_oids = source_privilege_oids(session, source)
         row = one(session, "SELECT has_schema_privilege(current_user,:namespace,'USAGE') AS usage,"
             "has_schema_privilege(current_user,:namespace,'CREATE') AS create,"
             "has_function_privilege(current_user,:binding,'EXECUTE') AS binding,"
             "has_function_privilege(current_user,:observe,'EXECUTE') AS observe,"
             "has_function_privilege(current_user,:ack,'EXECUTE') AS ack,"
             "has_table_privilege(current_user,:installation,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS installation_write,"
-            "has_table_privilege(current_user,:batch,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS batch_write,"
-            "has_table_privilege(current_user,:head,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS head_write,"
-            "has_function_privilege(current_user,:append,'EXECUTE') AS append,"
+            "has_table_privilege(current_user,CAST(:batch AS oid),'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS batch_write,"
+            "has_table_privilege(current_user,CAST(:head AS oid),'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS head_write,"
+            "has_function_privilege(current_user,CAST(:append AS oid),'EXECUTE') AS append,"
             "pg_has_role(current_user,(SELECT nspowner FROM pg_catalog.pg_namespace WHERE nspname=:source),'MEMBER') AS source_owner,"
             "has_table_privilege(current_user,:scope,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS scope_write,"
             "has_table_privilege(current_user,:receipt,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') AS receipt_write,"
@@ -86,8 +110,8 @@ def privileges(session, selected, *, ack):
              'observe': service + '.observe(uuid,bigint)',
              'ack': service + '.ack(uuid,bigint,bigint,text,bytea,bytea,bytea,bytea)',
              'scope': service + '.consumer_scope', 'receipt': service + '.receipt',
-             'installation': service + '.installation', 'batch': source + '.batch',
-             'head': source + '.head', 'append': source + '.append(text,text)', 'source': source},
+             'installation': service + '.installation', 'batch': source_oids['batch'],
+             'head': source_oids['head'], 'append': source_oids['append'], 'source': source},
             ('usage', 'create', 'binding', 'observe', 'ack', 'installation_write', 'batch_write',
              'head_write', 'append', 'source_owner', 'scope_write', 'receipt_write', 'owner'))
         expected = {'usage': True, 'create': False, 'binding': True, 'observe': True,

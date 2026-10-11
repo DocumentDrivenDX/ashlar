@@ -50,6 +50,10 @@ class Tests(unittest.TestCase):
             value = self.source.metadata()['scope']; value.pop('service_schema')
             value.update(source_schema=self.source.source_schema, source_signature_sha256='a' * 64)
             row = {'binding': value}
+        elif 'c.relname AS kind' in statement:
+            rows = [{'kind': 'batch', 'oid': 101}, {'kind': 'head', 'oid': 102}, {'kind': 'append', 'oid': 103}]
+            if self.fail is not None: self.fail(rows, statement)
+            return SQLResult(rows)
         elif parameters['namespace'] == self.scope.service_schema:
             row = {'usage': True, 'create': False, 'binding': True, 'observe': True,
                 'ack': True, 'installation_write': False, 'batch_write': False, 'head_write': False,
@@ -65,6 +69,40 @@ class Tests(unittest.TestCase):
                 self.observe(sql, parameters, 'ordinary_ack')):
             return self.owner.admit_source(self.source, self.request, self.session, self.context)
 
+    def test_negative_source_privileges_use_exact_catalog_oids_without_schema_grants(self):
+        self.admit()
+        queries = [call for call in self.calls if type(call) is tuple]
+        catalog = [sql for sql, args in queries if 'c.relname AS kind' in sql]
+        self.assertTrue(catalog)
+        self.assertTrue(all("c.relkind='r'" in sql and "p.prokind='f'" in sql and "CAST('25 25' AS oidvector)" in sql for sql in catalog))
+        gates = [(sql, args) for sql, args in queries if "AS installation_write" in sql]
+        self.assertTrue(gates)
+        for sql, args in gates:
+            self.assertEqual((args['batch'], args['head'], args['append']), (101, 102, 103))
+            self.assertIn("current_user,CAST(:append AS oid),'EXECUTE'", sql)
+            self.assertIn("current_user,CAST(:batch AS oid),'INSERT", sql)
+            self.assertNotIn('GRANT', sql)
+
+    def test_function_oid_may_equal_relation_oid_from_separate_catalog(self):
+        for oid in (101, 102):
+            def collision(rows, sql):
+                if 'c.relname AS kind' in sql: rows[2]['oid'] = oid
+            self.fail = collision
+            self.assertIsNone(self.admit())
+
+    def test_missing_ambiguous_and_malformed_catalog_objects_refuse_before_privilege_gate(self):
+        for mutation in (lambda rows: rows.pop(), lambda rows: rows.append(dict(rows[0])),
+                         lambda rows: rows[1].update(kind='batch'),
+                         lambda rows: rows[0].update(oid=True),
+                         lambda rows: rows[0].update(oid=0),
+                         lambda rows: rows[1].update(oid=101)):
+            self.calls = []
+            def fail(rows, sql):
+                if 'c.relname AS kind' in sql: mutation(rows)
+            self.fail = fail
+            with self.assertRaises(OutboxAuthorityError): self.admit()
+            self.assertFalse(any('AS installation_write' in call[0] for call in self.calls if type(call) is tuple))
+
     def test_actual_complete_role_privilege_signature_and_writer_gates(self):
         self.assertIsNone(self.admit())
         self.assertEqual(self.cleanup, ['rollback', 'close'])
@@ -77,7 +115,7 @@ class Tests(unittest.TestCase):
         for field, value in (('rolsuper', True), ('isolation', 'repeatable read'),
                               ('batch_write', True), ('batch_read', False), ('owner', True)):
             def fail(row, sql):
-                if field in row: row[field] = value
+                if type(row) is dict and field in row: row[field] = value
             self.fail = fail
             with self.assertRaises(OutboxAuthorityError): self.admit()
 
