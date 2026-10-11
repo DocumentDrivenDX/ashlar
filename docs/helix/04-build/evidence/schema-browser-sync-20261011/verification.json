@@ -1,0 +1,85 @@
+{
+  "byteEquality": {
+    "deployed-provenance.json": true,
+    "deployed-release-manifest.json": true
+  },
+  "latestStableRelease": {
+    "assets": [
+      {
+        "bytes": 2288774,
+        "digest": "sha256:ca068e551370e58bbbc9fe1ebf7bb68f7f26f6f0dc67c67ccf17613412aa120e",
+        "name": "documentdrivendx-umf-schema-browser-1.1.1.tgz",
+        "url": "https://github.com/DocumentDrivenDX/umf/releases/download/schema-browser-v1.1.1/documentdrivendx-umf-schema-browser-1.1.1.tgz"
+      },
+      {
+        "bytes": 160734,
+        "digest": "sha256:88ab2cb3581f04b913c46b682e50661037c56d2e8cfda53c421d2750b94973d1",
+        "name": "provenance.json",
+        "url": "https://github.com/DocumentDrivenDX/umf/releases/download/schema-browser-v1.1.1/provenance.json"
+      },
+      {
+        "bytes": 8164,
+        "digest": "sha256:0638278b18822b7316a180e8b0bc5c729b13776b7bf144289aa7255275a39ae2",
+        "name": "release-manifest.json",
+        "url": "https://github.com/DocumentDrivenDX/umf/releases/download/schema-browser-v1.1.1/release-manifest.json"
+      },
+      {
+        "bytes": 7380,
+        "digest": "sha256:5ca0f8b434fd6546ab76e4004be3eebf23d6ac4858c882a3a6ffd5b4780c0718",
+        "name": "SHA256SUMS",
+        "url": "https://github.com/DocumentDrivenDX/umf/releases/download/schema-browser-v1.1.1/SHA256SUMS"
+      }
+    ],
+    "draft": false,
+    "prerelease": false,
+    "publishedUTC": "2026-10-11T03:44:13Z",
+    "tag": "schema-browser-v1.1.1"
+  },
+  "localBundleChecker": {
+    "argv": [
+      "python3",
+      "-B",
+      "website/scripts/check_schema_browser.py"
+    ],
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "Pinned UMF renderer and all nine original Ashlar schema sources match\n"
+  },
+  "profile": "ashlar-schema-browser-sync-verification/0.1",
+  "remoteReads": [
+    {
+      "bytes": 8844,
+      "maximumBytes": 262144,
+      "path": "github-latest-release.json",
+      "readCompletedUTC": "2026-10-11T15:29:27.811626+00:00",
+      "readStartedUTC": "2026-10-11T15:29:27.468795+00:00",
+      "resolvedUrl": "https://api.github.com/repos/DocumentDrivenDX/umf/releases/latest",
+      "sha256": "14d8e6c65d32b352150fa61b77ad22e6f372ef438018924c2481be14475cd1dc",
+      "status": 200,
+      "url": "https://api.github.com/repos/DocumentDrivenDX/umf/releases/latest"
+    },
+    {
+      "bytes": 21055,
+      "maximumBytes": 262144,
+      "path": "deployed-provenance.json",
+      "readCompletedUTC": "2026-10-11T15:29:28.006399+00:00",
+      "readStartedUTC": "2026-10-11T15:29:27.811675+00:00",
+      "resolvedUrl": "https://documentdrivendx.github.io/ashlar/model/schema-browser/provenance.json",
+      "sha256": "baa1075f6aea11bd19e6a3ce5f7c81e66e203808ce06b2a103028a500029e6fb",
+      "status": 200,
+      "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/provenance.json"
+    },
+    {
+      "bytes": 8164,
+      "maximumBytes": 262144,
+      "path": "deployed-release-manifest.json",
+      "readCompletedUTC": "2026-10-11T15:29:28.197147+00:00",
+      "readStartedUTC": "2026-10-11T15:29:28.006461+00:00",
+      "resolvedUrl": "https://documentdrivendx.github.io/ashlar/model/schema-browser/upstream/release-manifest.json",
+      "sha256": "0638278b18822b7316a180e8b0bc5c729b13776b7bf144289aa7255275a39ae2",
+      "status": 200,
+      "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/upstream/release-manifest.json"
+    }
+  ],
+  "scope": "Latest stable GitHub metadata and two deployed JSON metadata files only. Complete local bundle checker; no live asset download, browser render, deployment, or native qualification."
+}
