@@ -1,0 +1,206 @@
+{
+  "profile": "ashlar-safe-original-evidence/0.1",
+  "members": [
+    {
+      "member": "originals/00-command.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/command.json",
+      "bytes": 923,
+      "sha256": "a278db40cf5764e34b3fa2ee267d91da281d4f1db8469f66c3021b8530394090"
+    },
+    {
+      "member": "originals/01-configuration.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/configuration.json",
+      "bytes": 6035,
+      "sha256": "cbc04e6fdb570b3393007e8680ad5c9c7830c69bd8ab18bc3ab71f6c2e9ecc80"
+    },
+    {
+      "member": "originals/02-runtime-selection.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/runtime-selection.json",
+      "bytes": 8120,
+      "sha256": "952086da3f216d9a62846d326de30c0abc75d8d1785fbde7952b6d3f332d5525"
+    },
+    {
+      "member": "originals/03-source-inventory.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/source-inventory.json",
+      "bytes": 57307,
+      "sha256": "3e001771233553132c751f2757ad658316cdfd720d7f11fb1e0ae3550a338e76"
+    },
+    {
+      "member": "originals/04-wheel-payload-inventory.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/wheel-payload-inventory.json",
+      "bytes": 41951,
+      "sha256": "1d8101d2be19181e329f0bf588f61807a4ba3f1b49566ad4347ebd292091c40f"
+    },
+    {
+      "member": "originals/05-import-custody-observation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/import-custody-observation.json",
+      "bytes": 901,
+      "sha256": "57d07b5561f448c806a6e21da962f6058955ccf79a8dfe3ee63e2ae299a810b1"
+    },
+    {
+      "member": "originals/06-preparation-outcomes.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/preparation-outcomes.json",
+      "bytes": 768,
+      "sha256": "4753d63b71589513bffb2a23c9fc5e29ed623cf939b821612454ad12f93c8531"
+    },
+    {
+      "member": "originals/07-producer-only-observation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/producer-only-observation.json",
+      "bytes": 643,
+      "sha256": "d4995e97fd9e03fd538f308610343cf461830acb652f7e54dc3c027d95e8f56b"
+    },
+    {
+      "member": "originals/08-source-readonly-observation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/source-readonly-observation.json",
+      "bytes": 677,
+      "sha256": "38b813bfbbbaf1befc752bfd0fa3f952e3f58b312e1d949187e4c8d4d4253ced"
+    },
+    {
+      "member": "originals/09-source-sandbox-refusal.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/source-sandbox-refusal.json",
+      "bytes": 396,
+      "sha256": "727de6f1efad078a558d3cefedac8e7018bb90704c500f19d53effd590517aec"
+    },
+    {
+      "member": "originals/10-recovery.stdout",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/recovery.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/11-recovery.stderr",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/recovery.stderr",
+      "bytes": 107,
+      "sha256": "39fd7d158e07e942f2325d9aac89de1eb1d70587ad67f93077fbf9167c7e07f8"
+    },
+    {
+      "member": "originals/12-public-revalidation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/recovery-output/public-revalidation.json",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "member": "originals/13-request.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/recovery-output/request.json",
+      "bytes": 382102,
+      "sha256": "9de61334ad159bd4d1cc8373c7cbb2d1a4025e1c654cd76b90b0275859a2e3ea"
+    },
+    {
+      "member": "originals/14-journal-post-g-observation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/journal-post-g-observation.json",
+      "bytes": 1046,
+      "sha256": "6b46cdf1c6cd7215a20baec25e8d15f711d70e3ae43715b80499b2f829d02da5"
+    },
+    {
+      "member": "originals/15-source-post-g-readonly-observation.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/source-post-g-readonly-observation.json",
+      "bytes": 677,
+      "sha256": "38b813bfbbbaf1befc752bfd0fa3f952e3f58b312e1d949187e4c8d4d4253ced"
+    },
+    {
+      "member": "originals/16-owner-reported-terminal-metadata.json",
+      "original": "/private/tmp/ashlar-medical-recovery-installed-prep-g/owner-reported-terminal-metadata.json",
+      "bytes": 781,
+      "sha256": "04aa6aedcb473fceb5109fd67cdf0f238d61e349c7c7c6f5a5e1efd8585e9d49"
+    },
+    {
+      "member": "originals/17-ashlar-medical-installed-recovery-command-freeze-g.json",
+      "original": "/private/tmp/ashlar-medical-installed-recovery-command-freeze-g.json",
+      "bytes": 10409,
+      "sha256": "e2a5c5c941782f890d6e39cb28eb0ad90671927ffd0d3e9d64ba36568e09380d"
+    },
+    {
+      "member": "originals/18-ashlar-medical-installed-recovery-command-freeze-g-final.json",
+      "original": "/private/tmp/ashlar-medical-installed-recovery-command-freeze-g-final.json",
+      "bytes": 11192,
+      "sha256": "266a77790bd0bee20c91be6b40b5427019b46169dc51b2fcae993a75b65858bd"
+    },
+    {
+      "member": "originals/19-ashlar-medical-native-receipt-audit-g.json",
+      "original": "/private/tmp/ashlar-medical-native-receipt-audit-g.json",
+      "bytes": 12475,
+      "sha256": "342b752cb078167c96f6cfe2edb2901fd6f5485fc40e02223de7c6e60d7c7a07"
+    },
+    {
+      "member": "originals/20-ashlar-medical-native-receipt-audit-g.py",
+      "original": "/private/tmp/ashlar-medical-native-receipt-audit-g.py",
+      "bytes": 5366,
+      "sha256": "c8747ce351ee36f3e5aa1613ffbc7df0581a9b161448e01104cb03f6d149d905"
+    },
+    {
+      "member": "originals/21-ashlar-medical-source-post-g-observe.py",
+      "original": "/private/tmp/ashlar-medical-source-post-g-observe.py",
+      "bytes": 2721,
+      "sha256": "6a7903b1ebe7aa1dbaf6a42c34a11f886b560b88cdeff837712505e25aa5bb11"
+    },
+    {
+      "member": "originals/22-ashlar-medical-native-receipt-audit-e.json",
+      "original": "/private/tmp/ashlar-medical-native-receipt-audit-e.json",
+      "bytes": 12475,
+      "sha256": "342b752cb078167c96f6cfe2edb2901fd6f5485fc40e02223de7c6e60d7c7a07"
+    }
+  ],
+  "omittedPreparationOriginals": [
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/namespace.json",
+      "bytes": 733346,
+      "sha256": "9b1b0380ce57f1bf60963082012d1453bf769b57fce32e14e202f28d75b50a37"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/metadata.json",
+      "bytes": 788244,
+      "sha256": "7b32b221555ece637338882c0be51c918f946f47a4003d2dcd7987fa1761714a"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/closure.json",
+      "bytes": 727965,
+      "sha256": "35b6f4dbba154ff4c86c2873ecb76811d8fcab44d47ff86a87cc83051b236d32"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/schemas.json",
+      "bytes": 12472,
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/preparation-facts.json",
+      "bytes": 373,
+      "sha256": "b3f3986fe930f6ea2a2e6db038605f65d2744918cbe04ade5530c84c81d1b4b3"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/partial-journal-observation.json",
+      "bytes": 313,
+      "sha256": "22eb8ce6d58c6fe705c2eb34ceee4c222e4937bb42f5b68a964272832e85eaee"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/prepare-runtime.py",
+      "bytes": 8048,
+      "sha256": "672892aef5caeea38167dd2e5635596a9aadd50bb7d141197792bad888f6d2c6"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/check-runtime.py",
+      "bytes": 2710,
+      "sha256": "39ebb476f1e619304c12a9d97902ee2e249837408ba2b940d8d239e98b870db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/observe-source.py",
+      "bytes": 2674,
+      "sha256": "e4226366b09cf58515f92e9f0acc75071a3a6055dc0488b0e09f2d151978d5ab"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/check-producer.py",
+      "bytes": 1326,
+      "sha256": "6d28e6bbfa0882974174ef14cd7357139be6aba9158277746a3d8e496760fa96"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/producer-only-output/public-revalidation.json",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-recovery-installed-prep-g/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1227300,
+      "sha256": "618a7fbce24cbfa351c7034e40ffd643576430b503abad520fa93171234aaed2"
+    }
+  ],
+  "scope": "Omitted SDK/package/wheel trees remain exact pin references, no duplicated binaries"
+}
