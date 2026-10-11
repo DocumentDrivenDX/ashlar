@@ -629,6 +629,25 @@ locations as Fabric input. Fabric requires the separately scoped OneLake release
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 
+An installed GraphFrames workflow MUST explicitly select either a live publication
+read or the private immutable export profile above; neither mode may fall back to
+the other. The live mode MUST hold the complete original publication vector,
+source and effective policy through engine execution and closing checks. The
+offline mode MUST independently admit the original release and custody receipt,
+including every source and protected-ACK binding required by its selected
+profile, under the trusted host's current use policy. It MUST NOT claim continued
+canonical snapshot availability. Original source semantics and host policy MUST
+be renewed before results are released in either mode.
+
+Incompatible Spark runtimes MUST run in separate processes. A compatible derived
+materialization MUST preserve and independently compare every original graph
+carrier, identity and endpoint, record its own native UUID/version and protocol,
+and keep those identities distinct from the original publication vector. Complete
+raw engine results MUST be retained before decoding or oracle comparison. Final
+success requires engine shutdown, closing materialization checks and all owning
+source, pin and policy contexts to close successfully; partial evidence cannot
+authorize a result or replace those checks.
+
 A source adapter claiming Truss layout 0.2 MUST preserve shared object/edge ID
 allocation and unique relationship/source/target edge rules. Generic parallel-edge
 fixtures qualify carrier capacity only; incompatible producer duplicates must be
