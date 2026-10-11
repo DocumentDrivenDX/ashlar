@@ -78,6 +78,32 @@ class Controls(unittest.TestCase):
      with driver.writer(driver.request['stream'],driver.context):raise body
    self.assertIs(caught.exception,body if not isinstance(body,Exception)else closing);self.assertFalse(driver.held)
    with original_open(lockpath,'a')as stream:fcntl.flock(stream,fcntl.LOCK_EX|fcntl.LOCK_NB);fcntl.flock(stream,fcntl.LOCK_UN)
+ def test_committed_capture_returns_actual_cells_and_phase_bytes_only_after_closing(self):
+  from ashlar.attempt_store import PhaseRecord,PHASES
+  source=self.source('ecology');driver=self.driver(source);request=finite_pack_request(source);driver.request=request
+  versions={driver.tables[r]:1 for r in GRAPH_ROLES}
+  manifest={'publication_id':driver.publication_id,'profile_version':'ashlar-delta/0.3','table_versions_json':owner.encoded(versions),'schema_revisions_json':request['schema_revisions_json'],'source_progress_json':owner.encoded({source.batch.feed:{'profile':'ashlar-immutable-file-replay/0.1','request_digest':request['request_digest']}}),'validation_report_json':owner.encoded({'complete':True,'request_digest':request['request_digest']}),'recorded_at':'1791547200000000'}
+  driver.manifest=manifest;artifact=owner.encoded({'effects':{},'manifest':manifest});records=[]
+  for i,phase in enumerate(PHASES):
+   payload=owner.encoded({'request':request,'result_json':None if i<2 else artifact,'descriptor_json':owner.encoded(manifest)if i==4 else None});records.append(PhaseRecord(phase,request['request_digest'],payload,hashlib.sha256(payload.encode()).hexdigest()))
+  session=mock.MagicMock();session.read.return_value=tuple(records);store=mock.MagicMock();store.session.return_value.__enter__.return_value=session
+  def rows(role,version):return list(reversed(copy.deepcopy(driver.expected[role])))
+  with mock.patch.object(owner,'DeltaAttemptStore',return_value=store),mock.patch.object(driver,'validate_manifest'),mock.patch.object(driver,'_rows',side_effect=rows):
+   captured=driver.capture_committed();self.assertEqual(captured['native_projection']['object_current'][0],driver.expected['object_current'][-1]);self.assertEqual(captured['original_phase_records'][-1]['payload_json'],records[-1].payload_json);self.assertFalse(driver.held)
+   captured['native_projection']['object_current'].clear();self.assertEqual(len(driver.expected['object_current']),40)
+   session.read.return_value=records[:-1]
+   with self.assertRaises(ValueError):driver.capture_committed()
+   session.read.return_value=records
+   with mock.patch.object(driver,'_rows',return_value=[]):
+    with self.assertRaises(ValueError):driver.capture_committed()
+   count=0;cancel=KeyboardInterrupt('closing capture authority')
+   def closing(*args):
+    nonlocal count
+    count+=1
+    if count>1:raise cancel
+   driver.current_admission=closing
+   with self.assertRaises(KeyboardInterrupt)as caught:driver.capture_committed()
+   self.assertIs(caught.exception,cancel);self.assertFalse(driver.held)
  def test_missing_committed_reopen_never_applies_and_complete_bag_refuses_loss(self):
   source=self.source('archaeology');driver=self.driver(source);request=finite_pack_request(source)
   session=mock.MagicMock();session.read.return_value=[];store=mock.MagicMock();store.session.return_value.__enter__.return_value=session
@@ -129,6 +155,19 @@ class NativeCompositionControls(unittest.TestCase):
   with mock.patch.object(runtime,'_spark')as sdk:
    with self.assertRaises(ValueError)as caught:runtime.open_finite_spark(Configuration(),[])
    self.assertIs(caught.exception,failure);sdk.assert_not_called()
+ def test_public_spark_requires_exact_current_jar_selection_before_sdk(self):
+  from pathlib import Path
+  from ashlar_host import supply_chain_native as runtime
+  config=object();selected=[Path('/original/a.jar'),Path('/original/b.jar')]
+  with mock.patch.object(runtime,'finite_runtime',return_value=selected),mock.patch.object(runtime,'_spark')as sdk:
+   for proposed in ([selected[1],selected[0]],[Path('/substitute/a.jar'),selected[1]],['/original/a.jar',selected[1]]):
+    with self.assertRaises(ValueError):runtime.open_finite_spark(config,proposed)
+   sdk.assert_not_called()
+   runtime.open_finite_spark(config,tuple(selected));sdk.assert_called_once_with(config,selected)
+  drift=ValueError('current JAR drift')
+  with mock.patch.object(runtime,'finite_runtime',side_effect=drift),mock.patch.object(runtime,'_spark')as sdk:
+   with self.assertRaises(ValueError)as caught:runtime.open_finite_spark(config,selected)
+   self.assertIs(caught.exception,drift);sdk.assert_not_called()
  def test_legacy_wrapper_preserves_exact_expected_bags_effect_plan_and_applied_bytes(self):
   import test_supply_chain_finite_native as legacy
   from ashlar_host import supply_chain_native

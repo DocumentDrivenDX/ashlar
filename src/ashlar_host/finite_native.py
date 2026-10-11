@@ -101,7 +101,8 @@ def publish_finite_pack_native(config):
         transport=ReadOnlyTransport.open(spark,config.output/'operations.sqlite',installation,targets,policy,capacity=registry['operation_capacity'])
         reader=FiniteFileDriver(transport,policy,context,tables,graph_columns,source,driver.publication_id,current_admission=admit);restored=reader.restore_committed(request)
         if restored!=descriptor:raise ValueError('Original committed finite restore differs')
-        result={'source':source.metadata(),'manifest':dict(restored.raw),'native_histories':histories,'registry':registry,'qualification':'Original finite local Delta publication/replay/read-only committed reopen only; no SQL execution/remote-source/Unity Catalog/protected ACK claim.'}
+        captured=reader.capture_committed()
+        result={**captured,'source':source.metadata(),'manifest':dict(restored.raw),'native_histories':histories,'registry':registry,'qualification':'Original finite local Delta publication/replay/read-only committed reopen only; no SQL execution/remote-source/Unity Catalog/protected ACK claim.'}
     except BaseException as error:primary=error
     callbacks=[]
     if source is not None:callbacks.append(source.renew)

@@ -9,7 +9,7 @@ from collections import Counter
 import fcntl,json,re
 from ashlar.apply import empty_state
 from ashlar.native import quote_table_identifier
-from ashlar.attempt_store import DeltaAttemptStore
+from ashlar.attempt_store import DeltaAttemptStore,PhaseRecord,PHASES
 from ashlar.stored_publisher import StoredPublisherBackend,validate_applied_artifact
 from .delta_custody import LocalDeltaEffects,encoded,sha
 from .driver import AttemptExecutor,CarrierPolicy,ManifestPort,local_effect_plan
@@ -149,6 +149,33 @@ class FiniteFileDriver:
         """Renew original finite-file receipt; never emits a protected ACK."""
         if request!=self.request:raise ValueError('Original finite replay receipt request differs')
         self.validate_manifest(dict(descriptor.raw),context);self.source.renew();self.admit_current(dict(descriptor.raw))
+    def capture_committed(self):
+        """Read complete original phases and pinned native bags under current gates.
+
+        Captures actual returned cells, never substitutes the expected oracle.
+        Closing source/current admission must succeed before evidence is returned.
+        """
+        if self.request is None or self.manifest is None:raise ValueError('Original committed finite selection required')
+        result=None
+        with self.writer(self.request['stream'],self.context):
+            self.validate_manifest(self.manifest,self.context)
+            target=self.transport.targets[self.tables['attempts']]
+            store=DeltaAttemptStore(AttemptExecutor(self),CarrierPolicy(self,'attempts'),target.table,target.uuid)
+            with owned_context(store.session(self.context))as session:records=session.read(self.request['stream'],self.request['batch_id'])
+            if len(records)!=5 or any(type(r)is not PhaseRecord or r.phase!=PHASES[i]or r.request_digest!=self.request['request_digest']for i,r in enumerate(records)):raise ValueError('Complete original committed phase inventory required')
+            phase_rows=[]
+            for record in records:
+                payload=json.loads(record.payload_json)
+                if encoded(payload['request'])!=encoded(self.request):raise ValueError('Captured original phase request differs')
+                phase_rows.append({'phase':record.phase,'request_digest':record.request_digest,'payload_json':record.payload_json,'payload_digest':record.payload_digest})
+            artifact,descriptor=validate_applied_artifact(payload['result_json'],self.request)
+            if encoded(artifact['manifest'])!=encoded(self.manifest)or encoded(json.loads(payload['descriptor_json']))!=encoded(dict(descriptor.raw)):raise ValueError('Captured committed manifest/descriptor differs')
+            versions=json.loads(self.manifest['table_versions_json'])
+            native={r:self._rows(r,versions[self.tables[r]])for r in sorted(GRAPH_ROLES)}
+            if any(Counter(map(encoded,native[r]))!=Counter(map(encoded,self.expected[r]))for r in GRAPH_ROLES):raise ValueError('Captured complete original native projection differs')
+            self.validate_manifest(self.manifest,self.context)
+            result={'original_phase_records':phase_rows,'native_projection':native}
+        return result
     def backend(self):
         target=self.transport.targets[self.tables['attempts']]
         return StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(self),CarrierPolicy(self,'attempts'),target.table,target.uuid),self,lambda request,context:ManifestPort(self,request))

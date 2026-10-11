@@ -225,5 +225,6 @@ def finite_runtime(config:FiniteRuntimeConfiguration)->list[Path]:
 
 def open_finite_spark(config:FiniteRuntimeConfiguration,jars:Sequence[Path])->object:
     """Open one owned finite Spark session; the calling composition must stop it."""
-    config.__post_init__()
-    return _spark(config,jars)
+    selected=finite_runtime(config)
+    if type(jars)not in (list,tuple)or any(type(p)is not type(Path('/'))for p in jars)or list(jars)!=selected:raise ValueError('Exact current selected finite JAR sequence required')
+    return _spark(config,selected)
