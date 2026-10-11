@@ -31,6 +31,12 @@ def main():
         compile_paths.add_argument('--' + name, required=True)
     for command in (install_paths, compile_paths):
         command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
+    install_implicit = commands.add_parser('install-weft-implicit-arithmetic', help='Install the fixed indexed 0.4.2 compiler')
+    for name in ('index', 'package', 'output'):
+        install_implicit.add_argument('--' + name, required=True)
+    compile_implicit = commands.add_parser('compile-weft-implicit-arithmetic', help='Compile original stdin through the fixed 0.4.2 installation')
+    for name in ('index', 'installation'):
+        compile_implicit.add_argument('--' + name, required=True)
     install_count_star = commands.add_parser('install-weft-count-star', help='Verify and install the indexed COUNT star candidate')
     for name in ('index', 'package', 'output'):
         install_count_star.add_argument('--' + name, required=True)
@@ -261,6 +267,25 @@ def main():
         except (HostError, OSError):
             print('ashlar-host: refused', file=sys.stderr)
             raise SystemExit(2) from None
+        return
+    if args.command in ('install-weft-implicit-arithmetic','compile-weft-implicit-arithmetic'):
+        from pathlib import Path
+        from .weft_distribution import read_request,DistributionError
+        from .weft_implicit_arithmetic_distribution import (ImplicitArithmeticDistributionPaths,ImplicitArithmeticDistributionError,
+            install_implicit_arithmetic_distribution,compile_implicit_arithmetic_distribution)
+        try:
+            if args.command == 'install-weft-implicit-arithmetic':
+                result=install_implicit_arithmetic_distribution(ImplicitArithmeticDistributionPaths(Path(args.index),Path(args.output),Path(args.package)))
+                print('ashlar-weft-implicit-arithmetic: '+('cleanup-pending'if result.cleanup_pending else 'installed'),file=sys.stderr)
+            else:
+                request=read_request(sys.stdin.buffer)
+                response=compile_implicit_arithmetic_distribution(ImplicitArithmeticDistributionPaths(Path(args.index),Path(args.installation)),request)
+                written=sys.stdout.buffer.write(response)
+                if type(written)is not int or written!=len(response):raise ImplicitArithmeticDistributionError('output-refused')
+                sys.stdout.buffer.flush()
+        except (ImplicitArithmeticDistributionError,DistributionError,OSError):
+            print('ashlar-weft-implicit-arithmetic: refused',file=sys.stderr)
+            raise SystemExit(2)from None
         return
     if args.command in ('install-weft-count-star','compile-weft-count-star'):
         from pathlib import Path

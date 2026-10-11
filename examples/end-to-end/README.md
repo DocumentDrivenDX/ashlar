@@ -43,6 +43,9 @@ Use the [COUNT(*) installation and gallery guide](COUNT-STAR-WEFT.md) to select
 the additive count-star profile, compile fourteen original commerce intents and
 run its publication-bound query command with explicit host prerequisites.
 
+Use the [fixed implicit-arithmetic installation guide](IMPLICIT-ARITHMETIC-WEFT.md)
+for additive 0.4.2 installation and unchanged original request compilation.
+
 ## Prepare the original commerce graph
 
 ```sh
