@@ -1,0 +1,25 @@
+{
+  "decision": "approved",
+  "files": {
+    "src/ashlar_host/supply_chain_common_requests.py": "c7899949cbc4c9ac5b709c73836c1098c75e61cf0736741b0a3ae901adb2cb1a",
+    "tests/test_supply_chain_common_requests.py": "8daaac5f3893cabbe8682fa4b374e62afcac6e464d0e8e7c7562263d12f11d50"
+  },
+  "actual_tests": {
+    "tests": 3,
+    "seconds": 0.117,
+    "terminal": "f5de10",
+    "SDK_free": true
+  },
+  "independent_checks": [
+    "all12compatible authored relationship pairs",
+    "all18 original two-hop occurrences matched through separate Counter enumeration",
+    "empty source rows retained",
+    "single authored String key carriers retained",
+    "native edge IDs exact canonical positive String IDs from original bindings",
+    "closed expected JSON shape and false truncation markers",
+    "SDK-free source ownership and unchanged original inputs",
+    "two-file diff check clean"
+  ],
+  "qualification": "Pure request and expected-bag preparation only. No installed compiler/native pass, no actual result decoder, no actual duplicate/shape/truncation refusal qualification; these remain required execution-owner controls. No source/publication authority inferred.",
+  "findings": []
+}

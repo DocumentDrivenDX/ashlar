@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-supply-chain-common-requests-source-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar_host/supply_chain_common_requests.py",
+      "sha256": "c7899949cbc4c9ac5b709c73836c1098c75e61cf0736741b0a3ae901adb2cb1a",
+      "bytes": 4545
+    },
+    {
+      "path": "tests/test_supply_chain_common_requests.py",
+      "sha256": "8daaac5f3893cabbe8682fa4b374e62afcac6e464d0e8e7c7562263d12f11d50",
+      "bytes": 3426
+    }
+  ],
+  "checks": {
+    "root": "19 strict SDK-free tests passed in 0.413s, terminal887004",
+    "diff": "pass"
+  },
+  "qualification": "Pure preparation of all12 typed two-hop requests and independent18occurrence shared oracle correspondence. No compiled/native execution, result decoding or shape/truncation refusal qualification. All7 common positive queries remain required."
+}

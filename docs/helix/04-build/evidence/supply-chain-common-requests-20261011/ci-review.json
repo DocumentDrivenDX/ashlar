@@ -1,0 +1,8 @@
+{
+  "decision": "approved",
+  "file": "/Users/erik/Projects/ashlar/.github/workflows/supply-chain-compiler.yml",
+  "sha256": "e9fc27f63129fd8db20f1f43c420349b311f270eec417472af28a5421ee774b9",
+  "scope": "Single added test_supply_chain_common_requests module in existing explicit unittest invocation. All matrix/environment/flags/other steps unchanged.",
+  "checks": "Independent exact workflow command19 SDK-free tests passed; diff check clean.",
+  "qualification": "Source controls only, no remote CI/compiler/native execution claim."
+}
