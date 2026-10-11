@@ -1,0 +1,169 @@
+{
+  "members": [
+    {
+      "path": "retained/000-1440-edge_current.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-edge_current.umf.json",
+      "bytes": 17098,
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302"
+    },
+    {
+      "path": "retained/001-1440-object_current.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-object_current.umf.json",
+      "bytes": 14713,
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884"
+    },
+    {
+      "path": "retained/002-1440-property_journal.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-property_journal.umf.json",
+      "bytes": 17855,
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5"
+    },
+    {
+      "path": "retained/003-1440-publication_attempt_phase.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-publication_attempt_phase.umf.json",
+      "bytes": 5839,
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c"
+    },
+    {
+      "path": "retained/004-1440-publication_manifest.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-publication_manifest.umf.json",
+      "bytes": 6672,
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d"
+    },
+    {
+      "path": "retained/005-1440-relationships.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-relationships.umf.json",
+      "bytes": 42928,
+      "sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57"
+    },
+    {
+      "path": "retained/006-1440-source_record.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-source_record.umf.json",
+      "bytes": 9158,
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375"
+    },
+    {
+      "path": "retained/007-1440-tombstone.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-tombstone.umf.json",
+      "bytes": 9030,
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13"
+    },
+    {
+      "path": "retained/008-1440-whole_source_history.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/1440-whole_source_history.umf.json",
+      "bytes": 5817,
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926"
+    },
+    {
+      "path": "retained/009-390-edge_current.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-edge_current.umf.json",
+      "bytes": 17098,
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302"
+    },
+    {
+      "path": "retained/010-390-object_current.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-object_current.umf.json",
+      "bytes": 14713,
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884"
+    },
+    {
+      "path": "retained/011-390-property_journal.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-property_journal.umf.json",
+      "bytes": 17855,
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5"
+    },
+    {
+      "path": "retained/012-390-publication_attempt_phase.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-publication_attempt_phase.umf.json",
+      "bytes": 5839,
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c"
+    },
+    {
+      "path": "retained/013-390-publication_manifest.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-publication_manifest.umf.json",
+      "bytes": 6672,
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d"
+    },
+    {
+      "path": "retained/014-390-relationships.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-relationships.umf.json",
+      "bytes": 42928,
+      "sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57"
+    },
+    {
+      "path": "retained/015-390-source_record.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-source_record.umf.json",
+      "bytes": 9158,
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375"
+    },
+    {
+      "path": "retained/016-390-tombstone.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-tombstone.umf.json",
+      "bytes": 9030,
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13"
+    },
+    {
+      "path": "retained/017-390-whole_source_history.umf.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/390-whole_source_history.umf.json",
+      "bytes": 5817,
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926"
+    },
+    {
+      "path": "retained/018-browser-1440.png",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/browser-1440.png",
+      "bytes": 158789,
+      "sha256": "11e47cf1afeb375157b1ba22e1225c62a186795767d88a14cc5293881eb3ce78"
+    },
+    {
+      "path": "retained/019-browser-390.png",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/browser-390.png",
+      "bytes": 81415,
+      "sha256": "f2607dacde8a11bb23ffd4e0339171e058395c0c375a58af1c0ade0db11235f6"
+    },
+    {
+      "path": "retained/020-report.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-actual-b/report.json",
+      "bytes": 33493,
+      "sha256": "12b7c3909234e3b23918cb49ad66d6787ec1bdcf7e0dcc23f36e76a8ae270e94"
+    },
+    {
+      "path": "retained/021-ashlar-schema-browser-111-source-freeze-a.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-source-freeze-a.json",
+      "bytes": 21480,
+      "sha256": "58d2d6962897bb8a2b5fc40930667aa02b1e029638c3ac0ca20c14f0478a9b11"
+    },
+    {
+      "path": "retained/022-ashlar-schema-browser-111-release-correspondence-a.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-release-correspondence-a.json",
+      "bytes": 27553,
+      "sha256": "44643b1f54599906fee7338c9ff6fd23d7399d367d330816994b2e81e2ad5db5"
+    },
+    {
+      "path": "retained/023-ashlar-schema-browser-111-browser-command-a.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-browser-command-a.json",
+      "bytes": 1921,
+      "sha256": "a5a663c35b93c42338d82c8f9f140d168e900576575ce618bef9088f6319cfeb"
+    },
+    {
+      "path": "retained/024-ashlar-schema-browser-111-browser-command-b.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-browser-command-b.json",
+      "bytes": 2121,
+      "sha256": "057d2decd7373e3bf61a9d9799ff209c2707bac095a507846c428e3e6d6e1e05"
+    },
+    {
+      "path": "retained/025-ashlar-schema-browser-111-browser-failure-a.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-browser-failure-a.json",
+      "bytes": 370,
+      "sha256": "67861a70594e338b746d6810d08dcf78ba146d6397b270801faec45de8c24767"
+    },
+    {
+      "path": "retained/026-ashlar-schema-browser-111-browser-actual-b.json",
+      "originalPath": "/private/tmp/ashlar-schema-browser-111-browser-actual-b.json",
+      "bytes": 615,
+      "sha256": "a9881defad2c83d76e02aa496b317982725012bc0954762aa697f7bbba5d0aea"
+    }
+  ],
+  "archiveSha256": "a1fcf8f774abd6748088d87a8ddba6bbc36a3287a1644c4495bab4028755dab0",
+  "publishedPackageSha256": "ca068e551370e58bbbc9fe1ebf7bb68f7f26f6f0dc67c67ccf17613412aa120e",
+  "runtimeQualification": "Existing cached local Chromium/Bun dependencies, not hermetic; no runtime binaries retained."
+}

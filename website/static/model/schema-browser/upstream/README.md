@@ -2,7 +2,7 @@
 
 A reusable, framework-neutral browser for UMF documents, TableSpec tables,
 domain packs, source artifact collections and ontology diagrams. This is the
-same renderer used by the UMF microsite. Version 1.1.0 ships compiled browser
+same renderer used by the UMF microsite. Version 1.1.1 ships compiled browser
 ESM, TypeScript declarations and static assets; no Bun, Node runtime, framework,
 public corpus or network connection to the UMF microsite is required.
 
@@ -13,7 +13,7 @@ Install the public npm package:
 ```sh
 npm install @documentdrivendx/umf-schema-browser
 # Reproducible version pin:
-npm install @documentdrivendx/umf-schema-browser@1.1.0
+npm install @documentdrivendx/umf-schema-browser@1.1.1
 ```
 
 Version 1.1.0 adds the [versioned host contract](HOST_CONTRACT.md), published

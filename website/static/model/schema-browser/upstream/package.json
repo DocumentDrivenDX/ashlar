@@ -1,6 +1,6 @@
 {
   "name": "@documentdrivendx/umf-schema-browser",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Reusable UMF tables, artifacts and ontology schema browser",
   "type": "module",
   "license": "(MIT OR Apache-2.0)",

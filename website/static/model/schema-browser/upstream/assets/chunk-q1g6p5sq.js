@@ -1,0 +1,2 @@
+import{__commonJS}from"./chunk-3cxgdp6v.js";var require_ucs2length=__commonJS((exports)=>{Object.defineProperty(exports,"__esModule",{value:!0});function ucs2length(str){let len=str.length,length=0,pos=0,value;while(pos<len)if(length++,value=str.charCodeAt(pos++),value>=55296&&value<=56319&&pos<len){if(value=str.charCodeAt(pos),(value&64512)===56320)pos++}return length}exports.default=ucs2length;ucs2length.code='require("ajv/dist/runtime/ucs2length").default'});
+export{require_ucs2length};
