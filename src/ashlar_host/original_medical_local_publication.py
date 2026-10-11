@@ -1,0 +1,292 @@
+"""Original medical publication/replay composition under external supervision.
+
+The shared publisher owns phases and protected ACK recovery. This module owns
+configured resource intervals; it neither provisions nor implements a deadline.
+"""
+from contextlib import contextmanager
+from dataclasses import fields, is_dataclass
+import hashlib
+import json
+import os
+from pathlib import Path
+import stat
+from types import MappingProxyType
+from ashlar.attempt_store import DeltaAttemptStore
+from ashlar.medical_source import build_transaction
+from ashlar.outbox import publish_outbox_transaction
+from ashlar.publisher import PublicationError
+from ashlar.stored_publisher import StoredPublisherBackend
+from .delta_custody import LocalDeltaTransport, encoded
+from .driver import NativeDriver, PrivatePolicy, AttemptExecutor, CarrierPolicy, ManifestPort
+from .evolution_verification_types import VerificationBounds
+from .lifecycle import finish, owned_context
+from .local_physical_carriers import original_local_materialization_columns, original_local_physical_carriers
+from .medical_installation import OriginalMedicalInstallationLease
+from .medical_producer import MedicalFile, HeldMedicalDataset
+from .medical_publication_plan import MedicalPublicationPlan, FEED, STREAM
+from .medical_publication_sources import OriginalMedicalSourceOwner
+from .medical_process_supervision import OriginalMedicalNativePhase
+from .original_medical_installation_handoff import validate_original_medical_installation_handoff
+from .original_medical_local_configuration import OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig
+from .original_medical_local_sources import original_medical_local_source_ports
+from .original_medical_native_session import original_medical_native_session
+from .original_medical_publication import MedicalAdmission
+from .original_medical_runtime import OriginalMedicalRuntimeCustody
+
+ROLES = ('object_current', 'edge_current', 'tombstone', 'whole_source_history', 'attempts', 'manifest')
+
+
+def _plain(value):
+    if is_dataclass(value):return {field.name:_plain(getattr(value,field.name)) for field in fields(value)}
+    if type(value) in (dict, MappingProxyType):return {key:_plain(item) for key,item in value.items()}
+    if type(value) in (tuple,list):return [_plain(item) for item in value]
+    if isinstance(value,Path):return str(value)
+    return value
+
+
+def _bounded(value, maximum):
+    parts=[];size=0
+    for piece in json.JSONEncoder(ensure_ascii=False,sort_keys=True,separators=(',',':')).iterencode(value):
+        raw=piece.encode();size+=len(raw)
+        if size>maximum:raise ValueError('Bounded original medical evidence required')
+        parts.append(raw)
+    return b''.join(parts)+b'\n'
+
+
+def _identity(path,fd=None):
+    named=path.lstat()
+    if path.resolve()!=path or not stat.S_ISDIR(named.st_mode) or named.st_uid!=os.getuid() or stat.S_IMODE(named.st_mode)!=0o700:
+        raise PermissionError('Canonical private medical output directory required')
+    value=(named.st_dev,named.st_ino,named.st_uid,named.st_mode)
+    if fd is not None:
+        held=os.fstat(fd)
+        if (held.st_dev,held.st_ino,held.st_uid,held.st_mode)!=value:raise PermissionError('Held medical output directory changed')
+    return value
+
+
+class _Output:
+    def __init__(self,config):
+        self.config=config;self.fd=None;self.original=_bounded(_plain(config),config.bounds.input_bytes)
+        self.parent=_identity(config.output.parent);self.files=[];self.originals=[]
+
+    def acquire(self):
+        if self.config.output.exists() or self.config.output.is_symlink():raise ValueError('Fresh medical publication output required')
+        self.config.output.mkdir(mode=0o700)
+        self.identity=_identity(self.config.output)
+        self.fd=os.open(self.config.output,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW)
+        self.renew()
+
+    def renew(self):
+        self.config.__post_init__()
+        if _bounded(_plain(self.config),self.config.bounds.input_bytes)!=self.original or _identity(self.config.output.parent)!=self.parent:
+            raise PermissionError('Original medical publication selection changed')
+        if hasattr(self,'identity') and _identity(self.config.output,self.fd)!=self.identity:raise PermissionError('Medical publication output changed')
+        finish(None,[lambda pin=pin,raw=raw: self._same(pin,raw) for pin,raw in zip(self.files,self.originals)])
+
+    @staticmethod
+    def _same(pin,raw):
+        if pin.path.resolve()!=pin.path or pin.read()!=raw or pin.path.resolve()!=pin.path:
+            raise PermissionError('Retained medical original evidence changed')
+
+    def write(self,name,raw,maximum):
+        self.renew()
+        if type(raw)is not bytes or not 0<len(raw)<=maximum:raise ValueError('Finite medical original output required')
+        path=self.config.output/name;fd=None;primary=None
+        try:
+            fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+            offset=0
+            while offset<len(raw):
+                count=os.write(fd,raw[offset:])
+                if type(count)is not int or not 0<count<=len(raw)-offset:raise OSError('Complete medical original write required')
+                offset+=count
+            os.fsync(fd)
+        except BaseException as error:primary=error
+        finish(primary,([] if fd is None else [lambda:os.close(fd)]))
+        os.fsync(self.fd)
+        pin=MedicalFile(path,min(maximum,4194304));self.files.append(pin);self.originals.append(raw)
+        self.renew()
+
+    def close(self):
+        if self.fd is not None:
+            fd=self.fd;self.fd=None;os.close(fd)
+
+
+class MedicalPublicationPolicy(PrivatePolicy):
+    """Existing medical installation and immutable original plan, no new grants."""
+    def __init__(self,context,selection,lease,renew):
+        super().__init__(context,selection.targets);self.initializing=False;self.lease=lease;self.renew_inputs=renew;self.plan=None
+    def renew(self):
+        finish(None,[self.renew_inputs,lambda:self.lease.renew(self.context)]+([] if self.plan is None else [self.plan.renew]))
+    @contextmanager
+    def writer(self,*args):
+        primary=None
+        try:
+            self.renew()
+            with owned_context(super().writer(*args)):yield
+        except BaseException as error:primary=error
+        finish(primary,[self.renew])
+    def admit(self,intent,context):
+        self.renew();super().admit(intent,context);self.renew()
+    def activate(self,plan):
+        if type(plan)is not MedicalPublicationPlan or self.plan is not None:raise PermissionError('One original medical plan required')
+        view=plan.snapshot();self.plan=plan
+        self.active={key:view[source] for key,source in (
+            ('request','request'),('steps','selected_steps'),('expected','expected'),('publication_id','publication_id'),
+            ('previous_progress','previous_progress'),('progress','progress'),('previous_expected','previous_expected'),
+            ('generated_steps','generated_steps'),('elisions','zero_match_elisions'),('recorded_at','recorded_at'))}
+        self.renew()
+
+
+class _MedicalPublisherDriver:
+    """Delegate native effects; require medical observation even for settled ACK."""
+    def __init__(self,driver,plan,bounds,expected=None):
+        self.driver=driver;self.plan=plan;self.bounds=bounds;self.expected=expected
+    @contextmanager
+    def writer(self,stream,context):
+        with owned_context(self.driver.writer(stream,context)):yield
+    def apply(self,request,context):return self.driver.apply(request,context)
+    def recover_apply(self,request,context):return self.driver.recover_apply(request,context)
+    def validate(self,*args):return self.driver.validate(*args)
+    def _observe(self,request,descriptor,context):
+        self.plan.require_request(request)
+        if self.expected is not None and _bounded(dict(descriptor.raw),self.bounds.input_bytes)!=self.expected:
+            raise PermissionError('Pinned original medical publication differs')
+        self.driver.policy.active['manifest']=dict(descriptor.raw)
+        return self.driver.observe_original_medical_publication(self.plan,descriptor,context=context,bounds=self.bounds)
+    def observe_committed_original(self,request,artifact,descriptor,context):
+        self._observe(request,descriptor,context)
+    def acknowledge(self,request,descriptor,context):
+        self._observe(request,descriptor,context)
+        return self.driver.acknowledge(request,descriptor,context)
+
+
+class _SettledBackend(StoredPublisherBackend):
+    """Refuse incomplete originals before the shared publisher can recover effects."""
+    def observe(self,stream,batch_id):
+        attempt=super().observe(stream,batch_id)
+        if attempt is None or attempt.phase!='committed' or attempt.descriptor is None:
+            raise PublicationError('Existing complete committed medical original required')
+        return attempt
+
+
+def _pin(selection,maximum):
+    pin=MedicalFile(selection.path,min(maximum,4194304));raw=pin.read()
+    if len(raw)!=selection.bytes or hashlib.sha256(raw).hexdigest()!=selection.sha256:raise PermissionError('Exact selected medical original bytes required')
+    return pin,raw
+
+
+def _fresh(driver,selection,bounds):
+    """Require the separately initialized six empty registered targets."""
+    for name in ('local_plan','local_operation','local_source_plan','local_publication_artifact'):
+        if driver.transport.db.execute('SELECT 1 FROM '+name+' LIMIT 1').fetchone():
+            raise PermissionError('Fresh separately initialized medical publication journal required')
+    schemas=original_local_physical_carriers()['carriers'];primary=None;total=0
+    def role(target):
+        nonlocal total
+        history=driver.transport.original_history(target)
+        if [row['version'] for row in history]!=[1,0]:raise PermissionError('Fresh original registered target versions required')
+        snapshot,schema=driver.transport.bounded_snapshot(target,1,remaining_bytes=bounds.total_bytes-total)
+        size=len(encoded(snapshot).encode())+len(encoded(schema).encode())
+        total+=size
+        if total>bounds.total_bytes or snapshot['rows'] or encoded(schema)!=encoded(json.loads(schemas[target.table.split('.')[-1]]['schemaJson'])):
+            raise PermissionError('Complete empty generated medical native schemas required')
+    try:
+        for target in selection.targets:role(target)
+    except BaseException as error:primary=error
+    total=0
+    finish(primary,[lambda target=target:role(target) for target in selection.targets])
+
+
+def _operate(config,replay,supervision=None):
+    if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
+        raise ValueError('Exact original medical native phase required')
+    wanted=OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
+    if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
+    config.__post_init__();context=object();output=_Output(config);primary=None;answer=None;pins=[]
+    try:
+        output.acquire()
+        installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
+        selection=validate_original_medical_installation_handoff(raw,config)
+        expected_request=expected_publication=None
+        if replay:
+            request,expected_request=_pin(config.request,config.bounds.input_bytes);publication,expected_publication=_pin(config.publication,config.bounds.input_bytes)
+            pins.extend(((request,expected_request),(publication,expected_publication)))
+        def originals():finish(None,[output.renew]+[lambda pin=pin,raw=raw:output._same(pin,raw) for pin,raw in pins])
+        with owned_context(OriginalMedicalRuntimeCustody.open(config.runtime,config.inputs,config.bounds,config.producer)) as custody:
+            model,graph,baseline=custody.input_bytes
+            dataset=HeldMedicalDataset(config.producer,config.inputs.model.path,config.inputs.graph.path,config.inputs.baseline.path,config.output/'public-revalidation.json')
+            batch,bindings=build_transaction(model,graph,baseline,source_system=FEED,binding_profile='ashlar-medical-development-bindings/0.2')
+            admission=MedicalAdmission(batch,bindings,config.inputs.model.path,config.inputs.graph.path,config.inputs.baseline.path,dataset)
+            with owned_context(OriginalMedicalInstallationLease.open(selection,context,journal_bytes=config.bounds.journal_bytes)) as lease:
+                with owned_context(original_medical_native_session(custody) if supervision is None else original_medical_native_session(custody,phase=supervision)) as spark:
+                    bounds=VerificationBounds(min(config.bounds.input_bytes,262144),config.bounds.rows,config.bounds.cell_bytes,config.bounds.total_bytes,config.bounds.receipt_bytes,config.bounds.stream_bytes)
+                    policy=MedicalPublicationPolicy(context,selection,lease,lambda:finish(None,[originals,custody.renew,dataset.renew]))
+                    transport=LocalDeltaTransport(spark,selection.journal,selection.installation_id,selection.targets,policy,capacity=selection.capacity,verification_bounds=bounds)
+                    driver=None;source=None;native_primary=None
+                    try:
+                        lease.verify(context,transport)
+                        with owned_context(transport.bounded_observations(bounds)):
+                            source=OriginalMedicalSourceOwner(original_medical_local_source_ports(config.source),lease)
+                            tables={role:target.table for role,target in zip(ROLES,selection.targets)}
+                            driver=NativeDriver.with_registered_evolution(transport,policy,context,tables,admission.changes,original_local_materialization_columns(),source_admission=admission,source_sessions=source.sources(),ack_factory=source.bind)
+                            with owned_context(driver.writer(STREAM,context)):
+                                if not replay:_fresh(driver,selection,bounds)
+                                transaction=(source.read_original if replay else source.append_original)(batch,context=context)
+                            plan=MedicalPublicationPlan(admission,transaction,tables);view=plan.snapshot();policy.activate(plan)
+                            driver.bind_original_medical_publication(plan,bounds=bounds)
+                            request_raw=_bounded(view['request'],config.bounds.input_bytes-1)
+                            if replay and request_raw!=expected_request:raise PermissionError('Pinned original medical request differs')
+                            output.write('request.json',request_raw,config.bounds.input_bytes)
+                            target=transport.targets[tables['attempts']]
+                            adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
+                            backend_type=_SettledBackend if replay else StoredPublisherBackend
+                            backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request))
+                            histories=None
+                            if replay:
+                                with owned_context(backend.writer(STREAM,context)):
+                                    descriptor=backend.observe_committed_original(STREAM,view['request'],context=context)
+                                    histories={target.table:transport.original_history(target) for target in selection.targets}
+                            descriptor=publish_outbox_transaction(backend,STREAM,transaction,predecessor=view['request']['predecessor'],schema_revisions_json=view['request']['schema_revisions_json'],context=context)
+                            with owned_context(driver.writer(STREAM,context)):
+                                observation=driver.observe_original_medical_publication(plan,descriptor,context=context,bounds=bounds)
+                                if histories is not None:
+                                    def history(target):
+                                        if transport.original_history(target)!=histories[target.table]:raise PermissionError('Settled medical native history changed')
+                                    finish(None,[lambda target=target:history(target) for target in selection.targets])
+                            output.write('publication.json',_bounded(dict(descriptor.raw),bounds.input_bytes-1),bounds.input_bytes)
+                            observed_raw=_bounded(observation,min(config.bounds.total_bytes,4194304)-1)
+                            output.write('observation.json',observed_raw,min(config.bounds.total_bytes,4194304))
+                            answer={'profile':'ashlar-original-medical-local-'+('replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
+                    except BaseException as error:native_primary=error
+                    def closing():
+                        with owned_context(transport.bounded_observations(bounds)):
+                            total=0
+                            def native(target):
+                                nonlocal total
+                                history=transport.original_history(target)
+                                if not history or type(history[0]['version'])is not int:raise PermissionError('Complete current medical native history required')
+                                snapshot,schema=transport.bounded_snapshot(target,history[0]['version'],remaining_bytes=bounds.total_bytes-total)
+                                total+=len(encoded(snapshot).encode())+len(encoded(schema).encode())
+                                if total>bounds.total_bytes:raise PermissionError('Complete medical closing capture exceeds budget')
+                            callbacks=[policy.renew,lambda:lease.verify(context,transport)]+[lambda target=target:native(target) for target in selection.targets]
+                            if driver is not None:
+                                with owned_context(driver.writer(STREAM,context)):
+                                    finish(None,callbacks+[lambda:source.renew_original(batch,context=context)])
+                            else:
+                                finish(None,callbacks)
+                    finish(native_primary,[closing,transport.close])
+            finish(None,[originals,custody.renew,dataset.renew])
+        output.write('receipt.json',_bounded(answer,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
+    except BaseException as error:primary=error
+    finish(primary,[output.renew,output.close])
+    return answer
+
+
+def publish_original_medical_local(config,*,supervision=None):
+    """Publish the original medical batch through the shared durable publisher."""
+    return _operate(config,False,supervision)
+
+
+def replay_original_medical_local(config,*,supervision=None):
+    """Reopen a committed original; no append or replacement native effects."""
+    return _operate(config,True,supervision)
