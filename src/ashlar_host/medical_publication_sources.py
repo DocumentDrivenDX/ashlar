@@ -52,6 +52,9 @@ class OriginalMedicalSourceOwner:
             raise ValueError('Actual original installation lease required')
         self.ports=ports;self.lease=lease;self.original=encoded(ports.metadata());self.driver=None
         self.factories=(ports.writer_connection,ports.registration.source.connection_factory,ports.registration.metadata_factory)
+        self._original_factories=self.factories
+        r=ports.registration
+        self._original_registration=OutboxAuthorityRegistration(r.source,r.source_role,r.ack_role,r.database,r.metadata_factory)
         self.authority=ExistingOutboxAuthority((ports.registration,),self)
 
     def bind(self,driver):
@@ -62,6 +65,8 @@ class OriginalMedicalSourceOwner:
         if driver.source_admission.batch.feed!=FEED or self.ports.registration.source.scope.installation_id!=self.lease.selection.installation_id:raise PermissionError('Dedicated medical source and installation correspondence required')
         self.lease.verify(driver.context,driver.transport)
         self.driver=driver;self.admission=driver.source_admission
+        self._original_driver=driver;self._original_admission=driver.source_admission
+        self._original_context=driver.context
         owner=self
         class AckPolicy:
             def admit_scope(self,scope,session,context):
@@ -86,11 +91,88 @@ class OriginalMedicalSourceOwner:
         return RegisteredOutboxSources((self.ports.registration.source,),self.authority)
 
     def renew_scope(self,context):
-        r=self.ports.registration;connection=r.metadata_factory(context);primary=None;
+        # Current registration drift must never substitute the closing login.
+        r=self._original_registration;connection=self._original_factories[2](context);primary=None;
         try:
             self.authority.admit_scope(r.source.scope,Session(connection),context)
         except BaseException as error:primary=error
         finish(primary,[lambda:self.authority.admit_scope(r.source.scope,Session(connection),context)]+[connection.rollback,connection.close])
+
+    def renew_original(self,batch,*,context):
+        """Independently renew the captured original reader/ACK on every exit.
+
+        Current binding drift still refuses. It cannot select a foreign factory
+        or suppress the independent original ordinary observations and cleanup.
+        This readback port grants no append, publication or ACK submission.
+        """
+        if not hasattr(self,'_original_driver') or not hasattr(self,'_original_admission'):
+            raise PermissionError('Actual acquired medical driver required before renewal')
+        if context is not self._original_context:
+            raise PermissionError('Exact original acquired medical context required')
+        r=self._original_registration;owner=self
+        class ClosingWriter:
+            def admit_source_writer(self,registration,supplied):
+                driver=owner._original_driver;admission=owner._original_admission
+                if (type(registration)is not OutboxSourceRegistration
+                        or registration.metadata()!=r.source.metadata()
+                        or type(driver)is not NativeDriver
+                        or driver.source_admission is not admission):
+                    raise PermissionError('Original acquired medical source binding required')
+                driver.require(supplied);owner.lease.verify(supplied,driver.transport)
+                if admission.metadata()['profile']!='ashlar-original-medical-public-dataset-admission/0.1':
+                    raise PermissionError('Current original medical admission required')
+        authority=ExistingOutboxAuthority((r,),ClosingWriter())
+        def current():
+            if self.driver is not self._original_driver or self.admission is not self._original_admission:
+                raise PermissionError('Current acquired medical source owner changed')
+            if type(self.factories)is not tuple or len(self.factories)!=3 or any(a is not b for a,b in zip(self.factories,self._original_factories)):
+                raise PermissionError('Original acquired medical factories changed')
+            self.admit_source_writer(r.source,context)
+        def raw():
+            if (type(batch)is not SourceBatch or batch is not self._original_admission.batch
+                    or type(batch.records)is not tuple or len(batch.records)!=113
+                    or type(batch.begin)is not bytes or type(batch.commit)is not bytes
+                    or any(type(record)is not SourceRecord or type(record.raw)is not bytes for record in batch.records)
+                    or (batch.feed,batch.epoch,batch.batch_id)!=(FEED,EPOCH,EPOCH)):
+                raise PermissionError('Actual original medical closing transaction required')
+            original=batch.begin+b''.join(record.raw for record in batch.records)+batch.commit
+            if len(original)>1048576 or hashlib.sha256(original).hexdigest()!=self._original_admission.metadata()['source_transaction_sha256']:
+                raise PermissionError('Complete original medical closing bytes changed')
+            return original
+        def reader():
+            connection=None;session=None;primary=None
+            def read():
+                if session is None:return
+                original=raw()
+                self._read_retained(session,r,batch,hashlib.sha256(original).hexdigest())
+                ClosingWriter().admit_source_writer(r.source,context)
+            try:
+                connection=self._original_factories[1](context);session=Session(connection);read()
+            except BaseException as error:primary=error
+            finish(primary,[read]+([] if connection is None else [connection.rollback,connection.close]))
+        def ack():
+            connection=None;session=None;primary=None
+            def observe():
+                if session is not None:authority.admit_scope(r.source.scope,session,context)
+            try:
+                connection=self._original_factories[2](context);session=Session(connection);observe()
+            except BaseException as error:primary=error
+            finish(primary,[observe]+([] if connection is None else [connection.rollback,connection.close]))
+        finish(None,[current,reader,ack,current])
+
+    @staticmethod
+    def _read_retained(session,r,batch,digest):
+        ordinary(session,r.source_role,r.database);privileges(session,r,ack=False)
+        head=one(session,'SELECT position FROM "'+r.source.source_schema+'".head WHERE id=1',{},('position',))
+        if type(head['position']) is not int or head['position']!=1:
+            raise ValueError('Settled exact original head one required')
+        transactions=PostgresOutbox(session,feed=FEED,epoch=EPOCH,schema=r.source.source_schema).read('0',limit=1)
+        if (len(transactions)!=1 or type(transactions[0]) is not OutboxTransaction
+                or transactions[0].position!='1' or transactions[0].previous!='0'
+                or (transactions[0].profile,transactions[0].feed,transactions[0].epoch)!=('ashlar-postgresql-outbox/0.1',FEED,EPOCH)
+                or transactions[0].payload_digest!=digest or transactions[0].batch!=batch):
+            raise ValueError('Retained original complete transaction differs')
+        return transactions[0]
 
     def admit_append(self,session,context):
         r=self.ports.registration
@@ -120,17 +202,7 @@ class OriginalMedicalSourceOwner:
         session=None
         def read():
             if session is None:return
-            ordinary(session,r.source_role,r.database);privileges(session,r,ack=False)
-            head=one(session,'SELECT position FROM "'+r.source.source_schema+'".head WHERE id=1',{},('position',))
-            if type(head['position']) is not int or head['position']!=1:
-                raise ValueError('Settled exact original head one required')
-            transactions=PostgresOutbox(session,feed=FEED,epoch=EPOCH,schema=r.source.source_schema).read('0',limit=1)
-            if (len(transactions)!=1 or type(transactions[0]) is not OutboxTransaction
-                    or transactions[0].position!='1' or transactions[0].previous!='0'
-                    or (transactions[0].profile,transactions[0].feed,transactions[0].epoch)!=('ashlar-postgresql-outbox/0.1',FEED,EPOCH)
-                    or transactions[0].payload_digest!=digest or transactions[0].batch!=batch):
-                raise ValueError('Retained original complete transaction differs')
-            return transactions[0]
+            return self._read_retained(session,r,batch,digest)
         try:
             session=Session(connection)
             transaction=read()

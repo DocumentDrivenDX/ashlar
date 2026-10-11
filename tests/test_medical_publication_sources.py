@@ -243,3 +243,51 @@ class Tests(unittest.TestCase):
             import fcntl
             fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
         finally:os.close(fd)
+    def test_renew_original_observes_reader_ack_only_complete_current_bytes(self):
+        self.head=1
+        with ExitStack() as stack:
+            owner,_=self.owner(stack);owner.renew_original(self.batch,context=self.context)
+        self.assertEqual({c.role for c in self.connections},{'medical_reader','medical_ack'})
+        self.assertTrue(all(c.commits==0 and c.rollbacks==1 and c.closes==1 for c in self.connections))
+    def test_original_renewal_wrong_context_refuses_before_any_factory(self):
+        self.head=1
+        with ExitStack() as stack:
+            owner,_=self.owner(stack)
+            with self.assertRaises(PermissionError):owner.renew_original(self.batch,context=object())
+            self.assertFalse(self.connections)
+            # A changed public driver field cannot replace the captured context.
+            original=owner.driver.context;owner.driver.context=object()
+            try:
+                with self.assertRaises(PermissionError):owner.renew_original(self.batch,context=owner.driver.context)
+                self.assertFalse(self.connections)
+            finally:owner.driver.context=original
+    def test_original_renewal_factory_drift_attempts_original_reader_ack_never_foreign(self):
+        self.head=1;foreign=[]
+        with ExitStack() as stack:
+            owner,_=self.owner(stack)
+            object.__setattr__(owner.ports.registration.source,'connection_factory',lambda context:foreign.append('reader'))
+            object.__setattr__(owner.ports.registration,'metadata_factory',lambda context:foreign.append('ack'))
+            with self.assertRaises(PermissionError):owner.renew_original(self.batch,context=self.context)
+        self.assertFalse(foreign);self.assertEqual({c.role for c in self.connections},{'medical_reader','medical_ack'})
+        self.assertTrue(all(c.closes==1 and c.rollbacks==1 and c.commits==0 for c in self.connections))
+    def test_original_renewal_reader_cancel_and_ack_cleanup_failure_keep_primary(self):
+        from ashlar_host.lifecycle import finish
+        self.head=1;primary=KeyboardInterrupt('original reader');observed=[]
+        with ExitStack() as stack:
+            owner,_=self.owner(stack);original_sql=self.sql
+            def sql(session,statement,parameters):
+                observed.append(session.connection.role)
+                if session.connection.role=='medical_reader' and '.head WHERE' in statement:raise primary
+                if session.connection.role=='medical_ack':session.connection.cleanup=OSError('ack rollback')
+                return original_sql(session,statement,parameters)
+            self.sql=sql
+            with self.assertRaises(KeyboardInterrupt) as caught:owner.renew_original(self.batch,context=self.context)
+            self.assertIs(caught.exception,primary)
+        self.assertIn('medical_ack',observed);self.assertTrue(all(c.closes==1 and c.commits==0 for c in self.connections))
+    def test_original_renewal_missing_head_or_changed_batch_refuses_with_all_cleanup(self):
+        with ExitStack() as stack:
+            owner,_=self.owner(stack)
+            for batch in (self.batch,replace(self.batch,batch_id='replacement')):
+                with self.assertRaises((ValueError,PermissionError)):owner.renew_original(batch,context=self.context)
+        self.assertEqual({c.role for c in self.connections},{'medical_reader','medical_ack'})
+        self.assertTrue(all(c.closes==1 and c.commits==0 for c in self.connections))
