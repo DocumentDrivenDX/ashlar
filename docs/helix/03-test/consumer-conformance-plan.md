@@ -406,3 +406,40 @@ without SDKs. Preserve existing runtime qualification; keep Spark functional run
 sequential local[1]/512MiB. Retain exact source/package/runtime/input/command pins
 and phase outcomes; source-only or prior same-process tool evidence does not
 qualify installed fresh-process recovery.
+
+## Installed Truss preparation-only controls
+
+Exercise TD-004 and CONTRACT-005 through the installed public preparation
+boundary, independently of accepted catalog or feed execution. Select the exact
+Truss wheel/source/resource origins, Python host and Bun runtime explicitly;
+portable Ashlar core checks retain their existing runtime profile.
+
+Use one small original public-package fixture with unchanged declared UMF bytes
+and explicit configuration. Compare ordered IDs/revisions/artifact identities,
+source whitespace/Unicode/version and every output byte view with the actual
+public `PreparedAcceptance` response (PREP-F1/F2). Retain full provenance,
+unknown extensions, warnings/residuals and unavailable owner operations. Test an
+unsupported declared version against actual public refusal, without rewriting it
+or inventing an expected success. Preparation may pass while interpretation
+remains incomplete; these outcomes must not become accepted IDs or readiness.
+
+Reject duplicate/malformed config members, boolean/float limits, wrong installed
+origin/runtime version, input/configuration drift, alias/symlink/existing output
+and changed directory identity. Bound the combined source/request representation
+before host effects and all returned views plus encoded transport before Ashlar
+buffering/serialization; upstream owner internal allocations remain separately
+bounded;
+separate individually valid views whose aggregate overflows must withhold success
+without truncation (PREP-F4). Test changed/omitted output and package resources.
+
+Use actual public carriers/call dispatch in focused host controls. Inject original
+failure/cancellation at acquisition, producer/capture and closing; independently
+fail stream close, fsync, child reap and custody renewal. Assert original exception
+identity, every acquired cleanup attempt, no live owned child and no successful
+receipt (PREP-L1). Privacy sentinels must remain absent from bounded diagnostic
+summaries while complete private refusal artifacts retain their original bytes.
+Spy effect ports to prove zero database/sourceFactory/ACK/catalog/head/feed/
+publication calls (PREP-F3). A fresh installed-package fixture run supplies
+runtime evidence separately from inert controls. This corpus does not satisfy
+P10's accepted catalog, protected mutation, complete feed, checkpoint/replay or
+durable ACK requirements.

@@ -302,3 +302,66 @@ staging/apply/delete/history/exact-replay counts without applying SQL. The insta
 buffer its summary until complete file/replay and closing input checks succeed. Actual
 upstream UMF logical-value validation remains the host preflight; local inspection
 MUST NOT relabel retained artifacts as a fresh validator execution or publication.
+
+## Installed Truss catalog preparation
+
+`ashlar prepare-truss-catalog --config CONFIG` is an additive, effect-free host
+boundary. It MUST call the selected installed Truss public
+`prepare_acceptance(tuple[CatalogDocument, ...], configuration: bytes,
+bun_executable=...)` API, whose result is `PreparedAcceptance`. The selected
+protocol is `truss-python-umf-preparation/0.1.0`, producing original
+`truss-acceptance-input/0.1.0` bytes. Preparation MUST NOT invoke a database,
+source factory, ACK, accepted catalog, head, feed, readiness, migration or
+publication port. Profile pins and producer provenance establish correspondence,
+not authentication or installed policy authority. This boundary cannot satisfy
+real Truss feed integration.
+
+`TrussPreparationConfig` is an exact closed `ashlar-truss-preparation/0.1`
+configuration. It owns an ordered tuple of one through 512 documents, each with
+explicit document ID, revision, optional artifact identity and canonical absolute
+regular-file path/SHA256; one original configuration file path/SHA256; selected
+installed Truss distribution version, immutable source revision, wheel digest and
+installed resource/origin descriptor; selected Python executable and Bun executable
+path/digest/runtime version; a canonical private fresh output directory; and
+explicit finite limits. No environment selection, credential discovery, checkout
+import, mutable sibling source, implicit identities or inferred profile pins are
+permitted. Duplicate members, booleans in integer limits, unknown versions or
+fields, aliases, symlinks, changed originals and nonexclusive output refuse.
+The Truss host requires its selected Python version at least 3.11; this MUST NOT
+raise the portable Ashlar core's Python minimum or introduce Truss imports there.
+
+Pass document content and configuration as their unchanged original bytes.
+The declared UMF version is retained inside each source, never rewritten to fit
+an available owner. The caller's configuration explicitly selects layout,
+acceptance, validator, support, binding, policy and transforms under the public
+Truss input contract; Ashlar MUST NOT invent these choices or validate UMF itself.
+Retain every `PreparedAcceptance` raw byte view: input, declarations, archived
+documents, report evidence, each original document and complete interpretation
+observation, plus all provenance fields. Unavailable owner observations, residuals,
+unknown content and complete refusal diagnostics MUST survive unchanged. Parsed
+summaries MUST remain separate from these authoritative byte views.
+
+Limits MUST be supplied before file reads, child creation or serialization:
+input/request capacity at most 1 MiB, each original source within that aggregate,
+producer/child captured stdout and stderr together at most 16 MiB, aggregate
+released byte views and receipt at most 64 MiB, and finite child deadline at most
+60 seconds. A lower selected limit remains binding and may refuse a valid larger
+preparation. The selected public Truss owner additionally enforces its original
+request, producer capture and runtime deadlines; this adapter cannot widen them.
+Check the aggregate length of all returned views and representation expansion
+before encoding/copying them into the child transport or release artifact; count
+duplicate retained views as distinct output bytes. Bound raw capture before read
+or decode, and bound JSON depth/tokens before allocating parsed summaries.
+These are transport/evidence bounds, not an executor heap guarantee.
+
+The installed host command MUST own a finite isolated child and its stream,
+deadline, reap and closing checks. The child imports only the selected installed
+package and calls only its public preparation API; no fallback exists. Renew
+original input/configuration/runtime/package and private output-directory identity
+at opening and independently during closing on success, error and cancellation.
+Every acquired resource MUST receive independent cleanup attempts. Preserve the
+original `BaseException` identity when capture, close, fsync, reap or closing
+custody also fails. Release a bounded receipt only after accepted complete child
+transport and closing checks; failure artifacts are explicitly incomplete and
+MUST NOT acquire a prepared/accepted status. Partial output never licenses a
+catalog or source effect.
