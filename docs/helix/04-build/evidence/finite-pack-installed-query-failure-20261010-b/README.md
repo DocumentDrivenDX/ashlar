@@ -1,0 +1,9 @@
+# Failed installed archaeology query run
+
+This archive retains the original local run against Ashlar `b5b26f309619340f911f82a64f22a0312c819aff`, its fresh offline wheel and private installation, all 551 frozen execution artifacts, the reviewed recipe, raw observations and independent review. `inventory.json` maps each safe archive member to its original file, byte count and SHA-256. Runtime SDKs, JARs and canonical Delta table binaries are not copied; the original closure inventory retains their pins.
+
+The author-owned session 22430 ended with outer exit 1 and installed console exit 2. Its opening/closing custody checks passed. Sixteen compiler observations retain compile and recompile output for all eight original archaeology scenarios; one native observation retains the `cycle` result. Independent pure decoding and comparison match that capture to the complete original cycle oracle. No final query report exists. Ecology was never launched. These results do not qualify the complete eight-query workflow or any ecology query.
+
+The console emitted a redacted refusal, so the actual failure cause is unknown. A separate pure calculation establishes a required next-query obstruction: the complete `dating` source receipt needs approximately 1.43 MB, exceeding the configured 1 MiB shared source/artifact limit. That calculation neither identifies the actual exception nor authorizes a larger budget. The selected report encoder already supports typed decoded values; a plain `json.dumps` probe did not establish an encoder defect.
+
+The unexecuted recipe A is retained alongside corrected recipe B. This run made no republication, PostgreSQL ACK, Unity Catalog, cloud-engine or performance qualification claim. The selected native publication and runtime pins remained unchanged; no native retry is represented here.

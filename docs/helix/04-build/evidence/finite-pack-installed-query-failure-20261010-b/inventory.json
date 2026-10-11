@@ -1,0 +1,3365 @@
+{
+  "profile": "ashlar-installed-finite-query-failure-archive/0.1",
+  "source_revision": "b5b26f309619340f911f82a64f22a0312c819aff",
+  "archive": {
+    "bytes": 5331545,
+    "sha256": "6ed433f5e484669bd91627170bae834a6b3d0bccb8298e72d0d2c03b33ee161b",
+    "members": 559
+  },
+  "members": [
+    {
+      "member": "original/0000-archive.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archive.json",
+      "bytes": 235,
+      "sha256": "82b6248d16be21218e5aa702d6f2ffd61073d454164bf2b5d1b4c07fbf7661c5"
+    },
+    {
+      "member": "original/0001-pip-install.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/pip-install.json",
+      "bytes": 235,
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "member": "original/0002-venv.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0003-wheel.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/wheel.stdout",
+      "bytes": 760,
+      "sha256": "f87f0ae5420d7a9ece5f6e8d16ce1ffb135dcfa8266cf0b8fc90a7cdaf33bd69"
+    },
+    {
+      "member": "original/0004-pip-install.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/pip-install.stdout",
+      "bytes": 176,
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "member": "original/0005-pip-install.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/pip-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0006-wheel.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/wheel.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0007-venv.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0008-archaeology-invocation.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-invocation.json",
+      "bytes": 1286,
+      "sha256": "eef76be156bcf7751d078f92692b1bdf2cc3a564762f89e9bee4c62cb47e7c72"
+    },
+    {
+      "member": "original/0009-archive.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archive.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0010-archaeology-query.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-query.stderr",
+      "bytes": 644,
+      "sha256": "17f967756b2a20d61d4e8457c10b16d2fd9dcd1eda3037797adadee18b5a6fef"
+    },
+    {
+      "member": "original/0011-installed-console.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/installed-console.txt",
+      "bytes": 215,
+      "sha256": "39160059c7756637a09a906fc3d01a5a9fbb002b54bcd3fa3634794faedf4f1f"
+    },
+    {
+      "member": "original/0012-archaeology-query.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-query.json",
+      "bytes": 241,
+      "sha256": "39b93fd3b3a1a6569ccd942840363b1da631e0de9c62d30c09842d69c03b1eb7"
+    },
+    {
+      "member": "original/0013-generated-custody.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/generated-custody.json",
+      "bytes": 105621,
+      "sha256": "6320f75adf5f99bf89efd5486f9b5b49f8bc5efa0a7a31aa60fe66b02d8debec"
+    },
+    {
+      "member": "original/0014-wheel-inventory.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/wheel-inventory.json",
+      "bytes": 22507,
+      "sha256": "07fb03a1e1356508fcfaa02ce544acca8b33f2e106c44fd7da23618502cba570"
+    },
+    {
+      "member": "original/0015-installed-RECORD.csv",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/installed-RECORD.csv",
+      "bytes": 15379,
+      "sha256": "488e887e0278e70584a4b093151690f912ab424e9b132fe42f79e9cfdf125701"
+    },
+    {
+      "member": "original/0016-wheel.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/wheel.json",
+      "bytes": 229,
+      "sha256": "58c243e1326e5f777d3b3b64fbb8fb45c803e13eb9790fb4753d536b37cb3c79"
+    },
+    {
+      "member": "original/0017-venv.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv.json",
+      "bytes": 226,
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "member": "original/0018-archaeology-query.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-query.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0019-archive.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archive.stdout",
+      "bytes": 3389440,
+      "sha256": "87a16fe644b9482ac16865cb5cd4e11e974f1e24bd5ce0a8364efb9b38055219"
+    },
+    {
+      "member": "original/0020-pyproject.toml",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/pyproject.toml",
+      "bytes": 1739,
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9"
+    },
+    {
+      "member": "original/0021-README.md",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/README.md",
+      "bytes": 5195,
+      "sha256": "cd81a6e5c9efdec550ad28d2ccb28d974277d7476a6b07354114168c710b2afb"
+    },
+    {
+      "member": "original/0022-catalog.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/catalog.py",
+      "bytes": 4926,
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f"
+    },
+    {
+      "member": "original/0023-weft_paths_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_package.py",
+      "bytes": 25893,
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee"
+    },
+    {
+      "member": "original/0024-report_parts.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/report_parts.py",
+      "bytes": 10863,
+      "sha256": "13d3d4cf5c929ae7549584193d929e450cbe918b95ee9d858daf253d711fe7ae"
+    },
+    {
+      "member": "original/0025-attempt_store.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/attempt_store.py",
+      "bytes": 12333,
+      "sha256": "c2c1850716aba6bff09006ff3dfa12dfe338d452811f4d0242fa2b4af123e4b5"
+    },
+    {
+      "member": "original/0026-weft_related_keys_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_related_keys_decode.py",
+      "bytes": 6711,
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "member": "original/0027-semantic_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/semantic_policy.py",
+      "bytes": 7593,
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8"
+    },
+    {
+      "member": "original/0028-recovery.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/recovery.py",
+      "bytes": 3589,
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841"
+    },
+    {
+      "member": "original/0029-csv_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/csv_source.py",
+      "bytes": 6590,
+      "sha256": "5d7efaa37516b25a8d416026f14b87d4d7071e4363deecfd4cf3d7171d216b03"
+    },
+    {
+      "member": "original/0030-manifest.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/manifest.py",
+      "bytes": 6578,
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c"
+    },
+    {
+      "member": "original/0031-profile_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/profile_custody.py",
+      "bytes": 2141,
+      "sha256": "35d2bd7fcc15595228b566dd8930c0e6c7ce63c95efadcfdd0f38904f711c5b8"
+    },
+    {
+      "member": "original/0032-maintenance.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/maintenance.py",
+      "bytes": 1643,
+      "sha256": "9058dfd21e2052175e4960bd2f45f59906de200edd645a9a5ad6993475b2e433"
+    },
+    {
+      "member": "original/0033-protocol.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/protocol.py",
+      "bytes": 3367,
+      "sha256": "aefdf8cb058cfe2b47d98f70d28c59a08d2865731c32004a7cc7c793d7cd8aae"
+    },
+    {
+      "member": "original/0034-weft_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_decode.py",
+      "bytes": 13942,
+      "sha256": "b66a26ff2fe7084eafc2d0d77c906836fcfbd08c51b14d6ae1500b38f322d3cd"
+    },
+    {
+      "member": "original/0035-effect_validation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/effect_validation.py",
+      "bytes": 2751,
+      "sha256": "61421382f15912ed14f7c3fe05e3bee15e4aca715672dae5f47e9e85d4a33a7a"
+    },
+    {
+      "member": "original/0036-retention_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/retention_policy.py",
+      "bytes": 5447,
+      "sha256": "966d3064ccf4dbdc39efd37d08d39a4a940e5fa5857beadea0516f1c0062b394"
+    },
+    {
+      "member": "original/0037-schema_registry.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/schema_registry.py",
+      "bytes": 2372,
+      "sha256": "6fc4504b4ff5d50e56e62637238f4ba7f017a5758977a87cbb6354d728bc647f"
+    },
+    {
+      "member": "original/0038-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/__init__.py",
+      "bytes": 1293,
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6"
+    },
+    {
+      "member": "original/0039-graph_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/graph_release.py",
+      "bytes": 11783,
+      "sha256": "7827fcccc873f2739a3b4a66ef21165885da05a66c95756d2fdd989f5e785f9e"
+    },
+    {
+      "member": "original/0040-native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/native.py",
+      "bytes": 4279,
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98"
+    },
+    {
+      "member": "original/0041-truss_input.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/truss_input.py",
+      "bytes": 8348,
+      "sha256": "ce990256f0992bb315adce4bf697a30497e973b35192d9e4d14216621552ac4d"
+    },
+    {
+      "member": "original/0042-medical_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/medical_source.py",
+      "bytes": 7897,
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978"
+    },
+    {
+      "member": "original/0043-assertions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/assertions.py",
+      "bytes": 6071,
+      "sha256": "2f968b7bad747e3d773047eec9430f6a1dcdf1f35bca8d6879f52d83950eed42"
+    },
+    {
+      "member": "original/0044-pins.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/pins.py",
+      "bytes": 5478,
+      "sha256": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8"
+    },
+    {
+      "member": "original/0045-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "member": "original/0046-commerce_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/commerce_source.py",
+      "bytes": 5680,
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    {
+      "member": "original/0047-weft_paths_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_installation.py",
+      "bytes": 6753,
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b"
+    },
+    {
+      "member": "original/0048-weft_paths_keys_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_keys_installation.py",
+      "bytes": 6862,
+      "sha256": "dbbfaaaeeb85805b497bf588224017f2e1805bfa5fda3e980a06e7f3a748e2e8"
+    },
+    {
+      "member": "original/0049-weft_paths_keys_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_keys_package.py",
+      "bytes": 27662,
+      "sha256": "c46366ce47870717c62801d524b059dcd142bc7d9f6751d334f3a6f484da111d"
+    },
+    {
+      "member": "original/0050-cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/cli.py",
+      "bytes": 22677,
+      "sha256": "a67ab83c57de82479930f89dc3153debc7f32685ca9e96ea64d79a30a9d39e81"
+    },
+    {
+      "member": "original/0051-retention.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/retention.py",
+      "bytes": 6975,
+      "sha256": "e68f10530089ecc89ae4dd3ad251326ef6696bbdb7d082412a8027cf1b771b0a"
+    },
+    {
+      "member": "original/0052-source_checkpoint.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/source_checkpoint.py",
+      "bytes": 9270,
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625"
+    },
+    {
+      "member": "original/0053-authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/authority.py",
+      "bytes": 2434,
+      "sha256": "babac31a4601603e3d6d0d67fe3540f680068660bb92249b555b361aa8524b51"
+    },
+    {
+      "member": "original/0054-weft_count_star_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_count_star_package.py",
+      "bytes": 10148,
+      "sha256": "0663726c1d09767b820864f210e4b3a3d303ff78844b748f579a8e5a620ad26a"
+    },
+    {
+      "member": "original/0055-typed_source_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/typed_source_policy.py",
+      "bytes": 9678,
+      "sha256": "ae913e9b3ae4e64e8b7eef568d2038ff53476ef307bb8af75e0052b7d1da2cf0"
+    },
+    {
+      "member": "original/0056-publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/publication.py",
+      "bytes": 6264,
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "member": "original/0057-weft_binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_binding.py",
+      "bytes": 4314,
+      "sha256": "49892a1baad9cf0cd4408a394fa75ffb0e0c1615f7d3e00bbc6f0b94ab418ade"
+    },
+    {
+      "member": "original/0058-supply_chain_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/supply_chain_source.py",
+      "bytes": 5833,
+      "sha256": "b9eb3616923658ba3b4c1b3315b5cf6bde05924c8f77fed6e7fa8e5d997f2c33"
+    },
+    {
+      "member": "original/0059-singleton.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/singleton.py",
+      "bytes": 4947,
+      "sha256": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41"
+    },
+    {
+      "member": "original/0060-durable_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/durable_publisher.py",
+      "bytes": 4088,
+      "sha256": "3de4a1253020c2eb8f99f77b08d2d5cbe4e5dd55d3dd76786ba409e40e36db60"
+    },
+    {
+      "member": "original/0061-quarantine.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/quarantine.py",
+      "bytes": 2259,
+      "sha256": "cfa8902a467b72e7a24c55655eb018b694685211f6f53ee803139a7121a3f000"
+    },
+    {
+      "member": "original/0062-weft_paths_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_distribution.py",
+      "bytes": 3790,
+      "sha256": "8e592efcc2518b69d8113e7bbf1a9f0b00dc6003c79f6e64083e5e4f2e7f8b7f"
+    },
+    {
+      "member": "original/0063-weft_paths_keys_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_paths_keys_distribution.py",
+      "bytes": 4043,
+      "sha256": "84f103f1a13b781d0692cb7c939e2fa747b2e8269ed61779721bebd06170342f"
+    },
+    {
+      "member": "original/0064-schema_policies.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/schema_policies.py",
+      "bytes": 1324,
+      "sha256": "9624fd24dce680d314c547cb08e87d6f4b1a190ee1781856bee63e1a85b08f4e"
+    },
+    {
+      "member": "original/0065-publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/publisher.py",
+      "bytes": 6750,
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c"
+    },
+    {
+      "member": "original/0066-weft_count_star_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_count_star_installation.py",
+      "bytes": 7338,
+      "sha256": "ba743ce0542db84f700f45580a9929d2035d3fb7f423dffa3ccd764c70ce4387"
+    },
+    {
+      "member": "original/0067-truss_feed.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/truss_feed.py",
+      "bytes": 5604,
+      "sha256": "3829993c92859a0bd3cec7e66834c70394b86b05ca41f83bea8ee84c2d695992"
+    },
+    {
+      "member": "original/0068-whole_entity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/whole_entity.py",
+      "bytes": 2019,
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f"
+    },
+    {
+      "member": "original/0069-weft_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_query.py",
+      "bytes": 6409,
+      "sha256": "81ed8f75594402e48ab5c01ba3f827bed007c9ff6b431e7f7a28e7854b041910"
+    },
+    {
+      "member": "original/0070-lineage.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/lineage.py",
+      "bytes": 3404,
+      "sha256": "e907213575039d9c191ee7b45a840b81c7d2009a3f63c946d906fc2b2ba2b3f2"
+    },
+    {
+      "member": "original/0071-weft_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_distribution.py",
+      "bytes": 4204,
+      "sha256": "5a0b6814f74d1cd74b9e2e02e0cdb2f1d9a13b1a464649f83614755d0ada25d8"
+    },
+    {
+      "member": "original/0072-source_config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/source_config.py",
+      "bytes": 5280,
+      "sha256": "d84a6604a203554617dff11cbec0909aed4164074fbb7e6781f7ddbe1b754525"
+    },
+    {
+      "member": "original/0073-origin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/origin.py",
+      "bytes": 4600,
+      "sha256": "c8a97ad75d888b2a9c1ccaf103497368eb1e8d1b93405c789510f9c572d4db7b"
+    },
+    {
+      "member": "original/0074-binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/binding.py",
+      "bytes": 6813,
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b"
+    },
+    {
+      "member": "original/0075-staging.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/staging.py",
+      "bytes": 7338,
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545"
+    },
+    {
+      "member": "original/0076-weft_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_installation.py",
+      "bytes": 35061,
+      "sha256": "3f6365faaa2c2cc30784cf6c07817a701749a452f5aa274efab798d8d70ee285"
+    },
+    {
+      "member": "original/0077-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/source.py",
+      "bytes": 4356,
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    {
+      "member": "original/0078-_weft_installation_mechanics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/_weft_installation_mechanics.py",
+      "bytes": 12852,
+      "sha256": "0be8c7465e795c707c5b102216dbc9402f9cf5c86ea5a5176f5865c3aaf2a93d"
+    },
+    {
+      "member": "original/0079-__main__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "member": "original/0080-outbox.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/outbox.py",
+      "bytes": 6525,
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4"
+    },
+    {
+      "member": "original/0081-apply.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/apply.py",
+      "bytes": 6553,
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1"
+    },
+    {
+      "member": "original/0082-weft_path_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_path_decode.py",
+      "bytes": 11170,
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    },
+    {
+      "member": "original/0083-schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/schema.py",
+      "bytes": 4334,
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b"
+    },
+    {
+      "member": "original/0084-weft_count_star_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/weft_count_star_distribution.py",
+      "bytes": 4052,
+      "sha256": "77ab37e6f0e64d58853719344f59147a22544a7f7e47e3777e76a1d6c042bc92"
+    },
+    {
+      "member": "original/0085-archaeology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/archaeology_source.py",
+      "bytes": 5846,
+      "sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c"
+    },
+    {
+      "member": "original/0086-stored_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/stored_publisher.py",
+      "bytes": 9614,
+      "sha256": "196b9e21df475b6225544512d869fca13e90d1026858a8fb1421c0b2632783be"
+    },
+    {
+      "member": "original/0087-ecology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar/ecology_source.py",
+      "bytes": 5818,
+      "sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9"
+    },
+    {
+      "member": "original/0088-indexed_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/indexed_query.py",
+      "bytes": 3755,
+      "sha256": "d57af1288c8847f06ac47cec0d065c7cfda8aeb60623211e9d7878135e2be987"
+    },
+    {
+      "member": "original/0089-evolution_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_plan.py",
+      "bytes": 10854,
+      "sha256": "756e3feded4061418f028f3ef0a0be4346caec816e0e450796dac72248e65650"
+    },
+    {
+      "member": "original/0090-supply_chain_finite_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_finite_source.py",
+      "bytes": 6403,
+      "sha256": "e0ff02d4f175df2c27b30904fa287273208417abe498c30fa7d31b27d02584f9"
+    },
+    {
+      "member": "original/0091-evolution_run.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_run.py",
+      "bytes": 22533,
+      "sha256": "cfa4885c09a6a8789fdcc073b980518fe12b161354a7e7e85858c12582db5786"
+    },
+    {
+      "member": "original/0092-finite_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/finite_projection.py",
+      "bytes": 7117,
+      "sha256": "524034472f44d4932a8459083e775b54466f4b337c4e63d8f590fbbbfc1696ac"
+    },
+    {
+      "member": "original/0093-commerce.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/commerce.py",
+      "bytes": 3296,
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a"
+    },
+    {
+      "member": "original/0094-puppy_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_release.py",
+      "bytes": 11028,
+      "sha256": "b2df51301c339e83019a008ed89576c61b3af849263c0189ec55cfb86d1128db"
+    },
+    {
+      "member": "original/0095-commerce_path_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/commerce_path_oracle.py",
+      "bytes": 8949,
+      "sha256": "8d35535e5ca38455542743d599d218d16b9f028410ecf8e7712071656d81b2fe"
+    },
+    {
+      "member": "original/0096-config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/config.py",
+      "bytes": 20935,
+      "sha256": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c"
+    },
+    {
+      "member": "original/0097-puppy_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_native.py",
+      "bytes": 13184,
+      "sha256": "256f736de56f0a19847f05590641ca954ba0747dccca60f4e6be5b79bd8dba36"
+    },
+    {
+      "member": "original/0098-fabric_gql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/fabric_gql.py",
+      "bytes": 8903,
+      "sha256": "30b97bd335c7301e05c262cdd712a01fed5e169e963252ba708cec8791c91fa1"
+    },
+    {
+      "member": "original/0099-supply_chain_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_query.py",
+      "bytes": 7247,
+      "sha256": "7e6b1053172e8d577be8744a4ebbec42c7e4e88634cc4551726b1b2ad592fddf"
+    },
+    {
+      "member": "original/0100-supply_chain_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_native.py",
+      "bytes": 16749,
+      "sha256": "3fa8b49bcc30f725ef46502285bf16809d56a80983575963bf8aedb659d3ba3a"
+    },
+    {
+      "member": "original/0101-evolution_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_composition.py",
+      "bytes": 8352,
+      "sha256": "6b6585e74ef342dbcd30f73c816229beb15ec24e4c1bfa2df8706c514335ce5b"
+    },
+    {
+      "member": "original/0102-count_star_configuration.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_configuration.py",
+      "bytes": 1558,
+      "sha256": "e47b661307ec9be5dd0211937ecf9c9e32b52ab2f3dc12eed68e827db936b647"
+    },
+    {
+      "member": "original/0103-supply_chain_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_publication.py",
+      "bytes": 658,
+      "sha256": "1d6162b82be5957a9e2ea9be2fd05ab384e13f7f2f7926f0e33b77c56fb11447"
+    },
+    {
+      "member": "original/0104-delta_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/delta_publication.py",
+      "bytes": 9874,
+      "sha256": "980206a946916077da4fdef0029b5f8ccda18b65f62ef517574f0b27444b7876"
+    },
+    {
+      "member": "original/0105-supply_chain_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_cli.py",
+      "bytes": 4744,
+      "sha256": "fce0cb8072d937117e52d28d1fc8d56ce80b24f4ea15d2a5d105a6c99a426676"
+    },
+    {
+      "member": "original/0106-delta_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/delta_custody.py",
+      "bytes": 43097,
+      "sha256": "14727644d176ba22a4b0d6ba713e77b603de785d1e373e8b0c095a4178f28c46"
+    },
+    {
+      "member": "original/0107-finite_pack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/finite_pack.py",
+      "bytes": 3060,
+      "sha256": "34bb4a3c7f1b5735accb2038055690970211d8c039d12de3723dc31d0ddbaeca"
+    },
+    {
+      "member": "original/0108-source_identity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/source_identity.py",
+      "bytes": 163,
+      "sha256": "033f3638d1d9a099d857c899a2e862d3ee9a8746fc3bfd9c210eda3429a52aec"
+    },
+    {
+      "member": "original/0109-diagnostics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "member": "original/0110-count_star_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_admission.py",
+      "bytes": 37241,
+      "sha256": "d367321d4e8f7407b2ade8261802e3552155cffe5702ebefc8ff3c0d26f45925"
+    },
+    {
+      "member": "original/0111-relationship_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/relationship_plan.py",
+      "bytes": 5781,
+      "sha256": "6e3e65793d31cdc192b986f9a916bee56fd2f8a65899c94f60d3d1c0975a97ec"
+    },
+    {
+      "member": "original/0112-puppy_carrier_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_carrier_cli.py",
+      "bytes": 3880,
+      "sha256": "4b77545db702fa06455470e7b6655652e0c3d595f60754bfbe7131a627665797"
+    },
+    {
+      "member": "original/0113-supply_chain_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_request.py",
+      "bytes": 7564,
+      "sha256": "0b256974c9d0d60fa6ad2dcf0b8c9a2d8a420355dd8e720f6e0f0e9a3fa16138"
+    },
+    {
+      "member": "original/0114-existing_outbox_authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/existing_outbox_authority.py",
+      "bytes": 12611,
+      "sha256": "dc6f5afa747b968a95a00624ac721fe876fc77b49d4dea593356a16ab3ed37a6"
+    },
+    {
+      "member": "original/0115-finite_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/finite_native.py",
+      "bytes": 20956,
+      "sha256": "cc1bdcf30315a866e174f0b726d34e4a8151e6903adbdf3dabd979a4cf2ce2e0"
+    },
+    {
+      "member": "original/0116-path_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/path_admission.py",
+      "bytes": 34970,
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c"
+    },
+    {
+      "member": "original/0117-finite_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/finite_publication.py",
+      "bytes": 14332,
+      "sha256": "5aefcaebc6cd0794141b56c21c6020708d78349a2326ca3f691cab5f697d2668"
+    },
+    {
+      "member": "original/0118-paths_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "member": "original/0119-pack_count_star_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_count_star_request.py",
+      "bytes": 6525,
+      "sha256": "ee77b67bf8e4159bdec183e43c62ec49ceac2bab730be7544fc7fc0f734648ad"
+    },
+    {
+      "member": "original/0120-pack_native_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_native_cli.py",
+      "bytes": 12720,
+      "sha256": "05b9908846ca5ca74d4e00c5ea3e3d58587a146bf63c3f6d48329dfb65dd13e7"
+    },
+    {
+      "member": "original/0121-ack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/ack.py",
+      "bytes": 13851,
+      "sha256": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce"
+    },
+    {
+      "member": "original/0122-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/__init__.py",
+      "bytes": 473,
+      "sha256": "c6adb4df03b649b9af8108eed8fa136502456ec00645d7624bba4beb715d25af"
+    },
+    {
+      "member": "original/0123-puppy_carrier.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_carrier.py",
+      "bytes": 6789,
+      "sha256": "c879b6fb84658f06213125c07b6b3b3bd2dbb0d8130eb4aee5419ff95c750f6a"
+    },
+    {
+      "member": "original/0124-otel_profile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "member": "original/0125-count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_query.py",
+      "bytes": 23496,
+      "sha256": "9d6c38012286b21fd13fec965c486c43afc7126de2f0c462c9ba16433d1655c9"
+    },
+    {
+      "member": "original/0126-ack_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/ack_sessions.py",
+      "bytes": 5355,
+      "sha256": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6"
+    },
+    {
+      "member": "original/0127-runtime.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/runtime.py",
+      "bytes": 367,
+      "sha256": "b6ce66d2210488b367a1859fdf3fc434c8de4bb54a5e8913cee58b7baee974fc"
+    },
+    {
+      "member": "original/0128-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/commerce_evolution.py",
+      "bytes": 6577,
+      "sha256": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb"
+    },
+    {
+      "member": "original/0129-evolution_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_cli.py",
+      "bytes": 13248,
+      "sha256": "8c600cafd8bebfe66ab18ca74b04e2424c3d69c2416bb3d10daf76ac468102fd"
+    },
+    {
+      "member": "original/0130-schema_rows.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/schema_rows.py",
+      "bytes": 700,
+      "sha256": "93b60d6e10622467f3aa9bc5618dab91c7e46ca499f4b6bb04d27b908c2ff032"
+    },
+    {
+      "member": "original/0131-finite_dataset.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/finite_dataset.py",
+      "bytes": 10413,
+      "sha256": "a1aab5fde9b0d9077ae1ccec9a6ebe88215e69506940229f7898bbb288cf1443"
+    },
+    {
+      "member": "original/0132-supply_chain_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_projection.py",
+      "bytes": 6248,
+      "sha256": "1ccdc2ea044e634e443e1c2158834c0869d75ce9e692172dedec555bcf2e5339"
+    },
+    {
+      "member": "original/0133-connection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/connection.py",
+      "bytes": 2059,
+      "sha256": "16e985a351d7a1c0bf4dec1b909efb0710781eff4bb1dc28aa490271eb04c5d2"
+    },
+    {
+      "member": "original/0134-delta_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/delta_query.py",
+      "bytes": 4739,
+      "sha256": "82a5768e5d18b473ab3cfdd0dd934d5755de20fc9b52d58537dd14369b05705e"
+    },
+    {
+      "member": "original/0135-commerce_path_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/commerce_path_request.py",
+      "bytes": 5743,
+      "sha256": "9a05f74c1ab9cda066188f91e51e992dfa51f1f2d2bcf8d772757a3c6fd21015"
+    },
+    {
+      "member": "original/0136-_otel_worker.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/_otel_worker.py",
+      "bytes": 34459,
+      "sha256": "03cf9ce932340d68cd25199f6ae603e78c6b1d86acbf510173ab2e36dcb4d30e"
+    },
+    {
+      "member": "original/0137-publication_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/publication_reader.py",
+      "bytes": 25078,
+      "sha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f"
+    },
+    {
+      "member": "original/0138-diagnostic_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "member": "original/0139-supply_chain_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_compile.py",
+      "bytes": 4171,
+      "sha256": "0db71bd959ebfa38861fa4335268a5272529be46e177f429b966d100ae66c509"
+    },
+    {
+      "member": "original/0140-supply_chain_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_oracle.py",
+      "bytes": 6863,
+      "sha256": "888f4c005171fb87b45a4159e4259e96ca553de30144b4b00fcbe2787c2cc497"
+    },
+    {
+      "member": "original/0141-relationship_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/relationship_query.py",
+      "bytes": 6176,
+      "sha256": "a3f6b28a665c6f08773f73e5d8c76cac5b0fe6b87441ab42c0ffdace6ac37972"
+    },
+    {
+      "member": "original/0142-pack_count_star_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_count_star_compile.py",
+      "bytes": 4485,
+      "sha256": "06fbc86b61583dea9f8aef44d293bb4e0997d5c0a97c5976c99353fe3a0dddbb"
+    },
+    {
+      "member": "original/0143-lifecycle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/lifecycle.py",
+      "bytes": 1676,
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    },
+    {
+      "member": "original/0144-puppy_release_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_release_cli.py",
+      "bytes": 11907,
+      "sha256": "b2fea2e902c386d3c772b1c27e126d717f5c4875304403be7fd08f01e9b5b5ea"
+    },
+    {
+      "member": "original/0145-count_star_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_execution.py",
+      "bytes": 23611,
+      "sha256": "a4d561a259b9357ab9726a43e86e4526ee9a70a3c04052db8b7fc68a3112dd5c"
+    },
+    {
+      "member": "original/0146-postgres.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/postgres.py",
+      "bytes": 1879,
+      "sha256": "5a1dfee0e29e2712003246e36c19383b3984b744efae6fa65bdd3a53cef134a2"
+    },
+    {
+      "member": "original/0147-pack_count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_count_star_oracle.py",
+      "bytes": 5674,
+      "sha256": "14375719fc04b8d45028449c0e7c1f52bd35fa73b9c84eee6bd8df20c2ec8dd8"
+    },
+    {
+      "member": "original/0148-path_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/path_execution.py",
+      "bytes": 22997,
+      "sha256": "13541da851c5857d0b59281a3f4f6689ab051cb4cd1b3eb671b2eae5cd0506e8"
+    },
+    {
+      "member": "original/0149-source_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/source_sessions.py",
+      "bytes": 7700,
+      "sha256": "2fac6ab77f5b2b7fab23c152546f265cdfc8d6141d7320fc31f53ddc1dc98c0f"
+    },
+    {
+      "member": "original/0150-count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_oracle.py",
+      "bytes": 4301,
+      "sha256": "31759cc92065f8334da8f87b755a09ee1d9d4fd8b79dbbebd8a9f9633ca8e3e4"
+    },
+    {
+      "member": "original/0151-puppy_gremlin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_gremlin.py",
+      "bytes": 3565,
+      "sha256": "03c4932d28b416323c30feb053a5d642b72ec6dffd64d01d9829f31c6bf55a24"
+    },
+    {
+      "member": "original/0152-path_capture.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/path_capture.py",
+      "bytes": 4898,
+      "sha256": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d"
+    },
+    {
+      "member": "original/0153-archaeology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/archaeology_oracle.py",
+      "bytes": 4031,
+      "sha256": "b662e853109b13d51f0fe858cdb8b771b019a2a91b1b0d54b721196ba42f14ff"
+    },
+    {
+      "member": "original/0154-ecology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/ecology_oracle.py",
+      "bytes": 3739,
+      "sha256": "08f474db42ed8b46f7da5301a78512848a5f49e22e967fce0c8d4f2517c06f5d"
+    },
+    {
+      "member": "original/0155-supply_chain_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_producer.py",
+      "bytes": 4269,
+      "sha256": "25a39b56021594df7c44630a2c17034749111b060f2845c73b99e4f838ea3c8f"
+    },
+    {
+      "member": "original/0156-driver.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/driver.py",
+      "bytes": 73692,
+      "sha256": "80a0f0dd2c55d922f69436f5f9e6ad53fc78b2f45ffcc465ceb92230ab46b4bd"
+    },
+    {
+      "member": "original/0157-pack_count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_count_star_query.py",
+      "bytes": 9129,
+      "sha256": "1eb77d073cf08f98f4f56e40bd3c2175bf9a62f6af00cea20772c1661b1fc37c"
+    },
+    {
+      "member": "original/0158-supply_chain_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/supply_chain_reader.py",
+      "bytes": 6452,
+      "sha256": "0f74b87a97d1f1ca300b4575995fc0e37af1513bb8c5e64207856468c06e16d7"
+    },
+    {
+      "member": "original/0159-evolution_operator.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_operator.py",
+      "bytes": 21066,
+      "sha256": "c4c1f0e76e03d9f94acb33be83335f179fdc104f16245830f9c4505ab95da5ba"
+    },
+    {
+      "member": "original/0160-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/source.py",
+      "bytes": 3982,
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a"
+    },
+    {
+      "member": "original/0161-otel.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "member": "original/0162-puppy_release_document.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/puppy_release_document.py",
+      "bytes": 6501,
+      "sha256": "bbaba4eb81310afcc6dba2c59f38845e570f11a1d8c044c1dcf626977c2d74f2"
+    },
+    {
+      "member": "original/0163-commerce_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/commerce_admission.py",
+      "bytes": 11033,
+      "sha256": "3dc8f2ceb93528565ae5cb0b95cf09c60d0de21eedbd690ef3c8f678526c37de"
+    },
+    {
+      "member": "original/0164-pack_count_star_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/pack_count_star_reader.py",
+      "bytes": 7334,
+      "sha256": "1f2d1de2dd9e5f32ac934ac9e71e43d5baf97d62ddecd9d4017d4ab7fc46bb7c"
+    },
+    {
+      "member": "original/0165-count_star_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/count_star_schema.py",
+      "bytes": 3086,
+      "sha256": "443f9bdb3d85334944940c04690082f067641e7333f6fa4e240e819ba5b59ca9"
+    },
+    {
+      "member": "original/0166-source-correspondence.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/source-correspondence.json",
+      "bytes": 9275,
+      "sha256": "587cc96f178bca90b31123a09e9c3ac2292aa830337fbf4b783705e4fc0ce4a2"
+    },
+    {
+      "member": "original/0167-evolution_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_admission.py",
+      "bytes": 23067,
+      "sha256": "e4b1f021e0583d3972cd440eee2a85fb9305b7ab2e6bf7cc49bf9cbfbad61ad4"
+    },
+    {
+      "member": "original/0168-graph_sql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/graph_sql.py",
+      "bytes": 4796,
+      "sha256": "c46ab0858db42ae5d06409abf2f8cc72d72eae2756c642485b1f106f4f18a107"
+    },
+    {
+      "member": "original/0169-path_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/path_schema.py",
+      "bytes": 3034,
+      "sha256": "db702846fcdaae8af2c64803b663891530a5b21c2b6fe61a7671838ced52441b"
+    },
+    {
+      "member": "original/0170-evolution_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0"
+    },
+    {
+      "member": "original/0171-check_supply_chain_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/check_supply_chain_dataset.ts",
+      "bytes": 6352,
+      "sha256": "f81f11dfac05c424e476dc79c2408721b9a19752c1ca6dc176d6c25138288b1d"
+    },
+    {
+      "member": "original/0172-check_finite_pack_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/check_finite_pack_dataset.ts",
+      "bytes": 6945,
+      "sha256": "8ad1397cfdab5f6dfd992a139e421ae74acbe2377cddbed7d283dd6b5ae01e6b"
+    },
+    {
+      "member": "original/0173-ontology.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/ontology.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0174-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/__init__.py",
+      "bytes": 148,
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb"
+    },
+    {
+      "member": "original/0175-check_commerce_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/check_commerce_dataset.ts",
+      "bytes": 5901,
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d"
+    },
+    {
+      "member": "original/0176-graph.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/graph.json",
+      "bytes": 23078,
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "member": "original/0177-public-presence.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/public-presence.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "member": "original/0178-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/candidate.json",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "member": "original/0179-seed-public.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/seed-public.json.gz",
+      "bytes": 67527,
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1"
+    },
+    {
+      "member": "original/0180-check_evolution.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/check_evolution.ts",
+      "bytes": 7419,
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2"
+    },
+    {
+      "member": "original/0181-seed-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/seed-candidate.json",
+      "bytes": 174123,
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692"
+    },
+    {
+      "member": "original/0182-source-closure.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/source-closure.json",
+      "bytes": 1194249,
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6"
+    },
+    {
+      "member": "original/0183-original-model.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/evolution/original-model.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0184-01-baseline.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "bytes": 3996,
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+    },
+    {
+      "member": "original/0185-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "bytes": 11829,
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9"
+    },
+    {
+      "member": "original/0186-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/build/lib/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "bytes": 2470,
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "member": "original/0187-PKG-INFO",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/PKG-INFO",
+      "bytes": 6988,
+      "sha256": "079b2214e1f82617f3796c4b0ddda09c5f5b479b02ea38014de5977f999167e4"
+    },
+    {
+      "member": "original/0188-SOURCES.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/SOURCES.txt",
+      "bytes": 6013,
+      "sha256": "c04297da5e5088e26c3d6b33a0707d220028fb88df9637496ea821fcd66bbddb"
+    },
+    {
+      "member": "original/0189-entry_points.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/entry_points.txt",
+      "bytes": 43,
+      "sha256": "8698353998fa8e6060e03f19a8b6cf7b37ad8602f9ccfba8ab79057a2133ba1b"
+    },
+    {
+      "member": "original/0190-requires.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/requires.txt",
+      "bytes": 527,
+      "sha256": "3c48db767df975f160d972d8f76dd8bfdba969fd9cd8994351d3afa16752b6cb"
+    },
+    {
+      "member": "original/0191-top_level.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/top_level.txt",
+      "bytes": 19,
+      "sha256": "cc8dc4f344013680993051b5f0985aa0942ac8d510d9c7af3b95c0882aff0f99"
+    },
+    {
+      "member": "original/0192-dependency_links.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_graph_toolkit.egg-info/dependency_links.txt",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "member": "original/0193-catalog.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/catalog.py",
+      "bytes": 4926,
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f"
+    },
+    {
+      "member": "original/0194-weft_paths_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_package.py",
+      "bytes": 25893,
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee"
+    },
+    {
+      "member": "original/0195-report_parts.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/report_parts.py",
+      "bytes": 10863,
+      "sha256": "13d3d4cf5c929ae7549584193d929e450cbe918b95ee9d858daf253d711fe7ae"
+    },
+    {
+      "member": "original/0196-attempt_store.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/attempt_store.py",
+      "bytes": 12333,
+      "sha256": "c2c1850716aba6bff09006ff3dfa12dfe338d452811f4d0242fa2b4af123e4b5"
+    },
+    {
+      "member": "original/0197-weft_related_keys_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_related_keys_decode.py",
+      "bytes": 6711,
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "member": "original/0198-semantic_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/semantic_policy.py",
+      "bytes": 7593,
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8"
+    },
+    {
+      "member": "original/0199-recovery.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/recovery.py",
+      "bytes": 3589,
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841"
+    },
+    {
+      "member": "original/0200-csv_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/csv_source.py",
+      "bytes": 6590,
+      "sha256": "5d7efaa37516b25a8d416026f14b87d4d7071e4363deecfd4cf3d7171d216b03"
+    },
+    {
+      "member": "original/0201-manifest.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/manifest.py",
+      "bytes": 6578,
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c"
+    },
+    {
+      "member": "original/0202-profile_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/profile_custody.py",
+      "bytes": 2141,
+      "sha256": "35d2bd7fcc15595228b566dd8930c0e6c7ce63c95efadcfdd0f38904f711c5b8"
+    },
+    {
+      "member": "original/0203-maintenance.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/maintenance.py",
+      "bytes": 1643,
+      "sha256": "9058dfd21e2052175e4960bd2f45f59906de200edd645a9a5ad6993475b2e433"
+    },
+    {
+      "member": "original/0204-protocol.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/protocol.py",
+      "bytes": 3367,
+      "sha256": "aefdf8cb058cfe2b47d98f70d28c59a08d2865731c32004a7cc7c793d7cd8aae"
+    },
+    {
+      "member": "original/0205-weft_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_decode.py",
+      "bytes": 13942,
+      "sha256": "b66a26ff2fe7084eafc2d0d77c906836fcfbd08c51b14d6ae1500b38f322d3cd"
+    },
+    {
+      "member": "original/0206-effect_validation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/effect_validation.py",
+      "bytes": 2751,
+      "sha256": "61421382f15912ed14f7c3fe05e3bee15e4aca715672dae5f47e9e85d4a33a7a"
+    },
+    {
+      "member": "original/0207-retention_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/retention_policy.py",
+      "bytes": 5447,
+      "sha256": "966d3064ccf4dbdc39efd37d08d39a4a940e5fa5857beadea0516f1c0062b394"
+    },
+    {
+      "member": "original/0208-schema_registry.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/schema_registry.py",
+      "bytes": 2372,
+      "sha256": "6fc4504b4ff5d50e56e62637238f4ba7f017a5758977a87cbb6354d728bc647f"
+    },
+    {
+      "member": "original/0209-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/__init__.py",
+      "bytes": 1293,
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6"
+    },
+    {
+      "member": "original/0210-graph_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/graph_release.py",
+      "bytes": 11783,
+      "sha256": "7827fcccc873f2739a3b4a66ef21165885da05a66c95756d2fdd989f5e785f9e"
+    },
+    {
+      "member": "original/0211-native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/native.py",
+      "bytes": 4279,
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98"
+    },
+    {
+      "member": "original/0212-truss_input.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/truss_input.py",
+      "bytes": 8348,
+      "sha256": "ce990256f0992bb315adce4bf697a30497e973b35192d9e4d14216621552ac4d"
+    },
+    {
+      "member": "original/0213-medical_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/medical_source.py",
+      "bytes": 7897,
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978"
+    },
+    {
+      "member": "original/0214-assertions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/assertions.py",
+      "bytes": 6071,
+      "sha256": "2f968b7bad747e3d773047eec9430f6a1dcdf1f35bca8d6879f52d83950eed42"
+    },
+    {
+      "member": "original/0215-pins.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/pins.py",
+      "bytes": 5478,
+      "sha256": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8"
+    },
+    {
+      "member": "original/0216-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "member": "original/0217-commerce_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/commerce_source.py",
+      "bytes": 5680,
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    {
+      "member": "original/0218-README.md",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/README.md",
+      "bytes": 4796,
+      "sha256": "df7c91dfe4d9f7afbfec05e2df4c1d43fffb5f19ff9acb82ab5db651439d9b99"
+    },
+    {
+      "member": "original/0219-weft_paths_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_installation.py",
+      "bytes": 6753,
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b"
+    },
+    {
+      "member": "original/0220-weft_paths_keys_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_keys_installation.py",
+      "bytes": 6862,
+      "sha256": "dbbfaaaeeb85805b497bf588224017f2e1805bfa5fda3e980a06e7f3a748e2e8"
+    },
+    {
+      "member": "original/0221-weft_paths_keys_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_keys_package.py",
+      "bytes": 27662,
+      "sha256": "c46366ce47870717c62801d524b059dcd142bc7d9f6751d334f3a6f484da111d"
+    },
+    {
+      "member": "original/0222-cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/cli.py",
+      "bytes": 22677,
+      "sha256": "a67ab83c57de82479930f89dc3153debc7f32685ca9e96ea64d79a30a9d39e81"
+    },
+    {
+      "member": "original/0223-retention.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/retention.py",
+      "bytes": 6975,
+      "sha256": "e68f10530089ecc89ae4dd3ad251326ef6696bbdb7d082412a8027cf1b771b0a"
+    },
+    {
+      "member": "original/0224-source_checkpoint.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/source_checkpoint.py",
+      "bytes": 9270,
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625"
+    },
+    {
+      "member": "original/0225-authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/authority.py",
+      "bytes": 2434,
+      "sha256": "babac31a4601603e3d6d0d67fe3540f680068660bb92249b555b361aa8524b51"
+    },
+    {
+      "member": "original/0226-weft_count_star_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_count_star_package.py",
+      "bytes": 10148,
+      "sha256": "0663726c1d09767b820864f210e4b3a3d303ff78844b748f579a8e5a620ad26a"
+    },
+    {
+      "member": "original/0227-typed_source_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/typed_source_policy.py",
+      "bytes": 9678,
+      "sha256": "ae913e9b3ae4e64e8b7eef568d2038ff53476ef307bb8af75e0052b7d1da2cf0"
+    },
+    {
+      "member": "original/0228-publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/publication.py",
+      "bytes": 6264,
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "member": "original/0229-weft_binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_binding.py",
+      "bytes": 4314,
+      "sha256": "49892a1baad9cf0cd4408a394fa75ffb0e0c1615f7d3e00bbc6f0b94ab418ade"
+    },
+    {
+      "member": "original/0230-supply_chain_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/supply_chain_source.py",
+      "bytes": 5833,
+      "sha256": "b9eb3616923658ba3b4c1b3315b5cf6bde05924c8f77fed6e7fa8e5d997f2c33"
+    },
+    {
+      "member": "original/0231-singleton.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/singleton.py",
+      "bytes": 4947,
+      "sha256": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41"
+    },
+    {
+      "member": "original/0232-durable_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/durable_publisher.py",
+      "bytes": 4088,
+      "sha256": "3de4a1253020c2eb8f99f77b08d2d5cbe4e5dd55d3dd76786ba409e40e36db60"
+    },
+    {
+      "member": "original/0233-quarantine.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/quarantine.py",
+      "bytes": 2259,
+      "sha256": "cfa8902a467b72e7a24c55655eb018b694685211f6f53ee803139a7121a3f000"
+    },
+    {
+      "member": "original/0234-weft_paths_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_distribution.py",
+      "bytes": 3790,
+      "sha256": "8e592efcc2518b69d8113e7bbf1a9f0b00dc6003c79f6e64083e5e4f2e7f8b7f"
+    },
+    {
+      "member": "original/0235-weft_paths_keys_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_paths_keys_distribution.py",
+      "bytes": 4043,
+      "sha256": "84f103f1a13b781d0692cb7c939e2fa747b2e8269ed61779721bebd06170342f"
+    },
+    {
+      "member": "original/0236-schema_policies.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/schema_policies.py",
+      "bytes": 1324,
+      "sha256": "9624fd24dce680d314c547cb08e87d6f4b1a190ee1781856bee63e1a85b08f4e"
+    },
+    {
+      "member": "original/0237-publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/publisher.py",
+      "bytes": 6750,
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c"
+    },
+    {
+      "member": "original/0238-weft_count_star_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_count_star_installation.py",
+      "bytes": 7338,
+      "sha256": "ba743ce0542db84f700f45580a9929d2035d3fb7f423dffa3ccd764c70ce4387"
+    },
+    {
+      "member": "original/0239-truss_feed.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/truss_feed.py",
+      "bytes": 5604,
+      "sha256": "3829993c92859a0bd3cec7e66834c70394b86b05ca41f83bea8ee84c2d695992"
+    },
+    {
+      "member": "original/0240-whole_entity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/whole_entity.py",
+      "bytes": 2019,
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f"
+    },
+    {
+      "member": "original/0241-weft_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_query.py",
+      "bytes": 6409,
+      "sha256": "81ed8f75594402e48ab5c01ba3f827bed007c9ff6b431e7f7a28e7854b041910"
+    },
+    {
+      "member": "original/0242-lineage.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/lineage.py",
+      "bytes": 3404,
+      "sha256": "e907213575039d9c191ee7b45a840b81c7d2009a3f63c946d906fc2b2ba2b3f2"
+    },
+    {
+      "member": "original/0243-weft_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_distribution.py",
+      "bytes": 4204,
+      "sha256": "5a0b6814f74d1cd74b9e2e02e0cdb2f1d9a13b1a464649f83614755d0ada25d8"
+    },
+    {
+      "member": "original/0244-source_config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/source_config.py",
+      "bytes": 5280,
+      "sha256": "d84a6604a203554617dff11cbec0909aed4164074fbb7e6781f7ddbe1b754525"
+    },
+    {
+      "member": "original/0245-origin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/origin.py",
+      "bytes": 4600,
+      "sha256": "c8a97ad75d888b2a9c1ccaf103497368eb1e8d1b93405c789510f9c572d4db7b"
+    },
+    {
+      "member": "original/0246-binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/binding.py",
+      "bytes": 6813,
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b"
+    },
+    {
+      "member": "original/0247-staging.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/staging.py",
+      "bytes": 7338,
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545"
+    },
+    {
+      "member": "original/0248-weft_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_installation.py",
+      "bytes": 35061,
+      "sha256": "3f6365faaa2c2cc30784cf6c07817a701749a452f5aa274efab798d8d70ee285"
+    },
+    {
+      "member": "original/0249-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/source.py",
+      "bytes": 4356,
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    {
+      "member": "original/0250-_weft_installation_mechanics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/_weft_installation_mechanics.py",
+      "bytes": 12852,
+      "sha256": "0be8c7465e795c707c5b102216dbc9402f9cf5c86ea5a5176f5865c3aaf2a93d"
+    },
+    {
+      "member": "original/0251-__main__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "member": "original/0252-outbox.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/outbox.py",
+      "bytes": 6525,
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4"
+    },
+    {
+      "member": "original/0253-apply.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/apply.py",
+      "bytes": 6553,
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1"
+    },
+    {
+      "member": "original/0254-weft_path_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_path_decode.py",
+      "bytes": 11170,
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    },
+    {
+      "member": "original/0255-schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/schema.py",
+      "bytes": 4334,
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b"
+    },
+    {
+      "member": "original/0256-weft_count_star_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/weft_count_star_distribution.py",
+      "bytes": 4052,
+      "sha256": "77ab37e6f0e64d58853719344f59147a22544a7f7e47e3777e76a1d6c042bc92"
+    },
+    {
+      "member": "original/0257-archaeology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/archaeology_source.py",
+      "bytes": 5846,
+      "sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c"
+    },
+    {
+      "member": "original/0258-stored_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/stored_publisher.py",
+      "bytes": 9614,
+      "sha256": "196b9e21df475b6225544512d869fca13e90d1026858a8fb1421c0b2632783be"
+    },
+    {
+      "member": "original/0259-ecology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar/ecology_source.py",
+      "bytes": 5818,
+      "sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9"
+    },
+    {
+      "member": "original/0260-indexed_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/indexed_query.py",
+      "bytes": 3755,
+      "sha256": "d57af1288c8847f06ac47cec0d065c7cfda8aeb60623211e9d7878135e2be987"
+    },
+    {
+      "member": "original/0261-evolution_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_plan.py",
+      "bytes": 10854,
+      "sha256": "756e3feded4061418f028f3ef0a0be4346caec816e0e450796dac72248e65650"
+    },
+    {
+      "member": "original/0262-supply_chain_finite_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_finite_source.py",
+      "bytes": 6403,
+      "sha256": "e0ff02d4f175df2c27b30904fa287273208417abe498c30fa7d31b27d02584f9"
+    },
+    {
+      "member": "original/0263-evolution_run.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_run.py",
+      "bytes": 22533,
+      "sha256": "cfa4885c09a6a8789fdcc073b980518fe12b161354a7e7e85858c12582db5786"
+    },
+    {
+      "member": "original/0264-finite_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/finite_projection.py",
+      "bytes": 7117,
+      "sha256": "524034472f44d4932a8459083e775b54466f4b337c4e63d8f590fbbbfc1696ac"
+    },
+    {
+      "member": "original/0265-commerce.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/commerce.py",
+      "bytes": 3296,
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a"
+    },
+    {
+      "member": "original/0266-puppy_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_release.py",
+      "bytes": 11028,
+      "sha256": "b2df51301c339e83019a008ed89576c61b3af849263c0189ec55cfb86d1128db"
+    },
+    {
+      "member": "original/0267-commerce_path_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/commerce_path_oracle.py",
+      "bytes": 8949,
+      "sha256": "8d35535e5ca38455542743d599d218d16b9f028410ecf8e7712071656d81b2fe"
+    },
+    {
+      "member": "original/0268-config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/config.py",
+      "bytes": 20935,
+      "sha256": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c"
+    },
+    {
+      "member": "original/0269-puppy_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_native.py",
+      "bytes": 13184,
+      "sha256": "256f736de56f0a19847f05590641ca954ba0747dccca60f4e6be5b79bd8dba36"
+    },
+    {
+      "member": "original/0270-fabric_gql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/fabric_gql.py",
+      "bytes": 8903,
+      "sha256": "30b97bd335c7301e05c262cdd712a01fed5e169e963252ba708cec8791c91fa1"
+    },
+    {
+      "member": "original/0271-supply_chain_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_query.py",
+      "bytes": 7247,
+      "sha256": "7e6b1053172e8d577be8744a4ebbec42c7e4e88634cc4551726b1b2ad592fddf"
+    },
+    {
+      "member": "original/0272-supply_chain_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_native.py",
+      "bytes": 16749,
+      "sha256": "3fa8b49bcc30f725ef46502285bf16809d56a80983575963bf8aedb659d3ba3a"
+    },
+    {
+      "member": "original/0273-evolution_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_composition.py",
+      "bytes": 8352,
+      "sha256": "6b6585e74ef342dbcd30f73c816229beb15ec24e4c1bfa2df8706c514335ce5b"
+    },
+    {
+      "member": "original/0274-count_star_configuration.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_configuration.py",
+      "bytes": 1558,
+      "sha256": "e47b661307ec9be5dd0211937ecf9c9e32b52ab2f3dc12eed68e827db936b647"
+    },
+    {
+      "member": "original/0275-supply_chain_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_publication.py",
+      "bytes": 658,
+      "sha256": "1d6162b82be5957a9e2ea9be2fd05ab384e13f7f2f7926f0e33b77c56fb11447"
+    },
+    {
+      "member": "original/0276-delta_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/delta_publication.py",
+      "bytes": 9874,
+      "sha256": "980206a946916077da4fdef0029b5f8ccda18b65f62ef517574f0b27444b7876"
+    },
+    {
+      "member": "original/0277-supply_chain_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_cli.py",
+      "bytes": 4744,
+      "sha256": "fce0cb8072d937117e52d28d1fc8d56ce80b24f4ea15d2a5d105a6c99a426676"
+    },
+    {
+      "member": "original/0278-delta_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/delta_custody.py",
+      "bytes": 43097,
+      "sha256": "14727644d176ba22a4b0d6ba713e77b603de785d1e373e8b0c095a4178f28c46"
+    },
+    {
+      "member": "original/0279-finite_pack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/finite_pack.py",
+      "bytes": 3060,
+      "sha256": "34bb4a3c7f1b5735accb2038055690970211d8c039d12de3723dc31d0ddbaeca"
+    },
+    {
+      "member": "original/0280-source_identity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/source_identity.py",
+      "bytes": 163,
+      "sha256": "033f3638d1d9a099d857c899a2e862d3ee9a8746fc3bfd9c210eda3429a52aec"
+    },
+    {
+      "member": "original/0281-diagnostics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "member": "original/0282-count_star_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_admission.py",
+      "bytes": 37241,
+      "sha256": "d367321d4e8f7407b2ade8261802e3552155cffe5702ebefc8ff3c0d26f45925"
+    },
+    {
+      "member": "original/0283-relationship_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/relationship_plan.py",
+      "bytes": 5781,
+      "sha256": "6e3e65793d31cdc192b986f9a916bee56fd2f8a65899c94f60d3d1c0975a97ec"
+    },
+    {
+      "member": "original/0284-puppy_carrier_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_carrier_cli.py",
+      "bytes": 3880,
+      "sha256": "4b77545db702fa06455470e7b6655652e0c3d595f60754bfbe7131a627665797"
+    },
+    {
+      "member": "original/0285-supply_chain_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_request.py",
+      "bytes": 7564,
+      "sha256": "0b256974c9d0d60fa6ad2dcf0b8c9a2d8a420355dd8e720f6e0f0e9a3fa16138"
+    },
+    {
+      "member": "original/0286-existing_outbox_authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/existing_outbox_authority.py",
+      "bytes": 12611,
+      "sha256": "dc6f5afa747b968a95a00624ac721fe876fc77b49d4dea593356a16ab3ed37a6"
+    },
+    {
+      "member": "original/0287-finite_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/finite_native.py",
+      "bytes": 20956,
+      "sha256": "cc1bdcf30315a866e174f0b726d34e4a8151e6903adbdf3dabd979a4cf2ce2e0"
+    },
+    {
+      "member": "original/0288-path_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/path_admission.py",
+      "bytes": 34970,
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c"
+    },
+    {
+      "member": "original/0289-finite_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/finite_publication.py",
+      "bytes": 14332,
+      "sha256": "5aefcaebc6cd0794141b56c21c6020708d78349a2326ca3f691cab5f697d2668"
+    },
+    {
+      "member": "original/0290-paths_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "member": "original/0291-pack_count_star_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_count_star_request.py",
+      "bytes": 6525,
+      "sha256": "ee77b67bf8e4159bdec183e43c62ec49ceac2bab730be7544fc7fc0f734648ad"
+    },
+    {
+      "member": "original/0292-pack_native_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_native_cli.py",
+      "bytes": 12720,
+      "sha256": "05b9908846ca5ca74d4e00c5ea3e3d58587a146bf63c3f6d48329dfb65dd13e7"
+    },
+    {
+      "member": "original/0293-ack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/ack.py",
+      "bytes": 13851,
+      "sha256": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce"
+    },
+    {
+      "member": "original/0294-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/__init__.py",
+      "bytes": 473,
+      "sha256": "c6adb4df03b649b9af8108eed8fa136502456ec00645d7624bba4beb715d25af"
+    },
+    {
+      "member": "original/0295-puppy_carrier.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_carrier.py",
+      "bytes": 6789,
+      "sha256": "c879b6fb84658f06213125c07b6b3b3bd2dbb0d8130eb4aee5419ff95c750f6a"
+    },
+    {
+      "member": "original/0296-otel_profile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "member": "original/0297-count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_query.py",
+      "bytes": 23496,
+      "sha256": "9d6c38012286b21fd13fec965c486c43afc7126de2f0c462c9ba16433d1655c9"
+    },
+    {
+      "member": "original/0298-ack_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/ack_sessions.py",
+      "bytes": 5355,
+      "sha256": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6"
+    },
+    {
+      "member": "original/0299-runtime.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/runtime.py",
+      "bytes": 367,
+      "sha256": "b6ce66d2210488b367a1859fdf3fc434c8de4bb54a5e8913cee58b7baee974fc"
+    },
+    {
+      "member": "original/0300-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/commerce_evolution.py",
+      "bytes": 6577,
+      "sha256": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb"
+    },
+    {
+      "member": "original/0301-evolution_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_cli.py",
+      "bytes": 13248,
+      "sha256": "8c600cafd8bebfe66ab18ca74b04e2424c3d69c2416bb3d10daf76ac468102fd"
+    },
+    {
+      "member": "original/0302-schema_rows.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/schema_rows.py",
+      "bytes": 700,
+      "sha256": "93b60d6e10622467f3aa9bc5618dab91c7e46ca499f4b6bb04d27b908c2ff032"
+    },
+    {
+      "member": "original/0303-finite_dataset.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/finite_dataset.py",
+      "bytes": 10413,
+      "sha256": "a1aab5fde9b0d9077ae1ccec9a6ebe88215e69506940229f7898bbb288cf1443"
+    },
+    {
+      "member": "original/0304-supply_chain_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_projection.py",
+      "bytes": 6248,
+      "sha256": "1ccdc2ea044e634e443e1c2158834c0869d75ce9e692172dedec555bcf2e5339"
+    },
+    {
+      "member": "original/0305-connection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/connection.py",
+      "bytes": 2059,
+      "sha256": "16e985a351d7a1c0bf4dec1b909efb0710781eff4bb1dc28aa490271eb04c5d2"
+    },
+    {
+      "member": "original/0306-delta_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/delta_query.py",
+      "bytes": 4739,
+      "sha256": "82a5768e5d18b473ab3cfdd0dd934d5755de20fc9b52d58537dd14369b05705e"
+    },
+    {
+      "member": "original/0307-commerce_path_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/commerce_path_request.py",
+      "bytes": 5743,
+      "sha256": "9a05f74c1ab9cda066188f91e51e992dfa51f1f2d2bcf8d772757a3c6fd21015"
+    },
+    {
+      "member": "original/0308-_otel_worker.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/_otel_worker.py",
+      "bytes": 34459,
+      "sha256": "03cf9ce932340d68cd25199f6ae603e78c6b1d86acbf510173ab2e36dcb4d30e"
+    },
+    {
+      "member": "original/0309-publication_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/publication_reader.py",
+      "bytes": 25078,
+      "sha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f"
+    },
+    {
+      "member": "original/0310-diagnostic_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "member": "original/0311-supply_chain_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_compile.py",
+      "bytes": 4171,
+      "sha256": "0db71bd959ebfa38861fa4335268a5272529be46e177f429b966d100ae66c509"
+    },
+    {
+      "member": "original/0312-supply_chain_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_oracle.py",
+      "bytes": 6863,
+      "sha256": "888f4c005171fb87b45a4159e4259e96ca553de30144b4b00fcbe2787c2cc497"
+    },
+    {
+      "member": "original/0313-relationship_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/relationship_query.py",
+      "bytes": 6176,
+      "sha256": "a3f6b28a665c6f08773f73e5d8c76cac5b0fe6b87441ab42c0ffdace6ac37972"
+    },
+    {
+      "member": "original/0314-pack_count_star_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_count_star_compile.py",
+      "bytes": 4485,
+      "sha256": "06fbc86b61583dea9f8aef44d293bb4e0997d5c0a97c5976c99353fe3a0dddbb"
+    },
+    {
+      "member": "original/0315-lifecycle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/lifecycle.py",
+      "bytes": 1676,
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    },
+    {
+      "member": "original/0316-puppy_release_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_release_cli.py",
+      "bytes": 11907,
+      "sha256": "b2fea2e902c386d3c772b1c27e126d717f5c4875304403be7fd08f01e9b5b5ea"
+    },
+    {
+      "member": "original/0317-count_star_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_execution.py",
+      "bytes": 23611,
+      "sha256": "a4d561a259b9357ab9726a43e86e4526ee9a70a3c04052db8b7fc68a3112dd5c"
+    },
+    {
+      "member": "original/0318-postgres.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/postgres.py",
+      "bytes": 1879,
+      "sha256": "5a1dfee0e29e2712003246e36c19383b3984b744efae6fa65bdd3a53cef134a2"
+    },
+    {
+      "member": "original/0319-pack_count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_count_star_oracle.py",
+      "bytes": 5674,
+      "sha256": "14375719fc04b8d45028449c0e7c1f52bd35fa73b9c84eee6bd8df20c2ec8dd8"
+    },
+    {
+      "member": "original/0320-path_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/path_execution.py",
+      "bytes": 22997,
+      "sha256": "13541da851c5857d0b59281a3f4f6689ab051cb4cd1b3eb671b2eae5cd0506e8"
+    },
+    {
+      "member": "original/0321-source_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/source_sessions.py",
+      "bytes": 7700,
+      "sha256": "2fac6ab77f5b2b7fab23c152546f265cdfc8d6141d7320fc31f53ddc1dc98c0f"
+    },
+    {
+      "member": "original/0322-count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_oracle.py",
+      "bytes": 4301,
+      "sha256": "31759cc92065f8334da8f87b755a09ee1d9d4fd8b79dbbebd8a9f9633ca8e3e4"
+    },
+    {
+      "member": "original/0323-puppy_gremlin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_gremlin.py",
+      "bytes": 3565,
+      "sha256": "03c4932d28b416323c30feb053a5d642b72ec6dffd64d01d9829f31c6bf55a24"
+    },
+    {
+      "member": "original/0324-path_capture.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/path_capture.py",
+      "bytes": 4898,
+      "sha256": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d"
+    },
+    {
+      "member": "original/0325-archaeology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/archaeology_oracle.py",
+      "bytes": 4031,
+      "sha256": "b662e853109b13d51f0fe858cdb8b771b019a2a91b1b0d54b721196ba42f14ff"
+    },
+    {
+      "member": "original/0326-ecology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/ecology_oracle.py",
+      "bytes": 3739,
+      "sha256": "08f474db42ed8b46f7da5301a78512848a5f49e22e967fce0c8d4f2517c06f5d"
+    },
+    {
+      "member": "original/0327-supply_chain_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_producer.py",
+      "bytes": 4269,
+      "sha256": "25a39b56021594df7c44630a2c17034749111b060f2845c73b99e4f838ea3c8f"
+    },
+    {
+      "member": "original/0328-driver.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/driver.py",
+      "bytes": 73692,
+      "sha256": "80a0f0dd2c55d922f69436f5f9e6ad53fc78b2f45ffcc465ceb92230ab46b4bd"
+    },
+    {
+      "member": "original/0329-pack_count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_count_star_query.py",
+      "bytes": 9129,
+      "sha256": "1eb77d073cf08f98f4f56e40bd3c2175bf9a62f6af00cea20772c1661b1fc37c"
+    },
+    {
+      "member": "original/0330-supply_chain_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/supply_chain_reader.py",
+      "bytes": 6452,
+      "sha256": "0f74b87a97d1f1ca300b4575995fc0e37af1513bb8c5e64207856468c06e16d7"
+    },
+    {
+      "member": "original/0331-evolution_operator.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_operator.py",
+      "bytes": 21066,
+      "sha256": "c4c1f0e76e03d9f94acb33be83335f179fdc104f16245830f9c4505ab95da5ba"
+    },
+    {
+      "member": "original/0332-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/source.py",
+      "bytes": 3982,
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a"
+    },
+    {
+      "member": "original/0333-otel.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "member": "original/0334-puppy_release_document.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/puppy_release_document.py",
+      "bytes": 6501,
+      "sha256": "bbaba4eb81310afcc6dba2c59f38845e570f11a1d8c044c1dcf626977c2d74f2"
+    },
+    {
+      "member": "original/0335-commerce_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/commerce_admission.py",
+      "bytes": 11033,
+      "sha256": "3dc8f2ceb93528565ae5cb0b95cf09c60d0de21eedbd690ef3c8f678526c37de"
+    },
+    {
+      "member": "original/0336-pack_count_star_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/pack_count_star_reader.py",
+      "bytes": 7334,
+      "sha256": "1f2d1de2dd9e5f32ac934ac9e71e43d5baf97d62ddecd9d4017d4ab7fc46bb7c"
+    },
+    {
+      "member": "original/0337-count_star_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/count_star_schema.py",
+      "bytes": 3086,
+      "sha256": "443f9bdb3d85334944940c04690082f067641e7333f6fa4e240e819ba5b59ca9"
+    },
+    {
+      "member": "original/0338-source-correspondence.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/source-correspondence.json",
+      "bytes": 9275,
+      "sha256": "587cc96f178bca90b31123a09e9c3ac2292aa830337fbf4b783705e4fc0ce4a2"
+    },
+    {
+      "member": "original/0339-evolution_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_admission.py",
+      "bytes": 23067,
+      "sha256": "e4b1f021e0583d3972cd440eee2a85fb9305b7ab2e6bf7cc49bf9cbfbad61ad4"
+    },
+    {
+      "member": "original/0340-graph_sql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/graph_sql.py",
+      "bytes": 4796,
+      "sha256": "c46ab0858db42ae5d06409abf2f8cc72d72eae2756c642485b1f106f4f18a107"
+    },
+    {
+      "member": "original/0341-path_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/path_schema.py",
+      "bytes": 3034,
+      "sha256": "db702846fcdaae8af2c64803b663891530a5b21c2b6fe61a7671838ced52441b"
+    },
+    {
+      "member": "original/0342-evolution_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0"
+    },
+    {
+      "member": "original/0343-check_supply_chain_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/check_supply_chain_dataset.ts",
+      "bytes": 6352,
+      "sha256": "f81f11dfac05c424e476dc79c2408721b9a19752c1ca6dc176d6c25138288b1d"
+    },
+    {
+      "member": "original/0344-check_finite_pack_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/check_finite_pack_dataset.ts",
+      "bytes": 6945,
+      "sha256": "8ad1397cfdab5f6dfd992a139e421ae74acbe2377cddbed7d283dd6b5ae01e6b"
+    },
+    {
+      "member": "original/0345-ontology.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/ontology.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0346-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/__init__.py",
+      "bytes": 148,
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb"
+    },
+    {
+      "member": "original/0347-check_commerce_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/check_commerce_dataset.ts",
+      "bytes": 5901,
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d"
+    },
+    {
+      "member": "original/0348-graph.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/graph.json",
+      "bytes": 23078,
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "member": "original/0349-public-presence.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "member": "original/0350-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/candidate.json",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "member": "original/0351-seed-public.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "bytes": 67527,
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1"
+    },
+    {
+      "member": "original/0352-check_evolution.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "bytes": 7419,
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2"
+    },
+    {
+      "member": "original/0353-seed-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "bytes": 174123,
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692"
+    },
+    {
+      "member": "original/0354-source-closure.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/source-closure.json",
+      "bytes": 1194249,
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6"
+    },
+    {
+      "member": "original/0355-original-model.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/evolution/original-model.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0356-01-baseline.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "bytes": 3996,
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+    },
+    {
+      "member": "original/0357-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "bytes": 11829,
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9"
+    },
+    {
+      "member": "original/0358-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/source/src/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "bytes": 2470,
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "member": "original/0359-ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1002183,
+      "sha256": "4b38b832697fbe422744dbe1a3a53cee0e9e06af0f952170221f3e3eb9f7740b"
+    },
+    {
+      "member": "original/0360-pyvenv.cfg",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/pyvenv.cfg",
+      "bytes": 415,
+      "sha256": "f2ecf970c52518a4f16bab23a1085a2fddbe2e390495f1b4aa3d5f8ac9c306bb"
+    },
+    {
+      "member": "original/0361-ashlar",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/bin/ashlar",
+      "bytes": 215,
+      "sha256": "39160059c7756637a09a906fc3d01a5a9fbb002b54bcd3fa3634794faedf4f1f"
+    },
+    {
+      "member": "original/0362-Activate.ps1",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/bin/Activate.ps1",
+      "bytes": 9033,
+      "sha256": "3795a060dea7d621320d6d841deb37591fadf7f5592c5cb2286f9867af0e91df"
+    },
+    {
+      "member": "original/0363-activate.fish",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/bin/activate.fish",
+      "bytes": 2234,
+      "sha256": "6a95f6aeee26cef52938e4a69d4f8071458fcc2940544bab8cf12a0e336d5a1d"
+    },
+    {
+      "member": "original/0364-activate",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/bin/activate",
+      "bytes": 1734,
+      "sha256": "8d00b162d898542f33aa26a2c08e077cddf647e5ca115b3c07b704d557fd375b"
+    },
+    {
+      "member": "original/0365-activate.csh",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/bin/activate.csh",
+      "bytes": 958,
+      "sha256": "7ac524b6dff0de8c8197eff7843df854c9e4ae2107578395699030272a7a03cb"
+    },
+    {
+      "member": "original/0366-catalog.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/catalog.py",
+      "bytes": 4926,
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f"
+    },
+    {
+      "member": "original/0367-weft_paths_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_package.py",
+      "bytes": 25893,
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee"
+    },
+    {
+      "member": "original/0368-report_parts.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/report_parts.py",
+      "bytes": 10863,
+      "sha256": "13d3d4cf5c929ae7549584193d929e450cbe918b95ee9d858daf253d711fe7ae"
+    },
+    {
+      "member": "original/0369-attempt_store.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/attempt_store.py",
+      "bytes": 12333,
+      "sha256": "c2c1850716aba6bff09006ff3dfa12dfe338d452811f4d0242fa2b4af123e4b5"
+    },
+    {
+      "member": "original/0370-weft_related_keys_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_related_keys_decode.py",
+      "bytes": 6711,
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "member": "original/0371-semantic_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/semantic_policy.py",
+      "bytes": 7593,
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8"
+    },
+    {
+      "member": "original/0372-recovery.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/recovery.py",
+      "bytes": 3589,
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841"
+    },
+    {
+      "member": "original/0373-csv_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/csv_source.py",
+      "bytes": 6590,
+      "sha256": "5d7efaa37516b25a8d416026f14b87d4d7071e4363deecfd4cf3d7171d216b03"
+    },
+    {
+      "member": "original/0374-manifest.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/manifest.py",
+      "bytes": 6578,
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c"
+    },
+    {
+      "member": "original/0375-profile_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/profile_custody.py",
+      "bytes": 2141,
+      "sha256": "35d2bd7fcc15595228b566dd8930c0e6c7ce63c95efadcfdd0f38904f711c5b8"
+    },
+    {
+      "member": "original/0376-maintenance.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/maintenance.py",
+      "bytes": 1643,
+      "sha256": "9058dfd21e2052175e4960bd2f45f59906de200edd645a9a5ad6993475b2e433"
+    },
+    {
+      "member": "original/0377-protocol.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/protocol.py",
+      "bytes": 3367,
+      "sha256": "aefdf8cb058cfe2b47d98f70d28c59a08d2865731c32004a7cc7c793d7cd8aae"
+    },
+    {
+      "member": "original/0378-weft_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_decode.py",
+      "bytes": 13942,
+      "sha256": "b66a26ff2fe7084eafc2d0d77c906836fcfbd08c51b14d6ae1500b38f322d3cd"
+    },
+    {
+      "member": "original/0379-effect_validation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/effect_validation.py",
+      "bytes": 2751,
+      "sha256": "61421382f15912ed14f7c3fe05e3bee15e4aca715672dae5f47e9e85d4a33a7a"
+    },
+    {
+      "member": "original/0380-retention_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/retention_policy.py",
+      "bytes": 5447,
+      "sha256": "966d3064ccf4dbdc39efd37d08d39a4a940e5fa5857beadea0516f1c0062b394"
+    },
+    {
+      "member": "original/0381-schema_registry.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/schema_registry.py",
+      "bytes": 2372,
+      "sha256": "6fc4504b4ff5d50e56e62637238f4ba7f017a5758977a87cbb6354d728bc647f"
+    },
+    {
+      "member": "original/0382-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/__init__.py",
+      "bytes": 1293,
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6"
+    },
+    {
+      "member": "original/0383-graph_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/graph_release.py",
+      "bytes": 11783,
+      "sha256": "7827fcccc873f2739a3b4a66ef21165885da05a66c95756d2fdd989f5e785f9e"
+    },
+    {
+      "member": "original/0384-native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/native.py",
+      "bytes": 4279,
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98"
+    },
+    {
+      "member": "original/0385-truss_input.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/truss_input.py",
+      "bytes": 8348,
+      "sha256": "ce990256f0992bb315adce4bf697a30497e973b35192d9e4d14216621552ac4d"
+    },
+    {
+      "member": "original/0386-medical_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/medical_source.py",
+      "bytes": 7897,
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978"
+    },
+    {
+      "member": "original/0387-assertions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/assertions.py",
+      "bytes": 6071,
+      "sha256": "2f968b7bad747e3d773047eec9430f6a1dcdf1f35bca8d6879f52d83950eed42"
+    },
+    {
+      "member": "original/0388-pins.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/pins.py",
+      "bytes": 5478,
+      "sha256": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8"
+    },
+    {
+      "member": "original/0389-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "member": "original/0390-commerce_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/commerce_source.py",
+      "bytes": 5680,
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    {
+      "member": "original/0391-weft_paths_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_installation.py",
+      "bytes": 6753,
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b"
+    },
+    {
+      "member": "original/0392-weft_paths_keys_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_keys_installation.py",
+      "bytes": 6862,
+      "sha256": "dbbfaaaeeb85805b497bf588224017f2e1805bfa5fda3e980a06e7f3a748e2e8"
+    },
+    {
+      "member": "original/0393-weft_paths_keys_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_keys_package.py",
+      "bytes": 27662,
+      "sha256": "c46366ce47870717c62801d524b059dcd142bc7d9f6751d334f3a6f484da111d"
+    },
+    {
+      "member": "original/0394-cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/cli.py",
+      "bytes": 22677,
+      "sha256": "a67ab83c57de82479930f89dc3153debc7f32685ca9e96ea64d79a30a9d39e81"
+    },
+    {
+      "member": "original/0395-retention.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/retention.py",
+      "bytes": 6975,
+      "sha256": "e68f10530089ecc89ae4dd3ad251326ef6696bbdb7d082412a8027cf1b771b0a"
+    },
+    {
+      "member": "original/0396-source_checkpoint.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/source_checkpoint.py",
+      "bytes": 9270,
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625"
+    },
+    {
+      "member": "original/0397-authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/authority.py",
+      "bytes": 2434,
+      "sha256": "babac31a4601603e3d6d0d67fe3540f680068660bb92249b555b361aa8524b51"
+    },
+    {
+      "member": "original/0398-weft_count_star_package.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_count_star_package.py",
+      "bytes": 10148,
+      "sha256": "0663726c1d09767b820864f210e4b3a3d303ff78844b748f579a8e5a620ad26a"
+    },
+    {
+      "member": "original/0399-typed_source_policy.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/typed_source_policy.py",
+      "bytes": 9678,
+      "sha256": "ae913e9b3ae4e64e8b7eef568d2038ff53476ef307bb8af75e0052b7d1da2cf0"
+    },
+    {
+      "member": "original/0400-publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/publication.py",
+      "bytes": 6264,
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "member": "original/0401-weft_binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_binding.py",
+      "bytes": 4314,
+      "sha256": "49892a1baad9cf0cd4408a394fa75ffb0e0c1615f7d3e00bbc6f0b94ab418ade"
+    },
+    {
+      "member": "original/0402-supply_chain_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/supply_chain_source.py",
+      "bytes": 5833,
+      "sha256": "b9eb3616923658ba3b4c1b3315b5cf6bde05924c8f77fed6e7fa8e5d997f2c33"
+    },
+    {
+      "member": "original/0403-singleton.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/singleton.py",
+      "bytes": 4947,
+      "sha256": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41"
+    },
+    {
+      "member": "original/0404-durable_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/durable_publisher.py",
+      "bytes": 4088,
+      "sha256": "3de4a1253020c2eb8f99f77b08d2d5cbe4e5dd55d3dd76786ba409e40e36db60"
+    },
+    {
+      "member": "original/0405-quarantine.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/quarantine.py",
+      "bytes": 2259,
+      "sha256": "cfa8902a467b72e7a24c55655eb018b694685211f6f53ee803139a7121a3f000"
+    },
+    {
+      "member": "original/0406-weft_paths_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_distribution.py",
+      "bytes": 3790,
+      "sha256": "8e592efcc2518b69d8113e7bbf1a9f0b00dc6003c79f6e64083e5e4f2e7f8b7f"
+    },
+    {
+      "member": "original/0407-weft_paths_keys_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_paths_keys_distribution.py",
+      "bytes": 4043,
+      "sha256": "84f103f1a13b781d0692cb7c939e2fa747b2e8269ed61779721bebd06170342f"
+    },
+    {
+      "member": "original/0408-schema_policies.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/schema_policies.py",
+      "bytes": 1324,
+      "sha256": "9624fd24dce680d314c547cb08e87d6f4b1a190ee1781856bee63e1a85b08f4e"
+    },
+    {
+      "member": "original/0409-publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/publisher.py",
+      "bytes": 6750,
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c"
+    },
+    {
+      "member": "original/0410-weft_count_star_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_count_star_installation.py",
+      "bytes": 7338,
+      "sha256": "ba743ce0542db84f700f45580a9929d2035d3fb7f423dffa3ccd764c70ce4387"
+    },
+    {
+      "member": "original/0411-truss_feed.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/truss_feed.py",
+      "bytes": 5604,
+      "sha256": "3829993c92859a0bd3cec7e66834c70394b86b05ca41f83bea8ee84c2d695992"
+    },
+    {
+      "member": "original/0412-whole_entity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/whole_entity.py",
+      "bytes": 2019,
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f"
+    },
+    {
+      "member": "original/0413-weft_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_query.py",
+      "bytes": 6409,
+      "sha256": "81ed8f75594402e48ab5c01ba3f827bed007c9ff6b431e7f7a28e7854b041910"
+    },
+    {
+      "member": "original/0414-lineage.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/lineage.py",
+      "bytes": 3404,
+      "sha256": "e907213575039d9c191ee7b45a840b81c7d2009a3f63c946d906fc2b2ba2b3f2"
+    },
+    {
+      "member": "original/0415-weft_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_distribution.py",
+      "bytes": 4204,
+      "sha256": "5a0b6814f74d1cd74b9e2e02e0cdb2f1d9a13b1a464649f83614755d0ada25d8"
+    },
+    {
+      "member": "original/0416-source_config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/source_config.py",
+      "bytes": 5280,
+      "sha256": "d84a6604a203554617dff11cbec0909aed4164074fbb7e6781f7ddbe1b754525"
+    },
+    {
+      "member": "original/0417-origin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/origin.py",
+      "bytes": 4600,
+      "sha256": "c8a97ad75d888b2a9c1ccaf103497368eb1e8d1b93405c789510f9c572d4db7b"
+    },
+    {
+      "member": "original/0418-binding.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/binding.py",
+      "bytes": 6813,
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b"
+    },
+    {
+      "member": "original/0419-staging.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/staging.py",
+      "bytes": 7338,
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545"
+    },
+    {
+      "member": "original/0420-weft_installation.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_installation.py",
+      "bytes": 35061,
+      "sha256": "3f6365faaa2c2cc30784cf6c07817a701749a452f5aa274efab798d8d70ee285"
+    },
+    {
+      "member": "original/0421-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/source.py",
+      "bytes": 4356,
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    {
+      "member": "original/0422-_weft_installation_mechanics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/_weft_installation_mechanics.py",
+      "bytes": 12852,
+      "sha256": "0be8c7465e795c707c5b102216dbc9402f9cf5c86ea5a5176f5865c3aaf2a93d"
+    },
+    {
+      "member": "original/0423-__main__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "member": "original/0424-outbox.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/outbox.py",
+      "bytes": 6525,
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4"
+    },
+    {
+      "member": "original/0425-apply.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/apply.py",
+      "bytes": 6553,
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1"
+    },
+    {
+      "member": "original/0426-weft_path_decode.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_path_decode.py",
+      "bytes": 11170,
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    },
+    {
+      "member": "original/0427-schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/schema.py",
+      "bytes": 4334,
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b"
+    },
+    {
+      "member": "original/0428-weft_count_star_distribution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/weft_count_star_distribution.py",
+      "bytes": 4052,
+      "sha256": "77ab37e6f0e64d58853719344f59147a22544a7f7e47e3777e76a1d6c042bc92"
+    },
+    {
+      "member": "original/0429-archaeology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/archaeology_source.py",
+      "bytes": 5846,
+      "sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c"
+    },
+    {
+      "member": "original/0430-stored_publisher.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/stored_publisher.py",
+      "bytes": 9614,
+      "sha256": "196b9e21df475b6225544512d869fca13e90d1026858a8fb1421c0b2632783be"
+    },
+    {
+      "member": "original/0431-ecology_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar/ecology_source.py",
+      "bytes": 5818,
+      "sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9"
+    },
+    {
+      "member": "original/0432-RECORD",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/RECORD",
+      "bytes": 15379,
+      "sha256": "488e887e0278e70584a4b093151690f912ab424e9b132fe42f79e9cfdf125701"
+    },
+    {
+      "member": "original/0433-direct_url.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/direct_url.json",
+      "bytes": 323,
+      "sha256": "a59570e9d098eea2c7a50c6d489040490656ac02b1ffd67cbda11bbabfc2b7ca"
+    },
+    {
+      "member": "original/0434-WHEEL",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/WHEEL",
+      "bytes": 91,
+      "sha256": "4a63b1614ee9ccd281a804af409ec38d7dd719417dda5ac684c6f747afe28aa2"
+    },
+    {
+      "member": "original/0435-entry_points.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/entry_points.txt",
+      "bytes": 43,
+      "sha256": "8698353998fa8e6060e03f19a8b6cf7b37ad8602f9ccfba8ab79057a2133ba1b"
+    },
+    {
+      "member": "original/0436-top_level.txt",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/top_level.txt",
+      "bytes": 19,
+      "sha256": "cc8dc4f344013680993051b5f0985aa0942ac8d510d9c7af3b95c0882aff0f99"
+    },
+    {
+      "member": "original/0437-REQUESTED",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/REQUESTED",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0438-INSTALLER",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/INSTALLER",
+      "bytes": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "member": "original/0439-METADATA",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/METADATA",
+      "bytes": 6988,
+      "sha256": "079b2214e1f82617f3796c4b0ddda09c5f5b479b02ea38014de5977f999167e4"
+    },
+    {
+      "member": "original/0440-indexed_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/indexed_query.py",
+      "bytes": 3755,
+      "sha256": "d57af1288c8847f06ac47cec0d065c7cfda8aeb60623211e9d7878135e2be987"
+    },
+    {
+      "member": "original/0441-evolution_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_plan.py",
+      "bytes": 10854,
+      "sha256": "756e3feded4061418f028f3ef0a0be4346caec816e0e450796dac72248e65650"
+    },
+    {
+      "member": "original/0442-supply_chain_finite_source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_finite_source.py",
+      "bytes": 6403,
+      "sha256": "e0ff02d4f175df2c27b30904fa287273208417abe498c30fa7d31b27d02584f9"
+    },
+    {
+      "member": "original/0443-evolution_run.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_run.py",
+      "bytes": 22533,
+      "sha256": "cfa4885c09a6a8789fdcc073b980518fe12b161354a7e7e85858c12582db5786"
+    },
+    {
+      "member": "original/0444-finite_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/finite_projection.py",
+      "bytes": 7117,
+      "sha256": "524034472f44d4932a8459083e775b54466f4b337c4e63d8f590fbbbfc1696ac"
+    },
+    {
+      "member": "original/0445-commerce.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/commerce.py",
+      "bytes": 3296,
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a"
+    },
+    {
+      "member": "original/0446-puppy_release.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_release.py",
+      "bytes": 11028,
+      "sha256": "b2df51301c339e83019a008ed89576c61b3af849263c0189ec55cfb86d1128db"
+    },
+    {
+      "member": "original/0447-commerce_path_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/commerce_path_oracle.py",
+      "bytes": 8949,
+      "sha256": "8d35535e5ca38455542743d599d218d16b9f028410ecf8e7712071656d81b2fe"
+    },
+    {
+      "member": "original/0448-config.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/config.py",
+      "bytes": 20935,
+      "sha256": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c"
+    },
+    {
+      "member": "original/0449-puppy_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_native.py",
+      "bytes": 13184,
+      "sha256": "256f736de56f0a19847f05590641ca954ba0747dccca60f4e6be5b79bd8dba36"
+    },
+    {
+      "member": "original/0450-fabric_gql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/fabric_gql.py",
+      "bytes": 8903,
+      "sha256": "30b97bd335c7301e05c262cdd712a01fed5e169e963252ba708cec8791c91fa1"
+    },
+    {
+      "member": "original/0451-supply_chain_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_query.py",
+      "bytes": 7247,
+      "sha256": "7e6b1053172e8d577be8744a4ebbec42c7e4e88634cc4551726b1b2ad592fddf"
+    },
+    {
+      "member": "original/0452-supply_chain_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_native.py",
+      "bytes": 16749,
+      "sha256": "3fa8b49bcc30f725ef46502285bf16809d56a80983575963bf8aedb659d3ba3a"
+    },
+    {
+      "member": "original/0453-evolution_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_composition.py",
+      "bytes": 8352,
+      "sha256": "6b6585e74ef342dbcd30f73c816229beb15ec24e4c1bfa2df8706c514335ce5b"
+    },
+    {
+      "member": "original/0454-count_star_configuration.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_configuration.py",
+      "bytes": 1558,
+      "sha256": "e47b661307ec9be5dd0211937ecf9c9e32b52ab2f3dc12eed68e827db936b647"
+    },
+    {
+      "member": "original/0455-supply_chain_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_publication.py",
+      "bytes": 658,
+      "sha256": "1d6162b82be5957a9e2ea9be2fd05ab384e13f7f2f7926f0e33b77c56fb11447"
+    },
+    {
+      "member": "original/0456-delta_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/delta_publication.py",
+      "bytes": 9874,
+      "sha256": "980206a946916077da4fdef0029b5f8ccda18b65f62ef517574f0b27444b7876"
+    },
+    {
+      "member": "original/0457-supply_chain_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_cli.py",
+      "bytes": 4744,
+      "sha256": "fce0cb8072d937117e52d28d1fc8d56ce80b24f4ea15d2a5d105a6c99a426676"
+    },
+    {
+      "member": "original/0458-delta_custody.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/delta_custody.py",
+      "bytes": 43097,
+      "sha256": "14727644d176ba22a4b0d6ba713e77b603de785d1e373e8b0c095a4178f28c46"
+    },
+    {
+      "member": "original/0459-finite_pack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/finite_pack.py",
+      "bytes": 3060,
+      "sha256": "34bb4a3c7f1b5735accb2038055690970211d8c039d12de3723dc31d0ddbaeca"
+    },
+    {
+      "member": "original/0460-source_identity.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/source_identity.py",
+      "bytes": 163,
+      "sha256": "033f3638d1d9a099d857c899a2e862d3ee9a8746fc3bfd9c210eda3429a52aec"
+    },
+    {
+      "member": "original/0461-diagnostics.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "member": "original/0462-count_star_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_admission.py",
+      "bytes": 37241,
+      "sha256": "d367321d4e8f7407b2ade8261802e3552155cffe5702ebefc8ff3c0d26f45925"
+    },
+    {
+      "member": "original/0463-relationship_plan.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/relationship_plan.py",
+      "bytes": 5781,
+      "sha256": "6e3e65793d31cdc192b986f9a916bee56fd2f8a65899c94f60d3d1c0975a97ec"
+    },
+    {
+      "member": "original/0464-puppy_carrier_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_carrier_cli.py",
+      "bytes": 3880,
+      "sha256": "4b77545db702fa06455470e7b6655652e0c3d595f60754bfbe7131a627665797"
+    },
+    {
+      "member": "original/0465-supply_chain_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_request.py",
+      "bytes": 7564,
+      "sha256": "0b256974c9d0d60fa6ad2dcf0b8c9a2d8a420355dd8e720f6e0f0e9a3fa16138"
+    },
+    {
+      "member": "original/0466-existing_outbox_authority.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/existing_outbox_authority.py",
+      "bytes": 12611,
+      "sha256": "dc6f5afa747b968a95a00624ac721fe876fc77b49d4dea593356a16ab3ed37a6"
+    },
+    {
+      "member": "original/0467-finite_native.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/finite_native.py",
+      "bytes": 20956,
+      "sha256": "cc1bdcf30315a866e174f0b726d34e4a8151e6903adbdf3dabd979a4cf2ce2e0"
+    },
+    {
+      "member": "original/0468-path_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/path_admission.py",
+      "bytes": 34970,
+      "sha256": "d67f87249ea9f2e5d6a1dfc77b61a9d25dba90aa63aa418997ab219d752b517c"
+    },
+    {
+      "member": "original/0469-finite_publication.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/finite_publication.py",
+      "bytes": 14332,
+      "sha256": "5aefcaebc6cd0794141b56c21c6020708d78349a2326ca3f691cab5f697d2668"
+    },
+    {
+      "member": "original/0470-paths_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "member": "original/0471-pack_count_star_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_count_star_request.py",
+      "bytes": 6525,
+      "sha256": "ee77b67bf8e4159bdec183e43c62ec49ceac2bab730be7544fc7fc0f734648ad"
+    },
+    {
+      "member": "original/0472-pack_native_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_native_cli.py",
+      "bytes": 12720,
+      "sha256": "05b9908846ca5ca74d4e00c5ea3e3d58587a146bf63c3f6d48329dfb65dd13e7"
+    },
+    {
+      "member": "original/0473-ack.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/ack.py",
+      "bytes": 13851,
+      "sha256": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce"
+    },
+    {
+      "member": "original/0474-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/__init__.py",
+      "bytes": 473,
+      "sha256": "c6adb4df03b649b9af8108eed8fa136502456ec00645d7624bba4beb715d25af"
+    },
+    {
+      "member": "original/0475-puppy_carrier.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_carrier.py",
+      "bytes": 6789,
+      "sha256": "c879b6fb84658f06213125c07b6b3b3bd2dbb0d8130eb4aee5419ff95c750f6a"
+    },
+    {
+      "member": "original/0476-otel_profile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "member": "original/0477-count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_query.py",
+      "bytes": 23496,
+      "sha256": "9d6c38012286b21fd13fec965c486c43afc7126de2f0c462c9ba16433d1655c9"
+    },
+    {
+      "member": "original/0478-ack_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/ack_sessions.py",
+      "bytes": 5355,
+      "sha256": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6"
+    },
+    {
+      "member": "original/0479-runtime.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/runtime.py",
+      "bytes": 367,
+      "sha256": "b6ce66d2210488b367a1859fdf3fc434c8de4bb54a5e8913cee58b7baee974fc"
+    },
+    {
+      "member": "original/0480-commerce_evolution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/commerce_evolution.py",
+      "bytes": 6577,
+      "sha256": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb"
+    },
+    {
+      "member": "original/0481-evolution_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_cli.py",
+      "bytes": 13248,
+      "sha256": "8c600cafd8bebfe66ab18ca74b04e2424c3d69c2416bb3d10daf76ac468102fd"
+    },
+    {
+      "member": "original/0482-schema_rows.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/schema_rows.py",
+      "bytes": 700,
+      "sha256": "93b60d6e10622467f3aa9bc5618dab91c7e46ca499f4b6bb04d27b908c2ff032"
+    },
+    {
+      "member": "original/0483-finite_dataset.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/finite_dataset.py",
+      "bytes": 10413,
+      "sha256": "a1aab5fde9b0d9077ae1ccec9a6ebe88215e69506940229f7898bbb288cf1443"
+    },
+    {
+      "member": "original/0484-supply_chain_projection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_projection.py",
+      "bytes": 6248,
+      "sha256": "1ccdc2ea044e634e443e1c2158834c0869d75ce9e692172dedec555bcf2e5339"
+    },
+    {
+      "member": "original/0485-connection.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/connection.py",
+      "bytes": 2059,
+      "sha256": "16e985a351d7a1c0bf4dec1b909efb0710781eff4bb1dc28aa490271eb04c5d2"
+    },
+    {
+      "member": "original/0486-delta_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/delta_query.py",
+      "bytes": 4739,
+      "sha256": "82a5768e5d18b473ab3cfdd0dd934d5755de20fc9b52d58537dd14369b05705e"
+    },
+    {
+      "member": "original/0487-commerce_path_request.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/commerce_path_request.py",
+      "bytes": 5743,
+      "sha256": "9a05f74c1ab9cda066188f91e51e992dfa51f1f2d2bcf8d772757a3c6fd21015"
+    },
+    {
+      "member": "original/0488-_otel_worker.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/_otel_worker.py",
+      "bytes": 34459,
+      "sha256": "03cf9ce932340d68cd25199f6ae603e78c6b1d86acbf510173ab2e36dcb4d30e"
+    },
+    {
+      "member": "original/0489-publication_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/publication_reader.py",
+      "bytes": 25078,
+      "sha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f"
+    },
+    {
+      "member": "original/0490-diagnostic_composition.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "member": "original/0491-supply_chain_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_compile.py",
+      "bytes": 4171,
+      "sha256": "0db71bd959ebfa38861fa4335268a5272529be46e177f429b966d100ae66c509"
+    },
+    {
+      "member": "original/0492-supply_chain_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_oracle.py",
+      "bytes": 6863,
+      "sha256": "888f4c005171fb87b45a4159e4259e96ca553de30144b4b00fcbe2787c2cc497"
+    },
+    {
+      "member": "original/0493-relationship_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/relationship_query.py",
+      "bytes": 6176,
+      "sha256": "a3f6b28a665c6f08773f73e5d8c76cac5b0fe6b87441ab42c0ffdace6ac37972"
+    },
+    {
+      "member": "original/0494-pack_count_star_compile.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_count_star_compile.py",
+      "bytes": 4485,
+      "sha256": "06fbc86b61583dea9f8aef44d293bb4e0997d5c0a97c5976c99353fe3a0dddbb"
+    },
+    {
+      "member": "original/0495-lifecycle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/lifecycle.py",
+      "bytes": 1676,
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    },
+    {
+      "member": "original/0496-puppy_release_cli.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_release_cli.py",
+      "bytes": 11907,
+      "sha256": "b2fea2e902c386d3c772b1c27e126d717f5c4875304403be7fd08f01e9b5b5ea"
+    },
+    {
+      "member": "original/0497-count_star_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_execution.py",
+      "bytes": 23611,
+      "sha256": "a4d561a259b9357ab9726a43e86e4526ee9a70a3c04052db8b7fc68a3112dd5c"
+    },
+    {
+      "member": "original/0498-postgres.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/postgres.py",
+      "bytes": 1879,
+      "sha256": "5a1dfee0e29e2712003246e36c19383b3984b744efae6fa65bdd3a53cef134a2"
+    },
+    {
+      "member": "original/0499-pack_count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_count_star_oracle.py",
+      "bytes": 5674,
+      "sha256": "14375719fc04b8d45028449c0e7c1f52bd35fa73b9c84eee6bd8df20c2ec8dd8"
+    },
+    {
+      "member": "original/0500-path_execution.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/path_execution.py",
+      "bytes": 22997,
+      "sha256": "13541da851c5857d0b59281a3f4f6689ab051cb4cd1b3eb671b2eae5cd0506e8"
+    },
+    {
+      "member": "original/0501-source_sessions.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/source_sessions.py",
+      "bytes": 7700,
+      "sha256": "2fac6ab77f5b2b7fab23c152546f265cdfc8d6141d7320fc31f53ddc1dc98c0f"
+    },
+    {
+      "member": "original/0502-count_star_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_oracle.py",
+      "bytes": 4301,
+      "sha256": "31759cc92065f8334da8f87b755a09ee1d9d4fd8b79dbbebd8a9f9633ca8e3e4"
+    },
+    {
+      "member": "original/0503-puppy_gremlin.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_gremlin.py",
+      "bytes": 3565,
+      "sha256": "03c4932d28b416323c30feb053a5d642b72ec6dffd64d01d9829f31c6bf55a24"
+    },
+    {
+      "member": "original/0504-path_capture.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/path_capture.py",
+      "bytes": 4898,
+      "sha256": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d"
+    },
+    {
+      "member": "original/0505-archaeology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/archaeology_oracle.py",
+      "bytes": 4031,
+      "sha256": "b662e853109b13d51f0fe858cdb8b771b019a2a91b1b0d54b721196ba42f14ff"
+    },
+    {
+      "member": "original/0506-ecology_oracle.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/ecology_oracle.py",
+      "bytes": 3739,
+      "sha256": "08f474db42ed8b46f7da5301a78512848a5f49e22e967fce0c8d4f2517c06f5d"
+    },
+    {
+      "member": "original/0507-supply_chain_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_producer.py",
+      "bytes": 4269,
+      "sha256": "25a39b56021594df7c44630a2c17034749111b060f2845c73b99e4f838ea3c8f"
+    },
+    {
+      "member": "original/0508-driver.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/driver.py",
+      "bytes": 73692,
+      "sha256": "80a0f0dd2c55d922f69436f5f9e6ad53fc78b2f45ffcc465ceb92230ab46b4bd"
+    },
+    {
+      "member": "original/0509-pack_count_star_query.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_count_star_query.py",
+      "bytes": 9129,
+      "sha256": "1eb77d073cf08f98f4f56e40bd3c2175bf9a62f6af00cea20772c1661b1fc37c"
+    },
+    {
+      "member": "original/0510-supply_chain_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/supply_chain_reader.py",
+      "bytes": 6452,
+      "sha256": "0f74b87a97d1f1ca300b4575995fc0e37af1513bb8c5e64207856468c06e16d7"
+    },
+    {
+      "member": "original/0511-evolution_operator.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_operator.py",
+      "bytes": 21066,
+      "sha256": "c4c1f0e76e03d9f94acb33be83335f179fdc104f16245830f9c4505ab95da5ba"
+    },
+    {
+      "member": "original/0512-source.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/source.py",
+      "bytes": 3982,
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a"
+    },
+    {
+      "member": "original/0513-otel.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "member": "original/0514-puppy_release_document.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/puppy_release_document.py",
+      "bytes": 6501,
+      "sha256": "bbaba4eb81310afcc6dba2c59f38845e570f11a1d8c044c1dcf626977c2d74f2"
+    },
+    {
+      "member": "original/0515-commerce_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/commerce_admission.py",
+      "bytes": 11033,
+      "sha256": "3dc8f2ceb93528565ae5cb0b95cf09c60d0de21eedbd690ef3c8f678526c37de"
+    },
+    {
+      "member": "original/0516-pack_count_star_reader.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/pack_count_star_reader.py",
+      "bytes": 7334,
+      "sha256": "1f2d1de2dd9e5f32ac934ac9e71e43d5baf97d62ddecd9d4017d4ab7fc46bb7c"
+    },
+    {
+      "member": "original/0517-count_star_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/count_star_schema.py",
+      "bytes": 3086,
+      "sha256": "443f9bdb3d85334944940c04690082f067641e7333f6fa4e240e819ba5b59ca9"
+    },
+    {
+      "member": "original/0518-source-correspondence.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/source-correspondence.json",
+      "bytes": 9275,
+      "sha256": "587cc96f178bca90b31123a09e9c3ac2292aa830337fbf4b783705e4fc0ce4a2"
+    },
+    {
+      "member": "original/0519-evolution_admission.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_admission.py",
+      "bytes": 23067,
+      "sha256": "e4b1f021e0583d3972cd440eee2a85fb9305b7ab2e6bf7cc49bf9cbfbad61ad4"
+    },
+    {
+      "member": "original/0520-graph_sql.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/graph_sql.py",
+      "bytes": 4796,
+      "sha256": "c46ab0858db42ae5d06409abf2f8cc72d72eae2756c642485b1f106f4f18a107"
+    },
+    {
+      "member": "original/0521-path_schema.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/path_schema.py",
+      "bytes": 3034,
+      "sha256": "db702846fcdaae8af2c64803b663891530a5b21c2b6fe61a7671838ced52441b"
+    },
+    {
+      "member": "original/0522-evolution_producer.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0"
+    },
+    {
+      "member": "original/0523-check_supply_chain_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/check_supply_chain_dataset.ts",
+      "bytes": 6352,
+      "sha256": "f81f11dfac05c424e476dc79c2408721b9a19752c1ca6dc176d6c25138288b1d"
+    },
+    {
+      "member": "original/0524-check_finite_pack_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/check_finite_pack_dataset.ts",
+      "bytes": 6945,
+      "sha256": "8ad1397cfdab5f6dfd992a139e421ae74acbe2377cddbed7d283dd6b5ae01e6b"
+    },
+    {
+      "member": "original/0525-ontology.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/ontology.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0526-__init__.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/__init__.py",
+      "bytes": 148,
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb"
+    },
+    {
+      "member": "original/0527-check_commerce_dataset.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/check_commerce_dataset.ts",
+      "bytes": 5901,
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d"
+    },
+    {
+      "member": "original/0528-graph.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/graph.json",
+      "bytes": 23078,
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "member": "original/0529-public-presence.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/public-presence.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "member": "original/0530-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/candidate.json",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "member": "original/0531-seed-public.json.gz",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/seed-public.json.gz",
+      "bytes": 67527,
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1"
+    },
+    {
+      "member": "original/0532-check_evolution.ts",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/check_evolution.ts",
+      "bytes": 7419,
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2"
+    },
+    {
+      "member": "original/0533-seed-candidate.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/seed-candidate.json",
+      "bytes": 174123,
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692"
+    },
+    {
+      "member": "original/0534-source-closure.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/source-closure.json",
+      "bytes": 1194249,
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6"
+    },
+    {
+      "member": "original/0535-original-model.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/evolution/original-model.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "member": "original/0536-01-baseline.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "bytes": 3996,
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060"
+    },
+    {
+      "member": "original/0537-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "bytes": 11829,
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9"
+    },
+    {
+      "member": "original/0538-01-postgresql.sql",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/venv/lib/python3.11/site-packages/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "bytes": 2470,
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "member": "original/0539-observations.jsonl",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-query-output/observations.jsonl",
+      "bytes": 5446745,
+      "sha256": "72af1114276f5e0ac265de154eea5ae7921a79802725a038a9269357ab0162e0"
+    },
+    {
+      "member": "original/0540-public-dataset.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b/archaeology-query-output/public-dataset.json",
+      "bytes": 1106427,
+      "sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326"
+    },
+    {
+      "member": "original/0541-ashlar-finite-pack-installed-query-independent-command-review-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-independent-command-review-b.json",
+      "bytes": 1871,
+      "sha256": "a2393f653e4dcdab1d4dc12eec65146dd4e9131865b2511f3c8627e5f56b548d"
+    },
+    {
+      "member": "original/0542-ashlar-finite-pack-installed-query-source-inventory-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-source-inventory-b.json",
+      "bytes": 32916,
+      "sha256": "260168ca083252ccfde8ef04a24f909a09c45a12e05c38970665f32f3c7a195b"
+    },
+    {
+      "member": "original/0543-ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.receipt.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.receipt.json",
+      "bytes": 736,
+      "sha256": "a3496b8359102db876c499271db6dd528759fe37328c47194c0e39f5045b58ff"
+    },
+    {
+      "member": "original/0544-ashlar-finite-pack-installed-query-closure-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-closure-b.json",
+      "bytes": 1684510,
+      "sha256": "942e93dbf62275de6f946b9a1e3d0eba6a45789bd984f9783ade801fb4a728d7"
+    },
+    {
+      "member": "original/0545-ashlar-finite-pack-installed-query-runner-b.py",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-runner-b.py",
+      "bytes": 17475,
+      "sha256": "0297ec9948b55b2ce7b9f13df288553cec4db952ee0cfac87ed8c12e02117fda"
+    },
+    {
+      "member": "original/0546-ashlar-finite-pack-installed-query-20261010-b-archaeology.receipt.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b-archaeology.receipt.json",
+      "bytes": 139,
+      "sha256": "be1d8a09f304bb51ae56e2c47e79c4ed9e7c29968a9edd05b66c2eb838cc9aa7"
+    },
+    {
+      "member": "original/0547-ashlar-finite-pack-installed-query-metadata-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-metadata-b.json",
+      "bytes": 1857,
+      "sha256": "e24fa756a1c53f806649c9f347f46c4e915c7e824c8f12f4913e4ed76615571e"
+    },
+    {
+      "member": "original/0548-ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.stderr",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.stderr",
+      "bytes": 855,
+      "sha256": "3f98e9e0501eaf50f640c96077bf11f6eecc76a39232b00e982c2938be8be553"
+    },
+    {
+      "member": "original/0549-ashlar-finite-pack-installed-query-command-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-command-b.json",
+      "bytes": 3312,
+      "sha256": "067d20cad16fbde8a521b649cc428fb1a8b6955b7099022e5e44311399d9ee50"
+    },
+    {
+      "member": "original/0550-ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.stdout",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-20261010-b-archaeology.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "original/0551-ashlar-finite-pack-installed-query-actual-failure-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-actual-failure-b.json",
+      "bytes": 126604,
+      "sha256": "c286cfd971fb92d9be06e1b488785e3fcd865c00b357add58f7002de50355c90"
+    },
+    {
+      "member": "original/0552-ashlar-finite-pack-installed-query-independent-failure-review-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-independent-failure-review-b.json",
+      "bytes": 1459,
+      "sha256": "887aad7091bac37f1c62a26419a1352cb00e932d43a276f03cb56a4af9afa3b2"
+    },
+    {
+      "member": "original/0553-ashlar-finite-pack-installed-query-pure-failure-analysis-b.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-pure-failure-analysis-b.json",
+      "bytes": 1230,
+      "sha256": "03a5c7c5a98efe56716a1d784d530bbf8e03551a14213fc25d7a3d4c2b67e707"
+    },
+    {
+      "member": "original/0554-ashlar-original17-publicsource-pure-capacity-b.json",
+      "original": "/private/tmp/ashlar-original17-publicsource-pure-capacity-b.json",
+      "bytes": 6316,
+      "sha256": "a72e6be5c79e44575283d659a87cfb522bb085fe4b520e84b07e1d1c6dddc11b"
+    },
+    {
+      "member": "original/0555-ashlar-finite-pack-installed-query-command-a.json",
+      "original": "/private/tmp/ashlar-finite-pack-installed-query-command-a.json",
+      "bytes": 3219,
+      "sha256": "d901496665200447d651c0dcdbc90bbdd90b235b8a000d14d9edc6a1ccb40a35"
+    },
+    {
+      "member": "original/0556-ashlar-finite-installed-query-parser-control-b.py",
+      "original": "/private/tmp/ashlar-finite-installed-query-parser-control-b.py",
+      "bytes": 1463,
+      "sha256": "2fc77ce2c0fb56188493496317d68fcee3c4d4a04ca592235d83848605c24403"
+    },
+    {
+      "member": "original/0557-ashlar-count-star-installed-cli-capture-a.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "member": "original/0558-ashlar-supply-chain-native-read-launcher-h.py",
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "bytes": 2854,
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    }
+  ]
+}
