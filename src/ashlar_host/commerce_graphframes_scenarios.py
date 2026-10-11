@@ -85,10 +85,25 @@ def validate_case(profile,name,schema,raw):
  if bag(raw)!=bag(cases[0]['original_graph_expected']):raise ValueError('Original complete commerce scenario occurrence bag differs')
  return raw
 
+def commerce_relationship_types(profile):
+ """Resolve authored relationship IDs, distinct from UMF Element references."""
+ model=json.loads(base64.b64decode(profile['source_admission']['original_model_base64'],validate=True))
+ declared={(model['id'],module['id'],relation['id']) for module in model['modules'] for relation in module.get('relationships',[])}
+ identities={};result={}
+ for row in profile['edges']:
+  reference=json.loads(row['retained_json'])['original']['relationship']
+  if type(reference)is not dict or set(reference)!={'document','module','id'} or any(type(reference[name])is not str for name in reference):raise ValueError('Exact original relationship reference required')
+  identity=tuple(reference[name]for name in ('document','module','id'))
+  if identity not in declared:raise ValueError('Original relationship document/module/id differs')
+  name=reference['id'];native=row['rel_type_id']
+  if name in identities and (identities[name]!=identity or result[name]!=native):raise ValueError('Unambiguous original relationship/native type required')
+  identities[name]=identity;result[name]=native
+ return result
+
 def execute_commerce_graphframes_scenarios(frame,profile,observe):
  from pyspark.sql import functions as F
  fields={(f['record_identity'][2],f['original_field']['name']):f for f in profile['fields']}
- edges={json.loads(r['retained_json'])['original']['relationship']['element']:r['rel_type_id']for r in profile['edges']}
+ edges=commerce_relationship_types(profile)
  def lexical(alias,record,name):return F.col(alias+'.'+fields[(record,name)]['lexical_column'])
  def number(alias,record,name):
   field=fields[(record,name)]['original_field'];return lexical(alias,record,name).cast('decimal(38,0)'if field['scalarType']=='integer'else'decimal(18,2)')
