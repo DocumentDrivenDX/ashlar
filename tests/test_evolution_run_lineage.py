@@ -41,6 +41,82 @@ class Tests(unittest.TestCase):
         self.assertEqual([json.loads(item['source_checkpoint_json'])['position'] for item in self.reads], ['1','1','2','2','3','3','4','4'])
         self.assertIsNone(self.driver.policy.active)
 
+    def test_single_admission_reuses_complete_histories_with_timestamp_and_closing(self):
+        from datetime import datetime
+        calls = []
+        def history(target):
+            calls.append(target.table)
+            return [{'version': 0, 'timestamp': datetime(2026, 10, 11),
+                     'operationMetrics': {'unknown_metric': 'retained'}}]
+        self.driver.transport.original_history = history
+        self.admit(self.empty)
+        tables = set(self.driver.transport.targets)
+        self.assertEqual(len(calls), 2 * len(tables) + 4)
+        self.assertEqual(set(calls), tables)
+        graph_tables = {self.driver.tables[role] for role in self.driver.source_admission.columns}
+        self.assertTrue(all(calls.count(table) == (3 if table in graph_tables else 2) for table in tables))
+        self.assertEqual(len(self.reads), 8)
+
+    def test_closing_history_numeric_extension_or_uuid_drift_refuses(self):
+        from datetime import datetime, timezone, timedelta
+        from ashlar_host.delta_custody import LocalDeltaError
+        original_detail = self.driver.transport._detail
+        for kind in ('number', 'extension', 'uuid', 'fold', 'timezone'):
+            calls = {}
+            def history(target):
+                calls[target.table] = calls.get(target.table, 0) + 1
+                row = {'version': 0, 'timestamp': datetime(2026, 10, 11), 'extension': 'original'}
+                if kind == 'timezone':
+                    row['timestamp'] = datetime(2026, 10, 11, tzinfo=timezone.utc)
+                if calls[target.table] == 2:
+                    if kind == 'fold': row['timestamp'] = row['timestamp'].replace(fold=1)
+                    if kind == 'timezone': row['timestamp'] = row['timestamp'].replace(tzinfo=timezone(timedelta(0), 'foreign-name'))
+                    if kind == 'number': row['version'] = False
+                    if kind == 'extension': row['extension'] = 'changed'
+                return [row]
+            def detail(target):
+                if kind == 'uuid' and calls.get(target.table, 0) == 1:
+                    raise LocalDeltaError('Original native Delta UUID changed')
+                return original_detail(target)
+            self.driver.transport.original_history = history
+            self.driver.transport._detail = detail
+            with self.assertRaises((PermissionError, LocalDeltaError)): self.admit(self.empty)
+            self.assertIsNone(self.driver.policy.active)
+        self.driver.transport._detail = original_detail
+
+    def test_named_commit_any_role_refuses_and_closing_runs_on_cancellation(self):
+        import json
+        from ashlar_host.evolution_composition import OriginalRunCorrespondence
+        request = OriginalRunCorrespondence(self.original,
+            self.driver.evolution_sources(context=self.driver.context)).at(7)['request']
+        for selected in self.driver.transport.targets:
+            calls = []
+            def history(target):
+                calls.append(target.table)
+                marker = {'profile': 'ashlar-local-delta-commit/0.1',
+                    'installation_id': self.driver.transport.installation_id,
+                    'request_digest': request['request_digest']}
+                return [{'version': 0, 'userMetadata': json.dumps(marker) if target.table == selected else None}]
+            self.driver.transport.original_history = history
+            with self.assertRaises(PermissionError): self.admit(self.empty)
+            self.assertEqual(len(calls), 2 * len(self.driver.transport.targets))
+        primary = KeyboardInterrupt('body cancellation')
+        calls = []
+        def history(target):
+            calls.append(target.table)
+            if len(calls) > len(self.driver.transport.targets):
+                raise ValueError('closing history failure')
+            return [{'version': 0}]
+        self.driver.transport.original_history = history
+        original_plan_graph = self.driver.plan_graph
+        self.driver.plan_graph = lambda *args, **kwargs: (_ for _ in ()).throw(primary)
+        try:
+            with self.assertRaises(KeyboardInterrupt) as observed: self.admit(self.empty)
+            self.assertIs(observed.exception, primary)
+            self.assertGreater(len(calls), len(self.driver.transport.targets))
+        finally:
+            self.driver.plan_graph = original_plan_graph
+
     def test_malformed_complete_inventory_refuses_before_native_session(self):
         for slots in (self.empty[:-1], [(False, *self.empty[0][1:]), *self.empty[1:]],
                       [(0, 'unprepared', b'foreign', None, None), *self.empty[1:]]):

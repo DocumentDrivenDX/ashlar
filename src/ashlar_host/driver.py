@@ -35,6 +35,26 @@ def original_native_equal(supplied, expected):
         return supplied == expected
     return False
 
+def original_history_equal(supplied, expected):
+    """Exact complete native history carriers, including Spark timestamp cells."""
+    from datetime import datetime, timezone
+    if type(supplied) is not type(expected):
+        return False
+    if type(expected) is datetime:
+        return (type(supplied.tzinfo) is type(expected.tzinfo)
+                and type(expected.tzinfo) in (type(None), timezone)
+                and supplied == expected and supplied.fold == expected.fold
+                and supplied.tzname() == expected.tzname()
+                and supplied.utcoffset() == expected.utcoffset())
+    if type(expected) is dict:
+        return (all(type(key) is str for key in supplied) and all(type(key) is str for key in expected)
+                and set(supplied) == set(expected)
+                and all(original_history_equal(supplied[key], value) for key, value in expected.items()))
+    if type(expected) in (list, tuple):
+        return len(supplied) == len(expected) and all(original_history_equal(a, b) for a, b in zip(supplied, expected))
+    return original_native_equal(supplied, expected)
+
+
 def progress_union(previous, checkpoint):
     result = json.loads(encoded(previous))
     old = result.get(checkpoint['feed'])
@@ -379,7 +399,22 @@ class NativeDriver:
                     gap = True
         correspondence = OriginalRunCorrespondence(original, self.evolution_sources(context=context))
         previous_active = self.policy.active
+        histories = {}
+        primary = None
+        def renew_history(table, history):
+            target = self.transport.targets[table]
+            self.transport._detail(target)
+            if not original_history_equal(self.transport.original_history(target), history):
+                raise PermissionError('Complete original native history changed during admission')
         try:
+            if any(slot[1] in ('unprepared', 'retained') for slot in inventory.slots):
+                from copy import deepcopy
+                for target in self.transport.targets.values():
+                    self.transport._detail(target)
+                    history = self.transport.original_history(target)
+                    if not original_history_equal(history, history):
+                        raise PermissionError('Exact complete native history carriers required')
+                    histories[target.table] = deepcopy(history)
             for ordinal, state, raw, digest, descriptor_bytes in inventory.slots:
                 facts = correspondence.at(ordinal); request = facts['request']
                 target = self.transport.targets[self.tables['attempts']]
@@ -417,7 +452,7 @@ class NativeDriver:
                                 (request['request_digest'],)).fetchone():
                             raise PermissionError('Known original artifact contradicts not-started reservation')
                     for observed_target in self.transport.targets.values():
-                        for history in self.transport.original_history(observed_target):
+                        for history in histories[observed_target.table]:
                             metadata = json.loads(history.get('userMetadata') or '{}')
                             if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
                                     and metadata.get('installation_id') == self.transport.installation_id
@@ -523,9 +558,15 @@ class NativeDriver:
                     if not original_native_equal(self.transport._snapshot(target, version)['rows'],
                                                  sorted(rows, key=encoded)):
                         raise PermissionError('Actual settled original native prefix differs')
+        except BaseException as error:
+            primary = error
         finally:
             self.policy.active = previous_active
-        self.validate_evolution_run(original, context=context)
+        from .lifecycle import finish
+        finish(primary, [lambda: self.require(context),
+            *(lambda table=table, history=history: renew_history(table, history)
+              for table, history in histories.items()),
+            lambda: self.validate_evolution_run(original, context=context)])
 
     def plan_evolution_transaction(self, original, ordinal, previous_progress, *, context):
         """Generate one original plan from admitted schedule and actual current anchors."""
