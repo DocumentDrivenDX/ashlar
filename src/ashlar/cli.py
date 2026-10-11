@@ -98,6 +98,8 @@ def main():
         command = commands.add_parser(name, help='Run the original eight-step evolution with an explicit trusted operator provider')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
+    truss_preparation = commands.add_parser('prepare-truss-catalog', help='Prepare original UMF through an explicitly selected Truss package; no catalog acceptance or feed authority')
+    truss_preparation.add_argument('--config', required=True)
     verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
     for option in ('configuration', 'provider', 'provider-sha256'):
         verification.add_argument('--' + option, required=True)
@@ -124,6 +126,21 @@ def main():
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'prepare-truss-catalog':
+        from pathlib import Path
+        try:
+            from ashlar_host.truss_preparation import run_truss_preparation_command
+            answer = run_truss_preparation_command(Path(args.config))
+            payload = (json.dumps(answer, sort_keys=True, separators=(',', ':'),
+                                  ensure_ascii=False, allow_nan=False) + '\n').encode('utf-8')
+            written = sys.stdout.buffer.write(payload)
+            if type(written) is not int or written != len(payload):
+                raise OSError('Incomplete preparation summary output')
+            sys.stdout.buffer.flush()
+        except Exception:
+            print('ashlar Truss preparation command failed', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command in ('initialize-original-commerce','publish-original-commerce'):
         from ashlar_host.original_commerce_local_cli import run_original_commerce_local_command
         try:

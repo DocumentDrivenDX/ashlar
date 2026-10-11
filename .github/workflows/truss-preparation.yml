@@ -1,0 +1,38 @@
+name: Truss preparation controls
+on:
+  push:
+    paths:
+      - 'src/ashlar/cli.py'
+      - 'src/ashlar_host/*truss*'
+      - 'tests/test_truss_preparation*.py'
+      - 'tests/test_module_boundaries.py'
+      - 'tools/check_module_boundaries.py'
+      - 'tools/module_boundaries.json'
+      - 'docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md'
+      - 'docs/helix/02-design/technical-designs/TD-004-*'
+      - '.github/workflows/truss-preparation.yml'
+  pull_request:
+    paths:
+      - 'src/ashlar/cli.py'
+      - 'src/ashlar_host/*truss*'
+      - 'tests/test_truss_preparation*.py'
+      - 'tests/test_module_boundaries.py'
+      - 'tools/check_module_boundaries.py'
+      - 'tools/module_boundaries.json'
+      - 'docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md'
+      - 'docs/helix/02-design/technical-designs/TD-004-*'
+      - '.github/workflows/truss-preparation.yml'
+permissions:
+  contents: read
+jobs:
+  portable-host-controls:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_truss_preparation test_truss_preparation_cli test_module_boundaries
