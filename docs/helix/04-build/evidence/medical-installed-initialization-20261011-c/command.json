@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-medical-installed-initialization-command/0.1",
+  "argv": [
+    "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "initialize-original-medical",
+    "--configuration",
+    "/private/tmp/ashlar-medical-initialization-installed-prep-c/configuration.json"
+  ],
+  "cwd": "/private/tmp/ashlar-medical-initialization-installed-prep-c",
+  "nativeSeconds": 300,
+  "workerWholeSeconds": 510,
+  "scope": "Preparation only. Reviewed installed CLI parent owns actual native300 and workerwhole510 deadlines/group cleanup. No initializer executed."
+}

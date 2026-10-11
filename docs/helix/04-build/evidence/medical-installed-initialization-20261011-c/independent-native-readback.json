@@ -1,0 +1,148 @@
+{
+  "profile": "ashlar-medical-installed-initialization-independent-native/0.1",
+  "sourceRevision": "d59354aa6d36a23f70ec3fb425fe45fc0eac9fe6",
+  "result": "passed",
+  "roles": [
+    {
+      "role": "object_current",
+      "uuid": "83d9e673-49a9-4602-bb81-b01195947fa9",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 2033,
+          "sha256": "c071d92898cfcf5968ff682e7293c08d134bfc7b9bf2b2586a89c3a01a70b23c"
+        },
+        {
+          "version": 1,
+          "bytes": 2828,
+          "sha256": "90ae13c62b56ebcc3345c41107c623c146f30b2cb13cb2d7c75e0cd35022dfde"
+        }
+      ]
+    },
+    {
+      "role": "edge_current",
+      "uuid": "e062de8e-88b3-4226-818f-22905bad144c",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 2267,
+          "sha256": "83221c01917aae06702aa6857d98b0078bb072d961adaaf22195d1c2e77d9972"
+        },
+        {
+          "version": 1,
+          "bytes": 3062,
+          "sha256": "72fef07c7f9a25211bee33b74140c75252db08e58454592ed9bc9bbaa1f91f23"
+        }
+      ]
+    },
+    {
+      "role": "tombstone",
+      "uuid": "e9bfc3e5-dd61-4f16-ba22-f3aa87bdc509",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 1455,
+          "sha256": "79006faeca97d9e179961df575fcdb141b69e35e7c01533d1679b074fb1a0a7d"
+        },
+        {
+          "version": 1,
+          "bytes": 2250,
+          "sha256": "edf60f460266e069aeb2acd1bd6a24fc144b6acf66ce4ab33864ba09c1cc19ec"
+        }
+      ]
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "bfa27f6b-0911-426a-ad81-20731335e7da",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 1108,
+          "sha256": "b9166d64afd9fdc30598f3bdb6d48333440a7dbe3f952726c5378a2cf803895c"
+        },
+        {
+          "version": 1,
+          "bytes": 1904,
+          "sha256": "0d82f65e2b28c0231da0da36479cc610fa3f91b17841583963a0dcba748ef4e2"
+        }
+      ]
+    },
+    {
+      "role": "attempts",
+      "uuid": "d33cee14-17e0-42e7-bee3-136e9b235c42",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 1120,
+          "sha256": "6e5b3d053f71c9953af307481f091d1985c24fa17ace1da954e849a271d5f662"
+        },
+        {
+          "version": 1,
+          "bytes": 1916,
+          "sha256": "6714a6b96ca911162ab1d2aa79d9026fe1e64d3069c07366e4504ac9af5eea19"
+        }
+      ]
+    },
+    {
+      "role": "manifest",
+      "uuid": "e74976c3-6bbd-4b9a-9ff7-9a0fcdf8b151",
+      "versionHistory": [
+        1,
+        0
+      ],
+      "fullOrderedTypeNullabilityMetadataSchemaParity": true,
+      "actualCommittedParquetRows": 0,
+      "logs": [
+        {
+          "version": 0,
+          "bytes": 1256,
+          "sha256": "0806e0a0350b5f1580e161d72f59e2df5d0dc2714e8d780432692492f327f02b"
+        },
+        {
+          "version": 1,
+          "bytes": 2052,
+          "sha256": "0a778283094657fb82fa93fe32118e96d75c196f6f908ccc09a3f176580da1e6"
+        }
+      ]
+    }
+  ],
+  "journalTables": [
+    "local_installation",
+    "local_operation",
+    "local_plan",
+    "local_publication_artifact",
+    "local_source_plan"
+  ],
+  "registrationSha256": "2015be1037f28c00cf321712cf4c3a38592526d8fc1598d34244beda5124cafc",
+  "scope": "Actual six local Delta empty tables and version-zero-to-registration-one schema/UUID readback only; no source/publication/ACK authority"
+}

@@ -1,0 +1,128 @@
+{
+  "profile": "ashlar-medical-installed-initialization-evidence/0.1",
+  "sourceRevision": "d59354aa6d36a23f70ec3fb425fe45fc0eac9fe6",
+  "worker": {
+    "session": 75791,
+    "terminalChunk": "d9dfe5",
+    "exit": 0,
+    "receiptBytes": 18832,
+    "stderrBytes": 0,
+    "receiptFileWriteWindowSeconds": 62.09939169883728,
+    "timingScope": "File creation-to-receipt-write window, not a benchmark or exact native interval measurement"
+  },
+  "passed": [
+    "Actual normal installed public CLI initialization with original medical inputs under native300/worker510/local[1]512m",
+    "Six distinct UUIDs, generated complete local schemas, empty version0 tables and version1 registration",
+    "Independent actual committed Delta logs/schemas/Parquet emptiness and read-only SQLite registration inspected",
+    "Original public producer receipt retained; full lossless handoff copied byte-for-byte to installation.json"
+  ],
+  "qualification": "Fresh local medical physical installation only; no publication/source/ACK authority.",
+  "pending": [
+    "Actual dedicated source/protectedACK provisioning",
+    "Installed medical publication and settled replay",
+    "Configured read-only reopening",
+    "UnityCatalog/Truss/medicalWeft/medicalgraph-engine qualification"
+  ],
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 631,
+      "sha256": "2de452b02a755ac48a0c429a8957af51e9ff1175021c7075b47a45a455dfa72e"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 4498,
+      "sha256": "9b6af464b757014e8ff859fd8e56f61bb945859fb517e31236206c99995e308a"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000000.json",
+      "bytes": 1120,
+      "sha256": "6e5b3d053f71c9953af307481f091d1985c24fa17ace1da954e849a271d5f662"
+    },
+    {
+      "path": "delta-logs/attempts/00000000000000000001.json",
+      "bytes": 1916,
+      "sha256": "6714a6b96ca911162ab1d2aa79d9026fe1e64d3069c07366e4504ac9af5eea19"
+    },
+    {
+      "path": "delta-logs/edge_current/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "83221c01917aae06702aa6857d98b0078bb072d961adaaf22195d1c2e77d9972"
+    },
+    {
+      "path": "delta-logs/edge_current/00000000000000000001.json",
+      "bytes": 3062,
+      "sha256": "72fef07c7f9a25211bee33b74140c75252db08e58454592ed9bc9bbaa1f91f23"
+    },
+    {
+      "path": "delta-logs/manifest/00000000000000000000.json",
+      "bytes": 1256,
+      "sha256": "0806e0a0350b5f1580e161d72f59e2df5d0dc2714e8d780432692492f327f02b"
+    },
+    {
+      "path": "delta-logs/manifest/00000000000000000001.json",
+      "bytes": 2052,
+      "sha256": "0a778283094657fb82fa93fe32118e96d75c196f6f908ccc09a3f176580da1e6"
+    },
+    {
+      "path": "delta-logs/object_current/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "c071d92898cfcf5968ff682e7293c08d134bfc7b9bf2b2586a89c3a01a70b23c"
+    },
+    {
+      "path": "delta-logs/object_current/00000000000000000001.json",
+      "bytes": 2828,
+      "sha256": "90ae13c62b56ebcc3345c41107c623c146f30b2cb13cb2d7c75e0cd35022dfde"
+    },
+    {
+      "path": "delta-logs/tombstone/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "79006faeca97d9e179961df575fcdb141b69e35e7c01533d1679b074fb1a0a7d"
+    },
+    {
+      "path": "delta-logs/tombstone/00000000000000000001.json",
+      "bytes": 2250,
+      "sha256": "edf60f460266e069aeb2acd1bd6a24fc144b6acf66ce4ab33864ba09c1cc19ec"
+    },
+    {
+      "path": "delta-logs/whole_source_history/00000000000000000000.json",
+      "bytes": 1108,
+      "sha256": "b9166d64afd9fdc30598f3bdb6d48333440a7dbe3f952726c5378a2cf803895c"
+    },
+    {
+      "path": "delta-logs/whole_source_history/00000000000000000001.json",
+      "bytes": 1904,
+      "sha256": "0d82f65e2b28c0231da0da36479cc610fa3f91b17841583963a0dcba748ef4e2"
+    },
+    {
+      "path": "independent-native-readback.json",
+      "bytes": 4123,
+      "sha256": "e27e83f353ef4287a5ade76852742d7b35fb91d8bd5327f9888e71dc07132e43"
+    },
+    {
+      "path": "installation.json",
+      "bytes": 18832,
+      "sha256": "276be8936b28c2a4ddaebdaaf47da4d78e9b76f6746c38dcdf6a6578bb642c9a"
+    },
+    {
+      "path": "preparation-facts.json",
+      "bytes": 346,
+      "sha256": "383b37800e86527d48e1b39698cb04a7ade5263cb7f3848b487420229e3b8dc6"
+    },
+    {
+      "path": "public-revalidation.json",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "path": "runtime-selection.json",
+      "bytes": 8138,
+      "sha256": "e3e823ac465cf0c606e76f2807d020f51707b162dac8b4e47b748580d0ea2f82"
+    },
+    {
+      "path": "schemas.json",
+      "bytes": 12472,
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    }
+  ]
+}
