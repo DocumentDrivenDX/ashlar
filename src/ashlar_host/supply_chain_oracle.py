@@ -80,6 +80,13 @@ def supply_chain_result_oracle(case_id, model_bytes, graph_bytes):
             raise ValueError('Original selected fixed decimal definition required')
         facets=fields[0]['facets']
         rows=[[row[0],_spark041_decimal_text(row[1],facets['precision'],facets['scale']),row[2]]for row in rows]
+    if case_id=='lineage':
+        model=json.loads(model_bytes)
+        fields=[field for module in model['modules']for field in module['elements']
+                if field['id']=='containers.parent_id']
+        if len(fields)!=1 or fields[0].get('scalarType')!='string' or fields[0].get('nullability')!='absent-allowed':
+            raise ValueError('Original selected optional String definition required')
+        rows=[[row[0],row[1],row[2],json.dumps({'state':'null'}if row[3]is None else {'state':'value','value':row[3]},separators=(',',':'),ensure_ascii=False)]for row in rows]
     return {'rows': rows, 'witnesses': {'case': case_id, 'complete_result_occurrences': len(rows),
             'original_objects': len(original['objects']), 'original_edges': len(original['edges'])},
-            'scope': 'Complete independent original supply-chain graph bag for selected Spark041 fixed-scale decimal output; original graph lexical tokens unchanged. No ORDER BY or source/native authority'}
+            'scope': 'Complete independent original supply-chain graph bag for selected Spark041 fixed-scale decimal and optional tagged String output; original graph lexical tokens unchanged. No ORDER BY or source/native authority'}

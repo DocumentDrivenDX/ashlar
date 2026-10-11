@@ -148,7 +148,7 @@ def _schema(provider, context, resolved, table, required):
     return deepcopy(observed)
 
 
-def _scalar(column, expression, value, arithmetic, type_graph=()):
+def _scalar(column, expression, value, arithmetic, type_graph=(), native_null_admitted=False):
     rep = dict(column['representation'])
     rep.pop('pathTarget', None)
     if rep.get('kind') == 'value':
@@ -168,14 +168,18 @@ def _scalar(column, expression, value, arithmetic, type_graph=()):
             raise CountStarExecutionError('Closed scalar presence required') from None
         descriptors = [d for d in type_graph if d['identity'] == rep['descriptor']]
         _require(len(descriptors) == 1 and descriptors[0]['kind'] == 'scalar'
-                 and rep.get('nativeNull') is False, 'Original scalar value descriptor required')
+                 and type(rep.get('nativeNull')) is bool, 'Original scalar value descriptor required')
         descriptor = descriptors[0]
+        selected_null = rep['nativeNull'] is True
+        _require(not selected_null or (native_null_admitted is True
+                 and descriptor['availability'] == 'absent-allowed'),
+                 'Explicit admitted optional native-null capability required')
         if item == {'state': 'absent'}:
-            _require('outerJoin' in rep or descriptor['availability'] == 'absent-allowed',
+            _require('outerJoin' in rep or (not selected_null and descriptor['availability'] == 'absent-allowed'),
                      'Unadmitted scalar absence')
             return item
         if item == {'state': 'null'}:
-            _require(descriptor['type']['nullable'] is True, 'Unadmitted source null')
+            _require(selected_null or descriptor['type']['nullable'] is True, 'Unadmitted source null')
             return item
         _require(type(item) is dict and set(item) == {'state', 'value'}
                  and item['state'] == 'value', 'Closed scalar presence required')
@@ -183,8 +187,9 @@ def _scalar(column, expression, value, arithmetic, type_graph=()):
         logical = dict(descriptor['type']); logical['nullable'] = False
         decoder = {'string': 'text', 'boolean': 'boolean', 'integer': 'exact-integer', 'decimal': 'exact-decimal'}.get(logical['family'])
         _require(decoder is not None, 'Selected scalar value family required')
-        scalar = {'kind': 'scalar', 'carrier': 'text', 'decoder': decoder, 'logicalType': logical}
-        return {'state': 'value', 'value': _scalar({'representation': scalar}, expression, item['value'], arithmetic, type_graph)}
+        scalar = {'kind': 'scalar', 'carrier': 'boolean' if logical['family'] == 'boolean' else 'text',
+                  'decoder': decoder, 'logicalType': logical}
+        return {'state': 'value', 'value': _scalar({'representation': scalar}, expression, item['value'], arithmetic, type_graph, native_null_admitted)}
     _require(rep.get('kind') == 'scalar', 'Selected scalar output role required')
     count = expression['op'] in ('count', 'countDistinct', 'countDistinctPathTargets')
     logical = rep.get('logicalType', {})
@@ -372,7 +377,8 @@ def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_r
                         numeric_admitted = (evidence['public_source'] is not None
                             and any(c.get('representabilityOnly') is True for c in field_checks)
                             and any(c.get('publicSourceOnly') is True and c.get('logicalType') == logical for c in field_checks))
-                    values.append(_scalar(column, expression, value, numeric_admitted, artifact['logicalPlan']['typeGraph']))
+                    values.append(_scalar(column, expression, value, numeric_admitted, artifact['logicalPlan']['typeGraph'],
+                                          'value.nativeNull' in artifact['logicalPlan']['requiredCapabilities']))
             decoded.append(values)
         # Compare lexical native cells; decoding never repairs bags or ordering.
         if artifact['logicalPlan']['order']:

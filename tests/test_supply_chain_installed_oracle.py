@@ -7,7 +7,7 @@ class Tests(TestCase):
  def setUp(self):self.model=(ROOT/'ontology.json').read_bytes();self.graph=(ROOT/'graph/fixture.json').read_bytes()
  def oracle(self,name):return supply_chain_result_oracle(name,self.model,self.graph)
  def test_full_two_row_lineage_and_present_null(self):
-  self.assertEqual(self.oracle('lineage')['rows'],[['SER1','LOT1','SKU1','[42,0,"C1"]'],['SER2','LOT1','SKU1',None]])
+  self.assertEqual(self.oracle('lineage')['rows'],[['SER1','LOT1','SKU1','{"state":"value","value":"[42,0,\\\"C1\\\"]"}'],['SER2','LOT1','SKU1','{"state":"null"}']])
   self.assertEqual(self.oracle('lineage')['witnesses']['complete_result_occurrences'],2)
  def test_complete_event_bag_before_original_having(self):
   graph=json.loads(self.graph);events=[o for o in graph['objects']if o['type']['element']=='events'];self.assertEqual(len(events),2)
@@ -30,3 +30,10 @@ class Tests(TestCase):
    self.assertEqual(_spark041_decimal_text(value,p,s),expected)
   for value,p,s in [('1.234',4,2),('100',4,2),('1.230',4,2),('1e1',18,2),('NaN',18,2),('Infinity',18,2),(17.0,18,2),('-0',18,2),('-0.00',18,2),('01',18,2),('1',True,0),('1',18,True),('1',39,2),('1',18,19)]:
    with self.assertRaises(ValueError):_spark041_decimal_text(value,p,s)
+
+ def test_lineage_presence_derived_from_original_present_values(self):
+  original=original_graph_oracle(self.model,self.graph)['cases']['lineage']
+  self.assertEqual([r['parent_id']for r in original],['[42,0,"C1"]',None])
+  tagged=[json.loads(r[3])for r in self.oracle('lineage')['rows']]
+  self.assertEqual(tagged,[{'state':'value','value':'[42,0,"C1"]'},{'state':'null'}])
+  self.assertNotIn({'state':'absent'},tagged)

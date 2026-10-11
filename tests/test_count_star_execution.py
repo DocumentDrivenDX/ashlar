@@ -5,7 +5,7 @@ from test_count_star_admission import PAIRS,SCHEMAS
 import test_run_commerce_path_weft as ports
 from ashlar.weft_path_decode import PathDecodeConfig
 from ashlar_host.count_star_admission import CountStarAdmissionConfig,CountStarSchemaValidation
-from ashlar_host.count_star_execution import CountStarExecutionConfig,CountStarExecutionError,execute_commerce_count_star
+from ashlar_host.count_star_execution import CountStarExecutionConfig,CountStarExecutionError,execute_commerce_count_star,_scalar
 from ashlar_host.path_capture import PathCaptureConfig
 class CountStarExecutionTests(unittest.TestCase):
     def setup(self,case='count-star:original-replay',rows=None):
@@ -97,4 +97,33 @@ class CountStarExecutionTests(unittest.TestCase):
             provider.interval=interval
             with self.assertRaises(type(body))as caught:self.execute(s)
             self.assertIs(caught.exception,body);self.assertFalse(provider.active)
+    def presence(self,raw,*,capability=True,flag=True,availability='absent-allowed',nullable=False,family='string'):
+        identity={'documentId':'original','module':'domain','element':'parent','revision':'fixed'}
+        descriptor={'identity':identity,'kind':'scalar','availability':availability,'type':{'family':family,'facets':{},'nullable':nullable}}
+        column={'representation':{'kind':'value','descriptor':identity,'nativeNull':flag}}
+        return _scalar(column,{'op':'field'},raw,False,[descriptor],capability)
+    def test_selected_optional_native_null_retains_value_and_present_null(self):
+        value=self.presence('{"state":"value","value":"opaque"}')
+        self.assertEqual(value['state'],'value');self.assertEqual(value['value'].value,'opaque');self.assertEqual(value['value'].original,'opaque')
+        self.assertEqual(self.presence('{"state":"null"}'),{'state':'null'})
+        with self.assertRaises(CountStarExecutionError):self.presence('{"state":"absent"}')
+        with self.assertRaises(CountStarExecutionError):self.presence(None)
+    def test_native_null_requires_capability_optional_descriptor_and_exact_flag(self):
+        for options in ({'capability':False},{'capability':1},{'availability':'required'},{'flag':1},{'flag':False}):
+            with self.assertRaises(CountStarExecutionError):self.presence('{"state":"null"}',**options)
+        self.assertEqual(self.presence('{"state":"null"}',flag=False,nullable=True),{'state':'null'})
+    def test_optional_carrier_does_not_accept_malformed_numeric_or_duplicate_values(self):
+        from ashlar.publication import ResolutionError
+        for raw in ('{"state":"null","extra":true}','{"state":"value","value":3}','{"state":"value","value":null}','{"state":"value","value":"x","value":"y"}','[]','{"state":"absent","value":"x"}'):
+            with self.assertRaises((CountStarExecutionError,ResolutionError)):self.presence(raw)
+    def test_tagged_boolean_uses_exact_json_boolean_carrier(self):
+        for flag in (False,True):
+            for value in (True,False):
+                raw='{"state":"value","value":'+('true'if value else 'false')+'}'
+                decoded=self.presence(raw,family='boolean',flag=flag)
+                self.assertIs(decoded['value'].value,value);self.assertIs(decoded['value'].original,value)
+            for atom in ('"true"','"false"','1','0','null'):
+                from ashlar.publication import ResolutionError
+                with self.assertRaises((CountStarExecutionError,ResolutionError)):
+                    self.presence('{"state":"value","value":'+atom+'}',family='boolean',flag=flag)
 if __name__=='__main__':unittest.main()

@@ -469,6 +469,14 @@ execution MUST separately hold the complete original source and publication
 through every guard, result comparison and closing check under the lifecycle
 requirements above; installed library code MUST NOT import checkout tools.
 
+Tagged optional scalars with `nativeNull: true` MUST require explicit admission
+of `value.nativeNull` and the original scalar descriptor with `absent-allowed`
+availability. This selected representation preserves explicit present-null and
+exact values without widening the ideal scalar type. Native SQL NULL refuses;
+an absent state requires the separately admitted outer-join representation.
+Expected result text MUST be derived independently from original source semantics
+and the selected carrier profile; captured cells MUST NOT be repaired to match.
+
 The finite original supply-chain source profile MUST renew the exact original
 model/graph file identity, original emitted public dataset receipt and complete
 independent projection through publication and query. Its native owner MUST hold
