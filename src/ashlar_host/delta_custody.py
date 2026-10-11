@@ -1,12 +1,13 @@
 """Selected local host implementation; native qualification remains version-scoped."""
 from contextlib import contextmanager
 from dataclasses import dataclass
-import fcntl, hashlib, json, re, sqlite3, os
+import fcntl, hashlib, json, re, sqlite3, os, stat
 from types import MappingProxyType
 from urllib.parse import quote
 from pathlib import Path
 from ashlar.native import SQLResult
 from ashlar.publication import validate_table_identifier
+from .evolution_verification_types import VerificationBounds
 
 class LocalDeltaError(ValueError):
     pass
@@ -100,8 +101,16 @@ class DeltaTarget:
 
 class LocalDeltaTransport:
 
-    def __init__(self, spark, journal_path, installation_id, targets, policy, *, capacity=None):
-        self._open(spark, journal_path, installation_id, targets, policy, create=False, context=None, capacity=capacity)
+    def __init__(self, spark, journal_path, installation_id, targets, policy, *, capacity=None, verification_bounds=None):
+        if verification_bounds is not None:
+            if type(verification_bounds) is not VerificationBounds:
+                raise LocalDeltaError('Exact constructor verification bounds required')
+            verification_bounds.__post_init__()
+        self.observation_bounds = verification_bounds
+        try:
+            self._open(spark, journal_path, installation_id, targets, policy, create=False, context=None, capacity=capacity)
+        finally:
+            self.observation_bounds = None
 
     @classmethod
     def initialize(cls, spark, journal_path, installation_id, targets, policy, *, context, capacity=None):
@@ -228,6 +237,44 @@ class LocalDeltaTransport:
             except sqlite3.Error as original:
                 raise LocalDeltaError('Original custody journal missing or incomplete') from original
 
+    @classmethod
+    def require_existing_journal(cls, path, installation_id, targets, *, capacity=None):
+        """Read-only complete canonical journal preflight before driver construction."""
+        import stat
+        from .lifecycle import finish
+        if cls is not LocalDeltaTransport or type(path) is not type(Path()) or not path.is_absolute() or path.resolve() != path:
+            raise LocalDeltaError('Canonical existing original journal required')
+        identity = path.lstat()
+        if not stat.S_ISREG(identity.st_mode) or identity.st_uid != os.getuid() or identity.st_mode & 0o022 or identity.st_size > 128 * 1024 * 1024:
+            raise LocalDeltaError('Private bounded original journal required')
+        registry = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
+        selected = operation_capacity(capacity)
+        if selected is not None: registry['operation_capacity'] = dict(selected)
+        definitions = {
+            'local_installation': 'CREATE TABLE local_installation(id INTEGER PRIMARY KEY CHECK(id=1), original TEXT NOT NULL)',
+            'local_operation': 'CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)',
+            'local_plan': 'CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)',
+            'local_publication_artifact': 'CREATE TABLE local_publication_artifact (request_digest TEXT PRIMARY KEY,request TEXT NOT NULL,artifact TEXT NOT NULL)',
+            'local_source_plan': 'CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)'}
+        connection = sqlite3.connect('file:' + quote(str(path)) + '?mode=ro', uri=True)
+        primary = None
+        def renew():
+            current = path.lstat()
+            if (current.st_dev, current.st_ino, current.st_mode, current.st_uid) != (identity.st_dev, identity.st_ino, identity.st_mode, identity.st_uid):
+                raise LocalDeltaError('Original journal closing custody differs')
+        try:
+            connection.execute('PRAGMA query_only=ON')
+            actual = dict(connection.execute("SELECT name,sql FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"))
+            normalize = lambda text: re.sub(r'\s+', '', text).lower()
+            if set(actual) != set(definitions) or any(type(actual[name]) is not str or normalize(actual[name]) != normalize(sql) for name, sql in definitions.items()):
+                raise LocalDeltaError('Complete unchanged original journal schema required')
+            if connection.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(encoded(registry),)]:
+                raise LocalDeltaError('Complete original journal registry differs')
+        except BaseException as error:
+            primary = error
+        finally:
+            finish(primary, [renew, connection.close])
+
     def close(self):
         self.db.close()
 
@@ -252,10 +299,16 @@ class LocalDeltaTransport:
 
     def query(self, sql, parameters):
         self._parameters(parameters)
+        bounds = getattr(self, 'observation_bounds', None)
+        if bounds is not None:
+            if type(sql) is not str or len(sql) > bounds.input_bytes or len(sql.encode()) > bounds.input_bytes:
+                raise LocalDeltaError('Bounded native query text required')
+            bounded_local_json_bytes(parameters, bounds.input_bytes)
         if not sql.strip() or sql.lstrip().split(None, 1)[0].upper() not in ('SELECT', 'DESCRIBE', 'SHOW'):
             raise LocalDeltaError('Mutation requires explicit original operation identity')
         frame = self.spark.sql(self._render(sql), args=parameters)
-        return SQLResult([r.asDict() for r in frame.collect()], tuple(((f.name, f.dataType.simpleString().upper()) for f in frame.schema.fields)))
+        rows = self._bounded_native_rows(frame) if getattr(self, 'observation_bounds', None) is not None else [r.asDict() for r in frame.collect()]
+        return SQLResult(rows, tuple(((f.name, f.dataType.simpleString().upper()) for f in frame.schema.fields)))
 
     def _target(self, sql):
         match = re.match('\\s*(?:MERGE\\s+INTO|INSERT\\s+INTO)\\s+(`[^`]+`\\.`[^`]+`\\.`[^`]+`)', sql, re.I)
@@ -267,25 +320,334 @@ class LocalDeltaTransport:
         return self.targets[name]
 
     def _detail(self, target):
-        detail = self.spark.sql('DESCRIBE DETAIL delta.`' + str(target.path) + '`').first().asDict()
+        frame = self.spark.sql('DESCRIBE DETAIL delta.`' + str(target.path) + '`')
+        if getattr(self, 'observation_bounds', None) is not None:
+            rows = self._bounded_native_rows(frame, maximum_rows=1)
+            if len(rows) != 1: raise LocalDeltaError('Exact single native detail required')
+            detail = rows[0]
+        else:
+            detail = frame.first().asDict()
         if detail.get('id') != target.uuid:
             raise LocalDeltaError('Original native Delta UUID changed')
         if self._registered:
             reservation = self._reservation_path(target)
-            if reservation.is_symlink() or not reservation.is_file() or reservation.stat().st_uid != os.getuid() or reservation.stat().st_mode & 18 or (reservation.read_text() != self.reservation):
+            if reservation.is_symlink() or not reservation.is_file() or reservation.stat().st_uid != os.getuid() or reservation.stat().st_mode & 18 or (self._reservation_text(reservation) != self.reservation):
                 raise LocalDeltaError('Original private installation reservation missing or changed')
             properties = detail.get('properties', {})
             if properties.get('ashlar.local.installation.id') != self.installation_id or properties.get('ashlar.local.registry.sha256') != self.registry_sha or properties.get('ashlar.local.journal.sha256') != self.journal_sha:
                 raise LocalDeltaError('Original native installation registration differs')
         return detail
 
+    def _reservation_text(self, path):
+        bounds = getattr(self, 'observation_bounds', None)
+        if bounds is None: return path.read_text()
+        from .lifecycle import finish
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW); primary = None; raw = None
+        try:
+            held = os.fstat(fd)
+            if not stat.S_ISREG(held.st_mode) or held.st_size > bounds.input_bytes:
+                raise LocalDeltaError('Bounded original reservation required')
+            raw = os.read(fd, bounds.input_bytes+1)
+            named = path.lstat(); current = os.fstat(fd)
+            if len(raw) != held.st_size or (held.st_dev,held.st_ino,held.st_size,held.st_mtime_ns) != (current.st_dev,current.st_ino,current.st_size,current.st_mtime_ns) or (named.st_dev,named.st_ino) != (held.st_dev,held.st_ino):
+                raise LocalDeltaError('Original reservation capture changed')
+        except BaseException as error: primary = error
+        finally: finish(primary, [lambda: os.close(fd)])
+        return raw.decode()
+
     def original_history(self, target):
-        rows = self.spark.sql('DESCRIBE HISTORY delta.`' + str(target.path) + '`').limit(1001).collect()
+        frame = self.spark.sql('DESCRIBE HISTORY delta.`' + str(target.path) + '`')
+        if getattr(self, 'observation_bounds', None) is not None:
+            rows = self._bounded_native_rows(frame, maximum_rows=1000)
+            if not rows: raise LocalDeltaError('Complete native history required')
+            return rows
+        rows = frame.limit(1001).collect()
         if not rows or len(rows) > 1000:
             raise LocalDeltaError('Bounded complete local history required')
         return [r.asDict() for r in rows]
 
+    def _bounded_native_rows(self, frame, *, maximum_rows=None):
+        """Admit finite native query payload before transferring original carriers.
+
+        JSON expressions measure only; returned datetime/map/array values remain
+        native. This guard is active only in an explicit verification interval.
+        """
+        from decimal import Decimal
+        from pyspark.sql import functions as F
+        from .lifecycle import finish
+        bounds = getattr(self, 'observation_bounds', None)
+        if type(bounds) is not VerificationBounds:
+            raise LocalDeltaError('Active exact native query bounds required')
+        limit = bounds.rows if maximum_rows is None else min(bounds.rows, maximum_rows)
+        fields = frame.schema.fields
+        nodes = 0; budget = 64
+        def text(value):
+            nonlocal budget
+            if type(value) is not str or len(value) > bounds.cell_bytes:
+                raise LocalDeltaError('Bounded native schema text required')
+            size = len(value.encode())
+            if size > bounds.cell_bytes: raise LocalDeltaError('Bounded native schema UTF8 required')
+            budget += 32 + 6 * size
+            if budget > bounds.input_bytes: raise LocalDeltaError('Native query schema exceeds bound')
+        def metadata(value, depth):
+            nonlocal nodes, budget
+            nodes += 1; budget += 32
+            if depth > 16 or nodes > 4096 or budget > bounds.input_bytes:
+                raise LocalDeltaError('Bounded native schema structure required')
+            if type(value) is str: text(value)
+            elif value is None or type(value) in (bool, int, float):
+                if type(value) is int and value.bit_length() > 64: raise LocalDeltaError('Bounded metadata integer required')
+                if type(value) is float:
+                    import math
+                    if not math.isfinite(value): raise LocalDeltaError('Finite metadata required')
+            elif type(value) in (list, dict) and len(value) <= 256:
+                for key, item in (value.items() if type(value) is dict else enumerate(value)):
+                    if type(value) is dict: text(key)
+                    metadata(item, depth+1)
+            else: raise LocalDeltaError('Closed native metadata required')
+        def datatype(kind, depth):
+            nonlocal nodes, budget
+            nodes += 1; budget += 32
+            if depth > 16 or nodes > 4096 or budget > bounds.input_bytes:
+                raise LocalDeltaError('Bounded native type structure required')
+            name = kind.typeName()
+            if name in ('byte','short','integer','long','float','double','string','boolean','timestamp','date','binary','void'):
+                return
+            if name == 'decimal':
+                if type(kind.precision) is not int or type(kind.scale) is not int or not 1 <= kind.precision <= 38 or not 0 <= kind.scale <= kind.precision:
+                    raise LocalDeltaError('Bounded decimal type required')
+            elif name == 'array': datatype(kind.elementType, depth+1)
+            elif name == 'map': datatype(kind.keyType, depth+1); datatype(kind.valueType, depth+1)
+            elif name == 'struct': schema(kind.fields, depth+1)
+            else: raise LocalDeltaError('Supported bounded native type required')
+        def schema(items, depth):
+            if type(items) is not list or not 1 <= len(items) <= 256:
+                raise LocalDeltaError('Bounded complete native fields required')
+            names = set()
+            for field in items:
+                text(field.name)
+                if not field.name or field.name in names or type(field.nullable) is not bool or type(field.metadata) is not dict:
+                    raise LocalDeltaError('Exact complete native fields required')
+                names.add(field.name); metadata(field.metadata, depth); datatype(field.dataType, depth)
+        schema(fields, 0)
+        names = [field.name for field in fields]
+        # Per-cell struct serialization handles nested maps/arrays without
+        # reinterpreting their native returned meaning or flattening carriers.
+        aliases = ['_ashlar_verification_cell_'+str(index) for index in range(len(names))]
+        if set(aliases) & set(names):
+            raise LocalDeltaError('Reserved native measurement alias collision')
+        measurements = [F.coalesce(F.length(F.encode(F.to_json(F.struct(F.col('`'+name.replace('`','``')+'`'))), 'UTF-8')), F.lit(0)).cast('decimal(38,0)').alias(alias) for name, alias in zip(names,aliases)]
+        measured = frame.select(*[F.col('`'+name.replace('`','``')+'`') for name in names], *measurements)
+        lengths = [F.col('`'+alias+'`') for alias in aliases]
+        total = lengths[0]
+        for item in lengths[1:]: total = total + item
+        aggregate = measured.agg(F.count(F.lit(1)).alias('count'), F.max(F.greatest(*lengths) if len(lengths)>1 else lengths[0]).alias('cell'), F.sum(total).alias('total')).first()
+        stats = None if aggregate is None else aggregate.asDict()
+        if type(stats) is not dict or set(stats) != {'count','cell','total'} or type(stats['count']) is not int:
+            raise LocalDeltaError('Exact native query statistics required')
+        count = stats['count']
+        if count == 0 and stats['cell'] is None and stats['total'] is None: cell = size = 0
+        else:
+            values = []
+            for key in ('cell','total'):
+                value = stats[key]
+                if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
+                    raise LocalDeltaError('Native query aggregate overflow refused')
+                values.append(int(value))
+            cell, size = values
+        if not 0 <= count <= limit or cell > bounds.cell_bytes or 256 + budget + count*64 + 6*size > bounds.total_bytes:
+            raise LocalDeltaError('Native query bounds exceeded before transfer')
+        # The same captured native row contains its co-evaluated measurements.
+        # Strip only these closed aliases; original native carriers are untouched.
+        actual_cell = actual_total = 0
+        rows = []; iterator = None; primary = None
+        try:
+            iterator = measured.toLocalIterator()
+            if not callable(getattr(iterator, 'close', None)): raise LocalDeltaError('Closable native query iterator required')
+            for native in iterator:
+                row = native.asDict()
+                if type(row) is not dict or set(row) != set(names+aliases) or len(rows) >= count:
+                    raise LocalDeltaError('Complete native query correspondence required')
+                row_bytes = 0
+                for alias in aliases:
+                    value = row[alias]
+                    if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
+                        raise LocalDeltaError('Exact captured native byte measurement required')
+                    measured_bytes = int(value)
+                    actual_cell = max(actual_cell, measured_bytes); row_bytes += measured_bytes
+                actual_total += row_bytes
+                if actual_cell > cell or actual_cell > bounds.cell_bytes or actual_total > size or 256 + budget + (len(rows)+1)*64 + 6*actual_total > bounds.total_bytes:
+                    raise LocalDeltaError('Captured native payload exceeds admitted statistics or budget')
+                rows.append({name:row[name] for name in names})
+            if len(rows) != count or actual_cell != cell or actual_total != size:
+                raise LocalDeltaError('Complete native query count or byte statistics changed')
+        except BaseException as error: primary = error
+        finally: finish(primary, [iterator.close] if iterator is not None and callable(getattr(iterator, 'close', None)) else [])
+        return rows
+
+    @contextmanager
+    def bounded_observations(self, bounds):
+        """Apply pre-transfer bounds to snapshots, queries, details and histories.
+
+        This selects capture limits only; it does not grant native authority.
+        Existing policy, identity and immutable-version checks remain required.
+        """
+        if type(bounds) is not VerificationBounds or getattr(self, 'observation_bounds', None) is not None:
+            raise LocalDeltaError('Exact nonnested bounded observation interval required')
+        bounds.__post_init__()
+        self.observation_bounds = bounds
+        try:
+            yield
+        finally:
+            self.observation_bounds = None
+
+    def bounded_snapshot(self, target, version, *, remaining_bytes=None):
+        """Full String/null native capture with all-exit current identity renewal."""
+        from .lifecycle import finish
+        primary = None; result = None
+        try:
+            result = self._bounded_snapshot(target, version, remaining_bytes=remaining_bytes)
+        except BaseException as error:
+            primary = error
+        finally:
+            finish(primary, [lambda: self._detail(target)])
+        return result
+
+    def _bounded_snapshot(self, target, version, *, remaining_bytes=None):
+        """Full String/null native capture after aggregate byte admission."""
+        from decimal import Decimal
+        from pyspark.sql import functions as F
+        bounds = getattr(self, 'observation_bounds', None)
+        if type(bounds) is not VerificationBounds or type(version) is not int or version < 0:
+            raise LocalDeltaError('Active bounded immutable native observation required')
+        maximum = bounds.total_bytes if remaining_bytes is None else remaining_bytes
+        if type(maximum) is not int or not 1 <= maximum <= bounds.total_bytes:
+            raise LocalDeltaError('Exact remaining cumulative capture bound required')
+        self._detail(target)
+        frame = self.spark.read.format('delta').option('versionAsOf', version).load(str(target.path))
+        fields = frame.schema.fields
+        if type(fields) is not list or not 1 <= len(fields) <= 256:
+            raise LocalDeltaError('Bounded native schema field inventory required')
+        # Bound native metadata before StructType.json creates its complete string.
+        schema_budget = 64
+        nodes = 0
+        def metadata_size(value, depth=0):
+            nonlocal nodes
+            nodes += 1
+            if depth > 16 or nodes > 4096:
+                raise LocalDeltaError('Bounded native metadata structure required')
+            if type(value) is str:
+                if len(value) > bounds.cell_bytes:
+                    raise LocalDeltaError('Bounded native metadata text required')
+                size = len(value.encode())
+                if size > bounds.cell_bytes:
+                    raise LocalDeltaError('Bounded native metadata UTF8 required')
+                return 2 + 6 * size
+            if value is None or type(value) is bool: return 5
+            if type(value) is int and value.bit_length() <= 64: return 21
+            if type(value) is float:
+                import math
+                if math.isfinite(value): return 32
+            if type(value) is list and len(value) <= 256:
+                return 2 + len(value) + sum(metadata_size(item, depth+1) for item in value)
+            if type(value) is dict and len(value) <= 256 and all(type(key) is str for key in value):
+                return 2 + len(value) * 2 + sum(metadata_size(key, depth+1)+metadata_size(item, depth+1) for key,item in value.items())
+            raise LocalDeltaError('Closed supported native metadata carriers required')
+        for field in fields:
+            if type(field.name) is not str or type(field.nullable) is not bool or type(field.metadata) is not dict:
+                raise LocalDeltaError('Complete native schema carriers required')
+            type_name = field.dataType.typeName()
+            allowed_types = {'byte','short','integer','long','string','boolean','timestamp','decimal'}
+            if type(type_name) is not str or type_name not in allowed_types:
+                raise LocalDeltaError('Supported primitive native type required before serialization')
+            if type_name == 'decimal' and (type(field.dataType.precision) is not int or type(field.dataType.scale) is not int
+                    or not 1 <= field.dataType.precision <= 38 or not 0 <= field.dataType.scale <= field.dataType.precision):
+                raise LocalDeltaError('Bounded exact native decimal type required')
+            family = field.dataType.simpleString()
+            if type(family) is not str or len(family) > 64:
+                raise LocalDeltaError('Bounded native schema family required')
+            schema_budget += 128 + metadata_size(field.name) + metadata_size(field.metadata) + 6 * len(family)
+            if schema_budget > bounds.input_bytes:
+                raise LocalDeltaError('Native complete schema bound exceeded before serialization')
+        schema_json = frame.schema.json()
+        if type(schema_json) is not str or len(schema_json.encode()) > bounds.input_bytes:
+            raise LocalDeltaError('Bounded complete native schema required')
+        schema = []; projection = []
+        for field in frame.schema.fields:
+            name = field.name; family = field.dataType.simpleString()
+            if type(name) is not str or not name or len(name.encode()) > bounds.cell_bytes or len(schema) >= 256:
+                raise LocalDeltaError('Bounded exact native column inventory required')
+            column = F.col('`' + name.replace('`', '``') + '`')
+            schema.append([name, family])
+            if family in ('tinyint', 'smallint', 'int', 'bigint', 'string', 'boolean') or re.fullmatch(r'decimal\([0-9]+,[0-9]+\)', family):
+                projection.append(column.cast('string').alias(name))
+            elif family == 'timestamp':
+                projection.append(F.unix_micros(column).cast('string').alias(name))
+            else:
+                raise LocalDeltaError('Unsupported exact native snapshot carrier family')
+        if not schema or len({name for name, _ in schema}) != len(schema):
+            raise LocalDeltaError('Complete distinct native schema required')
+        projected = frame.select(*projection)
+        lengths = [F.coalesce(F.length(F.encode(F.col('`' + name.replace('`', '``') + '`'), 'UTF-8')), F.lit(0)).cast('decimal(38,0)') for name, _ in schema]
+        row_bytes = lengths[0]
+        for length in lengths[1:]: row_bytes = row_bytes + length
+        aggregate = projected.agg(F.count(F.lit(1)).alias('count'),
+            F.max(F.greatest(*lengths) if len(lengths) > 1 else lengths[0]).alias('cell'),
+            F.sum(row_bytes).alias('total')).first()
+        if aggregate is None: raise LocalDeltaError('Complete native bound statistics required')
+        statistics = aggregate.asDict()
+        if set(statistics) != {'count', 'cell', 'total'} or type(statistics['count']) is not int:
+            raise LocalDeltaError('Exact bounded native statistics required')
+        count = statistics['count']
+        if count == 0 and statistics['cell'] is None and statistics['total'] is None:
+            cell = total = 0
+        else:
+            values = []
+            for key in ('cell', 'total'):
+                value = statistics[key]
+                if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
+                    raise LocalDeltaError('Native bound overflow or malformed statistics')
+                values.append(int(value))
+            cell, total = values
+        # Conservative JSON bound includes escaped names, nulls, punctuation,
+        # quotes and six-byte escapes for every UTF8 byte. No rows transferred yet.
+        row_constant = 2 + len(schema) + sum(len(json.dumps(name).encode()) + 1 for name, _ in schema) + 6 * len(schema)
+        upper = 256 + len(schema_json.encode()) + 2 + count * (row_constant + 1) + 6 * total
+        if not 0 <= count <= bounds.rows or cell > bounds.cell_bytes or upper > maximum:
+            raise LocalDeltaError('Native row/cell/total bound exceeded before transfer')
+        rows = []; captured_bytes = 2; actual_cell = actual_total = 0
+        iterator = None; capture_primary = None
+        try:
+            iterator = projected.toLocalIterator()
+            if not callable(getattr(iterator, 'close', None)):
+                raise LocalDeltaError('Owned closable complete native iterator required')
+            for native in iterator:
+                row = native.asDict()
+                if type(row) is not dict or set(row) != {name for name, _ in schema} or len(rows) >= count:
+                    raise LocalDeltaError('Complete native capture correspondence differs')
+                for value in row.values():
+                    if value is not None and type(value) is not str:
+                        raise LocalDeltaError('Exact String/null projected native carrier required')
+                    size = 0 if value is None else len(value.encode())
+                    actual_cell = max(actual_cell, size); actual_total += size
+                    if size > bounds.cell_bytes: raise LocalDeltaError('Native cell capture differs')
+                captured_bytes += len(encoded(row).encode()) + (1 if rows else 0)
+                if captured_bytes + len(schema_json.encode()) + 256 > maximum: raise LocalDeltaError('Native complete capture bound exceeded')
+                rows.append(row)
+        except BaseException as error:
+            capture_primary = error
+        finally:
+            from .lifecycle import finish
+            finish(capture_primary, [iterator.close] if iterator is not None and callable(getattr(iterator, 'close', None)) else [])
+        if len(rows) != count or actual_cell != cell or actual_total != total or frame.schema.json() != schema_json:
+            raise LocalDeltaError('Native complete bound/schema correspondence differs')
+        self._detail(target)
+        rows.sort(key=encoded)
+        return {'schema': schema, 'rows': rows, 'row_sha256': sha(encoded(rows))}, json.loads(schema_json)
+
     def _snapshot(self, target, version):
+        if getattr(self, 'observation_bounds', None) is not None:
+            return self.bounded_snapshot(target, version)[0]
         from pyspark.sql import functions as F
         self._detail(target)
         frame = self.spark.read.format('delta').option('versionAsOf', version).load(str(target.path))

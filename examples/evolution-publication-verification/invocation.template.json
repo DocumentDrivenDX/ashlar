@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-evolution-verification-invocation/0.1",
+  "ledger_path": "/absolute/REPLACE_WITH_ORIGINAL_RUN.sqlite",
+  "receipt_path": "/absolute/REPLACE_WITH_FRESH_RECEIPT.json",
+  "producer": {
+    "source": "/absolute/REPLACE_WITH_PINNED_UMF_CHECKOUT",
+    "bun": "/absolute/REPLACE_WITH_BUN",
+    "git": "/absolute/REPLACE_WITH_GIT",
+    "timeout_seconds": 60,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "expected_sha256": "REPLACE_WITH_ORIGINAL_RUN_SHA256",
+  "ordinal": 0,
+  "bounds": {
+    "input_bytes": 262144,
+    "rows": 10000,
+    "cell_bytes": 1048576,
+    "total_bytes": 16777216,
+    "receipt_bytes": 1048576,
+    "capture_bytes": 1048576
+  },
+  "supervision": {
+    "deadline_seconds": 300,
+    "capture_bytes": 1048576,
+    "owner": "operator-owned-process-supervisor/0.1"
+  }
+}

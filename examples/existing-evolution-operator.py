@@ -11,6 +11,7 @@ from ashlar_host.ack import AckScope
 from ashlar_host.delta_custody import DeltaTarget, LOCAL_OPERATION_CAPACITY_8M
 from ashlar_host.evolution_operator import ExistingEvolutionOperator
 from ashlar_host.existing_outbox_authority import OutboxAuthorityRegistration
+from ashlar_host.lifecycle import finish, owned_context
 from ashlar_host.source_sessions import OutboxSourceRegistration
 
 
@@ -50,14 +51,16 @@ def native_session():
         .config('spark.sql.catalog.spark_catalog', 'org.apache.spark.sql.delta.catalog.DeltaCatalog')
         .config('spark.sql.session.timeZone', 'UTC').config('spark.sql.ansi.enabled', 'true')
         .getOrCreate())
+    primary = None
     try:
         yield spark
+    except BaseException as error:
+        primary = error
     finally:
-        spark.stop()
+        finish(primary, [spark.stop])
 
 
-@contextmanager
-def open_evolution(invocation):
+def existing_operator():
     capacity_name = supplied('EXISTING_OPERATION_CAPACITY')
     if capacity_name not in ('uncapped', '8MiB'):
         raise ValueError('Select the actual existing operation capacity')
@@ -65,9 +68,21 @@ def open_evolution(invocation):
         Path(supplied(role.upper() + '_PATH')), supplied(role.upper() + '_UUID'))
         for role in ('attempts', 'manifest', 'object_current', 'edge_current',
                      'tombstone', 'whole_source_history'))
-    operator = ExistingEvolutionOperator(supplied('INSTALLATION_ID'),
+    return ExistingEvolutionOperator(supplied('INSTALLATION_ID'),
         Path(supplied('NATIVE_JOURNAL')), Path(supplied('ORIGINAL_RUN_RESERVATION')),
         targets, (registration('A'), registration('B')),
         None if capacity_name == 'uncapped' else LOCAL_OPERATION_CAPACITY_8M, native_session)
-    with operator.open_evolution(invocation) as config:
+
+
+@contextmanager
+def open_evolution(invocation):
+    with owned_context(existing_operator().open_evolution(invocation)) as config:
+        yield config
+
+
+@contextmanager
+def open_verification(invocation):
+    # The operator running the command owns its selected finite supervisor.
+    # This provider does not implement a watchdog or start another installation.
+    with owned_context(existing_operator().open_verification(invocation)) as config:
         yield config

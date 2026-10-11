@@ -98,6 +98,9 @@ def main():
         command = commands.add_parser(name, help='Run the original eight-step evolution with an explicit trusted operator provider')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
+    verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
+    for option in ('configuration', 'provider', 'provider-sha256'):
+        verification.add_argument('--' + option, required=True)
     for name in ('activate-puppy-release', 'read-puppy-release'):
         command = commands.add_parser(name, help='Activate or read one explicit original PuppyGraph release handle')
         for option in ('configuration', 'provider', 'provider-sha256'):
@@ -197,6 +200,16 @@ def main():
             print(json.dumps(receipt, sort_keys=True, separators=(',', ':')))
         except Exception:
             print('ashlar commerce evolution refused', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+
+    if args.command == 'verify-commerce-evolution-publication':
+        from ashlar_host.evolution_verification_cli import run_verification_command
+        try:
+            answer = run_verification_command(args.configuration, args.provider, args.provider_sha256)
+            print(json.dumps(answer, sort_keys=True, separators=(',', ':')))
+        except Exception:
+            print('ashlar evolution publication verification refused', file=sys.stderr)
             raise SystemExit(2) from None
         return
 

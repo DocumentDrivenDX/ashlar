@@ -647,6 +647,93 @@ class NativeDriver:
         self.admit_evolution_plan(plan, context=context, fresh=True)
         return plan
 
+    def verify_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds):
+        """Verify one completed immutable publication without publisher or ACK submission.
+
+        Complete ledger validation uses existing protected SELECT reconciliation.
+        The returned rows remain provisional until the caller's acquired owners close.
+        """
+        from .evolution_composition import NativeEvolutionRunPolicy, OriginalRunCorrespondence
+        from .evolution_plan import EvolutionAttemptPlan
+        from .evolution_run import EvolutionRunDefinition, EvolutionRunLedgerView
+        from .evolution_verification_types import VerificationBounds
+        from .lifecycle import finish, owned_context
+        self.require(context)
+        if (type(original) is not EvolutionRunDefinition or type(inventory) is not EvolutionRunLedgerView
+                or type(policy) is not NativeEvolutionRunPolicy or policy.driver is not self
+                or type(bounds) is not VerificationBounds or type(ordinal) is not int or not 0 <= ordinal < 8
+                or len(inventory.slots) != 8 or inventory.slots[ordinal][1] != 'completed'
+                or getattr(self.transport, 'observation_bounds', None) is not bounds):
+            raise PermissionError('Exact completed original bounded verification required')
+        plan = EvolutionAttemptPlan(inventory.slots[ordinal][2])
+        correspondence = OriginalRunCorrespondence(original, self.evolution_sources(context=context))
+        correspondence.admit_attempt(ordinal, plan)
+        facts = correspondence.at(ordinal); primary = None; result = None
+        admission = policy.original_attempt_admission(original, inventory, context)
+        def validate():
+            policy.admit_run(original, context)
+            if policy.authority.admit_ledger(original, inventory, context) is not None:
+                raise PermissionError('Current original complete inventory required')
+            return self._validate_evolution_run_ledger(original, inventory, context=context,
+                attempt_admission=admission, selected_completed=ordinal)
+        try:
+            descriptor = validate()
+            self.policy.activate_evolution(plan, context, admission)
+            row = dict(descriptor.raw)
+            self.policy.active['manifest'] = row
+            roles = tuple(self.columns)
+            if set(roles) != {'object_current', 'edge_current', 'tombstone', 'whole_source_history'} or set(descriptor.versions) != {self.tables[role] for role in roles}:
+                raise PermissionError('Exact four materialization roles required')
+            vector = manifest_pin_vector(row, {table: self.transport.targets[table].uuid for table in descriptor.versions}, authority='private-local-process')
+            observations = {}; schemas = {}; acquired_roles = []
+            def capture_role(role, remaining):
+                table = self.tables[role]
+                snapshot, schema = self.transport.bounded_snapshot(self.transport.targets[table], descriptor.versions[table], remaining_bytes=remaining)
+                if not original_native_equal(snapshot['rows'], sorted(facts['expected'][role], key=encoded)):
+                    raise PermissionError('Complete original publication bag differs')
+                expected = [(name, family.lower()) for name, family in self.columns[role]]
+                if [(name, family) for name, family in snapshot['schema']] != expected:
+                    raise PermissionError('Admitted original complete column profile differs')
+                # The selected verifier profile is the original local SQL
+                # bootstrap: primitive columns, SQL default nullability and
+                # no field metadata. Content revisions do not ALTER columns.
+                families = {'bigint': 'long', 'string': 'string', 'timestamp': 'timestamp'}
+                if any(family not in families for _, family in expected):
+                    raise PermissionError('Unsupported original local bootstrap schema profile')
+                expected_schema = {'type': 'struct', 'fields': [{'name': name,
+                    'type': families[family], 'nullable': True, 'metadata': {}}
+                    for name, family in expected]}
+                if not original_native_equal(schema, expected_schema):
+                    raise PermissionError('Complete original local bootstrap schema differs')
+                size = len(encoded({'schema': schema, 'rows': snapshot['rows']}).encode())
+                if size > remaining:
+                    raise PermissionError('Cumulative four-bag evidence bound exceeded')
+                return snapshot, schema, size
+            with owned_context(self.hold(vector, context=context)):
+                selected_primary = None; total = 0; closing_total = [0]
+                try:
+                    for role in roles:
+                        acquired_roles.append(role)
+                        snapshot, schema, size = capture_role(role, bounds.total_bytes-total)
+                        observations[role] = snapshot; schemas[role] = schema; total += size
+                except BaseException as error:
+                    selected_primary = error
+                def closing_role(role):
+                    snapshot, schema, size = capture_role(role, bounds.total_bytes-closing_total[0])
+                    closing_total[0] += size
+                    if role in observations and (not original_native_equal(snapshot, observations[role]) or not original_native_equal(schema, schemas[role])):
+                        raise PermissionError('Closing complete native bags/schema differ')
+                finish(selected_primary, [lambda: self.validate_manifest(row, context),
+                    lambda: self.source_admit(facts['request']),
+                    *(lambda role=role: closing_role(role) for role in acquired_roles)])
+            result = {'descriptor': row, 'bags': observations, 'schemas': schemas,
+                'completed_prefix': sum(slot[1] == 'completed' for slot in inventory.slots)}
+        except BaseException as error:
+            primary = error
+        finally:
+            finish(primary, [validate, lambda: self.require(context)])
+        return result
+
     def observe_completed_evolution_attempt(self, journal, *, context, expected_sha256):
         """Stored-publisher committed replay, without phase/effect resubmission."""
         from .evolution_run import EvolutionRunAttemptJournal
