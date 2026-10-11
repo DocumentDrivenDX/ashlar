@@ -1,0 +1,9 @@
+# Original commerce compiler classification
+
+A fresh offline installation of immutable Ashlar `b14460a805b39e6385d5c3c2fd502338af337f82` tested all four unchanged original commerce pack SQL queries twice against the indexed Weft 5ddcebd CountStar compiler. Fulfillment, settlement and refund compiled deterministically and passed the selected offline request/response/plan schema and host admission. Their independent result bags were derived from the original graph, retaining original lexical identities and complete source occurrence witnesses. These are compiler and oracle correspondence results, not executed native SQL results.
+
+Both original partial-return responses were blocked with `WFT-UNSUPPORTED`: “Computed arithmetic projection requires an explicit alias.” Its unaliased computed expression and `<` predicate were preserved. The probe continued through the remaining three queries, retained all eight raw request/response pairs before classification, and withheld an overall pass. The operation exited 1 (session 64228, terminal `b391bd`); neither complete pass report was published.
+
+Source, interpreter, installed console, metadata/RECORD and full payload custody checks ran before the required-case failure propagated. Outer resource custody passed, and no selected owned child processes remained. The archive retains all 38 frozen output files, exact C recipe/helpers, original inputs, and independent command/actual reviews. The preceding first-case failure remains separately retained in [failure A](../commerce-original-compiler-failure-20261010-a/README.md).
+
+This does not qualify all four required queries, native SQL, source/publication/ACK authority, PostgreSQL, Spark, Unity Catalog or a performance benchmark. Publication metadata is used only for compiler bindings. No SQL repair, compiler retry, wheel or runtime binary distribution is represented.
