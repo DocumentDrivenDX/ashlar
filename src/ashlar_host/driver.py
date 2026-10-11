@@ -20,6 +20,14 @@ ROOT = RESOURCE_ROOT
 CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
 
+class _OriginalGraphSourceRenewal:
+    """Private binding created by the exact original reader factory only."""
+    __slots__ = ('owner','_renew')
+    def __init__(self, owner, renew):
+        object.__setattr__(self,'owner',owner);object.__setattr__(self,'_renew',renew)
+    def __setattr__(self,name,value):raise AttributeError('Original graph source binding is immutable')
+    def renew(self, vector, context):self._renew(vector,context)
+
 def original_native_equal(supplied, expected):
     """Exact primitive/native containers; numeric equivalence is not original custody."""
     if type(supplied) is not type(expected):
@@ -929,7 +937,9 @@ class NativeDriver:
         if self.transport.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(original_registry,)]:
             raise PermissionError('Original reader installation registry differs')
         owner=self
-        class ReadCustody:
+        original_transport=owner.transport;original_context=owner.context
+        original_sources=None
+        class ReadIdentity:
             def admit_source_writer(self, registration, context):
                 owner.require(context)
                 gate=getattr(owner,'_query_read_gate',None)
@@ -952,6 +962,54 @@ class NativeDriver:
                         or owner.transport.reservation!=original_reservation
                         or owner.transport.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(original_registry,)]):
                     raise PermissionError('Original reader registry/reservation changed')
+        read_identity=ReadIdentity()
+        class GraphIdentity:
+            def __init__(self):self.interval=None;self.native=None
+            def files(self):
+                from .evolution_producer import snapshot
+                result={};total=0
+                for table,uuid,path in original_targets:
+                    target=Path(path)
+                    for member in sorted(target.rglob('*')):
+                        if member.is_symlink():raise PermissionError('Original graph native alias refused')
+                        if member.is_file():
+                            raw=snapshot(member,67108864);total+=len(raw)
+                            if total>1073741824:raise PermissionError('Bounded original graph native custody required')
+                            result[str(member)]=hashlib.sha256(raw).hexdigest()
+                        elif not member.is_dir():raise PermissionError('Original graph native carrier refused')
+                return result
+            def require(self, registration, context):
+                read_identity.admit_source_writer(registration,context)
+                if (owner.transport is not original_transport or owner.query_source_factory is not factory
+                        or owner.source_sessions is not original_sources or owner.context is not original_context):
+                    raise PermissionError('Original actual graph reader ports changed')
+                token=getattr(owner,'_query_read_generation',None)
+                if token is None:raise PermissionError('Actual acquired reader interval required')
+                if self.interval is not token:
+                    self.interval=token;self.native=self.files()
+                if self.files()!=self.native:raise PermissionError('Original complete graph native bytes changed')
+            def admit_source_writer(self, registration, context):
+                self.require(registration,context)
+            def observe(self, registration, context):
+                self.require(registration,context)
+                for table,version in original_versions:
+                    target=original_transport.targets[table]
+                    result=original_transport.query('DESCRIBE DETAIL `'+ '`.`'.join(table.split('.'))+'`',{})
+                    if (type(result.rows) is not list or len(result.rows)!=1
+                            or type(result.rows[0]) is not dict
+                            or type(result.rows[0].get('id')) is not str
+                            or type(result.rows[0].get('location')) is not str
+                            or result.rows[0]['id']!=target.uuid
+                            or result.rows[0]['location'].removeprefix('file:').rstrip('/')!=str(target.path)):
+                        raise PermissionError('Current original complete graph native identity differs')
+                    # Exact retention is corroborated by the caller-owned whole
+                    # native inventory on every use, after real opening snapshots.
+                    if not target.path.is_dir() or not (target.path/'_delta_log').is_dir():
+                        raise PermissionError('Original retained graph version files absent')
+        identity=GraphIdentity()
+        class ReadCustody:
+            def admit_source_writer(self, registration, context):
+                read_identity.admit_source_writer(registration,context)
                 for table,version in original_versions:
                     expected_uuid=dict((t,u) for t,u,p in original_targets)[table]
                     observed=owner.inspect_snapshot(table,version)
@@ -959,10 +1017,41 @@ class NativeDriver:
                             or type(observed.uuid) is not str or type(observed.version) is not int
                             or observed.table!=table or observed.uuid!=expected_uuid or observed.version!=version):
                         raise PermissionError('Original held native snapshot differs')
+        graph_sources=RegisteredOutboxSources((selected.source,),ExistingOutboxAuthority((selected,),identity))
+        def current_graph_source(vector, context):
+            from ashlar.pins import PinVector
+            if type(vector) is not PinVector or len(original_versions)!=6:
+                raise PermissionError('Exact complete original graph vector required')
+            expected=manifest_pin_vector(json.loads(original_manifest),{t:u for t,u,path in original_targets},authority='private-local-process')
+            if vector!=expected:raise PermissionError('Original graph vector differs')
+            identity.observe(selected.source,context)
+            if graph_sources.metadata()!=original_sources.metadata():raise PermissionError('Original graph source registration differs')
+            graph_sources.admit(json.loads(original_request),context=context)
+            identity.observe(selected.source,context)
+        self._original_graph_source_renew=_OriginalGraphSourceRenewal(self,current_graph_source)
         authority=ExistingOutboxAuthority((selected,),ReadCustody())
         sources=RegisteredOutboxSources((selected.source,),authority)
         self.query_source_factory=factory
         self.source_sessions=sources;self.original_source_sessions=encoded(sources.metadata())
+        original_sources=sources
+
+    def renew_original_graph_read_source(self, vector, *, context):
+        """Renew original ordinary source under the actual complete read reservation.
+
+        This closed graph port grants no write authority and never changes the
+        existing source_sessions full-snapshot admission path. Its owning graph
+        interval must corroborate every original native byte and perform actual
+        full snapshot admission at both boundaries.
+        """
+        from .read_only_transport import ReadOnlyDeltaTransport
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
+                or type(getattr(self,'query_source_factory',None)) is not CommerceQuerySourceFactory
+                or context is not self.context or not self.held or not self.pin_held
+                or type(getattr(self,'_original_graph_source_renew',None)) is not _OriginalGraphSourceRenewal
+                or self._original_graph_source_renew.owner is not self):
+            raise PermissionError('Actual original registered graph read interval required')
+        self._original_graph_source_renew.renew(vector,context)
 
     @contextmanager
     def query_read_interval(self, context):
@@ -982,11 +1071,11 @@ class NativeDriver:
                     or (path.stat().st_dev,path.stat().st_ino)!=(info.st_dev,info.st_ino)):
                 raise PermissionError('Original private reader gate required')
             fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);locked=True
-            self._query_read_gate=(fd,(info.st_dev,info.st_ino),path);self.held=True
+            self._query_read_gate=(fd,(info.st_dev,info.st_ino),path);self._query_read_generation=object();self.held=True
             yield
         except BaseException as error:primary=error
         finally:
-            self.held=False;self._query_read_gate=None
+            self.held=False;self._query_read_gate=None;self._query_read_generation=None
             finish(primary,([lambda:fcntl.flock(fd,fcntl.LOCK_UN)] if locked else [])+[lambda:os.close(fd)])
 
     def admission_facts(self):

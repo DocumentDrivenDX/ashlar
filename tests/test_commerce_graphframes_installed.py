@@ -107,7 +107,7 @@ class ReaderTests(unittest.TestCase):
   d.transport=SimpleNamespace(targets=MappingProxyType(targets),query=query)
   d.validate_manifest=Mock();d.source_admit=Mock();d.descriptors=lambda publication_id:[manifest]
   d.inspect_snapshot=lambda table,version:Snapshot(table,targets[table].uuid,version)
-  p=object.__new__(PublicationProvider);p.driver=d;p.context=context;p.active=True;p._reader_closed=False;p.ordinary_session=OrdinaryQueryConnectionFactory(lambda role:None);p.request_bytes=encoded(request).encode();p.manifest_bytes=encoded(manifest).encode();p.renew_current_ack=Mock()
+  p=object.__new__(PublicationProvider);p.driver=d;p.context=context;p.active=True;p._reader_closed=False;p.ordinary_session=OrdinaryQueryConnectionFactory(lambda role:None);p.request_bytes=encoded(request).encode();p.manifest_bytes=encoded(manifest).encode();p.renew_current_ack=Mock();d.renew_original_graph_read_source=Mock(side_effect=lambda vector,context:d.source_admit(json.loads(p.request_bytes)))
   report={'native_manifest':manifest};(root/'report.json').write_text(encoded(report))
   expected={role:[{k:v for k,v in row.items()if k not in ('graph_id','src','dst')}for row in release[graphrole]]for role,graphrole in [('object_current','nodes'),('edge_current','edges')]}
   return OpenedCommerceReader(p,d,owner,expected,context,{},lambda:{},{},report,model,graph,json.loads(bindings),manifest,p.request_bytes,p.manifest_bytes,root)
@@ -175,3 +175,183 @@ class ReaderTests(unittest.TestCase):
   with patch.object(GraphFramesRuntimeConfig,'renew'),patch('ashlar_host.graphframes_release._execute_prepared_graphframes',side_effect=child):
    with self.assertRaises(KeyboardInterrupt)as raised:execute_commerce_graphframes_release(session,runtime,PACK,Mock())
   self.assertIs(raised.exception,cancel);self.assertIn('ack',events);self.assertEqual(events[-3:],['rollback','connection-close','writer-close']);self.assertFalse(p.active);self.assertFalse(d.pin_held);self.assertIsNone(p._closed_custody)
+
+ def active_session(self):
+  from contextlib import contextmanager
+  from dataclasses import replace
+  from ashlar_host.commerce_graphframes_release import CommerceGraphFramesSession
+  from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory
+  opened=self.opened();p=opened.provider;d=opened.driver;events=[]
+  class Connection:
+   def rollback(self):events.append('rollback')
+   def close(self):events.append('close')
+  r=d.query_source_factory.registration
+  p.ordinary_session=OrdinaryQueryConnectionFactory(lambda role:Connection());p.port={'role':r.ack_role,'scope':r.source.scope,'source':r.source.source_schema,'signature':r.source.source_signature_sha256};p.cleanup_state=None;p.active=False;p._closed_custody=None;d.held=False;d.pin_held=False
+  p._ack=lambda session:events.append('ack')or{'inert':True}
+  del p.renew_current_ack
+  @contextmanager
+  def writer(stream,context):
+   self.assertIs(context,d.context);d.held=True;events.append('writer-open')
+   try:yield
+   finally:events.append('writer-close');d.held=False
+  d.writer=writer
+  d.validate_manifest=Mock(side_effect=lambda *args:events.append(('full-native',d.held,d.pin_held)))
+  original_query=d.transport.query;d.transport.query=Mock(side_effect=original_query)
+  opened=replace(opened)
+  return CommerceGraphFramesSession(opened,Mock(),object()),events
+ def test_same_interval_renewals_do_not_repeat_raw_reads_but_full_closing_remains(self):
+  from ashlar_host.commerce_graphframes_release import hold_commerce_graphframes_session
+  session,events=self.active_session();opened=session.opened
+  with hold_commerce_graphframes_session(session,PACK)as(release,profile,renew):
+   renew();renew();self.assertEqual(opened.driver.validate_manifest.call_count,4)
+   selected=[call for call in opened.driver.transport.query.call_args_list if call.args[0].startswith('SELECT ')]
+   self.assertEqual(len(selected),2)
+  selected=[call for call in opened.driver.transport.query.call_args_list if call.args[0].startswith('SELECT ')]
+  self.assertEqual(len(selected),4);self.assertEqual(opened.driver.validate_manifest.call_count,8)
+  self.assertTrue(all(event[1:] == (True,True)for event in events if type(event)is tuple))
+  with self.assertRaises(PermissionError):renew()
+ def test_opening_cancellation_still_full_closes_and_checks_raw_bags_under_pins(self):
+  from ashlar_host.commerce_graphframes_release import hold_commerce_graphframes_session
+  from ashlar_host.publication_reader import OpenedCommerceReader
+  session,events=self.active_session();opened=session.opened;cancel=KeyboardInterrupt('opening');original=OpenedCommerceReader.require_current;calls=[]
+  def require(owner,context):
+   calls.append((owner.driver.held,owner.driver.pin_held))
+   if len(calls)==1:raise cancel
+   return original(owner,context)
+  with patch.object(OpenedCommerceReader,'require_current',require):
+   with self.assertRaises(KeyboardInterrupt)as raised:
+    with hold_commerce_graphframes_session(session,PACK):self.fail('yield reached')
+  self.assertIs(raised.exception,cancel);self.assertEqual(calls,[(True,True),(True,True)])
+  selected=[call for call in opened.driver.transport.query.call_args_list if call.args[0].startswith('SELECT ')]
+  self.assertEqual(len(selected),2);self.assertFalse(opened.driver.pin_held);self.assertFalse(opened.driver.held);self.assertIsNone(opened.provider._closed_custody)
+ def test_failed_full_closing_admission_still_attempts_independent_raw_closing(self):
+  from ashlar_host.commerce_graphframes_release import hold_commerce_graphframes_session
+  from ashlar_host.publication_reader import OpenedCommerceReader
+  session,events=self.active_session();opened=session.opened;cancel=KeyboardInterrupt('opening');original=OpenedCommerceReader.require_current;calls=[]
+  def require(owner,context):
+   calls.append((owner.driver.held,owner.driver.pin_held))
+   if len(calls)==1:raise cancel
+   raise ValueError('full closing refused')
+  with patch.object(OpenedCommerceReader,'require_current',require):
+   with self.assertRaises(KeyboardInterrupt)as raised:
+    with hold_commerce_graphframes_session(session,PACK):self.fail('yield reached')
+  self.assertIs(raised.exception,cancel);self.assertEqual(calls,[(True,True),(True,True)])
+  selected=[call for call in opened.driver.transport.query.call_args_list if call.args[0].startswith('SELECT ')]
+  self.assertEqual(len(selected),2);self.assertFalse(opened.driver.pin_held);self.assertFalse(opened.driver.held);self.assertIsNone(opened.provider._closed_custody)
+ def test_body_cancellation_closing_raw_drift_preserves_primary_and_releases(self):
+  from ashlar_host.commerce_graphframes_release import hold_commerce_graphframes_session
+  session,events=self.active_session();opened=session.opened;cancel=KeyboardInterrupt('body');query=opened.driver.transport.query.side_effect
+  def changed(sql,args):
+   result=query(sql,args)
+   if sql.startswith('SELECT ')and result.rows:result.rows[0]['props_json']='{}'
+   return result
+  with self.assertRaises(KeyboardInterrupt)as raised:
+   with hold_commerce_graphframes_session(session,PACK):
+    opened.driver.transport.query.side_effect=changed;raise cancel
+  self.assertIs(raised.exception,cancel);self.assertFalse(opened.driver.pin_held);self.assertFalse(opened.driver.held);self.assertIsNone(opened.provider._closed_custody)
+
+
+class GraphCurrentBindingTests(unittest.TestCase):
+ """Real closed binding/source owners with explicit inert ordinary/native rows."""
+ def fixture(self):
+  import tempfile,sqlite3
+  from types import SimpleNamespace,MappingProxyType
+  from ashlar_host.driver import NativeDriver,request_for
+  from ashlar_host.read_only_transport import ReadOnlyDeltaTransport
+  from ashlar_host.delta_custody import DeltaTarget,encoded
+  from ashlar_host.ack import AckScope
+  from ashlar_host.source_sessions import OutboxSourceRegistration
+  from ashlar_host.existing_outbox_authority import OutboxAuthorityRegistration
+  from ashlar_host.commerce_query_sources import CommerceQuerySourceFactory
+  from ashlar.outbox import OutboxTransaction
+  from ashlar.manifest import manifest_pin_vector
+  from ashlar.publication import Snapshot
+  from ashlar.native import SQLResult
+  owner=admission(self);batch=owner.batch;raw=batch.begin+b''.join(record.raw for record in batch.records)+batch.commit
+  transaction=OutboxTransaction('ashlar-postgresql-outbox/0.1',batch.feed,batch.epoch,'0','1',hashlib.sha256(raw).hexdigest(),batch)
+  request=request_for('original',transaction,'origin',{batch.feed:'original-schema'})
+  tmp=tempfile.TemporaryDirectory();self.addCleanup(tmp.cleanup);root=Path(tmp.name);(root/'.pipeline-writer.lock').touch()
+  t=object.__new__(ReadOnlyDeltaTransport);t.journal_path=root/'journal.sqlite';t.db=sqlite3.connect(t.journal_path);self.addCleanup(t.db.close)
+  release=json.loads(RELEASE);targets={}
+  for role in ('attempts','manifest'):release['snapshots']['local.commerce.'+role]={'uuid':'inert-'+role,'version':0}
+  release['publication']['table_versions_json']=encoded({t:v['version']for t,v in release['snapshots'].items()})
+  for i,(table,snapshot)in enumerate(release['snapshots'].items()):
+   path=root/str(i);path.mkdir();(path/'_delta_log').mkdir();(path/'_delta_log/00000000000000000000.json').write_text('original log');(path/'data.parquet').write_bytes(b'original whole carrier')
+   targets[table]=DeltaTarget(table,path,snapshot['uuid'])
+  t.targets=MappingProxyType(targets);registry={'targets':{name:value.uuid for name,value in targets.items()}};t.reservation=encoded({'registry':registry})
+  t.db.execute('CREATE TABLE local_installation(id INTEGER,original TEXT)');t.db.execute('INSERT INTO local_installation VALUES(1,?)',(encoded(registry),));t.db.commit()
+  d=object.__new__(NativeDriver);d.transport=t;d.held=False;d.pin_held=False;d.source_sessions=None;d.context=object()
+  d.policy=SimpleNamespace(active={'request':request,'manifest':release['publication']})
+  scope=AckScope('ashlar_ack_existing','11111111-1111-1111-1111-111111111111','22222222-2222-2222-2222-222222222222','ordinary',batch.feed,batch.epoch)
+  events=[]
+  class Connection:
+   autocommit=False
+   def __init__(self,role):self.role=role
+   def rollback(self):events.append('rollback:'+self.role)
+   def close(self):events.append('close:'+self.role)
+  source=OutboxSourceRegistration(scope,'ashlar_ack_source_existing','a'*64,lambda context:Connection('ordinary_reader'))
+  selected=OutboxAuthorityRegistration(source,'ordinary_reader','ordinary_ack','truss_e2e',lambda context:Connection('ordinary_ack'))
+  factory=CommerceQuerySourceFactory(selected)
+  d.scope_ports={batch.feed:{'scope':scope,'source':source.source_schema,'signature':'a'*64,'reader':'ordinary_reader','role':'ordinary_ack'}}
+  d.admission_facts=lambda:{'profile':'ashlar-original-commerce-public-dataset-admission/0.1'}
+  snapshots=[];details=[]
+  def inspect(table,version):snapshots.append(table);return Snapshot(table,targets[table].uuid,version)
+  def query(sql,args):
+   table=sql.split(' ',2)[2].replace('`','');details.append(table)
+   target=targets[table];return SQLResult([{'id':target.uuid,'location':'file:'+str(target.path)}])
+  d.inspect_snapshot=inspect;t.query=query;d.bind_query_sources(factory)
+  vector=manifest_pin_vector(release['publication'],{t:v.uuid for t,v in targets.items()},authority='private-local-process')
+  from test_existing_outbox_authority import Tests as AuthorityControls
+  observer=object.__new__(AuthorityControls);observer.calls=[];observer.fail=None;observer.scope=scope;observer.source=source
+  return SimpleNamespace(driver=d,vector=vector,transaction=transaction,events=events,snapshots=snapshots,details=details,observer=observer,authority_type=AuthorityControls)
+ def observe(self,f,session,sql,parameters):
+  return f.authority_type.observe(f.observer,sql,parameters,session.connection.role)
+ def admit(self,f):
+  from ashlar_host.postgres import Session
+  from ashlar.outbox import PostgresOutbox
+  with patch.object(Session,'query',lambda session,sql,parameters:self.observe(f,session,sql,parameters)),patch.object(PostgresOutbox,'read',return_value=[f.transaction]):
+   f.driver.renew_original_graph_read_source(f.vector,context=f.driver.context)
+ def test_real_current_source_composition_without_repeated_snapshots_and_legacy_unchanged(self):
+  f=self.fixture();d=f.driver;original=d.source_sessions
+  with d.query_read_interval(d.context):
+   d.pin_held=True;self.admit(f);self.assertEqual(f.snapshots,[]);self.assertEqual(len(f.details),12)
+   self.assertIs(d.source_sessions,original);self.assertGreater(len(f.events),0)
+   original.policy.writer.admit_source_writer(d.query_source_factory.registration.source,d.context)
+   self.assertEqual(len(f.snapshots),6)
+  with self.assertRaises(PermissionError):self.admit(f)
+ def test_every_use_native_unusedbytes_identity_registry_gate_and_vector_refuse(self):
+  from ashlar.pins import PinVector
+  for change in ('bytes','log-retention','uuid','path','registry','reservation','gate','pins','context','vector','binding'):
+   with self.subTest(change=change):
+    f=self.fixture();d=f.driver
+    with d.query_read_interval(d.context):
+     d.pin_held=True;self.admit(f);target=next(iter(d.transport.targets.values()))
+     if change=='bytes':(target.path/'data.parquet').write_bytes(b'unused field drift')
+     elif change=='log-retention':(target.path/'_delta_log/00000000000000000000.json').unlink()
+     elif change=='uuid':object.__setattr__(target,'uuid','substituted')
+     elif change=='path':object.__setattr__(target,'path',target.path.parent)
+     elif change=='registry':d.transport.db.execute("UPDATE local_installation SET original='{}'")
+     elif change=='reservation':d.transport.reservation='{}'
+     elif change=='gate':
+      path=d.transport.journal_path.parent/'.pipeline-writer.lock';path.rename(path.with_name('old.lock'));path.touch()
+     elif change=='pins':d.pin_held=False
+     elif change=='context':d.context=object()
+     elif change=='vector':f.vector=PinVector(f.vector.authority,f.vector.scope_kind,f.vector.scope_id,'a'*64,dict(f.vector.targets))
+     else:d._original_graph_source_renew=lambda *args:None
+     with self.assertRaises(PermissionError):self.admit(f)
+ def test_actual_ordinary_source_role_privilege_signature_and_batch_refuse(self):
+  from ashlar_host.postgres import Session
+  from ashlar.outbox import PostgresOutbox
+  for change in ('role','privilege','signature','batch'):
+   with self.subTest(change=change):
+    f=self.fixture();d=f.driver
+    def fail(row,sql):
+     if change=='role'and'pg_catalog.pg_roles'in sql:row['rolsuper']=True
+     elif change=='privilege'and'has_schema_privilege'in sql:row['create']=True
+     elif change=='signature'and'scope_binding(CAST'in sql:row['binding']['source_signature_sha256']='b'*64
+    f.observer.fail=fail
+    with d.query_read_interval(d.context):
+     d.pin_held=True
+     with patch.object(Session,'query',lambda session,sql,parameters:self.observe(f,session,sql,parameters)),patch.object(PostgresOutbox,'read',return_value=[]if change=='batch'else[f.transaction]):
+      with self.assertRaises(ValueError):d.renew_original_graph_read_source(f.vector,context=d.context)
+    self.assertTrue(any(event.startswith('close:')for event in f.events))

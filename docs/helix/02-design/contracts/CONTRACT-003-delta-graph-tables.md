@@ -663,6 +663,18 @@ reader carrier establishes correspondence only: current driver, source, pins and
 ordinary protected-ACK admission remain mandatory on every use. Existing installed
 archaeology/ecology and retained-export profiles MUST retain their boundaries.
 
+Within one acquired original-commerce GraphFrames read interval, complete opening
+native admission MAY establish an immutable raw carrier for reuse. Every use MUST
+renew the actual original reader reservation, complete six-table UUID/location
+and retained vector, exact whole native file bytes, original ordinary source
+roles/privileges/schema/signature and batch bytes, and current protected ACK.
+This closed owning composition MUST NOT replace the existing query source owner
+or accept caller policies, skip flags or cross-interval authority caches. Full
+independent native snapshot admission and complete raw original carrier bags MUST
+run at opening and closing; all post-acquisition errors and cancellation MUST
+still attempt substantive closing under active pins and the reader lease before
+release. A retained result cannot extend that interval or grant source authority.
+
 A source adapter claiming Truss layout 0.2 MUST preserve shared object/edge ID
 allocation and unique relationship/source/target edge rules. Generic parallel-edge
 fixtures qualify carrier capacity only; incompatible producer duplicates must be

@@ -71,7 +71,7 @@ class OpenedCommerceReader:
             'publication_identity':[info.st_dev,info.st_ino],
             'registered_source':None if getattr(self.driver,'query_source_factory',None)is None else self.driver.query_source_factory.metadata()}))
 
-    def require_current(self, context):
+    def _require_owned_correspondence(self, context):
         from .driver import NativeDriver
         from .commerce_admission import CommerceAdmission
         from .commerce_query_sources import CommerceQuerySourceFactory
@@ -88,11 +88,29 @@ class OpenedCommerceReader:
         self.driver.require(context)
         if self._correspondence()!=self._original or self.provider.request_bytes!=self.request_bytes or self.provider.manifest_bytes!=self.manifest_bytes:
             raise PermissionError('Original opened reader correspondence changed')
+    def require_current(self, context):
+        self._require_owned_correspondence(context)
         self.driver.validate_manifest(self.manifest,context)
         self.driver.source_admit(json.loads(self.request_bytes))
         self.provider.renew_current_ack(context)
         if self.native_files()!=self.original_native_files:
             raise PermissionError('Original complete native carrier bytes changed')
+        return None
+
+    def renew_original_graph_read(self, vector, *, context):
+        """Current complete original bytes and ordinary authority, not a grant.
+
+        The commerce GraphFrames owner performs full snapshot admission at both
+        held boundaries. This separate closed port never alters query admission.
+        """
+        self._require_owned_correspondence(context)
+        if self.native_files()!=self.original_native_files:
+            raise PermissionError('Original complete graph native bytes changed')
+        self.driver.renew_original_graph_read_source(vector,context=context)
+        self.provider.renew_current_ack(context)
+        self._require_owned_correspondence(context)
+        if self.native_files()!=self.original_native_files:
+            raise PermissionError('Closing original complete graph native bytes changed')
         return None
 
 def original_commerce_reader_roles(report,source_factory):

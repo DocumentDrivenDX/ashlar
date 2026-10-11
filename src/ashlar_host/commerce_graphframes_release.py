@@ -34,7 +34,7 @@ class _CommerceGraphPolicy:
   self.manifest=encoded(opened.manifest);self.expected=source_snapshot(opened.independent_expected)
   self.roles={opened.driver.tables[role]:role for role in ('object_current','edge_current')}
  def require(self,context):
-  self.opened.require_current(context)
+  self.opened.renew_original_graph_read(self.vector,context=context)
   current=manifest_pin_vector(self.opened.manifest,{table:self.opened.driver.transport.targets[table].uuid for table in json.loads(self.opened.manifest['table_versions_json'])},authority='private-local-process')
   if current!=self.vector:raise PermissionError('Original complete current held vector differs')
   self.opened.driver.authorize(context,self.opened.manifest['publication_id'],tuple(self.vector.targets))
@@ -66,7 +66,7 @@ class _HeldCommercePins:
   finish(primary,[lambda:self.policy.require(context)])
 
 def _read_release(opened,policy):
- opened.require_current(opened.context)
+ policy.require(opened.context)
  return read_graph_release(opened.driver.transport,opened.driver,_HeldCommercePins(policy),policy.vector,policy,
   publication_id=opened.manifest['publication_id'],node_table=opened.driver.tables['object_current'],edge_table=opened.driver.tables['edge_current'],context=opened.context,
   supported_profiles=['ashlar-delta/0.3'],supported_revisions={k:[v]for k,v in json.loads(opened.manifest['schema_revisions_json']).items()},
@@ -76,15 +76,23 @@ def _read_release(opened,policy):
 def hold_commerce_graphframes_session(session,pack_bytes):
  """Acquire actual commerce read authority; renewal is owned by this session."""
  if type(session)is not CommerceGraphFramesSession or type(pack_bytes)is not bytes:raise ValueError('Exact selected commerce session required')
- session.__post_init__();opened=session.opened;primary=None
+ session.__post_init__();opened=session.opened
  with opened.provider.interval(opened.context):
-  vector=manifest_pin_vector(opened.manifest,{table:opened.driver.transport.targets[table].uuid for table in json.loads(opened.manifest['table_versions_json'])},authority='private-local-process')
-  policy=_CommerceGraphPolicy(opened,vector);release=_read_release(opened,policy)
-  profile=prepare_commerce_graphframes_profile(opened.admission,pack_bytes,release)
-  def renew():
-   policy.require(opened.context)
-   if _read_release(opened,policy)!=release:raise PermissionError('Current original whole graph release changed')
-  try:yield release,profile,renew
+  primary=None;release=None;policy=None
+  def current_policy():
+   return _CommerceGraphPolicy(opened,manifest_pin_vector(opened.manifest,{table:opened.driver.transport.targets[table].uuid for table in json.loads(opened.manifest['table_versions_json'])},authority='private-local-process'))
+  def close_native():
+   closing=_read_release(opened,policy if policy is not None else current_policy())
+   if release is not None and closing!=release:raise PermissionError('Closing original whole graph release changed')
+  try:
+   opened.require_current(opened.context)
+   policy=current_policy();release=_read_release(opened,policy)
+   profile=prepare_commerce_graphframes_profile(opened.admission,pack_bytes,release)
+   def renew():
+    # Exact whole native bytes corroborate this carrier only inside this actual
+    # interval; full raw independent bags and native snapshots repeat at closing.
+    policy.require(opened.context)
+   yield release,profile,renew
   except BaseException as error:primary=error
-  finish(primary,[renew])
+  finish(primary,[lambda:opened.require_current(opened.context),close_native])
  opened.provider.closed_interval_custody(opened.context)
