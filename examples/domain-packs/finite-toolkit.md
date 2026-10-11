@@ -6,7 +6,7 @@ to reopen its committed publication and execute every original scenario: eight
 for archaeology or nine for ecology. The query command preserves the original
 SQL, model documents, property/carrier identities and complete result bags.
 
-Provision the native query environment with Python 3.11, Spark 4.0.1,
+Provision the native query environment with Python 3.11, JDK 21, Spark 4.0.1,
 Delta Spark 4.0.0 and the exact two Delta JARs required by the selected native
 profile. The selected indexed Weft COUNT star realization requires Darwin arm64
 with macOS 27.0.1; this selection does not admit another host platform. The JAR
@@ -21,6 +21,14 @@ command verifies that installed compiler instead of rebuilding it. The public
 UMF dataset producer requires Bun, Git and a clean UMF checkout at
 `07357eadbda9cf8299b9d72d004cbb77f8091aee`. These commands do not discover or
 install runtimes, contact PostgreSQL or create protected ACK authority.
+
+The query command also requires the offline JSON Schema validator in the same
+Python environment. The selected validator environment uses `jsonschema==4.23.0`,
+`referencing==0.35.1`, `jsonschema-specifications==2024.10.1`, `attrs==24.2.0` and
+`rpds-py==0.21.0`. Supply these dependencies before running the query command;
+Ashlar's base package has no runtime dependencies. The validator uses only the
+installed compiler's pinned schema bytes and performs no network retrieval,
+default insertion or value coercion.
 
 Choose an absolute working directory with separate locations for the original
 files, native publication and each fresh observation run. Keep the entire
