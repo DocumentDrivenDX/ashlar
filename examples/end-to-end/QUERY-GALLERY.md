@@ -7,6 +7,13 @@ the separate indexed runner described below. Each runner compiles its fixed
 queries against the publication and compares complete results with the original
 source oracle.
 
+The [fresh original-commerce workflow](../original-commerce-local/README.md)
+adds the four unchanged authored Weft 0.4.2 scenarios: partial return, fulfillment,
+settlement and refund. Its [complete local result evidence](../../docs/helix/04-build/evidence/original-commerce-local-query-20261011-d/README.md)
+records independent numeric and lexical bags with current source/ACK/native
+closing custody. This is a separately qualified subset, not an extension of the
+older compiler receipts below.
+
 ## Count products
 
 ```sql

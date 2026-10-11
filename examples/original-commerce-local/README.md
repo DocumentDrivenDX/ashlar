@@ -70,10 +70,65 @@ process group; hard termination does not prove cooperative native closing.
 A native component success followed by evidence-retention failure remains a
 failed whole invocation.
 
-The four unchanged original queries use the separate
-[implicit-arithmetic query guide](../../docs/helix/05-deploy/commerce-implicit-arithmetic-cli.md),
-installed Weft 0.4.2, Spark 4, Delta 4 and JDK 21. Its explicit provider must return
-current ordinary source and protected-ACK factories bound to this publication.
-These setup templates do not supply that provider or qualify the four-query
-runtime. Full four bags and closing source/native custody require separate
-verification; no cloud or managed Unity Catalog claim follows.
+## Install the fixed 0.4.2 compiler
+
+Select the immutable Weft 0.4.2 index and its matching realization package. The
+older compiler in the indexed commerce runbook is a different qualification;
+it cannot substitute for this profile. Use a fresh installation output:
+
+```sh
+/absolute/query-environment/bin/python -I -B -m ashlar install-weft-implicit-arithmetic \
+  --index /absolute/weft042/index.json \
+  --package /absolute/weft042/realization \
+  --output /absolute/fresh-weft042-installation
+```
+
+The installed host verifies the fixed realization and its closed schema and
+manifest resources. Preserve the selected index, package and installation bytes.
+
+## Configure and run the four original queries
+
+Prepare a separate installed Python 3.11 query environment with PySpark 4.0.1,
+Delta Spark 4.0.0 and psycopg 3.2.13. Its Python SQLite library must be 3.53.1;
+installing a virtual environment does not replace the interpreter's SQLite
+library. Select the full JDK 21 distribution, including `jdk.incubator.vector`,
+and the exact two regular Delta 4 JARs listed in the indexed runbook. Keep JDK 17
+and the publication SDK separate. Select runtime packages through this installed
+environment, not an inherited `PYTHONPATH` or another Python's binary extensions.
+New wheel or SDK bytes require their own qualification.
+
+Copy and complete [query-provider.template.py](query-provider.template.py) as
+explained in [provider.md](provider.md). Its three constants select the exact
+retained publication configuration, that file's SHA-256 and the private fixture
+container name. Compute the completed provider's SHA-256 after editing it. The
+provider uses the original registration's reader callback and protected ACK
+`metadata_factory`; it provisions nothing. The actual reader must still renew
+ordinary roles, signature, source bytes, protected ACK scope, retained journal,
+reservations and native UUID/version custody.
+
+Copy [query.template.sh](query.template.sh) to an operator-owned path and fill
+every placeholder. Select the same original model, graph, pack, clean public UMF
+source and publication used above. Set the observed fixture endpoint, fixed
+compiler installation, provider path/digest and a new absent query output.
+The template deliberately closes inherited connection/runtime environment
+settings and selects JDK 21 and the query interpreter explicitly. It invokes the
+actual public flags; the query command has no JSON `--configuration` profile.
+
+Run the completed template through an explicitly selected finite process
+supervisor. The query CLI starts Spark directly; it does not provide the
+initialization/publication commands' separate 300-second child supervisor.
+The qualified local query run used a 300-second native bound, one local Spark
+worker and a 512 MiB driver selection. Preserve stdout, stderr and terminal
+status, and reap only the process group you created on timeout or cancellation.
+A successful report requires all four complete result bags, unchanged original
+compiler SQL, fresh compiler correspondence, reader closure, Spark shutdown and
+closing source/native/JAR/invocation checks. Intermediate cases are provisional.
+
+The [four-query evidence](../../docs/helix/04-build/evidence/original-commerce-local-query-20261011-d/README.md)
+qualifies partial return, fulfillment, settlement and refund on this finite local
+original source. Its independently checked initialization and publication are
+linked from the receipt. The result does not qualify arbitrary new runtime
+bytes, general interrupted recovery, production authentication, managed Unity
+Catalog, cloud or real Truss integration. On failure preserve the output and
+native state; diagnose the owning refusal before choosing a fresh query output.
+Never reset, reappend or republish to repair a query.

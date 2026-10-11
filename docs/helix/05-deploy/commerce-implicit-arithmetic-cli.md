@@ -25,26 +25,33 @@ Supply the explicit producer settings `--umf-source`, `--bun`, `--git`, `--produ
 
 The nonsecret local profile settings `--postgres-container`, `--postgres-host`, `--postgres-port` and `--postgres-database` must describe the original installation. Session authentication comes from the explicitly supplied provider, rather than container credential discovery.
 
-Pass `--session-provider /absolute/operator.py --session-provider-sha256 <trusted-sha256>`. The provider exports:
+Pass `--session-provider /absolute/operator.py --session-provider-sha256 <trusted-sha256>`. Use the committed [explicit local provider template](../../../examples/original-commerce-local/query-provider.template.py)
+and [its selection guide](../../../examples/original-commerce-local/provider.md)
+for the isolated original-commerce fixture. Fill the publication configuration
+path/digest and container constants, then hash the completed provider. It exports
+`ordinary_query_connection_factory(config)` and
+`commerce_query_source_factory(config)` using exact public registration types.
+The ordinary reader callback is `registration.source.connection_factory`;
+the protected ACK callback is `registration.metadata_factory`.
 
-```python
-def ordinary_query_connection_factory(config):
-    from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory
-    return OrdinaryQueryConnectionFactory(open_ordinary_connection)
+The endpoint and retained original source registration must correspond exactly.
+The command binds these ports to the held reader lock, journal registration,
+native UUIDs and complete publication pins. Provider construction grants no
+write or ACK submission permission. Current ordinary identity, roles, privileges,
+signature, source checkpoint and protected ACK custody remain mandatory.
 
-def commerce_query_source_factory(config):
-    from ashlar_host.commerce_query_sources import CommerceQuerySourceFactory
-    from ashlar_host.existing_outbox_authority import OutboxAuthorityRegistration
-    # original_source_registration is an exact OutboxSourceRegistration with
-    # the original scope, schema, signature and ordinary reader connection port.
-    return CommerceQuerySourceFactory(OutboxAuthorityRegistration(
-        original_source_registration, original_reader_role, original_ack_role,
-        original_database, open_ordinary_metadata_connection))
-```
+Provider code and imports are trusted operator code, not a sandbox. The provider
+SHA identifies captured bytes and grants no source or publication authority.
+The reader owns rollback and connection closure. Keep credentials and source
+payloads out of diagnostics; no container credential discovery or legacy fallback
+is part of this explicit local profile.
 
-`open_ordinary_metadata_connection(context)` returns a fresh direct ordinary ACK-role connection for current source installation/signature and privilege checks. The original source registration must match the retained publication; it supplies a fresh ordinary reader connection for original outbox validation. The command binds these ports to the actual held reader lock, journal registration, native UUIDs and complete publication pins. It grants no write or ACK submission permission.
-
-`open_ordinary_connection(role)` returns a fresh DB-API connection authenticated directly as that requested ordinary role. The reader owns rollback and closure. The provider owns authentication inputs and imports; it must avoid printing credentials or source payloads. Provider Python code is trusted operator code, not a sandbox. The SHA identifies captured code bytes and grants no source, ACK or publication authority.
+The [ordered fresh local workflow](../../../examples/original-commerce-local/README.md)
+links fixture setup, six-table initialization, handoff, publication, fixed compiler
+installation and the complete [query command template](../../../examples/original-commerce-local/query.template.sh).
+The query CLI runs Spark directly; supply explicit finite process supervision.
+Its successful report, not a prior receipt, must establish all four full bags and
+closing checks.
 
 ## Dependencies and failure boundaries
 
