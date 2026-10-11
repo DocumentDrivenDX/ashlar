@@ -5,7 +5,7 @@ admission. The owned local lease and actual native checks remain mandatory.
 """
 from dataclasses import dataclass
 from pathlib import Path
-import hashlib,json
+import datetime,hashlib,json
 from ashlar.publisher import publish_batch
 from ashlar.staging import batch_row
 from ashlar.manifest import FIELDS
@@ -60,6 +60,40 @@ def finite_pack_request(source):
         'schema_revisions_json':encoded({facts['source_system']:facts['model_sha256']}),'source_batch_json':row['batch_json'],'source_batch_digest':row['batch_digest']}
     request['request_digest']=hashlib.sha256(encoded(request).encode()).hexdigest();source.admit_request(request);return request
 
+def native_history_evidence(history):
+    """Copy selected native history cells with explicit timestamp carriers.
+
+    Spark's selected session timezone is UTC. A naive Python timestamp remains
+    explicitly naive; it is not rewritten into an inferred timezone or string.
+    This report representation never replaces values used for native replay checks.
+    """
+    count=0;active=set()
+    def copy(value,depth):
+        nonlocal count
+        count+=1
+        if count>100000 or depth>128:raise ValueError('Bounded native history evidence required')
+        if type(value)is datetime.datetime:
+            if value.tzinfo is not None and value.tzinfo is not datetime.timezone.utc:raise ValueError('Unsupported native history timestamp timezone')
+            return {'profile':'ashlar-native-history-timestamp/0.1','native_type':'TIMESTAMP','session_timezone':'UTC',
+                'python_iso8601':value.isoformat(timespec='microseconds'),'python_tzinfo':None if value.tzinfo is None else 'UTC','fold':value.fold}
+        if type(value)in (type(None),bool):return value
+        if type(value)is int:
+            if not -(2**63)<=value<2**63:raise ValueError('Native history integer outside selected BIGINT carrier')
+            return value
+        if type(value)is str:
+            if len(value)>4*1024*1024:raise ValueError('Bounded native history text required')
+            return value
+        if type(value)not in (dict,list):raise ValueError('Unsupported native history carrier')
+        identity=id(value)
+        if identity in active:raise ValueError('Cyclic native history evidence refused')
+        active.add(identity)
+        try:
+            if type(value)is list:return [copy(item,depth+1)for item in value]
+            if any(type(key)is not str for key in value):raise ValueError('Exact native history member names required')
+            return {copy(key,depth+1):copy(item,depth+1)for key,item in value.items()}
+        finally:active.remove(identity)
+    return copy(history,0)
+
 def publish_finite_pack_native(config):
     """Fresh publication, exact no-effect replay and read-only committed restore."""
     if type(config)is not FinitePackNativeConfig:raise ValueError('Typed finite native configuration required')
@@ -102,7 +136,7 @@ def publish_finite_pack_native(config):
         reader=FiniteFileDriver(transport,policy,context,tables,graph_columns,source,driver.publication_id,current_admission=admit);restored=reader.restore_committed(request)
         if restored!=descriptor:raise ValueError('Original committed finite restore differs')
         captured=reader.capture_committed()
-        result={**captured,'source':source.metadata(),'manifest':dict(restored.raw),'native_histories':histories,'registry':registry,'qualification':'Original finite local Delta publication/replay/read-only committed reopen only; no SQL execution/remote-source/Unity Catalog/protected ACK claim.'}
+        result={**captured,'source':source.metadata(),'manifest':dict(restored.raw),'native_histories':native_history_evidence(histories),'registry':registry,'qualification':'Original finite local Delta publication/replay/read-only committed reopen only; no SQL execution/remote-source/Unity Catalog/protected ACK claim.'}
     except BaseException as error:primary=error
     callbacks=[]
     if source is not None:callbacks.append(source.renew)

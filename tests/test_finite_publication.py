@@ -155,6 +155,27 @@ class NativeCompositionControls(unittest.TestCase):
   with mock.patch.object(runtime,'_spark')as sdk:
    with self.assertRaises(ValueError)as caught:runtime.open_finite_spark(Configuration(),[])
    self.assertIs(caught.exception,failure);sdk.assert_not_called()
+ def test_native_history_report_preserves_typed_microseconds_timezone_and_original_values(self):
+  import datetime
+  from ashlar_host.finite_native import native_history_evidence
+  naive=datetime.datetime(2026,10,10,12,34,56,123456,fold=1);utc=naive.replace(tzinfo=datetime.timezone.utc,fold=0)
+  original={'table':[{'version':1,'timestamp':naive,'operationParameters':{'original':'preserved'},'job':None},{'version':0,'timestamp':utc}]}
+  before=copy.deepcopy(original);captured=native_history_evidence(original);json.dumps(captured)
+  self.assertEqual(original,before);self.assertIs(original['table'][0]['timestamp'],naive)
+  timestamp=captured['table'][0]['timestamp'];self.assertEqual(timestamp,{'profile':'ashlar-native-history-timestamp/0.1','native_type':'TIMESTAMP','session_timezone':'UTC','python_iso8601':'2026-10-10T12:34:56.123456','python_tzinfo':None,'fold':1})
+  self.assertEqual(captured['table'][1]['timestamp']['python_iso8601'],'2026-10-10T12:34:56.123456+00:00');self.assertEqual(captured['table'][1]['timestamp']['python_tzinfo'],'UTC')
+  captured['table'][0]['operationParameters'].clear();self.assertEqual(original['table'][0]['operationParameters'],{'original':'preserved'})
+ def test_native_history_report_refuses_unsupported_and_executable_carriers(self):
+  import datetime
+  from ashlar_host.finite_native import native_history_evidence
+  class Fake(datetime.datetime):
+   def isoformat(self,*a,**k):raise AssertionError('Executable datetime')
+  class FakeText(str):
+   __hash__=str.__hash__
+   def __eq__(self,other):raise AssertionError('Executable key')
+  cycle=[];cycle.append(cycle)
+  for value in (Fake(2026,10,10),datetime.datetime(2026,10,10,tzinfo=datetime.timezone(datetime.timedelta(hours=1))),{'key':object()},{FakeText('key'):'value'},1.5,2**63,cycle,['row']*100001):
+   with self.assertRaises(ValueError):native_history_evidence(value)
  def test_public_spark_requires_exact_current_jar_selection_before_sdk(self):
   from pathlib import Path
   from ashlar_host import supply_chain_native as runtime
