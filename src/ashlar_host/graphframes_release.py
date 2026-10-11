@@ -341,7 +341,7 @@ def _execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release
  def renew():
   renew_graphframes_runtime(runtime,inventory,runtime_policy,runtime_context);renew_authority()
   if runtime.work.is_symlink()or(runtime.work.stat().st_dev,runtime.work.stat().st_ino)!=identity or snapshot(input_path,16777216)!=raw:raise ValueError('Owned worker correspondence changed')
- environment={'PATH':str(runtime.java_home/'bin')+':/usr/bin:/bin','JAVA_HOME':str(runtime.java_home),'TMPDIR':str(runtime.work),'PYSPARK_PYTHON':str(runtime.python),'PYSPARK_DRIVER_PYTHON':str(runtime.python)}
+ environment={'PYTHONDONTWRITEBYTECODE':'1','PATH':str(runtime.java_home/'bin')+':/usr/bin:/bin','JAVA_HOME':str(runtime.java_home),'TMPDIR':str(runtime.work),'PYSPARK_PYTHON':str(runtime.python),'PYSPARK_DRIVER_PYTHON':str(runtime.python)}
  primary=None;observed_records=[]
  try:
   capture_graphframes_worker([str(runtime.python),'-I','-B','-m','ashlar_host.graphframes_release','--worker',str(input_path),str(runtime.work)],cwd=runtime.work,environment=environment,renew=renew,timeout_seconds=runtime.timeout_seconds,maximum_output_bytes=runtime.maximum_stream_bytes,retain_transport=lambda value:_write_owned(runtime.work/'transport.json',(json.dumps(value,sort_keys=True,separators=(',',':'))+'\n').encode()))
@@ -401,7 +401,7 @@ def graphframes_worker(input_path,output):
   try:stream.write(raw);stream.flush()
   except BaseException as error:primary=error
   finish(primary,[stream.close])
- spark=(SparkSession.builder.master('local[1]').appName('Ashlar installed original GraphFrames').config('spark.driver.memory','512m').config('spark.ui.enabled','false').config('spark.sql.shuffle.partitions','1').config('spark.databricks.delta.snapshotPartitions','1').config('spark.sql.session.timeZone','UTC').config('spark.sql.ansi.enabled','true').config('spark.jars',','.join(request['jars'].values())).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').config('spark.sql.warehouse.dir',str(output/'warehouse')).getOrCreate())
+ spark=(SparkSession.builder.master('local[1]').appName('Ashlar installed original GraphFrames').config('spark.driver.memory','512m').config('spark.executorEnv.PYTHONDONTWRITEBYTECODE','1').config('spark.ui.enabled','false').config('spark.sql.shuffle.partitions','1').config('spark.databricks.delta.snapshotPartitions','1').config('spark.sql.session.timeZone','UTC').config('spark.sql.ansi.enabled','true').config('spark.jars',','.join(request['jars'].values())).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').config('spark.sql.warehouse.dir',str(output/'warehouse')).getOrCreate())
  primary=None;result=None
  try:
   frames={};derived={};paths={};integers={f['signed64_column']for f in profile['fields']if f['signed64_column']}

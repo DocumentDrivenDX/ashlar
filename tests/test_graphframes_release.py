@@ -120,6 +120,43 @@ class Tests(TestCase):
    with self.assertRaises(KeyboardInterrupt)as raised:capture_graphframes_worker([selected,'-c','import time;time.sleep(10)'],cwd=cwd,environment=environment,renew=renew,timeout_seconds=2,maximum_output_bytes=64)
    self.assertIs(raised.exception,cancel);self.assertIsNotNone(owned[-1].returncode)
 
+ def test_owned_worker_environment_prevents_nested_python_bytecode(self):
+  import ast,sys,tempfile,subprocess,types
+  import ashlar_host.graphframes_release as owner
+  tree=ast.parse(Path(owner.__file__).read_text())
+  function=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='_execute_prepared_graphframes')
+  statement=next(n for n in function.body if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='environment'for t in n.targets))
+  with tempfile.TemporaryDirectory()as directory:
+   work=Path(directory).resolve();selected=Path(sys.executable).resolve()
+   namespace={'runtime':types.SimpleNamespace(java_home=work,work=work,python=selected),'str':str}
+   exec(compile(ast.Module(body=[statement],type_ignores=[]),owner.__file__,'exec'),namespace)
+   environment=namespace['environment'];self.assertEqual(environment['PYTHONDONTWRITEBYTECODE'],'1')
+   module=work/'bytecode_witness.py';module.write_text('value=7\n')
+   child="import subprocess,sys;subprocess.run([sys.executable,'-X','pycache_prefix=owned-cache','-c','import bytecode_witness'],check=True)"
+   result=subprocess.run([str(selected),'-B','-c',child],cwd=work,env=environment,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
+   self.assertEqual(result.returncode,0);self.assertFalse((work/'owned-cache').exists())
+   comparison=dict(environment);comparison.pop('PYTHONDONTWRITEBYTECODE')
+   result=subprocess.run([str(selected),'-B','-c',child],cwd=work,env=comparison,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
+   self.assertEqual(result.returncode,0);self.assertTrue(list((work/'owned-cache').rglob('bytecode_witness.*.pyc')))
+
+ def test_actual_worker_spark_builder_sets_executor_bytecode_policy_before_session(self):
+  import ast,types
+  import ashlar_host.graphframes_release as owner
+  tree=ast.parse(Path(owner.__file__).read_text())
+  function=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='graphframes_worker')
+  statement=next(n for n in function.body if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='spark'for t in n.targets))
+  calls=[]
+  class Builder:
+   def master(self,value):calls.append(('master',value));return self
+   def appName(self,value):calls.append(('appName',value));return self
+   def config(self,key,value):calls.append(('config',key,value));return self
+   def getOrCreate(self):calls.append(('getOrCreate',));return self
+  namespace={'SparkSession':types.SimpleNamespace(builder=Builder()),'request':{'jars':{'selected':'/selected.jar'}},'output':Path('/owned/worker'),'str':str}
+  exec(compile(ast.Module(body=[statement],type_ignores=[]),owner.__file__,'exec'),namespace)
+  self.assertEqual(calls.count(('config','spark.executorEnv.PYTHONDONTWRITEBYTECODE','1')),1)
+  self.assertLess(calls.index(('config','spark.executorEnv.PYTHONDONTWRITEBYTECODE','1')),calls.index(('getOrCreate',)))
+  self.assertIn(('master','local[1]'),calls);self.assertIn(('config','spark.driver.memory','512m'),calls)
+
  def test_derived_protocol_original_vector_and_raw_closing_witnesses(self):
   import copy
   from ashlar_host.graphframes_release import validate_derived_evidence
