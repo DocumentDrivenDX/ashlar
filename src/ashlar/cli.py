@@ -85,6 +85,7 @@ def main():
                 command.add_argument('--' + option, required=True)
         if name in ('query-commerce-paths','query-commerce-count-star','query-commerce-implicit-arithmetic'):
             if name == 'query-commerce-implicit-arithmetic':
+                command.add_argument('--postgres-profile',default='legacy-private',choices=('legacy-private','explicit-loopback'))
                 for option in ('session-provider', 'session-provider-sha256', 'pack'):
                     command.add_argument('--' + option, required=True)
             command.add_argument('--diagnostics-config')
@@ -212,8 +213,12 @@ def main():
                                       args.producer_timeout_seconds,
                                       args.producer_maximum_output_bytes,
                                       args.producer_maximum_receipt_bytes)
-            postgres = PrivatePostgresConfig(args.postgres_container, args.postgres_host,
-                                            args.postgres_port, args.postgres_database)
+            endpoint_type=PrivatePostgresConfig
+            if args.command=='query-commerce-implicit-arithmetic' and args.postgres_profile=='explicit-loopback':
+                from ashlar_host.implicit_arithmetic_configuration import ExplicitCommercePostgresEndpoint
+                endpoint_type=ExplicitCommercePostgresEndpoint
+            postgres = endpoint_type(args.postgres_container, args.postgres_host,
+                                     args.postgres_port, args.postgres_database)
             if args.command == 'publish-commerce':
                 config = PublishCommerceConfig(Path(args.output), Path(args.jars),
                     Path(args.model), Path(args.graph), producer, postgres,

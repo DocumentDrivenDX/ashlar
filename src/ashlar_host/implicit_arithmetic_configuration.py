@@ -1,10 +1,28 @@
 """Explicit host settings for the separately indexed original-commerce profile."""
+from __future__ import annotations
 from dataclasses import dataclass
+import re
 from pathlib import Path
 from ashlar.weft_path_decode import PathDecodeConfig
 from .config import HostError, ProducerConfig, PrivatePostgresConfig
 from .path_capture import PathCaptureConfig
 from .implicit_arithmetic_profile import PROFILE
+
+
+@dataclass(frozen=True)
+class ExplicitCommercePostgresEndpoint:
+    """Chosen local connection settings; actual ordinary sessions own authority."""
+    container: str
+    host: str
+    port: int
+    database: str
+
+    def __post_init__(self):
+        if (type(self.container) is not str or re.fullmatch('[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}',self.container) is None
+                or type(self.host) is not str or self.host!='127.0.0.1'
+                or type(self.port) is not int or not 1<=self.port<=65535
+                or type(self.database) is not str or self.database!='truss_e2e'):
+            raise HostError('invalid-explicit-commerce-endpoint')
 
 
 @dataclass(frozen=True)
@@ -17,7 +35,7 @@ class QueryCommerceImplicitArithmeticConfig:
     model: Path
     graph: Path
     producer: ProducerConfig
-    postgres: PrivatePostgresConfig
+    postgres: PrivatePostgresConfig | ExplicitCommercePostgresEndpoint
     maximum_artifact_bytes: int
     capture: PathCaptureConfig
     decoder: PathDecodeConfig
@@ -31,7 +49,7 @@ class QueryCommerceImplicitArithmeticConfig:
             if not isinstance(path, Path) or not path.is_absolute():
                 raise HostError('absolute-path-required')
         if (type(self.producer) is not ProducerConfig
-                or type(self.postgres) is not PrivatePostgresConfig
+                or type(self.postgres) not in (PrivatePostgresConfig,ExplicitCommercePostgresEndpoint)
                 or type(self.capture) is not PathCaptureConfig
                 or type(self.decoder) is not PathDecodeConfig):
             raise HostError('invalid-configuration')

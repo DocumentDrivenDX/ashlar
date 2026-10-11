@@ -18,6 +18,16 @@ class Tests(unittest.TestCase):
             PrivatePostgresConfig('ashlar-e2e-truss-pg17', '127.0.0.1', 15432, 'truss_e2e'),
             4096, PathCaptureConfig(100, 1024, 4096), PathDecodeConfig(1024))
 
+    def test_explicit_endpoint_is_typed_closed_and_legacy_unchanged(self):
+        from ashlar_host.implicit_arithmetic_configuration import ExplicitCommercePostgresEndpoint
+        selected=ExplicitCommercePostgresEndpoint('original-private-fixture','127.0.0.1',25433,'truss_e2e')
+        self.assertIs(replace(self.config,postgres=selected).postgres,selected)
+        for changes in ({'port':True},{'port':25433.0},{'port':0},{'host':'remote'},{'database':'other'},{'container':'bad/name'}):
+            with self.assertRaises(HostError):replace(selected,**changes)
+        class Forged(ExplicitCommercePostgresEndpoint):pass
+        with self.assertRaises(HostError):replace(self.config,postgres=Forged('chosen','127.0.0.1',25433,'truss_e2e'))
+        with self.assertRaises(HostError):PrivatePostgresConfig('chosen','127.0.0.1',25433,'truss_e2e')
+
     def test_profile_is_closed_without_retargeting_settings(self):
         self.assertEqual(self.config.profile, 'implicit-arithmetic')
         with self.assertRaises(HostError):

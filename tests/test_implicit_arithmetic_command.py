@@ -87,3 +87,12 @@ class Tests(unittest.TestCase):
         self.assertEqual(command.call_args.kwargs['provider_sha256'], 'a'*64)
         self.assertEqual(command.call_args.kwargs['pack_path'], Path('/explicit/pack'))
         self.assertEqual(output.getvalue(), 'ashlar-host: report /explicit/output/report.json\n')
+        from ashlar_host.implicit_arithmetic_configuration import ExplicitCommercePostgresEndpoint
+        explicit=argv+['--postgres-profile','explicit-loopback']
+        explicit[explicit.index('--postgres-container')+1]='chosen-original-fixture'
+        explicit[explicit.index('--postgres-port')+1]='25433'
+        with patch.object(sys,'argv',explicit),contextlib.redirect_stdout(io.StringIO()),patch('ashlar_host.implicit_arithmetic_command.run_implicit_arithmetic_command') as command:
+            main()
+        endpoint=command.call_args.args[0].postgres
+        self.assertIs(type(endpoint),ExplicitCommercePostgresEndpoint)
+        self.assertEqual(endpoint.port,25433)

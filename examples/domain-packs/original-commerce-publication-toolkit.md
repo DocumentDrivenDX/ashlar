@@ -48,3 +48,12 @@ cases under full original publication/source holds and independent complete-bag
 comparison. The query's selected Spark 4 runtime is separate from the publication
 runtime. Qualification requires separately retained actual execution evidence;
 this API does not claim Truss acceptance or production authority.
+
+The installed `query-commerce-implicit-arithmetic` command selects a chosen local
+endpoint with `--postgres-profile explicit-loopback`, the retained container name,
+`--postgres-host 127.0.0.1`, the explicitly chosen forwarded
+`--postgres-port`, and `--postgres-database truss_e2e`. Its default
+`legacy-private` profile preserves the historical endpoint. These settings select
+the provider's connection; they do not authenticate a route or grant publication
+authority. Both exact ordinary ACK and source factories remain mandatory, with
+current role, scope, signature, checkpoint and publication custody checks.
