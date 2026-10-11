@@ -93,6 +93,22 @@ class DeltaAttemptStore:
     def _identity(self):
         rows=self.executor.query('DESCRIBE DETAIL '+self.sql_table,{}).rows
         if len(rows)!=1 or rows[0].get('id')!=self.uuid:raise AttemptStoreError('Attempt table identity changed')
+    def renew_identity(self, context):
+        """Renew this owner's fixed UUID and current writer; no target selection."""
+        primary = None
+        try:
+            with self.policy.writer(self.table, self.uuid, context) as permit:
+                try:
+                    if permit is not None: raise AttemptStoreError('Current identity writer authority incomplete')
+                    self._identity()
+                except BaseException as error:
+                    primary = error
+                    raise
+        except BaseException as error:
+            if primary is not None and (not isinstance(primary, Exception) or isinstance(error, Exception)):
+                raise primary
+            raise
+
     @contextmanager
     def session(self,context):
         with self.policy.writer(self.table,self.uuid,context) as permit:

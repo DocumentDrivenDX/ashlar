@@ -182,3 +182,81 @@ class StoredPublisherTests(unittest.TestCase):
                 else:driver.validate = lambda *args: False
                 with self.assertRaises(ValueError):self.publish(self.backend(phases, driver, transport, policy), context)
                 self.assertEqual(api.calls, []);self.assertNotIn('ack', driver.calls)
+
+    def test_committed_observer_renews_native_and_records_without_writes(self):
+        with self.fixture() as (phases, driver, policy, transport, api):
+            context = object(); backend = self.backend(phases, driver, transport, policy)
+            original = self.publish(backend, context)
+            request = json.loads(phases.rows[-1]['payload_json'])['request']
+            before = list(phases.rows); calls = []
+            def observe(request, artifact, descriptor, supplied):
+                self.assertIs(supplied, context)
+                self.assertEqual(descriptor, original)
+                calls.append('native-and-ack')
+            driver.observe_committed_original = observe
+            with backend.writer('stream', context):
+                with self.assertRaises(PublicationError):
+                    backend.observe_committed_original('stream', request, context=object())
+                self.assertEqual(backend.observe_committed_original('stream', request, context=context), original)
+            self.assertEqual(calls, ['native-and-ack'])
+            self.assertEqual(phases.rows, before); self.assertEqual(api.calls, ['POST'])
+
+    def test_committed_observer_phase_drift_and_cancel_closing_refusal(self):
+        with self.fixture() as (phases, driver, policy, transport, api):
+            context = object(); backend = self.backend(phases, driver, transport, policy)
+            self.publish(backend, context)
+            request = json.loads(phases.rows[-1]['payload_json'])['request']
+            original = list(phases.rows)
+            def drift(*args): phases.rows.pop()
+            driver.observe_committed_original = drift
+            with backend.writer('stream', context):
+                with self.assertRaises(PublicationError):
+                    backend.observe_committed_original('stream', request, context=context)
+            phases.rows[:] = original
+            primary = KeyboardInterrupt('native cancellation')
+            def cancel(*args):
+                phases.rows.pop(); raise primary
+            driver.observe_committed_original = cancel
+            with backend.writer('stream', context):
+                with self.assertRaises(KeyboardInterrupt) as caught:
+                    backend.observe_committed_original('stream', request, context=context)
+                self.assertIs(caught.exception, primary)
+            self.assertEqual(api.calls, ['POST'])
+
+    def test_committed_observer_initial_read_failure_still_renews_records(self):
+        for primary in (RuntimeError('initial phase failure'), KeyboardInterrupt('initial phase cancellation')):
+            with self.fixture() as (phases, driver, policy, transport, api):
+                context = object(); backend = self.backend(phases, driver, transport, policy)
+                self.publish(backend, context)
+                request = json.loads(phases.rows[-1]['payload_json'])['request']
+                with backend.writer('stream', context):
+                    read = backend._session.read; calls = []
+                    def interrupted(*args):
+                        calls.append('read')
+                        if len(calls) == 1: raise primary
+                        return read(*args)
+                    backend._session.read = interrupted
+                    with self.assertRaises(type(primary)) as observed:
+                        backend.observe_committed_original('stream', request, context=context)
+                    self.assertIs(observed.exception, primary)
+                    self.assertEqual(calls, ['read', 'read'])
+                self.assertEqual(api.calls, ['POST'])
+
+    def test_fixed_attempt_identity_port_refuses_drift_and_preserves_cancel(self):
+        phases = PhaseExecutor(); store = DeltaAttemptStore(phases, Policy(), 'c.s.attempt', 'attempt-uuid')
+        self.assertIsNone(store.renew_identity(object()))
+        query = phases.query
+        phases.query = lambda *args: SQLResult([{'id': 'foreign-uuid'}])
+        from ashlar.attempt_store import AttemptStoreError
+        with self.assertRaises(AttemptStoreError): store.renew_identity(object())
+        primary = KeyboardInterrupt('UUID observation cancellation')
+        def cancel(*args): raise primary
+        phases.query = cancel
+        class ClosingPolicy:
+            @contextmanager
+            def writer(self, *args):
+                try: yield
+                finally: raise RuntimeError('closing failure')
+        store.policy = ClosingPolicy()
+        with self.assertRaises(KeyboardInterrupt) as caught: store.renew_identity(object())
+        self.assertIs(caught.exception, primary)

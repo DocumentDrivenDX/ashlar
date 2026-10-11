@@ -53,18 +53,36 @@ class NativeEvolutionRunPolicy:
         self.admit_run(original, context)
         if self.authority.admit_ledger(original, inventory, context) is not None:
             raise EvolutionPlanError('Current complete original reservation custody incomplete')
+        self.driver.admit_evolution_run_ledger(original, inventory, context=context,
+                                              attempt_admission=self.original_attempt_admission(original, inventory, context))
+        # Renew independent original custody after all acquired native/session ports close.
+        if self.authority.admit_ledger(original, inventory, context) is not None:
+            raise EvolutionPlanError('Closing original reservation custody incomplete')
+
+
+    def original_attempt_admission(self, original, inventory, context):
+        """Current owner-bound correspondence adapter, never a reusable grant."""
+        if (type(original) is not EvolutionRunDefinition or type(inventory) is not EvolutionRunLedgerView
+                or type(inventory.slots) is not tuple or len(inventory.slots) != 8
+                or any(type(slot) is not tuple or len(slot) != 5
+                    or type(slot[0]) is not int or slot[0] != index for index, slot in enumerate(inventory.slots))):
+            raise EvolutionPlanError('Exact original complete inventory required')
+        self.admit_run(original, context)
+        if self.authority.admit_ledger(original, inventory, context) is not None:
+            raise EvolutionPlanError('Current original inventory authority incomplete')
+        # This adapter renews attempt/run/source gates, never ledger admission.
         owner = self
         class Admission:
             def admit(self, plan, supplied):
+                if type(plan) is not EvolutionAttemptPlan or supplied is not context:
+                    raise EvolutionPlanError('Exact original plan and captured admission context required')
+                if owner.authority.admit_ledger(original, inventory, supplied) is not None:
+                    raise EvolutionPlanError('Current original inventory authority incomplete')
                 selected = [index for index, _, raw, _, _ in inventory.slots if raw == plan.raw]
                 if len(selected) != 1:
                     raise EvolutionPlanError('Exact retained original slot required')
                 return owner.admit_attempt(original, selected[0], plan, supplied)
-        self.driver.admit_evolution_run_ledger(original, inventory, context=context,
-                                              attempt_admission=Admission())
-        # Renew independent original custody after all acquired native/session ports close.
-        if self.authority.admit_ledger(original, inventory, context) is not None:
-            raise EvolutionPlanError('Closing original reservation custody incomplete')
+        return Admission()
 
 
 @dataclass(frozen=True)

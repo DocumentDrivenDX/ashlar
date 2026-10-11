@@ -99,6 +99,44 @@ class StoredPublisherBackend:
         last = records[-1]
         return self._attempt(last, _json(last.payload_json.encode()))
 
+    def observe_committed_original(self, stream, request, *, context):
+        """Observe an exact committed original through the trusted held driver.
+
+        This explicit port never appends a phase or submits effects/manifest.
+        The driver must renew full native/source/ACK admission independently.
+        """
+        if context is not self._context or self._session is None:
+            raise PublicationError('Exact held committed observation context required')
+        records = None; primary = None; descriptor = None
+        try:
+            records = self._records(stream, request['batch_id'])
+            if not records or records[-1].phase != 'committed':
+                raise PublicationError('Original complete committed phase required')
+            payload = _json(records[-1].payload_json.encode())
+            if payload['request'] != dict(request) or records[-1].request_digest != request['request_digest']:
+                raise PublicationError('Original committed request differs')
+            descriptor = self._attempt(records[-1], payload).descriptor
+            if descriptor is None:
+                raise PublicationError('Original committed descriptor required')
+            if self.driver.observe_committed_original(dict(request), payload['result_json'], descriptor, context) is not None:
+                raise PublicationError('Complete committed native/source/ACK observation incomplete')
+        except BaseException as error:
+            primary = error
+        closing = None
+        try:
+            current = self._records(stream, request['batch_id'])
+            if records is not None and current != records:
+                raise PublicationError('Complete original committed phases changed during observation')
+        except BaseException as error:
+            closing = error
+        # Preserve cancellation over ordinary cleanup failure, matching owned ports.
+        error = primary if primary is not None and not isinstance(primary, Exception) else closing
+        if error is None or isinstance(error, Exception):
+            error = primary if primary is not None else closing
+        if error is not None:
+            raise error
+        return descriptor
+
     def prepare(self, stream, request):
         self._records(stream, request['batch_id'])
         record = self._session.append(dict(request), 'prepared')

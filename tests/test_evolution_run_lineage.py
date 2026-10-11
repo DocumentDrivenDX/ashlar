@@ -298,6 +298,11 @@ class Tests(unittest.TestCase):
 
     def test_completed_original_requires_each_handle_and_protected_ack_readback(self):
         import hashlib, json
+        from ashlar_host.evolution_run import EvolutionRunLedger
+        ledger = EvolutionRunLedger.open(self.host.path,
+            NativeEvolutionRunPolicy(self.driver, self.host.policy),
+            context=self.driver.context, original=self.original)
+        self.addCleanup(ledger.close)
         from ashlar.attempt_store import PhaseRecord, PHASES
         from ashlar_host.driver import encoded
         from ashlar_host.delta_custody import LocalDeltaEffects
@@ -339,11 +344,18 @@ class Tests(unittest.TestCase):
         slots = [(0, 'completed', plan.raw, plan.sha256, encoded(row).encode()), *self.empty[1:]]
         self.patch.stop()
         outer = self
+        identities = []; closing_error = []; session_closing = []
         class Store:
             def __init__(self, *args, original_request): self.request = original_request
+            def renew_identity(self, context):
+                identities.append('closing-uuid')
+                if closing_error: raise closing_error[0]
             @contextmanager
             def session(self, context):
-                yield SimpleNamespace(read=lambda *args: tuple(records) if self.request == request else ())
+                try:
+                    yield SimpleNamespace(read=lambda *args: tuple(records) if self.request == request else ())
+                finally:
+                    if session_closing: session_closing[0]()
         inspected = []; self.driver.transport.inspect_committed = lambda key, *args, **kwargs: inspected.append(key)
         self.driver.descriptors = lambda publication: [dict(row)] if publication == row['publication_id'] else []
         with patch('ashlar.attempt_store.DeltaAttemptStore', Store), patch.object(LocalDeltaEffects, 'observe',
@@ -351,6 +363,44 @@ class Tests(unittest.TestCase):
                 RegisteredOutboxAcks, 'reconcile', return_value=b'exact inert receipt') as ack:
             self.admit(slots)
             self.assertEqual(set(inspected), {key for key, _ in handles}); self.assertEqual(ack.call_count, 1)
+            with ledger.connection:
+                ledger.connection.execute("UPDATE original_slot SET state='completed',original=?,digest=?,descriptor=? WHERE ordinal=0",
+                    (plan.raw, plan.sha256, encoded(row).encode()))
+            validator = self.driver._validate_evolution_run_ledger; validations = []
+            def count(*args, **kwargs):
+                validations.append(kwargs.get('selected_completed')); return validator(*args, **kwargs)
+            unchanged = (db.total_changes, ledger.connection.total_changes)
+            with patch.object(self.driver, '_validate_evolution_run_ledger', count):
+                observed = self.driver.observe_completed_evolution_attempt(ledger.attempt(0),
+                    context=self.driver.context, expected_sha256=plan.sha256)
+            self.assertEqual(dict(observed.raw), row)
+            self.assertEqual(validations, [0]); self.assertEqual(ack.call_count, 2)
+            self.assertEqual((db.total_changes, ledger.connection.total_changes), unchanged)
+            self.assertEqual(identities, ['closing-uuid'])
+            self.assertEqual(ledger.connection.execute('SELECT state FROM original_slot WHERE ordinal=0').fetchone(), ('completed',))
+            primary = KeyboardInterrupt('completed validation cancellation')
+            def cancelled(*args, **kwargs):
+                ledger.connection.execute('CREATE TABLE changed_schema(id INTEGER)')
+                raise primary
+            with patch.object(self.driver, '_validate_evolution_run_ledger', cancelled):
+                with self.assertRaises(KeyboardInterrupt) as caught:
+                    self.driver.observe_completed_evolution_attempt(ledger.attempt(0),
+                        context=self.driver.context, expected_sha256=plan.sha256)
+                self.assertIs(caught.exception, primary)
+            ledger.connection.execute('DROP TABLE changed_schema')
+            self.assertEqual(identities, ['closing-uuid', 'closing-uuid'])
+            closing_error.append(PermissionError('closing attempt UUID drift'))
+            with self.assertRaises(PermissionError):
+                self.driver.observe_completed_evolution_attempt(ledger.attempt(0),
+                    context=self.driver.context, expected_sha256=plan.sha256)
+            closing_error.clear()
+            session_closing.append(lambda: setattr(self.driver, 'held', False))
+            try:
+                with self.assertRaises(PermissionError):
+                    self.driver.observe_completed_evolution_attempt(ledger.attempt(0),
+                        context=self.driver.context, expected_sha256=plan.sha256)
+            finally:
+                session_closing.clear(); self.driver.held = True
             ack.return_value = None
             with self.assertRaises(PermissionError): self.admit(slots)
             ack.return_value = b'exact inert receipt'

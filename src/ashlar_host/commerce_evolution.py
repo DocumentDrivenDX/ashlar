@@ -33,6 +33,7 @@ def _run_commerce_evolution(config, fresh):
     from .evolution_admission import EvolutionSourceSet, admit_commerce_evolution
     from .lifecycle import owned_context, finish
     from ashlar.source_checkpoint import bind_source_descriptor
+    from .evolution_composition import NativeEvolutionRunPolicy
     import json
     config.__post_init__()
     driver = config.driver
@@ -67,7 +68,11 @@ def _run_commerce_evolution(config, fresh):
                         or value['materialized_at'] != step['materialized_at'] or value['recorded_at'] != step['recorded_at']):
                     raise EvolutionPlanError('Complete original schedule/progress/ancestry differs')
                 journal = ledger.attempt(ordinal)
-                descriptor = driver.publish_evolution_attempt_held(journal, context=config.context, expected_sha256=digest)
+                completed_replay = (state == 'completed' and type(ledger.policy) is NativeEvolutionRunPolicy
+                    and ledger.policy.driver is driver)
+                descriptor = (driver.observe_completed_evolution_attempt(journal, context=config.context,
+                    expected_sha256=digest) if completed_replay else
+                    driver.publish_evolution_attempt_held(journal, context=config.context, expected_sha256=digest))
                 bind_source_descriptor(value['request'], descriptor, expected_publication_id=step['publication_id'])
                 actual_progress = json.loads(descriptor.raw['source_progress_json'])
                 if encoded(actual_progress) != encoded(value['progress']):
@@ -75,7 +80,8 @@ def _run_commerce_evolution(config, fresh):
                 actual = encoded(dict(descriptor.raw))
                 if retained_descriptor is not None and retained_descriptor != actual:
                     raise EvolutionPlanError('Original native descriptor replay differs')
-                ledger.transition(ordinal, plan, 'completed', actual)
+                if not completed_replay:
+                    ledger.transition(ordinal, plan, 'completed', actual)
                 descriptors.append(descriptor)
                 progress = actual_progress
             verify_producer()

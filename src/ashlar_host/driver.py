@@ -355,8 +355,15 @@ class NativeDriver:
         return self.source_admission
 
     def admit_evolution_run_ledger(self, original, inventory, *, context, attempt_admission):
-        """Observe complete original lineage; never submit, prepare, repair or ACK.
+        self._validate_evolution_run_ledger(original, inventory, context=context,
+            attempt_admission=attempt_admission)
 
+    def _validate_evolution_run_ledger(self, original, inventory, *, context,
+                                     attempt_admission, selected_completed=None):
+        """Observe original lineage without new publication/phase/effect submission.
+
+        Current protected ACK reconciliation remains mandatory and may renew
+        idempotent acknowledgement; this is not a zero-PostgreSQL-write claim.
         The independent reservation owner must admit the exact original ledger
         before and after this gate. Native absence cannot establish a retained
         not-started reservation. Started operations retain their existing recovery
@@ -398,6 +405,10 @@ class NativeDriver:
                 else:
                     gap = True
         correspondence = OriginalRunCorrespondence(original, self.evolution_sources(context=context))
+        if (selected_completed is not None and (type(selected_completed) is not int
+                or not 0 <= selected_completed < 8 or inventory.slots[selected_completed][1] != 'completed')):
+            raise PermissionError('Exact original completed ordinal required')
+        observed_descriptor = None
         previous_active = self.policy.active
         histories = {}
         primary = None
@@ -548,6 +559,8 @@ class NativeDriver:
                 if receipt is None:
                     raise PermissionError('Completed original protected ACK readback absent')
                 self.source_admit(request)
+                if ordinal == selected_completed:
+                    observed_descriptor = descriptor
             if not any(slot[1] == 'publication-started' for slot in inventory.slots):
                 completed = [slot[0] for slot in inventory.slots if slot[1] == 'completed']
                 expected = (correspondence.at(completed[-1])['expected'] if completed else
@@ -567,6 +580,9 @@ class NativeDriver:
             *(lambda table=table, history=history: renew_history(table, history)
               for table, history in histories.items()),
             lambda: self.validate_evolution_run(original, context=context)])
+        if selected_completed is not None and observed_descriptor is None:
+            raise PermissionError('Complete original native descriptor observation required')
+        return observed_descriptor
 
     def plan_evolution_transaction(self, original, ordinal, previous_progress, *, context):
         """Generate one original plan from admitted schedule and actual current anchors."""
@@ -622,6 +638,66 @@ class NativeDriver:
         OriginalRunCorrespondence(original, self.source_admission).admit_attempt(ordinal, plan)
         self.admit_evolution_plan(plan, context=context, fresh=True)
         return plan
+
+    def observe_completed_evolution_attempt(self, journal, *, context, expected_sha256):
+        """Stored-publisher committed replay, without phase/effect resubmission."""
+        from .evolution_run import EvolutionRunAttemptJournal
+        from .evolution_composition import NativeEvolutionRunPolicy
+        from .evolution_plan import EvolutionAttemptPlan
+        from .lifecycle import owned_context, finish
+        from ashlar.attempt_store import DeltaAttemptStore
+        from ashlar.stored_publisher import StoredPublisherBackend
+        self.require(context)
+        if (type(journal) is not EvolutionRunAttemptJournal
+                or type(journal.ledger.policy) is not NativeEvolutionRunPolicy
+                or journal.ledger.policy.driver is not self or journal.ledger.context is not context):
+            raise PermissionError('Exact native original run policy/driver required')
+        ledger = journal.ledger; policy = ledger.policy
+        inventory = ledger._inventory()
+        _, state, raw, digest, retained = inventory.slots[journal.ordinal]
+        if state != 'completed' or digest != expected_sha256:
+            raise PermissionError('Exact original completed reservation required')
+        plan = EvolutionAttemptPlan(raw); request = plan.document()['request']
+        owner = self; primary = None; result = None
+        target = self.transport.targets[self.tables['attempts']]
+        store = DeltaAttemptStore(AttemptExecutor(self), CarrierPolicy(self, 'attempts'),
+            target.table, target.uuid, original_request=request)
+        def renew_local():
+            if ledger._inventory() != inventory:
+                raise PermissionError('Original complete ledger changed during committed replay')
+        def renew_authority():
+            policy.admit_run(ledger.original, context)
+            if policy.authority.admit_ledger(ledger.original, inventory, context) is not None:
+                raise PermissionError('Current original ledger authority incomplete')
+        class Driver:
+            @contextmanager
+            def writer(self, stream, supplied):
+                owner.require(supplied)
+                if supplied is not context or stream != request['stream']:
+                    raise PermissionError('Original committed replay context required')
+                yield
+            def observe_committed_original(self, original_request, artifact, descriptor, supplied):
+                if supplied is not context or not original_native_equal(original_request, request):
+                    raise PermissionError('Original committed request changed')
+                fresh = owner._validate_evolution_run_ledger(ledger.original, inventory,
+                    context=context, attempt_admission=policy.original_attempt_admission(ledger.original, inventory, context),
+                    selected_completed=journal.ordinal)
+                if (not original_native_equal(dict(fresh.raw), dict(descriptor.raw))
+                        or not original_native_equal(json.loads(retained), dict(fresh.raw))):
+                    raise PermissionError('Fresh completed descriptor differs from original custody')
+        backend = StoredPublisherBackend(store, Driver(), None)
+        try:
+            renew_authority(); renew_local()
+            with owned_context(backend.writer(request['stream'], context)):
+                result = backend.observe_committed_original(request['stream'], request, context=context)
+        except BaseException as error:
+            primary = error
+        # The existing session contexts do not renew on every exceptional path.
+        # These independent callbacks run after session cleanup, including cancellation.
+        finish(primary, [lambda: store.renew_identity(context), lambda: self.require(context),
+            renew_authority, lambda: policy.admit_attempt(ledger.original, journal.ordinal, plan, context),
+            renew_local])
+        return result
 
     def publish_evolution_attempt_held(self, journal, *, context, expected_sha256):
         """Run coordinator entry; keep the actual original exclusive writer held."""

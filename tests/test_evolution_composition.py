@@ -38,4 +38,24 @@ class Tests(unittest.TestCase):
             self.owner.admit_attempt(0, EvolutionAttemptPlan(encoded(value)))
         with self.assertRaises(EvolutionPlanError): self.owner.at(True)
 
+    def test_original_attempt_adapter_refuses_foreign_inventory_context_and_renews(self):
+        from ashlar_host.evolution_composition import NativeEvolutionRunPolicy
+        from ashlar_host.evolution_run import EvolutionRunLedgerView
+        driver = self.host.driver
+        owner = NativeEvolutionRunPolicy(driver, self.host.policy)
+        plan = driver.plan_evolution_transaction(self.original, 0, {}, context=driver.context)
+        slots = ((0, 'retained', plan.raw, plan.sha256, None),) + tuple(
+            (ordinal, 'unprepared', None, None, None) for ordinal in range(1, 8))
+        inventory = EvolutionRunLedgerView(slots)
+        with self.assertRaises(EvolutionPlanError):
+            owner.original_attempt_admission(self.original, EvolutionRunLedgerView(slots[:-1]), driver.context)
+        with self.assertRaises(PermissionError):
+            owner.original_attempt_admission(self.original, inventory, object())
+        admission = owner.original_attempt_admission(self.original, inventory, driver.context)
+        with self.assertRaises(EvolutionPlanError): admission.admit(plan, object())
+        with self.assertRaises(EvolutionPlanError): admission.admit(object(), driver.context)
+        self.assertIsNone(admission.admit(plan, driver.context))
+        driver.held = False
+        with self.assertRaises(PermissionError): admission.admit(plan, driver.context)
+
 if __name__ == '__main__': unittest.main()
