@@ -277,6 +277,20 @@ class OriginalMedicalPublicationConfig(_ExistingMedicalConfig):
 
 
 @dataclass(frozen=True)
+class OriginalMedicalRecoveryConfig(_ExistingMedicalConfig):
+    request: MedicalPinnedFile
+
+    def __post_init__(self):
+        self._existing('recovery')
+        if type(self.request) is not MedicalPinnedFile:
+            raise ValueError('Exact retained original recovery request required')
+        self.request.__post_init__()
+        paths = (self.request.path, self.installation.path)
+        if len(set(paths)) != 2 or any(self.output == p or self.output in p.parents or p in self.output.parents for p in paths):
+            raise ValueError('Distinct retained recovery originals and exclusive evidence output required')
+
+
+@dataclass(frozen=True)
 class OriginalMedicalReplayConfig(_ExistingMedicalConfig):
     request: MedicalPinnedFile
     publication: MedicalPinnedFile
@@ -344,12 +358,13 @@ def parse_original_medical_local(raw):
     def constant(_): raise ValueError('Nonfinite medical configuration refused')
     value = json.loads(raw, object_pairs_hook=pairs, parse_constant=constant)
     if type(value) is not dict or type(value.get('profile')) is not str: raise ValueError('Selected medical profile required')
-    operations = {'ashlar-original-medical-local-'+op+'/0.1': op for op in ('initialization', 'publication', 'replay', 'read')}
+    operations = {'ashlar-original-medical-local-'+op+'/0.1': op for op in ('initialization', 'publication', 'replay', 'read', 'recovery')}
     if value['profile'] not in operations: raise ValueError('Unsupported medical operation profile')
     operation = operations[value['profile']]
     common = {'profile', 'output', 'inputs', 'producer', 'runtime', 'source', 'bounds', 'root', 'installation_id', 'capacity'}
     extra = {'schemas'} if operation == 'initialization' else {'installation', 'journal', 'targets'}
     if operation in ('replay', 'read'): extra |= {'request', 'publication'}
+    if operation == 'recovery': extra |= {'request'}
     _closed(value, common | extra)
     inputs = _closed(value['inputs'], ('model', 'graph', 'baseline'))
     inputs = OriginalMedicalInputs(*(_pin(inputs[k]) for k in ('model', 'graph', 'baseline')))
@@ -379,5 +394,6 @@ def parse_original_medical_local(raw):
         targets.append(OriginalMedicalTarget(t['table'], _decode_path(t['path']), t['uuid']))
     values.update(installation=_pin(value['installation']), journal=_decode_path(value['journal']), targets=tuple(targets))
     if operation == 'publication': return OriginalMedicalPublicationConfig(**values)
+    if operation == 'recovery': return OriginalMedicalRecoveryConfig(**values, request=_pin(value['request']))
     values.update(request=_pin(value['request']), publication=_pin(value['publication']))
     return (OriginalMedicalReplayConfig if operation == 'replay' else OriginalMedicalReadConfig)(**values)

@@ -49,7 +49,7 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
     process = None; selector = None; primary = None
     descriptors = []; streams = []; outputs = [bytearray() for _ in range(4)]
     state = 'ready'; native_deadline = None; pending = bytearray()
-    status = None
+    status = None; cause = 'unknown'
     whole_deadline = time.monotonic() + bounds.whole_seconds
     next_renewal = time.monotonic()
     try:
@@ -81,10 +81,12 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
             if native_deadline is not None:
                 remaining = min(remaining, native_deadline - time.monotonic())
             if remaining <= 0:
+                cause = 'native-deadline' if native_deadline is not None and native_deadline < whole_deadline else 'whole-deadline'
                 raise TimeoutError('Original medical worker deadline exceeded')
             for key, _ in selector.select(min(remaining, .05)):
                 observed = time.monotonic()
                 if observed >= whole_deadline or native_deadline is not None and observed >= native_deadline:
+                    cause = 'native-deadline' if native_deadline is not None and native_deadline < whole_deadline else 'whole-deadline'
                     raise TimeoutError('Original medical worker deadline exceeded')
                 index = key.data
                 cap = selected['stream_bytes'] if index < 2 else 16 if index == 2 else 32
@@ -92,10 +94,12 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
                 if not raw:
                     selector.unregister(key.fileobj)
                     if index == 3 and pending:
+                        cause = 'phase-protocol'
                         raise ValueError('Truncated medical native phase')
                     continue
                 if len(outputs[index]) + len(raw) > cap:
                     outputs[index].extend(raw[:cap - len(outputs[index])])
+                    cause = 'capture-capacity'
                     raise ValueError('Medical worker capture bound exceeded')
                 outputs[index].extend(raw)
                 if index == 3:
@@ -107,19 +111,23 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
                         elif message == b'native.end' and state == 'begun':
                             state = 'ended'; native_deadline = None
                         else:
+                            cause = 'phase-protocol'
                             raise ValueError('Invalid medical native phase order')
         raw_status = bytes(outputs[2])
         status = int(raw_status)
         if raw_status != (str(status) + '\n').encode('ascii') or not -255 <= status <= 255:
             raise ValueError('Invalid medical worker exit observation')
         if status != 0:
+            cause = 'child-exit'
             raise subprocess.CalledProcessError(status, argv)
         if state != 'ended' or pending:
+            cause = 'phase-protocol'
             raise ValueError('Successful medical worker has unfinished native phase')
         renew()
         if asdict(bounds) != selected:
             raise PermissionError('Original medical worker bounds changed')
         if time.monotonic() >= whole_deadline:
+            cause = 'whole-deadline'
             raise TimeoutError('Original medical worker deadline exceeded')
     except BaseException as error:
         primary = error
@@ -138,8 +146,10 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
             raise PermissionError('Original medical worker bounds changed')
     callbacks.append(closing)
     try:
+        if primary is None:cause = 'closing-refusal'
         finish(primary, callbacks)
         if time.monotonic() >= whole_deadline:
+            cause = 'whole-deadline'
             raise TimeoutError('Original medical worker deadline exceeded')
     except BaseException as error:
         # Private bounded prefixes, never automatic logging or exception text.
@@ -148,6 +158,9 @@ def capture_original_medical_worker(argv, *, cwd, environment, renew, bounds):
             'stdout': bytes(outputs[0]), 'stderr': bytes(outputs[1]),
             'status': status, 'phase': bytes(outputs[3]), 'complete': False,
             'scope': 'bounded owned stream prefixes',
+            'failure': {'cause': 'cancel' if not isinstance(error,Exception) else cause,
+                'status': status if type(status)is int and -255<=status<=255 else None,
+                'native_phase': state},
         }
         # Bypass user exception attribute hooks without replacing the primary.
         BaseException.__dict__['__dict__'].__get__(error, type(error))['medical_capture'] = carrier

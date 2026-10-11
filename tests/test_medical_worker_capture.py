@@ -114,11 +114,12 @@ class Tests(unittest.TestCase):
 
     def test_native_and_whole_deadlines_are_independent(self):
         real_clock = time.monotonic
-        for phase in (True, False):
+        for phase,offset in ((True,301),(True,541),(False,541)):
             marker = self.root / 'clock'; marker.unlink(missing_ok=True)
-            offset = 301 if phase else 541
             def clock(): return real_clock() + (offset if marker.exists() else 0)
             with self.subTest(phase=phase), patch(
-                    'ashlar_host.medical_worker_capture.time.monotonic', side_effect=clock), self.assertRaises(TimeoutError):
+                    'ashlar_host.medical_worker_capture.time.monotonic', side_effect=clock), self.assertRaises(TimeoutError)as caught:
                 self.run_child(("os.write(fd,b'native.begin\\n');time.sleep(.1)\n" if phase else '')
                     + "with open('clock','w') as f: f.write('ready')\ntime.sleep(60)\n")
+            self.assertEqual(caught.exception.medical_capture['failure']['cause'],'native-deadline'if phase else'whole-deadline')
+            self.assertEqual(caught.exception.medical_capture['failure']['native_phase'],'begun'if phase else'ready')

@@ -89,11 +89,13 @@ class Tests(unittest.TestCase):
 
     def test_publication_replay_exact_dispatch_phase_and_configuration_match(self):
         import ashlar_host.original_medical_local_cli as owner
-        from ashlar_host.original_medical_local_configuration import OriginalMedicalPublicationConfig,OriginalMedicalReplayConfig,OriginalMedicalReadConfig
-        for operation,kind in [('publication',OriginalMedicalPublicationConfig),('replay',OriginalMedicalReplayConfig),('read',OriginalMedicalReadConfig)]:
-            raw=json.dumps(self.fixture.configuration(operation)).encode();self.path.write_bytes(raw)
+        from ashlar_host.original_medical_local_configuration import OriginalMedicalPublicationConfig,OriginalMedicalReplayConfig,OriginalMedicalReadConfig,OriginalMedicalRecoveryConfig
+        for operation,kind in [('publication',OriginalMedicalPublicationConfig),('replay',OriginalMedicalReplayConfig),('read',OriginalMedicalReadConfig),('recovery',OriginalMedicalRecoveryConfig)]:
+            value=self.fixture.configuration(operation)
+            if operation=='recovery':value['request']=self.fixture.pin('original/request.json')
+            raw=json.dumps(value).encode();self.path.write_bytes(raw)
             digest=hashlib.sha256(raw).hexdigest();entry=getattr(owner,'execute_original_medical_'+operation)
-            host={'publication':'publish_original_medical_local','replay':'replay_original_medical_local','read':'read_original_medical_local'}[operation]
+            host={'publication':'publish_original_medical_local','replay':'replay_original_medical_local','read':'read_original_medical_local','recovery':'recover_original_medical_local'}[operation]
             with patch.object(owner,host,return_value={'closing':True})as run:
                 self.assertEqual(entry(self.path,expected_sha256=digest,phase=self.phase),{'closing':True})
                 self.assertIs(type(run.call_args.args[0]),kind);self.assertIs(run.call_args.kwargs['supervision'],self.phase)
@@ -118,7 +120,7 @@ class Tests(unittest.TestCase):
     def test_public_publication_replay_dispatch_help_lazy_and_closed_options(self):
         from ashlar.cli import main
         root=Path(__file__).resolve().parents[1]
-        for command,function in [('publish-original-medical','run_original_medical_publication_command'),('replay-original-medical','run_original_medical_replay_command'),('read-original-medical','run_original_medical_read_command')]:
+        for command,function in [('publish-original-medical','run_original_medical_publication_command'),('replay-original-medical','run_original_medical_replay_command'),('read-original-medical','run_original_medical_read_command'),('recover-original-medical','run_original_medical_recovery_command')]:
             with patch.object(sys,'argv',['ashlar',command,'--configuration',str(self.path)]),patch('ashlar_host.original_medical_local_cli.'+function,return_value={'closing':True})as run,patch('builtins.print'):
                 main();self.assertEqual(run.call_args.args,(self.path,))
             code="import sys;sys.path.insert(0,"+repr(str(root/'src'))+");from ashlar.cli import main;sys.argv=['ashlar',"+repr(command)+",'--help'];\ntry:main()\nexcept SystemExit as e:assert e.code==0\nassert not any(n.startswith('ashlar_host')or n.startswith('pyspark')for n in sys.modules)"
@@ -146,3 +148,19 @@ class Tests(unittest.TestCase):
                 with _worker_diagnostic_interval():raise cancel
         self.assertIs(caught.exception,cancel);self.assertEqual(calls,[(2,1),(901,1)])
         close.assert_called_once_with(901)
+
+    def test_public_failure_metadata_never_discloses_private_streams_or_exception_text(self):
+        from ashlar.cli import main
+        from ashlar_host.original_medical_local_cli import medical_failure_metadata
+        error=TimeoutError('SECRET query path token')
+        error.medical_capture={'stdout':b'SECRET SOURCE','stderr':b'PASSWORD SQL','failure':{'cause':'native-deadline','status':None,'native_phase':'begun'}}
+        expected={'cause':'native-deadline','status':None,'native_phase':'begun'}
+        self.assertEqual(medical_failure_metadata(error),expected)
+        with patch.object(sys,'argv',['ashlar','recover-original-medical','--configuration',str(self.path)]),patch('ashlar_host.original_medical_local_cli.run_original_medical_recovery_command',side_effect=error),patch('builtins.print')as emit:
+            with self.assertRaises(SystemExit)as caught:main()
+        self.assertEqual(caught.exception.code,2)
+        text=' '.join(str(call.args[0])for call in emit.call_args_list)
+        self.assertNotIn('SECRET',text);self.assertNotIn('PASSWORD',text)
+        self.assertIn('native-deadline',text)
+        for value in ({'cause':'SECRET','status':None,'native_phase':'begun'}, {'cause':'unknown','status':True,'native_phase':'ready'}, {'cause':'unknown','status':None,'native_phase':'ready','private':'SECRET'}):
+            error.medical_capture['failure']=value;self.assertIsNone(medical_failure_metadata(error))

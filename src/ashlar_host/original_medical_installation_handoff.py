@@ -7,7 +7,7 @@ from .delta_custody import DeltaTarget
 from .local_physical_carriers import original_local_physical_carriers, ORIGINAL_LOCAL_PHYSICAL_PROVENANCE
 from .medical_installation import OriginalMedicalInstallationSelection
 from .original_medical_local_configuration import (
-    OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig)
+    OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig, OriginalMedicalRecoveryConfig)
 
 
 def _closed(value, keys):
@@ -22,7 +22,7 @@ def _same(left, right):
 
 def validate_original_medical_installation_handoff(raw, config):
     """Check unchanged selected bytes and six-role stages without native or SQL effects."""
-    if type(config) not in (OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig):
+    if type(config) not in (OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig, OriginalMedicalRecoveryConfig):
         raise ValueError('Exact existing medical operation configuration required')
     config.__post_init__()
     if (type(raw) is not bytes or not raw or len(raw) > min(config.bounds.receipt_bytes, config.bounds.input_bytes)

@@ -4,7 +4,7 @@ import json
 import unittest
 from unittest.mock import patch
 
-from ashlar_host.delta_custody import encoded, sha
+from ashlar_host.delta_custody import encoded, sha, LOCAL_OPERATION_CAPACITY_8M
 from ashlar_host.driver import LocalDeltaEffects
 import test_medical_publication_observation as observations
 
@@ -23,6 +23,7 @@ class Tests(unittest.TestCase):
             self.addCleanup(owner.doCleanups)
             f, driver, plan, bounds, descriptor, value = owner.fixture(stack, total_bytes=max(sizes)+1024)
         transport = driver.transport
+        transport.operation_capacity = LOCAL_OPERATION_CAPACITY_8M
         applied = [False]
         calls = []
 

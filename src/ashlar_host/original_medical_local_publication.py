@@ -27,7 +27,7 @@ from .medical_publication_plan import MedicalPublicationPlan, FEED, STREAM
 from .medical_publication_sources import OriginalMedicalSourceOwner
 from .medical_process_supervision import OriginalMedicalNativePhase
 from .original_medical_installation_handoff import validate_original_medical_installation_handoff
-from .original_medical_local_configuration import OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig
+from .original_medical_local_configuration import OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalRecoveryConfig
 from .original_medical_local_sources import original_medical_local_source_ports
 from .original_medical_native_session import original_medical_native_session
 from .original_medical_publication import MedicalAdmission
@@ -197,10 +197,18 @@ def _fresh(driver,selection,bounds):
     finish(primary,[lambda target=target:role(target) for target in selection.targets])
 
 
-def _operate(config,replay,supervision=None):
+def _original_transaction(source,batch,*,context,existing):
+    if type(source)is not OriginalMedicalSourceOwner or type(existing)is not bool:
+        raise ValueError('Exact original medical source route required')
+    return (source.read_original if existing else source.append_original)(batch,context=context)
+
+
+def _operate(config,replay,supervision=None,*,recovery=False):
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
         raise ValueError('Exact original medical native phase required')
-    wanted=OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
+    if type(replay)is not bool or type(recovery)is not bool or replay and recovery:
+        raise ValueError('Exact distinct medical operation required')
+    wanted=OriginalMedicalRecoveryConfig if recovery else OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
     if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
     config.__post_init__();context=object();output=_Output(config);primary=None;answer=None;pins=[]
     try:
@@ -208,6 +216,8 @@ def _operate(config,replay,supervision=None):
         installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
         selection=validate_original_medical_installation_handoff(raw,config)
         expected_request=expected_publication=None
+        if recovery:
+            request,expected_request=_pin(config.request,config.bounds.input_bytes);pins.append((request,expected_request))
         if replay:
             request,expected_request=_pin(config.request,config.bounds.input_bytes);publication,expected_publication=_pin(config.publication,config.bounds.input_bytes)
             pins.extend(((request,expected_request),(publication,expected_publication)))
@@ -230,13 +240,16 @@ def _operate(config,replay,supervision=None):
                             tables={role:target.table for role,target in zip(ROLES,selection.targets)}
                             driver=NativeDriver.with_registered_evolution(transport,policy,context,tables,admission.changes,original_local_materialization_columns(),source_admission=admission,source_sessions=source.sources(),ack_factory=source.bind)
                             with owned_context(driver.writer(STREAM,context)):
-                                if not replay:_fresh(driver,selection,bounds)
-                                transaction=(source.read_original if replay else source.append_original)(batch,context=context)
+                                if not replay and not recovery:_fresh(driver,selection,bounds)
+                                transaction=_original_transaction(source,batch,context=context,existing=replay or recovery)
                             plan=MedicalPublicationPlan(admission,transaction,tables);view=plan.snapshot();policy.activate(plan)
                             driver.bind_original_medical_publication(plan,bounds=bounds)
                             request_raw=_bounded(view['request'],config.bounds.input_bytes-1)
-                            if replay and request_raw!=expected_request:raise PermissionError('Pinned original medical request differs')
+                            if (replay or recovery) and request_raw!=expected_request:raise PermissionError('Pinned original medical request differs')
                             output.write('request.json',request_raw,config.bounds.input_bytes)
+                            if recovery:
+                                with owned_context(driver.writer(STREAM,context)):
+                                    driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds)
                             target=transport.targets[tables['attempts']]
                             adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
                             backend_type=_SettledBackend if replay else StoredPublisherBackend
@@ -256,7 +269,7 @@ def _operate(config,replay,supervision=None):
                             output.write('publication.json',_bounded(dict(descriptor.raw),bounds.input_bytes-1),bounds.input_bytes)
                             observed_raw=_bounded(observation,min(config.bounds.total_bytes,4194304)-1)
                             output.write('observation.json',observed_raw,min(config.bounds.total_bytes,4194304))
-                            answer={'profile':'ashlar-original-medical-local-'+('replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
+                            answer={'profile':'ashlar-original-medical-local-'+('recovery' if recovery else 'replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
                     except BaseException as error:native_primary=error
                     def closing():
                         with owned_context(transport.bounded_observations(bounds)):
@@ -290,3 +303,8 @@ def publish_original_medical_local(config,*,supervision=None):
 def replay_original_medical_local(config,*,supervision=None):
     """Reopen a committed original; no append or replacement native effects."""
     return _operate(config,True,supervision)
+
+
+def recover_original_medical_local(config,*,supervision=None):
+    """Resume retained original intent through shared native/publisher recovery."""
+    return _operate(config,False,supervision,recovery=True)

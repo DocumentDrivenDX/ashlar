@@ -10,7 +10,7 @@ from ashlar.outbox import PostgresOutbox
 from ashlar.publication import Snapshot
 from ashlar.source_checkpoint import outbox_checkpoint
 from ashlar.staging import batch_row
-from .delta_custody import LocalDeltaEffects, LocalOperationExecutor, child_operation, encoded, sha, LocalDeltaError
+from .delta_custody import LocalDeltaEffects, LocalOperationExecutor, child_operation, encoded, sha, LocalDeltaError, operation_capacity
 from .connection import connect, CONTAINER
 from .postgres import Session
 from .ack import AckScope, ProtectedOutboxAck, AckOutcomeUncertain, render_ddl
@@ -1690,7 +1690,9 @@ class NativeDriver:
                 pass
 
         def source_row():
-            maximum = 8 * 1024 * 1024
+            capacity = operation_capacity(transport.operation_capacity)
+            if capacity is None:raise PermissionError('Explicit original medical operation capacity required')
+            maximum = capacity['max_intent_bytes']
             rows = transport.db.execute('SELECT length(CAST(original AS BLOB)),substr(CAST(original AS BLOB),1,?) FROM local_source_plan WHERE request_digest=?',
                 (maximum+1, digest)).fetchall()
             if (len(rows) != 1 or type(rows[0][0]) is not int or not 0 < rows[0][0] <= maximum
@@ -1803,22 +1805,105 @@ class NativeDriver:
                 for i, step in enumerate(steps)] +
             self._medical_publication_closing_callbacks(binding, context, versions))
 
-    def _apply(self, request, context, recovery):
-        if getattr(self,'query_source_factory',None) is not None:
-            raise PermissionError('Registered query source cannot publish')
+    def preflight_original_medical_recovery(self, plan, *, context, bounds):
+        """Validate all original partial custody before any remaining effect action."""
+        from .medical_publication_plan import MedicalPublicationPlan
+        from .evolution_verification_types import VerificationBounds
+        from .lifecycle import finish
         self.require(context)
-        medical_binding = getattr(self, '_original_medical_publication_binding', None)
-        if medical_binding is not None:
-            self._require_medical_publication_binding(medical_binding)
-            if getattr(self.transport, 'observation_bounds', None) is not medical_binding['bounds']:
-                raise PermissionError('Original medical apply requires its bound capture interval')
-        self.source_admit(request)
+        binding = getattr(self, '_original_medical_publication_binding', None)
+        if (type(plan) is not MedicalPublicationPlan or type(bounds) is not VerificationBounds
+                or binding is None or plan is not binding['plan'] or bounds is not binding['bounds']
+                or self.transport.observation_bounds is not bounds):
+            raise PermissionError('Exact held bound medical recovery required')
+        transport = binding['transport']; value = json.loads(binding['view'])
+        request = value['request']; digest = request['request_digest']; operation = 'effects:' + digest
+        steps = value['selected_steps']; effects = LocalDeltaEffects(transport)
+        identities = (); states = (); versions = {}; captures = {}; primary = None
+        source_original = None; whole_original = None
+        from .local_physical_carriers import original_local_physical_carriers
+        schemas = original_local_physical_carriers()['carriers']
+        def guard():
+            self._require_medical_publication_binding(binding); self.require(context)
+            plan.require_request(request)
+        def source_plan():
+            nonlocal source_original
+            guard(); current = self._apply_source_plan(request, context, True)
+            if source_original is None:source_original = current
+            elif current != source_original:raise PermissionError('Original recovery source plan changed during preflight')
+        def ordinal(index):
+            guard()
+            if index < len(states) and states[index] == 'committed':
+                step = steps[index]
+                transport.inspect_committed(identities[index], step['statement'], step['parameters'],
+                    intent_digest=digest, context=context)
+        def native(target, total, closing):
+            history = transport.original_history(target)
+            if not history or type(history[0].get('version')) is not int:
+                raise PermissionError('Complete partial medical native history required')
+            absent = {identities[index] for index, state in enumerate(states) if state == 'no-operation-record'}
+            for record in history:
+                text = record.get('userMetadata')
+                if text is None:continue
+                if type(text) is not str:raise PermissionError('Exact native recovery metadata carrier required')
+                try:metadata = json.loads(text)
+                except (ValueError,TypeError):continue
+                if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
+                        and metadata.get('operation') in absent and metadata.get('request_digest') == digest):
+                    raise PermissionError('Original native commit missing ordinal custody; no restoration')
+            version = history[0]['version']; self._medical_publication_native(binding, target, {target.table:version})
+            snapshot, schema = transport.bounded_snapshot(target, version, remaining_bytes=bounds.total_bytes-total[0])
+            role = target.table.split('.')[-1]
+            if not original_native_equal(schema, json.loads(schemas[role]['schemaJson'])):
+                raise PermissionError('Complete original partial medical schema differs')
+            size = len(encoded({'snapshot':snapshot,'schema':schema}).encode()); total[0] += size
+            if total[0] > bounds.total_bytes:raise PermissionError('Complete partial medical native capture exceeds budget')
+            observed = encoded({'version':version,'snapshot':snapshot,'schema':schema})
+            if closing and target.table in captures and captures[target.table] != observed:
+                raise PermissionError('Partial medical native state changed during preflight')
+            if not closing:captures[target.table] = observed; versions[target.table] = version
+        def whole():
+            nonlocal whole_original
+            guard(); current = effects.observe(operation, digest, steps, context=context)
+            if whole_original is None:whole_original = encoded(current)
+            elif encoded(current) != whole_original:raise PermissionError('Original recovery ordinal state changed during preflight')
+            return current
+        try:
+            guard(); self.source_admit(request); source_plan()
+            _, _, identities = effects.original_plan(operation, digest, steps)
+            observed = whole(); states = tuple(observed['states'])
+            if len(states) != len(steps):raise PermissionError('Complete original recovery ordinal inventory required')
+            pending_seen = False
+            for state in states:
+                if state == 'committed' and pending_seen:raise PermissionError('Original recovery committed prefix has a gap')
+                if state != 'committed':pending_seen = True
+            # Missing states remain native-absence concerns. Existing committed
+            # receipts are all independently checked before shared recovery acts.
+            total = [0]
+            finish(None, [lambda target=target:native(target,total,False) for target in binding['targets']])
+            finish(None, [lambda index=index:ordinal(index) for index in range(len(steps))])
+        except BaseException as error:primary = error
+        total = [0]
+        finish(primary, [source_plan, whole, *(lambda index=index:ordinal(index) for index in range(len(steps))),
+            *(lambda target=target:native(target,total,True) for target in binding['targets']),
+            lambda:self._medical_publication_source(binding,context),
+            lambda:self._medical_publication_ack_scope(binding,context), guard])
+        return None
+
+    def _apply_source_plan(self, request, context, recovery):
         active = self.policy.active
-        if active['request'] != request:
-            raise PermissionError('Complete original applying request differs')
-        effects = LocalDeltaEffects(self.transport)
+        medical_binding = getattr(self, '_original_medical_publication_binding', None)
         source_plan = {'request': request, 'generated_steps': active['generated_steps'], 'selected_steps': active['steps'], 'zero_match_elisions': active['elisions'], 'complete_prior_oracle': active['previous_expected']}
-        retained_plan = self.transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?', (request['request_digest'],)).fetchone()
+        if medical_binding is None:
+            retained_plan = self.transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?', (request['request_digest'],)).fetchone()
+        else:
+            capacity = operation_capacity(self.transport.operation_capacity)
+            if capacity is None:raise PermissionError('Explicit original medical operation capacity required')
+            maximum = capacity['max_intent_bytes']
+            row = self.transport.db.execute('SELECT length(CAST(original AS BLOB)),substr(CAST(original AS BLOB),1,?) FROM local_source_plan WHERE request_digest=?', (maximum+1, request['request_digest'])).fetchone()
+            if row is not None and (type(row[0]) is not int or not 0 < row[0] <= maximum or type(row[1]) is not bytes or len(row[1]) != row[0]):
+                raise LocalDeltaError('Complete bounded original source plan required')
+            retained_plan = None if row is None else (row[1].decode('utf-8'),)
         if retained_plan is None:
             if recovery:
                 raise LocalDeltaError('Original source plan custody absent; no replacement')
@@ -1844,11 +1929,33 @@ class NativeDriver:
                 self.transport.db.execute('INSERT INTO local_source_plan VALUES(?,?)', (request['request_digest'], original_plan))
         else:
             original_plan = retained_plan[0]
-            retained = json.loads(original_plan)
-            if {k: v for (k, v) in retained.items() if k != 'observed_native_prior'} != source_plan:
+            if medical_binding is None:
+                retained = json.loads(original_plan)
+            else:
+                def pairs(items):
+                    result = {}
+                    for key, item in items:
+                        if key in result:raise LocalDeltaError('Duplicate original medical source plan member')
+                        result[key] = item
+                    return result
+                def nonfinite(value):raise LocalDeltaError('Nonfinite original medical source plan member')
+                retained = json.loads(original_plan, object_pairs_hook=pairs, parse_constant=nonfinite)
+                if type(retained) is not dict:raise LocalDeltaError('Exact original medical source plan object required')
+            observed_source = {k: v for (k, v) in retained.items() if k != 'observed_native_prior'}
+            if (not original_native_equal(observed_source, source_plan) if medical_binding is not None else observed_source != source_plan):
                 raise LocalDeltaError('Original exact source plan differs')
+            anchors = retained.get('observed_native_prior')
+            expected_tables = {self.tables[role] for role in active['previous_expected']}
+            if medical_binding is not None and (type(anchors) is not dict or set(anchors) != expected_tables):
+                raise LocalDeltaError('Complete exact original prior anchor inventory required')
             prior_total = 0
-            for (table, anchor) in retained['observed_native_prior'].items():
+            for (table, anchor) in anchors.items():
+                if medical_binding is not None and (type(anchor) is not dict or set(anchor) != {'uuid','version','snapshot'}
+                        or type(anchor['uuid']) is not str
+                        or type(anchor['version']) is not int or anchor['version'] < 0
+                        or type(anchor['snapshot']) is not dict
+                        or set(anchor['snapshot']) != {'schema','rows','row_sha256'}):
+                    raise LocalDeltaError('Exact original prior anchor carriers required')
                 target = self.transport.targets[table]
                 if medical_binding is None:
                     observed = self.transport._snapshot(target, anchor['version'])
@@ -1859,6 +1966,23 @@ class NativeDriver:
                     prior_total += size
                 if anchor['uuid'] != target.uuid or encoded(observed) != encoded(anchor['snapshot']):
                     raise LocalDeltaError('Original no-op prior native evidence differs')
+        return original_plan
+
+    def _apply(self, request, context, recovery):
+        if getattr(self,'query_source_factory',None) is not None:
+            raise PermissionError('Registered query source cannot publish')
+        self.require(context)
+        medical_binding = getattr(self, '_original_medical_publication_binding', None)
+        if medical_binding is not None:
+            self._require_medical_publication_binding(medical_binding)
+            if getattr(self.transport, 'observation_bounds', None) is not medical_binding['bounds']:
+                raise PermissionError('Original medical apply requires its bound capture interval')
+        self.source_admit(request)
+        active = self.policy.active
+        if active['request'] != request:
+            raise PermissionError('Complete original applying request differs')
+        effects = LocalDeltaEffects(self.transport)
+        original_plan = self._apply_source_plan(request, context, recovery)
         if not self.transport.db.execute('SELECT 1 FROM local_plan WHERE operation=?', ('effects:' + request['request_digest'],)).fetchone() and recovery:
             raise LocalDeltaError('Original whole effect plan absent; no replacement')
         proof = (effects.recover if recovery else effects.run)('effects:' + request['request_digest'], request['request_digest'], active['steps'], context=context)

@@ -3,7 +3,7 @@ from contextlib import ExitStack, nullcontext
 import json
 import unittest
 from unittest.mock import patch
-from ashlar_host.delta_custody import LocalDeltaEffects, LocalDeltaError, original_operation_intent, encoded, sha
+from ashlar_host.delta_custody import LocalDeltaEffects, LocalDeltaError, original_operation_intent, encoded, sha, LOCAL_OPERATION_CAPACITY_8M
 from ashlar_host.driver import PrivatePolicy, _medical_json_budget
 from ashlar.publication import Descriptor
 import test_medical_publication_observation as observation
@@ -16,7 +16,7 @@ class Tests(unittest.TestCase):
         policy.context = driver.context; policy.initializing = False
         policy.writer = lambda operation, context: nullcontext()
         policy.admit = lambda intent, context: PrivatePolicy.admit(policy, intent, context)
-        transport.installation_id = f.selection.installation_id; transport.operation_capacity = None
+        transport.installation_id = f.selection.installation_id; transport.operation_capacity = LOCAL_OPERATION_CAPACITY_8M
         transport._profile = lambda: self.assertIs(transport.observation_bounds, bounds)
         native = {}; snapshots = {}; prior = {}
         for role in value['expected']:
@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         compact = []
         for key, step in zip(ids, value['selected_steps']):
             target = transport._target(step['statement'])
-            intent = original_operation_intent(transport.installation_id, key, digest, step['statement'], step['parameters'], target)
+            intent = original_operation_intent(transport.installation_id, key, digest, step['statement'], step['parameters'], target, transport.operation_capacity)
             metadata = encoded({'profile':'ashlar-local-delta-commit/0.1','installation_id':transport.installation_id,
                 'operation':key,'operation_sha256':sha(intent),'request_digest':digest})
             native[target.table] = [{'version':2,'userMetadata':metadata,'operation':'MERGE'}, {'version':1,'userMetadata':None,'operation':'CREATE TABLE'}]
