@@ -1,0 +1,18 @@
+{
+  "PYTHONPATH": "src:tests:tools:/private/tmp/truss-python-report-schema-env/lib/python3.11/site-packages",
+  "arguments": [
+    "-B",
+    "-S",
+    "-"
+  ],
+  "cwd": "/Users/erik/Projects/ashlar",
+  "execChunk": "69cef8",
+  "exitCode": 0,
+  "provenance": "Retrospective durable transcription of exact exec heredoc and returned stdout; original process did not write named files. No rerun or independent native claim.",
+  "python": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+  "scriptSha256": "8cf63266392960f2a3ce989442897db2c9e5ecb10cebcfef108aa59a318af54d",
+  "session": 28593,
+  "stderrObserved": "",
+  "stdoutSha256": "9dcad211a1a70706d16b9678357bd1493798ab87bc6f6717746f2f93ef0c745e",
+  "terminalChunk": "49ff43"
+}

@@ -10,6 +10,7 @@ import json
 from typing import Mapping
 
 from .count_star_admission import CountStarPlanError, CountStarSchemaValidation
+from .implicit_arithmetic_profile import ImplicitArithmeticSchemaValidation
 
 
 _SCHEMA_BASE = 'https://github.com/DocumentDrivenDX/weft/raw/main/docs/helix/02-design/contracts/'
@@ -17,7 +18,7 @@ _DRAFT = 'https://json-schema.org/draft/2020-12/schema'
 _REFUSAL = 'Pinned public schema validation refused'
 
 
-def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> CountStarSchemaValidation:
+def _make_offline_validation(schemas, port_type):
     """Construct the actual validator port from held, pinned schema bytes.
 
     The returned callback accepts the owning port's three-argument contract:
@@ -25,6 +26,8 @@ def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> C
     Unknown roots or changed bundles refuse. No path or URI is ever retrieved.
     Missing validator dependencies refuse construction without a fallback.
     """
+    if port_type is not CountStarSchemaValidation and port_type is not ImplicitArithmeticSchemaValidation:
+        raise CountStarPlanError(_REFUSAL)
     validators = {}
 
     def validate(bundle, root_filename, candidate):
@@ -40,7 +43,7 @@ def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> C
 
     try:
         # Construct the owning port before parsing or using any schema bytes.
-        port = CountStarSchemaValidation(schemas, validate)
+        port = port_type(schemas, validate)
         from jsonschema import Draft202012Validator
         from referencing import Registry
         from referencing.exceptions import NoSuchResource
@@ -64,3 +67,13 @@ def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> C
     except Exception:
         raise CountStarPlanError(_REFUSAL) from None
     return port
+
+
+def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> CountStarSchemaValidation:
+    """Original 0.4.1 schema port; exact owning public pins remain unchanged."""
+    return _make_offline_validation(schemas, CountStarSchemaValidation)
+
+
+def make_offline_implicit_arithmetic_schema_validation(schemas: Mapping[str, bytes]) -> ImplicitArithmeticSchemaValidation:
+    """Explicit owned 0.4.2 offline schema port; no package qualification."""
+    return _make_offline_validation(schemas, ImplicitArithmeticSchemaValidation)

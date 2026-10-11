@@ -17,7 +17,8 @@ from typing import Callable, Optional
 from ashlar.weft_decode import decode_exact_scalar, ExactScalar
 from ashlar.weft_path_decode import PathDecodeConfig, decode_related_paths
 from ashlar.weft_related_keys_decode import RelatedKeysDecodeConfig, decode_related_keys
-from .count_star_admission import CountStarAdmissionConfig, admit_count_star_artifact
+from .count_star_admission import CountStarAdmissionConfig, admit_count_star_artifact, admit_implicit_arithmetic_artifact
+from .implicit_arithmetic_profile import ImplicitArithmeticExecutionConfig
 from .path_capture import PathCaptureConfig, capture_string_frame
 from .lifecycle import owned_context
 
@@ -270,12 +271,30 @@ def _preserving_interval(provider, context):
 
 
 def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_recompiled: dict,
-                          *, config: CountStarExecutionConfig, original_oracle: Callable) -> dict:
-    """Return provisional evidence only after all held checks and interval closure."""
+                                *, config: CountStarExecutionConfig, original_oracle: Callable) -> dict:
+    """Legacy 0.4.1 execution; provisional until outer cleanup completes."""
     _require(type(config) is CountStarExecutionConfig and callable(original_oracle),
              'Explicit execution configuration and independent oracle required')
     config.__post_init__()
     admitted = admit_count_star_artifact(request, artifact, trusted_recompiled, config=config.admission)
+    return _execute_selected(opened, request, artifact, trusted_recompiled,
+        config=config, original_oracle=original_oracle, admitted=admitted)
+
+
+def execute_commerce_implicit_arithmetic(opened, request: dict, artifact: dict, trusted_recompiled: dict,
+                                        *, config: ImplicitArithmeticExecutionConfig, original_oracle: Callable) -> dict:
+    """Explicit 0.4.2 execution; shares all original held obligations and cleanup."""
+    _require(type(config) is ImplicitArithmeticExecutionConfig and callable(original_oracle),
+             'Explicit implicit arithmetic execution configuration and oracle required')
+    config.__post_init__()
+    admitted = admit_implicit_arithmetic_artifact(request, artifact, trusted_recompiled, config=config.admission)
+    return _execute_selected(opened, request, artifact, trusted_recompiled,
+        config=config, original_oracle=original_oracle, admitted=admitted)
+
+
+def _execute_selected(opened, request: dict, artifact: dict, trusted_recompiled: dict,
+                          *, config, original_oracle: Callable, admitted) -> dict:
+    """Return provisional evidence only after all held checks and interval closure."""
     request, artifact, binding = map(_plain, (admitted.request, admitted.artifact, admitted.binding))
     obligations = _plain(admitted.obligations)
     source_checks = [c for o in obligations for c in o['parameters'].get('checks', [])

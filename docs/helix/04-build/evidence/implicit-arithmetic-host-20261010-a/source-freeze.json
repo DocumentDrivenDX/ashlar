@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "actualOffline": "69cef8/49ff43: Python3.11 cached jsonschema4.23/referencing .35.1, four original042 pairs accepted and four malformed expressions refused, terminal0",
+    "boundariesAndDiff": "b7a4ee PASS",
+    "earlierUnfrozenFailures": [
+      "b42a61 missing publicsource positive fixture refused asrequired",
+      "ebc68e retained previous inertcalls in second interval test",
+      "74e9c4/832a23 incorrectly required publicsource for original cases without publicSourceOnly obligations; corrected assertion matches original obligation inventory"
+    ],
+    "portable": "eebf88: Python3.9 -S ResourceWarning error, 31 controls PASS4.533s"
+  },
+  "files": [
+    {
+      "bytes": 6091,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/implicit_arithmetic_profile.py",
+      "sha256": "af7169b0ee1570bf434c7baab11fb227458dcb87b447cc313174048669fb189c"
+    },
+    {
+      "bytes": 40683,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_admission.py",
+      "sha256": "557d81339072abff1e268d2dbf309b15972378a5392da6085a3b6c289017d972"
+    },
+    {
+      "bytes": 25390,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py",
+      "sha256": "aa7513dd15397f809758a0634ba32bb2804e8269a5bfdc504f40de7ba682876a"
+    },
+    {
+      "bytes": 3786,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_schema.py",
+      "sha256": "96cf9ee9a7aa4da6688a1034e476173e30b0bc7e42c3a9814da79f9a92fadb33"
+    },
+    {
+      "bytes": 11977,
+      "path": "/Users/erik/Projects/ashlar/tests/test_implicit_arithmetic.py",
+      "sha256": "9c15eb2061ef1d0d5c5663b004cac309d1a8d6c889b985fd745573ab47e0cac9"
+    },
+    {
+      "bytes": 43326,
+      "path": "/Users/erik/Projects/ashlar/tests/fixtures/weft_implicit_arithmetic_host.json.zlib",
+      "sha256": "b56a3c7562fd8416012925c73a417fe2abdc0fb6fd0b637f32e7d2c90e58ee03"
+    }
+  ],
+  "head": "72f0dd72864f960128eb13efd0c37bd90a37dc31",
+  "scope": "Additive pure host042 seam. Actual debugCLI four unchanged SQL observations retained; inert schema/transport protocols are not native qualification. No indexed installation, runtime/native/public source producer grant."
+}

@@ -12,6 +12,9 @@ import re
 from types import MappingProxyType
 from typing import Callable, Mapping
 
+from .implicit_arithmetic_profile import (PROFILE as IMPLICIT_PROFILE,
+    ImplicitArithmeticAdmissionConfig)
+
 
 class CountStarPlanError(ValueError):
     """Safe payload-free admission refusal."""
@@ -303,7 +306,7 @@ def _admit_keys_relationship(request, binding, plan, expression, maximum):
     return _mapped_relationship(binding, hop)
 
 
-def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled: dict, *, config: CountStarAdmissionConfig) -> CountStarAdmission:
+def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: dict, *, config) -> CountStarAdmission:
     """Admit complete selected paths profile metadata before execution callbacks.
 
     Supports collections and expansion/grouped counts with their ordinary scalar,
@@ -311,19 +314,28 @@ def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled
     reduced to an illustrative subset. Actual callbacks must enforce every retained
     obligation and closing fence; this function performs none of those operations.
     """
-    _require(type(config) is CountStarAdmissionConfig, 'Explicit path admission configuration required')
-    backend = BACKEND
+    _require((type(config) is CountStarAdmissionConfig or type(config) is ImplicitArithmeticAdmissionConfig), 'Explicit path admission configuration required')
+    implicit = type(config) is ImplicitArithmeticAdmissionConfig
+    if implicit:
+        config.__post_init__()
+    backend = dict(IMPLICIT_PROFILE.backend) if implicit else BACKEND
+    roots = tuple(name for name, _ in IMPLICIT_PROFILE.schemas) if implicit else tuple(SCHEMA_SHA256)
+    compile_version = IMPLICIT_PROFILE.compile_version if implicit else 'weft-compile/0.4.1'
+    dialect = IMPLICIT_PROFILE.dialect if implicit else 'weft-sql/0.4.1'
+    ir_version = IMPLICIT_PROFILE.ir_version if implicit else 'weft-ir/0.4.1'
+    supported = IMPLICIT_PROFILE.capabilities if implicit else SUPPORTED_CAPABILITIES
+    collection_profile = 'count-star' if implicit else config.profile
     request, artifact, recompiled = (_snapshot(v, config.maximum_artifact_bytes) for v in (request, artifact, trusted_recompiled))
-    _require(artifact == recompiled, 'Exact trusted public recompilation required')
+    _require(_exact_metadata(artifact, recompiled) if implicit else artifact == recompiled, 'Exact trusted public recompilation required')
     port = config.schema_validation
-    for name, candidate in [('compile-request-v0.4.1.schema.json', request), ('compile-response-v0.4.1.schema.json', artifact)]:
+    for name, candidate in zip(roots[:2], (request, artifact)):
         try:
             outcome = port.validate(port.schemas, name, _snapshot(candidate, config.maximum_artifact_bytes))
         except Exception:
             raise CountStarPlanError('Pinned public schema validation refused') from None
         _require(outcome is None, 'Schema port must validate rather than return a claim')
-    _require(request['interfaceVersion'] == artifact['interfaceVersion'] == 'weft-compile/0.4.1'
-             and request['dialect'] == artifact['dialect'] == 'weft-sql/0.4.1'
+    _require(request['interfaceVersion'] == artifact['interfaceVersion'] == compile_version
+             and request['dialect'] == artifact['dialect'] == dialect
              and artifact['status'] == 'compiled' and artifact['backend'] == dict(backend), 'Explicit compiled paths profile required')
     _require(artifact['targetContext']['id'] == backend['targetProfile'] and artifact['targetContext']['engine'] == 'spark-sql' and artifact['targetContext']['engineVersion'] == '4.0.1' and artifact['targetContext']['storageLayoutRevision'] == 'ashlar-delta/0.3' and artifact['targetContext']['publicationRevision'] == 'ashlar-resolver/0.1-candidate', 'Exact declared candidate runtime profile required')
     target = request['target']
@@ -333,9 +345,11 @@ def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled
     _require(binding['profile'] == 'ashlar-databricks-candidate/0.1.0' and artifact['modelPins'] == binding['modelPins'], 'Original full model pins differ')
     _require(artifact['targetContext']['storageLayoutRevision'] == binding['layoutRevision'], 'Original layout target correspondence differs')
     plan = artifact['logicalPlan']
-    _require(plan['irVersion'] == 'weft-ir/0.4.1' and plan['modulePins'] == artifact['modelPins'] and plan['readProfile'] is None and plan['pageKey'] is None, 'Exact path plan/pins required')
+    _require(plan['irVersion'] == ir_version and plan['modulePins'] == artifact['modelPins'] and plan['readProfile'] is None and plan['pageKey'] is None, 'Exact path plan/pins required')
     capabilities=plan['requiredCapabilities']
-    _require(type(capabilities)is list and len(set(capabilities))==len(capabilities) and set(capabilities)<=SUPPORTED_CAPABILITIES, 'Unknown or duplicate selected capability')
+    _require(type(capabilities)is list and len(set(capabilities))==len(capabilities) and set(capabilities)<=supported, 'Unknown or duplicate selected capability')
+    if implicit:
+        _admit_implicit_labels(request, plan)
     _require(len(request['modules']) == len(artifact['modelPins']), 'Complete original module inventory required')
     for pin in artifact['modelPins']:
         _require(pin['umfVersion'] in ('0.7.0', '0.8.0'), 'Supported original UMF pin required')
@@ -359,7 +373,7 @@ def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled
         if expr['op'] in ('relatedKeys', 'relatedPaths'):
             collections.append(dict(outputPosition=position, kind=expr['op']))
         if expr['op'] == 'relatedKeys':
-            _require(config.profile == 'count-star', 'One-hop profile not selected')
+            _require(collection_profile == 'count-star', 'One-hop profile not selected')
             table = _admit_keys_relationship(request, binding, plan, expr, config.maximum_artifact_bytes)
             keys_collections.append(dict(outputPosition=position, startScan=expr['scan'], relationship=expr['relationship'], bound=expr['bound']))
             keys_tables.append(dict(outputPosition=position, relationship=expr['relationship']['identity'], table=table, identityColumn='id', nativeType='BIGINT'))
@@ -371,7 +385,7 @@ def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled
         required |= {'ashlar.candidate.relationshipIntegrity', 'ashlar.path.occurrenceIntegrity'}
     if keys_collections:
         required |= {'ashlar.candidate.relationshipIntegrity', 'ashlar.relatedKeys.collectionIntegrity'}
-    if config.profile == 'count-star' and collections:
+    if collection_profile == 'count-star' and collections:
         required.add('ashlar.relatedKeys.ordinalCapacity')
     count_kinds = set()
     if expansion:
@@ -526,9 +540,60 @@ def _admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled
                          _freeze(edge_schemas), _freeze(count_checks), _freeze(columns), _freeze(parameters))
 
 
+def _admit_count_star_artifact(request, artifact, trusted_recompiled, *, config):
+    _require(type(config) is CountStarAdmissionConfig, 'Explicit path admission configuration required')
+    return _admit_selected_artifact(request, artifact, trusted_recompiled, config=config)
+
+
+def _admit_implicit_labels(request, plan):
+    """Literal span correspondence only; Weft owns projection/alias interpretation."""
+    sql = request['sql'].encode('utf8')
+    matched = False
+    names = [output['name'] for output in plan['outputs']]
+    def span_text(span):
+        _closed(span, ('start', 'end'))
+        start, end = span['start'], span['end']
+        _require(type(start) is int and type(end) is int and 0 <= start < end <= len(sql),
+                 'Exact original arithmetic UTF8 span bounds required')
+        return sql[start:end].decode('utf8')
+    def renew_spans(value):
+        if type(value) is dict:
+            if 'span' in value:
+                span_text(value['span'])
+            for child in value.values():
+                renew_spans(child)
+        elif type(value) is list:
+            for child in value:
+                renew_spans(child)
+    for output in plan['outputs']:
+        expression = output['expression']
+        if expression['op'] != 'arithmetic':
+            continue
+        original = expression['expression']
+        renew_spans(original)
+        label = span_text(original['span'])
+        _require(names.count(output['name']) == 1, 'Computed output name collision refused')
+        if output['name'] == label:
+            matched = True
+    if 'project.implicitArithmeticLabels' in plan['requiredCapabilities']:
+        _require(matched, 'Selected implicit arithmetic label needs original span correspondence')
+    # No origin member exists in this wire profile. Do not infer which remaining
+    # projections used AS; exact trusted fresh compilation owns that distinction.
+
+
 def admit_count_star_artifact(request: dict, artifact: dict, trusted_recompiled: dict, *, config: CountStarAdmissionConfig) -> CountStarAdmission:
     """Public safe-refusal entry point; see CountStarAdmission and trusted-port contract."""
     try:
         return _admit_count_star_artifact(request, artifact, trusted_recompiled, config=config)
     except (KeyError, IndexError, TypeError, AttributeError, UnicodeError):
         raise CountStarPlanError('Malformed original path admission metadata') from None
+
+
+def admit_implicit_arithmetic_artifact(request: dict, artifact: dict, trusted_recompiled: dict,
+                                      *, config: ImplicitArithmeticAdmissionConfig) -> CountStarAdmission:
+    """Admit only the explicit owned 0.4.2 profile; no compiler or engine effects."""
+    try:
+        _require(type(config) is ImplicitArithmeticAdmissionConfig, 'Explicit implicit arithmetic configuration required')
+        return _admit_selected_artifact(request, artifact, trusted_recompiled, config=config)
+    except (KeyError, IndexError, TypeError, AttributeError, UnicodeError):
+        raise CountStarPlanError('Malformed original implicit arithmetic admission metadata') from None

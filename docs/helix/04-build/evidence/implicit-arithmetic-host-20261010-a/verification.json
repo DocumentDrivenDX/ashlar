@@ -1,0 +1,50 @@
+{
+  "scope": "Additive explicitly selected 0.4.2 host admission and execution seam; no indexed package or native execution qualification",
+  "baseCommit": "72f0dd72864f960128eb13efd0c37bd90a37dc31",
+  "rootChecks": [
+    {
+      "command": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_implicit_arithmetic test_count_star_admission test_count_star_execution",
+      "tests": 31,
+      "seconds": 4.687,
+      "exitCode": 0,
+      "terminalChunk": "d9d8f4"
+    },
+    {
+      "command": "python3 tools/check_module_boundaries.py",
+      "exitCode": 0,
+      "chunk": "84a25d"
+    },
+    {
+      "sourceFreezeRevalidated": true,
+      "chunk": "143e21"
+    }
+  ],
+  "qualification": "Four original public debug-CLI pairs and actual manifest retained in portable fixture. Inert execution controls preserve source ordering, snapshots and closing fences. Offline validation record explicitly identifies retrospective transcription. Actual publication-bound execution and independently admitted indexed products remain required.",
+  "files": [
+    {
+      "name": "independent-review.json",
+      "bytes": 1672,
+      "sha256": "97f04450253f813df7937f69eaf32676611fad9cc59fca82ff843b22dc57fafb"
+    },
+    {
+      "name": "offline-observed.json",
+      "bytes": 768,
+      "sha256": "caac6a722a7082f09f5b0ddddc6225e217c6d71a811da1d79dcb8d46e7dad897"
+    },
+    {
+      "name": "offline-observed.py",
+      "bytes": 912,
+      "sha256": "8cf63266392960f2a3ce989442897db2c9e5ecb10cebcfef108aa59a318af54d"
+    },
+    {
+      "name": "offline-observed.stdout",
+      "bytes": 114,
+      "sha256": "9dcad211a1a70706d16b9678357bd1493798ab87bc6f6717746f2f93ef0c745e"
+    },
+    {
+      "name": "source-freeze.json",
+      "bytes": 2208,
+      "sha256": "7b890e2b52ad7caa8fb0b30c35b266f420bb4de5fa85cfb1fbec7555e085f04e"
+    }
+  ]
+}
