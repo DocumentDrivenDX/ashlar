@@ -29,7 +29,7 @@ class Tests(unittest.TestCase):
     def test_captured_provider_supplies_exact_port_and_original_pack(self):
         original = (Path(__file__).resolve().parents[1]/
                     'examples/domain-packs/commerce/upstream/pack.json').read_bytes()
-        code = b'from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory\ndef ordinary_query_connection_factory(config):\n return OrdinaryQueryConnectionFactory(lambda role: None)\n'
+        code = b'from test_commerce_query_sources import factory\ndef commerce_query_source_factory(config):\n return factory()\nfrom ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory\ndef ordinary_query_connection_factory(config):\n return OrdinaryQueryConnectionFactory(lambda role: None)\n'
         with tempfile.TemporaryDirectory() as name:
             root = Path(name).resolve()
             provider, pack = root/'provider.py', root/'pack.json'

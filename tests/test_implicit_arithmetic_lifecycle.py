@@ -14,6 +14,7 @@ from ashlar_host.implicit_arithmetic_profile import ImplicitArithmeticSchemaVali
 from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory
 from ashlar_host.publication_reader import PublicationProvider,original_commerce_reader_bindings
 from ashlar_host.config import HostError
+from test_commerce_query_sources import factory
 
 class Tests(unittest.TestCase):
     def setUp(self):
@@ -21,6 +22,7 @@ class Tests(unittest.TestCase):
         c=self.fixture.config
         self.config=QueryCommerceImplicitArithmeticConfig(*(getattr(c,k)for k in ('index','installation','publication','output','jars','model','graph','producer','postgres','maximum_artifact_bytes','capture','decoder')))
         self.pack=(Path(__file__).resolve().parents[1]/'examples/domain-packs/commerce/upstream/pack.json').read_bytes()
+        self.source_factory=factory()
         self.session=OrdinaryQueryConnectionFactory(lambda role:(_ for _ in ()).throw(AssertionError('inert test must not acquire PG')))
         opened=self.fixture.opened
         provider=PublicationProvider(opened.driver,opened.aliases,None,b'original',b'original',{},context=opened.context,
@@ -47,7 +49,7 @@ class Tests(unittest.TestCase):
         for name in ('master','appName','config'):getattr(fixture.spark,name).return_value=fixture.spark
         fixture.spark.getOrCreate.return_value=fixture.spark
         with patch.dict(sys.modules,{'pyspark':ModuleType('pyspark'),'pyspark.sql':sql}),patch.multiple(owner,**values),patch.object(leaf,'compile_implicit_arithmetic_distribution',side_effect=compile),patch.object(leaf,'execute_commerce_implicit_arithmetic',side_effect=execute or execution):
-            result=query_commerce_implicit_arithmetic(self.config,ordinary_session=self.session,pack_bytes=self.pack,invocation_custody=custody)
+            result=query_commerce_implicit_arithmetic(self.config,ordinary_session=self.session,source_factory=self.source_factory,pack_bytes=self.pack,invocation_custody=custody)
         return result,requests,reader_options
 
     def test_all_four_real_leaf_requests_close_and_publish_new_profile_only(self):
@@ -55,6 +57,7 @@ class Tests(unittest.TestCase):
         self.assertEqual([c['case']for c in result['cases']],['partial-return','fulfillment','settlement','refund'])
         self.assertEqual(len(requests),8)
         self.assertIs(options[0]['ordinary_session'],self.session)
+        self.assertIs(options[0]['source_factory'],self.source_factory)
         self.assertEqual(result['format'],'ashlar-installed-commerce-implicit-arithmetic/0.1')
         self.assertEqual(result['cleanup'],{'readerClosed':True,'sparkStopped':True})
         self.assertTrue((self.config.output/'report.json').is_file());self.fixture.spark.stop.assert_called_once()
@@ -62,9 +65,15 @@ class Tests(unittest.TestCase):
     def test_missing_or_forged_ordinary_port_refuses_before_all_effects(self):
         for supplied in (None,object()):
             with patch.object(owner,'runtime_paths')as runtime,patch.object(owner,'recompute_dataset')as producer:
-                with self.assertRaises(HostError):query_commerce_implicit_arithmetic(self.config,ordinary_session=supplied,pack_bytes=self.pack)
+                with self.assertRaises(HostError):query_commerce_implicit_arithmetic(self.config,ordinary_session=supplied,source_factory=self.source_factory,pack_bytes=self.pack)
                 runtime.assert_not_called();producer.assert_not_called()
         self.assertFalse(self.config.output.exists())
+
+    def test_missing_source_factory_refuses_before_runtime(self):
+        for supplied in (None,object()):
+            with patch.object(owner,'runtime_paths') as runtime,patch('ashlar_host.connection.connect') as legacy:
+                with self.assertRaises(HostError):query_commerce_implicit_arithmetic(self.config,ordinary_session=self.session,source_factory=supplied,pack_bytes=self.pack)
+                runtime.assert_not_called();legacy.assert_not_called()
 
     def test_closing_runtime_refusal_stops_spark_and_withholds_report(self):
         calls=[]

@@ -146,7 +146,7 @@ class CommerceQueryObservation:
         return primary
 
 
-def _query_commerce(config, observation, *, ordinary_session=None, pack_bytes=None, invocation_custody=None) -> dict:
+def _query_commerce(config, observation, *, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None) -> dict:
     """Run the complete fixed041 or original042 scenario inventory.
 
     A refused required case withholds the whole report. This is not a capability
@@ -165,6 +165,9 @@ def _query_commerce(config, observation, *, ordinary_session=None, pack_bytes=No
         if type(ordinary_session) is not OrdinaryQueryConnectionFactory:
             raise HostError('ordinary-query-session-required')
         ordinary_session.__post_init__()
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if type(source_factory) is not CommerceQuerySourceFactory:raise HostError('query-source-factory-required')
+        source_factory.__post_init__()
         if invocation_custody is not None:
             from .query_invocation_custody import CommerceQueryInvocationCustody
             if type(invocation_custody) is not CommerceQueryInvocationCustody:raise HostError('invalid-query-invocation-custody')
@@ -206,7 +209,7 @@ def _query_commerce(config, observation, *, ordinary_session=None, pack_bytes=No
         if spark.version != '4.0.1':raise HostError('qualified-runtime-required')
         reader_options={}
         if observation.reader_cleanup is not None:reader_options['cleanup_state']=observation.reader_cleanup
-        if profile=='implicit-arithmetic':reader_options['ordinary_session']=ordinary_session
+        if profile=='implicit-arithmetic':reader_options.update(ordinary_session=ordinary_session,source_factory=source_factory)
         reader=open_commerce_reader(spark,config.publication,**reader_options)
         with owned_context(reader) as opened:
             if (opened.original_report != _parse(report_bytes,4*1024*1024)
@@ -289,7 +292,7 @@ def _query_commerce(config, observation, *, ordinary_session=None, pack_bytes=No
     return result
 
 
-def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinary_session=None, pack_bytes=None, invocation_custody=None) -> dict:
+def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None) -> dict:
     """Return complete provisional-to-closed evidence or a payload-free refusal.
 
     Cancellation remains the original BaseException, including cleanup markers.
@@ -299,7 +302,7 @@ def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinar
     try:
         observation.begin()
         if type(config) is not configuration_type:raise HostError('invalid-configuration')
-        result = _query_commerce(config, observation, ordinary_session=ordinary_session, pack_bytes=pack_bytes, invocation_custody=invocation_custody)
+        result = _query_commerce(config, observation, ordinary_session=ordinary_session, source_factory=source_factory, pack_bytes=pack_bytes, invocation_custody=invocation_custody)
     except BaseException as primary:
         if invocation_custody is not None:
             from .query_invocation_custody import CommerceQueryInvocationCustody
@@ -329,7 +332,7 @@ def run_count_star_query(config, *, diagnostics=None):
     return _run_commerce_query(config,QueryCommerceCountStarConfig,diagnostics=diagnostics)
 
 
-def run_implicit_arithmetic_query(config, *, ordinary_session, pack_bytes, diagnostics=None, invocation_custody=None):
+def run_implicit_arithmetic_query(config, *, ordinary_session, source_factory, pack_bytes, diagnostics=None, invocation_custody=None):
     """Closed042 entry; ordinary sessions and original scenario pack are explicit."""
     return _run_commerce_query(config,QueryCommerceImplicitArithmeticConfig,
-        ordinary_session=ordinary_session,pack_bytes=pack_bytes,diagnostics=diagnostics,invocation_custody=invocation_custody)
+        ordinary_session=ordinary_session,source_factory=source_factory,pack_bytes=pack_bytes,diagnostics=diagnostics,invocation_custody=invocation_custody)

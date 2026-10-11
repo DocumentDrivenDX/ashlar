@@ -31,7 +31,18 @@ Pass `--session-provider /absolute/operator.py --session-provider-sha256 <truste
 def ordinary_query_connection_factory(config):
     from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory
     return OrdinaryQueryConnectionFactory(open_ordinary_connection)
+
+def commerce_query_source_factory(config):
+    from ashlar_host.commerce_query_sources import CommerceQuerySourceFactory
+    from ashlar_host.existing_outbox_authority import OutboxAuthorityRegistration
+    # original_source_registration is an exact OutboxSourceRegistration with
+    # the original scope, schema, signature and ordinary reader connection port.
+    return CommerceQuerySourceFactory(OutboxAuthorityRegistration(
+        original_source_registration, original_reader_role, original_ack_role,
+        original_database, open_ordinary_metadata_connection))
 ```
+
+`open_ordinary_metadata_connection(context)` returns a fresh direct ordinary ACK-role connection for current source installation/signature and privilege checks. The original source registration must match the retained publication; it supplies a fresh ordinary reader connection for original outbox validation. The command binds these ports to the actual held reader lock, journal registration, native UUIDs and complete publication pins. It grants no write or ACK submission permission.
 
 `open_ordinary_connection(role)` returns a fresh DB-API connection authenticated directly as that requested ordinary role. The reader owns rollback and closure. The provider owns authentication inputs and imports; it must avoid printing credentials or source payloads. Provider Python code is trusted operator code, not a sandbox. The SHA identifies captured code bytes and grants no source, ACK or publication authority.
 

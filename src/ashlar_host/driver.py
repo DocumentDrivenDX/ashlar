@@ -1,7 +1,7 @@
 from .lifecycle import owned_connection
 from .resources import RESOURCE_ROOT
 'Selected local host implementation; native qualification remains version-scoped.'
-import fcntl, hashlib, json, subprocess, uuid
+import fcntl, hashlib, json, subprocess, uuid, os
 from contextlib import contextmanager
 from pathlib import Path
 from ashlar.manifest import DeltaManifestStore, FIELDS, manifest_pin_vector
@@ -764,6 +764,114 @@ class NativeDriver:
             schema_revisions_json=request['schema_revisions_json'], context=context,
             source_checkpoint_json=request['source_checkpoint_json'])
 
+    def bind_query_sources(self, factory):
+        """Bind one original read-only source before entering its held interval.
+
+        This bridge proves quiescent read custody, not permission to publish,
+        mutate native data, submit ACK, or provision PostgreSQL resources.
+        """
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        from .read_only_transport import ReadOnlyDeltaTransport
+        from .existing_outbox_authority import ExistingOutboxAuthority
+        from .delta_custody import DeltaTarget
+        from types import MappingProxyType
+        if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
+                or type(factory) is not CommerceQuerySourceFactory or self.held or self.pin_held
+                or self.source_sessions is not None or getattr(self,'query_source_factory',None) is not None):
+            raise PermissionError('Fresh exact original reader/source binding required')
+        factory.__post_init__()
+        if self.admission_facts()['profile']!='ashlar-original-commerce-public-dataset-admission/0.1':
+            raise PermissionError('Original commerce read admission required')
+        selected=factory.registration
+        active=self.policy.active
+        request=json.loads(encoded(active['request']))
+        checkpoint=json.loads(request['source_checkpoint_json'])
+        port=self.scope_ports.get(checkpoint['feed'])
+        if (type(port) is not dict or selected.source.scope != port['scope']
+                or selected.source.source_schema != port['source']
+                or selected.source.source_signature_sha256 != port['signature']
+                or selected.source_role != port['reader'] or selected.ack_role != port['role']
+                or (selected.source.scope.feed,selected.source.scope.epoch)!=(checkpoint['feed'],checkpoint['epoch'])):
+            raise PermissionError('Original reader source registration differs')
+        original_factory=encoded(factory.metadata());original_manifest=encoded(active['manifest'])
+        original_request=encoded(request)
+        versions=json.loads(active['manifest']['table_versions_json'])
+        def targets_snapshot(transport):
+            targets=transport.targets
+            if (type(targets) is not MappingProxyType or any(type(k) is not str or type(v) is not DeltaTarget
+                    or type(v.uuid) is not str or type(v.table) is not str or v.table!=k for k,v in targets.items())):
+                raise PermissionError('Exact original native target inventory required')
+            return tuple((table,target.uuid,str(target.path)) for table,target in sorted(targets.items()))
+        original_targets=targets_snapshot(self.transport)
+        original_versions=tuple(sorted(versions.items()))
+        if any(type(version)is not int or version<0 for _,version in original_versions):raise PermissionError('Exact original native versions required')
+        original_reservation=self.transport.reservation
+        original_registry=encoded(json.loads(original_reservation)['registry'])
+        original_journal=self.transport.journal_path
+        journal_stat=original_journal.stat();journal_identity=(journal_stat.st_dev,journal_stat.st_ino)
+        if self.transport.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(original_registry,)]:
+            raise PermissionError('Original reader installation registry differs')
+        owner=self
+        class ReadCustody:
+            def admit_source_writer(self, registration, context):
+                owner.require(context)
+                gate=getattr(owner,'_query_read_gate',None)
+                if (type(owner.transport) is not ReadOnlyDeltaTransport or not owner.pin_held
+                        or gate is None or encoded(factory.metadata())!=original_factory
+                        or registration.metadata()!=selected.source.metadata()
+                        or encoded(owner.policy.active['request'])!=original_request
+                        or encoded(owner.policy.active['manifest'])!=original_manifest):
+                    raise PermissionError('Current complete quiescent reader custody required')
+                fd,identity,path=gate
+                current=path.lstat();held=os.fstat(fd)
+                if path.is_symlink() or (current.st_dev,current.st_ino)!=identity or (held.st_dev,held.st_ino)!=identity:
+                    raise PermissionError('Original exclusive reader gate changed')
+                current_targets=targets_snapshot(owner.transport)
+                journal=owner.transport.journal_path
+                current_journal=journal.lstat()
+                if (not original_native_equal(current_targets,original_targets)
+                        or journal!=original_journal or journal.is_symlink()
+                        or (current_journal.st_dev,current_journal.st_ino)!=journal_identity
+                        or owner.transport.reservation!=original_reservation
+                        or owner.transport.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(original_registry,)]):
+                    raise PermissionError('Original reader registry/reservation changed')
+                for table,version in original_versions:
+                    expected_uuid=dict((t,u) for t,u,p in original_targets)[table]
+                    observed=owner.inspect_snapshot(table,version)
+                    if (type(observed) is not Snapshot or type(observed.table) is not str
+                            or type(observed.uuid) is not str or type(observed.version) is not int
+                            or observed.table!=table or observed.uuid!=expected_uuid or observed.version!=version):
+                        raise PermissionError('Original held native snapshot differs')
+        authority=ExistingOutboxAuthority((selected,),ReadCustody())
+        sources=RegisteredOutboxSources((selected.source,),authority)
+        self.query_source_factory=factory
+        self.source_sessions=sources;self.original_source_sessions=encoded(sources.metadata())
+
+    @contextmanager
+    def query_read_interval(self, context):
+        from .lifecycle import finish
+        from .read_only_transport import ReadOnlyDeltaTransport
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
+                or type(getattr(self,'query_source_factory',None)) is not CommerceQuerySourceFactory
+                or context is not self.context or self.held):
+            raise PermissionError('Original nonnested reader context required')
+        path=self.transport.journal_path.parent/'.pipeline-writer.lock'
+        fd=os.open(path,os.O_RDWR|os.O_NOFOLLOW)
+        primary=None;locked=False
+        try:
+            info=os.fstat(fd)
+            if (not path.is_file() or path.is_symlink() or info.st_uid!=os.getuid()
+                    or (path.stat().st_dev,path.stat().st_ino)!=(info.st_dev,info.st_ino)):
+                raise PermissionError('Original private reader gate required')
+            fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);locked=True
+            self._query_read_gate=(fd,(info.st_dev,info.st_ino),path);self.held=True
+            yield
+        except BaseException as error:primary=error
+        finally:
+            self.held=False;self._query_read_gate=None
+            finish(primary,([lambda:fcntl.flock(fd,fcntl.LOCK_UN)] if locked else [])+[lambda:os.close(fd)])
+
     def admission_facts(self):
         if encoded(self.source_admission.metadata()) != self.original_admission:
             raise PermissionError('Original admitted source profile metadata changed')
@@ -777,6 +885,9 @@ class NativeDriver:
 
     @contextmanager
     def writer(self, stream, context):
+        if getattr(self,'query_source_factory',None) is not None:
+            with self.query_read_interval(context):yield
+            return
         if getattr(self, '_evolution_constructing', False):
             raise PermissionError('Evolution registrations are not complete')
         if context is not self.context or self.held:
@@ -835,6 +946,8 @@ class NativeDriver:
             connection.rollback()
 
     def _apply(self, request, context, recovery):
+        if getattr(self,'query_source_factory',None) is not None:
+            raise PermissionError('Registered query source cannot publish')
         self.require(context)
         self.source_admit(request)
         active = self.policy.active
@@ -937,12 +1050,20 @@ class NativeDriver:
         if vector != expected:
             raise PermissionError('Original complete held native vector differs')
         self.pin_held = True
+        primary = None
+        admitted = False
         try:
             self.validate_manifest(row, context)
+            admitted = True
             yield
-            self.validate_manifest(row, context)
+        except BaseException as error:
+            primary = error
         finally:
-            self.pin_held = False
+            try:
+                from .lifecycle import finish
+                finish(primary, [lambda: self.validate_manifest(row, context)] if admitted else [])
+            finally:
+                self.pin_held = False
 
     def authorize(self, context, publication_id, tables):
         self.require(context)
@@ -980,6 +1101,8 @@ class NativeDriver:
         self.validate_manifest(dict(resolved.descriptor.raw), context)
 
     def acknowledge(self, request, descriptor, context):
+        if getattr(self,'query_source_factory',None) is not None:
+            raise PermissionError('Registered query source cannot submit ACK')
         self.require(context)
         if self.lose_manifest:
             self.lose_manifest = False

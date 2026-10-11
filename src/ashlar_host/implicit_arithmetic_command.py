@@ -10,6 +10,7 @@ from types import ModuleType
 from .config import HostError
 from .evolution_cli import InvocationFile, MAX_PROVIDER
 from .ordinary_query_connection import OrdinaryQueryConnectionFactory
+from .commerce_query_sources import CommerceQuerySourceFactory
 from .implicit_arithmetic_configuration import QueryCommerceImplicitArithmeticConfig
 from .query_invocation_custody import CommerceQueryInvocationCustody
 
@@ -37,8 +38,13 @@ def run_implicit_arithmetic_command(config, *, provider_path, provider_sha256,
     if type(port) is not OrdinaryQueryConnectionFactory:
         raise HostError('query-provider-configuration')
     port.__post_init__()
+    source_builder=getattr(module,'commerce_query_source_factory',None)
+    if not callable(source_builder):raise HostError('query-source-provider-configuration')
+    source_factory=source_builder(config)
+    if type(source_factory) is not CommerceQuerySourceFactory:raise HostError('query-source-provider-configuration')
+    source_factory.__post_init__()
     custody = CommerceQueryInvocationCustody(provider, pack)
     custody.renew()
     from .implicit_arithmetic_query import query_commerce_implicit_arithmetic
-    return query_commerce_implicit_arithmetic(config, ordinary_session=port,
+    return query_commerce_implicit_arithmetic(config, ordinary_session=port,source_factory=source_factory,
         pack_bytes=pack.raw, diagnostics=diagnostics, invocation_custody=custody)

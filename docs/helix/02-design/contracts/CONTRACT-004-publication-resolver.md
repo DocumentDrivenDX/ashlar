@@ -480,6 +480,17 @@ including the unnamed partial-return arithmetic projection, require actual
 publication-bound execution and independent complete-result comparison. Compiler
 acceptance alone does not satisfy this requirement.
 
+The installed commerce 0.4.2 query profile MUST require an explicit exact ordinary
+source registration alongside its ordinary protected ACK session factory. Bind
+that registration to the original admitted reader, source schema/signature,
+roles, checkpoint and complete native UUID/version vector before opening source
+sessions. Current source admission MUST renew the original read-only journal
+registry and reservation under the actual exclusive quiescent reader lock and
+complete publication pins. This interval grants no native mutation, publication
+or ACK submission permission. Missing or changed registration MUST refuse;
+container credential discovery MUST NOT be a fallback. Existing 0.4.1 entry
+points retain their selected behavior.
+
 The installed supply-chain request builder MUST preserve all five original SQL
 statements, complete UMF 0.8 module bytes, development carrier identities and
 present-null property encoding. Its selected `supply_chain_count_star_request`

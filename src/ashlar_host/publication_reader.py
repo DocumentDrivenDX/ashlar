@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from ashlar.publication import resolve_publication
 from .source_identity import SOURCE_SHA
 from .delta_custody import encoded
+from .read_only_transport import ReadOnlyTransport
 from .commerce_binding import compiler_request, LAYOUT_SHA
 from .ordinary_query_connection import OrdinaryQueryConnectionFactory, acquire_ordinary_query_connection
 
@@ -84,31 +85,6 @@ def execute_guarded(provider, request, artifact, *, context):
     if not completed:
         raise ValueError('Consumer interval suppressed failure')
     return {'rows': answer, 'integrity': checks, 'qualification': __doc__}
-
-class ReadOnlyTransport:
-    """Construct the reviewed native reader with an original read-only journal."""
-
-    @staticmethod
-    def open(spark, journal, installation, targets, policy, *, capacity=None):
-        import sqlite3
-        from urllib.parse import quote
-        from .delta_custody import LocalDeltaTransport, LocalDeltaError
-
-        class Reader(LocalDeltaTransport):
-
-            def _journal(self, registry, *, create):
-                if create:
-                    raise LocalDeltaError('Read-only consumer cannot initialize')
-                self.db = sqlite3.connect('file:' + quote(str(self.journal_path.resolve())) + '?mode=ro', uri=True)
-                if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(registry,)]:
-                    raise LocalDeltaError('Original journal registration differs')
-
-            def mutation(self, *args, **kwargs):
-                raise LocalDeltaError('Read-only publication consumer')
-
-            def recover(self, *args, **kwargs):
-                raise LocalDeltaError('Read-only publication consumer')
-        return Reader(spark, journal, installation, targets, policy, capacity=capacity)
 
 class PublicationProvider:
 
@@ -231,19 +207,26 @@ class PublicationProvider:
                 else:
                     connection = acquire_ordinary_query_connection(self.ordinary_session, self.port['role'])
                 primary = None
+                admitted = False
+                def close_ack():
+                    nonlocal closing
+                    closing = self._ack(session)
                 try:
                     session = Session(connection)
                     opening = self._ack(session)
+                    admitted = True
                     self.active = True
                     yield
-                    closing = self._ack(session)
-                    completed = True
                 except BaseException as error:
                     primary = error
                 finally:
-                    self.active = False
-                    finish(primary, [lambda: _close_observed(connection.rollback, self.cleanup_state, primary),
-                                     lambda: _close_observed(connection.close, self.cleanup_state, primary)])
+                    try:
+                        finish(primary, ([close_ack] if admitted else []) + [
+                            lambda: _close_observed(connection.rollback, self.cleanup_state, primary),
+                            lambda: _close_observed(connection.close, self.cleanup_state, primary)])
+                        completed = True
+                    finally:
+                        self.active = False
         if not completed:
             raise PermissionError('Original consumer closing checks suppressed')
         from dataclasses import asdict
@@ -324,7 +307,7 @@ def original_commerce_reader_bindings(model, bindings, manifest, registry, alias
     return tuple(originals)
 
 @contextmanager
-def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_session=None):
+def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_session=None, source_factory=None):
     """Open original custody/authority ports without submitting native writes.
 
     Caller owns Spark lifetime. The private reader retains original journal,
@@ -336,6 +319,11 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
         if type(ordinary_session) is not OrdinaryQueryConnectionFactory:
             raise ValueError('ordinary-query-connection-factory-required')
         ordinary_session.__post_init__()
+    if source_factory is not None:
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if type(source_factory) is not CommerceQuerySourceFactory:
+            raise ValueError('exact-query-source-factory-required')
+        source_factory.__post_init__()
     if cleanup_state is not None:
         if type(cleanup_state) is not ReaderCleanupState or cleanup_state._claimed:
             raise ValueError('invalid-reader-cleanup-state')
@@ -384,6 +372,7 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
         driver = NativeDriver(transport, policy, context, tables, {batch.feed: port}, admission.changes, fixture_columns(ROOT), source_admission=admission)
         plan = json.loads(transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?', (request['request_digest'],)).fetchone()[0])
         policy.active = {'request': request, 'steps': plan['selected_steps'], 'expected': expected, 'manifest': manifest, 'publication_id': manifest['publication_id'], 'previous_progress': {}, 'progress': json.loads(manifest['source_progress_json']), 'previous_expected': plan['complete_prior_oracle'], 'generated_steps': plan['generated_steps'], 'elisions': plan['zero_match_elisions']}
+        if source_factory is not None:driver.bind_query_sources(source_factory)
         aliases = {t: t.replace('local.', 'spark_catalog.', 1) for t in json.loads(manifest['table_versions_json'])}
         req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
         original_bindings = original_commerce_reader_bindings(model, bindings, manifest, original_report['table_registry'], aliases)
