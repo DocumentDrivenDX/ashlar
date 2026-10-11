@@ -16,6 +16,7 @@ from .medical_producer import HeldMedicalDataset,MedicalFile
 from .original_medical_local_configuration import OriginalMedicalInitializationConfig
 from .original_medical_runtime import OriginalMedicalRuntimeCustody
 from .original_medical_native_session import original_medical_native_session
+from .medical_process_supervision import OriginalMedicalNativePhase
 
 ROLES=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
 
@@ -104,9 +105,11 @@ def observe_empty_medical_target(spark,target,schema,registration=None):
     return {'uuid':target.uuid,'version':version,'location':detail['location'],'schema':schema,'properties':properties,'minReaderVersion':1,'minWriterVersion':2,'history':[{'version':row['version'],'userMetadata':row['userMetadata'],**({'operation':row['operation']}if registration is not None and row['version']==1 else {})}for row in history]}
 
 
-def initialize_original_medical_local(config):
+def initialize_original_medical_local(config, *, supervision=None):
     """Retain partial installations; release a bounded handoff only after closing."""
     if type(config)is not OriginalMedicalInitializationConfig:raise ValueError('Exact fresh medical initialization configuration required')
+    if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
+        raise ValueError('Exact original medical native supervision required')
     config.__post_init__()
     if config.root.exists()or config.root.is_symlink()or config.output.exists()or config.output.is_symlink():raise ValueError('Fresh medical root and output required')
     generated=original_local_physical_carriers()
@@ -135,7 +138,8 @@ def initialize_original_medical_local(config):
             fcntl.flock(lock_fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
             context=object();policy=MedicalBootstrapPolicy(context,config,custody,dataset,schemas,root_fd,output_fd,lock_fd,parents)
             with owned_context(_bootstrap_interval(policy)):
-                with owned_context(original_medical_native_session(custody))as spark:
+                native = original_medical_native_session(custody, **({} if supervision is None else {'phase': supervision}))
+                with owned_context(native)as spark:
                     from pyspark.sql.types import StructType
                     targets=[];witnesses={};attempted=[];transport=None;native_primary=None
                     try:

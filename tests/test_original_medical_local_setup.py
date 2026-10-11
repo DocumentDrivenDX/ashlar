@@ -10,6 +10,7 @@ import test_original_medical_local_sources as source_fixture
 from ashlar_host.original_medical_local_configuration import OriginalMedicalInitializationConfig
 from ashlar_host.local_physical_carriers import original_local_physical_carriers
 from ashlar_host.original_medical_local_setup import initialize_original_medical_local,ROLES
+from ashlar_host.medical_process_supervision import OriginalMedicalNativePhase
 
 class Row(dict):
     def asDict(self):return dict(self)
@@ -34,6 +35,26 @@ class Spark:
             return Frame([Row(id=t['id'],location=Path(path).as_uri(),partitionColumns=[],properties=t['properties'],minReaderVersion=1,minWriterVersion=2)])
         return Frame(t['history'])
 class Tests(unittest.TestCase):
+    def test_supervision_refuses_foreign_owner_before_initialization(self):
+        with self.assertRaises(ValueError):
+            initialize_original_medical_local(self.config, supervision=object())
+        self.assertFalse(self.config.root.exists());self.assertFalse(self.config.output.exists())
+        self.assertFalse(self.events)
+
+    def test_exact_supervision_reaches_actual_custody_native_boundary(self):
+        read,write=os.pipe()
+        self.addCleanup(os.close,read);self.addCleanup(os.close,write)
+        os.set_blocking(write,False);phase=OriginalMedicalNativePhase(write)
+        @contextmanager
+        def selected(custody,*,phase):
+            phase.begin(custody)
+            with self.session(custody)as spark:yield spark
+            phase.end(custody)
+        with self.ports(),patch('ashlar_host.original_medical_local_setup.original_medical_native_session',side_effect=selected):
+            initialize_original_medical_local(self.config,supervision=phase)
+        self.assertEqual(os.read(read,32),b'native.begin\nnative.end\n')
+        self.assertIn('session-close',self.events)
+
     def setUp(self):
         fixture=runtime_fixture.Tests();fixture.setUp();self.addCleanup(fixture.doCleanups);self.fixture=fixture
         schemas=fixture.make('generated.json',json.dumps(original_local_physical_carriers()).encode())
