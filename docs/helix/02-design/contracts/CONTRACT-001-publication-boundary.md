@@ -512,3 +512,33 @@ source reuse remain governed by the preceding original-commerce section. No gene
 publication process-restart recovery follows. Reports MUST be released only after
 substantive closing admission and cleanup; bounded diagnostics MUST follow
 CONTRACT-006 and MUST NOT expose credentials or grant commit/completion authority.
+
+
+### Explicit original-ordinal continuation
+
+A separately typed retained-run continuation MAY select one absolute ordinal in
+the unchanged original eight-publication schedule. It MUST retain the original
+run digest, installation, complete eight-slot journal, source registrations and
+source/ACK/native authority. It MUST NOT initialize, reset, append replacement
+source transactions, skip the first incomplete ordinal or stop within a
+publication. Selecting an earlier ordinal than the actual completed prefix MUST
+refuse; exact replay of the current completed prefix remains admissible.
+
+Continuation MUST independently validate every earlier completed descriptor,
+original native handle/vector, ancestry and protected source ACK through the
+stored-publisher owner. The selected publication MUST complete and the complete
+eight-slot inventory and actual settled prefix MUST pass current closing gates
+before a distinct prefix result is released. Producer, original run, ledger,
+lease, ordinary source/ACK and native closing admission MUST be attempted on
+opening/body failures and cancellation while their owned resources remain held;
+cleanup MUST preserve the primary outcome. Invocation and provider configuration
+MUST agree on the exact absolute ordinal before effects.
+
+A prefix result MUST identify the original run, selected ordinal, completed
+count and total of eight; it MUST NOT claim full-run qualification. A result MAY
+report run completion only for ordinal seven after all eight contiguous original
+slots and the final current descriptor/vector independently agree. The distinct
+prefix profile remains distinct at ordinal seven. Full-run native qualification
+still requires all original prefix-union oracles, retained old reads, exact
+replay, durable two-source ACK/restart and missing-journal refusal evidence.
+Continuation does not authorize a larger resource cap or stale admission cache.

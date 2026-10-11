@@ -504,3 +504,21 @@ class ResumeCommerceEvolutionConfig:
         _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
         if type(self.expected_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256):
             raise HostError('evolution-run-configuration')
+
+
+@dataclass(frozen=True, repr=False)
+class ContinueCommerceEvolutionConfig:
+    """Complete one absolute original ordinal; never select a new run."""
+    driver: CommerceEvolutionDriver
+    ledger_path: Path
+    policy: EvolutionRunPolicy
+    producer: EvolutionAdmissionConfig
+    context: object
+    expected_sha256: str
+    through_ordinal: int
+
+    def __post_init__(self):
+        _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
+        if (type(self.expected_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256)
+                or type(self.through_ordinal) is not int or not 0 <= self.through_ordinal < 8):
+            raise HostError('evolution-run-configuration')

@@ -35,6 +35,63 @@ class Controls(unittest.TestCase):
         return {'profile': 'ashlar-commerce-evolution-run-result/0.1', 'run_sha256': 'b' * 64,
             'publications': tuple(SimpleNamespace(publication_id='p-' + str(i)) for i in range(8))}
 
+    def test_continuation_closed_ordinal_parser_and_partial_receipt(self):
+        with tempfile.TemporaryDirectory() as root:
+            directory = Path(root).resolve()
+            value = self.document(directory); value.update(mode='continue', through_ordinal=1)
+            invocation = owner.parse_evolution_invocation(json.dumps(value).encode(), 'continue')
+            self.assertIs(type(invocation), owner.ContinueEvolutionInvocation)
+            for bad in (True, -1, 8, '1'):
+                value['through_ordinal'] = bad
+                with self.assertRaises(HostError): owner.parse_evolution_invocation(json.dumps(value).encode(), 'continue')
+            value['through_ordinal'] = 1
+            config, source, pin = self.files(directory)
+            config.write_text(json.dumps(value))
+            answer = self.answer(); answer.update(profile='ashlar-commerce-evolution-prefix-result/0.1',
+                run_sha256=invocation.expected_sha256, publications=answer['publications'][:2],
+                through_ordinal=1, completed_count=2, total_publications=8, run_complete=False, source_progress={})
+            for descriptor in answer['publications']:
+                descriptor.raw = {'source_progress_json': '{}'}
+            with patch.object(owner, 'run_evolution_invocation', return_value=answer):
+                receipt = owner.run_evolution_command(config, source, pin, 'continue')
+            self.assertEqual(receipt['profile'], 'ashlar-commerce-evolution-prefix-receipt/0.1')
+            self.assertFalse(receipt['run_complete']); self.assertEqual(len(receipt['publication_ids']), 2)
+
+    def test_continuation_provider_ordinal_mismatch_refuses_before_coordinator(self):
+        import test_evolution_run as run_tests
+        from ashlar_host.evolution_composition import NativeEvolutionRunPolicy
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        run_tests.Tests.setUpClass(); fixture = run_tests.Tests(); fixture.setUp()
+        try:
+            invocation = owner.ContinueEvolutionInvocation(fixture.path, fixture.root / 'receipt',
+                fixture.producer, 'a' * 64, 0)
+            config = ContinueCommerceEvolutionConfig(fixture.driver, fixture.path,
+                NativeEvolutionRunPolicy(fixture.driver, fixture.policy), fixture.producer,
+                fixture.driver.context, 'a' * 64, 1)
+            closed = []
+            @contextlib.contextmanager
+            def opened(value):
+                try: yield config
+                finally: closed.append('closed')
+            with patch.object(owner, 'continue_commerce_evolution') as coordinator:
+                with self.assertRaises(HostError):
+                    owner.run_evolution_invocation(invocation, SimpleNamespace(open_evolution=opened))
+                coordinator.assert_not_called()
+            self.assertEqual(closed, ['closed'])
+        finally: fixture.doCleanups()
+
+    def test_actual_cli_continuation_dispatch_is_explicit_and_lazy(self):
+        import io
+        from ashlar import cli
+        args = ['continue-commerce-evolution', '--configuration', '/explicit/input',
+            '--provider', '/explicit/provider', '--provider-sha256', 'a' * 64]
+        with patch.object(owner, 'run_evolution_command', return_value={'profile': 'prefix'}) as run, \
+                patch('sys.stdout', new_callable=io.StringIO) as stdout, \
+                patch('sys.argv', ['ashlar', *args]):
+            cli.main()
+        run.assert_called_once_with('/explicit/input', '/explicit/provider', 'a' * 64, 'continue')
+        self.assertEqual(json.loads(stdout.getvalue()), {'profile': 'prefix'})
+
     def test_distinct_original_configuration_types(self):
         with tempfile.TemporaryDirectory() as root:
             directory = Path(root).resolve()

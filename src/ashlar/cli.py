@@ -94,7 +94,7 @@ def main():
             for option in ('maximum-artifact-bytes', 'maximum-rows',
                            'maximum-cell-bytes', 'maximum-total-cell-bytes'):
                 command.add_argument('--' + option, type=int, required=True)
-    for name in ('publish-commerce-evolution', 'resume-commerce-evolution'):
+    for name in ('publish-commerce-evolution', 'resume-commerce-evolution', 'continue-commerce-evolution'):
         command = commands.add_parser(name, help='Run the original eight-step evolution with an explicit trusted operator provider')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
@@ -174,12 +174,13 @@ def main():
             print('ashlar supply-chain compiler refused',file=sys.stderr)
             raise SystemExit(2) from None
         return
-    if args.command in ('publish-commerce-evolution', 'resume-commerce-evolution'):
+    if args.command in ('publish-commerce-evolution', 'resume-commerce-evolution', 'continue-commerce-evolution'):
         from ashlar_host.evolution_cli import run_evolution_command
         from ashlar_host.config import HostError
         try:
             receipt = run_evolution_command(args.configuration, args.provider, args.provider_sha256,
-                'fresh' if args.command == 'publish-commerce-evolution' else 'resume')
+                {'publish-commerce-evolution': 'fresh', 'resume-commerce-evolution': 'resume',
+                 'continue-commerce-evolution': 'continue'}[args.command])
             print(json.dumps(receipt, sort_keys=True, separators=(',', ':')))
         except Exception:
             print('ashlar commerce evolution refused', file=sys.stderr)

@@ -124,10 +124,22 @@ class Tests(unittest.TestCase):
             self.driver.policy.active = None
             resumed = resume_commerce_evolution(ResumeCommerceEvolutionConfig(self.driver, self.path,
                 self.policy, self.producer, self.driver.context, result['run_sha256']))
+            from ashlar_host.config import ContinueCommerceEvolutionConfig
+            from ashlar_host.commerce_evolution import continue_commerce_evolution
+            final = continue_commerce_evolution(ContinueCommerceEvolutionConfig(self.driver, self.path,
+                self.policy, self.producer, self.driver.context, result['run_sha256'], 7))
+            self.assertEqual(final['profile'], 'ashlar-commerce-evolution-prefix-result/0.1')
+            self.assertTrue(final['run_complete']); self.assertEqual(final['completed_count'], 8)
+            self.assertEqual(final['publications'], result['publications'])
+            with patch.object(self.driver, 'plan_evolution_transaction') as plan:
+                with self.assertRaises(EvolutionPlanError):
+                    continue_commerce_evolution(ContinueCommerceEvolutionConfig(self.driver, self.path,
+                        self.policy, self.producer, self.driver.context, result['run_sha256'], 6))
+                plan.assert_not_called()
         self.assertEqual(result, resumed); self.assertEqual(len(result['publications']), 8)
         self.assertEqual(len(self.manifests), 8); self.assertEqual(len(self.phases.rows), 40)
         self.assertEqual(len([event for event in self.events if event[0] == 'apply']), 8)
-        self.assertEqual(len([event for event in self.events if event[0] == 'ack']), 16)
+        self.assertEqual(len([event for event in self.events if event[0] == 'ack']), 24)
         self.assertEqual([descriptor.publication_id for descriptor in result['publications']], list(self.request.publication_ids))
         self.assertFalse(self.driver.held)
 
@@ -154,6 +166,111 @@ class Tests(unittest.TestCase):
             with sqlite3.connect(self.path) as connection:
                 self.assertEqual(connection.execute('SELECT original FROM original_slot WHERE ordinal=0').fetchone()[0], raw)
         self.assertEqual(len(result['publications']), 8)
+
+    def test_continuation_absolute_prefix_stops_before_suffix_and_replays(self):
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports()
+        with first, second, third:
+            with patch.object(LocalDeltaEffects, 'prepare_unsubmitted', side_effect=KeyboardInterrupt()):
+                with self.assertRaises(KeyboardInterrupt): publish_commerce_evolution(self.config)
+            digest = self.definition_digest()
+            config = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, digest, 0)
+            result = continue_commerce_evolution(config)
+            self.assertEqual(result['profile'], 'ashlar-commerce-evolution-prefix-result/0.1')
+            self.assertEqual(result['completed_count'], 1); self.assertFalse(result['run_complete'])
+            self.assertEqual(len(result['publications']), 1)
+            with sqlite3.connect(self.path) as db:
+                self.assertEqual([row[0] for row in db.execute('SELECT state FROM original_slot ORDER BY ordinal')],
+                    ['completed'] + ['unprepared'] * 7)
+            applies = len([event for event in self.events if event[0] == 'apply'])
+            self.assertEqual(continue_commerce_evolution(config), result)
+            self.assertEqual(len([event for event in self.events if event[0] == 'apply']), applies)
+            skip = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, digest, 2)
+            with patch.object(self.driver, 'plan_evolution_transaction') as plan:
+                with self.assertRaises(EvolutionPlanError): continue_commerce_evolution(skip)
+                plan.assert_not_called()
+
+    def test_continuation_cancel_attempts_independent_closing_and_withholds(self):
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports()
+        primary = KeyboardInterrupt('original continuation body')
+        with first, second, third:
+            with patch.object(LocalDeltaEffects, 'prepare_unsubmitted', side_effect=primary):
+                with self.assertRaises(KeyboardInterrupt): publish_commerce_evolution(self.config)
+            config = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, self.definition_digest(), 0)
+            original_validate = self.driver.validate_evolution_run; calls = []
+            def validate(*args, **kwargs):
+                calls.append('run'); return original_validate(*args, **kwargs)
+            original_close = EvolutionRunLedger.close; closes = []
+            def close(owner):
+                closes.append('close'); return original_close(owner)
+            with patch.object(LocalDeltaEffects, 'prepare_unsubmitted', side_effect=primary), \
+                    patch.object(self.driver, 'validate_evolution_run', side_effect=validate), \
+                    patch.object(EvolutionRunLedger, 'close', close):
+                with self.assertRaises(KeyboardInterrupt) as caught: continue_commerce_evolution(config)
+                self.assertIs(caught.exception, primary); self.assertTrue(calls); self.assertEqual(closes, ['close'])
+
+    def test_continuation_opening_original_failure_closes_acquired_ledger(self):
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports(); primary = KeyboardInterrupt('original property')
+        with first, second, third:
+            with patch.object(LocalDeltaEffects, 'prepare_unsubmitted', side_effect=primary):
+                with self.assertRaises(KeyboardInterrupt): publish_commerce_evolution(self.config)
+            config = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, self.definition_digest(), 0)
+            opened = EvolutionRunLedger.open; events = []
+            class Acquired:
+                @property
+                def original(inner): raise primary
+                def admit(inner): events.append('ledger-admit'); return inner.owner.admit()
+                def close(inner): events.append('ledger-close'); return inner.owner.close()
+            def capture(*args, **kwargs):
+                wrapper = Acquired(); wrapper.owner = opened(*args, **kwargs); return wrapper
+            with patch.object(EvolutionRunLedger, 'open', side_effect=capture), \
+                    patch.object(self.driver, 'evolution_run_identity', wraps=self.driver.evolution_run_identity) as identity:
+                with self.assertRaises(KeyboardInterrupt) as caught: continue_commerce_evolution(config)
+            self.assertIs(caught.exception, primary)
+            self.assertEqual(events, ['ledger-admit', 'ledger-close']); self.assertTrue(identity.called)
+            self.assertFalse(self.driver.held)
+
+    def test_continuation_ledger_open_failure_renews_acquired_components(self):
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports(); primary = KeyboardInterrupt('ledger open')
+        config = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+            self.producer, self.driver.context, 'a' * 64, 0)
+        with first, second, third, patch.object(EvolutionRunLedger, 'open', side_effect=primary), \
+                patch.object(self.driver, 'verify_evolution_sources', wraps=self.driver.verify_evolution_sources) as sources, \
+                patch.object(self.driver, 'evolution_run_identity', wraps=self.driver.evolution_run_identity) as identity:
+            with self.assertRaises(KeyboardInterrupt) as caught: continue_commerce_evolution(config)
+        self.assertIs(caught.exception, primary); sources.assert_called_once(); identity.assert_called_once()
+        self.assertFalse(self.path.exists()); self.assertFalse(self.driver.held)
+
+    def test_continuation_closing_producer_revocation_withholds_completed_result(self):
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports()
+        with first, second, third:
+            with patch.object(LocalDeltaEffects, 'prepare_unsubmitted', side_effect=KeyboardInterrupt()):
+                with self.assertRaises(KeyboardInterrupt): publish_commerce_evolution(self.config)
+            config = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, self.definition_digest(), 0)
+            calls = []
+            def revoked(*args, **kwargs):
+                calls.append(kwargs['source_system'])
+                if len(calls) >= 5: raise PermissionError('closing producer revoked')
+                return self.producer_call(*args, **kwargs)
+            with patch('ashlar_host.evolution_admission.admit_commerce_evolution', side_effect=revoked):
+                with self.assertRaises(PermissionError): continue_commerce_evolution(config)
+            with sqlite3.connect(self.path) as db:
+                self.assertEqual(db.execute('SELECT state FROM original_slot WHERE ordinal=0').fetchone(), ('completed',))
+            self.assertFalse(self.driver.held)
 
     def definition_digest(self):
         with sqlite3.connect(self.path) as connection:

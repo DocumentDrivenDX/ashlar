@@ -14,13 +14,13 @@ import stat
 from types import ModuleType
 from typing import ContextManager, Protocol, Union
 from .config import (HostError, EvolutionAdmissionConfig, FreshCommerceEvolutionConfig,
-                     ResumeCommerceEvolutionConfig)
+                     ResumeCommerceEvolutionConfig, ContinueCommerceEvolutionConfig)
 from .evolution_composition import NativeEvolutionRunPolicy
 from .driver import NativeDriver
 from .source_sessions import RegisteredOutboxSources
 from .ack_sessions import RegisteredOutboxAcks
 from .evolution_run import EvolutionRunRequest, request_from_document
-from .commerce_evolution import publish_commerce_evolution, resume_commerce_evolution
+from .commerce_evolution import publish_commerce_evolution, resume_commerce_evolution, continue_commerce_evolution
 from .lifecycle import finish, owned_context
 
 PROFILE = 'ashlar-commerce-evolution-invocation/0.1'
@@ -61,6 +61,21 @@ class ResumeEvolutionInvocation:
             raise HostError("evolution-invocation-configuration")
 
 
+
+@dataclass(frozen=True, repr=False)
+class ContinueEvolutionInvocation:
+    ledger_path: Path
+    receipt_path: Path
+    producer: EvolutionAdmissionConfig
+    expected_sha256: str
+    through_ordinal: int
+
+    def __post_init__(self):
+        validate_invocation_base(self.ledger_path, self.receipt_path, self.producer)
+        if (type(self.expected_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256)
+                or type(self.through_ordinal) is not int or not 0 <= self.through_ordinal < 8):
+            raise HostError('evolution-invocation-configuration')
+
 def validate_invocation_base(ledger_path, receipt_path, producer):
     for path in (ledger_path, receipt_path):
         if type(path) is not type(Path('/')) or not path.is_absolute():
@@ -73,8 +88,8 @@ def validate_invocation_base(ledger_path, receipt_path, producer):
     producer.__post_init__()
 
 
-Invocation = Union[FreshEvolutionInvocation, ResumeEvolutionInvocation]
-RunConfig = Union[FreshCommerceEvolutionConfig, ResumeCommerceEvolutionConfig]
+Invocation = Union[FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation]
+RunConfig = Union[FreshCommerceEvolutionConfig, ResumeCommerceEvolutionConfig, ContinueCommerceEvolutionConfig]
 
 
 class EvolutionOperatorProvider(Protocol):
@@ -83,7 +98,7 @@ class EvolutionOperatorProvider(Protocol):
 
 
 def parse_evolution_invocation(raw, mode):
-    if type(raw) is not bytes or not 0 < len(raw) <= MAX_CONFIG or type(mode) is not str or mode not in ('fresh', 'resume'):
+    if type(raw) is not bytes or not 0 < len(raw) <= MAX_CONFIG or type(mode) is not str or mode not in ('fresh', 'resume', 'continue'):
         raise HostError('evolution-invocation-configuration')
     def pairs(items):
         result = {}
@@ -101,7 +116,8 @@ def parse_evolution_invocation(raw, mode):
     try:
         value = json.loads(raw, object_pairs_hook=pairs, parse_int=integer, parse_float=refuse, parse_constant=refuse)
         specific = 'request' if mode == 'fresh' else 'expected_sha256'
-        if (type(value) is not dict or set(value) != {'profile', 'mode', 'ledger_path', 'receipt_path', 'producer', specific}
+        if (type(value) is not dict or set(value) != ({'profile', 'mode', 'ledger_path', 'receipt_path', 'producer', specific}
+                    | ({'through_ordinal'} if mode == 'continue' else set()))
                 or value['profile'] != PROFILE or value['mode'] != mode):
             raise HostError('evolution-invocation-configuration')
         producer = value['producer']
@@ -117,6 +133,8 @@ def parse_evolution_invocation(raw, mode):
         digest = value['expected_sha256']
         if type(digest) is not str or not re.fullmatch('[0-9a-f]{64}', digest):
             raise HostError('evolution-invocation-configuration')
+        if mode == 'continue':
+            return ContinueEvolutionInvocation(ledger, receipt, selected, digest, value['through_ordinal'])
         return ResumeEvolutionInvocation(ledger, receipt, selected, digest)
     except (ValueError, TypeError, KeyError, RecursionError, UnicodeError):
         raise HostError('evolution-invocation-configuration') from None
@@ -191,12 +209,14 @@ def load_evolution_provider(snapshot, expected_sha256):
 
 def run_evolution_invocation(invocation, provider):
     """Use actual public full-run ports; release success after provider cleanup."""
-    if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation):
+    if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation):
         raise HostError('evolution-invocation-configuration')
     invocation.__post_init__()
     answer = None
     with owned_context(provider.open_evolution(invocation)) as config:
-        expected = FreshCommerceEvolutionConfig if type(invocation) is FreshEvolutionInvocation else ResumeCommerceEvolutionConfig
+        expected = {FreshEvolutionInvocation: FreshCommerceEvolutionConfig,
+            ResumeEvolutionInvocation: ResumeCommerceEvolutionConfig,
+            ContinueEvolutionInvocation: ContinueCommerceEvolutionConfig}[type(invocation)]
         if (type(config) is not expected or type(config.policy) is not NativeEvolutionRunPolicy
                 or type(config.driver) is not NativeDriver
                 or type(config.driver.source_sessions) is not RegisteredOutboxSources
@@ -211,7 +231,12 @@ def run_evolution_invocation(invocation, provider):
             answer = publish_commerce_evolution(config)
         else:
             if config.expected_sha256 != invocation.expected_sha256: raise HostError('evolution-provider-configuration')
-            answer = resume_commerce_evolution(config)
+            if type(invocation) is ContinueEvolutionInvocation:
+                if config.through_ordinal != invocation.through_ordinal:
+                    raise HostError('evolution-provider-configuration')
+                answer = continue_commerce_evolution(config)
+            else:
+                answer = resume_commerce_evolution(config)
     if answer is None: raise HostError('evolution-invocation-incomplete')
     return answer
 
@@ -232,15 +257,38 @@ def run_evolution_command(configuration, provider_path, provider_sha256, mode):
         answer = run_evolution_invocation(invocation, provider)
     except BaseException as error: primary = error
     finish(primary, [lambda: source.renew(MAX_PROVIDER), lambda: config_file.renew(MAX_CONFIG)])
-    if type(answer) is not dict or set(answer) != {'profile', 'run_sha256', 'publications'} or answer['profile'] != 'ashlar-commerce-evolution-run-result/0.1':
+    continuing = type(invocation) is ContinueEvolutionInvocation
+    fields = {'profile', 'run_sha256', 'publications'}
+    if continuing:
+        fields |= {'through_ordinal', 'completed_count', 'total_publications', 'run_complete', 'source_progress'}
+    profile = 'ashlar-commerce-evolution-prefix-result/0.1' if continuing else 'ashlar-commerce-evolution-run-result/0.1'
+    if type(answer) is not dict or set(answer) != fields or answer['profile'] != profile:
+        raise HostError('evolution-result-refused')
+    count = invocation.through_ordinal + 1 if continuing else 8
+    if continuing and (type(answer['through_ordinal']) is not int or answer['through_ordinal'] != invocation.through_ordinal
+            or type(answer['completed_count']) is not int or answer['completed_count'] != count
+            or type(answer['total_publications']) is not int or answer['total_publications'] != 8
+            or type(answer['run_complete']) is not bool or answer['run_complete'] != (count == 8)
+            or type(answer['source_progress']) is not dict):
         raise HostError('evolution-result-refused')
     digest = answer['run_sha256']; publications = answer['publications']
-    if type(digest) is not str or not re.fullmatch('[0-9a-f]{64}', digest) or type(publications) is not tuple or len(publications) != 8:
+    if (type(digest) is not str or not re.fullmatch('[0-9a-f]{64}', digest)
+            or (continuing and digest != invocation.expected_sha256)
+            or type(publications) is not tuple or len(publications) != count):
         raise HostError('evolution-result-refused')
+    if continuing:
+        try:
+            if json.loads(publications[-1].raw['source_progress_json']) != answer['source_progress']:
+                raise HostError('evolution-result-refused')
+        except (AttributeError, KeyError, TypeError, ValueError):
+            raise HostError('evolution-result-refused') from None
     identifiers = [item.publication_id for item in publications]
-    if any(type(value) is not str or not 0 < len(value) <= 1024 for value in identifiers) or len(set(identifiers)) != 8:
+    if any(type(value) is not str or not 0 < len(value) <= 1024 for value in identifiers) or len(set(identifiers)) != count:
         raise HostError('evolution-result-refused')
-    receipt = {'profile': 'ashlar-commerce-evolution-receipt/0.1', 'run_sha256': digest, 'publication_ids': identifiers}
+    receipt = {'profile': 'ashlar-commerce-evolution-prefix-receipt/0.1' if continuing else 'ashlar-commerce-evolution-receipt/0.1',
+        'run_sha256': digest, 'publication_ids': identifiers}
+    if continuing:
+        receipt.update({key: answer[key] for key in ('through_ordinal', 'completed_count', 'total_publications', 'run_complete', 'source_progress')})
     raw = (json.dumps(receipt, sort_keys=True, separators=(',', ':')) + '\n').encode()
     if len(raw) > 16384: raise HostError('evolution-result-refused')
     with owned_context(invocation.receipt_path.open('xb')) as stream:

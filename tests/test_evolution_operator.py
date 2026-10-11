@@ -237,6 +237,81 @@ class Tests(unittest.TestCase):
             self.assertEqual(self.native_cleanup, ['native'])
         self.assertFalse(operator.reservation_path.exists())
 
+    def test_continuation_provider_cancel_renews_current_owners_before_close(self):
+        from ashlar_host.evolution_cli import ContinueEvolutionInvocation
+        operator, fresh = self.installed(); context = self.driver.context
+        with ExistingEvolutionLease.open(operator, fresh, context) as lease:
+            with self.driver.writer('seed-original-custody', context):
+                original_run = self.driver.capture_evolution_run(fresh.request, context=context)
+                lease.admit_run(original_run, context)
+                ledger = EvolutionRunLedger.open(fresh.ledger_path, lease, context=context, original=original_run)
+                ledger.close()
+        invocation = ContinueEvolutionInvocation(fresh.ledger_path, fresh.receipt_path,
+            fresh.producer, original_run.sha256, 0)
+        admissions = self.driver.source_admission.admissions; events = []
+        def producer(config, *, source_system, epoch):
+            return next(item for item in admissions if item.prepared.source_system == source_system)
+        class Connection:
+            def rollback(self): events.append('rollback')
+            def close(self): events.append('connection-close')
+        registrations = tuple(OutboxAuthorityRegistration(item.source, item.source_role, item.ack_role,
+            item.database, lambda context: Connection()) for item in operator.registrations)
+        from dataclasses import replace
+        operator = replace(operator, registrations=registrations)
+        primary = KeyboardInterrupt('continuation body')
+        with patch('ashlar_host.evolution_operator.admit_commerce_evolution', side_effect=producer), \
+                patch('ashlar_host.evolution_operator.LocalDeltaTransport', return_value=self.driver.transport), \
+                patch('ashlar_host.evolution_operator.ExistingOutboxAuthority.admit_scope',
+                      side_effect=lambda *args: events.append('ack')), \
+                patch('ashlar_host.evolution_operator.RegisteredOutboxSources.admit',
+                      side_effect=lambda *args, **kwargs: events.append('source')), \
+                patch.object(NativeEvolutionRunPolicy, 'admit_ledger',
+                      side_effect=lambda *args: events.append('native-ledger')):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with operator.open_evolution(invocation) as config:
+                    self.assertEqual(config.through_ordinal, 0)
+                    raise primary
+        self.assertIs(caught.exception, primary)
+        self.assertEqual(events.count('ack'), 2); self.assertEqual(events.count('source'), 2)
+        self.assertEqual(events.count('native-ledger'), 1)
+        self.assertEqual(events.count('connection-close'), 2)
+        self.assertEqual(self.closes, ['transport']); self.assertEqual(self.native_cleanup, ['native'])
+        factory = NativeDriver.with_registered_evolution
+        construction = KeyboardInterrupt('ACK factory construction')
+        def failed(*args, **kwargs):
+            def ack_factory(driver): raise construction
+            kwargs['ack_factory'] = ack_factory
+            return factory(*args, **kwargs)
+        events.clear()
+        with patch('ashlar_host.evolution_operator.admit_commerce_evolution', side_effect=producer), \
+                patch('ashlar_host.evolution_operator.LocalDeltaTransport', return_value=self.driver.transport), \
+                patch('ashlar_host.evolution_operator.ExistingOutboxAuthority.admit_scope',
+                      side_effect=lambda *args: events.append('ack')), \
+                patch('ashlar_host.evolution_operator.RegisteredOutboxSources.admit',
+                      side_effect=lambda *args, **kwargs: events.append('source')), \
+                patch.object(NativeDriver, 'with_registered_evolution', side_effect=failed):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with operator.open_evolution(invocation): self.fail('failed factory released')
+        self.assertIs(caught.exception, construction)
+        self.assertEqual(events.count('ack'), 2); self.assertEqual(events.count('source'), 2)
+        self.assertEqual(events.count('connection-close'), 2)
+        self.assertEqual(self.closes, ['transport', 'transport'])
+        self.assertEqual(self.native_cleanup, ['native', 'native'])
+        events.clear()
+        with patch('ashlar_host.evolution_operator.admit_commerce_evolution', side_effect=producer), \
+                patch('ashlar_host.evolution_operator.LocalDeltaTransport', return_value=self.driver.transport), \
+                patch('ashlar_host.evolution_operator.ExistingOutboxAuthority.admit_scope',
+                      side_effect=PermissionError('closing ACK revoked')) as ack, \
+                patch('ashlar_host.evolution_operator.RegisteredOutboxSources.admit',
+                      side_effect=lambda *args, **kwargs: events.append('source')), \
+                patch.object(NativeEvolutionRunPolicy, 'admit_ledger',
+                      side_effect=lambda *args: events.append('native-ledger')):
+            with self.assertRaises(PermissionError):
+                with operator.open_evolution(invocation): pass
+        self.assertEqual(ack.call_count, 2); self.assertEqual(events.count('source'), 2)
+        self.assertEqual(events.count('native-ledger'), 1)
+        self.assertEqual(self.closes, ['transport'] * 3); self.assertEqual(self.native_cleanup, ['native'] * 3)
+
     def test_actual_lease_original_run_resume_and_loss_refuse(self):
         operator, invocation = self.installed(); context = self.driver.context
         with self.assertRaises(PermissionError):

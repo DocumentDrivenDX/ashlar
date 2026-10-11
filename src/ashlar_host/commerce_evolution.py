@@ -28,7 +28,7 @@ def resume_evolution_transaction(config):
         expected_sha256=config.expected_sha256)
 
 
-def _run_commerce_evolution(config, fresh):
+def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
     from .evolution_run import EvolutionRunLedger, request_from_document, encoded
     from .evolution_admission import EvolutionSourceSet, admit_commerce_evolution
     from .lifecycle import owned_context, finish
@@ -41,21 +41,55 @@ def _run_commerce_evolution(config, fresh):
     answer = None
     with owned_context(driver.writer(stream, config.context)):
         original = driver.capture_evolution_run(config.request, context=config.context) if fresh else None
-        ledger = EvolutionRunLedger.open(config.ledger_path, config.policy, context=config.context,
-            original=original, expected_sha256=None if fresh else config.expected_sha256)
+        definition = None
+        def verify_producer():
+            metadata = (definition['installation']['source_admission'] if definition is not None
+                else driver.source_admission.metadata())
+            admitted = tuple(admit_commerce_evolution(config.producer, source_system=source['source_system'],
+                epoch=source['epoch']) for source in metadata['sources'])
+            if driver.verify_evolution_sources(EvolutionSourceSet(admitted), context=config.context) is not None:
+                raise EvolutionPlanError('Fresh public producer verification incomplete')
+        try:
+            ledger = EvolutionRunLedger.open(config.ledger_path, config.policy, context=config.context,
+                original=original, expected_sha256=None if fresh else config.expected_sha256)
+        except BaseException as error:
+            if through_ordinal is not None:
+                # No ledger owner was released by open; its own failure closes its connection.
+                # Renew only actually acquired current source/native owners, never invent original custody.
+                finish(error, [verify_producer, lambda: driver.evolution_run_identity(context=config.context)])
+            raise
         primary = None
+        def current_slots():
+            from .evolution_admission import original_equal
+            def custody(path, selected, context):
+                if path != config.ledger_path or selected.raw != original.raw or context is not config.context:
+                    raise EvolutionPlanError('Original continuation custody differs')
+                return config.policy.admit_run(original, context)
+            view = EvolutionRunLedger.inspect(config.ledger_path, original, context=config.context, custody=custody)
+            if config.policy.admit_ledger(original, view, config.context) is not None:
+                raise EvolutionPlanError('Current complete continuation admission incomplete')
+            closing = EvolutionRunLedger.inspect(config.ledger_path, original, context=config.context, custody=custody)
+            if not original_equal(view, closing):
+                raise EvolutionPlanError('Original continuation inventory changed')
+            return view.slots
         try:
             original = ledger.original
+            definition = original.document()
             driver.validate_evolution_run(original, context=config.context)
-            definition = original.document(); request = request_from_document(definition['request'])
-            def verify_producer():
-                admitted = tuple(admit_commerce_evolution(config.producer, source_system=source['source_system'],
-                    epoch=source['epoch']) for source in definition['installation']['source_admission']['sources'])
-                if driver.verify_evolution_sources(EvolutionSourceSet(admitted), context=config.context) is not None:
-                    raise EvolutionPlanError('Fresh public producer verification incomplete')
+            request = request_from_document(definition['request'])
             verify_producer()
+            if through_ordinal is not None:
+                slots = current_slots()
+                completed = [slot[0] for slot in slots if slot[1] == 'completed']
+                last = completed[-1] if completed else -1
+                if through_ordinal < last or through_ordinal > last + 1:
+                    raise EvolutionPlanError('Select current completed prefix or first incomplete original ordinal')
+                if any(slot[1] == 'publication-started' for slot in slots[through_ordinal + 1:]):
+                    raise EvolutionPlanError('Later unresolved original publication prevents settled prefix')
             progress = {}; descriptors = []
             for ordinal, step in enumerate(definition['schedule']):
+                if through_ordinal is not None and ordinal > through_ordinal:
+                    break
                 state, raw, digest, retained_descriptor = ledger.slot(ordinal)
                 if state == 'unprepared':
                     plan = driver.plan_evolution_transaction(original, ordinal, progress, context=config.context)
@@ -89,9 +123,24 @@ def _run_commerce_evolution(config, fresh):
             ledger.admit()
             answer = {'profile': 'ashlar-commerce-evolution-run-result/0.1',
                 'run_sha256': original.sha256, 'publications': tuple(descriptors)}
+            if through_ordinal is not None:
+                slots = current_slots()
+                if any(slot[1] != 'completed' or slot[4] != encoded(dict(descriptors[index].raw))
+                       for index, slot in enumerate(slots[:through_ordinal + 1])):
+                    raise EvolutionPlanError('Actual complete original prefix differs')
+                answer.update(profile='ashlar-commerce-evolution-prefix-result/0.1',
+                    through_ordinal=through_ordinal, completed_count=through_ordinal + 1,
+                    total_publications=8, run_complete=through_ordinal == 7,
+                    source_progress=progress)
         except BaseException as error:
             primary = error
-        finish(primary, [ledger.close])
+        callbacks = [ledger.close]
+        if through_ordinal is not None:
+            callbacks = [verify_producer,
+                lambda: (driver.validate_evolution_run(original, context=config.context) if original is not None
+                    else driver.evolution_run_identity(context=config.context)),
+                ledger.admit, ledger.close]
+        finish(primary, callbacks)
     return answer
 
 
@@ -113,3 +162,11 @@ def resume_commerce_evolution(config):
     if type(config) is not ResumeCommerceEvolutionConfig:
         raise EvolutionPlanError('Distinct retained eight-step configuration required')
     return _run_commerce_evolution(config, False)
+
+
+def continue_commerce_evolution(config):
+    """Release only a currently validated original prefix through one ordinal."""
+    from .config import ContinueCommerceEvolutionConfig
+    if type(config) is not ContinueCommerceEvolutionConfig:
+        raise EvolutionPlanError('Distinct original continuation configuration required')
+    return _run_commerce_evolution(config, False, through_ordinal=config.through_ordinal)

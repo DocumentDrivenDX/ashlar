@@ -18,11 +18,11 @@ from types import MappingProxyType
 from typing import Callable, ContextManager, Mapping, Optional, Union
 from urllib.parse import quote
 from .ack_sessions import OutboxAckRegistration, RegisteredOutboxAcks
-from .config import FreshCommerceEvolutionConfig, ResumeCommerceEvolutionConfig
+from .config import FreshCommerceEvolutionConfig, ResumeCommerceEvolutionConfig, ContinueCommerceEvolutionConfig
 from .delta_custody import DeltaTarget, LocalDeltaTransport, encoded, operation_capacity
 from .driver import NativeDriver, PrivatePolicy
 from .evolution_admission import EvolutionSourceSet, admit_commerce_evolution, original_equal
-from .evolution_cli import FreshEvolutionInvocation, ResumeEvolutionInvocation
+from .evolution_cli import FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation
 from .evolution_composition import NativeEvolutionRunPolicy
 from .evolution_plan import EvolutionAttemptPlan, EvolutionPlanError, owned_fd
 from .evolution_run import EvolutionRunDefinition, EvolutionRunLedger, MAXIMUM_RUN_BYTES
@@ -110,7 +110,7 @@ class ExistingEvolutionOperator:
 
     @contextmanager
     def open_evolution(self, invocation):
-        if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation):
+        if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation):
             raise PermissionError('Exact fresh or resume invocation required')
         if invocation.ledger_path.parent != self.journal_path.parent or invocation.ledger_path in (
                 self.journal_path, self.reservation_path):
@@ -132,17 +132,26 @@ class ExistingEvolutionOperator:
                     ack_policy = ExistingEvolutionAckPolicy(authority, driver)
                     return RegisteredOutboxAcks(tuple(OutboxAckRegistration(item.source,
                         item.metadata_factory, ack_policy) for item in self.registrations))
-                driver = NativeDriver.with_registered_evolution(transport, policy, context,
-                    {target.table.split('.')[-1]: target.table for target in self.targets},
-                    sources.changes, sources.columns, source_admission=sources,
-                    source_sessions=RegisteredOutboxSources(tuple(item.source for item in self.registrations),
-                        authority), ack_factory=acks)
+                driver = None; run_policy = None; original = None; factory_started = False
                 primary = None
                 try:
+                    if type(invocation) is ContinueEvolutionInvocation:
+                        original = EvolutionRunDefinition(lease.original_bytes)
+                        if original.sha256 != invocation.expected_sha256:
+                            raise PermissionError('Exact original continuation run required')
+                    factory_started = True
+                    driver = NativeDriver.with_registered_evolution(transport, policy, context,
+                        {target.table.split('.')[-1]: target.table for target in self.targets},
+                        sources.changes, sources.columns, source_admission=sources,
+                        source_sessions=RegisteredOutboxSources(tuple(item.source for item in self.registrations),
+                            authority), ack_factory=acks)
                     run_policy = NativeEvolutionRunPolicy(driver, lease)
                     if type(invocation) is FreshEvolutionInvocation:
                         config = FreshCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                             invocation.producer, context, invocation.request)
+                    elif type(invocation) is ContinueEvolutionInvocation:
+                        config = ContinueCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
+                            invocation.producer, context, invocation.expected_sha256, invocation.through_ordinal)
                     else:
                         config = ResumeCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                             invocation.producer, context, invocation.expected_sha256)
@@ -150,7 +159,46 @@ class ExistingEvolutionOperator:
                     lease.renew(context)
                 except BaseException as error:
                     primary = error
-                finish(primary, [transport.close])
+                # The public driver factory closes transport on construction failure.
+                callbacks = [transport.close] if driver is not None or not factory_started else []
+                if type(invocation) is ContinueEvolutionInvocation:
+                    def renew_ack(item):
+                        from .postgres import Session
+                        connection = item.metadata_factory(context)
+                        error = None
+                        try:
+                            if authority.admit_scope(item.source.scope, Session(connection), context) is not None:
+                                raise PermissionError('Current ACK scope admission incomplete')
+                        except BaseException as failure:
+                            error = failure
+                        finish(error, [connection.rollback, connection.close])
+                    def renew_source(ordinal):
+                        from .evolution_composition import OriginalRunCorrespondence
+                        if original is None:
+                            raise PermissionError('Original continuation was not acquired')
+                        request = OriginalRunCorrespondence(original, sources).at(ordinal)['request']
+                        if RegisteredOutboxSources(tuple(item.source for item in self.registrations),
+                            authority).admit(request, context=context) is not None:
+                            raise PermissionError('Current original source admission incomplete')
+                    def renew_native():
+                        if driver is None:
+                            raise PermissionError('Native owner was not acquired; closing admission incomplete')
+                        driver.validate_evolution_run(original, context=context)
+                    def renew_ledger():
+                        if original is None:
+                            raise PermissionError('Original continuation was not acquired')
+                        inventory = EvolutionRunLedger.inspect(invocation.ledger_path, original,
+                            context=context, custody=lease._ledger_custody)
+                        if driver is None:
+                            return lease.admit_ledger(original, inventory, context)
+                        selected_policy = run_policy if run_policy is not None else NativeEvolutionRunPolicy(driver, lease)
+                        selected_policy.admit_ledger(original, inventory, context)
+                    callbacks = [lambda: lease.renew(context),
+                        lambda: lease.admit_run(original, context),
+                        *(lambda item=item: renew_ack(item) for item in self.registrations),
+                        *(lambda ordinal=ordinal: renew_source(ordinal) for ordinal in (6, 7)),
+                        renew_native, renew_ledger] + ([transport.close] if driver is not None or not factory_started else [])
+                finish(primary, callbacks)
 
 
 class ExistingEvolutionLease:

@@ -53,3 +53,38 @@ The invocation ledger must share the existing native journal's private parent. P
 Custom providers implement `open_evolution(invocation)` yielding the matching configuration and preserve the same authority and ownership boundaries. A code pin proves correspondence rather than permission. Installation initialization, role creation, grants and credential discovery belong outside these commands.
 
 The command validates closed bounded configuration before loading code, renews configuration/provider byte custody after execution and cleanup, and writes an exclusive receipt containing only the original run digest and eight publication identifiers. Closing admission or receipt failure can follow durable publication: recover using retained original custody rather than treating reporting failure as rollback. The receipt is a report, not an authority token.
+
+
+## Continue one original publication
+
+Use a fresh process and unused receipt path to continue the same retained run
+through one explicit absolute ordinal:
+
+```sh
+ashlar continue-commerce-evolution --configuration /absolute/continue.json \
+  --provider /absolute/operator.py --provider-sha256 <trusted-provider-sha256>
+```
+
+Continuation configuration uses the same invocation profile with `mode` set to
+`continue`, the original `ledger_path`, original `expected_sha256`, unchanged
+`producer`, a fresh `receipt_path`, and integer `through_ordinal` from zero to
+seven. The matching provider yields `ContinueCommerceEvolutionConfig`; its
+ordinal must exactly match the invocation before publication effects. Select the
+first incomplete ordinal or replay the current last completed ordinal. Skipping
+ahead or selecting an ordinal older than the current completed prefix refuses.
+
+The original eight-step schedule remains fixed. Earlier completed publications
+are independently re-observed through the stored publisher with current native
+handles, descriptors, ancestry and protected source ACK. Continuation stops only
+after the selected publication completes and the complete retained inventory and
+settled prefix pass closing admission. It does not initialize, reset or append
+replacement source transactions. Preserve original custody after any failure.
+
+The distinct prefix receipt records the original run digest, selected ordinal,
+completed count, total of eight, exact publication identifiers and source
+progress. `run_complete` becomes true only at ordinal seven after all eight
+contiguous original slots and the final descriptor agree. This remains a prefix
+receipt and does not establish full native qualification: independent complete
+oracles, old reads, replay, two-source ACK/restart and missing-journal controls
+remain separate requirements. A timeout or closing/report failure does not undo
+an already completed publication and does not authorize a larger resource cap.
