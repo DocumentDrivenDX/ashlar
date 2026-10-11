@@ -48,6 +48,8 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_implicit_arithmetic_installation.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_implicit_arithmetic_request.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_commerce_implicit_arithmetic.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_implicit_arithmetic_lifecycle.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_implicit_arithmetic_command.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_publication_reader_binding.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_ordinary_query_connection.py
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_commerce_source_receipt.py

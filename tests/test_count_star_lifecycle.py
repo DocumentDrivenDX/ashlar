@@ -5,7 +5,8 @@ import sys,unittest
 from unittest.mock import patch
 import test_host_paths_query as fixture
 from test_count_star_admission import SCHEMAS
-from ashlar_host import count_star_query as module
+from ashlar_host import commerce_query_lifecycle as module
+from ashlar_host.count_star_query import query_commerce_count_star
 from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
 from ashlar_host.count_star_admission import CountStarSchemaValidation
 from ashlar_host.config import HostError
@@ -18,10 +19,10 @@ class CountStarLifecycleTests(unittest.TestCase):
         def producer(config,model,graph,output):output.write_bytes(c.dataset);return {'exit':0}
         def execute(opened,request,artifact,recompiled,**kwargs):
             executions.append(request['sql']);return {'oracle':kwargs['original_oracle'](fixture.MODEL,fixture.GRAPH,request)}
-        values={'runtime_paths':lambda *a,**k:[],'installed_count_star_schema_bundle':lambda *a:tuple(SCHEMAS.items()),'make_offline_count_star_schema_validation':lambda *a:port,'recompute_dataset':producer,'open_commerce_reader':c.reader,'_source_port':lambda *a:lambda *k:None,'compile_count_star_distribution':lambda *a:b'{"status":"compiled"}\n','execute_commerce_count_star':execute};values.update(changes)
+        values={'runtime_paths':lambda *a,**k:[],'installed_count_star_schema_bundle':lambda *a:tuple(SCHEMAS.items()),'make_offline_count_star_schema_validation':lambda *a:port,'recompute_dataset':producer,'open_commerce_reader':c.reader,'commerce_query_source_port':lambda *a:lambda *k:None,'compile_count_star_distribution':lambda *a:b'{"status":"compiled"}\n','execute_commerce_count_star':execute};values.update(changes)
         sql=ModuleType('pyspark.sql');sql.SparkSession=SimpleNamespace(builder=c.spark)
         c.spark.master.return_value=c.spark;c.spark.appName.return_value=c.spark;c.spark.config.return_value=c.spark;c.spark.getOrCreate.return_value=c.spark
-        with patch.dict(sys.modules,{'pyspark':ModuleType('pyspark'),'pyspark.sql':sql}),patch.multiple(module,**values):result=module.query_commerce_count_star(self.config)
+        with patch.dict(sys.modules,{'pyspark':ModuleType('pyspark'),'pyspark.sql':sql}),patch.multiple(module,**values):result=query_commerce_count_star(self.config)
         return result,executions
     def test_original_ten_and_new_four_survive_closed_host_report(self):
         result,executions=self.compose();self.assertEqual(executions,[sql for _,sql in module.commerce_path_cases()+module.commerce_count_star_cases()]);self.assertEqual(len(result['cases']),14);self.case.spark.stop.assert_called_once();self.assertTrue((self.config.output/'report.json').exists())

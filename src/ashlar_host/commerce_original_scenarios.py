@@ -10,7 +10,7 @@ from fractions import Fraction
 
 from .source_identity import SOURCE_SHA, GRAPH_SHA
 from .supply_chain_request import source_snapshot
-from .count_star_query import commerce_count_star_request
+from .count_star_request import commerce_count_star_request
 
 PACK_SHA = '1a03b93174be64e83f8b9e79b115570fe5950e2277780041553f3ef0a782ef1a'
 CASES = (

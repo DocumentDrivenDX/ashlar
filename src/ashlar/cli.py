@@ -63,7 +63,7 @@ def main():
     for name in ('ontology','graph','public-admission','output','source-system'):
         medical.add_argument('--'+name,required=True)
     medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
-    for name in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star'):
+    for name in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star', 'query-commerce-implicit-arithmetic'):
         command = commands.add_parser(name, help='Run the explicit local commerce native host profile')
         for option in ('output', 'jars', 'model', 'graph', 'umf-source', 'bun', 'git',
                        'postgres-container', 'postgres-host', 'postgres-database'):
@@ -77,7 +77,10 @@ def main():
         else:
             for option in ('index', 'installation', 'publication'):
                 command.add_argument('--' + option, required=True)
-        if name in ('query-commerce-paths','query-commerce-count-star'):
+        if name in ('query-commerce-paths','query-commerce-count-star','query-commerce-implicit-arithmetic'):
+            if name == 'query-commerce-implicit-arithmetic':
+                for option in ('session-provider', 'session-provider-sha256', 'pack'):
+                    command.add_argument('--' + option, required=True)
             command.add_argument('--diagnostics-config')
             if name == 'query-commerce-paths':
                 command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
@@ -175,7 +178,7 @@ def main():
             print('ashlar diagnostics refused', file=sys.stderr)
             raise SystemExit(2) from None
         return
-    if args.command in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star'):
+    if args.command in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star', 'query-commerce-implicit-arithmetic'):
         from pathlib import Path
         from ashlar_host.config import (HostError, ProducerConfig, PrivatePostgresConfig,
                                         PublishCommerceConfig, QueryCommerceConfig)
@@ -210,7 +213,19 @@ def main():
                     decoder = PathDecodeConfig(args.maximum_cell_bytes)
                 except (PathCaptureError, PathDecodeError):
                     raise HostError('invalid-finite-bound') from None
-                if args.command == 'query-commerce-count-star':
+                if args.command == 'query-commerce-implicit-arithmetic':
+                    from ashlar_host.implicit_arithmetic_configuration import QueryCommerceImplicitArithmeticConfig
+                    from ashlar_host.implicit_arithmetic_command import run_implicit_arithmetic_command
+                    config = QueryCommerceImplicitArithmeticConfig(Path(args.index), Path(args.installation),
+                        Path(args.publication), Path(args.output), Path(args.jars),
+                        Path(args.model), Path(args.graph), producer, postgres,
+                        args.maximum_artifact_bytes, capture, decoder)
+                    def query_commerce_paths(config, *, diagnostics=None):
+                        return run_implicit_arithmetic_command(config,
+                            provider_path=Path(args.session_provider),
+                            provider_sha256=args.session_provider_sha256,
+                            pack_path=Path(args.pack), diagnostics=diagnostics)
+                elif args.command == 'query-commerce-count-star':
                     from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
                     from ashlar_host.count_star_query import query_commerce_count_star as query_commerce_paths
                     config = QueryCommerceCountStarConfig(Path(args.index), Path(args.installation),
