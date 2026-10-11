@@ -157,6 +157,44 @@ serialization; an oversized SQLite journal is not an operation-intent capacity
 violation. The explicit 8MiB operation-intent profile does not enlarge unrelated
 source, capture, journal or core effect limits.
 
+### Runtime selection and custody
+
+`OriginalMedicalRuntime.qualification` selects the closed JSON correspondence
+record `ashlar-original-medical-runtime-selection/0.1`. Its exact members are
+`profile`, `runtime`, `imports`, `selected_files`, `namespaces`, `evidence` and
+`scope`; `scope` is `selected-runtime-correspondence-only`. Reject duplicate or
+unknown members, nonfinite numbers, Boolean/integer aliases and ambient selectors.
+The record must correspond to every explicitly selected runtime version, origin,
+executable, JAR and input configuration. Its bytes are limited to 1MiB. Separate
+referenced descriptors may use up to 8MiB each; their selection must be bounded
+before reading. These limits do not enlarge native capture or invocation limits.
+
+Reuse qualified runtime provenance through selected metadata/import-origin/cache
+file pins and complete namespace descriptors. Preserve the descriptor owner's
+actual semantics: complete dictionaries for filesystem entries and startup files,
+ordered link records, and ordered JAR/import selections. Check exact symlink
+lexical and resolved origin correspondence where the selected profile requires
+it. Do not replace full namespace correspondence with a partial inventory,
+blanket cache exclusion, reset, or a fresh whole-SDK/JDK payload hash. Every
+referenced evidence record retains its original bytes, digest and limited scope.
+A selected record's claimed success does not establish qualification; Spark-only
+guard evidence cannot qualify Delta publication or source/ACK authority.
+
+`OriginalMedicalRuntimeCustody.open(runtime, inputs, bounds, producer)` requires
+the exact configuration owners and admits the closed record before native SDK
+imports. It exposes unchanged model/graph/baseline bytes, `jar_paths` and the
+explicit native environment. `renew()` independently checks all acquired input,
+executable, resource, namespace and evidence ownership. `verify_imports()` checks
+the actual selected Python process and loaded SDK origins/versions without
+starting Spark or a JVM. The initializer separately verifies the fresh session's
+actual version, effective local master, memory and JAR configuration.
+
+Failed opening, import, body or closing must attempt independent renewal and
+cleanup for every acquired resource while preserving the original primary or
+cancellation. No usable owner or successful receipt escapes failed construction
+or closing. Closing repeats import checks only after that interval was acquired;
+it does not run a producer, native operation or connection.
+
 Installed native commands own isolated process-group supervision and descendant
 reaping, not just a Python deadline around JVM work. Current sessions cannot be
 silently reused. Renew actual source/native/lease/runtime/config custody on every
