@@ -29,7 +29,7 @@ class Tests(TestCase):
             finally:os.close(fd)
 
 class NativeCompositionTests(TestCase):
-    def run_setup(self,*,cancel=None,replace_output=False,mutate_uuid=False):
+    def run_setup(self,*,cancel=None,replace_output=False,mutate_uuid=False,registered_drift=None,reopen_cancel=None):
         import types,uuid
         from contextlib import contextmanager
         import ashlar_host.original_commerce_local_setup as owner
@@ -41,21 +41,35 @@ class NativeCompositionTests(TestCase):
         class Frame:
             def __init__(self,schema=None,path=None):self.document=schema;self.path=path;self.write=self;self.schema=types.SimpleNamespace(json=lambda:json.dumps(self.document))
             def format(self,name):self.asserted=name;return self
+            def option(self,*args):return self
             def save(self,path):
                 target=Path(path);target.mkdir(mode=0o700);tables[path]={'schema':self.document,'uuid':str(uuid.uuid4())};events.append(('create',target.name))
                 if cancel is not None and len(tables)==3:raise cancel
             def load(self,path):return Frame(tables[path]['schema'],path)
             def limit(self,count):return self
-            def count(self):return 0
+            def count(self):return tables[self.path].get('count',0)if self.path else 0
+        settings={'spark.sql.session.timeZone':'UTC','spark.sql.ansi.enabled':'true'}
+        class Row:
+            def __init__(self,value):self.value=value
+            def asDict(self):return dict(self.value)
+            def __getitem__(self,key):return self.value['version']if key==0 else self.value[key]
         class SQL:
             def __init__(self,statement):self.statement=statement
             def first(self):
                 path=self.statement.split('`')[1];row=tables[path];events.append(('detail',Path(path).name))
-                return types.SimpleNamespace(asDict=lambda:{'id':row['uuid'],'location':Path(path).as_uri(),'partitionColumns':[],'properties':{},'minReaderVersion':1,'minWriterVersion':2})
+                return types.SimpleNamespace(asDict=lambda:{'id':row['uuid'],'location':row.get('location',Path(path).as_uri()),'partitionColumns':[],'properties':row.get('properties',{}),'minReaderVersion':1,'minWriterVersion':2})
             def select(self,*args):return self
             def limit(self,count):return self
-            def collect(self):return [[0]]
-        spark=types.SimpleNamespace(createDataFrame=lambda rows,schema:Frame(schema),sql=SQL,read=Frame())
+            def collect(self):
+                path=self.statement.split('`')[1];row=tables[path]
+                if self.statement.startswith('ALTER TABLE'):
+                    import re
+                    row['properties']=dict(re.findall("'([^']+)'='([^']+)'",self.statement))
+                    row['history']=[{'version':1,'operation':'SET TBLPROPERTIES','userMetadata':settings['spark.databricks.delta.commitInfo.userMetadata']},{'version':0,'userMetadata':None}]
+                    events.append(('native-register',Path(path).name));return []
+                return [Row(value)for value in row.get('history',[{'version':0,'userMetadata':None}])]
+        conf=types.SimpleNamespace(get=lambda key,default=None:settings.get(key,default),set=lambda key,value:settings.__setitem__(key,value),unset=lambda key:settings.pop(key,None))
+        spark=types.SimpleNamespace(createDataFrame=lambda rows,schema:Frame(schema),sql=SQL,read=Frame(),conf=conf)
         @contextmanager
         def native(jars):
             try:yield spark
@@ -63,15 +77,26 @@ class NativeCompositionTests(TestCase):
                 events.append(('spark-stop',))
                 if replace_output:
                     config.output.rename(base/'retained-observations');config.output.mkdir(mode=0o700);(config.output/'foreign').write_bytes(b'untouched')
+        actual_transport=owner.LocalDeltaTransport
         def initialize(spark,journal,installation,targets,policy,*,context,capacity):
             self.assertEqual(len(targets),6);self.assertEqual(len({t.uuid for t in targets}),6)
-            with policy.writer('initialize:'+installation,context):
-                policy.admit({'profile':'ashlar-local-delta-installation/0.1','targets':[{'table':t.table,'path':str(t.path),'uuid':t.uuid}for t in sorted(targets,key=lambda t:t.table)]},context)
+            transport=actual_transport.initialize(spark,journal,installation,targets,policy,context=context,capacity=capacity)
             events.append(('journal-initialize',))
+            original_close=transport.close
+            def close():events.append(('transport-close',));original_close()
+            transport.close=close
             if mutate_uuid:tables[str(config.root/'manifest')]['uuid']=str(uuid.uuid4())
-            return types.SimpleNamespace(close=lambda:events.append(('transport-close',)))
+            if registered_drift is not None:registered_drift(tables)
+            return transport
+        def reopen(*args,**kwargs):
+            events.append(('registered-owner-reopen',))
+            if reopen_cancel is not None:raise reopen_cancel
+            transport=actual_transport(*args,**kwargs);original_close=transport.close
+            def close():events.append(('registered-owner-close',));original_close()
+            transport.close=close;return transport
         types_module=types.ModuleType('pyspark.sql.types');types_module.StructType=types.SimpleNamespace(fromJson=lambda schema:schema)
-        with mock.patch.dict('sys.modules',{'pyspark.sql.types':types_module}),mock.patch.object(owner,'runtime_paths',return_value=[]),mock.patch.object(owner,'original_inputs',return_value=(b'original-model',b'original-graph')),mock.patch.object(owner,'recompute_dataset',return_value={}),mock.patch.object(OriginalCommerceLocalRuntime,'renew',return_value=None),mock.patch.object(owner,'_native_session',side_effect=native),mock.patch.object(owner.LocalDeltaTransport,'initialize',side_effect=initialize):
+        with mock.patch.dict('sys.modules',{'pyspark.sql.types':types_module}),mock.patch.object(owner,'runtime_paths',return_value=[]),mock.patch.object(owner,'original_inputs',return_value=(b'original-model',b'original-graph')),mock.patch.object(owner,'recompute_dataset',return_value={}),mock.patch.object(OriginalCommerceLocalRuntime,'renew',return_value=None),mock.patch.object(owner,'_native_session',side_effect=native),mock.patch.object(owner,'LocalDeltaTransport',side_effect=reopen)as transport_owner:
+            transport_owner.initialize.side_effect=initialize
             result=owner.initialize_original_commerce_local(config)
         return result,events,config,base
     def test_real_owner_creates_all_generated_schemas_and_closes_before_handoff(self):
@@ -79,8 +104,10 @@ class NativeCompositionTests(TestCase):
         self.assertEqual(len(result['targets']),6);self.assertEqual([e[1]for e in events if e[0]=='create'],['object_current','edge_current','tombstone','whole_source_history','attempts','manifest'])
         self.assertLess(events.index(('transport-close',)),events.index(('spark-stop',)))
         self.assertTrue((config.output/'installation.json').is_file())
+        self.assertEqual(sum(event[0]=='native-register'for event in events),6)
+        self.assertIn(('registered-owner-reopen',),events);self.assertIn(('registered-owner-close',),events)
         for role in ['object_current','edge_current','tombstone','whole_source_history','attempts','manifest']:
-            self.assertEqual(sum(e==('detail',role)for e in events),3)
+            self.assertGreaterEqual(sum(e==('detail',role)for e in events),3)
     def test_cancel_identity_and_partial_installation_never_becomes_handoff(self):
         cancellation=KeyboardInterrupt('native body cancellation')
         with self.assertRaises(KeyboardInterrupt)as raised:self.run_setup(cancel=cancellation)
@@ -100,7 +127,47 @@ class NativeCompositionTests(TestCase):
         self.assertFalse((config.output/'installation.json').exists())
         self.assertIn(('transport-close',),events);self.assertIn(('spark-stop',),events)
         for role in ['object_current','edge_current','tombstone','whole_source_history','attempts','manifest']:
-            self.assertEqual(sum(e==('detail',role)for e in events),3)
+            self.assertGreaterEqual(sum(e==('detail',role)for e in events),3)
+
+    def test_registered_stage_refuses_exact_native_drift(self):
+        def extra_history(tables):next(iter(tables.values()))['history'].insert(0,{'version':2,'operation':'WRITE','userMetadata':None})
+        def extra_property(tables):next(iter(tables.values()))['properties']['foreign']='unadmitted'
+        def changed_schema(tables):next(iter(tables.values()))['schema']={'type':'struct','fields':[]}
+        def changed_location(tables):next(iter(tables.values()))['location']='file:///foreign'
+        def nonempty(tables):next(iter(tables.values()))['count']=1
+        def bad_metadata(tables):next(iter(tables.values()))['history'][0]['userMetadata']='{}'
+        def boolean_version(tables):next(iter(tables.values()))['history'][0]['version']=True
+        for drift in (extra_history,extra_property,changed_schema,changed_location,nonempty,bad_metadata,boolean_version):
+            with self.subTest(drift=drift),self.assertRaises(ValueError):self.run_setup(registered_drift=drift)
+            config,base,events,tables=self.state
+            self.assertFalse((config.output/'installation.json').exists())
+            self.assertIn(('registered-owner-reopen',),events);self.assertIn(('transport-close',),events);self.assertIn(('spark-stop',),events)
+    def test_registered_owner_cancel_keeps_identity_and_attempts_all_six_witnesses(self):
+        cancellation=KeyboardInterrupt('owned registration renew cancellation')
+        def drift(tables):next(iter(tables.values()))['properties']['unadmitted']='value'
+        with self.assertRaises(KeyboardInterrupt)as caught:self.run_setup(registered_drift=drift,reopen_cancel=cancellation)
+        self.assertIs(caught.exception,cancellation)
+        config,base,events,tables=self.state
+        self.assertFalse((config.output/'installation.json').exists());self.assertIn(('transport-close',),events);self.assertIn(('spark-stop',),events)
+        opening=events.index(('registered-owner-reopen',))
+        self.assertEqual({event[1]for event in events[opening:]if event[0]=='detail'},set(owner_role for owner_role in ('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')))
+    def test_actual_registered_owner_refuses_reservation_and_journal_drift(self):
+        import sqlite3
+        from ashlar_host.delta_custody import LocalDeltaError
+        def reservation(tables):
+            config,base,events,_=self.state
+            (config.root/'manifest/.ashlar-local-installation-reservation.json').write_text('{}')
+        def journal(tables):
+            config,base,events,_=self.state
+            connection=sqlite3.connect(str(config.root/'operations.sqlite'))
+            try:
+                with connection:connection.execute("UPDATE local_installation SET original='{}'")
+            finally:connection.close()
+        for drift in (reservation,journal):
+            with self.subTest(drift=drift),self.assertRaises(LocalDeltaError):self.run_setup(registered_drift=drift)
+            config,base,events,tables=self.state
+            self.assertFalse((config.output/'installation.json').exists())
+            self.assertIn(('registered-owner-reopen',),events);self.assertIn(('transport-close',),events);self.assertIn(('spark-stop',),events)
 
 class OrdinaryTransportTests(TestCase):
     def selection(self):

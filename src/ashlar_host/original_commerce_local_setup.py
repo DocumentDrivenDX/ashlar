@@ -133,21 +133,36 @@ def _native_session(jars):
     finish(primary,[spark.stop]if spark is not None else [])
 
 
-def _observe_native(spark,target,expected_schema):
+def _observe_native(spark,target,expected_schema,registration=None):
     from urllib.parse import urlsplit,unquote
     table='delta.`'+str(target.path).replace('`','``')+'`'
     detail=spark.sql('DESCRIBE DETAIL '+table).first().asDict()
     history=spark.sql('DESCRIBE HISTORY '+table).select('version').limit(2).collect()
     frame=spark.read.format('delta').load(str(target.path))
     location=urlsplit(detail['location'])
+    expected_properties={}
+    version=0
+    history_ok=len(history)==1 and type(history[0][0])is int and history[0][0]==0
+    if registration is not None:
+        version=1
+        expected_properties={'ashlar.local.installation.id':registration.installation_id,
+            'ashlar.local.registry.sha256':registration.registry_sha,'ashlar.local.journal.sha256':registration.journal_sha}
+        original=registration.original_history(target)
+        metadata=json.dumps({'profile':'ashlar-local-delta-installation-commit/0.1',
+            'installation_id':registration.installation_id,'registry_sha256':registration.registry_sha,
+            'journal_sha256':registration.journal_sha,'uuid':target.uuid},sort_keys=True,separators=(',',':'))
+        history_ok=(len(original)==2 and all(type(row.get('version'))is int for row in original)
+            and [row['version']for row in original]==[1,0]
+            and original[0].get('operation')=='SET TBLPROPERTIES'and original[0].get('userMetadata')==metadata
+            and original[1].get('userMetadata')is None)
     if (location.scheme!='file'or location.netloc or Path(unquote(location.path)).resolve()!=target.path or
-        detail['id']!=target.uuid or len(history)!=1 or type(history[0][0])is not int or history[0][0]!=0 or
+        detail['id']!=target.uuid or not history_ok or
         frame.limit(1).count()!=0 or json.loads(frame.schema.json())!=expected_schema or
-        detail['partitionColumns']or detail['properties']or
+        detail['partitionColumns']or detail['properties']!=expected_properties or
         type(detail['minReaderVersion'])is not int or detail['minReaderVersion']!=1 or
         type(detail['minWriterVersion'])is not int or detail['minWriterVersion']!=2):
         raise ValueError('Current empty native generated identity/schema/protocol differs')
-    return {'uuid':target.uuid,'version':0,'location':detail['location'],'schema':expected_schema,
+    return {'uuid':target.uuid,'version':version,'location':detail['location'],'schema':expected_schema,
             'minReaderVersion':detail['minReaderVersion'],'minWriterVersion':detail['minWriterVersion']}
 
 
@@ -198,11 +213,24 @@ def initialize_original_commerce_local(config):
                         'qualification':'Fresh isolated local installation; existing publication requires current ordinary source/ACK admission.'}
             except BaseException as error:native_primary=error
             def close_native():
-                def check(target):
+                def check(target,registration):
                     role=target.table.split('.')[-1]
-                    observed=_observe_native(spark,target,json.loads(generated['carriers'][role]['schemaJson']))
-                    if role in witnesses and observed!=witnesses[role]:raise ValueError('Original opening native witness changed')
-                finish(None,[lambda target=target:check(target)for target in targets])
+                    observed=_observe_native(spark,target,json.loads(generated['carriers'][role]['schemaJson']),registration)
+                    if role in witnesses:
+                        original=dict(witnesses[role]);original['version']=1 if registration is not None else 0
+                        if observed!=original:raise ValueError('Original opening native witness changed')
+                if transport is None:
+                    finish(None,[lambda target=target:check(target,None)for target in targets])
+                else:
+                    # Reopen through the public existing-installation owner: exact complete
+                    # registry, reservations and canonical journal are renewed before witnesses.
+                    registration=None;registration_primary=None
+                    try:
+                        registration=LocalDeltaTransport(spark,config.root/'operations.sqlite',
+                            config.installation_id,tuple(targets),policy,capacity=config.capacity)
+                    except BaseException as error:registration_primary=error
+                    finish(registration_primary,[lambda target=target:check(target,transport)for target in targets]+
+                        ([registration.close]if registration is not None else []))
             def close_transport():
                 nonlocal_transport=transport
                 # The surrounding owner clears its reference before selecting cleanup errors.
