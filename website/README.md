@@ -39,7 +39,7 @@ https://documentdrivendx.github.io/ashlar/.
 
 ## UMF schema browser
 
-The schema page embeds UMF’s published schema browser 1.0.0, with a standalone view at
+The schema page embeds UMF’s published schema browser 1.1.1, with a standalone view at
 `model/schema-browser/index.html`. The upstream JS/CSS remain byte-identical.
 Ashlar owns the surrounding HTML/CSS and a catalog containing the exact eight
 physical UMF definitions plus the logical fields/keys/relationships model.
@@ -47,9 +47,9 @@ It loads only local assets; local-file inspection and source download remain
 browser operations. Delta extension interpretation is explicitly partial.
 
 ```sh
-gh release download schema-browser-v1.0.0 --repo DocumentDrivenDX/umf --dir /tmp/umf-browser --pattern documentdrivendx-umf-schema-browser-1.0.0.tgz
-python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.0.0.tgz
-python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.0.0.tgz --check
+gh release download schema-browser-v1.1.1 --repo DocumentDrivenDX/umf --dir /tmp/umf-browser --pattern documentdrivendx-umf-schema-browser-1.1.1.tgz
+python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.1.1.tgz
+python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.1.1.tgz --check
 python3 website/scripts/check_schema_browser.py
 ```
 
