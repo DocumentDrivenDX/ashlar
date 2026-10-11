@@ -1246,6 +1246,81 @@ class NativeDriver:
                     'bags':observations, 'schemas':schemas}
         return result
 
+    def bind_original_medical_read(self, plan, bounds):
+        """Select immutable medical read correspondence, never publication authority."""
+        from dataclasses import asdict
+        from types import MappingProxyType
+        from .read_only_transport import ReadOnlyDeltaTransport
+        from .medical_read_sources import MedicalReadSourceFactory
+        from .medical_publication_plan import MedicalPublicationPlan
+        from .evolution_verification_types import VerificationBounds
+        if (type(self)is not NativeDriver or type(self.transport)is not ReadOnlyDeltaTransport
+                or type(getattr(self,'query_source_factory',None))is not MedicalReadSourceFactory
+                or type(plan)is not MedicalPublicationPlan or type(bounds)is not VerificationBounds
+                or type(self.source_sessions)is not RegisteredOutboxSources
+                or type(getattr(self,'_original_graph_source_renew',None))is not _OriginalGraphSourceRenewal
+                or self._original_graph_source_renew.owner is not self
+                or type(getattr(self,'_original_medical_read_closing',None))is not _OriginalGraphSourceRenewal
+                or self._original_medical_read_closing.owner is not self
+                or type(getattr(self,'_original_medical_read_context',None))is not _OriginalGraphSourceRenewal
+                or self._original_medical_read_context.owner is not self
+                or self.held or self.pin_held or getattr(self,'_original_medical_read_binding',None)is not None
+                or getattr(self,'_original_medical_publication_binding',None)is not None):
+            raise PermissionError('Fresh exact medical read binding required')
+        bounds.__post_init__();plan.require_admission(self.source_admission);view=plan.snapshot()
+        if (self.tables!=view['tables'] or set(self.transport.targets)!=set(view['tables'].values())
+                or any(not original_native_equal(self.policy.active.get(k),view[v])for k,v in [('request','request'),('expected','expected'),('publication_id','publication_id'),('progress','progress'),('previous_progress','previous_progress'),('previous_expected','previous_expected')])
+                or encoded(self.columns)!=encoded(view['columns'])):
+            raise PermissionError('Complete six-target medical read inventory required')
+        self._original_medical_read_binding=MappingProxyType(dict(plan=plan,view=encoded(view),bounds=bounds,
+            bounds_view=encoded(asdict(bounds)),transport=self.transport,policy=self.policy,context=self.context,active_view=encoded(self.policy.active),columns_view=encoded(self.columns),
+            admission=self.source_admission,factory=self.query_source_factory,source=self.source_sessions,source_policy=self.source_sessions.policy,context_renewal=self._original_medical_read_context,
+            manifest=encoded(self.policy.active['manifest']),
+            targets=tuple((t.table,str(t.path),t.uuid)for t in self.transport.targets.values())))
+        from .medical_read_observation import MedicalReadObservation
+        def renew():
+            self._require_original_medical_read_binding();self.require(self.context)
+            binding,_=self._require_original_medical_read_binding()
+            binding['context_renewal'].renew(None,self.context)
+        self._original_medical_read_observation=MedicalReadObservation(plan,self.transport,bounds,self.query_source_factory,
+            self.source_sessions.policy,renew,self.transport._detail)
+        self._original_medical_read_binding=MappingProxyType(dict(self._original_medical_read_binding,observation=self._original_medical_read_observation))
+
+    def _require_original_medical_read_binding(self):
+        from dataclasses import asdict
+        binding=self._original_medical_read_binding;binding['plan'].require_admission(self.source_admission)
+        view=binding['plan'].snapshot()
+        if (self.transport is not binding['transport'] or self.policy is not binding['policy']
+                or self.source_admission is not binding['admission'] or self.query_source_factory is not binding['factory']
+                or self.source_sessions is not binding['source'] or self.source_sessions.policy is not binding['source_policy']
+                or getattr(self,'_original_medical_read_context',None)is not binding['context_renewal']
+                or encoded(view)!=binding['view'] or encoded(asdict(binding['bounds']))!=binding['bounds_view']
+                or self.context is not binding['context']or encoded(self.policy.active)!=binding['active_view']or encoded(self.columns)!=binding['columns_view']
+                or encoded(self.policy.active['manifest'])!=binding['manifest'] or self.tables!=view['tables']
+                or tuple((t.table,str(t.path),t.uuid)for t in self.transport.targets.values())!=binding['targets']):
+            raise PermissionError('Original medical read binding changed')
+        binding['factory'].require_admission(self.source_admission)
+        if hasattr(self,'_original_medical_read_observation'):
+            from .medical_read_observation import MedicalReadObservation
+            if type(self._original_medical_read_observation)is not MedicalReadObservation or self._original_medical_read_observation is not binding.get('observation'):raise PermissionError('Original typed medical read observer replaced')
+            self._original_medical_read_observation.require_selection()
+            if self._original_medical_read_observation.plan is not binding['plan']or self._original_medical_read_observation.transport is not binding['transport']:raise PermissionError('Original typed medical read observer changed')
+        return binding,view
+
+    def _capture_original_medical_read(self,row,context):
+        binding,_=self._require_original_medical_read_binding();self.require(context)
+        if encoded(row)!=binding['manifest']:raise PermissionError('Original immutable medical read manifest differs')
+        return self._original_medical_read_observation.capture(row,context)
+
+    def observe_original_medical_read(self,descriptor,*,context):
+        from ashlar.publication import Descriptor
+        if type(descriptor)is not Descriptor:raise ValueError('Exact resolved medical descriptor required')
+        binding,view=self._require_original_medical_read_binding();self.require(context)
+        if not self.pin_held:raise PermissionError('Actual held medical read pins required')
+        native=self._capture_original_medical_read(dict(descriptor.raw),context)
+        ack=self._original_medical_read_observation.ack(encoded(view['request']).encode(),encoded(dict(descriptor.raw)).encode(),context)
+        return {'native':native,'protected_ack':ack,'qualification':'Existing local medical publication read only; no ACK advancement or source/native writes'}
+
     def bind_query_sources(self, factory):
         """Bind one original read-only source before entering its held interval.
 
@@ -1336,6 +1411,8 @@ class NativeDriver:
                         or owner.transport.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(original_registry,)]):
                     raise PermissionError('Original reader registry/reservation changed')
         read_identity=ReadIdentity()
+        if medical:
+            self._original_medical_read_context=_OriginalGraphSourceRenewal(self,lambda vector,context:read_identity.admit_source_writer(selected.source,context))
         class GraphIdentity:
             def __init__(self):self.interval=None;self.native=None
             def files(self):
@@ -1840,6 +1917,8 @@ class NativeDriver:
         from .lifecycle import owned_context
         from contextlib import nullcontext
         binding = getattr(self, '_medical_publication_binding', None)
+        if getattr(self,'_original_medical_read_binding',None)is not None:
+            return self._validate_manifest_body(row,context)
         if (self.admission_facts()['profile'] != 'ashlar-original-medical-public-dataset-admission/0.1'
                 or getattr(self, 'query_source_factory', None) is not None):
             return self._validate_manifest_body(row, context)
@@ -1862,7 +1941,9 @@ class NativeDriver:
         validate_union(active['previous_progress'], active['request'], row)
         self.source_admit(active['request'])
         binding = getattr(self, '_medical_publication_binding', None)
-        if binding is not None:
+        if getattr(self,'_original_medical_read_binding',None)is not None:
+            self._capture_original_medical_read(row,context)
+        elif binding is not None:
             self._require_medical_publication_binding(binding)
             total = 0; versions = json.loads(row['table_versions_json'])
             for role in ('object_current', 'edge_current', 'tombstone', 'whole_source_history'):
@@ -1958,7 +2039,13 @@ class NativeDriver:
 
     def inspect_snapshot(self, table, version):
         target = self.transport.targets[table]
-        self.transport._snapshot(target, version)
+        if getattr(self,'_original_medical_read_binding',None)is not None:
+            binding,_=self._require_original_medical_read_binding()
+            if self.transport.observation_bounds is not binding['bounds']:raise PermissionError('Medical read snapshot bound interval required')
+            versions=json.loads(self.policy.active['manifest']['table_versions_json'])
+            if type(version)is not int or versions.get(table)!=version:raise PermissionError('Exact immutable medical read version required')
+            self._original_medical_read_observation.snapshot(table,version)
+        else:self.transport._snapshot(target, version)
         return Snapshot(table, target.uuid, version)
 
     def admit_scope(self, scope, session, context):

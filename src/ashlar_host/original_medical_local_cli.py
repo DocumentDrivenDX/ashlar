@@ -11,16 +11,17 @@ from .lifecycle import finish, owned_context
 from .medical_process_supervision import OriginalMedicalNativePhase
 from .medical_worker_capture import capture_original_medical_worker
 from .original_medical_local_configuration import (
-    OriginalMedicalInitializationConfig, OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, parse_original_medical_local)
+    OriginalMedicalInitializationConfig, OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig, parse_original_medical_local)
 from .original_medical_local_setup import initialize_original_medical_local
 from .original_medical_local_publication import publish_original_medical_local, replay_original_medical_local
 from .original_medical_runtime import OriginalMedicalRuntimeCustody
+from .original_medical_local_read import read_original_medical_local
 
 MAX_CONFIGURATION=262144
 
 
 def _configuration(raw,operation):
-    types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig}
+    types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig,'read':OriginalMedicalReadConfig}
     if type(operation)is not str or operation not in types:raise ValueError('Closed medical operation required')
     config=parse_original_medical_local(raw)
     if type(config)is not types[operation]:raise ValueError('Exact selected medical operation configuration required')
@@ -42,7 +43,7 @@ def _execute(configuration, *, expected_sha256, phase, operation):
     config=_configuration(file.raw,operation);result=None;primary=None
     try:
         file.renew(MAX_CONFIGURATION)
-        entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local}[operation]
+        entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local,'read':read_original_medical_local}[operation]
         result=entry(config,supervision=phase)
     except BaseException as error:primary=error
     finish(primary,[lambda:file.renew(MAX_CONFIGURATION)])
@@ -89,6 +90,11 @@ def execute_original_medical_publication(configuration,*,expected_sha256,phase):
 def execute_original_medical_replay(configuration,*,expected_sha256,phase):
     return _execute(configuration,expected_sha256=expected_sha256,phase=phase,operation='replay')
 
+def execute_original_medical_read(configuration,*,expected_sha256,phase):
+    return _execute(configuration,expected_sha256=expected_sha256,phase=phase,operation='read')
+
+def run_original_medical_read_command(configuration):return _run(configuration,'read')
+
 def run_original_medical_initialization_command(configuration):return _run(configuration,'initialization')
 def run_original_medical_publication_command(configuration):return _run(configuration,'publication')
 def run_original_medical_replay_command(configuration):return _run(configuration,'replay')
@@ -111,7 +117,7 @@ def _worker_diagnostic_interval():
 def _worker_main():
     import argparse
     parser=argparse.ArgumentParser()
-    parser.add_argument('--operation',choices=['initialization','publication','replay'],default='initialization')
+    parser.add_argument('--operation',choices=['initialization','publication','replay','read'],default='initialization')
     parser.add_argument('--configuration',required=True)
     parser.add_argument('--sha256',required=True)
     parser.add_argument('--native-phase-fd',type=int,required=True)

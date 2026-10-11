@@ -125,15 +125,15 @@ def main():
     for name in ('initialize-original-commerce','publish-original-commerce'):
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
-    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical'):
+    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical'):
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication or settled replay')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
-    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical'):
+    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical'):
         from pathlib import Path
-        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command
+        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command
         try:
-            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command}[args.command]
+            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command,'read-original-medical':run_original_medical_read_command}[args.command]
             answer=entry(Path(args.configuration))
             print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
         except Exception:
