@@ -1,0 +1,224 @@
+{
+  "format": "ashlar-private-outbox-fixture-evidence/0.1",
+  "archiveSha256": "91aa1e3a59c920de19f8b883402813ba2076ee28a9f971b76d605ab4836e87a6",
+  "archiveBytes": 70618,
+  "decodedBytes": 317440,
+  "members": [
+    {
+      "member": "helper/ashlar-count-star-installed-cli-capture-a.py",
+      "originalPath": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "size": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "member": "reviews/ashlar-private-outbox-fixture-independent-actual-review-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-independent-actual-review-c.json",
+      "size": 965,
+      "sha256": "ed9f430656fa2a4427c75c9450801c57f3c756cfec2507491d08856a5cd51ccf"
+    },
+    {
+      "member": "reviews/ashlar-private-outbox-fixture-independent-source-review-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-independent-source-review-c.json",
+      "size": 2179,
+      "sha256": "8099b597de3e1426813e0d00d839d82508b200c30258f62ecc7d1436dfadf0f2"
+    },
+    {
+      "member": "reviews/ashlar-private-outbox-fixture-preparation-independent-command-review-b.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-preparation-independent-command-review-b.json",
+      "size": 1025,
+      "sha256": "5ccc6f0751fcb48a925a40ccd344686b43595b73354e337d2c03ec52f80f149b"
+    },
+    {
+      "member": "reviews/ashlar-private-outbox-fixture-preparation-independent-command-review-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-preparation-independent-command-review-c.json",
+      "size": 827,
+      "sha256": "bb7c1d74677554ec78473dbcf34b2f7deee7787c4bafb33cab79e9b3aaf886f4"
+    },
+    {
+      "member": "reviews/ashlar-private-outbox-fixture-source-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-source-freeze-c.json",
+      "size": 2089,
+      "sha256": "7db13c38995b21d96acaf38509bda89b83870b289b988588fceeedbb8950fad7"
+    },
+    {
+      "member": "selected/actual-freeze-b.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/actual-freeze-b.json",
+      "size": 768,
+      "sha256": "d76ed7fea0283dff3bcc29425cec6df637f2430634e74eebe356ccd18fca109b"
+    },
+    {
+      "member": "selected/actual-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/actual-freeze-c.json",
+      "size": 1339,
+      "sha256": "f4ec368d18d00f403dfaf301905a6ab978140f22e3738036f96610b9310be69b"
+    },
+    {
+      "member": "selected/actual-receipt-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/actual-receipt-c.json",
+      "size": 262,
+      "sha256": "0f750cf794a496cac7b93736f9a87054847c79bbe1c476deb81b216f4ef35f7e"
+    },
+    {
+      "member": "selected/actual-receipt.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/actual-receipt.json",
+      "size": 449,
+      "sha256": "58eb0037bb6adc796ee11f69253b0c08b3789967eb5e4d62baa948a0fb07be97"
+    },
+    {
+      "member": "selected/command-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/command-c.json",
+      "size": 72026,
+      "sha256": "522500f3e362744762132b4f71ebbb73ab310caae18630e0cd2604009a8ccae0"
+    },
+    {
+      "member": "selected/command-draft.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/command-draft.json",
+      "size": 71542,
+      "sha256": "5a27184b745fff8d7aac157e39f132b6a7e6af06e14f4cc3c5145e847a59a7b6"
+    },
+    {
+      "member": "selected/configuration-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/configuration-c.json",
+      "size": 1454,
+      "sha256": "e42a774ba6a1f54a023d75c9ff4075a737485c0ee49597edcffd1c69dc1e9d19"
+    },
+    {
+      "member": "selected/configuration.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/configuration.json",
+      "size": 1501,
+      "sha256": "d4904a09381d14ab7cf7602cf8fbafdb3f46f843287d7213ef9bf52692c458d1"
+    },
+    {
+      "member": "selected/diagnosis-b.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/diagnosis-b.json",
+      "size": 888,
+      "sha256": "dbc78261059f14abf915379fe3ae3b95bcd188ae06adabc5e9b9341df1565222"
+    },
+    {
+      "member": "selected/freeze-a.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/freeze-a.json",
+      "size": 1618,
+      "sha256": "64b3518522d4cfe8fe0651065309a95be73c9ceecb5ef2a00bdfafc29599b7f7"
+    },
+    {
+      "member": "selected/freeze-b.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/freeze-b.json",
+      "size": 1886,
+      "sha256": "8651a92f4dfefb691379c62a48175ef6664179534c09db4c48acf8e30488351c"
+    },
+    {
+      "member": "selected/freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/freeze-c.json",
+      "size": 1645,
+      "sha256": "940bfb7a790998005c9c2107effe20b93cf8daeaba3161ef942f3c0b6c019bce"
+    },
+    {
+      "member": "selected/image-inspect-c.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/image-inspect-c.json",
+      "size": 281,
+      "sha256": "06ce7fc735c4a291ec13c328aa8485e8f88fde312510214d21731c4c325431e2"
+    },
+    {
+      "member": "selected/launch-b.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/launch-b.py",
+      "size": 3432,
+      "sha256": "89925d821bc33c47ab9404d2bd197976afed543c0e736a6a5ff90ba7058641b3"
+    },
+    {
+      "member": "selected/launch-c.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/launch-c.py",
+      "size": 3849,
+      "sha256": "d6da772f2f43d5115b8e7ecc403935fe0526bc3556ddaee1aa05207cdb524c97"
+    },
+    {
+      "member": "selected/launch-original-a.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/launch-original-a.py",
+      "size": 4327,
+      "sha256": "95ca5b0b35982f4a811ddf6f9f05178d774982bb678223e07213119fb72278b1"
+    },
+    {
+      "member": "selected/operation/fixture-c/created-container.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/operation/fixture-c/created-container.json",
+      "size": 490,
+      "sha256": "93c29de016ea2e5839ee13840e085efbcac2ed3b44856f1cace42160f471fa17"
+    },
+    {
+      "member": "selected/operation/fixture-c/inventory.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/operation/fixture-c/inventory.json",
+      "size": 3433,
+      "sha256": "f6f77011c66650b4eecc7efe034806a36db0e54c4bc1e4babdfd5d6eb8c1c7b9"
+    },
+    {
+      "member": "selected/probe-c.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/probe-c.py",
+      "size": 833,
+      "sha256": "68e903c73fbb233618db93e9b8dc867d12d9e789d18ba6ded363e2801130c23c"
+    },
+    {
+      "member": "selected/probe.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/probe.py",
+      "size": 831,
+      "sha256": "9d776df89fc8d62ca8829a63b134eeb22612b39384c60a08618948bfece0ccf9"
+    },
+    {
+      "member": "selected/setup-c.stderr",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/setup-c.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "selected/setup-c.stdout",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/setup-c.stdout",
+      "size": 50,
+      "sha256": "3b647a998aa8952b0b82c9589985bec8a48c7e05cab03ea03169b6d39805c1a9"
+    },
+    {
+      "member": "selected/setup.stderr",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/setup.stderr",
+      "size": 31,
+      "sha256": "c7591b10e9417b5d1cd9b42a4478d50bc99d8b942778eaf69485c7aa19ada5d6"
+    },
+    {
+      "member": "selected/setup.stdout",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/setup.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "selected/source-inventory.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source-inventory.json",
+      "size": 55328,
+      "sha256": "b6009755afb56e1c4ebafed1297cd50d0f950bba75f2fc1cef5eb50906556683"
+    },
+    {
+      "member": "source/src/ashlar_host/ack.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source/src/ashlar_host/ack.py",
+      "size": 13851,
+      "sha256": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce"
+    },
+    {
+      "member": "source/src/ashlar_host/lifecycle.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source/src/ashlar_host/lifecycle.py",
+      "size": 1676,
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    },
+    {
+      "member": "source/src/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source/src/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "size": 2470,
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739"
+    },
+    {
+      "member": "source/src/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source/src/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "size": 11829,
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9"
+    },
+    {
+      "member": "source/tools/setup_private_outbox_fixture.py",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/source/tools/setup_private_outbox_fixture.py",
+      "size": 19684,
+      "sha256": "2c45b4e876452f5f074ccca9275d09a3d5632178dff31f0c42b2510a5dc7aca8"
+    }
+  ]
+}
