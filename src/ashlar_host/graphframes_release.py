@@ -217,7 +217,7 @@ def capture_graphframes_worker(argv, *, cwd, environment, renew,
     deadline = time.monotonic() + timeout_seconds
     try:
         control_read, control_write = os.pipe()
-        process = subprocess.Popen([str(argv[0]), '-I', '-c', _SUPERVISOR, str(control_write), *argv], cwd=cwd, env=dict(environment),
+        process = subprocess.Popen([str(argv[0]), '-I', '-B', '-c', _SUPERVISOR, str(control_write), *argv], cwd=cwd, env=dict(environment),
                                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE, start_new_session=True, pass_fds=(control_write,))
         streams = [process.stdout, process.stderr]

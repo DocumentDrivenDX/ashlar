@@ -105,6 +105,7 @@ class Tests(TestCase):
   from unittest import mock
   selected=str(Path(sys.executable).resolve());owned=[];real_popen=subprocess.Popen
   def start(*args,**kwargs):
+   self.assertEqual(args[0][:4],[selected,'-I','-B','-c'])
    process=real_popen(*args,**kwargs);owned.append(process);return process
   with tempfile.TemporaryDirectory()as directory,mock.patch('ashlar_host.graphframes_release.subprocess.Popen',side_effect=start):
    cwd=Path(directory).resolve();environment={'PATH':'/usr/bin:/bin'}
