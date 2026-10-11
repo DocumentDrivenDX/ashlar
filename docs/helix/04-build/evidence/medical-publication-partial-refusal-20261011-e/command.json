@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-medical-installed-publication-command/0.1",
+  "argv": [
+    "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "publish-original-medical",
+    "--configuration",
+    "/private/tmp/ashlar-medical-publication-installed-prep-e/publication-configuration.json"
+  ],
+  "cwd": "/private/tmp/ashlar-medical-publication-installed-prep-e",
+  "nativeSeconds": 300,
+  "workerWholeSeconds": 510,
+  "scope": "Preparation only. Actual fixture inventory source/signature and retained Cinstallation selected; no publication executed."
+}

@@ -1,0 +1,42 @@
+{
+  "profile": "ashlar-medical-partial-publication-refusal/0.1",
+  "source_revision": "7b56f7546f9f0e2e16dcf410e9c27ecab5934e17",
+  "process": {
+    "session": 29717,
+    "exit_code": 2,
+    "terminal": true
+  },
+  "files": [
+    {
+      "path": "configuration.json",
+      "bytes": 5821,
+      "sha256": "0c53ca9f4853ca7683e4e23a4f9090a4dc78026ebb6013e051fc5ec11ddab426"
+    },
+    {
+      "path": "command.json",
+      "bytes": 614,
+      "sha256": "e1e505f914e6afbf5b8a1370c59fa065c7a5a3d6dbe09a5f67c47f0908667854"
+    },
+    {
+      "path": "stdout.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 42,
+      "sha256": "87a830517221d53103a5d34731a8324d13f4ceccd9ecc6062f5f3c504e95e9a9"
+    },
+    {
+      "path": "request.json",
+      "bytes": 382102,
+      "sha256": "9de61334ad159bd4d1cc8373c7cbb2d1a4025e1c654cd76b90b0275859a2e3ea"
+    },
+    {
+      "path": "journal-observation.json",
+      "bytes": 380,
+      "sha256": "1d120659ad29bbeaea754ee0bfb73bc9a5c480043ee411d53bb19255a0cba270"
+    }
+  ],
+  "qualification": "Actual refused installed public publication with retained request and five journal operations marked committed. No publication artifact, descriptor, success receipt or durable ACK proof. Generic stderr does not establish the primary cause; timeout is not asserted. Journal observation uses SQLite mode=ro/query_only and does not reconcile native operation receipts. No repeat append, native rerun, reset or capacity change performed."
+}
