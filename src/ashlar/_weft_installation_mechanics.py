@@ -27,6 +27,9 @@ _SCHEMA_NAMES=('compile-request-v0.4.schema.json','compile-response-v0.4.schema.
                'logical-plan-v0.4.schema.json','application-result-v0.4.schema.json',
                'backend-manifest-v0.3.schema.json')
 _LAYOUT_VALUES=MappingProxyType({
+    'implicit-arithmetic':('weft-implicit-arithmetic','ashlar-weft-implicit-arithmetic-ready/0.1','.ashlar-implicit-arithmetic-',
+        ('compile-request-v0.4.2.schema.json','compile-response-v0.4.2.schema.json','logical-plan-v0.4.2.schema.json',
+         'backend-manifest-v0.3.2.schema.json','application-result-v0.4.schema.json')),
     'paths':('weft-paths','ashlar-weft-paths-ready/0.1','.ashlar-paths-',_SCHEMA_NAMES),
     'paths-keys':('weft-paths-keys','ashlar-weft-paths-keys-ready/0.1','.ashlar-paths-keys-',
                   _SCHEMA_NAMES+('application-result-v0.2.schema.json',)),
@@ -246,3 +249,23 @@ def compile_transport(executable: Path, request: bytes, *, refuse: Callable[[], 
     callbacks.extend(stream.close for stream in streams if not stream.closed)
     finish(primary,tuple(callbacks))
     return bytes(stdout)
+
+
+def verify_installed_files(root: Path, ready: dict, *, layout: InstallationLayout,
+                           ready_present: bool, expected_resources: list[dict],
+                           expected_executable: dict, read: Callable[...,bytes],
+                           exact_tree: Callable[...,None], refuse: Callable[[],None]) -> bytes:
+    """Mechanical complete readonly closure; owner supplies independently proved pins."""
+    if type(layout)is not InstallationLayout or layout is not _LAYOUTS.get(layout.profile):refuse()
+    if ready['executable']!={**expected_executable,'path':layout.executable}or ready['resources']!=expected_resources:refuse()
+    provenance=read(root/'provenance.json',JSON_LIMIT)
+    if ready['provenance']!={'path':'provenance.json','sha256':hashlib.sha256(provenance).hexdigest(),'bytes':len(provenance)}:refuse()
+    files=({'path':layout.executable,**{k:v for k,v in expected_executable.items()if k!='path'}},*expected_resources)
+    for item in files:
+        raw=read(root/item['path'],FILE_LIMIT if item['path']==layout.executable else JSON_LIMIT)
+        if len(raw)!=item['bytes']or hashlib.sha256(raw).hexdigest()!=item['sha256']:refuse()
+        if (root/item['path']).stat().st_mode&0o777!=(0o555 if item['path']==layout.executable else 0o444):refuse()
+    for name in ('provenance.json',)+(('ready.json',)if ready_present else ()):
+        if (root/name).stat().st_mode&0o777!=0o444:refuse()
+    exact_tree(root,(layout.executable,'provenance.json')+layout.resources+(('ready.json',)if ready_present else ()))
+    return provenance
