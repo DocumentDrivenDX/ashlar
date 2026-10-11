@@ -125,7 +125,19 @@ def main():
     for name in ('initialize-original-commerce','publish-original-commerce'):
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
+    medical=commands.add_parser('initialize-original-medical',help='Initialize six original medical local Delta tables under an explicit supervised configuration')
+    medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'initialize-original-medical':
+        from pathlib import Path
+        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command
+        try:
+            answer=run_original_medical_initialization_command(Path(args.configuration))
+            print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
+        except Exception:
+            print('ashlar original medical initialization refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'prepare-truss-catalog':
         from pathlib import Path
         try:
