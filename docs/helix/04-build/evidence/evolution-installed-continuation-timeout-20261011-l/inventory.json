@@ -1,0 +1,252 @@
+{
+  "members": [
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/continue.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/continue.stderr",
+      "bytes": 598,
+      "sha256": "cfd60c5941c42308803d255be26d1334ddd4089fcc61b2d3252811b03fa70f3b"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/archive.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/archive.json",
+      "bytes": 235,
+      "sha256": "b45ee45d3217056c3559e006d17bb9d99d58f0de4cbf6351d6e735c97b4621e4"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/pip-install.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/pip-install.json",
+      "bytes": 235,
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/venv.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/venv.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/ensurepip.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/ensurepip.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/wheel.stdout",
+      "bytes": 759,
+      "sha256": "1079244546d9db69125c3e3a4737f80078dd8fd7b59083f7e9ee3a3c94d4b62d"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/bundled-installer-inventory.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/bundled-installer-inventory.json",
+      "bytes": 159800,
+      "sha256": "c898903084586ce8c279438f51e276f1aabac6246b6d88f61fdcc38bf2f9bcd0"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/pip-install.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/pip-install.stdout",
+      "bytes": 176,
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/pip-install.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/pip-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/continue-configuration.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/continue-configuration.json",
+      "bytes": 592,
+      "sha256": "08bf5d96941222229aa815e034d74237d404e8a813e601eafb8698835fc102e3"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/wheel.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/venv.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/venv.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/ensurepip.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/ensurepip.stdout",
+      "bytes": 312,
+      "sha256": "0f50a77cb0bc57d46410e7aeacf570106c53ffbd0b642e82378e413aafb9d54c"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/ensurepip.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/ensurepip.json",
+      "bytes": 233,
+      "sha256": "577b56046751ff07006146f7767afa4edf833d9146696adf4b78ec62d24f8020"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/continue.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/continue.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/archive.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/archive.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/installed-console.txt",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/installed-console.txt",
+      "bytes": 266,
+      "sha256": "6976b3deb5e7f8469a624c6d308b851571780688e57f9337ec37bb90fb3af984"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/interpreter-selection.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/interpreter-selection.json",
+      "bytes": 2528,
+      "sha256": "00c27163dd314d47207806f4205143ef69ac1f35614567282f3e92f36516cf85"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/wheel-inventory.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/wheel-inventory.json",
+      "bytes": 27139,
+      "sha256": "a06bd1003a420b4b8f3b588665baac69e5cd0cf5198f84406a159201835dbceb"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/wheel.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/wheel.json",
+      "bytes": 229,
+      "sha256": "dc65ed34dfdbd82cce850cf13be398b6b109b77d108c139bc0b7291f6dae2324"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/venv.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/venv.json",
+      "bytes": 226,
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/receipt.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/receipt.json",
+      "bytes": 1643,
+      "sha256": "35d50cec3b3d7a48d8c06b1719fe7e71a7b454372ac1c73f05a29b10285e33d0"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/retained-local-state/run.sqlite",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/retained-local-state/run.sqlite",
+      "bytes": 2244608,
+      "sha256": "b5b80d49593b9eb1f34962f3c1db15518917691d49647ab23d9a4f3e1bd5dbd0"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/retained-local-state/operations.sqlite",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/retained-local-state/operations.sqlite",
+      "bytes": 23818240,
+      "sha256": "32c8aa9e4d0751c39c1676883190d00d23d002ce7e8c49a93c0019ea412063f0"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/retained-local-state/original-run.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/retained-local-state/original-run.json",
+      "bytes": 8090,
+      "sha256": "8abac861a6ada92aee0fb4080c1230867d358d776c16c92c5a776538ea657f95"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-20261011-l/retained-local-state/targets.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-20261011-l/retained-local-state/targets.json",
+      "bytes": 1080,
+      "sha256": "9cb62b91070d7cb499990a55c045096b288c432c515b7cff47efb8fc4198a154"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-l.ledger-after.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-l.ledger-after.json",
+      "bytes": 1384,
+      "sha256": "f635784d77da94153102fd4ab8924d7937bcd6abbfb13d06a297c0bf0eb885f1"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-l.process-census.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-l.process-census.json",
+      "bytes": 186,
+      "sha256": "a96f4ff1728051256c21543c7c5a1f69034165a40bab4f8b60510405e85c0b93"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-l.outer.stdout",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-l.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-l.outer.stderr",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-l.outer.stderr",
+      "bytes": 1514,
+      "sha256": "e0690b7966e978c139b70a14ade503c2ee21bd729eb8b703e0a2e7771ee721be"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-l.outer.receipt.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-l.outer.receipt.json",
+      "bytes": 936,
+      "sha256": "c018d4d60bcaa9051e28bfbef43c286ccd4fcd96dbd19934db7371fc7bd80b38"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-actual-failure-freeze-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-actual-failure-freeze-l.json",
+      "bytes": 7054,
+      "sha256": "6aaefb45f2b7ffaadde78c58d297fc5c8fcde5f064aa14f3f5de8b53b8516f74"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-independent-actual-review-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-independent-actual-review-l.json",
+      "bytes": 1308,
+      "sha256": "fbb5a133163a5473ce45a45a782d7c2f12f78e3bfc1482a2558ed7cc2ebb942c"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-command-freeze-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-command-freeze-l.json",
+      "bytes": 102245,
+      "sha256": "0cdd91a0a83788834fe00acbb685b56d4b1b45ef6accff79f2f06f0260022ad7"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-command-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-command-l.json",
+      "bytes": 103416,
+      "sha256": "d04c42fadfb02acaefad4451755d41a32d69fd358413ef71b844706fcc87a29c"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-metadata-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-metadata-l.json",
+      "bytes": 1320,
+      "sha256": "e6455e14b8b3f91ec740cc9003e2f4b0181ac676e1319a46b763c06405acd735"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-independent-command-review-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-independent-command-review-l.json",
+      "bytes": 1617,
+      "sha256": "54fc1c328e9a1f8cf0532d9da1affdaa5aff40d437e1a14f57f95cc20be893af"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-runner-l.py",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-runner-l.py",
+      "bytes": 16486,
+      "sha256": "d8a5f61fbefd7404dd8dcba314ddbae8cf39982167df15047001db2cd279b539"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-launch-l.py",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-launch-l.py",
+      "bytes": 4219,
+      "sha256": "4c6062039fbb687a54d1ae578d6470005ebccba827994fa1aacf2fa97047ab6b"
+    },
+    {
+      "member": "ashlar-evolution-continuation-provider-l.py",
+      "originalPath": "/private/tmp/ashlar-evolution-continuation-provider-l.py",
+      "bytes": 8100,
+      "sha256": "5e47bcf9404e4e8daa734ca324e674b5077189ffac625ed714758562157c70fb"
+    },
+    {
+      "member": "ashlar-evolution-installed-native-source-inventory-l.json",
+      "originalPath": "/private/tmp/ashlar-evolution-installed-native-source-inventory-l.json",
+      "bytes": 51954,
+      "sha256": "8571f77162537746194c304534b29e0c42f753565967286ee4d328bfc19474ac"
+    }
+  ],
+  "archiveSha256": "b534fa17d31f58107228c61fc1b009f2e5e78d16aa7a70e9bc3fe683e0d02b59",
+  "runtimeRetention": "Command references exact existing J namespace/runtime descriptors and319 cache pins; payload binaries are not duplicated."
+}
