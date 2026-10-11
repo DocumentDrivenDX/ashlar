@@ -1,0 +1,30 @@
+{
+  "scope": "Reusable captured original commerce source/native projection correspondence; no authority or native qualification",
+  "rootChecks": [
+    {
+      "command": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_commerce_source_receipt test_count_star_host_wiring test_count_star_lifecycle",
+      "exitCode": 0,
+      "tests": 11,
+      "seconds": 0.376,
+      "chunk": "a86041"
+    },
+    {
+      "command": "python3 tools/check_module_boundaries.py",
+      "exitCode": 0,
+      "chunk": "674eea"
+    }
+  ],
+  "files": [
+    {
+      "name": "independent-review.json",
+      "bytes": 1242,
+      "sha256": "413541a4a62ae6e8c3a8c8a61bc872a799197ff0b0a5c5ca2face8eff9d64123"
+    },
+    {
+      "name": "source-freeze.json",
+      "bytes": 1342,
+      "sha256": "ca90da1b23d0c57bba967895876cb796ddfdaf283cb2c638fe767bd66aef6191"
+    }
+  ],
+  "qualification": "Legacy valid complete receipt bytes and unknown diagnostics preserved. Original bindings and inputs snapshotted; numeric validity flags and malformed inputs refuse. Caller must independently hold and reexecute the public producer and preserve current publication/source/native authority. No installed 0.4.2 or native result claimed."
+}

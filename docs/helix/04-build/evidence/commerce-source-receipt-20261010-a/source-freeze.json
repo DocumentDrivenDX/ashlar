@@ -1,0 +1,27 @@
+{
+  "evidence": {
+    "boundariesAndDiff": "90329f PASS",
+    "command": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_commerce_source_receipt test_count_star_host_wiring test_count_star_lifecycle",
+    "portable": "4fa51b:11 PASS .444s",
+    "unfrozenFailure": "e5da5c: test attempted tuple assignment, corrected harness only"
+  },
+  "files": [
+    {
+      "bytes": 9753,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce_source_receipt.py",
+      "sha256": "3cc553d58024608d081906cbef311d560865c6c5439d4410939ca805f33bd67f"
+    },
+    {
+      "bytes": 16232,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_query.py",
+      "sha256": "f09c3418825ec5df2b662e8adee56f87b1c1e096952bdb82593f9b5ec9b8d2a3"
+    },
+    {
+      "bytes": 5562,
+      "path": "/Users/erik/Projects/ashlar/tests/test_commerce_source_receipt.py",
+      "sha256": "e1b8279232b6a9ab1b546caeac277306b61082f45258fa52fb0d4c587a78f556"
+    }
+  ],
+  "head": "4fb74a83dbcd845741838bba4d7ca8bf599f7f5b",
+  "scope": "Reusable original commerce source/native projection correspondence; exact legacy valid receipt bytes and unknown diagnostics retained. Independent actual public producer/source/native authorization mandatory. No compiler/native operation or new042 installed composition."
+}

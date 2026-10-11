@@ -1,0 +1,27 @@
+{
+  "approved": true,
+  "files": [
+    {
+      "bytes": 9753,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce_source_receipt.py",
+      "sha256": "3cc553d58024608d081906cbef311d560865c6c5439d4410939ca805f33bd67f"
+    },
+    {
+      "bytes": 16232,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_query.py",
+      "sha256": "f09c3418825ec5df2b662e8adee56f87b1c1e096952bdb82593f9b5ec9b8d2a3"
+    },
+    {
+      "bytes": 5562,
+      "path": "/Users/erik/Projects/ashlar/tests/test_commerce_source_receipt.py",
+      "sha256": "e1b8279232b6a9ab1b546caeac277306b61082f45258fa52fb0d4c587a78f556"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 5158,
+      "sha256": "8f39ec39db09ef33263c644bf66dbd845cb73c0f1f6c86cc767522b54cf36507"
+    }
+  ],
+  "checks": "f13c48: 11 controls PASS 0.354s; f5d170 frozen three hashes unchanged",
+  "scope": "SDK-free original whole source and projection correspondence extraction; owned passive snapshots and exact True validity flags; legacy receipt correspondence and independent authorization requirements preserved. Single neighboring CI selection reviewed. No producer/compiler/native qualification."
+}
