@@ -506,6 +506,15 @@ tools or silently upgrading their UMF declarations. Each profile requires its
 entire original scenario inventory and complete independent bags; another pack's
 successful execution cannot establish its support.
 
+A separately versioned finite-query invocation MAY declare an explicit
+`maximum_public_source_bytes` budget, bounded to 16 MiB, for the complete source
+request and verification receipt. This budget MUST remain independent of the
+compiler-artifact byte budget; neither may enlarge the other implicitly. Original
+source bytes and complete verification content MUST remain intact. Existing
+invocation profiles retain their selected bounds and unknown-field refusals.
+Changing this host receipt budget MUST NOT change UMF producer limits, native
+capture or execution limits, compiler admission, or source authorization.
+
 The shared finite-pack producer MAY select UMF's experimental compact dataset
 operation `validate-core-dataset-values-compact` version `1.0.0`, with
 `scope: supplied-dataset-only` and `provenance: unverified`. It MUST call both
