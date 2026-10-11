@@ -656,6 +656,19 @@ UUID/location, retention and full four-role bags under actual exclusion/pins. It
 permits existing-record SELECT/read-transaction commit only, never source append,
 prepare/effect/ACK submission, journal repair or mutable-latest fallback.
 
+`NativeDriver.bind_original_medical_read(plan, bounds)` MUST accept only exact
+medical admission, a separately typed `MedicalReadSourceFactory`, a read-only
+Delta transport and explicit `VerificationBounds`. The retained plan supplies
+the independent oracle; it grants no publisher or writer authority.
+`observe_original_medical_read(descriptor, context=...)` MUST verify all six
+native schemas, identities and histories and compare complete four-role bags
+against that oracle under the held read interval and immutable publication pins.
+Every capture, including manifest validation and closing verification, MUST
+respect cumulative row/cell/byte bounds; generic unbounded snapshot fallback
+MUST refuse. Independently renew native and ordinary source/ACK authority at
+opening, use and closing. A missing existing journal or exclusion record MUST
+refuse without creating or repairing it.
+
 The lower `publication_planning.py` module owns the pure
 `request_for(stream, transaction, predecessor, revisions)` and
 `local_effect_plan(generated, prior_rows, tables)` surfaces. The driver MUST retain

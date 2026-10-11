@@ -197,6 +197,18 @@ read-only authority. Controls cover nominal type/profile mismatches, full target
 and vector correspondence, drift at use/closing, and refusal of every mutation
 surface. Reuse of the shared gate must preserve existing commerce read controls.
 
+`original_medical_local_read.py` owns configured reopen composition.
+`medical_read_observation.py` owns the separate bounded medical read binding and
+complete native observation. The driver exposes
+`bind_original_medical_read(plan, bounds)` and
+`observe_original_medical_read(descriptor, context=...)` under CONTRACT-001.
+Read-side manifest validation, snapshot inspection and closing use this binding
+without activating publisher policy or falling back to unbounded captures.
+The local source factory constructs only ordinary reader and existing ACK-record
+SELECT ports; it cannot acquire a source writer. Prove complete six-role schema
+and history correspondence and cumulative four-bag limits, including closing
+drift and capacity refusal, before emitting the read receipt.
+
 ## Bounds, lifecycle and diagnostics
 
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and

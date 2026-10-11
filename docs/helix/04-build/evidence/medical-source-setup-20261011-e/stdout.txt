@@ -1,0 +1,1 @@
+ashlar-private-outbox: fixture inventory retained

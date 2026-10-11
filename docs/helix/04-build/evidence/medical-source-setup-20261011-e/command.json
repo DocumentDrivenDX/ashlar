@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-medical-source-fixture-command/0.1",
+  "argv": [
+    "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-medical-publication-installed-prep-e/source/tools/setup_private_outbox_fixture.py",
+    "--configuration",
+    "/private/tmp/ashlar-medical-source-fixture-prep-e/configuration.json"
+  ],
+  "cwd": "/private/tmp/ashlar-medical-source-fixture-prep-e",
+  "bounds": {
+    "child_seconds": 240,
+    "whole_seconds": 300,
+    "closing_reserve_seconds": 40,
+    "capture_bytes": 1048576,
+    "docker_cpu": 1,
+    "docker_memory": "512m"
+  },
+  "scope": "Preparation only. Existing public Runtime.command per-call30s, DBconnect2s/statement5s/readiness30s bounds unchanged; no additional outer wrapper gate. Exact dedicated fixture current source/ACK authority only after actual provisioning proof."
+}

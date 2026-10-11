@@ -1,0 +1,26 @@
+{
+  "docker": "/Users/erik/.orbstack/bin/docker",
+  "docker_host": "unix:///Users/erik/.orbstack/run/docker.sock",
+  "image": "postgres@sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+  "container": "ashlar-private-outbox-original-medical-e",
+  "port": 25436,
+  "database": "original_medical",
+  "authentication": "isolated-loopback-trust",
+  "sources": [
+    {
+      "scope": {
+        "service_schema": "ashlar_ack_medical",
+        "scope_id": "b70c2da7-2727-47ca-bf6a-e8672ce8fd50",
+        "installation_id": "b7dda332-cf0e-4b37-b831-8af6afc0f14b",
+        "consumer": "original-medical",
+        "feed": "private-original-medical-fixture",
+        "epoch": "original-medical-v1"
+      },
+      "schema": "ashlar_medical_source",
+      "writer": "medical_writer",
+      "reader": "medical_reader",
+      "ack": "medical_ack"
+    }
+  ],
+  "output": "/private/tmp/ashlar-medical-source-fixture-prep-e/fixture-inventory"
+}

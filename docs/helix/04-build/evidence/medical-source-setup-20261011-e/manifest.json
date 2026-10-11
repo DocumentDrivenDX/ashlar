@@ -1,0 +1,48 @@
+{
+  "profile": "ashlar-medical-source-setup-evidence/0.1",
+  "source_revision": "7b56f7546f9f0e2e16dcf410e9c27ecab5934e17",
+  "wheel_sha256": "d3181cd7a848d5dceb85b959713fde6dbba09a333dfd89dd3caecf13dd6deeaa",
+  "process": {
+    "session": 41497,
+    "exit_code": 0,
+    "terminal": true
+  },
+  "fresh_name_preflight": {
+    "chunk": "a90dc1",
+    "exit_code": 0,
+    "stdout_bytes": 0
+  },
+  "files": [
+    {
+      "path": "configuration.json",
+      "bytes": 951,
+      "sha256": "70a48a3043e361c15c16199ccda9af5997f6d9d67b8f7e6a2c080df49aae7be0"
+    },
+    {
+      "path": "command.json",
+      "bytes": 887,
+      "sha256": "a41a522945dba861b0cfc173d06da242c1eac67383edead5bbfe74d5fe7937c6"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 50,
+      "sha256": "3b647a998aa8952b0b82c9589985bec8a48c7e05cab03ea03169b6d39805c1a9"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 935,
+      "sha256": "2e3a9acca4f3006a85df2b5dbb8af8b0025ce5f1018d29e2d7e54a669c756702"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 2230,
+      "sha256": "736224b3f69b3c36c0d1ac824503a61bb69d3504f102bd7ab789383bba167e09"
+    },
+    {
+      "path": "created-container.json",
+      "bytes": 505,
+      "sha256": "8cb87e80373d425f01bd4d6dce05d4c71486fa32308a5aa9a717bebb6d894292"
+    }
+  ],
+  "qualification": "Actual PostgreSQL17.9 ARM64 isolated-loopback-trust private outbox setup. Ordinary LOGIN checks and actual source signature/head-zero verified by setup. No publication, durable ACK advancement, production authority or real Truss evidence. Password-file warnings retained verbatim; setup still returned success."
+}
