@@ -1,0 +1,274 @@
+{
+  "archive": {
+    "bytes": 2645481,
+    "sha256": "0ec48ae8ded9e649678c3fbc0b734085721e3d0e7c4e3870fcd9736dd9b32074"
+  },
+  "descriptor_only": "Full574 actual output census and9395 existing-input file custody are retained as original manifests. SDK/JDK binaries, three copied interpreters, full unpacked source/site and archive.stdout are not duplicated.",
+  "format": "ashlar-public-installation-evidence/0.1",
+  "members": [
+    {
+      "bytes": 3194,
+      "member": "recipe/metadata-a.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-metadata-a.json",
+      "sha256": "3b0f1393bd55f7ac01d1e729f199045ab8698b502e79a247a715d48a36a4ad0e"
+    },
+    {
+      "bytes": 2710,
+      "member": "recipe/command-a.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-command-a.json",
+      "sha256": "e8b6d181423df8a148e4aa2b9e181e35d81829f2622d8b6829fd62c6bf5fa51c"
+    },
+    {
+      "bytes": 2209957,
+      "member": "recipe/closure-a.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-closure-a.json",
+      "sha256": "290776167a10bdc927675a7bf4211fd7414e0c77961a515eb5007afd6ad32572"
+    },
+    {
+      "bytes": 15134,
+      "member": "recipe/prepare-a.py",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-prepare-a.py",
+      "sha256": "afb36d1b046c590fcd1034f83361ddd0daac9ddefc5558862be72b1398daef9b"
+    },
+    {
+      "bytes": 2712,
+      "member": "recipe/inspect-a.py",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-inspect-a.py",
+      "sha256": "8b318b37d8a305c99645bf4154f7bb48012c4efbda4b45909112799d69b710e0"
+    },
+    {
+      "bytes": 3418,
+      "member": "recipe/metadata-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-metadata-b.json",
+      "sha256": "26e321b6a2e59750792fd81c62da3f66a79b07fd3ca78e23d408a76c426cffb3"
+    },
+    {
+      "bytes": 2802,
+      "member": "recipe/command-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-command-b.json",
+      "sha256": "af5b375e50d8f12ab4ba6ed8ea0a09325d66cfc19582831a7cedda06623a76ae"
+    },
+    {
+      "bytes": 2209957,
+      "member": "recipe/closure-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-closure-b.json",
+      "sha256": "7152458d02d84a98e75d10ef99835b816dc024ae387eb622263c7588e580c0ae"
+    },
+    {
+      "bytes": 15134,
+      "member": "recipe/prepare-b.py",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-prepare-b.py",
+      "sha256": "9746c7d4a4c6d1a4c15b07ef4a87136109caa7855e1bce32eab161f00147adc3"
+    },
+    {
+      "bytes": 2782,
+      "member": "recipe/inspect-b.py",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-inspect-b.py",
+      "sha256": "3d4e8bc4da2609986fe468776ed4772ada6ebedc2cf1843e68625443ee0d88f0"
+    },
+    {
+      "bytes": 26974,
+      "member": "recipe/source-inventory-a.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-source-inventory-a.json",
+      "sha256": "8fdaf74b5b4d3895ccf30ae0b6c59b553bc243ffef6daa1db50682bd21a05c1c"
+    },
+    {
+      "bytes": 131907,
+      "member": "recipe/actual-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-actual-b.json",
+      "sha256": "0c59ea9876d7cc111820f81ad4c341aaed2f8a09a1314b3da01c8db711afe036"
+    },
+    {
+      "bytes": 582,
+      "member": "recipe/outer-b.receipt.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-outer-b.receipt.json",
+      "sha256": "d8d54ace32b0edd758837e6839b29c3105da91ad924caf064c70a9d32c8e1c77"
+    },
+    {
+      "bytes": 205,
+      "member": "recipe/prepare-b.receipt.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-prepare-b.receipt.json",
+      "sha256": "1004ef3606770de9d9b50ef5d2e00cae3d4043666df50830ef45dc1eab69426d"
+    },
+    {
+      "bytes": 0,
+      "member": "recipe/prepare-b.outer.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-prepare-b.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "recipe/prepare-b.outer.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-prepare-b.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1435,
+      "member": "recipe/independent-command-review-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-independent-command-review-b.json",
+      "sha256": "fddc93d689ca8e1c3ff13cc6d8a3926633a55b8b7d33676b94f99d684f8b2a12"
+    },
+    {
+      "bytes": 1303,
+      "member": "recipe/independent-actual-selection-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-independent-actual-selection-b.json",
+      "sha256": "a441b8ee79d4c0ad75c4e2714a243de0d528789ddd035add84b629b6d393c71c"
+    },
+    {
+      "bytes": 1312,
+      "member": "review/root-selection-b.json",
+      "original": "/private/tmp/ashlar-graphframes-local-root-selection-b.json",
+      "sha256": "a61ace7061092ec214f85177f92b8e4ba280329aa8f93d7634a75c630d4033df"
+    },
+    {
+      "bytes": 3996,
+      "member": "controls/revise-local-inspect-b.py",
+      "original": "/private/tmp/revise-local-inspect-b.py",
+      "sha256": "50c9c9711da2f2779c4d488485d6876cce6d96ad441d115d559b456a9fccfc53"
+    },
+    {
+      "bytes": 2854,
+      "member": "helpers/outer-launcher-h.py",
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    },
+    {
+      "bytes": 3216,
+      "member": "helpers/capture-a.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 3029832,
+      "member": "actual/runtime-candidate.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/runtime-candidate.json",
+      "sha256": "3938ccd3a8120c059a55bb2c15426ad3d30cd4b40b39550f1a9444845d1f73ae"
+    },
+    {
+      "bytes": 1247,
+      "member": "actual/inspection.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/inspection.json",
+      "sha256": "8f00e5ffbf650ea32e3b3ea3e07437a2ead0c49f36569ab9621c3c29e2233267"
+    },
+    {
+      "bytes": 2645,
+      "member": "actual/preparation.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/preparation.json",
+      "sha256": "ee235e065d46227b9cd9353a63dabd4a10deeb03fe8c5a56005dd0a4ccbadb03"
+    },
+    {
+      "bytes": 111576,
+      "member": "actual/generated-custody.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/generated-custody.json",
+      "sha256": "7d69e139255777e955051a5e586dc6206073bf36f29672841a75321155474c8a"
+    },
+    {
+      "bytes": 23472,
+      "member": "actual/wheel-inventory.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/wheel-inventory.json",
+      "sha256": "e802087b4b4895f66fbfe10697df26fca1680c923c96ce637bfbcc240fa8cd25"
+    },
+    {
+      "bytes": 16043,
+      "member": "actual/installed-RECORD.csv",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/installed-RECORD.csv",
+      "sha256": "6e3277a1260d2ffc07ec96f6cc1770c349d829121071dc0da69638432cc6a8c7"
+    },
+    {
+      "bytes": 215,
+      "member": "actual/installed-console.txt",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/installed-console.txt",
+      "sha256": "15299ff1590bf19ffbb97371f6af4d4b9dd1cc669de0ce2519884c281e64b56e"
+    },
+    {
+      "bytes": 235,
+      "member": "actual/archive.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/archive.json",
+      "sha256": "04fa798e34b96285a71e5362f7120c7c4501badabad9e81d72812ce7de58d209"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/archive.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 229,
+      "member": "actual/wheel.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/wheel.json",
+      "sha256": "c0ababc09445643a59b67e7f868d78e99beefd197eee64a6b12fe76140ae92b8"
+    },
+    {
+      "bytes": 760,
+      "member": "actual/wheel.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/wheel.stdout",
+      "sha256": "a8f1e17a0de985b427c115fa52b00c531857ffc28cec85ce7d81a9183b41517c"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/wheel.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 226,
+      "member": "actual/venv.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/venv.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/venv.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 231,
+      "member": "actual/install.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/install.json",
+      "sha256": "b03fa9e2d5d875b41021b88203d38fe0ad8d7532c6d477a6e6f0b32c33d311ce"
+    },
+    {
+      "bytes": 176,
+      "member": "actual/install.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/install.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 239,
+      "member": "actual/public-inspect.json",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/public-inspect.json",
+      "sha256": "05d9e464334435d4c2fda21732e98668521ff9f50b29a219ec6547f30259511d"
+    },
+    {
+      "bytes": 1287,
+      "member": "actual/public-inspect.stdout",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/public-inspect.stdout",
+      "sha256": "33d2c0246301d4efe6a0b9dafd2a893e4b0e8a6ca63cd311facf7254c7339bce"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/public-inspect.stderr",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/public-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1040095,
+      "member": "actual/wheel/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "original": "/private/tmp/ashlar-graphframes-local-installed-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "67a39f8256d8a2db7b426699ec7db1eeca69013e47a1ec5e01f86b463042c4a2"
+    }
+  ]
+}
