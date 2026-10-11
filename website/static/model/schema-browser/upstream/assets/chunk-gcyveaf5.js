@@ -1,0 +1,2 @@
+import{Uc as f}from"./chunk-6p6f7mkg.js";class j{fixedBrowserProfile=!0;errors;compile(b){return f().compile(b)}validateSchema(b){let g=f().compile({umfBrowserMeta:!0}),p=g(b);return this.errors=g.errors,p}addSchema(){throw Error("Dynamic native schema compilation is outside the fixed browser profile; source recovery remains qualified.")}getSchema(){throw Error("Dynamic native schema compilation is outside the fixed browser profile.")}removeKeyword(){return this}addKeyword(){return this}}
+export{j as Kc};

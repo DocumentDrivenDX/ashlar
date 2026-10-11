@@ -1,0 +1,2 @@
+import{vd as g}from"./chunk-jbyes3dd.js";var f,k;function p(){return k??=(async()=>{let b=await import("./chunk-1h1dwzzj.js"),h=await import("./chunk-kk0yfkt7.js"),j=await import("./chunk-fc72bzb8.js");return h.configureYaml?.(b),j.configureYaml?.(b),f=b,f})()}function q(b){return f?f.stringify(b,{aliasDuplicateObjects:!1,lineWidth:0}).trimEnd():JSON.stringify(b,null,2)}async function w(b){return(await p()).parseDocument(b,{intAsBigInt:!0}).toString({collectionStyle:"block",lineWidth:0})}
+export{p as Rb,q as Sb,w as Tb};

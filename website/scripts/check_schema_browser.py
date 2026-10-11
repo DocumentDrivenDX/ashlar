@@ -5,15 +5,20 @@ root=Path(__file__).resolve().parents[2];folder=root/'website/static/model/schem
 proof=json.loads((folder/'provenance.json').read_text())
 sha=lambda data:hashlib.sha256(data).hexdigest()
 assert proof['profile']=='ashlar-umf-schema-browser/0.1'
-assert proof['upstream']['revision']=='90d03f40c5435001a895e315eb5515032a9c8d64'
-assert proof['upstream']['package']=={'name':'@documentdrivendx/umf-schema-browser','version':'1.0.0','bytes':845173,'sha256':'ae319400f48745b868c490948e2bf68cbd7a78e43f31f8d8a3b74d1de1d0f77d'}
+assert proof['upstream']['revision']=='f35f761891e76284489806b3ca881e5ba3bf5a7f'
+assert proof['upstream']['package']=={'name':'@documentdrivendx/umf-schema-browser','version':'1.1.0','bytes':1861847,'sha256':'12b7a4831f181d78e2cf6ae608445f80bb7ce738dcd32eded7fe2b0838bc50be'}
 assert proof['generator_sha256']==sha((root/'tools/build_schema_browser.py').read_bytes())
-expected={'explorer.js','explorer.css','index.html','host.css','schema-catalog.json','LICENSE-MIT','LICENSE-APACHE','THIRD_PARTY_NOTICES.md'}
+release=folder/'upstream/release-manifest.json'
+assert sha(release.read_bytes())=='ca65e82f3ab7dcf71b72ec30e4c1fde822c6cd557f6678932e9491a9d6840243'
+manifest=json.loads(release.read_text())['sha256']
+expected={'upstream/'+name for name in manifest}|{'upstream/release-manifest.json','upstream/SHA256SUMS','index.html','host.css','host.js','schema-catalog.json'}
 assert set(proof['outputs'])==expected
+assert {str(p.relative_to(folder)) for p in folder.rglob('*') if p.is_file()}==expected|{'provenance.json'}
 for name,digest in proof['outputs'].items():assert sha((folder/name).read_bytes())==digest,name
-for name in ['explorer.js','explorer.css']:assert proof['outputs'][name]==proof['upstream']['assets'][name]
+for name,digest in manifest.items():assert proof['outputs']['upstream/'+name]==digest
+assert proof['upstream']['assets']=={name:digest for name,digest in proof['outputs'].items() if name.startswith('upstream/')}
 for name,digest in proof['inputs'].items():assert sha((root/name).read_bytes())==digest,name
-for name in ['index.html','host.css']:assert (folder/name).read_bytes()==(root/'website/schema-browser'/name).read_bytes(),name
+for name in ['index.html','host.css','host.js']:assert (folder/name).read_bytes()==(root/'website/schema-browser'/name).read_bytes(),name
 model=root/'docs/helix/02-design/models/ashlar-delta-runtime'
 index=json.loads((model/'index.json').read_text());catalog=json.loads((folder/'schema-catalog.json').read_text())
 assert catalog['version']==1 and len(catalog['entries'])==9

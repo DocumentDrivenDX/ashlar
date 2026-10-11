@@ -1,0 +1,21 @@
+{
+  "latestVerifiedCommit": "0a6c86ff55ec469e76d895062098389845c21d64",
+  "publishedPackage": "@documentdrivendx/umf-schema-browser@1.1.0",
+  "packageBytes": 1861847,
+  "packageSHA256": "12b7a4831f181d78e2cf6ae608445f80bb7ce738dcd32eded7fe2b0838bc50be",
+  "producerCommit": "f35f761891e76284489806b3ca881e5ba3bf5a7f",
+  "trackedProducerInputs": 521,
+  "changedTrackedInputs": [
+    "docs/helix/05-deploy/schema-browser/example-host.ts"
+  ],
+  "runtimeProducerInputsUnchanged": true,
+  "releaseMembers": 85,
+  "releaseManifestSHA256": "ca65e82f3ab7dcf71b72ec30e4c1fde822c6cd557f6678932e9491a9d6840243",
+  "checks": {
+    "sourceComparison": "97ba3d",
+    "rootAll85OriginalMemberComparison": "2b1e6e",
+    "custodyControls": "bb937b five focused controls",
+    "browser": "bda9c6"
+  },
+  "scope": "Immutable released runtime source correspondence to the named latest commit; no claim that every producer repository file or untracked dependency is Git-identical, and no broad native support claim."
+}

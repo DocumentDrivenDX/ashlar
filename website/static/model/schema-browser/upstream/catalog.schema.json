@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:umf:schema-browser:catalog:1",
+  "type": "object",
+  "required": [
+    "version",
+    "entries"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4000000
+          },
+          "url": {
+            "type": "string",
+            "format": "uri-reference"
+          },
+          "format": {
+            "enum": [
+              "json",
+              "yaml"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "schemaFormat": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "pack": {
+            "type": "string"
+          },
+          "packVersion": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "reference",
+                "url",
+                "format",
+                "dataKind",
+                "sha256"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "reference": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                },
+                "dataKind": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "annotations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/annotation"
+              }
+            }
+          },
+          "revisions": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "maxLength": 4000000
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri-reference"
+                },
+                "format": {
+                  "enum": [
+                    "json",
+                    "yaml"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "format"
+              ],
+              "oneOf": [
+                {
+                  "required": [
+                    "text"
+                  ],
+                  "not": {
+                    "required": [
+                      "url"
+                    ],
+                    "properties": {
+                      "url": {}
+                    }
+                  },
+                  "properties": {
+                    "text": {}
+                  }
+                },
+                {
+                  "required": [
+                    "url"
+                  ],
+                  "not": {
+                    "required": [
+                      "text"
+                    ],
+                    "properties": {
+                      "text": {}
+                    }
+                  },
+                  "properties": {
+                    "url": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "path",
+          "format"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "text"
+            ],
+            "not": {
+              "required": [
+                "url"
+              ],
+              "properties": {
+                "url": {}
+              }
+            },
+            "properties": {
+              "text": {}
+            }
+          },
+          {
+            "required": [
+              "url"
+            ],
+            "not": {
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {}
+              }
+            },
+            "properties": {
+              "url": {}
+            }
+          }
+        ]
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "annotation": {
+      "type": "object",
+      "required": [
+        "badge"
+      ],
+      "properties": {
+        "badge": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "tone": {
+          "enum": [
+            "neutral",
+            "info",
+            "positive",
+            "warning",
+            "negative"
+          ]
+        },
+        "tooltip": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    }
+  }
+}

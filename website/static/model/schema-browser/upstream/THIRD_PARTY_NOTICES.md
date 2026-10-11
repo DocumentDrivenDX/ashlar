@@ -586,35 +586,6 @@ Declared license: "MIT"
     SOFTWARE
 
 
-## ajv-draft-04@1.0.0
-
-Declared license: "MIT"
-
-### LICENSE
-
-MIT License
-
-Copyright (c) 2021 Evgeny Poberezkin
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
 ## ajv@8.20.0
 
 Declared license: "MIT"
@@ -643,33 +614,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-
-## avsc@5.7.9
-
-Declared license: "MIT"
-
-### LICENSE
-
-Copyright (c) 2015-2017, Matthieu Monsch.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 
 ## canonicalize@2.1.0
@@ -1162,6 +1106,21 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
+## prettier@3.9.8
+
+Declared license: "MIT"
+
+### LICENSE
+
+Copyright © James Long and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 ## rdf-canonize@5.0.0
 
 Declared license: "BSD-3-Clause"
@@ -1426,23 +1385,59 @@ THIS SOFTWARE.
 
 ## Retained bundled source notices
 
-// Copyright 2021-2026 Buf Technologies, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/*
+ * Copyright (c) 2016-2021 Digital Bazaar, Inc. All rights reserved.
+ */
 
 
 /*
  * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*
+ * Copyright (c) 2017-2019 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*
+ * Copyright (c) 2017-2023 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*
+ * Copyright (c) 2019 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*
+ * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*
+ * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/* --------------------------------------------------------------------------------------------
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * ------------------------------------------------------------------------------------------ */
+
+
+/*!
+ * Copyright (c) 2016-2022 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*!
+ * Copyright (c) 2016-2023 Digital Bazaar, Inc. All rights reserved.
+ */
+
+
+/*!
+ * Copyright (c) 2023 Digital Bazaar, Inc. All rights reserved.
  */
 
 
@@ -1483,88 +1478,76 @@ THIS SOFTWARE.
  */
 
 
-// Copyright 2021-2026 Buf Technologies, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 /**
- * Scalar value types. This is a subset of field types declared by protobuf
- * enum google.protobuf.FieldDescriptorProto.Type The types GROUP and MESSAGE
- * are omitted, but the numerical values are identical.
- */
-
-
-// Copyright 2021-2026 Buf Technologies, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-/**
- * Determine whether the given `arg` is a message.
- * If `desc` is set, determine whether `arg` is this specific message.
- */
-
-
-/*
- * Copyright (c) 2017-2019 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*
- * Copyright (c) 2017-2023 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*
- * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*
- * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*
- * Copyright (c) 2019 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-// Copyright 2021-2026 Buf Technologies, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-/**
- * Hydrate a message descriptor.
+ * An implementation of the RDF Dataset Normalization specification.
+ * This library works in the browser and node.js.
  *
- * @private
+ * BSD 3-Clause License
+ * Copyright (c) 2016-2023 Digital Bazaar, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * Neither the name of the Digital Bazaar, Inc. nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+
+// Copyright (c) Microsoft Corporation
+// Licensed under the MIT License.
+
+
+// Copyright (c) Microsoft Corporation
+// Licensed under the MIT license.
+
+
+// Copyright (c) Microsoft Corporation
+// Licensed under the MIT license.
+// TypeSpec Visibility System
+// --------------------------
+// This module defines the core visibility system of the TypeSpec language. The
+// visibility system is used to decide when properties of a _conceptual resource_
+// are present. The system is based on the concept of _visibility classes_,
+// represented by TypeSpec enums. Each visibility class has a set of _visibility
+// modifiers_ that can be applied to a model property, each modifier represented
+// by a member of the visibility class enum.
+//
+// Each visibility class has a _default modifier set_ that is used when no
+// modifiers are specified for a property, and each property has an _active
+// modifier set_ that is used when analyzing the visibility of the property.
+//
+// Visibility can be _sealed_ for a program, property, or visibility class
+// within a property. Once visibility is sealed, it cannot be unsealed, and any
+// attempts to modify a sealed visibility will fail.
+
+
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
+
+// Copyright (c) Microsoft Corporation.
+// Symbols for type destructuring
 
 
 // Copyright 2008 Google Inc.  All rights reserved.
@@ -1623,11 +1606,44 @@ THIS SOFTWARE.
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+
+// Copyright 2021-2026 Buf Technologies, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 /**
- * Return a fully-qualified name for a Protobuf descriptor.
- * For a file descriptor, return the original file path.
+ * Determine whether the given `arg` is a message.
+ * If `desc` is set, determine whether `arg` is this specific message.
+ */
+
+
+// Copyright 2021-2026 Buf Technologies, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+/**
+ * Hydrate a message descriptor.
  *
- * See https://protobuf.com/docs/language-spec#fully-qualified-names
+ * @private
  */
 
 
@@ -1650,99 +1666,42 @@ THIS SOFTWARE.
  */
 
 
-// Copyright (c) Microsoft Corporation
-// Licensed under the MIT License.
-
-
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT license.
-
-
-// Copyright (c) Microsoft Corporation
-// Licensed under the MIT license.
-
-
+// Copyright 2021-2026 Buf Technologies, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 /**
- * An implementation of the RDF Dataset Normalization specification.
- * This library works in the browser and node.js.
+ * Return a fully-qualified name for a Protobuf descriptor.
+ * For a file descriptor, return the original file path.
  *
- * BSD 3-Clause License
- * Copyright (c) 2016-2023 Digital Bazaar, Inc.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- *
- * Neither the name of the Digital Bazaar, Inc. nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
- * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
- * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * See https://protobuf.com/docs/language-spec#fully-qualified-names
  */
 
 
-// Copyright (c) Microsoft Corporation
-// Licensed under the MIT license.
-// TypeSpec Visibility System
-// --------------------------
-// This module defines the core visibility system of the TypeSpec language. The
-// visibility system is used to decide when properties of a _conceptual resource_
-// are present. The system is based on the concept of _visibility classes_,
-// represented by TypeSpec enums. Each visibility class has a set of _visibility
-// modifiers_ that can be applied to a model property, each modifier represented
-// by a member of the visibility class enum.
+// Copyright 2021-2026 Buf Technologies, Inc.
 //
-// Each visibility class has a _default modifier set_ that is used when no
-// modifiers are specified for a property, and each property has an _active
-// modifier set_ that is used when analyzing the visibility of the property.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// Visibility can be _sealed_ for a program, property, or visibility class
-// within a property. Once visibility is sealed, it cannot be unsealed, and any
-// attempts to modify a sealed visibility will fail.
-
-
-// Copyright (c) Microsoft Corporation.
-// Symbols for type destructuring
-
-
-/*
- * Copyright (c) 2016-2021 Digital Bazaar, Inc. All rights reserved.
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+/**
+ * Scalar value types. This is a subset of field types declared by protobuf
+ * enum google.protobuf.FieldDescriptorProto.Type The types GROUP and MESSAGE
+ * are omitted, but the numerical values are identical.
  */
-
-
-/*!
- * Copyright (c) 2016-2023 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*!
- * Copyright (c) 2016-2022 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/*!
- * Copyright (c) 2023 Digital Bazaar, Inc. All rights reserved.
- */
-
-
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */

@@ -1,0 +1,41 @@
+{
+  "name": "@documentdrivendx/umf-schema-browser",
+  "version": "1.1.0",
+  "description": "Reusable UMF tables, artifacts and ontology schema browser",
+  "type": "module",
+  "license": "(MIT OR Apache-2.0)",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js"
+    },
+    "./assets/*": "./assets/*",
+    "./catalog.schema.json": "./catalog.schema.json",
+    "./components.css": "./assets/components.css"
+  },
+  "files": [
+    "index.js",
+    "types",
+    "assets",
+    "README.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE",
+    "THIRD_PARTY_NOTICES.md",
+    "asset-manifest.json",
+    "catalog.schema.json",
+    "HOST_CONTRACT.md",
+    "CHANGELOG.md",
+    "provenance.json",
+    "release-manifest.json",
+    "SHA256SUMS",
+    "examples"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DocumentDrivenDX/umf.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

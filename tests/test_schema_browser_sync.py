@@ -30,7 +30,7 @@ def test_original_browser_custody_passes(tmp_path):
 
 def test_changed_browser_inputs_and_copy_refuse(tmp_path):
     root = copied(tmp_path)
-    paths = ('explorer.js', 'explorer.css', 'schema-catalog.json', 'index.html', 'host.css')
+    paths = ('upstream/assets/explorer.js', 'upstream/assets/explorer.css', 'upstream/index.js', 'schema-catalog.json', 'index.html', 'host.css', 'host.js')
     for name in paths:
         p = root / 'website/static/model/schema-browser' / name
         original = p.read_bytes()
@@ -65,8 +65,19 @@ def test_missing_upstream_git_pin_leaves_original_outputs(tmp_path):
     upstream = tmp_path / 'unqualified-upstream'
     upstream.mkdir()
     output = root / 'website/static/model/schema-browser'
-    before = {p.name: p.read_bytes() for p in output.iterdir()}
+    before = {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()}
     result = subprocess.run([sys.executable, str(root / 'tools/build_schema_browser.py'),
                              str(upstream)], capture_output=True)
     assert result.returncode != 0
-    assert {p.name: p.read_bytes() for p in output.iterdir()} == before
+    assert {str(p.relative_to(output)): p.read_bytes() for p in output.rglob('*') if p.is_file()} == before
+
+
+def test_missing_lazy_asset_and_extra_runtime_refuse(tmp_path):
+    root = copied(tmp_path)
+    assets = root / 'website/static/model/schema-browser/upstream/assets'
+    chunk = next(assets.glob('chunk-*.js'))
+    original = chunk.read_bytes(); chunk.unlink()
+    assert check(root) != 0
+    chunk.write_bytes(original)
+    (assets / 'unknown.js').write_text('changed')
+    assert check(root) != 0

@@ -1,0 +1,13 @@
+.umf-property-table,.umf-record-map-view,.umf-document-diff{font-family:var(--umf-font,system-ui);color:var(--umf-ink,inherit);background:var(--umf-paper,transparent);padding:var(--umf-space,1rem)}
+.umf-property-table th,.umf-property-table td{padding:.5rem;text-align:left;vertical-align:top;overflow-wrap:anywhere;border-bottom:1px solid var(--umf-line,#aaa)}
+.umf-record-map-view{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.umf-record-map-view section{border:1px solid var(--umf-line,#aaa);padding:1rem}.umf-record-map-view code{display:block}.umf-record-map-view button{font:inherit;color:inherit;background:transparent;border:1px solid currentColor;padding:.3rem;cursor:pointer}
+.umf-record-map-view button:focus-visible,.umf-document-diff summary:focus-visible{outline:3px solid var(--umf-focus,#467ac2);outline-offset:3px}.umf-document-diff pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.umf-record-map-view svg{display:block;width:100%;height:auto;min-width:650px}.umf-record-map-view .ontology-map{overflow:auto}.umf-record-map-view .map-controls{display:flex;gap:1rem;align-items:center}.umf-record-map-view .map-count{fill:currentColor;font-size:12px}.umf-record-map-view [data-status="created"],.umf-document-diff [data-status="created"]{color:#2d8459}.umf-record-map-view [data-status="changed"],.umf-document-diff [data-status="changed"]{color:#a36b19}.umf-record-map-view [data-status="removed"],.umf-document-diff [data-status="removed"]{color:#bd4c55}
+
+.umf-record-map-view .umf-annotation[data-tone="positive"],.umf-property-table .umf-annotation[data-tone="positive"]{background:#e2f5e9;color:#185e35}
+.umf-record-map-view .umf-annotation[data-tone="warning"],.umf-property-table .umf-annotation[data-tone="warning"]{background:#fff0cf;color:#704600}
+.umf-record-map-view .umf-annotation[data-tone="negative"],.umf-property-table .umf-annotation[data-tone="negative"]{background:#ffe3e3;color:#8e2424}
+.umf-record-map-view .umf-annotation[data-tone="info"],.umf-property-table .umf-annotation[data-tone="info"]{background:#dfedff;color:#204e87}
+
+.umf-record-map-view svg .umf-annotation{fill:currentColor;font-size:12px}.umf-record-map-view .umf-annotation,.umf-property-table .umf-annotation{border-radius:3px;padding:.1rem .35rem;margin-left:.3rem}
+.umf-record-map-view .umf-annotation[data-tone="neutral"]{color:inherit}.umf-record-map-view [role="link"]:focus-visible{outline:3px solid var(--umf-focus,#467ac2)}

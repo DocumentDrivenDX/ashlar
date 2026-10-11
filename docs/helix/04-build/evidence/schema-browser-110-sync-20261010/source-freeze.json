@@ -1,0 +1,519 @@
+{
+  "head": "6fb8bb82e5726df1d839658c9b644f8221ae7455",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/.gitattributes",
+      "bytes": 270,
+      "sha256": "53db1695d7cc5ef0a59a4970227c781aac0d21e2d0ebb4dc3dca59024202b92b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-002-signed-static-microsite.md",
+      "bytes": 5557,
+      "sha256": "5f1b441ffe22eede872646f8805c094a26ec9f754fa1ea66d8ca3deb06e831eb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_schema_browser_sync.py",
+      "bytes": 3338,
+      "sha256": "f44c5db59c5d3e8907866dece67b1a32cb342ce613ab6fb24f34e045f2a1c780"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/build_schema_browser.py",
+      "bytes": 4637,
+      "sha256": "f9917730d541b08d5bac2edc62f679565ae1dc7e5b66694e1df4b443ad6c05f2"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_schema_browser_browser.ts",
+      "bytes": 6983,
+      "sha256": "d462e20246afa9d461090a7b0b459758469a814df0979e9cb823c8157529d8ac"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/schema-browser/host.css",
+      "bytes": 1783,
+      "sha256": "02d217302ed9a25ebd84ee9f514d641fce910bbd3c8e5bc5bd2b4cf496c8144e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/schema-browser/host.js",
+      "bytes": 1182,
+      "sha256": "9882e890ca6b28749f9a38795de15ab89c4c14369f2d720ef9d1d91dda802853"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/schema-browser/index.html",
+      "bytes": 1009,
+      "sha256": "77aefa89c1ed105fa008db3054c58e78299cc4b7ac5790f704ff9fa9ff3a4562"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/scripts/check_schema_browser.py",
+      "bytes": 2497,
+      "sha256": "e2be009805311e6e32de9d9d39d79be3506a82f502566ad5c1bb03a95d340bde"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/host.css",
+      "bytes": 1783,
+      "sha256": "02d217302ed9a25ebd84ee9f514d641fce910bbd3c8e5bc5bd2b4cf496c8144e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/host.js",
+      "bytes": 1182,
+      "sha256": "9882e890ca6b28749f9a38795de15ab89c4c14369f2d720ef9d1d91dda802853"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/index.html",
+      "bytes": 1009,
+      "sha256": "77aefa89c1ed105fa008db3054c58e78299cc4b7ac5790f704ff9fa9ff3a4562"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/provenance.json",
+      "bytes": 21055,
+      "sha256": "8edb03f27b39302c45bd42ea681e6aceed52e5c05feda9ed7d7372c979a75431"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/schema-catalog.json",
+      "bytes": 144437,
+      "sha256": "8abe93eb1b9012eecd4deaf318f8ca85fcbb69d920b20c7b80957f7dc44c4e3b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/CHANGELOG.md",
+      "bytes": 744,
+      "sha256": "894e9f8cabb18053ed601f295c32a6a8c791aa3993c783c565be2e90a9e54c24"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/HOST_CONTRACT.md",
+      "bytes": 7437,
+      "sha256": "10a780524c2707d81f1b5bfafa8ff859bd6f71457fb6acdb62a4dbbdd49bdd1c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/LICENSE-APACHE",
+      "bytes": 11357,
+      "sha256": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/LICENSE-MIT",
+      "bytes": 1086,
+      "sha256": "f1409ffd0dff471f9f5078c8f2cc2c070147daae3197812234b5919c1f820702"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/README.md",
+      "bytes": 6196,
+      "sha256": "9057774770a512fedc34ab449508f5cda0ad6c17af61394b55f0bbef8df434bc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/SHA256SUMS",
+      "bytes": 7380,
+      "sha256": "636a8163a4ba0420534bca8649257e3b0f6fc1aef6bf3fab47b53fb6de438917"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/THIRD_PARTY_NOTICES.md",
+      "bytes": 78785,
+      "sha256": "89a0000560c2ecbce7f3298968b3565e28dbc77b40e907ec8ab77e827930f227"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/asset-manifest.json",
+      "bytes": 6148,
+      "sha256": "bc94c798af799bd09c9839c05aa3960edd5011eec68bd09579d460748f4e0657"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-0z2aecaa.js",
+      "bytes": 209180,
+      "sha256": "fb6fee06ce8f7ed8c99a14f1ac94d93c701eca199d408ef57ea70454f1777fbf"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-1h1dwzzj.js",
+      "bytes": 725,
+      "sha256": "5a1ffe4dd00b9de3a27605ef29637802b03d065e4d6e65a6451f989d6cdbafa2"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-1kehjsjn.js",
+      "bytes": 527,
+      "sha256": "266aed96cdb14ccfd1428c59d42c5110e2b0ac8b5ab3039ea1e027cbfa720629"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-20wajeyf.js",
+      "bytes": 460,
+      "sha256": "8b730aa695d7277a6eb8c2e742ec8fe072fc6ca5096d565679d59a999dc25027"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-24vsj7ef.js",
+      "bytes": 767909,
+      "sha256": "51fdf96d2a881a2a3d63d68a0d98a844c7ff55db74ddf4d4dd2cab729b556862"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-2rjcv58z.js",
+      "bytes": 19424,
+      "sha256": "ab3716dc229e92a0691e7fe4a85b7ffe7315d550bfb78058a31e6b418d21565f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-32d7p3q1.js",
+      "bytes": 2267,
+      "sha256": "2a9e1669c3c8454ae770b8b01f2674f44b1d9b48e1b101063c9a5d0c49ae539b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-3ye3sdav.js",
+      "bytes": 165246,
+      "sha256": "a556169c9abd053a1c18b0abef33e64470dac5cfa4da1a27782c673171c1ec5f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-4a4w2a6t.js",
+      "bytes": 9186,
+      "sha256": "44db3408351542f00191b6e3646f56b01ce90f1d99b85ffe34694e40c4baad45"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-4mz32e59.js",
+      "bytes": 13995,
+      "sha256": "0a177abff52ecb8fdfd01c710bd218a2e91d24a131b2f8adfdaac0a4a355eab5"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-51s4w0vf.js",
+      "bytes": 24782,
+      "sha256": "106f25663c4c0d717c055090144521db6d1d6f4c03f5ade539b1f115f02e1b53"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-6p6f7mkg.js",
+      "bytes": 670552,
+      "sha256": "42e7665e5bb78b3e4471c06616c9a505c798944f41131480bf7edf0ccc909a67"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-70fkwx26.js",
+      "bytes": 10689,
+      "sha256": "87e21037b8fefc6e10db751788e00327883030dfc3c8522b3dee451e9a2bc207"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-83zcx90h.js",
+      "bytes": 103043,
+      "sha256": "2c004772044e355bd9ff47abef6f51b60685291c0b88e47420859cf9f8fbe211"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-8yk5wb4w.js",
+      "bytes": 125,
+      "sha256": "b4c54dae002c08a504c97cbb4a1a2463254c585d2c7a27aead94b7662116989b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-9eq31szg.js",
+      "bytes": 4630,
+      "sha256": "32107a14e393a9372c5d50e10c078a0f69e1ab47f99c45a4f184051818f2f310"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-9q1y432v.js",
+      "bytes": 105404,
+      "sha256": "fb623def93e5ca99e5bed7ab4eabd536863c57c5f84ed7370997e8c1c7be7940"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-aqpt518h.js",
+      "bytes": 789,
+      "sha256": "5f11343061ccf2891f5478d1bc0bcd00c9268746aec82e73ab3ce41fdc83d796"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-b29kpdv8.js",
+      "bytes": 345,
+      "sha256": "a3d4a908961aa5e0a6e8177601fcc3be87020226c7a46508ca31d113dfa2cc32"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-bwr9zvdv.js",
+      "bytes": 527,
+      "sha256": "18b656d3c19c8bd4f86dca4c63e3b275085475599c00bc0d8260d36e57efcb19"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-d5m3h0gj.js",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-ebmwwswb.js",
+      "bytes": 227966,
+      "sha256": "60dc576ca3173abb754a6f9330fefe1d99beb375dc9dfda811e372ef9ef132d6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-ec5dqqcc.js",
+      "bytes": 12775,
+      "sha256": "fb6bfe1d73dfffb889742d797a1dba49408a936b43acde322afc8a3c73ea51cc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-f1j5a951.js",
+      "bytes": 93099,
+      "sha256": "2c5f69a792c91c85d1fbc824a631d27b343366d7ec25507399ba2047721c7106"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-f4r40ks6.js",
+      "bytes": 3457,
+      "sha256": "ae2df187bbf830345024766871c19a354b4a4b8570fe209a3f4b85084e8bd81a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-f6agqgzg.js",
+      "bytes": 1550,
+      "sha256": "870f92cf5d6a4e49f1deafc56127e34f37065e0d1c72b192d7cce28327a072b0"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-fc72bzb8.js",
+      "bytes": 208,
+      "sha256": "4fac1af54720f85a1b72268cd52ce577a7f4c61fd5196f3bbb7b317b5f83f880"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-g38t7vfz.js",
+      "bytes": 36665,
+      "sha256": "c280cd47819733eb0ba03b168c914e06de9487b6ed854211cb7bcb3571e440a4"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-gcyveaf5.js",
+      "bytes": 511,
+      "sha256": "d0614f5942e2adadb32f2b24f5781a900d7c514d8847b7d05138c20f04385993"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-gy0x88b2.js",
+      "bytes": 265,
+      "sha256": "ab0407847e589482dd8c85efcf81f408cb951245530bae8512d5ab8fcac27517"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-hb5zrt8g.js",
+      "bytes": 476,
+      "sha256": "1fe16bd058331cc4ad28f814c728d330da63bcfed39b64314a7eb6bd8ce033b8"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-jbyes3dd.js",
+      "bytes": 1296,
+      "sha256": "32297ac780d538b7d12115df9b2c44cd3601aa1f32c076f3ff5f1bcdf5665290"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-k39tn1cb.js",
+      "bytes": 5390,
+      "sha256": "ec35db245ebbe05d60bb250e55eeb33a7f7865f7d2dcc4305a97ad76dba985be"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-keh55rwe.js",
+      "bytes": 2037,
+      "sha256": "d120d06680ae93be55c1ccd580a3dd08d2d013f5a8738cfd582e6c618ff31d58"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-kk0yfkt7.js",
+      "bytes": 313,
+      "sha256": "4b35df6f35363522b9018980fbab123cab4a4e90795903fba82fa9fac6d42f17"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-mn5yg0m3.js",
+      "bytes": 13707,
+      "sha256": "2336ea79bbd013345037aa3591f52b16ef048c83781f1d38c1bfd84b0360cbbb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-mpg5a0b8.js",
+      "bytes": 81778,
+      "sha256": "0ed9cf14f3efbc4ad3bf0d408cb2f2d06251f15f6a451a8b83f2f4197a643e05"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-mxpsf9cr.js",
+      "bytes": 316497,
+      "sha256": "5d28f60bb95c125fbf54cf1a75cc1bb928a0de99bd192ff4363aca84fad2e646"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-njxjzmx7.js",
+      "bytes": 3070,
+      "sha256": "c309630d05402e0192bbd86588f03f32457132c8d6582abd9979564824732e8b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-ppzayd66.js",
+      "bytes": 10236,
+      "sha256": "bd35a472f252786f90cd3f15b950e3deff2e688d6a40d575d162e66d23f0f4c5"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-q47cz7hd.js",
+      "bytes": 55357,
+      "sha256": "5ba98e548b70db9e4f5e34d4b471e1aa53c7b7fb4bbf4ec0016d7dd051ee9b4e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-q4cy0pch.js",
+      "bytes": 350673,
+      "sha256": "1d40911022281a40303e962de188d375e9145145818adaabd1046d94eae5b165"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-r74y9m5p.js",
+      "bytes": 11341,
+      "sha256": "8b74eb9edeed03e75194382d643b4161b2e65d77047231f7f5714f7e3e071705"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-r7bfzq10.js",
+      "bytes": 6139,
+      "sha256": "ee18cca9536b6c64686b8515abf4078f5dadf517e7409f103eae0df229a3ef8f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-rp2g999f.js",
+      "bytes": 495,
+      "sha256": "e48eb091928e7f77f4e109397db70d843e28072d194a1f74d1c48517ff75ac4a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-rswqk2hm.js",
+      "bytes": 10341,
+      "sha256": "5818435b4d338978875427c30fb9b4b99c6b4e4f5adbd75ee7c22079c3930eb7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-s7seaa41.js",
+      "bytes": 218351,
+      "sha256": "7a5dd2b4c7c6f87ae325502a7b8632e8864e1a2c09bb4939942f48c48b3b0088"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-srnx31p8.js",
+      "bytes": 17726,
+      "sha256": "243eaf0ca7c7967a8248b74335a43378c0fbab8649b709df8d4eac2b84cc00ac"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-ssgvpp6a.js",
+      "bytes": 10063,
+      "sha256": "5ba22f5b0e22b11fe1666e9e1096aee11e8758883f5fb3b2572530536aac323b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-v1syax47.js",
+      "bytes": 2455,
+      "sha256": "9d9c395df646f387500b3a49251a9e4df1ad3d0c2eef66ff1113e3e4d8a75da2"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-vke373s2.js",
+      "bytes": 11828517,
+      "sha256": "2790b3b5eb88fd3172e9831d1691c3690db071e44c4e9e350e61ad07f670f3f2"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-vm0gdv8q.js",
+      "bytes": 587,
+      "sha256": "095d5c2c6e228e511b51306e558a2df4ea590327cda3239c0e5f4a27b950ef35"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-vn3y8bz5.js",
+      "bytes": 15763,
+      "sha256": "4dcdd551a63a3cac500c0707edd8e01fbdf34b107c4aa4e1cb687f244d888b8c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-wa21hh6r.js",
+      "bytes": 150002,
+      "sha256": "bba93dff3498639883daacdda89e1a78abcb11990e4026ea209fa04cb46d681f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-y3t0xt3f.js",
+      "bytes": 748,
+      "sha256": "6a00bd905f992d408123f0d529d0a7fab81cec764547627c04e9609eb490b106"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-y7jd4ry8.js",
+      "bytes": 572,
+      "sha256": "be3ec57103b859c4d425858d099246dc738974bd72434874e9d0d765dbeae131"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-y914jynq.js",
+      "bytes": 244,
+      "sha256": "618e9802911d292876e84c4993d1705a798b0f4525fc590066800f4300ae1b29"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-z5nrjwca.js",
+      "bytes": 13844,
+      "sha256": "2ca4de15d37e2ec8ce366a396f2397c03fb11bdad5076d76ac182b74c2a0a19d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-z6dftcy8.js",
+      "bytes": 7771,
+      "sha256": "310cd2a65ea0db67f86ead0c699faa0513d67ab16b94b885864fd3c1dbf78dd4"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/chunk-zt8w9atr.js",
+      "bytes": 17259,
+      "sha256": "2cee209b425d24d5e58e3b8c37f2f923b41331870be4f3a3865786a024f92278"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/components.css",
+      "bytes": 2474,
+      "sha256": "f386fa2f82e6a98c5983b60c8aba101d3cb63662a895a30a96706fa5d143ce3e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/explorer.css",
+      "bytes": 15958,
+      "sha256": "5ade0bbb0b591b655dbdf8481bbf56579f254574a8115824667cd237f6489ba3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/explorer.js",
+      "bytes": 79999,
+      "sha256": "40dc2d8c322d375c3cfee0dd5e1f3c53141bffba4eb4bfe42676ad1609076edc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/index.html",
+      "bytes": 1562,
+      "sha256": "56c75f4a3930400875a714ad6124ce4629724b259c065fc5f11f50b706f19a66"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/schema-catalog.json",
+      "bytes": 27,
+      "sha256": "e5a76fe3d134f87e636debc55cc15ac01dbd2bbf0ed1edac80c0f3b35a228eb3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/assets/style.css",
+      "bytes": 6956,
+      "sha256": "ae3219ad1307cd3ec3905cff113d6f7a439287cdd1230031453cca997db3c980"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/catalog.schema.json",
+      "bytes": 6166,
+      "sha256": "f55b13311de0b285a67e774a2726f110aa63005dc66b60bc056f70406b6bbe43"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/examples/host.css",
+      "bytes": 174,
+      "sha256": "df756d9a616dfef3e510f9db125152a0ff4a1da20e1decbd4fc6b4f3946ece98"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/examples/host.js",
+      "bytes": 1214,
+      "sha256": "cf55cdb79fb52b25ffc2021556e8d3e6e080cbaae95f10c24ea592b4aa01c0cc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/examples/index.html",
+      "bytes": 676,
+      "sha256": "eeedd6349cb0a068dc788ff313a4b5eed5f5f55782be0e76b80e070bc514d8da"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/index.js",
+      "bytes": 16133,
+      "sha256": "b6830abd7daa274a6b4c0fdb54e6eda0997845ab1fbadf5cfb498bc83bbe4716"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/package.json",
+      "bytes": 976,
+      "sha256": "f4a5eac57e4796956609ee32689c200c88a46ca21fb5bfaf4aa69f6fa482a108"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/provenance.json",
+      "bytes": 159994,
+      "sha256": "eb2f9347a04bde79d57fce4d819bc947d586141e4cf3c62ccd89427bdcd4cca7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/release-manifest.json",
+      "bytes": 8164,
+      "sha256": "ca65e82f3ab7dcf71b72ec30e4c1fde822c6cd557f6678932e9491a9d6840243"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/types/components.d.ts",
+      "bytes": 1567,
+      "sha256": "5ca02f8278b2e93ebd9017d302633428411466608559b4e1736f8c3ff1dd1c35"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/types/index.d.ts",
+      "bytes": 613,
+      "sha256": "8cd76321ce4765e780555792189af8d31a52db54e26b0723fffd0a58e39cb1bf"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/website/static/model/schema-browser/upstream/types/types.d.ts",
+      "bytes": 2812,
+      "sha256": "10bdb7943c43dde1cb7f8869bfe771021c3da5a10e49f1b7a100869e3e06c3c0"
+    }
+  ],
+  "deleted": [
+    "website/static/model/schema-browser/LICENSE-APACHE",
+    "website/static/model/schema-browser/LICENSE-MIT",
+    "website/static/model/schema-browser/THIRD_PARTY_NOTICES.md",
+    "website/static/model/schema-browser/explorer.css",
+    "website/static/model/schema-browser/explorer.js"
+  ],
+  "upstream": {
+    "latest": "0a6c86ff55ec469e76d895062098389845c21d64",
+    "release": "f35f761891e76284489806b3ca881e5ba3bf5a7f",
+    "packageSHA": "12b7a4831f181d78e2cf6ae608445f80bb7ce738dcd32eded7fe2b0838bc50be",
+    "correspondence": "521 tracked producer source inputs compared; only example-host.ts changed, all runtime inputs equal latest."
+  },
+  "checks": {
+    "custody": "bb937b five controls + guard + owned diffcheck PASS",
+    "browser": "bda9c6: full9source/download+8record/unknown-Delta parity at1440/390; explicit same-document hash navigation, persisted pagehide retains mount and final pagehide public destroy removes iframe. /private/tmp/ashlar-schema-browser-110-check-f/report.json"
+  },
+  "scope": "Complete unmodified released85-member package served under upstream; supported ESM mount in separate Ashlar shell and exact9-source catalog. No native semantic/enforcement claims. Foreign reference.md untouched.",
+  "supersedes": "A preserved; stale deleted-file whitespace rule removed; explicit hash-navigation/pagehide-destroy/persisted lifecycle controls added."
+}

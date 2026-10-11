@@ -47,6 +47,14 @@ outside Git and CI. CI verifies committed seals, requires one rendered
 attestation per page and refuses stale/unsealed content. It does not sign new
 copy automatically. The signature does not cover rendered HTML, layouts or CSS.
 
+The schema page hosts the complete pinned UMF schema-browser package through
+its public `mountSchemaBrowser` interface. Serve its original ESM, lazy asset
+closure, manifests and license notices together; retain Ashlar's original source
+catalog and separate host shell. Each mount isolates renderer markup/styles in
+an iframe. Host hash navigation uses the public selection API, and mount cleanup
+calls `destroy`. The browser inspects declarations and retained unknown content;
+it does not grant native validation, enforcement or graph-operation authority.
+
 ## Alternatives
 
 | Option | Benefits | Costs | Disposition |
