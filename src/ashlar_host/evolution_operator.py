@@ -183,16 +183,20 @@ class ExistingEvolutionOperator:
                     def renew_native():
                         if driver is None:
                             raise PermissionError('Native owner was not acquired; closing admission incomplete')
-                        driver.validate_evolution_run(original, context=context)
+                        with owned_context(driver.writer('original-continuation-native-closing', context)):
+                            driver.validate_evolution_run(original, context=context)
                     def renew_ledger():
                         if original is None:
                             raise PermissionError('Original continuation was not acquired')
-                        inventory = EvolutionRunLedger.inspect(invocation.ledger_path, original,
-                            context=context, custody=lease._ledger_custody)
                         if driver is None:
+                            inventory = EvolutionRunLedger.inspect(invocation.ledger_path, original,
+                                context=context, custody=lease._ledger_custody)
                             return lease.admit_ledger(original, inventory, context)
-                        selected_policy = run_policy if run_policy is not None else NativeEvolutionRunPolicy(driver, lease)
-                        selected_policy.admit_ledger(original, inventory, context)
+                        with owned_context(driver.writer('original-continuation-ledger-closing', context)):
+                            inventory = EvolutionRunLedger.inspect(invocation.ledger_path, original,
+                                context=context, custody=lease._ledger_custody)
+                            selected_policy = run_policy if run_policy is not None else NativeEvolutionRunPolicy(driver, lease)
+                            selected_policy.admit_ledger(original, inventory, context)
                     callbacks = [lambda: lease.renew(context),
                         lambda: lease.admit_run(original, context),
                         *(lambda item=item: renew_ack(item) for item in self.registrations),

@@ -312,6 +312,52 @@ class Tests(unittest.TestCase):
         self.assertEqual(events.count('native-ledger'), 1)
         self.assertEqual(self.closes, ['transport'] * 3); self.assertEqual(self.native_cleanup, ['native'] * 3)
 
+    def test_continuation_success_closing_requires_real_driver_writer(self):
+        from ashlar_host.evolution_cli import ContinueEvolutionInvocation
+        from dataclasses import replace
+        from types import SimpleNamespace
+        operator, fresh = self.installed(); context = self.driver.context
+        with ExistingEvolutionLease.open(operator, fresh, context) as lease:
+            with self.driver.writer('seed-original-custody', context):
+                original_run = self.driver.capture_evolution_run(fresh.request, context=context)
+                lease.admit_run(original_run, context)
+                ledger = EvolutionRunLedger.open(fresh.ledger_path, lease, context=context, original=original_run)
+                ledger.close()
+        invocation = ContinueEvolutionInvocation(fresh.ledger_path, fresh.receipt_path,
+            fresh.producer, original_run.sha256, 0)
+        admissions = self.driver.source_admission.admissions
+        def producer(config, *, source_system, epoch):
+            return next(item for item in admissions if item.prepared.source_system == source_system)
+        class Connection:
+            def rollback(self): pass
+            def close(self): pass
+        operator = replace(operator, registrations=tuple(OutboxAuthorityRegistration(item.source,
+            item.source_role, item.ack_role, item.database, lambda context: Connection())
+            for item in operator.registrations))
+        acquired = {}; observations = []
+        def query(statement, parameters):
+            current = acquired['driver']
+            current.require(current.context)
+            observations.append((statement, current.held))
+            if statement.startswith('DESCRIBE DETAIL '):
+                return SimpleNamespace(rows=[{'id': current.transport.targets[current.tables['attempts']].uuid}])
+            if statement.startswith('SELECT phase,request_digest,payload_json,payload_digest '):
+                return SimpleNamespace(rows=[])
+            raise AssertionError('Unexpected lower native query')
+        self.driver.transport.query = query
+        with patch('ashlar_host.evolution_operator.admit_commerce_evolution', side_effect=producer), \
+                patch('ashlar_host.evolution_operator.LocalDeltaTransport', return_value=self.driver.transport), \
+                patch('ashlar_host.evolution_operator.ExistingOutboxAuthority.admit_scope', return_value=None), \
+                patch('ashlar_host.evolution_operator.RegisteredOutboxSources.admit', return_value=None):
+            with operator.open_evolution(invocation) as config:
+                acquired['driver'] = config.driver
+                self.assertFalse(config.driver.held)
+            # Real NativeEvolutionRunPolicy/admit_ledger, NativeDriver full validator,
+            # DeltaAttemptStore and require execute; only SDK/native reads are inert.
+        self.assertTrue(observations); self.assertTrue(all(held for _, held in observations))
+        self.assertFalse(acquired['driver'].held)
+        self.assertEqual(self.closes, ['transport']); self.assertEqual(self.native_cleanup, ['native'])
+
     def test_actual_lease_original_run_resume_and_loss_refuse(self):
         operator, invocation = self.installed(); context = self.driver.context
         with self.assertRaises(PermissionError):
