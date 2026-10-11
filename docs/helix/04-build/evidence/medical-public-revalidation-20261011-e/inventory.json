@@ -1,0 +1,156 @@
+{
+  "profile": "ashlar-medical-public-revalidation-evidence/0.1",
+  "members": [
+    {
+      "member": "actual/baseline.bin",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/baseline.bin",
+      "bytes": 2746047,
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+    },
+    {
+      "member": "actual/bindings.bin",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/bindings.bin",
+      "bytes": 33403,
+      "sha256": "0888541366d71c4d27b4919a590120116b7a7a0efd770abcc03bcbc5c2d10e0a"
+    },
+    {
+      "member": "actual/child.stderr",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/child.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "actual/child.stdout",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/child.stdout",
+      "bytes": 269,
+      "sha256": "8a0185a0e29e83d2d5dc487c0c95299a895af7cb55e457ea6060bb8f65b8f6a1"
+    },
+    {
+      "member": "actual/graph.bin",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/graph.bin",
+      "bytes": 160290,
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4"
+    },
+    {
+      "member": "actual/metadata.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/metadata.json",
+      "bytes": 1562,
+      "sha256": "f98c198bb83d204adddb19e165fc27432194dd8d34bdc3ba640424310829257f"
+    },
+    {
+      "member": "actual/model.bin",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/model.bin",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8"
+    },
+    {
+      "member": "actual/oracle.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/oracle.json",
+      "bytes": 1047582,
+      "sha256": "b795bb7561cf234a30989156ef5be4610cd2fe15e06fac9428812c4350782904"
+    },
+    {
+      "member": "actual/outer.stderr",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e.outer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "actual/outer.stdout",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e.outer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "actual/public-result.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/public-result.json",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "member": "actual/receipt.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/receipt.json",
+      "bytes": 213,
+      "sha256": "8a99f6ff89119102d0f3ac343b7a4b0a89f18a42193ca938d91a191caf238793"
+    },
+    {
+      "member": "actual/revalidation.bin",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-work-e/revalidation.bin",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "member": "recipe/child.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/child.py",
+      "bytes": 3296,
+      "sha256": "bfa1f4ff04b2f5d65dfc97ad3ac01b6b763826ff983cee4d71e23a4afe083527"
+    },
+    {
+      "member": "recipe/configuration.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/configuration.json",
+      "bytes": 60225,
+      "sha256": "6b19bcaf766b964abe0c8ba2464d74c093508e9fd839f59860792c594b34f885"
+    },
+    {
+      "member": "recipe/custody.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/custody.py",
+      "bytes": 4690,
+      "sha256": "cd4485d36cacd0c5ac414c2300c1b975b2e6f486f4726d78782ca3c71512eaae"
+    },
+    {
+      "member": "recipe/entry-child.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/entry-child.py",
+      "bytes": 155,
+      "sha256": "f26347c7396b92be9d1c6c4a046bb6a5a0221151d1debec6184f349322554881"
+    },
+    {
+      "member": "recipe/entry-launcher.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/entry-launcher.py",
+      "bytes": 158,
+      "sha256": "4e7eaaca04557568b304ad7887295c191bfa6deaccc3d8ba91b68475ba544fa0"
+    },
+    {
+      "member": "recipe/entry-runner.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/entry-runner.py",
+      "bytes": 156,
+      "sha256": "de1a363520215f38affd7f2c2587d43862febdd2a4e27ab2f9c8608a37e0a4a9"
+    },
+    {
+      "member": "recipe/freeze-e.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/freeze-e.json",
+      "bytes": 2141,
+      "sha256": "8b87eb4be7ac92885813f92712fecdd50038e56f360a8a27bc9c70f11fa0f1a0"
+    },
+    {
+      "member": "recipe/launcher.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/launcher.py",
+      "bytes": 833,
+      "sha256": "065581d4006b36bd2142c2c0ccaf20013054d2aaed698737836852fc33167510"
+    },
+    {
+      "member": "recipe/runner.py",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-prep-e/runner.py",
+      "bytes": 2278,
+      "sha256": "e2b530dccbeb078d71bbab673a48fc20d2d5f90a9730bf3b2c0247db1031946c"
+    },
+    {
+      "member": "review/ashlar-medical-public-revalidation-root-actual-freeze-e.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-root-actual-freeze-e.json",
+      "bytes": 2895,
+      "sha256": "ce9c071fcc4d0a1baf1fe82a9e2dc014f94f3ec30e439b5be9abfeced25b882f"
+    },
+    {
+      "member": "review/ashlar-medical-public-revalidation-root-command-review-e.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-root-command-review-e.json",
+      "bytes": 650,
+      "sha256": "ea365438d58e9ab690e442d7b44f6e16d57c7baa8560d071066d2573f8ea159f"
+    },
+    {
+      "member": "review/ashlar-medical-public-revalidation-independent-actual-review-e.json",
+      "original": "/private/tmp/ashlar-medical-public-revalidation-independent-actual-review-e.json",
+      "bytes": 3553,
+      "sha256": "a75bfbdf31bc4a210f6e15877e4265f82017c00ed9a74879ecebd5c9e6fa0b36"
+    }
+  ],
+  "omitted": "Copied toolkit files and upstream UMF checkout are not bundled; all exact selected source pins remain in recipe configuration, with copied toolkit revision8eec159 and UMF8e76c74d."
+}
