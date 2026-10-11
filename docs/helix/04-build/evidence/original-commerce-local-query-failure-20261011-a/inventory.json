@@ -1,0 +1,702 @@
+{
+  "format": "ashlar-original-query-failure-evidence/0.1",
+  "sourceRevision": "e979c4086d5e458b4a86c88fd96a76b43ab3bd2f",
+  "members": [
+    {
+      "member": "originals/000-installed-host.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/installed-host.json",
+      "size": 790597,
+      "sha256": "546b748e8485f5c0325a18d27dded2dd025abdfdc7bc9cf476d268f76ecf4a9b"
+    },
+    {
+      "member": "originals/001-venv.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/venv.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/002-runtime-import.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/runtime-import.stdout",
+      "size": 624,
+      "sha256": "e8da29aacbdb28645fe99d733e618a9c371a19d8566e5ea640d53da44ddc25d3"
+    },
+    {
+      "member": "originals/003-runtime-import.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/runtime-import.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/004-venv.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/venv.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/005-query.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/query.stderr",
+      "size": 1059,
+      "sha256": "a7c24b8c4b948f49f23f2d8be3fa178a29adda6dd384027252d30188acc58635"
+    },
+    {
+      "member": "originals/006-outer-receipt.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/outer-receipt.json",
+      "size": 3595,
+      "sha256": "9f2bd5c3eca7d5c204edff4f32b8f34953578749f4cd1a02fd6b995b3fe888d3"
+    },
+    {
+      "member": "originals/007-install.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/install.stdout",
+      "size": 238,
+      "sha256": "353d1c316c90bd572a1e80ebb305c1b8851fa861383eb7781690772db5bc2a62"
+    },
+    {
+      "member": "originals/008-install.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/install.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/009-query.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/query.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/010-fresh-public-dataset.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-20261011-a/query/fresh-public-dataset.json",
+      "size": 2037521,
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16"
+    },
+    {
+      "member": "originals/011-.evolution-operator.lock",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/.evolution-operator.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/012-.pipeline-writer.lock",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/.pipeline-writer.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/013-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/014-.part-00000-2c26adc0-bd0f-4c3d-ac88-4fab765002c9-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-2c26adc0-bd0f-4c3d-ac88-4fab765002c9-c000.snappy.parquet.crc",
+      "size": 104,
+      "sha256": "a955e0ac7a26c58d58ea8651653d71cf012c96857bfa1c010a93287ab2a49655"
+    },
+    {
+      "member": "originals/015-.part-00000-43b4175b-a44c-420c-a85e-f5205e152a9f-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-43b4175b-a44c-420c-a85e-f5205e152a9f-c000.snappy.parquet.crc",
+      "size": 704,
+      "sha256": "d12b18e8e1317fa9ebde8b9e571903836f919245aec1713dbee66c9c90f639bc"
+    },
+    {
+      "member": "originals/016-.part-00000-50cf9014-1722-46a6-83e3-216f5576d3cd-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-50cf9014-1722-46a6-83e3-216f5576d3cd-c000.snappy.parquet.crc",
+      "size": 104,
+      "sha256": "6c07f9dd95d5d3fae6f091871fd44765bbb37b031cb803414591ca76696700bb"
+    },
+    {
+      "member": "originals/017-.part-00000-7cbe9928-afbf-42c8-a6a3-a683d7a7184f-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-7cbe9928-afbf-42c8-a6a3-a683d7a7184f-c000.snappy.parquet.crc",
+      "size": 528,
+      "sha256": "22fc448b086359262a1c4fa501fde7a1e48f59706831ca365b43ce8e2aa28fc8"
+    },
+    {
+      "member": "originals/018-.part-00000-bc816ff9-547d-4cff-9c9e-329666e522b3-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-bc816ff9-547d-4cff-9c9e-329666e522b3-c000.snappy.parquet.crc",
+      "size": 528,
+      "sha256": "ce34376cad3b191ec58859b94a9d85c8dba77ca993fda1e161f7f7aa6d2cb3b8"
+    },
+    {
+      "member": "originals/019-.part-00000-f80386d5-22e4-434a-9e6c-5bcb288ddb69-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/.part-00000-f80386d5-22e4-434a-9e6c-5bcb288ddb69-c000.snappy.parquet.crc",
+      "size": 16,
+      "sha256": "2814ac876802f1811133cbbb0ee678489634fb51fe13e86c375760fd89d76af1"
+    },
+    {
+      "member": "originals/020-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "ab951781c3922c38819c704df408751a6665753f234f3a8f3a5f4b5440dbed1f"
+    },
+    {
+      "member": "originals/021-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000001.json.crc",
+      "size": 24,
+      "sha256": "95a9cb31fcc069b1fecd5808724a5e6d93c792825d2dfa58096fe96fea885e82"
+    },
+    {
+      "member": "originals/022-.00000000000000000002.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "9ca85ae250c6dd97df06929ace3378c2d485561c82124fd872a281b5aa69574e"
+    },
+    {
+      "member": "originals/023-.00000000000000000003.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000003.json.crc",
+      "size": 32,
+      "sha256": "9e42fb5c0e60ee032558b05fa617fa689007e806a6dadd57448e859259a11c65"
+    },
+    {
+      "member": "originals/024-.00000000000000000004.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000004.json.crc",
+      "size": 32,
+      "sha256": "6706a0f94e60bda71b9cdc8cc2448b062c441eaa5edf5135f85dfe4848ec36e7"
+    },
+    {
+      "member": "originals/025-.00000000000000000005.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000005.json.crc",
+      "size": 32,
+      "sha256": "3a73a7f2dff19d0a7e1f365ccede93fcbc0baebcd62ef802dea4e7e7149c0c31"
+    },
+    {
+      "member": "originals/026-.00000000000000000006.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/.00000000000000000006.json.crc",
+      "size": 32,
+      "sha256": "a3af224c203d58a991e11f7003bb86b5fd2f206e57abe9a3f6fd43303155b472"
+    },
+    {
+      "member": "originals/027-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000000.json",
+      "size": 1120,
+      "sha256": "1450188a7d9413cf0cb41e64bca97dffaa7738f58449f8ed5a5f57f28a9e12fe"
+    },
+    {
+      "member": "originals/028-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000001.json",
+      "size": 1916,
+      "sha256": "a1d1ca8a090adbc01b2084faf7ef2e7c1f899c6bdb78f88d7ca714c2ad051281"
+    },
+    {
+      "member": "originals/029-00000000000000000002.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000002.json",
+      "size": 2830,
+      "sha256": "ea5c1ed7f6d99690537096de1a4266c50947a22a2b7a04393906da334de7e9a2"
+    },
+    {
+      "member": "originals/030-00000000000000000003.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000003.json",
+      "size": 2829,
+      "sha256": "094f4a56a69a607d21af4e7b66065991fbb0a6f6442ca5303c506d7570f31550"
+    },
+    {
+      "member": "originals/031-00000000000000000004.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000004.json",
+      "size": 2845,
+      "sha256": "ead48cd8b7d0894d6afc02185c0876418c06ba2b609578911dd5017a625dc509"
+    },
+    {
+      "member": "originals/032-00000000000000000005.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000005.json",
+      "size": 2850,
+      "sha256": "dc6cd92063620993df11f60bf6bc30ab58d379f2f0f60950a454e6134eb0e1ff"
+    },
+    {
+      "member": "originals/033-00000000000000000006.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/_delta_log/00000000000000000006.json",
+      "size": 2861,
+      "sha256": "4842d94a31e45d442525bb08d238a234bf9ad3605cd01aa341cdcf774e6720ff"
+    },
+    {
+      "member": "originals/034-part-00000-2c26adc0-bd0f-4c3d-ac88-4fab765002c9-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-2c26adc0-bd0f-4c3d-ac88-4fab765002c9-c000.snappy.parquet",
+      "size": 12161,
+      "sha256": "ec7de03531b7001fad64926383d4c43faafe760d1758ac70a5901ba139d78e71"
+    },
+    {
+      "member": "originals/035-part-00000-43b4175b-a44c-420c-a85e-f5205e152a9f-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-43b4175b-a44c-420c-a85e-f5205e152a9f-c000.snappy.parquet",
+      "size": 89045,
+      "sha256": "f75ebdce99e4606327ef94b19438f1d51a62b53ae803623e38e14690b2c31c43"
+    },
+    {
+      "member": "originals/036-part-00000-50cf9014-1722-46a6-83e3-216f5576d3cd-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-50cf9014-1722-46a6-83e3-216f5576d3cd-c000.snappy.parquet",
+      "size": 12162,
+      "sha256": "053608cd69b7df4b9f3a46a435f0f9b0ef8ed4b75070b056310e3df9386f2746"
+    },
+    {
+      "member": "originals/037-part-00000-7cbe9928-afbf-42c8-a6a3-a683d7a7184f-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-7cbe9928-afbf-42c8-a6a3-a683d7a7184f-c000.snappy.parquet",
+      "size": 66349,
+      "sha256": "379a2611252d233fc8deb7e51bd23d5ff5244a243dba007947914fbe0d7600e5"
+    },
+    {
+      "member": "originals/038-part-00000-bc816ff9-547d-4cff-9c9e-329666e522b3-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-bc816ff9-547d-4cff-9c9e-329666e522b3-c000.snappy.parquet",
+      "size": 66328,
+      "sha256": "f74af49f5047ce194db10f6a94429733a7a45b63db2158a82a8796aa0a3eb1bd"
+    },
+    {
+      "member": "originals/039-part-00000-f80386d5-22e4-434a-9e6c-5bcb288ddb69-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/attempts/part-00000-f80386d5-22e4-434a-9e6c-5bcb288ddb69-c000.snappy.parquet",
+      "size": 789,
+      "sha256": "2dc317491b4173995607af1048186d99be46220fa55deea76752daf13fc695e8"
+    },
+    {
+      "member": "originals/040-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/041-.part-00000-a74addb8-74fc-49bf-9c56-9f650db07ea0-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/.part-00000-a74addb8-74fc-49bf-9c56-9f650db07ea0-c000.snappy.parquet.crc",
+      "size": 100,
+      "sha256": "89cba78c96c556eafd840fad2446a0a08ec03247933e8aab29538281d968a11a"
+    },
+    {
+      "member": "originals/042-.part-00000-e150fb70-e672-4604-ae5c-0eeacef4d414-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/.part-00000-e150fb70-e672-4604-ae5c-0eeacef4d414-c000.snappy.parquet.crc",
+      "size": 28,
+      "sha256": "68d81d4ab56cab0203130c600baf25087b0c8ec2661f94f83f2cf55768f96822"
+    },
+    {
+      "member": "originals/043-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "size": 28,
+      "sha256": "d24296f8ecc4915eb9f74692b24deb041cba51ba5e767d8ce6772b99d9e0d9d2"
+    },
+    {
+      "member": "originals/044-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "size": 32,
+      "sha256": "f53380fe2f6d16890382fabad18e01d2d2e748677e25eca0428cbc4b62000d81"
+    },
+    {
+      "member": "originals/045-.00000000000000000002.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "aa60ca839e339fc4b1947d3c79fd4d1a59c18e6c31ee4629cf22fd421cb6c29b"
+    },
+    {
+      "member": "originals/046-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/00000000000000000000.json",
+      "size": 2267,
+      "sha256": "97789fb4a08042c27e19dd75c9bbe912b9fe4ae6a3f5cff54380259868ac63dc"
+    },
+    {
+      "member": "originals/047-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/00000000000000000001.json",
+      "size": 3062,
+      "sha256": "85e06f687aea4a954076a2809954b45193d97c7cb96258994d1c7deb2ea876b1"
+    },
+    {
+      "member": "originals/048-00000000000000000002.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/_delta_log/00000000000000000002.json",
+      "size": 2738,
+      "sha256": "3be0e79e7bcb405b5bdfea17edf72863e5a9e246e9dcbbe4cf358b94caf67cb6"
+    },
+    {
+      "member": "originals/049-part-00000-a74addb8-74fc-49bf-9c56-9f650db07ea0-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/part-00000-a74addb8-74fc-49bf-9c56-9f650db07ea0-c000.snappy.parquet",
+      "size": 11425,
+      "sha256": "7ddd582d3cfcdf4946b8bfbb975fbf8aa665f40c03ec65033368a04d9abbe4b5"
+    },
+    {
+      "member": "originals/050-part-00000-e150fb70-e672-4604-ae5c-0eeacef4d414-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/edge_current/part-00000-e150fb70-e672-4604-ae5c-0eeacef4d414-c000.snappy.parquet",
+      "size": 2118,
+      "sha256": "020f67f14bd9dc4f816552138a3127b29525658c5156e7bc30a2a7caa17fcc74"
+    },
+    {
+      "member": "originals/051-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/052-.part-00000-1ef20da5-4a3f-4a9c-8db8-fc13ef441141-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/.part-00000-1ef20da5-4a3f-4a9c-8db8-fc13ef441141-c000.snappy.parquet.crc",
+      "size": 16,
+      "sha256": "9f090fe9cf784c780106043df9faa69c3c25a626150511f971870e8f2bf292b0"
+    },
+    {
+      "member": "originals/053-.part-00000-d7d036fb-a007-4e8b-9d4f-7d6d96eae113-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/.part-00000-d7d036fb-a007-4e8b-9d4f-7d6d96eae113-c000.snappy.parquet.crc",
+      "size": 228,
+      "sha256": "a4c9186872da0506026d35aeb294d2eb6becd6b429c7d0af8cc6e2896f16d38e"
+    },
+    {
+      "member": "originals/054-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "7b9a36bc04863b23377958e39741a5e3da98e71245060bedd2a4f0f80a162058"
+    },
+    {
+      "member": "originals/055-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/.00000000000000000001.json.crc",
+      "size": 28,
+      "sha256": "1acad0b393276f9c4fc43ac4330600083c6d4ffeca59b6504af64552195df5d6"
+    },
+    {
+      "member": "originals/056-.00000000000000000002.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/.00000000000000000002.json.crc",
+      "size": 36,
+      "sha256": "23961e73c006d1ea0e15ea2a70fbc6e6bc23e37d310c7abca0fe7ab1b98dd806"
+    },
+    {
+      "member": "originals/057-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/00000000000000000000.json",
+      "size": 1256,
+      "sha256": "fbee022fb1f242b752777e1075dea0826711166861560372097c8be466a76e75"
+    },
+    {
+      "member": "originals/058-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/00000000000000000001.json",
+      "size": 2052,
+      "sha256": "a5343cfe2131a333289db0a0eb8069af8f0339220383e1c0a797bee0d9c0928e"
+    },
+    {
+      "member": "originals/059-00000000000000000002.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/_delta_log/00000000000000000002.json",
+      "size": 3293,
+      "sha256": "1d31f6514474e748dc16e2c687809e001c5a0f5dafde5d26b249b3e09ec0ee30"
+    },
+    {
+      "member": "originals/060-part-00000-1ef20da5-4a3f-4a9c-8db8-fc13ef441141-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/part-00000-1ef20da5-4a3f-4a9c-8db8-fc13ef441141-c000.snappy.parquet",
+      "size": 986,
+      "sha256": "88a2c4b3da453ba25729e043ed891ceaf469c1c44f6088b960a4af7b3a6b567e"
+    },
+    {
+      "member": "originals/061-part-00000-d7d036fb-a007-4e8b-9d4f-7d6d96eae113-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/manifest/part-00000-d7d036fb-a007-4e8b-9d4f-7d6d96eae113-c000.snappy.parquet",
+      "size": 27667,
+      "sha256": "17204cc39a46efab036b1b5af57af1bf7b5c1b59d887adf592b7cbb384130524"
+    },
+    {
+      "member": "originals/062-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/063-.part-00000-8ccdbe3f-6673-46ba-8867-f6154e419862-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/.part-00000-8ccdbe3f-6673-46ba-8867-f6154e419862-c000.snappy.parquet.crc",
+      "size": 24,
+      "sha256": "6f79a89f0b666d4bce559867c4709136336cb634ecda28cc82c4d7c2858dedfb"
+    },
+    {
+      "member": "originals/064-.part-00000-a381aa5b-9dd5-49fd-9c6b-243ef7ccfbf7-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/.part-00000-a381aa5b-9dd5-49fd-9c6b-243ef7ccfbf7-c000.snappy.parquet.crc",
+      "size": 92,
+      "sha256": "cdc79a4481ff98edae910ea4192a4d9b3323149c59b6f87cebfb7b7fefc8513c"
+    },
+    {
+      "member": "originals/065-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/.00000000000000000000.json.crc",
+      "size": 24,
+      "sha256": "12893d603675cbda86e00a0e95850e1bd135ca24975071f6cd216c2c93176274"
+    },
+    {
+      "member": "originals/066-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/.00000000000000000001.json.crc",
+      "size": 32,
+      "sha256": "b666c3aca0719671d5318fbaf4f8a7f9d723b396e79967668e1bc97ba8dd4489"
+    },
+    {
+      "member": "originals/067-.00000000000000000002.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "652706c366a181794cdabea30a53f7602df39319e0ed7077c36b92b1f5a35f95"
+    },
+    {
+      "member": "originals/068-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/00000000000000000000.json",
+      "size": 2033,
+      "sha256": "9b7873a0fa41b2dcaad6c1c37f7c178a339324e47673df217810240346826aef"
+    },
+    {
+      "member": "originals/069-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/00000000000000000001.json",
+      "size": 2828,
+      "sha256": "fa0161d1e120581abe9f9596d74db420ccc4a9e90af0dda94dff87cf0f253de1"
+    },
+    {
+      "member": "originals/070-00000000000000000002.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/_delta_log/00000000000000000002.json",
+      "size": 2728,
+      "sha256": "fbff55c5e1c9285dd3a2af5c139b5ec01ca370af0dc37e5d6ac324b2c3bafa1e"
+    },
+    {
+      "member": "originals/071-part-00000-8ccdbe3f-6673-46ba-8867-f6154e419862-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/part-00000-8ccdbe3f-6673-46ba-8867-f6154e419862-c000.snappy.parquet",
+      "size": 1860,
+      "sha256": "af1147d84160635662656d1a156f799dff7a62758b2883d2472d2bc41732f296"
+    },
+    {
+      "member": "originals/072-part-00000-a381aa5b-9dd5-49fd-9c6b-243ef7ccfbf7-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/object_current/part-00000-a381aa5b-9dd5-49fd-9c6b-243ef7ccfbf7-c000.snappy.parquet",
+      "size": 10265,
+      "sha256": "38a62cc2ddc4c2b2f0ab74813cb205c9d6550822a8190dc81c0551bf7b325679"
+    },
+    {
+      "member": "originals/073-operations.sqlite",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/operations.sqlite",
+      "size": 7204864,
+      "sha256": "9577f9a3cd7a62dcad3761cef1f4331e9b95f3843d2474e1762b71c5c79a3cca"
+    },
+    {
+      "member": "originals/074-operations.sqlite-shm",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/operations.sqlite-shm",
+      "size": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "member": "originals/075-operations.sqlite-wal",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/operations.sqlite-wal",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/076-operations.sqlite.lock",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/operations.sqlite.lock",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/077-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/078-.part-00000-8de0c9a9-89d6-447c-ab9f-693d6abe2288-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/.part-00000-8de0c9a9-89d6-447c-ab9f-693d6abe2288-c000.snappy.parquet.crc",
+      "size": 20,
+      "sha256": "df2a8a73dd0138e4be44508814c0fb582192d8b30aa7c2dc5719d1c34b350b21"
+    },
+    {
+      "member": "originals/079-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "503ab789fae747d88ab18d91ccb179e3639ac1865f11ad254baa5d2799cbb018"
+    },
+    {
+      "member": "originals/080-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "size": 28,
+      "sha256": "581eec33f7ccb9d23e3d4e0537b6b4a0d85bbc767cdee6c48f9b23285e468820"
+    },
+    {
+      "member": "originals/081-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/_delta_log/00000000000000000000.json",
+      "size": 1455,
+      "sha256": "c5f04347a20c8bb43ae6d8ae4fb659391315b20870a3774031e92ef10e2aa6e9"
+    },
+    {
+      "member": "originals/082-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/_delta_log/00000000000000000001.json",
+      "size": 2250,
+      "sha256": "7a17927cdc7dea557c0948b283b9e0474dba5750fa47375b5d9ee28a11eea944"
+    },
+    {
+      "member": "originals/083-part-00000-8de0c9a9-89d6-447c-ab9f-693d6abe2288-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/tombstone/part-00000-8de0c9a9-89d6-447c-ab9f-693d6abe2288-c000.snappy.parquet",
+      "size": 1177,
+      "sha256": "0ea551a219e794ae4e01137d0e4a4e0b6398ba32dc62e5ff1a4b9c03451ba65d"
+    },
+    {
+      "member": "originals/084-.ashlar-local-installation-reservation.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/.ashlar-local-installation-reservation.json",
+      "size": 1444,
+      "sha256": "7f8f920f916d54897add750aaca74f4406d4cb5b6e6dc5820bab68f08e40c10a"
+    },
+    {
+      "member": "originals/085-.part-00000-1622ca2b-ac76-4be7-9545-fb0814b5c287-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/.part-00000-1622ca2b-ac76-4be7-9545-fb0814b5c287-c000.snappy.parquet.crc",
+      "size": 16,
+      "sha256": "4f6c55ef20105d6b705bf55e8c002166552ab954c0d377299efaf808a1f83f78"
+    },
+    {
+      "member": "originals/086-.part-00000-6806286f-8238-4381-ac0b-6864c64045ba-c000.snappy.parquet.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/.part-00000-6806286f-8238-4381-ac0b-6864c64045ba-c000.snappy.parquet.crc",
+      "size": 180,
+      "sha256": "6d861292f901494f38c82bd476629a4f5103259e4c4c968550bdc410ee8cc0d5"
+    },
+    {
+      "member": "originals/087-.00000000000000000000.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "020c9221bf5c70cf2a578b8fa94f804c579da933663dc0606b0f44593897a055"
+    },
+    {
+      "member": "originals/088-.00000000000000000001.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "size": 24,
+      "sha256": "0a6b9d504cbe9b15ec7276001e69981e196c84989e323b34195c1549c6d7eb5a"
+    },
+    {
+      "member": "originals/089-.00000000000000000002.json.crc",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "size": 24,
+      "sha256": "b16e1affdc702b003c67105a8d15985f45ec680a909dd4c07731a08a9e930d78"
+    },
+    {
+      "member": "originals/090-00000000000000000000.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/00000000000000000000.json",
+      "size": 1108,
+      "sha256": "5945fe951486b103b46ed707ed21cafa464e0a7940ce0713446bcac5c14e1459"
+    },
+    {
+      "member": "originals/091-00000000000000000001.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/00000000000000000001.json",
+      "size": 1904,
+      "sha256": "4abccc9041b68742daa9f4e73240ee9fa63904a6e4947a28d094088b2eafa5b1"
+    },
+    {
+      "member": "originals/092-00000000000000000002.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/_delta_log/00000000000000000002.json",
+      "size": 1666,
+      "sha256": "d791a71609bb4229005d25703f185f5feb7ad87da77a1b8949755746288e871b"
+    },
+    {
+      "member": "originals/093-part-00000-1622ca2b-ac76-4be7-9545-fb0814b5c287-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/part-00000-1622ca2b-ac76-4be7-9545-fb0814b5c287-c000.snappy.parquet",
+      "size": 765,
+      "sha256": "9697ad418587a38d0313e18e657dcd9ce468a35e1f097d9b289fa464919b6476"
+    },
+    {
+      "member": "originals/094-part-00000-6806286f-8238-4381-ac0b-6864c64045ba-c000.snappy.parquet",
+      "original": "/private/tmp/ashlar-original-commerce-local-installed-20261011-e/native/whole_source_history/part-00000-6806286f-8238-4381-ac0b-6864c64045ba-c000.snappy.parquet",
+      "size": 21911,
+      "sha256": "8bae7d2e0a931ef2c8f7edcdc238ee34c3e23dd8727091c1627efd211d8ddcc1"
+    },
+    {
+      "member": "originals/095-runner-a.py",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/runner-a.py",
+      "size": 9779,
+      "sha256": "075d29207fe9727291d08c6e7db3c7bc042f5258e50e564416edc317f20e8024"
+    },
+    {
+      "member": "originals/096-entry-a.py",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/entry-a.py",
+      "size": 1363,
+      "sha256": "f09d0ed390180d2c685d24f2760e02f7b54fad6b9451a4e4b0284d0e0772aa03"
+    },
+    {
+      "member": "originals/097-provider-a.py",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/provider-a.py",
+      "size": 2339,
+      "sha256": "14c3203482e9ff32a5f26bdbbb09a89f197d094f6cd62615521ea17976800526"
+    },
+    {
+      "member": "originals/098-launch-a.py",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/launch-a.py",
+      "size": 3007,
+      "sha256": "a3208cdeb9755c60cc39c973b0373260546ce17e74a17cc5084c7c42411b21cc"
+    },
+    {
+      "member": "originals/099-command-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/command-a.json",
+      "size": 80839,
+      "sha256": "95b3503abbc8e735b5979b99b3b12a00b4d772bd5d9f36e4a3632c90a9ec5461"
+    },
+    {
+      "member": "originals/100-expected-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/expected-a.json",
+      "size": 4463,
+      "sha256": "66a4f958a0c65d3b97f2fdd46333222298f82b59770255db51a78a4a78945d45"
+    },
+    {
+      "member": "originals/101-query-sdk-correspondence-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/query-sdk-correspondence-a.json",
+      "size": 602,
+      "sha256": "9a76edea9f82526c0547aa8362415d8c7210e6c5424fa47b05b43612cb4f0b78"
+    },
+    {
+      "member": "originals/102-test-preparation-a.py",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/test-preparation-a.py",
+      "size": 5888,
+      "sha256": "0eab0aa9bd2f42d6d4d57c37b14ca408b7b141c6c40fb2b0568d96ad4d0e4916"
+    },
+    {
+      "member": "originals/103-launch-receipt-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/launch-receipt-a.json",
+      "size": 177,
+      "sha256": "d56be783a1d550ddf6050810b92adb46e5085589eae6d5ccdfd68bd574fcb5d8"
+    },
+    {
+      "member": "originals/104-outer-a.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/outer-a.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/105-outer-a.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-prep-a/outer-a.stderr",
+      "size": 740,
+      "sha256": "8554a215ce60c8b72a2a5d998a8274bba689e235ad7579f1fe4476ac61e790ec"
+    },
+    {
+      "member": "originals/106-ashlar-original-commerce-local-query-command-freeze-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-command-freeze-a.json",
+      "size": 3270,
+      "sha256": "15c2f3da260d2676968187b23354deddd7bbb078a04b69032c16736151a3842e"
+    },
+    {
+      "member": "originals/107-ashlar-original-commerce-local-query-independent-command-review-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-independent-command-review-a.json",
+      "size": 1653,
+      "sha256": "69cd36250ef2c95f11d8f068b5971b68ba07e390fb01b0d647445c5e214e59ff"
+    },
+    {
+      "member": "originals/108-ashlar-original-commerce-local-query-preflight-current-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-preflight-current-a.json",
+      "size": 419,
+      "sha256": "2539f3682a369b115fc49890d72c776960e5f4956e811f41226ec65e47c3d0c9"
+    },
+    {
+      "member": "originals/109-ashlar-original-commerce-local-query-census-preflight-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-census-preflight-a.json",
+      "size": 160,
+      "sha256": "1890fb21b5ef1e4511a606f01f233a7841a9d3df3cbb9334fe897337ab73c471"
+    },
+    {
+      "member": "originals/110-ashlar-original-commerce-local-query-census-terminal-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-census-terminal-a.json",
+      "size": 111,
+      "sha256": "1ae8a4b84888f587b9cb0fdafb5e86f74db91fc9d8d80b10471e3f9f8976cda7"
+    },
+    {
+      "member": "originals/111-ashlar-original-commerce-local-query-native-namespace-delta-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-native-namespace-delta-a.json",
+      "size": 255,
+      "sha256": "1d4039f535660739f7146a3940a2050551b86891ac63aa304d7861c0ea8a7609"
+    },
+    {
+      "member": "originals/112-ashlar-original-commerce-local-query-actual-freeze-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-actual-freeze-a.json",
+      "size": 667449,
+      "sha256": "d8a67569476a296fff4e485efa28366acc7849da54d7665b79660f4fb5d67756"
+    },
+    {
+      "member": "originals/113-ashlar-original-commerce-local-query-independent-actual-review-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-query-independent-actual-review-a.json",
+      "size": 1864,
+      "sha256": "33e9d037c9ef74108177a861ee689d5c443909035f11b7e35e87439e752c2a3e"
+    },
+    {
+      "member": "originals/114-ashlar-query-ack-provider-diagnosis-a.py",
+      "original": "/private/tmp/ashlar-query-ack-provider-diagnosis-a.py",
+      "size": 1423,
+      "sha256": "1c90a4d0364174703a938d956689d65ad202cfb7fcd56acdea14014bc3efbfad"
+    },
+    {
+      "member": "originals/115-ashlar-query-ack-provider-diagnosis-a.json",
+      "original": "/private/tmp/ashlar-query-ack-provider-diagnosis-a.json",
+      "size": 306,
+      "sha256": "9d1f01a6a62ae3dd7dabb5617ff5d57ee2137af5f43f3c6d9556e69dbf234a25"
+    }
+  ]
+}
