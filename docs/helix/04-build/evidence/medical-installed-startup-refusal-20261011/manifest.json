@@ -1,0 +1,69 @@
+{
+  "profile": "ashlar-medical-installed-startup-refusal/0.1",
+  "sourceRevision": "eac53b8d87199b771ffd5465abb84fb2de38285a",
+  "initializer": {
+    "session": 72122,
+    "terminalChunk": "944b4d",
+    "exit": 2,
+    "stdoutBytes": 0,
+    "remainingRootEntries": [
+      ".evolution-operator.lock"
+    ],
+    "remainingOutputEntries": [
+      "public-revalidation.json"
+    ],
+    "noDeltaDirectoriesOrJournalObserved": true,
+    "handoffReleased": false
+  },
+  "diagnostic": {
+    "session": 68395,
+    "terminalChunk": "9a09a3",
+    "exit": 1,
+    "nativePhaseBytes": 0,
+    "scope": "Actual supervised fresh-session entry refuses before JVM acquisition on exact closed native environment guard"
+  },
+  "cause": "Read-only isolated Python startup comparison adds only __CF_USER_TEXT_ENCODING; explicitly supplied UID-derived key preserves the closed environment. SelectedPySpark also explicitly writes authsocket/buffer environment fields, now selected consistently in source d59354aa.",
+  "passedScope": [
+    "Normal installed source/RECORD and import correspondence reviewed separately",
+    "Original public producer receipt retained",
+    "Actual startup refusal and retained incomplete state; no reset, journal repair or initializer retry",
+    "Actual isolated Python environment correspondence after explicit CoreFoundation selection",
+    "SelectedSpark4.0.1 JAR authentication time unitSECONDS/default15s inspected"
+  ],
+  "pending": [
+    "Fresh installed corrected native initialization",
+    "Protected medical source provisioning/publication/replay/read-only reopen"
+  ],
+  "files": [
+    {
+      "path": "configuration.json",
+      "bytes": 4498,
+      "sha256": "82c49981df5c54e670bb9dc39460f31cc76561fd991c5d0ec21bc9af3aca4dea"
+    },
+    {
+      "path": "darwin-startup-observation.json",
+      "bytes": 511,
+      "sha256": "6b482e9ff5e55eb5afd4615a9a2a96446fc65c7d643bd9d5c5fa35162f35602b"
+    },
+    {
+      "path": "initializer-stderr.log",
+      "bytes": 42,
+      "sha256": "87a830517221d53103a5d34731a8324d13f4ceccd9ecc6062f5f3c504e95e9a9"
+    },
+    {
+      "path": "public-revalidation.json",
+      "bytes": 480111,
+      "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745"
+    },
+    {
+      "path": "selected-spark-python-config.txt",
+      "bytes": 19171,
+      "sha256": "85578e0e243599d00b039ab88394bda9d64cef42599efde770488644831b922c"
+    },
+    {
+      "path": "session-diagnostic.json",
+      "bytes": 1271,
+      "sha256": "4ff2b9b2fc34ba1309ab27445d66bfe60dd93eaafcf4977e7baacdfa23204900"
+    }
+  ]
+}

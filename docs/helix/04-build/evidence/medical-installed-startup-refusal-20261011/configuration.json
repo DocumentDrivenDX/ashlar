@@ -1,0 +1,116 @@
+{
+  "profile": "ashlar-original-medical-local-initialization/0.1",
+  "output": "/private/tmp/ashlar-medical-initialization-installed-prep-b/native-output",
+  "root": "/private/tmp/ashlar-medical-initialization-installed-prep-b/native-root",
+  "installation_id": "64020609-0a94-4e64-8e4e-6ffccae8eefc",
+  "capacity": {
+    "profile": "ashlar-private-local-operation-capacity/0.1",
+    "max_intent_bytes": 8388608
+  },
+  "schemas": {
+    "path": "/private/tmp/ashlar-medical-initialization-installed-prep-b/schemas.json",
+    "bytes": 12472,
+    "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+  },
+  "runtime": {
+    "python": {
+      "path": "/private/tmp/ashlar-medical-installed-python312-20261011-a/bin/python3",
+      "bytes": 18058560,
+      "sha256": "4158f03e1bae2b759f25a1ba1fbdab8bfb7161eba4caf22e28f0915986625bbc"
+    },
+    "python_version": "3.12.14",
+    "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home",
+    "java": {
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/java",
+      "bytes": 51584,
+      "sha256": "2aee02a39a0817c27501e853728c28b79f48d114dbde7c88cbf698ecf1680f63"
+    },
+    "java_version": "21.0.12",
+    "jvm_config": {
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/lib/jvm.cfg",
+      "bytes": 29,
+      "sha256": "aa9efb969444c1484e29adecab55a122458090616e766b2f1230ef05bc3867e0"
+    },
+    "pyspark_root": "/private/tmp/ashlar-medical-installed-python312-20261011-a/lib/python3.12/site-packages",
+    "spark_version": "4.0.1",
+    "delta_root": "/private/tmp/ashlar-medical-installed-python312-20261011-a/lib/python3.12/site-packages",
+    "delta_version": "4.0.0",
+    "jars": [
+      {
+        "path": "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-spark_2.13-4.0.0.jar",
+        "bytes": 7727374,
+        "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e"
+      },
+      {
+        "path": "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-storage-4.0.0.jar",
+        "bytes": 69732,
+        "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+      }
+    ],
+    "qualification": {
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-b/runtime-selection.json",
+      "bytes": 6929,
+      "sha256": "752414d0c99141aa0b206ed22fc341682681de2096c8ef27fff043e972280a71"
+    }
+  },
+  "producer": {
+    "source": "/private/tmp/ashlar-umf-medical-boolean-cea3",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.2/bin/bun",
+    "git": "/usr/bin/git",
+    "timeout_seconds": 60,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "inputs": {
+    "model": {
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/model.bin",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8"
+    },
+    "graph": {
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/graph.bin",
+      "bytes": 160290,
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4"
+    },
+    "baseline": {
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/baseline.bin",
+      "bytes": 2746047,
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+    }
+  },
+  "source": {
+    "host": "127.0.0.1",
+    "port": 25436,
+    "database": "original_medical",
+    "authentication": "isolated-loopback-trust",
+    "scope": {
+      "service_schema": "ashlar_ack_medical",
+      "scope_id": "c4fe8636-8b86-4bdd-8e23-153ac980ae03",
+      "installation_id": "64020609-0a94-4e64-8e4e-6ffccae8eefc",
+      "consumer": "original-medical",
+      "feed": "private-original-medical-fixture",
+      "epoch": "original-medical-v1"
+    },
+    "source_schema": "ashlar_medical_source",
+    "source_signature_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "writer_role": "medical_writer",
+    "reader_role": "medical_reader",
+    "ack_role": "medical_ack",
+    "connect_seconds": 10,
+    "statement_ms": 60000,
+    "lock_ms": 5000
+  },
+  "bounds": {
+    "input_bytes": 4194304,
+    "rows": 10000,
+    "cell_bytes": 1048576,
+    "total_bytes": 16777216,
+    "stream_bytes": 1048576,
+    "receipt_bytes": 1048576,
+    "journal_bytes": 134217728,
+    "native_seconds": 300,
+    "whole_seconds": 510,
+    "master": "local[1]",
+    "driver_memory": "512m"
+  }
+}

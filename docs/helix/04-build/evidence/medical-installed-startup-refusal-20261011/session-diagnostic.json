@@ -1,0 +1,12 @@
+{
+  "failureType": "CalledProcessError",
+  "capture": {
+    "stdout": "{\"failureType\": \"PermissionError\", \"message\": \"Exact closed selected native environment required\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/private/tmp/ashlar-medical-native-diagnostic-20261011-a/probe.py\\\", line 13, in <module>\\n    with original_medical_native_session(owner,phase=phase)as spark:\\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py\\\", line 137, in __enter__\\n    return next(self.gen)\\n           ^^^^^^^^^^^^^^\\n  File \\\"/private/tmp/ashlar-medical-installed-python312-20261011-a/lib/python3.12/site-packages/ashlar_host/original_medical_native_session.py\\\", line 18, in original_medical_native_session\\n    raise PermissionError('Exact closed selected native environment required')\\nPermissionError: Exact closed selected native environment required\\n\", \"scope\": \"Private selected session diagnostic, no Delta or source effects\"}\n",
+    "stderr": "",
+    "status": 1,
+    "phase": "",
+    "complete": false,
+    "scope": "bounded owned stream prefixes"
+  },
+  "elapsedSeconds": 4.343966291053221
+}

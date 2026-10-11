@@ -1,0 +1,229 @@
+Compiled from "Python.scala"
+public final class org.apache.spark.internal.config.Python$ {
+  public static final org.apache.spark.internal.config.Python$ MODULE$;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_REUSE;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_TASK_KILL_TIMEOUT;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_USE_DAEMON;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_LOG_INFO;
+
+  private static final org.apache.spark.internal.config.OptionalConfigEntry<java.lang.String> PYTHON_DAEMON_MODULE;
+
+  private static final org.apache.spark.internal.config.OptionalConfigEntry<java.lang.String> PYTHON_WORKER_MODULE;
+
+  private static final org.apache.spark.internal.config.OptionalConfigEntry<java.lang.Object> PYSPARK_EXECUTOR_MEMORY;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_AUTH_SOCKET_TIMEOUT;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_FAULTHANLDER_ENABLED;
+
+  private static final java.lang.String PYTHON_WORKER_IDLE_TIMEOUT_SECONDS_KEY;
+
+  private static final org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_IDLE_TIMEOUT_SECONDS;
+
+  public static {};
+    Code:
+       0: new           #2                  // class org/apache/spark/internal/config/Python$
+       3: dup
+       4: invokespecial #34                 // Method "<init>":()V
+       7: putstatic     #36                 // Field MODULE$:Lorg/apache/spark/internal/config/Python$;
+      10: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+      13: dup
+      14: ldc           #40                 // String spark.python.worker.reuse
+      16: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+      19: ldc           #45                 // String 1.2.0
+      21: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+      24: invokevirtual #53                 // Method org/apache/spark/internal/config/ConfigBuilder.booleanConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+      27: iconst_1
+      28: invokestatic  #59                 // Method scala/runtime/BoxesRunTime.boxToBoolean:(Z)Ljava/lang/Boolean;
+      31: invokevirtual #65                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefault:(Ljava/lang/Object;)Lorg/apache/spark/internal/config/ConfigEntry;
+      34: putstatic     #67                 // Field PYTHON_WORKER_REUSE:Lorg/apache/spark/internal/config/ConfigEntry;
+      37: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+      40: dup
+      41: ldc           #69                 // String spark.python.task.killTimeout
+      43: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+      46: ldc           #71                 // String 2.2.2
+      48: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+      51: getstatic     #77                 // Field java/util/concurrent/TimeUnit.MILLISECONDS:Ljava/util/concurrent/TimeUnit;
+      54: invokevirtual #81                 // Method org/apache/spark/internal/config/ConfigBuilder.timeConf:(Ljava/util/concurrent/TimeUnit;)Lorg/apache/spark/internal/config/TypedConfigBuilder;
+      57: ldc           #83                 // String 2s
+      59: invokevirtual #87                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefaultString:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigEntry;
+      62: putstatic     #89                 // Field PYTHON_TASK_KILL_TIMEOUT:Lorg/apache/spark/internal/config/ConfigEntry;
+      65: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+      68: dup
+      69: ldc           #91                 // String spark.python.use.daemon
+      71: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+      74: ldc           #93                 // String 2.3.0
+      76: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+      79: invokevirtual #53                 // Method org/apache/spark/internal/config/ConfigBuilder.booleanConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+      82: iconst_1
+      83: invokestatic  #59                 // Method scala/runtime/BoxesRunTime.boxToBoolean:(Z)Ljava/lang/Boolean;
+      86: invokevirtual #65                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefault:(Ljava/lang/Object;)Lorg/apache/spark/internal/config/ConfigEntry;
+      89: putstatic     #95                 // Field PYTHON_USE_DAEMON:Lorg/apache/spark/internal/config/ConfigEntry;
+      92: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+      95: dup
+      96: ldc           #97                 // String spark.executor.python.worker.log.details
+      98: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     101: ldc           #99                 // String 3.5.0
+     103: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     106: invokevirtual #53                 // Method org/apache/spark/internal/config/ConfigBuilder.booleanConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     109: iconst_0
+     110: invokestatic  #59                 // Method scala/runtime/BoxesRunTime.boxToBoolean:(Z)Ljava/lang/Boolean;
+     113: invokevirtual #65                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefault:(Ljava/lang/Object;)Lorg/apache/spark/internal/config/ConfigEntry;
+     116: putstatic     #101                // Field PYTHON_LOG_INFO:Lorg/apache/spark/internal/config/ConfigEntry;
+     119: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     122: dup
+     123: ldc           #103                // String spark.python.daemon.module
+     125: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     128: ldc           #105                // String 2.4.0
+     130: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     133: invokevirtual #108                // Method org/apache/spark/internal/config/ConfigBuilder.stringConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     136: invokevirtual #112                // Method org/apache/spark/internal/config/TypedConfigBuilder.createOptional:()Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     139: putstatic     #114                // Field PYTHON_DAEMON_MODULE:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     142: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     145: dup
+     146: ldc           #116                // String spark.python.worker.module
+     148: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     151: ldc           #105                // String 2.4.0
+     153: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     156: invokevirtual #108                // Method org/apache/spark/internal/config/ConfigBuilder.stringConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     159: invokevirtual #112                // Method org/apache/spark/internal/config/TypedConfigBuilder.createOptional:()Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     162: putstatic     #118                // Field PYTHON_WORKER_MODULE:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     165: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     168: dup
+     169: ldc           #120                // String spark.executor.pyspark.memory
+     171: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     174: ldc           #105                // String 2.4.0
+     176: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     179: getstatic     #126                // Field org/apache/spark/network/util/ByteUnit.MiB:Lorg/apache/spark/network/util/ByteUnit;
+     182: invokevirtual #130                // Method org/apache/spark/internal/config/ConfigBuilder.bytesConf:(Lorg/apache/spark/network/util/ByteUnit;)Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     185: invokevirtual #112                // Method org/apache/spark/internal/config/TypedConfigBuilder.createOptional:()Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     188: putstatic     #132                // Field PYSPARK_EXECUTOR_MEMORY:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+     191: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     194: dup
+     195: ldc           #134                // String spark.python.authenticate.socketTimeout
+     197: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     200: invokevirtual #138                // Method org/apache/spark/internal/config/ConfigBuilder.internal:()Lorg/apache/spark/internal/config/ConfigBuilder;
+     203: ldc           #140                // String 3.1.0
+     205: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     208: getstatic     #143                // Field java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+     211: invokevirtual #81                 // Method org/apache/spark/internal/config/ConfigBuilder.timeConf:(Ljava/util/concurrent/TimeUnit;)Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     214: ldc           #145                // String 15s
+     216: invokevirtual #87                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefaultString:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigEntry;
+     219: putstatic     #147                // Field PYTHON_AUTH_SOCKET_TIMEOUT:Lorg/apache/spark/internal/config/ConfigEntry;
+     222: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     225: dup
+     226: ldc           #149                // String spark.python.worker.faulthandler.enabled
+     228: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     231: ldc           #151                // String When true, Python workers set up the faulthandler for the case when the Python worker exits unexpectedly (crashes), and shows the stack trace of the moment the Python worker crashes in the error message if captured successfully.
+     233: invokevirtual #154                // Method org/apache/spark/internal/config/ConfigBuilder.doc:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     236: ldc           #156                // String 3.2.0
+     238: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     241: invokevirtual #53                 // Method org/apache/spark/internal/config/ConfigBuilder.booleanConf:()Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     244: iconst_0
+     245: invokestatic  #59                 // Method scala/runtime/BoxesRunTime.boxToBoolean:(Z)Ljava/lang/Boolean;
+     248: invokevirtual #65                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefault:(Ljava/lang/Object;)Lorg/apache/spark/internal/config/ConfigEntry;
+     251: putstatic     #158                // Field PYTHON_WORKER_FAULTHANLDER_ENABLED:Lorg/apache/spark/internal/config/ConfigEntry;
+     254: ldc           #160                // String spark.python.worker.idleTimeoutSeconds
+     256: putstatic     #162                // Field PYTHON_WORKER_IDLE_TIMEOUT_SECONDS_KEY:Ljava/lang/String;
+     259: new           #38                 // class org/apache/spark/internal/config/ConfigBuilder
+     262: dup
+     263: getstatic     #36                 // Field MODULE$:Lorg/apache/spark/internal/config/Python$;
+     266: invokespecial #165                // Method PYTHON_WORKER_IDLE_TIMEOUT_SECONDS_KEY:()Ljava/lang/String;
+     269: invokespecial #43                 // Method org/apache/spark/internal/config/ConfigBuilder."<init>":(Ljava/lang/String;)V
+     272: ldc           #167                // String The time (in seconds) Spark will wait for activity (e.g., data transfer or communication) from a Python worker before considering it potentially idle or unresponsive. When the timeout is triggered, Spark will log the network-related status for debugging purposes. However, the Python worker will remain active and continue waiting for communication. The default is `0` that means no timeout.
+     274: invokevirtual #154                // Method org/apache/spark/internal/config/ConfigBuilder.doc:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     277: ldc           #169                // String 4.0.0
+     279: invokevirtual #49                 // Method org/apache/spark/internal/config/ConfigBuilder.version:(Ljava/lang/String;)Lorg/apache/spark/internal/config/ConfigBuilder;
+     282: getstatic     #143                // Field java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+     285: invokevirtual #81                 // Method org/apache/spark/internal/config/ConfigBuilder.timeConf:(Ljava/util/concurrent/TimeUnit;)Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     288: invokedynamic #187,  0            // InvokeDynamic #0:apply$mcZJ$sp:()Lscala/runtime/java8/JFunction1$mcZJ$sp;
+     293: ldc           #189                // String The idle timeout should be 0 or positive.
+     295: invokevirtual #193                // Method org/apache/spark/internal/config/TypedConfigBuilder.checkValue:(Lscala/Function1;Ljava/lang/String;)Lorg/apache/spark/internal/config/TypedConfigBuilder;
+     298: lconst_0
+     299: invokestatic  #197                // Method scala/runtime/BoxesRunTime.boxToLong:(J)Ljava/lang/Long;
+     302: invokevirtual #65                 // Method org/apache/spark/internal/config/TypedConfigBuilder.createWithDefault:(Ljava/lang/Object;)Lorg/apache/spark/internal/config/ConfigEntry;
+     305: putstatic     #199                // Field PYTHON_WORKER_IDLE_TIMEOUT_SECONDS:Lorg/apache/spark/internal/config/ConfigEntry;
+     308: return
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_REUSE();
+    Code:
+       0: getstatic     #67                 // Field PYTHON_WORKER_REUSE:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_TASK_KILL_TIMEOUT();
+    Code:
+       0: getstatic     #89                 // Field PYTHON_TASK_KILL_TIMEOUT:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_USE_DAEMON();
+    Code:
+       0: getstatic     #95                 // Field PYTHON_USE_DAEMON:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_LOG_INFO();
+    Code:
+       0: getstatic     #101                // Field PYTHON_LOG_INFO:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.OptionalConfigEntry<java.lang.String> PYTHON_DAEMON_MODULE();
+    Code:
+       0: getstatic     #114                // Field PYTHON_DAEMON_MODULE:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.OptionalConfigEntry<java.lang.String> PYTHON_WORKER_MODULE();
+    Code:
+       0: getstatic     #118                // Field PYTHON_WORKER_MODULE:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.OptionalConfigEntry<java.lang.Object> PYSPARK_EXECUTOR_MEMORY();
+    Code:
+       0: getstatic     #132                // Field PYSPARK_EXECUTOR_MEMORY:Lorg/apache/spark/internal/config/OptionalConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_AUTH_SOCKET_TIMEOUT();
+    Code:
+       0: getstatic     #147                // Field PYTHON_AUTH_SOCKET_TIMEOUT:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_FAULTHANLDER_ENABLED();
+    Code:
+       0: getstatic     #158                // Field PYTHON_WORKER_FAULTHANLDER_ENABLED:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  private java.lang.String PYTHON_WORKER_IDLE_TIMEOUT_SECONDS_KEY();
+    Code:
+       0: getstatic     #162                // Field PYTHON_WORKER_IDLE_TIMEOUT_SECONDS_KEY:Ljava/lang/String;
+       3: areturn
+
+  public org.apache.spark.internal.config.ConfigEntry<java.lang.Object> PYTHON_WORKER_IDLE_TIMEOUT_SECONDS();
+    Code:
+       0: getstatic     #199                // Field PYTHON_WORKER_IDLE_TIMEOUT_SECONDS:Lorg/apache/spark/internal/config/ConfigEntry;
+       3: areturn
+
+  public static final boolean $anonfun$PYTHON_WORKER_IDLE_TIMEOUT_SECONDS$1(long);
+    Code:
+       0: lload_0
+       1: lconst_0
+       2: lcmp
+       3: iflt          10
+       6: iconst_1
+       7: goto          11
+      10: iconst_0
+      11: ireturn
+
+  private org.apache.spark.internal.config.Python$();
+    Code:
+       0: aload_0
+       1: invokespecial #207                // Method java/lang/Object."<init>":()V
+       4: return
+
+  private static java.lang.Object $deserializeLambda$(java.lang.invoke.SerializedLambda);
+    Code:
+       0: aload_0
+       1: invokedynamic #219,  0            // InvokeDynamic #1:lambdaDeserialize:(Ljava/lang/invoke/SerializedLambda;)Ljava/lang/Object;
+       6: areturn
+}

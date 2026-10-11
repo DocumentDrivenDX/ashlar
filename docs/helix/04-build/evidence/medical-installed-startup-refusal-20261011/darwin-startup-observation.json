@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-medical-darwin-startup-environment/0.1",
+  "pythonVersion": "3.12.14",
+  "keys": [
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "PYSPARK_DRIVER_PYTHON",
+    "PYSPARK_PYTHON",
+    "PYTHONDONTWRITEBYTECODE",
+    "TZ",
+    "__CF_USER_TEXT_ENCODING"
+  ],
+  "closedEnvironmentUnchanged": true,
+  "scope": "Actual isolated Python startup only, no SDK/JVM/Delta/source effects. Intended explicit CoreFoundation key supplied independently; old installed wheel remains unchanged."
+}
