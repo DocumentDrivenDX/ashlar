@@ -1,0 +1,7 @@
+# Original two-source recovery timeout K
+
+Installed immutable Ashlar `08a10ca0fb347db78198a032a0a0642a679baa86` resumed the original F installation with the reviewed J resource limits. Preparation passed, then the native resume hit the unchanged 300-second capture limit. The whole workflow failed. Outer custody closing passed and the selected owned-process census was empty; native closing and a successful resume result were not established.
+
+The retained immutable local journal proves slot 1 advanced from publication-started to completed with a new descriptor. Slots 0 and 1 are locally completed; slots 2–7 remain unprepared. Original run and prior plan hashes remain unchanged. This is material local progression, not full eight-publication qualification or proof of native version stability. The complete result bags, retained old reads, exact replay and missing-journal workflow remain unproven by K.
+
+The archive preserves exact captures, copied local journal/intent/target observations, command/resource metadata and independent reviews. Read-only analyses are qualified source-call observations, not measured attribution of the timeout. All 319 prior-J cache payload omissions are individually hash-bound in the inventory; no runtime binary payload is duplicated. The [J evidence](../evolution-installed-native-timeout-20261011-j/README.md) retains prior provenance. No reset, reappend, new fault or cap increase occurred.
