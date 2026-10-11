@@ -87,6 +87,47 @@ class Tests(unittest.TestCase):
         result=subprocess.run([sys.executable,'-I','-B','-S','-c',code],stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
         self.assertEqual(result.returncode,0,result.stderr)
 
+    def test_publication_replay_exact_dispatch_phase_and_configuration_match(self):
+        import ashlar_host.original_medical_local_cli as owner
+        from ashlar_host.original_medical_local_configuration import OriginalMedicalPublicationConfig,OriginalMedicalReplayConfig
+        for operation,kind in [('publication',OriginalMedicalPublicationConfig),('replay',OriginalMedicalReplayConfig)]:
+            raw=json.dumps(self.fixture.configuration(operation)).encode();self.path.write_bytes(raw)
+            digest=hashlib.sha256(raw).hexdigest();entry=getattr(owner,'execute_original_medical_'+operation)
+            host='publish_original_medical_local' if operation=='publication' else 'replay_original_medical_local'
+            with patch.object(owner,host,return_value={'closing':True})as run:
+                self.assertEqual(entry(self.path,expected_sha256=digest,phase=self.phase),{'closing':True})
+                self.assertIs(type(run.call_args.args[0]),kind);self.assertIs(run.call_args.kwargs['supervision'],self.phase)
+                with self.assertRaises(ValueError):owner.execute_original_medical_initialization(self.path,expected_sha256=digest,phase=self.phase)
+                self.assertEqual(run.call_count,1)
+            cancel=GeneratorExit()
+            with patch.object(owner,host,side_effect=cancel):
+                with self.assertRaises(GeneratorExit)as caught:entry(self.path,expected_sha256=digest,phase=self.phase)
+                self.assertIs(caught.exception,cancel)
+            def drift(config,**kwargs):self.path.write_bytes(raw+b' ');return {'closing':True}
+            with patch.object(owner,host,side_effect=drift):
+                with self.assertRaises(Exception):entry(self.path,expected_sha256=digest,phase=self.phase)
+            self.path.write_bytes(raw)
+            self.events=[]
+            def capture(argv,**kwargs):
+                self.assertEqual(argv[5:7],['--operation',operation]);self.assertEqual(argv[-1],digest)
+                kwargs['renew']();return b'{"closing":true}',b''
+            with patch.object(owner.OriginalMedicalRuntimeCustody,'open',side_effect=self.custody),patch.object(owner,'capture_original_medical_worker',side_effect=capture):
+                self.assertEqual(getattr(owner,'run_original_medical_'+operation+'_command')(self.path),{'closing':True})
+            self.assertEqual(self.events,['open','renew','close'])
+
+    def test_public_publication_replay_dispatch_help_lazy_and_closed_options(self):
+        from ashlar.cli import main
+        root=Path(__file__).resolve().parents[1]
+        for command,function in [('publish-original-medical','run_original_medical_publication_command'),('replay-original-medical','run_original_medical_replay_command')]:
+            with patch.object(sys,'argv',['ashlar',command,'--configuration',str(self.path)]),patch('ashlar_host.original_medical_local_cli.'+function,return_value={'closing':True})as run,patch('builtins.print'):
+                main();self.assertEqual(run.call_args.args,(self.path,))
+            code="import sys;sys.path.insert(0,"+repr(str(root/'src'))+");from ashlar.cli import main;sys.argv=['ashlar',"+repr(command)+",'--help'];\ntry:main()\nexcept SystemExit as e:assert e.code==0\nassert not any(n.startswith('ashlar_host')or n.startswith('pyspark')for n in sys.modules)"
+            result=subprocess.run([sys.executable,'-I','-B','-S','-c',code],stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
+            self.assertEqual(result.returncode,0,result.stderr)
+            with patch.object(sys,'argv',['ashlar',command,'--configuration',str(self.path),'--read']),patch('sys.stderr'):
+                with self.assertRaises(SystemExit)as caught:main()
+                self.assertEqual(caught.exception.code,2)
+
     def test_actual_diagnostic_interval_routes_python_and_native_stdout(self):
         root=Path(__file__).resolve().parents[1]
         code="import sys,os;sys.path.insert(0,"+repr(str(root/'src'))+");from ashlar_host.original_medical_local_cli import _worker_diagnostic_interval;\nwith _worker_diagnostic_interval():\n print('python diagnostic');os.write(1,b'native diagnostic\\n')\nprint('protocol')"
