@@ -17,7 +17,69 @@ regular Python executable and `JAVA_HOME/bin/java` bytes by SHA256. The host
 uses isolated Python module selection (`-I -B -m`) and passes the environment explicitly; it does not discover an active Spark session
 or change a canonical Spark 4 / Delta 4 installation.
 
-The selected operator module exports:
+## Use the supplied retained-export provider
+
+For the retained profile, use `ashlar_host.graphframes_local_setup` to generate
+the operator adapter. Run setup in the separately installed, isolated Python
+environment that will own the query. Setup inspects existing inputs and writes
+configuration; it does not install dependencies or execute the producer or engine.
+
+First inspect the selected runtime with `inspect_local_graphframes_runtime`.
+Pass its exact worker revision, worker roots, SDK root and transitive roots as
+absolute `Path` values; root collections are tuples. Include the whole virtual
+environment, standard library, Java and JAR namespaces. The returned bytes are a
+candidate inventory. Independently review and select that inventory before
+writing it to the operator's `runtime_plan` path and supplying its digest.
+
+The closed operator JSON has profile `ashlar-retained-graphframes-local/0.1` and
+these required settings:
+
+| Settings | Operator input |
+| --- | --- |
+| `producer` | `pack` (`archaeology` or `ecology`), absolute `source`, `bun` and `git` paths, and explicit `timeout_seconds`, `maximum_output_bytes`, `maximum_receipt_bytes` |
+| `model`, `graph`, `pack`, `release`, `custody`, `runtime_plan` | Absolute original-file paths, each paired with its independently selected `<name>_sha256` |
+| `ack_scope` | The original protected ACK's exact `service_schema`, `scope_id`, `installation_id`, `consumer`, `feed` and `epoch` strings |
+| `lease` | A distinct absolute path in an existing private directory, outside producer/runtime roots |
+
+Select the public UMF checkout and producer limits according to the
+[finite-pack guide](finite-toolkit.md). Original digests and ACK scope
+express the trusted host's explicit retained-export selection. Inspection or a
+newly calculated hash cannot supply that authorization. The cooperative lease
+covers retained export use; it does not retain canonical Delta snapshots.
+
+Save an initial invocation using the JSON shape below and a closed operator
+configuration at the selected paths. A setup script can then use the public APIs:
+
+```python
+from pathlib import Path
+from ashlar_host.graphframes_cli import parse_graphframes_invocation
+from ashlar_host.graphframes_local_setup import (
+    parse_local_configuration, setup_retained_graphframes,
+)
+
+config = parse_local_configuration(
+    Path('/srv/ashlar/operators/retained-selection.json').read_bytes())
+invocation = parse_graphframes_invocation(
+    Path('/srv/ashlar/operators/initial-invocation.json').read_bytes())
+artifacts = setup_retained_graphframes(
+    config, invocation.runtime,
+    Path('/srv/ashlar/operators/archaeology-001'), invocation.output)
+print(artifacts)  # configuration, provider and provider_sha256 for the CLI below
+```
+
+Run that script with the selected environment's `python -I -B`. Setup and query
+output directories must be fresh. Use the returned paths and digest with
+`ashlar query-graphframes`. Each new run uses a fresh setup/output directory;
+the unchanged operator selection can reuse its lease after successful cleanup.
+A changed source, configuration, runtime member, import selector or protected
+ACK scope refuses use. Cleanup removes only the owned lease; foreign leases are
+preserved. Failed setup artifacts must be inspected before selecting another
+fresh directory.
+
+## Supply a custom host provider
+
+For another independently governed host policy, the selected operator module
+exports:
 
 ```python
 # Trusted operator code; byte selection is not source or lease authorization.
