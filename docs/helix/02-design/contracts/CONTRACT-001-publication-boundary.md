@@ -542,3 +542,65 @@ prefix profile remains distinct at ordinal seven. Full-run native qualification
 still requires all original prefix-union oracles, retained old reads, exact
 replay, durable two-source ACK/restart and missing-journal refusal evidence.
 Continuation does not authorize a larger resource cap or stale admission cache.
+
+### Explicit verification-only original ordinal
+
+A distinct typed verification invocation MAY select one completed absolute ordinal
+0–7 of the unchanged original eight-publication run, including an older completed
+publication after later appends. It MUST bind the original run digest, installation,
+complete ledger, producer and two source/ACK registrations, selected ordinal and
+existing descriptor. Selection MUST NOT truncate complete-run admission or grant
+source authority. Boolean/float ordinals, aliases, duplicate or unknown configuration
+members and implicit environment/default selections MUST refuse.
+
+Verification MUST NOT initialize, repair, reconstruct, prepare, publish, submit
+native effects, transition a ledger, append source transactions or submit an ACK.
+Before driver construction it MUST independently require the complete existing
+journal schema, original registry and reservations; missing custody MUST refuse
+before any constructor can create tables. Read-only ledger inspection MUST preserve
+all eight slots, completed-prefix ancestry, retained or uncertain original handles
+and unprepared suffix. The selected slot MUST already be completed; verification
+cannot resolve an uncertain slot or manufacture completion.
+
+Current held lease, original run/ledger, producer, ordinary source identity,
+permissions, signature, checkpoint, protected ACK and native publication admission
+MUST remain mandatory. Protected reconciliation is limited to SELECT/read-transaction
+commit of the exact existing request/manifest/receipt under its current owner. An
+absent or conflicting receipt MUST refuse; neither acknowledgement submission nor
+stored-publisher recovery may be reached. Transient exclusion, pins, read-side
+bookkeeping and bounded evidence output are permitted resource effects, not
+publication or source-progress advancement.
+
+The driver MUST own a bounded public complete-materialization-bag port for the four
+exact data roles at the selected immutable descriptor versions. A Snapshot identity,
+row count, digest-only assertion, private transport access or caller-authored oracle
+MUST NOT substitute. The port MUST compare complete schema/carriers, values,
+presence/null, tombstones, history and occurrence multiplicity against the original
+source-prefix union. Exact descriptor data-vector membership remains distinct from
+the complete six-target installation identity. Current UUID/location, complete native schema/rows/descriptor observations,
+retention and source/ACK correspondence MUST be independently checked; old reads
+MUST NOT refresh to current heads.
+
+Every acquired resource interval MUST independently attempt its required producer,
+configuration/runtime, source/ACK, original run/whole ledger and native/vector/bag
+closing, including opening/body failures and cancellation, while requisite lease,
+writer and pins remain held.
+One failed callback MUST NOT suppress another. Cleanup MUST preserve primary
+cancellation identity. Only successful closing and cleanup may release a bounded
+receipt identifying exact run, ordinal, descriptor/vector, four-bag evidence and
+observed completed prefix out of eight. It MUST distinguish selected verification
+from whole-run completion and qualification.
+
+Typed input, row, cell, total capture and receipt limits MUST have explicit owners
+and conjunctive enforcement before buffering/release; finite row counts alone do
+not establish byte capacity. Operator-selected finite process supervision MUST
+bound execution, streams and owned cleanup without implying an existing built-in
+timeout. No cap increase, stale observation cache or weakened admission is authorized.
+Safe bounded diagnostics remain governed by CONTRACT-006, without exception
+messages, locals, credentials or source identities.
+
+The [verification design](../technical-designs/TD-003-evolution-publication-verification.md)
+MUST preserve full eight-publication/32-bag, retained old-read, exact replay, durable
+two-source ACK/restart, missing-journal refusal and uncertain-operation obligations.
+Separately verified bags cannot replace recovery or discharge PUB-L1. Decomposed
+verification does not guarantee completion within a selected finite budget.
