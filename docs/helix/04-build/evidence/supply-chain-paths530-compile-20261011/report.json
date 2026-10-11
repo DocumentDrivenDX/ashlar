@@ -1,0 +1,433 @@
+{
+  "profile": "ashlar-original-supply-chain-paths530-public-compile/0.1",
+  "opening": {
+    "/private/tmp/ashlar-paths530-original-index-20261011.json": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/ashlar": "b387d044d7598b9fe44552b515fcdf7ce1dc3d83d150531045e141271daeac3a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/backend-manifest.json": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/provenance.json": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/ready.json": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/application-result-v0.4.schema.json": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/backend-manifest-v0.3.schema.json": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/weft-paths": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+  },
+  "closing": {
+    "/private/tmp/ashlar-paths530-original-index-20261011.json": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/ashlar": "b387d044d7598b9fe44552b515fcdf7ce1dc3d83d150531045e141271daeac3a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/backend-manifest.json": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/provenance.json": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/ready.json": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/application-result-v0.4.schema.json": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/backend-manifest-v0.3.schema.json": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/schemas/logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/weft-paths": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+  },
+  "results": [
+    {
+      "ordinal": 0,
+      "relationships": [
+        "items.lot_id",
+        "lots.product_id"
+      ],
+      "exit": 0,
+      "seconds": 0.214547333,
+      "request_sha256": "82e559d019ade5be1870afb4f0408976e616f8d83b7d6885a5c49d8f766dabb9",
+      "response_sha256": "9382e4be95df1b692e43d01219fc6f3e95f73660bd87d421c69bbc1c1cbed311",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 1,
+      "relationships": [
+        "containers.parent_id",
+        "containers.parent_id"
+      ],
+      "exit": 0,
+      "seconds": 0.12825874999999998,
+      "request_sha256": "370a3eb404f8458f6f616fbfdbea31c92667711564c1cb094d2a2b05fb652350",
+      "response_sha256": "0fddab3c86a3a6112f1581c6feab041f34c3b5f0d4736ae43846d20c8ce22c3f",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 2,
+      "relationships": [
+        "shipments.container_id",
+        "containers.parent_id"
+      ],
+      "exit": 0,
+      "seconds": 0.11661579200000005,
+      "request_sha256": "b438e2285f4504a342b2fdc183f8ac21d0aae26d97778fafd0b32e757fc53f97",
+      "response_sha256": "2ed16e59b4162d8ce16cea89a03e0e40d688a1bdb00afad28df9ff0304e04e66",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 3,
+      "relationships": [
+        "shipments.facility_id",
+        "facilities.organization_id"
+      ],
+      "exit": 0,
+      "seconds": 0.117475,
+      "request_sha256": "12ca812b1da2599ec2997a7b27f4b1817a26b72d0dd18c20d429838e655a6d97",
+      "response_sha256": "39e1a13af1333ede77575d0829dcd8bc0d278af9aea300e9522680a6721c0e0b",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 4,
+      "relationships": [
+        "events.shipment_id",
+        "shipments.container_id"
+      ],
+      "exit": 0,
+      "seconds": 0.14299908399999994,
+      "request_sha256": "c5c43d7df49b2dc15fa3eaa0d9f43c09601ef746fc0b515a78d1d46bbe5f6947",
+      "response_sha256": "d3a51be6d99bdc34d9da497ef30475ae46f35f60c943217913cf538e7b9daf0a",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 5,
+      "relationships": [
+        "events.shipment_id",
+        "shipments.facility_id"
+      ],
+      "exit": 0,
+      "seconds": 0.11758574999999993,
+      "request_sha256": "c07af79be11ac6bce58a0a437d7f4ff421b70a7d8e4da23a0b7a40067d601ee0",
+      "response_sha256": "74434c6f40afd5bfa208df7bafc2674bf7a35c46acefb28a6a656263ca54f217",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 6,
+      "relationships": [
+        "sensor_readings.container_id",
+        "containers.parent_id"
+      ],
+      "exit": 0,
+      "seconds": 0.12033158300000002,
+      "request_sha256": "d93423bf878db3b93d6af9e53da6e7b95dd85e14bddc05d6e4aa77ccdf32d73d",
+      "response_sha256": "947e332e3d82571fa34cea75b84a4f13417295d25b7551d612653eb77a1ab72c",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 7,
+      "relationships": [
+        "containment.item_id",
+        "items.lot_id"
+      ],
+      "exit": 0,
+      "seconds": 0.12057312499999995,
+      "request_sha256": "0fd9ed8fc329b911f8d797aab293ba5d12c62d15666fb1dc494e893fed56b552",
+      "response_sha256": "e2de054b1fd962271bf02658b3dc2d63c0763b9d909f950fa853de9c88cc5aac",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 8,
+      "relationships": [
+        "containment.container_id",
+        "containers.parent_id"
+      ],
+      "exit": 0,
+      "seconds": 0.11759487499999999,
+      "request_sha256": "d4fcb4a3e319f7100a86e605a0c5afa8051715c367e521825be622da42aa0d19",
+      "response_sha256": "3fa30d241888ef08b62f48e381b6a7428f7ec42bb86757b86fdfd7837d6467f8",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 9,
+      "relationships": [
+        "shipment_items.shipment_id",
+        "shipments.container_id"
+      ],
+      "exit": 0,
+      "seconds": 0.12128170799999993,
+      "request_sha256": "f8a49859145306a0bca409759a34189818de9ede1f07329f2144660ca0451b5b",
+      "response_sha256": "1be1ab9a39eae63d0cf181c1777fe2915428a9083010abe5207fe2451fcec995",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 10,
+      "relationships": [
+        "shipment_items.shipment_id",
+        "shipments.facility_id"
+      ],
+      "exit": 0,
+      "seconds": 0.11633083300000013,
+      "request_sha256": "c063d6d63fd001b5f198d8ed8bccca9443019b3ce1b987591a11bd47e045a1a5",
+      "response_sha256": "9d3f0be36d5f489b17a73064a36dceac71787fc8c9221725b7aaef45c8895e9e",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    },
+    {
+      "ordinal": 11,
+      "relationships": [
+        "shipment_items.item_id",
+        "items.lot_id"
+      ],
+      "exit": 0,
+      "seconds": 0.1200194160000001,
+      "request_sha256": "9da526b693b715f8c546d03fd80f94c367372f0158063cbf48274c9cc7256d9e",
+      "response_sha256": "c0252b9c73eb396b59458c8d0c692cfdda57a7fb028db13d0d4c4180374c1ffc",
+      "keys": [
+        "backend",
+        "bindingSha256",
+        "columns",
+        "compilerVersion",
+        "diagnostics",
+        "dialect",
+        "interfaceVersion",
+        "logicalPlan",
+        "modelPins",
+        "obligations",
+        "parameters",
+        "qualification",
+        "sql",
+        "status",
+        "targetContext"
+      ],
+      "status": "compiled",
+      "diagnostics": [],
+      "interfaceVersion": "weft-compile/0.4.0"
+    }
+  ],
+  "qualification": "Actual retained installed public CLI compiler only. Historical manifest is request data, not present publication authority. No SDK/native execution, source mutation, ACK or seven common query pass.",
+  "backend": {
+    "backendId": "ashlar.databricks.paths",
+    "backendVersion": "0.4.0-paths-candidate",
+    "interfaceVersion": "weft-backend/0.3.0",
+    "targetProfile": "spark4-delta4-paths-candidate"
+  },
+  "compilerVersion": "weft/0.1.0",
+  "dialect": "weft-sql/0.4.0",
+  "indexRevision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+  "realizationId": "weft-530ae35-paths-aarch64-apple-darwin-candidate",
+  "terminal": "1df07a",
+  "argv": [
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/ashlar",
+    "compile-weft-paths",
+    "--index",
+    "/private/tmp/ashlar-paths530-original-index-20261011.json",
+    "--installation",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "per_call_seconds_limit": 30,
+  "source_sha256": {
+    "src/ashlar_host/supply_chain_common_requests.py": "c7899949cbc4c9ac5b709c73836c1098c75e61cf0736741b0a3ae901adb2cb1a",
+    "src/ashlar_host/supply_chain_path_request.py": "d427d0c0db8a2242e510bc09f906116117ab909b18f72307cd47950e903963ed",
+    "src/ashlar_host/supply_chain_request.py": "0b256974c9d0d60fa6ad2dcf0b8c9a2d8a420355dd8e720f6e0f0e9a3fa16138"
+  }
+}

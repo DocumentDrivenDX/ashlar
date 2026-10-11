@@ -1,0 +1,22 @@
+{
+  "profile": "ashlar-supply-chain-paths530-compile-evidence/0.1",
+  "source_revision": "eb6b47ad4955139aacb2cc1ab068a7494b2f641c",
+  "files": [
+    {
+      "path": "actual.tar.gz",
+      "bytes": 180360,
+      "sha256": "ccfb39b9250038a84c43642687aa3595da7d96b0c929fc8d19e961322d3933e9"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 8407,
+      "sha256": "19b3a64b68d5ca2d69240c62264d3f83f113ddcd0ebff28d19b857c12bf293ba"
+    },
+    {
+      "path": "report.json",
+      "bytes": 15240,
+      "sha256": "948c0415590b941ca164c09bbfab5b6ddcc1c8bc2f3c8be0f2c0ecb4f3a96425"
+    }
+  ],
+  "qualification": "Actual retained installed public Paths530 compilation of all12 prepared two-hop requests, originalUMF0.8, unchanged originalfixedindex and installation fingerprints. Historicalmanifest is compileinput only, no current publication authority, actual result decoding, truncation controls, native execution or common query positive qualification."
+}
