@@ -1,0 +1,334 @@
+{
+  "format": "ashlar-retained-evidence/0.1",
+  "source_revision": "498e239d4f283c0c170a21b3753e628fcd328704",
+  "archive": {
+    "bytes": 2110792,
+    "sha256": "4425e77b7d48a5d057da6f8b851f45b69830791d9d4090063ae1f4a3f3585788"
+  },
+  "members": [
+    {
+      "path": "actual/00-build-phases.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/build-phases.json",
+      "bytes": 1515,
+      "sha256": "ac4c7ac7e6f22a7e19d40d3f4fb5af4a4a3d402c86b0577be962930523dca87f"
+    },
+    {
+      "path": "actual/01-installed-modules.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/installed-modules.json",
+      "bytes": 12916,
+      "sha256": "1318dba4324c2eb8065dcc0188e95006c56e7ac0d6732e602bc35631714c511e"
+    },
+    {
+      "path": "actual/02-model.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/model.json",
+      "bytes": 5612,
+      "sha256": "5e02256d5555e7da7c8137a9dae7a56df3a637005e43061d3ab054b245ead2b9"
+    },
+    {
+      "path": "actual/03-original-intent.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/original-intent.json",
+      "bytes": 119,
+      "sha256": "1a4e6ced64c8ef08392a09257eedbdb719329f693e8b4e80f5facaf8bbda5730"
+    },
+    {
+      "path": "actual/04-receipt.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/receipt.json",
+      "bytes": 576,
+      "sha256": "18ec3db9e7374289d606d14bc73a98d9f270cc50ce440bbb47808d0b49a10a20"
+    },
+    {
+      "path": "actual/05-installed-modules.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/installed-modules.json",
+      "bytes": 12916,
+      "sha256": "1318dba4324c2eb8065dcc0188e95006c56e7ac0d6732e602bc35631714c511e"
+    },
+    {
+      "path": "actual/06-model.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/model.json",
+      "bytes": 5612,
+      "sha256": "640434fcc46866b5a2740a106e61017c6220d3f57a7903043246c996f1047014"
+    },
+    {
+      "path": "actual/07-original-intent.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/original-intent.json",
+      "bytes": 119,
+      "sha256": "02567294491977e0a857d95972b79b9faa6fc67b6e5abc84bf996139db98834a"
+    },
+    {
+      "path": "actual/08-receipt.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/receipt.json",
+      "bytes": 576,
+      "sha256": "247ecd81683fe8706a16fdd80d70878ffe29e51a12b81b5c488f685d38e64633"
+    },
+    {
+      "path": "actual/09-installed-RECORD.csv",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/installed-RECORD.csv",
+      "bytes": 15755,
+      "sha256": "3f5c1d8c68616a9dc55f6a72e435d21cbcadb49878579b1bfc06a31c8824d463"
+    },
+    {
+      "path": "actual/10-installed-console.txt",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/installed-console.txt",
+      "bytes": 215,
+      "sha256": "b5a519c605672242e1bc7a4f7ac4fec192f2e87eb7854bef35f34d9f7b84d2a1"
+    },
+    {
+      "path": "actual/11-installed-custody.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/installed-custody.json",
+      "bytes": 349,
+      "sha256": "c5a9b01bea11076bf984d24d4af0c106169a024c4021cc98c8c79c2a42677a1e"
+    },
+    {
+      "path": "actual/12-invocation-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/invocation-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.json",
+      "bytes": 453,
+      "sha256": "bb07a870d1a6f1df27a3f11889e57bde967a00725c3878f305b5b30e6e3e6934"
+    },
+    {
+      "path": "actual/13-invocation-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/invocation-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.json",
+      "bytes": 453,
+      "sha256": "4140efd5373810400bc06ff5ecc64b96c5e4a46a462382e5c3e407cfe5430951"
+    },
+    {
+      "path": "actual/14-pip-install.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/pip-install.json",
+      "bytes": 235,
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "path": "actual/15-pip-install.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/pip-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/16-pip-install.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/pip-install.stdout",
+      "bytes": 176,
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "path": "actual/17-prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.json",
+      "bytes": 296,
+      "sha256": "009e05f832da0298902597399cf17c6f4f530444a725b2deb316f3ed899fd186"
+    },
+    {
+      "path": "actual/18-prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/19-prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.stdout",
+      "bytes": 558,
+      "sha256": "91856931b6cbeeb49697aa28e98a22bc7076660842efa1f2f7e18e48a1cdc9d9"
+    },
+    {
+      "path": "actual/20-prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.json",
+      "bytes": 296,
+      "sha256": "f18b221e1043ac530f3fe7b8b3d8ac472219f50a9ed4000a48dde3311744864e"
+    },
+    {
+      "path": "actual/21-prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/22-prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/prepare-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.stdout",
+      "bytes": 558,
+      "sha256": "4eae0810a3a79e8858247848cc7bfb47d77a52844dfa0c239dcc9785ea5ac93b"
+    },
+    {
+      "path": "actual/23-readback.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/readback.json",
+      "bytes": 231,
+      "sha256": "3c1f627f8db19ba63db910b04225eaea6179bfdbedaa5b1438187097f4d57243"
+    },
+    {
+      "path": "actual/24-readback.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/readback.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/25-readback.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/readback.stdout",
+      "bytes": 43,
+      "sha256": "bd40ca7e4be0d6a49e03fd212e5c5db6c34937bd653bb88969cf5440692d3c92"
+    },
+    {
+      "path": "actual/26-venv.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/venv.json",
+      "bytes": 226,
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "path": "actual/27-venv.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/venv.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/28-venv.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/venv.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/29-wheel.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/wheel.json",
+      "bytes": 229,
+      "sha256": "5d3da12cd52e304553635ab8f04ee488384dd4d062a643bcc7eeb35a1183bfd8"
+    },
+    {
+      "path": "actual/30-wheel.stderr",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/wheel.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/31-wheel.stdout",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/parent-phases/wheel.stdout",
+      "bytes": 760,
+      "sha256": "4117eb46513dbc20f813fb323464ab6d0004bd0b785bbb134281686dcf72bea7"
+    },
+    {
+      "path": "actual/32-readback.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/readback.json",
+      "bytes": 8563,
+      "sha256": "02d3814cef6d3c27986902885be61c4d1cf45babdd9cbbe239946f21bfd3183f"
+    },
+    {
+      "path": "actual/33-wheel-inventory.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/wheel-inventory.json",
+      "bytes": 23055,
+      "sha256": "e5607a1403d2db44ac4eca5b58377e86aceb97c1058fc2dbab8c8927e628a38f"
+    },
+    {
+      "path": "actual/34-ashlar-puppy-preparation-installed-20261010-e-outcome.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e-outcome.json",
+      "bytes": 439,
+      "sha256": "4475bcf0a4d75d7dc09ee8f8d11d849ae39d335a50acdfdb02a43155b196ef05"
+    },
+    {
+      "path": "actual/35-ashlar-puppy-preparation-installed-20261010-e-stderr.log",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/36-ashlar-puppy-preparation-installed-20261010-e-stdout.log",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/37-ashlar_ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.duckdb",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/ashlar_ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.duckdb",
+      "bytes": 798720,
+      "sha256": "6d6da3e372ca033168eebd736b6259901c7c670cb769315447763658ac3615d7"
+    },
+    {
+      "path": "actual/38-ashlar_a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.duckdb",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/carrier-a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/ashlar_a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.duckdb",
+      "bytes": 798720,
+      "sha256": "96fc5a02eacbaae49b67c25a8d2291baa5dd44a959cd4b8c38cc87f5762b3e16"
+    },
+    {
+      "path": "installation/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-20261010-e/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1027269,
+      "sha256": "913f5d033886304048e8d29d865922a22035b07d13a16415845469a4ba84709b"
+    },
+    {
+      "path": "recipe/ashlar-count-star-installed-cli-capture-a.py",
+      "original_path": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-actual-freeze-20261010-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-actual-freeze-20261010-e.json",
+      "bytes": 10590,
+      "sha256": "d98b4d74decf0f812499396e751669493a53d4af2b1340101808539deb2c80e7"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-build-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-build-20261010-e.py",
+      "bytes": 11749,
+      "sha256": "bc8dad52b9d987dfddc835227b141efa550ba2eaccca77b22572b07d15d1672a"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-command-20261010-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-command-20261010-e.json",
+      "bytes": 935059,
+      "sha256": "174c47bf83aab66a3ca1f3a40b015654ab08e119c427b9b28b991ef1bc06dada"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-freeze-20261010-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-freeze-20261010-e.json",
+      "bytes": 1528,
+      "sha256": "9969379429c1b03ff07a4da5ba7daaefac3f3ca8e614f943cf9c748fcd4f19e3"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-independent-actual-review-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-independent-actual-review-e.json",
+      "bytes": 1026,
+      "sha256": "125a203afc6267fe485b58f5b5ba40102844f4377c4e183648f55f899a9dca22"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-independent-command-review-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-independent-command-review-e.json",
+      "bytes": 1360,
+      "sha256": "58fc5f229aa2f2492d2789c0922c3461cc1bccef94a194a0382940f302b4567c"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-namespace-control-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-namespace-control-20261010-e.py",
+      "bytes": 3143,
+      "sha256": "a7133c9baf6f216887e49b4705e899bae86c0b4bbaff22980c7a08373b095ed0"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-provider-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-provider-20261010-e.py",
+      "bytes": 4672,
+      "sha256": "a745681ed22263251d5c29a654cac4d711b7d69561b4a9e506e2e8936f95dbf8"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-readback-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-readback-20261010-e.py",
+      "bytes": 4005,
+      "sha256": "ba3f254bf28bed9c4832bbcca8c53e94b7ba88a126815bb52475f558663c2b4d"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-receipt-control-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-receipt-control-20261010-e.py",
+      "bytes": 1537,
+      "sha256": "c1b2155c5eefbc57a04f4834ece8fd5aa54d30d2bdbeb36e82808023de53b5ac"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-runner-20261010-e.py",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-runner-20261010-e.py",
+      "bytes": 3453,
+      "sha256": "0568d8dcd3db6f42dd35ed2ffeccdb74ac6025048f800839d0c72527f4546bca"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-source-20261010-d.tar",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-source-20261010-d.tar",
+      "bytes": 3481600,
+      "sha256": "f4ff0384a7d92b3897210b72353b22e24716b54068b385af8c3953493a698490"
+    },
+    {
+      "path": "recipe/ashlar-puppy-preparation-installed-source-inventory-20261010-e.json",
+      "original_path": "/private/tmp/ashlar-puppy-preparation-installed-source-inventory-20261010-e.json",
+      "bytes": 33724,
+      "sha256": "b990783c271ebb46b68390c862eedca96715c08b3e3b85fcf8341be3ce9814c1"
+    }
+  ]
+}
