@@ -40,6 +40,17 @@ and the matching original ontology and graph under `examples/domain-packs/`.
 They produce 85 and 94 events respectively, retaining original field values,
 nulls and relationships with explicit development bindings.
 
+Prepare original UMF documents for later Truss catalog acceptance using the
+[explicit package/runtime configuration](examples/truss-catalog-preparation/README.md):
+
+```sh
+ashlar prepare-truss-catalog --config /absolute/path/to/preparation.json
+```
+
+Successful preparation retains original document and configuration bytes and
+complete producer result views. Catalog acceptance and feed registration require
+their own configured owners.
+
 Build the original historical medical candidate with its explicit reviewed public receipt:
 
 ```sh

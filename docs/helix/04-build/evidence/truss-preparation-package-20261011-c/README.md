@@ -1,0 +1,11 @@
+# Truss public package preparation — C
+
+A fresh offline wheel built through Truss's declared setuptools backend from immutable source 9c54bd66bff3995d7548b9ff6cb024f462fae52e passed the selected public preparation cases. The complete bundled producer assets, wheel RECORD, installed payload and selected dependency/import origins were checked. Bun 1.4.2 executed the packaged original producers. Ashlar invoked its public preparation CLI from an exact frozen source copy: base c0cc158b plus the separately reviewed host and CLI overrides. This is not a newly installed Ashlar-wheel qualification.
+
+Supported UMF 0.7.0 with an opaque unknown extension preserved original document and configuration bytes, acceptance-input carriers, archive, declarations, report evidence and owner observations. Unavailable observations remain explicit in the retained views. Unsupported UMF 99.0.0 produced the expected CLI exit 2, empty stdout and generic stderr, while retaining the original configuration and owner refusal diagnostics; no successful receipt remained.
+
+Authoritative session 86219 ended with exit 0 (chunk 5f7d1d); this attribution is retrospective metadata. Inner and outer whole-success/resource-closing receipts are positive. Exact copied/generated source, dependency, installed, host and wheel inventories were independently renewed. The current postterminal selected census is empty. A transient Bun process was observed earlier but disappeared before its ancestry could be established; the evidence retains that observation without attributing ownership.
+
+The package command used finite 510/540-second runner/outer budgets and the public functional child limit of 60 seconds. The wheel, all returned views, actual configurations, raw phase outputs, import/closing records, inventories, reviews and held preparation freezes are retained. Copied Git source payload streams and dependency/SDK trees are omitted with exact pins, avoiding duplicate package/source trees. The complete original Truss wheel is retained.
+
+This proves original UMF preparation only. Selected installation profiles remain unverified. It establishes no catalog acceptance, accepted identities, feed or ACK capability, database readiness, cloud behavior, or completion of P10. No package download, database operation or retry was part of the run.
