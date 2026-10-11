@@ -1,0 +1,36 @@
+{
+  "profile": "ashlar-fabric-parameterized-query-evidence/0.1",
+  "outcome": "16 actual native GQL checks passed with independently recomputed adjacency bag oracle",
+  "sourceFiles": [
+    {
+      "path": "tools/check_fabric_releases.py",
+      "bytes": 8225,
+      "sha256": "aa9751c19bf6e6ecf1c6b0d0a6b55c4be28dd1da53778238bf1945b2a45d6a0a"
+    },
+    {
+      "path": "tests/test_check_fabric_releases.py",
+      "bytes": 3442,
+      "sha256": "af199a3d2ad9d97bde4f2d066631861d94365919999fefb07c1957ab2298f20c"
+    }
+  ],
+  "files": [
+    {
+      "path": "parameterized-corpus-e.json",
+      "bytes": 33515,
+      "sha256": "5a7a3ecf249a7a2ceb97e487b34efefa14bfb6f8f15ab703679d2cf8efa8d6f1"
+    },
+    {
+      "path": "parameterized-corpus-f.json",
+      "bytes": 103539,
+      "sha256": "377dcd993e30b8b1bf6a22921d245ca436d8401959c7ccb99aa280b6344432b5"
+    }
+  ],
+  "scope": "Actual frozen synthetic release fixtures only; no public reader, production publication authority, retained source custody or continuous refresh guarantee. Distinct-edge two-hop and explicit WALK repeatable-edge semantics are checked separately; native results, not defaults, determine qualification.",
+  "failureRetained": "First parameterized run stopped at reserved count alias value; fixed row_count fresh run passed, no automatic retry.",
+  "pending": [
+    "Publication-bound public Fabric reader authority integration",
+    "Representative domain-pack Fabric execution",
+    "Parameterized graph/Delta setup workflow"
+  ],
+  "guide": "examples/fabric/README.md"
+}
