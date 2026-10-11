@@ -950,6 +950,12 @@ class NativeDriver:
                 raise PermissionError('Exact original native target inventory required')
             return tuple((table,target.uuid,str(target.path)) for table,target in sorted(targets.items()))
         original_targets=targets_snapshot(self.transport)
+        graph_roles=('object_current','edge_current','tombstone','whole_source_history')
+        installation_roles=graph_roles+('attempts','manifest')
+        table_mapping=getattr(self,'tables',None)
+        original_role_tables=(tuple(sorted(table_mapping.items()))
+            if type(table_mapping) in (dict,MappingProxyType)
+            and all(type(k)is str and type(v)is str for k,v in table_mapping.items()) else None)
         original_versions=tuple(sorted(versions.items()))
         if any(type(version)is not int or version<0 for _,version in original_versions):raise PermissionError('Exact original native versions required')
         original_reservation=self.transport.reservation
@@ -1014,7 +1020,7 @@ class NativeDriver:
                 self.require(registration,context)
             def observe(self, registration, context):
                 self.require(registration,context)
-                for table,version in original_versions:
+                for table,uuid,path in original_targets:
                     target=original_transport.targets[table]
                     result=original_transport.query('DESCRIBE DETAIL `'+ '`.`'.join(table.split('.'))+'`',{})
                     if (type(result.rows) is not list or len(result.rows)!=1
@@ -1042,9 +1048,20 @@ class NativeDriver:
         graph_sources=RegisteredOutboxSources((selected.source,),ExistingOutboxAuthority((selected,),identity))
         def current_graph_source(vector, context):
             from ashlar.pins import PinVector
-            if type(vector) is not PinVector or len(original_versions)!=6:
+            current_tables=getattr(owner,'tables',None)
+            if (type(vector) is not PinVector or original_role_tables is None
+                    or type(current_tables) not in (dict,MappingProxyType)
+                    or any(type(k)is not str or type(v)is not str for k,v in current_tables.items())
+                    or tuple(sorted(current_tables.items()))!=original_role_tables):
                 raise PermissionError('Exact complete original graph vector required')
-            expected=manifest_pin_vector(json.loads(original_manifest),{t:u for t,u,path in original_targets},authority='private-local-process')
+            role_tables=dict(original_role_tables)
+            if (set(role_tables)!=set(installation_roles)
+                    or len(set(role_tables.values()))!=6
+                    or {t for t,u,path in original_targets}!=set(role_tables.values())
+                    or {t for t,v in original_versions}!={role_tables[r]for r in graph_roles}):
+                raise PermissionError('Original declared graph data vector and installation roles differ')
+            original_uuids={t:u for t,u,path in original_targets}
+            expected=manifest_pin_vector(json.loads(original_manifest),{t:original_uuids[t]for t,v in original_versions},authority='private-local-process')
             if vector!=expected:raise PermissionError('Original graph vector differs')
             identity.observe(selected.source,context)
             if graph_sources.metadata()!=original_sources.metadata():raise PermissionError('Original graph source registration differs')

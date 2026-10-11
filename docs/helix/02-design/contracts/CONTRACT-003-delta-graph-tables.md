@@ -651,7 +651,7 @@ authorize a result or replace those checks.
 The installed original-commerce GraphFrames profile MUST preserve the declared
 UMF0.8 model, exact original graph and transaction, development identity bindings,
 and independently admitted current ordinary source and protected-ACK custody.
-Its live mode MUST retain the complete original six-table publication reader
+Its live mode MUST retain the complete original publication reader
 interval through isolated engine execution and closing renewal. It MUST prove
 all four unchanged authored commerce scenarios and seven common graph operations,
 including complete node/edge carriers, relationship occurrence bags, one/two-hop
@@ -662,6 +662,14 @@ Raw arithmetic guards and results MUST be retained before comparison. An opened
 reader carrier establishes correspondence only: current driver, source, pins and
 ordinary protected-ACK admission remain mandatory on every use. Existing installed
 archaeology/ecology and retained-export profiles MUST retain their boundaries.
+
+The original publication vector MUST cover exactly its four declared data roles:
+object_current, edge_current, tombstone and whole_source_history. The complete
+installation registry, journal and reservations independently cover those four
+roles plus attempts and manifest coordination tables. Coordination roles MUST NOT
+be synthesized into the publication vector. Exact published UUIDs and versions
+MUST come from the retained original manifest and immutable admitted registry;
+a supplied vector or report MUST NOT grant source or installation authority.
 
 Within one acquired original-commerce GraphFrames read interval, complete opening
 native admission MAY establish an immutable raw carrier for reuse. Every use MUST

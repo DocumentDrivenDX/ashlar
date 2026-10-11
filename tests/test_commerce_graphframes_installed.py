@@ -253,7 +253,7 @@ class ReaderTests(unittest.TestCase):
 
 class GraphCurrentBindingTests(unittest.TestCase):
  """Real closed binding/source owners with explicit inert ordinary/native rows."""
- def fixture(self):
+ def fixture(self,manifest_change=None):
   import tempfile,sqlite3
   from types import SimpleNamespace,MappingProxyType
   from ashlar_host.driver import NativeDriver,request_for
@@ -274,13 +274,15 @@ class GraphCurrentBindingTests(unittest.TestCase):
   t=object.__new__(ReadOnlyDeltaTransport);t.journal_path=root/'journal.sqlite';t.db=sqlite3.connect(t.journal_path);self.addCleanup(t.db.close)
   release=json.loads(RELEASE);targets={}
   for role in ('attempts','manifest'):release['snapshots']['local.commerce.'+role]={'uuid':'inert-'+role,'version':0}
-  release['publication']['table_versions_json']=encoded({t:v['version']for t,v in release['snapshots'].items()})
+  if manifest_change is not None:
+   versions=json.loads(release['publication']['table_versions_json']);manifest_change(versions);release['publication']['table_versions_json']=encoded(versions)
   for i,(table,snapshot)in enumerate(release['snapshots'].items()):
    path=root/str(i);path.mkdir();(path/'_delta_log').mkdir();(path/'_delta_log/00000000000000000000.json').write_text('original log');(path/'data.parquet').write_bytes(b'original whole carrier')
    targets[table]=DeltaTarget(table,path,snapshot['uuid'])
   t.targets=MappingProxyType(targets);registry={'targets':{name:value.uuid for name,value in targets.items()}};t.reservation=encoded({'registry':registry})
   t.db.execute('CREATE TABLE local_installation(id INTEGER,original TEXT)');t.db.execute('INSERT INTO local_installation VALUES(1,?)',(encoded(registry),));t.db.commit()
   d=object.__new__(NativeDriver);d.transport=t;d.held=False;d.pin_held=False;d.source_sessions=None;d.context=object()
+  d.tables={role:'local.commerce.'+role for role in ('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')}
   d.policy=SimpleNamespace(active={'request':request,'manifest':release['publication']})
   scope=AckScope('ashlar_ack_existing','11111111-1111-1111-1111-111111111111','22222222-2222-2222-2222-222222222222','ordinary',batch.feed,batch.epoch)
   events=[]
@@ -300,7 +302,7 @@ class GraphCurrentBindingTests(unittest.TestCase):
    table=sql.split(' ',2)[2].replace('`','');details.append(table)
    target=targets[table];return SQLResult([{'id':target.uuid,'location':'file:'+str(target.path)}])
   d.inspect_snapshot=inspect;t.query=query;d.bind_query_sources(factory)
-  vector=manifest_pin_vector(release['publication'],{t:v.uuid for t,v in targets.items()},authority='private-local-process')
+  vector=manifest_pin_vector(release['publication'],{t:targets[t].uuid for t in json.loads(release['publication']['table_versions_json'])},authority='private-local-process')
   from test_existing_outbox_authority import Tests as AuthorityControls
   observer=object.__new__(AuthorityControls);observer.calls=[];observer.fail=None;observer.scope=scope;observer.source=source
   return SimpleNamespace(driver=d,vector=vector,transaction=transaction,events=events,snapshots=snapshots,details=details,observer=observer,authority_type=AuthorityControls)
@@ -317,8 +319,53 @@ class GraphCurrentBindingTests(unittest.TestCase):
    d.pin_held=True;self.admit(f);self.assertEqual(f.snapshots,[]);self.assertEqual(len(f.details),12)
    self.assertIs(d.source_sessions,original);self.assertGreater(len(f.events),0)
    original.policy.writer.admit_source_writer(d.query_source_factory.registration.source,d.context)
-   self.assertEqual(len(f.snapshots),6)
+   self.assertEqual(len(f.snapshots),4)
   with self.assertRaises(PermissionError):self.admit(f)
+ def test_exact_four_published_roles_and_six_actual_registry_identities(self):
+  f=self.fixture();d=f.driver
+  self.assertEqual(len(f.vector.targets),4);self.assertEqual(len(d.transport.targets),6)
+  with d.query_read_interval(d.context):
+   d.pin_held=True;self.admit(f)
+   self.assertEqual(set(f.details),set(d.transport.targets));self.assertEqual(len(f.details),12)
+ def test_malformed_or_extra_manifest_roles_refuse(self):
+  changes=[lambda v:v.pop('local.commerce.tombstone'),lambda v:v.update({'local.commerce.attempts':0})]
+  for change in changes:
+   with self.subTest(change=change):
+    f=self.fixture(change);d=f.driver
+    with d.query_read_interval(d.context):
+     d.pin_held=True
+     with self.assertRaises(PermissionError):self.admit(f)
+  for value in (True,1.0):
+   with self.subTest(value=value),self.assertRaises(PermissionError):self.fixture(lambda v:v.update({'local.commerce.tombstone':value}))
+ def test_coordination_actual_uuid_location_and_unused_bytes_refuse(self):
+  from ashlar.native import SQLResult
+  for role in ('attempts','manifest'):
+   for change in ('uuid','location','bytes'):
+    with self.subTest(role=role,change=change):
+     f=self.fixture();d=f.driver;table=d.tables[role]
+     with d.query_read_interval(d.context):
+      d.pin_held=True;self.admit(f)
+      original=d.transport.query
+      def observe(sql,args):
+       result=original(sql,args)
+       if table in sql.replace('`',''):
+        result.rows[0]['id'if change=='uuid'else'location']='substituted'
+       return result
+      if change=='bytes':(d.transport.targets[table].path/'data.parquet').write_bytes(b'coordination drift')
+      else:d.transport.query=observe
+      with self.assertRaises(PermissionError):self.admit(f)
+ def test_wrong_uuid_version_or_coordination_pin_vector_refuse(self):
+  from ashlar.pins import PinVector
+  for change in ('uuid','version','coordination','forged'):
+   with self.subTest(change=change):
+    f=self.fixture();d=f.driver;targets=dict(f.vector.targets);table=next(iter(targets))
+    if change=='uuid':targets[table]=('substituted',targets[table][1])
+    elif change=='version':targets[table]=(targets[table][0],targets[table][1]+1)
+    elif change=='coordination':targets[d.tables['attempts']]=(d.transport.targets[d.tables['attempts']].uuid,0)
+    f.vector=(object()if change=='forged'else PinVector(f.vector.authority,f.vector.scope_kind,f.vector.scope_id,f.vector.custody_digest,targets))
+    with d.query_read_interval(d.context):
+     d.pin_held=True
+     with self.assertRaises(PermissionError):self.admit(f)
  def test_every_use_native_unusedbytes_identity_registry_gate_and_vector_refuse(self):
   from ashlar.pins import PinVector
   for change in ('bytes','log-retention','uuid','path','registry','reservation','gate','pins','context','vector','binding'):
