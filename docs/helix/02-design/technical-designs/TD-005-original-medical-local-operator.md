@@ -209,6 +209,26 @@ ceilings with no ambient defaults. Enforce bounds before reading, buffering or
 serialization; an oversized SQLite journal is not an operation-intent capacity
 violation. The explicit 8MiB operation-intent profile does not enlarge unrelated
 source, capture, journal or core effect limits.
+`journal_bytes` selects the canonical SQLite main-file budget, at most the
+carrier's existing 128MiB ceiling. Enforce the selected value before opening and
+on every lease renewal; lower selections remain lower. This is separate from WAL
+and total disk footprint. Keep the source corpus, native cell/total limits and
+300-second native deadline fixed when selecting a sufficient journal budget.
+
+### Original medical effect proof
+
+Use the CONTRACT-001 medical effects profile to reference the complete original
+source-plan row instead of duplicating its generated SQL and prior anchors in
+each phase payload. Keep full source/effect plans and native receipts in the
+unchanged five-table journal. The driver resolves and compares the exact full
+original plan, observes committed ordinal custody and invokes the public current
+native receipt inspector before accepting the reference. Recheck at closing;
+missing custody cannot authorize reconstruction. Preserve compact ordinal
+receipts, elisions and the full manifest in the artifact, and preserve every
+legacy effects profile and the shared publisher's phase protocol.
+Measure the complete encoded artifact, committed phase and native cell sizes
+against the selected bounds before phase submission. Modeled sizes alone do not
+qualify native publication or replay.
 
 ### Runtime selection and custody
 

@@ -803,3 +803,37 @@ Failure MUST retain bounded original diagnostic prefixes and observed phase/stat
 on the unchanged primary exception as `medical_capture`, with `complete: false`.
 This private carrier MUST NOT automatically log its bytes or claim that truncated
 prefixes are complete output. Final custody renewal MUST run on every outcome.
+
+The original medical applied artifact MAY use effects profile
+`ashlar-original-medical-effect-proof/0.1`. Its closed source-plan reference MUST
+contain profile `ashlar-original-medical-source-plan-reference/0.1`, the original
+request digest, UTF-8 byte length and SHA256 of the complete existing
+`local_source_plan.original`. It replaces only duplicated generated SQL and prior
+native anchors in the effects object. The complete source-plan row MUST retain
+the original request, generated and selected effects, elisions, complete prior
+oracle and observed prior anchors. The effects object MUST retain the original
+ordered effect-plan digest, intent digest, compact ordinal receipt arrays,
+elisions and source-plan digest; the complete manifest MUST remain unchanged.
+
+The actual bound medical driver MUST resolve exactly one original source-plan row
+and compare its full contents, reference length/hash and request with the current
+original `MedicalPublicationPlan`. It MUST validate the retained ordered effect
+plan through `LocalDeltaEffects.original_plan` and `observe`, require every ordinal
+committed, and inspect each original operation through
+`LocalDeltaTransport.inspect_committed`. The returned compact native receipt
+fields MUST equal the artifact's ordinal receipt arrays. Complete native receipts
+and source/effect plans MUST remain in their original journal rows. Missing or
+changed rows, native commits, schemas, snapshots or admission MUST refuse; hashes
+alone MUST NOT establish retention or native acceptance. Independent closing MUST
+recheck the original rows, plan and current native/source/ACK/lease authority even
+after failure or cancellation. No reconstruction, repair or cached authorization
+is permitted. Other profiles and shared publisher/phase envelopes remain unchanged.
+
+`OriginalMedicalBounds.journal_bytes` MUST bound the canonical SQLite main-file
+size before opening and on every installation renewal, separately from per-intent
+and native capture limits. Its maximum MUST equal the existing carrier ceiling of
+128MiB; a caller's explicitly selected lower budget MUST still be enforced. This
+main-file bound MUST NOT be reported as a bound on WAL files or total disk use.
+No invocation may automatically enlarge a selected budget or retry under a larger
+one. Fresh configurations MUST select a sufficient finite budget before work;
+exceeding it retains incomplete state and refuses further mutation/ACK acceptance.
