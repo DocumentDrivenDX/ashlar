@@ -506,6 +506,24 @@ tools or silently upgrading their UMF declarations. Each profile requires its
 entire original scenario inventory and complete independent bags; another pack's
 successful execution cannot establish its support.
 
+The shared finite-pack producer MAY select UMF's experimental compact dataset
+operation `validate-core-dataset-values-compact` version `1.0.0`, with
+`scope: supplied-dataset-only` and `provenance: unverified`. It MUST call both
+public compact validation and complete verification against independently retained
+original source and input, retain the whole emitted receipt and unknown content,
+and preserve the original declared core `0.8.0` semantics. Record results, Key
+results and relationship target-Key results MUST each contain the sole reference
+`sourceRef: "#/source"` in place of their `source` member, referring only to that
+receipt's complete top-level source. Compact fragments MUST NOT be accepted as
+standalone receipts. The selected compact profile MUST preserve upstream depth,
+value, byte and semantic-work limits and explicit host capture bounds; projection,
+truncation or a blanket limit increase MUST NOT turn a refusal into admission.
+The outer producer profile MUST distinguish compact receipts from the original
+full operation. Compact verification establishes supplied-dataset correspondence;
+independent current source, native writer, publication and ACK authority remain
+mandatory and separate. Existing full-operation profiles retain their original
+API, source pin and meaning.
+
 The selected host MUST refuse unknown capabilities or owning obligations and
 preserve the original SQL, full module documents, binding text and ordered
 parameter values. Its independent oracle MUST count original source occurrence

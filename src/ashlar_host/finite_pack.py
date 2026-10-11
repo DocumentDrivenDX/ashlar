@@ -4,7 +4,7 @@ import hashlib,json
 from ashlar import supply_chain_source,archaeology_source,ecology_source
 from .supply_chain_request import source_snapshot
 
-UMF_REVISION='fc78a6d48f08b3640748ccac0fc4a9ee06fc61e3'
+UMF_REVISION='07357eadbda9cf8299b9d72d004cbb77f8091aee'
 _PROFILES=(
  ('supply-chain',supply_chain_source,'baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22',20,23,2,('split-excursion','excursion','replay','lineage','sensor')),
  ('archaeology',archaeology_source,'401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f',39,46,13,('cycle','dating','media','missing-media','specialists','lineage','evidence-links','sample')),

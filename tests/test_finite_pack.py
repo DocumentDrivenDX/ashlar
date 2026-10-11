@@ -21,7 +21,7 @@ class Tests(unittest.TestCase):
  def source(self,name):
   definition=FinitePackDefinition(name);model,graph,pack=self.inputs(name);m=self.root/(name+'.model');g=self.root/(name+'.graph');m.write_bytes(model);g.write_bytes(graph);output=self.root/(name+'.receipt')
   authored=json.loads(graph);facts=definition.facts()
-  receipt={'profile':'ashlar-finite-pack-public-dataset/0.1','pack':name,'umfRevision':UMF_REVISION,'sourceSha256':facts['model_sha256'],'graphSha256':facts['graph_sha256'],'receipt':{'scope':'supplied-dataset-only','input':{'scope':{'id':'ashlar-original-'+name+'-fixture','closure':'supplied-dataset-only'}},'datasetValidation':{'valid':True,'complete':True,'diagnostics':[]},'records':[{'instanceId':o['key'],'result':{'validation':{'valid':True}}}for o in authored['objects']],'keys':[{}for o in authored['objects']],'relationships':[{'instanceId':e['key'],'sourceInstanceId':e['source'],'targetInstanceId':e['target']}for e in authored['edges']]}}
+  receipt={'profile':'ashlar-finite-pack-public-dataset/0.2','pack':name,'umfRevision':UMF_REVISION,'sourceSha256':facts['model_sha256'],'graphSha256':facts['graph_sha256'],'receipt':{'operation':'validate-core-dataset-values-compact','version':'1.0.0','provenance':'unverified','source':json.loads(model),'scope':'supplied-dataset-only','input':{'scope':{'id':'ashlar-original-'+name+'-fixture','closure':'supplied-dataset-only'}},'datasetValidation':{'valid':True,'complete':True,'diagnostics':[]},'records':[{'instanceId':o['key'],'result':{'sourceRef':'#/source','validation':{'valid':True}}}for o in authored['objects']],'keys':[{'result':{'sourceRef':'#/source'}}for o in authored['objects']],'relationships':[{'instanceId':e['key'],'sourceInstanceId':e['source'],'targetInstanceId':e['target'],'targetKey':{'sourceRef':'#/source'}}for e in authored['edges']]}}
   def capture(argv,**kwargs):
    if argv[-2:]==['rev-parse','HEAD']:return (UMF_REVISION+'\n').encode(),b''
    if argv[-2:]==['status','--porcelain']:return b'',b''
@@ -89,6 +89,14 @@ class Tests(unittest.TestCase):
  def test_inconsistent_record_validation_refuses_source_construction(self):
   source,_,_=self.source('supply-chain');changed=json.loads(source.producer.raw);changed['receipt']['records'][0]['result']['validation']['valid']=False;raw=json.dumps(changed).encode();source.producer.output.write_bytes(raw);source.producer.raw=raw
   with self.assertRaises(ValueError):dataset.FinitePackSource(source.definition,*source.paths,source.producer,policy=Policy(),context=object())
+ def test_compact_profile_original_source_and_all_reference_sites_refuse_substitution(self):
+  source,_,_=self.source('archaeology');original=source.producer.raw
+  controls=[lambda r:r.update(operation='validate-core-dataset-values'),lambda r:r.update(version='2.0.0'),lambda r:r['source'].update(opaque={'changed':True}),lambda r:r['records'][0]['result'].update(sourceRef='#/input'),lambda r:r['keys'][0]['result'].update(source=r['source']),lambda r:r['relationships'][0]['targetKey'].update(sourceRef='https://example.invalid/source')]
+  for change in controls:
+   outer=json.loads(original);change(outer['receipt']);raw=json.dumps(outer).encode();source.producer.output.write_bytes(raw);source.producer.raw=raw
+   with self.assertRaises(ValueError):dataset.FinitePackSource(source.definition,*source.paths,source.producer,policy=Policy(),context=object())
+  source.producer.output.write_bytes(original);source.producer.raw=original
+  dataset.FinitePackSource(source.definition,*source.paths,source.producer,policy=Policy(),context=object())
  def test_installed_oracle_compatibility_and_complete_scenario_bags(self):
   import archaeology_graph_oracle,ecology_graph_oracle
   for name,shim in (('archaeology',archaeology_graph_oracle),('ecology',ecology_graph_oracle)):
