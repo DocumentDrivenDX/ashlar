@@ -101,6 +101,10 @@ def main():
         command = commands.add_parser(name, help='Activate or read one explicit original PuppyGraph release handle')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
+    recovery = commands.add_parser('resume-puppy-release', help='Reconcile an interrupted activation from its explicitly selected original intent')
+    for option in ('configuration', 'provider', 'provider-sha256', 'original-intent',
+                   'original-intent-sha256', 'attempt-directory'):
+        recovery.add_argument('--' + option, required=True)
     preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
     for option in ('configuration','provider','provider-sha256'):
         preparation.add_argument('--'+option,required=True)
@@ -146,11 +150,15 @@ def main():
         except Exception:
             parser.exit(1,'ashlar original PuppyGraph carrier preparation refused\n')
         print(json.dumps(answer,sort_keys=True));return
-    if args.command in ('activate-puppy-release','read-puppy-release'):
-        from ashlar_host.puppy_release_cli import run_puppy_command
+    if args.command in ('activate-puppy-release','read-puppy-release','resume-puppy-release'):
+        from ashlar_host.puppy_release_cli import run_puppy_command, run_puppy_recovery
         try:
-            answer = run_puppy_command(args.configuration,args.provider,args.provider_sha256,
-                'activate' if args.command == 'activate-puppy-release' else 'read')
+            if args.command == 'resume-puppy-release':
+                answer = run_puppy_recovery(args.configuration,args.provider,args.provider_sha256,
+                    args.original_intent,args.original_intent_sha256,args.attempt_directory)
+            else:
+                answer = run_puppy_command(args.configuration,args.provider,args.provider_sha256,
+                    'activate' if args.command == 'activate-puppy-release' else 'read')
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar selected PuppyGraph release refused',file=sys.stderr)

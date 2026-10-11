@@ -113,5 +113,45 @@ activation. Preserve uncertain intent and reconcile through independently owned
 native authority before any further mutation. Engine restart or changed schema,
 carrier, source authority, provider bytes, or original files can cause refusal.
 
+For explicit reconciliation, use `resume-puppy-release` with the unchanged
+activation configuration, provider and release. Independently select the SHA256
+of the original output's synced `original-intent.json`; do not regenerate it.
+Supply a fresh attempt directory directly under that output's `attempts`
+directory, named `attempt-00` through `attempt-99`. At most eight attempts are
+retained. Unknown attempt entries and completed original or attempt receipts
+refuse recovery; a completed selected handle must be read explicitly.
+
+```sh
+ashlar resume-puppy-release --configuration /owned/activate.json \
+  --provider /owned/operator.py --provider-sha256 "$OPERATOR_SHA256" \
+  --original-intent /owned/results/activation-r1/original-intent.json \
+  --original-intent-sha256 "$ORIGINAL_INTENT_SHA256" \
+  --attempt-directory /owned/results/activation-r1/attempts/attempt-00
+```
+
+Recovery providers explicitly expose `open_puppy_recovery(invocation, release)`;
+there is no fallback to `open_puppy_release`. The frozen public
+`PuppyRecoveryInvocation` carries `original` (the unchanged `PuppyInvocation`),
+`original_intent_path`, `original_intent_sha256`, and `output_directory` (only the
+new attempt's evidence directory). The provider must obtain source and native
+authority from the original invocation and its independently selected policy;
+moving evidence cannot change the native target, carrier or model. It yields the
+same exact `PuppySession` type and closes its SDK resources. Current admission is
+renewed after provider cleanup, before any completed receipt is retained.
+
+Activation and recovery share an exclusive cooperative operation lock in the
+original output's parent. Concurrent or abandoned locks refuse; the command does
+not guess stale ownership or delete substituted locks. Original configuration,
+provider, release, intent, output and attempt directory custody are checked before
+effects and after cleanup. The new attempt retains a synced `recovery-intent.json`
+before executing provider code and keeps failed evidence separately. This file
+does not grant authority. The adapter inspects the actual original schema first:
+an already complete original request needs no POST, while unknown or changed
+native state refuses. No replacement upload, latest alias or native generation is
+inferred. Closing failure or cancellation withholds a completed result. Recovery
+returns an exact attempt activation receipt only after full native value, identity
+and endpoint validation under current policy; native support requires separate
+runtime qualification of this command.
+
 Public APIs are installed with Ashlar; a provider must not depend on repository
 `tools` modules. Native SDKs and prepared data remain explicit operator inputs.
