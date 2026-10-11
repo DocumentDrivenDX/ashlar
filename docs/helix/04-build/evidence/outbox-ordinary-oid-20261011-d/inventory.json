@@ -1,0 +1,130 @@
+{
+  "archive": {
+    "bytes": 7939,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/outbox-ordinary-oid-20261011-d/actual.tar.gz",
+    "sha256": "b37ae5e2ef467d6186d3c26dfe8d9cbfa3d16897bdddc97656d229939c7d9125"
+  },
+  "format": "ordinary-outbox-oid-evidence/0.1",
+  "members": [
+    {
+      "bytes": 1576,
+      "member": "originals/ashlar-outbox-oid-ordinary-actual-failure-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-actual-failure-freeze-c.json",
+      "sha256": "697ab6a886c707629c239165b7a4266e734fc5b72aea198a9aec76010cd9d98f"
+    },
+    {
+      "bytes": 1782,
+      "member": "originals/ashlar-outbox-oid-ordinary-actual-freeze-d.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-actual-freeze-d.json",
+      "sha256": "e5f63a953d3971318e545642f3cb973d21c5fa169f21f9406c333471bf7fc6d8"
+    },
+    {
+      "bytes": 1827,
+      "member": "originals/ashlar-outbox-oid-ordinary-command-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-command-freeze-c.json",
+      "sha256": "d93bc7311db94b0ccdedd4ef767ebef934e86ed9ec520d62d678954bfea0b959"
+    },
+    {
+      "bytes": 2036,
+      "member": "originals/ashlar-outbox-oid-ordinary-command-freeze-d.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-command-freeze-d.json",
+      "sha256": "766635c5584c1b70339486b52eb68e041fed4d57c559855bd3b1d0fc0122b1ea"
+    },
+    {
+      "bytes": 2031,
+      "member": "originals/ashlar-outbox-oid-ordinary-command-c.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-command-c.json",
+      "sha256": "8b6990533bc002960e1aa50ac51a0e077ce76c9caed94374b3982ecb9c83e2f7"
+    },
+    {
+      "bytes": 2031,
+      "member": "originals/ashlar-outbox-oid-ordinary-command-d.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-command-d.json",
+      "sha256": "f92eb5a9828911ea238083b1a3ec2202d59b56455a0e7c499a9a5a35fae11b6b"
+    },
+    {
+      "bytes": 3606,
+      "member": "originals/ashlar-outbox-oid-ordinary-probe-c.py",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-probe-c.py",
+      "sha256": "7d6eab5292bd17fc614c4e662c4e9023e559f408b57df8caca41c980c38a1ca5"
+    },
+    {
+      "bytes": 1843,
+      "member": "originals/ashlar-outbox-oid-ordinary-launch-b.py",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-launch-b.py",
+      "sha256": "46b2954b251c12a0664d8a19d69f11ac43e2a3aab9c01e131b184aea3ae6a06f"
+    },
+    {
+      "bytes": 0,
+      "member": "originals/ashlar-outbox-oid-ordinary-c.stdout",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-c.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1315,
+      "member": "originals/ashlar-outbox-oid-ordinary-c.stderr",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-c.stderr",
+      "sha256": "0984175524dacf6d7b91872e143327c33dc6f609d8ba11e5f00c9171300ac40f"
+    },
+    {
+      "bytes": 183,
+      "member": "originals/ashlar-outbox-oid-ordinary-c.receipt.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-c.receipt.json",
+      "sha256": "69d69fc971f056a2cf97b8ee36e3b5317a5142ec97a15af5f5d974852bb39335"
+    },
+    {
+      "bytes": 0,
+      "member": "originals/ashlar-outbox-oid-ordinary-d.stdout",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-d.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "member": "originals/ashlar-outbox-oid-ordinary-d.stderr",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-d.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 180,
+      "member": "originals/ashlar-outbox-oid-ordinary-d.receipt.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-d.receipt.json",
+      "sha256": "35b94a05b562ffedfc2965ef9c53bfd26df9fe7cd190174be95e832d11aeb559"
+    },
+    {
+      "bytes": 1475,
+      "member": "originals/ashlar-outbox-oid-ordinary-probe-d.result.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-probe-d.result.json",
+      "sha256": "b288aecc63458f4d96450a2ee880ec3f7033810277a599a925aafefcc87d2db2"
+    },
+    {
+      "bytes": 715,
+      "member": "originals/ashlar-outbox-oid-ordinary-independent-actual-review-d.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-ordinary-independent-actual-review-d.json",
+      "sha256": "3ee73ce218ddfceab2b76343b4c4300d448a3d2352cfb1bac3ed4bf049806d42"
+    },
+    {
+      "bytes": 1072,
+      "member": "originals/ashlar-outbox-oid-source-c-and-command-d-independent-review.json",
+      "originalPath": "/private/tmp/ashlar-outbox-oid-source-c-and-command-d-independent-review.json",
+      "sha256": "7b24fdc1bed8ac9253321128b28171cf5a2fbd208d36e4ae65bed70af1731fa7"
+    },
+    {
+      "bytes": 897,
+      "member": "originals/ashlar-outbox-negative-privilege-oid-source-freeze-c.json",
+      "originalPath": "/private/tmp/ashlar-outbox-negative-privilege-oid-source-freeze-c.json",
+      "sha256": "ff8002e1666954f00adf447f832225af6c4b6314c9645f2e62b96463ccd62642"
+    },
+    {
+      "bytes": 3216,
+      "member": "originals/ashlar-count-star-installed-cli-capture-a.py",
+      "originalPath": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 3433,
+      "member": "originals/inventory.json",
+      "originalPath": "/private/tmp/ashlar-private-outbox-fixture-prep-b/operation/fixture-c/inventory.json",
+      "sha256": "f6f77011c66650b4eecc7efe034806a36db0e54c4bc1e4babdfd5d6eb8c1c7b9"
+    }
+  ]
+}
