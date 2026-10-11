@@ -28,6 +28,10 @@ METHOD_IDS = frozenset((key + '.' + method for (key, (_, _, methods)) in METHODS
 class StageRefusal(RuntimeError):
     pass
 
+class StageSinkFailure(Exception):
+    """Ordinary diagnostic transport loss; never a custody refusal."""
+    pass
+
 class Observer:
 
     def __init__(self, directory):
@@ -37,6 +41,9 @@ class Observer:
         self.directory = directory
         self.lock = threading.RLock()
         self.local = threading.local()
+        self.recording = True
+        self.loss_reason = None
+        self.loss_record_retained = False
         self.pending = 0
         self.count = 0
         self.bytes = 0
@@ -68,6 +75,15 @@ class Observer:
 
     def renew(self):
         self.require_thread()
+        try:
+            self._renew_custody()
+        except StageRefusal:
+            raise
+        except Exception:
+            raise StageRefusal('Original stage custody unavailable') from None
+
+    def _renew_custody(self):
+        self.require_thread()
         if self.closed:
             raise StageRefusal('Observer closed')
         s = os.stat(self.directory, follow_symlinks=False)
@@ -82,18 +98,43 @@ class Observer:
     def emit(self, row):
         raw = (json.dumps(row, sort_keys=True, separators=(',', ':')) + '\n').encode()
         if len(raw) > RESERVE_BYTES or self.count >= MAX_RECORDS or self.bytes + len(raw) > MAX_BYTES:
-            raise StageRefusal('Bounded stage records required')
+            raise StageSinkFailure('Bounded stage records required')
         self.renew()
         at = 0
         while at < len(raw):
             n = os.write(self.fd, raw[at:])
             if type(n) is not int or n <= 0:
-                raise StageRefusal('Complete stage write required')
+                raise StageSinkFailure('Complete stage write required')
             at += n
-        self.bytes += len(raw)
+            self.bytes += n
         self.count += 1
         os.fsync(self.fd)
         self.renew()
+
+    def diagnostic_status(self):
+        """Bounded local evidence status; no business/authority outcome claim."""
+        return {'complete': self.loss_reason is None,
+                'loss_reason': self.loss_reason,
+                'loss_record_retained': self.loss_record_retained,
+                'dropped_count': None if self.loss_reason is not None else 0,
+                'unknown_loss': self.loss_reason is not None}
+
+    def lose(self, reason, *, marker):
+        # Permanent recording stop: no counters, queue, alternate sink or retry.
+        self.recording = False
+        if self.loss_reason is None:
+            self.loss_reason = reason
+        if marker:
+            try:
+                self.emit({'event': 'loss', 'reason': reason,
+                           'timings_complete': False, 'dropped_count': None,
+                           'unknown_loss': True})
+                self.loss_record_retained = True
+            except StageRefusal:
+                raise
+            except Exception:
+                # An ordinary diagnostic sink failure never replaces business work.
+                self.loss_record_retained = False
 
     def invoke(self, method, original, args, kwargs):
         self.require_thread()
@@ -103,26 +144,50 @@ class Observer:
         if stack is None:
             stack = []
             self.local.stack = stack
+        recorded = False
         with self.lock:
-            if len(stack) >= MAX_DEPTH or self.count + self.pending + 2 > MAX_RECORDS or self.bytes + (self.pending + 2) * RESERVE_BYTES > MAX_BYTES:
-                raise StageRefusal('Stage capacity before method required')
-            self.serial += 1
-            span = self.serial
-            begin = time.monotonic_ns()
-            self.emit({'event': 'begin', 'method': method, 'span': span, 'parent': stack[-1] if stack else None, 'depth': len(stack), 'at_ns': begin - self.started})
-            self.pending += 1
-            stack.append(span)
+            self.renew()  # Explicit current-file safety boundary remains distinct.
+            if self.recording:
+                reason = ('depth' if len(stack) >= MAX_DEPTH else
+                          'records' if self.count + self.pending + 3 > MAX_RECORDS else
+                          'bytes' if self.bytes + (self.pending + 3) * RESERVE_BYTES > MAX_BYTES else None)
+                if reason is not None:
+                    self.lose(reason, marker=True)
+                else:
+                    self.serial += 1
+                    span = self.serial
+                    begin = time.monotonic_ns()
+                    try:
+                        self.emit({'event': 'begin', 'method': method, 'span': span,
+                                   'parent': stack[-1] if stack else None,
+                                   'depth': len(stack), 'at_ns': begin - self.started})
+                        self.pending += 1
+                        stack.append(span)
+                        recorded = True
+                    except StageRefusal:
+                        raise
+                    except Exception:
+                        self.lose('sink', marker=False)
         primary = None
         value = None
         try:
             value = original(*args, **kwargs)
         except BaseException as error:
             primary = error
+        if not recorded:
+            if primary is not None:
+                raise primary
+            return value
         status = 'ok' if primary is None else 'cancel' if not isinstance(primary, Exception) else 'error'
         def end():
             with self.lock:
-                self.emit({'event': 'end', 'method': method, 'span': span,
-                           'status': status, 'elapsed_ns': time.monotonic_ns() - begin})
+                try:
+                    self.emit({'event': 'end', 'method': method, 'span': span,
+                               'status': status, 'elapsed_ns': time.monotonic_ns() - begin})
+                except StageRefusal:
+                    raise
+                except Exception:
+                    self.lose('sink', marker=False)
         def unwind():
             with self.lock:
                 self.pending -= 1
@@ -140,8 +205,16 @@ class Observer:
             if self.pending:
                 raise StageRefusal('Active stage methods must finish before observer close')
             try:
-                finish(None, [self.renew, lambda: os.close(self.fd),
-                              lambda: os.close(self.dirfd)])
+                def diagnostic_cleanup(callback):
+                    try:
+                        callback()
+                    except StageRefusal:
+                        raise
+                    except Exception:
+                        self.lose('sink', marker=False)
+                finish(None, [lambda: diagnostic_cleanup(self.renew),
+                              lambda: diagnostic_cleanup(lambda: os.close(self.fd)),
+                              lambda: diagnostic_cleanup(lambda: os.close(self.dirfd))])
             finally:
                 self.closed = True
 

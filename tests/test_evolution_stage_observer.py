@@ -138,7 +138,7 @@ class Tests(unittest.TestCase):
             self.assertEqual([x['event'] for x in rows], ['begin', 'begin', 'end', 'end'])
             self.assertEqual(rows[1]['parent'], rows[0]['span'])
 
-    def test_count_capacity_refuses_before_effect(self):
+    def test_count_capacity_discloses_loss_and_preserves_effect(self):
         own = owners()
         effects = []
 
@@ -147,9 +147,8 @@ class Tests(unittest.TestCase):
         own['driver'].source_admit = call
         with tempfile.TemporaryDirectory() as d, patch.object(m, 'MAX_RECORDS', 1):
             with m.observe_fixed_owners(own, d):
-                with self.assertRaises(m.StageRefusal):
-                    own['driver']().source_admit()
-        self.assertEqual(effects, [])
+                own['driver']().source_admit()
+        self.assertEqual(effects, [True])
 
     def test_primary_cancel_and_error_survive_end_fsync_failure(self):
         for primary in (KeyboardInterrupt('sensitive'), ValueError('sensitive')):
@@ -171,29 +170,25 @@ class Tests(unittest.TestCase):
                             own['driver']().source_admit()
                     self.assertIs(caught.exception, primary)
 
-    def test_before_begin_failure_zero_effects_and_result_withheld_on_end_failure(self):
-        own = owners()
-        effects = []
-
-        def call(self):
-            effects.append(True)
-            return object()
-        own['driver'].source_admit = call
-        with tempfile.TemporaryDirectory() as d:
-            with m.observe_fixed_owners(own, d) as observer:
-                original = observer.emit
-                with patch.object(observer, 'emit', side_effect=OSError()):
-                    with self.assertRaises(OSError):
-                        own['driver']().source_admit()
-                self.assertEqual(effects, [])
-
-                def fail(row):
-                    if row['event'] == 'end':
-                        raise OSError()
-                    original(row)
-                with patch.object(observer, 'emit', side_effect=fail):
-                    with self.assertRaises(OSError):
-                        own['driver']().source_admit()
+    def test_ordinary_begin_and_end_sink_failures_preserve_result(self):
+        for event in ('begin', 'end'):
+            own = owners()
+            effects = []
+            result = object()
+            def call(instance):
+                effects.append(True)
+                return result
+            own['driver'].source_admit = call
+            with tempfile.TemporaryDirectory() as directory:
+                with m.observe_fixed_owners(own, directory) as observer:
+                    real = observer.emit
+                    def fail(row):
+                        if row['event'] == event:
+                            raise OSError()
+                        real(row)
+                    with patch.object(observer, 'emit', side_effect=fail):
+                        self.assertIs(own['driver']().source_admit(), result)
+                    self.assertFalse(observer.diagnostic_status()['complete'])
                 self.assertEqual(effects, [True])
 
     def test_foreign_file_replacement_refuses_and_preserves(self):
@@ -236,6 +231,238 @@ class Tests(unittest.TestCase):
             self.assertNotIn('sensitive', raw)
             self.assertEqual(json.loads(raw.splitlines()[-1])['status'], 'error')
 
+class CapacityLossTests(unittest.TestCase):
+    def test_real_record_cap_many_calls_preserve_result_and_one_loss(self):
+        own = owners()
+        instance = own['driver']()
+        instance.result = object()
+        with tempfile.TemporaryDirectory() as directory:
+            with m.observe_fixed_owners(own, directory) as observer:
+                for _ in range(2100):
+                    self.assertIs(instance.source_admit(), instance.result)
+                status = observer.diagnostic_status()
+                self.assertFalse(status['complete'])
+                self.assertTrue(status['unknown_loss'])
+                self.assertIsNone(status['dropped_count'])
+                self.assertTrue(status['loss_record_retained'])
+            raw = pathlib.Path(directory, 'stage-events.jsonl').read_bytes()
+            rows = [json.loads(line) for line in raw.splitlines()]
+            self.assertLessEqual(len(rows), 4096)
+            self.assertLessEqual(len(raw), 1048576)
+            self.assertEqual(sum(row['event'] == 'loss' for row in rows), 1)
+            self.assertEqual({r['span'] for r in rows if r['event'] == 'begin'},
+                             {r['span'] for r in rows if r['event'] == 'end'})
+
+    def test_nested_depth_loss_preserves_pending_pairs_and_inner_call(self):
+        own = owners()
+        effects = []
+        def outer(instance):
+            return instance.source_admit()
+        def inner(instance):
+            effects.append(True)
+            return 'result'
+        own['driver'].validate_evolution_run = outer
+        own['driver'].source_admit = inner
+        with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_DEPTH', 1):
+            with m.observe_fixed_owners(own, directory):
+                self.assertEqual(own['driver']().validate_evolution_run(), 'result')
+            rows = [json.loads(line) for line in pathlib.Path(directory, 'stage-events.jsonl').read_text().splitlines()]
+            self.assertEqual([r['event'] for r in rows], ['begin', 'loss', 'end'])
+            self.assertEqual(rows[0]['span'], rows[-1]['span'])
+            self.assertEqual(rows[1]['reason'], 'depth')
+        self.assertEqual(effects, [True])
+
+    def test_active_record_and_byte_capacity_keep_ancestor_end_and_outcome(self):
+        for cap, limit in (('MAX_RECORDS', 3), ('MAX_BYTES', 1536)):
+            for primary in (None, ValueError(), KeyboardInterrupt()):
+                own = owners()
+                effects = []
+                result = object()
+                def outer(instance):
+                    return instance.source_admit()
+                def inner(instance):
+                    effects.append(True)
+                    if primary is not None:
+                        raise primary
+                    return result
+                own['driver'].validate_evolution_run = outer
+                own['driver'].source_admit = inner
+                with tempfile.TemporaryDirectory() as directory, patch.object(m, cap, limit):
+                    with m.observe_fixed_owners(own, directory) as observer:
+                        if primary is None:
+                            self.assertIs(own['driver']().validate_evolution_run(), result)
+                        else:
+                            with self.assertRaises(type(primary)) as caught:
+                                own['driver']().validate_evolution_run()
+                            self.assertIs(caught.exception, primary)
+                        self.assertEqual(observer.pending, 0)
+                        self.assertTrue(observer.diagnostic_status()['unknown_loss'])
+                    raw = pathlib.Path(directory, 'stage-events.jsonl').read_bytes()
+                    rows = [json.loads(line) for line in raw.splitlines()]
+                    self.assertEqual([row['event'] for row in rows], ['begin', 'loss', 'end'])
+                    self.assertEqual(rows[0]['span'], rows[-1]['span'])
+                    self.assertEqual(rows[1]['reason'], 'records' if cap == 'MAX_RECORDS' else 'bytes')
+                    self.assertLessEqual(len(rows), limit if cap == 'MAX_RECORDS' else 4096)
+                    self.assertLessEqual(len(raw), limit if cap == 'MAX_BYTES' else 1048576)
+                self.assertEqual(effects, [True])
+
+    def test_marker_write_and_fsync_failure_preserve_every_business_outcome(self):
+        for failure in ('write', 'fsync'):
+            for primary in (None, ValueError(), KeyboardInterrupt()):
+                own = owners()
+                calls = []
+                result = object()
+                def body(instance):
+                    calls.append(True)
+                    if primary is not None:
+                        raise primary
+                    return result
+                own['driver'].source_admit = body
+                with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_RECORDS', 1):
+                    with m.observe_fixed_owners(own, directory) as observer:
+                        real = getattr(m.os, failure)
+                        def fail(*args):
+                            if not observer.recording:
+                                raise OSError()
+                            return real(*args)
+                        with patch.object(m.os, failure, side_effect=fail):
+                            for _ in range(3):
+                                if primary is None:
+                                    self.assertIs(own['driver']().source_admit(), result)
+                                else:
+                                    with self.assertRaises(type(primary)) as caught:
+                                        own['driver']().source_admit()
+                                    self.assertIs(caught.exception, primary)
+                        status = observer.diagnostic_status()
+                        self.assertFalse(status['complete'])
+                        self.assertFalse(status['loss_record_retained'])
+                        self.assertTrue(status['unknown_loss'])
+                self.assertEqual(calls, [True, True, True])
+
+    def test_partial_marker_write_reports_unknown_and_continues_calls(self):
+        own = owners()
+        instance = own['driver']()
+        instance.result = object()
+        with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_RECORDS', 1):
+            with m.observe_fixed_owners(own, directory) as observer:
+                real = m.os.write
+                attempts = []
+                def partial(fd, raw):
+                    attempts.append(True)
+                    if len(attempts) == 1:
+                        return real(fd, raw[:7])
+                    raise OSError()
+                with patch.object(m.os, 'write', side_effect=partial):
+                    self.assertIs(instance.source_admit(), instance.result)
+                    self.assertIs(instance.source_admit(), instance.result)
+                self.assertEqual(observer.bytes, 7)
+                observer.renew()
+                self.assertFalse(observer.diagnostic_status()['loss_record_retained'])
+                self.assertTrue(observer.diagnostic_status()['unknown_loss'])
+            self.assertEqual(pathlib.Path(directory, 'stage-events.jsonl').stat().st_size, 7)
+
+    def test_zero_and_partial_zero_write_preserve_business_outcomes(self):
+        for partial in (False, True):
+            for primary in (None, ValueError(), KeyboardInterrupt()):
+                own = owners()
+                calls = []
+                result = object()
+                def body(instance):
+                    calls.append(True)
+                    if primary is not None:
+                        raise primary
+                    return result
+                own['driver'].source_admit = body
+                with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_RECORDS', 1):
+                    with m.observe_fixed_owners(own, directory) as observer:
+                        real = m.os.write
+                        attempts = []
+                        def write(fd, raw):
+                            attempts.append(True)
+                            if partial and len(attempts) == 1:
+                                return real(fd, raw[:7])
+                            return 0
+                        with patch.object(m.os, 'write', side_effect=write):
+                            for _ in range(3):
+                                if primary is None:
+                                    self.assertIs(own['driver']().source_admit(), result)
+                                else:
+                                    with self.assertRaises(type(primary)) as caught:
+                                        own['driver']().source_admit()
+                                    self.assertIs(caught.exception, primary)
+                        self.assertEqual(observer.bytes, 7 if partial else 0)
+                        self.assertTrue(observer.diagnostic_status()['unknown_loss'])
+                        self.assertFalse(observer.diagnostic_status()['loss_record_retained'])
+                self.assertEqual(calls, [True, True, True])
+
+    def test_disappearance_between_entry_and_emit_renewal_refuses_effect(self):
+        own = owners()
+        effects = []
+        def body(instance):
+            effects.append(True)
+        own['driver'].source_admit = body
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(m.StageRefusal):
+                with m.observe_fixed_owners(own, directory) as observer:
+                    real = observer.renew
+                    renewals = []
+                    def renew():
+                        real()
+                        renewals.append(True)
+                        if len(renewals) == 1:
+                            pathlib.Path(directory, 'stage-events.jsonl').unlink()
+                    with patch.object(observer, 'renew', side_effect=renew):
+                        with self.assertRaises(m.StageRefusal):
+                            own['driver']().source_admit()
+            self.assertTrue(observer.closed)
+        self.assertEqual(effects, [])
+
+    def test_invalid_write_return_is_ordinary_loss(self):
+        for invalid in (True, 1.5, None):
+            own = owners()
+            instance = own['driver']()
+            instance.result = object()
+            with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_RECORDS', 1):
+                with m.observe_fixed_owners(own, directory) as observer:
+                    with patch.object(m.os, 'write', return_value=invalid):
+                        self.assertIs(instance.source_admit(), instance.result)
+                        self.assertIs(instance.source_admit(), instance.result)
+                    self.assertTrue(observer.diagnostic_status()['unknown_loss'])
+
+    def test_closing_disappearance_preserves_body_cancellation(self):
+        primary = KeyboardInterrupt()
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with m.observe_fixed_owners(owners(), directory) as observer:
+                    pathlib.Path(directory, 'stage-events.jsonl').unlink()
+                    raise primary
+            self.assertIs(caught.exception, primary)
+            self.assertTrue(observer.closed)
+
+    def test_closing_disappearance_is_safety_refusal_not_sink_loss(self):
+        with tempfile.TemporaryDirectory() as directory:
+            observer = m.Observer(directory)
+            pathlib.Path(directory, 'stage-events.jsonl').unlink()
+            with self.assertRaises(m.StageRefusal):
+                observer.close()
+            self.assertTrue(observer.closed)
+
+    def test_marker_cancellation_wins_and_cleanup_is_attempted(self):
+        primary = KeyboardInterrupt()
+        own = owners()
+        calls = []
+        def body(instance):
+            calls.append(True)
+        own['driver'].source_admit = body
+        with tempfile.TemporaryDirectory() as directory, patch.object(m, 'MAX_RECORDS', 1):
+            with m.observe_fixed_owners(own, directory) as observer:
+                with patch.object(observer, 'emit', side_effect=primary):
+                    with self.assertRaises(KeyboardInterrupt) as caught:
+                        own['driver']().source_admit()
+                self.assertIs(caught.exception, primary)
+            self.assertTrue(observer.closed)
+        self.assertEqual(calls, [])
+
 class BoundaryTests(unittest.TestCase):
 
     def test_byte_bound_and_unknown_method_before_effect(self):
@@ -247,12 +474,11 @@ class BoundaryTests(unittest.TestCase):
         own['driver'].source_admit = call
         with tempfile.TemporaryDirectory() as d:
             with m.observe_fixed_owners(own, d) as observer:
-                with patch.object(m, 'MAX_BYTES', 1):
-                    with self.assertRaises(m.StageRefusal):
-                        own['driver']().source_admit()
+                with patch.object(m, 'MAX_BYTES', 512):
+                    own['driver']().source_admit()
                 with self.assertRaises(m.StageRefusal):
                     observer.invoke('sensitive-unknown', lambda : effects.append(True), (), {})
-            self.assertEqual(effects, [])
+            self.assertEqual(effects, [True])
 
     def test_depth_bound_and_body_cancel_restore_every_owner(self):
         own = owners()
@@ -270,11 +496,10 @@ class BoundaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d, patch.object(m, 'MAX_DEPTH', 1):
             with self.assertRaises(KeyboardInterrupt) as caught:
                 with m.observe_fixed_owners(own, d):
-                    with self.assertRaises(m.StageRefusal):
-                        own['driver']().validate_evolution_run()
+                    own['driver']().validate_evolution_run()
                     raise primary
             self.assertIs(caught.exception, primary)
-            self.assertEqual(effects, [])
+            self.assertEqual(effects, [True])
             self.assertIs(own['driver'].source_admit, original)
 
     def test_actual_fsync_entry_and_terminal_precede_method_release(self):
