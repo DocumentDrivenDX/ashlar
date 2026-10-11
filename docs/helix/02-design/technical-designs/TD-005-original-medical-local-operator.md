@@ -144,6 +144,18 @@ publication, source progress, ACK advancement or journal repair. Current schema,
 UUID/location, retained versions and complete native custody are mandatory for
 old reads too; no mutable-latest fallback.
 
+`medical_read_sources.py` owns the separately typed `MedicalReadSourceFactory`
+specified by CONTRACT-001. The driver applies the same complete read reservation
+and ordinary source/ACK gates to that type while requiring exact `MedicalAdmission`.
+The owning medical reopen composition renews all acquired native and ordinary
+intervals independently at opening, use and closing, compares the independent
+four-role medical oracle, and retains the original request/manifest and versions.
+It imports public source registration, admission, reader transport and driver
+surfaces; it cannot use a commerce admission, publisher or writer to establish
+read-only authority. Controls cover nominal type/profile mismatches, full target
+and vector correspondence, drift at use/closing, and refusal of every mutation
+surface. Reuse of the shared gate must preserve existing commerce read controls.
+
 ## Bounds, lifecycle and diagnostics
 
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and

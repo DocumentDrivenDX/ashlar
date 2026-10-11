@@ -656,6 +656,23 @@ UUID/location, retention and full four-role bags under actual exclusion/pins. It
 permits existing-record SELECT/read-transaction commit only, never source append,
 prepare/effect/ACK submission, journal repair or mutable-latest fallback.
 
+`MedicalReadSourceFactory` MUST accept only an exact
+`OutboxAuthorityRegistration` for the historical medical feed/epoch and preserve
+its reader/ACK connection factories. `NativeDriver.bind_query_sources(factory)`,
+`query_read_interval(context)` and `renew_original_graph_read_source(vector,
+context=context)` MUST admit this separately owned type only with an exact
+`MedicalAdmission` and its original medical admission profile. Commerce bindings
+retain their own admission boundary. No profile relabeling, caller-selected
+admission callback or broader provider discovery is permitted.
+
+Medical binding MUST retain the shared reader's complete six-target registry,
+journal/reservation identity, original request/manifest, four-role publication
+vector, actual exclusion and pins, current ordinary source/ACK admission and
+independent native retention observations. Closing MUST attempt each acquired
+native/source/ACK interval before releasing authority even after earlier failure.
+Binding grants read custody only; it does not grant medical Weft or engine-query
+support or enable any mutation path.
+
 Each command MUST own finite separate-process supervision/descendant cleanup,
 within native 300 seconds/local[1]/512MiB for this small functional profile. Bounds
 hold before buffering/serialization; operation-intent capacity is not journal-file
