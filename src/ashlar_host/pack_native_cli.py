@@ -15,6 +15,7 @@ from .finite_native import FinitePackNativeConfig
 from .delta_custody import operation_capacity
 
 PROFILE='ashlar-original-finite-pack-invocation/0.1'
+SOURCE_PROFILE='ashlar-original-finite-pack-invocation/0.2'
 CONFIG_LIMIT=65536
 OUTPUT_LIMIT=64*1024*1024
 
@@ -37,8 +38,10 @@ class FinitePackInvocation:
     native:FinitePackNativeConfig
     output:Path
     query:dict|None
+    profile:str=PROFILE
     def __post_init__(self):
         if type(self.mode)is not str or self.mode not in ('publish','query')or type(self.native)is not FinitePackNativeConfig:raise ValueError('Selected finite invocation required')
+        if type(self.profile)is not str or self.profile not in (PROFILE,SOURCE_PROFILE)or (self.profile==SOURCE_PROFILE and self.mode!='query'):raise ValueError('Exact selected finite invocation profile required')
         self.native.__post_init__()
         if type(self.output)is not type(Path('/'))or not self.output.is_absolute():raise ValueError('Explicit output required')
         for p in (self.native.output,self.native.jars,self.native.pack,self.native.model,self.native.graph,self.native.producer.source,self.native.producer.bun,self.native.producer.git):
@@ -46,12 +49,13 @@ class FinitePackInvocation:
         if self.mode=='publish':
             if self.query is not None:raise ValueError('Publish has no query configuration')
         else:
-            _closed(self.query,('index','installation','maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes','maximum_observation_bytes'))
+            _closed(self.query,('index','installation','maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes','maximum_observation_bytes')+(()if self.profile==PROFILE else ('maximum_public_source_bytes',)))
             for key in ('index','installation'):
                 if type(self.query[key])is not type(Path('/'))or not self.query[key].is_absolute():raise ValueError('Explicit installed compiler paths required')
                 p=self.query[key]
                 if self.output==p or self.output in p.parents or p in self.output.parents:raise ValueError('Separate compiler/output paths required')
             for key,maximum in (('maximum_artifact_bytes',16777216),('maximum_rows',1000000),('maximum_cell_bytes',16777216),('maximum_total_cell_bytes',OUTPUT_LIMIT),('maximum_observation_bytes',OUTPUT_LIMIT)):_bound(self.query[key],maximum)
+            if self.profile==SOURCE_PROFILE:_bound(self.query['maximum_public_source_bytes'],16777216)
             if self.query['maximum_cell_bytes']>self.query['maximum_total_cell_bytes']:raise ValueError('Cell bound exceeds total')
 
 def parse_finite_pack_invocation(raw,mode):
@@ -68,7 +72,7 @@ def parse_finite_pack_invocation(raw,mode):
     def refuse(token):raise ValueError('Exact configuration scalar required')
     value=json.loads(raw,object_pairs_hook=pairs,parse_int=integer,parse_float=refuse,parse_constant=refuse)
     _closed(value,('profile','mode','pack','publication','jars','model','graph','pack_file','producer','operation_capacity','output')+(()if mode=='publish'else ('query',)))
-    if value['profile']!=PROFILE or value['mode']!=mode:raise ValueError('Exact finite invocation profile required')
+    if value['profile']not in (PROFILE,SOURCE_PROFILE) or value['mode']!=mode or (value['profile']==SOURCE_PROFILE and mode!='query'):raise ValueError('Exact selected finite invocation profile required')
     definition=FinitePackDefinition(value['pack'])
     if definition.name not in ('archaeology','ecology'):raise ValueError('Selected original17 query profile required')
     producer=value['producer'];_closed(producer,('source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'))
@@ -76,9 +80,9 @@ def parse_finite_pack_invocation(raw,mode):
     native=FinitePackNativeConfig(*(_path(value[k])for k in ('publication','jars','pack_file','model','graph')),selected,operation_capacity(value['operation_capacity']))
     query=None
     if mode=='query':
-        query=value['query'];_closed(query,('index','installation','maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes','maximum_observation_bytes'))
+        query=value['query'];_closed(query,('index','installation','maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes','maximum_observation_bytes')+(()if value['profile']==PROFILE else ('maximum_public_source_bytes',)))
         query={k:_path(v)if k in ('index','installation')else v for k,v in query.items()}
-    return FinitePackInvocation(mode,native,_path(value['output']),query)
+    return FinitePackInvocation(mode,native,_path(value['output']),query,value['profile'])
 
 def _publish(config):
     from .finite_native import publish_finite_pack_native
@@ -177,7 +181,7 @@ def _query(invocation):
             record({'kind':'compiler','id':name,'iteration':iteration,'requestHex':request.hex(),'responseHex':response.hex()})
         def native(name,captured):record({'kind':'native','id':name,'capture':captured})
         with owned_context(_open(invocation.native,invocation.output/'public-dataset.json'))as driver:
-            execution=CountStarExecutionConfig(CountStarAdmissionConfig(q['maximum_artifact_bytes'],schema),PathCaptureConfig(q['maximum_rows'],q['maximum_cell_bytes'],q['maximum_total_cell_bytes']),PathDecodeConfig(q['maximum_cell_bytes']),finite_pack_public_source(driver.source,min(q['maximum_artifact_bytes'],16777216)),UMF_REVISION)
+            execution=CountStarExecutionConfig(CountStarAdmissionConfig(q['maximum_artifact_bytes'],schema),PathCaptureConfig(q['maximum_rows'],q['maximum_cell_bytes'],q['maximum_total_cell_bytes']),PathDecodeConfig(q['maximum_cell_bytes']),finite_pack_public_source(driver.source,q.get('maximum_public_source_bytes',q['maximum_artifact_bytes'])),UMF_REVISION,maximum_public_source_bytes=q.get('maximum_public_source_bytes'))
             result=query_pack_count_star_cases(driver,pack,_aliases(driver),compile_config,execution,observe=compiler,observe_native=native)
     return result
 

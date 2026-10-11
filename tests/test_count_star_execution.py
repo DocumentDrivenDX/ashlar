@@ -127,3 +127,34 @@ class CountStarExecutionTests(unittest.TestCase):
                 with self.assertRaises((CountStarExecutionError,ResolutionError)):
                     self.presence('{"state":"value","value":'+atom+'}',family='boolean',flag=flag)
 if __name__=='__main__':unittest.main()
+
+class PublicSourceBudgetTests(unittest.TestCase):
+    def test_whole_original_receipt_uses_independent_bound_without_compiler_budget_change(self):
+        import hashlib,json,tarfile
+        from pathlib import Path
+        from ashlar_host.count_star_execution import _source_receipt
+        root=Path(__file__).resolve().parents[1]
+        with tarfile.open(root/'docs/helix/04-build/evidence/pack-installed-compiler-20261010/actual.tar.gz')as archive:
+            request=json.loads(archive.extractfile('actual/compile-output/archaeology-dating-0.request').read())
+            artifact=json.loads(archive.extractfile('actual/compile-output/archaeology-dating-0.response').read())
+        with tarfile.open(root/'docs/helix/04-build/evidence/finite-pack-native-20261010-b/evidence.tar.gz')as archive:
+            dataset=archive.extractfile('actual/archaeology/public-dataset.json').read()
+        checks=[c for o in artifact['obligations']for c in o['parameters'].get('checks',[])if c.get('publicSourceOnly')is True]
+        original={'sourceText':request['modules'][0]['documentJson'],'modelPins':artifact['modelPins'],'bindingSha256':artifact['bindingSha256'],'checks':checks}
+        original_text=json.dumps(original,sort_keys=True,separators=(',',':'),ensure_ascii=True)
+        revision='07357eadbda9cf8299b9d72d004cbb77f8091aee'
+        raw=json.dumps({'originalRequestText':original_text,'umfRevision':revision,'admitted':True,'originalDatasetReceiptText':dataset.decode()},sort_keys=True,separators=(',',':'),ensure_ascii=True)
+        receipt={'originalRequestText':original_text,'originalReceiptText':raw,'receiptSha256':hashlib.sha256(raw.encode()).hexdigest()}
+        self.assertGreater(len(raw.encode()),1048576);self.assertLess(len(raw.encode()),2097152)
+        base=(CountStarAdmissionConfig(1048576,CountStarSchemaValidation(SCHEMAS,lambda *a:None)),PathCaptureConfig(100,10000,100000),PathDecodeConfig(10000),lambda *a:dict(receipt),revision)
+        legacy=CountStarExecutionConfig(*base);selected=CountStarExecutionConfig(*base,maximum_public_source_bytes=2097152)
+        self.assertEqual(selected.admission.maximum_artifact_bytes,legacy.admission.maximum_artifact_bytes)
+        with self.assertRaises(CountStarExecutionError):_source_receipt(legacy.public_source,revision,request,artifact,checks,legacy.admission.maximum_artifact_bytes)
+        accepted=_source_receipt(selected.public_source,revision,request,artifact,checks,selected.maximum_public_source_bytes)
+        self.assertEqual(accepted['originalReceiptText'].encode(),raw.encode());self.assertEqual(json.loads(accepted['originalReceiptText'])['originalDatasetReceiptText'].encode(),dataset)
+        for invalid in (True,False,0,-1,16777217,2.0,'2097152'):
+            with self.assertRaises(CountStarExecutionError):CountStarExecutionConfig(*base,maximum_public_source_bytes=invalid)
+    def test_new_field_preserves_legacy_positional_observer_and_none_default(self):
+        observer=lambda *a:None
+        configuration=CountStarExecutionConfig(CountStarAdmissionConfig(1048576,CountStarSchemaValidation(SCHEMAS,lambda *a:None)),PathCaptureConfig(100,10000,100000),PathDecodeConfig(10000),None,None,observer)
+        self.assertIs(configuration.native_observer,observer);self.assertIsNone(configuration.maximum_public_source_bytes)

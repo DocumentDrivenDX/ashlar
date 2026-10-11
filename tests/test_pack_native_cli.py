@@ -88,7 +88,8 @@ class NativeCliTests(unittest.TestCase):
  def test_successful_query_exact_nine_schema_selection_and_decoded_report(self):
   schemas=self.installed_schemas();decoded=self.decoded();events=[];selections=[]
   with tempfile.TemporaryDirectory()as tmp:
-   root=Path(tmp).resolve();path,_=self.configuration(root)
+   root=Path(tmp).resolve();path,value=self.configuration(root)
+   value['profile']=selected.SOURCE_PROFILE;value['query']['maximum_public_source_bytes']=2097152;path.write_text(json.dumps(value))
    @contextlib.contextmanager
    def opened(config,receipt):
     events.append('open')
@@ -101,9 +102,11 @@ class NativeCliTests(unittest.TestCase):
     # callback. This pure control makes no offline SDK validation claim.
     return CountStarSchemaValidation(bundle,lambda *args:None)
    def query(*args,**kwargs):
+    self.assertEqual(args[4].maximum_public_source_bytes,2097152);self.assertEqual(args[4].admission.maximum_artifact_bytes,1048576)
     kwargs['observe']('cycle',0,b'original request',b'original response');kwargs['observe_native']('cycle',{'schema':[['raw','STRING']],'rows':[['-0.00']]})
     return {'cases':[{'id':'cycle','evidence':{'decoded':[decoded],'native_result':{'schema':[['raw','STRING']],'rows':[['-0.00']]}}}],'qualification':'inert complete query control'}
-   with patch.object(selected,'_open',opened),patch.object(selected,'_aliases',return_value={}),patch('ashlar.weft_count_star_distribution.installed_count_star_schema_bundle',return_value=tuple(schemas.items())),patch('ashlar_host.count_star_schema.make_offline_count_star_schema_validation',side_effect=validation),patch('ashlar_host.evolution_producer.snapshot',return_value=b'original pack'),patch('ashlar_host.pack_count_star_query.finite_pack_public_source',return_value=lambda *args:None),patch('ashlar_host.pack_count_star_query.query_pack_count_star_cases',side_effect=query):answer=selected.run_finite_pack_command(str(path),'query')
+   with patch.object(selected,'_open',opened),patch.object(selected,'_aliases',return_value={}),patch('ashlar.weft_count_star_distribution.installed_count_star_schema_bundle',return_value=tuple(schemas.items())),patch('ashlar_host.count_star_schema.make_offline_count_star_schema_validation',side_effect=validation),patch('ashlar_host.evolution_producer.snapshot',return_value=b'original pack'),patch('ashlar_host.pack_count_star_query.finite_pack_public_source',return_value=lambda *args:None)as source_port,patch('ashlar_host.pack_count_star_query.query_pack_count_star_cases',side_effect=query):answer=selected.run_finite_pack_command(str(path),'query')
+   self.assertEqual(source_port.call_args.args[1],2097152)
    self.assertEqual(events,['open','closed']);self.assertEqual(len(selections),1);report=json.loads(Path(answer['report']).read_bytes());self.assertTrue(report['outerCleanupComplete'])
    stored=report['cases'][0]['evidence']['decoded'][0]
    self.assertEqual(stored[0]['value'],{'$type':'Decimal','text':'-0.00'});self.assertEqual(stored[0]['original'],'-0.00')
@@ -132,3 +135,27 @@ class NativeCliTests(unittest.TestCase):
   self.assertEqual(bytes.fromhex(report['paths']['original']['hex']),original);self.assertEqual(item.intermediate,(2**53-1,2**53,2**53+1))
   class Unknown:pass
   with self.assertRaises(ValueError):selected._body(DecodedPaths(original,'value',(PathItem((Unknown(),),(),()),),False),1048576)
+ def test_independent_source_budget_requires_explicit_new_profile_and_closed_fields(self):
+  with tempfile.TemporaryDirectory()as tmp:
+   root=Path(tmp).resolve();_,value=self.configuration(root)
+   legacy=selected.parse_finite_pack_invocation(json.dumps(value).encode(),'query');self.assertEqual(legacy.profile,selected.PROFILE)
+   value['query']['maximum_public_source_bytes']=2097152
+   with self.assertRaises(ValueError):selected.parse_finite_pack_invocation(json.dumps(value).encode(),'query')
+   value['profile']=selected.SOURCE_PROFILE
+   admitted=selected.parse_finite_pack_invocation(json.dumps(value).encode(),'query')
+   self.assertEqual(admitted.query['maximum_public_source_bytes'],2097152);self.assertEqual(admitted.query['maximum_artifact_bytes'],1048576)
+   for invalid in (True,False,0,-1,16777217,2.0,'2097152'):
+    changed=copy.deepcopy(value);changed['query']['maximum_public_source_bytes']=invalid
+    with self.assertRaises(ValueError):selected.parse_finite_pack_invocation(json.dumps(changed).encode(),'query')
+   missing=copy.deepcopy(value);del missing['query']['maximum_public_source_bytes']
+   with self.assertRaises(ValueError):selected.parse_finite_pack_invocation(json.dumps(missing).encode(),'query')
+
+ def test_new_source_profile_is_query_only_before_publish_owner(self):
+  with tempfile.TemporaryDirectory()as tmp:
+   path,value=self.configuration(Path(tmp).resolve(),'publish');value['profile']=selected.SOURCE_PROFILE;path.write_text(json.dumps(value))
+   with patch.object(selected,'_publish')as publication:
+    with self.assertRaises(ValueError):selected.run_finite_pack_command(str(path),'publish')
+    publication.assert_not_called()
+   value['profile']=selected.PROFILE
+   original=selected.parse_finite_pack_invocation(json.dumps(value).encode(),'publish')
+   with self.assertRaises(ValueError):selected.FinitePackInvocation(original.mode,original.native,original.output,original.query,selected.SOURCE_PROFILE)

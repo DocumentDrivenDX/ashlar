@@ -72,20 +72,28 @@ UUIDs, retained snapshots and the owned local lease remain mandatory. Keep the
 selected operation capacity unchanged when reopening this installation.
 
 For a query configuration, preserve the publication, inputs, producer and capacity
-fields. Change `mode` to `query`, select a fresh separate `output` directory and
-add the following `query` object:
+fields. Select profile `ashlar-original-finite-pack-invocation/0.2`, change `mode`
+to `query`, select a fresh separate `output` directory and add the following
+`query` object:
 
 ```json
 {
   "index": "/opt/ashlar/weft/index.json",
   "installation": "/opt/ashlar/weft/count-star-installed",
   "maximum_artifact_bytes": 1048576,
+  "maximum_public_source_bytes": 2097152,
   "maximum_rows": 10000,
   "maximum_cell_bytes": 1048576,
   "maximum_total_cell_bytes": 16777216,
   "maximum_observation_bytes": 67108864
 }
 ```
+
+The source budget bounds each complete verification request and receipt; it does
+not enlarge the compiler-artifact budget or native capture limits. Profile `0.1`
+retains its original shared artifact/source budget and rejects the new field.
+Keep the complete original source receipt; reducing its content to fit a limit
+would lose the correspondence evidence required by the query.
 
 ```sh
 ashlar query-finite-pack --configuration /work/ashlar/archaeology/query.json

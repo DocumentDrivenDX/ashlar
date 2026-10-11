@@ -34,6 +34,7 @@ class CountStarExecutionConfig:
     public_source: Optional[Callable]
     public_source_revision: Optional[str]
     native_observer: Optional[Callable] = None
+    maximum_public_source_bytes: Optional[int] = None
 
     def __post_init__(self):
         if (type(self.admission) is not CountStarAdmissionConfig
@@ -46,6 +47,9 @@ class CountStarExecutionConfig:
             raise CountStarExecutionError('Explicit source producer and revision required')
         if self.native_observer is not None and not callable(self.native_observer):
             raise CountStarExecutionError('Callable native observation port required')
+        if self.maximum_public_source_bytes is not None and (type(self.maximum_public_source_bytes) is not int
+                or not 0 < self.maximum_public_source_bytes <= 16777216):
+            raise CountStarExecutionError('Explicit bounded whole public source receipt required')
 
 
 def _plain(value):
@@ -270,6 +274,7 @@ def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_r
     """Return provisional evidence only after all held checks and interval closure."""
     _require(type(config) is CountStarExecutionConfig and callable(original_oracle),
              'Explicit execution configuration and independent oracle required')
+    config.__post_init__()
     admitted = admit_count_star_artifact(request, artifact, trusted_recompiled, config=config.admission)
     request, artifact, binding = map(_plain, (admitted.request, admitted.artifact, admitted.binding))
     obligations = _plain(admitted.obligations)
@@ -337,7 +342,8 @@ def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_r
             if source_phase and source_rows:
                 evidence['public_source'] = _source_receipt(config.public_source,
                     config.public_source_revision, request, artifact, source_rows,
-                    config.admission.maximum_artifact_bytes)
+                    config.admission.maximum_artifact_bytes if config.maximum_public_source_bytes is None
+                    else config.maximum_public_source_bytes)
         captured = adapter.capture(artifact['sql'], slots)
         if config.native_observer is not None:
             config.native_observer(_oracle_snapshot(captured,
