@@ -86,5 +86,7 @@ class ReadOnlyDeltaTransport(LocalDeltaTransport):
 
 class ReadOnlyTransport:
     @staticmethod
-    def open(spark, journal, installation, targets, policy, *, capacity=None):
-        return ReadOnlyDeltaTransport(spark, journal, installation, targets, policy, capacity=capacity)
+    def open(spark, journal, installation, targets, policy, *, capacity=None, verification_bounds=None):
+        """Select optional constructor capture bounds without changing read authority."""
+        return ReadOnlyDeltaTransport(spark, journal, installation, targets, policy,
+            capacity=capacity, verification_bounds=verification_bounds)
