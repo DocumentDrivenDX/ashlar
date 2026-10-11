@@ -8,6 +8,8 @@ import unittest
 from unittest.mock import Mock, patch
 from ashlar_host.original_medical_runtime import OriginalMedicalRuntimeCustody
 from ashlar_host.original_medical_native_session import original_medical_native_session
+from ashlar_host.medical_process_supervision import OriginalMedicalNativePhase
+from ashlar_host.original_medical_local_configuration import OriginalMedicalBounds
 
 
 class Configuration:
@@ -19,6 +21,39 @@ class Configuration:
 
 
 class Tests(unittest.TestCase):
+    def phase(self, stack):
+        self.custody.bounds = OriginalMedicalBounds(
+            4194304, 10000, 1048576, 16777216, 1048576, 1048576,
+            8388608, 300, 540, 'local[1]', '512m')
+        read, write = os.pipe()
+        stack.callback(os.close, read); stack.callback(os.close, write)
+        os.set_blocking(write, False)
+        return OriginalMedicalNativePhase(write), read
+
+    def test_phase_begins_before_imports_and_ends_after_both_stops(self):
+        with ExitStack() as stack:
+            phase, read = self.phase(stack)
+            observed = []
+            def imports():
+                if not observed:
+                    observed.append(os.read(read, 32))
+            self.custody.verify_imports.side_effect = imports
+            with self.sdk(), original_medical_native_session(self.custody, phase=phase):
+                self.assertEqual(observed, [b'native.begin\n'])
+            self.session.stop.assert_called_once(); self.context.stop.assert_called_once()
+            self.assertEqual(os.read(read, 32), b'native.end\n')
+
+    def test_failed_cleanup_leaves_native_interval_unfinished(self):
+        with ExitStack() as stack:
+            phase, read = self.phase(stack)
+            self.session.stop.side_effect = OSError('stop failed')
+            with self.sdk(), self.assertRaises(OSError):
+                with original_medical_native_session(self.custody, phase=phase): pass
+            self.context.stop.assert_called_once()
+            self.assertEqual(os.read(read, 32), b'native.begin\n')
+            os.set_blocking(read, False)
+            with self.assertRaises(BlockingIOError): os.read(read, 32)
+
     def setUp(self):
         self.environment = {'JAVA_HOME':'/selected/java', 'PYTHONDONTWRITEBYTECODE':'1'}
         self.custody = object.__new__(OriginalMedicalRuntimeCustody)

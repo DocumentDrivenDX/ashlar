@@ -3,16 +3,21 @@ from contextlib import contextmanager
 import os
 from .original_medical_runtime import OriginalMedicalRuntimeCustody
 from .lifecycle import finish
+from .medical_process_supervision import OriginalMedicalNativePhase
 
 
 @contextmanager
-def original_medical_native_session(custody):
+def original_medical_native_session(custody, *, phase=None):
     """Acquire a fresh context; the calling worker owns process-group supervision."""
     if type(custody) is not OriginalMedicalRuntimeCustody:
         raise ValueError('Exact medical runtime custody required')
+    if phase is not None and type(phase) is not OriginalMedicalNativePhase:
+        raise ValueError('Exact original medical native phase required')
     custody.renew()
     if dict(os.environ) != custody.native_environment():
         raise PermissionError('Exact closed selected native environment required')
+    if phase is not None:
+        phase.begin(custody)
     custody.verify_imports()
     from pyspark import SparkConf, SparkContext
     from pyspark.sql import SparkSession
@@ -62,3 +67,5 @@ def original_medical_native_session(custody):
     finish(primary, [custody.renew, custody.verify_imports, observe]
            + ([session.stop] if session is not None else [])
            + ([context.stop] if context is not None else []))
+    if phase is not None:
+        phase.end(custody)
