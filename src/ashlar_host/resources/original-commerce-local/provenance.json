@@ -1,0 +1,60 @@
+{
+  "profile": "ashlar-packaged-original-commerce-local/0.1",
+  "umf_revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+  "resources": [
+    {
+      "resource": "attempts.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/attempts.umf.json",
+      "size": 5808,
+      "sha256": "484d29fb690d1c9f7cf1870fe444d558f6e6f3d0116847912a4fe812c724a571"
+    },
+    {
+      "resource": "e-correspondence.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/e-correspondence.json",
+      "size": 12821,
+      "sha256": "e108cf10abdc072d3dd872aaf634cba1e4136a0d9960c1decda8df242df30a4b"
+    },
+    {
+      "resource": "edge_current.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/edge_current.umf.json",
+      "size": 16846,
+      "sha256": "18bdcd39e2b9ac6498211cca27ff85609b2ca5f74757a5f0550e677889c600a3"
+    },
+    {
+      "resource": "index.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/index.json",
+      "size": 423,
+      "sha256": "a82f501e19fec251644d3f058179d7d714e31de5db866d8899b6d758a58f8d28"
+    },
+    {
+      "resource": "manifest.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/manifest.umf.json",
+      "size": 6650,
+      "sha256": "0e5a0f5a9553dc463ccb656388cf635280b77d7bc08a2423c8c7ded1a3725f46"
+    },
+    {
+      "resource": "object_current.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/object_current.umf.json",
+      "size": 14498,
+      "sha256": "296c61500c08836431f7f3191a0b54025b1c836090e4d5ae71e88c5c3eab182f"
+    },
+    {
+      "resource": "tombstone.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/tombstone.umf.json",
+      "size": 8968,
+      "sha256": "fb334f92f16b0b6da22dd3bacb66470c119d897c01f12f86ba24782dbbb06712"
+    },
+    {
+      "resource": "whole_source_history.umf.json",
+      "original": "docs/helix/02-design/models/original-commerce-local-runtime/whole_source_history.umf.json",
+      "size": 5820,
+      "sha256": "42edbd1d4f33591d11a8bf441bcbb8e5aa2b20ff931915bce9db9d9445f674b2"
+    },
+    {
+      "resource": "runtime-carriers.generated.json",
+      "original": "sql/ashlar-original-commerce-local/runtime-carriers.generated.json",
+      "size": 12472,
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    }
+  ]
+}

@@ -117,7 +117,20 @@ def main():
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
     for option in ('configuration', 'provider', 'provider-sha256'):
         graphframes.add_argument('--' + option, required=True)
+    for name in ('initialize-original-commerce','publish-original-commerce'):
+        local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
+        local.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command in ('initialize-original-commerce','publish-original-commerce'):
+        from ashlar_host.original_commerce_local_cli import run_original_commerce_local_command
+        try:
+            answer=run_original_commerce_local_command(args.configuration,initialize=args.command=='initialize-original-commerce',
+                provider=getattr(args,'provider',None),provider_sha256=getattr(args,'provider_sha256',None))
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar original local operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'run-supply-chain-native':
         from ashlar_host.supply_chain_native_cli import run_supply_chain_native_command
         try:

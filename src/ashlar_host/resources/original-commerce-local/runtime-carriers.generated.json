@@ -1,0 +1,105 @@
+{
+  "profile": "ashlar-generated-original-commerce-local-carriers/0.1",
+  "generator": {
+    "project": "UMF",
+    "revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+    "extension": "umf.delta.definition/0.1.0"
+  },
+  "inputs": {
+    "docs/helix/02-design/models/original-commerce-local-runtime/object_current.umf.json": "296c61500c08836431f7f3191a0b54025b1c836090e4d5ae71e88c5c3eab182f",
+    "docs/helix/02-design/models/original-commerce-local-runtime/edge_current.umf.json": "18bdcd39e2b9ac6498211cca27ff85609b2ca5f74757a5f0550e677889c600a3",
+    "docs/helix/02-design/models/original-commerce-local-runtime/tombstone.umf.json": "fb334f92f16b0b6da22dd3bacb66470c119d897c01f12f86ba24782dbbb06712",
+    "docs/helix/02-design/models/original-commerce-local-runtime/whole_source_history.umf.json": "42edbd1d4f33591d11a8bf441bcbb8e5aa2b20ff931915bce9db9d9445f674b2",
+    "docs/helix/02-design/models/original-commerce-local-runtime/attempts.umf.json": "484d29fb690d1c9f7cf1870fe444d558f6e6f3d0116847912a4fe812c724a571",
+    "docs/helix/02-design/models/original-commerce-local-runtime/manifest.umf.json": "0e5a0f5a9553dc463ccb656388cf635280b77d7bc08a2423c8c7ded1a3725f46",
+    "docs/helix/02-design/models/original-commerce-local-runtime/index.json": "a82f501e19fec251644d3f058179d7d714e31de5db866d8899b6d758a58f8d28",
+    "docs/helix/02-design/models/original-commerce-local-runtime/e-correspondence.json": "e108cf10abdc072d3dd872aaf634cba1e4136a0d9960c1decda8df242df30a4b"
+  },
+  "carriers": {
+    "object_current": {
+      "sql": "CREATE TABLE `object_current` (\n  `source_system` STRING,\n  `type_id` BIGINT,\n  `id` BIGINT,\n  `logical_key_json` STRING,\n  `schema_revision` STRING,\n  `entity_version` BIGINT,\n  `props_json` STRING,\n  `retained_json` STRING,\n  `root_id` BIGINT,\n  `source_feed` STRING,\n  `source_epoch` STRING,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP,\n  `lookup_hash` STRING,\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"logical_key_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"root_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "object_current"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    },
+    "edge_current": {
+      "sql": "CREATE TABLE `edge_current` (\n  `source_system` STRING,\n  `rel_type_id` BIGINT,\n  `id` BIGINT,\n  `source_type` BIGINT,\n  `source_id` BIGINT,\n  `target_type` BIGINT,\n  `target_id` BIGINT,\n  `schema_revision` STRING,\n  `entity_version` BIGINT,\n  `props_json` STRING,\n  `retained_json` STRING,\n  `order_key` STRING,\n  `source_feed` STRING,\n  `source_epoch` STRING,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP,\n  `lookup_hash` STRING,\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"rel_type_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_type\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"target_type\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"target_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"schema_revision\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"props_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"retained_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"order_key\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"published_at\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"lookup_hash\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"apply_batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "edge_current"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    },
+    "tombstone": {
+      "sql": "CREATE TABLE `tombstone` (\n  `source_system` STRING,\n  `entity_kind` STRING,\n  `type_id` BIGINT,\n  `id` BIGINT,\n  `entity_version` BIGINT,\n  `source_feed` STRING,\n  `source_epoch` STRING,\n  `source_position` BIGINT,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"source_system\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"entity_kind\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"type_id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"id\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"entity_version\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_feed\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_epoch\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_position\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_cursor_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "tombstone"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    },
+    "whole_source_history": {
+      "sql": "CREATE TABLE `whole_source_history` (\n  `feed` STRING,\n  `epoch` STRING,\n  `delivery_id` STRING,\n  `digest` STRING,\n  `change_json` STRING,\n  `raw_base64` STRING\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"feed\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"epoch\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"delivery_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"digest\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"change_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"raw_base64\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "whole_source_history"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    },
+    "attempts": {
+      "sql": "CREATE TABLE `attempts` (\n  `stream` STRING,\n  `batch_id` STRING,\n  `phase` STRING,\n  `request_digest` STRING,\n  `payload_json` STRING,\n  `payload_digest` STRING\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"stream\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"batch_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"phase\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"request_digest\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"payload_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"payload_digest\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "attempts"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    },
+    "manifest": {
+      "sql": "CREATE TABLE `manifest` (\n  `publication_id` STRING,\n  `profile_version` STRING,\n  `table_versions_json` STRING,\n  `source_progress_json` STRING,\n  `schema_revisions_json` STRING,\n  `validation_report_json` STRING,\n  `recorded_at` TIMESTAMP\n) USING DELTA;\n",
+      "schemaJson": "{\"type\":\"struct\",\"fields\":[{\"name\":\"publication_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"profile_version\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"table_versions_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"source_progress_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"schema_revisions_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"validation_report_json\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"recorded_at\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}}]}",
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "manifest"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "qualification": "Proposed managed Databricks Delta CREATE; no application, migration, protocol/permission/retention admission, predictive optimization change or relationship enforcement. Native target acceptance requires separate evidence."
+    }
+  },
+  "qualification": "Public UMF generated DDL/schema proposals matching retained E local metadata. Managed-definition rendering subset; no native path application, UC qualification, source grant or migration."
+}
