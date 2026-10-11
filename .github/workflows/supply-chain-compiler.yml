@@ -19,5 +19,5 @@ jobs:
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_count_star_execution.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_finite_native.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_finite_pack test_archaeology_graph_oracle test_ecology_graph_oracle
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_pack_count_star_request test_pack_count_star_oracle
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_pack_count_star_request test_pack_count_star_oracle test_pack_count_star_reader test_pack_count_star_query
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_finite_publication
