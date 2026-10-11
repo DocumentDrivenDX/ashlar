@@ -149,7 +149,7 @@ class ReadOnlyTransport:
 
 class PublicationProvider:
 
-    def __init__(self, driver, aliases, scope_port, request_bytes, manifest_bytes, expected_binding, *, context, cleanup_state=None):
+    def __init__(self, driver, aliases, scope_port, request_bytes, manifest_bytes, expected_binding, *, context, cleanup_state=None, original_bindings=()):
         if cleanup_state is not None and type(cleanup_state) is not ReaderCleanupState:
             raise ValueError('invalid-reader-cleanup-state')
         self.cleanup_state = cleanup_state
@@ -159,10 +159,63 @@ class PublicationProvider:
         self.context = context
         self.request_bytes = request_bytes
         self.manifest_bytes = manifest_bytes
-        self.expected_binding = encoded(expected_binding)
+        self._expected_binding = encoded(expected_binding)
+        if type(original_bindings) is not tuple or any(type(raw) is not bytes or len(raw)>1024*1024 for raw in original_bindings):
+            raise ValueError('Exact bounded original binding inventory required')
+        self._original_bindings = original_bindings
+        self._binding_selected = False
         self.active = False
         self._closed_custody = None
         self._reader_closed = False
+
+    @property
+    def expected_binding(self):
+        return self._expected_binding
+
+    @expected_binding.setter
+    def expected_binding(self, raw):
+        # Compatibility for existing 0.4.1 callers; never a native authority port.
+        if self._binding_selected:
+            raise PermissionError('Public original binding selection cannot be replaced')
+        self._expected_binding = raw
+
+    def select_original_binding(self, request, *, context):
+        """Select captured original carriers; current interval admission remains mandatory.
+
+        The reader factory reconstructs both original supported carrier shapes.
+        This method grants no writer, source ACK, schema or native pin authority.
+        """
+        if context is not self.context or self.active or self._reader_closed:
+            raise PermissionError('Original inactive reader context required')
+        from .commerce_source_receipt import encode_bounded_commerce_json, parse_commerce_json
+        # Exact carriers are checked before serialization or executable equality.
+        nodes=0
+        def own(value, depth=0):
+            nonlocal nodes
+            nodes+=1
+            if nodes>250000:raise ValueError('Original request node bound exceeded')
+            if type(value) is str and len(value)>1024*1024:raise ValueError('Original request text bound exceeded')
+            if depth>64:raise ValueError('Original request depth exceeded')
+            if type(value) in (str, int, bool) or value is None:return value
+            if type(value) is list:return [own(v,depth+1) for v in value]
+            if type(value) is dict:
+                if any(type(k) is not str for k in value):raise ValueError('Exact request keys required')
+                return {k:own(v,depth+1) for k,v in value.items()}
+            raise ValueError('Exact original request carriers required')
+        snapshot=own(request)
+        encode_bounded_commerce_json(snapshot,1024*1024)
+        if type(snapshot) is not dict or type(snapshot.get('target')) is not dict:
+            raise ValueError('Original request target required')
+        target=snapshot['target'];raw=target.get('bindingJson');digest=target.get('bindingSha256')
+        if type(raw) is not str or type(digest) is not str:
+            raise ValueError('Original binding bytes and digest required')
+        body=raw.encode('utf8')
+        parse_commerce_json(body,1024*1024)
+        if hashlib.sha256(body).hexdigest()!=digest or body not in self._original_bindings:
+            raise ValueError('Binding differs from captured original source carriers')
+        self._expected_binding=raw
+        self._binding_selected=True
+        return None
 
     def runtime(self, context):
         if context is not self.context or not self.active:
@@ -346,7 +399,11 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None):
         policy.active = {'request': request, 'steps': plan['selected_steps'], 'expected': expected, 'manifest': manifest, 'publication_id': manifest['publication_id'], 'previous_progress': {}, 'progress': json.loads(manifest['source_progress_json']), 'previous_expected': plan['complete_prior_oracle'], 'generated_steps': plan['generated_steps'], 'elisions': plan['zero_match_elisions']}
         aliases = {t: t.replace('local.', 'spark_catalog.', 1) for t in json.loads(manifest['table_versions_json'])}
         req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
-        provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state)
+        original_bindings = [req['target']['bindingJson'].encode('utf8')]
+        if bindings['profile'] == 'ashlar-commerce-development-bindings/0.2':
+            field_request = compiler_request('', model, bindings, manifest, original_report['table_registry'], aliases, fields=True)
+            original_bindings.append(field_request['target']['bindingJson'].encode('utf8'))
+        provider = PublicationProvider(driver, aliases, port, request_raw.encode(), encoded(manifest).encode(), json.loads(req['target']['bindingJson']), context=context, cleanup_state=cleanup_state, original_bindings=tuple(original_bindings))
         yield SimpleNamespace(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode())
         if native_files() != original_native:
             raise ValueError('Read-only consumer changed original native bytes')
