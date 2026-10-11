@@ -1,0 +1,3524 @@
+{
+  "exclusions": "Cached runtime/SDK/copied interpreters and prior preparation source/wheel/data are not duplicated; exact prior evidence hashes and shared current namespace descriptor retained.",
+  "format": "ashlar-evidence-inventory/0.1",
+  "members": [
+    {
+      "bytes": 2604,
+      "name": "controls/sdk-control-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-sdk-control-i.py",
+      "sha256": "d7b81ab183adeec037c1021537cd083e5b2fa3cb91a0a66a42e14b921028a2f4"
+    },
+    {
+      "bytes": 46223,
+      "name": "h/actual-freeze.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-actual-freeze-h.json",
+      "sha256": "4a4a423b69085edea32d95ec4e6a4579ea71954dfcf5281dede032c6c605605d"
+    },
+    {
+      "bytes": 254,
+      "name": "h/actual/Cypher-fulfillment.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-fulfillment.json",
+      "sha256": "7e5d952ef1dcab3905de3cefa57736b9002e50466514aa50948b7462bd2c242a"
+    },
+    {
+      "bytes": 24747,
+      "name": "h/actual/Cypher-full-edges.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-full-edges.json",
+      "sha256": "9fe9b3fc126e22c047a788567c61503f70e0abce0cd9983a554f3a2c76a23dc1"
+    },
+    {
+      "bytes": 21574,
+      "name": "h/actual/Cypher-full-nodes.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-full-nodes.json",
+      "sha256": "b73cd0fc99ec3b901e23617d89a2b8d434720fead4e12c72781d6f28d3d8e850"
+    },
+    {
+      "bytes": 1033,
+      "name": "h/actual/Cypher-partial-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-partial-intermediates.json",
+      "sha256": "79ba12c7faa9ce8f9106c82e924f510c4e81ab279d35ecaae1af395ca4dc56e8"
+    },
+    {
+      "bytes": 491,
+      "name": "h/actual/Cypher-partial-return.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-partial-return.json",
+      "sha256": "a35bda546ae2cbc8e498bb8c51d9fa85c70341c0e798c1898d287840ff04d59c"
+    },
+    {
+      "bytes": 919,
+      "name": "h/actual/Cypher-refund-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-refund-intermediates.json",
+      "sha256": "2a7e70e0b3d5fb79ff63cec0feeb1372f62da0b7946fc88903b38b80a339181f"
+    },
+    {
+      "bytes": 494,
+      "name": "h/actual/Cypher-refund.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-refund.json",
+      "sha256": "8d6c578a2575eefe5f2a423386d1a3176034eeeaae6061e71e8110518410e57e"
+    },
+    {
+      "bytes": 50079,
+      "name": "h/actual/Cypher-result.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-result.json",
+      "sha256": "f8b124c91a69c565946e443be107a53463a124bcdd60c3204be55846b6076206"
+    },
+    {
+      "bytes": 290,
+      "name": "h/actual/Cypher-settlement.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/Cypher-settlement.json",
+      "sha256": "222c092717a9eeb9f48f8f4b9ef8a00e6406738e13ff86e2b75b5dd0acbd1a2b"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/cleanup-list.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cleanup-list.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/cleanup-list.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cleanup-list.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 87,
+      "name": "h/actual/cypher-readiness-attempt-21.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-attempt-21.json",
+      "sha256": "10aba3b03441647242fb8909d2f4588e5dea03f0c38de8f6ebe6342002917af2"
+    },
+    {
+      "bytes": 106,
+      "name": "h/actual/cypher-readiness-error-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-1.json",
+      "sha256": "cf13df1cf165b4b5a26bea96c6a95e00b268b5838b5b5eb54de86b099ce1d4b2"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-10.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-10.json",
+      "sha256": "b8d51849b2157b3cc83eba23a69a3da21e9660bf45f6662276f4eadfec486eea"
+    },
+    {
+      "bytes": 103,
+      "name": "h/actual/cypher-readiness-error-11.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-11.json",
+      "sha256": "4123ffeaf0f4eec01c3b0fd996fbfae75400daeb172523beee05fc30c981f155"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-12.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-12.json",
+      "sha256": "350ec0c592860762ef3db8034f5caf809f60e9d6e367d41981ab39aaab971f83"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-13.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-13.json",
+      "sha256": "3876b750aad56f7ae3533c907a8123b5c207de6253c41eb2616aa0f6c271bb34"
+    },
+    {
+      "bytes": 103,
+      "name": "h/actual/cypher-readiness-error-14.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-14.json",
+      "sha256": "cf63e29c94b4128d74f9c4d4e0bc7fe6b607f5b6f80689ab5988ec657997da42"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-15.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-15.json",
+      "sha256": "f012eaed56803569c2182e6c45821011b50da2f9c6419d0b77d3dee72e42b872"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-16.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-16.json",
+      "sha256": "39949098cb79080851b6d0549b172db86e29aab03d686423193b56aa2c4707e1"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-17.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-17.json",
+      "sha256": "771f976de0052a0935dc660969e7d76fd17c7e8de3c49be0d537e9e0fdea2ba2"
+    },
+    {
+      "bytes": 98,
+      "name": "h/actual/cypher-readiness-error-18.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-18.json",
+      "sha256": "3bcf2963cfda2280c0b878fdf1d63d83fc39596188c96737f64a67add2e7771f"
+    },
+    {
+      "bytes": 98,
+      "name": "h/actual/cypher-readiness-error-19.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-19.json",
+      "sha256": "1438643ff15c92de37370401b32fb4804bff140b5608a6e52f8db4e2a868dc00"
+    },
+    {
+      "bytes": 103,
+      "name": "h/actual/cypher-readiness-error-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-2.json",
+      "sha256": "b9719987e88ecdb467bb4b17ee6c7e90743c384a02dbc0d5a10a628124a5f407"
+    },
+    {
+      "bytes": 98,
+      "name": "h/actual/cypher-readiness-error-20.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-20.json",
+      "sha256": "8a479ca4e903bbe82511b3ebdbaa4725d579d22c48492fa3eef68e35de6c2863"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-3.json",
+      "sha256": "e773f57887e945f7bf63c53d74d003880e63ef4d018750d64042ee025e89bc0c"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-4.json",
+      "sha256": "881ca737db14d29ee6d6cd339fd0a60eae731dce10f0e17b689f220a3266d9e5"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-5.json",
+      "sha256": "7dc9616f212039d9a3878aeace816db1834f744b0333f32a729cb63f593f6660"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-6.json",
+      "sha256": "261830fdbdf2f821f111ebc0501c03cdd58157055f457ccccb291667f8055583"
+    },
+    {
+      "bytes": 103,
+      "name": "h/actual/cypher-readiness-error-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-7.json",
+      "sha256": "eab889dde28567947266738a98a769fcd6fe18dee94e0c60dd336bbe2f055756"
+    },
+    {
+      "bytes": 103,
+      "name": "h/actual/cypher-readiness-error-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-8.json",
+      "sha256": "57961004d0c94acb2a3ef0fbe5cdf0936b706d89f4b9afa702eab153faea87b7"
+    },
+    {
+      "bytes": 102,
+      "name": "h/actual/cypher-readiness-error-9.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness-error-9.json",
+      "sha256": "4c3eca3c3bcec4123c1908152a7cca3597370c1a55d0a6038dc09dcb836bdf95"
+    },
+    {
+      "bytes": 51,
+      "name": "h/actual/cypher-readiness.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/cypher-readiness.json",
+      "sha256": "00f0921b18bbf0334e6cb073d1071baac1437ebf540b4614ce80c8150ad87a42"
+    },
+    {
+      "bytes": 152,
+      "name": "h/actual/docker-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-1.json",
+      "sha256": "df5d6a3f882581f84139f5300564343fdc9b405c3e70a1892fb468e832399f70"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-1.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-1.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-1.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-10.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-10.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-10.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-10.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-10.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-10.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-11.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-11.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-11.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-11.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-11.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-11.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-12.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-12.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-12.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-12.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-12.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-12.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-13.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-13.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-13.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-13.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-13.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-13.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-14.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-14.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-14.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-14.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-14.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-14.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-15.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-15.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-15.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-15.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-15.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-15.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-16.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-16.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-16.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-16.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-16.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-16.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-17.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-17.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-17.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-17.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-17.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-17.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-18.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-18.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-18.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-18.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-18.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-18.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-19.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-19.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-19.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-19.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-19.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-19.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 648,
+      "name": "h/actual/docker-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-2.json",
+      "sha256": "5de58186a142a2a59c2b4b468a9e56cd6ca7c661f8c0abe32a536ff365477332"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-2.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 65,
+      "name": "h/actual/docker-2.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-2.stdout",
+      "sha256": "7192b1cb213acc698105c70a0ee8ae1d3b7ad7fbf27d89bbcaf4002089365add"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-20.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-20.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-20.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-20.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-20.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-20.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-21.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-21.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-21.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-21.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-21.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-21.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-22.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-22.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-22.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-22.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-22.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-22.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-23.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-23.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-23.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-23.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-23.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-23.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-24.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-24.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-24.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-24.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-24.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-24.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-25.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-25.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-25.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-25.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-25.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-25.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-26.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-26.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-26.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-26.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-26.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-26.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-27.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-27.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-27.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-27.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-27.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-27.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-28.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-28.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-28.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-28.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-28.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-28.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-29.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-29.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-29.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-29.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-29.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-29.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-3.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-3.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-3.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-3.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-3.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-30.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-30.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-30.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-30.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-30.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-30.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-31.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-31.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-31.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-31.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-31.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-31.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-32.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-32.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-32.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-32.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-32.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-32.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-33.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-33.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-33.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-33.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-33.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-33.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-34.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-34.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-34.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-34.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-34.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-34.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-35.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-35.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-35.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-35.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-35.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-35.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-36.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-36.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-36.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-36.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-36.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-36.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-37.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-37.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-37.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-37.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-37.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-37.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-38.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-38.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-38.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-38.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-38.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-38.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-39.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-39.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-39.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-39.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-39.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-39.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-4.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-4.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-4.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-4.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-4.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-40.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-40.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-40.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-40.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-40.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-40.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-41.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-41.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-41.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-41.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-41.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-41.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-42.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-42.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-42.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-42.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-42.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-42.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-43.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-43.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-43.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-43.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-43.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-43.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-44.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-44.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-44.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-44.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-44.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-44.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-45.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-45.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-45.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-45.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-45.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-45.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-46.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-46.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-46.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-46.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-46.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-46.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-47.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-47.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-47.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-47.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-47.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-47.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-48.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-48.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-48.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-48.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-48.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-48.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-49.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-49.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-49.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-49.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-49.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-49.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-5.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-5.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-5.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-5.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-5.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-50.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-50.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-50.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-50.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-50.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-50.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-51.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-51.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-51.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-51.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-51.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-51.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-52.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-52.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-52.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-52.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-52.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-52.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-53.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-53.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-53.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-53.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-53.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-53.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-54.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-54.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-54.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-54.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-54.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-54.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-55.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-55.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-55.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-55.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-55.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-55.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-56.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-56.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-56.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-56.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-56.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-56.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 173,
+      "name": "h/actual/docker-57.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-57.json",
+      "sha256": "52bfe392133f53204dddde5991ad53db0b801400ae61f890e26c70edb7324638"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-57.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-57.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 33344,
+      "name": "h/actual/docker-57.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-57.stdout",
+      "sha256": "011e02b798eec2524e41878c92b14fa4d44080c16dff77bbcc42e91b7b8b4df7"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-58.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-58.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-58.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-58.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-58.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-58.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 158,
+      "name": "h/actual/docker-59.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-59.json",
+      "sha256": "f9627da1dbab48076d1abd9286ed1a39979c042219a56d22ce1753c663de3fbf"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-59.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-59.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 65,
+      "name": "h/actual/docker-59.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-59.stdout",
+      "sha256": "7192b1cb213acc698105c70a0ee8ae1d3b7ad7fbf27d89bbcaf4002089365add"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-6.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-6.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-6.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-6.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-6.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-7.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-7.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-7.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-7.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-7.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 196,
+      "name": "h/actual/docker-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-8.json",
+      "sha256": "91f7b68b0ef8cd16ef9a2c68b8a1b79821606c02e8ad5e6edfda031a864f1d92"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-8.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-8.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "h/actual/docker-8.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-8.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "h/actual/docker-9.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-9.json",
+      "sha256": "ca07ef556889067cc8706d5c5119405733f04ec800167336843c828718dee841"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/docker-9.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-9.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9400,
+      "name": "h/actual/docker-9.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/docker-9.stdout",
+      "sha256": "6b44fb39658f263bd40376078a8de2899be1dcb0f4c0301fcde7380d59519374"
+    },
+    {
+      "bytes": 62,
+      "name": "h/actual/gremlin-readiness.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/gremlin-readiness.json",
+      "sha256": "3b90340374f39586915d477eb5a2daaa3ea191889c66a642edc21919066ce526"
+    },
+    {
+      "bytes": 224565,
+      "name": "h/actual/http-records.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/http-records.json",
+      "sha256": "f662cc2f618fa0f9f35e929110f5d82c32ad266ed9ab0bd6f4f4e9c8b2d8ff5a"
+    },
+    {
+      "bytes": 4338,
+      "name": "h/actual/native.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/native.stderr",
+      "sha256": "e7414f2866996781bb299faae68be317cff8aff9e6ae821b3fdb8cb2e42c6fd6"
+    },
+    {
+      "bytes": 0,
+      "name": "h/actual/native.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/native.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9226,
+      "name": "h/actual/original-bindings.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/original-bindings.json",
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe"
+    },
+    {
+      "bytes": 299,
+      "name": "h/actual/owned-launch.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/owned-launch.json",
+      "sha256": "8aa441702e1273874d064eb34d112b04d5b6a787e261e7a137116bd84714520f"
+    },
+    {
+      "bytes": 263,
+      "name": "h/actual/runner-receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-h/runner-receipt.json",
+      "sha256": "299eb18d2ecc337386b62be9abdb6d92db5b5a77f676de5172ec01b83fcd19e1"
+    },
+    {
+      "bytes": 2413,
+      "name": "h/recipe/ashlar-puppy-commerce-native-command-h.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-command-h.json",
+      "sha256": "acd8cee0fbe4a9c93bd4c1a3dbe951c18595b7f267a514e9276555685d51f667"
+    },
+    {
+      "bytes": 2853,
+      "name": "h/recipe/ashlar-puppy-commerce-native-launcher-h.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-launcher-h.py",
+      "sha256": "34427a8d31e6c748ada08f4c90dd30c8592651371a4b9638a015f29d2266e04d"
+    },
+    {
+      "bytes": 4890,
+      "name": "h/recipe/ashlar-puppy-commerce-native-metadata-h.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-metadata-h.json",
+      "sha256": "7f0fee91576ee74f439a06d896467913a5ad79710d4cb1774594e83664e4a551"
+    },
+    {
+      "bytes": 518,
+      "name": "h/recipe/ashlar-puppy-commerce-native-outer-h.receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-outer-h.receipt.json",
+      "sha256": "45a51e0152da2e3953c3638f423d0bb89218f2b86ba3b53bab37f0c68fb7a03c"
+    },
+    {
+      "bytes": 14963,
+      "name": "h/recipe/ashlar-puppy-commerce-native-probe-h.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-probe-h.py",
+      "sha256": "80b090ecaa32faefd57cfe24af7f06d01b164393c0d9993cf430fa584ea14dc0"
+    },
+    {
+      "bytes": 7844,
+      "name": "h/recipe/ashlar-puppy-commerce-native-runner-h.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-h.py",
+      "sha256": "6e6f74fca252523ba2bf73bf39ffa1052da726eaf4d9560f117a49b7ac7ccfc7"
+    },
+    {
+      "bytes": 472,
+      "name": "h/recipe/ashlar-puppy-commerce-native-runner-h.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-h.stderr",
+      "sha256": "45a98e36b3f71d7d3ec5019a37ae03781ad6202a95ec7308e4f3ba4b3f9112c1"
+    },
+    {
+      "bytes": 0,
+      "name": "h/recipe/ashlar-puppy-commerce-native-runner-h.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-h.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 737,
+      "name": "h/reviews/independent-actual.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-independent-actual-review-h.json",
+      "sha256": "e587b162c3d2fc83d3c42a8df0af538e51df8a4f9d9202b434dad337e1be7658"
+    },
+    {
+      "bytes": 867,
+      "name": "h/reviews/independent-command.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-independent-command-review-h.json",
+      "sha256": "bd0cb41aacedd0f36aee433977f5a5fa72c09a3ac09e4b07be6fbe2c2eb0d130"
+    },
+    {
+      "bytes": 71200,
+      "name": "i/actual-freeze.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-actual-freeze-i.json",
+      "sha256": "623ef026a922330f5a718dd434b896dba5a73fb47c2298bae500978a362f2f7b"
+    },
+    {
+      "bytes": 254,
+      "name": "i/actual/Cypher-fulfillment.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-fulfillment.json",
+      "sha256": "7e5d952ef1dcab3905de3cefa57736b9002e50466514aa50948b7462bd2c242a"
+    },
+    {
+      "bytes": 24747,
+      "name": "i/actual/Cypher-full-edges.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-full-edges.json",
+      "sha256": "9fe9b3fc126e22c047a788567c61503f70e0abce0cd9983a554f3a2c76a23dc1"
+    },
+    {
+      "bytes": 21574,
+      "name": "i/actual/Cypher-full-nodes.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-full-nodes.json",
+      "sha256": "b73cd0fc99ec3b901e23617d89a2b8d434720fead4e12c72781d6f28d3d8e850"
+    },
+    {
+      "bytes": 1033,
+      "name": "i/actual/Cypher-partial-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-partial-intermediates.json",
+      "sha256": "79ba12c7faa9ce8f9106c82e924f510c4e81ab279d35ecaae1af395ca4dc56e8"
+    },
+    {
+      "bytes": 491,
+      "name": "i/actual/Cypher-partial-return.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-partial-return.json",
+      "sha256": "a35bda546ae2cbc8e498bb8c51d9fa85c70341c0e798c1898d287840ff04d59c"
+    },
+    {
+      "bytes": 919,
+      "name": "i/actual/Cypher-refund-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-refund-intermediates.json",
+      "sha256": "2a7e70e0b3d5fb79ff63cec0feeb1372f62da0b7946fc88903b38b80a339181f"
+    },
+    {
+      "bytes": 494,
+      "name": "i/actual/Cypher-refund.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-refund.json",
+      "sha256": "8d6c578a2575eefe5f2a423386d1a3176034eeeaae6061e71e8110518410e57e"
+    },
+    {
+      "bytes": 50079,
+      "name": "i/actual/Cypher-result.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-result.json",
+      "sha256": "f8b124c91a69c565946e443be107a53463a124bcdd60c3204be55846b6076206"
+    },
+    {
+      "bytes": 290,
+      "name": "i/actual/Cypher-settlement.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Cypher-settlement.json",
+      "sha256": "222c092717a9eeb9f48f8f4b9ef8a00e6406738e13ff86e2b75b5dd0acbd1a2b"
+    },
+    {
+      "bytes": 514,
+      "name": "i/actual/Gremlin-fulfillment.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-fulfillment.json",
+      "sha256": "9d8aaf42a1371901b4586053cc4d68a60d787a379bd275b043ef11c49f07257e"
+    },
+    {
+      "bytes": 26721,
+      "name": "i/actual/Gremlin-full-edges.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-full-edges.json",
+      "sha256": "4e0218f90dc1721f8ad5ed78d42be22390d70b5e3455ecca2b3d64bfea929c03"
+    },
+    {
+      "bytes": 23225,
+      "name": "i/actual/Gremlin-full-nodes.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-full-nodes.json",
+      "sha256": "cad106715cc1e839efbff661af7856d68a106ffbb496b579b611ec11cf854a4b"
+    },
+    {
+      "bytes": 1487,
+      "name": "i/actual/Gremlin-partial-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-partial-intermediates.json",
+      "sha256": "f0b1f5ab2b5d1f7e112633e221807f800f4f022f2e5578d4aeef307f143dfee1"
+    },
+    {
+      "bytes": 1016,
+      "name": "i/actual/Gremlin-partial-return.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-partial-return.json",
+      "sha256": "d03b4e82b7cde0960e0d0a2ac9e50d8371fd4e67bd0828c377e20387cedd7192"
+    },
+    {
+      "bytes": 1138,
+      "name": "i/actual/Gremlin-refund-intermediates.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-refund-intermediates.json",
+      "sha256": "7fb7f7dded47de3ffeac87ea9758fbfc85b29399b180c8e7d65f807e656c6ff9"
+    },
+    {
+      "bytes": 803,
+      "name": "i/actual/Gremlin-refund.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-refund.json",
+      "sha256": "37e0e8c32260f9ee4d6c58189db8aa06571791607546f5021bd47a06d57641fb"
+    },
+    {
+      "bytes": 55896,
+      "name": "i/actual/Gremlin-result.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-result.json",
+      "sha256": "c3b45d8e76df954c0e2d9a23b4c3fd57c57a50096525b9676ff20e1c19d05a39"
+    },
+    {
+      "bytes": 704,
+      "name": "i/actual/Gremlin-settlement.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/Gremlin-settlement.json",
+      "sha256": "cd87be2af91be31783c2e45785638c99bb549302ad19d8dcba0384abab3b3893"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/cleanup-list.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cleanup-list.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/cleanup-list.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cleanup-list.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 86,
+      "name": "i/actual/cypher-readiness-attempt-25.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-attempt-25.json",
+      "sha256": "9c53b4b87099a7b8364758e0d2f6cb8b9d5137061de6e14c87a5cceca016b3b2"
+    },
+    {
+      "bytes": 106,
+      "name": "i/actual/cypher-readiness-error-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-1.json",
+      "sha256": "883bae164887915d049f5831bfd22c2da8d5cbfac94ba6d9f8ebbabc90102525"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-10.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-10.json",
+      "sha256": "4b3f16830e3a6b63f48d025e822e4f8a19ea14ca90e3fbfe7e4fbc511e46c29f"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-11.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-11.json",
+      "sha256": "378be350f8adf74c80bee861547d1a50d5dc3be12f6496a5175791d1e240dfea"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-12.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-12.json",
+      "sha256": "916cae01a13aef8e1f0a057836e5c71e50d7af77c9df7b635dba8052a0ef0e20"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-13.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-13.json",
+      "sha256": "1c2f05d3a77ad4725bb3af868d0cc46eb45e3fc87937ff1da393626262452c22"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-14.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-14.json",
+      "sha256": "c8758540fe46cdfaf92259cdb390474c04eca21b080533f8e37f587fb634925c"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-15.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-15.json",
+      "sha256": "cf04ab7a823cb11c6de9efba7c4924efd0c3bdeac520e3d83daaa862c25d1479"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-16.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-16.json",
+      "sha256": "08795921fdd58eccb70153570f2996666b489adfe5ae2dfa681b51eaae017dea"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-17.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-17.json",
+      "sha256": "da1a7779a9a1e913c5c87b8ae11578653a8ea0a1286cf6b013592e06c6985154"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-18.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-18.json",
+      "sha256": "3061d6fa3a828f2b7d8cf813844470df6adedc87f3f5514b84a3e82c4de11690"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-19.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-19.json",
+      "sha256": "29e8763f51662f79682a00aa25fc1127e6492556b81cb29ee5fbd712d01198ff"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-2.json",
+      "sha256": "3e8a7aa4ded4047aca21ae4e4d3fb4967594444cd9729396fef8d991c5967531"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-20.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-20.json",
+      "sha256": "000ae22a34329c8a16a399e149cb50adb8fd73243e1e12af1d6b06a8bc5dfaa2"
+    },
+    {
+      "bytes": 101,
+      "name": "i/actual/cypher-readiness-error-21.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-21.json",
+      "sha256": "120a1a527fd8cee366ae2695342b220a89dd446fbd493dfeb7af7d9782a957d1"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-22.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-22.json",
+      "sha256": "4cfb3f74e6e1f54562b41775f48b75aabf16d1dd2e216a7824bdb50fc4865805"
+    },
+    {
+      "bytes": 99,
+      "name": "i/actual/cypher-readiness-error-23.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-23.json",
+      "sha256": "a3159de4e2dbd07111da538698fdb67fa6c1e55a424b573654bbc4df24c4615d"
+    },
+    {
+      "bytes": 99,
+      "name": "i/actual/cypher-readiness-error-24.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-24.json",
+      "sha256": "d95c10294dd54fb828d85af55558b5ad66f2d818ee8e989de08038ae323e82e8"
+    },
+    {
+      "bytes": 103,
+      "name": "i/actual/cypher-readiness-error-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-3.json",
+      "sha256": "b86c20dff90113a6966d33fb29dc8804bf7ab0da5453f6f1288274aa15aca4f6"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-4.json",
+      "sha256": "64a90e2fcd2c910b48a2f8d04fbd4f980b1551c1990a1c8b5d4c4f358cc06f6f"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-5.json",
+      "sha256": "e8ca3a0e6c35f594e220bda69c475aba44b10abc1774fae78289b9277790505a"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-6.json",
+      "sha256": "a48ead39cd3cc4ecc64824c711a5a5bc892d7d2ab48444ab8da4725726bfa09b"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-7.json",
+      "sha256": "d30f50a2cd26320015d3d7ec6cefd1b77f27ee9b31f54f8ca45260a821c5e9c6"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-8.json",
+      "sha256": "627864fc1d2eae7a507deff803f33c5e306de8b4063a39add3cfedd03c8bcdf3"
+    },
+    {
+      "bytes": 102,
+      "name": "i/actual/cypher-readiness-error-9.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness-error-9.json",
+      "sha256": "3d6947a3467e8e1ca432c8f1770e5ea2d15bf334ca7ebaee03090af5d30d59cd"
+    },
+    {
+      "bytes": 51,
+      "name": "i/actual/cypher-readiness.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/cypher-readiness.json",
+      "sha256": "00f0921b18bbf0334e6cb073d1071baac1437ebf540b4614ce80c8150ad87a42"
+    },
+    {
+      "bytes": 152,
+      "name": "i/actual/docker-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-1.json",
+      "sha256": "7d49209676b66dd1afe55c48bd1726c73da260b46b87694d247f8a6bd824d256"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-1.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-1.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-1.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-10.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-10.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-10.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-10.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-10.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-10.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-11.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-11.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-11.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-11.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-11.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-11.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-12.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-12.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-12.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-12.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-12.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-12.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-13.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-13.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-13.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-13.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-13.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-13.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-14.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-14.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-14.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-14.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-14.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-14.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-15.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-15.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-15.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-15.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-15.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-15.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-16.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-16.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-16.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-16.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-16.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-16.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-17.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-17.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-17.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-17.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-17.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-17.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-18.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-18.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-18.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-18.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-18.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-18.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-19.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-19.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-19.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-19.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-19.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-19.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 648,
+      "name": "i/actual/docker-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-2.json",
+      "sha256": "e1bc46c45fcc8a8fe5647f85731c3d9945d368c5ce6c971a1c155046c4aaf72f"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-2.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 65,
+      "name": "i/actual/docker-2.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-2.stdout",
+      "sha256": "2ed0cef49a72c82a5477546889959ba3348735737cdaa142282e52303bc387e6"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-20.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-20.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-20.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-20.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-20.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-20.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-21.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-21.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-21.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-21.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-21.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-21.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-22.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-22.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-22.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-22.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-22.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-22.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-23.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-23.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-23.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-23.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-23.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-23.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-24.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-24.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-24.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-24.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-24.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-24.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-25.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-25.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-25.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-25.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-25.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-25.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-26.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-26.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-26.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-26.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-26.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-26.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-27.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-27.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-27.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-27.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-27.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-27.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-28.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-28.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-28.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-28.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-28.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-28.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-29.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-29.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-29.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-29.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-29.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-29.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-3.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-3.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-3.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-3.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-3.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-30.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-30.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-30.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-30.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-30.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-30.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-31.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-31.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-31.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-31.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-31.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-31.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-32.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-32.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-32.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-32.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-32.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-32.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-33.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-33.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-33.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-33.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-33.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-33.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-34.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-34.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-34.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-34.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-34.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-34.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-35.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-35.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-35.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-35.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-35.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-35.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-36.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-36.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-36.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-36.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-36.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-36.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-37.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-37.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-37.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-37.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-37.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-37.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-38.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-38.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-38.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-38.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-38.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-38.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-39.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-39.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-39.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-39.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-39.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-39.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-4.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-4.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-4.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-4.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-4.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-40.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-40.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-40.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-40.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-40.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-40.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-41.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-41.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-41.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-41.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-41.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-41.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-42.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-42.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-42.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-42.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-42.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-42.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-43.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-43.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-43.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-43.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-43.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-43.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-44.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-44.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-44.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-44.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-44.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-44.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-45.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-45.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-45.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-45.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-45.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-45.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-46.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-46.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-46.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-46.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-46.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-46.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-47.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-47.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-47.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-47.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-47.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-47.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-48.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-48.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-48.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-48.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-48.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-48.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-49.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-49.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-49.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-49.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-49.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-49.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-5.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-5.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-5.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-5.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-5.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-50.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-50.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-50.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-50.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-50.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-50.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-51.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-51.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-51.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-51.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-51.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-51.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-52.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-52.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-52.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-52.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-52.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-52.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-53.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-53.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-53.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-53.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-53.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-53.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-54.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-54.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-54.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-54.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-54.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-54.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-55.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-55.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-55.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-55.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-55.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-55.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-56.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-56.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-56.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-56.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-56.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-56.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-57.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-57.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-57.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-57.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-57.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-57.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-58.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-58.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-58.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-58.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-58.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-58.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-59.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-59.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-59.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-59.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-59.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-59.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-6.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-6.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-6.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-6.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-6.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-60.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-60.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-60.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-60.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-60.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-60.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-61.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-61.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-61.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-61.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-61.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-61.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-62.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-62.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-62.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-62.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-62.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-62.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-63.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-63.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-63.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-63.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-63.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-63.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-64.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-64.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-64.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-64.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-64.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-64.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-65.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-65.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-65.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-65.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-65.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-65.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-66.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-66.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-66.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-66.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-66.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-66.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-67.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-67.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-67.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-67.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-67.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-67.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-68.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-68.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-68.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-68.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-68.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-68.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-69.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-69.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-69.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-69.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-69.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-69.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-7.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-7.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-7.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-7.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-7.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-70.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-70.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-70.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-70.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-70.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-70.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-71.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-71.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-71.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-71.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-71.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-71.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-72.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-72.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-72.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-72.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-72.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-72.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-73.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-73.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-73.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-73.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-73.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-73.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-74.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-74.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-74.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-74.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-74.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-74.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-75.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-75.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-75.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-75.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-75.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-75.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-76.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-76.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-76.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-76.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-76.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-76.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-77.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-77.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-77.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-77.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-77.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-77.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-78.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-78.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-78.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-78.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-78.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-78.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-79.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-79.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-79.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-79.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-79.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-79.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-8.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-8.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-8.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-8.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-8.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-80.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-80.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-80.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-80.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-80.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-80.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-81.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-81.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-81.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-81.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-81.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-81.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-82.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-82.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-82.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-82.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-82.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-82.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-83.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-83.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-83.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-83.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-83.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-83.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-84.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-84.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-84.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-84.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-84.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-84.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-85.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-85.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-85.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-85.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-85.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-85.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 196,
+      "name": "i/actual/docker-86.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-86.json",
+      "sha256": "ff9bf887ed2748bc97af6c36b4eba8d1640ab45c581b1cf3fca5c4a304c4c203"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-86.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-86.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 93,
+      "name": "i/actual/docker-86.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-86.stdout",
+      "sha256": "b97efe4da25a3f43a99b73cc14c1fb1b2881fbeb6f419cd65f75e945ae528500"
+    },
+    {
+      "bytes": 173,
+      "name": "i/actual/docker-87.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-87.json",
+      "sha256": "b5a03c1808724131ed50526eb4078c44890a5f5176ee8b4fe17a5e267a3aeb88"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-87.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-87.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 37728,
+      "name": "i/actual/docker-87.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-87.stdout",
+      "sha256": "5590d16e11dd5cd1ac510ee2564048175306ab835a8ca8f8e34e6f767a3a5508"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-88.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-88.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-88.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-88.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-88.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-88.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 158,
+      "name": "i/actual/docker-89.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-89.json",
+      "sha256": "41f64d3dd09c8826efe974500ecf8aee8aa24490d24da85fa6fff68cf159a862"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-89.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-89.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 65,
+      "name": "i/actual/docker-89.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-89.stdout",
+      "sha256": "2ed0cef49a72c82a5477546889959ba3348735737cdaa142282e52303bc387e6"
+    },
+    {
+      "bytes": 160,
+      "name": "i/actual/docker-9.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-9.json",
+      "sha256": "5590d66076d6d8da490012171aba758c4c38b2617723001e6dc3add14dd4f2e3"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/docker-9.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-9.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9399,
+      "name": "i/actual/docker-9.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/docker-9.stdout",
+      "sha256": "47a6edfbfca335944dd7b45653dd4a6e74d55b8d3392880bedc92a7c88b9ac88"
+    },
+    {
+      "bytes": 62,
+      "name": "i/actual/gremlin-readiness.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-readiness.json",
+      "sha256": "3b90340374f39586915d477eb5a2daaa3ea191889c66a642edc21919066ce526"
+    },
+    {
+      "bytes": 23380,
+      "name": "i/actual/gremlin-sdk-census-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-1.json",
+      "sha256": "3f150ec197fbacf1688ac8154d3f976e80cd70a37bedde956e9c08a45a0cb8f8"
+    },
+    {
+      "bytes": 26876,
+      "name": "i/actual/gremlin-sdk-census-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-2.json",
+      "sha256": "e34f12a876f49b4bd5b31391b5bb05951243ca10046f8e6a42f4c39b855789ce"
+    },
+    {
+      "bytes": 1628,
+      "name": "i/actual/gremlin-sdk-census-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-3.json",
+      "sha256": "1cfdb9285c79f45298d052d268ff32df232f862ad313ca4e1335e16bed5d476e"
+    },
+    {
+      "bytes": 1280,
+      "name": "i/actual/gremlin-sdk-census-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-4.json",
+      "sha256": "4a9fa3bd0ba6f8fab4691c4e5b164c992ae379f76f12825a29375a751078f3b8"
+    },
+    {
+      "bytes": 1164,
+      "name": "i/actual/gremlin-sdk-census-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-5.json",
+      "sha256": "3360173dcdcbc4edd858ca73a5ef4bd0eb62f4885852719cb07e9eb704b4de7c"
+    },
+    {
+      "bytes": 665,
+      "name": "i/actual/gremlin-sdk-census-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-6.json",
+      "sha256": "b63a0105e569f26e1e82d8ab0b06c0a83fc31348e313a2eff1a9269fc71a60bf"
+    },
+    {
+      "bytes": 856,
+      "name": "i/actual/gremlin-sdk-census-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-7.json",
+      "sha256": "433ac277a8b8eb77f2482d8e848303ab84ed5ddefb41bb1e3867b0987c09abdd"
+    },
+    {
+      "bytes": 959,
+      "name": "i/actual/gremlin-sdk-census-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-sdk-census-8.json",
+      "sha256": "4bbc72d388234250863b0b1c05189f0deb1e103015be7bb5dbdec9e3d7e3e640"
+    },
+    {
+      "bytes": 259,
+      "name": "i/actual/gremlin-wire-1.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-1.json",
+      "sha256": "3ab3b0d984813e52f41679c47dc661da9ca50bfa897a15aceae10be41e1fda98"
+    },
+    {
+      "bytes": 21621,
+      "name": "i/actual/gremlin-wire-2.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-2.json",
+      "sha256": "35d8d1ace4873eab366df06e1c49d52291125fd0f6e8bbff183329954bc7d485"
+    },
+    {
+      "bytes": 25249,
+      "name": "i/actual/gremlin-wire-3.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-3.json",
+      "sha256": "39423570fb2f5b4614a46f9b24499a65a0d9a766cbe8fe41bf9e0dcde2496828"
+    },
+    {
+      "bytes": 1041,
+      "name": "i/actual/gremlin-wire-4.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-4.json",
+      "sha256": "c32bc6419b4cbaa899c2226f573eccb110a1a7924a1a7e6607ff8b31cb80de92"
+    },
+    {
+      "bytes": 696,
+      "name": "i/actual/gremlin-wire-5.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-5.json",
+      "sha256": "f13fd31a3d01e09d52e120414aee6f67b46b94b52291164ed11f2a817f020970"
+    },
+    {
+      "bytes": 367,
+      "name": "i/actual/gremlin-wire-6.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-6.json",
+      "sha256": "22c0357c80c8afccf784820b9153f7d9aab0cedcd97cae37091203a7a5885377"
+    },
+    {
+      "bytes": 249,
+      "name": "i/actual/gremlin-wire-7.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-7.json",
+      "sha256": "7e9ad922e0a9eb93f410609fc541618b07e030c4db9011b466fa85fa8d412bfc"
+    },
+    {
+      "bytes": 251,
+      "name": "i/actual/gremlin-wire-8.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-8.json",
+      "sha256": "a8290541938f6c2eb34f718c599973a2bc8c6f19cf038a092514147b8d4215b0"
+    },
+    {
+      "bytes": 250,
+      "name": "i/actual/gremlin-wire-9.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/gremlin-wire-9.json",
+      "sha256": "a78b23f7bc2141917f3775aeb948bb82cf967ef83f46fb0d6b687865a3634529"
+    },
+    {
+      "bytes": 342420,
+      "name": "i/actual/http-records.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/http-records.json",
+      "sha256": "f3f8d2931f1576348b474cf882c47efa301ed8083c0868edcaa2dc413556e4af"
+    },
+    {
+      "bytes": 729,
+      "name": "i/actual/native.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/native.stderr",
+      "sha256": "ae25a41f530ed0263167364e80343a3b0dd83f6ad6f514a84d234ed5be19f29d"
+    },
+    {
+      "bytes": 0,
+      "name": "i/actual/native.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/native.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9226,
+      "name": "i/actual/original-bindings.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/original-bindings.json",
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe"
+    },
+    {
+      "bytes": 299,
+      "name": "i/actual/owned-launch.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/owned-launch.json",
+      "sha256": "82863ab5cad0ecc252a2d8b126d91bd1a3a6a35712fdd0f8480fb3954ffbb5da"
+    },
+    {
+      "bytes": 253,
+      "name": "i/actual/runner-receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/runner-receipt.json",
+      "sha256": "0ee9f265af3288a96cb0c25e0e37100c1b05d7c3a13583105efb48c7c5caf703"
+    },
+    {
+      "bytes": 106578,
+      "name": "i/actual/summary.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-20261010-i/summary.json",
+      "sha256": "16a2a00a3426129508db654e27263975483e8ea9143a9cebf1943605b24a885d"
+    },
+    {
+      "bytes": 2606,
+      "name": "i/recipe/ashlar-puppy-commerce-native-command-i.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-command-i.json",
+      "sha256": "0bf8e8ed0767a889dca741270c2953140b9e10b9d831c2029b65ffe881fb771f"
+    },
+    {
+      "bytes": 2853,
+      "name": "i/recipe/ashlar-puppy-commerce-native-launcher-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-launcher-i.py",
+      "sha256": "34427a8d31e6c748ada08f4c90dd30c8592651371a4b9638a015f29d2266e04d"
+    },
+    {
+      "bytes": 5083,
+      "name": "i/recipe/ashlar-puppy-commerce-native-metadata-i.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-metadata-i.json",
+      "sha256": "dc145c2e436c0d3d478e775f1b33664c1f16d65c1b8f3eaf3343f72181e757a4"
+    },
+    {
+      "bytes": 516,
+      "name": "i/recipe/ashlar-puppy-commerce-native-outer-i.receipt.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-outer-i.receipt.json",
+      "sha256": "9fa1d909506aad9aebb0de65ad3c2e0681163a65a6dbf896c081186042017264"
+    },
+    {
+      "bytes": 15566,
+      "name": "i/recipe/ashlar-puppy-commerce-native-probe-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-probe-i.py",
+      "sha256": "3612e4f4a47d0591fb60924712fabb59c91291d8f16419ae200487674cae0dae"
+    },
+    {
+      "bytes": 7844,
+      "name": "i/recipe/ashlar-puppy-commerce-native-runner-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-i.py",
+      "sha256": "a7aefe4823581a57fcba83f02c5011c87e0b9666ebf66c412955a21ebb7448a7"
+    },
+    {
+      "bytes": 0,
+      "name": "i/recipe/ashlar-puppy-commerce-native-runner-i.stderr",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-i.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "i/recipe/ashlar-puppy-commerce-native-runner-i.stdout",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-runner-i.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3138,
+      "name": "i/recipe/ashlar-puppy-commerce-native-sdk-adapter-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-sdk-adapter-i.py",
+      "sha256": "7c11bec48e3c24f151d97717acd487765b4a5a075ac57088670474a485aa0dbe"
+    },
+    {
+      "bytes": 2604,
+      "name": "i/recipe/ashlar-puppy-commerce-native-sdk-control-i.py",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-sdk-control-i.py",
+      "sha256": "d7b81ab183adeec037c1021537cd083e5b2fa3cb91a0a66a42e14b921028a2f4"
+    },
+    {
+      "bytes": 1251,
+      "name": "i/reviews/independent-actual.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-independent-actual-review-i.json",
+      "sha256": "7043478e7908bb84851e9b531457607b62b0eab8108b381a9f9e5fe35ebf7a48"
+    },
+    {
+      "bytes": 1124,
+      "name": "i/reviews/independent-command.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-independent-command-review-i.json",
+      "sha256": "0478cd7dc17fbf232e2aae5f28ad4e50f45a32daefce61fa2f5ca504ab5973f3"
+    },
+    {
+      "bytes": 5068160,
+      "name": "shared/native-runtime-closure.json",
+      "originalPath": "/private/tmp/ashlar-puppy-commerce-native-closure-a.json",
+      "sha256": "7d7b6efcef5d9e88c4e567dbafee3b0a9730ee40828b8a6178a06c656bf86d68"
+    }
+  ],
+  "priorEvidence": [
+    {
+      "bytes": 1550,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-numeric-20261010-b/README.md",
+      "sha256": "485ca0670afbb8852d8c91f30c290f59acdf5f1c03eb022ac475dc5ad3a35a5a"
+    },
+    {
+      "bytes": 2906144,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-numeric-20261010-b/actual.tar.gz",
+      "sha256": "b5053938e79b404906486308b99cc22d8cc0d82333ca6a297b0b1174e1949fc2"
+    },
+    {
+      "bytes": 13921,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-numeric-20261010-b/inventory.json",
+      "sha256": "d7c7e561c1793be11ba0d424b4b40027489e0461e6ed56a2a3efa4a158fb1647"
+    },
+    {
+      "bytes": 2162,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-native-attempts-20261010/README.md",
+      "sha256": "f2c4ba3b28acd8785be512572b57cadd19998d03dd49f787b80ea88c12722cb7"
+    },
+    {
+      "bytes": 763474,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-native-attempts-20261010/attempts.tar.gz",
+      "sha256": "6a71dd5754a47656f31b6b39481766e7c8c240dcbbda8616bbc36c35a82c7ea4"
+    },
+    {
+      "bytes": 40214,
+      "path": "docs/helix/04-build/evidence/puppy-commerce-installed-native-attempts-20261010/inventory.json",
+      "sha256": "b3f10491ded7679c3ac9322348a12dc89b8362fe6852f3e126f1265e65875b6b"
+    }
+  ]
+}
