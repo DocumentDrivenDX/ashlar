@@ -123,7 +123,7 @@ class OriginalMedicalBounds:
     def __post_init__(self):
         for value, ceiling in zip((self.input_bytes, self.rows, self.cell_bytes, self.total_bytes,
                 self.stream_bytes, self.receipt_bytes, self.journal_bytes),
-                (4194304, 10000, 1048576, 16777216, 1048576, 1048576, 8388608)):
+                (4194304, 10000, 1048576, 16777216, 1048576, 1048576, 134217728)):
             if type(value) is not int or not 1 <= value <= ceiling:
                 raise ValueError('Explicit finite medical capture bounds required')
         if (type(self.native_seconds) is not int or self.native_seconds != 300

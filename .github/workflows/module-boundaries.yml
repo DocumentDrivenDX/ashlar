@@ -57,7 +57,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_commerce_query_sources.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_original_commerce_publication.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_admission
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_local_configuration
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_local_configuration test_medical_journal_budget
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_sources test_local_physical_carriers
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_local_sources
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_read_sources

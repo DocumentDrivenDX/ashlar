@@ -6,6 +6,15 @@ from pathlib import Path
 from .delta_custody import DeltaTarget,LocalDeltaTransport,encoded,operation_capacity
 from .evolution_producer import snapshot
 from .lifecycle import finish
+MAX_MEDICAL_JOURNAL_BYTES=134217728
+
+def require_medical_journal_budget(path,maximum):
+    """Bound the canonical SQLite main file, excluding WAL and other files."""
+    if type(maximum)is not int or not 1<=maximum<=MAX_MEDICAL_JOURNAL_BYTES:
+        raise ValueError('Explicit finite medical journal budget required')
+    identity(path)
+    if path.lstat().st_size>maximum:raise PermissionError('Selected medical journal main-file budget exceeded')
+
 ROLES={'attempts','manifest','object_current','edge_current','tombstone','whole_source_history'}
 
 @dataclass(frozen=True)
@@ -30,7 +39,9 @@ def identity(path,directory=False):
 
 class OriginalMedicalInstallationLease:
     """Actual POSIX cooperating-operator lease plus complete existing registry."""
-    def __init__(self,operator,context,fd,lock):
+    def __init__(self,operator,context,fd,lock,journal_bytes=MAX_MEDICAL_JOURNAL_BYTES):
+        require_medical_journal_budget(operator.journal,journal_bytes)
+        self.journal_bytes=journal_bytes;self.original_journal_bytes=journal_bytes
         self.selection=operator;self.context=context;self.fd=fd;self.lock=lock;self.closed=False
         self.parent=identity(operator.journal.parent,True);self.journal=identity(operator.journal)
         self.lock_identity=identity(lock)
@@ -40,7 +51,9 @@ class OriginalMedicalInstallationLease:
         self.original_targets=tuple((x.table,str(x.path),x.uuid) for x in sorted(operator.targets,key=lambda x:x.table))
         self.target_identities=tuple((x.path,identity(x.path,True)) for x in operator.targets)
     def renew(self,context):
+        if self.journal_bytes!=self.original_journal_bytes or type(self.journal_bytes)is not int:raise PermissionError('Original selected medical journal budget changed')
         if type(self.selection) is not OriginalMedicalInstallationSelection:raise PermissionError('Exact installed owner required')
+        require_medical_journal_budget(self.selection.journal,self.original_journal_bytes)
         self.selection.__post_init__()
         if self.closed or context is not self.context or identity(self.selection.journal.parent,True)!=self.parent or identity(self.selection.journal)!=self.journal or identity(self.lock)!=self.lock_identity:
             raise PermissionError('Original held installation lease changed')
@@ -61,18 +74,18 @@ class OriginalMedicalInstallationLease:
             raise PermissionError('Complete original native registry changed')
     @classmethod
     @contextmanager
-    def open(cls,operator,context):
+    def open(cls,operator,context,*,journal_bytes=MAX_MEDICAL_JOURNAL_BYTES):
         if type(operator) is not OriginalMedicalInstallationSelection:raise ValueError('Exact original publication operator required')
-        operator.__post_init__();identity(operator.journal.parent,True);identity(operator.journal)
+        operator.__post_init__();identity(operator.journal.parent,True);require_medical_journal_budget(operator.journal,journal_bytes)
         lock=operator.journal.parent/'.evolution-operator.lock'
         fd=None;owner=None;primary=None;locked=False
         try:
             fd=os.open(lock,os.O_RDWR|os.O_CREAT|os.O_NOFOLLOW,0o600)
             fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);locked=True
             LocalDeltaTransport.require_existing_journal(operator.journal,operator.installation_id,operator.targets,capacity=operator.capacity)
-            owner=cls(operator,context,fd,lock);owner.renew(context);yield owner
+            owner=cls(operator,context,fd,lock,journal_bytes);owner.renew(context);yield owner
         except BaseException as error:primary=error
         def close():
             if owner is not None:owner.closed=True
             if fd is not None:os.close(fd)
-        finish(primary,([lambda:owner.renew(context)] if owner is not None else [])+([lambda:LocalDeltaTransport.require_existing_journal(operator.journal,operator.installation_id,operator.targets,capacity=operator.capacity)]if locked else[])+[close])
+        finish(primary,([lambda:owner.renew(context)] if owner is not None else [])+([lambda:require_medical_journal_budget(operator.journal,journal_bytes),lambda:LocalDeltaTransport.require_existing_journal(operator.journal,operator.installation_id,operator.targets,capacity=operator.capacity)]if locked else[])+[close])

@@ -96,7 +96,7 @@ class OriginalMedicalConfigurationTests(unittest.TestCase):
         with self.assertRaises(ValueError):parse_original_medical_local(b' '*262145)
         with self.assertRaises(ValueError):parse_original_medical_local(b'['*33+b'0'+b']'*33)
     def test_no_higher_caps_or_nonlocal_native_profile(self):
-        for key,wrong in (('native_seconds',301),('whole_seconds',541),('stream_bytes',1048577),('journal_bytes',8388609),('master','local[2]'),('driver_memory','1g')):
+        for key,wrong in (('native_seconds',301),('whole_seconds',541),('stream_bytes',1048577),('journal_bytes',134217729),('master','local[2]'),('driver_memory','1g')):
             value=self.configuration();value['bounds'][key]=wrong
             with self.assertRaises(ValueError):self.parse(value)
     def test_exact_scope_installation_and_original_epoch(self):
@@ -154,6 +154,12 @@ class OriginalMedicalConfigurationTests(unittest.TestCase):
         with self.assertRaises(ValueError):replace(config,bounds=dict(config.bounds.__dict__))
         with self.assertRaises(ValueError):MedicalPinnedFile(self.root/'empty','a'*64,0)
         self.assertEqual(config.capacity['max_intent_bytes'],8388608)
+
+    def test_journal_budget_is_selected_without_enlarging_existing_selection(self):
+        value=self.configuration()
+        self.assertEqual(self.parse(value).bounds.journal_bytes,8388608)
+        value['bounds']['journal_bytes']=134217728
+        self.assertEqual(self.parse(value).bounds.journal_bytes,134217728)
 
 
 if __name__=='__main__':unittest.main()
