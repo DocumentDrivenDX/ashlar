@@ -1,0 +1,7 @@
+# Continuation source validation and closing correction
+
+This archive retains five original authored records: initial continuation source freeze/review, narrow held-closing repair source freeze/review, and the explicitly retrospective source-validation candidate. The public continuation implementation landed at `206cebdd`; the closing correction landed at `21f881cf46f0e7f728ef48b483a03de68c2f4459`.
+
+The initial source review missed a real successful-provider closing failure: native validation ran after the coordinator writer interval ended. The new owning success control reported `PermissionError: Original private writer interval required` before repair (tool chunk `e142a3`). After each native/ledger closing callback acquired its own public writer interval, four focused strict controls and module/diff checks passed (author tool chunk `c6c12f`); independent review separately records four passing controls. Raw author terminal logs were not retained. These tool facts are labelled retrospective reports, not invented process receipts or native observations.
+
+This is source validation only. No native continuation, runtime improvement, complete eight-publication workflow, 32-bag qualification, replay, old-read stability or missing-journal qualification is claimed. Original retained native run and all remaining requirements are unchanged. The archive preserves exact original record bytes; source freezes carry source hashes rather than duplicating source/runtime binaries.

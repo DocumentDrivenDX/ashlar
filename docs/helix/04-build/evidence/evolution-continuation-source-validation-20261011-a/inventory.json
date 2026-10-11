@@ -1,0 +1,39 @@
+{
+  "profile": "ashlar-original-source-validation-evidence/0.1",
+  "members": [
+    {
+      "member": "ashlar-evolution-one-publication-continuation-source-freeze-a.json",
+      "originalPath": "/private/tmp/ashlar-evolution-one-publication-continuation-source-freeze-a.json",
+      "bytes": 4970,
+      "sha256": "ff5a22cba7ae22f55fa1cb972401776287420d7c6129bdd34f33e0e733dcfb1e"
+    },
+    {
+      "member": "ashlar-evolution-one-publication-continuation-independent-source-review-a.json",
+      "originalPath": "/private/tmp/ashlar-evolution-one-publication-continuation-independent-source-review-a.json",
+      "bytes": 3654,
+      "sha256": "fc5a2986f3beb0c66c6f7f0e0238a82561b2d2622de1514e3e378c66d6815c85"
+    },
+    {
+      "member": "ashlar-evolution-continuation-held-closing-source-freeze-a.json",
+      "originalPath": "/private/tmp/ashlar-evolution-continuation-held-closing-source-freeze-a.json",
+      "bytes": 1166,
+      "sha256": "7098d6e2b409edb574f92316712f2b0ed7f9ca93f7e85e91860ef84fd8c4b84d"
+    },
+    {
+      "member": "ashlar-evolution-continuation-held-closing-independent-source-review-a.json",
+      "originalPath": "/private/tmp/ashlar-evolution-continuation-held-closing-independent-source-review-a.json",
+      "bytes": 1399,
+      "sha256": "7a7c1e3f9ce6f35ef284413d9c5439d3fbb740054de6c5e74a35066ca23643fe"
+    },
+    {
+      "member": "ashlar-evolution-continuation-source-validation-candidate.json",
+      "originalPath": "/private/tmp/ashlar-evolution-continuation-source-validation-candidate.json",
+      "bytes": 1898,
+      "sha256": "99b7e9a31d8c1b20c92b2c57193e7e3adab4f829a27ac8cecc516d3b2d12aaab"
+    }
+  ],
+  "archive": {
+    "bytes": 4163,
+    "sha256": "7a542994c0cc6f14255dda3f4ce863e000372d39807097dc0fcf3d946cc3fc65"
+  }
+}
