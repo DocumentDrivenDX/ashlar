@@ -93,6 +93,91 @@ class Tests(unittest.TestCase):
         with self.assertRaises(EvolutionPlanError):
             ledger.attempt(0).load(expected_sha256=plan.sha256, context=object())
 
+    def test_original_read_checks_one_admission_and_mutation_boundaries(self):
+        ledger, plan = self.retained_ledger()
+        full = self.driver.admit_evolution_run_ledger
+        events = []
+        def admission(*args, **kwargs):
+            events.append('full'); return full(*args, **kwargs)
+        self.driver.admit_evolution_run_ledger = admission
+        journal = ledger.attempt(0)
+        self.assertIsNone(journal.not_started(plan, self.driver.context))
+        self.assertEqual(events.count('full'), 1)
+        from ashlar_host.delta_custody import LocalDeltaEffects
+        value = plan.document()
+        self.driver.policy.activate_evolution(plan, self.driver.context, journal.policy)
+        LocalDeltaEffects(self.driver.transport).prepare('effects:' + value['request']['request_digest'],
+            value['request']['request_digest'], value['selected_steps'], context=self.driver.context)
+        events.clear()
+        journal.start(plan, self.driver.context)
+        self.assertEqual(events.count('full'), 3)  # read, mutation opening, post-state
+        self.assertEqual(ledger.connection.execute('SELECT state FROM original_slot WHERE ordinal=0').fetchone()[0], 'publication-started')
+        events.clear(); writes = []
+        ledger.connection.set_trace_callback(lambda sql: writes.append(sql) if sql.startswith('UPDATE') else None)
+        journal.start(plan, self.driver.context)
+        self.assertEqual(events.count('full'), 1)
+        self.assertEqual(writes, [])
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        with self.assertRaises(EvolutionPlanError): journal.not_started(plan, self.driver.context)
+
+    def test_original_read_closing_refuses_drift_before_transition_and_preserves_cancel(self):
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        journal = ledger.attempt(0)
+        for method in (journal.not_started, journal.start):
+            def change(*args):
+                ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+            self.after_opening_callback(ledger, change)
+            with self.assertRaises(EvolutionPlanError): method(plan, self.driver.context)
+            ledger.connection.execute('UPDATE original_slot SET descriptor=NULL WHERE ordinal=7')
+            self.assertEqual(ledger.connection.execute('SELECT state FROM original_slot WHERE ordinal=0').fetchone()[0], 'retained')
+            primary = KeyboardInterrupt('attempt read cancelled')
+            def cancel(*args):
+                change(*args); raise primary
+            self.after_opening_callback(ledger, cancel)
+            with self.assertRaises(KeyboardInterrupt) as observed: method(plan, self.driver.context)
+            self.assertIs(observed.exception, primary)
+            ledger.connection.execute('UPDATE original_slot SET descriptor=NULL WHERE ordinal=7')
+
+    def test_original_read_refusals_renew_whole_local_custody(self):
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        journal = ledger.attempt(0)
+        for method in (journal.not_started, journal.start):
+            with self.assertRaises(EvolutionPlanError): method(plan, object())
+            def schema(*args): ledger.connection.execute('CREATE TABLE foreign_table(id INTEGER)')
+            self.after_opening_callback(ledger, schema)
+            with self.assertRaises(EvolutionPlanError): method(plan, self.driver.context)
+            ledger.connection.execute('DROP TABLE foreign_table')
+            def revoked(*args): raise PermissionError('Current source authority revoked')
+            self.after_opening_callback(ledger, revoked)
+            with self.assertRaises(PermissionError): method(plan, self.driver.context)
+
+    def test_original_read_file_parent_and_opening_drift_refuse(self):
+        import os
+        from ashlar_host.evolution_plan import EvolutionPlanError
+        ledger, plan = self.retained_ledger()
+        path = ledger.path; saved = path.with_name('original-read-saved.sqlite')
+        for method in (ledger.attempt(0).not_started, ledger.attempt(0).start):
+            def replace(*args): path.rename(saved); path.write_bytes(saved.read_bytes())
+            self.after_opening_callback(ledger, replace)
+            try:
+                with self.assertRaises(EvolutionPlanError): method(plan, self.driver.context)
+            finally: path.unlink(); saved.rename(path)
+            parent = path.parent; old = parent.with_name(parent.name + '-read-saved')
+            def replace_parent(*args):
+                parent.rename(old); parent.mkdir(mode=0o700); os.link(old / path.name, path)
+            self.after_opening_callback(ledger, replace_parent)
+            try:
+                with self.assertRaises(EvolutionPlanError): method(plan, self.driver.context)
+            finally: path.unlink(); parent.rmdir(); old.rename(parent)
+        original = self.host.policy.admit_ledger
+        def opening_drift(*args):
+            original(*args)
+            ledger.connection.execute("UPDATE original_slot SET descriptor=? WHERE ordinal=7", (b'foreign',))
+        self.host.policy.admit_ledger = opening_drift
+        with self.assertRaises(EvolutionPlanError): ledger.attempt(0).start(plan, self.driver.context)
+
     def test_load_opening_callback_cannot_bless_changed_inventory(self):
         from ashlar_host.evolution_plan import EvolutionPlanError
         ledger, plan = self.retained_ledger()
@@ -378,6 +463,11 @@ class Tests(unittest.TestCase):
             self.assertEqual((db.total_changes, ledger.connection.total_changes), unchanged)
             self.assertEqual(identities, ['closing-uuid'])
             self.assertEqual(ledger.connection.execute('SELECT state FROM original_slot WHERE ordinal=0').fetchone(), ('completed',))
+            validations.clear()
+            with patch.object(self.driver, '_validate_evolution_run_ledger', count):
+                self.assertIsNone(ledger.attempt(0).start(plan, self.driver.context))
+            self.assertEqual(validations, [None])
+            self.assertEqual((db.total_changes, ledger.connection.total_changes), unchanged)
             primary = KeyboardInterrupt('completed validation cancellation')
             def cancelled(*args, **kwargs):
                 ledger.connection.execute('CREATE TABLE changed_schema(id INTEGER)')

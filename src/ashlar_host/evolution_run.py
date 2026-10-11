@@ -380,9 +380,33 @@ class EvolutionRunAttemptJournal:
             primary = error
         finish(primary, [renew_original])
         return plan
+    def _read_original_state(self, plan, context, *, never_started=False):
+        if context is not self.ledger.context or type(plan) is not EvolutionAttemptPlan:
+            raise EvolutionPlanError('Exact original plan and run context required')
+        inventory = self.ledger._admitted_inventory()
+        primary = None; state = None
+        def renew_original():
+            if self.ledger._inventory().slots != inventory.slots:
+                raise EvolutionPlanError('Original ledger changed during attempt admission')
+        try:
+            _, state, raw, digest, descriptor = inventory.slots[self.ordinal]
+            if (raw, digest) != (plan.raw, plan.sha256):
+                raise EvolutionPlanError('Exact retained original run attempt required')
+            if self.ledger.policy.admit_attempt(self.ledger.original, self.ordinal, plan, context) is not None:
+                raise EvolutionPlanError('Current original run attempt admission incomplete')
+            if never_started and state != 'retained':
+                raise EvolutionPlanError('Positive retained never-started submission custody required')
+        except BaseException as error:
+            primary = error
+        finish(primary, [renew_original])
+        return state
+
     def not_started(self, plan, context):
-        self.admit(plan, context)
-        if self.ledger.slot(self.ordinal)[0] != 'retained':
-            raise EvolutionPlanError('Positive retained never-started submission custody required')
+        self._read_original_state(plan, context, never_started=True)
+
     def start(self, plan, context):
-        self.admit(plan, context); self.ledger.transition(self.ordinal, plan, 'publication-started')
+        state = self._read_original_state(plan, context)
+        if state in ('publication-started', 'completed'):
+            return
+        # Close the admitted read before entering the unchanged mutation gates.
+        self.ledger.transition(self.ordinal, plan, 'publication-started')
