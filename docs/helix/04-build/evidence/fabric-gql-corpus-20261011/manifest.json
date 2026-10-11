@@ -1,0 +1,44 @@
+{
+  "profile": "ashlar-fabric-live-gql-corpus-evidence/0.1",
+  "passed": [
+    "R1 full node/edge scalar bags preserve 18/23 STRING nullable fields",
+    "R1/R2 endpoints, two-hop distinct-edge bags and counts equal independently computable originals",
+    "R1 complete node/edge scalar bags still match after R2 queries"
+  ],
+  "failedThenCorrected": [
+    "Native status42000 rejects reserved projection alias edge; replacement relationship_id succeeds. Original failure retained."
+  ],
+  "scope": "Frozen tiny synthetic releases on free Fabric trial, native beta REST GQL. Relational graph carriers retain exact canonical text, nulls, multiplicity, parallel edges, self loops and isolated nodes. Two-hop oracle excludes reusing the same edge.",
+  "pending": [
+    "Actual public Fabric reader and independent authority owner integration",
+    "Representative domain-pack Fabric queries",
+    "Runnable parameterized Fabric setup/query workflow"
+  ],
+  "files": [
+    {
+      "path": "ashlar-fabric-corpus-20261011-d.py",
+      "bytes": 3941,
+      "sha256": "88d8feb8c6739565453fb46aefbd767bb2f0601fe76d2584dff94c841148c99f"
+    },
+    {
+      "path": "ashlar-fabric-corpus-20261011.py",
+      "bytes": 4141,
+      "sha256": "3f4f223efa8251c3b47668152dab3e53a011040dd312cab124ce82c3c23d3b79"
+    },
+    {
+      "path": "fabric-corpus-c.json",
+      "bytes": 23490,
+      "sha256": "a4b6b980bcf1f5459cd1c4623500718d5763c5d00cc3c3629860179bfc5a78da"
+    },
+    {
+      "path": "fabric-corpus-d.json",
+      "bytes": 45694,
+      "sha256": "44612d8667d5b14b2ba8900d4db07b54fbb35437e9d831b13faa2785816d0d79"
+    },
+    {
+      "path": "graph-r1-job-status-c.json",
+      "bytes": 358,
+      "sha256": "06827d3a312488b701f9f8bae5ecdf0a4f9d907b380c8af24114e3feee91bd1e"
+    }
+  ]
+}

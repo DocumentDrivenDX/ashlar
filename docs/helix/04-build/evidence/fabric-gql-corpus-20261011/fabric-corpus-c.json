@@ -1,0 +1,610 @@
+{
+  "profile": "ashlar-fabric-live-corpus/0.1",
+  "observations": [
+    {
+      "release": "r1",
+      "graphId": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+      "releaseSha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+      "case": "nodes",
+      "query": "MATCH (n:AshlarNode) RETURN n.apply_batch_id AS apply_batch_id, n.entity_version AS entity_version, n.graph_id AS graph_id, n.id AS id, n.logical_key_json AS logical_key_json, n.lookup_hash AS lookup_hash, n.props_json AS props_json, n.published_at AS published_at, n.retained_json AS retained_json, n.root_id AS root_id, n.schema_revision AS schema_revision, n.source_cursor_json AS source_cursor_json, n.source_delivery_id AS source_delivery_id, n.source_epoch AS source_epoch, n.source_feed AS source_feed, n.source_position AS source_position, n.source_system AS source_system, n.type_id AS type_id",
+      "expected": [
+        {
+          "apply_batch_id": null,
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "id": "1",
+          "logical_key_json": "exact",
+          "lookup_hash": "3a63de70cc3fb6628583c924140ddb12417e94357fa333026b73fe0d804ef97d",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "root_id": null,
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "type_id": "1"
+        },
+        {
+          "apply_batch_id": null,
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+          "id": "2",
+          "logical_key_json": "exact",
+          "lookup_hash": "de966a3f7c30efe2340aeae8d43b07e518abefc382cb5612fc25f48ffb28ae97",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "root_id": null,
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "type_id": "1"
+        },
+        {
+          "apply_batch_id": null,
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+          "id": "3",
+          "logical_key_json": "exact",
+          "lookup_hash": "05abc5fcccbbf6b6eca23777e37f370d00f862677935ac6ea8fe8c8ee48a639e",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "root_id": null,
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "type_id": "1"
+        }
+      ],
+      "httpStatus": 200,
+      "response": {
+        "status": {
+          "code": "00000",
+          "description": "note: successful completion",
+          "diagnostics": {
+            "OPERATION": "query",
+            "OPERATION_CODE": "0",
+            "CURRENT_SCHEMA": "/",
+            "_graphaneGqlStatus": {
+              "gqlType": "STRING",
+              "value": "00000"
+            }
+          }
+        },
+        "result": {
+          "kind": "TABLE",
+          "columns": [
+            {
+              "name": "apply_batch_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "entity_version",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "graph_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "logical_key_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "lookup_hash",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "props_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "published_at",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "retained_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "root_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "schema_revision",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_cursor_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_delivery_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_epoch",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_feed",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_position",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_system",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "type_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            }
+          ],
+          "data": [
+            {
+              "apply_batch_id": null,
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+              "id": "3",
+              "logical_key_json": "exact",
+              "lookup_hash": "05abc5fcccbbf6b6eca23777e37f370d00f862677935ac6ea8fe8c8ee48a639e",
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "root_id": null,
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "type_id": "1"
+            },
+            {
+              "apply_batch_id": null,
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+              "id": "1",
+              "logical_key_json": "exact",
+              "lookup_hash": "3a63de70cc3fb6628583c924140ddb12417e94357fa333026b73fe0d804ef97d",
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "root_id": null,
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "type_id": "1"
+            },
+            {
+              "apply_batch_id": null,
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+              "id": "2",
+              "logical_key_json": "exact",
+              "lookup_hash": "de966a3f7c30efe2340aeae8d43b07e518abefc382cb5612fc25f48ffb28ae97",
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "root_id": null,
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "type_id": "1"
+            }
+          ]
+        }
+      },
+      "fullBagParity": true
+    },
+    {
+      "release": "r1",
+      "graphId": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+      "releaseSha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+      "case": "edges",
+      "query": "MATCH ()-[n:AshlarEdge]->() RETURN n.apply_batch_id AS apply_batch_id, n.dst AS dst, n.entity_version AS entity_version, n.graph_id AS graph_id, n.id AS id, n.lookup_hash AS lookup_hash, n.order_key AS order_key, n.props_json AS props_json, n.published_at AS published_at, n.rel_type_id AS rel_type_id, n.retained_json AS retained_json, n.schema_revision AS schema_revision, n.source_cursor_json AS source_cursor_json, n.source_delivery_id AS source_delivery_id, n.source_epoch AS source_epoch, n.source_feed AS source_feed, n.source_id AS source_id, n.source_position AS source_position, n.source_system AS source_system, n.source_type AS source_type, n.src AS src, n.target_id AS target_id, n.target_type AS target_type",
+      "expected": [
+        {
+          "apply_batch_id": null,
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "id": "7",
+          "lookup_hash": "3e42fbe1233cb18bc145a7f135f7966f1fdc1d9968f6ec515c78db9ba8d2f754",
+          "order_key": null,
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "rel_type_id": "1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_id": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "source_type": "1",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "target_id": "2",
+          "target_type": "1"
+        },
+        {
+          "apply_batch_id": null,
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "id": "8",
+          "lookup_hash": "0b400e6bbc1c5534110c7d3ad7c1077490283e12bdf884dcc21cbe47dd1a8999",
+          "order_key": null,
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "rel_type_id": "1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_id": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "source_type": "1",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "target_id": "2",
+          "target_type": "1"
+        },
+        {
+          "apply_batch_id": null,
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "id": "9",
+          "lookup_hash": "a79e1f37cfbd4d4a485088f480ece7191c01c1afca0764d8b5af0cc9e49986ce",
+          "order_key": null,
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "published_at": "-1",
+          "rel_type_id": "1",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "schema_revision": "synthetic-1",
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "source_epoch": "one",
+          "source_feed": "local-fixture",
+          "source_id": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "source_type": "1",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "target_id": "1",
+          "target_type": "1"
+        }
+      ],
+      "httpStatus": 200,
+      "response": {
+        "status": {
+          "code": "00000",
+          "description": "note: successful completion",
+          "diagnostics": {
+            "OPERATION": "query",
+            "OPERATION_CODE": "0",
+            "CURRENT_SCHEMA": "/",
+            "_graphaneGqlStatus": {
+              "gqlType": "STRING",
+              "value": "00000"
+            }
+          }
+        },
+        "result": {
+          "kind": "TABLE",
+          "columns": [
+            {
+              "name": "apply_batch_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "dst",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "entity_version",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "graph_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "lookup_hash",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "order_key",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "props_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "published_at",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "rel_type_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "retained_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "schema_revision",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_cursor_json",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_delivery_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_epoch",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_feed",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_position",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_system",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "source_type",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "src",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "target_id",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            },
+            {
+              "name": "target_type",
+              "gqlType": "STRING",
+              "jsonType": "string"
+            }
+          ],
+          "data": [
+            {
+              "apply_batch_id": null,
+              "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+              "id": "7",
+              "lookup_hash": "3e42fbe1233cb18bc145a7f135f7966f1fdc1d9968f6ec515c78db9ba8d2f754",
+              "order_key": null,
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "rel_type_id": "1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_id": "1",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "source_type": "1",
+              "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+              "target_id": "2",
+              "target_type": "1"
+            },
+            {
+              "apply_batch_id": null,
+              "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+              "id": "8",
+              "lookup_hash": "0b400e6bbc1c5534110c7d3ad7c1077490283e12bdf884dcc21cbe47dd1a8999",
+              "order_key": null,
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "rel_type_id": "1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_id": "1",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "source_type": "1",
+              "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+              "target_id": "2",
+              "target_type": "1"
+            },
+            {
+              "apply_batch_id": null,
+              "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+              "entity_version": "1",
+              "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+              "id": "9",
+              "lookup_hash": "a79e1f37cfbd4d4a485088f480ece7191c01c1afca0764d8b5af0cc9e49986ce",
+              "order_key": null,
+              "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+              "published_at": "-1",
+              "rel_type_id": "1",
+              "retained_json": "{\"opaque\":18446744073709551615}",
+              "schema_revision": "synthetic-1",
+              "source_cursor_json": null,
+              "source_delivery_id": null,
+              "source_epoch": "one",
+              "source_feed": "local-fixture",
+              "source_id": "1",
+              "source_position": null,
+              "source_system": "local refresh 雪",
+              "source_type": "1",
+              "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+              "target_id": "1",
+              "target_type": "1"
+            }
+          ]
+        }
+      },
+      "fullBagParity": true
+    },
+    {
+      "release": "r1",
+      "graphId": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+      "releaseSha256": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+      "case": "endpoints",
+      "query": "MATCH (s:AshlarNode)-[e:AshlarEdge]->(d:AshlarNode) RETURN s.graph_id AS source, e.graph_id AS edge, d.graph_id AS destination",
+      "expected": [
+        {
+          "source": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "edge": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "destination": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd"
+        },
+        {
+          "source": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "edge": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "destination": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd"
+        },
+        {
+          "source": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "edge": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "destination": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        }
+      ],
+      "httpStatus": 200,
+      "response": {
+        "status": {
+          "code": "42000",
+          "description": "error: syntax error or access rule violation",
+          "diagnostics": {
+            "OPERATION": "query",
+            "OPERATION_CODE": "0",
+            "CURRENT_SCHEMA": "/",
+            "_graphaneGqlStatus": {
+              "gqlType": "STRING",
+              "value": "42000"
+            },
+            "_graphaneIsUserError": {
+              "gqlType": "BOOL",
+              "value": true
+            },
+            "_graphaneIsTransientError": {
+              "gqlType": "BOOL",
+              "value": false
+            }
+          },
+          "cause": {
+            "code": "42000",
+            "description": "error: data exception; Syntax error at line 1:96\nOffending token: 'edge'\nMATCH (s:AshlarNode)-[e:AshlarEdge]->(d:AshlarNode) RETURN s.graph_id AS source, e.graph_id AS edge, d.graph_id AS destination\n                                                                                               ^~~~\nError message: Reserved keyword 'edge' cannot be used as an unquoted identifier. Enclose the identifier in backticks: `edge`.",
+            "diagnostics": {
+              "OPERATION": "query",
+              "OPERATION_CODE": "0",
+              "CURRENT_SCHEMA": "/",
+              "_graphaneGqlStatus": {
+                "gqlType": "STRING",
+                "value": "22000"
+              }
+            }
+          }
+        }
+      },
+      "error": "AssertionError",
+      "message": ""
+    }
+  ],
+  "scope": "Actual synthetic frozen release graph GQL corpus; public-reader integration remains pending."
+}
