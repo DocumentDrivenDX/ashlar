@@ -1,0 +1,7 @@
+# Original commerce publication and query attempts
+
+Source `c2d9afc8e020a0fc28270ce2b6f3e2175c6c5ff1` produced the original commerce publication in attempt E using installed Ashlar, Spark 3.5.3 and Delta 3.2.1. Independent passive native review verifies complete bags: 11 objects, 10 edges, zero tombstones and 21 history records, all six native UUIDs and the complete publication vector. Original source bytes, protected ACK correspondence and same-invocation replay are retained.
+
+The required four original 0.4.2 queries remain unqualified. E failed query JVM startup because the selected reduced JDK lacked `jdk.incubator.vector`. Query-only F used full JDK 21 and was refused before compiler or native query captures. Neither attempt produced a final four-query report. Earlier B failed the exact setup-runtime guard; C created the isolated PostgreSQL fixture, then failed publication startup because its historical JDK was incomplete. All original failure outputs are retained.
+
+The archive includes exact receipts, selected recipes, original producer/model/graph/batch, native Delta and SQLite files, installed custody and independent review scripts. Inventory maps every safe regular archive member to its original bytes. SDK distributions are excluded. The dedicated PostgreSQL 17.9 loopback-trust fixture remains retained; this evidence does not claim cleanup, production authentication, Truss acceptance, cloud authority or four-query success.
