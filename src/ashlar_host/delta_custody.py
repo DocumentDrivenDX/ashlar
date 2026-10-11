@@ -295,7 +295,7 @@ class LocalDeltaTransport:
             name = field.name
             family = field.dataType.simpleString()
             col = F.col('`' + name.replace('`', '``') + '`')
-            schema.append((name, family))
+            schema.append([name, family])
             if family in ('tinyint', 'smallint', 'int', 'bigint', 'string', 'boolean') or family.startswith('decimal('):
                 projection.append(col.cast('string').alias(name))
             elif family == 'timestamp':

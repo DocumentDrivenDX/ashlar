@@ -41,6 +41,42 @@ class Tests(unittest.TestCase):
         transport._snapshot=lambda t,v:{'schema':[['id','bigint'],['props','string']],'rows':[PARAMS],'row_sha256':'a'*64}
         return root,spark,transport
     def mutate(self,t):return t.mutation('operation',SQL,PARAMS,intent_digest='b'*64,context='host')
+    def test_actual_snapshot_schema_roundtrip_preserves_strict_original_evidence(self):
+        import sys
+        from unittest.mock import patch
+        from ashlar_host.driver import original_native_equal
+        from ashlar_host.delta_custody import LocalDeltaTransport as PublicTransport, DeltaTarget as PublicTarget
+        temp=tempfile.TemporaryDirectory();self.addCleanup(temp.cleanup)
+        root=Path(temp.name);table=root/'table';table.mkdir();spark=FakeSpark()
+        transport=PublicTransport.initialize(spark,root/'journal.sqlite','installation',
+            (PublicTarget(TABLE,table,'original-uuid'),),Policy(),context='host')
+        self.addCleanup(transport.close)
+        native_rows=[{'id':'9007199254740993','props':' {"decimal":-0.00} '}]
+        fields=[SimpleNamespace(name=name,dataType=SimpleNamespace(simpleString=lambda value=family:value))
+                for name,family in (('id','bigint'),('props','string'))]
+        class Column:
+            def cast(self, family):return self
+            def alias(self, name):return self
+        frame=SimpleNamespace(schema=SimpleNamespace(fields=fields),select=lambda *columns:
+            SimpleNamespace(limit=lambda maximum:SimpleNamespace(collect=lambda:[Row(row)for row in native_rows])))
+        spark.read=SimpleNamespace(format=lambda family:SimpleNamespace(option=lambda *arguments:
+            SimpleNamespace(load=lambda path:frame)))
+        functions=SimpleNamespace(col=lambda name:Column(),unix_micros=lambda column:column)
+        with patch.dict(sys.modules,{'pyspark':SimpleNamespace(),'pyspark.sql':SimpleNamespace(functions=functions)}):
+            snapshot=transport._snapshot(next(iter(transport.targets.values())),1)
+        retained=json.loads(json.dumps(snapshot))
+        self.assertTrue(original_native_equal(retained,snapshot))
+        self.assertEqual(snapshot['schema'],[['id','bigint'],['props','string']])
+        self.assertTrue(all(type(pair)is list for pair in snapshot['schema']))
+        self.assertEqual(snapshot['rows'],native_rows)
+        for mutate in (lambda value:value['schema'].reverse(),
+                       lambda value:value['schema'][0].__setitem__(0,'other'),
+                       lambda value:value['schema'][0].__setitem__(1,'string'),
+                       lambda value:value['rows'][0].__setitem__('id',9007199254740993),
+                       lambda value:value['rows'][0].__setitem__('id',True)):
+            changed=json.loads(json.dumps(snapshot));mutate(changed)
+            self.assertFalse(original_native_equal(changed,snapshot))
+
     def test_original_native_metadata_and_exact_receipt_replay_without_write(self):
         root,spark,t=self.setup();result=self.mutate(t);self.assertEqual(result.rows[0]['version'],'2')
         self.assertEqual(self.mutate(t),result);self.assertEqual(spark.writes,1)
