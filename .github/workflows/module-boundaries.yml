@@ -21,6 +21,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 tools/check_module_boundaries.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_exact_report.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_native_cli.py
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_private_graph_custody_host.py

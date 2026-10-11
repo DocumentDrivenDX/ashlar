@@ -27,6 +27,8 @@ from .schema_rows import fixture_columns
 from .resources import RESOURCE_ROOT
 from .evolution_producer import snapshot
 from .lifecycle import finish,owned_context
+from .exact_report import report_body
+from .evolution_cli import InvocationFile
 from .supply_chain_producer import SupplyChainProducerConfig,HeldSupplyChainDataset
 from .supply_chain_finite_source import FiniteSupplyChainSource,UMF_REVISION
 from .supply_chain_publication import FiniteSupplyChainDriver,GRAPH_ROLES
@@ -138,12 +140,7 @@ def _queries(config,driver,pack,aliases):
     with owned_context((config.output/'compiler-observations.jsonl').open('xb'))as log, owned_context((config.output/'native-observations.jsonl').open('xb'))as native_log:
         def observe_native(name,captured):
             nonlocal native_observed
-            body=bytearray()
-            for chunk in json.JSONEncoder(separators=(',',':'),ensure_ascii=True).iterencode({'id':name,'captured':captured}):
-                raw=chunk.encode()
-                if native_observed+len(body)+len(raw)+1>64*1024*1024:raise ValueError('Complete finite native observation bound')
-                body.extend(raw)
-            body.extend(b'\n')
+            body=report_body({'id':name,'captured':captured},64*1024*1024-native_observed)
             if native_log.write(body)!=len(body):raise ValueError('Finite native observation write refused')
             native_log.flush();native_observed+=len(body)
         def observe(name,iteration,request,response):
@@ -156,18 +153,15 @@ def _queries(config,driver,pack,aliases):
         return query_supply_chain_cases(driver,pack,aliases,SupplyChainCompileConfig(config.compiler,maximum),execution,observe=observe,observe_native=observe_native)
 
 def _finish_report(config,result):
-    # Iterative serialization caps retained whole evidence before publication.
-    body=bytearray()
-    for chunk in json.JSONEncoder(separators=(',',':'),ensure_ascii=True).iterencode(result):
-        raw=chunk.encode()
-        if len(body)+len(raw)+1>64*1024*1024:raise ValueError('Complete finite native report bound')
-        body.extend(raw)
-    body.extend(b'\n');_write(config.output/'report.json',body)
+    body=report_body(result,64*1024*1024);_write(config.output/'report.json',body)
     return {'report':str(config.output/'report.json'),'cases':5,'qualification':result['qualification']}
 
-def publish_query_supply_chain_native(config):
+def publish_query_supply_chain_native(config,*,config_custody=None):
     """One fresh private finite publication, exact replay and unchanged five queries."""
     if type(config)is not SupplyChainNativeConfig:raise ValueError('Typed finite native configuration required')
+    if config_custody is not None:
+        if type(config_custody)is not InvocationFile:raise ValueError('Exact invocation custody required')
+        config_custody.__post_init__();config_custody.renew(65536)
     jars=_runtime(config);pack=snapshot(config.pack,1024*1024)
     supply_chain_cases(pack,snapshot(config.model,1024*1024),snapshot(config.graph,1024*1024))
     config.output.mkdir(mode=0o700);lease=PrivateFiniteLease(config.output,create=True)
@@ -209,7 +203,9 @@ def publish_query_supply_chain_native(config):
     if transport is not None:callbacks.append(transport.close)
     if spark is not None:callbacks.append(spark.stop)
     if source is not None:callbacks.append(source.renew)
-    callbacks.extend([lambda:_runtime(config),lease.renew,lease.close]);finish(primary,callbacks)
+    callbacks.extend([lambda:_runtime(config),lease.renew,lease.close])
+    if config_custody is not None:callbacks.append(lambda:config_custody.renew(65536))
+    finish(primary,callbacks)
     if snapshot(config.pack,1024*1024)!=pack:raise ValueError('Closing original pack changed')
     return _finish_report(config,result)
 

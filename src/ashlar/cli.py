@@ -101,10 +101,21 @@ def main():
     for name in ('publish-finite-pack','query-finite-pack'):
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
+    supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
+    supply_native.add_argument('--configuration',required=True)
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
     for option in ('configuration', 'provider', 'provider-sha256'):
         graphframes.add_argument('--' + option, required=True)
     args = parser.parse_args()
+    if args.command == 'run-supply-chain-native':
+        from ashlar_host.supply_chain_native_cli import run_supply_chain_native_command
+        try:
+            answer=run_supply_chain_native_command(args.configuration)
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar original supply-chain native operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'query-graphframes':
         from ashlar_host.graphframes_cli import run_graphframes_command
         try:
