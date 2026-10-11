@@ -45,72 +45,26 @@ def verify_intermediates(raw,prepared,scenario):
 
 def cypher(prepared,endpoint,user,password):
     from neo4j import GraphDatabase
+    from ashlar_host.puppy_commerce_scenarios import cypher_queries
     records=[]
     with GraphDatabase.driver(endpoint,auth=(user,password),connection_timeout=5)as driver:
         with driver.session()as session:
             def query(name,q):
                 rows=session.run(q).data();records.append({'case':name,'query':q,'native_rows':rows});return rows
-            for role,kind in [('nodes','Node'),('edges','Edge')]:
-                names=list(prepared[role][0]);field=lambda n:'carrier_id'if n=='id'else'carrier_key'if n=='graph_id'else n
-                pattern='(n:ExactCommerceNode)'if kind=='Node'else'(s:ExactCommerceNode)-[n:ExactCommerceEdge]->(t:ExactCommerceNode)'
-                rows=query('full-'+role,'MATCH '+pattern+' RETURN '+','.join('n.'+field(n)+' AS '+n for n in names)+',id(n) AS native_id'+(',id(s) AS native_src,id(t) AS native_dst'if kind=='Edge'else''));actual=[]
-                for r in rows:
-                    row={n:r[n]for n in names}
-                    for n in ('quantity_long','amount_coefficient','unit_price_coefficient'):
-                        if n in row and row[n]is not None:scalar_integer(row[n])
-                    if r['native_id']!='ExactCommerce'+kind+'['+row['graph_id']+']':raise ValueError('Exact native identity differs')
-                    if kind=='Edge'and(r['native_src']!='ExactCommerceNode['+row['src']+']'or r['native_dst']!='ExactCommerceNode['+row['dst']+']'):raise ValueError('Actual native incidence differs')
-                    actual.append(row)
-                if row_bag(actual)!=row_bag(prepared[role]):raise ValueError('All exact numeric/raw source carriers must qualify before arithmetic')
-            partial="MATCH (f:ExactCommerceNode)-[fl:ExactCommerceEdge]->(l:ExactCommerceNode) MATCH (r:ExactCommerceNode)-[rl:ExactCommerceEdge]->(l) WHERE fl.original_relationship = 'fulfillments.line_id' AND rl.original_relationship = 'returns.line_id'"
-            refund="MATCH (r:ExactCommerceNode)-[rr:ExactCommerceEdge]->(t:ExactCommerceNode) MATCH (t)-[tl:ExactCommerceEdge]->(l:ExactCommerceNode) MATCH (l)-[lp:ExactCommerceEdge]->(p:ExactCommerceNode) WHERE rr.original_relationship = 'refunds.return_id' AND tl.original_relationship = 'returns.line_id' AND lp.original_relationship = 'order_lines.product_id'"
-            rows=query('partial-intermediates',partial+' RETURN [f.original_key,l.original_key,r.original_key] AS source_keys,l.quantity_long-f.quantity_long AS subtract,l.quantity_long-f.quantity_long+r.quantity_long AS add');verify_intermediates(rows,prepared,'partial-return')
-            rows=query('refund-intermediates',refund+' RETURN [r.original_key,t.original_key,l.original_key,p.original_key] AS source_keys,t.quantity_long*p.unit_price_coefficient AS multiply_coefficient');verify_intermediates(rows,prepared,'refund')
-            raw=query('partial-return',partial+' AND f.quantity_long<l.quantity_long RETURN f.quantity_long AS fulfilled,r.quantity_long AS returned,l.quantity_long-f.quantity_long+r.quantity_long AS remaining')
-            actual={'partial-return':[[scalar_integer(r[k])for k in ('fulfilled','returned','remaining')]for r in raw]}
-            queries={
-              'fulfillment':"MATCH (f:ExactCommerceNode)-[fl:ExactCommerceEdge]->(l:ExactCommerceNode) WHERE fl.original_relationship = 'fulfillments.line_id' AND f.quantity_long>l.quantity_long RETURN f.template_id AS id",
-              'settlement':"MATCH (p:ExactCommerceNode)-[pi:ExactCommerceEdge]->(i:ExactCommerceNode) WHERE pi.original_relationship = 'payments.invoice_id' AND p.amount_coefficient=i.amount_coefficient AND p.currency=i.currency RETURN p.template_id AS id",
-              'refund':refund+' AND r.amount_coefficient=t.quantity_long*p.unit_price_coefficient RETURN r.template_id AS id'}
-            for name,q in queries.items():actual[name]=[[r['id']]for r in query(name,q)]
-            for name,rows in prepared['expected'].items():
-                if bag(actual[name])!=bag(rows):raise ValueError('Native exact financial scenario differs '+name)
-    return {'language':'Cypher','records':records,'actual':actual,'scope':'Actual opt-in finite coefficient representation; original logical domains/tokens retained; noDOUBLE/generalunbounded arithmetic.'}
+            return cypher_queries(prepared,query,records)
 
 def gremlin(prepared,endpoint,user,password):
     from gremlin_python.driver import client,serializer
+    from ashlar_host.puppy_commerce_scenarios import gremlin_queries
     remote=client.Client(endpoint,'g',username=user,password=password,message_serializer=serializer.GraphSONSerializersV3d0());records=[]
     def query(name,script):
         rows=remote.submit(script).all().result(timeout=20);records.append({'case':name,'script':script,'native_rows':rows});return rows
-    try:
-        for role,kind in [('nodes','Node'),('edges','Edge')]:
-            names=list(prepared[role][0]);field=lambda n:'carrier_id'if n=='id'else'carrier_key'if n=='graph_id'else n
-            script='g.'+('V'if kind=='Node'else'E')+"().hasLabel('ExactCommerce"+kind+"').project("+','.join(repr(n)for n in names+['native_id']+(['native_src','native_dst']if kind=='Edge'else[]))+')'+''.join('.by(__.coalesce(__.values('+repr(field(n))+'),__.constant(null)))'for n in names)+'.by(__.id())'+('.by(__.outV().id()).by(__.inV().id())'if kind=='Edge'else'')
-            rows=query('full-'+role,script);actual=[]
-            for r in rows:
-                row={n:r[n]for n in names}
-                for n in ('quantity_long','amount_coefficient','unit_price_coefficient'):
-                    if n in row and row[n]is not None:scalar_integer(row[n])
-                if native_text(r['native_id'])!='ExactCommerce'+kind+'['+row['graph_id']+']':raise ValueError('Exact native identity differs')
-                if kind=='Edge'and(native_text(r['native_src'])!='ExactCommerceNode['+row['src']+']'or native_text(r['native_dst'])!='ExactCommerceNode['+row['dst']+']'):raise ValueError('Actual native incidence differs')
-                actual.append(row)
-            if row_bag(actual)!=row_bag(prepared[role]):raise ValueError('All exact numeric/raw source carriers must qualify before arithmetic')
-        partial="g.V().hasLabel('ExactCommerceNode').as('f').outE('ExactCommerceEdge').has('original_relationship','fulfillments.line_id').inV().as('l').inE('ExactCommerceEdge').has('original_relationship','returns.line_id').outV().as('r').select('f','l','r')"
-        refund="g.V().hasLabel('ExactCommerceNode').as('r').outE('ExactCommerceEdge').has('original_relationship','refunds.return_id').inV().as('t').outE('ExactCommerceEdge').has('original_relationship','returns.line_id').inV().as('l').outE('ExactCommerceEdge').has('original_relationship','order_lines.product_id').inV().as('p').select('r','t','l','p')"
-        defs="def m=it.get();org.apache.tinkerpop.gremlin.structure.Vertex f=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('f');org.apache.tinkerpop.gremlin.structure.Vertex l=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('l');org.apache.tinkerpop.gremlin.structure.Vertex r=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('r');"
-        rows=query('partial-intermediates',partial+".map{ "+defs+" ['source_keys':[f.value('original_key'),l.value('original_key'),r.value('original_key')],'subtract':((Long)l.value('quantity_long'))-((Long)f.value('quantity_long')),'add':((Long)l.value('quantity_long'))-((Long)f.value('quantity_long'))+((Long)r.value('quantity_long'))] }");verify_intermediates(rows,prepared,'partial-return')
-        rows=query('refund-intermediates',refund+".map{ def m=it.get(); ['source_keys':['r','t','l','p'].collect{k->((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get(k)).value('original_key'))},'multiply_coefficient':((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('t')).value('quantity_long'))*((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('unit_price_coefficient'))] }");verify_intermediates(rows,prepared,'refund')
-        raw=query('partial-return',partial+".filter{((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('quantity_long'))<((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('l')).value('quantity_long'))}.map{ "+defs+" [((Long)f.value('quantity_long')),((Long)r.value('quantity_long')),((Long)l.value('quantity_long'))-((Long)f.value('quantity_long'))+((Long)r.value('quantity_long'))] }")
-        actual={'partial-return':[[scalar_integer(v)for v in row]for row in raw]}
-        queries={
-          'fulfillment':"g.V().hasLabel('ExactCommerceNode').as('f').outE('ExactCommerceEdge').has('original_relationship','fulfillments.line_id').inV().as('l').select('f','l').filter{((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('quantity_long'))>((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('l')).value('quantity_long'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('template_id'))}",
-          'settlement':"g.V().hasLabel('ExactCommerceNode').as('p').outE('ExactCommerceEdge').has('original_relationship','payments.invoice_id').inV().as('i').select('p','i').filter{def m=it.get();((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('amount_coefficient'))==((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('i')).value('amount_coefficient'))&&((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('currency'))==((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('i')).value('currency'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('p')).value('template_id'))}",
-          'refund':refund+".filter{def m=it.get();((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('r')).value('amount_coefficient'))==((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('t')).value('quantity_long'))*((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('unit_price_coefficient'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('r')).value('template_id'))}"}
-        for name,q in queries.items():actual[name]=[[r]for r in query(name,q)]
-        for name,rows in prepared['expected'].items():
-            if bag(actual[name])!=bag(rows):raise ValueError('Native exact financial scenario differs '+name)
-    finally:remote.close()
-    return {'language':'Gremlin','records':records,'actual':actual,'scope':'Native Gremlin Groovy integer operators on qualifiedLONG properties; no Gremlin.math (DOUBLE), no binaryfloat/generalunbounded arithmetic.'}
+    from ashlar_host.lifecycle import finish
+    primary=None;result=None
+    try:result=gremlin_queries(prepared,query,records)
+    except BaseException as error:primary=error
+    finish(primary,(remote.close,))
+    return result
 def execute_checked(prepared,language,endpoint,user,password):
     opening=native_custody(prepared,language,endpoint)
     result=(cypher if language=='Cypher'else gremlin)(prepared,endpoint,user,password)

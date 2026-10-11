@@ -1,0 +1,66 @@
+{
+  "head": "4fb74a83dbcd845741838bba4d7ca8bf599f7f5b",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_projection.py",
+      "bytes": 12495,
+      "sha256": "0098e222d928e8ee67fa7e36489c6f9f01d45ecec74884493ff99ba1bfa40b95"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_prepare.py",
+      "bytes": 8483,
+      "sha256": "ad55b4bfb23d5622ed91b70957c13781ba22d90b274ed59f56ff85f332393189"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_scenarios.py",
+      "bytes": 15120,
+      "sha256": "7df10d51a82a129e3f6e42ae044954f4ee832add708a00e384857fc657a820a3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_projection.py",
+      "bytes": 2167,
+      "sha256": "1383ad9bc207bc1a5f8eb47faf3dc7a2575a703a942d6b4c6c3f8203a1516a3c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_prepare.py",
+      "bytes": 7069,
+      "sha256": "1917ceeaed6c0fc4ee5742122d6af7a9a64ec05dae51b22bf92d0679a7bc44dd"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_scenarios.py",
+      "bytes": 3895,
+      "sha256": "9641fc6211d143bb8c4abee1d3cab9fe41856488f83d9aadb6907be493803563"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/puppy_commerce_fixture.py",
+      "bytes": 1280,
+      "sha256": "d4e8041f0bc1547ff118f7cdc5ebb016f134f3181d7e69b74c1f6fc839acbb5e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_commerce_exact_puppygraph.py",
+      "bytes": 5345,
+      "sha256": "1b22f8e1dfbc5b6e0f9a4fa70e93cad16d921d82231c44322bd970355e248713"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_commerce_exact_puppygraph.py",
+      "bytes": 6767,
+      "sha256": "72a3d3d304ee7d4c011ab04dbe0a62fd3270e416a138c8cfb518cff190ac39d7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_commerce_outbox_publication.py",
+      "bytes": 14674,
+      "sha256": "67272500cee1ac41712f2638aa0b67b5132a141567bc3b3feb830aacad70caea"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "bytes": 5667,
+      "sha256": "8b53f8391d5ee443e56bc72c680fab090bb50f1b622dd2420455899952523d33"
+    }
+  ],
+  "evidence": {
+    "focused": "39610a 14 PASS 16.564s; exact compact ensure_ascii=False serialized bound precedes copying/encoding",
+    "legacy": "34a17a 4 PASS .277s; owned diffcheck PASS"
+  },
+  "scope": "SDK-free pure original projection/scenario controls and injected DuckDB preparation controls only. Existing public CommerceAdmission owns genuine source admission and existing original commerce oracle reused. Original qualified arithmetic native semantics retained; no new native or installed qualification, activation, provisioning or secrets.",
+  "supersedes": "A preserved; exact encoded-byte preflight correction and meaningful boundary controls only"
+}

@@ -1,0 +1,75 @@
+{
+  "author": "main_landing_audit",
+  "checks": {
+    "A_finding": "encoded-byte undercount; independently reproduced50B accepted at8B and501B accepted at1B a7cf99; A not approved",
+    "A_fullSourcePins": "a7cf99 all11 exact; full semantic review d3971a/e206d0/4f47d5/4136fe/560729",
+    "B_deltaPins": "d5516c only snapshot owner+test changed from A, all11 hashes exact",
+    "B_semantics": "f1d18f exact compact ensure_asciiFalse JSON byte preflight before copy; syntax/escapes/Unicode/ints/bools/null, depth/nodes/cycles checked",
+    "boundariesAndDiff": "1bf2d3 PASS",
+    "closingPins": "all11 unchanged verified before review receipt",
+    "focusedCommand": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_puppy_commerce_projection test_puppy_commerce_prepare test_puppy_commerce_scenarios",
+    "focusedResult": "a65483 14 PASS15.904s"
+  },
+  "decision": "approve scoped B11",
+  "files": [
+    {
+      "bytes": 12495,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_projection.py",
+      "sha256": "0098e222d928e8ee67fa7e36489c6f9f01d45ecec74884493ff99ba1bfa40b95"
+    },
+    {
+      "bytes": 8483,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_prepare.py",
+      "sha256": "ad55b4bfb23d5622ed91b70957c13781ba22d90b274ed59f56ff85f332393189"
+    },
+    {
+      "bytes": 15120,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/puppy_commerce_scenarios.py",
+      "sha256": "7df10d51a82a129e3f6e42ae044954f4ee832add708a00e384857fc657a820a3"
+    },
+    {
+      "bytes": 2167,
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_projection.py",
+      "sha256": "1383ad9bc207bc1a5f8eb47faf3dc7a2575a703a942d6b4c6c3f8203a1516a3c"
+    },
+    {
+      "bytes": 7069,
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_prepare.py",
+      "sha256": "1917ceeaed6c0fc4ee5742122d6af7a9a64ec05dae51b22bf92d0679a7bc44dd"
+    },
+    {
+      "bytes": 3895,
+      "path": "/Users/erik/Projects/ashlar/tests/test_puppy_commerce_scenarios.py",
+      "sha256": "9641fc6211d143bb8c4abee1d3cab9fe41856488f83d9aadb6907be493803563"
+    },
+    {
+      "bytes": 1280,
+      "path": "/Users/erik/Projects/ashlar/tests/puppy_commerce_fixture.py",
+      "sha256": "d4e8041f0bc1547ff118f7cdc5ebb016f134f3181d7e69b74c1f6fc839acbb5e"
+    },
+    {
+      "bytes": 5345,
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_commerce_exact_puppygraph.py",
+      "sha256": "1b22f8e1dfbc5b6e0f9a4fa70e93cad16d921d82231c44322bd970355e248713"
+    },
+    {
+      "bytes": 6767,
+      "path": "/Users/erik/Projects/ashlar/tools/check_commerce_exact_puppygraph.py",
+      "sha256": "72a3d3d304ee7d4c011ab04dbe0a62fd3270e416a138c8cfb518cff190ac39d7"
+    },
+    {
+      "bytes": 14674,
+      "path": "/Users/erik/Projects/ashlar/tools/run_commerce_outbox_publication.py",
+      "sha256": "67272500cee1ac41712f2638aa0b67b5132a141567bc3b3feb830aacad70caea"
+    },
+    {
+      "bytes": 5667,
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "sha256": "8b53f8391d5ee443e56bc72c680fab090bb50f1b622dd2420455899952523d33"
+    }
+  ],
+  "freezePath": "/private/tmp/ashlar-puppy-commerce-source-freeze-b.json",
+  "freezeSha256": "84021535fd81677d5dda161127e51d12cdf73f02b9f653f8198add6dab820a50",
+  "qualification": "Pure complete original carrier/numeric/query correspondence, genuine retained public CommerceAdmission reconstruction and inert current authority/DuckDB/transport lifecycle controls only. No native SDK/engine action or new installed/native/production authority qualification. Explicit source/native policy remains mandatory.",
+  "reviewer": "installed_evolution_facade"
+}

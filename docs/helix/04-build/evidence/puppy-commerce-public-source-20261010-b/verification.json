@@ -1,0 +1,35 @@
+{
+  "scope": "Public SDK-free exact commerce projection/scenario owners and injected DuckDB preparation controls; separate actual installed/native qualification remains required",
+  "rootChecks": [
+    {
+      "command": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_puppy_commerce_projection test_puppy_commerce_prepare test_puppy_commerce_scenarios",
+      "tests": 14,
+      "seconds": 17.15,
+      "exitCode": 0,
+      "terminalChunk": "fd8f09"
+    }
+  ],
+  "reviewFinding": {
+    "supersededA": "Exact byte preflight omitted escapes and container/scalar syntax",
+    "observedChunk": "a7cf99",
+    "controls": "8 NUL characters under an 8-byte limit and 100 null items under a 1-byte limit now refuse; exact Unicode/scalar/container boundary controls pass"
+  },
+  "qualification": "Public current CommerceAdmission and independently held source/native policy remain mandatory. Original numeric tokens, full carriers and all unfiltered arithmetic guards retained. SDK missing, rollback and uncertain commit controls use injected ports. Prior native commerce evidence is unchanged; these tests do not qualify a new installed native workflow.",
+  "files": [
+    {
+      "name": "independent-review.json",
+      "bytes": 3731,
+      "sha256": "1b8a3a04e1ea5b13fd5b5c0f7258787e8b01375f8f69b3aaf7b9f728be7ff7d4"
+    },
+    {
+      "name": "source-freeze-b.json",
+      "bytes": 2969,
+      "sha256": "84021535fd81677d5dda161127e51d12cdf73f02b9f653f8198add6dab820a50"
+    },
+    {
+      "name": "superseded-source-freeze-a.json",
+      "bytes": 2803,
+      "sha256": "68065e300a1b5a85ffbb5fbb732883cbe6f6c4a4296a575858ab4847535ad745"
+    }
+  ]
+}
