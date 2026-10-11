@@ -19,10 +19,33 @@ class Row(dict):
 
 
 class Column:
-    def __init__(self, events, label='column'): self.events=events; self.label=label
-    def cast(self, value): self.events.append(('cast',value)); return self
-    def alias(self, value): self.label=value; return self
-    def __add__(self, other): return self
+    def __init__(self, events, label='column', expression=None):
+        self.events=events;self.label=label;self.expression=expression or ('lit',None)
+    def cast(self,value):self.events.append(('cast',value));return self
+    def alias(self,value):self.label=value;return self
+    def over(self,value):self.events.append('window-expression');return self
+    def isNotNull(self):return Column(self.events,expression=('nonnull',self))
+    def otherwise(self,value):self.expression=('when',self.expression[1],self.expression[2],value);return self
+    def binary(self,op,other):return Column(self.events,expression=(op,self,other))
+    def __add__(self,other):return self.binary('+',other)
+    def __mul__(self,other):return self.binary('*',other)
+    def __and__(self,other):return self.binary('&',other)
+    def __or__(self,other):return self.binary('|',other)
+    def __eq__(self,other):return self.binary('==',other)
+    def __ge__(self,other):return self.binary('>=',other)
+    def __le__(self,other):return self.binary('<=',other)
+    def evaluate(self,row):
+        op,*args=self.expression
+        if op=='lit':return args[0]
+        if op=='col':return row[args[0].strip('`')]
+        values=[arg.evaluate(row) if isinstance(arg,Column) else arg for arg in args]
+        if op=='nonnull':return values[0] is not None
+        if op=='when':return values[1] if values[0] else values[2]
+        if op=='coalesce':return next((v for v in values if v is not None),None)
+        if op in ('&','|'):return bool(values[0] and values[1]) if op=='&' else bool(values[0] or values[1])
+        if any(v is None for v in values):return None
+        return {'+':lambda:values[0]+values[1],'*':lambda:values[0]*values[1],
+            '==':lambda:values[0]==values[1],'>=':lambda:values[0]>=values[1],'<=':lambda:values[0]<=values[1]}[op]()
 
 
 class Tests(unittest.TestCase):
@@ -31,42 +54,67 @@ class Tests(unittest.TestCase):
         self.root=Path(self.temp.name).resolve(); self.table=self.root/'table'; self.table.mkdir()
         self.bounds=VerificationBounds(65536,10,1024,65536,65536,65536)
         self.events=[]; self.rows=[{'id':'9007199254740993','text':None},{'id':'9007199254740993','text':'雪\n"'}]
-        self.stats=None; self.cancel=None; self.measurements=None; self.common_aliases=[]
+        self.stats=None; self.cancel=None; self.measurements=None; self.common_aliases=[];self.transferred=[];self.capture_mutator=lambda row:row;self.projections=[]
         self.fields=[SimpleNamespace(name=name,nullable=True,metadata={},dataType=SimpleNamespace(simpleString=lambda family=family:family,typeName=lambda family=family:{'bigint':'long','string':'string'}[family])) for name,family in [('id','bigint'),('text','string')]]
         outer=self
         class Frame:
             schema=SimpleNamespace(fields=outer.fields,json=lambda:outer.schema_json())
+            def __init__(self,sentinel=False):self.sentinel=sentinel
             def select(self,*args):
-                outer.events.append('select')
-                outer.common_aliases=[item.label for item in args if getattr(item,'label','').startswith('_ashlar_verification_cell_')]
+                outer.events.append(('projection',tuple(getattr(x,'label',x) for x in args)));outer.projections.append(args)
+                if any(getattr(x,'label','')=='_ashlar_verification_valid' for x in args):outer.valid_expression=args[-1]
+                aliases=[item.label for item in args if getattr(item,'label','').startswith('_ashlar_verification_cell_')]
+                if aliases:outer.common_aliases=aliases
                 return self
-            def agg(self,*args): outer.events.append('aggregate'); return SimpleNamespace(first=lambda:outer.statistics())
+            def unionByName(self,other):outer.events.append('union-sentinel');return self
+            def filter(self,expression):outer.events.append('filter-before-transfer');outer.filter_expression=expression;return self
+            def agg(self,*args):raise AssertionError('Separate native aggregate action forbidden')
             def toLocalIterator(self):
                 outer.events.append('iterate')
-                if outer.cancel is not None: raise outer.cancel
-                return (Row(outer.measured_row(row)) for row in outer.rows)
+                if outer.cancel is not None:raise outer.cancel
+                def rows():
+                    for row in outer.rows:
+                        captured=outer.measured_row(row)
+                        if outer.filter_expression.evaluate(captured):
+                            outer.transferred.append(captured);yield Row(outer.capture_mutator(captured))
+                    sentinel=outer.measured_row({name:None for name in [f.name for f in outer.fields]},sentinel=True)
+                    outer.transferred.append(sentinel);yield Row(outer.capture_mutator(sentinel))
+                return rows()
         self.frame=Frame()
         self.transport=LocalDeltaTransport.__new__(LocalDeltaTransport)
-        self.transport.spark=SimpleNamespace(read=SimpleNamespace(format=lambda value:SimpleNamespace(option=lambda *args:SimpleNamespace(load=lambda path:self.frame))))
+        self.transport.spark=SimpleNamespace(range=lambda count:Frame(True),read=SimpleNamespace(format=lambda value:SimpleNamespace(option=lambda *args:SimpleNamespace(load=lambda path:self.frame))))
         self.transport._detail=lambda target:self.events.append('identity')
         self.target=DeltaTarget('local.runtime.items',self.table,'uuid')
-        functions=SimpleNamespace(**{name:(lambda *args,name=name:self.function(name,args)) for name in ('col','unix_micros','coalesce','length','encode','lit','count','max','greatest','sum')})
-        self.functions_patch=patch.dict(sys.modules,{'pyspark':SimpleNamespace(),'pyspark.sql':SimpleNamespace(functions=functions,Row=Row)})
+        functions=SimpleNamespace(**{name:(lambda *args,name=name:self.function(name,args)) for name in ('col','unix_micros','coalesce','length','encode','lit','count','max','greatest','sum','when','struct','to_json')})
+        class Window:
+            unboundedPreceding=-9223372036854775808;unboundedFollowing=9223372036854775807
+            @staticmethod
+            def partitionBy():outer.events.append('global-window');return Window()
+            def rowsBetween(self,a,b):outer.events.append(('full-window',a,b));return self
+        self.functions_patch=patch.dict(sys.modules,{'pyspark':SimpleNamespace(),'pyspark.sql':SimpleNamespace(functions=functions,Row=Row,Window=Window)})
         self.functions_patch.start(); self.addCleanup(self.functions_patch.stop)
 
-    def measured_row(self,row):
-        if not self.common_aliases:return dict(row)
+    def measured_row(self,row,sentinel=False):
+        stats=self.statistics();count=stats['count'];cell=stats['cell'];total=stats['total']
+        if count==0 and cell is None and total is None:cell=total=0
         values=self.measurements
-        if values is None:
-            if len(self.rows):
-                total=int(self.statistics()['total']);maximum=int(self.statistics()['cell'])
-                # Inert native measurement results, not a copied serializer.
-                values=[maximum]+[max(0,total//len(self.rows)-maximum)]*(len(self.common_aliases)-1)
-            else:values=[]
-        return {**row,**dict(zip(self.common_aliases,values))}
+        if sentinel:values=[0]*len(self.common_aliases)
+        elif values is None:
+            # Explicit inert engine metrics, independent of production plan.
+            if self.stats is None:
+                values=[0 if value is None else len(value.encode()) for value in row.values()]
+            else:
+                values=[int(cell or 0)]+[max(0,int(total or 0)//len(self.rows)-int(cell or 0))]*(len(self.common_aliases)-1)
+        captured={**row,**dict(zip(self.common_aliases,values)),
+            '_ashlar_verification_real':0 if sentinel else 1,
+            '_ashlar_verification_count':count,'_ashlar_verification_max':cell,'_ashlar_verification_total':total}
+        captured['_ashlar_verification_valid']=self.valid_expression.evaluate(captured)
+        return captured
 
     def function(self,name,args):
-        self.events.append((name,args[1] if name=='encode' else None)); return Column(self.events,name)
+        self.events.append((name,args[1] if name in ('encode','to_json') and len(args)>1 else None))
+        if name in ('lit','col','coalesce','when'):return Column(self.events,name,(name,*args))
+        return Column(self.events,name)
 
     def schema_json(self):
         self.events.append('schema-json')
@@ -94,14 +142,14 @@ class Tests(unittest.TestCase):
         with self.transport.bounded_observations(self.bounds):
             result=self.transport._bounded_native_rows(self.frame)
         self.assertIs(result[0]['stamp'],instant);self.assertEqual(result[0]['properties'],self.rows[0]['properties'])
-        self.assertLess(self.events.index('aggregate'),self.events.index('iterate'))
+        self.assertLess(self.events.index('filter-before-transfer'),self.events.index('iterate'));self.assertIn('global-window',self.events)
         for stats in ({'count':11,'cell':Decimal(1),'total':Decimal(11)},
                 {'count':1,'cell':Decimal(1025),'total':Decimal(1025)},
                 {'count':1,'cell':Decimal(1),'total':None}):
             self.stats=stats;self.events.clear()
             with self.transport.bounded_observations(self.bounds):
                 with self.assertRaises(LocalDeltaError):self.transport._bounded_native_rows(self.frame)
-            self.assertNotIn('iterate',self.events)
+            self.assertNotIn('aggregate',self.events)
 
     def test_common_query_history_detail_route_and_iterator_cancellation(self):
         from pyspark.sql import functions as F
@@ -173,7 +221,104 @@ class Tests(unittest.TestCase):
         self.fields[0].name='_ashlar_verification_cell_0';self.events.clear()
         with self.transport.bounded_observations(self.bounds):
             with self.assertRaises(LocalDeltaError):self.transport._bounded_native_rows(self.frame)
+        self.assertNotIn('aggregate',self.events)
+
+    def test_single_action_overflow_filters_all_real_payloads_before_transfer(self):
+        for stats in ({'count':1000000,'cell':Decimal(1),'total':Decimal(1000000)},
+                {'count':2,'cell':Decimal(1025),'total':Decimal(2050)},
+                {'count':2,'cell':Decimal(1),'total':Decimal(9999999)},
+                {'count':2,'cell':None,'total':None}):
+            with self.subTest(stats=stats):
+                self.stats=stats;self.events.clear();self.transferred.clear()
+                with self.assertRaises(LocalDeltaError):self.capture()
+                self.assertEqual(len(self.transferred),1)
+                self.assertEqual(self.transferred[0]['_ashlar_verification_real'],0)
+                self.assertTrue(all(self.transferred[0][field.name] is None for field in self.fields))
+                self.assertFalse(self.transferred[0]['_ashlar_verification_valid'])
+                self.assertEqual(self.events.count('iterate'),1)
+                self.assertIn('union-sentinel',self.events)
+                self.assertLess(self.events.index('filter-before-transfer'),self.events.index('iterate'))
+                self.assertNotIn('aggregate',self.events)
+
+    def test_common_null_field_names_are_measured_on_every_row(self):
+        name='long_'+('k'*895)
+        self.fields[0].name=name
+        self.rows=[{name:None,'text':None}]*10
+        self.bounds=VerificationBounds(65536,10,1024,40000,65536,65536)
+        # Explicit inert native to_json struct bytes include the original key
+        # even for NULL; the owning expression option is asserted separately.
+        self.stats={'count':10,'cell':Decimal(910),'total':Decimal(9200)}
+        self.measurements=[910,10]
+        with self.transport.bounded_observations(self.bounds):
+            with self.assertRaises(LocalDeltaError):self.transport._bounded_native_rows(self.frame)
+        options=[event[1] for event in self.events if type(event)is tuple and event[0]=='to_json']
+        self.assertEqual(options,[{'ignoreNullFields':'false'}]*2)
+        self.assertEqual(len(self.transferred),1)
+        self.assertFalse(self.transferred[0]['_ashlar_verification_valid'])
+
+    def test_repeated_metric_envelope_bounds_many_null_and_wide_rows(self):
+        self.bounds=VerificationBounds(65536,10,1024,6000,65536,65536)
+        self.rows=[{'id':None,'text':None}]*2
+        self.assertEqual(self.capture()[0]['rows'],self.rows)
+        self.rows=[{'id':None,'text':None}]*4
+        self.transferred.clear()
+        with self.assertRaises(LocalDeltaError):self.capture()
+        self.assertEqual(len(self.transferred),1)
+        self.assertFalse(self.transferred[0]['_ashlar_verification_valid'])
+        self.assertEqual(self.transferred[0]['_ashlar_verification_real'],0)
+        self.bounds=VerificationBounds(65536,10,1024,20000,65536,65536)
+        self.fields[:]=[SimpleNamespace(name='column_'+str(i),nullable=True,metadata={},
+            dataType=SimpleNamespace(simpleString=lambda:'string',typeName=lambda:'string'))for i in range(80)]
+        self.rows=[{field.name:None for field in self.fields}]*2
+        self.transferred.clear()
+        with self.assertRaises(LocalDeltaError):self.capture()
+        self.assertEqual(len(self.transferred),1)
+        self.assertFalse(self.transferred[0]['_ashlar_verification_valid'])
+        self.assertTrue(all(self.transferred[0][field.name] is None for field in self.fields))
+
+    def test_owning_projection_masks_payload_and_uses_complete_window(self):
+        self.capture()
+        payload=self.projections[-1][:len(self.fields)]
+        for column,field in zip(payload,self.fields):
+            self.assertEqual(column.label,field.name)
+            self.assertEqual(column.expression[0],'when')
+            _,condition,original,otherwise=column.expression
+            self.assertEqual(original.expression,('col','`'+field.name+'`'))
+            self.assertIsNone(otherwise.expression[1])
+            self.assertFalse(condition.evaluate({'_ashlar_verification_valid':False,'_ashlar_verification_real':1}))
+            self.assertFalse(condition.evaluate({'_ashlar_verification_valid':True,'_ashlar_verification_real':0}))
+            self.assertTrue(condition.evaluate({'_ashlar_verification_valid':True,'_ashlar_verification_real':1}))
+        self.assertIn(('full-window',-9223372036854775808,9223372036854775807),self.events)
+        self.assertEqual(self.events.count('iterate'),1)
+        self.assertEqual(self.events.count('union-sentinel'),1)
+        self.assertEqual(self.events.count('window-expression'),3)
+
+    def test_closed_sentinel_stats_markers_and_envelope_refuse(self):
+        for key,value in (('_ashlar_verification_real',False),('_ashlar_verification_real',2),
+                ('_ashlar_verification_valid',1),('_ashlar_verification_count',Decimal('1.5')),
+                ('_ashlar_verification_total',None)):
+            with self.subTest(key=key):
+                self.capture_mutator=lambda row,key=key,value=value:{**row,key:value}
+                with self.assertRaises(LocalDeltaError):self.capture()
+        self.capture_mutator=lambda row:{**row,'id':'not-null'} if row['_ashlar_verification_real']==0 else row
+        with self.assertRaises(LocalDeltaError):self.capture()
+        self.capture_mutator=lambda row:row
+        for alias in ('_ashlar_verification_real','_ashlar_verification_valid','_ashlar_verification_total'):
+            original=self.fields[0].name;self.fields[0].name=alias;self.events.clear()
+            with self.assertRaises(LocalDeltaError):self.capture()
+            self.assertNotIn('iterate',self.events);self.fields[0].name=original
+        self.bounds=VerificationBounds(1024,10,1024,65536,65536,65536)
+        self.events.clear()
+        with self.assertRaises(LocalDeltaError):self.capture()
         self.assertNotIn('iterate',self.events)
+
+    def test_single_valid_sentinel_is_required_even_for_empty(self):
+        self.rows=[]
+        self.assertEqual(self.capture()[0]['rows'],[])
+        self.assertEqual(len(self.transferred),1)
+        self.assertEqual(self.transferred[0]['_ashlar_verification_real'],0)
+        self.frame.toLocalIterator=lambda:iter(())
+        with self.assertRaises(LocalDeltaError):self.capture()
 
     def test_constructor_bounds_precede_first_native_read_and_reset_on_cancel(self):
         primary=GeneratorExit('constructor native read');seen=[]
@@ -201,7 +346,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(bag['rows']),3); self.assertEqual(bag['rows'].count(self.rows[0]),2)
         self.assertEqual(schema['fields'][0]['metadata'],{})
         self.assertIn(('encode','UTF-8'),self.events);self.assertIn(('cast','decimal(38,0)'),self.events)
-        self.assertLess(self.events.index('aggregate'),self.events.index('iterate'))
+        self.assertLess(self.events.index('filter-before-transfer'),self.events.index('iterate'));self.assertIn('global-window',self.events)
         self.rows=[]; self.events.clear(); self.assertEqual(self.capture()[0]['rows'],[])
 
     def test_nonempty_all_null_native_aggregate_is_zero_not_absent(self):
@@ -209,11 +354,11 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.capture()[0]['rows'], self.rows)
 
     def test_owned_iterator_closes_after_partial_cancel_and_close_failure(self):
-        primary=GeneratorExit('partial native capture');events=[]
+        primary=GeneratorExit('partial native capture');events=[];self_owner=self
         class Iterator:
             def __iter__(self):return self
             def __next__(self):
-                if not events:events.append('row');return Row(id='1',text='x')
+                if not events:events.append('row');return Row(self_owner.measured_row({'id':'1','text':'x'}))
                 raise primary
             def close(self):events.append('close');raise OSError('iterator close')
         self.frame.toLocalIterator=lambda:Iterator()
@@ -232,12 +377,12 @@ class Tests(unittest.TestCase):
             with self.subTest(stats=stats):
                 self.stats=stats;self.events.clear()
                 with self.assertRaises(LocalDeltaError):self.capture()
-                self.assertNotIn('iterate',self.events);self.assertEqual(self.events[-1],'identity')
+                self.assertNotIn('aggregate',self.events);self.assertEqual(self.events[-1],'identity')
 
     def test_schema_bounds_before_schema_serialization_or_rows(self):
         self.fields[0].metadata={'oversized':'x'*1025}
         with self.assertRaises(LocalDeltaError):self.capture()
-        self.assertNotIn('schema-json',self.events);self.assertNotIn('iterate',self.events)
+        self.assertNotIn('schema-json',self.events);self.assertNotIn('aggregate',self.events)
         self.fields[0].metadata={};self.fields.extend(self.fields*130);self.events.clear()
         with self.assertRaises(LocalDeltaError):self.capture()
         self.assertNotIn('schema-json',self.events)
@@ -245,11 +390,11 @@ class Tests(unittest.TestCase):
     def test_nested_schema_refuses_before_recursive_type_string(self):
         self.fields[0].dataType=SimpleNamespace(typeName=lambda:'struct',simpleString=lambda:self.fail('recursive type serialized'))
         with self.assertRaises(LocalDeltaError):self.capture()
-        self.assertNotIn('schema-json',self.events);self.assertNotIn('iterate',self.events)
+        self.assertNotIn('schema-json',self.events);self.assertNotIn('aggregate',self.events)
 
     def test_cumulative_remaining_bound_and_capture_statistics_drift(self):
         with self.assertRaises(LocalDeltaError):self.capture(remaining_bytes=100)
-        self.assertNotIn('iterate',self.events)
+        self.assertNotIn('aggregate',self.events)
         self.stats={'count':2,'cell':Decimal(16),'total':Decimal(32)}
         with self.assertRaises(LocalDeltaError):self.capture()
 

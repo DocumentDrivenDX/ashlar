@@ -436,54 +436,104 @@ class LocalDeltaTransport:
         aliases = ['_ashlar_verification_cell_'+str(index) for index in range(len(names))]
         if set(aliases) & set(names):
             raise LocalDeltaError('Reserved native measurement alias collision')
-        measurements = [F.coalesce(F.length(F.encode(F.to_json(F.struct(F.col('`'+name.replace('`','``')+'`'))), 'UTF-8')), F.lit(0)).cast('decimal(38,0)').alias(alias) for name, alias in zip(names,aliases)]
-        measured = frame.select(*[F.col('`'+name.replace('`','``')+'`') for name in names], *measurements)
-        lengths = [F.col('`'+alias+'`') for alias in aliases]
+        measurements = [F.coalesce(F.length(F.encode(F.to_json(F.struct(F.col('`'+name.replace('`','``')+'`')), {'ignoreNullFields':'false'}), 'UTF-8')), F.lit(0)).cast('decimal(38,0)').alias(alias) for name, alias in zip(names,aliases)]
+        lengths = [item for item in measurements]
+        rows, _ = self._guarded_native_projection(frame, names, lengths,
+            limit=limit, maximum=bounds.total_bytes, base=256+budget, row_constant=64)
+        return rows
+
+    def _guarded_native_projection(self, frame, names, measurements, *, limit,
+            maximum, base, row_constant):
+        """One iterator action with native global admission and a closed sentinel.
+
+        Invalid real rows are filtered before transfer. The global window may
+        shuffle/spill the input in the JVM; this is a driver-payload bound for
+        the explicit tiny verification profile, not an executor heap promise.
+        """
+        from decimal import Decimal
+        from pyspark.sql import functions as F, Window
+        from .lifecycle import finish
+        bounds = self.observation_bounds
+        aliases = ['_ashlar_verification_cell_'+str(i) for i in range(len(names))]
+        marker = '_ashlar_verification_real'
+        stat_names = ['_ashlar_verification_count','_ashlar_verification_max','_ashlar_verification_total']
+        status = '_ashlar_verification_valid'
+        reserved = aliases+[marker]+stat_names+[status]
+        if set(names)&set(reserved): raise LocalDeltaError('Reserved native guard alias collision')
+        # Every real row and the one sentinel carry fixed scalar decimal(38,0),
+        # boolean and byte markers. Bound the complete repeated wire envelope
+        # together with the original payload, including the sentinel even if
+        # it is transferred after all real rows.
+        envelope = 512 + 128*len(reserved)
+        if envelope > bounds.input_bytes or envelope > bounds.total_bytes:
+            raise LocalDeltaError('Bounded native metric envelope required')
+        quote = lambda name: F.col('`'+name.replace('`','``')+'`')
+        real = frame.select(*[quote(name) for name in names],
+            *[value.alias(alias) for value,alias in zip(measurements,aliases)],
+            F.lit(1).cast('byte').alias(marker))
+        sentinel = self.spark.range(1).select(
+            *[F.lit(None).cast(field.dataType).alias(field.name) for field in frame.schema.fields],
+            *[F.lit(0).cast('decimal(38,0)').alias(alias) for alias in aliases],
+            F.lit(0).cast('byte').alias(marker))
+        combined = real.unionByName(sentinel)
+        window = Window.partitionBy().rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing)
+        lengths = [quote(alias) for alias in aliases]
         total = lengths[0]
         for item in lengths[1:]: total = total + item
-        aggregate = measured.agg(F.count(F.lit(1)).alias('count'), F.max(F.greatest(*lengths) if len(lengths)>1 else lengths[0]).alias('cell'), F.sum(total).alias('total')).first()
-        stats = None if aggregate is None else aggregate.asDict()
-        if type(stats) is not dict or set(stats) != {'count','cell','total'} or type(stats['count']) is not int:
-            raise LocalDeltaError('Exact native query statistics required')
-        count = stats['count']
-        if count == 0 and stats['cell'] is None and stats['total'] is None: cell = size = 0
-        else:
-            values = []
-            for key in ('cell','total'):
-                value = stats[key]
-                if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
-                    raise LocalDeltaError('Native query aggregate overflow refused')
-                values.append(int(value))
-            cell, size = values
-        if not 0 <= count <= limit or cell > bounds.cell_bytes or 256 + budget + count*64 + 6*size > bounds.total_bytes:
-            raise LocalDeltaError('Native query bounds exceeded before transfer')
-        # The same captured native row contains its co-evaluated measurements.
-        # Strip only these closed aliases; original native carriers are untouched.
-        actual_cell = actual_total = 0
-        rows = []; iterator = None; primary = None
+        counted = combined.select('*',
+            F.sum(quote(marker).cast('decimal(38,0)')).over(window).alias(stat_names[0]),
+            F.max(F.greatest(*lengths) if len(lengths)>1 else lengths[0]).over(window).alias(stat_names[1]),
+            F.sum(total).over(window).alias(stat_names[2]))
+        count, cell, size = [quote(name) for name in stat_names]
+        valid = (count.isNotNull() & cell.isNotNull() & size.isNotNull()
+            & (count >= F.lit(0)) & (count <= F.lit(limit))
+            & (cell >= F.lit(0)) & (cell <= F.lit(bounds.cell_bytes))
+            & (size >= F.lit(0))
+            & (F.lit(base)+count*F.lit(row_constant)+size*F.lit(6)+(count+F.lit(1))*F.lit(envelope) <= F.lit(maximum)))
+        admitted = counted.select('*', F.coalesce(valid,F.lit(False)).alias(status))
+        # Filtering is essential: overflow must not transfer arbitrarily many
+        # masked real rows. Only the one fixed sentinel survives invalid input.
+        filtered = admitted.filter((quote(marker)==F.lit(0)) | quote(status))
+        guarded = filtered.select(
+            *[F.when(quote(status)&(quote(marker)==F.lit(1)),quote(field.name))
+                .otherwise(F.lit(None).cast(field.dataType)).alias(field.name)
+                for field in frame.schema.fields],
+            *[quote(name) for name in reserved])
+        rows=[]; observed=None; sentinel_seen=False; actual_cell=actual_total=0
+        iterator=None; primary=None
+        def integer(value):
+            if type(value) not in (int,Decimal) or value < 0 or int(value)!=value:
+                raise LocalDeltaError('Exact finite native guard statistic required')
+            return int(value)
         try:
-            iterator = measured.toLocalIterator()
-            if not callable(getattr(iterator, 'close', None)): raise LocalDeltaError('Closable native query iterator required')
+            iterator=guarded.toLocalIterator()
+            if not callable(getattr(iterator,'close',None)): raise LocalDeltaError('Closable native guard iterator required')
             for native in iterator:
-                row = native.asDict()
-                if type(row) is not dict or set(row) != set(names+aliases) or len(rows) >= count:
-                    raise LocalDeltaError('Complete native query correspondence required')
-                row_bytes = 0
-                for alias in aliases:
-                    value = row[alias]
-                    if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
-                        raise LocalDeltaError('Exact captured native byte measurement required')
-                    measured_bytes = int(value)
-                    actual_cell = max(actual_cell, measured_bytes); row_bytes += measured_bytes
-                actual_total += row_bytes
-                if actual_cell > cell or actual_cell > bounds.cell_bytes or actual_total > size or 256 + budget + (len(rows)+1)*64 + 6*actual_total > bounds.total_bytes:
+                row=native.asDict()
+                if type(row) is not dict or set(row)!=set(names+reserved): raise LocalDeltaError('Closed native guarded row required')
+                if type(row[status]) is not bool or type(row[marker]) is not int or row[marker] not in (0,1):
+                    raise LocalDeltaError('Exact native guard status and marker required')
+                stats=tuple(integer(row[name]) for name in stat_names)
+                if not row[status] or not 0<=stats[0]<=limit or stats[1]>bounds.cell_bytes or base+stats[0]*row_constant+6*stats[2]+(stats[0]+1)*envelope>maximum:
+                    raise LocalDeltaError('Native bounds refused before payload transfer')
+                if observed is not None and observed!=stats: raise LocalDeltaError('Native guard statistics changed')
+                observed=stats
+                values=[integer(row[alias]) for alias in aliases]
+                if row[marker]==0:
+                    if sentinel_seen or any(values) or any(row[name] is not None for name in names):
+                        raise LocalDeltaError('Exactly one typed-null native sentinel required')
+                    sentinel_seen=True
+                    continue
+                if len(rows)>=stats[0]: raise LocalDeltaError('Complete guarded native count required')
+                actual_cell=max(actual_cell,max(values));actual_total+=sum(values)
+                if actual_cell>stats[1] or actual_cell>bounds.cell_bytes or actual_total>stats[2] or base+(len(rows)+1)*row_constant+6*actual_total+(len(rows)+2)*envelope>maximum:
                     raise LocalDeltaError('Captured native payload exceeds admitted statistics or budget')
                 rows.append({name:row[name] for name in names})
-            if len(rows) != count or actual_cell != cell or actual_total != size:
-                raise LocalDeltaError('Complete native query count or byte statistics changed')
-        except BaseException as error: primary = error
-        finally: finish(primary, [iterator.close] if iterator is not None and callable(getattr(iterator, 'close', None)) else [])
-        return rows
+            if not sentinel_seen or observed is None or (len(rows),actual_cell,actual_total)!=observed:
+                raise LocalDeltaError('Complete native sentinel/count/byte correspondence required')
+        except BaseException as error: primary=error
+        finally: finish(primary,[iterator.close] if iterator is not None and callable(getattr(iterator,'close',None)) else [])
+        return rows, observed
 
     @contextmanager
     def bounded_observations(self, bounds):
@@ -589,57 +639,21 @@ class LocalDeltaTransport:
             raise LocalDeltaError('Complete distinct native schema required')
         projected = frame.select(*projection)
         lengths = [F.coalesce(F.length(F.encode(F.col('`' + name.replace('`', '``') + '`'), 'UTF-8')), F.lit(0)).cast('decimal(38,0)') for name, _ in schema]
-        row_bytes = lengths[0]
-        for length in lengths[1:]: row_bytes = row_bytes + length
-        aggregate = projected.agg(F.count(F.lit(1)).alias('count'),
-            F.max(F.greatest(*lengths) if len(lengths) > 1 else lengths[0]).alias('cell'),
-            F.sum(row_bytes).alias('total')).first()
-        if aggregate is None: raise LocalDeltaError('Complete native bound statistics required')
-        statistics = aggregate.asDict()
-        if set(statistics) != {'count', 'cell', 'total'} or type(statistics['count']) is not int:
-            raise LocalDeltaError('Exact bounded native statistics required')
-        count = statistics['count']
-        if count == 0 and statistics['cell'] is None and statistics['total'] is None:
-            cell = total = 0
-        else:
-            values = []
-            for key in ('cell', 'total'):
-                value = statistics[key]
-                if type(value) not in (int, Decimal) or value < 0 or int(value) != value:
-                    raise LocalDeltaError('Native bound overflow or malformed statistics')
-                values.append(int(value))
-            cell, total = values
-        # Conservative JSON bound includes escaped names, nulls, punctuation,
-        # quotes and six-byte escapes for every UTF8 byte. No rows transferred yet.
+        # Primitive lexical rows use the same single-action native guard, with
+        # their original conservative JSON/schema budget retained.
         row_constant = 2 + len(schema) + sum(len(json.dumps(name).encode()) + 1 for name, _ in schema) + 6 * len(schema)
-        upper = 256 + len(schema_json.encode()) + 2 + count * (row_constant + 1) + 6 * total
-        if not 0 <= count <= bounds.rows or cell > bounds.cell_bytes or upper > maximum:
-            raise LocalDeltaError('Native row/cell/total bound exceeded before transfer')
-        rows = []; captured_bytes = 2; actual_cell = actual_total = 0
-        iterator = None; capture_primary = None
-        try:
-            iterator = projected.toLocalIterator()
-            if not callable(getattr(iterator, 'close', None)):
-                raise LocalDeltaError('Owned closable complete native iterator required')
-            for native in iterator:
-                row = native.asDict()
-                if type(row) is not dict or set(row) != {name for name, _ in schema} or len(rows) >= count:
-                    raise LocalDeltaError('Complete native capture correspondence differs')
-                for value in row.values():
-                    if value is not None and type(value) is not str:
-                        raise LocalDeltaError('Exact String/null projected native carrier required')
-                    size = 0 if value is None else len(value.encode())
-                    actual_cell = max(actual_cell, size); actual_total += size
-                    if size > bounds.cell_bytes: raise LocalDeltaError('Native cell capture differs')
-                captured_bytes += len(encoded(row).encode()) + (1 if rows else 0)
-                if captured_bytes + len(schema_json.encode()) + 256 > maximum: raise LocalDeltaError('Native complete capture bound exceeded')
-                rows.append(row)
-        except BaseException as error:
-            capture_primary = error
-        finally:
-            from .lifecycle import finish
-            finish(capture_primary, [iterator.close] if iterator is not None and callable(getattr(iterator, 'close', None)) else [])
-        if len(rows) != count or actual_cell != cell or actual_total != total or frame.schema.json() != schema_json:
+        base = 256 + len(schema_json.encode()) + 2
+        rows, (count,cell,total) = self._guarded_native_projection(projected,
+            [name for name,_ in schema], lengths, limit=bounds.rows,
+            maximum=maximum, base=base, row_constant=row_constant+1)
+        actual_cell=actual_total=0;captured_bytes=2
+        for row in rows:
+            for value in row.values():
+                if value is not None and type(value) is not str: raise LocalDeltaError('Exact String/null projected native carrier required')
+                size=0 if value is None else len(value.encode())
+                actual_cell=max(actual_cell,size);actual_total+=size
+            captured_bytes+=len(encoded(row).encode())+1
+        if actual_cell!=cell or actual_total!=total or captured_bytes+len(schema_json.encode())+256>maximum or frame.schema.json()!=schema_json:
             raise LocalDeltaError('Native complete bound/schema correspondence differs')
         self._detail(target)
         rows.sort(key=encoded)
