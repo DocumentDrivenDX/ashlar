@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_path_request test_supply_chain_installed_request",
+    "diff_check": "pass",
+    "exit": 0,
+    "seconds": 0.296,
+    "terminal": "0c1415",
+    "tests": 16
+  },
+  "files": [
+    {
+      "bytes": 3367,
+      "path": "src/ashlar_host/supply_chain_path_request.py",
+      "sha256": "d427d0c0db8a2242e510bc09f906116117ab909b18f72307cd47950e903963ed"
+    },
+    {
+      "bytes": 4386,
+      "path": "tests/test_supply_chain_path_request.py",
+      "sha256": "9989155cea470f5e13f60f9c9bb4daf44ae821591a4e22073cbd165a0a421cbc"
+    }
+  ],
+  "profile": "ashlar-supply-chain-path-request-source-freeze/0.1",
+  "qualification": "Pure original13relationship/12record request binding prerequisite for common traversal cases. Uses existing explicit040paths profiles; preserves originalUMF0.8 and nullable homes. No compiler/native or sevencommon positive pass claim."
+}

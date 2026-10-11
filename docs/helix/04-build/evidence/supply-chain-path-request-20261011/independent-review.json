@@ -1,0 +1,38 @@
+{
+  "decision": "approved",
+  "profile": "ashlar-supply-chain-path-request-independent-review/0.1",
+  "freeze_sha256": "339d68aa1fa40a9ad5243572e5e950dd10d035198a4cba5c2cfd6fd5c8771c23",
+  "files": [
+    {
+      "bytes": 3367,
+      "path": "src/ashlar_host/supply_chain_path_request.py",
+      "sha256": "d427d0c0db8a2242e510bc09f906116117ab909b18f72307cd47950e903963ed"
+    },
+    {
+      "bytes": 4386,
+      "path": "tests/test_supply_chain_path_request.py",
+      "sha256": "9989155cea470f5e13f60f9c9bb4daf44ae821591a4e22073cbd165a0a421cbc"
+    }
+  ],
+  "actual_test_command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_path_request test_supply_chain_installed_request",
+  "tests": 16,
+  "terminal": "e237c5",
+  "seconds": 0.366,
+  "independent_controls": [
+    "opening exact frozen source hashes",
+    "pure metadata carriers unchanged",
+    "12 complete record mappings",
+    "13 unique authored relationship identities",
+    "complete source/target logical endpoints",
+    "original schema revision and source system",
+    "explicit existing paths and paths-keys backend identities",
+    "owned two-file diff check clean"
+  ],
+  "reviewed_governance": [
+    "CONTRACT-005 schema intake",
+    "CONTRACT-002 consumer read boundary",
+    "existing commerce_path_request public builder"
+  ],
+  "qualification": "Pure SDK-free request construction only. Retains original UMF0.8 model bytes, declared semantics, required/property/key homes and native-null marker via existing exact pinned builder. No compiler output admission, native execution or common traversal passes claimed. Existing malformed/missing/duplicate/overloaded metadata and SQL/profile negative tests pass.",
+  "findings": []
+}
