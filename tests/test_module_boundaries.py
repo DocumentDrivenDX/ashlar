@@ -39,6 +39,17 @@ class BoundaryTests(unittest.TestCase):
         policy['baseline'][0]['source'] = '*'
         self.assertTrue(check(root, policy)[0])
 
+    def test_truss_public_api_is_host_only(self):
+        root = self.tree('from truss import prepare_acceptance\n')
+        new, stale = check(root, self.policy())
+        self.assertEqual({edge[3] for edge in new}, {'core-to-sdk'})
+        self.assertFalse(stale)
+        (root / 'src/ashlar/example.py').write_text('')
+        host = root / 'src/ashlar_host'
+        host.mkdir()
+        (host / 'preparation.py').write_text('from truss import prepare_acceptance\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+
     def test_recursive_role_relative_and_alias_checks(self):
         root = self.tree('from .cli import main\n')
         self.assertEqual(check(root, self.policy())[0][0][3], 'core-to-composition')
