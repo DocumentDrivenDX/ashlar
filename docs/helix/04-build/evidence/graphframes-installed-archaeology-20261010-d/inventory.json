@@ -1,0 +1,587 @@
+{
+  "archive": {
+    "bytes": 4182374,
+    "path": "actual.tar.gz",
+    "sha256": "b55df3827de4f463d033163a3a732cd60f9ded89cc569e89d4bc77c6667f957f"
+  },
+  "members": [
+    {
+      "bytes": 3204155,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-custody.json",
+      "path": "actual/archaeology-custody.json",
+      "sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe"
+    },
+    {
+      "bytes": 1393,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-invocation.json",
+      "path": "actual/archaeology-invocation.json",
+      "sha256": "ba4765f8ec3de43fe7e0d4072d209e3cbda9a6ca7a78f46feaeb37732bb88e84"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-operator.lock",
+      "path": "actual/archaeology-operator.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 244,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-query.json",
+      "path": "actual/archaeology-query.json",
+      "sha256": "77003fd432d58fe1ab7643f245e195901e3a50c8b664d363965ab068328d2b68"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-query.stderr",
+      "path": "actual/archaeology-query.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 231396,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-query.stdout",
+      "path": "actual/archaeology-query.stdout",
+      "sha256": "b714c891654db43918464a1171075f7a2fcc2077e25ef5c27e8d27d938739c58"
+    },
+    {
+      "bytes": 681,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c-archaeology.outer.receipt.json",
+      "path": "actual/archaeology.outer.receipt.json",
+      "sha256": "7e363c8bbf44a6f4ac0d87e1b3031fa9e7b2d44247f8dfce1baf3ea7f6cb9e37"
+    },
+    {
+      "bytes": 728,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c-archaeology.outer.stderr",
+      "path": "actual/archaeology.outer.stderr",
+      "sha256": "aa70d7d9961aa870b17582047471144fea9d16164f1e62800ab8dc214cf654fa"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c-archaeology.outer.stdout",
+      "path": "actual/archaeology.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 140,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c-archaeology.receipt.json",
+      "path": "actual/archaeology.receipt.json",
+      "sha256": "9236b5c3a3c406a8f37d6dc09b7f635fdfd3805cee7acc9dd75a621beaf58773"
+    },
+    {
+      "bytes": 235,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archive.json",
+      "path": "actual/archive.json",
+      "sha256": "7b3db62d2e4755708f4407c63578c44b67fb004069247ea5c6368cc49f1447e4"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archive.stderr",
+      "path": "actual/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3481600,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archive.stdout",
+      "path": "actual/archive.stdout",
+      "sha256": "6078bed833949d1519ffe8a10d5c999deb333d5a661893d8d6c3e54816ed6076"
+    },
+    {
+      "bytes": 3028086,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/ecology-custody.json",
+      "path": "actual/ecology-custody.json",
+      "sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add"
+    },
+    {
+      "bytes": 105146,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/generated-custody.json",
+      "path": "actual/generated-custody.json",
+      "sha256": "6a454bdee055039e268bd1dbb7ccba29818caf5c849db78da9fc7b13270167ef"
+    },
+    {
+      "bytes": 15755,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/installed-RECORD.csv",
+      "path": "actual/installed-RECORD.csv",
+      "sha256": "f03d2ebf644577c49f7216b51365649ddcad0fbe5325cfb000339f0918fc40d2"
+    },
+    {
+      "bytes": 209,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/installed-console.txt",
+      "path": "actual/installed-console.txt",
+      "sha256": "18c0d220ff7b6b04515a1041a20164db1a909adfe7f955ddd0a25570a428c0ef"
+    },
+    {
+      "bytes": 1529,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/operator-plan.json",
+      "path": "actual/operator-plan.json",
+      "sha256": "cdadcf96a8d5cb7dea40712771b107e238a66dd7f32430c4b99b155eff79cf50"
+    },
+    {
+      "bytes": 1102269,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/engine/input.json",
+      "path": "actual/output/engine/input.json",
+      "sha256": "616686cc74de76c03462b2e41ca4b7375b43c97e82b761ebb5c5dc6e76161c4a"
+    },
+    {
+      "bytes": 637876,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/engine/observations.jsonl",
+      "path": "actual/output/engine/observations.jsonl",
+      "sha256": "27acf116dd0fcccf3c6b7c54291ba697e51c5a0bc1c7d8792fdc61f437da3955"
+    },
+    {
+      "bytes": 231129,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/engine/result.json",
+      "path": "actual/output/engine/result.json",
+      "sha256": "c89fa19a3e44da476382f7914ee0fa9eacad907a512eed7a97598e11c0817c45"
+    },
+    {
+      "bytes": 1349,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/engine/transport.json",
+      "path": "actual/output/engine/transport.json",
+      "sha256": "d68f647b6190ef2a7077facfcb330d046e62685fe8310e0711b65ff90cf40824"
+    },
+    {
+      "bytes": 335,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-0.json",
+      "path": "actual/output/observation-0.json",
+      "sha256": "14bd866b405740c1eaf30d05e6a8500297353ac843298c1a4dcb1e54d3a8fddd"
+    },
+    {
+      "bytes": 335,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-1.json",
+      "path": "actual/output/observation-1.json",
+      "sha256": "8e360cdd62693c4a0460c0bee8f84ab734ff25830a24dd6e0fa57841d60d74db"
+    },
+    {
+      "bytes": 550,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-10.json",
+      "path": "actual/output/observation-10.json",
+      "sha256": "3838070e2972d1926f540a82766e684410c33aae4bc5dbb454a76a20a4204638"
+    },
+    {
+      "bytes": 318,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-11.json",
+      "path": "actual/output/observation-11.json",
+      "sha256": "87c8ea3330b543f15a47f5018f9685c2b7aab7907382f0dff9bf59a851439b79"
+    },
+    {
+      "bytes": 1495,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-12.json",
+      "path": "actual/output/observation-12.json",
+      "sha256": "02d50b6867c29c3e0434c49fb83383871dd9a9b3c1a859846fd4d089fedbd9fd"
+    },
+    {
+      "bytes": 375,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-13.json",
+      "path": "actual/output/observation-13.json",
+      "sha256": "609cacabdde7a9d14563ddf8d4bd2cd6658054db56c7b6abe7cb330e1562dc2c"
+    },
+    {
+      "bytes": 54443,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-14.json",
+      "path": "actual/output/observation-14.json",
+      "sha256": "7bd902d350bfe71af830970c0fcd373f40fb87ca87a460eab454cf5da9ba024d"
+    },
+    {
+      "bytes": 81034,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-15.json",
+      "path": "actual/output/observation-15.json",
+      "sha256": "556a25ae7b56e0e9bb98c5f6a649c7d3011d18f7bc3bfe4c41daf16014b83747"
+    },
+    {
+      "bytes": 12877,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-16.json",
+      "path": "actual/output/observation-16.json",
+      "sha256": "fa967ff5fc2c0d73040c36bf11ee7d6ccfdbd1f81d8945db7a1be7e51f4efc68"
+    },
+    {
+      "bytes": 18561,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-17.json",
+      "path": "actual/output/observation-17.json",
+      "sha256": "13cfc19cd9c416c8bb3174764f6438a7a7f30ae753de4ba85b42dab5c547c52a"
+    },
+    {
+      "bytes": 4925,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-18.json",
+      "path": "actual/output/observation-18.json",
+      "sha256": "f18bc9aa2201859db28a87890acc2c9090373c4d4ef2780a9b575cdf0fc2cdf3"
+    },
+    {
+      "bytes": 2020,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-19.json",
+      "path": "actual/output/observation-19.json",
+      "sha256": "f8976832105fead2129e9482c8dc9c880c76a3c18129dc6440c724d313d16e91"
+    },
+    {
+      "bytes": 145361,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-2.json",
+      "path": "actual/output/observation-2.json",
+      "sha256": "f3ece5806ef7f674e07f5eb1228cefdb93f54a6b1977c3a79cbe94e992bc47ce"
+    },
+    {
+      "bytes": 662,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-20.json",
+      "path": "actual/output/observation-20.json",
+      "sha256": "05c4ecb75fdf46b72a456c6f7ea6f4f181fc15decdea08accaa051fc9d8af8ec"
+    },
+    {
+      "bytes": 2111,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-21.json",
+      "path": "actual/output/observation-21.json",
+      "sha256": "c18c771551b1b110b44e10b49513941dad156d7d76a349d97112519c6000dd53"
+    },
+    {
+      "bytes": 2350,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-22.json",
+      "path": "actual/output/observation-22.json",
+      "sha256": "51e917b6bff7b3aec22a854a4609f6ba50fbe1f1da22de41618a7036ca8dae68"
+    },
+    {
+      "bytes": 145356,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-23.json",
+      "path": "actual/output/observation-23.json",
+      "sha256": "5eeeb7eea4a3b9af9e22c68982825536b7f039948aecea75e388651de26e6c85"
+    },
+    {
+      "bytes": 335,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-24.json",
+      "path": "actual/output/observation-24.json",
+      "sha256": "62f0bcadd6af47d92b05a1105dc677741b9c11e9b68de94a0e96d3255cda8974"
+    },
+    {
+      "bytes": 81048,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-25.json",
+      "path": "actual/output/observation-25.json",
+      "sha256": "123bbbc705a5855c4afada79968c662e4311662f74baf8fec23d77c6489c2e1e"
+    },
+    {
+      "bytes": 335,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-26.json",
+      "path": "actual/output/observation-26.json",
+      "sha256": "0ad9004e79cf874000212ee941da4c1d0d00a7233993817c99f2721e1803ea57"
+    },
+    {
+      "bytes": 340,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-3.json",
+      "path": "actual/output/observation-3.json",
+      "sha256": "8e5b13a939ab82d1c56d9b218ee77d0230f248c207fdb00dedc1ff17afeccf63"
+    },
+    {
+      "bytes": 81053,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-4.json",
+      "path": "actual/output/observation-4.json",
+      "sha256": "d4cedb3cbe929d801e866f8829eeb1c207c0209d6ca58bbcdbe8b7218c4fc518"
+    },
+    {
+      "bytes": 340,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-5.json",
+      "path": "actual/output/observation-5.json",
+      "sha256": "fcce4da993d09c5aeaca00bdefdfafb876a4a2e43200b42267d8b9d5202c497f"
+    },
+    {
+      "bytes": 399,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-6.json",
+      "path": "actual/output/observation-6.json",
+      "sha256": "08ed87c36024f92ce2ea8f5c54e5a550b5b0fab4e4ca16755405cbcce8b84307"
+    },
+    {
+      "bytes": 371,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-7.json",
+      "path": "actual/output/observation-7.json",
+      "sha256": "5af953d56126a1bb94bb6d628afee46885ead1d6dc2fd2af75f1136595d38004"
+    },
+    {
+      "bytes": 317,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-8.json",
+      "path": "actual/output/observation-8.json",
+      "sha256": "0d9a888ddd4182850237fd0d7211769b157058c44ba56edf8c7e2fd7621d9c35"
+    },
+    {
+      "bytes": 230,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/observation-9.json",
+      "path": "actual/output/observation-9.json",
+      "sha256": "c0bdfcf47b0342fe1a9bac0467b47f8a5316527a9c74517eed8b32894d756571"
+    },
+    {
+      "bytes": 1106427,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/public-dataset.json",
+      "path": "actual/output/public-dataset.json",
+      "sha256": "e72126b939851df8907dd78136f2a5e30410907ce5ccc31ce9c84c8bd4f47326"
+    },
+    {
+      "bytes": 231396,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/archaeology-output/report.json",
+      "path": "actual/output/report.json",
+      "sha256": "b714c891654db43918464a1171075f7a2fcc2077e25ef5c27e8d27d938739c58"
+    },
+    {
+      "bytes": 235,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/pip-install.json",
+      "path": "actual/pip-install.json",
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/pip-install.stderr",
+      "path": "actual/pip-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/pip-install.stdout",
+      "path": "actual/pip-install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 8789,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/provider.py",
+      "path": "actual/provider.py",
+      "sha256": "d9e4d26e53381e51c56c676d41eabe2f4d46f033ecf2566751682e590f2a6096"
+    },
+    {
+      "bytes": 2836774,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/runtime-plan.json",
+      "path": "actual/runtime-plan.json",
+      "sha256": "1717487c11ca8c0f2b39807fb63041a9aace51f20068a3939125f18a5a221b8c"
+    },
+    {
+      "bytes": 226,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/venv.json",
+      "path": "actual/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/venv.stderr",
+      "path": "actual/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/venv.stdout",
+      "path": "actual/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 23055,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/wheel-inventory.json",
+      "path": "actual/wheel-inventory.json",
+      "sha256": "ab2eed3ce132b2f759c89512445cc44027e64d55823f53592220a360c7ffcb3e"
+    },
+    {
+      "bytes": 229,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/wheel.json",
+      "path": "actual/wheel.json",
+      "sha256": "63090f1fd6692bfd37f2fc506e0a46f5bb17a51d2ee7811040306759a36f04b5"
+    },
+    {
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/wheel.stderr",
+      "path": "actual/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 754,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/wheel.stdout",
+      "path": "actual/wheel.stdout",
+      "sha256": "6dbaaad712bedc0fb59e59c888304e623c6e6739ad5347311bf40fa1fd61dc2e"
+    },
+    {
+      "bytes": 1027269,
+      "original": "/private/tmp/ashlar-graphframes-installed-20261010-c/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "path": "actual/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "05d309eb942347aa398a491231e85e230c89e7666d98c897bf55a2d2bf2b86f4"
+    },
+    {
+      "bytes": 81564,
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/graph/fixture.json",
+      "path": "original/graph/fixture.json",
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+    },
+    {
+      "bytes": 83068,
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/ontology.json",
+      "path": "original/ontology.json",
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+    },
+    {
+      "bytes": 28986,
+      "original": "/Users/erik/Projects/ashlar/examples/domain-packs/archaeology/upstream/pack.json",
+      "path": "original/pack.json",
+      "sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f"
+    },
+    {
+      "bytes": 205475,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/0-custody.json.gz",
+      "path": "original/protected-export/0-custody.json.gz",
+      "sha256": "793adb74d5eee77a72874a0aed14358c04dfc229276121905ac3dc869bdf90fb"
+    },
+    {
+      "bytes": 472909,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/1-release.graph.json",
+      "path": "original/protected-export/1-release.graph.json",
+      "sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155"
+    },
+    {
+      "bytes": 36312,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/2-development-bindings.json",
+      "path": "original/protected-export/2-development-bindings.json",
+      "sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd"
+    },
+    {
+      "bytes": 81564,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/3-original-graph.json",
+      "path": "original/protected-export/3-original-graph.json",
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+    },
+    {
+      "bytes": 83068,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/4-original-ontology.json",
+      "path": "original/protected-export/4-original-ontology.json",
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+    },
+    {
+      "bytes": 61875,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/5-public-dataset.json.gz",
+      "path": "original/protected-export/5-public-dataset.json.gz",
+      "sha256": "4cb6304cbbbefac674d4ba8627bd3ac6ce71bbb6001526a6e3f7bc31e180f539"
+    },
+    {
+      "bytes": 124489,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/6-report.json.gz",
+      "path": "original/protected-export/6-report.json.gz",
+      "sha256": "b52c3eec4552394ebbf47fa187d1200b41f220a4d6920d1bb8d649f4de1bf541"
+    },
+    {
+      "bytes": 115572,
+      "original": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original17-graphframes-native-20261009/original/7-source.jsonl",
+      "path": "original/protected-export/7-source.jsonl",
+      "sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2"
+    },
+    {
+      "bytes": 3216,
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "path": "recipe/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 2854,
+      "original": "/private/tmp/ashlar-supply-chain-native-read-launcher-h.py",
+      "path": "recipe/ashlar-supply-chain-native-read-launcher-h.py",
+      "sha256": "ef75fb603cf7d6a3210d3b3787cdfd6edf35701d134070834c9cb6191bfe91a5"
+    },
+    {
+      "bytes": 2210495,
+      "original": "/private/tmp/ashlar-graphframes-installed-closure-c.json",
+      "path": "recipe/closure-c.json",
+      "sha256": "69095fc3026bb45b5ecadf2569a7b608c5abae4c3d35da497d8e3e78801583af"
+    },
+    {
+      "bytes": 3743,
+      "original": "/private/tmp/ashlar-graphframes-installed-command-c.json",
+      "path": "recipe/command-c.json",
+      "sha256": "65c7b2a12577be32f2e0e818c68fe5b8d97e5474678bd89c7eb9ae0ccced013f"
+    },
+    {
+      "bytes": 3823,
+      "original": "/private/tmp/ashlar-graphframes-installed-command-d.json",
+      "path": "recipe/command-d.json",
+      "sha256": "cbbf3e93202c4230a7381629f103bd0f250111a9b690c5fbdaa7d815ec0a5663"
+    },
+    {
+      "bytes": 1691,
+      "original": "/private/tmp/ashlar-graphframes-installed-export-plan-c.json",
+      "path": "recipe/export-plan-c.json",
+      "sha256": "ad3056a41866d671f168cac84d29000723c3ad73a6278b0f97f1d7aba3b8230e"
+    },
+    {
+      "bytes": 3375,
+      "original": "/private/tmp/ashlar-graphframes-installed-metadata-c.json",
+      "path": "recipe/metadata-c.json",
+      "sha256": "c8a1c0a2890fc4739acb65051d9e85b140eb0bf1471237e8630fbe3eb0208460"
+    },
+    {
+      "bytes": 3645,
+      "original": "/private/tmp/ashlar-graphframes-installed-metadata-d.json",
+      "path": "recipe/metadata-d.json",
+      "sha256": "42cb94360c986490a33ee94d8870475383b9701e4eece1197998ca688dcd0b01"
+    },
+    {
+      "bytes": 8789,
+      "original": "/private/tmp/ashlar-graphframes-installed-provider-c.py",
+      "path": "recipe/provider-c.py",
+      "sha256": "d9e4d26e53381e51c56c676d41eabe2f4d46f033ecf2566751682e590f2a6096"
+    },
+    {
+      "bytes": 20647,
+      "original": "/private/tmp/ashlar-graphframes-installed-runner-c.py",
+      "path": "recipe/runner-c.py",
+      "sha256": "e1c28094df1104e17cfcbb81343f2bbf497dac8959f5a74e4820643bfbf8cca4"
+    },
+    {
+      "bytes": 33724,
+      "original": "/private/tmp/ashlar-graphframes-installed-source-inventory-c.json",
+      "path": "recipe/source-inventory-c.json",
+      "sha256": "cc08b793e8964d31724905e1a01bb4a48ab8e5fc1ae21b8ae788637a26065b1a"
+    },
+    {
+      "bytes": 144952,
+      "original": "/private/tmp/ashlar-graphframes-installed-actual-archaeology-d.json",
+      "path": "review/actual-freeze-d.json",
+      "sha256": "d49e21709fff0217b71f5ccc5e7e66945ff3744157453a2f25b4e82de778c254"
+    },
+    {
+      "bytes": 1578,
+      "original": "/private/tmp/ashlar-graphframes-installed-independent-actual-archaeology-review-d.json",
+      "path": "review/actual-review-d.json",
+      "sha256": "48095559f9776128d4ab226621418ff6607797bc0cb477c31ab9aa24f26d3399"
+    },
+    {
+      "bytes": 1862,
+      "original": "/private/tmp/ashlar-graphframes-installed-independent-command-review-c.json",
+      "path": "review/command-c.json",
+      "sha256": "e1d41e8eb46e377d4ab8b063dc79325c8420312a8ee8d7d90dabb766007b863d"
+    },
+    {
+      "bytes": 845,
+      "original": "/private/tmp/ashlar-graphframes-installed-independent-command-review-d.json",
+      "path": "review/command-d.json",
+      "sha256": "f8d031b19f1bed965be36c55387acd304b35ff34623104d1d3f37d1023fe178e"
+    },
+    {
+      "bytes": 3512,
+      "original": "/private/tmp/ashlar-graphframes-runtime-inventory-control-c.py",
+      "path": "review/inventory-control-c.py",
+      "sha256": "199b28d464c9df4d68dc923b81f2ca34058aae9043ef6ba579874fc9c17100dc"
+    },
+    {
+      "bytes": 1879,
+      "original": "/private/tmp/ashlar-graphframes-installed-launcher-control-d.py",
+      "path": "review/launcher-control-d.py",
+      "sha256": "de34b9128db8544d305af55266a71d03bddb780c177af8f3a92f35ce02030f8d"
+    },
+    {
+      "bytes": 692,
+      "original": "/private/tmp/ashlar-graphframes-installed-failure-c.json",
+      "path": "review/launcher-prechild-failure-c.json",
+      "sha256": "be99d9be1bf2b8335c7a4e26abf3d4cf8968f0390f0890fb531ce6df5dc2434b"
+    },
+    {
+      "bytes": 3782,
+      "original": "/private/tmp/ashlar-graphframes-installed-preflight-c.py",
+      "path": "review/preflight-c.py",
+      "sha256": "53dcc49ed9aaae6dafe95bb2aee0148c402edea9d0c6bb2c3f56199442573391"
+    },
+    {
+      "bytes": 1058,
+      "original": "/private/tmp/ashlar-graphframes-installed-pure-postflight-d.json",
+      "path": "review/pure-postflight-d.json",
+      "sha256": "2bc9f07145b873a6bb320a531ea00ccb56133c2847a0a8431634f42b37166cfe"
+    },
+    {
+      "bytes": 7742,
+      "original": "/private/tmp/ashlar-graphframes-installed-postflight-d.py",
+      "path": "review/pure-postflight-d.py",
+      "sha256": "eb1e3d9da7083e46ba13abb78e2c90b706e4100f8ad626ae7fa52ad7773a27e3"
+    }
+  ],
+  "profile": "ashlar-graphframes-installed-component-evidence/0.1",
+  "qualification": "Whole D runner remains exit1/closingfalse; separately qualified actual installed archaeology8cases/native27raw/common/projected/Delta0 component and read-only postflight. Original C launch failed before child; ecology not started. No binary runtime/copiedPython/derivedParquet duplication; full610/9398 inventories retained."
+}
