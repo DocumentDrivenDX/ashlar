@@ -72,6 +72,7 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_configuration.py` | Closed immutable selections, bounded input custody, source registration, runtime, six targets, capacity and secret-free handoff/report encoding |
 | `original_medical_local_setup.py` | Fresh root/installation lease, generated-schema native creation, observed UUID/version-zero emptiness and public journal initialization |
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
+| `medical_process_supervision.py` | Typed native phase pipe ownership under CONTRACT-001; bounded whole/native deadlines and process-group cleanup, without importing command composition or granting data authority |
 
 Reuse `ashlar.medical_source.build_transaction`, public `ProducerConfig` and
 invocation custody patterns, `OutboxSourceRegistration`,
@@ -260,6 +261,9 @@ exit cannot conceal an unfinished native interval. Timeout or cancellation kills
 and reaps the owned process group, including descendants that outlive the worker.
 These limits belong to this medical profile and do not alter another workflow's
 deadline or reuse a current Spark session.
+The CLI injects the CONTRACT-001 `OriginalMedicalNativePhase` through each host
+entry to the native session boundary. Lower entries retain their externally
+supervised usage; only the installed parent owns the two process deadlines.
 Attempt independent closing checks while their leases/pins remain live; release
 resources afterwards through primary-preserving cleanup. Retain incomplete owned
 state on uncertainty; evidence failure does not imply rollback. Release bounded

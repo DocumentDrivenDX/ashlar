@@ -759,3 +759,23 @@ precede bounded evidence; retained incomplete state is not rollback. CONTRACT-00
 owns privacy. [TD-005](../technical-designs/TD-005-original-medical-local-operator.md)
 owns composition and MED-F1–F4/MED-L1. No medical query/engine, managed-UC or real
 Truss qualification is implied; original eight-publication recovery remains due.
+
+`medical_process_supervision.py` owns `OriginalMedicalNativePhase`, the exact
+worker-side owner of an explicitly inherited writable pipe descriptor. Its
+`begin(custody)` and `end(custody)` require the same actual
+`OriginalMedicalRuntimeCustody` and unchanged descriptor/bounds; the owner is
+single-use. The private channel carries only ASCII `native.begin\n` followed by
+`native.end\n`, at most 32 bytes total. Unknown, duplicate, reversed, truncated or
+missing messages MUST refuse a successful invocation. The parent MUST enforce
+the configured whole deadline from launch and native 300 seconds from begin,
+through session/context cleanup. Closing the pipe or exiting does not replace end.
+
+The four typed medical host entries MAY accept keyword `supervision`, and
+`original_medical_native_session` MAY accept keyword `phase`; each is either the
+exact `OriginalMedicalNativePhase` or `None`. Installed commands MUST inject their
+actual phase owner through both boundaries. `None` retains the externally
+supervised lower-port contract and MUST NOT establish an installed-command
+supervision claim. Begin MUST precede native session acquisition/imports, and end
+MUST follow successful native cleanup. This channel carries no source/native/ACK
+authority, credentials or configuration values; it is separate from diagnostics
+and does not alter any other workflow's deadline.
