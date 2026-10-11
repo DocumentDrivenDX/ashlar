@@ -1,0 +1,109 @@
+{
+  "format": "original-commerce-local-model-evidence/0.1",
+  "archiveSha256": "1cbe33f2f3e1540b56fd189a5b673d4a26fdd8736df034012d045fe539988374",
+  "members": [
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/README.md",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/README.md",
+      "size": 1778,
+      "sha256": "02645dfa3ed571be86e6fd40f32d95a26c1967068d675516c9018e91d78b0ffa"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/attempts.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/attempts.umf.json",
+      "size": 5808,
+      "sha256": "484d29fb690d1c9f7cf1870fe444d558f6e6f3d0116847912a4fe812c724a571"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/e-correspondence.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/e-correspondence.json",
+      "size": 12821,
+      "sha256": "e108cf10abdc072d3dd872aaf634cba1e4136a0d9960c1decda8df242df30a4b"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/edge_current.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/edge_current.umf.json",
+      "size": 16846,
+      "sha256": "18bdcd39e2b9ac6498211cca27ff85609b2ca5f74757a5f0550e677889c600a3"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/index.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/index.json",
+      "size": 423,
+      "sha256": "a82f501e19fec251644d3f058179d7d714e31de5db866d8899b6d758a58f8d28"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/manifest.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/manifest.umf.json",
+      "size": 6650,
+      "sha256": "0e5a0f5a9553dc463ccb656388cf635280b77d7bc08a2423c8c7ded1a3725f46"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/object_current.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/object_current.umf.json",
+      "size": 14498,
+      "sha256": "296c61500c08836431f7f3191a0b54025b1c836090e4d5ae71e88c5c3eab182f"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/tombstone.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/tombstone.umf.json",
+      "size": 8968,
+      "sha256": "fb334f92f16b0b6da22dd3bacb66470c119d897c01f12f86ba24782dbbb06712"
+    },
+    {
+      "member": "source/docs/helix/02-design/models/original-commerce-local-runtime/whole_source_history.umf.json",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/models/original-commerce-local-runtime/whole_source_history.umf.json",
+      "size": 5820,
+      "sha256": "42edbd1d4f33591d11a8bf441bcbb8e5aa2b20ff931915bce9db9d9445f674b2"
+    },
+    {
+      "member": "source/sql/ashlar-original-commerce-local/runtime-carriers.generated.json",
+      "original": "/Users/erik/Projects/ashlar/sql/ashlar-original-commerce-local/runtime-carriers.generated.json",
+      "size": 12472,
+      "sha256": "612dda9253d1f32c2a00cc524c138f6e7a555b45d69eaf4edf5bf83816641905"
+    },
+    {
+      "member": "source/tools/generate_original_commerce_local_model.ts",
+      "original": "/Users/erik/Projects/ashlar/tools/generate_original_commerce_local_model.ts",
+      "size": 3706,
+      "sha256": "671470b08cf59825e4da6837507349adb35a917830e023c1f04ce00505af9236"
+    },
+    {
+      "member": "source/docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+      "original": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+      "size": 34116,
+      "sha256": "945309ea922fe51fe138926a0af7fb6b2de87a99a9c1fbef67cff06475a16ef3"
+    },
+    {
+      "member": "observations/ashlar-original-commerce-local-model-freeze-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-model-freeze-a.json",
+      "size": 3747,
+      "sha256": "729e365bd41667fb66e2715e4673074af1d56682e55c763268ff5635d17628bc"
+    },
+    {
+      "member": "observations/ashlar-original-commerce-local-model-independent-source-review-a.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-model-independent-source-review-a.json",
+      "size": 1468,
+      "sha256": "5bc525ef930f0fbcbbaf6005e24312793559d488871222490560f2fbc5dc6682"
+    },
+    {
+      "member": "observations/check.stdout",
+      "original": "/private/tmp/ashlar-original-commerce-local-generation-observation-a/check.stdout",
+      "size": 59,
+      "sha256": "9ff109bd81ba7dd7f9d4b78b7cce9480c4ad15e47f72814411970d642238308c"
+    },
+    {
+      "member": "observations/check.stderr",
+      "original": "/private/tmp/ashlar-original-commerce-local-generation-observation-a/check.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "observations/receipt.json",
+      "original": "/private/tmp/ashlar-original-commerce-local-generation-observation-a/receipt.json",
+      "size": 2642,
+      "sha256": "398e1531ababf1395937ccb9d56715b4ab4c016a0aad8438c8120adaa6b0222b"
+    }
+  ],
+  "qualification": "Source/generated proposal and bounded public generation correspondence only; no installed setup/native effect."
+}
