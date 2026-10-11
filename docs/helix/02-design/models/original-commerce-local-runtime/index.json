@@ -1,0 +1,13 @@
+{
+  "profile": "ashlar-original-commerce-local-runtime-model/0.1",
+  "umfRevision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+  "tables": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "attempts",
+    "manifest"
+  ],
+  "qualification": "Separate local nullable/name/no-clustering/no-properties physical variants preserving qualified E; canonical managed models unchanged."
+}

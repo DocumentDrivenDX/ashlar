@@ -450,3 +450,65 @@ journal MUST refuse. This source-append recovery does not authorize general
 process-restart publication recovery. Protected ACK MUST follow the durable,
 fully admitted publication vector. Closing source, runtime and installation
 custody and resource cleanup MUST complete before releasing the report.
+
+### Explicit original-commerce local initialization and publication commands
+
+The installed `initialize-original-commerce --configuration PATH` command MUST
+consume bounded closed profile `ashlar-original-commerce-local-initialization/0.1`
+and create only a separately authorized exclusive new private local installation.
+It MUST refuse existing roots, tables, journals, reservations and catalog conflicts.
+Fresh native creation MUST consume the exact separately authored local UMF physical
+model and public UMF-generated schema/layout artifacts for object_current,
+edge_current, tombstone, whole_source_history, attempts and manifest. Complete
+ordered fields, types, nullability, metadata, layout and properties MUST survive;
+unknown or stale model/generated content MUST refuse. A local path binding MUST
+NOT introduce a second schema interpreter or arbitrary caller SQL. Actual native
+UUIDs, version-zero emptiness and complete schema correspondence MUST be observed
+before `LocalDeltaTransport.initialize` creates the original journal/reservations.
+Authored UUIDs, a code pin or a generated proposal MUST NOT grant that admission.
+
+The installed `publish-original-commerce --configuration PATH` command MUST consume
+bounded closed profile `ashlar-original-commerce-local-publication/0.1`, reopen the
+exact retained installation and ordinary source/ACK ports, and delegate to the
+existing original-commerce publication owner. It MUST NOT create an installation,
+provision PostgreSQL, create roles/grants, discover credentials or invoke legacy
+fallbacks. Query, evolution and resume providers MUST NOT invoke this initializer.
+
+Both configurations MUST select absolute original model/graph locations and content
+pins, explicit public declared-version UMF producer resources, installation ID,
+canonical root/journal, local table namespace, exact operation capacity and native
+runtime/JAR locations. Initialization selects a fresh handoff output; publication
+selects its retained handoff and independently chosen digest plus a fresh publication
+output. Unknown options, duplicate keys, nonfinite numbers, boolean/float integer
+substitutions, aliases and oversized inputs MUST refuse before effects. Handoff
+bytes MUST contain only bounded correspondence: observed six target table/path/UUID/
+version identities, original journal/installation/capacity and model/runtime pins.
+They MUST NOT contain credentials or establish current authority.
+
+The initial connector MUST be explicitly selected isolated loopback-trust development
+access to an already provisioned dedicated local PostgreSQL fixture. Exact original
+scope/feed/epoch, source schema/signature and separate writer/reader/ACK roles MUST
+match actual ordinary sessions. Explicit host/port/database, empty password,
+`/dev/null` passfile, disabled SSL/GSS and finite connect/statement/lock timeouts
+MUST prevent inherited credential discovery. A forwarded port selects a connection,
+not route authentication. Other authentication profiles require separate admission;
+this fixture MUST NOT be represented as accepted Truss or production authority.
+
+The setup owner MUST acquire and renew the original private root and shared
+`.evolution-operator.lock` identity under actual POSIX exclusion; original source,
+model/generated artifacts and selected runtime/JAR custody MUST remain current
+around effects and closing. Fresh selected Python3.11/Spark3.5.3/Delta3.2.1 processes
+and the existing exact publication JAR profile MUST be explicit. Neither command
+installs dependencies or downloads packages. Full existing publication/source/ACK
+custody, original native registry/reservations and lease admission remain mandatory;
+configuration or retained output MUST NOT replace them.
+
+Cleanup and closing admission MUST be attempted for every acquired resource interval,
+including errors and cancellation, preserving the primary cancellation identity.
+A partial fresh installation or post-effect evidence failure MUST remain retained
+and incomplete; no automatic native deletion, replacement or rollback claim is
+permitted. Initial publication, same-invocation replay and exact head-one pre-native
+source reuse remain governed by the preceding original-commerce section. No general
+publication process-restart recovery follows. Reports MUST be released only after
+substantive closing admission and cleanup; bounded diagnostics MUST follow
+CONTRACT-006 and MUST NOT expose credentials or grant commit/completion authority.

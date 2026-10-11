@@ -1,0 +1,474 @@
+{
+  "profile": "ashlar-original-commerce-local-schema-correspondence/0.1",
+  "sourcePublicationEvidenceCommit": "4ccc29d603a8276bb121e23af033e04828adf531",
+  "roles": {
+    "object_current": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/object_current.umf.json",
+      "observedVersionZeroLogSha256": "284fb059c9257281893f7c955f7923f02b8cca091b20db494d9b29f5c29b2ba3",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "logical_key_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revision",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "props_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "retained_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "root_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "lookup_hash",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "apply_batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    },
+    "edge_current": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/edge_current.umf.json",
+      "observedVersionZeroLogSha256": "76f6a289bc19c0fd07eaa44048b3644df42926ca183abd77d817c623427bcfbb",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rel_type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_type",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_type",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revision",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "props_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "retained_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "order_key",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "lookup_hash",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "apply_batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    },
+    "tombstone": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/tombstone.umf.json",
+      "observedVersionZeroLogSha256": "b8aad6f9ff56b33ac0df2f51ef64d66cbbf6314010badfb6159bab2aab391a21",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_kind",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    },
+    "whole_source_history": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json",
+      "observedVersionZeroLogSha256": "d543f4d28907c6dca5df56c20bd72f608d39eda471d5cc6bf96e7a295b46a460",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "change_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "raw_base64",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    },
+    "attempts": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/publication_attempt_phase.umf.json",
+      "observedVersionZeroLogSha256": "eab2e0a1ad45dcb941df0548b91faf6923f184a1de889cc11a02ce15d3f0b279",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "stream",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "phase",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "request_digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "payload_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "payload_digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    },
+    "manifest": {
+      "originalModel": "docs/helix/02-design/models/ashlar-delta-runtime/publication_manifest.umf.json",
+      "observedVersionZeroLogSha256": "880a67ce77739b460127d214025a960c1d5b66b0f6b2b86ddc99b6017e0fc7dc",
+      "schema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "publication_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "profile_version",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "table_versions_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_progress_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revisions_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "validation_report_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "recorded_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "configuration": {},
+      "partitionColumns": [],
+      "qualification": "Passive original E native metadata correspondence, not authority or new execution."
+    }
+  }
+}
