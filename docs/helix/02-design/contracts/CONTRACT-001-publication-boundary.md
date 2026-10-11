@@ -656,6 +656,15 @@ UUID/location, retention and full four-role bags under actual exclusion/pins. It
 permits existing-record SELECT/read-transaction commit only, never source append,
 prepare/effect/ACK submission, journal repair or mutable-latest fallback.
 
+The lower `publication_planning.py` module owns the pure
+`request_for(stream, transaction, predecessor, revisions)` and
+`local_effect_plan(generated, prior_rows, tables)` surfaces. The driver MUST retain
+compatible re-exports. Request construction preserves the complete public outbox
+checkpoint, batch and deterministic request digest. Effect selection may elide
+only the existing closed generated zero-match DELETE with complete prior-row
+correspondence. These functions grant no source, writer, phase or ACK authority
+and MUST NOT depend on the native driver or command composition.
+
 `MedicalPublicationPlan` MUST bind an exact `MedicalAdmission`, its complete
 original `OutboxTransaction`, deterministic request and independent four-role
 oracle. Construction and renewal MUST preserve the original feed/epoch,

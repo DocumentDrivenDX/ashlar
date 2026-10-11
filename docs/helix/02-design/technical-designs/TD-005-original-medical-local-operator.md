@@ -135,7 +135,11 @@ four-role oracle and durable descriptor validation before protected ACK.
 
 `medical_publication_plan.py` owns `MedicalPublicationPlan` under CONTRACT-001.
 It depends on the public medical admission/oracle and graph/effect planners,
-but not on the native driver or command composition. Original transaction and
+but not on the native driver or command composition. `publication_planning.py`
+owns the shared pure request/effect helpers in CONTRACT-001; the driver re-exports
+them for existing callers. Move their exact behavior without changing checkpoint,
+digest or elision rules, and prove existing commerce/evolution correspondence
+before using them in the medical plan. Original transaction and
 request correspondence are renewed before activation; generated schemas come
 from `local_physical_carriers.py`, never from observed native columns.
 `original_medical_local_publication.py` composes the owning configured entrypoints
