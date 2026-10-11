@@ -1005,18 +1005,23 @@ class NativeDriver:
         mutate native data, submit ACK, or provision PostgreSQL resources.
         """
         from .commerce_query_sources import CommerceQuerySourceFactory
+        from .medical_read_sources import MedicalReadSourceFactory
         from .read_only_transport import ReadOnlyDeltaTransport
         from .existing_outbox_authority import ExistingOutboxAuthority
         from .delta_custody import DeltaTarget
         from types import MappingProxyType
         if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
-                or type(factory) is not CommerceQuerySourceFactory or self.held or self.pin_held
+                or type(factory) not in (CommerceQuerySourceFactory,MedicalReadSourceFactory) or self.held or self.pin_held
                 or self.source_sessions is not None or getattr(self,'query_source_factory',None) is not None):
             raise PermissionError('Fresh exact original reader/source binding required')
         factory.__post_init__()
-        if self.admission_facts()['profile']!='ashlar-original-commerce-public-dataset-admission/0.1':
-            raise PermissionError('Original commerce read admission required')
+        medical=type(factory)is MedicalReadSourceFactory
+        if medical:factory.require_admission(self.source_admission)
+        expected_profile=('ashlar-original-medical-public-dataset-admission/0.1'if medical else'ashlar-original-commerce-public-dataset-admission/0.1')
+        if self.admission_facts()['profile']!=expected_profile:raise PermissionError('Original selected read admission required')
+        original_medical_admission=self.source_admission if medical else None
         selected=factory.registration
+        original_connections=(selected.source.connection_factory,selected.metadata_factory)
         active=self.policy.active
         request=json.loads(encoded(active['request']))
         checkpoint=json.loads(request['source_checkpoint_json'])
@@ -1057,9 +1062,14 @@ class NativeDriver:
         class ReadIdentity:
             def admit_source_writer(self, registration, context):
                 owner.require(context)
+                if medical:
+                    if owner.source_admission is not original_medical_admission:raise PermissionError('Original actual medical admission changed')
+                    factory.require_admission(owner.source_admission)
+                current=factory.registration
+                if any(a is not b for a,b in zip(original_connections,(current.source.connection_factory,current.metadata_factory))):raise PermissionError('Original reader/ACK connection owner changed')
                 gate=getattr(owner,'_query_read_gate',None)
                 if (type(owner.transport) is not ReadOnlyDeltaTransport or not owner.pin_held
-                        or gate is None or encoded(factory.metadata())!=original_factory
+                        or gate is None or owner.query_source_factory is not factory or encoded(factory.metadata())!=original_factory
                         or registration.metadata()!=selected.source.metadata()
                         or encoded(owner.policy.active['request'])!=original_request
                         or encoded(owner.policy.active['manifest'])!=original_manifest):
@@ -1105,22 +1115,21 @@ class NativeDriver:
                 if self.files()!=self.native:raise PermissionError('Original complete graph native bytes changed')
             def admit_source_writer(self, registration, context):
                 self.require(registration,context)
+            def observe_target(self, table, uuid, path):
+                result=original_transport.query('DESCRIBE DETAIL `'+ '`.`'.join(table.split('.'))+'`',{})
+                if (type(result.rows) is not list or len(result.rows)!=1
+                        or type(result.rows[0]) is not dict
+                        or type(result.rows[0].get('id')) is not str
+                        or type(result.rows[0].get('location')) is not str
+                        or result.rows[0]['id']!=uuid
+                        or result.rows[0]['location'].removeprefix('file:').rstrip('/')!=path):
+                    raise PermissionError('Current original complete graph native identity differs')
+                if not Path(path).is_dir() or not (Path(path)/'_delta_log').is_dir():
+                    raise PermissionError('Original retained graph version files absent')
             def observe(self, registration, context):
                 self.require(registration,context)
                 for table,uuid,path in original_targets:
-                    target=original_transport.targets[table]
-                    result=original_transport.query('DESCRIBE DETAIL `'+ '`.`'.join(table.split('.'))+'`',{})
-                    if (type(result.rows) is not list or len(result.rows)!=1
-                            or type(result.rows[0]) is not dict
-                            or type(result.rows[0].get('id')) is not str
-                            or type(result.rows[0].get('location')) is not str
-                            or result.rows[0]['id']!=target.uuid
-                            or result.rows[0]['location'].removeprefix('file:').rstrip('/')!=str(target.path)):
-                        raise PermissionError('Current original complete graph native identity differs')
-                    # Exact retention is corroborated by the caller-owned whole
-                    # native inventory on every use, after real opening snapshots.
-                    if not target.path.is_dir() or not (target.path/'_delta_log').is_dir():
-                        raise PermissionError('Original retained graph version files absent')
+                    self.observe_target(table,uuid,path)
         identity=GraphIdentity()
         class ReadCustody:
             def admit_source_writer(self, registration, context):
@@ -1160,6 +1169,32 @@ class NativeDriver:
         self.query_source_factory=factory
         self.source_sessions=sources;self.original_source_sessions=encoded(sources.metadata())
         original_sources=sources
+        if medical:
+            def close_snapshot(table,version):
+                observed=owner.inspect_snapshot(table,version)
+                expected_uuid={t:u for t,u,p in original_targets}[table]
+                if type(observed)is not Snapshot or observed.table!=table or observed.uuid!=expected_uuid or type(observed.version)is not int or observed.version!=version:raise PermissionError('Closing original medical snapshot differs')
+            def close_native(table,uuid,path,context):
+                owner.require(context)
+                identity.observe_target(table,uuid,path)
+            def close_ack(context):
+                from .lifecycle import finish
+                connection=original_connections[1](context)
+                primary=None
+                try:
+                    if connection.autocommit is not False:raise PermissionError('Original ordinary ACK closing transaction required')
+                    graph_sources.policy.admit_scope(selected.source.scope,Session(connection),context)
+                except BaseException as error:primary=error
+                finish(primary,[lambda:connection.rollback(),lambda:connection.close()])
+            def closing(vector,context):
+                from .lifecycle import finish
+                finish(None,[lambda:factory.require_admission(owner.source_admission)]
+                    +[lambda t=t,v=v:close_snapshot(t,v)for t,v in original_versions]
+                    +[lambda t=t,u=u,p=p:close_native(t,u,p,context)for t,u,p in original_targets]
+                    +[lambda:identity.require(selected.source,context),
+                      lambda:graph_sources.admit(json.loads(original_request),context=context),
+                      lambda:close_ack(context)])
+            self._original_medical_read_closing=_OriginalGraphSourceRenewal(self,closing)
 
     def renew_original_graph_read_source(self, vector, *, context):
         """Renew original ordinary source under the actual complete read reservation.
@@ -1171,8 +1206,9 @@ class NativeDriver:
         """
         from .read_only_transport import ReadOnlyDeltaTransport
         from .commerce_query_sources import CommerceQuerySourceFactory
+        from .medical_read_sources import MedicalReadSourceFactory
         if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
-                or type(getattr(self,'query_source_factory',None)) is not CommerceQuerySourceFactory
+                or type(getattr(self,'query_source_factory',None)) not in (CommerceQuerySourceFactory,MedicalReadSourceFactory)
                 or context is not self.context or not self.held or not self.pin_held
                 or type(getattr(self,'_original_graph_source_renew',None)) is not _OriginalGraphSourceRenewal
                 or self._original_graph_source_renew.owner is not self):
@@ -1184,14 +1220,16 @@ class NativeDriver:
         from .lifecycle import finish
         from .read_only_transport import ReadOnlyDeltaTransport
         from .commerce_query_sources import CommerceQuerySourceFactory
+        from .medical_read_sources import MedicalReadSourceFactory
         if (type(self) is not NativeDriver or type(self.transport) is not ReadOnlyDeltaTransport
-                or type(getattr(self,'query_source_factory',None)) is not CommerceQuerySourceFactory
+                or type(getattr(self,'query_source_factory',None)) not in (CommerceQuerySourceFactory,MedicalReadSourceFactory)
                 or context is not self.context or self.held):
             raise PermissionError('Original nonnested reader context required')
+        medical_factory=self.query_source_factory if type(self.query_source_factory)is MedicalReadSourceFactory else None
         path=self.transport.journal_path.parent/'.pipeline-writer.lock'
-        fd=os.open(path,os.O_RDWR|os.O_NOFOLLOW)
-        primary=None;locked=False
+        fd=None;primary=None;locked=False
         try:
+            fd=os.open(path,os.O_RDWR|os.O_NOFOLLOW)
             info=os.fstat(fd)
             if (not path.is_file() or path.is_symlink() or info.st_uid!=os.getuid()
                     or (path.stat().st_dev,path.stat().st_ino)!=(info.st_dev,info.st_ino)):
@@ -1202,7 +1240,7 @@ class NativeDriver:
         except BaseException as error:primary=error
         finally:
             self.held=False;self._query_read_gate=None;self._query_read_generation=None
-            finish(primary,([lambda:fcntl.flock(fd,fcntl.LOCK_UN)] if locked else [])+[lambda:os.close(fd)])
+            finish(primary,([lambda:medical_factory.require_admission(self.source_admission)]if medical_factory is not None else [])+([lambda:fcntl.flock(fd,fcntl.LOCK_UN)] if locked else [])+([lambda:os.close(fd)]if fd is not None else []))
 
     def admission_facts(self):
         if encoded(self.source_admission.metadata()) != self.original_admission:
@@ -1381,6 +1419,7 @@ class NativeDriver:
         expected = manifest_pin_vector(row, {t: self.transport.targets[t].uuid for t in json.loads(row['table_versions_json'])}, authority='private-local-process')
         if vector != expected:
             raise PermissionError('Original complete held native vector differs')
+        medical_closing=getattr(self,'_original_medical_read_closing',None)
         self.pin_held = True
         primary = None
         admitted = False
@@ -1393,7 +1432,13 @@ class NativeDriver:
         finally:
             try:
                 from .lifecycle import finish
-                finish(primary, [lambda: self.validate_manifest(row, context)] if admitted else [])
+                callbacks=[lambda: self.validate_manifest(row, context)] if admitted else []
+                if medical_closing is not None:
+                    def close_medical():
+                        if type(medical_closing)is not _OriginalGraphSourceRenewal or medical_closing.owner is not self:raise PermissionError('Actual medical closing owner required')
+                        medical_closing.renew(vector,context)
+                    callbacks.append(close_medical)
+                finish(primary,callbacks)
             finally:
                 self.pin_held = False
 

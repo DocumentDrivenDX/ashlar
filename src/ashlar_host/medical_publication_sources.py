@@ -5,7 +5,7 @@ import hashlib
 from ashlar.source import SourceBatch, SourceRecord
 import re
 from typing import Callable
-from ashlar.outbox import PostgresOutbox
+from ashlar.outbox import PostgresOutbox, OutboxTransaction
 from .ack import AckScope
 from .ack_sessions import OutboxAckRegistration, RegisteredOutboxAcks
 from .source_sessions import OutboxSourceRegistration, RegisteredOutboxSources
@@ -100,6 +100,45 @@ class OriginalMedicalSourceOwner:
         if type(allowed['append']) is not bool or allowed['append'] is not True:
             raise PermissionError('Current ordinary append privilege required')
         self.admit_source_writer(r.source,context)
+
+    def read_original(self,batch,*,context):
+        """Read the settled original transaction; never acquire the append writer."""
+        self.admit_source_writer(self.ports.registration.source,context)
+        if (type(batch) is not SourceBatch or batch is not self.driver.source_admission.batch
+                or type(batch.records) is not tuple or len(batch.records)!=113
+                or type(batch.begin) is not bytes or type(batch.commit) is not bytes
+                or any(type(record) is not SourceRecord or type(record.raw) is not bytes for record in batch.records)
+                or (batch.feed,batch.epoch,batch.batch_id)!=(FEED,EPOCH,EPOCH)):
+            raise ValueError('Actual original admitted transaction required')
+        raw=batch.begin+b''.join(record.raw for record in batch.records)+batch.commit
+        digest=hashlib.sha256(raw).hexdigest()
+        if len(raw)>1048576 or digest!=self.driver.admission_facts()['source_transaction_sha256']:
+            raise PermissionError('Original admitted complete source bytes changed')
+        r=self.ports.registration
+        self.renew_scope(context)
+        connection=r.source.connection_factory(context);primary=None;transaction=None
+        session=None
+        def read():
+            if session is None:return
+            ordinary(session,r.source_role,r.database);privileges(session,r,ack=False)
+            head=one(session,'SELECT position FROM "'+r.source.source_schema+'".head WHERE id=1',{},('position',))
+            if type(head['position']) is not int or head['position']!=1:
+                raise ValueError('Settled exact original head one required')
+            transactions=PostgresOutbox(session,feed=FEED,epoch=EPOCH,schema=r.source.source_schema).read('0',limit=1)
+            if (len(transactions)!=1 or type(transactions[0]) is not OutboxTransaction
+                    or transactions[0].position!='1' or transactions[0].previous!='0'
+                    or (transactions[0].profile,transactions[0].feed,transactions[0].epoch)!=('ashlar-postgresql-outbox/0.1',FEED,EPOCH)
+                    or transactions[0].payload_digest!=digest or transactions[0].batch!=batch):
+                raise ValueError('Retained original complete transaction differs')
+            return transactions[0]
+        try:
+            session=Session(connection)
+            transaction=read()
+            self.admit_source_writer(r.source,context)
+        except BaseException as error:primary=error
+        finish(primary,[read,lambda:self.admit_source_writer(r.source,context),
+            lambda:self.renew_scope(context),connection.rollback,connection.close])
+        return transaction
 
     def append_original(self,batch,*,context):
         # Exact original admission batch is owned by the driver, never caller proof.

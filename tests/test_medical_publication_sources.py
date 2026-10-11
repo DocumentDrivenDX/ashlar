@@ -94,6 +94,52 @@ class Tests(unittest.TestCase):
         with ExitStack()as stack:
             owner,_=self.owner(stack);self.assertEqual(owner.append_original(self.batch,context=self.context).batch,self.batch)
         self.assertEqual(sum(c.commits for c in self.connections),0);self.assertFalse(any(c.role=='medical_writer'for c in self.connections))
+    def test_settled_read_has_complete_original_transaction_and_no_writer(self):
+        self.head=1
+        with ExitStack()as stack:
+            owner,_=self.owner(stack)
+            stack.enter_context(patch.object(owner,'append_original',side_effect=AssertionError('No append route')))
+            result=owner.read_original(self.batch,context=self.context)
+            self.assertEqual(result.batch,self.batch);self.assertEqual(result.payload_digest,hashlib.sha256(self.raw).hexdigest())
+        self.assertEqual(sum(c.commits for c in self.connections),0)
+        self.assertFalse(any(c.role=='medical_writer'for c in self.connections))
+        self.assertTrue(all(c.closes==1 and c.rollbacks==1 for c in self.connections))
+    def test_settled_read_missing_or_later_head_refuses_without_append(self):
+        for head in (0,2):
+            with self.subTest(head=head),ExitStack()as stack:
+                db=sqlite3.connect(self.selection.journal);db.execute('DELETE FROM local_installation');db.commit();db.close()
+                owner,_=self.owner(stack);self.head=head
+                with self.assertRaises(ValueError):owner.read_original(self.batch,context=self.context)
+        self.assertFalse(any(c.role=='medical_writer'for c in self.connections))
+        self.assertTrue(all(c.closes==1 for c in self.connections))
+    def test_settled_read_closing_payload_drift_refuses(self):
+        self.head=1
+        with ExitStack()as stack:
+            owner,_=self.owner(stack);original=self.sql;reads=[]
+            def sql(session,statement,parameters):
+                result=original(session,statement,parameters)
+                if '.batch WHERE' in statement:
+                    reads.append(statement)
+                    if len(reads)>1:result.rows[0]['payload']=self.raw.decode().replace('Patient','patient',1)
+                return result
+            stack.enter_context(patch.object(Session,'query',lambda session,statement,parameters:sql(session,statement,parameters)))
+            with self.assertRaises(ValueError):owner.read_original(self.batch,context=self.context)
+        self.assertGreaterEqual(len(reads),2);self.assertTrue(all(c.closes==1 for c in self.connections))
+    def test_settled_read_cancel_attempts_ack_closing_and_preserves_primary(self):
+        self.head=1;cancel=KeyboardInterrupt('read')
+        with ExitStack()as stack:
+            owner,_=self.owner(stack);original=self.sql;reads=[]
+            def sql(session,statement,parameters):
+                if '.head WHERE' in statement:
+                    reads.append(statement)
+                    session.connection.cleanup=OSError('secondary rollback')
+                    raise cancel
+                return original(session,statement,parameters)
+            stack.enter_context(patch.object(Session,'query',lambda session,statement,parameters:sql(session,statement,parameters)))
+            with self.assertRaises(KeyboardInterrupt)as caught:owner.read_original(self.batch,context=self.context)
+            self.assertIs(caught.exception,cancel)
+        self.assertEqual(len(reads),2);self.assertEqual(sum(c.role=='medical_ack'for c in self.connections),2)
+        self.assertTrue(all(c.closes==1 for c in self.connections));self.assertFalse(any(c.role=='medical_writer'for c in self.connections))
     def test_role_signature_and_head_drift_refuse_with_cleanup(self):
         for field,value in (('revoked',True),('binding_drift',True),('head',2)):
             with self.subTest(field=field),ExitStack()as stack:
