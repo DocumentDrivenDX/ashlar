@@ -1,0 +1,7 @@
+# Original commerce GraphFrames I: pre-query carriers and failed scenarios
+
+The exact installed source was `64b1c5f974da1888309e6a1fafdb6000359bcf3b`. The whole attempt failed: installation/import phases exited zero, the GraphFrames phase refused, and the retained worker traceback identifies `commerce_graphframes_scenarios.py:91` indexing an authored relationship reference with `element`. All ten original references instead carry `document`, `module`, and `id`. This is an implementation mismatch, not missing source relationship semantics.
+
+Six raw observations retain pre-query complete projected carriers (11 nodes, 10 edges) and opening/before-query derived UUID/version/history observations. They do not qualify the four original commerce scenarios, seven common cases, final report, worker closing bags, or native publication stability. Outer source/runtime closing succeeded; that does not substitute the missing worker closing. The selected owned process census was empty. The existing PostgreSQL fixture and original publication remain retained; no reset, reappend, republish or retry is claimed.
+
+The archive retains all 38 original actual members, the original failure freeze and two independent reviews byte for byte, including raw stdout/stderr, worker transport traceback, observations and selected native Delta input files. No SDK, wheel or interpreter binaries are duplicated. The later source repair is separately reviewed and is not evidence of a successful native retry.
