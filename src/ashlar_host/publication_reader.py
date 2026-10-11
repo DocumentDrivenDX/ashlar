@@ -5,7 +5,7 @@ from contextlib import contextmanager
 from ashlar.publication import resolve_publication
 from .source_identity import SOURCE_SHA
 from .delta_custody import encoded
-from .read_only_transport import ReadOnlyTransport
+from .read_only_transport import ReadOnlyTransport, original_read_capacity
 from .commerce_binding import compiler_request, LAYOUT_SHA
 from .ordinary_query_connection import OrdinaryQueryConnectionFactory, acquire_ordinary_query_connection
 
@@ -394,7 +394,8 @@ def open_commerce_reader(spark, publication, *, cleanup_state=None, ordinary_ses
         policy = PrivatePolicy(context, targets)
         policy.initializing = False
         journal,installation=original_commerce_reader_installation(original_report,publication)
-        transport = ReadOnlyTransport.open(spark, journal, installation, targets, policy)
+        capacity = original_read_capacity(journal, installation, targets)
+        transport = ReadOnlyTransport.open(spark, journal, installation, targets, policy, capacity=capacity)
         (request_raw, artifact_raw) = transport.db.execute('SELECT request,artifact FROM local_publication_artifact').fetchone()
         request = json.loads(request_raw)
         artifact = json.loads(artifact_raw)
