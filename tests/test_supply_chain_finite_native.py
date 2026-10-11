@@ -7,6 +7,7 @@ from dataclasses import replace
 from ashlar.staging import batch_row
 from ashlar_host import supply_chain_finite_source as source_owner
 from ashlar_host import supply_chain_publication as publication
+from ashlar_host import finite_publication as shared_publication
 from ashlar_host import supply_chain_native as native
 from ashlar_host.resources import RESOURCE_ROOT
 from ashlar_host.schema_rows import fixture_columns
@@ -62,7 +63,7 @@ class Controls(TestCase):
   driver=publication.FiniteSupplyChainDriver(transport,SimpleNamespace(active=None),context,tables,self.columns,self.source,'pub',current_admission=lambda *a:None)
   request=native._request(self.source.batch)
   session=mock.MagicMock();session.read.return_value=[];store=mock.MagicMock();store.session.return_value.__enter__.return_value=session
-  with mock.patch.object(publication,'DeltaAttemptStore',return_value=store),mock.patch.object(publication.LocalDeltaEffects,'run')as effects:
+  with mock.patch.object(shared_publication,'DeltaAttemptStore',return_value=store),mock.patch.object(shared_publication.LocalDeltaEffects,'run')as effects:
    with self.assertRaises(ValueError):driver.restore_committed(request)
    effects.assert_not_called()
  def test_complete_projection_bag_rejects_duplicate_or_missing_occurrence(self):
@@ -84,7 +85,7 @@ class Controls(TestCase):
   def admit(*args):raise refused
   driver=publication.FiniteSupplyChainDriver(transport,SimpleNamespace(),object(),tables,self.columns,self.source,'pub',current_admission=admit)
   driver.request=native._request(self.source.batch)
-  with mock.patch.object(publication.LocalDeltaEffects,'run')as effects:
+  with mock.patch.object(shared_publication.LocalDeltaEffects,'run')as effects:
    with self.assertRaises(PermissionError)as caught:
     with driver.writer(driver.request['stream'],driver.context):self.fail('Refused authority reached body')
    self.assertIs(caught.exception,refused);effects.assert_not_called()

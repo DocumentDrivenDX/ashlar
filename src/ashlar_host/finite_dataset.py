@@ -111,7 +111,9 @@ class FinitePackSource:
         receipt=self.producer.receipt(*self.originals)
         if type(receipt)is not bytes or receipt!=self.raw:raise ValueError('Original admitted public dataset receipt changed')
         self._authority()
-        return {**json.loads(self._facts),'public_dataset_receipt_sha256':hashlib.sha256(self.raw).hexdigest(),'qualification':'Original finite-file semantics only; no catalog/writer/publication/outbox/ACK grant'}
+        return {**json.loads(self._facts),'source_transaction_sha256':hashlib.sha256(self.batch.begin+b''.join(r.raw for r in self.batch.records)+self.batch.commit).hexdigest(),'public_dataset_receipt_sha256':hashlib.sha256(self.raw).hexdigest(),'qualification':'Original finite-file semantics only; no catalog/writer/publication/outbox/ACK grant'}
+    def renew(self):
+        self.metadata()
     def admit(self,change):
         if not any(original_equal(change,owned)for owned in self.changes):raise ValueError('No exact original finite change')
         self.metadata()

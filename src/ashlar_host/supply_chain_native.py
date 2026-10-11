@@ -8,6 +8,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 import fcntl,hashlib,importlib.metadata,json,os,stat,sys
 from pathlib import Path
+from typing import Protocol,Sequence
 from ashlar.publisher import publish_batch
 from ashlar.staging import batch_row
 from ashlar.manifest import FIELDS
@@ -211,3 +212,18 @@ def publish_query_supply_chain_native(config):
     callbacks.extend([lambda:_runtime(config),lease.renew,lease.close]);finish(primary,callbacks)
     if snapshot(config.pack,1024*1024)!=pack:raise ValueError('Closing original pack changed')
     return _finish_report(config,result)
+
+class FiniteRuntimeConfiguration(Protocol):
+    output:Path
+    jars:Path
+    def __post_init__(self)->None:...
+
+# Both finite compositions validate their own immutable configuration before SDK use.
+def finite_runtime(config:FiniteRuntimeConfiguration)->list[Path]:
+    """Validate the explicitly selected finite runtime and exact cached JARs."""
+    return _runtime(config)
+
+def open_finite_spark(config:FiniteRuntimeConfiguration,jars:Sequence[Path])->object:
+    """Open one owned finite Spark session; the calling composition must stop it."""
+    config.__post_init__()
+    return _spark(config,jars)
