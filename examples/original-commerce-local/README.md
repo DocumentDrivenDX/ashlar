@@ -1,102 +1,79 @@
 # Original commerce on an isolated local installation
 
-These installed commands initialize a fresh local Delta installation and publish
-Ashlar's unchanged original commerce source. They use the six reviewed
-UMF-generated local physical carriers, public source admission and the existing
-publication operator. This source interface has pure conformance controls;
-installation and native behavior require qualification for the selected runtime.
+Use the installed commands below to initialize a fresh six-table local Delta
+installation and publish Ashlar's unchanged original commerce source. Start with
+[initialize.template.json](initialize.template.json) and
+[publish.template.json](publish.template.json): copy each to your chosen absolute
+configuration path and replace every `REPLACE_WITH_…` value. The templates are
+complete closed configurations; unfilled placeholders are intentionally invalid.
+Do not add keys or substitute boolean/float values for integer limits.
 
-Install Ashlar and its required publication dependencies in the explicitly selected
-Python 3.11 environment. The isolated child must import the installed `ashlar_host`
-package, PySpark 3.5.3, Delta Spark 3.2.1 and psycopg directly from that environment.
-`PYTHONPATH` does not supply packages to the child. Select a compatible JDK 17 and
-the publication profile's exact four-JAR directory. Compute SHA-256 values for the
-selected interpreter, `JAVA_HOME/bin/java` and `JAVA_HOME/lib/jvm.cfg`; put those
-values in the configuration. Set `JAVA_HOME` to that same absolute directory.
+Install Ashlar, PySpark 3.5.3, Delta Spark 3.2.1 and psycopg in the explicitly
+selected Python 3.11 environment. The isolated child imports these installed
+packages; `PYTHONPATH` cannot supply them. Select JDK 17 and the publication
+profile's exact four-JAR directory, as specified in
+[the indexed commerce runbook](../end-to-end/COMMERCE-INDEXED-WEFT.md).
+Neither command installs or downloads dependencies. Set `JAVA_HOME` to the same
+absolute directory selected in both configurations. Fill the lowercase SHA-256
+values from the actual interpreter, `JAVA_HOME/bin/java` and
+`JAVA_HOME/lib/jvm.cfg` bytes.
 
-The separate private outbox fixture setup must already have created the explicit
-loopback PostgreSQL database, ordinary source writer/reader and protected ACK
-roles. Select its original-commerce scope and independently observed source
-signature. The unused second fixture scope remains separate. No initializer or
-publisher creates PostgreSQL resources, grants privileges or discovers
-credentials. Remove ambient `PG*` environment settings before invoking these
-commands. The packaged adapter refuses them and uses explicit loopback address,
-empty password, `/dev/null` passfile, disabled SSL/GSS encryption and bounded
-connection/statement waits. This is isolated development trust, not authenticated
-production or Truss authority.
+Select the unchanged original model/graph and the public UMF producer's source,
+Bun and Git paths. Keep those selections and the runtime/JAR selections identical
+between configurations. Choose separate, absent native root and initialization
+output paths with existing canonical parents. The capacity object's
+`max_intent_bytes` bounds each retained intent payload; it does **not** bound the
+SQLite journal file. Preserve the selected capacity with the installation.
 
-Create an initialization JSON file with exactly these fields:
+First provision the separately authorized isolated fixture using
+[the private fixture guide](../private-outbox-original-commerce/README.md).
+Copy its observed installation ID into the initialization configuration. Populate
+publication `source` from that fixture's actual inventory: port, service/source
+schemas, scope ID, consumer, original source signature and distinct writer,
+reader and protected ACK roles. Keep the fixed loopback host, database,
+authentication, feed and epoch shown in the template. Do not infer identities
+from role naming conventions or reuse an older installation's scope. Remove
+ambient `PG*` settings; the adapter refuses them. This connector uses isolated
+loopback trust, empty password and `/dev/null` passfile with bounded waits; it
+provides no production or Truss authority.
 
-- `profile`: `ashlar-original-commerce-local-initialization/0.1`.
-- `root` and `output`: distinct, absent absolute paths with existing canonical
-  parents; `installation_id`: the explicit installation identity.
-- `model`, `graph`, `jars`: absolute paths to the unchanged original commerce
-  inputs and selected publication JAR directory.
-- `producer`: `source`, `bun`, `git`, `timeout_seconds`,
-  `maximum_output_bytes`, `maximum_receipt_bytes`, selecting the public producer.
-- `runtime`: `python`, `python_sha256`, `java_home`, `java_sha256`,
-  `jvm_config_sha256`.
-- `capacity`: `null`, or the exact supported operation-capacity object
-  `{"profile":"ashlar-private-local-operation-capacity/0.1","max_intent_bytes":8388608}`.
-
-Run the installed command with that selected interpreter:
+Run initialization with the selected installed interpreter:
 
 ```sh
 /absolute/environment/bin/python -I -B -m ashlar initialize-original-commerce --configuration /absolute/initialize.json
 ```
 
-Initialization refuses an existing root or output. It creates and checks six
-empty version-zero Delta tables, captures their actual UUIDs, initializes the
-public local journal and reservations, and writes `output/installation.json` only
-after closing admission. The handoff records correspondence; it grants no source,
-writer or publication authority. Preserve the original root, journal and handoff.
-A failed invocation can leave partial native state and must not be treated as a
-completed installation or silently retried over that state.
-
-Create a publication JSON file with profile
-`ashlar-original-commerce-local-publication/0.1`, the same `model`, `graph`, `jars`,
-`producer` and `runtime`, a fresh publication `output`, the absolute `installation`
-handoff path and its exact `installation_sha256`. Add `source` with exactly
-`host`, `port`, `database`, `authentication`, `scope`, `source_schema`,
-`source_signature_sha256`, `writer_role`, `reader_role`, `ack_role`.
-`host` is `127.0.0.1`, database `truss_e2e`, authentication
-`isolated-loopback-trust`; the three roles are distinct. `scope` contains exactly
-`service_schema`, `scope_id`, `installation_id`, `consumer`, `feed`, `epoch`;
-feed and epoch are `private-original-commerce-fixture` and `original-commerce-v1`.
-Use the fixture's actual values, not inferred role naming conventions. The
-source scope's `installation_id` must equal the retained handoff's
-`installation_id`; an older installation scope is refused before publisher or
-native effects.
+Initialization checks all six generated schemas and version-zero empty tables,
+then registers the public journal and reservations. It releases
+`INITIALIZATION_OUTPUT/installation.json` only after closing admission. Preserve
+that exact handoff, native root and journal. Compute the handoff's SHA-256 from
+its original bytes and put its absolute path and digest in the publication
+configuration. Its `installation_id` must equal the fixture scope's installation
+ID. The handoff records correspondence and grants no current authority.
+Choose a new absent publication output, then run:
 
 ```sh
 /absolute/environment/bin/python -I -B -m ashlar publish-original-commerce --configuration /absolute/publish.json
 ```
 
-Publication renews actual source role, privileges, signature and original bytes,
-uses the canonical installation lock and current native reservations, and advances
-protected ACKs after durable publication. Exact already-appended original source
-bytes may be reused after a pre-native interruption. This initial-publication
-command does not resume a partially written native installation. Existing query
-and recovery commands never initialize tables or journals.
+Publication renews actual ordinary source privileges/signature/original bytes,
+native registry/reservations and installation lock, and advances protected ACKs
+after durable publication. It does not initialize tables, provision PostgreSQL,
+create grants or discover credentials. Exact already-appended source bytes may
+be reused after a pre-native interruption; this command does not resume partial
+native publication. Preserve partial state on failure and do not silently reset
+or retry over it.
 
-Both installed commands own a separate process session with a 300-second bound,
-local one-worker Spark and 512 MiB driver selection. Timeout and cancellation
-terminate and reap the owned process group. The parent renews configuration and
-runtime custody before releasing a bounded result. Hard termination does not
-claim that the killed child completed cooperative native closing checks. No
-managed Unity Catalog, production PostgreSQL, Truss or cloud qualification follows
-from this local interface.
+Both commands own a separate process session with a 300-second bound, local
+one-worker Spark and 512 MiB driver selection. Timeout/cancellation reap the owned
+process group; hard termination does not prove cooperative native closing.
+A native component success followed by evidence-retention failure remains a
+failed whole invocation.
 
-
-For the four unchanged original commerce queries, install the independently
-selected Weft 0.4.2 realization and use the separate query profile's Spark 4,
-Delta 4 and complete JDK 21 runtime. The publication SDK above does not qualify
-that query runtime. Invoke `query-commerce-implicit-arithmetic` with its explicit
-configuration, provider path and provider SHA-256. That provider must return the
-public ordinary protected-ACK factory and `CommerceQuerySourceFactory` bound to
-the retained publication's exact installation, original scope, roles and source
-signature. The query command never provisions a source or creates a native
-installation; no provider-free query workflow is claimed here. Verify the actual
-full four bags and closing source/native custody before qualifying that runtime.
-A newly created fixture's protected-ACK installation identity must match this
-new installation; an older fixture inventory cannot be silently reused.
+The four unchanged original queries use the separate
+[implicit-arithmetic query guide](../../docs/helix/05-deploy/commerce-implicit-arithmetic-cli.md),
+installed Weft 0.4.2, Spark 4, Delta 4 and JDK 21. Its explicit provider must return
+current ordinary source and protected-ACK factories bound to this publication.
+These setup templates do not supply that provider or qualify the four-query
+runtime. Full four bags and closing source/native custody require separate
+verification; no cloud or managed Unity Catalog claim follows.

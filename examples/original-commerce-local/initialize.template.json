@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-original-commerce-local-initialization/0.1",
+  "output": "/absolute/REPLACE_WITH_FRESH_OUTPUT",
+  "model": "/absolute/REPLACE_WITH_ORIGINAL_MODEL.json",
+  "graph": "/absolute/REPLACE_WITH_ORIGINAL_GRAPH.json",
+  "jars": "/absolute/REPLACE_WITH_PUBLICATION_JARS",
+  "producer": {
+    "source": "/absolute/REPLACE_WITH_UMF_SOURCE",
+    "bun": "/absolute/REPLACE_WITH_BUN",
+    "git": "/absolute/REPLACE_WITH_GIT",
+    "timeout_seconds": 30,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "runtime": {
+    "python": "/absolute/REPLACE_WITH_INSTALLED_ENV/bin/python",
+    "python_sha256": "REPLACE_WITH_64_LOWERCASE_HEX_SHA256",
+    "java_home": "/absolute/REPLACE_WITH_JDK17",
+    "java_sha256": "REPLACE_WITH_64_LOWERCASE_HEX_SHA256",
+    "jvm_config_sha256": "REPLACE_WITH_64_LOWERCASE_HEX_SHA256"
+  },
+  "root": "/absolute/REPLACE_WITH_FRESH_NATIVE_ROOT",
+  "installation_id": "REPLACE_WITH_OBSERVED_FIXTURE_INSTALLATION_ID",
+  "capacity": {
+    "profile": "ashlar-private-local-operation-capacity/0.1",
+    "max_intent_bytes": 8388608
+  }
+}
