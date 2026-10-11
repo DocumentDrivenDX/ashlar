@@ -49,6 +49,9 @@ class Tests(unittest.TestCase):
             applied[0] = True
             return {}
 
+        # These controls isolate cumulative capture traversal, not effect-proof resolution.
+        # test_medical_effect_proof exercises the actual journal/native inspector owners.
+        stack.enter_context(patch.object(driver, '_validate_medical_effect_proof', return_value=None))
         stack.enter_context(patch.object(LocalDeltaEffects, 'run', side_effect=effect))
         return f, driver, bounds, value, calls, applied
 

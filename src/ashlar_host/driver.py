@@ -44,6 +44,54 @@ def original_native_equal(supplied, expected):
         return supplied == expected
     return False
 
+def _medical_json_budget(value, maximum, *, ascii_only=False):
+    """Count closed protocol JSON before an encoder can allocate a large cell."""
+    total = 0; nodes = 0
+    def add(size):
+        nonlocal total
+        total += size
+        if total > maximum:
+            raise PermissionError('Original complete medical phase cell exceeds selected budget')
+    def string(text):
+        add(2)
+        for character in text:
+            point = ord(character)
+            if character in ('\\', '"'):
+                add(2)
+            elif point < 32:
+                add(2 if point in (8, 9, 10, 12, 13) else 6)
+            elif 55296 <= point <= 57343:
+                raise PermissionError('Exact UTF8 medical proof string required')
+            elif ascii_only and point >= 128:
+                add(6 if point <= 65535 else 12)
+            else:
+                add(1 if point < 128 else 2 if point < 2048 else 3 if point <= 65535 else 4)
+    def visit(item, depth):
+        nonlocal nodes
+        nodes += 1
+        if depth > 64 or nodes > 20000:
+            raise PermissionError('Finite closed medical proof JSON required')
+        if type(item) is str: string(item)
+        elif item is None: add(4)
+        elif type(item) is bool: add(4 if item else 5)
+        elif type(item) is int:
+            if item.bit_length() > 64:
+                raise PermissionError('Bounded medical proof integer required')
+            add(len(str(item)))
+        elif type(item) is dict:
+            add(2 + max(0, len(item)-1))
+            for key, child in item.items():
+                if type(key) is not str:
+                    raise PermissionError('Closed medical proof key required')
+                string(key); add(1); visit(child, depth+1)
+        elif type(item) is list:
+            add(2 + max(0, len(item)-1))
+            for child in item: visit(child, depth+1)
+        else:
+            raise PermissionError('Closed original medical proof JSON required')
+    visit(value, 0)
+    return total
+
 def _medical_descriptor_equal(supplied, expected):
     """Compare the public resolver's frozen containers to an already bounded raw view."""
     from types import MappingProxyType
@@ -1523,6 +1571,161 @@ class NativeDriver:
                 raise PermissionError('Native original outbox group differs')
             connection.rollback()
 
+    def _medical_source_plan_reference(self, request, original):
+        return {'profile': 'ashlar-original-medical-source-plan-reference/0.1',
+            'request_digest': request['request_digest'], 'bytes': len(original.encode('utf-8')),
+            'sha256': sha(original)}
+
+    def _require_medical_artifact_budget(self, binding, request, artifact):
+        """Bound the original complete phase cell before its first submission."""
+        maximum = binding['bounds'].cell_bytes
+        _medical_json_budget(artifact, maximum)
+        text = encoded(artifact); row = artifact['manifest']; descriptor = encoded(row)
+        for phase in ('applied', 'committing', 'committed'):
+            body = {'request': request, 'result_json': text,
+                'descriptor_json': descriptor if phase == 'committed' else None}
+            _medical_json_budget(body, maximum, ascii_only=True)
+            payload = json.dumps(body, sort_keys=True, separators=(',', ':'))
+            # Same string/key/null JSON measurement family as the native carrier guard.
+            # Actual Spark pretransfer measurement still independently applies on readback.
+            _medical_json_budget({'payload_json': payload}, maximum)
+
+    def _validate_medical_effect_proof(self, request, artifact, context):
+        """Resolve retained original medical proofs; hashes never replace native admission."""
+        from .lifecycle import finish
+        binding = getattr(self, '_original_medical_publication_binding', None)
+        self.require(context)
+        if binding is None:
+            raise PermissionError('Original bound medical effect proof required')
+        # Keep original owner/plan/roles for independent closing even on current drift.
+        transport = binding['transport']; value = json.loads(binding['view'])
+        digest = value['request']['request_digest']; operation = 'effects:' + digest
+        steps = value['selected_steps']; effects = LocalDeltaEffects(transport)
+        original = None; effect_original = None; identities = (); proof = None
+        versions = {}; prior = {}; primary = None
+        if type(artifact) is dict and type(artifact.get('manifest')) is dict:
+            try:
+                candidate = json.loads(artifact['manifest']['table_versions_json'])
+                if type(candidate) is dict and all(type(k) is str and type(v) is int and v >= 0
+                        for k, v in candidate.items()):
+                    versions = candidate
+            except (KeyError, ValueError, TypeError):
+                pass
+
+        def source_row():
+            maximum = 8 * 1024 * 1024
+            rows = transport.db.execute('SELECT length(CAST(original AS BLOB)),substr(CAST(original AS BLOB),1,?) FROM local_source_plan WHERE request_digest=?',
+                (maximum+1, digest)).fetchall()
+            if (len(rows) != 1 or type(rows[0][0]) is not int or not 0 < rows[0][0] <= maximum
+                    or type(rows[0][1]) is not bytes or len(rows[0][1]) != rows[0][0]):
+                raise PermissionError('Complete bounded original medical source plan missing')
+            return rows[0][1].decode('utf-8')
+
+        def require_source():
+            nonlocal prior
+            current = source_row()
+            if original is not None and current != original:
+                raise PermissionError('Original medical source plan closing differs')
+            expected = {'request': value['request'], 'generated_steps': value['generated_steps'],
+                'selected_steps': steps, 'zero_match_elisions': value['zero_match_elisions'],
+                'complete_prior_oracle': value['previous_expected']}
+            retained = json.loads(current)
+            if encoded(retained) != current:
+                raise PermissionError('Original canonical medical source plan required')
+            if (type(retained) is not dict or set(retained) != set(expected) | {'observed_native_prior'}
+                    or not original_native_equal({k: retained[k] for k in expected}, expected)):
+                raise PermissionError('Complete original medical source plan differs')
+            anchors = retained['observed_native_prior']
+            tables = {value['tables'][r] for r in value['previous_expected']}
+            if type(anchors) is not dict or set(anchors) != tables:
+                raise PermissionError('Complete original medical prior anchors missing')
+            for table, anchor in anchors.items():
+                if (type(anchor) is not dict or set(anchor) != {'uuid', 'version', 'snapshot'}
+                        or anchor['uuid'] != transport.targets[table].uuid
+                        or type(anchor['version']) is not int or anchor['version'] < 0):
+                    raise PermissionError('Original medical prior anchor differs')
+            if not prior:
+                prior = json.loads(encoded(anchors))
+            if proof is not None and (not original_native_equal(proof['source_plan_reference'],
+                    self._medical_source_plan_reference(value['request'], current))
+                    or proof['original_source_plan_sha256'] != sha(current)):
+                raise PermissionError('Original medical source reference differs')
+            return current, anchors
+
+        def require_transport_policy():
+            if transport.policy is not binding['policy']:
+                raise PermissionError('Original medical effect transport policy changed')
+
+        def require_effects():
+            nonlocal effect_original, identities
+            require_transport_policy()
+            current, current_sha, ids = effects.original_plan(operation, digest, steps)
+            if effect_original is not None and (current != effect_original or ids != list(identities)):
+                raise PermissionError('Original medical ordered effect plan changed')
+            if effect_original is None:
+                effect_original = current; identities = tuple(ids)
+            observation = effects.observe(operation, digest, steps, context=context)
+            if (observation['plan_sha256'] != current_sha or observation['intent_digest'] != digest
+                    or observation['operation'] != operation or observation['operation_ids'] != ids
+                    or observation['states'] != ['committed'] * len(ids)
+                    or proof is not None and (proof['plan_sha256'] != current_sha or proof['intent_digest'] != digest)):
+                raise PermissionError('Complete committed original medical ordinals required')
+            return current, ids
+
+        def inspect(index, step):
+            require_transport_policy()
+            if len(identities) != len(steps):
+                raise PermissionError('Original medical ordinal identity unavailable')
+            key = identities[index]
+            native = transport.inspect_committed(key, step['statement'], step['parameters'],
+                intent_digest=digest, context=context)
+            compact = [{'version': str(native['version']), 'uuid': native['uuid'],
+                'operation_sha256': native['operation_sha256'],
+                'snapshot_sha256': native['snapshot']['row_sha256']}]
+            if proof is not None and not original_native_equal(proof['original_native_receipts'][index], compact):
+                raise PermissionError('Original medical compact native receipt differs')
+
+        def priors():
+            total = [0]
+            def capture(role):
+                table = value['tables'][role]; anchor = prior.get(table)
+                if anchor is None:
+                    raise PermissionError('Original medical prior native anchor unavailable')
+                snapshot, _, size = self._medical_publication_capture(binding, role,
+                    {table: anchor['version']}, binding['bounds'].total_bytes - total[0], previous=True)
+                total[0] += size
+                if not original_native_equal(snapshot, anchor['snapshot']):
+                    raise PermissionError('Complete original medical prior native snapshot differs')
+            finish(None, [lambda role=role: capture(role) for role in value['previous_expected']])
+
+        try:
+            self._require_medical_publication_binding(binding)
+            if (getattr(transport, 'observation_bounds', None) is not binding['bounds']
+                    or not original_native_equal(request, value['request'])
+                    or type(artifact) is not dict or set(artifact) != {'effects', 'manifest'}):
+                raise PermissionError('Exact bounded original medical proof interval required')
+            self._require_medical_artifact_budget(binding, request, artifact)
+            proof = artifact['effects']
+            if (type(proof) is not dict or set(proof) != {'profile', 'plan_sha256', 'intent_digest',
+                    'original_native_receipts', 'source_plan_reference', 'zero_match_elisions', 'original_source_plan_sha256'}
+                    or proof['profile'] != 'ashlar-original-medical-effect-proof/0.1'
+                    or not original_native_equal(proof['zero_match_elisions'], value['zero_match_elisions'])
+                    or type(proof['original_native_receipts']) is not list
+                    or len(proof['original_native_receipts']) != len(steps)):
+                raise PermissionError('Closed original medical effect proof required')
+            original, prior = require_source()
+            effect_original, ids = require_effects(); identities = tuple(ids)
+            priors()
+            finish(None, [lambda i=i, step=step: inspect(i, step)
+                for i, step in enumerate(steps)])
+        except BaseException as error:
+            primary = error
+        # Fixed actual acquired owners all close, even if the first ordinal/current check failed.
+        finish(primary, [require_source, require_effects, priors] +
+            [lambda i=i, step=step: inspect(i, step)
+                for i, step in enumerate(steps)] +
+            self._medical_publication_closing_callbacks(binding, context, versions))
+
     def _apply(self, request, context, recovery):
         if getattr(self,'query_source_factory',None) is not None:
             raise PermissionError('Registered query source cannot publish')
@@ -1589,6 +1792,8 @@ class NativeDriver:
             artifact = json.loads(row[1])
             active['manifest'] = artifact['manifest']
             self.validate_manifest(artifact['manifest'], context)
+            if medical_binding is not None:
+                self._validate_medical_effect_proof(request, artifact, context)
             return row[1]
         versions = {}
         parity = {}
@@ -1606,10 +1811,20 @@ class NativeDriver:
                 raise ValueError('Independent complete source oracle differs: ' + role)
             versions[target.table] = version
             parity[role] = snapshot['row_sha256']
-        proof = {**proof, 'original_generated_steps': active['generated_steps'], 'zero_match_elisions': active['elisions'], 'original_source_plan_sha256': sha(original_plan), 'observed_native_prior': json.loads(original_plan)['observed_native_prior']}
+        if medical_binding is None:
+            proof = {**proof, 'original_generated_steps': active['generated_steps'], 'zero_match_elisions': active['elisions'], 'original_source_plan_sha256': sha(original_plan), 'observed_native_prior': json.loads(original_plan)['observed_native_prior']}
+        else:
+            proof = {**proof, 'profile': 'ashlar-original-medical-effect-proof/0.1',
+                'source_plan_reference': self._medical_source_plan_reference(request, original_plan),
+                'zero_match_elisions': active['elisions'], 'original_source_plan_sha256': sha(original_plan)}
         manifest = {'publication_id': active['publication_id'], 'profile_version': PROFILE, 'table_versions_json': encoded(versions), 'schema_revisions_json': request['schema_revisions_json'], 'source_progress_json': encoded(active['progress']), 'validation_report_json': encoded({'complete': True, 'request_digest': request['request_digest'], 'predecessor': request['predecessor'], 'effect_parity': parity, 'original_source_plan_sha256': sha(original_plan), 'zero_match_elisions': active['elisions'], 'source_oracle_sha256': sha(encoded(active['expected'])), 'source_admission': self.admission_facts(), 'scope': self.admission_facts()['qualification']}), 'recorded_at': active.get('recorded_at', '1791547200000000')}
         active['manifest'] = manifest
-        artifact = encoded({'effects': proof, 'manifest': manifest})
+        artifact_value = {'effects': proof, 'manifest': manifest}
+        if medical_binding is not None:
+            self._require_medical_artifact_budget(medical_binding, request, artifact_value)
+        artifact = encoded(artifact_value)
+        if medical_binding is not None:
+            self._validate_medical_effect_proof(request, json.loads(artifact), context)
         with self.transport.db:
             self.transport.db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)', (request['request_digest'], encoded(request), artifact))
         self.validate_manifest(manifest, context)
@@ -1664,6 +1879,8 @@ class NativeDriver:
             self.transport._detail(self.transport.targets[self.tables[role]])
 
     def validate(self, request, artifact, descriptor, context):
+        if getattr(self, '_original_medical_publication_binding', None) is not None:
+            self._validate_medical_effect_proof(request, json.loads(artifact), context)
         if json.loads(artifact)['manifest'] != dict(descriptor.raw):
             raise ValueError('Retained original applied manifest differs')
         self.validate_manifest(dict(descriptor.raw), context)
