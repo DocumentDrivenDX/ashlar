@@ -1,7 +1,7 @@
 """Fresh local Spark context inside an externally supervised isolated worker."""
 from contextlib import contextmanager
 import os
-from .original_medical_runtime import OriginalMedicalRuntimeCustody
+from .original_medical_runtime import OriginalMedicalRuntimeCustody, NATIVE_PYTHON_SETTINGS
 from .lifecycle import finish
 from .medical_process_supervision import OriginalMedicalNativePhase
 
@@ -35,6 +35,7 @@ def original_medical_native_session(custody, *, phase=None):
         'spark.sql.catalog.spark_catalog': 'org.apache.spark.sql.delta.catalog.DeltaCatalog',
         'spark.executorEnv.PYTHONDONTWRITEBYTECODE': '1',
     }
+    settings.update({key:value for key,value,_,_ in NATIVE_PYTHON_SETTINGS})
     context = None; session = None; primary = None
 
     def observe():

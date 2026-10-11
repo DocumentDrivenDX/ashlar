@@ -86,6 +86,23 @@ class Tests(unittest.TestCase):
         with patch('ashlar_host.original_medical_runtime.sys.executable',str(self.runtime.python.path)),patch('ashlar_host.original_medical_runtime.sys.version_info',(3,9,24)),patch('ashlar_host.original_medical_runtime.importlib.import_module',side_effect=module):
             with self.opened()as owner:owner.verify_imports()
         self.assertEqual(calls,['pyspark','delta','pyspark','delta'])
+    def test_darwin_closed_environment_derives_uid_ignores_ambient(self):
+        with patch('ashlar_host.original_medical_runtime.sys.platform','darwin'),patch('ashlar_host.original_medical_runtime.os.getuid',return_value=501)as uid,patch.dict(os.environ,{'__CF_USER_TEXT_ENCODING':'foreign preferences','FOREIGN_NATIVE_KEY':'foreign'}):
+            with self.opened()as owner:
+                environment=owner.native_environment()
+                self.assertEqual(environment['__CF_USER_TEXT_ENCODING'],'0x1F5:0x0:0x0')
+                self.assertNotIn('FOREIGN_NATIVE_KEY',environment)
+                self.assertEqual(environment['SPARK_AUTH_SOCKET_TIMEOUT'],'15')
+                self.assertEqual(environment['SPARK_BUFFER_SIZE'],'65536')
+                self.assertEqual(set(environment),{'PATH','JAVA_HOME','PYSPARK_PYTHON','PYSPARK_DRIVER_PYTHON','PYTHONDONTWRITEBYTECODE','LANG','LC_ALL','TZ','SPARK_AUTH_SOCKET_TIMEOUT','SPARK_BUFFER_SIZE','__CF_USER_TEXT_ENCODING'})
+        uid.assert_called_once_with()
+    def test_linux_closed_environment_has_no_corefoundation_key(self):
+        with patch('ashlar_host.original_medical_runtime.sys.platform','linux'),patch('ashlar_host.original_medical_runtime.os.getuid')as uid,patch.dict(os.environ,{'__CF_USER_TEXT_ENCODING':'foreign'}):
+            with self.opened()as owner:
+                environment=owner.native_environment()
+                self.assertNotIn('__CF_USER_TEXT_ENCODING',environment)
+                self.assertEqual(set(environment),{'PATH','JAVA_HOME','PYSPARK_PYTHON','PYSPARK_DRIVER_PYTHON','PYTHONDONTWRITEBYTECODE','LANG','LC_ALL','TZ','SPARK_AUTH_SOCKET_TIMEOUT','SPARK_BUFFER_SIZE'})
+        uid.assert_not_called()
     def test_origin_and_python_mismatch_refuse_without_native_builder(self):
         with patch('ashlar_host.original_medical_runtime.sys.executable',str(self.runtime.python.path)),patch('ashlar_host.original_medical_runtime.sys.version_info',(3,9,24)),patch('ashlar_host.original_medical_runtime.importlib.import_module',return_value=SimpleNamespace(__file__='/foreign/sdk.py',__version__='4.0.1')):
             with self.assertRaises(PermissionError):

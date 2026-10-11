@@ -14,6 +14,12 @@ from .config import ProducerConfig
 from .original_medical_local_configuration import OriginalMedicalRuntime,OriginalMedicalInputs,OriginalMedicalBounds
 from .lifecycle import finish
 
+# Explicit SDK/JVM correspondence, not ambient defaults. Timeout getter uses seconds.
+NATIVE_PYTHON_SETTINGS=(
+    ('spark.python.authenticate.socketTimeout','15s','SPARK_AUTH_SOCKET_TIMEOUT','15'),
+    ('spark.buffer.size','65536','SPARK_BUFFER_SIZE','65536'),
+)
+
 PROFILE='ashlar-original-medical-runtime-selection/0.1'
 REFERENCE_BYTES=8388608
 REFERENCE_TOTAL=33554432
@@ -281,7 +287,13 @@ class OriginalMedicalRuntimeCustody:
     def native_environment(self):
         if self.closed or self.plan is None:raise PermissionError('Current medical runtime required')
         self.renew()
-        return {'PATH':'/usr/bin:/bin','JAVA_HOME':str(self.runtime.java_home),'PYSPARK_PYTHON':str(self.runtime.python.path),'PYSPARK_DRIVER_PYTHON':str(self.runtime.python.path),'PYTHONDONTWRITEBYTECODE':'1','LANG':'C','LC_ALL':'C','TZ':'UTC'}
+        environment={'PATH':'/usr/bin:/bin','JAVA_HOME':str(self.runtime.java_home),'PYSPARK_PYTHON':str(self.runtime.python.path),'PYSPARK_DRIVER_PYTHON':str(self.runtime.python.path),'PYTHONDONTWRITEBYTECODE':'1','LANG':'C','LC_ALL':'C','TZ':'UTC'}
+        environment.update({name:value for _,_,name,value in NATIVE_PYTHON_SETTINGS})
+        if sys.platform=='darwin':
+            # Explicit CoreFoundation default; never inherit user preferences.
+            # Apple webdavfs WebDAV_Mount.c derives this startup key from getuid.
+            environment['__CF_USER_TEXT_ENCODING']='0x%X:0x0:0x0'%os.getuid()
+        return environment
     @classmethod
     @contextmanager
     def open(cls,runtime,inputs,bounds,producer):

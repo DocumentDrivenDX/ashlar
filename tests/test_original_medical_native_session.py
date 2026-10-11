@@ -55,7 +55,7 @@ class Tests(unittest.TestCase):
             with self.assertRaises(BlockingIOError): os.read(read, 32)
 
     def setUp(self):
-        self.environment = {'JAVA_HOME':'/selected/java', 'PYTHONDONTWRITEBYTECODE':'1'}
+        self.environment = {'JAVA_HOME':'/selected/java', 'PYTHONDONTWRITEBYTECODE':'1','SPARK_AUTH_SOCKET_TIMEOUT':'15','SPARK_BUFFER_SIZE':'65536'}
         self.custody = object.__new__(OriginalMedicalRuntimeCustody)
         self.custody.closed = False; self.custody.plan = {}
         self.custody.runtime = SimpleNamespace(spark_version='4.0.1', jars=(SimpleNamespace(path=Path('/selected/a.jar')), SimpleNamespace(path=Path('/selected/b.jar'))))
@@ -82,6 +82,25 @@ class Tests(unittest.TestCase):
             'pyspark':SimpleNamespace(SparkConf=Configuration, SparkContext=self.context_factory),
             'pyspark.sql':SimpleNamespace(SparkSession=self.session_factory)}))
         return stack
+    def test_sdk_configured_environment_writes_remain_exact(self):
+        actual=self.context_factory
+        def factory(*,conf):
+            self.assertEqual(conf.get('spark.python.authenticate.socketTimeout'),'15s')
+            self.assertEqual(conf.get('spark.buffer.size'),'65536')
+            os.environ['SPARK_AUTH_SOCKET_TIMEOUT']='15'
+            os.environ['SPARK_BUFFER_SIZE']=conf.get('spark.buffer.size')
+            return actual(conf=conf)
+        with patch.object(self,'context_factory',side_effect=factory),self.sdk(),original_medical_native_session(self.custody):pass
+        self.session.stop.assert_called_once();self.context.stop.assert_called_once()
+    def test_sdk_mismatched_or_unknown_environment_writes_refuse(self):
+        for key,value in [('SPARK_AUTH_SOCKET_TIMEOUT','15000'),('SPARK_BUFFER_SIZE','32768'),('UNKNOWN_SPARK_KEY','foreign')]:
+            self.setUp();actual=self.context_factory
+            def factory(*,conf):
+                os.environ[key]=value
+                return actual(conf=conf)
+            with patch.object(self,'context_factory',side_effect=factory),self.sdk(),self.assertRaises(PermissionError):
+                with original_medical_native_session(self.custody):pass
+            self.session.stop.assert_called_once();self.context.stop.assert_called_once()
     def test_fresh_public_construction_exact_settings_and_independent_stop(self):
         with self.sdk(), original_medical_native_session(self.custody) as session:
             self.assertIs(session, self.session); self.assertEqual(self.constructed, 1)

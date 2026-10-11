@@ -262,6 +262,12 @@ the actual selected Python process and loaded SDK origins/versions without
 starting Spark or a JVM. The initializer separately verifies the fresh session's
 actual version, effective local master, memory and JAR configuration.
 
+Select Python's Spark authentication socket timeout as 15 seconds and transfer
+buffer as 65,536 bytes in both the launch environment and effective Spark
+configuration. On Darwin, explicitly select the UID-derived CoreFoundation
+startup encoding value without reading ambient preferences. Unexpected native
+environment entries or changed selected values must still refuse execution.
+
 Failed opening, import, body or closing must attempt independent renewal and
 cleanup for every acquired resource while preserving the original primary or
 cancellation. No usable owner or successful receipt escapes failed construction
