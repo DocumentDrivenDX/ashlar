@@ -1,0 +1,281 @@
+{
+  "format": "retained-original-evidence/0.1",
+  "members": [
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-install.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-install.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-install.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-install.stdout",
+      "size": 175,
+      "sha256": "27e73cee0e0f94b64d04ca06160187e46019bb87bf1d2390ba0ca0acf9df431a"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-venv.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-venv.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-venv.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/canonical-venv.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/configuration.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/configuration.json",
+      "size": 1202,
+      "sha256": "b2c1c26e5aa9f50d2bbe89b2c3d95a18a4840843b09c40deaddb53c5025dc25c"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/graphframes.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/graphframes.stderr",
+      "size": 18957,
+      "sha256": "de85c56a65233209d2d9f7d4e98ca3042c2f4486d280dff49e2e3f24f0328227"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/graphframes.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/graphframes.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/installed-host.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/installed-host.json",
+      "size": 109969,
+      "sha256": "203b09974496d9b5721b5cef52a6f0acc51a3fc1c2baa0e81ef8a6a584832ade"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/outer-receipt.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/outer-receipt.json",
+      "size": 4257,
+      "sha256": "7bd2894c6a57209fee02b750cbd1112675b5bf8406cab8571472fc5094717f47"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/input.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/input.json",
+      "size": 273842,
+      "sha256": "b53940f02f8c3d4f5f01085b2d5cc897839c600f1ebcfe615981a5a36616f7d5"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/.part-00000-d305fc80-43fe-49de-8f7f-d4f2f94acb79-c000.snappy.parquet.crc",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/.part-00000-d305fc80-43fe-49de-8f7f-d4f2f94acb79-c000.snappy.parquet.crc",
+      "size": 264,
+      "sha256": "1441b7e19c064003b3b7dffa00c4e40ab08c228bde1c7528b7ce12bd0c7fd44b"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/_delta_log/.00000000000000000000.json.crc",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/_delta_log/.00000000000000000000.json.crc",
+      "size": 92,
+      "sha256": "c88b3a44d6a8e15c40bd89f2ba081a8ad1f7b4ad322b316c138020718b11546c"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/_delta_log/00000000000000000000.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/_delta_log/00000000000000000000.json",
+      "size": 10386,
+      "sha256": "214df51a6c2a9370642181b75463d105ef6821490d7dff05f2f9f4c31798cbdb"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/part-00000-d305fc80-43fe-49de-8f7f-d4f2f94acb79-c000.snappy.parquet",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/nodes/part-00000-d305fc80-43fe-49de-8f7f-d4f2f94acb79-c000.snappy.parquet",
+      "size": 32684,
+      "sha256": "0c7720b044c949eda7c37eebc86ac47a0bca8d972db1615fffd84f832eed76e3"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/transport.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/engine/transport.json",
+      "size": 1025,
+      "sha256": "365eb40a4640eee6b8838d8030241564016319366b39f1fdd787e083c2d22abe"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/provider-exception-event.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/query/provider-exception-event.json",
+      "size": 1059,
+      "sha256": "312e6f2a1d3598eaac335af5a459f048e6e87dda592905a6b65555cffd3e5f0b"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/runtime-plan.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/runtime-plan.json",
+      "size": 2920350,
+      "sha256": "649c6aac71949f23fd0e7fec2c84cdc610254960938111114cc46b9e7f1e9f90"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/wheel.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/wheel.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/wheel.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/wheel.stdout",
+      "size": 705,
+      "sha256": "6b5646708843a3a5a6fa724d5caae400398b427bc91e51d05fe26b0fa4a607a5"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-import.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-import.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-import.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-import.stdout",
+      "size": 1700,
+      "sha256": "3602f8724062b91c3d4eb1c69868e333d34ca18921806fd75ad8de736e0b053b"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-install.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-install.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-install.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-install.stdout",
+      "size": 175,
+      "sha256": "27e73cee0e0f94b64d04ca06160187e46019bb87bf1d2390ba0ca0acf9df431a"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-venv.stderr",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-venv.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-venv.stdout",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-20261011-g/worker-venv.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-actual-freeze-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-actual-freeze-g.json",
+      "size": 6322,
+      "sha256": "26cc28de0628ed7d493c1651346ea297d32920c9ccc9f0f85dfcd8274f83bdb7"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-command-freeze-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-command-freeze-g.json",
+      "size": 4141,
+      "sha256": "859d73dcd4df8dbda6a362c79f92793f9159d0b811aa8e67f8f0c638d70b2d95"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-independent-actual-review-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-independent-actual-review-g.json",
+      "size": 1252,
+      "sha256": "55f8bb75220619d00e5dbd1b3053e6d58c166bb58341d495cf457fbd77dbac32"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-independent-command-review-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-independent-command-review-g.json",
+      "size": 867,
+      "sha256": "51f9b6b43d36a28f9f3ddcebd92319a29b4a635ae6a62c1a1f4436f5fdddd5d9"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/approved-guard-ids-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/approved-guard-ids-g.json",
+      "size": 297280,
+      "sha256": "c3c6da294cf2e6861a9f4353a9aafbf4034ebcca62e942dcff58e23253019b78"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/command-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/command-g.json",
+      "size": 313383,
+      "sha256": "05e0110f381cb60b4bdb60c31b6f4e0c13560c1186bfeb650045c3c699fe2dba"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/diagnostic-metadata-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/diagnostic-metadata-g.py",
+      "size": 1750,
+      "sha256": "5287744048ec65b9abc4e88da6c3daf43f73f526377febe2047a6cf7fd71e343"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/entry-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/entry-g.py",
+      "size": 1686,
+      "sha256": "547aa9fc54f2fc4e46595ba1b2cefe74acc3a804a48590f68f159b8623459187"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/host-source-inventory.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/host-source-inventory.json",
+      "size": 33921,
+      "sha256": "fb4902bf14f25d2a844d105f4bae689291e06c6803962e515ebc3d5cc999b71b"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/inspect-worker-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/inspect-worker-g.py",
+      "size": 1827,
+      "sha256": "c16a59bd5b21d47bcb74a0f3f77c368583fee0fad246e34f0ba4ac26155c1b30"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/interpreter-correspondence-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/interpreter-correspondence-g.json",
+      "size": 1179,
+      "sha256": "c9f72350f8b1bd5c3b5d35c7d40fafc5fbc7080a9f03fa0741958171540cd792"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/launch-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/launch-g.py",
+      "size": 2945,
+      "sha256": "625fb824f198690ce308ca7a7edeed791f6579007532125fd3b8e7aa7d94f91d"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/provider-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/provider-g.py",
+      "size": 10148,
+      "sha256": "f7a3a55dfd0b1afc0be19051c5cbae865c97045c16b4bc7d638b70c5bfe39573"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/runner-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/runner-g.py",
+      "size": 14784,
+      "sha256": "47e7b158b73499d67ec2559ee696ecd2102749eb772349de7def9290b4f35d2d"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/runtime-plan-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/runtime-plan-g.py",
+      "size": 5530,
+      "sha256": "c5525a2a3e3c917079595a2b247c31b7773d025add16a18506f66cdcf4d3ae6f"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/selected-sdk-namespace-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/selected-sdk-namespace-g.json",
+      "size": 671490,
+      "sha256": "329bf089fbf7a4f436059dc136763e9a37f9f3939e64c4b971aca7db16a26a16"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/settings-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/settings-g.json",
+      "size": 1743,
+      "sha256": "8cc814893d27ca2886d974c16c7474ad7f212d94f7d6e7bc875c11a744eaa099"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-installed-prep-g/test-recipe-g.py",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-installed-prep-g/test-recipe-g.py",
+      "size": 8882,
+      "sha256": "b96dd2fb17123c825b85981e5523c0ebc2c44c83d1bca520b2b4de782efdf852"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-native-census-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-native-census-g.json",
+      "size": 348,
+      "sha256": "2d3253efd63dc38c504d7749deb54d62c1c0f2ea9c066a06d11d282d787a24d2"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-native-preflight-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-native-preflight-g.json",
+      "size": 289,
+      "sha256": "58013c1257ed77a8fddcc73f85a8d6ec1b0a225af112d7eb89bba495de1c04a2"
+    },
+    {
+      "member": "originals/private/tmp/ashlar-commerce-graphframes-runtime-delta-g.json",
+      "originalPath": "/private/tmp/ashlar-commerce-graphframes-runtime-delta-g.json",
+      "size": 33252,
+      "sha256": "277b71ca37b382dd5bc2ad4c4c678d87f7809125b8e0941e5a9007789e721ca2"
+    }
+  ]
+}
