@@ -22,7 +22,7 @@ jobs:
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_pack_case_cli test_pack_case_selection test_truss_native_feed test_truss_edge_feed test_truss_graph_sql test_truss_graph_admission test_truss_catalog_reader test_truss_feed_sessions test_truss_publication test_truss_note_publication test_truss_graph_publication test_truss_note_cli test_truss_runtime test_truss_local_setup test_truss_local_server test_truss_note_commands test_truss_schema_acceptance test_staging test_source_checkpoint
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_finite_export_cli_dispatch test_finite_graph_export test_pack_case_cli test_pack_case_selection test_truss_native_feed test_truss_edge_feed test_truss_graph_sql test_truss_graph_admission test_truss_catalog_reader test_truss_feed_sessions test_truss_publication test_truss_note_publication test_truss_graph_publication test_truss_note_cli test_truss_runtime test_truss_local_setup test_truss_local_server test_truss_note_commands test_truss_schema_acceptance test_staging test_source_checkpoint
   diagnostic-supervision:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest

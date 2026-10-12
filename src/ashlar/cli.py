@@ -144,6 +144,9 @@ def main():
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
+    finite_export=commands.add_parser('export-original-finite-pack',help='Export an existing original finite-file publication into immutable graph and file-custody bytes')
+    finite_export.add_argument('--configuration',required=True)
+    finite_export.add_argument('--output',required=True)
     fabric_notebook=commands.add_parser('prepare-fabric-notebook',help='Generate a private runnable Fabric notebook from an explicitly selected export pair')
     for option in ('release','custody','release-sha256','custody-sha256','nodes','edges','output','display-name'):
         fabric_notebook.add_argument('--'+option,required=True)
@@ -226,6 +229,15 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar graph export materialization refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'export-original-finite-pack':
+        from ashlar_host.finite_export_cli import run_export_original_finite_pack_command
+        try:
+            answer=run_export_original_finite_pack_command(args.configuration,args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar original finite pack export refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'export-original-commerce':
