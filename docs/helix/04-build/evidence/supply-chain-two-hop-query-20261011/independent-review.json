@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-supply-chain-two-hop-independent-review/0.1",
+  "decision": "approved-source-slice",
+  "freeze_sha256": "9110df27ad7ff4b73f1e749fa77fcc09a97128637a174415fd0a847cb417273d",
+  "files": [
+    {
+      "path": "src/ashlar_host/supply_chain_two_hop_query.py",
+      "bytes": 7393,
+      "sha256": "69d41a6a9f68012f47de7083a5124c22e704ed5403e699e57a57602fbe5f4f29"
+    },
+    {
+      "path": "tests/test_supply_chain_two_hop_query.py",
+      "bytes": 8412,
+      "sha256": "4003571be4807724eaf72f42f76e87f841be1f1c96fe7ece5cee42312460fec0"
+    }
+  ],
+  "contract_sha256": "67d92311966db475bd0f2aa9d94d00683b5993bcec00abc5fc058288e364de67",
+  "prior_review": "/private/tmp/ashlar-supply-chain-two-hop-query-independent-review-a.json",
+  "changed_material": [
+    "Exact bytes/type and configured maximum validated before callback.",
+    "Oversized, string and bytes-subclass controls assert neither observation nor executor occurs and source/schema closing remains.",
+    "Desired callback contract defines bounded protocol views, ordinal/iteration and no authority; occurrence duplicate wording preserves parallel edge identities."
+  ],
+  "tests": "7 strict SDK-free controls PASS 0.389s",
+  "qualification": "Reuses unchanged A source wiring review. No compiler/native or outer workflow qualification."
+}

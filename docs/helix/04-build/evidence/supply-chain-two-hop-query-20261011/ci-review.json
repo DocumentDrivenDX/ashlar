@@ -1,0 +1,7 @@
+{
+  "profile": "ashlar-supply-chain-two-hop-ci-independent-review/0.1",
+  "decision": "approved",
+  "workflow_sha256": "1a3a756212428e7951689f6065fa5fe0afb52558cb1e10d2974ac8fd76bb11c5",
+  "diff_sha256": "14dc32e90017fe99b7ba2f78150602ef7385e434a744a4291de220e69f610967",
+  "qualification": "Only one command adds test_supply_chain_two_hop_query; all existing modules, matrix, flags and steps retained. Source B and contract match prior approved exact pins. No native qualification."
+}

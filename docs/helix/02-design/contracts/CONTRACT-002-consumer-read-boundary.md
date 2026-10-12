@@ -25,6 +25,43 @@ Specify bounded read requests, progress, result completeness and failure outcome
 independently of query syntax, transport, physical layout and UMF bindings.
 The normative surface is a proposed synthetic profile pending owner review.
 
+### Original supply-chain two-hop composition
+
+`query_supply_chain_two_hop(driver, pack, aliases, config, *, observe)` MUST consume the
+actual finite supply-chain driver under its existing installation/source lease.
+It MUST retain the original UMF 0.8 model, graph, source receipt, binding and
+complete publication vector. Caller-supplied contexts, source validators or
+schema validators MUST NOT substitute for the owning public interfaces.
+
+`SupplyChainTwoHopQueryConfig` MUST explicitly select `distribution`
+(`PathsDistributionPaths`), `maximum_artifact_bytes` (positive integer, at most
+16 MiB), `capture` (`PathCaptureConfig`) and `decoder` (`PathDecodeConfig`).
+No ambient compiler, profile fallback or implicit capacity is permitted. The
+composition MUST acquire the selected installed schema bundle and derive its
+offline admission and finite public-source checker internally.
+
+`observe(ordinal, iteration, request_bytes, response_bytes)` is a required
+protocol-evidence callback. Ordinals are zero through eleven; iterations are zero
+and one. Both byte views MUST satisfy the selected artifact bound before the
+callback runs. This callback confers no source, schema or publication authority;
+callback failure MUST withhold the combined result and preserve closing checks.
+
+All twelve compatible directed relationship pairs MUST execute through the
+shared held-path executor, including source rows with no paths. Original and
+independently recompiled protocol artifacts MUST agree before execution. Exact
+authored endpoint keys and independent edge occurrence identities MUST match
+the complete original oracle; unexpected duplicate occurrences, reordered,
+truncated or malformed answers MUST NOT qualify as complete. Parallel edges
+with equal endpoints MUST remain distinct by edge identity. Every query MUST retain the same full
+publication identity/vector and renew original source/native custody.
+
+Results remain provisional until the outer owner independently closes the
+reader, source, installation and native session. A failed query or closing check
+MUST withhold the complete combined result. This composition creates no source,
+publication, compiler installation or ACK authority. It qualifies only the
+two-hop case; the other six common graph cases retain their separate required
+positive executions.
+
 ## Scope and Boundaries
 
 Ashlar owns the read outcome and observable publication boundary. The execution
