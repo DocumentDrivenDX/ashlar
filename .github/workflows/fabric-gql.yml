@@ -17,6 +17,7 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_gql_cli.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_graph_definition.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_graph_release_delta.py
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_private_graph_custody_builder test_commerce_export
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_fabric_http*.py'
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_runtime_file_scan.py
       - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_check_fabric_releases.py

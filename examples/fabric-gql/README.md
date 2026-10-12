@@ -174,3 +174,43 @@ admission is renewed inside the interval before work and independently at
 closing. The strict private loader validates the exact release/receipt pair;
 there is no GraphFrames SDK dependency. This admits an explicitly selected
 original export, not future canonical availability or a Fabric loaded graph.
+
+### Capture a commerce export from its actual reader
+
+The package now supplies `read_commerce_export(reader_factory)` and the pure
+`build_private_custody` receipt builder. The exporter uses the public commerce
+held-release owner, captures the reader's actual closed protected-ACK
+observations and original source metadata, and builds the pair only after the
+outer reader closes. The builder preserves the original receipt encoding; it
+validates correspondence and creates no source/ACK authority.
+
+In an existing configured commerce Spark/read lifecycle, use the ordinary
+connection and registered-source factories from the shipped
+[query provider template](../original-commerce-local/query-provider.template.py):
+
+```python
+from contextlib import contextmanager
+from ashlar_host.publication_reader import open_commerce_reader
+from ashlar_host.commerce_graph_release import read_commerce_export
+from completed_query_provider import (
+    ordinary_query_connection_factory, commerce_query_source_factory)
+
+# spark, publication and query_config are your existing configured query inputs.
+@contextmanager
+def reader_factory():
+    with open_commerce_reader(
+        spark, publication,
+        ordinary_session=ordinary_query_connection_factory(query_config),
+        source_factory=commerce_query_source_factory(query_config)) as opened:
+        yield opened
+
+release, custody_bytes, original_native_files = read_commerce_export(reader_factory)
+# Only now persist release.payload and custody_bytes, or explicitly admit this
+# pair through the private materializer. Never persist inside the reader factory.
+```
+
+`completed_query_provider` is your completed copy of the shipped template, with
+its original configuration/endpoint selections. The reader factory must own its
+surrounding configured resources; the caller retains Spark ownership. This
+foundation adds no automatic SDK setup or graph-release CLI yet, and its basic
+adapter tests do not claim a new PostgreSQL/native export run.

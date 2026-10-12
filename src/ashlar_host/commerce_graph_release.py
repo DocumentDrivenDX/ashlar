@@ -98,3 +98,32 @@ def hold_original_commerce_graph_release(opened):
    finish(primary,[lambda:opened.require_current(opened.context),close_native])
   opened.provider.closed_interval_custody(opened.context)
  finally:life.active=False
+
+
+def read_commerce_export(reader_factory):
+ """Return original release/custody only after the enclosing reader closes.
+
+ The factory must open the configured public commerce reader and own its outer
+ resources. This function uses the genuine held source/ACK/native release ports;
+ it neither constructs observations nor writes provisional export files.
+ """
+ from .lifecycle import owned_context
+ from .private_graph_custody import build_private_custody
+ completed=False;release=None;capture=None;source=None;original_native=None
+ with owned_context(reader_factory())as opened:
+  with owned_context(hold_original_commerce_graph_release(opened))as held:
+   release=held.release
+  capture=source_snapshot(opened.provider.closed_interval_custody(opened.context))
+  required={'format','scope','source_schema','source_signature_sha256','original_request_hex','original_manifest_hex','opening_ack','closing_ack','qualification'}
+  if type(capture)is not dict or set(capture)!=required or capture['format']!='ashlar-private-local-protected-ack-interval/0.1':
+   raise PermissionError('Exact closed ordinary ACK capture required')
+  for phase in ('opening_ack','closing_ack'):
+   session=capture[phase]['session']
+   if session['source_schema']!=capture['source_schema']or session['source_signature_sha256']!=capture['source_signature_sha256']:
+    raise PermissionError('Original ordinary source session differs')
+  source=source_snapshot(opened.admission.metadata());original_native=dict(opened.original_native_files);completed=True
+ if not completed or release is None:raise PermissionError('Complete original export did not close')
+ ack={'scope':capture['scope'],'requestHex':capture['original_request_hex'],'manifestHex':capture['original_manifest_hex'],
+  'opening':capture['opening_ack'],'closing':capture['closing_ack']}
+ custody=build_private_custody(release,source,ack)
+ return release,custody,original_native

@@ -164,3 +164,28 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
         raise ValueError('Dangling endpoint')
     return value
 
+
+
+def build_private_custody(release,source_admission,ack_capture):
+    """Build exact export bytes after the actual host's complete interval closes.
+
+    Inputs must be the original admission and real opening/closing ACK capture.
+    This pure builder validates correspondence; it grants no current authority
+    and cannot establish that a caller actually held or closed those owners.
+    """
+    from ashlar.graph_release import GraphRelease
+    if type(release)is not GraphRelease:raise ValueError('Exact original GraphRelease required')
+    _digest(release.sha256)
+    if type(release.payload)is not bytes or sha(release.payload)!=release.sha256:
+        raise ValueError('Original release bytes changed')
+    value=_decode(release.payload);manifest=value['publication']
+    source_admission=_owned_json(source_admission);ack_capture=_owned_json(ack_capture)
+    receipt={'format':PROFILE,'encoding':ENCODING,'releaseSha256':release.sha256,
+        'manifestSha256':sha(encoded(manifest).encode()),'originalManifest':manifest,
+        'snapshots':value['snapshots'],'roles':value['roles'],
+        'sourceAdmissionSha256':sha(encoded(source_admission).encode()),'ack':ack_capture,
+        'interval':{'wholeVectorHeld':True,'closingSucceeded':True},
+        'scope':'immutable-export-bytes-only'}
+    payload=(encoded(receipt)+'\n').encode()
+    load_private_graph_release(release.payload,release.sha256,payload,sha(payload))
+    return payload

@@ -39,6 +39,8 @@ The guide includes a Spark notebook example for materializing a finite graph
 release into those tables.
 Existing commerce exports use the separately selected private custody-receipt
 entry point described in the same guide.
+`read_commerce_export` captures the release and receipt from an existing
+configured commerce reader for that workflow.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 
