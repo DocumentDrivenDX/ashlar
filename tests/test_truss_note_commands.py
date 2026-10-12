@@ -20,3 +20,6 @@ class Tests(unittest.TestCase):
         self.dispatch('mutate-truss-graph','truss_graph_mutation','run_mutate_truss_graph_command')
     def test_graph_change_command_dispatches_selected_public_host(self):
         self.dispatch('change-truss-graph','truss_graph_change','run_change_truss_graph_command')
+
+    def test_schema_acceptance_command_dispatches_selected_public_host(self):
+        self.dispatch('accept-truss-schema','truss_schema_acceptance','run_accept_truss_schema_command')

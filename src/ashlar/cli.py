@@ -111,7 +111,7 @@ def main():
     truss_setup.add_argument('--output',required=True)
     truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')
     truss_server.add_argument('--data-directory',required=True)
-    for name in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph'):
+    for name in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
         truss_operation.add_argument('--output',required=True)
@@ -236,7 +236,7 @@ def main():
             print('ashlar commerce graph export refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
-    if args.command in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph'):
+    if args.command in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         try:
             from pathlib import Path
             if args.command=='mutate-truss-note':
@@ -245,8 +245,10 @@ def main():
                 from ashlar_host.truss_note_evolution import run_evolve_truss_note_command as run
             elif args.command=='mutate-truss-graph':
                 from ashlar_host.truss_graph_mutation import run_mutate_truss_graph_command as run
-            else:
+            elif args.command=='change-truss-graph':
                 from ashlar_host.truss_graph_change import run_change_truss_graph_command as run
+            else:
+                from ashlar_host.truss_schema_acceptance import run_accept_truss_schema_command as run
             run(args.configuration,args.output)
             print(json.dumps({'output':str(Path(args.output))},separators=(',',':')))
         except Exception:

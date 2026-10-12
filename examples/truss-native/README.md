@@ -45,7 +45,7 @@ configuration/origin to 64 KiB and each of 1–16 documents to 1 MiB; Truss appl
 its own preparation and semantic limits.
 
 ```sh
-python examples/truss-native/accept-schema.py \
+ashlar accept-truss-schema \
   --configuration /absolute/path/to/private-config.json \
   --output /absolute/path/to/fresh-accepted-catalog.json
 ```
