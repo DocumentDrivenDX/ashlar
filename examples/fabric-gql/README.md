@@ -433,3 +433,26 @@ ashlar export-original-commerce \
 Use that closed pair in the materialization/OneLake notebook flow above. This
 export-only profile does not initialize, append, submit ACKs, repair data or
 construct a Fabric release grant.
+
+## Generate a private Fabric notebook
+
+After `export-original-commerce` succeeds, use its independently selected release
+and custody hashes to create a notebook with the original pair embedded:
+
+```sh
+PYTHONPATH=src python examples/fabric-gql/prepare-commerce-notebook.py \
+  --release /absolute/export/release.graph.json \
+  --custody /absolute/export/custody.json \
+  --release-sha256 YOUR_SELECTED_RELEASE_SHA256 \
+  --custody-sha256 YOUR_SELECTED_CUSTODY_SHA256 \
+  --nodes YOUR_FRESH_ONELAKE_NODE_PATH \
+  --edges YOUR_FRESH_ONELAKE_EDGE_PATH \
+  --display-name YOUR_GRAPH_MODEL_NAME \
+  --output /absolute/fresh-commerce.ipynb
+```
+
+Import the generated notebook into your intended Fabric workspace and attach the
+lakehouse. It installs the pinned Ashlar source, uses the notebook's existing
+Spark session, writes fresh release-specific tables, and prepares model-definition
+files. It does not create or load a model. The generated notebook contains your
+selected data; keep it local until uploading to the intended workspace.
