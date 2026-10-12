@@ -1,0 +1,55 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+    "/private/tmp/ashlar-fabric-runtime-qualification-actual-a"
+  ],
+  "cwd": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a",
+  "environment": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "maximum_stderr_bytes": 16384,
+  "maximum_stdout_bytes": 16384,
+  "pins": [
+    {
+      "bytes": 4696,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc"
+    },
+    {
+      "bytes": 2934,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/test_recipe.py",
+      "sha256": "4f8b867bf10e3535dd939332cda16dc178cbcefb03507ba54fbc39b887e593cb"
+    },
+    {
+      "bytes": 37091,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "bytes": 1676,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    }
+  ],
+  "private_observation_bytes": 16384,
+  "scope": "No Azure CLI execution, credentials, token/account command, HTTP, native SDK changes or cache content reads. Root must verify exact pins before actual execution. SIGALRM bounds the scan; no spawned descendants.",
+  "status": "prepared-not-executed",
+  "test_receipt": {
+    "chunk": "5944ff",
+    "command": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "-W",
+      "error::ResourceWarning",
+      "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/test_recipe.py"
+    ],
+    "exit": 0,
+    "seconds": 0.055,
+    "tests": 4
+  },
+  "whole_scan_deadline_seconds": 60
+}

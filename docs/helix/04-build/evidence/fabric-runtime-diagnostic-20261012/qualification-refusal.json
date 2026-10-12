@@ -1,0 +1,22 @@
+{
+  "assumptions": [
+    "genuine operator-admitted fixed Homebrew installation",
+    "trusted Darwin arm64 OS loader, system frameworks and host isolation"
+  ],
+  "closing": [],
+  "elapsed_seconds": 60.0010805,
+  "exception_type": "TimeoutError",
+  "failure": "deadline-refusal",
+  "maximum_bytes": 2147483648,
+  "maximum_files": 50000,
+  "observations": {},
+  "scope": "runtime-only correspondence; no credential-tool execution or remote permission claim",
+  "selected_versions": {
+    "azure_cli": "2.90.0",
+    "python": "3.14.8"
+  },
+  "status": "refused",
+  "transient_mutation_exclusion_proven": false,
+  "versions_observed_by_this_probe": false,
+  "whole_probe_deadline_seconds": 60
+}

@@ -1,0 +1,150 @@
+{
+  "actual_handles": {
+    "diagnostic_b": {
+      "cause": "Root reported independent SIGALRM interrupted original recipe internal timeout handling; no aggregate was retained.",
+      "cost_evidence_available": false,
+      "exit": 1,
+      "observation_exists": false,
+      "reaped_chunk": "c07c80",
+      "session": 8657
+    },
+    "diagnostic_d": {
+      "exit": 2,
+      "observation_retained": true,
+      "reaped_chunk": "1bed5f",
+      "session": 58420
+    },
+    "qualification_a": {
+      "exit": 2,
+      "reaped_chunk": "7f9642",
+      "session": 52740
+    }
+  },
+  "controls": {
+    "author_d": {
+      "chunk": "4ba93f",
+      "exit": 0,
+      "seconds": 0.046,
+      "tests": 6
+    },
+    "peer_d": {
+      "chunk": "130d97",
+      "exit": 0,
+      "seconds": 0.039,
+      "tests": 6
+    }
+  },
+  "files": [
+    {
+      "bytes": 4696,
+      "file": "qualification-recipe.py",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc"
+    },
+    {
+      "bytes": 1836,
+      "file": "qualification-freeze.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/freeze.json",
+      "sha256": "0273d3e5ca5f1c86eccadd666241a6e243db0027e270c8f91e8487353a242b4d"
+    },
+    {
+      "bytes": 693,
+      "file": "qualification-refusal.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-qualification-actual-a/observation.json",
+      "sha256": "7bd5392a5dee561889c48c1b5da0a0df5ea913f6ae940a717407a1a508fe5331"
+    },
+    {
+      "bytes": 2122,
+      "file": "qualification-peer-review.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-independent-review-a.json",
+      "sha256": "6b64166b661257a2f316f37601a349c09d6ce538810d19aa7f0e36b0452117a7"
+    },
+    {
+      "bytes": 4980,
+      "file": "diagnostic-b.py",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-b/diagnose.py",
+      "sha256": "8dc7ca69afd261cebf79ffbe55f157de92f8acbf96fd6b54c5786657533274b6"
+    },
+    {
+      "bytes": 2605,
+      "file": "diagnostic-b-freeze.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-b/freeze.json",
+      "sha256": "345b2dd7c2d3898b274cd2de9ece92cb46bb8467d227ed81408ddaa549c66dbe"
+    },
+    {
+      "bytes": 2273,
+      "file": "diagnostic-b-peer-review.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-independent-review-b.json",
+      "sha256": "b77078016c9934a3e8d4f013b7d83983af4d50a229759510b76870a0e59bac6f"
+    },
+    {
+      "bytes": 3392,
+      "file": "diagnostic-c-freeze.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/freeze.json",
+      "sha256": "05ee0a27692bdc1f42c7a86a97c3c611e774cbdb774fe91c2ecc47b19afe7b89"
+    },
+    {
+      "bytes": 5654,
+      "file": "diagnostic-d.py",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-d/diagnose.py",
+      "sha256": "10e6230b1024114524266f7123daf69cc1a649c1801ca5608a0be0ae56fce470"
+    },
+    {
+      "bytes": 5841,
+      "file": "diagnostic-d-tests.py",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-d/test_diagnostic.py",
+      "sha256": "223b9d9fb0d9b729886d1e1f7b25e39faf0913027f6bebcf40cfd935c324b145"
+    },
+    {
+      "bytes": 3370,
+      "file": "diagnostic-d-freeze.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-d/freeze.json",
+      "sha256": "c617dcf82dd213fde5ce955b5518f06a4fda1b4645a19e1c39f939eba53b74d5"
+    },
+    {
+      "bytes": 2662,
+      "file": "diagnostic-d-peer-review.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-independent-review-d.json",
+      "sha256": "56e27edf0b23b9a82bc4ac2cdc1a895eaf7018809ac21b5dd582acf79b03a17f"
+    },
+    {
+      "bytes": 4073,
+      "file": "diagnostic-d-observation.json",
+      "original_path": "/private/tmp/ashlar-fabric-runtime-diagnostic-actual-d/observation.json",
+      "sha256": "08b0b395a8230510edc4b38beb475df456749493738bfcf469df1fa39992b5b0"
+    },
+    {
+      "bytes": 37091,
+      "file": "runtime-original.py",
+      "original_path": "/Users/erik/Projects/ashlar/src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "bytes": 1676,
+      "file": "lifecycle-original.py",
+      "original_path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    }
+  ],
+  "interpretation": {
+    "call_counts_are_not_bytes": true,
+    "cumulative_categories_overlap": true,
+    "elapsed_seconds": 60.010373417000004,
+    "file_open_calls": 11713,
+    "file_open_self_seconds": 51.348604,
+    "first_cli_constructor_returned": false,
+    "inventory_complete": false,
+    "optimization_hypothesis": "Bounded concurrent actual file custody may reduce opening latency; no demonstrated speedup or budget-fit claim.",
+    "original_outcome": "deadline-refusal",
+    "path_resolution_self_seconds": 0.081854,
+    "profiling_overhead": true,
+    "transient_mutation_exclusion_proven": false,
+    "trust_assumptions": [
+      "genuine operator-admitted named Homebrew installation",
+      "trusted Darwin arm64 system loader/frameworks and host isolation"
+    ]
+  },
+  "pin_renewal": "All eight D source/recipe/refusal pins independently re-read and exact before copying.",
+  "scope": "Original runtime admission refused; diagnostic D successfully retained a profile of the same runtime refusal. No full SDK snapshot, supported runtime qualification, account/token/API, remote permission, publication or P07 pass.",
+  "sensitive_scope": "Only secret-safe aggregate report and fixed noncredential source/recipe/peer receipts retained; no credential caches, HOME redirect, tokens, account execution or HTTP."
+}

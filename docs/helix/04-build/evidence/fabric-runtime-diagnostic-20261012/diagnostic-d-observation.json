@@ -1,0 +1,144 @@
+{
+  "assumptions": [
+    "genuine operator-admitted named Homebrew installation",
+    "trusted Darwin arm64 system loader/frameworks and host isolation"
+  ],
+  "call_counts_are_not_bytes": true,
+  "costs": {
+    "clock": {
+      "cumulative_seconds_overlapping": 0.008609,
+      "primitive_calls": 65359,
+      "self_seconds": 0.008609,
+      "total_calls": 65359
+    },
+    "deadline_checks": {
+      "cumulative_seconds_overlapping": 0.040373,
+      "primitive_calls": 65358,
+      "self_seconds": 0.031765,
+      "total_calls": 65358
+    },
+    "enumeration": {
+      "cumulative_seconds_overlapping": 18.761368,
+      "primitive_calls": 141919,
+      "self_seconds": 4.780353,
+      "total_calls": 177915
+    },
+    "file_open": {
+      "cumulative_seconds_overlapping": 51.353393,
+      "primitive_calls": 11713,
+      "self_seconds": 51.348604,
+      "total_calls": 11713
+    },
+    "file_read": {
+      "cumulative_seconds_overlapping": 0.564414,
+      "primitive_calls": 25950,
+      "self_seconds": 0.564414,
+      "total_calls": 25950
+    },
+    "hash": {
+      "cumulative_seconds_overlapping": 0.215515,
+      "primitive_calls": 37663,
+      "self_seconds": 0.215515,
+      "total_calls": 37663
+    },
+    "host_identity": {
+      "cumulative_seconds_overlapping": 0.00018,
+      "primitive_calls": 2,
+      "self_seconds": 1.8e-05,
+      "total_calls": 2
+    },
+    "link_admission": {
+      "cumulative_seconds_overlapping": 0.004405,
+      "primitive_calls": 12,
+      "self_seconds": 0.000107,
+      "total_calls": 12
+    },
+    "netrc_metadata": {
+      "cumulative_seconds_overlapping": 2.1e-05,
+      "primitive_calls": 1,
+      "self_seconds": 2e-06,
+      "total_calls": 1
+    },
+    "other": {
+      "cumulative_seconds_overlapping": 120.933213,
+      "primitive_calls": 1658903,
+      "self_seconds": 0.559123,
+      "total_calls": 1659001
+    },
+    "other_owner": {
+      "cumulative_seconds_overlapping": 0.287838,
+      "primitive_calls": 93735,
+      "self_seconds": 0.028626,
+      "total_calls": 93735
+    },
+    "other_path_operations": {
+      "cumulative_seconds_overlapping": 3.552013,
+      "primitive_calls": 1861577,
+      "self_seconds": 0.835402,
+      "total_calls": 1861610
+    },
+    "owner_constructor": {
+      "cumulative_seconds_overlapping": 60.004801,
+      "primitive_calls": 1,
+      "self_seconds": 4.2e-05,
+      "total_calls": 1
+    },
+    "owner_generator": {
+      "cumulative_seconds_overlapping": 0.001858,
+      "primitive_calls": 44,
+      "self_seconds": 2.6e-05,
+      "total_calls": 44
+    },
+    "owner_scan": {
+      "cumulative_seconds_overlapping": 60.002811,
+      "primitive_calls": 1,
+      "self_seconds": 0.327341,
+      "total_calls": 1
+    },
+    "path_resolution": {
+      "cumulative_seconds_overlapping": 1.897382,
+      "primitive_calls": 23478,
+      "self_seconds": 0.081854,
+      "total_calls": 23478
+    },
+    "private_directory_admission": {
+      "cumulative_seconds_overlapping": 0.00173,
+      "primitive_calls": 6,
+      "self_seconds": 2.6e-05,
+      "total_calls": 6
+    },
+    "readlink": {
+      "cumulative_seconds_overlapping": 0.423304,
+      "primitive_calls": 192794,
+      "self_seconds": 0.423298,
+      "total_calls": 192794
+    },
+    "stat_metadata": {
+      "cumulative_seconds_overlapping": 0.907547,
+      "primitive_calls": 116055,
+      "self_seconds": 0.799698,
+      "total_calls": 116055
+    }
+  },
+  "cumulative_category_seconds_overlap": true,
+  "elapsed_seconds": 60.010373417000004,
+  "maximum_bytes": 2147483648,
+  "maximum_files": 50000,
+  "no_transient_mutation_exclusion": true,
+  "original_outcome": {
+    "closing": [],
+    "exception_type": "TimeoutError",
+    "failure": "deadline-refusal",
+    "observations": {},
+    "status": "refused"
+  },
+  "profiling_overhead_present": true,
+  "scope": "single instrumented runtime-only diagnostic; not runtime qualification, throughput benchmark or credential admission",
+  "stage": {
+    "constructors_returned": [],
+    "constructors_started": [
+      "cli"
+    ]
+  },
+  "whole_probe_deadline_seconds": 60
+}

@@ -1,0 +1,35 @@
+{
+  "verdict": "approved one scoped runtime-only root probe after final currentpin/freshness verification",
+  "freeze_sha256": "0273d3e5ca5f1c86eccadd666241a6e243db0027e270c8f91e8487353a242b4d",
+  "pins": [
+    {
+      "bytes": 4696,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc"
+    },
+    {
+      "bytes": 2934,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/test_recipe.py",
+      "sha256": "4f8b867bf10e3535dd939332cda16dc178cbcefb03507ba54fbc39b887e593cb"
+    },
+    {
+      "bytes": 37091,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "bytes": 1676,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    }
+  ],
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+    "/private/tmp/ashlar-fabric-runtime-qualification-actual-a"
+  ],
+  "review": "Selected genuinefixed CLI2.90/Python3.14.8/separateHTTPstdlibCA profiles internally derive inventories. Whole60absolute deadline plusSIGALRM, no subprocesses, privatefreshdirs, summaries16KiB bounded digests/counts/classifications only. All acquiredowner reverse independentcloses; constructor localreadfds same governedsource. Original sourcepins currentHEAD and freshoutput absence independently verified. Four inertcontrols passed; no actualscan performed byreviewer.",
+  "limitations": "Root must renew original source/scriptpins independently after actualprobe. Constructor/refusal means missing actualcorrespondence remains refusal; versions declarednotobserved thisprobe. No credentialcache contents/account/token/API/SDKmutation/sourceauthority or transientmutation exclusion claim. SIGALRM bounds operational scan with allclosingattempts; expiredclosing may refuse without complete bytes."
+}

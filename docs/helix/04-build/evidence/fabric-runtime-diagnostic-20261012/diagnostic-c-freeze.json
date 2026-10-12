@@ -1,0 +1,82 @@
+{
+  "actual_b_failure": {
+    "cost_evidence_available": false,
+    "observation_retained": false,
+    "reaped_chunk": "c07c80",
+    "root_session": 8657,
+    "terminal_exit": 1
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/diagnose.py",
+    "/private/tmp/ashlar-fabric-runtime-diagnostic-actual-c"
+  ],
+  "changed_material": "Contain any BaseException escaping original recipe (including external SIGALRM interrupting internal timeout handling); cancel independent timer before profiling aggregation and writing report. Interrupted original closing is explicitly unavailable, not invented. No source/cap/scan change. Real 5ms signal during internal timeout handling and KeyboardInterrupt safe export tested.",
+  "controls": {
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "-W",
+      "error::ResourceWarning",
+      "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/test_diagnostic.py"
+    ],
+    "chunk": "c8622b",
+    "exit": 0,
+    "seconds": 0.072,
+    "tests": 5
+  },
+  "cwd": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c",
+  "environment": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "interpretation": "cProfile self cost category totals and overlapping cumulative totals; call counts are not bytes. A timed-out first constructor exposes partial costs only, not full inventory/native-pin completion. Instrumentation overhead precludes speed or qualification claims. One actual diagnostic only after root/peer approval; no altered scan semantics/caps, no source edits, no credential process/API/cache content.",
+  "maximum_private_aggregate_bytes": 16384,
+  "maximum_stderr_bytes": 16384,
+  "maximum_stdout_bytes": 16384,
+  "pins": [
+    {
+      "bytes": 5852,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/diagnose.py",
+      "sha256": "385eac2859deca6e6d43fbf1ba194c4fe5d80d108db4a2d218132703b1727d97"
+    },
+    {
+      "bytes": 4636,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/test_diagnostic.py",
+      "sha256": "571c77dbea591d603d9da926c45ef1dd74852572066f7489d021cb81152b854d"
+    },
+    {
+      "bytes": 2605,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-b/freeze.json",
+      "sha256": "345b2dd7c2d3898b274cd2de9ece92cb46bb8467d227ed81408ddaa549c66dbe"
+    },
+    {
+      "bytes": 4696,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc"
+    },
+    {
+      "bytes": 1836,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/freeze.json",
+      "sha256": "0273d3e5ca5f1c86eccadd666241a6e243db0027e270c8f91e8487353a242b4d"
+    },
+    {
+      "bytes": 693,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-actual-a/observation.json",
+      "sha256": "7bd5392a5dee561889c48c1b5da0a0df5ea913f6ae940a717407a1a508fe5331"
+    },
+    {
+      "bytes": 37091,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "bytes": 1676,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    }
+  ],
+  "status": "prepared-not-executed"
+}

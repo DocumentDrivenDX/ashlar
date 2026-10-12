@@ -1,0 +1,96 @@
+{
+  "verdict": "approved scoped diagnostic evidence",
+  "manifest": {
+    "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-evidence-a/manifest.json",
+    "sha256": "d3648520c5847704b1e841b33a8105d4715085ce3c84bf63632af07e8f8bbe50"
+  },
+  "exactOriginalCopies": [
+    {
+      "file": "qualification-recipe.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc",
+      "bytes": 4696
+    },
+    {
+      "file": "qualification-freeze.json",
+      "sha256": "0273d3e5ca5f1c86eccadd666241a6e243db0027e270c8f91e8487353a242b4d",
+      "bytes": 1836
+    },
+    {
+      "file": "qualification-refusal.json",
+      "sha256": "7bd5392a5dee561889c48c1b5da0a0df5ea913f6ae940a717407a1a508fe5331",
+      "bytes": 693
+    },
+    {
+      "file": "qualification-peer-review.json",
+      "sha256": "6b64166b661257a2f316f37601a349c09d6ce538810d19aa7f0e36b0452117a7",
+      "bytes": 2122
+    },
+    {
+      "file": "diagnostic-b.py",
+      "sha256": "8dc7ca69afd261cebf79ffbe55f157de92f8acbf96fd6b54c5786657533274b6",
+      "bytes": 4980
+    },
+    {
+      "file": "diagnostic-b-freeze.json",
+      "sha256": "345b2dd7c2d3898b274cd2de9ece92cb46bb8467d227ed81408ddaa549c66dbe",
+      "bytes": 2605
+    },
+    {
+      "file": "diagnostic-b-peer-review.json",
+      "sha256": "b77078016c9934a3e8d4f013b7d83983af4d50a229759510b76870a0e59bac6f",
+      "bytes": 2273
+    },
+    {
+      "file": "diagnostic-c-freeze.json",
+      "sha256": "05ee0a27692bdc1f42c7a86a97c3c611e774cbdb774fe91c2ecc47b19afe7b89",
+      "bytes": 3392
+    },
+    {
+      "file": "diagnostic-d.py",
+      "sha256": "10e6230b1024114524266f7123daf69cc1a649c1801ca5608a0be0ae56fce470",
+      "bytes": 5654
+    },
+    {
+      "file": "diagnostic-d-tests.py",
+      "sha256": "223b9d9fb0d9b729886d1e1f7b25e39faf0913027f6bebcf40cfd935c324b145",
+      "bytes": 5841
+    },
+    {
+      "file": "diagnostic-d-freeze.json",
+      "sha256": "c617dcf82dd213fde5ce955b5518f06a4fda1b4645a19e1c39f939eba53b74d5",
+      "bytes": 3370
+    },
+    {
+      "file": "diagnostic-d-peer-review.json",
+      "sha256": "56e27edf0b23b9a82bc4ac2cdc1a895eaf7018809ac21b5dd582acf79b03a17f",
+      "bytes": 2662
+    },
+    {
+      "file": "diagnostic-d-observation.json",
+      "sha256": "08b0b395a8230510edc4b38beb475df456749493738bfcf469df1fa39992b5b0",
+      "bytes": 4073
+    },
+    {
+      "file": "runtime-original.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038",
+      "bytes": 37091
+    },
+    {
+      "file": "lifecycle-original.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2",
+      "bytes": 1676
+    }
+  ],
+  "checks": {
+    "count": 15,
+    "safeExactNamespace": true,
+    "originalByteParity": true,
+    "D4073Bytes": true,
+    "firstConstructorRefused60Seconds": true,
+    "fileOpenSelfSeconds": 51.348604,
+    "overlappingCumulativeAndProfilingLimitations": true,
+    "BNoAggregateExit1AuthorReported": true,
+    "credentialPayloadAbsent": true
+  },
+  "scope": "Read-only retained byte/hash and prose review only. No new SDK scan/import/auth/token/API. Original qualification A refusal and diagnostic B absence retained honestly. D is diagnostic retention of first-constructor deadline refusal, not runtime qualification, complete inventory, native/publication/P07, proven speedup or independent wallclock benchmark."
+}

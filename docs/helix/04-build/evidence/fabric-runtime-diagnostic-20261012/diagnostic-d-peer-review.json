@@ -1,0 +1,49 @@
+{
+  "verdict": "approved one boundedactualrootdiagnostic afterfinalcurrentpins/freshness",
+  "freeze_sha256": "c617dcf82dd213fde5ce955b5518f06a4fda1b4645a19e1c39f939eba53b74d5",
+  "pins": [
+    {
+      "bytes": 5654,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-d/diagnose.py",
+      "sha256": "10e6230b1024114524266f7123daf69cc1a649c1801ca5608a0be0ae56fce470"
+    },
+    {
+      "bytes": 5841,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-d/test_diagnostic.py",
+      "sha256": "223b9d9fb0d9b729886d1e1f7b25e39faf0913027f6bebcf40cfd935c324b145"
+    },
+    {
+      "bytes": 3392,
+      "path": "/private/tmp/ashlar-fabric-runtime-diagnostic-prep-c/freeze.json",
+      "sha256": "05ee0a27692bdc1f42c7a86a97c3c611e774cbdb774fe91c2ecc47b19afe7b89"
+    },
+    {
+      "bytes": 4696,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/qualify.py",
+      "sha256": "da632235178546944d16c3627e8ec02bbf0dc8a3bce04d79e233463c78f077fc"
+    },
+    {
+      "bytes": 1836,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-prep-a/freeze.json",
+      "sha256": "0273d3e5ca5f1c86eccadd666241a6e243db0027e270c8f91e8487353a242b4d"
+    },
+    {
+      "bytes": 693,
+      "path": "/private/tmp/ashlar-fabric-runtime-qualification-actual-a/observation.json",
+      "sha256": "7bd5392a5dee561889c48c1b5da0a0df5ea913f6ae940a717407a1a508fe5331"
+    },
+    {
+      "bytes": 37091,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/fabric_cli_runtime.py",
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "bytes": 1676,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2"
+    }
+  ],
+  "controls": "Sixstrict actualinertcontrolsPASS0.039s130d97terminal0/reaped: realdoubledeadlineinterrupt, pending5msalarm+20msdelayedclassification cancelledbeforeclassifier, KeyboardInterrupt, originalclosingprimary/safegroupedcosts.",
+  "review": "Escapingerror storedonly; alarmcancel+profilerdisable BEFOREreportclassification/aggregation. Sameoriginalscan/same60SIGALRM/50000files2GiB/caps; partialstats retained asdiagnosticinterrupted with originalclosing unavailable, not runtimeauthority. ActualBfailure preserved withoutfabricatingcosts. Rootafteractualrenewalloriginalsource/scriptpins; <=16KiBsecret-safe groupedcost/report only.",
+  "qualification": "No actualdiagnostic/SDKscan/auth/token/API/cachecontents/nativeeffects byreviewer. Callsnotbytes/cumulativeoverlap/profileroverhead limitclaims; no deadline/capincrease/transientmutationproof."
+}
