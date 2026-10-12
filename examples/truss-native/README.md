@@ -421,6 +421,13 @@ events require a corresponding full afterimage. Schema admission, durable Delta
 effects and descriptor-bound source ACK remain responsibilities of the consumer;
 these extraction and custody APIs alone do not perform that workflow.
 
+`scalar_entity_changes` also extracts native edges with typed source/target
+identities and null/text order keys. Native Delta planning materializes those
+order keys and retains complete lifecycle event bytes. It still requires an
+independent schema-admission policy; the Note consumer remains object-only.
+`ApplyState` does not carry edge ordering, so its pure checks do not establish
+prior order-key transition or deletion parity.
+
 `TrussNoteAdmission(batch)` admits the Note's authored STRING fields against
 original accepted UMF bytes and actual catalog IDs. Native graph SQL planning
 retains lifecycle events in history and every property event in the complete

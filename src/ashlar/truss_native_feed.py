@@ -1,4 +1,4 @@
-"""Scalar-object afterimages from original Truss native feed bytes.
+"""Scalar entity afterimages from original Truss native feed bytes.
 
 Pure extraction; source authority, durable publication and ACK stay host-owned.
 Original transaction bytes include all catalog/source/reservation prerequisites.
@@ -17,6 +17,7 @@ class NativeFeedChanges:
     changes:tuple
     prior:bytes
     next:bytes
+    edge_order_keys:tuple=()
 
 
 def _json(raw,*,native=False):
@@ -36,7 +37,7 @@ def _integer(value):
     return int(text)
 
 
-def scalar_object_changes(content,*,sha256,prior,next,feed):
+def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges):
     """Extract one complete transaction; never infer a version from a sequence."""
     if type(content)is not bytes or len(content)>8388608 or hashlib.sha256(content).hexdigest()!=sha256 or any(type(v)is not bytes for v in (prior,next))or type(feed)is not str or not feed:raise NativeFeedError('Complete original feed selection required')
     payload=_json(content,native=True);before=_json(prior,native=True);after=_json(next,native=True)
@@ -44,10 +45,11 @@ def scalar_object_changes(content,*,sha256,prior,next,feed):
     epoch=before['sourceEpoch'];source=before['installationId']
     rows=payload.get('changes')
     if type(rows)is not list or len(rows)>4096:raise NativeFeedError('Bounded complete journal array required')
-    originals=[];changes=[];seen=set();property_versions=set();last=0
+    originals=[];changes=[];seen=set();property_versions=set();edge_orders=[];last=0
     for row in rows:
         seq=_integer(row['seq'])
-        if seq<=last or str(row['xid'])!=payload.get('writerXid')or row['entity_kind']!='o':raise NativeFeedError('Ordered original scalar-object transaction required')
+        if seq<=last or str(row['xid'])!=payload.get('writerXid')or row['entity_kind']not in (('o','e')if allow_edges else('o',)):raise NativeFeedError('Ordered original scalar entity transaction required')
+        kind='object'if row['entity_kind']=='o'else'edge'
         last=seq;wrapper=row['new_value']
         if wrapper.get('interfaceVersion')!='truss-journal-exact-bytes/0.2.0-proposal'or wrapper.get('component')!='event':raise NativeFeedError('Exact native event wrapper required')
         raw=base64.b64decode(wrapper['bytesBase64'],validate=True)
@@ -56,11 +58,11 @@ def scalar_object_changes(content,*,sha256,prior,next,feed):
         if event.get('interfaceVersion')!='truss-history-event/0.2.0-proposal'or event.get('sourceEpoch')!=epoch or event.get('xid')!=payload['writerXid']or _integer(event['seq'])!=seq or _integer(event['eventVersion'])!=_integer(row['ver']):raise NativeFeedError('Original event position/version differs')
         operation=event['operation']
         if operation=='property':
-            identity=event['identity'];property_versions.add((EntityKey(source,'object',_integer(identity['typeId']),_integer(identity['id'])),_integer(event['eventVersion'])));continue
+            identity=event['identity'];property_versions.add((EntityKey(source,kind,_integer(identity['typeId']),_integer(identity['id'])),_integer(event['eventVersion'])));continue
         if operation not in ('create','metadata','delete'):raise NativeFeedError('Unsupported native lifecycle event')
         image=event['before']if operation=='delete'else event['after']
-        if image.get('interfaceVersion')!='truss-history-record/0.1.0'or image.get('kind')!='object'or image.get('ownership')!={'state':'rootless'}:raise NativeFeedError('Full original rootless object required')
-        identity=image['identity'];key=EntityKey(source,'object',_integer(identity['typeId']),_integer(identity['id']));version=_integer(event['eventVersion'])
+        if image.get('interfaceVersion')!='truss-history-record/0.1.0'or image.get('kind')!=kind or (kind=='object'and image.get('ownership')!={'state':'rootless'}):raise NativeFeedError('Full original rootless object required')
+        identity=image['identity'];key=EntityKey(source,kind,_integer(identity['typeId']),_integer(identity['id']));version=_integer(event['eventVersion'])
         if key.id!=_integer(row['entity_id'])or key.type_id!=_integer(row['entity_type'])or _integer(image['recordVersion'])!=(version-1 if operation=='delete'else version):raise NativeFeedError('Actual afterimage/version correspondence differs')
         marker=(key,version)
         if marker in seen:raise NativeFeedError('Ambiguous entity-version afterimage')
@@ -72,11 +74,31 @@ def scalar_object_changes(content,*,sha256,prior,next,feed):
         for prop in image['retained']:
             if type(prop['name'])is not str or prop['name']in retained or type(prop['value'])is not str:raise NativeFeedError('Original retained STRING properties required')
             retained[prop['name']]=prop['value']
+        endpoints=None
+        if kind=='edge':
+            if image['properties']!=[]:raise NativeFeedError('Selected native edge profile has no declared properties')
+            endpoints=tuple(EntityKey(source,'object',_integer(image[role]['typeId']),_integer(image[role]['id']))for role in ('source','target'))
+            order=image.get('orderKey')
+            if order=={'state':'null'}:order_key=None
+            elif type(order)is dict and set(order)=={'state','text'}and order['state']=='text'and type(order['text'])is str:order_key=order['text']
+            else:raise NativeFeedError('Original complete native edge order key required')
+            edge_orders.append((key,version,order_key))
         encode=lambda value:json.dumps(value,ensure_ascii=False,separators=(',',':'),sort_keys=True)
-        state=EntityState(key,version,str(event['eventCatalogRevision']),encode(props),encode(retained))
+        state=EntityState(key,version,str(event['eventCatalogRevision']),encode(props),encode(retained),endpoints)
         changes.append(Change(feed,epoch,payload['writerXid']+':'+str(seq),hashlib.sha256(raw).hexdigest(),'delete'if operation=='delete'else('create'if operation=='create'else'replace'),state))
     if not property_versions<=seen:raise NativeFeedError('Property transaction lacks complete afterimage')
-    return NativeFeedChanges(content,tuple(originals),tuple(changes),prior,next)
+    return NativeFeedChanges(content,tuple(originals),tuple(changes),prior,next,tuple(edge_orders))
+
+
+
+def scalar_object_changes(content,*,sha256,prior,next,feed):
+    """Retain the strict object-only entrypoint; edge transactions refuse."""
+    return _scalar_entity_changes(content,sha256=sha256,prior=prior,next=next,feed=feed,allow_edges=False)
+
+
+def scalar_entity_changes(content,*,sha256,prior,next,feed):
+    """Rootless STRING objects and native scalar edges, with typed endpoints."""
+    return _scalar_entity_changes(content,sha256=sha256,prior=prior,next=next,feed=feed,allow_edges=True)
 
 
 def native_feed_batch(content,*,sha256,prior,next,feed):

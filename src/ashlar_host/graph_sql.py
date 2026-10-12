@@ -17,14 +17,16 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     if stamp.tzinfo is None or stamp.utcoffset() != datetime.timedelta(0):
         raise ValueError('Explicit UTC materialization metadata clock required')
     native_original = None
+    native_edge_orders = {}
     if batch.profile == 'truss-native-feed/0.1':
         from ashlar.staging import batch_row
-        from ashlar.truss_native_feed import scalar_object_changes
+        from ashlar.truss_native_feed import scalar_entity_changes
         batch_row(batch)
-        parsed = scalar_object_changes(batch.begin, sha256=hashlib.sha256(batch.begin).hexdigest(),
+        parsed = scalar_entity_changes(batch.begin, sha256=hashlib.sha256(batch.begin).hexdigest(),
             prior=base64.b64decode(batch.cursor_before, validate=True),
             next=base64.b64decode(batch.cursor_after, validate=True), feed=batch.feed)
         changes = parsed.changes
+        native_edge_orders = {(key,version):order for key,version,order in parsed.edge_order_keys}
         native_original = {}
         for raw in parsed.event_bytes:
             event = json.loads(raw)
@@ -65,6 +67,7 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
             else:
                 (a, b) = entity.endpoints
                 row.update(source_type=str(a.type_id), source_id=str(a.id), target_type=str(b.type_id), target_id=str(b.id))
+                if native_original is not None:row['order_key'] = native_edge_orders[(key,entity.version)]
             rows.append(row)
         insert(table, rows, dict(numeric, published_at='TIMESTAMP'))
     original = native_original if native_original is not None else {r.delivery_id: r.raw for r in batch.records}
