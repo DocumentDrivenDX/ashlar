@@ -90,3 +90,46 @@ class Tests(unittest.TestCase):
   self.assertEqual([args[0]for args in calls],['logs','stop','rm'])
   self.assertTrue(all(args[-1]==owner.container_id for args in calls))
   self.assertEqual(seen[0]['submission_outcome'],'unknown');self.assertEqual(seen[0]['stdout'],b'private server log')
+
+ def test_backend_readiness_closes_each_attempt_and_auth_fails_fast(self):
+  import sys,time
+  from types import ModuleType,SimpleNamespace
+  from unittest.mock import patch
+  owner,row=self.owner();owner.deadline=time.monotonic()+10
+  owner.config.username='selected';owner.config.password='private'
+  calls=[];checks=[];owner._container=lambda:checks.append('owned')
+  class ServiceUnavailable(Exception):pass
+  class SessionExpired(Exception):pass
+  class AuthError(Exception):pass
+  replies=iter((ServiceUnavailable('starting'),1,AuthError('refused')))
+  class Session:
+   def run(self,query):
+    calls.append(('query',query.text,query.timeout));value=next(replies)
+    if isinstance(value,BaseException):raise value
+    return [SimpleNamespace(data=lambda:{'ready':value})]
+   def close(self):calls.append(('session-close',))
+  class Driver:
+   def session(self):return Session()
+   def close(self):calls.append(('driver-close',))
+  def driver(uri,**kwargs):
+   self.assertTrue(0<kwargs['connection_timeout']<=5)
+   self.assertEqual(kwargs['connection_timeout'],kwargs['connection_acquisition_timeout'])
+   return Driver()
+  neo4j=ModuleType('neo4j');neo4j.GraphDatabase=SimpleNamespace(driver=driver)
+  neo4j.Query=lambda text,timeout:SimpleNamespace(text=text,timeout=timeout)
+  errors=ModuleType('neo4j.exceptions');errors.ServiceUnavailable=ServiceUnavailable;errors.SessionExpired=SessionExpired
+  with patch.dict(sys.modules,{'neo4j':neo4j,'neo4j.exceptions':errors}),patch('ashlar_host.puppy_finite_local.time.sleep'):
+   owner._wait_backend_ready()
+   self.assertEqual(checks,['owned'])
+   self.assertEqual([c[0]for c in calls],['query','session-close','driver-close']*2)
+   self.assertTrue(all(c[1]=='RETURN 1 AS ready' and 0<c[2]<=5 for c in calls if c[0]=='query'))
+   with self.assertRaises(AuthError):owner._wait_backend_ready()
+   self.assertEqual(checks,['owned']);self.assertEqual([c[0]for c in calls[-3:]],['query','session-close','driver-close'])
+   startup=ServiceUnavailable('starting');replies=iter((startup,1))
+   def broken_close(session):
+    calls.append(('session-close',));raise ServiceUnavailable('unclean close')
+   with patch.object(Session,'close',broken_close):
+    with self.assertRaises(ServiceUnavailable)as caught:owner._wait_backend_ready()
+   self.assertIs(caught.exception,startup)
+   self.assertEqual(checks,['owned']);self.assertEqual([c[0]for c in calls[-3:]],['query','session-close','driver-close'])
+   self.assertEqual(next(replies),1) # No new attempt after failed cleanup.

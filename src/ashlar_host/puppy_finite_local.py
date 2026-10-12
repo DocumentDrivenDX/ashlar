@@ -113,6 +113,45 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
                 if time.monotonic()>=self.deadline:raise TimeoutError('Owned engine readiness deadline elapsed')
                 self._container() # An exited/foreign engine fails immediately.
                 time.sleep(min(.2,max(0,self.deadline-time.monotonic())))
+    def _wait_backend_ready(self):
+        """Exercise the query backend before the single model submission."""
+        from neo4j import Query,GraphDatabase
+        from neo4j.exceptions import ServiceUnavailable,SessionExpired
+        while True:
+            remaining=self.deadline-time.monotonic()
+            if remaining<=0:raise TimeoutError('Owned backend readiness deadline elapsed')
+            driver=None;session=None;primary=None
+            try:
+                timeout=min(5,remaining)
+                driver=GraphDatabase.driver('bolt://127.0.0.1:'+str(self.config.bolt_port),auth=(self.config.username,self.config.password),connection_timeout=timeout,connection_acquisition_timeout=timeout)
+                session=driver.session()
+                remaining=self.deadline-time.monotonic()
+                if remaining<=0:raise TimeoutError('Owned backend readiness deadline elapsed')
+                rows=[]
+                for record in session.run(Query('RETURN 1 AS ready',timeout=min(5,remaining))):
+                    if time.monotonic()>=self.deadline:raise TimeoutError('Owned backend readiness deadline elapsed')
+                    if rows:raise ValueError('Exact backend readiness scalar required')
+                    rows.append(record.data())
+                if len(rows)!=1 or set(rows[0])!={'ready'} or type(rows[0]['ready'])is not int or rows[0]['ready']!=1:raise ValueError('Exact backend readiness scalar required')
+            except BaseException as error:primary=error
+            cleanup_failed=[]
+            def closing(callback):
+                def close():
+                    try:callback()
+                    except BaseException:
+                        cleanup_failed.append(True)
+                        raise
+                return close
+            try:
+                finish(primary,([closing(session.close)]if session is not None else [])+([closing(driver.close)]if driver is not None else []))
+            except (ServiceUnavailable,SessionExpired)as error:
+                if error is not primary or cleanup_failed:raise
+                if time.monotonic()>=self.deadline:raise TimeoutError('Owned backend readiness deadline elapsed')
+                self._container()
+                time.sleep(min(.2,max(0,self.deadline-time.monotonic())))
+                continue
+            if time.monotonic()>=self.deadline:raise TimeoutError('Owned backend readiness deadline elapsed')
+            return
     def renew(self):
         FiniteExportPreparationPolicy.renew(self)
         if self.closed:raise PermissionError('Owned engine interval closed')
@@ -180,6 +219,7 @@ def open_puppy_finite_local(config,case,*,source,export,failure_observer=None):
         owner._container_id=identifier;owner._docker(['start',identifier]);owner._container()
         owner.stage='startup'
         owner._wait_ready()
+        owner._wait_backend_ready()
         owner.stage='model-submission';owner.submission_outcome='unknown'
         outcome=owner._http('/schema?postUploadBehavior=none',owner.requested_bytes);owner._record('submission',outcome)
         if json.loads(outcome).get('ok')is not True:
