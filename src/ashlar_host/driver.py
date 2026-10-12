@@ -130,7 +130,16 @@ def progress_union(previous, checkpoint):
     if old is not None and (old['epoch'] != checkpoint['epoch'] or old['position'] != checkpoint['previous']):
         raise ValueError('Original contiguous source epoch/progress required')
     if old is None and checkpoint['previous'] != '0':
-        raise ValueError('Fresh source must begin at zero')
+        if checkpoint.get('profile')!='truss-native-feed/0.1':
+            raise ValueError('Fresh source must begin at zero')
+        import base64
+        from ashlar.schema import decode_retained_json
+        raw=base64.b64decode(checkpoint['previous'],validate=True)
+        cursor=decode_retained_json(raw)
+        if (base64.b64encode(raw).decode('ascii')!=checkpoint['previous'] or
+                cursor.get('profile')!='truss-caller-asserted-feed/0.1' or
+                cursor.get('sourceEpoch')!=checkpoint['epoch'] or cursor.get('nextXid')!='0'):
+            raise ValueError('Original native Truss genesis cursor required')
     result[checkpoint['feed']] = dict(checkpoint)
     return result
 
@@ -259,6 +268,7 @@ class ManifestPort:
 class NativeDriver:
 
     def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None, ack_sessions=None):
+        from .truss_feed_sessions import TrussFeedSessions
         self.transport = transport
         self.policy = policy
         self.context = context
@@ -275,7 +285,14 @@ class NativeDriver:
             raise PermissionError('Bounded explicit immutable source profile facts required')
         if facts['profile'] == 'ashlar-commerce-evolution-source-set/0.1' and source_sessions is None:
             raise PermissionError('Installed evolution requires explicit ordinary source sessions')
-        if source_sessions is not None and type(source_sessions) is not RegisteredOutboxSources:
+        truss=facts['profile']=='ashlar-truss-note-semantic-admission/0.1'
+        if truss:
+            if type(source_sessions)is not TrussFeedSessions or ack_sessions is not source_sessions:
+                raise PermissionError('Complete original Truss source and ACK session owner required')
+            native=source_sessions.metadata()
+            if (native['feed'],native['epoch'],native['page_sha256'])!=(facts['feed'],facts['epoch'],facts['source_transaction_sha256']):
+                raise PermissionError('Original Truss semantic and native page differs')
+        if source_sessions is not None and type(source_sessions) is not (TrussFeedSessions if truss else RegisteredOutboxSources):
             raise PermissionError('Explicit registered ordinary source session owner required')
         self.source_sessions = source_sessions
         self.original_source_sessions = None if source_sessions is None else encoded(source_sessions.metadata())
@@ -284,11 +301,11 @@ class NativeDriver:
             actual = {(item.scope.feed, item.scope.epoch) for item in source_sessions.registrations}
             if expected != actual:
                 raise PermissionError('Complete original semantic/native source inventory differs')
-        if ack_sessions is not None and type(ack_sessions) is not RegisteredOutboxAcks:
+        if ack_sessions is not None and type(ack_sessions) is not (TrussFeedSessions if truss else RegisteredOutboxAcks):
             raise PermissionError('Explicit registered ordinary protected ACK owner required')
         self.ack_sessions = ack_sessions
         self.original_ack_sessions = None if ack_sessions is None else encoded(ack_sessions.metadata())
-        if ack_sessions is not None:
+        if ack_sessions is not None and not truss:
             if source_sessions is None or (ack_sessions.metadata()['registrations'] !=
                                           source_sessions.metadata()['registrations']):
                 raise PermissionError('Complete original source/ACK registrations differ')

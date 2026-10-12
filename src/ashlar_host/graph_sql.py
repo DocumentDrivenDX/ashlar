@@ -16,7 +16,23 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     stamp = datetime.datetime.fromisoformat(materialized_at)
     if stamp.tzinfo is None or stamp.utcoffset() != datetime.timedelta(0):
         raise ValueError('Explicit UTC materialization metadata clock required')
-    changes = changes_from_batch(batch)
+    native_original = None
+    if batch.profile == 'truss-native-feed/0.1':
+        from ashlar.staging import batch_row
+        from ashlar.truss_native_feed import scalar_object_changes
+        batch_row(batch)
+        parsed = scalar_object_changes(batch.begin, sha256=hashlib.sha256(batch.begin).hexdigest(),
+            prior=base64.b64decode(batch.cursor_before, validate=True),
+            next=base64.b64decode(batch.cursor_after, validate=True), feed=batch.feed)
+        changes = parsed.changes
+        native_original = {}
+        for raw in parsed.event_bytes:
+            event = json.loads(raw)
+            native_original[event['xid'] + ':' + event['seq']] = raw
+        cursor = json.dumps({'profile': batch.profile, 'cursorBase64': batch.cursor_after}, separators=(',', ':'))
+    else:
+        changes = changes_from_batch(batch)
+        cursor = json.dumps({'profile': batch.profile, 'offset': batch.cursor_after}, separators=(',', ':'))
     after = plan_apply(prior, changes, schema_policy=schema_policy, schema_transition_policy=schema_transition_policy)
     fresh = [x for x in changes if (x.feed, x.epoch, x.delivery_id) not in prior.deliveries]
     steps = []
@@ -43,7 +59,7 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
             change = next((x for x in reversed(fresh) if x.state.key == key))
             identity = {'source_system': key.source, typed: key.type_id, 'id': key.id}
             row = {k: str(v) for (k, v) in identity.items()}
-            row.update(schema_revision=entity.schema_revision, entity_version=str(entity.version), props_json=entity.props_json, retained_json=entity.retained_json, source_feed=change.feed, source_epoch=change.epoch, source_cursor_json=json.dumps({'profile': batch.profile, 'offset': batch.cursor_after}, separators=(',', ':')), source_delivery_id=change.delivery_id, published_at=materialized_at, lookup_hash=hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest(), apply_batch_id=batch.batch_id)
+            row.update(schema_revision=entity.schema_revision, entity_version=str(entity.version), props_json=entity.props_json, retained_json=entity.retained_json, source_feed=change.feed, source_epoch=change.epoch, source_cursor_json=cursor, source_delivery_id=change.delivery_id, published_at=materialized_at, lookup_hash=hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest(), apply_batch_id=batch.batch_id)
             if kind == 'object':
                 row['logical_key_json'] = '[]'
             else:
@@ -51,9 +67,9 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
                 row.update(source_type=str(a.type_id), source_id=str(a.id), target_type=str(b.type_id), target_id=str(b.id))
             rows.append(row)
         insert(table, rows, dict(numeric, published_at='TIMESTAMP'))
-    original = {r.delivery_id: r for r in batch.records}
-    history = [{'feed': x.feed, 'epoch': x.epoch, 'delivery_id': x.delivery_id, 'digest': x.raw_digest, 'change_json': json.dumps(asdict(x), separators=(',', ':')), 'raw_base64': base64.b64encode(original[x.delivery_id].raw).decode()} for x in fresh]
+    original = native_original if native_original is not None else {r.delivery_id: r.raw for r in batch.records}
+    history = [{'feed': x.feed, 'epoch': x.epoch, 'delivery_id': x.delivery_id, 'digest': x.raw_digest, 'change_json': json.dumps(asdict(x), separators=(',', ':')), 'raw_base64': base64.b64encode(original[x.delivery_id]).decode()} for x in fresh]
     insert('whole_source_history', history, {})
-    deletes = [{'source_system': x.state.key.source, 'entity_kind': x.state.key.kind, 'type_id': str(x.state.key.type_id), 'id': str(x.state.key.id), 'entity_version': str(x.state.version), 'source_feed': x.feed, 'source_epoch': x.epoch, 'source_cursor_json': json.dumps({'profile': batch.profile, 'offset': batch.cursor_after}, separators=(',', ':')), 'source_delivery_id': x.delivery_id} for x in fresh if x.operation == 'delete']
+    deletes = [{'source_system': x.state.key.source, 'entity_kind': x.state.key.kind, 'type_id': str(x.state.key.type_id), 'id': str(x.state.key.id), 'entity_version': str(x.state.version), 'source_feed': x.feed, 'source_epoch': x.epoch, 'source_cursor_json': cursor, 'source_delivery_id': x.delivery_id} for x in fresh if x.operation == 'delete']
     insert('tombstone', deletes, numeric)
     return (after, steps)

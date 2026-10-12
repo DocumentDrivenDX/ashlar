@@ -406,3 +406,13 @@ Ashlar's create/replace/delete changes, using the true entity version. Property
 events require a corresponding full afterimage. Schema admission, durable Delta
 effects and descriptor-bound source ACK remain responsibilities of the consumer;
 these extraction and custody APIs alone do not perform that workflow.
+
+`TrussNoteAdmission(batch)` admits the Note's authored STRING fields against
+original accepted UMF bytes and actual catalog IDs. Native graph SQL planning
+retains lifecycle events in history and every property event in the complete
+staged page. `TrussFeedSessions` supplies ordinary source reads and source ACK
+to `NativeDriver`; use the same owner for both session ports. It resolves and
+pins the whole destination publication before the public Truss ACK and caller
+commit. Commit uncertainty uses a fresh read, without retrying the write.
+Re-admission of an already-acknowledged interval requires retained-interval read
+support; an advanced source cursor currently refuses that replay.
