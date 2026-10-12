@@ -16,6 +16,7 @@ import sys
 import stat
 import time
 from .lifecycle import finish
+from .fabric_runtime_file_scan import scan_runtime_files, file_facts
 
 CLI_ROOT=Path('/opt/homebrew/Cellar/azure-cli/2.90.0')
 PYTHON_ROOT=Path('/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14')
@@ -131,7 +132,7 @@ class FabricRuntimeCustody:
             cli=type(selection)is FabricCliRuntimeSelection
             self.roots=(CLI_ROOT,PYTHON_ROOT)if cli else(PYTHON_ROOT,)
             selected=NATIVE_DEPENDENCIES if cli else tuple(pair for pair in NATIVE_DEPENDENCIES if '/libsodium/'not in pair[1] and '/libyaml/'not in pair[1] and '/openssl@3/'not in pair[1])
-            self.extra=tuple(Path(target)for _,target in selected)+(CA_BUNDLE,)
+            self.extra=tuple(Path(target)for _,target in selected)+(CA_BUNDLE,Path(__file__).with_name('fabric_runtime_file_scan.py').resolve())
             self.links=tuple((Path(name),Path(target))for name,target in selected)+((CLI_PYTHON,HTTP_PYTHON),)if cli else tuple((Path(name),Path(target))for name,target in selected)
             self.command_prefix=(str(CLI_PYTHON),'-I','-B','-m','azure.cli')if cli else(str(HTTP_PYTHON),'-I','-S','-B')
             self.environment={'PATH':'/usr/bin:/bin','SSL_CERT_FILE':str(CA_BUNDLE),'REQUESTS_CA_BUNDLE':str(CA_BUNDLE),'__CF_USER_TEXT_ENCODING':'0x%X:0x0:0x0'%os.getuid()}
@@ -168,7 +169,7 @@ class FabricRuntimeCustody:
         host_identity=self.host_identity if original is None else original.host_identity
         deadline=time.monotonic()+scan_seconds
         if owner_deadline is not None:deadline=min(deadline,owner_deadline)
-        result=[];seen=set();total=0
+        result=[];seen=set();total=0;file_tasks=[]
         if kind is FabricCliRuntimeSelection:
             if _host_identity()!=host_identity:raise PermissionError('Original OS user directory changed')
             for path in _ambient_netrc_paths():
@@ -186,8 +187,8 @@ class FabricRuntimeCustody:
         for path,expected in links:
             link_chain(path)
             if path.resolve()!=expected:raise PermissionError('Selected native/venv link target differs')
-        for path,original in directories:
-            if _private(path,empty=path==extension_directory)!=original:raise PermissionError('Original configuration directory changed')
+        for path,directory_original in directories:
+            if _private(path,empty=path==extension_directory)!=directory_original:raise PermissionError('Original configuration directory changed')
         candidates=[]
         for root in roots:
             timed()
@@ -199,7 +200,9 @@ class FabricRuntimeCustody:
         candidates.extend(extra)
         if configuration is not None:
             result.append(('configuration-inventory',tuple((name,(configuration/name).exists())for name in ('config','clouds.config'))))
-        for path in sorted(set(candidates)):
+        selected_namespace=tuple(sorted(set(candidates)))
+        namespace_facts=tuple((path,facts(path.lstat()))for path in selected_namespace)
+        for path in selected_namespace:
             timed()
             info=path.lstat()
             if path.is_symlink():
@@ -212,9 +215,11 @@ class FabricRuntimeCustody:
             if str(path)in seen:continue
             seen.add(str(path));total+=info.st_size
             if len(result)>maximum_files or total>maximum_bytes:raise PermissionError('Runtime closure capacity exceeded')
+            if kind is not FabricInertCliRuntimeSelection:
+                file_tasks.append((path,facts(info)));continue
             digest=hashlib.sha256();count=0;fd=None;primary=None
             try:
-                fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW);before=os.fstat(fd)
+                fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK);before=os.fstat(fd)
                 while True:
                     timed();block=os.read(fd,min(65536,info.st_size-count+1))
                     if not block:break
@@ -227,6 +232,69 @@ class FabricRuntimeCustody:
                 result.append(('file',str(path),facts(info),digest.hexdigest()))
             except BaseException as error:primary=error
             finish(primary,[]if fd is None else[lambda fd=fd:os.close(fd)])
+        if kind is not FabricInertCliRuntimeSelection:
+            # Named trusted Ashlar worker bootstrap is distinct from completed
+            # credential runtime qualification. Verify every selected native
+            # fingerprint before invoking that bootstrap, within original end.
+            selected_files={str(path):expected for path,expected in file_tasks}
+            bootstrap_pins=tuple(pair for pair in NATIVE_PINS if pair[0]in selected_files)
+            expected_rows={}if original is None else {row[1]:row for row in original.original if row[0]=='file'}
+            for name,digest in bootstrap_pins:
+                path=Path(name);info=path.lstat();fd=None;primary=None;current=hashlib.sha256()
+                try:
+                    timed();fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+                    if facts(os.fstat(fd))!=selected_files[name]:raise PermissionError('Original bootstrap native file changed')
+                    count=0
+                    while True:
+                        timed();block=os.read(fd,65536)
+                        if not block:break
+                        count+=len(block);current.update(block)
+                        if count>selected_files[name][5]:raise PermissionError('Original bootstrap native file grew')
+                    if (count!=selected_files[name][5] or facts(os.fstat(fd))!=selected_files[name]
+                            or facts(path.lstat())!=selected_files[name] or current.hexdigest()!=digest):
+                        raise PermissionError('Selected trusted bootstrap native fingerprint differs')
+                except BaseException as error:primary=error
+                finish(primary,[]if fd is None else[lambda fd=fd:os.close(fd)])
+            worker=Path(__file__).with_name('fabric_runtime_file_scan.py').resolve()
+            if original is not None:
+                # Original lower resource correspondence gates execution, not a
+                # freshly supplied caller path/digest or prior permission cache.
+                row=expected_rows.get(str(worker))
+                if row is None or file_facts(worker.lstat())!=row[2]:raise PermissionError('Original scanner resource changed')
+                fd=None;primary=None;digest=hashlib.sha256()
+                try:
+                    timed();fd=os.open(worker,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+                    while True:
+                        timed();block=os.read(fd,65536)
+                        if not block:break
+                        digest.update(block)
+                    if (file_facts(os.fstat(fd))!=row[2] or file_facts(worker.lstat())!=row[2]
+                            or digest.hexdigest()!=row[3]):raise PermissionError('Original scanner resource bytes changed')
+                except BaseException as error:primary=error
+                finish(primary,[]if fd is None else[lambda fd=fd:os.close(fd)])
+            rows=scan_runtime_files(tuple(file_tasks),interpreter=HTTP_PYTHON,deadline=float(deadline),maximum_bytes=maximum_bytes)
+            result.extend(rows)
+            current_candidates=[]
+            for root in roots:
+                timed();current_candidates.append(root)
+                for path in root.rglob('*'):
+                    timed();current_candidates.append(path)
+                    if len(current_candidates)>maximum_files:raise PermissionError('Runtime inventory capacity exceeded')
+            current_candidates.extend(extra)
+            if tuple(sorted(set(current_candidates)))!=selected_namespace:
+                raise PermissionError('Original complete runtime namespace changed')
+            for path,expected in namespace_facts:
+                timed()
+                if facts(path.lstat())!=expected:raise PermissionError('Original runtime named inventory changed')
+            for path,expected in links:
+                timed()
+                if path.resolve()!=expected:raise PermissionError('Original selected native link changed')
+            for path,expected in directories:
+                timed()
+                if _private(path,empty=path==extension_directory)!=expected:raise PermissionError('Original private runtime directory changed')
+            # All selected rows are compared as a stable exact sorted inventory.
+            result.sort(key=repr)
+            if len(result)>maximum_files:raise PermissionError('Runtime inventory capacity exceeded')
         return tuple(result)
 
     def renew(self):

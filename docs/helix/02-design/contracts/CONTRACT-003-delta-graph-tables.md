@@ -723,6 +723,18 @@ subsets; they do not establish global architecture defaults or support evidence.
 Undeclared files, changed links or bytes, exceeded closure bounds and unavailable
 selected dependencies MUST refuse admission before credential execution.
 
+Complete file hashing MAY use four owned standard-library worker processes.
+The parent MUST retain namespace, link, provenance and native-dependency checks;
+worker hash results MUST NOT grant runtime admission. This limited pre-admission
+bootstrap assumes an operator-admitted Ashlar scanner resource, the named
+standard-library interpreter and its operating-system loader. Original scanner
+bytes and selected interpreter and native startup fingerprints MUST be checked
+before execution and independently renewed with the complete closure. Workers
+MUST share the original absolute deadline and file and byte limits. Private IPC
+MUST additionally refuse frames exceeding 64 KiB or aggregate output exceeding
+16 MiB. Every outcome MUST close pipes, terminate owned process groups and reap
+retained leaders before releasing results, preserving any primary failure.
+
 HTTP requests MUST use an owned worker with a private credential pipe; credentials
 MUST NOT enter arguments, environment or logs. A parent elapsed deadline and
 bounded output capture MUST govern the complete worker operation, including DNS

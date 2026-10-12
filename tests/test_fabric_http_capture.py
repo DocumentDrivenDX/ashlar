@@ -38,6 +38,16 @@ class NamedRuntimeControls(unittest.TestCase):
   stack.enter_context(patch.object(runtime,'_ambient_netrc_paths',return_value=(root/'.netrc',root/'_netrc')))
   stack.enter_context(patch.object(runtime.sys,'platform','darwin'));stack.enter_context(patch.object(runtime.platform,'machine',return_value='arm64'))
   for name,value in [('CLI_ROOT',cli),('PYTHON_ROOT',python),('CLI_PYTHON',logical),('HTTP_PYTHON',executable),('CA_BUNDLE',ca),('NATIVE_DEPENDENCIES',()),('NATIVE_PINS',()),('PROVENANCE_PINS',((str(entry),hashlib.sha256(entry.read_bytes()).hexdigest()),(str(ca),hashlib.sha256(ca.read_bytes()).hexdigest())))]:stack.enter_context(patch.object(runtime,name,value))
+  # The selected interpreter above is intentionally inert artifact data.
+  # Exercise the real lower scanner under the test interpreter, not a fake
+  # executable fallback in production. This supplies no genuine SDK authority.
+  from ashlar_host.fabric_runtime_file_scan import scan_runtime_files
+  test_interpreter=Path(sys.executable).resolve();self.file_tasks=[]
+  def scan(tasks,**kwargs):
+   self.file_tasks.extend(path for path,_ in tasks)
+   kwargs['interpreter']=test_interpreter
+   return scan_runtime_files(tasks,**kwargs)
+  stack.enter_context(patch.object(runtime,'scan_runtime_files',side_effect=scan))
   selection=runtime.FabricCliRuntimeSelection('homebrew-azure-cli-2.90.0-python-3.14.8',100,1048576,2,tmp,extensions)
   return runtime,selection,config,cli,python,logical,executable,ca
  def test_named_positive_owner_full_bytes_inventory_and_link_guards(self):
@@ -99,18 +109,15 @@ class NamedRuntimeControls(unittest.TestCase):
   (config/'config').write_text('[core]\n')
   owner=runtime.FabricRuntimeCustody(selection,configuration=config)
   foreign=config.parent/'foreign';foreign.mkdir();(foreign/'config').write_bytes(b'must not be read')
-  owner.configuration=foreign;seen=[];opened=runtime.os.open
-  def observe(path,*args,**kwargs):seen.append(Path(path));return opened(path,*args,**kwargs)
-  with patch.object(runtime.os,'open',side_effect=observe),self.assertRaises(PermissionError):owner.renew()
-  self.assertIn(config/'config',seen);self.assertIn(executable,seen);self.assertNotIn(foreign/'config',seen)
+  owner.configuration=foreign;self.file_tasks.clear()
+  with self.assertRaises(PermissionError):owner.renew()
+  self.assertIn(config/'config',self.file_tasks);self.assertIn(executable,self.file_tasks);self.assertNotIn(foreign/'config',self.file_tasks)
  def test_ordinary_mutable_credential_cache_is_not_frozen_or_read(self):
   from unittest.mock import patch
   runtime,selection,config,cli,python,logical,executable,ca=self.fixture()
   owner=runtime.FabricRuntimeCustody(selection,configuration=config);cache=config/'msal_token_cache.bin';cache.write_bytes(b'inert mutable tool cache')
-  seen=[];opened=runtime.os.open
-  def observe(path,*args,**kwargs):seen.append(Path(path));return opened(path,*args,**kwargs)
-  with patch.object(runtime.os,'open',side_effect=observe):owner.renew();cache.write_bytes(b'updated ordinary tool cache');owner.renew()
-  self.assertNotIn(cache,seen)
+  self.file_tasks.clear();owner.renew();cache.write_bytes(b'updated ordinary tool cache');owner.renew()
+  self.assertNotIn(cache,self.file_tasks)
  def test_http_closure_consumes_deadline_without_forwarding_credentials(self):
   from unittest.mock import patch
   import json
