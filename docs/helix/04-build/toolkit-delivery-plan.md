@@ -125,8 +125,12 @@ owners or restart live sessions on observation timeouts.
 
 ## Validation and landing
 
-Each behavior slice has focused positive and adversarial tests and independent
-expected results; native claims need actual native execution. Review before
+Prioritize runnable functionality. Each behavior slice needs basic happy-path
+coverage and a meaningful failure case where applicable. Add broader verification
+only for a demonstrated defect or a specific support claim; do not require
+exhaustive runtime inventories, repeated custody audits or proof archives for
+ordinary delivery. Reuse existing engine evidence and avoid retrying native runs
+without a diagnosed fix. Native claims still need actual native execution. Review before
 landing: a separate reviewer checks correctness, spec conformance and evidence
 scope. Fix findings and rerun affected checks. Run package/browser checks where
 applicable. Stage only owned reviewed files, commit to Ashlar main, push origin,
