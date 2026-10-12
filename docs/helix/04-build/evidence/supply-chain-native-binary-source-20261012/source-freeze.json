@@ -1,0 +1,61 @@
+{
+  "profile": "supply-chain-native-binary-evidence-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_binary_evidence.py",
+      "bytes": 10798,
+      "sha256": "ad80b5972e1ca5ccb4be59a30b2531e245f5158ecfc11fd576247d1ec12f3f68"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native.py",
+      "bytes": 23111,
+      "sha256": "bd4eeaa9b61b34706f9d2d3a1a026f9945d1722fc64ec35d0591cc5469a0d9fe"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native_cli.py",
+      "bytes": 6931,
+      "sha256": "7cf123aca5972f9882ab68c52ef0c2aa2cc0c9d11cc16e1280efbe058ceb4607"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_binary_evidence.py",
+      "bytes": 19733,
+      "sha256": "04ee260a84cdf71f14722b487aec01233ba5b3ee8c6f2053f7cd1df90568103a"
+    }
+  ],
+  "governedProfile": "ashlar-original-supply-chain-native-invocation/0.3",
+  "baseRevision": "0e9a2598b140df1fac2b64c1dfee874bfefb0dcf",
+  "api": {
+    "config": "SupplyChainNativeConfig.compiler_evidence_format optional None legacy; exact binary-protocol/0.1 only with nonnull two_hop",
+    "cli": "PROFILE_BINARY /0.3 requires same0.2 keys plus exact format literal;0.1/0.2 rejectnewfield",
+    "sink": "SupplyChainBinaryEvidence(output): retain known case/iteration originalbytes; require_complete/reference; independent close. Constructed internally, passed to private _queries only for0.3; FDs held until final outer cleanup before report.",
+    "index": "34 exact records; kind/ordinal/case/iteration; request+response relative name/length/SHA/8integer held identity.68exclusive binaryfiles+index.jsonl; flat exact69file namespace.",
+    "budget": "Each originalview<=1MiB; all originalpayload+actualindex<=8MiB. Fixed complete identity template reservation before acquiring pair.128bit identity gate before actual index encoding; no hex report reexpansion."
+  },
+  "checks": [
+    {
+      "command": "PYTHONPATH=src:tests python3 -S -B -W error::ResourceWarning -m unittest test_supply_chain_binary_evidence test_supply_chain_native_cli test_supply_chain_native_integration",
+      "tests": 31,
+      "seconds": 1.545,
+      "terminalExit": 0,
+      "session": 58907,
+      "reapedToolChunk": "370f3a",
+      "scope": "New12+legacy19 before final sink/test-only inode/dirfd/explicitordinal refinement; native/native_cli unchanged afterward."
+    },
+    {
+      "command": "PYTHONPATH=src:tests python3 -S -B -W error::ResourceWarning -m unittest test_supply_chain_binary_evidence",
+      "tests": 13,
+      "seconds": 2.56,
+      "terminalExit": 0,
+      "session": 27969,
+      "reapedToolChunk": "b5776c",
+      "scope": "Final exact affected sink/test bytes;13strict controls including public0.3 parser/profile and actual outer lifecycle/inert lower native ports."
+    }
+  ],
+  "moduleBoundaries": "PASS b5776c",
+  "diffCheck": "PASS b5776c",
+  "limitations": [
+    "No native, compiler, producer, SDK build/install or environment mutation.",
+    "File/strict config/lifecycle and inert original query port controls only; no actual 17query execution or aggregate fit qualification.",
+    "Legacy0.1/0.2 hex formats/caps/meaning unchanged; original0.2 partialfailure artifacts and SDK left untouched."
+  ]
+}

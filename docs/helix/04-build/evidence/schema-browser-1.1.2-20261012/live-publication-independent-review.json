@@ -1,0 +1,16 @@
+{
+  "verdict": "approved scoped deployment evidence",
+  "root_observation_sha256": "b573f232752329ea4e429b14097430c1502afb3b95e5dca2ea6bc32a5230765a",
+  "commit": "0e9a2598b140df1fac2b64c1dfee874bfefb0dcf",
+  "deploymentRun": 38196825407,
+  "independent_actual_read": {
+    "tool": "bede7b terminal0",
+    "run_status": "completed",
+    "run_conclusion": "success",
+    "run_head_sha": "0e9a2598b140df1fac2b64c1dfee874bfefb0dcf",
+    "public_provenance_status": 200,
+    "bytes": 21055,
+    "sha256": "38745a66de670f1b230b1c131cc90d09d5cebfec0c95f86ec68071eec81b876f"
+  },
+  "scope": "Four root-observed exact deployed files correspond to reviewed main. Reviewer independently verified run and one bounded public provenance GET. No independent repeat of otherthree GETs, wholedeployment/browser/native support claim. Sandboxnetworkfailure first attempt explicit; escalated readonly check succeeded."
+}

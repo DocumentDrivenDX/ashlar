@@ -4,7 +4,7 @@ Exclusive private local directories and actual POSIX leases govern this profile.
 This supplies no Unity Catalog, remote-source, Truss or protected ACK authority.
 SDKs remain lazy and tools are never imported into the installed library.
 """
-from contextlib import contextmanager
+from contextlib import contextmanager,nullcontext
 from dataclasses import dataclass
 import fcntl,hashlib,importlib.metadata,json,os,stat,sys
 from pathlib import Path
@@ -48,6 +48,7 @@ class SupplyChainNativeConfig:
     compiler:CountStarDistributionPaths
     operation_capacity:object=None
     two_hop:Optional['SupplyChainTwoHopQueryConfig']=None
+    compiler_evidence_format:Optional[str]=None
     def __post_init__(self):
         if any(type(p)is not type(Path('/'))or not p.is_absolute()or any(q.is_symlink()for q in (p,*p.parents))for p in (self.output,self.jars,self.pack,self.model,self.graph)):
             raise ValueError('Exact absolute finite native paths required')
@@ -67,6 +68,8 @@ class SupplyChainNativeConfig:
                     raise ValueError('Canonical existing Paths selections required')
                 if self.output==path or self.output in path.parents or path in self.output.parents:raise ValueError('Separate fresh native output required')
 
+        if self.compiler_evidence_format is not None and (type(self.compiler_evidence_format)is not str or self.compiler_evidence_format!='binary-protocol/0.1' or self.two_hop is None):
+            raise ValueError('Exact binary protocol profile with complete two-hop selection required')
         if any(any(c in str(p)for c in ('`',"'",'\\','\x00','\n','\r'))for p in (self.output,self.jars,self.pack,self.model,self.graph)):
             raise ValueError('Closed local native SQL path profile required')
         if self.producer.maximum_receipt_bytes<8*1024*1024:raise ValueError('Explicit whole original dataset8MiB receipt budget required')
@@ -147,14 +150,19 @@ def _schemas(config):
     raw=dict(installed_count_star_schema_bundle(config.compiler));selected={n:raw[n]for n in ('compile-request-v0.4.1.schema.json','compile-response-v0.4.1.schema.json','logical-plan-v0.4.1.schema.json')}
     return make_offline_count_star_schema_validation(selected)
 
-def _queries(config,driver,pack,aliases):
+def _queries(config,driver,pack,aliases,*,binary_sink=None):
+    if config.compiler_evidence_format is not None:
+        from .supply_chain_binary_evidence import SupplyChainBinaryEvidence
+        if type(binary_sink)is not SupplyChainBinaryEvidence or binary_sink.root!=config.output/'compiler-evidence':
+            raise ValueError('Actual owned binary protocol sink required')
+    elif binary_sink is not None:raise ValueError('Legacy protocol encoding must remain unchanged')
     from .supply_chain_compile import SupplyChainCompileConfig
     maximum=16*1024*1024
     execution=CountStarExecutionConfig(CountStarAdmissionConfig(maximum,_schemas(config)),PathCaptureConfig(128,maximum,maximum),PathDecodeConfig(maximum),finite_public_source(driver.source,maximum),UMF_REVISION)
     observed=0
     native_observed=0
     count_records=[];path_records=[]
-    with owned_context((config.output/'compiler-observations.jsonl').open('xb'))as log, owned_context((config.output/'native-observations.jsonl').open('xb'))as native_log:
+    with (nullcontext(None)if binary_sink is not None else owned_context((config.output/'compiler-observations.jsonl').open('xb')))as log, owned_context((config.output/'native-observations.jsonl').open('xb'))as native_log:
         def observe_native(name,captured):
             nonlocal native_observed
             body=report_body({'id':name,'captured':captured},64*1024*1024-native_observed)
@@ -163,6 +171,8 @@ def _queries(config,driver,pack,aliases):
         def retain_protocol(name,iteration,request,response):
             nonlocal observed
             if any(type(b)is not bytes or len(b)>1048576 for b in (request,response)):raise ValueError('Original finite compiler observation bound')
+            if binary_sink is not None:
+                binary_sink.retain(name,iteration,request,response);return
             raw=(json.dumps({'id':name,'iteration':iteration,'requestHex':request.hex(),'responseHex':response.hex()},separators=(',',':'))+'\n').encode();observed+=len(raw)
             if observed>8*1024*1024:raise ValueError('Complete finite compiler observation bound')
             if log.write(raw)!=len(raw):raise ValueError('Finite compiler record write refused')
@@ -184,7 +194,19 @@ def _queries(config,driver,pack,aliases):
                 or [q.get('ordinal')for q in two_hop['queries']]!=list(range(12))):
             raise ValueError('Complete original five plus twelve query evidence required')
         for query in two_hop['queries']:observe_native('two-hop-'+str(query['ordinal']),query['evidence'])
-        return {**authored,'two_hop':two_hop,'two_hop_queries':12}
+        answer={**authored,'two_hop':two_hop,'two_hop_queries':12}
+        if binary_sink is not None:
+            answer['compiler_evidence']=binary_sink.reference()
+            # The original bytes remain in the owned inventory, never reexpanded
+            # as report hex. Query/native/oracle values are not normalized.
+            queries=[]
+            for query in two_hop['queries']:
+                retained={k:v for k,v in query.items()if k not in ('requestBytes','responseBytes')}
+                retained['protocol_reference']={'index':answer['compiler_evidence']['index'],
+                    'case':'two-hop-'+str(query['ordinal']),'iterations':[0,1]}
+                queries.append(retained)
+            answer['two_hop']={**two_hop,'queries':queries}
+        return answer
 
 def _finish_report(config,result):
     body=report_body(result,64*1024*1024);_write(config.output/'report.json',body)
@@ -206,7 +228,7 @@ def publish_query_supply_chain_native(config,*,config_custody=None):
     supply_chain_cases(pack,snapshot(config.model,1024*1024),snapshot(config.graph,1024*1024))
     config.output.mkdir(mode=0o700);lease=PrivateFiniteLease(config.output,create=True)
     spark=None;transport=None;source=None;result=None;primary=None
-    count_bundle=None;path_bundle=None
+    count_bundle=None;path_bundle=None;binary_sink=None
     try:
         producer=HeldSupplyChainDataset(config.producer,config.model,config.graph,config.output/'public-dataset.json')
         source=FiniteSupplyChainSource(config.model,config.graph,current_dataset=producer)
@@ -239,11 +261,15 @@ def publish_query_supply_chain_native(config,*,config_custody=None):
         if config.two_hop is not None:
             count_bundle=dict(installed_count_star_schema_bundle(config.compiler))
             path_bundle=dict(paths_schema_owner(config.two_hop.distribution))
-        queried=_queries(config,reader,pack,aliases)
+        if config.compiler_evidence_format is not None:
+            from .supply_chain_binary_evidence import SupplyChainBinaryEvidence
+            binary_sink=SupplyChainBinaryEvidence(config.output)
+        queried=(_queries(config,reader,pack,aliases,binary_sink=binary_sink)if binary_sink is not None else _queries(config,reader,pack,aliases))
         result={'cases':queried['cases'],'manifest':dict(descriptor.raw),'source':source.metadata(),'producer':producer.metadata(),'exact_replay_unchanged':True,'reader_reopened_from_committed_phases':True,
             'qualification':'Fresh original finite immutable-file local Spark4/Delta4 publication and read-only reopened committed five-query execution after complete independent source bags/current lease holds. No PostgreSQL/outbox/protected ACK/UC/Truss/remote source authority.'}
         if config.two_hop is not None:
             result.update(two_hop=queried['two_hop'],two_hop_queries=12)
+            if binary_sink is not None:result['compiler_evidence']=queried['compiler_evidence']
             result['qualification']='Fresh original finite immutable-file local publication/replay/read-only restored five authored and twelve two-hop query evidence; all required outer closing completed before report. Other six common graph cases and protected ACK/Truss/cloud remain separate.'
     except BaseException as error:primary=error
     callbacks=[]
@@ -259,6 +285,7 @@ def publish_query_supply_chain_native(config,*,config_custody=None):
         if snapshot(config.pack,1048576)!=pack:raise ValueError('Closing original pack changed')
     callbacks.append(pack_closing)
     if config_custody is not None:callbacks.append(lambda:config_custody.renew(65536))
+    if binary_sink is not None:callbacks.append(binary_sink.close)
     finish(primary,callbacks)
     return _finish_report(config,result)
 

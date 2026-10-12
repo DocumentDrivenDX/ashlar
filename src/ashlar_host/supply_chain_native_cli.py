@@ -12,6 +12,7 @@ from .supply_chain_native import SupplyChainNativeConfig,publish_query_supply_ch
 
 PROFILE='ashlar-original-supply-chain-native-invocation/0.1'
 PROFILE_TWO_HOP='ashlar-original-supply-chain-native-invocation/0.2'
+PROFILE_BINARY='ashlar-original-supply-chain-native-invocation/0.3'
 CONFIG_LIMIT=65536
 
 def _closed(value,keys):
@@ -30,8 +31,10 @@ class SupplyChainNativeInvocation:
     def __post_init__(self):
         if type(self.native)is not SupplyChainNativeConfig:raise ValueError('Typed original supply-chain configuration required')
         self.native.__post_init__()
-        if type(self.profile)is not str or self.profile not in (PROFILE,PROFILE_TWO_HOP)or (self.profile==PROFILE)!=(self.native.two_hop is None):
+        if type(self.profile)is not str or self.profile not in (PROFILE,PROFILE_TWO_HOP,PROFILE_BINARY)or (self.profile==PROFILE)!=(self.native.two_hop is None):
             raise ValueError('Exact selected supply-chain invocation profile required')
+        if (self.profile==PROFILE_BINARY)!=(self.native.compiler_evidence_format is not None):
+            raise ValueError('Exact selected compiler evidence profile required')
         selected=self.native
         for path in (selected.jars,selected.pack,selected.model,selected.graph,selected.producer.source,selected.producer.bun,selected.producer.git,selected.compiler.index,selected.compiler.output):
             if selected.output==path or selected.output in path.parents or path in selected.output.parents:raise ValueError('Separate fresh native output required')
@@ -51,15 +54,18 @@ def parse_supply_chain_native_invocation(raw):
         return int(token)
     def refuse(token):raise ValueError('Exact invocation scalar required')
     value=json.loads(raw,object_pairs_hook=pairs,parse_int=integer,parse_float=refuse,parse_constant=refuse)
-    if type(value)is not dict or type(value.get('profile'))is not str or value['profile']not in (PROFILE,PROFILE_TWO_HOP):raise ValueError('Exact original supply-chain profile required')
+    if type(value)is not dict or type(value.get('profile'))is not str or value['profile']not in (PROFILE,PROFILE_TWO_HOP,PROFILE_BINARY):raise ValueError('Exact original supply-chain profile required')
     keys=('profile','output','jars','pack','model','graph','producer','compiler','operation_capacity')
-    _closed(value,keys+(('two_hop',)if value['profile']==PROFILE_TWO_HOP else()))
+    _closed(value,keys+(('two_hop',)if value['profile']!=PROFILE else())+(('compiler_evidence_format',)if value['profile']==PROFILE_BINARY else()))
+    evidence_format=value.get('compiler_evidence_format')
+    if value['profile']==PROFILE_BINARY and (type(evidence_format)is not str or evidence_format!='binary-protocol/0.1'):
+        raise ValueError('Explicit original binary protocol format required')
     producer=value['producer'];_closed(producer,('source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'))
     selected=SupplyChainProducerConfig(*(_path(producer[k])for k in ('source','bun','git')),*(producer[k]for k in ('timeout_seconds','maximum_output_bytes','maximum_receipt_bytes')))
     compiler=value['compiler'];_closed(compiler,('index','installation'))
     paths=CountStarDistributionPaths(_path(compiler['index']),_path(compiler['installation']))
     two_hop=None
-    if value['profile']==PROFILE_TWO_HOP:
+    if value['profile']!=PROFILE:
         from ashlar.weft_paths_distribution import PathsDistributionPaths
         from .supply_chain_two_hop_query import SupplyChainTwoHopQueryConfig
         q=value['two_hop'];_closed(q,('distribution','maximum_artifact_bytes','capture','decoder'))
@@ -67,7 +73,7 @@ def parse_supply_chain_native_invocation(raw):
         capture=q['capture'];_closed(capture,('maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes'))
         decoder=q['decoder'];_closed(decoder,('maximum_cell_bytes',))
         two_hop=SupplyChainTwoHopQueryConfig(PathsDistributionPaths(_path(distribution['index']),_path(distribution['installation'])),q['maximum_artifact_bytes'],PathCaptureConfig(*(capture[k]for k in ('maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes'))),PathDecodeConfig(decoder['maximum_cell_bytes']))
-    return SupplyChainNativeInvocation(SupplyChainNativeConfig(*(_path(value[k])for k in ('output','jars','pack','model','graph')),selected,paths,value['operation_capacity'],two_hop),value['profile'])
+    return SupplyChainNativeInvocation(SupplyChainNativeConfig(*(_path(value[k])for k in ('output','jars','pack','model','graph')),selected,paths,value['operation_capacity'],two_hop,evidence_format),value['profile'])
 
 def run_supply_chain_native_command(configuration):
     selected=InvocationFile.read(configuration,CONFIG_LIMIT)

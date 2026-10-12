@@ -1,0 +1,16 @@
+{
+  "scope": "Reviewed source and meaningful strict file/lifecycle/configuration controls for closed invocation0.3. Same1MiBviews/8MiBaggregate raw+index, same5+12 restored owner; legacy0.1/0.2 unchanged. No actual complete17query/native/aggregatefit claim yet.",
+  "artifacts": [
+    {
+      "path": "source-freeze.json",
+      "bytes": 3330,
+      "sha256": "2681b19a608ac185bfd27714a699bccb326c8c6fde4bb30fcc2b7cb1d9cdcff8"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 1925,
+      "sha256": "f5710cb75df2a0b46b135d01f778322ab775b5e11add7b211432c71be1aa7a45"
+    }
+  ],
+  "ci": "Existing Python3.9/3.12 supply-chain controls additionally execute test_supply_chain_binary_evidence."
+}

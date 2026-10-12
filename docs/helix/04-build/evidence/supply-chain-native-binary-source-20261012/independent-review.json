@@ -1,0 +1,30 @@
+{
+  "verdict": "approved frozen source and exact CI addition",
+  "source_freeze_sha256": "2681b19a608ac185bfd27714a699bccb326c8c6fde4bb30fcc2b7cb1d9cdcff8",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_binary_evidence.py",
+      "bytes": 10798,
+      "sha256": "ad80b5972e1ca5ccb4be59a30b2531e245f5158ecfc11fd576247d1ec12f3f68"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native.py",
+      "bytes": 23111,
+      "sha256": "bd4eeaa9b61b34706f9d2d3a1a026f9945d1722fc64ec35d0591cc5469a0d9fe"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native_cli.py",
+      "bytes": 6931,
+      "sha256": "7cf123aca5972f9882ab68c52ef0c2aa2cc0c9d11cc16e1280efbe058ceb4607"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_binary_evidence.py",
+      "bytes": 19733,
+      "sha256": "04ee260a84cdf71f14722b487aec01233ba5b3ee8c6f2053f7cd1df90568103a"
+    }
+  ],
+  "ci_sha256": "d000923e862e4be0763d4b8b3fcdd59e9e5ded16e73df09d373057e027bb0ef3",
+  "verification": "32 strict SDK-free controls PASS3.873s terminal373747/reaped; final13 plus19 legacy. Module boundary and scoped diffcheck pass.",
+  "review": "Exact finite34positions68files+index; byte1MiB each/raw+actualindex8MiB, conservative40character identity reservation before pair files, bounded128bit actualidentity check; exclusive dirfd acquisition/fd custody/originalcontent+namespace independently close after original outer guards; cancellation primary and allfd closes;0.1/0.2 closedparser legacyhex preserved;0.3 reports reference originalinventory without request/responsehex expansion. Inert lowerports/simplecarrier tests assert orchestration only, not nominal native authority.",
+  "qualification": "No native/producer/SDK/publiccompile or actualfull17/capacity fit support claim. Original partial C frozen untouched."
+}

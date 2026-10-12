@@ -1,0 +1,33 @@
+{
+  "profile": "ashlar-schema-browser-live-publication-check/0.1",
+  "commit": "0e9a2598b140df1fac2b64c1dfee874bfefb0dcf",
+  "version": "1.1.2",
+  "deploymentRun": 38196825407,
+  "checks": [
+    {
+      "path": "provenance.json",
+      "status": 200,
+      "bytes": 21055,
+      "sha256": "38745a66de670f1b230b1c131cc90d09d5cebfec0c95f86ec68071eec81b876f"
+    },
+    {
+      "path": "upstream/assets/explorer.js",
+      "status": 200,
+      "bytes": 99748,
+      "sha256": "7fb637fd72d5f26a1590d1b3e06c53d760f1e3ad8e34549ffb97978df571b274"
+    },
+    {
+      "path": "upstream/assets/explorer.css",
+      "status": 200,
+      "bytes": 16447,
+      "sha256": "5688d3926e748690013c8a61f30db326d05a869d18db6658469704077035f6e6"
+    },
+    {
+      "path": "upstream/assets/components.css",
+      "status": 200,
+      "bytes": 2980,
+      "sha256": "f176ccb05679841c777da384fc7a46203da57ebe0d987091766d9ded02d28c76"
+    }
+  ],
+  "scope": "Actual deployed provenance and three changed renderer/styles byte-identical to reviewed commit after successful existing Pages deployment. Not a complete independent live browser rerun."
+}

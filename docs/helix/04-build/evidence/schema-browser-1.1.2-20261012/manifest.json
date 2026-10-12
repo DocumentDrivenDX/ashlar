@@ -25,6 +25,16 @@
       "path": "screenshots.tar.gz",
       "bytes": 230075,
       "sha256": "b9feb655d1b5ebbad0d4df295c96986158af5776f870c0759de9f53a56352af9"
+    },
+    {
+      "path": "live-publication-check.json",
+      "bytes": 1123,
+      "sha256": "b573f232752329ea4e429b14097430c1502afb3b95e5dca2ea6bc32a5230765a"
+    },
+    {
+      "path": "live-publication-independent-review.json",
+      "bytes": 902,
+      "sha256": "c4536fead526e00f789f1fc5e8691f7eeffa6fb38527f01b12c8ae39596188a2"
     }
   ]
 }
