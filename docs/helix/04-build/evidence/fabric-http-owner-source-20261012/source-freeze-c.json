@@ -1,0 +1,58 @@
+{
+  "profile": "ashlar-fabric-http-source-freeze/0.3",
+  "files": [
+    {
+      "path": "src/ashlar_host/fabric_http_configuration.py",
+      "bytes": 3872,
+      "sha256": "0d238c29d98a4be50c759948a29a62e416259ed72ce5627fe95afce0a264455c"
+    },
+    {
+      "path": "src/ashlar_host/fabric_cli_runtime.py",
+      "bytes": 37091,
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "path": "src/ashlar_host/fabric_http.py",
+      "bytes": 24451,
+      "sha256": "cdb933f3480e3b725cc5cb1d4ac6356d87eda40f400170ed90f6dd45b44771b3"
+    },
+    {
+      "path": "tests/test_fabric_http_owner.py",
+      "bytes": 9549,
+      "sha256": "4d75622090763beec220918805794acc2ba674d90e67c476ef40008cd1da7fa8"
+    },
+    {
+      "path": "tests/test_fabric_http_capture.py",
+      "bytes": 10941,
+      "sha256": "2e798623d8413a8a2849ff4e4cbc156823a9364fb69f7761f2100c6957f99b3a"
+    }
+  ],
+  "prior_b_sha256": "ddd25431ff7adba2d8adb9d49a96974d703663eb56d15d28295d0ee65a599d3f",
+  "review_b_sha256": "f3d272cbd3797fbf4e3835841a6923f62e8d14ba915ada5c6f4ff208ee605d3d",
+  "checks": "22 strict small inert credential-process/socket/substituted-runtime controls PASS17.037s70321terminal0/reaped5e095b; same terminal moduleboundary/diff PASS. No new baseline exceptions or modulemanifest.",
+  "corrections": {
+    "FH-B1": "Recompute and check whole-owner remainder AFTER HTTP runtime closing and before constructing/forwarding credential payload or spawning; worker timeout capped by that current remainder. Adverse closureconsumesdeadline control proves zero payload/capture forwarding and classified no-submission refusal.",
+    "FH-B2": "Complete exact typed config-field snapshots plus private captured original config copy govern routes/capacities and original-account closing. Context-bound protected monotone accounting cannot reset/borrow. Runtime original anchor now captures configuration path/kind/extension resources; renew attempts guard AND independently scans original resources under finish even when mutable configuration/fields drift. Sameobject mutation, originalclosing and counter controls.",
+    "FH-B3": "Any supplied state/result operationID or Location must match original accepted operation/current state-or-result route; stateconflict/resultconflict/foreignresultlocation controls withhold definition.",
+    "FH-B4": "Bounded detached route-template/method/status/bytes/completeness/submission/failure diagnostics on actualrequest/preflight/worker/operation refusals; no body/header/credential/URLtoken error export. Diagnosticcapacity overflow explicit, no unbounded list or primaryfailure replacement."
+  },
+  "cache_scope": {
+    "source_pins": [
+      {
+        "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/_profile.py",
+        "sha256": "bbe0ae5e8a5d9fb29df7162ecbb042fe54b06ee78690dde829aa2e0f87c3a7a3"
+      },
+      {
+        "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/auth/identity.py",
+        "sha256": "2ca2951f9db5b8b0118609e46c0d0077d27748cbed14f35581d320f721b2bc0b"
+      },
+      {
+        "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/cloud.py",
+        "sha256": "d479f45dd5ca4f9509f754884a404cfe3b422d063ea6836506cada4660a25796"
+      }
+    ],
+    "facts": "2.90 get_raw_token selects subscription credential and acquire_token; MSAL token and HTTP caches remain tool-owned mutable files. No Ashlar implicit login/switch/refresh introduced. Runtime freezes selected startup config/cloud configuration, directory identity and genuine code resources, not all configdirectory contents/cache files. Cache bytes never directly read. Tiny cache mutation control passes and proves absence of cache reads; startup-config/current-account drift still refuses.",
+    "desired_clarification": "Existing ordinary provider/cache allowance is consistent. Optional explicit sentence may clarify that credentialprovider caches stay tool-owned mutable and outside content manifests while startup config/current account correspondence remain mandatory; no authority weakening needed."
+  },
+  "qualification": "Positive production owner source composition plus inert small controls only. No actual full SDKclosure scan, realaccount/token/cachecontents/API/TLS/P07/native operations. Genuine operator-trusted current Homebrew/Darwin/OS loader assumptions and no transientreversion proof remain as B. Sourceheld pending peerreview, no commit/staging/sharedSDK edits."
+}

@@ -1,0 +1,40 @@
+{
+  "verdict": "approved exactDfivefile slice and singleCIline",
+  "freeze_sha256": "fbe141495eced38bfa6365dc8a837346aa9446fead120db2b8efaada9bd05c01",
+  "files": [
+    {
+      "path": "src/ashlar_host/fabric_http_configuration.py",
+      "bytes": 3872,
+      "sha256": "0d238c29d98a4be50c759948a29a62e416259ed72ce5627fe95afce0a264455c"
+    },
+    {
+      "path": "src/ashlar_host/fabric_cli_runtime.py",
+      "bytes": 37091,
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "path": "src/ashlar_host/fabric_http.py",
+      "bytes": 25201,
+      "sha256": "ff82db794f62a71b8e51a6285eb4e0dddba65d7e92434fcbfa2db0736b0d951e"
+    },
+    {
+      "path": "tests/test_fabric_http_owner.py",
+      "bytes": 9549,
+      "sha256": "4d75622090763beec220918805794acc2ba674d90e67c476ef40008cd1da7fa8"
+    },
+    {
+      "path": "tests/test_fabric_http_capture.py",
+      "bytes": 14023,
+      "sha256": "93ca7757a2974d46e00632fbd61b096a559dda36f8eb4442cdda53a21112c3e8"
+    }
+  ],
+  "ci_sha256": "6b4855972b8830f7c3e983197d3912237789e63af805dea92b2f323f9d8ca90d",
+  "resolved": "FH-C1 absoluteend min(originalownerend,callstart+timeout) beforePopen, guardbeforespawn/postsetup/everyprivatewrite, authandHTTP originalend passed, unconditional retainedleaderkill/reap/fd cleanup. C otherthreepins unchanged and B1..4 resolutions retained.",
+  "independent_checks": [
+    "C22 strict actualinert/substitutedruntime/loopbackPASS18.865s715b1e",
+    "Dthree timingcontrols passed; nonvacuousdescendant control authorizedoutside-sandboxPASS0.530s6cbd2e",
+    "Affected6 default-sandbox run had5pass/descendantheartbeatmissing; repeatdefaultsame. Qualified as sandboxfixture limit, not suppressed or claimedpass.",
+    "Moduleboundary/scopeddiffpass; exactglobCI3.9/3.12correct"
+  ],
+  "qualification": "No genuinefullSDK scan/actualAzureCLIaccount/token/API/HTTPS/P07/nativeeffects. Ordinarycache provider meaning independentlycheckedinstalledsource only; no credentialcache contents read. Source/parentdeadlinecontrol verified, no independent hardpreemption/hosttransientmutation exclusion claimed."
+}

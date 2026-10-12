@@ -1,0 +1,48 @@
+{
+  "profile": "ashlar-fabric-http-source-freeze/0.4",
+  "files": [
+    {
+      "path": "src/ashlar_host/fabric_http_configuration.py",
+      "bytes": 3872,
+      "sha256": "0d238c29d98a4be50c759948a29a62e416259ed72ce5627fe95afce0a264455c"
+    },
+    {
+      "path": "src/ashlar_host/fabric_cli_runtime.py",
+      "bytes": 37091,
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "path": "src/ashlar_host/fabric_http.py",
+      "bytes": 25201,
+      "sha256": "ff82db794f62a71b8e51a6285eb4e0dddba65d7e92434fcbfa2db0736b0d951e"
+    },
+    {
+      "path": "tests/test_fabric_http_owner.py",
+      "bytes": 9549,
+      "sha256": "4d75622090763beec220918805794acc2ba674d90e67c476ef40008cd1da7fa8"
+    },
+    {
+      "path": "tests/test_fabric_http_capture.py",
+      "bytes": 14023,
+      "sha256": "93ca7757a2974d46e00632fbd61b096a559dda36f8eb4442cdda53a21112c3e8"
+    }
+  ],
+  "prior_c_sha256": "5a8949f3c54a21470fa48af279053219b0adf4a92a6e46bdf076951ca2a844dd",
+  "independent_review_c_sha256": "c8c6ddb9434242a952576bc105415d5b5946118c16cd9f8c45bb64d9c594e130",
+  "correction": "FH-C1 only: _capture requires original absolute whole-owner deadline. Fixed end=min(originalend, callstart+selectedtimeout) computed before Popen, rechecked before spawn and every private payload write, never reset by spawn/setup/select. Auth andHTTP both pass originalend; allfailure branches retain ownedgroupcleanup/reap and streams/FDclosing.",
+  "checks": [
+    {
+      "command": "PYTHONPATH=src:tests python3 -S -B -W error::ResourceWarning -m unittest test_fabric_http_capture.AbsoluteDeadlineControls",
+      "result": "3PASS0.159s; realinert auth/HTTP spawn/setup clock expiry and select-beforewrite expiry prove no payload files/forwarding, exact ownedhandles reaped."
+    },
+    {
+      "command": "PYTHONPATH=src:tests python3 -S -B -W error::ResourceWarning -m unittest test_fabric_http_owner test_fabric_http_capture",
+      "result": "25PASS35.441s Python3.9;78864terminal0/reaped5299bc; module/diffPASS samehandle"
+    },
+    {
+      "command": "PYTHONPATH=src:tests /Users/erik/.local/share/uv/python/cpython-3.12.15-macos-aarch64-none/bin/python3.12 -S -B -W error::ResourceWarning -m unittest test_fabric_http_owner test_fabric_http_capture",
+      "result": "25PASS11.092s Python3.12.15;70971terminal0/reaped43dbb2"
+    }
+  ],
+  "qualification": "Source/control validation only. No full SDKscan, actualAzureCLIaccount/token/auth/API/HTTPS/Fabric/P07/native effects, no sharedSDK changes. Reuses all unchangedCguards/currentauthority/platform/cache scope. Fivefilesheld, no staging/commit/CI edits."
+}

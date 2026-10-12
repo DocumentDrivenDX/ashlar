@@ -1,0 +1,43 @@
+{
+  "verdict": "one remaining absolute-deadline correction before approval",
+  "source_freeze_sha256": "5a8949f3c54a21470fa48af279053219b0adf4a92a6e46bdf076951ca2a844dd",
+  "files": [
+    {
+      "path": "src/ashlar_host/fabric_http_configuration.py",
+      "bytes": 3872,
+      "sha256": "0d238c29d98a4be50c759948a29a62e416259ed72ce5627fe95afce0a264455c"
+    },
+    {
+      "path": "src/ashlar_host/fabric_cli_runtime.py",
+      "bytes": 37091,
+      "sha256": "82b5d761f98ee12b4fdc9885857ed6d9814be432342a0ff905e71a664c4d4038"
+    },
+    {
+      "path": "src/ashlar_host/fabric_http.py",
+      "bytes": 24451,
+      "sha256": "cdb933f3480e3b725cc5cb1d4ac6356d87eda40f400170ed90f6dd45b44771b3"
+    },
+    {
+      "path": "tests/test_fabric_http_owner.py",
+      "bytes": 9549,
+      "sha256": "4d75622090763beec220918805794acc2ba674d90e67c476ef40008cd1da7fa8"
+    },
+    {
+      "path": "tests/test_fabric_http_capture.py",
+      "bytes": 10941,
+      "sha256": "2e798623d8413a8a2849ff4e4cbc156823a9364fb69f7761f2100c6957f99b3a"
+    }
+  ],
+  "resolved": [
+    "FH-B1 expensive HTTPclosure deadline recheck before constructing credentialpayload",
+    "FH-B2 exact typedoriginalconfigvalues/routes/caps/context-accounting/currentruntimeconfiguration and independently anchored originalscan/closing",
+    "FH-B3 conflicting any suppliedstate/result operationid/location refused",
+    "FH-B4 bounded detached secret-safe route/method/status/completeness/submission/failure diagnostics"
+  ],
+  "remaining": {
+    "id": "FH-C1",
+    "scope": "fabric_http.py _capture and both callsites",
+    "finding": "end=time.monotonic()+timeout assigned after Popen/pipe/selector setup resets parent remainder by setup duration. Pass originalabsolute wholeownerdeadline and derive min(call-start+timeout,originaldeadline) before Popen; recheck before writing privatepayload. Inert mocked spawnclockdelay test, no latepayload forwarding. Cleanup still unconditional; no hardpreemption claim."
+  },
+  "verification": "22 strict inert credential/subprocess/local-loopback/tiny substitutedruntime controls PASS18.865s terminal715b1e/reaped; moduleboundary/scopeddiffpass; exactCIglob3.9/3.12 unchanged; threeactual2.90sourcepins correspond cache/selectedcredential semantics. No credentialcache file read or actualSDK scan/auth/API/TLS/P07/native effects."
+}

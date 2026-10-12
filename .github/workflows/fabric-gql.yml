@@ -14,4 +14,5 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_gql.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_fabric_http*.py'
       - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_check_fabric_releases.py

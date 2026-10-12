@@ -1,0 +1,27 @@
+{
+  "scope": "Reviewed positive source implementation and bounded inert/socket/substituted-profile controls. Named CLI2.90/Python3.14.8 Homebrew and independent HTTP stdlib/TLS selections remain unqualified by actual complete SDK scan/authentication/cloud execution. No P07, immutable deployment or no-mixed-refresh pass claim.",
+  "artifacts": [
+    {
+      "path": "source-freeze-c.json",
+      "bytes": 4587,
+      "sha256": "5a8949f3c54a21470fa48af279053219b0adf4a92a6e46bdf076951ca2a844dd"
+    },
+    {
+      "path": "source-freeze-d.json",
+      "bytes": 2653,
+      "sha256": "fbe141495eced38bfa6365dc8a837346aa9446fead120db2b8efaada9bd05c01"
+    },
+    {
+      "path": "independent-review-c.json",
+      "bytes": 2338,
+      "sha256": "c8c6ddb9434242a952576bc105415d5b5946118c16cd9f8c45bb64d9c594e130"
+    },
+    {
+      "path": "independent-review-d.json",
+      "bytes": 2137,
+      "sha256": "e591f184c7e836e7a952c509afaf118418e621ee828208873ae3f8092ba4d8eb"
+    }
+  ],
+  "ci": "Existing Python3.9/3.12 Fabric reader workflow additionally executes strict test_fabric_http*.py controls.",
+  "platformAssumptions": "Operator-trusted named Homebrew installation, OS/process loader and named system frameworks, host isolation and no transient mutation exclusion from before/after checks."
+}
