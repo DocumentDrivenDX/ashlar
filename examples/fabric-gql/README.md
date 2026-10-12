@@ -440,7 +440,7 @@ After `export-original-commerce` succeeds, use its independently selected releas
 and custody hashes to create a notebook with the original pair embedded:
 
 ```sh
-PYTHONPATH=src python examples/fabric-gql/prepare-commerce-notebook.py \
+ashlar prepare-fabric-notebook \
   --release /absolute/export/release.graph.json \
   --custody /absolute/export/custody.json \
   --release-sha256 YOUR_SELECTED_RELEASE_SHA256 \

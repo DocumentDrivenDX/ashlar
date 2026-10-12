@@ -128,6 +128,9 @@ def main():
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
+    fabric_notebook=commands.add_parser('prepare-fabric-notebook',help='Generate a private runnable Fabric notebook from an explicitly selected export pair')
+    for option in ('release','custody','release-sha256','custody-sha256','nodes','edges','output','display-name'):
+        fabric_notebook.add_argument('--'+option,required=True)
     fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
     for option in ('nodes','edges','output'):
         fabric_definition.add_argument('--'+option,required=True)
@@ -217,6 +220,15 @@ def main():
         except Exception:
             print('ashlar commerce graph export refused',file=sys.stderr)
             raise SystemExit(2)from None
+        return
+    if args.command == 'prepare-fabric-notebook':
+        from pathlib import Path
+        from ashlar_host.local_graph_export import LocalGraphExportSelection
+        from ashlar_host.fabric_notebook import prepare_fabric_notebook
+        try:
+            output=prepare_fabric_notebook(LocalGraphExportSelection(Path(args.release),Path(args.custody),args.release_sha256,args.custody_sha256),args.nodes,args.edges,args.output,args.display_name)
+            print(json.dumps({'notebook':str(output),'scope':'Private local notebook only; no cloud operation or graph authority.'}))
+        except (ValueError,OSError)as error:parser.error(str(error))
         return
     if args.command == 'prepare-fabric-graph-definition':
         from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition

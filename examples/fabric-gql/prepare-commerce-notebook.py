@@ -1,76 +1,13 @@
-"""Prepare a local Fabric notebook from an explicitly selected export pair.
-
-The generated notebook contains the selected data. Keep it private and upload
-only to the intended workspace. This command does not contact any service.
-"""
+"""Compatibility wrapper; use installed ashlar prepare-fabric-notebook."""
 import argparse
-import base64
-import json
-import os
 from pathlib import Path
-from ashlar_host.local_graph_export import LocalGraphExportSelection, open_local_graph_export
-from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
-import tempfile
-
-SOURCE_COMMIT = '10e140e880bdfe21527f9d05be460c223998fd7c'
-
-def prepare(selection, nodes, edges, output, display_name):
-    output = Path(output)
-    if not output.is_absolute() or output.resolve() != output:
-        raise ValueError('Canonical absolute notebook output required')
-    if output.exists():
-        raise FileExistsError('Fresh notebook output required')
-    if output in (selection.release_path, selection.custody_path):
-        raise ValueError('Notebook must be separate from export files')
-    # Validate the actual mapping arguments locally, without opening Spark.
-    with tempfile.TemporaryDirectory() as work:
-        prepare_fabric_graph_definition(nodes, edges, Path(work).resolve() / 'definition', display_name=display_name)
-    with open_local_graph_export(selection) as session:
-        release = session.release.payload
-        custody = session.custody_bytes
-    code = '''import base64, tempfile
-from pathlib import Path
-from ashlar_host.local_graph_export import LocalGraphExportSelection, open_local_graph_export
-from ashlar_host.graph_release_delta import materialize_private_graph_release_delta
-from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
-root = Path(tempfile.mkdtemp(prefix='ashlar-commerce-')).resolve()
-'''
-    for name, raw in [('release.graph.json', release), ('custody.json', custody)]:
-        code += f'(root / {name!r}).write_bytes(base64.b64decode({base64.b64encode(raw).decode()!r}))\n'
-    code += f'''selection = LocalGraphExportSelection(root / 'release.graph.json', root / 'custody.json',
- {selection.release_sha256!r}, {selection.custody_sha256!r})
-NODES = {nodes!r}
-EDGES = {edges!r}
-with open_local_graph_export(selection) as session:
- receipt = materialize_private_graph_release_delta(spark,
-  session.release.payload, session.release.sha256,
-  custody_payload=session.custody_bytes, trusted_custody_sha256=session.custody_sha256,
-  source=session.source, node_path=NODES, edge_path=EDGES,
-  policy=session.policy, context=session.context)
-definition = prepare_fabric_graph_definition(NODES, EDGES, root / 'definition', display_name={display_name!r})
-print(receipt)
-print(definition)
-'''
-    compile(code, 'fabric-notebook-cell', 'exec')
-    def cell(kind, source):
-        value = {'cell_type': kind, 'metadata': {}, 'source': source.splitlines(keepends=True)}
-        if kind == 'code': value.update(execution_count=None, outputs=[])
-        return value
-    notebook = {'nbformat': 4, 'nbformat_minor': 5,
-        'metadata': {'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}},
-        'cells': [cell('markdown', '# Commerce export to Fabric\nAttach the intended lakehouse. Fresh destinations only. This notebook contains selected export data; keep it private. It materializes tables and prepares a model definition, but does not create/load a model or establish continued source availability.\n'),
-            cell('code', f'%pip install https://github.com/DocumentDrivenDX/ashlar/archive/{SOURCE_COMMIT}.zip\n'),
-            cell('code', code)]}
-    fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    with os.fdopen(fd, 'w', encoding='utf-8') as stream:
-        json.dump(notebook, stream, ensure_ascii=False)
-    return output
+from ashlar_host.local_graph_export import LocalGraphExportSelection
+from ashlar_host.fabric_notebook import prepare_fabric_notebook as prepare
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('release', 'custody', 'release-sha256', 'custody-sha256', 'nodes', 'edges', 'output', 'display-name'):
         parser.add_argument('--' + name, required=True)
     args = parser.parse_args()
-    result = prepare(LocalGraphExportSelection(Path(args.release), Path(args.custody), args.release_sha256, args.custody_sha256),
-        args.nodes, args.edges, args.output, args.display_name)
-    print(result)
+    print(prepare(LocalGraphExportSelection(Path(args.release),Path(args.custody),args.release_sha256,args.custody_sha256),
+                  args.nodes,args.edges,args.output,args.display_name))

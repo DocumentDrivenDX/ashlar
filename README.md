@@ -139,3 +139,6 @@ The owner selected Ashlar on 2026-10-03. Existing software uses include
 [ASHLAR imaging package](https://pypi.org/project/ashlar/).
 Repository naming does not establish package, domain, or trademark availability.
 See the [discovery input](docs/helix/00-discover/vision-input.md).
+
+`ashlar prepare-fabric-notebook` generates a private runnable notebook from your
+selected export pair; see the [Fabric notebook guide](examples/fabric-gql/README.md#generate-a-private-fabric-notebook).
