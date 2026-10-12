@@ -30,6 +30,10 @@ For local Delta ingest and Weft queries, follow the
 `ashlar configure-supply-chain-native` generates the configuration consumed by
 `ashlar run-supply-chain-native`.
 
+Use [the Fabric GQL guide](examples/fabric-gql/README.md) to run
+`ashlar query-fabric-gql` with an explicitly selected HTTP and graph-release
+provider.
+
 Build a candidate transaction from the original commerce domain-pack inputs:
 
 ```sh

@@ -122,6 +122,9 @@ def main():
         supply_configuration.add_argument('--'+option,required=True)
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
+    fabric=commands.add_parser('query-fabric-gql',help='Query an explicitly admitted Fabric graph through a trusted operator provider')
+    for option in ('configuration','provider','provider-sha256'):
+        fabric.add_argument('--'+option,required=True)
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
     for option in ('configuration', 'provider', 'provider-sha256'):
         graphframes.add_argument('--' + option, required=True)
@@ -185,6 +188,15 @@ def main():
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar original supply-chain native operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-fabric-gql':
+        from ashlar_host.fabric_gql_cli import run_fabric_gql_command
+        try:
+            answer=run_fabric_gql_command(args.configuration,args.provider,args.provider_sha256)
+            print(json.dumps(answer,ensure_ascii=False,separators=(',',':'),allow_nan=False))
+        except Exception:
+            print('ashlar Fabric GQL operation refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-graphframes':
