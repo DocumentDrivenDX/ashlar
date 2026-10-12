@@ -1,0 +1,27 @@
+{
+  "profile": "ashlar-held-medical-dataset-witness-design/0.1",
+  "decision": "Propose smallest first slice only, no source implementation",
+  "supersedes_first_slice": "Stage1 larger metadata-thaw design is deferred; retain existing metadata decode and all MedicalAdmission double producer renewals / MedicalPublicationPlan rebuilds unchanged.",
+  "constructor": "After actual producer result and complete existing verify_medical_revalidation success, create exact constructor-owned immutable witness binding three exact original bytes, actual complete result bytes, source/script/runtime selected identity and original descriptor/config correspondence. It is pure semantic evidence, never source/native/ACK authority.",
+  "renew": "Execute existing _pin and _inputs and bounded result_file.read every time, including independent closing under finish. Check exact nominal/type/owner identity and all original bytes against witness. Only skip repeated verify_medical_revalidation when complete current typed bytes and selected witness identity still match. Verify cannot be skipped by mutating self.raw and self.originals together; both must independently equal constructor witness. No stat-only/hash-only gate.",
+  "keep_unchanged": [
+    "Current complete source HEAD/status checks",
+    "Full bounded inputs/script/result bytes and file/parent identity checks",
+    "Producer callback ownership and MedicalAdmission call sequencing",
+    "metadata decode_medical complete current emitted result projection",
+    "Plan36 rebuilds",
+    "Native/journal/source/ACK current gates",
+    "Error and cancellation closing precedence"
+  ],
+  "tests": [
+    "Complete constructor verify exactly once plus repeated renew all actualbyte/currentpin checks",
+    "Same-size changed raw/input bytes despite unchanged timestamps reject",
+    "Mutate self.raw/self.originals together with current file bytes reject against witness",
+    "Equal replacement witness/producer/config/script descriptor identity refuse where selected original identity required",
+    "Subclass/Boolean-numeric equality attempts reject before overload",
+    "Input/result/script/parent/inode/link drift refuse",
+    "Complete unknown/residual/provenance/decimal lexical bytes preserved through existing evidence/metadata",
+    "Cancellation or one closing refusal still attempts independent remaining checks and preserves primary"
+  ],
+  "qualification": "116 metadata calls in one SDK-free fixture justify removing repeated pure verification; no native timing/bottleneck claim. Actual positive producer and full native recovery remain independently required."
+}

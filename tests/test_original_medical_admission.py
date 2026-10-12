@@ -12,7 +12,7 @@ from unittest.mock import patch
 from ashlar.medical_source import build_transaction,UMF_PIN
 from ashlar.whole_entity import changes_from_batch
 from ashlar_host.config import ProducerConfig
-from ashlar_host.medical_producer import HeldMedicalDataset,MedicalFile,verify_medical_revalidation,same_medical_json
+from ashlar_host.medical_producer import HeldMedicalDataset,MedicalFile,verify_medical_revalidation,same_medical_json,decode_medical
 from ashlar_host.original_medical_publication import MedicalAdmission,MedicalAdmissionEvidence,original_medical_oracle
 from ashlar_host.schema_rows import fixture_columns
 from ashlar_host.resources import RESOURCE_ROOT
@@ -189,5 +189,96 @@ class MedicalAdmissionTests(unittest.TestCase):
         with self.assertRaises(ValueError):original_medical_oracle(self.model,self.graph,changed,feed=self.batch.feed,epoch=self.batch.epoch,batch_id=self.batch.batch_id,materialized_at='2026-10-09T12:00:00+00:00',columns=self.columns)
         with self.assertRaises(ValueError):original_medical_oracle(self.model,self.graph,self.bindings,feed=self.batch.feed,epoch=self.batch.epoch,batch_id=self.batch.batch_id,materialized_at='2026-10-09T12:00:00',columns=self.columns)
         with self.assertRaises(ValueError):original_medical_oracle(self.model+b' ',self.graph,self.bindings,feed=self.batch.feed,epoch=self.batch.epoch,batch_id=self.batch.batch_id,materialized_at='2026-10-09T12:00:00+00:00',columns=self.columns)
+
+    def test_immutable_witness_verifies_once_but_keeps_all_current_renewals(self):
+        with patch('ashlar_host.medical_producer.verify_medical_revalidation', wraps=verify_medical_revalidation) as verify:
+            held=self.held();self.assertEqual(verify.call_count,1)
+            initial=len(self.calls)
+            with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):
+                for _ in range(3):held.renew()
+                metadata=held.metadata()
+            self.assertEqual(verify.call_count,1)
+            self.assertEqual(len(self.calls)-initial,8)
+            self.assertEqual(metadata['actual_revalidation']['receipt'],json.loads(held.raw)['receipt'])
+            with self.assertRaises(AttributeError):held._semantic_witness=held._semantic_witness
+            with self.assertRaises(AttributeError):del held._semantic_witness
+
+    def test_changed_result_and_tracked_bytes_cannot_reanchor_witness(self):
+        held=self.held();old=held.raw;changed=old.replace(b'supplied-dataset-only',b'supplied-dataset-fake',1)
+        self.assertEqual(len(changed),len(old));held.output.write_bytes(changed);held.raw=changed
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+
+    def test_changed_inputs_and_tracked_bytes_cannot_reanchor_witness(self):
+        held=self.held();old=held.originals;changed=old[0].replace(b'0.8.0',b'0.8.1',1)
+        self.assertNotEqual(changed,old[0]);self.paths[0].write_bytes(changed);held.originals=(changed,*old[1:])
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+
+    def test_equal_replacement_descriptor_config_and_overloaded_values_refuse(self):
+        held=self.held()
+        changes=[('config',replace(held.config)),('script',replace(held.script)),('result_file',replace(held.result_file))]
+        class Borrowed(bytes):
+            def __eq__(self,other):raise AssertionError('Overloaded equality forbidden')
+        changes.append(('raw',Borrowed(held.raw)))
+        for name,value in changes:
+            original=getattr(held,name);setattr(held,name,value)
+            with self.subTest(name=name),patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+            setattr(held,name,original)
+        object.__setattr__(held.config,'timeout_seconds',True)
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+
+    def test_witness_preserves_complete_unknown_and_decimal_lexical_bytes(self):
+        held=self.held();original=held.raw
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):
+            meta=held.metadata();returned=held(*held.originals)
+        self.assertEqual(returned,original)
+        self.assertTrue(same_medical_json(meta['actual_revalidation'],decode_medical(original)))
+        meta['actual_revalidation']['receipt']['residuals']=[]
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):
+            self.assertEqual(held(*held.originals),original)
+            self.assertTrue(same_medical_json(held.metadata()['actual_revalidation'],decode_medical(original)))
+
+    def test_descriptor_mutation_never_redirects_closing_reads(self):
+        held=self.held();original=held.files[0].path
+        object.__setattr__(held.files[0],'path',self.root/'foreign-unopened')
+        reads=[];read=MedicalFile.read
+        def capture(file):reads.append(file.path);return read(file)
+        with patch.object(MedicalFile,'read',capture),patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+        self.assertNotIn(self.root/'foreign-unopened',reads)
+        self.assertEqual(reads,list(self.paths[1:])+[RESOURCE_ROOT/'check_medical_dataset.ts',held.output])
+        object.__setattr__(held.files[0],'path',original)
+
+    def test_unrelated_witness_drift_still_reads_original_result_independently(self):
+        held=self.held();reads=[];read=MedicalFile.read;original=held.result_file
+        (self.root/'foreign-unopened').write_bytes(b'not original result')
+        held.result_file=replace(original,path=self.root/'foreign-unopened')
+        def observed(file):reads.append(file.path);return read(file)
+        with patch.object(MedicalFile,'read',observed),patch('ashlar_host.medical_producer.capture',side_effect=self.capture),self.assertRaises(PermissionError):held.renew()
+        self.assertEqual(reads,list(self.paths)+[RESOURCE_ROOT/'check_medical_dataset.ts',held.output])
+        self.assertNotIn(self.root/'foreign-unopened',reads)
+
+    def test_witness_drift_still_checks_original_head_and_status_without_redirect(self):
+        held=self.held();original_cfg=held.config;held.raw=b'changed current tracked receipt'
+        held.config=replace(held.config,source=self.root/'foreign-source',git=self.root/'foreign-git')
+        held.environment={'PATH':'/foreign','HOME':'/foreign'};held.output=self.root/'foreign-output'
+        calls=[]
+        def captured(argv,**kwargs):
+            calls.append((argv,kwargs))
+            self.assertEqual(argv[0],str(original_cfg.git));self.assertEqual(argv[2],str(original_cfg.source))
+            self.assertEqual(kwargs['cwd'],self.root);self.assertEqual(kwargs['environment']['PATH'],'/usr/bin:/bin')
+            self.assertNotIn('HOME',kwargs['environment'])
+            return ((UMF_PIN+'\n').encode()if argv[-1]=='HEAD'else b''),b''
+        with patch('ashlar_host.medical_producer.capture',side_effect=captured),self.assertRaises(PermissionError):held.renew()
+        self.assertEqual([argv[-1]for argv,_ in calls],['HEAD','--porcelain'])
+
+    def test_original_pin_cancellation_preserves_primary_and_attempts_status_and_closes(self):
+        held=self.held();primary=KeyboardInterrupt('original HEAD cancellation');calls=[];reads=[];read=MedicalFile.read
+        def captured(argv,**kwargs):
+            calls.append(argv[-1])
+            if argv[-1]=='HEAD':raise primary
+            return b'',b''
+        def observed(file):reads.append(file.path);return read(file)
+        with patch('ashlar_host.medical_producer.capture',side_effect=captured),patch.object(MedicalFile,'read',observed),self.assertRaises(KeyboardInterrupt)as caught:held.renew()
+        self.assertIs(caught.exception,primary);self.assertEqual(calls,['HEAD','--porcelain'])
+        self.assertEqual(reads,list(self.paths)+[RESOURCE_ROOT/'check_medical_dataset.ts',held.output])
 
 if __name__=='__main__':unittest.main()

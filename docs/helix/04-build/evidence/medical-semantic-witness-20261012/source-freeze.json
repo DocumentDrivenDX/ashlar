@@ -1,0 +1,27 @@
+{
+  "profile": "ashlar-held-medical-witness-source-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar_host/medical_producer.py",
+      "bytes": 17129,
+      "sha256": "6c02bdc6ff5136520fa5d1e861a7379282617bc84e32e287fd5a3fbd0172cfc1"
+    },
+    {
+      "path": "tests/test_original_medical_admission.py",
+      "bytes": 23210,
+      "sha256": "820be70dc478d664d019bd9b764727073c1fee6cb4e3460aa55f80880ae6aebd"
+    }
+  ],
+  "actual_checks": {
+    "tests": 30,
+    "seconds": 4.15,
+    "terminal": "bbda86",
+    "command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_admission",
+    "exit": 0,
+    "boundary_scan": "pass",
+    "owned_diff_check": "pass"
+  },
+  "scope": "Skip only repeated verify_medical_revalidation in HeldMedicalDataset.renew after constructor complete semantic validation and exact witness gates; full current bounded input/result/script/file/parent/runtime checks, metadata decode, producer callbacks and plan/native/source/ACK gates remain.",
+  "corrections": "Preserve independent input closing after witness failure using original anchored descriptors/bytes; each descriptor exact snapshot checked before read prevents redirected paths. Immutable witness normal setattr/delattr blocked; arbitrary process-memory/object.__setattr__ witness forgery is not isolation proof. Root closing finding corrected: independent result callback uses immutable original nominal descriptor, gates original descriptor signature before reading, then checks current witness fields. A replaced current result_file cannot prevent original result closing or redirect to forged path. Existing result/read cancellation precedence retained. One new negative test originally omitted creating inert foreign descriptor fixture; corrected before final28pass. Independent original producer closing corrected: constructor-owned literal source/git/cwd/revision/environment/limits retained separately from mutable configuration reference. _pin uses these anchors and finish independently attempts witness guard, original HEAD and original status checks despite unrelated raw/config drift or cancellation. Current config/environment/output cannot redirect either original check; primary cancellation and remaining input/script/result closes tested.",
+  "qualification": "SDK-free inert producer controls only, no actual publicproducer/native performance/recovery qualification. Construction validator exactly once and repeated currentGit checks tested; no native retry/SDKeffects."
+}

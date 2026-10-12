@@ -1,0 +1,37 @@
+{
+  "profile": "ashlar-held-medical-witness-inert-preflight-counts/0.1",
+  "fixture": "test_medical_recovery_preflight.Tests.fixture(partial=True) and unchanged Tests.call",
+  "counts": {
+    "verify": 1,
+    "plan_renew": 36,
+    "plan_build": 36
+  },
+  "verify_stages": [
+    "construction"
+  ],
+  "counts_before_preflight": {
+    "verify": 1,
+    "plan_renew": 0,
+    "plan_build": 0
+  },
+  "facts": {
+    "journal_unchanged": true,
+    "ordinary_connections": 9,
+    "ordinary_connections_closed": true,
+    "snapshot_calls": 20,
+    "selected_ordinals": 3,
+    "policy_type": "SimpleNamespace"
+  },
+  "elapsed_seconds_observation_only": 6.422013084,
+  "source_sha256": {
+    "src/ashlar_host/medical_producer.py": "fb0db4e28e8b0c8918e783167aa7a82302d2a3c9744ef1218c197694b7629a37",
+    "tests/test_original_medical_admission.py": "85d9f4876024592e62032048d1bbf1bb26d3b7a38d00d90c92a61a9e3893609b",
+    "src/ashlar_host/medical_publication_plan.py": "a4f9b8e29a7722fd9043ad2d2deca716c6e6148239c3a152f4f6b24269ceff8a",
+    "tests/test_medical_recovery_preflight.py": "c88788098d5da1d11d4256d98720e7155749cc404ac3f15e927c0d8a441cd6bd"
+  },
+  "script_sha256": "9f5a2fbe2c628632b96e0db6c26f93921ee26a579cefefed3c09f8c01acf5d13",
+  "qualification": "One SDK-free exact existing positive partial preflight with explicit inert native/ordinary SQL ports. Existing plan36builds/renewals retained; renewed semantic verification omitted only under constructor witness correspondence. No actual producer/native recovery, performance latency qualification or policy.renew measurement.",
+  "verify_count_scope": "Calls through medical_producer.verify_medical_revalidation only; separate original_medical_publication imported constructor validation remains unchanged and is not included in this count.",
+  "terminal": "6ca77e",
+  "handles_terminal": true
+}

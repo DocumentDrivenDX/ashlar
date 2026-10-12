@@ -84,9 +84,69 @@ def verify_medical_revalidation(model,graph,baseline,observed):
     return actual
 
 
+@dataclass(frozen=True)
+class _MedicalSemanticWitness:
+    """Complete constructor correspondence, never current runtime authority."""
+    owner: object
+    config: ProducerConfig
+    files: tuple
+    script: MedicalFile
+    result_file: MedicalFile
+    signature: tuple
+    result_bytes: bytes
+    input_bytes: tuple
+    script_bytes: bytes
+    pin_arguments: tuple
+    pin_environment: tuple
+    pin_limits: tuple
+
+
+def _medical_descriptor_signature(f):
+    path_type = type(Path('/'))
+    if (type(f) is not MedicalFile or type(f.path) is not path_type
+            or type(f.maximum) is not int or type(f.size) is not int
+            or type(f.identity) is not tuple or len(f.identity) != 4
+            or any(type(n) is not int for n in f.identity)):
+        raise PermissionError('Exact medical witness descriptor required')
+    return (f.path, f.maximum, f.size, f.identity)
+
+
+def _medical_witness_signature(owner):
+    """Exact immutable values only; no overloaded equality or parsed meaning."""
+    path_type = type(Path('/'))
+    if type(owner.config) is not ProducerConfig or type(owner.files) is not tuple or len(owner.files) != 3:
+        raise PermissionError('Original medical witness owner/configuration differs')
+    cfg = owner.config
+    paths = (cfg.source, cfg.bun, cfg.git, owner.output)
+    numbers = (cfg.timeout_seconds, cfg.maximum_output_bytes, cfg.maximum_receipt_bytes)
+    if any(type(p) is not path_type for p in paths) or any(type(n) is not int for n in numbers):
+        raise PermissionError('Exact medical witness configuration carriers required')
+    if (type(owner.originals) is not tuple or len(owner.originals) != 3
+            or any(type(raw) is not bytes for raw in owner.originals)
+            or any(type(raw) is not bytes for raw in (owner.raw, owner.script_bytes, owner.stdout, owner.stderr))
+            or type(owner.parent_identity) is not tuple or len(owner.parent_identity) != 4
+            or any(type(n) is not int for n in owner.parent_identity)
+            or type(owner.environment) is not dict or len(owner.environment) != 9
+            or any(type(k) is not str or type(v) is not str for k,v in owner.environment.items())):
+        raise PermissionError('Exact complete medical witness bytes and environment required')
+    return (paths, numbers, tuple(_medical_descriptor_signature(f) for f in owner.files),
+            _medical_descriptor_signature(owner.script), _medical_descriptor_signature(owner.result_file), owner.parent_identity,
+            tuple(sorted(owner.environment.items())), owner.originals,
+            owner.raw, owner.script_bytes, owner.stdout, owner.stderr)
+
+
 class HeldMedicalDataset:
     """One actual public call; subsequent renewals retain exact original evidence."""
+    def __setattr__(self,name,value):
+        if name == '_semantic_witness' and hasattr(self,name):
+            raise AttributeError('Original medical semantic witness is immutable')
+        object.__setattr__(self,name,value)
+    def __delattr__(self,name):
+        if name == '_semantic_witness':
+            raise AttributeError('Original medical semantic witness is immutable')
+        object.__delattr__(self,name)
     def __init__(self,config,model,graph,baseline,output):
+        if type(self) is not HeldMedicalDataset:raise ValueError('Exact selected medical producer owner required')
         if type(config)is not ProducerConfig:raise ValueError('Exact public producer config required')
         config.__post_init__();self.config=config
         self.files=tuple(MedicalFile(p,4194304)for p in (model,graph,baseline))
@@ -105,24 +165,72 @@ class HeldMedicalDataset:
             self.stdout,self.stderr=capture([str(config.bun),str(self.script.path),str(config.source),str(output),str(model),str(graph),str(baseline),str(config.git)],cwd=output.parent,environment=self.environment,timeout_seconds=config.timeout_seconds,maximum_output_bytes=config.maximum_output_bytes)
             self.result_file=MedicalFile(output,config.maximum_receipt_bytes);self.raw=self.result_file.read()
             verify_medical_revalidation(*self.originals,self.raw)
+            self._semantic_witness = _MedicalSemanticWitness(self, self.config, self.files,
+                self.script, self.result_file, _medical_witness_signature(self), self.raw, self.originals, self.script_bytes,
+                (str(config.source), str(config.git), str(output.parent), UMF_PIN),
+                tuple(sorted(self.environment.items())), (config.timeout_seconds, config.maximum_output_bytes))
         except BaseException as error:primary=error
         finish(primary,[self._pin,self._inputs])
+    def _require_witness(self):
+        current = _medical_witness_signature(self)
+        witness = self._semantic_witness
+        if (type(self) is not HeldMedicalDataset or type(witness) is not _MedicalSemanticWitness
+                or witness.owner is not self or witness.config is not self.config
+                or any(a is not b for a,b in zip(witness.files,self.files))
+                or witness.script is not self.script or witness.result_file is not self.result_file
+                or current != witness.signature):
+            raise PermissionError('Original complete medical semantic witness differs')
     def _pin(self):
-        for args,expected in ((['rev-parse','HEAD'],UMF_PIN),(['status','--porcelain'],'')):
-            out,err=capture([str(self.config.git),'-C',str(self.config.source),*args],cwd=self.output.parent,environment=self.environment,timeout_seconds=self.config.timeout_seconds,maximum_output_bytes=self.config.maximum_output_bytes)
-            if out.decode('utf-8','strict').strip()!=expected or err:raise PermissionError('Clean pinned public medical UMF required')
+        witness = getattr(self, '_semantic_witness', None)
+        if witness is None:
+            source,git,cwd,revision = str(self.config.source),str(self.config.git),str(self.output.parent),UMF_PIN
+            environment = tuple(sorted(self.environment.items()))
+            limits = (self.config.timeout_seconds,self.config.maximum_output_bytes)
+        else:
+            if (type(witness) is not _MedicalSemanticWitness or witness.owner is not self
+                    or type(witness.pin_arguments) is not tuple or len(witness.pin_arguments) != 4
+                    or any(type(v) is not str for v in witness.pin_arguments)
+                    or type(witness.pin_environment) is not tuple or len(witness.pin_environment) != 9
+                    or any(type(pair) is not tuple or len(pair) != 2
+                           or any(type(v) is not str for v in pair) for pair in witness.pin_environment)
+                    or type(witness.pin_limits) is not tuple or len(witness.pin_limits) != 2
+                    or any(type(v) is not int for v in witness.pin_limits)):
+                raise PermissionError('Original medical producer pin witness differs')
+            source,git,cwd,revision = witness.pin_arguments
+            environment,limits = witness.pin_environment,witness.pin_limits
+        def check(args,expected):
+            out,err=capture([git,'-C',source,*args],cwd=Path(cwd),environment=dict(environment),
+                timeout_seconds=limits[0],maximum_output_bytes=limits[1])
+            if type(out) is not bytes or type(err) is not bytes or out.decode('utf-8','strict').strip()!=expected or err:
+                raise PermissionError('Clean pinned public medical UMF required')
+        finish(None,([] if witness is None else [self._require_witness])+[
+            lambda:check(['rev-parse','HEAD'],revision),lambda:check(['status','--porcelain'],'')])
     def _inputs(self):
+        witness = getattr(self, '_semantic_witness', None)
+        files = self.files if witness is None else witness.files
+        originals = self.originals if witness is None else witness.input_bytes
+        script = self.script if witness is None else witness.script
+        script_bytes = self.script_bytes if witness is None else witness.script_bytes
+        output = self.output if witness is None else witness.signature[0][-1]
+        parent_identity = self.parent_identity if witness is None else witness.signature[5]
         def parent():
-            observed=self.output.parent.lstat()
-            if (observed.st_dev,observed.st_ino,observed.st_uid,observed.st_mode)!=self.parent_identity:raise PermissionError('Original medical producer output parent changed')
-        def file(f,original):
+            observed=output.parent.lstat()
+            if (observed.st_dev,observed.st_ino,observed.st_uid,observed.st_mode)!=parent_identity:raise PermissionError('Original medical producer output parent changed')
+        def file(f,original,expected):
+            if _medical_descriptor_signature(f) != expected:raise PermissionError('Original medical input descriptor changed')
             if f.read()!=original:raise PermissionError('Original medical producer input drifted')
-        finish(None,[parent]+[lambda f=f,raw=raw:file(f,raw)for f,raw in zip(self.files,self.originals)]+[lambda:file(self.script,self.script_bytes)])
+        descriptors = tuple(_medical_descriptor_signature(f) for f in files) if witness is None else witness.signature[2]
+        script_descriptor = _medical_descriptor_signature(script) if witness is None else witness.signature[3]
+        finish(None,([] if witness is None else [self._require_witness])+[parent]+[lambda f=f,raw=raw,expected=expected:file(f,raw,expected)for f,raw,expected in zip(files,originals,descriptors)]+[lambda:file(script,script_bytes,script_descriptor)])
     def renew(self):
         def result():
-            if self.result_file.read()!=self.raw:raise PermissionError('Original medical revalidation bytes changed')
-            verify_medical_revalidation(*self.originals,self.raw)
-        finish(None,[self._pin,self._inputs,result])
+            witness = self._semantic_witness
+            if (type(witness) is not _MedicalSemanticWitness or witness.owner is not self
+                    or _medical_descriptor_signature(witness.result_file) != witness.signature[4]):
+                raise PermissionError('Original medical result descriptor changed')
+            if witness.result_file.read()!=witness.result_bytes:raise PermissionError('Original medical revalidation bytes changed')
+            self._require_witness()
+        finish(None,[self._require_witness,self._pin,self._inputs,result,self._require_witness])
     def __call__(self,model,graph,baseline):
         if any(type(raw)is not bytes for raw in (model,graph,baseline))or (model,graph,baseline)!=self.originals:raise PermissionError('Original medical producer call differs')
         self.renew();return self.raw

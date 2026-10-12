@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-medical-semantic-witness-independent-review/0.1",
+  "decision": "approved-source-and-desired-design",
+  "freeze_sha256": "fc2fce9cd0e162b1653fd7d3fe361cf3edb267b3b6aece51d7e82cd1c4095249",
+  "files": [
+    {
+      "path": "src/ashlar_host/medical_producer.py",
+      "bytes": 17129,
+      "sha256": "6c02bdc6ff5136520fa5d1e861a7379282617bc84e32e287fd5a3fbd0172cfc1"
+    },
+    {
+      "path": "tests/test_original_medical_admission.py",
+      "bytes": 23210,
+      "sha256": "820be70dc478d664d019bd9b764727073c1fee6cb4e3460aa55f80880ae6aebd"
+    }
+  ],
+  "td005_sha256": "72b2f9969f3ef7ae774db78a0088c3a0654298f6c05d17f0001e495c34b74553",
+  "checks": [
+    "Complete semantic verification remains constructor-only witness prerequisite; all current exact nominal bytes and original owner/config/descriptor identities still independently correspond.",
+    "Same-size file plus tracked anchor changes, equal owner/config replacement and overloaded/subclass/Boolean carriers refuse.",
+    "Original result and input reads use constructor-anchored descriptors with signature checks before access; foreign replacement paths never read.",
+    "Original HEAD/status use constructor-owned literal arguments/environment/limits; unrelated witness drift cannot suppress those independent attempts or redirect to foreign config.",
+    "HEAD cancellation still attempts status and every original input/script/result closing check, preserving primary cancellation identity.",
+    "Metadata decode and plan/native/source/ACK ownership unchanged; MED-F5 is desired-only correspondence property."
+  ],
+  "tests": "30 strict SDK-free controls PASS 6.039s",
+  "qualification": "Pure semantic comparison omission only; no authority cache, actual producer/native recovery or performance claim. Process-memory arbitrary object.__setattr__ forgery is not an isolation proof."
+}

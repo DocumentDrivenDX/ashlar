@@ -97,6 +97,15 @@ supplied-dataset closure, incomplete or unverified provenance as emitted. A
 receipt checksum proves correspondence, not source or writer authority. Retained
 original model/graph and receipt equality must renew before effects and at closing.
 
+The producer may retain a constructor-owned immutable witness after complete
+semantic verification succeeds. Every renewal must independently prove exact
+nominal types, selected owner/configuration/descriptors, original input/script
+bytes and complete result bytes against that witness, including closing checks.
+Changing both current bytes and mutable tracked values must not establish a new
+witness. Only the repeated pure semantic comparison may be omitted while these
+conditions hold; metadata decoding, plan derivation and all current native,
+lease, source and ACK checks remain required. The witness grants no authority.
+
 Fresh setup consumes the packaged checked UMF physical models/generated schemas
 for the four materialization and two coordination roles. Reuse an existing local
 physical variant only after complete ordered type/nullability/metadata/layout/
@@ -339,6 +348,7 @@ connection locals. Complete raw evidence remains private and bounded.
 | MED-F2 Current authority | Real ordinary source roles/signatures/scope, held native writer/installation lock, six observed UUIDs and current retention/pins admitted at entry, use and closing |
 | MED-F3 Durable handoff | Complete independent 51/62/0/113 materialization bags and original descriptor precede protected ACK; uncertain outcomes retain original request/handles |
 | MED-F4 Exact replay and reads | Settled replay changes no native history/bag/progress; fresh-process old-publication readback returns the same complete bags or explicitly refuses lost custody |
+| MED-F5 Semantic witness correspondence | Complete constructor verification plus unchanged exact typed input/result/script bytes and selected owners/descriptors preserve the same interpretation; simultaneous tracked-value/file mutation refuses, and unrelated witness drift cannot suppress original input/result/producer closing attempts |
 | MED-L1 Bounded completion | Finite supervised effects, all-path independent closing and cleanup precede receipt; original primary/cancellation identity survives secondary failures |
 
 Tests exercise actual owners with small inert seams: exact public producer calls,
