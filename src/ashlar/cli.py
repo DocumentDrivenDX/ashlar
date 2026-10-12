@@ -106,7 +106,7 @@ def main():
     truss_graph=commands.add_parser('publish-truss-graph',help='Publish accepted scalar Truss records and edges to fresh local Delta tables, then ACK')
     truss_graph.add_argument('--configuration',required=True)
     truss_graph.add_argument('--output',required=True)
-    truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss Note installation and stop its owned server')
+    truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
     truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')

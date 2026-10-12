@@ -1,4 +1,4 @@
-"""Fresh local-only Truss Note setup through the installed public SDK."""
+"""Fresh local-only Truss document setup through the installed public SDK."""
 import base64,json
 from contextlib import contextmanager
 from dataclasses import asdict
@@ -24,18 +24,25 @@ def selections(configuration,output):
     if not paths['bun'].is_file():raise ValueError('Select installed Bun')
     for key in ('document_id','document_revision','request_key'):
         if type(config[key])is not str or not config[key]or len(config[key])>256:raise ValueError('Explicit document/revision/request selections required')
-    if config['document_id']!='ashlar-note':raise ValueError('This setup supports the authored ashlar-note document')
     all_paths=[configuration,*paths.values(),output]
     for index,left in enumerate(all_paths):
         for right in all_paths[index+1:]:
             if left==right or left in right.parents or right in left.parents:raise ValueError('Selected paths must not overlap')
     source=read(paths['document_path'],1048576);origin=read(paths['origin_path'],65536)
-    if json.loads(source).get('id')!=config['document_id']:raise ValueError('Original document identity differs')
-    return config,paths,output,source,origin
+    document=json.loads(source)
+    if type(document)is not dict or document.get('id')!=config['document_id']:raise ValueError('Original document identity differs')
+    modules=document.get('modules')
+    if type(modules)is not list or not 1<=len(modules)<=16:raise ValueError('Select 1..16 original document modules')
+    module_ids=[]
+    for module in modules:
+        identity=module.get('id')if type(module)is dict else None
+        if type(identity)is not str or not identity or len(identity)>256 or '\0'in identity or identity in module_ids:raise ValueError('Distinct bounded original module IDs required')
+        module_ids.append(identity)
+    return config,paths,output,source,origin,tuple(module_ids)
 
 
 def run_setup_truss_local_command(configuration,output):
-    config,paths,output,source,origin=selections(configuration,output)
+    config,paths,output,source,origin,module_ids=selections(configuration,output)
     from .truss_runtime import require_truss_psycopg_runtime
     require_truss_psycopg_runtime()
     import psycopg
@@ -72,10 +79,10 @@ def run_setup_truss_local_command(configuration,output):
         with interval(ordinary)as (assembly,tx):
             prepared=assembly.prepare_catalog((CatalogDocument(config['document_id'],config['document_revision'],source),),bun_executable=str(paths['bun']))
             accepted=value(assembly.accept_in_transaction(tx,prepared,request_key=config['request_key'],origin_bytes=origin))
-            if not isinstance(accepted,(CatalogRegistration,CatalogUnchanged)):raise RuntimeError('Original Note acceptance refused')
+            if not isinstance(accepted,(CatalogRegistration,CatalogUnchanged)):raise RuntimeError('Original document acceptance refused')
         ordinary.commit()
         with interval(admin)as (assembly,tx):
-            value(assembly.configure_module_access_in_transaction(tx,(ModuleAccessGrant('ashlar-note','notes',reader,writer),)))
+            value(assembly.configure_module_access_in_transaction(tx,tuple(ModuleAccessGrant(config['document_id'],module_id,reader,writer)for module_id in module_ids)))
         admin.commit()
         for role in (reader,writer):admin.execute(sql.SQL('GRANT {} TO {} WITH SET FALSE').format(sql.Identifier(role),sql.Identifier(consumer)))
         with interval(ordinary)as (assembly,tx):
@@ -85,7 +92,7 @@ def run_setup_truss_local_command(configuration,output):
                 'caller_commits_confirmed':True,'catalog_status':asdict(status),'registration_id':accepted.registration_id,'revision':accepted.revision,
                 'roles':{'consumer':consumer,'reader':reader,'writer':writer,'registrar':installed.registrar_role},
                 'report_original_base64':base64.b64encode(report.original_bytes).decode('ascii'),
-                'scope':'Fresh local development Note bootstrap; stopped server. No remote/feed/ACK/schema-evolution qualification.'}
+                'scope':'Fresh local development original-document bootstrap; stopped server. No remote/feed/ACK/schema-evolution qualification.'}
         ordinary.commit()
     except BaseException as error:primary=error
     callbacks=[]

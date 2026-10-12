@@ -552,3 +552,19 @@ required by that installed SDK in the same Python environment. Truss verifies
 the PostgreSQL server version on the actual connection. A mismatch is a setup
 error; retain partial destinations and select a compatible environment before
 retrying.
+
+### Bootstrap a graph schema locally
+
+`setup-truss-local` accepts the selected original document and grants its declared
+modules to the returned local reader and writer roles. Select
+`cohort.umf.json` from this directory with `document_id: "cohort"` to use the
+record/edge mutation commands above, or keep `note.umf.json` for the Note workflow.
+The cohort file preserves the original UMF 0.7.0 bytes used by the public Truss
+acceptance example. Configure the existing Bun executable, origin, fresh data
+directory and report as in local setup; source preparation remains responsible
+for whether the selected document is supported.
+
+After setup, run `serve-truss-local` with that directory, use the returned ordinary
+consumer and reader roles, then run `mutate-truss-graph` and
+`publish-truss-graph` with a distinct fresh feed consumer. Schema selection alone
+does not broaden the publisher's supported scalar record/edge semantics.

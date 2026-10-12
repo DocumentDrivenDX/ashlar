@@ -23,3 +23,15 @@ class Tests(unittest.TestCase):
         run.assert_called_once_with('/private/config.json','/private/setup.json')
         self.assertNotIn('private_native_carrier',output.getvalue())
         self.assertEqual(json.loads(output.getvalue())['output'],'/private/setup.json')
+
+    def test_original_cohort_modules_preflight_preserves_bytes_and_refuses_duplicates(self):
+        from ashlar_host.truss_local_setup import selections
+        source=Path('docs/helix/04-build/evidence/truss-schema-acceptance-20261012/source.umf.json').read_bytes()
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();bun=root/'bun';bun.write_text('selected installed executable');document=root/'cohort.umf.json';document.write_bytes(source);origin=root/'origin.json';origin.write_text('{}');configuration=root/'configuration.json'
+            configuration.write_text(json.dumps({'data_directory':str(root/'fresh-data'),'bun':str(bun),'document_path':str(document),'document_id':'cohort','document_revision':'r1','origin_path':str(origin),'request_key':'cohort-setup'}))
+            selected=selections(configuration,root/'report.json')
+            self.assertEqual(selected[3],source);self.assertEqual(selected[5],('m',));self.assertEqual(json.loads(selected[3])['umf'],'0.7.0')
+            duplicated=json.loads(source);duplicated['modules'].append(duplicated['modules'][0]);document.write_text(json.dumps(duplicated))
+            with self.assertRaises(ValueError):selections(configuration,root/'report.json')
+            self.assertFalse((root/'fresh-data').exists());self.assertFalse((root/'report.json').exists())
