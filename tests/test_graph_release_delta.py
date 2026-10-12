@@ -1,10 +1,13 @@
 """Basic finite release writer tests with inert Spark ports, no SDK/native run."""
 from pathlib import Path
+from contextlib import contextmanager
+import test_private_graph_custody as custody_fixture
 from types import SimpleNamespace
 import hashlib,unittest
 from ashlar.graph_release import release_columns
 from ashlar_host.puppy_release_document import load_graph_release
-from ashlar_host.graph_release_delta import materialize_graph_release_delta
+from ashlar_host.graph_release_delta import materialize_graph_release_delta,materialize_private_graph_release_delta
+from ashlar_host.private_graph_custody import load_private_graph_release
 
 ROOT=Path(__file__).resolve().parents[1]
 class Frame:
@@ -65,3 +68,35 @@ class Tests(unittest.TestCase):
   with self.assertRaises(RuntimeError):self.run_writer()
   self.assertEqual(self.policy.calls,2);self.assertEqual(set(self.spark.tables),{'/private/tmp/release-test/nodes'})
   with self.assertRaises(ValueError):materialize_graph_release_delta(self.spark,self.raw,self.sha,node_path='/private/tmp/release-test',edge_path='/private/tmp/release-test/edges',policy=self.policy,context=None)
+
+
+class PrivateTests(unittest.TestCase):
+ def setUp(self):
+  self.release,self.custody=custody_fixture.Tests().fixture();self.sha=hashlib.sha256(self.custody).hexdigest();self.source=object();self.context=object();self.events=[];self.spark=Spark();self.refuse=False
+  test=self
+  class ExportPolicy:
+   @contextmanager
+   def writer(self,context):
+    assert context is test.context;test.events.append('writer-open')
+    try:yield
+    finally:test.events.append('writer-close')
+   def admit_original_export(self,release,custody,source,context):
+    assert release==test.release and custody==test.custody and source is test.source and context is test.context
+    load_private_graph_release(release.payload,release.sha256,custody,test.sha);test.events.append('admit')
+    if test.refuse and test.events.count('admit')==2:return False
+  self.policy=ExportPolicy()
+ def run_writer(self,custody=None):
+  return materialize_private_graph_release_delta(self.spark,self.release.payload,self.release.sha256,custody_payload=self.custody if custody is None else custody,trusted_custody_sha256=self.sha,source=self.source,node_path='/private/tmp/private-release-test/nodes',edge_path='/private/tmp/private-release-test/edges',policy=self.policy,context=self.context)
+ def test_explicit_private_pair_fullbags_and_closed_writer(self):
+  result=self.run_writer();value=load_private_graph_release(self.release.payload,self.release.sha256,self.custody,self.sha)
+  for kind,role in (('node','nodes'),('edge','edges')):
+   self.assertEqual(self.spark.tables['/private/tmp/private-release-test/'+role].rows,[tuple(row[name]for name in release_columns(kind))for row in value[role]])
+  self.assertEqual(result['custody_profile'],'ashlar-private-local-graph-custody/0.1');self.assertEqual(self.events,['writer-open','admit','admit','writer-close'])
+ def test_changed_receipt_and_public_entry_never_fall_back(self):
+  with self.assertRaises(ValueError):self.run_writer(self.custody+b' ')
+  with self.assertRaises(ValueError):materialize_graph_release_delta(self.spark,self.release.payload,self.release.sha256,node_path='/private/tmp/private-release-test/nodes',edge_path='/private/tmp/private-release-test/edges',policy=Policy(),context=None)
+  self.assertEqual(self.events,[]);self.assertEqual(self.spark.tables,{})
+ def test_closing_export_refusal_withholds_success_and_closes_writer(self):
+  self.refuse=True
+  with self.assertRaises(PermissionError):self.run_writer()
+  self.assertEqual(self.events[-1],'writer-close');self.assertEqual(len(self.spark.tables),2)

@@ -124,7 +124,8 @@ canonical `GraphRelease`, and a policy implementing
 `admit_original_release(release, context)`. The template's `my_operator` is your
 integration with the current publication/read owner, not an Ashlar module or a
 hash-only policy. The strict public release loader retains its 16 MiB input and
-10,000-row-per-bag limits; private-custody export profiles are not accepted here.
+10,000-row-per-bag limits. The public entrypoint does not accept private-custody
+export profiles; use the separate explicit branch below.
 
 `materialize_graph_release_delta` writes explicit STRING schemas to distinct,
 nonoverlapping destinations with `errorifexists`. It compares the complete
@@ -138,3 +139,38 @@ repairs them. Choose fresh paths for a new explicit action. The template generat
 a definition only after both tables verify. This is materialization preparation,
 not a Fabric load or a graph-query qualification; no notebook/cloud run is
 claimed by the basic inert Spark tests.
+
+
+### Explicit private-local commerce export
+
+For a retained commerce export with named
+`ashlar-private-local-graph-custody/0.1` receipt, select **both** original release
+and custody digests through your actual operator. Do not rewrite its manifest or
+try the private loader as an automatic fallback. The separate entrypoint shares
+the same STRING writes and complete bag checks:
+
+```python
+from ashlar_host.graph_release_delta import materialize_private_graph_release_delta
+from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
+from my_operator import open_admitted_private_export
+
+with open_admitted_private_export() as session:
+    receipt = materialize_private_graph_release_delta(
+        spark, session.release.payload, session.release.sha256,
+        custody_payload=session.custody_bytes,
+        trusted_custody_sha256=session.custody_sha256,
+        source=session.source, node_path=NODES, edge_path=EDGES,
+        policy=session.policy, context=session.context)
+
+# After the original writer interval closes successfully:
+definition = prepare_fabric_graph_definition(NODES, EDGES, DEFINITION_OUTPUT)
+```
+
+Your operator supplies the original source and a real policy with
+`writer(context)` and
+`admit_original_export(release, custody_bytes, source, context)`. The materializer
+owns that writer interval; do not open a nested writer around it. Receipt/source
+admission is renewed inside the interval before work and independently at
+closing. The strict private loader validates the exact release/receipt pair;
+there is no GraphFrames SDK dependency. This admits an explicitly selected
+original export, not future canonical availability or a Fabric loaded graph.

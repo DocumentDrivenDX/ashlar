@@ -37,6 +37,8 @@ provider.
 release-specific OneLake node and edge tables.
 The guide includes a Spark notebook example for materializing a finite graph
 release into those tables.
+Existing commerce exports use the separately selected private custody-receipt
+entry point described in the same guide.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 
