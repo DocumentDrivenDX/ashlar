@@ -1,0 +1,525 @@
+{
+  "objects_before": [
+    {
+      "document_id": "cohort",
+      "module_id": "m",
+      "record_id": "A",
+      "id": 1,
+      "type_id": 1,
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-12T19:56:59.262979Z",
+      "updated_at": "2026-10-12T19:56:59.262979Z",
+      "values": [
+        [
+          "A-label",
+          "ashlar-first"
+        ],
+        [
+          "A-value",
+          "one"
+        ]
+      ],
+      "retained": [],
+      "profile": "truss-python-scalar-object/0.2"
+    },
+    {
+      "document_id": "cohort",
+      "module_id": "m",
+      "record_id": "B",
+      "id": 2,
+      "type_id": 2,
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-12T19:56:59.682262Z",
+      "updated_at": "2026-10-12T19:56:59.682262Z",
+      "values": [
+        [
+          "B-label",
+          "ashlar-second"
+        ],
+        [
+          "B-value",
+          "two"
+        ]
+      ],
+      "retained": [],
+      "profile": "truss-python-scalar-object/0.2"
+    }
+  ],
+  "edge_before": {
+    "identity": {
+      "id": "3",
+      "type_id": "1",
+      "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "source": {
+      "id": "1",
+      "type_id": "1",
+      "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "target": {
+      "id": "2",
+      "type_id": "2",
+      "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "version": 1,
+    "catalog_revision": 1,
+    "record_revision": 1,
+    "created_at": "2026-10-12T19:56:59.730629Z",
+    "updated_at": "2026-10-12T19:56:59.730696Z",
+    "order_key": null,
+    "retained": []
+  },
+  "edge_updated": {
+    "identity": {
+      "id": "3",
+      "type_id": "1",
+      "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "source": {
+      "id": "1",
+      "type_id": "1",
+      "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "target": {
+      "id": "2",
+      "type_id": "2",
+      "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+      "owner": {
+        "document_id": "cohort",
+        "module_id": "m"
+      }
+    },
+    "version": 2,
+    "catalog_revision": 1,
+    "record_revision": 1,
+    "created_at": "2026-10-12T19:56:59.730629Z",
+    "updated_at": "2026-10-12T20:02:51.861888Z",
+    "order_key": "ordered-first",
+    "retained": [
+      [
+        "note",
+        "changed by Ashlar example"
+      ]
+    ]
+  },
+  "update_original": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "update_edge",
+            "identity": {
+              "id": "3",
+              "type_id": "1",
+              "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "version": "2",
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-edge-mutation/0.1",
+                "xid": "776",
+                "seq": "4"
+              }
+            ],
+            "outcome": "changed"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "disposition": "applied",
+      "durability": "pending"
+    },
+    "outcome": "success"
+  },
+  "update_committed_receipt": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "update_edge",
+            "identity": {
+              "id": "3",
+              "type_id": "1",
+              "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "version": "2",
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-edge-mutation/0.1",
+                "xid": "776",
+                "seq": "4"
+              }
+            ],
+            "outcome": "changed"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "replay": {
+        "observation_profile": {
+          "identity": "truss-native-create-replay-observation",
+          "version": "0.1",
+          "sha256": "f83e155901fd00b63072c0976499ad7cf0cffce9656f84e217eb06fc13de5c2f"
+        },
+        "evidence": {
+          "identity": "52bf99c1d5271339d5ae1853d36eeaa7378263364f0939be0ef68703f8cd29cc",
+          "bytes_base64": "eyJhY3RvciI6ICJhc2hsYXJfc2NoZW1hX2NvbnN1bWVyIiwgImJhc2lzIjogImNvbW1pdHRlZF9yZWNlaXB0IiwgInByb2ZpbGUiOiAidHJ1c3MtbmF0aXZlLWNyZWF0ZS1yZXBsYXktb2JzZXJ2YXRpb24vMC4xIiwgImFjdG9yT2lkIjogIjE2Mzg0IiwgInJlbGVhc2VJZCI6ICJ0cnVzcy1jYXRhbG9nLXJ1bnRpbWUvMC4xNy1jYW5kaWRhdGUiLCAic291cmNlRXBvY2giOiAiOWFlZGI2ZWQtYTFmZS00YWFkLTk2MDUtOTlhMzI0NTg3YWI1IiwgIm9ic2VydmluZ1hpZCI6ICI3ODAiLCAicmVjZWlwdFNoYTI1NiI6ICJlMDJiN2E1OTQxZjQ3MWQyMzE4NjQ1ODk4ZWZhOTJhMTFlOTU5OGFjNDQ3NDQ0NWY3MjNiZTE3MjI5OTBiZTkzIiwgInJlbGVhc2VTaGEyNTYiOiAiNGRjNjUwZjIzMjRhZTM4MDU1ZDZkZGYxYzNjMWMyNzZhNzY2MDMyYzUyZDJhZDU0NWY2YjI5MGNkZWU2ZGM1OCIsICJzY29wZUlkZW50aXR5IjogInRydXNzLXBlcnNvbjoxNmYyY2M4ZC00ZWU5LTQ2YjYtYTU2OS01MmNmNmJjMDY5NmU6MTYzODQiLCAicmVjZWlwdFN0b3JhZ2VJZCI6ICIyIiwgIm9yaWdpbmFsV3JpdGVyWGlkIjogIjc3NiIsICJyZWNlaXB0R2VuZXJhdGlvbiI6ICIwIn0=",
+          "sha256": "52bf99c1d5271339d5ae1853d36eeaa7378263364f0939be0ef68703f8cd29cc"
+        },
+        "basis": "committed_receipt"
+      },
+      "receipt_token": "eyJpbnRlcmZhY2VWZXJzaW9uIjoidHJ1c3MtcmVjZWlwdC1wb3NpdGlvbi8wLjEuMCIsInBvc2l0aW9uUHJvZmlsZSI6eyJpZGVudGl0eSI6InRydXNzLWF1dGhvcml0eS1yZWNlaXB0LXZpc2liaWxpdHkiLCJ2ZXJzaW9uIjoiMC4xIiwic2hhMjU2IjoiOTdkNTRmNDZhZjY4NzUxMGZkM2FlMTBhYWEzN2M3NjFkMTdkNmIzNzFkMTIxNzFlYTE1YTBkNDAyYjg4NTVlOSJ9LCJpbnN0YWxsYXRpb25JZCI6IjE2ZjJjYzhkLTRlZTktNDZiNi1hNTY5LTUyY2Y2YmMwNjk2ZSIsInNvdXJjZUVwb2NoIjoiOWFlZGI2ZWQtYTFmZS00YWFkLTk2MDUtOTlhMzI0NTg3YWI1IiwicmVjZWlwdFN0b3JhZ2VSb3dJZCI6IjIiLCJ3cml0ZXJYaWQiOiI3NzYifQ",
+      "disposition": "replayed",
+      "durability": "committed"
+    },
+    "outcome": "success"
+  },
+  "delete_original": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "delete_edge",
+            "identity": {
+              "id": "3",
+              "type_id": "1",
+              "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "3",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "3",
+                  "type_id": "1",
+                  "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "3"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-edge-mutation/0.1",
+                "xid": "780",
+                "seq": "5"
+              }
+            ],
+            "outcome": "deleted"
+          },
+          {
+            "operation": "delete_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "2",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "1",
+                  "type_id": "1",
+                  "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "2"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "780",
+                "seq": "6"
+              }
+            ],
+            "outcome": "deleted"
+          },
+          {
+            "operation": "delete_object",
+            "identity": {
+              "id": "2",
+              "type_id": "2",
+              "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "2",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "2",
+                  "type_id": "2",
+                  "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "2"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "780",
+                "seq": "7"
+              }
+            ],
+            "outcome": "deleted"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "disposition": "applied",
+      "durability": "pending"
+    },
+    "outcome": "success"
+  },
+  "delete_committed_receipt": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "delete_edge",
+            "identity": {
+              "id": "3",
+              "type_id": "1",
+              "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "3",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "3",
+                  "type_id": "1",
+                  "definition_pin": "dcc40fbd2f08615c0debf0693b64219b7a28a0def295ef9cd8b1b1bc96c57697",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "3"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-edge-mutation/0.1",
+                "xid": "780",
+                "seq": "5"
+              }
+            ],
+            "outcome": "deleted"
+          },
+          {
+            "operation": "delete_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "2",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "1",
+                  "type_id": "1",
+                  "definition_pin": "33dd619d8f4a8a2e868bb66b3b7f47ee510991078864ff1e4b108d641f83fdb4",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "2"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "780",
+                "seq": "6"
+              }
+            ],
+            "outcome": "deleted"
+          },
+          {
+            "operation": "delete_object",
+            "identity": {
+              "id": "2",
+              "type_id": "2",
+              "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+              "owner": {
+                "document_id": "cohort",
+                "module_id": "m"
+              }
+            },
+            "deletion_version": "2",
+            "deleted": [
+              {
+                "identity": {
+                  "id": "2",
+                  "type_id": "2",
+                  "definition_pin": "cd1a39e424ad71fef05af356aacd642ebbd92a989505aa27c085182a445d9fc4",
+                  "owner": {
+                    "document_id": "cohort",
+                    "module_id": "m"
+                  }
+                },
+                "deletion_version": "2"
+              }
+            ],
+            "events": [
+              {
+                "source_epoch": "9aedb6ed-a1fe-4aad-9605-99a324587ab5",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "780",
+                "seq": "7"
+              }
+            ],
+            "outcome": "deleted"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "replay": {
+        "observation_profile": {
+          "identity": "truss-native-create-replay-observation",
+          "version": "0.1",
+          "sha256": "f83e155901fd00b63072c0976499ad7cf0cffce9656f84e217eb06fc13de5c2f"
+        },
+        "evidence": {
+          "identity": "8804de5f1ba3342ebdd72cd69800881ec93dd932d7d3e3903a704445a6e3dbbb",
+          "bytes_base64": "eyJhY3RvciI6ICJhc2hsYXJfc2NoZW1hX2NvbnN1bWVyIiwgImJhc2lzIjogImNvbW1pdHRlZF9yZWNlaXB0IiwgInByb2ZpbGUiOiAidHJ1c3MtbmF0aXZlLWNyZWF0ZS1yZXBsYXktb2JzZXJ2YXRpb24vMC4xIiwgImFjdG9yT2lkIjogIjE2Mzg0IiwgInJlbGVhc2VJZCI6ICJ0cnVzcy1jYXRhbG9nLXJ1bnRpbWUvMC4xNy1jYW5kaWRhdGUiLCAic291cmNlRXBvY2giOiAiOWFlZGI2ZWQtYTFmZS00YWFkLTk2MDUtOTlhMzI0NTg3YWI1IiwgIm9ic2VydmluZ1hpZCI6ICI3ODYiLCAicmVjZWlwdFNoYTI1NiI6ICJiYzM0ZGNkZDhjOWZkYWI3Nzk3NzlkNDhmMDg3YjRkNjQxN2FkOWI3OGU3NzVlNDU4YzQzMWFkNWJmZjE0NDAxIiwgInJlbGVhc2VTaGEyNTYiOiAiNGRjNjUwZjIzMjRhZTM4MDU1ZDZkZGYxYzNjMWMyNzZhNzY2MDMyYzUyZDJhZDU0NWY2YjI5MGNkZWU2ZGM1OCIsICJzY29wZUlkZW50aXR5IjogInRydXNzLXBlcnNvbjoxNmYyY2M4ZC00ZWU5LTQ2YjYtYTU2OS01MmNmNmJjMDY5NmU6MTYzODQiLCAicmVjZWlwdFN0b3JhZ2VJZCI6ICIzIiwgIm9yaWdpbmFsV3JpdGVyWGlkIjogIjc4MCIsICJyZWNlaXB0R2VuZXJhdGlvbiI6ICIwIn0=",
+          "sha256": "8804de5f1ba3342ebdd72cd69800881ec93dd932d7d3e3903a704445a6e3dbbb"
+        },
+        "basis": "committed_receipt"
+      },
+      "receipt_token": "eyJpbnRlcmZhY2VWZXJzaW9uIjoidHJ1c3MtcmVjZWlwdC1wb3NpdGlvbi8wLjEuMCIsInBvc2l0aW9uUHJvZmlsZSI6eyJpZGVudGl0eSI6InRydXNzLWF1dGhvcml0eS1yZWNlaXB0LXZpc2liaWxpdHkiLCJ2ZXJzaW9uIjoiMC4xIiwic2hhMjU2IjoiOTdkNTRmNDZhZjY4NzUxMGZkM2FlMTBhYWEzN2M3NjFkMTdkNmIzNzFkMTIxNzFlYTE1YTBkNDAyYjg4NTVlOSJ9LCJpbnN0YWxsYXRpb25JZCI6IjE2ZjJjYzhkLTRlZTktNDZiNi1hNTY5LTUyY2Y2YmMwNjk2ZSIsInNvdXJjZUVwb2NoIjoiOWFlZGI2ZWQtYTFmZS00YWFkLTk2MDUtOTlhMzI0NTg3YWI1IiwicmVjZWlwdFN0b3JhZ2VSb3dJZCI6IjMiLCJ3cml0ZXJYaWQiOiI3ODAifQ",
+      "disposition": "replayed",
+      "durability": "committed"
+    },
+    "outcome": "success"
+  },
+  "edge_absent": {
+    "outcome": "not_found"
+  },
+  "objects_absent": [
+    {
+      "outcome": "not_found"
+    },
+    {
+      "outcome": "not_found"
+    }
+  ],
+  "scope": "Original cohort public update/delete/readback/receipt only."
+}

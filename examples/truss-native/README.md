@@ -118,3 +118,51 @@ A [small native run](../../docs/helix/04-build/evidence/truss-graph-mutation-202
 passed create, exact identity readback and committed receipt replay in 2.6 seconds.
 It does not qualify updates/deletes, evolution, imports,
 feed/ACK, compiled queries, graph projections or broader schemas.
+
+## Update and delete the created graph
+
+`change-graph.py` selects the actual IDs from the prior mutation report, then
+resolves current public type/relationship references and reads every object and
+edge under current module authorization. A report supplies IDs, never permission.
+It updates only the edge's retained `note` string and order key with an exact
+expected version, commits, and checks the complete edge values/endpoints/version.
+It then deletes the edge **before** both objects in one atomic group with current
+expected versions, commits, and verifies all three identities are absent. It also
+retrieves and preserves both genuine committed receipt replays. Primary key
+properties are never modified.
+
+The original installation, accepted cohort bytes and existing ordinary reader /
+writer memberships from the preceding example must remain available. There is
+no installation, acceptance or permission setup in this script. Select a fresh
+private configuration:
+
+```json
+{
+  "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/original-cohort.umf.json",
+  "document_revision": "r1",
+  "origin_path": "/absolute/path/to/string-origin.json",
+  "prior_report": "/absolute/path/to/mutation-readback.json",
+  "update_request_key": "update-original-cohort-v1",
+  "delete_request_key": "delete-original-cohort-v1",
+  "note": "updated relationship",
+  "order_key": "first"
+}
+```
+
+```sh
+python examples/truss-native/change-graph.py \
+  --configuration /absolute/path/to/private-change.json \
+  --output /absolute/path/to/fresh-change-readback.json
+```
+
+The report retains complete supported public before/after values, semantic group
+results, receipt replay evidence and absence outcomes. Receipt original byte
+carriers remain Base64; there is no stringification fallback. It is written only
+after caller connection/host cleanup. Two separate commits mean update may have
+succeeded even if deletion or reporting fails. Inspect current durable outcomes
+before an operator-chosen recovery; no automatic retry or reset occurs. This
+source example passed a [small native run](../../docs/helix/04-build/evidence/truss-graph-change-20261012/README.md)
+in 1.1 seconds. It does not broaden feed/query/import
+support.
