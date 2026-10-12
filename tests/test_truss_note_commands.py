@@ -15,3 +15,8 @@ class Tests(unittest.TestCase):
         self.dispatch('mutate-truss-note','truss_note_mutation','run_mutate_truss_note_command')
     def test_evolution_command_dispatches_selected_public_host(self):
         self.dispatch('evolve-truss-note','truss_note_evolution','run_evolve_truss_note_command')
+
+    def test_graph_creation_command_dispatches_selected_public_host(self):
+        self.dispatch('mutate-truss-graph','truss_graph_mutation','run_mutate_truss_graph_command')
+    def test_graph_change_command_dispatches_selected_public_host(self):
+        self.dispatch('change-truss-graph','truss_graph_change','run_change_truss_graph_command')

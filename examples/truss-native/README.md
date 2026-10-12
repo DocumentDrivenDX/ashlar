@@ -98,7 +98,7 @@ Origin is an original JSON map with **string values**, for example
 original schema bytes, request key, origin and values unchanged for a retry.
 
 ```sh
-python examples/truss-native/mutate-graph.py \
+ashlar mutate-truss-graph \
   --configuration /absolute/path/to/private-mutation.json \
   --output /absolute/path/to/fresh-mutation-readback.json
 ```
@@ -118,6 +118,9 @@ A [small native run](../../docs/helix/04-build/evidence/truss-graph-mutation-202
 passed create, exact identity readback and committed receipt replay in 2.6 seconds.
 It does not qualify updates/deletes, evolution, imports,
 feed/ACK, compiled queries, graph projections or broader schemas.
+
+The installed `mutate-truss-graph` command and the compatible
+`mutate-graph.py` script share the same public Truss implementation.
 
 ## Update and delete the created graph
 
@@ -152,10 +155,13 @@ private configuration:
 ```
 
 ```sh
-python examples/truss-native/change-graph.py \
+ashlar change-truss-graph \
   --configuration /absolute/path/to/private-change.json \
   --output /absolute/path/to/fresh-change-readback.json
 ```
+
+The installed `change-truss-graph` command and compatible `change-graph.py`
+script share the same implementation.
 
 The report retains complete supported public before/after values, semantic group
 results, receipt replay evidence and absence outcomes. Receipt original byte
