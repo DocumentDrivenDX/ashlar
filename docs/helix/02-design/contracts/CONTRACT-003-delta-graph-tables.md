@@ -607,6 +607,29 @@ NOT imply continued canonical snapshot availability, future retention, productio
 source authority, Unity Catalog access or engine activation. Each engine MUST
 separately prove its mapping, exact values, queries and release lifecycle.
 
+### Original finite supply-chain release reads
+
+`read_original_supply_chain_graph_release(opened)` MUST accept only the nominal
+`OpenedSupplyChainCommonRead` from CONTRACT-002. It MUST derive its policy and
+complete original pin vector internally and read through `read_graph_release`
+under actual current source, installation and native custody. Caller policies,
+validators, contexts or digests MUST NOT replace these owners.
+
+Opening and independent closing MUST compare complete original twenty-node and
+twenty-three-edge carrier bags, every nullable value and canonical text field,
+independent edge identity, typed endpoint and multiplicity. Parallel edges,
+self-loops and isolated nodes MUST preserve their original meaning. The original
+full table UUID/version vector MUST remain bound across each separately acquired
+nonnested query or release interval. Body failure or cancellation MUST still
+attempt the original full-vector, source and native closing checks.
+
+Compiler-backed one-hop and grouped-count evidence MUST retain the exact
+original relationship mapping and actual native edge-identity witness alongside
+its complete result bag. Endpoint keys or source-derived expected identities
+MUST NOT replace native edge evidence. Retained producer provenance supplies no
+current publication grant, and a graph release supplies no compiler or external
+engine execution claim.
+
 ### Engine release protocol qualification
 
 A release adapter MUST record the actual Delta protocol/features, reader/runtime

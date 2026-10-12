@@ -1,0 +1,3787 @@
+{
+  "profile": "sc03-completed-evidence-inventory/0.1",
+  "members": [
+    {
+      "member": "command/command-freeze-b.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/command-freeze-b.json",
+      "bytes": 6840,
+      "sha256": "311eafeebc6fe882ac59cc8cd942ceaa961979825926b2fc14f47f8d69a1920d",
+      "identity": [
+        16777230,
+        81076608,
+        33188,
+        1,
+        1791777486393184094
+      ]
+    },
+    {
+      "member": "command/command-final.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/command-final.json",
+      "bytes": 2536,
+      "sha256": "b371913561ba5a6180af944ede85d36d00bbac684915e1b1e52cf185c4587cb9",
+      "identity": [
+        16777230,
+        81053632,
+        33188,
+        1,
+        1791777457688057046
+      ]
+    },
+    {
+      "member": "command/custody.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/custody.json",
+      "bytes": 781894,
+      "sha256": "cc32a070c662c030376d03e297f34615514a53b55c5dfae0ea2e2c83f39ddf82",
+      "identity": [
+        16777230,
+        81053698,
+        33188,
+        1,
+        1791777457716865841
+      ]
+    },
+    {
+      "member": "command/run-native.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/run-native.py",
+      "bytes": 4862,
+      "sha256": "c6c4d524223701a6dde22424a952e2439da73af056b0afdf487b7dbd742fdf4c",
+      "identity": [
+        16777230,
+        81053702,
+        33188,
+        1,
+        1791777457718500946
+      ]
+    },
+    {
+      "member": "command/repair-actual.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/repair-actual.json",
+      "bytes": 20044,
+      "sha256": "344c01958ff58fa071a0ac44eb410b862676e9c48edf4522f413953cb56631e5",
+      "identity": [
+        16777230,
+        81053709,
+        33188,
+        1,
+        1791777457722439414
+      ]
+    },
+    {
+      "member": "command/native.stdout",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/native.stdout",
+      "bytes": 394,
+      "sha256": "c4f1c789b73919a41de86ec5ea8bd9c60f5e9b5f81beec70de1a8b73f6d1aca9",
+      "identity": [
+        16777230,
+        81182729,
+        33188,
+        1,
+        1791777920124564133
+      ]
+    },
+    {
+      "member": "command/native.stderr",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/native.stderr",
+      "bytes": 598,
+      "sha256": "15fe5be4462e79686bba269189d5d46061714e207882a90d137f635a277c21cc",
+      "identity": [
+        16777230,
+        81182730,
+        33188,
+        1,
+        1791777920124764260
+      ]
+    },
+    {
+      "member": "command/transport.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/transport.json",
+      "bytes": 2081,
+      "sha256": "9f2aa8f4eca7ba1720c75d1291d4b90b939cd3c63b130b5aadafc03009e98318",
+      "identity": [
+        16777230,
+        81182728,
+        33188,
+        1,
+        1791777920124271546
+      ]
+    },
+    {
+      "member": "command/outer-result.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-b/outer-result.json",
+      "bytes": 191,
+      "sha256": "ac28dc384ac47d6dd1438fe2201d7fb9e14b3e91a6f8e39444f491688686ff7e",
+      "identity": [
+        16777230,
+        81182731,
+        33188,
+        1,
+        1791777920535620533
+      ]
+    },
+    {
+      "member": "preparation/configuration.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/configuration.json",
+      "bytes": 1607,
+      "sha256": "c65fdf861812246c11f968c1df0c52f385891333ccb856ecec8c586fd2eccf3d",
+      "identity": [
+        16777230,
+        79213250,
+        33188,
+        1,
+        1791774022617895803
+      ]
+    },
+    {
+      "member": "preparation/installed-qualification.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/installed-qualification.json",
+      "bytes": 117776,
+      "sha256": "20a2f9d6caef89f2d53bfa50d7b0629869842398fffbc87a32b63979591eb7c1",
+      "identity": [
+        16777230,
+        79311534,
+        33188,
+        1,
+        1791774172130812736
+      ]
+    },
+    {
+      "member": "preparation/source-current-correspondence.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/source-current-correspondence.json",
+      "bytes": 42848,
+      "sha256": "2e3d067ddd8abb058a4e67d39c3f7eb9f68adc4282545bf74614c05dcfee1e69",
+      "identity": [
+        16777230,
+        80061767,
+        33188,
+        1,
+        1791775433564942052
+      ]
+    },
+    {
+      "member": "preparation/prerequisites.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/prerequisites.json",
+      "bytes": 9539,
+      "sha256": "745fd75fa02ba6dd1f912579d0817880cae27dfba489fb80de7660dac37839a8",
+      "identity": [
+        16777230,
+        79213249,
+        33188,
+        1,
+        1791774022611071262
+      ]
+    },
+    {
+      "member": "preparation/compile-capacity.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity.py",
+      "bytes": 8277,
+      "sha256": "92b7823ac776892053ea6ed37334fdc9cfc62210a9b954d44b3d264c55a2d119",
+      "identity": [
+        16777230,
+        79530483,
+        33188,
+        1,
+        1791774888125228562
+      ]
+    },
+    {
+      "member": "preparation/test-compile-capacity.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/test-compile-capacity.py",
+      "bytes": 1635,
+      "sha256": "b60f37a764acd187436ae9f632ba57ff33dbb1bb32f7a8fe5449a15619b76898",
+      "identity": [
+        16777230,
+        79597167,
+        33188,
+        1,
+        1791774670321692882
+      ]
+    },
+    {
+      "member": "preparation/compile-inputs.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-inputs.json",
+      "bytes": 2660,
+      "sha256": "c42cd15cde81dea3740d9dc7692a912bb5c8587b9eb61d8bfa2904e467e308c2",
+      "identity": [
+        16777230,
+        79530696,
+        33188,
+        1,
+        1791774523883855711
+      ]
+    },
+    {
+      "member": "preparation/compile-capacity-result.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-result.json",
+      "bytes": 1119,
+      "sha256": "7791fb6ea2be84ebb99252922836dd4086cee37f37b33d8542c5a8898fc6848c",
+      "identity": [
+        16777230,
+        79782771,
+        33188,
+        1,
+        1791775014323243258
+      ]
+    },
+    {
+      "member": "actual/report.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/report.json",
+      "bytes": 1038094,
+      "sha256": "9db9bcc5bbfd5125c048b7008fffce6cb4dd1ea7d4fabce2d54acbe8a150ce56",
+      "identity": [
+        16777230,
+        81182726,
+        33188,
+        1,
+        1791777919636821016
+      ]
+    },
+    {
+      "member": "actual/public-dataset.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/public-dataset.json",
+      "bytes": 4795730,
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+      "identity": [
+        16777230,
+        81172481,
+        33188,
+        1,
+        1791777784818731385
+      ]
+    },
+    {
+      "member": "actual/registry.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/registry.json",
+      "bytes": 1629,
+      "sha256": "fa9db72108eb6a2d3044cb403ef3debcc16bc57f701d8cd4b2b32810f31b8dcd",
+      "identity": [
+        16777230,
+        81175307,
+        33188,
+        1,
+        1791777825756747317
+      ]
+    },
+    {
+      "member": "actual/request.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/request.json",
+      "bytes": 80592,
+      "sha256": "1586844acccdf9f00f4d3957db8f66996ff0005c85d096b5a7799e3769a0a39e",
+      "identity": [
+        16777230,
+        81173187,
+        33188,
+        1,
+        1791777806271859906
+      ]
+    },
+    {
+      "member": "actual/native-observations.jsonl",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/native-observations.jsonl",
+      "bytes": 940181,
+      "sha256": "f7331d30e7540b268f96dcada9c41af598a55f49791086061962fa0fe6a65db0",
+      "identity": [
+        16777230,
+        81175366,
+        33188,
+        1,
+        1791777918818817395
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/excursion-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/excursion-0-request.bin",
+      "bytes": 55227,
+      "sha256": "c28598da53a2ed6972fb565746f8b13b849225e9283bb77d04bd7ad68a1a1a7f",
+      "identity": [
+        16777230,
+        81175373,
+        33152,
+        1,
+        1791777827281295805
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/excursion-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/excursion-0-response.bin",
+      "bytes": 25131,
+      "sha256": "01ed233c2afb0ba347e4132b51f0c74fbf563386fc77d9e9dccd53b0aa00baf5",
+      "identity": [
+        16777230,
+        81175374,
+        33152,
+        1,
+        1791777827281903480
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/excursion-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/excursion-1-request.bin",
+      "bytes": 55227,
+      "sha256": "c28598da53a2ed6972fb565746f8b13b849225e9283bb77d04bd7ad68a1a1a7f",
+      "identity": [
+        16777230,
+        81175375,
+        33152,
+        1,
+        1791777827330319616
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/excursion-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/excursion-1-response.bin",
+      "bytes": 25131,
+      "sha256": "01ed233c2afb0ba347e4132b51f0c74fbf563386fc77d9e9dccd53b0aa00baf5",
+      "identity": [
+        16777230,
+        81175376,
+        33152,
+        1,
+        1791777827330977875
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/index.jsonl",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/index.jsonl",
+      "bytes": 18556,
+      "sha256": "088124ab1b5eff65ebc0a9c72384b9734c83e3aace4d032338d967f5f2c47505",
+      "identity": [
+        16777230,
+        81175370,
+        33152,
+        1,
+        1791777911502363728
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/lineage-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/lineage-0-request.bin",
+      "bytes": 55363,
+      "sha256": "1f4fbb3f4808d68f117707aaecbea780b1e75c9f2f2b0d77a8bc74fd0edf9a22",
+      "identity": [
+        16777230,
+        81175381,
+        33152,
+        1,
+        1791777827543993632
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/lineage-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/lineage-0-response.bin",
+      "bytes": 47254,
+      "sha256": "74075147ca54607b7f4d6ab4d09597d9678d2c7c48492ce5108f2adbf68c6b95",
+      "identity": [
+        16777230,
+        81175382,
+        33152,
+        1,
+        1791777827544385970
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/lineage-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/lineage-1-request.bin",
+      "bytes": 55363,
+      "sha256": "1f4fbb3f4808d68f117707aaecbea780b1e75c9f2f2b0d77a8bc74fd0edf9a22",
+      "identity": [
+        16777230,
+        81175383,
+        33152,
+        1,
+        1791777827584534373
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/lineage-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/lineage-1-response.bin",
+      "bytes": 47254,
+      "sha256": "74075147ca54607b7f4d6ab4d09597d9678d2c7c48492ce5108f2adbf68c6b95",
+      "identity": [
+        16777230,
+        81175384,
+        33152,
+        1,
+        1791777827584916461
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/replay-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/replay-0-request.bin",
+      "bytes": 55252,
+      "sha256": "46eaf7f6f2b91e112a91eed646bb840979e3f62fe5c64af97406fe793f8fe441",
+      "identity": [
+        16777230,
+        81175377,
+        33152,
+        1,
+        1791777827418634152
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/replay-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/replay-0-response.bin",
+      "bytes": 19498,
+      "sha256": "ba4452e01b8c3a3f1543a4c542ebcfbdadf5c223a68bfd0b1c1994f17cb58059",
+      "identity": [
+        16777230,
+        81175378,
+        33152,
+        1,
+        1791777827419045032
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/replay-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/replay-1-request.bin",
+      "bytes": 55252,
+      "sha256": "46eaf7f6f2b91e112a91eed646bb840979e3f62fe5c64af97406fe793f8fe441",
+      "identity": [
+        16777230,
+        81175379,
+        33152,
+        1,
+        1791777827465497975
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/replay-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/replay-1-response.bin",
+      "bytes": 19498,
+      "sha256": "ba4452e01b8c3a3f1543a4c542ebcfbdadf5c223a68bfd0b1c1994f17cb58059",
+      "identity": [
+        16777230,
+        81175380,
+        33152,
+        1,
+        1791777827466025899
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/sensor-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/sensor-0-request.bin",
+      "bytes": 55210,
+      "sha256": "c1c5b4a1949851b3049e3d8d6fb15e9a8e5b6b97b058cab0fbd8d332dab0efb6",
+      "identity": [
+        16777230,
+        81175385,
+        33152,
+        1,
+        1791777827687397182
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/sensor-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/sensor-0-response.bin",
+      "bytes": 15925,
+      "sha256": "6c30410387ebcf8b8c54d67bea311a1d296fdf7b38a18d6e04fe8a34d3c3ec1b",
+      "identity": [
+        16777230,
+        81175386,
+        33152,
+        1,
+        1791777827687848855
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/sensor-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/sensor-1-request.bin",
+      "bytes": 55210,
+      "sha256": "c1c5b4a1949851b3049e3d8d6fb15e9a8e5b6b97b058cab0fbd8d332dab0efb6",
+      "identity": [
+        16777230,
+        81175387,
+        33152,
+        1,
+        1791777827731308301
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/sensor-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/sensor-1-response.bin",
+      "bytes": 15925,
+      "sha256": "6c30410387ebcf8b8c54d67bea311a1d296fdf7b38a18d6e04fe8a34d3c3ec1b",
+      "identity": [
+        16777230,
+        81175388,
+        33152,
+        1,
+        1791777827731894725
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/split-excursion-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/split-excursion-0-request.bin",
+      "bytes": 55341,
+      "sha256": "b8eeb766f63ee242bdb9cf2240b4614bc36b4f60fd63f8263ed9bd8c3539b0d8",
+      "identity": [
+        16777230,
+        81175368,
+        33152,
+        1,
+        1791777827143691497
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/split-excursion-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/split-excursion-0-response.bin",
+      "bytes": 38455,
+      "sha256": "140e9ce5c869a2716e5e98bde9236a0e419f4a7cae487365c9e0e61fea51d2f5",
+      "identity": [
+        16777230,
+        81175369,
+        33152,
+        1,
+        1791777827144347006
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/split-excursion-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/split-excursion-1-request.bin",
+      "bytes": 55341,
+      "sha256": "b8eeb766f63ee242bdb9cf2240b4614bc36b4f60fd63f8263ed9bd8c3539b0d8",
+      "identity": [
+        16777230,
+        81175371,
+        33152,
+        1,
+        1791777827186368600
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/split-excursion-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/split-excursion-1-response.bin",
+      "bytes": 38455,
+      "sha256": "140e9ce5c869a2716e5e98bde9236a0e419f4a7cae487365c9e0e61fea51d2f5",
+      "identity": [
+        16777230,
+        81175372,
+        33152,
+        1,
+        1791777827186824064
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-0-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-0-0-request.bin",
+      "bytes": 70531,
+      "sha256": "3d6af37867a12b920a44c21a13215e21ab0f57238a15d3651ad737cb8d9814ea",
+      "identity": [
+        16777230,
+        81176381,
+        33152,
+        1,
+        1791777844415512542
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-0-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-0-0-response.bin",
+      "bytes": 99438,
+      "sha256": "c62cf235a79664916e063d83a04621a458d1a0ec8f2ea1a0367d4148e38034ea",
+      "identity": [
+        16777230,
+        81176382,
+        33152,
+        1,
+        1791777844415994965
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-0-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-0-1-request.bin",
+      "bytes": 70531,
+      "sha256": "3d6af37867a12b920a44c21a13215e21ab0f57238a15d3651ad737cb8d9814ea",
+      "identity": [
+        16777230,
+        81176383,
+        33152,
+        1,
+        1791777844458221228
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-0-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-0-1-response.bin",
+      "bytes": 99438,
+      "sha256": "c62cf235a79664916e063d83a04621a458d1a0ec8f2ea1a0367d4148e38034ea",
+      "identity": [
+        16777230,
+        81176384,
+        33152,
+        1,
+        1791777844458693276
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-1-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-1-0-request.bin",
+      "bytes": 70549,
+      "sha256": "d8d448922c88bae82c8067dfdcff53abaf5da635f60fad8699fa6ba5f9991bc5",
+      "identity": [
+        16777230,
+        81176582,
+        33152,
+        1,
+        1791777851018894964
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-1-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-1-0-response.bin",
+      "bytes": 60242,
+      "sha256": "c60854201372e8586b1a4fd2b7a550d3293fcb7cef6e86ad3d35003f8f6f4330",
+      "identity": [
+        16777230,
+        81176583,
+        33152,
+        1,
+        1791777851019239177
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-1-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-1-1-request.bin",
+      "bytes": 70549,
+      "sha256": "d8d448922c88bae82c8067dfdcff53abaf5da635f60fad8699fa6ba5f9991bc5",
+      "identity": [
+        16777230,
+        81176584,
+        33152,
+        1,
+        1791777851060331092
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-1-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-1-1-response.bin",
+      "bytes": 60242,
+      "sha256": "c60854201372e8586b1a4fd2b7a550d3293fcb7cef6e86ad3d35003f8f6f4330",
+      "identity": [
+        16777230,
+        81176585,
+        33152,
+        1,
+        1791777851060659471
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-10-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-10-0-request.bin",
+      "bytes": 70560,
+      "sha256": "5488a9dc17f3f0759a011a29e64cd373addeebc4e71f39e46d31ec1e6a9260ec",
+      "identity": [
+        16777230,
+        81178335,
+        33152,
+        1,
+        1791777904390896339
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-10-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-10-0-response.bin",
+      "bytes": 100133,
+      "sha256": "c3f31a4fb2df2820673ff541dfdcf546e9407019d78f9ff8a52af7e685429f3d",
+      "identity": [
+        16777230,
+        81178336,
+        33152,
+        1,
+        1791777904391340470
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-10-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-10-1-request.bin",
+      "bytes": 70560,
+      "sha256": "5488a9dc17f3f0759a011a29e64cd373addeebc4e71f39e46d31ec1e6a9260ec",
+      "identity": [
+        16777230,
+        81178337,
+        33152,
+        1,
+        1791777904430304398
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-10-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-10-1-response.bin",
+      "bytes": 100133,
+      "sha256": "c3f31a4fb2df2820673ff541dfdcf546e9407019d78f9ff8a52af7e685429f3d",
+      "identity": [
+        16777230,
+        81178338,
+        33152,
+        1,
+        1791777904430711070
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-11-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-11-0-request.bin",
+      "bytes": 70547,
+      "sha256": "8b6045325a78b59cefe7859df8638d49ffd7db180bf7210084d18e516ca6386c",
+      "identity": [
+        16777230,
+        81179556,
+        33152,
+        1,
+        1791777911124847518
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-11-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-11-0-response.bin",
+      "bytes": 99749,
+      "sha256": "416b7b9c99334a46e3197bb51909fbf3164ba4b6133d24d2ad598b256e67db46",
+      "identity": [
+        16777230,
+        81179557,
+        33152,
+        1,
+        1791777911125525569
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-11-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-11-1-request.bin",
+      "bytes": 70547,
+      "sha256": "8b6045325a78b59cefe7859df8638d49ffd7db180bf7210084d18e516ca6386c",
+      "identity": [
+        16777230,
+        81179756,
+        33152,
+        1,
+        1791777911501418341
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-11-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-11-1-response.bin",
+      "bytes": 99749,
+      "sha256": "416b7b9c99334a46e3197bb51909fbf3164ba4b6133d24d2ad598b256e67db46",
+      "identity": [
+        16777230,
+        81179757,
+        33152,
+        1,
+        1791777911501809096
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-2-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-2-0-request.bin",
+      "bytes": 70550,
+      "sha256": "73d9ae9ca0eeee02e583161a7a5f8536f67e39e714e4e2e25f98985828dc8f93",
+      "identity": [
+        16777230,
+        81176830,
+        33152,
+        1,
+        1791777855834391273
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-2-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-2-0-response.bin",
+      "bytes": 99619,
+      "sha256": "e919623fd882d1747083dbb918aa97c956b390c90215827c4c88411ca621ad34",
+      "identity": [
+        16777230,
+        81176831,
+        33152,
+        1,
+        1791777855834798278
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-2-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-2-1-request.bin",
+      "bytes": 70550,
+      "sha256": "73d9ae9ca0eeee02e583161a7a5f8536f67e39e714e4e2e25f98985828dc8f93",
+      "identity": [
+        16777230,
+        81176832,
+        33152,
+        1,
+        1791777855877759801
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-2-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-2-1-response.bin",
+      "bytes": 99619,
+      "sha256": "e919623fd882d1747083dbb918aa97c956b390c90215827c4c88411ca621ad34",
+      "identity": [
+        16777230,
+        81176833,
+        33152,
+        1,
+        1791777855878222932
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-3-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-3-0-request.bin",
+      "bytes": 70555,
+      "sha256": "7e9ef36a4e744dedf4daea27c2b0132de0f13e6fa68c31d57cce022c373b38e5",
+      "identity": [
+        16777230,
+        81176993,
+        33152,
+        1,
+        1791777862120325941
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-3-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-3-0-response.bin",
+      "bytes": 100070,
+      "sha256": "c276c2161de238f271e2d3a2cbd4da834a16334156081fb7a47777b8ef0d5007",
+      "identity": [
+        16777230,
+        81176994,
+        33152,
+        1,
+        1791777862120763114
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-3-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-3-1-request.bin",
+      "bytes": 70555,
+      "sha256": "7e9ef36a4e744dedf4daea27c2b0132de0f13e6fa68c31d57cce022c373b38e5",
+      "identity": [
+        16777230,
+        81176995,
+        33152,
+        1,
+        1791777862160215465
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-3-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-3-1-response.bin",
+      "bytes": 100070,
+      "sha256": "c276c2161de238f271e2d3a2cbd4da834a16334156081fb7a47777b8ef0d5007",
+      "identity": [
+        16777230,
+        81176996,
+        33152,
+        1,
+        1791777862160675263
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-4-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-4-0-request.bin",
+      "bytes": 70545,
+      "sha256": "8fedff0f34f3ee9dafe2537873e68f60dd5ee0440bd6b08f405259c5cc0a4583",
+      "identity": [
+        16777230,
+        81177179,
+        33152,
+        1,
+        1791777868186230511
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-4-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-4-0-response.bin",
+      "bytes": 99816,
+      "sha256": "040d7d51e825658e43f9a6ad4f4cba917295969e91800e302e60ab46a62b6704",
+      "identity": [
+        16777230,
+        81177180,
+        33152,
+        1,
+        1791777868186667308
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-4-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-4-1-request.bin",
+      "bytes": 70545,
+      "sha256": "8fedff0f34f3ee9dafe2537873e68f60dd5ee0440bd6b08f405259c5cc0a4583",
+      "identity": [
+        16777230,
+        81177181,
+        33152,
+        1,
+        1791777868226813752
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-4-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-4-1-response.bin",
+      "bytes": 99816,
+      "sha256": "040d7d51e825658e43f9a6ad4f4cba917295969e91800e302e60ab46a62b6704",
+      "identity": [
+        16777230,
+        81177182,
+        33152,
+        1,
+        1791777868227312509
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-5-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-5-0-request.bin",
+      "bytes": 70544,
+      "sha256": "9c2b2d5bde8b109775c67b6fd9d4754634a13564a9fd89545034eec260ff8ecf",
+      "identity": [
+        16777230,
+        81177363,
+        33152,
+        1,
+        1791777874174764814
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-5-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-5-0-response.bin",
+      "bytes": 99802,
+      "sha256": "ee0285259d62530bd427652c3500d094736322c626c3e1e40330570b91331c96",
+      "identity": [
+        16777230,
+        81177364,
+        33152,
+        1,
+        1791777874175222195
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-5-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-5-1-request.bin",
+      "bytes": 70544,
+      "sha256": "9c2b2d5bde8b109775c67b6fd9d4754634a13564a9fd89545034eec260ff8ecf",
+      "identity": [
+        16777230,
+        81177373,
+        33152,
+        1,
+        1791777874379836258
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-5-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-5-1-response.bin",
+      "bytes": 99802,
+      "sha256": "ee0285259d62530bd427652c3500d094736322c626c3e1e40330570b91331c96",
+      "identity": [
+        16777230,
+        81177374,
+        33152,
+        1,
+        1791777874380258305
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-6-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-6-0-request.bin",
+      "bytes": 70562,
+      "sha256": "f51793c8fc2088e947393c889ded62ef75cbd863ab9931dd9e6e1f68c9f7072d",
+      "identity": [
+        16777230,
+        81177561,
+        33152,
+        1,
+        1791777880594069902
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-6-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-6-0-response.bin",
+      "bytes": 99864,
+      "sha256": "d0858fa5076949ddbb45edfeac473f0e493166a1d8000fef1b76d26d26ccf509",
+      "identity": [
+        16777230,
+        81177562,
+        33152,
+        1,
+        1791777880594504866
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-6-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-6-1-request.bin",
+      "bytes": 70562,
+      "sha256": "f51793c8fc2088e947393c889ded62ef75cbd863ab9931dd9e6e1f68c9f7072d",
+      "identity": [
+        16777230,
+        81177563,
+        33152,
+        1,
+        1791777880633458919
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-6-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-6-1-response.bin",
+      "bytes": 99864,
+      "sha256": "d0858fa5076949ddbb45edfeac473f0e493166a1d8000fef1b76d26d26ccf509",
+      "identity": [
+        16777230,
+        81177564,
+        33152,
+        1,
+        1791777880633837716
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-7-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-7-0-request.bin",
+      "bytes": 70541,
+      "sha256": "2ed9d0bd664d7ea1ecb4d783007f1e248c4406775f9c0ff7f5d5374ecf806879",
+      "identity": [
+        16777230,
+        81177736,
+        33152,
+        1,
+        1791777886475713509
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-7-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-7-0-response.bin",
+      "bytes": 99623,
+      "sha256": "bdbb249750a4147bbfbfe7f33eb584421a0da34ce3576111304b1158a6f99d54",
+      "identity": [
+        16777230,
+        81177737,
+        33152,
+        1,
+        1791777886476205223
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-7-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-7-1-request.bin",
+      "bytes": 70541,
+      "sha256": "2ed9d0bd664d7ea1ecb4d783007f1e248c4406775f9c0ff7f5d5374ecf806879",
+      "identity": [
+        16777230,
+        81177738,
+        33152,
+        1,
+        1791777886515172652
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-7-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-7-1-response.bin",
+      "bytes": 99623,
+      "sha256": "bdbb249750a4147bbfbfe7f33eb584421a0da34ce3576111304b1158a6f99d54",
+      "identity": [
+        16777230,
+        81177739,
+        33152,
+        1,
+        1791777886515574032
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-8-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-8-0-request.bin",
+      "bytes": 70554,
+      "sha256": "32045eb3555e3b53b4cfa66a9c5e0c2e5c0c29a01534415bd7baf85b6415e2cb",
+      "identity": [
+        16777230,
+        81177914,
+        33152,
+        1,
+        1791777892363144192
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-8-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-8-0-response.bin",
+      "bytes": 99698,
+      "sha256": "748d96bb4de2546f8f578130d42cb0e41cd32375847ff227e7fac67cebc9955b",
+      "identity": [
+        16777230,
+        81177915,
+        33152,
+        1,
+        1791777892363570239
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-8-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-8-1-request.bin",
+      "bytes": 70554,
+      "sha256": "32045eb3555e3b53b4cfa66a9c5e0c2e5c0c29a01534415bd7baf85b6415e2cb",
+      "identity": [
+        16777230,
+        81177916,
+        33152,
+        1,
+        1791777892523741552
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-8-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-8-1-response.bin",
+      "bytes": 99698,
+      "sha256": "748d96bb4de2546f8f578130d42cb0e41cd32375847ff227e7fac67cebc9955b",
+      "identity": [
+        16777230,
+        81177917,
+        33152,
+        1,
+        1791777892524200266
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-9-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-9-0-request.bin",
+      "bytes": 70561,
+      "sha256": "1362ead3b7522b803e90e28c15480cf538fc9c1c13e83a9bb032a9cc18c2a4ab",
+      "identity": [
+        16777230,
+        81178108,
+        33152,
+        1,
+        1791777898285658127
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-9-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-9-0-response.bin",
+      "bytes": 100147,
+      "sha256": "20b9d75e07e13508cb3d3463ab17a3b91eb16e71c33517a502e71ac64f2e1fee",
+      "identity": [
+        16777230,
+        81178109,
+        33152,
+        1,
+        1791777898286375178
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-9-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-9-1-request.bin",
+      "bytes": 70561,
+      "sha256": "1362ead3b7522b803e90e28c15480cf538fc9c1c13e83a9bb032a9cc18c2a4ab",
+      "identity": [
+        16777230,
+        81178110,
+        33152,
+        1,
+        1791777898675276621
+      ]
+    },
+    {
+      "member": "actual/compiler-evidence/two-hop-9-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/compiler-evidence/two-hop-9-1-response.bin",
+      "bytes": 100147,
+      "sha256": "20b9d75e07e13508cb3d3463ab17a3b91eb16e71c33517a502e71ac64f2e1fee",
+      "identity": [
+        16777230,
+        81178111,
+        33152,
+        1,
+        1791777898675792253
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/excursion-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/excursion-0-request.bin",
+      "bytes": 55227,
+      "sha256": "14505ba3b594aa927d2b8d33625e271d93121299697a3956e58d29b08cb6b7ea",
+      "identity": [
+        16777230,
+        79776624,
+        33152,
+        1,
+        1791775002545679866
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/excursion-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/excursion-0-response.bin",
+      "bytes": 25131,
+      "sha256": "53b9eb5cb051a57ac0227e947cea3b3ffce9f0ab4d4b2bb42f0aad46355fd549",
+      "identity": [
+        16777230,
+        79776627,
+        33152,
+        1,
+        1791775002552074860
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/excursion-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/excursion-1-request.bin",
+      "bytes": 55227,
+      "sha256": "14505ba3b594aa927d2b8d33625e271d93121299697a3956e58d29b08cb6b7ea",
+      "identity": [
+        16777230,
+        79776630,
+        33152,
+        1,
+        1791775002556900169
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/excursion-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/excursion-1-response.bin",
+      "bytes": 25131,
+      "sha256": "53b9eb5cb051a57ac0227e947cea3b3ffce9f0ab4d4b2bb42f0aad46355fd549",
+      "identity": [
+        16777230,
+        79776634,
+        33152,
+        1,
+        1791775002569527073
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/index.jsonl",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/index.jsonl",
+      "bytes": 18556,
+      "sha256": "9155944720c643aaff9c88f6d375e6a77167d52009fbcbc4a9b088f5052f8f26",
+      "identity": [
+        16777230,
+        79776614,
+        33152,
+        1,
+        1791775012160500601
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/lineage-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/lineage-0-request.bin",
+      "bytes": 55363,
+      "sha256": "f355fa990531ebc1ed9216b90584a1c3d8a8db77cd1fcaedacccb006fa71bf02",
+      "identity": [
+        16777230,
+        79776656,
+        33152,
+        1,
+        1791775002593793326
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/lineage-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/lineage-0-response.bin",
+      "bytes": 47254,
+      "sha256": "72f946a01874731eb2e4f656b3ce8609391d3153f1177e1ba6a1c2f6c58c30fd",
+      "identity": [
+        16777230,
+        79776657,
+        33152,
+        1,
+        1791775002597255035
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/lineage-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/lineage-1-request.bin",
+      "bytes": 55363,
+      "sha256": "f355fa990531ebc1ed9216b90584a1c3d8a8db77cd1fcaedacccb006fa71bf02",
+      "identity": [
+        16777230,
+        79776661,
+        33152,
+        1,
+        1791775002605974474
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/lineage-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/lineage-1-response.bin",
+      "bytes": 47254,
+      "sha256": "72f946a01874731eb2e4f656b3ce8609391d3153f1177e1ba6a1c2f6c58c30fd",
+      "identity": [
+        16777230,
+        79776665,
+        33152,
+        1,
+        1791775002610707199
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/replay-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/replay-0-request.bin",
+      "bytes": 55252,
+      "sha256": "049e2bc9eab906a4f32c4af30fc16b2c50a387bcbe88f13b13bff10bf276f579",
+      "identity": [
+        16777230,
+        79776640,
+        33152,
+        1,
+        1791775002573931626
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/replay-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/replay-0-response.bin",
+      "bytes": 19498,
+      "sha256": "6fa1d43aa8310c691bd4068b0c16adcfb80719f8af321e72d23c805a1cc35e9e",
+      "identity": [
+        16777230,
+        79776643,
+        33152,
+        1,
+        1791775002576907912
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/replay-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/replay-1-request.bin",
+      "bytes": 55252,
+      "sha256": "049e2bc9eab906a4f32c4af30fc16b2c50a387bcbe88f13b13bff10bf276f579",
+      "identity": [
+        16777230,
+        79776647,
+        33152,
+        1,
+        1791775002585210805
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/replay-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/replay-1-response.bin",
+      "bytes": 19498,
+      "sha256": "6fa1d43aa8310c691bd4068b0c16adcfb80719f8af321e72d23c805a1cc35e9e",
+      "identity": [
+        16777230,
+        79776650,
+        33152,
+        1,
+        1791775002588104048
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/sensor-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/sensor-0-request.bin",
+      "bytes": 55210,
+      "sha256": "36f300ff99b77343d540200c93146a27fe47e9c143fc97f0399a5ca7de167545",
+      "identity": [
+        16777230,
+        79776669,
+        33152,
+        1,
+        1791775002618007121
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/sensor-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/sensor-0-response.bin",
+      "bytes": 15925,
+      "sha256": "38b0d22581c41d0125820106df182b3683194485b7ee4e0faca86e1f46c0b028",
+      "identity": [
+        16777230,
+        79776672,
+        33152,
+        1,
+        1791775002622562343
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/sensor-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/sensor-1-request.bin",
+      "bytes": 55210,
+      "sha256": "36f300ff99b77343d540200c93146a27fe47e9c143fc97f0399a5ca7de167545",
+      "identity": [
+        16777230,
+        79776678,
+        33152,
+        1,
+        1791775002627021731
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/sensor-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/sensor-1-response.bin",
+      "bytes": 15925,
+      "sha256": "38b0d22581c41d0125820106df182b3683194485b7ee4e0faca86e1f46c0b028",
+      "identity": [
+        16777230,
+        79776684,
+        33152,
+        1,
+        1791775002634900202
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/split-excursion-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/split-excursion-0-request.bin",
+      "bytes": 55341,
+      "sha256": "81983563df79928d2462e9835ec82b47a290620d61375076321dbdc0a2e9b1a2",
+      "identity": [
+        16777230,
+        79776605,
+        33152,
+        1,
+        1791775002523766182
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/split-excursion-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/split-excursion-0-response.bin",
+      "bytes": 38455,
+      "sha256": "531cee98fc5a148014a4757e79ca66f8d60210d78666965aced876582033fd70",
+      "identity": [
+        16777230,
+        79776610,
+        33152,
+        1,
+        1791775002528099776
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/split-excursion-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/split-excursion-1-request.bin",
+      "bytes": 55341,
+      "sha256": "81983563df79928d2462e9835ec82b47a290620d61375076321dbdc0a2e9b1a2",
+      "identity": [
+        16777230,
+        79776617,
+        33152,
+        1,
+        1791775002538099523
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/split-excursion-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/split-excursion-1-response.bin",
+      "bytes": 38455,
+      "sha256": "531cee98fc5a148014a4757e79ca66f8d60210d78666965aced876582033fd70",
+      "identity": [
+        16777230,
+        79776620,
+        33152,
+        1,
+        1791775002541434397
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-0-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-0-0-request.bin",
+      "bytes": 70531,
+      "sha256": "53d267f3f8245fb0a384dc9ad283f7ddf87fc7629e49724a53c65046d8207f8d",
+      "identity": [
+        16777230,
+        79776686,
+        33152,
+        1,
+        1791775002639665593
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-0-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-0-0-response.bin",
+      "bytes": 99438,
+      "sha256": "1831461f22205baa9ae9173b21d3c7e4e7e143bc8791d34eaadf973058ce9137",
+      "identity": [
+        16777230,
+        79776689,
+        33152,
+        1,
+        1791775002642757422
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-0-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-0-1-request.bin",
+      "bytes": 70531,
+      "sha256": "53d267f3f8245fb0a384dc9ad283f7ddf87fc7629e49724a53c65046d8207f8d",
+      "identity": [
+        16777230,
+        79776692,
+        33152,
+        1,
+        1791775002651382944
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-0-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-0-1-response.bin",
+      "bytes": 99438,
+      "sha256": "1831461f22205baa9ae9173b21d3c7e4e7e143bc8791d34eaadf973058ce9137",
+      "identity": [
+        16777230,
+        79776696,
+        33152,
+        1,
+        1791775002655441577
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-1-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-1-0-request.bin",
+      "bytes": 70549,
+      "sha256": "2ec11284118c1f747f560157b82c3b8d5a590e125419bf85eadc302721b2007b",
+      "identity": [
+        16777230,
+        79776701,
+        33152,
+        1,
+        1791775002659385208
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-1-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-1-0-response.bin",
+      "bytes": 60242,
+      "sha256": "1415f6e6591e3876220cb52d5b525da5f3333cd23c700a7ca9078a80c70a56ac",
+      "identity": [
+        16777230,
+        79776705,
+        33152,
+        1,
+        1791775002662261285
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-1-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-1-1-request.bin",
+      "bytes": 70549,
+      "sha256": "2ec11284118c1f747f560157b82c3b8d5a590e125419bf85eadc302721b2007b",
+      "identity": [
+        16777230,
+        79776711,
+        33152,
+        1,
+        1791775002670923723
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-1-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-1-1-response.bin",
+      "bytes": 60242,
+      "sha256": "1415f6e6591e3876220cb52d5b525da5f3333cd23c700a7ca9078a80c70a56ac",
+      "identity": [
+        16777230,
+        79776715,
+        33152,
+        1,
+        1791775002674895897
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-10-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-10-0-request.bin",
+      "bytes": 70560,
+      "sha256": "dbfd8b06c3ee3db52f7309cd2d849afaf07b48bfcf92459baeacb72a6509ac5a",
+      "identity": [
+        16777230,
+        79778397,
+        33152,
+        1,
+        1791775005147340573
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-10-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-10-0-response.bin",
+      "bytes": 100133,
+      "sha256": "a8f676b644394375a8730e1111ebf034c23a2fce3960f5a6c9d24a834338823f",
+      "identity": [
+        16777230,
+        79778401,
+        33152,
+        1,
+        1791775005154059280
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-10-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-10-1-request.bin",
+      "bytes": 70560,
+      "sha256": "dbfd8b06c3ee3db52f7309cd2d849afaf07b48bfcf92459baeacb72a6509ac5a",
+      "identity": [
+        16777230,
+        79779530,
+        33152,
+        1,
+        1791775007320768527
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-10-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-10-1-response.bin",
+      "bytes": 100133,
+      "sha256": "a8f676b644394375a8730e1111ebf034c23a2fce3960f5a6c9d24a834338823f",
+      "identity": [
+        16777230,
+        79779532,
+        33152,
+        1,
+        1791775007325348666
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-11-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-11-0-request.bin",
+      "bytes": 70547,
+      "sha256": "a6fa099dce348285874df98d8577c45d95a99eaa1b3b307f492fb56c606610f4",
+      "identity": [
+        16777230,
+        79780408,
+        33152,
+        1,
+        1791775010118150909
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-11-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-11-0-response.bin",
+      "bytes": 99749,
+      "sha256": "b52230525e27276738984834297e60442f5eaea095daa597437a6396dfc433cd",
+      "identity": [
+        16777230,
+        79780410,
+        33152,
+        1,
+        1791775010129195585
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-11-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-11-1-request.bin",
+      "bytes": 70547,
+      "sha256": "a6fa099dce348285874df98d8577c45d95a99eaa1b3b307f492fb56c606610f4",
+      "identity": [
+        16777230,
+        79781489,
+        33152,
+        1,
+        1791775012156435385
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-11-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-11-1-response.bin",
+      "bytes": 99749,
+      "sha256": "b52230525e27276738984834297e60442f5eaea095daa597437a6396dfc433cd",
+      "identity": [
+        16777230,
+        79781496,
+        33152,
+        1,
+        1791775012159924636
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-2-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-2-0-request.bin",
+      "bytes": 70550,
+      "sha256": "951b99257c56ebd6669faecd93049da2c448b7eb37ae747986005386a68866d3",
+      "identity": [
+        16777230,
+        79776719,
+        33152,
+        1,
+        1791775002681890899
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-2-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-2-0-response.bin",
+      "bytes": 99619,
+      "sha256": "4ab16e00f2c624c659663ec8dbb76fa34cb46c3496c73d4004646669e6fc5309",
+      "identity": [
+        16777230,
+        79776723,
+        33152,
+        1,
+        1791775002687705969
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-2-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-2-1-request.bin",
+      "bytes": 70550,
+      "sha256": "951b99257c56ebd6669faecd93049da2c448b7eb37ae747986005386a68866d3",
+      "identity": [
+        16777230,
+        79776726,
+        33152,
+        1,
+        1791775002692953200
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-2-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-2-1-response.bin",
+      "bytes": 99619,
+      "sha256": "4ab16e00f2c624c659663ec8dbb76fa34cb46c3496c73d4004646669e6fc5309",
+      "identity": [
+        16777230,
+        79776729,
+        33152,
+        1,
+        1791775002697853885
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-3-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-3-0-request.bin",
+      "bytes": 70555,
+      "sha256": "e5c8e7d13cdcb78e0fe1e4778b5087441ee11be4cb7776c18b22c8363c9e3c9d",
+      "identity": [
+        16777230,
+        79776736,
+        33152,
+        1,
+        1791775002705156265
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-3-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-3-0-response.bin",
+      "bytes": 100070,
+      "sha256": "eb22307d7b78ee34cb7f3048685e1a819081c15e76469ce0bd2d7008f4855bf4",
+      "identity": [
+        16777230,
+        79776740,
+        33152,
+        1,
+        1791775002708469180
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-3-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-3-1-request.bin",
+      "bytes": 70555,
+      "sha256": "e5c8e7d13cdcb78e0fe1e4778b5087441ee11be4cb7776c18b22c8363c9e3c9d",
+      "identity": [
+        16777230,
+        79776745,
+        33152,
+        1,
+        1791775002712664690
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-3-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-3-1-response.bin",
+      "bytes": 100070,
+      "sha256": "eb22307d7b78ee34cb7f3048685e1a819081c15e76469ce0bd2d7008f4855bf4",
+      "identity": [
+        16777230,
+        79776749,
+        33152,
+        1,
+        1791775002721556923
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-4-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-4-0-request.bin",
+      "bytes": 70545,
+      "sha256": "cc77b8451c43bfc1b192c4b807b77c8b7e1c9f5e9624078c14f27a71c49d2d43",
+      "identity": [
+        16777230,
+        79776751,
+        33152,
+        1,
+        1791775002730811161
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-4-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-4-0-response.bin",
+      "bytes": 99816,
+      "sha256": "da4672c98987ae93eef6b4b5ab255b054142b03b4155d0185f043706d3949101",
+      "identity": [
+        16777230,
+        79776753,
+        33152,
+        1,
+        1791775002736791192
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-4-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-4-1-request.bin",
+      "bytes": 70545,
+      "sha256": "cc77b8451c43bfc1b192c4b807b77c8b7e1c9f5e9624078c14f27a71c49d2d43",
+      "identity": [
+        16777230,
+        79776759,
+        33152,
+        1,
+        1791775002741419998
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-4-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-4-1-response.bin",
+      "bytes": 99816,
+      "sha256": "da4672c98987ae93eef6b4b5ab255b054142b03b4155d0185f043706d3949101",
+      "identity": [
+        16777230,
+        79776762,
+        33152,
+        1,
+        1791775002747035108
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-5-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-5-0-request.bin",
+      "bytes": 70544,
+      "sha256": "db830e804f835e5bb097491f9e74f271f0fe0be67fb225494b15d8ab82b849c5",
+      "identity": [
+        16777230,
+        79776766,
+        33152,
+        1,
+        1791775002754568450
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-5-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-5-0-response.bin",
+      "bytes": 99802,
+      "sha256": "284674fa27a8ff64e48adfe3059f41b86fa9006e75d4830b7fbd7eda735da753",
+      "identity": [
+        16777230,
+        79776769,
+        33152,
+        1,
+        1791775002757854281
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-5-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-5-1-request.bin",
+      "bytes": 70544,
+      "sha256": "db830e804f835e5bb097491f9e74f271f0fe0be67fb225494b15d8ab82b849c5",
+      "identity": [
+        16777230,
+        79776773,
+        33152,
+        1,
+        1791775002762928093
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-5-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-5-1-response.bin",
+      "bytes": 99802,
+      "sha256": "284674fa27a8ff64e48adfe3059f41b86fa9006e75d4830b7fbd7eda735da753",
+      "identity": [
+        16777230,
+        79776774,
+        33152,
+        1,
+        1791775002768227908
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-6-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-6-0-request.bin",
+      "bytes": 70562,
+      "sha256": "f070263769cbfc959b74a8616d6606f56658ab53f84756d8068f1cb8ba7b32e8",
+      "identity": [
+        16777230,
+        79776779,
+        33152,
+        1,
+        1791775002774880947
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-6-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-6-0-response.bin",
+      "bytes": 99864,
+      "sha256": "a844e65a1fde8d8aae84c42fb3e176e9f6127bc16821e6b3e054ec1875960218",
+      "identity": [
+        16777230,
+        79776784,
+        33152,
+        1,
+        1791775002778257071
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-6-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-6-1-request.bin",
+      "bytes": 70562,
+      "sha256": "f070263769cbfc959b74a8616d6606f56658ab53f84756d8068f1cb8ba7b32e8",
+      "identity": [
+        16777230,
+        79776790,
+        33152,
+        1,
+        1791775002788172984
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-6-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-6-1-response.bin",
+      "bytes": 99864,
+      "sha256": "a844e65a1fde8d8aae84c42fb3e176e9f6127bc16821e6b3e054ec1875960218",
+      "identity": [
+        16777230,
+        79776793,
+        33152,
+        1,
+        1791775002791138728
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-7-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-7-0-request.bin",
+      "bytes": 70541,
+      "sha256": "432e07809f756c86b8984c7780465f71a37f772cc16b12ddc31d25cf700b0105",
+      "identity": [
+        16777230,
+        79776797,
+        33152,
+        1,
+        1791775002795891453
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-7-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-7-0-response.bin",
+      "bytes": 99623,
+      "sha256": "c9f98b1c212cdc7f62ee9e2a7c5dc9277597136d06daa0029bac7e265c9fac40",
+      "identity": [
+        16777230,
+        79776802,
+        33152,
+        1,
+        1791775002802670369
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-7-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-7-1-request.bin",
+      "bytes": 70541,
+      "sha256": "432e07809f756c86b8984c7780465f71a37f772cc16b12ddc31d25cf700b0105",
+      "identity": [
+        16777230,
+        79776805,
+        33152,
+        1,
+        1791775002807708097
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-7-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-7-1-response.bin",
+      "bytes": 99623,
+      "sha256": "c9f98b1c212cdc7f62ee9e2a7c5dc9277597136d06daa0029bac7e265c9fac40",
+      "identity": [
+        16777230,
+        79776809,
+        33152,
+        1,
+        1791775002811487226
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-8-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-8-0-request.bin",
+      "bytes": 70554,
+      "sha256": "6c5053eaba0725d7b828e4cd8fb134ccddc7b2a9c8f7858ba6c5602c5b091b9d",
+      "identity": [
+        16777230,
+        79776817,
+        33152,
+        1,
+        1791775002819971579
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-8-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-8-0-response.bin",
+      "bytes": 99698,
+      "sha256": "6b1c77b0387e08bb243a4cae201cf843cb32e5fc2145c20da48ebefed75d5e77",
+      "identity": [
+        16777230,
+        79776823,
+        33152,
+        1,
+        1791775002823731625
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-8-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-8-1-request.bin",
+      "bytes": 70554,
+      "sha256": "6c5053eaba0725d7b828e4cd8fb134ccddc7b2a9c8f7858ba6c5602c5b091b9d",
+      "identity": [
+        16777230,
+        79776826,
+        33152,
+        1,
+        1791775002829252192
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-8-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-8-1-response.bin",
+      "bytes": 99698,
+      "sha256": "6b1c77b0387e08bb243a4cae201cf843cb32e5fc2145c20da48ebefed75d5e77",
+      "identity": [
+        16777230,
+        79776831,
+        33152,
+        1,
+        1791775002836913327
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-9-0-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-9-0-request.bin",
+      "bytes": 70561,
+      "sha256": "528ea8b613c8002fd2f55a55fc4c757a47b8432339f24c554154408461974d46",
+      "identity": [
+        16777230,
+        79776835,
+        33152,
+        1,
+        1791775002841834887
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-9-0-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-9-0-response.bin",
+      "bytes": 100147,
+      "sha256": "6a1b04026c2fc8822b5ccfe0766bf62ef4073b7c2d98dabced3bfd613ccd12a0",
+      "identity": [
+        16777230,
+        79776838,
+        33152,
+        1,
+        1791775002846226232
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-9-1-request.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-9-1-request.bin",
+      "bytes": 70561,
+      "sha256": "528ea8b613c8002fd2f55a55fc4c757a47b8432339f24c554154408461974d46",
+      "identity": [
+        16777230,
+        79776843,
+        33152,
+        1,
+        1791775002853842658
+      ]
+    },
+    {
+      "member": "capacity/compiler-evidence/two-hop-9-1-response.bin",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/compile-capacity-output/compiler-evidence/two-hop-9-1-response.bin",
+      "bytes": 100147,
+      "sha256": "6a1b04026c2fc8822b5ccfe0766bf62ef4073b7c2d98dabced3bfd613ccd12a0",
+      "identity": [
+        16777230,
+        79776848,
+        33152,
+        1,
+        1791775002858177586
+      ]
+    },
+    {
+      "member": "repair/freeze.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/freeze.json",
+      "bytes": 2103,
+      "sha256": "62e9bee63b00eb5ef83d8df99e2b0ff60119ad4a29ad29b498cb4e80d243b4f8",
+      "identity": [
+        16777230,
+        81040769,
+        33188,
+        1,
+        1791777289319580209
+      ]
+    },
+    {
+      "member": "repair/inventory.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/inventory.json",
+      "bytes": 21059,
+      "sha256": "b7f9cc6ea6e379550cbd95598fe5032ebde6ce8f28b1c624a6f51e3726b97078",
+      "identity": [
+        16777230,
+        81040627,
+        33188,
+        1,
+        1791777276053192414
+      ]
+    },
+    {
+      "member": "repair/repair.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/repair.py",
+      "bytes": 3304,
+      "sha256": "fbdb600e049e4aac66b7a9f23846470d07bb6129dd0536f44dd5f15425bc9dc5",
+      "identity": [
+        16777230,
+        81040625,
+        33188,
+        1,
+        1791777276133343092
+      ]
+    },
+    {
+      "member": "repair/replacement.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/replacement.py",
+      "bytes": 3245,
+      "sha256": "570154e8627a3666c0c18ba30299900c5309b10b446287f8c8e80939b7cd17df",
+      "identity": [
+        16777230,
+        81040626,
+        33188,
+        1,
+        1791777276052677532
+      ]
+    },
+    {
+      "member": "repair/test_replacement.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/test_replacement.py",
+      "bytes": 3986,
+      "sha256": "38619b4951d9d6671f471980a637864b4d9a2edb80cc9ebbc7644b519ef8a9d7",
+      "identity": [
+        16777230,
+        81040628,
+        33188,
+        1,
+        1791777276135015781
+      ]
+    },
+    {
+      "member": "repair/preflight.py",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/preflight.py",
+      "bytes": 3710,
+      "sha256": "cc651b21be0b5ced01712cb99a14836fc2ec6691ed296ff8b0354f029d8f1a19",
+      "identity": [
+        16777230,
+        81040629,
+        33188,
+        1,
+        1791777276134398272
+      ]
+    },
+    {
+      "member": "repair/preflight-freeze.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/preflight-freeze.json",
+      "bytes": 1363,
+      "sha256": "6b30cb7b5396a90d24924733ff15acf2ce036242a223bef02ff69bf8e2e15a5d",
+      "identity": [
+        16777230,
+        81040630,
+        33188,
+        1,
+        1791777276139323087
+      ]
+    },
+    {
+      "member": "repair/controlled-result.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-c/controlled-result.json",
+      "bytes": 382,
+      "sha256": "0c33bd9678d221f4402038bd096c6181d3495b68ffbeb65eb44e924087deeeb6",
+      "identity": [
+        16777230,
+        81047509,
+        33152,
+        1,
+        1791777392706648062
+      ]
+    },
+    {
+      "member": "unknown-preserved/__init__.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/__init__.cpython-311.pyc",
+      "bytes": 3203,
+      "sha256": "cb0c790cdfa4b8acccebe65275169f8c89c455392fb6e30ab7f1c53a3bd00ef6",
+      "identity": [
+        16777230,
+        80699366,
+        33152,
+        1,
+        1791776571520490347
+      ]
+    },
+    {
+      "member": "unknown-preserved/_cmp.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_cmp.cpython-311.pyc",
+      "bytes": 5412,
+      "sha256": "137663de54f2f3346cace1b0dc344844da5f6ab4257da74340ae70af8d01ef60",
+      "identity": [
+        16777230,
+        80699388,
+        33152,
+        1,
+        1791776571540929032
+      ]
+    },
+    {
+      "member": "unknown-preserved/_compat.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_compat.cpython-311.pyc",
+      "bytes": 3953,
+      "sha256": "05331c13ac5efa67215ebbfb4e115872e11b7dc427ddceb5fd5ef8f36a005f3d",
+      "identity": [
+        16777230,
+        80699406,
+        33152,
+        1,
+        1791776571559014812
+      ]
+    },
+    {
+      "member": "unknown-preserved/_config.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_config.cpython-311.pyc",
+      "bytes": 1198,
+      "sha256": "1a3f57c3af1e1415817913f4d7cd00e27a8273420bfca87609c20972f779f367",
+      "identity": [
+        16777230,
+        80699422,
+        33152,
+        1,
+        1791776571573358042
+      ]
+    },
+    {
+      "member": "unknown-preserved/_funcs.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_funcs.cpython-311.pyc",
+      "bytes": 17011,
+      "sha256": "7c8bba7ad70148607d1ac5492d5c385f465438d5be0ba4f7e51edc20b480a8e0",
+      "identity": [
+        16777230,
+        80699439,
+        33152,
+        1,
+        1791776571584567189
+      ]
+    },
+    {
+      "member": "unknown-preserved/_make.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_make.cpython-311.pyc",
+      "bytes": 102269,
+      "sha256": "ae41cbbd1e81a3df1d65b31a972329b9455768ad0bbc870564a8e62899bd246e",
+      "identity": [
+        16777230,
+        80699467,
+        33152,
+        1,
+        1791776571623433324
+      ]
+    },
+    {
+      "member": "unknown-preserved/_next_gen.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_next_gen.cpython-311.pyc",
+      "bytes": 25174,
+      "sha256": "4c3436a9c5266506e382cf6fc072e2b5a51f6757e43027bf741f85b3f14a26a8",
+      "identity": [
+        16777230,
+        80699482,
+        33152,
+        1,
+        1791776571646486669
+      ]
+    },
+    {
+      "member": "unknown-preserved/_version_info.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/_version_info.cpython-311.pyc",
+      "bytes": 3638,
+      "sha256": "fe5fadc3e778e1cf8c2a623eafc7344fddc075a671a8e8cb5eb69b3986b3c00e",
+      "identity": [
+        16777230,
+        80699508,
+        33152,
+        1,
+        1791776571666981105
+      ]
+    },
+    {
+      "member": "unknown-preserved/converters.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/converters.cpython-311.pyc",
+      "bytes": 4575,
+      "sha256": "13f4a34288ad2e080f5b33796387449b3a6ac52ed4c0f7b03355a4a8c95ecfe7",
+      "identity": [
+        16777230,
+        80699522,
+        33152,
+        1,
+        1791776571688436887
+      ]
+    },
+    {
+      "member": "unknown-preserved/exceptions.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/exceptions.cpython-311.pyc",
+      "bytes": 4180,
+      "sha256": "d4435b4c4a80ec6f67f89038c68c94422bdd1dcfba26efbdc38cd9602f4e56c7",
+      "identity": [
+        16777230,
+        80699542,
+        33152,
+        1,
+        1791776571720876813
+      ]
+    },
+    {
+      "member": "unknown-preserved/filters.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/filters.cpython-311.pyc",
+      "bytes": 3212,
+      "sha256": "bc84e18fbef437b506b2d3d82e5a418128f166c8f5cc621a136b0913d89b1299",
+      "identity": [
+        16777230,
+        80699566,
+        33152,
+        1,
+        1791776571746624693
+      ]
+    },
+    {
+      "member": "unknown-preserved/setters.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/setters.cpython-311.pyc",
+      "bytes": 2117,
+      "sha256": "f19a01240dee2897ce0f228284b16ed223ccea0d00461ed956a73bb0f5086687",
+      "identity": [
+        16777230,
+        80699583,
+        33152,
+        1,
+        1791776571765634234
+      ]
+    },
+    {
+      "member": "unknown-preserved/validators.cpython-311.pyc",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-a/validators.cpython-311.pyc",
+      "bytes": 28484,
+      "sha256": "3780b93dadd47dcf39e84f69e50cd8f1a4f56f444415bb19e495621f7bdbb01d",
+      "identity": [
+        16777230,
+        80699608,
+        33152,
+        1,
+        1791776571795961091
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-native-03-installed-command-freeze-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-installed-command-freeze-a.json",
+      "bytes": 124031,
+      "sha256": "8c7a758732e16ee4c2802473cec69c4bf4d8125999d8bc4afec2f69f45af10fe",
+      "identity": [
+        16777230,
+        80158729,
+        33188,
+        1,
+        1791775696050283342
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-public-compile-capacity-command-freeze-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-public-compile-capacity-command-freeze-a.json",
+      "bytes": 6084,
+      "sha256": "cad7923df53905a56c530e8d35192479f079654bcace9790ccde0f320936d1b4",
+      "identity": [
+        16777230,
+        79728629,
+        33188,
+        1,
+        1791774888201054319
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-public-compile-capacity-actual-freeze-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-public-compile-capacity-actual-freeze-a.json",
+      "bytes": 35063,
+      "sha256": "a0a00910251b61e1e847fc9afeeed91257d6f5c8041fb32b4eebdbdfea2f6fca",
+      "identity": [
+        16777230,
+        80158517,
+        33188,
+        1,
+        1791775695961458015
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-native-03-independent-prep-review-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-independent-prep-review-a.json",
+      "bytes": 6465,
+      "sha256": "7148ceccc5e876a8845b2c3e7bc502773a5237b21000299796674bdb853290bf",
+      "identity": [
+        16777230,
+        80306815,
+        33188,
+        1,
+        1791775987898489209
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-native-03-independent-prep-review-b.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-independent-prep-review-b.json",
+      "bytes": 1957,
+      "sha256": "771b3f69c5e06b1d714b15d24260ccd5f72d6d1a9b227daacc95110921330acf",
+      "identity": [
+        16777230,
+        81133140,
+        33188,
+        1,
+        1791777710101174904
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-native-03-cache-repair-independent-review-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-independent-review-a.json",
+      "bytes": 1580,
+      "sha256": "666ef39a252a69b51f19a98315d3b604bde8e81c369d428c7eff90986935aa3c",
+      "identity": [
+        16777230,
+        80882947,
+        33188,
+        1,
+        1791776814658183844
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-native-03-cache-repair-independent-review-c.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-cache-repair-independent-review-c.json",
+      "bytes": 2390,
+      "sha256": "2dd36d2e1025335cd7f7eb24c9df41f934f2deb3e51df613d13387098330ef07",
+      "identity": [
+        16777230,
+        81042305,
+        33188,
+        1,
+        1791777348307895413
+      ]
+    },
+    {
+      "member": "reviews-and-freezes/ashlar-supply-chain-binary-evidence-source-freeze-a.json",
+      "path": "/private/tmp/ashlar-supply-chain-binary-evidence-source-freeze-a.json",
+      "bytes": 3330,
+      "sha256": "2681b19a608ac185bfd27714a699bccb326c8c6fde4bb30fcc2b7cb1d9cdcff8",
+      "identity": [
+        16777230,
+        79026806,
+        33188,
+        1,
+        1791773447019081127
+      ]
+    },
+    {
+      "member": "actual/retention.json",
+      "path": "/private/tmp/ashlar-supply-chain-native-03-completed-evidence-b/retention.json",
+      "bytes": 41227,
+      "sha256": "54f5e4326507f439f211d769f93604e4205aaface54517cc9a981caa2e60e126",
+      "identity": [
+        16777230,
+        81186750,
+        33188,
+        1,
+        1791778083275799679
+      ]
+    }
+  ],
+  "archive": {
+    "path": "/private/tmp/ashlar-supply-chain-native-03-completed-evidence-b/actual.tar.gz",
+    "bytes": 1067632,
+    "sha256": "ff430c50633782bc77adfa80e92f3d2a8c86c930a19788c9aae81e354c2f8fe2",
+    "identity": [
+      16777230,
+      81186751,
+      33188,
+      1,
+      1791778083468887455
+    ]
+  },
+  "omittedNativeOriginals": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173020,
+        33152,
+        1,
+        1791777800090820949
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/.part-00000-494690db-be5f-4760-997f-bd3ec2b1e3ce-c000.snappy.parquet.crc",
+      "bytes": 108,
+      "sha256": "885d1c0e5b6e3ffdd5c73463e6f284b593c537503845b7719319076ff8e2c19c",
+      "identity": [
+        16777230,
+        81173376,
+        33188,
+        1,
+        1791777813926856478
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 24,
+      "sha256": "3ca7d47d4f41df3da3b951abba1fb408c70f6dfee712e03666a2366ba6d666a8",
+      "identity": [
+        16777230,
+        81172586,
+        33188,
+        1,
+        1791777792599647446
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 24,
+      "sha256": "400ce5ae24cdacccb16ff8641d2036a24cebebae046b90622c951e195d71285e",
+      "identity": [
+        16777230,
+        81172564,
+        33188,
+        1,
+        1791777791730909324
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 28,
+      "sha256": "5ab2a89df51b6b54fadc9a099ec5857a54cbfdddebf97633104ac2451fa8686b",
+      "identity": [
+        16777230,
+        81173032,
+        33188,
+        1,
+        1791777800427195368
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "70ada5c4c33f03c89edc29572615b2dd2d06db7fb21131fc3a0df3d8bd374a34",
+      "identity": [
+        16777230,
+        81173027,
+        33188,
+        1,
+        1791777800189414619
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000002.crc.crc",
+      "bytes": 40,
+      "sha256": "503ebfdd325b884f3ffe71227e5dd3dff7598577dccc66d5a4d6fdf965d358ed",
+      "identity": [
+        16777230,
+        81173382,
+        33188,
+        1,
+        1791777814017272874
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "7bc087759623f7add522b9fc43509cf245e3eb0f512054cbc71b8695e72205a8",
+      "identity": [
+        16777230,
+        81173378,
+        33188,
+        1,
+        1791777813950624832
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000000.crc",
+      "bytes": 1837,
+      "sha256": "35f8260564f2a813d8893da076bb1167069ca85414ccb1f2b83b0a464286b6f3",
+      "identity": [
+        16777230,
+        81172585,
+        33188,
+        1,
+        1791777792599875032
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "56c8b1e3f7d9ed3b39de7ec440d5ab737851a0bdd247ebc1e95a62229acbf099",
+      "identity": [
+        16777230,
+        81172562,
+        33188,
+        1,
+        1791777791731955796
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000001.crc",
+      "bytes": 2092,
+      "sha256": "6cd9de9a4b4ae2dbb917e26e144993edb522739374eef9d8ff1f3e3248b83074",
+      "identity": [
+        16777230,
+        81173030,
+        33188,
+        1,
+        1791777800427414579
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000001.json",
+      "bytes": 2801,
+      "sha256": "ec7eec9bcbb8779f602655824c7f65e02f38a37e2f55eb022df66a6319f53b40",
+      "identity": [
+        16777230,
+        81173026,
+        33188,
+        1,
+        1791777800189709456
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000002.crc",
+      "bytes": 4045,
+      "sha256": "40faa547f1a94020440d19f4a44475df8cac796fe9bc796284e1829f2b294cb2",
+      "identity": [
+        16777230,
+        81173380,
+        33188,
+        1,
+        1791777814017423168
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/_delta_log/00000000000000000002.json",
+      "bytes": 2721,
+      "sha256": "1999e5aaada7afb0b6c1c3a327e1ce1e8f5c0f98c069d69173da81dbdc6a85a0",
+      "identity": [
+        16777230,
+        81173377,
+        33188,
+        1,
+        1791777813950730167
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/object_current/part-00000-494690db-be5f-4760-997f-bd3ec2b1e3ce-c000.snappy.parquet",
+      "bytes": 12387,
+      "sha256": "46b4ec2d613554cbc59d766a3e9d04a75e83c196c9b3cc652bb792575f987c8b",
+      "identity": [
+        16777230,
+        81173375,
+        33188,
+        1,
+        1791777813927000480
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173021,
+        33152,
+        1,
+        1791777800092704765
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/.part-00000-16fc4606-3066-4d80-8373-8689d15f9381-c000.snappy.parquet.crc",
+      "bytes": 120,
+      "sha256": "bc3132bc301e04d3ad1e2106d6aa90a3e3a30f35d9419e665648c77a0591d1fc",
+      "identity": [
+        16777230,
+        81173396,
+        33188,
+        1,
+        1791777814860046989
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 28,
+      "sha256": "a310a4a4b4652726d1b1d2b495bcb525dd1845b2454f3f59d3fb91abe4590198",
+      "identity": [
+        16777230,
+        81172630,
+        33188,
+        1,
+        1791777794725552418
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 28,
+      "sha256": "dadb369aaf40d34e4218dd00de542172411cc7dc99317e855650def607b1515d",
+      "identity": [
+        16777230,
+        81172627,
+        33188,
+        1,
+        1791777794585049197
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 28,
+      "sha256": "3b5625e4a6b521c5a7464493058c03b3062f7df9ba8c36eabb152081812d2707",
+      "identity": [
+        16777230,
+        81173060,
+        33188,
+        1,
+        1791777801829026035
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "9f321d35837cb1a0276c1c6b750b7d6808e6e6118e538717f80773511503d519",
+      "identity": [
+        16777230,
+        81173056,
+        33188,
+        1,
+        1791777801639293501
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000002.crc.crc",
+      "bytes": 44,
+      "sha256": "3494bd445678523bb315c97287c0a9e1ddf8e2ba199501b3341e97e805ce183d",
+      "identity": [
+        16777230,
+        81173402,
+        33188,
+        1,
+        1791777814957729564
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "35eab5cc5528eb5cce2e00d1818f911bcf19be6fe88e99babbd2995e548257ad",
+      "identity": [
+        16777230,
+        81173400,
+        33188,
+        1,
+        1791777814880534258
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000000.crc",
+      "bytes": 2071,
+      "sha256": "f65980ff8dbb0895e9c0ab51c6085185eae61c9b64dfc9571b17e20a57a525d1",
+      "identity": [
+        16777230,
+        81172629,
+        33188,
+        1,
+        1791777794725766212
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "a7a85799f7f6dd3337b3fdf65e96e76703b4e3ca0e937bd5a3e556fc33bf06c6",
+      "identity": [
+        16777230,
+        81172626,
+        33188,
+        1,
+        1791777794585255866
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000001.crc",
+      "bytes": 2326,
+      "sha256": "173362254b214c9703ec6c27555e4c60f676eee2e2bc62dc2f3c41e60ac49e3d",
+      "identity": [
+        16777230,
+        81173059,
+        33188,
+        1,
+        1791777801829190913
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000001.json",
+      "bytes": 3035,
+      "sha256": "c8ce2307ad4a3238cf769515eb3ef33ab27a871d0beb0c67f0e558d618264c75",
+      "identity": [
+        16777230,
+        81173055,
+        33188,
+        1,
+        1791777801639513212
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000002.crc",
+      "bytes": 4292,
+      "sha256": "2707185fee501b1892c80f05b2f17daaf6d959cc59df37d2ee7a3e8d01c8bb7b",
+      "identity": [
+        16777230,
+        81173401,
+        33188,
+        1,
+        1791777814957849315
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/_delta_log/00000000000000000002.json",
+      "bytes": 2734,
+      "sha256": "0f5288e1b718397f3893505f648656faf10d0e483946698f03a16b16eae73313",
+      "identity": [
+        16777230,
+        81173398,
+        33188,
+        1,
+        1791777814880623092
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/edge_current/part-00000-16fc4606-3066-4d80-8373-8689d15f9381-c000.snappy.parquet",
+      "bytes": 14047,
+      "sha256": "19722b6729a9b4ad4e8b9698c30e288d5aa5ce2eef9cf12d4e103797cfbb4ee9",
+      "identity": [
+        16777230,
+        81173395,
+        33188,
+        1,
+        1791777814860132073
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173022,
+        33152,
+        1,
+        1791777800095321508
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 20,
+      "sha256": "24c7c70e45c409dcd8b311b91952cf11bd519f81ec35e75388fb18f3fdb5223b",
+      "identity": [
+        16777230,
+        81172666,
+        33188,
+        1,
+        1791777795283898545
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "e664a3914dde4e2b91ee0f1d1392468329b7611ad5153ff374cd6c31529af1a1",
+      "identity": [
+        16777230,
+        81172663,
+        33188,
+        1,
+        1791777795170643807
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 20,
+      "sha256": "5f3f76911e03b4fea15fec0d026a10fefd505cbc70a39c40cc4caefd482a24fe",
+      "identity": [
+        16777230,
+        81173089,
+        33188,
+        1,
+        1791777802770057232
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 28,
+      "sha256": "319435b5aed98b716c8214cdcdf51b1b4283bbffdf2d5aade7c608de7f235544",
+      "identity": [
+        16777230,
+        81173084,
+        33188,
+        1,
+        1791777802593918751
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/00000000000000000000.crc",
+      "bytes": 1259,
+      "sha256": "3bd4f79576d4cd833d7970240bd5ac3d850616307bd1e819c0d0f1641ddb1dee",
+      "identity": [
+        16777230,
+        81172664,
+        33188,
+        1,
+        1791777795284124256
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "90228b890faf56e8badd61e07ded8aa751f4b5bf49340238b5ea7015744e051f",
+      "identity": [
+        16777230,
+        81172662,
+        33188,
+        1,
+        1791777795170861185
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/00000000000000000001.crc",
+      "bytes": 1514,
+      "sha256": "d5ee061900dd5293b79d909b0d930351819be5617dc3599d9a3b06a443455631",
+      "identity": [
+        16777230,
+        81173087,
+        33188,
+        1,
+        1791777802770330777
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/tombstone/_delta_log/00000000000000000001.json",
+      "bytes": 2223,
+      "sha256": "28f29a4e29c94a4f9a2d02eb6088dca92d223ec5b82006c5b02330c8f978dd58",
+      "identity": [
+        16777230,
+        81173082,
+        33188,
+        1,
+        1791777802594261756
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173023,
+        33152,
+        1,
+        1791777800101373212
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/.part-00000-1e8b446f-ac75-4278-961a-fe74a0e85d34-c000.snappy.parquet.crc",
+      "bytes": 272,
+      "sha256": "22b8a995ed2ce37a46bc7960f73f3219b178a9b51afc70935952ed59cecd3a2d",
+      "identity": [
+        16777230,
+        81173503,
+        33188,
+        1,
+        1791777815731703524
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 16,
+      "sha256": "81ba3b352dc807634d24b1fb0e83082578440c093c7913b23326e47bd6dbf332",
+      "identity": [
+        16777230,
+        81172702,
+        33188,
+        1,
+        1791777796224542236
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "8218ad23e177829badec981a502319d2eb6ea882aac44252a32e55a1cf69593f",
+      "identity": [
+        16777230,
+        81172698,
+        33188,
+        1,
+        1791777796013710800
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 20,
+      "sha256": "8ddb1b3e17b1825a86c71b458691c507a83ac53713ab7f3e6385e2c2bd72407e",
+      "identity": [
+        16777230,
+        81173107,
+        33188,
+        1,
+        1791777803573921960
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "975ca8fb9c425a22dce49b17f6d440d171bf17f3a35a45bd26e2f6809b63b576",
+      "identity": [
+        16777230,
+        81173105,
+        33188,
+        1,
+        1791777803453985551
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000002.crc.crc",
+      "bytes": 28,
+      "sha256": "997e342c97ed48f670cd9cd9045b327b4ce34a038b5331e90d25901c94a17303",
+      "identity": [
+        16777230,
+        81173508,
+        33188,
+        1,
+        1791777815822987890
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 24,
+      "sha256": "55fd0639be75fff5a319445d44f06dc7a7afa1734d2cf07d3b37309a420739a2",
+      "identity": [
+        16777230,
+        81173506,
+        33188,
+        1,
+        1791777815751164779
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000000.crc",
+      "bytes": 913,
+      "sha256": "df2bf35d45dad52e88d1effede6973ce056ccd6454f2bbb99da906a56948ce4f",
+      "identity": [
+        16777230,
+        81172701,
+        33188,
+        1,
+        1791777796224715155
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000000.json",
+      "bytes": 1109,
+      "sha256": "3e858d4f70211e33501839947852b581172dbe988f54b52a5976401ddd128658",
+      "identity": [
+        16777230,
+        81172697,
+        33188,
+        1,
+        1791777796013946969
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000001.crc",
+      "bytes": 1168,
+      "sha256": "3f65c13d17f0291bc27354d0a7c81f16b628214d1fa4e1c25e4211f6c1dd4dd7",
+      "identity": [
+        16777230,
+        81173106,
+        33188,
+        1,
+        1791777803574067504
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000001.json",
+      "bytes": 1877,
+      "sha256": "03e1b2d04d6e534cad0d6b56df5e9b60123929c101e5a8f091cdde3f24f8aeac",
+      "identity": [
+        16777230,
+        81173104,
+        33188,
+        1,
+        1791777803454190512
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000002.crc",
+      "bytes": 2057,
+      "sha256": "869458ebe56fee53e88650d41c6e76848f8aa29dc32c48976a4803aeea84f73a",
+      "identity": [
+        16777230,
+        81173507,
+        33188,
+        1,
+        1791777815823102933
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/_delta_log/00000000000000000002.json",
+      "bytes": 1657,
+      "sha256": "8bed1f6243ad4e4d8a02f01e43001ff1073c533754486c46d8fa06909117567a",
+      "identity": [
+        16777230,
+        81173504,
+        33188,
+        1,
+        1791777815751305240
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/whole_source_history/part-00000-1e8b446f-ac75-4278-961a-fe74a0e85d34-c000.snappy.parquet",
+      "bytes": 33327,
+      "sha256": "3be9437ba4e82d4804c7a2287acae27a7bd81bb6ffb8449bff9d12ec3f96e8e6",
+      "identity": [
+        16777230,
+        81173502,
+        33188,
+        1,
+        1791777815731810275
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173024,
+        33152,
+        1,
+        1791777800105317347
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.part-00000-023ced61-e440-4e58-bec2-fab099e3efc8-c000.snappy.parquet.crc",
+      "bytes": 192,
+      "sha256": "ac7c97477a2126eb1d18ff951d10c1718f7f6a9bb435dead3ff0719c76d6c44c",
+      "identity": [
+        16777230,
+        81174561,
+        33188,
+        1,
+        1791777819791710906
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.part-00000-0cf4ca67-5e26-491d-b2f4-c51405b6e80e-c000.snappy.parquet.crc",
+      "bytes": 164,
+      "sha256": "825c4549ddcc58a5756dc718926793e5e03b2bf2b8d1c5bfc00ef68f3768ae01",
+      "identity": [
+        16777230,
+        81173306,
+        33188,
+        1,
+        1791777811772185753
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.part-00000-0d41dbad-c687-437a-bcc5-0b01bc9e4942-c000.snappy.parquet.crc",
+      "bytes": 192,
+      "sha256": "4eb7d7296dad56a88ea2d2547195b7ddca2c07c73d90d2e792ba1e1a0b70ede5",
+      "identity": [
+        16777230,
+        81173722,
+        33188,
+        1,
+        1791777818056475317
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.part-00000-23c54359-7fc8-4ab8-b6e6-109919b35f9b-c000.snappy.parquet.crc",
+      "bytes": 212,
+      "sha256": "923656038828ec3d5a7d2c2bd30ea131a01183c6253b98de77ce38411030c739",
+      "identity": [
+        16777230,
+        81175093,
+        33188,
+        1,
+        1791777822632443312
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/.part-00000-5e443617-b511-40cf-b0bd-ca00bda8c2fe-c000.snappy.parquet.crc",
+      "bytes": 164,
+      "sha256": "b1778132fe0fefa4bb1ee7aeef8dbc57e4cd2c9b2b81021afb61f85bb665d373",
+      "identity": [
+        16777230,
+        81173249,
+        33188,
+        1,
+        1791777809791734067
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 16,
+      "sha256": "4105cf30e27c0a91b6ca773d9f108d14fe476f66d76720bdb7247ac82c86b9f8",
+      "identity": [
+        16777230,
+        81172726,
+        33188,
+        1,
+        1791777797046870707
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "88e18a5f1077d24a8fc6ecd01625b3c576f9701e23db2ca67610c64959c3b4df",
+      "identity": [
+        16777230,
+        81172723,
+        33188,
+        1,
+        1791777796854856851
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 20,
+      "sha256": "177ddfb6877303b307e4074c1916987b3427210174476f49282ad9db2c5553c2",
+      "identity": [
+        16777230,
+        81173129,
+        33188,
+        1,
+        1791777804286939619
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "b11d1c8465e27fba6947905514b2f8333e57be98d90f4e29f88fba103139300c",
+      "identity": [
+        16777230,
+        81173127,
+        33188,
+        1,
+        1791777804169811789
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000002.crc.crc",
+      "bytes": 28,
+      "sha256": "b708000a4b237f652b3ad3f899bac9ab969b0a41800bd77aa059ff04747bdd5b",
+      "identity": [
+        16777230,
+        81173266,
+        33188,
+        1,
+        1791777810009628180
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "18915ccb4ed4a67a85f320965d98f527e48a1d9c3a33b5ba80a6b3d5081f3b5b",
+      "identity": [
+        16777230,
+        81173259,
+        33188,
+        1,
+        1791777809871879662
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000003.crc.crc",
+      "bytes": 32,
+      "sha256": "6b9457a71ed6734b6597c6fceca4fb77590c478a3f3e04b6ac8d5374b773ab96",
+      "identity": [
+        16777230,
+        81173316,
+        33188,
+        1,
+        1791777811925704187
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000003.json.crc",
+      "bytes": 32,
+      "sha256": "02125cfac46ab68cc4ec2329c94c91090802fffabb63db8daf8b8db7d1f80e03",
+      "identity": [
+        16777230,
+        81173308,
+        33188,
+        1,
+        1791777811804013338
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000004.crc.crc",
+      "bytes": 40,
+      "sha256": "56a00bf10f9c2e197bcf6c0fcacb01581fae1448c8ce5e593a05a02434182056",
+      "identity": [
+        16777230,
+        81173807,
+        33188,
+        1,
+        1791777818148683237
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000004.json.crc",
+      "bytes": 32,
+      "sha256": "be2237ba70eb704cd1c3da24b9b1f383b0a9369da00f59fb2688a7e34a47ee02",
+      "identity": [
+        16777230,
+        81173727,
+        33188,
+        1,
+        1791777818079288783
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000005.crc.crc",
+      "bytes": 48,
+      "sha256": "02c723444613510c8b7ba9fe9fff376a0ca8ddf7900abaa8be96157289d0dbff",
+      "identity": [
+        16777230,
+        81174568,
+        33188,
+        1,
+        1791777819886239190
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000005.json.crc",
+      "bytes": 32,
+      "sha256": "979a66af076d771a1a3abace551f61712a48f721d0937c01f3a321a7d90febca",
+      "identity": [
+        16777230,
+        81174565,
+        33188,
+        1,
+        1791777819813416150
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000006.crc.crc",
+      "bytes": 56,
+      "sha256": "6d3bbbba117310a854dc409cda9be841eaaf010656921243ccc8cf07b205ced1",
+      "identity": [
+        16777230,
+        81175105,
+        33188,
+        1,
+        1791777822746315141
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/.00000000000000000006.json.crc",
+      "bytes": 32,
+      "sha256": "8b278a3b05cf63e6f5dbd996faeaf81a1e1586ad67c35085d8f2f10bb3909fa0",
+      "identity": [
+        16777230,
+        81175095,
+        33188,
+        1,
+        1791777822660613807
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000000.crc",
+      "bytes": 925,
+      "sha256": "ba34a84033b8abf3a43847674c843f311cc903ab2337f320d161f6ae56f6cb11",
+      "identity": [
+        16777230,
+        81172725,
+        33188,
+        1,
+        1791777797047054459
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000000.json",
+      "bytes": 1121,
+      "sha256": "0bf422c8cbcedf7082a3246a56f8ad282e83b91dd117b1085e5fe118f7f9d8b1",
+      "identity": [
+        16777230,
+        81172719,
+        33188,
+        1,
+        1791777796855138646
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000001.crc",
+      "bytes": 1180,
+      "sha256": "8ec2710798b3e0bfb7abc2637c313f4ac030dbc2daf8022ace66ec5dfe0208ac",
+      "identity": [
+        16777230,
+        81173128,
+        33188,
+        1,
+        1791777804287099955
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000001.json",
+      "bytes": 1889,
+      "sha256": "9674cf806f27e20f4666d507027276b21c78de49b22c3867d41bf675cb34c696",
+      "identity": [
+        16777230,
+        81173126,
+        33188,
+        1,
+        1791777804170085001
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000002.crc",
+      "bytes": 2095,
+      "sha256": "bbc5f66436ef1603d72c0f670108364d735a3b2759a9c73a6e800b885f827a3e",
+      "identity": [
+        16777230,
+        81173265,
+        33188,
+        1,
+        1791777810009791599
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000002.json",
+      "bytes": 2875,
+      "sha256": "4ad416315b45bc21bf68ae9d4813f995a8a477427f94b20ff12014b8badbd0f3",
+      "identity": [
+        16777230,
+        81173257,
+        33188,
+        1,
+        1791777809872197624
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000003.crc",
+      "bytes": 3007,
+      "sha256": "4cebeee0231ab41c08320fc0a262b77427e6a1fa5ad9d2eb1711cd4b793d5878",
+      "identity": [
+        16777230,
+        81173315,
+        33188,
+        1,
+        1791777811925867647
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000003.json",
+      "bytes": 2875,
+      "sha256": "ae9295007ce5c4f9912b392a9973ba9050f4655b1e25080e311235447e2270c5",
+      "identity": [
+        16777230,
+        81173307,
+        33188,
+        1,
+        1791777811804215216
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000004.crc",
+      "bytes": 3917,
+      "sha256": "bb888fd90cf0a856e98b8ceba77625095c54dfdc7be9ddd150eb9b864039eed5",
+      "identity": [
+        16777230,
+        81173791,
+        33188,
+        1,
+        1791777818148792655
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000004.json",
+      "bytes": 2872,
+      "sha256": "3500ee5cbf0dab926397a19fda889bd38b06bce6d4a6d8cc44edd2aa08bf7082",
+      "identity": [
+        16777230,
+        81173723,
+        33188,
+        1,
+        1791777818079449035
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000005.crc",
+      "bytes": 4833,
+      "sha256": "633fccb9635b48a002e6927143d3d6928447d4523e1842f94ed577badd2104e0",
+      "identity": [
+        16777230,
+        81174567,
+        33188,
+        1,
+        1791777819886346775
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000005.json",
+      "bytes": 2879,
+      "sha256": "a4bd9bb1be09b13669637d9d3d283d7bb8b4b7d285d13c561fb3ed72140cb51f",
+      "identity": [
+        16777230,
+        81174564,
+        33188,
+        1,
+        1791777819813532235
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000006.crc",
+      "bytes": 5760,
+      "sha256": "2f610cc0c6845e2e4b31e38adfd9a0caa6c1fec8f0161343b92780c9a810841c",
+      "identity": [
+        16777230,
+        81175104,
+        33188,
+        1,
+        1791777822746455393
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/_delta_log/00000000000000000006.json",
+      "bytes": 2889,
+      "sha256": "f233a8143b475b58e69e40a761df7134a583d404b338234222ddb3ee563403a0",
+      "identity": [
+        16777230,
+        81175094,
+        33188,
+        1,
+        1791777822660740558
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/part-00000-023ced61-e440-4e58-bec2-fab099e3efc8-c000.snappy.parquet",
+      "bytes": 23513,
+      "sha256": "24e453ccf21b7061f32954ced75d20ea5d10f93899184cb22cfdccdfa7999b13",
+      "identity": [
+        16777230,
+        81174559,
+        33188,
+        1,
+        1791777819791885950
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/part-00000-0cf4ca67-5e26-491d-b2f4-c51405b6e80e-c000.snappy.parquet",
+      "bytes": 19907,
+      "sha256": "a9dc040c826c91c42f3df2102bf9b0e4716c6e859866052997eebd02845811f5",
+      "identity": [
+        16777230,
+        81173304,
+        33188,
+        1,
+        1791777811772324213
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/part-00000-0d41dbad-c687-437a-bcc5-0b01bc9e4942-c000.snappy.parquet",
+      "bytes": 23492,
+      "sha256": "9da52ea722bce0fb7e0f90594ef5f4819aabfabdb51f58a3335f0d0656185eeb",
+      "identity": [
+        16777230,
+        81173721,
+        33188,
+        1,
+        1791777818056563068
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/part-00000-23c54359-7fc8-4ab8-b6e6-109919b35f9b-c000.snappy.parquet",
+      "bytes": 26101,
+      "sha256": "82cf80d37ab5f1a435138de4be6fc1165815fd772a4be5fd10f8e3bec4b347eb",
+      "identity": [
+        16777230,
+        81175092,
+        33188,
+        1,
+        1791777822632538896
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/attempts/part-00000-5e443617-b511-40cf-b0bd-ca00bda8c2fe-c000.snappy.parquet",
+      "bytes": 19908,
+      "sha256": "3213b93620f7cf745b6a0455b9f52cf0dafcb30778f2f6c2dfb1d7fca20cd54d",
+      "identity": [
+        16777230,
+        81173248,
+        33188,
+        1,
+        1791777809791948778
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/.ashlar-local-installation-reservation.json",
+      "bytes": 1419,
+      "sha256": "f6cc297732c5d236913227cd47df8f671d44e5ad77597cf4be62d34af0d5203f",
+      "identity": [
+        16777230,
+        81173025,
+        33152,
+        1,
+        1791777800106580072
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/.part-00000-3b07cd63-f658-47d3-8bb1-5dd2fa599515-c000.snappy.parquet.crc",
+      "bytes": 72,
+      "sha256": "246c4278289326d3f8635e50a3ca10de326f81a3cdbfcd8a5f78df93f643f202",
+      "identity": [
+        16777230,
+        81175018,
+        33188,
+        1,
+        1791777821221161687
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000000.crc.crc",
+      "bytes": 20,
+      "sha256": "bc90ed82d5b940602229ce4304df2990068470f1ce4d0318c7a46f3cd7dbd662",
+      "identity": [
+        16777230,
+        81172808,
+        33188,
+        1,
+        1791777797724624695
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "412892c708cef2bf2a2f6bc1616d9cba7ebadf6f864478067094755a133339dc",
+      "identity": [
+        16777230,
+        81172786,
+        33188,
+        1,
+        1791777797530650980
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000001.crc.crc",
+      "bytes": 20,
+      "sha256": "6f4c93b9214cd2b586683a9c7fd8e258469efdc6b79b402f35442a191092d2e4",
+      "identity": [
+        16777230,
+        81173158,
+        33188,
+        1,
+        1791777805082263693
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "14bc72c14be869b759c044b6a9dd84aabcec3984e2781fbd33743fd5bf467eb8",
+      "identity": [
+        16777230,
+        81173151,
+        33188,
+        1,
+        1791777804919385804
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000002.crc.crc",
+      "bytes": 28,
+      "sha256": "313dbd91fd6f2c155c6b97386c0f6625c968b80d23f7e749039980d5d77556d2",
+      "identity": [
+        16777230,
+        81175022,
+        33188,
+        1,
+        1791777821324367876
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 36,
+      "sha256": "f5c038c9c390755742b68599f2e837a8ba5526b16a9b8c4d1767d227e1f6be78",
+      "identity": [
+        16777230,
+        81175020,
+        33188,
+        1,
+        1791777821248313335
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000000.crc",
+      "bytes": 1061,
+      "sha256": "9410ef49e7d2b539c0cddd737bebcb92194f6d76235e772a20d63226e3d15bc3",
+      "identity": [
+        16777230,
+        81172804,
+        33188,
+        1,
+        1791777797724795947
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000000.json",
+      "bytes": 1257,
+      "sha256": "b1fb1262ffaa1399629bd46e3c5c2263a41611573b842e87af27e73c24abb277",
+      "identity": [
+        16777230,
+        81172784,
+        33188,
+        1,
+        1791777797530953359
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000001.crc",
+      "bytes": 1316,
+      "sha256": "1255d46ab8181ce9a5a943e779063b5dc7ab9831aea925d5029a900542a80328",
+      "identity": [
+        16777230,
+        81173157,
+        33188,
+        1,
+        1791777805082401445
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000001.json",
+      "bytes": 2025,
+      "sha256": "5044cb1ffd33267b3a9977aa39e352638ed706942879d282714a0a70af0c1752",
+      "identity": [
+        16777230,
+        81173150,
+        33188,
+        1,
+        1791777804919564723
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000002.crc",
+      "bytes": 2555,
+      "sha256": "b52cf388c807dba7ce49788971ba3ba39050ec8e4904e6fa889364a41b0ae3ce",
+      "identity": [
+        16777230,
+        81175021,
+        33188,
+        1,
+        1791777821324474169
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/_delta_log/00000000000000000002.json",
+      "bytes": 3296,
+      "sha256": "67ffde5700b72fd1fa65ea7578b05e6596b48667e1c9a2761bea5d3d5ac2c225",
+      "identity": [
+        16777230,
+        81175019,
+        33188,
+        1,
+        1791777821248517629
+      ]
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-native-03-prep-a/publication/manifest/part-00000-3b07cd63-f658-47d3-8bb1-5dd2fa599515-c000.snappy.parquet",
+      "bytes": 8083,
+      "sha256": "54971e5525591d1698aed82140a626e1df6dd317bb0f5746416e92f860851a96",
+      "identity": [
+        16777230,
+        81175017,
+        33188,
+        1,
+        1791777821221334355
+      ]
+    }
+  ],
+  "omittedSDK": "Full trees/wheels/interpreter not copied; exact351 selected resource pins and complete SDK/JDK namespaces retained in command/custody.json; original wheel/source244 RECORD qualification retained.",
+  "scope": "Native originals pinned read-only, not independently decoded here. Peer fullbag audit is separate. No extra Spark/producer run; other six common cases, protected ACK, cloud and Truss remain pending."
+}

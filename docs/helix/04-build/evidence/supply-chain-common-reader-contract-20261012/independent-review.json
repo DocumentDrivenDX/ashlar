@@ -1,0 +1,26 @@
+{
+  "verdict": "approved desired-state only",
+  "freeze_sha256": "39655ca01713b354f88d7dc4da7936e20e8e8222d7e7df251d6d27246c2dace0",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "e31e1d851b388e2aa7bb39fa041449d09062255b3c20c6533cf59ddbcd824183"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "990b285d77c5eb01e876da10b8498c506126cdf6a40f41b9c1aa618eddd563cb"
+    }
+  ],
+  "checks": [
+    "Nominal retained dataset required at finite source construction and every renewal; authentic original successful invocation/runtime/script/source/receipt correspondence is distinct from semantic validation and current native/source grants.",
+    "Full descriptor/vector/native/alias/source closing independently required on every BaseException while existing exclusion record held; original failures preserved; missing records refuse without create/repair/append.",
+    "Complete20node23edge native carriers, nullable/text fields, independent edge occurrence identity and multiplicity required; source expected endpoints alone cannot replace native witnesses.",
+    "IDs/frontmatter/ddx unchanged; additive59lines contain no historical pass or implementation claim."
+  ],
+  "implementationGaps": [
+    "FiniteSupplyChainSource currently accepts arbitrary callable; nominal retained producer gate must be added only for this new read path without relabeling old invocation profiles.",
+    "HeldSupplyChainDataset currently requires fresh output and executes producer; a separate retained owner must validate actual invocation provenance and original environment/source custody without new dataset execution.",
+    "Existing read composition must use read-only transport and an existing-only lock opener; inherited writer lock/repair acquisition cannot serve new query-only boundary."
+  ],
+  "scope": "Read-only contract/source inspection; no files edited, SDK/native/producer/API actions, or implementation qualification."
+}

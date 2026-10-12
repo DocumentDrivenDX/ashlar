@@ -1,0 +1,29 @@
+{
+  "scope": "Desired-state query-only existing publication and authentic original producer reopening; no implementation/source/native effects",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "e31e1d851b388e2aa7bb39fa041449d09062255b3c20c6533cf59ddbcd824183",
+      "before_sha256": "2fde8640f30be35b87a34a0ae1502f3fa2aa6cc308bbb3a688a32458a8f0a8de",
+      "added_lines": 36,
+      "frontmatter_preserved": true,
+      "diff_path": "/private/tmp/ashlar-supply-chain-common-contract-source-freeze-a/CONTRACT-002-consumer-read-boundary.md.diff"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "990b285d77c5eb01e876da10b8498c506126cdf6a40f41b9c1aa618eddd563cb",
+      "before_sha256": "91c415b00a405a4b0717dbd9d954d4d7ca883c852f40918d8e6fcc00565d3a59",
+      "added_lines": 23,
+      "frontmatter_preserved": true,
+      "diff_path": "/private/tmp/ashlar-supply-chain-common-contract-source-freeze-a/CONTRACT-003-delta-graph-tables.md.diff"
+    }
+  ],
+  "upstream": [
+    "FEAT-002",
+    "FEAT-003",
+    "FEAT-004",
+    "ADR-001",
+    "CONTRACT-001"
+  ],
+  "helix": "Bound .helix.yml helix docs/helix; installed0.16 workflow graph, design/authoring contract metadata/template/prompt/voice and upstream read; IDs/frontmatter/ddx links unchanged"
+}

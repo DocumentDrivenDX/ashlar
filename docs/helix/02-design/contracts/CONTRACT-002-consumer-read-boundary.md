@@ -62,6 +62,42 @@ publication, compiler installation or ACK authority. It qualifies only the
 two-hop case; the other six common graph cases retain their separate required
 positive executions.
 
+### Existing supply-chain publication reads
+
+`open_supply_chain_common_read(config)` MUST yield only a nominal
+`OpenedSupplyChainCommonRead` bound to an existing original publication, source,
+installation lease and read-only journal. Missing registrations, committed
+phases, native tables or exclusion records MUST refuse without creation or
+repair. Reopening MUST NOT publish, append, submit ACK, regenerate the dataset
+or create a replacement receipt. Existing native invocation profiles retain
+their own behavior and evidence inventories.
+
+The read composition MUST select a nominal `RetainedOriginalSupplyChainDataset`
+as the `FiniteSupplyChainSource` producer at construction and every renewal.
+Its acquisition MUST independently verify the authentic original successful
+public-producer invocation and exact original model, graph, selected producer
+source/runtime/script and emitted receipt correspondence. Caller callbacks,
+receipt digests and archived validation flags MUST NOT supply semantic authority.
+Missing original provenance MUST refuse. Complete original dataset, record,
+key and relationship semantics MUST remain checked.
+
+Renewal MUST verify held original file identities and complete model, graph,
+script and receipt bytes, plus the selected producer's original revision and
+clean source. Necessary bounded read-only Git HEAD/status operations MUST run
+against the original selected paths and environment; fresh dataset execution
+MUST NOT substitute for these checks. Changed configuration MUST NOT redirect
+original closing checks. Producer provenance and semantic correspondence MUST
+NOT grant current native, source, publication or ACK authority.
+
+Every query-only interval MUST acquire an existing exclusion record and bind
+its original descriptor and complete table UUID/version vector. On normal
+return or any `BaseException`, including cancellation, it MUST independently
+attempt original source renewal, descriptor/vector resolution and native/alias
+correspondence before releasing the actual exclusion record. Closing failure
+MUST withhold the result; an original body failure MUST be preserved while all
+applicable original closing checks and releases are attempted. Nested provider
+intervals and resolution of a replacement publication MUST refuse.
+
 ### Installed supply-chain native invocation
 
 `ashlar run-supply-chain-native --configuration PATH` MUST accept a closed,
