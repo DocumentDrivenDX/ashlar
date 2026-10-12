@@ -168,3 +168,33 @@ revision that can read that profile. Use release-specific OneLake node and edge
 paths in the intended workspace/lakehouse. The generated notebook contains the
 export data; keep it private until choosing its upload destination. Preparation
 performs no upload, materialization or GQL query.
+
+An export-only configuration avoids compiler settings:
+
+```json
+{
+  "profile": "ashlar-original-finite-pack-export-configuration/0.1",
+  "pack": "archaeology",
+  "publication": "/absolute/private/existing-publication",
+  "jars": "/absolute/path/to/existing-delta-jars",
+  "model": "/absolute/path/to/original/ontology.json",
+  "graph": "/absolute/path/to/original/graph/fixture.json",
+  "pack_file": "/absolute/path/to/original/pack.json",
+  "producer": {
+    "source": "/absolute/path/to/selected-umf-source",
+    "bun": "/absolute/path/to/bun",
+    "git": "/absolute/path/to/git",
+    "timeout_seconds": 5,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 33554432
+  },
+  "operation_capacity": {
+    "profile": "ashlar-private-local-operation-capacity/0.1",
+    "max_intent_bytes": 8388608
+  }
+}
+```
+
+Select the original source and operation capacity used by the existing
+publication. The command neither initializes nor repairs that publication.
+Existing query configurations remain accepted for compatibility.
