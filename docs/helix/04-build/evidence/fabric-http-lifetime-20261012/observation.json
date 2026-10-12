@@ -1,0 +1,38 @@
+{
+  "profile": "ashlar-fabric-cli-version-only-observation/0.1",
+  "argv": [
+    "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/bin/python3.14",
+    "-I",
+    "-B",
+    "-m",
+    "azure.cli",
+    "version",
+    "--output",
+    "json",
+    "--only-show-errors"
+  ],
+  "resolved_interpreter": "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "AZURE_CONFIG_DIR": "/private/tmp/ashlar-fabric-cli-version-only-a/config",
+    "TMPDIR": "/private/tmp/ashlar-fabric-cli-version-only-a/tmp",
+    "AZURE_CORE_COLLECT_TELEMETRY": "no",
+    "AZURE_EXTENSION_USE_DYNAMIC_INSTALL": "no",
+    "AZURE_EXTENSION_DIR": "/private/tmp/ashlar-fabric-cli-version-only-a/extensions",
+    "AZURE_EXTENSION_SYS_DIR": "/private/tmp/ashlar-fabric-cli-version-only-a/extensions",
+    "REQUESTS_CA_BUNDLE": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/certifi/cacert.pem",
+    "SSL_CERT_FILE": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/certifi/cacert.pem",
+    "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0"
+  },
+  "stdout_bytes": 112,
+  "stdout_sha256": "ec3021c33b924b122b7c542905245d7d1e58dc943b99dc70798f5fb6ffaeb827",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "version": {
+    "azure-cli": "2.90.0",
+    "azure-cli-core": "2.90.0",
+    "azure-cli-telemetry": "1.1.0",
+    "extensions": {}
+  },
+  "qualification": "One alteredlauncher version-only execution with fresh empty noncredential config/extension/tmp dirs. Existing bounded producer supervisor owns kill/reap; total stdout/stderr <=1MiB, <=30s. Venv interpreter logical symlink invocation preserves pyvenv selection, resolved canonical binary recorded. No account/token/auth/API requested; no full runtime/liveauth or network-isolation qualification."
+}

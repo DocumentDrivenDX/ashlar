@@ -1,0 +1,9 @@
+{
+  "profile": "ashlar-fabric-http-lifetime-contract-freeze/0.1",
+  "file": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+  "bytes": 82358,
+  "sha256": "8190b5650966c1a6d148801550bc4b4b65d4888dd687cb8293c728f9c0c281c5",
+  "diff_sha256": "52e292b24b1fd0c93413ab73c96c4efe469e490a025cb35339869784b5cebd8d",
+  "independent_design_review_sha256": "72bbf8cd4f903cc3f4c156d7e41c9ae6b5d04fc1eaa77b0b4e3ac413a9c706de",
+  "scope": "Desired credentialexecution versus tokenheldHTTP lifetime reconciliation only. Complete CLI content/selection checks bracket actualCLI execution; tokenheldrequests renew nominal immutable account/token/config/expiry/clientTLS/routes and actualendpoint permission. No perHTTPCLIhash fake remotecheck/stat-only/cache/grant. OS assumptions, separate HTTP runtime and transientreversion limitation explicit. Strong positive P07/current publication/sourceACK obligations retained. No effects/source implementation."
+}

@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-fabric-http-lifetime-contract-review/0.1",
+  "decision": "approved_desired_state_only",
+  "freeze_sha256": "7caa4b89404887a9b599e29207e27d48351173e92d56750e7df3a1e5f6e72096",
+  "file": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+  "contract_sha256": "8190b5650966c1a6d148801550bc4b4b65d4888dd687cb8293c728f9c0c281c5",
+  "diff_sha256": "52e292b24b1fd0c93413ab73c96c4efe469e490a025cb35339869784b5cebd8d",
+  "independent_auth_design_review_sha256": "72bbf8cd4f903cc3f4c156d7e41c9ae6b5d04fc1eaa77b0b4e3ac413a9c706de",
+  "checks": [
+    "Exact filelength/hash/diff frozen and originalfrontmatter unchanged",
+    "FullselectedCLIcontent/inventory/link/config checks explicitly bracket actualcredentialtool execution and independentclosing; no stat-only substitution",
+    "Toolordinary credentialprovider/cache behavior admitted initialacquisition, while Ashlar implicitlogin/switch/refresh/grant forbidden",
+    "Tokenheld HTTP noCLI execution distinguished from currentendpointauth; nominalconfig/account/token/context/lifetime/expiry/deadline/caps/routes/body/TLSchecks renewed eachuse",
+    "EarlierAPIpermission nevercached as laterauthority; accountshow/custodyhashes nevercalled remoteauthorization",
+    "IndependentoriginalCLI/runtime/config/account closing stillattempted and drift withholdsqualification; submittedrequests not falselyrolledback",
+    "Namedtrustedoperatorprovenance/platform assumptions, separateHTTP/TLSruntime selection and transientreversion limitation retained",
+    "Publication/sourceACK/no-mixed/positiveP07 requirements unchanged",
+    "Owned diffcheckpass"
+  ],
+  "qualification": "Desired-state auth-lifetime reconciliation only. No sourceimplementation, credential acquisition/cache reads, network/SDK/native effects or supportedruntime/liveTLS/Fabric/P07claim."
+}

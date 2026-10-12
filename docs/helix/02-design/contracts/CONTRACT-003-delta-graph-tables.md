@@ -643,7 +643,17 @@ directory; and an independently admitted complete CLI/runtime profile. That
 profile MUST bind the actual supported version, executable and interpreter/package
 closure, configuration identity, startup environment and TLS trust selection.
 An executable path, declared version or digest alone MUST NOT establish runtime
-custody. The qualified CLI version/runtime subset remains unspecified until
+custody.
+The selected genuine operator-admitted credential-tool installation MUST have
+separately trusted provenance; a caller executable and self-authored content
+manifest cannot confer that identity. Supported platform assumptions MUST name
+OS/process loader, system frameworks/libraries and host isolation. The Python
+HTTP client and its TLS implementation/trust closure MUST be independently
+selected and qualified; CLI custody does not qualify that different runtime.
+Opening/closing equality does not exclude transient mutation and reversion.
+Any stronger immutable-deployment/exclusion claim MUST identify actual enforcement;
+otherwise that limitation remains explicit without weakening current publication,
+source/ACK or no-mixed-refresh obligations. The qualified CLI version/runtime subset remains unspecified until
 actual evidence establishes it; no version support may be inferred from this
 contract.
 
@@ -678,8 +688,22 @@ acquire the resource token through `az account get-access-token --subscription
 <account> --resource https://api.fabric.microsoft.com --output json
 --only-show-errors`, requiring matching subscription/tenant, `Bearer` token type,
 header-safe bounded token bytes and sufficient canonical POSIX `expires_on`.
-Account/runtime correspondence MUST renew at use and independently at closing.
-No implicit login, account switch, token refresh or grant may occur.
+Full selected CLI/runtime content, inventory, link and configuration correspondence
+MUST bracket actual credential-tool execution, including the opening account,
+token and account commands and an independent closing account check. A stat-only
+check MUST NOT replace original content correspondence. Token acquisition may
+use the selected tool's ordinary credential-provider/cache behavior; Ashlar MUST
+NOT introduce an implicit login, account switch, token refresh or grant.
+
+Token-held HTTP use MUST renew the exact nominal owner's lifetime, original
+immutable configuration/context/account/token identities, token expiry, remaining
+deadline/capacities, selected HTTP method/route/body and client TLS trust. It does
+not invoke CLI code. CLI package hashes or cached `account show` metadata MUST NOT
+be represented as remote authorization/revocation checks. Actual Fabric success
+or denial applies to that operation only; earlier permission MUST NOT be cached
+as authority for a later request. Independent closing MUST attempt the original
+local CLI/runtime/configuration/account checks and withhold combined qualification
+on drift. Closing does not roll back submitted requests.
 
 These checks establish actual tool-reported selection correspondence under the
 admitted credential runtime. They MUST NOT be described as cryptographic token

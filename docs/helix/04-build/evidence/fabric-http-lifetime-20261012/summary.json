@@ -1,0 +1,48 @@
+{
+  "profile": "ashlar-fabric-cli-version-only-summary/0.1",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-fabric-cli-version-only-a/observation.json",
+      "sha256": "48e5fca12f2dffedd1bf77dc225e53094316e4b3a737bc2490228d16e4ce591b"
+    },
+    {
+      "path": "/private/tmp/ashlar-fabric-cli-version-only-a/interpreter-observation.json",
+      "sha256": "b75a9c229e900eef49de6f884fdbe2a4bb8a8fda622b39c1bac96f09d952a39e"
+    }
+  ],
+  "static_source_pins": [
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/telemetry.py",
+      "sha256": "6f37c77581b473107ec2384ef65f96b45d2d78cadcf34ac9e16f865175351beb"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/extension/__init__.py",
+      "sha256": "307b7c76d1a967250a43d052f02f7d9dd598d15758840751de7e9bd542e260cb"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/extension/dynamic_install.py",
+      "sha256": "e1e91a18c9b16abe055b821455443bec77f4fe49d87205f276b487eb5d23f991"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/util.py",
+      "sha256": "4924dfe6732630dd5e0353be6c4ab4d04094e1e7989eee767b7592cc2f15ebbb"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/command_modules/util/custom.py",
+      "sha256": "5a05884d54dd5b83004af51dbcbb91c7d8cbd2b0622a44d25d67435159aab8e4"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/knack/config.py",
+      "sha256": "6cfa50fa3b9b79cf24c7f33b485aba7dc3e8f35bc3a4ea8359be016900a289f4"
+    }
+  ],
+  "facts": [
+    "Actual alteredCLI launcher returned azure-cli/core2.90.0,telemetry1.1.0,extensions{} with empty stderr.",
+    "Canonical isolated interpreter actually reports3.14.8, matching resolved current dependency; pyvenv.cfg3.14.7 is stale build metadata, not current interpreter version.",
+    "Exact2.90 source verifies telemetry core.collect_telemetry and extension.use_dynamic_install options, AZURE prefix environment mapping, explicitextensiondir/sysdir selection; versioncommand only enumerates installeddistribution/extension metadata.",
+    "Private fresh noncredential directories only; no account/token/cache reads/API calls requested. Existing bounded capture supervisor allhandles terminal/reaped."
+  ],
+  "limits": "No packet-level denial/evidence of zero network traffic and no full package/runtime closure or liveTLS/auth qualification. Canonical binary alone cannot locate venvCLI package; logical explicitlyobservedsymlink path retains venv, and actual canonical binary versionprobe separate.",
+  "cost_gap": "Sitepackages18492files421468951bytes observed without archive/hashing. Fullstdlib/native-dependencyclosure adds unknownvolume; repeated complete hashing perHTTPcall would read at least~421MB each before addedclosure, so11queries>4.6GB read evenonepassperquery. This is an estimate from bytes, not measured latency or benchmark.",
+  "practical_boundary": "Use explicit supported operator-admitted Homebrew installedcredentialtool2.90/runtime3.14.8 trust boundary, record OSloader/systemlibrary assumptions and actual selected package/interpreter/env/CA/extensionclosure. No arbitrarycallerexecutable+SHA admission. Require bounded original installcontent/inventory witness at actualacquire/closing; peruse runtimeguard policy must state what evidence maintains this interval without pretending metadata equals cryptographic trust. If exactperusefullbytes remain governingrequirement, account for finiteIOcost explicitly ratherthan inventstatcache or undeclaredcompleteclosure. Avoid giantarchive or preparatoryslice chain; firstimplementation should combine runtimecustody+bounded accountacquisition andHTTPloopbackcontrols after governingreview, with liveaccountlane separatefrom supplynative."
+}

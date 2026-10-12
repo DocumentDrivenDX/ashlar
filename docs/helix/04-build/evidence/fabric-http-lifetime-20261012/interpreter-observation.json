@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-fabric-cli-interpreter-version-only/0.1",
+  "argv": [
+    "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-S",
+    "-B",
+    "-c",
+    "import sys,json; print(json.dumps({\"version\":sys.version,\"executable\":sys.executable,\"prefix\":sys.prefix,\"base_prefix\":sys.base_prefix}))"
+  ],
+  "actual": {
+    "version": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "prefix": "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14",
+    "base_prefix": "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14"
+  },
+  "stderr_bytes": 0,
+  "qualification": "One canonical interpreter isolated no-site version probe; no CLI/account/token/auth/API execution. Existing supervisor owns cleanup; private outputs only."
+}

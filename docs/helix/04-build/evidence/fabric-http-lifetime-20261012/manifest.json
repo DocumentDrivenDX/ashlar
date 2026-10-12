@@ -1,0 +1,57 @@
+{
+  "profile": "ashlar-fabric-http-lifetime-evidence/0.1",
+  "scope": "Reviewed desired CLI-execution versus token-held HTTP boundary plus actual bounded version-only startup. No full runtime, credential/account/token, live TLS/Fabric or P07 qualification.",
+  "retention": "Selected original observations and streams only; private startup/configuration files remain outside this archive. No complete-directory claim.",
+  "files": [
+    {
+      "file": "source-freeze.json",
+      "bytes": 987,
+      "sha256": "7caa4b89404887a9b599e29207e27d48351173e92d56750e7df3a1e5f6e72096"
+    },
+    {
+      "file": "contract-independent-review.json",
+      "bytes": 1874,
+      "sha256": "8407125db7587e40b2761839f08975c0b85c6a4cbdd437552431528109ea8b7f"
+    },
+    {
+      "file": "auth-runtime-independent-review.json",
+      "bytes": 8590,
+      "sha256": "72bbf8cd4f903cc3f4c156d7e41c9ae6b5d04fc1eaa77b0b4e3ac413a9c706de"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 4022,
+      "sha256": "1e0113c54a99f12c6e93d1f2fa33043fbc9acb9dd573aecc014efb35b528ae3d"
+    },
+    {
+      "file": "observation.json",
+      "bytes": 1922,
+      "sha256": "48e5fca12f2dffedd1bf77dc225e53094316e4b3a737bc2490228d16e4ce591b"
+    },
+    {
+      "file": "interpreter-observation.json",
+      "bytes": 1014,
+      "sha256": "b75a9c229e900eef49de6f884fdbe2a4bb8a8fda622b39c1bac96f09d952a39e"
+    },
+    {
+      "file": "stdout.bin",
+      "bytes": 112,
+      "sha256": "ec3021c33b924b122b7c542905245d7d1e58dc943b99dc70798f5fb6ffaeb827"
+    },
+    {
+      "file": "stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "interpreter-stdout.bin",
+      "bytes": 402,
+      "sha256": "c978ca286945b3276164ff8c4e04657ab0bfdb9ea891d1659acfcffe99d536eb"
+    },
+    {
+      "file": "interpreter-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

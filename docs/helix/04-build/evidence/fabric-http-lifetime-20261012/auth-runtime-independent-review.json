@@ -1,0 +1,69 @@
+{
+  "profile": "ashlar-fabric-auth-runtime-boundary-review/0.1",
+  "decision": "conditional_design_reconciliation_required_before_code",
+  "reviewed_inputs": {
+    "/private/tmp/ashlar-fabric-cli-runtime-source-design-a.json": "d57483b415f53daf8e0335047cca9b8535659fed73f5e8a6ece162059b1f575f",
+    "/private/tmp/ashlar-fabric-cli-version-only-a/summary.json": "1e0113c54a99f12c6e93d1f2fa33043fbc9acb9dd573aecc014efb35b528ae3d",
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md": "c8a2ebc53d6b127b1bbb1494f318adfaebfd0eae4984d94f2f2d05a356899107",
+    "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/command_modules/profile/custom.py": "1980ffb6d4627dad080a6f5e65b7a43e48ff00eb1485833512ca5fac6e5a4b02",
+    "/opt/homebrew/Cellar/azure-cli/2.90.0/libexec/lib/python3.14/site-packages/azure/cli/core/_profile.py": "bbe0ae5e8a5d9fb29df7162ecbb042fe54b06ee78690dde829aa2e0f87c3a7a3"
+  },
+  "source_facts": [
+    {
+      "source": "profile/custom.py74 and _profile.py605",
+      "fact": "az account show --subscription selects cached subscription metadata; this is local selection correspondence, not remote authorization/revocation refresh."
+    },
+    {
+      "source": "profile/custom.py79 and _profile.py379",
+      "fact": "get-access-token obtains selected account via same explicitsubscription, constructs credential, then acquire_token(scopes). Tool may satisfy token acquisition through its ordinary cache/provider behavior; no new interactive login/switch/refresh logic should be injected by Ashlar."
+    },
+    {
+      "fact": "Token-held HTTP submission invokes no CLI interpreter/packages. Rehashing CLI bytes cannot establish Fabric authorization; successful/denied Fabric responses remain authoritative only for that actual operation."
+    }
+  ],
+  "recommended_boundary": {
+    "credential_execution": "One explicitly selected bounded credential-acquisition phase owns exact CLI/runtime/configuration/source/profile. Full selected closure content/inventory/link correspondence at opening and independent closing surrounds actual account-before/token/account-after commands. Execute real selection checks, private token response and exactexpiry/type/header/resource/correspondence admission. No arbitrary caller executable+digest/admission callback. Retain selected owner until release.",
+    "token_held_http": "Every HTTP operation renews owner lifetime and original immutable config/context/token identity, remaining expiry/deadline/cumulative limits, exact permitted method/route/body, TLS trust and actual endpoint response. It does not execute or load CLI code; do not pretend CLI rehash is currentremotepermission. No token refresh/retry/fallback/cache of prior API authorization. Existing publication/source/ACK/no-mixed gates remain independent and unchanged.",
+    "closing": "Independently attempt current original local runtime/configuration/account correspondence through selected CLI owner at close; reject drift and withhold combined qualification. Closing does not roll back already submitted permitted requests. Full original runtime bytes checked before and after each credential-execution interval according to admitted custody profile; no stat-only proof.",
+    "account_use_requirement": "Current governing contract explicitly requires account/runtime correspondence at use. This cannot be silently removed. Governed amendment must choose and justify either token-held use (immutable captured account/token scope with no CLI invocation), or continued actual per-use accountshow (then that is another credentialtool execution interval with its required runtime custody). Call this a change of auth lifetime semantics, not a performance exception."
+  },
+  "trusted_platform_assumptions": [
+    "Operator-admitted genuine supported Homebrew AzureCLI installation/profile is trusted as credentialtool; a caller manifest/SHA is not toolidentity authority. Exact support must be version/platform qualified from observed actual2.90/runtime3.14.8, not stalepyvenv3.14.7.",
+    "OS kernel/process loader, Darwin system frameworks/libraries, selectedhost user/isolation and package deployment provenance are named trustedplatform dependencies outside content-manifest proof; package/nativeclosure inside claimed subset must still be enumerated and checked.",
+    "Full opening/closing hashes do not prove absence of transient midinterval mutation/reversion. If reducing perexecution checks relies on deployment immutability, name actual enforcement (readonly stable deployment/snapshot/exclusive cooperating writer scope) and scope proof; existing shared Homebrew tree has not yet provided such evidence. Do not claim descriptor/mtime checks or an Ashlar-only lock exclude other writers.",
+    "Selected explicit CLI config owner/privateidentity and actualCLI commands handle authstate; do not read credentialcache files to fabricate an immutable fullconfig snapshot. Nonsecret startup settings/extensions/env/TLS must be separately closed and qualified.",
+    "HTTP Python/TLS runtime has its own admitted selected trust profile; CLI closure hashes do not establish HTTP runtime/TLS custody."
+  ],
+  "necessary_exact_checks": [
+    "Complete typed config including canonical paths/accountuser/UUIDs and finite bounds, before effects",
+    "Trusted selected package/interpreter/stdlib/nativeclosure/env/CA/extension profile; actual supported executable runtime observation",
+    "Every fullselected byte streamed at admitted opening/closing plus exactinventory/symlink/descriptor/configuration correspondence; no giantpayload retained",
+    "Actual account-before/token/account-after selection with explicitsubscription and strict output; toolreportedcorrespondence not JWTauthority",
+    "Token private in memory, header-safe bounded complete bytes, matchedreportedtenant/subscription/Bearer type and sufficient canonicalexpiry",
+    "HTTP exactfixed routes/no redirect/foreignorigin and actualmethod/body; currentendpointauthorization eachrequest; deadline includes auth/reads/polls",
+    "Independent closes/reap/privacy withholding on everyerror/cancellation; no credentialbearingpublic evidence"
+  ],
+  "needless_recomputation": [
+    "CLI package byte hashing between token-held HTTP operations where noCLIexecutes is not a renewal of current auth permission. It may be removed only after governingtoken-lifetime scope is explicit.",
+    "Repeated puremanifest parsing/canonicalization may retain constructor-owned immutable typed correspondence, while actualfullbyte checks remain at admitted credentialexecution boundaries.",
+    "No need to serialize/archive421MB runtimepayload repeatedly; retain exactbounded manifests, streamed content digests and versionprocess evidence."
+  ],
+  "remaining_gaps": [
+    "No fullstdlib/native loader/packageclosure qualification yet",
+    "No actualimmutable Homebrew deployment/exclusion proof",
+    "Version-only altered launcher proves observedversion/startupsubset only; no networkisolation/liveTLS/credential qualification",
+    "Account/token/liveAPIlane requires separately authorized actual effects and privacy-safe evidence; designreview performsnone"
+  ],
+  "required_tests": [
+    "Accountshow exactcachedselection controls separately named from serverpermission",
+    "Token-held request with CLIunavailable/changed afteracquisition must follow explicitlychosen contract semantics (not opportunistic fallback)",
+    "Per-use accountshow ifretained must actuallyexecute through owningcurrentruntime and bounded supervisedcapture",
+    "Same-size package/stdlib/native/CA/extension/link/inventory drift rejects at claimedboundary; unknownsubtotalnevercalledfullclosure",
+    "Selected CLI account changed/missing/user/tenant/subscription/type wrong rejects; decodedJWT nevergrants",
+    "Remote401/403 after earlier200 rejects actualoperation without priorpermissionreuse",
+    "No credentials in repr/results/observations/rawfailureexports; expiry/cancel/overflow/redirect/polling/reap controls",
+    "Existing source/publication/ACK/native/no-mixed obligations remain independently exercised"
+  ],
+  "cost_scope": "Observed421468951sitebytes/18492files imply fullperHTTPscan IO volume; no measured native latency or benchmark. Runtimecost mustfit same finite deadline, not justify increasing caps or replacing mandatory checks with metadata.",
+  "qualification": "Read-only source/design review only. No code, credential/cache contents, SDK/native/network calls, source effects, platformchanges or permissions granted."
+}
