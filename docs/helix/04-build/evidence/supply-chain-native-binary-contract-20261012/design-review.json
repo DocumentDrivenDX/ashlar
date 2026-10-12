@@ -1,0 +1,30 @@
+{
+  "profile": "ashlar-supply-chain-native-binary-evidence-design-review/0.1",
+  "verdict": "coherent desired new closed invocation0.3 subject to governing contract and source review",
+  "actual_source": {
+    "path": "/private/tmp/ashlar-supply-chain-native-02-prep-b/publication/compiler-observations.jsonl",
+    "bytes": 8347844,
+    "sha256": "8a3bfbb939aeb53e18e2f495525edde5be54f7574b4e15476f8da63f2d09237b",
+    "records": 30,
+    "raw_payload_bytes": 4172934,
+    "remaining_before_new_index": 4215674
+  },
+  "design": {
+    "format": "binary-protocol/0.1",
+    "aggregate_including_index": 8388608,
+    "per_original_view": 1048576,
+    "expected_records": 34,
+    "expected_raw_files": 68,
+    "older_profiles": "0.1/0.2 original hex serialization and bounds preserved",
+    "report_limit": 67108864
+  },
+  "required_controls": [
+    "Exact literal finite name mapping, exclusive canonical original root; no redirect/overwrite/symlink",
+    "Aggregate preflight before any record file effects; bounded complete writes",
+    "Index includes original hashes/lengths/path/identity; no extra/missing/duplicate records/files",
+    "Full original source/owner/current-file closing and cancellation primary preserved",
+    "Report references original binary custody; no normalization/drop/truncation/compression",
+    "Actual missing four public compiler outputs plus exact index required before candidate capacity claim"
+  ],
+  "qualification": "Read-only design and retained original byte arithmetic only. Missing responses unknown; no universal fit/native17/SDK/compiler/source effects or old failure cause proof."
+}

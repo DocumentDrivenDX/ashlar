@@ -1,0 +1,20 @@
+{
+  "scope": "Desired-state closed invocation0.3 exact binary evidence under same8MiB aggregate; no native execution/support claim.",
+  "artifacts": [
+    {
+      "path": "contract-freeze.json",
+      "bytes": 455,
+      "sha256": "26cd5c292a78986b43b739a3c2484141de8331a4a2f7cbac28f0fb96561b11f4"
+    },
+    {
+      "path": "design-review.json",
+      "bytes": 1623,
+      "sha256": "fb607e30565b9e864e9b7b0d4da226475d1079fc78e44fec558f3cf7e3da0a75"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 1109,
+      "sha256": "5fca112fe8894c29a1d5908beab5f9d3c4b378717fd984294a298029badbde72"
+    }
+  ]
+}

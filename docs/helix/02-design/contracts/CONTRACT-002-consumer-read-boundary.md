@@ -70,6 +70,11 @@ explicit JSON configuration of at most 65,536 bytes. Profile
 and five authored query results; it MUST NOT accept `two_hop`. Profile
 `ashlar-original-supply-chain-native-invocation/0.2` MUST require the same fields
 plus a nonnull `two_hop` object. No profile fallback is permitted.
+Profile `ashlar-original-supply-chain-native-invocation/0.3` MUST require the
+same fields as 0.2 plus `compiler_evidence_format`, whose sole accepted value is
+`binary-protocol/0.1`. It MUST execute the same complete five authored and twelve
+two-hop queries and retain the same result shape. Profiles 0.1 and 0.2 MUST NOT
+accept this additional field.
 
 The base fields are exactly `profile`, `output`, `jars`, `pack`, `model`,
 `graph`, `producer`, `compiler` and `operation_capacity`. The five path fields
@@ -109,11 +114,35 @@ pack, aliases, publication vector and source/installation lease. The five
 existing result shape. A new publication, substituted driver or raw SQL fallback
 MUST NOT stand in for this composition.
 
-The compiler evidence sink MUST retain ten count-protocol and twenty-four Paths
-protocol records under one unchanged 8 MiB aggregate bound. Each request and
+For profiles 0.2 and 0.3, the compiler evidence sink MUST retain ten count-protocol
+and twenty-four Paths protocol records under one unchanged 8 MiB aggregate bound.
+Profile 0.1 MUST retain its ten count-protocol records under that same bound.
+Each request and
 response byte view MUST satisfy both its selected artifact bound and the sink's
-1 MiB per-view bound before observation. Hex encoding and complete record bytes
-count toward the aggregate bound. Native evidence and the final report each
+1 MiB per-view bound before observation. Profiles 0.1 and 0.2 count hex encoding
+and complete record bytes toward the aggregate bound.
+
+Profile 0.3 MUST retain the original request and response bytes in separate
+exclusive binary files and retain a complete bounded inventory index. Its
+unchanged 8 MiB aggregate MUST count all original binary bytes and all serialized
+index bytes. Each index record MUST bind the known case or query ordinal,
+iteration, two deterministic relative filenames, lengths, SHA-256 digests and
+held file identities. Filenames MUST derive solely from the five original case
+identities or twelve ordinals and iterations zero and one. Caller paths,
+symlinks, overwrites, extra files and implicit rotation MUST refuse.
+
+The sink MUST preflight the complete pair and index record against remaining
+capacity before creating files. Complete-byte writes and independent original
+content, identity and directory-inventory closing MUST succeed before a record
+is complete. A partial write or index failure MUST withhold the combined report.
+The complete 0.3 inventory MUST contain exactly thirty-four records and
+sixty-eight binary files. It MUST preserve every original byte without
+normalization, recompression or truncation. Exported reports MUST reference the
+bounded inventory rather than expand its binary files into hex. Retention
+capacity does not qualify query execution; actual compiler artifacts, native
+results and the independent oracle remain required.
+
+Native evidence and the final report each
 have a 64 MiB complete-byte bound. Exceeding a bound MUST withhold the combined
 report, without truncation or a successful prefix. Query, observer, cancellation
 and closing failures MUST preserve the primary failure while independently

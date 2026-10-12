@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-supply-chain-native-02-installed-command-review/0.1",
+  "decision": "approved_one_fresh_scoped_candidate_after_root_current_census_freshness_pins",
+  "freeze_sha256": "bcc00e070f32cb751c4496e7fab7b761f38d3b5319a6c6d6830fa6706f1c20ce",
+  "sourceRevision": "ecb75013bcdb13ecacfc90e19a00c7af1a04892e",
+  "shellCommandSha256": "f5138997a387d370ae13e99ab4d716f6271c3629a23e4954df71df0c64060384",
+  "checks": [
+    "21artifact336resource9historical exactbyte/length/identity hashes verified",
+    "243packagedsourcepayloads exactimmutableecb Gitobjects and current tracked bytes; currentdocHEAD doesnotrelabelwheel",
+    "248originalwheelmembers/fullRECORD and252installedAshlarrecords/33dependencyrecords exact",
+    "Newnormalwheel5644f403 preserves 11selectedversions/dependencybytes;12installedorigins underprivatePython3.11",
+    "RecipeAST identical reviewedBexceptcustodySHA; samegenericpublicsupervisor no GraphFramesauthority",
+    "4isolatedvenv actualinertadapter controls PASS.055s;5installed originaloraclecontrols PASS.125s terminalaee567",
+    "Actualselectedbytes/namespace renewal PASSb111b7 withoutsubprocess",
+    "OriginalUMFfc78 clean/current selected source",
+    "Actualparent/nativeargv/source revision/config/shellSHA matchfixedfreeze",
+    "Configured300pollingdeadline+1MiBstreams unchanged, synchronousrenew/cleanup limitation explicit",
+    "Five freshnativeoutputs absent and priorprep-a immutablehistoricalpins preserved"
+  ],
+  "qualifications": [
+    "300 seconds is the existing configured polling deadline; synchronous renewal and cleanup can finish outside it; no hard independent wallclock claim or cap increase.",
+    "No diagnostic monkeypatch, SQL rewrite, observed-cell normalization, source injection or shared executor relaxation.",
+    "Preparation/import/RECORD/original-wheel parity and pure controls only, no new producer/native/query pass.",
+    "Necessary independent oracle field-order correction is not proof of the original worker failure cause.",
+    "Any actual failure must retain available raw transport, stdout/stderr, compiler/native observations and recipe closing before a subsequent decision; no automatic retry."
+  ],
+  "scope": "Preparation andonecandidate launch review only. No newnative/Spark/Bun/producer/query effects or positive5+12 result. Necessaryoraclewirecorrection notprovenoldfailurecause. Existingselectedresource/namespace custody notwholeSDKclosure. Rootowns finalcurrentprocesscensus/freshness/CI andsinglelaunch."
+}
