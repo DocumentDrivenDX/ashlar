@@ -1,0 +1,35 @@
+{
+  "format": "ashlar-finite-pack-native-export-receipt/0.1",
+  "source_commit": "24e006f159c38d9ee45b9ab2ae905dceeb15f56f",
+  "command": "ashlar export-original-finite-pack --configuration <existing-archaeology-query-configuration> --output <fresh-private-export>",
+  "exit_code": 0,
+  "seconds": 47.633,
+  "pack": "archaeology",
+  "publication_id": "original-finite-archaeology-publication",
+  "nodes": 39,
+  "edges": 46,
+  "snapshots": {
+    "local.finitepack.edge_current": {
+      "uuid": "dc8a73a6-9465-4265-bef9-40f2030dd766",
+      "version": 2
+    },
+    "local.finitepack.object_current": {
+      "uuid": "ad9f5f0c-57dc-472c-8d32-73c21efb4fd8",
+      "version": 2
+    },
+    "local.finitepack.tombstone": {
+      "uuid": "35e74bf0-4507-4ffa-9da0-a916e613d24b",
+      "version": 1
+    },
+    "local.finitepack.whole_source_history": {
+      "uuid": "efabfdef-6348-49a6-bbd3-fe873b056ad0",
+      "version": 2
+    }
+  },
+  "release_bytes": 181240,
+  "custody_bytes": 1544251,
+  "release_sha256": "270024d11f221ad576ba6fd0528b03050564a1d62abaf0f5e344b3b4b8c33479",
+  "custody_sha256": "7a9ec04a83af8241a1dd350d5b6345290c5bedbf3488e33a9ff76ee372dbd3b4",
+  "custody_profile": "ashlar-immutable-finite-file-graph-custody/0.1",
+  "qualification": "Actual CLI from the source checkout over an existing local Delta publication. Complete graph read and opening/closing source/native checks; outer read resources closed before file exposure. No re-ingest, fresh-wheel claim, compiler execution, protected ACK, graph-engine query or Fabric deployment. Export and receipt payloads remain private."
+}
