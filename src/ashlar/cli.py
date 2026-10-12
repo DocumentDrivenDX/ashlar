@@ -100,6 +100,9 @@ def main():
             command.add_argument('--' + option, required=True)
     truss_preparation = commands.add_parser('prepare-truss-catalog', help='Prepare original UMF through an explicitly selected Truss package; no catalog acceptance or feed authority')
     truss_preparation.add_argument('--config', required=True)
+    truss_note=commands.add_parser('publish-truss-note',help='Publish a few complete Truss Note transactions into a fresh local Delta destination, then ACK')
+    truss_note.add_argument('--configuration',required=True)
+    truss_note.add_argument('--output',required=True)
     verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
     for option in ('configuration', 'provider', 'provider-sha256'):
         verification.add_argument('--' + option, required=True)
@@ -219,6 +222,16 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar commerce graph export refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'publish-truss-note':
+        try:
+            from pathlib import Path
+            from ashlar_host.truss_note_cli import run_publish_truss_note_command
+            answer=run_publish_truss_note_command(args.configuration,args.output)
+            print(json.dumps({'output':str(Path(args.output)/'result.json'),'publications':len(answer['publications'])},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss Note publication refused; inspect the retained destination and source checkpoint',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'prepare-fabric-notebook':

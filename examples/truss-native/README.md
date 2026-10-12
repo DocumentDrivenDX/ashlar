@@ -426,7 +426,7 @@ the file-spooling example's ACK asserts file delivery and consumes that interval
 
 ## Publish Note pages into local Delta
 
-`publish-note.py` composes the actual public Truss feed with Ashlar's existing
+`ashlar publish-truss-note` composes the actual public Truss feed with Ashlar's existing
 native Delta effect journal, six tables, immutable publication manifest and
 ordinary source ACK. Use the compatible Truss feed package described above and
 installed Spark/Delta/JDK dependencies already selected for Ashlar. It starts
@@ -459,10 +459,14 @@ compatible Spark/Delta JARs and your installed JDK through `JAVA_HOME`. Run with
 fresh canonical output directory:
 
 ```sh
-python examples/truss-native/publish-note.py \
+ashlar publish-truss-note \
   --configuration /absolute/private/publish-note.json \
   --output /absolute/private/fresh-note-delta
 ```
+
+The repository's `publish-note.py` calls the same command implementation. CLI
+output contains the result location and publication count; complete manifests
+remain in the private destination.
 
 The example reads at most eight complete pages, admits Note schema semantics from
 original accepted UMF 0.7 document/report bytes and actual catalog IDs, and derives
