@@ -1,0 +1,18 @@
+{
+  "approval": true,
+  "source_freeze_sha256": "724010b1adfe5e5d3cf210ec5c65ff09fd97d10c8295689c016640c5df039f8b",
+  "ci_freeze_sha256": "c5ec1eaf9bd23cf281ebd3f4430ae135ebcac258dc6ef38c43eafb3b121d089f",
+  "source_pins": "two exact a39ba9",
+  "workflow": "exact single module addition existing strict3.9/3.12 line 6ed762; unchanged matrix/other steps; diffcheck pass",
+  "resolved": "SCQ-A1 exact full typed64MiB report checked before retention and final return; complete original graphtext/hash/parsed carrier and exact decoder types retained",
+  "tests": {
+    "changed": 3,
+    "seconds": 1.469,
+    "terminal_reaped": "54a46b",
+    "prior_A": 8,
+    "prior_seconds": 1.748,
+    "prior_terminal_reaped": "334701"
+  },
+  "source_bound": "existing16MiB public source port independent of1MiB protocol/artifact; archived receipt semantic-only control no origin grant",
+  "scope": "SDK-free source/inert controls. No actual compiler/SDK/producer/native/full lease composition qualification. Observer storage and outer current source/runtime/installation closing remain mandatory."
+}

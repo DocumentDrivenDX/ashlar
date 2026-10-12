@@ -1,0 +1,43 @@
+{
+  "changes": "Exact typed 64MiB report bound before each result append and final return; normalized public exact_report values; named GraphRelease projection preserves complete original payload text/document. Separate existing16MiB full public source ceiling from1MiB protocol views/artifacts; no cap increase or evidence reduction.",
+  "controls": {
+    "boundary_diff": "PASS8d2c9a",
+    "prior_eight_python39": {
+      "chunk": "0a4b91",
+      "exit": 0,
+      "seconds": 1.794,
+      "tests": 8
+    },
+    "python312": {
+      "chunk": "8d2c9a",
+      "exit": 0,
+      "seconds": 1.185,
+      "tests": 3
+    },
+    "python39": {
+      "chunk": "cf83d5",
+      "exit": 0,
+      "seconds": 1.557,
+      "tests": 3
+    }
+  },
+  "files": [
+    {
+      "bytes": 11738,
+      "copy": "/private/tmp/ashlar-supply-chain-common-query-source-freeze-b/supply_chain_common_query.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_query.py",
+      "sha256": "fd5bf0e106b0798788bfb9fa6d7669e95c93173154b90e749471ed43ecefa4c5"
+    },
+    {
+      "bytes": 13571,
+      "copy": "/private/tmp/ashlar-supply-chain-common-query-source-freeze-b/test_supply_chain_common_query.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_query.py",
+      "sha256": "c310bcadbd605ad8dc073cb7b259543723916028dab427e25d4ae3e6057979dc"
+    }
+  ],
+  "preserved_a": {
+    "path": "/private/tmp/ashlar-supply-chain-common-query-source-freeze-a/freeze.json",
+    "sha256": "1b02d2c66fd50ccd6b0e69ee7da436a447b9624156b1da7548a080471c8fba0a"
+  },
+  "qualification": "SDK-free inert query wiring and actual archived receipt pure semantic/whole-byte capacity controls only. Archive is not authentic original producer invocation/current native authority. No producer/compiler/native/SDK/cloud effects; grouped count required pending. All owned test handles terminal/reaped."
+}
