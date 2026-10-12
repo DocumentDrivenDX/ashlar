@@ -1,0 +1,26 @@
+{
+  "format": "ashlar-truss-native-note-publication/0.1",
+  "ashlar_source_commit": "3fa3966f4c42cef464aa200678685a81399ff205",
+  "selected_truss_package_build_commit": "5ca2ed96f44f82b167ba16cf84c442c739e022d4",
+  "exit_code": 0,
+  "seconds": 74.525,
+  "declared_umf": "0.7.0",
+  "publications": [
+    "truss-note-1",
+    "truss-note-2",
+    "truss-note-3"
+  ],
+  "transactions": [
+    "catalog-only",
+    "object-create",
+    "object-edit"
+  ],
+  "final_objects": 1,
+  "final_history_rows": 2,
+  "final_entity_version": 2,
+  "native_identity_matches_public_source_readback": true,
+  "canonical_text_matches_public_source_edit_readback": true,
+  "all_publication_reports_complete": true,
+  "source_server_pid_file_absent_after_exit": true,
+  "qualification": "Actual source-checkout CLI with public Truss catalog, group mutation, complete feed and source ACK into fresh local Delta tables. Destination validation and source ACK complete before all three publication returns; native mutation receipts retain current/history parity. Source ACK is Truss caller-asserted delivery, not protected outbox receipt verification. Owned source and Spark contexts closed. No fresh-wheel Ashlar, Unity Catalog, restart recovery, edge/delete, evolution or graph-engine query qualification. Source pages, reports, manifests, journal and log remain private."
+}
