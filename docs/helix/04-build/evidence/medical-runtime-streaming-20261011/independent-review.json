@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-medical-runtime-streaming-independent-review/0.1",
+  "decision": "approved",
+  "freeze_sha256": "b6e8953bffc48d0b106a633e7173bf5a356b3a7272c64e8fe00b33e1af826a4c",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/original_medical_runtime.py",
+      "bytes": 21724,
+      "sha256": "8aa4d96cf00b6c78657ca2abc4649376ef5367e4a51684d229bf9cd818bc8b7a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_original_medical_runtime.py",
+      "bytes": 16104,
+      "sha256": "e3bbc17da0785ea385b4a5cd2f97fe093d3b4e9b07ff6352b26b569d451d55b4"
+    }
+  ],
+  "tests": "16 strict controls PASS 3.676s; focused streaming heap control repeated PASS 0.036s",
+  "negative_collecting_peak_bytes": 4487244,
+  "checks": [
+    "read/acquire preserve original exact bytes through shared scanner",
+    "verify reads every byte and hashes without accumulating blocks or joining",
+    "canonical path, held/named FD identity, size, nlink, hash, before/after mtime and cancellation checks retained",
+    "renew executes verify on each held file and returns no permission cache"
+  ],
+  "qualification": "Source and SDK-free controls only; no native retry, runtime speed claim or installed SDK mutation."
+}

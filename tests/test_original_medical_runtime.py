@@ -153,3 +153,50 @@ class Tests(unittest.TestCase):
         with self.assertRaises((PermissionError,ValueError)):
             with self.opened()as owner:
                 root=self.root/'sdk';moved=self.root/'moved-sdk';root.rename(moved);root.symlink_to(moved,target_is_directory=True);owner.renew()
+
+
+class StreamingFileTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        self.root=Path(self.tmp.name).resolve();self.path=self.root/'selected';self.raw=b'original bytes'*160000
+        self.path.write_bytes(self.raw)
+        from ashlar_host.original_medical_runtime import _File
+        self.owner=_File({'path':str(self.path),'bytes':len(self.raw),'sha256':hashlib.sha256(self.raw).hexdigest()})
+        self.addCleanup(self.owner.close);self.assertEqual(self.owner.acquire(),self.raw)
+    def test_verify_streams_complete_bytes_without_payload_retention(self):
+        import tracemalloc
+        original=os.read;observed=[]
+        def read(fd,n):
+            value=original(fd,n);observed.append(len(value));return value
+        tracemalloc.start()
+        try:
+            with patch('ashlar_host.original_medical_runtime.os.read',side_effect=read):self.assertIsNone(self.owner.verify())
+            _,peak=tracemalloc.get_traced_memory()
+        finally:tracemalloc.stop()
+        self.assertEqual(sum(observed),len(self.raw));self.assertLess(peak,524288)
+        self.assertEqual(self.owner.read(),self.raw)
+    def test_same_size_changed_bytes_and_named_hardlink_refuse(self):
+        self.path.write_bytes(b'x'*len(self.raw))
+        with self.assertRaises(PermissionError):self.owner.verify()
+        self.path.write_bytes(self.raw);os.link(self.path,self.root/'extra')
+        with self.assertRaises(PermissionError):self.owner.verify()
+    def test_parent_alias_and_replaced_descriptor_refuse(self):
+        moved=self.root.with_name(self.root.name+'-moved');self.root.rename(moved);self.root.symlink_to(moved,target_is_directory=True)
+        try:
+            with self.assertRaises(PermissionError):self.owner.verify()
+        finally:self.root.unlink();moved.rename(self.root)
+        other=self.root/'other';other.write_bytes(self.raw);fd=os.open(other,os.O_RDONLY)
+        try:os.dup2(fd,self.owner.fd)
+        finally:os.close(fd)
+        with self.assertRaises(PermissionError):self.owner.verify()
+    def test_mtime_drift_during_read_and_cancellation_exact_identity(self):
+        read=os.read;changed=[]
+        def drift(fd,n):
+            raw=read(fd,n)
+            if not changed:
+                changed.append(True);s=self.path.stat();os.utime(self.path,ns=(s.st_atime_ns,s.st_mtime_ns+1000000))
+            return raw
+        with patch('ashlar_host.original_medical_runtime.os.read',side_effect=drift),self.assertRaises(PermissionError):self.owner.verify()
+        primary=KeyboardInterrupt('private')
+        with patch('ashlar_host.original_medical_runtime.os.read',side_effect=primary),self.assertRaises(KeyboardInterrupt)as caught:self.owner.verify()
+        self.assertIs(caught.exception,primary)

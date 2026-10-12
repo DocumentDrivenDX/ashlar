@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-medical-runtime-streaming-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/original_medical_runtime.py",
+      "bytes": 21724,
+      "sha256": "8aa4d96cf00b6c78657ca2abc4649376ef5367e4a51684d229bf9cd818bc8b7a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_original_medical_runtime.py",
+      "bytes": 16104,
+      "sha256": "e3bbc17da0785ea385b4a5cd2f97fe093d3b4e9b07ff6352b26b569d451d55b4"
+    }
+  ],
+  "checks": {
+    "strict16": "ab87f2 PASS5.407s40721terminal0/reaped",
+    "boundaryDiff": "f2cc1d PASS10604terminal0/reaped",
+    "actualReadonlyRuntime": "One selectedGrenewal+independentclosing .318362s; noSDKimports/native, originalruntimechecksallpass; no speedpromise"
+  },
+  "scope": "Shared private _scan retains every existing check; read returns originalbytes, verify streamshashwithoutparts/join; renew usesverify. No permissioncache/stat-only substitution or installedSDK mutations."
+}

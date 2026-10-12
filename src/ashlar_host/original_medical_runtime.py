@@ -82,22 +82,27 @@ class _File:
         self.original=(held.st_dev,held.st_ino,held.st_uid,held.st_mode,held.st_nlink)
         return self.read()
     def read(self):
+        return self._scan(collect=True)
+    def verify(self):
+        self._scan(collect=False)
+    def _scan(self,*,collect):
         if self.fd is None:raise PermissionError('Held medical runtime file required')
         if self.path.resolve()!=self.path:raise PermissionError('Canonical selected medical file changed')
         before=os.fstat(self.fd);named=self.path.lstat()
         facts=lambda s:(s.st_dev,s.st_ino,s.st_uid,s.st_mode,s.st_nlink)
         if facts(before)!=self.original or facts(named)!=self.original or not stat.S_ISREG(named.st_mode)or before.st_size!=self.pin['bytes']:raise PermissionError('Selected medical file custody changed')
-        os.lseek(self.fd,0,os.SEEK_SET);parts=[];count=0;digest=hashlib.sha256()
+        os.lseek(self.fd,0,os.SEEK_SET);parts=[] if collect else None;count=0;digest=hashlib.sha256()
         while True:
             block=os.read(self.fd,min(65536,self.pin['bytes']-count+1))
             if not block:break
             count+=len(block)
             if count>self.pin['bytes']:raise PermissionError('Selected medical file bound exceeded')
-            parts.append(block);digest.update(block)
+            if collect:parts.append(block)
+            digest.update(block)
         after=os.fstat(self.fd);named=self.path.lstat()
         if self.path.resolve()!=self.path:raise PermissionError('Canonical selected medical file changed')
         if facts(after)!=self.original or facts(named)!=self.original or (after.st_size,after.st_mtime_ns)!=(before.st_size,before.st_mtime_ns)or count!=self.pin['bytes']or digest.hexdigest()!=self.pin['sha256']:raise PermissionError('Selected medical file bytes changed')
-        return b''.join(parts)
+        return b''.join(parts) if collect else None
     def close(self):
         if self.fd is not None:
             fd=self.fd;self.fd=None;os.close(fd)
@@ -261,7 +266,7 @@ class OriginalMedicalRuntimeCustody:
             if path.is_symlink()or (s.st_dev,s.st_ino,s.st_size,s.st_mtime_ns,s.st_mode)!=(row['dev'],row['ino'],row['bytes'],row['mtimeNs'],row['mode']):raise PermissionError('Original runtime metadata changed')
     def renew(self):
         if self.closed:raise PermissionError('Medical runtime owner closed')
-        callbacks=([self._renew_configuration]if hasattr(self,'original_configuration')else[])+[owner.read for owner in self.files if owner.fd is not None]
+        callbacks=([self._renew_configuration]if hasattr(self,'original_configuration')else[])+[owner.verify for owner in self.files if owner.fd is not None]
         if self.plan is not None:
             callbacks += [self._namespace,self._metadata,lambda:self._renew_producer()]
         finish(None,callbacks)
