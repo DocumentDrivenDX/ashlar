@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-fabric-http-owner-independent-review/0.1",
+  "reviewer": "root, independent of author fabric_corpus_review",
+  "status": "approved desired-state contract only",
+  "contract_sha256": "c8a2ebc53d6b127b1bbb1494f318adfaebfd0eae4984d94f2f2d05a356899107",
+  "design_sha256": "6158eea16d62321bb117ade4117ffed83be55483b340bb6acff13591b3e73537",
+  "findings_resolved": [
+    "Exact config field names and complete fixed routes",
+    "Bounded original outbound body and strings",
+    "Exact response shapes and private credential-bearing raw captures",
+    "Secret-safe exported diagnostics; refuse rather than rewrite credential-bearing results"
+  ],
+  "checks": [
+    "Exact frozen contract bytes and original frontmatter verified",
+    "103-line addition only; existing no-mixed and positive P07 obligations preserved",
+    "Diff whitespace check passed"
+  ],
+  "qualification": "No source implementation, credential acquisition, API effect, live TLS/Fabric qualification or completed P07 claim. Supported CLI/runtime versions remain unknown."
+}

@@ -1,0 +1,73 @@
+{
+  "profile": "ashlar-fabric-http-owner-design/0.2",
+  "status": "Proposed exact first supported delegated AzureCLI profile; no code or credential acquisition",
+  "config": {
+    "class": "FabricHttpConfig(frozen=True)",
+    "fields": {
+      "workspace_id": "canonical lowercase UUID",
+      "graph_model_id": "canonical lowercase UUID",
+      "azure_cli": "canonical absolute existing selected executable Path",
+      "azure_config_dir": "canonical absolute existing private selected AzureCLI configuration directory Path, owner identity held; never read credential files directly",
+      "account_id": "canonical GUID matching az account show id; explicit subscription selector",
+      "tenant_id": "canonical GUID matching account show tenantId and token tenant",
+      "account_user": "exact nonempty str <=256 UTF8 bytes, no control characters",
+      "account_user_type": "literal user; first slice excludes service principals/managed identity",
+      "azure_cli_version": "exact canonical selected supported version str <=64 ASCII bytes; no version support inferred",
+      "maximum_response_bytes": "exact int1..16777216",
+      "maximum_total_bytes": "exact int1..67108864",
+      "maximum_requests": "exact int1..128",
+      "deadline_seconds": "exact int1..60 per acquired HTTP owner interval incl auth, polling and all bytes",
+      "maximum_auth_output_bytes": "exact int1..1048576 including both captured streams",
+      "auth_timeout_seconds": "exact int1..30, further capped by remaining owner deadline",
+      "maximum_request_bytes": "exact int1..65536, exact original outbound bytes validated before every HTTP submission"
+    },
+    "exclusions": "No endpoint URL/token/provider callbacks/proxy/TLS overrides/caller context/profile fallback. First profile subscription-selected delegated user only; tenant-only no-subscription support is separate, not a statement Fabric requires subscription."
+  },
+  "api": [
+    "open_fabric_http(config) contextmanager -> exact FabricAuthenticatedHttp. Owner allocates its nominal context; caller cannot replace it. Token only in private memory, repr suppressed, cleared references at close (not secure-memory-erasure claim).",
+    "owner.post(url, body, context, timeout_seconds) -> (status:int, raw:bytes) meets existing execute_gql; accepts only owner.context and exact selected executeQuery endpoint, optionally internally validated opaque continuation parameter.",
+    "owner.get_definition() -> complete bounded original definition response bytes; accepts no supplied URL/operation ID; handles defined read-only getDefinition operation routes internally.",
+    "owner.renew_account() repeats selected real CLI account correspondence at entry/use/closing; no token refresh/login automatically. Token expiry must cover remaining selected interval, otherwise explicit refusal.",
+    "owner.observations() detached bounded evidence, excludes Authorization/token/auth stdout; records routes/status/raw response, prefix flag and original failure classification. Reports remain provisional through independent closing."
+  ],
+  "acquisition": [
+    "Use selected actual admitted CLI executable/runtime, fixed argv and explicit AZURE_CONFIG_DIR environment. Explicit closed runtime env/profile must support CLI startup and trust stores without implicit HOME/proxy/othercredential fallback; record exact supported subset before execution.",
+    "Run az account show --subscription ACCOUNT --output json --only-show-errors. Require exact JSON object required id/tenantId/user{name,type}; id/tenant/name/type equal config, state Enabled, environmentName AzureCloud. Preserve unknown metadata privately only if nonsecret.",
+    "Run az account get-access-token --subscription ACCOUNT --resource https://api.fabric.microsoft.com --output json --only-show-errors. Do not use --tenant together unless selected tested CLI profile semantics explicitly support it; selected subscription already fixes tenant. Require tokenType Bearer, nonempty bounded header-safe accessToken, tenant exact, subscription exact, expires_on canonical integer or integer-text POSIX expiry. Never infer cryptographic identity from JWT decode.",
+    "Repeat account show immediately after token acquisition and at closing; require same exact selected account tuple. These checks prove tool-reported selection correspondence under the trusted installed credentialtool runtime, not signature validation or token-user cryptographic authentication. Fabric TLS endpoint validates bearer access and permission.",
+    "No caller-token constructor, decodedJWTauthority, az login/account set/cloud set, scopes/grants/capacity changes or direct cache reads. Auth stdout/stderr never archived or surfaced; bounded structural failure only."
+  ],
+  "routes": {
+    "gql": "POST https://api.fabric.microsoft.com/v1/workspaces/W/graphModels/G/executeQuery?beta=true [&continuationToken=exactly-once-percent-encoded-opaque-token]; same original body eachpoll",
+    "definition": "POST https://api.fabric.microsoft.com/v1/workspaces/W/graphModels/G/getDefinition with empty body, no caller format firstslice",
+    "operation_state": "GET https://api.fabric.microsoft.com/v1/operations/O",
+    "operation_result": "GET https://api.fabric.microsoft.com/v1/operations/O/result",
+    "202_rules": "Initial202 requires bounded unique Location and x-ms-operation-id canonical UUID with exactmatching state route; no userinfo/port/fragment/encodedslash/query/trailingpath/otherorigin. Record O solely from this actual accepted response. Poll only derived same O routes. Successful state may supply matching result Location; validate against derived /v1/operations/O/result, never redirect-follow. Conflicting official sample omitting /v1 is not broadened silently; actual subset must qualify."
+  },
+  "polling": [
+    "One monotonic deadline begins before authentication; every subprocess/socket read/poll delay uses remaining budget; total bodybytes and requestcount include initial202, all state/error/result bodies.",
+    "Retry-After accept bounded decimal integer seconds only. If delay cannot fit remaining interval, refuse finite incomplete observation. No semantic retries, refresh/restart or automatic capacity intervention.",
+    "State NotStarted/Running consumes only bounded finite polling; Succeeded retrieves result; Failed/Cancelled or unknown state refuse preserving raw failure. GQL02000 emptytable+nextPage polling remains separate existing wire semantic.",
+    "Disable HTTP redirects entirely; read max remainingbodycap+1, label overflow prefix, close every HTTPError/response. Reject unsolicited compression or explicitly bounded decoding if supported later. Use default TLS verification and disable ambient proxy routing under this profile."
+  ],
+  "contract_text": "A Fabric HTTP owner MUST bind one explicitly selected supported AzureCLI delegated-user runtime/configuration/account/tenant, acquire bearer credentials only through that actual tool and retain them in memory. Tool output and decoded token claims MUST NOT substitute for cryptographic token authentication or publication authority. Exact typed finite capacities apply to credential capture, every response, total requests/bytes and elapsed interval including operation polling. The owner MUST accept only its fixed selected GQL/getDefinition routes and operation routes derived from the actual matching202 response, reject redirects and foreign Location targets, retain bounded failure prefixes honestly, and attempt independent credential/runtime closing on all outcomes. No caller token, no-op policy, login/grant, refresh/provisioning or engine activation is created by this owner.",
+  "tiny_controls": [
+    "Separate FabricHttpLoopbackTestProfile class uses literal127.0.0.1 ephemeralport and inert credentials only; production exacttype refuses it. No generic production base_url option.",
+    "Actual stdlib HTTPServer thread receives bounded POST and returns fixed terminalbody; verify method/body/headers and closure. Redirect response targets second testserver; assert target never receives credential/request.",
+    "Actual server sends oversized chunked/declared body and errorbody; owner retains <=cap+1 prefix with overflow status, no success. Slow headers/body and running202 polls meet tiny configured deadline; cleanup ownedserverthreads in finally.",
+    "202 matchingoperation/state/result routes work; foreignorigin/wrongoperation/query/encodedpath mismatches reject before request. RetryAfter too large refuses quickly, no delay beyond deadline.",
+    "Simulated bounded real CLI subprocess fixture executable/config acts only inert account/token output for wrongaccount/tenant/expiry/cancel/stdoutoverflow controls; no live credential use. Loopback evidence qualifies socket/control behavior only, not live TLS/Fabric or auth."
+  ],
+  "primary_sources": [
+    "https://learn.microsoft.com/en-us/cli/azure/account?view=azure-cli-latest",
+    "https://raw.githubusercontent.com/Azure/azure-cli/dev/src/azure-cli/azure/cli/command_modules/profile/custom.py",
+    "https://learn.microsoft.com/en-us/fabric/graph/gql-query-api",
+    "https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items/get-graph-model-definition",
+    "https://learn.microsoft.com/en-us/rest/api/fabric/core/long-running-operations/get-operation-state",
+    "https://learn.microsoft.com/en-us/rest/api/fabric/core/long-running-operations/get-operation-result",
+    "https://learn.microsoft.com/en-us/rest/api/fabric/articles/long-running-operation"
+  ],
+  "outstanding": "HTTP owner is progress toward realP07; deployment real loaded bags, original commerce corpus, actualTLS/auth and no-mixed refresh proof remain required. Never replace positive required execution with refusal evidence.",
+  "supersedes": "/private/tmp/ashlar-fabric-http-owner-implementation-design-b.json",
+  "privacy_refinement": "Raw HTTP captures remain private; observations exports only bounded secret-safe diagnostics. Raw query/definition return containing owner credential material must refuse and withhold, never rewrite exact bytes."
+}

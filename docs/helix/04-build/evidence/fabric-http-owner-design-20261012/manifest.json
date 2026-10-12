@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-fabric-http-owner-design-evidence/0.1",
+  "scope": "Desired-state contract and independent design review only",
+  "files": [
+    {
+      "file": "design.json",
+      "bytes": 10106,
+      "sha256": "6158eea16d62321bb117ade4117ffed83be55483b340bb6acff13591b3e73537"
+    },
+    {
+      "file": "source-freeze.json",
+      "bytes": 852,
+      "sha256": "5925eaf32295d2e48ac6331b075766e1497f6af855ddcf65442a6213339b1995"
+    },
+    {
+      "file": "independent-review.json",
+      "bytes": 1062,
+      "sha256": "38d158b39ba4b80ceb9f88cbc798e8d7d5b2aaafb12f92d60bf88e85d401c81a"
+    }
+  ]
+}

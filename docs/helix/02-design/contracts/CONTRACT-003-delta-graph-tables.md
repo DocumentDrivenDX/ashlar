@@ -629,6 +629,109 @@ locations as Fabric input. Fabric requires the separately scoped OneLake release
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 
+### Fabric authenticated HTTP owner
+
+The first `FabricHttpConfig` profile MUST select subscription-bound delegated
+user access through an already authenticated Azure CLI. This subset does not
+assert that Fabric requires an Azure subscription. Tenant-only, service-principal
+and managed-identity profiles require separate qualification.
+
+The exact immutable configuration MUST select canonical workspace, graph model,
+account/subscription and tenant UUIDs; exact account user name and literal `user`
+type; canonical absolute CLI executable and existing private CLI configuration
+directory; and an independently admitted complete CLI/runtime profile. That
+profile MUST bind the actual supported version, executable and interpreter/package
+closure, configuration identity, startup environment and TLS trust selection.
+An executable path, declared version or digest alone MUST NOT establish runtime
+custody. The qualified CLI version/runtime subset remains unspecified until
+actual evidence establishes it; no version support may be inferred from this
+contract.
+
+Configuration MUST explicitly select exact integer limits: request bytes
+(1–65,536), response bytes
+(1 byte through 16 MiB), cumulative bytes (1 byte through 64 MiB), requests (1–128), whole HTTP-owner
+elapsed seconds (1–60), credential capture bytes across both streams (1 byte through 1 MiB)
+and credential subprocess seconds (1–30). The elapsed deadline starts before
+credential acquisition and includes all subprocesses, reads and polling delays.
+Every operation MUST also respect the remaining cumulative capacity and deadline.
+No ambient proxy, credential, profile, endpoint or capacity fallback is permitted.
+
+The exact fields are `workspace_id`, `graph_model_id`, `account_id` and
+`tenant_id` (canonical UUID strings); `account_user` (nonempty string, at most
+256 UTF-8 bytes, with no control characters);
+`account_user_type` (literal `user`); `azure_cli` and `azure_config_dir`
+(canonical absolute `Path` values); `azure_cli_version` (explicit supported
+version string, at most 64 ASCII bytes, canonical for the selected supported
+version profile); and `maximum_request_bytes`, `maximum_response_bytes`, `maximum_total_bytes`,
+`maximum_requests`, `deadline_seconds`, `maximum_auth_output_bytes` and
+`auth_timeout_seconds` (exact integers in the limits above, excluding Boolean).
+The selected admitted runtime profile MUST correspond to these fields; a
+configured version string alone MUST NOT qualify a supported runtime.
+
+`open_fabric_http(config)` MUST yield one nominal `FabricAuthenticatedHttp` with
+its own context and finite lifetime. It MUST acquire credentials only through
+the selected actual runtime and explicit configuration directory. The owner MUST
+run `az account show --subscription <account> --output json --only-show-errors`
+before and after token acquisition, requiring the selected `id`, `tenantId`,
+`user.name`, `user.type`, enabled account state and public Azure cloud. It MUST
+acquire the resource token through `az account get-access-token --subscription
+<account> --resource https://api.fabric.microsoft.com --output json
+--only-show-errors`, requiring matching subscription/tenant, `Bearer` token type,
+header-safe bounded token bytes and sufficient canonical POSIX `expires_on`.
+Account/runtime correspondence MUST renew at use and independently at closing.
+No implicit login, account switch, token refresh or grant may occur.
+
+These checks establish actual tool-reported selection correspondence under the
+admitted credential runtime. They MUST NOT be described as cryptographic token
+identity verification. Decoded JWT fields MUST NOT grant authority. Credentials
+remain private in memory and MUST NOT enter representations, retained credential
+command output or exported observations/reports. A caller token, authentication callback or
+caller-provided context MUST NOT substitute for this owner. Clearing references
+at release MUST NOT be claimed as secure memory erasure.
+
+`post(url, body, context, timeout_seconds)` MUST admit only the owner's context
+and POST `https://api.fabric.microsoft.com/v1/workspaces/<workspace_id>/graphModels/<graph_model_id>/executeQuery?beta=true`.
+Before any HTTP submission it MUST require exact original `bytes` for `body`
+within `maximum_request_bytes`; it MUST NOT rewrite or normalize those bytes.
+It MUST return exactly `(status: int, raw: bytes)` after bounded capture. An opaque
+continuation token may be encoded exactly once into the sole additional
+`continuationToken` query parameter; the original request body remains unchanged.
+`get_definition()` MUST POST
+`https://api.fabric.microsoft.com/v1/workspaces/<workspace_id>/graphModels/<graph_model_id>/getDefinition`
+without a caller URL, operation identifier or format override, returning complete
+bounded original definition response `bytes` only after successful completion. The owner MUST reject redirects, foreign origins,
+userinfo, unexpected ports, fragments and unselected routes before forwarding
+credentials. It MUST close success/error responses and owned process handles on
+all outcomes. Bounded raw HTTP capture MUST remain in private owner custody,
+including errors that may echo credentials. `observations()` MUST provide only
+detached bounded secret-safe diagnostics suitable for export, preserving status,
+route, completeness and failure classification without credential material.
+Before any raw result/definition bytes or observations cross their public return
+boundary, the owner MUST refuse and withhold them if they expose its credential
+material. It MUST NOT silently rewrite an exact query result to remove secrets.
+Raw failures requiring secret retention MUST NOT be exported. Overflow
+observations MUST be marked incomplete prefixes rather than complete bodies.
+
+A definition `202` MUST bind its actual matching canonical operation identifier
+and `Location` to `/v1/operations/<id>`. Only derived GET state and
+`/v1/operations/<id>/result` routes may follow. A result location MUST match that
+same operation; conflicting location/header identities MUST refuse. Polling
+MUST count every response and request against the original capacities, honor
+only bounded integer `Retry-After` delays that fit the remaining deadline, and
+refuse failed, cancelled, unknown or incomplete outcomes. HTTP redirects are
+never operation polling. No automatic semantic retry or refresh is permitted.
+
+A separately typed loopback test profile MAY use a literal loopback address,
+owned ephemeral server and inert credentials to qualify actual socket bounds,
+redirect refusal, method/body correspondence, polling and cleanup. Production
+MUST refuse that profile; an arbitrary base URL MUST NOT be configurable in the
+live profile. Loopback controls do not qualify live TLS, Azure authentication or
+Fabric deployment. The HTTP owner creates no source/publication, deployment,
+refresh, export, engine activation or capacity authority. Actual loaded graph
+correspondence, required positive engine queries and no-mixed-publication proof
+remain independently required; before/after equality alone is insufficient to
+exclude intermediate refresh and reversion.
+
 An installed GraphFrames workflow MUST explicitly select either a live publication
 read or the private immutable export profile above; neither mode may fall back to
 the other. The live mode MUST hold the complete original publication vector,

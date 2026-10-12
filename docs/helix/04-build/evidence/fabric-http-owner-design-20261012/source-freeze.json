@@ -1,0 +1,11 @@
+{
+  "profile": "ashlar-fabric-http-contract-source-freeze/0.1",
+  "file": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+  "bytes": 80576,
+  "sha256": "c8a2ebc53d6b127b1bbb1494f318adfaebfd0eae4984d94f2f2d05a356899107",
+  "diff_sha256": "1c9808538f147c255f5e566f473eb933d3558c4043537a1741a97afd42dfc7f8",
+  "design_path": "/private/tmp/ashlar-fabric-http-owner-implementation-design-c.json",
+  "design_sha256": "6158eea16d62321bb117ade4117ffed83be55483b340bb6acff13591b3e73537",
+  "corrections": "Explicit maximum_request_bytes1..65536 before outbound exactbody; account_user <=256UTF8 no controls; canonical selectedversion <=64ASCII. DesignC supersedes B. All positive P07 and privacy boundaries retained.",
+  "qualification": "Desired state only, no code/credential/proxy/account/network effects."
+}
