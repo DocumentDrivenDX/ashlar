@@ -109,7 +109,7 @@ def _write(path,value,maximum=OUTPUT_LIMIT):
     with owned_context(path.open('xb'))as stream:
         if stream.write(body)!=len(body):raise ValueError('Finite output write refused')
 
-def _query(invocation):
+def _query(invocation,case_ids=None):
     from ashlar.weft_count_star_distribution import CountStarDistributionPaths,installed_count_star_schema_bundle
     from ashlar.weft_path_decode import PathDecodeConfig
     from .pack_count_star_compile import PackCountStarCompileConfig
@@ -138,18 +138,23 @@ def _query(invocation):
         def native(name,captured):record({'kind':'native','id':name,'capture':captured})
         with owned_context(_open(invocation.native,invocation.output/'public-dataset.json'))as driver:
             execution=CountStarExecutionConfig(CountStarAdmissionConfig(q['maximum_artifact_bytes'],schema),PathCaptureConfig(q['maximum_rows'],q['maximum_cell_bytes'],q['maximum_total_cell_bytes']),PathDecodeConfig(q['maximum_cell_bytes']),finite_pack_public_source(driver.source,q.get('maximum_public_source_bytes',q['maximum_artifact_bytes'])),UMF_REVISION,maximum_public_source_bytes=q.get('maximum_public_source_bytes'))
-            result=query_pack_count_star_cases(driver,pack,_aliases(driver),compile_config,execution,observe=compiler,observe_native=native)
+            result=query_pack_count_star_cases(driver,pack,_aliases(driver),compile_config,execution,observe=compiler,observe_native=native,**({'case_ids':case_ids}if case_ids is not None else {}))
     return result
 
-def run_finite_pack_command(configuration,mode):
+def run_finite_pack_command(configuration,mode,*,case_ids=None):
     """Success follows native cleanup and unchanged original invocation custody."""
     selected=InvocationFile.read(configuration,CONFIG_LIMIT);invocation=parse_finite_pack_invocation(selected.raw,mode)
-    invocation.__post_init__();invocation.output.mkdir(mode=0o700);primary=None;result=None
+    invocation.__post_init__()
+    if case_ids is not None:
+        available=invocation.native.producer.definition.facts()['case_ids']
+        if mode!='query'or type(case_ids)is not tuple or not case_ids or any(type(name)is not str or name not in available for name in case_ids)or len(set(case_ids))!=len(case_ids):raise ValueError('Distinct original authored query cases required')
+    invocation.output.mkdir(mode=0o700);primary=None;result=None
     try:
         if mode=='publish':
             published=_publish(invocation.native)
             result={'publication':str(invocation.native.output),'source':published['source'],'manifest':published['manifest'],'qualification':published['qualification']}
-        else:result=_query(invocation)
+        else:result=_query(invocation,case_ids)if case_ids is not None else _query(invocation)
+        if case_ids is not None:result={**result,'requested_case_ids':list(case_ids)}
     except BaseException as error:primary=error
     finish(primary,[lambda:selected.renew(CONFIG_LIMIT)])
     result={**result,'outerCleanupComplete':True,'invocationCustodyComplete':True}

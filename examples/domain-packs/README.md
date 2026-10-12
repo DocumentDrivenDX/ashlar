@@ -124,3 +124,20 @@ retains the original model bytes with each public result. Packs without a declar
 UMF ontology get an explicit absence result. Document validation establishes
 model semantics only; Record values, finite datasets, storage bindings, ingestion
 and engine queries require separate admission and execution.
+
+### Run a selected authored query
+
+Use the existing native query configuration with `--case` to run only selected
+original scenarios against an existing publication:
+
+```sh
+ashlar query-finite-pack --configuration /absolute/private/query.json \
+  --case missing-media
+```
+
+Repeat `--case` for a small selection. Names must belong to the chosen pack, and
+duplicates are refused before opening resources. The original pack, model and
+SQL remain unchanged; selected queries retain the same publication/source
+checks. The report records the selection. Omitting `--case` runs the full authored
+corpus, as before. Archaeology includes `missing-media`; ecology includes
+`network`. A selected result establishes only those cases.

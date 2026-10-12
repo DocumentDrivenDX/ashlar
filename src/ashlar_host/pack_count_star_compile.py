@@ -22,7 +22,18 @@ class PackCountStarCompileConfig:
         if self.paths.package is not None or any(type(p)is not type(Path('/'))or not p.is_absolute()for p in (self.paths.index,self.paths.output)):
             raise ValueError('Absolute existing installation and index paths required')
 
-def compile_pack_count_star_cases(config,definition,pack,model,graph,bindings,manifest,registry,aliases,*,observe):
+
+def select_pack_cases(original,case_ids=None):
+    """Select unchanged known cases in their original authored order."""
+    known=tuple(name for name,_ in original)
+    if len(set(known))!=len(known)or any(type(name)is not str or not name for name in known):raise ValueError('Distinct original authored case IDs required')
+    if case_ids is None:return tuple(original)
+    if type(case_ids)is not tuple or not case_ids or any(type(name)is not str or not name for name in case_ids)or len(set(case_ids))!=len(case_ids)or not set(case_ids)<=set(known):raise ValueError('Unique nonempty tuple of known original case IDs required')
+    selected=set(case_ids)
+    return tuple(case for case in original if case[0]in selected)
+
+
+def compile_pack_count_star_cases(config,definition,pack,model,graph,bindings,manifest,registry,aliases,*,observe,case_ids=None):
     """Compile/recompile all original selected cases; record bytes before parsing.
 
     Public offline admission and independent original source values are provisional
@@ -32,10 +43,11 @@ def compile_pack_count_star_cases(config,definition,pack,model,graph,bindings,ma
     if type(definition)is not FinitePackDefinition or definition.name not in ('archaeology','ecology'):raise ValueError('Owned original pack definition required')
     config.__post_init__()
     original=definition.cases(model,graph,pack)
+    cases=select_pack_cases(original,case_ids)
     snapshot=source_snapshot([bindings,manifest,registry,aliases])
-    # Build all requests before compiler/schema/file effects; malformed original
-    # metadata cannot turn into a partially selected corpus.
-    requests=[(name,pack_count_star_request(definition,name,pack,model,graph,*snapshot))for name,_ in original]
+    # Validate the complete original inventory, then build selected requests
+    # before compiler/schema/file effects.
+    requests=[(name,pack_count_star_request(definition,name,pack,model,graph,*snapshot))for name,_ in cases]
     prepared=[]
     for name,request in requests:
         raw=json.dumps(request,separators=(',',':'),ensure_ascii=False).encode()+b'\n'
@@ -62,4 +74,4 @@ def compile_pack_count_star_cases(config,definition,pack,model,graph,bindings,ma
         if source_snapshot([bindings,manifest,registry,aliases])!=snapshot:
             raise ValueError('Original closing input metadata differs')
     finish(primary,[closing])
-    return {'cases':results,'qualification':'Complete exact original archaeology/ecology041 compiles/recompiles and public offline admission only; source oracles carry no publication/ACK/native authority'}
+    return {'cases':results,'case_ids':tuple(name for name,_ in original),'selected_case_ids':tuple(name for name,_ in cases),'qualification':('Complete exact original archaeology/ecology041 compiles/recompiles and public offline admission only; source oracles carry no publication/ACK/native authority'if case_ids is None else'Selected original archaeology/ecology041 case compiles/recompiles and public offline admission only; unselected cases are not compiled and source oracles carry no publication/ACK/native authority')}

@@ -132,6 +132,7 @@ def main():
     for name in ('publish-finite-pack','query-finite-pack'):
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
+        if name=='query-finite-pack':command.add_argument('--case',action='append',help='Run only this original authored case; repeat to select more')
     supply_configuration=commands.add_parser('configure-supply-chain-native',help='Print a local five-query and two-hop configuration; no engine execution')
     for option in ('output','jars','pack','model','graph','producer-source','bun','git','count-star-index','count-star-installation','paths-index','paths-installation'):
         supply_configuration.add_argument('--'+option,required=True)
@@ -322,7 +323,9 @@ def main():
     if args.command in ('publish-finite-pack','query-finite-pack'):
         from ashlar_host.pack_native_cli import run_finite_pack_command
         try:
-            answer=run_finite_pack_command(args.configuration,'publish'if args.command=='publish-finite-pack'else'query')
+            mode='publish'if args.command=='publish-finite-pack'else'query'
+            selected_cases=tuple(args.case)if mode=='query'and args.case else None
+            answer=run_finite_pack_command(args.configuration,mode,**({'case_ids':selected_cases}if selected_cases is not None else {}))
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar original finite pack operation refused',file=sys.stderr)

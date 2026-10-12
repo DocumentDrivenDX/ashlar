@@ -68,7 +68,7 @@ def finite_pack_public_source(source,maximum):
     return validate
 
 
-def query_pack_count_star_cases(driver,pack,aliases,compile_config,execution_config,*,observe,observe_native=None):
+def query_pack_count_star_cases(driver,pack,aliases,compile_config,execution_config,*,observe,observe_native=None,case_ids=None):
     """Execute original SQL without repairs/fallback under actual held publication."""
     if type(compile_config)is not PackCountStarCompileConfig or type(execution_config)is not CountStarExecutionConfig:
         raise ValueError('Typed original finite query configuration required')
@@ -81,7 +81,7 @@ def query_pack_count_star_cases(driver,pack,aliases,compile_config,execution_con
     if type(source.definition)is not FinitePackDefinition:raise ValueError('Original typed definition required')
     source.definition.inputs(source.model,source.graph,pack);source.renew();aliases=source_snapshot(aliases)
     registry=[{'table':t.table,'uuid':t.uuid}for t in driver.transport.targets.values()]
-    compiled=compile_pack_count_star_cases(compile_config,source.definition,pack,source.model,source.graph,source.bindings,driver.manifest,registry,aliases,observe=observe)
+    compiled=compile_pack_count_star_cases(compile_config,source.definition,pack,source.model,source.graph,source.bindings,driver.manifest,registry,aliases,observe=observe,case_ids=case_ids)
     provisional=[]
     for case in compiled['cases']:
         request=case['request'];provider=FinitePackProvider(driver,aliases,json.loads(request['target']['bindingJson']))
@@ -99,4 +99,4 @@ def query_pack_count_star_cases(driver,pack,aliases,compile_config,execution_con
             original_oracle=lambda model,graph,request,name=case['id']:pack_count_star_result_oracle(source.definition,name,model,graph))
         provisional.append({'id':case['id'],'evidence':result})
     source.renew()
-    return {'cases':provisional,'qualification':'Provisional original finite pack native query evidence; outer reader/transport/Spark and closing original producer/lease cleanup required before persistence. No PostgreSQL/protected ACK.'}
+    return {'cases':provisional,'case_ids':tuple(source.definition.facts()['case_ids']),'selected_case_ids':tuple(case['id']for case in provisional),'qualification':('Provisional original finite pack native query evidence; outer reader/transport/Spark and closing original producer/lease cleanup required before persistence. No PostgreSQL/protected ACK.'if case_ids is None else'Provisional selected original finite pack native query evidence only; unselected cases are not executed. Outer reader/transport/Spark and closing original producer/lease cleanup required before persistence. No PostgreSQL/protected ACK.')}
