@@ -1,0 +1,15 @@
+{
+  "scope": "Desired-state exact runtime selection and finite worker contract only; no production runtime or authentication qualification.",
+  "artifacts": [
+    {
+      "path": "source-freeze.json",
+      "bytes": 453,
+      "sha256": "2d35b9d3801941300cc93794845ebe0e90dc90908aec461b624d6f1ed8387af7"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 1433,
+      "sha256": "af6d65f2adc728e448886b07c5673d381e4eade9a7be0370e35913527f85f12a"
+    }
+  ]
+}

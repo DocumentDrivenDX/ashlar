@@ -1,0 +1,10 @@
+{
+  "scope": "Read-only diagnosis supports one fresh reviewed candidate after necessary oracle fix; original native failure cause remains unknown and no two-hop native pass is claimed.",
+  "artifacts": [
+    {
+      "path": "independent-diagnosis.json",
+      "bytes": 2688,
+      "sha256": "0604e038677d8500d0361bfe2938db65ebccaaa6c8179a6be6d14f38a3a9c545"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-fabric-runtime-selection-contract-review/0.1",
+  "decision": "approved_desired_state_only",
+  "freeze_sha256": "2d35b9d3801941300cc93794845ebe0e90dc90908aec461b624d6f1ed8387af7",
+  "contract_sha256": "91c415b00a405a4b0717dbd9d954d4d7ca883c852f40918d8e6fcc00565d3a59",
+  "checks": [
+    "Exactfrozenfile/hash/length and originalfrontmatter preserved",
+    "28lineadditiononly, ownedwhitespacecheckpass",
+    "Exactnominal CLI andHTTP runtime selections named requiredfields/profile/file-byte-elapsedcaps; Booleanexcluded",
+    "Canonicalprivate tmp/emptyextension/explicitCAtrustselection no callerroot/manifest credentialidentitygrant",
+    "Named2.90/Python3.14.8 profiles select candidateimplementation subsets only; support stillseparateactualqualification no globaldefaults",
+    "Closure bounds additionally constrained wholeHTTPownerremainingdeadline",
+    "OwnedHTTPworker privatecredentialpipe notargs/env/logs; parentelapseddeadline includesDNS/read/capture, alloutcomes retainedleader/processgrouptermination/reaping",
+    "Previousfullcredentialexecutioncorrespondence/tokenhelduse/authprivacy/sourceACK/publication/no-mixed/P07positive obligations remainunchanged"
+  ],
+  "qualification": "Desired coherenttypedruntime/worker contract only. No sourceimplementation, version/fullclosure/credential/liveTLS/HTTP/Fabric/support/positiveP07 qualification. No code/credential/network/native effects."
+}

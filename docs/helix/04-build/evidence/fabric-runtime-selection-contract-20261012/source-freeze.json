@@ -1,0 +1,8 @@
+{
+  "profile": "ashlar-fabric-runtime-selection-contract-freeze/0.1",
+  "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+  "bytes": 84215,
+  "sha256": "91c415b00a405a4b0717dbd9d954d4d7ca883c852f40918d8e6fcc00565d3a59",
+  "frontmatterPreserved": true,
+  "scope": "Exact runtime selection fields and finite owned worker behavior; support remains evidence-qualified; no credential or API effects."
+}

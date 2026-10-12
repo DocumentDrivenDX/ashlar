@@ -678,6 +678,34 @@ version profile); and `maximum_request_bytes`, `maximum_response_bytes`, `maximu
 The selected admitted runtime profile MUST correspond to these fields; a
 configured version string alone MUST NOT qualify a supported runtime.
 
+Configuration MUST additionally require exact nominal `cli_runtime` and
+`http_runtime` selections. `FabricCliRuntimeSelection` MUST contain `profile`,
+`maximum_files`, `maximum_bytes`, `closure_deadline_seconds`,
+`temporary_directory` and `extensions_directory`. The latter two MUST be
+canonical existing private directories; the extension directory MUST be empty.
+`FabricHttpRuntimeSelection` MUST contain `profile`, `maximum_files`,
+`maximum_bytes`, `closure_deadline_seconds` and `ca_bundle`. The CA bundle MUST
+be a canonical explicit path matching the independently selected trust bytes.
+Both selections MUST require exact integer bounds of 1–50,000 files, 1 byte
+through 2 GiB and 1–60 elapsed seconds, excluding Boolean values. Closure work
+MUST also fit the remaining whole-owner deadline.
+
+The initial named installation selections are
+`homebrew-azure-cli-2.90.0-python-3.14.8` and
+`stdlib-python-3.14.8-fabric-http`. Each MUST derive its reviewed installation,
+provenance, interpreter, package or standard-library, native dependency and trust
+inventory internally. Caller-selected roots or content manifests MUST NOT grant
+credential-tool identity. These names select separately qualified implementation
+subsets; they do not establish global architecture defaults or support evidence.
+Undeclared files, changed links or bytes, exceeded closure bounds and unavailable
+selected dependencies MUST refuse admission before credential execution.
+
+HTTP requests MUST use an owned worker with a private credential pipe; credentials
+MUST NOT enter arguments, environment or logs. A parent elapsed deadline and
+bounded output capture MUST govern the complete worker operation, including DNS
+and response reads. Every outcome MUST terminate and reap the owned process group
+with its retained leader. Socket timeouts alone MUST NOT establish that bound.
+
 `open_fabric_http(config)` MUST yield one nominal `FabricAuthenticatedHttp` with
 its own context and finite lifetime. It MUST acquire credentials only through
 the selected actual runtime and explicit configuration directory. The owner MUST

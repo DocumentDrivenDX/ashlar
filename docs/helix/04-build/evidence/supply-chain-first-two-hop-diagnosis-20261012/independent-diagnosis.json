@@ -1,0 +1,36 @@
+{
+  "profile": "ashlar-supply-chain-first-two-hop-readonly-diagnosis/0.1",
+  "decision": "fresh_candidate_justified_after_reviewed_wire_fix_no_other_deterministic_mismatch_found",
+  "retained_response_sha256": "bfb7e03d9ce70d9ff30852f3c70f9882dda09b3ef47f834558d0ed60df81b6d1",
+  "checks": [
+    "Original040retained artifact/recompile passes actualpinned offline schema and publicpathadmission1c90b2",
+    "Repeated smallpure admission8820f2 confirms edgeBIGINT/id and outputnamesid/paths scalar+relatedPaths",
+    "Retained SQL explicitly casts id String and emits paths JSONString with sameid/paths aliases",
+    "ActualnativeDelta object/edge schemas match requiredtypes/completefieldmetadata",
+    "Corrected originalfirstquery request equals actualretained request",
+    "Two independentcorrectedexpectedcells pass actualoriginal scalar/path descriptor/key/edge-decoder720bfa",
+    "Full20/23/43nativebags and firstfive capturedquerybags correspondactualoriginalsource through priorreadonlyaudit",
+    "Provider/adapter actualmodule signature retains samecontext, runtime/resolve/binding/schema/source gates; no additional deterministiclease/capturemismatch found byread-only source inspection"
+  ],
+  "actual_schema_checks": [
+    {
+      "role": "object_current",
+      "actual_schema_satisfies_declared_required_types": true,
+      "schema_sha256": "f5268c4d458868418853738a4284be832f662d95a616752d681a4e4416f05bc0"
+    },
+    {
+      "role": "edge_current",
+      "actual_schema_satisfies_declared_required_types": true,
+      "schema_sha256": "aa000dc1b8a11449dd39c7c96a234eaac797e7669395b5c1d21e68263663626c"
+    }
+  ],
+  "necessary_fix": "Expected nestedpathwire fieldorder hadedgesfirst via sortedJSON; selectedretained SQL declares intermediate/terminal/edges. Reviewed insertionorder fix preservesactualSQL/cells/executor and allsourceidentities.",
+  "limits": [
+    "Originalfailureprimary and exactexecutionstage remainunrecovered frompayload-free CLI stderr",
+    "Noactualfirsttwohopnative cells/schema/guard outcomes retained; compileradmissionpass isnot nativepass",
+    "Wireorder mismatch is necessary independentoraclecorrection but notproven originalcause",
+    "Static explicitStringcasts and actualphysicalschemas do not prove runtimequeryexecution/frame/lease success",
+    "No17combinedreport/heldcompleteclosing proof; no native rerun/newengine/sourceedits/mutations"
+  ],
+  "next": "One freshinstalled smallcandidate onlyafterupdatedsource/wheel/mainCI/review and explicitownedsupervisor/custody; retainhonest incomplete failure scope. Ifanotherrefusal occurs, preserveboundedprivate phase/capture evidence before any subsequent retry ratherthan guess."
+}
