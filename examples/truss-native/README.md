@@ -9,7 +9,9 @@ catalog in a new transaction. No schema conversion or fabricated IDs are used.
 Prerequisites: installed Ashlar and that Truss Python package, Python 3.11+,
 psycopg/psycopg-binary 3.3.6 with libpq 18.6, PostgreSQL 18.6, and the Bun version
 selected by Truss's bundled producer. This version tuple follows Truss's public
-`packages/python/README.md`; this example has not run a native database check.
+`packages/python/README.md`. A
+[small native run](../../docs/helix/04-build/evidence/truss-schema-acceptance-20261012/README.md)
+accepted one original UMF 0.7.0 schema and read its real catalog successfully.
 
 An administrator must already have installed the **compatible current Truss
 catalog runtime**, committed it, and granted its registrar role to your ordinary
