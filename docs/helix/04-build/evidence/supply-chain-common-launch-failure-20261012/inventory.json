@@ -1,0 +1,110 @@
+[
+  {
+    "member": "freeze-c.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/freeze-c.json",
+    "bytes": 8303,
+    "sha256": "0ee3d02f886a81854d9911ac4a1545f229d1c1e9403ef95d25bcfd9595a36fc3"
+  },
+  {
+    "member": "command.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/command.json",
+    "bytes": 1645,
+    "sha256": "2d29efe9531519faa0701d523dcdd3fa878c502be12c2bd7b0816b1778682391"
+  },
+  {
+    "member": "worker.py",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/worker.py",
+    "bytes": 3694,
+    "sha256": "f3549d7dca8157e09b476da029d86156fa412aab1e52362002270a5d35a44397"
+  },
+  {
+    "member": "collector.py",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/collector.py",
+    "bytes": 4262,
+    "sha256": "6806e467d4f59539e413a7866275f21c85fd92d0c21694b38516acc3c98d963a"
+  },
+  {
+    "member": "original_custody.py",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/original_custody.py",
+    "bytes": 3216,
+    "sha256": "c86cfe9f1cbb2835cd8b0a17a0db0c2680c5eecc26e9a44bd4d6833c8cdd8285"
+  },
+  {
+    "member": "resources.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/resources.json",
+    "bytes": 275967,
+    "sha256": "7a498c2d76404a53b0adb6872308e63ac90cf424eacac2d4aca3c87cc73ebe4d"
+  },
+  {
+    "member": "overlay-qualification.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/overlay-qualification.json",
+    "bytes": 62551,
+    "sha256": "52a1a183aaec83deecbf6bcf2a35fd06235fed0ee9d8988aafdb79f570240a69"
+  },
+  {
+    "member": "source-parity.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/source-parity.json",
+    "bytes": 43890,
+    "sha256": "5cd8827368f73b731e014f1d573533399960cf94c8ad86770d84830f1ecc3335"
+  },
+  {
+    "member": "test_worker_cleanup.py",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/test_worker_cleanup.py",
+    "bytes": 1425,
+    "sha256": "77353ed180389bb1591bc8937f8770fd0d1b903a650c40d1262fec39a61ae37a"
+  },
+  {
+    "member": "run.py",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/run.py",
+    "bytes": 3086,
+    "sha256": "6faeede97d7a01dc1341733c6de1a71a61cd5daf1e88b6d33669258d05a70f11"
+  },
+  {
+    "member": "query.stdout",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/query.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "member": "query.stderr",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/query.stderr",
+    "bytes": 1623,
+    "sha256": "ef38140899e5cd06552a5bf4071de2e9034a7995b6ac28216a35df6f5eb3d254"
+  },
+  {
+    "member": "transport.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/transport.json",
+    "bytes": 72,
+    "sha256": "1e444e52de1add441fd15da651c5c92e1faed26d8c71886b7340e395df6ac2ba"
+  },
+  {
+    "member": "outer-result.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/outer-result.json",
+    "bytes": 172,
+    "sha256": "131d55d4db2e67d7dc26e5ccdf271d2123acc535c199816d9a5272def6c43f41"
+  },
+  {
+    "member": "current-public-dataset.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/current-public-dataset.json",
+    "bytes": 4795730,
+    "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e"
+  },
+  {
+    "member": "independent-launch-review.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-installed-independent-review-c.json",
+    "bytes": 1967,
+    "sha256": "201817d979b06ebdafa3808c080654f52cd2c36e10b0346905354357c6658cb7"
+  },
+  {
+    "member": "independent-failure-review.json",
+    "original_path": "/private/tmp/ashlar-supply-chain-common-failed-c-independent-review-a.json",
+    "bytes": 2380,
+    "sha256": "45c911583ea7ad4015b246502ea8782282b479117e8ef7f240203090a1d7d093"
+  },
+  {
+    "member": "root-prelaunch.json",
+    "original_path": "/private/tmp/ashlar-common-installed-root-prelaunch-c.json",
+    "bytes": 421,
+    "sha256": "8e2631381b59f73928a4a926530a8012d91fdb2306780d9b0ad86af9bdc6a683"
+  }
+]

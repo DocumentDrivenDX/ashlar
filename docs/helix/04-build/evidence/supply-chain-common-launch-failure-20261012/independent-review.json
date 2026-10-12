@@ -1,0 +1,49 @@
+{
+  "scope": "Actual failed single recipe C, no query/compiler/Spark/JVM phase entered; fresh public validation executed once and exact current receipt matched old publication. No native success claim.",
+  "failure": "Actual VerificationBounds input1048576 exceeds nominal262144 ceiling before common owner acquisition; review missed actual constructor requirement.",
+  "transport": {
+    "complete": true,
+    "exit": 1,
+    "scope": "bounded owned stream prefixes"
+  },
+  "outer": {
+    "bodyReturned": false,
+    "recipeClosingPassed": true,
+    "scope": "Polling transport/custody only; actual complete report and producer/native bags require independent review"
+  },
+  "original_state": "14recipe/271overlay/209publication fullbytes+identities unchanged and351originalresources unchanged05390b; full1598SDK+JDKnamespace exact72fe66; no protocol/report and emptyruntime.",
+  "process_absence": "0 scopedworker/JVM0bfcd6; initial sandbox ps denied72fe66 then authorizedreadonlycensus passed",
+  "receipt": {
+    "bytes": 4795730,
+    "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+    "matches_old_raw": true
+  },
+  "originals": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/query.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/query.stderr",
+      "bytes": 1623,
+      "sha256": "ef38140899e5cd06552a5bf4071de2e9034a7995b6ac28216a35df6f5eb3d254"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/transport.json",
+      "bytes": 72,
+      "sha256": "1e444e52de1add441fd15da651c5c92e1faed26d8c71886b7340e395df6ac2ba"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/outer-result.json",
+      "bytes": 172,
+      "sha256": "131d55d4db2e67d7dc26e5ccdf271d2123acc535c199816d9a5272def6c43f41"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-common-installed-prep-a/current-public-dataset.json",
+      "bytes": 4795730,
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e"
+    }
+  ],
+  "reviewer_effects": "Read-only source/bytes/namespace/census; no selectedSDK/JVM/Bun/compiler/producer/native execution. Root terminal/reap3bccd8 reported separately."
+}
