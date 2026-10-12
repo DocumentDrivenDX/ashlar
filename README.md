@@ -33,6 +33,8 @@ For local Delta ingest and Weft queries, follow the
 Use [the Fabric GQL guide](examples/fabric-gql/README.md) to run
 `ashlar query-fabric-gql` with an explicitly selected HTTP and graph-release
 provider.
+`ashlar prepare-fabric-graph-definition` generates the model mappings for
+release-specific OneLake node and edge tables.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 

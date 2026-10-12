@@ -649,6 +649,13 @@ remain necessary. [Fabric Graph limitations](https://learn.microsoft.com/en-us/f
 identify OneLake/Mirrored Database sources, scalar ingestion types and unsupported
 nested map/struct types; this does not qualify these Azure Unity Catalog release
 locations as Fabric input. Fabric requires the separately scoped OneLake release.
+A Fabric model-definition generator MUST map every canonical release carrier
+column without numerical coercion, using string properties for the exact textual
+carriers. Nodes MUST use `graph_id` as their primary key; edges MUST retain their
+independent `graph_id` and map `src` and `dst` to those node keys. The generator
+MUST select distinct explicit OneLake Delta paths for one immutable release.
+Generated definitions describe mappings; actual table materialization and loaded
+graph correspondence remain part of the engine release protocol above.
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 

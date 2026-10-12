@@ -83,3 +83,35 @@ absolute canonical configuration/provider paths. Errors return exit status 2
 with a fixed refusal message and no successful result. This command's basic
 adapter tests use inert HTTP/policy ports; they do not qualify an installed
 credential runtime, a live Fabric deployment, or public release-snapshot support.
+
+## Prepare a graph definition locally
+
+For already materialized, release-specific OneLake node and edge Delta tables,
+generate the mapping files without contacting Fabric:
+
+```sh
+python -m ashlar prepare-fabric-graph-definition \
+  --nodes 'abfss://11111111-1111-1111-1111-111111111111@onelake.dfs.fabric.microsoft.com/22222222-2222-2222-2222-222222222222/Tables/release_1_nodes' \
+  --edges 'abfss://11111111-1111-1111-1111-111111111111@onelake.dfs.fabric.microsoft.com/22222222-2222-2222-2222-222222222222/Tables/release_1_edges' \
+  --output /absolute/path/to/fresh-definition-directory
+```
+
+Replace the example workspace/lakehouse UUIDs and table names with your actual
+immutable release paths. This subset accepts GUID-form `abfss` OneLake paths;
+node/edge paths must differ, and literal `latest`/`current` path components are
+unsupported. These checks do not prove that a table is immutable.
+
+The output contains `dataSources.json`, `graphDefinition.json`, `graphType.json`,
+`stylingConfiguration.json`, and `definition.json` with the REST `format: json`
+and InlineBase64 parts. They follow the primary
+[Graph Model definition](https://learn.microsoft.com/en-us/rest/api/fabric/articles/item-management/definitions/graph-model-definition)
+and [Create Graph Model](https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items/create-graph-model)
+examples. `definition.json` is the **definition field**, not a complete create
+request; an operator must supply the display name and perform deployment.
+
+All 18 node and 23 edge carrier fields map as STRING, including canonical text
+encodings. Nodes use `graph_id` as their primary key; edges retain independent
+`graph_id` properties and map `src`/`dst` to node keys. The generator reads no
+rows and makes no claim about materialization, parallel-edge ingestion,
+loaded-engine authority, or live GQL correctness. It creates a new minimal
+definition; it does not edit an existing definition or retain its custom parts.

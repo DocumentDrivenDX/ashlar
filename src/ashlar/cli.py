@@ -122,6 +122,9 @@ def main():
         supply_configuration.add_argument('--'+option,required=True)
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
+    fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
+    for option in ('nodes','edges','output'):
+        fabric_definition.add_argument('--'+option,required=True)
     fabric=commands.add_parser('query-fabric-gql',help='Query an explicitly admitted Fabric graph through a trusted operator provider')
     for option in ('configuration','provider','provider-sha256'):
         fabric.add_argument('--'+option,required=True)
@@ -189,6 +192,14 @@ def main():
         except Exception:
             print('ashlar original supply-chain native operation refused',file=sys.stderr)
             raise SystemExit(2)from None
+        return
+    if args.command == 'prepare-fabric-graph-definition':
+        from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
+        try:
+            answer=prepare_fabric_graph_definition(args.nodes,args.edges,args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except (ValueError,OSError) as error:
+            parser.error(str(error))
         return
     if args.command == 'query-fabric-gql':
         from ashlar_host.fabric_gql_cli import run_fabric_gql_command
