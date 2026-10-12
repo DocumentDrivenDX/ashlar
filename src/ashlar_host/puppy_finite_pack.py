@@ -98,16 +98,16 @@ def prepare_finite_pack_strings(config,output,*,source,policy,context):
         output.mkdir(mode=0o700);database=output/'carrier.duckdb';connection=None;primary=None;committed=False
         try:
             connection=duckdb.connect(str(database));connection.execute("SET threads=1");connection.execute("SET memory_limit='64MB'")
-            connection.execute('BEGIN TRANSACTION');connection.execute('CREATE SCHEMA carrier')
+            connection.execute('BEGIN TRANSACTION');connection.execute('CREATE SCHEMA finite_projection')
             model={'catalogs':[{'name':'finite_pack','type':'duckdb','jdbc':{'jdbcUri':'jdbc:duckdb:'+str(database)}}],'node':[],'edge':[]}
             for kind,role,label in (('node','nodes','FinitePackNode'),('edge','edges','FinitePackEdge')):
                 names=list(release_columns(kind))+(['original_record','selected_0','selected_1']if kind=='node'else [])
                 rows=projection[role]
-                connection.execute('CREATE TABLE carrier.'+role+'('+','.join('"'+name+'" VARCHAR'for name in names)+',carrier_key VARCHAR,carrier_id VARCHAR)')
-                if rows:connection.executemany('INSERT INTO carrier.'+role+' VALUES('+','.join('?'for _ in names+['carrier_key','carrier_id'])+')',[[row[name]for name in names]+[row['graph_id'],row['id']]for row in rows])
-                readback=[dict(zip(names,row))for row in connection.execute('SELECT '+','.join('"'+name+'"'for name in names)+' FROM carrier.'+role).fetchall()]
+                connection.execute('CREATE TABLE finite_projection.'+role+'('+','.join('"'+name+'" VARCHAR'for name in names)+',carrier_key VARCHAR,carrier_id VARCHAR)')
+                if rows:connection.executemany('INSERT INTO finite_projection.'+role+' VALUES('+','.join('?'for _ in names+['carrier_key','carrier_id'])+')',[[row[name]for name in names]+[row['graph_id'],row['id']]for row in rows])
+                readback=[dict(zip(names,row))for row in connection.execute('SELECT '+','.join('"'+name+'"'for name in names)+' FROM finite_projection.'+role).fetchall()]
                 if bag(readback)!=bag(rows):raise ValueError('Complete prepared original STRING carrier bag differs')
-                attrs=[name for name in names if name not in ('id','graph_id')]+['carrier_key','carrier_id'];key=kind+'_key';entry={'label':label,'dataSourceGroup':{'externalDataSource':{'enabled':True,'catalog':'finite_pack','schema':'carrier','table':role,'mappedField':[{'sourceFieldName':name,'targetFieldName':name}for name in attrs]+[{'sourceFieldName':'graph_id','targetFieldName':key}]}},'id':[{'name':key,'type':'STRING'}],'attribute':[{'name':name,'type':'STRING'}for name in attrs]}
+                attrs=[name for name in names if name not in ('id','graph_id')]+['carrier_key','carrier_id'];key=kind+'_key';entry={'label':label,'dataSourceGroup':{'externalDataSource':{'enabled':True,'catalog':'finite_pack','schema':'finite_projection','table':role,'mappedField':[{'sourceFieldName':name,'targetFieldName':name}for name in attrs]+[{'sourceFieldName':'graph_id','targetFieldName':key}]}},'id':[{'name':key,'type':'STRING'}],'attribute':[{'name':name,'type':'STRING'}for name in attrs]}
                 if kind=='edge':entry.update(fromNodeLabel='FinitePackNode',toNodeLabel='FinitePackNode',fromKey=[{'name':'src','type':'STRING'}],toKey=[{'name':'dst','type':'STRING'}])
                 model[kind].append(entry)
             _renew(source,config,policy,context,original);connection.execute('COMMIT');committed=True

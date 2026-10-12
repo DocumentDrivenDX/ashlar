@@ -3,7 +3,7 @@
 No runtime inventory or canonical-source grant. Export permissions are local
 use of historical immutable bytes; source semantics use the real public owner.
 """
-import base64,hashlib,json,os,re,time,urllib.request,urllib.error
+import base64,hashlib,http.client,json,os,re,time,urllib.request,urllib.error
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -94,6 +94,19 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
             raw=response.read(1048577)
             if response.status!=200 or len(raw)>1048576:raise ValueError('Bounded complete schema response required')
         return raw
+    def _wait_ready(self):
+        """Startup connection failures only; auth/schema failures never retry."""
+        while True:
+            try:
+                raw=self._http('/schemajson')
+                if type(json.loads(raw))is not dict:raise ValueError('Original schema object required')
+                self._record('before-model',raw);return
+            except urllib.error.HTTPError:
+                raise
+            except (urllib.error.URLError,http.client.RemoteDisconnected,TimeoutError):
+                if time.monotonic()>=self.deadline:raise TimeoutError('Owned engine readiness deadline elapsed')
+                self._container() # An exited/foreign engine fails immediately.
+                time.sleep(min(.2,max(0,self.deadline-time.monotonic())))
     def renew(self):
         FiniteExportPreparationPolicy.renew(self)
         if self.closed:raise PermissionError('Owned engine interval closed')
@@ -156,11 +169,7 @@ def open_puppy_finite_local(config,case,*,source,export):
         identifier=raw.decode().strip()
         if not re.fullmatch('[0-9a-f]{64}',identifier):raise ValueError('Complete actual container ID required')
         owner._container_id=identifier;owner._docker(['start',identifier]);owner._container()
-        while True:
-            try:owner._record('before-model',owner._http('/schemajson'));break
-            except urllib.error.URLError:
-                if time.monotonic()>=owner.deadline:raise TimeoutError('Owned engine readiness deadline elapsed')
-                time.sleep(.2)
+        owner._wait_ready()
         outcome=owner._http('/schema?postUploadBehavior=none',owner.requested_bytes);owner._record('submission',outcome)
         if json.loads(outcome).get('ok')is not True:raise RuntimeError('Native model submission refused')
         owner.loaded=True

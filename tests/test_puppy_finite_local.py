@@ -39,3 +39,23 @@ class Tests(unittest.TestCase):
    owner.renew();self.assertEqual(owner.catalog_visibility,'omitted');self.assertEqual(json.loads(owner.observations[-1][1])['unknown'],{'kept':True})
    observed['node']=[]
    with self.assertRaises(PermissionError):owner.renew()
+
+ def test_startup_transients_check_owned_status_but_auth_fails_fast(self):
+  import http.client,time,urllib.error
+  from unittest.mock import patch
+  owner,row=self.owner();owner.deadline=time.monotonic()+10;owner.observations=[]
+  checks=[];owner._container=lambda:checks.append('owned-running')
+  replies=iter((http.client.RemoteDisconnected('startup'),TimeoutError('socket'),b'{}'))
+  def response(path):
+   value=next(replies)
+   if isinstance(value,BaseException):raise value
+   return value
+  owner._http=response
+  with patch('ashlar_host.puppy_finite_local.time.sleep'):owner._wait_ready()
+  self.assertEqual(checks,['owned-running','owned-running']);self.assertEqual(owner.observations,[('before-model',b'{}')])
+  owner._http=lambda path:(_ for _ in ()).throw(urllib.error.HTTPError('http://127.0.0.1',401,'auth',{},None))
+  with self.assertRaises(urllib.error.HTTPError):owner._wait_ready()
+  self.assertEqual(len(checks),2)
+  owner._http=lambda path:(_ for _ in ()).throw(http.client.RemoteDisconnected('startup'))
+  owner._container=lambda:(_ for _ in ()).throw(PermissionError('owned engine exited'))
+  with self.assertRaises(PermissionError):owner._wait_ready()
