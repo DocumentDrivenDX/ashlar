@@ -1,0 +1,47 @@
+{
+  "actual_execution_next": "Combined actualnominalcommonowner querycomposition must use existing041 installedschema/compile twice/sharedtypeddecoder+executor+actualfullnative graphrelease opening/closing; actualcompiler mayrefuse, distinct from static sourcebuilder success.",
+  "behavior": "Select existing genuine CountStar041 requestowner; public Paths purebuilder contributes originalshared relationshipbinding DATA only, exactsamebasebinding required; no artifact/dialect relabel or validationclaim. Complete13relationship bindings/model/property optionalnative-null markers/fullnativevector retained. Eachonehop expectedsource rows includesemptycollections, all23originaloccurrences andpureoriginaledge-ID mapping (never nativewitness substitute). Singleton complete3fields/taggednull; filteredtotal3 andorderedlimit1. No callerSQL/schema/authority/callback input or capincrease.",
+  "controls": {
+    "boundary_diff": "PASSc0fe9d; no exemptions; no subprocesseslive",
+    "python312_final": {
+      "chunk": "ee66e3",
+      "exit": 0,
+      "seconds": 0.146,
+      "tests": 7
+    },
+    "python39": {
+      "chunk": "852c74",
+      "exit": 0,
+      "seconds": 0.196,
+      "tests": 7
+    }
+  },
+  "families": {
+    "filtered-limit": [
+      "complete"
+    ],
+    "one-hop": [
+      "relationships-0-6",
+      "relationships-7-12"
+    ],
+    "singleton": [
+      "complete"
+    ]
+  },
+  "files": [
+    {
+      "bytes": 7947,
+      "copy": "/private/tmp/ashlar-supply-chain-common-count-requests-source-freeze-a/supply_chain_common_count_requests.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_count_requests.py",
+      "sha256": "1e84816d365c106f3fdc2373b38b8ccf16788734c0c0ec0b9d91902c997e420b"
+    },
+    {
+      "bytes": 7340,
+      "copy": "/private/tmp/ashlar-supply-chain-common-count-requests-source-freeze-a/test_supply_chain_common_count_requests.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_count_requests.py",
+      "sha256": "682c4d7dc49341686e80ed6cd831f31b20eb4834f6b6afd367029f1a41a43d06"
+    }
+  ],
+  "public_api": "prepare_supply_chain_common_count_requests(pack,model,graph,bindings,manifest,registry,aliases,*,family,part)",
+  "scope": "Pure original fixedCountStar041 request selection/sourceoracle only; no actual compiler/admission/executor/native/publication/authority qualification. Groupedcount required andpending genuineupstreamoperation; canonical carriers use separatelyapproved graphrelease owner."
+}

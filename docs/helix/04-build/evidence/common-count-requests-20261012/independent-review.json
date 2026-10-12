@@ -1,0 +1,27 @@
+{
+  "verdict": "approved source-only fixed request builders",
+  "freeze_sha256": "7f3ef8c1172acefa32c702961b958c30729cab55bc3bd7d28f44e179ccf659b6",
+  "files": [
+    {
+      "bytes": 7947,
+      "copy": "/private/tmp/ashlar-supply-chain-common-count-requests-source-freeze-a/supply_chain_common_count_requests.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_count_requests.py",
+      "sha256": "1e84816d365c106f3fdc2373b38b8ccf16788734c0c0ec0b9d91902c997e420b"
+    },
+    {
+      "bytes": 7340,
+      "copy": "/private/tmp/ashlar-supply-chain-common-count-requests-source-freeze-a/test_supply_chain_common_count_requests.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_count_requests.py",
+      "sha256": "682c4d7dc49341686e80ed6cd831f31b20eb4834f6b6afd367029f1a41a43d06"
+    }
+  ],
+  "independent_controls": {
+    "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+    "tests": 7,
+    "seconds": 0.19,
+    "exit": 0,
+    "chunk": "8ae0f6"
+  },
+  "review": "Original thirteen relationship mapping and both finite partitions retain complete original occurrence/edge witnesses and empty targets. Existing public CountStar041 request owner supplies explicit interface and backend markers; public Paths builder contributes binding data only, exact baseline equality required. Complete three-field container projection and tagged null; independently fixed total three and ordered limit one. No arbitrary SQL entrypoint, profile conversion, host relationship count fallback or current authority claim. Grouped counts remain required and pending genuine compiler capability. New source tests do not claim compilation or native qualification.",
+  "limitations": "Actual compiler acceptance, typed execution, native full graph witness and common owner integration remain unproven. Workflow wiring reviewed separately in forthcoming common bundle."
+}

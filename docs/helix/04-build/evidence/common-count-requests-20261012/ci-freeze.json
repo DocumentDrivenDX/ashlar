@@ -1,0 +1,7 @@
+{
+  "path": "/private/tmp/ashlar-common-count-requests-ci-only.yml",
+  "repository_path": ".github/workflows/supply-chain-compiler.yml",
+  "bytes": 1798,
+  "sha256": "3708062c5badf91d71a45692c0f86f171eb16286f33331bd7ce0ad81667e0270",
+  "scope": "Single existing strict 3.9/3.12 finite test command addition; no unlanded common owner dependencies. Worktree reader/release CI additions remain unstaged for next slice."
+}

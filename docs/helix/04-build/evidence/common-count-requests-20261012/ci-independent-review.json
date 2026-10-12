@@ -1,0 +1,14 @@
+{
+  "verdict": "approved exactCI-onlyvariant forpartialindexstage",
+  "freeze_sha256": "3142aaae59c38c98f363a1a2fe00de1a6d59edf6c4950fdb94020e9d9eceae37",
+  "file": {
+    "path": "/private/tmp/ashlar-common-count-requests-ci-only.yml",
+    "repository_path": ".github/workflows/supply-chain-compiler.yml",
+    "bytes": 1798,
+    "sha256": "3708062c5badf91d71a45692c0f86f171eb16286f33331bd7ce0ad81667e0270",
+    "scope": "Single existing strict 3.9/3.12 finite test command addition; no unlanded common owner dependencies. Worktree reader/release CI additions remain unstaged for next slice."
+  },
+  "base_commit": "0fac7332cce1dbe7a43484dd558c6bd2c151ee79",
+  "review": "Byteexactbase exceptonetest_supply_chain_common_count_requests addition tosamefinite strict3.9/3.12command; no othermatrix/env/flags/stepsdelta. Directpurebuilder/test dependencies remainbyteexactlandedHEAD; no commonread/graphrelease unlandeddependency. Rootapprovedsource/tests remainseparatereceipt; no redundanttests/native/SDK/compiler effects.",
+  "scope": "FrozenCIvariant only; currentworktree reader/release additions leftunstaged andnotapprovedhere."
+}
