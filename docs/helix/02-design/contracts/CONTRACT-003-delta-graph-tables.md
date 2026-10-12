@@ -607,6 +607,18 @@ NOT imply continued canonical snapshot availability, future retention, productio
 source authority, Unity Catalog access or engine activation. Each engine MUST
 separately prove its mapping, exact values, queries and release lifecycle.
 
+The named `ashlar-local-development-private-export-use/0.1` host profile MAY
+admit an operator-selected retained release/receipt pair for rematerialization.
+It MUST require independently selected original digests, exact named private
+receipt validation and current ordinary access to the two owned regular files,
+renewing file bytes and access before use and at closing. Its source metadata
+describes the original captured admission; it MUST NOT represent a live source
+session. Its writer port holds a local export-use interval, not a canonical
+writer lease. This profile grants no production source, storage credential,
+Unity Catalog, Fabric deployment or loaded-graph authority; ordinary engine
+storage access remains separately required. It MUST NOT serve as a GQL graph
+policy or bypass the strict public retention-backed release profile.
+
 ### Original finite supply-chain release reads
 
 `read_original_supply_chain_graph_release(opened)` MUST accept only the nominal

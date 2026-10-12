@@ -144,17 +144,23 @@ claimed by the basic inert Spark tests.
 ### Explicit private-local commerce export
 
 For a retained commerce export with named
-`ashlar-private-local-graph-custody/0.1` receipt, select **both** original release
-and custody digests through your actual operator. Do not rewrite its manifest or
-try the private loader as an automatic fallback. The separate entrypoint shares
-the same STRING writes and complete bag checks:
+`ashlar-private-local-graph-custody/0.1` receipt, use the concrete
+[local-development notebook template](materialize-private-export.py). It takes
+both file paths and independently selected digests from the
+`export-original-commerce` summary; it requires no continued PostgreSQL or
+canonical snapshot availability and no fictional provider module.
 
 ```python
-from ashlar_host.graph_release_delta import materialize_private_graph_release_delta
+from pathlib import Path
+from ashlar_host.local_graph_export import LocalGraphExportSelection, open_local_graph_export
 from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
-from my_operator import open_admitted_private_export
+from ashlar_host.graph_release_delta import materialize_private_graph_release_delta
 
-with open_admitted_private_export() as session:
+selection = LocalGraphExportSelection(
+    Path('/absolute/path/to/export/release.graph.json'),
+    Path('/absolute/path/to/export/custody.json'),
+    SELECTED_RELEASE_SHA256, SELECTED_CUSTODY_SHA256)
+with open_local_graph_export(selection) as session:
     receipt = materialize_private_graph_release_delta(
         spark, session.release.payload, session.release.sha256,
         custody_payload=session.custody_bytes,
@@ -162,18 +168,23 @@ with open_admitted_private_export() as session:
         source=session.source, node_path=NODES, edge_path=EDGES,
         policy=session.policy, context=session.context)
 
-# After the original writer interval closes successfully:
+# After both tables and the local file-use owner close:
 definition = prepare_fabric_graph_definition(NODES, EDGES, DEFINITION_OUTPUT)
 ```
 
-Your operator supplies the original source and a real policy with
-`writer(context)` and
-`admit_original_export(release, custody_bytes, source, context)`. The materializer
-owns that writer interval; do not open a nested writer around it. Receipt/source
-admission is renewed inside the interval before work and independently at
-closing. The strict private loader validates the exact release/receipt pair;
-there is no GraphFrames SDK dependency. This admits an explicitly selected
-original export, not future canonical availability or a Fabric loaded graph.
+This explicitly selects `ashlar-local-development-private-export-use/0.1`.
+The owner renews ordinary effective-user read access and exact bytes/identities
+of two owned regular files before use and at closing. Its nonnested `writer` is a
+local-use interval, not a canonical publication lease. Source metadata remains
+historical capture. Do not select digests by hashing untrusted inputs and treating
+that as authorization. There is no manifest rewrite or public-loader fallback.
+
+The notebook owns its existing Spark session and ordinary storage access; use
+fresh, nonoverlapping Delta destinations. This owner supplies no storage
+credentials, production/native publication authority, Fabric deployment or loaded
+graph authority. It is not a GQL query policy. Both expected digests must be
+independently trusted, and a changed file or revoked local read permission
+withholds success. Basic local-file tests do not qualify a notebook/cloud run.
 
 ### Capture a commerce export from its actual reader
 

@@ -43,6 +43,8 @@ entry point described in the same guide.
 configured commerce reader for that workflow.
 Use `ashlar export-original-commerce` to save the pair from an existing
 configured publication without writing a custom export provider.
+For local development, `open_local_graph_export` admits the explicitly selected
+retained pair for materialization without reconnecting to the original source.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 
