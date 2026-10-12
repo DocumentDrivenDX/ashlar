@@ -41,6 +41,8 @@ Existing commerce exports use the separately selected private custody-receipt
 entry point described in the same guide.
 `read_commerce_export` captures the release and receipt from an existing
 configured commerce reader for that workflow.
+Use `ashlar export-original-commerce` to save the pair from an existing
+configured publication without writing a custom export provider.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 

@@ -122,6 +122,9 @@ def main():
         supply_configuration.add_argument('--'+option,required=True)
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
+    commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
+    for option in ('configuration','publication','output','jars'):
+        commerce_export.add_argument('--'+option,required=True)
     fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
     for option in ('nodes','edges','output'):
         fabric_definition.add_argument('--'+option,required=True)
@@ -191,6 +194,15 @@ def main():
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar original supply-chain native operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'export-original-commerce':
+        from ashlar_host.commerce_export_cli import run_export_original_commerce_command
+        try:
+            answer=run_export_original_commerce_command(args.configuration,args.publication,args.output,args.jars)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar commerce graph export refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'prepare-fabric-graph-definition':

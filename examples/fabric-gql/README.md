@@ -211,6 +211,44 @@ release, custody_bytes, original_native_files = read_commerce_export(reader_fact
 
 `completed_query_provider` is your completed copy of the shipped template, with
 its original configuration/endpoint selections. The reader factory must own its
-surrounding configured resources; the caller retains Spark ownership. This
-foundation adds no automatic SDK setup or graph-release CLI yet, and its basic
-adapter tests do not claim a new PostgreSQL/native export run.
+surrounding configured resources; the caller retains Spark ownership.
+
+### Export an existing local commerce publication from the CLI
+
+The concrete command uses your existing original-commerce publication JSON to
+select its ordinary source/ACK registration. It opens the actual read owner;
+no operator-provider module or compiler installation is needed:
+
+```sh
+python -m ashlar export-original-commerce \
+  --configuration /absolute/path/to/original-publish.json \
+  --publication /absolute/path/to/existing-publication \
+  --jars /absolute/path/to/selected-delta4-jars \
+  --output /absolute/path/to/fresh-export
+```
+
+Use the supported **query** environment: Python 3.11 with SQLite 3.53.1, PySpark
+4.0.1, Delta Spark 4.0.0, JDK 21, and the two pinned Delta 4 JARs listed in the
+[supply-chain guide](../supply-chain-native/README.md). Install the ordinary
+PostgreSQL driver required by the existing local source profile and retain the
+running original fixture. Set `JAVA_HOME`, `PYSPARK_PYTHON`, and
+`PYSPARK_DRIVER_PYTHON` for that selected query environment; leave ambient `PG*`
+settings unset. The original publication's recorded publishing runtime does not
+replace this query-runtime selection. Invoke through your finite process
+supervisor, as with the existing commerce query commands.
+
+The publication path must equal the existing configuration's output. The export
+output must be fresh and separate from the publication, configuration, source
+inputs and JARs. The command registers only ephemeral Spark catalog aliases of
+existing admitted Delta targets; it does not initialize, append, submit ACK, or
+repair persistent data. It uses local Spark with one thread and 512 MiB memory.
+
+Only after the original reader/ACK/native intervals, Spark, and configuration
+close successfully does the command expose read-only `release.graph.json` and
+`custody.json` in the fresh private output directory. Its JSON summary includes
+both digests for explicit selection by the private materializer. Existing paths
+are never overwritten. A failed read or cleanup returns exit status 2 without a
+successful pair; a later file-write failure may leave partial output for
+inspection. The retained pair does not establish future canonical availability
+or Fabric loaded-graph authority. Basic command tests use inert Spark/reader
+ports; they do not claim a new native export execution.
