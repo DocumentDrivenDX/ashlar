@@ -285,7 +285,8 @@ class NativeDriver:
             raise PermissionError('Bounded explicit immutable source profile facts required')
         if facts['profile'] == 'ashlar-commerce-evolution-source-set/0.1' and source_sessions is None:
             raise PermissionError('Installed evolution requires explicit ordinary source sessions')
-        truss=facts['profile']=='ashlar-truss-note-semantic-admission/0.1'
+        truss=facts['profile'] in ('ashlar-truss-note-semantic-admission/0.1',
+                                  'ashlar-truss-scalar-graph-semantic-admission/0.1')
         if truss:
             if type(source_sessions)is not TrussFeedSessions or ack_sessions is not source_sessions:
                 raise PermissionError('Complete original Truss source and ACK session owner required')

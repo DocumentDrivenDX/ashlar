@@ -74,6 +74,9 @@ class Tests(unittest.TestCase):
                 NativeDriver(transport,object(),context,{}, {},(),{},source_admission=semantic,source_sessions=owner)
             driver=NativeDriver(transport,object(),context,{}, {},(),{},source_admission=semantic,source_sessions=owner,ack_sessions=owner)
             self.assertIs(driver.source_sessions,owner);self.assertIs(driver.ack_sessions,owner)
+            facts['profile']='ashlar-truss-scalar-graph-semantic-admission/0.1'
+            graph=NativeDriver(transport,object(),context,{}, {},(),{},source_admission=semantic,source_sessions=owner,ack_sessions=owner)
+            self.assertIs(graph.source_sessions,owner);self.assertIs(graph.ack_sessions,owner)
         checkpoint=json.loads(truss_checkpoint(owner.batch()))
         self.assertEqual(progress_union({},checkpoint),{owner.feed:checkpoint})
         checkpoint['previous']=checkpoint['position']

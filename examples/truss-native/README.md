@@ -428,6 +428,15 @@ independent schema-admission policy; the Note consumer remains object-only.
 `ApplyState` does not carry edge ordering, so its pure checks do not establish
 prior order-key transition or deletion parity.
 
+`ashlar_host.truss_graph_admission.TrussGraphAdmission(batch, catalog_views)`
+admits rootless STRING records and empty-property directed independent edges.
+Supply original complete historical public catalog-view bytes keyed by revision;
+the accepted UMF/report bytes come from the original page. Admission checks actual
+allocated IDs, definition pins, required fields and endpoint types. Scoped views
+and unsupported semantics refuse admission. Pair this policy with the same actual
+`TrussFeedSessions` owner for source reads and ACK; semantic admission alone does
+not publish data or establish current source authority.
+
 `TrussNoteAdmission(batch)` admits the Note's authored STRING fields against
 original accepted UMF bytes and actual catalog IDs. Native graph SQL planning
 retains lifecycle events in history and every property event in the complete
