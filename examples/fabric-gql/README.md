@@ -263,3 +263,39 @@ successful pair; a later file-write failure may leave partial output for
 inspection. The retained pair does not establish future canonical availability
 or Fabric loaded-graph authority. Basic command tests use inert Spark/reader
 ports; they do not claim a new native export execution.
+
+### Materialize an exported pair locally from the CLI
+
+After `export-original-commerce` succeeds, copy the two digests from its trusted
+summary and run the concrete local-development materializer. This command needs
+neither PostgreSQL, a source provider, nor a compiler installation:
+
+```sh
+python -m ashlar materialize-graph-export \
+  --release /absolute/path/to/export/release.graph.json \
+  --custody /absolute/path/to/export/custody.json \
+  --release-sha256 "$SELECTED_RELEASE_SHA256" \
+  --custody-sha256 "$SELECTED_CUSTODY_SHA256" \
+  --node-path /absolute/path/to/fresh-local-nodes \
+  --edge-path /absolute/path/to/fresh-local-edges \
+  --jars /absolute/path/to/selected-delta4-jars \
+  --output /absolute/path/to/fresh-materialization-report.json
+```
+
+The report's parent directory must already exist. Input files, node/edge
+locations, JARs and report must not overlap; node/edge locations and report must
+be fresh. The command supports **local absolute paths only**. For OneLake paths,
+use the notebook template with its existing Spark session and storage access.
+
+Use Python 3.11, PySpark 4.0.1, Delta Spark 4.0.0, JDK 21 and the same two pinned
+Delta 4 JARs. This reuses the existing finite Spark runtime/JAR check without
+requiring unrelated original model files or SQLite query machinery. Set the
+selected Java/PySpark environment as above and run under your finite process
+supervisor. The owned session uses one local thread and 512 MiB driver memory.
+
+The actual local file-use owner validates the selected pair before Spark starts;
+the private materializer compares complete fresh STRING bags. Only after Spark
+and the file-use owner close successfully is the report written. Failed writes
+preserve partial Delta tables and do not overwrite prior destinations. This is
+local retained-export rematerialization, not continued canonical availability,
+production source authority, storage credentials or Fabric graph activation.

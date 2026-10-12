@@ -45,6 +45,8 @@ Use `ashlar export-original-commerce` to save the pair from an existing
 configured publication without writing a custom export provider.
 For local development, `open_local_graph_export` admits the explicitly selected
 retained pair for materialization without reconnecting to the original source.
+Use `ashlar materialize-graph-export` to write that pair into fresh local Delta
+node and edge tables with the existing Spark runtime.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 

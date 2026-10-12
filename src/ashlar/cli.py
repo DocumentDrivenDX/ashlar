@@ -122,6 +122,9 @@ def main():
         supply_configuration.add_argument('--'+option,required=True)
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
+    materialize_export=commands.add_parser('materialize-graph-export',help='Materialize an explicitly selected private export into fresh local Delta tables')
+    for option in ('release','custody','release-sha256','custody-sha256','node-path','edge-path','jars','output'):
+        materialize_export.add_argument('--'+option,required=True)
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
@@ -194,6 +197,15 @@ def main():
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar original supply-chain native operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'materialize-graph-export':
+        from ashlar_host.graph_export_materialization_cli import run_materialize_graph_export_command
+        try:
+            answer=run_materialize_graph_export_command(args.release,args.custody,args.release_sha256,args.custody_sha256,args.node_path,args.edge_path,args.jars,args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar graph export materialization refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'export-original-commerce':
