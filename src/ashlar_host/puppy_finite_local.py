@@ -90,7 +90,7 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
         request=urllib.request.Request('http://127.0.0.1:'+str(self.config.http_port)+path,data=body,headers={'Authorization':'Basic '+base64.b64encode((self.config.username+':'+self.config.password).encode()).decode(),'Content-Type':'application/json'})
         remaining=self.deadline-time.monotonic()
         if remaining<=0:raise TimeoutError('Owned HTTP deadline elapsed')
-        with self.opener.open(request,timeout=min(5,remaining))as response:
+        with self.opener.open(request,timeout=min(30 if body is not None else 5,remaining))as response:
             raw=response.read(1048577)
             if response.status!=200 or len(raw)>1048576:raise ValueError('Bounded complete schema response required')
         return raw

@@ -59,3 +59,17 @@ class Tests(unittest.TestCase):
   owner._http=lambda path:(_ for _ in ()).throw(http.client.RemoteDisconnected('startup'))
   owner._container=lambda:(_ for _ in ()).throw(PermissionError('owned engine exited'))
   with self.assertRaises(PermissionError):owner._wait_ready()
+
+ def test_submission_has_one_bounded_socket_allowance_not_post_retry(self):
+  import io,time
+  owner,row=self.owner();owner.deadline=time.monotonic()+100
+  owner._config.username='selected';owner._config.password='private'
+  observed=[]
+  class Opener:
+   def open(self,request,timeout):
+    observed.append(timeout);response=io.BytesIO(b'{"ok":true}');response.status=200;return response
+  owner.opener=Opener()
+  owner._http('/schema?postUploadBehavior=none',b'{}');self.assertEqual(observed,[30])
+  owner.deadline=time.monotonic()+3
+  owner._http('/schema?postUploadBehavior=none',b'{}');self.assertTrue(0<observed[-1]<=3)
+  owner._http('/schemajson');self.assertTrue(0<observed[-1]<=3)
