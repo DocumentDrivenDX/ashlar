@@ -5,11 +5,11 @@ root=Path(__file__).resolve().parents[2];folder=root/'website/static/model/schem
 proof=json.loads((folder/'provenance.json').read_text())
 sha=lambda data:hashlib.sha256(data).hexdigest()
 assert proof['profile']=='ashlar-umf-schema-browser/0.1'
-assert proof['upstream']['revision']=='b2a5b4cd062b23a030ec058c345f6953f3f1e91a'
-assert proof['upstream']['package']=={'name':'@documentdrivendx/umf-schema-browser','version':'1.1.1','bytes':2288774,'sha256':'ca068e551370e58bbbc9fe1ebf7bb68f7f26f6f0dc67c67ccf17613412aa120e'}
+assert proof['upstream']['revision']=='00755f5d2b76696b14a4750214c66f1209560939'
+assert proof['upstream']['package']=={'name':'@documentdrivendx/umf-schema-browser','version':'1.1.2','bytes':2290558,'sha256':'45d559a5d0d4ff22826fb7f00211ea8c320823a6f3aaf403df744c4d0086cd34'}
 assert proof['generator_sha256']==sha((root/'tools/build_schema_browser.py').read_bytes())
 release=folder/'upstream/release-manifest.json'
-assert sha(release.read_bytes())=='0638278b18822b7316a180e8b0bc5c729b13776b7bf144289aa7255275a39ae2'
+assert sha(release.read_bytes())=='6d78c7252c6888706628b7d9252d05968d6409d6e99d1fbc8a5eb5fd4476295a'
 manifest=json.loads(release.read_text())['sha256']
 expected={'upstream/'+name for name in manifest}|{'upstream/release-manifest.json','upstream/SHA256SUMS','index.html','host.css','host.js','schema-catalog.json'}
 assert set(proof['outputs'])==expected

@@ -2,7 +2,7 @@
 
 A reusable, framework-neutral browser for UMF documents, TableSpec tables,
 domain packs, source artifact collections and ontology diagrams. This is the
-same renderer used by the UMF microsite. Version 1.1.1 ships compiled browser
+same renderer used by the UMF microsite. Version 1.1.2 ships compiled browser
 ESM, TypeScript declarations and static assets; no Bun, Node runtime, framework,
 public corpus or network connection to the UMF microsite is required.
 
@@ -13,7 +13,7 @@ Install the public npm package:
 ```sh
 npm install @documentdrivendx/umf-schema-browser
 # Reproducible version pin:
-npm install @documentdrivendx/umf-schema-browser@1.1.1
+npm install @documentdrivendx/umf-schema-browser@1.1.2
 ```
 
 Version 1.1.0 adds the [versioned host contract](HOST_CONTRACT.md), published
@@ -23,6 +23,9 @@ property/map/diff components work directly in host DOM. JSON startup uses fixed
 build-time validators under strict CSP, with lazy YAML and native recovery.
 The microsite installs the exact integrity-locked release and checks the complete
 runtime asset closure and workspace markup. See [changes](CHANGELOG.md).
+
+Version 1.1.2 fixes accessibility and selected-source loading while retaining the
+1.1.1 reproducible build and fixed-validator profile.
 
 Copy `node_modules/@documentdrivendx/umf-schema-browser/assets/` to your static
 server, for example `/schema-browser/`. Use a bundler for the exported API, or
@@ -79,6 +82,10 @@ default-src 'none'; base-uri 'none'; script-src 'self'; style-src 'self'; frame-
 
 No `unsafe-eval`, inline executable script, external font or worker is required. The srcdoc mount inherits the host policy; no base element is inserted. Fixed validators are compiled during the producer build. Arbitrary native semantic compilation is qualified rather than enabled by weakening CSP. Use the standalone page as an ordinary iframe source
 when your policy forbids srcdoc. The package has no external font requirement.
+This policy is a tested baseline for both embedding forms, rather than a universal
+minimum. Optional image display, cross-origin hosting and iframe sandbox/download
+permissions are explained in [HOST_CONTRACT.md](HOST_CONTRACT.md). A browser
+download does not require the Blob fetch allowance used by byte-readback tests.
 
 Catalogs are caller-selected data; schema source strings are never injected as
 HTML or executed. This is source/schema inspection, not a PDF/DICOM viewer,
@@ -87,6 +94,8 @@ scope remain qualified in the UI. Unknown metadata, original source text,
 license/redistribution declarations and original/derived distinctions remain
 available. Declared download URLs must resolve to HTTP(S); other schemes are refused. Network fetches and local browser memory are not resource-unbounded
 services; the local file picker retains its 4 MB limit.
+Lazy pack manifests and ontology companions stay unloaded until selected.
+Metadata-dependent details link to their source overview when it is not yet loaded.
 
 ## Build
 

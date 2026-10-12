@@ -1,4 +1,4 @@
-# Schema browser host contract 1.1.0
+# Schema browser host contract 1.1
 
 Catalog version 1 is defined by `catalog.schema.json`. The browser is a read-only
 source inspector, not an instance validator, native execution engine or document
@@ -22,6 +22,10 @@ CORS. Relative source URLs resolve against the catalog URL, or `assetBaseUrl`
 for inline catalogs. Asset links resolve against `assetBaseUrl`. Sources load
 only when selected; search covers metadata and already loaded/inline source text.
 Unloaded source text is not searched or implicitly fetched.
+Pack manifests and ontology companions follow the same rule. Until selected,
+their metadata-dependent rights, download and cross-view details may be unavailable;
+the browser links to the pack overview instead of fetching it automatically.
+Explicit revision comparison loads its selected before/after sources.
 
 Categories are `{id,label,order?}`. Entry/mount annotations map exact IDs to
 `[{badge,tone?,tooltip?}]`; tones are neutral/info/positive/warning/negative.
@@ -82,11 +86,22 @@ text content and callback navigation. Model nodes/edges have explicit IDs,
 labels, created/changed/removed status and annotations.
 
 JSON inspection uses fixed build-time validators and no `eval`/`new Function`.
-A same-origin host can use `default-src 'none'; script-src 'self'; style-src 'self';
-connect-src 'self'; frame-src 'self' about:; img-src 'self' data:`. No inline
+A same-origin host can use this tested Content Security Policy (CSP) baseline:
+
+```text
+default-src 'none'; base-uri 'none'; script-src 'self'; style-src 'self'; frame-src 'self' about:; connect-src 'self'
+```
+
+The same literal policy is replayed for srcdoc mounting and the standalone page
+inside an ordinary same-origin iframe. It is a tested configuration, not a claim
+that every directive is the universal minimum across browsers. No inline
 executable scripts or remote fonts are required. Srcdoc inherits host CSP; host
-assets/cross-origin catalogs need explicit origins. Blob downloads may require
-host download/sandbox permission. Optional native recovery can refuse grammars
+assets/cross-origin catalogs need explicit origins in the applicable script/style/
+frame/connect directives. Source inspection requires no image, font or worker
+permission. Add `img-src` only for a host feature that actually displays images.
+Browser-managed Blob downloads do not require `connect-src blob:`; JavaScript
+fetching of a Blob URL for test read-back does. An iframe sandbox can independently
+restrict scripts, origin access and downloads. Optional native recovery can refuse grammars
 outside the fixed browser validation profile with an explicit error; it never
 falls back to a permissive check. Core library validation remains unchanged.
 
@@ -96,5 +111,14 @@ Chromium evidence does not establish cross-browser support.
 `hideHero: true` removes the introductory hero. `focus()` moves keyboard focus to the current inspector heading; Tab then follows its links and controls in DOM order. Leaving the frame returns to the host's next focusable element. Use `height: '100%'` in a container with an explicit height to fill a flex area; `onContentHeight(height)` reports content height for hosts that choose automatic sizing.
 
 `themeVariables` accepts `--paper`, `--ink`, `--muted`, `--line`, `--accent`, `--umf-font`, `--umf-mono` and `--umf-space`. These are applied through the CSSOM after theme selection; hosts are responsible for maintaining contrast with custom colors. The srcdoc document has no base element and works with `base-uri 'self'` or `base-uri 'none'`.
+
+Direct components use the host's `color-scheme` and `--umf-paper`, `--umf-ink`,
+`--umf-line`, `--umf-focus` tokens. Set `color-scheme: light` or `dark` with the
+matching background/foreground. Optional `--umf-created`, `--umf-changed`,
+`--umf-removed`, `--umf-map-focus` and `--umf-map-number` customize status strokes
+and the focused-node/relationship-number paint. Custom focus fills and number
+colors need their own contrast checks. Change states also appear in text and
+accessible names. Scrollable source panes are keyboard focusable; map links
+activate with Enter or Space. Multiple annotation lines reserve node space.
 
 Avro recovery preserves schema, dependencies and exact source while reporting AVRO_VALIDATOR_LIMIT: avsc dynamic interpretation is deliberately unavailable in the fixed browser profile. Source, schema and dependencies remain preserved; native capability diagnostics can differ from the native runtime. The qualified fixture differs only by this warning. No runtime code generation is attempted. Other native capability warnings likewise remain visible; source recovery does not claim arbitrary semantic validation.

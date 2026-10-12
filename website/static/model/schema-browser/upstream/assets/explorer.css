@@ -146,3 +146,8 @@ body:has(.explorer-main)>header{padding-top:14px;padding-bottom:14px}
 .umf-annotation{display:inline-block;margin-inline-start:.5em;padding:.15em .5em;border:1px solid currentColor;border-radius:.3em;font-size:.8em;}
 .explorer-main [data-tone="info"]{color:#467ac2}.explorer-main [data-tone="positive"],.explorer-main [data-status="created"]{color:#2d8459}.explorer-main [data-tone="warning"],.explorer-main [data-status="changed"]{color:#a36b19}.explorer-main [data-tone="negative"],.explorer-main [data-status="removed"]{color:#bd4c55}
 .revision-controls{margin-block:1rem;padding:1rem;border:1px solid var(--line)}
+.explorer-main [data-tone="info"]{color:light-dark(#204e87,#aaccee)}
+.explorer-main [data-tone="positive"],.explorer-main [data-status="created"]{color:light-dark(#185e35,#83d9a7)}
+.explorer-main [data-tone="warning"],.explorer-main [data-status="changed"]{color:light-dark(#704600,#f2c46d)}
+.explorer-main [data-tone="negative"],.explorer-main [data-status="removed"]{color:light-dark(#8e2424,#f4a0a8)}
+pre:focus-visible{outline:3px solid var(--umf-surface-5,#7b8d20);outline-offset:3px}

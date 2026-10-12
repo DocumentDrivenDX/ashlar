@@ -1,0 +1,37 @@
+{
+  "verdict": "approved exact frozen slice",
+  "source_freeze_sha256": "49d48c6d06f15ec115ffc7914ca12c31240d7015830b328b7cf53047d059c2cb",
+  "package": {
+    "name": "@documentdrivendx/umf-schema-browser",
+    "version": "1.1.2",
+    "url": "https://registry.npmjs.org/@documentdrivendx/umf-schema-browser/-/umf-schema-browser-1.1.2.tgz",
+    "bytes": 2290558,
+    "sha256": "45d559a5d0d4ff22826fb7f00211ea8c320823a6f3aaf403df744c4d0086cd34",
+    "files": 85,
+    "sourceRevision": "00755f5d2b76696b14a4750214c66f1209560939"
+  },
+  "managed_files": 92,
+  "upstream_tar_members": 85,
+  "changed_owned_files": [
+    "tools/build_schema_browser.py",
+    "website/scripts/check_schema_browser.py",
+    "website/static/model/schema-browser/provenance.json",
+    "website/static/model/schema-browser/upstream/CHANGELOG.md",
+    "website/static/model/schema-browser/upstream/HOST_CONTRACT.md",
+    "website/static/model/schema-browser/upstream/README.md",
+    "website/static/model/schema-browser/upstream/SHA256SUMS",
+    "website/static/model/schema-browser/upstream/asset-manifest.json",
+    "website/static/model/schema-browser/upstream/assets/components.css",
+    "website/static/model/schema-browser/upstream/assets/explorer.css",
+    "website/static/model/schema-browser/upstream/assets/explorer.js",
+    "website/static/model/schema-browser/upstream/index.js",
+    "website/static/model/schema-browser/upstream/package.json",
+    "website/static/model/schema-browser/upstream/provenance.json",
+    "website/static/model/schema-browser/upstream/release-manifest.json"
+  ],
+  "browser_report_sha256": "12b7c3909234e3b23918cb49ad66d6787ec1bdcf7e0dcc23f36e76a8ae270e94",
+  "browser_checks": 52,
+  "original_downloads_verified": 18,
+  "checks": "Independent build--check, fingerprintguard, completepackage-memberbytecomparison/current92pins, exactcatalog/hostHEAD and originalmodels unchanged, registrylatest1.1.2metadata, actualreport/downloadevidence and mobile screenshot inspected. Upstream1.1.2 hostcontract/changelog mounting/source/CSP partialqualification reviewed.",
+  "scope": "No browser rerun or native/Delta support claim. Foreign dirty _index.md/reference.md excluded; reviewer made no repository edits. Exact bytecopies preserve upstream authored whitespace."
+}

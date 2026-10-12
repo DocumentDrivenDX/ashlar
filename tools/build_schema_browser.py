@@ -2,11 +2,11 @@
 import argparse,hashlib,io,json,tarfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-REVISION='b2a5b4cd062b23a030ec058c345f6953f3f1e91a'
+REVISION='00755f5d2b76696b14a4750214c66f1209560939'
 PACKAGE='@documentdrivendx/umf-schema-browser'
-VERSION='1.1.1'
-PACKAGE_BYTES=2288774
-PACKAGE_SHA256='ca068e551370e58bbbc9fe1ebf7bb68f7f26f6f0dc67c67ccf17613412aa120e'
+VERSION='1.1.2'
+PACKAGE_BYTES=2290558
+PACKAGE_SHA256='45d559a5d0d4ff22826fb7f00211ea8c320823a6f3aaf403df744c4d0086cd34'
 UPSTREAM='package/'
 MODEL=ROOT/'docs/helix/02-design/models/ashlar-delta-runtime'
 TARGET=ROOT/'website/static/model/schema-browser'

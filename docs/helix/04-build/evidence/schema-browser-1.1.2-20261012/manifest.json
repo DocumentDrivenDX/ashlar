@@ -1,0 +1,30 @@
+{
+  "scope": "Exact public UMF schema-browser1.1.2 release synchronization, published latest at registry check. Nine original Ashlar models and host unchanged. Actual browser checks source/download/orderedmembers/extensions/desktop-mobile/lifecycle; no native Delta semantics or broad engine claim. Foreign site edits excluded.",
+  "artifacts": [
+    {
+      "path": "source-freeze.json",
+      "bytes": 22028,
+      "sha256": "49d48c6d06f15ec115ffc7914ca12c31240d7015830b328b7cf53047d059c2cb"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 2274,
+      "sha256": "786e9b62fc5334d8fa4f831239ec04a2a591c7fb99f9e6729e3a72a0eb471e2d"
+    },
+    {
+      "path": "browser-report.json",
+      "bytes": 33493,
+      "sha256": "12b7c3909234e3b23918cb49ad66d6787ec1bdcf7e0dcc23f36e76a8ae270e94"
+    },
+    {
+      "path": "registry-latest.json",
+      "bytes": 2079,
+      "sha256": "70b94fa348e9b2b22625f09f6cf9f9baaaad2ffd0b1043a850b436d5ef3d549a"
+    },
+    {
+      "path": "screenshots.tar.gz",
+      "bytes": 230075,
+      "sha256": "b9feb655d1b5ebbad0d4df295c96986158af5776f870c0759de9f53a56352af9"
+    }
+  ]
+}
