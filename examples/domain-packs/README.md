@@ -141,3 +141,23 @@ SQL remain unchanged; selected queries retain the same publication/source
 checks. The report records the selection. Omitting `--case` runs the full authored
 corpus, as before. Archaeology includes `missing-media`; ecology includes
 `network`. A selected result establishes only those cases.
+
+### Export a published finite pack
+
+Use an existing archaeology or ecology native query configuration to export its
+publication without compiling or executing queries:
+
+```sh
+ashlar export-original-finite-pack \
+  --configuration /absolute/private/query.json \
+  --output /absolute/private/fresh-export
+```
+
+The command opens the existing publication and original finite-file source,
+checks the complete graph against the source oracle under the full publication
+vector, and closes its source, transport and Spark owners before exposing export
+files. It writes `release.graph.json` and `custody.json` with separate SHA256
+values. The custody uses an explicit finite-file profile; it does not claim a
+PostgreSQL ACK. Retain and select both digests when using the files with
+`materialize-graph-export`, `prepare-fabric-notebook` or an offline graph reader.
+Export does not deploy a graph model or execute an engine query.

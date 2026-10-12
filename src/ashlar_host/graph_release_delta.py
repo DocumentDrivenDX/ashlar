@@ -2,11 +2,11 @@
 from collections import Counter
 from pathlib import Path
 from urllib.parse import urlsplit
-import re
+import json,re
 from ashlar.graph_release import GraphRelease,release_columns
 from .puppy_release_document import load_graph_release
 from .lifecycle import finish,owned_context
-from .private_graph_custody import load_private_graph_release,PROFILE as PRIVATE_CUSTODY_PROFILE
+from .private_graph_custody import load_private_graph_release
 
 
 def _destination(value):
@@ -108,5 +108,5 @@ def materialize_private_graph_release_delta(spark,payload,trusted_sha256,*,
         except BaseException as error:primary=error
         finish(primary,[renew])
     return {'profile':'ashlar-graph-release-delta-materialization/0.1','release_sha256':trusted_sha256,
-        'custody_profile':PRIVATE_CUSTODY_PROFILE,'custody_sha256':trusted_custody_sha256,
+        'custody_profile':json.loads(custody_payload)['format'],'custody_sha256':trusted_custody_sha256,
         'targets':observations,'scope':'Observed fresh STRING carrier bags for explicitly admitted private-local export bytes; no public release fallback, future native availability, loaded graph or query authority.'}

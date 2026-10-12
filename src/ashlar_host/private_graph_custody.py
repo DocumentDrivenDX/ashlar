@@ -145,7 +145,11 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
     value=json.loads(payload.decode('utf-8'),object_pairs_hook=_pairs,parse_int=_integer,parse_float=lambda _: (_ for _ in ()).throw(ValueError("Floating release value")),
                     parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
     _release_lineage(value)
-    admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+    custody= _decode(custody_payload)
+    from .finite_graph_custody import PROFILE as FINITE_PROFILE,admit_finite_graph_custody
+    if type(custody)is dict and custody.get('format')==FINITE_PROFILE:
+        admit_finite_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+    else:admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
     if value.get('format')!=FORMAT or value.get('mapping',{}).get('identity')!='ashlar-key/1':
         raise ValueError('Unsupported named release/identity encoding')
     if (json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()!=payload:
