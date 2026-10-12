@@ -73,3 +73,20 @@ class Tests(unittest.TestCase):
   owner.deadline=time.monotonic()+3
   owner._http('/schema?postUploadBehavior=none',b'{}');self.assertTrue(0<observed[-1]<=3)
   owner._http('/schemajson');self.assertTrue(0<observed[-1]<=3)
+ def test_private_observer_failure_preserves_primary_and_original_cleanup(self):
+  from ashlar_host.puppy_finite_local import _close_owned_engine
+  owner,row=self.owner();owner._config.username='selected-user';owner._config.password='selected-private-password'
+  args=owner._create_arguments()
+  self.assertIn('PUPPYGRAPH_USERNAME=selected-user',args);self.assertIn('PUPPYGRAPH_PASSWORD=selected-private-password',args)
+  owner.loaded=False;owner.driver=None;owner.stage='model-submission';owner.submission_outcome='unknown';owner.observations=[];owner.docker_diagnostics=[];owner.closed=False
+  calls=[]
+  def docker(args,*,cleanup=False):
+   calls.append(args);owner.docker_diagnostics.append(b'private stderr');return b'private server log'
+  owner._docker=docker;primary=TimeoutError('inert submission timeout');seen=[]
+  def observer(observation):
+   seen.append(observation);raise LookupError('private sink failure')
+  with self.assertRaises(TimeoutError)as caught:_close_owned_engine(owner,primary,observer)
+  self.assertIs(caught.exception,primary);self.assertTrue(owner.closed)
+  self.assertEqual([args[0]for args in calls],['logs','stop','rm'])
+  self.assertTrue(all(args[-1]==owner.container_id for args in calls))
+  self.assertEqual(seen[0]['submission_outcome'],'unknown');self.assertEqual(seen[0]['stdout'],b'private server log')

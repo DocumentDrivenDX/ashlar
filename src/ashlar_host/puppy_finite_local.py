@@ -75,6 +75,12 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
         # invalidate ownership of the returned create ID. Keep them private.
         self.docker_diagnostics.append(err)
         return out
+    def _create_arguments(self):
+        config=self.config
+        return ['create','--pull=never','--name',config.name,'--cpus=2','--memory=3g',
+            '--env','PUPPYGRAPH_USERNAME='+config.username,'--env','PUPPYGRAPH_PASSWORD='+config.password,
+            '--publish','127.0.0.1:'+str(config.http_port)+':8081','--publish','127.0.0.1:'+str(config.bolt_port)+':7687',
+            '--mount','type=bind,src='+str(self.database)+',dst=/tmp/carrier.duckdb,readonly',config.image]
     def _container(self):
         info=json.loads(self._docker(['inspect',self.container_id]))
         if type(info)is not list or len(info)!=1:raise PermissionError('Actual owned container required')
@@ -121,6 +127,7 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
             self.catalog_visibility='present'if'catalog'in value else'omitted'
             # Retain original GET bytes, including every unrecognized field.
     def query(self,language,script,context):
+        self.stage='query'
         if language!='Cypher'or context is not self.context or not self.active:raise PermissionError('Actual held original Cypher interval required')
         if self.deadline-time.monotonic()<=0:raise TimeoutError('Owned query deadline elapsed')
         self.admit_original_release(self.original[3],context)
@@ -141,12 +148,13 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
                 rows.append(row)
         except BaseException as error:primary=error
         finish(primary,([session.close]if session is not None else [])+([driver.close]if driver is not None else []))
-        self.renew();return rows
+        self.renew();self.stage='caller';return rows
 
 @contextmanager
-def open_puppy_finite_local(config,case,*,source,export):
+def open_puppy_finite_local(config,case,*,source,export,failure_observer=None):
     """Create/start/stop only its returned container ID; cached image, no pull."""
     if type(config)is not PuppyFiniteLoopbackConfig or type(case)is not PuppyFinitePackConfiguration:raise ValueError('Exact local engine/case selections required')
+    if failure_observer is not None and not callable(failure_observer):raise ValueError('Trusted private failure observer must be callable')
     config.__post_init__();projection=project_finite_pack_strings(case)
     owner=object.__new__(OwnedPuppyFiniteLocal);FiniteExportPreparationPolicy.__init__(owner,source,export)
     if export.release.payload!=case.release or source.model!=case.model or source.graph!=case.graph:raise PermissionError('Original selected source/export bytes differ')
@@ -160,26 +168,49 @@ def open_puppy_finite_local(config,case,*,source,export):
     owner.requested_model={'catalog':model['catalogs'],'node':model['node'],'edge':model['edge']}
     for catalog in owner.requested_model['catalog']:catalog['jdbc']['jdbcUri']='jdbc:duckdb:/tmp/carrier.duckdb'
     owner.requested_bytes=json_bytes(owner.requested_model,1048576);owner.observations=[('prepared-model',owner.original_model),('submitted-model',owner.requested_bytes)]
-    owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;primary=None
+    owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;owner.stage='image-preflight';owner.submission_outcome='not-submitted';primary=None
     owner.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect())
     try:
         image=json.loads(owner._docker(['image','inspect',config.image]))
         if len(image)!=1 or image[0]['Id']!=config.image:raise PermissionError('Existing exact cached image required')
-        raw=owner._docker(['create','--pull=never','--name',config.name,'--cpus=2','--memory=3g','--publish','127.0.0.1:'+str(config.http_port)+':8081','--publish','127.0.0.1:'+str(config.bolt_port)+':7687','--mount','type=bind,src='+str(owner.database)+',dst=/tmp/carrier.duckdb,readonly',config.image])
+        owner.stage='container-create'
+        raw=owner._docker(owner._create_arguments())
         identifier=raw.decode().strip()
         if not re.fullmatch('[0-9a-f]{64}',identifier):raise ValueError('Complete actual container ID required')
         owner._container_id=identifier;owner._docker(['start',identifier]);owner._container()
+        owner.stage='startup'
         owner._wait_ready()
+        owner.stage='model-submission';owner.submission_outcome='unknown'
         outcome=owner._http('/schema?postUploadBehavior=none',owner.requested_bytes);owner._record('submission',outcome)
-        if json.loads(outcome).get('ok')is not True:raise RuntimeError('Native model submission refused')
+        if json.loads(outcome).get('ok')is not True:
+            owner.submission_outcome='refused';raise RuntimeError('Native model submission refused')
+        owner.submission_outcome='accepted';owner.stage='model-observation'
         owner.loaded=True
-        owner.renew();yield owner
+        owner.renew();owner.stage='caller';yield owner
     except BaseException as error:primary=error
+    _close_owned_engine(owner,primary,failure_observer)
+
+
+def _close_owned_engine(owner,primary,failure_observer):
+    """Private observation failures never prevent original-ID cleanup."""
+    identifier=owner.container_id
+    if identifier is not None and owner.loaded:
+        try:finish(primary,[owner.renew])
+        except BaseException as error:primary=error
     actions=[]
-    if owner.container_id is not None:
-        if owner.loaded:actions.append(owner.renew)
-        if owner.driver is not None:actions.append(owner.driver.close)
-        # Cleanup commands retain their own finite allowance after query expiry.
-        actions.extend([lambda:owner._docker(['stop','--time','5',owner.container_id],cleanup=True),lambda:owner._docker(['rm',owner.container_id],cleanup=True)])
+    if primary is not None:
+        observation={'stage':owner.stage,'submission_outcome':owner.submission_outcome,
+            'container_id':identifier,'model_observations':tuple(owner.observations),
+            'stdout':None,'stderr':None}
+        if identifier is not None:
+            def logs():
+                observation['stdout']=owner._docker(['logs','--tail','200',identifier],cleanup=True)
+                observation['stderr']=owner.docker_diagnostics[-1]
+            actions.append(logs)
+        if failure_observer is not None:actions.append(lambda:failure_observer(observation))
+    if owner.driver is not None:actions.append(owner.driver.close)
+    if identifier is not None:
+        actions.extend([lambda:owner._docker(['stop','--time','5',identifier],cleanup=True),
+                        lambda:owner._docker(['rm',identifier],cleanup=True)])
     def closed():owner.closed=True
     actions.append(closed);finish(primary,actions)

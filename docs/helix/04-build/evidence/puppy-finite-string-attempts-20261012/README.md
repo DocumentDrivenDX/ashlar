@@ -15,3 +15,10 @@ found no remaining container. No POST retry or native rerun followed in this tur
 The source correction gives that one model-submission socket at most 30 seconds,
 limited by the same remaining 120-second interval; GET/startup and query limits,
 2-CPU/3-GiB resources and the original exports remain unchanged.
+
+The D attempt used fresh paths and a single model-submission socket allowance of
+30 seconds within the same 120-second interval. Readiness completed, but the POST
+again timed out before a response. Its submission outcome is unknown; no query
+ran and no model-success receipt was returned. A read-only Docker listing
+restricted to the owned test prefix was empty after terminal cleanup. Native retries are stopped pending a request/configuration diagnosis against
+the working recipe.
