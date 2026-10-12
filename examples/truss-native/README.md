@@ -199,7 +199,7 @@ Then select this private edit configuration:
 ```
 
 ```sh
-python examples/truss-native/edit-object.py \
+ashlar mutate-truss-note \
   --configuration /absolute/path/to/private-edit.json \
   --output /absolute/path/to/fresh-edit-readback.json
 ```
@@ -278,7 +278,7 @@ Socket locations can change between runs, so obtain the current URI each time.
 Applications can instead own a public `LocalPostgres` context directly:
 
 ```python
-import json, runpy
+import json
 from pathlib import Path
 import psycopg
 from truss import LocalPostgres
@@ -292,8 +292,8 @@ with LocalPostgres("/absolute/private/local-note-data") as runtime:
     # Keep this private (0600); do not print its connection URI.
     edit_config.write_text(json.dumps(selected))
     edit_config.chmod(0o600)
-    edit = runpy.run_path("examples/truss-native/edit-object.py")
-    edit["run"](edit_config, "/absolute/private/fresh-edit-result.json")
+    from ashlar_host.truss_note_mutation import run_mutate_truss_note_command
+    run_mutate_truss_note_command(edit_config, "/absolute/private/fresh-edit-result.json")
 # Every consumer connection closes before the runtime stops.
 ```
 
@@ -306,7 +306,7 @@ passed in 20.4 seconds, including ordinary-account Note editing after restart.
 
 ## Evolve the same Note document
 
-`evolve-note.py` uses public Truss APIs at committed
+`ashlar evolve-truss-note` uses public Truss APIs at committed
 `5366f7d64ae1c5657cb6ec261b956fe1acd1e234`, including current identities returned
 by object reads. Install that compatible package/runtime on a fresh local setup;
 the earlier example package does not establish upgrade compatibility.
@@ -336,7 +336,7 @@ illustrative `1`. Run while the selected local server is owned, using its curren
 connection URI:
 
 ```sh
-python examples/truss-native/evolve-note.py \
+ashlar evolve-truss-note \
   --configuration /absolute/private/evolve-note.json \
   --output /absolute/private/fresh-evolution-result.json
 ```
