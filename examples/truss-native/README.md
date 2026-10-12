@@ -430,7 +430,10 @@ prior order-key transition or deletion parity.
 
 `ashlar_host.truss_graph_admission.TrussGraphAdmission(batch, catalog_views)`
 admits rootless STRING records and empty-property directed independent edges.
-Supply original complete historical public catalog-view bytes keyed by revision;
+Use `read_historical_catalog_views(connection_factory, batch)` from
+`ashlar_host.truss_catalog_reader` to obtain those bytes through an ordinary
+read-only Truss transaction. Supply original complete historical public
+catalog-view bytes keyed by revision;
 the accepted UMF/report bytes come from the original page. Admission checks actual
 allocated IDs, definition pins, required fields and endpoint types. Scoped views
 and unsupported semantics refuse admission. Pair this policy with the same actual
