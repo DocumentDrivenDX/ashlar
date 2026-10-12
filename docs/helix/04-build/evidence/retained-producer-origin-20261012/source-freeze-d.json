@@ -1,0 +1,63 @@
+{
+  "authority": "Original invocation registered only after successful actual capture and independent original closing. No caller JSON/hash/callback/archive deserializer or unminted/copied nominal object can restore origin. Same trusted process/operator-selected genuine tool and OS assumptions as actual producer; complete selected executable byte correspondence does not authenticate arbitrary runtime or qualify transitive SDK/OS dependencies.",
+  "changed_material": "Closed original environment adds GIT_OPTIONAL_LOCKS='0'; direct HEAD/status and actual producer Bun child inherit exactly selected environment. No HOME/CODEX_HOME change. Existing source/header/byte/closing gates unchanged.",
+  "controls": {
+    "boundary_diff": "PASS217384; all subprocesses supervised/kill-reaped by existing capture; no broad tests",
+    "control_semantics": "Actual Git in fresh throwaway repo using actual library-selected closed environment. Stale cached stat on unchanged tracked file plus separately changed tracked file. Disabled optional locks: exact full index bytes/dev/ino/uid/mode/nlink/size/mtime/ctime unchanged and nonvacuous status modifiedfile. Enabled optional locks negative control changes original index; no Bun/producer/native/network/project Git mutation. Every inert HEAD/status/Bun capture selected env independently asserted0.",
+    "initial_sandbox_control": "Initial inert test exited1 because Darwin Git temporary directory confstr warning in shell sandbox. Strict stderr refusal preserved; approved identical control outside sandbox passed. No production effect or relaxed stderr gate.",
+    "python312_changed_material": {
+      "chunk": "2a4aa2",
+      "exit": 0,
+      "sandbox": "escalated approved throwaway Git only",
+      "seconds": 0.35,
+      "tests": 2
+    },
+    "python39_changed_material": {
+      "chunk": "4ca8d8",
+      "exit": 0,
+      "sandbox": "escalated approved throwaway Git only",
+      "seconds": 0.436,
+      "tests": 2
+    }
+  },
+  "files": [
+    {
+      "bytes": 15682,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_producer.py",
+      "sha256": "598f19fe50abd8620e8ac18b56156bf48f7d79503ad0842b6e7226a7fcb07043"
+    },
+    {
+      "bytes": 7225,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/supply_chain_finite_source.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "f7277996e3ca030b9d336d2f783cd7bed22562f102ccfe0fa1bc56eeee9c409a"
+    },
+    {
+      "bytes": 15181,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/test_retained_supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_retained_supply_chain_producer.py",
+      "sha256": "77efdef11d94745588475f1cd1bc8f1b11e38198894fb4f5ac95d7780cd5d03b"
+    }
+  ],
+  "governing_doc": {
+    "bytes": 19978,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+    "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+  },
+  "needed_small_contract_clarification": "Root desired ten-line CONTRACT002 minted-liveorigin/durableadmittedstore/selectedexecutable ceilings/trustedoperator distinction reviewed against source; no additional surface delta proposed.",
+  "original_custody": "Immutable original configfieldtuple/environment/argv/input paths+bytes, source directory identity/currentcleanHEADstatus, complete original model/graph/script and streamed Bun<=256MiB/Git<=32MiB bytehash/identity/nlink/beforeafter guards, emitted receipt exact digest/bytes/identity and successful capture stdout/stderr. All snapshot descriptors independently close before mint; read-only HEAD/status both attempted even cancellation.",
+  "previous_freeze": {
+    "path": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/freeze.json",
+    "sha256": "bf1f82be68db5588a3ea844c5a17e135462e077cbdd18ec80d4bc3380d646ba1"
+  },
+  "primary_source": "https://git-scm.com/docs/git#Documentation/git.txt-GITOPTIONALLOCKS",
+  "public_surfaces": [
+    "HeldSupplyChainDataset.original_invocation() -> OriginalSupplyChainDatasetInvocation",
+    "RetainedOriginalSupplyChainDataset(invocation): callable(model,graph), renew(), metadata(), close()",
+    "reopen_original_supply_chain_source(invocation) -> FiniteSupplyChainSource",
+    "validate_supply_chain_dataset_receipt(model_bytes,graph_bytes,receipt_bytes): pure complete original receipt comparison, no provenance/authority"
+  ],
+  "scope": "Future actual capture and same-process nominal retained owner only; inert controls, no actual producer/Spark/native invocation. Durable CLI provenance restoration remains required and unresolved; existing17 actual evidence unchanged.",
+  "source_semantics": "Existing complete original receipt decoder/comparison extracted into public pure helper, fixed model/graph hashes checked. Source constructor/renew invokes original selected callback; callback drift refuses while independent original callback still closes. New nominal source factory selects retained owner internally without private crossimports/cycles."
+}

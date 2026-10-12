@@ -1,0 +1,56 @@
+{
+  "authority": "Original invocation registered only after successful actual capture and independent original closing. No caller JSON/hash/callback/archive deserializer or unminted/copied nominal object can restore origin. Same trusted process/operator-selected genuine tool and OS assumptions as actual producer; complete selected executable byte correspondence does not authenticate arbitrary runtime or qualify transitive SDK/OS dependencies.",
+  "controls": {
+    "boundary_diff": "PASSb56b07; no new baseline allowances",
+    "python312_compatibility": {
+      "chunk": "b642d7",
+      "exit": 0,
+      "seconds": 1.44,
+      "tests": 40
+    },
+    "python312_final_focused": {
+      "chunk": "db2e66",
+      "command": "PYTHONPATH=src:tests /Users/erik/.local/share/uv/python/cpython-3.12.15-macos-aarch64-none/bin/python3.12 -S -B -W error::ResourceWarning -m unittest test_retained_supply_chain_producer",
+      "exit": 0,
+      "seconds": 1.411,
+      "tests": 14
+    },
+    "python39_final": {
+      "chunk": "b56b07",
+      "command": "PYTHONPATH=src:tests python3 -S -B -W error::ResourceWarning -m unittest test_retained_supply_chain_producer test_supply_chain_finite_native test_supply_chain_native_cli",
+      "exit": 0,
+      "seconds": 2.113,
+      "tests": 41
+    }
+  },
+  "files": [
+    {
+      "bytes": 14467,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-a/supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_producer.py",
+      "sha256": "62a0d789530074c655ac75f11de90d6a8864f29bf7b30e49cc976fb1838ee9ed"
+    },
+    {
+      "bytes": 7225,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-a/supply_chain_finite_source.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "f7277996e3ca030b9d336d2f783cd7bed22562f102ccfe0fa1bc56eeee9c409a"
+    },
+    {
+      "bytes": 10925,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-a/test_retained_supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_retained_supply_chain_producer.py",
+      "sha256": "61fc322a7a4590202284f46ae74b78d54ac9c8bcd273b2589ee7b19705a07594"
+    }
+  ],
+  "needed_small_contract_clarification": "OriginalSupplyChainDatasetInvocation is minted solely after actual producer success plus complete original closing, and is a same-process nominal origin. RetainedOriginalSupplyChainDataset and reopen_original_supply_chain_source accept that live origin only. Durable restored CLI origin requires a separately admitted interface and is not supplied by this surface. Streamed selected executable custody finite ceilings are256MiB Bun/32MiB Git; no fullSDK/OS qualification inferred.",
+  "original_custody": "Immutable original configfieldtuple/environment/argv/input paths+bytes, source directory identity/currentcleanHEADstatus, complete original model/graph/script and streamed Bun<=256MiB/Git<=32MiB bytehash/identity/nlink/beforeafter guards, emitted receipt exact digest/bytes/identity and successful capture stdout/stderr. All snapshot descriptors independently close before mint; read-only HEAD/status both attempted even cancellation.",
+  "public_surfaces": [
+    "HeldSupplyChainDataset.original_invocation() -> OriginalSupplyChainDatasetInvocation",
+    "RetainedOriginalSupplyChainDataset(invocation): callable(model,graph), renew(), metadata(), close()",
+    "reopen_original_supply_chain_source(invocation) -> FiniteSupplyChainSource",
+    "validate_supply_chain_dataset_receipt(model_bytes,graph_bytes,receipt_bytes): pure complete original receipt comparison, no provenance/authority"
+  ],
+  "scope": "Future actual capture and same-process nominal retained owner only; inert controls, no actual producer/Spark/native invocation. Durable CLI provenance restoration remains required and unresolved; existing17 actual evidence unchanged.",
+  "source_semantics": "Existing complete original receipt decoder/comparison extracted into public pure helper, fixed model/graph hashes checked. Source constructor/renew invokes original selected callback; callback drift refuses while independent original callback still closes. New nominal source factory selects retained owner internally without private crossimports/cycles."
+}

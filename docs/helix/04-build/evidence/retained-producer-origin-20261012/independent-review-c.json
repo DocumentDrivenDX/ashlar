@@ -1,0 +1,33 @@
+{
+  "verdict": "approved retainedC source/rootdesired10lines plus combinedfiniteC/CI exactslice",
+  "source_freeze_sha256": "bf1f82be68db5588a3ea844c5a17e135462e077cbdd18ec80d4bc3380d646ba1",
+  "files": [
+    {
+      "bytes": 15657,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_producer.py",
+      "sha256": "5f055dc379b3497c55dfd8e7924e70f03fd87c50c047a79985ebfb749ea33dff"
+    },
+    {
+      "bytes": 7225,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/supply_chain_finite_source.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "f7277996e3ca030b9d336d2f783cd7bed22562f102ccfe0fa1bc56eeee9c409a"
+    },
+    {
+      "bytes": 12849,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/test_retained_supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_retained_supply_chain_producer.py",
+      "sha256": "51d5bd385157bc385eec934d90ccb7f9ca6ef43699e75b63d2a8a5f0f695b837"
+    }
+  ],
+  "governing_doc": {
+    "bytes": 19978,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+    "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+  },
+  "ci_sha256": "e849a19df28130c0dbb47392e160dad0de1985de7d3871dabe3d14eec9cbdd4a",
+  "verification": "Changedmaterial3strictSDKfreecontrolsPASS0.117sb9120b; tooloverall1 is expectedsource diff, nottestfailure. Combined82baselinePASS2.540s4c8a21 retained; no broadrepeat. Boundary/scopeddiffpass; exactCsourcecopies/docfrontmatter/10lineaddition/currentfiniteCfourpins.",
+  "resolved": "Alloriginalmodel/graph/script/Bun/Git filebytes+identities/config/source checked afterinitialGit immediatelybeforeBun; noGitcallbetween gate/effect. Mutabletool/script controls withholdcallback/output/origin. Positivecapturedtoolnlink supported; data/script/receipt1; Gitbefore/afterwholebytechecks and independentHEAD/status/allfileclose primary retained. Genuine actualsuccessfulcapture+completeclosing only mintsregisteredsameprocessorigin; copied/unminted/JSON/callback rawflags cannotgrant origin. Nominalretainedsource selects originalcallback internally.",
+  "qualification": "Sameprocessorigin source/control proof only. No actualpublicproducer/nativeSDK/stream/ACK/cloud/fullruntime/authentictoolbyhash claim. Durableadmittedoriginstore/installedqueryonlycommonCLI remainsunimplemented and required. Trustedoperatorselectedtools/host assumptions explicit; Bun256MiB/Git32MiB are onlycompletebyteceilings. Existingactual17evidence unchanged."
+}

@@ -6,7 +6,8 @@ independently supplied owner; correspondence and native row equality cannot gran
 """
 from contextlib import contextmanager
 from collections import Counter
-import fcntl,json,re
+import fcntl,json,re,os,stat
+from pathlib import Path
 from ashlar.apply import empty_state
 from ashlar.native import quote_table_identifier
 from ashlar.attempt_store import DeltaAttemptStore,PhaseRecord,PHASES
@@ -22,6 +23,14 @@ from .supply_chain_projection import original_supply_chain_oracle,CLOCK
 from .supply_chain_request import source_snapshot
 
 GRAPH_ROLES={'object_current','edge_current','tombstone','whole_source_history'}
+
+def _finite_rows(transport,table,columns,version,bound,*,query=None):
+    if any(type(name)is not str or not re.fullmatch('[a-z_][a-z0-9_]*',name)or family not in ('STRING','BIGINT','TIMESTAMP')for name,family in columns):
+        raise ValueError('Exact baseline native column inventory required')
+    sql=','.join(('CAST(unix_micros('+name+') AS STRING)'if family=='TIMESTAMP'else 'CAST('+name+' AS STRING)')+' AS '+name for name,family in columns)
+    result=(transport.query if query is None else query)('SELECT '+sql+' FROM '+quote_table_identifier(table)+' VERSION AS OF '+str(version)+' LIMIT '+str(bound),{}).rows
+    if len(result)>=bound:raise ValueError('Complete original finite native bag capacity exceeded')
+    return [dict(row)for row in result]
 
 class FiniteFileDriver:
     """Fresh original finite source and exact replay; no substitute recovery plans.
@@ -68,15 +77,75 @@ class FiniteFileDriver:
             def release():
                 self.held=False;fcntl.flock(lock,fcntl.LOCK_UN)
             finish(primary,[close,release])
+    @contextmanager
+    def read_interval(self,stream,context):
+        """Existing-only exclusion; original owners close independently on failure."""
+        if context is not self.context or self.held or self.request is None or self.manifest is None or stream!=self.request['stream']:
+            raise PermissionError('Exact existing committed finite read required')
+        source,transport,admission=self.source,self.transport,self.current_admission
+        source_renew=source.renew
+        request=source_snapshot(self.request);manifest=source_snapshot(self.manifest);publication_id=self.publication_id
+        tables=source_snapshot(self.tables)
+        def column_snapshot():
+            if type(self.columns)is not dict or set(self.columns)!=GRAPH_ROLES or any(type(schema)is not tuple or any(type(pair)is not tuple or len(pair)!=2 or any(type(value)is not str for value in pair)for pair in schema)for schema in self.columns.values()):raise ValueError('Original nominal physical columns required')
+            return source_snapshot({r:[list(pair)for pair in schema]for r,schema in self.columns.items()})
+        columns=column_snapshot();expected=source_snapshot(self.expected)
+        versions=json.loads(manifest['table_versions_json'])
+        if set(versions)!={tables[r] for r in GRAPH_ROLES} or any(type(v)is not int or not 0<=v<2**63 for v in versions.values()):
+            raise ValueError('Exact original complete read vector required')
+        targets={r:(transport.targets[tables[r]].table,transport.targets[tables[r]].uuid,transport.targets[tables[r]].path) for r in sorted(tables)}
+        query=transport.query
+        path=transport.journal_path.parent/'.finite-source-writer.lock'
+        ancestors=tuple((p,(p.lstat().st_dev,p.lstat().st_ino,p.lstat().st_mode))for p in reversed(path.parent.parents))
+        parent=(path.parent,(path.parent.lstat().st_dev,path.parent.lstat().st_ino,path.parent.lstat().st_mode))
+        fd=None;primary=None;held=False;lock_identity=None;lock_bytes=None
+        def lock_current():
+            if path.resolve()!=path:raise ValueError('Canonical existing exclusion required')
+            for p,facts in (*ancestors,parent):
+                named=p.lstat()
+                if (named.st_dev,named.st_ino,named.st_mode)!=facts or not stat.S_ISDIR(named.st_mode):raise ValueError('Original exclusion ancestor changed')
+            opened=os.fstat(fd);named=path.lstat()
+            facts=lambda v:(v.st_dev,v.st_ino,v.st_mode,v.st_nlink)
+            if facts(opened)!=lock_identity or facts(named)!=lock_identity or (opened.st_size,opened.st_mtime_ns)!=lock_bytes or (named.st_size,named.st_mtime_ns)!=lock_bytes:raise ValueError('Original held/named exclusion changed')
+        def correspondence():
+            if (self.source is not source or self.transport is not transport or self.current_admission is not admission
+                or transport.query!=query or source.renew!=source_renew or self.publication_id!=publication_id or encoded(self.expected)!=encoded(expected)
+                or {r:(transport.targets[tables[r]].table,transport.targets[tables[r]].uuid,transport.targets[tables[r]].path)for r in tables}!=targets or self.context is not context or self.tables!=tables or column_snapshot()!=columns or encoded(self.request)!=encoded(request) or encoded(self.manifest)!=encoded(manifest)):
+                raise ValueError('Original finite read owners changed')
+        def current():
+            if admission(source,request,manifest,context)is not None:raise PermissionError('Original current admission incomplete')
+        def native(role):
+            table,uuid,path=targets[role];rows=query('DESCRIBE DETAIL '+quote_table_identifier(table),{}).rows
+            if len(rows)!=1 or rows[0]['id']!=uuid or rows[0]['location'].removeprefix('file:').rstrip('/')!=str(path):raise ValueError('Original native identity/location changed')
+        def bag(role):
+            table,uuid,path=targets[role]
+            result=_finite_rows(transport,table,columns[role],versions[table],len(expected[role])+1,query=query)
+            if Counter(map(encoded,result))!=Counter(map(encoded,expected[role])):raise ValueError('Original complete finite read bag changed')
+        try:
+            fd=os.open(path,os.O_RDWR|os.O_NOFOLLOW|os.O_NONBLOCK)
+            opened=os.fstat(fd);lock_identity=(opened.st_dev,opened.st_ino,opened.st_mode,opened.st_nlink);lock_bytes=(opened.st_size,opened.st_mtime_ns)
+            if not stat.S_ISREG(opened.st_mode)or opened.st_nlink!=1:raise ValueError('Existing regular exclusion required')
+            lock_current();fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);held=True;self.held=True
+            correspondence();source_renew();current()
+            for role in targets:native(role)
+            for role in sorted(GRAPH_ROLES):bag(role)
+            yield
+        except BaseException as error:primary=error
+        callbacks=[]
+        if held:
+            callbacks=[correspondence,source_renew,current,*[lambda role=role:native(role)for role in targets],*[lambda role=role:bag(role)for role in sorted(GRAPH_ROLES)],lock_current]
+        def release():
+            self.held=False
+            if held:fcntl.flock(fd,fcntl.LOCK_UN)
+        if fd is not None:callbacks.extend([release,lambda:os.close(fd)])
+        try:finish(None,callbacks)
+        except BaseException:
+            if primary is None:raise
+            try:setattr(primary,'cleanup_failed',True)
+            except BaseException:pass
+        if primary is not None:raise primary
     def _rows(self,role,version):
-        columns=self.columns[role]
-        if any(type(name)is not str or not re.fullmatch('[a-z_][a-z0-9_]*',name)or family not in ('STRING','BIGINT','TIMESTAMP')for name,family in columns):
-            raise ValueError('Exact baseline native column inventory required')
-        sql=','.join(('CAST(unix_micros('+name+') AS STRING)'if family=='TIMESTAMP'else 'CAST('+name+' AS STRING)')+' AS '+name for name,family in columns)
-        table=quote_table_identifier(self.tables[role]);bound=len(self.expected[role])+1
-        result=self.transport.query('SELECT '+sql+' FROM '+table+' VERSION AS OF '+str(version)+' LIMIT '+str(bound),{}).rows
-        if len(result)>=bound:raise ValueError('Complete original finite native bag capacity exceeded')
-        return [dict(row)for row in result]
+        return _finite_rows(self.transport,self.tables[role],self.columns[role],version,len(self.expected[role])+1)
     def _pins(self):
         versions={}
         for role in sorted(GRAPH_ROLES):

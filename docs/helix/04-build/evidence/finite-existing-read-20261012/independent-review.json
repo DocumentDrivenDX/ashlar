@@ -1,0 +1,29 @@
+{
+  "verdict": "approved finiteC source slice; combinedCI structure approved pending separate retainedproducerB review",
+  "freeze_sha256": "04b2982488d4531154af610487b8eed49841178bc5132d736e534de667c4d3c7",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/finite_publication.py",
+      "bytes": 20000,
+      "sha256": "ca1088f6fbd0eab0069beca7f5d92d2bc2efd48e6d831aad05c3ebe11e1f2a66"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_reader.py",
+      "bytes": 9533,
+      "sha256": "d6c2d73f95416f8bc50e6e74ba126e27e773becb9a9da2b3bc9a6d5e2c172fc6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_finite_read_interval.py",
+      "bytes": 13674,
+      "sha256": "b805a9b3f50922fc06ce21d215e2b8ce22a5c896baedc0eadfd80434f192e0f7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/supply-chain-compiler.yml",
+      "bytes": 1758,
+      "sha256": "e849a19df28130c0dbb47392e160dad0de1985de7d3871dabe3d14eec9cbdd4a"
+    }
+  ],
+  "verification": "18strictSDKfreefocusedtestsPASS0.058s39b7d4terminal/reaped; boundary/scopeddiffpass; exactfourpins/legacywriterASTunchanged; exacttwoCItestmodule additions same3.9/3.12flags/matrix.",
+  "resolved": "Originalcontext/binding constructorcorrespondence guarded at runtime/interval/closing; originalclosing provider derivedoriginalbinding and uses sameactualhelddriver withoutnestedgrant. Originaltransport.query/spark.sql correspondence guards refusebeforeforeign callbacks; capturednative6/bags4/alias4closing independentlycontinue andbodyprimarypreserved.",
+  "scope": "Filesystemexisting-onlyO_NOFOLLOWcanonicallock/heldidentity/deepcolumns/currentsource/nativeheldinterval controls plusinertsource/resolver/nativeports. Originalpublicresolver is independentlyinvoked; it mayrefusecurrentowner/port admission, not claim completeclosing ondrift. No nativeSDK/producer/actualconfiguredcommonowner/durableCLIrestore qualification or effects. Retainedproducer source remainsseparatereview."
+}

@@ -81,6 +81,16 @@ receipt digests and archived validation flags MUST NOT supply semantic authority
 Missing original provenance MUST refuse. Complete original dataset, record,
 key and relationship semantics MUST remain checked.
 
+`OriginalSupplyChainDatasetInvocation` MUST be minted only after an actual
+successful public-producer invocation and its independent original closing
+checks. A same-process retained owner MUST accept only that live origin.
+Durable reopening MUST use a separately admitted origin store; deserializing
+caller JSON, digests or validation flags MUST NOT reconstruct authentic origin.
+Selected executable correspondence MUST stream complete bytes under fixed
+ceilings of 256 MiB for Bun and 32 MiB for Git. These checks rely on genuine
+operator-selected tools and the trusted host; byte equality MUST NOT be treated
+as tool authentication or transitive runtime qualification.
+
 Renewal MUST verify held original file identities and complete model, graph,
 script and receipt bytes, plus the selected producer's original revision and
 clean source. Necessary bounded read-only Git HEAD/status operations MUST run

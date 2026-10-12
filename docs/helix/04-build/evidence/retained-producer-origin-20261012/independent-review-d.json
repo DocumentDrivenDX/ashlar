@@ -1,0 +1,34 @@
+{
+  "verdict": "approved exactretainedD +previousfiniteC/rootdesired10lines/combinedCI",
+  "freeze_sha256": "8010c50670fd2d096a114b763feaee9d3fafa7ded675474543030c88ad22b154",
+  "files": [
+    {
+      "bytes": 15682,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_producer.py",
+      "sha256": "598f19fe50abd8620e8ac18b56156bf48f7d79503ad0842b6e7226a7fcb07043"
+    },
+    {
+      "bytes": 7225,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/supply_chain_finite_source.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "f7277996e3ca030b9d336d2f783cd7bed22562f102ccfe0fa1bc56eeee9c409a"
+    },
+    {
+      "bytes": 15181,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-d/test_retained_supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_retained_supply_chain_producer.py",
+      "sha256": "77efdef11d94745588475f1cd1bc8f1b11e38198894fb4f5ac95d7780cd5d03b"
+    }
+  ],
+  "governing_doc": {
+    "bytes": 19978,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+    "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+  },
+  "ci_sha256": "e849a19df28130c0dbb47392e160dad0de1985de7d3871dabe3d14eec9cbdd4a",
+  "review": "SourcechangedonlyclosedGIT_OPTIONAL_LOCKS0 inheriteddirectGit andBun child; exactCguardbody unchanged. OfficialGitdocs optional-locks false disablesstatusindexrefresh; actualthrowawaycontrol independentlyasserts nonvacuousdirtyoutput+fullindexbytes/identityunchanged, enablednegativeactuallychangesindex.",
+  "independent_controls": "2strict changedmaterialPASS0.469s750f9b terminal0; authorizedthrowawayGit/inertproduceronly. Boundary/scopeddiffpass; allDsourcecopies+finiteCfourpins/doccurrent exact. PriorC3+combined82 controls retained, no broadrepeat.",
+  "primary_source": "https://git-scm.com/docs/git#Documentation/git.txt-GITOPTIONALLOCKS",
+  "qualification": "No actualproducer/SDK/native/projectGit/index/networkwrites byreviewer. ActualGit control onlytemporaryrepository, strictstderr retained; source/host/authentictoolbytecorrespondence limits and durableoriginstoregap unchanged. No new native17qualification."
+}

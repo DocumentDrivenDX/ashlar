@@ -6,7 +6,7 @@ from ashlar.publication import Snapshot,resolve_publication
 from ashlar.native import quote_table_identifier
 from ashlar.manifest import FIELDS
 from .delta_custody import encoded
-from .lifecycle import owned_context
+from .lifecycle import owned_context,finish
 from .supply_chain_request import SOURCE_SYSTEM,SOURCE_SHA,source_snapshot
 from .supply_chain_publication import FiniteSupplyChainDriver,GRAPH_ROLES
 
@@ -19,25 +19,52 @@ class FiniteSupplyChainProvider:
         for alias in aliases.values():quote_table_identifier(alias)
         self.driver,self.context,self.aliases=driver,driver.context,aliases
         self.expected_binding=encoded(binding);self.active=False;self.closed=None
+        self._original_driver=driver;self._original_context=driver.context;self._original_aliases=source_snapshot(aliases);self._original_binding=self.expected_binding
+        self._original_transport=driver.transport;self._original_query=driver.transport.query;self._original_spark=driver.transport.spark;self._original_sql=driver.transport.spark.sql
+    def _require_original_ports(self):
+        if (self.driver is not self._original_driver or self._original_driver.transport is not self._original_transport
+            or self._original_transport.query!=self._original_query or self._original_transport.spark is not self._original_spark
+            or self._original_spark.sql!=self._original_sql):raise ValueError('Original finite native ports changed')
     def runtime(self,context):
-        if context is not self.context or not self.active:raise PermissionError('Held original finite reader required')
+        if context is not self._original_context or self.context is not self._original_context or self.driver is not self._original_driver or self.aliases!=self._original_aliases or self.expected_binding!=self._original_binding or not self.active:raise PermissionError('Held original finite reader required')
+        self._require_original_ports()
         self.driver.require(context);self.driver.admit_current(self.driver.manifest)
         spark=self.driver.transport.spark
         if spark.version!='4.0.1' or spark.sql("SELECT ('a' COLLATE UTF8_BINARY) = ('A' COLLATE UTF8_BINARY) AS equal").first()['equal']is not False:
             raise ValueError('Selected native Spark4.0.1 binary runtime required')
     @contextmanager
     def interval(self,context):
-        if context is not self.context or self.active:raise PermissionError('Nonnested original finite reader required')
-        self.closed=None
-        with owned_context(self.driver.writer(self.driver.request['stream'],context)):
-            self.active=True
+        if context is not self._original_context or self.context is not self._original_context or self.active or self.driver is not self._original_driver or self.aliases!=self._original_aliases or self.expected_binding!=self._original_binding:
+            raise PermissionError('Nonnested original finite reader required')
+        self.closed=None;driver=self._original_driver;aliases=source_snapshot(self._original_aliases)
+        source=driver.source;source_renew=source.renew;transport=driver.transport;targets={t:(transport.targets[t].uuid,transport.targets[t].path)for t in aliases};sql=transport.spark.sql
+        opening=None
+        closing_provider=FiniteSupplyChainProvider(driver,aliases,json.loads(self._original_binding))
+        with owned_context(driver.read_interval(driver.request['stream'],context)):
+            self.active=True;closing_provider.active=True;primary=None
+            def original():
+                if self.context is not self._original_context or self.expected_binding!=self._original_binding or self.driver is not driver or self.aliases!=aliases or driver.source is not source or source.renew!=source_renew or driver.transport is not transport or transport.spark.sql!=sql:
+                    raise ValueError('Original finite provider changed')
+            def resolve_closing():
+                closing=FiniteSupplyChainProvider.resolve(closing_provider,context)
+                if opening is not None and opening!=closing:raise ValueError('Original finite publication changed during held read')
+            def alias_closing(native):
+                uuid,path=targets[native];detail=sql('DESCRIBE DETAIL '+quote_table_identifier(aliases[native])).first().asDict()
+                if detail['id']!=uuid or detail['location'].removeprefix('file:').rstrip('/')!=str(path):raise ValueError('Original finite alias identity differs')
             try:
-                opening=self.resolve(context);yield;closing=self.resolve(context)
-                if opening!=closing:raise ValueError('Original finite publication changed during held read')
-            finally:self.active=False
+                opening=FiniteSupplyChainProvider.resolve(self,context);yield
+            except BaseException as error:primary=error
+            try:
+                try:finish(None,[original,source_renew,resolve_closing,*[lambda native=native:alias_closing(native)for native in aliases]])
+                except BaseException:
+                    if primary is None:raise
+                    try:setattr(primary,'cleanup_failed',True)
+                    except BaseException:pass
+                if primary is not None:raise primary
+            finally:self.active=False;closing_provider.active=False
         self.closed={'profile':'ashlar-immutable-file-publication-interval/0.1','publication_id':opening.descriptor.publication_id,
             'manifest_sha256':hashlib.sha256(encoded(dict(opening.descriptor.raw)).encode()).hexdigest(),
-            'source':self.driver.source.metadata(),'qualification':'Actual held complete native publication and original finite-file receipt renewed through release; no protected ACK/outbox authority'}
+            'source':source.metadata(),'qualification':'Actual held complete native publication and original finite-file receipt renewed through release; no protected ACK/outbox authority'}
     def closed_interval_custody(self,context):
         if context is not self.context or self.active or self.closed is None:raise PermissionError('Complete finite interval not released')
         return source_snapshot(self.closed)
@@ -45,11 +72,14 @@ class FiniteSupplyChainProvider:
         self.runtime(context)
         if publication_id!=self.driver.publication_id or set(tables)!=set(self.aliases):raise ValueError('Original complete finite read vector required')
     def descriptors(self,publication_id):
+        self._require_original_ports()
         fields=','.join('CAST(unix_micros(recorded_at) AS STRING) AS recorded_at'if k=='recorded_at'else k for k in FIELDS)
         return self.driver.transport.query('SELECT '+fields+' FROM '+quote_table_identifier(self.driver.tables['manifest'])+' WHERE publication_id=:id LIMIT 2',{'id':publication_id}).rows
     def validate_descriptor(self,descriptor,context):
+        self._require_original_ports()
         self.driver.validate_manifest(dict(descriptor.raw),context)
     def inspect_snapshot(self,table,version):
+        self._require_original_ports()
         target=self.driver.transport.targets[table]
         detail=self.driver.transport.query('DESCRIBE DETAIL '+quote_table_identifier(table),{}).rows
         if len(detail)!=1 or detail[0]['id']!=target.uuid:raise ValueError('Original finite native identity differs')

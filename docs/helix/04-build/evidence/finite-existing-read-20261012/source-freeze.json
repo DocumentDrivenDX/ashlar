@@ -1,0 +1,72 @@
+{
+  "profile": "finite-existing-read-source-freeze/0.3",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/finite_publication.py",
+      "bytes": 20000,
+      "sha256": "ca1088f6fbd0eab0069beca7f5d92d2bc2efd48e6d831aad05c3ebe11e1f2a66"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_reader.py",
+      "bytes": 9533,
+      "sha256": "d6c2d73f95416f8bc50e6e74ba126e27e773becb9a9da2b3bc9a6d5e2c172fc6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_finite_read_interval.py",
+      "bytes": 13674,
+      "sha256": "b805a9b3f50922fc06ce21d215e2b8ce22a5c896baedc0eadfd80434f192e0f7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/supply-chain-compiler.yml",
+      "bytes": 1758,
+      "sha256": "e849a19df28130c0dbb47392e160dad0de1985de7d3871dabe3d14eec9cbdd4a"
+    }
+  ],
+  "sourceOwnership": [
+    "finite_publication.py",
+    "supply_chain_reader.py",
+    "test_finite_read_interval.py"
+  ],
+  "CIownership": "Root final same strict command adds finite_read_interval and retained_supply_chain_producer",
+  "checks": {
+    "command": "PYTHONPATH=src:tests:tools PYTHON -S -W error::ResourceWarning -m unittest test_finite_read_interval test_finite_publication test_finite_pack test_supply_chain_two_hop_query",
+    "Python39": {
+      "tests": 51,
+      "seconds": 1.336,
+      "exit": 0
+    },
+    "Python312": {
+      "tests": 51,
+      "seconds": 1.552,
+      "exit": 0
+    },
+    "session": 98854,
+    "reapedChunk": "49e449",
+    "moduleBoundaries": true,
+    "diffCheck": true,
+    "legacyWriterASTUnchanged": true,
+    "targetedFinal": {
+      "command": "PYTHONPATH=src:tests:tools PYTHON -S -W error::ResourceWarning -m unittest test_finite_read_interval",
+      "Python39": {
+        "tests": 18,
+        "seconds": 0.062
+      },
+      "Python312": {
+        "tests": 18,
+        "seconds": 0.035
+      },
+      "exit": 0,
+      "session": 24587,
+      "terminalReapedChunk": "0aff86",
+      "boundaries": true,
+      "diffCheck": true
+    }
+  },
+  "seam": "FiniteFileDriver.read_interval(stream,context); FiniteSupplyChainProvider.interval uses captured original-bound nominal closing provider, same actual existing exclusion interval",
+  "scope": "Actual filesystem exclusion/canonical drift/independentcleanup and publicowner controls with inert source/native/resolver lower ports. No native SDK/producer/source execution, durable retained producer restore, full configured common reader or native qualification. Source finite belongs parallel retained producer author and is not included.",
+  "supersedes": {
+    "path": "/private/tmp/ashlar-finite-existing-read-source-freeze-b.json",
+    "sha256": "7037bb880f2d9a029adaea34a35a4bd83379b73fcfe53adea917c03cda49c96b"
+  },
+  "revision": "Require exact live selected transport.query and spark.sql methods; fixed original callbacks still independently close. Runtime/descriptors/schema ownership checks refuse drift before invoking substituted methods. Context/binding and original resolver fixes preserved. No broad rerun; earlier51each portable regressions retained."
+}

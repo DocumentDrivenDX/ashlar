@@ -1,0 +1,59 @@
+{
+  "authority": "Original invocation registered only after successful actual capture and independent original closing. No caller JSON/hash/callback/archive deserializer or unminted/copied nominal object can restore origin. Same trusted process/operator-selected genuine tool and OS assumptions as actual producer; complete selected executable byte correspondence does not authenticate arbitrary runtime or qualify transitive SDK/OS dependencies.",
+  "changed_material": "After initial Git pin commands, immediately before Bun capture, independently verify original config, canonical source and ALL original model/graph/script/Bun/Git file bytes+identities. No additional Git command after this input gate. Existing afteruse/alloriginalclosing retained. New script-mutates-during-initial-status inert control asserts no Bun callback/output/mint.",
+  "controls": {
+    "baseline_peer_b": "82 strict PASS2.5404c8a21; B fixes independentlyapproved except preBuninputgate now corrected",
+    "boundary_diff": "PASS; allhandlesreaped; no source/native invocation",
+    "changed_material_python312": {
+      "chunk": "29ca03",
+      "exit": 0,
+      "seconds": 0.095,
+      "tests": 3
+    },
+    "changed_material_python39": {
+      "chunk": "29ca03",
+      "exit": 0,
+      "seconds": 0.115,
+      "tests": 3
+    }
+  },
+  "files": [
+    {
+      "bytes": 15657,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_producer.py",
+      "sha256": "5f055dc379b3497c55dfd8e7924e70f03fd87c50c047a79985ebfb749ea33dff"
+    },
+    {
+      "bytes": 7225,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/supply_chain_finite_source.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_finite_source.py",
+      "sha256": "f7277996e3ca030b9d336d2f783cd7bed22562f102ccfe0fa1bc56eeee9c409a"
+    },
+    {
+      "bytes": 12849,
+      "copy": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-c/test_retained_supply_chain_producer.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_retained_supply_chain_producer.py",
+      "sha256": "51d5bd385157bc385eec934d90ccb7f9ca6ef43699e75b63d2a8a5f0f695b837"
+    }
+  ],
+  "governing_doc": {
+    "bytes": 19978,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+    "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+  },
+  "needed_small_contract_clarification": "Root desired ten-line CONTRACT002 minted-liveorigin/durableadmittedstore/selectedexecutable ceilings/trustedoperator distinction reviewed against source; no additional surface delta proposed.",
+  "original_custody": "Immutable original configfieldtuple/environment/argv/input paths+bytes, source directory identity/currentcleanHEADstatus, complete original model/graph/script and streamed Bun<=256MiB/Git<=32MiB bytehash/identity/nlink/beforeafter guards, emitted receipt exact digest/bytes/identity and successful capture stdout/stderr. All snapshot descriptors independently close before mint; read-only HEAD/status both attempted even cancellation.",
+  "previous_freeze": {
+    "path": "/private/tmp/ashlar-retained-supply-chain-producer-source-freeze-b/freeze.json",
+    "sha256": "11cbe5024a7f4520b87607fe9d4088f5ec8356be14a5797addf5791d0b37d373"
+  },
+  "public_surfaces": [
+    "HeldSupplyChainDataset.original_invocation() -> OriginalSupplyChainDatasetInvocation",
+    "RetainedOriginalSupplyChainDataset(invocation): callable(model,graph), renew(), metadata(), close()",
+    "reopen_original_supply_chain_source(invocation) -> FiniteSupplyChainSource",
+    "validate_supply_chain_dataset_receipt(model_bytes,graph_bytes,receipt_bytes): pure complete original receipt comparison, no provenance/authority"
+  ],
+  "scope": "Future actual capture and same-process nominal retained owner only; inert controls, no actual producer/Spark/native invocation. Durable CLI provenance restoration remains required and unresolved; existing17 actual evidence unchanged.",
+  "source_semantics": "Existing complete original receipt decoder/comparison extracted into public pure helper, fixed model/graph hashes checked. Source constructor/renew invokes original selected callback; callback drift refuses while independent original callback still closes. New nominal source factory selects retained owner internally without private crossimports/cycles."
+}
