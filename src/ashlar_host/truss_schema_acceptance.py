@@ -1,5 +1,6 @@
 """Register original UMF documents in an EXISTING compatible Truss installation."""
 import base64,json
+from dataclasses import replace
 from .lifecycle import finish
 from pathlib import Path
 
@@ -15,7 +16,7 @@ def run_accept_truss_schema_command(configuration,output):
     # Optional native dependencies are imported only when this example is run.
     import psycopg
     from truss import (Ok,CatalogDocument,CatalogRuntimeConfiguration,
-        CatalogRegistration,CatalogUnchanged,CatalogViewAvailable,
+        CatalogRegistration,CatalogUnchanged,CatalogViewAvailable,HistoricalCatalogSelection,
         adopt_psycopg_host,create_reference_assembly)
     config=json.loads(read_bounded(configuration,65536))
     if type(config)is not dict or set(config)!={'connection_uri','bun','documents','request_key','origin_path'}:raise ValueError('Exact example configuration required')
@@ -61,8 +62,10 @@ def run_accept_truss_schema_command(configuration,output):
         primary=None
         try:
             report=value(assembly.report_in_transaction(transaction,registered.revision))
-            catalog=value(assembly.catalog_view_in_transaction(transaction,assembly.catalog_view_request(encoded_bytes='16777216')))
-            if not isinstance(catalog,CatalogViewAvailable):raise RuntimeError('Complete catalog view unavailable')
+            request=replace(assembly.catalog_view_request(encoded_bytes='16777216'),
+                selection=HistoricalCatalogSelection(catalog_revision=str(registered.revision)))
+            catalog=value(assembly.catalog_view_in_transaction(transaction,request))
+            if not isinstance(catalog,CatalogViewAvailable)or str(json.loads(catalog.view.original_bytes)['catalogRevision'])!=str(registered.revision):raise RuntimeError('Accepted historical catalog view unavailable')
             result={'revision':registered.revision,'registration_id':registered.registration_id,
                     'replayed':registered.replayed,
                     'report_original_base64':base64.b64encode(report.original_bytes).decode('ascii'),

@@ -54,7 +54,9 @@ The fresh report is written only after transactions, assembly admission, host
 attachment and connection cleanup. It contains the actual registration ID,
 revision and replay flag, plus **original complete report and catalog JSON bytes
 as Base64** (`report_original_base64`, `catalog_original_base64`), preserving
-unknown fields without reconstruction. Decode those fields to inspect accepted
+unknown fields without reconstruction. Catalog readback selects the accepted
+historical revision, so a concurrent catalog advance cannot change the report.
+Decode those fields to inspect accepted
 native IDs and definitions. Credentials are never printed by this script.
 
 Failure does not automatically retry or roll back a commit that already
