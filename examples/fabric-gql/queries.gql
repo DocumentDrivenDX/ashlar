@@ -1,0 +1,18 @@
+// Copy and run ONE statement at a time against the selected loaded Graph Model.
+// Exact successful queries retained in fabric-corpus-d.json (2026-10-11).
+// This gallery does not compile or replace Weft requests.
+
+// Full canonical node identity and STRING values (18 properties)
+MATCH (n:AshlarNode) RETURN n.apply_batch_id AS apply_batch_id, n.entity_version AS entity_version, n.graph_id AS graph_id, n.id AS id, n.logical_key_json AS logical_key_json, n.lookup_hash AS lookup_hash, n.props_json AS props_json, n.published_at AS published_at, n.retained_json AS retained_json, n.root_id AS root_id, n.schema_revision AS schema_revision, n.source_cursor_json AS source_cursor_json, n.source_delivery_id AS source_delivery_id, n.source_epoch AS source_epoch, n.source_feed AS source_feed, n.source_position AS source_position, n.source_system AS source_system, n.type_id AS type_id;
+
+// Full edge identity, endpoints and STRING values (23 properties)
+MATCH ()-[n:AshlarEdge]->() RETURN n.apply_batch_id AS apply_batch_id, n.dst AS dst, n.entity_version AS entity_version, n.graph_id AS graph_id, n.id AS id, n.lookup_hash AS lookup_hash, n.order_key AS order_key, n.props_json AS props_json, n.published_at AS published_at, n.rel_type_id AS rel_type_id, n.retained_json AS retained_json, n.schema_revision AS schema_revision, n.source_cursor_json AS source_cursor_json, n.source_delivery_id AS source_delivery_id, n.source_epoch AS source_epoch, n.source_feed AS source_feed, n.source_id AS source_id, n.source_position AS source_position, n.source_system AS source_system, n.source_type AS source_type, n.src AS src, n.target_id AS target_id, n.target_type AS target_type;
+
+// One hop: one row per relationship identity, preserving parallel edges
+MATCH (s:AshlarNode)-[e:AshlarEdge]->(d:AshlarNode) RETURN s.graph_id AS source, e.graph_id AS relationship_id, d.graph_id AS destination;
+
+// Exact node count, including isolated nodes
+MATCH (n:AshlarNode) RETURN count(n) AS node_count;
+
+// Exact edge count, including parallel edges and self-loops
+MATCH ()-[e:AshlarEdge]->() RETURN count(e) AS edge_count;

@@ -309,3 +309,26 @@ and the file-use owner close successfully is the report written. Failed writes
 preserve partial Delta tables and do not overwrite prior destinations. This is
 local retained-export rematerialization, not continued canonical availability,
 production source authority, storage credentials or Fabric graph activation.
+
+## Copyable query gallery
+
+[queries.gql](queries.gql) contains five statements copied exactly from the
+successful [retained Fabric corpus](../../docs/helix/04-build/evidence/fabric-gql-corpus-20261011/fabric-corpus-d.json):
+full 18-property node and 23-property edge projections, one-hop relationship
+identities, and exact node/edge counts. Copy **one statement at a time** into
+the selected loaded Graph Model's query editor, or use its text as the `query`
+in a `query-fabric-gql` configuration with your actual release owner.
+
+The mapping uses `AshlarNode` / `AshlarEdge` labels. Carrier properties remain
+STRING (including canonical JSON text and textual versions); nulls remain
+nulls. The edge projection retains independent `graph_id`, `src` and `dst`.
+The one-hop query returns each relationship identity without `DISTINCT`, so
+parallel relationships remain separate; node projection/count also includes
+isolated nodes. Result order is unspecified. These counts describe the
+selected loaded graph, not a fixed expected count for every release.
+
+Keep the aliases as written: the earlier Fabric run rejected unquoted `edge`
+and `value` as reserved identifiers. This is a convenience gallery from the
+finite R1/R2 evidence, not a replacement for the Weft compiler or a claim that
+an arbitrary current graph matches its publication. No new cloud run was
+performed for this example.
