@@ -161,3 +161,10 @@ values. The custody uses an explicit finite-file profile; it does not claim a
 PostgreSQL ACK. Retain and select both digests when using the files with
 `materialize-graph-export`, `prepare-fabric-notebook` or an offline graph reader.
 Export does not deploy a graph model or execute an engine query.
+
+Fabric notebook preparation preserves the selected graph and custody bytes,
+records their independent digests and named custody profile, and pins a toolkit
+revision that can read that profile. Use release-specific OneLake node and edge
+paths in the intended workspace/lakehouse. The generated notebook contains the
+export data; keep it private until choosing its upload destination. Preparation
+performs no upload, materialization or GQL query.
