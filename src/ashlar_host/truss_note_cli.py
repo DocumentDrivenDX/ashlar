@@ -3,6 +3,12 @@ import json
 from pathlib import Path
 
 def run_publish_truss_note_command(configuration,output):
+    return _run_publication(configuration,output,graph=False)
+
+def run_publish_truss_graph_command(configuration,output):
+    return _run_publication(configuration,output,graph=True)
+
+def _run_publication(configuration,output,*,graph):
     with Path(configuration).open('rb')as stream:raw=stream.read(65537)
     if len(raw)>65536:raise ValueError('Configuration bound exceeded')
     config=json.loads(raw)
@@ -18,11 +24,12 @@ def run_publish_truss_note_command(configuration,output):
     if warehouse.exists():raise ValueError('Fresh separately owned Spark warehouse required')
     import psycopg
     from .commerce_export_cli import open_commerce_export_spark
-    from .truss_note_publication import publish_note_pages,register_note_consumer
+    from .truss_note_publication import publish_note_pages,publish_graph_pages,register_note_consumer
     def connection():return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
     def administrator():return psycopg.connect(config['administrator_uri'],autocommit=False,connect_timeout=5)
     register_note_consumer(administrator,config['consumer_id'],config['reader_role'])
     # Existing SDK/JDK/JARs only; local[1], 512 MiB, no package installation.
     with open_commerce_export_spark(jars,warehouse)as spark:
-        return publish_note_pages(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'])
+        publish=publish_graph_pages if graph else publish_note_pages
+        return publish(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'])
 

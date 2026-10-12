@@ -26,3 +26,12 @@ class Tests(unittest.TestCase):
         run.assert_called_once_with('/private/config.json','/private/destination')
         self.assertEqual(json.loads(output.getvalue()),{'output':'/private/destination/result.json','publications':1})
         self.assertNotIn('private business data',output.getvalue())
+
+    def test_graph_command_dispatches_concrete_graph_publisher(self):
+        import io
+        from contextlib import redirect_stdout
+        from ashlar.cli import main
+        with patch('sys.argv',['ashlar','publish-truss-graph','--configuration','/private/config.json','--output','/private/destination']),patch('ashlar_host.truss_note_cli.run_publish_truss_graph_command',return_value={'publications':[]})as run,redirect_stdout(io.StringIO())as output:
+            main()
+        run.assert_called_once_with('/private/config.json','/private/destination')
+        self.assertEqual(json.loads(output.getvalue())['publications'],0)

@@ -103,6 +103,9 @@ def main():
     truss_note=commands.add_parser('publish-truss-note',help='Publish a few complete Truss Note transactions into a fresh local Delta destination, then ACK')
     truss_note.add_argument('--configuration',required=True)
     truss_note.add_argument('--output',required=True)
+    truss_graph=commands.add_parser('publish-truss-graph',help='Publish accepted scalar Truss records and edges to fresh local Delta tables, then ACK')
+    truss_graph.add_argument('--configuration',required=True)
+    truss_graph.add_argument('--output',required=True)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss Note installation and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
@@ -264,14 +267,15 @@ def main():
             print('ashlar local Truss setup refused; retain any partial data and inspect the selected local runtime',file=sys.stderr)
             raise SystemExit(2)from None
         return
-    if args.command == 'publish-truss-note':
+    if args.command in ('publish-truss-note','publish-truss-graph'):
         try:
             from pathlib import Path
-            from ashlar_host.truss_note_cli import run_publish_truss_note_command
-            answer=run_publish_truss_note_command(args.configuration,args.output)
+            from ashlar_host.truss_note_cli import run_publish_truss_note_command,run_publish_truss_graph_command
+            run=run_publish_truss_graph_command if args.command=='publish-truss-graph' else run_publish_truss_note_command
+            answer=run(args.configuration,args.output)
             print(json.dumps({'output':str(Path(args.output)/'result.json'),'publications':len(answer['publications'])},separators=(',',':')))
         except Exception:
-            print('ashlar Truss Note publication refused; inspect the retained destination and source checkpoint',file=sys.stderr)
+            print('ashlar Truss publication refused; inspect the retained destination and source checkpoint',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'prepare-fabric-notebook':

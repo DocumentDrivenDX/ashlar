@@ -518,3 +518,19 @@ the complete original staged page; lifecycle afterimage events form entity histo
 The example does not claim Unity Catalog execution, arbitrary schemas/edges,
 restart recovery or already-acknowledged source replay. Native execution evidence
 is still required to qualify this newly composed workflow.
+
+### Publish scalar records and edges
+
+Use `ashlar publish-truss-graph --configuration /absolute/private/graph.json
+--output /absolute/private/fresh-graph` with the same configuration shape as
+`publish-truss-note`. Select a separate consumer at genesis and existing local
+Spark/Delta dependencies. The command reads accepted historical catalogs through
+the ordinary reader, admits original UMF 0.7.0 rootless STRING records and
+empty-property directed independent edges, and publishes complete transactions
+before their public Truss ACK. Object and edge updates/deletes retain lifecycle
+history; edge order keys preserve null/text values.
+
+The destination must be fresh. This command is a finite local workflow, limited
+to eight pages; it does not provide restart recovery or Unity Catalog deployment.
+Retain partial destinations on failure rather than resetting them or reusing an
+advanced source consumer.
