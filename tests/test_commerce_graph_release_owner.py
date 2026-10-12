@@ -31,3 +31,21 @@ class Tests(unittest.TestCase):
   self.assertEqual(len(reads),4)
   self.assertFalse(opened.driver.pin_held);self.assertFalse(opened.driver.held)
 
+
+ def test_each_row_uses_held_local_checks_without_full_source_reread(self):
+  from types import SimpleNamespace
+  from unittest.mock import patch
+  session,events=self.active_session();opened=session.opened
+  original=type(opened).renew_original_graph_read
+  calls=[]
+  def renewal(owner,vector,*,context):
+   calls.append(vector);return original(owner,vector,context=context)
+  with patch.object(type(opened),'renew_original_graph_read',renewal):
+   with hold_original_commerce_graph_release(opened)as held:
+    policy=held._policy;descriptor=SimpleNamespace(raw=opened.manifest)
+    before=len(calls)
+    table=opened.driver.tables['object_current'];row=policy.expected['object_current'][0]
+    for _ in range(100):policy.authorize_graph_row(descriptor,table,row,opened.context)
+    self.assertEqual(len(calls),before)
+   self.assertGreater(len(calls),before) # Real full closing renewal still happens.
+   with self.assertRaises(PermissionError):policy.authorize_graph_row(descriptor,table,row,opened.context)

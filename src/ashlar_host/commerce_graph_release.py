@@ -19,18 +19,26 @@ class _CommerceGraphPolicy:
   self.opened=opened;self.vector=vector
   self.manifest=encoded(opened.manifest);self.expected=source_snapshot(opened.independent_expected)
   self.roles={opened.driver.tables[role]:role for role in ('object_current','edge_current')}
- def require(self,context):
-  self.opened.renew_original_graph_read(self.vector,context=context)
+  self.ports=(opened.provider,opened.driver,opened.context,opened.admission,opened.driver.transport,opened.driver.policy)
+  self.rows={role:{encoded(row)for row in self.expected[role]}for role in ('object_current','edge_current')}
+ def local(self,context):
+  opened=self.opened
+  if (context is not self.ports[2] or not opened.provider.active or opened.provider._reader_closed
+      or any(current is not original for current,original in zip((opened.provider,opened.driver,opened.context,opened.admission,opened.driver.transport,opened.driver.policy),self.ports))
+      or opened.driver.source_admission is not self.ports[3]):raise PermissionError('Original active commerce graph interval required')
   current=manifest_pin_vector(self.opened.manifest,{table:self.opened.driver.transport.targets[table].uuid for table in json.loads(self.opened.manifest['table_versions_json'])},authority='private-local-process')
   if current!=self.vector:raise PermissionError('Original complete current held vector differs')
   self.opened.driver.authorize(context,self.opened.manifest['publication_id'],tuple(self.vector.targets))
+ def require(self,context):
+  self.opened.renew_original_graph_read(self.vector,context=context)
+  self.local(context)
  def bind_descriptor(self,descriptor,vector,context):
-  self.require(context)
+  self.local(context)
   if vector!=self.vector or encoded(dict(descriptor.raw))!=self.manifest:raise PermissionError('Original whole descriptor/vector differs')
  def authorize_graph_row(self,descriptor,table,row,context):
   self.bind_descriptor(descriptor,self.vector,context)
   role=self.roles.get(table)
-  if role is None or encoded(dict(row))not in {encoded(v)for v in self.expected[role]}:raise PermissionError('Independent original complete row differs')
+  if role is None or encoded(dict(row))not in self.rows[role]:raise PermissionError('Independent original complete row differs')
  def authorize_graph_result(self,descriptor,nodes,edges,context):
   self.bind_descriptor(descriptor,self.vector,context)
   for role,rows in (('object_current',nodes),('edge_current',edges)):
