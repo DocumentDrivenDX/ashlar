@@ -215,3 +215,77 @@ operator inspection before any retry. A [small native run](../../docs/helix/04-b
 passed in 5.8 seconds, including document addition, non-key update and committed
 receipt replays. It
 claims no schema evolution, feed/import/query or ACK support.
+
+## Bootstrap a fresh local Note database
+
+`setup-local.py` supplies the concrete local prerequisite for the Note workflow.
+Use the same installed Truss/Python/native version tuple above, plus Truss's
+supported local runtime dependency `pgserver-pg18==18.6.1`. No server binaries are
+built or downloaded by the script. Select a **fresh** absolute data directory
+under an existing parent and a fresh report path; existing data/report paths
+refuse without reset or takeover. It provisions only its own newly created local
+cluster, never a remote database.
+
+Example private configuration (replace all paths):
+
+```json
+{
+  "data_directory": "/absolute/private/local-note-data",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/examples/truss-native/note.umf.json",
+  "document_id": "ashlar-note",
+  "document_revision": "r1",
+  "origin_path": "/absolute/private/string-origin.json",
+  "request_key": "bootstrap-note-v1"
+}
+```
+
+```sh
+python examples/truss-native/setup-local.py \
+  --configuration /absolute/private/setup-note.json \
+  --output /absolute/private/fresh-bootstrap-receipt.json
+```
+
+The script installs the catalog through its public installer, creates local
+`ashlar_note_consumer` LOGIN and distinct `ashlar_note_reader` /
+`ashlar_note_writer` NOLOGIN roles, grants the **actual returned** registrar role
+with `SET FALSE`, accepts the original Note document, and configures module
+access through public `ModuleAccessGrant`. It grants both existing module roles
+to that ordinary consumer with `SET FALSE`. It closes all connections and stops
+the server before writing the receipt. The receipt preserves actual installation,
+catalog status, role labels and original report bytes, and confirms the caller
+commits; the installer's original `pending_commit` field is retained as returned.
+No connection URI or credential is output. Partial local data remains on failure;
+do not reset it or retry blindly.
+
+For later work, restart the retained directory with a **new public**
+`LocalPostgres` context and obtain its current connection URI. Socket locations
+can change: never cache the bootstrap run's URI. For example, run the Note edit
+library example while the restarted server is owned:
+
+```python
+import json, runpy
+from pathlib import Path
+import psycopg
+from truss import LocalPostgres
+
+edit_config = Path("/absolute/private/edit-note.json")  # config from edit section
+with LocalPostgres("/absolute/private/local-note-data") as runtime:
+    params = psycopg.conninfo.conninfo_to_dict(runtime.info.connection_uri)
+    params["user"] = "ashlar_note_consumer"
+    selected = json.loads(edit_config.read_bytes())
+    selected["connection_uri"] = psycopg.conninfo.make_conninfo(**params)
+    # Keep this private (0600); do not print its connection URI.
+    edit_config.write_text(json.dumps(selected))
+    edit_config.chmod(0o600)
+    edit = runpy.run_path("examples/truss-native/edit-object.py")
+    edit["run"](edit_config, "/absolute/private/fresh-edit-result.json")
+# Every consumer connection closes before the runtime stops.
+```
+
+Use fresh business keys/request keys for a new Note, or inspect original durable
+outcomes before deciding an intentional replay. Bootstrap is local development
+only; it adds no remote provisioning, credentials, production grant, feed/ACK,
+compiled-query or schema-evolution claim. A
+[small native setup/restart run](../../docs/helix/04-build/evidence/truss-local-bootstrap-20261012/README.md)
+passed in 20.4 seconds, including ordinary-account Note editing after restart.

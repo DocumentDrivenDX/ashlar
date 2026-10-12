@@ -1,0 +1,303 @@
+{
+  "create_original": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "create_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            },
+            "version": "1",
+            "events": [
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-create/0.2",
+                "xid": "764",
+                "seq": "1"
+              }
+            ],
+            "alias": "note",
+            "outcome": "created"
+          }
+        ],
+        "aliases": [
+          {
+            "alias": "note",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            }
+          }
+        ],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "disposition": "applied",
+      "durability": "pending"
+    },
+    "outcome": "success"
+  },
+  "create_committed_receipt": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "create_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            },
+            "version": "1",
+            "events": [
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-create/0.2",
+                "xid": "764",
+                "seq": "1"
+              }
+            ],
+            "alias": "note",
+            "outcome": "created"
+          }
+        ],
+        "aliases": [
+          {
+            "alias": "note",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            }
+          }
+        ],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "replay": {
+        "observation_profile": {
+          "identity": "truss-native-create-replay-observation",
+          "version": "0.1",
+          "sha256": "f83e155901fd00b63072c0976499ad7cf0cffce9656f84e217eb06fc13de5c2f"
+        },
+        "evidence": {
+          "identity": "f4b2c0d10a13958a8fd355d73c19894ed606606701aa78a917feeddd971ece4f",
+          "bytes_base64": "eyJhY3RvciI6ICJhc2hsYXJfbm90ZV9jb25zdW1lciIsICJiYXNpcyI6ICJjb21taXR0ZWRfcmVjZWlwdCIsICJwcm9maWxlIjogInRydXNzLW5hdGl2ZS1jcmVhdGUtcmVwbGF5LW9ic2VydmF0aW9uLzAuMSIsICJhY3Rvck9pZCI6ICIxNjM4NCIsICJyZWxlYXNlSWQiOiAidHJ1c3MtY2F0YWxvZy1ydW50aW1lLzAuMTctY2FuZGlkYXRlIiwgInNvdXJjZUVwb2NoIjogIjNlYjE5MDEwLTVhMDktNDkzMS1hMDgzLTY3ZWViYmY0ZWM4MiIsICJvYnNlcnZpbmdYaWQiOiAiNzY5IiwgInJlY2VpcHRTaGEyNTYiOiAiMTUzMmQxYjE2NjRmZjM0NjUzOWU1NGQ4ZDYwMTcxNjY2NjRmOWNmMGU4YTIwYmQwOWVlOTEzNmIyMTYwMzVhNCIsICJyZWxlYXNlU2hhMjU2IjogIjRkYzY1MGYyMzI0YWUzODA1NWQ2ZGRmMWMzYzFjMjc2YTc2NjAzMmM1MmQyYWQ1NDVmNmIyOTBjZGVlNmRjNTgiLCAic2NvcGVJZGVudGl0eSI6ICJ0cnVzcy1wZXJzb246NjBhY2JhMDUtOGViNS00NDUyLTlmYTYtYmRlMzE4OTk5YmRkOjE2Mzg0IiwgInJlY2VpcHRTdG9yYWdlSWQiOiAiMSIsICJvcmlnaW5hbFdyaXRlclhpZCI6ICI3NjQiLCAicmVjZWlwdEdlbmVyYXRpb24iOiAiMCJ9",
+          "sha256": "f4b2c0d10a13958a8fd355d73c19894ed606606701aa78a917feeddd971ece4f"
+        },
+        "basis": "committed_receipt"
+      },
+      "receipt_token": "eyJpbnRlcmZhY2VWZXJzaW9uIjoidHJ1c3MtcmVjZWlwdC1wb3NpdGlvbi8wLjEuMCIsInBvc2l0aW9uUHJvZmlsZSI6eyJpZGVudGl0eSI6InRydXNzLWF1dGhvcml0eS1yZWNlaXB0LXZpc2liaWxpdHkiLCJ2ZXJzaW9uIjoiMC4xIiwic2hhMjU2IjoiOTdkNTRmNDZhZjY4NzUxMGZkM2FlMTBhYWEzN2M3NjFkMTdkNmIzNzFkMTIxNzFlYTE1YTBkNDAyYjg4NTVlOSJ9LCJpbnN0YWxsYXRpb25JZCI6IjYwYWNiYTA1LThlYjUtNDQ1Mi05ZmE2LWJkZTMxODk5OWJkZCIsInNvdXJjZUVwb2NoIjoiM2ViMTkwMTAtNWEwOS00OTMxLWEwODMtNjdlZWJiZjRlYzgyIiwicmVjZWlwdFN0b3JhZ2VSb3dJZCI6IjEiLCJ3cml0ZXJYaWQiOiI3NjQifQ",
+      "disposition": "replayed",
+      "durability": "committed"
+    },
+    "outcome": "success"
+  },
+  "before": {
+    "document_id": "ashlar-note",
+    "module_id": "notes",
+    "record_id": "Note",
+    "id": 1,
+    "type_id": 1,
+    "version": 1,
+    "catalog_revision": 1,
+    "record_revision": 1,
+    "created_at": "2026-10-12T20:19:29.958037Z",
+    "updated_at": "2026-10-12T20:19:29.958037Z",
+    "values": [
+      [
+        "note-id",
+        "bootstrap-note-1"
+      ],
+      [
+        "note-text",
+        "Before restart workflow edit"
+      ]
+    ],
+    "retained": [],
+    "profile": "truss-python-scalar-object/0.2"
+  },
+  "update_original": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "update_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            },
+            "version": "2",
+            "events": [
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "769",
+                "seq": "2"
+              },
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "769",
+                "seq": "3"
+              }
+            ],
+            "outcome": "changed"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "disposition": "applied",
+      "durability": "pending"
+    },
+    "outcome": "success"
+  },
+  "update_committed_receipt": {
+    "response": {
+      "semantic": {
+        "executed_catalog_revision": "1",
+        "layout_profile": {
+          "identity": "truss-layout",
+          "version": "0.16",
+          "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+        },
+        "mutation_profile": {
+          "identity": "truss-rootless-scalar-graph",
+          "version": "0.1",
+          "sha256": "1c337a6650a9b0cfe5eafc06f84ac6080dd75ed4e9cae4e26a42491cecb25114"
+        },
+        "results": [
+          {
+            "operation": "update_object",
+            "identity": {
+              "id": "1",
+              "type_id": "1",
+              "definition_pin": "99fea9dfd9146af1cf18aeedf05733b4e5cf83a1b8dd4ae16cde234ec5185c4d",
+              "owner": {
+                "document_id": "ashlar-note",
+                "module_id": "notes"
+              }
+            },
+            "version": "2",
+            "events": [
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "769",
+                "seq": "2"
+              },
+              {
+                "source_epoch": "3eb19010-5a09-4931-a083-67eebbf4ec82",
+                "history_profile": "truss-native-scalar-mutation/0.1",
+                "xid": "769",
+                "seq": "3"
+              }
+            ],
+            "outcome": "changed"
+          }
+        ],
+        "aliases": [],
+        "interface_version": "truss-group-result/0.1.0"
+      },
+      "replay": {
+        "observation_profile": {
+          "identity": "truss-native-create-replay-observation",
+          "version": "0.1",
+          "sha256": "f83e155901fd00b63072c0976499ad7cf0cffce9656f84e217eb06fc13de5c2f"
+        },
+        "evidence": {
+          "identity": "2c398601cf8a8b10349dc2084991ab1ba867595bfb6befe26962fca473a4267e",
+          "bytes_base64": "eyJhY3RvciI6ICJhc2hsYXJfbm90ZV9jb25zdW1lciIsICJiYXNpcyI6ICJjb21taXR0ZWRfcmVjZWlwdCIsICJwcm9maWxlIjogInRydXNzLW5hdGl2ZS1jcmVhdGUtcmVwbGF5LW9ic2VydmF0aW9uLzAuMSIsICJhY3Rvck9pZCI6ICIxNjM4NCIsICJyZWxlYXNlSWQiOiAidHJ1c3MtY2F0YWxvZy1ydW50aW1lLzAuMTctY2FuZGlkYXRlIiwgInNvdXJjZUVwb2NoIjogIjNlYjE5MDEwLTVhMDktNDkzMS1hMDgzLTY3ZWViYmY0ZWM4MiIsICJvYnNlcnZpbmdYaWQiOiAiNzc1IiwgInJlY2VpcHRTaGEyNTYiOiAiOGE0MzQxZmFlMzlkNDQ1ZDg3MDBjMmE5ZTgxODgxOTIyY2E2NzVmNTgzODY3Mjc3N2ZhNWM3NzBhM2E2MDE4OCIsICJyZWxlYXNlU2hhMjU2IjogIjRkYzY1MGYyMzI0YWUzODA1NWQ2ZGRmMWMzYzFjMjc2YTc2NjAzMmM1MmQyYWQ1NDVmNmIyOTBjZGVlNmRjNTgiLCAic2NvcGVJZGVudGl0eSI6ICJ0cnVzcy1wZXJzb246NjBhY2JhMDUtOGViNS00NDUyLTlmYTYtYmRlMzE4OTk5YmRkOjE2Mzg0IiwgInJlY2VpcHRTdG9yYWdlSWQiOiAiMiIsICJvcmlnaW5hbFdyaXRlclhpZCI6ICI3NjkiLCAicmVjZWlwdEdlbmVyYXRpb24iOiAiMCJ9",
+          "sha256": "2c398601cf8a8b10349dc2084991ab1ba867595bfb6befe26962fca473a4267e"
+        },
+        "basis": "committed_receipt"
+      },
+      "receipt_token": "eyJpbnRlcmZhY2VWZXJzaW9uIjoidHJ1c3MtcmVjZWlwdC1wb3NpdGlvbi8wLjEuMCIsInBvc2l0aW9uUHJvZmlsZSI6eyJpZGVudGl0eSI6InRydXNzLWF1dGhvcml0eS1yZWNlaXB0LXZpc2liaWxpdHkiLCJ2ZXJzaW9uIjoiMC4xIiwic2hhMjU2IjoiOTdkNTRmNDZhZjY4NzUxMGZkM2FlMTBhYWEzN2M3NjFkMTdkNmIzNzFkMTIxNzFlYTE1YTBkNDAyYjg4NTVlOSJ9LCJpbnN0YWxsYXRpb25JZCI6IjYwYWNiYTA1LThlYjUtNDQ1Mi05ZmE2LWJkZTMxODk5OWJkZCIsInNvdXJjZUVwb2NoIjoiM2ViMTkwMTAtNWEwOS00OTMxLWEwODMtNjdlZWJiZjRlYzgyIiwicmVjZWlwdFN0b3JhZ2VSb3dJZCI6IjIiLCJ3cml0ZXJYaWQiOiI3NjkifQ",
+      "disposition": "replayed",
+      "durability": "committed"
+    },
+    "outcome": "success"
+  },
+  "after": {
+    "document_id": "ashlar-note",
+    "module_id": "notes",
+    "record_id": "Note",
+    "id": 1,
+    "type_id": 1,
+    "version": 2,
+    "catalog_revision": 1,
+    "record_revision": 1,
+    "created_at": "2026-10-12T20:19:29.958037Z",
+    "updated_at": "2026-10-12T20:19:30.481682Z",
+    "values": [
+      [
+        "note-id",
+        "bootstrap-note-1"
+      ],
+      [
+        "note-text",
+        "After restart workflow edit"
+      ]
+    ],
+    "retained": [],
+    "profile": "truss-python-scalar-object/0.2"
+  },
+  "scope": "Authored Note create/non-key text update/readback/receipt only; no schema evolution or feed."
+}
