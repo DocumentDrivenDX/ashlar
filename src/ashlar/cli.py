@@ -103,6 +103,9 @@ def main():
     truss_note=commands.add_parser('publish-truss-note',help='Publish a few complete Truss Note transactions into a fresh local Delta destination, then ACK')
     truss_note.add_argument('--configuration',required=True)
     truss_note.add_argument('--output',required=True)
+    truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss Note installation and stop its owned server')
+    truss_setup.add_argument('--configuration',required=True)
+    truss_setup.add_argument('--output',required=True)
     verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
     for option in ('configuration', 'provider', 'provider-sha256'):
         verification.add_argument('--' + option, required=True)
@@ -222,6 +225,16 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar commerce graph export refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'setup-truss-local':
+        try:
+            from pathlib import Path
+            from ashlar_host.truss_local_setup import run_setup_truss_local_command
+            run_setup_truss_local_command(args.configuration,args.output)
+            print(json.dumps({'output':str(Path(args.output))},separators=(',',':')))
+        except Exception:
+            print('ashlar local Truss setup refused; retain any partial data and inspect the selected local runtime',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'publish-truss-note':

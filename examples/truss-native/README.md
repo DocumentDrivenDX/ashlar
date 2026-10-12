@@ -218,9 +218,10 @@ claims no schema evolution, feed/import/query or ACK support.
 
 ## Bootstrap a fresh local Note database
 
-`setup-local.py` supplies the concrete local prerequisite for the Note workflow.
+`ashlar setup-truss-local` supplies the concrete local prerequisite for the Note workflow.
 Use the same installed Truss/Python/native version tuple above, plus Truss's
-supported local runtime dependency `pgserver-pg18==18.6.1`. No server binaries are
+supported local runtime dependency `pgserver-pg18==18.6.1`, installed in the same
+Python environment used by `ashlar`. No server binaries are
 built or downloaded by the script. Select a **fresh** absolute data directory
 under an existing parent and a fresh report path; existing data/report paths
 refuse without reset or takeover. It provisions only its own newly created local
@@ -241,10 +242,13 @@ Example private configuration (replace all paths):
 ```
 
 ```sh
-python examples/truss-native/setup-local.py \
+ashlar setup-truss-local \
   --configuration /absolute/private/setup-note.json \
   --output /absolute/private/fresh-bootstrap-receipt.json
 ```
+
+The repository's `setup-local.py` delegates to the same implementation. The
+command prints the private receipt location after its owned server has stopped.
 
 The script installs the catalog through its public installer, creates local
 `ashlar_note_consumer` LOGIN and distinct `ashlar_note_reader` /
