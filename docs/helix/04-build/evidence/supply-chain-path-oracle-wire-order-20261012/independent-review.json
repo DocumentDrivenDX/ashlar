@@ -1,0 +1,36 @@
+{
+  "decision": "approved",
+  "profile": "ashlar-supply-chain-path-oracle-wire-order-review/0.1",
+  "freeze_sha256": "0e1bd2ecbec7826f665ff3d3fc5060f244c0227ddd6f559ef13d1d4a9da03cbe",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_requests.py",
+      "bytes": 4631,
+      "sha256": "1219bc585bb06c1dbd11deff93d156ed0b5e6e8757aed4bda6b9733ab5e52a7e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_requests.py",
+      "bytes": 5890,
+      "sha256": "f53994d0d038d3389ef88ad13ea7cfb8c659ce694ba7469b2708fdf7c293140d"
+    }
+  ],
+  "actual_checks": {
+    "strict_tests": 5,
+    "seconds": 0.186,
+    "terminal": "4313dc",
+    "boundary_scan_and_diff": "pass8a955a",
+    "old_new_correspondence": "pass42e50f"
+  },
+  "controls": [
+    "All12request objects/SQLs/relationships/rootkeys unchanged",
+    "Full18sourceoccurrence/edgeidentitybag unchanged",
+    "Everyexpectedcell parsedvalue equals oldoriginaloracle",
+    "18nonemptycells change JSON field order only; emptywire unchanged",
+    "Existingcommerceoracle insertionorder matches selectedexpectedwire",
+    "ActualretainedB530response hash and exactnamed_struct fragment verified; backend0.4.0-paths-candidate"
+  ],
+  "qualification": "Pure expectedoracle wireorder correction only. No observedcells/SQL/descriptor/executor changes, no originalworkerfailurecause or full17/nativepass claim. Originalfailureprimary remainsunknown. No sourceedits/nativeeffects.",
+  "resolved_findings": {
+    "SC-W1": "Comment corrected to actual sourcecommit530ae35; reconstruction matches exactAhash, AST unchanged. Priorindependent5strictcontrols remainvalid; no rerun needed."
+  }
+}

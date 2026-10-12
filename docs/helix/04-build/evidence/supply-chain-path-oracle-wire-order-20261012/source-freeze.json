@@ -1,0 +1,34 @@
+{
+  "profile": "supply-chain-path-oracle-wire-order-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_requests.py",
+      "bytes": 4631,
+      "sha256": "1219bc585bb06c1dbd11deff93d156ed0b5e6e8757aed4bda6b9733ab5e52a7e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_requests.py",
+      "bytes": 5890,
+      "sha256": "f53994d0d038d3389ef88ad13ea7cfb8c659ce694ba7469b2708fdf7c293140d"
+    }
+  ],
+  "checks": {
+    "strict": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_common_requests",
+    "tests": 5,
+    "terminalExit": 0,
+    "toolChunk": "e69842",
+    "boundaries": "pass",
+    "diffCheck": "pass"
+  },
+  "retainedProtocolCorrespondence": {
+    "responseSha256": "bfb7e03d9ce70d9ff30852f3c70f9882dda09b3ef47f834558d0ed60df81b6d1",
+    "exactEmbeddedNamedStructFragmentMatched": true,
+    "passiveToolChunk": "658c19"
+  },
+  "scope": "Independent original oracle JSON String field order only. Original worker primary remains unknown; no actual two-hop native cells retained, no native pass or cause claim. Existing whole occurrence/edge identity control retained.",
+  "supersedes": {
+    "path": "/private/tmp/ashlar-supply-chain-path-oracle-wire-order-source-freeze-a.json",
+    "sha256": "314443dcd516918b724bdfb59ee69bebb916557f0ec4df863f8b74c16c45a1e7"
+  },
+  "change": "Comment-only: 530 identifies source commit 530ae35, not release 0.5.30; backend 0.4.0-paths-candidate/compiler 0.1.0."
+}

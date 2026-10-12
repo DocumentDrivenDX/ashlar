@@ -65,7 +65,8 @@ def prepare_supply_chain_two_hop(pack, model, graph, bindings, manifest, registr
                                             tuple(v.encode() for v in p['terminal']),
                                             tuple(int(v) for v in p['edges'])))
             expected.append([source['values'][record + '.id'],
-                             encoded({'items': occurrences, 'truncated': False})])
+                             json.dumps({'items': occurrences, 'truncated': False},
+                                        ensure_ascii=False, separators=(',', ':'))])
         expected.sort(key=lambda row: row[0].encode())
         prepared.append({'relationships': [first['id'], second['id']],
                          'request': request, 'expected_rows': expected})

@@ -1,0 +1,209 @@
+{
+  "profile": "ashlar-supply-chain-native-02-partial-archive/0.1",
+  "scope": "Readonly actualpartialstate and source/fullbag/commit/protocol correspondence. Fiveauthored actualcapturedbags match independently, firsttwohop compiler/recompile accepted but nativecomplete12 unavailable. Overall0.2runfailed; no17combinedreport/heldcompleteclosing/replaybeforeafterreceipt/protectedACK/Truss/cloud claim. Keep allpartialnative/journal resources/inodes; norepair/restart/writes.",
+  "retention": "Retain these exact16selectedpublic/raw/audit originals plus manifest. Nativefiles remain exactpins, notduplicatedstate/SDKarchive. No complete-directory claim; WAL/SHM ephemeral readonlycoordination excluded fromsemanticcomplete-row journal checks.",
+  "archive": {
+    "file": "actual-originals.tar.gz",
+    "bytes": 209157,
+    "sha256": "a1d78aa3ad81b2a2a6c1d442169aa390403a07f309807c9f82bdbb3aa6c01b44",
+    "members": [
+      {
+        "member": "00-configuration.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/configuration.json",
+        "bytes": 1554,
+        "sha256": "7042637f14b7f9c9baabea8e38792d57958b69de93be563b791ce99eea304f64",
+        "identity": [
+          16777230,
+          76104377,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "01-command-final.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/command-final.json",
+        "bytes": 2386,
+        "sha256": "d2fce375ed1821d62ba28327ad204a8d2460c17b5547042e47f46266a5ebb671",
+        "identity": [
+          16777230,
+          76423752,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "02-run-native.py",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/run-native.py",
+        "bytes": 4808,
+        "sha256": "8d059aa50dd0ecdd5cbf1b681fbca3b2439bf8b4442d696f8b18a2abde7b6c6e",
+        "identity": [
+          16777230,
+          76372718,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "03-native.stdout",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/native.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identity": [
+          16777230,
+          77108329,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "04-native.stderr",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/native.stderr",
+        "bytes": 652,
+        "sha256": "5adaf79026fd6903cecf9a6d2d6f89b8d4f5aed38eac1a4e93aaefc1ba912b15",
+        "identity": [
+          16777230,
+          77108330,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "05-transport.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/transport.json",
+        "bytes": 1401,
+        "sha256": "36093600b514453da0db70aa9b237697ab26d749b82679c2492e3f3ebcc191c7",
+        "identity": [
+          16777230,
+          77108328,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "06-outer-result.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/outer-result.json",
+        "bytes": 192,
+        "sha256": "9129a737770e2f3ebebcad479ee2fd18b06df053a07c14c26d54a437f98cd31e",
+        "identity": [
+          16777230,
+          77108331,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "07-public-dataset.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/publication/public-dataset.json",
+        "bytes": 4795730,
+        "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+        "identity": [
+          16777230,
+          77107178,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "08-request.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/publication/request.json",
+        "bytes": 80592,
+        "sha256": "1586844acccdf9f00f4d3957db8f66996ff0005c85d096b5a7799e3769a0a39e",
+        "identity": [
+          16777230,
+          77107526,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "09-registry.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/publication/registry.json",
+        "bytes": 1629,
+        "sha256": "e1fe7e39aa3996f69e198b557027465f24eefd470d89b59515a66a8bce41985a",
+        "identity": [
+          16777230,
+          77107782,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "10-compiler-observations.jsonl",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/publication/compiler-observations.jsonl",
+        "bytes": 2371288,
+        "sha256": "3de5eaa1de8a74e4b62051bb068460d680f62def15a97f6983ecd6497e410162",
+        "identity": [
+          16777230,
+          77107796,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "11-native-observations.jsonl",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-prep-a/publication/native-observations.jsonl",
+        "bytes": 1572,
+        "sha256": "0f4ade3c22fd60d432c912b0ef1cae6c16848d56f5c99214e62bb31a82c4a5e3",
+        "identity": [
+          16777230,
+          77107797,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "12-ashlar-supply-chain-native-02-readonly-audit-b.py",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-readonly-audit-b.py",
+        "bytes": 9513,
+        "sha256": "b651fb1b7e12876a88c5216ebc69e1996a921406bcdd7a89cba5f63194fc37a5",
+        "identity": [
+          16777230,
+          77363108,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "13-report.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-readonly-audit-b/report.json",
+        "bytes": 49728,
+        "sha256": "71cdecae719bca17c5dc0bb12c2015a46b18788f47686216100b154f5d25b702",
+        "identity": [
+          16777230,
+          77363112,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "14-ashlar-supply-chain-native-02-original-protocol-audit-b.py",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-original-protocol-audit-b.py",
+        "bytes": 3449,
+        "sha256": "1712850d9a5a3ee32315193a363ac8b205c45fa3ca6bcebe9c342261d74f3dc7",
+        "identity": [
+          16777230,
+          77365414,
+          33188,
+          1
+        ]
+      },
+      {
+        "member": "15-ashlar-supply-chain-native-02-original-protocol-audit-b.json",
+        "path": "/private/tmp/ashlar-supply-chain-native-02-original-protocol-audit-b.json",
+        "bytes": 2510,
+        "sha256": "05b8a8ae6cf5151893ba8578e2c6cb8b07daa17d0bc39e1792f683a13f61f073",
+        "identity": [
+          16777230,
+          77365428,
+          33188,
+          1
+        ]
+      }
+    ]
+  },
+  "state_freeze": {
+    "file": "state-freeze.json",
+    "bytes": 23208,
+    "sha256": "1aecf8a960e756674d99a740e012663f78aab1c021cced710a6da8aaf0b1a3b8"
+  }
+}

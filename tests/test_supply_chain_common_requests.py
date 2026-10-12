@@ -55,6 +55,45 @@ class SupplyChainCommonRequestsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.prepare()
 
+    def test_path_cells_preserve_native_struct_field_order_and_empty_wire(self):
+        result = self.prepare()
+        nonempty = empty = 0
+        for query in result['queries']:
+            roots = [row[0] for row in query['expected_rows']]
+            self.assertEqual(roots, sorted(roots, key=lambda value: value.encode('utf-8')))
+            for _, cell in query['expected_rows']:
+                value = json.loads(cell)
+                self.assertEqual(list(value), ['items', 'truncated'])
+                self.assertEqual(cell, json.dumps(value, ensure_ascii=False, separators=(',', ':')))
+                if not value['items']:
+                    empty += 1
+                    self.assertEqual(cell, '{"items":[],"truncated":false}')
+                else:
+                    nonempty += 1
+                    for item in value['items']:
+                        self.assertEqual(list(item), ['intermediate', 'terminal', 'edges'])
+                    sorted_cell = json.dumps(value, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+                    self.assertEqual(json.loads(sorted_cell), value)
+                    self.assertNotEqual(sorted_cell, cell)
+        self.assertGreater(nonempty, 0)
+        self.assertGreater(empty, 0)
+
+    def test_first_retained_paths530_struct_order_matches_independent_oracle(self):
+        # Exact field declaration from retained Paths commit 530ae35 SQL.
+        # This is a wire-format correspondence control, not a native result.
+        declaration = "named_struct('intermediate',array(CAST(`p`.`m0` AS STRING)),'terminal',array(CAST(`p`.`t0` AS STRING)),'edges',array(CAST(p.__edge1 AS STRING),CAST(p.__edge2 AS STRING)))"
+        order = [key for key in ('intermediate', 'terminal', 'edges')
+                 if "'" + key + "'" in declaration]
+        self.assertEqual([declaration.index("'" + key + "'") for key in order],
+                         sorted(declaration.index("'" + key + "'") for key in order))
+        first = self.prepare()['queries'][0]
+        self.assertEqual(first['relationships'], ['items.lot_id', 'lots.product_id'])
+        items = [item for _, cell in first['expected_rows'] for item in json.loads(cell)['items']]
+        self.assertTrue(items)
+        self.assertTrue(all(list(item) == order for item in items))
+        self.assertEqual(items[0], {'intermediate': ['[42,0,"L1"]'],
+                                    'terminal': ['[42,0,"P1"]'], 'edges': ['3', '2']})
+
     def test_changed_original_model_or_graph_refuses(self):
         original = self.raw
         for ordinal in (0, 1, 2):

@@ -1,0 +1,15 @@
+{
+  "scope": "Independent original oracle JSON String field order only. Original worker primary remains unknown; no actual two-hop native cells retained, no native pass or cause claim. Existing whole occurrence/edge identity control retained.",
+  "artifacts": [
+    {
+      "path": "source-freeze.json",
+      "bytes": 1552,
+      "sha256": "0e1bd2ecbec7826f665ff3d3fc5060f244c0227ddd6f559ef13d1d4a9da03cbe"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 1714,
+      "sha256": "db05d7e940b4a29b40039fdaae8f84e4d800e3a524644f852d97af0771e37fc2"
+    }
+  ]
+}
