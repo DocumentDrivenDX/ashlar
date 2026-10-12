@@ -1,0 +1,48 @@
+{
+  "profile": "ashlar-supply-chain-native-02-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native_cli.py",
+      "bytes": 6325,
+      "sha256": "9d3816255e3b53a3a9278396954944965dfd35054d9f4c3639596767dd6027ee"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native.py",
+      "bytes": 20960,
+      "sha256": "01110c84ab62a78047d980ebd3d1ac4ecbd18a95de572166ca9a2e56edd2e838"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_native_cli.py",
+      "bytes": 15258,
+      "sha256": "0123427ffdff6f4228d62e6ac0292990ceb4883acc430ee7a45c403db36e9977"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_native_integration.py",
+      "bytes": 11007,
+      "sha256": "cc312d5df28268f1387179cc20c23830c3ec4eef9af7495e1e6e8823a70facec"
+    }
+  ],
+  "governingInputs": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "bytes": 15200,
+      "sha256": "9159ec33f703245a090851700c55b8883c891c174385208b61adb3131dedacbb"
+    }
+  ],
+  "rootOwnedCIReference": {
+    "path": "/Users/erik/Projects/ashlar/.github/workflows/supply-chain-compiler.yml",
+    "bytes": 1662,
+    "sha256": "4cd1136d53c88c872be660a2d70bcf4de7e687353819d17a1667ae5f11f249ed"
+  },
+  "checks": {
+    "combined45": "2cc9c9 PASS2.485s95107terminal0/reaped; same selectedCIcommand+nativeCLI including freshprocesslegacy no newPathsowners",
+    "combinedCommand": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_installed_request test_supply_chain_path_request test_supply_chain_common_requests test_supply_chain_two_hop_query test_supply_chain_native_integration test_supply_chain_native_cli",
+    "boundariesDiff": "2cc9c9 PASS"
+  },
+  "scope": "Source/inert SDKfree composition qualification only; profile0.1 subset preserved,0.2 requires typedtwohop, same restored owner +shared bounded sinks/allclosing. No SDK/native/source effects or fallback. Future installednative run requires finite external process supervisor; no built-in new native deadline claimed.",
+  "supersedes": {
+    "path": "/private/tmp/ashlar-supply-chain-native-02-source-freeze-b.json",
+    "sha256": "53093cdbcfb8b9b834da1a50cf022168067b000562751ccc60332ce74267ccb1",
+    "reason": "Narrow authorized lazyimport correction: 0.1 no newPaths distribution/twohop modules. Forwardannotation+nonnullbranch exactnominalcheck;0.2captures exactschemaowner beforetry, fixed independentclosing; realowningmodule patched onlyinert0.2tests."
+  }
+}

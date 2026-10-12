@@ -133,6 +133,37 @@ class SupplyChainNativeCliTests(unittest.TestCase):
   code="import sys;from ashlar.cli import main;sys.argv=['ashlar','run-supply-chain-native','--help'];\ntry: main()\nexcept SystemExit as e: assert e.code==0\nassert 'pyspark' not in sys.modules and 'ashlar_host.supply_chain_native' not in sys.modules"
   result=subprocess.run([sys.executable,'-S','-B','-c',code],capture_output=True,timeout=10)
   self.assertEqual(result.returncode,0,result.stderr);self.assertIn(b'--configuration',result.stdout)
+ def test_two_hop_profile_typed_required_closed_and_legacy_preserved(self):
+  from test_supply_chain_native_integration import configured
+  from dataclasses import replace
+  with tempfile.TemporaryDirectory()as tmp:
+   root=Path(tmp).resolve();path,value=configured(root);parsed=cli.parse_supply_chain_native_invocation(path.read_bytes())
+   self.assertEqual(parsed.profile,cli.PROFILE_TWO_HOP);self.assertIsNotNone(parsed.native.two_hop)
+   with self.assertRaises(ValueError):cli.SupplyChainNativeInvocation(parsed.native)
+   invalid=[]
+   for mutation in (lambda v:v.pop('two_hop'),lambda v:v.update(two_hop=None),lambda v:v.update(profile=cli.PROFILE),lambda v:v['two_hop']['capture'].update(maximum_rows=True),lambda v:v['two_hop']['capture'].update(maximum_rows=129),lambda v:v['two_hop']['capture'].update(maximum_total_cell_bytes=16777217),lambda v:v['two_hop']['decoder'].update(maximum_cell_bytes=0),lambda v:v['two_hop']['distribution'].update(package='/arbitrary'),lambda v:v['two_hop'].update(extra=True),lambda v:v['two_hop']['distribution'].update(installation=v['output']),lambda v:v['two_hop']['distribution'].update(index=str(root/'x/../index'))):
+    v=json.loads(json.dumps(value));mutation(v);invalid.append(json.dumps(v).encode())
+   invalid.extend([path.read_bytes().replace(b'"maximum_rows": 128',b'"maximum_rows": NaN'),path.read_bytes().replace(b'"maximum_rows": 128',b'"maximum_rows": 128, "maximum_rows": 128')])
+   with patch.object(cli,'publish_query_supply_chain_native')as owner:
+    for raw in invalid:
+     path.write_bytes(raw)
+     with self.assertRaises(ValueError):cli.run_supply_chain_native_command(path)
+    owner.assert_not_called()
+   path,old=self.configuration(root);legacy=cli.parse_supply_chain_native_invocation(path.read_bytes())
+   self.assertEqual(legacy.profile,cli.PROFILE);self.assertIsNone(legacy.native.two_hop)
+ def test_legacy_profile_fresh_process_does_not_import_paths_owners(self):
+  import subprocess,sys
+  with tempfile.TemporaryDirectory()as tmp:
+   path,_=self.configuration(Path(tmp).resolve())
+   code="from pathlib import Path;import sys;from ashlar_host.supply_chain_native_cli import parse_supply_chain_native_invocation;v=parse_supply_chain_native_invocation(Path(sys.argv[1]).read_bytes());assert v.native.two_hop is None;assert 'ashlar.weft_paths_distribution' not in sys.modules;assert 'ashlar_host.supply_chain_two_hop_query' not in sys.modules;assert 'ashlar.weft_path_decode' in sys.modules"
+   result=subprocess.run([sys.executable,'-S','-B','-c',code,str(path)],capture_output=True,timeout=10)
+   self.assertEqual(result.returncode,0,result.stderr)
+ def test_two_hop_configuration_path_cannot_select_compiler_input(self):
+  from test_supply_chain_native_integration import configured
+  with tempfile.TemporaryDirectory()as tmp:
+   root=Path(tmp).resolve();path,value=configured(root);value['two_hop']['distribution']['index']=str(path);path.write_text(json.dumps(value))
+   with patch.object(cli,'publish_query_supply_chain_native')as owner,self.assertRaises(ValueError):cli.run_supply_chain_native_command(path)
+   owner.assert_not_called()
  def test_public_cli_payload_free_refusal(self):
   from ashlar.cli import main
   with patch('sys.argv',['ashlar','run-supply-chain-native','--configuration','/secret/path']),patch.object(cli,'run_supply_chain_native_command',side_effect=ValueError('secret value')),contextlib.redirect_stderr(io.StringIO())as stream:

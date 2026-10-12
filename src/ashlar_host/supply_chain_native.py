@@ -8,7 +8,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 import fcntl,hashlib,importlib.metadata,json,os,stat,sys
 from pathlib import Path
-from typing import Protocol,Sequence
+from typing import Protocol,Sequence,Optional,TYPE_CHECKING
 from ashlar.publisher import publish_batch
 from ashlar.staging import batch_row
 from ashlar.manifest import FIELDS
@@ -34,6 +34,8 @@ from .supply_chain_finite_source import FiniteSupplyChainSource,UMF_REVISION
 from .supply_chain_publication import FiniteSupplyChainDriver,GRAPH_ROLES
 from .supply_chain_request import SOURCE_SYSTEM,SOURCE_SHA,supply_chain_cases,source_snapshot
 from .supply_chain_query import query_supply_chain_cases,finite_public_source
+if TYPE_CHECKING:
+    from .supply_chain_two_hop_query import SupplyChainTwoHopQueryConfig
 
 @dataclass(frozen=True)
 class SupplyChainNativeConfig:
@@ -45,12 +47,26 @@ class SupplyChainNativeConfig:
     producer:SupplyChainProducerConfig
     compiler:CountStarDistributionPaths
     operation_capacity:object=None
+    two_hop:Optional['SupplyChainTwoHopQueryConfig']=None
     def __post_init__(self):
         if any(type(p)is not type(Path('/'))or not p.is_absolute()or any(q.is_symlink()for q in (p,*p.parents))for p in (self.output,self.jars,self.pack,self.model,self.graph)):
             raise ValueError('Exact absolute finite native paths required')
         if type(self.producer)is not SupplyChainProducerConfig or type(self.compiler)is not CountStarDistributionPaths or self.compiler.package is not None:
             raise ValueError('Typed selected producer and existing compiler installation required')
         self.producer.__post_init__();object.__setattr__(self,'operation_capacity',operation_capacity(self.operation_capacity))
+        if self.two_hop is not None:
+            from .supply_chain_two_hop_query import SupplyChainTwoHopQueryConfig
+            if type(self.two_hop)is not SupplyChainTwoHopQueryConfig:raise ValueError('Exact selected two-hop configuration required')
+            self.two_hop.__post_init__()
+            capture=self.two_hop.capture;decoder=self.two_hop.decoder
+            capture.__post_init__();decoder.__post_init__()
+            if capture.maximum_rows>128 or capture.maximum_cell_bytes>16777216 or capture.maximum_total_cell_bytes>16777216:
+                raise ValueError('Explicit tiny original two-hop capture bounds required')
+            for path in (self.two_hop.distribution.index,self.two_hop.distribution.output):
+                if type(path)is not type(Path('/'))or not path.is_absolute()or path.resolve()!=path or any(q.is_symlink()for q in (path,*path.parents)):
+                    raise ValueError('Canonical existing Paths selections required')
+                if self.output==path or self.output in path.parents or path in self.output.parents:raise ValueError('Separate fresh native output required')
+
         if any(any(c in str(p)for c in ('`',"'",'\\','\x00','\n','\r'))for p in (self.output,self.jars,self.pack,self.model,self.graph)):
             raise ValueError('Closed local native SQL path profile required')
         if self.producer.maximum_receipt_bytes<8*1024*1024:raise ValueError('Explicit whole original dataset8MiB receipt budget required')
@@ -137,24 +153,44 @@ def _queries(config,driver,pack,aliases):
     execution=CountStarExecutionConfig(CountStarAdmissionConfig(maximum,_schemas(config)),PathCaptureConfig(128,maximum,maximum),PathDecodeConfig(maximum),finite_public_source(driver.source,maximum),UMF_REVISION)
     observed=0
     native_observed=0
+    count_records=[];path_records=[]
     with owned_context((config.output/'compiler-observations.jsonl').open('xb'))as log, owned_context((config.output/'native-observations.jsonl').open('xb'))as native_log:
         def observe_native(name,captured):
             nonlocal native_observed
             body=report_body({'id':name,'captured':captured},64*1024*1024-native_observed)
             if native_log.write(body)!=len(body):raise ValueError('Finite native observation write refused')
             native_log.flush();native_observed+=len(body)
-        def observe(name,iteration,request,response):
+        def retain_protocol(name,iteration,request,response):
             nonlocal observed
             if any(type(b)is not bytes or len(b)>1048576 for b in (request,response)):raise ValueError('Original finite compiler observation bound')
             raw=(json.dumps({'id':name,'iteration':iteration,'requestHex':request.hex(),'responseHex':response.hex()},separators=(',',':'))+'\n').encode();observed+=len(raw)
             if observed>8*1024*1024:raise ValueError('Complete finite compiler observation bound')
             if log.write(raw)!=len(raw):raise ValueError('Finite compiler record write refused')
             log.flush()
-        return query_supply_chain_cases(driver,pack,aliases,SupplyChainCompileConfig(config.compiler,maximum),execution,observe=observe,observe_native=observe_native)
+        def observe(name,iteration,request,response):
+            retain_protocol(name,iteration,request,response);count_records.append((name,iteration))
+        authored=query_supply_chain_cases(driver,pack,aliases,SupplyChainCompileConfig(config.compiler,maximum),execution,observe=observe,observe_native=observe_native)
+        if config.two_hop is None:return authored
+        def observe_paths(ordinal,iteration,request,response):
+            if type(ordinal)is not int or not 0<=ordinal<12 or type(iteration)is not int or iteration not in (0,1):raise ValueError('Exact two-hop protocol ordinal required')
+            if (ordinal,iteration) in path_records or len(path_records)>=24:raise ValueError('Complete unique two-hop protocol observations required')
+            if any(type(raw)is not bytes or len(raw)>config.two_hop.maximum_artifact_bytes for raw in (request,response)):raise ValueError('Selected two-hop protocol artifact bound')
+            retain_protocol('two-hop-'+str(ordinal),iteration,request,response);path_records.append((ordinal,iteration))
+        from .supply_chain_two_hop_query import query_supply_chain_two_hop
+        two_hop=query_supply_chain_two_hop(driver,pack,aliases,config.two_hop,observe=observe_paths)
+        if (len(authored['cases'])!=5 or len(count_records)!=10
+                or len(set(count_records))!=10 or set(path_records)!={(i,j)for i in range(12)for j in (0,1)}
+                or type(two_hop)is not dict or type(two_hop.get('queries'))is not list
+                or [q.get('ordinal')for q in two_hop['queries']]!=list(range(12))):
+            raise ValueError('Complete original five plus twelve query evidence required')
+        for query in two_hop['queries']:observe_native('two-hop-'+str(query['ordinal']),query['evidence'])
+        return {**authored,'two_hop':two_hop,'two_hop_queries':12}
 
 def _finish_report(config,result):
     body=report_body(result,64*1024*1024);_write(config.output/'report.json',body)
-    return {'report':str(config.output/'report.json'),'cases':5,'qualification':result['qualification']}
+    summary={'report':str(config.output/'report.json'),'cases':5,'qualification':result['qualification']}
+    if config.two_hop is not None:summary['two_hop_queries']=12
+    return summary
 
 def publish_query_supply_chain_native(config,*,config_custody=None):
     """One fresh private finite publication, exact replay and unchanged five queries."""
@@ -162,10 +198,15 @@ def publish_query_supply_chain_native(config,*,config_custody=None):
     if config_custody is not None:
         if type(config_custody)is not InvocationFile:raise ValueError('Exact invocation custody required')
         config_custody.__post_init__();config_custody.renew(65536)
+    paths_schema_owner=None
+    if config.two_hop is not None:
+        from ashlar.weft_paths_distribution import installed_paths_schema_bundle
+        paths_schema_owner=installed_paths_schema_bundle
     jars=_runtime(config);pack=snapshot(config.pack,1024*1024)
     supply_chain_cases(pack,snapshot(config.model,1024*1024),snapshot(config.graph,1024*1024))
     config.output.mkdir(mode=0o700);lease=PrivateFiniteLease(config.output,create=True)
     spark=None;transport=None;source=None;result=None;primary=None
+    count_bundle=None;path_bundle=None
     try:
         producer=HeldSupplyChainDataset(config.producer,config.model,config.graph,config.output/'public-dataset.json')
         source=FiniteSupplyChainSource(config.model,config.graph,current_dataset=producer)
@@ -195,18 +236,30 @@ def publish_query_supply_chain_native(config,*,config_custody=None):
         transport.close();transport=None
         transport=ReadOnlyTransport.open(spark,config.output/'operations.sqlite',registry['installation'],tuple(targets),policy,capacity=registry['operation_capacity'])
         reader=FiniteSupplyChainDriver(transport,policy,context,tables,graph_columns,source,registry['publication_id'],current_admission=_current_lease(lease,context,tables,targets));reader.restore_committed(request)
+        if config.two_hop is not None:
+            count_bundle=dict(installed_count_star_schema_bundle(config.compiler))
+            path_bundle=dict(paths_schema_owner(config.two_hop.distribution))
         queried=_queries(config,reader,pack,aliases)
         result={'cases':queried['cases'],'manifest':dict(descriptor.raw),'source':source.metadata(),'producer':producer.metadata(),'exact_replay_unchanged':True,'reader_reopened_from_committed_phases':True,
             'qualification':'Fresh original finite immutable-file local Spark4/Delta4 publication and read-only reopened committed five-query execution after complete independent source bags/current lease holds. No PostgreSQL/outbox/protected ACK/UC/Truss/remote source authority.'}
+        if config.two_hop is not None:
+            result.update(two_hop=queried['two_hop'],two_hop_queries=12)
+            result['qualification']='Fresh original finite immutable-file local publication/replay/read-only restored five authored and twelve two-hop query evidence; all required outer closing completed before report. Other six common graph cases and protected ACK/Truss/cloud remain separate.'
     except BaseException as error:primary=error
     callbacks=[]
     if transport is not None:callbacks.append(transport.close)
     if spark is not None:callbacks.append(spark.stop)
     if source is not None:callbacks.append(source.renew)
     callbacks.extend([lambda:_runtime(config),lease.renew,lease.close])
+    def compiler_closing(paths,original,owner):
+        if original is not None and dict(owner(paths))!=original:raise ValueError('Original compiler schema bundle changed')
+    if config.two_hop is not None:
+        callbacks.extend([lambda:compiler_closing(config.compiler,count_bundle,installed_count_star_schema_bundle),lambda:compiler_closing(config.two_hop.distribution,path_bundle,paths_schema_owner)])
+    def pack_closing():
+        if snapshot(config.pack,1048576)!=pack:raise ValueError('Closing original pack changed')
+    callbacks.append(pack_closing)
     if config_custody is not None:callbacks.append(lambda:config_custody.renew(65536))
     finish(primary,callbacks)
-    if snapshot(config.pack,1024*1024)!=pack:raise ValueError('Closing original pack changed')
     return _finish_report(config,result)
 
 class FiniteRuntimeConfiguration(Protocol):
