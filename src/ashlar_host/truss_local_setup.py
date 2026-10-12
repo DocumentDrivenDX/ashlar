@@ -36,6 +36,8 @@ def selections(configuration,output):
 
 def run_setup_truss_local_command(configuration,output):
     config,paths,output,source,origin=selections(configuration,output)
+    from .truss_runtime import require_truss_psycopg_runtime
+    require_truss_psycopg_runtime()
     import psycopg
     from psycopg import sql
     from truss import (LocalPostgres,Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,

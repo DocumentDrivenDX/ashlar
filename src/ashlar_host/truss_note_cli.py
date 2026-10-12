@@ -22,6 +22,8 @@ def _run_publication(configuration,output,*,graph):
     if any(destination==path or destination in path.parents or path in destination.parents for path in (*jars,Path(configuration).resolve())):raise ValueError('Separate fresh output required')
     warehouse=destination.parent/(destination.name+'-warehouse')
     if warehouse.exists():raise ValueError('Fresh separately owned Spark warehouse required')
+    from .truss_runtime import require_truss_psycopg_runtime
+    require_truss_psycopg_runtime()
     import psycopg
     from .commerce_export_cli import open_commerce_export_spark
     from .truss_note_publication import publish_note_pages,publish_graph_pages,register_note_consumer

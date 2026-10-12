@@ -544,3 +544,11 @@ The destination must be fresh. This command is a finite local workflow, limited
 to eight pages; it does not provide restart recovery or Unity Catalog deployment.
 Retain partial destinations on failure rather than resetting them or reusing an
 advanced source consumer.
+
+Local setup and publication check the installed public Truss
+`PsycopgProfile` against the selected Python driver before starting resources or
+registering a consumer. Use the driver version, implementation and libpq build
+required by that installed SDK in the same Python environment. Truss verifies
+the PostgreSQL server version on the actual connection. A mismatch is a setup
+error; retain partial destinations and select a compatible environment before
+retrying.
