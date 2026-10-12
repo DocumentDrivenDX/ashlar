@@ -35,3 +35,11 @@ class Tests(unittest.TestCase):
             main()
         run.assert_called_once_with('/private/config.json','/private/destination')
         self.assertEqual(json.loads(output.getvalue())['publications'],0)
+
+    def test_wait_budget_refuses_before_source_effects(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory);selected=root/'configuration.json'
+            selected.write_text(json.dumps({'connection_uri':'private consumer','administrator_uri':'private administrator','reader_role':'reader','consumer_id':'consumer','feed':'feed','jars':[],'maximum_pages':1,'wait_seconds':61}))
+            with self.assertRaisesRegex(ValueError,'Wait budget'):
+                run_publish_truss_note_command(selected,root/'output')
+            self.assertFalse((root/'output').exists())

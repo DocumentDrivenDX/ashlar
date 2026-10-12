@@ -1,5 +1,5 @@
 """Fresh local Note Delta publication from actual ordinary public Truss pages."""
-import base64,datetime,hashlib,json
+import base64,datetime,hashlib,json,time
 from dataclasses import asdict
 from pathlib import Path
 from ashlar.apply import empty_state
@@ -76,6 +76,20 @@ def read_page(connection_factory,consumer_id):
 
 
 
+
+def read_next_page(connection_factory,consumer_id,wait_seconds=0,*,deadline=None):
+    """Poll ordinary public pages within one bounded wait; never ACK empty pages."""
+    if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
+    limit=time.monotonic()+wait_seconds
+    if deadline is not None:limit=min(limit,deadline)
+    while True:
+        page=read_page(connection_factory,consumer_id)
+        if page.outcome=='transaction':return page
+        remaining=limit-time.monotonic()
+        if remaining<=0:return page
+        time.sleep(min(1,remaining))
+
+
 def validate_graph_edge_orders(previous,changes,event_bytes):
     """Validate original edge before-order against published rows before any effects."""
     events={}
@@ -143,18 +157,19 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
     output=Path(output)
+    if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
@@ -162,7 +177,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     selected=read_page(connection_factory,consumer_id)
     if selected.outcome!='transaction'or json.loads(selected.prior.content).get('nextXid')!='0':raise ValueError('Distinct consumer with pending actual transaction at genesis required')
     context=object();ordinary=bind_ordinary_connection(connection_factory,context);output.mkdir(mode=0o700);lease=PrivateFiniteLease(output,create=True)
-    transport=None;primary=None;results=[];state=empty_state();progress={};predecessor='explicit-truss-genesis';expected=None
+    transport=None;primary=None;results=[];state=empty_state();progress={};predecessor='explicit-truss-genesis';expected=None;wait_deadline=None
     try:
         graph_columns=fixture_columns(RESOURCE_ROOT)
         columns={**graph_columns,'attempts':tuple((name,'STRING')for name in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((name,'TIMESTAMP'if name=='recorded_at'else'STRING')for name in FIELDS)}
@@ -175,7 +190,10 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
         transport=LocalDeltaTransport.initialize(spark,output/'operations.sqlite','truss-graph-local'if graph else'truss-note-local',tuple(targets),policy,context=context);policy.initializing=False
         expected={role:[] for role in graph_columns}
         for ordinal in range(maximum_pages):
-            page=selected if ordinal==0 else read_page(connection_factory,consumer_id)
+            if ordinal==0:page=selected
+            else:
+                if wait_deadline is None:wait_deadline=time.monotonic()+wait_seconds
+                page=read_next_page(connection_factory,consumer_id,wait_seconds,deadline=wait_deadline)
             if page.outcome=='empty_interval':break
             lease.renew();sessions=TrussFeedSessions(page,feed,ordinary,context);batch=sessions.batch()
             if graph:

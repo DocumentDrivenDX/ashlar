@@ -12,7 +12,10 @@ def _run_publication(configuration,output,*,graph):
     with Path(configuration).open('rb')as stream:raw=stream.read(65537)
     if len(raw)>65536:raise ValueError('Configuration bound exceeded')
     config=json.loads(raw)
-    if type(config)is not dict or set(config)!={'connection_uri','administrator_uri','reader_role','consumer_id','feed','jars','maximum_pages'}:raise ValueError('Exact existing native configuration required')
+    required={'connection_uri','administrator_uri','reader_role','consumer_id','feed','jars','maximum_pages'}
+    if type(config)is not dict or not required<=set(config)<=required|{'wait_seconds'}:raise ValueError('Exact native configuration with optional wait_seconds required')
+    wait=config.get('wait_seconds',0)
+    if type(wait)is not int or not 0<=wait<=60:raise ValueError('Wait budget must be 0..60 seconds')
     if type(config['maximum_pages'])is not int or not 1<=config['maximum_pages']<=8 or any(type(config[key])is not str or not config[key]or '\0'in config[key]for key in ('connection_uri','administrator_uri','reader_role','consumer_id','feed')):raise ValueError('Explicit bounded ordinary source selections required')
     if type(config['jars'])is not list or len(config['jars'])!=2:raise ValueError('Select existing Delta Spark and storage JARs')
     jars=tuple(Path(value)for value in config['jars'])
@@ -33,5 +36,5 @@ def _run_publication(configuration,output,*,graph):
     # Existing SDK/JDK/JARs only; local[1], 512 MiB, no package installation.
     with open_commerce_export_spark(jars,warehouse)as spark:
         publish=publish_graph_pages if graph else publish_note_pages
-        return publish(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'])
+        return publish(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'],wait_seconds=wait)
 

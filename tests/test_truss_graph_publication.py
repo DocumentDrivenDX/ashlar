@@ -41,3 +41,17 @@ class Tests(unittest.TestCase):
         _,parsed,_=test_truss_edge_feed.Tests().batch(delete=True)
         with self.assertRaises(ValueError):validate_graph_edge_orders(rows,parsed.changes,parsed.event_bytes)
         self.assertEqual(json.dumps(rows,sort_keys=True),original)
+
+    def test_wait_polls_actual_pages_with_one_finite_budget_and_returns_empty_on_timeout(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from ashlar_host.truss_note_publication import read_next_page
+        clock=[0.0];slept=[];empty=SimpleNamespace(outcome='empty_interval');actual=SimpleNamespace(outcome='transaction')
+        def sleep(seconds):slept.append(seconds);clock[0]+=seconds
+        with patch('ashlar_host.truss_note_publication.time.monotonic',side_effect=lambda:clock[0]),patch('ashlar_host.truss_note_publication.time.sleep',side_effect=sleep),patch('ashlar_host.truss_note_publication.read_page',side_effect=[empty,actual])as read:
+            self.assertIs(read_next_page(object(),'consumer',2),actual)
+            self.assertEqual(read.call_count,2);self.assertEqual(slept,[1])
+        clock[0]=0;slept.clear()
+        with patch('ashlar_host.truss_note_publication.time.monotonic',side_effect=lambda:clock[0]),patch('ashlar_host.truss_note_publication.time.sleep',side_effect=sleep),patch('ashlar_host.truss_note_publication.read_page',return_value=empty)as read:
+            self.assertIs(read_next_page(object(),'consumer',60,deadline=2),empty)
+            self.assertEqual(sum(slept),2);self.assertEqual(read.call_count,3)

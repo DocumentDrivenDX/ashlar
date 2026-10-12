@@ -568,3 +568,10 @@ After setup, run `serve-truss-local` with that directory, use the returned ordin
 consumer and reader roles, then run `mutate-truss-graph` and
 `publish-truss-graph` with a distinct fresh feed consumer. Schema selection alone
 does not broaden the publisher's supported scalar record/edge semantics.
+
+Set optional `wait_seconds` to an integer from 0 to 60 in publication
+configuration to wait for additional committed transactions after genesis. The
+command polls the ordinary public feed and publishes new arrivals using the
+same destination and publication chain. This is one total wait budget, with at
+most eight pages; the default zero keeps immediate finite execution. Empty
+intervals are never published or acknowledged.
