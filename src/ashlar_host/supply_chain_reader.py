@@ -37,7 +37,7 @@ class FiniteSupplyChainProvider:
         if context is not self._original_context or self.context is not self._original_context or self.active or self.driver is not self._original_driver or self.aliases!=self._original_aliases or self.expected_binding!=self._original_binding:
             raise PermissionError('Nonnested original finite reader required')
         self.closed=None;driver=self._original_driver;aliases=source_snapshot(self._original_aliases)
-        source=driver.source;source_renew=source.renew;transport=driver.transport;targets={t:(transport.targets[t].uuid,transport.targets[t].path)for t in aliases};sql=transport.spark.sql
+        source=driver.source;source_renew=source.renew;transport=driver.transport;targets={t:(transport.targets[t].uuid,transport.targets[t].path)for t in aliases};sql=transport.spark.sql;query=transport.query
         opening=None
         closing_provider=FiniteSupplyChainProvider(driver,aliases,json.loads(self._original_binding))
         with owned_context(driver.read_interval(driver.request['stream'],context)):
@@ -49,7 +49,13 @@ class FiniteSupplyChainProvider:
                 closing=FiniteSupplyChainProvider.resolve(closing_provider,context)
                 if opening is not None and opening!=closing:raise ValueError('Original finite publication changed during held read')
             def alias_closing(native):
-                uuid,path=targets[native];detail=sql('DESCRIBE DETAIL '+quote_table_identifier(aliases[native])).first().asDict()
+                uuid,path=targets[native]
+                if getattr(transport,'observation_bounds',None)is not None:
+                    if transport.spark.sql!=sql:raise ValueError('Original bounded alias SQL port changed')
+                    rows=query('DESCRIBE DETAIL '+quote_table_identifier(aliases[native]),{}).rows
+                    if len(rows)!=1:raise ValueError('Exact original alias detail required')
+                    detail=rows[0]
+                else:detail=sql('DESCRIBE DETAIL '+quote_table_identifier(aliases[native])).first().asDict()
                 if detail['id']!=uuid or detail['location'].removeprefix('file:').rstrip('/')!=str(path):raise ValueError('Original finite alias identity differs')
             try:
                 opening=FiniteSupplyChainProvider.resolve(self,context);yield
@@ -84,7 +90,10 @@ class FiniteSupplyChainProvider:
         detail=self.driver.transport.query('DESCRIBE DETAIL '+quote_table_identifier(table),{}).rows
         if len(detail)!=1 or detail[0]['id']!=target.uuid:raise ValueError('Original finite native identity differs')
         if type(version)is not int or not 0<=version<2**63:raise ValueError('Exact original native version required')
-        self.driver.transport.spark.read.format('delta').option('versionAsOf',version).load(str(target.path)).limit(1).collect()
+        if getattr(self.driver.transport,'observation_bounds',None)is not None:
+            self.driver.transport.query('SELECT 1 AS present FROM '+quote_table_identifier(table)+' VERSION AS OF '+str(version)+' LIMIT 1',{})
+        else:
+            self.driver.transport.spark.read.format('delta').option('versionAsOf',version).load(str(target.path)).limit(1).collect()
         return Snapshot(table,target.uuid,version)
     def resolve(self,context):
         return resolve_publication(self,self.driver.publication_id,{t:self.driver.transport.targets[t].uuid for t in self.aliases},context=context,
@@ -96,7 +105,13 @@ class FiniteSupplyChainProvider:
             'tables':[{'name':self.aliases[t].split('.'),'uuid':s.uuid,'version':s.version}for t,s in sorted(resolved.snapshots.items())]}
         if binding['publication']!=expected:raise ValueError('Original finite full compiler vector differs')
         for native,alias in self.aliases.items():
-            detail=self.driver.transport.spark.sql('DESCRIBE DETAIL '+quote_table_identifier(alias)).first().asDict();target=self.driver.transport.targets[native]
+            transport=self.driver.transport
+            if getattr(transport,'observation_bounds',None)is not None:
+                rows=transport.query('DESCRIBE DETAIL '+quote_table_identifier(alias),{}).rows
+                if len(rows)!=1:raise ValueError('Exact bounded original alias detail required')
+                detail=rows[0]
+            else:detail=transport.spark.sql('DESCRIBE DETAIL '+quote_table_identifier(alias)).first().asDict()
+            target=transport.targets[native]
             if detail['id']!=target.uuid or detail['location'].removeprefix('file:').rstrip('/')!=str(target.path):raise ValueError('Original finite alias identity differs')
     def native_table_schema(self,table,resolved,context):
         self.runtime(context);table=source_snapshot(table)
@@ -104,5 +119,9 @@ class FiniteSupplyChainProvider:
         if len(matching)!=1:raise ValueError('Schema outside original finite alias vector')
         native=matching[0];snapshot=resolved.snapshots[native]
         if table!={'name':self.aliases[native].split('.'),'uuid':snapshot.uuid,'version':snapshot.version}:raise ValueError('Original finite schema pin differs')
+        transport=self.driver.transport
+        if getattr(transport,'observation_bounds',None)is not None:
+            captured,schema=transport.bounded_snapshot(transport.targets[native],snapshot.version,remaining_bytes=transport.observation_bounds.total_bytes)
+            return {'table':table,'schema':schema,'nativeTypes':[[name,family.upper()]for name,family in captured['schema']]}
         schema=self.driver.transport.spark.read.format('delta').option('versionAsOf',snapshot.version).load(str(self.driver.transport.targets[native].path)).schema
         return {'table':table,'schema':json.loads(schema.json()),'nativeTypes':[[f.name,f.dataType.simpleString().upper()]for f in schema.fields]}

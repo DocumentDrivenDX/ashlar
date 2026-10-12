@@ -1,0 +1,31 @@
+{
+  "verdict": "approved exacthelper/test slice; actualcommoncomposition pendingseparatefrozenreview",
+  "freeze_sha256": "c51cb20c9dfa45ed8e3d377739fbe427935696d0505327fe2d3b995e71f3e4a1",
+  "files": [
+    {
+      "bytes": 7962,
+      "copy": "/private/tmp/ashlar-supply-chain-graph-release-source-freeze-a/supply_chain_graph_release.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_graph_release.py",
+      "sha256": "9136c1d21f5c3e185b11fc351123b88714de52b74ed28c1913d125d0cf2cdade"
+    },
+    {
+      "bytes": 11166,
+      "copy": "/private/tmp/ashlar-supply-chain-graph-release-source-freeze-a/test_supply_chain_graph_release_owner.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_graph_release_owner.py",
+      "sha256": "f7152074ed53de06075cbc376a64b3a5dd309fe94ad871d130c63fee8a40b844"
+    }
+  ],
+  "governing": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "990b285d77c5eb01e876da10b8498c506126cdf6a40f41b9c1aa618eddd563cb"
+    }
+  ],
+  "verification": "9strictSDKfreecontrolsPASS0.189s35ad2e; boundary/scopeddiffpass andexactfrozencopies. Actualportablecoreresolver/release+fixedsourceoracle exercised through syntheticlowerports; genuinecommonfactory currentmethods patched ininerttests only.",
+  "review": "ExactnominalOpenCommon+currentadmission beforepolicy; internaloriginal4UUID/versionmanifestvector/sourcebindings/fullcolumns+expected20nodes23independentedges; canonical17/20rawcolumns andderived18/23/fullendpoints/null/residuals Counters; no callerpolicy/vector/bags/callbacks. Genuineexistingprovider interval only, no fabricatedpin grant/outsideinterval. Fullopening/closingcore reads andcurrentgates, primaryBaseException preserved/suppressedinnererror rejected/closedintervalcustody beforehelperreturn. Currentadmission/driftmayrefuseclosing beforecarrierread, not claimedcompletedclosing onthatnegativepath; outerprovider independentlyowns itsoriginalnative/source/vectorclosures.",
+  "qualification": "Unfrozencommonmodule not approved bythisreceipt; source/runtime/installationouterclosures remaincallerowned. No actualSDK/producer/native/commonfactory/lease/engine qualification orsourceedits."
+}

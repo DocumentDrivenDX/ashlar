@@ -1,0 +1,19 @@
+{
+  "freeze_sha256": "64a4af49718d778bee4c752b2874b8ac8d4f50b5b279b7b5cfc40cbc0df65c1b",
+  "approval": true,
+  "supersedes": "C approval and superseding blocker receipt",
+  "resolved": [
+    "SCR-A1 original history guarded and independently closed",
+    "C ordinary public subclass clone rejected by exact returned-instance identity first, before any callbacks"
+  ],
+  "changed_controls": {
+    "tests": 2,
+    "seconds": 0.595,
+    "exit": 0,
+    "terminal_reaped": "0db2e5"
+  },
+  "pin_check": "All9 common D and graph-release A files exact 936b79",
+  "retained_review": "A39 source regressions; C4 history/query controls; actual superclass nonnested interval/private registration/finally removal and count-star lifecycle inspected; desired15lines/workflow unchanged",
+  "graph_release": "Exact previously approved helper source and public read_interval/require_current/native_files interface remain corresponding; no new actual common factory/full graph native composition claim",
+  "scope": "SDK-free source review with genuine producer mint from inert lower capture, actual private leases/SQLite and inert SDK ports. No SDK/producer/native execution, historical producing invocation, durable CLI restore, or full compiled query qualification."
+}

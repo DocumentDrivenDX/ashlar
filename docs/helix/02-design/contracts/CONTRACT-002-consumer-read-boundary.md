@@ -81,6 +81,13 @@ receipt digests and archived validation flags MUST NOT supply semantic authority
 Missing original provenance MUST refuse. Complete original dataset, record,
 key and relationship semantics MUST remain checked.
 
+A current source invocation MAY validate the original corpus independently before
+opening the reader. Its complete emitted receipt bytes and source-admission
+metadata MUST match the existing publication exactly; a mismatch MUST refuse.
+This establishes current source correspondence, not provenance of the historical
+publication-producing invocation or durable restart restoration. Reader
+construction and renewal MUST NOT execute that validation or replace its receipt.
+
 `OriginalSupplyChainDatasetInvocation` MUST be minted only after an actual
 successful public-producer invocation and its independent original closing
 checks. A same-process retained owner MUST accept only that live origin.
@@ -107,6 +114,14 @@ correspondence before releasing the actual exclusion record. Closing failure
 MUST withhold the result; an original body failure MUST be preserved while all
 applicable original closing checks and releases are attempted. Nested provider
 intervals and resolution of a replacement publication MUST refuse.
+
+`OpenedSupplyChainCommonRead.query_provider(context, *, family, part, ordinal)` MUST
+construct an inactive query reader and detached request from the fixed original
+corpus selection. It MUST accept no supplied provider, binding or authority
+callback. The executor MUST acquire that reader's genuine nonnested interval;
+the common owner MUST register it only during the actual held interval and
+independently remove it after closing. An active flag alone MUST NOT grant
+current admission. Successful closing MUST retain the actual interval receipt.
 
 ### Installed supply-chain native invocation
 

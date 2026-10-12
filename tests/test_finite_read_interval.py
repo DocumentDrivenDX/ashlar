@@ -180,4 +180,34 @@ class Tests(unittest.TestCase):
      with self.assertRaises(ValueError):p.runtime(d.context)
      self.assertEqual(foreign,[])
     finally:d.transport.spark.sql=original;p.active=False
+ def test_active_bounds_snapshot_uses_fixed_scalar_public_query_no_collect(self):
+  with tempfile.TemporaryDirectory() as t:
+   d,c=self.fixture(Path(t).resolve());p=FiniteSupplyChainProvider(d,{d.tables[r]:'local.finite.alias_'+r for r in GRAPH_ROLES},{});d.transport.observation_bounds=SimpleNamespace(total_bytes=1024);d.transport.spark.read=mock_read=SimpleNamespace(format=lambda *args:(_ for _ in ()).throw(AssertionError('unbounded SDK collect')));query=d.transport.query
+   def capture(sql,params):
+    if sql.startswith('SELECT 1 AS present'):c.append('bounded-existence');return SimpleNamespace(rows=[])
+    return query(sql,params)
+   d.transport.query=capture;p._original_query=capture
+   snapshot=p.inspect_snapshot(d.tables['object_current'],2);self.assertEqual(snapshot.version,2);self.assertIn('bounded-existence',c)
+ def test_active_bounds_schema_uses_complete_public_bounded_snapshot(self):
+  with tempfile.TemporaryDirectory() as t:
+   d,c=self.fixture(Path(t).resolve());aliases={d.tables[r]:'local.finite.alias_'+r for r in GRAPH_ROLES};p=FiniteSupplyChainProvider(d,aliases,{});d.transport.observation_bounds=SimpleNamespace(total_bytes=1024);p.active=True;native=d.tables['object_current'];schema={'type':'struct','fields':[{'name':'value','type':'string','nullable':True,'metadata':{}}]};calls=[]
+   def bounded(target,version,*,remaining_bytes):calls.append((target,version,remaining_bytes));return {'schema':[['value','string']],'rows':[]},schema
+   d.transport.bounded_snapshot=bounded;d.transport.spark.read=SimpleNamespace(format=lambda *args:(_ for _ in ()).throw(AssertionError('unbounded schema JSON')))
+   table={'name':aliases[native].split('.'),'uuid':d.transport.targets[native].uuid,'version':2};resolved=SimpleNamespace(snapshots={native:SimpleNamespace(uuid=table['uuid'],version=2)})
+   with patch.object(FiniteSupplyChainProvider,'runtime'):
+    result=p.native_table_schema(table,resolved,d.context)
+   self.assertEqual(result,{'table':table,'schema':schema,'nativeTypes':[['value','STRING']]});self.assertEqual(calls[0][1:],(2,1024))
+ def test_active_bounds_alias_admission_and_closing_use_public_query(self):
+  with tempfile.TemporaryDirectory() as t:
+   d,c=self.fixture(Path(t).resolve());aliases={d.tables[r]:'local.finite.alias_'+r for r in GRAPH_ROLES};binding={'publication':{'id':'original','manifestUuid':d.transport.targets[d.tables['manifest']].uuid,'tables':[{'name':aliases[n].split('.'),'uuid':d.transport.targets[n].uuid,'version':2}for n in sorted(aliases)]}};p=FiniteSupplyChainProvider(d,aliases,binding);d.transport.observation_bounds=SimpleNamespace(total_bytes=1024);query=d.transport.query
+   def bounded(sql,params):
+    for n,alias in aliases.items():
+     if 'alias_'+n.split('.')[-1] in sql:c.append('bounded-alias');return SimpleNamespace(rows=[{'id':d.transport.targets[n].uuid,'location':str(d.transport.targets[n].path)}])
+    return query(sql,params)
+   d.transport.query=bounded;p._original_query=bounded;p.active=True;resolved=SimpleNamespace(descriptor=SimpleNamespace(publication_id='original',raw={}),snapshots={n:SimpleNamespace(uuid=d.transport.targets[n].uuid,version=2)for n in aliases})
+   with patch.object(FiniteSupplyChainProvider,'runtime'):p.admit_binding(binding,resolved,d.context)
+   self.assertEqual(c.count('bounded-alias'),4);p.active=False
+   with patch.object(FiniteSupplyChainProvider,'resolve',return_value=resolved):
+    with p.interval(d.context):pass
+   self.assertEqual(c.count('bounded-alias'),8);self.assertFalse(any(v.startswith('alias:')for v in c))
 if __name__=='__main__':unittest.main()

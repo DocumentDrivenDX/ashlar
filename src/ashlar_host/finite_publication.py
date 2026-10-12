@@ -79,8 +79,13 @@ class FiniteFileDriver:
             finish(primary,[close,release])
     @contextmanager
     def read_interval(self,stream,context):
+        with owned_context(self._existing_read_interval(stream,context,restore=False)):
+            yield
+
+    @contextmanager
+    def _existing_read_interval(self,stream,context,*,restore):
         """Existing-only exclusion; original owners close independently on failure."""
-        if context is not self.context or self.held or self.request is None or self.manifest is None or stream!=self.request['stream']:
+        if context is not self.context or self.held or self.request is None or (self.manifest is None and not restore) or stream!=self.request['stream']:
             raise PermissionError('Exact existing committed finite read required')
         source,transport,admission=self.source,self.transport,self.current_admission
         source_renew=source.renew
@@ -90,15 +95,15 @@ class FiniteFileDriver:
             if type(self.columns)is not dict or set(self.columns)!=GRAPH_ROLES or any(type(schema)is not tuple or any(type(pair)is not tuple or len(pair)!=2 or any(type(value)is not str for value in pair)for pair in schema)for schema in self.columns.values()):raise ValueError('Original nominal physical columns required')
             return source_snapshot({r:[list(pair)for pair in schema]for r,schema in self.columns.items()})
         columns=column_snapshot();expected=source_snapshot(self.expected)
-        versions=json.loads(manifest['table_versions_json'])
-        if set(versions)!={tables[r] for r in GRAPH_ROLES} or any(type(v)is not int or not 0<=v<2**63 for v in versions.values()):
+        versions={}if manifest is None else json.loads(manifest['table_versions_json'])
+        if manifest is not None and (set(versions)!={tables[r] for r in GRAPH_ROLES} or any(type(v)is not int or not 0<=v<2**63 for v in versions.values())):
             raise ValueError('Exact original complete read vector required')
         targets={r:(transport.targets[tables[r]].table,transport.targets[tables[r]].uuid,transport.targets[tables[r]].path) for r in sorted(tables)}
         query=transport.query
         path=transport.journal_path.parent/'.finite-source-writer.lock'
         ancestors=tuple((p,(p.lstat().st_dev,p.lstat().st_ino,p.lstat().st_mode))for p in reversed(path.parent.parents))
         parent=(path.parent,(path.parent.lstat().st_dev,path.parent.lstat().st_ino,path.parent.lstat().st_mode))
-        fd=None;primary=None;held=False;lock_identity=None;lock_bytes=None
+        fd=None;primary=None;held=False;lock_identity=None;lock_bytes=None;phase_closing=None
         def lock_current():
             if path.resolve()!=path:raise ValueError('Canonical existing exclusion required')
             for p,facts in (*ancestors,parent):
@@ -121,6 +126,12 @@ class FiniteFileDriver:
             table,uuid,path=targets[role]
             result=_finite_rows(transport,table,columns[role],versions[table],len(expected[role])+1,query=query)
             if Counter(map(encoded,result))!=Counter(map(encoded,expected[role])):raise ValueError('Original complete finite read bag changed')
+        def select_manifest(row,*,close_phases):
+            nonlocal manifest,versions,phase_closing
+            if not restore or manifest is not None:raise ValueError('Single original committed manifest selection required')
+            owned=source_snapshot(row);selected=json.loads(owned['table_versions_json'])
+            if set(selected)!={tables[r]for r in GRAPH_ROLES}or any(type(v)is not int or not 0<=v<2**63 for v in selected.values()):raise ValueError('Complete original committed vector required')
+            manifest=owned;versions=selected;phase_closing=close_phases
         try:
             fd=os.open(path,os.O_RDWR|os.O_NOFOLLOW|os.O_NONBLOCK)
             opened=os.fstat(fd);lock_identity=(opened.st_dev,opened.st_ino,opened.st_mode,opened.st_nlink);lock_bytes=(opened.st_size,opened.st_mtime_ns)
@@ -128,12 +139,14 @@ class FiniteFileDriver:
             lock_current();fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);held=True;self.held=True
             correspondence();source_renew();current()
             for role in targets:native(role)
-            for role in sorted(GRAPH_ROLES):bag(role)
-            yield
+            if manifest is not None:
+                for role in sorted(GRAPH_ROLES):bag(role)
+            yield select_manifest
+            if restore and manifest is None:raise ValueError('Original committed selection incomplete')
         except BaseException as error:primary=error
         callbacks=[]
         if held:
-            callbacks=[correspondence,source_renew,current,*[lambda role=role:native(role)for role in targets],*[lambda role=role:bag(role)for role in sorted(GRAPH_ROLES)],lock_current]
+            callbacks=[correspondence,source_renew,current,*([phase_closing]if phase_closing is not None else[]),*[lambda role=role:native(role)for role in targets],*[lambda role=role:bag(role)for role in sorted(GRAPH_ROLES)if manifest is not None],lock_current]
         def release():
             self.held=False
             if held:fcntl.flock(fd,fcntl.LOCK_UN)
@@ -175,20 +188,39 @@ class FiniteFileDriver:
         if self.request is not None:raise ValueError('Original finite driver already selected')
         request=source_snapshot(request);self.source.admit_request(request);self.request=request
         with self.writer(request['stream'],self.context):
-            target=self.transport.targets[self.tables['attempts']]
-            store=DeltaAttemptStore(AttemptExecutor(self),CarrierPolicy(self,'attempts'),target.table,target.uuid)
-            with store.session(self.context)as session:records=session.read(request['stream'],request['batch_id'])
-            if len(records)!=5 or records[-1].phase!='committed':
-                raise ValueError('Complete original committed phases required; no substitute effects')
-            retained=json.loads(records[-1].payload_json)
-            if retained['request']!=request:raise ValueError('Original committed request differs')
-            artifact,descriptor=validate_applied_artifact(retained['result_json'],request)
-            if json.loads(retained['descriptor_json'])!=dict(descriptor.raw):raise ValueError('Original retained committed descriptor differs')
-            self.manifest=source_snapshot(artifact['manifest'])
-            if self.manifest['publication_id']!=self.publication_id or json.loads(self.manifest['validation_report_json']).get('source_admission')!=self.source.metadata():
-                raise ValueError('Original committed finite source/identity differs')
-            self.policy.active={'request':self.request,'manifest':self.manifest}
-            self.validate_manifest(self.manifest,self.context)
+            return self._restore_committed_records(request)
+    def restore_committed_read_only(self,request):
+        """Restore only under an existing exclusion; no writer/create/repair path."""
+        if self.request is not None or self.manifest is not None:raise ValueError('Original finite driver already selected')
+        request=source_snapshot(request);self.source.admit_request(request);self.request=request
+        with owned_context(self._existing_read_interval(request['stream'],self.context,restore=True))as select_manifest:
+            return self._restore_committed_records(request,select_manifest=select_manifest)
+    def _restore_committed_records(self,request,*,select_manifest=None):
+        original_phase_request=source_snapshot(request)
+        target=self.transport.targets[self.tables['attempts']]
+        store=DeltaAttemptStore(AttemptExecutor(self),CarrierPolicy(self,'attempts'),target.table,target.uuid)
+        with store.session(self.context)as session:records=session.read(request['stream'],request['batch_id'])
+        if len(records)!=5 or records[-1].phase!='committed':
+            raise ValueError('Complete original committed phases required; no substitute effects')
+        if select_manifest is not None and any(type(r)is not PhaseRecord or r.phase!=PHASES[i]or r.request_digest!=request['request_digest']for i,r in enumerate(records)):raise ValueError('Complete original committed phase inventory required')
+        retained=json.loads(records[-1].payload_json)
+        if retained['request']!=request:raise ValueError('Original committed request differs')
+        artifact,descriptor=validate_applied_artifact(retained['result_json'],request)
+        if json.loads(retained['descriptor_json'])!=dict(descriptor.raw):raise ValueError('Original retained committed descriptor differs')
+        self.manifest=source_snapshot(artifact['manifest'])
+        if select_manifest is not None:
+            original_transport=self.transport;original_query=self.transport.query;original_source=self.source;original_context=self.context
+            def close_phases():
+                if self.transport is not original_transport or self.transport.query!=original_query or self.source is not original_source or self.context is not original_context:raise ValueError('Original committed phase owners changed')
+                with owned_context(store.session(original_context))as current:
+                    if current.read(original_phase_request['stream'],original_phase_request['batch_id'])!=records:raise ValueError('Original complete committed phase bytes changed')
+            select_manifest(self.manifest,close_phases=close_phases)
+            # Observed immutable data, never an admission or replacement proof.
+            self.original_committed_records=tuple(records)
+        if self.manifest['publication_id']!=self.publication_id or json.loads(self.manifest['validation_report_json']).get('source_admission')!=self.source.metadata():
+            raise ValueError('Original committed finite source/identity differs')
+        self.policy.active={'request':self.request,'manifest':self.manifest}
+        self.validate_manifest(self.manifest,self.context)
         return descriptor
     def _apply(self,request,context,recovery):
         self.require(context);self.source.admit_request(request)

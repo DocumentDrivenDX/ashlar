@@ -1,0 +1,46 @@
+{
+  "behavior": "Internally constructs complete manifest_pin_vector from originalmanifest/currentUUID targets and compares exacttyped nominalowner4table UUID/version mapping. Public owner columns/modelgraph/bindings/currentactualsource batch -> independent original_supply_chain_oracle full20/23; core read_graph_release executes actualprovider resolverports/transport under genuine existing readinterval; Counter fullcanonical17/20rawcolumns and derived18/23 releasecols/typedendpoints/independentIDs. Samevector/current source gating opening+independent original closing/read-release equality. AllBaseException captures preserve primary and attempt originalcurrent+fullrelease closing; owned_context rejects suppressedinner failure. Actualprovider closes fullnative/source/vector separately.",
+  "controls": {
+    "boundary_diff": "PASS8fe081; no baseline exemptions",
+    "fixture_qualification": "Pure original fixedsourceoracle plus actual portable core resolver/release execution through synthetic bounded fixtureports; nominalcommon methods patched only in tests. Unminted actual nominalowner without patches refuses. No fixture flag is production admission; no actual commonfactory/native/source/lease success inferred.",
+    "python312": {
+      "chunk": "8fe081",
+      "exit": 0,
+      "seconds": 0.128,
+      "tests": 9
+    },
+    "python39": {
+      "chunk": "8fe081",
+      "exit": 0,
+      "seconds": 0.212,
+      "tests": 9
+    }
+  },
+  "dependencies": "Commonread stable declared public fields context/source/driver/provider/manifest/vector/aliases/model/graph/bindings/columns and methods require_current/read_interval/native_files. Actual commonowner construction still independently owned/reviewed; helper tests do not qualify it.",
+  "files": [
+    {
+      "bytes": 7962,
+      "copy": "/private/tmp/ashlar-supply-chain-graph-release-source-freeze-a/supply_chain_graph_release.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_graph_release.py",
+      "sha256": "9136c1d21f5c3e185b11fc351123b88714de52b74ed28c1913d125d0cf2cdade"
+    },
+    {
+      "bytes": 11166,
+      "copy": "/private/tmp/ashlar-supply-chain-graph-release-source-freeze-a/test_supply_chain_graph_release_owner.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_graph_release_owner.py",
+      "sha256": "f7152074ed53de06075cbc376a64b3a5dd309fe94ad871d130c63fee8a40b844"
+    }
+  ],
+  "governing": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "038c9e85b52212364624ac04189da88ed67bf1fce123785547133a55d1819871"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "990b285d77c5eb01e876da10b8498c506126cdf6a40f41b9c1aa618eddd563cb"
+    }
+  ],
+  "public_surface": "read_original_supply_chain_graph_release(opened): exact internallyminted OpenedSupplyChainCommonRead only; no caller policy/context/validator/expectedbag/configcallback inputs.",
+  "scope": "New releasehelper+dedicated inert controls only; no native/Spark/producer/runtime/engine/lease qualification. Return GraphRelease after helper readinterval closes; outer source/installation/runtime stillcallerowned."
+}

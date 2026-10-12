@@ -1,0 +1,85 @@
+{
+  "profile": "supply-chain-existing-common-read-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_common_read.py",
+      "bytes": 24149,
+      "sha256": "9547a14dc3f53f1e8809b8835bbfd73f12c0b4b2db04d3a417aa13537367f13a",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_native.py",
+      "bytes": 23450,
+      "sha256": "d256cbe094ad1cac1601dbebae95b42dac6f2b7ce3669d8e9c3e26c19d9a9085",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/finite_publication.py",
+      "bytes": 22972,
+      "sha256": "3329d3f9335d2d0a18fd0e25b730c3073706fbc57100382978c412b560afdcd3",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_reader.py",
+      "bytes": 10951,
+      "sha256": "03e71cab354e85cf96fc5a0065b73ca7dad0529c5a5b94b56a4d4deb206001e9",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_common_read.py",
+      "bytes": 15355,
+      "sha256": "739f539902b1fe3ceffdbf4e91aeea29593f31a5c051629db7f54b249a045758",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_finite_read_interval.py",
+      "bytes": 17231,
+      "sha256": "72acc4396e7cf55fddf6faedf46a80c78884117d40821cb227badbe59db06c48",
+      "ownership": "author"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/read_only_transport.py",
+      "bytes": 5450,
+      "sha256": "0225da1e253722854c42e383fcb814702b7686b923d1b7de7f3e0ceb400a28bb",
+      "ownership": "root dependency"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/supply-chain-compiler.yml",
+      "bytes": 1866,
+      "sha256": "de8eb5f3e182cebd9c8c0d876d54c58a3532fb755a98363608bbd3592d9dcfb0",
+      "ownership": "root dependency"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "bytes": 20999,
+      "sha256": "a1f3d2b9eddcc949a948e2ed7afaf833e8ad471fbd00dbe7f10e187a6361c081",
+      "ownership": "root dependency"
+    }
+  ],
+  "surfaces": [
+    "SupplyChainCommonRuntime(python,java_home,directory)",
+    "SupplyChainCommonReadConfig(invocation,root,installation,journal,runtime,jars,pack,capacity,bounds)",
+    "open_supply_chain_common_read(config) -> internally minted OpenedSupplyChainCommonRead",
+    "Opened public fields/methods as declared; live require_current/read_interval/current source hashes",
+    "FiniteFileDriver.restore_committed_read_only(request) existing-only shared phase read and independent phase/source/native closing",
+    "finite_current_admission/finite_original_request/finite_materialization_columns public unchanged helper extraction with legacy aliases",
+    "FiniteSupplyChainProvider active-bound existence, alias, schema captures use public transport query/bounded_snapshot; legacy fallback preserved",
+    "OpenedSupplyChainCommonRead.query_provider(context, *, family, part, ordinal) -> inactive genuine owner-aware FiniteSupplyChainProvider subclass, fixed request; executor owns real interval"
+  ],
+  "checks": {
+    "scope": "SDK-free actual filesystem/SQLite/shared restore with inert producer capture and SDK ports",
+    "portable34": "Python3.9 PASS2.490s; Python3.12 PASS2.179s; terminal0 22862d",
+    "finalChanged13": "Python3.9 PASS2.444s; Python3.12 PASS2.184s; terminal0 ba181c",
+    "boundaries": "PASS ba181c",
+    "diff": "PASS ba181c",
+    "intermediate": "8336c0 failed only test expected role key instead of native table value; corrected assertion, original failure retained in tool output",
+    "Dtargeted": "Two owning exact-original/reconstructed controls Python3.9 PASS0.601s/Python3.12 PASS0.531s; boundaries/diffPASS, sole4cbb48 terminal0"
+  },
+  "scope": "Actual private filesystem leases, complete read-only SQLite, genuine public producer lifecycle/shared committed phase owner with inert capture and SDK lower ports. No actual producer/SDK/native run, no durable CLI or historical producing-invocation claim. SourceFactory dependent same-process nominal origin; current validation preceding reopen allowed only exact complete receipt+metadata match. Native persistent files never created/repaired; separate ephemeral catalog aliases allowed after existing registry/journal/target admission. Outer result provisional until all cleanup.",
+  "peerReviewPending": true,
+  "supersedes": {
+    "path": "/private/tmp/ashlar-supply-chain-common-read-source-freeze-c.json",
+    "sha256": "fe25de0c8089457400d720b18d59030cafc999f2866236a3a9abbdcc48f0bb0b"
+  },
+  "delta": "D exact returned candidate identity captured in private class closure and required before any native/source/interval callbacks; ordinary public class reconstruction refuses."
+}

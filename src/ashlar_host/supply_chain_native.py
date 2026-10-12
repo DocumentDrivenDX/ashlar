@@ -128,7 +128,7 @@ def _spark(config,jars):
         .config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog')
         .config('spark.sql.warehouse.dir',str(config.output/'warehouse')).getOrCreate())
 
-def _current_lease(lease,context,tables,targets):
+def finite_current_admission(lease,context,tables,targets):
     original={t.table:(str(t.path),t.uuid)for t in targets}
     def admit(source,request,manifest,supplied):
         if supplied is not context:raise PermissionError('Original finite installation context required')
@@ -141,10 +141,18 @@ def _current_lease(lease,context,tables,targets):
         lease.renew()
     return admit
 
-def _request(batch):
+def finite_original_request(batch):
     row=batch_row(batch);value={'stream':'original-finite-supplychain','batch_id':batch.batch_id,'predecessor':'explicit-finite-supplychain-origin',
         'schema_revisions_json':encoded({SOURCE_SYSTEM:SOURCE_SHA}),'source_batch_json':row['batch_json'],'source_batch_digest':row['batch_digest']}
     value['request_digest']=hashlib.sha256(encoded(value).encode()).hexdigest();return value
+
+# Compatibility aliases retain existing native composition and test seams.
+_current_lease=finite_current_admission
+_request=finite_original_request
+
+def finite_materialization_columns():
+    """Exact existing packaged original physical projection; no new interpreter."""
+    return fixture_columns(RESOURCE_ROOT)
 
 def _schemas(config):
     raw=dict(installed_count_star_schema_bundle(config.compiler));selected={n:raw[n]for n in ('compile-request-v0.4.1.schema.json','compile-response-v0.4.1.schema.json','logical-plan-v0.4.1.schema.json')}
