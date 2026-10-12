@@ -131,6 +131,7 @@ def main():
     fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
     for option in ('nodes','edges','output'):
         fabric_definition.add_argument('--'+option,required=True)
+    fabric_definition.add_argument('--display-name',help='Also emit a complete Fabric Create Graph Model request')
     fabric=commands.add_parser('query-fabric-gql',help='Query an explicitly admitted Fabric graph through a trusted operator provider')
     for option in ('configuration','provider','provider-sha256'):
         fabric.add_argument('--'+option,required=True)
@@ -220,7 +221,7 @@ def main():
     if args.command == 'prepare-fabric-graph-definition':
         from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
         try:
-            answer=prepare_fabric_graph_definition(args.nodes,args.edges,args.output)
+            answer=prepare_fabric_graph_definition(args.nodes,args.edges,args.output,**({'display_name':args.display_name}if args.display_name is not None else {}))
             print(json.dumps(answer,separators=(',',':')))
         except (ValueError,OSError) as error:
             parser.error(str(error))

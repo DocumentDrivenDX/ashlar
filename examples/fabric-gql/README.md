@@ -106,8 +106,18 @@ The output contains `dataSources.json`, `graphDefinition.json`, `graphType.json`
 and InlineBase64 parts. They follow the primary
 [Graph Model definition](https://learn.microsoft.com/en-us/rest/api/fabric/articles/item-management/definitions/graph-model-definition)
 and [Create Graph Model](https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items/create-graph-model)
-examples. `definition.json` is the **definition field**, not a complete create
-request; an operator must supply the display name and perform deployment.
+examples. By default, `definition.json` is the **definition field**. Add
+`--display-name 'Ashlar release 1'` to the command above to also generate
+`create-request.json`, containing `displayName` and the same unmodified
+`definition`. Names must be nonblank, at most 256 characters, and contain no
+control characters; Fabric applies its own item naming rules on submission.
+
+An authorized operator can submit that file as the JSON body of
+`POST https://api.fabric.microsoft.com/v1/workspaces/{workspaceId}/graphModels`
+with their Fabric bearer token. Creating the item can return 201 or 202;
+follow the service's operation response when asynchronous. Generation performs
+no API call, and item creation does not establish that the graph is loaded or
+qualified for queries.
 
 All 18 node and 23 edge carrier fields map as STRING, including canonical text
 encodings. Nodes use `graph_id` as their primary key; edges retain independent

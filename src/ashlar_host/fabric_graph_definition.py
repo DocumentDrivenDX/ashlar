@@ -38,14 +38,18 @@ def make_fabric_graph_definition(nodes,edges):
             'modelLayout':{'positions':{'ashlar_node':{'x':0,'y':0}},'styles':{'ashlar_node':{'size':30},'ashlar_edge':{'size':30}},'pan':{'x':0,'y':0},'zoomLevel':1}}}
 
 
-def prepare_fabric_graph_definition(nodes,edges,output):
+def prepare_fabric_graph_definition(nodes,edges,output,*,display_name=None):
     """Write readable JSON parts and a REST definition to a fresh local directory."""
+    if display_name is not None and (type(display_name)is not str or not display_name.strip() or len(display_name)>256 or any(ord(char)<32 or ord(char)==127 for char in display_name)):
+        raise ValueError('Display name must be nonblank, at most 256 characters, without control characters')
     documents=make_fabric_graph_definition(nodes,edges)
     output=Path(output)
     if not output.is_absolute()or output.parent.resolve()!=output.parent:raise ValueError('Canonical absolute local output directory required')
     payloads={name:(json.dumps(value,indent=2,ensure_ascii=False,allow_nan=False)+'\n').encode()for name,value in documents.items()}
     definition={'format':'json','parts':[{'path':name,'payload':base64.b64encode(raw).decode('ascii'),'payloadType':'InlineBase64'}for name,raw in payloads.items()]}
     payloads['definition.json']=(json.dumps(definition,indent=2)+'\n').encode()
+    if display_name is not None:
+        payloads['create-request.json']=(json.dumps({'displayName':display_name,'definition':definition},indent=2,ensure_ascii=False,allow_nan=False)+'\n').encode()
     output.mkdir(mode=0o700)
     for name,raw in payloads.items():
         with (output/name).open('xb')as stream:

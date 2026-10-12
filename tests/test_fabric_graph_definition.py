@@ -32,6 +32,23 @@ class Tests(unittest.TestCase):
    self.assertEqual({part['path']for part in definition['parts']},{'dataSources.json','graphDefinition.json','graphType.json','stylingConfiguration.json'})
    for part in definition['parts']:
     self.assertEqual(part['payloadType'],'InlineBase64');self.assertEqual(base64.b64decode(part['payload']), (output/part['path']).read_bytes())
+   self.assertEqual(len(list(output.iterdir())),5)
    before=(output/'definition.json').read_bytes()
    with self.assertRaises(FileExistsError):prepare_fabric_graph_definition(ROOT+'release_nodes',ROOT+'release_edges',output)
    self.assertEqual((output/'definition.json').read_bytes(),before)
+
+ def test_display_name_command_emits_complete_create_request(self):
+  with tempfile.TemporaryDirectory()as tmp:
+   output=Path(tmp).resolve()/'definition'
+   argv=['ashlar','prepare-fabric-graph-definition','--nodes',ROOT+'release_nodes','--edges',ROOT+'release_edges','--output',str(output),'--display-name','Ashlar release 1']
+   with patch('sys.argv',argv),contextlib.redirect_stdout(io.StringIO()):cli.main()
+   request=json.loads((output/'create-request.json').read_bytes())
+   self.assertEqual(set(request),{'displayName','definition'})
+   self.assertEqual(request['displayName'],'Ashlar release 1')
+   self.assertEqual(request['definition'],json.loads((output/'definition.json').read_bytes()))
+ def test_invalid_display_name_refuses_before_output_creation(self):
+  with tempfile.TemporaryDirectory()as tmp:
+   output=Path(tmp).resolve()/'definition'
+   for name in ('','   ','bad\nname'):
+    with self.assertRaises(ValueError):prepare_fabric_graph_definition(ROOT+'release_nodes',ROOT+'release_edges',output,display_name=name)
+    self.assertFalse(output.exists())
