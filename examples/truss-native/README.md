@@ -575,3 +575,9 @@ command polls the ordinary public feed and publishes new arrivals using the
 same destination and publication chain. This is one total wait budget, with at
 most eight pages; the default zero keeps immediate finite execution. Empty
 intervals are never published or acknowledged.
+
+Catalog-only native transactions retain their complete source page and advance
+publication progress even when they produce no graph mutations. Their empty
+effect plan is journaled under the same writer policy and complete snapshot
+checks as a nonempty plan. Recovery requires that original journal entry; it
+does not insert a dummy Delta write or skip the transaction before source ACK.

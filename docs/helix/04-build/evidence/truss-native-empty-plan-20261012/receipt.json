@@ -1,0 +1,20 @@
+{
+  "format": "ashlar-truss-native-empty-plan-failure/0.1",
+  "source_commit": "5def5644bdb4cbb3db5b3aec594251e6a93f9a4f",
+  "exit_code": 2,
+  "actual_setup_report_present": true,
+  "actual_mutation_report_present": true,
+  "source_server_pid_file_absent_after_exit": true,
+  "publication_result_present": false,
+  "retained_attempt_phases": [
+    "prepared",
+    "applying"
+  ],
+  "retained_generated_steps": 0,
+  "retained_selected_steps": 0,
+  "retained_whole_effect_plans": 0,
+  "retained_publication_artifacts": 0,
+  "diagnosis": "The retained catalog-only source plan reaches applying with no graph effects. LocalDeltaEffects.original_plan rejected an empty list before retaining the whole effect plan. The CLI did not preserve the underlying exception; diagnosis uses journal state and the deterministic code boundary.",
+  "fix": "Admit the exact empty plan under original writer/policy, journal and full snapshot checks; keep missing-plan recovery refusal.",
+  "qualification": "Actual local Truss setup and Note mutation reached Spark publication, which failed. No completed publication or ACK success claimed. No native retry after the fix; focused seam coverage only. Source and journal payloads remain private."
+}
