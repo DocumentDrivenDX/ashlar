@@ -1,0 +1,62 @@
+{
+  "profile": "ashlar-supply-chain-native-02-design/0.1",
+  "status": "Desired interface only; no source/native/runtime edits",
+  "command": "ashlar run-supply-chain-native --configuration /ABSOLUTE/EXPLICIT/configuration.json",
+  "configuration": {
+    "profile0.1": "Exactly existing closed fields; two_hop absent and native.two_hop None. Existing five-case API/result unchanged.",
+    "profile0.2": "Same exact fields plus mandatory nonnull two_hop object. Unknown members/missing/null/substitute/bool/nonfinite/duplicates refuse before output/runtime/native acquisition.",
+    "two_hopKeys": [
+      "distribution",
+      "maximum_artifact_bytes",
+      "capture",
+      "decoder"
+    ],
+    "distributionKeys": [
+      "index",
+      "installation"
+    ],
+    "captureKeys": [
+      "maximum_rows",
+      "maximum_cell_bytes",
+      "maximum_total_cell_bytes"
+    ],
+    "decoderKeys": [
+      "maximum_cell_bytes"
+    ],
+    "bounds": {
+      "artifact": "exact int1..16MiB, proposed selected1MiB",
+      "rows": "exact int1..128 for tiny original profile",
+      "cell": "exact int1..16MiB and <=total, selected1MiB",
+      "total_cell": "exact int1..16MiB selected16MiB",
+      "decoder": "exact int1..16MiB selected1MiB",
+      "invocationBytes": 65536,
+      "completeProtocolSinkBytes": 8388608,
+      "completeNativeSinkBytes": 67108864,
+      "finalReportBytes": 67108864
+    },
+    "custody": "Both compiler index/installation paths canonical absolute, no symlink, packageNone; nativeoutput/config separation includes both compiler selections. Built-in public index trust pins/platform profiles remain unchanged."
+  },
+  "publicTypes": {
+    "SupplyChainNativeConfig": "Append optional two_hop: Optional[SupplyChainTwoHopQueryConfig]=None. Exacttype when supplied; no proxy/subclass/default factory.",
+    "SupplyChainNativeInvocation": "Retain default profile0.1 for old native-only constructor, explicit profile0.2 requires typed native.two_hop and profile0.1 rejects it. Parser retains exact profile selection.",
+    "typedConstruction": "PathsDistributionPaths(index,installation,package=None), PathCaptureConfig(row,cell,total), PathDecodeConfig(cell), SupplyChainTwoHopQueryConfig(distribution,artifact,capture,decoder)."
+  },
+  "composition": "In publish_query_supply_chain_native, after actual finite publication/exact unchanged replay/ReadOnlyTransport.open and reader.restore_committed, run existing five cases then public query_supply_chain_two_hop on SAME reader/pack/aliases. No new publication/source/session/compiler install, raw SQL fallback, monkeypatch, private caller domain or supplied schema/source validator. All outputs provisional until existing outer source/lease/transport/compiler/runtime/session/config closing succeeds.",
+  "retention": "Owning sink retains required twelve ordinals x two complete request/response byte views, bounded BEFORE observation; reuse unchanged existing8MiB aggregate compiler observation cap across countstar and Paths captures. Preserve five native observations and complete twelve twohop evidence under existing64MiB native capture cap; exact final report cap64MiB. No truncation/success prefixes. Descriptor/vector/source matches shared owners at every query/closing.",
+  "result": "Keep cases as original five-case array; add two_hop complete twelve-query evidence only for profile0.2 and summary two_hop_queries=12. Other six common graph cases, PG/ACK/Truss/cloud/remote authority remain separate.",
+  "ownership": [
+    "src/ashlar_host/supply_chain_native_cli.py",
+    "src/ashlar_host/supply_chain_native.py",
+    "tests/test_supply_chain_native_cli.py",
+    "tests/test_supply_chain_native_integration.py (new)"
+  ],
+  "governingPrerequisite": "CONTRACT002 desired amendment must bind installed invocation profiles and outer sink/closing ownership; public command remains same. P08/P09 completion still requires actual installed/native evidence independently reviewed.",
+  "tests": [
+    "Old0.1 exact parser/constructor/report preservation and no Paths import/call",
+    "0.2 exact nested parser/type/cap/path separation; unknown/duplicate/nonfinite/Boolean/missing/null/distribution package injection refuse before runtime/effects",
+    "Actual outer lifecycle with inert lower native ports proves BOTH helper routes same real restored driver/context and allclosing before report",
+    "Observation cap failure/cancel/second query error withholds combinedreport and independently attempts transport/source/installation/session/config closings, exactprimary retained",
+    "Public helper owning tests retain twelvepair inventory/emptyrows/parallelIDs/scalarlexical/null/truncation/refusal and current vector/source/schema drift",
+    "Later one finite installed native run retains10countstar+24Paths recompiles, full5+12 independent native bags, exactreplay and fresh readonlyrestore, no broaderclaim"
+  ]
+}

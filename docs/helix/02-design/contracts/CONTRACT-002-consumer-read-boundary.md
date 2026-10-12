@@ -62,6 +62,66 @@ publication, compiler installation or ACK authority. It qualifies only the
 two-hop case; the other six common graph cases retain their separate required
 positive executions.
 
+### Installed supply-chain native invocation
+
+`ashlar run-supply-chain-native --configuration PATH` MUST accept a closed,
+explicit JSON configuration of at most 65,536 bytes. Profile
+`ashlar-original-supply-chain-native-invocation/0.1` retains its existing fields
+and five authored query results; it MUST NOT accept `two_hop`. Profile
+`ashlar-original-supply-chain-native-invocation/0.2` MUST require the same fields
+plus a nonnull `two_hop` object. No profile fallback is permitted.
+
+The base fields are exactly `profile`, `output`, `jars`, `pack`, `model`,
+`graph`, `producer`, `compiler` and `operation_capacity`. The five path fields
+select the fresh output directory, local Delta JAR directory and original pack,
+model and graph files, respectively; all MUST be absolute nonsymlink paths.
+`producer` contains exactly `source`, `bun`, `git` (explicit absolute source
+checkout and executable paths), `timeout_seconds` (integer 1–60),
+`maximum_output_bytes` (integer 1–1,048,576) and `maximum_receipt_bytes`
+(exactly 8,388,608 for this complete original-dataset profile). `compiler`
+contains exactly `index` and `installation`, explicit absolute nonsymlink paths
+to the installed count compiler selection. `operation_capacity` is either null
+for the existing base capacity or exactly
+`{"profile":"ashlar-private-local-operation-capacity/0.1","max_intent_bytes":8388608}`.
+Integer tokens MUST be canonical nonnegative decimal tokens of at most eight
+digits; fractional and nonfinite tokens MUST refuse. Every path string MUST be
+nonempty and at most 4096 characters; configuration supplies no compiler package
+or ambient path discovery.
+
+The `two_hop` object MUST contain exactly `distribution`,
+`maximum_artifact_bytes`, `capture` and `decoder`. `distribution` contains exactly
+`index` and `installation`, each a canonical absolute nonsymlink path to the
+explicit installed Paths compiler selection. `capture` contains exactly
+`maximum_rows` (integer 1–128), `maximum_cell_bytes` and
+`maximum_total_cell_bytes` (integers 1–16 MiB, cell no greater than total).
+`decoder` contains exactly `maximum_cell_bytes` (integer 1–16 MiB).
+`maximum_artifact_bytes` is an integer 1–16 MiB. Duplicate keys, unknown members,
+missing values, booleans used as integers, nonfinite numbers and incompatible
+path aliases MUST refuse before acquiring runtime or creating output.
+Output and configuration custody MUST remain disjoint from both selected
+compiler indexes/installations and the original source inputs.
+
+The native composition MUST execute the five authored queries followed by all
+twelve two-hop queries through the same restored read-only driver, original
+pack, aliases, publication vector and source/installation lease. The five
+`cases` retain their existing shape. Profile 0.2 additionally returns complete
+`two_hop` evidence and `two_hop_queries` equal to twelve; profile 0.1 retains its
+existing result shape. A new publication, substituted driver or raw SQL fallback
+MUST NOT stand in for this composition.
+
+The compiler evidence sink MUST retain ten count-protocol and twenty-four Paths
+protocol records under one unchanged 8 MiB aggregate bound. Each request and
+response byte view MUST satisfy both its selected artifact bound and the sink's
+1 MiB per-view bound before observation. Hex encoding and complete record bytes
+count toward the aggregate bound. Native evidence and the final report each
+have a 64 MiB complete-byte bound. Exceeding a bound MUST withhold the combined
+report, without truncation or a successful prefix. Query, observer, cancellation
+and closing failures MUST preserve the primary failure while independently
+attempting original source, reader, transport, compiler, lease, runtime/session
+and configuration closing checks. Results become complete only after all those
+checks succeed. These invocation profiles create no Truss, ACK or remote-engine
+authority.
+
 ## Scope and Boundaries
 
 Ashlar owns the read outcome and observable publication boundary. The execution

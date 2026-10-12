@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-supply-chain-native-invocation-02-design-evidence/0.1",
+  "scope": "Desired invocation design and independent contract review only. No installed/native execution qualification.",
+  "files": [
+    {
+      "file": "design.json",
+      "bytes": 4890,
+      "sha256": "47f6beb8e35858169d85eef01931a4d99a7a3c1200666ce195544b2db40cdd12"
+    },
+    {
+      "file": "contract-review.json",
+      "bytes": 1512,
+      "sha256": "dc7865b77a97bd953bd6ae3db6efbef024b9b4def4b90d57ac96de673b10ce58"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "decision": "approved",
+  "profile": "ashlar-supply-chain-native-02-contract-review/0.1",
+  "contract_sha256": "9159ec33f703245a090851700c55b8883c891c174385208b61adb3131dedacbb",
+  "design_sha256": "47f6beb8e35858169d85eef01931a4d99a7a3c1200666ce195544b2db40cdd12",
+  "resolved_findings": [
+    "SC-DOC1 five authored query results correctly preserves original query repertoire",
+    "SC-DOC2 complete closed base/producer/compiler/capacity fields now named"
+  ],
+  "checks": [
+    "Existing committed0.1 parser exact closed keys and eight-digit canonical integer lexer compared",
+    "Producer bounds1..60/1..1048576 and NativeConfig minimum8MiB plus ProducerConfig maximum8MiB imply exact8388608 receipt budget",
+    "Existing nullbasecapacity or exactnamed8MiB operationprofile preserved",
+    "Explicit0.2 distribution/capture/decoder fields and bounds align frozen design",
+    "Pathstring4096bound/absolute/nosymlink and output/config/source/compiler separation named",
+    "Original fivecases +complete12twohop evidence same restoredreadonly driver/source/lease/vector",
+    "10+24 protocol views under shared8MiB/1MiBviewbound, complete64MiB sinks, allindependent closing and no successfulprefix",
+    "Contract diffcheck clean"
+  ],
+  "qualification": "Desired-state documentation review only; concurrent implementation requires own frozen review and actual installed/native workflow evidence. No source edits or SDK/native effects, no positive execution/remoteauthority claim.",
+  "findings": []
+}
