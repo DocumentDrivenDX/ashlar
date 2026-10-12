@@ -32,3 +32,12 @@ class Tests(unittest.TestCase):
         self.assertTrue(all(row['entity_version']=='2'for row in following['tombstone']))
         replay,repeated=self.project(deleted,following,delete=True)
         self.assertEqual(repeated,following);self.assertEqual(replay,deleted)
+
+    def test_wrong_published_prior_edge_order_refuses_without_mutating_rows(self):
+        from ashlar_host.truss_note_publication import validate_graph_edge_orders
+        columns=fixture_columns(RESOURCE_ROOT);created,rows=self.project(empty_state(),{role:[]for role in columns})
+        rows['edge_current'][0]['order_key']=None
+        original=json.dumps(rows,sort_keys=True)
+        _,parsed,_=test_truss_edge_feed.Tests().batch(delete=True)
+        with self.assertRaises(ValueError):validate_graph_edge_orders(rows,parsed.changes,parsed.event_bytes)
+        self.assertEqual(json.dumps(rows,sort_keys=True),original)

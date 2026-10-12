@@ -75,8 +75,35 @@ def read_page(connection_factory,consumer_id):
     return page
 
 
+
+def validate_graph_edge_orders(previous,changes,event_bytes):
+    """Validate original edge before-order against published rows before any effects."""
+    events={}
+    for raw in event_bytes:
+        event=json.loads(raw)
+        if event['operation']!='property':events[event['xid']+':'+event['seq']]=event
+    known={(row['source_system'],row['rel_type_id'],row['id']):row['order_key']for row in previous['edge_current']}
+    delivered={(row['feed'],row['epoch'],row['delivery_id'])for row in previous['whole_source_history']}
+    def order(image):
+        selected=image.get('orderKey')
+        if selected=={'state':'null'}:return None
+        if type(selected)is dict and set(selected)=={'state','text'}and selected['state']=='text'and type(selected['text'])is str:return selected['text']
+        raise ValueError('Original closed edge order-key state required')
+    for change in changes:
+        if change.state.key.kind!='edge'or (change.feed,change.epoch,change.delivery_id)in delivered:continue
+        key=change.state.key;identity=(key.source,str(key.type_id),str(key.id));event=events[change.delivery_id]
+        if change.operation=='create':
+            if identity in known:raise ValueError('Original edge creation already has published state')
+            known[identity]=order(event['after'])
+        else:
+            if identity not in known or order(event['before'])!=known[identity]:raise ValueError('Original edge before-order differs from published current row')
+            if change.operation=='delete':del known[identity]
+            else:known[identity]=order(event['after'])
+
+
 def graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes,edge_order_keys=()):
     """Independent full source-image projection; never copy proposed SQL rows."""
+    validate_graph_edge_orders(previous,changes,event_bytes)
     result=json.loads(encoded(previous));fresh=[change for change in changes if not any(row['delivery_id']==change.delivery_id and row['feed']==change.feed and row['epoch']==change.epoch for row in previous['whole_source_history'])]
     originals={}
     for raw in event_bytes:
@@ -159,6 +186,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:tables[role]for role in graph_columns}
+            validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
             following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
             steps,elisions=local_effect_plan(generated,expected,graph_tables)

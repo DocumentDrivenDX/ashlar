@@ -431,8 +431,10 @@ these extraction and custody APIs alone do not perform that workflow.
 identities and null/text order keys. Native Delta planning materializes those
 order keys and retains complete lifecycle event bytes. It still requires an
 independent schema-admission policy; the Note consumer remains object-only.
-`ApplyState` does not carry edge ordering, so its pure checks do not establish
-prior order-key transition or deletion parity.
+`ApplyState` does not carry edge ordering. The native graph publisher checks
+original before-image order keys against its previously published physical edge
+rows before planning effects, including updates and deletion. Pure apply checks
+alone do not establish that parity.
 
 `ashlar_host.truss_graph_admission.TrussGraphAdmission(batch, catalog_views)`
 admits rootless STRING records and empty-property directed independent edges.
