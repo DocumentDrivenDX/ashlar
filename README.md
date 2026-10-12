@@ -25,6 +25,11 @@ python3 -m pip install .
 ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
 ```
 
+For local Delta ingest and Weft queries, follow the
+[supply-chain workflow](examples/supply-chain-native/README.md).
+`ashlar configure-supply-chain-native` generates the configuration consumed by
+`ashlar run-supply-chain-native`.
+
 Build a candidate transaction from the original commerce domain-pack inputs:
 
 ```sh

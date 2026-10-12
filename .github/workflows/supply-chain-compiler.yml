@@ -16,6 +16,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_installed_request test_supply_chain_path_request test_supply_chain_common_requests test_supply_chain_two_hop_query test_supply_chain_native_integration test_supply_chain_binary_evidence
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_installed_oracle.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_cli.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_supply_chain_configuration
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_count_star_execution.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_finite_native.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_finite_pack test_archaeology_graph_oracle test_ecology_graph_oracle

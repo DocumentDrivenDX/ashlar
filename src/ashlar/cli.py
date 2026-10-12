@@ -117,6 +117,9 @@ def main():
     for name in ('publish-finite-pack','query-finite-pack'):
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
+    supply_configuration=commands.add_parser('configure-supply-chain-native',help='Print a local five-query and two-hop configuration; no engine execution')
+    for option in ('output','jars','pack','model','graph','producer-source','bun','git','count-star-index','count-star-installation','paths-index','paths-installation'):
+        supply_configuration.add_argument('--'+option,required=True)
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
@@ -166,6 +169,14 @@ def main():
         except Exception:
             print('ashlar original local operation refused',file=sys.stderr)
             raise SystemExit(2)from None
+        return
+    if args.command == 'configure-supply-chain-native':
+        from ashlar_host.supply_chain_configuration import make_supply_chain_native_configuration
+        try:
+            raw=make_supply_chain_native_configuration(**{name:getattr(args,name)for name in ('output','jars','pack','model','graph','producer_source','bun','git','count_star_index','count_star_installation','paths_index','paths_installation')})
+        except ValueError as error:
+            parser.error(str(error))
+        sys.stdout.write(raw.decode('utf-8'))
         return
     if args.command == 'run-supply-chain-native':
         from ashlar_host.supply_chain_native_cli import run_supply_chain_native_command
