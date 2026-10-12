@@ -1,0 +1,32 @@
+{
+  "beforeCommit": "a514f465",
+  "defect": "A suppressing held interval could turn integrity, transport, authority or result rejection into a returned native result. Separate closing failure replaced original body failure.",
+  "validation": {
+    "command": "PYTHONPATH=src:tests:tools /private/tmp/truss-security-pg18-r2-20261011/bin/python -m unittest test_weft_query",
+    "tests": 6,
+    "result": "pass",
+    "seconds": 0.135,
+    "skips": 0
+  },
+  "independentReview": {
+    "model": "gpt-6-astra",
+    "reasoning": "ultra",
+    "result": "No actionable findings",
+    "reviewerControls": "18 propagation/suppression/closing controls, original exception identity and single exit, including BaseException subclasses; read-only review, not native execution"
+  },
+  "acceptanceTraceability": [
+    {
+      "case": "ashlar.L11",
+      "covers": "US-057-AC7",
+      "caseClosed": false,
+      "partialAssertion": "Original admission or result refusal cannot be suppressed into returned buffered/native output"
+    }
+  ],
+  "scope": "Ashlar buffered Weft adapter local failure preservation and synthetic publication/pin/policy fixtures, plus existing original pinned compiler control. No actual Databricks end-user policy, native authority guard, final sink or complete backend security qualification. Original 132 required cases remain in scope.",
+  "sourceSha256": {
+    "src/ashlar/weft_query.py": "ba964b61fc528b0cb2c8b97feb1e36ae4b218dee196763a690b4a6fe79d5159c",
+    "tests/test_weft_query.py": "2584affe19249d438ed9da40c842eef029747956462941200f5f91c2491035c3",
+    "docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md": "a1f3d2b9eddcc949a948e2ed7afaf833e8ad471fbd00dbe7f10e187a6361c081",
+    "docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json": "d50fcba81aa58a8803257c08c2099cdcd33204ae7a8c2cc84625a5fca8c818dd"
+  }
+}

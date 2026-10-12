@@ -56,6 +56,44 @@ class WeftQueryTests(unittest.TestCase):
             if failure in ['unknown','profile']:self.assertEqual(e.calls,[])
             if failure=='integrity':self.assertEqual(len(e.calls),1)
 
+    def test_interval_cannot_suppress_original_query_refusal(self):
+        from contextlib import contextmanager
+        for failure in ['integrity','transport','authority','result']:
+            q,a,p,e,policy=self.setup()
+            @contextmanager
+            def suppress(vector,*,context):
+                p.active=True
+                try:
+                    try:yield
+                    except BaseException:pass
+                finally:p.active=False
+            p.hold=suppress
+            if failure=='integrity':e.violate=True
+            if failure=='transport':e.fail_type=True
+            if failure=='authority':policy.deny_after=True
+            if failure=='result':
+                def deny(*args):raise PermissionError('Result refused')
+                policy.authorize_result=deny
+            with self.subTest(failure=failure),self.assertRaises((ResolutionError,PermissionError)):
+                self.read(q,a,p,e,policy)
+            self.assertFalse(p.active)
+
+    def test_closing_failure_preserves_original_authority_refusal(self):
+        from contextlib import contextmanager
+        q,a,p,e,policy=self.setup();policy.deny_after=True
+        @contextmanager
+        def fail_close(vector,*,context):
+            p.active=True
+            try:yield
+            finally:
+                p.active=False
+                raise ResolutionError('Closing failed')
+        p.hold=fail_close
+        with self.assertRaisesRegex(PermissionError,'Authority expired') as failure:
+            self.read(q,a,p,e,policy)
+        self.assertIsInstance(failure.exception.__cause__,ResolutionError)
+        self.assertFalse(p.active)
+
     def test_record_integrity_requires_explicit_host_admission_before_sql(self):
         for outcome in ['missing','deny','incomplete','admitted','violation']:
             q,a,p,e,policy=self.setup()

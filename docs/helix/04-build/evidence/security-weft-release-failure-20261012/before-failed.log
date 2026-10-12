@@ -1,0 +1,73 @@
+FFFFE
+======================================================================
+ERROR: test_closing_failure_preserves_original_authority_refusal (test_weft_query.WeftQueryTests.test_closing_failure_preserves_original_authority_refusal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 87, in fail_close
+    try:yield
+        ^^^^^
+  File "/private/tmp/ashlar-security-main-integration/src/ashlar/weft_query.py", line 81, in read_weft
+    admit()
+  File "/private/tmp/ashlar-security-main-integration/src/ashlar/weft_query.py", line 58, in admit
+    if call() is not None:raise ResolutionError('Incomplete Weft host admission')
+       ^^^^^^
+  File "/private/tmp/ashlar-security-main-integration/src/ashlar/weft_query.py", line 57, in <lambda>
+    lambda:policy.authorize_query(request,resolved.descriptor,context)]:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 20, in authorize_query
+    if self.deny_after and self.checks>1:raise PermissionError('Authority expired')
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: Authority expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 93, in test_closing_failure_preserves_original_authority_refusal
+    self.read(q,a,p,e,policy)
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 39, in read
+    return read_weft(e,FakeBackend(),p,PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6)}),policy,request=q,artifact=a,context='authorized',supported_profiles=['ashlar-delta/0.3'],supported_revisions={'source':['r1']})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-security-main-integration/src/ashlar/weft_query.py", line 49, in read_weft
+    with pins.hold(vector,context=context):
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 90, in fail_close
+    raise ResolutionError('Closing failed')
+ashlar.publication.ResolutionError: Closing failed
+
+======================================================================
+FAIL: test_interval_cannot_suppress_original_query_refusal (test_weft_query.WeftQueryTests.test_interval_cannot_suppress_original_query_refusal) (failure='integrity')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 77, in test_interval_cannot_suppress_original_query_refusal
+    with self.subTest(failure=failure),self.assertRaises((ResolutionError,PermissionError)):
+AssertionError: (<class 'ashlar.publication.ResolutionError'>, <class 'PermissionError'>) not raised
+
+======================================================================
+FAIL: test_interval_cannot_suppress_original_query_refusal (test_weft_query.WeftQueryTests.test_interval_cannot_suppress_original_query_refusal) (failure='transport')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 77, in test_interval_cannot_suppress_original_query_refusal
+    with self.subTest(failure=failure),self.assertRaises((ResolutionError,PermissionError)):
+AssertionError: (<class 'ashlar.publication.ResolutionError'>, <class 'PermissionError'>) not raised
+
+======================================================================
+FAIL: test_interval_cannot_suppress_original_query_refusal (test_weft_query.WeftQueryTests.test_interval_cannot_suppress_original_query_refusal) (failure='authority')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 77, in test_interval_cannot_suppress_original_query_refusal
+    with self.subTest(failure=failure),self.assertRaises((ResolutionError,PermissionError)):
+AssertionError: (<class 'ashlar.publication.ResolutionError'>, <class 'PermissionError'>) not raised
+
+======================================================================
+FAIL: test_interval_cannot_suppress_original_query_refusal (test_weft_query.WeftQueryTests.test_interval_cannot_suppress_original_query_refusal) (failure='result')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 77, in test_interval_cannot_suppress_original_query_refusal
+    with self.subTest(failure=failure),self.assertRaises((ResolutionError,PermissionError)):
+AssertionError: (<class 'ashlar.publication.ResolutionError'>, <class 'PermissionError'>) not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.009s
+
+FAILED (failures=4, errors=1)

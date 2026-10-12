@@ -1,8 +1,27 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
+from contextlib import contextmanager
 from .publication import resolve_publication,ResolutionError
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
+
+@contextmanager
+def _preserve_body_failure(manager):
+    """Original refusal survives suppression or a separate closing failure."""
+    original = None
+    try:
+        with manager:
+            try:
+                yield
+            except BaseException as error:
+                original = error
+                raise
+    except BaseException as closing:
+        if original is not None and closing is not original:
+            raise original from closing
+        raise
+    if original is not None:
+        raise original
 
 def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,supported_profiles,supported_revisions):
     """Policy owns exact compiler custody, native profile, source visibility and decoding.
@@ -46,7 +65,7 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     if not isinstance(columns,list) or not columns or any(c.get('position')!=i for i,c in enumerate(columns,1)):
         raise ResolutionError('Complete ordered Weft result descriptors required')
     publication=obligations['ashlar.candidate.publication']['parameters']['publication']
-    with pins.hold(vector,context=context):
+    with _preserve_body_failure(pins.hold(vector,context=context)):
         resolved=resolve_publication(backend,publication['id'],{t:p[0] for t,p in vector.targets.items()},context=context,supported_profiles=supported_profiles,supported_revisions=supported_revisions)
         if any(resolved.snapshots[t].version!=pair[1] for t,pair in vector.targets.items()):
             raise ResolutionError('Weft read differs from complete held publication')
