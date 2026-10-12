@@ -262,10 +262,20 @@ commits; the installer's original `pending_commit` field is retained as returned
 No connection URI or credential is output. Partial local data remains on failure;
 do not reset it or retry blindly.
 
-For later work, restart the retained directory with a **new public**
-`LocalPostgres` context and obtain its current connection URI. Socket locations
-can change: never cache the bootstrap run's URI. For example, run the Note edit
-library example while the restarted server is owned:
+Keep the initialized server running in one terminal:
+
+```sh
+ashlar serve-truss-local --data-directory /absolute/private/local-note-data
+```
+
+The foreground command prints the public SDK's current connection URI after
+startup. Use that URI for administrator operations and the same endpoint with
+the `ashlar_note_consumer` user for ordinary operations in another terminal.
+Ctrl-C or SIGTERM stops its owned server. An existing server marker is refused;
+the command does not attach to another running server.
+
+Socket locations can change between runs, so obtain the current URI each time.
+Applications can instead own a public `LocalPostgres` context directly:
 
 ```python
 import json, runpy

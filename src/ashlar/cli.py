@@ -106,6 +106,8 @@ def main():
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss Note installation and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
+    truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')
+    truss_server.add_argument('--data-directory',required=True)
     verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
     for option in ('configuration', 'provider', 'provider-sha256'):
         verification.add_argument('--' + option, required=True)
@@ -225,6 +227,14 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar commerce graph export refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'serve-truss-local':
+        try:
+            from ashlar_host.truss_local_server import run_serve_truss_local_command
+            run_serve_truss_local_command(args.data_directory)
+        except Exception:
+            print('ashlar local Truss server refused; inspect the selected initialized directory and runtime',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'setup-truss-local':
