@@ -1,9 +1,18 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
+import inspect
 from contextlib import contextmanager
 from .publication import resolve_publication,ResolutionError
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
+
+def _completed_decode(value):
+    if inspect.isgenerator(value) or inspect.iscoroutine(value):
+        value.close()
+        raise ResolutionError('Completed synchronous Weft decoding required')
+    if inspect.isasyncgen(value) or inspect.isawaitable(value):
+        raise ResolutionError('Completed synchronous Weft decoding required')
+    return value
 
 @contextmanager
 def _preserve_body_failure(manager):
@@ -94,7 +103,7 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                 raise ResolutionError('Exact Weft row inventory required')
             if any(row[c['outputName']] is None and c.get('nullable') is not True for c in columns):
                 raise ResolutionError('Unexpected null Weft carrier')
-            buffered.append(tuple(policy.decode_result(column,row[column['outputName']],request,context) for column in columns))
+            buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context)) for column in columns))
         if backend.validate_descriptor(resolved.descriptor,context) is not None or backend.authorize(context,publication['id'],tuple(vector.targets)) is not None:
             raise ResolutionError('Weft publication or authority expired')
         admit()

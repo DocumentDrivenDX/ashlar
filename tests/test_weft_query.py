@@ -78,6 +78,28 @@ class WeftQueryTests(unittest.TestCase):
                 self.read(q,a,p,e,policy)
             self.assertFalse(p.active)
 
+    def test_deferred_decoder_never_escapes_held_interval(self):
+        q,a,p,e,policy=self.setup();events=[];deferred=[]
+        def cold():
+            events.append('deferred body');yield 'unprotected'
+        def decoder(*args):
+            value=cold();deferred.append(value);return value
+        policy.decode_result=decoder
+        with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+        self.assertFalse(p.active);self.assertEqual(events,[])
+        self.assertEqual(len(deferred),1);self.assertIsNone(deferred[0].gi_frame)
+
+    def test_deferred_coroutine_decoder_is_closed_without_execution(self):
+        q,a,p,e,policy=self.setup();events=[];deferred=[]
+        async def cold():
+            events.append('deferred body');return 'unprotected'
+        def decoder(*args):
+            value=cold();deferred.append(value);return value
+        policy.decode_result=decoder
+        with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+        self.assertFalse(p.active);self.assertEqual(events,[])
+        self.assertEqual(len(deferred),1);self.assertIsNone(deferred[0].cr_frame)
+
     def test_closing_failure_preserves_original_authority_refusal(self):
         from contextlib import contextmanager
         q,a,p,e,policy=self.setup();policy.deny_after=True

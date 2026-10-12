@@ -1,0 +1,36 @@
+{
+  "beforeCommit": "7148ca408d6be37d13de32e6a2438107b32a714f",
+  "defect": "Top-level cold generator returned by decoding escaped after held publication interval closed.",
+  "validation": {
+    "command": "PYTHONPATH=src:tests:tools /private/tmp/truss-security-pg18-r2-20261011/bin/python -m unittest test_weft_query",
+    "tests": 8,
+    "result": "pass",
+    "seconds": 0.1,
+    "skips": 0
+  },
+  "independentReview": {
+    "model": "gpt-6-astra",
+    "reasoning": "ultra",
+    "result": "No actionable findings in top-level deferred-result scope",
+    "supplementalControls": "Async generators and custom awaitables refused; failing generator cleanup withholds result and closes interval; read-only review, no native mutation"
+  },
+  "acceptanceTraceability": [
+    {
+      "case": "ashlar.L04",
+      "covers": "US-057-AC2",
+      "caseClosed": false,
+      "partialAssertion": "Deferred decoded cells cannot escape buffered held interval"
+    },
+    {
+      "case": "ashlar.L11",
+      "covers": "US-057-AC7",
+      "caseClosed": false,
+      "partialAssertion": "Incomplete decoding refuses before result release"
+    }
+  ],
+  "scope": "Local Ashlar Weft adapter, synthetic held pins/publication/policy and existing pinned compiler control. Top-level deferred values only. Cold generator/coroutine tests establish no body execution; closing an already-started generator may execute its cleanup while held. Recursive carriers, actual native policy and full backend admission remain unqualified. Original 132 required cases retained.",
+  "sourceSha256": {
+    "src/ashlar/weft_query.py": "2ebea3bc78743ed964494f4cf4822d8bd1a90080c569367f965f05516c5c526f",
+    "tests/test_weft_query.py": "4947ff62d2e1e2cdb003ac809c958cdf8a2b1f01f83bad9b737fcb1786e07e17"
+  }
+}
