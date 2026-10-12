@@ -166,3 +166,52 @@ before an operator-chosen recovery; no automatic retry or reset occurs. This
 source example passed a [small native run](../../docs/helix/04-build/evidence/truss-graph-change-20261012/README.md)
 in 1.1 seconds. It does not broaden feed/query/import
 support.
+
+## Edit an object's non-key text
+
+[note.umf.json](note.umf.json) is an explicitly authored original UMF 0.7 schema:
+`ashlar-note` / module `notes` / record `Note`. Required string `note-id` is the
+primary key; required string `note-text` is **not** a key. It uses the supported
+public scalar-string catalog shape, not a conversion of another corpus.
+
+First use `accept-schema.py` with this original document (`document_id`:
+`ashlar-note`, revision `r1`) and a new registration request key. This is an
+**additional document**, not evolution of an existing accepted definition. An
+administrator must separately configure current module access for
+`ModuleAccessGrant('ashlar-note', 'notes', reader_role, writer_role)` and give your
+ordinary actor the real reader/writer memberships as described above.
+
+Then select this private edit configuration:
+
+```json
+{
+  "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/note.umf.json",
+  "document_revision": "r1",
+  "origin_path": "/absolute/path/to/string-origin.json",
+  "create_request_key": "create-note-v1",
+  "update_request_key": "edit-note-v1",
+  "key": "note-1",
+  "text": "Original text",
+  "updated_text": "Edited text"
+}
+```
+
+```sh
+python examples/truss-native/edit-object.py \
+  --configuration /absolute/path/to/private-edit.json \
+  --output /absolute/path/to/fresh-edit-readback.json
+```
+
+The example resolves the current accepted type, creates one Note, commits and
+reads its exact values/version. It changes only `note-text` using `UpdateObject`
+and the actual expected version, commits and checks full values, unchanged key,
+identity, retained fields and the incremented version. Both complete original
+group results and committed receipt replay evidence are preserved, with byte
+carriers remaining Base64. No IDs/profile pins are fabricated, no schema is
+rewritten, and no stringification fallback is used. Commit uncertainty requires
+operator inspection before any retry. A [small native run](../../docs/helix/04-build/evidence/truss-object-edit-20261012/README.md)
+passed in 5.8 seconds, including document addition, non-key update and committed
+receipt replays. It
+claims no schema evolution, feed/import/query or ACK support.

@@ -19,7 +19,7 @@ for explicit fixture setup, six-table initialization, publication and all four
 unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
 retains its separate supplier-relationship qualification.
 Use the [public Truss examples](examples/truss-native/README.md) for schema
-acceptance, graph creation/readback/replay, edge updates and graph deletion on
+acceptance, graph creation/readback/replay, object/edge updates and graph deletion on
 the supported local Truss runtime.
 
 Install the candidate toolkit locally (Python3.9+):
