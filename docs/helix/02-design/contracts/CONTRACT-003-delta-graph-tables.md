@@ -676,7 +676,8 @@ actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessi
 A separately named ordinary-authentication HTTP profile MAY use the operator's
 already authenticated Azure CLI without admitting a complete SDK/runtime file
 inventory. Its immutable configuration MUST explicitly select the executable,
-private CLI configuration directory, subscription, tenant, delegated account,
+operator-owned CLI configuration directory without group/other write access,
+subscription, tenant, delegated account,
 workspace and graph model, with finite authentication, request, response and
 total-use limits. Tokens MUST remain private. Acquisition and closing MUST check
 the selected account; child processes MUST be bounded, terminated and reaped.
@@ -688,6 +689,8 @@ claim runtime-file custody, original source availability, publication identity,
 loaded graph correspondence or absence of intermediate refresh. Publication-bound
 GQL execution MUST still hold and renew its actual release policy independently;
 the transport MUST NOT supply a no-op policy or infer a grant from a release hash.
+Credential-cache storage protections remain the selected Azure CLI provider's
+responsibility; this profile does not inventory or qualify cache-file permissions.
 The inventory-qualified profile below remains separately selectable.
 
 ### Fabric authenticated HTTP owner

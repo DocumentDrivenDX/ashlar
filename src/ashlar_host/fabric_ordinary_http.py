@@ -79,7 +79,7 @@ def open_fabric_ordinary_http(config):
     config.__post_init__()
     if not config.azure_cli.is_file()or not os.access(config.azure_cli,os.X_OK)or not config.azure_config_dir.is_dir():raise ValueError('Selected CLI executable and configuration directory required')
     directory=config.azure_config_dir.stat()
-    if directory.st_uid!=os.geteuid()or stat.S_IMODE(directory.st_mode)&0o077:raise PermissionError('Selected CLI configuration directory must be private and owned by the current user')
+    if directory.st_uid!=os.geteuid()or stat.S_IMODE(directory.st_mode)&0o022:raise PermissionError('Selected CLI configuration directory must be user-owned and not writable by group or others')
     original=config;deadline=time.monotonic()+config.deadline_seconds
     environment={'PATH':'/usr/bin:/bin','AZURE_CONFIG_DIR':str(config.azure_config_dir),'HOME':str(Path.home())}
     def command(args):

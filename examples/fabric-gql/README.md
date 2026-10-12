@@ -337,11 +337,15 @@ performed for this example.
 
 A provider can use the separate ordinary-auth owner below instead of selecting
 SDK/runtime inventories. Select your installed Azure CLI and its signed-in
-configuration directory explicitly; login is an operator action. The owner
+operator-controlled configuration directory explicitly (current-user owned,
+not writable by group or others; standard 0755 is accepted). Login is an operator
+action. The owner
 checks the selected subscription, tenant and delegated user before use and at
 closing, obtains a private Fabric token, disables proxies/redirects, and bounds
-authentication output and HTTP responses. This example has not qualified actual
-Azure CLI login or a live authentication runtime.
+authentication output and HTTP responses. A small
+[live functional check](../../docs/helix/04-build/evidence/fabric-ordinary-http-20261012.md)
+acquired and closed authentication and read the existing R1 node count. It does
+not establish publication correspondence or broad runtime compatibility.
 
 ```python
 from pathlib import Path

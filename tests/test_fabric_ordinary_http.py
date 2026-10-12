@@ -14,6 +14,7 @@ class Tests(unittest.TestCase):
   return cfg,capture,calls,account
  def test_authenticated_post_and_closing_account(self):
   with tempfile.TemporaryDirectory()as tmp:
+   Path(tmp).chmod(0o755)
    cfg,capture,calls,_=self.fixture(tmp);response=io.BytesIO(b'{"ok":true}');response.code=200;response.headers={}
    class Opener:
     def open(self,request,timeout):
