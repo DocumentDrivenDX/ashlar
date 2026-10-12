@@ -671,6 +671,25 @@ graph correspondence remain part of the engine release protocol above.
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 
+### Fabric ordinary delegated-authentication profile
+
+A separately named ordinary-authentication HTTP profile MAY use the operator's
+already authenticated Azure CLI without admitting a complete SDK/runtime file
+inventory. Its immutable configuration MUST explicitly select the executable,
+private CLI configuration directory, subscription, tenant, delegated account,
+workspace and graph model, with finite authentication, request, response and
+total-use limits. Tokens MUST remain private. Acquisition and closing MUST check
+the selected account; child processes MUST be bounded, terminated and reaped.
+HTTPS MUST use normal certificate verification, refuse redirects, and restrict
+requests to the selected Fabric query endpoint and its bounded continuation.
+
+This profile establishes ordinary authenticated transport only. It MUST NOT
+claim runtime-file custody, original source availability, publication identity,
+loaded graph correspondence or absence of intermediate refresh. Publication-bound
+GQL execution MUST still hold and renew its actual release policy independently;
+the transport MUST NOT supply a no-op policy or infer a grant from a release hash.
+The inventory-qualified profile below remains separately selectable.
+
 ### Fabric authenticated HTTP owner
 
 The first `FabricHttpConfig` profile MUST select subscription-bound delegated

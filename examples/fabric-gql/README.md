@@ -332,3 +332,50 @@ and `value` as reserved identifiers. This is a convenience gallery from the
 finite R1/R2 evidence, not a replacement for the Weft compiler or a claim that
 an arbitrary current graph matches its publication. No new cloud run was
 performed for this example.
+
+### Ordinary delegated HTTP transport
+
+A provider can use the separate ordinary-auth owner below instead of selecting
+SDK/runtime inventories. Select your installed Azure CLI and its signed-in
+configuration directory explicitly; login is an operator action. The owner
+checks the selected subscription, tenant and delegated user before use and at
+closing, obtains a private Fabric token, disables proxies/redirects, and bounds
+authentication output and HTTP responses. This example has not qualified actual
+Azure CLI login or a live authentication runtime.
+
+```python
+from pathlib import Path
+from contextlib import contextmanager
+from ashlar_host.fabric_ordinary_http import (
+    FabricOrdinaryHttpConfig, open_fabric_ordinary_http,
+)
+from ashlar_host.fabric_gql_cli import FabricGqlSession
+
+@contextmanager
+def open_fabric_gql(invocation):
+    config = FabricOrdinaryHttpConfig(
+        azure_cli=Path("/absolute/path/to/az"),
+        azure_config_dir=Path("/absolute/path/to/azure-config"),
+        account_id="YOUR-SUBSCRIPTION-UUID", tenant_id="YOUR-TENANT-UUID",
+        account_user="you@example.com",
+        workspace_id=invocation.binding.workspace_id,
+        graph_model_id=invocation.binding.graph_model_id,
+        maximum_response_bytes=invocation.limits["maximum_response_bytes"],
+        maximum_total_bytes=invocation.limits["maximum_total_bytes"],
+        maximum_requests=invocation.limits["maximum_requests"],
+        deadline_seconds=invocation.limits["deadline_seconds"],
+    )
+    with open_fabric_ordinary_http(config) as http:
+        # actual_release_policy must own current publication/native graph
+        # correspondence; authentication alone cannot supply this policy.
+        yield FabricGqlSession(invocation.binding, http,
+                               actual_release_policy, http.context)
+```
+
+The defaults bound requests to 64 KiB, responses to 1 MiB, aggregate responses
+to 8 MiB, authentication output to 64 KiB, and the interval to 60 seconds.
+HTTP socket operations use bounded timeouts and deadline checks between reads;
+these synchronous operations are not an independent hard wall-clock supervisor.
+The ordinary owner supplies access only, never release authority. The existing
+`execute_gql` still requires its genuine publication policy; the strict
+`open_fabric_http` owner remains available and unchanged.
