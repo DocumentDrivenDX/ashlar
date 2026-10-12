@@ -60,7 +60,7 @@ class _HeldCommercePins:
   finish(primary,[lambda:self.policy.require(context)])
 
 def _read_release(opened,policy):
- policy.require(opened.context)
+ policy.local(opened.context)
  return read_graph_release(opened.driver.transport,opened.driver,_HeldCommercePins(policy),policy.vector,policy,
   publication_id=opened.manifest['publication_id'],node_table=opened.driver.tables['object_current'],edge_table=opened.driver.tables['edge_current'],context=opened.context,
   supported_profiles=['ashlar-delta/0.3'],supported_revisions={k:[v]for k,v in json.loads(opened.manifest['schema_revisions_json']).items()},
