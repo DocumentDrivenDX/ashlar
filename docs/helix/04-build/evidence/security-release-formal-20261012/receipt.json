@@ -1,0 +1,47 @@
+{
+  "sourceCommit": "ae56e9fb17c07b130a689a978ef14e0ee7f0f263",
+  "commands": {
+    "analysis": "PYTHONPATH=src /private/tmp/umf-security-proof-venv/bin/python docs/helix/04-build/evidence/security-release-formal-20261012/verify.py",
+    "regression": "PYTHONPATH=src:tests:tools /private/tmp/truss-security-pg18-r2-20261011/bin/python -m unittest test_weft_query"
+  },
+  "results": {
+    "smtQueries": 7,
+    "unsat": 4,
+    "satCounterexamples": 3,
+    "selectedHelperControls": 45,
+    "queryTests": 8,
+    "result": "pass"
+  },
+  "independentReview": {
+    "model": "gpt-6-astra",
+    "reasoning": "ultra",
+    "result": "No actionable findings or scope overclaims",
+    "replay": "Temporary-copy replay produced matching results and all seven SMT files byte-for-byte; repository unchanged"
+  },
+  "proofScope": "SMT properties of authored outcome equations, with finite implementation correspondence from actual Python helper controls. Local gate classifications and Python with lifecycle are premises. Not a proof of full Python implementation, authenticated/native policy or caller, complete recursive carriers, acquisition/cleanup correctness, SQL, final publication sink or backend acceptance. Original 132 required cases retained.",
+  "acceptanceTraceability": [
+    {
+      "case": "ashlar.L04",
+      "covers": "US-057-AC2",
+      "caseClosed": false
+    },
+    {
+      "case": "ashlar.L11",
+      "covers": "US-057-AC7",
+      "caseClosed": false
+    }
+  ],
+  "sourceSha256": {
+    "src/ashlar/weft_query.py": "2ebea3bc78743ed964494f4cf4822d8bd1a90080c569367f965f05516c5c526f",
+    "src/ashlar/publication.py": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0",
+    "tests/test_weft_query.py": "4947ff62d2e1e2cdb003ac809c958cdf8a2b1f01f83bad9b737fcb1786e07e17",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/verify.py": "e0cff59463af479db67e46f0c6b0424b3fe5a93d9e5a99a77a4079a9c96c92f6",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/complete-local-path-remains-live.smt2": "228b73847b9c7fd97d3ce8d83c35e0e78f23d7612c01a607e144c8b7260a7726",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/old-closing-replaces-original-counterexample.smt2": "339a090107ba40d55146317e1443dfb61474790190fa5ea772c7358ea99acc67",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/old-deferred-decoding-counterexample.smt2": "bcc08ddab52819283a29f920b5fe844846290f62dd06e5adce51058da864e51a",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/old-suppression-release-counterexample.smt2": "883e264734434e3bc39da708901cc038a405394a02c413b13d1e29d92a96da16",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/original-failure-never-suppressed-or-replaced.smt2": "ffe62ac37869097815a860f9c38095d0781def6866f63115d0bcfcf7fe2087f9",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/release-requires-all-local-gates.smt2": "8c50b16e68d4837883042f8921a465ecb1094d688cc7b1ea8a8e48b75727be27",
+    "docs/helix/04-build/evidence/security-release-formal-20261012/separate-closing-failure-retained-as-cause.smt2": "69f6c416ea62b936e2bf2c3d029380651e57872a9b818bbe364aad69892ac4a6"
+  }
+}
