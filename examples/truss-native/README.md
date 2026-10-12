@@ -581,3 +581,9 @@ publication progress even when they produce no graph mutations. Their empty
 effect plan is journaled under the same writer policy and complete snapshot
 checks as a nonempty plan. Recovery requires that original journal entry; it
 does not insert a dummy Delta write or skip the transaction before source ACK.
+
+Native history STRING values use the exact closed carrier
+`{"kind":"string","text":"..."}` for declared and retained properties. The
+adapter projects that text into canonical property JSON while retaining the
+original tagged lifecycle bytes and complete source page. It refuses plain
+untagged values, extra carrier members and unsupported value families.

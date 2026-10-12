@@ -1,0 +1,21 @@
+{
+  "format": "ashlar-truss-native-tagged-string-boundary/0.1",
+  "source_commit": "871d33c38a5e782d777d6c41ed4d1eaadd7820e0",
+  "exit_code": 2,
+  "retained_attempt_phases": [
+    "prepared",
+    "applying",
+    "applied",
+    "committing",
+    "committed"
+  ],
+  "retained_publication_artifacts": 1,
+  "retained_whole_effect_plans": 1,
+  "publication_id": "truss-note-1",
+  "source_server_pid_file_absent_after_exit": true,
+  "failure_type": "ashlar.truss_native_feed.NativeFeedError",
+  "failure_boundary": "scalar_entity_changes declared STRING property extraction on a subsequent actual public source page",
+  "public_wire_contract": "history-record/0.1.0 property values reference exact-value/0.1.0: STRING is closed kind=string,text=string, not an untagged string.",
+  "fix": "Decode only that exact closed STRING carrier for declared and retained values; retain original event/page bytes and refuse other families or extra members.",
+  "qualification": "Actual catalog-only local Delta publication reached committed state and the host proceeded to the subsequent Truss feed page. The run then failed; no full Note create/edit publication success claimed. No native retry after the wire fix. Source, journal and private traceback payloads remain local."
+}

@@ -15,7 +15,7 @@ class Tests(unittest.TestCase):
         for index,identity in enumerate(ids):
             edge=index==2;properties=[]
             if not edge:
-                properties=[{'propertyId':prop['propertyId'],'definitionPin':pin('property',identity['typeId'],prop['elementId']),'value':'exact-'+prop['elementId']}for prop in report['properties']if prop['typeId']==identity['typeId']]
+                properties=[{'propertyId':prop['propertyId'],'definitionPin':pin('property',identity['typeId'],prop['elementId']),'value':{'kind':'string','text':'exact-'+prop['elementId']}}for prop in report['properties']if prop['typeId']==identity['typeId']]
             image={'interfaceVersion':'truss-history-record/0.1.0','kind':'edge'if edge else'object','identity':dict(identity),'recordVersion':'1','catalogRevision':'1','properties':properties,'retained':[]}
             if edge:image.update(source=ids[0],target=ids[0]if bad_endpoint else ids[1],orderKey={'state':'null'})
             else:image['ownership']={'state':'rootless'}

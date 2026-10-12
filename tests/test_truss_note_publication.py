@@ -10,7 +10,7 @@ class Tests(unittest.TestCase):
     def test_independent_note_rows_match_create_plan_and_exact_clock(self):
         encode=lambda value:json.dumps(value).encode()
         prior={'profile':'truss-caller-asserted-feed/0.1','installationId':'installation','sourceEpoch':'epoch','consumerId':'consumer','registrationId':'registration','nextXid':'0'};following={**prior,'nextXid':'43'}
-        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':{'typeId':'3','id':'7'},'recordVersion':'1','ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'pin','value':'exact'}],'retained':[]}
+        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':{'typeId':'3','id':'7'},'recordVersion':'1','ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'pin','value':{'kind':'string','text':'exact'}}],'retained':[]}
         event={'interfaceVersion':'truss-history-event/0.2.0-proposal','sourceEpoch':'epoch','xid':'42','seq':'987','eventVersion':'1','eventCatalogRevision':'1','operation':'create','after':image};raw=encode(event)
         row={'seq':987,'xid':'42','entity_kind':'o','entity_id':7,'entity_type':3,'ver':1,'new_value':{'interfaceVersion':'truss-journal-exact-bytes/0.2.0-proposal','component':'event','bytesBase64':base64.b64encode(raw).decode(),'bytesSha256':hashlib.sha256(raw).hexdigest()}}
         content=encode({'interfaceVersion':'truss-native-feed/0.1','prior':prior,'next':following,'writerXid':'42','changes':[row],'configuration':{},'catalogPrerequisites':[],'revisions':[],'sources':[],'reservations':[]})

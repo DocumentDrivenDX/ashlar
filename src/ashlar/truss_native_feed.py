@@ -31,6 +31,13 @@ def _json(raw,*,native=False):
     return json.loads(raw,object_pairs_hook=pairs,parse_float=(Decimal if native else refuse),parse_constant=refuse)
 
 
+
+def _string_value(value):
+    """Decode only the public closed exact-value STRING carrier."""
+    if type(value)is not dict or set(value)!={'kind','text'}or value['kind']!='string'or type(value['text'])is not str:raise NativeFeedError('Original closed exact STRING value required')
+    return value['text']
+
+
 def _integer(value):
     text=str(value)
     if type(value)not in (int,str)or not text.isascii()or not text.isdecimal()or str(int(text))!=text or not 1<=int(text)<2**63:raise NativeFeedError('Original positive signed64 value required')
@@ -69,11 +76,11 @@ def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges):
         seen.add(marker);props={};retained={}
         for prop in image['properties']:
             name=str(_integer(prop['propertyId']))
-            if name in props or type(prop['value'])is not str or type(prop.get('definitionPin'))is not str:raise NativeFeedError('Original distinct STRING properties required')
-            props[name]=prop['value']
+            if name in props or type(prop.get('definitionPin'))is not str:raise NativeFeedError('Original distinct STRING properties required')
+            props[name]=_string_value(prop['value'])
         for prop in image['retained']:
-            if type(prop['name'])is not str or prop['name']in retained or type(prop['value'])is not str:raise NativeFeedError('Original retained STRING properties required')
-            retained[prop['name']]=prop['value']
+            if type(prop['name'])is not str or prop['name']in retained:raise NativeFeedError('Original retained STRING properties required')
+            retained[prop['name']]=_string_value(prop['value'])
         endpoints=None
         if kind=='edge':
             if image['properties']!=[]:raise NativeFeedError('Selected native edge profile has no declared properties')
