@@ -339,3 +339,57 @@ commit confirmation is recorded separately. This is a one-time transition;
 commit uncertainty or a partially completed run requires durable-outcome
 inspection before any intentional recovery. It performs no automatic retry,
 runtime migration, source feed/ACK or Delta publication.
+
+## Deliver complete committed feed pages
+
+`read-feed.py` uses the public committed feed at Truss
+`5ca2ed96f44f82b167ba16cf84c442c739e022d4` (introduced by `ae273e92`).
+Use a compatible fresh installation with the Note workflow above. It enrolls
+an existing ordinary reader role through public administrator registration,
+then reads as an existing ordinary login which already holds that role.
+Registration grants feed access; it is deliberately separate from Note mutation
+permissions. No roles or memberships are fabricated by this example.
+
+Private configuration:
+
+```json
+{
+  "administrator_uri": "postgresql://local-administrator@localhost/your-database",
+  "consumer_uri": "postgresql://ashlar_note_consumer@localhost/your-database",
+  "consumer_id": "ashlar-note-files-v1",
+  "reader_role": "ashlar_note_reader",
+  "maximum_pages": 16
+}
+```
+
+Use current connection URIs from your owned local runtime. The administrator
+connection must be the actual installation administrator; keep configuration
+private. Run once with a fresh absolute spool directory:
+
+```sh
+python examples/truss-native/read-feed.py \
+  --configuration /absolute/private/feed.json \
+  --output /absolute/private/fresh-feed-spool
+```
+
+Each page is one complete committed transaction or a safe empty interval,
+including original payload bytes, catalog prerequisites, revisions, source
+records and reservations. All public byte fields use explicit Base64 carriers;
+opaque prior/next checkpoints retain their installation/epoch/registration
+binding. The example bounds each page to 4,096 facts / 8 MiB and the run to
+1–16 pages, without truncating a transaction. Large transactions refuse.
+
+It fsyncs the complete page and directory **before** source ACK, then commits
+that ACK and checks its genuine `equal` replay in a new transaction. Original
+pending durability flags remain intact beside caller-commit confirmation.
+`result.json` appears only after connections/hosts close; its empty-interval flag
+reports whether the finite run reached the observed safe frontier. A page limit
+can leave more work pending. Partial files or unknown commits require inspection
+of the source checkpoint and retained original pages before recovery; the script
+never deletes them or retries automatically.
+
+This intermediate example establishes local durable **file delivery**, not an
+Ashlar Delta publication. Source ACK asserts only that delivery; it does not
+verify another database's durability or authorize history retention release.
+The complete feed-to-Delta workflow must publish corresponding original source
+transactions durably before acknowledging them.
