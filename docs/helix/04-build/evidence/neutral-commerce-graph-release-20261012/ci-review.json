@@ -1,0 +1,6 @@
+{
+  "decision": "approved",
+  "file": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+  "sha256": "7b0539f2e17d339bc568356acea2725dac9d98b4e90c59ad9f773e09bad6027d",
+  "scope": "Exact single module addition beside existing installed GraphFrames suite; all other workflow bytes, env, flags, matrix and steps unchanged. Owned diffcheck passes; previously independent24SDKfree tests passed9a0df9. No remote CI claim."
+}

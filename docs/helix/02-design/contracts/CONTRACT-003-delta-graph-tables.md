@@ -671,7 +671,7 @@ be synthesized into the publication vector. Exact published UUIDs and versions
 MUST come from the retained original manifest and immutable admitted registry;
 a supplied vector or report MUST NOT grant source or installation authority.
 
-Within one acquired original-commerce GraphFrames read interval, complete opening
+Within one acquired original-commerce graph-release read interval, complete opening
 native admission MAY establish an immutable raw carrier for reuse. Every use MUST
 renew the actual original reader reservation, complete six-table UUID/location
 and retained vector, exact whole native file bytes, original ordinary source
@@ -682,6 +682,16 @@ independent native snapshot admission and complete raw original carrier bags MUS
 run at opening and closing; all post-acquisition errors and cancellation MUST
 still attempt substantive closing under active pins and the reader lease before
 release. A retained result cannot extend that interval or grant source authority.
+
+`hold_original_commerce_graph_release(opened)` MUST accept only the exact current
+`OpenedCommerceReader` and yield a nominal `HeldOriginalCommerceGraphRelease`
+inside its acquired provider interval. Its immutable `release` and `renew()`
+MUST derive all original source, descriptor, registry, bounds, full vector and
+expected bags from that reader. No caller policy, context, vector, expected rows,
+validator or engine-runtime selection may replace those owning inputs. Renewal
+outside the acquired interval MUST refuse. The neutral owner creates no engine,
+export or deployment authority. GraphFrames installation/runtime admission stays
+in its engine wrapper; Fabric HTTP and deployment custody require their own owners.
 
 A source adapter claiming Truss layout 0.2 MUST preserve shared object/edge ID
 allocation and unique relationship/source/target edge rules. Generic parallel-edge

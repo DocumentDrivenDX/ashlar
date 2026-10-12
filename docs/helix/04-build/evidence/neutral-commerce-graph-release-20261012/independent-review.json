@@ -1,0 +1,51 @@
+{
+  "profile": "ashlar-neutral-commerce-graph-release-review/0.1",
+  "decision": "approved",
+  "freeze_sha256": "fa2e3d2f245bff406fb86b97b024872acaaa9e5e9bf1b964427ad957982828f0",
+  "files": [
+    {
+      "path": "src/ashlar_host/commerce_graph_release.py",
+      "bytes": 5924,
+      "sha256": "f06f54e6f2e238f7715490c9260ae4f4338e6409cf98c7605a39854ce55f09e9"
+    },
+    {
+      "path": "src/ashlar_host/commerce_graphframes_release.py",
+      "bytes": 1933,
+      "sha256": "3ae1124c485a0ebbb35ad07726a01c513d3da5a51abbb7cc184f623c6877c2bf"
+    },
+    {
+      "path": "tests/test_commerce_graph_release_owner.py",
+      "bytes": 1957,
+      "sha256": "62d2bd4bf2b7a24eaa43ae5ee5e7837d58ee1fd7af10e866a23838dfdb7849a5"
+    },
+    {
+      "path": "tests/test_commerce_graphframes_installed.py",
+      "bytes": 31547,
+      "sha256": "da5e9107b37b63b77fc7ef71a4d5175283ce3e3fbcb39fdf988ce6f12330f2a2"
+    }
+  ],
+  "governing_contract": {
+    "path": "docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+    "sha256": "a94acf0a3c9bc72590104b7666da71d9893d90718c9055fc9a5f7ce07ffd7d5f"
+  },
+  "actual_tests": {
+    "command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_commerce_graph_release_owner test_commerce_graphframes_installed",
+    "tests": 24,
+    "seconds": 12.987,
+    "terminal": "9a0df9",
+    "exit": 0
+  },
+  "independent_checks": [
+    "exact frozenfoursourcehashes",
+    "AST equivalence moved four policy methods,pinhold and read_release",
+    "complete occurrence bag comparator remains identical Counter(encoded(row))",
+    "actualreader nominaltype and provider/driver/context/admission correspondence",
+    "sourceACK/vector/descriptor/pins/current native opening and closing delegated unchanged existing owners",
+    "GraphFrames session unchanged runtime port gate and profile builder retains engine selection",
+    "nominal released interval renew refusal",
+    "cancellation attempts full closing and releases pins",
+    "module scan and owned diffcheck pass"
+  ],
+  "qualification": "SDK-free exact extraction/regression controls only. Private fields/constructors are internal correspondence carriers, not process-isolation capabilities or caller-selectable authority. No Fabric/GraphFrames native pass, export/deployment permission or new runtime grant.",
+  "findings": []
+}

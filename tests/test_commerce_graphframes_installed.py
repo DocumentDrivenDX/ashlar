@@ -112,7 +112,7 @@ class ReaderTests(unittest.TestCase):
   expected={role:[{k:v for k,v in row.items()if k not in ('graph_id','src','dst')}for row in release[graphrole]]for role,graphrole in [('object_current','nodes'),('edge_current','edges')]}
   return OpenedCommerceReader(p,d,owner,expected,context,{},lambda:{},{},report,model,graph,json.loads(bindings),manifest,p.request_bytes,p.manifest_bytes,root)
  def test_actual_public_reader_complete_vector_and_current_renewal(self):
-  from ashlar_host.commerce_graphframes_release import _CommerceGraphPolicy,_read_release
+  from ashlar_host.commerce_graph_release import _CommerceGraphPolicy,_read_release
   from ashlar.manifest import manifest_pin_vector
   opened=self.opened();vector=manifest_pin_vector(opened.manifest,{t:v.uuid for t,v in opened.driver.transport.targets.items()},authority='private-local-process');policy=_CommerceGraphPolicy(opened,vector)
   release=_read_release(opened,policy);value=json.loads(release.payload)
