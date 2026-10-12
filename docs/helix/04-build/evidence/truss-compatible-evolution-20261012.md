@@ -1,0 +1,7 @@
+# Public Truss compatible evolution
+
+One fresh owned local PostgreSQL workflow completed in 14.936 seconds with exit 0. It used a fresh Truss wheel built solely from committed `5366f7d64ae1c5657cb6ec261b956fe1acd1e234`, installed into a separate temporary target. No other chat's dirty files or previous installation were modified.
+
+The public Ashlar bootstrap and ordinary Note edit created object 1, version 2, under catalog revision 1. `evolve-note.py` accepted original UMF 0.7.0 `ashlar-note` r2 with only an absent-allowed string `note-tag`. The committed revision 2 preserved the object/type IDs, complete existing values, retained content and object version. Public current reads returned the changed definition pin and usable identity. Updating only `note-tag` to `evolved-public-field` through that identity advanced the object to version 3; full readback and replay of the original committed update receipt passed. Each acceptance/mutation was explicitly committed by the caller.
+
+The workflow's selected 120-second limit was unchanged. Public cleanup stopped the owned server, the command handle was terminal, and the selected data directory's postmaster PID file was absent. No feed, source ACK, Delta or general upgrade support is claimed. The original acceptance/read/update/replay carriers remain local at `/private/tmp/ashlar-truss-evolution-native-20261012/evolution.json` (407390 bytes; SHA256 `b84a20c72c6350712be42682835bb8311cc6e9e4d656f940b98c056373ada36c`). No data payload is published with this note.

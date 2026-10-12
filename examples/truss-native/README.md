@@ -289,3 +289,53 @@ only; it adds no remote provisioning, credentials, production grant, feed/ACK,
 compiled-query or schema-evolution claim. A
 [small native setup/restart run](../../docs/helix/04-build/evidence/truss-local-bootstrap-20261012/README.md)
 passed in 20.4 seconds, including ordinary-account Note editing after restart.
+
+## Evolve the same Note document
+
+`evolve-note.py` uses public Truss APIs at committed
+`5366f7d64ae1c5657cb6ec261b956fe1acd1e234`, including current identities returned
+by object reads. Install that compatible package/runtime on a fresh local setup;
+the earlier example package does not establish upgrade compatibility.
+[note-r2.umf.json](note-r2.umf.json) is an authored **UMF 0.7.0** revision of
+`ashlar-note`, preserving its existing IDs/key/fields and adding optional string
+`note-tag`. Create/edit one r1 Note using the preceding examples first. The
+ordinary actor needs existing module read/write and registrar memberships.
+
+Private configuration:
+
+```json
+{
+  "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/note-r2.umf.json",
+  "document_revision": "r2",
+  "origin_path": "/absolute/private/string-origin.json",
+  "accept_request_key": "evolve-note-r2",
+  "update_request_key": "tag-note-r2",
+  "object_id": 1,
+  "tag": "follow-up"
+}
+```
+
+Select the actual object ID returned by your own earlier mutation, not the
+illustrative `1`. Run while the selected local server is owned, using its current
+connection URI:
+
+```sh
+python examples/truss-native/evolve-note.py \
+  --configuration /absolute/private/evolve-note.json \
+  --output /absolute/private/fresh-evolution-result.json
+```
+
+The script reads the complete original Note, accepts the revised original document
+and commits. It checks the exact committed document/report, unchanged object/type
+IDs, values and version, and the new current definition identity. The optional
+field must remain absent. It then updates only `note-tag` using that returned
+identity and expected version, commits, reads all values, and retrieves the
+original committed update receipt. The report preserves public carriers and
+original document/report bytes as Base64, and is written after connection/host
+cleanup. Existing `pending_commit` carrier status remains unchanged; caller
+commit confirmation is recorded separately. This is a one-time transition;
+commit uncertainty or a partially completed run requires durable-outcome
+inspection before any intentional recovery. It performs no automatic retry,
+runtime migration, source feed/ACK or Delta publication.
