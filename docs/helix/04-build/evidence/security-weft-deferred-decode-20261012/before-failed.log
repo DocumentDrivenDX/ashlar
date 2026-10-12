@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_deferred_decoder_never_escapes_held_interval (test_weft_query.WeftQueryTests.test_deferred_decoder_never_escapes_held_interval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-security-main-integration/tests/test_weft_query.py", line 88, in test_deferred_decoder_never_escapes_held_interval
+    with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+AssertionError: ResolutionError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
