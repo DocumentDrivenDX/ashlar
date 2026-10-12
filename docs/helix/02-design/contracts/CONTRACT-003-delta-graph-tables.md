@@ -594,6 +594,12 @@ through resolution, complete independent source-to-carrier comparison, export,
 and closing native-vector and source/ACK checks. A failed closing check MUST
 withhold both the release and its custody receipt.
 
+An export-only command MUST accept an existing compatible publication and explicit
+ordinary source/ACK connection selections without requiring a new publisher
+installation handoff. Configuration selects access; the actual retained publication,
+native data and current source/ACK owners MUST still independently admit the read.
+An export MUST NOT synthesize installation records or authority from those selections.
+
 An offline engine consumer MUST explicitly select this profile and receive
 separately trusted release and receipt digests. It MUST reject unknown profiles,
 missing or duplicate fields, altered manifest text, incomplete or changed vectors,

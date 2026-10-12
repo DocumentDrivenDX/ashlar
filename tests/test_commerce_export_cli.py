@@ -52,3 +52,19 @@ class Tests(unittest.TestCase):
  def test_output_overlap_refuses_before_runtime(self):
   with patch.object(cli,'runtime_paths')as runtime,self.assertRaises(ValueError):cli.run_export_original_commerce_command(self.config,self.publication,self.publication/'export',self.jars)
   runtime.assert_not_called();self.assertFalse((self.publication/'export').exists())
+
+ def test_export_only_profile_uses_retained_inputs_and_real_source_factories(self):
+  source=json.loads(self.config.read_bytes())['source']
+  self.config.write_text(json.dumps({'profile':cli.EXPORT_CONFIGURATION_PROFILE,'publication':str(self.publication),'source':source}))
+  with self.ports(),patch.object(cli,'runtime_paths',return_value=[])as runtime:
+   self.run_command()
+  selection=runtime.call_args.args[0]
+  self.assertEqual(selection.model,self.publication/'original-ontology.json')
+  self.assertEqual(selection.graph,self.publication/'original-graph.json')
+  self.assertIn('reader-close',self.events);self.assertTrue((self.output/'custody.json').exists())
+ def test_export_only_profile_refuses_unknown_members_and_wrong_source_epoch(self):
+  original=json.loads(self.config.read_bytes())
+  value={'profile':cli.EXPORT_CONFIGURATION_PROFILE,'publication':str(self.publication),'source':original['source'],'installation':'invented'}
+  with self.assertRaises(ValueError):cli.parse_commerce_export_configuration(json.dumps(value).encode())
+  del value['installation'];value['source']['scope']['epoch']='foreign'
+  with self.assertRaises(ValueError):cli.parse_commerce_export_configuration(json.dumps(value).encode())

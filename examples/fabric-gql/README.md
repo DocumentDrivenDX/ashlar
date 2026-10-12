@@ -383,3 +383,53 @@ these synchronous operations are not an independent hard wall-clock supervisor.
 The ordinary owner supplies access only, never release authority. The existing
 `execute_gql` still requires its genuine publication policy; the strict
 `open_fabric_http` owner remains available and unchanged.
+
+### Export an older retained original commerce publication
+
+`export-original-commerce` also accepts this **export-only** configuration. It
+selects an existing publication and actual ordinary source/ACK ports, without
+requiring a new initialization handoff or re-running a producer:
+
+```json
+{
+  "profile": "ashlar-original-commerce-export-configuration/0.1",
+  "publication": "/absolute/path/to/existing-publication",
+  "source": {
+    "host": "127.0.0.1", "port": 25434, "database": "truss_e2e",
+    "authentication": "isolated-loopback-trust",
+    "scope": {
+      "service_schema": "YOUR_ORIGINAL_ACK_SERVICE_SCHEMA",
+      "scope_id": "YOUR_ORIGINAL_SCOPE_UUID",
+      "installation_id": "YOUR_ORIGINAL_SCOPE_INSTALLATION_UUID",
+      "consumer": "YOUR_ORIGINAL_CONSUMER",
+      "feed": "private-original-commerce-fixture", "epoch": "original-commerce-v1"
+    },
+    "source_schema": "your_original_source_schema",
+    "source_signature_sha256": "YOUR_ORIGINAL_SOURCE_SIGNATURE_SHA256",
+    "writer_role": "your_original_writer",
+    "reader_role": "your_original_reader",
+    "ack_role": "your_original_ack"
+  }
+}
+```
+
+Copy the actual selections from the retained publication's protected ACK scope
+and the original source fixture inventory; placeholders above are not grants.
+Current ordinary reader/ACK access and source signature must still pass, with
+full publication/native retention and fencing. The command reads original model
+and graph bytes from the selected publication. Its existing Python 3.11,
+SQLite 3.53.1, Spark 4.0.1 / Delta 4.0.0 and exact two-JAR requirements are unchanged;
+no whole SDK/JDK inventory is added. The full publication configuration remains
+supported.
+
+```sh
+ashlar export-original-commerce \
+  --configuration /absolute/private/export-only.json \
+  --publication /absolute/path/to/existing-publication \
+  --jars /absolute/path/to/selected-delta-jars \
+  --output /absolute/private/fresh-export
+```
+
+Use that closed pair in the materialization/OneLake notebook flow above. This
+export-only profile does not initialize, append, submit ACKs, repair data or
+construct a Fabric release grant.

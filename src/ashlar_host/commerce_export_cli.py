@@ -1,5 +1,6 @@
 """Concrete existing-commerce export using configured ordinary source owners."""
 from contextlib import contextmanager
+from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
 import hashlib,json,tempfile
@@ -19,6 +20,41 @@ def _path(value):
     path=Path(value)
     if not path.is_absolute()or path.resolve()!=path:raise ValueError('Canonical absolute export paths required')
     return path
+
+
+
+EXPORT_CONFIGURATION_PROFILE='ashlar-original-commerce-export-configuration/0.1'
+
+@dataclass(frozen=True)
+class CommerceExportConfiguration:
+    publication:Path
+    source:object
+
+
+def parse_commerce_export_configuration(raw):
+    """Select an existing publication and actual ordinary source; no new handoff."""
+    from .ack import AckScope
+    from .original_commerce_local_configuration import OriginalCommerceLocalSource
+    if type(raw)is not bytes or not 0<len(raw)<=262144:raise ValueError('Bounded export configuration required')
+    def pairs(items):
+        value={}
+        for key,item in items:
+            if key in value:raise ValueError('Duplicate export configuration member')
+            value[key]=item
+        return value
+    def refuse(_):raise ValueError('Exact export scalars required')
+    value=json.loads(raw,object_pairs_hook=pairs,parse_float=refuse,parse_constant=refuse)
+    if type(value)is not dict:raise ValueError('Export configuration object required')
+    if value.get('profile')!=EXPORT_CONFIGURATION_PROFILE:
+        return parse_original_commerce_local(raw,initialize=False)
+    if set(value)!={'profile','publication','source'}:raise ValueError('Closed export-only configuration required')
+    source=value['source']
+    if type(source)is not dict or set(source)!={'host','port','database','authentication','scope','source_schema','source_signature_sha256','writer_role','reader_role','ack_role'}:raise ValueError('Exact ordinary source selection required')
+    scope=source['scope']
+    if type(scope)is not dict or set(scope)!={'service_schema','scope_id','installation_id','consumer','feed','epoch'}:raise ValueError('Exact original ACK scope required')
+    if type(value['publication'])is not str:raise ValueError('Exact publication path text required')
+    selected=OriginalCommerceLocalSource(**{**source,'scope':AckScope(**scope)})
+    return CommerceExportConfiguration(_path(value['publication']),selected)
 
 
 def _separate(output,paths):
@@ -48,13 +84,19 @@ def open_commerce_export_spark(jars,warehouse):
 
 def run_export_original_commerce_command(configuration,publication,output,jars):
     captured=InvocationFile.read(configuration,262144)
-    config=parse_original_commerce_local(captured.raw,initialize=False)
+    config=parse_commerce_export_configuration(captured.raw)
     publication=_path(publication);output=_path(output);jars=_path(jars)
-    if publication!=config.publication.output:raise ValueError('Select the configured original publication')
-    _separate(output,[captured.path,publication,jars,config.installation,config.publication.model,
-        config.publication.graph,config.publication.producer.source,config.publication.producer.bun,config.publication.producer.git])
+    if type(config)is CommerceExportConfiguration:
+        if publication!=config.publication:raise ValueError('Select the configured original publication')
+        model=publication/'original-ontology.json';graph=publication/'original-graph.json'
+        protected=[captured.path,publication,jars,model,graph]
+    else:
+        if publication!=config.publication.output:raise ValueError('Select the configured original publication')
+        model=config.publication.model;graph=config.publication.graph
+        protected=[captured.path,publication,jars,config.installation,model,graph,config.publication.producer.source,config.publication.producer.bun,config.publication.producer.git]
+    _separate(output,protected)
     if output.exists():raise FileExistsError('Fresh export output required')
-    selected=SimpleNamespace(output=output,jars=jars,model=config.publication.model,graph=config.publication.graph)
+    selected=SimpleNamespace(output=output,jars=jars,model=model,graph=graph)
     jar_paths=runtime_paths(selected,False)
     ports=original_commerce_local_source_ports(config.source);registration=ports.registration
     def connection(role):
