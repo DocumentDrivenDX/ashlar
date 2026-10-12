@@ -115,3 +115,26 @@ encodings. Nodes use `graph_id` as their primary key; edges retain independent
 rows and makes no claim about materialization, parallel-edge ingestion,
 loaded-engine authority, or live GQL correctness. It creates a new minimal
 definition; it does not edit an existing definition or retain its custom parts.
+
+## Materialize release tables in a Spark notebook
+
+Use [materialize-release.py](materialize-release.py) as a Fabric notebook or
+local Spark template. Supply your existing Spark session, actual admitted public
+canonical `GraphRelease`, and a policy implementing
+`admit_original_release(release, context)`. The template's `my_operator` is your
+integration with the current publication/read owner, not an Ashlar module or a
+hash-only policy. The strict public release loader retains its 16 MiB input and
+10,000-row-per-bag limits; private-custody export profiles are not accepted here.
+
+`materialize_graph_release_delta` writes explicit STRING schemas to distinct,
+nonoverlapping destinations with `errorifexists`. It compares the complete
+version-0 row bags, including nulls, canonical IDs and endpoint values, using
+bounded readback, and reports observed UUIDs/versions. It renews original release
+admission before and after work. Local absolute paths or OneLake `abfss` paths
+are supported; the notebook owns Spark and its ordinary storage access.
+
+Failures preserve partial tables for inspection; the helper never overwrites or
+repairs them. Choose fresh paths for a new explicit action. The template generates
+a definition only after both tables verify. This is materialization preparation,
+not a Fabric load or a graph-query qualification; no notebook/cloud run is
+claimed by the basic inert Spark tests.

@@ -1,0 +1,23 @@
+{
+  "profile": "ashlar-graph-release-delta-materialization/0.1",
+  "release_sha256": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+  "targets": {
+    "nodes": {
+      "path": "/private/tmp/ashlar-release-writer-smoke/nodes",
+      "location": "file:/private/tmp/ashlar-release-writer-smoke/nodes",
+      "uuid": "8040dd02-c1a1-414d-870a-99d8aec194fb",
+      "version": 0,
+      "rows": 3
+    },
+    "edges": {
+      "path": "/private/tmp/ashlar-release-writer-smoke/edges",
+      "location": "file:/private/tmp/ashlar-release-writer-smoke/edges",
+      "uuid": "9a381f87-85ca-4890-9ef1-ae43aff0df20",
+      "version": 0,
+      "rows": 4
+    }
+  },
+  "scope": "Observed complete fresh STRING Delta carrier bags only; no immutability, deployment, loaded graph or query authority.",
+  "spark_version": "4.0.1",
+  "fixture_only": true
+}

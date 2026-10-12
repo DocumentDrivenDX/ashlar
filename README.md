@@ -35,6 +35,8 @@ Use [the Fabric GQL guide](examples/fabric-gql/README.md) to run
 provider.
 `ashlar prepare-fabric-graph-definition` generates the model mappings for
 release-specific OneLake node and edge tables.
+The guide includes a Spark notebook example for materializing a finite graph
+release into those tables.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 
