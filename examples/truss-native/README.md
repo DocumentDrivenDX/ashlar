@@ -416,3 +416,9 @@ pins the whole destination publication before the public Truss ACK and caller
 commit. Commit uncertainty uses a fresh read, without retrying the write.
 Re-admission of an already-acknowledged interval requires retained-interval read
 support; an advanced source cursor currently refuses that replay.
+
+Use `ashlar.truss_publication.publish_truss_transaction` with the configured
+publication backend to run the durable coordinator with a native batch.
+`ashlar_host.publication_planning.truss_request_for` constructs its matching
+request for effect planning. Register a separate consumer for Delta delivery;
+the file-spooling example's ACK asserts file delivery and consumes that interval.

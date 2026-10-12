@@ -1,7 +1,7 @@
 """Pure original publication request/effect correspondence; no authority grant."""
 import hashlib
 import json
-from ashlar.source_checkpoint import outbox_checkpoint
+from ashlar.source_checkpoint import outbox_checkpoint,truss_checkpoint
 from ashlar.staging import batch_row
 from .delta_custody import encoded, sha
 
@@ -39,5 +39,15 @@ def request_for(stream, transaction, predecessor, revisions):
     row = batch_row(transaction.batch)
     request = {'stream': stream, 'batch_id': transaction.batch.batch_id, 'predecessor': predecessor, 'schema_revisions_json': encoded(revisions), 'source_batch_json': row['batch_json'], 'source_batch_digest': row['batch_digest'], 'source_checkpoint_json': outbox_checkpoint(transaction)}
     request['request_digest'] = hashlib.sha256(json.dumps(request, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    return request
+
+
+def truss_request_for(stream,batch,predecessor,revisions):
+    """Prepare the same exact native request used by publish_truss_transaction."""
+    row=batch_row(batch)
+    request={'stream':stream,'batch_id':batch.batch_id,'predecessor':predecessor,
+             'schema_revisions_json':encoded(revisions),'source_batch_json':row['batch_json'],
+             'source_batch_digest':row['batch_digest'],'source_checkpoint_json':truss_checkpoint(batch)}
+    request['request_digest']=hashlib.sha256(json.dumps(request,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     return request
 
