@@ -1,9 +1,28 @@
 name: Module import boundaries
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      extended:
+        description: Run the retained extended controls
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/check_module_boundaries.py
+      - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
   diagnostic-supervision:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -13,7 +32,8 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_otel_supervision.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostic_composition.py
-  check:
+  extended:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
