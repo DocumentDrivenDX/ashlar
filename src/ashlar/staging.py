@@ -35,11 +35,17 @@ def batch_row(batch: SourceBatch):
     if not isinstance(batch,SourceBatch) or not isinstance(batch.records,tuple):raise StagingError('Immutable source batch required')
     if len(batch.records)>1000 or any(not isinstance(x,SourceRecord) or not isinstance(x.raw,bytes) for x in batch.records) or not isinstance(batch.begin,bytes) or not isinstance(batch.commit,bytes):raise StagingError('Invalid bounded raw batch')
     if len(batch.begin)+sum(len(x.raw) for x in batch.records)+len(batch.commit)>1024*1024:raise StagingError('Stage transaction byte limit exceeded')
-    if batch.profile!='ashlar-jsonl-transactions/0.1':raise StagingError('Unsupported source profile')
     raw=batch.begin+b''.join(x.raw for x in batch.records)+batch.commit
     try:
-        recovered=list(jsonl_batches(raw.splitlines(keepends=True),feed=batch.feed,epoch=batch.epoch,cursor_before=batch.cursor_before))
-    except SourceError as exc:raise StagingError('Invalid batch custody') from exc
+        if batch.profile=='truss-native-feed/0.1':
+            from .truss_native_feed import native_feed_batch
+            recovered=[native_feed_batch(raw,sha256=hashlib.sha256(raw).hexdigest(),
+                prior=base64.b64decode(batch.cursor_before,validate=True),
+                next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)]
+        elif batch.profile=='ashlar-jsonl-transactions/0.1':
+            recovered=list(jsonl_batches(raw.splitlines(keepends=True),feed=batch.feed,epoch=batch.epoch,cursor_before=batch.cursor_before))
+        else:raise StagingError('Unsupported source profile')
+    except (ValueError,TypeError) as exc:raise StagingError('Invalid batch custody') from exc
     if recovered != [batch]:raise StagingError('Batch differs from original source transaction')
     payload=asdict(batch)
     payload['begin_base64']=base64.b64encode(payload.pop('begin')).decode('ascii')
@@ -89,9 +95,16 @@ def batch_from_row(row):
         for record in value['records']:
             raw.append(original(record['raw_base64']))
         raw.append(original(value['commit_base64']))
-        recovered = list(jsonl_batches(b''.join(raw).splitlines(keepends=True),
-                         feed=row['feed'], epoch=row['epoch'],
-                         cursor_before=row['cursor_before']))
+        if row['source_profile']=='truss-native-feed/0.1':
+            from .truss_native_feed import native_feed_batch
+            content=b''.join(raw)
+            recovered=[native_feed_batch(content,sha256=hashlib.sha256(content).hexdigest(),
+                prior=base64.b64decode(row['cursor_before'],validate=True),
+                next=base64.b64decode(row['cursor_after'],validate=True),feed=row['feed'])]
+        else:
+            recovered = list(jsonl_batches(b''.join(raw).splitlines(keepends=True),
+                             feed=row['feed'], epoch=row['epoch'],
+                             cursor_before=row['cursor_before']))
         if len(recovered) != 1 or batch_row(recovered[0]) != row:
             raise StagingError('Retained metadata differs from original transaction')
         return recovered[0]

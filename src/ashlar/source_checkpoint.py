@@ -137,7 +137,27 @@ def validate_source_checkpoint(text,batch):
         expected=_json(csv_checkpoint(batch).encode('utf-8'))
         if value!=expected:raise CheckpointError('CSV checkpoint differs from original row custody')
         return value
+    if value.get('profile')=='truss-native-feed/0.1':
+        expected=_json(truss_checkpoint(batch).encode('utf-8'))
+        if value!=expected:raise CheckpointError('Truss checkpoint differs from original page and opaque cursors')
+        return value
     raise CheckpointError('Unsupported source checkpoint profile')
+
+
+def truss_checkpoint(batch):
+    """Bind original Truss page custody without converting its opaque cursors.
+
+    Source authorization, schema admission and destination durability remain
+    host responsibilities. This binding alone never authorizes acknowledgement.
+    """
+    batch_row(batch)
+    if batch.profile!='truss-native-feed/0.1':raise CheckpointError('Original native Truss page required')
+    value={'profile':batch.profile,'feed':batch.feed,'epoch':batch.epoch,
+           'previous':batch.cursor_before,'position':batch.cursor_after,
+           'payload_digest':hashlib.sha256(batch.begin).hexdigest(),'batch_id':batch.batch_id}
+    text=json.dumps(value,sort_keys=True,separators=(',',':'))
+    if len(text)>16384:raise CheckpointError('Truss checkpoint binding exceeds publication bound')
+    return text
 
 
 def bind_outbox_descriptor(request,descriptor,*,expected_publication_id):

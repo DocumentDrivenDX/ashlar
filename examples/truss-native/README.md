@@ -393,3 +393,16 @@ Ashlar Delta publication. Source ACK asserts only that delivery; it does not
 verify another database's durability or authorize history retention release.
 The complete feed-to-Delta workflow must publish corresponding original source
 transactions durably before acknowledging them.
+
+For application integration, `ashlar.truss_native_feed.native_feed_batch`
+accepts a complete original page, its SHA-256, original prior/next cursor bytes
+and an explicit feed name. The native batch can use `ashlar.staging.batch_row`
+and `ashlar.source_checkpoint.truss_checkpoint` to retain transaction custody
+in the publication path. It preserves Truss's opaque checkpoints rather than
+converting them to outbox positions or JSONL offsets.
+
+`scalar_object_changes` maps full rootless STRING object afterimages into
+Ashlar's create/replace/delete changes, using the true entity version. Property
+events require a corresponding full afterimage. Schema admission, durable Delta
+effects and descriptor-bound source ACK remain responsibilities of the consumer;
+these extraction and custody APIs alone do not perform that workflow.
