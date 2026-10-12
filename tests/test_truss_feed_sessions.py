@@ -96,6 +96,18 @@ class Tests(unittest.TestCase):
                 publication_backend=object(),supported_profiles=['profile'],supported_revisions={'notes':['1']})
         self.assertTrue(answer['caller_commit_confirmed'])
         self.assertEqual(events,['pins-open','resolve','connect','assembly-open','ack','resolve','assembly-close','commit','pins-close','rollback','close'])
+        # Actual observed commit allows the same owner's pin-release admission;
+        # the source is still authenticated through a fresh public read.
+        with patch.object(TrussFeedSessions,'_read',return_value=SimpleNamespace(prior=owner.page.next)):
+            owner.admit(request,context=context)
+        self.assertEqual(events[-3:],['connect','rollback','close'])
+
+    def test_fresh_owner_cannot_claim_an_advanced_checkpoint_as_its_ack(self):
+        owner,request,context,events,_,pins,_=self.setup_case()
+        with self.assertRaisesRegex(ValueError,'Original actual ACK attempt required'):
+            owner.reconcile(json.dumps(request).encode(),b'{"publication_id":"p"}',object(),context=context,pins=pins,
+                publication_backend=object(),supported_profiles=['profile'],supported_revisions={'notes':['1']})
+        self.assertEqual(events,[])
 
     def test_commit_response_loss_reconciles_without_another_write(self):
         owner,request,context,events,connection,pins,assembly=self.setup_case()

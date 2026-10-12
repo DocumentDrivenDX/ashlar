@@ -22,7 +22,7 @@ jobs:
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_native_feed test_truss_graph_sql test_truss_feed_sessions test_truss_publication test_staging test_source_checkpoint
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_native_feed test_truss_graph_sql test_truss_feed_sessions test_truss_publication test_truss_note_publication test_staging test_source_checkpoint
   diagnostic-supervision:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.extended }}
     runs-on: ubuntu-latest

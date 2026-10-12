@@ -62,6 +62,8 @@ class TrussFeedSessions:
     feed:str
     connection_factory:object=field(repr=False,compare=False)
     context:object=field(repr=False,compare=False)
+    _pending_checkpoint:object=field(default=None,init=False,repr=False,compare=False)
+    _committed_checkpoint:object=field(default=None,init=False,repr=False,compare=False)
 
     def __post_init__(self):
         if type(self.page)is not _sdk()[4] or self.page.outcome!='transaction' or not callable(self.connection_factory):
@@ -108,7 +110,8 @@ class TrussFeedSessions:
             # The safe frontier is a fresh observation outside original payload
             # bytes; another committed writer may advance it between polls.
             fields=('content','sha256','prior','next','consumer_id','registration_id','writer_xid','outcome')
-            if any(getattr(current,key)!=getattr(self.page,key)for key in fields):
+            committed=(self._committed_checkpoint is not None and current.prior.content==self._committed_checkpoint)
+            if not committed and any(getattr(current,key)!=getattr(self.page,key)for key in fields):
                 raise TrussSessionError('Current source page differs; advanced replay needs retained interval admission')
         except BaseException as error:primary=error
         finish(primary,[connection.rollback,connection.close])
@@ -140,6 +143,16 @@ class TrussFeedSessions:
         self._request(request,context)
         connection=None;primary=None;commit_attempted=False;commit_observed=False;answer=None
         try:
+            if reconcile:
+                if self._pending_checkpoint is None:
+                    raise TrussSessionError('Original actual ACK attempt required; retained-interval replay unavailable')
+                connection=self.connection_factory(context)
+                current=self._read(connection)
+                if current.prior.content==self._pending_checkpoint:
+                    object.__setattr__(self,'_committed_checkpoint',self._pending_checkpoint)
+                elif current.prior.content!=self.page.prior.content:
+                    raise TrussSessionError('Source cursor does not prove the original ACK attempt')
+                connection.rollback();connection.close();connection=None
             with owned_context(pins.hold(vector,context=context)):
                 self._resolve(request,manifest,vector,context,pins,backend,profiles,revisions)
                 connection=self.connection_factory(context)
@@ -154,8 +167,10 @@ class TrussFeedSessions:
                         if type(acknowledged)is not _sdk()[5] or acknowledged.checkpoint!=self.page.next or acknowledged.outcome not in ('advanced','equal'):
                             raise TrussSessionError('Actual source ACK correspondence differs')
                         self._resolve(request,manifest,vector,context,pins,backend,profiles,revisions)
+                    object.__setattr__(self,'_pending_checkpoint',self.page.next.content)
                     commit_attempted=True
                     connection.commit();commit_observed=True
+                    object.__setattr__(self,'_committed_checkpoint',self.page.next.content)
                     answer={'outcome':acknowledged.outcome,'caller_commit_confirmed':True}
                 if reconcile:self._resolve(request,manifest,vector,context,pins,backend,profiles,revisions)
         except BaseException as error:primary=error

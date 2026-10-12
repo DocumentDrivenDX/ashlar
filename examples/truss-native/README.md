@@ -414,11 +414,70 @@ staged page. `TrussFeedSessions` supplies ordinary source reads and source ACK
 to `NativeDriver`; use the same owner for both session ports. It resolves and
 pins the whole destination publication before the public Truss ACK and caller
 commit. Commit uncertainty uses a fresh read, without retrying the write.
-Re-admission of an already-acknowledged interval requires retained-interval read
-support; an advanced source cursor currently refuses that replay.
+The same owner closes a completed ACK against a fresh authenticated read of its
+exact committed cursor. Replay from a fresh owner after ACK requires retained-
+interval read support; an advanced source cursor currently refuses that replay.
 
 Use `ashlar.truss_publication.publish_truss_transaction` with the configured
 publication backend to run the durable coordinator with a native batch.
 `ashlar_host.publication_planning.truss_request_for` constructs its matching
 request for effect planning. Register a separate consumer for Delta delivery;
 the file-spooling example's ACK asserts file delivery and consumes that interval.
+
+## Publish Note pages into local Delta
+
+`publish-note.py` composes the actual public Truss feed with Ashlar's existing
+native Delta effect journal, six tables, immutable publication manifest and
+ordinary source ACK. Use the compatible Truss feed package described above and
+installed Spark/Delta/JDK dependencies already selected for Ashlar. It starts
+only a local Spark context (`local[1]`, 512 MiB); it installs nothing.
+
+Create/edit/evolve your Note first. Select a **new distinct Delta consumer ID**;
+do not reuse the file-delivery consumer from `read-feed.py`, which has already
+acknowledged its pages. The installation administrator registers this consumer
+against your existing ordinary reader role and commits. Your existing ordinary
+consumer login must hold that role. The first source page must retain the actual
+genesis checkpoint. Catalog-only initial pages are published before later entity
+pages; none are skipped to start at the current Note state.
+
+Private configuration (replace all selections):
+
+```json
+{
+  "administrator_uri": "postgresql://local-administrator@localhost/your-database",
+  "connection_uri": "postgresql://ashlar_note_consumer@localhost/your-database",
+  "reader_role": "ashlar_note_reader",
+  "consumer_id": "ashlar-note-delta-v1",
+  "feed": "ashlar-note-native",
+  "jars": ["/absolute/path/to/delta-spark.jar", "/absolute/path/to/delta-storage.jar"],
+  "maximum_pages": 8
+}
+```
+
+Use current URIs from your owned local Truss runtime. Select an existing pair of
+compatible Spark/Delta JARs and your installed JDK through `JAVA_HOME`. Run with a
+fresh canonical output directory:
+
+```sh
+python examples/truss-native/publish-note.py \
+  --configuration /absolute/private/publish-note.json \
+  --output /absolute/private/fresh-note-delta
+```
+
+The example reads at most eight complete pages, admits Note schema semantics from
+original accepted UMF 0.7 document/report bytes and actual catalog IDs, and derives
+full expected destination rows from native afterimages. Entity versions are the
+actual source versions. Local Delta effects, history and manifest are checked
+before the public source ACK is submitted and caller-committed. Opaque cursor
+bytes retain the original installation/epoch/registration correspondence.
+`result.json` is written after native journal and lease cleanup; the wrapper closes
+Spark before returning. A source or destination failure retains partial tables,
+original attempts and durable checkpoints. Inspect those outcomes before recovery;
+this fresh-run example never resets or automatically retries them.
+
+The supported entity subset is rootless scalar-string Note create/update/delete,
+including the additive optional tag revision. Separate property events remain in
+the complete original staged page; lifecycle afterimage events form entity history.
+The example does not claim Unity Catalog execution, arbitrary schemas/edges,
+restart recovery or already-acknowledged source replay. Native execution evidence
+is still required to qualify this newly composed workflow.
