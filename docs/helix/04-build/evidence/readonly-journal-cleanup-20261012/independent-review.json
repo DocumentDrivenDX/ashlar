@@ -1,0 +1,23 @@
+{
+  "verdict": "approved exactthreefile lowerallocationcleanup slice",
+  "freeze_sha256": "fb09af2d1312d642ceb8c373b78e5e31f7c3e2d8e0de46a59c6bf8dbdaba9c81",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/read_only_transport.py",
+      "bytes": 5450,
+      "sha256": "0225da1e253722854c42e383fcb814702b7686b923d1b7de7f3e0ceb400a28bb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_read_only_journal_cleanup.py",
+      "bytes": 3780,
+      "sha256": "6c5422be1a4b9f4e142a07192165a0cf7236e0b003883a5a36670334c21b3ed6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 9756,
+      "sha256": "2dd6090739b299890cbbc4227c2d8b0627665eec4590b95fd64e13744b373839"
+    }
+  ],
+  "review": "Actual acquiredSQLite modeRO connection registrationcheck/missingschema/query BaseException closesviafinish(originalprimary,[connection.close]); no grant/query/schema/cap mutation. ExactsingleCI moduleaddition same3.9/3.12strict command. ThreemeaningfulactualSQLite controls prove closedconn/queryfails/exactoriginalbytes+namespacepreserved/cancelprimarydespiteclosefailure; ownedpatcher/baseconnectioncleanup safe.",
+  "scope": "LowerSQLite allocation control only; SimpleNamespace receiver notproduction/native/fullconstructor/commonfactory authority. No SDK/producer/native effects. Independentfocused3stricttest/boundary/diff and exactpins verified."
+}

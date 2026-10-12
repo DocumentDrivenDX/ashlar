@@ -1,0 +1,41 @@
+{
+  "scope": "Actual SQLite allocation cleanup at lower journal acquisition; no native, producer or common-read composition qualification",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/read_only_transport.py",
+      "bytes": 5450,
+      "sha256": "0225da1e253722854c42e383fcb814702b7686b923d1b7de7f3e0ceb400a28bb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_read_only_journal_cleanup.py",
+      "bytes": 3780,
+      "sha256": "6c5422be1a4b9f4e142a07192165a0cf7236e0b003883a5a36670334c21b3ed6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 9756,
+      "sha256": "2dd6090739b299890cbbc4227c2d8b0627665eec4590b95fd64e13744b373839"
+    }
+  ],
+  "controls": {
+    "Python39": {
+      "tests": 10,
+      "seconds": 0.173,
+      "chunk": "08c36b",
+      "exit": 0
+    },
+    "Python312": {
+      "tests": 10,
+      "seconds": 0.189,
+      "chunk": "d4a326",
+      "exit": 0
+    }
+  },
+  "invariants": [
+    "mismatched registration closes actual acquired connection",
+    "missing schema closes actual acquired connection",
+    "cancellation remains original when closing also raises",
+    "original SQLite bytes and namespace unchanged"
+  ],
+  "CI": "Existing strict module-boundaries command adds cleanup test, existing Python3.9/3.12 matrix unchanged"
+}

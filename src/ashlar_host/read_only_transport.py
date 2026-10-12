@@ -74,8 +74,11 @@ class ReadOnlyDeltaTransport(LocalDeltaTransport):
         if create:
             raise LocalDeltaError('Read-only consumer cannot initialize')
         self.db = sqlite3.connect('file:' + quote(str(self.journal_path.resolve())) + '?mode=ro', uri=True)
-        if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(registry,)]:
-            raise LocalDeltaError('Original journal registration differs')
+        try:
+            if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(registry,)]:
+                raise LocalDeltaError('Original journal registration differs')
+        except BaseException as error:
+            finish(error, [self.db.close])
 
     def mutation(self, *args, **kwargs):
         raise LocalDeltaError('Read-only publication consumer')
