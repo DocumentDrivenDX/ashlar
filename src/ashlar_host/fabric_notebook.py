@@ -13,7 +13,7 @@ from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
 import tempfile
 from .lifecycle import finish
 
-SOURCE_COMMIT = '10e140e880bdfe21527f9d05be460c223998fd7c'
+SOURCE_COMMIT = '24e006f159c38d9ee45b9ab2ae905dceeb15f56f'
 
 def prepare_fabric_notebook(selection, nodes, edges, output, display_name):
     output = Path(output)
@@ -34,7 +34,7 @@ from pathlib import Path
 from ashlar_host.local_graph_export import LocalGraphExportSelection, open_local_graph_export
 from ashlar_host.graph_release_delta import materialize_private_graph_release_delta
 from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
-root = Path(tempfile.mkdtemp(prefix='ashlar-commerce-')).resolve()
+root = Path(tempfile.mkdtemp(prefix='ashlar-graph-')).resolve()
 '''
     for name, raw in [('release.graph.json', release), ('custody.json', custody)]:
         code += f'(root / {name!r}).write_bytes(base64.b64decode({base64.b64encode(raw).decode()!r}))\n'
@@ -58,8 +58,8 @@ print(definition)
         if kind == 'code': value.update(execution_count=None, outputs=[])
         return value
     notebook = {'nbformat': 4, 'nbformat_minor': 5,
-        'metadata': {'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}},
-        'cells': [cell('markdown', '# Commerce export to Fabric\nAttach the intended lakehouse. Fresh destinations only. This notebook contains selected export data; keep it private. It materializes tables and prepares a model definition, but does not create/load a model or establish continued source availability.\n'),
+        'metadata': {'ashlar': {'source_commit': SOURCE_COMMIT, 'release_sha256': selection.release_sha256, 'custody_sha256': selection.custody_sha256, 'custody_profile': json.loads(custody)['format']}, 'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}},
+        'cells': [cell('markdown', '# Graph export to Fabric\nAttach the intended lakehouse. Fresh destinations only. This notebook contains selected export data; keep it private. It materializes tables and prepares a model definition, but does not create/load a model or establish continued source availability.\n'),
             cell('code', f'%pip install https://github.com/DocumentDrivenDX/ashlar/archive/{SOURCE_COMMIT}.zip\n'),
             cell('code', code)]}
     # Publish the complete private notebook atomically, without replacing a path.

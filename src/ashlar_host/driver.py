@@ -327,6 +327,32 @@ class NativeDriver:
                 transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
 
     @classmethod
+    def from_existing_truss(cls, transport, policy, context, tables, allowed_changes,
+                            columns, *, source_admission, source_sessions, ack_sessions):
+        """Construct from complete existing journal custody, without recreating plans.
+
+        This admits construction only. Original request/plan restoration and live
+        source rereading remain mandatory before any retry or ACK reconciliation.
+        The caller retains ownership of the already-open transport on refusal.
+        """
+        from .delta_custody import LocalDeltaTransport
+        from .truss_graph_admission import TrussGraphAdmission
+        from .truss_feed_sessions import TrussFeedSessions
+        if (cls is not NativeDriver or type(transport) is not LocalDeltaTransport
+                or type(policy) is not PrivatePolicy or policy.context is not context
+                or transport.policy is not policy
+                or type(source_admission) is not TrussGraphAdmission
+                or type(source_sessions) is not TrussFeedSessions
+                or ack_sessions is not source_sessions or source_sessions.context is not context):
+            raise PermissionError('Exact existing Truss graph construction ports required')
+        LocalDeltaTransport.require_existing_journal(transport.journal_path,
+            transport.installation_id, tuple(transport.targets.values()),
+            capacity=transport.operation_capacity)
+        return cls(transport, policy, context, tables, {}, allowed_changes, columns,
+            source_admission=source_admission, source_sessions=source_sessions,
+            ack_sessions=ack_sessions)
+
+    @classmethod
     def with_registered_evolution(cls, transport, policy, context, tables, allowed_changes,
                                   columns, *, source_admission, source_sessions, ack_factory):
         """Transfer the transport into one complete existing evolution owner.
@@ -1922,6 +1948,15 @@ class NativeDriver:
             if row is not None and (type(row[0]) is not int or not 0 < row[0] <= maximum or type(row[1]) is not bytes or len(row[1]) != row[0]):
                 raise LocalDeltaError('Complete bounded original source plan required')
             retained_plan = None if row is None else (row[1].decode('utf-8'),)
+        truss_intent = None
+        if self.admission_facts()['profile'] == 'ashlar-truss-scalar-graph-semantic-admission/0.1':
+            truss_intent = {'profile':'ashlar-truss-publication-intent/0.1',
+                'publication_id':active['publication_id'], 'recorded_at':active['recorded_at'],
+                'previous_progress':active['previous_progress'], 'progress':active['progress'],
+                'source_admission':self.admission_facts(), 'source_oracle_sha256':sha(encoded(active['expected']))}
+            # Older applied-only plans retain their original six-field bytes.
+            if retained_plan is None or 'publication_intent' in json.loads(retained_plan[0]):
+                source_plan['publication_intent'] = truss_intent
         if retained_plan is None:
             if recovery:
                 raise LocalDeltaError('Original source plan custody absent; no replacement')
@@ -2259,10 +2294,23 @@ class NativeDriver:
             ack_ports = {'pins': self, 'publication_backend': self, 'supported_profiles': [PROFILE],
                          'supported_revisions': {k: [v] for k, v in json.loads(request['schema_revisions_json']).items()}}
 
+        from .truss_feed_sessions import TrussFeedSessions
+        truss_reconcile = False
+        if type(ack) is TrussFeedSessions:
+            from .truss_ack_journal import retain_truss_ack_attempt
+            checkpoint = ack.observe_checkpoint(context=context)
+            if checkpoint == ack.page.prior.content:
+                retain_truss_ack_attempt(self, request, row, vector)
+            elif checkpoint == ack.page.next.content:
+                ack.adopt_ack_attempt(self, request, row, vector)
+                truss_reconcile = True
+            else:
+                raise ValueError('Original Truss ACK checkpoint differs')
+
         raw_request = encoded(request).encode()
         raw_manifest = encoded(row).encode()
         try:
-            receipt = ack.acknowledge(raw_request, raw_manifest, vector, context=context, **ack_ports)
+            receipt = (ack.reconcile if truss_reconcile else ack.acknowledge)(raw_request, raw_manifest, vector, context=context, **ack_ports)
         except AckOutcomeUncertain:
             receipt = ack.reconcile(raw_request, raw_manifest, vector, context=context, **ack_ports)
             if receipt is None:

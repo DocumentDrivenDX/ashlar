@@ -26,6 +26,12 @@ def _closed(value,keys):
  if type(value)is not dict or set(value)!=set(keys):raise ValueError('Closed original custody inventory required')
 def _digest(value):
  if type(value)is not str or not re.fullmatch('[0-9a-f]{64}',value):raise ValueError('Exact SHA256 text required')
+def decode_custody_bytes(raw):
+ """Decode bounded original custody bytes with exact scalar/member rules."""
+ return _decode(raw)
+def require_custody_digest(value):
+ """Validate an explicit trusted SHA256 digest without deriving authority."""
+ return _digest(value)
 def _hex(value):
  if type(value)is not str or not value or len(value)>8388608 or len(value)%2 or not re.fullmatch('[0-9a-f]+',value):raise ValueError('Bounded canonical original hex required')
  return bytes.fromhex(value)
@@ -149,7 +155,11 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
     from .finite_graph_custody import PROFILE as FINITE_PROFILE,admit_finite_graph_custody
     if type(custody)is dict and custody.get('format')==FINITE_PROFILE:
         admit_finite_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
-    else:admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+    else:
+        from .truss_graph_custody import PROFILE as TRUSS_PROFILE,admit_truss_graph_custody
+        if type(custody)is dict and custody.get('format')==TRUSS_PROFILE:
+            admit_truss_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+        else:admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
     if value.get('format')!=FORMAT or value.get('mapping',{}).get('identity')!='ashlar-key/1':
         raise ValueError('Unsupported named release/identity encoding')
     if (json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()!=payload:

@@ -1,0 +1,42 @@
+{
+  "code_revision": "a928bb0eb2f618d4aca20746380e00c0200102e9",
+  "outcome": "passed",
+  "elapsed_seconds": 89.107,
+  "invocation": "Local source-checkout publish-truss-graph CLI with actual public Truss SDK and owned local Spark/Delta",
+  "publications": 4,
+  "publication_ids": [
+    "truss-graph-1",
+    "truss-graph-2",
+    "truss-graph-3",
+    "truss-graph-4"
+  ],
+  "complete_manifests": 4,
+  "snapshot_tables_per_manifest": 4,
+  "committed_attempts": 4,
+  "final_rows": {
+    "object_current": 0,
+    "edge_current": 0,
+    "whole_source_history": 7,
+    "tombstone": 3
+  },
+  "tombstone_versions": {
+    "edge": 3,
+    "objects": [
+      2,
+      2
+    ]
+  },
+  "source_ack": "Caller-asserted public Truss delivery ACK after destination publication; not protected outbox ACK or destination receipt retention",
+  "cleanup": "Successful CLI and enclosing owned-runtime return; selected postmaster.pid absent; no reviewer native rerun",
+  "review": "Read-only retained result/manifests and SQLite immutable committed physical receipts; original payloads remain private",
+  "qualification": "One authored UMF 0.7 cohort catalog/create/edge-update/edge-first-delete workflow into fresh private local Delta tables",
+  "not_qualified": [
+    "Installed Ashlar package invocation",
+    "Unity Catalog",
+    "Schema evolution",
+    "Restart recovery",
+    "General domain-pack ingest",
+    "Protected outbox delivery"
+  ],
+  "private_artifacts_committed": false
+}

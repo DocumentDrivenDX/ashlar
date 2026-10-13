@@ -1,5 +1,5 @@
 """Fresh local Note Delta publication from actual ordinary public Truss pages."""
-import base64,datetime,hashlib,json,time
+import base64,datetime,hashlib,json,os,time
 from dataclasses import asdict
 from pathlib import Path
 from ashlar.apply import empty_state
@@ -157,19 +157,21 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
-    output=Path(output)
+    output=Path(output);release=None;custody=None
+    if type(export_graph)is not bool or export_graph and not graph:raise ValueError('Graph export requires graph publication and a boolean selection')
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
+    if archived_acceptance_files and not graph:raise ValueError('Archived catalogs are selected for graph publication only')
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
@@ -196,10 +198,16 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 page=read_next_page(connection_factory,consumer_id,wait_seconds,deadline=wait_deadline)
             if page.outcome=='empty_interval':break
             lease.renew();sessions=TrussFeedSessions(page,feed,ordinary,context);batch=sessions.batch()
+            from .truss_page_archive import encode_truss_page
+            original_page=encode_truss_page(page,feed);page_path=output/('source-page-'+str(ordinal+1)+'.json')
+            with page_path.open('xb')as stream:
+                os.fchmod(stream.fileno(),0o600)
+                if stream.write(original_page)!=len(original_page):raise OSError('Complete original source page write required')
+                stream.flush();os.fsync(stream.fileno())
             if graph:
                 from .truss_catalog_reader import read_historical_catalog_views
                 from .truss_graph_admission import TrussGraphAdmission
-                admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch))
+                admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch,archived_acceptance_files))
             else:admission=TrussNoteAdmission(batch)
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -217,10 +225,21 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             # Concrete backend validates actual native effects/manifest/pins before its
             # TrussFeedSessions performs public ACK and caller commit.
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
-            results.append({'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)})
+            results.append({'source_page':{'path':str(page_path),'sha256':hashlib.sha256(original_page).hexdigest()},'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)})
             state=after;expected=following;progress=policy.active['progress'];predecessor=publication_id;lease.renew()
+        if export_graph and results:
+            from .truss_graph_export import read_original_truss_graph_export
+            release,custody=read_original_truss_graph_export(driver,with_custody=True)
     except BaseException as error:primary=error
     finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
     result={'publications':results,'scope':('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.'}
+    if release is not None:
+        path=output/'graph-release.json'
+        with path.open('xb')as stream:
+            if stream.write(release.payload)!=len(release.payload):raise OSError('Complete graph release write required')
+        custody_path=output/'graph-custody.json'
+        with custody_path.open('xb')as stream:
+            if stream.write(custody)!=len(custody):raise OSError('Complete graph custody write required')
+        result['graph_release']={'path':str(path),'sha256':release.sha256,'custody_path':str(custody_path),'custody_sha256':hashlib.sha256(custody).hexdigest(),'qualification':'Canonical immutable graph captured with the original live Truss source owner; no protected outbox custody or external engine qualification.'}
     with (output/'result.json').open('x')as stream:json.dump(result,stream,ensure_ascii=False)
     return result

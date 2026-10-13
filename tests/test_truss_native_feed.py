@@ -6,7 +6,7 @@ class Tests(unittest.TestCase):
         encode=lambda value:json.dumps(value).encode()
         cursor={'sourceEpoch':'epoch','installationId':'installation'};prior=encode(cursor);next=encode(cursor)
         identity={'id':'7','typeId':'3','definitionPin':'type-pin'}
-        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':identity,'recordVersion':version,'ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'property-pin','value':'exact'}],'retained':[]}
+        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':identity,'recordVersion':version,'ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'property-pin','value':{'kind':'string','text':'exact'}}],'retained':[]}
         event={'interfaceVersion':'truss-history-event/0.2.0-proposal','operation':operation,'sourceEpoch':'epoch','xid':'42','seq':'987','eventVersion':version,'eventCatalogRevision':'2','identity':identity,'after':image}
         raw=encode(event);wrapper={'interfaceVersion':'truss-journal-exact-bytes/0.2.0-proposal','component':'event','bytesBase64':base64.b64encode(raw).decode(),'bytesSha256':hashlib.sha256(raw).hexdigest()}
         payload={'interfaceVersion':'truss-native-feed/0.1','prior':cursor,'next':cursor,'writerXid':'42','changes':[{'seq':987,'xid':'42','entity_kind':'o','entity_id':7,'entity_type':3,'ver':int(version),'new_value':wrapper}],'catalogPrerequisites':[{'original':'preserved'}]}
@@ -65,3 +65,22 @@ class Tests(unittest.TestCase):
         with self.assertRaises(CheckpointError):validate_source_checkpoint(json.dumps(changed),batch)
         altered={**row,'cursor_after':row['cursor_before']}
         with self.assertRaises(StagingError):batch_from_row(altered)
+
+    def test_public_exact_string_tags_decode_but_other_values_refuse(self):
+        import base64
+        content,kwargs=self.case();payload=json.loads(content);wrapper=payload['changes'][0]['new_value'];event=json.loads(base64.b64decode(wrapper['bytesBase64']))
+        event['after']['properties'][0]['value']={'kind':'string','text':'雪 exact'}
+        event['after']['retained']=[{'name':'note','value':{'kind':'string','text':'retained text'}}]
+        def selected():
+            raw=json.dumps(event).encode();wrapper.update(bytesBase64=base64.b64encode(raw).decode(),bytesSha256=hashlib.sha256(raw).hexdigest())
+            body=json.dumps(payload).encode();return body,{**kwargs,'sha256':hashlib.sha256(body).hexdigest()}
+        body,args=selected();parsed=scalar_object_changes(body,**args)
+        self.assertEqual(json.loads(parsed.changes[0].state.props_json),{'9':'雪 exact'})
+        self.assertEqual(json.loads(parsed.changes[0].state.retained_json),{'note':'retained text'})
+        self.assertEqual(json.loads(parsed.event_bytes[0])['after']['properties'][0]['value'],{'kind':'string','text':'雪 exact'})
+        for value in ('legacy plain string',{'kind':'integer','text':'1'},{'kind':'string','text':1},{'kind':'string','text':'x','unknown':True}):
+            with self.subTest(value=value):
+                event['after']['properties'][0]['value']=value;body,args=selected()
+                with self.assertRaises(NativeFeedError):scalar_object_changes(body,**args)
+        event['after']['properties'][0]['value']={'kind':'string','text':'valid'};event['after']['retained'][0]['value']={'kind':'boolean','value':True};body,args=selected()
+        with self.assertRaises(NativeFeedError):scalar_object_changes(body,**args)

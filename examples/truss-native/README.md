@@ -575,3 +575,82 @@ command polls the ordinary public feed and publishes new arrivals using the
 same destination and publication chain. This is one total wait budget, with at
 most eight pages; the default zero keeps immediate finite execution. Empty
 intervals are never published or acknowledged.
+
+Catalog-only native transactions retain their complete source page and advance
+publication progress even when they produce no graph mutations. Their empty
+effect plan is journaled under the same writer policy and complete snapshot
+checks as a nonempty plan. Recovery requires that original journal entry; it
+does not insert a dummy Delta write or skip the transaction before source ACK.
+
+Native history STRING values use the exact closed carrier
+`{"kind":"string","text":"..."}` for declared and retained properties. The
+adapter projects that text into canonical property JSON while retaining the
+original tagged lifecycle bytes and complete source page. It refuses plain
+untagged values, extra carrier members and unsupported value families.
+
+For graph publication after schema evolution, retain the private outputs of
+`accept-truss-schema` or `evolve-truss-note`. The evolution output captures both
+original catalogs before and after acceptance. Select them in publication
+configuration with `"archived_acceptance_files": [{"path": "/absolute/private/evolution.json", "sha256": "<SHA256 of the original file>"}]`.
+The publisher matches each capture to the feed page's exact original accepted
+report; it never interprets an older revision using the current catalog.
+These files supply schema interpretation. Live Truss sessions still establish
+source access and perform delivery ACKs.
+
+Set `"export_graph": true` in `publish-truss-graph` configuration to capture the
+final canonical graph release while the original source owner and complete
+publication snapshots remain held. After successful cleanup, the command writes
+`graph-release.json`, a separately bound `graph-custody.json`, and both digests
+in `result.json`. The existing graph materialization workflow can select this
+pair using its explicit release and custody digests. The release preserves typed
+node/edge identities and original canonical properties. It carries the local
+Truss publication's qualification; exporting it does not establish protected
+outbox custody or qualify an external graph engine.
+
+With a compatible Truss SDK exposing `reread_feed_in_transaction`, source
+admission can reproduce an original retained delivery after its consumer has
+advanced. Truss checks current permissions, the original registration and exact
+page bytes; Ashlar refuses an unavailable or changed reproduction. ACK
+reconciliation still reads the current consumer checkpoint and requires the
+original ACK attempt. Retained-page admission alone does not authorize another
+ACK or establish complete destination restart recovery.
+
+The publisher saves each complete original feed page to a private
+`source-page-N.json` before submitting that transaction's destination effects.
+Successful result entries include its path and SHA256. Recovery tooling can
+restore the exact public page carrier and request retained reproduction from
+Truss. The archive supplies original input, not source permission or proof of
+ACK; destination recovery still requires its original operation journal.
+
+Hosts reopening a Truss graph publication use
+`NativeDriver.from_existing_truss` to require the original journal, then call
+`restore_applied_truss_publication(driver, request_digest)` inside the driver's
+writer interval. The restoration uses the retained applied artifact and original
+SQL plan, independently reconstructs expected rows from source history, and
+checks live source access and native snapshots. It performs no SQL writes or
+ACK. Missing applied artifacts remain a separate interruption-recovery path.
+
+For an interruption before the applied artifact is retained, call
+`recover_interrupted_truss_apply(driver, request_digest)` inside the reopened
+writer interval. New Truss source plans retain the original publication intent
+before effects begin. Recovery requires that intent and the original whole
+operation plan, rebuilds expected rows from source changes, and dispatches the
+existing effect-recovery path. It does not publish a manifest or ACK the source.
+Older interrupted plans lacking that intent require separate handling; an
+applied older artifact can still use the applied-restoration path above.
+
+`resume_truss_publication(driver, request_digest)` completes an original durable
+publication whose source checkpoint is still pending. It checks the existing
+attempt phases, restores the original applied state or interrupted effects, and
+uses the regular coordinator to publish and ACK. The coordinator owns its writer
+interval, so call this function outside an already-held writer. An advanced
+checkpoint requires the exact original durable ACK attempt and committed native
+publication. The function verifies those records and reconciles the checkpoint
+without submitting another ACK. Missing intent or a different checkpoint refuses
+before recovery effects.
+
+Truss ACK intent is retained in the original journal before the public ACK call,
+binding the request, manifest, complete snapshot vector and source registration.
+A restarted owner can observe the original next checkpoint only after validating
+that intent and the committed publication. This is caller-asserted delivery
+reconciliation; it does not turn Truss delivery into a protected outbox receipt.

@@ -88,6 +88,13 @@ class Tests(unittest.TestCase):
             owner.admit(request,context=context)
         self.assertEqual(events,['connect','rollback','close'])
 
+    def test_checkpoint_observation_reads_current_without_retained_reproduction(self):
+        owner,_,context,events,_,_,_=self.setup_case()
+        with patch.object(TrussFeedSessions,'_read',return_value=SimpleNamespace(prior=owner.page.next))as read:
+            self.assertEqual(owner.observe_checkpoint(context=context),owner.page.next.content)
+        self.assertEqual(read.call_args.kwargs,{})
+        self.assertEqual(events,['connect','rollback','close'])
+
     def test_public_ack_commit_follows_both_destination_gates(self):
         owner,request,context,events,_,pins,assembly=self.setup_case()
         owner._request(MappingProxyType(request),context)
@@ -126,3 +133,31 @@ class Tests(unittest.TestCase):
             answer=owner.reconcile(json.dumps(request).encode(),b'{"publication_id":"p"}',object(),**ports)
         self.assertTrue(answer['checkpoint_observed']);self.assertNotIn('ack',events);self.assertNotIn('commit',events)
         self.assertEqual(events[-2:],['rollback','close'])
+
+    def test_fresh_owner_retained_public_page_and_unavailable_refusal(self):
+        owner,request,context,events,connection,_,_=self.setup_case()
+        advanced=replace(owner.page,prior=owner.page.next,outcome='empty',writer_xid=None)
+        response=[replace(owner.page,safe_watermark_xid='99')]
+        calls=[]
+        @contextmanager
+        def assembly(selected,readonly):
+            self.assertIs(selected,connection);self.assertTrue(readonly)
+            tx=object()
+            def reread(actual_tx,page,**bounds):
+                self.assertIs(actual_tx,tx);self.assertIs(page,owner.page)
+                self.assertEqual(bounds,{'maximum_facts':4096,'maximum_bytes':8388608})
+                calls.append('retained');return response[0]
+            yield SimpleNamespace(read_feed_in_transaction=lambda *args,**kwargs:advanced,
+                reread_feed_in_transaction=reread),tx
+        with patch('ashlar_host.truss_feed_sessions._assembly',assembly), \
+             patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,Acknowledged)), \
+             patch('ashlar_host.truss_feed_sessions._value',side_effect=lambda value:value):
+            owner.admit(request,context=context)
+            self.assertEqual(calls,['retained']);self.assertEqual(events[-2:],['rollback','close'])
+            # Cursor observation for reconciliation never reproduces history.
+            self.assertIs(owner._read(connection),advanced);self.assertEqual(calls,['retained'])
+            response[0]=SimpleNamespace(reason='unavailable')
+            with self.assertRaisesRegex(ValueError,'retained public Truss page unavailable'):
+                owner.admit(request,context=context)
+            self.assertEqual(events[-2:],['rollback','close'])
+            self.assertIsNone(owner._committed_checkpoint)

@@ -1,0 +1,24 @@
+{
+  "code_revision": "d31c54e0c2a707d1c92205ee6803f9cb1dc1a3d0",
+  "outcome": "passed",
+  "elapsed_seconds": 91.55,
+  "invocation": "Local source-checkout publish-truss-graph CLI with actual public Truss SDK and owned local Spark/Delta",
+  "complete_publications": 5,
+  "catalog_evolution": "Original authored Note r1 to r2 optional STRING tag; pinned original r1/r2 catalog captures interpret feed after head advanced",
+  "identity_preserved": true,
+  "values_and_version_preserved_at_evolution": true,
+  "final_object_rows": 1,
+  "final_object_version": 3,
+  "final_added_tag_matches_native_readback": true,
+  "cleanup": "Successful CLI/owned-runtime return and selected postmaster.pid absent",
+  "source_ack": "Caller-asserted public Truss delivery ACK after destination publication; not protected outbox ACK or receipt retention",
+  "review": "Read-only retained complete results/evolution identity and one final physical receipt tag check; no reviewer native rerun",
+  "not_qualified": [
+    "Installed Ashlar package invocation",
+    "Unity Catalog",
+    "Restart recovery",
+    "General schema evolution",
+    "Protected outbox delivery"
+  ],
+  "private_artifacts_committed": false
+}

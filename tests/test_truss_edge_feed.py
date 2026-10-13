@@ -12,7 +12,7 @@ class Tests(unittest.TestCase):
         images=[]
         for ordinal,identity in enumerate(identities):
             edge=ordinal==2
-            image={'interfaceVersion':'truss-history-record/0.1.0','kind':'edge'if edge else'object','identity':identity,'recordVersion':'1','catalogRevision':'1','properties':[],'retained':[{'name':'note','value':'original edge'}]if edge else[]}
+            image={'interfaceVersion':'truss-history-record/0.1.0','kind':'edge'if edge else'object','identity':identity,'recordVersion':'1','catalogRevision':'1','properties':[],'retained':[{'name':'note','value':{'kind':'string','text':'original edge'}}]if edge else[]}
             if edge:image.update(source=identities[0],target=identities[1],orderKey={'state':'text','text':'ordered first'})
             else:image['ownership']={'state':'rootless'}
             images.append(image)

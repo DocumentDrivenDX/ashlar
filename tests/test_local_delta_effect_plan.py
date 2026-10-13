@@ -205,5 +205,21 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.transport.db.execute('SELECT count(*) FROM local_plan').fetchone()[0], 0)
         self.assertEqual(self.engine.writes, 0)
 
+    def test_zero_effect_plan_retains_intent_checks_snapshots_and_only_recovers_original(self):
+        version=self.engine.history[0]['version']
+        with patch.object(self.transport,'mutation',wraps=self.transport.mutation)as mutation,patch.object(self.transport,'_snapshot',wraps=self.transport._snapshot)as snapshot:
+            actual=self.effects.run('catalog-only','b'*64,[],context='held')
+            mutation.assert_not_called();snapshot.assert_called_once_with(self.target,version)
+        retained,digest=self.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?',('catalog-only',)).fetchone()
+        self.assertEqual(json.loads(retained)['steps'],[]);self.assertEqual(actual['plan_sha256'],digest)
+        self.assertEqual(actual['original_native_receipts'],[]);self.assertEqual(self.engine.writes,0)
+        with patch.object(self.transport,'mutation',wraps=self.transport.mutation)as mutation,patch.object(self.transport,'_snapshot',wraps=self.transport._snapshot)as snapshot:
+            recovered=self.effects.recover('catalog-only','b'*64,[],context='held')
+            mutation.assert_not_called();snapshot.assert_called_once_with(self.target,version)
+        self.assertEqual(recovered,actual)
+        with self.assertRaises(LocalDeltaError):self.effects.recover('missing-catalog-only','c'*64,[],context='held')
+        self.assertEqual(self.transport.db.execute('SELECT count(*) FROM local_plan').fetchone()[0],1)
+        self.assertEqual(self.engine.writes,0);self.assertEqual(self.engine.history[0]['version'],version)
+
 
 if __name__ == '__main__': unittest.main()

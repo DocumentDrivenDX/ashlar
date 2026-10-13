@@ -1,0 +1,22 @@
+{
+  "code_revision": "e40578aa59787eb72c05fd38b5dbc0c64d0fd441",
+  "outcome": "passed",
+  "resume_elapsed_seconds": 11.751,
+  "qualification": "One actual local interrupted APPLY recovered original effects and validated applied artifact truss-graph-3",
+  "interruption": "Controlled exception immediately after actual object_current MERGE commit; original source page/source plan/operation journal retained",
+  "harness_correction": "Initial harness selected page2 while interrupted update was page3; refused before recovery effects. Corrected resume selected original page3 on same source/journal, without reingest or reset",
+  "original_effects_recovered": true,
+  "manifest_publication_issued": false,
+  "ack_issued": false,
+  "owned_server_stopped": true,
+  "review": "Read-only actual scripts/completed resume/result; no rerun or expanded journal audit",
+  "not_qualified": [
+    "Completed interrupted publication/ACK workflow",
+    "Full recovery CLI",
+    "Unity Catalog",
+    "Protected outbox ACK",
+    "Installed package invocation",
+    "General restart recovery"
+  ],
+  "private_payloads_committed": false
+}

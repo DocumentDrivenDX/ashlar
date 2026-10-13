@@ -862,7 +862,7 @@ class LocalDeltaEffects:
         if (type(operation) is not str or not operation or len(operation) > 1024
                 or type(intent_digest) is not str or not re.fullmatch('[0-9a-f]{64}', intent_digest)):
             raise LocalDeltaError('Original whole operation/request identity required')
-        if type(steps) is not list or not 1 <= len(steps) <= 100 or any((type(s) is not dict or set(s) != {'statement', 'parameters'} for s in steps)):
+        if type(steps) is not list or not 0 <= len(steps) <= 100 or any((type(s) is not dict or set(s) != {'statement', 'parameters'} for s in steps)):
             raise LocalDeltaError('Bounded exact ordered native effect plan required')
         body = {'profile': 'ashlar-local-delta-effects/0.1', 'installation_id': self.transport.installation_id, 'operation': operation, 'intent_digest': intent_digest, 'steps': steps}
         bounded_local_json_bytes(body, 4194304)
@@ -937,7 +937,7 @@ class LocalDeltaEffects:
                 row = self.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?', (operation,)).fetchone()
                 if row is None:
                     placeholders = ','.join('?' for _ in identities)
-                    if self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
+                    if identities and self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
                         raise LocalDeltaError('Original ordinal custody exists without whole plan; no restoration')
                     with self.transport.db:
                         self.transport.db.execute('INSERT INTO local_plan VALUES(?,?,?)', (operation, original, digest))
@@ -1012,7 +1012,7 @@ class LocalDeltaEffects:
                     if recovery:
                         raise LocalDeltaError('Original effect plan missing; no replacement')
                     placeholders = ','.join('?' for _ in identities)
-                    if self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
+                    if identities and self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
                         raise LocalDeltaError('Original ordinal custody exists without whole plan; no restoration')
                     with self.transport.db:
                         self.transport.db.execute('INSERT INTO local_plan VALUES(?,?,?)', (operation, original, digest))

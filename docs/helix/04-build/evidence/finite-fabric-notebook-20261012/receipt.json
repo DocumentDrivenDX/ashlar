@@ -1,0 +1,15 @@
+{
+  "format": "ashlar-finite-fabric-notebook-preparation/0.1",
+  "pack": "archaeology",
+  "exit_code": 0,
+  "notebook_bytes": 2303423,
+  "notebook_sha256": "c27a3f459eb19858e6691a47d231044a77334b8e4b2d1270c7ebec90c9309496",
+  "metadata": {
+    "source_commit": "24e006f159c38d9ee45b9ab2ae905dceeb15f56f",
+    "release_sha256": "270024d11f221ad576ba6fd0528b03050564a1d62abaf0f5e344b3b4b8c33479",
+    "custody_sha256": "7a9ec04a83af8241a1dd350d5b6345290c5bedbf3488e33a9ff76ee372dbd3b4",
+    "custody_profile": "ashlar-immutable-finite-file-graph-custody/0.1"
+  },
+  "generator_file_sha256": "2a679b9e7dff2ba3fa9798e4facc20914e84955ad2c0277a83748a0624470596",
+  "qualification": "Actual local CLI preparation from source checkout using the closed native archaeology export. Generated code syntax checked; no installation, notebook execution, upload, table materialization, model load or GQL query. Notebook remains private."
+}

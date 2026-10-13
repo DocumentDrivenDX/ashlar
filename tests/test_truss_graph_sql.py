@@ -9,7 +9,7 @@ class Tests(unittest.TestCase):
         prior={'profile':'truss-caller-asserted-feed/0.1','installationId':'installation','sourceEpoch':'epoch','consumerId':'consumer','registrationId':'registration','nextXid':'0'}
         next={**prior,'nextXid':'43'}
         identity={'id':'7','typeId':'3','definitionPin':'type-pin'}
-        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':identity,'recordVersion':'1','ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'property-pin','value':'exact'}],'retained':[]}
+        image={'interfaceVersion':'truss-history-record/0.1.0','kind':'object','identity':identity,'recordVersion':'1','ownership':{'state':'rootless'},'properties':[{'propertyId':'9','definitionPin':'property-pin','value':{'kind':'string','text':'exact'}}],'retained':[]}
         event={'interfaceVersion':'truss-history-event/0.2.0-proposal','operation':'create','sourceEpoch':'epoch','xid':'42','seq':'987','eventVersion':'1','eventCatalogRevision':'1','identity':identity,'after':image}
         raw=encode(event)
         wrapper={'interfaceVersion':'truss-journal-exact-bytes/0.2.0-proposal','component':'event','bytesBase64':base64.b64encode(raw).decode(),'bytesSha256':hashlib.sha256(raw).hexdigest()}
@@ -40,7 +40,7 @@ class Tests(unittest.TestCase):
         with self.assertRaises(PermissionError):TrussNoteAdmission(selected)
 
         wrapper=payload['changes'][0]['new_value'];event=json.loads(base64.b64decode(wrapper['bytesBase64']))
-        event['after']['properties'].append({'propertyId':'10','definitionPin':'text-pin','value':'complete text'})
+        event['after']['properties'].append({'propertyId':'10','definitionPin':'text-pin','value':{'kind':'string','text':'complete text'}})
         event_bytes=json.dumps(event).encode();wrapper.update(bytesBase64=base64.b64encode(event_bytes).decode(),bytesSha256=hashlib.sha256(event_bytes).hexdigest())
         content=json.dumps(payload).encode()
         complete=native_feed_batch(content,sha256=hashlib.sha256(content).hexdigest(),prior=base64.b64decode(batch.cursor_before),next=base64.b64decode(batch.cursor_after),feed=batch.feed)
