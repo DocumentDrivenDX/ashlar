@@ -1415,6 +1415,30 @@ qualifies the recorded source update, committed replay, Delta continuation and
 exact singleton read with the selected versions. It does not qualify Unity
 Catalog or numeric Weft queries.
 
+### Delete a typed source record
+
+Use the common connection, document selection, Bun and origin settings from
+creation, with `object_id`, `expected_version` and a fresh `request_key`. Omit
+`values`, `set` and `unset`. The source ID and version come from the committed
+source readback; they are not logical key values.
+
+```sh
+ashlar delete-truss-record --configuration /absolute/private/delete-record.json \
+  --output /absolute/private/deleted-record.json
+```
+
+The command submits one public Truss deletion with the explicit expected version,
+checks that the source object is absent after commit, and replays the original
+committed receipt. Truss owns relationship and lifecycle constraints; a referenced
+object may refuse deletion. Ashlar does not remove related objects automatically.
+Use graph continuation to publish the deletion. The source command itself does
+not ingest or ACK. Retain the original request key and inspect source state if
+commit outcome is uncertain. Basic adapter coverage does not imply native
+publication qualification. The [one-record local check](../../docs/helix/04-build/evidence/truss-typed-record-delete-delta-20261013/result.json)
+qualifies the recorded source deletion, committed replay, Delta continuation and
+pinned singleton absence. Unity Catalog and external graph engines require
+separate qualification.
+
 ### Ingest exact scalar fields
 
 The graph publisher and continuation support accepted UMF 0.7 single-valued
