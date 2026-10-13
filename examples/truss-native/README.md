@@ -1928,3 +1928,27 @@ qualifies the retained two-node/two-edge typed publication, including its self-l
 one/two-hop edge occurrences and exact degree/path counts. Canonical numeric
 property JSON is preserved as opaque text; this evidence does not qualify
 GraphFrames numeric-property filters.
+
+### Count authored two-hop paths over typed records
+
+`query-truss-two-hop-count` selects the installed public 0.4.2 distribution and
+counts actual relationship edge pairs from one accepted catalog revision:
+
+```sh
+ashlar query-truss-two-hop-count --configuration /absolute/private/reader.json \
+  --output /absolute/private/two-hop-count.json \
+  --weft-index /absolute/path/to/distributions/index.json \
+  --weft-installation /absolute/private/arithmetic-installation \
+  --sql 'SELECT COUNT(*) AS paths FROM TypedRecord r CROSS JOIN EXPAND_PATHS(r.related,related) AS p' \
+  --revision 1 --document-id typed-related-record --maximum-rows 1
+```
+
+Both hops retain authored required STRING endpoint keys and canonical directed,
+independent edge mappings. The count preserves self-loops and distinct edge-pair
+occurrences, including reuse of an edge at both hop positions. An empty path bag
+returns zero. Every original scalar, relationship, path-occurrence and count-capacity
+guard runs before unchanged result SQL under the complete publication hold; the
+count must equal the independent full source edge-pair count. Original request,
+response and recompilation strings are retained. Filters, groups, property joins
+and path-list outputs need separate admission. This route is scoped to the local
+candidate; native qualification is recorded separately in execution evidence.

@@ -547,3 +547,25 @@ and pass closing custody checks. This route MUST require a related-key output
 and refuse relationship filters, historical revision unions, numeric outputs,
 aggregates or paths without their own admission. Unreferenced numeric properties
 remain exact during source comparison.
+
+### Authored two-hop expansion counts over typed Truss records
+
+An explicitly selected two-hop count route MUST bind the original accepted typed
+model, exact current catalog revision, actual relationship definitions and their
+canonical edge homes. Each hop MUST retain its authored required STRING endpoint
+keys, direction, multiplicity and independent lifecycle. The logical path MUST
+be contiguous from the selected source record. A global `COUNT(*)` over that
+expansion MUST count original edge-identity pairs, preserving parallel occurrences,
+self-loops and reuse of the same edge at distinct hop positions. Empty path bags
+produce one exact zero count; the result stays within nonnegative signed64 bounds.
+
+The original installed 0.4.2 compiler request and independent recompilation MUST
+correspond exactly. All publication, scalar-integrity, relationship-integrity,
+path-occurrence and count-capacity obligations MUST be admitted and discharged
+under the same complete native publication hold. Source guards precede dependent
+path guards; unchanged compiler SQL runs only after every guard succeeds. Per-hop
+pinned edge schemas MUST preserve BIGINT identities. The complete buffered count
+MUST match independent original node/edge populations and pass closing source and
+manifest custody. Unknown obligations, missing endpoints, stale physical revisions
+or incomplete evidence refuse publication. Filters, grouped path counts, property
+joins and path-list outputs require their own explicit admission.

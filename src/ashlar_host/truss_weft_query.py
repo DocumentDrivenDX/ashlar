@@ -599,7 +599,7 @@ def admit_truss_grouped_count(admission,artifact,binding,expected,*,revision,doc
     return [{**{name:values[fields.index(field)]for field,name in projected},count_name:count}for values,count in bag.items()]
 
 
-def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000,two_hop_count=False):
     """Execute original indexed arithmetic SQL within the genuine Truss hold."""
     from ashlar.weft_implicit_arithmetic_distribution import (ImplicitArithmeticDistributionPaths,
         compile_implicit_arithmetic_distribution,installed_implicit_arithmetic_schema_bundle)
@@ -630,17 +630,62 @@ def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maxim
                 response=compile_implicit_arithmetic_distribution(paths,request_bytes)
                 recompiled=compile_implicit_arithmetic_distribution(paths,request_bytes)
                 artifact=decode_compile_artifact(response)
-                admit_implicit_arithmetic_artifact(request,artifact,decode_compile_artifact(recompiled),config=config)
-                projection=admit_truss_arithmetic_projection(driver.source_admission,artifact,request,manifest,
-                    driver.policy.active['expected'],revision=revision,document_id=document_id)
+                admitted=admit_implicit_arithmetic_artifact(request,artifact,decode_compile_artifact(recompiled),config=config)
+                if two_hop_count:
+                    from .truss_two_hop_count import admit_truss_two_hop_count
+                    projection=admit_truss_two_hop_count(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    for declaration in admitted.edge_schemas:
+                        table=dict(declaration['table']);name='`'+'`.`'.join(table['name'])+'`'
+                        schema=driver.transport.spark.sql('SELECT `id` FROM '+name+' VERSION AS OF '+str(table['version'])).schema
+                        if len(schema.fields)!=1 or schema.fields[0].name!='id'or schema.fields[0].dataType.simpleString()!='bigint':raise ValueError('Original pinned path edge BIGINT schema required')
+                else:
+                    projection=admit_truss_arithmetic_projection(driver.source_admission,artifact,request,manifest,
+                        driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
-                rows,checks=_execute_truss_arithmetic_artifact(driver.transport.spark,artifact,projection,maximum_rows)
+                rows,checks=(_execute_truss_two_hop_count_artifact if two_hop_count else _execute_truss_arithmetic_artifact)(driver.transport.spark,artifact,projection,maximum_rows)
                 projection.require_complete_bag(rows)
                 driver.validate_manifest(manifest,driver.context)
     return {'request_bytes':request_bytes,'response_bytes':response,'recompiled_bytes':recompiled,
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'recompiled_sha256':hashlib.sha256(recompiled).hexdigest(),'publication_id':manifest['publication_id'],
-        'rows':rows,'integrity':checks,'qualification':'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.'}
+        'rows':rows,'integrity':checks,'qualification':('Indexed 0.4.2 candidate authored two-hop expansion COUNT on one admitted physical revision; original SQL and all five obligations, complete native pins and exact independent edge-pair count. No production qualification.'if two_hop_count else'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.')}
+
+
+def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+    return _execute_truss_indexed_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows)
+
+
+def execute_truss_two_hop_count_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+    """Execute an original authored two-hop global COUNT with all original guards."""
+    return _execute_truss_indexed_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows,two_hop_count=True)
+
+
+def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows):
+    from .truss_two_hop_count import TrussTwoHopCount
+    from .path_capture import PathCaptureConfig,capture_string_frame
+    if type(projection)is not TrussTwoHopCount or encoded(artifact['columns'])!=projection.columns_json:raise ValueError('Original nominal two-hop count admission required')
+    slots=artifact['parameters'];params={}
+    if type(slots)is not list or len(slots)>256:raise ValueError('Bounded original path count parameter inventory required')
+    for position,slot in enumerate(slots,1):
+        if type(slot)is not dict or type(slot.get('position'))is not int or slot['position']!=position or type(slot.get('value'))is not str:raise ValueError('Original ordered path count text parameters required')
+        params['p'+str(position)]=slot['value']
+    def capture(sql,budget):
+        if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()not in ('SELECT','WITH'):raise ValueError('Original bounded path count SELECT/WITH required')
+        return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
+    obligations={o['id']:o for o in artifact['obligations']};checks=[]
+    required={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity','ashlar.path.occurrenceIntegrity','ashlar.path.countCapacity'}
+    if set(obligations)!=required or len(artifact['obligations'])!=5:raise ValueError('Exact original five path count obligations required')
+    for name in ('ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity','ashlar.path.occurrenceIntegrity','ashlar.path.countCapacity'):
+        original=obligations[name]['parameters']['checks']
+        if type(original)is not list or not original or len(original)>128:raise ValueError('Bounded complete original path guard inventory required')
+        for check in original:
+            if check.get('publicSourceOnly')is True:raise ValueError('Public-source guard requires separate source port')
+            observed=capture(check['sql'],1)
+            if len(observed['schema'])!=1 or observed['rows']!=[['0']]:raise ValueError('Original path count integrity guard refused')
+            checks.append({'obligation':name,'check':check,'rows':observed['rows']})
+    observed=capture(artifact['sql'],maximum_rows);column=artifact['columns'][0];name=column['outputName']
+    if observed['schema']!=[[name,'STRING']]or len(observed['rows'])!=1:raise ValueError('One original complete path count STRING row required')
+    return [{name:projection.decode(column,observed['rows'][0][0])}],checks
 
 
 def _execute_truss_arithmetic_artifact(spark,artifact,projection,maximum_rows):
