@@ -1,0 +1,54 @@
+{
+  "profile": "ashlar-authored-typed-related-umf-validation/0.1",
+  "model": {
+    "path": "examples/truss-native/typed-related-record.umf.json",
+    "bytes": 3570,
+    "sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+    "declared_umf": "0.7.0"
+  },
+  "public_validator": {
+    "api": "validateRelationshipCandidate",
+    "source_commit": "385c8cf119a3c2e40ba59cc5f15e24edab52f3b2",
+    "source_entrypoint": "/Users/erik/.codex/worktrees/6423/umf/src/index.ts",
+    "bun": "1.4.2",
+    "command": "/opt/homebrew/Cellar/bun/1.4.2/bin/bun -e 'import {validateRelationshipCandidate} from \"/Users/erik/.codex/worktrees/6423/umf/src/index.ts\";const m=await Bun.file(\"/Users/erik/Projects/ashlar/examples/truss-native/typed-related-record.umf.json\").json();const v=validateRelationshipCandidate(m);await Bun.write(\"/private/tmp/ashlar-typed-related-umf-validation-20261013.json\",JSON.stringify(v,null,2)+\"\\n\");console.log(JSON.stringify({valid:v.valid,complete:v.complete,diagnosticCount:v.diagnostics.length}));if(!v.valid)process.exit(1)'"
+  },
+  "result_original": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "Public UMF experimental authored relationship validation only. Complete is false; no Truss acceptance, mutations, query execution, native enforcement or production qualification.",
+  "result_original_sha256": "5a707a9d2997aa9a0544edeb6121b6db5b8793e67d0d37bf6bc6e7fdc6f95178"
+}
