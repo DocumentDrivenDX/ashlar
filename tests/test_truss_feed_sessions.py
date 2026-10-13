@@ -88,6 +88,13 @@ class Tests(unittest.TestCase):
             owner.admit(request,context=context)
         self.assertEqual(events,['connect','rollback','close'])
 
+    def test_checkpoint_observation_reads_current_without_retained_reproduction(self):
+        owner,_,context,events,_,_,_=self.setup_case()
+        with patch.object(TrussFeedSessions,'_read',return_value=SimpleNamespace(prior=owner.page.next))as read:
+            self.assertEqual(owner.observe_checkpoint(context=context),owner.page.next.content)
+        self.assertEqual(read.call_args.kwargs,{})
+        self.assertEqual(events,['connect','rollback','close'])
+
     def test_public_ack_commit_follows_both_destination_gates(self):
         owner,request,context,events,_,pins,assembly=self.setup_case()
         owner._request(MappingProxyType(request),context)

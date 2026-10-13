@@ -638,3 +638,11 @@ operation plan, rebuilds expected rows from source changes, and dispatches the
 existing effect-recovery path. It does not publish a manifest or ACK the source.
 Older interrupted plans lacking that intent require separate handling; an
 applied older artifact can still use the applied-restoration path above.
+
+`resume_truss_publication(driver, request_digest)` completes an original durable
+publication whose source checkpoint is still pending. It checks the existing
+attempt phases, restores the original applied state or interrupted effects, and
+uses the regular coordinator to publish and ACK. The coordinator owns its writer
+interval, so call this function outside an already-held writer. An advanced
+checkpoint requires separate durable ACK-attempt recovery; this function refuses
+it before effects rather than inferring that a new owner issued the original ACK.

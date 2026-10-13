@@ -107,6 +107,15 @@ class TrussFeedSessions:
                     raise TrussSessionError('Original retained public Truss page unavailable or differs')
             return page
 
+    def observe_checkpoint(self, *, context):
+        """Read the actual current checkpoint; do not reproduce a historical page."""
+        if context is not self.context:raise PermissionError('Original Truss host context required')
+        connection=self.connection_factory(context);primary=None;checkpoint=None
+        try:checkpoint=self._read(connection).prior.content
+        except BaseException as error:primary=error
+        finish(primary,[connection.rollback,connection.close])
+        return checkpoint
+
     def admit(self,request,*,context):
         """Read the same original committed page under current source permissions."""
         self._request(request,context)
