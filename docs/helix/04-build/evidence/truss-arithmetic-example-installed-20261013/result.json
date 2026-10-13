@@ -1,0 +1,106 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 71.386,
+  "publication_id": "truss-graph-2",
+  "publications": 2,
+  "source_checkpoint_unchanged": true,
+  "installed_wheel": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_wheel_source_commit": "b9f2347dd1a73f3fae573886546c62ba2942b6e8",
+  "wheel_sha256": "f9066ab033142d035dd703742cc8d90ca2d4c975454d1088308b8ca493224f8c",
+  "wheel_bytes": 1512559,
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_realization_id": "weft-f36f206-implicit-arithmetic-aarch64-apple-darwin-candidate",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "source_model_sha256": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f",
+  "fields": [
+    {
+      "module_id": "m",
+      "field_id": "record-id",
+      "property_id": "5",
+      "scalar_type": "string",
+      "nullability": "required",
+      "state": "value",
+      "value": "R1"
+    },
+    {
+      "module_id": "m",
+      "field_id": "quantity",
+      "property_id": "4",
+      "scalar_type": "integer",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "integer_token": "9007199254740993"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "amount",
+      "property_id": "2",
+      "scalar_type": "decimal",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "decimal_token": "1.2300"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "active",
+      "property_id": "1",
+      "scalar_type": "boolean",
+      "nullability": "required",
+      "state": "value",
+      "value": true
+    },
+    {
+      "module_id": "m",
+      "field_id": "note",
+      "property_id": "3",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    },
+    {
+      "module_id": "m",
+      "field_id": "tag",
+      "property_id": "6",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    }
+  ],
+  "rows": [
+    {
+      "next_quantity": {
+        "integer_token": "9007199254740994"
+      },
+      "double_amount": {
+        "decimal_token": "2.4600"
+      },
+      "reduced_amount": {
+        "decimal_token": "0.2300"
+      }
+    }
+  ],
+  "source_type_id": 1,
+  "source_entity_id": 1,
+  "scope": "Actual documented run-truss-arithmetic-example CLI from installed immutable Ashlar wheel: one original signed64/decimal18,4 UMF0.7 source object, two source publications, full singleton then indexed arithmetic on same publication, unchanged read checkpoint and final report after owner closure. Truss SDK is pinned main afterv0.0.1; no released numeric SDK, recovery, cloud or production authority claim.",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 72.413
+  }
+}

@@ -1781,3 +1781,7 @@ query runtimes close, input renewal, and environment restoration. It includes th
 singleton fields, original arithmetic protocol strings, exact results and unchanged
 source checkpoint. Local caller-asserted ACK and execution evidence define its
 qualification.
+
+The [installed-wheel workflow](../../docs/helix/04-build/evidence/truss-arithmetic-example-installed-20261013/result.json)
+executes the documented command from fresh setup through the exact singleton
+and arithmetic results on one publication.
