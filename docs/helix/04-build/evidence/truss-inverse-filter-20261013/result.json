@@ -1,0 +1,29 @@
+{
+  "profile": "ashlar-source-cli-truss-inverse-has-related-functional/0.1",
+  "seconds": 11.886,
+  "publications": 2,
+  "rows": [
+    {
+      "label": "Beta"
+    }
+  ],
+  "actual_integrity_checks": 13,
+  "authored_target_key_fields": [
+    "A-value",
+    "A-label"
+  ],
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "471c9610bbce8ebd41dcf83316f074724fb3fff29c00817eb3b584f2107994fc",
+  "server_stopped": true,
+  "query_sha256": "ebf787c29b55e4323fdcee6311e825f96a5f9efe2d6cbdbdd95c734c2a76552c",
+  "qualification": "Actual source CLI original accepted inverse UMF cohort, one group with two objects/one independent typed edge, existing original Delta publication, public Weft scalar+relationship guards and original version-pinned inverse HAS_RELATED query. Exact compound key order A-value,A-label and source-once existence; no distinct-target, installed wheel, Unity Catalog or scale qualification.",
+  "native_inverse_filter_pass": true,
+  "query_report": "query.json.gz",
+  "model_sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+  "runtime": {
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "postgresql": "18.6",
+    "compiler": "weft/0.1.0"
+  }
+}

@@ -1,4 +1,4 @@
-"""One forward literal-key HAS_RELATED filter, under accepted Truss semantics."""
+"""One authored forward or inverse literal-key HAS_RELATED filter, under accepted Truss semantics."""
 import hashlib,json
 from .truss_graph_admission import TrussGraphAdmission
 from .delta_custody import encoded
@@ -14,18 +14,21 @@ def admit_truss_relationship_filter(admission,artifact,binding,expected,*,revisi
     plan=artifact.get('logicalPlan');keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
     if (type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not False
             or any(plan[key]!=[]for key in ('groups','joins','order'))or any(plan[key]is not None for key in ('limit','pageKey','readProfile'))
-            or plan['modulePins']!=[pin]or plan['requiredCapabilities']!=['filter','project','relationship.exists','scan','type.string']
-            or type(plan['filters'])is not list or len(plan['filters'])!=1):raise ValueError('Only one unordered forward HAS_RELATED predicate supported')
+            or plan['modulePins']!=[pin]or type(plan['requiredCapabilities'])is not list
+            or type(plan['filters'])is not list or len(plan['filters'])!=1):raise ValueError('Only one unordered HAS_RELATED predicate supported')
     predicate=plan['filters'][0]
     if set(predicate)!={'key','op','relationship','scan'}or predicate['op']!='hasRelated'or predicate['scan']!='s0':raise ValueError('Exact HAS_RELATED filter required')
-    relation=predicate['relationship'];source=plan['source'];installation=json.loads(admission.batch.begin)['prior']['installationId']
+    relation=predicate['relationship'];inverse=relation.get('inverse')
+    capabilities=['filter','project','relationship.exists',*(['relationship.inverse']if inverse is True else []),'scan','type.string']
+    if type(inverse)is not bool or plan['requiredCapabilities']!=capabilities:raise ValueError('Exact authored inverse capability required')
+    source=plan['source'];installation=json.loads(admission.batch.begin)['prior']['installationId']
     if set(source)!={'occurrence','pin','record'}or source['occurrence']!='s0'or source['pin']!=pin:raise ValueError('Exact original filter scan required')
     mappings=[item for item in binding.get('relationships',[])if item['logical']==relation.get('identity')]
     if len(mappings)!=1:raise ValueError('Actual accepted filter relationship required')
     mapping=mappings[0];edge=selected['edges'].get(mapping['typeId'])
     if (edge is None or mapping['kind']!='edge'or mapping['sourceSystem']!=installation or mapping['schemaRevision']!=revision
             or mapping['acceptedDefinition']!=edge['declaration']or edge['owner']!=(document_id,mapping['logical']['module'],mapping['logical']['relationship'])
-            or mapping['source']!=source['record']):raise ValueError('Original filter relationship allocation differs')
+            or mapping['target'if inverse else'source']!=source['record']):raise ValueError('Original filter relationship allocation differs')
     index=mapping['table'];tables=binding['publication']['tables']
     if (mapping['logical']!={'documentId':document_id,'revision':digest,'module':edge['owner'][1],'relationship':edge['owner'][2]}
             or type(index)is not int or not 0<=index<len(tables) or tables[index]['name'][-1]!='edge_current'):
@@ -40,6 +43,7 @@ def admit_truss_relationship_filter(admission,artifact,binding,expected,*,revisi
                 or type(index)is not int or not 0<=index<len(tables)or tables[index]['name'][-1]!='object_current'):raise ValueError('Exact physical filter endpoint required')
         return item
     source_map=record(mapping['source'],edge['endpoints'][0]);target_map=record(mapping['target'],edge['endpoints'][1])
+    if inverse:source_map,target_map=target_map,source_map
     def home(item,identity):
         declaration=definitions.get((identity['module'],identity['element']))
         fields=[field for field in item['properties']if field['logical']==identity]
@@ -55,10 +59,12 @@ def admit_truss_relationship_filter(admission,artifact,binding,expected,*,revisi
         identities=[logical(ref)for ref in choices[0]['fields']]
         for identity in identities:home(item,identity)
         return {'id':choices[0]['id'],'fields':identities,'types':[string for _ in identities]}
-    declaration=edge['declaration'];source_key=key(source_map,declaration['source'][0].get('key'));target_key=key(target_map,declaration['target'][0].get('key'))
-    wanted={'from':mapping['source'],'to':mapping['target'],'identity':mapping['logical'],'inverse':False,'sourceKey':source_key,'targetKey':target_key,
+    declaration=edge['declaration']
+    if inverse and (type(declaration.get('inverse'))is not str or not declaration['inverse']):raise ValueError('Actual authored inverse name required')
+    source_key=key(source_map,declaration['target'if inverse else'source'][0].get('key'));target_key=key(target_map,declaration['source'if inverse else'target'][0].get('key'))
+    wanted={'from':source_map['logical'],'to':target_map['logical'],'identity':mapping['logical'],'inverse':inverse,'sourceKey':source_key,'targetKey':target_key,
         'sourceMultiplicity':declaration['sourceMultiplicity'],'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
-    if relation!=wanted:raise ValueError('Actual forward filter declaration/key order differs')
+    if relation!=wanted:raise ValueError('Actual filter direction/declaration/key order differs')
     literals=predicate['key'];values=[]
     if type(literals)is not list or len(literals)!=len(target_key['fields']):raise ValueError('Complete authored target key tuple required')
     for literal in literals:
@@ -83,10 +89,11 @@ def admit_truss_relationship_filter(admission,artifact,binding,expected,*,revisi
     for (system,type_id,entity_id),row in objects.items():
         if (system,type_id,row['schema_revision'])!=(installation,source_map['typeId'],revision):continue
         matched=False
+        from_role='target'if inverse else'source';to_role='source'if inverse else'target'
         for carrier in expected['edge_current']:
-            if (carrier['source_system'],carrier['rel_type_id'],carrier['source_type'],carrier['source_id'],carrier['schema_revision'])!=(installation,mapping['typeId'],source_map['typeId'],entity_id,revision):continue
-            if carrier['target_type']!=target_map['typeId']:raise ValueError('Original filter edge target type differs')
-            target=objects[installation,target_map['typeId'],carrier['target_id']]
+            if (carrier['source_system'],carrier['rel_type_id'],carrier[from_role+'_type'],carrier[from_role+'_id'],carrier['schema_revision'])!=(installation,mapping['typeId'],source_map['typeId'],entity_id,revision):continue
+            if carrier[to_role+'_type']!=target_map['typeId']:raise ValueError('Original filter edge target type differs')
+            target=objects[installation,target_map['typeId'],carrier[to_role+'_id']]
             if target['schema_revision']!=revision:raise ValueError('Original filter target revision differs')
             props=json.loads(target['props_json']);tuple_values=[props[field]for field in target_homes]
             if any(type(value)is not str for value in tuple_values):raise ValueError('Original filter target STRING values required')

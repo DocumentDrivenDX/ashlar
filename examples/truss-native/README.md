@@ -83,11 +83,21 @@ To select source records connected to a particular target key:
 
 The key uses the target's declared order: `B-value`, then `B-label`. Each matching
 source record appears once, even when more than one edge matches. This profile
-supports one forward `HAS_RELATED` predicate with literal required STRING key
+supports one forward or explicitly authored inverse `HAS_RELATED` predicate with literal required STRING key
 components and required STRING source projections, without outer ordering.
 Scalar and relationship guards run before the original compiled query, and its
 complete row bag is checked against the selected publication's source oracle.
-It does not provide an edge-occurrence join.
+Inverse predicates swap endpoint keys while preserving canonical edge direction
+and select each matching source once. For the fresh inverse cohort, use:
+
+```sql
+SELECT b."B-label" AS label FROM B b
+WHERE HAS_RELATED(b."B-A", KEY('Value-A', 'Alpha'))
+```
+
+The [local inverse filter receipt](../../docs/helix/04-build/evidence/truss-inverse-filter-20261013/result.json)
+returns Beta from the existing publication, without ingest or checkpoint advancement.
+This profile does not provide an edge-occurrence join.
 
 The related result contains `items` and `truncated`. Each edge contributes its
 target's declared key tuple (`B-value`, then `B-label`); equal tuples remain

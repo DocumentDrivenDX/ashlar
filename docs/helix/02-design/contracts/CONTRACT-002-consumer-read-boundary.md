@@ -44,6 +44,15 @@ SQL or omit guards to admit older rows. The complete result bag, including older
 compatible rows and multiplicities, MUST match the independent source-derived
 projection before successful closing checks release it.
 
+### Truss relationship existence direction
+
+A `HAS_RELATED` predicate MAY use an explicitly authored inverse name and MUST
+require `relationship.inverse` exactly for that direction. Query endpoint roles
+and key tuples MUST reverse together while canonical physical edge mapping,
+multiplicity and lifecycle remain unchanged. Matching edges MUST select each
+source record once, including parallel matches. Both directions MUST retain
+all integrity guards and compare the complete publication-bound result bag.
+
 ### Truss related-key direction
 
 A `RELATED_KEYS` read MAY traverse an explicitly authored inverse name. It MUST
