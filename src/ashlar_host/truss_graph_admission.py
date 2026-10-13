@@ -60,7 +60,7 @@ class TrussGraphAdmission:
                 artifact=original['artifact'];model_raw=base64.b64decode(artifact['bytesBase64'],validate=True)
                 if hashlib.sha256(model_raw).hexdigest()!=artifact['sha256']:raise ValueError('Original UMF source digest differs')
                 model=json.loads(model_raw);doc=model['id']
-                if model.get('umf')!='0.7.0'or doc in models:raise ValueError('Explicit supported original UMF 0.7.0 required')
+                if model.get('umf')not in ('0.7.0','0.8.0')or doc in models:raise ValueError('Explicit supported original UMF0.7 or0.8 required')
                 models[doc]=(model,model_raw)
                 for module in model['modules']:
                     for element in module['elements']:elements[doc,module['id'],element['id']]=element
@@ -115,7 +115,7 @@ class TrussGraphAdmission:
             if event['operation']!='property':self.events[event['xid']+':'+event['seq']]=event
         for change in self.changes:self.admit(change)
     def metadata(self):
-        return {'profile':TYPED_PROFILE if self.typed else PROFILE,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':('Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted UMF 0.7.0 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')}
+        return {'profile':TYPED_PROFILE if self.typed else PROFILE,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':('Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted declared UMF0.7/0.8 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')}
     def admit(self,change):
         if change not in self.changes:raise PermissionError('Exact original native change required')
         event=self.events[change.delivery_id];image=event['before']if event['operation']=='delete'else event['after'];selected=self.revisions.get(image['catalogRevision'])

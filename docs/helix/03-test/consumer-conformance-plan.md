@@ -492,3 +492,15 @@ conflicting receipts must withhold success. Plain ACK attempts must not be upgra
 into receipt proof, and unavailable receipt APIs must refuse explicit selection.
 Use focused adapter controls first; qualify native behavior with a small real
 source transaction independently of existing Delta publication evidence.
+
+## Declared-version Truss scalar intake
+
+For CONTRACT-003, use independently authored original UMF 0.7.0 and 0.8.0
+models. Setup must select the exact public SDK preparation version. Creation,
+committed readback/replay, original accepted-report/catalog feed admission,
+Delta publication and named singleton reads must preserve original model bytes,
+unknown extensions, STRING keys, signed64 integers, decimal18,4 tokens and Boolean
+values. Compare complete properties and retained payloads with original source
+observations. Unsupported versions must refuse before optional SDK effects;
+version support must not expand the existing field, key, relationship, evolution
+or query subset. Qualify each actual runtime separately from inert host checks.

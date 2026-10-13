@@ -1,0 +1,31 @@
+{
+  "value": {
+    "installed": true,
+    "installation_id": "d7799b68-f529-46ed-8b10-2ba5ea95c7ec",
+    "revision": 0,
+    "capabilities": [
+      "catalog:fresh-registration",
+      "catalog:compatible-evolution",
+      "import:host-owned-scalar-graph",
+      "catalog:report",
+      "catalog:view",
+      "direct_read:scalar-object-id",
+      "group:rootless-scalar-graph",
+      "direct_read:edge-id",
+      "direct_read:relationship-page",
+      "receipt:authority-visibility",
+      "feed:caller-asserted-authority",
+      "feed:destination-receipt-reconciliation",
+      "history:retained-native-groups",
+      "compiled_query:weft-scalar-runtime"
+    ],
+    "release_id": "truss-catalog-runtime/0.39-candidate",
+    "release_sha256": "422468c8d0ad5ffed605d20221b13dc848d7fa4b40f850a0bd5201b7f634b029",
+    "layout_profile": {
+      "identity": "truss-layout",
+      "version": "0.16",
+      "sha256": "261e32c6c62624418f124ac7fbe3c206338322a03755b7ac0f1a7c7d86002368"
+    }
+  },
+  "status": "ok"
+}

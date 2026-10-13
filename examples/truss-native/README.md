@@ -2048,3 +2048,39 @@ and queries the new and original publications. The original snapshot retains its
 earlier topology. This local Spark 4.0.1 / Delta 4.0.0 case uses empty retained
 edge values and unchanged null order keys; it does not qualify every mutation
 option or protected destination ACK.
+
+## Supply a declared UMF 0.8 model
+
+Use `setup-truss-local` and `create-truss-record` with the
+[core 0.8 asset model](core08-simple-asset.umf.json). Select document
+`ashlar-core08-simple-asset`, module `assets`, record `Asset` and the exact original
+document file. Setup selects the public Truss preparation version from the
+original `umf` declaration; creation and graph publication retain those bytes.
+Use these scalar values in the existing record-creation configuration:
+
+```json
+{
+  "asset-key": {"kind": "string", "text": "A1雪"},
+  "units": {"kind": "integer", "text": "9007199254740993"},
+  "valuation": {"kind": "decimal", "text": "1.2300"},
+  "enabled": {"kind": "boolean", "value": true}
+}
+```
+
+Publish the catalog and object pages with `publish-truss-graph`, then configure
+its saved publication intent with `configure-truss-resume` and read the allocated
+identity with `read-truss-record`. Keep the source server running while executing
+source-bound commands. The existing setup/create/publication configuration
+shapes apply to both declared versions. Numeric facets, STRING keys, relationships,
+evolution and query subsets retain their own admission rules.
+
+The [opaque 0.8 model](core08-asset.umf.json) is a distinct source specimen. Preserve
+its vocabulary and payload intact when preparation is partial; it must not be
+silently converted into the core-only model or treated as accepted authority.
+
+The [native core 0.8 example](../../docs/helix/04-build/evidence/truss-core08-native-20261013/result.json)
+qualifies acceptance, exact creation/replay, two source publications and named
+singleton reads with the recorded local runtime. The
+[opaque-model refusal](../../docs/helix/04-build/evidence/truss-core08-opaque-refusal-20261013/result.json)
+retains original partial preparation and unknown-vocabulary diagnostics. Neither
+result qualifies 0.8 evolution, Weft queries or production authorization.

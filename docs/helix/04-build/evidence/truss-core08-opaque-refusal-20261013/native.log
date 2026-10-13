@@ -1,0 +1,17 @@
+{"stage": "accept-original08"}
+{"outcome": "failed", "duration_seconds": 11.841, "error_type": "RuntimeError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss-core08-native-20261013-a/run.py", line 27, in <module>
+    accepted=run_setup_truss_local_command(save('setup.json',{'data_directory':str(root/'data'),**selection,'request_key':'core08-accept'}),root/'accepted.json')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/truss_local_setup.py", line 103, in run_setup_truss_local_command
+    finish(primary,callbacks)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 22, in finish
+    raise owner
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/truss_local_setup.py", line 82, in run_setup_truss_local_command
+    accepted=value(assembly.accept_in_transaction(tx,prepared,request_key=config['request_key'],origin_bytes=origin))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/truss_local_setup.py", line 55, in value
+    if not isinstance(result,Ok):raise RuntimeError('Public Truss setup operation refused')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Public Truss setup operation refused

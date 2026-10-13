@@ -1,0 +1,24 @@
+{
+  "umf": "0.8.0",
+  "id": "ashlar-core08-asset",
+  "vocabularies": {"urn:ashlar:core08:consumer": {"version": "0.1.0"}},
+  "extensions": {"urn:ashlar:core08:consumer": {"opaque": {"retention": "original", "future": ["uninterpreted", "content"]}}},
+  "modules": [{
+    "id": "assets",
+    "namespace": "assets",
+    "extensions": {},
+    "elements": [
+      {"id": "Asset", "kind": "record", "name": "Asset", "title": "Original core 0.8 asset", "members": [
+        {"module": "assets", "element": "asset-key"},
+        {"module": "assets", "element": "units"},
+        {"module": "assets", "element": "valuation"},
+        {"module": "assets", "element": "enabled"}
+      ], "keys": [{"id": "primary", "name": "Primary", "primary": true, "fields": [{"module": "assets", "element": "asset-key"}]}], "extensions": {}},
+      {"id": "asset-key", "kind": "field", "name": "asset-key", "scalarType": "string", "nullability": "required", "cardinality": "one", "extensions": {}},
+      {"id": "units", "kind": "field", "name": "units", "scalarType": "integer", "nullability": "required", "cardinality": "one", "facets": {"integerWidth": {"bits": 64, "signed": true}}, "extensions": {}},
+      {"id": "valuation", "kind": "field", "name": "valuation", "scalarType": "decimal", "nullability": "required", "cardinality": "one", "facets": {"precision": 18, "scale": 4}, "extensions": {}},
+      {"id": "enabled", "kind": "field", "name": "enabled", "scalarType": "boolean", "nullability": "required", "cardinality": "one", "extensions": {}}
+    ],
+    "relationships": []
+  }]
+}

@@ -31,6 +31,7 @@ def selections(configuration,output):
     source=read(paths['document_path'],1048576);origin=read(paths['origin_path'],65536)
     document=json.loads(source)
     if type(document)is not dict or document.get('id')!=config['document_id']:raise ValueError('Original document identity differs')
+    if document.get('umf')not in ('0.7.0','0.8.0'):raise ValueError('Original declared UMF0.7 or0.8 document required')
     modules=document.get('modules')
     if type(modules)is not list or not 1<=len(modules)<=16:raise ValueError('Select 1..16 original document modules')
     module_ids=[]
@@ -77,7 +78,7 @@ def run_setup_truss_local_command(configuration,output):
         parameters['user']=consumer
         ordinary=psycopg.connect(**parameters,autocommit=True,connect_timeout=5,options='-c statement_timeout=15000')
         with interval(ordinary)as (assembly,tx):
-            prepared=assembly.prepare_catalog((CatalogDocument(config['document_id'],config['document_revision'],source),),bun_executable=str(paths['bun']))
+            prepared=assembly.prepare_catalog((CatalogDocument(config['document_id'],config['document_revision'],source),),bun_executable=str(paths['bun']),source_version=json.loads(source)['umf'])
             accepted=value(assembly.accept_in_transaction(tx,prepared,request_key=config['request_key'],origin_bytes=origin))
             if not isinstance(accepted,(CatalogRegistration,CatalogUnchanged)):raise RuntimeError('Original document acceptance refused')
         ordinary.commit()

@@ -1322,8 +1322,13 @@ nullability label MUST refuse. Extracting a null carrier MUST NOT imply its sche
 admission. Original event
 and transaction bytes MUST remain retained.
 
-The initial typed profile admits scalar, single-valued UMF 0.7 fields and required
-STRING key components. Other key families, nested values and opaque executable
+Typed Truss intake MUST preserve original declared UMF 0.7.0 or 0.8.0 model
+bytes and select the public SDK preparation path for that exact version. Accepted
+reports, catalog views and source metadata MUST retain the original version and
+unknown extensions. Unsupported versions MUST refuse before source effects; a
+version switch MUST NOT relabel an original document or bypass SDK acceptance.
+The admitted subset remains scalar, single-valued fields and required STRING
+key components. Other key families, nested values and opaque executable
 carriers MUST refuse explicitly. The existing strict STRING extraction APIs MUST
 retain their behavior. Typed intake MUST use a distinct semantic admission profile
 while preserving original publication, native identity and source ACK checks.

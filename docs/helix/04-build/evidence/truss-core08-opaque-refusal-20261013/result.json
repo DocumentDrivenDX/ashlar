@@ -1,0 +1,23 @@
+{
+  "outcome": "acceptance-unqualified",
+  "model_sha256": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+  "native_attempt": {
+    "outcome": "failed",
+    "duration_seconds": 11.841,
+    "error_type": "RuntimeError"
+  },
+  "readonly_followup_catalog_revision": 0,
+  "original_declared_version": "0.8.0",
+  "preparation_completeness": [
+    "partial"
+  ],
+  "original_diagnostics": [
+    {
+      "code": "UNKNOWN_EXTENSION",
+      "path": "/vocabularies/urn:ashlar:core08:consumer",
+      "message": "Exact extension version unavailable; content retained",
+      "severity": "warning"
+    }
+  ],
+  "qualification": "Actual fresh local setup installed the runtime, then acceptance returned an uncaptured public Error. No object/Delta path ran. Read-only public status observes revision0; pure preparation retains opaque bytes with UNKNOWN_EXTENSION and partial interpretation. Exact Error reason/failing gate unavailable; partial-interpretation cause remains an inference. The original model remains unchanged; no unsupported source authority or unknown-extension acceptance is claimed. Truss owner asked about an available public profile."
+}

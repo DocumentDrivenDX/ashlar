@@ -1,0 +1,20 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 94.19,
+  "umf_version": "0.8.0",
+  "model_sha256": "111d0597b220034a2fd3cc3ac9252ba24a3171d7c5d8c60688102b090c4f5e0f",
+  "publications": 2,
+  "objects": 1,
+  "fields": 4,
+  "publication_id": "truss-graph-2",
+  "original_model_bytes_retained": true,
+  "source_checkpoint_unchanged_by_read": true,
+  "runtime": {
+    "truss_source": "1f203768092178f356f267cd047ae149c08541f3",
+    "postgresql": "18.6",
+    "psycopg": "3.3.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0"
+  },
+  "scope": "Separately authored core-only original declaredUMF0.8 fixture, actual public acceptance/create/committed readback/replay, two feed publications and exact complete named singleton. Caller-asserted Truss ACK; unknown-extension acceptance remains pending separately; no protected PostgreSQL-outbox/F8/Weft/UC qualification."
+}
