@@ -856,6 +856,31 @@ as exact strings; this command does not interpret property values or establish
 ancestry between the exports. It reads both complete exports before creating a
 fresh report and leaves the source and its checkpoint untouched.
 
+### Query a saved graph with DuckDB
+
+Install the optional dependency using Python 3.10 or newer:
+
+```sh
+python3 -m pip install '.[duckdb]'
+ashlar query-duckdb-export \
+  --configuration /absolute/path/r2-selection.json \
+  --maximum-hops 2 \
+  --output /absolute/path/new-duckdb-result.json
+```
+
+Use the same exact four-field selection as `compare-graph-exports`. The command
+runs in memory with one thread and a 64 MiB DuckDB memory limit. The private report
+contains complete original node and edge carriers, directed one-hop edge results,
+out-degrees including isolates, and optional two-hop paths with path and distinct
+destination counts per node. Parallel edges remain distinct occurrences; property
+carriers remain opaque strings. Each input and result bag is limited to 10,000
+rows, including two-hop paths. Exceeding a bound refuses the complete result.
+
+This is a relational topology query over one immutable saved release. It creates
+no source transactions and does not establish Weft, native Delta, Fabric or
+PuppyGraph query support. The command checks the complete carriers and query bags
+before closing its owners and creating a fresh report.
+
 ### Publish a saved page before its first preparation
 
 If continuation retained its source-page archive and publication intent but failed

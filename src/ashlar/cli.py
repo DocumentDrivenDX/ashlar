@@ -199,6 +199,10 @@ def main():
     graphframes_export.add_argument('--configuration',required=True)
     graphframes_export.add_argument('--output',required=True)
     graphframes_export.add_argument('--maximum-hops',type=int,choices=(1,2),default=1)
+    duckdb_export=commands.add_parser('query-duckdb-export',help='Run bounded topology queries over an immutable saved graph with DuckDB')
+    duckdb_export.add_argument('--configuration',required=True)
+    duckdb_export.add_argument('--output',required=True)
+    duckdb_export.add_argument('--maximum-hops',type=int,choices=(1,2),default=1)
     graph_diff=commands.add_parser('compare-graph-exports',help='Compare two immutable local graph exports without starting an engine')
     for option in ('first-configuration','second-configuration','output'):
         graph_diff.add_argument('--'+option,required=True)
@@ -463,6 +467,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar GraphFrames export query refused; inspect the selected export and runtime',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-duckdb-export':
+        try:
+            from ashlar_host.duckdb_graph_export import run_query_duckdb_export_command
+            run_query_duckdb_export_command(args.configuration,args.output,args.maximum_hops)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar DuckDB export query refused; inspect the selected export and DuckDB dependency',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'compare-graph-exports':

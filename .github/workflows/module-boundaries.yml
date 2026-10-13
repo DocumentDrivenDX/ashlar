@@ -115,3 +115,13 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_config_file.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_diagnostics.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_cli.py
+
+  duckdb-exports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install '.[duckdb]'
+      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_duckdb_graph_export

@@ -11,6 +11,7 @@ requires-python = ">=3.9"
 dependencies = []
 
 [project.optional-dependencies]
+duckdb = ["duckdb==1.5.0"]
 diagnostics = [
     "opentelemetry-api==1.45.1; python_version == '3.11'",
     "opentelemetry-sdk==1.45.1; python_version == '3.11'",
