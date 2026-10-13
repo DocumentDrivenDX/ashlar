@@ -11,6 +11,7 @@
       "elements": [
         {
           "id": "Note",
+          "name": "Note",
           "kind": "record",
           "members": [
             {

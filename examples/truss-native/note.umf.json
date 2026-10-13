@@ -6,7 +6,7 @@
   "modules": [{
     "id": "notes", "namespace": "notes", "extensions": {},
     "elements": [
-      {"id": "Note", "kind": "record", "members": [{"module": "notes", "element": "note-id"}, {"module": "notes", "element": "note-text"}], "keys": [{"id": "note-primary", "name": "primary", "primary": true, "fields": [{"module": "notes", "element": "note-id"}]}], "extensions": {}},
+      {"id": "Note", "name": "Note", "kind": "record", "members": [{"module": "notes", "element": "note-id"}, {"module": "notes", "element": "note-text"}], "keys": [{"id": "note-primary", "name": "primary", "primary": true, "fields": [{"module": "notes", "element": "note-id"}]}], "extensions": {}},
       {"id": "note-id", "name": "note-id", "kind": "field", "scalarType": "string", "nullability": "required", "cardinality": "one", "extensions": {}},
       {"id": "note-text", "name": "note-text", "kind": "field", "scalarType": "string", "nullability": "required", "cardinality": "one", "extensions": {}}
     ],

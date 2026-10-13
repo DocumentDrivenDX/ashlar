@@ -1,0 +1,48 @@
+{
+  "backend": {
+    "backendId": "ashlar.databricks",
+    "backendVersion": "0.1.0-candidate",
+    "interfaceVersion": "weft-backend/0.2.0",
+    "targetProfile": "dbsql-candidate"
+  },
+  "columns": [
+    {
+      "nullable": false,
+      "outputName": "text",
+      "position": 1,
+      "representation": {
+        "carrier": "text",
+        "decoder": "text",
+        "kind": "scalar",
+        "logicalType": {
+          "facets": {},
+          "family": "string",
+          "nullable": false
+        }
+      },
+      "sourceIdentities": [
+        {
+          "documentId": "ashlar-note",
+          "element": "note-text",
+          "module": "notes",
+          "revision": "474f143b59f04845055c37566b1fe171ec11dbdd5144d4be0556f5d721e08cec"
+        }
+      ]
+    }
+  ],
+  "diagnostics": [],
+  "model_sha256": "474f143b59f04845055c37566b1fe171ec11dbdd5144d4be0556f5d721e08cec",
+  "profile": "ashlar-named-note-candidate-compile/0.1",
+  "qualification": "Public compiler candidate fixture with new authored named Note example and template physical IDs only. No Truss acceptance, publication, SQL execution, source or native authority.",
+  "request_sha256": "6f78076a8d20faa2ae51c753c4cbda5b7b2c73d62e47ba4607872d761a4c6601",
+  "response_sha256": "acd5a0da672af59f84cc7c8ccceaab018140b571ac7c64f14bc354bc18e55f2e",
+  "status": "compiled",
+  "ashlar_executor_revision": "65d183f5050f75ce6ddba779dc814571234f387a",
+  "original_native_attempt": {
+    "outcome": "compiler refused before user SQL",
+    "diagnostic_code": "WFT-NAME-MISSING",
+    "reason": "Original accepted Note record omitted authored name.",
+    "qualification": "Not a successful native query. Source and Spark owners closed; original accepted model and publication were not rewritten.",
+    "diagnostic_response_sha256": "27f014bc57ccb1ce9dd1ab2eb8d6bf64db6a70676c347b1aab77dab23a66d3f2"
+  }
+}

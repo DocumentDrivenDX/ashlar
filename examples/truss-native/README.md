@@ -16,7 +16,7 @@ compiled = compile_truss_string_query(
     driver,
     DistributionPaths(Path('/absolute/weft/index.json'),
                       Path('/absolute/weft/installation')),
-    'SELECT n.id FROM Note n',
+    'SELECT n."note-text" AS text FROM Note n',
     revision='1', document_id='your-original-document-id',
 )
 request_bytes = compiled['request_bytes']
@@ -26,6 +26,10 @@ response_bytes = compiled['response_bytes']
 Select the actual record/field names and physical catalog revision from your
 accepted schema. This path supports Truss's admitted UMF 0.7 STRING records and
 returns the original compiler protocol bytes without executing them.
+Weft resolves records by their authored `name`. Accept the named example schema
+before publishing data for these queries; upgrading Ashlar does not alter an
+older accepted schema that omitted names. Hyphenated field names need SQL quotes,
+as shown above.
 
 To execute a STRING projection on an existing publication, use the saved
 configuration produced by `configure-truss-resume` and select the installed
@@ -36,7 +40,7 @@ ashlar query-truss-graph \
   --configuration /absolute/private/resume.json \
   --weft-index /absolute/weft/index.json \
   --weft-installation /absolute/weft/installation \
-  --sql 'SELECT n.id FROM Note n' \
+  --sql 'SELECT n."note-text" AS text FROM Note n' \
   --revision 1 --document-id your-original-document-id \
   --maximum-rows 1000 \
   --output /absolute/private/query-result.json
@@ -610,8 +614,9 @@ retrying.
 modules to the returned local reader and writer roles. Select
 `cohort.umf.json` from this directory with `document_id: "cohort"` to use the
 record/edge mutation commands above, or keep `note.umf.json` for the Note workflow.
-The cohort file preserves the original UMF 0.7.0 bytes used by the public Truss
-acceptance example. Configure the existing Bun executable, origin, fresh data
+The cohort file derives from the UMF 0.7.0 acceptance example with authored record
+names added for Weft queries; the original accepted evidence remains unchanged.
+Configure the existing Bun executable, origin, fresh data
 directory and report as in local setup; source preparation remains responsible
 for whether the selected document is supported.
 
