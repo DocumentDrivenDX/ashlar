@@ -19,8 +19,8 @@ class Tests(unittest.TestCase):
         with immutable_snapshot_memo(owner)as memo:
             first=owner._snapshot(target,0);first['rows'][0]['value']='caller-edit'
             self.assertEqual(owner._snapshot(target,0)['rows'],[{'value':'0'}]);self.assertEqual(owner.reads,1)
-            owner._snapshot(target,1);self.assertEqual(owner.reads,2);self.assertEqual((owner.details,owner.histories),(6,6));self.assertGreater(memo.bytes,0)
-        self.assertIsNone(owner._immutable_snapshot_memo);self.assertEqual(memo.values,{})
+            owner._snapshot(target,1);self.assertEqual(owner.reads,2);self.assertEqual((owner.details,owner.histories),(6,1));self.assertGreater(memo.bytes,0)
+        self.assertEqual((owner.details,owner.histories),(8,2));self.assertIsNone(owner._immutable_snapshot_memo);self.assertEqual(memo.values,{})
         with immutable_snapshot_memo(owner):owner._snapshot(target,0)
         self.assertEqual(owner.reads,3)
     def test_live_uuid_version_loss_failure_and_capacity_clear(self):
@@ -29,10 +29,15 @@ class Tests(unittest.TestCase):
             with immutable_snapshot_memo(owner):
                 owner._snapshot(target,0);owner.identity='replaced';owner._snapshot(target,0)
         self.assertIsNone(owner._immutable_snapshot_memo);owner.identity=target.uuid
-        with self.assertRaisesRegex(ValueError,'version absent'):
+        with self.assertRaisesRegex(ValueError,'history changed'):
             with immutable_snapshot_memo(owner):
                 owner._snapshot(target,0);owner.versions=[1];owner._snapshot(target,0)
         self.assertIsNone(owner._immutable_snapshot_memo);owner.versions=[0,1]
         owner._snapshot_uncached=lambda target,version:{'rows':[{'large':'x'*1048576}]}
         with immutable_snapshot_memo(owner)as memo:
-            owner._snapshot(target,0);self.assertEqual(memo.values,{});self.assertEqual(memo.bytes,0)
+            owner._snapshot(target,0);self.assertEqual(memo.values,{});self.assertGreater(memo.bytes,0)
+        owner,target=self.owner();primary=RuntimeError('original failure')
+        with self.assertRaises(RuntimeError)as caught:
+            with immutable_snapshot_memo(owner):
+                owner._snapshot(target,0);owner.versions=[1];raise primary
+        self.assertIs(caught.exception,primary);self.assertEqual(owner.histories,2);self.assertIsNone(owner._immutable_snapshot_memo)
