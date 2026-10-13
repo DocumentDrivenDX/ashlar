@@ -126,3 +126,10 @@ These local workflows use development authority and caller-asserted Truss ACK.
 Their exact runtime and native query subsets are qualified by the linked
 [execution evidence](README.md). Cloud deployment and production authorization
 require their respective profiles.
+
+After source changes, export the newly selected publication to a fresh location
+and configure GraphFrames with that export's own release and custody pair. Keep
+the earlier pair together when reading its snapshot. The
+[edge lifecycle release example](../../docs/helix/04-build/evidence/truss-typed-edge-release-graphframes-20261013/result.json)
+reads both snapshots after an endpoint update and edge deletion, preserving the
+isolated node and exact property carriers. Mixed publication pairs refuse.

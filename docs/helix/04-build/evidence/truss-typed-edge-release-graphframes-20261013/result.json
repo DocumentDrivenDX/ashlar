@@ -1,0 +1,82 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 8.013,
+  "exact_node_rows_unchanged": true,
+  "edge_graph_id_unchanged": true,
+  "edge_version_transition": [
+    "1",
+    "2"
+  ],
+  "edge_endpoint_transition": [
+    "2",
+    "1"
+  ],
+  "selected_edge_4_absent": true,
+  "mixed_pairs_refused": {
+    "original-release/current-custody": "Original Truss graph manifest/vector differs",
+    "current-release/original-custody": "Original Truss graph manifest/vector differs"
+  },
+  "graphs": {
+    "current": {
+      "publication_id": "truss-graph-7512b6b5edb7823b27975d485c0103aba1f26fd6dac3ff162d247ad3ddab9385",
+      "nodes": 2,
+      "edges": 1,
+      "runtime": {
+        "spark": "3.5.3",
+        "pyspark": "3.5.3",
+        "graphframes": "0.12.3",
+        "master": "local[1]",
+        "driver_memory": "512m"
+      },
+      "release_sha256": "fcc96c98ef73941d10501ca7ade9add20489cc988b4489532e757dae6451927d",
+      "custody_sha256": "1d9aafdd8cd6ea191d55963521e693e01dde587aa65418836e7b37874fa982fb"
+    },
+    "original": {
+      "publication_id": "truss-graph-5",
+      "nodes": 2,
+      "edges": 2,
+      "runtime": {
+        "spark": "3.5.3",
+        "pyspark": "3.5.3",
+        "graphframes": "0.12.3",
+        "master": "local[1]",
+        "driver_memory": "512m"
+      },
+      "release_sha256": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a",
+      "custody_sha256": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c"
+    }
+  },
+  "format": "ashlar-truss-typed-edge-release-graphframes/0.1",
+  "source_code_commit": "4d859da16b2d8b5bf8e4ab8aa589baeb1b30efbe",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "export": {
+    "outcome": "passed",
+    "duration_seconds": 11.885,
+    "publication_id": "truss-graph-7512b6b5edb7823b27975d485c0103aba1f26fd6dac3ff162d247ad3ddab9385",
+    "nodes": 2,
+    "edges": 1,
+    "source_checkpoint_unchanged": true,
+    "release_sha256": "fcc96c98ef73941d10501ca7ade9add20489cc988b4489532e757dae6451927d",
+    "custody_sha256": "1d9aafdd8cd6ea191d55963521e693e01dde587aa65418836e7b37874fa982fb"
+  },
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 8.101
+  },
+  "original_release": "../truss-typed-related-graphframes-20261013/release.json",
+  "prior_harness_attempt": {
+    "duration_seconds": 0.014,
+    "outcome": "failed_before_engine_startup",
+    "reason": "Harness expected generic private custody rejection text; actual Truss custody correctly rejected the mixed manifest/vector. Corrected only the expected diagnostic before the successful run."
+  },
+  "qualification": "Actual immutable export of the final edge update/delete publication and GraphFrames 0.12.3/Spark 3.5.3 reads of both it and the prior publication5 release after mutation. Exact canonical node rows unchanged; original edge3 identity retained with endpoint/version change; edge4 absent; complete one/two-hop occurrences, degrees and counts preserve isolatedR2. Both original/current mixed release/custody pairs rejected by public original byte admission before engine. Property and retained JSON carried as exact text, not native numeric engine values. Caller-asserted source ACK; no interrupted engine import/refresh, schema evolution, parallel edges, protected destination ACK, cloud engine or production qualification.",
+  "evidence_sha256": {
+    "current-graphframes.json": "d93da51aee3d7f3d2bf171fa71064ad5cee581b7a4e8dd4f99b45630f64124e0",
+    "custody.json": "1d9aafdd8cd6ea191d55963521e693e01dde587aa65418836e7b37874fa982fb",
+    "original-custody.json": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c",
+    "original-graphframes.json": "101484b85e12e1a24f884985da619a38f7f09943c882414b52cebcba53c0a8c1",
+    "release.json": "fcc96c98ef73941d10501ca7ade9add20489cc988b4489532e757dae6451927d"
+  }
+}
