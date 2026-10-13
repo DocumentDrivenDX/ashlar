@@ -1,0 +1,116 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 11.442,
+  "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+  "physical_revision": "1",
+  "row_count": 2,
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_commit": "7031e7133850db8c32692da602de9a06a216a978",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_realization_id": "weft-f36f206-implicit-arithmetic-aarch64-apple-darwin-candidate",
+  "weft_index_revision": "cdd8fa698683cd87bb126916a75200e80e19d831",
+  "weft_index_sha256": "6aa24c395dc721ef6cfef281f34628051a041530ba426d8dc31e9126e9510399",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "scope": "Actual original named UMF0.7 typed-query-record signed64/decimal18,4 source; two existing objects in one publication; direct required integer addition and decimal multiplication/subtraction via indexed0.4.2, original trusted recompilation/public artifact admission, every original source then arithmetic guard, complete source bag and unchanged checkpoint. No joins, optional arithmetic, production source or Unity Catalog qualification.",
+  "rows": [
+    {
+      "double_amount": {
+        "decimal_token": "4.6800"
+      },
+      "next_quantity": {
+        "integer_token": "9007199254740994"
+      },
+      "reduced_amount": {
+        "decimal_token": "1.3400"
+      }
+    },
+    {
+      "double_amount": {
+        "decimal_token": "2.4600"
+      },
+      "next_quantity": {
+        "integer_token": "9007199254740994"
+      },
+      "reduced_amount": {
+        "decimal_token": "0.2300"
+      }
+    }
+  ],
+  "integrity": [
+    {
+      "check": {
+        "failureCode": "WFT-NUMERIC-DOMAIN",
+        "field": {
+          "documentId": "typed-query-record",
+          "element": "amount",
+          "module": "m",
+          "revision": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f"
+        },
+        "record": {
+          "documentId": "typed-query-record",
+          "element": "TypedRecord",
+          "module": "m",
+          "revision": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f"
+        },
+        "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`ashlar_truss_query_6cb40516311e4597af8661a1ae8feb59`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p4)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 4)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(18,4)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+      },
+      "rows": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "check": {
+        "failureCode": "WFT-NUMERIC-DOMAIN",
+        "field": {
+          "documentId": "typed-query-record",
+          "element": "quantity",
+          "module": "m",
+          "revision": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f"
+        },
+        "record": {
+          "documentId": "typed-query-record",
+          "element": "TypedRecord",
+          "module": "m",
+          "revision": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f"
+        },
+        "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`ashlar_truss_query_6cb40516311e4597af8661a1ae8feb59`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+      },
+      "rows": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "check": {
+        "phase": "projection-survivors",
+        "sql": "WITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(38,4)) AS `f0`, CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(38,0)) AS `f1` FROM `spark_catalog`.`ashlar_truss_query_6cb40516311e4597af8661a1ae8feb59`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(COUNT(*) AS STRING) AS violations FROM `s0` WHERE ((try_cast(regexp_replace(CAST(`s0`.`f1` AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_cast(regexp_replace(CAST(:p6 AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_add(try_cast(regexp_replace(CAST(`s0`.`f1` AS STRING), '[.]', '') AS DECIMAL(38,0)), try_cast(regexp_replace(CAST(:p6 AS STRING), '[.]', '') AS DECIMAL(38,0)))) IS NULL OR (try_cast(regexp_replace(CAST(`s0`.`f0` AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_cast(regexp_replace(CAST(:p7 AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_multiply(try_cast(regexp_replace(CAST(`s0`.`f0` AS STRING), '[.]', '') AS DECIMAL(38,0)), try_cast(regexp_replace(CAST(:p7 AS STRING), '[.]', '') AS DECIMAL(38,0)))) IS NULL OR (try_cast(regexp_replace(CAST(`s0`.`f0` AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_cast(regexp_replace(CAST(:p8 AS STRING), '[.]', '') AS DECIMAL(38,0))) IS NULL OR (try_subtract(try_cast(regexp_replace(CAST(`s0`.`f0` AS STRING), '[.]', '') AS DECIMAL(38,0)), try_cast(regexp_replace(CAST(:p8 AS STRING), '[.]', '') AS DECIMAL(38,0)))) IS NULL)"
+      },
+      "rows": [
+        [
+          "0"
+        ]
+      ]
+    }
+  ],
+  "request_sha256": "3e5a7359e34b8ac67cc043e6e30d2b72cbdb7f93955820614389ab596e480445",
+  "response_sha256": "78826f9732c5e2c1e3e02859d9098b56d6463a7884ad4cda492ed02dc4bc60ad",
+  "recompiled_sha256": "78826f9732c5e2c1e3e02859d9098b56d6463a7884ad4cda492ed02dc4bc60ad",
+  "prior_attempt": {
+    "outcome": "refused",
+    "duration_seconds": 10.575,
+    "reason": "Installed five-schema bundle was passed to a three-schema protocol port; corrected declared schema selection before the successful run."
+  }
+}

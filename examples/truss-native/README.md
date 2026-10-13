@@ -1744,3 +1744,7 @@ values. The publication holds one selected physical revision. Filters, joins,
 aggregates, optional arithmetic and historical revision unions need separate
 admission. Original request, response and recompilation strings are retained in
 the result; native qualification is scoped by its execution evidence.
+
+The [actual two-record arithmetic query](../../docs/helix/04-build/evidence/truss-arithmetic-native-20261013/result.json)
+returns exact integer addition and decimal multiplication/subtraction results
+from one publication, with an unchanged source checkpoint.
