@@ -161,17 +161,18 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
+    if type(maximum_page_bytes)is not int or not 1<=maximum_page_bytes<=2097152:raise ValueError('Page byte budget must be 1..2097152')
     from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
     receipt_destination_id(destination_id)
     if destination_id is not None:require_truss_receipt_sdk()
@@ -183,7 +184,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
     # Source is observed before creating destination resources.
-    selected=read_page(connection_factory,consumer_id)
+    selected=read_page(connection_factory,consumer_id,maximum_bytes=maximum_page_bytes)
     if selected.outcome!='transaction'or json.loads(selected.prior.content).get('nextXid')!='0':raise ValueError('Distinct consumer with pending actual transaction at genesis required')
     context=object();ordinary=bind_ordinary_connection(connection_factory,context);output.mkdir(mode=0o700);lease=PrivateFiniteLease(output,create=True)
     transport=None;primary=None;results=[];state=empty_state();progress={};predecessor='explicit-truss-genesis';expected=None;wait_deadline=None
@@ -202,7 +203,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             if ordinal==0:page=selected
             else:
                 if wait_deadline is None:wait_deadline=time.monotonic()+wait_seconds
-                page=read_next_page(connection_factory,consumer_id,wait_seconds,deadline=wait_deadline)
+                page=read_next_page(connection_factory,consumer_id,wait_seconds,deadline=wait_deadline,maximum_bytes=maximum_page_bytes)
             if page.outcome=='empty_interval':break
             lease.renew();sessions=TrussFeedSessions(page,feed,ordinary,context,**({'destination_receipts':True,'destination_id':destination_id}if destination_id is not None else {}));batch=sessions.batch()
             from .truss_page_archive import encode_truss_page

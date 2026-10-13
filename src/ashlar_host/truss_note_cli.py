@@ -13,7 +13,9 @@ def _run_publication(configuration,output,*,graph):
     if len(raw)>65536:raise ValueError('Configuration bound exceeded')
     config=json.loads(raw)
     required={'connection_uri','administrator_uri','reader_role','consumer_id','feed','jars','maximum_pages'}
-    if type(config)is not dict or not required<=set(config)<=required|{'wait_seconds','archived_acceptance_files','export_graph','destination_id'}:raise ValueError('Exact native configuration with optional wait_seconds required')
+    if type(config)is not dict or not required<=set(config)<=required|{'wait_seconds','archived_acceptance_files','export_graph','destination_id','maximum_page_bytes'}:raise ValueError('Exact native configuration with optional wait_seconds required')
+    page_bytes=config.get('maximum_page_bytes',1048576)
+    if type(page_bytes)is not int or not 1<=page_bytes<=2097152:raise ValueError('Page byte budget must be 1..2097152')
     from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
     destination_id=receipt_destination_id(config.get('destination_id'))
     if 'destination_id'in config and destination_id is None:raise ValueError('Explicit destination identity required')
@@ -45,5 +47,5 @@ def _run_publication(configuration,output,*,graph):
     # Existing SDK/JDK/JARs only; local[1], 512 MiB, no package installation.
     with open_commerce_export_spark(jars,warehouse)as spark:
         publish=publish_graph_pages if graph else publish_note_pages
-        return publish(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'],wait_seconds=wait,**({'destination_id':destination_id}if destination_id is not None else {}),**({'archived_acceptance_files':archives,'export_graph':export_graph}if graph and (archives or export_graph)else {}))
+        return publish(spark,destination,connection_factory=connection,consumer_id=config['consumer_id'],feed=config['feed'],maximum_pages=config['maximum_pages'],maximum_page_bytes=page_bytes,wait_seconds=wait,**({'destination_id':destination_id}if destination_id is not None else {}),**({'archived_acceptance_files':archives,'export_graph':export_graph}if graph and (archives or export_graph)else {}))
 

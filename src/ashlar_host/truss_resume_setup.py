@@ -17,8 +17,10 @@ def run_configure_truss_resume_command(configuration, publication_intent, output
             raise ValueError('Original canonical configuration and intent files required')
     original = decode_custody_bytes(snapshot(configuration,65536))
     required = {'connection_uri','administrator_uri','reader_role','consumer_id','feed','jars','maximum_pages'}
-    if type(original) is not dict or not required <= set(original) <= required | {'wait_seconds','archived_acceptance_files','export_graph','destination_id'}:
+    if type(original) is not dict or not required <= set(original) <= required | {'wait_seconds','archived_acceptance_files','export_graph','destination_id','maximum_page_bytes'}:
         raise ValueError('Original closed publisher configuration required')
+    page_bytes=original.get('maximum_page_bytes',1048576)
+    if type(page_bytes)is not int or not 1<=page_bytes<=2097152:raise ValueError('Page byte budget must be 1..2097152')
     intent_raw = snapshot(intent_path,65536)
     intent = decode_custody_bytes(intent_raw)
     if type(intent) is not dict or intent.get('feed') != original['feed']:
