@@ -115,7 +115,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             graph_tables={role:driver.tables[role]for role in driver.columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
-                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
+                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.metadata()['profile']=='ashlar-truss-typed-graph-semantic-admission/0.1'else'string')
             following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
             steps,elisions=local_effect_plan(generated,expected,graph_tables)
             following_driver.policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,

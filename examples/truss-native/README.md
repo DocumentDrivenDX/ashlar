@@ -1388,7 +1388,9 @@ use explicit `integer_token` or `decimal_token` objects to retain the original
 lexical token. The full physical row remains in the report. Existing STRING Weft
 bindings remain separately scoped; typed ingestion does not imply numeric query
 support in that compiler profile. This extension has focused adapter coverage,
-with actual typed native execution still pending.
+with a [one-record native Delta continuation/read](../../docs/helix/04-build/evidence/truss-typed-record-delta-20261013/result.json)
+qualifying the recorded local Spark/Delta versions. Unity Catalog and typed Weft
+query execution remain separate.
 
 ### Read an evolved record by field name
 

@@ -1,0 +1,99 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 29.641,
+  "publication_id": "truss-graph-56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554",
+  "new_publications": 1,
+  "prior_catalog_publication_retained": true,
+  "source_checkpoint_unchanged_by_read": true,
+  "delta_execution": true,
+  "unity_catalog": false,
+  "fields": [
+    {
+      "module_id": "m",
+      "field_id": "record-id",
+      "property_id": "5",
+      "scalar_type": "string",
+      "nullability": "required",
+      "state": "value",
+      "value": "R1"
+    },
+    {
+      "module_id": "m",
+      "field_id": "quantity",
+      "property_id": "4",
+      "scalar_type": "integer",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "integer_token": "9007199254740993"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "amount",
+      "property_id": "2",
+      "scalar_type": "decimal",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "decimal_token": "1.2300"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "active",
+      "property_id": "1",
+      "scalar_type": "boolean",
+      "nullability": "required",
+      "state": "value",
+      "value": true
+    },
+    {
+      "module_id": "m",
+      "field_id": "note",
+      "property_id": "3",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    },
+    {
+      "module_id": "m",
+      "field_id": "tag",
+      "property_id": "6",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    }
+  ],
+  "props_json": "{\"1\":true,\"2\":1.2300,\"4\":9007199254740993,\"5\":\"R1\"}",
+  "profile": "ashlar-truss-typed-record-delta-smoke/0.1",
+  "initial_attempt": {
+    "duration_seconds": 30.837,
+    "outcome": "catalog_committed_then_typed_decoder_refusal",
+    "failure": "SQL planner used strict STRING extraction"
+  },
+  "source_sdk_revision_observed_after_run": "79d4bd0d061c28a902034e978916a3495e2b8da7",
+  "python": "3.11.17",
+  "postgresql": "18.6",
+  "spark": "4.0.1",
+  "delta": "4.0.0",
+  "local_threads": 1,
+  "driver_memory_mib": 512,
+  "model_sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+  "record_report_sha256": "36582306b5bab85f3229a5aeb47b08251395a98d3f9bcfaad5bcc365b3d7c5d2",
+  "original_manifest": {
+    "profile_version": "ashlar-delta/0.3",
+    "publication_id": "truss-graph-56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554",
+    "recorded_at": "1791897208038941",
+    "schema_revisions_json": "{\"a59c551c-d821-4b47-9ebf-21484aa339b8\":\"1\"}",
+    "source_progress_json": "{\"typed-record-source\":{\"batch_id\":\"764\",\"epoch\":\"3fa675da-fc2c-4516-ae59-d0a1d53963fd\",\"feed\":\"typed-record-source\",\"payload_digest\":\"0d8345b41451285459e5754ad63eb05de953a21225083a9bb1856922249e5149\",\"position\":\"eyJuZXh0WGlkIjogIjc2NSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLWRlbHRhLXNtb2tlIiwgInNvdXJjZUVwb2NoIjogIjNmYTY3NWRhLWZjMmMtNDUxNi1hZTU5LWQwYTFkNTM5NjNmZCIsICJpbnN0YWxsYXRpb25JZCI6ICJhNTljNTUxYy1kODIxLTRiNDctOWViZi0yMTQ4NGFhMzM5YjgiLCAicmVnaXN0cmF0aW9uSWQiOiAiZDhlZDg1NjYtYTI0OS00YTNjLThlM2QtMmQ1MzllYTc1NzAwIn0=\",\"previous\":\"eyJuZXh0WGlkIjogIjc1OSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLWRlbHRhLXNtb2tlIiwgInNvdXJjZUVwb2NoIjogIjNmYTY3NWRhLWZjMmMtNDUxNi1hZTU5LWQwYTFkNTM5NjNmZCIsICJpbnN0YWxsYXRpb25JZCI6ICJhNTljNTUxYy1kODIxLTRiNDctOWViZi0yMTQ4NGFhMzM5YjgiLCAicmVnaXN0cmF0aW9uSWQiOiAiZDhlZDg1NjYtYTI0OS00YTNjLThlM2QtMmQ1MzllYTc1NzAwIn0=\",\"profile\":\"truss-native-feed/0.1\"}}",
+    "table_versions_json": "{\"local.trussgraph.edge_current\":1,\"local.trussgraph.object_current\":2,\"local.trussgraph.tombstone\":1,\"local.trussgraph.whole_source_history\":2}",
+    "validation_report_json": "{\"complete\":true,\"effect_parity\":{\"edge_current\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"object_current\":\"cc806fc38550edcd1ed3bd910b4bdd4aea0edf545c7e88881cc3515dbb794c3f\",\"tombstone\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"whole_source_history\":\"1fe7e5c7013d863abe44d1241849a79d8de79b301eed0846b5af1ef21d58b4a3\"},\"original_source_plan_sha256\":\"c79dc64e5f303e49b5c7c2b7da8ee34c38d0567eeb69997f061e2736823c5e50\",\"predecessor\":\"truss-graph-1\",\"request_digest\":\"56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554\",\"scope\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_admission\":{\"accepted_reports\":{\"1\":\"3748941f0ff98f9f095e03393fd4f4d1fdb5375004a6dd24f1cdc56f932c238f\"},\"catalog_views\":{\"1\":\"9de0c2a9282fc03786a1699dedd3da1951b83b7a939ac5303689106f6fd486f2\"},\"declared_umf\":{\"1\":{\"typed-record\":\"0.7.0\"}},\"epoch\":\"3fa675da-fc2c-4516-ae59-d0a1d53963fd\",\"feed\":\"typed-record-source\",\"profile\":\"ashlar-truss-typed-graph-semantic-admission/0.1\",\"qualification\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_profile\":\"truss-native-feed/0.1\",\"source_transaction_sha256\":\"0d8345b41451285459e5754ad63eb05de953a21225083a9bb1856922249e5149\"},\"source_oracle_sha256\":\"3584f3a76fd521eb1bbe3089346f871ee026a8b8477cebe2ac8d9dd131dc03e9\",\"zero_match_elisions\":[{\"complete_prior_rows_sha256\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"matched_rows\":[],\"ordinal\":0,\"original_step\":{\"parameters\":{\"keys\":\"[{\\\"source_system\\\":\\\"a59c551c-d821-4b47-9ebf-21484aa339b8\\\",\\\"type_id\\\":\\\"1\\\",\\\"id\\\":\\\"1\\\"}]\"},\"statement\":\"MERGE INTO `local`.`trussgraph`.`object_current` t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'ARRAY<STRUCT<source_system:STRING,type_id:STRING,id:STRING>>')) k)) s ON t.source_system=s.source_system AND t.type_id=cast(s.type_id AS BIGINT) AND t.id=cast(s.id AS BIGINT) WHEN MATCHED THEN DELETE\"},\"source_keys\":[{\"id\":\"1\",\"source_system\":\"a59c551c-d821-4b47-9ebf-21484aa339b8\",\"type_id\":\"1\"}],\"table\":\"local.trussgraph.object_current\"}]}"
+  },
+  "planner_source_sha256": "d91e04e1a4cff610d5047de11cb4bec8dad26a22250c6b429c4f6d6ffe6334b7",
+  "source_ack_mode": "caller-asserted-delivery",
+  "qualification": "One real original Truss catalog publication followed by typed record continuation on existing local Delta tables and a complete publication-pinned named singleton read. Exact numeric tokens, boolean and absent fields agree with committed source. No Unity Catalog, Weft numeric query, protected receipt, graph-engine or scale qualification.",
+  "postgresql_shutdown_observed": true
+}

@@ -9,7 +9,8 @@ from ashlar.native import quote_table_identifier
 from ashlar.whole_entity import changes_from_batch
 TABLES = {'object_current', 'edge_current', 'tombstone', 'whole_source_history'}
 
-def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, schema_transition_policy=None):
+def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, schema_transition_policy=None, native_scalar_profile='string'):
+    if type(native_scalar_profile)is not str or native_scalar_profile not in ('string','typed'):raise ValueError('Closed native scalar profile required')
     if set(tables) != TABLES or len(set(tables.values())) != 4:
         raise ValueError('Four distinct complete graph target names required')
     quoted = {k: quote_table_identifier(v) for (k, v) in tables.items()}
@@ -20,9 +21,9 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     native_edge_orders = {}
     if batch.profile == 'truss-native-feed/0.1':
         from ashlar.staging import batch_row
-        from ashlar.truss_native_feed import scalar_entity_changes
+        from ashlar.truss_native_feed import scalar_entity_changes,typed_scalar_entity_changes
         batch_row(batch)
-        parsed = scalar_entity_changes(batch.begin, sha256=hashlib.sha256(batch.begin).hexdigest(),
+        parsed = (typed_scalar_entity_changes if native_scalar_profile=='typed'else scalar_entity_changes)(batch.begin, sha256=hashlib.sha256(batch.begin).hexdigest(),
             prior=base64.b64decode(batch.cursor_before, validate=True),
             next=base64.b64decode(batch.cursor_after, validate=True), feed=batch.feed)
         changes = parsed.changes

@@ -220,7 +220,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:tables[role]for role in graph_columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
-            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
+            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.metadata()['profile']=='ashlar-truss-typed-graph-semantic-admission/0.1'else'string')
             following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
             steps,elisions=local_effect_plan(generated,expected,graph_tables)
             revisions={json.loads(page.prior.content)['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {json.loads(page.prior.content)['installationId']:'0'}
