@@ -1,0 +1,12 @@
+{
+  "profile": "ashlar-truss-singleton-functional/0.1",
+  "publication_id": "truss-graph-8c2f60008da1af01ead2732f4cbc324632fe79c456d3780e9982224f410e4e88",
+  "kind": "object",
+  "type_id": "2",
+  "entity_id": "2",
+  "full_original_row_equal": true,
+  "source_ack_unchanged": true,
+  "seconds": 10.52,
+  "server_stopped": true,
+  "qualification": "Actual source-checkout CLI singleton read on the existing local Truss/Spark4/Delta4 publication. Complete original fields compared with retained graph release. No new ingest/ACK, installed-wheel, scale or production latency claim."
+}

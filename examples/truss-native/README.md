@@ -959,6 +959,31 @@ timestamp and publication identity before the coordinator starts applying.
 Changed tables or missing original plans require inspection; recovery does not
 generate a replacement plan from the current source state.
 
+### Read one published object or edge
+
+Use the same explicit publication configuration as `query-truss-graph` or
+`export-truss-graph`. Select native Truss IDs from the accepted catalog and
+public source receipts, rather than logical labels. No Weft installation or
+external graph engine is needed.
+
+```sh
+ashlar read-truss-singleton \
+  --configuration /absolute/private/publication-selection.json \
+  --kind object --type-id 2 --entity-id 4 \
+  --output /absolute/private/object-read.json
+```
+
+For an edge, use `--kind edge` and its relationship type and edge IDs. The
+command performs an exact-version Delta lookup by hash and complete typed
+identity under the selected publication's full pin vector. The private JSON
+report contains the complete row, or `null` for an absent identity, after source,
+native and resource-closing checks. Integer fields and `published_at` retain
+exact text carriers; `published_at` is epoch microseconds. An older publication
+can return a subsequently deleted entity while a later publication returns
+absence. The command uses the existing local Truss authority profile and does
+not publish or acknowledge data. Local Spark startup is included in command
+duration; this workflow makes no production latency claim.
+
 ### Stream a selected target update and deletion
 
 Use `update-delete-truss-target` when the source A must remain connected to other

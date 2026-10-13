@@ -118,6 +118,12 @@ def main():
     truss_export=commands.add_parser('export-truss-graph',help='Export an explicitly selected existing Truss publication for graph tools; no ingestion or ACK')
     truss_export.add_argument('--configuration',required=True)
     truss_export.add_argument('--output',required=True)
+    truss_singleton=commands.add_parser('read-truss-singleton',help='Read one object or edge from an explicitly selected Truss publication; no compiler, ingestion or ACK')
+    for option in ('configuration','output'):
+        truss_singleton.add_argument('--'+option,required=True)
+    truss_singleton.add_argument('--kind',choices=('object','edge'),required=True)
+    truss_singleton.add_argument('--type-id',type=int,required=True)
+    truss_singleton.add_argument('--entity-id',type=int,required=True)
     truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or forward RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
@@ -366,6 +372,16 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss graph export refused; retain any partial output and inspect the selected publication',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'read-truss-singleton':
+        try:
+            from ashlar_host.truss_singleton import run_read_truss_singleton_command
+            run_read_truss_singleton_command(args.configuration,args.output,kind=args.kind,
+                type_id=args.type_id,entity_id=args.entity_id)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss singleton refused; inspect the selected publication and typed identity',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':
