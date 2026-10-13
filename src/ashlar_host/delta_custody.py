@@ -658,6 +658,14 @@ class LocalDeltaTransport:
         return {'schema': schema, 'rows': rows, 'row_sha256': sha(encoded(rows))}, json.loads(schema_json)
 
     def _snapshot(self, target, version):
+        memo=getattr(self,'_immutable_snapshot_memo',None)
+        if memo is not None:
+            from .immutable_snapshot_memo import ImmutableSnapshotMemo
+            if type(memo)is not ImmutableSnapshotMemo:raise LocalDeltaError('Original immutable snapshot observer required')
+            return memo.observe(self,target,version)
+        return self._snapshot_uncached(target,version)
+
+    def _snapshot_uncached(self, target, version):
         if getattr(self, 'observation_bounds', None) is not None:
             return self.bounded_snapshot(target, version)[0]
         from pyspark.sql import functions as F
