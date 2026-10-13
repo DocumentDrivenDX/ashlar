@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-commerce-selected-count-star-functional/0.1",
+  "seconds": 37.538,
+  "case": "expanded-count-having",
+  "publication_id": "original-commerce-publication-1",
+  "rows": [
+    [
+      "[42,0,\"L1\"]",
+      "1"
+    ]
+  ],
+  "original_edge_pairs": [
+    [
+      "4",
+      "1"
+    ]
+  ],
+  "source_ack_unchanged": true,
+  "reader_closed": true,
+  "spark_stopped": true,
+  "report_sha256": "d0d47660cd2b5bb6bd71fa601d255a8b63cd6001baf3beba5aea67e51a5f4bfa",
+  "qualification": "One selected original041 expanded COUNT(*) HAVING query over the existing original commerce publication with complete edge-occurrence oracle, actual compiler/recompile and current ordinary source/protected ACK/native guards. No ingestion, new publication, ACK submission, full corpus, installed-wheel, Unity Catalog or scale claim.",
+  "base_commit": "c5daa07632e3ba95485b15194a9bec721f4a8907",
+  "harness_sha256": "6957853d7e2e1853a064b7cb428ad312736fac57753c395e104a021b54064028"
+}

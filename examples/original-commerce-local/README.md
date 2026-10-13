@@ -159,3 +159,31 @@ stages. It does not turn a query-only reader into an ACK owner. The publisher's
 ACK path reconciles uncertain commit responses with fresh protected receipt
 observation and unchanged original bytes. Incomplete apply/commit recovery requires
 its separate original-attempt workflow.
+
+## Select individual commerce queries
+
+Add `--case settlement` or `--case refund` to
+`query-commerce-implicit-arithmetic`; repeat the flag to select multiple original
+pack scenarios. `query-commerce-count-star` accepts the same flag for its authored
+path/count gallery, including `plain-count`, `grouped-count`,
+`grouped-count-having` and `expanded-count-having`. Omitting it runs the original
+full inventory. Unknown or duplicate case IDs refuse. Queries retain their
+original SQL and execute in authored order.
+
+The public CountStar API also accepts explicit ordinary source sessions:
+
+```python
+result = query_commerce_count_star(
+    config,
+    ordinary_session=ordinary_query_connection_factory,
+    source_factory=commerce_query_source_factory,
+    selected_case_ids=('expanded-count-having',),
+)
+```
+
+Use `ExplicitCommercePostgresEndpoint` with those current ordinary ports for an
+explicit local source. Its settings do not grant authority; source roles,
+protected publication receipts and the immutable native vector are still checked.
+A selected-query report names both the original inventory and executed selection.
+It qualifies that selection only. Two-hop counts preserve edge-occurrence paths;
+independent original-source counts are compared before the result is released.

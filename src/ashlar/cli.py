@@ -83,6 +83,8 @@ def main():
         else:
             for option in ('index', 'installation', 'publication'):
                 command.add_argument('--' + option, required=True)
+        if name in ('query-commerce-count-star','query-commerce-implicit-arithmetic'):
+            command.add_argument('--case',dest='case_ids',action='append',default=[],help='Execute only these named authored queries; repeat to select multiple cases')
         if name in ('query-commerce-paths','query-commerce-count-star','query-commerce-implicit-arithmetic'):
             if name == 'query-commerce-implicit-arithmetic':
                 command.add_argument('--postgres-profile',default='legacy-private',choices=('legacy-private','explicit-loopback'))
@@ -569,10 +571,12 @@ def main():
                         return run_implicit_arithmetic_command(config,
                             provider_path=Path(args.session_provider),
                             provider_sha256=args.session_provider_sha256,
-                            pack_path=Path(args.pack), diagnostics=diagnostics)
+                            pack_path=Path(args.pack), diagnostics=diagnostics, selected_case_ids=tuple(args.case_ids))
                 elif args.command == 'query-commerce-count-star':
                     from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
-                    from ashlar_host.count_star_query import query_commerce_count_star as query_commerce_paths
+                    from ashlar_host.count_star_query import query_commerce_count_star
+                    def query_commerce_paths(config, *, diagnostics=None):
+                        return query_commerce_count_star(config,diagnostics=diagnostics,selected_case_ids=tuple(args.case_ids))
                     config = QueryCommerceCountStarConfig(Path(args.index), Path(args.installation),
                         Path(args.publication), Path(args.output), Path(args.jars),
                         Path(args.model), Path(args.graph), producer, postgres,

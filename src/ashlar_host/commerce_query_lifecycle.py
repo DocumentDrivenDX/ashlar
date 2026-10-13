@@ -16,6 +16,7 @@ from ashlar.weft_count_star_distribution import (
 )
 from .commerce import runtime_paths
 from .commerce_path_oracle import commerce_path_cases, original_commerce_path_oracle
+from .commerce_query_selection import select_commerce_query_cases
 from .count_star_oracle import commerce_count_star_cases,original_commerce_count_star_oracle
 from .commerce_path_request import commerce_path_request as original_commerce_path_request
 from .config import HostError
@@ -146,7 +147,7 @@ class CommerceQueryObservation:
         return primary
 
 
-def _query_commerce(config, observation, *, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None) -> dict:
+def _query_commerce(config, observation, *, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None, selected_case_ids=()) -> dict:
     """Run the complete fixed041 or original042 scenario inventory.
 
     A refused required case withholds the whole report. This is not a capability
@@ -181,6 +182,22 @@ def _query_commerce(config, observation, *, ordinary_session=None, source_factor
         schema_version='0.4.2'
         make_schema=make_offline_implicit_arithmetic_schema_validation
     else:raise HostError('invalid-configuration')
+    selected_cases=select_commerce_query_cases(profile,selected_case_ids)
+    original_cases=select_commerce_query_cases(profile)
+    if profile=='count-star':
+        from .implicit_arithmetic_configuration import ExplicitCommercePostgresEndpoint
+        if type(config.postgres)is ExplicitCommercePostgresEndpoint and (ordinary_session is None or source_factory is None):
+            raise HostError('complete-ordinary-query-ports-required')
+    if profile=='count-star' and any(port is not None for port in (ordinary_session,source_factory,invocation_custody)):
+        from .ordinary_query_connection import OrdinaryQueryConnectionFactory
+        from .commerce_query_sources import CommerceQuerySourceFactory
+        if type(ordinary_session)is not OrdinaryQueryConnectionFactory or type(source_factory)is not CommerceQuerySourceFactory:
+            raise HostError('complete-ordinary-query-ports-required')
+        ordinary_session.__post_init__();source_factory.__post_init__()
+        if invocation_custody is not None:
+            from .query_invocation_custody import CommerceQueryInvocationCustody
+            if type(invocation_custody)is not CommerceQueryInvocationCustody:raise HostError('invalid-query-invocation-custody')
+            invocation_custody.__post_init__();invocation_custody.renew()
     config.__post_init__()
     observation.phase('configuration', 'completed')
     observation.phase('admission', 'started')
@@ -209,7 +226,7 @@ def _query_commerce(config, observation, *, ordinary_session=None, source_factor
         if spark.version != '4.0.1':raise HostError('qualified-runtime-required')
         reader_options={}
         if observation.reader_cleanup is not None:reader_options['cleanup_state']=observation.reader_cleanup
-        if profile=='implicit-arithmetic':reader_options.update(ordinary_session=ordinary_session,source_factory=source_factory)
+        if ordinary_session is not None:reader_options.update(ordinary_session=ordinary_session,source_factory=source_factory)
         reader=open_commerce_reader(spark,config.publication,**reader_options)
         with owned_context(reader) as opened:
             if (opened.original_report != _parse(report_bytes,4*1024*1024)
@@ -235,10 +252,10 @@ def _query_commerce(config, observation, *, ordinary_session=None, source_factor
                 observation.phase('guard', 'completed')
                 observation.phase('capture', 'started')
             if profile=='implicit-arithmetic':
-                cases=list(execute_original_commerce_implicit_arithmetic_cases(opened,paths,config=execution,pack_bytes=pack_bytes))
+                cases=list(execute_original_commerce_implicit_arithmetic_cases(opened,paths,config=execution,pack_bytes=pack_bytes,selected_case_ids=selected_case_ids))
             else:
                 cases=[]
-                for name,sql in commerce_path_cases()+commerce_count_star_cases():
+                for name,sql in selected_cases:
                     request=commerce_count_star_request(sql,opened.model,opened.bindings,opened.manifest,
                         opened.original_report['table_registry'],opened.aliases)
                     raw_request=(_encoded(request)+'\n').encode('utf8')
@@ -264,7 +281,8 @@ def _query_commerce(config, observation, *, ordinary_session=None, source_factor
                 'closing_native_files':closing_native,'public_source':producer,
                 'source_hashes':{'model':hashlib.sha256(original_model).hexdigest(),'graph':hashlib.sha256(original_graph).hexdigest()},
                 'umfVersion':'0.8.0','schema_hashes':{name:hashlib.sha256(raw).hexdigest() for name,raw in schemas.items()},
-                'scope':COUNT_STAR_SCOPE if profile=='count-star' else IMPLICIT_ARITHMETIC_SCOPE}
+                'original_case_ids':[name for name,sql in original_cases],'selected_case_ids':[name for name,sql in selected_cases],
+                'scope':(COUNT_STAR_SCOPE if profile=='count-star' else IMPLICIT_ARITHMETIC_SCOPE)+(' Selected authored cases only; full corpus execution is not claimed.'if selected_case_ids else'')}
         if read_bounded(config.publication/'report.json',4*1024*1024)!=report_bytes:raise HostError('paths-report-drift')
     except BaseException as error:primary=error;result=None
     failure_category, failure_phase = observation.category, observation.owner_phase
@@ -292,7 +310,7 @@ def _query_commerce(config, observation, *, ordinary_session=None, source_factor
     return result
 
 
-def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None) -> dict:
+def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinary_session=None, source_factory=None, pack_bytes=None, invocation_custody=None, selected_case_ids=()) -> dict:
     """Return complete provisional-to-closed evidence or a payload-free refusal.
 
     Cancellation remains the original BaseException, including cleanup markers.
@@ -302,7 +320,7 @@ def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinar
     try:
         observation.begin()
         if type(config) is not configuration_type:raise HostError('invalid-configuration')
-        result = _query_commerce(config, observation, ordinary_session=ordinary_session, source_factory=source_factory, pack_bytes=pack_bytes, invocation_custody=invocation_custody)
+        result = _query_commerce(config, observation, ordinary_session=ordinary_session, source_factory=source_factory, pack_bytes=pack_bytes, invocation_custody=invocation_custody,selected_case_ids=selected_case_ids)
     except BaseException as primary:
         if invocation_custody is not None:
             from .query_invocation_custody import CommerceQueryInvocationCustody
@@ -327,12 +345,13 @@ def _run_commerce_query(config, configuration_type, *, diagnostics=None, ordinar
     return result
 
 
-def run_count_star_query(config, *, diagnostics=None):
+def run_count_star_query(config, *, diagnostics=None,selected_case_ids=(),ordinary_session=None,source_factory=None,invocation_custody=None):
     """Closed legacy041 entry; no other configuration is selected implicitly."""
-    return _run_commerce_query(config,QueryCommerceCountStarConfig,diagnostics=diagnostics)
+    return _run_commerce_query(config,QueryCommerceCountStarConfig,diagnostics=diagnostics,selected_case_ids=selected_case_ids,
+        ordinary_session=ordinary_session,source_factory=source_factory,invocation_custody=invocation_custody)
 
 
-def run_implicit_arithmetic_query(config, *, ordinary_session, source_factory, pack_bytes, diagnostics=None, invocation_custody=None):
+def run_implicit_arithmetic_query(config, *, ordinary_session, source_factory, pack_bytes, diagnostics=None, invocation_custody=None,selected_case_ids=()):
     """Closed042 entry; ordinary sessions and original scenario pack are explicit."""
     return _run_commerce_query(config,QueryCommerceImplicitArithmeticConfig,
-        ordinary_session=ordinary_session,source_factory=source_factory,pack_bytes=pack_bytes,diagnostics=diagnostics,invocation_custody=invocation_custody)
+        ordinary_session=ordinary_session,source_factory=source_factory,pack_bytes=pack_bytes,diagnostics=diagnostics,invocation_custody=invocation_custody,selected_case_ids=selected_case_ids)

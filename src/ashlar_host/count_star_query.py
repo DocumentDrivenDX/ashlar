@@ -38,6 +38,7 @@ from .commerce_query_lifecycle import (run_count_star_query, CommerceQueryObserv
     commerce_query_source_port as _source_port)
 
 
-def query_commerce_count_star(config: QueryCommerceCountStarConfig, *, diagnostics=None) -> dict:
+def query_commerce_count_star(config: QueryCommerceCountStarConfig, *, diagnostics=None,selected_case_ids=(),ordinary_session=None,source_factory=None,invocation_custody=None) -> dict:
     """Legacy fixed041 lifecycle; publication/source/native obligations unchanged."""
-    return run_count_star_query(config,diagnostics=diagnostics)
+    return run_count_star_query(config,diagnostics=diagnostics,selected_case_ids=selected_case_ids,
+        ordinary_session=ordinary_session,source_factory=source_factory,invocation_custody=invocation_custody)

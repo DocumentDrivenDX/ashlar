@@ -16,10 +16,13 @@ from .query_invocation_custody import CommerceQueryInvocationCustody
 
 
 def run_implicit_arithmetic_command(config, *, provider_path, provider_sha256,
-                                    pack_path, diagnostics=None):
+                                    pack_path, diagnostics=None, selected_case_ids=()):
     if type(config) is not QueryCommerceImplicitArithmeticConfig:
         raise HostError('invalid-configuration')
     config.__post_init__()
+    from .commerce_query_selection import select_commerce_query_cases
+    try:select_commerce_query_cases('implicit-arithmetic',selected_case_ids)
+    except ValueError:raise HostError('invalid-commerce-query-selection')from None
     if type(provider_sha256) is not str or re.fullmatch('[0-9a-f]{64}', provider_sha256) is None:
         raise HostError('query-provider-custody')
     pack = InvocationFile.read(pack_path, MAX_PROVIDER)
@@ -47,4 +50,4 @@ def run_implicit_arithmetic_command(config, *, provider_path, provider_sha256,
     custody.renew()
     from .implicit_arithmetic_query import query_commerce_implicit_arithmetic
     return query_commerce_implicit_arithmetic(config, ordinary_session=port,source_factory=source_factory,
-        pack_bytes=pack.raw, diagnostics=diagnostics, invocation_custody=custody)
+        pack_bytes=pack.raw, diagnostics=diagnostics, invocation_custody=custody, selected_case_ids=selected_case_ids)

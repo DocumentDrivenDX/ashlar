@@ -8,17 +8,19 @@ from ashlar.weft_implicit_arithmetic_distribution import (
 from .implicit_arithmetic_request import commerce_implicit_arithmetic_request
 from .supply_chain_request import source_snapshot
 from .commerce_original_scenarios import commerce_original_cases,original_commerce_scenario_oracle
+from .commerce_query_selection import select_commerce_query_cases
 from .implicit_arithmetic_profile import ImplicitArithmeticExecutionConfig
 from .count_star_execution import execute_commerce_implicit_arithmetic
 from .commerce_source_receipt import encode_bounded_commerce_json,parse_commerce_json
 
 
-def execute_original_commerce_implicit_arithmetic_cases(opened,paths,*,config:ImplicitArithmeticExecutionConfig,pack_bytes):
+def execute_original_commerce_implicit_arithmetic_cases(opened,paths,*,config:ImplicitArithmeticExecutionConfig,pack_bytes,selected_case_ids=()):
     """Return all four provisional cases or refuse; no final lifecycle claim."""
     if type(paths)is not ImplicitArithmeticDistributionPaths or type(config)is not ImplicitArithmeticExecutionConfig:
         raise ValueError('Exact selected distribution and execution configuration required')
     config.__post_init__()
-    cases=commerce_original_cases(pack_bytes)
+    commerce_original_cases(pack_bytes)
+    cases=select_commerce_query_cases('implicit-arithmetic',selected_case_ids)
     maximum=config.admission.maximum_artifact_bytes
     if type(opened.model)is not bytes or type(opened.graph)is not bytes:raise ValueError('Exact original source bytes required')
     model,graph=opened.model,opened.graph
