@@ -1,0 +1,8 @@
+{
+  "source_validation": "fresh public producer, original invocation, reopened source metadata and close succeeded",
+  "receipt_bytes": 4795730,
+  "receipt_sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e",
+  "original_receipt_matches": true,
+  "native_query_pass": false,
+  "qualification": "Explicit output-parent TMPDIR with strict Git stderr/revision checks preserved. Source-only result; lost original-worker diagnostics prevent attribution of that failure."
+}

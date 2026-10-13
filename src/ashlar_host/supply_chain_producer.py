@@ -44,7 +44,7 @@ class HeldSupplyChainDataset:
         if self.output.exists():raise ValueError('Fresh emitted public receipt required')
         self.script=RESOURCE_ROOT/'check_supply_chain_dataset.ts';self.script_bytes=snapshot(self.script,1024*1024)
         self.originals=(snapshot(self.model,1024*1024),snapshot(self.graph,1024*1024));self.raw=None
-        self.environment={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC','GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_SYSTEM':'/dev/null','GIT_TERMINAL_PROMPT':'0','GIT_OPTIONAL_LOCKS':'0'}
+        self.environment={'TMPDIR':str(self.output.parent),'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC','GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_SYSTEM':'/dev/null','GIT_TERMINAL_PROMPT':'0','GIT_OPTIONAL_LOCKS':'0'}
         values=_config_values(config)
         source_info=config.source.lstat()
         if not stat.S_ISDIR(source_info.st_mode):raise ValueError('Original producer source directory required')

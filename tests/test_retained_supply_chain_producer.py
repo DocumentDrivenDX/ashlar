@@ -41,6 +41,18 @@ class Controls(unittest.TestCase):
         if argv[0]==str(self.bun):self.output.write_bytes(self.raw);return b'inert success',b''
         return (source.UMF_REVISION.encode()+b'\n',b'')if argv[-1]=='HEAD'else(b'',b'')
     def producer(self):return owner.HeldSupplyChainDataset(self.config,self.model_path,self.graph_path,self.output)
+    def test_explicit_output_parent_tmpdir_ignores_ambient(self):
+        with mock.patch.dict(os.environ,{'TMPDIR':'/foreign/ambient'}):producer=self.producer()
+        self.assertEqual(producer.environment['TMPDIR'],str(self.output.parent))
+        self.assertTrue(all(call[1]['environment']['TMPDIR']==str(self.output.parent)for call in self.calls))
+    def test_git_warning_still_refuses_before_production(self):
+        def warning(argv,**kwargs):
+            out,err=self.capture(argv,**kwargs)
+            return out,b'warning'if argv[0]==str(self.git)else err
+        with mock.patch.object(owner,'capture',side_effect=warning):
+            with self.assertRaisesRegex(ValueError,'Clean original public UMF'):self.producer()
+        self.assertFalse(self.output.exists())
+
     def test_actual_lifecycle_mints_nominal_origin_and_reopens_without_production(self):
         producer=self.producer();invocation=producer.original_invocation()
         self.assertIs(type(invocation),owner.OriginalSupplyChainDatasetInvocation)
