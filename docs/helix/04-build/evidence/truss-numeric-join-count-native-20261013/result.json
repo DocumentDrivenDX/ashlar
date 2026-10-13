@@ -1,0 +1,48 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 19.319,
+  "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+  "physical_revision": "1",
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_commit": "3fb7283e1f60a872f487f5bb9ec5ed15c7fb6423",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "weft_owner_reported_source_commit": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "query_count": 2,
+  "queries": {
+    "integer": {
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "rows": [
+        {
+          "n": 4
+        }
+      ],
+      "integrity_checks": 2,
+      "request_sha256": "07825abb6efa5ec1b348dc00de850343f72afade984fb1deaa00e1d8bbef8ccb",
+      "response_sha256": "b449fc2ede489c5c19203b0a6b6bbdcfcadb8e4fc1c98ed7a5499c9c5537fafc"
+    },
+    "decimal": {
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "rows": [
+        {
+          "n": 2
+        }
+      ],
+      "integrity_checks": 2,
+      "request_sha256": "0a0266c4f731d7e92b0c106b65ea81969837f681d251ed4b97cabeb9328c2956",
+      "response_sha256": "13532af0dcc8e9198cc64f81704a37d80dc883010d6dd1fe8dca48f127d83af3"
+    }
+  },
+  "scope": "Actual original UMF0.7 typed-query-record signed64/decimal18,4 source: two existing objects, integer and decimal equality self-join COUNT against one publication. Original guards and independent exact matched-pair counts; unchanged source checkpoint. Empty-match behavior has adapter coverage only. No grouped counts, production source, cloud or released compiler qualification."
+}

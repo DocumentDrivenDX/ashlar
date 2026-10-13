@@ -1,0 +1,38 @@
+{
+  "outcome": "incomplete",
+  "ashlar_source_commit": "72151a85f84350de527a058a255556b6135fa3ad",
+  "original_run_sha256": "8abac861a6ada92aee0fb4080c1230867d358d776c16c92c5a776538ea657f95",
+  "through_ordinal": 2,
+  "supervisor": {
+    "outcome": "deadline",
+    "exit_code": -9,
+    "duration_seconds": 150.016
+  },
+  "verified_passive_state": {
+    "slots": [
+      "completed",
+      "completed",
+      "retained",
+      "unprepared",
+      "unprepared",
+      "unprepared",
+      "unprepared",
+      "unprepared"
+    ],
+    "committed_operations": 18,
+    "ordinal2_native_operations": 0,
+    "ordinal2_source_plans": 0,
+    "ordinal2_publication_artifacts": 0,
+    "new_delta_commits": 0,
+    "delta_heads": {
+      "attempts": 11,
+      "manifest": 3,
+      "object_current": 3,
+      "edge_current": 3,
+      "tombstone": 1,
+      "whole_source_history": 3
+    },
+    "original_source_container_running": true
+  },
+  "limits": "External deadline worked; no normal closing qualification, business-stage observation, fresh PostgreSQL checkpoint stability, measured speedup, continuation or uncertain COMMIT recovery success. Original retained state preserved; no subsequent recovery retry."
+}

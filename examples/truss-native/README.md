@@ -1785,3 +1785,24 @@ qualification.
 The [installed-wheel workflow](../../docs/helix/04-build/evidence/truss-arithmetic-example-installed-20261013/result.json)
 executes the documented command from fresh setup through the exact singleton
 and arithmetic results on one publication.
+
+### Count numeric equality matches
+
+`query-truss-scalar-join-count` uses the explicit compiler, reader and physical
+revision options of `query-truss-scalar-join`. Select one global count:
+
+```sql
+SELECT COUNT(*) AS matches
+FROM TypedRecord a JOIN TypedRecord b ON a.quantity=b.quantity
+```
+
+The command admits one equality INNER JOIN between required signed64 fields or
+required decimal(18,4) fields. It counts the complete matched pair bag, including
+all duplicate matches and self-join pairs, and returns zero for an empty match
+bag. The exact nonnegative signed64 result must equal the independent source
+count after every original publication and integrity obligation is discharged.
+Grouped counts, filters and other aggregate expressions require separate admission.
+
+The [actual native counts](../../docs/helix/04-build/evidence/truss-numeric-join-count-native-20261013/result.json)
+return four integer matches and two decimal matches on one publication. Empty
+matches have adapter coverage only.
