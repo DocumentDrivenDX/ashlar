@@ -84,8 +84,10 @@ connection for that same installation. For a query-capable example, select its
 saved reader configuration instead. `query-truss-scalars`,
 `query-truss-scalar-join`, `query-truss-scalar-join-count`,
 `query-truss-numeric-grouped-count` and `query-truss-typed-related-keys` provide
-explicit typed query routes; `query-truss-arithmetic` selects the installed 0.4.2
-compiler. Qualify fields with their record alias. Every route retains original
+explicit typed query routes; `query-truss-arithmetic`, `query-truss-two-hop-count` and
+`query-truss-two-hop-target-count` select the installed 0.4.2 compiler. The two-hop
+routes distinguish complete path occurrences from distinct authored terminal key
+tuples. Qualify fields with their record alias. Every route retains original
 model/binding bytes, executes its compiler obligations, and checks complete
 results under publication custody. See the [query examples](README.md) for the
 supported SQL subsets and required options.

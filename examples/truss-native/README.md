@@ -1981,3 +1981,8 @@ oracle uses reachable typed middle identities and original terminal key values
 without materializing a Cartesian path bag. Ordinary edge-pair count and distinct
 target count remain separate commands. Qualification is scoped to the admitted
 local candidate and recorded execution evidence.
+
+The [native terminal-key counts](../../docs/helix/04-build/evidence/truss-two-hop-target-count-native-20261013/result.json)
+return one destination for the same publication with two path occurrences,
+and zero for the retained earlier no-edge publication. Original physical pins,
+compiler descriptors, all thirteen guards and the source checkpoint are preserved.
