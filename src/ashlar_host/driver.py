@@ -286,7 +286,10 @@ class NativeDriver:
         if facts['profile'] == 'ashlar-commerce-evolution-source-set/0.1' and source_sessions is None:
             raise PermissionError('Installed evolution requires explicit ordinary source sessions')
         truss=facts['profile'] in ('ashlar-truss-note-semantic-admission/0.1',
-                                  'ashlar-truss-scalar-graph-semantic-admission/0.1')
+                                  'ashlar-truss-scalar-graph-semantic-admission/0.1','ashlar-truss-typed-graph-semantic-admission/0.1')
+        if facts['profile']=='ashlar-truss-typed-graph-semantic-admission/0.1':
+            from .truss_graph_admission import TrussGraphAdmission
+            if type(source_admission)is not TrussGraphAdmission:raise PermissionError('Actual typed Truss catalog admission required')
         if truss:
             if type(source_sessions)is not TrussFeedSessions or ack_sessions is not source_sessions:
                 raise PermissionError('Complete original Truss source and ACK session owner required')
@@ -1993,7 +1996,7 @@ class NativeDriver:
                 raise LocalDeltaError('Complete bounded original source plan required')
             retained_plan = None if row is None else (row[1].decode('utf-8'),)
         truss_intent = None
-        if self.admission_facts()['profile'] == 'ashlar-truss-scalar-graph-semantic-admission/0.1':
+        if self.admission_facts()['profile'] in ('ashlar-truss-scalar-graph-semantic-admission/0.1','ashlar-truss-typed-graph-semantic-admission/0.1'):
             truss_intent = {'profile':'ashlar-truss-publication-intent/0.1',
                 'publication_id':active['publication_id'], 'recorded_at':active['recorded_at'],
                 'previous_progress':active['previous_progress'], 'progress':active['progress'],
@@ -2068,7 +2071,7 @@ class NativeDriver:
     def prepare_truss_apply(self, request, context):
         """Retain original Truss source and effect intent before prepared phase."""
         self.require(context)
-        if self.admission_facts()['profile'] != 'ashlar-truss-scalar-graph-semantic-admission/0.1' or self.policy.active['request'] != request:
+        if self.admission_facts()['profile'] not in ('ashlar-truss-scalar-graph-semantic-admission/0.1','ashlar-truss-typed-graph-semantic-admission/0.1') or self.policy.active['request'] != request:
             raise PermissionError('Exact original Truss graph preparation required')
         self.source_admit(request)
         self._apply_source_plan(request, context, False)
@@ -2078,7 +2081,7 @@ class NativeDriver:
     def observe_prepared_truss_apply(self, request, context):
         """Require unchanged original native prior and no started effect slots."""
         self.require(context)
-        if self.admission_facts()['profile'] != 'ashlar-truss-scalar-graph-semantic-admission/0.1' or self.policy.active['request'] != request:
+        if self.admission_facts()['profile'] not in ('ashlar-truss-scalar-graph-semantic-admission/0.1','ashlar-truss-typed-graph-semantic-admission/0.1') or self.policy.active['request'] != request:
             raise PermissionError('Exact original Truss graph preparation required')
         self.source_admit(request)
         plan = json.loads(self._apply_source_plan(request, context, True))

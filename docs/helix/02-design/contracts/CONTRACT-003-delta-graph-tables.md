@@ -1310,3 +1310,19 @@ retention boundary. A latest-table read cannot stand in for historical publicati
 verification. CONTRACT-001 owns fresh/resume, original journal and source ACK
 custody; installed packaging and local engine evidence do not qualify production
 Unity Catalog storage, arbitrary migration or real Truss source acceptance.
+
+### Exact Truss scalar afterimages
+
+The typed Truss intake profile MUST preserve public STRING, integer, decimal,
+boolean and null carriers in complete native afterimages. Integer and decimal
+text MUST become exact JSON numeric tokens without floating conversion or lexical
+normalization. Presence and nullability MUST agree with the accepted field
+allocation and declaration; a value-family mismatch MUST refuse. Original event
+and transaction bytes MUST remain retained.
+
+The initial typed profile admits scalar, single-valued UMF 0.7 fields and required
+STRING key components. Other key families, nested values and opaque executable
+carriers MUST refuse explicitly. The existing strict STRING extraction APIs MUST
+retain their behavior. Typed intake MUST use a distinct semantic admission profile
+while preserving original publication, native identity and source ACK checks.
+Intake support MUST NOT imply corresponding Weft query support.

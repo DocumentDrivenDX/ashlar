@@ -3,7 +3,7 @@
 Pure extraction; source authority, durable publication and ACK stay host-owned.
 Original transaction bytes include all catalog/source/reservation prerequisites.
 """
-import base64,hashlib,json
+import base64,hashlib,json,re
 from dataclasses import dataclass
 from decimal import Decimal
 from .apply import Change,EntityKey,EntityState
@@ -40,13 +40,39 @@ def _string_value(value):
     return value['text']
 
 
+@dataclass(frozen=True)
+class ExactNativeNumber:
+    token:str
+
+
+def _typed_value(value):
+    if type(value)is not dict:raise NativeFeedError('Closed exact scalar carrier required')
+    kind=value.get('kind')
+    if kind=='string':return _string_value(value)
+    if kind=='null'and set(value)=={'kind'}:return None
+    if kind=='boolean'and set(value)=={'kind','value'}and type(value['value'])is bool:return value['value']
+    if kind in ('integer','decimal')and set(value)=={'kind','text'}and type(value['text'])is str:
+        token=value['text']
+        pattern=r'-?(?:0|[1-9][0-9]*)'if kind=='integer'else r'-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?'
+        if len(token)<=1048576 and re.fullmatch(pattern,token,flags=re.ASCII):return ExactNativeNumber(token)
+    raise NativeFeedError('Supported closed exact scalar carrier required')
+
+
+def _typed_properties_json(values):
+    # Numeric tokens are emitted directly after closed JSON grammar admission.
+    def scalar(value):
+        if type(value)is ExactNativeNumber:return value.token
+        return json.dumps(value,ensure_ascii=False,separators=(',',':'),allow_nan=False)
+    return '{'+','.join(json.dumps(key,ensure_ascii=False)+':'+scalar(values[key])for key in sorted(values))+'}'
+
+
 def _integer(value):
     text=str(value)
     if type(value)not in (int,str)or not text.isascii()or not text.isdecimal()or str(int(text))!=text or not 1<=int(text)<2**63:raise NativeFeedError('Original positive signed64 value required')
     return int(text)
 
 
-def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges):
+def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges,typed=False):
     """Extract one complete transaction; never infer a version from a sequence."""
     if type(content)is not bytes or len(content)>8388608 or hashlib.sha256(content).hexdigest()!=sha256 or any(type(v)is not bytes for v in (prior,next))or type(feed)is not str or not feed:raise NativeFeedError('Complete original feed selection required')
     payload=_json(content,native=True);before=_json(prior,native=True);after=_json(next,native=True)
@@ -79,10 +105,10 @@ def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges):
         for prop in image['properties']:
             name=str(_integer(prop['propertyId']))
             if name in props or type(prop.get('definitionPin'))is not str:raise NativeFeedError('Original distinct STRING properties required')
-            props[name]=_string_value(prop['value'])
+            props[name]=(_typed_value if typed else _string_value)(prop['value'])
         for prop in image['retained']:
             if type(prop['name'])is not str or prop['name']in retained:raise NativeFeedError('Original retained STRING properties required')
-            retained[prop['name']]=_string_value(prop['value'])
+            retained[prop['name']]=(_typed_value if typed else _string_value)(prop['value'])
         endpoints=None
         if kind=='edge':
             if image['properties']!=[]:raise NativeFeedError('Selected native edge profile has no declared properties')
@@ -92,7 +118,7 @@ def _scalar_entity_changes(content,*,sha256,prior,next,feed,allow_edges):
             elif type(order)is dict and set(order)=={'state','text'}and order['state']=='text'and type(order['text'])is str:order_key=order['text']
             else:raise NativeFeedError('Original complete native edge order key required')
             edge_orders.append((key,version,order_key))
-        encode=lambda value:json.dumps(value,ensure_ascii=False,separators=(',',':'),sort_keys=True)
+        encode=_typed_properties_json if typed else lambda value:json.dumps(value,ensure_ascii=False,separators=(',',':'),sort_keys=True)
         state=EntityState(key,version,str(event['eventCatalogRevision']),encode(props),encode(retained),endpoints)
         changes.append(Change(feed,epoch,payload['writerXid']+':'+str(seq),hashlib.sha256(raw).hexdigest(),'delete'if operation=='delete'else('create'if operation=='create'else'replace'),state))
     if not property_versions<=seen:raise NativeFeedError('Property transaction lacks complete afterimage')
@@ -108,6 +134,11 @@ def scalar_object_changes(content,*,sha256,prior,next,feed):
 def scalar_entity_changes(content,*,sha256,prior,next,feed):
     """Rootless STRING objects and native scalar edges, with typed endpoints."""
     return _scalar_entity_changes(content,sha256=sha256,prior=prior,next=next,feed=feed,allow_edges=True)
+
+
+def typed_scalar_entity_changes(content,*,sha256,prior,next,feed):
+    """Exact scalar tokens on rootless objects/native edges; no nested families."""
+    return _scalar_entity_changes(content,sha256=sha256,prior=prior,next=next,feed=feed,allow_edges=True,typed=True)
 
 
 def native_feed_batch(content,*,sha256,prior,next,feed):

@@ -37,6 +37,7 @@ def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     selected=admission.revisions[revision]
     if document_id not in selected['models']:raise ValueError('Original accepted document required')
     model,original=selected['models'][document_id]
+    if any(element.get('kind')=='field'and element.get('scalarType')!='string'for module in model['modules']for element in module['elements']):raise ValueError('Truss Weft profile requires STRING-only declarations')
     source_hash=hashlib.sha256(original).hexdigest()
     pin={'documentId':document_id,'revision':source_hash,'sha256':source_hash,'umfVersion':model['umf']}
     versions=json.loads(manifest['table_versions_json']);names=sorted(versions)

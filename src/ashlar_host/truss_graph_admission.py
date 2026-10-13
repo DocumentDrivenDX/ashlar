@@ -1,15 +1,16 @@
 """Accepted scalar graph correspondence; current Truss authority stays session-owned."""
 import base64,hashlib,json
 from ashlar.staging import batch_row
-from ashlar.truss_native_feed import scalar_entity_changes
+from ashlar.truss_native_feed import typed_scalar_entity_changes
 
 PROFILE='ashlar-truss-scalar-graph-semantic-admission/0.1'
+TYPED_PROFILE='ashlar-truss-typed-graph-semantic-admission/0.1'
 
 class TrussGraphAdmission:
     def __init__(self,batch,catalog_views):
         batch_row(batch)
         if batch.profile!='truss-native-feed/0.1'or type(catalog_views)is not dict:raise ValueError('Original native page and explicit original catalog views required')
-        self.batch=batch;self.parsed=scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),prior=base64.b64decode(batch.cursor_before,validate=True),next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)
+        self.typed=False;self.batch=batch;self.parsed=typed_scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),prior=base64.b64decode(batch.cursor_before,validate=True),next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)
         payload=json.loads(batch.begin);self.revisions={};self.events={};self.catalog_views=dict(catalog_views)
         installation=json.loads(base64.b64decode(batch.cursor_before))['installationId']
         for prerequisite in payload['catalogPrerequisites']:
@@ -43,25 +44,28 @@ class TrussGraphAdmission:
                 owner=(assigned['documentId'],assigned['moduleId'],assigned['elementId']);record=elements[owner];type_id=assigned['typeId']
                 ref=definitions['type',owner[0],owner[1],type_id,owner[2]]
                 if record.get('kind')!='record'or type_id in types or owner in qualified:raise ValueError('Original distinct accepted record required')
-                fields={};required=set();authored={}
+                fields={};domains={};required=set();authored={}
                 for member in record['members']:
                     field_owner=(owner[0],member['module'],member['element']);field=elements[field_owner]
-                    if field.get('kind')!='field'or field.get('scalarType')!='string'or field.get('cardinality')!='one'or field.get('nullability')not in ('required','absent-allowed'):raise ValueError('Selected scalar STRING field declarations required')
+                    if field.get('kind')!='field'or field.get('scalarType')not in ('string','integer','decimal','boolean')or field.get('cardinality')!='one'or field.get('nullability')not in ('required','absent-allowed','nullable'):raise ValueError('Selected exact scalar field declarations required')
                     matches=[p for p in report['properties']if p['typeId']==type_id and p['moduleId']==member['module']and p['elementId']==member['element']]
                     if len(matches)!=1:raise ValueError('Actual accepted field ID required')
                     prop_id=matches[0]['propertyId'];property_ref=definitions['property',owner[0],member['module'],type_id,member['element']]
                     if property_ref['propertyId']!=prop_id:raise ValueError('Actual catalog/report property allocation differs')
                     pin=property_ref['definitionPin']
                     if prop_id in fields:raise ValueError('Duplicate accepted field')
+                    domains[prop_id]=(field['scalarType'],field['nullability'])
+                    if domains[prop_id][0]!='string'or domains[prop_id][1]=='nullable':self.typed=True
                     fields[prop_id]=pin;authored[member['module'],member['element']]=prop_id
-                    if field['nullability']=='required':required.add(prop_id)
+                    if field['nullability']in ('required','nullable'):required.add(prop_id)
                 keys={}
                 for key in record.get('keys',[]):
                     components=tuple(authored[member['module'],member['element']]for member in key['fields'])
                     if not components or len(set(components))!=len(components)or key['id']in keys:raise ValueError('Original distinct scalar key components required')
+                    if any(domains[pid][0]!='string'or domains[pid][1]=='nullable'for pid in components):raise ValueError('Required STRING keys only')
                     keys[key['id']]=components
                     definitions['key',owner[0],owner[1],type_id,key['id']]
-                types[type_id]={'owner':owner,'pin':ref['definitionPin'],'fields':fields,'required':required,'keys':keys};qualified[owner]=type_id
+                types[type_id]={'owner':owner,'pin':ref['definitionPin'],'fields':fields,'domains':domains,'required':required,'keys':keys};qualified[owner]=type_id
             edges={}
             for assigned in report['relationships']:
                 owner=(assigned['documentId'],assigned['moduleId'],assigned['relationshipId']);relation=relationships[owner]
@@ -75,13 +79,17 @@ class TrussGraphAdmission:
                 if pin['relationshipId']!=relationship_id or relationship_id in edges:raise ValueError('Actual accepted relationship ID differs')
                 edges[relationship_id]={'owner':owner,'pin':pin['definitionPin'],'endpoints':tuple(endpoints),'declaration':relation}
             self.revisions[revision]={'types':types,'edges':edges,'report':raw,'models':models}
+        for raw in self.parsed.event_bytes:
+            event=json.loads(raw)
+            for image in (event.get('before'),event.get('after')):
+                if type(image)is dict and any(p['value'].get('kind')!='string'for p in image.get('retained',[])):self.typed=True
         self.changes=self.parsed.changes
         for raw in self.parsed.event_bytes:
             event=json.loads(raw)
             if event['operation']!='property':self.events[event['xid']+':'+event['seq']]=event
         for change in self.changes:self.admit(change)
     def metadata(self):
-        return {'profile':PROFILE,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':'Original accepted UMF 0.7.0 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'}
+        return {'profile':TYPED_PROFILE if self.typed else PROFILE,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':('Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted UMF 0.7.0 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')}
     def admit(self,change):
         if change not in self.changes:raise PermissionError('Exact original native change required')
         event=self.events[change.delivery_id];image=event['before']if event['operation']=='delete'else event['after'];selected=self.revisions.get(image['catalogRevision'])
@@ -94,6 +102,9 @@ class TrussGraphAdmission:
             if not record['required']<=set(props)<=set(record['fields']):raise PermissionError('Complete accepted field presence required')
             if any(not set(components)<=set(props)for components in record['keys'].values()):raise PermissionError('Complete declared scalar key values required')
             if any(prop['definitionPin']!=record['fields'][prop_id]for prop_id,prop in props.items()):raise PermissionError('Actual property definition pin differs')
+            for pid,prop in props.items():
+                family,nullability=record['domains'][pid];kind=prop['value']['kind']
+                if kind!=family and not(kind=='null'and nullability=='nullable'):raise PermissionError('Original scalar family/nullability differs')
         else:
             edge=selected['edges'].get(type_id)
             if edge is None or identity.get('definitionPin')!=edge['pin']or identity.get('owner')!={'documentId':edge['owner'][0],'moduleId':edge['owner'][1]}or tuple(str(key.type_id)for key in change.state.endpoints)!=edge['endpoints']:raise PermissionError('Actual accepted relationship pin/endpoints required')
@@ -105,5 +116,5 @@ class TrussGraphAdmission:
         role='types'if change.state.key.kind=='object'else'edges';identity=str(change.state.key.type_id)
         old=self.revisions[previous.schema_revision][role][identity];new=self.revisions[change.state.schema_revision][role][identity]
         if old['owner']!=new['owner']:raise PermissionError('Stable accepted graph identity required')
-        if role=='types'and (any(new['fields'].get(field)!=pin for field,pin in old['fields'].items())or old['keys']!=new['keys']):raise PermissionError('Only additive accepted scalar fields supported')
+        if role=='types'and (any(new['fields'].get(field)!=pin for field,pin in old['fields'].items())or old['keys']!=new['keys']or any(new['domains'].get(pid)!=domain for pid,domain in old['domains'].items())):raise PermissionError('Only additive accepted scalar fields supported')
         if role=='edges'and old['endpoints']!=new['endpoints']:raise PermissionError('Stable declared relationship endpoints required')

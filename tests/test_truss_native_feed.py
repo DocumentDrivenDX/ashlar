@@ -84,3 +84,26 @@ class Tests(unittest.TestCase):
                 with self.assertRaises(NativeFeedError):scalar_object_changes(body,**args)
         event['after']['properties'][0]['value']={'kind':'string','text':'valid'};event['after']['retained'][0]['value']={'kind':'boolean','value':True};body,args=selected()
         with self.assertRaises(NativeFeedError):scalar_object_changes(body,**args)
+
+    def typed_case(self,values):
+        content,args=self.case();payload=json.loads(content);wrapper=payload['changes'][0]['new_value'];event=json.loads(base64.b64decode(wrapper['bytesBase64']))
+        event['after']['properties']=[{'propertyId':str(i+1),'definitionPin':'pin','value':value}for i,value in enumerate(values)]
+        event['after']['retained']=[{'name':'exact','value':values[0]}]
+        raw=json.dumps(event).encode();wrapper.update(bytesBase64=base64.b64encode(raw).decode(),bytesSha256=hashlib.sha256(raw).hexdigest())
+        body=json.dumps(payload).encode();return body,{**args,'sha256':hashlib.sha256(body).hexdigest()},raw
+
+    def test_typed_scalar_tokens_remain_exact_without_float_conversion(self):
+        from ashlar.truss_native_feed import typed_scalar_entity_changes
+        values=[{'kind':'integer','text':'9007199254740993'},{'kind':'decimal','text':'1.2300'},{'kind':'decimal','text':'-0e+2'},{'kind':'boolean','value':True},{'kind':'null'},{'kind':'string','text':'雪'}]
+        content,args,event=self.typed_case(values);result=typed_scalar_entity_changes(content,**args)
+        self.assertEqual(result.original,content);self.assertEqual(result.event_bytes,(event,))
+        self.assertEqual(result.changes[0].state.props_json,'{"1":9007199254740993,"2":1.2300,"3":-0e+2,"4":true,"5":null,"6":"雪"}')
+        self.assertEqual(result.changes[0].state.retained_json,'{"exact":9007199254740993}')
+        with self.assertRaises(NativeFeedError):scalar_object_changes(content,**args)
+
+    def test_typed_scalar_closed_families_and_numeric_grammar_refuse(self):
+        from ashlar.truss_native_feed import typed_scalar_entity_changes
+        for value in ({'kind':'integer','text':'01'},{'kind':'integer','text':'1.0'},{'kind':'decimal','text':'NaN'},{'kind':'decimal','text':' 1'},{'kind':'decimal','text':'1.'},{'kind':'boolean','value':1},{'kind':'null','extra':True},{'kind':'sequence','values':[]},{'kind':'map','entries':[]}):
+            with self.subTest(value=value):
+                content,args,_=self.typed_case([value])
+                with self.assertRaises(NativeFeedError):typed_scalar_entity_changes(content,**args)

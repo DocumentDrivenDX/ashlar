@@ -1331,6 +1331,22 @@ The source command itself does not publish or ACK. Use a singleton read of the
 new publication to inspect the field; optional-field Weft decoding needs its
 own supported query profile.
 
+### Ingest exact scalar fields
+
+The graph publisher and continuation support accepted UMF 0.7 single-valued
+STRING, integer, decimal and boolean fields, including declared nullable fields.
+Integer and decimal source tokens stay exact in `props_json`; Ashlar does not
+convert them through floating point. Required STRING keys remain the admitted
+key profile. The source's actual field IDs and definition pins determine each
+value's interpretation; mismatched families and unsupported nested carriers refuse.
+
+Use `read-truss-record` for declared names and presence states. Its numeric values
+use explicit `integer_token` or `decimal_token` objects to retain the original
+lexical token. The full physical row remains in the report. Existing STRING Weft
+bindings remain separately scoped; typed ingestion does not imply numeric query
+support in that compiler profile. This extension has focused adapter coverage,
+with actual typed native execution still pending.
+
 ### Read an evolved record by field name
 
 Use the reader configuration saved by `evolve-truss-graph` with the selected
@@ -1346,8 +1362,8 @@ The report retains the full original row and adds ordered field observations
 from that row's admitted catalog revision: declared module/field names, allocated
 property ID, scalar family, nullability and `absent`, `null` or `value` state.
 A missing record remains explicit absence. Unknown executable properties refuse;
-retained content stays in the unchanged raw carrier. This is the existing Truss
-STRING admission profile, not additional nullable or scalar-family support.
+retained content stays in the unchanged raw carrier. The selected Truss scalar admission determines the permitted families and
+nullability; the reader does not broaden that admission.
 The named-field adapter has basic coverage and makes no new native qualification.
 
 ### Stream a selected target update and deletion

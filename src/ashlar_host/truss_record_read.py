@@ -1,8 +1,17 @@
 """Named fields from an already authorized complete Truss object singleton."""
 from ashlar.schema import decode_retained_json
+from ashlar.typed_source_policy import NumericToken
+import json
 from .truss_singleton import read_original_truss_singleton
 from .lifecycle import owned_context
 from .exact_report import report_body
+
+
+def _unique_pairs(pairs):
+    seen=set()
+    for key,value in pairs:
+        if key in seen:raise ValueError('Duplicate property member')
+        seen.add(key);yield key,value
 
 
 def read_original_truss_record(driver,*,type_id,entity_id):
@@ -17,7 +26,7 @@ def read_original_truss_record(driver,*,type_id,entity_id):
     declaration=elements[module,element]
     raw=row['props_json']
     if type(raw)is not str or len(raw.encode())>1048576:raise ValueError('Bounded original property carrier required')
-    props=decode_retained_json(raw.encode())
+    props=json.loads(raw,object_pairs_hook=lambda pairs:dict(_unique_pairs(pairs)),parse_int=NumericToken,parse_float=NumericToken,parse_constant=lambda value:(_ for _ in ()).throw(ValueError('Nonfinite property token')))
     if type(props)is not dict or not set(props)<=set(record['fields']):raise PermissionError('Unknown executing property allocation')
     fields=[];allocated=set()
     for member in declaration['members']:
@@ -29,7 +38,11 @@ def read_original_truss_record(driver,*,type_id,entity_id):
         allocated.add(pid)
         # The nominal admission already matched these field homes to catalog pins.
         value=props.get(pid)
-        if field.get('scalarType')!='string'or (pid in props and value is not None and type(value)is not str):raise PermissionError('Selected STRING observation required')
+        family=field['scalarType']
+        if value is not None and pid in props:
+            if family in ('integer','decimal')and type(value)is NumericToken:value={family+'_token':value.text}
+            elif not ((family=='string'and type(value)is str)or(family=='boolean'and type(value)is bool)):raise PermissionError('Selected scalar observation differs')
+        elif pid in props and field['nullability']!='nullable':raise PermissionError('Declared nonnullable field is null')
         fields.append({'module_id':member['module'],'field_id':member['element'],'property_id':pid,'scalar_type':field['scalarType'],'nullability':field['nullability'],'state':'absent'if pid not in props else 'null'if value is None else'value','value':value})
     if allocated!=set(record['fields']):raise PermissionError('Complete accepted field correspondence required')
     return {'row':dict(row),'document_id':doc,'module_id':module,'record_id':element,'fields':fields}

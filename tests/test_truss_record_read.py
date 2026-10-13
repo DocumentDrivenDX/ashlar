@@ -19,10 +19,15 @@ class Tests(unittest.TestCase):
         self.assertEqual(result['row'],row);self.assertEqual([f['state']for f in result['fields']],['value','absent']);self.assertEqual(result['fields'][0]['value'],'雪')
         row['props_json']='{"1":"雪","2":"reviewed"}';driver.policy.active['expected']['object_current']=[dict(row)]
         self.assertEqual(read_original_truss_record(driver,type_id=1,entity_id=2)['fields'][1]['value'],'reviewed')
-        # Inert already-authorized carrier observation; not native nullability admission.
+        driver.source_admission.revisions['1']['models']['cohort'][0]['modules'][0]['elements'][2]['nullability']='nullable'
+        # Inert typed nullable carrier observation.
         row['props_json']='{"1":"雪","2":null}';driver.policy.active['expected']['object_current']=[dict(row)]
         observation=read_original_truss_record(driver,type_id=1,entity_id=2)['fields'][1]
         self.assertEqual(observation['state'],'null');self.assertIsNone(observation['value'])
+        for family,token,expected in (('integer','9007199254740993',{'integer_token':'9007199254740993'}),('decimal','1.2300',{'decimal_token':'1.2300'}),('boolean','true',True)):
+            driver,row=self.fixture();driver.source_admission.revisions['1']['models']['cohort'][0]['modules'][0]['elements'][2]['scalarType']=family
+            row['props_json']='{"1":"雪","2":'+token+'}';driver.policy.active['expected']['object_current']=[dict(row)]
+            self.assertEqual(read_original_truss_record(driver,type_id=1,entity_id=2)['fields'][1]['value'],expected)
         driver,_=self.fixture(False);self.assertIsNone(read_original_truss_record(driver,type_id=1,entity_id=2))
     def test_unknown_allocation_and_scalar_and_pin_refuse(self):
         for fault in ('unknown','scalar','allocation'):

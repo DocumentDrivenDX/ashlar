@@ -3,7 +3,7 @@ import base64
 import hashlib
 import json
 from .delta_custody import encoded
-from .truss_graph_admission import PROFILE as SOURCE_PROFILE
+from .truss_graph_admission import PROFILE as SOURCE_PROFILE, TYPED_PROFILE
 
 PROFILE = 'ashlar-immutable-truss-graph-capture/0.1'
 SCOPE = 'immutable-truss-export-bytes-only'
@@ -26,7 +26,7 @@ def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_
         raise ValueError('Original Truss graph manifest/vector differs')
     source = json.loads(release['publication']['validation_report_json'])['source_admission']
     checkpoint = value['checkpoint']
-    if (type(source) is not dict or source != value['source'] or source.get('profile') != SOURCE_PROFILE
+    if (type(source) is not dict or source != value['source'] or source.get('profile') not in (SOURCE_PROFILE,TYPED_PROFILE)
             or source.get('source_profile') != 'truss-native-feed/0.1'):
         raise ValueError('Actual Truss scalar graph metadata required')
     if (type(checkpoint) is not dict or set(checkpoint) != {'profile', 'feed', 'epoch', 'previous', 'position', 'payload_digest', 'batch_id'}
