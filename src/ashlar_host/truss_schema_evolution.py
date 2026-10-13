@@ -1,9 +1,10 @@
-"""Accept an explicit compatible record revision and update one new STRING field."""
+"""Accept an explicit compatible record revision and update one new exact scalar field."""
 import base64,json,os
 from contextlib import contextmanager
 from dataclasses import asdict
 from pathlib import Path
 from .lifecycle import finish
+from .truss_record_mutation import scalar_tag
 
 
 def read(path,maximum):
@@ -24,8 +25,9 @@ def capture_catalog(assembly,transaction,revision):
     return raw
 
 
-def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,field_name):
+def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,field_name,scalar_type='string'):
     """Select the new member only; actual SDK owns compatibility/acceptance."""
+    if scalar_type not in ('string','integer','decimal','boolean'):raise ValueError('Supported exact scalar field family required')
     def members(raw):
         model=json.loads(raw)
         modules=[module for module in model['modules']if module['id']==module_id]
@@ -41,9 +43,21 @@ def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,
     if len(selected)!=1:raise ValueError('Revised record must declare the selected new field')
     ref=selected[0]
     fields=[element for module in revised['modules']if module['id']==ref['module']for element in module['elements']if element['id']==ref['element']]
-    if (len(fields)!=1 or fields[0].get('kind')!='field' or fields[0].get('scalarType')!='string'
+    if (len(fields)!=1 or fields[0].get('kind')!='field' or fields[0].get('scalarType')!=scalar_type
             or fields[0].get('nullability')not in ('required','absent-allowed')or fields[0].get('cardinality')!='one'):
-        raise ValueError('Selected new member must be a scalar STRING field')
+        raise ValueError('Selected new member must match exact scalar field family')
+
+
+def selected_field_value(value):
+    selected=scalar_tag({'kind':'string','text':value}if type(value)is str else value)
+    if selected[0]=='null':raise ValueError('Non-null exact scalar field value required')
+    return selected
+
+
+def public_field_values(kind,body):
+    from truss.contracts import TextValue,BooleanValue
+    authored=BooleanValue(value=body)if kind=='boolean'else TextValue(kind=kind,text=body)
+    return authored,authored if kind in ('integer','decimal')else body
 
 
 def parse_truss_record_evolution_configuration(config,output):
@@ -51,7 +65,7 @@ def parse_truss_record_evolution_configuration(config,output):
     if type(config)is not dict or set(config)!=required:raise ValueError('Exact record evolution configuration required')
     if type(config['object_id'])is not int or not 1<=config['object_id']<=9223372036854775807:raise ValueError('Actual positive object ID required')
     if any(type(config[k])is not str or not config[k]or len(config[k])>4096 for k in ('connection_uri','document_revision','accept_request_key','update_request_key','document_id','module_id','record_id','field_name'))or config['accept_request_key']==config['update_request_key']:raise ValueError('Explicit record/field/revision and distinct request keys required')
-    if type(config['field_value'])is not str or len(config['field_value'].encode())>65536:raise ValueError('Bounded exact STRING field value required')
+    selected_field_value(config['field_value'])
     source=read(config['document_path'],1048576)
     if json.loads(source).get('id')!=config['document_id'] or json.loads(source).get('umf')!='0.7.0':raise ValueError('Original selected UMF0.7 document required')
     bun=Path(config['bun'])
@@ -71,6 +85,8 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
         AcceptedDocument,ObjectFound,create_reference_assembly,adopt_psycopg_host)
     from truss.contracts import MapValue,MapEntry,TextValue
     from truss.groups import UpdateObject,StoredObjectReference,AuthoredValue,GroupSuccess,CommittedReceiptReplay
+    kind,body=selected_field_value(config['field_value'])
+    authored,observed=public_field_values(kind,body)
     document=CatalogDocument(config['document_id'],config['document_revision'],source)
     asserted=MapValue(entries=tuple(MapEntry(key=k,value=TextValue(kind='string',text=v))for k,v in origin.items()))
     def value(result):
@@ -96,7 +112,7 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
             if config['field_name'] in dict(before.values) or (required_original_fields is not None and set(dict(before.values))!=set(required_original_fields)):raise RuntimeError('Original selected field must be absent and complete original values retained')
             previous_document=value(assembly.accepted_document_in_transaction(tx,document_id=config['document_id']))
             if not isinstance(previous_document,AcceptedDocument)or previous_document.document_revision==config['document_revision']:raise RuntimeError('Distinct current accepted document revision required')
-            require_new_record_field(source,previous_document.content,module_id=config['module_id'],record_id=config['record_id'],field_name=config['field_name'])
+            require_new_record_field(source,previous_document.content,module_id=config['module_id'],record_id=config['record_id'],field_name=config['field_name'],scalar_type=kind)
             old_report=value(assembly.report_in_transaction(tx,before.catalog_revision))
             old_catalog=capture_catalog(assembly,tx,before.catalog_revision)
             prepared=assembly.prepare_catalog((document,),bun_executable=str(bun))
@@ -112,13 +128,13 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
             if reference is None or reference.definition_pin!=evolved.identity.definition_pin:raise RuntimeError('Actual current identity/pin required')
             if (evolved.id,evolved.type_id,evolved.version,evolved.values,evolved.retained)!=(before.id,before.type_id,before.version,before.values,before.retained)or evolved.definition_pin==before.definition_pin:raise RuntimeError('Evolution changed original identity, values or version')
             context=value(assembly.group_context_in_transaction(tx))
-            original=context.input((UpdateObject(target=StoredObjectReference(identity=evolved.identity),set=(AuthoredValue(name=config['field_name'],value=TextValue(kind='string',text=config['field_value'])),),unset=(),expected_version=str(evolved.version)),),asserted)
+            original=context.input((UpdateObject(target=StoredObjectReference(identity=evolved.identity),set=(AuthoredValue(name=config['field_name'],value=authored),),unset=(),expected_version=str(evolved.version)),),asserted)
             request=context.request(config['update_request_key'])
             changed=value(assembly.apply_in_transaction(tx,original,request,documents=(document,),bun_executable=str(bun)))
             if not isinstance(changed,GroupSuccess)or len(changed.response.semantic.results)!=1:raise RuntimeError('New-field update refused')
         connection.commit()
         with interval(connection)as (assembly,tx):
-            after=current(assembly,tx);expected=dict(before.values);expected[config['field_name']]=config['field_value']
+            after=current(assembly,tx);expected=dict(before.values);expected[config['field_name']]=observed
             if dict(after.values)!=expected or (after.id,after.type_id,after.retained)!=(before.id,before.type_id,before.retained)or after.version!=before.version+1 or after.identity!=evolved.identity:raise RuntimeError('Complete evolved record readback differs')
             replay=value(assembly.apply_in_transaction(tx,original,request,documents=(document,),bun_executable=str(bun)))
             if not isinstance(replay,GroupSuccess)or not isinstance(replay.response,CommittedReceiptReplay)or replay.response.semantic!=changed.response.semantic:raise RuntimeError('Original committed update receipt differs')

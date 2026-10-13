@@ -1327,7 +1327,11 @@ duration; this workflow makes no production latency claim.
 ### Add a field to an existing record
 
 `evolve-truss-record` accepts an explicit compatible UMF revision through Truss,
-then sets one previously absent STRING field on a selected existing object.
+then sets one previously absent scalar field on a selected existing object.
+Legacy `field_value` strings retain STRING behavior. To set an integer, decimal
+or boolean, use an exact tag such as `{"kind":"decimal","text":"1.2300"}` or
+`{"kind":"boolean","value":true}`. The new declaration must match that family;
+null tags and mismatched declarations refuse. Truss owns schema compatibility.
 Truss owns compatibility and field validation. The command preserves original
 values and native identity, reads back both commits, and replays the original
 committed update receipt. The existing `evolve-truss-note` command remains
@@ -1391,6 +1395,18 @@ deleted by `exercise_mutations` cannot be selected for this update.
 The source command itself does not publish or ACK. Use a singleton read of the
 new publication to inspect the field; optional-field Weft decoding needs its
 own supported query profile.
+
+The additive [typed-record R2 model](typed-record-r2.umf.json) adds optional
+`verified` without changing existing fields or keys. Select that model with
+`document_revision: "r2"`, `field_name: "verified"` and
+`field_value: {"kind":"boolean","value":true}` in the evolution configuration.
+Use the actual source object ID from your creation result. `evolve-truss-graph`
+composes schema acceptance, the new-field update and both feed publications,
+retaining the previous catalog archive for subsequent reads. The scalar extension
+has focused adapter coverage. The [one-record Boolean evolution check](../../docs/helix/04-build/evidence/truss-typed-record-evolution-delta-20261013/result.json)
+qualifies optional Boolean addition, both local Delta publications and exact
+readback with prior numeric tokens preserved. Integer/decimal additions, Unity
+Catalog and mixed-revision Weft queries require separate qualification.
 
 ### Create a typed source record
 

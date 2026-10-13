@@ -1,0 +1,122 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 88.83,
+  "answer": {
+    "profile": "ashlar-truss-graph-evolution/0.1",
+    "evolution": "/private/tmp/ashlar-typed-record-evolution-delta-20261013-b/evolution/evolution.json",
+    "continuation": "/private/tmp/ashlar-typed-record-evolution-delta-20261013-b/evolution/continuation.json",
+    "reader_configuration": "/private/tmp/ashlar-typed-record-evolution-delta-20261013-b/evolution/reader-configuration.json",
+    "publication_id": "truss-graph-5045446f9324067353c0e12cbe0bc8de70912f119108b0121b9d6a9d7e225d77",
+    "publications": 2,
+    "qualification": "Accepted record evolution and complete feed publication; no mixed-revision Weft query qualification."
+  },
+  "fields": [
+    {
+      "module_id": "m",
+      "field_id": "record-id",
+      "property_id": "5",
+      "scalar_type": "string",
+      "nullability": "required",
+      "state": "value",
+      "value": "R1"
+    },
+    {
+      "module_id": "m",
+      "field_id": "quantity",
+      "property_id": "4",
+      "scalar_type": "integer",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "integer_token": "9007199254740993"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "amount",
+      "property_id": "2",
+      "scalar_type": "decimal",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "decimal_token": "1.2300"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "active",
+      "property_id": "1",
+      "scalar_type": "boolean",
+      "nullability": "required",
+      "state": "value",
+      "value": true
+    },
+    {
+      "module_id": "m",
+      "field_id": "note",
+      "property_id": "3",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    },
+    {
+      "module_id": "m",
+      "field_id": "tag",
+      "property_id": "6",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    },
+    {
+      "module_id": "m",
+      "field_id": "verified",
+      "property_id": "7",
+      "scalar_type": "boolean",
+      "nullability": "absent-allowed",
+      "state": "value",
+      "value": true
+    }
+  ],
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "unity_catalog": false,
+  "weft_execution": false,
+  "ashlar_parent_revision": "79a89b90b4f08dbe3ccc92aea226ed76c64f09c2",
+  "command_source_sha256": "e68d12d6eaec84c463de161d66e1a7d84ccdb11f5460b8caaead07580c3564aa",
+  "truss_revision": "80527ca298bdfe05f948c42cf1e20497ab720cd0",
+  "truss_source_selection": "Immutable git archive of packages/python/src",
+  "python": "3.11.17",
+  "postgresql": "18.6",
+  "spark": "4.0.1",
+  "delta": "4.0.0",
+  "model": {
+    "sha256": "2df1e41d604307aeafb41040e6482502e7a3034bbde6dd92610bdbfe18e79b6c",
+    "bytes": 3017,
+    "declared_version": "0.7.0"
+  },
+  "record": {
+    "sha256": "30148a08558a2f8a85053b88809ffca6357646fafcd120d9f9da00436e3297db",
+    "bytes": 2355
+  },
+  "source_catalog_revision": 2,
+  "source_object_version": 2,
+  "source_receipt_semantic_matches": true,
+  "manifest": {
+    "profile_version": "ashlar-delta/0.3",
+    "publication_id": "truss-graph-5045446f9324067353c0e12cbe0bc8de70912f119108b0121b9d6a9d7e225d77",
+    "recorded_at": "1791901409155506",
+    "schema_revisions_json": "{\"c2545b55-4977-4014-985e-86bc54438444\":\"2\"}",
+    "source_progress_json": "{\"example-typed\":{\"batch_id\":\"809\",\"epoch\":\"68c4b4db-6d61-4c97-9e37-98ee770812a3\",\"feed\":\"example-typed\",\"payload_digest\":\"024c98769b8ce1e71065a548091dbbe0d005cac1e04acfe7021c8a3e2af103cd\",\"position\":\"eyJuZXh0WGlkIjogIjgxMCIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImV4YW1wbGUtdHlwZWQtZGVsdGEiLCAic291cmNlRXBvY2giOiAiNjhjNGI0ZGItNmQ2MS00Yzk3LTllMzctOThlZTc3MDgxMmEzIiwgImluc3RhbGxhdGlvbklkIjogImMyNTQ1YjU1LTQ5NzctNDAxNC05ODVlLTg2YmM1NDQzODQ0NCIsICJyZWdpc3RyYXRpb25JZCI6ICI1Mzc5OTI1ZS01NWIyLTQxMjQtYjFjZi04OGYxMTE4ZGY4YjQifQ==\",\"previous\":\"eyJuZXh0WGlkIjogIjgwNyIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImV4YW1wbGUtdHlwZWQtZGVsdGEiLCAic291cmNlRXBvY2giOiAiNjhjNGI0ZGItNmQ2MS00Yzk3LTllMzctOThlZTc3MDgxMmEzIiwgImluc3RhbGxhdGlvbklkIjogImMyNTQ1YjU1LTQ5NzctNDAxNC05ODVlLTg2YmM1NDQzODQ0NCIsICJyZWdpc3RyYXRpb25JZCI6ICI1Mzc5OTI1ZS01NWIyLTQxMjQtYjFjZi04OGYxMTE4ZGY4YjQifQ==\",\"profile\":\"truss-native-feed/0.1\"}}",
+    "table_versions_json": "{\"local.trussgraph.edge_current\":1,\"local.trussgraph.object_current\":4,\"local.trussgraph.tombstone\":1,\"local.trussgraph.whole_source_history\":3}",
+    "validation_report_json": "{\"complete\":true,\"effect_parity\":{\"edge_current\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"object_current\":\"53dd60a8d1c3654dd925bc9d30b2d45db5f207951c53a51bd0baad8455dc0eea\",\"tombstone\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"whole_source_history\":\"a063d93eb96a7ac528aba3d46c7cbc805f4f17fa7fd13473772dbb601e747db0\"},\"original_source_plan_sha256\":\"98282b725eb1532356e157371521d4a9da6ab28109eac592bffde74386725770\",\"predecessor\":\"truss-graph-21c08949ee489f79811ac67cd391c17f3255d799f4df0557a0612af8d270953c\",\"request_digest\":\"5045446f9324067353c0e12cbe0bc8de70912f119108b0121b9d6a9d7e225d77\",\"scope\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_admission\":{\"accepted_reports\":{\"1\":\"80970781617d4f04bc0afa65856de6ac64f2834309ec3fba65a062ac66031933\",\"2\":\"93c95778cf0d214721d66b91b48d5945bbd57dee52a29263acd608daf1885d82\"},\"catalog_views\":{\"1\":\"593028bd4cc1bd014420cd1fac7ae2bbfefcd828bcbbc8b6e2d283a086ae03dc\",\"2\":\"3b035c95767bac3559d471f5e8238e2e3478f924561527ecd30696c4d650e169\"},\"declared_umf\":{\"1\":{\"typed-record\":\"0.7.0\"},\"2\":{\"typed-record\":\"0.7.0\"}},\"epoch\":\"68c4b4db-6d61-4c97-9e37-98ee770812a3\",\"feed\":\"example-typed\",\"profile\":\"ashlar-truss-typed-graph-semantic-admission/0.1\",\"qualification\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_profile\":\"truss-native-feed/0.1\",\"source_transaction_sha256\":\"024c98769b8ce1e71065a548091dbbe0d005cac1e04acfe7021c8a3e2af103cd\"},\"source_oracle_sha256\":\"bf8fa61f72fef310e122672d7c870526e03799ffbfc413f55a258b8577a1aed2\",\"zero_match_elisions\":[]}"
+  },
+  "scope": "One optional Boolean field addition to the original typed model, public Truss catalog acceptance/update/replay, two local Delta continuation publications and exact named singleton. Existing numeric tokens preserved. Integer/decimal field additions have adapter coverage only. Caller-asserted ACK; no protected receipt, Unity Catalog, Weft, graph-engine, scale or production authority qualification.",
+  "first_attempt": {
+    "outcome": "failed_before_any_write",
+    "cause": "Smoke runner omitted reader configuration argument",
+    "duration_seconds": 1.134,
+    "remedy": "Pass the original captured saved reader to evolve-truss-graph"
+  }
+}

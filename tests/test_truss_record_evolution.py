@@ -1,8 +1,10 @@
 """Small shared-record evolution authoring/preflight controls; no SDK execution."""
-import copy,json,tempfile,unittest
+import copy,json,tempfile,unittest,sys
+from dataclasses import dataclass
+from types import SimpleNamespace
 from pathlib import Path
 from unittest.mock import patch
-from ashlar_host.truss_schema_evolution import run_evolve_truss_record_command,require_new_record_field
+from ashlar_host.truss_schema_evolution import run_evolve_truss_record_command,require_new_record_field,selected_field_value,public_field_values
 from ashlar_host.truss_note_evolution import run_evolve_truss_note_command
 
 class Tests(unittest.TestCase):
@@ -39,3 +41,23 @@ class Tests(unittest.TestCase):
                 self.assertEqual(run_evolve_truss_note_command(path,'/private/result.json'),{'original':'result'})
             selected=run.call_args.args[0];self.assertEqual(selected['document_id'],'ashlar-note');self.assertEqual(selected['module_id'],'notes');self.assertEqual(selected['record_id'],'Note');self.assertEqual(selected['field_name'],'note-tag');self.assertEqual(selected['field_value'],config['tag'])
             self.assertEqual(run.call_args.kwargs,{'required_original_fields':('note-id','note-text')});self.assertEqual(path.read_bytes(),original)
+    def test_exact_typed_new_member_and_public_values(self):
+        @dataclass
+        class Text:kind:str;text:str
+        @dataclass
+        class Boolean:value:bool
+        old={'modules':[{'id':'m','elements':[{'id':'Record','kind':'record','members':[]}]}]}
+        for tag in ({'kind':'integer','text':'9007199254740993'},{'kind':'decimal','text':'1.2300'},{'kind':'boolean','value':True},{'kind':'string','text':'legacy'}):
+            kind,body=selected_field_value(tag);new=copy.deepcopy(old)
+            new['modules'][0]['elements'][0]['members'].append({'module':'m','element':'added'})
+            new['modules'][0]['elements'].append({'id':'added','kind':'field','scalarType':kind,'cardinality':'one','nullability':'absent-allowed'})
+            require_new_record_field(json.dumps(new).encode(),json.dumps(old).encode(),module_id='m',record_id='Record',field_name='added',scalar_type=kind)
+            with patch.dict(sys.modules,{'truss.contracts':SimpleNamespace(TextValue=Text,BooleanValue=Boolean)}):authored,observed=public_field_values(kind,body)
+            if kind in ('integer','decimal'):self.assertEqual(authored,Text(kind,body));self.assertIs(observed,authored)
+            elif kind=='boolean':self.assertEqual(authored,Boolean(True));self.assertIs(observed,True)
+            else:self.assertEqual(authored,Text('string','legacy'));self.assertEqual(observed,'legacy')
+            with self.assertRaisesRegex(ValueError,'match exact scalar'):
+                require_new_record_field(json.dumps(new).encode(),json.dumps(old).encode(),module_id='m',record_id='Record',field_name='added',scalar_type='boolean'if kind!='boolean'else'integer')
+        self.assertEqual(selected_field_value('legacy'),('string','legacy'))
+        for invalid in ({'kind':'null'},{'kind':'integer','text':'1.0'},{'kind':'decimal','text':'NaN'},{'kind':'boolean','value':1}):
+            with self.assertRaises(ValueError):selected_field_value(invalid)
