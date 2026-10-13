@@ -1889,3 +1889,35 @@ inverse name reverses traversal while preserving the canonical edge mapping.
 Historical revision unions, filters, numeric outputs and aggregates need separate
 admission. Qualification is scoped to the local candidate and recorded native
 evidence; this command does not publish or acknowledge source data.
+
+### Run typed relationship ingestion and queries
+
+`run-truss-typed-related-example` accepts the bundled original typed relationship
+model, creates two exact numeric records, an R1→R2 edge and an R2 self-loop, then
+publishes five catalog/object/edge pages. It reads both complete singletons and
+runs forward `related` and inverse `incoming` key queries on the same publication.
+Use this explicit configuration with a fresh private output directory:
+
+```json
+{
+  "profile": "ashlar-local-truss-typed-related-example/0.1",
+  "bun": "/absolute/path/to/bun",
+  "java_home": "/absolute/path/to/jdk21",
+  "jars": ["/absolute/path/to/delta-spark.jar", "/absolute/path/to/delta-storage.jar"],
+  "compiler": "/absolute/private/weft-cli"
+}
+```
+
+```sh
+ashlar run-truss-typed-related-example --configuration /absolute/private/example.json \
+  --output /absolute/private/fresh-typed-related-example
+```
+
+Use the Truss main-source numeric implementation after `v0.0.1`, Spark 4.0.1,
+Delta 4.0.0 and the pinned local candidate compiler. The example explicitly selects
+a bounded 2 MiB catalog/feed page budget. The source enforces the original directed,
+independent max-two relationship declarations. Forward bags are R1:[R2] and R2:[R2];
+inverse bags are R1:[] and R2:[R1,R2], with no truncation at bound two. Source ACK is
+caller-asserted. The final private bounded report requires unchanged checkpoints,
+exact values, complete bags and successful runtime closure. Native end-to-end
+qualification is pending its recorded execution evidence.
