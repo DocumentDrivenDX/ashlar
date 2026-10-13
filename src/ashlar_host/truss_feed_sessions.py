@@ -93,12 +93,18 @@ class TrussFeedSessions:
         if request.get('source_batch_json')!=row['batch_json'] or request.get('source_batch_digest')!=row['batch_digest'] or request.get('source_checkpoint_json')!=truss_checkpoint(self.batch()):
             raise TrussSessionError('Publication request differs from original Truss page')
 
-    def _read(self,connection):
+    def _read(self,connection,*,retained=False):
         with _assembly(connection,True)as (assembly,tx):
             page=_value(assembly.read_feed_in_transaction(tx,consumer_id=self.page.consumer_id,
                 maximum_facts=4096,maximum_bytes=8388608))
             if type(page)is not _sdk()[4] or page.consumer_id!=self.page.consumer_id or page.registration_id!=self.page.registration_id:
                 raise TrussSessionError('Ordinary public source registration differs')
+            fields=('content','sha256','prior','next','consumer_id','registration_id','writer_xid','outcome')
+            reread=getattr(assembly,'reread_feed_in_transaction',None)
+            if retained and any(getattr(page,key)!=getattr(self.page,key)for key in fields) and callable(reread):
+                page=_value(reread(tx,self.page,maximum_facts=4096,maximum_bytes=8388608))
+                if type(page)is not _sdk()[4] or any(getattr(page,key)!=getattr(self.page,key)for key in fields):
+                    raise TrussSessionError('Original retained public Truss page unavailable or differs')
             return page
 
     def admit(self,request,*,context):
@@ -106,7 +112,7 @@ class TrussFeedSessions:
         self._request(request,context)
         connection=self.connection_factory(context);primary=None
         try:
-            current=self._read(connection)
+            current=self._read(connection,retained=True)
             # The safe frontier is a fresh observation outside original payload
             # bytes; another committed writer may advance it between polls.
             fields=('content','sha256','prior','next','consumer_id','registration_id','writer_xid','outcome')

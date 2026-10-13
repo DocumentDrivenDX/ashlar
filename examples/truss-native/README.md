@@ -606,3 +606,11 @@ pair using its explicit release and custody digests. The release preserves typed
 node/edge identities and original canonical properties. It carries the local
 Truss publication's qualification; exporting it does not establish protected
 outbox custody or qualify an external graph engine.
+
+With a compatible Truss SDK exposing `reread_feed_in_transaction`, source
+admission can reproduce an original retained delivery after its consumer has
+advanced. Truss checks current permissions, the original registration and exact
+page bytes; Ashlar refuses an unavailable or changed reproduction. ACK
+reconciliation still reads the current consumer checkpoint and requires the
+original ACK attempt. Retained-page admission alone does not authorize another
+ACK or establish complete destination restart recovery.
