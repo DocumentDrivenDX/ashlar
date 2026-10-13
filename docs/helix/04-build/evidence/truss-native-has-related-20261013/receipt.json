@@ -1,0 +1,33 @@
+{
+  "profile": "ashlar-source-cli-truss-has-related-functional/0.1",
+  "seconds": 12.442,
+  "publication_id": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "rows": [
+    {
+      "label": "Alpha"
+    }
+  ],
+  "original_source_label": "Alpha",
+  "original_target_key": [
+    "Value-B",
+    "Beta"
+  ],
+  "original_table_versions": {
+    "local.trussgraph.edge_current": 3,
+    "local.trussgraph.object_current": 3,
+    "local.trussgraph.tombstone": 1,
+    "local.trussgraph.whole_source_history": 3
+  },
+  "actual_integrity_checks": 13,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "633c5acef17b06bdb9231261683271b7be6633fb0f7189aaa2d414b7189364b2",
+  "server_stopped": true,
+  "qualification": "One actual forward literal typed-key HAS_RELATED EXISTS predicate with source-once STRING projection over the explicit existing Truss publication. No edge-occurrence join, general-filter, ingestion, ACK, new-publication, installed-wheel, Unity Catalog or scale claim.",
+  "unconsumed_pending_value": "Value-D",
+  "pending_value_qualification": "Context only: the unconnected pending object does not establish predicate-based exclusion of latest data.",
+  "base_commit": "e8a119b2fc77366f052d4fda14f05e736220a339",
+  "harness_sha256": "a5096e11fd56f08960e5f8d227d93dbc707bf27bd3a176af24ef19d94d253d09",
+  "query_sha256": "a5e7f40b8e49a420e40d25963e1f26e972f7093763a9cf05ad6662ea3b0eb1d0",
+  "request_sha256": "af9c1e967a7bb87019ebc5ebc141a0618b524cb2b7ac66086f0fde3786311325",
+  "response_sha256": "f9ffc5b259b19ca39044fa392e82f02470429f4a4b5a912bde8991697124f0e4"
+}

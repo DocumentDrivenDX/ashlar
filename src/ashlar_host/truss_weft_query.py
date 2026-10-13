@@ -135,13 +135,18 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         or integrity.get('noPartialPublication')is not True or type(integrity.get('checks'))is not list):
                     raise ValueError('Original candidate scalar integrity lifecycle differs')
                 related=any(column.get('representation',{}).get('kind')=='relatedKeys'for column in artifact.get('columns',[]))
-                if related != any(item['id']=='ashlar.candidate.relationshipIntegrity'for item in obligations):
+                filtered=any(item.get('op')=='hasRelated'for item in artifact.get('logicalPlan',{}).get('filters',[]))
+                if (related or filtered) != any(item['id']=='ashlar.candidate.relationshipIntegrity'for item in obligations):
                     raise ValueError('Exact related-key guard obligation required')
-                if related:
+                if related or filtered:
                     guard=next(item['parameters']for item in obligations if item['id']=='ashlar.candidate.relationshipIntegrity')
                     if guard.get('phase')!='before-user-query'or guard.get('samePublicationRequired')is not True or type(guard.get('checks'))is not list or not guard['checks']:
                         raise ValueError('Complete original before-query relationship guards required')
-                    related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    if filtered:
+                        from .truss_relationship_filter import admit_truss_relationship_filter
+                        filter_expected=admit_truss_relationship_filter(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    else:
+                        related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False
@@ -151,7 +156,11 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                     elif len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped)
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered)
+                    if filtered:
+                        from collections import Counter
+                        if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in filter_expected):
+                            raise ValueError('Independent complete original relationship filter bag differs')
                     if grouped:
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in grouped_expected):
@@ -165,7 +174,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, forward HAS_RELATED or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     return result
 
 
@@ -194,7 +203,7 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
     columns=artifact.get('columns')
@@ -225,7 +234,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
             raise ValueError('Original bounded compiler SELECT or WITH query required')
         return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
     all_checks=list(integrity['checks'])
-    if related:
+    if related or relationship_guards:
         guard=next(item['parameters']for item in artifact['obligations']if item['id']=='ashlar.candidate.relationshipIntegrity')
         if len(guard['checks'])>128:raise ValueError('Bounded relationship integrity inventory required')
         all_checks.extend(guard['checks'])
@@ -255,7 +264,7 @@ def compile_truss_string_query(driver,paths,sql,*,revision,document_id):
 
 
 def execute_truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
-    """Execute STRING projections, global/grouped COUNT or forward RELATED_KEYS while held.
+    """Execute STRING projections, COUNT, HAS_RELATED or RELATED_KEYS while held.
 
     Original generated SQL is unchanged; owned external catalog aliases select
     original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state, numeric-field and other aggregate outputs refuse pending

@@ -75,6 +75,20 @@ For the accepted `cohort.umf.json` graph, use the same command with
 --sql 'SELECT a."A-label" AS label, RELATED_KEYS(a."A-B", 2) AS related FROM A a'
 ```
 
+To select source records connected to a particular target key:
+
+```sh
+--sql "SELECT a.\"A-label\" AS label FROM A a WHERE HAS_RELATED(a.\"A-B\", KEY('Value-B', 'Beta'))"
+```
+
+The key uses the target's declared order: `B-value`, then `B-label`. Each matching
+source record appears once, even when more than one edge matches. This profile
+supports one forward `HAS_RELATED` predicate with literal required STRING key
+components and required STRING source projections, without outer ordering.
+Scalar and relationship guards run before the original compiled query, and its
+complete row bag is checked against the selected publication's source oracle.
+It does not provide an edge-occurrence join.
+
 The related result contains `items` and `truncated`. Each edge contributes its
 target's declared key tuple (`B-value`, then `B-label`); equal tuples remain
 repeated. Tuples are ordered by their UTF-8 field values, then numeric edge ID,
