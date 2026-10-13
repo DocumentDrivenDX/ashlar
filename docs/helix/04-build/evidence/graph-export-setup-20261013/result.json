@@ -1,0 +1,20 @@
+{
+  "workflow": "configure-graph-export -> query-duckdb-export",
+  "selection_sha256": "ba7822433c0ed71b74c0132bbc16cf81cf4453921773f304d30bcb13f91b8c38",
+  "selection_fields": [
+    "custody_path",
+    "custody_sha256",
+    "release_path",
+    "release_sha256"
+  ],
+  "publication_id": "truss-graph-ae29f91b19d46e335db3d19cc24b43947e6b48744bf8f5469f627494fb56641f",
+  "engine": {
+    "name": "DuckDB",
+    "version": "v1.5.0"
+  },
+  "nodes": 3,
+  "edges": 1,
+  "one_hop": 1,
+  "two_hop": 0,
+  "qualification": "Existing immutable Truss R2 export only; no source connection, Java, Spark or remote graph query."
+}

@@ -838,6 +838,19 @@ counts are checked against the original graph independently of native results.
 
 ### Compare immutable graph exports
 
+Generate a reusable selection directly from each saved export result:
+
+```sh
+ashlar configure-graph-export \
+  --export-report /absolute/path/r2-export-result.json \
+  --export-report-sha256 REPLACE_WITH_RESULT_SHA256 \
+  --output /absolute/path/r2-selection.json
+```
+
+The result digest identifies the exact report you selected. This command checks
+its original release/custody pair and needs no Java, JARs, source connection or
+engine. Reuse its selection for DuckDB queries and export comparisons.
+
 Use `compare-graph-exports` to inspect changes between two saved exports without
 starting Spark. Each configuration contains exactly `release_path`, `custody_path`,
 `release_sha256` and `custody_sha256`, taken from its export result. Paths must be
