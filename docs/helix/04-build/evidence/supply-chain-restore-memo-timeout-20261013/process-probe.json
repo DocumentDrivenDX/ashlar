@@ -1,0 +1,7 @@
+{
+  "observed_by": "root independent process probe",
+  "report_source": "Parent root message following terminal d",
+  "matches": [],
+  "scope": "Owned d/run.py and SparkSubmit with exact selected Delta4 JAR. No credential lookup, process mutation or broader host-zero assertion.",
+  "log": "Root independent ps probe: matches=[] for owned d/run.py and SparkSubmit+exactdelta4jar; no processcleanupmutations needed."
+}

@@ -1,0 +1,25 @@
+{
+  "supervisor": {
+    "outcome": "deadline",
+    "exit_code": -9,
+    "duration_seconds": 180.014
+  },
+  "success_report_exists": false,
+  "request_files": 0,
+  "response_files": 0,
+  "comparison": {
+    "source": {
+      "unchanged": true,
+      "opening_files": 365,
+      "closing_files": 365,
+      "changed": []
+    },
+    "publication": {
+      "unchanged": true,
+      "opening_files": 188,
+      "closing_files": 188,
+      "changed": []
+    }
+  },
+  "scope": "One authorized180second read-only singleton timed out after Sparkstarted. No nativequerypass, no timeoutcause/performanceclaim, no cleanupsuccessclaim without independentprocessprobe. No reingest/mutation/ACK/no retry."
+}

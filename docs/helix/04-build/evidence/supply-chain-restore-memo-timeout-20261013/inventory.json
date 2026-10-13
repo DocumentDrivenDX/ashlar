@@ -1,0 +1,52 @@
+[
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/run.py",
+    "bytes": 3416,
+    "sha256": "388db20cd21ac4d52dbd14c2e44f88b1cf7e358dfbd51f35b3a516eb8981c13d"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/supervisor.py",
+    "bytes": 713,
+    "sha256": "d0c6325b506533e7f466e7b5298fbe29e895447c185bf72e982f6043653f191c"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/configuration.json",
+    "bytes": 1305,
+    "sha256": "8ff607da7f3a193c7bf189c50a60d87979a36aee88cc0781caeafcd30f73dcea"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/before.json",
+    "bytes": 2904,
+    "sha256": "f5bfc01460e74810ea69c86e1e30668e24c3fef044c8f7dafda0255730741d31"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/opening-all.json",
+    "bytes": 98041,
+    "sha256": "2618d327beb106e317aebb3039e4aca23e85033a1ffdf8c90a087542c3a43cbd"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/closing-all.json",
+    "bytes": 97978,
+    "sha256": "4c22415a6546f29b277d2373ff784f8df15c044fbfcff9f5ca1d4f264f0f3ceb"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/comparison-all.json",
+    "bytes": 232,
+    "sha256": "c5a5f15d969e6ccebd296c738245bee331a0fc4c6d996c2e30198b55c268ffe0"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/supervisor-result.json",
+    "bytes": 70,
+    "sha256": "05a8d1b140dea3d60c642b6213e3f68d60db1bcf6eaf3e60eee1d1d35f701c34"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/terminal-summary.json",
+    "bytes": 693,
+    "sha256": "b24b622858252e88ac13f27c72ef4f8535b42ed8edf3c4bf197f7e79c22d0904"
+  },
+  {
+    "path": "/private/tmp/ashlar-supply-chain-held-read-20261013-d/run.log",
+    "bytes": 205362,
+    "sha256": "935674c1c316a1176f0cf46a7e0ff6c264381b10d51d097db13372eaf6f6a447"
+  }
+]

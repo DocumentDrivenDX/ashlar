@@ -1,0 +1,36 @@
+{
+  "source_commit": "594d8e77f506a34fe8ad09ff8964ae46a4a59baa",
+  "actual_root": "/private/tmp/ashlar-supply-chain-held-read-20261013-d",
+  "proof": [
+    {
+      "path": "actual.tar.gz",
+      "bytes": 60771,
+      "sha256": "0418854828344ff4d41342ad235e29b7b6f17f9fbf9917b2ffdbfe02340f4f78"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 1941,
+      "sha256": "0c6bc88224cd7a6e5cfc1d07240e45a27e3c01d65dda3a8145bc19646f5773ae"
+    },
+    {
+      "path": "result.json",
+      "bytes": 693,
+      "sha256": "b24b622858252e88ac13f27c72ef4f8535b42ed8edf3c4bf197f7e79c22d0904"
+    },
+    {
+      "path": "process-probe.json",
+      "bytes": 418,
+      "sha256": "ad7e8b55fb5a326452c509a53a588b12db6e0e6fe60a18b9f86d65f4d7059585"
+    }
+  ],
+  "outcome": "deadline180.014seconds; no singleton result",
+  "custody": "365sourcefiles and188publicationfiles byte-identical opening/closing;21DeltaJSON plusregistry/report/request included",
+  "process_scope": "Independent root-reported selected-owned process probe empty after terminal; no cleanup action was required.",
+  "limitations": [
+    "No actual query request/response/successreport",
+    "No diagnosis of timeout or measured performance improvement",
+    "No successful application-level cleanup/held-interval closing claim",
+    "No reingest/sourceeffects/ACK/native retry"
+  ],
+  "cleanup_qualification": "The supervisor killed the owned process group at the deadline. A later selected-process probe found no matching owned script or SparkSubmit process. Normal application-level closure is not proven. No reservation or lock files were removed or replaced; future reads still require fresh admission."
+}
