@@ -17,9 +17,32 @@ from .truss_page_archive import decode_truss_page
 def parse_resume_truss_configuration(configuration, output):
     """Effect-free bounded local selection; no SDK or Spark loading."""
     config = decode_custody_bytes(snapshot(Path(configuration),65536))
-    required = {'connection_uri','feed','source_page_path','source_page_sha256','publication_directory','request_digest','jars'}
+    base = {'connection_uri','publication_directory','jars'}
+    selections = {'feed','source_page_path','source_page_sha256','request_digest'}
+    required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
     if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files'}:
         raise ValueError('Exact original Truss resume configuration required')
+    intent_path = None
+    if 'publication_intent' in config:
+        selection = config['publication_intent']
+        if type(selection) is not dict or set(selection) != {'path','sha256'}:
+            raise ValueError('Exact original publication intent selection required')
+        require_custody_digest(selection['sha256'])
+        if type(selection['path']) is not str:
+            raise ValueError('Canonical publication intent path required')
+        intent_path = Path(selection['path'])
+        if not intent_path.is_absolute() or intent_path.resolve() != intent_path:
+            raise ValueError('Canonical publication intent path required')
+        raw_intent = snapshot(intent_path,65536)
+        import hashlib
+        if hashlib.sha256(raw_intent).hexdigest() != selection['sha256']:
+            raise ValueError('Original publication intent digest differs')
+        intent = decode_custody_bytes(raw_intent)
+        if (type(intent) is not dict or set(intent) != selections | {'publication_id'}
+                or type(intent['publication_id']) is not str or not intent['publication_id']
+                or len(intent['publication_id']) > 4096):
+            raise ValueError('Original bounded publication intent required')
+        config = {key:value for key,value in config.items() if key != 'publication_intent'} | {key:intent[key] for key in selections}
     for key in ('connection_uri','feed'):
         if type(config[key]) is not str or not config[key] or len(config[key]) > 4096 or '\0' in config[key]:
             raise ValueError('Bounded explicit ordinary Truss source required')
@@ -45,6 +68,7 @@ def parse_resume_truss_configuration(configuration, output):
             or any(char in str(destination) for char in ('`',"'",'\\','\0','\n','\r'))):
         raise ValueError('Fresh canonical private resume output required')
     protected = (publication,page,Path(configuration).resolve(),*jars,*(item[0] for item in archives))
+    if intent_path is not None: protected += (intent_path,)
     if any(destination == selected or destination in selected.parents or selected in destination.parents for selected in protected):
         raise ValueError('Resume output must be separate from original custody')
     warehouse = destination.parent/(destination.name+'-warehouse')

@@ -659,7 +659,24 @@ reconciliation; it does not turn Truss delivery into a protected outbox receipt.
 
 The publisher writes `publication-intent-N.json` with the original request digest,
 feed and source-page path/digest before entering the publication coordinator.
-Use those selections with the original publication directory and source login:
+Select that saved file by its SHA256 with the original publication directory and
+source login. The command reads its feed, request digest and original page
+path/digest, so these fields need not be copied by hand:
+
+```json
+{
+  "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
+  "publication_directory": "/absolute/private/publication",
+  "publication_intent": {
+    "path": "/absolute/private/publication/publication-intent-2.json",
+    "sha256": "<selected original intent file SHA256>"
+  },
+  "jars": ["/absolute/path/delta-spark.jar", "/absolute/path/delta-storage.jar"]
+}
+```
+
+The existing explicit selection form also works. Use either form, without mixing
+intent selection and copied fields:
 
 ```json
 {
