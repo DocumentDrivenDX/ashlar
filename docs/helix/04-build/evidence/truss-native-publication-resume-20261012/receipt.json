@@ -1,0 +1,21 @@
+{
+  "code_revision": "abe6b8d7cba3a9633ea8abe5545c1d8e152b2855",
+  "outcome": "passed",
+  "resume_elapsed_seconds": 23.031,
+  "publication_id": "truss-graph-3",
+  "qualification": "Actual local original interrupted attempt, after applied-effect recovery, resumed through manifest publication and caller-asserted Truss delivery ACK",
+  "original_source_and_journal_reused": true,
+  "reingest_or_reset": false,
+  "actual_current_checkpoint_equals_original_next": true,
+  "owned_server_stopped": true,
+  "review": "Read-only completed result and actual public resume script assertions; no rerun or expanded journal audit",
+  "not_qualified": [
+    "Lost ACK response recovery",
+    "Already-advanced ACK recovery",
+    "Installed recovery CLI",
+    "Unity Catalog",
+    "Protected outbox ACK",
+    "General restart recovery"
+  ],
+  "private_payloads_committed": false
+}
