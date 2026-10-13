@@ -12,6 +12,18 @@ def read(path,maximum):
     return raw
 
 
+def capture_catalog(assembly,transaction,revision):
+    """Retain exact public catalog bytes while the selected revision is current."""
+    from dataclasses import replace
+    from truss import Ok,CatalogViewAvailable,HistoricalCatalogSelection
+    request=replace(assembly.catalog_view_request(),selection=HistoricalCatalogSelection(catalog_revision=str(revision)))
+    result=assembly.catalog_view_in_transaction(transaction,request)
+    if not isinstance(result,Ok)or not isinstance(result.value,CatalogViewAvailable):raise RuntimeError('Original evolution catalog capture unavailable')
+    raw=result.value.view.original_bytes
+    if type(raw)is not bytes or len(raw)>16777216 or str(json.loads(raw)['catalogRevision'])!=str(revision):raise RuntimeError('Exact original evolution catalog revision required')
+    return raw
+
+
 def run_evolve_truss_note_command(configuration,output):
     import psycopg
     from truss import (Ok,CatalogDocument,CatalogRuntimeConfiguration,CatalogRegistration,
@@ -57,6 +69,7 @@ def run_evolve_truss_note_command(configuration,output):
             previous_document=value(assembly.accepted_document_in_transaction(tx,document_id='ashlar-note'))
             if not isinstance(previous_document,AcceptedDocument)or previous_document.document_revision==config['document_revision']:raise RuntimeError('Distinct current accepted document revision required')
             old_report=value(assembly.report_in_transaction(tx,before.catalog_revision))
+            old_catalog=capture_catalog(assembly,tx,before.catalog_revision)
             prepared=assembly.prepare_catalog((document,),bun_executable=str(bun))
             accepted=value(assembly.accept_in_transaction(tx,prepared,request_key=config['accept_request_key'],origin_bytes=origin_bytes))
             if not isinstance(accepted,CatalogRegistration)or accepted.revision!=before.catalog_revision+1:raise RuntimeError('Actual next compatible catalog registration required')
@@ -65,6 +78,7 @@ def run_evolve_truss_note_command(configuration,output):
             published=value(assembly.accepted_document_in_transaction(tx,document_id='ashlar-note'))
             if not isinstance(published,AcceptedDocument)or published.content!=source or published.document_revision!=config['document_revision']or published.catalog_revision!=accepted.revision:raise RuntimeError('Exact committed revised document differs')
             report=value(assembly.report_in_transaction(tx,accepted.revision));evolved=current(assembly,tx)
+            catalog=capture_catalog(assembly,tx,accepted.revision)
             reference=value(assembly.get_type_reference_in_transaction(tx,document_id='ashlar-note',module_id='notes',record_id='Note'))
             if reference is None or reference.definition_pin!=evolved.identity.definition_pin:raise RuntimeError('Actual current identity/pin required')
             if (evolved.id,evolved.type_id,evolved.version,evolved.values,evolved.retained)!=(before.id,before.type_id,before.version,before.values,before.retained)or evolved.definition_pin==before.definition_pin:raise RuntimeError('Evolution changed original identity, values or version')
@@ -82,6 +96,8 @@ def run_evolve_truss_note_command(configuration,output):
             result={'before':asdict(before),'evolved':asdict(evolved),'after':asdict(after),
                 'previous_document':{**{k:v for k,v in asdict(previous_document).items()if k!='content'},'content_original_base64':base64.b64encode(previous_document.content).decode('ascii')},
                 'accepted_document':{**{k:v for k,v in asdict(published).items()if k!='content'},'content_original_base64':base64.b64encode(published.content).decode('ascii')},
+                'previous_catalog_original_base64':base64.b64encode(old_catalog).decode('ascii'),
+                'catalog_original_base64':base64.b64encode(catalog).decode('ascii'),
                 'previous_report_original_base64':base64.b64encode(old_report.original_bytes).decode('ascii'),
                 'report_original_base64':base64.b64encode(report.original_bytes).decode('ascii'),
                 'registration':{'revision':accepted.revision,'registration_id':accepted.registration_id,'replayed':accepted.replayed,'status':accepted.status,'report_original_base64':base64.b64encode(accepted.report_bytes).decode('ascii')},
