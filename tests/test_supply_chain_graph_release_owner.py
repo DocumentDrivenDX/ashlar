@@ -55,8 +55,13 @@ class Controls(unittest.TestCase):
         # actual internally minted common-owner registry and current leases.
         self.patch_require=mock.patch.object(OpenedSupplyChainCommonRead,'require_current',self.require)
         self.patch_interval=mock.patch.object(OpenedSupplyChainCommonRead,'read_interval',self.interval)
+        self.patch_held=mock.patch.object(OpenedSupplyChainCommonRead,'require_held_correspondence',self.held_correspondence)
+        self.patch_held.start();self.addCleanup(self.patch_held.stop)
         self.patch_require.start();self.patch_interval.start()
         self.addCleanup(self.patch_require.stop);self.addCleanup(self.patch_interval.stop)
+    def held_correspondence(self,context):
+        if context is not self.context or not self.active:
+            raise PermissionError('Original held correspondence required')
     def require(self,context):
         self.calls.append('current')
         if context is not self.context or not self.live or not self.source_current:
@@ -166,3 +171,36 @@ class Controls(unittest.TestCase):
         with mock.patch.object(owner,'_read',wraps=owner._read)as reads:
             with self.assertRaises(PermissionError):self.read()
         self.assertEqual(reads.call_count,2);self.assertFalse(self.active)
+
+    def test_rows_do_not_renew_source_or_native_authorization(self):
+        policy=owner._OriginalGraphPolicy(self.opened)
+        descriptor=SimpleNamespace(raw=self.opened.manifest)
+        with self.interval(self.context):
+            policy.require(self.context)
+            before=list(self.calls)
+            for role in ('object_current','edge_current'):
+                for row in self.rows[role]:
+                    policy.authorize_graph_row(descriptor,self.driver.tables[role],row,self.context)
+            self.assertEqual(self.calls,before)
+            self.source_current=False
+            with self.assertRaises(PermissionError):
+                policy.authorize_graph_result(descriptor,(),(),self.context)
+        with self.assertRaises(PermissionError):
+            policy.authorize_graph_row(descriptor,self.driver.tables['object_current'],self.rows['object_current'][0],self.context)
+
+    def test_original_held_guard_rejects_ports_and_inactive_owner(self):
+        from ashlar_host import supply_chain_common_read as common
+        self.patch_held.stop()
+        provider=SimpleNamespace(active=True)
+        self.driver.held=True
+        guard=mock.Mock(return_value=None)
+        record={'context':self.context,'provider':provider,'guard':guard}
+        with mock.patch.dict(common._OPENED,{self.opened:record}):
+            self.opened.require_held_correspondence(self.context)
+            guard.assert_called_once_with(self.opened,self.context)
+            guard.side_effect=ValueError('original ports changed')
+            with self.assertRaises(ValueError):self.opened.require_held_correspondence(self.context)
+            guard.side_effect=None
+            for provider_active,driver_held,candidate in [(False,True,None),(True,False,None),(True,True,object())]:
+                provider.active=provider_active;self.driver.held=driver_held;record['candidate']=candidate
+                with self.assertRaises(PermissionError):self.opened.require_held_correspondence(self.context)

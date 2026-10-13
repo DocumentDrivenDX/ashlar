@@ -1,0 +1,20 @@
+{
+  "outcome": "deadline",
+  "bound_seconds": 120,
+  "duration_seconds": 120.017,
+  "supervisor_exit_code": -9,
+  "outer_exit_code": 124,
+  "selected_case_ids": [
+    "singleton"
+  ],
+  "stages_observed": [
+    "public_source_receipt_emitted",
+    "Spark_started"
+  ],
+  "query_request_files": 0,
+  "query_response_files": 0,
+  "success_report_released": false,
+  "before_head_hash_map_persisted": false,
+  "before_after_head_equality": "unproven",
+  "qualification": "One bounded read-only attempt against the existing original20-node/23-edge supply-chain publication timed out before a result was released. The emitted source receipt proves preparation only. No singleton, complete graph/closing custody, cleanup success or performance-cause claim. No reingest, mutations or source ACK were requested. No retry or native reactivation followed the deadline. The separately reviewed held-interval code fix remains qualified by its focused tests and source review, not this native attempt."
+}

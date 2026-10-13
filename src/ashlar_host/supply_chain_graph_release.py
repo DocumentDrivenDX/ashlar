@@ -59,6 +59,13 @@ class _OriginalGraphPolicy:
             raise PermissionError('Original common read context required')
         if self.opened.require_current(context)is not None:
             raise PermissionError('Current original common read admission incomplete')
+        self._correspondence(context)
+        if self.provider.authorize(context,self.manifest['publication_id'],tuple(self.vector.targets))is not None:
+            raise PermissionError('Original native graph authorization incomplete')
+
+    def _correspondence(self, context):
+        if context is not self.context:
+            raise PermissionError('Original common read context required')
         if (self.opened.driver is not self.driver or self.opened.provider is not self.provider
                 or self.opened.source is not self.source or self.driver.transport is not self.transport
                 or self.opened.context is not self.context or _vector_targets(self.opened)!=dict(self.vector.targets)
@@ -73,8 +80,6 @@ class _OriginalGraphPolicy:
             authority='private-local-process')
         if current!=self.vector:
             raise PermissionError('Original complete native graph vector changed')
-        if self.provider.authorize(context,self.manifest['publication_id'],tuple(self.vector.targets))is not None:
-            raise PermissionError('Original native graph authorization incomplete')
 
     def bind_descriptor(self, descriptor, vector, context):
         self.require(context)
@@ -82,7 +87,10 @@ class _OriginalGraphPolicy:
             raise PermissionError('Original descriptor and whole vector required')
 
     def authorize_graph_row(self, descriptor, table, row, context):
-        self.bind_descriptor(descriptor,self.vector,context)
+        self.opened.require_held_correspondence(context)
+        self._correspondence(context)
+        if source_snapshot(dict(descriptor.raw))!=self.manifest:
+            raise PermissionError('Original graph row descriptor differs')
         role=self.roles.get(table)
         if role is None or encoded(dict(row))not in self.bags[role]:
             raise PermissionError('Original complete canonical graph row differs')

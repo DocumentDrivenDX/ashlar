@@ -70,6 +70,15 @@ class OpenedSupplyChainCommonRead:
     pack:bytes
     original_native_files:dict
     def __init__(self):raise TypeError('Only the existing publication owner opens a reader')
+    def require_held_correspondence(self,context):
+        """Pure original port/view checks inside this owner's acquired interval."""
+        record=_OPENED.get(self)
+        if record is None or context is not record['context']:
+            raise PermissionError('Original live common reader required')
+        record['guard'](self,context)
+        if record.get('candidate') is not None or not record['provider'].active or not self.driver.held:
+            raise PermissionError('Actual original common graph interval required')
+
     def require_current(self,context):
         record=_OPENED.get(self)
         if record is None or context is not record['context']:raise PermissionError('Original live common reader required')

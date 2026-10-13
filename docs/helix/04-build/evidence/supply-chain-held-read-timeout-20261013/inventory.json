@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "path": "run.py",
+      "bytes": 2963,
+      "sha256": "2dcc7e439b09c020a5e094541bd1f396e9de2edbff46dad0f712b422ece7eaa9"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 708,
+      "sha256": "3d384a74a19d62d19a7ccd6055ef9e3a5972b818b143bc708f723e6ea0049a2c"
+    },
+    {
+      "path": "run.log",
+      "bytes": 201979,
+      "sha256": "4b554a157e4741dc56e834b87911d32097e66e2e766c9d5014fb988b1180fb7f"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 1305,
+      "sha256": "8ff607da7f3a193c7bf189c50a60d87979a36aee88cc0781caeafcd30f73dcea"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 70,
+      "sha256": "4c3a0a8a93feb8943f130c26ecbfd79c6a9b688ef945f4a7acc547a3616c78af"
+    },
+    {
+      "path": "observations/source-receipt.json",
+      "bytes": 4795730,
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e"
+    }
+  ],
+  "archive_sha256": "b36efd304e8b633eb8801c48028852f6c19f2151ddbcaad88a01be8711e7646d"
+}
