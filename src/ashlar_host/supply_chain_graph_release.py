@@ -82,7 +82,8 @@ class _OriginalGraphPolicy:
             raise PermissionError('Original complete native graph vector changed')
 
     def bind_descriptor(self, descriptor, vector, context):
-        self.require(context)
+        self.opened.require_held_correspondence(context)
+        self._correspondence(context)
         if vector!=self.vector or source_snapshot(dict(descriptor.raw))!=self.manifest:
             raise PermissionError('Original descriptor and whole vector required')
 
@@ -96,6 +97,7 @@ class _OriginalGraphPolicy:
             raise PermissionError('Original complete canonical graph row differs')
 
     def authorize_graph_result(self, descriptor, nodes, edges, context):
+        self.require(context)
         self.bind_descriptor(descriptor,self.vector,context)
         for role,rows in (('object_current',nodes),('edge_current',edges)):
             canonical=[{k:v for k,v in row.items()if k not in ('graph_id','src','dst')}for row in rows]
@@ -118,7 +120,6 @@ class _OriginalHeldPins:
 
 
 def _read(policy):
-    policy.require(policy.context)
     return read_graph_release(policy.transport,policy.provider,
         _OriginalHeldPins(policy),policy.vector,policy,
         publication_id=policy.manifest['publication_id'],

@@ -204,3 +204,26 @@ class Controls(unittest.TestCase):
             for provider_active,driver_held,candidate in [(False,True,None),(True,False,None),(True,True,object())]:
                 provider.active=provider_active;self.driver.held=driver_held;record['candidate']=candidate
                 with self.assertRaises(PermissionError):self.opened.require_held_correspondence(self.context)
+
+    def test_descriptor_callbacks_reuse_only_held_pure_correspondence(self):
+        policy=owner._OriginalGraphPolicy(self.opened)
+        descriptor=SimpleNamespace(raw=copy.deepcopy(self.opened.manifest))
+        with self.interval(self.context):
+            with owner._OriginalHeldPins(policy).hold(policy.vector,context=self.context):
+                before=list(self.calls)
+                policy.bind_descriptor(descriptor,policy.vector,self.context)
+                policy.bind_descriptor(descriptor,policy.vector,self.context)
+                self.assertEqual(self.calls,before)
+                with self.assertRaises(PermissionError):policy.bind_descriptor(descriptor,object(),self.context)
+                changed=SimpleNamespace(raw={**descriptor.raw,'publication_id':'foreign'})
+                with self.assertRaises(PermissionError):policy.bind_descriptor(changed,policy.vector,self.context)
+                original=self.driver.transport
+                self.driver.transport=object()
+                with self.assertRaises(PermissionError):policy.bind_descriptor(descriptor,policy.vector,self.context)
+                self.driver.transport=original
+            self.assertGreater(len(self.calls),len(before))
+        with self.interval(self.context):
+            with self.assertRaises(PermissionError):
+                with owner._OriginalHeldPins(policy).hold(policy.vector,context=self.context):
+                    self.source_current=False
+                    policy.bind_descriptor(descriptor,policy.vector,self.context)
