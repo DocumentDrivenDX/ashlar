@@ -1,0 +1,50 @@
+{
+  "outcome": "startup-refused",
+  "duration_seconds": 29.383,
+  "public_cli_exit_code": 2,
+  "engine_runtime_image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "engine_product_version_observed_in_original_startup_log": "1.13.0",
+  "runtime": {
+    "python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]",
+    "interpreter": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-c/venv/bin/python",
+    "duckdb": "1.5.0",
+    "neo4j": "5.28.2",
+    "ashlar": "0.1.0.dev0",
+    "ashlar_file": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-c/venv/lib/python3.12/site-packages/ashlar/__init__.py",
+    "public_command_file": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-c/venv/lib/python3.12/site-packages/ashlar_host/puppy_export_cli.py",
+    "wheel_sha256": "6bc822dc2c98e57558bfa35d36623947914047ffda483892c0013f42d299c167"
+  },
+  "source_evidence": "../truss15-parallel-export-20261013",
+  "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+  "custody_sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44",
+  "prepared_carrier": {
+    "profile": "ashlar-puppy-release-carrier/0.1",
+    "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+    "database_sha256": "07ce26ad20c340ab62306589d3a47db00e880efaf7d602532799c614a4e3b9ad",
+    "database_bytes": 798720,
+    "model_sha256": "c2c7d158e4babde9476bd08c3afefcfc9f2d239dae9a2ac01b6d03622d2b3501",
+    "database_name": "ashlar_d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12.duckdb",
+    "duckdb_version": "1.5.0",
+    "qualification": "Single exact local export only; no native activation/query or catalog authority."
+  },
+  "stage": "startup",
+  "submission_outcome": "not-submitted",
+  "original_container_id": "bcb3efbcd2fdd027dda7d0a14ddf85fccf312b1cbbe56d898fbe63bdadeed600",
+  "owned_container_absent_after_command": true,
+  "native_queries_completed": 0,
+  "successful_result_released": false,
+  "original_exception_type_and_site": "not captured by the installed pre-diagnostic implementation; startup cause remains unknown",
+  "pre_engine_attempts": [
+    {
+      "root_suffix": "a",
+      "outcome": "canonical Docker symlink preflight refusal before output/carrier/Docker",
+      "cli_exit_code": 2
+    },
+    {
+      "root_suffix": "b",
+      "outcome": "strict standard retention-loader refusal of named Truss private custody before carrier/Docker; no loader fallback applied",
+      "cli_exit_code": 2
+    }
+  ],
+  "qualification": "Actual freshly built wheel[puppy] installed in a private environment and public CLI dispatch, original paired immutable-release validation and exact full canonical DuckDB preparation; one cached-image bounded 2CPU/3GB PuppyGraph runtime started but refused during startup before model submission or graph query. Original stage/logs and owned stop/removal retained. No engine carrier/query parity, seven-Cypher success, cleanup of source/native owners, performance cause, Gremlin, source access/mutation/ACK/ingest/UC qualification. The later safe failure-class/site diagnostics change is focused-test/source-reviewed only and was not executed natively. No unhealthy runtime retry or resource increase."
+}

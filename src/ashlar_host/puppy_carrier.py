@@ -17,10 +17,33 @@ from ashlar.graph_release import GraphRelease
 
 
 def prepare_carrier(payload, trusted_sha256, output, *, policy, context):
+    value = load_release(payload, trusted_sha256)
+    return _prepare_carrier(payload, trusted_sha256, output, value, policy=policy, context=context)
+
+
+def prepare_private_carrier(export, output, *, policy, context):
+    """Explicit actual immutable pair; never rescue the retention-report path."""
+    from .local_graph_export import LocalGraphExportUse
+    from .private_graph_custody import load_private_graph_release
+    if type(export) is not LocalGraphExportUse or context is not export.context:
+        raise PermissionError('Actual original immutable export owner required')
+    export.admit_original_export(export.release, export.custody_bytes, export.source, context)
+    value = load_private_graph_release(export.release.payload, export.release.sha256,
+        export.custody_bytes, export.custody_sha256)
+    primary = None; receipt = None
+    try:
+        receipt = _prepare_carrier(export.release.payload, export.release.sha256, output, value,
+            policy=policy, context=context)
+    except BaseException as error: primary = error
+    finish(primary, [lambda: export.admit_original_export(export.release,
+        export.custody_bytes, export.source, context)])
+    return receipt
+
+
+def _prepare_carrier(payload, trusted_sha256, output, value, *, policy, context):
     if not callable(getattr(policy, "admit_original_release", None)):
         raise ValueError("Independent original release policy required")
     handle = PuppyReleaseHandle(GraphRelease(payload, trusted_sha256))
-    value = load_release(payload, trusted_sha256)
     def admit():
         if policy.admit_original_release(handle.release, context) is not None:
             raise ValueError("Current original release authority refused")

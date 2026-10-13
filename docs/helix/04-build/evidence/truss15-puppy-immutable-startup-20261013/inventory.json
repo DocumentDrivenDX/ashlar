@@ -1,0 +1,125 @@
+{
+  "files": [
+    {
+      "path": "failure.json",
+      "bytes": 38813,
+      "sha256": "1a1f238a17c420a1206ec244650dfbd71a02e1053c9fff5da6d1bb93605f1a3c"
+    },
+    {
+      "path": "installed-source/puppy_carrier.py",
+      "bytes": 8025,
+      "sha256": "3e06ddddb7e2651fe8ba558723bc1931ad7d5c9ec7cfc5a1e15c2f50b38419ed"
+    },
+    {
+      "path": "installed-source/puppy_export_cli.py",
+      "bytes": 7704,
+      "sha256": "6275a34e2eb32545fdf29dd2d87b0258d16e40d6944b3c6444676fb74b05654f"
+    },
+    {
+      "path": "installed-source/puppy_finite_local.py",
+      "bytes": 23865,
+      "sha256": "53f9b2ad59843516a81ab68787a8fbbf4e65e67e47d2849000c77efddb7abddc"
+    },
+    {
+      "path": "pre-engine-a/runtime-selection.json",
+      "bytes": 594,
+      "sha256": "95815841218d2535ec7b79077139a0132f2b92b620281f8e7cfa29079e04146c"
+    },
+    {
+      "path": "pre-engine-a/selection.json",
+      "bytes": 968,
+      "sha256": "c03f6a4da93c95f83e6057162afc88b0ca45994305daa0326cbf25b8f9eff61a"
+    },
+    {
+      "path": "pre-engine-a/stderr.log",
+      "bytes": 66,
+      "sha256": "7109fa29342042987979be842f03388542c313dccf5bb415e0bcd349e397805a"
+    },
+    {
+      "path": "pre-engine-a/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pre-engine-a/supervisor-result.json",
+      "bytes": 361,
+      "sha256": "3eca4d8201053149d73a30d74f6d4e7ad9765aed3044623370784c6c979c1fbf"
+    },
+    {
+      "path": "pre-engine-b/runtime-selection.json",
+      "bytes": 594,
+      "sha256": "6fb8504afb1b071c0d7a143accbb1ab9dbd4b684b9221cc5d2554e808d5a84bb"
+    },
+    {
+      "path": "pre-engine-b/selection.json",
+      "bytes": 968,
+      "sha256": "c0dfed05cede1adf0037c2ea9ca56d1bd4d0fbc8a0115400f0f99f1612af2356"
+    },
+    {
+      "path": "pre-engine-b/stderr.log",
+      "bytes": 66,
+      "sha256": "7109fa29342042987979be842f03388542c313dccf5bb415e0bcd349e397805a"
+    },
+    {
+      "path": "pre-engine-b/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pre-engine-b/supervisor-result.json",
+      "bytes": 361,
+      "sha256": "15413645a9ceab062ad360fe2d04fcd480753760574dfb786c8388cce9fe2e0f"
+    },
+    {
+      "path": "prepared/ashlar_d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12.duckdb",
+      "bytes": 798720,
+      "sha256": "07ce26ad20c340ab62306589d3a47db00e880efaf7d602532799c614a4e3b9ad"
+    },
+    {
+      "path": "prepared/model.json",
+      "bytes": 5612,
+      "sha256": "c2c7d158e4babde9476bd08c3afefcfc9f2d239dae9a2ac01b6d03622d2b3501"
+    },
+    {
+      "path": "prepared/original-intent.json",
+      "bytes": 119,
+      "sha256": "a94c6da69b00539390da3bef8a4cc31eceb434092be28056e1e3ba6a7f7b2c3d"
+    },
+    {
+      "path": "prepared/receipt.json",
+      "bytes": 576,
+      "sha256": "256af71e1426ecb85078910303b81bc62cea7450a0a20dbe74da5792b1cc51e4"
+    },
+    {
+      "path": "runtime-selection.json",
+      "bytes": 594,
+      "sha256": "0f9b9eb539f3d54a0d5cedcb1c592e4f5fcbdef38278aa5f51bda69fb8b5d6da"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 1008,
+      "sha256": "33b918c86ea4892a5b8102a71fd77c46999aa95659165e5dcd74f64f7ed6cb32"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 66,
+      "sha256": "7109fa29342042987979be842f03388542c313dccf5bb415e0bcd349e397805a"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 362,
+      "sha256": "c0823e69b6d346f657820b9abeb059c5f3f7b3f905172a989b2455e545fdaf02"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 2467,
+      "sha256": "1900debf64f08169c38eda64de7207a8b45c3f6bd1895c6f4dceb872719756f1"
+    }
+  ],
+  "archive_sha256": "3f0c92f4bf8bf822b5e1f6108cafd3d4b1f5af0e0cc7b4caf12086e5003457f7"
+}

@@ -133,3 +133,25 @@ class Tests(unittest.TestCase):
    self.assertIs(caught.exception,startup)
    self.assertEqual(checks,['owned']);self.assertEqual([c[0]for c in calls[-3:]],['query','session-close','driver-close'])
    self.assertEqual(next(replies),1) # No new attempt after failed cleanup.
+
+ def test_safe_startup_failure_origin_and_secondary_cleanup_types(self):
+  from ashlar_host.puppy_finite_local import _close_owned_engine
+  import json
+  class Neo4jFailure(Exception):pass
+  Neo4jFailure.__module__='neo4j.exceptions'
+  for kind in (ValueError,TimeoutError,Neo4jFailure):
+   owner,row=self.owner();owner.loaded=False;owner.driver=None;owner.stage='startup';owner.submission_outcome='not-submitted';owner.observations=[];owner.docker_diagnostics=[];owner.closed=False;calls=[];seen=[]
+   def startup():raise kind('password=do-not-retain-secret')
+   try:startup()
+   except Exception as error:primary=error
+   def docker(args,*,cleanup=False):
+    calls.append(args[0]);owner.docker_diagnostics.append(b'')
+    if args[0]=='stop':raise OSError('cleanup-private-message')
+    return b''
+   owner._docker=docker
+   with self.assertRaises(kind):_close_owned_engine(owner,primary,seen.append)
+   self.assertEqual(calls,['logs','stop','rm']);self.assertTrue(owner.closed)
+   actual=seen[0];self.assertEqual(actual['error_type'],kind.__module__+'.'+kind.__name__)
+   self.assertEqual(actual['error_origin']['function'],'startup');self.assertIsInstance(actual['error_origin']['line'],int)
+   self.assertIn('builtins.OSError',actual['prior_error_types']);self.assertEqual(actual['cleanup_error_types'],['builtins.OSError'])
+   self.assertNotIn('do-not-retain-secret',repr(actual));self.assertNotIn('cleanup-private-message',repr(actual))

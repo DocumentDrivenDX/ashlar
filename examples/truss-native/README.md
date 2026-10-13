@@ -2174,3 +2174,7 @@ preserves both nodes and independent edges. [GraphFrames 0.12.3 / Spark 3.5.3](.
 independently checks all four ordered edge pairs and isolated R2's zero degree
 and path counts. Its property JSON remains an exact opaque carrier; this does
 not qualify numeric graph filtering.
+
+Use the [immutable PuppyGraph workflow](../puppy-immutable-export/README.md) to
+query an exported release with the local Cypher corpus, without a live Truss
+or Spark process. Select both original release and custody hashes.

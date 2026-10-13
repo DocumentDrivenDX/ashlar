@@ -240,6 +240,8 @@ def main():
     preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
     for option in ('configuration','provider','provider-sha256'):
         preparation.add_argument('--'+option,required=True)
+    puppy_export=commands.add_parser('query-puppy-immutable-export',help='Run a bounded local PuppyGraph Cypher corpus on one admitted immutable release pair')
+    puppy_export.add_argument('--configuration',required=True)
     payments_count=commands.add_parser('query-payments-count',help='Count one original payments record on its selected finite publication')
     payments_count.add_argument('--configuration',required=True)
     payments_count.add_argument('--record',required=True)
@@ -854,6 +856,14 @@ def main():
         except Exception:
             print('ashlar selected PuppyGraph release refused',file=sys.stderr)
             raise SystemExit(2) from None
+        return
+    if args.command == 'query-puppy-immutable-export':
+        from ashlar_host.puppy_export_cli import run_puppy_export_command
+        try:answer=run_puppy_export_command(args.configuration)
+        except Exception:
+            print('ashlar immutable PuppyGraph corpus refused; retain partial output',file=sys.stderr)
+            raise SystemExit(2) from None
+        print(json.dumps({'release_sha256':answer['release_sha256'],'qualification':answer['qualification']},separators=(',',':')))
         return
     if args.command == 'compile-supply-chain-count-star':
         from ashlar_host.supply_chain_cli import compile_supply_chain_command

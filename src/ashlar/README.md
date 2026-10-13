@@ -6,7 +6,9 @@ query orchestration. Authenticated database transports and deployment tools
 remain separate from the portable library. Start with the
 [typed Truss quickstart](../../examples/truss-native/QUICKSTART.md) for ingest,
 queries and graph export, or the [portable example](../../examples/end-to-end/README.md)
-for source inspection and native commands.
+for source inspection and native commands. The
+[immutable PuppyGraph workflow](../../examples/puppy-immutable-export/README.md)
+queries retained release/custody files through a bounded local Cypher runner.
 
 ## Install and inspect a source
 

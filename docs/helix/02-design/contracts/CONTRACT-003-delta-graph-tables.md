@@ -957,6 +957,13 @@ parity MUST NOT replace graph endpoint/identity checks. JSON-number parsing or
 floating-point identity conversion is forbidden. Aliases belong to serving
 adapters, not canonical tables.
 
+Private immutable-export carrier preparation MUST require the actual paired
+release/custody owner and its held read interval, renewing original bytes and the
+complete canonical inventory before and after preparation. It MUST remain an
+explicit entrypoint separate from retention-report preparation. Neither path may
+invent retention metadata, repair the original manifest or fall back to the other
+profile when admission fails. Shared carrier writing MUST preserve full-row parity.
+
 A production adapter MUST qualify activation and rollback rather than infer
 atomic switching from schema upload. Readers remain bound to one validated
 release while its successor is built and checked. Retained releases and dual

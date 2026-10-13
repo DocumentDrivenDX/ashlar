@@ -58,7 +58,7 @@ class PuppyFiniteLoopbackConfig:
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self,*args,**kwargs):return None
 
-class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
+class PuppyLocalRuntime:
     def __init__(self,*args,**kwargs):raise PermissionError('Use open_puppy_finite_local')
     @property
     def config(self):return self._config
@@ -80,14 +80,14 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
         return ['create','--pull=never','--name',config.name,'--cpus=2','--memory=3g',
             '--env','PUPPYGRAPH_USERNAME='+config.username,'--env','PUPPYGRAPH_PASSWORD='+config.password,
             '--publish','127.0.0.1:'+str(config.http_port)+':8081','--publish','127.0.0.1:'+str(config.bolt_port)+':7687',
-            '--mount','type=bind,src='+str(self.database)+',dst=/tmp/carrier.duckdb,readonly',config.image]
+            '--mount','type=bind,src='+str(self.database)+',dst=/tmp/'+self.database.name+',readonly',config.image]
     def _container(self):
         info=json.loads(self._docker(['inspect',self.container_id]))
         if type(info)is not list or len(info)!=1:raise PermissionError('Actual owned container required')
         row=info[0];host=row['HostConfig'];mounts=row['Mounts']
         expected={'8081/tcp':self.config.http_port,'7687/tcp':self.config.bolt_port}
         if row['Id']!=self.container_id or row['Image']!=self.config.image or row['Name']!='/'+self.config.name or not row['State']['Running']or host['NanoCpus']!=2000000000 or host['Memory']!=3*1024**3:raise PermissionError('Actual owned image/resources/status differ')
-        selected=[m for m in mounts if m['Destination']=='/tmp/carrier.duckdb']
+        selected=[m for m in mounts if m['Destination']=='/tmp/'+self.database.name]
         if len(selected)!=1 or selected[0]['Source']!=str(self.database)or selected[0]['RW']is not False:raise PermissionError('Original read-only carrier mount differs')
         for key,port in expected.items():
             if row['NetworkSettings']['Ports'].get(key)!=[{'HostIp':'127.0.0.1','HostPort':str(port)}]:raise PermissionError('Actual loopback endpoint differs')
@@ -152,8 +152,7 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
                 continue
             if time.monotonic()>=self.deadline:raise TimeoutError('Owned backend readiness deadline elapsed')
             return
-    def renew(self):
-        FiniteExportPreparationPolicy.renew(self)
+    def renew_runtime(self):
         if self.closed:raise PermissionError('Owned engine interval closed')
         if self.database.resolve()!=self.database or self.database.stat().st_mode&0o222:raise PermissionError('Canonical read-only prepared carrier required')
         if snapshot(self.database,33554432)!=self.original_database or snapshot(self.config.prepared/'model.json',1048576)!=self.original_model:raise PermissionError('Original prepared carrier bytes changed')
@@ -169,7 +168,7 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
         self.stage='query'
         if language!='Cypher'or context is not self.context or not self.active:raise PermissionError('Actual held original Cypher interval required')
         if self.deadline-time.monotonic()<=0:raise TimeoutError('Owned query deadline elapsed')
-        self.admit_original_release(self.original[3],context)
+        self.admit_original_release(self.selected_release,context)
         self.renew()
         if self.deadline-time.monotonic()<=0:raise TimeoutError('Owned query deadline elapsed')
         from neo4j import Query,GraphDatabase
@@ -188,6 +187,14 @@ class OwnedPuppyFiniteLocal(FiniteExportPreparationPolicy):
         except BaseException as error:primary=error
         finish(primary,([session.close]if session is not None else [])+([driver.close]if driver is not None else []))
         self.renew();self.stage='caller';return rows
+
+class OwnedPuppyFiniteLocal(PuppyLocalRuntime,FiniteExportPreparationPolicy):
+    @property
+    def selected_release(self):return self.original[3]
+    def renew(self):
+        FiniteExportPreparationPolicy.renew(self)
+        self.renew_runtime()
+
 
 @contextmanager
 def open_puppy_finite_local(config,case,*,source,export,failure_observer=None):
@@ -231,26 +238,128 @@ def open_puppy_finite_local(config,case,*,source,export,failure_observer=None):
     _close_owned_engine(owner,primary,failure_observer)
 
 
+def safe_error_observation(error):
+    """Bounded exception class and code site; never messages, arguments or locals."""
+    if error is None:return {'error_type':None,'error_origin':None}
+    cls=type(error);origin=None;tb=error.__traceback__
+    while tb is not None:
+        module=tb.tb_frame.f_globals.get('__name__','')
+        origin={'module':str(module)[:256],'function':tb.tb_frame.f_code.co_name[:256],'line':tb.tb_lineno}
+        tb=tb.tb_next
+    return {'error_type':(cls.__module__+'.'+cls.__name__)[:256],'error_origin':origin}
+
+
 def _close_owned_engine(owner,primary,failure_observer):
     """Private observation failures never prevent original-ID cleanup."""
-    identifier=owner.container_id
+    identifier=owner.container_id;prior_types=[]
+    if primary is not None:prior_types.append(safe_error_observation(primary)['error_type'])
     if identifier is not None and owner.loaded:
         try:finish(primary,[owner.renew])
-        except BaseException as error:primary=error
+        except BaseException as error:
+            primary=error;kind=safe_error_observation(error)['error_type']
+            if kind not in prior_types:prior_types.append(kind)
     actions=[]
     if primary is not None:
         observation={'stage':owner.stage,'submission_outcome':owner.submission_outcome,
             'container_id':identifier,'model_observations':tuple(owner.observations),
-            'stdout':None,'stderr':None}
+            'stdout':None,'stderr':None,**safe_error_observation(primary),
+            'prior_error_types':prior_types,'cleanup_error_types':[]}
         if identifier is not None:
             def logs():
                 observation['stdout']=owner._docker(['logs','--tail','200',identifier],cleanup=True)
                 observation['stderr']=owner.docker_diagnostics[-1]
             actions.append(logs)
-        if failure_observer is not None:actions.append(lambda:failure_observer(observation))
     if owner.driver is not None:actions.append(owner.driver.close)
     if identifier is not None:
         actions.extend([lambda:owner._docker(['stop','--time','5',identifier],cleanup=True),
                         lambda:owner._docker(['rm',identifier],cleanup=True)])
     def closed():owner.closed=True
-    actions.append(closed);finish(primary,actions)
+    actions.append(closed)
+    if primary is not None:
+        def guarded(callback):
+            def run():
+                try:callback()
+                except BaseException as error:
+                    kind=safe_error_observation(error)['error_type']
+                    observation['cleanup_error_types'].append(kind)
+                    if kind not in observation['prior_error_types']:observation['prior_error_types'].append(kind)
+                    raise
+            return run
+        actions=[guarded(callback)for callback in actions]
+        # Snapshot the original failure before cleanup; persist after all owned
+        # cleanup attempts so a secondary failure cannot erase its class/site.
+        if failure_observer is not None:actions.append(lambda:failure_observer(observation))
+    finish(primary,actions)
+
+class ImmutableExportPreparationPolicy:
+    """Historical immutable file use, never a current source/ACK grant."""
+    def __init__(self,export):
+        if type(export)is not LocalGraphExportUse:raise PermissionError('Actual immutable export owner required')
+        self.export=export;self.context=export.context;self.selected_release=export.release
+        self.original=(export,export.release,export.custody_bytes,export.source);self.active=False
+    def renew(self):
+        export,release,custody,source=self.original
+        if self.export is not export or self.context is not export.context or self.selected_release!=release or export.custody_bytes!=custody or export.source is not source:
+            raise PermissionError('Original immutable export owners changed')
+        export.renew()
+    @contextmanager
+    def writer(self,context):
+        if context is not self.context or self.active:raise PermissionError('Nonnested original immutable release interval required')
+        with owned_context(self.export.writer(context)):
+            primary=None
+            try:self.active=True;self.renew();yield
+            except BaseException as error:primary=error
+            try:finish(primary,[self.renew])
+            finally:self.active=False
+    def admit_original_release(self,release,context):
+        if context is not self.context or not self.active or release!=self.selected_release:raise PermissionError('Exact held immutable release required')
+        self.renew();self.export.admit_original_export(release,self.original[2],self.original[3],context)
+    def admit(self,handle,context):self.admit_original_release(handle.release,context)
+
+class OwnedPuppyExportLocal(PuppyLocalRuntime,ImmutableExportPreparationPolicy):
+    def renew(self):
+        ImmutableExportPreparationPolicy.renew(self);self.renew_runtime()
+    def schema_http(self,path,body,context):
+        if context is not self.context or not self.active:raise PermissionError('Actual held schema owner required')
+        self.renew()
+        if body is not None:self.stage='model-submission';self.submission_outcome='unknown'
+        raw=self._http(path,body);self._record('schema',raw)
+        if body is not None:
+            if json.loads(raw).get('ok')is not True:
+                self.submission_outcome='refused';raise RuntimeError('Native model submission refused')
+            self.submission_outcome='accepted';self.requested_model=json.loads(body);self.loaded=True;self.stage='caller'
+        return raw
+    def native_runtime(self,context):
+        if context is not self.context or not self.active:raise PermissionError('Actual held runtime owner required')
+        self.renew()
+        # Exact independently selected and inspected image digest is the runtime
+        # revision; do not infer a PuppyGraph product version from Ubuntu labels.
+        return self.container_id,self.config.image
+
+@contextmanager
+def open_puppy_export_local(config,*,export,receipt,failure_observer=None):
+    """One bounded cached-image runtime for an actual immutable release pair."""
+    if type(config)is not PuppyFiniteLoopbackConfig or type(receipt)is not dict:raise ValueError('Exact local runtime and preparation receipt required')
+    config.__post_init__()
+    if failure_observer is not None and not callable(failure_observer):raise ValueError('Trusted failure observer required')
+    owner=object.__new__(OwnedPuppyExportLocal);ImmutableExportPreparationPolicy.__init__(owner,export)
+    if receipt.get('release_sha256')!=export.release.sha256 or receipt.get('profile')!='ashlar-puppy-release-carrier/0.1':raise ValueError('Original prepared release receipt required')
+    name=receipt.get('database_name')
+    if name!='ashlar_'+export.release.sha256+'.duckdb':raise ValueError('Original SHA-qualified carrier name required')
+    owner._config=config;owner.database=config.prepared/name
+    owner.original_database=snapshot(owner.database,33554432);owner.original_model=snapshot(config.prepared/'model.json',1048576)
+    if hashlib.sha256(owner.original_database).hexdigest()!=receipt['database_sha256']or hashlib.sha256(owner.original_model).hexdigest()!=receipt['model_sha256']:raise ValueError('Original complete prepared bytes differ')
+    if owner.database.stat().st_mode&0o222:raise PermissionError('Read-only prepared carrier required')
+    owner.deadline=time.monotonic()+config.deadline_seconds;owner.docker_diagnostics=[];owner.observations=[];owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;owner.stage='image-preflight';owner.submission_outcome='not-submitted'
+    owner.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect());primary=None
+    try:
+        ImmutableExportPreparationPolicy.renew(owner)
+        image=json.loads(owner._docker(['image','inspect',config.image]))
+        if len(image)!=1 or image[0]['Id']!=config.image:raise PermissionError('Existing exact cached image required')
+        owner._record('image',json_bytes(image,1048576));owner.stage='container-create'
+        identifier=owner._docker(owner._create_arguments()).decode().strip()
+        if not re.fullmatch('[0-9a-f]{64}',identifier):raise ValueError('Complete actual container ID required')
+        owner._container_id=identifier;owner._docker(['start',identifier]);owner._container();owner.stage='startup'
+        owner._wait_ready();owner._wait_backend_ready();owner.stage='caller';yield owner
+    except BaseException as error:primary=error
+    _close_owned_engine(owner,primary,failure_observer)
