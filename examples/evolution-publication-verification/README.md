@@ -26,7 +26,9 @@ exact `VerifyCommerceEvolutionConfig` from
 `ExistingEvolutionOperator.open_verification`. The
 [existing operator example](../existing-evolution-operator.py) supplies this
 binding. Explicitly supply its named `ASHLAR_*` installation, six-target,
-ordinary source/ACK and cached-JAR inputs; select the operation capacity actually
+ordinary source/ACK and cached-JAR inputs. The example uses one local worker,
+one Delta snapshot partition and one shuffle partition for finite development
+tables; select the operation capacity actually
 recorded in the original installation. Its environment inputs construct the
 operator, while the JSON file owns ordinal, producer, bounds and supervision.
 Authenticate each ordinary role directly.

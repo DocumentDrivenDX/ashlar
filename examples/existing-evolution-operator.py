@@ -50,6 +50,9 @@ def native_session():
         .config('spark.sql.extensions', 'io.delta.sql.DeltaSparkSessionExtension')
         .config('spark.sql.catalog.spark_catalog', 'org.apache.spark.sql.delta.catalog.DeltaCatalog')
         .config('spark.sql.session.timeZone', 'UTC').config('spark.sql.ansi.enabled', 'true')
+        # This example owns one local worker and finite development tables.
+        .config('spark.databricks.delta.snapshotPartitions', '1')
+        .config('spark.sql.shuffle.partitions', '1')
         .getOrCreate())
     primary = None
     try:
