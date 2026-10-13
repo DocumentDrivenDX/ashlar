@@ -219,6 +219,13 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             revisions={json.loads(page.prior.content)['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {json.loads(page.prior.content)['installationId']:'0'}
             request=truss_request_for(feed,batch,predecessor,revisions);checkpoint=request['source_checkpoint_json']
             publication_id=('truss-graph-'if graph else'truss-note-')+str(ordinal+1)
+            intent_path=output/('publication-intent-'+str(ordinal+1)+'.json')
+            intent=encoded({'request_digest':request['request_digest'],'publication_id':publication_id,'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(original_page).hexdigest(),'feed':feed})+'\n'
+            with intent_path.open('xb')as stream:
+                os.fchmod(stream.fileno(),0o600)
+                raw_intent=intent.encode()
+                if stream.write(raw_intent)!=len(raw_intent):raise OSError('Complete publication selection write required')
+                stream.flush();os.fsync(stream.fileno())
             policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,'previous_progress':progress,'progress':progress_union(progress,json.loads(checkpoint)),'previous_expected':expected,'generated_steps':generated,'elisions':elisions,'recorded_at':str((datetime.datetime.fromisoformat(materialized_at)-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc))//datetime.timedelta(microseconds=1))}
             target=transport.targets[tables['attempts']]
             backend=StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),driver,lambda original,supplied:ManifestPort(driver,original))

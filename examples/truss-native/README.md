@@ -654,3 +654,34 @@ binding the request, manifest, complete snapshot vector and source registration.
 A restarted owner can observe the original next checkpoint only after validating
 that intent and the committed publication. This is caller-asserted delivery
 reconciliation; it does not turn Truss delivery into a protected outbox receipt.
+
+### Resume from the installed command
+
+The publisher writes `publication-intent-N.json` with the original request digest,
+feed and source-page path/digest before entering the publication coordinator.
+Use those selections with the original publication directory and source login:
+
+```json
+{
+  "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
+  "feed": "your-original-feed",
+  "source_page_path": "/absolute/private/publication/source-page-2.json",
+  "source_page_sha256": "<original page archive SHA256>",
+  "publication_directory": "/absolute/private/publication",
+  "request_digest": "<original request digest>",
+  "jars": ["/absolute/path/delta-spark.jar", "/absolute/path/delta-storage.jar"]
+}
+```
+
+```sh
+ashlar resume-truss-graph \
+  --configuration /absolute/private/resume.json \
+  --output /absolute/private/resumed.json
+```
+
+Keep the source server running and select the same compatible Truss, Spark and
+Delta dependencies as publication. Optional `archived_acceptance_files` uses the
+same path/digest selections as graph publication. The command opens the existing
+journal and tables, restores the original attempt, and completes publication or
+ACK reconciliation. It writes the fresh report after resource cleanup. It creates
+no replacement journal, consumer registration, schema or source dataset.

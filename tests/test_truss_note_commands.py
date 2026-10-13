@@ -23,3 +23,6 @@ class Tests(unittest.TestCase):
 
     def test_schema_acceptance_command_dispatches_selected_public_host(self):
         self.dispatch('accept-truss-schema','truss_schema_acceptance','run_accept_truss_schema_command')
+
+    def test_resume_command_dispatches_original_publication_host(self):
+        self.dispatch('resume-truss-graph','truss_resume_cli','run_resume_truss_graph_command')

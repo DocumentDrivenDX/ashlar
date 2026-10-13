@@ -106,6 +106,9 @@ def main():
     truss_graph=commands.add_parser('publish-truss-graph',help='Publish accepted scalar Truss records and edges to fresh local Delta tables, then ACK')
     truss_graph.add_argument('--configuration',required=True)
     truss_graph.add_argument('--output',required=True)
+    truss_resume=commands.add_parser('resume-truss-graph',help='Resume an original local Truss graph publication from its existing journal')
+    truss_resume.add_argument('--configuration',required=True)
+    truss_resume.add_argument('--output',required=True)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
@@ -284,6 +287,15 @@ def main():
             print(json.dumps({'output':str(Path(args.output))},separators=(',',':')))
         except Exception:
             print('ashlar local Truss setup refused; retain any partial data and inspect the selected local runtime',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'resume-truss-graph':
+        try:
+            from ashlar_host.truss_resume_cli import run_resume_truss_graph_command
+            run_resume_truss_graph_command(args.configuration,args.output)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss resume refused; retain the original journal and inspect the source checkpoint',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command in ('publish-truss-note','publish-truss-graph'):
