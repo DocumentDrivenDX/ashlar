@@ -1825,6 +1825,11 @@ grouping after original integrity guards run under the full publication hold.
 An empty source returns no groups. Filters, optional grouping, joins and other
 aggregate expressions need separate admission. The [native grouped counts](../../docs/helix/04-build/evidence/truss-numeric-grouped-count-native-20261013/result.json)
 retain the original compiler protocols and exact results on one publication.
+The [released Truss 15 check](../../docs/helix/04-build/evidence/truss15-numeric-grouped-20261013/result.json)
+uses the original `typed-related-record` model on the parallel-edge publication:
+integer and decimal grouping each return two exact groups with count one.
+This explicitly selected compatible compiler profile is separate from the indexed
+two-hop count profile. Select `--document-id typed-related-record` for that source.
 
 ### Create an authored edge between accepted records
 

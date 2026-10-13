@@ -1,0 +1,65 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 22.391,
+  "truss_version": "0.0.15",
+  "compiler_profile": "authenticated compatible0.2 candidate",
+  "source_checkpoint_unchanged": true,
+  "qualification": "Actual public compatible numeric grouped counts on originalrequired signed64quantity and decimal18,4amount, complete independent two-node numeric group oracle and full original publication/nativeguards/closing custody. Originalmodel07 retained, physicalrevision1 explicit; no indexed0.4.2 or independentrecompile claim. No mutations, ACK, ingest or cloud qualification.",
+  "source_evidence": "../truss15-parallel-example-20261013",
+  "queries": [
+    {
+      "case": "integer",
+      "rows": [
+        {
+          "value": {
+            "integer_token": "9007199254740993"
+          },
+          "n": 1
+        },
+        {
+          "value": {
+            "integer_token": "2"
+          },
+          "n": 1
+        }
+      ],
+      "scalar_guard_counts": [
+        [
+          [
+            "0"
+          ]
+        ]
+      ],
+      "publication_id": "truss-graph-5"
+    },
+    {
+      "case": "decimal",
+      "rows": [
+        {
+          "value": {
+            "decimal_token": "1.2300"
+          },
+          "n": 1
+        },
+        {
+          "value": {
+            "decimal_token": "2.0000"
+          },
+          "n": 1
+        }
+      ],
+      "scalar_guard_counts": [
+        [
+          [
+            "0"
+          ]
+        ]
+      ],
+      "publication_id": "truss-graph-5"
+    }
+  ],
+  "compiler_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "physical_revisions": [
+    "1"
+  ]
+}
