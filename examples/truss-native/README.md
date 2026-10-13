@@ -1331,10 +1331,53 @@ The source command itself does not publish or ACK. Use a singleton read of the
 new publication to inspect the field; optional-field Weft decoding needs its
 own supported query profile.
 
+### Create a typed source record
+
+Accept [typed-record.umf.json](typed-record.umf.json) with the local setup or
+schema acceptance command, then use the actual ordinary source connection:
+
+```json
+{
+  "connection_uri": "<ordinary authorized Truss connection>",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/typed-record.umf.json",
+  "document_revision": "r1",
+  "document_id": "typed-record",
+  "module_id": "m",
+  "record_id": "TypedRecord",
+  "origin_path": "/absolute/private/origin.json",
+  "request_key": "create-typed-record-1",
+  "values": {
+    "record-id": {"kind": "string", "text": "R1"},
+    "quantity": {"kind": "integer", "text": "9007199254740993"},
+    "amount": {"kind": "decimal", "text": "1.2300"},
+    "active": {"kind": "boolean", "value": true}
+  }
+}
+```
+
+```sh
+ashlar create-truss-record --configuration /absolute/private/create-record.json \
+  --output /absolute/private/created-record.json
+```
+
+Truss validates the selected fields against its accepted schema. Omitted `note`
+and `tag` remain absent. The report retains the
+allocated object identity, committed readback and receipt replay. The command
+creates source data only. Use the graph publisher or continuation to ingest its
+complete feed page into Ashlar, then `read-truss-record` with the actual type and
+object IDs. If a commit outcome is unknown, retain the original request key and
+inspect source state before another write. This command has focused adapter
+coverage. The [one-record source check](../../docs/helix/04-build/evidence/truss-typed-record-source-20261013/result.json)
+qualifies local public schema acceptance and exact typed creation/readback/replay
+with the recorded SDK. Native feed, Delta and query execution remain separate.
+
 ### Ingest exact scalar fields
 
 The graph publisher and continuation support accepted UMF 0.7 single-valued
-STRING, integer, decimal and boolean fields, including declared nullable fields.
+STRING, integer, decimal and boolean fields with `required` or `absent-allowed`
+availability. Unknown labels such as UMF 0.7 `nullable` refuse admission; no native
+nullability interpretation is inferred.
 Integer and decimal source tokens stay exact in `props_json`; Ashlar does not
 convert them through floating point. Required STRING keys remain the admitted
 key profile. The source's actual field IDs and definition pins determine each

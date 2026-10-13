@@ -170,7 +170,7 @@ def main():
     truss_reader.add_argument('--example-directory',required=True)
     truss_reader.add_argument('--connection-configuration',required=True)
     truss_reader.add_argument('--output',required=True)
-    for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
         truss_operation.add_argument('--output',required=True)
@@ -359,13 +359,15 @@ def main():
             print('ashlar Truss graph evolution refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
-    if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         try:
             from pathlib import Path
             if args.command=='mutate-truss-note':
                 from ashlar_host.truss_note_mutation import run_mutate_truss_note_command as run
             elif args.command=='evolve-truss-note':
                 from ashlar_host.truss_note_evolution import run_evolve_truss_note_command as run
+            elif args.command=='create-truss-record':
+                from ashlar_host.truss_record_mutation import run_create_truss_record_command as run
             elif args.command=='evolve-truss-record':
                 from ashlar_host.truss_schema_evolution import run_evolve_truss_record_command as run
             elif args.command=='mutate-truss-graph':

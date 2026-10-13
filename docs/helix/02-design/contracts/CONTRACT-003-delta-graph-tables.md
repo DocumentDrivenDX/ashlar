@@ -1314,10 +1314,12 @@ Unity Catalog storage, arbitrary migration or real Truss source acceptance.
 ### Exact Truss scalar afterimages
 
 The typed Truss intake profile MUST preserve public STRING, integer, decimal,
-boolean and null carriers in complete native afterimages. Integer and decimal
+boolean carriers in complete native afterimages. Integer and decimal
 text MUST become exact JSON numeric tokens without floating conversion or lexical
 normalization. Presence and nullability MUST agree with the accepted field
-allocation and declaration; a value-family mismatch MUST refuse. Original event
+allocation and known availability declaration; a value-family mismatch or unknown
+nullability label MUST refuse. Extracting a null carrier MUST NOT imply its schema
+admission. Original event
 and transaction bytes MUST remain retained.
 
 The initial typed profile admits scalar, single-valued UMF 0.7 fields and required

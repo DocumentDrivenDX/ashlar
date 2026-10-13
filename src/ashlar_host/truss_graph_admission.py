@@ -47,7 +47,7 @@ class TrussGraphAdmission:
                 fields={};domains={};required=set();authored={}
                 for member in record['members']:
                     field_owner=(owner[0],member['module'],member['element']);field=elements[field_owner]
-                    if field.get('kind')!='field'or field.get('scalarType')not in ('string','integer','decimal','boolean')or field.get('cardinality')!='one'or field.get('nullability')not in ('required','absent-allowed','nullable'):raise ValueError('Selected exact scalar field declarations required')
+                    if field.get('kind')!='field'or field.get('scalarType')not in ('string','integer','decimal','boolean')or field.get('cardinality')!='one'or field.get('nullability')not in ('required','absent-allowed'):raise ValueError('Selected exact scalar field declarations required')
                     matches=[p for p in report['properties']if p['typeId']==type_id and p['moduleId']==member['module']and p['elementId']==member['element']]
                     if len(matches)!=1:raise ValueError('Actual accepted field ID required')
                     prop_id=matches[0]['propertyId'];property_ref=definitions['property',owner[0],member['module'],type_id,member['element']]
@@ -55,14 +55,14 @@ class TrussGraphAdmission:
                     pin=property_ref['definitionPin']
                     if prop_id in fields:raise ValueError('Duplicate accepted field')
                     domains[prop_id]=(field['scalarType'],field['nullability'])
-                    if domains[prop_id][0]!='string'or domains[prop_id][1]=='nullable':self.typed=True
+                    if domains[prop_id][0]!='string':self.typed=True
                     fields[prop_id]=pin;authored[member['module'],member['element']]=prop_id
-                    if field['nullability']in ('required','nullable'):required.add(prop_id)
+                    if field['nullability']=='required':required.add(prop_id)
                 keys={}
                 for key in record.get('keys',[]):
                     components=tuple(authored[member['module'],member['element']]for member in key['fields'])
                     if not components or len(set(components))!=len(components)or key['id']in keys:raise ValueError('Original distinct scalar key components required')
-                    if any(domains[pid][0]!='string'or domains[pid][1]=='nullable'for pid in components):raise ValueError('Required STRING keys only')
+                    if any(domains[pid][0]!='string'for pid in components):raise ValueError('Required STRING keys only')
                     keys[key['id']]=components
                     definitions['key',owner[0],owner[1],type_id,key['id']]
                 types[type_id]={'owner':owner,'pin':ref['definitionPin'],'fields':fields,'domains':domains,'required':required,'keys':keys};qualified[owner]=type_id
@@ -104,7 +104,7 @@ class TrussGraphAdmission:
             if any(prop['definitionPin']!=record['fields'][prop_id]for prop_id,prop in props.items()):raise PermissionError('Actual property definition pin differs')
             for pid,prop in props.items():
                 family,nullability=record['domains'][pid];kind=prop['value']['kind']
-                if kind!=family and not(kind=='null'and nullability=='nullable'):raise PermissionError('Original scalar family/nullability differs')
+                if kind!=family:raise PermissionError('Original scalar family/nullability differs')
         else:
             edge=selected['edges'].get(type_id)
             if edge is None or identity.get('definitionPin')!=edge['pin']or identity.get('owner')!={'documentId':edge['owner'][0],'moduleId':edge['owner'][1]}or tuple(str(key.type_id)for key in change.state.endpoints)!=edge['endpoints']:raise PermissionError('Actual accepted relationship pin/endpoints required')

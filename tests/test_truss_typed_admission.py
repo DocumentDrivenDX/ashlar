@@ -15,10 +15,13 @@ class Tests(unittest.TestCase):
         raw=json.dumps(event).encode();wrapper.update(bytesBase64=base64.b64encode(raw).decode(),bytesSha256=hashlib.sha256(raw).hexdigest());raw=json.dumps(report).encode();prereq.update(reportBytesBase64=base64.b64encode(raw).decode(),reportSha256=hashlib.sha256(raw).hexdigest());content=json.dumps(payload).encode()
         return native_feed_batch(content,sha256=hashlib.sha256(content).hexdigest(),prior=base64.b64decode(batch.cursor_before),next=base64.b64decode(batch.cursor_after),feed=batch.feed),{'1':json.dumps(catalog).encode()}
     def test_exact_declared_typed_field_and_nullable_values_admit(self):
-        for family,nullability,value in (('integer','required',{'kind':'integer','text':'9007199254740993'}),('decimal','absent-allowed',{'kind':'decimal','text':'1.2300'}),('boolean','required',{'kind':'boolean','value':True}),('string','nullable',{'kind':'null'})):
+        for family,nullability,value in (('integer','required',{'kind':'integer','text':'9007199254740993'}),('decimal','absent-allowed',{'kind':'decimal','text':'1.2300'}),('boolean','required',{'kind':'boolean','value':True}),('string','required',{'kind':'string','text':'雪'})):
             batch,catalogs=self.fixture(family,nullability,value);admission=TrussGraphAdmission(batch,catalogs)
-            self.assertEqual(admission.metadata()['profile'],TYPED_PROFILE);self.assertEqual(admission.revisions['1']['types']['1']['domains']['99'],(family,nullability))
+            self.assertEqual(admission.metadata()['profile'],TYPED_PROFILE if family!='string'else 'ashlar-truss-scalar-graph-semantic-admission/0.1');self.assertEqual(admission.revisions['1']['types']['1']['domains']['99'],(family,nullability))
     def test_wrong_family_and_forbidden_null_refuse(self):
-        for family,nullability,value in (('integer','required',{'kind':'string','text':'1'}),('string','absent-allowed',{'kind':'null'})):
+        for family,nullability,value in (('integer','required',{'kind':'string','text':'1'}),('string','absent-allowed',{'kind':'null'}),('string','required',{'kind':'null'})):
             batch,catalogs=self.fixture(family,nullability,value)
             with self.assertRaises(PermissionError):TrussGraphAdmission(batch,catalogs)
+
+        batch,catalogs=self.fixture('string','nullable',{'kind':'null'})
+        with self.assertRaises(ValueError):TrussGraphAdmission(batch,catalogs)

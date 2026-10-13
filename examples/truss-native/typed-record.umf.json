@@ -1,0 +1,115 @@
+{
+  "umf": "0.7.0",
+  "id": "typed-record",
+  "vocabularies": {},
+  "extensions": {},
+  "modules": [
+    {
+      "id": "m",
+      "namespace": "m",
+      "extensions": {},
+      "elements": [
+        {
+          "id": "TypedRecord",
+          "name": "TypedRecord",
+          "kind": "record",
+          "members": [
+            {
+              "module": "m",
+              "element": "record-id"
+            },
+            {
+              "module": "m",
+              "element": "quantity"
+            },
+            {
+              "module": "m",
+              "element": "amount"
+            },
+            {
+              "module": "m",
+              "element": "active"
+            },
+            {
+              "module": "m",
+              "element": "note"
+            },
+            {
+              "module": "m",
+              "element": "tag"
+            }
+          ],
+          "keys": [
+            {
+              "id": "primary",
+              "name": "Primary",
+              "primary": true,
+              "fields": [
+                {
+                  "module": "m",
+                  "element": "record-id"
+                }
+              ]
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "record-id",
+          "name": "record-id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "quantity",
+          "name": "quantity",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "amount",
+          "name": "amount",
+          "kind": "field",
+          "scalarType": "decimal",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "active",
+          "name": "active",
+          "kind": "field",
+          "scalarType": "boolean",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "note",
+          "name": "note",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "absent-allowed",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tag",
+          "name": "tag",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "absent-allowed",
+          "cardinality": "one",
+          "extensions": {}
+        }
+      ],
+      "relationships": []
+    }
+  ]
+}
