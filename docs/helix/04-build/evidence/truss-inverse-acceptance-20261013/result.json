@@ -1,0 +1,15 @@
+{
+  "operation": "setup-truss-local",
+  "model": "examples/truss-native/cohort-inverse.umf.json",
+  "model_sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+  "report_sha256": "3d57c32e52b1c51acb87ed6cf1986b14483dbeed04d0bc70b6edda6a5ddf75db",
+  "catalog_revision": "1",
+  "document_revision": "r1",
+  "model_acceptance_pass": true,
+  "native_inverse_query_pass": false,
+  "runtime": {
+    "postgresql": "18.6",
+    "truss_sdk_revision": "15d1cd607c4ce021767943c467716713f0c73199"
+  },
+  "scope": "Fresh local schema acceptance through public Truss SDK; caller commits confirmed and owned PostgreSQL stopped. No Spark or inverse query execution."
+}

@@ -100,6 +100,19 @@ edge occurrences. The host verifies the complete result bag and truncation
 against the original source oracle. Inverse host admission has basic unit
 coverage; native Truss inverse execution remains unqualified.
 
+For a fresh installation with an authored inverse, select
+`examples/truss-native/cohort-inverse.umf.json` as setup `document_path`, with
+`document_id: "cohort"` and your fresh revision/request key. It preserves the
+cohort's fields and forward relationship and declares inverse name `B-A`:
+
+```sql
+SELECT RELATED_KEYS(b."B-A", 2) AS related FROM B b
+```
+
+This is a separate authored setup choice; it does not upgrade an existing catalog.
+Its [local Truss acceptance receipt](../../docs/helix/04-build/evidence/truss-inverse-acceptance-20261013/result.json)
+checks schema acceptance only; native inverse query execution remains unqualified.
+
 ## Accept into an existing installation
 
 `accept-schema.py` is a concrete existing-installation example using the public
