@@ -23,7 +23,7 @@ from .truss_page_archive import encode_truss_page
 from .truss_recovery import restore_truss_apply_state
 
 
-def _ready(driver):
+def admit_truss_continuation_head(driver, *, allowed_digest=None):
     """Existing restored head, native committed phase and actual source cursor."""
     active=driver.policy.active;request=active['request'];manifest=active['manifest']
     vector=manifest_pin_vector(manifest,{table:driver.transport.targets[table].uuid
@@ -32,7 +32,8 @@ def _ready(driver):
     if driver.source_sessions.observe_checkpoint(context=driver.context)!=driver.source_sessions.page.next.content:
         raise ValueError('Original predecessor source checkpoint is not committed')
     # Any original source plan without its applied artifact requires resume.
-    if driver.transport.db.execute('SELECT request_digest FROM local_source_plan WHERE request_digest NOT IN (SELECT request_digest FROM local_publication_artifact) LIMIT 1').fetchone():
+    pending_plan=driver.transport.db.execute('SELECT 1 FROM local_source_plan WHERE request_digest NOT IN (SELECT request_digest FROM local_publication_artifact) AND (? IS NULL OR request_digest!=?) LIMIT 1',(allowed_digest,allowed_digest)).fetchone()
+    if pending_plan:
         raise ValueError('Pending original source attempt requires resume')
     token='"predecessor":'+encoded(manifest['publication_id'])+','
     if driver.transport.db.execute('SELECT request_digest FROM local_publication_artifact WHERE instr(request,?)>0 LIMIT 1',(token,)).fetchone():
@@ -128,3 +129,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
                 pass  # Diagnostic capture never replaces the original failure.
             raise
     return {'predecessor':original_predecessor,'publications':results,'scope':'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.'}
+
+
+def _ready(driver):
+    """Compatibility alias for the public retained-head admission."""
+    return admit_truss_continuation_head(driver)

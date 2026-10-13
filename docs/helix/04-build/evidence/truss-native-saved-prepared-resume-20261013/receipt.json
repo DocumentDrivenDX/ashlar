@@ -1,0 +1,122 @@
+{
+  "profile": "ashlar-truss-orphan-firstprepare-resume-functional/0.1",
+  "seconds": 32.943,
+  "publication_id": "truss-graph-8fa9cb1a79fdd541521efb5684b2dde25aa193f336de890730dd512a581afbf3",
+  "request_digest": "8fa9cb1a79fdd541521efb5684b2dde25aa193f336de890730dd512a581afbf3",
+  "one_new_publication": true,
+  "source_checkpoint_advanced": true,
+  "original_source_plan_unchanged": true,
+  "original_effect_plans_unchanged": true,
+  "original_intent_unchanged": true,
+  "server_stopped": true,
+  "validation": {
+    "complete": true,
+    "effect_parity": {
+      "edge_current": "2415eb0080ad2f6b8d9f2999bd393f1182137fcf41c69a9d06fc0a4ab84bedd4",
+      "object_current": "19544c53e92114a1328b314d888362cd477dc72ad8012ee2c3ad87ccf8edd3df",
+      "tombstone": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "whole_source_history": "80ae6a5586a375e0ca5112a6b1086cf28a3b6a4cc84e280cf6e04c18523c5813"
+    },
+    "original_source_plan_sha256": "827a5772733e3de8676f9a4668ce90e007c900080a4eeba04f6df72972279740",
+    "predecessor": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+    "request_digest": "8fa9cb1a79fdd541521efb5684b2dde25aa193f336de890730dd512a581afbf3",
+    "scope": "Original accepted UMF 0.7.0 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+    "source_admission": {
+      "accepted_reports": {
+        "1": "7c5b128c310c7cc81b58bcf17ff0c1c33746f6c1b52774e544f49ab5b2c2b64c"
+      },
+      "catalog_views": {
+        "1": "222d003b6136566705af0499e55c1298aef57f9203b24177d8d02884ff915f5a"
+      },
+      "declared_umf": {
+        "1": {
+          "cohort": "0.7.0"
+        }
+      },
+      "epoch": "4e0140cb-b20b-41e1-aa2c-8487dbf307c7",
+      "feed": "single-related-cohort-native",
+      "profile": "ashlar-truss-scalar-graph-semantic-admission/0.1",
+      "qualification": "Original accepted UMF 0.7.0 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+      "source_profile": "truss-native-feed/0.1",
+      "source_transaction_sha256": "e1642c8b7e91e1434deb53c5d873d005cea33565d07a2e4e25262ea021adc2ff"
+    },
+    "source_oracle_sha256": "e70b04b694e012e51bb09878d7fc806c1230c3da27f999456259e65f932ce069",
+    "zero_match_elisions": [
+      {
+        "complete_prior_rows_sha256": "7bcbcde96e9377e40f278018b98ad867b70c0f08668231ca445dcc8783f129e2",
+        "matched_rows": [],
+        "ordinal": 0,
+        "original_step": {
+          "parameters": {
+            "keys": "[{\"source_system\":\"ba8a4bbc-ddac-4e50-b888-ca898feef032\",\"type_id\":\"2\",\"id\":\"10\"}]"
+          },
+          "statement": "MERGE INTO `local`.`trussgraph`.`object_current` t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'ARRAY<STRUCT<source_system:STRING,type_id:STRING,id:STRING>>')) k)) s ON t.source_system=s.source_system AND t.type_id=cast(s.type_id AS BIGINT) AND t.id=cast(s.id AS BIGINT) WHEN MATCHED THEN DELETE"
+        },
+        "source_keys": [
+          {
+            "id": "10",
+            "source_system": "ba8a4bbc-ddac-4e50-b888-ca898feef032",
+            "type_id": "2"
+          }
+        ],
+        "table": "local.trussgraph.object_current"
+      }
+    ]
+  },
+  "qualification": "Actual first preparation of an unchanged orphan source selection, interruption after native prepared, then original coordinator resume and source ACK. No mutation, reingest, setup, new registration, query, installed-wheel or scale claim.",
+  "base_commit": "ebeb9f28a2294f18dff2cfcfad096ddd8f0598aa",
+  "harness_sha256": "f69e9c5d5deced3b7eb39730d559df7941454aaeb6d3f4f699ecb953fc641bbe",
+  "resumed_report_sha256": "68b3a60c54f5a3df5b0bf7cf5acebb8efbf3ac90458f39f3795998f0b33ac2e5",
+  "prepared_observation": {
+    "native_phase": [
+      {
+        "phase": "prepared"
+      }
+    ],
+    "versions": {
+      "object_current": 3,
+      "edge_current": 3,
+      "tombstone": 1,
+      "whole_source_history": 3
+    },
+    "source_checkpoint_sha256": "633c5acef17b06bdb9231261683271b7be6633fb0f7189aaa2d414b7189364b2",
+    "source_plan_sha256": "827a5772733e3de8676f9a4668ce90e007c900080a4eeba04f6df72972279740",
+    "effect_plans": [
+      {
+        "operation": "effects:0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+        "sha256": "ef8178b683ae3facb5f868c95a3598e1ad913c6654ce1bb637ab3c6606a14448",
+        "digest": "ef8178b683ae3facb5f868c95a3598e1ad913c6654ce1bb637ab3c6606a14448"
+      },
+      {
+        "operation": "effects:29a02c91610fb2ee458808ee8c28b8bc548ca084ee2c98a27412b48e32f4a4ad",
+        "sha256": "57f613d78d1881163c1344537372a7900cd5f746324bf2eb8c92e96e829a128c",
+        "digest": "57f613d78d1881163c1344537372a7900cd5f746324bf2eb8c92e96e829a128c"
+      },
+      {
+        "operation": "effects:8fa9cb1a79fdd541521efb5684b2dde25aa193f336de890730dd512a581afbf3",
+        "sha256": "cae7431c256afe6b54cd082f848f0d22b618676aaa3a6907b1e561bc36e3372a",
+        "digest": "cae7431c256afe6b54cd082f848f0d22b618676aaa3a6907b1e561bc36e3372a"
+      },
+      {
+        "operation": "effects:cc24ef0e5ec7c1ee4f88560126c475a0417b40a070b65e14a14e6bbcadb6f928",
+        "sha256": "1504f094ec050e68b7fd9bba249372c3fef352821db7f8b40ad43c8988118127",
+        "digest": "1504f094ec050e68b7fd9bba249372c3fef352821db7f8b40ad43c8988118127"
+      },
+      {
+        "operation": "truss-ack:0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+        "sha256": "661f7440a4705c091ae990281d64e4a6a6c7f238bfda84b5b4ab3a49f92249ee",
+        "digest": "661f7440a4705c091ae990281d64e4a6a6c7f238bfda84b5b4ab3a49f92249ee"
+      },
+      {
+        "operation": "truss-ack:29a02c91610fb2ee458808ee8c28b8bc548ca084ee2c98a27412b48e32f4a4ad",
+        "sha256": "f6a946a603531845f4cad716be1754afbc11ed35f3c357a26ec3cd20225f9d37",
+        "digest": "f6a946a603531845f4cad716be1754afbc11ed35f3c357a26ec3cd20225f9d37"
+      },
+      {
+        "operation": "truss-ack:cc24ef0e5ec7c1ee4f88560126c475a0417b40a070b65e14a14e6bbcadb6f928",
+        "sha256": "810638b7487f305ccf4ee5a6ab0a9477aa2686c563065c68e260ca9fff5d8301",
+        "digest": "810638b7487f305ccf4ee5a6ab0a9477aa2686c563065c68e260ca9fff5d8301"
+      }
+    ]
+  }
+}

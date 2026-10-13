@@ -836,6 +836,30 @@ and repeated use of an edge are allowed. The result reports `path_count` and
 above 10,000 paths refuses rather than returning a truncated answer. These
 counts are checked against the original graph independently of native results.
 
+### Publish a saved page before its first preparation
+
+If continuation retained its source-page archive and publication intent but failed
+before retaining any source plan or attempt phase, select that exact intent with
+`publish-saved-truss-graph`. Supply the committed predecessor configuration and
+the original intent path and digest from the interruption report:
+
+```sh
+ashlar publish-saved-truss-graph \
+  --configuration /absolute/private/predecessor-resume.json \
+  --publication-intent /absolute/publication/publication-intent-<digest>.json \
+  --publication-intent-sha256 <original-intent-file-SHA256> \
+  --output /absolute/private/saved-publication-result.json
+```
+
+The command checks the original committed predecessor, unchanged current graph
+versions, current source cursor and exact archived page before retaining its first
+plan. It preserves the saved page, request and publication identity. A private
+planning companion retains the first timestamp for retry. Publication completes
+before source acknowledgement. If plans were retained before any phase, retry uses their exact original bytes
+and planning companion. Once an attempt phase exists, use `resume-truss-graph`.
+Neither path replaces an existing plan. A missing installation journal, missing
+planning companion for retained plans, or changed predecessor refuses.
+
 ### Consume new feed pages into existing tables
 
 After a publication commits, use its saved intent and original publisher
