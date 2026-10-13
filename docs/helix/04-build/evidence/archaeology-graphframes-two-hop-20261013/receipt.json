@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-archaeology-immutable-export-graphframes-two-hop-functional/0.1",
+  "seconds": 5.527,
+  "publication_id": "original-finite-archaeology-publication",
+  "nodes": 39,
+  "edges": 46,
+  "release_sha256": "270024d11f221ad576ba6fd0528b03050564a1d62abaf0f5e344b3b4b8c33479",
+  "custody_sha256": "7a9ec04a83af8241a1dd350d5b6345290c5bedbf3488e33a9ff76ee372dbd3b4",
+  "original_pair_unchanged": true,
+  "runtime": {
+    "driver_memory": "512m",
+    "graphframes": "0.12.3",
+    "master": "local[1]",
+    "pyspark": "3.5.3",
+    "spark": "3.5.3"
+  },
+  "qualification": "One source CLI GraphFrames0.12.3/PySpark3.5.3 one-hop/two-hop motif, out-degree and native path/countDistinct queries over the retained archaeology export. Complete independent edge-identity path occurrence bag and all node counts match original adjacency without excluding repeated edges, vertices or cycles. No PG source read, ingestion, ACK, native Delta rematerialization, installed-wheel, Unity Catalog or scale claim.",
+  "one_hop_rows": 46,
+  "out_degrees_rows": 39,
+  "two_hop_rows": 40,
+  "two_hop_counts_rows": 39,
+  "base_commit": "40c87a56708382f572778364cbeeba57a895ae07",
+  "harness_sha256": "143c7d168d15571c86fbd446156d77c2faf29a326e996657b364291bb0ce28b8",
+  "result_sha256": "671a0cade9808e181b985f323dda1b07e7e510757cef8a076973faa8ee644432"
+}

@@ -11,11 +11,20 @@ from .local_graph_export import LocalGraphExportSelection,open_local_graph_expor
 from .lifecycle import owned_context,finish
 
 
-def query_graphframes_export(spark,graph_frame,release):
+def query_graphframes_export(spark,graph_frame,release,*,maximum_hops=1):
     """Keep canonical columns and compare actual motif and degree occurrence bags."""
     from pyspark.sql.types import StructType,StructField,StringType
+    if type(maximum_hops)is not int or maximum_hops not in (1,2):raise ValueError('One or two GraphFrames hops required')
     graph=json.loads(release.payload);nodes=graph['nodes'];edges=graph['edges']
     if len(nodes)>10000 or len(edges)>10000:raise ValueError('Finite GraphFrames export row bound exceeded')
+    original_paths=[]
+    if maximum_hops==2:
+        adjacency={}
+        for edge in edges:adjacency.setdefault(edge['src'],[]).append(edge)
+        for first in edges:
+            for second in adjacency.get(first['dst'],[]):
+                if len(original_paths)==10000:raise ValueError('Complete GraphFrames two-hop witness bound exceeded')
+                original_paths.append({'src':first['src'],'edge1':first['graph_id'],'middle':first['dst'],'edge2':second['graph_id'],'dst':second['dst']})
     def frame(rows,required):
         names=sorted(set(required)|{name for row in rows for name in row})
         if any(type(value)is not str and value is not None for row in rows for value in row.values()):raise ValueError('Canonical graph STRING carriers required')
@@ -37,12 +46,33 @@ def query_graphframes_export(spark,graph_frame,release):
     wanted=dict(Counter(row['src']for row in edges))
     if actual!=wanted:raise ValueError('Complete original GraphFrames out-degree bag differs')
     degree_rows=[{'id':row['graph_id'],'out_degree':wanted.get(row['graph_id'],0)}for row in nodes]
-    return {'publication_id':graph['publication']['publication_id'],'nodes':len(nodes),'edges':len(edges),
+    result={'publication_id':graph['publication']['publication_id'],'nodes':len(nodes),'edges':len(edges),
         'one_hop':observed,'out_degrees':degree_rows}
+    if maximum_hops==2:
+        from pyspark.sql.functions import count,countDistinct
+        paths=native.find('(a)-[e1]->(b); (b)-[e2]->(c)').selectExpr(
+            'a.id AS src','e1.id AS edge1','b.id AS middle','e2.id AS edge2','c.id AS dst')
+        captured=[{name:row[name]for name in ('src','edge1','middle','edge2','dst')}for row in paths.limit(10001).collect()]
+        if Counter(map(encoded,captured))!=Counter(map(encoded,original_paths)):
+            raise ValueError('Complete original GraphFrames two-hop occurrence bag differs')
+        counts=paths.groupBy('src').agg(count('*').alias('path_count'),countDistinct('dst').alias('distinct_destinations')).limit(10001).collect()
+        actual_counts={}
+        for row in counts:
+            if row['src']in actual_counts or any(type(row[name])is not int or row[name]<0 for name in ('path_count','distinct_destinations')):
+                raise ValueError('Exact native GraphFrames path counts required')
+            actual_counts[row['src']]=(row['path_count'],row['distinct_destinations'])
+        path_counts=Counter(path['src']for path in original_paths);destinations={}
+        for path in original_paths:destinations.setdefault(path['src'],set()).add(path['dst'])
+        wanted_counts={source:(amount,len(destinations[source]))for source,amount in path_counts.items()}
+        if actual_counts!=wanted_counts:raise ValueError('Complete original GraphFrames path/distinct-destination counts differ')
+        result.update(two_hop=captured,two_hop_counts=[{'id':row['graph_id'],'path_count':path_counts.get(row['graph_id'],0),
+            'distinct_destinations':len(destinations.get(row['graph_id'],()))}for row in nodes])
+    return result
 
 
-def run_graphframes_export_command(configuration,output):
+def run_graphframes_export_command(configuration,output,*,maximum_hops=1):
     """Own one local runtime; result bytes escape only after Spark/file closure."""
+    if type(maximum_hops)is not int or maximum_hops not in (1,2):raise ValueError('One or two GraphFrames hops required')
     config=decode_custody_bytes(snapshot(Path(configuration),65536))
     required={'release_path','custody_path','release_sha256','custody_sha256','jars','java_home'}
     if type(config)is not dict or set(config)!=required:raise ValueError('Exact GraphFrames export configuration required')
@@ -90,7 +120,7 @@ def run_graphframes_export_command(configuration,output):
                     native_spark_version=spark.version
                     if native_spark_version!='3.5.3':raise ValueError('Actual Spark3.5.3 runtime required')
                     spark.sparkContext.setLogLevel('ERROR')
-                    result=query_graphframes_export(spark,GraphFrame,owner.release)
+                    result=query_graphframes_export(spark,GraphFrame,owner.release,maximum_hops=maximum_hops)
                     owner.admit_original_export(owner.release,owner.custody_bytes,owner.source,owner.context)
                 except BaseException as error:primary=error
                 finish(primary,[spark_context.stop]if spark_context is not None else[])
@@ -98,9 +128,9 @@ def run_graphframes_export_command(configuration,output):
         for key,value in previous_environment.items():
             if value is None:os.environ.pop(key,None)
             else:os.environ[key]=value
-    result.update(profile='ashlar-local-export-graphframes-one-hop/0.1',release_sha256=config['release_sha256'],custody_sha256=config['custody_sha256'],
+    result.update(profile='ashlar-local-export-graphframes-'+('one-hop'if maximum_hops==1 else'two-hop')+'/0.1',release_sha256=config['release_sha256'],custody_sha256=config['custody_sha256'],
         runtime={'spark':native_spark_version,'pyspark':'3.5.3','graphframes':'0.12.3','master':'local[1]','driver_memory':'512m'},
-        qualification='Actual one-hop GraphFrames occurrence and out-degree queries over an immutable local export; original canonical columns and isolated vertices preserved. No live source ACK, source-native grants, Unity Catalog or full authored corpus qualification.')
+        qualification='Actual bounded GraphFrames occurrence and degree queries over an immutable local export; two-hop mode also checks native path and distinct-destination counts, permitting repeated vertices/edges and cycles. Original canonical columns and isolated vertices preserved. No live source ACK, source-native grants, Unity Catalog or full authored corpus qualification.')
     raw=(encoded(result)+'\n').encode();descriptor=os.open(destination,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
     with os.fdopen(descriptor,'wb')as stream:
         os.fchmod(stream.fileno(),0o600)

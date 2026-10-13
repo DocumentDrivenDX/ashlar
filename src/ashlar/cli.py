@@ -179,6 +179,7 @@ def main():
     graphframes_export=commands.add_parser('run-graphframes-export',help='Run bounded one-hop and out-degree queries over an immutable local graph export')
     graphframes_export.add_argument('--configuration',required=True)
     graphframes_export.add_argument('--output',required=True)
+    graphframes_export.add_argument('--maximum-hops',type=int,choices=(1,2),default=1)
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
     for option in ('configuration', 'provider', 'provider-sha256'):
         graphframes.add_argument('--' + option, required=True)
@@ -397,7 +398,7 @@ def main():
     if args.command == 'run-graphframes-export':
         try:
             from ashlar_host.graphframes_export import run_graphframes_export_command
-            run_graphframes_export_command(args.configuration,args.output)
+            run_graphframes_export_command(args.configuration,args.output,maximum_hops=args.maximum_hops)
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar GraphFrames export query refused; inspect the selected export and runtime',file=sys.stderr)

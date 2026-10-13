@@ -814,6 +814,13 @@ full authored engine corpus require their separate adapters. Results appear only
 after the Spark and file owners close. No canonical Delta tables or source
 checkpoints are changed.
 
+Add `--maximum-hops 2` to include directed two-hop paths. Each path retains its
+first edge, middle vertex and second edge identities; repeated vertices, cycles
+and repeated use of an edge are allowed. The result reports `path_count` and
+`distinct_destinations` separately for every source vertex. A complete witness
+above 10,000 paths refuses rather than returning a truncated answer. These
+counts are checked against the original graph independently of native results.
+
 ### Consume new feed pages into existing tables
 
 After a publication commits, use its saved intent and original publisher
