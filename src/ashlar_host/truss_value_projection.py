@@ -27,7 +27,7 @@ class TrussValueProjection:
             raise ValueError('Independent complete original optional STRING bag differs')
 
 
-def admit_truss_value_projection(admission,artifact,request,manifest,expected,*,revision,document_id):
+def admit_truss_value_projection(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions=None,require_optional=True):
     """Bind only direct, unordered, unfiltered single-scan STRING fields.
 
     The caller still runs every emitted compiler obligation, under genuine
@@ -44,16 +44,22 @@ def admit_truss_value_projection(admission,artifact,request,manifest,expected,*,
     if len(tables)!=len(names):raise ValueError('Complete original projection binding required')
     # Reuse the public owner of the complete binding rather than another mapper.
     from .truss_weft_query import truss_string_compile_request
-    rebuilt=truss_string_compile_request(admission,manifest,{name:table['uuid']for name,table in zip(names,tables)},
+    builder=truss_string_compile_request
+    extra={}
+    if physical_revisions is not None:
+        from .truss_compatible_binding import truss_compatible_compile_request
+        builder=truss_compatible_compile_request
+        extra={'physical_revisions':physical_revisions}
+    rebuilt=builder(admission,manifest,{name:table['uuid']for name,table in zip(names,tables)},
         binding['publication']['manifestUuid'],request['sql'],revision=revision,document_id=document_id,
-        aliases={name:'.'.join(table['name'])for name,table in zip(names,tables)})
+        aliases={name:'.'.join(table['name'])for name,table in zip(names,tables)},**extra)
     if encoded(rebuilt)!=encoded(request)or artifact.get('bindingSha256')!=request['target']['bindingSha256']:
         raise ValueError('Complete original projection request/binding differs')
     plan=artifact.get('logicalPlan');keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
     if (type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not False
             or any(plan[key]!=[]for key in ('filters','groups','joins','order'))or any(plan[key]is not None for key in ('limit','pageKey','readProfile'))
             or plan['modulePins']!=[pin]or artifact.get('modelPins')!=[pin]or binding['modelPins']!=[pin]
-            or plan['requiredCapabilities']!=['project','scan','type.string','value.presence']):
+            or plan['requiredCapabilities']not in (['project','scan','type.string','value.presence'],['project','scan','type.string']if not require_optional else ['project','scan','type.string','value.presence'])):
         raise ValueError('Only direct unfiltered optional STRING projection supported')
     source=plan['source']
     if type(source)is not dict or set(source)!={'occurrence','pin','record'}or source['occurrence']!='s0'or source['pin']!=pin:
@@ -85,7 +91,7 @@ def admit_truss_value_projection(admission,artifact,request,manifest,expected,*,
         policy['types'][record['typeId']][pid]=availability
         descriptors[encoded(identity)]={'availability':availability,'identity':identity,'kind':'scalar','type':string}
         selections.append((column,pid,availability))
-    if not optional:raise ValueError('Optional value projection requires an optional field')
+    if require_optional and not optional:raise ValueError('Optional value projection requires an optional field')
     graph=plan['typeGraph']
     if type(graph)is not list or len(graph)!=len(descriptors)or encoded({encoded(item.get('identity')):item for item in graph})!=encoded(descriptors):
         raise ValueError('Complete original projection type graph differs')
@@ -96,6 +102,7 @@ def admit_truss_value_projection(admission,artifact,request,manifest,expected,*,
     wanted=[]
     for row in rows:
         if (row['source_system'],row['type_id'])!=(record['sourceSystem'],record['typeId']):continue
+        if physical_revisions is not None and row['schema_revision']not in physical_revisions:raise ValueError('Source row outside admitted physical revisions')
         prior=admission.revisions.get(row['schema_revision'])
         prior_type=None if prior is None else prior['types'].get(record['typeId'])
         if (prior_type is None or prior_type['owner']!=actual['owner']or prior_type['keys']!=actual['keys']

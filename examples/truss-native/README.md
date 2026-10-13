@@ -1653,3 +1653,25 @@ The helper grants no source or result authority. This foundation has basic adapt
 coverage and an [actual public CLI compilation check](../../docs/helix/04-build/evidence/compatible-revision-compiler-20261013/result.json)
 on a separately authored named inert fixture. Compiler transport admission and
 native query execution require separate integration. Existing query commands retain their qualified profiles.
+
+### Query compatible record revisions
+
+Use the local candidate compiler explicitly to project required or optional STRING
+fields across admitted additive catalog revisions:
+
+```sh
+ashlar query-truss-compatible --configuration /absolute/private/reader.json \
+  --output /absolute/private/compatible-query.json \
+  --compiler /absolute/private/weft-cli \
+  --sql 'SELECT b."B-label" AS label,b."B-tag" AS tag FROM B b' \
+  --revision 2 --document-id cohort \
+  --physical-revision 1 --physical-revision 2 --maximum-rows 100
+```
+
+The compiler executable must match the pinned local candidate identity. The query
+holds the complete publication, validates historical field/key correspondence,
+executes every original integrity guard, and compares the full decoded result bag
+with admitted source data. This command supports direct unfiltered, unordered
+single-record STRING projections; other query shapes require separate admission.
+Its output retains the original request and response strings. Qualification is
+scoped to the local candidate, with native execution evidence recorded separately.

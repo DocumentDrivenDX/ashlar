@@ -137,6 +137,11 @@ def main():
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
     truss_query.add_argument('--maximum-rows',type=int,default=1000)
+    truss_compatible=commands.add_parser('query-truss-compatible',help='Run local compatible-revision candidate direct STRING projections under publication custody')
+    for option in ('configuration','output','compiler','sql','revision','document-id'):
+        truss_compatible.add_argument('--'+option,required=True)
+    truss_compatible.add_argument('--physical-revision',action='append',required=True)
+    truss_compatible.add_argument('--maximum-rows',type=int,default=1000)
     truss_saved=commands.add_parser('publish-saved-truss-graph',help='Publish a selected saved Truss page whose first source plan was never retained')
     for option in ('configuration','publication-intent','publication-intent-sha256','output'):
         truss_saved.add_argument('--'+option,required=True)
@@ -517,6 +522,17 @@ def main():
             print(json.dumps({'output':args.output,'publication_id':result['publication_id'],'queries':len(result['queries'])},separators=(',',':')))
         except Exception:
             print('ashlar Truss query batch refused; retain original inputs and inspect the selected publication',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-compatible':
+        try:
+            from ashlar_host.truss_compatible_query_cli import run_query_truss_compatible_command
+            run_query_truss_compatible_command(args.configuration,args.output,compiler=args.compiler,
+                sql=args.sql,revision=args.revision,document_id=args.document_id,
+                physical_revisions=tuple(args.physical_revision),maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar compatible Truss query refused; inspect the original publication and selected local compiler',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':

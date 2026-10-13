@@ -103,13 +103,17 @@ def truss_scalar_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases,typed=True)
 
 
-def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None):
+def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None):
     """Compile exact authored singleton/list SQL under the actual publication hold.
 
     Returns original request/response bytes after closing native pins and writer.
     No generated SQL is executed and outer resources remain caller owned.
     """
-    if (type(driver)is not NativeDriver or type(paths)is not DistributionPaths
+    compatible=physical_revisions is not None
+    if compatible:
+        from .weft_compatible_cli import CompatibleCompiler,compile_compatible
+        from .truss_compatible_binding import truss_compatible_compile_request,admit_truss_compatible_revisions,BACKEND as compatible_backend
+    if (type(driver)is not NativeDriver or (type(paths)is not (CompatibleCompiler if compatible else DistributionPaths))
             or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions):
         raise PermissionError('Actual Truss publication/compiler owners required')
     if maximum_rows is not None and (type(maximum_rows)is not int or not 1<=maximum_rows<=10000):
@@ -124,18 +128,19 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 supported_profiles=['ashlar-delta/0.3'],supported_revisions={key:[value]for key,value in json.loads(manifest['schema_revisions_json']).items()})
             if dict(resolved.descriptor.raw)!=manifest:raise PermissionError('Original pinned Truss manifest differs')
             with owned_context(_query_aliases(driver,manifest,enabled=maximum_rows is not None))as aliases:
-                request=truss_string_compile_request(driver.source_admission,manifest,uuids,
-                    driver.transport.targets[driver.tables['manifest']].uuid,sql,revision=revision,document_id=document_id,aliases=aliases)
+                builder=truss_compatible_compile_request if compatible else truss_string_compile_request
+                request=builder(driver.source_admission,manifest,uuids,
+                    driver.transport.targets[driver.tables['manifest']].uuid,sql,revision=revision,document_id=document_id,aliases=aliases,**({'physical_revisions':physical_revisions}if compatible else {}))
                 request_bytes=(encoded(request)+'\n').encode()
-                response=compile_distribution(paths,request_bytes)
+                response=(compile_compatible if compatible else compile_distribution)(paths,request_bytes)
                 artifact=decode_compile_artifact(response)
-                if (artifact.get('status')!='compiled' or artifact.get('backend')!=BACKEND or artifact.get('bindingSha256')!=request['target']['bindingSha256']
+                if (artifact.get('status')!='compiled' or artifact.get('backend')!=(compatible_backend if compatible else BACKEND) or artifact.get('bindingSha256')!=request['target']['bindingSha256']
                         or artifact.get('modelPins')!=json.loads(request['target']['bindingJson'])['modelPins']):
                     raise ValueError('Original public Weft Truss compiler correspondence differs')
                 binding=json.loads(request['target']['bindingJson'])
                 obligations=artifact.get('obligations')
-                if (type(obligations)is not list or len(obligations)not in (2,3)
-                        or {item.get('id')for item in obligations}not in ({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity'},{'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity'})):
+                if (type(obligations)is not list or len(obligations)not in ((3,)if compatible else (2,3))
+                        or {item.get('id')for item in obligations}not in (({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.compatibleSchemaRevisions'},)if compatible else ({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity'},{'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity'}))):
                     raise ValueError('Exact candidate Truss compiler obligation inventory required')
                 if any(type(item)is not dict or set(item)!={'id','owner','parameters','failureCode'} or item['owner']!='host' or type(item['failureCode'])is not str or not item['failureCode']or type(item['parameters'])is not dict for item in obligations):
                     raise ValueError('Exact immutable host compiler obligations required')
@@ -159,12 +164,13 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         filter_expected=admit_truss_relationship_filter(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     else:
                         related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                if compatible:admit_truss_compatible_revisions(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False;value_projection=None;join_expected=None;join_projection=None
-                    if any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
+                    if compatible or any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
                         from .truss_value_projection import admit_truss_value_projection
-                        value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                        value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,**({'physical_revisions':physical_revisions,'require_optional':False}if compatible else {}))
                     grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
                     if grouped:
                         grouped_expected=admit_truss_grouped_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
@@ -202,6 +208,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
         result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, required STRING equality INNER JOIN COUNT/projections, authored forward/inverse HAS_RELATED or unordered authored forward/inverse RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
+    if compatible:result['qualification']='Local compatible-revision candidate direct STRING projection under complete native publication pins, original compiler guards and independent complete source bag. No production profile qualification.'
     return result
 
 
@@ -303,6 +310,13 @@ def execute_truss_string_query(driver,paths,sql,*,revision,document_id,maximum_r
     their separate semantic decoder admission.
     """
     return _truss_string_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows)
+
+
+def execute_truss_compatible_query(driver,compiler,sql,*,revision,document_id,physical_revisions,maximum_rows=1000):
+    """Execute direct STRING projections with explicit admitted physical revisions."""
+    if type(physical_revisions)is not tuple:raise ValueError('Explicit physical revision tuple required')
+    return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
+        physical_revisions=physical_revisions,maximum_rows=maximum_rows)
 
 
 def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):
