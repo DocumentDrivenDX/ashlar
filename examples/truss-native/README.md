@@ -53,6 +53,12 @@ hold, then writes a fresh private result after cleanup. The report includes the
 original compiler request and response. It does not publish or acknowledge data.
 Exceeding the row bound refuses the complete answer rather than truncating it.
 
+Use `--sql 'SELECT COUNT(*) AS n FROM Note n'` with the same command to count all
+records of the selected type. The result is an exact nonnegative integer, admitted
+from the compiler's aggregate IR rather than inferred from SQL text. This route
+supports one unfiltered global count; filtered, grouped, joined and relationship
+counts require their separate query support.
+
 ## Accept into an existing installation
 
 `accept-schema.py` is a concrete existing-installation example using the public

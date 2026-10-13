@@ -134,6 +134,28 @@ def admit_compiled_count(column,artifact,policy,intake):
     from .schema import SchemaIntake
     if not isinstance(policy,StringRecordPolicy) or not isinstance(intake,SchemaIntake) or policy.source_sha256!=intake.source_sha256:
         raise ResolutionError('Original admitted string policy and intake required')
+    pin={'documentId':intake.document_id,'revision':intake.document_revision,'sha256':intake.source_sha256,'umfVersion':'0.7.0'}
+    identities=[{'documentId':intake.document_id,'revision':intake.document_revision,'module':module,'element':element} for module,element in policy.record_identities.values()]
+    return admit_global_count_ir(column,artifact,model_pin=pin,record_identities=identities)
+
+
+def admit_global_count_ir(column,artifact,*,model_pin,record_identities):
+    """Pure closed global COUNT correspondence, never schema/source authority.
+
+    The host must derive pins/identities from actual semantic admission, authenticate
+    the original public compiler and discharge all native/publication obligations.
+    Only one unfiltered, unjoined record count in original 0.2 IR is admitted.
+    """
+    if (type(model_pin)is not dict or set(model_pin)!={'documentId','revision','sha256','umfVersion'}
+            or any(type(value)is not str or not value for value in model_pin.values())
+            or model_pin['umfVersion']not in ('0.7.0','0.8.0')
+            or re.fullmatch('[0-9a-f]{64}',model_pin['sha256'])is None):
+        raise ResolutionError('Exact original model pin required')
+    if (type(record_identities)not in (list,tuple) or not record_identities
+            or any(type(identity)is not dict or set(identity)!={'documentId','revision','module','element'}
+                or identity['documentId']!=model_pin['documentId']or identity['revision']!=model_pin['revision']
+                or any(type(value)is not str or not value for value in identity.values())for identity in record_identities)):
+        raise ResolutionError('Explicit original admitted record identities required')
     if type(artifact) is not dict or type(column) is not dict:
         raise ResolutionError('Original compiled column required')
     columns=artifact.get('columns')
@@ -148,7 +170,7 @@ def admit_compiled_count(column,artifact,policy,intake):
         raise ResolutionError('Complete scalar logical type required')
     if representation.get('kind')!='scalar' or logical.get('family')!='integer':
         raise ResolutionError('Only scalar integer COUNT can be admitted')
-    pin={'documentId':intake.document_id,'revision':intake.document_revision,'sha256':intake.source_sha256,'umfVersion':'0.7.0'}
+    pin=model_pin
     if artifact.get('status')!='compiled' or artifact.get('interfaceVersion')!='weft-compile/0.2.0' or artifact.get('dialect')!='weft-sql/0.2.0' or artifact.get('compilerVersion')!='weft/0.1.0' or artifact.get('modelPins')!=[pin]:
         raise ResolutionError('Exact original compiler/model count artifact required')
     plan=artifact.get('logicalPlan')
@@ -161,7 +183,7 @@ def admit_compiled_count(column,artifact,policy,intake):
     if type(source) is not dict or set(source)!= {'occurrence','pin','record'} or source['occurrence']!='s0' or source['pin']!=pin:
         raise ResolutionError('Exact original count source required')
     identity=source['record']
-    admitted=[{'documentId':intake.document_id,'revision':intake.document_revision,'module':module,'element':element} for module,element in policy.record_identities.values()]
+    admitted=record_identities
     if identity not in admitted or column.get('sourceIdentities')!=[identity]:
         raise ResolutionError('Count source must correspond to admitted Record identity')
     logical={'family':'integer','facets':{},'nullable':False}

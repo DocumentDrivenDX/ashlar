@@ -122,13 +122,17 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                     raise ValueError('Original candidate scalar integrity lifecycle differs')
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows)
+                    count=False
+                    if len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
+                        admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
+                        count=True
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count)
                     driver.validate_manifest(manifest,driver.context)
     result={'request_bytes':request_bytes,'response_bytes':response,
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global COUNT query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; outer source/Spark lifetime remains caller owned.')
     return result
 
 
@@ -157,7 +161,7 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
     columns=artifact.get('columns')
@@ -166,7 +170,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows):
     names=[]
     for position,column in enumerate(columns,1):
         representation=column.get('representation')
-        expected={'kind':'scalar','logicalType':{'family':'string','facets':{},'nullable':False},'carrier':'text','decoder':'text'}
+        expected={'kind':'scalar','logicalType':{'family':'integer'if count else'string','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'if count else'text'}
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
             raise ValueError('Only admitted non-null STRING scalar outputs supported')
         names.append(column['outputName'])
@@ -194,7 +198,8 @@ def _execute_string_artifact(spark,artifact,maximum_rows):
         checks.append({'check':check,'rows':observed['rows']})
     observed=capture(artifact['sql'],maximum_rows)
     if observed['schema']!=[[name,'STRING']for name in names]:raise ValueError('Original compiler result schema differs')
-    rows=[{name:decode_exact_scalar(columns[index]['representation'],value).value for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
+    if count and len(observed['rows'])!=1:raise ValueError('One complete global COUNT row required')
+    rows=[{name:decode_exact_scalar(columns[index]['representation'],value,count=count).value for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
     return rows,checks
 
 
@@ -204,10 +209,36 @@ def compile_truss_string_query(driver,paths,sql,*,revision,document_id):
 
 
 def execute_truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
-    """Execute STRING singleton/list projections inside one full publication hold.
+    """Execute STRING singleton/list projections or one closed global COUNT inside one full publication hold.
 
     Original generated SQL is unchanged; owned external catalog aliases select
-    original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state and
-    numeric outputs refuse pending their separate semantic decoder admission.
+    original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state, numeric-field and non-global-count outputs refuse pending
+    their separate semantic decoder admission.
     """
     return _truss_string_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows)
+
+
+def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):
+    """Bind public global-count IR to actual accepted Truss record allocation."""
+    from ashlar.weft_decode import admit_global_count_ir
+    if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:
+        raise ValueError('Actual accepted Truss count source required')
+    selected=admission.revisions[revision]
+    if document_id not in selected['models']:raise ValueError('Original accepted count document required')
+    model,raw=selected['models'][document_id];digest=hashlib.sha256(raw).hexdigest()
+    pin={'documentId':document_id,'revision':digest,'sha256':digest,'umfVersion':model['umf']}
+    identities=[{'documentId':owner[0],'revision':digest,'module':owner[1],'element':owner[2]}
+        for item in selected['types'].values()for owner in (item['owner'],)if owner[0]==document_id]
+    if binding['modelPins']!=[pin]:raise ValueError('Original accepted count model pin differs')
+    identity=admit_global_count_ir(artifact['columns'][0],artifact,model_pin=pin,record_identities=identities)
+    records=[record for record in binding['records']if record['logical']==identity]
+    installation=json.loads(admission.batch.begin)['prior']['installationId']
+    if len(records)!=1:raise ValueError('Exact original count physical record required')
+    record=records[0];actual=selected['types'].get(record['typeId'])
+    tables=binding['publication']['tables'];index=record.get('table')
+    if type(index)is not int or not 0<=index<len(tables)or tables[index]['name'][-1]!='object_current':
+        raise ValueError('Original global count object table required')
+    if (actual is None or actual['owner']!=(document_id,identity['module'],identity['element'])
+            or record['kind']!='object' or record['schemaRevision']!=revision or record['sourceSystem']!=installation):
+        raise ValueError('Actual original count type/source/revision differs')
+    return identity

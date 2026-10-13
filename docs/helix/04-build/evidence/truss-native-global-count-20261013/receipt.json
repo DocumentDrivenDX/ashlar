@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-source-cli-truss-global-count-functional/0.1",
+  "query_seconds": 14.284,
+  "publications": 3,
+  "rows": [
+    {
+      "n": 1
+    }
+  ],
+  "original_source_count": 1,
+  "actual_integrity_checks": 1,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "0d83d017563ae164466509ba9192853c4f25f8e610875ac2372b96a595189c57",
+  "server_stopped": true,
+  "query_sha256": "3bd0b025eed7e53f1159f21f1b50481d36534c4c42a67ca5f53548d6fb6f6fe7",
+  "runtime": {
+    "python": "3.11.17",
+    "pyspark": "4.0.1",
+    "delta-spark": "4.0.0",
+    "psycopg": "3.3.6",
+    "libpq": 180006,
+    "jdk": "existing21.0.12.1",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "qualification": "Actual source CLI named UMF Note acceptance, one Note create/update, three complete Truss feed publications to local Delta, then public Weft compiler guards and original WITH version-pinned global COUNT query. This query-only retry reused completed source/publication and submitted no ACK/new ingest. No installed wheel, Unity Catalog or scale qualification.",
+  "publication_id": "truss-graph-3",
+  "request_sha256": "27e61a84e4da8fdf9a28cf58bd199078c33a2f6574ee942f11bd729948704a4f",
+  "response_sha256": "75cae23c4ceb4b53197e324f50500b8129e4ef0676600b146d2a9f560e5b2b89",
+  "query_harness_sha256": "ceb62d9423f2b3209ac4b96537f8c6a688e1f4c3b15b3655fd33d446fa0df44a",
+  "count_decoder_source_sha256": "de2c97c414df2aaa3c1af6e4513d2d651fef5080b14db67b0c37584755f402ea",
+  "executor_source_sha256": "2f411aca595758590b9c4ab56cca488f70ffda6f3f3c29971cc89b5e960b98b2",
+  "base_ashlar_revision": "e707d6af463080bd2c9502310d6b40f25e7e2673"
+}
