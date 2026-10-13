@@ -1,0 +1,22 @@
+{
+  "profile": "ashlar-source-cli-truss-existing-export-functional/0.1",
+  "seconds": 11.222,
+  "publication_id": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "nodes": 3,
+  "edges": 2,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "633c5acef17b06bdb9231261683271b7be6633fb0f7189aaa2d414b7189364b2",
+  "original_table_versions": {
+    "local.trussgraph.edge_current": 3,
+    "local.trussgraph.object_current": 3,
+    "local.trussgraph.tombstone": 1,
+    "local.trussgraph.whole_source_history": 3
+  },
+  "release_sha256": "6cc8da76860ac08c5beb9cb54231f0f3f542f460e4322a0e341b4c3d4ca1a61c",
+  "custody_sha256": "2c306b106943cf3a9b4123ee309cb9116204e21a935e365504636c69be6be95e",
+  "server_stopped": true,
+  "qualification": "One explicit existing Truss publication exported with full original object scalar properties/identities/versions and independent edge identities/endpoints; unpublished pending object excluded. Public local immutable file decoder accepted pair after runtime cleanup. No ingestion, ACK, new publication, setup, installed-wheel, rematerialization, external engine, Unity Catalog or scale claim.",
+  "base_commit": "d4e799efe176243fcf16797a744db894d4f661f5",
+  "harness_sha256": "8da083e2af8271bbc28fd8f55bdab9b022fa4b9e5a121055db7a72ccea516718",
+  "export_report_sha256": "fde8621825d6f6daa186330baa5ec8915c986faebc92dd39f8de7652bcc72014"
+}

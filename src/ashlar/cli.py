@@ -113,6 +113,9 @@ def main():
     truss_resume_setup.add_argument('--configuration',required=True)
     truss_resume_setup.add_argument('--publication-intent',required=True)
     truss_resume_setup.add_argument('--output',required=True)
+    truss_export=commands.add_parser('export-truss-graph',help='Export an explicitly selected existing Truss publication for graph tools; no ingestion or ACK')
+    truss_export.add_argument('--configuration',required=True)
+    truss_export.add_argument('--output',required=True)
     truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or forward RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
@@ -320,6 +323,15 @@ def main():
             print(json.dumps({'output':args.output,'publications':len(result['publications'])},separators=(',',':')))
         except Exception:
             print('ashlar Truss continuation refused; inspect the requested output if written, retain the original journal and resume any pending intent',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'export-truss-graph':
+        try:
+            from ashlar_host.truss_graph_export_cli import run_export_truss_graph_command
+            run_export_truss_graph_command(args.configuration,args.output)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss graph export refused; retain any partial output and inspect the selected publication',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':

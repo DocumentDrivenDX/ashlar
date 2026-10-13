@@ -757,6 +757,30 @@ reconciliation; it does not turn Truss delivery into a protected outbox receipt.
 
 ## Continue and resume publications
 
+### Export an existing publication for graph tools
+
+Select a committed publication through its saved intent and resume configuration:
+
+```sh
+ashlar export-truss-graph \
+  --configuration /absolute/private/resume.json \
+  --output /absolute/private/export-result.json
+```
+
+The command writes `export-result.json-release.json` and
+`export-result.json-custody.json`, then the result file with their paths, SHA256
+digests, publication identity and node/edge counts. All three files must be fresh.
+Capture checks the full original publication vector and complete source-derived
+graph, then closes resources before writing private files. It consumes no new
+feed page and performs no ACK or publication.
+
+Use the reported paths and digests with `materialize-graph-export` to create
+separate graph-tool tables, or `prepare-fabric-notebook` to prepare a local import
+notebook. Those commands retain their own configuration and execution requirements.
+The pair describes an immutable local capture; it grants no future source or
+engine authority. A partial file-write failure leaves its original files for
+inspection and withholds the final result report.
+
 ### Consume new feed pages into existing tables
 
 After a publication commits, use its saved intent and original publisher

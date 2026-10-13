@@ -89,7 +89,7 @@ def run_resume_truss_graph_command(configuration, output):
     return run_selected_truss_command(configuration,output,resume)
 
 
-def run_selected_truss_command(configuration, output, operation):
+def run_selected_truss_command(configuration, output, operation, *, report_writer=None):
     """Open original local Truss custody and close it before writing a report."""
     config,publication,page_raw,jars,archives,destination,warehouse = parse_resume_truss_configuration(configuration,output)
     journal = publication/'operations.sqlite'
@@ -147,6 +147,8 @@ def run_selected_truss_command(configuration, output, operation):
     except BaseException as error:
         finish(error,[lease.close])
     else: lease.close()
+    if report_writer is not None:
+        return report_writer(result,destination)
     raw = (encoded(result)+'\n').encode()
     descriptor = os.open(destination,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
     with os.fdopen(descriptor,'wb') as stream:
