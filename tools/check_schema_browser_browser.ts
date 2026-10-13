@@ -10,7 +10,7 @@ const {parse:parseYaml}=await import(pathToFileURL(join(resolve(umfArg),'node_mo
 const {chromium}=await import(pathToFileURL(join(resolve(umfArg),'node_modules/playwright/index.mjs')).href);
 const sha=(data:Uint8Array|string)=>new Bun.CryptoHasher('sha256').update(data).digest('hex');
 const catalog=JSON.parse(await readFile(join(assets,'schema-catalog.json'),'utf8'));
-if(catalog.entries.length!==12)throw Error('Original runtime and cohort catalog required');
+if(catalog.entries.length!==14)throw Error('Original runtime, cohort and typed record catalog required');
 const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch(req){const path=resolve(assets,'.'+decodeURIComponent(new URL(req.url).pathname));if(!path.startsWith(assets+sep))return new Response('missing',{status:404});return new Response(Bun.file(path));}});
 let browser;let report:any;
 try{

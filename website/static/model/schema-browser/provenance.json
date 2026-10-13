@@ -111,9 +111,11 @@
     "examples/truss-native/cohort.umf.json": "1578697fb45f9c863e567ab01bed269bf1a8b2836898d71368177361d5f3c70a",
     "examples/truss-native/cohort-r2.umf.json": "ecb2e4048c374877e82013eae0a28d7503e218b1c4195461ec8cdbf5c58a872f",
     "examples/truss-native/cohort-inverse.umf.json": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+    "examples/truss-native/typed-record.umf.json": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+    "examples/truss-native/typed-record-r2.umf.json": "2df1e41d604307aeafb41040e6482502e7a3034bbde6dd92610bdbfe18e79b6c",
     "docs/helix/02-design/models/ashlar-delta-runtime/index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
   },
-  "generator_sha256": "637b625205bf55aff1e388ced46bb587d3d269990ca83c71aaf5cd3146b69c7d",
+  "generator_sha256": "53122b4ba7709a1ea402d66a77ab3c5043b88f3d0d957c9b12af2663b409b5d8",
   "outputs": {
     "upstream/LICENSE-APACHE": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449",
     "upstream/LICENSE-MIT": "f1409ffd0dff471f9f5078c8f2cc2c070147daae3197812234b5919c1f820702",
@@ -200,11 +202,11 @@
     "upstream/types/components.d.ts": "5ca02f8278b2e93ebd9017d302633428411466608559b4e1736f8c3ff1dd1c35",
     "upstream/types/index.d.ts": "8cd76321ce4765e780555792189af8d31a52db54e26b0723fffd0a58e39cb1bf",
     "upstream/types/types.d.ts": "10bdb7943c43dde1cb7f8869bfe771021c3da5a10e49f1b7a100869e3e06c3c0",
-    "schema-catalog.json": "90b7188145fd71f3ec1d08f1c0d8d2a262a09cb15b8868cd1a09fa35fdd530a5",
+    "schema-catalog.json": "422358d02be474a04f146886c043b36b7683cfe5c33db232d0d4820ce57321a4",
     "index.html": "77aefa89c1ed105fa008db3054c58e78299cc4b7ac5790f704ff9fa9ff3a4562",
     "host.css": "02d217302ed9a25ebd84ee9f514d641fce910bbd3c8e5bc5bd2b4cf496c8144e",
     "host.js": "9882e890ca6b28749f9a38795de15ab89c4c14369f2d720ef9d1d91dda802853"
   },
-  "source_count": 12,
-  "qualification": "Exact published UMF standalone renderer, stylesheet and license notices. 12 exact original UMF sources, including 8 physical definitions, one logical runtime model and two authored Truss cohort revisions and one authored inverse cohort. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage."
+  "source_count": 14,
+  "qualification": "Exact published UMF standalone renderer, stylesheet and license notices. 14 exact original UMF sources, including 8 physical definitions, one logical runtime model and two authored Truss cohort revisions and one authored inverse cohort, plus two exact typed record revisions. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage."
 }

@@ -1,0 +1,94 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 0.532625333,
+  "browser": "153.0.8010.12",
+  "umf_browser_version": "1.1.2",
+  "viewport": {
+    "width": 390,
+    "height": 900
+  },
+  "checks": [
+    {
+      "id": "truss-typed-record-r1",
+      "source_sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+      "ordered_fields": [
+        [
+          "record-id",
+          "string · one",
+          "required"
+        ],
+        [
+          "quantity",
+          "integer · one",
+          "required"
+        ],
+        [
+          "amount",
+          "decimal · one",
+          "required"
+        ],
+        [
+          "active",
+          "boolean · one",
+          "required"
+        ],
+        [
+          "note",
+          "string · one",
+          "absent-allowed"
+        ],
+        [
+          "tag",
+          "string · one",
+          "absent-allowed"
+        ]
+      ],
+      "exact_original_catalog_dom_and_download": true,
+      "mobile_no_overflow": true
+    },
+    {
+      "id": "truss-typed-record-r2",
+      "source_sha256": "2df1e41d604307aeafb41040e6482502e7a3034bbde6dd92610bdbfe18e79b6c",
+      "ordered_fields": [
+        [
+          "record-id",
+          "string · one",
+          "required"
+        ],
+        [
+          "quantity",
+          "integer · one",
+          "required"
+        ],
+        [
+          "amount",
+          "decimal · one",
+          "required"
+        ],
+        [
+          "active",
+          "boolean · one",
+          "required"
+        ],
+        [
+          "note",
+          "string · one",
+          "absent-allowed"
+        ],
+        [
+          "tag",
+          "string · one",
+          "absent-allowed"
+        ],
+        [
+          "verified",
+          "boolean · one",
+          "absent-allowed"
+        ]
+      ],
+      "exact_original_catalog_dom_and_download": true,
+      "mobile_no_overflow": true
+    }
+  ],
+  "scope": "Two exact authored typed models rendered/downloaded using the published UMF browser; source declarations only, no native enforcement or query claim."
+}
