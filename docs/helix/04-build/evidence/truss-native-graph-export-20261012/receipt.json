@@ -1,0 +1,22 @@
+{
+  "code_revision": "a7c355780c576c1056fe6a9119e93ecefeb8e35a",
+  "outcome": "passed",
+  "elapsed_seconds": 64.016,
+  "complete_publications": 3,
+  "export_nodes": 1,
+  "export_edges": 0,
+  "export_sha256": "556c5454f51757ecc843be0d9b97f9fa7d04bf3a5e6f2cd9639658ad4ef70550",
+  "native_readback_identity_version_properties_match": true,
+  "cleanup": "Successful source CLI and enclosing owned-runtime return; selected postmaster.pid absent",
+  "qualification": "One local native Truss Note catalog/create/edit publication and canonical core graph release from original owner",
+  "source_ack": "Caller-asserted public Truss delivery ACK; not protected outbox receipt retention",
+  "not_qualified": [
+    "Protected export custody",
+    "External graph engine",
+    "Unity Catalog",
+    "Installed Ashlar package invocation",
+    "Restart recovery"
+  ],
+  "review": "Read-only actual result/release hash and native readback/property ID correspondence; no native rerun",
+  "private_payloads_committed": false
+}
