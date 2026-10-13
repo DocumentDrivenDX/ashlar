@@ -26,16 +26,22 @@ class Tests(unittest.TestCase):
                 with patch('ashlar_host.truss_feed_sessions.require_truss_receipt_sdk',side_effect=ValueError('receipt API unavailable')):
                     with self.assertRaisesRegex(ValueError,'receipt API unavailable'):run_truss_example_command(configuration,root/'output')
                 runtime.assert_not_called();self.assertFalse((root/'output').exists())
-                del config['destination_id'];configuration.write_text(json.dumps(config));(root/'jdk/bin/java').unlink()
+                del config['destination_id'];config['query_batch']=str(root/'bad-batch.json');(root/'bad-batch.json').write_text('{}');configuration.write_text(json.dumps(config))
+                with self.assertRaises(ValueError):run_truss_example_command(configuration,root/'output')
+                runtime.assert_not_called();self.assertFalse((root/'output').exists())
+                del config['query_batch'];configuration.write_text(json.dumps(config));(root/'jdk/bin/java').unlink()
                 with self.assertRaises(ValueError):run_truss_example_command(configuration,root/'output')
                 runtime.assert_not_called();self.assertFalse((root/'output').exists())
     def test_public_pipeline_result_only_after_close_and_environment_restored(self):
-        modules={name:importlib.import_module("ashlar_host."+name)for name in ("truss_runtime","truss_local_setup","truss_graph_mutation","truss_note_cli","truss_query_cli","truss_note_publication","truss_feed_sessions")}
-        for export_graph,fail_close,missing_pair in ((False,False,False),(True,False,False),(True,False,True),(False,True,False)):
+        modules={name:importlib.import_module("ashlar_host."+name)for name in ("truss_runtime","truss_local_setup","truss_graph_mutation","truss_note_cli","truss_query_cli","truss_note_publication","truss_feed_sessions","truss_query_batch")}
+        for export_graph,fail_close,missing_pair,batch in ((False,False,False,False),(True,False,False,False),(True,False,True,False),(False,True,False,False),(False,False,False,True),(False,True,False,True)):
             with self.subTest(export_graph=export_graph,fail_close=fail_close,missing_pair=missing_pair),tempfile.TemporaryDirectory()as directory:
                 root=Path(directory).resolve();configuration=self.configuration(root);output=root/'output';events=[]
                 if export_graph:
                     value=json.loads(configuration.read_text());value['export_graph']=True;value['destination_id']='example-destination';configuration.write_text(json.dumps(value))
+                if batch:
+                    batch_path=root/'batch.json';batch_path.write_text(json.dumps({'profile':'ashlar-truss-query-batch/0.1','queries':[{'name':'count','sql':'SELECT COUNT(*) AS n FROM B b','revision':'1','document_id':'cohort','maximum_rows':1}]}))
+                    value=json.loads(configuration.read_text());value['query_batch']=str(batch_path);configuration.write_text(json.dumps(value))
                 class Runtime:
                     def __init__(self,path):self.info=SimpleNamespace(connection_uri='private-selected-uri')
                     def __enter__(self):events.append('open');return self
@@ -53,7 +59,12 @@ class Tests(unittest.TestCase):
                     return result
                 def query(*args,**kwargs):
                     self.assertEqual(json.loads(args[0].read_text()).get('destination_id'),'example-destination'if export_graph else None)
+                    self.assertFalse(batch)
                     events.append('query');return {'publication_id':'actual-selected','rows':[{'label':'Beta','related':{'items':[['Value-A','Alpha']],'truncated':False}}]}
+                def batch_query(*args,**kwargs):
+                    self.assertTrue(batch);self.assertEqual(kwargs['batch'],str(batch_path))
+                    self.assertEqual(args[1],output/'query-batch.json');events.append('query')
+                    return {'publication_id':'actual-selected','queries':[{'name':'count','rows':[{'n':1}]}]}
                 values={'objects':[{'values':{'A-value':'Value-A','A-label':'Alpha'}},{'values':{'B-value':'Value-B','B-label':'Beta'}}]}
                 with patch.dict(sys.modules,{'psycopg':psycopg,'truss':SimpleNamespace(LocalPostgres=Runtime)}), \
                      patch.dict(os.environ,{'JAVA_HOME':'original-java','PYSPARK_PYTHON':'original-python'}), \
@@ -63,6 +74,7 @@ class Tests(unittest.TestCase):
                      patch.object(modules['truss_graph_mutation'],'run_mutate_truss_graph_command',return_value=values), \
                      patch.object(modules['truss_note_cli'],'run_publish_truss_graph_command',side_effect=publish), \
                      patch.object(modules['truss_query_cli'],'run_query_truss_graph_command',side_effect=query), \
+                     patch.object(modules['truss_query_batch'],'run_query_truss_graph_batch_command',side_effect=batch_query), \
                      patch.object(modules['truss_note_publication'],'read_page',return_value=SimpleNamespace(prior=SimpleNamespace(content=b'actual-checkpoint'))):
                     if missing_pair:
                         with self.assertRaisesRegex(ValueError,"export pair missing"):run_truss_example_command(configuration,output)
@@ -74,6 +86,8 @@ class Tests(unittest.TestCase):
                         result=run_truss_example_command(configuration,output)
                         self.assertEqual(result['publications'],2);self.assertTrue((output/'result.json').exists())
                         self.assertNotIn('private-selected-uri',json.dumps(result))
+                        if batch:
+                            self.assertEqual(result['query_batch'],str(output/'query-batch.json'));self.assertEqual(result['queries'],[{'name':'count','rows':[{'n':1}]}]);self.assertNotIn('rows',result)
                         if export_graph:
                             self.assertEqual(result['release'],{'path':str(output/'publication/graph-release.json'),'sha256':'a'*64})
                             self.assertEqual(result['custody'],{'path':str(output/'publication/graph-custody.json'),'sha256':'b'*64})

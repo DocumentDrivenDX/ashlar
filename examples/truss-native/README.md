@@ -59,6 +59,21 @@ local connection details and use mode 0600. Restarting the stopped server requir
 its actual newly returned URI; saved runtime URIs are not restart credentials.
 
 
+## Run the gallery during setup
+
+Add `"query_batch": "/absolute/path/cohort-queries.json"` to the example
+configuration to run the [three-query gallery](cohort-queries.json) after its two
+publications. `run-truss-example` uses the same batch command and saves
+`query-batch.json` in the fresh output directory. Its final `result.json` includes
+the selected publication, named query results and batch report path. The source
+checkpoint must remain unchanged during the queries.
+
+Use the accepted cohort's record names and catalog revision in custom galleries.
+The batch accepts one to eight queries within its aggregate row and report bounds.
+A query failure prevents the final example result. The default configuration
+continues to run the single inverse query. The gallery option has basic adapter
+test coverage; the existing native receipt qualifies the default workflow.
+
 ## Retain destination receipts with source ACK
 
 Set optional `"destination_id": "your-ashlar-installation"` in the
