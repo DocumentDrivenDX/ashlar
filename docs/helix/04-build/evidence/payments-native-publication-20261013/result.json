@@ -1,0 +1,49 @@
+{
+  "format": "ashlar-payments-native-publication/0.1",
+  "outcome": "native_command_passed_with_outer_harness_response_error",
+  "source_code_base_commit": "5d9b108c4495838bbc36432a83a4e85e7c1b6479",
+  "publication_id": "original-finite-payments-publication",
+  "source": {
+    "case_ids": [
+      "net-settlement",
+      "balance",
+      "settled",
+      "currency"
+    ],
+    "edges": 14,
+    "graph_sha256": "92465e5d9a57c2eccc0b2a30e13ea00d7c5f79c56867eb43770d72a12b48feac",
+    "model_sha256": "f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da",
+    "name": "payments",
+    "objects": 13,
+    "pack_sha256": "bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee",
+    "present_nulls": 0,
+    "source_system": "private-original-payments-fixture",
+    "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+    "umf_version": "0.8.0",
+    "source_transaction_sha256": "7ae55b63304a99b8c30b01a16691a29599f332b9f79708b5f9de13ff8cb3701a",
+    "public_dataset_receipt_sha256": "5a5cefb8caebdd5578e216b74eb0141546d00d82b653c07e5d9f83c4212ce4a7",
+    "qualification": "Original finite-file semantics only; no catalog/writer/publication/outbox/ACK grant"
+  },
+  "outer_harness": {
+    "outcome": "failed",
+    "duration_seconds": 58.657,
+    "error_type": "KeyError"
+  },
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 1,
+    "duration_seconds": 59.126
+  },
+  "harness_error": "The public command returned a report-path wrapper. The outer harness incorrectly indexed that wrapper for manifest after the command had already completed publication, replay, committed read-only reopen, source/runtime closure and saved both authoritative reports. No second publication was run.",
+  "objects": 13,
+  "edges": 14,
+  "source_witnesses": 27,
+  "exact_replay_and_committed_reopen": true,
+  "outer_cleanup_complete": true,
+  "invocation_custody_complete": true,
+  "qualification": "Actual original UMF0.8 payments pack published through the existing finite private source and local Spark4.0.1/Delta4.0.0 owner, with full current/history value oracle, exact replay and read-only committed reopen. Original lexical decimal tokens, currency, compound identities and independent authored relationships preserved. Explicit synthetic development source/writer custody; no Truss accepted IDs, protected external ACK, financial scenario SQL, cloud/Unity Catalog or production qualification.",
+  "evidence_sha256": {
+    "command-report.json": "8f27d8570bbe52bc86aa1604169b68a2583a5382e729f3cc7251d6d6b08eeafc",
+    "native-report.json": "2589a3a2d8c343280d4df0586d61ffdbfcf888ff94bb0e49845f3b991f55975c"
+  }
+}

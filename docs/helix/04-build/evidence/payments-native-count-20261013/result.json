@@ -1,0 +1,56 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 81.262,
+  "record": "ledger_entries",
+  "expected_count": "4",
+  "report": "/private/tmp/ashlar-payments-count-native-20261013-a/observations/report.json",
+  "qualification": "Actual original payments ledger_entries base COUNT on the existing local Delta publication, compiled and recompiled by authentic installed Weft0.4.1 with unchanged original request/response, admitted schema contracts, full publication/source custody and independently matched original population4. Command succeeded after source/transport/Spark/observation closure and invocation renewal. Its original saved qualification text remained provisional despite true final closure flags; final host code now describes the completed state. No reingestion, original financial scenario, currency arithmetic/enforcement, Truss accepted-ID, protected ACK, cloud or Unity Catalog qualification.",
+  "format": "ashlar-payments-native-base-count/0.1",
+  "source_code_base_commit": "5d9b108c4495838bbc36432a83a4e85e7c1b6479",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 81.906
+  },
+  "native_result": {
+    "schema": [
+      [
+        "n",
+        "STRING"
+      ]
+    ],
+    "native_schema": [
+      {
+        "name": "n",
+        "native_type": "STRING",
+        "nullable": false
+      }
+    ],
+    "rows": [
+      [
+        "4"
+      ]
+    ]
+  },
+  "decoded": [
+    [
+      {
+        "$type": "ExactScalar",
+        "value": {
+          "$type": "integer",
+          "text": "4"
+        },
+        "original": "4"
+      }
+    ]
+  ],
+  "guard_count": 2,
+  "original_request_response_recompile_identical": true,
+  "outer_cleanup_complete": true,
+  "invocation_custody_complete": true,
+  "evidence_sha256": {
+    "request.json": "bdf4110a6b742064fa94404a2196870713dc321736103826671c71af69ecab72",
+    "report.json": "8f7e690d0a751c9574fe99ec08e3f330a744c4c206f9cd18c83e069d047b12b5",
+    "response.json": "2515e0b499a4537722234639c9a6d48cf50560173a56765b4abff0deb3e4fb08"
+  }
+}

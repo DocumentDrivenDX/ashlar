@@ -40,6 +40,15 @@ def _original_binding(definition,sql,model,graph,bindings,manifest,registry,alia
         'target':{'bindingJson':raw,'bindingSha256':hashlib.sha256(raw.encode()).hexdigest()},'options':{'allowCandidate':True}}
 
 
+def original_finite_pack_binding_request(definition,sql,model,graph,bindings,manifest,registry,aliases):
+    """Original finite model/full-vector binding correspondence, not authority.
+
+    The caller separately selects an admitted compiler dialect/backend and owns
+    actual source, publication and execution gates. No authored case is changed.
+    """
+    return _original_binding(definition,sql,model,graph,bindings,manifest,registry,aliases)
+
+
 def pack_count_star_request(definition,case_id,pack_bytes,model_bytes,graph_bytes,
                                     bindings,manifest,registry,aliases):
     """Preserve original model/SQL/carriers; only select owning041 markers."""
