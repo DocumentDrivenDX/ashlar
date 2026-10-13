@@ -1,0 +1,4 @@
+  File "/private/tmp/ashlar-truss-core08-evolution-export-20261013-a/run.py", line 47
+    if len(props)!=(4 if label=='seed'else5):raise ValueError('Exact complete field inventory differs')
+                    ^^^^^^^^^^^^^^^^^^
+SyntaxError: expected 'else' after 'if' expression

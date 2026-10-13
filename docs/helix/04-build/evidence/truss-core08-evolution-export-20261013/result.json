@@ -1,0 +1,125 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 19.546,
+  "source_sdk_revision_reported_by_owner": "1f203768092178f356f267cd047ae149c08541f3",
+  "declared_umf": "0.8.0",
+  "objects_per_export": 1,
+  "edges_per_export": 0,
+  "field_counts": [
+    4,
+    5
+  ],
+  "source_checkpoint_unchanged": true,
+  "graph_identity_unchanged": true,
+  "mixed_release_custody_pairs_refused": 2,
+  "files": [
+    {
+      "path": "run.py",
+      "bytes": 5430,
+      "sha256": "381a36f61be13066d856c6238dab600516143049402389e7d4a5960ecd371248"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 708,
+      "sha256": "3d384a74a19d62d19a7ccd6055ef9e3a5972b818b143bc708f723e6ea0049a2c"
+    },
+    {
+      "path": "run.log",
+      "bytes": 2959,
+      "sha256": "c7db7a74656c0dfa73dfc343a58141a55251739334a71c0264295e2641c2bbee"
+    },
+    {
+      "path": "run-result.json",
+      "bytes": 2437,
+      "sha256": "8752ad8469873abc3d44a15655c0ab67b0b50a36c59005687cdab9508e61f090"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 69,
+      "sha256": "7a38f791973316ea3f816ade43afb6d691698568957105ab4498188badcf55a7"
+    },
+    {
+      "path": "seed-reader.json",
+      "bytes": 947,
+      "sha256": "bfef19df3990fb83aa6fe67d27b516c0c460f54eb5fac4ad284be046b00d763e"
+    },
+    {
+      "path": "evolved-reader.json",
+      "bytes": 947,
+      "sha256": "276e0c83ce8f4a6ea917693d871f1c1970e8ac818be767046a86250e85ff0e43"
+    },
+    {
+      "path": "seed-export.json",
+      "bytes": 707,
+      "sha256": "41244084123cff9aeaa48174addb5f1410ee4404fdfe32385e0a503111239ae0"
+    },
+    {
+      "path": "seed-export.json-release.json",
+      "bytes": 6266,
+      "sha256": "3937170292de8875e69b704ceff22918ba9d69b2b5b850db8762522e3acd1011"
+    },
+    {
+      "path": "seed-export.json-custody.json",
+      "bytes": 6656,
+      "sha256": "ce8df159f120b07a8b8beb4c0d9eabae9b582f3e8678b9eb9376f9350c0d147d"
+    },
+    {
+      "path": "evolved-export.json",
+      "bytes": 713,
+      "sha256": "9dfaa7d6c0ec014f5eafba6f66f812c0fee92d13f7754da744c43d00b278cc51"
+    },
+    {
+      "path": "evolved-export.json-release.json",
+      "bytes": 5702,
+      "sha256": "10d57f86d5c3fef08ed8eb12d7f5d3f314f97ee6b6c772afdd46bde0993daadb"
+    },
+    {
+      "path": "evolved-export.json-custody.json",
+      "bytes": 6256,
+      "sha256": "825f03c8065fe73c860455eb8e02b75e087f23d14f1ae66c7511744f376f2946"
+    },
+    {
+      "path": "pre-native-failure-a/run.py",
+      "bytes": 5428,
+      "sha256": "2cf4b29a58d1541423a53b81237ca8507366ff818ef0b5e952c454ba5a267666"
+    },
+    {
+      "path": "pre-native-failure-a/run.log",
+      "bytes": 280,
+      "sha256": "c179bc6cf99be9d4b9949b4945b27b26d2ec39d6d9399d75a573b7296ab5b463"
+    },
+    {
+      "path": "pre-native-failure-a/supervisor-result.json",
+      "bytes": 68,
+      "sha256": "1415788c6f633cac7f6b450f7c04c57742c147749369ae30dea9564ab4b7fe60"
+    },
+    {
+      "path": "pre-native-failure-b/run.py",
+      "bytes": 5430,
+      "sha256": "381a36f61be13066d856c6238dab600516143049402389e7d4a5960ecd371248"
+    },
+    {
+      "path": "pre-native-failure-b/run.log",
+      "bytes": 2978,
+      "sha256": "a5ef6f7981c8e5375231b3b15c014c1cc8274805a8776637b7e40f78535a4af3"
+    },
+    {
+      "path": "pre-native-failure-b/supervisor-result.json",
+      "bytes": 67,
+      "sha256": "a160056586fe5095a87eb6dd785cf56b22e71d3536d6800c6c156b64a11f7510"
+    }
+  ],
+  "qualification": "Actual public historical and evolved private immutable graph exports from retained source/publications, exact independent original named-read carrier comparison, public local export mixed-pair refusals. Original request/report/release/custody bytes retained without rewriting paths or models. Raw props JSON preserves numeric and presence semantics; no graph-engine numeric filtering claim. No source mutations, ACK, replay ingestion or external engine execution. Prior a syntax failure and b sandbox denial occurred before PostgreSQL startup; c used approved native runtime execution and closed all owners before success report.",
+  "independent_read_inputs": [
+    {
+      "path": "/private/tmp/ashlar-truss-core08-evolution-native-20261013-a/original-record.json",
+      "bytes": 1961,
+      "sha256": "e71fc8d7f349acc43d0f6c57accce440a8831b54942b503bf3555bd2ccded177"
+    },
+    {
+      "path": "/private/tmp/ashlar-truss-core08-evolution-native-20261013-a/evolved-record.json",
+      "bytes": 2138,
+      "sha256": "84ae23fd308764da7338f7c4213342ef0640b9ff95510422613efdf9d51c4db5"
+    }
+  ]
+}

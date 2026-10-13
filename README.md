@@ -7,7 +7,7 @@ comes from precisely shaped stones that fit together into a larger structure.
 
 **Implementation status:** Development toolkit with qualified local Delta ingest,
 PostgreSQL outbox ACK, publication-bound Weft queries, immutable GraphFrames/PuppyGraph
-projections, and local Truss STRING graph/feed/evolution workflows. Fabric integration
+projections, and local Truss typed graph/feed/evolution workflows. Fabric integration
 and broader query support remain unfinished. See
 the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
 and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
@@ -17,8 +17,9 @@ unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-
 retains its separate supplier-relationship qualification.
 Use the [public Truss examples](examples/truss-native/README.md) for schema
 local setup, schema acceptance, graph creation/readback/replay, object/edge updates,
-graph deletion and publication-pinned STRING queries on
-the supported local Truss runtime.
+graph deletion, typed publication-bound queries, and same-version UMF 0.7/0.8
+additive field evolution on the supported local Truss runtime. The guide identifies
+the independently qualified model and runtime subsets.
 
 Install the candidate toolkit locally (Python3.9+):
 

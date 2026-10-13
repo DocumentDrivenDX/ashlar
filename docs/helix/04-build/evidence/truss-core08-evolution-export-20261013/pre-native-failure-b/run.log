@@ -1,0 +1,39 @@
+{"outcome": "failed", "duration_seconds": 0.076, "error_type": "PermissionError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss-core08-evolution-export-20261013-b/run.py", line 32, in <module>
+    with owned_context(LocalPostgres(source/'data'))as runtime:
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 29, in owned_context
+    with manager as value:
+  File "/private/tmp/ashlar-truss-sdk-pinned-1f203768/packages/python/src/truss/local_runtime.py", line 90, in __enter__
+    self._server = pgserver.get_server(self.directory, cleanup_mode='stop')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 292, in get_server
+    return PostgresServer(pgdata, cleanup_mode=cleanup_mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 62, in __init__
+    with self._lock:
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 166, in __enter__
+    gotten = self.acquire()
+             ^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 144, in acquire
+    self._do_open()
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 114, in _do_open
+    self.lockfile = open(self.path, 'a')
+                    ^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted: b'/Users/erik/Library/Caches/TemporaryItems/python_PostgresServer/.lockfile'
+Exception ignored in atexit callback: <bound method PostgresServer._cleanup of <pgserver.postgres_server.PostgresServer object at 0x10bd4d350>>
+Traceback (most recent call last):
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 205, in _cleanup
+    with self._lock:
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 166, in __enter__
+    gotten = self.acquire()
+             ^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 144, in acquire
+    self._do_open()
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 114, in _do_open
+    self.lockfile = open(self.path, 'a')
+                    ^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted: b'/Users/erik/Library/Caches/TemporaryItems/python_PostgresServer/.lockfile'

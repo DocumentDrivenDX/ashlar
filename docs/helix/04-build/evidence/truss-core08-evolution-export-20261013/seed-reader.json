@@ -1,0 +1,18 @@
+{
+  "connection_uri": "user=ashlar_note_consumer dbname=postgres host=/private/tmp/ashlar-truss-core08-simple-native-20261013-a/data",
+  "jars": [
+    "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-spark_2.13-4.0.0.jar",
+    "/private/tmp/ashlar-supply-chain-finite-native-jars-f/delta-storage-4.0.0.jar"
+  ],
+  "publication_directory": "/private/tmp/ashlar-truss-core08-simple-native-20261013-a/publication",
+  "publication_intent": {
+    "path": "/private/tmp/ashlar-truss-core08-simple-native-20261013-a/publication/publication-intent-66c777aa9f719100f1061fbe0692c9883459f8ba810b82c2e67a7511c13d5238.json",
+    "sha256": "928c2d16b031b71b8237063aef59f986b7b9d6f4ff1aa5c651bb2685a375d1c4"
+  },
+  "archived_acceptance_files": [
+    {
+      "path": "/private/tmp/ashlar-truss-core08-evolution-native-20261013-a/evolution/evolution.json",
+      "sha256": "50e045ab15569c75ff07899558f718128aa3ab4f1711ae8d9e3bfad413488288"
+    }
+  ]
+}

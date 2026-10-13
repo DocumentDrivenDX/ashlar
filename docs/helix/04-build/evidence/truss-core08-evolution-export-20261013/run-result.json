@@ -1,0 +1,48 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 19.546,
+  "source_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "umf_version": "0.8.0",
+  "exports": [
+    {
+      "publication_id": "truss-graph-66c777aa9f719100f1061fbe0692c9883459f8ba810b82c2e67a7511c13d5238",
+      "release": {
+        "path": "/private/tmp/ashlar-truss-core08-evolution-export-20261013-c/seed-export.json-release.json",
+        "sha256": "3937170292de8875e69b704ceff22918ba9d69b2b5b850db8762522e3acd1011"
+      },
+      "custody": {
+        "path": "/private/tmp/ashlar-truss-core08-evolution-export-20261013-c/seed-export.json-custody.json",
+        "sha256": "ce8df159f120b07a8b8beb4c0d9eabae9b582f3e8678b9eb9376f9350c0d147d"
+      },
+      "nodes": 1,
+      "edges": 0,
+      "qualification": "Immutable original Truss graph captured under live source admission and complete publication pins; caller-asserted checkpoint qualification, no protected outbox ACK or external engine execution."
+    },
+    {
+      "publication_id": "truss-graph-1a5d83a471ce4c03f1347cfc0225286cf80577745ced33b88ea429c6b2c6b24d",
+      "release": {
+        "path": "/private/tmp/ashlar-truss-core08-evolution-export-20261013-c/evolved-export.json-release.json",
+        "sha256": "10d57f86d5c3fef08ed8eb12d7f5d3f314f97ee6b6c772afdd46bde0993daadb"
+      },
+      "custody": {
+        "path": "/private/tmp/ashlar-truss-core08-evolution-export-20261013-c/evolved-export.json-custody.json",
+        "sha256": "825f03c8065fe73c860455eb8e02b75e087f23d14f1ae66c7511744f376f2946"
+      },
+      "nodes": 1,
+      "edges": 0,
+      "qualification": "Immutable original Truss graph captured under live source admission and complete publication pins; caller-asserted checkpoint qualification, no protected outbox ACK or external engine execution."
+    }
+  ],
+  "stable_graph_id": "ashlar-key/1:WyJub2RlIiwiNTc2Yzk3N2ItNzBjNS00OTE5LWExNTgtMjJhNTYwN2JhY2E1IiwiMSIsIjIiXQ",
+  "field_counts": [
+    4,
+    5
+  ],
+  "exact_original_numeric_and_presence_carriers": true,
+  "mixed_pairs_refused": [
+    "ValueError",
+    "ValueError"
+  ],
+  "source_checkpoint_unchanged": true,
+  "qualification": "Actual private immutable historical/evolved exports under original source and full publication guards, followed by original local export mixed-pair admission refusal. Opaque props JSON remains exact. No mutations, ACK, ingest, external graph engine or numeric graph filtering qualification."
+}
