@@ -33,12 +33,15 @@ entries=[];inputs={}
 index=json.loads((MODEL/'index.json').read_text())
 for name in ['relationships',*index['tables']]:
  file=MODEL/(name+'.umf.json');data=file.read_bytes();inputs[str(file.relative_to(ROOT))]=sha(data)
- entries.append({'id':'ashlar-runtime-logical' if name=='relationships' else 'ashlar-delta:'+name,'title':'Runtime records and relationships' if name=='relationships' else name+' · Delta definition','category':'domain','path':name+'.umf.json','text':data.decode(),'format':'json','description':'Authored logical fields, keys and endpoint relationships; storage enforcement is separate.' if name=='relationships' else 'Original Delta schema and layout retained in extension payloads.'})
+ entries.append({'id':'ashlar-runtime-logical' if name=='relationships' else 'ashlar-delta:'+name,'title':'Runtime records and relationships' if name=='relationships' else name+' · Delta definition','category':'domain','source_repo_path':str(file.relative_to(ROOT)),'path':name+'.umf.json','text':data.decode(),'format':'json','description':'Authored logical fields, keys and endpoint relationships; storage enforcement is separate.' if name=='relationships' else 'Original Delta schema and layout retained in extension payloads.'})
+for revision,filename in [('r1','cohort.umf.json'),('r2','cohort-r2.umf.json')]:
+ file=ROOT/'examples/truss-native'/filename;data=file.read_bytes();source_path=str(file.relative_to(ROOT));inputs[source_path]=sha(data)
+ entries.append({'id':'truss-cohort-'+revision,'title':'Truss cohort · '+revision,'category':'domain','source_repo_path':source_path,'path':'cohort-'+revision+'.umf.json','text':data.decode(),'format':'json','description':'Two record types and an independent directed relationship in UMF 0.7.'+(' Adds optional B-tag.' if revision=='r2' else '')})
 inputs[str((MODEL/'index.json').relative_to(ROOT))]=sha((MODEL/'index.json').read_bytes())
 assets['schema-catalog.json']=(json.dumps({'version':1,'entries':entries},indent=2)+'\n').encode()
 for name in ['index.html','host.css','host.js']:
  assets[name]=(ROOT/'website/schema-browser'/name).read_bytes()
-provenance={'profile':'ashlar-umf-schema-browser/0.1','upstream':{'project':'UMF','revision':REVISION,'path':UPSTREAM,'package':{'name':PACKAGE,'version':VERSION,'bytes':PACKAGE_BYTES,'sha256':PACKAGE_SHA256},'assets':upstream_assets},'inputs':inputs,'generator_sha256':sha(Path(__file__).read_bytes()),'outputs':{name:sha(data) for name,data in assets.items()},'qualification':'Exact published UMF standalone renderer, stylesheet and license notices. Nine exact original Ashlar UMF sources, including eight physical definitions and one logical model. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage.'}
+provenance={'profile':'ashlar-umf-schema-browser/0.1','upstream':{'project':'UMF','revision':REVISION,'path':UPSTREAM,'package':{'name':PACKAGE,'version':VERSION,'bytes':PACKAGE_BYTES,'sha256':PACKAGE_SHA256},'assets':upstream_assets},'inputs':inputs,'generator_sha256':sha(Path(__file__).read_bytes()),'outputs':{name:sha(data) for name,data in assets.items()},'source_count':len(entries),'qualification':f'Exact published UMF standalone renderer, stylesheet and license notices. {len(entries)} exact original UMF sources, including {len(index["tables"])} physical definitions, one logical runtime model and two authored Truss cohort revisions. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage.'}
 assets['provenance.json']=(json.dumps(provenance,indent=2)+'\n').encode()
 if a.check:
  actual={str(path.relative_to(TARGET)) for path in TARGET.rglob('*') if path.is_file()}
@@ -51,4 +54,4 @@ for name,data in assets.items():
  if a.check:
   if not path.exists() or path.read_bytes()!=data:raise ValueError('Stale browser artifact: '+name)
  else:path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(data)
-print(('Verified' if a.check else 'Built')+' pinned UMF browser with nine exact Ashlar model sources')
+print(('Verified' if a.check else 'Built')+f' pinned UMF browser with {len(entries)} exact model sources')

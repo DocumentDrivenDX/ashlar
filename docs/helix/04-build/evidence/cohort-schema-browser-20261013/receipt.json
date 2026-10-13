@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-cohort-browser-functional/0.1",
+  "browser": "153.0.8010.12",
+  "checks": [
+    {
+      "id": "truss-cohort-r1",
+      "original_source_sha256": "1578697fb45f9c863e567ab01bed269bf1a8b2836898d71368177361d5f3c70a",
+      "exact_dom_source": true,
+      "exact_download": true,
+      "added_field_present": false
+    },
+    {
+      "id": "truss-cohort-r2",
+      "original_source_sha256": "ecb2e4048c374877e82013eae0a28d7503e218b1c4195461ec8cdbf5c58a872f",
+      "exact_dom_source": true,
+      "exact_download": true,
+      "added_field_present": true
+    }
+  ],
+  "scope": "Two authored cohort revisions in one desktop viewport, exact source/download and added optional field display. Existing renderer unchanged; no native schema enforcement claim."
+}

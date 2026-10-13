@@ -12,6 +12,10 @@ def copied(tmp_path):
     for folder in ('website/static/model/schema-browser', 'website/schema-browser',
                    'docs/helix/02-design/models/ashlar-delta-runtime'):
         shutil.copytree(ROOT / folder, tmp_path / folder)
+    for name in ('cohort.umf.json','cohort-r2.umf.json'):
+        target=tmp_path/'examples/truss-native'/name
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(ROOT/'examples/truss-native'/name,target)
     for name in ('tools/build_schema_browser.py', 'website/scripts/check_schema_browser.py'):
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -81,3 +85,15 @@ def test_missing_lazy_asset_and_extra_runtime_refuse(tmp_path):
     chunk.write_bytes(original)
     (assets / 'unknown.js').write_text('changed')
     assert check(root) != 0
+
+
+def test_original_cohort_revisions_are_exact_catalog_inputs(tmp_path):
+    root=copied(tmp_path)
+    catalog=json.loads((root/'website/static/model/schema-browser/schema-catalog.json').read_bytes())
+    for identity,filename in (('truss-cohort-r1','cohort.umf.json'),('truss-cohort-r2','cohort-r2.umf.json')):
+        entry=next(item for item in catalog['entries']if item['id']==identity)
+        assert entry['category']=='domain'
+        assert entry['text'].encode()==(root/'examples/truss-native'/filename).read_bytes()
+        assert json.loads(entry['text'])['umf']=='0.7.0'
+    path=root/'examples/truss-native/cohort-r2.umf.json';path.write_bytes(path.read_bytes()+b' ')
+    assert check(root)!=0

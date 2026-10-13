@@ -39,25 +39,26 @@ https://documentdrivendx.github.io/ashlar/.
 
 ## UMF schema browser
 
-The schema page embeds UMF’s published schema browser 1.1.1, with a standalone view at
+The schema page embeds UMF’s published schema browser 1.1.2, with a standalone view at
 `model/schema-browser/index.html`. The upstream JS/CSS remain byte-identical.
 Ashlar owns the surrounding HTML/CSS and a catalog containing the exact eight
-physical UMF definitions plus the logical fields/keys/relationships model.
+physical UMF definitions, the logical fields/keys/relationships model, and the
+two authored Truss cohort revisions. Select the revised cohort to inspect the
+optional `B-tag` field and its unchanged relationship endpoints.
 It loads only local assets; local-file inspection and source download remain
 browser operations. Delta extension interpretation is explicitly partial.
 
 ```sh
-gh release download schema-browser-v1.1.1 --repo DocumentDrivenDX/umf --dir /tmp/umf-browser --pattern documentdrivendx-umf-schema-browser-1.1.1.tgz
-python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.1.1.tgz
-python3 tools/build_schema_browser.py /tmp/umf-browser/documentdrivendx-umf-schema-browser-1.1.1.tgz --check
+curl --fail --location --output /tmp/umf-schema-browser-1.1.2.tgz https://registry.npmjs.org/@documentdrivendx/umf-schema-browser/-/umf-schema-browser-1.1.2.tgz
+python3 tools/build_schema_browser.py /tmp/umf-schema-browser-1.1.2.tgz
+python3 tools/build_schema_browser.py /tmp/umf-schema-browser-1.1.2.tgz --check
 python3 website/scripts/check_schema_browser.py
 ```
 
 The build verifies the released package’s exact size and SHA-256 before reading
 its renderer, stylesheet and original license notices. To adopt a newer UMF
 release, review its package and update the generator and fingerprint guard pins
-together. Compare the released renderer with upstream main, rebuild and verify
-desktop/mobile navigation and original source downloads. Review the generated
-catalog and provenance after model changes. CI checks original model, bundle, host and catalog hashes before
+together. Check the changed views and original source downloads. CI checks
+original model, bundle, host and catalog hashes before
 publishing. Generated/shared browser content is outside the seven Markdown
 source signatures, like the existing generated diagram.

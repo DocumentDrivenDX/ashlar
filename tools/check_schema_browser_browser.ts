@@ -10,7 +10,7 @@ const {parse:parseYaml}=await import(pathToFileURL(join(resolve(umfArg),'node_mo
 const {chromium}=await import(pathToFileURL(join(resolve(umfArg),'node_modules/playwright/index.mjs')).href);
 const sha=(data:Uint8Array|string)=>new Bun.CryptoHasher('sha256').update(data).digest('hex');
 const catalog=JSON.parse(await readFile(join(assets,'schema-catalog.json'),'utf8'));
-if(catalog.entries.length!==9)throw Error('Original nine-source catalog required');
+if(catalog.entries.length!==11)throw Error('Original runtime and cohort catalog required');
 const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch(req){const path=resolve(assets,'.'+decodeURIComponent(new URL(req.url).pathname));if(!path.startsWith(assets+sep))return new Response('missing',{status:404});return new Response(Bun.file(path));}});
 let browser;let report:any;
 try{
@@ -21,7 +21,7 @@ try{
    await page.goto(`http://127.0.0.1:${server.port}/index.html#${new URLSearchParams({schema:entry.id})}`);
    const source=ui.locator('#inspector details').filter({has:ui.locator('summary',{hasText:/^Original schema source$/})}).locator('pre');
    await source.waitFor({state:'attached'});let exact=false;for(let attempt=0;attempt<100;attempt++){if(await source.textContent()===entry.text){exact=true;break;}await page.waitForTimeout(20);}if(!exact)throw Error('DOM source byte mismatch: '+entry.id);
-   const original=await readFile(join(root,'docs/helix/02-design/models/ashlar-delta-runtime',entry.path));
+   const original=await readFile(join(root,entry.source_repo_path));
    if(Buffer.from(entry.text).compare(original))throw Error('Catalog original source mismatch');
    const waiting=page.waitForEvent('download');await ui.getByRole('link',{name:'Download source',exact:true}).click();const download=await waiting;const saved=join(output,`${width}-${entry.path}`);await download.saveAs(saved);if(Buffer.compare(await readFile(saved),original))throw Error('Download bytes changed');
    if(entry.id.startsWith('ashlar-delta:')){
@@ -33,9 +33,9 @@ try{
     if(!(await ui.locator('div.callout').textContent())?.includes('Some semantics are not interpreted'))throw Error('Unknown Delta semantics claimed complete');
     checks.push({width,id:entry.id,retainedExtensionDisplayExact:true,unknownDeltaSemanticsExplicit:true});
    }
-   if(await ui.locator('.catalog-item').count()!==9)throw Error('Catalog count changed');
+   if(await ui.locator('.catalog-item').count()!==catalog.entries.length)throw Error('Catalog count changed');
    if(await ui.locator('html').evaluate(()=>document.documentElement.scrollWidth>innerWidth)||await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Whole-page overflow');
-   checks.push({width,id:entry.id,publicHostHashNavigation:true,source_sha256:sha(original),domOriginalSourceExact:true,downloadOriginalSourceExact:true,catalogCount:9,noOverflow:true});
+   checks.push({width,id:entry.id,publicHostHashNavigation:true,source_sha256:sha(original),domOriginalSourceExact:true,downloadOriginalSourceExact:true,catalogCount:catalog.entries.length,noOverflow:true});
   }
   const logical=catalog.entries[0],doc=JSON.parse(logical.text);const module=doc.modules[0];
   for(const record of module.elements.filter((e:any)=>e.kind==='record')){
@@ -50,6 +50,6 @@ try{
   if(errors.length)throw Error(errors.join('\n'));
   await page.screenshot({path:join(output,`browser-${width}.png`)});await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));if(await page.locator('#schema-browser iframe').count()!==1)throw Error('Persisted host lifecycle lost browser');await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide')));if(await page.locator('#schema-browser iframe').count()!==0)throw Error('Public host destroy failed');checks.push({width,hostHashNavigationAllSources:true,persistedPageHideRetainsMount:true,finalPageHideDestroysMount:true});await page.close();
  }
- report={profile:'ashlar-public-schema-browser-dom/0.1',browser:browser.version(),checks,qualification:'Exact nine original source catalogs, DOM raw source and download bytes, ordered logical member/type/cardinality/availability glyphs and desktop/mobile navigation/overflow. Delta extensions remain retained raw source; no native Delta semantics, loader/research pack execution or broad browser library support claim.'};
+ report={profile:'ashlar-public-schema-browser-dom/0.1',browser:browser.version(),checks,qualification:'Exact runtime and Truss cohort source catalogs, DOM raw source and download bytes, ordered logical member/type/cardinality/availability glyphs and desktop/mobile navigation/overflow. Delta extensions remain retained raw source; no native Delta semantics, loader/research pack execution or broad browser library support claim.'};
 }finally{await browser?.close();server.stop(true);}
-await Bun.write(join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log('Verified9 exact sources/downloads and8 logical records at2 viewport sizes');
+await Bun.write(join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(`Verified${catalog.entries.length} exact sources/downloads and8 logical records at2 viewport sizes`);

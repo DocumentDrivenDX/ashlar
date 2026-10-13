@@ -21,8 +21,11 @@ for name,digest in proof['inputs'].items():assert sha((root/name).read_bytes())=
 for name in ['index.html','host.css','host.js']:assert (folder/name).read_bytes()==(root/'website/schema-browser'/name).read_bytes(),name
 model=root/'docs/helix/02-design/models/ashlar-delta-runtime'
 index=json.loads((model/'index.json').read_text());catalog=json.loads((folder/'schema-catalog.json').read_text())
-assert catalog['version']==1 and len(catalog['entries'])==9
-assert set(proof['inputs'])=={str((model/(name+'.umf.json')).relative_to(root)) for name in ['relationships',*index['tables']]}|{str((model/'index.json').relative_to(root))}
-assert [entry['path'] for entry in catalog['entries']]==[name+'.umf.json' for name in ['relationships',*index['tables']]]
-for entry in catalog['entries']:assert entry['text']==(model/entry['path']).read_text()
-print('Pinned UMF renderer and all nine original Ashlar schema sources match')
+sources=[str((model/(name+'.umf.json')).relative_to(root))for name in ['relationships',*index['tables']]]+['examples/truss-native/cohort.umf.json','examples/truss-native/cohort-r2.umf.json']
+assert catalog['version']==1 and len(catalog['entries'])==len(sources)
+assert proof['source_count']==len(sources)
+assert set(proof['inputs'])==set(sources)|{str((model/'index.json').relative_to(root))}
+assert [entry['source_repo_path']for entry in catalog['entries']]==sources
+assert [entry['id']for entry in catalog['entries'][-2:]]==['truss-cohort-r1','truss-cohort-r2']
+for entry in catalog['entries']:assert entry['text'].encode()==(root/entry['source_repo_path']).read_bytes()
+print('Pinned UMF renderer and all '+str(len(sources))+' original schema sources match')
