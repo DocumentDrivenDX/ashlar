@@ -103,12 +103,13 @@ def truss_scalar_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases,typed=True)
 
 
-def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None):
+def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None,scalar_projection=False):
     """Compile exact authored singleton/list SQL under the actual publication hold.
 
     Returns original request/response bytes after closing native pins and writer.
-    No generated SQL is executed and outer resources remain caller owned.
+    A row budget selects guarded execution; outer resources remain caller owned.
     """
+    if type(scalar_projection)is not bool or scalar_projection and physical_revisions is None:raise ValueError("Explicit compatible scalar projection required")
     compatible=physical_revisions is not None
     if compatible:
         from .weft_compatible_cli import CompatibleCompiler,compile_compatible
@@ -168,7 +169,10 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False;value_projection=None;join_expected=None;join_projection=None
-                    if compatible or any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
+                    if scalar_projection:
+                        from .truss_scalar_projection import admit_truss_scalar_projection
+                        value_projection=admit_truss_scalar_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,physical_revisions=physical_revisions)
+                    elif compatible or any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
                         from .truss_value_projection import admit_truss_value_projection
                         value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,**({'physical_revisions':physical_revisions,'require_optional':False}if compatible else {}))
                     grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
@@ -181,7 +185,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                             count=True
                         else:
                             join_projection=admit_truss_join_projection(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
-                    elif len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
+                    elif value_projection is None and len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
                     rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered,value_projection=value_projection)
@@ -209,6 +213,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
     if maximum_rows is not None:
         result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, required STRING equality INNER JOIN COUNT/projections, authored forward/inverse HAS_RELATED or unordered authored forward/inverse RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     if compatible:result['qualification']='Local compatible-revision candidate direct STRING projection under complete native publication pins, original compiler guards and independent complete source bag. No production profile qualification.'
+    if scalar_projection:result['qualification']='Local compatible-revision candidate direct required scalar Field projection with original declared facets, exact numeric carrier tokens, complete native publication pins, original compiler guards and independent complete source bag. No production profile qualification.'
     return result
 
 
@@ -251,10 +256,11 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
         if related and representation.get('kind')=='relatedKeys':expected=representation
         if value_projection is not None:
             from .truss_value_projection import TrussValueProjection
-            if type(value_projection)is not TrussValueProjection or encoded(column)not in [encoded(item)for item in json.loads(value_projection.columns_json)]:raise ValueError('Exact admitted value projection column required')
+            from .truss_scalar_projection import TrussScalarProjection
+            if type(value_projection)not in (TrussValueProjection,TrussScalarProjection) or encoded(column)not in [encoded(item)for item in json.loads(value_projection.columns_json)]:raise ValueError('Exact admitted value projection column required')
             expected=representation
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
-            raise ValueError('Only admitted non-null STRING scalar outputs supported')
+            raise ValueError('Only admitted non-null result descriptors supported')
         names.append(column['outputName'])
     if len(set(names))!=len(names):raise ValueError('Distinct original result output names required')
     params={}
@@ -317,6 +323,13 @@ def execute_truss_compatible_query(driver,compiler,sql,*,revision,document_id,ph
     if type(physical_revisions)is not tuple:raise ValueError('Explicit physical revision tuple required')
     return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
         physical_revisions=physical_revisions,maximum_rows=maximum_rows)
+
+
+def execute_truss_scalar_query(driver,compiler,sql,*,revision,document_id,physical_revisions,maximum_rows=1000):
+    """Execute required scalar Fields with exact original declared numeric facets."""
+    if type(physical_revisions)is not tuple:raise ValueError('Explicit physical revision tuple required')
+    return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
+        physical_revisions=physical_revisions,maximum_rows=maximum_rows,scalar_projection=True)
 
 
 def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):

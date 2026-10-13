@@ -142,6 +142,11 @@ def main():
         truss_compatible.add_argument('--'+option,required=True)
     truss_compatible.add_argument('--physical-revision',action='append',required=True)
     truss_compatible.add_argument('--maximum-rows',type=int,default=1000)
+    truss_scalars=commands.add_parser('query-truss-scalars',help='Run local compatible-revision candidate direct required scalar projections under publication custody')
+    for option in ('configuration','output','compiler','sql','revision','document-id'):
+        truss_scalars.add_argument('--'+option,required=True)
+    truss_scalars.add_argument('--physical-revision',action='append',required=True)
+    truss_scalars.add_argument('--maximum-rows',type=int,default=1000)
     truss_saved=commands.add_parser('publish-saved-truss-graph',help='Publish a selected saved Truss page whose first source plan was never retained')
     for option in ('configuration','publication-intent','publication-intent-sha256','output'):
         truss_saved.add_argument('--'+option,required=True)
@@ -528,6 +533,17 @@ def main():
         try:
             from ashlar_host.truss_compatible_query_cli import run_query_truss_compatible_command
             run_query_truss_compatible_command(args.configuration,args.output,compiler=args.compiler,
+                sql=args.sql,revision=args.revision,document_id=args.document_id,
+                physical_revisions=tuple(args.physical_revision),maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar compatible Truss query refused; inspect the original publication and selected local compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-scalars':
+        try:
+            from ashlar_host.truss_scalar_query_cli import run_query_truss_scalars_command
+            run_query_truss_scalars_command(args.configuration,args.output,compiler=args.compiler,
                 sql=args.sql,revision=args.revision,document_id=args.document_id,
                 physical_revisions=tuple(args.physical_revision),maximum_rows=args.maximum_rows)
             print(json.dumps({'output':args.output},separators=(',',':')))

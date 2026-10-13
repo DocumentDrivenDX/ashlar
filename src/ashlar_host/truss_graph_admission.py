@@ -6,6 +6,32 @@ from ashlar.truss_native_feed import typed_scalar_entity_changes
 PROFILE='ashlar-truss-scalar-graph-semantic-admission/0.1'
 TYPED_PROFILE='ashlar-truss-typed-graph-semantic-admission/0.1'
 
+def admitted_facets(field):
+    facets=field.get('facets',{})
+    if type(facets)is not dict:raise ValueError('Exact declared scalar facets required')
+    family=field['scalarType']
+    signed=family=='integer'and facets=={'integerWidth':{'bits':64,'signed':True}}and type(facets['integerWidth']['bits'])is int and type(facets['integerWidth']['signed'])is bool
+    decimal=family=='decimal'and facets=={'precision':18,'scale':4}and type(facets['precision'])is int and type(facets['scale'])is int
+    if facets and not(signed or decimal):raise ValueError('Supported declared signed64/decimal18,4 facets required')
+    return json.loads(json.dumps(facets))
+
+
+def require_facet_value(family,facets,value):
+    if not facets:return
+    token=value['text']
+    if family=='integer':
+        if len(token.lstrip('-'))>19 or not -(2**63)<=int(token)<2**63:raise PermissionError('Declared signed64 value overflow')
+        return
+    mantissa,*exponent=token.lower().split('e');fraction=mantissa.split('.',1)[1]if'.'in mantissa else''
+    coefficient=mantissa.lstrip('-').replace('.','').lstrip('0')
+    if not coefficient:return
+    exponent_token=exponent[0]if exponent else'0';digits=exponent_token.lstrip('+-').lstrip('0')
+    if len(digits)>7:raise PermissionError('Declared decimal18,4 value overflow')
+    exponent_value=(int(digits)*(-1 if exponent_token.startswith('-')else 1))if digits else 0
+    shift=4-len(fraction)+exponent_value;trailing=len(coefficient)-len(coefficient.rstrip('0'))
+    if shift<0 and -shift>trailing or len(coefficient)+shift>18:raise PermissionError('Declared decimal18,4 requires exact no-rounding value')
+
+
 class TrussGraphAdmission:
     def __init__(self,batch,catalog_views):
         batch_row(batch)
@@ -44,7 +70,7 @@ class TrussGraphAdmission:
                 owner=(assigned['documentId'],assigned['moduleId'],assigned['elementId']);record=elements[owner];type_id=assigned['typeId']
                 ref=definitions['type',owner[0],owner[1],type_id,owner[2]]
                 if record.get('kind')!='record'or type_id in types or owner in qualified:raise ValueError('Original distinct accepted record required')
-                fields={};domains={};required=set();authored={}
+                fields={};domains={};facets={};required=set();authored={}
                 for member in record['members']:
                     field_owner=(owner[0],member['module'],member['element']);field=elements[field_owner]
                     if field.get('kind')!='field'or field.get('scalarType')not in ('string','integer','decimal','boolean')or field.get('cardinality')!='one'or field.get('nullability')not in ('required','absent-allowed'):raise ValueError('Selected exact scalar field declarations required')
@@ -54,7 +80,7 @@ class TrussGraphAdmission:
                     if property_ref['propertyId']!=prop_id:raise ValueError('Actual catalog/report property allocation differs')
                     pin=property_ref['definitionPin']
                     if prop_id in fields:raise ValueError('Duplicate accepted field')
-                    domains[prop_id]=(field['scalarType'],field['nullability'])
+                    domains[prop_id]=(field['scalarType'],field['nullability']);facets[prop_id]=admitted_facets(field)
                     if domains[prop_id][0]!='string':self.typed=True
                     fields[prop_id]=pin;authored[member['module'],member['element']]=prop_id
                     if field['nullability']=='required':required.add(prop_id)
@@ -65,7 +91,7 @@ class TrussGraphAdmission:
                     if any(domains[pid][0]!='string'for pid in components):raise ValueError('Required STRING keys only')
                     keys[key['id']]=components
                     definitions['key',owner[0],owner[1],type_id,key['id']]
-                types[type_id]={'owner':owner,'pin':ref['definitionPin'],'fields':fields,'domains':domains,'required':required,'keys':keys};qualified[owner]=type_id
+                types[type_id]={'owner':owner,'pin':ref['definitionPin'],'fields':fields,'domains':domains,'facets':facets,'required':required,'keys':keys};qualified[owner]=type_id
             edges={}
             for assigned in report['relationships']:
                 owner=(assigned['documentId'],assigned['moduleId'],assigned['relationshipId']);relation=relationships[owner]
@@ -105,6 +131,7 @@ class TrussGraphAdmission:
             for pid,prop in props.items():
                 family,nullability=record['domains'][pid];kind=prop['value']['kind']
                 if kind!=family:raise PermissionError('Original scalar family/nullability differs')
+                require_facet_value(family,record['facets'][pid],prop['value'])
         else:
             edge=selected['edges'].get(type_id)
             if edge is None or identity.get('definitionPin')!=edge['pin']or identity.get('owner')!={'documentId':edge['owner'][0],'moduleId':edge['owner'][1]}or tuple(str(key.type_id)for key in change.state.endpoints)!=edge['endpoints']:raise PermissionError('Actual accepted relationship pin/endpoints required')
@@ -116,5 +143,5 @@ class TrussGraphAdmission:
         role='types'if change.state.key.kind=='object'else'edges';identity=str(change.state.key.type_id)
         old=self.revisions[previous.schema_revision][role][identity];new=self.revisions[change.state.schema_revision][role][identity]
         if old['owner']!=new['owner']:raise PermissionError('Stable accepted graph identity required')
-        if role=='types'and (any(new['fields'].get(field)!=pin for field,pin in old['fields'].items())or old['keys']!=new['keys']or any(new['domains'].get(pid)!=domain for pid,domain in old['domains'].items())):raise PermissionError('Only additive accepted scalar fields supported')
+        if role=='types'and (any(new['fields'].get(field)!=pin for field,pin in old['fields'].items())or any(new['facets'].get(pid)!=facet for pid,facet in old['facets'].items())or old['keys']!=new['keys']or any(new['domains'].get(pid)!=domain for pid,domain in old['domains'].items())):raise PermissionError('Only additive accepted scalar fields supported')
         if role=='edges'and old['endpoints']!=new['endpoints']:raise PermissionError('Stable declared relationship endpoints required')

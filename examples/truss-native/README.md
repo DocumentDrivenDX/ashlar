@@ -1676,3 +1676,23 @@ with admitted source data. This command supports direct unfiltered, unordered
 single-record STRING projections; other query shapes require separate admission.
 Its output retains the original request and response strings. Qualification is
 scoped to the local candidate, with native execution evidence recorded separately.
+
+### Query required scalar fields
+
+Use `query-truss-scalars` with the same explicit reader, compiler and physical
+revision selections to project required STRING, Boolean, signed64 integer and
+decimal(18,4) fields. The numeric facets must be present in the original accepted
+model. For `typed-query-record.umf.json`, select:
+
+```sql
+SELECT r."record-id" AS id, r.quantity AS quantity,
+       r.amount AS amount, r.active AS active FROM TypedRecord r
+```
+
+Numeric results retain `{ "integer_token": "..." }` or
+`{ "decimal_token": "..." }` carriers. Complete-bag comparison uses exact
+mathematical values, preserving original source and compiler tokens. The command
+requires direct unfiltered, unordered required-field projections and runs all
+original publication and integrity checks. Optional scalar outputs, arithmetic
+and aggregates need their own admission. Truss numeric source support requires
+the main-source iteration after `v0.0.1`; that published release does not include it.

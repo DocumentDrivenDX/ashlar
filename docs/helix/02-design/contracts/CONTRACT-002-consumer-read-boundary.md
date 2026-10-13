@@ -465,3 +465,10 @@ It MUST NOT invent numeric bounds or rewrite an original source version. The
 STRING-only request API MUST retain its closed subset. An unsupported declared
 scalar meaning MUST produce the original compiler refusal; compiling a binding
 MUST NOT imply native execution or discharge host obligations.
+
+A direct required-field scalar projection MUST bind each original Field descriptor
+to its accepted property allocation and declared scalar facets. Integer and decimal
+results MUST retain exact compiler carrier tokens; complete result comparison MUST
+use exact mathematical values without float conversion or rounding. Scalar admission
+MUST remain explicit and MUST NOT broaden STRING-only commands, permit aggregates
+without their separate admission, or bypass publication and integrity obligations.
