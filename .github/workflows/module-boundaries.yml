@@ -24,7 +24,7 @@ jobs:
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_count_star_command test_commerce_query_selection test_registered_outbox_uncertain test_original_commerce_reopen
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_graph_lifecycle test_truss_saved_publication test_truss_prepared test_truss_recovery test_truss_resume test_truss_continue test_truss_continue_cli
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_weft_grouped_count test_truss_weft_count test_truss_weft_related
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_weft_grouped_count test_truss_weft_count test_truss_weft_related test_truss_value_projection
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_relationship_filter
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_truss_graph_export_cli test_truss_singleton test_local_receipt_codec test_truss_record_evolution test_truss_evolution_catalog test_truss_staging_capacity test_truss_page_archive
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_graphframes_export test_graphframes_export_setup

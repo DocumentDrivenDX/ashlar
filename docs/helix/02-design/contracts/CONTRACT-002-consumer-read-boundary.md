@@ -25,6 +25,25 @@ Specify bounded read requests, progress, result completeness and failure outcome
 independently of query syntax, transport, physical layout and UMF bindings.
 The normative surface is a proposed synthetic profile pending owner review.
 
+### Truss STRING presence projections
+
+`query-truss-graph` MUST preserve optional STRING values in direct, unfiltered,
+unordered field projections from one admitted record scan. A required field
+returns its exact string. An absent-allowed field returns either
+`{"state":"absent"}` or `{"state":"value","value":STRING}` from the original
+compiler's value representation. Native NULL, explicit null state, a foreign
+Field descriptor or unsupported representation MUST refuse without a result.
+
+The original accepted model, property allocations, compiler IR, output positions
+and complete publication vector MUST correspond. Previously stored rows MUST
+retain identical field definition pins and keys under an additively compatible
+revision; a new absent-allowed field can remain absent on those rows. Every
+emitted integrity guard MUST run before the original query. Compiler bindings
+MUST explicitly cover the admitted physical revisions; the host MUST NOT repair
+SQL or omit guards to admit older rows. The complete result bag, including older
+compatible rows and multiplicities, MUST match the independent source-derived
+projection before successful closing checks release it.
+
 ### Original supply-chain two-hop composition
 
 `query_supply_chain_two_hop(driver, pack, aliases, config, *, observe)` MUST consume the

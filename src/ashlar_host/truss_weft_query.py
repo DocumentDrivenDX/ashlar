@@ -149,14 +149,18 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
-                    count=False
+                    count=False;value_projection=None
+                    if any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
+                        from .truss_value_projection import admit_truss_value_projection
+                        value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
                     if grouped:
                         grouped_expected=admit_truss_grouped_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     elif len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered)
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered,value_projection=value_projection)
+                    if value_projection is not None:value_projection.require_complete_bag(rows)
                     if filtered:
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in filter_expected):
@@ -203,7 +207,7 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False,value_projection=None):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
     columns=artifact.get('columns')
@@ -215,6 +219,10 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
         integer=count or (grouped and representation.get('logicalType',{}).get('family')=='integer')
         expected={'kind':'scalar','logicalType':{'family':'integer'if integer else'string','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'if integer else'text'}
         if related and representation.get('kind')=='relatedKeys':expected=representation
+        if value_projection is not None:
+            from .truss_value_projection import TrussValueProjection
+            if type(value_projection)is not TrussValueProjection or encoded(column)not in [encoded(item)for item in json.loads(value_projection.columns_json)]:raise ValueError('Exact admitted value projection column required')
+            expected=representation
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
             raise ValueError('Only admitted non-null STRING scalar outputs supported')
         names.append(column['outputName'])
@@ -249,6 +257,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
     if observed['schema']!=[[name,'STRING']for name in names]:raise ValueError('Original compiler result schema differs')
     if count and len(observed['rows'])!=1:raise ValueError('One complete global COUNT row required')
     def decode(column,value):
+        if value_projection is not None:return value_projection.decode(column,value)
         if column['representation']['kind']=='relatedKeys':
             from ashlar.weft_related_keys_decode import decode_related_keys,RelatedKeysDecodeConfig
             decoded=decode_related_keys(column['representation'],value,model_pins=artifact['modelPins'],config=RelatedKeysDecodeConfig(65536))

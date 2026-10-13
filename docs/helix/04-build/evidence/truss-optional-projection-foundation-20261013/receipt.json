@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-truss-optional-projection-foundation/0.1",
+  "compiler_response_sha256": "1c9b27b0025f5b19238934ecb0608fdd2080dd0d51370054ce830226857f50bf",
+  "model_pins": [
+    {
+      "documentId": "cohort",
+      "revision": "ecb2e4048c374877e82013eae0a28d7503e218b1c4195461ec8cdbf5c58a872f",
+      "sha256": "ecb2e4048c374877e82013eae0a28d7503e218b1c4195461ec8cdbf5c58a872f",
+      "umfVersion": "0.7.0"
+    }
+  ],
+  "optional_representation": {
+    "descriptor": {
+      "documentId": "cohort",
+      "element": "B-tag",
+      "module": "m",
+      "revision": "ecb2e4048c374877e82013eae0a28d7503e218b1c4195461ec8cdbf5c58a872f"
+    },
+    "kind": "value",
+    "nativeNull": false
+  },
+  "focused_controls": 4,
+  "native_mixed_revision_execution": "pending",
+  "qualification": "Actual public installed compiler emitted the optional STRING value representation from original Truss cohort r2 metadata. Host admission/decoder and complete mixed-revision source bag controls pass; no native optional-field pass. Existing single-revision compiler guards remain intact and block the evolved mixed-revision publication. No SQL rewrite or source mutation."
+}
