@@ -65,8 +65,8 @@ fields, project each grouping field once and add one `COUNT(*)`:
 
 Select `--document-id cohort` for this example. Grouped counts return an unordered
 row bag checked against the selected publication's complete source oracle. Both
-global and grouped counts are exact nonnegative integers. Filters, joins,
-relationship counts and `COUNT(DISTINCT ...)` need separate query support.
+global and grouped counts are exact nonnegative integers. Filters, general joins, relationship counts and `COUNT(DISTINCT ...)` need
+separate query support; the equality join-count profile below is admitted separately.
 
 For the accepted `cohort.umf.json` graph, use the same command with
 `--document-id cohort` and:
@@ -122,6 +122,18 @@ SELECT RELATED_KEYS(b."B-A", 2) AS related FROM B b
 This is a separate authored setup choice; it does not upgrade an existing catalog.
 Its [local Truss acceptance receipt](../../docs/helix/04-build/evidence/truss-inverse-acceptance-20261013/result.json)
 checks schema acceptance only; the separate inverse workflow above publishes and queries data.
+
+Required STRING equality joins can produce a single global count:
+
+```sql
+SELECT COUNT(*) AS n FROM B b JOIN B c ON b."B-value" = c."B-value"
+```
+
+This profile counts matching record pairs, retaining duplicate-value multiplicity;
+it does not follow relationship edges. It supports one INNER equality join,
+without filters, grouping, ordering or limits. Original compiler SQL and scalar
+integrity guards run under the same complete publication pins. The [local join-count receipt](../../docs/helix/04-build/evidence/truss-join-count-20261013/result.json)
+returns `1` for the original single B record, without ingest or source advancement.
 
 ## Accept into an existing installation
 

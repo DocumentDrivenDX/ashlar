@@ -1,0 +1,29 @@
+{
+  "profile": "ashlar-source-cli-truss-string-join-count-functional/0.1",
+  "seconds": 10.126,
+  "publications": 2,
+  "rows": [
+    {
+      "n": 1
+    }
+  ],
+  "actual_integrity_checks": 2,
+  "join_fields": [
+    "B-value",
+    "B-value"
+  ],
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "471c9610bbce8ebd41dcf83316f074724fb3fff29c00817eb3b584f2107994fc",
+  "server_stopped": true,
+  "query_sha256": "b2afe60a2449cdeda19b0fbb62d8ed9ba53508a8d2784402e3b599c14b5e75d2",
+  "qualification": "Actual source CLI original accepted inverse UMF cohort, one group with two objects/one independent typed edge, existing original Delta publication, public Weft scalar guards and original version-pinned STRING equality selfjoin COUNT query. Exact count1 from one original B record; no distinct-target, installed wheel, Unity Catalog or scale qualification.",
+  "native_join_count_pass": true,
+  "query_report": "query.json.gz",
+  "model_sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+  "runtime": {
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "postgresql": "18.6",
+    "compiler": "weft/0.1.0"
+  }
+}

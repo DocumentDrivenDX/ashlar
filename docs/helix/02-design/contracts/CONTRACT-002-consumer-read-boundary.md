@@ -44,6 +44,16 @@ SQL or omit guards to admit older rows. The complete result bag, including older
 compatible rows and multiplicities, MUST match the independent source-derived
 projection before successful closing checks release it.
 
+### Truss STRING equality join count
+
+A single INNER equality join over two required STRING record occurrences MAY
+produce global `COUNT(*)`. The adapter MUST validate both accepted property homes
+and original typed compiler IR under the complete publication vector, execute
+all original scalar guards and unchanged compiler SQL, and compare the exact
+nonnegative count with the complete source frequency-product oracle. Equal values
+MUST retain pair multiplicity; this operation MUST NOT imply relationship-edge
+join semantics. Filters, grouping, ordering and limits require separate admission.
+
 ### Truss relationship existence direction
 
 A `HAS_RELATED` predicate MAY use an explicitly authored inverse name and MUST

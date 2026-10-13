@@ -149,18 +149,23 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
-                    count=False;value_projection=None
+                    count=False;value_projection=None;join_expected=None
                     if any(column.get('representation',{}).get('kind')=='value'for column in artifact.get('columns',[])):
                         from .truss_value_projection import admit_truss_value_projection
                         value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
                     if grouped:
                         grouped_expected=admit_truss_grouped_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    elif artifact.get('logicalPlan',{}).get('joins'):
+                        from .truss_join_count import admit_truss_join_count
+                        join_expected=admit_truss_join_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                        count=True
                     elif len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
                     rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered,value_projection=value_projection)
                     if value_projection is not None:value_projection.require_complete_bag(rows)
+                    if join_expected is not None and rows!=join_expected:raise ValueError("Independent original join count differs")
                     if filtered:
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in filter_expected):
@@ -178,7 +183,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, authored forward/inverse HAS_RELATED or unordered authored forward/inverse RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, required STRING equality INNER JOIN COUNT, authored forward/inverse HAS_RELATED or unordered authored forward/inverse RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     return result
 
 
