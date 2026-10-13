@@ -194,7 +194,11 @@ class FiniteFileDriver:
         if self.request is not None or self.manifest is not None:raise ValueError('Original finite driver already selected')
         request=source_snapshot(request);self.source.admit_request(request);self.request=request
         with owned_context(self._existing_read_interval(request['stream'],self.context,restore=True))as select_manifest:
-            return self._restore_committed_records(request,select_manifest=select_manifest)
+            # Reuse only immutable version observations within this held admission.
+            # Source/authority checks remain live; history is renewed before release.
+            from .immutable_snapshot_memo import immutable_snapshot_memo
+            with immutable_snapshot_memo(self.transport):
+                return self._restore_committed_records(request,select_manifest=select_manifest)
     def _restore_committed_records(self,request,*,select_manifest=None):
         original_phase_request=source_snapshot(request)
         target=self.transport.targets[self.tables['attempts']]
