@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
                  patch.object(type(source),'observe_checkpoint',return_value=source.page.prior.content):
                 self.assertEqual(resume_truss_publication(driver,request['request_digest']),'descriptor')
                 self.assertEqual(events[-2:],['restore','coordinator'])
-            with patch('ashlar_host.truss_resume.DeltaAttemptStore'),patch.object(type(source),'observe_checkpoint',return_value=source.page.next.content):
+            with patch('ashlar_host.truss_resume.DeltaAttemptStore',return_value=SimpleNamespace(session=session)),patch.object(type(source),'observe_checkpoint',return_value=source.page.next.content):
                 with self.assertRaisesRegex(ValueError,'Advanced Truss checkpoint'):
                     resume_truss_publication(driver,request['request_digest'])
         finally:db.close()

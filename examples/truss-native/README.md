@@ -644,5 +644,13 @@ publication whose source checkpoint is still pending. It checks the existing
 attempt phases, restores the original applied state or interrupted effects, and
 uses the regular coordinator to publish and ACK. The coordinator owns its writer
 interval, so call this function outside an already-held writer. An advanced
-checkpoint requires separate durable ACK-attempt recovery; this function refuses
-it before effects rather than inferring that a new owner issued the original ACK.
+checkpoint requires the exact original durable ACK attempt and committed native
+publication. The function verifies those records and reconciles the checkpoint
+without submitting another ACK. Missing intent or a different checkpoint refuses
+before recovery effects.
+
+Truss ACK intent is retained in the original journal before the public ACK call,
+binding the request, manifest, complete snapshot vector and source registration.
+A restarted owner can observe the original next checkpoint only after validating
+that intent and the committed publication. This is caller-asserted delivery
+reconciliation; it does not turn Truss delivery into a protected outbox receipt.

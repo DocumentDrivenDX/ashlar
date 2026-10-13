@@ -2294,10 +2294,23 @@ class NativeDriver:
             ack_ports = {'pins': self, 'publication_backend': self, 'supported_profiles': [PROFILE],
                          'supported_revisions': {k: [v] for k, v in json.loads(request['schema_revisions_json']).items()}}
 
+        from .truss_feed_sessions import TrussFeedSessions
+        truss_reconcile = False
+        if type(ack) is TrussFeedSessions:
+            from .truss_ack_journal import retain_truss_ack_attempt
+            checkpoint = ack.observe_checkpoint(context=context)
+            if checkpoint == ack.page.prior.content:
+                retain_truss_ack_attempt(self, request, row, vector)
+            elif checkpoint == ack.page.next.content:
+                ack.adopt_ack_attempt(self, request, row, vector)
+                truss_reconcile = True
+            else:
+                raise ValueError('Original Truss ACK checkpoint differs')
+
         raw_request = encoded(request).encode()
         raw_manifest = encoded(row).encode()
         try:
-            receipt = ack.acknowledge(raw_request, raw_manifest, vector, context=context, **ack_ports)
+            receipt = (ack.reconcile if truss_reconcile else ack.acknowledge)(raw_request, raw_manifest, vector, context=context, **ack_ports)
         except AckOutcomeUncertain:
             receipt = ack.reconcile(raw_request, raw_manifest, vector, context=context, **ack_ports)
             if receipt is None:

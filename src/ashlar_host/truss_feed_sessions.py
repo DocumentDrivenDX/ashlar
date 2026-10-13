@@ -142,6 +142,16 @@ class TrussFeedSessions:
         if publication_backend.validate_manifest(manifest,context)is not None:
             raise TrussSessionError('Current destination effects admission incomplete')
 
+    def adopt_ack_attempt(self,driver,request,manifest,vector):
+        """Adopt only an original live native committed caller-asserted intent."""
+        from .truss_ack_journal import admit_truss_ack_attempt
+        if driver.source_sessions is not self or driver.ack_sessions is not self or driver.context is not self.context:
+            raise TrussSessionError('Original actual ACK driver/session correspondence required')
+        admit_truss_ack_attempt(driver,request,manifest,vector)
+        if self.observe_checkpoint(context=self.context)!=self.page.next.content:
+            raise TrussSessionError('Original advanced ACK checkpoint not observed')
+        object.__setattr__(self,'_pending_checkpoint',self.page.next.content)
+
     def acknowledge(self,request_bytes,manifest_bytes,vector,*,context,pins,publication_backend,supported_profiles,supported_revisions):
         return self._perform(request_bytes,manifest_bytes,vector,context,pins,publication_backend,
             supported_profiles,supported_revisions,reconcile=False)

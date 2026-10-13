@@ -12,8 +12,8 @@ from .truss_recovery import restore_applied_truss_publication, recover_interrupt
 def resume_truss_publication(driver, request_digest):
     """Use retained phases/plans and genuine coordinator, never a fresh attempt.
 
-    Already advanced checkpoints require separate durable ACK-attempt recovery
-    and are refused here. Caller owns the transport and enclosing source lifetime.
+    Advanced checkpoints require exact retained ACK intent and native committed
+    custody. Caller owns the transport and enclosing source lifetime.
     """
     require_custody_digest(request_digest)
     if (type(driver) is not NativeDriver or type(driver.source_sessions) is not TrussFeedSessions
@@ -31,17 +31,28 @@ def resume_truss_publication(driver, request_digest):
     attempts = DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid)
     with owned_context(driver.writer(request['stream'],driver.context)):
         # Observe the actual current cursor, never a historical-page reproduction.
-        if source.observe_checkpoint(context=driver.context) != source.page.prior.content:
-            raise ValueError('Advanced Truss checkpoint requires durable ACK-attempt recovery')
+        checkpoint = source.observe_checkpoint(context=driver.context)
+        if checkpoint not in (source.page.prior.content,source.page.next.content):
+            raise ValueError('Original Truss source checkpoint differs')
         with owned_context(attempts.session(driver.context)) as session:
             records = session.read(request['stream'],request['batch_id'])
         if not records or records[-1].phase not in ('applying','applied','committing','committed'):
             raise ValueError('Original interrupted publication phase required')
         if any(record.request_digest != request_digest or decode_custody_bytes(record.payload_json.encode())['request'] != request for record in records):
             raise ValueError('Original retained publication phases differ')
+        if checkpoint == source.page.next.content and records[-1].phase != 'committed':
+            raise ValueError('Advanced Truss checkpoint requires original committed phase')
         applied = driver.transport.db.execute('SELECT 1 FROM local_publication_artifact WHERE request_digest=?',(request_digest,)).fetchone()
+        if checkpoint == source.page.next.content and not applied:
+            raise ValueError('Advanced Truss checkpoint requires original applied artifact')
         if applied: restore_applied_truss_publication(driver,request_digest)
         else: recover_interrupted_truss_apply(driver,request_digest)
+        if checkpoint == source.page.next.content:
+            from ashlar.manifest import manifest_pin_vector
+            manifest = driver.policy.active['manifest']
+            import json
+            vector = manifest_pin_vector(manifest,{table:driver.transport.targets[table].uuid for table in json.loads(manifest['table_versions_json'])},authority='private-local-process')
+            source.adopt_ack_attempt(driver,request,manifest,vector)
     # The coordinator acquires its own writer; no nested ownership interval.
     backend = StoredPublisherBackend(attempts,driver,lambda original,supplied:ManifestPort(driver,original))
     return publish_truss_transaction(backend,request['stream'],source.batch(),
