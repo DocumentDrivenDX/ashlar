@@ -1864,3 +1864,28 @@ retained values, order key and receipt replay before releasing its bounded priva
 report. An uncertain commit is surfaced without automatic retry. This source
 adapter supplies no Delta publication, ACK or relationship-query qualification;
 consume the resulting feed with the publication workflow separately.
+
+### Traverse authored keys over typed records
+
+Use the separately authored [typed relationship model](typed-related-record.umf.json)
+with required numeric fields and STRING endpoint keys. After accepting the model,
+creating its records and edges, and publishing their feed, select the current
+catalog revision explicitly:
+
+```sh
+ashlar query-truss-typed-related-keys --configuration /absolute/private/reader.json \
+  --output /absolute/private/related-query.json --compiler /absolute/private/weft-cli \
+  --sql 'SELECT r."record-id" AS id,RELATED_KEYS(r.related,2) AS targets FROM TypedRecord r' \
+  --revision 1 --document-id typed-related-record --maximum-rows 100
+```
+
+The pinned local candidate compiler receives the complete original typed model
+and authored relationship. Required STRING outputs and endpoint keys are admitted;
+numeric fields retain their original declarations and allocations. Every original
+scalar and relationship integrity guard runs under the same full publication hold.
+Key tuple order, parallel edge occurrences, deterministic prefixes and truncation
+are checked against the complete admitted source bag. The authored `incoming`
+inverse name reverses traversal while preserving the canonical edge mapping.
+Historical revision unions, filters, numeric outputs and aggregates need separate
+admission. Qualification is scoped to the local candidate and recorded native
+evidence; this command does not publish or acknowledge source data.

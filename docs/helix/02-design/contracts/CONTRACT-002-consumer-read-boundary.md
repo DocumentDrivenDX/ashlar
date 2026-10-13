@@ -531,3 +531,19 @@ unknown obligations and unavailable closing custody refuse buffered publication.
 This admission covers unfiltered, unordered single-record grouping. Joins,
 optional grouping fields, arithmetic grouping and other aggregates require their
 own explicit admission.
+
+### Authored key traversal over typed records
+
+A separately selected current-revision `RELATED_KEYS` query MAY traverse an
+accepted authored relationship whose records also contain integer, decimal or
+Boolean fields. The exact original typed model, accepted field allocations and
+relationship definition MUST remain in the compiler binding. Authored endpoint
+keys and projected scalar fields in this route MUST be required facetless STRING
+fields. Forward and inverse traversal retain canonical edge identities,
+multiplicity, lifecycle and key tuple order. The complete publication is held
+while every original scalar and relationship guard executes before unchanged
+compiler SQL; buffered key bags MUST match independent original edge occurrences
+and pass closing custody checks. This route MUST require a related-key output
+and refuse relationship filters, historical revision unions, numeric outputs,
+aggregates or paths without their own admission. Unreferenced numeric properties
+remain exact during source comparison.

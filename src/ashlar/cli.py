@@ -162,6 +162,10 @@ def main():
         truss_numeric_grouped_count.add_argument('--'+option,required=True)
     truss_numeric_grouped_count.add_argument('--physical-revision',action='append',required=True)
     truss_numeric_grouped_count.add_argument('--maximum-rows',type=int,default=1000)
+    truss_typed_related=commands.add_parser('query-truss-typed-related-keys',help='Run authored RELATED_KEYS over typed Truss records on one current catalog revision')
+    for option in ('configuration','output','compiler','sql','revision','document-id'):
+        truss_typed_related.add_argument('--'+option,required=True)
+    truss_typed_related.add_argument('--maximum-rows',type=int,default=1000)
     truss_arithmetic=commands.add_parser('query-truss-arithmetic',help='Run installed public 0.4.2 direct exact arithmetic projections under Truss publication custody')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_arithmetic.add_argument('--'+option,required=True)
@@ -615,6 +619,16 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar compatible Truss query refused; inspect the original publication and selected local compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-typed-related-keys':
+        try:
+            from ashlar_host.truss_typed_related_query_cli import run_query_truss_typed_related_keys_command
+            run_query_truss_typed_related_keys_command(args.configuration,args.output,compiler=args.compiler,
+                sql=args.sql,revision=args.revision,document_id=args.document_id,maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar typed relationship query refused; inspect the original publication and selected compiler',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-arithmetic':

@@ -1,0 +1,40 @@
+{
+  "format": "ashlar-truss-typed-related-compiler-probe/0.1",
+  "compiler": {
+    "binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+    "binary_bytes": 16838512,
+    "public_port": "ashlar_host.weft_compatible_cli.compile_compatible",
+    "source_revision_reported_by_owner": "cc17246e8b7e05ff61262baa95d373ea0ca640a1"
+  },
+  "model": {
+    "path": "examples/truss-native/typed-related-record.umf.json",
+    "bytes": 3570,
+    "sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+    "declared_umf": "0.7.0"
+  },
+  "status": "compiled",
+  "required_capabilities": [
+    "project",
+    "relationship.boundedKeys",
+    "scan",
+    "type.string"
+  ],
+  "obligation_ids": [
+    "ashlar.candidate.publication",
+    "ashlar.candidate.relationshipIntegrity",
+    "ashlar.candidate.scalarIntegrity"
+  ],
+  "files": {
+    "request.json": {
+      "bytes": 8778,
+      "sha256": "bada4382055be14e487c0b5c01fe4375b4a61bc95377d5d28f43cd84ce4a2126"
+    },
+    "response.json": {
+      "bytes": 39230,
+      "sha256": "94a0ceb7193066612c8e0b525fdb92309daa29aa4f8c94bd981f9b52b59a580e"
+    }
+  },
+  "source_acceptance": false,
+  "native_execution": false,
+  "qualification": "Actual authenticated pinned public compiler invocation using exact separately authored original typed relationship model bytes and an inert binding. Saved table aliases/UUIDs are compilation inputs only and supply no source acceptance, native publication, integrity discharge or result authority."
+}

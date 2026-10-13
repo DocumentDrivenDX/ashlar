@@ -103,18 +103,21 @@ def truss_scalar_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases,typed=True)
 
 
-def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None,scalar_projection=False,scalar_join=False,scalar_join_count=False,numeric_grouped_count=False):
+def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None,scalar_projection=False,scalar_join=False,scalar_join_count=False,numeric_grouped_count=False,typed_related=False):
     """Compile exact authored singleton/list SQL under the actual publication hold.
 
     Returns original request/response bytes after closing native pins and writer.
     A row budget selects guarded execution; outer resources remain caller owned.
     """
-    if any(type(flag)is not bool for flag in (scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count)) or sum((scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count))>1 or (scalar_projection or scalar_join or scalar_join_count or numeric_grouped_count)and physical_revisions is None:raise ValueError("Explicit compatible scalar projection required")
+    if any(type(flag)is not bool for flag in (scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count,typed_related)) or sum((scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count,typed_related))>1 or (scalar_projection or scalar_join or scalar_join_count or numeric_grouped_count)and physical_revisions is None:raise ValueError("Explicit compatible scalar projection required")
+    if typed_related and physical_revisions is not None:raise ValueError("Typed related query requires current revision only")
+    if (physical_revisions is not None or any((scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count,typed_related)))and (type(maximum_rows)is not int or not 1<=maximum_rows<=10000):raise ValueError('Explicit bounded execution row budget required')
     compatible=physical_revisions is not None
-    if compatible:
+    candidate_compiler=compatible or typed_related
+    if candidate_compiler:
         from .weft_compatible_cli import CompatibleCompiler,compile_compatible
         from .truss_compatible_binding import truss_compatible_compile_request,admit_truss_compatible_revisions,BACKEND as compatible_backend
-    if (type(driver)is not NativeDriver or (type(paths)is not (CompatibleCompiler if compatible else DistributionPaths))
+    if (type(driver)is not NativeDriver or (type(paths)is not (CompatibleCompiler if candidate_compiler else DistributionPaths))
             or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions):
         raise PermissionError('Actual Truss publication/compiler owners required')
     if maximum_rows is not None and (type(maximum_rows)is not int or not 1<=maximum_rows<=10000):
@@ -129,18 +132,19 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 supported_profiles=['ashlar-delta/0.3'],supported_revisions={key:[value]for key,value in json.loads(manifest['schema_revisions_json']).items()})
             if dict(resolved.descriptor.raw)!=manifest:raise PermissionError('Original pinned Truss manifest differs')
             with owned_context(_query_aliases(driver,manifest,enabled=maximum_rows is not None))as aliases:
-                builder=truss_compatible_compile_request if compatible else truss_string_compile_request
+                builder=truss_compatible_compile_request if compatible else truss_scalar_compile_request if typed_related else truss_string_compile_request
                 request=builder(driver.source_admission,manifest,uuids,
                     driver.transport.targets[driver.tables['manifest']].uuid,sql,revision=revision,document_id=document_id,aliases=aliases,**({'physical_revisions':physical_revisions}if compatible else {}))
+                if typed_related:request['target'].update({key:compatible_backend[key]for key in ('backendId','backendVersion','targetProfile')})
                 request_bytes=(encoded(request)+'\n').encode()
-                response=(compile_compatible if compatible else compile_distribution)(paths,request_bytes)
+                response=(compile_compatible if candidate_compiler else compile_distribution)(paths,request_bytes)
                 artifact=decode_compile_artifact(response)
-                if (artifact.get('status')!='compiled' or artifact.get('backend')!=(compatible_backend if compatible else BACKEND) or artifact.get('bindingSha256')!=request['target']['bindingSha256']
+                if (artifact.get('status')!='compiled' or artifact.get('backend')!=(compatible_backend if candidate_compiler else BACKEND) or artifact.get('bindingSha256')!=request['target']['bindingSha256']
                         or artifact.get('modelPins')!=json.loads(request['target']['bindingJson'])['modelPins']):
                     raise ValueError('Original public Weft Truss compiler correspondence differs')
                 binding=json.loads(request['target']['bindingJson'])
                 obligations=artifact.get('obligations')
-                if (type(obligations)is not list or len(obligations)not in ((3,)if compatible else (2,3))
+                if (type(obligations)is not list or len(obligations)not in ((3,)if candidate_compiler else (2,3))
                         or {item.get('id')for item in obligations}not in (({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.compatibleSchemaRevisions'},)if compatible else ({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity'},{'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity'}))):
                     raise ValueError('Exact candidate Truss compiler obligation inventory required')
                 if any(type(item)is not dict or set(item)!={'id','owner','parameters','failureCode'} or item['owner']!='host' or type(item['failureCode'])is not str or not item['failureCode']or type(item['parameters'])is not dict for item in obligations):
@@ -154,6 +158,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                     raise ValueError('Original candidate scalar integrity lifecycle differs')
                 related=any(column.get('representation',{}).get('kind')=='relatedKeys'for column in artifact.get('columns',[]))
                 filtered=any(item.get('op')=='hasRelated'for item in artifact.get('logicalPlan',{}).get('filters',[]))
+                if typed_related and (not related or filtered):raise ValueError('Only direct current-revision typed RELATED_KEYS queries admitted')
                 if (related or filtered) != any(item['id']=='ashlar.candidate.relationshipIntegrity'for item in obligations):
                     raise ValueError('Exact related-key guard obligation required')
                 if related or filtered:
@@ -231,6 +236,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
     if scalar_join:result['qualification']='Local compatible-revision candidate required scalar equality INNER JOIN projection, exact declared numeric domains and carrier tokens, complete native publication pins, original guards and independent full source-pair bag. No production profile qualification.'
     if scalar_join_count:result['qualification']='Local compatible-revision candidate required numeric equality INNER JOIN COUNT with original declared domains, complete native publication pins and original guards, exact independent matched-pair multiplicity and nonnegative signed64 count. No production profile qualification.'
     if numeric_grouped_count:result['qualification']='Local compatible-revision candidate one required numeric grouping field and COUNT under complete native publication pins, original integrity guards and independent exact full source grouping bag. Nonnegative signed64 counts; no production profile qualification.'
+    if typed_related:result['qualification']='Local typed authored RELATED_KEYS candidate on the current catalog revision under complete native publication pins and original scalar/relationship guards, with exact full independent edge-occurrence/key tuple bag. No production profile qualification.'
     return result
 
 
@@ -371,6 +377,12 @@ def execute_truss_numeric_grouped_count_query(driver,compiler,sql,*,revision,doc
         physical_revisions=physical_revisions,maximum_rows=maximum_rows,numeric_grouped_count=True)
 
 
+def execute_truss_typed_related_keys_query(driver,compiler,sql,*,revision,document_id,maximum_rows=1000):
+    """Execute authored STRING endpoint-key traversal over accepted typed records."""
+    return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
+        maximum_rows=maximum_rows,typed_related=True)
+
+
 def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):
     """Bind public global-count IR to actual accepted Truss record allocation."""
     from ashlar.weft_decode import admit_global_count_ir
@@ -403,6 +415,7 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
     Each edge contributes its target's authored key tuple; equal tuples remain
     repeated. This does not reinterpret RELATED_KEYS as distinct target records.
     """
+    from ashlar.schema import decode_retained_json
     selected=admission.revisions[revision];model,raw=selected['models'][document_id]
     digest=hashlib.sha256(raw).hexdigest();pin={'documentId':document_id,'revision':digest,'sha256':digest,'umfVersion':model['umf']}
     if artifact['modelPins']!=[pin]or binding['modelPins']!=[pin]:raise ValueError('Original related-key model differs')
@@ -489,7 +502,7 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
     answer=[]
     for (system,type_id,entity_id),row in objects.items():
         if system!=installation or type_id!=source_type or row['schema_revision']!=revision:continue
-        props=json.loads(row['props_json']);result={}
+        props=decode_retained_json(row['props_json'].encode());result={}
         for item in plans:
             if item[0]=='field':result[item[1]]=props[item[2]];continue
             _,name,rel_type,target_type,fields,bound,inverse=item;tuples=[]
@@ -499,7 +512,7 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
                 if edge_row[to_role+'_type']!=target_type:raise ValueError('Original related edge target type differs')
                 target=objects[installation,target_type,edge_row[to_role+'_id']]
                 if target['schema_revision']!=revision:raise ValueError('Original related target schema revision differs')
-                values=json.loads(target['props_json'])
+                values=decode_retained_json(target['props_json'].encode())
                 tuples.append((tuple(values[field]for field in fields),int(edge_row['id'])))
             tuples.sort(key=lambda item:(tuple(value.encode('utf8')for value in item[0]),item[1]))
             result[name]={'items':[list(value)for value,_ in tuples[:bound]],'truncated':len(tuples)>bound}
