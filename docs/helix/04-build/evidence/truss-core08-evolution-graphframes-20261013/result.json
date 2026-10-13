@@ -1,0 +1,87 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 8.591,
+  "runtime": {
+    "spark": "3.5.3",
+    "pyspark": "3.5.3",
+    "graphframes": "0.12.3",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "export_evidence": "../truss-core08-evolution-export-20261013",
+  "release_sha256": [
+    "3937170292de8875e69b704ceff22918ba9d69b2b5b850db8762522e3acd1011",
+    "10d57f86d5c3fef08ed8eb12d7f5d3f314f97ee6b6c772afdd46bde0993daadb"
+  ],
+  "custody_sha256": [
+    "ce8df159f120b07a8b8beb4c0d9eabae9b582f3e8678b9eb9376f9350c0d147d",
+    "825f03c8065fe73c860455eb8e02b75e087f23d14f1ae66c7511744f376f2946"
+  ],
+  "nodes_per_release": 1,
+  "edges_per_release": 0,
+  "field_counts": [
+    4,
+    5
+  ],
+  "stable_graph_id": "ashlar-key/1:WyJub2RlIiwiNTc2Yzk3N2ItNzBjNS00OTE5LWExNTgtMjJhNTYwN2JhY2E1IiwiMSIsIjIiXQ",
+  "mixed_pairs_refused": 2,
+  "files": [
+    {
+      "path": "run.py",
+      "bytes": 3461,
+      "sha256": "00840e4c5859499e4661786bd87acb8c442c7db46af5b0dcaa60d897c28acda0"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 734,
+      "sha256": "3ac15450bca9019bc2bc6fc24d9579760531f0aa3ee96763f6f8b20b2931d192"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1578,
+      "sha256": "00e97c685d06d542721cd9956c83877247a6eb5325021bcf54d2f1a163a0c1e0"
+    },
+    {
+      "path": "run-result.json",
+      "bytes": 1211,
+      "sha256": "3e2531318d220d480eb30bed55cd2bf72a4ce9b258add26356e6720af6aa6f42"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 68,
+      "sha256": "d8ac3d6daf1d255a0883b48b2f5e82298ff9313dc26b0f51248510a887d4da67"
+    },
+    {
+      "path": "seed-graphframes.json",
+      "bytes": 712,
+      "sha256": "760133256e827db7eb05e456cf0a48b6eceb2129777bcb62584683113cb17d2f"
+    },
+    {
+      "path": "evolved-graphframes.json",
+      "bytes": 718,
+      "sha256": "81166187a63386163278ea954c38577fb7ed276357e2bc8f330f73e4add7e588"
+    },
+    {
+      "path": "seed-graphframes-result.json",
+      "bytes": 1144,
+      "sha256": "2e6ef2c5dd39dabd85c700ff76c78bd314d3ec2f532ce5e0f47264317eb3cd0f"
+    },
+    {
+      "path": "evolved-graphframes-result.json",
+      "bytes": 1144,
+      "sha256": "32f8100afcb95107641e9ccaaa4a1b457377ca1d2e085e75d2939cee10fd5bc9"
+    },
+    {
+      "path": "mixed-0.json",
+      "bytes": 726,
+      "sha256": "e924f0d3f528f747db95888f260dfb2a20ede6e17cebe839c0c0bdb4a5978232"
+    },
+    {
+      "path": "mixed-1.json",
+      "bytes": 726,
+      "sha256": "aa54002fe80b153aba92529aee522d032e5e36cfe92aaffd43d786dd24b981cf"
+    }
+  ],
+  "qualification": "Actual public GraphFrames exact canonical node/edge occurrence-bag admission and isolated-node empty one/two-hop paths/counts over two immutable0.8 exports; original four/five props JSON carriers remain opaque STRING. Public engine entrypoint refused both mixed pairs before result release. No source access, mutations, ACK, ingest or graph numeric filtering qualification.",
+  "log_observation": "Original Spark log retains executor connection-reset output during termination. Both public commands completed their ownership closure and supervisor exited zero; no retry or log suppression."
+}
