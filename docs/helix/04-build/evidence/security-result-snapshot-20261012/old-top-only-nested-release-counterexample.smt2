@@ -1,0 +1,17 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun close_failure () Bool)
+(declare-fun top_deferred () Bool)
+(declare-fun result_auth () Bool)
+(declare-fun recheck () Bool)
+(declare-fun integrity () Bool)
+(declare-fun admission () Bool)
+(declare-fun invalid_data () Bool)
+(declare-fun nested_deferred () Bool)
+(assert
+ (let (($x26 (not close_failure)))
+(let (($x41 (not top_deferred)))
+(let (($x50 (and admission integrity recheck result_auth $x41 $x26)))
+(let (($x43 (not invalid_data)))
+(and nested_deferred $x43 $x50))))))
+(check-sat)

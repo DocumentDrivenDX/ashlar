@@ -1,0 +1,38 @@
+{
+  "implementation": "Bounded exact-data snapshots before and after result authorization; nested deferred, opaque and cyclic carriers refuse while held. Mutable values detach from decoder/authorizer aliases. Shared 100,000 visited nodes, depth64 and8MiB copied bytearray payload cover all cells and final snapshot. Every recognized generator/coroutine close is attempted despite BaseException; snapshot refusal chains the first cleanup failure.",
+  "validation": {
+    "python": "3.11.17",
+    "tests": 40,
+    "failed": 0,
+    "wheelSha256": "324606ee1c624cc4eac113b426c82cbd5fee9a39bb5b22c5db757015e8b8c6d6",
+    "wheelModule": "exact source bytes",
+    "formal": "Z3 4.15.4: ten conditional queries (five UNSAT/five SAT) and63 selected actual helper controls; independent Astra temporary-copy and standalone SMT replay match."
+  },
+  "review": {
+    "model": "gpt-6-astra",
+    "reasoning": "ultra",
+    "result": "UUID/timezone metadata escape, interrupted cleanup and bytearray amplification findings fixed. Final15 query tests pass independently; no remaining code or proof-scope findings."
+  },
+  "acceptanceTraceability": [
+    {
+      "case": "ashlar.L03",
+      "covers": "US-057-AC2",
+      "relationship": "final-release component prerequisite only",
+      "caseClosed": false,
+      "qualification": "Prechange actualPython nested-generator body ran afterpinclosed; correctedcomponentrefuses. No authenticnativeguard/issuer/source/cut/revoker/finalsink or complete backendcase established."
+    }
+  ],
+  "scope": "Python buffered Weft test execution/pin boundary only. Native Databricks admission and complete mediated routing, credential and diagnostic closure remain unqualified. Structural scalar checks do not admit new codec domains. Byte budget limits copied payloads, not total transport/native/process heap. Async, opaque and out-of-walk resources remain qualified decoder/host responsibilities. No full recursive Python refinement or native theorem; original132 required cases unchanged.",
+  "sourceSha256": {
+    "src/ashlar/weft_query.py": "94c951fa1c7a9c9287ed39818a228d6bd82c69b5c418fb6e421255357dfe8243",
+    "tests/test_weft_query.py": "f4715777454bad4a11ed93a4f4a11eca83602428e103ef6c38753660fd234407",
+    "tests/test_weft_decode.py": "ae76175150f591e781f09f8d519f5891a4ac712de15738bf7eafedde5c48e891",
+    "tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
+    "tests/test_singleton.py": "000cf5c4fdaa41346228004b38db1c06b5b5a1a784ad57afca071d28b0c5602a",
+    "src/ashlar/publication.py": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0",
+    "src/ashlar/pins.py": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8",
+    "src/ashlar/native.py": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98",
+    "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md": "92f04a31e167543529fe203186978285ddc390f4a9557ef9e855a7f4f6c70b66",
+    "docs/helix/04-build/evidence/security-result-snapshot-20261012/verify.py": "2e5bdbdc67ca5beac13b31d8ed1db0e12528adaa8ec61d06b32874c4226efcb1"
+  }
+}

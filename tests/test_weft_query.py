@@ -100,6 +100,109 @@ class WeftQueryTests(unittest.TestCase):
         self.assertFalse(p.active);self.assertEqual(events,[])
         self.assertEqual(len(deferred),1);self.assertIsNone(deferred[0].cr_frame)
 
+    def test_nested_deferred_values_close_without_execution_while_held(self):
+        q,a,p,e,policy=self.setup();events=[];pending=[]
+        def cold():
+            events.append('generator ran');yield 'unprotected'
+        async def async_cold():
+            events.append('coroutine ran');return 'unprotected'
+        def decoder(*args):
+            self.assertTrue(p.active)
+            g,c=cold(),async_cold();pending.extend([g,c])
+            return {'outer':[('nested',g),{'value':c}]}
+        policy.decode_result=decoder
+        with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+        self.assertFalse(p.active);self.assertEqual(events,[])
+        self.assertIsNone(pending[0].gi_frame);self.assertIsNone(pending[1].cr_frame)
+
+    def test_result_authorization_cannot_insert_deferred_carrier(self):
+        q,a,p,e,policy=self.setup();pending=[];events=[]
+        def cold():
+            events.append('late body');yield 'unprotected'
+        def authorize(rows,*args):
+            self.assertTrue(p.active);g=cold();pending.append(g);rows[0][1]['late']=[g]
+        policy.authorize_result=authorize
+        with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+        self.assertFalse(p.active);self.assertEqual(events,[]);self.assertIsNone(pending[0].gi_frame)
+
+    def test_completed_data_snapshot_detaches_decoder_and_authorizer_aliases(self):
+        from ashlar.weft_query import _completed_decode
+        from decimal import Decimal
+        from datetime import datetime,timezone
+        data={'nested':[bytearray(b'abc'),(Decimal('123.456'),datetime(2026,10,12,tzinfo=timezone.utc))]}
+        copied=_completed_decode(data);data['nested'][0][0]=0;data['nested'].append('late')
+        self.assertEqual(copied['nested'][0],bytearray(b'abc'));self.assertEqual(len(copied['nested']),2)
+        q,a,p,e,policy=self.setup();retained=[];decode=policy.decode_result
+        def decoder(*args):
+            value=decode(*args)
+            if type(value) is dict:retained.append(value)
+            return value
+        def authorize(rows,*args):retained.append(rows[0][1])
+        policy.decode_result=decoder;policy.authorize_result=authorize
+        rows=self.read(q,a,p,e,policy)
+        for item in retained:item['value']='changed after release'
+        self.assertEqual(rows[0][1],{'state':'value','value':'雪'});self.assertFalse(p.active)
+
+    def test_opaque_cycles_depth_and_node_overflow_refuse_without_iteration(self):
+        from ashlar.weft_query import _completed_decode
+        calls=[]
+        class Opaque:
+            def __iter__(self):calls.append('iterated');yield 'unprotected'
+        cyclic=[];cyclic.append(cyclic)
+        deep='leaf'
+        for _ in range(65):deep=[deep]
+        for value in [Opaque(),cyclic,deep,[None]*100000,{1:'unsupported map key'}]:
+            with self.subTest(kind=type(value)),self.assertRaises(ResolutionError):_completed_decode(value)
+        self.assertEqual(calls,[])
+        class HostileClass:
+            @property
+            def __class__(self):calls.append('class protocol');return object
+        with self.assertRaises(ResolutionError):_completed_decode(HostileClass())
+        self.assertEqual(calls,[])
+        self.assertEqual(len(_completed_decode([None]*99999)),99999)
+
+    def test_scalar_metadata_cannot_retain_executable_or_mutable_uuid_alias(self):
+        from ashlar.weft_query import _completed_decode
+        from uuid import UUID
+        from datetime import datetime,time,timedelta,timezone
+        events=[]
+        def cold():events.append('metadata body');yield 'unprotected'
+        class Name(str):pass
+        g=cold();name=Name('custom');name.payload=g
+        opaque_uuid=UUID(int=1,is_safe=g)
+        for value in [opaque_uuid,UUID(int=1),datetime(2026,10,12,tzinfo=timezone(timedelta(),name)),time(tzinfo=timezone(timedelta(),name))]:
+            with self.assertRaises(ResolutionError):_completed_decode(value)
+        self.assertEqual(events,[]);g.close()
+
+    def test_all_recognized_generator_cleanup_attempts_survive_baseexception(self):
+        q,a,p,e,policy=self.setup();pending=[];events=[];cleanup_failure=KeyboardInterrupt('first cleanup')
+        def started(label):
+            try:yield 'staged while held'
+            finally:
+                events.append((label,p.active))
+                if label=='first':raise cleanup_failure
+        def decoder(*args):
+            self.assertTrue(p.active)
+            first,second=started('first'),started('second');next(first);next(second);pending.extend([first,second])
+            return {'values':[first,second]}
+        policy.decode_result=decoder
+        with self.assertRaises(ResolutionError) as failure:self.read(q,a,p,e,policy)
+        self.assertIs(failure.exception.__cause__,cleanup_failure)
+        self.assertEqual(events,[('first',True),('second',True)]);self.assertFalse(p.active)
+        self.assertTrue(all(g.gi_frame is None for g in pending))
+
+    def test_copy_and_visit_budgets_cover_aliases_and_the_complete_read(self):
+        from ashlar.weft_query import _completed_decode
+        one=bytearray(1024*1024)
+        self.assertEqual(len(_completed_decode([one]*8)),8)
+        with self.assertRaises(ResolutionError):_completed_decode([one]*9)
+        for value in [[one]*4,[None]*60000]:
+            q,a,p,e,policy=self.setup();calls=[]
+            def decoder(*args):calls.append(True);return value
+            policy.decode_result=decoder
+            with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+            self.assertFalse(p.active);self.assertEqual(len(calls),2)
+
     def test_closing_failure_preserves_original_authority_refusal(self):
         from contextlib import contextmanager
         q,a,p,e,policy=self.setup();policy.deny_after=True

@@ -343,6 +343,26 @@ policy callbacks independently verify original compiler/model/binding custody,
 native profile, caller authority, exact decoding and final row release. Library
 callback presence is not evidence that a deployed policy establishes these facts.
 
+The decoded return MUST be a completed data snapshot, including every nested
+carrier. The current structural gate supports exact list/tuple/string-key dict,
+None/bool/int/float/str/bytes, Decimal/date/timedelta, datetime/time with no zone
+or the native UTC singleton, and detached bytearray. It refuses opaque objects,
+custom subclasses/temporal metadata, UUID objects, cycles and deferred carriers;
+this structural inventory does not admit new scalar domains under the selected
+codec. The initial qualified string/envelope meanings remain unchanged.
+
+Snapshot processing shares100,000 visited nodes and8MiB copied bytearray payload
+across every decoded cell and the final post-authorization snapshot; depth is
+bounded to64. The byte charge precedes allocation. These are component copy/work
+limits, not total driver/native/process heap or transport guarantees. The final
+snapshot detaches mutable aliases retained by decoder and authorizer callbacks.
+Recognized generators/coroutines found within the bounded supported traversal
+are closed while held, with every recognized close attempted and the original
+refusal preserving the first cleanup failure as its cause. Unsupported opaque
+objects, async carriers, values beyond the walk budget and incomplete cleanup
+remain the qualified decoder/host's resource obligations; no permission or
+complete deployed mediation follows from this structural gate.
+
 The exact compiled-statement transport may execute WITH statements only from its
 trusted original artifact allowlist. Ordinary native read routing is unchanged.
 All guard results MUST be one exact STRING zero. Result names/order/native STRING

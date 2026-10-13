@@ -1,0 +1,11 @@
+{
+  "sourceSha256": "2ebea3bc78743ed964494f4cf4822d8bd1a90080c569367f965f05516c5c526f",
+  "returnedAfterClose": true,
+  "deferredBodyEvents": [
+    {
+      "event": "body",
+      "held": false
+    }
+  ],
+  "scope": "Original read_weft source with original compiled query/test SQL executor and pin controls; actual Python nested-generator escape after held interval. Not Databricks execution or authentic policy/source admission."
+}

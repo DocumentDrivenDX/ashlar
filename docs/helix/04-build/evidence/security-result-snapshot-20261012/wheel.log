@@ -1,0 +1,12 @@
+Processing /private/tmp/ashlar-security-main-integration
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: ashlar-graph-toolkit
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): started
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): finished with status 'done'
+  Created wheel for ashlar-graph-toolkit: filename=ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl size=1359347 sha256=324606ee1c624cc4eac113b426c82cbd5fee9a39bb5b22c5db757015e8b8c6d6
+  Stored in directory: /Users/erik/Library/Caches/pip/wheels/03/07/52/57b35a9154847f343afde91be4f9667d49dd3bef71d9e375a9
+Successfully built ashlar-graph-toolkit
+
+[notice] A new release of pip is available: 24.0 -> 26.2.1
+[notice] To update, run: /private/tmp/truss-security-pg18-r2-20261011/bin/python -m pip install --upgrade pip

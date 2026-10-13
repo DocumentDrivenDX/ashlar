@@ -1,18 +1,94 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
-import inspect
+from types import GeneratorType, CoroutineType, AsyncGeneratorType
 from contextlib import contextmanager
+from datetime import date, datetime, time, timedelta, timezone
+from decimal import Decimal
 from .publication import resolve_publication,ResolutionError
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
 
-def _completed_decode(value):
-    if inspect.isgenerator(value) or inspect.iscoroutine(value):
-        value.close()
-        raise ResolutionError('Completed synchronous Weft decoding required')
-    if inspect.isasyncgen(value) or inspect.isawaitable(value):
-        raise ResolutionError('Completed synchronous Weft decoding required')
-    return value
+class _SnapshotBudget:
+    __slots__ = ('nodes', 'copied_bytes')
+    def __init__(self):
+        self.nodes = 100000
+        self.copied_bytes = 8 * 1024 * 1024
+
+
+def _completed_decode(value, *, _budget=None):
+    """Bounded detached data snapshot; never retain arbitrary executable carriers.
+
+    Scalar domain interpretation remains the qualified decoder's responsibility.
+    Only exact built-in containers/scalars and named immutable native scalars are
+    supported. Opaque objects, cycles and deferred values refuse while held.
+    """
+    budget = _SnapshotBudget() if _budget is None else _budget
+    active = set()
+    deferred = {}
+    invalid = False
+    def visit(item, depth):
+        nonlocal invalid
+        budget.nodes -= 1
+        if budget.nodes < 0 or depth > 64:
+            invalid = True
+            return None
+        kind = type(item)
+        if kind in (GeneratorType, CoroutineType):
+            deferred[id(item)] = item
+            invalid = True
+            return None
+        if kind is AsyncGeneratorType:
+            invalid = True
+            return None
+        if kind in (type(None), bool, int, float, str, bytes, Decimal, date, timedelta):
+            return item
+        if kind in (datetime, time):
+            if item.tzinfo is not None and item.tzinfo is not timezone.utc:
+                invalid = True
+                return None
+            return item
+        if kind is bytearray:
+            if len(item) > budget.copied_bytes:
+                invalid = True
+                return None
+            budget.copied_bytes -= len(item)
+            return bytearray(item)
+        if kind not in (list, tuple, dict) or id(item) in active:
+            invalid = True
+            return None
+        active.add(id(item))
+        try:
+            if kind is dict:
+                result = {}
+                for key, child in item.items():
+                    copied_key = visit(key, depth + 1)
+                    copied_child = visit(child, depth + 1)
+                    if type(key) is not str:
+                        invalid = True
+                    elif copied_key is not None:
+                        result[copied_key] = copied_child
+                    if budget.nodes < 0:
+                        break
+                return result
+            result = []
+            for child in item:
+                result.append(visit(child, depth + 1))
+                if budget.nodes < 0:
+                    break
+            return tuple(result) if kind is tuple else result
+        finally:
+            active.remove(id(item))
+    result = visit(value, 0)
+    closing_failure = None
+    for item in deferred.values():
+        try:
+            item.close()
+        except BaseException as error:
+            if closing_failure is None:
+                closing_failure = error
+    if invalid:
+        raise ResolutionError('Completed bounded data-only Weft decoding required') from closing_failure
+    return result
 
 @contextmanager
 def _preserve_body_failure(manager):
@@ -98,16 +174,17 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
         if list(result.columns)!=[(name,'STRING') for name in names] or len(set(names))!=len(names):
             raise ResolutionError('Exact complete Weft result carriers required')
         buffered=[]
+        decode_budget=_SnapshotBudget()
         for row in result.rows:
             if set(row)!=set(names) or any(value is not None and type(value) is not str for value in row.values()):
                 raise ResolutionError('Exact Weft row inventory required')
             if any(row[c['outputName']] is None and c.get('nullable') is not True for c in columns):
                 raise ResolutionError('Unexpected null Weft carrier')
-            buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context)) for column in columns))
+            buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context),_budget=decode_budget) for column in columns))
         if backend.validate_descriptor(resolved.descriptor,context) is not None or backend.authorize(context,publication['id'],tuple(vector.targets)) is not None:
             raise ResolutionError('Weft publication or authority expired')
         admit()
         if policy.authorize_result(tuple(buffered),resolved.descriptor,context) is not None:
             raise ResolutionError('Weft result release refused')
-        result=tuple(buffered)
+        result=_completed_decode(tuple(buffered),_budget=decode_budget)
     return result
