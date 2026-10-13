@@ -157,12 +157,12 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=()):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=()):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -170,6 +170,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     """
     output=Path(output)
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
+    if archived_acceptance_files and not graph:raise ValueError('Archived catalogs are selected for graph publication only')
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
@@ -199,7 +200,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             if graph:
                 from .truss_catalog_reader import read_historical_catalog_views
                 from .truss_graph_admission import TrussGraphAdmission
-                admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch))
+                admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch,archived_acceptance_files))
             else:admission=TrussNoteAdmission(batch)
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()

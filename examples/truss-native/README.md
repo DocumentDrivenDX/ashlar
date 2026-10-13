@@ -587,3 +587,12 @@ Native history STRING values use the exact closed carrier
 adapter projects that text into canonical property JSON while retaining the
 original tagged lifecycle bytes and complete source page. It refuses plain
 untagged values, extra carrier members and unsupported value families.
+
+For graph publication after schema evolution, retain the private outputs of
+`accept-truss-schema` or `evolve-truss-note`. The evolution output captures both
+original catalogs before and after acceptance. Select them in publication
+configuration with `"archived_acceptance_files": [{"path": "/absolute/private/evolution.json", "sha256": "<SHA256 of the original file>"}]`.
+The publisher matches each capture to the feed page's exact original accepted
+report; it never interprets an older revision using the current catalog.
+These files supply schema interpretation. Live Truss sessions still establish
+source access and perform delivery ACKs.
