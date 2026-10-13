@@ -569,3 +569,21 @@ MUST match independent original node/edge populations and pass closing source an
 manifest custody. Unknown obligations, missing endpoints, stale physical revisions
 or incomplete evidence refuse publication. Filters, grouped path counts, property
 joins and path-list outputs require their own explicit admission.
+
+### Distinct authored two-hop terminal counts
+
+An explicitly selected `COUNT_DISTINCT_PATH_TARGETS` route MUST preserve the
+original compiler's terminal record, ordered authored key tuple and path occurrence
+in its `pathTarget` column descriptor. The exact contiguous two-hop admission,
+current revision and all five publication/source/path obligations remain required.
+The independent oracle MUST count distinct terminal authored key tuples reachable
+from admitted starts; it MUST NOT substitute path-occurrence multiplicity or
+deduplicate by an invented identifier. Parallel paths and self-loops reaching the
+same key contribute one target, while different keys contribute separately.
+Empty reachable target sets produce one zero count. Exact required STRING key
+values and nonnegative signed64 counts MUST remain publication-bound. The
+original descriptor remains unchanged; only a locally derived, validated scalar
+representation MAY be passed to the count decoder. Unknown or mismatched terminal
+metadata, incomplete result bags and any failed source/path guard refuse buffered
+publication. Distinct targets and ordinary edge-pair counts MUST remain separate
+explicit query modes.

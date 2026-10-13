@@ -599,8 +599,9 @@ def admit_truss_grouped_count(admission,artifact,binding,expected,*,revision,doc
     return [{**{name:values[fields.index(field)]for field,name in projected},count_name:count}for values,count in bag.items()]
 
 
-def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000,two_hop_count=False):
+def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000,two_hop_count=False,distinct_targets=False):
     """Execute original indexed arithmetic SQL within the genuine Truss hold."""
+    if type(two_hop_count)is not bool or type(distinct_targets)is not bool or distinct_targets and not two_hop_count:raise ValueError('Explicit indexed query mode required')
     from ashlar.weft_implicit_arithmetic_distribution import (ImplicitArithmeticDistributionPaths,
         compile_implicit_arithmetic_distribution,installed_implicit_arithmetic_schema_bundle)
     from .truss_implicit_arithmetic_request import truss_implicit_arithmetic_request
@@ -632,8 +633,8 @@ def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum
                 artifact=decode_compile_artifact(response)
                 admitted=admit_implicit_arithmetic_artifact(request,artifact,decode_compile_artifact(recompiled),config=config)
                 if two_hop_count:
-                    from .truss_two_hop_count import admit_truss_two_hop_count
-                    projection=admit_truss_two_hop_count(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    from .truss_two_hop_count import admit_truss_two_hop_count,admit_truss_two_hop_target_count
+                    projection=(admit_truss_two_hop_target_count if distinct_targets else admit_truss_two_hop_count)(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     for declaration in admitted.edge_schemas:
                         table=dict(declaration['table']);name='`'+'`.`'.join(table['name'])+'`'
                         schema=driver.transport.spark.sql('SELECT `id` FROM '+name+' VERSION AS OF '+str(table['version'])).schema
@@ -648,7 +649,7 @@ def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum
     return {'request_bytes':request_bytes,'response_bytes':response,'recompiled_bytes':recompiled,
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'recompiled_sha256':hashlib.sha256(recompiled).hexdigest(),'publication_id':manifest['publication_id'],
-        'rows':rows,'integrity':checks,'qualification':('Indexed 0.4.2 candidate authored two-hop expansion COUNT on one admitted physical revision; original SQL and all five obligations, complete native pins and exact independent edge-pair count. No production qualification.'if two_hop_count else'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.')}
+        'rows':rows,'integrity':checks,'qualification':('Indexed 0.4.2 candidate authored two-hop distinct terminal-key count under original five obligations, complete native pins and independent exact key tuple set. No production qualification.'if distinct_targets else'Indexed 0.4.2 candidate authored two-hop expansion COUNT on one admitted physical revision; original SQL and all five obligations, complete native pins and exact independent edge-pair count. No production qualification.'if two_hop_count else'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.')}
 
 
 def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
@@ -658,6 +659,12 @@ def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maxim
 def execute_truss_two_hop_count_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
     """Execute an original authored two-hop global COUNT with all original guards."""
     return _execute_truss_indexed_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows,two_hop_count=True)
+
+
+def execute_truss_two_hop_target_count_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+    """Count exact distinct authored terminal key tuples across original two-hop paths."""
+    return _execute_truss_indexed_query(driver,paths,sql,revision=revision,document_id=document_id,
+        maximum_rows=maximum_rows,two_hop_count=True,distinct_targets=True)
 
 
 def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows):

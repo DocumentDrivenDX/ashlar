@@ -174,6 +174,10 @@ def main():
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_two_hop_count.add_argument('--'+option,required=True)
     truss_two_hop_count.add_argument('--maximum-rows',type=int,default=1000)
+    truss_two_hop_target_count=commands.add_parser('query-truss-two-hop-target-count',help='Run installed public 0.4.2 authored two-hop distinct terminal-key COUNT under Truss publication custody')
+    for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
+        truss_two_hop_target_count.add_argument('--'+option,required=True)
+    truss_two_hop_target_count.add_argument('--maximum-rows',type=int,default=1000)
     truss_saved=commands.add_parser('publish-saved-truss-graph',help='Publish a selected saved Truss page whose first source plan was never retained')
     for option in ('configuration','publication-intent','publication-intent-sha256','output'):
         truss_saved.add_argument('--'+option,required=True)
@@ -662,6 +666,17 @@ def main():
         try:
             from ashlar_host.truss_two_hop_count_cli import run_query_truss_two_hop_count_command
             run_query_truss_two_hop_count_command(args.configuration,args.output,index=args.weft_index,
+                installation=args.weft_installation,sql=args.sql,revision=args.revision,
+                document_id=args.document_id,maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss two-hop count query refused; inspect the original publication and installed path compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-two-hop-target-count':
+        try:
+            from ashlar_host.truss_two_hop_target_count_cli import run_query_truss_two_hop_target_count_command
+            run_query_truss_two_hop_target_count_command(args.configuration,args.output,index=args.weft_index,
                 installation=args.weft_installation,sql=args.sql,revision=args.revision,
                 document_id=args.document_id,maximum_rows=args.maximum_rows)
             print(json.dumps({'output':args.output},separators=(',',':')))

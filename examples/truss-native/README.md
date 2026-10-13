@@ -1957,3 +1957,27 @@ The [native authored two-hop counts](../../docs/helix/04-build/evidence/truss-tw
 return two paths on the forward-edge/self-loop publication and zero on its
 retained earlier no-edge publication. Each executes thirteen original guards
 and leaves the source checkpoint unchanged.
+
+### Count distinct authored two-hop targets
+
+Select the same reader and installed 0.4.2 distribution with
+`query-truss-two-hop-target-count`:
+
+```sh
+ashlar query-truss-two-hop-target-count --configuration /absolute/private/reader.json \
+  --output /absolute/private/two-hop-target-count.json \
+  --weft-index /absolute/path/to/distributions/index.json \
+  --weft-installation /absolute/private/arithmetic-installation \
+  --sql 'SELECT COUNT_DISTINCT_PATH_TARGETS(p) AS targets FROM TypedRecord r CROSS JOIN EXPAND_PATHS(r.related,related) AS p' \
+  --revision 1 --document-id typed-related-record --maximum-rows 1
+```
+
+This route counts exact distinct terminal authored STRING key tuples across the
+complete two-hop expansion. The typed example's two path occurrences both reach
+R2, so its distinct target count is one. An empty expansion returns zero. Original
+terminal descriptors, current-revision pins and all five source/path obligations
+remain required; result SQL runs only after every guard passes. The independent
+oracle uses reachable typed middle identities and original terminal key values
+without materializing a Cartesian path bag. Ordinary edge-pair count and distinct
+target count remain separate commands. Qualification is scoped to the admitted
+local candidate and recorded execution evidence.

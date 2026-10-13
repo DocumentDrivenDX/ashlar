@@ -12,14 +12,17 @@ from .truss_implicit_arithmetic_request import truss_implicit_arithmetic_request
 class TrussTwoHopCount:
     columns_json:str
     expected_count:int
+    distinct_targets:bool=False
     def decode(self,column,value):
         if encoded(column)not in [encoded(c)for c in json.loads(self.columns_json)]:raise ValueError('Original admitted two-hop count column required')
-        return decode_exact_scalar(column['representation'],value,count=True).value
+        representation=column['representation']
+        if self.distinct_targets:representation={k:v for k,v in representation.items()if k!='pathTarget'}
+        return decode_exact_scalar(representation,value,count=True).value
     def require_complete_bag(self,rows):
         name=json.loads(self.columns_json)[0]['outputName']
         if type(rows)is not list or len(rows)!=1 or type(rows[0])is not dict or set(rows[0])!={name}or type(rows[0][name])is not int or rows[0][name]!=self.expected_count:raise ValueError('Independent complete original two-hop count differs')
 
-def admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,revision,document_id):
+def _admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,revision,document_id,distinct_targets=False):
     if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:raise ValueError('Actual original two-hop source admission required')
     selected=admission.revisions[revision];model,original=selected['models'][document_id]
     if encoded(model)!=encoded(json.loads(original)):raise ValueError('Original declared two-hop model bytes required')
@@ -71,18 +74,25 @@ def admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,rev
         wanted={'from':from_record,'to':to_record,'identity':identity,'inverse':inverse,'sourceKey':source_key,'targetKey':target_key,'sourceMultiplicity':declaration['sourceMultiplicity'],'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
         if hop!=wanted:raise ValueError('Original authored hop/key/multiplicity/lifecycle differs')
         directions.append((relation,inverse,record(from_record)[0],record(to_record)[0]));current=hop['to']
-    capabilities=['aggregate','aggregate.count','project','relationship.pathExpansion','relationship.twoHopPaths','scan']+(['relationship.inverse']if inverse_used else[])
+    capabilities=['aggregate','aggregate.pathTargetDistinctCount'if distinct_targets else'aggregate.count','project','relationship.pathExpansion','relationship.twoHopPaths','scan']+(['relationship.inverse']if inverse_used else[])
     if plan['requiredCapabilities']!=sorted(capabilities):raise ValueError('Exact selected path count capabilities required')
     integer={'family':'integer','facets':{},'nullable':False};outputs=plan['outputs'];columns=artifact.get('columns')
     if type(outputs)is not list or len(outputs)!=1 or type(columns)is not list or len(columns)!=1 or type(outputs[0])is not dict or set(outputs[0])!={'name','expression'}or type(outputs[0]['name'])is not str or not outputs[0]['name']:raise ValueError('One original path count output required')
     name=outputs[0]['name']
-    if outputs[0]['expression']!={'op':'count','type':integer}or type(columns[0])is not dict or type(columns[0].get('position'))is not int or columns[0]!={'nullable':False,'outputName':name,'position':1,'representation':{'kind':'scalar','logicalType':integer,'carrier':'text','decoder':'exact-integer'},'sourceIdentities':[source['record']]}:raise ValueError('Exact original path COUNT descriptor required')
+    expression={'op':'countDistinctPathTargets','pathOccurrence':'p0','type':integer}if distinct_targets else{'op':'count','type':integer}
+    representation={'kind':'scalar','logicalType':integer,'carrier':'text','decoder':'exact-integer'}
+    identities=[source['record']]
+    if distinct_targets:
+        terminal=path['hops'][-1]
+        representation['pathTarget']={'record':terminal['to'],'key':terminal['targetKey'],'pathOccurrence':'p0'}
+        identities=[terminal['to'],*terminal['targetKey']['fields']]
+    if outputs[0]['expression']!=expression or type(columns[0])is not dict or type(columns[0].get('position'))is not int or columns[0]!={'nullable':False,'outputName':name,'position':1,'representation':representation,'sourceIdentities':identities}:raise ValueError('Exact original path count/terminal-key descriptor required')
     nodes=expected['object_current'];edges=expected['edge_current']
     if type(nodes)is not list or type(edges)is not list or len(nodes)>10000 or len(edges)>10000:raise ValueError('Bounded complete independent node/edge populations required')
     def identity(value):
         if type(value)is not str or len(value)>20 or re.fullmatch(r'0|-?[1-9][0-9]*',value)is None or not -(2**63)<=int(value)<=2**63-1:raise ValueError('Exact signed64 physical path identity required')
         return value
-    objects={}
+    objects={};object_props={}
     for row in nodes:
         if row['type_id']not in record_actual:continue
         bound=record_actual[row['type_id']]
@@ -94,7 +104,7 @@ def admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,rev
         if type(props)is not dict:raise ValueError('Complete exact original path property map required')
         for (tid,_),homes in key_homes.items():
             if tid==row['type_id']and any(type(props.get(pid))is not str for pid in homes):raise ValueError('Required original path STRING key value missing')
-        objects[node_key]=row
+        objects[node_key]=row;object_props[node_key]=props
     populations=[]
     for relation,inverse,from_record,to_record in directions:
         bag=[];seen=set()
@@ -112,6 +122,23 @@ def admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,rev
         populations.append(bag)
     start_record=record(source['record'])[0];starts={k for k in objects if k[:2]==(start_record['sourceSystem'],start_record['typeId'])};second=defaultdict(list)
     for edge_id,start,end in populations[1]:second[start].append((edge_id,end))
-    count=sum(len(second[end])for edge_id,start,end in populations[0]if start in starts)
+    if distinct_targets:
+        terminal=path['hops'][-1];terminal_record=record(terminal['to'])[0]
+        homes=key_homes[terminal_record['typeId'],terminal['targetKey']['id']]
+        eligible_middle={end for edge_id,start,end in populations[0]if start in starts};targets=set()
+        for edge_id,start,end in populations[1]:
+            if start in eligible_middle:targets.add(tuple(object_props[end][pid]for pid in homes))
+        count=len(targets)
+    else:
+        count=sum(len(second[end])for edge_id,start,end in populations[0]if start in starts)
     if count>2**63-1:raise ValueError('Nonnegative signed64 independent path count required')
-    return TrussTwoHopCount(encoded(columns),count)
+    return TrussTwoHopCount(encoded(columns),count,distinct_targets)
+
+
+def admit_truss_two_hop_count(admission,artifact,request,manifest,expected,*,revision,document_id):
+    return _admit_truss_two_hop_count(admission,artifact,request,manifest,expected,revision=revision,document_id=document_id)
+
+
+def admit_truss_two_hop_target_count(admission,artifact,request,manifest,expected,*,revision,document_id):
+    """Global exact authored terminal key tuple count, preserving original descriptors."""
+    return _admit_truss_two_hop_count(admission,artifact,request,manifest,expected,revision=revision,document_id=document_id,distinct_targets=True)
