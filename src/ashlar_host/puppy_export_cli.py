@@ -82,6 +82,7 @@ def run_puppy_export_command(configuration):
                         if Counter(json.dumps(r,sort_keys=True,separators=(',',':'))for r in rows)!=Counter(json.dumps(r,sort_keys=True,separators=(',',':'))for r in expected):raise ValueError('Complete original PuppyGraph corpus differs: '+name)
                         result_item={'case':name,'query':sql,'rows':rows,'oracle':expected};private_file(root/(name+'.json'),result_item);results.append(result_item)
                 owner.read(handle,context=export.context)
+                private_file(root/'readiness.json',[json.loads(raw)for name,raw in native.observations if name=='backend-readiness'])
                 result={'profile':PROFILE,'release_sha256':export.release.sha256,'custody_sha256':export.custody_sha256,'runtime_image':runtime.image,'nodes':len(json.loads(export.release.payload)['nodes']),'edges':len(json.loads(export.release.payload)['edges']),'cases':results,'qualification':'Actual bounded local PuppyGraph complete canonical carrier/identity and seven original immutable-release Cypher corpus comparisons. Historical source metadata only; no source access, mutation, ACK, numeric property filtering, cloud or production qualification.'}
     except BaseException as error:primary=error
     finish(primary,[lambda:selected.renew(65536)])

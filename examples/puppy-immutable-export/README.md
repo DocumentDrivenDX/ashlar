@@ -48,7 +48,10 @@ On failure, retain partial output; no successful result is published. Property
 JSON stays exact opaque text. This command does not qualify numeric property
 filters, Gremlin, live source authority or source ACK operations.
 
-The [installed-wheel check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-startup-20261013/result.json)
-passed exact carrier preparation, then refused at PuppyGraph 1.13.0 startup before
-model upload. Successful native execution of this seven-query profile remains
-pending; the owned container was removed.
+The [installed-wheel check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013/result.json)
+passed all seven Cypher cases over an original Truss 15 parallel-edge release,
+using Python 3.12.15, DuckDB 1.5.0 and Neo4j 5.28.2 with the pinned PuppyGraph
+1.13.0 image. All four ordered edge pairs, one distinct target and isolated-node
+zero counts matched; the owned container was removed before success publication.
+Readiness alone may retry temporary backend errors within the selected deadline.
+Model submission and graph queries are never retried.

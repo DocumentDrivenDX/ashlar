@@ -116,11 +116,11 @@ class PuppyLocalRuntime:
     def _wait_backend_ready(self):
         """Exercise the query backend before the single model submission."""
         from neo4j import Query,GraphDatabase
-        from neo4j.exceptions import ServiceUnavailable,SessionExpired
+        from neo4j.exceptions import ServiceUnavailable,SessionExpired,TransientError
         while True:
             remaining=self.deadline-time.monotonic()
             if remaining<=0:raise TimeoutError('Owned backend readiness deadline elapsed')
-            driver=None;session=None;primary=None
+            driver=None;session=None;primary=None;marker=None
             try:
                 timeout=min(5,remaining)
                 driver=GraphDatabase.driver('bolt://127.0.0.1:'+str(self.config.bolt_port),auth=(self.config.username,self.config.password),connection_timeout=timeout,connection_acquisition_timeout=timeout)
@@ -133,6 +133,7 @@ class PuppyLocalRuntime:
                     if rows:raise ValueError('Exact backend readiness scalar required')
                     rows.append(record.data())
                 if len(rows)!=1 or set(rows[0])!={'ready'} or type(rows[0]['ready'])is not int or rows[0]['ready']!=1:raise ValueError('Exact backend readiness scalar required')
+                marker=[{'ready':1}]
             except BaseException as error:primary=error
             cleanup_failed=[]
             def closing(callback):
@@ -143,9 +144,16 @@ class PuppyLocalRuntime:
                         raise
                 return close
             try:
-                finish(primary,([closing(session.close)]if session is not None else [])+([closing(driver.close)]if driver is not None else []))
-            except (ServiceUnavailable,SessionExpired)as error:
+                def record():
+                    code=getattr(primary,'code',None)if primary is not None else None
+                    if type(code)is not str or re.fullmatch(r'Neo\.[A-Za-z0-9_.]{1,192}',code)is None:code=None
+                    self._record('backend-readiness',json_bytes({'query':'RETURN 1 AS ready',
+                        'rows':marker,'error_code':code,**safe_error_observation(primary)},1048576))
+                finish(primary,[closing(record)]+([closing(session.close)]if session is not None else [])+([closing(driver.close)]if driver is not None else []))
+            except (ServiceUnavailable,SessionExpired,TransientError)as error:
                 if error is not primary or cleanup_failed:raise
+                code=getattr(error,'code',None)
+                if type(code)is str and '.Security.'in code:raise
                 if time.monotonic()>=self.deadline:raise TimeoutError('Owned backend readiness deadline elapsed')
                 self._container()
                 time.sleep(min(.2,max(0,self.deadline-time.monotonic())))

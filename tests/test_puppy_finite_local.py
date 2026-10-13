@@ -95,11 +95,12 @@ class Tests(unittest.TestCase):
   import sys,time
   from types import ModuleType,SimpleNamespace
   from unittest.mock import patch
-  owner,row=self.owner();owner.deadline=time.monotonic()+10
+  owner,row=self.owner();owner.deadline=time.monotonic()+10;owner.observations=[]
   owner.config.username='selected';owner.config.password='private'
   calls=[];checks=[];owner._container=lambda:checks.append('owned')
   class ServiceUnavailable(Exception):pass
   class SessionExpired(Exception):pass
+  class TransientError(Exception):pass
   class AuthError(Exception):pass
   replies=iter((ServiceUnavailable('starting'),1,AuthError('refused')))
   class Session:
@@ -117,7 +118,7 @@ class Tests(unittest.TestCase):
    return Driver()
   neo4j=ModuleType('neo4j');neo4j.GraphDatabase=SimpleNamespace(driver=driver)
   neo4j.Query=lambda text,timeout:SimpleNamespace(text=text,timeout=timeout)
-  errors=ModuleType('neo4j.exceptions');errors.ServiceUnavailable=ServiceUnavailable;errors.SessionExpired=SessionExpired
+  errors=ModuleType('neo4j.exceptions');errors.ServiceUnavailable=ServiceUnavailable;errors.SessionExpired=SessionExpired;errors.TransientError=TransientError
   with patch.dict(sys.modules,{'neo4j':neo4j,'neo4j.exceptions':errors}),patch('ashlar_host.puppy_finite_local.time.sleep'):
    owner._wait_backend_ready()
    self.assertEqual(checks,['owned'])
@@ -155,3 +156,48 @@ class Tests(unittest.TestCase):
    self.assertEqual(actual['error_origin']['function'],'startup');self.assertIsInstance(actual['error_origin']['line'],int)
    self.assertIn('builtins.OSError',actual['prior_error_types']);self.assertEqual(actual['cleanup_error_types'],['builtins.OSError'])
    self.assertNotIn('do-not-retain-secret',repr(actual));self.assertNotIn('cleanup-private-message',repr(actual))
+
+ def test_actual_neo4j_transient_readiness_witness_and_fatal_controls(self):
+  import time,json
+  from types import SimpleNamespace
+  from unittest.mock import patch
+  from neo4j import GraphDatabase
+  from neo4j.exceptions import TransientError,AuthError,UnsupportedServerProduct
+  for mode in ('witness','auth','security','product','invalid','cleanup'):
+   with self.subTest(mode=mode):
+    owner,row=self.owner();owner.deadline=time.monotonic()+10;owner.config.username='operator';owner.config.password='never-record-this';owner.observations=[];checks=[];calls=[];owner._container=lambda:checks.append('owned')
+    # Earlier actual I recorded two TransientError classes (codes unrecorded),
+    # followed by the exact ready scalar. Do not invent a known server code.
+    first=TransientError('never-record-this');second=TransientError('never-record-this')
+    if mode=='auth':first=AuthError('never-record-this')
+    if mode=='product':first=UnsupportedServerProduct('never-record-this')
+    if mode=='security':
+     class SecurityTransientError(TransientError):
+      @property
+      def code(self):return 'Neo.TransientError.Security.AuthorizationExpired'
+     first=SecurityTransientError('never-record-this')
+    replies=iter(([{'ready':'invalid'}],)if mode=='invalid'else(first,second,[{'ready':1}]))
+    class Session:
+     def run(self,query):
+      calls.append(('query',query.text,query.timeout));response=next(replies)
+      if isinstance(response,BaseException):raise response
+      return [SimpleNamespace(data=lambda row=row:row)for row in response]
+     def close(self):
+      calls.append(('session-close',))
+      if mode=='cleanup':raise OSError('private-cleanup-message')
+    class Driver:
+     def session(self):return Session()
+     def close(self):calls.append(('driver-close',))
+    with patch.object(GraphDatabase,'driver',return_value=Driver()),patch('ashlar_host.puppy_finite_local.time.sleep'):
+     if mode=='witness':owner._wait_backend_ready()
+     else:
+      expected=ValueError if mode=='invalid'else type(first)
+      with self.assertRaises(expected):owner._wait_backend_ready()
+    self.assertEqual([c[0]for c in calls],['query','session-close','driver-close']*(3 if mode=='witness'else 1))
+    self.assertEqual(len(checks),2 if mode=='witness'else 0)
+    records=[json.loads(raw)for name,raw in owner.observations if name=='backend-readiness']
+    self.assertEqual(len(records),3 if mode=='witness'else 1);self.assertNotIn('never-record-this',json.dumps(records))
+    if mode=='witness':
+     self.assertEqual(records[-1]['rows'],[{'ready':1}]);self.assertIsNone(records[0]['error_code'])
+     self.assertEqual(records[0]['error_type'],'neo4j.exceptions.TransientError')
+    if mode=='security':self.assertEqual(records[0]['error_code'],'Neo.TransientError.Security.AuthorizationExpired')

@@ -27,7 +27,7 @@ class Tests(unittest.TestCase):
                     return {'release_sha256':digest}
                 @contextmanager
                 def runtime(configuration,*,export,receipt,failure_observer):
-                    events.append('open');native=ImmutableExportPreparationPolicy(export);native.database=configuration.prepared/'db';native.schema_http=lambda *a:None;native.native_runtime=lambda *a:None
+                    events.append('open');native=ImmutableExportPreparationPolicy(export);native.observations=[];native.database=configuration.prepared/'db';native.schema_http=lambda *a:None;native.native_runtime=lambda *a:None
                     expected={sql:rows for _,sql,rows in cli.immutable_corpus(export.release)}
                     native.query=lambda language,sql,context:expected[sql]
                     try:yield native

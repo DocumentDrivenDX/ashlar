@@ -2178,3 +2178,9 @@ not qualify numeric graph filtering.
 Use the [immutable PuppyGraph workflow](../puppy-immutable-export/README.md) to
 query an exported release with the local Cypher corpus, without a live Truss
 or Spark process. Select both original release and custody hashes.
+
+The [installed PuppyGraph Cypher check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013/result.json)
+qualifies full canonical carriers, independent native identities and all four
+ordered edge pairs on that same parallel release. Isolated R2 retains zero degree,
+paths and distinct targets. Gremlin and numeric property filters remain separate
+admissions.

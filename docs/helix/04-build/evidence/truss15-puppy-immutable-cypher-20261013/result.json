@@ -1,0 +1,63 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 46.756,
+  "public_cli_exit_code": 0,
+  "profile": "ashlar-local-immutable-puppy-corpus/0.1",
+  "runtime": {
+    "python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]",
+    "interpreter": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-d/venv/bin/python",
+    "duckdb": "1.5.0",
+    "neo4j": "5.28.2",
+    "ashlar": "0.1.0.dev0",
+    "ashlar_file": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-d/venv/lib/python3.12/site-packages/ashlar/__init__.py",
+    "public_command_file": "/private/tmp/ashlar-truss15-puppy-immutable-20261013-d/venv/lib/python3.12/site-packages/ashlar_host/puppy_export_cli.py",
+    "wheel_sha256": "fd66a12e3cf60d736f134cc2d3fff648ecd58016a336950aa98c8fbdc5b731c7"
+  },
+  "runtime_image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "product_version": "1.13.0",
+  "product_version_qualification": "Product version observed in earlier original startup log of this exact independently inspected immutable image digest; native adapter runtime revision is the actual image SHA, not the Ubuntu image label.",
+  "source_evidence": "../truss15-parallel-export-20261013",
+  "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+  "custody_sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44",
+  "nodes": 2,
+  "edges": 2,
+  "cases": [
+    "nodes",
+    "edges",
+    "singleton",
+    "bounded-list",
+    "degrees",
+    "two-hop",
+    "two-hop-counts"
+  ],
+  "two_hop_edge_pair_occurrences": 4,
+  "distinct_terminal_destinations": 1,
+  "isolated_node_zero_degree_and_paths": true,
+  "readiness": {
+    "query": "RETURN 1 AS ready",
+    "attempts": 94,
+    "errors": [
+      {
+        "error_type": "neo4j.exceptions.ServiceUnavailable",
+        "error_code": null,
+        "count": 85
+      },
+      {
+        "error_type": "neo4j.exceptions.TransientError",
+        "error_code": "Neo.TransientError.Database.DatabaseUnavailable",
+        "count": 8
+      }
+    ],
+    "final_rows": [
+      {
+        "ready": 1
+      }
+    ],
+    "qualification": "Same owned runtime bounded startup readiness only; no model upload or graph-query retries. Prior c exception type/code remain unrecorded and unproven."
+  },
+  "owned_container_absent_after_command": true,
+  "installed_wheel_public_command": true,
+  "credential_qualification": "Original configuration remains private; SHA and redacted operator selection retained. No username/password or raw configuration is published.",
+  "qualification": "Actual bounded local PuppyGraph complete canonical carrier/identity and seven original immutable-release Cypher corpus comparisons. Historical source metadata only; no source access, mutation, ACK, numeric property filtering, cloud or production qualification.",
+  "limitations": "Seven Cypher cases on this retained private original release only. Gremlin generic corpus, numeric property filtering, production/cloud authority, source access/mutation/ACK/ingest and release-to-successor refresh are not qualified. Initial stopped startup c remains separate failure evidence; this run does not retroactively establish its exception cause."
+}
