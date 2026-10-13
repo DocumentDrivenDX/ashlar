@@ -1,0 +1,24 @@
+{
+  "ashlar_code_revision": "f75f587b58a9459f1714bfb92ce635865a693c71",
+  "truss_code_revision": "15d1cd607c4ce021767943c467716713f0c73199",
+  "outcome": "passed",
+  "elapsed_seconds": 63.647,
+  "initial_complete_publications": 3,
+  "restored_publication": "truss-graph-3",
+  "original_manifest_matched": true,
+  "reopened_transport_and_source_owner": true,
+  "restoration_writes_issued": false,
+  "restoration_ack_issued": false,
+  "cleanup": "First Spark closed before reopen; reopened transport/Spark and owned server closed; postmaster marker absent",
+  "qualification": "Actual local applied-state restoration and live/native validation using original retained source page and complete journals",
+  "not_qualified": [
+    "Interrupted effect retry",
+    "ACK reconciliation or retry",
+    "Protected outbox ACK",
+    "Unity Catalog",
+    "Installed Ashlar package invocation",
+    "General restart recovery"
+  ],
+  "review": "Read-only completed result and actual script operation order; no rerun or expanded journal audit",
+  "private_payloads_committed": false
+}
