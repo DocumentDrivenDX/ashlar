@@ -1,0 +1,46 @@
+{
+  "format": "ashlar-public-weft-wheel-transport-gap/0.1",
+  "outcome": "required_ashlar_transport_not_exported",
+  "distribution": "weft-sql",
+  "version": "0.4.17",
+  "asset_url": "https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.17/weft_sql-0.4.17-cp39-abi3-macosx_11_0_arm64.whl",
+  "wheel_sha256": "a977fa6d6954fe7277ac6e2c30eaa42c0f0ab5fe8f9d59b7b9691274d5493df9",
+  "wheel_bytes": 2442868,
+  "wheel_entries": [
+    "weft_sql-0.4.17.dist-info/METADATA",
+    "weft_sql-0.4.17.dist-info/WHEEL",
+    "weft/__init__.py",
+    "weft/weft.abi3.so",
+    "weft_sql-0.4.17.dist-info/RECORD"
+  ],
+  "public_callable_exports": [
+    "compile_json",
+    "compile_truss_postgresql_json",
+    "compile_truss_runtime_json",
+    "compile_truss_runtime_page_json",
+    "inspect_security_mapping_subject_key_json",
+    "prepare_security_mapping_json"
+  ],
+  "release_tag_commit": "8fea6c692a7f1b406488b813379d7778a6c23d1c",
+  "release_features": [
+    "truss-postgresql-pg18"
+  ],
+  "release_workflow_source": "https://github.com/DocumentDrivenDX/weft/blob/v0.4.17/.github/workflows/release.yml",
+  "probe": {
+    "entrypoint": "weft.compile_json",
+    "original_request": "../payments-native-count-20261013/request.json",
+    "request_modified": false,
+    "response_status": "blocked",
+    "diagnostic_codes": [
+      "WFT-VERSION"
+    ],
+    "reproduction": "python3 probe.py AUTHENTIC_WHEEL request.json NEW_RESPONSE_FILE"
+  },
+  "qualification": "Read-only authentic released macOS ARM64 wheel inspection and one unchanged finite-publication request compilation only. Extracted privately without global installation. No native query execution, schema bundle availability, indexed compiler replacement or other wheel platform qualification.",
+  "files_sha256": {
+    "request.json": "bdf4110a6b742064fa94404a2196870713dc321736103826671c71af69ecab72",
+    "response.json": "976d8e388e279e002b74a4f20869521c022691b914c3ad2a6a8973e2f472ae77",
+    "METADATA.txt": "4c1ab31007d2914f9aba936f88aef281ffb5ccf63cdf9a2ec987afe942949b30",
+    "probe.py": "402287df68432b9a91e30fb928b2e1cd7bf400644f2467d206bac1f981cc7de2"
+  }
+}

@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-VERSION","message":"Unsupported or mismatched compile/dialect versions","phase":"input","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.1.0","status":"blocked"}

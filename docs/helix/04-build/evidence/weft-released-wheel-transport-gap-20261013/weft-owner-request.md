@@ -1,0 +1,7 @@
+# Public Ashlar compiler transports in Weft wheels
+
+The authentic `weft-sql` 0.4.17 macOS ARM64 wheel exports the Truss PostgreSQL composition. It does not export the explicit Ashlar PathsKeys or implicit-arithmetic compiler transports, or include their versioned schemas. Passing the unchanged original Ashlar 0.4.1 request to generic `compile_json` returns `WFT-VERSION`. See [inspection and probe](result.json).
+
+Please publish a supported wheel composition with explicit public `compile_paths_keys_json` (original 0.4.0/0.4.1 PathsKeys/count transport) and `compile_implicit_arithmetic_json` (original 0.4.2 transport), preserving the current generic and Truss entry points. If these should instead be separately named distributions, document that public selection. Expose the original request/response/logical-plan schema bytes for each supported transport through package resources or a public retrieval API, with exact version, digest and released build-composition provenance. Preserve existing backend identities, profiles, host obligations and unchanged protocol outputs.
+
+Ashlar will select the public transport explicitly and retain its original schema admission, independent recompilation, publication-bound native execution and closing custody. It will not fabricate a distribution index, repair SQL or protocol markers, or silently fall back to the generic compiler. This request concerns released compiler packaging; it grants no execution, source or publication authority.

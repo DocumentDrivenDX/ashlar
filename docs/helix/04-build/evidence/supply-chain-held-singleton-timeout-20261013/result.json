@@ -1,0 +1,20 @@
+{
+  "outcome": "deadline",
+  "bound_seconds": 180,
+  "duration_seconds": 180.014,
+  "supervisor_exit_code": -9,
+  "outer_exit_code": 124,
+  "selected_case_ids": [
+    "singleton"
+  ],
+  "compiler_status": "compiled",
+  "identical_fresh_compile_responses": true,
+  "query_request_files": 2,
+  "query_response_files": 2,
+  "success_report_released": false,
+  "before_head_hash_map_persisted": true,
+  "after_stop_pure_hash_comparison_equal": true,
+  "original_delta_json_files": 21,
+  "registry_report_request_sha256_equal": true,
+  "qualification": "One bounded public singleton query attempt against the existing original20-node/23-edge supply-chain publication timed out without releasing a successful result. Original compile/recompile bytes are retained; emitted public source receipt qualifies preparation only. No singleton/native-query/complete-graph/closing-custody/cleanup or performance-cause success claim. Pure file comparison after stop proves original21DeltaJSONfiles and registry/report/request hashes unchanged, not completed native owner closure. No mutations, ACK, reingestion or native retry after deadline. Tested held-interval fixes remain independently qualified by focused tests/review."
+}
