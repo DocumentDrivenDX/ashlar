@@ -240,6 +240,9 @@ def main():
     preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
     for option in ('configuration','provider','provider-sha256'):
         preparation.add_argument('--'+option,required=True)
+    puppy_setup=commands.add_parser('configure-puppy-immutable-export',help='Configure an original immutable export pair and explicit private PuppyGraph runtime')
+    for option in ('export-report','export-report-sha256','operator-configuration','output'):
+        puppy_setup.add_argument('--'+option,required=True)
     puppy_export=commands.add_parser('query-puppy-immutable-export',help='Run a bounded local PuppyGraph corpus in the explicitly configured language')
     puppy_export.add_argument('--configuration',required=True)
     payments_count=commands.add_parser('query-payments-count',help='Count one original payments record on its selected finite publication')
@@ -856,6 +859,14 @@ def main():
         except Exception:
             print('ashlar selected PuppyGraph release refused',file=sys.stderr)
             raise SystemExit(2) from None
+        return
+    if args.command == 'configure-puppy-immutable-export':
+        from ashlar_host.puppy_export_setup import run_configure_puppy_export_command
+        try:answer=run_configure_puppy_export_command(args.export_report,args.export_report_sha256,args.operator_configuration,args.output)
+        except Exception:
+            print('ashlar immutable PuppyGraph configuration refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        print(json.dumps(answer,separators=(',',':')))
         return
     if args.command == 'query-puppy-immutable-export':
         from ashlar_host.puppy_export_cli import run_puppy_export_command

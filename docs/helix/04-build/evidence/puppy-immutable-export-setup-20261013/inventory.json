@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "path": "result.json",
+      "bytes": 2930,
+      "sha256": "25444820d21302af5f1759c4632a82043e70250281fd3065a39541e57354a8b3"
+    },
+    {
+      "path": "stdout-0.1.json",
+      "bytes": 86,
+      "sha256": "3a907299e876ba69f2e9816861d2778434086cc264ef69a037b9aa1fa9a54f20"
+    },
+    {
+      "path": "stdout-0.2.json",
+      "bytes": 86,
+      "sha256": "9c129a9284989041751ede7cc5b7c1a162fa1ecde40ea121b533d076a45deee6"
+    }
+  ]
+}

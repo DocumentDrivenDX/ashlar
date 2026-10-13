@@ -8,7 +8,7 @@ remain separate from the portable library. Start with the
 queries and graph export, or the [portable example](../../examples/end-to-end/README.md)
 for source inspection and native commands. The
 [immutable PuppyGraph workflow](../../examples/puppy-immutable-export/README.md)
-queries retained release/custody files through a bounded local Cypher runner.
+queries retained release/custody files through bounded local Cypher or Gremlin.
 
 ## Install and inspect a source
 
@@ -18,7 +18,6 @@ From the repository root:
 python3 -m pip install .
 ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
 ashlar inspect-configured-source examples/end-to-end/configured-source.json
-PYTHONPATH=src:tools python3 -B -m unittest discover -s tests
 ```
 
 Inspection preserves complete original transaction bytes, digests and text
@@ -73,11 +72,12 @@ The configured JSONL example has actual native
 [singleton](../../docs/helix/04-build/evidence/native-configured-singleton-20261008.json),
 [guarded Weft query](../../docs/helix/04-build/evidence/native-configured-guarded-weft-query-20261008.json)
 and [committed replay](../../docs/helix/04-build/evidence/native-configured-replay-20261008.json)
-proof. Weft's qualified result subset is required strings and optional string
-presence; numeric, relationship, join, traversal and aggregate support require
-additional binding, decoder and native evidence. Source fixture IDs are not
-Truss-issued acceptance IDs. Committed replay proof does not establish
-missing-journal recovery or remote Truss ACK.
+proof. The [typed Truss quickstart](../../examples/truss-native/QUICKSTART.md)
+and [commerce workflow](../../examples/original-commerce-local/README.md) describe
+additional typed, relationship and numeric query paths with their qualified
+compiler profiles. Support depends on the selected source/model, original compiler
+artifacts and runtime evidence. Source fixture IDs are not Truss-issued acceptance
+IDs, and a local feed checkpoint does not establish a protected production ACK.
 
 Readability depends on the observed predictive-optimization and retention
 configuration. The reader refuses unavailable or expired snapshots instead of

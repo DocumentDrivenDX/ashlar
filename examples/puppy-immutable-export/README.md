@@ -1,19 +1,16 @@
 # Query an immutable graph release in PuppyGraph
 
 Install the toolkit with `pip install '.[puppy]'` from the repository root.
-Select the release JSON and custody receipt produced by `ashlar export-truss-graph`
-(or another admitted immutable-export command), retaining both original SHA-256
-values. No running Truss or Spark process is needed to query those retained files.
+Select the original report produced by `ashlar export-truss-graph` (or another
+admitted immutable-export command) and its SHA-256. The report selects the original
+release and custody files. No running Truss or Spark process is needed to query them.
 
-Save this configuration in a private file, replacing every placeholder:
+Save these operator settings in a private file with mode `0600`, replacing every
+placeholder. Release and custody selectors come exclusively from the export report:
 
 ```json
 {
   "profile": "ashlar-local-immutable-puppy-corpus/0.1",
-  "release_path": "/absolute/private/original.graph.json",
-  "custody_path": "/absolute/private/original-custody.json",
-  "release_sha256": "RELEASE_SHA256",
-  "custody_sha256": "CUSTODY_SHA256",
   "output": "/absolute/private/fresh-puppy-output",
   "docker": "/absolute/path/to/docker",
   "docker_host": "unix:///absolute/path/to/docker.sock",
@@ -33,8 +30,19 @@ prepared carrier read-only, and stops/removes that container on exit. It does no
 pull images. Select a fresh output directory under an existing private parent.
 
 ```sh
+ashlar configure-puppy-immutable-export \
+  --export-report /absolute/private/export-report.json \
+  --export-report-sha256 ORIGINAL_EXPORT_REPORT_SHA256 \
+  --operator-configuration /absolute/private/operator.json \
+  --output /absolute/private/puppy.json
 ashlar query-puppy-immutable-export --configuration /absolute/private/puppy.json
 ```
+
+Setup verifies the report digest and actual paired release/custody owner, then
+writes a fresh private configuration after closing checks. It starts no engine
+and grants no source authority. Keep both settings files private: they contain
+the local engine password. The existing fully specified query configuration
+remains valid for callers that already retain their selectors.
 
 The command validates the paired files before runtime effects, prepares their
 complete canonical carriers, and compares seven Cypher queries with independent

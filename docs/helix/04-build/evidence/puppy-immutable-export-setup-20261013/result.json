@@ -1,0 +1,46 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 1.134,
+  "command": "ashlar configure-puppy-immutable-export",
+  "runtime": {
+    "python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]",
+    "interpreter": "/private/tmp/ashlar-puppy-export-setup-20261013-a/venv/bin/python",
+    "ashlar": "0.1.0.dev0",
+    "ashlar_file": "/private/tmp/ashlar-puppy-export-setup-20261013-a/venv/lib/python3.12/site-packages/ashlar/__init__.py",
+    "setup_file": "/private/tmp/ashlar-puppy-export-setup-20261013-a/venv/lib/python3.12/site-packages/ashlar_host/puppy_export_setup.py",
+    "wheel_sha256": "1efc561b75b9849e0f4d30a44b1299afb14a0aed10b0f2779c8472da37c236d6"
+  },
+  "export_report": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json",
+  "export_report_sha256": "d628b7d2db514f0eff6eebe649fae218c6f175754fc60727389e2d4c704cbcd7",
+  "cases": [
+    {
+      "profile": "ashlar-local-immutable-puppy-corpus/0.1",
+      "exit_code": 0,
+      "configuration_sha256": "d84e724081f858f2bdc7c09431b4cc047d87cc7128dbff64ce39a17873d9b1a7",
+      "operator_configuration_sha256": "c396b41ecfdad8f6c882563a81c06cef7545736754a1986cf37da1dce40d649d",
+      "configuration_mode": "0600",
+      "original_pair_selectors": {
+        "release_path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-release.json",
+        "custody_path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-custody.json",
+        "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+        "custody_sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44"
+      },
+      "runtime_output_created": false
+    },
+    {
+      "profile": "ashlar-local-immutable-puppy-corpus/0.2",
+      "exit_code": 0,
+      "configuration_sha256": "9cd8eeab57c1206363d7d72cd12f09f391683eaba09c0307db321b51f57460c4",
+      "operator_configuration_sha256": "8ec661f57cf5b8260c3d10ea3fd91777929d28201d6c3da27421eb66cd77a1ab",
+      "configuration_mode": "0600",
+      "original_pair_selectors": {
+        "release_path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-release.json",
+        "custody_path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-custody.json",
+        "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+        "custody_sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44"
+      },
+      "runtime_output_created": false
+    }
+  ],
+  "qualification": "Fresh installed public wheel command with no PYTHONPATH or optional engine dependencies. Both original report pair selectors preserved; actual paired export opening, held admission and closing before private configuration output. No engine creation, source access, mutation or ACK. Credential-bearing original operator and generated configuration files remain private; only their hashes are retained."
+}
