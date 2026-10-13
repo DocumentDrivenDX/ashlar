@@ -1337,6 +1337,12 @@ nullability label MUST refuse. Extracting a null carrier MUST NOT imply its sche
 admission. Original event
 and transaction bytes MUST remain retained.
 
+Admitted DECIMAL(18,2) and DECIMAL(18,4) source fields MUST retain their declared
+facets and exact tokens. Bounds MUST use the declared scale: sixteen whole digits
+for scale two and fourteen for scale four. Excess precision or nonzero excess
+fractional digits MUST refuse without rounding. This correspondence check MUST
+NOT substitute for native Truss acceptance or extend a query profile implicitly.
+
 Typed Truss intake MUST preserve original declared UMF 0.7.0 or 0.8.0 model
 bytes and select the public SDK preparation path for that exact version. Accepted
 reports, catalog views and source metadata MUST retain the original version and

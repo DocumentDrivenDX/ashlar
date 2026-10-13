@@ -11,8 +11,10 @@ def admitted_facets(field):
     if type(facets)is not dict:raise ValueError('Exact declared scalar facets required')
     family=field['scalarType']
     signed=family=='integer'and facets=={'integerWidth':{'bits':64,'signed':True}}and type(facets['integerWidth']['bits'])is int and type(facets['integerWidth']['signed'])is bool
-    decimal=family=='decimal'and facets=={'precision':18,'scale':4}and type(facets['precision'])is int and type(facets['scale'])is int
-    if facets and not(signed or decimal):raise ValueError('Supported declared signed64/decimal18,4 facets required')
+    decimal=(family=='decimal'and set(facets)=={'precision','scale'}
+        and type(facets['precision'])is int and facets['precision']==18
+        and type(facets['scale'])is int and facets['scale']in (2,4))
+    if facets and not(signed or decimal):raise ValueError('Supported declared signed64/decimal18,2 or18,4 facets required')
     return json.loads(json.dumps(facets))
 
 
@@ -26,10 +28,10 @@ def require_facet_value(family,facets,value):
     coefficient=mantissa.lstrip('-').replace('.','').lstrip('0')
     if not coefficient:return
     exponent_token=exponent[0]if exponent else'0';digits=exponent_token.lstrip('+-').lstrip('0')
-    if len(digits)>7:raise PermissionError('Declared decimal18,4 value overflow')
+    if len(digits)>7:raise PermissionError('Declared decimal value overflow')
     exponent_value=(int(digits)*(-1 if exponent_token.startswith('-')else 1))if digits else 0
-    shift=4-len(fraction)+exponent_value;trailing=len(coefficient)-len(coefficient.rstrip('0'))
-    if shift<0 and -shift>trailing or len(coefficient)+shift>18:raise PermissionError('Declared decimal18,4 requires exact no-rounding value')
+    shift=facets['scale']-len(fraction)+exponent_value;trailing=len(coefficient)-len(coefficient.rstrip('0'))
+    if shift<0 and -shift>trailing or len(coefficient)+shift>facets['precision']:raise PermissionError('Declared decimal requires exact no-rounding value')
 
 
 class TrussGraphAdmission:
