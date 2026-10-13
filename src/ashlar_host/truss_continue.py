@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from ashlar.attempt_store import DeltaAttemptStore
 from ashlar.manifest import manifest_pin_vector
-from ashlar.stored_publisher import StoredPublisherBackend
+from .truss_backend import TrussPublisherBackend
 from ashlar.truss_publication import publish_truss_transaction
 from .delta_custody import encoded
 from .driver import NativeDriver,AttemptExecutor,CarrierPolicy,ManifestPort,progress_union
@@ -111,8 +111,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
                 'previous_expected':expected,'generated_steps':generated,'elisions':elisions,
                 'recorded_at':str((datetime.datetime.fromisoformat(stamp)-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc))//datetime.timedelta(microseconds=1))}
             target=transport.targets[driver.tables['attempts']]
-            backend=StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
-                lambda original,supplied:ManifestPort(following_driver,original))
+            backend=TrussPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
+                lambda original,supplied:ManifestPort(following_driver,original),context=context)
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
             results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
                 'publication_intent':selection})

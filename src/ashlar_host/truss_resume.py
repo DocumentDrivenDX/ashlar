@@ -6,7 +6,7 @@ from .driver import NativeDriver, AttemptExecutor, CarrierPolicy, ManifestPort
 from .lifecycle import owned_context
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
 from .truss_feed_sessions import TrussFeedSessions
-from .truss_recovery import restore_applied_truss_publication, recover_interrupted_truss_apply
+from .truss_recovery import restore_applied_truss_publication, recover_interrupted_truss_apply, restore_prepared_truss_publication
 
 
 def resume_truss_publication(driver, request_digest):
@@ -36,7 +36,7 @@ def resume_truss_publication(driver, request_digest):
             raise ValueError('Original Truss source checkpoint differs')
         with owned_context(attempts.session(driver.context)) as session:
             records = session.read(request['stream'],request['batch_id'])
-        if not records or records[-1].phase not in ('applying','applied','committing','committed'):
+        if not records or records[-1].phase not in ('prepared','applying','applied','committing','committed'):
             raise ValueError('Original interrupted publication phase required')
         if any(record.request_digest != request_digest or decode_custody_bytes(record.payload_json.encode())['request'] != request for record in records):
             raise ValueError('Original retained publication phases differ')
@@ -45,7 +45,10 @@ def resume_truss_publication(driver, request_digest):
         applied = driver.transport.db.execute('SELECT 1 FROM local_publication_artifact WHERE request_digest=?',(request_digest,)).fetchone()
         if checkpoint == source.page.next.content and not applied:
             raise ValueError('Advanced Truss checkpoint requires original applied artifact')
-        if applied: restore_applied_truss_publication(driver,request_digest)
+        if records[-1].phase == 'prepared':
+            if applied: raise ValueError('Prepared phase contradicts original applied artifact')
+            restore_prepared_truss_publication(driver,request_digest)
+        elif applied: restore_applied_truss_publication(driver,request_digest)
         else: recover_interrupted_truss_apply(driver,request_digest)
         if checkpoint == source.page.next.content:
             from ashlar.manifest import manifest_pin_vector

@@ -9,6 +9,7 @@ from ashlar.truss_publication import publish_truss_transaction
 from ashlar.source_checkpoint import truss_checkpoint
 from ashlar.staging import batch_row
 from ashlar.stored_publisher import StoredPublisherBackend
+from .truss_backend import TrussPublisherBackend
 from .delta_custody import LocalDeltaTransport,DeltaTarget,encoded
 from .driver import NativeDriver,PrivatePolicy,AttemptExecutor,CarrierPolicy,ManifestPort,progress_union
 from .graph_sql import graph_sql_plan
@@ -228,7 +229,10 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 stream.flush();os.fsync(stream.fileno())
             policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,'previous_progress':progress,'progress':progress_union(progress,json.loads(checkpoint)),'previous_expected':expected,'generated_steps':generated,'elisions':elisions,'recorded_at':str((datetime.datetime.fromisoformat(materialized_at)-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc))//datetime.timedelta(microseconds=1))}
             target=transport.targets[tables['attempts']]
-            backend=StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),driver,lambda original,supplied:ManifestPort(driver,original))
+            attempts=DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid)
+            manifest_factory=lambda original,supplied:ManifestPort(driver,original)
+            backend=(TrussPublisherBackend(attempts,driver,manifest_factory,context=context)
+                if graph else StoredPublisherBackend(attempts,driver,manifest_factory))
             # Concrete backend validates actual native effects/manifest/pins before its
             # TrussFeedSessions performs public ACK and caller commit.
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)

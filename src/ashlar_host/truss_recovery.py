@@ -51,10 +51,11 @@ def restore_truss_apply_state(expected):
     return _retained_state(expected)
 
 
-def _restore_truss_publication(driver, request_digest, *, interrupted=False):
+def _restore_truss_publication(driver, request_digest, *, interrupted=False, prepared=False):
     """Restore policy from retained applied custody; live validation remains required.
 
-    Refuses pre-applied stages. Does not execute SQL, publish, or acknowledge.
+    Prepared restoration observes only; interrupted restoration recovers original
+    effects. Neither path publishes or acknowledges.
     """
     require_custody_digest(request_digest)
     if type(driver) is not NativeDriver or type(driver.source_admission) is not TrussGraphAdmission:
@@ -125,7 +126,9 @@ def _restore_truss_publication(driver, request_digest, *, interrupted=False):
     driver.policy.active = active
     try:
         driver.source_admit(request)
-        if interrupted:
+        if prepared:
+            driver.observe_prepared_truss_apply(request, driver.context)
+        elif interrupted:
             artifact_raw = driver.recover_apply(request, driver.context)
             _, descriptor = validate_applied_artifact(artifact_raw, request)
         else:
@@ -139,6 +142,11 @@ def _restore_truss_publication(driver, request_digest, *, interrupted=False):
 def restore_applied_truss_publication(driver, request_digest):
     """Restore an original applied artifact; never execute or acknowledge."""
     return _restore_truss_publication(driver, request_digest)
+
+
+def restore_prepared_truss_publication(driver, request_digest):
+    """Restore retained intent and unchanged native prior without effects."""
+    return _restore_truss_publication(driver, request_digest, interrupted=True, prepared=True)
 
 
 def recover_interrupted_truss_apply(driver, request_digest):

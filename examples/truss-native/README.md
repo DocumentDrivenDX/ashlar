@@ -825,3 +825,10 @@ same path/digest selections as graph publication. The command opens the existing
 journal and tables, restores the original attempt, and completes publication or
 ACK reconciliation. It writes the fresh report after resource cleanup. It creates
 no replacement journal, consumer registration, schema or source dataset.
+
+For a graph publication stopped at `prepared`, resume requires its original
+source and effect plans, the unchanged four-table prior vector, and a source
+checkpoint still at the original prior position. It restores the saved SQL,
+timestamp and publication identity before the coordinator starts applying.
+Changed tables or missing original plans require inspection; recovery does not
+generate a replacement plan from the current source state.

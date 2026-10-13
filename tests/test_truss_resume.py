@@ -41,6 +41,12 @@ class Tests(unittest.TestCase):
                  patch.object(type(source),'observe_checkpoint',return_value=source.page.prior.content):
                 self.assertEqual(resume_truss_publication(driver,request['request_digest']),'descriptor')
                 self.assertEqual(events[-2:],['restore','coordinator'])
+                record.phase='prepared'
+                db.execute('DELETE FROM local_publication_artifact')
+                with patch('ashlar_host.truss_resume.restore_prepared_truss_publication',side_effect=restored),patch('ashlar_host.truss_resume.recover_interrupted_truss_apply',side_effect=AssertionError('Prepared must not recover effects')):
+                    self.assertEqual(resume_truss_publication(driver,request['request_digest']),'descriptor')
+                self.assertEqual(events[-2:],['restore','coordinator'])
+                record.phase='committing'
             with patch('ashlar_host.truss_resume.DeltaAttemptStore',return_value=SimpleNamespace(session=session)),patch.object(type(source),'observe_checkpoint',return_value=source.page.next.content):
                 with self.assertRaisesRegex(ValueError,'Advanced Truss checkpoint'):
                     resume_truss_publication(driver,request['request_digest'])

@@ -2021,6 +2021,36 @@ class NativeDriver:
                     raise LocalDeltaError('Original no-op prior native evidence differs')
         return original_plan
 
+    def prepare_truss_apply(self, request, context):
+        """Retain original Truss source and effect intent before prepared phase."""
+        self.require(context)
+        if self.admission_facts()['profile'] != 'ashlar-truss-scalar-graph-semantic-admission/0.1' or self.policy.active['request'] != request:
+            raise PermissionError('Exact original Truss graph preparation required')
+        self.source_admit(request)
+        self._apply_source_plan(request, context, False)
+        LocalDeltaEffects(self.transport).prepare('effects:'+request['request_digest'], request['request_digest'], self.policy.active['steps'], context=context)
+        self.observe_prepared_truss_apply(request, context)
+
+    def observe_prepared_truss_apply(self, request, context):
+        """Require unchanged original native prior and no started effect slots."""
+        self.require(context)
+        if self.admission_facts()['profile'] != 'ashlar-truss-scalar-graph-semantic-admission/0.1' or self.policy.active['request'] != request:
+            raise PermissionError('Exact original Truss graph preparation required')
+        self.source_admit(request)
+        plan = json.loads(self._apply_source_plan(request, context, True))
+        anchors = plan['observed_native_prior']
+        if set(anchors) != {self.tables[role] for role in self.policy.active['previous_expected']}:
+            raise LocalDeltaError('Complete original prepared native prior required')
+        for table, anchor in anchors.items():
+            target = self.transport.targets[table]
+            self.transport._detail(target)
+            if target.uuid != anchor['uuid'] or int(self.transport.original_history(target)[0]['version']) != anchor['version']:
+                raise LocalDeltaError('Original prepared native prior changed')
+        observed = LocalDeltaEffects(self.transport).observe('effects:'+request['request_digest'], request['request_digest'], self.policy.active['steps'], context=context)
+        if any(state != 'no-operation-record' for state in observed['states']):
+            raise LocalDeltaError('Original prepared effects already started')
+        self.source_admit(request)
+
     def _apply(self, request, context, recovery):
         if getattr(self,'query_source_factory',None) is not None:
             raise PermissionError('Registered query source cannot publish')

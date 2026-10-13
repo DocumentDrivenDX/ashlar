@@ -16,7 +16,7 @@ from ashlar_host.schema_rows import fixture_columns
 from ashlar_host.resources import RESOURCE_ROOT
 from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.truss_note_publication import graph_expected_rows
-from ashlar_host.truss_recovery import restore_applied_truss_publication, recover_interrupted_truss_apply
+from ashlar_host.truss_recovery import restore_applied_truss_publication, recover_interrupted_truss_apply, restore_prepared_truss_publication
 
 
 class Tests(unittest.TestCase):
@@ -97,6 +97,9 @@ class Tests(unittest.TestCase):
                     calls.append('recover-original')
                     return encoded({'manifest':manifest,'effects':{}})
                 driver.recover_apply=recover
+                driver.observe_prepared_truss_apply=lambda selected,supplied:calls.append('observe-prepared')
+                self.assertIsNone(restore_prepared_truss_publication(driver,request['request_digest']))
+                self.assertEqual(calls[-2:],['live-source','observe-prepared'])
                 descriptor=recover_interrupted_truss_apply(driver,request['request_digest'])
                 self.assertEqual(descriptor.publication_id,'original')
                 self.assertEqual(calls[-2:],['live-source','recover-original'])
