@@ -1,0 +1,572 @@
+{
+  "z3Version": "4.15.4",
+  "proofQueries": [
+    {
+      "id": "release-requires-all-local-gates",
+      "expected": "unsat",
+      "observed": "unsat",
+      "model": null
+    },
+    {
+      "id": "original-failure-never-suppressed-or-replaced",
+      "expected": "unsat",
+      "observed": "unsat",
+      "model": null
+    },
+    {
+      "id": "separate-closing-failure-retained-as-cause",
+      "expected": "unsat",
+      "observed": "unsat",
+      "model": null
+    },
+    {
+      "id": "complete-local-path-remains-live",
+      "expected": "unsat",
+      "observed": "unsat",
+      "model": null
+    },
+    {
+      "id": "old-suppression-release-counterexample",
+      "expected": "sat",
+      "observed": "sat",
+      "model": "[recheck = True,\n integrity = True,\n top_deferred = False,\n suppress = True,\n close_failure = False,\n result_auth = False,\n admission = True]"
+    },
+    {
+      "id": "old-deferred-decoding-counterexample",
+      "expected": "sat",
+      "observed": "sat",
+      "model": "[recheck = True,\n integrity = True,\n top_deferred = True,\n close_failure = False,\n result_auth = True,\n admission = True]"
+    },
+    {
+      "id": "old-closing-replaces-original-counterexample",
+      "expected": "sat",
+      "observed": "sat",
+      "model": "[recheck = False,\n close_failure = True,\n invalid_data = False,\n admission = False,\n result_auth = False,\n integrity = False,\n top_deferred = False,\n nested_deferred = False]"
+    },
+    {
+      "id": "old-top-only-nested-release-counterexample",
+      "expected": "sat",
+      "observed": "sat",
+      "model": "[recheck = True,\n close_failure = False,\n invalid_data = False,\n admission = True,\n result_auth = True,\n integrity = True,\n top_deferred = False,\n nested_deferred = True]"
+    },
+    {
+      "id": "charged-copy-transition-preserves-bound",
+      "expected": "unsat",
+      "observed": "unsat",
+      "model": null
+    },
+    {
+      "id": "node-only-alias-copy-amplification",
+      "expected": "sat",
+      "observed": "sat",
+      "model": "[copied_payload_bytes = 33554432, next_copy_bytes = 1048576]"
+    }
+  ],
+  "helperControls": [
+    {
+      "body": "complete",
+      "decode": "complete",
+      "closing": "complete",
+      "returned": true,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "complete",
+      "closing": "suppress",
+      "returned": true,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "complete",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "async-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "async-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "async-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "awaitable",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "awaitable",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "awaitable",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "complete",
+      "decode": "nested-coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "complete",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "complete",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "complete",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "async-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "async-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "async-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "awaitable",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "awaitable",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "awaitable",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "exception",
+      "decode": "nested-coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "complete",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "complete",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "complete",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "async-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "async-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "async-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "awaitable",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "awaitable",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "awaitable",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-generator",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-generator",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-generator",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-coroutine",
+      "closing": "complete",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-coroutine",
+      "closing": "suppress",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    },
+    {
+      "body": "abort",
+      "decode": "nested-coroutine",
+      "closing": "fail",
+      "returned": false,
+      "originalPreserved": true,
+      "exitCount": 1
+    }
+  ],
+  "scope": "Ten conditional local release/copy queries (5 UNSAT/5 SAT) and 63 exhaustive selected helper controls. Assumes local gates classify errors correctly and original context lifecycle is the Python with protocol. Does not prove authentic gates, original native authority/caller/source, complete recursive carriers, interval acquisition/cleanup correctness, SQL semantics, final sink custody or backend acceptance."
+}

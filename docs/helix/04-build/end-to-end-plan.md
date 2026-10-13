@@ -77,3 +77,10 @@ authentication, Unity Catalog execution or full backend acceptance is establishe
 Astra ultra independently reran all nine authority tests on the corrected
 revision and found no remaining actionable defect within local plain-data
 validation. The review does not qualify the native obligations above.
+
+
+### Bounded completed Weft result snapshots — 2026-10-12
+
+Original-source Python reproduction returned a nested generator from read_weft and then executed its body after the pin interval closed. The result boundary now snapshots exact supported data recursively, rejects opaque/cyclic/deferred carriers, closes recognized deferred values while held, and takes a final detached snapshot after result authorization. Shared structural/binary-copy budgets cover every decoded cell and the final snapshot; charges precede binary allocation. Unsupported scalar metadata is refused rather than silently coerced. CONTRACT-004 records the supported structural subset and resource/decoder obligations.
+
+[Evidence](evidence/security-result-snapshot-20261012/receipt.json) retains the original source/escape witness,40 passing query/decode/publication/singleton tests, exact packaged module, and ten qualified formal queries (five UNSAT/five SAT) with63 actual selected helper controls. Astra Ultra found and verified fixes for UUID/timezone metadata escape, interrupted deferred cleanup and binary-copy alias amplification, then independently replayed formal artifacts byte-for-byte. This is an ashlar.L03/US-057-AC2 final-release component prerequisite, not native guard/authority/source/issuer/final-sink admission or complete B10 mediation. All132 required cases remain in scope; none is promoted.
