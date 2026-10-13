@@ -77,6 +77,8 @@ Ashlar validates the durable publication before retaining its exact request,
 manifest and version vector with the source ACK. Uncertain source commit uses
 read-only exact receipt reconciliation, with no second ACK write. The receipt
 proves source retention; Ashlar still verifies the destination publication.
+Oversized complete receipts use a lossless compressed envelope within Truss’s
+one-MiB limit. Small receipts keep their original byte encoding.
 Adapter coverage does not qualify a native receipt-mode end-to-end run.
 
 ## Compile queries for an owned Truss publication

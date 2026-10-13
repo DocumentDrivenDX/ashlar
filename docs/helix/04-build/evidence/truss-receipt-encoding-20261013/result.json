@@ -1,0 +1,13 @@
+{
+  "profile": "ashlar-truss-receipt-encoding-check/0.1",
+  "source_cli_revision": "944f8d4371b14a4b65e72eeb1fddacfb5bc8cc47",
+  "truss_revision": "0be478525c864f992302ed366d1cc28a3bb8918d",
+  "native_workflow_completed": false,
+  "native_failure": "Complete original receipt exceeded one-MiB source SDK limit before ACK",
+  "original_receipt_bytes": 1315913,
+  "original_receipt_sha256": "ce67ab195ccac8f6c9793caff6312b15a7ee6b0ea6f825a622567e1c548f98ff",
+  "encoded_receipt_bytes": 473622,
+  "encoded_receipt_sha256": "9aa2b7dfba6cc8feda946a3b05b03702f1ad2c78a05dcded4f774997e1cbf585",
+  "original_request_manifest_vector_preserved": true,
+  "qualification": "In-memory lossless encoding of actual retained failed-publication receipt. No native retry, source receipt write, complete workflow or uncertain-commit qualification."
+}

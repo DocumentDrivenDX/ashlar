@@ -938,3 +938,11 @@ receipts remain unresolved; conflicting receipts MUST refuse. Neither outcome
 licenses a second ACK write, republishing or checkpoint-only inference. Final
 success still requires current destination publication admission and resource
 closure.
+
+Receipt transport MUST respect the source SDK's one-MiB opaque byte limit.
+Previously admitted small receipts MUST retain their exact original encoding.
+An oversized complete receipt MAY use a versioned lossless compressed envelope
+that declares its encoding, complete original byte count and digest. Compression
+MUST retain every original byte, including unknown content and the full vector;
+neither truncation nor a digest-only substitute is permitted. Both original and
+encoded lengths MUST be bounded, and encoded overflow MUST refuse before ACK.

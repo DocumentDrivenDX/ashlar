@@ -5,7 +5,7 @@ receipt mode retains exact opaque destination evidence after consumer-owned
 publication verification; it does not release history or verify Delta for Truss.
 Already-advanced source replay remains separate from exact-page admission.
 """
-import base64,hashlib,json
+import base64,gzip,hashlib,io,json
 from contextlib import contextmanager
 from dataclasses import dataclass,field
 from types import MappingProxyType
@@ -51,6 +51,35 @@ def _assembly(connection,readonly):
     def detach():
         if not host.detach():raise TrussSessionError('Public host detach refused')
     finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
+
+
+def encode_truss_destination_receipt(request_bytes,manifest_bytes,vector):
+    """Exact original receipt, or deterministic lossless gzip envelope.
+
+    Small historical 0.1 bytes stay unchanged. The source retains opaque bytes;
+    compression never substitutes digest-only evidence or grants authority.
+    """
+    if any(type(raw)is not bytes or not 0<len(raw)<=4194304 for raw in (request_bytes,manifest_bytes)):
+        raise TrussSessionError('Bounded original publication bytes required')
+    if not 1<=len(vector.targets)<=64 or any(type(name)is not str or len(name.encode())>4096 for name in vector.targets):
+        raise TrussSessionError('Bounded complete original vector required')
+    vector_payload={'authority':vector.authority,'scope_kind':vector.scope_kind,'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
+        'targets':{table:list(target)for table,target in vector.targets.items()}}
+    vector_raw=json.dumps(vector_payload,sort_keys=True,separators=(',',':')).encode()
+    if len(vector_raw)>1048576:raise TrussSessionError('Complete original vector exceeds receipt budget')
+    raw=(json.dumps({'profile':'ashlar-truss-destination-receipt/0.1',
+        'request_base64':base64.b64encode(request_bytes).decode(),'manifest_base64':base64.b64encode(manifest_bytes).decode(),
+        'vector':vector_payload},sort_keys=True,separators=(',',':'))+'\n').encode()
+    if len(raw)>16*1048576:raise TrussSessionError('Complete original receipt exceeds raw budget')
+    if len(raw)<=1048576:return raw
+    output=io.BytesIO()
+    with gzip.GzipFile(filename='',mode='wb',fileobj=output,compresslevel=9,mtime=0)as stream:
+        stream.write(raw)
+    envelope=(json.dumps({'profile':'ashlar-truss-destination-receipt-gzip-base64/0.1',
+        'original_bytes':len(raw),'original_sha256':hashlib.sha256(raw).hexdigest(),
+        'gzip_base64':base64.b64encode(output.getvalue()).decode()},sort_keys=True,separators=(',',':'))+'\n').encode()
+    if len(envelope)>1048576:raise TrussSessionError('Complete compressed destination receipt exceeds public SDK bound')
+    return envelope
 
 
 def receipt_destination_id(value):
@@ -250,11 +279,7 @@ class TrussFeedSessions:
         destination=self.destination_id
         if type(destination)is not str or not destination or len(destination.encode())>1024:
             raise TrussSessionError('Exact destination installation identity required')
-        receipt=(json.dumps({'profile':'ashlar-truss-destination-receipt/0.1',
-            'request_base64':base64.b64encode(request_bytes).decode(),'manifest_base64':base64.b64encode(manifest_bytes).decode(),
-            'vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
-                'targets':{table:list(target)for table,target in vector.targets.items()}}},sort_keys=True,separators=(',',':'))+'\n').encode()
-        if len(receipt)>1048576:raise TrussSessionError('Complete destination receipt exceeds public SDK bound')
+        receipt=encode_truss_destination_receipt(request_bytes,manifest_bytes,vector)
         request_sha=hashlib.sha256(request_bytes).hexdigest();receipt_sha=hashlib.sha256(receipt).hexdigest()
         cursor=decode_retained_json(self.page.prior.content);receipt_type,ack_type,reconcile_type=require_truss_receipt_sdk()
         def exact(retained):
