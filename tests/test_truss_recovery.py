@@ -22,7 +22,7 @@ from ashlar_host.truss_recovery import restore_applied_truss_publication, recove
 class Tests(unittest.TestCase):
     def test_original_applied_plan_restores_and_failure_preserves_active(self):
         sessions,request,context,*_=sessions_cases.Tests().setup_case()
-        request['predecessor']='explicit-truss-genesis'
+        request['predecessor']='retained-predecessor'
         request['request_digest']=sha(encoded({k:v for k,v in request.items() if k!='request_digest'}))
         batch=sessions.batch();parsed=scalar_entity_changes(batch.begin,sha256=sha(batch.begin.decode()),prior=base64.b64decode(batch.cursor_before),next=base64.b64decode(batch.cursor_after),feed=batch.feed);columns=fixture_columns(RESOURCE_ROOT)
         previous={role:[] for role in columns}
@@ -47,6 +47,13 @@ class Tests(unittest.TestCase):
             db.execute('CREATE TABLE local_source_plan(request_digest TEXT,original TEXT)')
             db.execute('CREATE TABLE local_publication_artifact(request_digest TEXT,request TEXT,artifact TEXT)')
             db.execute('CREATE TABLE local_plan(operation TEXT,original TEXT,digest TEXT)')
+            # Real feeds can retain more than ten publications. Select the exact
+            # predecessor regardless of its position in the journal inventory.
+            for index in range(12):
+                db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',
+                    ('unrelated-'+str(index),'{}',encoded({'manifest':{'publication_id':'unrelated-'+str(index)}})))
+            predecessor=encoded({'manifest':{'publication_id':request['predecessor'],'source_progress_json':'{}'}})
+            db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',('prior','{}',predecessor))
             db.execute('INSERT INTO local_source_plan VALUES(?,?)',(request['request_digest'],encoded(plan)))
             db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',(request['request_digest'],encoded(request),encoded({'manifest':manifest,'effects':{}})))
             db.execute('INSERT INTO local_plan VALUES(?,?,?)',('effects:'+request['request_digest'],'original-plan','digest'))
@@ -62,6 +69,11 @@ class Tests(unittest.TestCase):
                 self.assertEqual(driver.policy.active['expected'],expected)
                 self.assertEqual(calls,['live-source','native-validation'])
                 original_active=driver.policy.active
+                db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',('duplicate-prior','{}',predecessor))
+                with self.assertRaisesRegex(ValueError,'predecessor publication custody'):
+                    restore_applied_truss_publication(driver,request['request_digest'])
+                self.assertIs(driver.policy.active,original_active)
+                db.execute("DELETE FROM local_publication_artifact WHERE request_digest='duplicate-prior'")
                 driver.validate_manifest=lambda *args:(_ for _ in ()).throw(ValueError('native refusal'))
                 with self.assertRaisesRegex(ValueError,'native refusal'):
                     restore_applied_truss_publication(driver,request['request_digest'])

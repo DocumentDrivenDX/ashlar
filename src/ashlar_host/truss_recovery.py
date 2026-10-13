@@ -108,10 +108,12 @@ def _restore_truss_publication(driver, request_digest, *, interrupted=False):
     if interrupted:
         previous_progress = intent['previous_progress']
     elif request['predecessor'] != 'explicit-truss-genesis':
-        candidates = db.execute('SELECT artifact FROM local_publication_artifact LIMIT 10').fetchall()
-        matches = [json.loads(row[0])['manifest'] for row in candidates if len(row[0].encode()) <= 4194304 and json.loads(row[0])['manifest']['publication_id'] == request['predecessor']]
-        if len(matches) != 1: raise ValueError('Original predecessor publication custody required')
-        previous_progress = json.loads(matches[0]['source_progress_json'])
+        candidates = db.execute(
+            "SELECT artifact FROM local_publication_artifact WHERE json_extract(artifact,'$.manifest.publication_id')=? LIMIT 2",
+            (request['predecessor'],)).fetchall()
+        if len(candidates) != 1 or type(candidates[0][0]) is not str or len(candidates[0][0].encode()) > 4194304:
+            raise ValueError('Original predecessor publication custody required')
+        previous_progress = json.loads(json.loads(candidates[0][0])['manifest']['source_progress_json'])
     progress = progress_union(previous_progress,json.loads(request['source_checkpoint_json']))
     if progress != json.loads(manifest['source_progress_json']): raise ValueError('Original complete source progress differs')
     active = {'request':request,'steps':plan['selected_steps'],'generated_steps':plan['generated_steps'],
