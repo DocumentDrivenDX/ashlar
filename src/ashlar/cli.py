@@ -163,6 +163,7 @@ def main():
     graphframes = commands.add_parser('query-graphframes', help='Query one explicitly admitted original graph release in an isolated GraphFrames runtime')
     for option in ('configuration', 'provider', 'provider-sha256'):
         graphframes.add_argument('--' + option, required=True)
+    graphframes.add_argument('--case',dest='cases',action='append',default=[],help='Run only the selected original authored case; repeat for multiple cases')
     for name in ('initialize-original-commerce','publish-original-commerce'):
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
@@ -338,7 +339,7 @@ def main():
     if args.command == 'query-graphframes':
         from ashlar_host.graphframes_cli import run_graphframes_command
         try:
-            answer = run_graphframes_command(args.configuration, args.provider, args.provider_sha256)
+            answer = run_graphframes_command(args.configuration, args.provider, args.provider_sha256,**({'selected_case_ids':tuple(args.cases)}if args.cases else {}))
             print(json.dumps(answer, sort_keys=True, separators=(',', ':')))
         except Exception:
             print('ashlar selected GraphFrames release refused', file=sys.stderr)

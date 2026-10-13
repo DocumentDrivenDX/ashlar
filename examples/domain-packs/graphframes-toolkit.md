@@ -209,3 +209,19 @@ the final report only after the provider closes. This commerce profile has no
 retained-export fallback and performs no append, bootstrap or republication.
 Native qualification is separately recorded in execution evidence; source controls
 alone do not qualify the installed engine workflow.
+
+Run a single authored query with `--case`, or repeat it for several queries:
+
+```sh
+ashlar query-graphframes \
+  --configuration /absolute/private/graphframes.json \
+  --provider /absolute/private/provider.py \
+  --provider-sha256 '<original provider SHA256>' \
+  --case missing-media
+```
+
+Case selection is checked against the original pack before starting the runtime.
+Selected queries retain authored order and unchanged definitions. The report
+lists the original and selected case IDs and counts only the selected passes.
+Without `--case`, the command runs the full authored corpus. Full carrier checks
+and common topology checks still cover the complete selected graph release.

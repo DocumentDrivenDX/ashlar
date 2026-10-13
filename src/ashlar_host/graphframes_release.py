@@ -301,7 +301,7 @@ def _write_owned(path,raw):
  finish(primary,[stream.close])
 
 
-def execute_graphframes_release(session,runtime,pack_bytes,observe):
+def execute_graphframes_release(session,runtime,pack_bytes,observe,*,selected_case_ids=()):
  """Original seventeen cases under the unchanged exact pack source profile."""
  from .graphframes_pack_scenarios import prepare_scenarios
  if type(runtime)is not GraphFramesRuntimeConfig or not callable(observe):raise ValueError('Exact runtime and owned sink required')
@@ -309,16 +309,20 @@ def execute_graphframes_release(session,runtime,pack_bytes,observe):
  with hold_graphframes_session(session)as(release,renew_authority):
   original=_source(session.source)
   profile=prepare_scenarios(session.source.definition,original[1],original[2],pack_bytes,json.loads(release.payload))
+  from .graphframes_case_selection import select_graphframes_profile
+  profile=select_graphframes_profile(profile,selected_case_ids)
   result=_execute_prepared_graphframes(runtime,session.runtime_policy,session.runtime_context,release,profile,renew_authority,observe)
  return result
 
 
-def execute_commerce_graphframes_release(session,runtime,pack_bytes,observe):
+def execute_commerce_graphframes_release(session,runtime,pack_bytes,observe,*,selected_case_ids=()):
  """Closed public commerce dispatch sharing the single owned worker lifetime."""
  from .commerce_graphframes_release import CommerceGraphFramesSession,hold_commerce_graphframes_session
  if type(session)is not CommerceGraphFramesSession or type(runtime)is not GraphFramesRuntimeConfig or not callable(observe):raise ValueError('Exact commerce session/runtime and owned sink required')
  runtime.renew()
  with hold_commerce_graphframes_session(session,pack_bytes)as(release,profile,renew):
+  from .graphframes_case_selection import select_graphframes_profile
+  profile=select_graphframes_profile(profile,selected_case_ids)
   result=_execute_prepared_graphframes(runtime,session.runtime_policy,session.runtime_context,release,profile,renew,observe)
  return result
 
@@ -368,7 +372,7 @@ def _execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release
   if bag(result['common'].get(name,[]))!=bag(expected_common[name]):raise ValueError('Parent original common occurrence bag differs')
  if result['common'].get('filtered-total')!=expected_common['filtered-total']:raise ValueError('Parent original filtered membership differs')
  if bag(result['common'].get('all-objects',[]))!=bag(request['release']['nodes'])or bag(result['common'].get('all-edges',[]))!=bag(request['release']['edges']):raise ValueError('Parent complete original canonical carrier bags differ')
- if type(result)is not dict or result.get('format')!='ashlar-original-pack-graphframes/0.1' or result.get('pack')!=profile['pack']or result.get('all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
+ if type(result)is not dict or result.get('format')!=('ashlar-selected-pack-graphframes/0.1'if 'selected_case_ids'in profile else'ashlar-original-pack-graphframes/0.1') or result.get('pack')!=profile['pack']or result.get('selected_cases_passed'if 'selected_case_ids'in profile else'all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
  inventory.verify(runtime)
  validate_derived_evidence(result,request['release'],observed_records,runtime.work)
  validate_common_evidence(result,request['release'],profile,observed_records)
@@ -431,6 +435,8 @@ def graphframes_worker(input_path,output):
   else:cases=execute_scenarios(graphframe,profile,observe)
   common=execute_common_graphframes(graphframe,profile,release,observe)
   parity('closing');result={'format':'ashlar-original-pack-graphframes/0.1','pack':profile['pack'],'cases':cases,'common':common,'derived_snapshots':derived,'original_snapshots':release['snapshots'],'all_original_cases_passed':len(cases),'full_carrier_parity':True,'authority_scope':'Parent-selected live hold or separately admitted retained protected-ACK export; this worker establishes no authority.'}
+  if 'selected_case_ids'in profile:
+   result['format']='ashlar-selected-pack-graphframes/0.1';result['original_case_ids']=profile['original_case_ids'];result['selected_case_ids']=profile['selected_case_ids'];result['selected_cases_passed']=result.pop('all_original_cases_passed')
  except BaseException as error:primary=error
  finish(primary,[spark.stop])
  _write_owned(output/'result.json',(json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode())
@@ -557,7 +563,12 @@ def validate_derived_evidence(result,release,observations,work):
  import uuid
  from urllib.parse import urlsplit,unquote
  keys={'format','pack','cases','common','derived_snapshots','original_snapshots','all_original_cases_passed','full_carrier_parity','authority_scope'}
- if type(result)is not dict or set(result)!=keys or result['format']!='ashlar-original-pack-graphframes/0.1'or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology','commerce')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['all_original_cases_passed'])is not int or result['all_original_cases_passed']!=({'archaeology':8,'ecology':9,'commerce':4}[result['pack']])or len(result['cases'])!=result['all_original_cases_passed']or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
+ if type(result)is not dict:raise ValueError('Closed GraphFrames result required')
+ selected=result.get('format')=='ashlar-selected-pack-graphframes/0.1'
+ if selected:keys=(keys-{'all_original_cases_passed'})|{'original_case_ids','selected_case_ids','selected_cases_passed'}
+ if type(result)is not dict or set(result)!=keys or result['format']not in ('ashlar-original-pack-graphframes/0.1','ashlar-selected-pack-graphframes/0.1')or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology','commerce')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
+ from .graphframes_case_selection import validate_graphframes_result_selection
+ validate_graphframes_result_selection(result)
  for case in result['cases']:
   if type(case)is not dict or set(case)!={'original_scenario','schema','rows','logical_rows','independent_expected'}or type(case['original_scenario'])is not dict or set(case['original_scenario'])!={'id','sql'}or any(type(v)is not str for v in case['original_scenario'].values()):raise ValueError('Closed unchanged original case evidence required')
  if result.get('original_snapshots')!=release['snapshots']:raise ValueError('Original complete publication vector differs')

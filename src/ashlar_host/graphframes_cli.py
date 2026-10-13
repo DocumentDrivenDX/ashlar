@@ -85,11 +85,14 @@ def parse_graphframes_invocation(raw):
  if commerce:return CommerceGraphFramesInvocation(value['mode'],_path(value['pack']),_path(value['publication']),output,config)
  return GraphFramesInvocation(value['mode'],_path(value['pack']),output,config,*((_path(value['release']),_digest(value['release_sha256']),_path(value['custody']),_digest(value['custody_sha256']))if value['mode']=='protected-ack-export'else (None,None,None,None)))
 
-def run_graphframes_command(configuration,provider_path,provider_sha256):
+def run_graphframes_command(configuration,provider_path,provider_sha256,*,selected_case_ids=()):
  config=InvocationFile.read(configuration,MAX_CONFIG);invocation=parse_graphframes_invocation(config.raw)
  provider=InvocationFile.read(provider_path,MAX_PROVIDER)
  if hashlib.sha256(provider.raw).hexdigest()!=_digest(provider_sha256):raise ValueError('Explicit provider bytes changed')
  pack,pack_identity=original_file(invocation.pack,1048576);watched=[(invocation.pack,pack,pack_identity,1048576)]
+ from .graphframes_case_selection import original_graphframes_case_ids,select_graphframes_case_ids
+ original_case_ids=original_graphframes_case_ids(pack)
+ selected=select_graphframes_case_ids(original_case_ids,selected_case_ids)
  release=None;custody=None
  if invocation.mode=='protected-ack-export':
   release_raw,release_identity=original_file(invocation.release,16777216);custody,custody_identity=original_file(invocation.custody,16777216)
@@ -124,11 +127,11 @@ def run_graphframes_command(configuration,provider_path,provider_sha256):
   if type(session)is not expected:raise ValueError('Provider cannot substitute authority mode')
   if commerce and session.opened.publication!=invocation.publication:raise ValueError('Provider differs from explicitly selected original publication')
   if expected is GraphFramesOfflineSession and(session.release!=release or session.custody_bytes!=custody or session.custody_sha256!=invocation.custody_sha256):raise ValueError('Provider retained export correspondence differs')
-  if commerce:result=execute_commerce_graphframes_release(session,invocation.runtime,pack,observe)
-  else:result=execute_graphframes_release(session,invocation.runtime,pack,observe)
+  if commerce:result=execute_commerce_graphframes_release(session,invocation.runtime,pack,observe,**({'selected_case_ids':selected}if selected_case_ids else {}))
+  else:result=execute_graphframes_release(session,invocation.runtime,pack,observe,**({'selected_case_ids':selected}if selected_case_ids else {}))
   renew()
  renew()
- report={'format':'ashlar-installed-graphframes/0.1','mode':invocation.mode,'observations':count,'result':result,'scope':'All original pack cases and common topology under the explicitly admitted host mode; retained export mode does not assert current canonical availability.'}
+ report={'format':'ashlar-installed-graphframes/0.1','mode':invocation.mode,'observations':count,'result':result,'original_case_ids':list(original_case_ids),'selected_case_ids':list(selected),'scope':('All original pack cases'if selected==original_case_ids else'Selected unchanged original pack cases')+' and full common topology under the explicitly admitted host mode; retained export mode does not assert current canonical availability.'}
  raw=(json.dumps(report,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()
  if len(raw)>invocation.runtime.maximum_evidence_bytes:raise ValueError('Complete report exceeds byte budget')
  retain(invocation.output,'report.json',raw,output_identity)

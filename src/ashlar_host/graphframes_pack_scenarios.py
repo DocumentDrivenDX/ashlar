@@ -118,8 +118,9 @@ def expressions(frame,profile):
         cases['comparability']=selected(joined,[col('m','methods','matrix'),col('m','methods','fraction'),col('t','taxa','rank')]).distinct()
         f=table('fishing_events','f');cases['fishing']=selected(f,[col('f','fishing_events','effort_unit')])
     else:raise ValueError('Closed original scenario pack required')
-    if set(cases)!={c['original_scenario']['id']for c in profile['cases']}:raise ValueError('Every original authored scenario required')
-    return cases
+    selected={c['original_scenario']['id']for c in profile['cases']}
+    if not selected<=set(cases):raise ValueError('Known original authored scenarios required')
+    return {name:cases[name]for name in cases if name in selected}
 
 ARITY={'archaeology':{'cycle':2,'dating':2,'media':2,'missing-media':1,'specialists':4,'lineage':2,'evidence-links':3,'sample':2},'ecology':{'effort-event':1,'connected-measurements':2,'censor':3,'match':1,'effort':1,'zero':1,'network':2,'comparability':3,'fishing':1}}
 WITNESSES=['interpretation_key','evidence_key','interpretation_order_token','matched_pottery_key','matched_fauna_key','pottery_form_presence','fauna_taxon_presence']
