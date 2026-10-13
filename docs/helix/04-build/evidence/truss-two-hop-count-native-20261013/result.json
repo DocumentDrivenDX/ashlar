@@ -1,0 +1,65 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 24.089,
+  "source_checkpoint_unchanged": true,
+  "query_count": 2,
+  "queries": {
+    "current": {
+      "publication_id": "truss-graph-5",
+      "rows": [
+        {
+          "paths": 2
+        }
+      ],
+      "integrity_checks": 13,
+      "recompiled_sha256": "779430725df18a9f32b233b90b06d030a54732b0248e49964f073cf8d697d35c",
+      "original_guard_zeroes": true
+    },
+    "earlier": {
+      "publication_id": "truss-graph-3",
+      "rows": [
+        {
+          "paths": 0
+        }
+      ],
+      "integrity_checks": 13,
+      "recompiled_sha256": "d00fa298a396d575d8974fd43d32cb5d2f458ff26a49d6677756b66e3c0ee3a3",
+      "original_guard_zeroes": true
+    }
+  },
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_source_commit": "9fa8b87534785cb6d0c5b950e1ab6e976989bc18",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_index_sha256": "6aa24c395dc721ef6cfef281f34628051a041530ba426d8dc31e9126e9510399",
+  "weft_realization": "weft-f36f206-implicit-arithmetic-aarch64-apple-darwin-candidate",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "files": {
+    "current-request.json": {
+      "bytes": 8814,
+      "sha256": "9cd1e57a0573e866a3509d88f16eede6c1c4444ff5c39332c2b3280df35e12b6"
+    },
+    "current-response.json": {
+      "bytes": 52881,
+      "sha256": "779430725df18a9f32b233b90b06d030a54732b0248e49964f073cf8d697d35c"
+    },
+    "earlier-request.json": {
+      "bytes": 8814,
+      "sha256": "e77f0fb72719e2e6deb6678d064a6c78963446086f32734762e0b76d40863fc8"
+    },
+    "earlier-response.json": {
+      "bytes": 52881,
+      "sha256": "d00fa298a396d575d8974fd43d32cb5d2f458ff26a49d6677756b66e3c0ee3a3"
+    }
+  },
+  "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "scope": "Actual public installed Weft0.4.2 authored EXPAND_PATHS two-hop global COUNT against original UMF0.7 typed Truss model on retained Delta publications5 and3. Current graph has two objects, a forward edge and self-loop: two edge-ID-pair occurrences including same-edge reuse; earlier graph has same objects/no edges: zero paths. All five obligations and thirteen original guards per query, exact original recompilation, pinned BIGINT edge schemas, complete independent counts and unchanged source checkpoint. No new ingestion. No target-distinct/grouped/filtered counts, parallel-edge, cross-model, cloud, production or protected ACK qualification."
+}

@@ -1952,3 +1952,8 @@ count must equal the independent full source edge-pair count. Original request,
 response and recompilation strings are retained. Filters, groups, property joins
 and path-list outputs need separate admission. This route is scoped to the local
 candidate; native qualification is recorded separately in execution evidence.
+
+The [native authored two-hop counts](../../docs/helix/04-build/evidence/truss-two-hop-count-native-20261013/result.json)
+return two paths on the forward-edge/self-loop publication and zero on its
+retained earlier no-edge publication. Each executes thirteen original guards
+and leaves the source checkpoint unchanged.
