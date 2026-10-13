@@ -23,11 +23,13 @@ def read_historical_catalog_views(connection_factory,batch):
     captured={}
     with connection_factory()as connection:
         if connection.autocommit or connection.info.transaction_status!=0:raise ValueError('Fresh ordinary non-autocommit connection required')
-        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY')
+        # The public catalog extractor takes a shared schema lock and refuses READ ONLY.
+        # Capture in an ordinary transaction, then roll it back without committing.
+        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
         connection.execute("SET LOCAL statement_timeout = '15000ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
-            tx=value(host.adopt_transaction(access_mode='read_only'))
+            tx=value(host.adopt_transaction())
             assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host))
             seed=assembly.catalog_view_request()
             for revision in revisions:

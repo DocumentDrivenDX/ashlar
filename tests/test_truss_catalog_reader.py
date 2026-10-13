@@ -4,7 +4,7 @@ from unittest.mock import patch
 from ashlar_host.truss_catalog_reader import read_historical_catalog_views
 
 class Tests(unittest.TestCase):
-    def test_selected_historical_revisions_preserve_bytes_and_close_readonly_owners(self):
+    def test_selected_historical_revisions_preserve_bytes_and_rollback_catalog_lock_transaction(self):
         calls=[]
         @dataclass
         class Ok:value:object
@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
         batch=types.SimpleNamespace(profile='truss-native-feed/0.1',begin=json.dumps({'catalogPrerequisites':[{'revision':'0','reportBytesBase64':None},{'revision':'1','reportBytesBase64':'original'},{'revision':'2','reportBytesBase64':'original'}]}).encode())
         with patch.dict(sys.modules,{'truss':sdk}),patch('ashlar_host.truss_catalog_reader.batch_row'):
             actual=read_historical_catalog_views(Connection,batch)
-        self.assertEqual(actual,originals);self.assertIn({'access_mode':'read_only'},calls)
+        self.assertEqual(actual,originals);self.assertIn({},calls);self.assertIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED',calls);self.assertNotIn('SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY',calls)
         self.assertEqual([entry for entry in calls if type(entry)is tuple],[('read','1'),('read','2')])
         self.assertEqual(calls[-4:],['dispose','detach','rollback','connection-close'])
 
