@@ -836,6 +836,26 @@ and repeated use of an edge are allowed. The result reports `path_count` and
 above 10,000 paths refuses rather than returning a truncated answer. These
 counts are checked against the original graph independently of native results.
 
+### Compare immutable graph exports
+
+Use `compare-graph-exports` to inspect changes between two saved exports without
+starting Spark. Each configuration contains exactly `release_path`, `custody_path`,
+`release_sha256` and `custody_sha256`, taken from its export result. Paths must be
+absolute and digests must identify the original files.
+
+```sh
+ashlar compare-graph-exports \
+  --first-configuration /absolute/path/r1-selection.json \
+  --second-configuration /absolute/path/r2-selection.json \
+  --output /absolute/path/comparison.json
+```
+
+The private report lists added, removed and changed nodes and edges by graph ID,
+including before/after rows and changed columns. Property carriers are compared
+as exact strings; this command does not interpret property values or establish
+ancestry between the exports. It reads both complete exports before creating a
+fresh report and leaves the source and its checkpoint untouched.
+
 ### Publish a saved page before its first preparation
 
 If continuation retained its source-page archive and publication intent but failed
