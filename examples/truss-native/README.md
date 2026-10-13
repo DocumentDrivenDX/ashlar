@@ -2096,6 +2096,10 @@ qualifies original 0.8 acceptance, creation/replay, two Delta publications and
 exact four-field readback on Truss 0.0.15. Its original report retains the
 `UNKNOWN_EXTENSION` warning and partial interpretation. Neither intake example
 qualifies unknown semantic enforcement, Weft queries or production authorization.
+The [immutable export and GraphFrames check](../../docs/helix/04-build/evidence/truss15-core08-immutable-graphframes-20261013/result.json)
+retains the same isolated node and four exact property carriers. Unknown model
+extensions remain in source acceptance evidence; the graph does not embed or
+interpret that vocabulary. GraphFrames numeric filtering is outside this check.
 
 The [declared 0.8 lifecycle example](../../docs/helix/04-build/evidence/truss-core08-lifecycle-native-20261013/result.json)
 qualifies source update/delete with committed receipt replay, two contiguous

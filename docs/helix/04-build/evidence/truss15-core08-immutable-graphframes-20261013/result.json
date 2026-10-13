@@ -1,0 +1,65 @@
+{
+  "format": "ashlar-truss15-core08-immutable-graphframes/0.1",
+  "outcome": "passed",
+  "export": {
+    "outcome": "passed",
+    "duration_seconds": 14.262,
+    "publication_id": "truss-graph-2",
+    "nodes": 1,
+    "edges": 0,
+    "source_checkpoint_unchanged": true,
+    "original_source_file_hashes": {
+      "model.umf.json": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+      "accepted.json": "f9c8031d9b460ab4f91b32d864513c082424f86900362551c294b815c378f097",
+      "created.json": "98732042185a00a3fd07943f1af3e011df02852466af5abef7a1ec7b83906b55",
+      "record.json": "cb0bb0599ae7ea19bd5720bd48f9f4eaf64c097a63978b9ef700512d17b49026",
+      "publication/source-page-1.json": "c5f018e8d9677b5d4a41a59a361d5e855746aef360abff4297fc18e4ae6807fd",
+      "publication/source-page-2.json": "03379ccc1af1135e112707991da43746ef28c17320016d5b216c5f711a5b4f45",
+      "publication/publication-intent-2.json": "7a657de554cb2ee0f972890fcaf9a77432b5ec49180084f3b37316400d2f5d1b",
+      "publication/result.json": "cab45de71b7057e3bef71f04a3bd054358c1070a60717e231fcbc4e0ac35cdd2"
+    },
+    "release_sha256": "29505dc24702319f5262a146ec53a1c9979f06ac938e8cb9880146b4d6af5018",
+    "custody_sha256": "b9c019a31c5a81b696ed840bb1bf92a1701d2821a35165a9a8c0e49ceb914764",
+    "qualification": "Existing original declaredUMF08 source/publication immutable export only; exact four known scalar carrier tokens and source identity, opaque extension preservation; no unknown enforcement, numeric graph filtering, Weft, protectedACK/F8/UC."
+  },
+  "graphframes": {
+    "outcome": "passed",
+    "duration_seconds": 4.36,
+    "publication_id": "truss-graph-2",
+    "nodes": 1,
+    "edges": 0,
+    "one_hop": 0,
+    "two_hop": 0,
+    "qualification": "Exact immutable known four scalar opaque carriers and one isolated node, source identity and release/custody pair. No unknown extension semantics, numeric filtering or protectedACK/UC.",
+    "release_sha256": "29505dc24702319f5262a146ec53a1c9979f06ac938e8cb9880146b4d6af5018",
+    "custody_sha256": "b9c019a31c5a81b696ed840bb1bf92a1701d2821a35165a9a8c0e49ceb914764",
+    "runtime": {
+      "spark": "3.5.3",
+      "pyspark": "3.5.3",
+      "graphframes": "0.12.3",
+      "master": "local[1]",
+      "driver_memory": "512m"
+    }
+  },
+  "checkpoint_evidence": "Export harness compares actual source read_page prior content before/after read while source is open. Boolean assertion retained; separate raw checkpoint samples were not persisted. Original source files and saved publication pages/intents remained byte-identical.",
+  "source_model_sha256": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+  "source_acceptance_evidence": "../truss15-core08-opaque-native-20261013/result.json",
+  "unknown_extension_qualification": "Original unknown vocabulary and extension bytes remain in the linked source acceptance/model evidence. Graph retained_json is {} and props_json contains only the four known scalar fields. The original export-result phrase opaque extension preservation refers to source evidence remaining unchanged, not extension payload inclusion or interpretation in the graph release.",
+  "initial_graphframes_attempt": "Sandbox denied local Java gateway socket before frame import; failed1.033s. Fresh root with approved execution permissions passed4.36s; no semantic retry or source effects.",
+  "scope": "Existing immutable one-node zero-edge publication only; no reacceptance, source mutation, ACK advancement, schema upgrade, Weft/F8/UC/production claim.",
+  "evidence_sha256": {
+    "custody.json": "b9c019a31c5a81b696ed840bb1bf92a1701d2821a35165a9a8c0e49ceb914764",
+    "export-report.json": "0aa1bb24c78daf3ecf64660885097d0e1607616cca8fede3868794e43ffecdd4",
+    "export-result.json": "f44b99d93865059560f0f584558c61fcab388a4d01d93dd55144ec64231e14f2",
+    "export-supervisor.json": "d5e4a9348e7038c913d9e26c9e6de3016453b42edc349d3a1f4ff8ea31d123b0",
+    "export.py": "13cebcc5632f74cb5b6e9599f4d3f4619ac70c42694be11f62e6bfb002e7178b",
+    "graphframes-result.json": "c1c02805341be38dd12fbc6d0a8a0459895d91e2cb5b225d6ad45190b494e958",
+    "graphframes-supervisor.json": "1cf0d034a5b6163694b090f8b6feefcbc3862070c851e6b786b5bbc6731a69f2",
+    "graphframes.json": "73e71832ff92b3697bd24ef47fcf7ad069e7234ac15c2341e4b6f95528fc0065",
+    "graphframes.py": "8a7f8a5b995f9680a3b053405c57d4015d909039234549e2e88da849029a4ba6",
+    "initial-gateway-failure/run-result.json": "31d36cf7083a49ac71363593a6de7a2ee36c87fef4ec2c6e56b994305c9b943a",
+    "initial-gateway-failure/run.log": "1f7b77be75e0267cc837991c6c939f257b43270eb84a27afc4d4a0cfeb582ea4",
+    "initial-gateway-failure/supervisor-result.json": "70f481430f9e6344dae53f66eaaa4e6e2e5690cb3f36558e488ffa80232d45b4",
+    "release.graph.json": "29505dc24702319f5262a146ec53a1c9979f06ac938e8cb9880146b4d6af5018"
+  }
+}

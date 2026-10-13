@@ -1,0 +1,21 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 14.262,
+  "publication_id": "truss-graph-2",
+  "nodes": 1,
+  "edges": 0,
+  "source_checkpoint_unchanged": true,
+  "original_source_file_hashes": {
+    "model.umf.json": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+    "accepted.json": "f9c8031d9b460ab4f91b32d864513c082424f86900362551c294b815c378f097",
+    "created.json": "98732042185a00a3fd07943f1af3e011df02852466af5abef7a1ec7b83906b55",
+    "record.json": "cb0bb0599ae7ea19bd5720bd48f9f4eaf64c097a63978b9ef700512d17b49026",
+    "publication/source-page-1.json": "c5f018e8d9677b5d4a41a59a361d5e855746aef360abff4297fc18e4ae6807fd",
+    "publication/source-page-2.json": "03379ccc1af1135e112707991da43746ef28c17320016d5b216c5f711a5b4f45",
+    "publication/publication-intent-2.json": "7a657de554cb2ee0f972890fcaf9a77432b5ec49180084f3b37316400d2f5d1b",
+    "publication/result.json": "cab45de71b7057e3bef71f04a3bd054358c1070a60717e231fcbc4e0ac35cdd2"
+  },
+  "release_sha256": "29505dc24702319f5262a146ec53a1c9979f06ac938e8cb9880146b4d6af5018",
+  "custody_sha256": "b9c019a31c5a81b696ed840bb1bf92a1701d2821a35165a9a8c0e49ceb914764",
+  "qualification": "Existing original declaredUMF08 source/publication immutable export only; exact four known scalar carrier tokens and source identity, opaque extension preservation; no unknown enforcement, numeric graph filtering, Weft, protectedACK/F8/UC."
+}

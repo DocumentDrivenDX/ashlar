@@ -43,10 +43,11 @@ The schema page embeds UMF’s published schema browser 1.1.2, with a standalone
 `model/schema-browser/index.html`. The upstream JS/CSS remain byte-identical.
 Ashlar owns the surrounding HTML/CSS and a catalog containing the exact eight
 physical UMF definitions, the logical fields/keys/relationships model, and the
-two authored Truss cohort revisions. Select the revised cohort to inspect the
-optional `B-tag` field and its unchanged relationship endpoints.
+Truss cohort revisions and inverse relationship, typed record revisions, and the
+original UMF 0.8 asset with retained uninterpreted consumer content. Select the
+revised cohort to inspect the optional `B-tag` field and unchanged endpoints.
 It loads only local assets; local-file inspection and source download remain
-browser operations. Delta extension interpretation is explicitly partial.
+browser operations. Delta and consumer extension interpretation is explicitly partial.
 
 ```sh
 curl --fail --location --output /tmp/umf-schema-browser-1.1.2.tgz https://registry.npmjs.org/@documentdrivendx/umf-schema-browser/-/umf-schema-browser-1.1.2.tgz

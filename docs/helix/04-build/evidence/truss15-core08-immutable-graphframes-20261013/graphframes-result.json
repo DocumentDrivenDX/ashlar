@@ -1,0 +1,19 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 4.36,
+  "publication_id": "truss-graph-2",
+  "nodes": 1,
+  "edges": 0,
+  "one_hop": 0,
+  "two_hop": 0,
+  "qualification": "Exact immutable known four scalar opaque carriers and one isolated node, source identity and release/custody pair. No unknown extension semantics, numeric filtering or protectedACK/UC.",
+  "release_sha256": "29505dc24702319f5262a146ec53a1c9979f06ac938e8cb9880146b4d6af5018",
+  "custody_sha256": "b9c019a31c5a81b696ed840bb1bf92a1701d2821a35165a9a8c0e49ceb914764",
+  "runtime": {
+    "spark": "3.5.3",
+    "pyspark": "3.5.3",
+    "graphframes": "0.12.3",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  }
+}

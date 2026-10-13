@@ -1,0 +1,5 @@
+{
+  "outcome": "failed",
+  "duration_seconds": 1.033,
+  "error_type": "PySparkRuntimeError"
+}

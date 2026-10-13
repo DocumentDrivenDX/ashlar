@@ -1,0 +1,54 @@
+/private/tmp/ashlar-original-commerce-publication-sdk-20261011-a/lib/python3.11/site-packages/pyspark/bin/load-spark-env.sh: line 68: /bin/ps: Operation not permitted
+26/10/13 18:23:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Exception in thread "main" py4j.Py4JNetworkException
+	at py4j.GatewayServer.startSocket(GatewayServer.java:788)
+	at py4j.GatewayServer.start(GatewayServer.java:763)
+	at py4j.GatewayServer.start(GatewayServer.java:746)
+	at py4j.ClientServer.<init>(ClientServer.java:150)
+	at py4j.ClientServer.<init>(ClientServer.java:45)
+	at py4j.ClientServer$ClientServerBuilder.build(ClientServer.java:263)
+	at org.apache.spark.api.python.Py4JServer.<init>(Py4JServer.scala:42)
+	at org.apache.spark.api.python.PythonGatewayServer$.main(PythonGatewayServer.scala:38)
+	at org.apache.spark.api.python.PythonGatewayServer.main(PythonGatewayServer.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.spark.deploy.JavaMainApplication.start(SparkApplication.scala:52)
+	at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:1029)
+	at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:194)
+	at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:217)
+	at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:91)
+	at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1120)
+	at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1129)
+	at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.net.SocketException: Operation not permitted
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:577)
+	at java.base/sun.nio.ch.Net.bind(Net.java:566)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+	at py4j.GatewayServer.startSocket(GatewayServer.java:786)
+	... 20 more
+{"outcome": "failed", "duration_seconds": 1.033, "error_type": "PySparkRuntimeError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss15-core08-graphframes-native-20261013-a/run.py", line 8, in <module>
+    value=run_graphframes_export_command('/private/tmp/ashlar-truss15-core08-export-native-20261013-a/graphframes.json',root/'graphframes-result.json',maximum_hops=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/graphframes_export.py", line 126, in run_graphframes_export_command
+    finish(primary,[spark_context.stop]if spark_context is not None else[])
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/lifecycle.py", line 22, in finish
+    raise owner
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/graphframes_export.py", line 118, in run_graphframes_export_command
+    spark_context=SparkContext(conf=conf)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-original-commerce-publication-sdk-20261011-a/lib/python3.11/site-packages/pyspark/context.py", line 201, in __init__
+    SparkContext._ensure_initialized(self, gateway=gateway, conf=conf)
+  File "/private/tmp/ashlar-original-commerce-publication-sdk-20261011-a/lib/python3.11/site-packages/pyspark/context.py", line 436, in _ensure_initialized
+    SparkContext._gateway = gateway or launch_gateway(conf)
+                                       ^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-original-commerce-publication-sdk-20261011-a/lib/python3.11/site-packages/pyspark/java_gateway.py", line 107, in launch_gateway
+    raise PySparkRuntimeError(
+pyspark.errors.exceptions.base.PySparkRuntimeError: [JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.
