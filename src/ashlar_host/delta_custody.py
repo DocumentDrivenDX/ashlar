@@ -463,6 +463,9 @@ class LocalDeltaTransport:
         if envelope > bounds.input_bytes or envelope > bounds.total_bytes:
             raise LocalDeltaError('Bounded native metric envelope required')
         quote = lambda name: F.col('`'+name.replace('`','``')+'`')
+        # Keep complete accepted bags; one extra row proves overflow before
+        # measuring payloads or constructing the global admission window.
+        frame = frame.limit(limit+1)
         real = frame.select(*[quote(name) for name in names],
             *[value.alias(alias) for value,alias in zip(measurements,aliases)],
             F.lit(1).cast('byte').alias(marker))

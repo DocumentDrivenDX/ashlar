@@ -58,6 +58,8 @@ class Tests(unittest.TestCase):
         self.fields=[SimpleNamespace(name=name,nullable=True,metadata={},dataType=SimpleNamespace(simpleString=lambda family=family:family,typeName=lambda family=family:{'bigint':'long','string':'string'}[family])) for name,family in [('id','bigint'),('text','string')]]
         outer=self
         class Frame:
+            def limit(self,count):
+                outer.events.append(('limit',count));outer.rows=outer.rows[:count];return self
             schema=SimpleNamespace(fields=outer.fields,json=lambda:outer.schema_json())
             def __init__(self,sentinel=False):self.sentinel=sentinel
             def select(self,*args):
