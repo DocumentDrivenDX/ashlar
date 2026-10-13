@@ -1919,5 +1919,6 @@ a bounded 2 MiB catalog/feed page budget. The source enforces the original direc
 independent max-two relationship declarations. Forward bags are R1:[R2] and R2:[R2];
 inverse bags are R1:[] and R2:[R1,R2], with no truncation at bound two. Source ACK is
 caller-asserted. The final private bounded report requires unchanged checkpoints,
-exact values, complete bags and successful runtime closure. Native end-to-end
-qualification is pending its recorded execution evidence.
+exact values, complete bags and successful runtime closure. The [native public-command workflow](../../docs/helix/04-build/evidence/truss-typed-related-native-20261013/result.json)
+qualifies typed ingestion, singleton and forward/inverse queries. A fresh installed
+run of this one-command helper remains separate from that underlying workflow.
