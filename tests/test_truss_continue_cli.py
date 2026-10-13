@@ -11,6 +11,9 @@ class Tests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 run_continue_truss_graph_command('/config','/output',maximum_pages=0)
             opening.assert_not_called()
+            with self.assertRaises(ValueError):
+                run_continue_truss_graph_command('/config','/output',maximum_page_bytes=2097153)
+            opening.assert_not_called()
 
     def test_exact_selector_restored_before_continuation(self):
         events=[]
@@ -23,10 +26,10 @@ class Tests(unittest.TestCase):
         def restore(driver,digest):events.append(digest)
         def advance(driver,connection,**options):
             self.assertEqual(events,['open','a'*64,'close'])
-            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'archives':()})
+            self.assertEqual(options,{'maximum_pages':1,'wait_seconds':0,'maximum_page_bytes':2097152,'archives':()})
             return {'publications':[]}
         with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner),patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication',side_effect=restore),patch('ashlar_host.truss_continue.continue_truss_graph',side_effect=advance),patch.dict('sys.modules',{'psycopg':SimpleNamespace()}):
-            self.assertEqual(run_continue_truss_graph_command('/config','/output'),{'publications':[]})
+            self.assertEqual(run_continue_truss_graph_command('/config','/output',maximum_page_bytes=2097152),{'publications':[]})
 
     def test_private_interruption_report_preserves_failure_and_refuses_overwrite(self):
         import json

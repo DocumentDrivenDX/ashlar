@@ -8,6 +8,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from .apply import Change,EntityKey,EntityState
 
+MAX_NATIVE_PAGE_BYTES=1125000
+
 class NativeFeedError(ValueError):pass
 
 @dataclass(frozen=True)
@@ -111,7 +113,7 @@ def scalar_entity_changes(content,*,sha256,prior,next,feed):
 def native_feed_batch(content,*,sha256,prior,next,feed):
     """Keep a genuine whole-page native carrier; no synthetic JSONL envelope."""
     from .source import SourceBatch,records_digest
-    if type(content)is not bytes or not 1<=len(content)<=1048576 or hashlib.sha256(content).hexdigest()!=sha256 or any(type(v)is not bytes or not 1<=len(v)<=16384 for v in (prior,next))or type(feed)is not str or not feed or '\0'in feed:raise NativeFeedError('Bounded original native page and cursors required')
+    if type(content)is not bytes or not 1<=len(content)<=MAX_NATIVE_PAGE_BYTES or hashlib.sha256(content).hexdigest()!=sha256 or any(type(v)is not bytes or not 1<=len(v)<=16384 for v in (prior,next))or type(feed)is not str or not feed or '\0'in feed:raise NativeFeedError('Bounded original native page and cursors required')
     payload=_json(content,native=True);before=_json(prior,native=True);after=_json(next,native=True)
     if type(payload)is not dict or payload.get('interfaceVersion')!='truss-native-feed/0.1'or payload.get('prior')!=before or payload.get('next')!=after:raise NativeFeedError('Original native page/cursor correspondence required')
     for cursor in (before,after):

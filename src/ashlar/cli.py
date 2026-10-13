@@ -139,12 +139,13 @@ def main():
     truss_continue.add_argument('--output',required=True)
     truss_continue.add_argument('--maximum-pages',type=int,default=1)
     truss_continue.add_argument('--wait-seconds',type=int,default=0)
+    truss_continue.add_argument('--maximum-page-bytes',type=int,default=1048576)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
     truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')
     truss_server.add_argument('--data-directory',required=True)
-    for name in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
         truss_operation.add_argument('--output',required=True)
@@ -291,13 +292,15 @@ def main():
             print('ashlar commerce graph export refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
-    if args.command in ('mutate-truss-note','evolve-truss-note','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         try:
             from pathlib import Path
             if args.command=='mutate-truss-note':
                 from ashlar_host.truss_note_mutation import run_mutate_truss_note_command as run
             elif args.command=='evolve-truss-note':
                 from ashlar_host.truss_note_evolution import run_evolve_truss_note_command as run
+            elif args.command=='evolve-truss-record':
+                from ashlar_host.truss_schema_evolution import run_evolve_truss_record_command as run
             elif args.command=='mutate-truss-graph':
                 from ashlar_host.truss_graph_mutation import run_mutate_truss_graph_command as run
             elif args.command=='change-truss-graph':
@@ -359,7 +362,7 @@ def main():
         try:
             from ashlar_host.truss_continue_cli import run_continue_truss_graph_command
             result=run_continue_truss_graph_command(args.configuration,args.output,
-                maximum_pages=args.maximum_pages,wait_seconds=args.wait_seconds)
+                maximum_pages=args.maximum_pages,wait_seconds=args.wait_seconds,maximum_page_bytes=args.maximum_page_bytes)
             print(json.dumps({'output':args.output,'publications':len(result['publications'])},separators=(',',':')))
         except Exception:
             print('ashlar Truss continuation refused; inspect the requested output if written, retain the original journal and resume any pending intent',file=sys.stderr)

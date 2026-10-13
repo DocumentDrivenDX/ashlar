@@ -31,10 +31,18 @@ class StagedBatch:
     # This receipt never authorizes source acknowledgement or data publication.
 
 
+def _original_byte_limit(profile):
+    if profile=='truss-native-feed/0.1':
+        from .truss_native_feed import MAX_NATIVE_PAGE_BYTES
+        return MAX_NATIVE_PAGE_BYTES
+    if profile=='ashlar-jsonl-transactions/0.1':return 1024*1024
+    raise StagingError('Unsupported source profile')
+
+
 def batch_row(batch: SourceBatch):
     if not isinstance(batch,SourceBatch) or not isinstance(batch.records,tuple):raise StagingError('Immutable source batch required')
     if len(batch.records)>1000 or any(not isinstance(x,SourceRecord) or not isinstance(x.raw,bytes) for x in batch.records) or not isinstance(batch.begin,bytes) or not isinstance(batch.commit,bytes):raise StagingError('Invalid bounded raw batch')
-    if len(batch.begin)+sum(len(x.raw) for x in batch.records)+len(batch.commit)>1024*1024:raise StagingError('Stage transaction byte limit exceeded')
+    if len(batch.begin)+sum(len(x.raw) for x in batch.records)+len(batch.commit)>_original_byte_limit(batch.profile):raise StagingError('Stage transaction byte limit exceeded')
     raw=batch.begin+b''.join(x.raw for x in batch.records)+batch.commit
     try:
         if batch.profile=='truss-native-feed/0.1':
@@ -81,7 +89,7 @@ def batch_from_row(row):
         if len(value['records']) > 1000:
             raise StagingError('Retained record count exceeded')
         raw = []
-        remaining = 1024 * 1024
+        remaining = _original_byte_limit(row['source_profile'])
         def original(text):
             nonlocal remaining
             if not isinstance(text, str) or len(text) > ((remaining + 2) // 3) * 4:

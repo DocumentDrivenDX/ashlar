@@ -6,6 +6,15 @@ from ashlar_host.truss_page_archive import encode_truss_page, decode_truss_page
 
 
 class Tests(unittest.TestCase):
+    def test_encoder_refuses_a_page_the_existing_decoder_cannot_retain(self):
+        from dataclasses import replace
+        from types import SimpleNamespace
+        owner, *_ = cases.Tests().setup_case()
+        page=replace(owner.page,content=b'x'*1125001)
+        with patch('ashlar_host.truss_page_archive._types',return_value=(cases.Page,cases.Cursor)),patch('ashlar_host.truss_page_archive.native_feed_batch',return_value=SimpleNamespace(batch_id=page.writer_xid)):
+            with self.assertRaisesRegex(ValueError,'byte-carrier bounds'):
+                encode_truss_page(page,feed=owner.feed)
+
     def test_original_public_page_roundtrip_and_changed_digest(self):
         owner, *_ = cases.Tests().setup_case()
         with patch('ashlar_host.truss_page_archive._types', return_value=(cases.Page, cases.Cursor)):

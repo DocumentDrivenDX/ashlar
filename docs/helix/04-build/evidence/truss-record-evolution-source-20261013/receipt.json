@@ -1,0 +1,14 @@
+{
+  "profile": "ashlar-truss-record-evolution-source/0.1",
+  "evolution_result_sha256": "572c1667fae1fe8f89d189dd4f34393c39f6533016061061b00247fbb7622195",
+  "catalog_revision": 2,
+  "object_id": 2,
+  "type_id": 2,
+  "before_version": 1,
+  "after_version": 2,
+  "original_values_preserved": true,
+  "new_field": "B-tag",
+  "new_field_value": "reviewed",
+  "caller_commits_confirmed": true,
+  "qualification": "Actual source-checkout evolve-truss-record CLI accepted original UMF0.7 cohort r2 and updated existing object through public Truss APIs, with complete readback and original committed update replay. Source-only scope; Delta continuation recovery remains pending the applying-phase local receipt storage failure. No feed/ACK, optional Weft, installed-wheel or Unity Catalog claim."
+}

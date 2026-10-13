@@ -51,7 +51,7 @@ def _persist(path,raw):
         stream.flush();os.fsync(stream.fileno())
 
 
-def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,archives=()):
+def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_seconds=0,maximum_page_bytes=1048576,archives=()):
     """Continue a restored explicit committed predecessor; never initialize/reset.
 
     Caller holds the existing installation lease and outer transport/Spark/source
@@ -63,6 +63,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise PermissionError('Actual restored Truss graph continuation owner required')
     if type(maximum_pages)is not int or not 1<=maximum_pages<=8 or type(wait_seconds)is not int or not 0<=wait_seconds<=60:
         raise ValueError('Bounded continuation pages1..8 and wait0..60 required')
+    if type(maximum_page_bytes)is not int or not 1<=maximum_page_bytes<=2097152:
+        raise ValueError('Explicit bounded continuation page bytes required')
     context=driver.context;source=driver.source_sessions
     with owned_context(driver.writer(driver.policy.active['request']['stream'],context)):
         state=_ready(driver)
@@ -74,7 +76,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
     ordinary=bind_ordinary_connection(connection_factory,context);transport=driver.transport
     root=transport.journal_path.parent;deadline=time.monotonic()+wait_seconds;results=[]
     for _ in range(maximum_pages):
-        page=read_next_page(connection_factory,consumer,wait_seconds,deadline=deadline)
+        page=read_next_page(connection_factory,consumer,wait_seconds,deadline=deadline,maximum_bytes=maximum_page_bytes)
         if page.prior.content!=cursor or page.consumer_id!=consumer or page.registration_id!=source.page.registration_id:
             raise ValueError('Original contiguous Truss consumer cursor differs')
         current=json.loads(page.prior.content)

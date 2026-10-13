@@ -984,6 +984,51 @@ absence. The command uses the existing local Truss authority profile and does
 not publish or acknowledge data. Local Spark startup is included in command
 duration; this workflow makes no production latency claim.
 
+### Add a field to an existing record
+
+`evolve-truss-record` accepts an explicit compatible UMF revision through Truss,
+then sets one previously absent STRING field on a selected existing object.
+Truss owns compatibility and field validation. The command preserves original
+values and native identity, reads back both commits, and replays the original
+committed update receipt. The existing `evolve-truss-note` command remains
+available for the Note example.
+
+For the cohort, [cohort-r2.umf.json](cohort-r2.umf.json) adds optional `B-tag`.
+Use a private configuration with exactly these fields:
+
+```json
+{
+  "connection_uri": "postgresql://ordinary-consumer@127.0.0.1:REPLACE_PORT/truss",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/cohort-r2.umf.json",
+  "document_revision": "r2",
+  "origin_path": "/absolute/private/origin.json",
+  "accept_request_key": "cohort-add-tag",
+  "update_request_key": "beta-set-tag",
+  "object_id": 2,
+  "document_id": "cohort",
+  "module_id": "m",
+  "record_id": "B",
+  "field_name": "B-tag",
+  "field_value": "reviewed"
+}
+```
+
+Select your actual object ID and authorized ordinary connection. Run
+`ashlar evolve-truss-record --configuration /absolute/private/evolution.json
+--output /absolute/private/evolution-report.json`. Schema acceptance and the
+object update are separate source commits; retain original request keys and
+inspect source state if a later step fails. The report retains exact previous
+and revised catalogs and acceptance reports. Supply those captures through the
+existing publication configuration's `archived_acceptance_files` and use
+`continue-truss-graph --maximum-pages 2 --maximum-page-bytes 2097152` to publish
+both contiguous feed pages. The byte option is explicit and bounded at 2 MiB;
+the existing default remains 1 MiB. A complete transaction must also fit the
+retained page archive's original carrier bounds before publication begins.
+The source command itself does not publish or ACK. Use a singleton read of the
+new publication to inspect the field; optional-field Weft decoding needs its
+own supported query profile.
+
 ### Stream a selected target update and deletion
 
 Use `update-delete-truss-target` when the source A must remain connected to other

@@ -354,6 +354,43 @@ Source switching requires its own admitted empty installation and original
 journal. It MUST NOT overwrite an existing publication or treat distinct feeds
 as one state without an explicitly admitted combined-source profile.
 
+## Selected Truss record evolution
+
+`evolve-truss-record` MUST accept a closed configuration with `connection_uri`,
+`bun`, `document_path`, `document_revision`, `origin_path`, `accept_request_key`,
+`update_request_key`, `object_id`, `document_id`, `module_id`, `record_id`,
+`field_name` and `field_value`. The selected object ID MUST be a positive
+signed64 integer. The authored revision MUST retain its declared UMF version;
+the local profile admits UMF 0.7 rootless records and a scalar STRING field.
+The previous accepted record MUST NOT already declare that field, and the new
+record MUST declare it before acceptance. Truss owns model compatibility and
+value validation.
+
+Schema acceptance and the expected-version object update are separate caller
+commits. The command MUST preserve native identity and every original value,
+read back the accepted document and updated object, and verify the original
+committed update receipt. Its private report MUST retain exact previous/revised
+catalog and acceptance bytes after resource closure. This command advances no
+consumer checkpoint; publication consumes the original contiguous feed pages.
+A later failure MUST NOT imply rollback of an earlier source commit.
+
+## Native Truss continuation page capacity
+
+`continue-truss-graph --maximum-page-bytes N` MUST select an explicit integer
+read bound in bytes, from 1 through 2,097,152. Omission retains the 1,048,576-byte
+default. The selected bound MUST reach the ordinary public feed reader without
+truncating or splitting a committed source transaction. Resource refusal MUST
+leave source progress unchanged.
+
+The `truss-native-feed/0.1` batch and staged recovery MUST preserve complete
+original transactions up to 1,125,000 bytes, matching the retained page carrier's
+1,500,000-character Base64 ceiling. Archive encoding MUST refuse a page that
+cannot be decoded under the same original bounds, before retaining a publication
+intent or applying effects. A larger selected read bound does not authorize
+unrepresentable archives. The JSONL transaction staging limit remains 1 MiB;
+source registration, identity, epoch, exact-byte custody and publication-before-ACK
+requirements remain unchanged.
+
 ## Installed original-commerce two-source evolution boundary
 
 The named development profile `ashlar-commerce-evolution-transactions/0.1`

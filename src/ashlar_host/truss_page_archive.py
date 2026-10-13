@@ -27,6 +27,8 @@ def encode_truss_page(page, feed):
         'prior': base64.b64encode(page.prior.content).decode(), 'next': base64.b64encode(page.next.content).decode(),
         'sha256': page.sha256, 'consumer_id': page.consumer_id, 'registration_id': page.registration_id,
         'writer_xid': page.writer_xid, 'safe_watermark_xid': page.safe_watermark_xid, 'outcome': page.outcome}
+    if any(len(value[field])>1500000 for field in ('content','prior','next')):
+        raise ValueError('Original Truss page must fit retained byte-carrier bounds')
     raw = (encoded(value)+'\n').encode()
     if len(raw) > 2097152:
         raise ValueError('Bounded original Truss page archive required')

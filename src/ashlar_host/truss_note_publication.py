@@ -54,7 +54,9 @@ def register_note_consumer(connection_factory,consumer_id,reader_role):
     return registration
 
 
-def read_page(connection_factory,consumer_id):
+def read_page(connection_factory,consumer_id,*,maximum_bytes=1048576):
+    if type(maximum_bytes)is not int or not 1<=maximum_bytes<=2097152:
+        raise ValueError('Explicit bounded source page bytes1..2097152 required')
     from truss import Ok,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host
     from truss.feed import FeedPage
     with connection_factory()as connection:
@@ -66,7 +68,7 @@ def read_page(connection_factory,consumer_id):
             return result.value
         try:
             tx=value(host.adopt_transaction(access_mode='read_only'));assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host))
-            page=value(assembly.read_feed_in_transaction(tx,consumer_id=consumer_id,maximum_facts=4096,maximum_bytes=1048576))
+            page=value(assembly.read_feed_in_transaction(tx,consumer_id=consumer_id,maximum_facts=4096,maximum_bytes=maximum_bytes))
             if not isinstance(page,FeedPage):raise ValueError('Actual complete Truss page required')
         except BaseException as error:primary=error
         def detach():
@@ -78,13 +80,14 @@ def read_page(connection_factory,consumer_id):
 
 
 
-def read_next_page(connection_factory,consumer_id,wait_seconds=0,*,deadline=None):
+def read_next_page(connection_factory,consumer_id,wait_seconds=0,*,deadline=None,maximum_bytes=1048576):
     """Poll ordinary public pages within one bounded wait; never ACK empty pages."""
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
+    if type(maximum_bytes)is not int or not 1<=maximum_bytes<=2097152:raise ValueError('Bounded source page bytes required')
     limit=time.monotonic()+wait_seconds
     if deadline is not None:limit=min(limit,deadline)
     while True:
-        page=read_page(connection_factory,consumer_id)
+        page=read_page(connection_factory,consumer_id,maximum_bytes=maximum_bytes)
         if page.outcome=='transaction':return page
         remaining=limit-time.monotonic()
         if remaining<=0:return page
