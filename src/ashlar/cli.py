@@ -319,7 +319,7 @@ def main():
                 maximum_pages=args.maximum_pages,wait_seconds=args.wait_seconds)
             print(json.dumps({'output':args.output,'publications':len(result['publications'])},separators=(',',':')))
         except Exception:
-            print('ashlar Truss continuation refused; retain the original journal and resume any pending intent',file=sys.stderr)
+            print('ashlar Truss continuation refused; inspect the requested output if written, retain the original journal and resume any pending intent',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':

@@ -1,5 +1,5 @@
 """Continue a selected Truss publication using existing local custody."""
-from .lifecycle import owned_context
+from .lifecycle import owned_context,finish
 from .truss_recovery import restore_applied_truss_publication
 from .truss_resume_cli import run_selected_truss_command
 
@@ -18,4 +18,22 @@ def run_continue_truss_graph_command(configuration,output,*,maximum_pages=1,wait
         from .truss_catalog_reader import parse_archived_acceptance_files
         return continue_truss_graph(driver,connection,maximum_pages=maximum_pages,
             wait_seconds=wait_seconds,archives=parse_archived_acceptance_files(config.get('archived_acceptance_files',[])))
-    return run_selected_truss_command(configuration,output,advance)
+    try:
+        return run_selected_truss_command(configuration,output,advance)
+    except BaseException as error:
+        capture=getattr(error,'ashlar_truss_continuation_interruption',None)
+        if capture is not None:
+            capture={**capture,'owners_cleanup_failed':getattr(error,'cleanup_failed',False)is True}
+            # The shared owner has attempted cleanup. Only an actual body failure
+            # carrying its saved selection gets a private interruption report.
+            def report():
+                import os
+                from .delta_custody import encoded
+                raw=(encoded(capture)+'\n').encode()
+                descriptor=os.open(output,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+                with os.fdopen(descriptor,'wb')as stream:
+                    if stream.write(raw)!=len(raw):raise OSError('Complete private interruption report required')
+                    stream.flush();os.fsync(stream.fileno())
+            finish(error,[report])
+        raise
+

@@ -103,6 +103,7 @@ class Tests(unittest.TestCase):
                     self.assertEqual(len(active['expected']['whole_source_history']),3)
                     self.assertEqual(kwargs['predecessor'],'old')
                     return SimpleNamespace(raw={'publication_id':active['publication_id']})
+                initial_active=copy.deepcopy(driver.policy.active)
                 with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
                      patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
                      patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
@@ -115,4 +116,19 @@ class Tests(unittest.TestCase):
                 self.assertEqual(intent['publication_id'],'truss-graph-'+intent['request_digest'])
                 self.assertEqual(hashlib.sha256(Path(selected['source_page']['path']).read_bytes()).hexdigest(),selected['source_page']['sha256'])
                 self.assertEqual(Path(selected['source_page']['path']).stat().st_mode&0o777,0o600)
+                second=root/'failed';second.mkdir();driver.transport.journal_path=second/'operations.sqlite'
+                driver.policy.active=initial_active
+                failure=OSError('private native failure')
+                with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
+                     patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
+                     patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
+                     patch('ashlar_host.truss_continue.read_historical_catalog_views',return_value=catalogs), \
+                     patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=failure):
+                    with self.assertRaises(OSError)as raised:continue_truss_graph(driver,lambda:None)
+                self.assertIs(raised.exception,failure)
+                capture=failure.ashlar_truss_continuation_interruption
+                retained=Path(capture['publication_intent']['path'])
+                self.assertEqual(hashlib.sha256(retained.read_bytes()).hexdigest(),capture['publication_intent']['sha256'])
+                self.assertEqual(capture['outcome'],'unconfirmed')
+
             finally:db.close()

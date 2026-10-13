@@ -27,3 +27,24 @@ class Tests(unittest.TestCase):
             return {'publications':[]}
         with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=owner),patch('ashlar_host.truss_continue_cli.restore_applied_truss_publication',side_effect=restore),patch('ashlar_host.truss_continue.continue_truss_graph',side_effect=advance),patch.dict('sys.modules',{'psycopg':SimpleNamespace()}):
             self.assertEqual(run_continue_truss_graph_command('/config','/output'),{'publications':[]})
+
+    def test_private_interruption_report_preserves_failure_and_refuses_overwrite(self):
+        import json
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        with TemporaryDirectory()as directory:
+            output=Path(directory)/'failure.json'
+            failure=OSError('private URI must not be reported')
+            failure.cleanup_failed=True
+            failure.ashlar_truss_continuation_interruption={'format':'ashlar-truss-continuation-interruption/0.1',
+                'outcome':'unconfirmed','publication_intent':{'path':'/original/intent.json','sha256':'a'*64}}
+            with patch('ashlar_host.truss_continue_cli.run_selected_truss_command',side_effect=failure):
+                with self.assertRaises(OSError)as raised:run_continue_truss_graph_command('/configuration',output)
+                self.assertIs(raised.exception,failure)
+                report=json.loads(output.read_bytes())
+                self.assertEqual(report['publication_intent']['path'],'/original/intent.json')
+                self.assertTrue(report['owners_cleanup_failed'])
+                self.assertNotIn(str(failure),output.read_text());self.assertEqual(output.stat().st_mode&0o777,0o600)
+                saved=output.read_bytes()
+                with self.assertRaises(OSError)as raised:run_continue_truss_graph_command('/configuration',output)
+                self.assertIs(raised.exception,failure);self.assertEqual(output.read_bytes(),saved)

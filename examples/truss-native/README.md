@@ -755,6 +755,14 @@ Use the newest intent for the next continuation. A pending attempt requires
 `resume-truss-graph` with that attempt's saved intent before continuing.
 This command creates no replacement tables, journal or source registration.
 
+If continuation fails after saving a new intent, inspect the requested output
+file for the exact `publication_intent.path` and digest. Use that path with
+`configure-truss-resume`, then resume the original attempt. The interruption
+report does not confirm rollback or publication; recovery checks the retained
+source page, journal and native outcome. The command still exits with an error.
+If no report could be written, retain the destination and original saved files
+for inspection rather than starting a replacement publication.
+
 ### Configure and resume an interrupted publication
 
 The publisher writes `publication-intent-N.json` with the original request digest,

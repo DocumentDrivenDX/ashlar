@@ -92,26 +92,39 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         if page_path.exists()or page_path.is_symlink()or intent_path.exists()or intent_path.is_symlink():
             raise ValueError('Original continuation carriers already exist; inspect original attempt')
         _persist(page_path,page_raw)
-        _persist(intent_path,(encoded({'request_digest':digest,'publication_id':publication_id,
-            'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(page_raw).hexdigest(),'feed':feed})+'\n').encode())
-        following_driver=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,
-            admission.changes,driver.columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
-        stamp=datetime.datetime.now(datetime.timezone.utc).isoformat()
-        graph_tables={role:driver.tables[role]for role in driver.columns}
-        validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
-        after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
-            schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
-        following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
-        steps,elisions=local_effect_plan(generated,expected,graph_tables)
-        following_driver.policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,
-            'previous_progress':progress,'progress':progress_union(progress,json.loads(request['source_checkpoint_json'])),
-            'previous_expected':expected,'generated_steps':generated,'elisions':elisions,
-            'recorded_at':str((datetime.datetime.fromisoformat(stamp)-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc))//datetime.timedelta(microseconds=1))}
-        target=transport.targets[driver.tables['attempts']]
-        backend=StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
-            lambda original,supplied:ManifestPort(following_driver,original))
-        descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
-        results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
-            'publication_intent':{'path':str(intent_path),'sha256':hashlib.sha256(intent_path.read_bytes()).hexdigest()}})
-        state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content
+        intent_raw=(encoded({'request_digest':digest,'publication_id':publication_id,
+            'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(page_raw).hexdigest(),'feed':feed})+'\n').encode()
+        _persist(intent_path,intent_raw)
+        selection={'path':str(intent_path),'sha256':hashlib.sha256(intent_raw).hexdigest()}
+        try:
+            following_driver=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,
+                admission.changes,driver.columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
+            stamp=datetime.datetime.now(datetime.timezone.utc).isoformat()
+            graph_tables={role:driver.tables[role]for role in driver.columns}
+            validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
+            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
+                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition)
+            following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
+            steps,elisions=local_effect_plan(generated,expected,graph_tables)
+            following_driver.policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,
+                'previous_progress':progress,'progress':progress_union(progress,json.loads(request['source_checkpoint_json'])),
+                'previous_expected':expected,'generated_steps':generated,'elisions':elisions,
+                'recorded_at':str((datetime.datetime.fromisoformat(stamp)-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc))//datetime.timedelta(microseconds=1))}
+            target=transport.targets[driver.tables['attempts']]
+            backend=StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(following_driver),CarrierPolicy(following_driver,'attempts'),target.table,target.uuid),following_driver,
+                lambda original,supplied:ManifestPort(following_driver,original))
+            descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
+            results.append({'manifest':dict(descriptor.raw),'source_page':{'path':str(page_path),'sha256':hashlib.sha256(page_raw).hexdigest()},
+                'publication_intent':selection})
+            state=after;expected=following;progress=following_driver.policy.active['progress'];predecessor=publication_id;cursor=page.next.content
+        except BaseException as error:
+            try:
+                error.ashlar_truss_continuation_interruption={
+                    'format':'ashlar-truss-continuation-interruption/0.1','outcome':'unconfirmed',
+                    'publication_intent':selection,'request_digest':digest,'publication_id':publication_id,
+                    'completed_publication_ids':[item['manifest']['publication_id']for item in results],
+                    'qualification':'Saved original selection only; publication/ACK outcome requires actual original resume admission. No rollback or recovery authority is asserted.'}
+            except BaseException:
+                pass  # Diagnostic capture never replaces the original failure.
+            raise
     return {'predecessor':original_predecessor,'publications':results,'scope':'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.'}
