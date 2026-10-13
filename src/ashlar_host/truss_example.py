@@ -17,6 +17,7 @@ class TrussExampleConfiguration:
     export_graph: bool = False
     destination_id: Optional[str] = None
     query_batch: Optional[Path] = None
+    exercise_mutations: bool = False
 
 
 
@@ -34,9 +35,11 @@ def preflight(configuration,output):
         return result
     config=json.loads(raw,object_pairs_hook=pairs)
     required={'profile','bun','java_home','jars','weft_index','weft_installation'}
-    if type(config)is not dict or not required<=set(config)<=required|{'export_graph','destination_id','query_batch'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
+    if type(config)is not dict or not required<=set(config)<=required|{'export_graph','destination_id','query_batch','exercise_mutations'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
     export_graph=config.get('export_graph',False)
     if type(export_graph)is not bool:raise ValueError('Explicit boolean graph export selection required')
+    exercise_mutations=config.get('exercise_mutations',False)
+    if type(exercise_mutations)is not bool:raise ValueError('Explicit boolean mutation selection required')
     from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
     destination_id=receipt_destination_id(config.get('destination_id'))
     if 'destination_id'in config and destination_id is None:raise ValueError('Explicit destination identity required')
@@ -62,7 +65,7 @@ def preflight(configuration,output):
         batch_original=InvocationFile.read(batch_path,65536)
         from .truss_query_batch import parse_truss_query_batch
         parse_truss_query_batch(batch_original.raw)
-    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5],export_graph,destination_id,batch_path),output,original,batch_original
+    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5],export_graph,destination_id,batch_path,exercise_mutations),output,original,batch_original
 
 
 def private_file(path,value):
@@ -107,6 +110,17 @@ def run_truss_example_command(configuration,output):
             published=run_publish_truss_graph_command(publish,root/'publication')
             intent=json.loads((root/'publication/publication-intent-2.json').read_bytes())
             query=private_file(root/'query-configuration.json',{'connection_uri':ordinary,'publication_directory':str(root/'publication'),'jars':[str(path)for path in config.jars],**{k:intent[k]for k in ('feed','source_page_path','source_page_sha256','request_digest')},**({'destination_id':config.destination_id}if config.destination_id is not None else {})})
+            continued=None
+            if config.exercise_mutations:
+                from .truss_graph_lifecycle import run_update_delete_truss_target_command
+                from .truss_continue_cli import run_continue_truss_graph_command
+                from .truss_continuation_setup import run_configure_truss_continuation_command
+                lifecycle_config=private_file(root/'lifecycle-configuration.json',{'connection_uri':ordinary,'bun':str(config.bun),'document_path':str(model),'document_revision':'r1','origin_path':str(origin),'object_id':created['objects'][1]['id'],'edge_id':int(created['edge']['identity']['id']),'replacement_label':'Beta-updated','update_request_key':'example-cohort-update','delete_request_key':'example-cohort-delete'})
+                run_update_delete_truss_target_command(lifecycle_config,root/'lifecycle.json')
+                continued=run_continue_truss_graph_command(query,root/'mutation-continuation.json',maximum_pages=2,wait_seconds=0)
+                if len(continued['publications'])!=2:raise ValueError('Two complete mutation publications required')
+                run_configure_truss_continuation_command(query,root/'mutation-continuation.json',root/'continued-query-configuration.json')
+                query=root/'continued-query-configuration.json'
             def connection():return psycopg.connect(ordinary,autocommit=False,connect_timeout=5)
             before=read_page(connection,'example-delta').prior.content
             if config.query_batch is not None:
@@ -116,20 +130,26 @@ def run_truss_example_command(configuration,output):
             else:
                 result=run_query_truss_graph_command(query,root/'query.json',index=str(config.weft_index),installation=str(config.weft_installation),sql='SELECT b."B-label" AS label, RELATED_KEYS(b."B-A", 2) AS related FROM B b',revision='1',document_id='cohort',maximum_rows=2)
             after=read_page(connection,'example-delta').prior.content
+            if continued is not None and result['publication_id']!=continued['publications'][-1]['manifest']['publication_id']:raise ValueError('Final mutation query publication differs')
             a=dict(created['objects'][0]['values']);b=dict(created['objects'][1]['values'])
             expected=[{'label':b['B-label'],'related':{'items':[[a['A-value'],a['A-label']]],'truncated':False}}]
+            if config.exercise_mutations:expected=[]
             if (config.query_batch is None and result['rows']!=expected)or before!=after:raise ValueError('Original source query correspondence differs')
             if len(published['publications'])!=2:raise ValueError('Two complete original publications required')
-            answer={'profile':PROFILE,'publication_id':result['publication_id'],'publications':2,**({'rows':result['rows']}if config.query_batch is None else {'query_batch':str(root/'query-batch.json'),'queries':[{'name':item['name'],'rows':item['rows']}for item in result['queries']]}),'source_checkpoint_unchanged':True,'qualification':('Fresh local public Truss acceptance/mutation, canonical Delta publication and original Weft inverse query; no cloud or production authority.'if config.query_batch is None else 'Fresh local public Truss acceptance/mutation, canonical Delta publication and named original Weft batch queries; each query retains its executor qualification; no cloud or production authority.')}
+            answer={'profile':PROFILE,'publication_id':result['publication_id'],'publications':2+(2 if continued is not None else 0),**({'rows':result['rows']}if config.query_batch is None else {'query_batch':str(root/'query-batch.json'),'queries':[{'name':item['name'],'rows':item['rows']}for item in result['queries']]}),'source_checkpoint_unchanged':True,'qualification':('Fresh local public Truss acceptance/mutation, canonical Delta publication and original Weft inverse query; no cloud or production authority.'if config.query_batch is None else 'Fresh local public Truss acceptance/mutation, canonical Delta publication and named original Weft batch queries; each query retains its executor qualification; no cloud or production authority.')}
     except BaseException as error:primary=error
     finish(primary,[restore_environment,lambda:original.renew(65536),*([lambda:batch_original.renew(65536)]if batch_original is not None else [])])
+    if config.exercise_mutations:
+        answer.update(lifecycle=str(root/'lifecycle.json'),mutation_continuation=str(root/'mutation-continuation.json'),continued_query_configuration=str(root/'continued-query-configuration.json'))
+        answer['qualification']='Fresh local public Truss mutation lifecycle and canonical Delta continuation; selected original Weft query execution retains its executor qualification; no cloud or production authority.'
     if config.destination_id is not None:
         answer.update(destination_id=config.destination_id,ack_receipt_profile='ashlar-truss-destination-receipt/0.1')
     if config.export_graph:
         pair=published.get('graph_release')
         if type(pair)is not dict or not {'path','sha256','custody_path','custody_sha256','qualification'}<=set(pair):raise ValueError('Requested original graph export pair missing')
+        if config.exercise_mutations:answer['graph_export_publication_id']=published['publications'][-1]['manifest']['publication_id']
         answer.update(release={'path':pair['path'],'sha256':pair['sha256']},custody={'path':pair['custody_path'],'sha256':pair['custody_sha256']},graph_export_qualification=pair['qualification'])
-    if config.query_batch is not None:
+    if config.query_batch is not None or config.exercise_mutations:
         from .exact_report import report_body
         private_file(root/'result.json',report_body(answer,64*1048576))
     else:

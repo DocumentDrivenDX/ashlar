@@ -144,7 +144,7 @@ def main():
     truss_continue.add_argument('--maximum-pages',type=int,default=1)
     truss_continue.add_argument('--wait-seconds',type=int,default=0)
     truss_continue.add_argument('--maximum-page-bytes',type=int,default=1048576)
-    truss_example=commands.add_parser('run-truss-example',help='Run a fresh owned local Truss to Delta example with an inverse query or configured query gallery and explicitly selected runtimes')
+    truss_example=commands.add_parser('run-truss-example',help='Run a fresh local Truss to Delta example with optional streamed mutations and a query or gallery using selected runtimes')
     truss_example.add_argument('--configuration',required=True)
     truss_example.add_argument('--output',required=True)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')

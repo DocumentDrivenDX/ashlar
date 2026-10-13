@@ -59,6 +59,26 @@ local connection details and use mode 0600. Restarting the stopped server requir
 its actual newly returned URI; saved runtime URIs are not restart credentials.
 
 
+## Stream updates and deletions
+
+Add `"exercise_mutations": true` to the example configuration to update the
+created B record's label, then delete its incoming edge and the B record through
+public Truss groups. Ashlar consumes the two new feed pages into the existing
+Delta installation and queries the final publication. A remains present; the
+default inverse query returns no B rows after deletion.
+
+The fresh directory retains `lifecycle.json`,
+`mutation-continuation.json` and `continued-query-configuration.json` for the
+source changes and publication selection. `result.json` reports four completed
+publications. An interrupted continuation retains its original recovery
+selection; use the existing resume commands before continuing. The option can
+be combined with `query_batch` to run the gallery on the final publication.
+When also using `export_graph`, the immutable export retains the initial graph
+before these mutations; `graph_export_publication_id` identifies that snapshot
+separately from the final query publication.
+This one-command composition has basic adapter coverage; it adds no native
+qualification beyond the separately recorded component workflows.
+
 ## Run the gallery during setup
 
 Add `"query_batch": "/absolute/path/cohort-queries.json"` to the example
