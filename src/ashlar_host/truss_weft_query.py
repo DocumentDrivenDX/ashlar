@@ -70,6 +70,20 @@ def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     binding={'profile':'ashlar-databricks-candidate/0.1.0','layoutRevision':'ashlar-delta/0.3',
         'layoutSha256':LAYOUT_SHA256,'modelPins':[pin],
         'publication':{'id':manifest['publication_id'],'manifestUuid':manifest_uuid,'tables':tables},'records':records}
+    record_map={record['typeId']:record['logical']for record in records}
+    edge_table=next(index for index,name in enumerate(names)if name.split('.')[-1]=='edge_current')
+    relationships=[]
+    for type_id,edge in sorted(selected['edges'].items()):
+        if edge['owner'][0]!=document_id:continue
+        source_type,target_type=edge['endpoints']
+        if source_type not in record_map or target_type not in record_map:
+            raise ValueError('Original accepted relationship endpoint records required')
+        relationships.append({'logical':{'documentId':document_id,'revision':source_hash,
+            'module':edge['owner'][1],'relationship':edge['owner'][2]},
+            'acceptedDefinition':edge['declaration'],'table':edge_table,'kind':'edge',
+            'sourceSystem':installation,'typeId':type_id,'schemaRevision':revision,
+            'source':record_map[source_type],'target':record_map[target_type]})
+    if relationships:binding['relationships']=relationships
     raw=encoded(binding)
     return {'interfaceVersion':'weft-compile/0.2.0','dialect':'weft-sql/0.2.0','sql':sql,
         'modules':[{'documentJson':original.decode(),'pin':pin,'selectedModuleIds':sorted({record['owner'][1]for record in selected['types'].values()if record['owner'][0]==document_id})}],
@@ -108,8 +122,8 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                     raise ValueError('Original public Weft Truss compiler correspondence differs')
                 binding=json.loads(request['target']['bindingJson'])
                 obligations=artifact.get('obligations')
-                if (type(obligations)is not list or len(obligations)!=2
-                        or {item.get('id')for item in obligations}!={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity'}):
+                if (type(obligations)is not list or len(obligations)not in (2,3)
+                        or {item.get('id')for item in obligations}not in ({'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity'},{'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity'})):
                     raise ValueError('Exact candidate Truss compiler obligation inventory required')
                 if any(type(item)is not dict or set(item)!={'id','owner','parameters','failureCode'} or item['owner']!='host' or type(item['failureCode'])is not str or not item['failureCode']or type(item['parameters'])is not dict for item in obligations):
                     raise ValueError('Exact immutable host compiler obligations required')
@@ -120,19 +134,31 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 if (integrity.get('phase')!='before-user-query' or integrity.get('samePublicationRequired')is not True
                         or integrity.get('noPartialPublication')is not True or type(integrity.get('checks'))is not list):
                     raise ValueError('Original candidate scalar integrity lifecycle differs')
+                related=any(column.get('representation',{}).get('kind')=='relatedKeys'for column in artifact.get('columns',[]))
+                if related != any(item['id']=='ashlar.candidate.relationshipIntegrity'for item in obligations):
+                    raise ValueError('Exact related-key guard obligation required')
+                if related:
+                    guard=next(item['parameters']for item in obligations if item['id']=='ashlar.candidate.relationshipIntegrity')
+                    if guard.get('phase')!='before-user-query'or guard.get('samePublicationRequired')is not True or type(guard.get('checks'))is not list or not guard['checks']:
+                        raise ValueError('Complete original before-query relationship guards required')
+                    related_expected=admit_truss_related_keys(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False
                     if len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count)
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related)
+                    if related:
+                        from collections import Counter
+                        if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in related_expected):
+                            raise ValueError('Independent complete original related-key occurrence bag differs')
                     driver.validate_manifest(manifest,driver.context)
     result={'request_bytes':request_bytes,'response_bytes':response,
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global COUNT query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global COUNT or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     return result
 
 
@@ -161,7 +187,7 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
     columns=artifact.get('columns')
@@ -171,6 +197,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False):
     for position,column in enumerate(columns,1):
         representation=column.get('representation')
         expected={'kind':'scalar','logicalType':{'family':'integer'if count else'string','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'if count else'text'}
+        if related and representation.get('kind')=='relatedKeys':expected=representation
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
             raise ValueError('Only admitted non-null STRING scalar outputs supported')
         names.append(column['outputName'])
@@ -189,8 +216,13 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False):
         if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()not in ('SELECT','WITH'):
             raise ValueError('Original bounded compiler SELECT or WITH query required')
         return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
-    for check in integrity['checks']:
-        if (type(check)is not dict or set(check)not in ({'sql','failureCode','record'},{'sql','failureCode','field','record'})
+    all_checks=list(integrity['checks'])
+    if related:
+        guard=next(item['parameters']for item in artifact['obligations']if item['id']=='ashlar.candidate.relationshipIntegrity')
+        if len(guard['checks'])>128:raise ValueError('Bounded relationship integrity inventory required')
+        all_checks.extend(guard['checks'])
+    for check in all_checks:
+        if (type(check)is not dict or set(check)not in ({'sql','failureCode','record'},{'sql','failureCode','field','record'},{'sql','failureCode','relationship'})
                 or check.get('failureCode')not in ('WFT-BINDING','WFT-NUMERIC-DOMAIN')):
             raise ValueError('Unknown compiler scalar integrity check meaning')
         observed=capture(check['sql'],1)
@@ -199,7 +231,13 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False):
     observed=capture(artifact['sql'],maximum_rows)
     if observed['schema']!=[[name,'STRING']for name in names]:raise ValueError('Original compiler result schema differs')
     if count and len(observed['rows'])!=1:raise ValueError('One complete global COUNT row required')
-    rows=[{name:decode_exact_scalar(columns[index]['representation'],value,count=count).value for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
+    def decode(column,value):
+        if column['representation']['kind']=='relatedKeys':
+            from ashlar.weft_related_keys_decode import decode_related_keys,RelatedKeysDecodeConfig
+            decoded=decode_related_keys(column['representation'],value,model_pins=artifact['modelPins'],config=RelatedKeysDecodeConfig(65536))
+            return {'items':[list(item)for item in decoded.items],'truncated':decoded.truncated}
+        return decode_exact_scalar(column['representation'],value,count=count).value
+    rows=[{name:decode(columns[index],value)for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
     return rows,checks
 
 
@@ -209,7 +247,7 @@ def compile_truss_string_query(driver,paths,sql,*,revision,document_id):
 
 
 def execute_truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
-    """Execute STRING singleton/list projections or one closed global COUNT inside one full publication hold.
+    """Execute STRING projections, global COUNT or forward RELATED_KEYS while held.
 
     Original generated SQL is unchanged; owned external catalog aliases select
     original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state, numeric-field and non-global-count outputs refuse pending
@@ -242,3 +280,104 @@ def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):
             or record['kind']!='object' or record['schemaRevision']!=revision or record['sourceSystem']!=installation):
         raise ValueError('Actual original count type/source/revision differs')
     return identity
+
+
+def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,document_id):
+    """Independent edge-occurrence oracle for one unfiltered forward source scan.
+
+    Each edge contributes its target's authored key tuple; equal tuples remain
+    repeated. This does not reinterpret RELATED_KEYS as distinct target records.
+    """
+    selected=admission.revisions[revision];model,raw=selected['models'][document_id]
+    digest=hashlib.sha256(raw).hexdigest();pin={'documentId':document_id,'revision':digest,'sha256':digest,'umfVersion':model['umf']}
+    if artifact['modelPins']!=[pin]or binding['modelPins']!=[pin]:raise ValueError('Original related-key model differs')
+    plan=artifact.get('logicalPlan')
+    plan_keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
+    if (type(plan)is not dict or set(plan)!=plan_keys or plan.get('irVersion')!='weft-ir/0.2.0' or plan.get('aggregate')is not False
+            or any(plan.get(key)!=[]for key in ('filters','groups','joins','order'))
+            or any(plan.get(key)is not None for key in ('limit','pageKey','readProfile'))
+            or plan.get('modulePins')!=[pin] or type(plan['requiredCapabilities'])is not list
+            or not set(plan['requiredCapabilities'])<={'order.asc','project','relationship.boundedKeys','scan','type.string'}
+            or 'relationship.boundedKeys'not in plan['requiredCapabilities']):raise ValueError('Only unfiltered unjoined related-key source supported')
+    source=plan['source'];source_record=source['record']
+    if set(source)!={'occurrence','pin','record'}or source.get('occurrence')!='s0'or source.get('pin')!=pin:raise ValueError('Exact original related source required')
+    source_maps=[record for record in binding['records']if record['logical']==source_record]
+    if len(source_maps)!=1:raise ValueError('Original related source record allocation required')
+    source_map=source_maps[0];source_type=source_map['typeId']
+    source_actual=selected['types'].get(source_type)
+    if source_actual is None or source_actual['owner']!=(document_id,source_record['module'],source_record['element']):
+        raise ValueError('Actual accepted related source identity differs')
+    installation=json.loads(admission.batch.begin)['prior']['installationId']
+    if source_map['sourceSystem']!=installation or source_map['schemaRevision']!=revision or source_map['kind']!='object':
+        raise ValueError('Actual related source discriminator differs')
+    definitions={(module['id'],element['id']):element for module in model['modules']for element in module['elements']}
+    logical=lambda module,element:{'documentId':document_id,'revision':digest,'module':module,'element':element}
+    def key(record,selected_key):
+        declaration=definitions[record['module'],record['element']]
+        choices=[item for item in declaration.get('keys',[])if item['id']==selected_key]if selected_key is not None else [item for item in declaration.get('keys',[])if item.get('primary')is True]
+        if len(choices)!=1:raise ValueError('One actual authored endpoint key required')
+        value=choices[0];fields=[]
+        for field in value['fields']:
+            declared=definitions[field['module'],field['element']]
+            if declared['scalarType']!='string'or declared['nullability']!='required'or declared.get('facets',{})!={}:
+                raise ValueError('Required facetless authored STRING key fields required')
+            fields.append(logical(field['module'],field['element']))
+        return {'id':value['id'],'fields':fields,'types':[{'family':'string','facets':{},'nullable':False}for _ in fields]}
+    plans=[];columns=artifact['columns'];outputs=plan['outputs']
+    if len(columns)!=len(outputs):raise ValueError('Complete original related output plan required')
+    for column,output in zip(columns,outputs):
+        if set(column)!={'nullable','outputName','position','representation','sourceIdentities'}or set(output)!={'name','expression'}:
+            raise ValueError('Closed original related output metadata required')
+        if column['outputName']!=output['name']:raise ValueError('Original related output identity differs')
+        expression=output['expression'];representation=column['representation']
+        if representation['kind']=='scalar':
+            if set(expression)!={'op','scan','identity'}or expression.get('op')!='field'or expression.get('scan')!='s0':raise ValueError('Only original source field projections supported')
+            identity=expression['identity'];homes=[field for field in source_map['properties']if field['logical']==identity]
+            if len(homes)!=1 or column['sourceIdentities']!=[identity]:raise ValueError('Actual original source field home required')
+            plans.append(('field',column['outputName'],homes[0]['home']['propertyId']))
+            continue
+        if set(expression)!={'op','scan','bound','relationship'}or representation['kind']!='relatedKeys'or expression.get('op')!='relatedKeys'or expression.get('scan')!='s0':raise ValueError('Original relatedKeys expression required')
+        relation=expression['relationship'];identity=representation['relationship']
+        mappings=[item for item in binding.get('relationships',[])if item['logical']==identity]
+        if len(mappings)!=1:raise ValueError('Actual original relationship mapping required')
+        mapping=mappings[0];edge=selected['edges'].get(mapping['typeId'])
+        if (edge is None or mapping['acceptedDefinition']!=edge['declaration'] or mapping['schemaRevision']!=revision
+                or mapping['sourceSystem']!=installation or mapping['source']!=source_record
+                or mapping['kind']!='edge'or edge['owner']!=(document_id,identity['module'],identity['relationship'])):
+            raise ValueError('Actual accepted relationship/type/endpoints differ')
+        endpoints=edge['endpoints'];target_record=mapping['target']
+        actual_target=selected['types'].get(endpoints[1])
+        if endpoints[0]!=source_type or actual_target is None or actual_target['owner']!=(document_id,target_record['module'],target_record['element']):
+            raise ValueError('Actual typed relationship endpoints differ')
+        declaration=edge['declaration'];source_key=key(source_record,declaration['source'][0].get('key'));target_key=key(target_record,declaration['target'][0].get('key'))
+        expected_relation={'from':source_record,'to':target_record,'identity':identity,'inverse':False,
+            'sourceKey':source_key,'targetKey':target_key,'sourceMultiplicity':declaration['sourceMultiplicity'],
+            'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
+        bound=representation['bound']
+        if (relation!=expected_relation or type(bound)is not int or not 1<=bound<=1000 or expression.get('bound')!=bound
+                or representation!={'kind':'relatedKeys','relationship':identity,'key':target_key,'bound':bound}
+                or column['sourceIdentities']!=[source_record,target_record,*target_key['fields']]):
+            raise ValueError('Exact original authored related key order/descriptor required')
+        target_maps=[record for record in binding['records']if record['logical']==target_record]
+        if len(target_maps)!=1:raise ValueError('Actual target property homes required')
+        homes={encoded(field['logical']):field['home']['propertyId']for field in target_maps[0]['properties']}
+        plans.append(('related',column['outputName'],mapping['typeId'],endpoints[1],tuple(homes[encoded(field)]for field in target_key['fields']),bound))
+    objects={(row['source_system'],row['type_id'],row['id']):row for row in expected['object_current']}
+    answer=[]
+    for (system,type_id,entity_id),row in objects.items():
+        if system!=installation or type_id!=source_type or row['schema_revision']!=revision:continue
+        props=json.loads(row['props_json']);result={}
+        for item in plans:
+            if item[0]=='field':result[item[1]]=props[item[2]];continue
+            _,name,rel_type,target_type,fields,bound=item;tuples=[]
+            for edge_row in expected['edge_current']:
+                if (edge_row['source_system'],edge_row['rel_type_id'],edge_row['source_type'],edge_row['source_id'],edge_row['schema_revision'])!=(installation,rel_type,source_type,entity_id,revision):continue
+                if edge_row['target_type']!=target_type:raise ValueError('Original related edge target type differs')
+                target=objects[installation,target_type,edge_row['target_id']]
+                if target['schema_revision']!=revision:raise ValueError('Original related target schema revision differs')
+                values=json.loads(target['props_json'])
+                tuples.append((tuple(values[field]for field in fields),int(edge_row['id'])))
+            tuples.sort(key=lambda item:(tuple(value.encode('utf8')for value in item[0]),item[1]))
+            result[name]={'items':[list(value)for value,_ in tuples[:bound]],'truncated':len(tuples)>bound}
+        answer.append(result)
+    return answer

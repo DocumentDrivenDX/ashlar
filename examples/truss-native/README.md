@@ -59,6 +59,21 @@ from the compiler's aggregate IR rather than inferred from SQL text. This route
 supports one unfiltered global count; filtered, grouped, joined and relationship
 counts require their separate query support.
 
+For the accepted `cohort.umf.json` graph, use the same command with
+`--document-id cohort` and:
+
+```sh
+--sql 'SELECT a."A-label" AS label, RELATED_KEYS(a."A-B", 2) AS related FROM A a'
+```
+
+The related result contains `items` and `truncated`. Each edge contributes its
+target's declared key tuple (`B-value`, then `B-label`); equal tuples remain
+repeated. Tuples are ordered by their UTF-8 field values, then numeric edge ID,
+and the bound selects a prefix. Both scalar and relationship integrity checks
+run before the query. This profile supports forward relationships on an
+unfiltered, unjoined source without outer `ORDER BY`; it verifies the complete
+result bag and truncation against the original source oracle.
+
 ## Accept into an existing installation
 
 `accept-schema.py` is a concrete existing-installation example using the public

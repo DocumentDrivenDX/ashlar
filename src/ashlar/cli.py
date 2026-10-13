@@ -113,7 +113,7 @@ def main():
     truss_resume_setup.add_argument('--configuration',required=True)
     truss_resume_setup.add_argument('--publication-intent',required=True)
     truss_resume_setup.add_argument('--output',required=True)
-    truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING projections or global COUNT against an original local Truss publication; no publication or ACK')
+    truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global COUNT or forward RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
     truss_query.add_argument('--maximum-rows',type=int,default=1000)

@@ -1,0 +1,37 @@
+{
+  "profile": "ashlar-source-cli-truss-related-keys-functional/0.1",
+  "seconds": 65.791,
+  "publications": 2,
+  "rows": [
+    {
+      "label": "Alpha",
+      "related": {
+        "items": [
+          [
+            "Value-B",
+            "Beta"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "actual_integrity_checks": 13,
+  "authored_target_key_fields": [
+    "B-value",
+    "B-label"
+  ],
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "330a7361cd6be0c37a74b5821b20fd3e814cee10f33a8e5011fa193440dc98a3",
+  "server_stopped": true,
+  "query_sha256": "5366ce296ca684097f3761f5f3b246e5a7562d9c9ac0563647b7130c15dcdce0",
+  "qualification": "Actual source CLI named UMF cohort acceptance, one group with two objects/one independent typed edge, two complete Truss feed publications to local Delta, public Weft scalar+relationship guards and original version-pinned RELATED_KEYS query. Exact compound key order B-value,B-label and per-edge occurrences; no distinct-target, installed wheel, Unity Catalog or scale qualification.",
+  "publication_id": "truss-graph-2",
+  "request_sha256": "c6ad05b9baaf6e4da0b98ba7816949319d06f360dc2c9cd1298bf5f7bbdcd609",
+  "response_sha256": "240ae9fd9f05c4cccc92d1ded1c1fc50efb2dde8a607aabc014db391ff53d28f",
+  "query_harness_sha256": "fc40f12fa54215d995146b0a8d43c8cafb7d5e51a66f8055bdb98461bfee1768",
+  "model_sha256": "1578697fb45f9c863e567ab01bed269bf1a8b2836898d71368177361d5f3c70a",
+  "base_ashlar_revision": "85001469ac264020b66f5f36c94eb40ed7c5efed",
+  "post_run_profile_refinements": "Outer ORDER BY and targets at a different physical revision now refuse; this successful case used neither. Focused refusal controls passed without a repeated native run.",
+  "native_scope": "One independent typed edge and one compound target key; native parallel-edge, nonempty truncation and outer ordering breadth are not qualified by this run."
+}
