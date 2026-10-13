@@ -133,3 +133,10 @@ the earlier pair together when reading its snapshot. The
 [edge lifecycle release example](../../docs/helix/04-build/evidence/truss-typed-edge-release-graphframes-20261013/result.json)
 reads both snapshots after an endpoint update and edge deletion, preserving the
 isolated node and exact property carriers. Mixed publication pairs refuse.
+
+If engine loading fails, retain the selected release/custody pair and choose a
+fresh output path for another run. A success report is released only after the
+complete query and runtime closure. The
+[interrupted local load check](../../docs/helix/04-build/evidence/truss-graphframes-interruption-native-20261013/result.json)
+loads vertices, interrupts before edge loading, and then reads the earlier
+snapshot successfully in the same process.

@@ -1,0 +1,82 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 15.768,
+  "injection": "after actual Spark vertex-frame creation and collect; before edge-frame creation",
+  "actual_imported_vertices": [
+    {
+      "apply_batch_id": "764",
+      "entity_version": "1",
+      "graph_id": "ashlar-key/1:WyJub2RlIiwiODFkZmU5MzgtNzAwMS00NTdlLTg2OTUtOTZlYWJkMTFmYTZmIiwiMSIsIjEiXQ",
+      "id": "1",
+      "logical_key_json": "[]",
+      "lookup_hash": "18099f865a5cf0cba768eb5b6c8c2a3ea1bc17c29e9d2c713038481bdc02425e",
+      "props_json": "{\"1\":true,\"2\":1.2300,\"4\":9007199254740993,\"5\":\"R1\"}",
+      "published_at": "1791912085738437",
+      "retained_json": "{}",
+      "root_id": null,
+      "schema_revision": "1",
+      "source_cursor_json": "{\"profile\":\"truss-native-feed/0.1\",\"cursorBase64\":\"eyJuZXh0WGlkIjogIjc2NSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLXJlbGF0ZWQtZGVsdGEiLCAic291cmNlRXBvY2giOiAiYmRkZjEzMWMtZDhkNy00ZmUyLThjNWEtNzM5MGJjMzQ5YjdiIiwgImluc3RhbGxhdGlvbklkIjogIjgxZGZlOTM4LTcwMDEtNDU3ZS04Njk1LTk2ZWFiZDExZmE2ZiIsICJyZWdpc3RyYXRpb25JZCI6ICIzYTJhMTU0NS01MWE3LTQ5ZjQtODc4Mi1iZDNlM2ZkNTU5MWQifQ==\"}",
+      "source_delivery_id": "764:1",
+      "source_epoch": "bddf131c-d8d7-4fe2-8c5a-7390bc349b7b",
+      "source_feed": "typed-related",
+      "source_position": null,
+      "source_system": "81dfe938-7001-457e-8695-96eabd11fa6f",
+      "type_id": "1"
+    },
+    {
+      "apply_batch_id": "773",
+      "entity_version": "1",
+      "graph_id": "ashlar-key/1:WyJub2RlIiwiODFkZmU5MzgtNzAwMS00NTdlLTg2OTUtOTZlYWJkMTFmYTZmIiwiMSIsIjIiXQ",
+      "id": "2",
+      "logical_key_json": "[]",
+      "lookup_hash": "24f1f69f6d4ff5c10865e9dada46e6bdeefbeb1d1ae29567df4d7d80292454d6",
+      "props_json": "{\"1\":true,\"2\":2.3400,\"4\":9007199254740993,\"5\":\"R2\"}",
+      "published_at": "1791912103460666",
+      "retained_json": "{}",
+      "root_id": null,
+      "schema_revision": "1",
+      "source_cursor_json": "{\"profile\":\"truss-native-feed/0.1\",\"cursorBase64\":\"eyJuZXh0WGlkIjogIjc3NCIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLXJlbGF0ZWQtZGVsdGEiLCAic291cmNlRXBvY2giOiAiYmRkZjEzMWMtZDhkNy00ZmUyLThjNWEtNzM5MGJjMzQ5YjdiIiwgImluc3RhbGxhdGlvbklkIjogIjgxZGZlOTM4LTcwMDEtNDU3ZS04Njk1LTk2ZWFiZDExZmE2ZiIsICJyZWdpc3RyYXRpb25JZCI6ICIzYTJhMTU0NS01MWE3LTQ5ZjQtODc4Mi1iZDNlM2ZkNTU5MWQifQ==\"}",
+      "source_delivery_id": "773:2",
+      "source_epoch": "bddf131c-d8d7-4fe2-8c5a-7390bc349b7b",
+      "source_feed": "typed-related",
+      "source_position": null,
+      "source_system": "81dfe938-7001-457e-8695-96eabd11fa6f",
+      "type_id": "1"
+    }
+  ],
+  "interrupted_success_output_absent": true,
+  "spark_context_closed": true,
+  "runtime_environment_restored": true,
+  "original_release_and_custody_hashes_unchanged": {
+    "/private/tmp/ashlar-truss-typed-related-export-20261013-a/export.json-release.json": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a",
+    "/private/tmp/ashlar-truss-typed-related-export-20261013-a/export.json-custody.json": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c",
+    "/private/tmp/ashlar-truss-typed-edge-release-native-20261013-a/export.json-release.json": "fcc96c98ef73941d10501ca7ade9add20489cc988b4489532e757dae6451927d",
+    "/private/tmp/ashlar-truss-typed-edge-release-native-20261013-a/export.json-custody.json": "1d9aafdd8cd6ea191d55963521e693e01dde587aa65418836e7b37874fa982fb"
+  },
+  "old_snapshot_after_interruption": {
+    "publication_id": "truss-graph-5",
+    "nodes": 2,
+    "edges": 2,
+    "release_sha256": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a",
+    "custody_sha256": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c",
+    "runtime": {
+      "spark": "3.5.3",
+      "pyspark": "3.5.3",
+      "graphframes": "0.12.3",
+      "master": "local[1]",
+      "driver_memory": "512m"
+    }
+  },
+  "format": "ashlar-graphframes-interrupted-load-native/0.1",
+  "source_code_commit": "36560622c8fd4358bf7197d99a62fa35c6e63b59",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 18.856
+  },
+  "qualification": "Actual Spark 3.5.3 / GraphFrames 0.12.3 adapter interrupted after native creation and collection of two complete original vertex carriers, before edge-frame creation. No success result escapes; Spark context closes, environment restores and old/new immutable release and custody bytes remain unchanged. Original publication5 independently queried successfully in the same process after interruption. Local ephemeral import only; no persistent engine refresh, source recovery, protected ACK, process-kill crash, cloud or production qualification. Injection is a developer harness using existing local absolute runtime/artifact paths, not automatic end-user setup.",
+  "evidence_sha256": {
+    "injection.py": "9053f2e839b5ce1a21bd7d838bd2f80e02b6688dd65fa0a0c5b10ce7966ee546",
+    "original-graphframes.json": "101484b85e12e1a24f884985da619a38f7f09943c882414b52cebcba53c0a8c1"
+  }
+}
