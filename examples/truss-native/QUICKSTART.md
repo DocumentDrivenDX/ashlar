@@ -140,3 +140,12 @@ complete query and runtime closure. The
 [interrupted local load check](../../docs/helix/04-build/evidence/truss-graphframes-interruption-native-20261013/result.json)
 loads vertices, interrupts before edge loading, and then reads the earlier
 snapshot successfully in the same process.
+
+For receipt-backed source ACK, select a distinct consumer and an explicit
+`destination_id` when first publishing. A consumer whose plain ACK has already
+advanced cannot have receipts backfilled. On an uncertain COMMIT outcome, preserve
+the original publication and ACK intent; recovery must reconcile that exact
+source-retained receipt before reporting success. The
+[controlled commit-response loss example](../../docs/helix/04-build/evidence/truss-receipt-commit-loss-native-20261013/result.json)
+records a real commit, native receipt reconciliation, and a later read-only
+receipt check without another ACK or publication.

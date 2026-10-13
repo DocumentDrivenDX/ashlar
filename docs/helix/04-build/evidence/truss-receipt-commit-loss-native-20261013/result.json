@@ -1,0 +1,65 @@
+{
+  "format": "ashlar-truss-receipt-commit-loss-native/0.1",
+  "outcome": "native_recovery_confirmed_with_harness_observation_failure",
+  "source_code_commit": "feccbc1eb4fb7e7556126af0efb4d7c89e29a34a",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "injection": {
+    "description": "One controlled OSError after original real psycopg.Connection.commit returned, only at original receipt ACK boundary; exact nominal connections retained.",
+    "harness_result": {
+      "outcome": "failed",
+      "duration_seconds": 38.492,
+      "error_type": "ValueError"
+    },
+    "supervisor": {
+      "outcome": "completed",
+      "exit_code": 1,
+      "duration_seconds": 39.909
+    },
+    "observation_failure": "The final harness counted every _assembly session, including ordinary checkpoint reads, as an ACK/reconciliation session. The earlier assertions for one ACK, one real-commit injection, uncertain attempted=true/observed=false, one reconciliation and exact source-retained receipt passed; publication completed. Original per-session PID trace was not saved, so it is not claimed.",
+    "ack_repeated_after_failure": false,
+    "publication_repeated_after_failure": false
+  },
+  "fresh_readonly_probe": {
+    "outcome": "passed",
+    "duration_seconds": 6.652,
+    "backend_pid": 18141,
+    "transaction_read_only": "on",
+    "reconciliation_outcome": "matched",
+    "request_sha256": "d6258ffbcdfa0c2ee87540de4b6602299700345de616d9b09db2b539ebc2ce7d",
+    "manifest_sha256": "378b6596af8e0c7622690f985e76367039a9e9d3b2a3122d8c2fa4493d50bf4b",
+    "receipt_sha256": "183177707585b0dd05aa834f11b81722655b05289a7f88cff83c6737bd5ad8eb",
+    "receipt_bytes": 586842,
+    "ack_intent_sha256": "233d1fa5e4621d2c169b4cb3d00af168d3da40869898f7e867543039029b2414",
+    "source_page_sha256": "89c986ffa5fc674e1a0e7f15606957c7064e85439f6cfb50e04bb70cee924849",
+    "publication_id": "truss-graph-1",
+    "destination_id": "typed-receipt-delta-20261013-a",
+    "consumer_id": "typed-receipt-loss-20261013-a",
+    "source_epoch": "bddf131c-d8d7-4fe2-8c5a-7390bc349b7b",
+    "checkpoint": {
+      "nextXid": "759",
+      "profile": "truss-caller-asserted-feed/0.1",
+      "consumerId": "typed-receipt-loss-20261013-a",
+      "sourceEpoch": "bddf131c-d8d7-4fe2-8c5a-7390bc349b7b",
+      "installationId": "81dfe938-7001-457e-8695-96eabd11fa6f",
+      "registrationId": "f210ebdc-7a34-4695-87c8-05aa9b19b914"
+    },
+    "exact_all_receipt_fields_verified": true,
+    "original_next_checkpoint_matched": true,
+    "source_ack_calls": 0,
+    "qualification": "Fresh actual public Truss read-only reconciliation of the original source-retained receipt after the bounded commit-loss harness. Exact original page, request, manifest, vector and opaque receipt byte correspondence; rollback and owner closure. Reproduced vector grants no new publication authority. No publication or ACK repeated."
+  },
+  "probe_supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 7.354
+  },
+  "probe_qualification": "Zero ACK calls in probe; explicit rollback. The normal connection context may invoke an idle no-op commit method during exit; the original unmeasured source_commit_calls=0 field is omitted here. No source mutation is committed by the read-only probe.",
+  "qualification": "Actual receipt-backed ACK on one catalog-only local Delta publication from a distinct consumer on the retained original Truss source, with controlled client response loss after real PostgreSQL COMMIT and native exact-receipt recovery. A later fresh actual read-only SDK probe independently matches every original receipt field and exact opaque bytes, with unchanged original next checkpoint. No second ACK or publication. This is not a network fault, full typed graph ingest, protected outbox attestation, source restart/missing-journal recovery, cloud or production qualification.",
+  "evidence_sha256": {
+    "injection.py": "af572a7ac805b61e8f59db3299465e65417825f531ccdc45090e882ae684fac6",
+    "receipt.bin": "183177707585b0dd05aa834f11b81722655b05289a7f88cff83c6737bd5ad8eb",
+    "injection.log": "ab95cdc16f1f8578556eee1e73f8029a7dea091a87edff918eef1ed50d3afcdc",
+    "publication.json": "ada40d26a009d687fe5476b8322a3cb61b41d6e4460c2519b311d5a2c5a904ca",
+    "readonly-probe.py": "c0d62280b3af362474a4d6e4f62ae93cffdf80a98970f55bb933b614f28398e8"
+  }
+}

@@ -1,0 +1,17 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/13 14:44:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/13 14:44:19 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+26/10/13 14:44:30 WARN DAGScheduler: Broadcasting large task binary with size 1443.9 KiB
+26/10/13 14:44:32 WARN DAGScheduler: Broadcasting large task binary with size 1443.9 KiB
+26/10/13 14:44:36 WARN DAGScheduler: Broadcasting large task binary with size 1450.2 KiB
+26/10/13 14:44:39 WARN DAGScheduler: Broadcasting large task binary with size 1450.2 KiB
+26/10/13 14:44:44 WARN DAGScheduler: Broadcasting large task binary with size 1453.6 KiB
+{"outcome": "failed", "duration_seconds": 38.492, "error_type": "ValueError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss-receipt-commit-loss-native-20261013-a/run.py", line 59, in <module>
+    if len(sessions)!=2 or [event['readonly']for event in sessions]!=[False,True]or sessions[0]['backend_pid']==sessions[1]['backend_pid']or not all(event['exact_psycopg_connection']for event in sessions):raise ValueError('Fresh exact readonly native reconciliation required')
+                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Fresh exact readonly native reconciliation required
