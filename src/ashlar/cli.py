@@ -152,6 +152,10 @@ def main():
         truss_scalar_join.add_argument('--'+option,required=True)
     truss_scalar_join.add_argument('--physical-revision',action='append',required=True)
     truss_scalar_join.add_argument('--maximum-rows',type=int,default=1000)
+    truss_arithmetic=commands.add_parser('query-truss-arithmetic',help='Run installed public 0.4.2 direct exact arithmetic projections under Truss publication custody')
+    for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
+        truss_arithmetic.add_argument('--'+option,required=True)
+    truss_arithmetic.add_argument('--maximum-rows',type=int,default=1000)
     truss_saved=commands.add_parser('publish-saved-truss-graph',help='Publish a selected saved Truss page whose first source plan was never retained')
     for option in ('configuration','publication-intent','publication-intent-sha256','output'):
         truss_saved.add_argument('--'+option,required=True)
@@ -565,6 +569,17 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar compatible Truss query refused; inspect the original publication and selected local compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-arithmetic':
+        try:
+            from ashlar_host.truss_arithmetic_query_cli import run_query_truss_arithmetic_command
+            run_query_truss_arithmetic_command(args.configuration,args.output,index=args.weft_index,
+                installation=args.weft_installation,sql=args.sql,revision=args.revision,
+                document_id=args.document_id,maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss arithmetic query refused; inspect the original publication and installed arithmetic compiler',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':

@@ -482,3 +482,14 @@ publication and integrity guards. The complete result bag MUST match independent
 joined source occurrences, including duplicate matches and self-join pairs, with
 exact mathematical numeric comparison and original result carrier tokens. A join
 admission MUST NOT authorize arithmetic, aggregation or optional values.
+
+### Required scalar arithmetic projections
+
+Arithmetic projections MUST retain the accepted model, declared source facets,
+actual property allocations and full publication vector. They MUST use the
+explicit indexed arithmetic compiler and its original artifact admission, then
+execute every source integrity and arithmetic phase guard in the emitted order
+before running the unchanged result SQL. Independent source comparison MUST use
+exact arithmetic without float conversion or ambient decimal rounding. Result
+carrier tokens MUST remain original. A single-revision adapter MUST refuse rows
+from other physical revisions rather than silently filter them.

@@ -559,3 +559,76 @@ def admit_truss_grouped_count(admission,artifact,binding,expected,*,revision,doc
         if any(type(value)is not str for value in values):raise ValueError('Original grouped source STRING value required')
         bag[values]+=1
     return [{**{name:values[fields.index(field)]for field,name in projected},count_name:count}for values,count in bag.items()]
+
+
+def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+    """Execute original indexed arithmetic SQL within the genuine Truss hold."""
+    from ashlar.weft_implicit_arithmetic_distribution import (ImplicitArithmeticDistributionPaths,
+        compile_implicit_arithmetic_distribution,installed_implicit_arithmetic_schema_bundle)
+    from .truss_implicit_arithmetic_request import truss_implicit_arithmetic_request
+    from .truss_arithmetic_projection import admit_truss_arithmetic_projection
+    from .count_star_admission import admit_implicit_arithmetic_artifact
+    from .count_star_schema import make_offline_implicit_arithmetic_schema_validation
+    from .implicit_arithmetic_profile import ImplicitArithmeticAdmissionConfig
+    if (type(driver)is not NativeDriver or type(paths)is not ImplicitArithmeticDistributionPaths
+            or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions):
+        raise PermissionError('Actual Truss publication and indexed compiler owners required')
+    if type(maximum_rows)is not int or not 1<=maximum_rows<=10000:raise ValueError('Explicit bounded arithmetic rows required')
+    config=ImplicitArithmeticAdmissionConfig(16*1048576,
+        make_offline_implicit_arithmetic_schema_validation(dict(installed_implicit_arithmetic_schema_bundle(paths))))
+    with owned_context(driver.writer(driver.policy.active['request']['stream'],driver.context)):
+        manifest=dict(driver.policy.active['manifest'])
+        uuids={table:driver.transport.targets[table].uuid for table in json.loads(manifest['table_versions_json'])}
+        vector=manifest_pin_vector(manifest,uuids,authority='private-local-process')
+        with owned_context(driver.hold(vector,context=driver.context)):
+            resolved=resolve_publication(driver,manifest['publication_id'],uuids,context=driver.context,
+                supported_profiles=['ashlar-delta/0.3'],supported_revisions={key:[value]for key,value in json.loads(manifest['schema_revisions_json']).items()})
+            if dict(resolved.descriptor.raw)!=manifest:raise PermissionError('Original pinned Truss arithmetic manifest differs')
+            with owned_context(_query_aliases(driver,manifest,enabled=True))as aliases:
+                request=truss_implicit_arithmetic_request(driver.source_admission,manifest,uuids,
+                    driver.transport.targets[driver.tables['manifest']].uuid,sql,revision=revision,document_id=document_id,aliases=aliases)
+                request_bytes=(encoded(request)+'\n').encode()
+                response=compile_implicit_arithmetic_distribution(paths,request_bytes)
+                recompiled=compile_implicit_arithmetic_distribution(paths,request_bytes)
+                artifact=decode_compile_artifact(response)
+                admit_implicit_arithmetic_artifact(request,artifact,decode_compile_artifact(recompiled),config=config)
+                projection=admit_truss_arithmetic_projection(driver.source_admission,artifact,request,manifest,
+                    driver.policy.active['expected'],revision=revision,document_id=document_id)
+                driver.validate_manifest(manifest,driver.context)
+                rows,checks=_execute_truss_arithmetic_artifact(driver.transport.spark,artifact,projection,maximum_rows)
+                projection.require_complete_bag(rows)
+                driver.validate_manifest(manifest,driver.context)
+    return {'request_bytes':request_bytes,'response_bytes':response,'recompiled_bytes':recompiled,
+        'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
+        'recompiled_sha256':hashlib.sha256(recompiled).hexdigest(),'publication_id':manifest['publication_id'],
+        'rows':rows,'integrity':checks,'qualification':'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.'}
+
+
+def _execute_truss_arithmetic_artifact(spark,artifact,projection,maximum_rows):
+    from .truss_arithmetic_projection import TrussArithmeticProjection
+    from .path_capture import PathCaptureConfig,capture_string_frame
+    if type(projection)is not TrussArithmeticProjection:raise ValueError('Original admitted arithmetic projection required')
+    columns=artifact['columns']
+    if encoded(columns)!=projection.columns_json:raise ValueError('Original arithmetic descriptors differ')
+    names=[c['outputName']for c in columns]
+    slots=artifact['parameters'];params={}
+    if type(slots)is not list or len(slots)>256:raise ValueError('Bounded exact arithmetic parameter inventory required')
+    for position,slot in enumerate(slots,1):
+        if type(slot)is not dict or type(slot.get('position'))is not int or slot['position']!=position or type(slot.get('value'))is not str:raise ValueError('Original exact text arithmetic parameter required')
+        params['p'+str(position)]=slot['value']
+    def capture(sql,budget):
+        if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()not in ('SELECT','WITH'):raise ValueError('Original bounded arithmetic SELECT/WITH required')
+        return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
+    obligations=artifact['obligations'];checks=[]
+    source=next(o['parameters']['checks']for o in obligations if o['id']=='ashlar.candidate.scalarIntegrity')
+    arithmetic=next(o['parameters']['checks']for o in obligations if o['id']=='ashlar.arithmetic.exact')
+    if len(source)>128 or len(arithmetic)>128:raise ValueError('Bounded complete arithmetic guard inventory required')
+    for check in [*source,*arithmetic]:
+        if check.get('publicSourceOnly')is True:raise ValueError('Public-source guard requires separate source port')
+        observed=capture(check['sql'],1)
+        if len(observed['schema'])!=1 or observed['rows']!=[['0']]:raise ValueError('Original arithmetic integrity guard refused')
+        checks.append({'check':check,'rows':observed['rows']})
+    observed=capture(artifact['sql'],maximum_rows)
+    if observed['schema']!=[[name,'STRING']for name in names]:raise ValueError('Original arithmetic result schema differs')
+    rows=[{name:projection.decode(columns[index],value)for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
+    return rows,checks

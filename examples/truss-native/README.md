@@ -1722,3 +1722,25 @@ Filters, outer joins, arithmetic and aggregates require their own admission.
 The [actual two-record native joins](../../docs/helix/04-build/evidence/truss-scalar-join-native-20261013/result.json)
 return four integer equality pairs and two decimal equality pairs from one
 publication, with exact values and an unchanged source checkpoint.
+
+### Project exact numeric arithmetic
+
+Select the installed public 0.4.2 arithmetic distribution explicitly:
+
+```sh
+ashlar query-truss-arithmetic --configuration /absolute/private/reader.json \
+  --output /absolute/private/arithmetic-query.json \
+  --weft-index /absolute/weft/distributions/index.json \
+  --weft-installation /absolute/private/arithmetic-installation \
+  --sql 'SELECT r.quantity+1 AS next_quantity,r.amount*2 AS double_amount FROM TypedRecord r' \
+  --revision 1 --document-id typed-query-record --maximum-rows 100
+```
+
+This command admits direct, unfiltered arithmetic projections using required
+signed64 or decimal(18,4) fields, numeric literals, and `+`, `-`, `*`. Results retain
+exact numeric carrier tokens. Source integrity checks precede every original
+arithmetic capacity guard; the complete result bag must match exact source-derived
+values. The publication holds one selected physical revision. Filters, joins,
+aggregates, optional arithmetic and historical revision unions need separate
+admission. Original request, response and recompilation strings are retained in
+the result; native qualification is scoped by its execution evidence.
