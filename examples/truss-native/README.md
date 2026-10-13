@@ -1921,7 +1921,8 @@ inverse bags are R1:[] and R2:[R1,R2], with no truncation at bound two. Source A
 caller-asserted. The final private bounded report requires unchanged checkpoints,
 exact values, complete bags and successful runtime closure. The [native public-command workflow](../../docs/helix/04-build/evidence/truss-typed-related-native-20261013/result.json)
 qualifies typed ingestion, singleton and forward/inverse queries. A fresh installed
-run of this one-command helper remains separate from that underlying workflow.
+run of this one-command helper is qualified by the [installed-wheel workflow](../../docs/helix/04-build/evidence/truss-typed-related-example-installed-20261013/result.json),
+using the exact bundled model and explicitly selected local dependencies.
 
 The [same-graph export and GraphFrames execution](../../docs/helix/04-build/evidence/truss-typed-related-graphframes-20261013/result.json)
 qualifies the retained two-node/two-edge typed publication, including its self-loop,

@@ -1,0 +1,455 @@
+{
+  "outcome": "passed",
+  "console_exit_code": 0,
+  "duration_seconds": 144.714,
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 145.22
+  },
+  "build": {
+    "source_commit": "58385e4fc150b68ec61d8a44f4d5261d4a6c49e5",
+    "wheel": {
+      "name": "ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1536070,
+      "sha256": "2d23273eae7a2d721ccc4c10e8d6356aed322639d1589f61f5f0a4309cea2b08"
+    },
+    "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+    "dependency_downloads": false
+  },
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "weft_source_revision_reported_by_owner": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "master": "local[1]"
+  },
+  "publications": 5,
+  "objects": [
+    {
+      "document_id": "typed-related-record",
+      "module_id": "m",
+      "record_id": "TypedRecord",
+      "id": 1,
+      "type_id": 1,
+      "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-13T18:06:48.649236Z",
+      "updated_at": "2026-10-13T18:06:48.649236Z",
+      "values": [
+        [
+          "active",
+          true
+        ],
+        [
+          "amount",
+          {
+            "kind": "decimal",
+            "text": "1.2300"
+          }
+        ],
+        [
+          "quantity",
+          {
+            "kind": "integer",
+            "text": "9007199254740993"
+          }
+        ],
+        [
+          "record-id",
+          "R1"
+        ]
+      ],
+      "retained": [],
+      "profile": "truss-python-scalar-object/0.3"
+    },
+    {
+      "document_id": "typed-related-record",
+      "module_id": "m",
+      "record_id": "TypedRecord",
+      "id": 2,
+      "type_id": 1,
+      "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-13T18:06:49.150316Z",
+      "updated_at": "2026-10-13T18:06:49.150316Z",
+      "values": [
+        [
+          "active",
+          false
+        ],
+        [
+          "amount",
+          {
+            "kind": "decimal",
+            "text": "2.0000"
+          }
+        ],
+        [
+          "quantity",
+          {
+            "kind": "integer",
+            "text": "2"
+          }
+        ],
+        [
+          "record-id",
+          "R2"
+        ]
+      ],
+      "retained": [],
+      "profile": "truss-python-scalar-object/0.3"
+    }
+  ],
+  "edges": [
+    {
+      "identity": {
+        "id": "3",
+        "type_id": "1",
+        "definition_pin": "1fb0761cd14e62acd58ec3e8668c18fd1289c9096959486d56b2eae804df9465",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "source": {
+        "id": "1",
+        "type_id": "1",
+        "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "target": {
+        "id": "2",
+        "type_id": "1",
+        "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-13T18:06:49.327632Z",
+      "updated_at": "2026-10-13T18:06:49.327685Z",
+      "order_key": null,
+      "retained": []
+    },
+    {
+      "identity": {
+        "id": "4",
+        "type_id": "1",
+        "definition_pin": "1fb0761cd14e62acd58ec3e8668c18fd1289c9096959486d56b2eae804df9465",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "source": {
+        "id": "2",
+        "type_id": "1",
+        "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "target": {
+        "id": "2",
+        "type_id": "1",
+        "definition_pin": "b9ef4dd68efe681f6c4c699f66962a6daf999186216ebf9cecaa160d51698b52",
+        "owner": {
+          "document_id": "typed-related-record",
+          "module_id": "m"
+        }
+      },
+      "version": 1,
+      "catalog_revision": 1,
+      "record_revision": 1,
+      "created_at": "2026-10-13T18:06:49.544792Z",
+      "updated_at": "2026-10-13T18:06:49.544846Z",
+      "order_key": null,
+      "retained": []
+    }
+  ],
+  "singletons": [
+    {
+      "publication_id": "truss-graph-5",
+      "type_id": 1,
+      "entity_id": 1,
+      "record": {
+        "row": {
+          "source_system": "0dba125a-0896-492f-a1fe-44fe4cf9661b",
+          "logical_key_json": "[]",
+          "schema_revision": "1",
+          "props_json": "{\"1\":true,\"2\":1.2300,\"4\":9007199254740993,\"5\":\"R1\"}",
+          "retained_json": "{}",
+          "root_id": null,
+          "source_feed": "example-related",
+          "source_epoch": "08b22982-1e48-4e80-9f20-32f974c58b1a",
+          "source_position": null,
+          "lookup_hash": "291d57f355c8a5dcbfc256ee40bc9ebe6dc5ea99795621b8fcffdeaef63ec978",
+          "apply_batch_id": "764",
+          "source_cursor_json": "{\"profile\":\"truss-native-feed/0.1\",\"cursorBase64\":\"eyJuZXh0WGlkIjogIjc2NSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImV4YW1wbGUtcmVsYXRlZC1kZWx0YSIsICJzb3VyY2VFcG9jaCI6ICIwOGIyMjk4Mi0xZTQ4LTRlODAtOWYyMC0zMmY5NzRjNThiMWEiLCAiaW5zdGFsbGF0aW9uSWQiOiAiMGRiYTEyNWEtMDg5Ni00OTJmLWExZmUtNDRmZTRjZjk2NjFiIiwgInJlZ2lzdHJhdGlvbklkIjogIjA4ZTMxZTQ0LTczMTMtNDc3Ny05ODExLTgwYzZmMGNkYmM3OSJ9\"}",
+          "source_delivery_id": "764:1",
+          "type_id": "1",
+          "id": "1",
+          "entity_version": "1",
+          "published_at": "1791914841543266"
+        },
+        "document_id": "typed-related-record",
+        "module_id": "m",
+        "record_id": "TypedRecord",
+        "fields": [
+          {
+            "module_id": "m",
+            "field_id": "record-id",
+            "property_id": "5",
+            "scalar_type": "string",
+            "nullability": "required",
+            "state": "value",
+            "value": "R1"
+          },
+          {
+            "module_id": "m",
+            "field_id": "quantity",
+            "property_id": "4",
+            "scalar_type": "integer",
+            "nullability": "required",
+            "state": "value",
+            "value": {
+              "integer_token": "9007199254740993"
+            }
+          },
+          {
+            "module_id": "m",
+            "field_id": "amount",
+            "property_id": "2",
+            "scalar_type": "decimal",
+            "nullability": "required",
+            "state": "value",
+            "value": {
+              "decimal_token": "1.2300"
+            }
+          },
+          {
+            "module_id": "m",
+            "field_id": "active",
+            "property_id": "1",
+            "scalar_type": "boolean",
+            "nullability": "required",
+            "state": "value",
+            "value": true
+          },
+          {
+            "module_id": "m",
+            "field_id": "note",
+            "property_id": "3",
+            "scalar_type": "string",
+            "nullability": "absent-allowed",
+            "state": "absent",
+            "value": null
+          },
+          {
+            "module_id": "m",
+            "field_id": "tag",
+            "property_id": "6",
+            "scalar_type": "string",
+            "nullability": "absent-allowed",
+            "state": "absent",
+            "value": null
+          }
+        ]
+      },
+      "qualification": "Named-field observation of an authorized complete original singleton; no new scalar support or source grant."
+    },
+    {
+      "publication_id": "truss-graph-5",
+      "type_id": 1,
+      "entity_id": 2,
+      "record": {
+        "row": {
+          "source_system": "0dba125a-0896-492f-a1fe-44fe4cf9661b",
+          "logical_key_json": "[]",
+          "schema_revision": "1",
+          "props_json": "{\"1\":false,\"2\":2.0000,\"4\":2,\"5\":\"R2\"}",
+          "retained_json": "{}",
+          "root_id": null,
+          "source_feed": "example-related",
+          "source_epoch": "08b22982-1e48-4e80-9f20-32f974c58b1a",
+          "source_position": null,
+          "lookup_hash": "5959858a2f6307608677dc8e39314a1cad3dec066843576001f44baf636e0a1b",
+          "apply_batch_id": "773",
+          "source_cursor_json": "{\"profile\":\"truss-native-feed/0.1\",\"cursorBase64\":\"eyJuZXh0WGlkIjogIjc3NCIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImV4YW1wbGUtcmVsYXRlZC1kZWx0YSIsICJzb3VyY2VFcG9jaCI6ICIwOGIyMjk4Mi0xZTQ4LTRlODAtOWYyMC0zMmY5NzRjNThiMWEiLCAiaW5zdGFsbGF0aW9uSWQiOiAiMGRiYTEyNWEtMDg5Ni00OTJmLWExZmUtNDRmZTRjZjk2NjFiIiwgInJlZ2lzdHJhdGlvbklkIjogIjA4ZTMxZTQ0LTczMTMtNDc3Ny05ODExLTgwYzZmMGNkYmM3OSJ9\"}",
+          "source_delivery_id": "773:2",
+          "type_id": "1",
+          "id": "2",
+          "entity_version": "1",
+          "published_at": "1791914861505663"
+        },
+        "document_id": "typed-related-record",
+        "module_id": "m",
+        "record_id": "TypedRecord",
+        "fields": [
+          {
+            "module_id": "m",
+            "field_id": "record-id",
+            "property_id": "5",
+            "scalar_type": "string",
+            "nullability": "required",
+            "state": "value",
+            "value": "R2"
+          },
+          {
+            "module_id": "m",
+            "field_id": "quantity",
+            "property_id": "4",
+            "scalar_type": "integer",
+            "nullability": "required",
+            "state": "value",
+            "value": {
+              "integer_token": "2"
+            }
+          },
+          {
+            "module_id": "m",
+            "field_id": "amount",
+            "property_id": "2",
+            "scalar_type": "decimal",
+            "nullability": "required",
+            "state": "value",
+            "value": {
+              "decimal_token": "2.0000"
+            }
+          },
+          {
+            "module_id": "m",
+            "field_id": "active",
+            "property_id": "1",
+            "scalar_type": "boolean",
+            "nullability": "required",
+            "state": "value",
+            "value": false
+          },
+          {
+            "module_id": "m",
+            "field_id": "note",
+            "property_id": "3",
+            "scalar_type": "string",
+            "nullability": "absent-allowed",
+            "state": "absent",
+            "value": null
+          },
+          {
+            "module_id": "m",
+            "field_id": "tag",
+            "property_id": "6",
+            "scalar_type": "string",
+            "nullability": "absent-allowed",
+            "state": "absent",
+            "value": null
+          }
+        ]
+      },
+      "qualification": "Named-field observation of an authorized complete original singleton; no new scalar support or source grant."
+    }
+  ],
+  "source_checkpoint_unchanged": true,
+  "queries": {
+    "forward": {
+      "publication_id": "truss-graph-5",
+      "rows": [
+        {
+          "id": "R1",
+          "targets": {
+            "items": [
+              [
+                "R2"
+              ]
+            ],
+            "truncated": false
+          }
+        },
+        {
+          "id": "R2",
+          "targets": {
+            "items": [
+              [
+                "R2"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ],
+      "integrity_checks": 11,
+      "original_guard_zeroes": true
+    },
+    "inverse": {
+      "publication_id": "truss-graph-5",
+      "rows": [
+        {
+          "id": "R1",
+          "targets": {
+            "items": [],
+            "truncated": false
+          }
+        },
+        {
+          "id": "R2",
+          "targets": {
+            "items": [
+              [
+                "R1"
+              ],
+              [
+                "R2"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ],
+      "integrity_checks": 11,
+      "original_guard_zeroes": true
+    }
+  },
+  "files": {
+    "forward-request.json": {
+      "bytes": 8792,
+      "sha256": "06a720af96015596495bcca82272b0380d74b2af59239531f65e4e7771fb648f"
+    },
+    "forward-response.json": {
+      "bytes": 39258,
+      "sha256": "cf026943c332b7c33e36c362497082744e124e39ca98fdf8d67db0c57af6d7dc"
+    },
+    "inverse-request.json": {
+      "bytes": 8793,
+      "sha256": "a23906f390511f8511335441362fbd275a10855b01ec24805c7ca714627db0a7"
+    },
+    "inverse-response.json": {
+      "bytes": 40057,
+      "sha256": "aac6dae41c06fd03ced7811bbab284c3fa80a92a8bec417578f22f59ece64a62"
+    }
+  },
+  "runner_observation": {
+    "outcome": "failed",
+    "duration_seconds": 144.714,
+    "error_type": "SystemExit"
+  },
+  "runner_observation_qualification": "Installed console entrypoint exits via sys.exit(main()); runpy raises SystemExit(0). Harness incorrectly classified that normal console exit as failed. Actual process exited0 and the complete final helper report was written after source/Spark closure; no rerun.",
+  "console_command": "ashlar run-truss-typed-related-example --configuration <operator-configuration> --output <fresh-private-directory>",
+  "installation": "Exact committed source archived, wheel built and installed into a fresh private target with no dependency downloads. Runner asserted ashlar, ashlar_host and example helper module origins inside that target, then executed its installed bin/ashlar entrypoint. Existing explicitly selected SDK/Bun/JDK/JAR/compiler dependencies; no repository source fallback.",
+  "scope": "Actual fresh installed0.1.0.dev0 wheel command: original UMF0.7 schema acceptance, two exact numeric records, forward edge/self-loop, five Delta publications, complete singletons and forward/inverse RELATED_KEYS on one publication with unchanged checkpoint. Original runtime subset and caller-asserted Truss ACK only; no cloud, production, protected ACK or automatic dependency bootstrap qualification. No scale test."
+}
