@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-truss-query-batch/0.1",
+  "queries": [
+    {
+      "name": "inverse-related",
+      "sql": "SELECT b.\"B-label\" AS label, RELATED_KEYS(b.\"B-A\", 2) AS related FROM B b",
+      "revision": "1",
+      "document_id": "cohort",
+      "maximum_rows": 2
+    },
+    {
+      "name": "equality-join",
+      "sql": "SELECT b.\"B-label\" AS left_label, c.\"B-value\" AS right_value FROM B b JOIN B c ON b.\"B-value\" = c.\"B-value\"",
+      "revision": "1",
+      "document_id": "cohort",
+      "maximum_rows": 2
+    },
+    {
+      "name": "record-count",
+      "sql": "SELECT COUNT(*) AS total FROM B b",
+      "revision": "1",
+      "document_id": "cohort",
+      "maximum_rows": 2
+    }
+  ]
+}

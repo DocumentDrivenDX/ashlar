@@ -412,3 +412,19 @@ MUST remain exact. CROSS expansion returns only roots with paths; an absent
 root does not represent an emitted zero count. This case MUST NOT qualify
 one-hop degree counts, isolate coverage or the complete two-hop collection.
 Existing default query selections MUST remain unchanged.
+
+### One-publication query batches
+
+A bounded query batch MUST select one to eight uniquely named original query
+intents and one immutable publication. Each intent MUST explicitly select SQL,
+model revision, document ID and row limit. The ordinary source, installation and
+compiler settings remain explicit. The batch MAY share one owned native runtime,
+but each query MUST retain its complete source admission, original compiler
+artifacts, integrity checks and native pins. Every result MUST match the original
+publication ID and complete manifest; mixed refresh MUST refuse.
+
+Unknown configuration members, duplicate names and exceeded input, row or report
+bounds MUST refuse without truncation. A failed query, changed batch input or
+failed outer closure MUST withhold the combined success report. Final persistence
+MUST follow source, transport and runtime closure and original input renewal.
+Sharing a runtime MUST NOT permit publication, source ACK or new source authority.

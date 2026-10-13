@@ -125,6 +125,9 @@ def main():
     truss_singleton.add_argument('--kind',choices=('object','edge'),required=True)
     truss_singleton.add_argument('--type-id',type=int,required=True)
     truss_singleton.add_argument('--entity-id',type=int,required=True)
+    truss_batch=commands.add_parser('query-truss-graph-batch',help='Run a bounded named Weft query gallery on one original Truss publication with one owned runtime')
+    for option in ('configuration','output','weft-index','weft-installation','batch'):
+        truss_batch.add_argument('--'+option,required=True)
     truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or authored forward/inverse RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
@@ -459,6 +462,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss singleton refused; inspect the selected publication and typed identity',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-graph-batch':
+        try:
+            from ashlar_host.truss_query_batch import run_query_truss_graph_batch_command
+            result=run_query_truss_graph_batch_command(args.configuration,args.output,index=args.weft_index,installation=args.weft_installation,batch=args.batch)
+            print(json.dumps({'output':args.output,'publication_id':result['publication_id'],'queries':len(result['queries'])},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss query batch refused; retain original inputs and inspect the selected publication',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph':

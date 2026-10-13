@@ -1315,3 +1315,24 @@ operator does not consume feed pages or acknowledge them. Use
 `continue-truss-graph --maximum-pages 2` with the existing publication selection
 to publish the complete update and deletion pages in order. Retained older
 publications keep their original object/edge values and native version vector.
+
+## Run the query gallery in one session
+
+Use [cohort-queries.json](cohort-queries.json) with the accepted inverse cohort
+and its saved reader configuration. It selects an inverse relationship query,
+a STRING equality join and a record count. Each keeps the original compiler
+checks and publication pins.
+
+```sh
+ashlar query-truss-graph-batch --configuration /absolute/private/reader.json \
+  --batch /absolute/path/cohort-queries.json \
+  --weft-index /absolute/weft/index.json \
+  --weft-installation /absolute/weft/installation \
+  --output /absolute/private/fresh-query-batch.json
+```
+
+All named results use the same immutable publication in one owned session.
+The combined report is written after closure; any failed query withholds it.
+This batch interface has basic adapter coverage; its native workflow has not
+yet been qualified. The individual gallery query shapes retain their existing
+scoped native evidence.
