@@ -17,7 +17,7 @@ def run_configure_truss_resume_command(configuration, publication_intent, output
             raise ValueError('Original canonical configuration and intent files required')
     original = decode_custody_bytes(snapshot(configuration,65536))
     required = {'connection_uri','administrator_uri','reader_role','consumer_id','feed','jars','maximum_pages'}
-    if type(original) is not dict or not required <= set(original) <= required | {'wait_seconds','archived_acceptance_files','export_graph'}:
+    if type(original) is not dict or not required <= set(original) <= required | {'wait_seconds','archived_acceptance_files','export_graph','destination_id'}:
         raise ValueError('Original closed publisher configuration required')
     intent_raw = snapshot(intent_path,65536)
     intent = decode_custody_bytes(intent_raw)
@@ -26,6 +26,7 @@ def run_configure_truss_resume_command(configuration, publication_intent, output
     value = {'connection_uri':original['connection_uri'],'jars':original['jars'],
         'publication_directory':str(intent_path.parent),
         'publication_intent':{'path':str(intent_path),'sha256':hashlib.sha256(intent_raw).hexdigest()}}
+    if 'destination_id'in original:value['destination_id']=original['destination_id']
     if 'archived_acceptance_files' in original:value['archived_acceptance_files'] = original['archived_acceptance_files']
     if (not destination.is_absolute() or not destination.parent.is_dir()
             or destination.parent.resolve() != destination.parent or destination.exists() or destination.is_symlink()

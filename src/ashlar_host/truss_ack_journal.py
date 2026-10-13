@@ -12,7 +12,7 @@ def _intent(driver, request, manifest, vector):
             or driver.ack_sessions is not driver.source_sessions):
         raise PermissionError('Original actual Truss ACK owner required')
     driver.require(driver.context)
-    return {'profile':'ashlar-truss-caller-asserted-ack-intent/0.1','request':dict(request),
+    return {'profile':('ashlar-truss-destination-receipt-ack-intent/0.1'if driver.source_sessions.destination_receipts else'ashlar-truss-caller-asserted-ack-intent/0.1'),'request':dict(request),
         'manifest':dict(manifest),'vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,
         'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
         'targets':{table:list(target) for table,target in vector.targets.items()}},

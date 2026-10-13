@@ -31,6 +31,15 @@ def admit_truss_continuation_head(driver, *, allowed_digest=None):
     admit_truss_ack_attempt(driver,request,manifest,vector)
     if driver.source_sessions.observe_checkpoint(context=driver.context)!=driver.source_sessions.page.next.content:
         raise ValueError('Original predecessor source checkpoint is not committed')
+    if driver.source_sessions.destination_receipts:
+        source=driver.source_sessions
+        source.adopt_ack_attempt(driver,request,manifest,vector)
+        observed=source.reconcile(encoded(request).encode(),encoded(manifest).encode(),vector,
+            context=driver.context,pins=driver,publication_backend=driver,
+            supported_profiles=[manifest['profile_version']],
+            supported_revisions={key:[value]for key,value in json.loads(manifest['schema_revisions_json']).items()})
+        if type(observed)is not dict or observed.get('receipt_observed')is not True or observed.get('source_receipt_retained')is not True:
+            raise ValueError('Original predecessor destination receipt not retained')
     # Any original source plan without its applied artifact requires resume.
     pending_plan=driver.transport.db.execute('SELECT 1 FROM local_source_plan WHERE request_digest NOT IN (SELECT request_digest FROM local_publication_artifact) AND (? IS NULL OR request_digest!=?) LIMIT 1',(allowed_digest,allowed_digest)).fetchone()
     if pending_plan:
@@ -83,7 +92,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         if any(current[key]!=original_cursor[key]for key in ('installationId','sourceEpoch','registrationId','consumerId')):
             raise ValueError('Original Truss installation/source epoch changed')
         if page.outcome=='empty_interval':break
-        sessions=TrussFeedSessions(page,feed,ordinary,context);batch=sessions.batch()
+        sessions=TrussFeedSessions(page,feed,ordinary,context,destination_receipts=source.destination_receipts,destination_id=source.destination_id);batch=sessions.batch()
         admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch,archives))
         revisions={current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'}
         request=truss_request_for(feed,batch,predecessor,revisions)
@@ -130,7 +139,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             except BaseException:
                 pass  # Diagnostic capture never replaces the original failure.
             raise
-    return {'predecessor':original_predecessor,'publications':results,'scope':'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.'}
+    return {'predecessor':original_predecessor,'publications':results,'scope':('Contiguous public Truss pages appended with consumer-verified durable publication before exact source-retained destination receipt ACK; caller controls commit; no history release or Unity Catalog qualification.'if source.destination_receipts else'Contiguous public Truss pages appended to the existing private local Delta installation with publication-before-caller-asserted ACK; no reset/new registration or Unity Catalog qualification.')}
 
 
 def _ready(driver):

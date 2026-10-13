@@ -20,7 +20,7 @@ def parse_resume_truss_configuration(configuration, output):
     base = {'connection_uri','publication_directory','jars'}
     selections = {'feed','source_page_path','source_page_sha256','request_digest'}
     required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
-    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files'}:
+    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id'}:
         raise ValueError('Exact original Truss resume configuration required')
     intent_path = None
     if 'publication_intent' in config:
@@ -43,6 +43,10 @@ def parse_resume_truss_configuration(configuration, output):
                 or len(intent['publication_id']) > 4096):
             raise ValueError('Original bounded publication intent required')
         config = {key:value for key,value in config.items() if key != 'publication_intent'} | {key:intent[key] for key in selections}
+    from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
+    destination_id=receipt_destination_id(config.get('destination_id'))
+    if 'destination_id'in config and destination_id is None:raise ValueError('Explicit destination identity required')
+    if destination_id is not None:require_truss_receipt_sdk()
     for key in ('connection_uri','feed'):
         if type(config[key]) is not str or not config[key] or len(config[key]) > 4096 or '\0' in config[key]:
             raise ValueError('Bounded explicit ordinary Truss source required')
@@ -85,7 +89,7 @@ def run_resume_truss_graph_command(configuration, output):
         from .truss_resume import resume_truss_publication
         descriptor = resume_truss_publication(driver,config['request_digest'])
         return {'request_digest':config['request_digest'],'manifest':dict(descriptor.raw),
-            'qualification':'Original private local Truss graph publication resumed; caller-asserted delivery ACK, no protected outbox receipt or Unity Catalog qualification.'}
+            'qualification':('Original private local Truss graph publication resumed with exact source-retained destination ACK receipt; consumer verifies destination and caller controls source commit; no history release or Unity Catalog qualification.'if 'destination_id'in config else'Original private local Truss graph publication resumed; caller-asserted delivery ACK, no protected outbox receipt or Unity Catalog qualification.')}
     return run_selected_truss_command(configuration,output,resume)
 
 
@@ -130,7 +134,7 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     from .resources import RESOURCE_ROOT
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
-    sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context)
+    sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context,**({'destination_receipts':True,'destination_id':config['destination_id']}if 'destination_id'in config else {}))
     admission = TrussGraphAdmission(sessions.batch(),read_historical_catalog_views(connection,sessions.batch(),archives))
     lease = PrivateFiniteLease(publication,create=False)
     try:

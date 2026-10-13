@@ -1,9 +1,11 @@
 """Ordinary public Truss feed sessions and publication-before-ACK composition.
 
-Truss ACK asserts delivery; it does not retain a destination receipt or release
-history. Already-advanced source replay is separate from exact-page admission.
+Plain Truss ACK asserts delivery without destination receipt retention. Explicit
+receipt mode retains exact opaque destination evidence after consumer-owned
+publication verification; it does not release history or verify Delta for Truss.
+Already-advanced source replay remains separate from exact-page admission.
 """
-import hashlib
+import base64,hashlib,json
 from contextlib import contextmanager
 from dataclasses import dataclass,field
 from types import MappingProxyType
@@ -51,6 +53,21 @@ def _assembly(connection,readonly):
     finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
 
 
+def receipt_destination_id(value):
+    if value is None:return None
+    if type(value)is not str or not value or '\0'in value or len(value.encode('utf8'))>1024:
+        raise TrussSessionError('Explicit bounded destination receipt identity required')
+    return value
+
+
+def require_truss_receipt_sdk():
+    try:
+        from truss import FeedAckReceipt,FeedReceiptAcknowledged,FeedAckReconciled
+    except ImportError:
+        raise TrussSessionError('Selected public Truss SDK lacks destination receipt capability')from None
+    return FeedAckReceipt,FeedReceiptAcknowledged,FeedAckReconciled
+
+
 @dataclass(frozen=True)
 class TrussFeedSessions:
     """One original page, explicit ordinary factory and fixed host context.
@@ -62,10 +79,17 @@ class TrussFeedSessions:
     feed:str
     connection_factory:object=field(repr=False,compare=False)
     context:object=field(repr=False,compare=False)
+    destination_receipts:bool=False
+    destination_id:object=None
     _pending_checkpoint:object=field(default=None,init=False,repr=False,compare=False)
     _committed_checkpoint:object=field(default=None,init=False,repr=False,compare=False)
 
     def __post_init__(self):
+        if type(self.destination_receipts)is not bool:raise TrussSessionError('Explicit destination receipt mode required')
+        if self.destination_receipts:
+            if receipt_destination_id(self.destination_id)is None:raise TrussSessionError('Explicit destination identity required')
+            require_truss_receipt_sdk()
+        elif self.destination_id is not None:raise TrussSessionError('Destination identity requires receipt mode')
         if type(self.page)is not _sdk()[4] or self.page.outcome!='transaction' or not callable(self.connection_factory):
             raise TrussSessionError('Actual complete Truss transaction page and ordinary connection factory required')
         batch=self.batch()
@@ -79,7 +103,7 @@ class TrussFeedSessions:
 
     def metadata(self):
         batch=self.batch()
-        return {'profile':'ashlar-truss-feed-sessions/0.1','feed':self.feed,'epoch':batch.epoch,
+        return {**({'ack_receipt_profile':'ashlar-truss-destination-receipt/0.1','destination_id':self.destination_id}if self.destination_receipts else {}),'profile':'ashlar-truss-feed-sessions/0.1','feed':self.feed,'epoch':batch.epoch,
                 'consumer_id':self.page.consumer_id,'registration_id':self.page.registration_id,
                 'page_sha256':self.page.sha256,'checkpoint':truss_checkpoint(batch)}
 
@@ -162,6 +186,8 @@ class TrussFeedSessions:
             supported_profiles,supported_revisions,reconcile=True)
 
     def _perform(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile):
+        if self.destination_receipts:
+            return self._perform_receipt(request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,reconcile=reconcile)
         if any(type(raw)is not bytes or not 0<len(raw)<=4194304 for raw in (request_bytes,manifest_bytes)):
             raise TrussSessionError('Bounded original publication bytes required')
         request=decode_retained_json(request_bytes);manifest=decode_retained_json(manifest_bytes)
@@ -213,4 +239,67 @@ class TrussFeedSessions:
             answer.update(page_sha256=self.page.sha256,publication_id=manifest['publication_id'],
                 request_sha256=hashlib.sha256(request_bytes).hexdigest(),
                 scope='Caller-asserted Truss delivery ACK; no destination receipt retention or history release.')
+        return answer
+
+
+    def _perform_receipt(self,request_bytes,manifest_bytes,vector,context,pins,backend,profiles,revisions,*,reconcile):
+        if any(type(raw)is not bytes or not 0<len(raw)<=4194304 for raw in (request_bytes,manifest_bytes)):
+            raise TrussSessionError('Bounded original publication bytes required')
+        request=decode_retained_json(request_bytes);manifest=decode_retained_json(manifest_bytes)
+        self._request(request,context)
+        destination=self.destination_id
+        if type(destination)is not str or not destination or len(destination.encode())>1024:
+            raise TrussSessionError('Exact destination installation identity required')
+        receipt=(json.dumps({'profile':'ashlar-truss-destination-receipt/0.1',
+            'request_base64':base64.b64encode(request_bytes).decode(),'manifest_base64':base64.b64encode(manifest_bytes).decode(),
+            'vector':{'authority':vector.authority,'scope_kind':vector.scope_kind,'scope_id':vector.scope_id,'custody_digest':vector.custody_digest,
+                'targets':{table:list(target)for table,target in vector.targets.items()}}},sort_keys=True,separators=(',',':'))+'\n').encode()
+        if len(receipt)>1048576:raise TrussSessionError('Complete destination receipt exceeds public SDK bound')
+        request_sha=hashlib.sha256(request_bytes).hexdigest();receipt_sha=hashlib.sha256(receipt).hexdigest()
+        cursor=decode_retained_json(self.page.prior.content);receipt_type,ack_type,reconcile_type=require_truss_receipt_sdk()
+        def exact(retained):
+            if (type(retained)is not receipt_type or retained.installation_id!=cursor['installationId']or retained.source_epoch!=cursor['sourceEpoch']
+                    or retained.consumer_id!=self.page.consumer_id or retained.registration_id!=self.page.registration_id
+                    or retained.prior!=self.page.prior or retained.next!=self.page.next or retained.feed_sha256!=self.page.sha256
+                    or retained.destination_id!=destination or retained.request_sha256!=request_sha or retained.publication_id!=manifest['publication_id']
+                    or retained.receipt_bytes!=receipt or retained.receipt_sha256!=receipt_sha):raise TrussSessionError('Exact original source-retained destination receipt differs')
+        connection=None;primary=None;answer=None;commit_attempted=False;commit_observed=False
+        try:
+            if reconcile and self._pending_checkpoint is None:raise TrussSessionError('Original actual receipt ACK attempt required')
+            with owned_context(pins.hold(vector,context=context)):
+                self._resolve(request,manifest,vector,context,pins,backend,profiles,revisions)
+                connection=self.connection_factory(context)
+                with _assembly(connection,reconcile)as (assembly,tx):
+                    method=getattr(assembly,'reconcile_feed_ack_in_transaction'if reconcile else'acknowledge_feed_with_receipt_in_transaction',None)
+                    if not callable(method):raise TrussSessionError('Actual source release lacks receipt ACK capability')
+                    observed=_value(method(tx,self.page,destination_id=destination,request_sha256=request_sha,publication_id=manifest['publication_id'],receipt_bytes=receipt))
+                    if reconcile:
+                        if type(observed)is not reconcile_type or observed.outcome not in ('matched','missing','conflicting'):
+                            raise TrussSessionError('Actual receipt reconciliation result required')
+                        if observed.outcome=='missing':
+                            if observed.receipt is not None or observed.checkpoint!=self.page.prior:raise TrussSessionError('Missing original receipt cannot prove original ACK outcome')
+                        elif observed.outcome=='conflicting':raise TrussSessionError('Original source ACK receipt conflict')
+                        else:exact(observed.receipt);answer={'receipt_observed':True}
+                    else:
+                        if type(observed)is not ack_type or observed.checkpoint!=self.page.next or observed.outcome not in ('advanced','equal'):
+                            raise TrussSessionError('Actual pending receipt ACK correspondence differs')
+                        exact(observed.receipt)
+                    self._resolve(request,manifest,vector,context,pins,backend,profiles,revisions)
+                if not reconcile:
+                    object.__setattr__(self,'_pending_checkpoint',self.page.next.content);commit_attempted=True
+                    connection.commit();commit_observed=True
+                    object.__setattr__(self,'_committed_checkpoint',self.page.next.content)
+                    answer={'outcome':observed.outcome,'caller_commit_confirmed':True}
+                elif answer is not None:object.__setattr__(self,'_committed_checkpoint',self.page.next.content)
+        except BaseException as error:primary=error
+        try:finish(primary,([connection.rollback,connection.close]if connection is not None else []))
+        except BaseException as error:
+            if commit_attempted:
+                uncertain=AckOutcomeUncertain(request_bytes,manifest_bytes,self.metadata(),commit_attempted=True,commit_observed=commit_observed)
+                if not isinstance(error,Exception):error.ack_outcome_uncertain=uncertain;raise
+                raise uncertain from error
+            raise
+        if answer is not None:answer.update(page_sha256=self.page.sha256,publication_id=manifest['publication_id'],request_sha256=request_sha,
+            source_receipt_sha256=receipt_sha,source_receipt_retained=True,
+            scope='Exact source-retained opaque destination receipt after consumer-verified durable publication; caller controls source commit; no history release.')
         return answer

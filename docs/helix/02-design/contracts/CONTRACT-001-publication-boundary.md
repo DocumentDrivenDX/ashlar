@@ -912,3 +912,29 @@ main-file bound MUST NOT be reported as a bound on WAL files or total disk use.
 No invocation may automatically enlarge a selected budget or retry under a larger
 one. Fresh configurations MUST select a sufficient finite budget before work;
 exceeding it retains incomplete state and refuses further mutation/ACK acceptance.
+
+## Truss destination receipt acknowledgement
+
+A Truss source session MAY explicitly select destination receipt acknowledgement.
+Selection MUST require the public receipt ACK and read-only reconciliation APIs;
+missing capabilities MUST refuse without falling back to plain ACK. Existing plain
+ACK sessions retain their delivery assertion semantics and MUST NOT acquire receipt
+proof retrospectively. Persisted attempt identity MUST distinguish these modes.
+
+Before receipt ACK, Ashlar MUST independently resolve and validate the complete
+durable destination publication under its original source owner and native pins.
+The bounded opaque receipt MUST retain the exact request, manifest and full version
+vector. Its source binding MUST match installation, source epoch, consumer,
+registration, prior/next cursors and feed digest; its destination binding MUST match
+the explicit destination identity, request digest, publication ID, receipt bytes
+and receipt digest. Truss retention proves source-side receipt custody; Ashlar
+continues to own destination durability verification.
+
+The caller MUST commit the receipt ACK transaction before claiming advancement.
+After an uncertain commit, a fresh read-only reconciliation MUST compare every
+binding and the exact original bytes. Only a matched receipt can establish the
+original source ACK outcome, including after later checkpoint advances. Missing
+receipts remain unresolved; conflicting receipts MUST refuse. Neither outcome
+licenses a second ACK write, republishing or checkpoint-only inference. Final
+success still requires current destination publication admission and resource
+closure.

@@ -59,6 +59,22 @@ local connection details and use mode 0600. Restarting the stopped server requir
 its actual newly returned URI; saved runtime URIs are not restart credentials.
 
 
+## Retain destination receipts with source ACK
+
+For a fresh `publish-truss-graph` configuration, add an explicit
+`"destination_id": "your-ashlar-installation"`. Select a public Truss SDK and
+installation that provide `acknowledge_feed_with_receipt_in_transaction` and
+`reconcile_feed_ack_in_transaction`; missing support refuses the option. Keep the
+same destination identity in resume and continuation configurations. Omission
+retains the existing plain delivery ACK mode. A plain ACK attempt cannot be
+converted into receipt proof by adding the setting later.
+
+Ashlar validates the durable publication before retaining its exact request,
+manifest and version vector with the source ACK. Uncertain source commit uses
+read-only exact receipt reconciliation, with no second ACK write. The receipt
+proves source retention; Ashlar still verifies the destination publication.
+Adapter coverage does not qualify a native receipt-mode end-to-end run.
+
 ## Compile queries for an owned Truss publication
 
 Use the actual `NativeDriver` from graph publication or recovery with the selected

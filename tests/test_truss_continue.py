@@ -49,6 +49,17 @@ class Tests(unittest.TestCase):
                     result=continue_truss_graph(driver,lambda:None)
                     self.assertEqual(result['publications'],[]);publish.assert_not_called()
                     self.assertEqual(events,['open','close']);read.assert_called_once()
+                    # Receipt mode cannot inherit a checkpoint advanced by plain ACK.
+                    object.__setattr__(source,'destination_receipts',True)
+                    driver.policy.active['manifest'].update(profile_version='ashlar-delta/0.3',schema_revisions_json='{}')
+                    with patch.object(TrussFeedSessions,'adopt_ack_attempt')as adopt,patch.object(TrussFeedSessions,'reconcile',return_value=None)as reconcile:
+                        read.reset_mock()
+                        with self.assertRaisesRegex(ValueError,'destination receipt not retained'):
+                            continue_truss_graph(driver,lambda:None)
+                        read.assert_not_called();adopt.assert_called_once();reconcile.assert_called_once()
+                        reconcile.return_value={'receipt_observed':True,'source_receipt_retained':True}
+                        self.assertEqual(continue_truss_graph(driver,lambda:None)['publications'],[])
+                    object.__setattr__(source,'destination_receipts',False)
                     pending.append({'batch_id':'unfinished'})
                     with self.assertRaisesRegex(ValueError,'Pending original native'):
                         continue_truss_graph(driver,lambda:None)

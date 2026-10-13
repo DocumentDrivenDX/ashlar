@@ -161,17 +161,20 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
+    from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
+    receipt_destination_id(destination_id)
+    if destination_id is not None:require_truss_receipt_sdk()
     output=Path(output);release=None;custody=None
     if type(export_graph)is not bool or export_graph and not graph:raise ValueError('Graph export requires graph publication and a boolean selection')
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
@@ -201,7 +204,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 if wait_deadline is None:wait_deadline=time.monotonic()+wait_seconds
                 page=read_next_page(connection_factory,consumer_id,wait_seconds,deadline=wait_deadline)
             if page.outcome=='empty_interval':break
-            lease.renew();sessions=TrussFeedSessions(page,feed,ordinary,context);batch=sessions.batch()
+            lease.renew();sessions=TrussFeedSessions(page,feed,ordinary,context,**({'destination_receipts':True,'destination_id':destination_id}if destination_id is not None else {}));batch=sessions.batch()
             from .truss_page_archive import encode_truss_page
             original_page=encode_truss_page(page,feed);page_path=output/('source-page-'+str(ordinal+1)+'.json')
             with page_path.open('xb')as stream:
@@ -247,6 +250,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     except BaseException as error:primary=error
     finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
     result={'publications':results,'scope':('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.'}
+    if destination_id is not None:result['scope']='Fresh private local Delta publication with consumer-verified destination before exact source-retained receipt ACK; caller controls source commit; no history release or Unity Catalog qualification.'
     if release is not None:
         path=output/'graph-release.json'
         with path.open('xb')as stream:

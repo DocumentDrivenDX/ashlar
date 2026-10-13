@@ -480,3 +480,15 @@ than compiler/transaction output. Native acceptance separately records explicit
 runtime versions/origins, all complete bags and current closing. No fabricated
 medical query/engine case or abstract simulation closes this installed workflow;
 P04 full eight-run, P07 engine corpus and P10 real feed remain independently due.
+
+## Truss destination receipt controls
+
+Exercise explicit receipt-mode ACK through the public SDK with an exact original
+request, manifest and full vector after destination validation. Check matching
+source/destination bindings and caller commit. Inject uncertain commit and require
+fresh read-only exact receipt reconciliation without another ACK write; test a
+matched receipt after a later checkpoint advance. Missing, changed-byte and
+conflicting receipts must withhold success. Plain ACK attempts must not be upgraded
+into receipt proof, and unavailable receipt APIs must refuse explicit selection.
+Use focused adapter controls first; qualify native behavior with a small real
+source transaction independently of existing Delta publication evidence.

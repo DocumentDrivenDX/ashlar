@@ -53,6 +53,7 @@ def run_configure_truss_continuation_command(configuration,continuation_result,o
                 or type(last['manifest'])is not dict or last['manifest'].get('publication_id')!=intent['publication_id']
                 or last['source_page']!={'path':intent['source_page_path'],'sha256':intent['source_page_sha256']}):raise ValueError('Completed original intent/publication/source correspondence differs')
         value={'connection_uri':operator.connection_uri,'publication_directory':str(operator.publication_directory),'jars':[str(p)for p in operator.jars],'publication_intent':selection}
+        if 'destination_id'in original:value['destination_id']=original['destination_id']
         if 'archived_acceptance_files'in original:value['archived_acceptance_files']=original['archived_acceptance_files']
     if any(destination==p or destination in p.parents or p in destination.parents for p in (configuration,report_path,publication)):
         raise ValueError('Separate fresh continuation configuration required')
