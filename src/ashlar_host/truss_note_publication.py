@@ -168,7 +168,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
-    output=Path(output);release=None
+    output=Path(output);release=None;custody=None
     if type(export_graph)is not bool or export_graph and not graph:raise ValueError('Graph export requires graph publication and a boolean selection')
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
     if archived_acceptance_files and not graph:raise ValueError('Archived catalogs are selected for graph publication only')
@@ -223,7 +223,7 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             state=after;expected=following;progress=policy.active['progress'];predecessor=publication_id;lease.renew()
         if export_graph and results:
             from .truss_graph_export import read_original_truss_graph_export
-            release=read_original_truss_graph_export(driver)
+            release,custody=read_original_truss_graph_export(driver,with_custody=True)
     except BaseException as error:primary=error
     finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
     result={'publications':results,'scope':('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.'}
@@ -231,6 +231,9 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
         path=output/'graph-release.json'
         with path.open('xb')as stream:
             if stream.write(release.payload)!=len(release.payload):raise OSError('Complete graph release write required')
-        result['graph_release']={'path':str(path),'sha256':release.sha256,'qualification':'Canonical immutable graph captured with the original live Truss source owner; no protected outbox custody or external engine qualification.'}
+        custody_path=output/'graph-custody.json'
+        with custody_path.open('xb')as stream:
+            if stream.write(custody)!=len(custody):raise OSError('Complete graph custody write required')
+        result['graph_release']={'path':str(path),'sha256':release.sha256,'custody_path':str(custody_path),'custody_sha256':hashlib.sha256(custody).hexdigest(),'qualification':'Canonical immutable graph captured with the original live Truss source owner; no protected outbox custody or external engine qualification.'}
     with (output/'result.json').open('x')as stream:json.dump(result,stream,ensure_ascii=False)
     return result

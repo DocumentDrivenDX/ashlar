@@ -600,7 +600,9 @@ source access and perform delivery ACKs.
 Set `"export_graph": true` in `publish-truss-graph` configuration to capture the
 final canonical graph release while the original source owner and complete
 publication snapshots remain held. After successful cleanup, the command writes
-`graph-release.json` and its digest in `result.json`. The release preserves typed
+`graph-release.json`, a separately bound `graph-custody.json`, and both digests
+in `result.json`. The existing graph materialization workflow can select this
+pair using its explicit release and custody digests. The release preserves typed
 node/edge identities and original canonical properties. It carries the local
 Truss publication's qualification; exporting it does not establish protected
 outbox custody or qualify an external graph engine.

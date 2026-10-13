@@ -149,7 +149,11 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
     from .finite_graph_custody import PROFILE as FINITE_PROFILE,admit_finite_graph_custody
     if type(custody)is dict and custody.get('format')==FINITE_PROFILE:
         admit_finite_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
-    else:admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+    else:
+        from .truss_graph_custody import PROFILE as TRUSS_PROFILE,admit_truss_graph_custody
+        if type(custody)is dict and custody.get('format')==TRUSS_PROFILE:
+            admit_truss_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+        else:admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
     if value.get('format')!=FORMAT or value.get('mapping',{}).get('identity')!='ashlar-key/1':
         raise ValueError('Unsupported named release/identity encoding')
     if (json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()!=payload:

@@ -45,7 +45,7 @@ class _TrussGraphPolicy:
                 raise PermissionError('Independent complete Truss graph occurrence bag differs')
 
 
-def read_original_truss_graph_export(driver):
+def read_original_truss_graph_export(driver, *, with_custody=False):
     """Read final immutable bytes while the actual source/transport remain owned.
 
     The caller must retain outer resources and write only after their successful
@@ -61,8 +61,15 @@ def read_original_truss_graph_export(driver):
         vector = manifest_pin_vector(manifest, {table: driver.transport.targets[table].uuid
             for table in json.loads(manifest['table_versions_json'])}, authority='private-local-process')
         policy = _TrussGraphPolicy(driver, vector)
-        return read_graph_release(driver.transport, driver, driver, vector, policy,
+        release = read_graph_release(driver.transport, driver, driver, vector, policy,
             publication_id=manifest['publication_id'], node_table=driver.tables['object_current'],
             edge_table=driver.tables['edge_current'], context=context, supported_profiles=['ashlar-delta/0.3'],
             supported_revisions={k: [v] for k, v in json.loads(manifest['schema_revisions_json']).items()},
             max_nodes=len(policy.expected['object_current']), max_edges=len(policy.expected['edge_current']))
+
+        if with_custody:
+            from .truss_graph_custody import build_truss_graph_custody
+            source = driver.admission_facts()
+            checkpoint = json.loads(manifest['source_progress_json'])[source['feed']]
+            return release, build_truss_graph_custody(release, source=source, vector=vector, checkpoint=checkpoint)
+        return release
