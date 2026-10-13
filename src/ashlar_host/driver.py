@@ -2341,8 +2341,10 @@ class NativeDriver:
         raw_manifest = encoded(row).encode()
         try:
             receipt = (ack.reconcile if truss_reconcile else ack.acknowledge)(raw_request, raw_manifest, vector, context=context, **ack_ports)
-        except AckOutcomeUncertain:
-            receipt = ack.reconcile(raw_request, raw_manifest, vector, context=context, **ack_ports)
+        except AckOutcomeUncertain as uncertain:
+            from .ack_sessions import RegisteredOutboxAcks
+            receipt = (ack.reconcile_uncertain(uncertain,vector,context=context,**ack_ports)
+                if type(ack)is RegisteredOutboxAcks else ack.reconcile(raw_request, raw_manifest, vector, context=context, **ack_ports))
             if receipt is None:
                 raise ValueError('Actual committed original ACK did not reconcile')
             self.acks.append({'publication_id': row['publication_id'], 'uncertain_commit_fresh_reconciled': True})

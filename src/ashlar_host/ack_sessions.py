@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import Callable, Mapping, Protocol
 from types import MappingProxyType
 from ashlar.schema import decode_retained_json
-from .ack import AckError, AckScope, ProtectedOutboxAck, receipt_bytes
+from .ack import AckError, AckScope, AckOutcomeUncertain, ProtectedOutboxAck, receipt_bytes
 from .postgres import Session
 from .source_sessions import OutboxSourceRegistration
 
@@ -91,3 +91,18 @@ class RegisteredOutboxAcks:
 
     def reconcile(self, request_bytes, manifest_bytes, vector, **ports):
         return self._perform(request_bytes, manifest_bytes, vector, reconcile=True, **ports)
+
+    def reconcile_uncertain(self, uncertain, vector, **ports):
+        """Observe the exact uncertain original ACK on a fresh owned connection.
+
+        Scope correspondence grants no authority: normal live source/publication
+        policies and full pins remain mandatory. Missing receipts refuse; this
+        operation never calls ACK or manufactures replacement original bytes.
+        """
+        if (type(uncertain)is not AckOutcomeUncertain or type(uncertain.scope)is not AckScope
+                or len([item for item in self.registrations if item.source.scope==uncertain.scope])!=1):
+            raise AckError('Exact original uncertain registered ACK scope required')
+        receipt_bytes(uncertain.scope,uncertain.original_request,uncertain.original_manifest)
+        answer=self.reconcile(uncertain.original_request,uncertain.original_manifest,vector,**ports)
+        if answer is None:raise AckError('Original uncertain protected ACK receipt remains absent')
+        return answer

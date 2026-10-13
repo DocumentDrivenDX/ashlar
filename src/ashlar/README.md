@@ -43,6 +43,25 @@ meaning must be retained and reported or execution refused, never silently narro
 Truss property journals require their own semantic adapter; they must not be
 relabeled as whole-entity events.
 
+## Recover an uncertain protected outbox ACK
+
+A `RegisteredOutboxAcks` owner can reconcile an `AckOutcomeUncertain` directly:
+
+```python
+try:
+    receipt = acks.acknowledge(request_bytes, manifest_bytes, vector, **ports)
+except AckOutcomeUncertain as uncertain:
+    receipt = acks.reconcile_uncertain(uncertain, vector, **ports)
+```
+
+`ports` supplies the original context, live pins, publication backend and supported
+profiles/revisions. Reconciliation verifies the complete registered source scope
+and uses the exception's unchanged request and manifest bytes. It opens a fresh
+ordinary connection and observes the protected receipt; it never submits another
+ACK. A missing or conflicting receipt refuses. Keep the original exception and
+publication custody for further recovery. The native publisher uses this path
+automatically for registered outbox sessions.
+
 ## Supported development evidence
 
 The configured JSONL example has actual native
