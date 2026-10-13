@@ -732,7 +732,30 @@ A restarted owner can observe the original next checkpoint only after validating
 that intent and the committed publication. This is caller-asserted delivery
 reconciliation; it does not turn Truss delivery into a protected outbox receipt.
 
-### Resume from the installed command
+## Continue and resume publications
+
+### Consume new feed pages into existing tables
+
+After a publication commits, use its saved intent and original publisher
+configuration with `configure-truss-resume`. Then consume new transactions into
+the same tables and journal:
+
+```sh
+ashlar continue-truss-graph \
+  --configuration /absolute/private/resume.json \
+  --maximum-pages 1 --wait-seconds 0 \
+  --output /absolute/private/continued.json
+```
+
+The source checkpoint must equal the selected publication's original next
+checkpoint. New pages must retain the same installation, epoch and registration,
+and follow it contiguously. Each page gets a fresh saved intent before effects;
+the normal publication coordinator acknowledges it only after durable publication.
+Use the newest intent for the next continuation. A pending attempt requires
+`resume-truss-graph` with that attempt's saved intent before continuing.
+This command creates no replacement tables, journal or source registration.
+
+### Configure and resume an interrupted publication
 
 The publisher writes `publication-intent-N.json` with the original request digest,
 feed and source-page path/digest before entering the publication coordinator.

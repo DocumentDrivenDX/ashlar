@@ -1,0 +1,42 @@
+{
+  "profile": "ashlar-source-cli-truss-continuation-functional/0.1",
+  "seconds": 34.414,
+  "rows": [
+    {
+      "label": "Alpha",
+      "related": {
+        "items": [
+          [
+            "Value-B",
+            "Beta"
+          ]
+        ],
+        "truncated": true
+      }
+    }
+  ],
+  "source_original_target_tuples": [
+    [
+      "Value-B",
+      "Beta"
+    ],
+    [
+      "Value-C",
+      "Gamma"
+    ]
+  ],
+  "existing_registry_unchanged": true,
+  "old_publication": "truss-graph-2",
+  "new_publication": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "continuation_checkpoint_advanced": true,
+  "query_checkpoint_unchanged": true,
+  "actual_integrity_checks": 13,
+  "server_stopped": true,
+  "qualification": "Actual source CLI append of one public Truss transaction (second B + independent edge) into existing same six Delta tables/journal, original predecessor and registry retained, then bounded RELATED_KEYS against full independent source edge oracle. No reset/setup/reingest/registration, no query ACK, no installed wheel/Unity Catalog/scale qualification.",
+  "request_sha256": "1fecdcbdbda1f7aeb2fff5906946bef97b36933ee9531e2ddc8c2fad3fe60316",
+  "response_sha256": "a25a9fb9b91651e49717a8bdc8dd0c54b4fcbe018b8e7b5be33663fee7421de1",
+  "continuation_report_sha256": "c6145ac216b21b2e51b1f98780d95aabfcbab096e75ac63541ced8d312e9bf0c",
+  "query_harness_sha256": "3e582b9bd1586ff383d8191c55623a078a55e9d5168fc49ed1c1cbae80d3e972",
+  "continuation_source_sha256": "e130800d67549c5e6f09b35c985977dac87886a2ce85580feeed6a2b22819073",
+  "base_ashlar_revision": "05bfa87121529b464f608ece3af12f87fbfd0d11"
+}

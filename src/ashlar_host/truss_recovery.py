@@ -42,6 +42,15 @@ def _retained_state(previous):
     return ApplyState(*[MappingProxyType(item) for item in (current,history,tombstones,deliveries)])
 
 
+def restore_truss_apply_state(expected):
+    """Reconstruct retained semantic state after the owner validates native bags.
+
+    Original history/current correspondence alone grants no source or publication
+    authority. Call only inside an actual validated publication owner interval.
+    """
+    return _retained_state(expected)
+
+
 def _restore_truss_publication(driver, request_digest, *, interrupted=False):
     """Restore policy from retained applied custody; live validation remains required.
 
