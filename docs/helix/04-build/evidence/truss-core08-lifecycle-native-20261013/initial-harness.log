@@ -1,0 +1,7 @@
+{"stage": "update-original08"}
+{"outcome": "failed", "duration_seconds": 3.33, "error_type": "ValueError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss-core08-lifecycle-native-20261013-a/run.py", line 34, in <module>
+    if updated['object']['version']!=2 or any(updated['object'][k]!=created[k]for k in ('id','type_id','definition_pin','document_id','module_id','record_id','catalog_revision','record_revision','retained')):raise ValueError('Exact original update identity/version differs')
+                                                                                                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Exact original update identity/version differs

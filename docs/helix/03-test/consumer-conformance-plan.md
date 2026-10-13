@@ -496,8 +496,8 @@ source transaction independently of existing Delta publication evidence.
 ## Declared-version Truss scalar intake
 
 For CONTRACT-003, use independently authored original UMF 0.7.0 and 0.8.0
-models. Setup must select the exact public SDK preparation version. Creation,
-committed readback/replay, original accepted-report/catalog feed admission,
+models. Setup must select the exact public SDK preparation version. Creation, expected-version updates/deletes,
+committed value/absence readback and exact receipt replay, original accepted-report/catalog feed admission,
 Delta publication and named singleton reads must preserve original model bytes,
 unknown extensions, STRING keys, signed64 integers, decimal18,4 tokens and Boolean
 values. Compare complete properties and retained payloads with original source

@@ -1,0 +1,33 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 116.562,
+  "umf_version": "0.8.0",
+  "model_sha256": "111d0597b220034a2fd3cc3ac9252ba24a3171d7c5d8c60688102b090c4f5e0f",
+  "source_operations": 2,
+  "contiguous_publications": 2,
+  "reads": {
+    "original": {
+      "publication_id": "truss-graph-2",
+      "present": true,
+      "entity_version": 1
+    },
+    "updated": {
+      "publication_id": "truss-graph-012787663bbe12ff68f31734aaba19b3ff61363876386230ba02c621f4f57542",
+      "present": true,
+      "entity_version": 2
+    },
+    "deleted": {
+      "publication_id": "truss-graph-784dd1efd43e36206c854da0beab710b77ab54a82ea53c2f4da61ba2a86815be",
+      "present": false,
+      "entity_version": null
+    }
+  },
+  "source_checkpoint_unchanged_by_reads": true,
+  "scope": "Same original core-only0.8 model; actual public expected-version update/delete, exact source readback/receipt replay, two local Delta continuations and complete original/intermediate/deleted named singletons. Caller-asserted Truss ACK; no protected outbox/F8/unknown-extension/evolution/Weft/UC qualification.",
+  "initial_harness_failure": {
+    "duration_seconds": 3.33,
+    "reason": "Source update/readback/replay completed. Outer harness compared native tuple retained content with its saved JSON array representation and withheld success before deletion/publication.",
+    "continued_from_original_saved_update": true,
+    "update_repeated": false
+  }
+}

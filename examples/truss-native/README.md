@@ -2074,6 +2074,14 @@ source-bound commands. The existing setup/create/publication configuration
 shapes apply to both declared versions. Numeric facets, STRING keys, relationships,
 evolution and query subsets retain their own admission rules.
 
+`update-truss-record` and `delete-truss-record` also retain the supplied declared
+0.7/0.8 model. For the 0.8 asset, set `units`, `valuation` and `enabled` with the
+same exact scalar tags and preserve `asset-key`. Supply the actual object ID and
+current expected version; after each source commit, publish the complete page
+with `continue-truss-graph`. Save each publication intent to read original,
+updated and deleted snapshots independently. Deleting the current object must
+not silently change a retained earlier publication.
+
 The [opaque 0.8 model](core08-asset.umf.json) is a distinct source specimen. Preserve
 its vocabulary and payload intact when preparation is partial; it must not be
 silently converted into the core-only model or treated as accepted authority.
@@ -2084,3 +2092,10 @@ singleton reads with the recorded local runtime. The
 [opaque-model refusal](../../docs/helix/04-build/evidence/truss-core08-opaque-refusal-20261013/result.json)
 retains original partial preparation and unknown-vocabulary diagnostics. Neither
 result qualifies 0.8 evolution, Weft queries or production authorization.
+
+The [declared 0.8 lifecycle example](../../docs/helix/04-build/evidence/truss-core08-lifecycle-native-20261013/result.json)
+qualifies source update/delete with committed receipt replay, two contiguous
+Delta publications and complete original, updated and deleted singleton reads.
+The integer and decimal tokens remain exact; historical reads leave the source
+checkpoint unchanged. This evidence uses the same core-only model as the intake
+example and does not qualify unknown-extension acceptance or 0.8 schema evolution.
