@@ -13,7 +13,7 @@ from ashlar_host.fabric_graph_definition import prepare_fabric_graph_definition
 import tempfile
 from .lifecycle import finish
 
-SOURCE_COMMIT = '24e006f159c38d9ee45b9ab2ae905dceeb15f56f'
+SOURCE_COMMIT = '12f26f03638b4d603d5aaea4444e26cbeb036e92'
 
 def prepare_fabric_notebook(selection, nodes, edges, output, display_name):
     output = Path(output)

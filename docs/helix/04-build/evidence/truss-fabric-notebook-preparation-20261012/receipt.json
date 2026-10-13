@@ -1,0 +1,20 @@
+{
+  "runtime_source_revision": "12f26f03638b4d603d5aaea4444e26cbeb036e92",
+  "custody_profile": "ashlar-immutable-truss-graph-capture/0.1",
+  "release_sha256": "46c32c47b48025efedf8e3cba68aa9d99e80d76af35e523b4d13cf99fe27c871",
+  "custody_sha256": "cb16555b515950ec840ac8e47f5ef30cabef435841e0143a24e96373e37a0673",
+  "outcome": "prepared",
+  "qualification": "Actual local Fabric notebook preparation from previously completed private Truss export pair, admitted by existing generic loader",
+  "notebook_metadata_verified": true,
+  "code_cell_compile": "Parent basic compilation passed",
+  "cloud_operation": false,
+  "notebook_execution": false,
+  "private_notebook_committed": false,
+  "not_qualified": [
+    "Fabric table materialization",
+    "Graph model creation/load",
+    "External graph query",
+    "Future source availability"
+  ],
+  "review": "Read-only source pin and private notebook metadata only; no payload display/archive or native rerun"
+}

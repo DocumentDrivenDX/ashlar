@@ -14,7 +14,7 @@ class Tests(unittest.TestCase):
             selection=LocalGraphExportSelection(r,c,release.sha256,hashlib.sha256(custody).hexdigest())
             one_lake='abfss://11111111-1111-1111-1111-111111111111@onelake.dfs.fabric.microsoft.com/22222222-2222-2222-2222-222222222222/Tables/'
             output=prepare_fabric_notebook(selection,one_lake+'archaeology_r1_nodes',one_lake+'archaeology_r1_edges',root/'finite.ipynb','Archaeology release')
-            notebook=json.loads(output.read_bytes());pin='24e006f159c38d9ee45b9ab2ae905dceeb15f56f'
+            notebook=json.loads(output.read_bytes());pin='12f26f03638b4d603d5aaea4444e26cbeb036e92'
             self.assertIn(pin,''.join(notebook['cells'][1]['source']))
             self.assertEqual(notebook['metadata']['ashlar'],{'source_commit':pin,'release_sha256':release.sha256,'custody_sha256':selection.custody_sha256,'custody_profile':PROFILE})
             code=''.join(notebook['cells'][2]['source']);compile(code,'prepared-finite-cell','exec')
