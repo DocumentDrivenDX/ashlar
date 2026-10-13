@@ -1,0 +1,23 @@
+{
+  "code_revision": "12f26f03638b4d603d5aaea4444e26cbeb036e92",
+  "wheel": "ashlar_graph_toolkit-0.1.0.dev0",
+  "wheel_sha256": "c5d289316a282f80f317120073405e6a53469526461378b9bd1144a2ac63f7cb",
+  "build": "Committed source archive, setuptools79; invalid initial UNKNOWN wheel unused",
+  "outcome": "passed",
+  "invocation": "Installed isolated --target package/bin/ashlar console entrypoint, ashlar import asserted under installed package",
+  "command": "resume-truss-graph",
+  "publication_id": "truss-graph-2",
+  "private_report_written_after_cleanup": true,
+  "owned_source_server_stopped": true,
+  "qualification": "Actual installed command reconciles original advanced caller-asserted Truss ACK checkpoint against existing native publication/journal, without reingest or new ACK",
+  "console_exit": "Normal SystemExit(0) caught by harness and re-raised; actual output/report succeeded; post-console timing summary not executed",
+  "elapsed_seconds": null,
+  "not_qualified": [
+    "Unity Catalog",
+    "Protected outbox receipt",
+    "General end-to-end toolkit",
+    "Network ACK response-loss recovery"
+  ],
+  "review": "Read-only actual console output, installed import assertion, report and selected postmaster absence; no rerun or expanded inventory",
+  "private_payloads_committed": false
+}
