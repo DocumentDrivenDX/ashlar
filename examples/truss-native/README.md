@@ -25,8 +25,29 @@ response_bytes = compiled['response_bytes']
 
 Select the actual record/field names and physical catalog revision from your
 accepted schema. This path supports Truss's admitted UMF 0.7 STRING records and
-returns the original compiler protocol bytes. Query execution and discharge of
-the compiler's integrity obligations remain separate host responsibilities.
+returns the original compiler protocol bytes without executing them.
+
+To execute a STRING projection on an existing publication, use the saved
+configuration produced by `configure-truss-resume` and select the installed
+Weft compiler explicitly:
+
+```sh
+ashlar query-truss-graph \
+  --configuration /absolute/private/resume.json \
+  --weft-index /absolute/weft/index.json \
+  --weft-installation /absolute/weft/installation \
+  --sql 'SELECT n.id FROM Note n' \
+  --revision 1 --document-id your-original-document-id \
+  --maximum-rows 1000 \
+  --output /absolute/private/query-result.json
+```
+
+Keep the source server running with the same compatible Truss, Spark and Delta
+dependencies used to publish. The command restores the original applied state,
+runs the compiler's scalar checks and unchanged SQL under the complete publication
+hold, then writes a fresh private result after cleanup. The report includes the
+original compiler request and response. It does not publish or acknowledge data.
+Exceeding the row bound refuses the complete answer rather than truncating it.
 
 ## Accept into an existing installation
 

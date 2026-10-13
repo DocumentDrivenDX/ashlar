@@ -113,6 +113,10 @@ def main():
     truss_resume_setup.add_argument('--configuration',required=True)
     truss_resume_setup.add_argument('--publication-intent',required=True)
     truss_resume_setup.add_argument('--output',required=True)
+    truss_query=commands.add_parser('query-truss-graph',help='Run a Weft STRING query against an original local Truss publication; no publication or ACK')
+    for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
+        truss_query.add_argument('--'+option,required=True)
+    truss_query.add_argument('--maximum-rows',type=int,default=1000)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
@@ -301,6 +305,17 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss resume setup refused; inspect the original configuration and saved intent',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-graph':
+        try:
+            from ashlar_host.truss_query_cli import run_query_truss_graph_command
+            run_query_truss_graph_command(args.configuration,args.output,index=args.weft_index,
+                installation=args.weft_installation,sql=args.sql,revision=args.revision,
+                document_id=args.document_id,maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss query refused; inspect the original publication and selected compiler',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'resume-truss-graph':

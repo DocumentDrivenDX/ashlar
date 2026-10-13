@@ -81,6 +81,16 @@ def parse_resume_truss_configuration(configuration, output):
 
 
 def run_resume_truss_graph_command(configuration, output):
+    def resume(driver,config):
+        from .truss_resume import resume_truss_publication
+        descriptor = resume_truss_publication(driver,config['request_digest'])
+        return {'request_digest':config['request_digest'],'manifest':dict(descriptor.raw),
+            'qualification':'Original private local Truss graph publication resumed; caller-asserted delivery ACK, no protected outbox receipt or Unity Catalog qualification.'}
+    return run_selected_truss_command(configuration,output,resume)
+
+
+def run_selected_truss_command(configuration, output, operation):
+    """Open original local Truss custody and close it before writing a report."""
     config,publication,page_raw,jars,archives,destination,warehouse = parse_resume_truss_configuration(configuration,output)
     journal = publication/'operations.sqlite'
     # Normal read-only SQLite observes the original WAL; immutable mode is unsafe.
@@ -118,7 +128,6 @@ def run_resume_truss_graph_command(configuration, output):
     from .truss_graph_admission import TrussGraphAdmission
     from .schema_rows import fixture_columns
     from .resources import RESOURCE_ROOT
-    from .truss_resume import resume_truss_publication
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
     sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context)
@@ -132,9 +141,7 @@ def run_resume_truss_graph_command(configuration, output):
             try:
                 driver = NativeDriver.from_existing_truss(transport,policy,context,tables,admission.changes,
                     fixture_columns(RESOURCE_ROOT),source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
-                descriptor = resume_truss_publication(driver,config['request_digest'])
-                result = {'request_digest':config['request_digest'],'manifest':dict(descriptor.raw),
-                    'qualification':'Original private local Truss graph publication resumed; caller-asserted delivery ACK, no protected outbox receipt or Unity Catalog qualification.'}
+                result = operation(driver,config)
             except BaseException as error: primary = error
             finish(primary,[transport.close,lease.renew])
     except BaseException as error:
