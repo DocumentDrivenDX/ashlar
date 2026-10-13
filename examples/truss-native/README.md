@@ -614,3 +614,10 @@ page bytes; Ashlar refuses an unavailable or changed reproduction. ACK
 reconciliation still reads the current consumer checkpoint and requires the
 original ACK attempt. Retained-page admission alone does not authorize another
 ACK or establish complete destination restart recovery.
+
+The publisher saves each complete original feed page to a private
+`source-page-N.json` before submitting that transaction's destination effects.
+Successful result entries include its path and SHA256. Recovery tooling can
+restore the exact public page carrier and request retained reproduction from
+Truss. The archive supplies original input, not source permission or proof of
+ACK; destination recovery still requires its original operation journal.
