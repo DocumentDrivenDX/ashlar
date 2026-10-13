@@ -1,0 +1,43 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 59.486,
+  "publication_id": "truss-graph-2",
+  "physical_revisions": [
+    "1"
+  ],
+  "row_count": 1,
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_commit": "a5e76c7f4f8ceaf69b975da8c28341ac58559921",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "truss_runtime": "0.39-candidate",
+  "truss_python": "0.0.2.dev0",
+  "weft_owner_reported_source_commit": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "scope": "Actual original named UMF0.7 typed-query-record with declared signed64 and decimal18,4 facets: one source object, two original publication pages, direct required STRING/integer/decimal/Boolean projection. Local candidate binary only; no released compiler, production source or Unity Catalog qualification. Truss numeric additions are not in release v0.0.1.",
+  "rows": [
+    {
+      "active": true,
+      "amount": {
+        "decimal_token": "1.2300"
+      },
+      "id": "R1",
+      "quantity": {
+        "integer_token": "9007199254740993"
+      }
+    }
+  ],
+  "integrity_check_count": 4,
+  "request_sha256": "d7e17fcb62e77c90904192aedb5d0b49f0de9d8472212115ae011a8eb5ec4603",
+  "response_sha256": "429edd4022fb62052b26d0f02e1296958bf9a9ece0eb91ea3e1e428c0f305d01"
+}

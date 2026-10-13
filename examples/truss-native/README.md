@@ -1696,3 +1696,7 @@ requires direct unfiltered, unordered required-field projections and runs all
 original publication and integrity checks. Optional scalar outputs, arithmetic
 and aggregates need their own admission. Truss numeric source support requires
 the main-source iteration after `v0.0.1`; that published release does not include it.
+
+The [actual one-record native query](../../docs/helix/04-build/evidence/truss-faceted-scalar-native-query-20261013/result.json)
+preserves `9007199254740993`, decimal `1.2300`, Boolean and STRING results with
+an unchanged source checkpoint on local Spark/Delta.
