@@ -2128,3 +2128,24 @@ The old snapshot retains four fields; the evolved snapshot has five, including
 `note`. Integer and decimal tokens remain exact and the reads leave the source
 checkpoint unchanged. Unknown-extension acceptance, mixed-revision Weft queries
 and protected PostgreSQL outbox recovery retain their separate qualifications.
+
+The typed-related example also accepts an explicit upcoming topology:
+
+```sh
+ashlar run-truss-typed-related-example --configuration /absolute/private/related.json \
+  --output /absolute/private/parallel-example --topology parallel-self-loops
+```
+
+Use the authentic released `truss-toolkit` 0.0.15 package when available. This
+selection refuses an older package before creating output or source state, then
+requires the actual setup report to identify `truss-layout` 1.0 before creating
+objects or edges. Package version availability alone does not prove layout or
+native index behavior. The original UMF model remains unchanged.
+
+The selected graph has two distinct independent R1 self-loop edges and isolated
+R2. Forward and inverse `RELATED_KEYS` each retain two R1 occurrences and an empty
+R2 list. Separate two-hop path and distinct-target count commands can compare
+four path occurrences with one terminal key; this helper does not execute those
+counts. Parallel-mode coverage currently tests composition and refusal only;
+released-runtime native qualification remains pending. The default topology
+continues to use the previously qualified R1→R2 edge and R2 self-loop.

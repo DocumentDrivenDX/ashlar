@@ -200,6 +200,7 @@ def main():
     truss_typed_related_example=commands.add_parser('run-truss-typed-related-example',help='Run fresh typed Truss records/edges through Delta and exact forward/inverse key queries')
     truss_typed_related_example.add_argument('--configuration',required=True)
     truss_typed_related_example.add_argument('--output',required=True)
+    truss_typed_related_example.add_argument('--topology',choices=('forward-self-loop','parallel-self-loops'),default='forward-self-loop')
     truss_arithmetic_example=commands.add_parser('run-truss-arithmetic-example',help='Run fresh Truss faceted numeric ingest, singleton read and installed exact arithmetic queries')
     truss_arithmetic_example.add_argument('--configuration',required=True)
     truss_arithmetic_example.add_argument('--output',required=True)
@@ -496,7 +497,7 @@ def main():
     if args.command == 'run-truss-typed-related-example':
         try:
             from ashlar_host.truss_typed_related_example import run_truss_typed_related_example_command
-            result=run_truss_typed_related_example_command(args.configuration,args.output)
+            result=run_truss_typed_related_example_command(args.configuration,args.output,**({'topology':args.topology}if args.topology!='forward-self-loop'else{}))
             print(json.dumps({'output':str(args.output)+'/result.json','publication_id':result['publication_id']},separators=(',',':')))
         except Exception:
             print('ashlar typed Truss example refused; retain partial output and inspect source state before retrying',file=sys.stderr)

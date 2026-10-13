@@ -935,6 +935,14 @@ allocation and unique relationship/source/target edge rules. Generic parallel-ed
 fixtures qualify carrier capacity only; incompatible producer duplicates must be
 refused, never collapsed.
 
+A separately selected Truss layout 1.0 parallel topology MUST bind the actual
+public catalog status and layout pin before creating graph records or edges.
+Package availability alone MUST NOT establish native layout or source authority.
+Two self-edges with identical endpoints MUST retain distinct original edge IDs;
+an isolated record MUST remain present. Authored multiplicity bounds stay unchanged,
+and forward and inverse related-key results MUST preserve equal key occurrences.
+An older source layout MUST refuse this selection rather than collapse the edges.
+
 Wire timestamp validation MUST compare independently encoded native instants,
 including sub-millisecond and pre-epoch controls. Comparison against the same
 encoder cannot prove preservation. UTC-microsecond encoding and compact token

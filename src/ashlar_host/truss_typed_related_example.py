@@ -34,7 +34,37 @@ def preflight(configuration,output):
     if any(root==p or root in p.parents or p in root.parents for p in (path,*paths)):raise ValueError('Separate output required')
     return TypedRelatedExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4]),root,original
 
-def run_truss_typed_related_example_command(configuration,output):
+TOPOLOGIES=('forward-self-loop','parallel-self-loops')
+
+def require_parallel_runtime():
+    """Availability check only; the actual accepted layout is checked separately."""
+    from importlib.metadata import version,PackageNotFoundError
+    try: selected=version('truss-toolkit')
+    except PackageNotFoundError: selected=None
+    if selected!='0.0.15':
+        raise ValueError('Parallel topology requires authentic released truss-toolkit0.0.15; no source was created')
+
+def require_parallel_layout(bootstrap):
+    import re
+    status=bootstrap.get('catalog_status') if type(bootstrap)is dict else None
+    pin=status.get('layout_profile') if type(status)is dict else None
+    if (type(pin)is not dict or set(pin)!={'identity','version','sha256'}
+            or pin['identity']!='truss-layout' or pin['version']!='1.0'
+            or type(pin['sha256'])is not str or re.fullmatch('[0-9a-f]{64}',pin['sha256'])is None):
+        raise ValueError('Actual accepted Truss layout1.0 required before parallel objects or edges')
+
+def topology_rows(topology):
+    if topology=='parallel-self-loops':
+        rows=[{'id':'R1','targets':{'items':[['R1'],['R1']],'truncated':False}},
+              {'id':'R2','targets':{'items':[],'truncated':False}}]
+        return {'forward':rows,'inverse':rows}
+    return {'forward':[{'id':'R1','targets':{'items':[['R2']],'truncated':False}},{'id':'R2','targets':{'items':[['R2']],'truncated':False}}],
+            'inverse':[{'id':'R1','targets':{'items':[],'truncated':False}},{'id':'R2','targets':{'items':[['R1'],['R2']],'truncated':False}}]}
+
+def run_truss_typed_related_example_command(configuration,output,*,topology='forward-self-loop'):
+    if type(topology)is not str or topology not in TOPOLOGIES:raise ValueError('Explicit supported topology required')
+    if topology=='parallel-self-loops':require_parallel_runtime()
+
     config,root,original=preflight(configuration,output)
     from .truss_runtime import require_truss_psycopg_runtime
     require_truss_psycopg_runtime()
@@ -62,6 +92,7 @@ def run_truss_typed_related_example_command(configuration,output):
         selection={'bun':str(config.bun),'document_path':str(model),'document_id':'typed-related-record','document_revision':'r1','origin_path':str(origin)}
         setup=private_file(root/'setup.json',{'data_directory':str(root/'data'),**selection,'request_key':'example-related-accept'})
         bootstrap=run_setup_truss_local_command(setup,root/'accepted.json')
+        if topology=='parallel-self-loops':require_parallel_layout(bootstrap)
         with owned_context(LocalPostgres(root/'data'))as runtime:
             parameters=psycopg.conninfo.conninfo_to_dict(runtime.info.connection_uri)
             administrator=psycopg.conninfo.make_conninfo(**parameters);parameters['user']=bootstrap['roles']['consumer'];ordinary=psycopg.conninfo.make_conninfo(**parameters)
@@ -70,10 +101,11 @@ def run_truss_typed_related_example_command(configuration,output):
                 creation=private_file(root/f'create-record-{number}.json',{'connection_uri':ordinary,**selection,'module_id':'m','record_id':'TypedRecord','request_key':'example-related-create-'+str(number),'values':{'record-id':{'kind':'string','text':name},'quantity':{'kind':'integer','text':quantity},'amount':{'kind':'decimal','text':amount},'active':{'kind':'boolean','value':active}}})
                 objects.append(run_create_truss_record_command(creation,root/f'created-record-{number}.json')['object'])
             edges=[]
-            for number,(source,target)in enumerate(((0,1),(1,1)),1):
+            for number,(source,target)in enumerate(((0,0),(0,0))if topology=='parallel-self-loops'else((0,1),(1,1)),1):
                 def endpoint(index):return {'document_id':'typed-related-record','module_id':'m','record_id':'TypedRecord','entity_id':objects[index]['id']}
                 creation=private_file(root/f'create-edge-{number}.json',{'connection_uri':ordinary,**selection,'module_id':'m','relationship_id':'related','request_key':'example-related-edge-'+str(number),'source':endpoint(source),'target':endpoint(target),'values':{},'order_key':{'state':'null'}})
                 edges.append(run_create_truss_edge_command(creation,root/f'created-edge-{number}.json')['edge'])
+            if edges[0]['identity']['id']==edges[1]['identity']['id']:raise ValueError('Two distinct original edge identities required')
             publish=private_file(root/'publication-configuration.json',{'connection_uri':ordinary,'administrator_uri':administrator,'reader_role':bootstrap['roles']['reader'],'consumer_id':'example-related-delta','feed':'example-related','jars':[str(p)for p in config.jars],'maximum_pages':5,'maximum_page_bytes':2097152})
             published=run_publish_truss_graph_command(publish,root/'publication')
             if len(published['publications'])!=5:raise ValueError('Five complete catalog/object/edge publications required')
@@ -88,7 +120,7 @@ def run_truss_typed_related_example_command(configuration,output):
                 wanted={'record-id':('value',name),'quantity':('value',{'integer_token':quantity}),'amount':('value',{'decimal_token':amount}),'active':('value',active),'note':('absent',None),'tag':('absent',None)}
                 if len(fields)!=6 or {f['field_id']:(f['state'],f['value'])for f in fields}!=wanted or (record['document_id'],record['module_id'],record['record_id'])!=('typed-related-record','m','TypedRecord')or observed['type_id']!=obj['type_id']or observed['entity_id']!=obj['id']or observed['publication_id']!=publication:raise ValueError('Exact typed singleton/publication differs')
                 singletons.append(observed)
-            wanted={'forward':[{'id':'R1','targets':{'items':[['R2']],'truncated':False}},{'id':'R2','targets':{'items':[['R2']],'truncated':False}}],'inverse':[{'id':'R1','targets':{'items':[],'truncated':False}},{'id':'R2','targets':{'items':[['R1'],['R2']],'truncated':False}}]}
+            wanted=topology_rows(topology)
             queries={}
             from collections import Counter
             from .delta_custody import encoded
@@ -99,6 +131,8 @@ def run_truss_typed_related_example_command(configuration,output):
             after=read_page(connection,'example-related-delta',maximum_bytes=2097152).prior.content
             if before!=after:raise ValueError('Read-only relationship query advanced source checkpoint')
             answer={'profile':PROFILE,'publication_id':publication,'publications':5,'objects':objects,'edges':edges,'singletons':singletons,'queries':queries,'source_checkpoint_unchanged':True,'qualification':'Fresh local public typed Truss record/edge creation, Delta publication, exact singletons and forward/inverse RELATED_KEYS on one current revision; caller-asserted ACK. Self-loop source acceptance defines the qualified subset. No cloud or production qualification.'}
+            if topology=='parallel-self-loops':
+                answer.update(topology=topology,qualification='Fresh local explicit parallel-self-loop topology with two distinct source edges, duplicate forward/inverse key occurrences and isolated R2; actual accepted layout1.0 and caller-asserted ACK. No two-hop-count, cloud or production qualification.')
     except BaseException as error:primary=error
     finish(primary,[restore,lambda:original.renew(65536)])
     private_file(root/'result.json',report_body(answer,1048576));return answer
