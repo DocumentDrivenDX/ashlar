@@ -78,7 +78,12 @@ class Controls(unittest.TestCase):
         self.compiler.assert_not_called();self.executor.assert_not_called();self.graph_mock.assert_not_called()
 
     def test_fixed16_queries32_protocols_explicit_partitions_and_outer_provisional_custody(self):
-        result=self.run_query()
+        prepare=owner.prepare_supply_chain_common_count_requests
+        def original_only(*args,**kwargs):
+            self.assertNotEqual(kwargs['family'],'two-hop-count')
+            return prepare(*args,**kwargs)
+        with mock.patch.object(owner,'prepare_supply_chain_common_count_requests',side_effect=original_only):
+            result=self.run_query()
         self.assertEqual((len(result['queries']),len(result['protocol_index'])),(16,32))
         self.assertEqual((self.compiler.call_count,self.executor.call_count,len(self.observed)),(32,16,32))
         self.assertEqual([q['query_ordinal']for q in result['queries'][:13]],list(range(13)))

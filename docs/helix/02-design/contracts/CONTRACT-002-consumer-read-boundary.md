@@ -400,3 +400,15 @@ indicating whether the requested identity exists.
 
 No HTTP endpoints, generated API, authentication provider or query compiler is
 selected. UMF and physical type compatibility remain later integration gates.
+
+### Supply-chain grouped two-hop occurrences
+
+An explicitly selected `two-hop-count` case MUST count original independent
+two-edge paths through `items.lot_id` then `lots.product_id`, grouped by the
+authored item ID. It MUST use the public compiler's `CROSS JOIN EXPAND_PATHS`
+and `COUNT(*)` operation; property joins and host counts MUST NOT substitute.
+The original UMF version, binding, edge-pair witness bag and publication vector
+MUST remain exact. CROSS expansion returns only roots with paths; an absent
+root does not represent an emitted zero count. This case MUST NOT qualify
+one-hop degree counts, isolate coverage or the complete two-hop collection.
+Existing default query selections MUST remain unchanged.

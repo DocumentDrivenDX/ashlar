@@ -8,7 +8,7 @@ from .lifecycle import finish,owned_context
 from .exact_report import report_body
 from .supply_chain_producer import SupplyChainProducerConfig,HeldSupplyChainDataset
 from .supply_chain_common_read import SupplyChainCommonReadConfig,SupplyChainCommonRuntime,open_supply_chain_common_read
-from .supply_chain_common_query import COMMON_CASE_IDS,REPORT_BYTES,SupplyChainCommonQueryConfig,query_supply_chain_common
+from .supply_chain_common_query import COMMON_CASE_IDS,DEFAULT_COMMON_CASE_IDS,REPORT_BYTES,SupplyChainCommonQueryConfig,query_supply_chain_common
 from .evolution_verification_types import VerificationBounds
 from .path_capture import PathCaptureConfig
 from ashlar.weft_path_decode import PathDecodeConfig
@@ -82,7 +82,7 @@ def run_supply_chain_common_command(configuration,output,*,selected_case_ids=Non
             answer=query_supply_chain_common(opened,config.query,observe=observe,selected_case_ids=selected_case_ids)
     except BaseException as error:primary=error
     finish(primary,[restore,lambda:original.renew(65536)])
-    actual=tuple(case for case in COMMON_CASE_IDS if selected_case_ids is None or case in selected_case_ids)
-    answer={**answer,'original_case_ids':list(COMMON_CASE_IDS),'selected_case_ids':list(actual)}
+    actual=DEFAULT_COMMON_CASE_IDS if selected_case_ids is None else tuple(case for case in COMMON_CASE_IDS if case in selected_case_ids)
+    answer={**answer,'original_case_ids':list(DEFAULT_COMMON_CASE_IDS),'available_case_ids':list(COMMON_CASE_IDS),'default_case_ids':list(DEFAULT_COMMON_CASE_IDS),'selected_case_ids':list(actual)}
     write(root/'result.json',report_body(answer,REPORT_BYTES))
     return {'output':str(root/'result.json'),'selected_case_ids':list(actual)}

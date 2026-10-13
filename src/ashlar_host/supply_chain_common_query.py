@@ -83,12 +83,13 @@ def _report(graph,results,index,raw_bytes,index_bytes):
     return {'graph_release':_graph_report(graph),'queries':results,'protocol_index':index,
         'protocol_raw_bytes':raw_bytes,'protocol_index_bytes':index_bytes,
         'protocol_total_bytes':raw_bytes+index_bytes,
-        'available_cases':['all-objects','all-edges','one-hop','singleton','filtered-limit'],
+        'available_cases':['all-objects','all-edges','one-hop','singleton','filtered-limit','two-hop-count'],
         'required_pending':['grouped-count'],
         'qualification':'Provisional original fixed common native evidence only after inner full graph/currentsource/schema closing. Observer storage and outer actual common source/runtime/installation closing required before final persistence. No compiler/source/native/engine/ACK authority created.'}
 
 
-COMMON_CASE_IDS=tuple('one-hop-'+str(i)for i in range(13))+('singleton','filtered-total','filtered-limit')
+DEFAULT_COMMON_CASE_IDS=tuple('one-hop-'+str(i)for i in range(13))+('singleton','filtered-total','filtered-limit')
+COMMON_CASE_IDS=DEFAULT_COMMON_CASE_IDS+('two-hop-count',)
 
 
 def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
@@ -105,7 +106,7 @@ def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
                 or len(set(selected_case_ids))!=len(selected_case_ids)):
             raise ValueError('Nonempty unique original common case IDs required')
         selected_ids=frozenset(selected_case_ids)
-    else:selected_ids=frozenset(COMMON_CASE_IDS)
+    else:selected_ids=frozenset(DEFAULT_COMMON_CASE_IDS)
     original_config=_config_values(config)
     selected=SupplyChainCommonQueryConfig(CountStarDistributionPaths(*original_config[:3]),
         original_config[3],PathCaptureConfig(*original_config[4:7]),PathDecodeConfig(original_config[7]))
@@ -120,8 +121,12 @@ def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
     registry=[{'table':target.table,'uuid':target.uuid}for target in driver.transport.targets.values()]
     # All fixed requests are prepared before compiler/schema/observer effects.
     prepared=[]
-    for family,part in (('one-hop','relationships-0-6'),('one-hop','relationships-7-12'),
-                        ('singleton','complete'),('filtered-limit','complete')):
+    families=(('one-hop','relationships-0-6'),('one-hop','relationships-7-12'),
+        ('singleton','complete'),('filtered-limit','complete'))
+    inventory=DEFAULT_COMMON_CASE_IDS
+    if 'two-hop-count'in selected_ids:
+        families+=(('two-hop-count','complete'),);inventory+=('two-hop-count',)
+    for family,part in families:
         batch=prepare_supply_chain_common_count_requests(opened.pack,opened.model,opened.graph,
             opened.bindings,opened.manifest,registry,opened.aliases,family=family,part=part)
         for query in batch['queries']:
@@ -129,8 +134,8 @@ def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
             if len(raw)>selected.maximum_artifact_bytes:
                 raise ValueError('Complete original common request exceeds artifact capacity')
             prepared.append((family,part,query,raw))
-    if len(prepared)!=16:raise ValueError('Complete fixed sixteen-query inventory required')
-    prepared=[entry for case,entry in zip(COMMON_CASE_IDS,prepared)if case in selected_ids]
+    if len(prepared)!=len(inventory):raise ValueError('Complete fixed common query inventory required')
+    prepared=[entry for case,entry in zip(inventory,prepared)if case in selected_ids]
     try:
         opening=read_original_supply_chain_graph_release(opened)
         schemas=dict(installed_count_star_schema_bundle(selected.distribution))
@@ -170,11 +175,11 @@ def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
                     raise ValueError('Original independent common oracle differs')
                 return {'rows':q['expected_rows'],'witnesses':{'family':family,'part':part,
                     'original_edge_witnesses':q.get('original_edge_witnesses',[]),
-                    'original_object_keys':q.get('original_object_keys',[])},
+                    'original_object_keys':q.get('original_object_keys',[]),'original_path_occurrences':q.get('original_path_occurrences',[])},
                     'scope':'Original complete source comparison only; actual native edge witness remains opening/closing graph release'}
             evidence=execute_commerce_count_star(actual,request,json.loads(responses[0]),json.loads(responses[1]),
                 config=execution,original_oracle=oracle)
-            result={'ordinal':ordinal,'family':family,'part':part,'query_ordinal':query['ordinal'],'case_id':('one-hop-'+str(query['ordinal'])if family=='one-hop'else 'singleton'if family=='singleton'else 'filtered-total'if query['ordinal']==0 else 'filtered-limit'),'evidence':evidence}
+            result={'ordinal':ordinal,'family':family,'part':part,'query_ordinal':query['ordinal'],'case_id':('one-hop-'+str(query['ordinal'])if family=='one-hop'else 'singleton'if family=='singleton'else 'two-hop-count'if family=='two-hop-count'else 'filtered-total'if query['ordinal']==0 else 'filtered-limit'),'evidence':evidence}
             # Exact typed aggregate admission precedes retaining this result;
             # complete evidence is never shortened to fit.
             report_body(_report(opening,results+[result],index,raw_bytes,index_bytes),REPORT_BYTES)

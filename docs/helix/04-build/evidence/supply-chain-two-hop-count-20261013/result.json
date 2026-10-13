@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-supply-chain-two-hop-count-compile/0.1",
+  "case_id": "two-hop-count",
+  "relationship_pair": [
+    "items.lot_id",
+    "lots.product_id"
+  ],
+  "request_bytes": 70559,
+  "request_sha256": "6e115f9a92a28eaf5236461074b4c950310d99beb372e39247a6f08e989f3f7f",
+  "response_bytes": 97675,
+  "response_sha256": "3e6a1d21847fa130da4150131fe5e67c34dcc0012d225061d522f7c38ca8712a",
+  "request_interface": "weft-compile/0.4.1",
+  "compiler_status": "compiled",
+  "expected_rows": [
+    [
+      "[42,0,\"I1\"]",
+      "1"
+    ],
+    [
+      "[42,0,\"I2\"]",
+      "1"
+    ]
+  ],
+  "native_execution": false,
+  "qualification": "Actual selected public Weft compilation of original UMF0.8 two-hop CROSS-expansion grouped path occurrences. Original request/response retained; independent original edge-pair oracle. No native execution, source authority, single-hop degree or zero-root coverage claim."
+}

@@ -55,7 +55,14 @@ ashlar query-supply-chain-common --configuration /absolute/private/common.json \
 
 Available case IDs are `one-hop-0` through `one-hop-12`, `singleton`,
 `filtered-total` and `filtered-limit`. Omit `--case` to run all sixteen; selected
-cases retain authored order. Grouped-count is a separate pending family.
+cases retain authored order.
+
+Select `--case two-hop-count` explicitly to group independent two-edge paths
+through `items.lot_id` then `lots.product_id` by item ID. It uses Weft's
+`CROSS JOIN EXPAND_PATHS` and `COUNT(*)`; roots without paths are absent from
+this result. This extra case is excluded from the default sixteen. Compiler
+qualification does not establish native execution. One-hop grouped counts
+including zero-degree sources remain a separate required family.
 
 The command executes the original public producer validation once to obtain a
 genuine same-process source invocation, then opens the existing native reader.

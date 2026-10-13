@@ -54,7 +54,7 @@ def prepare_supply_chain_common_count_requests(pack,model,graph,bindings,manifes
         raise ValueError('Exact fixed common family and part required')
     if family=='grouped-count':
         raise ValueError('Native one-hop relationship grouped counts are not selected by this041 builder')
-    if family not in ('one-hop','singleton','filtered-limit'):
+    if family not in ('one-hop','singleton','filtered-limit','two-hop-count'):
         raise ValueError('Unknown fixed common041 family')
     if (family=='one-hop'and part not in PARTS)or(family!='one-hop'and part!='complete'):
         raise ValueError('Exact fixed complete common partition required')
@@ -68,7 +68,34 @@ def prepare_supply_chain_common_count_requests(pack,model,graph,bindings,manifes
     assigned={(row['kind'],row['originalKey']):row for row in bindings['entities']}
     def request(sql):return _request(sql,pack,model,graph,bindings,manifest,registry,aliases)
     queries=[];occurrences=[]
-    if family=='one-hop':
+    if family=='two-hop-count':
+        relations=('items.lot_id','lots.product_id')
+        definitions=[r for module in document['modules']for r in module.get('relationships',[])if r['id']in relations]
+        by_id={r['id']:r for r in definitions}
+        if set(by_id)!=set(relations)or by_id[relations[0]]['source'][0]['element']!='items'or by_id[relations[0]]['target'][0]['element']!=by_id[relations[1]]['source'][0]['element']:raise ValueError('Original items-to-lots-to-products pair required')
+        first_edges=[edge for edge in original['edges']if edge['relationship']['id']==relations[0]]
+        second_edges=[edge for edge in original['edges']if edge['relationship']['id']==relations[1]]
+        rows=[];witnesses=[]
+        for source in original['objects']:
+            if source['type']['element']!='items':continue
+            count=0
+            for first in first_edges:
+                if first['source']!=source['key']:continue
+                for second in second_edges:
+                    if second['source']!=first['target']:continue
+                    count+=1
+                    occurrence=[source['key'],first['key'],first['target'],second['key'],second['target']]
+                    occurrences.append(occurrence)
+                    witnesses.append({'original_edges':[first['key'],second['key']],
+                        'edge_ids':[assigned['edge',first['key']]['id'],assigned['edge',second['key']]['id']],
+                        'source':source['key'],'intermediate':first['target'],'target':second['target']})
+            # CROSS expansion excludes roots without complete paths; no zero-degree claim.
+            if count:rows.append([source['values']['items.id'],str(count)])
+        rows.sort(key=lambda row:row[0].encode())
+        if not rows:raise ValueError('Original two-hop grouped count must be nonvacuous')
+        sql='SELECT s.id, COUNT(*) AS paths FROM items s CROSS JOIN EXPAND_PATHS(s."items.lot_id", "lots.product_id") AS p GROUP BY s.id ORDER BY s.id'
+        queries.append({'ordinal':0,'relationships':list(relations),'request':request(sql),'expected_rows':rows,'original_edge_witnesses':witnesses,'original_path_occurrences':list(occurrences)})
+    elif family=='one-hop':
         definitions=[r for module in document['modules']for r in module.get('relationships',[])]
         if len(definitions)!=13:raise ValueError('Complete original thirteen relationships required')
         for ordinal in PARTS[part]:
@@ -95,7 +122,7 @@ def prepare_supply_chain_common_count_requests(pack,model,graph,bindings,manifes
         wanted=[row for row in common['one-hop']if next(e for e in original['edges']if e['key']==row[1])['relationship']['id']in selected]
         if sorted(map(encoded,occurrences))!=sorted(map(encoded,wanted)):
             raise ValueError('Complete original partition occurrence bag differs')
-    else:
+    elif family in ('singleton','filtered-limit'):
         containers,rows=_container_rows(original['objects'],document)
         if len(containers)!=3 or not rows:
             raise ValueError('Original nonvacuous three-container source required')
