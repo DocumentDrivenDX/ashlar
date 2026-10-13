@@ -2173,6 +2173,38 @@ class NativeDriver:
             raise ValueError('Retained original applied manifest differs')
         self.validate_manifest(dict(descriptor.raw), context)
 
+    def observe_original_commerce_applied(self, request, artifact_text, context):
+        """Observe retained original commerce effects without replay or mutation."""
+        self.require(context)
+        from .commerce_admission import CommerceAdmission
+        if type(self.source_admission)is not CommerceAdmission or self.policy.active['request']!=request:
+            raise PermissionError('Actual original applied commerce owner required')
+        self.source_admit(request)
+        plan=self._apply_source_plan(request,context,True)
+        artifact=json.loads(artifact_text);proof=artifact['effects'];effects=LocalDeltaEffects(self.transport)
+        from ashlar.attempt_store import DeltaAttemptStore
+        from .lifecycle import owned_context
+        target=self.transport.targets[self.tables['attempts']]
+        store=DeltaAttemptStore(AttemptExecutor(self),CarrierPolicy(self,'attempts'),target.table,target.uuid)
+        with owned_context(store.session(context))as session:
+            phases=session.read(request['stream'],request['batch_id'])
+        if (not phases or phases[-1].phase!='committed'or phases[-1].request_digest!=request['request_digest']
+                or json.loads(phases[-1].payload_json)['request']!=request
+                or json.loads(json.loads(phases[-1].payload_json)['descriptor_json'])!=artifact['manifest']
+                or self.descriptors(artifact['manifest']['publication_id'])!=[artifact['manifest']]):
+            raise PermissionError('Original commerce native committed publication required')
+        original,digest,identities=effects.original_plan('effects:'+request['request_digest'],request['request_digest'],self.policy.active['steps'])
+        if (proof['plan_sha256']!=digest or proof['intent_digest']!=request['request_digest']
+                or proof['original_source_plan_sha256']!=sha(plan)or len(proof['original_native_receipts'])!=len(identities)):
+            raise PermissionError('Exact original commerce effect proof differs')
+        observation=effects.observe('effects:'+request['request_digest'],request['request_digest'],self.policy.active['steps'],context=context)
+        if any(state!='committed'for state in observation['states']):raise PermissionError('Original commerce effects must already be committed')
+        for ordinal,(key,step)in enumerate(zip(identities,self.policy.active['steps'])):
+            native=self.transport.inspect_committed(key,step['statement'],step['parameters'],intent_digest=request['request_digest'],context=context)
+            compact=[{'version':str(native['version']),'uuid':native['uuid'],'operation_sha256':native['operation_sha256'],'snapshot_sha256':native['snapshot']['row_sha256']}]
+            if compact!=proof['original_native_receipts'][ordinal]:raise PermissionError('Actual original commerce effect receipt differs')
+        self.validate_manifest(artifact['manifest'],context)
+
     @contextmanager
     def hold(self, vector, *, context):
         from .lifecycle import owned_context

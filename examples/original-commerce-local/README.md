@@ -132,3 +132,30 @@ bytes, general interrupted recovery, production authentication, managed Unity
 Catalog, cloud or real Truss integration. On failure preserve the output and
 native state; diagnose the owning refusal before choosing a fresh query output.
 Never reset, reappend or republish to repair a query.
+
+## Reopen an applied publication for protected ACK recovery
+
+Use `open_original_commerce_publisher` with the original
+`OriginalCommercePublicationOperator`, original `CommerceAdmission`, and the
+retained request digest. This owns the existing installation lease, native
+transport and ordinary source/ACK sessions. It checks the original source plan,
+committed effect receipts, native committed phase, immutable manifest and full
+source-derived graph. It creates no tables, source events or attempt phases.
+
+```python
+from ashlar_host.original_commerce_reopen import open_original_commerce_publisher
+
+with open_original_commerce_publisher(operator, admission, request_digest) as opened:
+    with opened.driver.writer(opened.request['stream'], opened.context):
+        opened.driver.acknowledge(
+            opened.request, opened.descriptor, opened.context)
+```
+
+Select the existing publisher operator's original installation, target UUIDs,
+source registration, ordinary factories and runtime settings. `admission` retains
+the original model, graph, bindings, transaction and public UMF dataset receipt.
+Opening refuses missing or inconsistent originals and incomplete publication
+stages. It does not turn a query-only reader into an ACK owner. The publisher's
+ACK path reconciles uncertain commit responses with fresh protected receipt
+observation and unchanged original bytes. Incomplete apply/commit recovery requires
+its separate original-attempt workflow.

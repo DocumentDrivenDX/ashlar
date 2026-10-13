@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-protected-outbox-commit-loss-functional/0.1",
+  "seconds": 16.548,
+  "publication_id": "original-commerce-publication-1",
+  "request_sha256": "8fde1b80674747810602d44893e176eabbfaef23673c58bd215b91dfcd8f6c93",
+  "manifest_sha256": "7f5d561d77aa6abd9fe76059cabfb8cf4b872f10486cff358e47d0223acba430",
+  "receipt_sha256": "d6853f4fc861cda15dd0bc3e598921164c8a745560d0341d6f89e99b9d1944e5",
+  "ack_sql_calls": 1,
+  "fresh_connections": 2,
+  "protected_rows_unchanged": true,
+  "actual_commit_response_loss": true,
+  "source_lineage": "Existing original-commerce PostgreSQL17 fixture",
+  "qualification": "Actual existing idempotent protected ACK COMMIT response loss with one ACK call and fresh public reconcile_uncertain exact retained receipt readback. Native publication/source/pin admission retained. No first receipt/cursor advancement, PG18, ingestion, reset, new fixture, installed-wheel or scale claim.",
+  "base_commit": "9c6c4b98dfe21dbc8420c92b8130ef02e7333ab8",
+  "harness_sha256": "af47b1122ac619732820c6fb6249b4a52cb48b9ce41e58e889813de06ffdceab"
+}
