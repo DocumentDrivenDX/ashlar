@@ -1,0 +1,20 @@
+{
+  "ashlar_code_revision": "71aee77442bee0d3d49ba155e052e777a9a260d6",
+  "truss_code_revision": "15d1cd607c4ce021767943c467716713f0c73199",
+  "outcome": "passed",
+  "elapsed_seconds": 6.424,
+  "qualification": "Source-only actual public Truss retained catalog delivery admission after caller-committed delivery ACK using a new TrussFeedSessions owner",
+  "fresh_owner_retained_admission": true,
+  "current_checkpoint_unchanged_after_admission": true,
+  "owned_server_stopped": true,
+  "invocation": "Local source API functional script, committed archived Truss SDK source selected; not installed CLI qualification",
+  "review": "Read-only completed native outcome and script operation order; selected postmaster marker absent",
+  "not_qualified": [
+    "Destination publication",
+    "Destination restart recovery",
+    "Protected outbox ACK",
+    "Installed package invocation",
+    "Spark or graph engine execution"
+  ],
+  "private_payloads_committed": false
+}
