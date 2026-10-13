@@ -59,16 +59,18 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 finish(error, [verify_producer, lambda: driver.evolution_run_identity(context=config.context)])
             raise
         primary = None
-        def current_slots():
-            from .evolution_admission import original_equal
+        def current_view():
             def custody(path, selected, context):
                 if path != config.ledger_path or selected.raw != original.raw or context is not config.context:
                     raise EvolutionPlanError('Original continuation custody differs')
                 return config.policy.admit_run(original, context)
-            view = EvolutionRunLedger.inspect(config.ledger_path, original, context=config.context, custody=custody)
+            return EvolutionRunLedger.inspect(config.ledger_path, original, context=config.context, custody=custody)
+        def current_slots():
+            from .evolution_admission import original_equal
+            view = current_view()
             if config.policy.admit_ledger(original, view, config.context) is not None:
                 raise EvolutionPlanError('Current complete continuation admission incomplete')
-            closing = EvolutionRunLedger.inspect(config.ledger_path, original, context=config.context, custody=custody)
+            closing = current_view()
             if not original_equal(view, closing):
                 raise EvolutionPlanError('Original continuation inventory changed')
             return view.slots
@@ -78,18 +80,27 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
             driver.validate_evolution_run(original, context=config.context)
             request = request_from_document(definition['request'])
             verify_producer()
+            prefix_inventory = None; prefix_descriptors = ()
+            if type(ledger.policy) is NativeEvolutionRunPolicy and ledger.policy.driver is driver:
+                prefix_inventory, prefix_descriptors = driver.observe_completed_evolution_prefix(
+                    ledger, context=config.context)
+                from .evolution_run import EvolutionRunLedgerView
+                from .evolution_admission import original_equal
+                if type(prefix_inventory) is not EvolutionRunLedgerView or len(prefix_inventory.slots)!=8:
+                    raise EvolutionPlanError('Current complete original prefix inventory required')
+                if not original_equal(prefix_inventory,current_view()):
+                    raise EvolutionPlanError('Original completed prefix inventory changed')
             if through_ordinal is not None:
-                slots = current_slots()
+                # The native observer already completed the full lineage and
+                # source/ACK audit and renewed this exact held inventory. Reuse
+                # only its ordinal preflight; later attempt/closing gates stay live.
+                slots = prefix_inventory.slots if prefix_inventory is not None else current_slots()
                 completed = [slot[0] for slot in slots if slot[1] == 'completed']
                 last = completed[-1] if completed else -1
                 if through_ordinal < last or through_ordinal > last + 1:
                     raise EvolutionPlanError('Select current completed prefix or first incomplete original ordinal')
                 if any(slot[1] == 'publication-started' for slot in slots[through_ordinal + 1:]):
                     raise EvolutionPlanError('Later unresolved original publication prevents settled prefix')
-            prefix_inventory = None; prefix_descriptors = ()
-            if type(ledger.policy) is NativeEvolutionRunPolicy and ledger.policy.driver is driver:
-                prefix_inventory, prefix_descriptors = driver.observe_completed_evolution_prefix(
-                    ledger, context=config.context)
             progress = {}; descriptors = []
             for ordinal, step in enumerate(definition['schedule']):
                 if through_ordinal is not None and ordinal > through_ordinal:
