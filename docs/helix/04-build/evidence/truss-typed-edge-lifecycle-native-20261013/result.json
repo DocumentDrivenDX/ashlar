@@ -1,0 +1,134 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 71.006,
+  "source_checkpoint_unchanged_by_queries": true,
+  "source_operations": 2,
+  "contiguous_publications": 2,
+  "queries": {
+    "current": {
+      "publication_id": "truss-graph-7512b6b5edb7823b27975d485c0103aba1f26fd6dac3ff162d247ad3ddab9385",
+      "rows": [
+        {
+          "id": "R1",
+          "targets": {
+            "items": [
+              [
+                "R1"
+              ]
+            ],
+            "truncated": false
+          }
+        },
+        {
+          "id": "R2",
+          "targets": {
+            "items": [],
+            "truncated": false
+          }
+        }
+      ],
+      "integrity_checks": 11,
+      "all_integrity_rows_zero": true,
+      "request_sha256": "5f0ce7797f2e266d49078d8f399ff12752b674142086ec728fc7609a17ee08f7",
+      "response_sha256": "75372ede6e26fd914f23d9ab7e6971c6492165f51e491213eab05bc9273d859b"
+    },
+    "original": {
+      "publication_id": "truss-graph-5",
+      "rows": [
+        {
+          "id": "R1",
+          "targets": {
+            "items": [
+              [
+                "R2"
+              ]
+            ],
+            "truncated": false
+          }
+        },
+        {
+          "id": "R2",
+          "targets": {
+            "items": [
+              [
+                "R2"
+              ]
+            ],
+            "truncated": false
+          }
+        }
+      ],
+      "integrity_checks": 11,
+      "all_integrity_rows_zero": true,
+      "request_sha256": "5b731606fe2814cb29119cd1d6c72131ed5a48e2787b5f2b06ecb63cd6d423dd",
+      "response_sha256": "7bc5127e88eba8ed7c6e4d3692e7cfd7f3cec4552742135944da67cb38cfe531"
+    }
+  },
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "format": "ashlar-truss-typed-edge-lifecycle-native/0.1",
+  "source_code_commit": "72926566ef6e8f71ca05d7b908246dd0659583c4",
+  "source_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "source_reused": "/private/tmp/ashlar-truss-typed-related-native-20261013-a",
+  "source_document_revision": "r1",
+  "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 71.594
+  },
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "psycopg": "3.3.6",
+    "bun": "1.4.2",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "java": "21.0.12.1",
+    "spark_master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "compiler": {
+    "interface": "weft-compile/0.2.0",
+    "binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82"
+  },
+  "source_mutations": [
+    {
+      "operation": "update_edge",
+      "edge_id": "3",
+      "prior_version": 1,
+      "committed_version": 2,
+      "prior_endpoints": [
+        "1",
+        "2"
+      ],
+      "committed_endpoints": [
+        "1",
+        "1"
+      ],
+      "retained": [],
+      "order_key": null,
+      "committed_receipt_replay": true
+    },
+    {
+      "operation": "delete_edge",
+      "edge_id": "4",
+      "prior_version": 1,
+      "deletion_version": "2",
+      "committed_absence": true,
+      "committed_receipt_replay": true
+    }
+  ],
+  "qualification": "Actual two public Truss edge mutations on the retained accepted UMF 0.7 model, exact committed readback/absence and original receipt replay, followed by two contiguous local Delta publications and original/new publication-bound Weft relationship queries. Empty retained edge values and unchanged null order key in this native case; scalar/order replacement behavior has focused public-port tests. Caller-asserted ACK; no protected destination ACK, schema evolution, uncertain commit injection, cloud engine, Unity Catalog or production qualification.",
+  "evidence_sha256": {
+    "continued.json": "a0e4b9a38ed523de5f5f88a79c111c388dd3a877c7ae015f611c65d386633051",
+    "current-request.json": "5f0ce7797f2e266d49078d8f399ff12752b674142086ec728fc7609a17ee08f7",
+    "current-response.json": "75372ede6e26fd914f23d9ab7e6971c6492165f51e491213eab05bc9273d859b",
+    "deleted.json": "eea41a3c98dbbbf57c78723ac0e2192ab6aa8f54a0b13ce9386c0f222d3a3314",
+    "model.umf.json": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+    "original-request.json": "5b731606fe2814cb29119cd1d6c72131ed5a48e2787b5f2b06ecb63cd6d423dd",
+    "original-response.json": "7bc5127e88eba8ed7c6e4d3692e7cfd7f3cec4552742135944da67cb38cfe531",
+    "updated.json": "2792e936d06aa0d2276367fac84e713958745f482b174e2b6d759851efb57d5e"
+  }
+}

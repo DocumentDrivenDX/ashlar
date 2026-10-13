@@ -2041,3 +2041,10 @@ Deletion selects only that edge. Final reports follow source closure and input
 renewal. An uncertain commit surfaces without automatic retry. Use
 `continue-truss-graph` to publish subsequent committed source changes before
 querying them in Delta.
+
+The [native edge lifecycle example](../../docs/helix/04-build/evidence/truss-typed-edge-lifecycle-native-20261013/result.json)
+updates one edge's endpoint and deletes another, publishes both committed changes,
+and queries the new and original publications. The original snapshot retains its
+earlier topology. This local Spark 4.0.1 / Delta 4.0.0 case uses empty retained
+edge values and unchanged null order keys; it does not qualify every mutation
+option or protected destination ACK.
