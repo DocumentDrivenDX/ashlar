@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-source-cli-truss-example-restart/0.1",
+  "seconds": 12.563,
+  "publication_id": "truss-graph-2",
+  "rows": [
+    {
+      "label": "Beta",
+      "related": {
+        "items": [
+          [
+            "Value-A",
+            "Alpha"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "original_selectors_unchanged": true,
+  "source_checkpoint_unchanged": true,
+  "checkpoint_sha256": "5ad2b2b5344e075223a052cbe075ae0b1a40c6a047782bb2e5c9a29d103fcc02",
+  "owned_server_stopped": true,
+  "qualification": "Current source CLI reused original installed example publication and fresh actual ordinary runtime URI; no mutation, ingestion, publication or ACK.",
+  "native_restart_query_pass": true,
+  "query_report": "query.json.gz",
+  "query_sha256": "908931b49d9b252ead8a8d0976a77ba8109f29f578e05e61ab54658a1ed4b6ea",
+  "actual_integrity_checks": 13,
+  "runtime": {
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "postgresql": "18.6",
+    "compiler": "weft/0.1.0"
+  }
+}

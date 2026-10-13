@@ -170,6 +170,38 @@ without filters, grouping, ordering or limits. Original compiler SQL and scalar
 integrity guards run under the same complete publication pins. The [local join-count receipt](../../docs/helix/04-build/evidence/truss-join-count-20261013/result.json)
 returns `1` for the original single B record, without ingest or source advancement.
 
+## Query an example after restart
+
+Keep the existing example data and publication. In one terminal, start only its
+owned server and capture its actual current connection details privately:
+
+```sh
+ashlar serve-truss-local --data-directory /absolute/private/example/data \
+  --connection-output /absolute/private/live-connection.json
+```
+
+While that server remains running, prepare a fresh ordinary reader in another
+terminal; the file must be outside the original example directory:
+
+```sh
+ashlar configure-truss-example-reader --example-directory /absolute/private/example \
+  --connection-configuration /absolute/private/live-connection.json \
+  --output /absolute/private/restarted-reader.json
+ashlar query-truss-graph --configuration /absolute/private/restarted-reader.json \
+  --output /absolute/private/restarted-query.json \
+  --weft-index /absolute/path/distributions/index.json \
+  --weft-installation /absolute/path/weft-installation \
+  --revision 1 --document-id cohort --maximum-rows 2 \
+  --sql 'SELECT b."B-label" AS label, RELATED_KEYS(b."B-A", 2) AS related FROM B b'
+```
+
+Preparation preserves the original publication/page selectors and grants no
+source authority. The actual query rechecks the live source and complete original
+publication pins. Stop the owned server with Ctrl-C. Connection files contain
+private runtime details; use a fresh file on each restart. The
+[local restart receipt](../../docs/helix/04-build/evidence/truss-example-restart-20261013/result.json)
+reuses the original publication and leaves the source checkpoint unchanged.
+
 ## Accept into an existing installation
 
 `accept-schema.py` is a concrete existing-installation example using the public

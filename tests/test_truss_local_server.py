@@ -28,6 +28,15 @@ class Tests(unittest.TestCase):
                 events.append('user-stop')
             with redirect_stdout(output):_serve(path,lambda selected:runtime,wait)
             self.assertEqual(events,['started','user-stop','stop'])
+            events=[];output=io.StringIO();runtime=self.runtime(events);connection_output=path.parent/(path.name+'-connection.json')
+            try:
+                def private_wait():
+                    self.assertEqual(json.loads(output.getvalue()),{'output':str(connection_output)})
+                    self.assertEqual(json.loads(connection_output.read_text())['connection_uri'],runtime.info.connection_uri)
+                    self.assertEqual(connection_output.stat().st_mode&0o777,0o600)
+                with redirect_stdout(output):_serve(path,lambda selected:runtime,private_wait,connection_output=connection_output)
+                self.assertEqual(events,['started','stop'])
+            finally:connection_output.unlink(missing_ok=True)
     def test_primary_failure_is_preserved_when_owned_stop_also_fails(self):
         events=[];primary=LookupError('foreground failure');runtime=self.runtime(events,RuntimeError('stop failed'))
         def wait():raise primary

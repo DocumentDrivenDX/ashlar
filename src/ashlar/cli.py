@@ -149,6 +149,11 @@ def main():
     truss_setup.add_argument('--output',required=True)
     truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')
     truss_server.add_argument('--data-directory',required=True)
+    truss_server.add_argument('--connection-output')
+    truss_reader=commands.add_parser('configure-truss-example-reader',help='Prepare a private ordinary reader configuration for a restarted original example; no connections or grants')
+    truss_reader.add_argument('--example-directory',required=True)
+    truss_reader.add_argument('--connection-configuration',required=True)
+    truss_reader.add_argument('--output',required=True)
     for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
@@ -330,9 +335,18 @@ def main():
     if args.command == 'serve-truss-local':
         try:
             from ashlar_host.truss_local_server import run_serve_truss_local_command
-            run_serve_truss_local_command(args.data_directory)
+            run_serve_truss_local_command(args.data_directory,**({'connection_output':args.connection_output}if args.connection_output else {}))
         except Exception:
             print('ashlar local Truss server refused; inspect the selected initialized directory and runtime',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'configure-truss-example-reader':
+        try:
+            from ashlar_host.truss_example_reader import run_configure_truss_example_reader_command
+            result=run_configure_truss_example_reader_command(args.example_directory,args.connection_configuration,args.output)
+            print(json.dumps({'output':result['output']},separators=(',',':')))
+        except Exception:
+            print('ashlar example reader configuration refused; inspect original private inputs and fresh output selection',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'run-truss-example':
