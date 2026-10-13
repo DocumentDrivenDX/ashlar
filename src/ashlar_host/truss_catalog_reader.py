@@ -16,7 +16,7 @@ def read_historical_catalog_views(connection_factory,batch):
             revisions.append(revision)
     if not revisions:return {}
     from truss import (Ok,CatalogRuntimeConfiguration,create_reference_assembly,
-        adopt_psycopg_host,HistoricalCatalogSelection,CatalogViewAvailable)
+        adopt_psycopg_host,HistoricalCatalogSelection,CatalogViewAvailable,CatalogViewUnavailable)
     def value(result):
         if not isinstance(result,Ok):raise ValueError('Public historical catalog read refused')
         return result.value
@@ -33,6 +33,9 @@ def read_historical_catalog_views(connection_factory,batch):
             for revision in revisions:
                 request=replace(seed,selection=HistoricalCatalogSelection(catalog_revision=revision))
                 available=value(assembly.catalog_view_in_transaction(tx,request))
+                if isinstance(available,CatalogViewUnavailable):
+                    reason=available.reason if available.reason in ('profile','closure','context','resource')else 'unknown'
+                    raise ValueError(f'Public historical catalog view unavailable: {reason}')
                 if not isinstance(available,CatalogViewAvailable)or type(available.view.original_bytes)is not bytes or str(json.loads(available.view.original_bytes)['catalogRevision'])!=revision:raise ValueError('Actual original historical catalog view required')
                 captured[revision]=available.view.original_bytes
         except BaseException as error:primary=error
