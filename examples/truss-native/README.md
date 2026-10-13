@@ -621,3 +621,11 @@ Successful result entries include its path and SHA256. Recovery tooling can
 restore the exact public page carrier and request retained reproduction from
 Truss. The archive supplies original input, not source permission or proof of
 ACK; destination recovery still requires its original operation journal.
+
+Hosts reopening a Truss graph publication use
+`NativeDriver.from_existing_truss` to require the original journal, then call
+`restore_applied_truss_publication(driver, request_digest)` inside the driver's
+writer interval. The restoration uses the retained applied artifact and original
+SQL plan, independently reconstructs expected rows from source history, and
+checks live source access and native snapshots. It performs no SQL writes or
+ACK. Missing applied artifacts remain a separate interruption-recovery path.
