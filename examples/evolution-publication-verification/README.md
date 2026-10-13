@@ -59,3 +59,49 @@ journals.
 
 The owning desired behavior is [TD-003](../../docs/helix/02-design/technical-designs/TD-003-evolution-publication-verification.md)
 and [CONTRACT-001](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md).
+
+## Continue an unfinished run one step at a time
+
+`ashlar continue-commerce-evolution` resumes the original retained run through
+one selected ordinal. Use the same installation, provider and ordinary source
+registrations described above. The provider exports `open_evolution(invocation)`;
+the existing operator example supplies both entrypoints.
+
+The private configuration has this shape; replace the example paths, digest and
+producer limits with your original selection:
+
+```json
+{
+  "profile": "ashlar-commerce-evolution-invocation/0.1",
+  "mode": "continue",
+  "ledger_path": "/absolute/path/run.sqlite",
+  "receipt_path": "/absolute/path/new-continuation-result.json",
+  "producer": {
+    "source": "/absolute/path/original-umf-producer",
+    "bun": "/absolute/path/bun",
+    "git": "/absolute/path/git",
+    "timeout_seconds": 60,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "expected_sha256": "REPLACE_WITH_ORIGINAL_RUN_SHA256",
+  "through_ordinal": 2
+}
+```
+
+If ordinals 0 and 1 are complete and ordinal 2 is retained, selecting 2 observes
+the completed prefix and resumes its original transaction. It stops before
+ordinal 3. Preserve the ledger and pending transaction bytes after interruption;
+completion of a prefix does not prove completion of all eight publications.
+
+```sh
+ashlar continue-commerce-evolution \
+  --configuration /absolute/path/continue.json \
+  --provider /absolute/path/existing-evolution-operator.py \
+  --provider-sha256 REPLACE_WITH_PROVIDER_SHA256
+```
+
+Run within the same bounded process supervisor used above. The producer's
+`timeout_seconds` bounds its subprocess only; it does not bound the Spark
+workflow. A successful continuation publishes and advances the corresponding
+durable source ACK, whereas the verification command only reads.
