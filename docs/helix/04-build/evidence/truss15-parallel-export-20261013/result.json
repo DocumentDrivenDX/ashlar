@@ -1,0 +1,16 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 14.489,
+  "publication_id": "truss-graph-5",
+  "nodes": 2,
+  "edges": 2,
+  "source_edge_ids": [
+    "3",
+    "4"
+  ],
+  "release_sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12",
+  "custody_sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44",
+  "source_checkpoint_unchanged": true,
+  "qualification": "Actual immutable export of existing releasedTruss15 parallelselfedge publication under original fullsource/vector/nativecustody; exactoriginalnodepropertycarriers and distinctedgeIDs retained. No mutation, ACK, ingest, graph engine or numeric filtering qualification.",
+  "source_evidence": "../truss15-parallel-example-20261013"
+}

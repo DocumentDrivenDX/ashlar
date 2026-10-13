@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "path": "graphframes-result.json",
+      "bytes": 3867,
+      "sha256": "5dc61a3a7637ee49f14fdc515c29fe34280024184d36e98bb1f372f2cac7f8be"
+    },
+    {
+      "path": "graphframes.json",
+      "bytes": 690,
+      "sha256": "c20c712cddb14d639bfa3abb16554530b74d8f65f19f4b1435466c3069d7595c"
+    },
+    {
+      "path": "run-result.json",
+      "bytes": 930,
+      "sha256": "05d72096f3499d218d882bf9b1abb9f820b1844e3f6be70216e5227642f883d9"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 69,
+      "sha256": "b2fa3e9555980b5803ec06a9b5daae290fdc0e1f85ce88e5fff106fdf0a6b2ba"
+    },
+    {
+      "path": "run.py",
+      "bytes": 3112,
+      "sha256": "6736a6cb0fd1d80c49494c4ebb8100bf0d6a4fbc51f645ab74edaea2175e96fa"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 734,
+      "sha256": "3ac15450bca9019bc2bc6fc24d9579760531f0aa3ee96763f6f8b20b2931d192"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1151,
+      "sha256": "8bb06cacab4af5641a672a8aa53181014a771d135599749babb9336193b12813"
+    }
+  ],
+  "archive_sha256": "0d70846c65b0ffa031028a4a7055d5b4560444bf495d89388cbdddb60a2cc5b8"
+}

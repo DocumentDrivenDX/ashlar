@@ -1,0 +1,21 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 25.148,
+  "source_evidence": "../truss15-parallel-example-20261013",
+  "publication_id": "truss-graph-5",
+  "source_edge_ids": [
+    "3",
+    "4"
+  ],
+  "path_count": 4,
+  "distinct_terminal_key_count": 1,
+  "guard_checks_per_query": [
+    13,
+    13
+  ],
+  "all_guard_counts": "0",
+  "source_checkpoint_unchanged": true,
+  "truss_version": "0.0.15",
+  "compiler_interface": "weft-compile/0.4.2",
+  "qualification": "Actual public indexed0.4.2 two-hop pathCOUNT4 and originalterminal-key DISTINCTCOUNT1 under complete original Truss15 acceptedmodel/source/publication/nativeguards and independentlyderived fulledge-occurrence oracle. No source mutation, ACK, ingest, oldsourceupgrade or externalengine qualification."
+}

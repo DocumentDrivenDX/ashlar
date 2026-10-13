@@ -2152,3 +2152,12 @@ selected compatible-revision compiler: five publications, exact typed singleton
 reads, both duplicate key bags and unchanged source checkpoint. It does not
 qualify two-hop counts, external engines or Weft 0.4.17. The default topology
 continues to use the previously qualified R1→R2 edge and R2 self-loop.
+
+On the same parallel publication, the separate [Weft count commands](../../docs/helix/04-build/evidence/truss15-parallel-counts-20261013/result.json)
+return four two-hop paths and one distinct terminal key, with all thirteen
+integrity guards clear for each query and an unchanged source checkpoint.
+The [immutable export](../../docs/helix/04-build/evidence/truss15-parallel-export-20261013/result.json)
+preserves both nodes and independent edges. [GraphFrames 0.12.3 / Spark 3.5.3](../../docs/helix/04-build/evidence/truss15-parallel-graphframes-20261013/result.json)
+independently checks all four ordered edge pairs and isolated R2's zero degree
+and path counts. Its property JSON remains an exact opaque carrier; this does
+not qualify numeric graph filtering.
