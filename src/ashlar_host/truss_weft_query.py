@@ -103,13 +103,13 @@ def truss_scalar_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases,typed=True)
 
 
-def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None,scalar_projection=False,scalar_join=False,scalar_join_count=False):
+def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None,physical_revisions=None,scalar_projection=False,scalar_join=False,scalar_join_count=False,numeric_grouped_count=False):
     """Compile exact authored singleton/list SQL under the actual publication hold.
 
     Returns original request/response bytes after closing native pins and writer.
     A row budget selects guarded execution; outer resources remain caller owned.
     """
-    if any(type(flag)is not bool for flag in (scalar_projection,scalar_join,scalar_join_count)) or sum((scalar_projection,scalar_join,scalar_join_count))>1 or (scalar_projection or scalar_join or scalar_join_count)and physical_revisions is None:raise ValueError("Explicit compatible scalar projection required")
+    if any(type(flag)is not bool for flag in (scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count)) or sum((scalar_projection,scalar_join,scalar_join_count,numeric_grouped_count))>1 or (scalar_projection or scalar_join or scalar_join_count or numeric_grouped_count)and physical_revisions is None:raise ValueError("Explicit compatible scalar projection required")
     compatible=physical_revisions is not None
     if compatible:
         from .weft_compatible_cli import CompatibleCompiler,compile_compatible
@@ -172,7 +172,10 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False;value_projection=None;join_expected=None;join_projection=None;scalar_count_expected=None
-                    if scalar_join_count:
+                    if numeric_grouped_count:
+                        from .truss_numeric_grouped_count import admit_truss_numeric_grouped_count
+                        value_projection=admit_truss_numeric_grouped_count(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,physical_revisions=physical_revisions)
+                    elif scalar_join_count:
                         from .truss_scalar_join_projection import admit_truss_scalar_join_count
                         scalar_count_expected=admit_truss_scalar_join_count(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,physical_revisions=physical_revisions)
                         count=True
@@ -186,7 +189,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         from .truss_value_projection import admit_truss_value_projection
                         value_projection=admit_truss_value_projection(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,**({'physical_revisions':physical_revisions,'require_optional':False}if compatible else {}))
                     grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
-                    if grouped:
+                    if grouped and not numeric_grouped_count:
                         grouped_expected=admit_truss_grouped_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
                     elif not(scalar_join or scalar_join_count)and artifact.get('logicalPlan',{}).get('joins'):
                         from .truss_join_count import admit_truss_join_count,admit_truss_join_projection
@@ -209,7 +212,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in filter_expected):
                             raise ValueError('Independent complete original relationship filter bag differs')
-                    if grouped:
+                    if grouped and not numeric_grouped_count:
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in grouped_expected):
                             raise ValueError('Independent complete original grouped count bag differs')
@@ -227,6 +230,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
     if scalar_projection:result['qualification']='Local compatible-revision candidate direct required scalar Field projection with original declared facets, exact numeric carrier tokens, complete native publication pins, original compiler guards and independent complete source bag. No production profile qualification.'
     if scalar_join:result['qualification']='Local compatible-revision candidate required scalar equality INNER JOIN projection, exact declared numeric domains and carrier tokens, complete native publication pins, original guards and independent full source-pair bag. No production profile qualification.'
     if scalar_join_count:result['qualification']='Local compatible-revision candidate required numeric equality INNER JOIN COUNT with original declared domains, complete native publication pins and original guards, exact independent matched-pair multiplicity and nonnegative signed64 count. No production profile qualification.'
+    if numeric_grouped_count:result['qualification']='Local compatible-revision candidate one required numeric grouping field and COUNT under complete native publication pins, original integrity guards and independent exact full source grouping bag. Nonnegative signed64 counts; no production profile qualification.'
     return result
 
 
@@ -270,7 +274,8 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
         if value_projection is not None:
             from .truss_value_projection import TrussValueProjection
             from .truss_scalar_projection import TrussScalarProjection
-            if type(value_projection)not in (TrussValueProjection,TrussScalarProjection) or encoded(column)not in [encoded(item)for item in json.loads(value_projection.columns_json)]:raise ValueError('Exact admitted value projection column required')
+            from .truss_numeric_grouped_count import TrussNumericGroupedCount
+            if type(value_projection)not in (TrussValueProjection,TrussScalarProjection,TrussNumericGroupedCount) or encoded(column)not in [encoded(item)for item in json.loads(value_projection.columns_json)]:raise ValueError('Exact admitted value projection column required')
             expected=representation
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
             raise ValueError('Only admitted non-null result descriptors supported')
@@ -357,6 +362,13 @@ def execute_truss_scalar_join_count_query(driver,compiler,sql,*,revision,documen
     if type(physical_revisions)is not tuple:raise ValueError('Explicit physical revision tuple required')
     return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
         physical_revisions=physical_revisions,maximum_rows=maximum_rows,scalar_join_count=True)
+
+
+def execute_truss_numeric_grouped_count_query(driver,compiler,sql,*,revision,document_id,physical_revisions,maximum_rows=1000):
+    """Execute one exact required numeric grouping plus count while publication held."""
+    if type(physical_revisions)is not tuple:raise ValueError('Explicit physical revision tuple required')
+    return _truss_string_query(driver,compiler,sql,revision=revision,document_id=document_id,
+        physical_revisions=physical_revisions,maximum_rows=maximum_rows,numeric_grouped_count=True)
 
 
 def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):

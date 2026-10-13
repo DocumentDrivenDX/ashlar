@@ -514,3 +514,20 @@ publication and revision obligations MUST correspond. Count admission MUST retai
 all original source and integrity guards and compare the complete single result
 with independently matched source populations. It MUST NOT materialize or truncate
 pairs to fit a projection row limit, or authorize other aggregates implicitly.
+
+### Required numeric grouped counts
+
+An explicitly selected numeric grouping query admits one required signed64 or
+one required decimal(18,4) field, projected with one `COUNT(*)`, from an original
+accepted record. The complete publication, model bytes, property allocations,
+selected physical revisions and original compiler type/column metadata remain
+bound throughout execution. Source scalar-integrity guards run before unchanged
+compiler SQL. Group equality uses exact mathematical numeric values; counts
+preserve duplicate source-row multiplicity and stay within nonnegative signed64
+bounds. Numeric grouping carriers remain exact tokens. The complete unordered
+result bag must equal independent grouping of the admitted source bag; an empty
+source produces no groups. Missing groups, extra groups, incorrect counts,
+unknown obligations and unavailable closing custody refuse buffered publication.
+This admission covers unfiltered, unordered single-record grouping. Joins,
+optional grouping fields, arithmetic grouping and other aggregates require their
+own explicit admission.

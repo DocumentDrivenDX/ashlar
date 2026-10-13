@@ -1806,3 +1806,21 @@ Grouped counts, filters and other aggregate expressions require separate admissi
 The [actual native counts](../../docs/helix/04-build/evidence/truss-numeric-join-count-native-20261013/result.json)
 return four integer matches and two decimal matches on one publication. Empty
 matches have adapter coverage only.
+
+For grouped source counts, `query-truss-numeric-grouped-count` takes the same
+explicit compiler, reader and physical revision options. For example:
+
+```sh
+ashlar query-truss-numeric-grouped-count --configuration /absolute/private/reader.json \
+  --output /absolute/private/grouped-count.json --compiler /absolute/private/weft-cli \
+  --sql 'SELECT r.quantity AS quantity,COUNT(*) AS total FROM TypedRecord r GROUP BY r.quantity' \
+  --revision 1 --document-id typed-query-record --physical-revision 1 --maximum-rows 100
+```
+
+One required signed64 or decimal(18,4) grouping field is projected with its exact
+nonnegative signed64 count. Equal numeric values share a group, preserving every
+source-row occurrence. The complete result bag must match independent source
+grouping after original integrity guards run under the full publication hold.
+An empty source returns no groups. Filters, optional grouping, joins and other
+aggregate expressions need separate admission. Native qualification is recorded
+in execution evidence.

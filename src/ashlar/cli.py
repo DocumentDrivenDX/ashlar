@@ -157,6 +157,11 @@ def main():
         truss_scalar_join_count.add_argument('--'+option,required=True)
     truss_scalar_join_count.add_argument('--physical-revision',action='append',required=True)
     truss_scalar_join_count.add_argument('--maximum-rows',type=int,default=1000)
+    truss_numeric_grouped_count=commands.add_parser('query-truss-numeric-grouped-count',help='Run local compatible-revision candidate one required numeric grouping plus COUNT under publication custody')
+    for option in ('configuration','output','compiler','sql','revision','document-id'):
+        truss_numeric_grouped_count.add_argument('--'+option,required=True)
+    truss_numeric_grouped_count.add_argument('--physical-revision',action='append',required=True)
+    truss_numeric_grouped_count.add_argument('--maximum-rows',type=int,default=1000)
     truss_arithmetic=commands.add_parser('query-truss-arithmetic',help='Run installed public 0.4.2 direct exact arithmetic projections under Truss publication custody')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_arithmetic.add_argument('--'+option,required=True)
@@ -592,6 +597,17 @@ def main():
         try:
             from ashlar_host.truss_scalar_join_count_cli import run_query_truss_scalar_join_count_command
             run_query_truss_scalar_join_count_command(args.configuration,args.output,compiler=args.compiler,
+                sql=args.sql,revision=args.revision,document_id=args.document_id,
+                physical_revisions=tuple(args.physical_revision),maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar compatible Truss query refused; inspect the original publication and selected local compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-numeric-grouped-count':
+        try:
+            from ashlar_host.truss_numeric_grouped_count_cli import run_query_truss_numeric_grouped_count_command
+            run_query_truss_numeric_grouped_count_command(args.configuration,args.output,compiler=args.compiler,
                 sql=args.sql,revision=args.revision,document_id=args.document_id,
                 physical_revisions=tuple(args.physical_revision),maximum_rows=args.maximum_rows)
             print(json.dumps({'output':args.output},separators=(',',':')))
