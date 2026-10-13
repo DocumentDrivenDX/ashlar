@@ -663,6 +663,21 @@ Select that saved file by its SHA256 with the original publication directory and
 source login. The command reads its feed, request digest and original page
 path/digest, so these fields need not be copied by hand:
 
+To generate the configuration from your original publisher configuration:
+
+```sh
+ashlar configure-truss-resume \
+  --configuration /absolute/private/publish.json \
+  --publication-intent /absolute/private/publication/publication-intent-2.json \
+  --output /absolute/private/resume.json
+```
+
+This local setup reads the selected files and writes a fresh private configuration.
+It retains the source login, installed JAR paths and any archived catalog
+selections, omitting administrator credentials. It does not start Spark or contact
+Truss. Inspect the generated selections before running the resume command below.
+Alternatively, author the same configuration explicitly:
+
 ```json
 {
   "connection_uri": "postgresql://your-user:YOUR-PASSWORD@localhost:5432/your-database",
