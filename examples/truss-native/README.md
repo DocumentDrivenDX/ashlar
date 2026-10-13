@@ -1392,6 +1392,21 @@ with a [one-record native Delta continuation/read](../../docs/helix/04-build/evi
 qualifying the recorded local Spark/Delta versions. Unity Catalog and typed Weft
 query execution remain separate.
 
+### Prepare a typed Weft binding
+
+`ashlar_host.truss_weft_query.truss_scalar_compile_request` binds the original
+accepted model and property allocations to a complete publication vector. It
+preserves declared facets; the STRING-only binding API remains separate.
+The [compiler probe](../../docs/helix/04-build/evidence/truss-typed-weft-binding-20261013/result.json)
+records refusals for the facetless typed example, including COUNT. No query
+execution is qualified for this typed compiler path.
+
+[typed-query-record.umf.json](typed-query-record.umf.json) is a separate model
+with signed 64-bit integer and decimal precision 18 / scale 4 declarations.
+Public UMF preparation validates it, but the tested Truss catalog profile
+refuses its acceptance with `unsupported_profile`. Upstream facet support
+is required; this model is not a runnable source example.
+
 ### Read an evolved record by field name
 
 Use the reader configuration saved by `evolve-truss-graph` with the selected

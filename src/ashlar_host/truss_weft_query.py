@@ -22,7 +22,7 @@ BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.1.0-candidate',
     'interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql-candidate'}
 
 
-def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,*,revision,document_id,aliases=None):
+def _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,*,revision,document_id,aliases=None,typed=False):
     """Bind one selected original accepted document/revision without rewriting it."""
     if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:
         raise ValueError('Actual selected accepted Truss graph revision required')
@@ -37,7 +37,8 @@ def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
     selected=admission.revisions[revision]
     if document_id not in selected['models']:raise ValueError('Original accepted document required')
     model,original=selected['models'][document_id]
-    if any(element.get('kind')=='field'and element.get('scalarType')!='string'for module in model['modules']for element in module['elements']):raise ValueError('Truss Weft profile requires STRING-only declarations')
+    allowed=('string','integer','decimal','boolean')if typed else('string',)
+    if any(element.get('kind')=='field'and element.get('scalarType')not in allowed for module in model['modules']for element in module['elements']):raise ValueError('Truss Weft profile requires admitted scalar declarations')
     source_hash=hashlib.sha256(original).hexdigest()
     pin={'documentId':document_id,'revision':source_hash,'sha256':source_hash,'umfVersion':model['umf']}
     versions=json.loads(manifest['table_versions_json']);names=sorted(versions)
@@ -90,6 +91,16 @@ def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sq
         'modules':[{'documentJson':original.decode(),'pin':pin,'selectedModuleIds':sorted({record['owner'][1]for record in selected['types'].values()if record['owner'][0]==document_id})}],
         'target':{**{key:BACKEND[key]for key in ('backendId','backendVersion','targetProfile')},
             'bindingJson':raw,'bindingSha256':hashlib.sha256(raw.encode()).hexdigest()},'options':{'allowCandidate':True}}
+
+
+def truss_string_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,*,revision,document_id,aliases=None):
+    """Legacy STRING-only binding; original accepted model remains unchanged."""
+    return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases)
+
+
+def truss_scalar_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,*,revision,document_id,aliases=None):
+    """Typed original binding foundation; no execution/facet support inferred."""
+    return _truss_compile_request(admission,manifest,table_uuids,manifest_uuid,sql,revision=revision,document_id=document_id,aliases=aliases,typed=True)
 
 
 def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=None):

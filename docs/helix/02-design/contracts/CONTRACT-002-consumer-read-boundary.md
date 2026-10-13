@@ -439,3 +439,12 @@ Unknown executable property IDs or incompatible scalar carriers MUST refuse.
 The view MUST use the existing singleton's publication, source and native checks;
 it MUST NOT broaden the admitted scalar or nullability profile. Final reports
 MUST be bounded and follow owned resource closure.
+
+### Typed Truss compiler bindings
+
+A typed scalar compile request MUST retain the exact accepted UMF document and
+its declared facets, actual property allocations and complete publication vector.
+It MUST NOT invent numeric bounds or rewrite an original source version. The
+STRING-only request API MUST retain its closed subset. An unsupported declared
+scalar meaning MUST produce the original compiler refusal; compiling a binding
+MUST NOT imply native execution or discharge host obligations.

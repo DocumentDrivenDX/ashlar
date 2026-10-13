@@ -1,0 +1,65 @@
+{
+  "profile": "ashlar-truss-typed-weft-binding-probe/0.1",
+  "model": "typed-record.umf.json",
+  "model_sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+  "source_publication_id": "truss-graph-56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554",
+  "original_model_modified": false,
+  "numeric_facets_invented": false,
+  "queries": [
+    {
+      "name": "projection",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-TYPE",
+          "message": "Selected field meaning is unsupported",
+          "phase": "type",
+          "recoverability": "correct-input",
+          "severity": "error",
+          "sourceSpan": {
+            "end": 0,
+            "start": 0
+          }
+        }
+      ],
+      "backend": null,
+      "columns": null,
+      "requiredCapabilities": null,
+      "request_bytes": 6483,
+      "request_sha256": "143107a07aa9b6879fbabd1037a36be3c92b34f2b46ddd352a896078e9ae31ed",
+      "response_bytes": 247,
+      "response_sha256": "74399292136a045fec39e4f848c2199dfbc67bd9e7c5e8ade65f30e1dca5c4c4"
+    },
+    {
+      "name": "count",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-BINDING",
+          "message": "Property is not an admitted member of this record",
+          "phase": "lower",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "backend": null,
+      "columns": null,
+      "requiredCapabilities": null,
+      "request_bytes": 6434,
+      "request_sha256": "8f83fc0055c21d910ba25143e9e5f3406c79801ab23d4790349873ea25ef1784",
+      "response_bytes": 230,
+      "response_sha256": "d4d4d40e3e06abd92c8fb611d6af9044c9b39e39b35d9821fbf4501df7710500"
+    }
+  ],
+  "faceted_model": "typed-query-record.umf.json",
+  "faceted_model_sha256": "34c92fc000a65d4f419f342bac2e10b32affdbea7e3d4ab522e1fbe66a1eae7f",
+  "faceted_UMF_preparation_valid": true,
+  "faceted_catalog_acceptance": "unsupported_profile",
+  "faceted_source_record_created": false,
+  "native_query_execution": false,
+  "qualification": "Actual installed public Weft compilation against the original typed publication/model. Both queries refused. Separate faceted model passed public UMF preparation but actual catalog acceptance refused unsupported_profile. No numeric query qualification.",
+  "upstream_reported_gap": {
+    "umf_0_7": "facet acceptance excluded by profile",
+    "umf_0_8": "facet metadata retention with enforcement/query gaps; native verification in progress"
+  }
+}
