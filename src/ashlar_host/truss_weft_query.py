@@ -569,13 +569,14 @@ def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maxim
     from .truss_arithmetic_projection import admit_truss_arithmetic_projection
     from .count_star_admission import admit_implicit_arithmetic_artifact
     from .count_star_schema import make_offline_implicit_arithmetic_schema_validation
-    from .implicit_arithmetic_profile import ImplicitArithmeticAdmissionConfig
+    from .implicit_arithmetic_profile import ImplicitArithmeticAdmissionConfig,PROFILE as arithmetic_profile
     if (type(driver)is not NativeDriver or type(paths)is not ImplicitArithmeticDistributionPaths
             or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions):
         raise PermissionError('Actual Truss publication and indexed compiler owners required')
     if type(maximum_rows)is not int or not 1<=maximum_rows<=10000:raise ValueError('Explicit bounded arithmetic rows required')
+    bundle=dict(installed_implicit_arithmetic_schema_bundle(paths))
     config=ImplicitArithmeticAdmissionConfig(16*1048576,
-        make_offline_implicit_arithmetic_schema_validation(dict(installed_implicit_arithmetic_schema_bundle(paths))))
+        make_offline_implicit_arithmetic_schema_validation({name:bundle[name]for name,_ in arithmetic_profile.schemas}))
     with owned_context(driver.writer(driver.policy.active['request']['stream'],driver.context)):
         manifest=dict(driver.policy.active['manifest'])
         uuids={table:driver.transport.targets[table].uuid for table in json.loads(manifest['table_versions_json'])}
