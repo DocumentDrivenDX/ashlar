@@ -1410,7 +1410,10 @@ Use graph continuation to publish the resulting complete feed transaction, then
 read the new publication with `read-truss-record`. The source update itself does
 not publish or ACK. Retain the original request key and inspect source state if
 commit outcome is uncertain. This adapter has basic unit coverage; native
-update/publication qualification is separate.
+update/publication qualification is separate. The [one-record local check](../../docs/helix/04-build/evidence/truss-typed-record-update-delta-20261013/result.json)
+qualifies the recorded source update, committed replay, Delta continuation and
+exact singleton read with the selected versions. It does not qualify Unity
+Catalog or numeric Weft queries.
 
 ### Ingest exact scalar fields
 

@@ -1,0 +1,108 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 38.375,
+  "publication_id": "truss-graph-746341a6d108c5ccf12993252b86d635992056f1f7a5a1e9ff0a81410de39436",
+  "new_publications": 1,
+  "source_update_version": 2,
+  "source_receipt_replay": true,
+  "previous_publication_id": "truss-graph-56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554",
+  "source_checkpoint_unchanged_by_read": true,
+  "delta_execution": true,
+  "unity_catalog": false,
+  "fields": [
+    {
+      "module_id": "m",
+      "field_id": "record-id",
+      "property_id": "5",
+      "scalar_type": "string",
+      "nullability": "required",
+      "state": "value",
+      "value": "R1"
+    },
+    {
+      "module_id": "m",
+      "field_id": "quantity",
+      "property_id": "4",
+      "scalar_type": "integer",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "integer_token": "9007199254740994"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "amount",
+      "property_id": "2",
+      "scalar_type": "decimal",
+      "nullability": "required",
+      "state": "value",
+      "value": {
+        "decimal_token": "2.3400"
+      }
+    },
+    {
+      "module_id": "m",
+      "field_id": "active",
+      "property_id": "1",
+      "scalar_type": "boolean",
+      "nullability": "required",
+      "state": "value",
+      "value": false
+    },
+    {
+      "module_id": "m",
+      "field_id": "note",
+      "property_id": "3",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "value",
+      "value": "updated"
+    },
+    {
+      "module_id": "m",
+      "field_id": "tag",
+      "property_id": "6",
+      "scalar_type": "string",
+      "nullability": "absent-allowed",
+      "state": "absent",
+      "value": null
+    }
+  ],
+  "props_json": "{\"1\":false,\"2\":2.3400,\"3\":\"updated\",\"4\":9007199254740994,\"5\":\"R1\"}",
+  "ashlar_revision": "c63896d6f335eeccf9d330301637deeea9c8084f",
+  "truss_revision": "80527ca298bdfe05f948c42cf1e20497ab720cd0",
+  "truss_source_selection": "Immutable git archive of packages/python/src; no mutable upstream files used by successful attempt",
+  "python": "3.11.17",
+  "postgresql": "18.6",
+  "spark": "4.0.1",
+  "delta": "4.0.0",
+  "scope": "One public typed source update/readback/committed receipt replay, one retained local Delta continuation and publication-pinned named singleton read. Caller-asserted source ACK; no Unity Catalog, protected receipt, numeric Weft query, graph-engine or scale qualification.",
+  "first_attempt": {
+    "outcome": "refused_before_source_write",
+    "duration_seconds": 0.656,
+    "cause": "Public Truss source-integrity check detected upstream SDK modifications",
+    "remedy": "Select immutable committed SDK before one rerun"
+  },
+  "model": {
+    "sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+    "bytes": 2680,
+    "declared_version": "0.7.0"
+  },
+  "record": {
+    "sha256": "caa13ea6058945345f3bde3ac56da68852c5f6cdf94da256c5b97b57c77b0565",
+    "bytes": 2228
+  },
+  "manifest": {
+    "profile_version": "ashlar-delta/0.3",
+    "publication_id": "truss-graph-746341a6d108c5ccf12993252b86d635992056f1f7a5a1e9ff0a81410de39436",
+    "recorded_at": "1791899775743569",
+    "schema_revisions_json": "{\"a59c551c-d821-4b47-9ebf-21484aa339b8\":\"1\"}",
+    "source_progress_json": "{\"typed-record-source\":{\"batch_id\":\"803\",\"epoch\":\"3fa675da-fc2c-4516-ae59-d0a1d53963fd\",\"feed\":\"typed-record-source\",\"payload_digest\":\"bc2e423a5759336aeb68e420b38fcbd6c5afa5c0173f4ab77d6bd667a239b395\",\"position\":\"eyJuZXh0WGlkIjogIjgwNCIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLWRlbHRhLXNtb2tlIiwgInNvdXJjZUVwb2NoIjogIjNmYTY3NWRhLWZjMmMtNDUxNi1hZTU5LWQwYTFkNTM5NjNmZCIsICJpbnN0YWxsYXRpb25JZCI6ICJhNTljNTUxYy1kODIxLTRiNDctOWViZi0yMTQ4NGFhMzM5YjgiLCAicmVnaXN0cmF0aW9uSWQiOiAiZDhlZDg1NjYtYTI0OS00YTNjLThlM2QtMmQ1MzllYTc1NzAwIn0=\",\"previous\":\"eyJuZXh0WGlkIjogIjc2NSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogInR5cGVkLWRlbHRhLXNtb2tlIiwgInNvdXJjZUVwb2NoIjogIjNmYTY3NWRhLWZjMmMtNDUxNi1hZTU5LWQwYTFkNTM5NjNmZCIsICJpbnN0YWxsYXRpb25JZCI6ICJhNTljNTUxYy1kODIxLTRiNDctOWViZi0yMTQ4NGFhMzM5YjgiLCAicmVnaXN0cmF0aW9uSWQiOiAiZDhlZDg1NjYtYTI0OS00YTNjLThlM2QtMmQ1MzllYTc1NzAwIn0=\",\"profile\":\"truss-native-feed/0.1\"}}",
+    "table_versions_json": "{\"local.trussgraph.edge_current\":1,\"local.trussgraph.object_current\":4,\"local.trussgraph.tombstone\":1,\"local.trussgraph.whole_source_history\":3}",
+    "validation_report_json": "{\"complete\":true,\"effect_parity\":{\"edge_current\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"object_current\":\"62d70d35eb01b6ae4eb7833c9ff7826da707a6c92713ebce131fd7e48df0112c\",\"tombstone\":\"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\"whole_source_history\":\"51f4fdcc6679a59edb6f7e3a9b0a515b93244ac1250043beea833b3788da14d3\"},\"original_source_plan_sha256\":\"0006d8d6cf30fbce8cedb27f90b430e46ef967deb088f13e4fca8557f288066a\",\"predecessor\":\"truss-graph-56c72243a9b186384b21167e6c5a30077ce3da7ff3999675bd46375443fd6554\",\"request_digest\":\"746341a6d108c5ccf12993252b86d635992056f1f7a5a1e9ff0a81410de39436\",\"scope\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_admission\":{\"accepted_reports\":{\"1\":\"3748941f0ff98f9f095e03393fd4f4d1fdb5375004a6dd24f1cdc56f932c238f\"},\"catalog_views\":{\"1\":\"9de0c2a9282fc03786a1699dedd3da1951b83b7a939ac5303689106f6fd486f2\"},\"declared_umf\":{\"1\":{\"typed-record\":\"0.7.0\"}},\"epoch\":\"3fa675da-fc2c-4516-ae59-d0a1d53963fd\",\"feed\":\"typed-record-source\",\"profile\":\"ashlar-truss-typed-graph-semantic-admission/0.1\",\"qualification\":\"Original accepted UMF 0.7.0 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.\",\"source_profile\":\"truss-native-feed/0.1\",\"source_transaction_sha256\":\"bc2e423a5759336aeb68e420b38fcbd6c5afa5c0173f4ab77d6bd667a239b395\"},\"source_oracle_sha256\":\"d25cda993f3b7888130f4b3cdd6aaf92ac64551fec08ddbebfdad2d5905debb6\",\"zero_match_elisions\":[]}"
+  },
+  "source_original_request_and_receipt": {
+    "semantic_matches_replay": true
+  }
+}
