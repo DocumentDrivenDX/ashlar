@@ -783,8 +783,23 @@ inspection and withholds the final result report.
 
 Run a small GraphFrames traversal directly over this pair with
 `run-graphframes-export`. In a fresh Python environment containing Ashlar,
-PySpark 3.5.3 and `graphframes-py` 0.12.3, create this configuration using the
-export report's exact paths and digests:
+PySpark 3.5.3 and `graphframes-py` 0.12.3, generate the configuration from your
+selected export report and existing runtime paths:
+
+```sh
+ashlar configure-graphframes-export \
+  --export-report /absolute/private/export-result.json \
+  --export-report-sha256 <SHA256-of-selected-export-result.json> \
+  --jar /absolute/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar \
+  --jar /absolute/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar \
+  --java-home /absolute/canonical/jdk-home \
+  --output /absolute/private/graphframes.json
+```
+
+This checks the selected report and immutable export pair, then writes a fresh
+private configuration. It starts no engine and installs no dependencies. The
+report digest selects the exact report you intend to use. You can also author the
+same configuration explicitly with the export report's exact paths and digests:
 
 ```json
 {

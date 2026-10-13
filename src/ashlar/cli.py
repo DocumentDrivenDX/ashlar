@@ -176,7 +176,11 @@ def main():
     fabric=commands.add_parser('query-fabric-gql',help='Query an explicitly admitted Fabric graph through a trusted operator provider')
     for option in ('configuration','provider','provider-sha256'):
         fabric.add_argument('--'+option,required=True)
-    graphframes_export=commands.add_parser('run-graphframes-export',help='Run bounded one-hop and out-degree queries over an immutable local graph export')
+    graphframes_setup=commands.add_parser('configure-graphframes-export',help='Create a private GraphFrames configuration from a selected immutable export report; no engine execution')
+    for option in ('export-report','export-report-sha256','java-home','output'):
+        graphframes_setup.add_argument('--'+option,required=True)
+    graphframes_setup.add_argument('--jar',dest='jars',action='append',required=True)
+    graphframes_export=commands.add_parser('run-graphframes-export',help='Run bounded traversal and count queries over an immutable local graph export')
     graphframes_export.add_argument('--configuration',required=True)
     graphframes_export.add_argument('--output',required=True)
     graphframes_export.add_argument('--maximum-hops',type=int,choices=(1,2),default=1)
@@ -393,6 +397,15 @@ def main():
             print(json.dumps(answer,ensure_ascii=False,separators=(',',':'),allow_nan=False))
         except Exception:
             print('ashlar Fabric GQL operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'configure-graphframes-export':
+        try:
+            from ashlar_host.graphframes_export_setup import run_configure_graphframes_export_command
+            answer=run_configure_graphframes_export_command(args.export_report,args.export_report_sha256,args.output,jars=args.jars,java_home=args.java_home)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar GraphFrames setup refused; inspect the selected export report and runtime paths',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'run-graphframes-export':
