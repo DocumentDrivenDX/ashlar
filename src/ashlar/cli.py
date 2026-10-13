@@ -173,6 +173,7 @@ def main():
     truss_reader.add_argument('--example-directory',required=True)
     truss_reader.add_argument('--connection-configuration',required=True)
     truss_reader.add_argument('--output',required=True)
+    truss_reader.add_argument('--reader-configuration',help='Explicit saved reader or continuation configuration; defaults to the original STRING demo query configuration')
     for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','update-truss-record','delete-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
@@ -409,7 +410,7 @@ def main():
     if args.command == 'configure-truss-example-reader':
         try:
             from ashlar_host.truss_example_reader import run_configure_truss_example_reader_command
-            result=run_configure_truss_example_reader_command(args.example_directory,args.connection_configuration,args.output)
+            result=run_configure_truss_example_reader_command(args.example_directory,args.connection_configuration,args.output,reader_configuration=args.reader_configuration)
             print(json.dumps({'output':result['output']},separators=(',',':')))
         except Exception:
             print('ashlar example reader configuration refused; inspect original private inputs and fresh output selection',file=sys.stderr)

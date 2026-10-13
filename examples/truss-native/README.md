@@ -32,6 +32,35 @@ the [one-command local check](../../docs/helix/04-build/evidence/truss-typed-rec
 qualifies this composition with its recorded runtime versions. It uses local development authority and caller-asserted
 source ACK, with no Unity Catalog or production authorization claim.
 
+### Restart the typed example
+
+Start the retained local installation in one terminal:
+
+```sh
+ashlar serve-truss-local --data-directory /absolute/private/fresh-typed-example/data \
+  --connection-output /absolute/private/typed-live.json
+```
+
+In another terminal, select the exact saved reader configuration and prepare an
+ordinary connection for that same installation:
+
+```sh
+ashlar configure-truss-example-reader \
+  --example-directory /absolute/private/fresh-typed-example \
+  --reader-configuration /absolute/private/fresh-typed-example/reader-configuration.json \
+  --connection-configuration /absolute/private/typed-live.json \
+  --output /absolute/private/typed-reader.json
+ashlar read-truss-record --configuration /absolute/private/typed-reader.json \
+  --type-id <type_id-from-result.json> --entity-id <entity_id-from-result.json> \
+  --output /absolute/private/typed-record-read.json
+```
+
+After a continuation, select its saved reader configuration with the same option.
+The helper retains the original publication intent and page selection, checks
+that they belong to the example, and changes only the connection URI. It performs
+no database calls and grants no authority. Omit `--reader-configuration` for the
+original STRING demo's `query-configuration.json` default.
+
 ## One local end-to-end command
 
 Install Ashlar and the compatible public Truss toolkit with its local PostgreSQL

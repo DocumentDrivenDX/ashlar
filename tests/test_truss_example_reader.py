@@ -43,3 +43,26 @@ class Tests(unittest.TestCase):
             invalid=path/'invalid-reader.json'
             with self.assertRaises(ValueError):run_configure_truss_example_reader_command(root,connection,invalid)
             self.assertFalse(invalid.exists())
+    def test_explicit_intent_selection_preserves_shape_and_refuses_foreign_or_changed_intent(self):
+        with tempfile.TemporaryDirectory()as directory:
+            path=Path(directory).resolve();root,connection,query=self.fixture(path)
+            intent_path=root/'publication/publication-intent-2.json'
+            intent={k:query[k]for k in ('feed','source_page_path','source_page_sha256','request_digest')};intent['publication_id']='actual-selected'
+            intent_path.write_text(json.dumps(intent))
+            selected={k:query[k]for k in ('connection_uri','publication_directory','jars')};selected['publication_intent']={'path':str(intent_path),'sha256':hashlib.sha256(intent_path.read_bytes()).hexdigest()}
+            reader=root/'reader-configuration.json';reader.write_text(json.dumps(selected));output=path/'typed-reader.json'
+            fake=SimpleNamespace(conninfo=SimpleNamespace(conninfo_to_dict=lambda value:{'user':'admin'},make_conninfo=lambda **kwargs:'fresh-'+kwargs['user']))
+            with patch.dict(sys.modules,{'psycopg':fake}):run_configure_truss_example_reader_command(root,connection,output,reader_configuration=reader)
+            self.assertEqual(json.loads(output.read_text()),{**selected,'connection_uri':'fresh-actual-ordinary'})
+            foreign={**selected,'publication_directory':str(path)};reader.write_text(json.dumps(foreign))
+            with self.assertRaisesRegex(ValueError,'publication directory'):run_configure_truss_example_reader_command(root,connection,path/'foreign-reader',reader_configuration=reader)
+            reader.write_text(json.dumps(selected));intent_path.write_text(json.dumps({**intent,'publication_id':'changed'}))
+            with self.assertRaisesRegex(ValueError,'intent digest'):run_configure_truss_example_reader_command(root,connection,path/'changed-reader',reader_configuration=reader)
+            self.assertFalse((path/'changed-reader').exists())
+            intent_path.write_text(json.dumps(intent));renew=__import__('ashlar_host.evolution_cli',fromlist=['InvocationFile']).InvocationFile.renew
+            def changed_before_write(owner,maximum):
+                if owner.path==reader:intent_path.write_text(json.dumps({**intent,'publication_id':'changed-after-parse'}))
+                return renew(owner,maximum)
+            with patch.dict(sys.modules,{'psycopg':fake}),patch('ashlar_host.truss_example_reader.InvocationFile.renew',new=changed_before_write):
+                with self.assertRaises(ValueError):run_configure_truss_example_reader_command(root,connection,path/'raced-reader',reader_configuration=reader)
+            self.assertFalse((path/'raced-reader').exists())
