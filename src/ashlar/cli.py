@@ -119,6 +119,11 @@ def main():
     truss_export=commands.add_parser('export-truss-graph',help='Export an explicitly selected existing Truss publication for graph tools; no ingestion or ACK')
     truss_export.add_argument('--configuration',required=True)
     truss_export.add_argument('--output',required=True)
+    truss_record=commands.add_parser('read-truss-record',help='Read named fields and original carriers from an explicitly selected Truss object')
+    for option in ('configuration','output'):
+        truss_record.add_argument('--'+option,required=True)
+    truss_record.add_argument('--type-id',type=int,required=True)
+    truss_record.add_argument('--entity-id',type=int,required=True)
     truss_singleton=commands.add_parser('read-truss-singleton',help='Read one object or edge from an explicitly selected Truss publication; no compiler, ingestion or ACK')
     for option in ('configuration','output'):
         truss_singleton.add_argument('--'+option,required=True)
@@ -465,6 +470,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss graph export refused; retain any partial output and inspect the selected publication',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command=='read-truss-record':
+        try:
+            from ashlar_host.truss_record_read import run_read_truss_record_command
+            run_read_truss_record_command(args.configuration,args.output,type_id=args.type_id,entity_id=args.entity_id)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss record read refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'read-truss-singleton':

@@ -1331,6 +1331,25 @@ The source command itself does not publish or ACK. Use a singleton read of the
 new publication to inspect the field; optional-field Weft decoding needs its
 own supported query profile.
 
+### Read an evolved record by field name
+
+Use the reader configuration saved by `evolve-truss-graph` with the selected
+record's actual native type and object IDs:
+
+```sh
+ashlar read-truss-record --configuration /absolute/private/fresh-evolution/reader-configuration.json \
+  --type-id <actual-type-id> --entity-id <actual-object-id> \
+  --output /absolute/private/record.json
+```
+
+The report retains the full original row and adds ordered field observations
+from that row's admitted catalog revision: declared module/field names, allocated
+property ID, scalar family, nullability and `absent`, `null` or `value` state.
+A missing record remains explicit absence. Unknown executable properties refuse;
+retained content stays in the unchanged raw carrier. This is the existing Truss
+STRING admission profile, not additional nullable or scalar-family support.
+The named-field adapter has basic coverage and makes no new native qualification.
+
 ### Stream a selected target update and deletion
 
 Use `update-delete-truss-target` when the source A must remain connected to other

@@ -428,3 +428,14 @@ bounds MUST refuse without truncation. A failed query, changed batch input or
 failed outer closure MUST withhold the combined success report. Final persistence
 MUST follow source, transport and runtime closure and original input renewal.
 Sharing a runtime MUST NOT permit publication, source ACK or new source authority.
+
+### Declared-field record reads
+
+A named-field view MUST derive ordered field identities and native property IDs
+from the record row's admitted catalog revision. It MUST retain the complete
+original row alongside the view and preserve absent, null and present value
+states without inferring a default. A missing row MUST remain explicit absence.
+Unknown executable property IDs or incompatible scalar carriers MUST refuse.
+The view MUST use the existing singleton's publication, source and native checks;
+it MUST NOT broaden the admitted scalar or nullability profile. Final reports
+MUST be bounded and follow owned resource closure.
