@@ -14,7 +14,7 @@ from ashlar_host.truss_weft_query import truss_string_compile_request,admit_trus
 
 
 class Tests(unittest.TestCase):
-    def test_actual_relationship_ids_authored_key_order_and_occurrence_prefix(self):
+    def fixture(self):
         batch,catalogs=cases.Tests().original();admission=TrussGraphAdmission(batch,catalogs)
         installation=json.loads(batch.begin)['prior']['installationId']
         tables={f'local.truss.{role}':0 for role in ('object_current','edge_current','tombstone','whole_source_history')}
@@ -38,6 +38,10 @@ class Tests(unittest.TestCase):
         columns=fixture_columns(RESOURCE_ROOT);previous={role:[]for role in columns}
         after=plan_apply(empty_state(),admission.changes,schema_policy=admission.admit)
         expected=graph_expected_rows(previous,after,admission.changes,batch,columns,'2026-10-12T00:00:00+00:00',admission.parsed.event_bytes,admission.parsed.edge_order_keys)
+        return admission,artifact,binding,expected
+
+    def test_actual_relationship_ids_authored_key_order_and_occurrence_prefix(self):
+        admission,artifact,binding,expected=self.fixture()
         rows=admit_truss_related_keys(admission,artifact,binding,expected,revision='1',document_id='cohort')
         self.assertEqual(rows[0]['related'],{'items':[['exact-B-value','exact-B-label']],'truncated':False})
         # The pure oracle retains equal key occurrences from distinct edge IDs;
@@ -54,3 +58,38 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValueError):admit_truss_related_keys(admission,wrong,binding,expected,revision='1',document_id='cohort')
         wrong=copy.deepcopy(expected);wrong['object_current'][1]['schema_revision']='2'
         with self.assertRaises(ValueError):admit_truss_related_keys(admission,artifact,binding,wrong,revision='1',document_id='cohort')
+
+    def inverse_fixture(self):
+        admission,artifact,binding,expected=self.fixture()
+        # Explicit pure inverse-declaration candidate, not native acceptance evidence.
+        mapping=binding['relationships'][0]
+        mapping['acceptedDefinition']['inverse']='B-A'
+        edge=admission.revisions['1']['edges'][mapping['typeId']]
+        edge['declaration']['inverse']='B-A'
+        relation=artifact['logicalPlan']['outputs'][0]['expression']['relationship']
+        relation['from'],relation['to']=relation['to'],relation['from']
+        relation['sourceKey'],relation['targetKey']=relation['targetKey'],relation['sourceKey']
+        relation['inverse']=True
+        artifact['logicalPlan']['source']['record']=mapping['target']
+        artifact['logicalPlan']['requiredCapabilities'].append('relationship.inverse')
+        column=artifact['columns'][0]
+        column['representation']['key']=relation['targetKey']
+        column['sourceIdentities']=[mapping['target'],mapping['source'],*relation['targetKey']['fields']]
+        return admission,artifact,binding,expected
+
+    def test_inverse_key_order_occurrences_and_truncation(self):
+        admission,artifact,binding,expected=self.inverse_fixture()
+        artifact['columns'][0]['representation']['bound']=1
+        artifact['logicalPlan']['outputs'][0]['expression']['bound']=1
+        expected['edge_current'].append(dict(expected['edge_current'][0],id='10'))
+        rows=admit_truss_related_keys(admission,artifact,binding,expected,revision='1',document_id='cohort')
+        self.assertEqual(rows,[{'related':{'items':[['exact-A-value','exact-A-label']],'truncated':True}}])
+
+    def test_inverse_requires_authored_name_capability_and_exact_keys(self):
+        for change in ('name','capability','key'):
+            admission,artifact,binding,expected=self.inverse_fixture()
+            if change=='name':del admission.revisions['1']['edges'][binding['relationships'][0]['typeId']]['declaration']['inverse']
+            elif change=='capability':artifact['logicalPlan']['requiredCapabilities'].remove('relationship.inverse')
+            else:artifact['columns'][0]['representation']['key']=copy.deepcopy(artifact['columns'][0]['representation']['key']);artifact['columns'][0]['representation']['key']['fields'].reverse()
+            with self.subTest(change=change),self.assertRaises(ValueError):
+                admit_truss_related_keys(admission,artifact,binding,expected,revision='1',document_id='cohort')

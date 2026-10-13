@@ -125,7 +125,7 @@ def main():
     truss_singleton.add_argument('--kind',choices=('object','edge'),required=True)
     truss_singleton.add_argument('--type-id',type=int,required=True)
     truss_singleton.add_argument('--entity-id',type=int,required=True)
-    truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or forward RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
+    truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or authored forward/inverse RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
     truss_query.add_argument('--maximum-rows',type=int,default=1000)

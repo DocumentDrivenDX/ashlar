@@ -44,6 +44,17 @@ SQL or omit guards to admit older rows. The complete result bag, including older
 compatible rows and multiplicities, MUST match the independent source-derived
 projection before successful closing checks release it.
 
+### Truss related-key direction
+
+A `RELATED_KEYS` read MAY traverse an explicitly authored inverse name. It MUST
+retain the canonical physical edge mapping and require the compiler's
+`relationship.inverse` capability exactly when an inverse traversal is used.
+Query endpoint roles and authored key tuples MUST reverse together; original
+relationship multiplicity and lifecycle declarations MUST remain unchanged.
+Parallel edges MUST retain separate occurrences, including equal key tuples.
+Both directions MUST apply the same integrity guards, deterministic prefix
+ordering, truncation and complete publication-bound result checks.
+
 ### Original supply-chain two-hop composition
 
 `query_supply_chain_two_hop(driver, pack, aliases, config, *, observe)` MUST consume the

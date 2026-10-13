@@ -178,7 +178,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, forward HAS_RELATED or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT, forward HAS_RELATED or unordered authored forward/inverse RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     return result
 
 
@@ -309,7 +309,7 @@ def admit_truss_global_count(admission,artifact,binding,*,revision,document_id):
 
 
 def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,document_id):
-    """Independent edge-occurrence oracle for one unfiltered forward source scan.
+    """Independent edge-occurrence oracle for one unfiltered authored forward or inverse source scan.
 
     Each edge contributes its target's authored key tuple; equal tuples remain
     repeated. This does not reinterpret RELATED_KEYS as distinct target records.
@@ -323,7 +323,7 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
             or any(plan.get(key)!=[]for key in ('filters','groups','joins','order'))
             or any(plan.get(key)is not None for key in ('limit','pageKey','readProfile'))
             or plan.get('modulePins')!=[pin] or type(plan['requiredCapabilities'])is not list
-            or not set(plan['requiredCapabilities'])<={'order.asc','project','relationship.boundedKeys','scan','type.string'}
+            or not set(plan['requiredCapabilities'])<={'order.asc','project','relationship.boundedKeys','relationship.inverse','scan','type.string'}
             or 'relationship.boundedKeys'not in plan['requiredCapabilities']):raise ValueError('Only unfiltered unjoined related-key source supported')
     source=plan['source'];source_record=source['record']
     if set(source)!={'occurrence','pin','record'}or source.get('occurrence')!='s0'or source.get('pin')!=pin:raise ValueError('Exact original related source required')
@@ -349,7 +349,7 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
                 raise ValueError('Required facetless authored STRING key fields required')
             fields.append(logical(field['module'],field['element']))
         return {'id':value['id'],'fields':fields,'types':[{'family':'string','facets':{},'nullable':False}for _ in fields]}
-    plans=[];columns=artifact['columns'];outputs=plan['outputs']
+    plans=[];inverse_used=False;columns=artifact['columns'];outputs=plan['outputs']
     if len(columns)!=len(outputs):raise ValueError('Complete original related output plan required')
     for column,output in zip(columns,outputs):
         if set(column)!={'nullable','outputName','position','representation','sourceIdentities'}or set(output)!={'name','expression'}:
@@ -364,19 +364,25 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
             continue
         if set(expression)!={'op','scan','bound','relationship'}or representation['kind']!='relatedKeys'or expression.get('op')!='relatedKeys'or expression.get('scan')!='s0':raise ValueError('Original relatedKeys expression required')
         relation=expression['relationship'];identity=representation['relationship']
+        inverse=relation.get('inverse')
+        if type(inverse)is not bool:raise ValueError('Exact authored relationship direction required')
+        inverse_used=inverse_used or inverse
         mappings=[item for item in binding.get('relationships',[])if item['logical']==identity]
         if len(mappings)!=1:raise ValueError('Actual original relationship mapping required')
         mapping=mappings[0];edge=selected['edges'].get(mapping['typeId'])
         if (edge is None or mapping['acceptedDefinition']!=edge['declaration'] or mapping['schemaRevision']!=revision
-                or mapping['sourceSystem']!=installation or mapping['source']!=source_record
+                or mapping['sourceSystem']!=installation or mapping['target'if inverse else'source']!=source_record
                 or mapping['kind']!='edge'or edge['owner']!=(document_id,identity['module'],identity['relationship'])):
             raise ValueError('Actual accepted relationship/type/endpoints differ')
-        endpoints=edge['endpoints'];target_record=mapping['target']
+        declaration=edge['declaration']
+        if inverse and (type(declaration.get('inverse'))is not str or not declaration['inverse']):
+            raise ValueError('Actual authored inverse name required')
+        endpoints=edge['endpoints'][::-1]if inverse else edge['endpoints'];target_record=mapping['source'if inverse else'target']
         actual_target=selected['types'].get(endpoints[1])
         if endpoints[0]!=source_type or actual_target is None or actual_target['owner']!=(document_id,target_record['module'],target_record['element']):
             raise ValueError('Actual typed relationship endpoints differ')
-        declaration=edge['declaration'];source_key=key(source_record,declaration['source'][0].get('key'));target_key=key(target_record,declaration['target'][0].get('key'))
-        expected_relation={'from':source_record,'to':target_record,'identity':identity,'inverse':False,
+        source_key=key(source_record,declaration['target'if inverse else'source'][0].get('key'));target_key=key(target_record,declaration['source'if inverse else'target'][0].get('key'))
+        expected_relation={'from':source_record,'to':target_record,'identity':identity,'inverse':inverse,
             'sourceKey':source_key,'targetKey':target_key,'sourceMultiplicity':declaration['sourceMultiplicity'],
             'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
         bound=representation['bound']
@@ -387,7 +393,9 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
         target_maps=[record for record in binding['records']if record['logical']==target_record]
         if len(target_maps)!=1:raise ValueError('Actual target property homes required')
         homes={encoded(field['logical']):field['home']['propertyId']for field in target_maps[0]['properties']}
-        plans.append(('related',column['outputName'],mapping['typeId'],endpoints[1],tuple(homes[encoded(field)]for field in target_key['fields']),bound))
+        plans.append(('related',column['outputName'],mapping['typeId'],endpoints[1],tuple(homes[encoded(field)]for field in target_key['fields']),bound,inverse))
+    if ('relationship.inverse'in plan['requiredCapabilities'])!=inverse_used:
+        raise ValueError('Exact inverse relationship capability required')
     objects={(row['source_system'],row['type_id'],row['id']):row for row in expected['object_current']}
     answer=[]
     for (system,type_id,entity_id),row in objects.items():
@@ -395,11 +403,12 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
         props=json.loads(row['props_json']);result={}
         for item in plans:
             if item[0]=='field':result[item[1]]=props[item[2]];continue
-            _,name,rel_type,target_type,fields,bound=item;tuples=[]
+            _,name,rel_type,target_type,fields,bound,inverse=item;tuples=[]
+            from_role='target'if inverse else'source';to_role='source'if inverse else'target'
             for edge_row in expected['edge_current']:
-                if (edge_row['source_system'],edge_row['rel_type_id'],edge_row['source_type'],edge_row['source_id'],edge_row['schema_revision'])!=(installation,rel_type,source_type,entity_id,revision):continue
-                if edge_row['target_type']!=target_type:raise ValueError('Original related edge target type differs')
-                target=objects[installation,target_type,edge_row['target_id']]
+                if (edge_row['source_system'],edge_row['rel_type_id'],edge_row[from_role+'_type'],edge_row[from_role+'_id'],edge_row['schema_revision'])!=(installation,rel_type,source_type,entity_id,revision):continue
+                if edge_row[to_role+'_type']!=target_type:raise ValueError('Original related edge target type differs')
+                target=objects[installation,target_type,edge_row[to_role+'_id']]
                 if target['schema_revision']!=revision:raise ValueError('Original related target schema revision differs')
                 values=json.loads(target['props_json'])
                 tuples.append((tuple(values[field]for field in fields),int(edge_row['id'])))

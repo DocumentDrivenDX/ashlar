@@ -93,9 +93,12 @@ The related result contains `items` and `truncated`. Each edge contributes its
 target's declared key tuple (`B-value`, then `B-label`); equal tuples remain
 repeated. Tuples are ordered by their UTF-8 field values, then numeric edge ID,
 and the bound selects a prefix. Both scalar and relationship integrity checks
-run before the query. This profile supports forward relationships on an
-unfiltered, unjoined source without outer `ORDER BY`; it verifies the complete
-result bag and truncation against the original source oracle.
+run before the query. Use an authored forward name or explicitly declared inverse
+name on an unfiltered, unjoined source without outer `ORDER BY`. Inverse reads
+swap endpoint keys while preserving the canonical physical edge direction and
+edge occurrences. The host verifies the complete result bag and truncation
+against the original source oracle. Inverse host admission has basic unit
+coverage; native Truss inverse execution remains unqualified.
 
 ## Accept into an existing installation
 
