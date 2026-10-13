@@ -1,0 +1,24 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 110.454,
+  "umf_version": "0.8.0",
+  "original_sha256": "111d0597b220034a2fd3cc3ac9252ba24a3171d7c5d8c60688102b090c4f5e0f",
+  "revised_sha256": "4e70bcd0cb070abad454dd286749c6da939db487e01c0dd3d967dad9a51fd228",
+  "publications": 2,
+  "reads": {
+    "original": {
+      "publication_id": "truss-graph-66c777aa9f719100f1061fbe0692c9883459f8ba810b82c2e67a7511c13d5238",
+      "fields": 4,
+      "entity_version": "1",
+      "schema_revision": "1"
+    },
+    "evolved": {
+      "publication_id": "truss-graph-1a5d83a471ce4c03f1347cfc0225286cf80577745ced33b88ea429c6b2c6b24d",
+      "fields": 5,
+      "entity_version": "2",
+      "schema_revision": "2"
+    }
+  },
+  "source_checkpoint_unchanged_by_reads": true,
+  "scope": "Same-declared-version originalUMF0.8 additive optionalSTRING field: actual public catalog acceptance preserves original values/identity/version, expected-version field update and receipt replay, two complete local Delta publications, original/evolved named reads. Caller-asserted Truss ACK only; no protectedF8/unknown-extension/Weft/UC qualification."
+}

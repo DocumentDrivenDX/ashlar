@@ -48,6 +48,15 @@ def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,
         raise ValueError('Selected new member must match exact scalar field family')
 
 
+def require_matching_record_versions(revised_bytes,previous_bytes):
+    """Select the original owning version; cross-version evolution is separate."""
+    revised=json.loads(revised_bytes);previous=json.loads(previous_bytes)
+    version=revised.get('umf')
+    if version not in ('0.7.0','0.8.0')or previous.get('umf')!=version:
+        raise ValueError('Matching original declared UMF0.7 or0.8 revisions required')
+    return version
+
+
 def selected_field_value(value):
     selected=scalar_tag({'kind':'string','text':value}if type(value)is str else value)
     if selected[0]=='null':raise ValueError('Non-null exact scalar field value required')
@@ -67,7 +76,8 @@ def parse_truss_record_evolution_configuration(config,output):
     if any(type(config[k])is not str or not config[k]or len(config[k])>4096 for k in ('connection_uri','document_revision','accept_request_key','update_request_key','document_id','module_id','record_id','field_name'))or config['accept_request_key']==config['update_request_key']:raise ValueError('Explicit record/field/revision and distinct request keys required')
     selected_field_value(config['field_value'])
     source=read(config['document_path'],1048576)
-    if json.loads(source).get('id')!=config['document_id'] or json.loads(source).get('umf')!='0.7.0':raise ValueError('Original selected UMF0.7 document required')
+    if json.loads(source).get('id')!=config['document_id']:raise ValueError('Original selected document identity required')
+    require_matching_record_versions(source,source)
     bun=Path(config['bun'])
     if not bun.is_absolute()or not bun.is_file():raise ValueError('Selected installed Bun required')
     origin_bytes=read(config['origin_path'],65536);origin=json.loads(origin_bytes)
@@ -112,10 +122,11 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
             if config['field_name'] in dict(before.values) or (required_original_fields is not None and set(dict(before.values))!=set(required_original_fields)):raise RuntimeError('Original selected field must be absent and complete original values retained')
             previous_document=value(assembly.accepted_document_in_transaction(tx,document_id=config['document_id']))
             if not isinstance(previous_document,AcceptedDocument)or previous_document.document_revision==config['document_revision']:raise RuntimeError('Distinct current accepted document revision required')
+            source_version=require_matching_record_versions(source,previous_document.content)
             require_new_record_field(source,previous_document.content,module_id=config['module_id'],record_id=config['record_id'],field_name=config['field_name'],scalar_type=kind)
             old_report=value(assembly.report_in_transaction(tx,before.catalog_revision))
             old_catalog=capture_catalog(assembly,tx,before.catalog_revision)
-            prepared=assembly.prepare_catalog((document,),bun_executable=str(bun))
+            prepared=assembly.prepare_catalog((document,),bun_executable=str(bun),source_version=source_version)
             accepted=value(assembly.accept_in_transaction(tx,prepared,request_key=config['accept_request_key'],origin_bytes=origin_bytes))
             if not isinstance(accepted,CatalogRegistration)or accepted.revision!=before.catalog_revision+1:raise RuntimeError('Actual next compatible catalog registration required')
         connection.commit()
@@ -147,7 +158,7 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
                 'report_original_base64':base64.b64encode(report.original_bytes).decode('ascii'),
                 'registration':{'revision':accepted.revision,'registration_id':accepted.registration_id,'replayed':accepted.replayed,'status':accepted.status,'report_original_base64':base64.b64encode(accepted.report_bytes).decode('ascii')},
                 'update_original':asdict(changed),'update_committed_receipt':asdict(replay),'caller_commits_confirmed':True,
-                'scope':'Compatible selected UMF0.7 record new-field evolution and update/replay only; actual Truss acceptance owns compatibility. No feed, ACK or Delta integration.'}
+                'scope':'Compatible selected original declared UMF0.7/0.8 record new-field evolution and update/replay only; actual Truss acceptance owns compatibility. No feed, ACK or Delta integration.'}
         connection.commit()
     payload=(json.dumps(result,indent=2,ensure_ascii=False)+'\n').encode()
     descriptor=os.open(destination,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)

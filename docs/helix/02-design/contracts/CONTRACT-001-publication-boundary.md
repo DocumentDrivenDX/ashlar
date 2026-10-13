@@ -361,7 +361,11 @@ as one state without an explicitly admitted combined-source profile.
 `update_request_key`, `object_id`, `document_id`, `module_id`, `record_id`,
 `field_name` and `field_value`. The selected object ID MUST be a positive
 signed64 integer. The authored revision MUST retain its declared UMF version;
-the local profile admits UMF 0.7 rootless records and a scalar STRING field.
+the local additive-field profile admits declared UMF 0.7.0 or 0.8.0 rootless
+records and a selected supported scalar field. Previous and revised documents
+MUST retain the same declared UMF version. Preparation MUST select the public
+SDK path for that exact version; unsupported or cross-version selections MUST
+refuse before acceptance.
 The previous accepted record MUST NOT already declare that field, and the new
 record MUST declare it before acceptance. Truss owns model compatibility and
 value validation.

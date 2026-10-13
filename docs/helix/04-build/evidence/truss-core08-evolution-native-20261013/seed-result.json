@@ -1,0 +1,8 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 59.177,
+  "object_id": 2,
+  "type_id": 1,
+  "publication_id": "truss-graph-66c777aa9f719100f1061fbe0692c9883459f8ba810b82c2e67a7511c13d5238",
+  "scope": "One separately named core08 evolution seed record and one actual Delta continuation; no schema evolution performed."
+}

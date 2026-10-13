@@ -2099,3 +2099,32 @@ Delta publications and complete original, updated and deleted singleton reads.
 The integer and decimal tokens remain exact; historical reads leave the source
 checkpoint unchanged. This evidence uses the same core-only model as the intake
 example and does not qualify unknown-extension acceptance or 0.8 schema evolution.
+
+### Add a field to the declared 0.8 record
+
+Select the [same-version revised asset model](core08-simple-asset-r2.umf.json)
+with `document_revision` set to `r2`. In the existing evolution configuration,
+select document `ashlar-core08-simple-asset`, module `assets`, record `Asset`,
+`field_name` `note` and `field_value` `evolved雪`, along with the actual live
+object ID, ordinary connection, original origin and distinct request keys.
+
+```sh
+ashlar evolve-truss-graph --configuration /absolute/private/asset-evolution.json \
+  --reader-configuration /absolute/private/current-asset-reader.json \
+  --output /absolute/private/fresh-asset-evolution
+```
+
+The command accepts the revised document through the exact declared-version
+Truss preparation path, then updates the new optional field and publishes both
+source pages. Its output retains original acceptance/catalog bytes and the
+reader selecting the evolved publication. Preserve the earlier publication
+intent when reading the original values. This additive-field workflow requires
+matching declared versions; core-version migration needs separate admission.
+
+The [native declared 0.8 evolution example](../../docs/helix/04-build/evidence/truss-core08-evolution-native-20261013/result.json)
+qualifies this same-version optional STRING addition, original values preserved
+through acceptance, committed field-update replay and both complete Delta pages.
+The old snapshot retains four fields; the evolved snapshot has five, including
+`note`. Integer and decimal tokens remain exact and the reads leave the source
+checkpoint unchanged. Unknown-extension acceptance, mixed-revision Weft queries
+and protected PostgreSQL outbox recovery retain their separate qualifications.

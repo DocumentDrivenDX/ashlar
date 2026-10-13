@@ -504,3 +504,11 @@ values. Compare complete properties and retained payloads with original source
 observations. Unsupported versions must refuse before optional SDK effects;
 version support must not expand the existing field, key, relationship, evolution
 or query subset. Qualify each actual runtime separately from inert host checks.
+
+For same-version additive field evolution, compare the original accepted model,
+identity and complete values before and after catalog acceptance, then update the
+new optional field through the public expected-version group. Publish both
+complete source pages, read the old and evolved snapshots, and retain exact
+accepted documents, catalogs and committed receipts. Cross-version and future
+version selections must refuse before acceptance; public Truss compatibility
+validation remains required for every admitted revision.
