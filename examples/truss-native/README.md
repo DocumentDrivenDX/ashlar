@@ -1748,3 +1748,36 @@ the result; native qualification is scoped by its execution evidence.
 The [actual two-record arithmetic query](../../docs/helix/04-build/evidence/truss-arithmetic-native-20261013/result.json)
 returns exact integer addition and decimal multiplication/subtraction results
 from one publication, with an unchanged source checkpoint.
+
+### Run the arithmetic toolkit end to end
+
+`ashlar run-truss-arithmetic-example` creates a fresh local Truss installation,
+accepts the bundled original faceted `typed-query-record.umf.json`, creates one
+record, publishes its catalog and object pages to Delta, reads the named singleton,
+and queries exact integer addition and decimal multiplication/subtraction on that
+same publication. Use a fresh private output directory:
+
+```json
+{
+  "profile": "ashlar-local-truss-arithmetic-example/0.1",
+  "bun": "/absolute/path/to/bun",
+  "java_home": "/absolute/path/to/jdk21",
+  "jars": ["/absolute/path/to/delta-spark.jar", "/absolute/path/to/delta-storage.jar"],
+  "weft_index": "/absolute/path/to/distributions/index.json",
+  "weft_installation": "/absolute/private/arithmetic-installation"
+}
+```
+
+```sh
+ashlar run-truss-arithmetic-example --configuration /absolute/private/example.json \
+  --output /absolute/private/fresh-arithmetic-example
+```
+
+Install the public 0.4.2 arithmetic distribution first. Truss must include the
+signed64/decimal(18,4) source implementation on main after `v0.0.1`; that release
+does not contain it. Use Spark 4.0.1, Delta 4.0.0, the compatible PostgreSQL runtime,
+Bun and JDK21. The final bounded private `result.json` is released after source and
+query runtimes close, input renewal, and environment restoration. It includes the
+singleton fields, original arithmetic protocol strings, exact results and unchanged
+source checkpoint. Local caller-asserted ACK and execution evidence define its
+qualification.

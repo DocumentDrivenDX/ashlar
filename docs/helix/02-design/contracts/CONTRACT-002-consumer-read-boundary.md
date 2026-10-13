@@ -493,3 +493,14 @@ before running the unchanged result SQL. Independent source comparison MUST use
 exact arithmetic without float conversion or ambient decimal rounding. Result
 carrier tokens MUST remain original. A single-revision adapter MUST refuse rows
 from other physical revisions rather than silently filter them.
+
+### Runnable scalar arithmetic workflow
+
+A local arithmetic example MUST accept explicit existing Bun, JDK, Delta JAR and
+indexed compiler paths and create a fresh private output directory. It MUST use
+public Truss acceptance and mutation APIs, publish the original source pages,
+then perform an exact singleton and arithmetic query on that same publication.
+Reads MUST leave the source checkpoint unchanged. Final success MUST follow
+owned source and Spark closure, environment restoration and original configuration
+renewal. The example MUST retain the original declared numeric facets and expose
+its saved reader configuration for later commands.
