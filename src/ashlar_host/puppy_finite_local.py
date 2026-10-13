@@ -55,6 +55,14 @@ class PuppyFiniteLoopbackConfig:
         if any(type(v)is not str or not v or len(v)>256 or '\n'in v or '\r'in v for v in (self.username,self.password)):raise ValueError('Explicit local credentials required')
         if any(type(p)is not int or not 1024<=p<=65535 for p in (self.http_port,self.bolt_port))or self.http_port==self.bolt_port or type(self.deadline_seconds)is not int or not 1<=self.deadline_seconds<=120:raise ValueError('Explicit finite distinct loopback ports required')
 
+@dataclass(frozen=True)
+class PuppyGremlinLoopbackConfig(PuppyFiniteLoopbackConfig):
+    gremlin_port:int=0
+    def __post_init__(self):
+        super().__post_init__()
+        if type(self.gremlin_port)is not int or not 1024<=self.gremlin_port<=65535 or self.gremlin_port in (self.http_port,self.bolt_port):
+            raise ValueError('Three distinct explicit loopback ports required')
+
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self,*args,**kwargs):return None
 
@@ -67,6 +75,8 @@ class PuppyLocalRuntime:
     def _record(self,name,raw):
         if type(raw)is not bytes or sum(len(value)for _,value in self.observations)+len(raw)>8388608:raise ValueError('Complete model observation capacity exceeded')
         self.observations.append((name,raw))
+    def record_observation(self,name,raw):
+        self._record(name,raw)
     def _docker(self,args,*,cleanup=False):
         remaining=30 if cleanup else self.deadline-time.monotonic()
         if remaining<1:raise TimeoutError('Owned PuppyGraph deadline elapsed')
@@ -77,15 +87,18 @@ class PuppyLocalRuntime:
         return out
     def _create_arguments(self):
         config=self.config
-        return ['create','--pull=never','--name',config.name,'--cpus=2','--memory=3g',
+        arguments=['create','--pull=never','--name',config.name,'--cpus=2','--memory=3g',
             '--env','PUPPYGRAPH_USERNAME='+config.username,'--env','PUPPYGRAPH_PASSWORD='+config.password,
             '--publish','127.0.0.1:'+str(config.http_port)+':8081','--publish','127.0.0.1:'+str(config.bolt_port)+':7687',
-            '--mount','type=bind,src='+str(self.database)+',dst=/tmp/'+self.database.name+',readonly',config.image]
+            ]
+        if type(config)is PuppyGremlinLoopbackConfig:arguments+=['--publish','127.0.0.1:'+str(config.gremlin_port)+':8182']
+        return arguments+['--mount','type=bind,src='+str(self.database)+',dst=/tmp/'+self.database.name+',readonly',config.image]
     def _container(self):
         info=json.loads(self._docker(['inspect',self.container_id]))
         if type(info)is not list or len(info)!=1:raise PermissionError('Actual owned container required')
         row=info[0];host=row['HostConfig'];mounts=row['Mounts']
         expected={'8081/tcp':self.config.http_port,'7687/tcp':self.config.bolt_port}
+        if type(self.config)is PuppyGremlinLoopbackConfig:expected['8182/tcp']=self.config.gremlin_port
         if row['Id']!=self.container_id or row['Image']!=self.config.image or row['Name']!='/'+self.config.name or not row['State']['Running']or host['NanoCpus']!=2000000000 or host['Memory']!=3*1024**3:raise PermissionError('Actual owned image/resources/status differ')
         selected=[m for m in mounts if m['Destination']=='/tmp/'+self.database.name]
         if len(selected)!=1 or selected[0]['Source']!=str(self.database)or selected[0]['RW']is not False:raise PermissionError('Original read-only carrier mount differs')
@@ -343,11 +356,18 @@ class OwnedPuppyExportLocal(PuppyLocalRuntime,ImmutableExportPreparationPolicy):
         # Exact independently selected and inspected image digest is the runtime
         # revision; do not infer a PuppyGraph product version from Ubuntu labels.
         return self.container_id,self.config.image
+    def query_gremlin(self,script,context,*,count_fields=()):
+        if type(self.config)is not PuppyGremlinLoopbackConfig or context is not self.context or not self.active:
+            raise PermissionError('Actual held explicit Gremlin owner required')
+        self.admit_original_release(self.selected_release,context);self.renew()
+        from .puppy_gremlin_transport import query_gremlin
+        result=query_gremlin(self,script,count_fields=count_fields)
+        self.renew();return result
 
 @contextmanager
 def open_puppy_export_local(config,*,export,receipt,failure_observer=None):
     """One bounded cached-image runtime for an actual immutable release pair."""
-    if type(config)is not PuppyFiniteLoopbackConfig or type(receipt)is not dict:raise ValueError('Exact local runtime and preparation receipt required')
+    if type(config)not in (PuppyFiniteLoopbackConfig,PuppyGremlinLoopbackConfig)or type(receipt)is not dict:raise ValueError('Exact local runtime and preparation receipt required')
     config.__post_init__()
     if failure_observer is not None and not callable(failure_observer):raise ValueError('Trusted failure observer required')
     owner=object.__new__(OwnedPuppyExportLocal);ImmutableExportPreparationPolicy.__init__(owner,export)

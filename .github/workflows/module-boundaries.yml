@@ -133,5 +133,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python3 -m pip install '.[puppy]'
-      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_export_local test_puppy_readiness_driver
+      - run: python3 -m pip install '.[puppy-gremlin]'
+      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_export_local test_puppy_readiness_driver test_puppy_gremlin_transport

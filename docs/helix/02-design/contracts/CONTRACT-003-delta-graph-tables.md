@@ -957,6 +957,14 @@ parity MUST NOT replace graph endpoint/identity checks. JSON-number parsing or
 floating-point identity conversion is forbidden. Aliases belong to serving
 adapters, not canonical tables.
 
+Cypher and Gremlin qualifications MUST identify their selected language and
+compare complete native rows, graph identities and endpoints at both read
+boundaries. Traversal occurrences MUST preserve parallel edges and edge reuse;
+deduplication belongs only to an explicitly distinct result. Gremlin adapters MUST
+retain original incoming GraphSON bytes before decoding, reject duplicate map
+keys and unsupported scalar families, and bound submission, transport and cleanup.
+Exact SDK count conversion MUST NOT authorize numeric identity conversion.
+
 Private immutable-export carrier preparation MUST require the actual paired
 release/custody owner and its held read interval, renewing original bytes and the
 complete canonical inventory before and after preparation. It MUST remain an

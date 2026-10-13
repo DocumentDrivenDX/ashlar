@@ -240,7 +240,7 @@ def main():
     preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
     for option in ('configuration','provider','provider-sha256'):
         preparation.add_argument('--'+option,required=True)
-    puppy_export=commands.add_parser('query-puppy-immutable-export',help='Run a bounded local PuppyGraph Cypher corpus on one admitted immutable release pair')
+    puppy_export=commands.add_parser('query-puppy-immutable-export',help='Run a bounded local PuppyGraph corpus in the explicitly configured language')
     puppy_export.add_argument('--configuration',required=True)
     payments_count=commands.add_parser('query-payments-count',help='Count one original payments record on its selected finite publication')
     payments_count.add_argument('--configuration',required=True)

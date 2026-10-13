@@ -19,17 +19,20 @@ class Tests(unittest.TestCase):
         path=root/'configuration.json';path.write_text(json.dumps(value));return path,release
 
     def test_public_configuration_preparation_session_and_closing(self):
-        for fail in (False,True):
-            with self.subTest(close_failure=fail),tempfile.TemporaryDirectory()as directory:
+        for fail,gremlin in ((False,False),(True,False),(False,True)):
+            with self.subTest(close_failure=fail,gremlin=gremlin),tempfile.TemporaryDirectory()as directory:
                 root=Path(directory).resolve();config,release=self.configuration(root);events=[]
+                if gremlin:
+                    value=json.loads(config.read_text());value.update(profile=cli.GREMLIN_PROFILE,language='Gremlin',gremlin_port=25482);config.write_text(json.dumps(value))
                 def prepare(export,out,*,policy,context):
                     digest=export.release.sha256;policy.admit_original_release(export.release,context);events.append('prepare');out.mkdir();(out/'db').write_bytes(b'inert');(out/'model.json').write_bytes(b'{}')
                     return {'release_sha256':digest}
                 @contextmanager
                 def runtime(configuration,*,export,receipt,failure_observer):
                     events.append('open');native=ImmutableExportPreparationPolicy(export);native.observations=[];native.database=configuration.prepared/'db';native.schema_http=lambda *a:None;native.native_runtime=lambda *a:None
-                    expected={sql:rows for _,sql,rows in cli.immutable_corpus(export.release)}
+                    expected={sql:rows for _,sql,rows in (cli.immutable_gremlin_corpus(export.release)if gremlin else cli.immutable_corpus(export.release))}
                     native.query=lambda language,sql,context:expected[sql]
+                    native.query_gremlin=lambda sql,context,count_fields=():expected[sql]
                     try:yield native
                     finally:
                         events.append('close')
@@ -47,8 +50,30 @@ class Tests(unittest.TestCase):
                         self.assertFalse((root/'out/result.json').exists())
                     else:
                         result=cli.run_puppy_export_command(config);self.assertEqual(len(result['cases']),7);self.assertEqual(result['release_sha256'],release.sha256)
-                self.assertEqual(json.loads(adapter.call_args.kwargs['prior_model']),{'catalog':[],'node':[],'edge':[]})
+                self.assertEqual(json.loads(adapter.call_args_list[0].kwargs['prior_model']),{'catalog':[],'node':[],'edge':[]})
+                self.assertEqual(adapter.call_count,2 if gremlin else 1)
+                if gremlin:self.assertEqual(result['language'],'Gremlin')
                 self.assertEqual(events,['prepare','open','close'])
+
+    def test_gremlin_configuration_and_original_parallel_corpus(self):
+        from ashlar_host.puppy_finite_local import PuppyGremlinLoopbackConfig
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();config,_=self.configuration(root);value=json.loads(config.read_text())
+            selected={**value,'profile':cli.GREMLIN_PROFILE,'language':'Gremlin','gremlin_port':25482}
+            self.assertIs(type(cli.parse_puppy_export_configuration(json.dumps(selected).encode())[2]),PuppyGremlinLoopbackConfig)
+            for changed in ({'language':'Unknown'},{'gremlin_port':25480},{'profile':'unknown'}):
+                with self.assertRaises(ValueError):cli.parse_puppy_export_configuration(json.dumps({**selected,**changed}).encode())
+            config.write_text(json.dumps(selected));(root/'custody.json').write_bytes(b'{}')
+            with patch.object(cli,'prepare_private_carrier')as prepare,patch.object(cli,'open_puppy_export_local')as runtime:
+                with self.assertRaises(ValueError):cli.run_puppy_export_command(config)
+                prepare.assert_not_called();runtime.assert_not_called()
+        release=GraphRelease(json.dumps({'nodes':[{'graph_id':'R1'},{'graph_id':'R2'}],'edges':[{'graph_id':key,'src':'R1','dst':'R1'}for key in ('E3','E4')]}).encode(),'a'*64)
+        with patch.object(cli,'PuppyReleaseHandle',return_value=type('Labels',(),{'node_label':'N','edge_label':'E'})()):
+            corpus={name:(query,rows)for name,query,rows in cli.immutable_gremlin_corpus(release)}
+        self.assertEqual(len(corpus),7)
+        self.assertEqual([(row['edge1'],row['edge2'])for row in corpus['two-hop'][1]],[('E3','E3'),('E3','E4'),('E4','E3'),('E4','E4')])
+        self.assertNotIn('dedup',corpus['two-hop'][0]);self.assertNotIn('simplePath',corpus['two-hop'][0])
+        self.assertEqual(corpus['two-hop-counts'][1],[{'key':'R1','paths':4,'targets':1},{'key':'R2','paths':0,'targets':0}])
 
     def test_mixed_custody_refuses_before_preparation_or_runtime(self):
         with tempfile.TemporaryDirectory()as directory:

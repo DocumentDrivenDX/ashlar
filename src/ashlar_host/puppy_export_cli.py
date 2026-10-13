@@ -7,19 +7,23 @@ from .evolution_cli import InvocationFile
 from .local_graph_export import LocalGraphExportSelection,open_local_graph_export
 from .lifecycle import owned_context,finish
 from .puppy_carrier import prepare_private_carrier
-from .puppy_finite_local import ImmutableExportPreparationPolicy,PuppyFiniteLoopbackConfig,open_puppy_export_local
+from .puppy_finite_local import ImmutableExportPreparationPolicy,PuppyFiniteLoopbackConfig,PuppyGremlinLoopbackConfig,open_puppy_export_local
 from .puppy_native import PuppyNativeReleaseAdapter
 from .puppy_release import PuppyReleaseOwner,PuppyReleaseHandle
 from .truss_preparation import json_bytes
 from .truss_example import private_file
 
 PROFILE='ashlar-local-immutable-puppy-corpus/0.1'
+GREMLIN_PROFILE='ashlar-local-immutable-puppy-corpus/0.2'
 
 def parse_puppy_export_configuration(raw):
     from .private_graph_custody import decode_custody_bytes,require_custody_digest
     value=decode_custody_bytes(raw)
     keys={'profile','release_path','custody_path','release_sha256','custody_sha256','output','docker','docker_host','image','name','username','password','http_port','bolt_port','deadline_seconds'}
-    if type(value)is not dict or set(value)!=keys or value['profile']!=PROFILE:raise ValueError('Closed explicit immutable PuppyGraph configuration required')
+    if type(value)is not dict:raise ValueError('Closed explicit immutable PuppyGraph configuration required')
+    gremlin=value.get('profile')==GREMLIN_PROFILE
+    if set(value)!=keys|({'language','gremlin_port'}if gremlin else set())or value.get('profile')not in (PROFILE,GREMLIN_PROFILE)or(gremlin and value['language']!='Gremlin'):
+        raise ValueError('Closed explicit immutable PuppyGraph configuration required')
     def path(name):
         v=value[name]
         if type(v)is not str:raise ValueError('Explicit canonical path required')
@@ -35,7 +39,8 @@ def parse_puppy_export_configuration(raw):
     # resolving their executable symlink can select an unsupported command.
     docker=value['docker']
     if type(docker)is not str or not Path(docker).is_absolute()or not Path(docker).is_file():raise ValueError('Explicit existing Docker CLI executable required')
-    config=PuppyFiniteLoopbackConfig(Path(docker),value['docker_host'],value['image'],value['name'],root.parent,value['username'],value['password'],value['http_port'],value['bolt_port'],value['deadline_seconds'])
+    cls=PuppyGremlinLoopbackConfig if gremlin else PuppyFiniteLoopbackConfig
+    config=cls(Path(docker),value['docker_host'],value['image'],value['name'],root.parent,value['username'],value['password'],value['http_port'],value['bolt_port'],value['deadline_seconds'],**({'gremlin_port':value['gremlin_port']}if gremlin else{}))
     config.__post_init__()
     return selection,root,config
 
@@ -58,13 +63,34 @@ def immutable_corpus(release):
       ('two-hop','MATCH (s)-'+a+'->(m) MATCH (m)-'+b+'->(t) RETURN s.carrier_key AS src,a.carrier_key AS edge1,m.carrier_key AS middle,b.carrier_key AS edge2,t.carrier_key AS dst',paths),
       ('two-hop-counts','MATCH '+n+' OPTIONAL MATCH (n)-'+a+'->(m) OPTIONAL MATCH (m)-'+b+'->(t) RETURN n.carrier_key AS key,count(b) AS paths,count(DISTINCT t.carrier_key) AS targets',counts))
 
+
+def immutable_gremlin_corpus(release):
+    """Same complete source oracle; only terminal DISTINCT uses deduplication."""
+    cases=immutable_corpus(release);handle=PuppyReleaseHandle(release)
+    nl=json.dumps(handle.node_label);el=json.dumps(handle.edge_label)
+    key=json.dumps(cases[2][2][0]['key']);vertices='g.V().hasLabel('+nl+')'
+    two='__.outE('+el+').inV().outE('+el+').inV()'
+    scripts=(
+      vertices+".project('key').by('carrier_key')",
+      'g.E().hasLabel('+el+").project('src','edge','dst').by(__.outV().values('carrier_key')).by('carrier_key').by(__.inV().values('carrier_key'))",
+      vertices+".has('carrier_key',"+key+").project('key').by('carrier_key')",
+      vertices+".order().by('carrier_key').limit(1).project('key').by('carrier_key')",
+      vertices+".project('key','degree').by('carrier_key').by(__.outE("+el+').count())',
+      vertices+".as('src').outE("+el+").as('edge1').inV().as('middle').outE("+el+").as('edge2').inV().as('dst').select('src','edge1','middle','edge2','dst').by('carrier_key')",
+      vertices+".project('key','paths','targets').by('carrier_key').by("+two+'.count()).by('+two+".values('carrier_key').dedup().count())")
+    return tuple((name,script,expected)for(name,_,expected),script in zip(cases,scripts))
+
 def run_puppy_export_command(configuration):
     selected=InvocationFile.read(configuration,65536);selection,root,runtime=parse_puppy_export_configuration(selected.raw)
     result=None;primary=None
     try:
         # Mixed/altered custody refuses before preparing output or Docker effects.
         with owned_context(open_local_graph_export(selection))as export:
-            corpus=immutable_corpus(export.release);root.mkdir(mode=0o700)
+            gremlin=type(runtime)is PuppyGremlinLoopbackConfig
+            if gremlin:
+                from .puppy_gremlin_transport import require_gremlin_runtime
+                require_gremlin_runtime()
+            corpus=immutable_gremlin_corpus(export.release)if gremlin else immutable_corpus(export.release);root.mkdir(mode=0o700)
             policy=ImmutableExportPreparationPolicy(export)
             with owned_context(policy.writer(export.context)):
                 receipt=prepare_private_carrier(export,root/'prepared',policy=policy,context=export.context)
@@ -75,15 +101,25 @@ def run_puppy_export_command(configuration):
             with owned_context(open_puppy_export_local(runtime,export=export,receipt=receipt,failure_observer=failure))as native:
                 adapter=PuppyNativeReleaseAdapter(prepared={export.release.sha256:(native.database,root/'prepared/model.json',receipt_path,hashlib.sha256(receipt_raw).hexdigest())},prior_model=json_bytes({'catalog':[],'node':[],'edge':[]},1048576),http=native.schema_http,runtime=native.native_runtime,cypher=lambda q,c:native.query('Cypher',q,c),evidence=root/'native')
                 owner=PuppyReleaseOwner(adapter,native);handle=owner.refresh(export.release,context=export.context)
+                gremlin_owner=None;gremlin_handle=None
+                if gremlin:
+                    from .puppy_gremlin import GremlinReleaseProjection
+                    original_model=(root/'prepared/model.json').read_bytes()
+                    gremlin_adapter=PuppyNativeReleaseAdapter(prepared={export.release.sha256:(native.database,root/'prepared/model.json',receipt_path,hashlib.sha256(receipt_raw).hexdigest())},prior_model=original_model,http=native.schema_http,runtime=native.native_runtime,projection=GremlinReleaseProjection(lambda q,c:native.query_gremlin(q,c)),evidence=root/'gremlin-native')
+                    gremlin_owner=PuppyReleaseOwner(gremlin_adapter,native);gremlin_handle=gremlin_owner.refresh(export.release,context=export.context)
                 results=[]
                 with owned_context(native.writer(export.context)):
                     for name,sql,expected in corpus:
-                        rows=native.query('Cypher',sql,export.context)
+                        fields=('degree',)if name=='degrees'else('paths','targets')if name=='two-hop-counts'else()
+                        rows=native.query_gremlin(sql,export.context,count_fields=fields)if gremlin else native.query('Cypher',sql,export.context)
                         if Counter(json.dumps(r,sort_keys=True,separators=(',',':'))for r in rows)!=Counter(json.dumps(r,sort_keys=True,separators=(',',':'))for r in expected):raise ValueError('Complete original PuppyGraph corpus differs: '+name)
                         result_item={'case':name,'query':sql,'rows':rows,'oracle':expected};private_file(root/(name+'.json'),result_item);results.append(result_item)
                 owner.read(handle,context=export.context)
+                if gremlin:gremlin_owner.read(gremlin_handle,context=export.context)
+                if gremlin:private_file(root/'gremlin-projections.json',[json.loads(raw)for name,raw in native.observations if name=='gremlin-projection'])
                 private_file(root/'readiness.json',[json.loads(raw)for name,raw in native.observations if name=='backend-readiness'])
-                result={'profile':PROFILE,'release_sha256':export.release.sha256,'custody_sha256':export.custody_sha256,'runtime_image':runtime.image,'nodes':len(json.loads(export.release.payload)['nodes']),'edges':len(json.loads(export.release.payload)['edges']),'cases':results,'qualification':'Actual bounded local PuppyGraph complete canonical carrier/identity and seven original immutable-release Cypher corpus comparisons. Historical source metadata only; no source access, mutation, ACK, numeric property filtering, cloud or production qualification.'}
+                result={'profile':GREMLIN_PROFILE if gremlin else PROFILE,'release_sha256':export.release.sha256,'custody_sha256':export.custody_sha256,'runtime_image':runtime.image,'nodes':len(json.loads(export.release.payload)['nodes']),'edges':len(json.loads(export.release.payload)['edges']),'cases':results,'qualification':'Actual bounded local PuppyGraph complete canonical carrier/identity and seven original immutable-release '+('Gremlin'if gremlin else'Cypher')+' corpus comparisons. Historical source metadata only; no source access, mutation, ACK, numeric property filtering, cloud or production qualification.'}
     except BaseException as error:primary=error
     finish(primary,[lambda:selected.renew(65536)])
+    if gremlin:result['language']='Gremlin'
     private_file(root/'result.json',result);return result

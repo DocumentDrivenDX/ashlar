@@ -1,0 +1,345 @@
+{
+  "files": [
+    {
+      "path": "installed-entrypoint.py",
+      "bytes": 344,
+      "sha256": "9601c770e70de0fb539fcb9f753cfba541a6043379ad50c27835f41ec6efa413"
+    },
+    {
+      "path": "installed-source/puppy_carrier.py",
+      "bytes": 8025,
+      "sha256": "3e06ddddb7e2651fe8ba558723bc1931ad7d5c9ec7cfc5a1e15c2f50b38419ed"
+    },
+    {
+      "path": "installed-source/puppy_export_cli.py",
+      "bytes": 11136,
+      "sha256": "e50a64526b59fda68c94c4c4999fc887ca73649eaa8d8586f274c87ec56dc15f"
+    },
+    {
+      "path": "installed-source/puppy_finite_local.py",
+      "bytes": 27314,
+      "sha256": "e1464968c7ac482c313d5e3fe466310edfb2d03e4f6b26ba5fd228d98ac84307"
+    },
+    {
+      "path": "installed-source/puppy_gremlin.py",
+      "bytes": 3565,
+      "sha256": "03c4932d28b416323c30feb053a5d642b72ec6dffd64d01d9829f31c6bf55a24"
+    },
+    {
+      "path": "installed-source/puppy_gremlin_transport.py",
+      "bytes": 9813,
+      "sha256": "c2c07f2cebebcc2b58823bb1bfa0d822ce0ac00079f62b01d65dbe3e84ed9899"
+    },
+    {
+      "path": "observations/bounded-list.json",
+      "bytes": 472,
+      "sha256": "bd81626a1668b6f5ce33dad6ddd6d1ccfd440de96796bcb5f5b8f7ba6ac062f3"
+    },
+    {
+      "path": "observations/degrees.json",
+      "bytes": 849,
+      "sha256": "0478a495f8409971d84e0e716ee3a98bbb1589fee50eba5f1f089b43d631fb78"
+    },
+    {
+      "path": "observations/edges.json",
+      "bytes": 1582,
+      "sha256": "8a937c3fa0db9d77cbcfd274738de209cad3234a6b22736566d86a18d59acb8c"
+    },
+    {
+      "path": "observations/gremlin-native/0001-before.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0002-request.json",
+      "bytes": 5611,
+      "sha256": "0c8f5ff55df3e6b8e7586b4cb887f945e261f203ee1199ff78dbaa58b4b04743"
+    },
+    {
+      "path": "observations/gremlin-native/0003-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0004-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0005-gremlin-native-query.json",
+      "bytes": 4099,
+      "sha256": "b878774e502e2492ca22c4acab79337b61766dc2f1595fc59755f78e81dab89f"
+    },
+    {
+      "path": "observations/gremlin-native/0006-query.json",
+      "bytes": 4039,
+      "sha256": "406aaa785713e79b9f60b8e6050b274022c453bef01aaa8fca49332617552fda"
+    },
+    {
+      "path": "observations/gremlin-native/0007-gremlin-native-query.json",
+      "bytes": 5728,
+      "sha256": "37957ce260f80757b48169b1dfc6471acc8ce44cef284096fddeee1b9d858483"
+    },
+    {
+      "path": "observations/gremlin-native/0008-query.json",
+      "bytes": 5548,
+      "sha256": "e833aa9c1e031bcace3e212982df06d69402b734d50e5acaab098fee6a16d700"
+    },
+    {
+      "path": "observations/gremlin-native/0009-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0010-observed.json",
+      "bytes": 12885,
+      "sha256": "8796d80041b61683b5a78453207b2230eaeaf038e5d0342042ab3459154fea25"
+    },
+    {
+      "path": "observations/gremlin-native/0011-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0012-gremlin-native-query.json",
+      "bytes": 4099,
+      "sha256": "b878774e502e2492ca22c4acab79337b61766dc2f1595fc59755f78e81dab89f"
+    },
+    {
+      "path": "observations/gremlin-native/0013-query.json",
+      "bytes": 4039,
+      "sha256": "406aaa785713e79b9f60b8e6050b274022c453bef01aaa8fca49332617552fda"
+    },
+    {
+      "path": "observations/gremlin-native/0014-gremlin-native-query.json",
+      "bytes": 5728,
+      "sha256": "37957ce260f80757b48169b1dfc6471acc8ce44cef284096fddeee1b9d858483"
+    },
+    {
+      "path": "observations/gremlin-native/0015-query.json",
+      "bytes": 5548,
+      "sha256": "e833aa9c1e031bcace3e212982df06d69402b734d50e5acaab098fee6a16d700"
+    },
+    {
+      "path": "observations/gremlin-native/0016-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/gremlin-native/0017-observed.json",
+      "bytes": 12885,
+      "sha256": "8796d80041b61683b5a78453207b2230eaeaf038e5d0342042ab3459154fea25"
+    },
+    {
+      "path": "observations/gremlin-projections.json",
+      "bytes": 29234,
+      "sha256": "35fe9c236dc04e84d13f75f9181b006c87786e180d89beedc145584aa4d470a9"
+    },
+    {
+      "path": "observations/gremlin-wire/1/wire-1.json",
+      "bytes": 2872,
+      "sha256": "13e199aacb43b3ce059a44c0724c5ce4770a89e4793cd78634359d4f49f8a1d0"
+    },
+    {
+      "path": "observations/gremlin-wire/10/wire-1.json",
+      "bytes": 2872,
+      "sha256": "0479ea1becbbbd1c0d49b638aeca882db11c88437c4041504f63f35e3e028a92"
+    },
+    {
+      "path": "observations/gremlin-wire/11/wire-1.json",
+      "bytes": 4100,
+      "sha256": "425dfc52e2ff094ff780b9f25b4f6f10cea75eeb59786a46eed0c9a48330944f"
+    },
+    {
+      "path": "observations/gremlin-wire/2/wire-1.json",
+      "bytes": 4100,
+      "sha256": "1ebf99505abc9ddfce9e1878c1e604dc0822443244e2db83576b5e1eaf7ab2b9"
+    },
+    {
+      "path": "observations/gremlin-wire/3/wire-1.json",
+      "bytes": 494,
+      "sha256": "88f658a089b0122961a440470d66660342f18cfa239dde2eee2e5fef54358611"
+    },
+    {
+      "path": "observations/gremlin-wire/4/wire-1.json",
+      "bytes": 880,
+      "sha256": "3f9a7bbb7b4b89fb967da92cbbbe7c689dfdadbb05413a6bf9d7502e6dcfc8ac"
+    },
+    {
+      "path": "observations/gremlin-wire/5/wire-1.json",
+      "bytes": 369,
+      "sha256": "90a4897b0ec9a3d3b00d0f97adee0e1a1c00aa5d9794c591a6894a7967eec72f"
+    },
+    {
+      "path": "observations/gremlin-wire/6/wire-1.json",
+      "bytes": 369,
+      "sha256": "97962209954d06e06e445b850f8200d675be1d91de17053219c92b07c957d0e3"
+    },
+    {
+      "path": "observations/gremlin-wire/7/wire-1.json",
+      "bytes": 574,
+      "sha256": "7f96bf94f960e8f37030d5151f4bd4dde199bded77cfd4263a6d756246a97d09"
+    },
+    {
+      "path": "observations/gremlin-wire/8/wire-1.json",
+      "bytes": 2308,
+      "sha256": "ac2a6ce19bf819ed233315bdf2a7ce877b514d997f18a67b3164227359ac226c"
+    },
+    {
+      "path": "observations/gremlin-wire/9/wire-1.json",
+      "bytes": 654,
+      "sha256": "459dd02a10ee78e00b680f2273d3a108aa63234d491927d0013d0bffd354245e"
+    },
+    {
+      "path": "observations/native/0001-before.json",
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "observations/native/0002-request.json",
+      "bytes": 5611,
+      "sha256": "0c8f5ff55df3e6b8e7586b4cb887f945e261f203ee1199ff78dbaa58b4b04743"
+    },
+    {
+      "path": "observations/native/0003-upload.json",
+      "bytes": 4387,
+      "sha256": "fca240e1922ed3cd70b7afee32b75c56d1b154645c355bb1f027b51279102c78"
+    },
+    {
+      "path": "observations/native/0004-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/native/0005-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/native/0006-query.json",
+      "bytes": 3214,
+      "sha256": "490eff5ee4c876b27bef3aa916ede8edcc674d385101f45f4baa750c48d38cef"
+    },
+    {
+      "path": "observations/native/0007-query.json",
+      "bytes": 4484,
+      "sha256": "e59a38473da29ad5c0bb9c0eed667e8bec38f1e62b14af59fd8981d12da56615"
+    },
+    {
+      "path": "observations/native/0008-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/native/0009-observed.json",
+      "bytes": 12885,
+      "sha256": "8796d80041b61683b5a78453207b2230eaeaf038e5d0342042ab3459154fea25"
+    },
+    {
+      "path": "observations/native/0010-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/native/0011-query.json",
+      "bytes": 3214,
+      "sha256": "490eff5ee4c876b27bef3aa916ede8edcc674d385101f45f4baa750c48d38cef"
+    },
+    {
+      "path": "observations/native/0012-query.json",
+      "bytes": 4484,
+      "sha256": "e59a38473da29ad5c0bb9c0eed667e8bec38f1e62b14af59fd8981d12da56615"
+    },
+    {
+      "path": "observations/native/0013-schema.json",
+      "bytes": 5610,
+      "sha256": "e1bc3e912b65a5726ea1eaa3fc02598f54f8096ec04e3d9a60eaccd7458d7dad"
+    },
+    {
+      "path": "observations/native/0014-observed.json",
+      "bytes": 12885,
+      "sha256": "8796d80041b61683b5a78453207b2230eaeaf038e5d0342042ab3459154fea25"
+    },
+    {
+      "path": "observations/nodes.json",
+      "bytes": 662,
+      "sha256": "afe945e23bee86fadc37439e24ec6d8bced31a25074360953c4b99a94d9412a8"
+    },
+    {
+      "path": "observations/prepared/ashlar_d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12.duckdb",
+      "bytes": 798720,
+      "sha256": "07ce26ad20c340ab62306589d3a47db00e880efaf7d602532799c614a4e3b9ad"
+    },
+    {
+      "path": "observations/prepared/model.json",
+      "bytes": 5612,
+      "sha256": "c2c7d158e4babde9476bd08c3afefcfc9f2d239dae9a2ac01b6d03622d2b3501"
+    },
+    {
+      "path": "observations/prepared/original-intent.json",
+      "bytes": 119,
+      "sha256": "a94c6da69b00539390da3bef8a4cc31eceb434092be28056e1e3ba6a7f7b2c3d"
+    },
+    {
+      "path": "observations/prepared/receipt.json",
+      "bytes": 576,
+      "sha256": "256af71e1426ecb85078910303b81bc62cea7450a0a20dbe74da5792b1cc51e4"
+    },
+    {
+      "path": "observations/readiness.json",
+      "bytes": 25420,
+      "sha256": "2a74ca78b8762d251695710783fc6401e250af1de1e77a625d41bf254590872b"
+    },
+    {
+      "path": "observations/result.json",
+      "bytes": 11614,
+      "sha256": "336d2e63b93b45be27aa8cebeb546542092fa7acb2260e84dcde12fe2b18361a"
+    },
+    {
+      "path": "observations/singleton.json",
+      "bytes": 545,
+      "sha256": "b04ab668a655fc29d88319929320913445bed67f97ff0e6a4f2c5e65b1653c68"
+    },
+    {
+      "path": "observations/two-hop-counts.json",
+      "bytes": 1265,
+      "sha256": "6c57b528e28bed899815bcb7cd053a19555c5d6f0fedb9cbbc1bdf70cadfe19e"
+    },
+    {
+      "path": "observations/two-hop.json",
+      "bytes": 4781,
+      "sha256": "81b3fa6e4c1c682248e2e16b66bfc4b86de9dc9078cdc25d238e050e6bb8f08e"
+    },
+    {
+      "path": "runtime-selection.json",
+      "bytes": 757,
+      "sha256": "3f7adfcd7b1664d503d27f579e99136c2ea1758ff126884ef23e1b6c919a705c"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 1047,
+      "sha256": "c49eca5ddc07df36564c3ba669acd10c91eef0c7af785294a2a1544fb90e809b"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 366,
+      "sha256": "4641a5322da66145adb69b2010a1d907f8bd654cb3a9b30a7599661a4afbce3c"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 358,
+      "sha256": "f668e0c297122132c24bbebc8f54473e1243e58ffda16c16b8a0aba1a94c7e9c"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 2588,
+      "sha256": "9eaca6b5bc65ba334b72911fc1a24d198ede15cc75678f295562c565644a373d"
+    }
+  ],
+  "archive_sha256": "bfbca319d26d4844b4958e75751065fa488f412e08a57261cf35478d4e5507a6"
+}

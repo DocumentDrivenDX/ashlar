@@ -46,7 +46,20 @@ The source graph must be nonempty and have at most 100 nodes and 100 edges.
 `result.json` is written only after query, custody and owned cleanup succeed.
 On failure, retain partial output; no successful result is published. Property
 JSON stays exact opaque text. This command does not qualify numeric property
-filters, Gremlin, live source authority or source ACK operations.
+filters, live source authority or source ACK operations.
+
+For Gremlin, install `pip install '.[puppy-gremlin]'`. Use the same configuration
+with `profile` set to `ashlar-local-immutable-puppy-corpus/0.2`, add
+`"language": "Gremlin"` and `"gremlin_port": 18182`, and select a third free
+loopback port distinct from the HTTP and Bolt ports. The command remains the same.
+The original 0.1 configuration continues to select Cypher.
+
+Gremlin compares the same seven independent source bags, retaining parallel
+edge identities and edge reuse. Only the distinct-target count deduplicates.
+Both native projections verify complete canonical rows, identities and endpoints
+before and after the corpus. Incoming GraphSON frames are retained before strict
+decoding; duplicate keys and unsupported scalar families refuse. Count conversion
+accepts exact signed 64-bit SDK values without changing graph identity strings.
 
 The [installed-wheel check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-cypher-20261013/result.json)
 passed all seven Cypher cases over an original Truss 15 parallel-edge release,
@@ -55,3 +68,9 @@ using Python 3.12.15, DuckDB 1.5.0 and Neo4j 5.28.2 with the pinned PuppyGraph
 zero counts matched; the owned container was removed before success publication.
 Readiness alone may retry temporary backend errors within the selected deadline.
 Model submission and graph queries are never retried.
+
+The [installed Gremlin check](../../docs/helix/04-build/evidence/truss15-puppy-immutable-gremlin-20261013/result.json)
+passed the same seven cases using GremlinPython 3.7.3 and the same pinned image
+and original release. Both language projections passed their opening and closing
+checks, and the owned container was removed. Original incoming GraphSON frames
+are retained in the evidence archive.
