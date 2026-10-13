@@ -37,9 +37,14 @@ ashlar configure-graph-export --export-report /absolute/private/fresh-example/re
   --output /absolute/private/graph-selection.json
 ```
 
-Read the selection locally with `ashlar query-duckdb-export --configuration
-/absolute/private/graph-selection.json --output /absolute/private/duckdb-query.json
---maximum-hops 2`. The [small export receipt](../../docs/helix/04-build/evidence/truss-example-export-20261013/result.json)
+Read the selection locally:
+
+```sh
+ashlar query-duckdb-export --configuration /absolute/private/graph-selection.json \
+  --output /absolute/private/duckdb-query.json --maximum-hops 2
+```
+
+The [small export receipt](../../docs/helix/04-build/evidence/truss-example-export-20261013/result.json)
 records the real two-node, one-edge example and DuckDB read.
 
 That pair can also configure the [GraphFrames export workflow](../../README.md)

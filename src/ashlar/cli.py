@@ -183,6 +183,10 @@ def main():
     supply_configuration=commands.add_parser('configure-supply-chain-native',help='Print a local five-query and two-hop configuration; no engine execution')
     for option in ('output','jars','pack','model','graph','producer-source','bun','git','count-star-index','count-star-installation','paths-index','paths-installation'):
         supply_configuration.add_argument('--'+option,required=True)
+    supply_common=commands.add_parser('query-supply-chain-common',help='Run selected unchanged common cases on an existing original supply-chain publication; no reingest')
+    supply_common.add_argument('--configuration',required=True)
+    supply_common.add_argument('--output',required=True)
+    supply_common.add_argument('--case',dest='cases',action='append')
     supply_native=commands.add_parser('run-supply-chain-native',help='Publish, replay and query all five original supply-chain scenarios in an explicit local installation')
     supply_native.add_argument('--configuration',required=True)
     materialize_export=commands.add_parser('materialize-graph-export',help='Materialize an explicitly selected private export into fresh local Delta tables')
@@ -278,6 +282,15 @@ def main():
         except ValueError as error:
             parser.error(str(error))
         sys.stdout.write(raw.decode('utf-8'))
+        return
+    if args.command == 'query-supply-chain-common':
+        try:
+            from ashlar_host.supply_chain_common_cli import run_supply_chain_common_command
+            result=run_supply_chain_common_command(args.configuration,args.output,**({'selected_case_ids':tuple(args.cases)}if args.cases else {}))
+            print(json.dumps(result,separators=(',',':')))
+        except Exception:
+            print('ashlar original supply-chain common query refused; retain partial private output and inspect original inputs',file=sys.stderr)
+            raise SystemExit(2)from None
         return
     if args.command == 'run-supply-chain-native':
         from ashlar_host.supply_chain_native_cli import run_supply_chain_native_command
