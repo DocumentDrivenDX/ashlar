@@ -1,0 +1,56 @@
+{
+  "command_exit_status": 143,
+  "result_present": false,
+  "original_run_sha256": "8abac861a6ada92aee0fb4080c1230867d358d776c16c92c5a776538ea657f95",
+  "slots": [
+    {
+      "ordinal": 0,
+      "state": "completed",
+      "transaction_sha256": "9d096c35f58417b1cddd0458c217784fa4756c899fd6d4df9966cec7b3ba2594",
+      "original_bytes": 491883
+    },
+    {
+      "ordinal": 1,
+      "state": "completed",
+      "transaction_sha256": "78fc1e6094eecc8bd3f5bfea1b9bd30d6abd3d2bed275c93249b5f156db90af0",
+      "original_bytes": 854875
+    },
+    {
+      "ordinal": 2,
+      "state": "retained",
+      "transaction_sha256": "a68ebafaba202276c1d37d307f5c2aa1906c2fc7e767938a27f30fb5c2af54df",
+      "original_bytes": 755544
+    },
+    {
+      "ordinal": 3,
+      "state": "unprepared",
+      "transaction_sha256": null,
+      "original_bytes": null
+    },
+    {
+      "ordinal": 4,
+      "state": "unprepared",
+      "transaction_sha256": null,
+      "original_bytes": null
+    },
+    {
+      "ordinal": 5,
+      "state": "unprepared",
+      "transaction_sha256": null,
+      "original_bytes": null
+    },
+    {
+      "ordinal": 6,
+      "state": "unprepared",
+      "transaction_sha256": null,
+      "original_bytes": null
+    },
+    {
+      "ordinal": 7,
+      "state": "unprepared",
+      "transaction_sha256": null,
+      "original_bytes": null
+    }
+  ],
+  "qualification": "Unsuccessful bounded local single-ordinal continuation. Both owned processes terminated and absent. No publication success, ACK or native version stability inferred. Retained original run digest unchanged."
+}

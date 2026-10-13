@@ -444,7 +444,7 @@ class NativeDriver:
             attempt_admission=attempt_admission)
 
     def _validate_evolution_run_ledger(self, original, inventory, *, context,
-                                     attempt_admission, selected_completed=None):
+                                     attempt_admission, selected_completed=None, collect_completed=False):
         """Observe original lineage without new publication/phase/effect submission.
 
         Current protected ACK reconciliation remains mandatory and may renew
@@ -494,6 +494,7 @@ class NativeDriver:
                 or not 0 <= selected_completed < 8 or inventory.slots[selected_completed][1] != 'completed')):
             raise PermissionError('Exact original completed ordinal required')
         observed_descriptor = None
+        completed_descriptors = []
         previous_active = self.policy.active
         histories = {}
         primary = None
@@ -644,6 +645,7 @@ class NativeDriver:
                 if receipt is None:
                     raise PermissionError('Completed original protected ACK readback absent')
                 self.source_admit(request)
+                completed_descriptors.append(descriptor)
                 if ordinal == selected_completed:
                     observed_descriptor = descriptor
             if not any(slot[1] == 'publication-started' for slot in inventory.slots):
@@ -667,7 +669,7 @@ class NativeDriver:
             lambda: self.validate_evolution_run(original, context=context)])
         if selected_completed is not None and observed_descriptor is None:
             raise PermissionError('Complete original native descriptor observation required')
-        return observed_descriptor
+        return tuple(completed_descriptors) if collect_completed else observed_descriptor
 
     def plan_evolution_transaction(self, original, ordinal, previous_progress, *, context):
         """Generate one original plan from admitted schedule and actual current anchors."""
@@ -811,7 +813,46 @@ class NativeDriver:
             finish(primary, [validate, lambda: self.require(context)])
         return result
 
+    def observe_completed_evolution_prefix(self, ledger, *, context):
+        """One full native pass plus each original stored-publisher observation.
+
+        Reuse is confined to this held owner and unchanged complete inventory;
+        the returned descriptors confer no later source or submission authority.
+        """
+        from .evolution_run import EvolutionRunLedger
+        from .evolution_composition import NativeEvolutionRunPolicy
+        self.require(context)
+        if (type(ledger) is not EvolutionRunLedger
+                or type(ledger.policy) is not NativeEvolutionRunPolicy
+                or ledger.policy.driver is not self or ledger.context is not context):
+            raise PermissionError('Exact original prefix owner required')
+        policy = ledger.policy; inventory = ledger._inventory()
+        def renew():
+            policy.admit_run(ledger.original, context)
+            if policy.authority.admit_ledger(ledger.original, inventory, context) is not None:
+                raise PermissionError('Current original prefix authority incomplete')
+            if ledger._inventory() != inventory:
+                raise PermissionError('Original completed prefix changed')
+        primary = None; result = None
+        try:
+            renew()
+            descriptors = self._validate_evolution_run_ledger(ledger.original, inventory,
+                context=context, attempt_admission=policy.original_attempt_admission(
+                    ledger.original, inventory, context), collect_completed=True)
+            result = tuple(self._observe_completed_evolution_attempt(ledger.attempt(index),
+                context=context, expected_sha256=inventory.slots[index][3],
+                prefix=(inventory, descriptors)) for index in range(len(descriptors)))
+        except BaseException as error:
+            primary = error
+        from .lifecycle import finish
+        finish(primary, [renew, lambda: self.require(context)])
+        return inventory, result
+
     def observe_completed_evolution_attempt(self, journal, *, context, expected_sha256):
+        return self._observe_completed_evolution_attempt(journal, context=context,
+            expected_sha256=expected_sha256)
+
+    def _observe_completed_evolution_attempt(self, journal, *, context, expected_sha256, prefix=None):
         """Stored-publisher committed replay, without phase/effect resubmission."""
         from .evolution_run import EvolutionRunAttemptJournal
         from .evolution_composition import NativeEvolutionRunPolicy
@@ -826,6 +867,8 @@ class NativeDriver:
             raise PermissionError('Exact native original run policy/driver required')
         ledger = journal.ledger; policy = ledger.policy
         inventory = ledger._inventory()
+        if prefix is not None and inventory != prefix[0]:
+            raise PermissionError("Original completed prefix changed")
         _, state, raw, digest, retained = inventory.slots[journal.ordinal]
         if state != 'completed' or digest != expected_sha256:
             raise PermissionError('Exact original completed reservation required')
@@ -851,9 +894,10 @@ class NativeDriver:
             def observe_committed_original(self, original_request, artifact, descriptor, supplied):
                 if supplied is not context or not original_native_equal(original_request, request):
                     raise PermissionError('Original committed request changed')
-                fresh = owner._validate_evolution_run_ledger(ledger.original, inventory,
-                    context=context, attempt_admission=policy.original_attempt_admission(ledger.original, inventory, context),
-                    selected_completed=journal.ordinal)
+                fresh = (prefix[1][journal.ordinal] if prefix is not None else
+                    owner._validate_evolution_run_ledger(ledger.original, inventory,
+                        context=context, attempt_admission=policy.original_attempt_admission(ledger.original, inventory, context),
+                        selected_completed=journal.ordinal))
                 if (not original_native_equal(dict(fresh.raw), dict(descriptor.raw))
                         or not original_native_equal(json.loads(retained), dict(fresh.raw))):
                     raise PermissionError('Fresh completed descriptor differs from original custody')

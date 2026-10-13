@@ -14,5 +14,5 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_cli.py
-      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_evolution_operator test_existing_outbox_authority test_evolution_verification test_evolution_verification_example
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_evolution_operator test_existing_outbox_authority test_evolution_verification test_evolution_verification_example test_evolution_prefix_observation
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_stored_publisher

@@ -86,11 +86,16 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                     raise EvolutionPlanError('Select current completed prefix or first incomplete original ordinal')
                 if any(slot[1] == 'publication-started' for slot in slots[through_ordinal + 1:]):
                     raise EvolutionPlanError('Later unresolved original publication prevents settled prefix')
+            prefix_inventory = None; prefix_descriptors = ()
+            if type(ledger.policy) is NativeEvolutionRunPolicy and ledger.policy.driver is driver:
+                prefix_inventory, prefix_descriptors = driver.observe_completed_evolution_prefix(
+                    ledger, context=config.context)
             progress = {}; descriptors = []
             for ordinal, step in enumerate(definition['schedule']):
                 if through_ordinal is not None and ordinal > through_ordinal:
                     break
-                state, raw, digest, retained_descriptor = ledger.slot(ordinal)
+                state, raw, digest, retained_descriptor = (prefix_inventory.slots[ordinal][1:]
+                    if ordinal < len(prefix_descriptors) else ledger.slot(ordinal))
                 if state == 'unprepared':
                     plan = driver.plan_evolution_transaction(original, ordinal, progress, context=config.context)
                     ledger.retain(ordinal, plan)
@@ -104,8 +109,7 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 journal = ledger.attempt(ordinal)
                 completed_replay = (state == 'completed' and type(ledger.policy) is NativeEvolutionRunPolicy
                     and ledger.policy.driver is driver)
-                descriptor = (driver.observe_completed_evolution_attempt(journal, context=config.context,
-                    expected_sha256=digest) if completed_replay else
+                descriptor = (prefix_descriptors[ordinal] if completed_replay else
                     driver.publish_evolution_attempt_held(journal, context=config.context, expected_sha256=digest))
                 bind_source_descriptor(value['request'], descriptor, expected_publication_id=step['publication_id'])
                 actual_progress = json.loads(descriptor.raw['source_progress_json'])
