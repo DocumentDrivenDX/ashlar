@@ -1,0 +1,46 @@
+{
+  "profile": "ashlar-source-cli-truss-receipt-source-check/0.1",
+  "sdk_commit": "0be478525c864f992302ed366d1cc28a3bb8918d",
+  "source_receipts": [
+    {
+      "publication_id": "truss-graph-1",
+      "source_receipt_sha256": "9aa2b7dfba6cc8feda946a3b05b03702f1ad2c78a05dcded4f774997e1cbf585",
+      "encoded_bytes": 473622,
+      "format": "ashlar-truss-destination-receipt-gzip-base64/0.1",
+      "outcome": "matched"
+    },
+    {
+      "publication_id": "truss-graph-66e3c23662b2cdb0160b7d66254167de6460d3694840750e8ce5432685e38606",
+      "source_receipt_sha256": "ecd3824fbf7aae75eebba0d026633708520960e47439d26f3fbb58d37f060f64",
+      "encoded_bytes": 748908,
+      "format": "ashlar-truss-destination-receipt/0.1",
+      "outcome": "matched"
+    }
+  ],
+  "statement_timeout_ms": 15000,
+  "source_checkpoint_unchanged_by_readonly_checks": true,
+  "source_checkpoint_sha256": "93baff8c5d2696e062b108bcc3b9328fc535ff6346b65aa9365ed7ddaba39c54",
+  "owned_server_stopped": true,
+  "completed_core_rows": [
+    {
+      "label": "Beta",
+      "related": {
+        "items": [
+          [
+            "Value-A",
+            "Alpha"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "qualification": "Actual source CLI resume of the preserved catalog publication, one committed mutation page continuation, original publication-pinned Weft inverse query, and two exact public Truss read-only receipt matches after later checkpoint advance. Compressed and raw receipt formats pass. No COMMIT-response-loss, fresh-wheel, cloud or production qualification.",
+  "ashlar_revision": "82209d36b096562fd76bc093d42c9f7dc560112a",
+  "resumed_original_publication": true,
+  "continued_original_mutation_pages": 1,
+  "query_source_checkpoint_unchanged": true,
+  "query_integrity_checks": 13,
+  "query_sha256": "d8e896b70405b22c648d860c70ea19dbf791e01cdb494d82e96ecef3000f5370",
+  "query_file": "query.json.gz"
+}

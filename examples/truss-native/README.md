@@ -79,7 +79,10 @@ read-only exact receipt reconciliation, with no second ACK write. The receipt
 proves source retention; Ashlar still verifies the destination publication.
 Oversized complete receipts use a lossless compressed envelope within Truss’s
 one-MiB limit. Small receipts keep their original byte encoding.
-Adapter coverage does not qualify a native receipt-mode end-to-end run.
+The [native resume receipt](../../docs/helix/04-build/evidence/truss-receipt-resume-20261013/result.json)
+records a small source CLI resume, continuation, pinned inverse query and exact
+read-only reconciliation of both receipt formats. It does not qualify a fresh
+installed-wheel receipt workflow.
 
 ## Compile queries for an owned Truss publication
 

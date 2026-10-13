@@ -25,6 +25,12 @@ class Tests(unittest.TestCase):
             selected=json.loads(output.read_text());self.assertEqual(selected,{**query,'connection_uri':'fresh-actual-ordinary'})
             self.assertEqual(output.stat().st_mode&0o777,0o600);self.assertEqual(result['output'],str(output))
             self.assertNotIn('fresh-actual-ordinary',json.dumps(result))
+            query['destination_id']='original-delta-installation'
+            (root/'query-configuration.json').write_text(json.dumps(query))
+            receipt_output=path/'receipt-reader.json'
+            with patch.dict(sys.modules,{'psycopg':fake}),patch('ashlar_host.truss_feed_sessions.require_truss_receipt_sdk'):
+                run_configure_truss_example_reader_command(root,connection,receipt_output)
+            self.assertEqual(json.loads(receipt_output.read_text()),{**query,'connection_uri':'fresh-actual-ordinary'})
     def test_foreign_data_and_existing_output_refuse(self):
         with tempfile.TemporaryDirectory()as directory:
             path=Path(directory).resolve();root,connection,query=self.fixture(path);output=path/'reader.json'
@@ -33,3 +39,7 @@ class Tests(unittest.TestCase):
             self.assertFalse(output.exists());connection.write_text(original);output.write_text('preserve')
             with self.assertRaises(ValueError):run_configure_truss_example_reader_command(root,connection,output)
             self.assertEqual(output.read_text(),'preserve')
+            query['destination_id']=None;(root/'query-configuration.json').write_text(json.dumps(query))
+            invalid=path/'invalid-reader.json'
+            with self.assertRaises(ValueError):run_configure_truss_example_reader_command(root,connection,invalid)
+            self.assertFalse(invalid.exists())
