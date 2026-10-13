@@ -1,0 +1,59 @@
+{
+  "profile": "ashlar-direct-selected-graphframes-smoke/0.1",
+  "pack": "archaeology",
+  "original_case_ids": [
+    "cycle",
+    "dating",
+    "media",
+    "missing-media",
+    "specialists",
+    "lineage",
+    "evidence-links",
+    "sample"
+  ],
+  "selected_case_ids": [
+    "missing-media"
+  ],
+  "release_sha256": "270024d11f221ad576ba6fd0528b03050564a1d62abaf0f5e344b3b4b8c33479",
+  "source_model_sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+  "original_pack_sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f",
+  "nodes": 39,
+  "edges": 46,
+  "master": "local[1]",
+  "driver_memory": "512m",
+  "qualification": "Actual GraphFrames 0.12.3 selected authored scenario over original exported graph, independently checked by source oracle. Direct engine smoke; no installed host runtime custody, live source admission, Delta reingest, common-topology or all-corpus qualification.",
+  "cases": [
+    {
+      "independent_expected": [
+        [
+          "[42,0,\"AS6\"]"
+        ]
+      ],
+      "logical_rows": [
+        [
+          "[42,0,\"AS6\"]"
+        ]
+      ],
+      "original_scenario": {
+        "id": "missing-media",
+        "sql": "SELECT id FROM assets WHERE availability='external'"
+      },
+      "rows": [
+        [
+          "[42,0,\"AS6\"]"
+        ]
+      ],
+      "schema": [
+        {
+          "name": "result_0",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "ashlar_source_revision": "c63c86effba07c86dc8d9f88d7a7f6f056147286",
+  "script_sha256": "1b4ef7b7d3edb667a0a85cc82c1bde2634ef0fa2315e6c825d01fa0474a33962",
+  "result_sha256": "4824e37c9701a5a2d0b60caf34e9c1e17aff1697c6821634b43e13f7fc59cefa",
+  "result": "pass",
+  "resource_cleanup": "Spark stopped before result file was written; process exited 0."
+}
