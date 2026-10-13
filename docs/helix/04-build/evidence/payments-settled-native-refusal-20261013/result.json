@@ -1,0 +1,26 @@
+{
+  "outcome": "refused",
+  "case": "settled",
+  "durationSeconds": 62.796,
+  "error": "Original owning native guard refused",
+  "modelVersion": "0.8.0",
+  "publicationId": "original-finite-payments-publication",
+  "files": [
+    {
+      "path": "run-result.json",
+      "bytes": 99,
+      "sha256": "dcaf553c6aa9fb8866506f91970073b1a9bf890b180d83a1b80ddbd97967a70e"
+    },
+    {
+      "path": "run.log",
+      "bytes": 4026,
+      "sha256": "ba4d23067ea2ec68ea75ec9e3a858068239be51efb99ad623f2d24707f1d0a41"
+    },
+    {
+      "path": "observations.jsonl",
+      "bytes": 291272,
+      "sha256": "ef5df68d7019b22e95a77f1e226565c009bfbac26be9059b61ed38fd5a063fd6"
+    }
+  ],
+  "qualification": "One actual read-only authored settled query attempt on the retained payments publication failed at the owning native scalar guard. The original settlement.amount JSON numeric atom 1E+2 is retained; the emitted decimal guard admits BIGINT/DECIMAL and excludes DOUBLE/exponent representations. This is consistent with the suspected numeric-carrier cause; the failing guard field/count and actual native variant type were not captured. No source decimal normalization, guard bypass or compiler SQL repair. No completed result, user SQL execution, measured violation count or successful whole workflow is claimed. Compiler logs retain original request/response bytes; the command no longer exposes this case."
+}

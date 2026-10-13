@@ -242,6 +242,9 @@ def main():
     payments_count=commands.add_parser('query-payments-count',help='Count one original payments record on its selected finite publication')
     payments_count.add_argument('--configuration',required=True)
     payments_count.add_argument('--record',required=True)
+    payments_scenario=commands.add_parser('query-payments-scenario',help='Run an admitted original authored payments case on its selected finite publication')
+    payments_scenario.add_argument('--configuration',required=True)
+    payments_scenario.add_argument('--case',required=True,choices=('currency',))
     for name in ('publish-finite-pack','query-finite-pack'):
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
@@ -809,6 +812,15 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar payments count refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command=='query-payments-scenario':
+        from ashlar_host.payments_scenario_cli import run_query_payments_scenario_command
+        try:
+            answer=run_query_payments_scenario_command(args.configuration,case=args.case)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar payments scenario refused',file=sys.stderr)
             raise SystemExit(2) from None
         return
     if args.command in ('publish-finite-pack','query-finite-pack'):

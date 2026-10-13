@@ -1,0 +1,137 @@
+{
+  "profile": "ashlar-payments-authored-compiler-evidence/0.1",
+  "umfVersion": "0.8.0",
+  "modelSha256": "f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da",
+  "compilerInterface": "weft-compile/0.4.2",
+  "originalPublicationId": "original-finite-payments-publication",
+  "cases": [
+    {
+      "case": "net-settlement",
+      "originalSql": "SELECT s.amount,r.amount,s.amount-r.amount FROM settlements s JOIN returns r ON r.payment_id=s.payment_id AND r.currency='USD'",
+      "status": "blocked",
+      "identicalFreshRecompile": true,
+      "publicOfflineAdmission": false,
+      "diagnostics": [
+        {
+          "code": "WFT-UNSUPPORTED",
+          "message": "JOIN ON requires field equality",
+          "phase": "resolve",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "compilerVersion": null,
+      "obligations": []
+    },
+    {
+      "case": "settled",
+      "originalSql": "SELECT p.id,e.status,s.amount FROM payment_instructions p JOIN status_events e ON e.payment_id=p.id JOIN settlements s ON s.payment_id=p.id",
+      "status": "compiled",
+      "identicalFreshRecompile": true,
+      "publicOfflineAdmission": true,
+      "diagnostics": [],
+      "compilerVersion": "weft/0.1.0",
+      "obligations": [
+        {
+          "id": "ashlar.candidate.publication",
+          "keys": [
+            "failureCode",
+            "id",
+            "owner",
+            "parameters"
+          ],
+          "checks": null
+        },
+        {
+          "id": "ashlar.candidate.scalarIntegrity",
+          "keys": [
+            "failureCode",
+            "id",
+            "owner",
+            "parameters"
+          ],
+          "checks": null
+        }
+      ]
+    },
+    {
+      "case": "currency",
+      "originalSql": "SELECT DISTINCT currency FROM ledger_entries",
+      "status": "compiled",
+      "identicalFreshRecompile": true,
+      "publicOfflineAdmission": true,
+      "diagnostics": [],
+      "compilerVersion": "weft/0.1.0",
+      "obligations": [
+        {
+          "id": "ashlar.candidate.publication",
+          "keys": [
+            "failureCode",
+            "id",
+            "owner",
+            "parameters"
+          ],
+          "checks": null
+        },
+        {
+          "id": "ashlar.candidate.scalarIntegrity",
+          "keys": [
+            "failureCode",
+            "id",
+            "owner",
+            "parameters"
+          ],
+          "checks": null
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "request.json",
+      "bytes": 43975,
+      "sha256": "6dc7b69be8024f0868c5c6990a44cd1261ab5985bf02ad6ab4c1ce06aac96c6a"
+    },
+    {
+      "path": "response-0.json",
+      "bytes": 218,
+      "sha256": "f21b83cb2e7bdb373ebec6e0a90665ee9aba37c9552ba95fa9b1663607bbfaf5"
+    },
+    {
+      "path": "response-1.json",
+      "bytes": 218,
+      "sha256": "f21b83cb2e7bdb373ebec6e0a90665ee9aba37c9552ba95fa9b1663607bbfaf5"
+    },
+    {
+      "path": "settled-request.json",
+      "bytes": 43988,
+      "sha256": "5e3696579751f61c002350e9c9f04d4267d3ff13baf82ab311b11d744cdae5f9"
+    },
+    {
+      "path": "settled-response-0.json",
+      "bytes": 28613,
+      "sha256": "3046333ddbfed4b7de5de4f1e26221c0ae9368ba7cbccdd91fb326e0f35ef34d"
+    },
+    {
+      "path": "settled-response-1.json",
+      "bytes": 28613,
+      "sha256": "3046333ddbfed4b7de5de4f1e26221c0ae9368ba7cbccdd91fb326e0f35ef34d"
+    },
+    {
+      "path": "currency-request.json",
+      "bytes": 43893,
+      "sha256": "a1abf44f54e46fd5159e0785e69385a60798a102beeb60fb57fe00c8753369b7"
+    },
+    {
+      "path": "currency-response-0.json",
+      "bytes": 13375,
+      "sha256": "5977050c7cc0b2d1df866d2281a64ed735ba3126bf99dfccd12774ebafe375dc"
+    },
+    {
+      "path": "currency-response-1.json",
+      "bytes": 13375,
+      "sha256": "5977050c7cc0b2d1df866d2281a64ed735ba3126bf99dfccd12774ebafe375dc"
+    }
+  ],
+  "qualification": "Actual authenticated installed public Weft0.4.2 compile/recompile and pinned offline artifact admission on unchanged original payments SQL/model with saved real publication binding. Compilation only: no Spark, query execution, current native publication hold, source authority or ACK qualification. No WHERE relocation or compiler SQL repair. Net settlement remains blocked; this compiler evidence does not establish native query admission for currency."
+}

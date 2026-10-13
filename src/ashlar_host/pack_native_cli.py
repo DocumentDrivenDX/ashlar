@@ -74,9 +74,9 @@ def parse_finite_pack_invocation(raw,mode,*,query_profile=None):
     _closed(value,('profile','mode','pack','publication','jars','model','graph','pack_file','producer','operation_capacity','output')+(()if mode=='publish'else ('query',)))
     if value['profile']not in (PROFILE,SOURCE_PROFILE) or value['mode']!=mode or (value['profile']==SOURCE_PROFILE and mode!='query'):raise ValueError('Exact selected finite invocation profile required')
     definition=FinitePackDefinition(value['pack'])
-    if query_profile is not None and (query_profile!='payments-count' or mode!='query' or definition.name!='payments'):
+    if query_profile is not None and (query_profile not in ('payments-count','payments-scenario') or mode!='query' or definition.name!='payments'):
         raise ValueError('Explicit dedicated payments count query profile required')
-    if definition.name not in ('archaeology','ecology') and not(definition.name=='payments' and (mode=='publish' or query_profile=='payments-count')):raise ValueError('Selected original finite execution profile required')
+    if definition.name not in ('archaeology','ecology') and not(definition.name=='payments' and (mode=='publish' or query_profile in ('payments-count','payments-scenario'))):raise ValueError('Selected original finite execution profile required')
     producer=value['producer'];_closed(producer,('source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'))
     selected=FiniteDatasetConfig(definition,*(_path(producer[k])for k in ('source','bun','git')),*(producer[k]for k in ('timeout_seconds','maximum_output_bytes','maximum_receipt_bytes')))
     native=FinitePackNativeConfig(*(_path(value[k])for k in ('publication','jars','pack_file','model','graph')),selected,operation_capacity(value['operation_capacity']))
@@ -111,7 +111,7 @@ def _write(path,value,maximum=OUTPUT_LIMIT):
     with owned_context(path.open('xb'))as stream:
         if stream.write(body)!=len(body):raise ValueError('Finite output write refused')
 
-def owned_finite_pack_query(invocation,operation):
+def owned_finite_pack_query(invocation,operation,*,query_profile=None):
     """Close actual producer/reader and observation log before returning.
 
     The operation composes existing native ports; it grants no admission authority.
@@ -126,10 +126,27 @@ def owned_finite_pack_query(invocation,operation):
     from .count_star_schema import make_offline_count_star_schema_validation
     from .path_capture import PathCaptureConfig
     from .evolution_producer import snapshot
-    invocation.__post_init__();q=invocation.query;paths=CountStarDistributionPaths(q['index'],q['installation'])
-    bundle=dict(installed_count_star_schema_bundle(paths))
-    schema=make_offline_count_star_schema_validation({name:bundle[name]for name in SCHEMA_SHA256})
-    compile_config=PackCountStarCompileConfig(paths,q['maximum_artifact_bytes']);pack=snapshot(invocation.native.pack,1048576)
+    invocation.__post_init__();q=invocation.query
+    if query_profile not in (None,'payments-count','payments-scenario'):raise ValueError('Closed explicit finite query profile required')
+    if query_profile=='payments-scenario':
+        from ashlar.weft_implicit_arithmetic_distribution import ImplicitArithmeticDistributionPaths,installed_implicit_arithmetic_schema_bundle
+        from .implicit_arithmetic_profile import PROFILE as IMPLICIT_PROFILE,ImplicitArithmeticAdmissionConfig,ImplicitArithmeticExecutionConfig
+        from .count_star_schema import make_offline_implicit_arithmetic_schema_validation
+        from .payments_scenario_query import PaymentsScenarioCompileConfig
+        paths=ImplicitArithmeticDistributionPaths(q['index'],q['installation'])
+        bundle=dict(installed_implicit_arithmetic_schema_bundle(paths))
+        schema=make_offline_implicit_arithmetic_schema_validation({k:bundle[k]for k,_ in IMPLICIT_PROFILE.schemas})
+        compile_config=PaymentsScenarioCompileConfig(paths,q['maximum_artifact_bytes'])
+        admission=ImplicitArithmeticAdmissionConfig(q['maximum_artifact_bytes'],schema)
+        execution_type=ImplicitArithmeticExecutionConfig
+    else:
+        paths=CountStarDistributionPaths(q['index'],q['installation'])
+        bundle=dict(installed_count_star_schema_bundle(paths))
+        schema=make_offline_count_star_schema_validation({name:bundle[name]for name in SCHEMA_SHA256})
+        compile_config=PackCountStarCompileConfig(paths,q['maximum_artifact_bytes'])
+        admission=CountStarAdmissionConfig(q['maximum_artifact_bytes'],schema)
+        execution_type=CountStarExecutionConfig
+    pack=snapshot(invocation.native.pack,1048576)
     budget=0
     with owned_context((invocation.output/'observations.jsonl').open('xb'))as log:
         def record(value):
@@ -144,7 +161,7 @@ def owned_finite_pack_query(invocation,operation):
             record({'kind':'compiler','id':name,'iteration':iteration,'requestHex':request.hex(),'responseHex':response.hex()})
         def native(name,captured):record({'kind':'native','id':name,'capture':captured})
         with owned_context(_open(invocation.native,invocation.output/'public-dataset.json'))as driver:
-            execution=CountStarExecutionConfig(CountStarAdmissionConfig(q['maximum_artifact_bytes'],schema),PathCaptureConfig(q['maximum_rows'],q['maximum_cell_bytes'],q['maximum_total_cell_bytes']),PathDecodeConfig(q['maximum_cell_bytes']),finite_pack_public_source(driver.source,q.get('maximum_public_source_bytes',q['maximum_artifact_bytes'])),UMF_REVISION,maximum_public_source_bytes=q.get('maximum_public_source_bytes'))
+            execution=execution_type(admission,PathCaptureConfig(q['maximum_rows'],q['maximum_cell_bytes'],q['maximum_total_cell_bytes']),PathDecodeConfig(q['maximum_cell_bytes']),finite_pack_public_source(driver.source,q.get('maximum_public_source_bytes',q['maximum_artifact_bytes'])),UMF_REVISION,maximum_public_source_bytes=q.get('maximum_public_source_bytes'))
             result=operation(driver,pack,_aliases(driver),compile_config,execution,compiler,native)
     return result
 
@@ -158,16 +175,16 @@ def _query(invocation,case_ids=None):
 
 def run_owned_finite_pack_query_command(configuration,operation,*,query_profile):
     """Dedicated explicit query selection; persist only after owner/custody closure."""
-    if query_profile!='payments-count':raise ValueError('Dedicated payments count profile required')
+    if query_profile not in ('payments-count','payments-scenario'):raise ValueError('Dedicated payments query profile required')
     selected=InvocationFile.read(configuration,CONFIG_LIMIT)
     invocation=parse_finite_pack_invocation(selected.raw,'query',query_profile=query_profile)
     invocation.__post_init__();invocation.output.mkdir(mode=0o700)
     primary=None;result=None
-    try:result=owned_finite_pack_query(invocation,operation)
+    try:result=owned_finite_pack_query(invocation,operation,query_profile=query_profile)
     except BaseException as error:primary=error
     finish(primary,[lambda:selected.renew(CONFIG_LIMIT)])
     result={**result,'outerCleanupComplete':True,'invocationCustodyComplete':True,
-        'qualification':'Publication-bound original payments base count completed after source, transport, Spark, observation and invocation closure. No financial scenario, protected ACK or Unity Catalog qualification.'}
+        'qualification':('Publication-bound original payments currency query completed after source, transport, Spark, observation and invocation closure. No arithmetic scenario, protected ACK or Unity Catalog qualification.'if query_profile=='payments-scenario'else'Publication-bound original payments base count completed after source, transport, Spark, observation and invocation closure. No financial scenario, protected ACK or Unity Catalog qualification.')}
     _write(invocation.output/'report.json',result)
     return {'pack':invocation.native.producer.definition.name,'mode':'query','report':str(invocation.output/'report.json'),'qualification':result['qualification']}
 

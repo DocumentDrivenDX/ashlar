@@ -1,0 +1,40 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/13 16:00:00 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/13 16:00:05 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 2:>                                                          (0 + 1) / 1]                                                                                [Stage 38:>                                                         (0 + 1) / 1]                                                                                {"outcome": "failed", "duration_seconds": 62.796, "error_type": "CountStarExecutionError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-payments-settled-native-20261013-a/run.py", line 16, in <module>
+    wrapper=run_query_payments_scenario_command(root/'configuration.json',case='settled')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/payments_scenario_cli.py", line 11, in run_query_payments_scenario_command
+    return run_owned_finite_pack_query_command(configuration,operation,query_profile='payments-scenario')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/pack_native_cli.py", line 185, in run_owned_finite_pack_query_command
+    finish(primary,[lambda:selected.renew(CONFIG_LIMIT)])
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 22, in finish
+    raise owner
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/pack_native_cli.py", line 183, in run_owned_finite_pack_query_command
+    try:result=owned_finite_pack_query(invocation,operation,query_profile=query_profile)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/pack_native_cli.py", line 165, in owned_finite_pack_query
+    result=operation(driver,pack,_aliases(driver),compile_config,execution,compiler,native)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/payments_scenario_cli.py", line 10, in operation
+    return query_payments_settled(driver,case,pack,aliases,compile_config,execution,observe=compiler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/payments_scenario_query.py", line 92, in query_payments_settled
+    result=execute_commerce_implicit_arithmetic(opened,request,artifact,json.loads(responses[1]),config=execution_config,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py", line 291, in execute_commerce_implicit_arithmetic
+    return _execute_selected(opened, request, artifact, trusted_recompiled,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py", line 359, in _execute_selected
+    _zero(captured)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py", line 123, in _zero
+    _require(result['rows'] == [['0']] and len(result['native_schema']) == 1,
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py", line 99, in _require
+    raise CountStarExecutionError(message)
+ashlar_host.count_star_execution.CountStarExecutionError: Original owning native guard refused

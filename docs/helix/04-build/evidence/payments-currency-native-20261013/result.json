@@ -1,0 +1,7 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 61.509,
+  "case": "currency",
+  "report": "/private/tmp/ashlar-payments-currency-native-20261013-a/observations/report.json",
+  "qualification": "Publication-bound original payments currency query completed after source, transport, Spark, observation and invocation closure. No arithmetic scenario, protected ACK or Unity Catalog qualification."
+}

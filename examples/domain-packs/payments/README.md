@@ -132,3 +132,28 @@ The [small native example](../../../docs/helix/04-build/evidence/payments-immuta
 checks complete node/edge carriers, one-hop and two-hop bags, degrees, path counts
 and distinct destinations. Monetary values remain exact canonical strings;
 financial property interpretation and authored financial SQL need separate admission.
+
+## Query the original currency case
+
+Use the query configuration above with an authentic indexed Weft 0.4.2
+implicit-arithmetic installation, an observation directory that does not exist,
+and room for the complete result bag (`maximum_rows`: 10 for this fixture).
+
+```sh
+JAVA_HOME=/absolute/path/to/jdk21 ashlar query-payments-scenario \
+  --configuration /absolute/private/payments-scenario.json --case currency
+```
+
+This runs the original pack's `SELECT DISTINCT currency FROM ledger_entries`
+unchanged. The command executes source and publication guards and compares the
+full result with currencies derived independently from the original graph.
+Keep compiler protocols and the completed report in the observation directory.
+Other financial scenarios require separate compiler and native admission;
+this case does not qualify settlement or arithmetic behavior.
+
+The [native currency example](../../../docs/helix/04-build/evidence/payments-currency-native-20261013/result.json)
+returns `USD` on the retained publication. The
+[settlement guard refusal](../../../docs/helix/04-build/evidence/payments-settled-native-refusal-20261013/result.json)
+and [original compiler cases](../../../docs/helix/04-build/evidence/payments-authored-compiler-20261013/result.json)
+retain the separate numerical-carrier and JOIN ON limitations; neither qualifies
+those financial scenarios as complete.
