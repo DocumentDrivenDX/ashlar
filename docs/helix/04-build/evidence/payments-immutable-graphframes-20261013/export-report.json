@@ -1,0 +1,14 @@
+{
+  "release": {
+    "path": "/private/tmp/ashlar-payments-export-native-20261013-a/export/release.graph.json",
+    "sha256": "3a36c5b6fc03ab7170194f2d77dd170a84fc8e0e2020dce583aec796a4a11dab"
+  },
+  "custody": {
+    "path": "/private/tmp/ashlar-payments-export-native-20261013-a/export/custody.json",
+    "sha256": "f422ac0c7582ec8b3b6cece97ce8d8103778cf1dedfa94fd53059029916920d7"
+  },
+  "publication_id": "original-finite-payments-publication",
+  "nodes": 13,
+  "edges": 14,
+  "qualification": "Immutable finite-file export only; no protected ACK, native availability or graph engine grant."
+}

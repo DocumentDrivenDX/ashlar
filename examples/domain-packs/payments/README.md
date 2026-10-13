@@ -104,3 +104,31 @@ decoding and independent original count. This fixture has four
 ledger entries. The [native count example](../../../docs/helix/04-build/evidence/payments-native-count-20261013/result.json)
 queries the existing publication without reingestion. The dedicated command
 admits a named base-record count; financial scenarios require separate admission.
+
+## Export and query the immutable graph
+
+Select the existing publication with the same original producer, source and
+runtime paths. Use profile `ashlar-original-finite-pack-export-configuration/0.1`
+and omit invocation `mode`, `output` and `query`. Export reads the publication;
+it does not require a financial SQL scenario.
+
+```sh
+ashlar export-original-finite-pack --configuration /absolute/private/payments-export.json \
+  --output /absolute/private/payments-export > /absolute/private/payments-export-report.json
+ashlar configure-graphframes-export \
+  --export-report /absolute/private/payments-export-report.json \
+  --export-report-sha256 ORIGINAL_REPORT_SHA256 \
+  --java-home /absolute/path/to/jdk21 \
+  --jar /absolute/path/to/graphframes-spark3.jar \
+  --jar /absolute/path/to/graphframes-graphx-spark3.jar \
+  --output /absolute/private/payments-graphframes.json
+ashlar run-graphframes-export --configuration /absolute/private/payments-graphframes.json \
+  --output /absolute/private/payments-topology.json --maximum-hops 2
+```
+
+Run the final command in the separate Spark 3.5 / GraphFrames 0.12.3 environment.
+The immutable release and custody must remain paired with their original hashes.
+The [small native example](../../../docs/helix/04-build/evidence/payments-immutable-graphframes-20261013/result.json)
+checks complete node/edge carriers, one-hop and two-hop bags, degrees, path counts
+and distinct destinations. Monetary values remain exact canonical strings;
+financial property interpretation and authored financial SQL need separate admission.

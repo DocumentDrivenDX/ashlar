@@ -10,7 +10,7 @@ from .finite_publication import FiniteFileDriver
 from .finite_native import finite_pack_query_aliases
 from .finite_projection import original_finite_pack_oracle
 from .pack_count_star_reader import FinitePackProvider
-from .pack_count_star_request import pack_count_star_request
+from .pack_count_star_request import original_finite_pack_binding
 from .lifecycle import owned_context,finish
 
 class FiniteGraphPolicy:
@@ -52,10 +52,10 @@ def read_original_finite_graph_export(driver,pack):
     if type(driver)is not FiniteFileDriver or type(driver.source)is not FinitePackSource:raise ValueError('Actual original finite owner required')
     source=driver.source;facts=source.definition.inputs(source.model,source.graph,pack)
     expected=original_finite_pack_oracle(source.definition,source.model,source.graph,source.bindings,source.batch,driver.columns)
-    aliases=finite_pack_query_aliases(driver);cases=source.definition.cases(source.model,source.graph,pack)
+    aliases=finite_pack_query_aliases(driver)
     registry=[{'table':target.table,'uuid':target.uuid}for target in driver.transport.targets.values()]
-    request=pack_count_star_request(source.definition,cases[0][0],pack,source.model,source.graph,source.bindings,driver.manifest,registry,aliases)
-    provider=FinitePackProvider(driver,aliases,json.loads(request['target']['bindingJson']))
+    binding=original_finite_pack_binding(source.definition,source.model,source.graph,source.bindings,driver.manifest,registry,aliases)
+    provider=FinitePackProvider(driver,aliases,binding)
     vector=manifest_pin_vector(driver.manifest,{table:driver.transport.targets[table].uuid for table in json.loads(driver.manifest['table_versions_json'])},authority='private-local-process')
     policy=FiniteGraphPolicy(driver,provider,vector,expected)
     def read():

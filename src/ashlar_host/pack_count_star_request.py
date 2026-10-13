@@ -9,7 +9,8 @@ from .delta_custody import encoded
 from .count_star_admission import BACKEND
 from .supply_chain_request import source_snapshot
 
-def _original_binding(definition,sql,model,graph,bindings,manifest,registry,aliases):
+def original_finite_pack_binding(definition,model,graph,bindings,manifest,registry,aliases):
+    """Pure original model and full-vector correspondence; no query or authority."""
     facts=definition.inputs(model,graph);SOURCE_SHA=facts['model_sha256'];SOURCE_SYSTEM=facts['source_system']
     batch,expected=definition.build(model,graph)
     if bindings!=expected:raise ValueError('Exact original development catalog bindings required')
@@ -34,7 +35,12 @@ def _original_binding(definition,sql,model,graph,bindings,manifest,registry,alia
         records.append({'kind':'object','logical':{'documentId':document['id'],'module':module,'element':element,'revision':SOURCE_SHA},'sourceSystem':batch.feed,'typeId':entry['type_id'],'table':index,'schemaRevision':SOURCE_SHA,'properties':homes})
     binding={'profile':'ashlar-databricks-candidate/0.1.0','layoutRevision':'ashlar-delta/0.3','layoutSha256':LAYOUT_SHA,'modelPins':[pin],
         'publication':{'id':manifest['publication_id'],'manifestUuid':rows[next(table for table in rows if table.endswith('.manifest'))]['uuid'],'tables':table_vector},'records':records}
-    raw=encoded(binding)
+    return binding
+
+
+def _original_binding(definition,sql,model,graph,bindings,manifest,registry,aliases):
+    binding=original_finite_pack_binding(definition,model,graph,bindings,manifest,registry,aliases)
+    pin=binding['modelPins'][0];records=binding['records'];raw=encoded(binding)
     return {'interfaceVersion':'weft-compile/0.3.0','dialect':'weft-sql/0.3.0','sql':sql,
         'modules':[{'documentJson':model.decode(),'pin':pin,'selectedModuleIds':sorted({record['logical']['module'] for record in records})}],
         'target':{'bindingJson':raw,'bindingSha256':hashlib.sha256(raw.encode()).hexdigest()},'options':{'allowCandidate':True}}
