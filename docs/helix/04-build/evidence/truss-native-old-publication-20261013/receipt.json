@@ -1,0 +1,45 @@
+{
+  "profile": "ashlar-source-cli-truss-old-publication-functional/0.1",
+  "query_seconds": 16.779,
+  "selected_publication_id": "truss-graph-2",
+  "new_publication_id": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "original_table_versions": {
+    "local.trussgraph.edge_current": 2,
+    "local.trussgraph.object_current": 2,
+    "local.trussgraph.tombstone": 1,
+    "local.trussgraph.whole_source_history": 2
+  },
+  "rows": [
+    {
+      "label": "Alpha",
+      "related": {
+        "items": [
+          [
+            "Value-B",
+            "Beta"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "actual_integrity_checks": 13,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "633c5acef17b06bdb9231261683271b7be6633fb0f7189aaa2d414b7189364b2",
+  "server_stopped": true,
+  "query_sha256": "d2445f90c11302bda9a524f4db61bcf7451469211be71ed1cb92aa25c5074897",
+  "runtime": {
+    "python": "3.11.17",
+    "pyspark": "4.0.1",
+    "delta-spark": "4.0.0",
+    "psycopg": "3.3.6",
+    "libpq": 180006,
+    "jdk": "existing21.0.12.1",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "qualification": "Actual source CLI explicit old Truss publication read after continuation: full original table vector and original source page selected, retained SDK reread under current source permissions, original compiler guards and VERSION AS OF SQL. Old result untruncated while newer publication independently truncated. No latest fallback, new ingest/publication/ACK, wheel/Unity Catalog/scale qualification.",
+  "base_commit": "2d4630bc5b61abe3fefa541bf185abb33c4035bc",
+  "harness_sha256": "f9f895095bcf5eab0a48cca3d07ddd86a88d490a449932396bd7ac7ac19186ae",
+  "review": "Independent narrow read-only review approved original publication selection, table vector, source checkpoint stability, and qualification; no additional native run."
+}
