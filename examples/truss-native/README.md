@@ -1718,3 +1718,7 @@ Both scan occurrences retain their accepted catalog mappings and the complete
 publication. Every duplicate match and self-join pair participates in the
 independent source comparison. Numeric results retain exact carrier tokens.
 Filters, outer joins, arithmetic and aggregates require their own admission.
+
+The [actual two-record native joins](../../docs/helix/04-build/evidence/truss-scalar-join-native-20261013/result.json)
+return four integer equality pairs and two decimal equality pairs from one
+publication, with exact values and an unchanged source checkpoint.

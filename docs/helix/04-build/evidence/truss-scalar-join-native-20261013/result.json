@@ -1,0 +1,114 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 40.273,
+  "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+  "physical_revisions": [
+    "1"
+  ],
+  "source_rows": 2,
+  "row_count": 4,
+  "decimal_row_count": 2,
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_owner_reported_source_commit": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "scope": "Actual original named UMF0.7 typed-query-record signed64/decimal18,4 source: restart existing first-object source/publication, create second original object, one durable feed continuation, integer and decimal equality self-joins against one final publication. Required scalar outputs only. No arithmetic, optional outputs, production source, released compiler or Unity Catalog qualification.",
+  "queries": {
+    "integer": {
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "rows": [
+        {
+          "amount": {
+            "decimal_token": "2.3400"
+          },
+          "left_id": "R1",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R2"
+        },
+        {
+          "amount": {
+            "decimal_token": "2.3400"
+          },
+          "left_id": "R2",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R2"
+        },
+        {
+          "amount": {
+            "decimal_token": "1.2300"
+          },
+          "left_id": "R1",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R1"
+        },
+        {
+          "amount": {
+            "decimal_token": "1.2300"
+          },
+          "left_id": "R2",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R1"
+        }
+      ],
+      "integrity_check_count": 5,
+      "request_sha256": "d4a746d4fb7be3f04fe419e658a538b90a7aaa226b08b9c2ca264fc3756dad6d",
+      "response_sha256": "400962dfe692c5c9a7efa01a8ebd0d447e05c13d05c7ab57928932b7faf3d154"
+    },
+    "decimal": {
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "rows": [
+        {
+          "amount": {
+            "decimal_token": "2.3400"
+          },
+          "left_id": "R2",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R2"
+        },
+        {
+          "amount": {
+            "decimal_token": "1.2300"
+          },
+          "left_id": "R1",
+          "quantity": {
+            "integer_token": "9007199254740993"
+          },
+          "right_id": "R1"
+        }
+      ],
+      "integrity_check_count": 5,
+      "request_sha256": "900f5759bd58c62ce5175c685de4d76fe0fab7499b2c12b824956335d846ebe7",
+      "response_sha256": "e8554b15c2be35aa6dc6438d89fa2033ea9fefc76637e1ec60af130885298481"
+    }
+  },
+  "ashlar_base_commit": "fcc71e4488f7dc5b10b540611324388a4a127408",
+  "ashlar_join_source_commit": "1a32a56cdab8f893bd400660757e9912da0f445e",
+  "code_identity": "Native run used the reviewed working-tree join implementation, committed without code changes while the run was active. Source files match the recorded join source commit; no immutable installed-package qualification.",
+  "source_sha256": {
+    "src/ashlar_host/truss_scalar_join_projection.py": "58400b21713e4c3b6a2324767299cf4344f11d55b47146513bb1572aab637867",
+    "src/ashlar_host/truss_scalar_join_query_cli.py": "46b0e6d5c338f5fc7ab18b34789b241fc4649929a607accd9c3cefc2dd8ca683",
+    "src/ashlar_host/truss_weft_query.py": "ae13254dd3e9c87f03c5e9e44d4bf7be2f406a75ee66289a61a21fb5c4954a9e",
+    "src/ashlar_host/truss_compatible_binding.py": "131cc6eda2c53c048fb10fba1cedc447525f7d7a94e49c9ebf5da14af665b293"
+  }
+}
