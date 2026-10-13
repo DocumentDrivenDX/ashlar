@@ -1,0 +1,10 @@
+{
+  "base_commit": "a43655b6e98da8b8e4c34cfeb0f98fe7706b76eb",
+  "seconds": 0.547,
+  "wheel_sha256": "5fd9eb91d976eb512191a5336c9bcde804c1e98be74f82f99c4dfe505d54bc52",
+  "installed_cli_flags_verified": true,
+  "unknown_case_refused_before_provider": true,
+  "provider_not_executed": true,
+  "output_not_created": true,
+  "qualification": "Fresh dependency-free installed CLI help and unknown-case preflight. Captured provider binding covered by focused controls; prior selected COUNT native evidence reused. No Spark, compiler, query, source or ACK execution."
+}

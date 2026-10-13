@@ -14,6 +14,7 @@ def selected(config):
     from ashlar_host.original_commerce_local_setup import original_commerce_local_source_ports
     from ashlar_host.implicit_arithmetic_configuration import (
         ExplicitCommercePostgresEndpoint, QueryCommerceImplicitArithmeticConfig)
+    from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
 
     if (not isinstance(CONFIGURATION, Path) or not CONFIGURATION.is_absolute()
             or 'REPLACE_WITH' in str(CONFIGURATION)
@@ -22,7 +23,7 @@ def selected(config):
             or type(CONTAINER) is not str or not CONTAINER
             or 'REPLACE_WITH' in CONTAINER):
         raise ValueError('Explicit provider selection required')
-    if (type(config) is not QueryCommerceImplicitArithmeticConfig
+    if (type(config) not in (QueryCommerceImplicitArithmeticConfig,QueryCommerceCountStarConfig)
             or type(config.postgres) is not ExplicitCommercePostgresEndpoint):
         raise ValueError('Explicit original fixture endpoint required')
     config.__post_init__()

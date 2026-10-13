@@ -86,10 +86,10 @@ def main():
         if name in ('query-commerce-count-star','query-commerce-implicit-arithmetic'):
             command.add_argument('--case',dest='case_ids',action='append',default=[],help='Execute only these named authored queries; repeat to select multiple cases')
         if name in ('query-commerce-paths','query-commerce-count-star','query-commerce-implicit-arithmetic'):
-            if name == 'query-commerce-implicit-arithmetic':
+            if name in ('query-commerce-count-star','query-commerce-implicit-arithmetic'):
                 command.add_argument('--postgres-profile',default='legacy-private',choices=('legacy-private','explicit-loopback'))
                 for option in ('session-provider', 'session-provider-sha256', 'pack'):
-                    command.add_argument('--' + option, required=True)
+                    command.add_argument('--' + option, required=name=='query-commerce-implicit-arithmetic')
             command.add_argument('--diagnostics-config')
             if name == 'query-commerce-paths':
                 command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
@@ -531,7 +531,7 @@ def main():
                                       args.producer_maximum_output_bytes,
                                       args.producer_maximum_receipt_bytes)
             endpoint_type=PrivatePostgresConfig
-            if args.command=='query-commerce-implicit-arithmetic' and args.postgres_profile=='explicit-loopback':
+            if args.command in ('query-commerce-count-star','query-commerce-implicit-arithmetic') and args.postgres_profile=='explicit-loopback':
                 from ashlar_host.implicit_arithmetic_configuration import ExplicitCommercePostgresEndpoint
                 endpoint_type=ExplicitCommercePostgresEndpoint
             postgres = endpoint_type(args.postgres_container, args.postgres_host,
@@ -575,7 +575,16 @@ def main():
                 elif args.command == 'query-commerce-count-star':
                     from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
                     from ashlar_host.count_star_query import query_commerce_count_star
+                    supplied=(args.session_provider,args.session_provider_sha256,args.pack)
+                    explicit=args.postgres_profile=='explicit-loopback'
+                    if (explicit and not all(supplied))or(any(supplied)and not explicit):
+                        raise HostError('explicit-count-query-provider-required')
                     def query_commerce_paths(config, *, diagnostics=None):
+                        if explicit:
+                            from ashlar_host.count_star_command import run_count_star_command
+                            return run_count_star_command(config,provider_path=Path(args.session_provider),
+                                provider_sha256=args.session_provider_sha256,pack_path=Path(args.pack),
+                                diagnostics=diagnostics,selected_case_ids=tuple(args.case_ids))
                         return query_commerce_count_star(config,diagnostics=diagnostics,selected_case_ids=tuple(args.case_ids))
                     config = QueryCommerceCountStarConfig(Path(args.index), Path(args.installation),
                         Path(args.publication), Path(args.output), Path(args.jars),

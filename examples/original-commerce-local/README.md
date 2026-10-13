@@ -187,3 +187,22 @@ protected publication receipts and the immutable native vector are still checked
 A selected-query report names both the original inventory and executed selection.
 It qualifies that selection only. Two-hop counts preserve edge-occurrence paths;
 independent original-source counts are compared before the result is released.
+
+### Run COUNT queries through an ordinary provider
+
+Use [count-query.template.sh](count-query.template.sh) with a separately installed
+fixed041 CountStar compiler. It selects `expanded-count-having` and supplies the
+same explicit ordinary source/session provider used by the arithmetic workflow.
+Fill every path, endpoint and hash from your existing installation. The provider
+must expose `ordinary_query_connection_factory(config)` and
+`commerce_query_source_factory(config)`; the existing
+[provider template](query-provider.template.py) supplies that contract.
+
+`--postgres-profile explicit-loopback` requires all three selections:
+`--session-provider`, `--session-provider-sha256` and the original `--pack`.
+The command captures the provider's selected bytes once, retains provider/pack
+custody and passes the real ordinary ports to the publication-bound reader.
+Unknown cases or incomplete selections refuse before provider execution.
+Provider code is trusted operator code; its hash establishes correspondence,
+while native permissions, source receipts and publication pins establish authority.
+The legacy private profile keeps its existing command behavior.

@@ -20,7 +20,7 @@ class Tests(unittest.TestCase):
         self.config = fixture.config
 
     def test_invalid_pin_refuses_before_file_read(self):
-        with patch('ashlar_host.implicit_arithmetic_command.InvocationFile.read') as read:
+        with patch('ashlar_host.commerce_query_command.InvocationFile.read') as read:
             with self.assertRaises(HostError):
                 run_implicit_arithmetic_command(self.config, provider_path='/missing',
                     provider_sha256='wrong', pack_path='/missing')
