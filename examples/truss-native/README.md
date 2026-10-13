@@ -1987,3 +1987,57 @@ The [native terminal-key counts](../../docs/helix/04-build/evidence/truss-two-ho
 return one destination for the same publication with two path occurrences,
 and zero for the retained earlier no-edge publication. Original physical pins,
 compiler descriptors, all thirteen guards and the source checkpoint are preserved.
+
+
+### Update or delete one authored edge
+
+Both commands select the original accepted UMF 0.7 document, relationship and
+edge identity. Supply its current `expected_version` explicitly. Save an update
+configuration such as:
+
+```json
+{
+  "connection_uri": "postgresql://consumer@localhost/database",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/private/accepted-model.umf.json",
+  "document_revision": "r1",
+  "document_id": "typed-graph",
+  "module_id": "m",
+  "relationship_id": "related",
+  "origin_path": "/absolute/private/origin.json",
+  "request_key": "update-related-1",
+  "edge_id": 7,
+  "expected_version": 1,
+  "set": {},
+  "unset": [],
+  "endpoint_change": {"state": "unchanged"},
+  "order_key_change": {"state": "text", "text": "first"}
+}
+```
+
+```sh
+ashlar update-truss-edge --configuration /absolute/private/update-edge.json \
+  --output /absolute/private/updated-edge.json
+```
+
+`set` uses the explicit scalar tags described above; `unset` removes a retained field if present. Untouched values remain exact. A null scalar and a removed field
+remain distinct. `order_key_change` accepts `unchanged`, `null`, or `text` with a
+`text` value. To replace endpoints, use `endpoint_change` with `state: replace`
+and both `source` and `target` selectors in the same shape as edge creation.
+Truss validates the authored relationship restrictions and multiplicity.
+
+For deletion, retain the common connection, document, relationship and origin
+selections, `edge_id` and `expected_version`; give it a new `request_key`. Remove
+`set`, `unset`, `endpoint_change` and `order_key_change` from that configuration.
+
+```sh
+ashlar delete-truss-edge --configuration /absolute/private/delete-edge.json \
+  --output /absolute/private/deleted-edge.json
+```
+
+The commands verify the original edge identity and optimistic version, caller
+commit, full updated readback or deleted absence, and committed receipt replay.
+Deletion selects only that edge. Final reports follow source closure and input
+renewal. An uncertain commit surfaces without automatic retry. Use
+`continue-truss-graph` to publish subsequent committed source changes before
+querying them in Delta.

@@ -55,7 +55,8 @@ uses a bounded 2 MiB catalog/feed page limit.
 
 For your own data, use `setup-truss-local`, `create-truss-record` and
 `create-truss-edge`, then `publish-truss-graph`. Use `update-truss-record`,
-`delete-truss-record` and `continue-truss-graph` for subsequent changes. Their exact
+`delete-truss-record`, `update-truss-edge`, `delete-truss-edge` and
+`continue-truss-graph` for subsequent changes. Their exact
 configuration shapes are in the [source command guide](README.md).
 
 ## Reopen and query a saved example
