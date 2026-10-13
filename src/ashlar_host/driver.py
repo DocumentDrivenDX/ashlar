@@ -1948,6 +1948,15 @@ class NativeDriver:
             if row is not None and (type(row[0]) is not int or not 0 < row[0] <= maximum or type(row[1]) is not bytes or len(row[1]) != row[0]):
                 raise LocalDeltaError('Complete bounded original source plan required')
             retained_plan = None if row is None else (row[1].decode('utf-8'),)
+        truss_intent = None
+        if self.admission_facts()['profile'] == 'ashlar-truss-scalar-graph-semantic-admission/0.1':
+            truss_intent = {'profile':'ashlar-truss-publication-intent/0.1',
+                'publication_id':active['publication_id'], 'recorded_at':active['recorded_at'],
+                'previous_progress':active['previous_progress'], 'progress':active['progress'],
+                'source_admission':self.admission_facts(), 'source_oracle_sha256':sha(encoded(active['expected']))}
+            # Older applied-only plans retain their original six-field bytes.
+            if retained_plan is None or 'publication_intent' in json.loads(retained_plan[0]):
+                source_plan['publication_intent'] = truss_intent
         if retained_plan is None:
             if recovery:
                 raise LocalDeltaError('Original source plan custody absent; no replacement')

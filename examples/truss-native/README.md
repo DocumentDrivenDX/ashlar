@@ -629,3 +629,12 @@ writer interval. The restoration uses the retained applied artifact and original
 SQL plan, independently reconstructs expected rows from source history, and
 checks live source access and native snapshots. It performs no SQL writes or
 ACK. Missing applied artifacts remain a separate interruption-recovery path.
+
+For an interruption before the applied artifact is retained, call
+`recover_interrupted_truss_apply(driver, request_digest)` inside the reopened
+writer interval. New Truss source plans retain the original publication intent
+before effects begin. Recovery requires that intent and the original whole
+operation plan, rebuilds expected rows from source changes, and dispatches the
+existing effect-recovery path. It does not publish a manifest or ACK the source.
+Older interrupted plans lacking that intent require separate handling; an
+applied older artifact can still use the applied-restoration path above.

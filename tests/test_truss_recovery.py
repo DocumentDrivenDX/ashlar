@@ -16,7 +16,7 @@ from ashlar_host.schema_rows import fixture_columns
 from ashlar_host.resources import RESOURCE_ROOT
 from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.truss_note_publication import graph_expected_rows
-from ashlar_host.truss_recovery import restore_applied_truss_publication
+from ashlar_host.truss_recovery import restore_applied_truss_publication, recover_interrupted_truss_apply
 
 
 class Tests(unittest.TestCase):
@@ -66,4 +66,27 @@ class Tests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'native refusal'):
                     restore_applied_truss_publication(driver,request['request_digest'])
                 self.assertIs(driver.policy.active,original_active)
+                # Interrupt before artifact: original intent is mandatory, and
+                # the genuine recovery port receives the exact retained request.
+                db.execute('DELETE FROM local_publication_artifact')
+                with self.assertRaisesRegex(ValueError,'durable Truss publication intent'):
+                    recover_interrupted_truss_apply(driver,request['request_digest'])
+                plan['publication_intent']={'profile':'ashlar-truss-publication-intent/0.1',
+                    'publication_id':manifest['publication_id'],'recorded_at':manifest['recorded_at'],
+                    'previous_progress':{},'progress':json.loads(manifest['source_progress_json']),
+                    'source_admission':source,'source_oracle_sha256':sha(encoded(expected))}
+                db.execute('UPDATE local_source_plan SET original=?',(encoded(plan),))
+                report['original_source_plan_sha256']=sha(encoded(plan))
+                manifest['validation_report_json']=encoded(report)
+                def recover(selected,supplied):
+                    self.assertEqual(selected,request);self.assertIs(supplied,context)
+                    self.assertEqual(driver.policy.active['steps'],plan['selected_steps'])
+                    self.assertEqual(driver.policy.active['expected'],expected)
+                    calls.append('recover-original')
+                    return encoded({'manifest':manifest,'effects':{}})
+                driver.recover_apply=recover
+                descriptor=recover_interrupted_truss_apply(driver,request['request_digest'])
+                self.assertEqual(descriptor.publication_id,'original')
+                self.assertEqual(calls[-2:],['live-source','recover-original'])
+
         finally:db.close()

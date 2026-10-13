@@ -42,7 +42,7 @@ def _retained_state(previous):
     return ApplyState(*[MappingProxyType(item) for item in (current,history,tombstones,deliveries)])
 
 
-def restore_applied_truss_publication(driver, request_digest):
+def _restore_truss_publication(driver, request_digest, *, interrupted=False):
     """Restore policy from retained applied custody; live validation remains required.
 
     Refuses pre-applied stages. Does not execute SQL, publish, or acknowledge.
@@ -58,13 +58,31 @@ def restore_applied_truss_publication(driver, request_digest):
             raise ValueError('Complete bounded original applied Truss custody required')
         return rows[0]
     plan_raw, = selected('local_source_plan','original')
-    request_raw, artifact_raw = selected('local_publication_artifact','request,artifact')
-    plan = decode_custody_bytes(plan_raw.encode()); request = decode_custody_bytes(request_raw.encode())
-    if set(plan) != {'request','generated_steps','selected_steps','zero_match_elisions','complete_prior_oracle','observed_native_prior'} or plan['request'] != request or request['request_digest'] != request_digest:
+    plan = decode_custody_bytes(plan_raw.encode())
+    required = {'request','generated_steps','selected_steps','zero_match_elisions','complete_prior_oracle','observed_native_prior'}
+    if set(plan) not in (required, required | {'publication_intent'}):
+        raise ValueError('Original Truss source plan inventory differs')
+    intent = plan.get('publication_intent')
+    if interrupted:
+        if db.execute('SELECT 1 FROM local_publication_artifact WHERE request_digest=?',(request_digest,)).fetchone():
+            raise ValueError('Applied artifact requires applied restoration')
+        if (type(intent) is not dict or set(intent) != {'profile','publication_id','recorded_at','previous_progress','progress','source_admission','source_oracle_sha256'}
+                or intent['profile'] != 'ashlar-truss-publication-intent/0.1'):
+            raise ValueError('Original durable Truss publication intent required')
+        request = plan['request']
+        manifest = {'publication_id':intent['publication_id'],'recorded_at':intent['recorded_at'],
+            'source_progress_json':encoded(intent['progress'])}
+        report = {'original_source_plan_sha256':sha(plan_raw),'source_admission':intent['source_admission'],
+            'source_oracle_sha256':intent['source_oracle_sha256'],'zero_match_elisions':plan['zero_match_elisions']}
+        descriptor = None
+    else:
+        request_raw, artifact_raw = selected('local_publication_artifact','request,artifact')
+        request = decode_custody_bytes(request_raw.encode())
+        artifact, descriptor = validate_applied_artifact(artifact_raw,request)
+        manifest = artifact['manifest']; report = json.loads(manifest['validation_report_json'])
+    if plan['request'] != request or request['request_digest'] != request_digest:
         raise ValueError('Original Truss source plan/request differs')
     driver.source_sessions._request(request,driver.context)
-    artifact, descriptor = validate_applied_artifact(artifact_raw,request)
-    manifest = artifact['manifest']; report = json.loads(manifest['validation_report_json'])
     if report['original_source_plan_sha256'] != sha(plan_raw) or report['source_admission'] != driver.admission_facts():
         raise ValueError('Original applied source plan/admission differs')
     original, digest, _ = LocalDeltaEffects(driver.transport).original_plan('effects:'+request_digest,request_digest,plan['selected_steps'])
@@ -78,7 +96,9 @@ def restore_applied_truss_publication(driver, request_digest):
     if report['source_oracle_sha256'] != sha(encoded(following)) or report['zero_match_elisions'] != plan['zero_match_elisions']:
         raise ValueError('Independently restored original source oracle differs')
     previous_progress = {}
-    if request['predecessor'] != 'explicit-truss-genesis':
+    if interrupted:
+        previous_progress = intent['previous_progress']
+    elif request['predecessor'] != 'explicit-truss-genesis':
         candidates = db.execute('SELECT artifact FROM local_publication_artifact LIMIT 10').fetchall()
         matches = [json.loads(row[0])['manifest'] for row in candidates if len(row[0].encode()) <= 4194304 and json.loads(row[0])['manifest']['publication_id'] == request['predecessor']]
         if len(matches) != 1: raise ValueError('Original predecessor publication custody required')
@@ -88,13 +108,32 @@ def restore_applied_truss_publication(driver, request_digest):
     active = {'request':request,'steps':plan['selected_steps'],'generated_steps':plan['generated_steps'],
         'elisions':plan['zero_match_elisions'],'previous_expected':previous,'expected':following,
         'previous_progress':previous_progress,'progress':progress,'publication_id':manifest['publication_id'],
-        'recorded_at':manifest['recorded_at'],'manifest':manifest}
+        'recorded_at':manifest['recorded_at']}
+    if not interrupted: active['manifest'] = manifest
     previous_active = driver.policy.active
     driver.policy.active = active
     try:
         driver.source_admit(request)
-        driver.validate_manifest(manifest, driver.context)
+        if interrupted:
+            artifact_raw = driver.recover_apply(request, driver.context)
+            _, descriptor = validate_applied_artifact(artifact_raw, request)
+        else:
+            driver.validate_manifest(manifest, driver.context)
     except BaseException:
         driver.policy.active = previous_active
         raise
     return descriptor
+
+
+def restore_applied_truss_publication(driver, request_digest):
+    """Restore an original applied artifact; never execute or acknowledge."""
+    return _restore_truss_publication(driver, request_digest)
+
+
+def recover_interrupted_truss_apply(driver, request_digest):
+    """Recover only originally retained effects inside the caller's live writer.
+
+    Requires a durable original publication intent and operation plan. Never
+    manufactures a replacement source/effect plan, publishes, or acknowledges.
+    """
+    return _restore_truss_publication(driver, request_digest, interrupted=True)
