@@ -1,0 +1,22 @@
+{
+  "code_revision": "9e81fcccd3481ab2ed173ba94b25e6a2287ad3cd",
+  "outcome": "passed",
+  "elapsed_seconds": 54.383,
+  "publication_id": "truss-graph-2",
+  "qualification": "Actual local fresh-owner reconciliation after host interruption following returned caller-committed Truss ACK",
+  "interruption": "Controlled SystemExit after real acknowledge returned; not PostgreSQL network response-loss injection",
+  "advanced_checkpoint_reconciled": true,
+  "new_ack_issued_on_resume": false,
+  "total_actual_ack_calls": 2,
+  "actual_current_checkpoint_equals_original_next": true,
+  "owned_server_stopped": true,
+  "review": "Read-only actual script assertions and success summary before trailing Spark shutdown noise; no rerun or expanded audit",
+  "not_qualified": [
+    "PostgreSQL network lost-response recovery",
+    "Unity Catalog",
+    "Installed recovery CLI",
+    "Protected outbox receipt",
+    "General restart recovery"
+  ],
+  "private_payloads_committed": false
+}
