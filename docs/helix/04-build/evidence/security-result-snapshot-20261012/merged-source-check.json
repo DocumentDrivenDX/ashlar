@@ -1,0 +1,5 @@
+{
+  "result": "pass",
+  "upstream": "9e81fcccd3481ab2ed173ba94b25e6a2287ad3cd",
+  "checks": "All retained source pins remain exact after concurrent main integration. Test/formal/package scopes unchanged; no case promotion."
+}
