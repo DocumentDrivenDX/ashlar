@@ -27,6 +27,25 @@ ashlar run-truss-example --configuration /absolute/private/example.json \
 The [installed command receipt](../../docs/helix/04-build/evidence/truss-example-installed-20261013/result.json)
 qualifies this small local workflow with the selected existing dependencies.
 
+Set optional `"export_graph": true` in the configuration to retain the original
+publisher's immutable release/custody pair during its live pinned interval.
+The final report then includes exact `release` and `custody` path/SHA selectors:
+
+```sh
+ashlar configure-graph-export --export-report /absolute/private/fresh-example/result.json \
+  --export-report-sha256 <exact-result-file-sha256> \
+  --output /absolute/private/graph-selection.json
+```
+
+Read the selection locally with `ashlar query-duckdb-export --configuration
+/absolute/private/graph-selection.json --output /absolute/private/duckdb-query.json
+--maximum-hops 2`. The [small export receipt](../../docs/helix/04-build/evidence/truss-example-export-20261013/result.json)
+records the real two-node, one-edge example and DuckDB read.
+
+That pair can also configure the [GraphFrames export workflow](../../README.md)
+with explicitly selected existing JARs/JDK. Capture does not qualify native
+GraphFrames, PuppyGraph or Fabric execution; each engine retains its own admission.
+
 The private directory retains original model, acceptance, mutation, publication
 intent and query reports. `result.json` is written after owned PostgreSQL and
 Spark resources close. Failed runs retain partial files; select a fresh directory

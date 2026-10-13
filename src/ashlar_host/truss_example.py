@@ -13,6 +13,7 @@ class TrussExampleConfiguration:
     jars: tuple
     weft_index: Path
     weft_installation: Path
+    export_graph: bool = False
 
 
 
@@ -29,7 +30,10 @@ def preflight(configuration,output):
             result[key]=value
         return result
     config=json.loads(raw,object_pairs_hook=pairs)
-    if type(config)is not dict or set(config)!={'profile','bun','java_home','jars','weft_index','weft_installation'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
+    required={'profile','bun','java_home','jars','weft_index','weft_installation'}
+    if type(config)is not dict or not required<=set(config)<=required|{'export_graph'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
+    export_graph=config.get('export_graph',False)
+    if type(export_graph)is not bool:raise ValueError('Explicit boolean graph export selection required')
     if type(config['jars'])is not list or len(config['jars'])!=2:raise ValueError('Two existing Delta JARs required')
     paths=[]
     for value in [config['bun'],config['java_home'],*config['jars'],config['weft_index'],config['weft_installation']]:
@@ -41,7 +45,7 @@ def preflight(configuration,output):
             or len(set(paths))!=len(paths)):raise ValueError('Distinct existing Bun/JDK/JAR/compiler selections required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or not output.parent.is_dir()or output.exists():raise ValueError('Fresh canonical output directory required')
     if any(output==p or output in p.parents or p in output.parents for p in [configuration,*paths]):raise ValueError('Separate output and runtime inputs required')
-    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5]),output,original
+    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5],export_graph),output,original
 
 
 def private_file(path,value):
@@ -82,7 +86,7 @@ def run_truss_example_command(configuration,output):
             ordinary=psycopg.conninfo.make_conninfo(**parameters)
             mutation=private_file(root/'mutation-configuration.json',{'connection_uri':ordinary,'bun':str(config.bun),'document_path':str(model),'document_revision':'r1','origin_path':str(origin),'request_key':'example-cohort-create','a':{'label':'Alpha','value':'Value-A'},'b':{'label':'Beta','value':'Value-B'}})
             created=run_mutate_truss_graph_command(mutation,root/'mutation.json')
-            publish=private_file(root/'publication-configuration.json',{'connection_uri':ordinary,'administrator_uri':administrator,'reader_role':bootstrap['roles']['reader'],'consumer_id':'example-delta','feed':'example-truss','jars':[str(path)for path in config.jars],'maximum_pages':2})
+            publish=private_file(root/'publication-configuration.json',{'connection_uri':ordinary,'administrator_uri':administrator,'reader_role':bootstrap['roles']['reader'],'consumer_id':'example-delta','feed':'example-truss','jars':[str(path)for path in config.jars],'maximum_pages':2,**({'export_graph':True}if config.export_graph else {})})
             published=run_publish_truss_graph_command(publish,root/'publication')
             intent=json.loads((root/'publication/publication-intent-2.json').read_bytes())
             query=private_file(root/'query-configuration.json',{'connection_uri':ordinary,'publication_directory':str(root/'publication'),'jars':[str(path)for path in config.jars],**{k:intent[k]for k in ('feed','source_page_path','source_page_sha256','request_digest')}})
@@ -97,5 +101,9 @@ def run_truss_example_command(configuration,output):
             answer={'profile':PROFILE,'publication_id':result['publication_id'],'publications':2,'rows':result['rows'],'source_checkpoint_unchanged':True,'qualification':'Fresh local public Truss acceptance/mutation, canonical Delta publication and original Weft inverse query; no cloud or production authority.'}
     except BaseException as error:primary=error
     finish(primary,[restore_environment,lambda:original.renew(65536)])
+    if config.export_graph:
+        pair=published.get('graph_release')
+        if type(pair)is not dict or not {'path','sha256','custody_path','custody_sha256','qualification'}<=set(pair):raise ValueError('Requested original graph export pair missing')
+        answer.update(release={'path':pair['path'],'sha256':pair['sha256']},custody={'path':pair['custody_path'],'sha256':pair['custody_sha256']},graph_export_qualification=pair['qualification'])
     private_file(root/'result.json',answer)
     return answer

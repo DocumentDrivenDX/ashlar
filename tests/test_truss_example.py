@@ -24,9 +24,11 @@ class Tests(unittest.TestCase):
                 runtime.assert_not_called();self.assertFalse((root/'output').exists())
     def test_public_pipeline_result_only_after_close_and_environment_restored(self):
         modules={name:importlib.import_module("ashlar_host."+name)for name in ("truss_runtime","truss_local_setup","truss_graph_mutation","truss_note_cli","truss_query_cli","truss_note_publication")}
-        for fail_close in (False,True):
-            with self.subTest(fail_close=fail_close),tempfile.TemporaryDirectory()as directory:
+        for export_graph,fail_close,missing_pair in ((False,False,False),(True,False,False),(True,False,True),(False,True,False)):
+            with self.subTest(export_graph=export_graph,fail_close=fail_close,missing_pair=missing_pair),tempfile.TemporaryDirectory()as directory:
                 root=Path(directory).resolve();configuration=self.configuration(root);output=root/'output';events=[]
+                if export_graph:
+                    value=json.loads(configuration.read_text());value['export_graph']=True;configuration.write_text(json.dumps(value))
                 class Runtime:
                     def __init__(self,path):self.info=SimpleNamespace(connection_uri='private-selected-uri')
                     def __enter__(self):events.append('open');return self
@@ -38,7 +40,10 @@ class Tests(unittest.TestCase):
                 def publish(config,destination):
                     events.append('publish');destination.mkdir()
                     (destination/'publication-intent-2.json').write_text(json.dumps({'feed':'example-truss','source_page_path':str(destination/'page.json'),'source_page_sha256':'a'*64,'request_digest':'b'*64}))
-                    return {'publications':[{},{}]}
+                    value=json.loads(config.read_text());self.assertEqual(value.get('export_graph',False),export_graph)
+                    result={'publications':[{},{}]}
+                    if export_graph and not missing_pair:result['graph_release']={'path':str(destination/'graph-release.json'),'sha256':'a'*64,'custody_path':str(destination/'graph-custody.json'),'custody_sha256':'b'*64,'qualification':'actual original capture'}
+                    return result
                 def query(*args,**kwargs):events.append('query');return {'publication_id':'actual-selected','rows':[{'label':'Beta','related':{'items':[['Value-A','Alpha']],'truncated':False}}]}
                 values={'objects':[{'values':{'A-value':'Value-A','A-label':'Alpha'}},{'values':{'B-value':'Value-B','B-label':'Beta'}}]}
                 with patch.dict(sys.modules,{'psycopg':psycopg,'truss':SimpleNamespace(LocalPostgres=Runtime)}), \
@@ -49,13 +54,19 @@ class Tests(unittest.TestCase):
                      patch.object(modules['truss_note_cli'],'run_publish_truss_graph_command',side_effect=publish), \
                      patch.object(modules['truss_query_cli'],'run_query_truss_graph_command',side_effect=query), \
                      patch.object(modules['truss_note_publication'],'read_page',return_value=SimpleNamespace(prior=SimpleNamespace(content=b'actual-checkpoint'))):
-                    if fail_close:
+                    if missing_pair:
+                        with self.assertRaisesRegex(ValueError,"export pair missing"):run_truss_example_command(configuration,output)
+                        self.assertFalse((output/"result.json").exists())
+                    elif fail_close:
                         with self.assertRaisesRegex(RuntimeError,'owned close failed'):run_truss_example_command(configuration,output)
                         self.assertFalse((output/'result.json').exists())
                     else:
                         result=run_truss_example_command(configuration,output)
                         self.assertEqual(result['publications'],2);self.assertTrue((output/'result.json').exists())
                         self.assertNotIn('private-selected-uri',json.dumps(result))
+                        if export_graph:
+                            self.assertEqual(result['release'],{'path':str(output/'publication/graph-release.json'),'sha256':'a'*64})
+                            self.assertEqual(result['custody'],{'path':str(output/'publication/graph-custody.json'),'sha256':'b'*64})
                     self.assertEqual(events,['open','publish','query','close'])
                     self.assertEqual(os.environ['JAVA_HOME'],'original-java');self.assertEqual(os.environ['PYSPARK_PYTHON'],'original-python')
                     self.assertEqual((output/'mutation-configuration.json').stat().st_mode&0o777,0o600)

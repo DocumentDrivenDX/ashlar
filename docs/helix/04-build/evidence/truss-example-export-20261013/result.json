@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-source-cli-truss-example-export/0.1",
+  "publications": 2,
+  "source_checkpoint_unchanged": true,
+  "release_sha256": "508ff43ef9e572a2b3665f6a2ff9a5688f7299118081a4d06725be92f4e3ebf9",
+  "custody_sha256": "b82ead9a99c5e027d8be5d94519030da3d5b55ea9467a4509938f95c847ff124",
+  "duckdb_engine": {
+    "name": "DuckDB",
+    "version": "v1.5.0"
+  },
+  "nodes": 2,
+  "edges": 1,
+  "one_hop_rows": 1,
+  "two_hop_rows": 0,
+  "qualification": "Small real local Truss/Delta/Weft workflow, original immutable export and DuckDB reader. Source CLI with explicitly selected existing dependencies; no fresh wheel, protected outbox, scale or remote engine qualification."
+}
