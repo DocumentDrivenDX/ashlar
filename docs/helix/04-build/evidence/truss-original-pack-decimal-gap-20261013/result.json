@@ -1,0 +1,163 @@
+{
+  "profile": "ashlar-original-pack-truss-capability-probe/0.1",
+  "outcome": "upstream-capability-gap",
+  "evidence_kind": "Static public release inspection; no native acceptance or mutation executed",
+  "truss_release": "v0.0.16",
+  "wheel_sha256": "dfc83a2deb0beeffcc59bffb0a70cb6a94c6bbf5d47987d5c956eed77a681e10",
+  "release_checksum_verified": true,
+  "source_member": "truss/_catalog_support.py",
+  "source_member_sha256": "a37bf22cf3d7b283b4d7fded12ac1f09e78945623ad64ff8403c23c91eb15763",
+  "packs": [
+    {
+      "pack": "commerce",
+      "path": "examples/domain-packs/commerce/upstream/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "declared_umf": "0.8.0",
+      "decimal_fields": [
+        {
+          "module": "domain",
+          "element": "products.unit_price",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "invoices.amount",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "payments.amount",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "refunds.amount",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        }
+      ]
+    },
+    {
+      "pack": "supply-chain",
+      "path": "examples/domain-packs/supply-chain/upstream/ontology.json",
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a",
+      "declared_umf": "0.8.0",
+      "decimal_fields": [
+        {
+          "module": "domain",
+          "element": "sensor_readings.value",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "sensor_readings.upper_limit",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        }
+      ]
+    },
+    {
+      "pack": "archaeology",
+      "path": "examples/domain-packs/archaeology/upstream/ontology.json",
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "declared_umf": "0.8.0",
+      "decimal_fields": [
+        {
+          "module": "domain",
+          "element": "pottery_results.weight",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "soil_results.value",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        }
+      ]
+    },
+    {
+      "pack": "ecology",
+      "path": "examples/domain-packs/ecology/upstream/ontology.json",
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "declared_umf": "0.8.0",
+      "decimal_fields": [
+        {
+          "module": "domain",
+          "element": "catchments.area",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "observations.value",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "observations.threshold",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "effort.amount",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "habitat_metrics.value",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "module": "domain",
+          "element": "fishing_events.effort",
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        }
+      ]
+    }
+  ],
+  "required_change": "Declared decimal(18,2) admission and exact enforcement through native mutations/read/feed; do not substitute decimal(18,4)",
+  "owner_request": {
+    "thread": "Truss Impl",
+    "sent": true,
+    "authorization": "Standing direct human instruction to message Truss Impl with Ashlar capability needs"
+  },
+  "scope": "Existing pack/source/query evidence remains unchanged. This classification does not complete required pack ingest or queries."
+}
