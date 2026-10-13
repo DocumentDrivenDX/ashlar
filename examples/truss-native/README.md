@@ -1,5 +1,35 @@
 # Accept original schema through Truss
 
+## Compile queries for an owned Truss publication
+
+Use the actual `NativeDriver` from graph publication or recovery with the selected
+installed Weft distribution. This API binds the original accepted UMF document to
+Truss's allocated type and property IDs, and pins all four graph/history tables
+while the public compiler runs:
+
+```python
+from pathlib import Path
+from ashlar.weft_distribution import DistributionPaths
+from ashlar_host.truss_weft_query import compile_truss_string_query
+
+compiled = compile_truss_string_query(
+    driver,
+    DistributionPaths(Path('/absolute/weft/index.json'),
+                      Path('/absolute/weft/installation')),
+    'SELECT n.id FROM Note n',
+    revision='1', document_id='your-original-document-id',
+)
+request_bytes = compiled['request_bytes']
+response_bytes = compiled['response_bytes']
+```
+
+Select the actual record/field names and physical catalog revision from your
+accepted schema. This path supports Truss's admitted UMF 0.7 STRING records and
+returns the original compiler protocol bytes. Query execution and discharge of
+the compiler's integrity obligations remain separate host responsibilities.
+
+## Accept into an existing installation
+
 `accept-schema.py` is a concrete existing-installation example using the public
 Python APIs at Truss commit `559f3cda1566685c106b6f1b8a16d157b617cb4b`.
 It prepares original UMF bytes through Truss's bundled Bun producer, accepts them
