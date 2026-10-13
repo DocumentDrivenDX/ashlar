@@ -1,0 +1,63 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 59.471,
+  "umf_version": "0.8.0",
+  "model_sha256": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+  "publications": 2,
+  "objects": 1,
+  "fields": 4,
+  "publication_id": "truss-graph-2",
+  "unknown_extension_original_bytes_retained": true,
+  "unknown_extension_semantic_enforcement": false,
+  "source_checkpoint_unchanged_by_read": true,
+  "runtime": {
+    "truss_version": "0.0.15",
+    "ashlar_source": "adf0ffcd7546bb04a5de1466241d002cc59c1a99",
+    "postgresql_major": "18",
+    "psycopg": "3.3.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0"
+  },
+  "scope": "Separately authored original declaredUMF0.8 fixture, actual public acceptance/create/committed readback/replay, two feed publications and exact complete named singleton. Unknown extension retained opaque with original preparation diagnostics; no unknown semantic enforcement. Caller-asserted Truss ACK, no protected PostgreSQL-outbox/F8/Weft/UC qualification.",
+  "format": "ashlar-truss15-core08-opaque-native/0.1",
+  "source_code_commit": "adf0ffcd7546bb04a5de1466241d002cc59c1a99",
+  "diagnostic": {
+    "code": "UNKNOWN_EXTENSION",
+    "path": "/vocabularies/urn:ashlar:core08:consumer",
+    "message": "Exact extension version unavailable; content retained",
+    "severity": "warning"
+  },
+  "document_interpretation_completeness": [
+    "partial"
+  ],
+  "diagnostic_extraction": "original-diagnostic.json is decoded exactly from accepted-report.json source.diagnostics[0].diagnostic.bytesBase64; original encoded artifact, profile and digest retained in full original report.",
+  "runtime_selection_qualification": "Copied exact original runtime-selection.json from the earlier parallel example using the identical reused released target and immutable Ashlar source. This run independently asserts these module roots and exact installed version in run.py; no claim this metadata file was emitted anew.",
+  "initial_attempt": {
+    "outcome": "failed_before_postgresql_start_or_source_acceptance",
+    "duration_seconds": 0.05,
+    "error": "PermissionError opening PostgreSQL launcher lock in user Library cache under sandbox",
+    "correction": "Fresh root b with approved sandbox execution permission; no prior source effects replayed."
+  },
+  "evidence_sha256": {
+    "accepted-report.json": "e035e77211bce0af02b588a02dfd5cdde23d3a1bc91795a5f12018e71500f29d",
+    "accepted.json": "f9c8031d9b460ab4f91b32d864513c082424f86900362551c294b815c378f097",
+    "created.json": "98732042185a00a3fd07943f1af3e011df02852466af5abef7a1ec7b83906b55",
+    "initial-sandbox-failure/run-result.json": "817ab398fcac09def33c50989759c6e8b17d39fb19b785dc94dad416910e13ac",
+    "initial-sandbox-failure/run.log": "82e647c4da46e8df68889a2464643a94865883bb219604b7439ffcf2714ecfe9",
+    "initial-sandbox-failure/supervisor-result.json": "b178cec5806757d960e4242501531ce7b726c826d6c6900d4c046d3dabe2d173",
+    "intent-1.json": "21efa78ad73b8534d4239c272913ac77de0091f67a74d2a26ca4d3537ac4c48c",
+    "intent-2.json": "7a657de554cb2ee0f972890fcaf9a77432b5ec49180084f3b37316400d2f5d1b",
+    "model.umf.json": "6ca475404a77ace5b963717b341cdea9934948a520f56eaea487441a11f85239",
+    "native-result.json": "aec4ad5dbac7ea511733d97751246bd65bc24b4a8acb7189da7692b0af09a414",
+    "original-diagnostic.json": "862ad76f1750156ae1c3378c057ff2e0bf81c2c849282f1061e7cd0f61e5474c",
+    "publication.json": "cab45de71b7057e3bef71f04a3bd054358c1070a60717e231fcbc4e0ac35cdd2",
+    "record.json": "cb0bb0599ae7ea19bd5720bd48f9f4eaf64c097a63978b9ef700512d17b49026",
+    "run.log": "a2d7c9ee410d93acbebf40dfa4f0b1f81c759780938f2363ffe19e3f7f1a3daf",
+    "run.py": "504e44d9787c942419c80efcf1886ce598d00b5c0fa06249ccca4d2d47a43c16",
+    "runtime-selection.json": "e6244608ed6e3f679b2b42259b2ecb9f2d806d21c1b3876c4888559eb21e84fa",
+    "source-page-1.json": "c5f018e8d9677b5d4a41a59a361d5e855746aef360abff4297fc18e4ae6807fd",
+    "source-page-2.json": "03379ccc1af1135e112707991da43746ef28c17320016d5b216c5f711a5b4f45",
+    "supervisor-result.json": "f8850df9df7ac43bb54e534734dc7e9ab97327d93ac80314299501db2b586827",
+    "supervisor.py": "3d384a74a19d62d19a7ccd6055ef9e3a5972b818b143bc708f723e6ea0049a2c"
+  }
+}

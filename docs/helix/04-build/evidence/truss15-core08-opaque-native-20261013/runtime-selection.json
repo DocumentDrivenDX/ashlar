@@ -1,0 +1,6 @@
+{
+  "truss_file": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/truss-target/truss/__init__.py",
+  "truss_version": "0.0.15",
+  "ashlar_file": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar/__init__.py",
+  "ashlar_revision": "adf0ffcd7546bb04a5de1466241d002cc59c1a99"
+}

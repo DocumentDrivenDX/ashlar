@@ -2083,15 +2083,19 @@ updated and deleted snapshots independently. Deleting the current object must
 not silently change a retained earlier publication.
 
 The [opaque 0.8 model](core08-asset.umf.json) is a distinct source specimen. Preserve
-its vocabulary and payload intact when preparation is partial; it must not be
-silently converted into the core-only model or treated as accepted authority.
+its vocabulary and payload intact and retain partial-interpretation diagnostics.
+Select document `ashlar-core08-asset` with the same module, record and scalar
+values, using authentic Truss 0.0.15. Unknown content preservation does not imply
+enforcement of its meaning.
 
 The [native core 0.8 example](../../docs/helix/04-build/evidence/truss-core08-native-20261013/result.json)
 qualifies acceptance, exact creation/replay, two source publications and named
 singleton reads with the recorded local runtime. The
-[opaque-model refusal](../../docs/helix/04-build/evidence/truss-core08-opaque-refusal-20261013/result.json)
-retains original partial preparation and unknown-vocabulary diagnostics. Neither
-result qualifies 0.8 evolution, Weft queries or production authorization.
+[released opaque-model example](../../docs/helix/04-build/evidence/truss15-core08-opaque-native-20261013/result.json)
+qualifies original 0.8 acceptance, creation/replay, two Delta publications and
+exact four-field readback on Truss 0.0.15. Its original report retains the
+`UNKNOWN_EXTENSION` warning and partial interpretation. Neither intake example
+qualifies unknown semantic enforcement, Weft queries or production authorization.
 
 The [declared 0.8 lifecycle example](../../docs/helix/04-build/evidence/truss-core08-lifecycle-native-20261013/result.json)
 qualifies source update/delete with committed receipt replay, two contiguous

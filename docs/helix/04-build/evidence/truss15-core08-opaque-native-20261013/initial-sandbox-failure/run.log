@@ -1,0 +1,43 @@
+{"stage": "accept-original08"}
+{"outcome": "failed", "duration_seconds": 0.05, "error_type": "PermissionError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss15-core08-native-20261013-a/run.py", line 31, in <module>
+    accepted=run_setup_truss_local_command(save('setup.json',{'data_directory':str(root/'data'),**selection,'request_key':'core08-accept'}),root/'accepted.json')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/truss_local_setup.py", line 103, in run_setup_truss_local_command
+    finish(primary,callbacks)
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/lifecycle.py", line 22, in finish
+    raise owner
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/ashlar-source/src/ashlar_host/truss_local_setup.py", line 70, in run_setup_truss_local_command
+    runtime.__enter__();entered=True
+    ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss15-parallel-example-20261013-a/truss-target/truss/local_runtime.py", line 90, in __enter__
+    self._server = pgserver.get_server(self.directory, cleanup_mode='stop')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 292, in get_server
+    return PostgresServer(pgdata, cleanup_mode=cleanup_mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 62, in __init__
+    with self._lock:
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 166, in __enter__
+    gotten = self.acquire()
+             ^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 144, in acquire
+    self._do_open()
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 114, in _do_open
+    self.lockfile = open(self.path, 'a')
+                    ^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted: b'/Users/erik/Library/Caches/TemporaryItems/python_PostgresServer/.lockfile'
+Exception ignored in atexit callback: <bound method PostgresServer._cleanup of <pgserver.postgres_server.PostgresServer object at 0x109e1e250>>
+Traceback (most recent call last):
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/pgserver/postgres_server.py", line 205, in _cleanup
+    with self._lock:
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 166, in __enter__
+    gotten = self.acquire()
+             ^^^^^^^^^^^^^^
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 144, in acquire
+    self._do_open()
+  File "/private/tmp/truss-pg18-consumer-env-20261011/lib/python3.11/site-packages/fasteners/process_lock.py", line 114, in _do_open
+    self.lockfile = open(self.path, 'a')
+                    ^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted: b'/Users/erik/Library/Caches/TemporaryItems/python_PostgresServer/.lockfile'
