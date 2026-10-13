@@ -182,8 +182,8 @@ def _execute_string_artifact(spark,artifact,maximum_rows):
     if len(integrity['checks'])>128:raise ValueError('Bounded complete scalar integrity inventory required')
     checks=[]
     def capture(sql,budget):
-        if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()!='SELECT':
-            raise ValueError('Original bounded compiler SELECT required')
+        if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()not in ('SELECT','WITH'):
+            raise ValueError('Original bounded compiler SELECT or WITH query required')
         return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
     for check in integrity['checks']:
         if (type(check)is not dict or set(check)not in ({'sql','failureCode','record'},{'sql','failureCode','field','record'})

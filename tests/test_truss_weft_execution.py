@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
         def spark_sql(sql,**kwargs):
             events.append(sql)
             if sql=='SELECT guard':return Frame('violations',guard)
-            if sql=='SELECT original_user_sql':return Frame('id',result)
+            if sql=='WITH original_user_cte SELECT original_user_sql':return Frame('id',result)
             if sql.startswith('DESCRIBE DETAIL'):
                 role=sql.rsplit('`.`',1)[-1].rstrip('`')
                 return SimpleNamespace(first=lambda:{'id':targets['local.truss.'+role].uuid})
@@ -56,7 +56,7 @@ class Tests(unittest.TestCase):
             request=json.loads(raw);binding=json.loads(request['target']['bindingJson'])
             self.assertTrue(all(table['name'][0]=='spark_catalog'for table in binding['publication']['tables']))
             artifact={'status':'compiled','backend':BACKEND,'bindingSha256':request['target']['bindingSha256'],'modelPins':binding['modelPins'],
-                'parameters':[],'sql':'SELECT original_user_sql','columns':[{'position':1,'outputName':'id','nullable':False,'representation':{'kind':'scalar','logicalType':{'family':'string','facets':{},'nullable':False},'carrier':'text','decoder':'text'}}],
+                'parameters':[],'sql':'WITH original_user_cte SELECT original_user_sql','columns':[{'position':1,'outputName':'id','nullable':False,'representation':{'kind':'scalar','logicalType':{'family':'string','facets':{},'nullable':False},'carrier':'text','decoder':'text'}}],
                 'obligations':[{'id':'ashlar.candidate.publication','owner':'host','failureCode':'WFT-BINDING','parameters':{key:binding[key]for key in ('publication','modelPins','layoutRevision','layoutSha256')}},
                 {'id':'ashlar.candidate.scalarIntegrity','owner':'host','failureCode':'WFT-BINDING','parameters':{'phase':'before-user-query','samePublicationRequired':True,'noPartialPublication':True,'checks':[{'sql':'SELECT guard','failureCode':'WFT-BINDING','record':binding['records'][0]['logical']}]}}]}
             return (encoded(artifact)+'\n').encode()
@@ -64,12 +64,12 @@ class Tests(unittest.TestCase):
         with patch('ashlar_host.truss_weft_query.resolve_publication',return_value=SimpleNamespace(descriptor=SimpleNamespace(raw=manifest))),patch('ashlar_host.truss_weft_query.compile_distribution',side_effect=compiler):
             answer=execute_truss_string_query(driver,paths,'SELECT a.id FROM A a',revision='1',document_id='cohort',maximum_rows=1)
             self.assertEqual(answer['rows'],[{'id':'exact'}])
-            self.assertLess(events.index('SELECT guard'),events.index('SELECT original_user_sql'))
+            self.assertLess(events.index('SELECT guard'),events.index('WITH original_user_cte SELECT original_user_sql'))
             self.assertEqual(events[-2:],['pins-close','writer-close'])
             events.clear();guard[:]=['1']
             with self.assertRaisesRegex(ValueError,'integrity check refused'):
                 execute_truss_string_query(driver,paths,'SELECT a.id FROM A a',revision='1',document_id='cohort',maximum_rows=1)
-            self.assertNotIn('SELECT original_user_sql',events)
+            self.assertNotIn('WITH original_user_cte SELECT original_user_sql',events)
             self.assertEqual(events[-2:],['pins-close','writer-close'])
             events.clear();guard[:]=['0'];result[:]=['first','overflow']
             with self.assertRaises(ValueError):
