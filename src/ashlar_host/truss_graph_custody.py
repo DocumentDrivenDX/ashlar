@@ -11,11 +11,11 @@ QUALIFICATION = 'Caller-asserted Truss delivery checkpoint; no protected ACK rec
 
 
 def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_release_sha256):
-    from .private_graph_custody import _decode, _digest
-    _digest(trusted_receipt_sha256); _digest(trusted_release_sha256)
+    from .private_graph_custody import decode_custody_bytes, require_custody_digest
+    require_custody_digest(trusted_receipt_sha256); require_custody_digest(trusted_release_sha256)
     if type(payload) is not bytes or hashlib.sha256(payload).hexdigest() != trusted_receipt_sha256:
         raise ValueError('Trusted Truss capture digest differs')
-    value = _decode(payload)
+    value = decode_custody_bytes(payload)
     fields = {'format', 'scope', 'qualification', 'releaseSha256', 'originalManifest', 'snapshots', 'roles', 'source', 'checkpoint'}
     if (type(value) is not dict or set(value) != fields or value['format'] != PROFILE
             or value['scope'] != SCOPE or value['qualification'] != QUALIFICATION
@@ -34,7 +34,7 @@ def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_
             or checkpoint['epoch'] != source['epoch'] or checkpoint['payload_digest'] != source['source_transaction_sha256']
             or json.loads(release['publication']['source_progress_json']).get(source['feed']) != checkpoint):
         raise ValueError('Original native Truss checkpoint differs')
-    _digest(checkpoint['payload_digest'])
+    require_custody_digest(checkpoint['payload_digest'])
     if type(checkpoint['batch_id']) is not str or not checkpoint['batch_id'] or len(checkpoint['batch_id']) > 256:
         raise ValueError('Original bounded Truss writer identity required')
     for field in ('previous', 'position'):
@@ -54,10 +54,10 @@ def admit_truss_graph_custody(release, payload, trusted_receipt_sha256, trusted_
 def build_truss_graph_custody(release, *, source, vector, checkpoint):
     """Build after actual live capture closes; pure correspondence grants no authority."""
     from ashlar.graph_release import GraphRelease
-    from .private_graph_custody import _decode, load_private_graph_release
+    from .private_graph_custody import decode_custody_bytes, load_private_graph_release
     if type(release) is not GraphRelease:
         raise ValueError('Exact original Truss GraphRelease required')
-    value = _decode(release.payload)
+    value = decode_custody_bytes(release.payload)
     if {table: {'uuid': item[0], 'version': item[1]} for table, item in vector.targets.items()} != value['snapshots']:
         raise ValueError('Actual complete Truss capture vector differs')
     receipt = {'format': PROFILE, 'scope': SCOPE, 'qualification': QUALIFICATION,

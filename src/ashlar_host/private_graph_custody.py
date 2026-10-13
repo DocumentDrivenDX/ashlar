@@ -26,6 +26,12 @@ def _closed(value,keys):
  if type(value)is not dict or set(value)!=set(keys):raise ValueError('Closed original custody inventory required')
 def _digest(value):
  if type(value)is not str or not re.fullmatch('[0-9a-f]{64}',value):raise ValueError('Exact SHA256 text required')
+def decode_custody_bytes(raw):
+ """Decode bounded original custody bytes with exact scalar/member rules."""
+ return _decode(raw)
+def require_custody_digest(value):
+ """Validate an explicit trusted SHA256 digest without deriving authority."""
+ return _digest(value)
 def _hex(value):
  if type(value)is not str or not value or len(value)>8388608 or len(value)%2 or not re.fullmatch('[0-9a-f]+',value):raise ValueError('Bounded canonical original hex required')
  return bytes.fromhex(value)

@@ -1,0 +1,25 @@
+{
+  "native_code_revision": "7fecdb8114ceb10674066f5313ee1e66373b8f63",
+  "outcome": "passed",
+  "elapsed_seconds": 66.765,
+  "complete_publications": 3,
+  "nodes": 1,
+  "edges": 0,
+  "custody_profile": "ashlar-immutable-truss-graph-capture/0.1",
+  "release_sha256": "46c32c47b48025efedf8e3cba68aa9d99e80d76af35e523b4d13cf99fe27c871",
+  "custody_sha256": "cb16555b515950ec840ac8e47f5ef30cabef435841e0143a24e96373e37a0673",
+  "pair_digest_correspondence_verified": true,
+  "generic_loader": "Parent actual closed-owner pair admission succeeded",
+  "cleanup": "Actual successful source CLI and owned runtime return; selected postmaster marker absent",
+  "qualification": "Fresh private local Truss graph capture with caller-asserted delivery checkpoint",
+  "postrun_correction": "Public decode_custody_bytes/require_custody_digest wrappers replace forbidden private imports with identical underlying decode/digest semantics; boundary and focused custody controls passed, native run not repeated",
+  "not_qualified": [
+    "Protected outbox ACK custody",
+    "Future source authority or native availability",
+    "External graph engine",
+    "Unity Catalog",
+    "Installed Ashlar package invocation",
+    "Restart recovery"
+  ],
+  "private_payloads_committed": false
+}
