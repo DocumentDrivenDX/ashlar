@@ -1,0 +1,32 @@
+{
+  "installed_cli_pass": true,
+  "wheel_sha256": "3b7e1deec81a90d3f58a7374a2a6de46dfc42f5f28cc5d6a02db057ff7ac54cf",
+  "wheel_bytes": 1450284,
+  "model_sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+  "query_sha256": "42a2369704ccb7302a938f98fb1ab1e27d55f305eb327fa1c918de3abdbd4b9d",
+  "query_report": "query.json.gz",
+  "actual_integrity_checks": 13,
+  "server_stopped": true,
+  "result": {
+    "profile": "ashlar-local-truss-example/0.1",
+    "publication_id": "truss-graph-2",
+    "publications": 2,
+    "rows": [
+      {
+        "label": "Beta",
+        "related": {
+          "items": [
+            [
+              "Value-A",
+              "Alpha"
+            ]
+          ],
+          "truncated": false
+        }
+      }
+    ],
+    "source_checkpoint_unchanged": true,
+    "qualification": "Fresh local public Truss acceptance/mutation, canonical Delta publication and original Weft inverse query; no cloud or production authority."
+  },
+  "qualification": "Fresh Ashlar wheel installed in a private target, console entrypoint loaded from that target with explicitly selected existing Truss SDK/Spark dependencies. One fresh local workflow, not dependency installation, cloud or general production qualification."
+}

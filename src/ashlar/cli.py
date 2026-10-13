@@ -141,6 +141,9 @@ def main():
     truss_continue.add_argument('--maximum-pages',type=int,default=1)
     truss_continue.add_argument('--wait-seconds',type=int,default=0)
     truss_continue.add_argument('--maximum-page-bytes',type=int,default=1048576)
+    truss_example=commands.add_parser('run-truss-example',help='Run a fresh owned local Truss to Delta to inverse Weft query example with explicitly selected existing runtimes')
+    truss_example.add_argument('--configuration',required=True)
+    truss_example.add_argument('--output',required=True)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
@@ -330,6 +333,16 @@ def main():
             run_serve_truss_local_command(args.data_directory)
         except Exception:
             print('ashlar local Truss server refused; inspect the selected initialized directory and runtime',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'run-truss-example':
+        try:
+            from pathlib import Path
+            from ashlar_host.truss_example import run_truss_example_command
+            run_truss_example_command(args.configuration,args.output)
+            print(json.dumps({'output':str(Path(args.output)/'result.json')},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss example refused; retain partial private outputs and inspect the selected runtimes',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'setup-truss-local':

@@ -147,3 +147,5 @@ See the [discovery input](docs/helix/00-discover/vision-input.md).
 
 `ashlar prepare-fabric-notebook` generates a private runnable notebook from your
 selected export pair; see the [Fabric notebook guide](examples/fabric-gql/README.md#generate-a-private-fabric-notebook).
+
+Run a fresh local Truss → Delta → Weft workflow with [the portable Truss example](examples/truss-native/README.md#one-local-end-to-end-command).

@@ -1,4 +1,39 @@
-# Accept original schema through Truss
+# Local Truss toolkit
+
+## One local end-to-end command
+
+Install Ashlar and the compatible public Truss toolkit with its local PostgreSQL
+extra in the selected Python environment, alongside Spark 4.0.1 / Delta 4.0.0. Supply an
+existing Bun executable, JDK 21 directory, Delta Spark/storage JARs and installed
+public Weft distribution. The workflow uses fresh
+local data, a two-record/one-edge graph, two publications and one inverse query.
+
+```json
+{
+  "profile": "ashlar-local-truss-example/0.1",
+  "bun": "/absolute/path/to/bun",
+  "java_home": "/absolute/path/to/jdk21",
+  "jars": ["/absolute/path/delta-spark.jar", "/absolute/path/delta-storage.jar"],
+  "weft_index": "/absolute/path/distributions/index.json",
+  "weft_installation": "/absolute/path/weft-installation"
+}
+```
+
+```sh
+ashlar run-truss-example --configuration /absolute/private/example.json \
+  --output /absolute/private/fresh-example
+```
+
+The [installed command receipt](../../docs/helix/04-build/evidence/truss-example-installed-20261013/result.json)
+qualifies this small local workflow with the selected existing dependencies.
+
+The private directory retains original model, acceptance, mutation, publication
+intent and query reports. `result.json` is written after owned PostgreSQL and
+Spark resources close. Failed runs retain partial files; select a fresh directory
+for a new example rather than overwriting them. Configuration files contain
+local connection details and use mode 0600. Restarting the stopped server requires
+its actual newly returned URI; saved runtime URIs are not restart credentials.
+
 
 ## Compile queries for an owned Truss publication
 
