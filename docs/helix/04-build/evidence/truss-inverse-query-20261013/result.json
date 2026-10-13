@@ -1,0 +1,39 @@
+{
+  "profile": "ashlar-source-cli-truss-inverse-related-keys-functional/0.1",
+  "seconds": 50.293,
+  "publications": 2,
+  "rows": [
+    {
+      "label": "Beta",
+      "related": {
+        "items": [
+          [
+            "Value-A",
+            "Alpha"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "actual_integrity_checks": 13,
+  "authored_target_key_fields": [
+    "A-value",
+    "A-label"
+  ],
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "471c9610bbce8ebd41dcf83316f074724fb3fff29c00817eb3b584f2107994fc",
+  "server_stopped": true,
+  "query_sha256": "6825d7b305c8ae5323c095c2a594955d7d57a0b484275fae3a03a579762ecec2",
+  "qualification": "Actual source CLI original accepted inverse UMF cohort, one group with two objects/one independent typed edge, two complete Truss feed publications to local Delta, public Weft scalar+relationship guards and original version-pinned RELATED_KEYS query. Exact inverse compound key order A-value,A-label and per-edge occurrences; no distinct-target, installed wheel, Unity Catalog or scale qualification.",
+  "native_inverse_query_pass": true,
+  "query_report": "query.json.gz",
+  "model_sha256": "93616163c291fcc23e113dcaa98051012d8716506256c8d18ef73b402c77d54e",
+  "runtime": {
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "postgresql": "18.6",
+    "compiler": "weft/0.1.0",
+    "distribution_index_sha256": "71e441ce80b36a50cb8fc668431fefddec71e5e83908eb7fe78abe40c41ba2de"
+  }
+}

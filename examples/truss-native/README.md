@@ -97,8 +97,8 @@ run before the query. Use an authored forward name or explicitly declared invers
 name on an unfiltered, unjoined source without outer `ORDER BY`. Inverse reads
 swap endpoint keys while preserving the canonical physical edge direction and
 edge occurrences. The host verifies the complete result bag and truncation
-against the original source oracle. Inverse host admission has basic unit
-coverage; native Truss inverse execution remains unqualified.
+against the original source oracle. The [small local inverse workflow](../../docs/helix/04-build/evidence/truss-inverse-query-20261013/result.json)
+executes the original Weft query against a published two-record, one-edge graph.
 
 For a fresh installation with an authored inverse, select
 `examples/truss-native/cohort-inverse.umf.json` as setup `document_path`, with
@@ -111,7 +111,7 @@ SELECT RELATED_KEYS(b."B-A", 2) AS related FROM B b
 
 This is a separate authored setup choice; it does not upgrade an existing catalog.
 Its [local Truss acceptance receipt](../../docs/helix/04-build/evidence/truss-inverse-acceptance-20261013/result.json)
-checks schema acceptance only; native inverse query execution remains unqualified.
+checks schema acceptance only; the separate inverse workflow above publishes and queries data.
 
 ## Accept into an existing installation
 

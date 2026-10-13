@@ -63,6 +63,20 @@ query, String projection and global count on one publication. Its immutable
 compiler profile selects the original single-edge fixture; parallel-edge degree,
 observable truncation and two-hop paths require separate qualification.
 
+## Traverse an authored inverse
+
+The [Truss inverse example](../truss-native/README.md) declares `B-A` on the
+target record of the canonical `A-B` edge:
+
+```sql
+SELECT b."B-label" AS label, RELATED_KEYS(b."B-A", 2) AS related FROM B b
+```
+
+The [local execution receipt](../../docs/helix/04-build/evidence/truss-inverse-query-20261013/result.json)
+returns Beta with `[["Value-A", "Alpha"]]`, in the authored `A-value`, `A-label`
+key order, without advancing the source checkpoint. This qualifies the tiny local
+Truss/Spark/Delta workflow; broader engine and scale support remain separate.
+
 ## Count complete commerce occurrences
 
 Select the [COUNT(*) compiler and host workflow](COUNT-STAR-WEFT.md) for these
