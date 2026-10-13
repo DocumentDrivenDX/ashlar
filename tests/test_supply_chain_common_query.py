@@ -63,6 +63,20 @@ class Controls(unittest.TestCase):
         return {'fixture_only':True,'oracle':oracle}
     def run_query(self,observe=None):
         return owner.query_supply_chain_common(self.opened,self.config,observe=observe or(lambda *args:self.observed.append(args)))
+    def test_selected_original_cases_preserve_declared_order(self):
+        result=owner.query_supply_chain_common(self.opened,self.config,observe=lambda *a:self.observed.append(a),selected_case_ids=('singleton',))
+        self.assertEqual([q['case_id']for q in result['queries']],['singleton'])
+        self.assertEqual(len(result['protocol_index']),2)
+        self.compiler.reset_mock();self.executor.reset_mock()
+        result=owner.query_supply_chain_common(self.opened,self.config,observe=lambda *a:None,selected_case_ids=('filtered-limit','one-hop-0'))
+        self.assertEqual([q['case_id']for q in result['queries']],['one-hop-0','filtered-limit'])
+        self.assertEqual(self.compiler.call_count,4);self.assertEqual(self.executor.call_count,2)
+        self.assertEqual(result['queries'][0]['evidence']['oracle']['rows'],prepare_supply_chain_common_count_requests(*self.fixture.raw,self.fixture.bindings,self.fixture.manifest,self.fixture.registry,self.fixture.aliases,family='one-hop',part='relationships-0-6')['queries'][0]['expected_rows'])
+    def test_bad_case_selection_refuses_before_queries(self):
+        for cases in ((),('foreign',),('singleton','singleton')):
+            with self.assertRaises(ValueError):owner.query_supply_chain_common(self.opened,self.config,observe=lambda *a:None,selected_case_ids=cases)
+        self.compiler.assert_not_called();self.executor.assert_not_called();self.graph_mock.assert_not_called()
+
     def test_fixed16_queries32_protocols_explicit_partitions_and_outer_provisional_custody(self):
         result=self.run_query()
         self.assertEqual((len(result['queries']),len(result['protocol_index'])),(16,32))

@@ -62,3 +62,25 @@ with one worker thread and 512 MiB driver memory. Run it under your finite
 process supervisor; configuration generation does not supervise execution.
 Success qualifies this local finite workflow; it does not qualify protected
 ACK, cloud execution, or every common graph query.
+
+### Select common query cases
+
+For an already opened `OpenedSupplyChainCommonRead`, the public query API can
+execute a small authored subset while retaining the complete source and graph
+checks:
+
+```python
+report = query_supply_chain_common(
+    opened, query_config, observe=store_original_protocol,
+    selected_case_ids=("one-hop-0",),
+)
+```
+
+Available IDs are `one-hop-0` through `one-hop-12`, `singleton`, `filtered-total`
+and `filtered-limit`. Omit `selected_case_ids` to run all 16. Explicit selections
+must be nonempty, unique and known; execution follows original declaration order.
+The original requests, result oracles and integrity guards remain unchanged.
+The observer stores provisional compiler artifacts; persist the report only
+after both its storage and the actual outer reader close successfully. A selected
+case result does not qualify unselected cases or replace native relationship
+query evidence with a property join.

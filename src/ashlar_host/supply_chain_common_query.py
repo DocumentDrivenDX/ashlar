@@ -88,7 +88,10 @@ def _report(graph,results,index,raw_bytes,index_bytes):
         'qualification':'Provisional original fixed common native evidence only after inner full graph/currentsource/schema closing. Observer storage and outer actual common source/runtime/installation closing required before final persistence. No compiler/source/native/engine/ACK authority created.'}
 
 
-def query_supply_chain_common(opened,config,*,observe):
+COMMON_CASE_IDS=tuple('one-hop-'+str(i)for i in range(13))+('singleton','filtered-total','filtered-limit')
+
+
+def query_supply_chain_common(opened,config,*,observe,selected_case_ids=None):
     """Execute fixed available cases; group-count remains separately required.
 
     Observers store provisional evidence only. Returned evidence is provisional
@@ -96,6 +99,13 @@ def query_supply_chain_common(opened,config,*,observe):
     """
     if type(opened)is not OpenedSupplyChainCommonRead or type(config)is not SupplyChainCommonQueryConfig or not callable(observe):
         raise ValueError('Actual original common read and typed query configuration required')
+    if selected_case_ids is not None:
+        if (type(selected_case_ids)not in (tuple,list)or not selected_case_ids
+                or any(type(case)is not str or case not in COMMON_CASE_IDS for case in selected_case_ids)
+                or len(set(selected_case_ids))!=len(selected_case_ids)):
+            raise ValueError('Nonempty unique original common case IDs required')
+        selected_ids=frozenset(selected_case_ids)
+    else:selected_ids=frozenset(COMMON_CASE_IDS)
     original_config=_config_values(config)
     selected=SupplyChainCommonQueryConfig(CountStarDistributionPaths(*original_config[:3]),
         original_config[3],PathCaptureConfig(*original_config[4:7]),PathDecodeConfig(original_config[7]))
@@ -120,6 +130,7 @@ def query_supply_chain_common(opened,config,*,observe):
                 raise ValueError('Complete original common request exceeds artifact capacity')
             prepared.append((family,part,query,raw))
     if len(prepared)!=16:raise ValueError('Complete fixed sixteen-query inventory required')
+    prepared=[entry for case,entry in zip(COMMON_CASE_IDS,prepared)if case in selected_ids]
     try:
         opening=read_original_supply_chain_graph_release(opened)
         schemas=dict(installed_count_star_schema_bundle(selected.distribution))
@@ -163,7 +174,7 @@ def query_supply_chain_common(opened,config,*,observe):
                     'scope':'Original complete source comparison only; actual native edge witness remains opening/closing graph release'}
             evidence=execute_commerce_count_star(actual,request,json.loads(responses[0]),json.loads(responses[1]),
                 config=execution,original_oracle=oracle)
-            result={'ordinal':ordinal,'family':family,'part':part,'query_ordinal':query['ordinal'],'evidence':evidence}
+            result={'ordinal':ordinal,'family':family,'part':part,'query_ordinal':query['ordinal'],'case_id':('one-hop-'+str(query['ordinal'])if family=='one-hop'else 'singleton'if family=='singleton'else 'filtered-total'if query['ordinal']==0 else 'filtered-limit'),'evidence':evidence}
             # Exact typed aggregate admission precedes retaining this result;
             # complete evidence is never shortened to fit.
             report_body(_report(opening,results+[result],index,raw_bytes,index_bytes),REPORT_BYTES)
@@ -182,7 +193,7 @@ def query_supply_chain_common(opened,config,*,observe):
         if schemas is not None and dict(installed_count_star_schema_bundle(selected.distribution))!=schemas:
             raise ValueError('Original installed common041 schemas differ')
     finish(primary,[config_current,current,closing_graph,closing_schema])
-    if len(results)!=16 or len(index)!=32:raise ValueError('Complete original common corpus/index required')
+    if len(results)!=len(prepared) or len(index)!=2*len(prepared):raise ValueError('Complete original common corpus/index required')
     combined=_report(opening,results,index,raw_bytes,index_bytes)
     report_body(combined,REPORT_BYTES)
     return report_value(combined,REPORT_BYTES)
