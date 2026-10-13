@@ -1,11 +1,12 @@
 """Closed original UMF0.8 pack selection; correspondence never grants authority."""
 from dataclasses import dataclass
 import hashlib,json
-from ashlar import supply_chain_source,archaeology_source,ecology_source
+from ashlar import supply_chain_source,archaeology_source,ecology_source,payments_source
 from .supply_chain_request import source_snapshot
 
 UMF_REVISION='07357eadbda9cf8299b9d72d004cbb77f8091aee'
 _PROFILES=(
+ ('payments',payments_source,'bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee',13,14,0,('net-settlement','balance','settled','currency')),
  ('supply-chain',supply_chain_source,'baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22',20,23,2,('split-excursion','excursion','replay','lineage','sensor')),
  ('archaeology',archaeology_source,'401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f',39,46,13,('cycle','dating','media','missing-media','specialists','lineage','evidence-links','sample')),
  ('ecology',ecology_source,'353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481',40,54,7,('effort-event','connected-measurements','censor','match','effort','zero','network','comparability','fishing')))
@@ -36,7 +37,9 @@ class FinitePackDefinition:
         if self.name=='supply-chain':
             from .supply_chain_oracle import original_graph_oracle
             return source_snapshot(original_graph_oracle(model,graph))
-        if self.name=='archaeology':
+        if self.name=='payments':
+            from .payments_oracle import original_oracle
+        elif self.name=='archaeology':
             from .archaeology_oracle import original_oracle
         else:
             from .ecology_oracle import original_oracle

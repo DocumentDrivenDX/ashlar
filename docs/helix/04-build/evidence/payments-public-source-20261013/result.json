@@ -1,0 +1,29 @@
+{
+  "format": "ashlar-payments-public-source/0.1",
+  "outcome": "passed",
+  "umf_revision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+  "umf_version": "0.8.0",
+  "bun": "1.4.2",
+  "objects": 13,
+  "relationships": 14,
+  "present_nulls": 0,
+  "source_occurrences": 27,
+  "receipt_sha256": "5a5cefb8caebdd5578e216b74eb0141546d00d82b653c07e5d9f83c4212ce4a7",
+  "checker_sha256": "bd9a38402da8385838e46a2cbff33823fd265a3fe5718beae2d60d3457a8a87f",
+  "source_inputs": {
+    "examples/domain-packs/payments/upstream/pack.json": "bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee",
+    "examples/domain-packs/payments/upstream/ontology.json": "f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da",
+    "examples/domain-packs/payments/upstream/graph/fixture.json": "92465e5d9a57c2eccc0b2a30e13ea00d7c5f79c56867eb43770d72a12b48feac"
+  },
+  "public_validation": "Actual public validateCoreDatasetValuesCompact followed by verifyCoreDatasetValuesCompact on the clean pinned UMF source, complete original supplied dataset and authored key/relationship endpoint correspondence.",
+  "negative_controls": [
+    "duplicate-key",
+    "unresolved-target",
+    "missing-required-relationship"
+  ],
+  "focused_tests": {
+    "passed": 3,
+    "duration_seconds": 0.028
+  },
+  "qualification": "Exact original payments UMF0.8 model and lexical graph admitted by public compact core-dataset validation; candidate source conversion retains original raw model/graph, all27 occurrences, decimal/exponent tokens, currency text, composite identities and relationship endpoints. Independent direct-original oracle. Development IDs require separate native host admission and writer authority. No Delta/Spark/Weft/engine runtime, protected ACK, financial arithmetic or currency-conversion enforcement qualification."
+}

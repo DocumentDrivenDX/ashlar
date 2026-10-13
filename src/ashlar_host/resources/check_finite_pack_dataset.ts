@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 const PIN='07357eadbda9cf8299b9d72d004cbb77f8091aee';
 const [repoArg,outputArg,modelArg,graphArg,gitArg,name]=process.argv.slice(2);
 const profiles:Record<string,[string,string,number,number,number]>={
+ payments:['f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da','92465e5d9a57c2eccc0b2a30e13ea00d7c5f79c56867eb43770d72a12b48feac',13,14,0],
  'supply-chain':['53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a','2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13',20,23,2],
  archaeology:['dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a','d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52',39,46,13],
  ecology:['299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee','cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668',40,54,7]};

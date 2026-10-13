@@ -1,0 +1,10 @@
+{"stage": "create-parallel-edge"}
+{"outcome": "failed", "duration_seconds": 3.033, "error_type": "RuntimeError"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-truss-parallel-path-native-20261013-a/run.py", line 35, in <module>
+    created=run_create_truss_edge_command(save('create.json',original_edge),root/'created.json')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/truss_typed_edge_command.py", line 101, in run_create_truss_edge_command
+    if not isinstance(applied,GroupSuccess)or len(applied.response.semantic.results)!=1:raise RuntimeError('Complete one-edge group required')
+                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Complete one-edge group required

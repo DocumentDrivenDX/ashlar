@@ -1,0 +1,19 @@
+{
+  "outcome": "failed",
+  "duration_seconds": 3.033,
+  "error_type": "RuntimeError",
+  "format": "ashlar-truss-parallel-source-attempt/0.1",
+  "case": "typed-parallel-self-loop-20261013-a",
+  "source_code_commit": "02df1155b06c4d689a6fddae960a0f9370edb354",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "stage": "create-parallel-edge",
+  "source_commit_reached": false,
+  "delta_publication_reached": false,
+  "weft_query_reached": false,
+  "expected_required_results": {
+    "two_hop_paths": 4,
+    "distinct_terminal_keys": 1
+  },
+  "qualification": "Actual source create attempt did not satisfy the complete one-edge GroupSuccess condition before caller commit or publication. The current adapter reports only Complete one-edge group required, so the original group refusal reason is unavailable. Parallel-edge support is unqualified; this attempt is not a required-pass substitute. Truss implementation chat has been asked to confirm the public capability and correct authored declaration. No heavy runtime retry."
+}

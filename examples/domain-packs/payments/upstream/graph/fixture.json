@@ -1,0 +1,679 @@
+{
+  "format": "umf.domain-graph",
+  "version": "1.0.0",
+  "schema": {
+    "id": "urn:umf:domain:payments",
+    "revision": "1.0.0",
+    "sha256": "f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da"
+  },
+  "qualification": "Schema-targeted candidate. Values retain CSV lexical text, not UMF canonical Value carriers or native storage IDs. No graph consumer acceptance or OWL reasoning.",
+  "pack": {
+    "id": "payments",
+    "version": "1.0.0",
+    "sha256": "bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee"
+  },
+  "source_metadata": {
+    "scenario_replay_output": {
+      "data_kind": "fabricated",
+      "generator": {
+        "id": "tablespec.scenario-replay",
+        "version": "1.0.0"
+      },
+      "kind": "synthetic",
+      "parameters": {
+        "components": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "source_ids": [
+          "template_accounts",
+          "template_journals",
+          "template_ledger_entries",
+          "template_parties",
+          "template_payment_instructions",
+          "template_returns",
+          "template_settlements",
+          "template_statements",
+          "template_status_events"
+        ],
+        "transformations": [
+          "Trusted independent-component replay with consistent identity remapping; source values unchanged."
+        ]
+      }
+    },
+    "template_accounts": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "d9e0c93e6611cf6da64f060179adf0f11629eb4b5d4c5321ee73943fab772078"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/accounts.csv",
+      "revision": "1.0.0"
+    },
+    "template_journals": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "682ee3439a6b95011e9dd6f6a2d5cdcff54eb184ff36203e03b8a24038a4757e"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/journals.csv",
+      "revision": "1.0.0"
+    },
+    "template_ledger_entries": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "4d000fbcc454dec8d83156cc1f03b6ae08aeb8cbc4439d09cc03e41f9016257b"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/ledger_entries.csv",
+      "revision": "1.0.0"
+    },
+    "template_parties": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "80cd6c80e25af3677242dd0b6dce1df7c736104c0ff44ba80661898008608199"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/parties.csv",
+      "revision": "1.0.0"
+    },
+    "template_payment_instructions": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "c21ea674819445ff3dab2532ddb63569c767c61c21826374b7a11aa180c9f428"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/payment_instructions.csv",
+      "revision": "1.0.0"
+    },
+    "template_returns": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "1ecc0c30793e2abba233199a8d93ad1e21e338564fe26581c4726dfbe5f85b49"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/returns.csv",
+      "revision": "1.0.0"
+    },
+    "template_settlements": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "a706855b0e718b6d3688d84f33951682b03fc194c99608378004565b8b7a7635"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/settlements.csv",
+      "revision": "1.0.0"
+    },
+    "template_statements": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "f4cacb0d8b050a7ae61197f84616f6f42f313d5d11751e08707011c99b2e3731"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/statements.csv",
+      "revision": "1.0.0"
+    },
+    "template_status_events": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "78d0154a46a9acbb8c648f0113dcf3e00769994f3784619d4ecf9ed91594ea01"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/status_events.csv",
+      "revision": "1.0.0"
+    }
+  },
+  "source_bindings": [
+    {
+      "role": "rows",
+      "schema_id": "parties",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "accounts",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "payment_instructions",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "status_events",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "settlements",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "returns",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "statements",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "journals",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "ledger_entries",
+      "source_id": "scenario_replay_output"
+    }
+  ],
+  "run": {
+    "components": 1,
+    "generator": {
+      "id": "tablespec.scenario-replay",
+      "version": "1.0.0"
+    },
+    "input_hashes": {
+      "template_accounts": {
+        "algorithm": "sha256",
+        "value": "d9e0c93e6611cf6da64f060179adf0f11629eb4b5d4c5321ee73943fab772078"
+      },
+      "template_journals": {
+        "algorithm": "sha256",
+        "value": "682ee3439a6b95011e9dd6f6a2d5cdcff54eb184ff36203e03b8a24038a4757e"
+      },
+      "template_ledger_entries": {
+        "algorithm": "sha256",
+        "value": "4d000fbcc454dec8d83156cc1f03b6ae08aeb8cbc4439d09cc03e41f9016257b"
+      },
+      "template_parties": {
+        "algorithm": "sha256",
+        "value": "80cd6c80e25af3677242dd0b6dce1df7c736104c0ff44ba80661898008608199"
+      },
+      "template_payment_instructions": {
+        "algorithm": "sha256",
+        "value": "c21ea674819445ff3dab2532ddb63569c767c61c21826374b7a11aa180c9f428"
+      },
+      "template_returns": {
+        "algorithm": "sha256",
+        "value": "1ecc0c30793e2abba233199a8d93ad1e21e338564fe26581c4726dfbe5f85b49"
+      },
+      "template_settlements": {
+        "algorithm": "sha256",
+        "value": "a706855b0e718b6d3688d84f33951682b03fc194c99608378004565b8b7a7635"
+      },
+      "template_statements": {
+        "algorithm": "sha256",
+        "value": "f4cacb0d8b050a7ae61197f84616f6f42f313d5d11751e08707011c99b2e3731"
+      },
+      "template_status_events": {
+        "algorithm": "sha256",
+        "value": "78d0154a46a9acbb8c648f0113dcf3e00769994f3784619d4ecf9ed91594ea01"
+      }
+    },
+    "origin": "synthetic",
+    "scale": "small",
+    "schema_hashes": {
+      "ontology.json": "f598a9ad230dcb930cd7c8856929e1e6d3f919dac6f736676257e467a8b119da",
+      "umf/accounts.json": "54e64d147aaef4078e488f1c1e8853ee67254b808fc2e3813dad2906522c335f",
+      "umf/journals.json": "118659f2d7d33512e7bd52c5a1a6c09223e767a0ace48bdc0f4899b703e57c87",
+      "umf/ledger_entries.json": "fc78f04fc89ce725436169e707749dda73e6013a20a9dfdd25af05e7c4ab04ad",
+      "umf/parties.json": "425bfecb19034e1c9a5d90f0f7dc9787ad07fdc679aae1c83a97a13a63539af0",
+      "umf/payment_instructions.json": "cab1181722886019044d0e4592887f004b058823cf0a885afb0713410cfee5d8",
+      "umf/returns.json": "cd1776099f9eaf45fb30a8d4e6c8542ad328d7b085785d5aef67c10246b4a449",
+      "umf/settlements.json": "2a20f8a8bdf0fdd34febccfcb9430faee2f219bdb80daaf770afff96f62f60c2",
+      "umf/statements.json": "705235086c65455f060d14012f3b611e62e807b747d88fa0f26314982dbdad73",
+      "umf/status_events.json": "4b9b862eadf743df1ddd9b0f610c5f9d027df1fa1e98e7c9f3a88f4a405827f3"
+    },
+    "seed": 42,
+    "source_pack": {
+      "id": "payments",
+      "sha256": "bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee",
+      "version": "1.0.0"
+    }
+  },
+  "dataset": {
+    "archive_sha256": "bfa8fbe4f898f08be9ea23fe3d817afa807d5b64680bfe725ea3c97848c352ac",
+    "origin": "synthetic",
+    "seed": 42
+  },
+  "objects": [
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"parties\",[\"[42,0,\\\"P1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "parties"
+      },
+      "values": {
+        "parties.id": "[42,0,\"P1\"]",
+        "parties.name": "Synthetic payer"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "accounts"
+      },
+      "values": {
+        "accounts.id": "[42,0,\"A1\"]",
+        "accounts.party_id": "[42,0,\"P1\"]",
+        "accounts.currency": "USD"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions\",[\"[42,0,\\\"PI1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "payment_instructions"
+      },
+      "values": {
+        "payment_instructions.id": "[42,0,\"PI1\"]",
+        "payment_instructions.account_id": "[42,0,\"A1\"]",
+        "payment_instructions.amount": "1E+2",
+        "payment_instructions.currency": "USD"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"status_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "status_events"
+      },
+      "values": {
+        "status_events.id": "[42,0,\"E1\"]",
+        "status_events.payment_id": "[42,0,\"PI1\"]",
+        "status_events.status": "accepted",
+        "status_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"settlements\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "settlements"
+      },
+      "values": {
+        "settlements.id": "[42,0,\"S1\"]",
+        "settlements.payment_id": "[42,0,\"PI1\"]",
+        "settlements.amount": "1E+2",
+        "settlements.settled_at": "2026-01-02"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "returns"
+      },
+      "values": {
+        "returns.id": "[42,0,\"R1\"]",
+        "returns.payment_id": "[42,0,\"PI1\"]",
+        "returns.amount": "25",
+        "returns.currency": "USD",
+        "returns.reason": "illustrative-return"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"statements\",[\"[42,0,\\\"ST1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "statements"
+      },
+      "values": {
+        "statements.id": "[42,0,\"ST1\"]",
+        "statements.account_id": "[42,0,\"A1\"]",
+        "statements.period_start": "2026-01-01",
+        "statements.period_end": "2026-01-31"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "journals"
+      },
+      "values": {
+        "journals.id": "[42,0,\"J1\"]",
+        "journals.native_id": "J1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "journals"
+      },
+      "values": {
+        "journals.id": "[42,0,\"J2\"]",
+        "journals.native_id": "J2"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "ledger_entries"
+      },
+      "values": {
+        "ledger_entries.id": "[42,0,\"L1\"]",
+        "ledger_entries.journal": "[42,0,\"J1\"]",
+        "ledger_entries.account_id": "[42,0,\"A1\"]",
+        "ledger_entries.side": "debit",
+        "ledger_entries.amount": "1E+1",
+        "ledger_entries.currency": "USD"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "ledger_entries"
+      },
+      "values": {
+        "ledger_entries.id": "[42,0,\"L2\"]",
+        "ledger_entries.journal": "[42,0,\"J1\"]",
+        "ledger_entries.account_id": "[42,0,\"A1\"]",
+        "ledger_entries.side": "credit",
+        "ledger_entries.amount": "1E+1",
+        "ledger_entries.currency": "USD"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "ledger_entries"
+      },
+      "values": {
+        "ledger_entries.id": "[42,0,\"L3\"]",
+        "ledger_entries.journal": "[42,0,\"J2\"]",
+        "ledger_entries.account_id": "[42,0,\"A1\"]",
+        "ledger_entries.side": "debit",
+        "ledger_entries.amount": "1E+1",
+        "ledger_entries.currency": "USD"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "element": "ledger_entries"
+      },
+      "values": {
+        "ledger_entries.id": "[42,0,\"L4\"]",
+        "ledger_entries.journal": "[42,0,\"J2\"]",
+        "ledger_entries.account_id": "[42,0,\"A1\"]",
+        "ledger_entries.side": "credit",
+        "ledger_entries.amount": "9.99",
+        "ledger_entries.currency": "USD"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"accounts.party_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"parties\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "accounts.party_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"parties\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"payment_instructions\\\",[\\\"[42,0,\\\\\\\"PI1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "payment_instructions.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions\",[\"[42,0,\\\"PI1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"status_events.payment_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"status_events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"payment_instructions\\\",[\\\"[42,0,\\\\\\\"PI1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "status_events.payment_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"status_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions\",[\"[42,0,\\\"PI1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"settlements.payment_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"settlements\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"payment_instructions\\\",[\\\"[42,0,\\\\\\\"PI1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "settlements.payment_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"settlements\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions\",[\"[42,0,\\\"PI1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"returns.payment_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"returns\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"payment_instructions\\\",[\\\"[42,0,\\\\\\\"PI1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "returns.payment_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"payment_instructions\",[\"[42,0,\\\"PI1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"statements.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"statements\\\",[\\\"[42,0,\\\\\\\"ST1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "statements.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"statements\",[\"[42,0,\\\"ST1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.journal\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"journals\\\",[\\\"[42,0,\\\\\\\"J1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.journal"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.journal\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"journals\\\",[\\\"[42,0,\\\\\\\"J1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.journal"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.journal\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"journals\\\",[\\\"[42,0,\\\\\\\"J2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.journal"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.journal\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"journals\\\",[\\\"[42,0,\\\\\\\"J2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.journal"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"journals\",[\"[42,0,\\\"J2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries.account_id\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"ledger_entries\\\",[\\\"[42,0,\\\\\\\"L4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:payments\\\",\\\"domain\\\",\\\"accounts\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:payments",
+        "module": "domain",
+        "id": "ledger_entries.account_id"
+      },
+      "source": "[\"urn:umf:domain:payments\",\"domain\",\"ledger_entries\",[\"[42,0,\\\"L4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:payments\",\"domain\",\"accounts\",[\"[42,0,\\\"A1\\\"]\"]]"
+    }
+  ]
+}
