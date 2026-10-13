@@ -183,6 +183,8 @@ def main():
     supply_configuration=commands.add_parser('configure-supply-chain-native',help='Print a local five-query and two-hop configuration; no engine execution')
     for option in ('output','jars','pack','model','graph','producer-source','bun','git','count-star-index','count-star-installation','paths-index','paths-installation'):
         supply_configuration.add_argument('--'+option,required=True)
+    supply_common_setup=commands.add_parser('configure-supply-chain-common',help='Prepare original common query configuration without starting an engine')
+    for option in ('configuration','python','java-home','output'):supply_common_setup.add_argument('--'+option,required=True)
     supply_common=commands.add_parser('query-supply-chain-common',help='Run selected unchanged common cases on an existing original supply-chain publication; no reingest')
     supply_common.add_argument('--configuration',required=True)
     supply_common.add_argument('--output',required=True)
@@ -282,6 +284,14 @@ def main():
         except ValueError as error:
             parser.error(str(error))
         sys.stdout.write(raw.decode('utf-8'))
+        return
+    if args.command == 'configure-supply-chain-common':
+        try:
+            from ashlar_host.supply_chain_common_setup import run_configure_supply_chain_common_command
+            print(json.dumps(run_configure_supply_chain_common_command(args.configuration,args.python,args.java_home,args.output),separators=(',',':')))
+        except Exception:
+            print('ashlar supply-chain common configuration refused; inspect original selections and fresh output',file=sys.stderr)
+            raise SystemExit(2)from None
         return
     if args.command == 'query-supply-chain-common':
         try:

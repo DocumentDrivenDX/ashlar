@@ -5,6 +5,20 @@ or publishing again. Use the same original model, graph, pack, producer and
 operation capacity as the existing installation. The selected Python environment
 must already contain its compatible Spark/Delta dependencies.
 
+Generate the configuration from the original native invocation without running
+the producer or engine:
+
+```sh
+ashlar configure-supply-chain-common \
+  --configuration /absolute/private/original-native.json \
+  --python /absolute/path/to/current-python --java-home /absolute/path/to/jdk21 \
+  --output /absolute/private/new-common.json
+```
+
+The original publication, producer settings, inputs, compiler and capacity are
+retained. Python must be the current interpreter; the output is a fresh private
+file. This prepares selections only; the query still admits the live owners.
+
 ```json
 {
   "profile": "ashlar-supply-chain-common-query/0.1",
