@@ -157,18 +157,19 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=()):
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=()):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
     this fresh-run example never resets/replaces or blindly resumes them.
     """
-    output=Path(output)
+    output=Path(output);release=None
+    if type(export_graph)is not bool or export_graph and not graph:raise ValueError('Graph export requires graph publication and a boolean selection')
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
     if archived_acceptance_files and not graph:raise ValueError('Archived catalogs are selected for graph publication only')
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
@@ -220,8 +221,16 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
             results.append({'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)})
             state=after;expected=following;progress=policy.active['progress'];predecessor=publication_id;lease.renew()
+        if export_graph and results:
+            from .truss_graph_export import read_original_truss_graph_export
+            release=read_original_truss_graph_export(driver)
     except BaseException as error:primary=error
     finish(primary,([transport.close]if transport is not None else [])+[lease.renew,lease.close])
     result={'publications':results,'scope':('Fresh private local Delta scalar graph publication'if graph else'Fresh private local Delta Note publication')+' with actual public Truss source ACK; no Unity Catalog or restart recovery qualification.'}
+    if release is not None:
+        path=output/'graph-release.json'
+        with path.open('xb')as stream:
+            if stream.write(release.payload)!=len(release.payload):raise OSError('Complete graph release write required')
+        result['graph_release']={'path':str(path),'sha256':release.sha256,'qualification':'Canonical immutable graph captured with the original live Truss source owner; no protected outbox custody or external engine qualification.'}
     with (output/'result.json').open('x')as stream:json.dump(result,stream,ensure_ascii=False)
     return result

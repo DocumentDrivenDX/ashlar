@@ -596,3 +596,11 @@ The publisher matches each capture to the feed page's exact original accepted
 report; it never interprets an older revision using the current catalog.
 These files supply schema interpretation. Live Truss sessions still establish
 source access and perform delivery ACKs.
+
+Set `"export_graph": true` in `publish-truss-graph` configuration to capture the
+final canonical graph release while the original source owner and complete
+publication snapshots remain held. After successful cleanup, the command writes
+`graph-release.json` and its digest in `result.json`. The release preserves typed
+node/edge identities and original canonical properties. It carries the local
+Truss publication's qualification; exporting it does not establish protected
+outbox custody or qualify an external graph engine.
