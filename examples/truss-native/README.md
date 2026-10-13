@@ -1304,6 +1304,29 @@ existing publication configuration's `archived_acceptance_files` and use
 both contiguous feed pages. The byte option is explicit and bounded at 2 MiB;
 the existing default remains 1 MiB. A complete transaction must also fit the
 retained page archive's original carrier bounds before publication begins.
+To accept the revision **and** publish both feed pages with one command:
+
+```sh
+ashlar evolve-truss-graph --configuration /absolute/private/evolution.json \
+  --reader-configuration /absolute/private/current-reader.json \
+  --output /absolute/private/fresh-evolution
+```
+
+Both configurations must select the same ordinary source connection. The command
+retains the exact catalog archive automatically, consumes two pages into the
+existing publication and writes `reader-configuration.json` selecting the final
+publication. It retains `evolution.json` and `continuation.json` for inspection
+and recovery. Source commits survive a subsequent publication failure; resume
+the retained original attempt before continuing, rather than repeating acceptance
+with new request keys. This command has basic composition coverage; it does not
+qualify a new native run or evolved-schema Weft queries.
+
+For the inverse schema accepted by `run-truss-example`, use
+[cohort-inverse-r2.umf.json](cohort-inverse-r2.umf.json), which adds `B-tag` while
+preserving the authored inverse relationship. Use the actual B identity from
+that example and its restarted server's current connection URI. A B record
+deleted by `exercise_mutations` cannot be selected for this update.
+
 The source command itself does not publish or ACK. Use a singleton read of the
 new publication to inspect the field; optional-field Weft decoding needs its
 own supported query profile.

@@ -46,7 +46,7 @@ def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,
         raise ValueError('Selected new member must be a scalar STRING field')
 
 
-def evolve_truss_record(config,output,*,required_original_fields=None):
+def parse_truss_record_evolution_configuration(config,output):
     required={'connection_uri','bun','document_path','document_revision','origin_path','accept_request_key','update_request_key','object_id','document_id','module_id','record_id','field_name','field_value'}
     if type(config)is not dict or set(config)!=required:raise ValueError('Exact record evolution configuration required')
     if type(config['object_id'])is not int or not 1<=config['object_id']<=9223372036854775807:raise ValueError('Actual positive object ID required')
@@ -61,6 +61,11 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
     destination=Path(output)
     if not destination.is_absolute()or not destination.parent.is_dir()or destination.parent.resolve()!=destination.parent or destination.exists()or destination.is_symlink():raise ValueError('Fresh canonical report required')
     if any(destination==Path(config[key]).resolve()for key in ('document_path','bun','origin_path')):raise ValueError('Evolution report must be separate from original inputs')
+    return source,origin,destination,bun,origin_bytes
+
+
+def evolve_truss_record(config,output,*,required_original_fields=None):
+    source,origin,destination,bun,origin_bytes=parse_truss_record_evolution_configuration(config,output)
     import psycopg
     from truss import (Ok,CatalogDocument,CatalogRuntimeConfiguration,CatalogRegistration,
         AcceptedDocument,ObjectFound,create_reference_assembly,adopt_psycopg_host)

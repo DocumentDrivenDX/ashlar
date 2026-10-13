@@ -13,6 +13,13 @@ class Tests(unittest.TestCase):
         self.assertEqual(record['members'][-1],{'module':'m','element':'B-tag'});record['members'].pop()
         added=module['elements'].pop();self.assertEqual(added['id'],'B-tag');self.assertEqual(added['nullability'],'absent-allowed')
         self.assertEqual(restored,old)
+        inverse_old=json.loads((root.parents[1]/'src/ashlar_host/resources/cohort-inverse.umf.json').read_bytes())
+        inverse_new=json.loads((root/'cohort-inverse-r2.umf.json').read_bytes())
+        restored_inverse=copy.deepcopy(inverse_new)
+        next(element for element in restored_inverse['modules'][0]['elements']if element['id']=='B')['members'].pop()
+        restored_inverse['modules'][0]['elements'].pop()
+        self.assertEqual(restored_inverse,inverse_old)
+        require_new_record_field(json.dumps(inverse_new).encode(),json.dumps(inverse_old).encode(),module_id='m',record_id='B',field_name='B-tag')
         old_bytes=json.dumps(old).encode();new_bytes=json.dumps(new).encode()
         require_new_record_field(new_bytes,old_bytes,module_id='m',record_id='B',field_name='B-tag')
         with self.assertRaisesRegex(ValueError,'must declare the selected new field'):

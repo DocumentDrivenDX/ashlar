@@ -144,6 +144,10 @@ def main():
     truss_continue.add_argument('--maximum-pages',type=int,default=1)
     truss_continue.add_argument('--wait-seconds',type=int,default=0)
     truss_continue.add_argument('--maximum-page-bytes',type=int,default=1048576)
+    truss_evolve=commands.add_parser('evolve-truss-graph',help='Accept a selected record evolution and publish its two complete feed pages')
+    truss_evolve.add_argument('--configuration',required=True)
+    truss_evolve.add_argument('--reader-configuration',required=True)
+    truss_evolve.add_argument('--output',required=True)
     truss_example=commands.add_parser('run-truss-example',help='Run a fresh local Truss to Delta example with optional streamed mutations and a query or gallery using selected runtimes')
     truss_example.add_argument('--configuration',required=True)
     truss_example.add_argument('--output',required=True)
@@ -339,6 +343,15 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar commerce graph export refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command=='evolve-truss-graph':
+        try:
+            from ashlar_host.truss_evolve_graph import run_evolve_truss_graph_command
+            result=run_evolve_truss_graph_command(args.configuration,args.reader_configuration,args.output)
+            print(json.dumps({'output':str(args.output)+'/result.json','publication_id':result['publication_id']},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss graph evolution refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
