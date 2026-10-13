@@ -27,6 +27,27 @@ input fingerprint inventory. Repository-trusted generated proposals do not admit
 arbitrary caller-supplied SQL or models. Generation applies no native migration;
 source/catalog acceptance, retention and publication remain separate boundaries.
 
+## Generate a qualified table bundle
+
+For a complete ordered proposal, use a clean UMF checkout at
+`385c8cf119a3c2e40ba59cc5f15e24edab52f3b2` with its locked dependencies:
+
+```sh
+bun tools/generate_delta_bundle.ts /path/to/pinned/umf ashlar_dev runtime /absolute/path/new-bundle.json
+```
+
+Catalog and schema are explicit portable identifiers. The command qualifies only
+the native table names in copies of the eight authored models, then calls UMF's
+public `generateDeltaDDLBundle`. The fresh private JSON contains the complete SQL,
+ordered table definitions, schemas and original input fingerprints. A table that
+cannot be generated prevents the whole proposal from being written.
+
+This bundle uses a separately pinned generator and leaves the authored carrier
+package and its existing generator pin unchanged. Review the generated proposal
+before applying it. Generation does not execute SQL, migrate existing tables,
+change predictive optimization, or establish native compatibility. Database
+application of the bundle is not atomic.
+
 ## Model-derived diagram and schema browser
 
 The microsite consumes the authored model for the runtime ER diagram and complete

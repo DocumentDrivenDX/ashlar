@@ -53,6 +53,10 @@ Use `ashlar compare-graph-exports` to inspect changes between two saved exports
 without starting an engine; the [Truss guide](examples/truss-native/README.md#compare-immutable-graph-exports)
 shows the configuration and command.
 
+Generate all eight runtime table proposals with UMF using the
+[qualified DDL bundle command](docs/helix/02-design/models/ashlar-delta-runtime/README.md#generate-a-qualified-table-bundle).
+It takes an explicit catalog and schema and produces a complete SQL bundle for review.
+
 Build a candidate transaction from the original commerce domain-pack inputs:
 
 ```sh
