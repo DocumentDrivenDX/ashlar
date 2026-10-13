@@ -63,7 +63,7 @@ def truss_compatible_compile_request(admission,manifest,table_uuids,manifest_uui
     raw=encoded(binding);request['target'].update({k:BACKEND[k]for k in ('backendId','backendVersion','targetProfile')},bindingJson=raw,bindingSha256=hashlib.sha256(raw.encode()).hexdigest())
     return request
 
-def admit_truss_compatible_revisions(admission,artifact,binding,*,revision,document_id):
+def _admit_compatible_revisions(admission,artifact,binding,*,revision,document_id,joined=False):
     if type(artifact)is not dict or artifact.get('status')!='compiled'or artifact.get('backend')!=BACKEND or artifact.get('bindingSha256')!=hashlib.sha256(encoded(binding).encode()).hexdigest()or artifact.get('modelPins')!=binding.get('modelPins'):raise ValueError('Exact compatible compiler binding required')
     _selected_revisions(admission,revision,(revision,))
     original=admission.revisions[revision]['models'].get(document_id)
@@ -71,28 +71,48 @@ def admit_truss_compatible_revisions(admission,artifact,binding,*,revision,docum
     digest=hashlib.sha256(original[1]).hexdigest();pin={'documentId':document_id,'revision':digest,'sha256':digest,'umfVersion':original[0]['umf']}
     if binding.get('modelPins')!=[pin]:raise ValueError('Original model pin differs')
     plan=artifact.get('logicalPlan')
-    if type(plan)is not dict or type(plan.get('requiredCapabilities'))is not list or type(artifact.get('columns'))is not list or any(type(c)is not dict or type(c.get('representation',{}))is not dict for c in artifact.get('columns',[]))or plan.get('joins')!=[] or any(type(c)is not str or any(token in c.lower()for token in ('relationship','related','path','travers'))for c in plan.get('requiredCapabilities',[]))or any(c.get('representation',{}).get('kind')in ('relatedKeys','paths')for c in artifact.get('columns',[])):raise ValueError('Unjoined single-record compatibility foundation required')
+    if type(plan)is not dict or type(plan.get('requiredCapabilities'))is not list or type(artifact.get('columns'))is not list or any(type(c)is not dict or type(c.get('representation',{}))is not dict for c in artifact.get('columns',[]))or (not joined and plan.get('joins')!=[]) or any(type(c)is not str or any(token in c.lower()for token in ('relationship','related','path','travers'))for c in plan.get('requiredCapabilities',[]))or any(c.get('representation',{}).get('kind')in ('relatedKeys','paths')for c in artifact.get('columns',[])):raise ValueError('Unjoined single-record compatibility foundation required')
     def relationship_operation(value):
         if type(value)is dict:return value.get('op')in ('hasRelated','relatedKeys','paths')or any(relationship_operation(v)for v in value.values())
         return type(value)is list and any(relationship_operation(v)for v in value)
     if relationship_operation(plan):raise ValueError('Relationship plans require separate admission')
-    source=plan.get('source')
-    if type(source)is not dict or set(source)!={'occurrence','pin','record'}or source['occurrence']!='s0'or source['pin']!=pin:raise ValueError('Original selected source required')
-    records=[r for r in binding.get('records',[])if r.get('logical')==source['record']]
-    if len(records)!=1:raise ValueError('One exact selected binding record required')
-    record=records[0]
-    installation=json.loads(admission.batch.begin)['prior']['installationId']
-    accepted=admission.revisions[revision]['types'].get(record.get('typeId'))
-    if accepted is None or record.get('logical')!={'documentId':document_id,'revision':digest,'module':accepted['owner'][1],'element':accepted['owner'][2]}or accepted['owner'][0]!=document_id or record.get('sourceSystem')!=installation:raise ValueError('Actual accepted logical record correspondence required')
-    report=json.loads(admission.revisions[revision]['report'])
-    properties=[{'logical':{'documentId':document_id,'revision':digest,'module':f['moduleId'],'element':f['elementId']},'home':{'kind':'props','propertyId':f['propertyId']}}for f in report['properties']if f['typeId']==record['typeId']]
-    if record.get('properties')!=properties:raise ValueError('Complete actual property allocations required')
-    if record.get('kind')!='object'or record.get('schemaRevision')!=revision:raise ValueError('Original primary object binding required')
-    revisions=record.get('compatibleSchemaRevisions')
-    if type(revisions)is not list:raise ValueError('Explicit compatible revisions required')
+    scans=[plan.get('source')]
+    if joined:
+        joins=plan.get('joins')
+        if type(joins)is not list or len(joins)!=1 or type(joins[0])is not dict or set(joins[0])!={'on','right'}:raise ValueError('One original compatibility join required')
+        scans.append(joins[0]['right'])
+    logicals=[]
+    for position,source in enumerate(scans):
+        if type(source)is not dict or set(source)!={'occurrence','pin','record'}or source['occurrence']!='s'+str(position)or source['pin']!=pin:raise ValueError('Original selected source required')
+        if source['record']not in logicals:logicals.append(source['record'])
+    records=[r for r in binding.get('records',[])if r.get('logical')in logicals]
+    if len(records)!=len(logicals):raise ValueError('Exact selected binding records required')
+    revision_sets=[]
+    for record in records:
+        installation=json.loads(admission.batch.begin)['prior']['installationId']
+        accepted=admission.revisions[revision]['types'].get(record.get('typeId'))
+        if accepted is None or record.get('logical')!={'documentId':document_id,'revision':digest,'module':accepted['owner'][1],'element':accepted['owner'][2]}or accepted['owner'][0]!=document_id or record.get('sourceSystem')!=installation:raise ValueError('Actual accepted logical record correspondence required')
+        report=json.loads(admission.revisions[revision]['report'])
+        properties=[{'logical':{'documentId':document_id,'revision':digest,'module':f['moduleId'],'element':f['elementId']},'home':{'kind':'props','propertyId':f['propertyId']}}for f in report['properties']if f['typeId']==record['typeId']]
+        if record.get('properties')!=properties:raise ValueError('Complete actual property allocations required')
+        if record.get('kind')!='object'or record.get('schemaRevision')!=revision:raise ValueError('Original primary object binding required')
+        revisions=record.get('compatibleSchemaRevisions')
+        if type(revisions)is not list:raise ValueError('Explicit compatible revisions required')
+        revision_sets.append(tuple(revisions))
+    if len(set(revision_sets))!=1:raise ValueError('Same explicit selected revision set required')
+    revisions=list(revision_sets[0])
     obligations=artifact.get('obligations')
     if type(obligations)is not list or any(type(o)is not dict for o in obligations):raise ValueError('Original host obligations required')
     selected=[o for o in obligations if o.get('id')=='ashlar.compatibleSchemaRevisions']
-    expected={'id':'ashlar.compatibleSchemaRevisions','owner':'host','failureCode':'WFT-OBLIGATION','parameters':{'records':[{'logical':record['logical'],'primarySchemaRevision':revision,'compatibleSchemaRevisions':revisions}],'modelPins':binding['modelPins'],'publication':binding['publication'],'requirements':REQUIREMENTS}}
+    expected={'id':'ashlar.compatibleSchemaRevisions','owner':'host','failureCode':'WFT-OBLIGATION','parameters':{'records':[{'logical':record['logical'],'primarySchemaRevision':revision,'compatibleSchemaRevisions':record['compatibleSchemaRevisions']}for record in records],'modelPins':binding['modelPins'],'publication':binding['publication'],'requirements':REQUIREMENTS}}
     if selected!=[expected]:raise ValueError('Exact original compatible revision obligation required')
     return _prove(admission,revision,document_id,tuple(revisions),records)
+
+
+def admit_truss_compatible_revisions(admission,artifact,binding,*,revision,document_id):
+    return _admit_compatible_revisions(admission,artifact,binding,revision=revision,document_id=document_id)
+
+
+def admit_truss_compatible_join_revisions(admission,artifact,binding,*,revision,document_id):
+    """Supplemental exact schema correspondence for two original scan occurrences."""
+    return _admit_compatible_revisions(admission,artifact,binding,revision=revision,document_id=document_id,joined=True)

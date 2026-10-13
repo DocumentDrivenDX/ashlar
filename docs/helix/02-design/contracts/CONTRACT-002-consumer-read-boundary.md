@@ -472,3 +472,13 @@ results MUST retain exact compiler carrier tokens; complete result comparison MU
 use exact mathematical values without float conversion or rounding. Scalar admission
 MUST remain explicit and MUST NOT broaden STRING-only commands, permit aggregates
 without their separate admission, or bypass publication and integrity obligations.
+
+### Required numeric equality joins
+
+A required numeric equality INNER JOIN MUST authenticate both original scan
+bindings, each selected accepted physical revision and the exact declared scalar
+domain of each join Field. A separate admission MUST preserve all original
+publication and integrity guards. The complete result bag MUST match independently
+joined source occurrences, including duplicate matches and self-join pairs, with
+exact mathematical numeric comparison and original result carrier tokens. A join
+admission MUST NOT authorize arithmetic, aggregation or optional values.

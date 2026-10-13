@@ -1700,3 +1700,21 @@ the main-source iteration after `v0.0.1`; that published release does not includ
 The [actual one-record native query](../../docs/helix/04-build/evidence/truss-faceted-scalar-native-query-20261013/result.json)
 preserves `9007199254740993`, decimal `1.2300`, Boolean and STRING results with
 an unchanged source checkpoint on local Spark/Delta.
+
+### Join required numeric fields
+
+`query-truss-scalar-join` takes the same explicit reader, compiler and revision
+options as `query-truss-scalars`. It admits one equality INNER JOIN between
+required signed64 fields or between required decimal(18,4) fields, with required
+scalar projections. For example:
+
+```sql
+SELECT a."record-id" AS left_id, b."record-id" AS right_id,
+       a.quantity AS quantity, b.amount AS amount
+FROM TypedRecord a JOIN TypedRecord b ON a.quantity=b.quantity
+```
+
+Both scan occurrences retain their accepted catalog mappings and the complete
+publication. Every duplicate match and self-join pair participates in the
+independent source comparison. Numeric results retain exact carrier tokens.
+Filters, outer joins, arithmetic and aggregates require their own admission.
