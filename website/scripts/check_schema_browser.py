@@ -21,11 +21,11 @@ for name,digest in proof['inputs'].items():assert sha((root/name).read_bytes())=
 for name in ['index.html','host.css','host.js']:assert (folder/name).read_bytes()==(root/'website/schema-browser'/name).read_bytes(),name
 model=root/'docs/helix/02-design/models/ashlar-delta-runtime'
 index=json.loads((model/'index.json').read_text());catalog=json.loads((folder/'schema-catalog.json').read_text())
-sources=[str((model/(name+'.umf.json')).relative_to(root))for name in ['relationships',*index['tables']]]+['examples/truss-native/cohort.umf.json','examples/truss-native/cohort-r2.umf.json','examples/truss-native/cohort-inverse.umf.json']
+sources=[str((model/(name+'.umf.json')).relative_to(root))for name in ['relationships',*index['tables']]]+['examples/truss-native/cohort.umf.json','examples/truss-native/cohort-r2.umf.json','examples/truss-native/cohort-inverse.umf.json','examples/truss-native/typed-record.umf.json','examples/truss-native/typed-record-r2.umf.json']
 assert catalog['version']==1 and len(catalog['entries'])==len(sources)
 assert proof['source_count']==len(sources)
 assert set(proof['inputs'])==set(sources)|{str((model/'index.json').relative_to(root))}
 assert [entry['source_repo_path']for entry in catalog['entries']]==sources
-assert [entry['id']for entry in catalog['entries'][-3:]]==['truss-cohort-r1','truss-cohort-r2','truss-cohort-inverse']
+assert [entry['id']for entry in catalog['entries'][-5:]]==['truss-cohort-r1','truss-cohort-r2','truss-cohort-inverse','truss-typed-record-r1','truss-typed-record-r2']
 for entry in catalog['entries']:assert entry['text'].encode()==(root/entry['source_repo_path']).read_bytes()
 print('Pinned UMF renderer and all '+str(len(sources))+' original schema sources match')
