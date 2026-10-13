@@ -1,0 +1,25 @@
+{
+  "base_commit": "aee3627485b03cbf83e2cae648b234baf194e4aa",
+  "source_mutation_sha256": "d36db76a2556901d5aefd592c82f7b43ed076217ed4de2a5d9406cf0c846fac7",
+  "target_id": 4,
+  "target_type_id": 2,
+  "edge_id": "5",
+  "target_before_version": 1,
+  "target_updated_version": 2,
+  "stable_native_identity": true,
+  "complete_before_snapshots_match_original": true,
+  "updated_values": [
+    [
+      "B-label",
+      "Gamma-edited"
+    ],
+    [
+      "B-value",
+      "Value-C"
+    ]
+  ],
+  "selected_edge_and_target_absent": true,
+  "source_object_preserved": true,
+  "original_update_and_delete_receipts_replayed": true,
+  "qualification": "Actual public selected-source operator update, edge-first target deletion, full readback and original committed receipt replay. Source-only qualification; deletion publication remains pending journal storage repair, no full streaming or installed-wheel claim."
+}

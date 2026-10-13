@@ -250,12 +250,7 @@ class LocalDeltaTransport:
         registry = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
         selected = operation_capacity(capacity)
         if selected is not None: registry['operation_capacity'] = dict(selected)
-        definitions = {
-            'local_installation': 'CREATE TABLE local_installation(id INTEGER PRIMARY KEY CHECK(id=1), original TEXT NOT NULL)',
-            'local_operation': 'CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)',
-            'local_plan': 'CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)',
-            'local_publication_artifact': 'CREATE TABLE local_publication_artifact (request_digest TEXT PRIMARY KEY,request TEXT NOT NULL,artifact TEXT NOT NULL)',
-            'local_source_plan': 'CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)'}
+        definitions = local_journal_definitions()
         connection = sqlite3.connect('file:' + quote(str(path)) + '?mode=ro', uri=True)
         primary = None
         def renew():
@@ -732,7 +727,8 @@ class LocalDeltaTransport:
                     'operation_sha256': body_sha, 'request_digest': intent_digest, 'table': target.table,
                     'uuid': target.uuid, 'before_version': row[2], 'version': version,
                     'commit_metadata': metadata, 'native_operation': matches[0]['operation'], 'snapshot': snapshot}
-                if row[4] != encoded(proof):
+                from .local_receipt_codec import local_receipt_equals
+                if not local_receipt_equals(row[4],encoded(proof)):
                     raise LocalDeltaError('Original complete native receipt differs')
                 self._detail(target)
                 if self.policy.admit(json.loads(intent), context) is not None:
@@ -818,7 +814,8 @@ class LocalDeltaTransport:
                 snapshot = self._snapshot(target, version)
                 proof = {'profile': 'ashlar-local-delta-receipt/0.1', 'operation': operation, 'operation_sha256': body_sha, 'request_digest': intent_digest, 'table': target.table, 'uuid': target.uuid, 'before_version': before, 'version': version, 'commit_metadata': metadata, 'native_operation': commit['operation'], 'snapshot': snapshot}
                 text = encoded(proof)
-                if receipt is not None and receipt != text:
+                from .local_receipt_codec import local_receipt_equals,encode_local_receipt
+                if receipt is not None and not local_receipt_equals(receipt,text):
                     raise LocalDeltaError('Original native operation receipt differs')
                 self._detail(target)
                 self._profile()
@@ -827,7 +824,7 @@ class LocalDeltaTransport:
                 self._detail(target)
                 self._profile()
                 with self.db:
-                    self.db.execute("UPDATE local_operation SET state='committed',receipt=? WHERE operation=?", (text, operation))
+                    self.db.execute("UPDATE local_operation SET state='committed',receipt=? WHERE operation=?", (encode_local_receipt(text), operation))
                 result = SQLResult([{'version': str(version), 'uuid': target.uuid, 'operation_sha256': body_sha, 'snapshot_sha256': snapshot['row_sha256']}], (('version', 'STRING'), ('uuid', 'STRING'), ('operation_sha256', 'STRING'), ('snapshot_sha256', 'STRING')))
         if result is None:
             raise LocalDeltaUncertain('Original operation completion suppressed; inspect retained custody')
@@ -1045,3 +1042,13 @@ class LocalDeltaEffects:
         if result is None:
             raise LocalDeltaUncertain('Whole effect completion suppressed')
         return result
+
+
+def local_journal_definitions():
+    """Exact original local journal schemas; storage codec changes no schema."""
+    return {
+        'local_installation': 'CREATE TABLE local_installation(id INTEGER PRIMARY KEY CHECK(id=1), original TEXT NOT NULL)',
+        'local_operation': 'CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)',
+        'local_plan': 'CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)',
+        'local_publication_artifact': 'CREATE TABLE local_publication_artifact (request_digest TEXT PRIMARY KEY,request TEXT NOT NULL,artifact TEXT NOT NULL)',
+        'local_source_plan': 'CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)'}

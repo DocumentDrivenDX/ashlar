@@ -125,6 +125,9 @@ def main():
     truss_saved=commands.add_parser('publish-saved-truss-graph',help='Publish a selected saved Truss page whose first source plan was never retained')
     for option in ('configuration','publication-intent','publication-intent-sha256','output'):
         truss_saved.add_argument('--'+option,required=True)
+    truss_target=commands.add_parser('update-delete-truss-target',help='Update the selected cohort B label, then delete its edge and target using public Truss groups')
+    truss_target.add_argument('--configuration',required=True)
+    truss_target.add_argument('--output',required=True)
     truss_continue=commands.add_parser('continue-truss-graph',help='Consume new contiguous Truss pages into an existing publication and journal')
     truss_continue.add_argument('--configuration',required=True)
     truss_continue.add_argument('--output',required=True)
@@ -335,6 +338,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar saved Truss publication refused; retain the original selection and use resume for retained attempts',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'update-delete-truss-target':
+        try:
+            from ashlar_host.truss_graph_lifecycle import run_update_delete_truss_target_command
+            run_update_delete_truss_target_command(args.configuration,args.output)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar selected Truss target lifecycle refused; inspect source state and retain original request keys',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'continue-truss-graph':

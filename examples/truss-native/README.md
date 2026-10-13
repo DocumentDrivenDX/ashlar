@@ -958,3 +958,46 @@ checkpoint still at the original prior position. It restores the saved SQL,
 timestamp and publication identity before the coordinator starts applying.
 Changed tables or missing original plans require inspection; recovery does not
 generate a replacement plan from the current source state.
+
+### Stream a selected target update and deletion
+
+Use `update-delete-truss-target` when the source A must remain connected to other
+B targets. The cohort profile updates the selected B's `B-label`, retaining its
+native identity and other values, then deletes its selected A-B edge before
+that B object in one complete group. `B-label` is part of the logical key;
+Truss validates the new key and uniqueness under current permissions.
+
+Select existing identities from public source reads in a private configuration:
+
+```json
+{
+  "connection_uri": "<ordinary authorized Truss connection>",
+  "bun": "/absolute/bun",
+  "document_path": "/absolute/cohort.umf.json",
+  "document_revision": "r1",
+  "origin_path": "/absolute/private/origin.json",
+  "object_id": 4,
+  "edge_id": 5,
+  "replacement_label": "Gamma-edited",
+  "update_request_key": "<fresh selected update request key>",
+  "delete_request_key": "<fresh selected deletion request key>"
+}
+```
+
+Replace the IDs with your selected current B and incoming A-B edge; they must
+match. The origin file is a map of string keys to string values. Run:
+
+```sh
+ashlar update-delete-truss-target \
+  --configuration /absolute/private/target-lifecycle.json \
+  --output /absolute/private/target-lifecycle-result.json
+```
+
+The command uses actual current definition pins and expected versions, performs
+source readback and original committed receipt replay, and preserves source A.
+Its two source commits are separate; a later failure does not undo an earlier
+commit. Retain request keys and inspect source state before retrying. This source
+operator does not consume feed pages or acknowledge them. Use
+`continue-truss-graph --maximum-pages 2` with the existing publication selection
+to publish the complete update and deletion pages in order. Retained older
+publications keep their original object/edge values and native version vector.
