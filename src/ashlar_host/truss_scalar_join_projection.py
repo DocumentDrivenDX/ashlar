@@ -10,7 +10,7 @@ from .truss_scalar_projection import TrussScalarProjection
 from .truss_compatible_binding import truss_compatible_compile_request,admit_truss_compatible_join_revisions
 
 
-def admit_truss_scalar_join_projection(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions):
+def _admit_truss_scalar_join(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions,count_mode=False):
     if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:raise ValueError('Actual original numeric join admission required')
     selected=admission.revisions[revision];model,original=selected['models'][document_id]
     if encoded(model)!=encoded(json.loads(original)):raise ValueError('Original numeric join model bytes required')
@@ -22,7 +22,7 @@ def admit_truss_scalar_join_projection(admission,artifact,request,manifest,expec
     proof=admit_truss_compatible_join_revisions(admission,artifact,binding,revision=revision,document_id=document_id)
     if proof['physical_revisions']!=list(physical_revisions):raise ValueError('Exact explicit numeric join revisions required')
     plan=artifact.get('logicalPlan');keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
-    if type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not False or any(plan[k]!=[]for k in ('filters','groups','order'))or any(plan[k]is not None for k in ('limit','pageKey','readProfile'))or plan['modulePins']!=[pin]:raise ValueError('Only one direct numeric equality INNER JOIN supported')
+    if type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not count_mode or any(plan[k]!=[]for k in ('filters','groups','order'))or any(plan[k]is not None for k in ('limit','pageKey','readProfile'))or plan['modulePins']!=[pin]:raise ValueError('Only one direct numeric equality INNER JOIN supported')
     joins=plan['joins']
     if type(joins)is not list or len(joins)!=1 or type(joins[0])is not dict or set(joins[0])!={'on','right'}or type(joins[0]['on'])is not list or len(joins[0]['on'])!=1:raise ValueError('One original numeric equality required')
     predicate=joins[0]['on'][0]
@@ -55,14 +55,21 @@ def admit_truss_scalar_join_projection(admission,artifact,request,manifest,expec
     graph={} # Original IR type graph describes outputs; join types remain in the predicate.
     columns=artifact.get('columns');outputs=plan['outputs'];selections=[];output_names=set()
     if type(columns)is not list or not 1<=len(columns)<=64 or type(outputs)is not list or len(columns)!=len(outputs):raise ValueError('Bounded numeric join projections required')
-    for position,(column,output)in enumerate(zip(columns,outputs),1):
-        if type(output)is not dict or set(output)!={'name','expression'}:raise ValueError('Original numeric join projection required')
-        expression=output['expression'];name=output['name']
-        if type(expression)is not dict or set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']not in records or type(name)is not str or not name or name in output_names:raise ValueError('Exact required numeric join output required')
-        pid,representation=field(expression['scan'],expression['identity']);wanted={'nullable':False,'outputName':name,'position':position,'representation':representation,'sourceIdentities':[expression['identity']]}
-        if type(column)is not dict or type(column.get('position'))is not int or column!=wanted:raise ValueError('Exact original numeric join result descriptor required')
-        output_names.add(name);selections.append((name,expression['scan'],pid,representation))
-    if plan['requiredCapabilities']!=sorted(['equal','innerJoin','project','scan']+['type.'+f for f in families]):raise ValueError('Exact numeric join capability inventory required')
+    if count_mode:
+        integer={'family':'integer','facets':{},'nullable':False}
+        if len(columns)!=1 or type(outputs[0])is not dict or set(outputs[0])!={'name','expression'}or type(outputs[0]['name'])is not str or not outputs[0]['name']:raise ValueError('One original numeric join count output required')
+        name=outputs[0]['name']
+        wanted={'nullable':False,'outputName':name,'position':1,'representation':{'kind':'scalar','logicalType':integer,'carrier':'text','decoder':'exact-integer'},'sourceIdentities':[plan['source']['record'],joins[0]['right']['record']]}
+        if outputs[0]['expression']!={'op':'count','type':integer}or type(columns[0])is not dict or type(columns[0].get('position'))is not int or columns[0]!=wanted:raise ValueError('Exact original numeric join count descriptor required')
+    else:
+        for position,(column,output)in enumerate(zip(columns,outputs),1):
+            if type(output)is not dict or set(output)!={'name','expression'}:raise ValueError('Original numeric join projection required')
+            expression=output['expression'];name=output['name']
+            if type(expression)is not dict or set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']not in records or type(name)is not str or not name or name in output_names:raise ValueError('Exact required numeric join output required')
+            pid,representation=field(expression['scan'],expression['identity']);wanted={'nullable':False,'outputName':name,'position':position,'representation':representation,'sourceIdentities':[expression['identity']]}
+            if type(column)is not dict or type(column.get('position'))is not int or column!=wanted:raise ValueError('Exact original numeric join result descriptor required')
+            output_names.add(name);selections.append((name,expression['scan'],pid,representation))
+    if plan['requiredCapabilities']!=sorted(['equal','innerJoin','project','scan']+(['aggregate','aggregate.count']if count_mode else[])+['type.'+f for f in families]):raise ValueError('Exact numeric join capability inventory required')
     if type(plan['typeGraph'])is not list or len(plan['typeGraph'])!=len(graph)or encoded({encoded(g.get('identity')):g for g in plan['typeGraph']})!=encoded(graph):raise ValueError('Complete original numeric join type graph required')
     rows=expected['object_current']
     if type(rows)is not list or len(rows)>10000:raise ValueError('Bounded independent numeric join source bag required')
@@ -90,9 +97,22 @@ def admit_truss_scalar_join_projection(admission,artifact,request,manifest,expec
             key_value=source_value(props,join_pid,join_rep)[join_rep['logicalType']['family']+'_token'];key=Decimal(key_value).as_integer_ratio();groups[key].append(props)
         populations[scan]=groups
     count=sum(len(left)*len(populations['s1'].get(key,()))for key,left in populations['s0'].items())
+    if count_mode:
+        if count>2**63-1:raise ValueError('Exact nonnegative signed64 join count required')
+        return [{name:count}]
     if count>10000:raise ValueError('Complete numeric join exceeds matched pair bound')
     wanted=[]
     for key,left in populations['s0'].items():
         for a in left:
             for b in populations['s1'].get(key,()):wanted.append({name:source_value(a if scan=='s0'else b,pid,rep)for name,scan,pid,rep in selections})
     return TrussScalarProjection(encoded(columns),encoded(wanted))
+
+
+def admit_truss_scalar_join_projection(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions):
+    """Complete original required scalar join projection bag."""
+    return _admit_truss_scalar_join(admission,artifact,request,manifest,expected,revision=revision,document_id=document_id,physical_revisions=physical_revisions)
+
+
+def admit_truss_scalar_join_count(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions):
+    """One original global COUNT over exact numeric equality matched pairs."""
+    return _admit_truss_scalar_join(admission,artifact,request,manifest,expected,revision=revision,document_id=document_id,physical_revisions=physical_revisions,count_mode=True)

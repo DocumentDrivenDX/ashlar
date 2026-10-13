@@ -504,3 +504,13 @@ Reads MUST leave the source checkpoint unchanged. Final success MUST follow
 owned source and Spark closure, environment restoration and original configuration
 renewal. The example MUST retain the original declared numeric facets and expose
 its saved reader configuration for later commands.
+
+### Numeric equality join counts
+
+An admitted numeric equality INNER JOIN COUNT MUST count every matched source
+pair, including duplicate matches and self-join pairs. Empty matches MUST produce
+one zero count. The original count descriptor, both record identities and complete
+publication and revision obligations MUST correspond. Count admission MUST retain
+all original source and integrity guards and compare the complete single result
+with independently matched source populations. It MUST NOT materialize or truncate
+pairs to fit a projection row limit, or authorize other aggregates implicitly.
