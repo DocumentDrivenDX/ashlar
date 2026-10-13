@@ -44,6 +44,23 @@ SQL or omit guards to admit older rows. The complete result bag, including older
 compatible rows and multiplicities, MUST match the independent source-derived
 projection before successful closing checks release it.
 
+### Compatible physical-revision obligations
+
+The `0.1.1-compatible-revisions-candidate` backend uses explicit
+`compatibleSchemaRevisions` sets for physical record bindings. Ashlar MUST
+establish original accepted catalog custody for each selected revision and prove
+record ownership, property allocations, field definition pins, scalar domains,
+ordered existing members and key correspondence against the primary revision.
+New fields on older rows MUST be absent-allowed. Unknown revisions, required
+additions, changed declarations or incompatible keys MUST refuse.
+
+The emitted `ashlar.compatibleSchemaRevisions` host obligation MUST match the
+original selected record sets, model pins and complete publication vector. It
+provides no source authority or compiler proof of compatibility. The executor
+MUST still discharge every original integrity obligation, retain the original
+SQL and compare the complete source-derived result bag before releasing results.
+A binding/proof API alone MUST NOT imply query execution qualification.
+
 ### Truss STRING equality join projections
 
 A single INNER equality join MAY project up to 64 required STRING fields from

@@ -1,0 +1,24 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 0.0128,
+  "compiler_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "compiler_binary_bytes": 16838512,
+  "source_revision_reported_by_owner": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "request_sha256": "bd8a1b94c77dcfe299bafaa25be83b980d73993fd439ebb3f9946e5b7637385d",
+  "response_sha256": "7151a2c324bdae1985e1dff170a74d7ad8b381d4ab7bc0b648bca1358e2a4335",
+  "backend": {
+    "backendId": "ashlar.databricks",
+    "backendVersion": "0.1.1-compatible-revisions-candidate",
+    "interfaceVersion": "weft-backend/0.2.0",
+    "targetProfile": "dbsql-compatible-revisions-candidate"
+  },
+  "proof": {
+    "primary_revision": "2",
+    "physical_revisions": [
+      "1",
+      "2"
+    ],
+    "qualification": "Accepted schema correspondence only; no source, publication, integrity execution or result authority."
+  },
+  "scope": "Actual public Weft CLI compilation and supplementary accepted-schema obligation checks on separately authored named inert adapter fixtures. No native source, publication or query execution qualification."
+}

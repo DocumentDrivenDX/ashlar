@@ -1633,3 +1633,23 @@ The combined report is written after closure; any failed query withholds it.
 This batch interface has basic adapter coverage; its native workflow has not
 yet been qualified. The individual gallery query shapes retain their existing
 scoped native evidence.
+
+### Prepare compatible physical-revision bindings
+
+`ashlar_host.truss_compatible_binding.truss_compatible_compile_request` targets
+Weft's `0.1.1-compatible-revisions-candidate` source registration. Supply the
+actual admitted source, resolved manifest, native UUIDs, authored SQL and an
+explicit `physical_revisions` tuple including the primary revision. Original
+accepted models and allocations remain in the request. The builder checks
+historical declarations, field pins, scalar domains and keys before adding the
+compiler's exact revision-set binding.
+
+`admit_truss_compatible_revisions` checks the emitted
+`ashlar.compatibleSchemaRevisions` obligation against those accepted revisions
+for an unjoined source scan. It is supplementary schema correspondence proof:
+the caller must use the original built request binding and independently enforce
+native publication admission, every integrity guard and the complete result bag.
+The helper grants no source or result authority. This foundation has basic adapter
+coverage and an [actual public CLI compilation check](../../docs/helix/04-build/evidence/compatible-revision-compiler-20261013/result.json)
+on a separately authored named inert fixture. Compiler transport admission and
+native query execution require separate integration. Existing query commands retain their qualified profiles.
