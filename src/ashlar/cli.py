@@ -156,6 +156,9 @@ def main():
     truss_example=commands.add_parser('run-truss-example',help='Run a fresh local Truss to Delta example with optional streamed mutations and a query or gallery using selected runtimes')
     truss_example.add_argument('--configuration',required=True)
     truss_example.add_argument('--output',required=True)
+    truss_record_example=commands.add_parser('run-truss-record-example',help='Run a fresh local typed Truss record through Delta and an exact singleton read')
+    truss_record_example.add_argument('--configuration',required=True)
+    truss_record_example.add_argument('--output',required=True)
     truss_setup=commands.add_parser('setup-truss-local',help='Initialize a fresh local Truss installation for the selected original UMF document and stop its owned server')
     truss_setup.add_argument('--configuration',required=True)
     truss_setup.add_argument('--output',required=True)
@@ -410,6 +413,15 @@ def main():
             print(json.dumps({'output':result['output']},separators=(',',':')))
         except Exception:
             print('ashlar example reader configuration refused; inspect original private inputs and fresh output selection',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'run-truss-record-example':
+        try:
+            from ashlar_host.truss_record_example import run_truss_record_example_command
+            result=run_truss_record_example_command(args.configuration,args.output)
+            print(json.dumps({'output':str(args.output)+'/result.json','publication_id':result['publication_id']},separators=(',',':')))
+        except Exception:
+            print('ashlar typed Truss example refused; retain partial output and inspect source state before retrying',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'run-truss-example':

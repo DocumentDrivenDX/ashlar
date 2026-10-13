@@ -1,5 +1,37 @@
 # Local Truss toolkit
 
+## One typed-record command
+
+With the compatible public Truss toolkit, Spark 4.0.1 / Delta 4.0.0, Bun and JDK
+21 installed in your selected environment, supply these existing runtimes:
+
+```json
+{
+  "profile": "ashlar-local-truss-record-example/0.1",
+  "bun": "/absolute/path/to/bun",
+  "java_home": "/absolute/path/to/jdk21",
+  "jars": ["/absolute/path/delta-spark.jar", "/absolute/path/delta-storage.jar"]
+}
+```
+
+```sh
+ashlar run-truss-record-example --configuration /absolute/private/typed-example.json \
+  --output /absolute/private/fresh-typed-example
+```
+
+The command creates a fresh local Truss installation, accepts the bundled
+[typed-record model](typed-record.umf.json), creates one exact typed object,
+publishes its catalog and source transaction to local Delta, then reads that
+publication by the actual allocated identity. Integer `9007199254740993` and
+decimal `1.2300` remain exact; optional fields remain absent. Weft is not required.
+The private output retains the setup, source receipt, publication, reader
+configuration and singleton result. The server stops before the final report is
+written. Retain partial output on failure; never reuse it as a fresh destination.
+The component create/publish/read paths have separate native receipts below;
+the [one-command local check](../../docs/helix/04-build/evidence/truss-typed-record-example-native-20261013/result.json)
+qualifies this composition with its recorded runtime versions. It uses local development authority and caller-asserted
+source ACK, with no Unity Catalog or production authorization claim.
+
 ## One local end-to-end command
 
 Install Ashlar and the compatible public Truss toolkit with its local PostgreSQL

@@ -1,0 +1,93 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 90.042,
+  "answer": {
+    "profile": "ashlar-local-truss-record-example/0.1",
+    "publication_id": "truss-graph-2",
+    "type_id": 1,
+    "entity_id": 1,
+    "publications": 2,
+    "fields": [
+      {
+        "module_id": "m",
+        "field_id": "record-id",
+        "property_id": "5",
+        "scalar_type": "string",
+        "nullability": "required",
+        "state": "value",
+        "value": "R1"
+      },
+      {
+        "module_id": "m",
+        "field_id": "quantity",
+        "property_id": "4",
+        "scalar_type": "integer",
+        "nullability": "required",
+        "state": "value",
+        "value": {
+          "integer_token": "9007199254740993"
+        }
+      },
+      {
+        "module_id": "m",
+        "field_id": "amount",
+        "property_id": "2",
+        "scalar_type": "decimal",
+        "nullability": "required",
+        "state": "value",
+        "value": {
+          "decimal_token": "1.2300"
+        }
+      },
+      {
+        "module_id": "m",
+        "field_id": "active",
+        "property_id": "1",
+        "scalar_type": "boolean",
+        "nullability": "required",
+        "state": "value",
+        "value": true
+      },
+      {
+        "module_id": "m",
+        "field_id": "note",
+        "property_id": "3",
+        "scalar_type": "string",
+        "nullability": "absent-allowed",
+        "state": "absent",
+        "value": null
+      },
+      {
+        "module_id": "m",
+        "field_id": "tag",
+        "property_id": "6",
+        "scalar_type": "string",
+        "nullability": "absent-allowed",
+        "state": "absent",
+        "value": null
+      }
+    ],
+    "source_checkpoint_unchanged": true,
+    "qualification": "Fresh local public Truss typed record creation, canonical Delta publication and exact named singleton; caller-asserted ACK. No Weft query, cloud or production authority qualification."
+  },
+  "unity_catalog": false,
+  "weft_execution": false,
+  "ashlar_parent_revision": "3038f2f0909d9e87453ac631d1c627d48742fb27",
+  "command_source_sha256": "bea1f2610165a0b9d4e0deaa91446e3915844474229f82de92df51d49b9a3dcb",
+  "truss_revision": "80527ca298bdfe05f948c42cf1e20497ab720cd0",
+  "truss_source_selection": "Immutable git archive of packages/python/src",
+  "python": "3.11.17",
+  "postgresql": "18.6",
+  "spark": "4.0.1",
+  "delta": "4.0.0",
+  "model": {
+    "sha256": "73bb04b2c0eedf273f785e2833952a5b641d9e4a4bc72f5d717c2c69ba3456eb",
+    "bytes": 2680,
+    "declared_version": "0.7.0"
+  },
+  "record": {
+    "sha256": "96e3dc970547f5b12aac8e82031b2587b27228032c6ab149d217f667b22f34dd",
+    "bytes": 2139
+  },
+  "scope": "Fresh one-command local schema acceptance, exact typed source creation/readback/replay, two Delta publications and named singleton. Caller-asserted ACK; no protected receipt, Unity Catalog, Weft, graph-engine, scale or production authority qualification."
+}
