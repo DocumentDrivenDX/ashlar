@@ -4,7 +4,7 @@ from pathlib import Path
 from ashlar.weft_count_star_distribution import CountStarDistributionPaths
 from .source import read_bounded
 from .lifecycle import finish,owned_context
-from .supply_chain_compile import SupplyChainCompileConfig,compile_supply_chain_cases
+from .supply_chain_compile import SupplyChainCompileConfig,compile_supply_chain_cases,select_supply_chain_cases
 
 INPUT_LIMIT=1024*1024
 
@@ -24,7 +24,7 @@ def _metadata(raw):
         raise ValueError('Closed compiler-only metadata required')
     return [value[k]for k in ('bindings','manifest','registry','aliases')]
 
-def compile_supply_chain_command(*,pack,model,graph,metadata,index,installation,output,maximum_artifact_bytes):
+def compile_supply_chain_command(*,pack,model,graph,metadata,index,installation,output,maximum_artifact_bytes,selected_case_ids=None):
     """Cooperating original files must remain byte-exact through closing.
 
     Retained raw observations precede parsing. They are compiler evidence only.
@@ -37,10 +37,10 @@ def compile_supply_chain_command(*,pack,model,graph,metadata,index,installation,
     config=SupplyChainCompileConfig(CountStarDistributionPaths(index,installation),maximum_artifact_bytes)
     originals=[(p,read_bounded(p,INPUT_LIMIT))for p in (pack,model,graph,metadata)]
     borrowed=_metadata(originals[3][1])
-    # Validate all original requests before allocating output or compiler effects.
-    from .supply_chain_request import supply_chain_cases,supply_chain_count_star_request
+    # Validate selected original requests before allocating output or compiler effects.
+    from .supply_chain_request import supply_chain_count_star_request
     raw=[b for _,b in originals[:3]]
-    for name,_ in supply_chain_cases(*raw):
+    for name,_ in select_supply_chain_cases(*raw,selected_case_ids):
         supply_chain_count_star_request(name,*raw,*borrowed)
     output.mkdir(mode=0o700)
     primary=None;result=None;observed=0
@@ -58,7 +58,8 @@ def compile_supply_chain_command(*,pack,model,graph,metadata,index,installation,
                 record=(json.dumps({'id':name,'iteration':iteration,'requestHex':request.hex(),'responseHex':response.hex()},separators=(',',':'))+'\n').encode()
                 if log.write(record)!=len(record):raise ValueError('Compiler observation write refused')
                 log.flush()
-            result=compile_supply_chain_cases(config,*raw,*borrowed,observe=observe)
+            options={}if selected_case_ids is None else {'selected_case_ids':selected_case_ids}
+            result=compile_supply_chain_cases(config,*raw,*borrowed,observe=observe,**options)
     except BaseException as error:primary=error
     def renew():
         if any(read_bounded(p,INPUT_LIMIT)!=b for p,b in originals):raise ValueError('Original closing compiler inputs differ')
@@ -75,4 +76,4 @@ def compile_supply_chain_command(*,pack,model,graph,metadata,index,installation,
     body.extend(b'\n')
     with owned_context((output/'report.json').open('xb'))as stream:
         if stream.write(body)!=len(body):raise ValueError('Compiler report write refused')
-    return {'cases':5,'report':str(output/'report.json'),'qualification':result['qualification']}
+    return {'cases':len(result['cases']),'report':str(output/'report.json'),'qualification':result['qualification']}

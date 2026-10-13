@@ -47,6 +47,7 @@ def main():
     for name in ('pack','model','graph','metadata','index','installation','output'):
         supply_compile.add_argument('--'+name, required=True)
     supply_compile.add_argument('--maximum-artifact-bytes',type=int,required=True)
+    supply_compile.add_argument('--case-id',action='append',help='Original case ID; repeat to select cases, default all five')
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -542,7 +543,8 @@ def main():
     if args.command == 'compile-supply-chain-count-star':
         from ashlar_host.supply_chain_cli import compile_supply_chain_command
         try:
-            answer=compile_supply_chain_command(**{name:getattr(args,name)for name in ('pack','model','graph','metadata','index','installation','output','maximum_artifact_bytes')})
+            options={}if args.case_id is None else {'selected_case_ids':args.case_id}
+            answer=compile_supply_chain_command(**{name:getattr(args,name)for name in ('pack','model','graph','metadata','index','installation','output','maximum_artifact_bytes')},**options)
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar supply-chain compiler refused',file=sys.stderr)

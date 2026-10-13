@@ -84,3 +84,22 @@ The observer stores provisional compiler artifacts; persist the report only
 after both its storage and the actual outer reader close successfully. A selected
 case result does not qualify unselected cases or replace native relationship
 query evidence with a property join.
+
+For compiler-only work, `ashlar compile-supply-chain-count-star` accepts repeatable
+`--case-id`. Allowed IDs are `split-excursion`, `excursion`, `replay`, `lineage`,
+and `sensor`. Omit the option to compile all five; selections run in original
+pack order. For example, use the command's explicit original input and installed
+compiler paths to compile only replay:
+
+```sh
+ashlar compile-supply-chain-count-star \
+  --pack /absolute/path/pack.json --model /absolute/path/ontology.json \
+  --graph /absolute/path/fixture.json --metadata /absolute/path/compiler-metadata.json \
+  --index /absolute/path/distributions/index.json \
+  --installation /absolute/path/weft-installation --output /absolute/path/fresh-compile \
+  --maximum-artifact-bytes 1048576 --case-id replay
+```
+
+Metadata retains the existing `bindings`, `manifest`, `registry`, and `aliases`
+shape. This compiles and independently recompiles original SQL; it does not query
+or authorize a native publication.

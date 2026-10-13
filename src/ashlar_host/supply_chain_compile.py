@@ -20,14 +20,24 @@ class SupplyChainCompileConfig:
         if self.paths.package is not None or any(not isinstance(p,Path)or not p.is_absolute()for p in (self.paths.index,self.paths.output)):
             raise ValueError('Absolute existing installation and index paths required')
 
-def compile_supply_chain_cases(config,pack,model,graph,bindings,manifest,registry,aliases,*,observe):
-    """Compile/recompile all five original cases; record bytes before parsing.
+def select_supply_chain_cases(pack,model,graph,selected_case_ids=None):
+    original=supply_chain_cases(pack,model,graph)
+    if selected_case_ids is None:return original
+    if (type(selected_case_ids)not in (tuple,list)or not selected_case_ids
+            or any(type(case)is not str or case not in dict(original)for case in selected_case_ids)
+            or len(set(selected_case_ids))!=len(selected_case_ids)):
+        raise ValueError('Nonempty unique original supply-chain case IDs required')
+    return tuple(case for case in original if case[0]in selected_case_ids)
+
+
+def compile_supply_chain_cases(config,pack,model,graph,bindings,manifest,registry,aliases,*,observe,selected_case_ids=None):
+    """Compile/recompile selected original cases; record bytes before parsing.
 
     Public offline admission and independent original source values are provisional
     compiler evidence. No publication reader/source/ACK authority is manufactured.
     """
     if type(config)is not SupplyChainCompileConfig or not callable(observe):raise ValueError('Typed configuration and original-byte observer required')
-    original=supply_chain_cases(pack,model,graph)
+    original=select_supply_chain_cases(pack,model,graph,selected_case_ids)
     snapshot=source_snapshot([bindings,manifest,registry,aliases])
     # Build all requests before compiler/schema/file effects; malformed original
     # metadata cannot turn into a partially selected corpus.
@@ -58,4 +68,4 @@ def compile_supply_chain_cases(config,pack,model,graph,bindings,manifest,registr
         if source_snapshot([bindings,manifest,registry,aliases])!=snapshot:
             raise ValueError('Original closing input metadata differs')
     finish(primary,[closing])
-    return {'cases':results,'qualification':'Five exact original supply-chain041 compiles/recompiles and public offline admission only; source oracles carry no publication/ACK/native authority'}
+    return {'cases':results,'qualification':str(len(results))+' selected exact original supply-chain041 compiles/recompiles and public offline admission only; source oracles carry no publication/ACK/native authority'}
