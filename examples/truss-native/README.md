@@ -1825,3 +1825,42 @@ grouping after original integrity guards run under the full publication hold.
 An empty source returns no groups. Filters, optional grouping, joins and other
 aggregate expressions need separate admission. The [native grouped counts](../../docs/helix/04-build/evidence/truss-numeric-grouped-count-native-20261013/result.json)
 retain the original compiler protocols and exact results on one publication.
+
+### Create an authored edge between accepted records
+
+`create-truss-edge` resolves the actual accepted relationship definition and both
+endpoint records through public Truss APIs, then creates one edge in an atomic
+caller-committed group. Select the original accepted UMF 0.7 document and existing
+endpoint identities explicitly:
+
+```json
+{
+  "connection_uri": "postgresql://consumer@localhost/database",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/private/accepted-model.umf.json",
+  "document_revision": "r1",
+  "document_id": "typed-graph",
+  "module_id": "m",
+  "relationship_id": "related",
+  "origin_path": "/absolute/private/origin.json",
+  "request_key": "create-related-1",
+  "source": {"document_id": "typed-graph", "module_id": "m", "record_id": "TypedRecord", "entity_id": 1},
+  "target": {"document_id": "typed-graph", "module_id": "m", "record_id": "TypedRecord", "entity_id": 2},
+  "values": {},
+  "order_key": {"state": "null"}
+}
+```
+
+```sh
+ashlar create-truss-edge --configuration /absolute/private/create-edge.json \
+  --output /absolute/private/created-edge.json
+```
+
+Exact retained scalar values use the same explicit tags as `create-truss-record`.
+A text order key uses `{"state":"text","text":"..."}`. Unknown tags refuse
+before mutation. Truss enforces authored endpoint restrictions, multiplicity and
+lifecycle. The command verifies committed full edge identity, endpoints, version,
+retained values, order key and receipt replay before releasing its bounded private
+report. An uncertain commit is surfaced without automatic retry. This source
+adapter supplies no Delta publication, ACK or relationship-query qualification;
+consume the resulting feed with the publication workflow separately.
