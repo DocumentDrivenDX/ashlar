@@ -2,6 +2,7 @@
 import json,os,sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 from .lifecycle import finish,owned_context
 PROFILE='ashlar-local-truss-example/0.1'
 
@@ -14,6 +15,7 @@ class TrussExampleConfiguration:
     weft_index: Path
     weft_installation: Path
     export_graph: bool = False
+    destination_id: Optional[str] = None
 
 
 
@@ -31,9 +33,13 @@ def preflight(configuration,output):
         return result
     config=json.loads(raw,object_pairs_hook=pairs)
     required={'profile','bun','java_home','jars','weft_index','weft_installation'}
-    if type(config)is not dict or not required<=set(config)<=required|{'export_graph'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
+    if type(config)is not dict or not required<=set(config)<=required|{'export_graph','destination_id'}or config['profile']!=PROFILE:raise ValueError('Exact Truss example configuration required')
     export_graph=config.get('export_graph',False)
     if type(export_graph)is not bool:raise ValueError('Explicit boolean graph export selection required')
+    from .truss_feed_sessions import receipt_destination_id,require_truss_receipt_sdk
+    destination_id=receipt_destination_id(config.get('destination_id'))
+    if 'destination_id'in config and destination_id is None:raise ValueError('Explicit destination identity required')
+    if destination_id is not None:require_truss_receipt_sdk()
     if type(config['jars'])is not list or len(config['jars'])!=2:raise ValueError('Two existing Delta JARs required')
     paths=[]
     for value in [config['bun'],config['java_home'],*config['jars'],config['weft_index'],config['weft_installation']]:
@@ -45,7 +51,7 @@ def preflight(configuration,output):
             or len(set(paths))!=len(paths)):raise ValueError('Distinct existing Bun/JDK/JAR/compiler selections required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or not output.parent.is_dir()or output.exists():raise ValueError('Fresh canonical output directory required')
     if any(output==p or output in p.parents or p in output.parents for p in [configuration,*paths]):raise ValueError('Separate output and runtime inputs required')
-    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5],export_graph),output,original
+    return TrussExampleConfiguration(PROFILE,paths[0],paths[1],tuple(paths[2:4]),paths[4],paths[5],export_graph,destination_id),output,original
 
 
 def private_file(path,value):
@@ -86,10 +92,10 @@ def run_truss_example_command(configuration,output):
             ordinary=psycopg.conninfo.make_conninfo(**parameters)
             mutation=private_file(root/'mutation-configuration.json',{'connection_uri':ordinary,'bun':str(config.bun),'document_path':str(model),'document_revision':'r1','origin_path':str(origin),'request_key':'example-cohort-create','a':{'label':'Alpha','value':'Value-A'},'b':{'label':'Beta','value':'Value-B'}})
             created=run_mutate_truss_graph_command(mutation,root/'mutation.json')
-            publish=private_file(root/'publication-configuration.json',{'connection_uri':ordinary,'administrator_uri':administrator,'reader_role':bootstrap['roles']['reader'],'consumer_id':'example-delta','feed':'example-truss','jars':[str(path)for path in config.jars],'maximum_pages':2,**({'export_graph':True}if config.export_graph else {})})
+            publish=private_file(root/'publication-configuration.json',{'connection_uri':ordinary,'administrator_uri':administrator,'reader_role':bootstrap['roles']['reader'],'consumer_id':'example-delta','feed':'example-truss','jars':[str(path)for path in config.jars],'maximum_pages':2,**({'export_graph':True}if config.export_graph else {}),**({'destination_id':config.destination_id}if config.destination_id is not None else {})})
             published=run_publish_truss_graph_command(publish,root/'publication')
             intent=json.loads((root/'publication/publication-intent-2.json').read_bytes())
-            query=private_file(root/'query-configuration.json',{'connection_uri':ordinary,'publication_directory':str(root/'publication'),'jars':[str(path)for path in config.jars],**{k:intent[k]for k in ('feed','source_page_path','source_page_sha256','request_digest')}})
+            query=private_file(root/'query-configuration.json',{'connection_uri':ordinary,'publication_directory':str(root/'publication'),'jars':[str(path)for path in config.jars],**{k:intent[k]for k in ('feed','source_page_path','source_page_sha256','request_digest')},**({'destination_id':config.destination_id}if config.destination_id is not None else {})})
             def connection():return psycopg.connect(ordinary,autocommit=False,connect_timeout=5)
             before=read_page(connection,'example-delta').prior.content
             result=run_query_truss_graph_command(query,root/'query.json',index=str(config.weft_index),installation=str(config.weft_installation),sql='SELECT b."B-label" AS label, RELATED_KEYS(b."B-A", 2) AS related FROM B b',revision='1',document_id='cohort',maximum_rows=2)
@@ -101,6 +107,8 @@ def run_truss_example_command(configuration,output):
             answer={'profile':PROFILE,'publication_id':result['publication_id'],'publications':2,'rows':result['rows'],'source_checkpoint_unchanged':True,'qualification':'Fresh local public Truss acceptance/mutation, canonical Delta publication and original Weft inverse query; no cloud or production authority.'}
     except BaseException as error:primary=error
     finish(primary,[restore_environment,lambda:original.renew(65536)])
+    if config.destination_id is not None:
+        answer.update(destination_id=config.destination_id,ack_receipt_profile='ashlar-truss-destination-receipt/0.1')
     if config.export_graph:
         pair=published.get('graph_release')
         if type(pair)is not dict or not {'path','sha256','custody_path','custody_sha256','qualification'}<=set(pair):raise ValueError('Requested original graph export pair missing')

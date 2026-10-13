@@ -61,6 +61,10 @@ its actual newly returned URI; saved runtime URIs are not restart credentials.
 
 ## Retain destination receipts with source ACK
 
+Set optional `"destination_id": "your-ashlar-installation"` in the
+`run-truss-example` configuration to use receipt ACKs for both publications and
+preserve the setting in its saved query configuration.
+
 For a fresh `publish-truss-graph` configuration, add an explicit
 `"destination_id": "your-ashlar-installation"`. Select a public Truss SDK and
 installation that provide `acknowledge_feed_with_receipt_in_transaction` and
