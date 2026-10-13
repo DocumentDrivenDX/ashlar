@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-truss-native-target-lifecycle-functional/0.1",
+  "original_mutation_sha256": "d36db76a2556901d5aefd592c82f7b43ed076217ed4de2a5d9406cf0c846fac7",
+  "seconds": 62.035,
+  "prior_publication": "truss-graph-8fa9cb1a79fdd541521efb5684b2dde25aa193f336de890730dd512a581afbf3",
+  "new_publications": [
+    "truss-graph-9d7dac2df011403261c403f7853c09a59c4c52c4729db4f8c558bb11e1fb8090",
+    "truss-graph-8c2f60008da1af01ead2732f4cbc324632fe79c456d3780e9982224f410e4e88"
+  ],
+  "final_nodes": 3,
+  "final_edges": 1,
+  "tombstones": 2,
+  "history_increment": 3,
+  "stable_target_id": "4",
+  "updated_label": "Gamma-edited",
+  "intermediate_update_from_original_mutation_receipt": true,
+  "source_ack_completed_two_publications": true,
+  "recovered_delete_only_this_run": true,
+  "compaction": {
+    "logical_sha256": "fbf02268382eea7829ff4db6f8137525492db83d7be4e015e747b005a7fa9fa2",
+    "receipts": 41,
+    "before_bytes": 160346112,
+    "after_bytes": 62119936,
+    "scope": "Lossless original local receipt storage only; no native/source publication or ACK grant."
+  },
+  "server_stopped": true,
+  "qualification": "Actual public Truss logical-key update with stable native EntityKey, edge-first target deletion, original update publication followed by recovered saved deletion publication with final source-derived native parity and original publication holds; intermediate update proven by retained actual source receipt, old publication not recaptured in this recovery run. Caller-asserted Truss ACK only; no reset, ingestion replay, new setup/registration, installed-wheel, Unity Catalog or scale claim."
+}
