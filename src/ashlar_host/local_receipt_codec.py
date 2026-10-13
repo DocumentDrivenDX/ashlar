@@ -1,6 +1,7 @@
 """Lossless local receipt storage; exact original bytes remain authoritative."""
-import base64,hashlib,json,re,zlib
+import base64,hashlib,json,re,zlib,lzma
 PROFILE='ashlar-local-delta-receipt-zlib/0.1'
+LZMA_PROFILE='ashlar-local-delta-receipt-lzma/0.1'
 STORED_LIMIT=4194304
 ORIGINAL_LIMIT=128*1024*1024
 CHUNK=65536
@@ -44,8 +45,16 @@ def _top_level_profile(text):
 
 
 def encode_receipt_chunks(chunks,length):
+    return _encode_receipt_chunks(chunks,length,lzma_mode=False)
+
+
+def encode_lzma_receipt_chunks(chunks,length):
+    return _encode_receipt_chunks(chunks,length,lzma_mode=True)
+
+
+def _encode_receipt_chunks(chunks,length,*,lzma_mode):
     if type(length)is not int or not 0<length<=ORIGINAL_LIMIT:raise ValueError('Bounded original receipt length required')
-    compressor=zlib.compressobj(6);parts=[];digest=hashlib.sha256();observed=0;stored=0
+    compressor=(lzma.LZMACompressor(format=lzma.FORMAT_XZ,preset=3)if lzma_mode else zlib.compressobj(6));parts=[];digest=hashlib.sha256();observed=0;stored=0
     def add(value):
         nonlocal stored
         stored+=len(value)
@@ -58,7 +67,7 @@ def encode_receipt_chunks(chunks,length):
         digest.update(chunk);add(compressor.compress(chunk))
     if observed!=length:raise ValueError('Complete original receipt bytes required')
     add(compressor.flush())
-    value={'profile':PROFILE,'original_length':length,'original_sha256':digest.hexdigest(),'zlib_base64':base64.b64encode(b''.join(parts)).decode('ascii')}
+    value={'profile':LZMA_PROFILE if lzma_mode else PROFILE,'original_length':length,'original_sha256':digest.hexdigest(),('lzma_base64'if lzma_mode else'zlib_base64'):base64.b64encode(b''.join(parts)).decode('ascii')}
     result=json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
     if len(result.encode())>STORED_LIMIT:raise ReceiptStorageOverflow('Bounded compressed receipt storage required')
     return result
@@ -70,7 +79,7 @@ def encode_local_receipt(original):
     try:stored=encode_receipt_chunks((raw[offset:offset+CHUNK]for offset in range(0,len(raw),CHUNK)),len(raw))
     except ReceiptStorageOverflow:
         if len(raw)<=STORED_LIMIT:return original
-        raise
+        stored=encode_lzma_receipt_chunks((raw[offset:offset+CHUNK]for offset in range(0,len(raw),CHUNK)),len(raw))
     return original if len(raw)<=STORED_LIMIT and len(raw)<len(stored.encode())else stored
 
 
@@ -81,7 +90,7 @@ def original_receipt_chunks(stored):
     # the top-level profile without parsing/allocating their complete snapshot.
     # Original canonical receipt JSON uses this exact top-level profile member.
     if len(stored)>STORED_LIMIT:
-        if _top_level_profile(stored)==PROFILE:raise ValueError('Bounded compressed receipt envelope required')
+        if _top_level_profile(stored)in (PROFILE,LZMA_PROFILE):raise ValueError('Bounded compressed receipt envelope required')
         observed=0
         for offset in range(0,len(stored),CHUNK//4):
             raw=stored[offset:offset+CHUNK//4].encode('utf8');observed+=len(raw)
@@ -95,16 +104,36 @@ def original_receipt_chunks(stored):
             result[key]=value
         return result
     value=json.loads(stored,object_pairs_hook=pairs)
-    if type(value)is not dict or value.get('profile')!=PROFILE:
+    if type(value)is not dict or value.get('profile')not in (PROFILE,LZMA_PROFILE):
         raw=stored.encode('utf8')
         for offset in range(0,len(raw),CHUNK):yield raw[offset:offset+CHUNK]
         return
     if len(stored.encode())>STORED_LIMIT:raise ValueError('Bounded compressed receipt envelope required')
-    if (set(value)!={'profile','original_length','original_sha256','zlib_base64'}or type(value['original_length'])is not int
+    carrier='lzma_base64'if value['profile']==LZMA_PROFILE else'zlib_base64'
+    if (set(value)!={'profile','original_length','original_sha256',carrier}or type(value['original_length'])is not int
             or not 0<value['original_length']<=ORIGINAL_LIMIT or type(value['original_sha256'])is not str
-            or re.fullmatch('[0-9a-f]{64}',value['original_sha256'])is None or type(value['zlib_base64'])is not str):raise ValueError('Exact lossless receipt storage envelope required')
-    packed=base64.b64decode(value['zlib_base64'],validate=True)
-    if base64.b64encode(packed).decode()!=value['zlib_base64']:raise ValueError('Canonical compressed receipt carrier required')
+            or re.fullmatch('[0-9a-f]{64}',value['original_sha256'])is None or type(value[carrier])is not str):raise ValueError('Exact lossless receipt storage envelope required')
+    packed=base64.b64decode(value[carrier],validate=True)
+    if base64.b64encode(packed).decode()!=value[carrier]:raise ValueError('Canonical compressed receipt carrier required')
+    if value['profile']==LZMA_PROFILE:
+        decoder=lzma.LZMADecompressor(format=lzma.FORMAT_XZ,memlimit=16*1024*1024)
+        digest=hashlib.sha256();total=0
+        try:
+            for offset in range(0,len(packed),CHUNK):
+                if decoder.eof:raise ValueError('Trailing compressed receipt bytes')
+                pending=packed[offset:offset+CHUNK]
+                while True:
+                    original=decoder.decompress(pending,max_length=CHUNK);pending=b''
+                    total+=len(original)
+                    if total>value['original_length']:raise ValueError('Receipt expansion exceeds original bound')
+                    digest.update(original)
+                    if original:yield original
+                    if decoder.unused_data:raise ValueError('Trailing compressed receipt bytes')
+                    if decoder.eof or decoder.needs_input:break
+        except lzma.LZMAError as error:raise ValueError('Invalid bounded LZMA receipt stream')from error
+        if not decoder.eof or total!=value['original_length']or digest.hexdigest()!=value['original_sha256']:
+            raise ValueError('Complete original receipt digest/length differs')
+        return
     decoder=zlib.decompressobj();digest=hashlib.sha256();total=0
     for offset in range(0,len(packed),CHUNK):
         pending=packed[offset:offset+CHUNK]

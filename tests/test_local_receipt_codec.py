@@ -11,7 +11,8 @@ class Tests(unittest.TestCase):
         with patch('ashlar_host.local_receipt_codec.encode_receipt_chunks',side_effect=ReceiptStorageOverflow('forced storage budget')):
             self.assertEqual(encode_local_receipt(original),original)
             self.assertTrue(local_receipt_equals(encode_local_receipt(original),original))
-            with self.assertRaises(ReceiptStorageOverflow):encode_local_receipt('x'*(STORED_LIMIT+1))
+            with patch('ashlar_host.local_receipt_codec.encode_lzma_receipt_chunks',side_effect=ReceiptStorageOverflow('forced fallback overflow')):
+                with self.assertRaises(ReceiptStorageOverflow):encode_local_receipt('x'*(STORED_LIMIT+1))
         with patch('ashlar_host.local_receipt_codec.encode_receipt_chunks',side_effect=ValueError('invalid original')):
             with self.assertRaisesRegex(ValueError,'invalid original'):encode_local_receipt(original)
     def test_original_unknown_content_roundtrips_and_changed_digest_refuses(self):
@@ -26,6 +27,32 @@ class Tests(unittest.TestCase):
         oversized=json.dumps({'profile':'ashlar-local-delta-receipt-zlib/0.1','padding':'x'*4194304})
         with self.assertRaises(ValueError):list(original_receipt_chunks(oversized))
         self.assertTrue(local_receipt_equals('{"original":"legacy"}','{"original":"legacy"}'))
+        self.compact_checked(original)
+
+    def test_large_repeated_block_uses_lossless_lzma_after_actual_zlib_overflow(self):
+        import base64,random
+        from ashlar_host.local_receipt_codec import encode_receipt_chunks,ReceiptStorageOverflow,LZMA_PROFILE,STORED_LIMIT
+        block=base64.b64encode(random.Random(17).randbytes(1048576)).decode()
+        original=json.dumps({'profile':'original-native-receipt','metadata':[block]*4},separators=(',',':'))
+        raw=original.encode();self.assertGreater(len(raw),STORED_LIMIT)
+        with self.assertRaises(ReceiptStorageOverflow):encode_receipt_chunks((raw[offset:offset+CHUNK]for offset in range(0,len(raw),CHUNK)),len(raw))
+        stored=encode_local_receipt(original);self.assertEqual(json.loads(stored)['profile'],LZMA_PROFILE)
+        self.assertLessEqual(len(stored.encode()),STORED_LIMIT)
+        chunks=list(original_receipt_chunks(stored));self.assertTrue(all(len(chunk)<=CHUNK for chunk in chunks))
+        self.assertEqual(b''.join(chunks),raw);self.assertTrue(local_receipt_equals(stored,original))
+        self.compact_checked(original)
+
+    def test_lzma_corrupt_length_digest_and_trailing_stream_refuse(self):
+        import base64
+        from ashlar_host.local_receipt_codec import encode_lzma_receipt_chunks
+        original=b'{"original":"exact"}'
+        stored=json.loads(encode_lzma_receipt_chunks((original,),len(original)))
+        for field,value in (('original_length',len(original)-1),('original_sha256','a'*64),
+            ('lzma_base64',base64.b64encode(base64.b64decode(stored['lzma_base64'])+b'trailing').decode())):
+            changed={**stored,field:value}
+            with self.assertRaises(ValueError):list(original_receipt_chunks(json.dumps(changed)))
+
+    def compact_checked(self,original):
         from ashlar_host.delta_custody import DeltaTarget,encoded,local_journal_definitions
         from ashlar_host.local_journal_compaction import compact_original_local_delta_journal
         with tempfile.TemporaryDirectory()as directory:

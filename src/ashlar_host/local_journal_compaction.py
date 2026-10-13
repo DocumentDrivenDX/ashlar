@@ -3,7 +3,7 @@ import fcntl,hashlib,json,os,re,sqlite3,stat
 from pathlib import Path
 from urllib.parse import quote
 from .delta_custody import LocalDeltaTransport,encoded,operation_capacity,local_journal_definitions
-from .local_receipt_codec import CHUNK,STORED_LIMIT,ORIGINAL_LIMIT,ReceiptStorageOverflow,encode_receipt_chunks,original_receipt_chunks
+from .local_receipt_codec import CHUNK,STORED_LIMIT,ORIGINAL_LIMIT,ReceiptStorageOverflow,encode_receipt_chunks,encode_lzma_receipt_chunks,original_receipt_chunks,PROFILE,LZMA_PROFILE
 from .lifecycle import finish
 
 
@@ -72,13 +72,14 @@ def compact_original_local_delta_journal(path,installation_id,targets,*,capacity
             encoded_receipt=False
             if length<=STORED_LIMIT:
                 stored=b''.join(chunks('local_operation','receipt','operation',key,length)).decode('utf8');parsed=json.loads(stored)
-                encoded_receipt=type(parsed)is dict and parsed.get('profile')=='ashlar-local-delta-receipt-zlib/0.1'
+                encoded_receipt=type(parsed)is dict and parsed.get('profile')in (PROFILE,LZMA_PROFILE)
                 logical_length=parsed['original_length']if encoded_receipt else length
             else:logical_length=length
             try:compressed=encode_receipt_chunks(stream,logical_length)
             except ReceiptStorageOverflow:
                 if length<=STORED_LIMIT and not encoded_receipt:continue
-                raise
+                if logical_length<=STORED_LIMIT:raise
+                compressed=encode_lzma_receipt_chunks(receipt_chunks(key,length),logical_length)
             connection.execute('UPDATE local_operation SET receipt=? WHERE operation=?',(compressed,key))
         if digest()!=original:raise ValueError('Original logical journal bytes changed')
         renew();connection.commit();connection.execute('VACUUM')
