@@ -1,0 +1,37 @@
+{
+  "profile": "ashlar-source-cli-truss-grouped-count-functional/0.1",
+  "seconds": 13.526,
+  "publication_id": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "rows": [
+    {
+      "n": 1,
+      "value": "Value-B"
+    },
+    {
+      "n": 1,
+      "value": "Value-C"
+    }
+  ],
+  "independent_original_values": [
+    "Value-B",
+    "Value-C"
+  ],
+  "excluded_pending_value": "Value-D",
+  "original_table_versions": {
+    "local.trussgraph.edge_current": 3,
+    "local.trussgraph.object_current": 3,
+    "local.trussgraph.tombstone": 1,
+    "local.trussgraph.whole_source_history": 3
+  },
+  "actual_integrity_checks": 1,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "633c5acef17b06bdb9231261683271b7be6633fb0f7189aaa2d414b7189364b2",
+  "server_stopped": true,
+  "qualification": "One actual grouped COUNT query over the explicit existing Truss publication under current source/retention/native guards. Pending source mutation excluded; no ingestion, ACK, new publication, setup, installed-wheel or scale claim.",
+  "base_commit": "586963975163656adc22ccc484d5458d733bd6e9",
+  "harness_sha256": "77d15972b2258135c8906ac85c465b9590da6ef34eae8d823b38cd15c8734c37",
+  "query_sha256": "9632a5da48bbd06ca8145a863cfcf6ecf112ef46aab694f923acb14ce75150dc",
+  "request_sha256": "0e7ed0c02a27f3f1348dd1984bdc44cf593fc525022d86471290777c3f0e309e",
+  "response_sha256": "85707c63243e7dc1547b2fedddc7a949d0f8b1f4e919e4446a8ecf0aeaaafd12",
+  "scope": "Source CLI and original accepted UMF 0.7.0 required STRING groups with one COUNT(*), unfiltered/unjoined/unordered; retained local Spark/Delta tables. No installed-wheel, Unity Catalog, general relationship/distinct-count or scale qualification."
+}

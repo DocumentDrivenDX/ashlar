@@ -145,10 +145,17 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                 driver.validate_manifest(manifest,driver.context)
                 if maximum_rows is not None:
                     count=False
-                    if len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
+                    grouped=bool(artifact.get('logicalPlan',{}).get('groups'))
+                    if grouped:
+                        grouped_expected=admit_truss_grouped_count(driver.source_admission,artifact,binding,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                    elif len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related)
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped)
+                    if grouped:
+                        from collections import Counter
+                        if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in grouped_expected):
+                            raise ValueError('Independent complete original grouped count bag differs')
                     if related:
                         from collections import Counter
                         if Counter(encoded(row)for row in rows)!=Counter(encoded(row)for row in related_expected):
@@ -158,7 +165,7 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'publication_id':manifest['publication_id'],'qualification':'Original accepted UMF0.7 STRING record mapping for the selected physical catalog revision; public candidate Weft compilation under native publication pins. No SQL execution or scalar-integrity discharge.'}
     if maximum_rows is not None:
-        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global COUNT or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
+        result.update(rows=rows,integrity=checks,qualification='Original accepted UMF0.7 STRING scalar/global or grouped COUNT or unordered forward RELATED_KEYS query through public candidate Weft compiler SQL after all exact integrity checks, under complete native publication pins; related cells preserve authored key order and edge occurrences. Outer source/Spark lifetime remains caller owned.')
     return result
 
 
@@ -187,7 +194,7 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
     columns=artifact.get('columns')
@@ -196,7 +203,8 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
     names=[]
     for position,column in enumerate(columns,1):
         representation=column.get('representation')
-        expected={'kind':'scalar','logicalType':{'family':'integer'if count else'string','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'if count else'text'}
+        integer=count or (grouped and representation.get('logicalType',{}).get('family')=='integer')
+        expected={'kind':'scalar','logicalType':{'family':'integer'if integer else'string','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'if integer else'text'}
         if related and representation.get('kind')=='relatedKeys':expected=representation
         if column.get('position')!=position or column.get('nullable')is not False or representation!=expected or type(column.get('outputName'))is not str or not column['outputName']:
             raise ValueError('Only admitted non-null STRING scalar outputs supported')
@@ -236,7 +244,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
             from ashlar.weft_related_keys_decode import decode_related_keys,RelatedKeysDecodeConfig
             decoded=decode_related_keys(column['representation'],value,model_pins=artifact['modelPins'],config=RelatedKeysDecodeConfig(65536))
             return {'items':[list(item)for item in decoded.items],'truncated':decoded.truncated}
-        return decode_exact_scalar(column['representation'],value,count=count).value
+        return decode_exact_scalar(column['representation'],value,count=count or (grouped and column['representation']['logicalType']['family']=='integer')).value
     rows=[{name:decode(columns[index],value)for index,(name,value)in enumerate(zip(names,row))}for row in observed['rows']]
     return rows,checks
 
@@ -247,10 +255,10 @@ def compile_truss_string_query(driver,paths,sql,*,revision,document_id):
 
 
 def execute_truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
-    """Execute STRING projections, global COUNT or forward RELATED_KEYS while held.
+    """Execute STRING projections, global/grouped COUNT or forward RELATED_KEYS while held.
 
     Original generated SQL is unchanged; owned external catalog aliases select
-    original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state, numeric-field and non-global-count outputs refuse pending
+    original Delta paths, UUIDs and VERSION AS OF snapshots. Optional-state, numeric-field and other aggregate outputs refuse pending
     their separate semantic decoder admission.
     """
     return _truss_string_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows)
@@ -381,3 +389,82 @@ def admit_truss_related_keys(admission,artifact,binding,expected,*,revision,docu
             result[name]={'items':[list(value)for value,_ in tuples[:bound]],'truncated':len(tuples)>bound}
         answer.append(result)
     return answer
+
+
+def admit_truss_grouped_count(admission,artifact,binding,expected,*,revision,document_id):
+    """Required STRING groups and one COUNT over the complete admitted source bag."""
+    if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:
+        raise ValueError('Actual accepted grouped count source required')
+    if (artifact.get('status')!='compiled' or artifact.get('interfaceVersion')!='weft-compile/0.2.0'
+            or artifact.get('dialect')!='weft-sql/0.2.0' or artifact.get('compilerVersion')!='weft/0.1.0'):
+        raise ValueError('Exact original grouped compiler profile required')
+    selected=admission.revisions[revision];model,raw=selected['models'][document_id]
+    digest=hashlib.sha256(raw).hexdigest()
+    pin={'documentId':document_id,'revision':digest,'sha256':digest,'umfVersion':model['umf']}
+    string={'family':'string','facets':{},'nullable':False};integer={'family':'integer','facets':{},'nullable':False}
+    plan=artifact.get('logicalPlan');keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
+    if (type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not True
+            or any(plan[key]!=[]for key in ('filters','joins','order'))or any(plan[key]is not None for key in ('limit','pageKey','readProfile'))
+            or plan['modulePins']!=[pin]or artifact['modelPins']!=[pin]or binding['modelPins']!=[pin]
+            or plan['requiredCapabilities']!=['aggregate','aggregate.count','group','project','scan','type.string']):
+        raise ValueError('Only unordered unfiltered STRING grouped COUNT supported')
+    source=plan['source'];identity=source.get('record')
+    if set(source)!={'occurrence','pin','record'}or source['occurrence']!='s0'or source['pin']!=pin:
+        raise ValueError('Exact grouped source required')
+    maps=[item for item in binding['records']if item['logical']==identity]
+    if len(maps)!=1:raise ValueError('Exact grouped source allocation required')
+    record=maps[0];actual=selected['types'].get(record['typeId']);installation=json.loads(admission.batch.begin)['prior']['installationId']
+    index=record['table'];tables=binding['publication']['tables']
+    if (actual is None or actual['owner']!=(document_id,identity['module'],identity['element'])or record['kind']!='object'
+            or record['sourceSystem']!=installation or record['schemaRevision']!=revision or type(index)is not int
+            or not 0<=index<len(tables)or tables[index]['name'][-1]!='object_current'):
+        raise ValueError('Actual grouped physical record differs')
+    definitions={(module['id'],element['id']):element for module in model['modules']for element in module['elements']}
+    groups=plan['groups'];fields=[];homes=[]
+    if type(groups)is not list or not 1<=len(groups)<=32:raise ValueError('Bounded original grouping fields required')
+    for group in groups:
+        if (type(group)is not dict or set(group)!={'identity','scan','span','type'}or group['scan']!='s0'or group['type']!=string
+                or type(group['span'])is not dict or set(group['span'])!={'start','end'}
+                or any(type(group['span'][key])is not int or group['span'][key]<0 for key in ('start','end'))or group['span']['end']<group['span']['start']):
+            raise ValueError('Exact typed grouping field required')
+        field=group['identity'];properties=[item for item in record['properties']if item['logical']==field]
+        if len(properties)!=1 or field in fields:raise ValueError('Unique original grouping property home required')
+        declaration=definitions.get((field['module'],field['element']))
+        if (field.get('documentId')!=document_id or field.get('revision')!=digest or declaration is None
+                or declaration.get('scalarType')!='string'or declaration.get('nullability')!='required'or declaration.get('facets',{})!={}):
+            raise ValueError('Actual required STRING grouping field differs')
+        allocations=[item for item in json.loads(selected['report'])['properties']
+            if item['typeId']==record['typeId'] and item['moduleId']==field['module'] and item['elementId']==field['element']]
+        if (len(allocations)!=1 or allocations[0]['propertyId'] not in actual['fields']
+                or properties[0]['home']!={'kind':'props','propertyId':allocations[0]['propertyId']}):
+            raise ValueError('Actual accepted grouping property home differs')
+        fields.append(field);homes.append(properties[0]['home']['propertyId'])
+    if plan['typeGraph']!=[{'availability':'required','identity':field,'kind':'scalar','type':string}for field in fields]:
+        raise ValueError('Complete grouped type graph differs')
+    outputs=plan['outputs'];columns=artifact['columns'];projected=[];count_name=None;names=[]
+    if len(outputs)!=len(fields)+1 or len(columns)!=len(outputs):raise ValueError('Complete grouped outputs required')
+    for position,(output,column)in enumerate(zip(outputs,columns),1):
+        if (set(output)!={'name','expression'}or set(column)!={'nullable','outputName','position','representation','sourceIdentities'}
+                or column['position']!=position or column['nullable']is not False or column['outputName']!=output['name']
+                or type(output['name'])is not str or not output['name']or output['name']in names):raise ValueError('Exact grouped output metadata required')
+        names.append(output['name']);expression=output['expression']
+        if expression=={'op':'count','type':integer}:
+            if count_name is not None or column['sourceIdentities']!=[identity]:raise ValueError('One original COUNT output required')
+            count_name=output['name'];logical=integer;decoder='exact-integer'
+        else:
+            if set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']!='s0'or expression['identity']not in fields:
+                raise ValueError('Only original grouping field projections supported')
+            field=expression['identity']
+            if field in [item[0]for item in projected]or column['sourceIdentities']!=[field]:raise ValueError('Unique grouped projection identity required')
+            projected.append((field,output['name']));logical=string;decoder='text'
+        if column['representation']!={'kind':'scalar','logicalType':logical,'carrier':'text','decoder':decoder}:
+            raise ValueError('Exact grouped scalar descriptor required')
+    if count_name is None or len(projected)!=len(fields):raise ValueError('Complete grouping projections and COUNT required')
+    from collections import Counter
+    bag=Counter()
+    for row in expected['object_current']:
+        if (row['source_system'],row['type_id'],row['schema_revision'])!=(installation,record['typeId'],revision):continue
+        props=json.loads(row['props_json']);values=tuple(props[home]for home in homes)
+        if any(type(value)is not str for value in values):raise ValueError('Original grouped source STRING value required')
+        bag[values]+=1
+    return [{**{name:values[fields.index(field)]for field,name in projected},count_name:count}for values,count in bag.items()]

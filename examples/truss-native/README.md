@@ -56,8 +56,17 @@ Exceeding the row bound refuses the complete answer rather than truncating it.
 Use `--sql 'SELECT COUNT(*) AS n FROM Note n'` with the same command to count all
 records of the selected type. The result is an exact nonnegative integer, admitted
 from the compiler's aggregate IR rather than inferred from SQL text. This route
-supports one unfiltered global count; filtered, grouped, joined and relationship
-counts require their separate query support.
+supports one unfiltered global count. To count records grouped by required STRING
+fields, project each grouping field once and add one `COUNT(*)`:
+
+```sh
+--sql 'SELECT b."B-value" AS value, COUNT(*) AS n FROM B b GROUP BY b."B-value"'
+```
+
+Select `--document-id cohort` for this example. Grouped counts return an unordered
+row bag checked against the selected publication's complete source oracle. Both
+global and grouped counts are exact nonnegative integers. Filters, joins,
+relationship counts and `COUNT(DISTINCT ...)` need separate query support.
 
 For the accepted `cohort.umf.json` graph, use the same command with
 `--document-id cohort` and:
