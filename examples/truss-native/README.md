@@ -158,6 +158,19 @@ This is a separate authored setup choice; it does not upgrade an existing catalo
 Its [local Truss acceptance receipt](../../docs/helix/04-build/evidence/truss-inverse-acceptance-20261013/result.json)
 checks schema acceptance only; the separate inverse workflow above publishes and queries data.
 
+A required STRING equality join can also project fields from both occurrences:
+
+```sql
+SELECT b."B-label" AS left_label, c."B-value" AS right_value
+FROM B b JOIN B c ON b."B-value" = c."B-value"
+```
+
+This preserves the complete matching-pair bag, with up to 64 projected fields
+and 10,000 matched pairs. It supports no filters, grouping, ordering or limits;
+it does not traverse relationship edges. The
+[local projection receipt](../../docs/helix/04-build/evidence/truss-join-projection-20261013/result.json)
+returns `Beta` and `Value-B` from the existing publication without advancing the source.
+
 Required STRING equality joins can produce a single global count:
 
 ```sql

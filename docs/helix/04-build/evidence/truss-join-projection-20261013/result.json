@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-source-cli-truss-join-projection/0.1",
+  "seconds": 11.381,
+  "publication_id": "truss-graph-2",
+  "rows": [
+    {
+      "left_label": "Beta",
+      "right_value": "Value-B"
+    }
+  ],
+  "original_selectors_unchanged": true,
+  "source_checkpoint_unchanged": true,
+  "checkpoint_sha256": "5ad2b2b5344e075223a052cbe075ae0b1a40c6a047782bb2e5c9a29d103fcc02",
+  "owned_server_stopped": true,
+  "qualification": "Current source CLI reused original installed example publication and fresh actual ordinary runtime URI; no mutation, ingestion, publication or ACK.",
+  "native_join_projection_pass": true,
+  "query_report": "query.json.gz",
+  "query_sha256": "eda3341218dddd173c532ff10280ee880dc60a05d6543e34b4d9d49b55776267",
+  "actual_integrity_checks": 3,
+  "runtime": {
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "postgresql": "18.6",
+    "compiler": "weft/0.1.0"
+  }
+}

@@ -44,6 +44,16 @@ SQL or omit guards to admit older rows. The complete result bag, including older
 compatible rows and multiplicities, MUST match the independent source-derived
 projection before successful closing checks release it.
 
+### Truss STRING equality join projections
+
+A single INNER equality join MAY project up to 64 required STRING fields from
+its two admitted record occurrences. The adapter MUST preserve matching pair
+multiplicity, validate exact accepted homes and original compiler descriptors,
+and compare the complete result bag under the same full publication pins and
+scalar guards. The independent oracle MUST index equality values and refuse
+more than 10,000 matched pairs before materializing them. Filters, grouping,
+ordering, limits and relationship-edge joins require separate admission.
+
 ### Truss STRING equality join count
 
 A single INNER equality join over two required STRING record occurrences MAY
