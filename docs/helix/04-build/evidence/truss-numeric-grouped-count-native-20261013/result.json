@@ -1,0 +1,60 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 16.56,
+  "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+  "physical_revision": "1",
+  "query_count": 2,
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_commit": "2694cc89cdb043fe930afbe786c9f5aafd57268a",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "weft_owner_reported_source_commit": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "queries": {
+    "integer": {
+      "request_sha256": "01f3ec49227f290815135696f93c20948390c0c3ecbe0534fc92c24847a615d2",
+      "response_sha256": "107e78e1d3c9f97b867b9f864f384d9d08632afce0c7764e68dc6ee4a0913b43",
+      "rows": [
+        {
+          "n": 2,
+          "value": {
+            "integer_token": "9007199254740993"
+          }
+        }
+      ],
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "integrity_checks": 1
+    },
+    "decimal": {
+      "request_sha256": "776cd1d6e155916a177ab257da1c564754ff3eb2d497e6e3cf5abdaa1131b714",
+      "response_sha256": "a39142fa129a205c6b16c1777c830fe711abdcda63842df2255835764da319ac",
+      "rows": [
+        {
+          "n": 1,
+          "value": {
+            "decimal_token": "2.3400"
+          }
+        },
+        {
+          "n": 1,
+          "value": {
+            "decimal_token": "1.2300"
+          }
+        }
+      ],
+      "publication_id": "truss-graph-5fec289ce3df3b5e0092fed145ce1a085645e696b19e758f07b63d5fafb9b526",
+      "integrity_checks": 1
+    }
+  },
+  "scope": "Actual original UMF0.7 typed-query-record required signed64 and decimal18,4 grouped COUNT over two existing Truss objects. Complete exact group multiplicities and original guards on one Delta publication; unchanged source checkpoint. Empty groups and equivalent decimal spellings have adapter coverage only. No filtered, optional, multi-field or relationship grouping; no cloud or released compiler qualification."
+}
