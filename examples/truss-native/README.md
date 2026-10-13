@@ -1372,6 +1372,46 @@ coverage. The [one-record source check](../../docs/helix/04-build/evidence/truss
 qualifies local public schema acceptance and exact typed creation/readback/replay
 with the recorded SDK. Native feed, Delta and query execution remain separate.
 
+### Update a typed source record
+
+Use the same connection, document selection, Bun and origin settings as creation.
+Replace `values` with `set` and `unset`, and supply the actual `object_id` and
+`expected_version` from the committed source object:
+
+```json
+{
+  "object_id": 1,
+  "expected_version": 1,
+  "request_key": "update-typed-record-1",
+  "set": {
+    "quantity": {"kind": "integer", "text": "9007199254740994"},
+    "amount": {"kind": "decimal", "text": "2.3400"},
+    "active": {"kind": "boolean", "value": false},
+    "note": {"kind": "string", "text": "updated"}
+  },
+  "unset": []
+}
+```
+
+This fragment supplements the common settings; the complete configuration must
+include all of them. Set and unset fields must be disjoint. Truss validates
+availability and scalar meanings. Unsetting an optional field makes it absent.
+
+```sh
+ashlar update-truss-record --configuration /absolute/private/update-record.json \
+  --output /absolute/private/updated-record.json
+```
+
+The command checks the selected object version, submits one original public
+update group, and reads back its complete committed values and receipt replay.
+A stale expected version refuses; the command never refreshes it automatically.
+An exact no-op may retain the same version, as defined by Truss.
+Use graph continuation to publish the resulting complete feed transaction, then
+read the new publication with `read-truss-record`. The source update itself does
+not publish or ACK. Retain the original request key and inspect source state if
+commit outcome is uncertain. This adapter has basic unit coverage; native
+update/publication qualification is separate.
+
 ### Ingest exact scalar fields
 
 The graph publisher and continuation support accepted UMF 0.7 single-valued
