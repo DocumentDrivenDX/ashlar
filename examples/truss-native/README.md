@@ -1,5 +1,7 @@
 # Local Truss toolkit
 
+[Start with the quickstart](QUICKSTART.md) for typed ingest, queries and graph export.
+
 ## One typed-record command
 
 With the compatible public Truss toolkit, Spark 4.0.1 / Delta 4.0.0, Bun and JDK
@@ -1541,15 +1543,13 @@ query execution remain separate.
 `ashlar_host.truss_weft_query.truss_scalar_compile_request` binds the original
 accepted model and property allocations to a complete publication vector. It
 preserves declared facets; the STRING-only binding API remains separate.
-The [compiler probe](../../docs/helix/04-build/evidence/truss-typed-weft-binding-20261013/result.json)
-records refusals for the facetless typed example, including COUNT. No query
-execution is qualified for this typed compiler path.
-
-[typed-query-record.umf.json](typed-query-record.umf.json) is a separate model
-with signed 64-bit integer and decimal precision 18 / scale 4 declarations.
-Public UMF preparation validates it, but the tested Truss catalog profile
-refuses its acceptance with `unsupported_profile`. Upstream facet support
-is required; this model is not a runnable source example.
+Use [typed-query-record.umf.json](typed-query-record.umf.json) for exact numeric
+queries: it declares signed 64-bit integers and decimal precision 18 / scale 4.
+Select Truss's main-source numeric implementation after `v0.0.1`, preserving the
+original model bytes and declared UMF version. The explicit `query-truss-scalars`
+and `query-truss-arithmetic` routes below execute this model through their pinned
+compiler profiles. Facetless numeric fields require their own admitted query
+meaning; the typed source example alone does not establish numeric query support.
 
 ### Read an evolved record by field name
 
@@ -1922,3 +1922,9 @@ caller-asserted. The final private bounded report requires unchanged checkpoints
 exact values, complete bags and successful runtime closure. The [native public-command workflow](../../docs/helix/04-build/evidence/truss-typed-related-native-20261013/result.json)
 qualifies typed ingestion, singleton and forward/inverse queries. A fresh installed
 run of this one-command helper remains separate from that underlying workflow.
+
+The [same-graph export and GraphFrames execution](../../docs/helix/04-build/evidence/truss-typed-related-graphframes-20261013/result.json)
+qualifies the retained two-node/two-edge typed publication, including its self-loop,
+one/two-hop edge occurrences and exact degree/path counts. Canonical numeric
+property JSON is preserved as opaque text; this evidence does not qualify
+GraphFrames numeric-property filters.

@@ -1,0 +1,76 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 6.607,
+  "publication_id": "truss-graph-5",
+  "nodes": 2,
+  "edges": 2,
+  "release_sha256": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a",
+  "custody_sha256": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c",
+  "runtime": {
+    "spark": "3.5.3",
+    "pyspark": "3.5.3",
+    "graphframes": "0.12.3",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "ashlar_source_commit": "4346df2fb190cc29f53e5005ae69d6ff3b571f58",
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "export": {
+    "outcome": "passed",
+    "duration_seconds": 11.886,
+    "publication_id": "truss-graph-5",
+    "nodes": 2,
+    "edges": 2,
+    "source_checkpoint_unchanged": true,
+    "release_sha256": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a",
+    "custody_sha256": "eb65891198ffe9b5468db43b2929538595661f7af78864f1e65592a1baaa8e9c"
+  },
+  "files": {
+    "graphframes-result.json": {
+      "bytes": 2889,
+      "sha256": "101484b85e12e1a24f884985da619a38f7f09943c882414b52cebcba53c0a8c1"
+    },
+    "release.json": {
+      "bytes": 9764,
+      "sha256": "f85b8b2c41e5bfb6d939725f72ee1f581bf33c020e6d85b8613c3ad658521f6a"
+    },
+    "earlier-release.json": {
+      "bytes": 7231,
+      "sha256": "985ebf900d1d5617c42459f6e02b139ad9439961fff0dc32ca55986f136f976b"
+    },
+    "earlier-graphframes-result.json": {
+      "bytes": 1331,
+      "sha256": "405f5d220bc0346dc94d7bd73e980827ea6df9fba8379701073d9d93389243e6"
+    }
+  },
+  "model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "scope": "Actual immutable export and GraphFrames0.12.3/Spark3.5.3 of original UMF0.7 typed Truss publication5 (two nodes, forward edge/self-loop) and retained publication3 after publication5 (same exact node rows, no edges). Complete one/two-hop occurrences, degrees, path and distinct-destination counts; earlier isolated nodes retained. Source checkpoints unchanged; cross-publication release/custody pair refused before engine admission. All canonical property/retained JSON carrier strings preserved. No native numeric-property interpretation/filtering, interrupted engine refresh/import, parallel-edge, cloud, production or protected ACK qualification. Publication states differ; schema revision remains1. No reingestion.",
+  "historical_export": {
+    "mixed_pair_refused": true,
+    "outcome": "passed",
+    "duration_seconds": 12.3,
+    "publication_id": "truss-graph-3",
+    "nodes": 2,
+    "edges": 0,
+    "source_checkpoint_unchanged": true,
+    "release_sha256": "985ebf900d1d5617c42459f6e02b139ad9439961fff0dc32ca55986f136f976b",
+    "custody_sha256": "f9a09f78674ebdd270c33b185a221ae318f23eb1135f10f6d0d327b215938e03",
+    "node_rows_equal_later_release": true
+  },
+  "historical_graphframes": {
+    "outcome": "passed",
+    "duration_seconds": 4.038,
+    "publication_id": "truss-graph-3",
+    "nodes": 2,
+    "edges": 0,
+    "release_sha256": "985ebf900d1d5617c42459f6e02b139ad9439961fff0dc32ca55986f136f976b",
+    "custody_sha256": "f9a09f78674ebdd270c33b185a221ae318f23eb1135f10f6d0d327b215938e03",
+    "runtime": {
+      "spark": "3.5.3",
+      "pyspark": "3.5.3",
+      "graphframes": "0.12.3",
+      "master": "local[1]",
+      "driver_memory": "512m"
+    }
+  }
+}

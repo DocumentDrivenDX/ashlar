@@ -4,7 +4,9 @@ Ashlar's Python3.9+ standard-library core supplies admitted schema intake,
 whole-entity graph application, immutable publication resolution and guarded
 query orchestration. Authenticated database transports and deployment tools
 remain separate from the portable library. Start with the
-[runnable example](../../examples/end-to-end/README.md) for setup and native commands.
+[typed Truss quickstart](../../examples/truss-native/QUICKSTART.md) for ingest,
+queries and graph export, or the [portable example](../../examples/end-to-end/README.md)
+for source inspection and native commands.
 
 ## Install and inspect a source
 
