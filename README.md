@@ -49,6 +49,9 @@ For local development, `open_local_graph_export` admits the explicitly selected
 retained pair for materialization without reconnecting to the original source.
 Use `ashlar materialize-graph-export` to write that pair into fresh local Delta
 node and edge tables with the existing Spark runtime.
+Use `ashlar compare-graph-exports` to inspect changes between two saved exports
+without starting an engine; the [Truss guide](examples/truss-native/README.md#compare-immutable-graph-exports)
+shows the configuration and command.
 
 Build a candidate transaction from the original commerce domain-pack inputs:
 
