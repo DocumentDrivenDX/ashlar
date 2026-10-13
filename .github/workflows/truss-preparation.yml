@@ -35,4 +35,4 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_truss_preparation test_truss_preparation_cli test_module_boundaries
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_truss_preparation test_truss_preparation_cli test_truss_compatible_revisions test_module_boundaries

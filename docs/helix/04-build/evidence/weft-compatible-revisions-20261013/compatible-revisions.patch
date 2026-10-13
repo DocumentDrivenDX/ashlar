@@ -1,0 +1,131 @@
+--- a/crates/weft-databricks/src/binding.rs
++++ b/crates/weft-databricks/src/binding.rs
+@@ -61,6 +61,8 @@
+     pub source_system: String,
+     pub type_id: String,
+     pub schema_revision: String,
++    #[serde(default, skip_serializing_if = "Vec::is_empty")]
++    pub compatible_schema_revisions: Vec<String>,
+     pub properties: Vec<Property>,
+ }
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+@@ -224,6 +226,14 @@
+     if binding.records.is_empty() || binding.records.len() > 4096 {
+         return Err(fail("Missing or excessive record mappings"));
+     }
++    if let Some(records) = value["records"].as_array() {
++        for record in records {
++            if let Some(revisions) = record.get("compatibleSchemaRevisions") {
++                let list = revisions.as_array().ok_or_else(|| fail("Compatible revisions must be an array"))?;
++                if list.is_empty() { return Err(fail("Compatible revisions must be nonempty")); }
++            }
++        }
++    }
+     let mut records = BTreeSet::new();
+     for record in &binding.records {
+         if !records.insert(identity_key(&record.logical))
+@@ -235,6 +245,15 @@
+         {
+             return Err(fail("Invalid or duplicate original record mapping"));
+         }
++        if !record.compatible_schema_revisions.is_empty() {
++            let revisions = &record.compatible_schema_revisions;
++            let mut unique = BTreeSet::new();
++            if revisions.len() > 32 || !revisions.iter().all(|r| text(r) && r.len() <= 256 && unique.insert(r))
++                || !revisions.contains(&record.schema_revision)
++                || !matches!(record.kind, RecordKind::Object | RecordKind::Edge) {
++                return Err(fail("Invalid compatible schema revisions"));
++            }
++        }
+         let authored = catalog
+             .record_by_identity(&record.logical)
+             .map_err(|_| fail("Mapped record is not in the supplied original module"))?;
+--- a/crates/weft-databricks/src/candidate.rs
++++ b/crates/weft-databricks/src/candidate.rs
+@@ -328,12 +328,19 @@
+                 };
+             let owner=format!("(r.source_system COLLATE UTF8_BINARY) = ({source} COLLATE UTF8_BINARY) AND r.{type_column} = CAST({type_slot} AS BIGINT)");
+             let revision = if matches!(record.kind, RecordKind::Object | RecordKind::Edge) {
+-                let p = self.slot(
+-                    string_type(),
+-                    record.schema_revision.clone(),
+-                    json!({"kind":"schemaRevision","record":id}),
+-                )?;
+-                format!("(r.schema_revision COLLATE UTF8_BINARY) = ({p} COLLATE UTF8_BINARY)")
++                if record.compatible_schema_revisions.is_empty() {
++                    let p = self.slot(string_type(), record.schema_revision.clone(),
++                        json!({"kind":"schemaRevision","record":id}))?;
++                    format!("(r.schema_revision COLLATE UTF8_BINARY) = ({p} COLLATE UTF8_BINARY)")
++                } else {
++                    let mut predicates = Vec::new();
++                    for revision in &record.compatible_schema_revisions {
++                        let p = self.slot(string_type(), revision.clone(),
++                            json!({"kind":"schemaRevision","record":id}))?;
++                        predicates.push(format!("(r.schema_revision COLLATE UTF8_BINARY) = ({p} COLLATE UTF8_BINARY)"));
++                    }
++                    format!("({})", predicates.join(" OR "))
++                }
+             } else {
+                 "TRUE".into()
+             };
+--- a/tests/ashlar-databricks/compiler.rs
++++ b/tests/ashlar-databricks/compiler.rs
+@@ -426,3 +426,34 @@
+     assert_eq!(response["diagnostics"][0]["message"],"Selected authored key meaning is not registered");
+     assert!(response.get("sql").is_none());assert!(response.get("columns").is_none());
+ }
++
++#[test]
++fn compatible_revisions_legacy_guard_is_unchanged() {
++    let response = run(&common::request("SELECT c.name FROM Customer c"));
++    assert_eq!(response["status"], "compiled");
++    let checks = response["obligations"].to_string();
++    assert!(checks.contains("schema_revision COLLATE UTF8_BINARY"));
++    assert!(!checks.contains("COLLATE UTF8_BINARY) OR (r.schema_revision"));
++}
++#[test]
++fn compatible_revisions_are_exact_bounded_parameterized_selection() {
++    let mut request = common::request("SELECT c.name FROM Customer c");
++    let mut binding: Value = serde_json::from_str(request["target"]["bindingJson"].as_str().unwrap()).unwrap();
++    binding["records"][0]["compatibleSchemaRevisions"] = json!(["fixture-schema-1", "fixture-schema-2"]);
++    let encode = |request: &mut Value, binding: &Value| {
++        let raw = binding.to_string(); request["target"]["bindingSha256"] = json!(sha256(raw.as_bytes()));
++        request["target"]["bindingJson"] = json!(raw);
++    };
++    encode(&mut request, &binding);
++    let response = run(&request);
++    assert_eq!(response["status"], "compiled", "{response}");
++    let checks = response["obligations"].to_string();
++    assert!(checks.contains("COLLATE UTF8_BINARY) OR (r.schema_revision"));
++    assert!(response.to_string().contains("fixture-schema-1") && response.to_string().contains("fixture-schema-2"));
++    assert!(!checks.contains("fixture-schema-3"));
++    for invalid in [json!([]), json!(["fixture-schema-2"]), json!(["fixture-schema-1","fixture-schema-1"]), json!(["fixture-schema-1",""]), Value::Null, json!(vec!["fixture-schema-1";33])] {
++        binding["records"][0]["compatibleSchemaRevisions"] = invalid;
++        encode(&mut request, &binding);
++        assert_ne!(run(&request)["status"], "compiled");
++    }
++}
+--- a/docs/helix/02-design/contracts/CONTRACT-002-backend-interface.md
++++ b/docs/helix/02-design/contracts/CONTRACT-002-backend-interface.md
+@@ -88,6 +88,21 @@
+ runtime obligation accepted by the host; overflow-to-null/wrapping is forbidden.
+ Its physical layout remains an integration gate, not a definition in this repo.
+ 
++Proposed candidate binding extension: Object/Edge records MAY select
++`compatibleSchemaRevisions` while retaining required primary `schemaRevision`.
++An explicit list MUST contain 1..32 unique nonempty UTF-8 strings of at most
++256 bytes each and include the primary; null, empty or projection selections
++MUST refuse. Omission retains the single-revision guard. Every selected revision
++MUST become an exact parameterized binary-collation membership alternative in
++pre-query scalar integrity; unselected revisions MUST fail, never be filtered.
++Hosts remain responsible for accepted original schema/field/key compatibility and
++complete absent/value result correspondence. This does not admit schema evolution.
++The integration release MUST use a new backend candidate version
++`0.1.1-compatible-revisions-candidate` and named capability
++`binding.compatibleSchemaRevisions` (candidate status), retaining existing dialect,
++IR and binding profile compatibility. Until manifest/version wiring and refreshed
++release evidence are approved, this isolated implementation is a proposal only.
++
+ Both backends preserve duplicate rows, isolated sources and selected identity.
+ No backend derives authorization from an untrusted query. Unsupported delegation
+ or publication guarantees cannot silently fall back to broader privileges/newer data.
