@@ -327,6 +327,32 @@ class NativeDriver:
                 transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
 
     @classmethod
+    def from_existing_truss(cls, transport, policy, context, tables, allowed_changes,
+                            columns, *, source_admission, source_sessions, ack_sessions):
+        """Construct from complete existing journal custody, without recreating plans.
+
+        This admits construction only. Original request/plan restoration and live
+        source rereading remain mandatory before any retry or ACK reconciliation.
+        The caller retains ownership of the already-open transport on refusal.
+        """
+        from .delta_custody import LocalDeltaTransport
+        from .truss_graph_admission import TrussGraphAdmission
+        from .truss_feed_sessions import TrussFeedSessions
+        if (cls is not NativeDriver or type(transport) is not LocalDeltaTransport
+                or type(policy) is not PrivatePolicy or policy.context is not context
+                or transport.policy is not policy
+                or type(source_admission) is not TrussGraphAdmission
+                or type(source_sessions) is not TrussFeedSessions
+                or ack_sessions is not source_sessions or source_sessions.context is not context):
+            raise PermissionError('Exact existing Truss graph construction ports required')
+        LocalDeltaTransport.require_existing_journal(transport.journal_path,
+            transport.installation_id, tuple(transport.targets.values()),
+            capacity=transport.operation_capacity)
+        return cls(transport, policy, context, tables, {}, allowed_changes, columns,
+            source_admission=source_admission, source_sessions=source_sessions,
+            ack_sessions=ack_sessions)
+
+    @classmethod
     def with_registered_evolution(cls, transport, policy, context, tables, allowed_changes,
                                   columns, *, source_admission, source_sessions, ack_factory):
         """Transfer the transport into one complete existing evolution owner.
