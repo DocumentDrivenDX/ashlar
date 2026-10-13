@@ -1,0 +1,33 @@
+{
+  "profile": "ashlar-installed-named-truss-weft-functional/0.1",
+  "query_seconds": 21.442,
+  "publications": 3,
+  "rows": [
+    {
+      "text": "After"
+    }
+  ],
+  "actual_integrity_checks": 1,
+  "source_checkpoint_unchanged": true,
+  "source_checkpoint_sha256": "0d83d017563ae164466509ba9192853c4f25f8e610875ac2372b96a595189c57",
+  "server_stopped": true,
+  "query_sha256": "6ee509adde27d35749f7a0e56a7a16aa6dedc48e49849a78cfe298430a57e15f",
+  "runtime": {
+    "python": "3.11.17",
+    "pyspark": "4.0.1",
+    "delta-spark": "4.0.0",
+    "psycopg": "3.3.6",
+    "libpq": 180006,
+    "jdk": "existing21.0.12.1",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "wheel_sha256": "231322b8685fd29135de79b4bb060c89544fe6c301c5911f23314e1ed7006b75",
+  "source_commit": "aa05f63ae8af22e662e5b97d2b42cdd1b1a02aeb",
+  "installed_package": "/private/tmp/ashlar-installed-truss-query-functional-20261013-a/package/ashlar",
+  "qualification": "Actual installed wheel CLI query-truss-graph over retained named Note Truss/Delta publication, public compiler guard and unchanged original WITH version-pinned STRING SQL. Existing source/publication reused; no new ingestion/publication/ACK, Unity Catalog or scale qualification.",
+  "publication_id": "truss-graph-3",
+  "request_sha256": "377c69850455aadcef1938c9381cf8e52722a528f415e7d8532657449d2ce2a0",
+  "response_sha256": "8b82726e4aa4f0b2a15aeb628d8017c05e78d5c2e6990f670959e642d8fe3713",
+  "query_harness_sha256": "cd994b49be53645ef6438b7e7f7e18b1bbe52394da2ee0ae7c7ad0aec1982a80"
+}

@@ -5,21 +5,19 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Implementation status:** Development toolkit with local Delta ingest,
-protected PostgreSQL outbox ACK, publication-bound Weft queries, and immutable
-GraphFrames/PuppyGraph projections. Publication-bound Weft execution covers all 17
-original archaeology/ecology queries, including the original LEFT JOIN. See
+**Implementation status:** Development toolkit with qualified local Delta ingest,
+PostgreSQL outbox ACK, publication-bound Weft queries, immutable GraphFrames/PuppyGraph
+projections, and local Truss STRING graph/feed/evolution workflows. Fabric integration
+and broader query support remain unfinished. See
 the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
 and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
-Truss feed/evolution, publication-bound Fabric integration and broader query
-support are unfinished.
-Native profiles and production authority require their own qualification.
 Use the [fresh original-commerce workflow](examples/original-commerce-local/README.md)
 for explicit fixture setup, six-table initialization, publication and all four
 unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
 retains its separate supplier-relationship qualification.
 Use the [public Truss examples](examples/truss-native/README.md) for schema
-local setup, schema acceptance, graph creation/readback/replay, object/edge updates and graph deletion on
+local setup, schema acceptance, graph creation/readback/replay, object/edge updates,
+graph deletion and publication-pinned STRING queries on
 the supported local Truss runtime.
 
 Install the candidate toolkit locally (Python3.9+):
