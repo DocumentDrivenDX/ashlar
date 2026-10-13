@@ -149,3 +149,21 @@ source-retained receipt before reporting success. The
 [controlled commit-response loss example](../../docs/helix/04-build/evidence/truss-receipt-commit-loss-native-20261013/result.json)
 records a real commit, native receipt reconciliation, and a later read-only
 receipt check without another ACK or publication.
+
+To reopen an existing publication, keep its original local journal, source page,
+publication intent and destination ID. Refresh the source connection in the
+publisher configuration after restarting the source, then select the saved intent:
+
+```sh
+ashlar configure-truss-resume --configuration /absolute/private/live-publisher.json \
+  --publication-intent /absolute/private/publication/publication-intent-1.json \
+  --output /absolute/private/resume.json
+ashlar resume-truss-graph --configuration /absolute/private/resume.json \
+  --output /absolute/private/reconciled.json
+```
+
+An already committed receipt-backed publication returns its original manifest and
+reconciles its receipt without another ACK. A missing or symlink journal refuses before source
+or engine work; retain the checkpoint and restore original custody rather than
+initialize an empty journal. The [native receipt restart check](../../docs/helix/04-build/evidence/truss-receipt-restart-native-20261013/result.json)
+verifies unchanged source checkpoint and all six Delta commit histories.

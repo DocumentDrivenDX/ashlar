@@ -1,0 +1,72 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 16.234,
+  "publication_id": "truss-graph-1",
+  "request_digest": "981a46be45d9c198ff2f2441429bef5c09c768698d8f3f0cccfc4f5456c87845",
+  "original_manifest_equal": true,
+  "source_checkpoint_unchanged": true,
+  "delta_json_commit_inventory_unchanged": {
+    "attempts": {
+      "00000000000000000000.json": "d92f374bf7992e569b640f4e84f4cd76cd958bfa168114a57deab60de32a6b4b",
+      "00000000000000000001.json": "c4dc8314da03b5b54964bc7a2b79658a2ba305619d743f3293f8f72dc1013253",
+      "00000000000000000002.json": "8fd20cb932182168b47db0f8ba8eff7b07e0811af4a226ad84f2cce45cd2d9cc",
+      "00000000000000000003.json": "ea12e2c5f195c8f378a8f8d34927fd8b89fa565d0a090a3d5d5de2bd40c0488a",
+      "00000000000000000004.json": "d396621528ab939760c32dca0b4fc8da3e89d3eb2f6feb93700e0f0b910b6b55",
+      "00000000000000000005.json": "4523bc47524d45371e3a045aefb8a107fae6d4a524e808592cdcc351e50edd00",
+      "00000000000000000006.json": "7d33a09a7013bdc5915d493a678b61fe7743691b94b1e70ecdacb4228a9ed9ef"
+    },
+    "manifest": {
+      "00000000000000000000.json": "6c0d0463142d327ee849fa65daf1e13721bc62135cbfdd865e7d3e93027a5fd4",
+      "00000000000000000001.json": "6742d06e1a8e8b1fab4504f1225956b97b1090fe728f1222af8d7d47d2c5ae23",
+      "00000000000000000002.json": "32aae6fc8cc19305c06983d0890991e2539c1b97a2f99c77527d0379d4dd6f4c"
+    },
+    "object_current": {
+      "00000000000000000000.json": "49b2a20513832cbe3e23bb396dd33c58917327f48808274b0dc7211c08f69367",
+      "00000000000000000001.json": "f7a6761994506690f852487af3cf80141a2b89743cfeb7662d10765adc051c12"
+    },
+    "edge_current": {
+      "00000000000000000000.json": "35106215e5a881d546fd5516f57117683843496da9a526680c7f055406566028",
+      "00000000000000000001.json": "3b3aead23edcf3d25aa2c34d7a0d837dbc760fcbacf91ea636fcf06d29135e84"
+    },
+    "tombstone": {
+      "00000000000000000000.json": "9114723f69ef886a377441a81ff0f5176ba6db1e18ef7e3e96671a40a30fb300",
+      "00000000000000000001.json": "70072969e6699d48b1bf103d6f4de8c818717dfd155fa22c5a0e8595b146b8af"
+    },
+    "whole_source_history": {
+      "00000000000000000000.json": "df292179d5a9ddc3e23253a81ec40331584f912cdd6177fe03159c419e5cdbe5",
+      "00000000000000000001.json": "e22b61fc243b96792a41dd16eb044c12dc59002073f3827de4288e45b0a47a0b"
+    }
+  },
+  "receipt_reconciliation": [
+    {
+      "receipt_observed": true,
+      "page_sha256": "58d6063e56e0c26c28bc353ee508b816c7dc55e9bda81f4f9da9c618f2f3b132",
+      "publication_id": "truss-graph-1",
+      "request_sha256": "d6258ffbcdfa0c2ee87540de4b6602299700345de616d9b09db2b539ebc2ce7d",
+      "source_receipt_sha256": "183177707585b0dd05aa834f11b81722655b05289a7f88cff83c6737bd5ad8eb",
+      "source_receipt_retained": true,
+      "scope": "Exact source-retained opaque destination receipt after consumer-verified durable publication; caller controls source commit; no history release."
+    }
+  ],
+  "source_ack_calls": 0,
+  "fresh_process_and_source_runtime": true,
+  "qualification": "Actual public resume of the original receipt-backed catalog-only Delta publication after prior process/source-owner closure. Full original manifest and six-role Delta JSON commit files unchanged; source checkpoint unchanged and exact source-retained receipt freshly reconciled without another ACK. No new publication or ingest, full typed graph restart, missing-journal reconstruction, source history release, protected outbox or Unity Catalog qualification.",
+  "format": "ashlar-truss-receipt-restart-native/0.1",
+  "source_code_base_commit": "2a628da2c11bc73fbc6fe9eb52f7792db77dffdb",
+  "changed_boundary": {
+    "path": "src/ashlar_host/truss_resume_cli.py",
+    "sha256": "672375a3913b50d6629da864d28bf207492c3de69e886158c1c312663692e58b"
+  },
+  "truss_sdk_commit": "1f203768092178f356f267cd047ae149c08541f3",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 16.824
+  },
+  "original_evidence": "../truss-receipt-commit-loss-native-20261013/result.json",
+  "missing_journal_coverage": "Focused public entrypoint preflight tests reject absent or symlink journals before any database connection or runtime creation; original native journal was not removed or modified for this test. This is refusal evidence, not reconstruction recovery.",
+  "evidence_sha256": {
+    "restart.py": "6e9ddb78027c3120bfb7a3981a3ef7f2dea1d19b02c312a6e37f8356be1b3ca1",
+    "resumed.json": "f0ce87558b4164e7875af7dfc8079b19a3221ed85ff14e0805969c8040f2e077"
+  }
+}

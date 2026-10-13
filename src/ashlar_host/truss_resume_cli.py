@@ -97,6 +97,8 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     """Open original local Truss custody and close it before writing a report."""
     config,publication,page_raw,jars,archives,destination,warehouse = parse_resume_truss_configuration(configuration,output)
     journal = publication/'operations.sqlite'
+    if not journal.is_file() or journal.is_symlink() or journal.resolve()!=journal:
+        raise ValueError('Original local Truss publication journal unavailable; retain source checkpoint and restore original custody')
     # Normal read-only SQLite observes the original WAL; immutable mode is unsafe.
     with owned_context(closing(sqlite3.connect('file:'+quote(str(journal))+'?mode=ro',uri=True))) as registry_reader:
         rows = registry_reader.execute('SELECT length(CAST(original AS BLOB)),substr(CAST(original AS BLOB),1,65537) FROM local_installation WHERE id=1').fetchall()
