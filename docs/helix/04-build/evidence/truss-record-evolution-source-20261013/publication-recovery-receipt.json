@@ -1,0 +1,18 @@
+{
+  "profile": "ashlar-source-cli-truss-record-evolution-recovery/0.1",
+  "seconds": 63.492,
+  "original_evolution_result_sha256": "572c1667fae1fe8f89d189dd4f34393c39f6533016061061b00247fbb7622195",
+  "original_pending_request_digest": "15b80f78f378d69f7084d143ba359aa8d8a31b9fe530c20348189bd55d23226b",
+  "original_intent_sha256": "57c7263fe9d122cc3828543b0cd47119d8f0d59ad3b8930cda79adb41c813e29",
+  "prior_publication": "truss-graph-8c2f60008da1af01ead2732f4cbc324632fe79c456d3780e9982224f410e4e88",
+  "resumed_catalog_publication": "truss-graph-15b80f78f378d69f7084d143ba359aa8d8a31b9fe530c20348189bd55d23226b",
+  "new_update_publication": "truss-graph-ae29f91b19d46e335db3d19cc24b43947e6b48744bf8f5469f627494fb56641f",
+  "selected_object_id": 2,
+  "selected_object_version": 2,
+  "source_checkpoint_advanced_after_each_publication": true,
+  "reader_source_checkpoint_unchanged": true,
+  "other_objects_preserved": 2,
+  "edge_preserved": true,
+  "server_stopped": true,
+  "qualification": "Original already-committed schema/data source reused without mutation replay; exact uncertain catalog publication resumed, one pending update page continued, final native publication-pinned singleton. Source CLI local subset only; no optional Weft decoding or scale/Unity Catalog qualification. Truss ACK asserts delivery; it is not protected PostgreSQL outbox ACK custody."
+}
