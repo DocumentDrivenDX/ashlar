@@ -781,6 +781,39 @@ The pair describes an immutable local capture; it grants no future source or
 engine authority. A partial file-write failure leaves its original files for
 inspection and withholds the final result report.
 
+Run a small GraphFrames traversal directly over this pair with
+`run-graphframes-export`. In a fresh Python environment containing Ashlar,
+PySpark 3.5.3 and `graphframes-py` 0.12.3, create this configuration using the
+export report's exact paths and digests:
+
+```json
+{
+  "release_path": "/absolute/private/export-result.json-release.json",
+  "custody_path": "/absolute/private/export-result.json-custody.json",
+  "release_sha256": "<release digest from export report>",
+  "custody_sha256": "<custody digest from export report>",
+  "jars": [
+    "/absolute/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+    "/absolute/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar"
+  ],
+  "java_home": "/absolute/canonical/jdk-home"
+}
+```
+
+```sh
+ashlar run-graphframes-export \
+  --configuration /absolute/private/graphframes.json \
+  --output /absolute/private/graphframes-result.json
+```
+
+This finite local profile owns `local[1]` with 512 MiB driver memory and permits
+at most 10,000 nodes and edges each. It checks canonical carrier values, one-hop
+edge occurrences and out-degrees against the original export, including zero
+out-degrees. Properties remain exact JSON text; numeric property queries and the
+full authored engine corpus require their separate adapters. Results appear only
+after the Spark and file owners close. No canonical Delta tables or source
+checkpoints are changed.
+
 ### Consume new feed pages into existing tables
 
 After a publication commits, use its saved intent and original publisher

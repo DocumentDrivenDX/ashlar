@@ -1,0 +1,47 @@
+{
+  "profile": "ashlar-truss-immutable-export-graphframes-functional/0.1",
+  "seconds": 6.02,
+  "publication_id": "truss-graph-0e6cc4c4f351e6b7f2b8021cb3a9d3b2d30ea4d1c8a6ed77fc1a1f11e749d15c",
+  "nodes": 3,
+  "edges": 2,
+  "one_hop": [
+    {
+      "dst": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMiIsIjQiXQ",
+      "edge": "ashlar-key/1:WyJlZGdlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMSIsIjUiXQ",
+      "src": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMSIsIjEiXQ"
+    },
+    {
+      "dst": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMiIsIjIiXQ",
+      "edge": "ashlar-key/1:WyJlZGdlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMSIsIjMiXQ",
+      "src": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMSIsIjEiXQ"
+    }
+  ],
+  "out_degrees": [
+    {
+      "id": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMSIsIjEiXQ",
+      "out_degree": 2
+    },
+    {
+      "id": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMiIsIjIiXQ",
+      "out_degree": 0
+    },
+    {
+      "id": "ashlar-key/1:WyJub2RlIiwiYmE4YTRiYmMtZGRhYy00ZTUwLWI4ODgtY2E4OThmZWVmMDMyIiwiMiIsIjQiXQ",
+      "out_degree": 0
+    }
+  ],
+  "release_sha256": "6cc8da76860ac08c5beb9cb54231f0f3f542f460e4322a0e341b4c3d4ca1a61c",
+  "custody_sha256": "2c306b106943cf3a9b4123ee309cb9116204e21a935e365504636c69be6be95e",
+  "original_pair_unchanged": true,
+  "runtime": {
+    "driver_memory": "512m",
+    "graphframes": "0.12.3",
+    "master": "local[1]",
+    "pyspark": "3.5.3",
+    "spark": "3.5.3"
+  },
+  "qualification": "One source CLI GraphFrames0.12.3/PySpark3.5.3 motif and out-degree read over an independently selected immutable Truss export. Complete independent edge occurrence bag and all three node degrees match original bytes. No PG source read, ingestion, ACK, native Delta rematerialization, installed-wheel, Unity Catalog or scale claim.",
+  "base_commit": "0237f5b9c9056c38f9fec17e0e99047b8ea881c8",
+  "harness_sha256": "456c8915db9cb4ddd7f14482f44e2553d680da21165bbb28b73ddef9e9764792",
+  "engine_result_sha256": "04ffdba14f1caa0140e6b2bd013fb867be273c42c4d8ef0559fbcd8b1f26b6d7"
+}
