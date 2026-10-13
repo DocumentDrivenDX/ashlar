@@ -1,0 +1,62 @@
+{
+  "umf": "0.7.0",
+  "id": "compatible-record",
+  "vocabularies": {},
+  "extensions": {},
+  "modules": [
+    {
+      "id": "m",
+      "namespace": "m",
+      "extensions": {},
+      "elements": [
+        {
+          "id": "Record",
+          "name": "Record",
+          "kind": "record",
+          "extensions": {},
+          "members": [
+            {
+              "module": "m",
+              "element": "id"
+            },
+            {
+              "module": "m",
+              "element": "label"
+            }
+          ],
+          "keys": [
+            {
+              "id": "primary",
+              "name": "Primary",
+              "primary": true,
+              "fields": [
+                {
+                  "module": "m",
+                  "element": "id"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "id",
+          "name": "id",
+          "kind": "field",
+          "extensions": {},
+          "scalarType": "string",
+          "nullability": "required",
+          "cardinality": "one"
+        },
+        {
+          "id": "label",
+          "name": "label",
+          "kind": "field",
+          "extensions": {},
+          "scalarType": "string",
+          "nullability": "required",
+          "cardinality": "one"
+        }
+      ]
+    }
+  ]
+}

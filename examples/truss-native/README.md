@@ -1651,8 +1651,9 @@ the caller must use the original built request binding and independently enforce
 native publication admission, every integrity guard and the complete result bag.
 The helper grants no source or result authority. This foundation has basic adapter
 coverage and an [actual public CLI compilation check](../../docs/helix/04-build/evidence/compatible-revision-compiler-20261013/result.json)
-on a separately authored named inert fixture. Compiler transport admission and
-native query execution require separate integration. Existing query commands retain their qualified profiles.
+on a separately authored named inert fixture. Transport and the two-record mixed R1/R2 local Delta query have
+[actual native evidence](../../docs/helix/04-build/evidence/compatible-revision-native-query-20261013/result.json)
+for the pinned source candidate and direct STRING subset. Existing query commands retain their qualified profiles.
 
 ### Query compatible record revisions
 

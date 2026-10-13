@@ -1,0 +1,46 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 123.343,
+  "publication_id": "truss-graph-e7006778f29dffbc8a0eef3ac1f44db273d08d58452d39481c9dc0171295d9e5",
+  "physical_revisions": [
+    "1",
+    "2"
+  ],
+  "row_count": 2,
+  "source_checkpoint_unchanged": true,
+  "delta_execution": true,
+  "weft_execution": true,
+  "unity_catalog": false,
+  "ashlar_commit": "cc2b4c8b1b11711d516b99ddcd703a1b6c3c30e8",
+  "truss_sdk_commit": "80527ca298bdfe05f948c42cf1e20497ab720cd0",
+  "weft_owner_reported_source_commit": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "weft_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "runtime": {
+    "python": "3.11.17",
+    "postgresql": "18.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "platform": "macOS 27.0.1 arm64",
+    "spark_master": "local[1]"
+  },
+  "scope": "Actual separately authored named UMF 0.7 STRING Record: two source objects, five source publication pages, one additive optional STRING revision, one complete mixed R1/R2 direct projection. Local source candidate binary identity only; no released compiler, production source or Unity Catalog qualification.",
+  "rows": [
+    {
+      "id": "R1",
+      "label": "Label-1",
+      "note": {
+        "state": "value",
+        "value": "evolved-note"
+      }
+    },
+    {
+      "id": "R2",
+      "label": "Label-2",
+      "note": {
+        "state": "absent"
+      }
+    }
+  ],
+  "request_sha256": "3d493f9fff9b54acc38bba6963a4a0abc8b1858bd2c5d2780a6c26893c522b0a",
+  "response_sha256": "f26910f183196466539112072a248be9ebde8a42c857b16983ca577cfe477d7f"
+}
