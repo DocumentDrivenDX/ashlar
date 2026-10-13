@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-13",
+  "ashlar_source_commit": "7031e7133850db8c32692da602de9a06a216a978",
+  "original_run_sha256": "8abac861a6ada92aee0fb4080c1230867d358d776c16c92c5a776538ea657f95",
+  "through_ordinal": 2,
+  "outcome": "incomplete",
+  "attempts": [
+    {
+      "duration_seconds": 44.261,
+      "outcome": "refused",
+      "underlying_cause_initially_unavailable": true
+    },
+    {
+      "duration_seconds": 35.641,
+      "outcome": "refused",
+      "diagnosis": "AttributeError at ordinary connection creation: incomplete temporary Python3.9 psycopg namespace had no connect function."
+    },
+    {
+      "duration_seconds": 278.023,
+      "outcome": "deadline_then_cleanup_failure",
+      "deadline_seconds": 180,
+      "runtime": "Python3.11.17 / psycopg3.3.6 / libpq180006 / Spark4.0.1 / Delta4.0.0 / local[1]512MiB",
+      "diagnosis": "SIGALRM deadline interrupted Py4J; final failure occurred during protected ACK reconciliation resolving a snapshot and renewing native history."
+    }
+  ],
+  "verified_passive_state": {
+    "slots": [
+      "completed",
+      "completed",
+      "retained",
+      "unprepared",
+      "unprepared",
+      "unprepared",
+      "unprepared",
+      "unprepared"
+    ],
+    "committed_native_operations": 18,
+    "ordinal2_native_operations": 0,
+    "ordinal2_source_plans": 0,
+    "ordinal2_publication_artifacts": 0,
+    "new_delta_commits": 0,
+    "delta_heads": {
+      "attempts": 11,
+      "manifest": 3,
+      "object_current": 3,
+      "edge_current": 3,
+      "tombstone": 1,
+      "whole_source_history": 3
+    }
+  },
+  "source_checkpoint_stability": "not verified by a fresh PostgreSQL observation",
+  "limits": "No continuation success, COMMIT reply-loss recovery, full eight-publication run, measured memo speedup, production or Truss authority qualification. Original ledger and native state preserved. No further native retry performed.",
+  "next_action": "Diagnose repeated native metadata work and enforce a process deadline before another bounded continuation; preserve live source, protected ACK and closing validation."
+}
