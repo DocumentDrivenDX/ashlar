@@ -1,0 +1,9 @@
+{
+  "configuration_preparation_pass": true,
+  "native_continuation_executed": false,
+  "selected_publication_id": "truss-graph-ae29f91b19d46e335db3d19cc24b43947e6b48744bf8f5469f627494fb56641f",
+  "selected_intent_sha256": "16fca28bd92c6f1c74a9e26734f60fd24163d879820514f7ad3277c6afc50ef0",
+  "operator_selections_preserved": true,
+  "output_mode": "0600",
+  "scope": "Actual completed local schema-update continuation report selected through public CLI; configuration preparation only, no source connections, ingestion, publication or ACK."
+}

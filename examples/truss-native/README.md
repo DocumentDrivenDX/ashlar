@@ -170,6 +170,25 @@ without filters, grouping, ordering or limits. Original compiler SQL and scalar
 integrity guards run under the same complete publication pins. The [local join-count receipt](../../docs/helix/04-build/evidence/truss-join-count-20261013/result.json)
 returns `1` for the original single B record, without ingest or source advancement.
 
+## Repeat bounded streaming batches
+
+After a successful `continue-truss-graph` run, select its exact last completed
+intent for the next batch without copying request digests or page paths:
+
+```sh
+ashlar configure-truss-continuation --configuration /absolute/private/reader.json \
+  --continuation-result /absolute/private/continued.json \
+  --output /absolute/private/next-reader.json
+ashlar continue-truss-graph --configuration /absolute/private/next-reader.json \
+  --output /absolute/private/next-continued.json --maximum-pages 8 --wait-seconds 60
+```
+
+An empty result preserves the original selection. Connection URI, selected JARs
+and archived catalogs remain unchanged. Preparation grants no source authority;
+the next run revalidates the actual committed head and current source checkpoint.
+Truss ACKs remain caller-asserted downstream application. Interrupted runs use
+their saved original resume intent instead of this completed-result command.
+
 ## Query an example after restart
 
 Keep the existing example data and publication. In one terminal, start only its

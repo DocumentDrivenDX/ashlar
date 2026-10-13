@@ -150,6 +150,10 @@ def main():
     truss_server=commands.add_parser('serve-truss-local',help='Run an initialized local Truss server in the foreground until Ctrl-C')
     truss_server.add_argument('--data-directory',required=True)
     truss_server.add_argument('--connection-output')
+    truss_next=commands.add_parser('configure-truss-continuation',help='Select the exact last completed intent for another bounded continuation; no source connections or grants')
+    truss_next.add_argument('--configuration',required=True)
+    truss_next.add_argument('--continuation-result',required=True)
+    truss_next.add_argument('--output',required=True)
     truss_reader=commands.add_parser('configure-truss-example-reader',help='Prepare a private ordinary reader configuration for a restarted original example; no connections or grants')
     truss_reader.add_argument('--example-directory',required=True)
     truss_reader.add_argument('--connection-configuration',required=True)
@@ -338,6 +342,15 @@ def main():
             run_serve_truss_local_command(args.data_directory,**({'connection_output':args.connection_output}if args.connection_output else {}))
         except Exception:
             print('ashlar local Truss server refused; inspect the selected initialized directory and runtime',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'configure-truss-continuation':
+        try:
+            from ashlar_host.truss_continuation_setup import run_configure_truss_continuation_command
+            result=run_configure_truss_continuation_command(args.configuration,args.continuation_result,args.output)
+            print(json.dumps({'output':result['output']},separators=(',',':')))
+        except Exception:
+            print('ashlar continuation configuration refused; inspect original result and fresh output selection',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'configure-truss-example-reader':
