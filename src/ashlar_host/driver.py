@@ -20,6 +20,7 @@ from .ack_sessions import RegisteredOutboxAcks
 ROOT = RESOURCE_ROOT
 CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
+_MEDICAL_REQUEST_OMITTED = object()
 
 class _OriginalGraphSourceRenewal:
     """Private binding created by the exact original reader factory only."""
@@ -1147,8 +1148,8 @@ class NativeDriver:
                 or type(self.ack_sessions) is not RegisteredOutboxAcks
                 or getattr(self.transport, '_registered', False) is not True):
             raise PermissionError('Fresh exact registered medical publication binding required')
-        bounds.__post_init__(); plan.require_admission(self.source_admission)
-        value = plan.snapshot()
+        bounds.__post_init__()
+        value = plan.validated_snapshot(self.source_admission)
         roles = ('object_current', 'edge_current', 'tombstone', 'whole_source_history', 'attempts', 'manifest')
         if (self.tables != value['tables'] or set(self.transport.targets) != set(value['tables'].values())
                 or any(type(self.transport.targets[value['tables'][role]]) is not DeltaTarget for role in roles)
@@ -1174,14 +1175,15 @@ class NativeDriver:
         self._medical_publication_binding = binding
         self._original_medical_publication_binding = binding
 
-    def _require_medical_publication_binding(self, binding):
+    def _require_medical_publication_binding(self, binding, *, request=_MEDICAL_REQUEST_OMITTED):
         from dataclasses import asdict
         if (getattr(self, '_original_medical_publication_binding', binding) is not binding
                 or (getattr(self, '_original_medical_publication_binding', None) is not None
                     and getattr(self, '_medical_publication_binding', None) is not binding)):
             raise PermissionError('Original medical construction binding replaced')
-        plan = binding['plan']; value = plan.snapshot()
-        plan.require_admission(self.source_admission)
+        plan = binding['plan']
+        value = (plan.validated_snapshot(self.source_admission) if request is _MEDICAL_REQUEST_OMITTED
+                 else plan.validated_snapshot(self.source_admission, request=request))
         if (self.transport is not binding['transport'] or self.policy is not binding['policy']
                 or self.source_admission is not binding['admission']
                 or self.source_sessions is not binding['source'] or self.ack_sessions is not binding['ack']
@@ -1926,8 +1928,7 @@ class NativeDriver:
         from .local_physical_carriers import original_local_physical_carriers
         schemas = original_local_physical_carriers()['carriers']
         def guard():
-            self._require_medical_publication_binding(binding); self.require(context)
-            plan.require_request(request)
+            self.require(context); self._require_medical_publication_binding(binding, request=request)
         def source_plan():
             nonlocal source_original
             guard(); current = self._apply_source_plan(request, context, True, stages=stages)

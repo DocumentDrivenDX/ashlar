@@ -29,6 +29,11 @@ class Tests(unittest.TestCase):
     def call(self,d,plan,b):
         with d.writer('original',d.context),d.transport.bounded_observations(b):
             return d.preflight_original_medical_recovery(plan,context=d.context,bounds=b)
+    def test_binding_rejects_explicit_null_request(self):
+        with ExitStack()as stack:
+            f,d,plan,b,v,ids,captures=self.fixture(stack)
+            with self.assertRaisesRegex(PermissionError,'Exact original medical request required'):
+                d._require_medical_publication_binding(d._original_medical_publication_binding,request=None)
     def test_partial_actual_intents_and_all_committed_receipts_pass_without_writes(self):
         with ExitStack()as stack:
             f,d,plan,b,v,ids,captures=self.fixture(stack)

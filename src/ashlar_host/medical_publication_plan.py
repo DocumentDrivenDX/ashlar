@@ -26,6 +26,7 @@ PUBLICATION_ID='original-medical-publication-1'
 CLOCK='2026-10-09T12:00:00+00:00'
 ROLES=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
 MAXIMUM_BYTES=8*1024*1024
+_REQUEST_OMITTED=object()
 
 
 class MedicalPublicationPlan:
@@ -115,6 +116,19 @@ class MedicalPublicationPlan:
 
     def snapshot(self):
         self.renew();return json.loads(self._original)
+
+    def validated_snapshot(self,admission,*,request=_REQUEST_OMITTED):
+        """One full renewal for jointly checked original admission/request pins."""
+        def owner():
+            if type(admission)is not MedicalAdmission or admission is not self._original_admission or self._admission is not admission:
+                raise PermissionError('Actual construction-bound medical admission required')
+        owner();self.renew();owner()
+        value=json.loads(self._original)
+        if request is not _REQUEST_OMITTED and (type(request)not in (dict,MappingProxyType)
+                or any(type(k)is not str or type(v)is not str for k,v in request.items())
+                or encoded(dict(request))!=encoded(value['request'])):
+            raise PermissionError('Exact original medical request required')
+        return value
 
     def require_request(self,request):
         self.renew()

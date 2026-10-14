@@ -51,6 +51,19 @@ class Tests(unittest.TestCase):
   self.assertEqual(replacement,self.transaction);self.assertIsNot(replacement,self.transaction)
   object.__setattr__(plan,'_transaction',replacement)
   with self.assertRaises(PermissionError):plan.renew()
+ def test_joint_validation_rebuilds_once_and_returns_detached_snapshot(self):
+  plan=self.plan();request=plan.snapshot()['request']
+  with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+   value=plan.validated_snapshot(self.admission,request=request)
+  self.assertEqual(build.call_count,1)
+  value['expected']['object_current'].clear();value['request']['predecessor']='foreign'
+  self.assertEqual(len(plan.validated_snapshot(self.admission)['expected']['object_current']),51)
+  with self.assertRaises(PermissionError):plan.validated_snapshot(object(),request=request)
+  wrong=dict(request,predecessor='foreign')
+  with self.assertRaises(PermissionError):plan.validated_snapshot(self.admission,request=wrong)
+  with self.assertRaises(PermissionError):plan.validated_snapshot(self.admission,request=None)
+  object.__setattr__(plan,'_admission',object())
+  with self.assertRaises(PermissionError):plan.validated_snapshot(self.admission,request=request)
  def test_source_file_and_replaced_transaction_refuse_renewal(self):
   plan=self.plan();original=self.transaction.payload_digest
   object.__setattr__(self.transaction,'payload_digest','0'*64)
