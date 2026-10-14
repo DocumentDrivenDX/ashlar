@@ -1,4 +1,4 @@
-"""One exact required numeric equality join; complete independent pair bag."""
+"""Exact required scalar equality joins; complete independent pair bags."""
 import hashlib,json
 from decimal import Decimal
 from collections import defaultdict
@@ -6,7 +6,7 @@ from ashlar.schema import decode_retained_json
 from ashlar.weft_decode import decode_exact_scalar
 from .delta_custody import encoded
 from .truss_graph_admission import TrussGraphAdmission
-from .truss_scalar_projection import TrussScalarProjection
+from .truss_scalar_projection import TrussScalarProjection, decode_truss_lexical_properties
 from .truss_compatible_binding import truss_compatible_compile_request,admit_truss_compatible_join_revisions
 
 
@@ -49,9 +49,10 @@ def _admit_truss_scalar_join(admission,artifact,request,manifest,expected,*,revi
         span=value['span']
         if type(span)is not dict or set(span)!={'start','end'}or any(type(span[k])is not int or span[k]<0 for k in span)or span['end']<span['start']:raise ValueError('Exact original numeric join span required')
         pid,representation=field(scan,value['identity'])
-        if representation['logicalType']!=value['type']or value['type']['family']not in ('integer','decimal'):raise ValueError('Required signed64 or decimal18,4 join domain required')
+        if representation['logicalType']!=value['type']or value['type']['family']not in (('integer','decimal')if count_mode else('integer','decimal','string')):raise ValueError('Required signed64 or decimal18,4 join domain required')
         join_fields[scan]=(pid,representation)
     if join_fields['s0'][1]!=join_fields['s1'][1]:raise ValueError('Identical original numeric equality domains required')
+    string_join=join_fields['s0'][1]['logicalType']['family']=='string'
     graph={} # Original IR type graph describes outputs; join types remain in the predicate.
     columns=artifact.get('columns');outputs=plan['outputs'];selections=[];output_names=set()
     if type(columns)is not list or not 1<=len(columns)<=64 or type(outputs)is not list or len(columns)!=len(outputs):raise ValueError('Bounded numeric join projections required')
@@ -66,7 +67,9 @@ def _admit_truss_scalar_join(admission,artifact,request,manifest,expected,*,revi
             if type(output)is not dict or set(output)!={'name','expression'}:raise ValueError('Original numeric join projection required')
             expression=output['expression'];name=output['name']
             if type(expression)is not dict or set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']not in records or type(name)is not str or not name or name in output_names:raise ValueError('Exact required numeric join output required')
-            pid,representation=field(expression['scan'],expression['identity']);wanted={'nullable':False,'outputName':name,'position':position,'representation':representation,'sourceIdentities':[expression['identity']]}
+            pid,representation=field(expression['scan'],expression['identity'])
+            if string_join and representation['logicalType']['family']!='string':raise ValueError('STRING equality join admits only consumed required STRING projections')
+            wanted={'nullable':False,'outputName':name,'position':position,'representation':representation,'sourceIdentities':[expression['identity']]}
             if type(column)is not dict or type(column.get('position'))is not int or column!=wanted:raise ValueError('Exact original numeric join result descriptor required')
             output_names.add(name);selections.append((name,expression['scan'],pid,representation))
     if plan['requiredCapabilities']!=sorted(['equal','innerJoin','project','scan']+(['aggregate','aggregate.count']if count_mode else[])+['type.'+f for f in families]):raise ValueError('Exact numeric join capability inventory required')
@@ -89,12 +92,14 @@ def _admit_truss_scalar_join(admission,artifact,request,manifest,expected,*,revi
             if row['schema_revision']not in physical_revisions:raise ValueError('Numeric join row outside exact physical revisions')
             prior=admission.revisions[row['schema_revision']]['types'].get(record['typeId'])
             if prior is None or prior['owner']!=actual['owner']or prior['keys']!=actual['keys']or any(actual['fields'].get(pid)!=value for pid,value in prior['fields'].items()):raise ValueError('Original numeric join row correspondence required')
-            props=decode_retained_json(row['props_json'].encode())
+            props=decode_truss_lexical_properties(row['props_json'])if string_join else decode_retained_json(row['props_json'].encode())
             if type(props)is not dict:raise ValueError('Complete numeric join source property map required')
             relevant=[(pid,rep)for _,occ,pid,rep in selections if occ==scan]+[(join_pid,join_rep)]
             if any(pid not in prior['fields']for pid,_ in relevant):raise ValueError('Required field outside original row schema')
             for pid,rep in relevant:source_value(props,pid,rep)
-            key_value=source_value(props,join_pid,join_rep)[join_rep['logicalType']['family']+'_token'];key=Decimal(key_value).as_integer_ratio();groups[key].append(props)
+            value=source_value(props,join_pid,join_rep)
+            key=value if string_join else Decimal(value[join_rep['logicalType']['family']+'_token']).as_integer_ratio()
+            groups[key].append(props)
         populations[scan]=groups
     count=sum(len(left)*len(populations['s1'].get(key,()))for key,left in populations['s0'].items())
     if count_mode:

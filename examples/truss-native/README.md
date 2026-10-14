@@ -1732,12 +1732,23 @@ returns exactly `9007199254740993` with ascending order and `LIMIT 1` on the
 retained Truss 15 publication. Its original full-population guard passes and
 the recorded source checkpoint remains unchanged.
 
-### Join required numeric fields
+### Join required scalar fields
 
 `query-truss-scalar-join` takes the same explicit reader, compiler and revision
 options as `query-truss-scalars`. It admits one equality INNER JOIN between
 required signed64 fields or between required decimal(18,4) fields, with required
-scalar projections. For example:
+scalar projections. Required facetless STRING equality can project required
+STRING fields from both occurrences, including original commerce models with
+unused mathematical-integer fields:
+
+```sql
+SELECT p.sku AS product_sku, s.name AS supplier_name
+FROM products p JOIN suppliers s ON p.supplier_id=s.id
+```
+
+This compares authored property values. To follow authored relationship edges,
+use `query-truss-typed-related-keys`. Numeric output mixed with a STRING join
+requires separate admission. For a numeric join:
 
 ```sql
 SELECT a."record-id" AS left_id, b."record-id" AS right_id,

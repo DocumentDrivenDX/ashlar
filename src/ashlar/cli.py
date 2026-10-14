@@ -150,7 +150,7 @@ def main():
         truss_scalars.add_argument('--'+option,required=True)
     truss_scalars.add_argument('--physical-revision',action='append',required=True)
     truss_scalars.add_argument('--maximum-rows',type=int,default=1000)
-    truss_scalar_join=commands.add_parser('query-truss-scalar-join',help='Run local compatible-revision candidate required numeric equality INNER JOIN projections under publication custody')
+    truss_scalar_join=commands.add_parser('query-truss-scalar-join',help='Run local compatible-revision candidate required scalar equality INNER JOIN projections under publication custody')
     for option in ('configuration','output','compiler','sql','revision','document-id'):
         truss_scalar_join.add_argument('--'+option,required=True)
     truss_scalar_join.add_argument('--physical-revision',action='append',required=True)

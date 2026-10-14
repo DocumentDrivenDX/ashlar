@@ -71,6 +71,14 @@ scalar guards. The independent oracle MUST index equality values and refuse
 more than 10,000 matched pairs before materializing them. Filters, grouping,
 ordering, limits and relationship-edge joins require separate admission.
 
+Compatible-revision STRING projections MUST authenticate both original scan
+bindings and selected physical revisions. Interpret only consumed required,
+facetless STRING equality and output Fields. Unconsumed mathematical integers,
+decimals and unknown extension content MUST retain their original lexical/model
+bytes without imposing a new numeric execution domain. Equality MUST preserve
+Unicode code points without normalization; this admission MUST NOT broaden
+numeric joins, mixed numeric outputs or STRING count support.
+
 ### Truss STRING equality join count
 
 A single INNER equality join over two required STRING record occurrences MAY
