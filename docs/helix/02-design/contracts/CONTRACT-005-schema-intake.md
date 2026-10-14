@@ -365,3 +365,37 @@ custody also fails. Release a bounded receipt only after accepted complete child
 transport and closing checks; failure artifacts are explicitly incomplete and
 MUST NOT acquire a prepared/accepted status. Partial output never licenses a
 catalog or source effect.
+
+## Original typed record and required-link group intake
+
+`create-truss-record-group` MUST submit one complete ordered public Truss group:
+one through sixteen rootless records followed by one through thirty-two authored
+edges. Its closed `ashlar-truss-record-group/0.1` configuration MUST explicitly
+select an unchanged original UMF 0.7.0 or 0.8.0 document, revision, asserted origin,
+ordinary connection, Bun path and original request key. Preflight MUST be bounded,
+immutable and effect-free. Existing single-record and single-edge commands retain
+their profiles.
+
+Each created record has a unique alias. Edge endpoints MUST reference an earlier
+record alias or a stored object resolved through its exact original document,
+module, Record and native identity. Edge aliases MUST be distinct from record
+aliases. Current accepted type and relationship references MUST be obtained from
+the same authorized transaction; configuration and caller IDs confer no authority.
+Use only public `CreateObject`, `CreateEdge` and reference/value DTOs and one public
+group application. Truss owns required multiplicity, key, endpoint and scalar
+validation over the final group. A supplied edge does not by itself prove a
+required relationship was enforced.
+
+The host MUST retain the complete ordered semantic response and alias mapping,
+commit the effect transaction once without automatic retry, and read every created
+object and independent edge through public APIs. Readback MUST match original
+identities, versions, complete selected scalar values, separately classified
+retained fields, endpoints and order keys. In this fully selected scalar profile,
+objects MUST have empty nonselected retained content; edge retained scalar content
+MUST match its explicitly authored values. A committed replay of the same original input and request MUST reproduce the
+complete semantic receipt. Preserve original source/configuration/origin bytes and
+primary cancellation through all cleanup. Release a bounded success report only
+after readback, replay, input closing checks and connection cleanup. Unknown commit
+outcomes remain unresolved; new request keys or standalone later edges MUST NOT
+substitute for original-group reconciliation. This boundary establishes neither
+Ashlar publication, feed consumption nor source acknowledgement.
