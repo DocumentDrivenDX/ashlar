@@ -1,0 +1,92 @@
+{
+  "configuration_sha256": "3bfe10911616f5355ec0e9f7d8fafb63b33facaa7c6382b510a27d7f3ca94f0a",
+  "installation_id": "b7dda332-cf0e-4b37-b831-8af6afc0f14b",
+  "journal": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/operations.sqlite",
+  "journal_mode": "wal",
+  "table_counts": {
+    "local_installation": 1,
+    "local_operation": 5,
+    "local_plan": 1,
+    "local_source_plan": 1,
+    "local_publication_artifact": 0
+  },
+  "reconciliation": [
+    {
+      "operation": "attempt:bc3c2618c34bc3766ff07035bb4d13043d663c7b1f52f8c72428161189eb441b:1be10e07586fb2101482cef3cb2cbf4876622f0572f04ad839ee9608332c99f3",
+      "table": "local.original_medical.attempts",
+      "version": 3,
+      "log_sha256": "8b90d73e86c7790bc96fe910b879c1461a21887df4ab8d6b9d2954b366a5f8bf",
+      "receipt_rows": 2,
+      "native_commit_metadata_equal": true,
+      "original_receipt_row_digest_valid": true,
+      "native_uuid_equal": true
+    },
+    {
+      "operation": "attempt:bc3c2618c34bc3766ff07035bb4d13043d663c7b1f52f8c72428161189eb441b:701cf5641ce9e6ef136a60b933c03bff7e021d012d68b6638745e2b849a4f85d",
+      "table": "local.original_medical.attempts",
+      "version": 2,
+      "log_sha256": "c00185cf7d6f231deea433f5eef46ef2069f43fde35605a7f64bd2d1cc4ff5f2",
+      "receipt_rows": 1,
+      "native_commit_metadata_equal": true,
+      "original_receipt_row_digest_valid": true,
+      "native_uuid_equal": true
+    },
+    {
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:0",
+      "table": "local.original_medical.object_current",
+      "version": 2,
+      "log_sha256": "1845f44c2c9cdda4c37e44fc4ab07b078ab6146463df4e54be630313d26a8d5f",
+      "receipt_rows": 51,
+      "native_commit_metadata_equal": true,
+      "original_receipt_row_digest_valid": true,
+      "native_uuid_equal": true
+    },
+    {
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:1",
+      "table": "local.original_medical.edge_current",
+      "version": 2,
+      "log_sha256": "b67a084d57d2fd0970020d68c81bdf1366e82e7b6607f83a5a21a74b2f77d420",
+      "receipt_rows": 62,
+      "native_commit_metadata_equal": true,
+      "original_receipt_row_digest_valid": true,
+      "native_uuid_equal": true
+    },
+    {
+      "operation": "local-effect:fd7d09c781bed4a8f96f8bd5406b62876a83c6bb6883001ce3f36710c331044e:2",
+      "table": "local.original_medical.whole_source_history",
+      "version": 2,
+      "log_sha256": "d20c496bef601a2fce60cf2b62c8b6e20d1f21370de10c97aa36e325a155459d",
+      "receipt_rows": 113,
+      "native_commit_metadata_equal": true,
+      "original_receipt_row_digest_valid": true,
+      "native_uuid_equal": true
+    }
+  ],
+  "row_envelope_sha256": {
+    "local_installation": [
+      "e97331606478a36da14ccc8b1ad8c5e13b9f63f482a8e117d7723f188e759711"
+    ],
+    "local_operation": [
+      "46898cd9605305439bc7bc4c3eced3edde26039598454c1dc4dfce9d8044051b",
+      "9cb798a3f8f936c0f07dd2231a2a70840bf5c0fe4edb3dbde2637fbc37faeb94",
+      "5620d2ba1ed891ef4dfa38de6d476906787f2b496e93af7304c161bbbc26f84b",
+      "516ad11cc5fa8aee8ac849f94dca41718fbedd42ec77341cf50cc6773f2b97cc",
+      "7eb08bb84d8363b622ed6c5445c56a00fea1616260ec81e864fd856b797c2210"
+    ],
+    "local_plan": [
+      "f7ec001bb82c450cbf8f1ff921be5e36aee22bd558db154e75a9158265588767"
+    ],
+    "local_source_plan": [
+      "5172b2fcf2e924de27e62629e00546e469e7b6d79c662ae7bc8b413f01d1bc0a"
+    ],
+    "local_publication_artifact": []
+  },
+  "duration_seconds": 0.082588792,
+  "scope": "Read-only WAL-aware logical SQLite snapshot under actual existing installation lease/registry. No source/native authority admission, Spark, recovery, mutations, checkpoint or ACK.",
+  "original_private_result": {
+    "path": "/private/tmp/ashlar-medical-journal-observation-20261014-a/result.json",
+    "bytes": 2273573,
+    "sha256": "a9aa67327a550bc58e9012f6f32d330d3f26dca68f39ade2333c5bd49804a7c3"
+  },
+  "row_envelopes_unchanged_after_connection_closure_fix": true
+}
