@@ -9,6 +9,9 @@ queries and graph export, or the [portable example](../../examples/end-to-end/RE
 for source inspection and native commands. The
 [immutable PuppyGraph workflow](../../examples/puppy-immutable-export/README.md)
 queries retained release/custody files through bounded local Cypher or Gremlin.
+For a small SQL-only local check, the
+[DuckDB export guide](../../examples/duckdb-immutable-export/README.md) covers
+directed paths and counts from the same immutable files without a running source.
 
 ## Install and inspect a source
 

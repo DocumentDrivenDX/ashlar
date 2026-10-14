@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json",
+    "bytes": 622,
+    "sha256": "d628b7d2db514f0eff6eebe649fae218c6f175754fc60727389e2d4c704cbcd7"
+  },
+  {
+    "path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-release.json",
+    "bytes": 9784,
+    "sha256": "d3c875e8a9deb2f3560cfd939fe92eaa858d8e9e5f4d7869a91c299bd23fee12"
+  },
+  {
+    "path": "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json-custody.json",
+    "bytes": 6576,
+    "sha256": "f310a1c696c8d9cb409cff63b71da73fd7e240fbf22f6e4f2f47c07bc553db44"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "processes": [
+    {
+      "argv": [
+        "/private/tmp/ashlar-duckdb-installed-export-20261013-a/environment/bin/ashlar",
+        "configure-graph-export",
+        "--export-report",
+        "/private/tmp/ashlar-truss15-parallel-export-20261013-a/export.json",
+        "--export-report-sha256",
+        "d628b7d2db514f0eff6eebe649fae218c6f175754fc60727389e2d4c704cbcd7",
+        "--output",
+        "/private/tmp/ashlar-duckdb-installed-export-20261013-a/selection.json"
+      ],
+      "exit_code": 0,
+      "seconds": 1.398344,
+      "stdout_sha256": "46f7ba07c47553e5c34077483910705cad54702c4dbecd1e0afb5eac72516f0f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-duckdb-installed-export-20261013-a/environment/bin/ashlar",
+        "query-duckdb-export",
+        "--configuration",
+        "/private/tmp/ashlar-duckdb-installed-export-20261013-a/selection.json",
+        "--output",
+        "/private/tmp/ashlar-duckdb-installed-export-20261013-a/query.json",
+        "--maximum-hops",
+        "2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9781356670000001,
+      "stdout_sha256": "36cc1435d147c2ffcdcd0b278706b53672d201416d41bfc1b526c3d69fdbe176",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

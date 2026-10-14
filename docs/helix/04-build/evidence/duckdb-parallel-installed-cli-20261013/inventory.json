@@ -1,0 +1,67 @@
+{
+  "files": [
+    {
+      "path": "result.json",
+      "sha256": "8e6a8d94cf7f7e1aaa7c81170eeb1893ea51aeee67071d259cca62e26eb0873b",
+      "bytes": 773
+    },
+    {
+      "path": "query.json",
+      "sha256": "b3784ac02cfa3da7477adaaa23554ebda941f574a29bb9380dd2b1719b228762",
+      "bytes": 7753
+    },
+    {
+      "path": "process.json",
+      "sha256": "27069eee43f7da280893d64750e69b35ba3a7e04edf13a96bdeedf7a793e7cfc",
+      "bytes": 1512
+    },
+    {
+      "path": "installed-custody.json",
+      "sha256": "bb1295740ac2dfb53e0942b36996f5fd8da51e730763ef2874716a98afbbb1a8",
+      "bytes": 2104
+    },
+    {
+      "path": "opening.json",
+      "sha256": "f06c13a952276e1058aaf456140ecd85fd4021cc50f83cc26d132ca0f6c5ca37",
+      "bytes": 601
+    },
+    {
+      "path": "closing.json",
+      "sha256": "f06c13a952276e1058aaf456140ecd85fd4021cc50f83cc26d132ca0f6c5ca37",
+      "bytes": 601
+    },
+    {
+      "path": "selection.json",
+      "sha256": "89b7db8f2f8674f755b31c884626438d38ecfb46c813ec462275c0c74c23100b",
+      "bytes": 364
+    },
+    {
+      "path": "cli-0.stdout",
+      "sha256": "46f7ba07c47553e5c34077483910705cad54702c4dbecd1e0afb5eac72516f0f",
+      "bytes": 83
+    },
+    {
+      "path": "cli-0.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "cli-1.stdout",
+      "sha256": "36cc1435d147c2ffcdcd0b278706b53672d201416d41bfc1b526c3d69fdbe176",
+      "bytes": 79
+    },
+    {
+      "path": "cli-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "original-export-report.json",
+      "sha256": "d628b7d2db514f0eff6eebe649fae218c6f175754fc60727389e2d4c704cbcd7",
+      "bytes": 622
+    }
+  ],
+  "original_root": "/private/tmp/ashlar-duckdb-installed-export-20261013-a",
+  "source_commit": "f01b0a33098af0050e711e0fe588e9f86ead7554",
+  "scope": "Tiny actual installed CLI saved-carrier topology evidence; no sourceeffects or otherengine."
+}

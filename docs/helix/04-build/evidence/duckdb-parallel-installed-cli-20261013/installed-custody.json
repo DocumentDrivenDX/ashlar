@@ -1,0 +1,48 @@
+{
+  "wheels": [
+    {
+      "path": "/private/tmp/ashlar-duckdb-installed-export-20261013-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1565955,
+      "sha256": "f9c87a45a0c8068d15f611d4746b3113f1b2d2f142ed6945bed09fcc548dfc37"
+    },
+    {
+      "path": "/private/tmp/ashlar-duckdb-installed-export-20261013-a/wheels/duckdb-1.5.0-cp311-cp311-macosx_11_0_arm64.whl",
+      "bytes": 14194663,
+      "sha256": "ab9d597b1e8668466f1c164d0ea07eaf0ebb516950f5a2e794b0f52c81ff3b16"
+    }
+  ],
+  "installed_module": {
+    "path": "/private/tmp/ashlar-duckdb-installed-export-20261013-a/environment/lib/python3.11/site-packages/ashlar_host/duckdb_graph_export.py",
+    "sha256": "84814fda7cbccc202fa7acf4ff5f7112f9a60b5192f037642fa65d2a5bea4a83"
+  },
+  "console": {
+    "path": "/private/tmp/ashlar-duckdb-installed-export-20261013-a/environment/bin/ashlar",
+    "sha256": "39a1fb725de933c2e447999727647f2cf1941a1b33f37a29a00eb593374d52a8",
+    "shebang": "#!/private/tmp/ashlar-duckdb-installed-export-20261013-a/environment/bin/python"
+  },
+  "distributions": [
+    {
+      "distribution": "ashlar-graph-toolkit",
+      "version": "0.1.0.dev0",
+      "verified_record_hashes": 373,
+      "record_sha256": "dfd666c0fe4c0e72bd35c49c83d1632c772acaeb227e13a4d380d56769a489a0",
+      "metadata_sha256": "0c6fe5ac84f2ba2e84d1995f79fe3b1f5f063e9c806058f411ac0dee570e411c"
+    },
+    {
+      "distribution": "duckdb",
+      "version": "1.5.0",
+      "verified_record_hashes": 51,
+      "record_sha256": "5d3f1e1f1e7682e8775eaeb3e2622ee89bfe2411ccc91bf2235e9488722ec5a1",
+      "metadata_sha256": "32789ed6e7d1653a662d388275cb6ce3404d1aeb385a5a6c23e618826e02617d"
+    }
+  ],
+  "wheel_payload_files_byte_equal_installed": 365,
+  "python": "3.11.17",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "27.0.1"
+  },
+  "source_inventory_sha256": "571c4cab5f7754eed9a81028c1bf8892ba14ae55d85f7c2986d7ba90dc3a73dc",
+  "scope": "CleanGitf01b wheel+ordinary declared DuckDBextra install; installed RECORD and wheel payload parity. No OS/hermetic reproducibility claim."
+}

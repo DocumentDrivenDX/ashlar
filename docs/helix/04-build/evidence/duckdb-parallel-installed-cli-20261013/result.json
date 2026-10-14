@@ -1,0 +1,46 @@
+{
+  "outcome": "passed",
+  "publication_id": "truss-graph-5",
+  "engine": {
+    "name": "DuckDB",
+    "version": "v1.5.0"
+  },
+  "nodes": 2,
+  "edges": 2,
+  "one_hop_occurrences": 2,
+  "two_hop_edge_pairs": [
+    [
+      "3",
+      "3"
+    ],
+    [
+      "3",
+      "4"
+    ],
+    [
+      "4",
+      "3"
+    ],
+    [
+      "4",
+      "4"
+    ]
+  ],
+  "path_distinct_counts": [
+    [
+      0,
+      0
+    ],
+    [
+      4,
+      1
+    ]
+  ],
+  "out_degrees": [
+    0,
+    2
+  ],
+  "original_three_inputs_unchanged": true,
+  "complete_canonical_carrier_parity": true,
+  "scope": "Fresh installed CLI DuckDB1.5.0 saved STRING/null topology only;1thread64MiB/externalaccessdisabled. NoSpark/sourceconnection/ingest/ACK/Weft/numeric-property/currentauthority or cloud claim."
+}
