@@ -44,3 +44,39 @@ This indexed candidate is distinct from the separately qualified LEFT-query
 compiler. Each [query-gallery receipt](QUERY-GALLERY.md#qualified-original-query-subsets)
 retains its own exact compiler and native scope; a package installation does not
 qualify every backend profile, Unity Catalog, Truss authority or Fabric execution.
+
+## Install CountStar for finite-pack queries
+
+The archaeology/ecology finite-pack workflow selects the separate CountStar
+compiler. The initial `install-weft` example above does not supply that profile.
+Use the already installed Ashlar environment and choose new absolute checkout and
+installation paths; replace every path below. The installation output must be
+absent. This profile is qualified only for Apple Silicon on macOS 27.0.1.
+
+```sh
+ASHLAR_ENV=/absolute/path/to/installed-ashlar-environment
+WEFT_COUNT_SOURCE=/absolute/path/to/fresh-weft-count-distribution
+WEFT_COUNT_INSTALLATION=/absolute/path/to/fresh-weft-count-installation
+
+git clone --filter=blob:none --no-checkout https://github.com/DocumentDrivenDX/weft.git "$WEFT_COUNT_SOURCE"
+git -C "$WEFT_COUNT_SOURCE" sparse-checkout set distributions
+git -C "$WEFT_COUNT_SOURCE" checkout bd490abc877a1992666c7b45412b14a0ca6c2cac
+"$ASHLAR_ENV/bin/ashlar" install-weft-count-star \
+  --index "$WEFT_COUNT_SOURCE/distributions/index.json" \
+  --package "$WEFT_COUNT_SOURCE/distributions/realizations/weft-5ddcebd-count-star-aarch64-apple-darwin-candidate" \
+  --output "$WEFT_COUNT_INSTALLATION"
+```
+
+The selected index SHA-256 is
+`7eddc39661f6cb400afae897aa0a7d8cd5dee0aec026ed45a4e197fa7c9558a6`.
+Ashlar owns that trust pin and realization selection; these variables supply file
+locations. Keep this index and installation for the finite-pack query generator's
+`--index` and `--installation` arguments. Restart uses their retained bytes without
+the original package directory. No compiler build, private temporary installation,
+manual chmod or alternative profile is needed.
+
+This installs the `0.4.1-count-star-having-candidate` compiler and its original
+protocol resources. It starts no graph engine and does not qualify a supplied
+publication, source authority, new platform or native query result. Continue with
+[the finite-pack Quickstart](../domain-packs/QUICKSTART.md) for explicit source,
+runtime and publication selections.

@@ -14,7 +14,7 @@ UMF producer checkout at `07357eadbda9cf8299b9d72d004cbb77f8091aee`; the actual
 producer verifies that revision. Keep the original pack, ontology and graph bytes
 under `examples/domain-packs/PACK/upstream/` unchanged. Select the qualified
 CountStar compiler index and installation from the
-[Weft installation guide](../end-to-end/WEFT-INSTALLATION.md).
+[CountStar installation commands](../end-to-end/WEFT-INSTALLATION.md#install-countstar-for-finite-pack-queries).
 
 Set the native runtime explicitly in your shell, replacing these paths:
 
