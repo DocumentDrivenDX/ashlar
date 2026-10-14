@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from .apply import Change,EntityKey,EntityState
 
-MAX_NATIVE_PAGE_BYTES=1125000
+MAX_NATIVE_PAGE_BYTES=2*1024*1024
 
 class NativeFeedError(ValueError):pass
 

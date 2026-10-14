@@ -16,7 +16,7 @@ from .truss_continue import admit_truss_continuation_head
 from .truss_feed_sessions import TrussFeedSessions
 from .truss_graph_admission import TrussGraphAdmission
 from .truss_note_publication import bind_ordinary_connection,validate_graph_edge_orders,graph_expected_rows
-from .truss_page_archive import decode_truss_page
+from .truss_page_archive import decode_truss_page, MAXIMUM_ARCHIVE_BYTES
 
 
 def retain_first_truss_planning(path,selection,request,predecessor):
@@ -70,7 +70,7 @@ def publish_saved_truss_selection(driver,connection_factory,intent_path,intent_s
     if intent['publication_id']!='truss-graph-'+intent['request_digest']:raise ValueError('Original continuation publication identity differs')
     page_path=Path(intent['source_page_path'])
     if not page_path.is_absolute()or page_path.resolve()!=page_path or page_path.parent!=root:raise ValueError('Original canonical saved page required')
-    page=decode_truss_page(snapshot(page_path,2097152),intent['source_page_sha256'],intent['feed'])
+    page=decode_truss_page(snapshot(page_path,MAXIMUM_ARCHIVE_BYTES),intent['source_page_sha256'],intent['feed'])
     context=driver.context;source=driver.source_sessions;transport=driver.transport
     planning_path=Path(str(intent_path)+'-planning.json')
     require_saved_planning_for_existing_plans(transport,intent['request_digest'],planning_path)

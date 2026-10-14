@@ -3,9 +3,12 @@ import base64
 import hashlib
 from .delta_custody import encoded
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
-from ashlar.truss_native_feed import native_feed_batch
+from ashlar.truss_native_feed import native_feed_batch, MAX_NATIVE_PAGE_BYTES
 
 PROFILE = 'ashlar-truss-original-feed-page/0.1'
+MAXIMUM_ARCHIVE_BYTES = 3*1024*1024
+MAXIMUM_CONTENT_BASE64_BYTES = 4*((MAX_NATIVE_PAGE_BYTES+2)//3)
+MAXIMUM_CURSOR_BASE64_BYTES = 4*((16384+2)//3)
 
 
 def _types():
@@ -17,6 +20,8 @@ def encode_truss_page(page, feed):
     FeedPage, _ = _types()
     if type(page) is not FeedPage:
         raise ValueError('Original genuine public Truss FeedPage required')
+    if type(page.content)is not bytes or not 1<=len(page.content)<=MAX_NATIVE_PAGE_BYTES:
+        raise ValueError('Original Truss page must fit retained byte-carrier bounds')
     batch = native_feed_batch(page.content, sha256=page.sha256, prior=page.prior.content,
         next=page.next.content, feed=feed)
     cursor = decode_custody_bytes(page.prior.content)
@@ -27,17 +32,18 @@ def encode_truss_page(page, feed):
         'prior': base64.b64encode(page.prior.content).decode(), 'next': base64.b64encode(page.next.content).decode(),
         'sha256': page.sha256, 'consumer_id': page.consumer_id, 'registration_id': page.registration_id,
         'writer_xid': page.writer_xid, 'safe_watermark_xid': page.safe_watermark_xid, 'outcome': page.outcome}
-    if any(len(value[field])>1500000 for field in ('content','prior','next')):
+    if (len(value['content'])>MAXIMUM_CONTENT_BASE64_BYTES
+            or any(len(value[field])>MAXIMUM_CURSOR_BASE64_BYTES for field in ('prior','next'))):
         raise ValueError('Original Truss page must fit retained byte-carrier bounds')
     raw = (encoded(value)+'\n').encode()
-    if len(raw) > 2097152:
+    if len(raw) > MAXIMUM_ARCHIVE_BYTES:
         raise ValueError('Bounded original Truss page archive required')
     return raw
 
 
 def decode_truss_page(raw, expected_sha256, feed):
     require_custody_digest(expected_sha256)
-    if type(raw) is not bytes or not 0 < len(raw) <= 2097152 or hashlib.sha256(raw).hexdigest() != expected_sha256:
+    if type(raw) is not bytes or not 0 < len(raw) <= MAXIMUM_ARCHIVE_BYTES or hashlib.sha256(raw).hexdigest() != expected_sha256:
         raise ValueError('Original Truss page archive digest differs')
     value = decode_custody_bytes(raw)
     fields = {'profile', 'feed', 'content', 'prior', 'next', 'sha256', 'consumer_id', 'registration_id', 'writer_xid', 'safe_watermark_xid', 'outcome'}
@@ -46,7 +52,7 @@ def decode_truss_page(raw, expected_sha256, feed):
     decoded = {}
     for field in ('content', 'prior', 'next'):
         text = value[field]
-        if type(text) is not str or not text or len(text) > 1500000:
+        if type(text) is not str or not text or len(text) > (MAXIMUM_CONTENT_BASE64_BYTES if field=='content'else MAXIMUM_CURSOR_BASE64_BYTES):
             raise ValueError('Bounded original Truss page byte carrier required')
         decoded[field] = base64.b64decode(text, validate=True)
         if base64.b64encode(decoded[field]).decode() != text:

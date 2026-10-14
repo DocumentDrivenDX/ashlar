@@ -7,6 +7,7 @@ from .evolution_cli import InvocationFile
 from .evolution_producer import snapshot
 from .private_graph_custody import decode_custody_bytes
 from .truss_resume_cli import parse_resume_truss_configuration
+from .truss_page_archive import MAXIMUM_ARCHIVE_BYTES
 
 
 @dataclass(frozen=True)
@@ -64,7 +65,7 @@ def run_configure_truss_continuation_command(configuration,continuation_result,o
         if parsed['feed']!=config['feed']:raise ValueError('Original continuation source differs')
         page=Path(parsed['source_page_path']);identity=page.stat();expected_page=page_raw
         for owner in originals:owner.renew(262144 if owner.path==report_path else 65536)
-        closing=snapshot(page,2097152);after=page.stat()
+        closing=snapshot(page,MAXIMUM_ARCHIVE_BYTES);after=page.stat()
         if closing!=expected_page or (identity.st_dev,identity.st_ino)!=(after.st_dev,after.st_ino):raise ValueError('Original selected page changed')
     with os.fdopen(os.open(destination,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600),'wb')as stream:
         if stream.write(raw)!=len(raw):raise OSError('Incomplete private continuation configuration')

@@ -1362,3 +1362,20 @@ carriers MUST refuse explicitly. The existing strict STRING extraction APIs MUST
 retain their behavior. Typed intake MUST use a distinct semantic admission profile
 while preserving original publication, native identity and source ACK checks.
 Intake support MUST NOT imply corresponding Weft query support.
+
+
+### Bounded original Truss page carriers
+
+The local Truss source reader MUST retain its 1 MiB default and explicit raw-page
+selection from 1 byte through 2 MiB. Native page parsing and staging MUST admit
+that same finite 2 MiB raw ceiling without truncating original transactions.
+The retained original-page archive MUST allow at most 3 MiB of canonical UTF8
+framing, with a content base64 ceiling of 2,796,204 bytes derived from the raw
+ceiling. Each original cursor remains at most 16,384 decoded bytes (21,848 base64
+bytes). Recovery, saved-publication and continuation archive readers MUST use
+that same archive ceiling and verify exact original digest/cursor/page custody.
+
+This framing allowance MUST NOT enlarge the 4 MiB staging artifact, operation
+intent or core publication payload limits, select nondefault operation capacity,
+bypass source/publication guards, or authorize source acknowledgement. Complete
+serialized effects MUST still pass their independent finite preflight bounds.

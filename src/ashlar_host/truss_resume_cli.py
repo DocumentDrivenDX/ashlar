@@ -11,7 +11,7 @@ from .evolution_producer import snapshot
 from .lifecycle import finish, owned_context
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
 from .truss_catalog_reader import parse_archived_acceptance_files, read_historical_catalog_views
-from .truss_page_archive import decode_truss_page
+from .truss_page_archive import decode_truss_page, MAXIMUM_ARCHIVE_BYTES
 
 
 def parse_resume_truss_configuration(configuration, output):
@@ -77,7 +77,7 @@ def parse_resume_truss_configuration(configuration, output):
         raise ValueError('Resume output must be separate from original custody')
     warehouse = destination.parent/(destination.name+'-warehouse')
     if warehouse.exists() or warehouse.is_symlink(): raise ValueError('Fresh separate Spark warehouse required')
-    page_raw = snapshot(page,2097152)
+    page_raw = snapshot(page,MAXIMUM_ARCHIVE_BYTES)
     import hashlib
     if hashlib.sha256(page_raw).hexdigest() != config['source_page_sha256']:
         raise ValueError('Original source page archive digest differs')
