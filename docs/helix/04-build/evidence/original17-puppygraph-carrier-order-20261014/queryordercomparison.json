@@ -1,0 +1,247 @@
+{
+  "source_commit": "20ddbc32ddc887214ae61ed4127b1ff87cb121da",
+  "correction_commit": "d2486eea50e69ea60cd18e0f1080203ef6e766b9",
+  "submission_outcome": "accepted",
+  "error_type": "builtins.PermissionError",
+  "error_origin": {
+    "function": "query_original",
+    "line": 573,
+    "module": "ashlar_host.puppy_finite_local"
+  },
+  "authored_cases_attempted": 0,
+  "carrier_attempts": 5,
+  "comparisons": [
+    {
+      "pack": "archaeology",
+      "kind": "node",
+      "stage": "carrier",
+      "recorded_sha256": "84d710420c1e199832670ae9718ee24690620b89149569be27490ce834eaf6e9",
+      "fresh_whitelist_sha256": "549a03ea461d7a8e86e71b0d673f081c229f3a4915acdc3adf3a50afcb44f6e5",
+      "recorded_matches_sorted_projection": true,
+      "recorded_matches_fresh_whitelist": false,
+      "same_column_set": true,
+      "fresh_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "graph_id",
+        "id",
+        "logical_key_json",
+        "lookup_hash",
+        "props_json",
+        "published_at",
+        "retained_json"
+      ],
+      "sorted_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "field_1",
+        "field_10",
+        "field_100",
+        "field_101",
+        "field_102",
+        "field_103",
+        "field_104"
+      ],
+      "preserve_order_detachment_matches_whitelist": true
+    },
+    {
+      "pack": "archaeology",
+      "kind": "node",
+      "stage": "carrier",
+      "recorded_sha256": "84d710420c1e199832670ae9718ee24690620b89149569be27490ce834eaf6e9",
+      "fresh_whitelist_sha256": "549a03ea461d7a8e86e71b0d673f081c229f3a4915acdc3adf3a50afcb44f6e5",
+      "recorded_matches_sorted_projection": true,
+      "recorded_matches_fresh_whitelist": false,
+      "same_column_set": true,
+      "fresh_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "graph_id",
+        "id",
+        "logical_key_json",
+        "lookup_hash",
+        "props_json",
+        "published_at",
+        "retained_json"
+      ],
+      "sorted_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "field_1",
+        "field_10",
+        "field_100",
+        "field_101",
+        "field_102",
+        "field_103",
+        "field_104"
+      ],
+      "preserve_order_detachment_matches_whitelist": true
+    },
+    {
+      "pack": "archaeology",
+      "kind": "edge",
+      "stage": "carrier",
+      "recorded_sha256": "ac5ccb5bd2e990d7284dc399ebb430daa9d1ff0e571dafc541dee7696d1a2a71",
+      "fresh_whitelist_sha256": "ac5ccb5bd2e990d7284dc399ebb430daa9d1ff0e571dafc541dee7696d1a2a71",
+      "recorded_matches_sorted_projection": true,
+      "recorded_matches_fresh_whitelist": true,
+      "same_column_set": true,
+      "fresh_first_columns": [
+        "apply_batch_id",
+        "dst",
+        "entity_version",
+        "graph_id",
+        "id",
+        "lookup_hash",
+        "order_key",
+        "props_json",
+        "published_at"
+      ],
+      "sorted_first_columns": [
+        "apply_batch_id",
+        "dst",
+        "entity_version",
+        "graph_id",
+        "id",
+        "lookup_hash",
+        "order_key",
+        "props_json",
+        "published_at"
+      ],
+      "preserve_order_detachment_matches_whitelist": true
+    },
+    {
+      "pack": "ecology",
+      "kind": "node",
+      "stage": "carrier",
+      "recorded_sha256": "e568e0c16363f46560b9d0b5cbff53c309b739512559a588a09f360c1f6dabc6",
+      "fresh_whitelist_sha256": "4f47a716cc15d574294fac7494e43275b7b20e3d03af795468e00815a7a31c94",
+      "recorded_matches_sorted_projection": true,
+      "recorded_matches_fresh_whitelist": false,
+      "same_column_set": true,
+      "fresh_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "graph_id",
+        "id",
+        "logical_key_json",
+        "lookup_hash",
+        "props_json",
+        "published_at",
+        "retained_json"
+      ],
+      "sorted_first_columns": [
+        "apply_batch_id",
+        "entity_version",
+        "field_1",
+        "field_10",
+        "field_11",
+        "field_12",
+        "field_13",
+        "field_14",
+        "field_15"
+      ],
+      "preserve_order_detachment_matches_whitelist": true
+    },
+    {
+      "pack": "ecology",
+      "kind": "edge",
+      "stage": "carrier",
+      "recorded_sha256": "9e7bfc0d5654974194ac466f8abe2465af5cbe14824f2dcf98477dd4ce3ce064",
+      "fresh_whitelist_sha256": "9e7bfc0d5654974194ac466f8abe2465af5cbe14824f2dcf98477dd4ce3ce064",
+      "recorded_matches_sorted_projection": true,
+      "recorded_matches_fresh_whitelist": true,
+      "same_column_set": true,
+      "fresh_first_columns": [
+        "apply_batch_id",
+        "dst",
+        "entity_version",
+        "graph_id",
+        "id",
+        "lookup_hash",
+        "order_key",
+        "props_json",
+        "published_at"
+      ],
+      "sorted_first_columns": [
+        "apply_batch_id",
+        "dst",
+        "entity_version",
+        "graph_id",
+        "id",
+        "lookup_hash",
+        "order_key",
+        "props_json",
+        "published_at"
+      ],
+      "preserve_order_detachment_matches_whitelist": true
+    }
+  ],
+  "original_inputs": [
+    {
+      "pack": "archaeology",
+      "original_files": [
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/model.json",
+          "bytes": 83068,
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+        },
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/graph.json",
+          "bytes": 81564,
+          "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+        },
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/pack.json",
+          "bytes": 28986,
+          "sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f"
+        }
+      ],
+      "release": {
+        "original_path": "/private/tmp/ashlar-archaeology-original-pair-restored-20261014-a/release.graph.json",
+        "bytes": 472909,
+        "sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155"
+      },
+      "separately_selected_custody_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe"
+    },
+    {
+      "pack": "ecology",
+      "original_files": [
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/model.json",
+          "bytes": 62701,
+          "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee"
+        },
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/graph.json",
+          "bytes": 77070,
+          "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668"
+        },
+        {
+          "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/pack.json",
+          "bytes": 23485,
+          "sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481"
+        }
+      ],
+      "release": {
+        "original_path": "/private/tmp/ashlar-ecology-original-pair-restored-20261014-a/release.graph.json",
+        "bytes": 448679,
+        "sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590"
+      },
+      "separately_selected_custody_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add"
+    }
+  ],
+  "original_references": [
+    {
+      "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/native-output/failure.json",
+      "bytes": 663359,
+      "sha256": "842aa6c21524b46a0011aad9fa5ff6252ef9b252cfe40eb7539ca2e9ac32b826"
+    },
+    {
+      "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/native-output/prepared/receipt.json",
+      "bytes": 2001861,
+      "sha256": "f3b26c848ac86883c263725c94c610b03fa2b2c4344b907cedf7a94a2eddad21"
+    }
+  ],
+  "scope": "Offline comparison only. Same exact originalcolumnsets, reordered dictionaryiteration produced scripts outside unchangednativewhitelist; bounded insertion-order detachment restores originalscript."
+}

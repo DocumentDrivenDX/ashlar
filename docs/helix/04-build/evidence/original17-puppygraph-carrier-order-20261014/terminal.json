@@ -1,0 +1,40 @@
+{
+  "command": {
+    "exit_code": 2,
+    "elapsed_seconds": "51.01852549996693",
+    "source_commit": "20ddbc32ddc887214ae61ed4127b1ff87cb121da",
+    "manifest_sha256": "d2a195659b944a63e0c1b505602dfc98aa3ab199daf832f2581f19f478daeb06",
+    "public_command": "query-original-pack-puppygraph"
+  },
+  "supervisor": {
+    "profile": "ashlar-original17-worker-supervision/0.1",
+    "worker_status": 2,
+    "error_type": "RuntimeError",
+    "native_seconds": 120,
+    "whole_seconds": 300,
+    "cleanup_reserve_seconds": 35,
+    "elapsed_seconds": "50.76061937503982",
+    "cleanup_error_types": []
+  },
+  "container_cleanup": {
+    "absent": true,
+    "cleanup_complete": true
+  },
+  "process_cleanup": {
+    "groups_absent": true,
+    "session_leader_reaped": true
+  },
+  "original_references": [
+    {
+      "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/command-terminal.json",
+      "bytes": 269,
+      "sha256": "c469ed549bb112c080a77b67f3aebbd870797b7c4ef6029eeb8245802a40cd7d"
+    },
+    {
+      "original_path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/ashlar-original17-supervision-kgrrzs31/terminal.json",
+      "bytes": 614,
+      "sha256": "06cd088eddc575098833ec56ba77fd89be11c13d0b70f0ab06b8df43cfa18295"
+    }
+  ],
+  "scope": "Safe selected original terminal fields only; failed command, not nativequerypass"
+}
