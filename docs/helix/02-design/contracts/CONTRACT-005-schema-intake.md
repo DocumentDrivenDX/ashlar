@@ -432,3 +432,22 @@ feed, ACK or Delta acceptance; native lifecycle and recovery qualification remai
 separate. Fixed refusals and bounded receipts describe operation outcomes without
 serializing connection secrets or treating a successful local report as source
 authority.
+
+## Additive record evolution Field selection
+
+The existing `evolve-truss-record` configuration's `field_name` selects the
+original UMF Field element ID in the revised Record member inventory; it is not
+an authored property-name override. The host MUST resolve the selected original
+Field's declared `name` and use that exact name for prior-value absence, public
+`AuthoredValue` construction and complete committed value readback. Distinct
+element IDs and names, such as `products.display_label` and `display_label`,
+MUST retain their separate meanings. Invalid or missing declared names refuse.
+
+Original declared UMF 0.7.0 or 0.8.0 bytes and unknown content remain retained,
+and the public `prepare_catalog` source-version selector MUST match the current
+accepted document. An optional additive String member uses `absent-allowed`
+availability, not an inferred default or required property. Truss owns compatible
+catalog acceptance and native property allocation; accepted IDs and revisions
+MUST be observed from its public response, never guessed from the proposed model.
+Existing expected-version, complete readback and original replay gates remain
+required. Catalog/update receipts alone supply no Delta feed or query qualification.

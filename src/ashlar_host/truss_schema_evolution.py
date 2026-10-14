@@ -26,7 +26,7 @@ def capture_catalog(assembly,transaction,revision):
 
 
 def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,field_name,scalar_type='string'):
-    """Select the new member only; actual SDK owns compatibility/acceptance."""
+    """Resolve the selected element to its original authored name; SDK owns acceptance."""
     if scalar_type not in ('string','integer','decimal','boolean'):raise ValueError('Supported exact scalar field family required')
     def members(raw):
         model=json.loads(raw)
@@ -46,6 +46,10 @@ def require_new_record_field(revised_bytes,previous_bytes,*,module_id,record_id,
     if (len(fields)!=1 or fields[0].get('kind')!='field' or fields[0].get('scalarType')!=scalar_type
             or fields[0].get('nullability')not in ('required','absent-allowed')or fields[0].get('cardinality')!='one'):
         raise ValueError('Selected new member must match exact scalar field family')
+    authored_name=fields[0].get('name')
+    if type(authored_name)is not str or not authored_name or len(authored_name.encode())>4096 or '\0'in authored_name:
+        raise ValueError('Original declared Field name required')
+    return authored_name
 
 
 def require_matching_record_versions(revised_bytes,previous_bytes):
@@ -119,11 +123,11 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
     with psycopg.connect(config['connection_uri'],connect_timeout=5)as connection:
         with interval(connection)as (assembly,tx):
             before=current(assembly,tx)
-            if config['field_name'] in dict(before.values) or (required_original_fields is not None and set(dict(before.values))!=set(required_original_fields)):raise RuntimeError('Original selected field must be absent and complete original values retained')
             previous_document=value(assembly.accepted_document_in_transaction(tx,document_id=config['document_id']))
             if not isinstance(previous_document,AcceptedDocument)or previous_document.document_revision==config['document_revision']:raise RuntimeError('Distinct current accepted document revision required')
             source_version=require_matching_record_versions(source,previous_document.content)
-            require_new_record_field(source,previous_document.content,module_id=config['module_id'],record_id=config['record_id'],field_name=config['field_name'],scalar_type=kind)
+            authored_name=require_new_record_field(source,previous_document.content,module_id=config['module_id'],record_id=config['record_id'],field_name=config['field_name'],scalar_type=kind)
+            if authored_name in dict(before.values) or (required_original_fields is not None and set(dict(before.values))!=set(required_original_fields)):raise RuntimeError('Original selected field must be absent and complete original values retained')
             old_report=value(assembly.report_in_transaction(tx,before.catalog_revision))
             old_catalog=capture_catalog(assembly,tx,before.catalog_revision)
             prepared=assembly.prepare_catalog((document,),bun_executable=str(bun),source_version=source_version)
@@ -139,13 +143,13 @@ def evolve_truss_record(config,output,*,required_original_fields=None):
             if reference is None or reference.definition_pin!=evolved.identity.definition_pin:raise RuntimeError('Actual current identity/pin required')
             if (evolved.id,evolved.type_id,evolved.version,evolved.values,evolved.retained)!=(before.id,before.type_id,before.version,before.values,before.retained)or evolved.definition_pin==before.definition_pin:raise RuntimeError('Evolution changed original identity, values or version')
             context=value(assembly.group_context_in_transaction(tx))
-            original=context.input((UpdateObject(target=StoredObjectReference(identity=evolved.identity),set=(AuthoredValue(name=config['field_name'],value=authored),),unset=(),expected_version=str(evolved.version)),),asserted)
+            original=context.input((UpdateObject(target=StoredObjectReference(identity=evolved.identity),set=(AuthoredValue(name=authored_name,value=authored),),unset=(),expected_version=str(evolved.version)),),asserted)
             request=context.request(config['update_request_key'])
             changed=value(assembly.apply_in_transaction(tx,original,request,documents=(document,),bun_executable=str(bun)))
             if not isinstance(changed,GroupSuccess)or len(changed.response.semantic.results)!=1:raise RuntimeError('New-field update refused')
         connection.commit()
         with interval(connection)as (assembly,tx):
-            after=current(assembly,tx);expected=dict(before.values);expected[config['field_name']]=observed
+            after=current(assembly,tx);expected=dict(before.values);expected[authored_name]=observed
             if dict(after.values)!=expected or (after.id,after.type_id,after.retained)!=(before.id,before.type_id,before.retained)or after.version!=before.version+1 or after.identity!=evolved.identity:raise RuntimeError('Complete evolved record readback differs')
             replay=value(assembly.apply_in_transaction(tx,original,request,documents=(document,),bun_executable=str(bun)))
             if not isinstance(replay,GroupSuccess)or not isinstance(replay.response,CommittedReceiptReplay)or replay.response.semantic!=changed.response.semantic:raise RuntimeError('Original committed update receipt differs')
