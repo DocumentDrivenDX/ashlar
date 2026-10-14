@@ -1,0 +1,142 @@
+{
+  "captures": [
+    {
+      "path": "host_postgres.py",
+      "bytes": 1956,
+      "sha256": "0f2de5908fa26da1f1c43b823e4d369c35e3fe12fc15f8e51c69694b95de9f5c",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/host_postgres.py"
+    },
+    {
+      "path": "run.py",
+      "bytes": 4050,
+      "sha256": "ca3ec517a769aaf71b82306c5390a66a8114dabc9dca91e5918b1282126d27c0",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/run.py"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 1583,
+      "sha256": "a64070c338798bdaacad654d7c3d4aecb9c8ef7860939a0c09528b08c31b3378",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/supervise.py"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1768,
+      "sha256": "f72f19532936f7030bffe0135212a67372bacb04e09ec09779475ac794b66ad9",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/run.log"
+    },
+    {
+      "path": "runtime-info.json",
+      "bytes": 132,
+      "sha256": "ecc982dcbfa292b804b3a63359bbe2a059efee833018448869dd693f257043e1",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/runtime-info.json"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 208,
+      "sha256": "a76ce4a98649ddc13844f9a94229cabe07d537518c4db7f559486002402a4d3d",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/supervisor-result.json"
+    },
+    {
+      "path": "query/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/checkpoint-before.bin"
+    },
+    {
+      "path": "query/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/checkpoint-after.bin"
+    },
+    {
+      "path": "query/publisher-selection.json",
+      "bytes": 917,
+      "sha256": "8db9c697e4c87f9c7db23141e483a45deb6aff9c6d84307d4570b544ba4f83f8",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/publisher-selection.json"
+    },
+    {
+      "path": "query/reader.json",
+      "bytes": 937,
+      "sha256": "d36a6a8fcaa465a5c360095d8fa4411859ebadf2b372d0e32f757ac6ed618451",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/reader.json"
+    },
+    {
+      "path": "query/settlement.json",
+      "bytes": 138795,
+      "sha256": "5d3579aa467ec3ca1801f3657059457eeadc1da1aa98a5442451c28bdf82534f",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/settlement.json"
+    },
+    {
+      "path": "query/result.json",
+      "bytes": 508,
+      "sha256": "8b623c7754092adfd670e772cc169a688279b7e1032af16ecb836bbd55d0fcdc",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/query/result.json"
+    },
+    {
+      "path": "diagnostic/import_probe.py",
+      "bytes": 1002,
+      "sha256": "0fdaa2335b30a910e626c43a4f6ba2e0b57ef82ab9a1201a5963fca361d794b8",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/import_probe.py"
+    },
+    {
+      "path": "diagnostic/supervise_import.py",
+      "bytes": 645,
+      "sha256": "f6f1719245a9567756af4d31456952d4ff15fb8beffa9123786f1bb1c35b34dd",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/supervise_import.py"
+    },
+    {
+      "path": "diagnostic/import.log",
+      "bytes": 350,
+      "sha256": "fe83c41d79fe19103c619952ca92d4c1eea4060783f4d4730f604f2414cf4aee",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/import.log"
+    },
+    {
+      "path": "diagnostic/import-result.json",
+      "bytes": 587,
+      "sha256": "9b333bb04d8f9725c23f5f06378515e4c00a7689be0d713298635c89917e0188",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/import-result.json"
+    },
+    {
+      "path": "diagnostic/import-supervisor.json",
+      "bytes": 88,
+      "sha256": "a28daedbe1b2916480d83b84610dbe9943094c0188008cc4f67d896496aae6e6",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/import-supervisor.json"
+    },
+    {
+      "path": "diagnostic/source_probe.py",
+      "bytes": 1210,
+      "sha256": "d255f69ed7ca2b05f2549c31bb8cb946c00b4401a65ea73db93d5d27c8a04d0c",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/source_probe.py"
+    },
+    {
+      "path": "diagnostic/supervise_source.py",
+      "bytes": 645,
+      "sha256": "7cb2dfb85d70601b866f292b29abfb82331e7ce9e96f69a80c1c00722ac5275a",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/supervise_source.py"
+    },
+    {
+      "path": "diagnostic/source.log",
+      "bytes": 419,
+      "sha256": "b9c54201969d4e1a77efa2abc601a8010f470e19b4f732d13fef170a83b770ae",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/source.log"
+    },
+    {
+      "path": "diagnostic/source-supervisor.json",
+      "bytes": 86,
+      "sha256": "0985917364bee3d4d26dd9160d9cd2aa7daedf3aa7ae5f05ad97b10f1510e192",
+      "original_path": "/private/tmp/ashlar-commerce-startup-diagnostic-20261014-a/source-supervisor.json"
+    },
+    {
+      "path": "installed-custody.json",
+      "bytes": 1060,
+      "sha256": "70c4b6906d4d248f56f73af8d5d46090a8b6e060a6b52d8825f5d4b442ce4e4a",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261013-b/installed-custody.json"
+    },
+    {
+      "path": "launch-review.json",
+      "bytes": 1306,
+      "sha256": "1a2297e1a5018a44cb59b825fe271917903407613243c83c6eeb984dfb9ecac7",
+      "original_path": "/private/tmp/ashlar-commerce-host-runtime-launch-review-20261014-c.json"
+    }
+  ]
+}

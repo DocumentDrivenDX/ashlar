@@ -1,0 +1,38 @@
+{
+  "source_commit": "68c72121721665b4417c59d23234255815bdb7ca",
+  "wheel_sha256": "2a7220b19db816ab2f006e8f78534f2a94571ec67bcbf55b70d2632bcb5cc4a6",
+  "outcome": "passed",
+  "case": "settlement",
+  "publication_id": "truss-graph-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+  "rows": [
+    [
+      "[42,0,\"PAY1\"]"
+    ]
+  ],
+  "authored_sql": "SELECT p.id FROM payments p JOIN invoices i ON p.invoice_id=i.id WHERE p.amount=i.amount AND p.currency=i.currency",
+  "accepted_logical_revision": "2",
+  "physical_record_revisions": {
+    "customers": "1",
+    "suppliers": "1",
+    "fulfillments": "1",
+    "invoices": "1",
+    "order_lines": "1",
+    "orders": "1",
+    "payments": "1",
+    "products": "2",
+    "refunds": "1",
+    "returns": "1"
+  },
+  "all_eight_native_guards_zero": true,
+  "original_compile_recompile_equal": true,
+  "fresh_raw_source_checkpoint_unchanged": true,
+  "supervisor": {
+    "status": "completed",
+    "exit_code": 0,
+    "source_start_seconds": 1.1709922919981182,
+    "query_child_seconds": 37.79361875005998,
+    "duration_seconds": 39.21831912500784,
+    "owned_source_closed": true
+  },
+  "scope": "One original settlement SQL on local Truss22 PostgreSQL18.6 / Spark4.0.1 / Delta4.0.0, installed public indexed0.4.2 compiler and exact fresh wheel. Dedicated retained source uses same per-directory lease and public PG utility, no shared pgserver global lock. No source effects/ACK, production, managed UC or other-case qualification."
+}
