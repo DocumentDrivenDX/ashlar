@@ -1,0 +1,221 @@
+{
+  "source_commit": "afd75bc853c4a10e8932c1b0d4c245fb209976c1",
+  "installed_wheel_sha256": "74cd567d2541015ad91e3cdc6c9249e0d8cefcff0af52ba2932afb5008872897",
+  "original_umf": "0.8.0",
+  "original_semantic_subtraction_control": true,
+  "source_evolution": {
+    "outcome": "passed",
+    "evolution_seconds": 4.033140790998004,
+    "catalog_revision": 2,
+    "observed_new_property_id": "35",
+    "object_version": 3,
+    "authored_name": "display_label",
+    "element_id": "products.display_label",
+    "source_checkpoint_unchanged": true,
+    "duration_seconds": 4.482962458045222,
+    "scope": "Actual original08 additive absent-allowed STRING catalog acceptance, exact declared name update and complete public readback/replay. Originalrevision1/2 bytes retained. No Delta/feed/ACK or compatible-query qualification."
+  },
+  "source_supervisor": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 5.346079666982405
+  },
+  "first_continuation_failure": {
+    "outcome": {
+      "status": "completed",
+      "exit_code": 1,
+      "duration_seconds": 0.824945917003788
+    },
+    "reason": "Public historical catalog1 context unavailable without explicit supported archived_acceptance_files",
+    "scope": "Pre-Spark/effects failure; preserve original log/config; no positive continuation claim."
+  },
+  "supported_continuation": {
+    "outcome": "passed",
+    "continuation_seconds": 68.5002256250009,
+    "predecessor": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+    "publications": [
+      {
+        "publication_id": "truss-graph-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+        "source_page_sha256": "d4d01927c545ee07b11443817d71bfc40067a1772685a430501c63a6433feb71",
+        "changes": 0
+      },
+      {
+        "publication_id": "truss-graph-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+        "source_page_sha256": "4cf1aa5e2fe45999966caddff93ab72cd7cb566d2d7d493578b519e65841efff",
+        "changes": 2
+      }
+    ],
+    "source_advanced_to_exact_last_page_next": true,
+    "scope": "Two actual original-commerce additive catalog/update transactions through existing local Delta publication/journal and exact source-retained receipt ACK, complete native effect parity. No subsequent query, Unity Catalog or protected production authority claim.",
+    "duration_seconds": 68.92225108295679
+  },
+  "supported_continuation_supervisor": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 69.25753720896319
+  },
+  "source_plans": {
+    "scope": "Exact original TEXT UTF8 bytes read using SQLite mode=ro&immutable=1; publication journal bytehash unchanged. No source/native/ACK/effects.",
+    "journal_sha256": "e2c408e72dc18a8edbc6350c79e6fac708719d42efaf648bf94a45834203e873",
+    "rows": [
+      {
+        "publication_id": "truss-graph-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+        "request_digest": "a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+        "path": "/private/tmp/ashlar-commerce-additive-sourceplans-20261013-a/source-plan-1.json",
+        "bytes": 2138905,
+        "sha256": "84939b3c39ade6f35bb4350285f760713e9704dc9b22d1adcda7a4779f784209",
+        "complete": true,
+        "effect_parity": {
+          "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+          "object_current": "cc8236d6894cc9447e3df8aa72d1f25bf2376029b4d380a730caa067c30c4663",
+          "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+          "whole_source_history": "276c2ea14d83359eb71a8326c2473d1214a49561e55597cdb1cd1418c051edb7"
+        }
+      },
+      {
+        "publication_id": "truss-graph-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+        "request_digest": "1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+        "path": "/private/tmp/ashlar-commerce-additive-sourceplans-20261013-a/source-plan-2.json",
+        "bytes": 1523511,
+        "sha256": "a8e5f432354498f7172b87a2cbd2bb9347b47adbf3a84dc105292b0eec0ae2ce",
+        "complete": true,
+        "effect_parity": {
+          "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+          "object_current": "ded5bde2db0c250528e1e4c5d5cd6e8b48f9657f8015397ebfeb7dad1855f795",
+          "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+          "whole_source_history": "714af41fb14516e2449b34273e8f0510edba516d3e23862c9e2b59c7a0059223"
+        }
+      }
+    ]
+  },
+  "postverification": {
+    "outcome": "passed",
+    "predecessor": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+    "publications": [
+      {
+        "publication_id": "truss-graph-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+        "source_page_sha256": "d4d01927c545ee07b11443817d71bfc40067a1772685a430501c63a6433feb71",
+        "changes": 0,
+        "validation": {
+          "complete": true,
+          "effect_parity": {
+            "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+            "object_current": "cc8236d6894cc9447e3df8aa72d1f25bf2376029b4d380a730caa067c30c4663",
+            "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+            "whole_source_history": "276c2ea14d83359eb71a8326c2473d1214a49561e55597cdb1cd1418c051edb7"
+          },
+          "original_source_plan_sha256": "84939b3c39ade6f35bb4350285f760713e9704dc9b22d1adcda7a4779f784209",
+          "predecessor": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+          "request_digest": "a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+          "scope": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+          "source_admission": {
+            "accepted_reports": {
+              "1": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f",
+              "2": "25ffd329d785b1e364ae577729d7b846736aa8e9f20f008213a3a385fda802c9"
+            },
+            "catalog_views": {
+              "1": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be",
+              "2": "4e01f8d8a0b150227c6b52b9462d7686df33f78744d7b36056c2d66427f1feb8"
+            },
+            "declared_umf": {
+              "1": {
+                "urn:umf:domain:commerce": "0.8.0"
+              },
+              "2": {
+                "urn:umf:domain:commerce": "0.8.0"
+              }
+            },
+            "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+            "feed": "commerce22-full",
+            "profile": "ashlar-truss-typed-graph-semantic-admission/0.1",
+            "qualification": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+            "source_profile": "truss-native-feed/0.1",
+            "source_transaction_sha256": "3945bca453716396630e30c58a6cfb4e4b271e0bd56161d16bb3cded7e17df82"
+          },
+          "source_oracle_sha256": "9b217eabb7ba54f65f96534686017b8bd5dfbe3c28cd96674a01627a652f8cbb",
+          "zero_match_elisions": []
+        }
+      },
+      {
+        "publication_id": "truss-graph-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+        "source_page_sha256": "4cf1aa5e2fe45999966caddff93ab72cd7cb566d2d7d493578b519e65841efff",
+        "changes": 2,
+        "validation": {
+          "complete": true,
+          "effect_parity": {
+            "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+            "object_current": "ded5bde2db0c250528e1e4c5d5cd6e8b48f9657f8015397ebfeb7dad1855f795",
+            "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+            "whole_source_history": "714af41fb14516e2449b34273e8f0510edba516d3e23862c9e2b59c7a0059223"
+          },
+          "original_source_plan_sha256": "a8e5f432354498f7172b87a2cbd2bb9347b47adbf3a84dc105292b0eec0ae2ce",
+          "predecessor": "truss-graph-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a",
+          "request_digest": "1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f",
+          "scope": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+          "source_admission": {
+            "accepted_reports": {
+              "1": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f",
+              "2": "25ffd329d785b1e364ae577729d7b846736aa8e9f20f008213a3a385fda802c9"
+            },
+            "catalog_views": {
+              "1": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be",
+              "2": "4e01f8d8a0b150227c6b52b9462d7686df33f78744d7b36056c2d66427f1feb8"
+            },
+            "declared_umf": {
+              "1": {
+                "urn:umf:domain:commerce": "0.8.0"
+              },
+              "2": {
+                "urn:umf:domain:commerce": "0.8.0"
+              }
+            },
+            "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+            "feed": "commerce22-full",
+            "profile": "ashlar-truss-typed-graph-semantic-admission/0.1",
+            "qualification": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+            "source_profile": "truss-native-feed/0.1",
+            "source_transaction_sha256": "ed9e413f4954578906c72844b8c96813727f3e755ba2f1ef8ac3c7120636e201"
+          },
+          "source_oracle_sha256": "deb3d4e74935a161b3550e3a3ed7836d95d5cf2ed3b52786ce166d541516546a",
+          "zero_match_elisions": []
+        }
+      }
+    ],
+    "phases": {
+      "updated_price_query": 11.821015291963704,
+      "evolved_singleton": 5.176924833096564
+    },
+    "source_advanced_to_exact_last_next": true,
+    "final_price": [
+      {
+        "price": {
+          "decimal_token": "13.75"
+        }
+      }
+    ],
+    "new_field_singleton_exact": true,
+    "query_checkpoint_unchanged": true,
+    "scope": "Read-only compatible-revision2 price query across selected original physical revisions1/2, exact new-field singleton and source checkpoint closure on completed original08 additive evolution publication; no source effects were retried.",
+    "duration_seconds": 17.372348957927898
+  },
+  "postverification_supervisor": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 17.795382375014015
+  },
+  "scope": "Original small commerce additive absent-allowed String evolution and current-source/Delta/query correspondence only. Logicalrevision2 with selected physical1/2 bindings, not proof both productscan populations nonempty. Source ACK caller-asserted receipt mode; no protected production authority, cloud, broad evolution or uncertain-operation recovery claim.",
+  "external_binary_custody": [
+    {
+      "private_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1585330,
+      "sha256": "74cd567d2541015ad91e3cdc6c9249e0d8cefcff0af52ba2932afb5008872897",
+      "scope": "Original binary remains at this private path; byte custody checked during packaging. Not contained in Git evidence archive."
+    },
+    {
+      "private_path": "/private/tmp/ashlar-compatible-weft-compile-20261013-a/weft-runtime",
+      "bytes": 16838512,
+      "sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+      "scope": "Original binary remains at this private path; byte custody checked during packaging. Not contained in Git evidence archive."
+    }
+  ]
+}

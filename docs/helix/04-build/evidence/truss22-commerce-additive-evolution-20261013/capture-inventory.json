@@ -1,0 +1,362 @@
+{
+  "files": [
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/configuration.json",
+      "archive_name": "configuration.json",
+      "bytes": 813,
+      "sha256": "5b1aab0cc88a41352f2bd30ee4e23fa6208ebdd1c2bfd0b2d6569fb64fd3229d"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json",
+      "archive_name": "evolution.json",
+      "bytes": 1756708,
+      "sha256": "69292fef12e417083ac274fa81d71e9839f31fffabaf66fad95522fda162e50f"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/live-before.json",
+      "archive_name": "live-before.json",
+      "bytes": 698,
+      "sha256": "e42f440d0104315df6c7a2e531ffa111fc6216a40cedf4375caa9722920766d4"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/result.json",
+      "archive_name": "result.json",
+      "bytes": 546,
+      "sha256": "b46fbb445afa6c58642a4b29643ac399d8e0b578b76fe8787120b729e28bd63c"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/supervisor-result.json",
+      "archive_name": "supervisor-result.json",
+      "bytes": 86,
+      "sha256": "680264c16ec02a68a3f72090d09ec160e43af1eb9bd00e4a4cd625f84cc4ef69"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/run.log",
+      "archive_name": "run.log",
+      "bytes": 610,
+      "sha256": "cf571413248fcc1634a50393f03049761a13f3726f06d96bf2dba221577f2de8"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/run.py",
+      "archive_name": "run.py",
+      "bytes": 4743,
+      "sha256": "3c1784b2246275d15edfd57804f9ae74078c821e7af8f5caaf66bad585b1ed5d"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/supervise.py",
+      "archive_name": "supervise.py",
+      "bytes": 628,
+      "sha256": "464689baaf10d47849a1ec2d04deda713a7ad8cfb6fb35658905736f34088b66"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/run_continue.py",
+      "archive_name": "run_continue.py",
+      "bytes": 3903,
+      "sha256": "7313c54a76719d94066b328742c15298a6119629fe7a2f36f8f59afdc70df383"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/run_continue_with_archive.py",
+      "archive_name": "run_continue_with_archive.py",
+      "bytes": 4061,
+      "sha256": "b3ae032f1288c857c03cdde59d21e5345c349abfcaacb84c3ef1b0d74bc212aa"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continue-supervisor-result.json",
+      "archive_name": "continue-supervisor-result.json",
+      "bytes": 86,
+      "sha256": "63661dec8956fd045dc5306b109b68222859d316324a434af90ea3be436c03f0"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continue.log",
+      "archive_name": "continue.log",
+      "bytes": 2258,
+      "sha256": "7c544961b1ae70ea1a4cff5e2c5666901c7bfc27e7eb24b6b72f67610109d368"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continue-with-archive-supervisor-result.json",
+      "archive_name": "continue-with-archive-supervisor-result.json",
+      "bytes": 86,
+      "sha256": "220de16b781c7eb76f3b250fd57bf3c36213104662737cfc43d66a692ebcf026"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continue-with-archive.log",
+      "archive_name": "continue-with-archive.log",
+      "bytes": 2570,
+      "sha256": "9b4a8f7746321d03886f2b3590bae83d9c1f261a769644b88c7a399728a0e898"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/supervise_continue.py",
+      "archive_name": "supervise_continue.py",
+      "bytes": 651,
+      "sha256": "6bbe03d1bee0d5323d90682fd9774cae5c4d3f86efcab6de076cba8b3eced809"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/supervise_continue_with_archive.py",
+      "archive_name": "supervise_continue_with_archive.py",
+      "bytes": 690,
+      "sha256": "17b776a4fde2f5878662077ae1d877ec8f14356e3edefc86b9d86dd963c88266"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verify-supervisor-result.json",
+      "archive_name": "verify-supervisor-result.json",
+      "bytes": 87,
+      "sha256": "fbfd0b5a68e3bf6ba1366c970a79702da50afa3316513b818d55febd6d150bd4"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verify.log",
+      "archive_name": "verify.log",
+      "bytes": 1268,
+      "sha256": "0772f02cbd575c182985a1200649d9454143b909b4f2e691ddb5bac11cbbdfea"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verify_final.py",
+      "archive_name": "verify_final.py",
+      "bytes": 4990,
+      "sha256": "e96994fc0ade98737235b807e1b42f870651e2214b6aacdbd589dd50da0960c3"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/supervise_verify.py",
+      "archive_name": "supervise_verify.py",
+      "bytes": 647,
+      "sha256": "e42fd06b271af57d886c53734ca246396ef651ea2cc42bf8627ac4a7680ac968"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/checkpoint-before.bin",
+      "archive_name": "checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "66e0dbde9448e3a6b3bba3c8a767c4b3a3c9a4d7194a241f7d23788566127618"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/checkpoint-after.bin",
+      "archive_name": "checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "66e0dbde9448e3a6b3bba3c8a767c4b3a3c9a4d7194a241f7d23788566127618"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/pending-next.bin",
+      "archive_name": "pending-next.bin",
+      "bytes": 274,
+      "sha256": "975bc06c93bb5b724f759729c65b2975a9bb6832479fdc4d194fd4c70174665d"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/pending-source-page.json",
+      "archive_name": "pending-source-page.json",
+      "bytes": 1441446,
+      "sha256": "3945bca453716396630e30c58a6cfb4e4b271e0bd56161d16bb3cded7e17df82"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued/old-reader.json",
+      "archive_name": "continued/old-reader.json",
+      "bytes": 737,
+      "sha256": "4da59551289a5265c2d4a3c02fe43935660888d68d9f51458c9584175b558fb1"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued/publisher-selection.json",
+      "archive_name": "continued/publisher-selection.json",
+      "bytes": 674,
+      "sha256": "54b45c475032350a4c9bb511c38a46d19c496d11ea2a2b3bced8aadaaba72242"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/checkpoint-after.bin",
+      "archive_name": "continued-with-archive/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/continuation.json",
+      "archive_name": "continued-with-archive/continuation.json",
+      "bytes": 8563,
+      "sha256": "ba5c80778696ce6ee0b953d6606c68c6fd1e12780b398ed54f98447e1bd3b4fa"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/old-reader.json",
+      "archive_name": "continued-with-archive/old-reader.json",
+      "bytes": 927,
+      "sha256": "a6eda21ca13ba304b5a759faf099895e30fe62041a5118e5d77bf533e74b4e28"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/publisher-selection.json",
+      "archive_name": "continued-with-archive/publisher-selection.json",
+      "bytes": 897,
+      "sha256": "8691e9b46bc03835bd0437a7151f088eaa8ac89a6b9557f7079aa7d5ed942d69"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/remaining-source-page.json",
+      "archive_name": "continued-with-archive/remaining-source-page.json",
+      "bytes": 2070,
+      "sha256": "21d535df10fb04eb5d1a5a94d48441e4cc68c5f9bddb37b99b3b81445c768c38"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/continued-with-archive/result.json",
+      "archive_name": "continued-with-archive/result.json",
+      "bytes": 1022,
+      "sha256": "556978875968887834fc9e0d2c28b5fbcfc0fc2ef684d485c1ee67cb95e8bea3"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/checkpoint-after.bin",
+      "archive_name": "verified/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/checkpoint-before.bin",
+      "archive_name": "verified/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/evolved-product.json",
+      "archive_name": "verified/evolved-product.json",
+      "bytes": 2229,
+      "sha256": "3c3d2565e007a89c29bf4b6c00484322fb0c221bffa38a422027eb10b2fc98e0"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/price-query.json",
+      "archive_name": "verified/price-query.json",
+      "bytes": 83886,
+      "sha256": "c567b7dc78000e2950df58f6b7d0d359c81025de7066f8324b9088c72dbca603"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/publisher-selection.json",
+      "archive_name": "verified/publisher-selection.json",
+      "bytes": 897,
+      "sha256": "8691e9b46bc03835bd0437a7151f088eaa8ac89a6b9557f7079aa7d5ed942d69"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/reader.json",
+      "archive_name": "verified/reader.json",
+      "bytes": 927,
+      "sha256": "b7358906e34ba3e96067790f7a9bc92af9bbfe3cb8a5695712f3288532ddafcf"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/remaining-source-page.json",
+      "archive_name": "verified/remaining-source-page.json",
+      "bytes": 2070,
+      "sha256": "21d535df10fb04eb5d1a5a94d48441e4cc68c5f9bddb37b99b3b81445c768c38"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/verified/result.json",
+      "archive_name": "verified/result.json",
+      "bytes": 6094,
+      "sha256": "5812821c934cdf3c09eb9c8c92f17521d42e53c72662348fb4885fb5a1792664"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#previous_document",
+      "archive_name": "original/revision1.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#accepted_document",
+      "archive_name": "original/revision2.json",
+      "bytes": 28034,
+      "sha256": "a7371c9819446d9c92350974d7654cb2310f14bec9e3c6bbc4c305858ba72e4b",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#previous_catalog_original_base64",
+      "archive_name": "original/previous_catalog.json",
+      "bytes": 122679,
+      "sha256": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#catalog_original_base64",
+      "archive_name": "original/catalog.json",
+      "bytes": 124695,
+      "sha256": "4e01f8d8a0b150227c6b52b9462d7686df33f78744d7b36056c2d66427f1feb8",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#previous_report_original_base64",
+      "archive_name": "original/previous_report.json",
+      "bytes": 331215,
+      "sha256": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/evolution.json#report_original_base64",
+      "archive_name": "original/report.json",
+      "bytes": 338299,
+      "sha256": "25ffd329d785b1e364ae577729d7b846736aa8e9f20f008213a3a385fda802c9",
+      "projection": "Exact original bytes decoded from retained public receipt; no reserialization."
+    },
+    {
+      "source_path": "/private/tmp/ashlar-commerce-additive-sourceplans-20261013-a/receipt.json",
+      "archive_name": "journal/source-plan-receipt.json",
+      "bytes": 1951,
+      "sha256": "1e993d596e8d87fe45efcbaf9a4af3dcc9f12807c1ee64fe7c0549d17b0fa4ed"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-commerce-additive-sourceplans-20261013-a/source-plan-1.json",
+      "archive_name": "journal/source-plan-1.json",
+      "bytes": 2138905,
+      "sha256": "84939b3c39ade6f35bb4350285f760713e9704dc9b22d1adcda7a4779f784209"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-commerce-additive-sourceplans-20261013-a/source-plan-2.json",
+      "archive_name": "journal/source-plan-2.json",
+      "bytes": 1523511,
+      "sha256": "a8e5f432354498f7172b87a2cbd2bb9347b47adbf3a84dc105292b0eec0ae2ce"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-preparation-20261013-a/native/publication/source-page-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a.json",
+      "archive_name": "publication/1-source_page.json",
+      "bytes": 1923015,
+      "sha256": "d4d01927c545ee07b11443817d71bfc40067a1772685a430501c63a6433feb71"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-preparation-20261013-a/native/publication/publication-intent-a260d1b8428350ca00dce799d8f579f7851f242f5c2692eee8e447b14a64732a.json",
+      "archive_name": "publication/1-publication_intent.json",
+      "bytes": 477,
+      "sha256": "2c5e7c70c9e693d8ef7688cdbee1bd9a1fe6e34fad05610444fafb08812d5f81"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-preparation-20261013-a/native/publication/source-page-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f.json",
+      "archive_name": "publication/2-source_page.json",
+      "bytes": 1289919,
+      "sha256": "4cf1aa5e2fe45999966caddff93ab72cd7cb566d2d7d493578b519e65841efff"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-truss22-commerce-preparation-20261013-a/native/publication/publication-intent-1f4b13a35ee74d72ef13a000d5b85e67955aedaef8aece5a4007e8f804cfba3f.json",
+      "archive_name": "publication/2-publication_intent.json",
+      "bytes": 477,
+      "sha256": "45fd4fc30ceb9a3f75d2b5ac038ef6d6d22dcba7e3afa34aca685cf4d66f5eed"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-commerce-graphframes-installed-prep-j/command-j.json",
+      "archive_name": "runtime/reused-command-j.json",
+      "bytes": 336990,
+      "sha256": "724a52809930f02f76708ee99a91b20c64d25f9037b7acdcb818c8cda797c9c6"
+    },
+    {
+      "source_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/truss22-commerce-catalog-20261013/release-pins.json",
+      "archive_name": "runtime/truss22-release-pins.json",
+      "bytes": 1013,
+      "sha256": "a22dde0e2af280462c4751bbf098c9fd5c7d6c5781a23e7561a5dd087cfc950a"
+    },
+    {
+      "source_path": "/private/tmp/ashlar-commerce-additive-final-evidence-20261013-a/installed-custody.json",
+      "archive_name": "installed-custody.json",
+      "bytes": 64669,
+      "sha256": "ceb34ef6b7b317262c5dd865a01201f32e81ce48ace29c76c1c19aa82d71c2b6"
+    }
+  ],
+  "archive_sha256": "1a89f5980e3cb949d41c5bf9ea1f49842f0c6c464699ede3a57f6322d861adf6",
+  "captures": 56,
+  "external_binary_custody": [
+    {
+      "private_path": "/private/tmp/ashlar-truss22-commerce-evolution-20261013-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1585330,
+      "sha256": "74cd567d2541015ad91e3cdc6c9249e0d8cefcff0af52ba2932afb5008872897",
+      "scope": "Original binary remains at this private path; byte custody checked during packaging. Not contained in Git evidence archive."
+    },
+    {
+      "private_path": "/private/tmp/ashlar-compatible-weft-compile-20261013-a/weft-runtime",
+      "bytes": 16838512,
+      "sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+      "scope": "Original binary remains at this private path; byte custody checked during packaging. Not contained in Git evidence archive."
+    }
+  ]
+}
