@@ -1,0 +1,103 @@
+{
+  "scope": "One fresh public install and one original compiler-only restart CLI call; no native/source/ACK/publication effects. Compiler call preceded later open-only clarification; no further calls.",
+  "source_revision": "bd490abc877a1992666c7b45412b14a0ca6c2cac",
+  "ashlar_source_revision": "553996a3bc92277c420bfd6dbab7209b45257d8b",
+  "install_exit": 0,
+  "restart_compile_exit": 0,
+  "compiler_status": "compiled",
+  "backend": {
+    "backendId": "ashlar.databricks.paths-keys",
+    "backendVersion": "0.4.1-count-star-having-candidate",
+    "interfaceVersion": "weft-backend/0.3.0",
+    "targetProfile": "spark4-delta4-paths-keys-candidate"
+  },
+  "install_argv": [
+    "/private/tmp/ashlar-medical-recovery-installed-prep-20261014-e/environment/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "install-weft-count-star",
+    "--index",
+    "/private/tmp/ashlar-count-star-public-install-20261014-a/checkout/distributions/index.json",
+    "--package",
+    "/private/tmp/ashlar-count-star-public-install-20261014-a/checkout/distributions/realizations/weft-5ddcebd-count-star-aarch64-apple-darwin-candidate",
+    "--output",
+    "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler"
+  ],
+  "restart_compile_argv": [
+    "/private/tmp/ashlar-medical-recovery-installed-prep-20261014-e/environment/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "compile-weft-count-star",
+    "--index",
+    "/private/tmp/ashlar-count-star-public-install-20261014-a/checkout/distributions/index.json",
+    "--installation",
+    "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler"
+  ],
+  "original_request_reference": "/private/tmp/ashlar-count-star-installed-cli-c/gallery-0-0.request",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/checkout/distributions/index.json",
+      "bytes": 2730,
+      "sha256": "7eddc39661f6cb400afae897aa0a7d8cd5dee0aec026ed45a4e197fa7c9558a6",
+      "mode": "0o664"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler/ready.json",
+      "bytes": 1995,
+      "sha256": "4c7ad109fd81f0f9348ee1edd3a23ae0c21d7fc544aca315feeab471aa4f3507",
+      "mode": "0o444"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler/provenance.json",
+      "bytes": 42112,
+      "sha256": "ba794601cb05d3e909cd8dd30e90a2aa6ecd3b90185787a6681372fa2413cc86",
+      "mode": "0o444"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler/backend-manifest.json",
+      "bytes": 53114,
+      "sha256": "075dc92c7ca08b37abd1ed003fcd80674f816353742b79fa3e3a98021826b273",
+      "mode": "0o444"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compiler/weft-paths-keys",
+      "bytes": 8532672,
+      "sha256": "0e8199a8953f46d7151c87ec001e6c8edff414c0af9cecc6c13e0ea8d23ede80",
+      "mode": "0o555"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/install.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/install.stderr",
+      "bytes": 34,
+      "sha256": "fb799b2821d7b31ea043f56ce57e237c293f401846bb7a43a7d4607ee23d58c7",
+      "mode": "0o644"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/original.request",
+      "bytes": 55397,
+      "sha256": "e30b6918d08a220435655bba4db7d4dd12decc9c0de0812dcd3e1200273b34d4",
+      "mode": "0o644"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/original.response",
+      "bytes": 103726,
+      "sha256": "262ae3318633ae13eb24e30aeccfcdcd01e5100401d6aaa5e22e757b4d7f5306",
+      "mode": "0o644"
+    },
+    {
+      "path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    }
+  ]
+}

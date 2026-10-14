@@ -1,0 +1,43 @@
+{
+  "files": [
+    {
+      "path": "result.json",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/result.json",
+      "bytes": 4107,
+      "sha256": "1bdfea048ca5f50b53036c192030df35b3d5f37a8219121638fe3c4f88c95c30"
+    },
+    {
+      "path": "install.stdout",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/install.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install.stderr",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/install.stderr",
+      "bytes": 34,
+      "sha256": "fb799b2821d7b31ea043f56ce57e237c293f401846bb7a43a7d4607ee23d58c7"
+    },
+    {
+      "path": "compile.stderr",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Exact small install/compiler outcome copies; original protocol and binaries retained privately by exact path/bytes/hash reference",
+  "protocol_references": [
+    {
+      "path": "original.request",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/original.request",
+      "bytes": 55397,
+      "sha256": "e30b6918d08a220435655bba4db7d4dd12decc9c0de0812dcd3e1200273b34d4"
+    },
+    {
+      "path": "original.response",
+      "original_path": "/private/tmp/ashlar-count-star-public-install-20261014-a/original.response",
+      "bytes": 103726,
+      "sha256": "262ae3318633ae13eb24e30aeccfcdcd01e5100401d6aaa5e22e757b4d7f5306"
+    }
+  ]
+}
