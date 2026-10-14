@@ -29,6 +29,8 @@ def run_query_truss_commerce_command(configuration,output,*,index,installation,p
         from .truss_example import private_file
         from .exact_report import report_body
         pack.renew(262144)
+        result=dict(result)
+        result['qualification']='Original indexed0.4.2 commerce case on a held Truss publication, truthful per-record homogeneous physical revisions, full original source/capacity guards and independent current positional occurrence bag. Owned outer source/Spark cleanup completed before report output; no production qualification.'
         private_file(destination,report_body(result,16777216));return result
     try:return run_selected_truss_command(configuration,output,query,report_writer=write)
     except BaseException as error:finish(error,[lambda:pack.renew(262144)])

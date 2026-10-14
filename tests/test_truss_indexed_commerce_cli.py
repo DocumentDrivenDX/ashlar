@@ -27,7 +27,7 @@ class Tests(unittest.TestCase):
    with patch.object(command.InvocationFile,'renew',autospec=True,side_effect=renewal),patch.object(command,'run_selected_truss_command',side_effect=owner),patch.object(command,'restore_applied_truss_publication')as restore,patch.object(command,'execute_truss_indexed_commerce_query',return_value=self.answer()):
     result=self.run_command(output)
    self.assertEqual(events,['pack-renew','pack-renew','outer-cleanup','pack-renew'])
-   self.assertTrue(output.is_file());self.assertEqual(result['request_original_json'],'{"original":"request"}\n');self.assertEqual(result['recompiled_original_json'],'{"original":"response"}\n');restore.assert_called_once()
+   self.assertTrue(output.is_file());self.assertIn('Owned outer source/Spark cleanup completed',result['qualification']);self.assertNotIn('remains required',result['qualification']);self.assertEqual(result['request_original_json'],'{"original":"request"}\n');self.assertEqual(result['recompiled_original_json'],'{"original":"response"}\n');restore.assert_called_once()
  def test_primary_failure_survives_failed_closing_pack_renewal(self):
   events=[];primary=RuntimeError('primary outer cleanup failure');secondary=ValueError('closing pack custody changed');renew=command.InvocationFile.renew
   def renewal(lease,maximum):

@@ -1,0 +1,23 @@
+name: Domain-pack carrier controls
+on:
+  push:
+    paths:
+      - tools/check_domain_pack_datasets.ts
+      - tests/domain-pack-datasets.test.ts
+      - .github/workflows/domain-pack-carriers.yml
+  pull_request:
+    paths:
+      - tools/check_domain_pack_datasets.ts
+      - tests/domain-pack-datasets.test.ts
+      - .github/workflows/domain-pack-carriers.yml
+permissions:
+  contents: read
+jobs:
+  lexical-carriers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: bun test tests/domain-pack-datasets.test.ts

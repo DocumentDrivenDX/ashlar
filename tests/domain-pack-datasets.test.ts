@@ -1,5 +1,5 @@
 import {test, expect} from 'bun:test';
-import {datasetInput, CarrierRefusal, writeFreshReceipt} from '../tools/check_domain_pack_datasets';
+import {datasetInput, CarrierRefusal, writeFreshReceipt, BOOLEAN_LEXICAL_PROFILE, publicBooleanLiteral} from '../tools/check_domain_pack_datasets';
 import {mkdtemp, readFile, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -61,4 +61,46 @@ test('a late existing output cannot replace original receipt bytes', async () =>
     await expect(writeFreshReceipt(output, 'replacement\n')).rejects.toThrow();
     expect(await readFile(output, 'utf8')).toBe('original\n');
   } finally { await rm(directory, {recursive: true}); }
+});
+
+
+test('explicit public Boolean receipt preserves exact lexical context, omitted and null carriers', () => {
+  const {source, graph} = fixture(); source.modules[0].elements[1].scalarType = 'boolean';
+  graph.objects[2].values.note = 'True';
+  const original = JSON.stringify({source, graph}); const calls: any[] = []; const receipts: any[] = [];
+  const admission = {profile: BOOLEAN_LEXICAL_PROFILE as typeof BOOLEAN_LEXICAL_PROFILE, sourceContext: {graphSha256: 'original-graph'}, receipts,
+    validateCsvBooleanLexical(s: any, request: any) {
+      calls.push(['validate', structuredClone(s), structuredClone(request)]);
+      // This injected public-port response is not a semantic authority proof.
+      s.id = 'callback-mutated'; request.token = 'mutated';
+      return {value: {boolean: true}, validation: {valid: true, complete: true}, request: calls[0][2]};
+    },
+    verifyCsvBooleanLexical(receipt: any, s: any, request: any) {
+      calls.push(['verify', structuredClone(s), structuredClone(request)]); return receipt;
+    }};
+  expect(() => datasetInput(source, graph, 'scope')).toThrow(CarrierRefusal);
+  const result = datasetInput(source, graph, 'scope', admission);
+  expect(result.records.map(r => r.values[1])).toEqual([
+    {field: {module: 'm', element: 'note'}, state: 'absent'},
+    {field: {module: 'm', element: 'note'}, state: 'present', value: null},
+    {field: {module: 'm', element: 'note'}, state: 'present', value: {boolean: true}},
+  ]);
+  expect(calls.map(c => c[0])).toEqual(['validate', 'verify']);
+  expect(calls[1][1]).toEqual(source); expect(calls[1][2]).toEqual(calls[0][2]);
+  expect(calls[1][2].sourceContext).toEqual({graphSha256: 'original-graph', objectKey: 'c', fieldIdentity: {module: 'm', element: 'note'}});
+  expect(calls[1][2].token).toBe('True'); expect(receipts).toHaveLength(1);
+  expect(JSON.stringify({source, graph})).toBe(original);
+});
+
+test('malformed Boolean token public refusal and incomplete verifier results are never admitted', () => {
+  const {source, graph} = fixture(); source.modules[0].elements[1].scalarType = 'boolean'; graph.objects[2].values.note = 'TRUE';
+  const admission = {profile: BOOLEAN_LEXICAL_PROFILE as typeof BOOLEAN_LEXICAL_PROFILE, sourceContext: {}, receipts: [] as any[],
+    validateCsvBooleanLexical() {throw new CarrierRefusal('Public lexical refusal');},
+    verifyCsvBooleanLexical() {throw Error('Not reached');}};
+  expect(() => datasetInput(source, graph, 'scope', admission)).toThrow('Public lexical refusal'); expect(admission.receipts).toHaveLength(0);
+  for (const verified of [false, {}, {validation: {valid: false, complete: true}, value: {boolean: true}}, {validation: {valid: true, complete: false}, value: {boolean: true}}]) {
+    const port = {...admission, validateCsvBooleanLexical: () => ({}), verifyCsvBooleanLexical: () => verified};
+    expect(() => publicBooleanLiteral(source, {module: 'm', element: 'note'}, 'True', {}, port)).toThrow(CarrierRefusal);
+    expect(port.receipts).toHaveLength(0);
+  }
 });

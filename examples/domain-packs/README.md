@@ -76,6 +76,25 @@ fixture is seeded independent-component replay with tuple IDs. Independent query
 oracles must account for this distinction. Additional graph controls and lifecycle
 mutations belong to a separate explicit augmentation, preserving the originals.
 
+## Explicit Boolean lexical admission
+
+The common pack dataset tool accepts an optional Boolean profile:
+
+```sh
+bun tools/check_domain_pack_datasets.ts /path/to/clean/umf-e44cd15f \
+  /path/to/pinned/pack-repo /absolute/fresh-datasets.json \
+  --boolean-lexical-profile umf.csv-boolean-lexical/1.0.0
+```
+
+Use the exact producer revision `e44cd15f336dfb33db35acf20eee13dd120a1a28`
+and pack revision selected by the tool. The public UMF validator and verifier
+own Boolean conversion; the output retains each original token, field and source
+context in a verified receipt. Omitted and explicit null values keep their
+original states. Without this option, present Boolean lexical carriers refuse.
+Original model/graph provenance checks still apply. This operation admits only
+finite supplied dataset values; native source, storage and query execution
+require their own qualification.
+
 ## Original commerce dataset admission
 
 Use the public UMF finite-dataset operation to admit the original 0.8 ontology

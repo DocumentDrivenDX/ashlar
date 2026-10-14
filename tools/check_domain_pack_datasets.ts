@@ -16,8 +16,36 @@ export async function writeFreshReceipt(output: string, bytes: string) {
   await writeFile(output, bytes, {flag: 'wx'});
 }
 
+export const BOOLEAN_LEXICAL_PROFILE = 'umf.csv-boolean-lexical/1.0.0';
+export interface BooleanLexicalAdmission {
+  profile: typeof BOOLEAN_LEXICAL_PROFILE;
+  sourceContext: any;
+  validateCsvBooleanLexical(source: any, request: any): any;
+  verifyCsvBooleanLexical(receipt: any, source: any, request: any): any;
+  receipts: any[];
+}
+
+/** Explicit public conversion; context remains unverified source correspondence. */
+export function publicBooleanLiteral(source: any, field: any, token: string,
+                                     context: any, admission: BooleanLexicalAdmission) {
+  if (admission?.profile !== BOOLEAN_LEXICAL_PROFILE ||
+      typeof admission.validateCsvBooleanLexical !== 'function' ||
+      typeof admission.verifyCsvBooleanLexical !== 'function' || !Array.isArray(admission.receipts))
+    throw new CarrierRefusal('Explicit public Boolean lexical admission required');
+  const expectedSource = structuredClone(source);
+  const request = {profile: BOOLEAN_LEXICAL_PROFILE, field: structuredClone(field), token,
+    sourceContext: structuredClone(context)};
+  const receipt = admission.validateCsvBooleanLexical(structuredClone(expectedSource), structuredClone(request));
+  const verified = admission.verifyCsvBooleanLexical(structuredClone(receipt), structuredClone(expectedSource), structuredClone(request));
+  if (verified?.validation?.valid !== true || verified?.validation?.complete !== true ||
+      typeof verified?.value?.boolean !== 'boolean')
+    throw new CarrierRefusal('Public Boolean lexical validation incomplete');
+  admission.receipts.push(structuredClone(verified));
+  return structuredClone(verified.value);
+}
+
 /** Select carriers, never validate or normalize their semantic values. */
-export function datasetInput(source: any, graph: any, scopeId: string) {
+export function datasetInput(source: any, graph: any, scopeId: string, booleanAdmission?: BooleanLexicalAdmission) {
   const refuse = (message: string): never => { throw new CarrierRefusal(message); };
   if (source.umf !== '0.8.0' || graph.format !== 'umf.domain-graph' || graph.version !== '1.0.0')
     refuse('Declared original model/graph profile is outside this transposition');
@@ -43,6 +71,11 @@ export function datasetInput(source: any, graph: any, scopeId: string) {
       case 'string': return {string: token};
       case 'integer': return {integerToken: token};
       case 'decimal': return {decimalToken: token};
+      case 'boolean': {
+        if (!booleanAdmission) refuse('Explicit public Boolean lexical admission required');
+        return publicBooleanLiteral(source, ref, token, {...structuredClone(booleanAdmission!.sourceContext),
+          objectKey: object.key, fieldIdentity: structuredClone(ref)}, booleanAdmission!);
+      }
       default: return refuse('Unsupported lexical carrier family: ' + String(field.scalarType));
     }
   };
@@ -82,8 +115,10 @@ export function datasetInput(source: any, graph: any, scopeId: string) {
 
 if (import.meta.main) {
   const args = process.argv.slice(2);
-  if (args.length !== 3) throw Error('Usage: bun tools/check_domain_pack_datasets.ts CLEAN_UMF_PRODUCER PINNED_PACK_REPO FRESH_OUTPUT');
-  const [producer, packs, output] = args.map(p => resolve(p));
+  if (args.length !== 3 && !(args.length === 5 && args[3] === '--boolean-lexical-profile' && args[4] === BOOLEAN_LEXICAL_PROFILE))
+    throw Error('Usage: bun tools/check_domain_pack_datasets.ts CLEAN_UMF_PRODUCER PINNED_PACK_REPO FRESH_OUTPUT [--boolean-lexical-profile umf.csv-boolean-lexical/1.0.0]');
+  const booleanSelected = args.length === 5;
+  const [producer, packs, output] = args.slice(0, 3).map(p => resolve(p));
   const git = (repo: string, args: string[]) => {
     const result = Bun.spawnSync(['git', '-C', repo, ...args]);
     if (result.exitCode) throw Error('Pinned Git source unavailable');
@@ -100,6 +135,7 @@ if (import.meta.main) {
   const load = (path: string) => import(pathToFileURL(join(producer, path)).href);
   const [{readDocument}, {readJsonValue}, {validateCoreDatasetValuesCompact, verifyCoreDatasetValuesCompact}, {UmfError}] = await Promise.all([
     load('src/model/document.ts'), load('src/model/serialization.ts'), load('src/model/dataset-values-compact.ts'), load('src/model/types.ts')]);
+  const booleanApi = booleanSelected ? await load('src/index.ts') : undefined;
   const inventory = readJsonValue(new TextDecoder().decode(inventoryBytes), 'json');
   const results: any[] = [];
   for (const pack of inventory.packs) {
@@ -123,7 +159,13 @@ if (import.meta.main) {
     }
     try {
       const source = readDocument(new TextDecoder('utf-8', {fatal: true}).decode(Buffer.from(model.base64, 'base64')), 'json');
-      const input = datasetInput(source, graph, 'ashlar-original-' + pack.id + '-classification');
+      const booleanReceipts: any[] = [];
+      const booleanAdmission: BooleanLexicalAdmission | undefined = booleanApi ? {
+        profile: BOOLEAN_LEXICAL_PROFILE, sourceContext: {packVersion: pack.version, packSha256: pack.pack_sha256,
+          modelSha256: model.sha256, graphSha256: graphSource.sha256},
+        validateCsvBooleanLexical: booleanApi.validateCsvBooleanLexical,
+        verifyCsvBooleanLexical: booleanApi.verifyCsvBooleanLexical, receipts: booleanReceipts} : undefined;
+      const input = datasetInput(source, graph, 'ashlar-original-' + pack.id + '-classification', booleanAdmission);
       const receipt = validateCoreDatasetValuesCompact(source, input);
       verifyCoreDatasetValuesCompact(receipt, source, input);
       const complete = receipt.datasetValidation.valid === true && receipt.datasetValidation.complete === true;
@@ -152,7 +194,7 @@ if (import.meta.main) {
           controls.push({name, input: changed, receipt: result});
         }
       }
-      results.push({...original, status: complete ? 'admitted-finite-dataset' : 'public-incomplete-or-invalid', datasetAdmission: complete, input, receipt, controls});
+      results.push({...original, status: complete ? 'admitted-finite-dataset' : 'public-incomplete-or-invalid', datasetAdmission: complete, input, receipt, controls, ...(booleanSelected ? {booleanLexicalProfile: BOOLEAN_LEXICAL_PROFILE, booleanReceipts} : {})});
     } catch (error: any) {
       if (!(error instanceof CarrierRefusal) && !(error instanceof UmfError)) throw error;
       results.push({...original, status: error instanceof CarrierRefusal ? 'carrier-refused' : 'public-refused', datasetAdmission: false, diagnostic: {code: error.code, path: error.path, message: error.message}});
@@ -161,7 +203,7 @@ if (import.meta.main) {
   clean();
   if (await Bun.file(output).exists()) throw Error('Fresh output required');
   await writeFreshReceipt(output, JSON.stringify({profile: 'ashlar-original-pack-dataset-classification/0.1', producerRevision: PRODUCER,
-    packRevision: PACKS, inventorySha256: INVENTORY, results,
+    packRevision: PACKS, inventorySha256: INVENTORY, results, ...(booleanSelected ? {booleanLexicalProfile: BOOLEAN_LEXICAL_PROFILE} : {}),
     qualification: 'Public compact supplied-dataset ABI: fragments retain sourceRef to the full original source, not standalone documents. Finite supplied original dataset admission only. No source authority, canonical binding, storage publication, Weft, native engine or external dataset support.'}) + '\n');
   console.log(JSON.stringify({packs: results.length, statuses: results.reduce((counts, r) => ({...counts, [r.status]: (counts[r.status] ?? 0) + 1}), {} as Record<string, number>)}));
 }
