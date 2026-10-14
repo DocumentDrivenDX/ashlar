@@ -9,7 +9,7 @@ class Tests(unittest.TestCase):
     def fixture(self,root):
         executable=root/'weft';executable.write_text('original');index=root/'index.json';index.write_text('original');installation=root/'installed';installation.mkdir()
         queries=[]
-        for name,family in (('fields','scalar'),('groups','numeric-grouped-count'),('paths','two-hop-count')):
+        for name,family in (('fields','scalar'),('groups','numeric-grouped-count'),('paths','two-hop-count'),('joins','scalar-join')):
             q={'name':name,'family':family,'sql':'SELECT original '+name,'revision':'1','document_id':'typed-related-record','maximum_rows':2}
             if family!='two-hop-count':q['physical_revisions']=['1']
             queries.append(q)
@@ -31,13 +31,15 @@ class Tests(unittest.TestCase):
                     result=operation(driver,{'request_digest':'digest'});self.assertFalse(output.exists())
                     if outcome=='closing-failure':raise RuntimeError('source close failed')
                     return report_writer(result,destination)
-                with patch.object(command,'run_selected_truss_command',side_effect=owner)as selected,patch.object(command,'restore_applied_truss_publication')as restore,patch.object(command,'execute_truss_scalar_query',side_effect=executor),patch.object(command,'execute_truss_numeric_grouped_count_query',side_effect=executor),patch.object(command,'execute_truss_two_hop_count_query',side_effect=executor):
+                with patch.object(command,'run_selected_truss_command',side_effect=owner)as selected,patch.object(command,'restore_applied_truss_publication')as restore,patch.object(command,'execute_truss_scalar_query',side_effect=executor),patch.object(command,'execute_truss_numeric_grouped_count_query',side_effect=executor),patch.object(command,'execute_truss_two_hop_count_query',side_effect=executor),patch.object(command,'execute_truss_scalar_join_query',side_effect=executor)as join:
                     if outcome=='success':
                         result=command.run_query_truss_typed_batch_command('/original',output,batch=batch)
-                        self.assertEqual(len(seen),3);self.assertIsInstance(seen[0][0],command.CompatibleCompiler);self.assertIsInstance(seen[2][0],command.ImplicitArithmeticDistributionPaths)
+                        self.assertEqual(len(seen),4);self.assertIsInstance(seen[0][0],command.CompatibleCompiler);self.assertIsInstance(seen[2][0],command.ImplicitArithmeticDistributionPaths)
+                        join.assert_called_once();self.assertIs(seen[3][0],seen[0][0]);self.assertEqual(seen[3][2]['physical_revisions'],('1',))
+                        self.assertEqual(result['queries'][3]['family'],'scalar-join');self.assertEqual(result['queries'][3]['request_original_json'],'{"request":"original"}\n')
                         self.assertEqual(seen[0][2]['physical_revisions'],('1',));self.assertNotIn('physical_revisions',seen[2][2])
                         self.assertEqual(result['queries'][2]['recompiled_original_json'],'{"response":"original"}\n');self.assertNotIn('recompiled_original_json',result['queries'][0])
-                        self.assertEqual(result['protocol_bytes'],sum(len(b'{"request":"original"}\n')+len(b'{"response":"original"}\n')for _ in range(3))+len(b'{"response":"original"}\n'))
+                        self.assertEqual(result['protocol_bytes'],sum(len(b'{"request":"original"}\n')+len(b'{"response":"original"}\n')for _ in range(4))+len(b'{"response":"original"}\n'))
                         self.assertEqual(output.stat().st_mode&0o777,0o600)
                     else:
                         with self.assertRaises((ValueError,RuntimeError)):command.run_query_truss_typed_batch_command('/original',output,batch=batch)
@@ -56,7 +58,7 @@ class Tests(unittest.TestCase):
             with self.assertRaises(FrozenInstanceError):parsed.compatible.executable='/changed'
             with self.assertRaises(FrozenInstanceError):parsed.queries=()
 
-            indexed_only=dict(value,queries=value['queries'][2:],compilers={'indexed':value['compilers']['indexed']})
+            indexed_only=dict(value,queries=value['queries'][2:3],compilers={'indexed':value['compilers']['indexed']})
             command.parse_truss_typed_query_batch(json.dumps(indexed_only).encode())
             for invalid in (dict(value,queries=[dict(value['queries'][2],physical_revisions=['1'])]),dict(value,queries=[dict(value['queries'][0],family='invented')]),dict(compatible_only,compilers=value['compilers'])):
                 with self.assertRaises(ValueError):command.parse_truss_typed_query_batch(json.dumps(invalid).encode())

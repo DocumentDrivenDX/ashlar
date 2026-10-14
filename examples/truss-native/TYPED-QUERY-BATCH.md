@@ -64,10 +64,16 @@ ashlar query-truss-typed-batch \
 ```
 
 Include exactly the compiler entries required by the selected families. Scalar
-and numeric grouped counts use `compatible` and require `physical_revisions`;
+projections, scalar equality joins and numeric grouped counts use `compatible` and require `physical_revisions`;
 two-hop counts use `indexed` and reject that member. A compatible-only batch
 does not need an indexed installation. Unknown families refuse rather than
 falling back to another compiler or changing SQL.
+
+To include an admitted equality join in the same batch, add a `scalar-join`
+query with the same revision selections and its own row bound. For the bundled
+model, use `SELECT a."record-id" AS left_id,b."record-id" AS right_id FROM TypedRecord a JOIN TypedRecord b ON a.quantity=b.quantity`.
+This reuses the standalone join route's exact consumed-field admission and
+complete pair multiplicity; it does not add relationship traversal or arithmetic.
 
 Each executor retains its source/model admission, integrity obligations, native
 pins and closing checks. Every query must match the original complete manifest

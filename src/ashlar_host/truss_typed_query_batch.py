@@ -12,10 +12,11 @@ from .lifecycle import owned_context
 from .truss_recovery import restore_applied_truss_publication
 from .truss_resume_cli import run_selected_truss_command
 from .truss_weft_query import (execute_truss_scalar_query,
-    execute_truss_numeric_grouped_count_query,execute_truss_two_hop_count_query)
+    execute_truss_numeric_grouped_count_query,execute_truss_two_hop_count_query,
+    execute_truss_scalar_join_query)
 
 MAXIMUM_REPORT_BYTES=64*1048576
-FAMILIES={'scalar','numeric-grouped-count','two-hop-count'}
+FAMILIES={'scalar','scalar-join','numeric-grouped-count','two-hop-count'}
 
 
 @dataclass(frozen=True)
@@ -117,7 +118,8 @@ def run_query_truss_typed_batch_command(configuration,output,*,batch):
             if family=='two-hop-count':answer=execute_truss_two_hop_count_query(driver,indexed,query.sql,**kwargs)
             else:
                 kwargs['physical_revisions']=tuple(query.physical_revisions)
-                port=execute_truss_scalar_query if family=='scalar'else execute_truss_numeric_grouped_count_query
+                port={'scalar':execute_truss_scalar_query,'scalar-join':execute_truss_scalar_join_query,
+                      'numeric-grouped-count':execute_truss_numeric_grouped_count_query}[family]
                 answer=port(driver,compatible,query.sql,**kwargs)
             if answer['publication_id']!=publication or encoded(driver.policy.active['manifest'])!=manifest:raise ValueError('Mixed full publication manifests refused')
             fields=('request_bytes','response_bytes','recompiled_bytes')if family=='two-hop-count'else('request_bytes','response_bytes')
