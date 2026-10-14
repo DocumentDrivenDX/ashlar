@@ -1,0 +1,15 @@
+{
+  "git_commit": "866241d27fe7285ba84f2fc38b313d0e387405a2",
+  "approved_overlay": [
+    {
+      "path": "src/ashlar_host/pack_configuration.py",
+      "sha256": "0a8342934524adfc985926b111d9412b8a7fb0114eb13fa6a0358654c7d02f1e"
+    },
+    {
+      "path": "src/ashlar/cli.py",
+      "sha256": "36d467c813047140b564a6e288fe0d7b71d2ad6054445db865fec739acc2c3e7"
+    }
+  ],
+  "source_freeze_sha256": "e0902a03e84632887eaa4fdc22afbd8cb873d92a815d4b7e91597c374f078594",
+  "scope": "CleanGit source plus exact independently approved configuration slice; no foreignworkingtree files"
+}

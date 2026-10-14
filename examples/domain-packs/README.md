@@ -1,8 +1,13 @@
 # Pinned UMF domain-pack corpus
 
+For the runnable archaeology/ecology publication and query workflow, start with
+the [finite-pack quickstart](QUICKSTART.md). The inventory below establishes
+original source custody; runtime support requires the separately qualified routes.
+
 This is the source-custody starting point for Ashlar's independent domain work.
-The finite execution cases in `corpus.json` are **unexecuted**. Required cases
-remain required when an engine or credentials are unavailable.
+`corpus.json` defines the finite cases; their runtime qualification belongs in
+execution evidence. Required cases remain required when an engine or credentials
+are unavailable.
 
 `inventory.json` describes all 24 canonical packs and all 595 files below
 `spec/domain-packs` in UMF commit

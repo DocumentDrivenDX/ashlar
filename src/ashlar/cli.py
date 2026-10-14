@@ -258,6 +258,16 @@ def main():
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
         if name=='query-finite-pack':command.add_argument('--case',action='append',help='Run only this original authored case; repeat to select more')
+    finite_configuration=commands.add_parser('configure-finite-pack',help='Print an existing closed finite-pack configuration; no engine/source access')
+    finite_configuration.add_argument('--pack',required=True,choices=('archaeology','ecology','payments','supply-chain'))
+    finite_configuration.add_argument('--mode',required=True,choices=('publish','query'))
+    finite_configuration.add_argument('--profile',required=True,choices=('ashlar-original-finite-pack-invocation/0.1','ashlar-original-finite-pack-invocation/0.2'))
+    finite_configuration.add_argument('--budget-profile',required=True,choices=('small-local',))
+    for option in ('publication','output','jars','pack-file','model','graph','producer-source','bun','git'):
+        finite_configuration.add_argument('--'+option,required=True)
+    for option in ('index','installation'):
+        finite_configuration.add_argument('--'+option)
+    finite_configuration.add_argument('--query-profile',choices=('payments-count','payments-scenario'))
     supply_configuration=commands.add_parser('configure-supply-chain-native',help='Print a local five-query and two-hop configuration; no engine execution')
     for option in ('output','jars','pack','model','graph','producer-source','bun','git','count-star-index','count-star-installation','paths-index','paths-installation'):
         supply_configuration.add_argument('--'+option,required=True)
@@ -839,6 +849,19 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar payments scenario refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command == 'configure-finite-pack':
+        try:
+            from ashlar_host.pack_configuration import FinitePackBudget,make_finite_pack_configuration
+            answer=make_finite_pack_configuration(pack=args.pack,mode=args.mode,profile=args.profile,
+                budget=FinitePackBudget(args.budget_profile),publication=args.publication,output=args.output,
+                jars=args.jars,pack_file=args.pack_file,model=args.model,graph=args.graph,
+                producer_source=args.producer_source,bun=args.bun,git=args.git,index=args.index,
+                installation=args.installation,query_profile=args.query_profile)
+            sys.stdout.write(answer.decode('utf-8'))
+        except Exception:
+            print('ashlar finite-pack configuration refused',file=sys.stderr)
             raise SystemExit(2) from None
         return
     if args.command in ('publish-finite-pack','query-finite-pack'):

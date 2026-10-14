@@ -1,0 +1,101 @@
+{
+  "files": [
+    {
+      "path": "source-origin.json",
+      "bytes": 580,
+      "sha256": "4afcc1970214e4ec06aa28644eea960012d00ebe212727b88d248a3b8ae1e260"
+    },
+    {
+      "path": "smoke.py",
+      "bytes": 4403,
+      "sha256": "6eb535eebc615ec19840f5aa48ec7a14240aad2c1f9c45487369ea70772dcd45"
+    },
+    {
+      "path": "result.json",
+      "bytes": 16580,
+      "sha256": "4fba974d0990aef1da6cf45526a911ade2504b7725fcc740a4443f75e9f6b20c"
+    },
+    {
+      "path": "0.stdout",
+      "bytes": 1177,
+      "sha256": "52f3e11172ba3796867c5d2c01bbf9c252c6996f797cd7ff06697f599fa10b01"
+    },
+    {
+      "path": "0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "1.stdout",
+      "bytes": 1173,
+      "sha256": "fa6cdeea9e020c7f3bfd43f6be11587d25339a13807f117d2d5582305d912011"
+    },
+    {
+      "path": "1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "2.stdout",
+      "bytes": 1174,
+      "sha256": "b5259a4a165fdae8de4f8546d5c3bdc13b59a291b8b83b14de5ee6c6d00cd863"
+    },
+    {
+      "path": "2.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "3.stdout",
+      "bytes": 1581,
+      "sha256": "fb3aea8cb3ce98864282322cb857582b86463b1dec446bc66be4f47c946289e9"
+    },
+    {
+      "path": "3.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "4.stdout",
+      "bytes": 1577,
+      "sha256": "a2f35073e7ea0909dd596631faea09ced9bca80c3147b09a34fb3128b6507a93"
+    },
+    {
+      "path": "4.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "5.stdout",
+      "bytes": 1578,
+      "sha256": "6c59d3070c22eca1ab78fca1c6d7d026ac0ab6a66c3b370d17f4f55ce101f4dd"
+    },
+    {
+      "path": "5.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "6.stdout",
+      "bytes": 1578,
+      "sha256": "6c59d3070c22eca1ab78fca1c6d7d026ac0ab6a66c3b370d17f4f55ce101f4dd"
+    },
+    {
+      "path": "6.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "7.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "7.stderr",
+      "bytes": 41,
+      "sha256": "3c672e8f6a17e57ed695c0f6437e46a5d6cdcc731439b1e9c007a31d8c642045"
+    }
+  ],
+  "scope": "Tiny configuration-only installed CLI smoke; originalwheel/module/source origins retained as hashes, no SDK archive",
+  "original_root": "/private/tmp/ashlar-finite-pack-generator-installed-20261013-a"
+}
