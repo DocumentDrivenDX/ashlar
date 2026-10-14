@@ -524,6 +524,30 @@ exact arithmetic without float conversion or ambient decimal rounding. Result
 carrier tokens MUST remain original. A single-revision adapter MUST refuse rows
 from other physical revisions rather than silently filter them.
 
+### Original commerce queries on a Truss publication
+
+`query-truss-commerce` MUST select exactly one original pack case: `partial-return`,
+`fulfillment`, `settlement` or `refund`. Required inputs are `--configuration`,
+`--output`, `--weft-index`, `--weft-installation`, `--pack`, `--revision` and
+`--document-id`; `--maximum-rows` defaults to 1000 and MUST be within 1–10000.
+The command MUST retain the original pack SQL, accepted UMF bytes, declared facets,
+actual property homes and complete held publication vector. Each record binding
+MUST select its true homogeneous physical revision; mixed revisions within one
+record require separate compatibility admission. Unconsumed relationship mappings
+MUST NOT imply physical relationship compatibility.
+
+Every consumed mathematical Integer Field MUST have its complete six-STRING
+source projection compared with original accepted source rows before finite
+representability or arithmetic checks. Source checks MUST be independent of the
+result row bound. Exact numeric meaning and each interface's original tokens
+MUST remain distinguishable. Guard failures MUST prevent result SQL execution.
+Results MUST preserve column positions, including repeated names, and occurrence
+multiplicity; authored ordering MUST be preserved. Independent comparison MUST
+follow native capacity checks. Reads MUST preserve the source checkpoint and
+release owned source, Spark and publication holds before successful report output.
+A failed invocation MUST preserve its primary error and original publication;
+query recovery MUST NOT republish or acknowledge source data.
+
 ### Runnable scalar arithmetic workflow
 
 A local arithmetic example MUST accept explicit existing Bun, JDK, Delta JAR and

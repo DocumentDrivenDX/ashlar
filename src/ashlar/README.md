@@ -68,6 +68,31 @@ ACK. A missing or conflicting receipt refuses. Keep the original exception and
 publication custody for further recovery. The native publisher uses this path
 automatically for registered outbox sessions.
 
+## Query original commerce on an existing Truss publication
+
+Use the saved Truss reader configuration with the installed public Weft 0.4.2
+implicit-arithmetic realization and the unchanged original commerce pack:
+
+```sh
+python -m ashlar query-truss-commerce \
+  --configuration /absolute/truss-reader.json --output /absolute/fresh-query.json \
+  --weft-index /absolute/weft/index.json --weft-installation /absolute/weft/installation \
+  --pack /absolute/commerce/pack.json --revision 2 --document-id commerce \
+  --case settlement --maximum-rows 1000
+```
+
+Choose `partial-return`, `fulfillment`, `settlement` or `refund`. Set the revision
+and document ID to the actual accepted catalog selections; the example values
+are not defaults. Preserve the reader's original publication intent, runtime and
+explicit historical acceptance archives where needed. Each record must have one
+actual physical revision; records may differ from one another. The command keeps
+original SQL and positional columns, checks complete source populations before
+capacity checks, and compares the result with an independent current-source
+calculation. It reads an existing publication and leaves source ACK unchanged.
+Select the existing local runtime and a fresh output; supervise the invocation
+with a finite bound as described in the typed Truss quickstart. Compiler/native
+support claims require their own runtime evidence.
+
 ## Supported development evidence
 
 The configured JSONL example has actual native

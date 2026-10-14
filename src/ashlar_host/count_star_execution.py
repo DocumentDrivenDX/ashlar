@@ -218,6 +218,15 @@ def _scalar(column, expression, value, arithmetic, type_graph=(), native_null_ad
     return decode_exact_scalar(rep, value, count=count)
 
 
+def decode_indexed_scalar(column,expression,value,*,numeric_capacity_admitted,type_graph=(),native_null_admitted=False):
+    """Decode an original indexed carrier; caller owns all prior guard discharge.
+
+    This pure decoder grants no source, publication or numeric capacity authority.
+    """
+    if type(numeric_capacity_admitted)is not bool:raise CountStarExecutionError('Explicit numeric capacity admission required')
+    return _scalar(column,expression,value,numeric_capacity_admitted,type_graph,native_null_admitted)
+
+
 def _source_receipt(port, revision, request, artifact, checks, maximum):
     receipt = port(deepcopy(request), deepcopy(artifact), deepcopy(checks))
     _require(type(receipt) is dict and set(receipt) == {

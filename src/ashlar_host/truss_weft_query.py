@@ -269,6 +269,12 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
+def truss_query_aliases(driver,manifest):
+    """Owned ephemeral native aliases; caller must retain its genuine Truss hold."""
+    if type(driver)is not NativeDriver:raise PermissionError('Actual Truss driver required')
+    return _query_aliases(driver,manifest,enabled=True)
+
+
 def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False,value_projection=None,integer_source_guard=None):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar

@@ -173,6 +173,11 @@ def main():
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_arithmetic.add_argument('--'+option,required=True)
     truss_arithmetic.add_argument('--maximum-rows',type=int,default=1000)
+    truss_commerce=commands.add_parser('query-truss-commerce',help='Run an unchanged authored commerce case with the installed public 0.4.2 compiler on a Truss publication')
+    for option in ('configuration','output','weft-index','weft-installation','pack','revision','document-id'):
+        truss_commerce.add_argument('--'+option,required=True)
+    truss_commerce.add_argument('--case',required=True,choices=('partial-return','fulfillment','settlement','refund'))
+    truss_commerce.add_argument('--maximum-rows',type=int,default=1000)
     truss_two_hop_count=commands.add_parser('query-truss-two-hop-count',help='Run installed public 0.4.2 authored two-hop expansion COUNT under Truss publication custody')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_two_hop_count.add_argument('--'+option,required=True)
@@ -702,6 +707,17 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss arithmetic query refused; inspect the original publication and installed arithmetic compiler',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-commerce':
+        try:
+            from ashlar_host.truss_indexed_commerce_cli import run_query_truss_commerce_command
+            run_query_truss_commerce_command(args.configuration,args.output,index=args.weft_index,
+                installation=args.weft_installation,pack_path=args.pack,case_id=args.case,
+                revision=args.revision,document_id=args.document_id,maximum_rows=args.maximum_rows)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar Truss commerce query refused; inspect the original publication and indexed compiler',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-two-hop-count':
