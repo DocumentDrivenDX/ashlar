@@ -1,0 +1,239 @@
+{
+  "original_safe_copies": [
+    {
+      "member": "attempt-terminal.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/attempt-terminal.json",
+      "bytes": 138,
+      "sha256": "956139534113d6e3d5866fd04797408529a9434e42b0435879d4caec3a86c9aa"
+    },
+    {
+      "member": "preflight.stdout",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "preflight.stderr",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight.stderr",
+      "bytes": 107,
+      "sha256": "39fd7d158e07e942f2325d9aac89de1eb1d70587ad67f93077fbf9167c7e07f8"
+    },
+    {
+      "member": "comparison.json",
+      "path": "/private/tmp/ashlar-medical-post-preflight-d-20261014-h7p1727q/comparison.json",
+      "bytes": 170,
+      "sha256": "d54e30df0d2d9e31446fbd690046fa08f67600dafea73dc624260121a0bdd774"
+    },
+    {
+      "member": "preflight-stage-000.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-000.json",
+      "bytes": 104,
+      "sha256": "b1cd0ce4e2c25ceef9894db3f9ae9e8c248aaf25b1af808f633b68e386fc8564"
+    },
+    {
+      "member": "preflight-stage-001.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-001.json",
+      "bytes": 148,
+      "sha256": "21cc33676a1570c9b283d1a7b498534ad10df8f7e32ae9848b2f89606ffb0ee8"
+    },
+    {
+      "member": "preflight-stage-002.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-002.json",
+      "bytes": 105,
+      "sha256": "896fb11a541c78f683f0bda4c46725a746fb8a20d122422810f3b3f8e6082090"
+    },
+    {
+      "member": "preflight-stage-003.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-003.json",
+      "bytes": 150,
+      "sha256": "1de658fd7bedb4e917c6e84c088c6ac1b17730aeecd3d49ad1144c59cc9020e0"
+    },
+    {
+      "member": "preflight-stage-004.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-004.json",
+      "bytes": 100,
+      "sha256": "7d7b56d4e0b7fd8f97f5b7f77d2e93de083dcf3c675c5d1b1482d99d24031c79"
+    },
+    {
+      "member": "preflight-stage-005.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-005.json",
+      "bytes": 124,
+      "sha256": "23fdb06e4bf9e9d66971491d67257d5492a6d095275bdd4119c1153978cd408c"
+    },
+    {
+      "member": "preflight-stage-006.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-006.json",
+      "bytes": 169,
+      "sha256": "67288d8490510cad8bd6d6242f5d183012b052632c985aab7b31e64566f8d322"
+    },
+    {
+      "member": "preflight-stage-007.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-007.json",
+      "bytes": 126,
+      "sha256": "7d7d5519756e33a80953e4766d6c309448255d6ef79a43304a5cf1404a8cb7a0"
+    },
+    {
+      "member": "preflight-stage-008.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-008.json",
+      "bytes": 171,
+      "sha256": "43694f1ea08951843da594a7742114017eeb7e6974bf6961df8d8473a5a34f13"
+    },
+    {
+      "member": "preflight-stage-009.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-009.json",
+      "bytes": 121,
+      "sha256": "6d19bd61c1846603716d634d4232e27977f401f9363f4dfbbe00fe0aa38eb43d"
+    },
+    {
+      "member": "preflight-stage-010.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-010.json",
+      "bytes": 167,
+      "sha256": "240a2bfb447a8d2052efe9423cfa8aa94d7fc7a0c89d8a96e48643492250a963"
+    },
+    {
+      "member": "preflight-stage-011.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-011.json",
+      "bytes": 133,
+      "sha256": "2e955a0f720417f5ffe128621f37ead0b6c4daed3bc3df1f9c386aa3faeb0b53"
+    },
+    {
+      "member": "preflight-stage-012.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-012.json",
+      "bytes": 178,
+      "sha256": "54a4819d6cff6aa6d2e9e887097c5117054c31092d98da989ddd302c075babd8"
+    },
+    {
+      "member": "preflight-stage-013.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-013.json",
+      "bytes": 146,
+      "sha256": "105723aff6a41d036f02b9740abb260dc9b5804ee15ec9d40aea77c41fe52f2a"
+    },
+    {
+      "member": "preflight-stage-014.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-014.json",
+      "bytes": 103,
+      "sha256": "bfd26ae145ab299095a7781f5512b1dfacb7cfe4cc12c57b9afe70a18b40e32e"
+    },
+    {
+      "member": "preflight-stage-015.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-015.json",
+      "bytes": 148,
+      "sha256": "0a7a94bc8d101673fd0713e7ccb65f7d9493aacead4a912114673aaebc759b6e"
+    },
+    {
+      "member": "preflight-stage-016.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-016.json",
+      "bytes": 127,
+      "sha256": "c394709a83112d043bb4298f3a64764ced7cd77e301a37141d1fe1859eb8b90b"
+    },
+    {
+      "member": "preflight-stage-017.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-017.json",
+      "bytes": 172,
+      "sha256": "f77a1c59fc0f3404fb2c95739e7141fa081077109107be09efea6c9b901b7db6"
+    },
+    {
+      "member": "preflight-stage-018.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-018.json",
+      "bytes": 125,
+      "sha256": "8414000eee07f33ba635e0b457a791eba3ecd95407e9aaa350b4b56a959d96f6"
+    },
+    {
+      "member": "preflight-stage-019.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-019.json",
+      "bytes": 170,
+      "sha256": "83c3aafd0c519fd6cc1be5b987be58d31e5de07c2d7c5f944de9427cd1d24da3"
+    },
+    {
+      "member": "preflight-stage-020.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-020.json",
+      "bytes": 122,
+      "sha256": "bd22c6cd74bd007ca0ad03cafd7db0a0d3708ce940f00798e6f732e8e01eb0b0"
+    },
+    {
+      "member": "preflight-stage-021.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-021.json",
+      "bytes": 167,
+      "sha256": "b6e70dc68ae4d8783f9bc155c1103d7b1347421893d82630afde5801425c10d1"
+    },
+    {
+      "member": "preflight-stage-022.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-022.json",
+      "bytes": 133,
+      "sha256": "7eb26d14c9be6c4db8383bd8607c959e1f359ac07ef3d3d8d855e9906c89927f"
+    },
+    {
+      "member": "preflight-stage-023.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-023.json",
+      "bytes": 178,
+      "sha256": "73c15ee462a1daef56b8dbf7028db4cc2c3461ec2c690ba1f515d105b3872c40"
+    },
+    {
+      "member": "preflight-stage-024.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-024.json",
+      "bytes": 121,
+      "sha256": "19225149915236abc4c0a7d1fdb89b6f77c9eaa8b8f5b6a961ac374ce2ff9b51"
+    },
+    {
+      "member": "preflight-stage-025.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-025.json",
+      "bytes": 166,
+      "sha256": "b7c28f0d5b2b91ed4484d9c3fe1f410db7e3b0081dece73f64387cf6eb7da0e7"
+    },
+    {
+      "member": "preflight-stage-026.json",
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/preflight-output/preflight-stage-026.json",
+      "bytes": 121,
+      "sha256": "60aa585d57dbf963336db0f206bdb9cb64f1f65254770a487ae5281310a7aeb6"
+    }
+  ],
+  "private_references_not_archived": [
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/configuration.json",
+      "bytes": 6115,
+      "sha256": "79f15e5c09f620ee2f0239dcb9d32d03b27f47e0c5d43f33a5b59d313e65ec6a"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/command.json",
+      "bytes": 778,
+      "sha256": "8375358f6329ec70dd8dc2d821eccfacc54a8811193d35da931913c663db6a8f"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/manifest.json",
+      "bytes": 3335,
+      "sha256": "5adac972f5355cd2c1d65874594e22328abc1b1459fd7fa5e6da7849a366acc7"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/installed-origin.json",
+      "bytes": 1143,
+      "sha256": "641fecafedaf25f9f908aa41e1ebae0f8380a22aa00824679b0bd64729e14fe7"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/runtime-selection.json",
+      "bytes": 8252,
+      "sha256": "d3e3f3eef4e0f0c117c8a448733fdbf3ad78c2939b43701a7f7e1ef76c9d1030"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/namespace.json",
+      "bytes": 636003,
+      "sha256": "4aa57dab679ae596f218f6945e552313154aef8d358d9bd25caae799030c6bec"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/metadata.json",
+      "bytes": 671312,
+      "sha256": "2862ce903ced381f5ab9e9e255e2099eeeb9c524082284a625d3fb1727c95899"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/closure.json",
+      "bytes": 620018,
+      "sha256": "db4535fcee4f39c57d2ac809b18ff98c858f46db0f227e976dbcde6a9dbe1384"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1603512,
+      "sha256": "0b90cf797a4f92c2a6ff9ec4ccb964c86ca3a1bff15edb60729377cdec68cb0f"
+    }
+  ],
+  "executed_source_revision": "d19b2f90ec33db4d429bd9a2d3ce2081b6323c4f",
+  "scope": "Safe original preflight evidence only; private inputs and runtime payloads omitted."
+}
