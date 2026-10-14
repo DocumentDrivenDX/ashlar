@@ -1,0 +1,6 @@
+{
+  "status": 0,
+  "elapsed_seconds": 9.969344583,
+  "script_sha256": "a08f386b5d52572bfadaf9fcd39a8e750e816d4154458fe08780a53d8a7681b2",
+  "scope": "One non-Spark public-owner observation; 30-second soft Python alarm with required cleanup. No outbox source/ACK/native effects."
+}

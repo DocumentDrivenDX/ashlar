@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-medical-owner-renewal-observation/0.1",
+  "files": [
+    {
+      "path": "run.py",
+      "original_path": "/private/tmp/ashlar-medical-owner-diagnostic-prep-20261014-a/run.py",
+      "bytes": 5550,
+      "sha256": "a08f386b5d52572bfadaf9fcd39a8e750e816d4154458fe08780a53d8a7681b2"
+    },
+    {
+      "path": "report.json",
+      "original_path": "/private/tmp/ashlar-medical-owner-diagnostic-9o3awn3p/report.json",
+      "bytes": 1197,
+      "sha256": "65fd075c4650f034db9f46be92b1bb9ee881faae3d7fe3bc01ac16e7a8b361b4"
+    },
+    {
+      "path": "terminal.json",
+      "original_path": "/private/tmp/ashlar-medical-owner-diagnostic-prep-20261014-a/terminal.json",
+      "bytes": 281,
+      "sha256": "5b1b99b73a3b97a40f4129fdebcf8faef27c7d9e637980130495b28ce2c3ad50"
+    }
+  ],
+  "private_producer_output_reference": {
+    "original_path": "/private/tmp/ashlar-medical-owner-diagnostic-9o3awn3p/public-revalidation.json",
+    "bytes": 480111,
+    "sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745",
+    "copied": false
+  },
+  "invocation": {
+    "python": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-a/environment/bin/python3",
+    "installed_target": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-a/environment/lib/python3.12/site-packages",
+    "configuration": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-c/configuration.json"
+  }
+}
