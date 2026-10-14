@@ -206,7 +206,11 @@ def _truss_string_query(driver,paths,sql,*,revision,document_id,maximum_rows=Non
                     elif not scalar_join_count and value_projection is None and len(artifact.get('columns',[]))==1 and artifact['columns'][0].get('representation',{}).get('logicalType',{}).get('family')=='integer':
                         admit_truss_global_count(driver.source_admission,artifact,binding,revision=revision,document_id=document_id)
                         count=True
-                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered,value_projection=value_projection)
+                    integer_source_guard=None
+                    if scalar_projection and (any(c.get('publicSourceOnly')is True or c.get('representabilityOnly')is True for c in integrity['checks'])or any(c.get('representation',{}).get('logicalType')=={'family':'integer','facets':{},'nullable':False}for c in artifact['columns'])):
+                        from .truss_integer_source_guard import admit_truss_integer_source_guard
+                        integer_source_guard=admit_truss_integer_source_guard(driver.source_admission,artifact,request,driver.policy.active['expected'],revision=revision,document_id=document_id,physical_revisions=physical_revisions)
+                    rows,checks=_execute_string_artifact(driver.transport.spark,artifact,maximum_rows,count=count,related=related,grouped=grouped,relationship_guards=filtered,value_projection=value_projection,integer_source_guard=integer_source_guard)
                     if scalar_count_expected is not None and rows!=scalar_count_expected:raise ValueError('Independent complete original numeric join count differs')
                     if value_projection is not None:value_projection.require_complete_bag(rows)
                     if join_projection is not None:
@@ -265,9 +269,10 @@ def _query_aliases(driver,manifest,*,enabled):
         *([lambda:spark.sql('DROP DATABASE '+schema).collect()]if owned else [])])
 
 
-def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False,value_projection=None):
+def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=False,grouped=False,relationship_guards=False,value_projection=None,integer_source_guard=None):
     from .path_capture import PathCaptureConfig,capture_string_frame
     from ashlar.weft_decode import decode_exact_scalar
+    from .truss_scalar_projection import TrussScalarProjection
     columns=artifact.get('columns')
     if type(columns)is not list or not columns or len(columns)>64:
         raise ValueError('Bounded original compiler output inventory required')
@@ -287,6 +292,7 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
             raise ValueError('Only admitted non-null result descriptors supported')
         names.append(column['outputName'])
     if len(set(names))!=len(names):raise ValueError('Distinct original result output names required')
+    if type(value_projection)is TrussScalarProjection and any(c.get('representation',{}).get('logicalType')=={'family':'integer','facets':{},'nullable':False}for c in columns)and integer_source_guard is None:raise ValueError('Mathematical outputs require complete nominal source guards')
     params={}
     slots=artifact.get('parameters')
     if type(slots)is not list or len(slots)>256:raise ValueError('Bounded original parameter inventory required')
@@ -306,7 +312,21 @@ def _execute_string_artifact(spark,artifact,maximum_rows,*,count=False,related=F
         guard=next(item['parameters']for item in artifact['obligations']if item['id']=='ashlar.candidate.relationshipIntegrity')
         if len(guard['checks'])>128:raise ValueError('Bounded relationship integrity inventory required')
         all_checks.extend(guard['checks'])
+    if integer_source_guard is not None:
+        from .truss_integer_source_guard import TrussIntegerSourceGuard
+        if type(integer_source_guard)is not TrussIntegerSourceGuard:raise ValueError('Nominal Truss integer source guard required')
     for check in all_checks:
+        if type(check)is dict and (check.get('publicSourceOnly')is True or check.get('representabilityOnly')is True):
+            if integer_source_guard is None:raise ValueError('Actual mathematical integer source guard required')
+            entry=integer_source_guard.entry(check)
+            if check==entry['source']:
+                observed=capture(check['sql'],integer_source_guard.source_budget(check))
+                integer_source_guard.require_source(check,observed)
+            else:
+                observed=capture(check['sql'],1)
+                if len(observed['schema'])!=1 or observed['rows']!=[['0']]:raise ValueError('Original integer representability guard refused')
+            checks.append({'check':check,'schema':observed['schema'],'rows':observed['rows']})
+            continue
         if (type(check)is not dict or set(check)not in ({'sql','failureCode','record'},{'sql','failureCode','field','record'},{'sql','failureCode','relationship'})
                 or check.get('failureCode')not in ('WFT-BINDING','WFT-NUMERIC-DOMAIN')):
             raise ValueError('Unknown compiler scalar integrity check meaning')

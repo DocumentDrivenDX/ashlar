@@ -1,12 +1,33 @@
 """Direct required scalar projections from original accepted faceted models."""
-import hashlib,json
+import hashlib,json,re
 from collections import Counter
 from dataclasses import dataclass
 from decimal import Decimal
 from ashlar.schema import decode_retained_json
+from ashlar.typed_source_policy import NumericToken
 from ashlar.weft_decode import decode_exact_scalar
 from .delta_custody import encoded
 from .truss_graph_admission import TrussGraphAdmission,admitted_facets
+
+def decode_truss_lexical_properties(raw):
+    """Retain numeric tokens while refusing ambiguous or nonfinite JSON."""
+    if type(raw)is not str or len(raw.encode())>1048576:raise ValueError('Bounded original property bytes required')
+    def pairs(items):
+        result={}
+        for key,value in items:
+            if key in result:raise ValueError('Duplicate original property member')
+            result[key]=value
+        return result
+    def nonfinite(token):raise ValueError('Nonfinite original property token')
+    value=json.loads(raw,object_pairs_hook=pairs,parse_int=NumericToken,parse_float=NumericToken,parse_constant=nonfinite)
+    if type(value)is not dict:raise ValueError('Complete original property object required')
+    return value
+
+def mathematical_integer_token(value):
+    """Comparison-only sign/zero normalization; no integer width is inferred."""
+    if type(value)is not str or len(value.encode())>65536 or not re.fullmatch(r'-?[0-9]+',value,flags=re.ASCII):raise ValueError('Bounded exact mathematical integer token required')
+    digits=value.lstrip('-').lstrip('0')or'0'
+    return ('-'if value.startswith('-')and digits!='0'else'')+digits
 
 @dataclass(frozen=True)
 class TrussScalarProjection:
@@ -14,6 +35,10 @@ class TrussScalarProjection:
     expected_json:str
     def decode(self,column,value):
         if encoded(column)not in [encoded(c)for c in json.loads(self.columns_json)]:raise ValueError('Exact admitted scalar column required')
+        if column['representation']['logicalType']=={'family':'integer','facets':{},'nullable':False}:
+            token=mathematical_integer_token(value)
+            if len(token.lstrip('-'))>38:raise ValueError('Native mathematical integer outside finite DECIMAL38 execution carrier')
+            return {'integer_token':value}
         scalar=decode_exact_scalar(column['representation'],value)
         family=column['representation']['logicalType']['family']
         return {family+'_token':scalar.original}if family in ('integer','decimal')else scalar.value
@@ -26,6 +51,9 @@ class TrussScalarProjection:
                 value=row[c['outputName']];family=c['representation']['logicalType']['family']
                 if family in ('integer','decimal'):
                     if type(value)is not dict or set(value)!={family+'_token'}:raise ValueError('Exact numeric token result required')
+                    if c['representation']['logicalType']=={'family':'integer','facets':{},'nullable':False}:
+                        out[c['outputName']]=mathematical_integer_token(value['integer_token'])
+                        continue
                     scalar=decode_exact_scalar(c['representation'],value[family+'_token'])
                     # Decimal.normalize uses ambient precision; avoid it entirely.
                     number=Decimal(scalar.original)
@@ -62,9 +90,10 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
         if type(output)is not dict or set(output)!={'name','expression'}or type(expression)is not dict or set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']!='s0'or type(identity)is not dict or set(identity)!={'documentId','revision','module','element'}or identity['documentId']!=document_id or identity['revision']!=digest or encoded(identity)not in home:raise ValueError('Exact original scalar Field required')
         field=elements[identity['module'],identity['element']];family=field.get('scalarType');facets=field.get('facets',{})
         admitted={'string':{},'boolean':{},'integer':{'integerWidth':{'bits':64,'signed':True}}}
+        mathematical_integer=family=='integer'and facets=={}and model['umf']=='0.8.0'
         if field.get('kind')!='field'or field.get('cardinality')!='one'or field.get('nullability')!='required'or family not in (*admitted,'decimal'):raise ValueError('Required original exact scalar domain required')
         selected_facets=admitted_facets(field)
-        if (family=='decimal'and not selected_facets)or (family!='decimal'and selected_facets!=admitted[family]):raise ValueError('Required original exact scalar domain required')
+        if (family=='decimal'and not selected_facets)or (family!='decimal'and selected_facets!=admitted[family]and not mathematical_integer):raise ValueError('Required original exact scalar domain required')
         logical={'family':family,'facets':facets,'nullable':False};representation={'kind':'scalar','logicalType':logical,'carrier':'text','decoder':{'string':'text','boolean':'boolean','integer':'exact-integer','decimal':'exact-decimal'}[family]}
         if type(column)is not dict or set(column)!={'nullable','outputName','position','representation','sourceIdentities'}or type(column['position'])is not int or column['position']!=position or column['nullable']is not False or column['representation']!=representation or column['sourceIdentities']!=[identity]or column['outputName']!=output['name']or type(output['name'])is not str or not output['name']or output['name']in output_names:raise ValueError('Exact authored scalar result descriptor required')
         output_names.add(output['name']);families.add(family);graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':logical};selections.append((column,home[encoded(identity)]))
@@ -107,6 +136,7 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
     elif order or limit is not None:raise ValueError('Unfiltered scalar ordering/limits not admitted')
     if plan['requiredCapabilities']!=sorted(capabilities):raise ValueError('Exact scalar capabilities required')
     if type(plan['typeGraph'])is not list or len(plan['typeGraph'])!=len(graph)or encoded({encoded(g.get('identity')):g for g in plan['typeGraph']})!=encoded(graph):raise ValueError('Complete exact scalar type graph required')
+    mathematical_output=any(c['representation']['logicalType']=={'family':'integer','facets':{},'nullable':False}for c in columns)
     rows=expected['object_current'];wanted=[]
     if type(rows)is not list or len(rows)>10000:raise ValueError('Bounded independent scalar source bag required')
     for row in rows:
@@ -114,11 +144,19 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
         if row['schema_revision']not in physical_revisions:raise ValueError('Source outside admitted physical revisions')
         prior=admission.revisions[row['schema_revision']]['types'][record['typeId']]
         if prior['owner']!=actual['owner']or prior['keys']!=actual['keys']or any(actual['fields'].get(pid)!=v for pid,v in prior['fields'].items()):raise ValueError('Original scalar row correspondence required')
-        props=decode_retained_json(row['props_json'].encode());result={}
+        props=(decode_truss_lexical_properties(row['props_json'])if mathematical_output else decode_retained_json(row['props_json'].encode()));result={}
         if type(props)is not dict:raise ValueError('Complete scalar property map required')
         for column,pid in selections:
             if pid not in prior['fields']or pid not in props:raise ValueError('Required scalar source field missing')
             family=column['representation']['logicalType']['family'];value=props[pid]
+            if mathematical_output and type(value)is NumericToken:
+                logical=column['representation']['logicalType']
+                if logical=={'family':'integer','facets':{},'nullable':False}:
+                    import re
+                    if not re.fullmatch(r'-?(?:0|[1-9][0-9]*)',value.text,flags=re.ASCII):raise ValueError('Original mathematical integer source token required')
+                    result[column['outputName']]={'integer_token':value.text}
+                    continue
+                value=decode_exact_scalar(column['representation'],value.text).value
             if family=='integer'and type(value)is not int or family=='decimal'and type(value)not in (int,Decimal)or family=='string'and type(value)is not str or family=='boolean'and type(value)is not bool:raise ValueError('Original scalar source family differs')
             # Comparison-only carrier: source bytes stay retained; compiler tokens stay exact.
             token=('0'if value==0 else format(value,'f'))if family=='decimal'else str(value)

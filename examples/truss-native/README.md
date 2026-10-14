@@ -2215,3 +2215,12 @@ qualifies full canonical carriers, independent native identities and all four
 ordered edge pairs on that same parallel release. Isolated R2 retains zero degree,
 paths and distinct targets. Gremlin and numeric property filters remain separate
 admissions.
+
+
+Required original UMF0.8 integer fields without facets use their mathematical
+integer meaning with `query-truss-scalars`. The compatible candidate's current
+native carrier is finite DECIMAL38: exact full-source token correspondence and
+the original representability guard must pass before result SQL. Keep original
+model bytes and omit invented integer-width facets. This does not extend the
+signed64 equality predicate subset to mathematical-integer fields; oversized
+source captures or unrepresentable values refuse without truncation.

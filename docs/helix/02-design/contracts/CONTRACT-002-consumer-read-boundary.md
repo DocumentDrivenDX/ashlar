@@ -609,3 +609,23 @@ representation MAY be passed to the count decoder. Unknown or mismatched termina
 metadata, incomplete result bags and any failed source/path guard refuse buffered
 publication. Distinct targets and ordinary edge-pair counts MUST remain separate
 explicit query modes.
+
+
+### Original mathematical-integer source guards
+
+A required original UMF0.8 integer with no authored facets MUST retain its
+mathematical domain and original exact-integer descriptor. The held Truss scalar
+route MAY execute its compiler's finite DECIMAL38 candidate carrier only after
+all original scalar-integrity checks succeed, including a nominal source guard
+and its paired representability guard. No signed64 facet may be invented.
+
+The source guard MUST authenticate the original model/field/record/property home
+and complete admitted physical revisions. Its six STRING columns MUST match the
+entire source population's typed identities, original property bytes and exact
+integer tokens before user SQL, independently of the output row limit. Sign/zero
+normalization is comparison-only; original source and compiler bytes remain
+retained. Source captures MUST remain bounded to 10,000 rows, 65,536 bytes per
+cell and 1 MiB total. Overflow MUST refuse rather than truncate. The original
+`WFT-CAPABILITY` representability check MUST return zero and remain distinct from
+source-domain failure. Unknown guard meanings or missing/mismatched pairs MUST
+refuse. Existing signed64 predicate support is not broadened by this bridge.
