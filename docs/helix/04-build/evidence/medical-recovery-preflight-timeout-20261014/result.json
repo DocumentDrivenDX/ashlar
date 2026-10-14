@@ -1,0 +1,66 @@
+{
+  "scope": "Original medical bounded recovery preflight observation only",
+  "preflight_completed": false,
+  "successful_native_closing": false,
+  "publication_or_ack_completion": false,
+  "terminal": {
+    "profile": "ashlar-private-preflight-attempt/0.1",
+    "source_revision": "0f3e66a50368d15f33f566168874ce8369842810",
+    "preparation_manifest_sha256": "a339faae59a96249035cd5181d36ad05c6d1ef3b69aad43c9d88d210463a345e",
+    "operation": "preflight-original-medical",
+    "native_seconds": 60,
+    "worker_whole_seconds": 150,
+    "state": "terminal",
+    "status": 2,
+    "elapsed_seconds": 74.275830375,
+    "streams": {
+      "preflight.stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight.stderr": {
+        "bytes": 107,
+        "sha256": "39fd7d158e07e942f2325d9aac89de1eb1d70587ad67f93077fbf9167c7e07f8"
+      }
+    }
+  },
+  "postattempt": {
+    "journal_row_envelopes_unchanged": true,
+    "table_counts": {
+      "local_installation": 1,
+      "local_operation": 5,
+      "local_plan": 1,
+      "local_source_plan": 1,
+      "local_publication_artifact": 0
+    },
+    "current_source_observation_unchanged": true,
+    "head": "1",
+    "ack_position": "0",
+    "latest_delta_versions": {
+      "object_current": 2,
+      "edge_current": 2,
+      "tombstone": 1,
+      "whole_source_history": 2,
+      "attempts": 3,
+      "manifest": 1
+    },
+    "retained_request_equal": true,
+    "scope": "Postattempt logical journal/Delta commit-version and ordinary source/ACK observations; not full Parquet readability or successful native closing."
+  },
+  "last_stage": {
+    "phase": "begin",
+    "profile": "ashlar-medical-preflight-stage/0.1",
+    "sequence": 14,
+    "stage": "ordinal-state"
+  },
+  "startup_failures": {
+    "a": "Output parent privacy prerequisite failed; no stages/output.",
+    "b": "Runtime open/close stage prefix only; selected old producer lacked .git/HEAD. Clean exact8e76 checkout supplied for C."
+  },
+  "corrected_producer": {
+    "path": "/private/tmp/ashlar-umf-medical-8e76-clean-20261014-c",
+    "commit": "8e76c74d14203225d1ef159c9132bb9e9b0cdffe",
+    "clean_git_verified": true
+  },
+  "authority_scope": "Ordinary local source/ACK observations; no Databricks, protected production or full recovery qualification."
+}
