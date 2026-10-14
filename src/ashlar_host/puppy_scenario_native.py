@@ -52,7 +52,12 @@ def execute_owned_puppy_scenarios(config, *, pack_bytes, sources, exports,
     language = 'Gremlin' if type(config) is PuppyGremlinLoopbackConfig else 'Cypher'
     if native_map_profile != (MAP_PUPPY if language == 'Gremlin' else None):
         raise ValueError('Protocol-specific original native map profile required')
-    preparation = json.loads(json_bytes(preparation, 16777216))
+    # Validate capacity and exact metadata types before copying. Carrier query
+    # renderers use the original column insertion order, as does the runtime's
+    # independently reconstructed whitelist; canonical JSON sorting changes it.
+    json_bytes(preparation, 16777216)
+    preparation = json.loads(json.dumps(preparation, ensure_ascii=True,
+        separators=(',', ':'), allow_nan=False))
     result = None
     query = None
     def failure(value):
