@@ -1,0 +1,219 @@
+{
+  "source_commit": "d2486eea50e69ea60cd18e0f1080203ef6e766b9",
+  "protocol": "Cypher",
+  "all_outer_closing_completed": true,
+  "cases": [
+    {
+      "pack": "archaeology",
+      "case": "cycle",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "dating",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "media",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "missing-media",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "specialists",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "lineage",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "evidence-links",
+      "rows": 2,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "sample",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "effort-event",
+      "rows": 0,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "connected-measurements",
+      "rows": 2,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "censor",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "match",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "effort",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "zero",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "network",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "comparability",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "fishing",
+      "rows": 1,
+      "original_expected_matches": true
+    }
+  ],
+  "carrier_counts": {
+    "archaeology": {
+      "opening": {
+        "edge": 46,
+        "node": 39
+      },
+      "closing": {
+        "edge": 46,
+        "node": 39
+      }
+    },
+    "ecology": {
+      "opening": {
+        "edge": 54,
+        "node": 40
+      },
+      "closing": {
+        "edge": 54,
+        "node": 40
+      }
+    }
+  },
+  "original_requests": {
+    "total": 25,
+    "authored": 17,
+    "carrier": 8
+  },
+  "native_model_capture": {
+    "ordered_references": 155,
+    "unique_original_bodies": 6,
+    "all_refs_length_sha_verified": true
+  },
+  "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "database_sha256": "2c1333fcd9fd42f6ca477573eef5718d520da624f566b828ddf29f0c134e6880",
+  "model_sha256": "8026db26b440856f2ff6c1ba6671e43fb0a7261999902a77ee6c556fb8785389",
+  "wheel": {
+    "path": "/private/tmp/ashlar-original17-native-preparation-20261014-c/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1641232,
+    "sha256": "9b7710f84cd1893574d4a11619526988f4dac4d9b19ee4eacc8884f05f571f62"
+  },
+  "original_inputs": [
+    {
+      "pack": "archaeology",
+      "inputs": [
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/model.json",
+          "bytes": 83068,
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+        },
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/graph.json",
+          "bytes": 81564,
+          "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+        },
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/archaeology/pack.json",
+          "bytes": 28986,
+          "sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f"
+        }
+      ],
+      "release_sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "custody_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe"
+    },
+    {
+      "pack": "ecology",
+      "inputs": [
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/model.json",
+          "bytes": 62701,
+          "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee"
+        },
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/graph.json",
+          "bytes": 77070,
+          "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668"
+        },
+        {
+          "path": "/private/tmp/ashlar-original17-native-preparation-20261014-a/inputs/ecology/pack.json",
+          "bytes": 23485,
+          "sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481"
+        }
+      ],
+      "release_sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "custody_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add"
+    }
+  ],
+  "private_runtime_references": [
+    {
+      "path": "/private/tmp/ashlar-original17-native-preparation-20261014-c/sdk-selection.json",
+      "bytes": 321306,
+      "sha256": "e6cf55ceb5fd803d86e9ebb4d051d77aba798a4b5a526b502887323d03482091"
+    },
+    {
+      "path": "/private/tmp/ashlar-original17-native-preparation-20261014-c/installed-custody.json",
+      "bytes": 107971,
+      "sha256": "d066b2d23d5e82b0548378409f1727bbf981577052f563230224c875716f9804"
+    }
+  ],
+  "original_result": {
+    "path": "/private/tmp/ashlar-original17-native-preparation-20261014-c/native-output/result.json",
+    "bytes": 1724274,
+    "sha256": "aed26cfd3cf001b4d382c419e4f83db90b599e8f242b3ed4f3924c5bd5f198a7"
+  },
+  "lossless_archive": {
+    "path": "result.json.gz",
+    "bytes": 87359,
+    "sha256": "e566094d2a02b52cad20d844d76e2a8c1694eedfbee541e7e23d898747c92763"
+  },
+  "credential_scan": "No password/credential fields/URI; username product word occurs only in profile/scope identifiers",
+  "scope": "One actual original17 localCypher pass; no Gremlin/Fabric/managedUC/production/sourceACK qualification."
+}

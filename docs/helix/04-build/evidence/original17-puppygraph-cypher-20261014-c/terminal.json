@@ -1,0 +1,30 @@
+{
+  "command": {
+    "exit_code": 0,
+    "elapsed_seconds": 70.38667866704054,
+    "source_commit": "d2486eea50e69ea60cd18e0f1080203ef6e766b9",
+    "manifest_sha256": "96dc97ef0dbe1f28db3f8af3c1f821c296b9fdfd7c2db86121ce6aa2b82bfba5"
+  },
+  "supervisor": {
+    "profile": "ashlar-original17-worker-supervision/0.1",
+    "worker_status": 0,
+    "native_seconds": 120,
+    "whole_seconds": 300,
+    "cleanup_reserve_seconds": 35,
+    "elapsed_seconds": "70.11958675005008",
+    "cleanup_error_types": []
+  },
+  "container_cleanup": {
+    "absent": true,
+    "cleanup_complete": true
+  },
+  "process_cleanup": {
+    "groups_absent": true,
+    "session_leader_reaped": true
+  },
+  "original_terminal_reference": {
+    "path": "/private/tmp/ashlar-original17-native-preparation-20261014-c/ashlar-original17-supervision-p84b594_/terminal.json",
+    "bytes": 604,
+    "sha256": "1f166364b235fbc9612dcbfb121d6bb67ba6dfca9edfca86ffe9276df4b5c066"
+  }
+}
