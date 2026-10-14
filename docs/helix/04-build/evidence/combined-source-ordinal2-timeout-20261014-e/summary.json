@@ -1,0 +1,201 @@
+{
+  "source_commit": "641bbe5960c47fb07769ae9029d5998e4d061bfa",
+  "outer_terminal": {
+    "exit_code": 1,
+    "elapsed_seconds": 185.14650491601788,
+    "reviewed_command_sha256": "1245493a6219ceaf85fa0784b52e26503f38175e39ffc12b8ad38e5a901a9dd2",
+    "human_authorized_scope": "Original combined-source continuation through ordinal2 including Delta publication and sourceA durable ACK"
+  },
+  "inner_terminal": {
+    "cleanup_confirmed": false,
+    "cleanup_failed": true,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "continuation_records": [
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 0,
+      "stage": "writer-acquisition",
+      "phase": "begin"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 1,
+      "stage": "writer-acquisition",
+      "phase": "end",
+      "duration_ns": 535625,
+      "outcome": "completed"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 2,
+      "stage": "ledger-opening",
+      "phase": "begin"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 3,
+      "stage": "ledger-opening",
+      "phase": "end",
+      "duration_ns": 21043577917,
+      "outcome": "completed"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 4,
+      "stage": "run-identity",
+      "phase": "begin"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 5,
+      "stage": "run-identity",
+      "phase": "end",
+      "duration_ns": 46936375,
+      "outcome": "completed"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 6,
+      "stage": "producer-admission",
+      "phase": "begin"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 7,
+      "stage": "producer-admission",
+      "phase": "end",
+      "duration_ns": 10308733750,
+      "outcome": "completed"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 8,
+      "stage": "prefix-native-admission",
+      "phase": "begin"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 9,
+      "stage": "prefix-native-admission",
+      "phase": "end",
+      "duration_ns": 19670030125,
+      "outcome": "completed"
+    },
+    {
+      "profile": "ashlar-evolution-continuation-stage/0.1",
+      "sequence": 10,
+      "stage": "closing",
+      "phase": "begin"
+    }
+  ],
+  "cleanup_failure": {
+    "error_class": "PermissionError",
+    "phase": "confirm-absence",
+    "process_groups": [
+      65128
+    ],
+    "remaining_groups": [
+      65128
+    ],
+    "session_leader_pid": 65128,
+    "session_leader_reaped": true
+  },
+  "later_owned_group_observation": {
+    "owned_group": 65128,
+    "matching_numeric_rows": [],
+    "observation": "Later read-only inventory, not original cleanup confirmation"
+  },
+  "receipt_present": false,
+  "private_references": [
+    {
+      "private_file": "execution-terminal.json",
+      "bytes": 297,
+      "sha256": "eb8f987b05de6809face78549f991873703a9ebfa5c273cdc984bb4b17508328"
+    },
+    {
+      "private_file": "resume-terminal.json",
+      "bytes": 119,
+      "sha256": "51ec8081fba9a79aee91fd08c45220d64a164065955c06880b5a3cc67cf9e9bb"
+    },
+    {
+      "private_file": "cleanup-failure.json",
+      "bytes": 179,
+      "sha256": "ab62fcb1c0b892efb9b855c1f619a0c3fabe0ad7a24abdf19438f4fdee8744d1"
+    },
+    {
+      "private_file": "later-owned-group-observation.json",
+      "bytes": 139,
+      "sha256": "def25e49a27fec4cbd72bcfb970a7ccb38aba397ee1338b4ecef75b407dd2890"
+    },
+    {
+      "private_file": "continuation-stages.jsonl",
+      "bytes": 1434,
+      "sha256": "cf630d8825bb54f70d657e0a2f46cdff1ac98132a7458254fff12b4063e1ae25"
+    },
+    {
+      "private_file": "command.json",
+      "bytes": 9703,
+      "sha256": "1245493a6219ceaf85fa0784b52e26503f38175e39ffc12b8ad38e5a901a9dd2"
+    },
+    {
+      "private_file": "local-ledger-observation.json",
+      "bytes": 521,
+      "sha256": "3544eb6e62de7af8bbe308ab4f737e9b6fed2170fd784693c04aef49aa155f71"
+    }
+  ],
+  "unknown_outcomes": [
+    "Current publication and source state",
+    "Durable source ACK outcome",
+    "Location or cause of timeout",
+    "Completion of required closing observations"
+  ],
+  "qualification": "No continuation completion or successful original cleanup claim.",
+  "unauthoritative_local_ledger_observation": {
+    "scope": "Unauthoritative read-only local ledger observation after E; no source/native/ACK admission",
+    "slots": [
+      [
+        0,
+        "completed",
+        1
+      ],
+      [
+        1,
+        "completed",
+        1
+      ],
+      [
+        2,
+        "retained",
+        0
+      ],
+      [
+        3,
+        "unprepared",
+        0
+      ],
+      [
+        4,
+        "unprepared",
+        0
+      ],
+      [
+        5,
+        "unprepared",
+        0
+      ],
+      [
+        6,
+        "unprepared",
+        0
+      ],
+      [
+        7,
+        "unprepared",
+        0
+      ]
+    ]
+  }
+}
