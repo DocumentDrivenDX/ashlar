@@ -43,11 +43,19 @@ class Tests(unittest.TestCase):
   with self.assertRaises(ValueError):projection.require_complete_bag([{'amount':{'decimal_token':'1.2301'}}])
 
  def test_source_decimal_exponents_zeros_and_surplus_fraction_zeros(self):
+  for scale in (2,4):
+   with self.subTest(scale=scale):self.check_decimal_domain(scale)
+
+ def test_undeclared_or_nonintegral_decimal_scale_refuses(self):
+  for scale in (3,2.0,False):
+   with self.subTest(scale=scale),self.assertRaises(ValueError):self.check_decimal_domain(scale)
+
+ def check_decimal_domain(self,scale):
   _,artifact,admission,request,manifest,expected=self.fixture()
   model=admission.revisions['2']['models']['cohort'][0]
   for module in model['modules']:
    for field in module['elements']:
-    if field['id']=='B-label':field.update(scalarType='decimal',facets={'precision':18,'scale':4})
+    if field['id']=='B-label':field.update(scalarType='decimal',facets={'precision':18,'scale':scale})
   raw=encoded(model).encode();admission.revisions['2']['models']['cohort']=(model,raw);digest=hashlib.sha256(raw).hexdigest()
   def repin(value):
    if type(value)is dict:
@@ -57,7 +65,7 @@ class Tests(unittest.TestCase):
    elif type(value)is list:
     for v in value:repin(v)
   binding=json.loads(request['target']['bindingJson']);repin(binding);request['target']['bindingJson']=encoded(binding);request['target']['bindingSha256']=hashlib.sha256(encoded(binding).encode()).hexdigest();repin(artifact);artifact['bindingSha256']=request['target']['bindingSha256']
-  logical={'family':'decimal','facets':{'precision':18,'scale':4},'nullable':False}
+  logical={'family':'decimal','facets':{'precision':18,'scale':scale},'nullable':False}
   artifact['columns'][0]['representation'].update(logicalType=logical,decoder='exact-decimal');artifact['logicalPlan']['typeGraph'][0]['type']=logical;artifact['logicalPlan']['requiredCapabilities']=['project','scan','type.decimal']
   rows=expected['object_current'];rows[0]['props_json']='{"3":1e2}';rows[1]['props_json']='{"3":1.2300000}';rows.append({**rows[1],'props_json':'{"3":0e999999999999}'})
   with patch('ashlar_host.truss_compatible_binding.truss_compatible_compile_request',return_value=request):projection=admit_truss_scalar_projection(admission,artifact,request,manifest,expected,revision='2',document_id='cohort',physical_revisions=('1','2'))

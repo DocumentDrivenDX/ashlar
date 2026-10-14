@@ -6,7 +6,7 @@ from decimal import Decimal
 from ashlar.schema import decode_retained_json
 from ashlar.weft_decode import decode_exact_scalar
 from .delta_custody import encoded
-from .truss_graph_admission import TrussGraphAdmission
+from .truss_graph_admission import TrussGraphAdmission,admitted_facets
 
 @dataclass(frozen=True)
 class TrussScalarProjection:
@@ -61,8 +61,10 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
         expression=output.get('expression');identity=expression.get('identity')if type(expression)is dict else None
         if type(output)is not dict or set(output)!={'name','expression'}or type(expression)is not dict or set(expression)!={'op','scan','identity'}or expression['op']!='field'or expression['scan']!='s0'or type(identity)is not dict or set(identity)!={'documentId','revision','module','element'}or identity['documentId']!=document_id or identity['revision']!=digest or encoded(identity)not in home:raise ValueError('Exact original scalar Field required')
         field=elements[identity['module'],identity['element']];family=field.get('scalarType');facets=field.get('facets',{})
-        admitted={'string':{},'boolean':{},'integer':{'integerWidth':{'bits':64,'signed':True}},'decimal':{'precision':18,'scale':4}}
-        if field.get('kind')!='field'or field.get('cardinality')!='one'or field.get('nullability')!='required'or family not in admitted or facets!=admitted[family]:raise ValueError('Required original exact scalar domain required')
+        admitted={'string':{},'boolean':{},'integer':{'integerWidth':{'bits':64,'signed':True}}}
+        if field.get('kind')!='field'or field.get('cardinality')!='one'or field.get('nullability')!='required'or family not in (*admitted,'decimal'):raise ValueError('Required original exact scalar domain required')
+        selected_facets=admitted_facets(field)
+        if (family=='decimal'and not selected_facets)or (family!='decimal'and selected_facets!=admitted[family]):raise ValueError('Required original exact scalar domain required')
         logical={'family':family,'facets':facets,'nullable':False};representation={'kind':'scalar','logicalType':logical,'carrier':'text','decoder':{'string':'text','boolean':'boolean','integer':'exact-integer','decimal':'exact-decimal'}[family]}
         if type(column)is not dict or set(column)!={'nullable','outputName','position','representation','sourceIdentities'}or type(column['position'])is not int or column['position']!=position or column['nullable']is not False or column['representation']!=representation or column['sourceIdentities']!=[identity]or column['outputName']!=output['name']or type(output['name'])is not str or not output['name']or output['name']in output_names:raise ValueError('Exact authored scalar result descriptor required')
         output_names.add(output['name']);families.add(family);graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':logical};selections.append((column,home[encoded(identity)]))

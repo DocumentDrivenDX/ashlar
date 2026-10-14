@@ -482,6 +482,11 @@ use exact mathematical values without float conversion or rounding. Scalar admis
 MUST remain explicit and MUST NOT broaden STRING-only commands, permit aggregates
 without their separate admission, or bypass publication and integrity obligations.
 
+Direct required decimal projections admit explicitly declared precision 18 with
+scale 2 or 4. The original facets MUST match compiler descriptors and type graphs;
+exact source and result values MUST be representable without rounding. This
+selection MUST NOT broaden integer domains, filters, joins, grouping or arithmetic.
+
 A required signed64 equality filter MUST bind the original source Field, exact
 literal token, type and parameter origin. Its independent oracle MUST validate
 the complete admitted source population before filtering and projection; filtering

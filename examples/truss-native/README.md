@@ -1693,7 +1693,10 @@ Numeric results retain `{ "integer_token": "..." }` or
 `{ "decimal_token": "..." }` carriers. Complete-bag comparison uses exact
 mathematical values, preserving original source and compiler tokens. The command
 supports direct required-field projections and one exact signed64 equality
-predicate. An unordered equality query may project the same required scalar
+predicate. Direct decimal projections preserve declared precision 18 and scale
+2 or 4; this does not admit decimal filters, arithmetic or grouping implicitly.
+Unfaceted UMF 0.8 integers require their own exact-source obligations and remain
+outside this signed64 projection profile. An unordered equality query may project the same required scalar
 fields. For ascending ordering or a SQL limit, project only the filtered field:
 
 ```sql
