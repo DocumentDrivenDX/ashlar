@@ -60,3 +60,9 @@ from original authored values and aliases. This does not publish an Ashlar graph
 or consume/acknowledge its feed. Source review and inert tests do not establish a
 native commerce run. If commit is uncertain, retain the original configuration and
 request key for reconciliation; the command performs no automatic retry.
+
+The [full original commerce fixture](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+qualifies eleven records and ten edges in one native group, complete readback and
+committed replay, then continued local Delta publication and a required Weft price
+projection. It records the original source token separately from the authored
+input and compiler result; no other query or lifecycle scope is inferred.

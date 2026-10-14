@@ -1,0 +1,26 @@
+{
+  "initial_ashlar_source_revision": "9a858a5c0168e93337caf37ee83cd2a6031fd2c6",
+  "initial_wheel_sha256": "07e7219b646dd6c898a6f382950bfd14f5a757c2bb116a746bcfac3e0c0c89b7",
+  "continued_ashlar_source_revision": "c47b056fe0c6b9aa15dfef33de1816e30f9bf47e",
+  "continued_wheel_sha256": "a3f7bff2226f0364285d035c2884494415aeeba157ad64016356e87c3510f86f",
+  "truss_version": "0.0.22",
+  "truss_wheel_sha256": "1f74f5afd5b5948ac2606638ef534f01a77e6b008855dc05f97baee5873317d1",
+  "compiler_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "source_version": "0.8.0",
+  "model_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "graph_fixture_sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+  "runtime": {
+    "python": "3.11.17",
+    "pgserver-pg18": "18.6.1",
+    "psycopg": "3.3.6",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "java": "21.0.12",
+    "bun": "1.4.2",
+    "spark_master": "local[1]",
+    "spark_driver_mib": 512
+  },
+  "wheel_installation": "Fresh no-deps targets with explicitly reused compatible installed dependencies; no fresh dependency environment claim.",
+  "compiler_interface": "weft-compile/0.2.0",
+  "compiler_backend": "0.1.1-compatible-revisions-candidate"
+}

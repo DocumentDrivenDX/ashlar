@@ -1,0 +1,56 @@
+{
+  "objects": 11,
+  "edges": 10,
+  "original_pending_page_bytes": 1180407,
+  "original_pending_page_sha256": "7db2f0d9b268fda4a321bc54c3fcd40c1cc23130f72b3ebaabfa6cbf339e5095",
+  "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+  "table_versions": {
+    "local.trussgraph.edge_current": 2,
+    "local.trussgraph.object_current": 2,
+    "local.trussgraph.tombstone": 1,
+    "local.trussgraph.whole_source_history": 2
+  },
+  "native_effect_parity": {
+    "edge_current": "47e9e8327bb233e309b9ee8b73651460d4ed732aaee55a971d9bb71d08d010cf",
+    "object_current": "c526ce9b3b781453524c50926485892f66d2d8a0957a099ae6eef18889b7f2bc",
+    "tombstone": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "whole_source_history": "971ea5291bb900c0ef0a45dc090db12240253070625fe1b30a6dc83095efef70"
+  },
+  "original_source_plan_sha256": "204844fdab0e06fc70609fccb748188a03b4cb1df28244e819ce87b2c2a545f8",
+  "source_progress": {
+    "commerce22-full": {
+      "batch_id": "764",
+      "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+      "feed": "commerce22-full",
+      "payload_digest": "7db2f0d9b268fda4a321bc54c3fcd40c1cc23130f72b3ebaabfa6cbf339e5095",
+      "position": "eyJuZXh0WGlkIjogIjc2NSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImNvbW1lcmNlMjItZnVsbC1uYXRpdmUiLCAic291cmNlRXBvY2giOiAiZGRiNGNjNzktYzZkOC00OWE4LTlhZjYtYzQ4MWI1NTRhM2ZlIiwgImluc3RhbGxhdGlvbklkIjogImFiMDM3OTE1LTBlNzgtNDdhMi1iODJmLTM5MzFiM2JmMzEyMiIsICJyZWdpc3RyYXRpb25JZCI6ICJmNjY5NjZiNS03NzMyLTRmMTgtOWE3NC1kZWI5N2Q4MGI0YWUifQ==",
+      "previous": "eyJuZXh0WGlkIjogIjc1OSIsICJwcm9maWxlIjogInRydXNzLWNhbGxlci1hc3NlcnRlZC1mZWVkLzAuMSIsICJjb25zdW1lcklkIjogImNvbW1lcmNlMjItZnVsbC1uYXRpdmUiLCAic291cmNlRXBvY2giOiAiZGRiNGNjNzktYzZkOC00OWE4LTlhZjYtYzQ4MWI1NTRhM2ZlIiwgImluc3RhbGxhdGlvbklkIjogImFiMDM3OTE1LTBlNzgtNDdhMi1iODJmLTM5MzFiM2JmMzEyMiIsICJyZWdpc3RyYXRpb25JZCI6ICJmNjY5NjZiNS03NzMyLTRmMTgtOWE3NC1kZWI5N2Q4MGI0YWUifQ==",
+      "profile": "truss-native-feed/0.1"
+    }
+  },
+  "source_checkpoint_after_restart_unchanged_by_reads": true,
+  "source_checkpoint_sha256": "10390aaf35f26dd54e3c60fffa2872cfd40e0ec4824e46a08ddcd6a2e70c8c15",
+  "full_group_replay_semantic_correspondence": true,
+  "query_rows": [
+    {
+      "price": {
+        "decimal_token": "12.50"
+      }
+    }
+  ],
+  "guard_count": 1,
+  "guard_violations": [
+    "0"
+  ],
+  "lexical_correspondence": {
+    "original_authored_graph": "12.50",
+    "original_public_history_event": "12.5",
+    "singleton": "12.5",
+    "compiler_result": "12.50"
+  },
+  "publication_receipt_mode_scope": "Contiguous public Truss pages appended with consumer-verified durable publication before exact source-retained destination receipt ACK; caller controls commit; no history release or Unity Catalog qualification.",
+  "initial_attempt_exit_code": 1,
+  "continuation_harness_exit_code": 1,
+  "query_harness_exit_code": 0,
+  "qualification": "Native full original commerce graph publication/receipt ACK, exact-source singleton and one required Weft decimal18,2 projection. Initial bound refusal and later overly strict harness lexical assertion retained; no all-gallery/lifecycle/evolution/production claim."
+}

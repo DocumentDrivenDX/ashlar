@@ -918,7 +918,8 @@ Use `ashlar publish-truss-graph --configuration /absolute/private/graph.json
 --output /absolute/private/fresh-graph` with the same configuration shape as
 `publish-truss-note`. Select a separate consumer at genesis and existing local
 Spark/Delta dependencies. The command reads accepted historical catalogs through
-the ordinary reader, admits original UMF 0.7.0 rootless STRING records and
+the ordinary reader, admits the selected original UMF 0.7.0/0.8.0 rootless scalar
+record profile with exact declared values/facets and
 empty-property directed independent edges, and publishes complete transactions
 before their public Truss ACK. Object and edge updates/deletes retain lifecycle
 history; edge order keys preserve null/text values.
@@ -927,6 +928,12 @@ The destination must be fresh. This command is a finite local workflow, limited
 to eight pages; it does not provide restart recovery or Unity Catalog deployment.
 Retain partial destinations on failure rather than resetting them or reusing an
 advanced source consumer.
+
+Use [atomic record groups](../truss-record-group/README.md) when source records and
+required edges must commit together. The [full original commerce workflow](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+records native source/replay, receipt ACK and local Delta publication. Its initial
+page-bound refusal was followed by continuation of the existing publication;
+neither source data nor consumers were reset.
 
 Local setup and publication check the installed public Truss
 `PsycopgProfile` against the selected Python driver before starting resources or
@@ -1714,6 +1721,11 @@ support.
 The [actual one-record native query](../../docs/helix/04-build/evidence/truss-faceted-scalar-native-query-20261013/result.json)
 preserves `9007199254740993`, decimal `1.2300`, Boolean and STRING results with
 an unchanged source checkpoint on local Spark/Delta.
+
+The [original UMF 0.8 commerce price query](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+executes a required decimal(18,2) projection on the Truss-fed publication. Original
+Truss history and singleton tokens are `12.5`; the compiler's result is `12.50`.
+Both exact byte views remain separate and the source checkpoint stays unchanged.
 
 The [installed equality query](../../docs/helix/04-build/evidence/truss-integer-filter-installed-20261013/result.json)
 returns exactly `9007199254740993` with ascending order and `LIMIT 1` on the

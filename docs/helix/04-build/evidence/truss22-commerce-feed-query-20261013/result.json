@@ -1,0 +1,20 @@
+{
+  "outcome": "passed",
+  "query_seconds": 11.416759500047192,
+  "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+  "rows": [
+    {
+      "price": {
+        "decimal_token": "12.50"
+      }
+    }
+  ],
+  "singleton_original_feed_token": "12.5",
+  "group_original_input_token": "12.50",
+  "compiler_result_token": "12.50",
+  "tokens_mathematically_equal": true,
+  "source_checkpoint_unchanged": true,
+  "singleton_feed_bytes_correspond": true,
+  "scope": "One required decimal18,2 projection from original UMF0.8 on the completed full commerce Truss-fed Delta publication; all original compiler guards and source/pin closing admitted. No lifecycle/evolution/full-gallery/Unity Catalog claim.",
+  "duration_seconds": 11.79712845897302
+}

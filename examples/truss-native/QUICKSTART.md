@@ -40,9 +40,20 @@ Both the data directory and result must be fresh. Setup accepts the original
 document in a new local installation, commits the catalog and stops its owned
 server. The [released commerce catalog evidence](../../docs/helix/04-build/evidence/truss22-commerce-catalog-20261013)
 records all 213 source references resolving to exact original bytes. This step
-does not create commerce records or publish a graph; the commerce mutation,
-feed and query workflow requires its own qualification. The typed record example
+does not create commerce records or publish a graph. Use the
+[atomic record group](../truss-record-group/README.md) to create records and their
+required links together, then publish their complete source transactions with
+`publish-truss-graph`. The [full commerce fixture evidence](../../docs/helix/04-build/evidence/truss22-commerce-feed-query-20261013)
+qualifies source creation/replay, continued local Delta publication with receipt
+ACK, an exact-source singleton and one required decimal price query. Other queries
+and lifecycle/evolution need their separate qualifications. The typed record example
 below is a separately authored model and does not substitute for that workflow.
+
+For the full commerce fixture, select `maximum_page_bytes: 2097152` in the publisher
+configuration and an explicit `destination_id` for source-retained receipt ACK.
+For continuation, use `--maximum-page-bytes 2097152` with the existing saved
+publication selection. These bounds preserve complete transactions; never split
+an oversized source transaction or reset its consumer to retry it.
 
 ## Start with one typed record
 
