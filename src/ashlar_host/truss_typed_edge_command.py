@@ -55,7 +55,7 @@ def preflight(configuration,output):
     elif set(order)=={'state','text'}and order['state']=='text'and type(order['text'])is str and len(order['text'].encode())<=65536:order_key=('text',order['text'])
     else:raise ValueError('Exact public null or text order key required')
     model=snapshot(paths[1],1048576);document=decode_custody_bytes(model)
-    if document.get('id')!=raw['document_id']or document.get('umf')!='0.7.0':raise ValueError('Original declared UMF0.7 document required')
+    if document.get('id')!=raw['document_id']or document.get('umf')not in ('0.7.0','0.8.0'):raise ValueError('Original declared UMF0.7 or0.8 document required')
     origin=InvocationFile.read(paths[2],65536);origin_map=decode_custody_bytes(origin.raw)
     if type(origin_map)is not dict or any(type(k)is not str or type(v)is not str for k,v in origin_map.items()):raise ValueError('Original string origin map required')
     if not destination.is_absolute()or destination.parent.resolve()!=destination.parent or not destination.parent.is_dir()or destination.exists()or destination.is_symlink():raise ValueError('Fresh canonical report required')

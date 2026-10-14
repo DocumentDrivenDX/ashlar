@@ -13,6 +13,21 @@ class Tests(unittest.TestCase):
   config={'connection_uri':'private','bun':str(root/'bun'),'document_path':str(root/'model'),'document_revision':'r1','document_id':'doc','module_id':'m','relationship_id':'related','origin_path':str(root/'origin'),'request_key':'original','edge_id':7,'expected_version':1}
   if operation=='update':config.update(set={'number':{'kind':'integer','text':'9007199254740993'}},unset=['remove'],endpoint_change={'state':'replace','source':{'document_id':'doc','module_id':'m','record_id':'Typed','entity_id':1},'target':{'document_id':'doc','module_id':'m','record_id':'Typed','entity_id':3}},order_key_change={'state':'null'})
   path=root/'configuration';path.write_text(json.dumps(config));return path,config
+ def test_original_declared_versions_preserve_update_delete_inputs(self):
+  from ashlar_host.truss_typed_edge_update import preflight as update_preflight
+  from ashlar_host.truss_typed_edge_delete import preflight as delete_preflight
+  for operation,preflight in (('update',update_preflight),('delete',delete_preflight)):
+   for version,document_id,accepted in (('0.7.0','doc',True),('0.8.0','doc',True),('0.9.0','doc',False),('0.8.0','other',False)):
+    with self.subTest(operation=operation,version=version,document_id=document_id),tempfile.TemporaryDirectory()as d:
+     root=Path(d).resolve();path,_=self.inputs(root,operation)
+     original=(' { "id": "'+document_id+'", "umf": "'+version+'", "x-original": {"opaque": true} }\n').encode()
+     (root/'model').write_bytes(original)
+     with patch.dict(sys.modules,{'psycopg':None,'truss':None}):
+      if accepted:
+       result=preflight(path,root/'result');self.assertEqual(result[3],original)
+      else:
+       with self.assertRaisesRegex(ValueError,'Original declared UMF'):preflight(path,root/'result')
+     self.assertFalse((root/'result').exists());self.assertEqual((root/'model').read_bytes(),original)
  def exercise(self,operation,*,noop=False,stale=False):
   @dataclass
   class Identity:id:str;definition_pin:str='actual-pin'

@@ -65,7 +65,7 @@ def preflight(configuration,output):
     if not values and not unset and endpoint_change[0]=='unchanged'and order_key_change[0]=='unchanged':raise ValueError('Explicit nonempty edge update required')
     if any(type(raw[k])is not int or not 1<=raw[k]<=2**63-1 for k in ('edge_id','expected_version')):raise ValueError('Explicit positive identity/version required')
     model=snapshot(paths[1],1048576);document=decode_custody_bytes(model)
-    if document.get('id')!=raw['document_id']or document.get('umf')!='0.7.0':raise ValueError('Original declared UMF0.7 document required')
+    if document.get('id')!=raw['document_id']or document.get('umf')not in ('0.7.0','0.8.0'):raise ValueError('Original declared UMF0.7 or0.8 document required')
     origin=InvocationFile.read(paths[2],65536);origin_map=decode_custody_bytes(origin.raw)
     if type(origin_map)is not dict or any(type(k)is not str or type(v)is not str for k,v in origin_map.items()):raise ValueError('Original string origin map required')
     if not destination.is_absolute()or destination.parent.resolve()!=destination.parent or not destination.parent.is_dir()or destination.exists()or destination.is_symlink():raise ValueError('Fresh canonical report required')

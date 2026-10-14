@@ -12,6 +12,19 @@ class Tests(unittest.TestCase):
   endpoint=lambda id:{'document_id':'doc','module_id':'m','record_id':'Typed','entity_id':id}
   config={'connection_uri':'private','bun':str(root/'bun'),'document_path':str(root/'model'),'document_revision':'r1','document_id':'doc','module_id':'m','relationship_id':'related','origin_path':str(root/'origin'),'request_key':'edge-key','values':{'number':{'kind':'integer','text':'9007199254740993'}},'source':endpoint(1),'target':endpoint(2),'order_key':{'state':'text','text':'雪'}}
   path=root/'configuration';path.write_text(json.dumps(config));return path,config
+ def test_original_declared_versions_preserve_bytes_and_refuse_mismatch(self):
+  from ashlar_host.truss_typed_edge_command import preflight
+  for version,document_id,accepted in (('0.7.0','doc',True),('0.8.0','doc',True),('0.9.0','doc',False),('0.8.0','other',False)):
+   with self.subTest(version=version,document_id=document_id),tempfile.TemporaryDirectory()as d:
+    root=Path(d).resolve();path,_=self.inputs(root)
+    original=(' { "id": "'+document_id+'", "umf": "'+version+'", "x-original": {"opaque": true} }\n').encode()
+    (root/'model').write_bytes(original)
+    with patch.dict(sys.modules,{'psycopg':None,'truss':None}):
+     if accepted:
+      result=preflight(path,root/'result');self.assertEqual(result[3],original)
+     else:
+      with self.assertRaisesRegex(ValueError,'Original declared UMF'):preflight(path,root/'result')
+    self.assertFalse((root/'result').exists());self.assertEqual((root/'model').read_bytes(),original)
  def test_unknown_order_or_endpoint_refuses_before_connection(self):
   for mutation in ('order','endpoint'):
    with tempfile.TemporaryDirectory()as d:
