@@ -5,7 +5,7 @@ use of historical immutable bytes; source semantics use the real public owner.
 """
 import base64,hashlib,http.client,json,os,re,time,urllib.request,urllib.error
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass,field,fields
 from pathlib import Path
 from .evolution_producer import capture,snapshot
 from .finite_dataset import FinitePackSource
@@ -44,8 +44,8 @@ class PuppyFiniteLoopbackConfig:
     image:str
     name:str
     prepared:Path
-    username:str
-    password:str
+    username:str=field(repr=False)
+    password:str=field(repr=False)
     http_port:int
     bolt_port:int
     deadline_seconds:int=120
@@ -391,3 +391,252 @@ def open_puppy_export_local(config,*,export,receipt,failure_observer=None):
         owner._wait_ready();owner._wait_backend_ready();owner.stage='caller';yield owner
     except BaseException as error:primary=error
     _close_owned_engine(owner,primary,failure_observer)
+
+
+
+def _scenario_witness(config,pack_bytes,sources,exports,preparation,language):
+    """Recompute original inputs and all four tables before container effects."""
+    from .puppy_scenario_preparation import project_puppy_scenario_pack
+    from .pack_scenario_queries import query_plan,carrier_chunks,raw_projection
+    from .graphframes_pack_scenarios import bag
+    if (type(pack_bytes)is not tuple or len(pack_bytes)!=2 or any(type(b)is not bytes or not 0<len(b)<=1048576 for b in pack_bytes)
+            or type(sources)is not tuple or type(exports)is not tuple or len(sources)!=2 or len(exports)!=2
+            or any(type(s)is not FinitePackSource for s in sources)
+            or any(type(e)is not LocalGraphExportUse for e in exports)or type(preparation)is not dict):
+        raise ValueError('Exact ordered scenario inputs and owners required')
+    receipt_raw=snapshot(config.prepared/'receipt.json',16777216);receipt=json.loads(receipt_raw)
+    database=config.prepared/'scenarios.duckdb';database_raw=snapshot(database,33554432)
+    model_raw=snapshot(config.prepared/'model.json',1048576)
+    if (receipt!=preparation or receipt.get('format')!='ashlar-original17-puppygraph-preparation/0.1'
+            or receipt.get('engine_executed')is not False
+            or any(path.stat().st_mode&0o222 for path in (database,config.prepared/'model.json',config.prepared/'receipt.json'))
+            or len(database_raw)!=receipt.get('database_bytes')or hashlib.sha256(database_raw).hexdigest()!=receipt.get('database_sha256')
+            or len(model_raw)!=receipt.get('model_bytes')or hashlib.sha256(model_raw).hexdigest()!=receipt.get('model_sha256')):
+        raise ValueError('Exact scenario database/model/receipt required')
+    projects=[];metadata=[];bindings=[];inventory=set();expected_model={'catalog':[{'name':'ashlar_scenarios','type':'duckdb','jdbc':{'jdbcUri':'jdbc:duckdb:/tmp/scenarios.duckdb'}}],'node':[],'edge':[]};observations=[]
+    import duckdb
+    with duckdb.connect(str(database),read_only=True)as connection:
+        connection.execute('SET threads=1');connection.execute("SET memory_limit='64MB'");connection.execute("SET temp_directory=''")
+        if connection.execute("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='carrier'").fetchone()[0]!=4:
+            raise ValueError('Exactly four original tables required')
+        actual_tables=connection.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='carrier'").fetchall()
+        if sorted(r[0]for r in actual_tables)!=['archaeology_edges','archaeology_nodes','ecology_edges','ecology_nodes']:
+            raise ValueError('Exact four scenario tables required')
+        for name,source,export,pack in zip(('archaeology','ecology'),sources,exports,pack_bytes):
+            if source.definition.name!=name or source.context is not export.context:raise ValueError('Original ordered scenario owners required')
+            item=project_puppy_scenario_pack(name,source.model,source.graph,pack,export.release.payload)
+            projects.append(item);metadata.append(source.metadata());_,bound=source.definition.build(source.model,source.graph);bindings.append(bound)
+            label='Scenario'+name.title()
+            for kind in ('node','edge'):
+                rows=item[kind+'s'];names=list(rows[0]);longs=set(item['long_columns'])if kind=='node'else set();table=name+'_'+kind+'s'
+                schema={n:'BIGINT'if n in longs else'VARCHAR'for n in names}
+                column_count=connection.execute("SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='carrier' AND table_name=?",[table]).fetchone()[0]
+                if column_count!=len(names):raise ValueError('Exact original column count required')
+                columns=connection.execute("SELECT column_name,data_type FROM information_schema.columns WHERE table_schema='carrier' AND table_name=? ORDER BY ordinal_position",[table]).fetchall()
+                if columns!=list(schema.items()):raise ValueError('Exact native scenario schema required')
+                if connection.execute('SELECT COUNT(*) FROM carrier.'+table).fetchone()[0]!=len(rows):
+                    raise ValueError('Exact original scenario row count required')
+                def cell_bytes(value):
+                    if value is None:return 0
+                    if type(value)is str:return len(value.encode('utf8'))
+                    if type(value)is int and -(2**63)<=value<2**63:return len(str(value))
+                    raise ValueError('Original bounded scenario cell type required')
+                maxima={column:max(cell_bytes(row[column])for row in rows)for column in names}
+                original_total=sum(cell_bytes(row[column])for row in rows for column in names)
+                # Size/count observations precede host allocation, including compressed tampered DBs.
+                native_total=0
+                for column in names:
+                    expression='octet_length(encode("'+column+'"))'if schema[column]=='VARCHAR'else'length(CAST("'+column+'" AS VARCHAR))'
+                    maximum,total=connection.execute('SELECT COALESCE(MAX('+expression+'),0),COALESCE(SUM('+expression+'),0) FROM carrier.'+table).fetchone()
+                    native_total+=total
+                    if maximum>maxima[column]or native_total>original_total:raise ValueError('Original scenario cell byte bound exceeded')
+                cursor=connection.execute('SELECT * FROM carrier.'+table);actual=[];actual_total=0
+                while True:
+                    row=cursor.fetchone()
+                    if row is None:break
+                    if len(actual)>=len(rows):raise ValueError('Original scenario row count exceeded')
+                    for column,value in zip(names,row):
+                        size=cell_bytes(value)
+                        if size>maxima[column]:raise ValueError('Original scenario cell byte bound exceeded')
+                        actual_total+=size
+                        if actual_total>original_total:raise ValueError('Original scenario total byte bound exceeded')
+                    actual.append(dict(zip(names,row)))
+                if len(actual)!=len(rows)or bag(actual)!=bag(rows):raise ValueError('Complete scenario table bag differs')
+                observations.append({'table':table,'rows':len(rows),'schema':schema,'full_cell_parity':True})
+                attrs=[n for n in names if n not in ('id','graph_id')];key=kind+'_key'
+                entry={'label':label+kind.title(),'dataSourceGroup':{'externalDataSource':{'enabled':True,'catalog':'ashlar_scenarios','schema':'carrier','table':table,'mappedField':[{'sourceFieldName':n,'targetFieldName':n}for n in attrs]+[{'sourceFieldName':'graph_id','targetFieldName':key}]}},'id':[{'name':key,'type':'STRING'}],'attribute':[{'name':n,'type':'LONG'if n in longs else'STRING'}for n in attrs]}
+                if kind=='edge':entry.update(fromNodeLabel=label+'Node',toNodeLabel=label+'Node',fromKey=[{'name':'src','type':'STRING'}],toKey=[{'name':'dst','type':'STRING'}])
+                expected_model[kind].append(entry)
+                for chunk in carrier_chunks(item['profile'],kind,language,accepted_bindings=bound):
+                    script=raw_projection(item['profile'],kind,language,chunk,accepted_bindings=bound)[0];inventory.add(json_bytes([script,{}],65536))
+            for case in item['profile']['cases']:
+                script,parameters,_=query_plan(item['profile'],case['original_scenario']['id'],language);inventory.add(json_bytes([script,parameters],65536))
+    if (receipt['reports']!=projects or receipt['observations']!=observations or receipt['source_admissions']!=metadata
+            or receipt['release_sha256s']!=[e.release.sha256 for e in exports]or receipt['custody_sha256s']!=[e.custody_sha256 for e in exports]
+            or json.loads(model_raw)!=expected_model):raise ValueError('Original complete scenario mapping differs')
+    return receipt_raw,database_raw,model_raw,tuple(metadata),frozenset(inventory)
+
+
+def _scenario_sdk_size(rows,maximum_bytes=1048576):
+    """Sizing projection only; original SDK rows and wire remain unchanged."""
+    from gremlin_python.statics import long as SDKLong
+    active=set();nodes=0
+    def size(value,depth=0):
+        nonlocal nodes
+        nodes+=1
+        if depth>64 or nodes>250000:raise ValueError('Bounded SDK structure required')
+        if type(value)is SDKLong:
+            integer=int.__int__(value)
+            if not -(2**63)<=integer<2**63:raise ValueError('Exact signed64 SDK token required')
+            return len(str(integer))
+        if type(value)is int:
+            if not -(2**63)<=value<2**63:raise ValueError('Exact finite SDK integer required')
+            return len(str(value))
+        if value is None:return 4
+        if type(value)is str:
+            if len(value)>maximum_bytes:raise ValueError('Bounded SDK text required')
+            return len(json.dumps(value,ensure_ascii=False).encode())
+        if type(value)not in (dict,list):raise ValueError('Unknown SDK carrier refused')
+        if id(value)in active:raise ValueError('Cyclic SDK carrier refused')
+        active.add(id(value))
+        try:
+            total=2
+            for item in (value.items()if type(value)is dict else value):
+                if type(value)is dict:
+                    key,entry=item
+                    if type(key)is not str:raise ValueError('Exact SDK field name required')
+                    total+=size(key,depth+1)+size(entry,depth+1)+2
+                else:total+=size(item,depth+1)+1
+                if total>maximum_bytes:raise ValueError('Bounded SDK rows required')
+            return total
+        finally:active.remove(id(value))
+    return size(rows)
+
+
+class OwnedPuppyScenarioLocal(PuppyLocalRuntime):
+    """Minted only by the public fixed original17 factory; no free-script port."""
+    def renew(self):
+        def files():
+            if (snapshot(self.database,33554432)!=self.original_database
+                    or snapshot(self.config.prepared/'model.json',1048576)!=self.original_model
+                    or snapshot(self.config.prepared/'receipt.json',16777216)!=self.original_receipt):
+                raise PermissionError('Original scenario files changed')
+        actions=[files]
+        def construction_same():
+            if (tuple(getattr(self.config,f.name)for f in fields(self.config)) != self._scenario_config or self.context is not self._scenario_context
+                    or (self.maximum_rows,self.maximum_bytes)!=self._scenario_limits):
+                raise PermissionError('Original scenario construction changed')
+        actions.append(construction_same)
+        for source,export,original,source_original,export_original in self._scenario_owners:
+            def source_same(source=source,original=original,owned=source_original):
+                if (source.context,source.definition,source.model,source.graph)!=owned or source.metadata()!=original:
+                    raise PermissionError('Original scenario source changed')
+            def export_same(export=export,owned=export_original):
+                context,release,custody,historical=owned
+                if (export.context is not context or export.release!=release or export.custody_bytes!=custody or export.source is not historical):
+                    raise PermissionError('Original scenario export changed')
+                export.admit_original_export(release,custody,historical,context)
+            actions.extend([source_same,export_same])
+        if self.container_id is not None:actions.append(self.renew_runtime)
+        finish(None,actions)
+    @contextmanager
+    def hold(self,context):
+        if context is not self.context or self.active:raise PermissionError('Exact nonnested scenario interval required')
+        primary=None
+        try:self.renew();self.active=True;yield
+        except BaseException as error:primary=error
+        try:finish(primary,[self.renew])
+        finally:self.active=False
+    def query_original(self,script,bindings,context):
+        if (context is not self.context or not self.active or type(script)is not str or type(bindings)is not dict
+                or json_bytes([script,bindings],65536)not in self._scenario_inventory):
+            raise PermissionError('Only original admitted scenario/carrier query required')
+        self.renew();remaining=self.deadline-time.monotonic()
+        if remaining<=0:raise TimeoutError('Original scenario deadline elapsed')
+        primary=None;rows=None;client=None;session=None;transports=[]
+        try:
+            if self.language=='Cypher':
+                from neo4j import Query,GraphDatabase
+                client=GraphDatabase.driver('bolt://127.0.0.1:'+str(self.config.bolt_port),auth=(self.config.username,self.config.password),connection_timeout=min(5,remaining),connection_acquisition_timeout=min(5,remaining))
+                session=client.session();rows=[];size=0
+                for record in session.run(Query(script,timeout=min(15,remaining)),parameters=bindings):
+                    if time.monotonic()>=self.deadline:raise TimeoutError('Original scenario deadline elapsed')
+                    row=record.data();size+=len(json_bytes(row,self.maximum_bytes))
+                    if len(rows)>=self.maximum_rows or size>self.maximum_bytes:raise ValueError('Complete scenario result bound exceeded')
+                    rows.append(row)
+            else:
+                from .puppy_gremlin_transport import require_gremlin_runtime,BoundedGremlinTransport,RetainedGraphSONSerializer
+                from gremlin_python.driver.client import Client
+                require_gremlin_runtime()
+                directory=self.config.prepared.parent/'scenario-gremlin-wire';directory.mkdir(mode=0o700,exist_ok=True)
+                selected=directory/str(sum(p.is_dir()for p in directory.iterdir())+1);selected.mkdir(mode=0o700)
+                def transport_factory():
+                    transport=BoundedGremlinTransport(self.deadline);transports.append(transport);return transport
+                client=Client('ws://127.0.0.1:'+str(self.config.gremlin_port)+'/gremlin','g',username=self.config.username,password=self.config.password,message_serializer=RetainedGraphSONSerializer(selected,maximum_frame_bytes=self.maximum_bytes,maximum_total_bytes=self.maximum_bytes),pool_size=1,max_workers=2,transport_factory=transport_factory)
+                reply=client.submit_async(script,bindings=bindings,request_options={'evaluationTimeout':int(min(15,remaining)*1000)}).result(timeout=min(15,remaining))
+                from queue import Empty
+                rows=[];size=2;query_deadline=min(self.deadline,time.monotonic()+15)
+                while not reply.done.done() or not reply.stream.empty():
+                    left=query_deadline-time.monotonic()
+                    if left<=0:raise TimeoutError('Original scenario query deadline elapsed')
+                    try:chunk=reply.stream.get(timeout=min(.05,left))
+                    except Empty:continue
+                    if type(chunk)is not list:raise ValueError('Exact SDK row batch required')
+                    for row in chunk:
+                        row_bytes=_scenario_sdk_size(row,self.maximum_bytes)
+                        if len(rows)>=self.maximum_rows or size+row_bytes+1>self.maximum_bytes:
+                            raise ValueError('Complete scenario SDK result bound exceeded')
+                        size+=row_bytes+1;rows.append(row)
+                reply.done.result(timeout=max(0,query_deadline-time.monotonic()))
+        except BaseException as error:primary=error
+        finish(primary,[transport.close for transport in transports]+([session.close]if session is not None else[])+([client.close]if client is not None else[])+[self.renew])
+        return rows
+
+
+@contextmanager
+def _scenario_source_closing(sources):
+    primary=None
+    try:yield
+    except BaseException as error:primary=error
+    finish(primary,[source.renew for source in sources])
+
+
+@contextmanager
+def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,native_map_profile,failure_observer=None,maximum_rows=1000,maximum_bytes=1048576):
+    """Fresh four-table namespace, bounded readiness and one model POST only."""
+    from contextlib import ExitStack
+    from .pack_scenario_queries import MAP_PUPPY
+    if type(config)not in (PuppyFiniteLoopbackConfig,PuppyGremlinLoopbackConfig):
+        raise ValueError('Explicit original17 runtime required')
+    if ((type(config)is PuppyGremlinLoopbackConfig and (type(native_map_profile)is not str or native_map_profile!=MAP_PUPPY))
+            or (type(config)is PuppyFiniteLoopbackConfig and native_map_profile is not None)):
+        raise ValueError('Explicit protocol-specific original map profile required')
+    if failure_observer is not None and not callable(failure_observer):raise ValueError('Private bounded observer required')
+    if (type(maximum_rows)is not int or not 1<=maximum_rows<=1000 or type(maximum_bytes)is not int or not 1<=maximum_bytes<=1048576):
+        raise ValueError('Explicit finite scenario capture bounds required')
+    config.__post_init__();language='Gremlin'if type(config)is PuppyGremlinLoopbackConfig else'Cypher'
+    if type(sources)is not tuple or len(sources)!=2 or any(type(source)is not FinitePackSource for source in sources):
+        raise ValueError('Actual two source owners required')
+    with ExitStack()as held:
+        held.enter_context(_scenario_source_closing(sources))
+        if type(exports)is not tuple or len(exports)!=2 or any(type(e)is not LocalGraphExportUse for e in exports):raise ValueError('Original export owners required')
+        for export in exports:held.enter_context(owned_context(export.writer(export.context)))
+        receipt,database,model,metadata,inventory=_scenario_witness(config,pack_bytes,sources,exports,preparation,language)
+        owner=object.__new__(OwnedPuppyScenarioLocal);owner._config=config;owner.context=object();owner.active=False;owner._scenario_config=tuple(getattr(config,f.name)for f in fields(config));owner._scenario_context=owner.context;owner._scenario_owners=tuple((source,export,original,(source.context,source.definition,source.model,source.graph),(export.context,export.release,export.custody_bytes,export.source))for source,export,original in zip(sources,exports,metadata))
+        owner.database=config.prepared/'scenarios.duckdb';owner.original_database=database;owner.original_model=model;owner.original_receipt=receipt;owner._scenario_inventory=inventory;owner.language=language;owner.maximum_rows=maximum_rows;owner.maximum_bytes=maximum_bytes;owner._scenario_limits=(maximum_rows,maximum_bytes)
+        owner.requested_model=json.loads(model);owner.requested_bytes=model;owner.deadline=time.monotonic()+config.deadline_seconds
+        owner.observations=[];owner.docker_diagnostics=[];owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;owner.stage='image-preflight';owner.submission_outcome='not-submitted'
+        owner.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect());primary=None
+        try:
+            owner.renew()
+            image=json.loads(owner._docker(['image','inspect',config.image]))
+            if len(image)!=1 or image[0]['Id']!=config.image:raise PermissionError('Existing exact cached image required')
+            identifier=owner._docker(owner._create_arguments()).decode().strip()
+            if not re.fullmatch('[0-9a-f]{64}',identifier):raise ValueError('Owned original container ID required')
+            owner._container_id=identifier;owner._docker(['start',identifier]);owner._container();owner.stage='startup'
+            owner._wait_ready();owner._wait_backend_ready();owner.stage='model-submission';owner.submission_outcome='unknown'
+            reply=owner._http('/schema?postUploadBehavior=none',owner.requested_bytes);owner._record('submission',reply)
+            if json.loads(reply).get('ok')is not True:owner.submission_outcome='refused';raise ValueError('Native original model refused')
+            owner.submission_outcome='accepted';owner.loaded=True;owner.renew();owner.stage='caller';yield owner
+        except BaseException as error:primary=error
+        _close_owned_engine(owner,primary,failure_observer)

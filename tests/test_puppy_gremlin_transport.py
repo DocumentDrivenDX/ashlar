@@ -59,3 +59,17 @@ class Tests(unittest.TestCase):
             with patch.object(module,'Client',Client),patch.object(module,'BoundedGremlinTransport',Transport):
                 with self.assertRaises(TimeoutError):module.query_gremlin(owner,'g.V()')
         self.assertEqual(events,['transport','client'])
+
+    def test_selected_frame_and_total_caps_refuse_before_decode(self):
+        frame=json.dumps({'requestId':'00000000-0000-0000-0000-000000000001','status':{'code':200,'message':'','attributes':{'@type':'g:Map','@value':[]}},'result':{'data':{'@type':'g:List','@value':[]},'meta':{}}}).encode()
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);one=root/'1';one.mkdir();two=root/'2';two.mkdir()
+            limited=RetainedGraphSONSerializer(one,maximum_frame_bytes=len(frame)-1)
+            with self.assertRaises(ValueError):limited.deserialize_message(frame)
+            self.assertEqual(list(one.iterdir()),[])
+            total=RetainedGraphSONSerializer(two,maximum_frame_bytes=len(frame),maximum_total_bytes=len(frame))
+            total.deserialize_message(frame)
+            with self.assertRaises(ValueError):total.deserialize_message(frame)
+            self.assertEqual(len(list(two.iterdir())),1);self.assertEqual((two/'wire-1.json').read_bytes(),frame)
+            for cap in (0,True,1.5,1048577):
+                with self.assertRaises(ValueError):RetainedGraphSONSerializer(one,maximum_frame_bytes=cap)

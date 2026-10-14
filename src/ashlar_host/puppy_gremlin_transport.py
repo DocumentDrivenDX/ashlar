@@ -121,14 +121,19 @@ class BoundedGremlinTransport(AbstractBaseTransport):
 
 class RetainedGraphSONSerializer(GraphSONSerializersV3d0):
     """Retain bounded exact incoming frames before SDK decoding, never requests."""
-    def __init__(self,directory):
+    def __init__(self,directory,*,maximum_frame_bytes=1048576,maximum_total_bytes=16777216):
+        if (type(maximum_frame_bytes)is not int or not 1<=maximum_frame_bytes<=1048576
+                or type(maximum_total_bytes)is not int or not 1<=maximum_total_bytes<=16777216):
+            raise ValueError('Explicit bounded GraphSON capture limits required')
+        self.maximum_frame_bytes=maximum_frame_bytes;self.maximum_total_bytes=maximum_total_bytes
         super().__init__();self.directory=Path(directory);self.lock=threading.Lock();self.count=0;self.total=0
     def deserialize_message(self,message):
         if type(message)is str:raw=message.encode('utf-8')
         elif type(message)is bytes:raw=message
         else:raise ValueError('Exact raw GraphSON bytes/text required')
-        if len(raw)>1048576:raise ValueError('Bounded raw GraphSON frame required')
+        if len(raw)>self.maximum_frame_bytes:raise ValueError('Bounded raw GraphSON frame required')
         with self.lock:
+            if self.total+len(raw)>self.maximum_total_bytes:raise ValueError('Selected GraphSON capture limit exceeded')
             files=list(self.directory.parent.glob('*/wire-*.json'))
             if len(files)>=128 or sum(path.stat().st_size for path in files)+len(raw)>16777216:raise ValueError('Bounded whole GraphSON capture required')
             self.count+=1
