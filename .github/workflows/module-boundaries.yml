@@ -126,6 +126,7 @@ jobs:
           python-version: '3.12'
       - run: python3 -m pip install '.[duckdb]'
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_duckdb_graph_export
+      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_pack_scenario_queries test_puppy_scenario_preparation
 
   puppy-exports:
     runs-on: ubuntu-latest
@@ -136,3 +137,4 @@ jobs:
           python-version: '3.12'
       - run: python3 -m pip install '.[puppy-gremlin]'
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_export_local test_puppy_readiness_driver test_puppy_gremlin_transport
+      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_pack_scenario_queries
