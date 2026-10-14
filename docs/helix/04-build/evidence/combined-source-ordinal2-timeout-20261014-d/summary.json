@@ -1,0 +1,81 @@
+{
+  "scope": "One human-authorized original combined-source continuation through ordinal2; incomplete attempt",
+  "source_commit": "70cd945aae3f3359ca0ec6b7b91a26b5991dbd93",
+  "outer_terminal": {
+    "exit_code": 1,
+    "elapsed_seconds": 185.39758075005375,
+    "reviewed_command_sha256": "fe7ec57071a598aead3af911af6f14db826b83d6db6f118754da99674d1184f6",
+    "human_authorized_scope": "Original combined-source continuation through ordinal2 including Delta publication and sourceA durable ACK"
+  },
+  "inner_terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "owned_session": {
+    "session_leader_pid": 48396
+  },
+  "stages": [
+    {
+      "stage": "provider-entered",
+      "sequence": 0,
+      "monotonic_ns": 882135453803333
+    },
+    {
+      "stage": "native-session-entered",
+      "sequence": 1,
+      "monotonic_ns": 882135487365041
+    },
+    {
+      "stage": "native-session-held",
+      "sequence": 2,
+      "monotonic_ns": 882138419522416
+    },
+    {
+      "stage": "provider-held",
+      "sequence": 3,
+      "monotonic_ns": 882159361805458
+    }
+  ],
+  "result_exists": false,
+  "captures": [
+    {
+      "name": "execution-terminal.json",
+      "private_path": "/private/tmp/ashlar-combined-ordinal2-d-20261014-wmao45o9/execution-terminal.json",
+      "bytes": 297,
+      "sha256": "1ef4157184069def8959b7ce0a5dbf6b8b1e4348bc764bb9b203684fb05b4a04"
+    },
+    {
+      "name": "resume-terminal.json",
+      "private_path": "/private/tmp/ashlar-combined-ordinal2-d-20261014-wmao45o9/resume-terminal.json",
+      "bytes": 119,
+      "sha256": "0cf2a94757e2f3d38bf22c3ca2a38b716bbec88a5dc29e1c49e4f50b2c6fd275"
+    },
+    {
+      "name": "owned-session.json",
+      "private_path": "/private/tmp/ashlar-combined-ordinal2-d-20261014-wmao45o9/owned-session.json",
+      "bytes": 30,
+      "sha256": "25497deb8a423033c97a206da37e9cfab2743482729edf42d354e3880dda0f30"
+    },
+    {
+      "name": "provider-stages.jsonl",
+      "private_path": "/private/tmp/ashlar-combined-ordinal2-d-20261014-wmao45o9/provider-stages.jsonl",
+      "bytes": 298,
+      "sha256": "ab3499262cc05833d8d6cf274d0f411c6423cbc74150152a7f640c6cea757c25"
+    },
+    {
+      "name": "command.json",
+      "private_path": "/private/tmp/ashlar-combined-ordinal2-d-20261014-wmao45o9/command.json",
+      "bytes": 7591,
+      "sha256": "fe7ec57071a598aead3af911af6f14db826b83d6db6f118754da99674d1184f6"
+    }
+  ],
+  "source_ack_outcome": "unknown; no current source/ACK or ledger observation performed",
+  "limitations": [
+    "Provider-held is not evidence of ledger, publication or ACK phase completion.",
+    "No timeout-cause identification or no-effects claim.",
+    "Cleanup confirmation reports owned tracked process-group absence, not native closing or source ACK settlement."
+  ]
+}
