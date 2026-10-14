@@ -1,0 +1,14 @@
+{
+  "outcome": "all-original-source-references-resolved",
+  "assertion_count": 213,
+  "accepted_report_sha256": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f",
+  "original_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "allocation_counts": {
+    "types": 10,
+    "properties": 34,
+    "relationships": 9
+  },
+  "source_format": "truss-catalog-source-reference/0.1",
+  "declared_umf": "0.8.0",
+  "authority_scope": "fresh local accepted catalog only; no feed, ACK, Delta or query qualification"
+}

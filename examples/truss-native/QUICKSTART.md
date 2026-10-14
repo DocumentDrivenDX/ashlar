@@ -3,13 +3,46 @@
 Ashlar accepts original UMF schemas through Truss, consumes committed source
 changes into Delta, and queries an explicitly selected publication. Use Python
 3.11 with the compatible Truss PostgreSQL runtime, Bun, JDK 21, Spark 4.0.1 and
-Delta 4.0.0. Typed numeric workflows require Truss's main-source numeric support
-after `v0.0.1`. Install Ashlar in that selected environment from the repository
+Delta 4.0.0. Select the exact released Truss/runtime tuple qualified by your
+workflow's evidence. Install Ashlar in that selected environment from the repository
 root with `python -m pip install .`.
 
 All paths below are absolute operator-selected paths. Replace the placeholders
 with existing executables and JARs. Example outputs must be fresh private
 locations; retain partial output if a command fails.
+
+## Accept the original commerce schema
+
+Truss 0.0.22 provides original UMF 0.8 catalog preparation and compact source
+references. Install its release-matching local dependencies (including
+`pgserver-pg18==18.6.1`, `psycopg[binary]==3.3.6` and Bun 1.4.2). Save an origin
+file containing a string-valued map, such as `{"operator":"local-commerce"}`,
+and select the unchanged checked-in commerce ontology:
+
+```json
+{
+  "data_directory": "/absolute/private/fresh-commerce-data",
+  "bun": "/absolute/path/to/bun",
+  "document_path": "/absolute/path/to/ashlar/examples/domain-packs/commerce/upstream/ontology.json",
+  "document_id": "urn:umf:domain:commerce",
+  "document_revision": "1",
+  "origin_path": "/absolute/private/commerce-origin.json",
+  "request_key": "commerce-schema-1"
+}
+```
+
+```sh
+ashlar setup-truss-local --configuration /absolute/private/commerce-setup.json \
+  --output /absolute/private/commerce-setup-result.json
+```
+
+Both the data directory and result must be fresh. Setup accepts the original
+document in a new local installation, commits the catalog and stops its owned
+server. The [released commerce catalog evidence](../../docs/helix/04-build/evidence/truss22-commerce-catalog-20261013)
+records all 213 source references resolving to exact original bytes. This step
+does not create commerce records or publish a graph; the commerce mutation,
+feed and query workflow requires its own qualification. The typed record example
+below is a separately authored model and does not substitute for that workflow.
 
 ## Start with one typed record
 

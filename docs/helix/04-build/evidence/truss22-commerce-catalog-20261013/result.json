@@ -1,0 +1,35 @@
+{
+  "outcome": "prepared",
+  "duration_seconds": 4.168917042086832,
+  "declared_umf": "0.8.0",
+  "model_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "views": {
+    "input_bytes": {
+      "bytes": 38115,
+      "sha256": "531fd46692c8435440dddefe88ca21571619d91234f34876532005bd7183e17b"
+    },
+    "declarations_bytes": {
+      "bytes": 22550,
+      "sha256": "7aaf235793a1fe414908f272d4e554f4a179ae2eec7b74e9928acc522c27e397"
+    },
+    "archive_documents_bytes": {
+      "bytes": 30993,
+      "sha256": "04341cbf20e4d7f92eb13cc1f2afd1b0da6adce5c74d7cd449cb9a7684cc4367"
+    },
+    "report_evidence_bytes": {
+      "bytes": 2463864,
+      "sha256": "f3e2c5c4dbd044e399822fa6637173075aa1ccd6af35276dc5985019dbe51066"
+    }
+  },
+  "provenance": {
+    "owner_revision": "7c0f0c98beee2cc1a5a407992b5c53cc2616da8e",
+    "owner_bundle_sha256": "88899e3c1221ca3998e80a878d37d5344d68062afa82eb15d6cffc49dd3752f3",
+    "acceptance_schema_sha256": "0278cbbbde843091c005b688fd9c081a2fdff843b9adda006ba80fb87828d7cd",
+    "release_manifest_sha256": "c83fba1ee18300455b58ed82a679eb41490b5f6ba9b794953dff0caa89cd4a74",
+    "runtime_version": "1.4.2",
+    "scope": "original_umf_preparation_only",
+    "installation_profiles_verified": false
+  },
+  "accepted": false,
+  "database_started": false
+}

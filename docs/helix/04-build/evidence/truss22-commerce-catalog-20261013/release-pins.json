@@ -1,0 +1,30 @@
+{
+  "tag": "v0.0.22",
+  "commit": "46a743c76fd8abe9cc7af9134decead564e681a4",
+  "distribution": "truss-toolkit",
+  "version": "0.0.22",
+  "runtime": "truss-catalog-runtime/0.58-candidate",
+  "runtimeManifestSha256": "5eaac785787830c02bfed3758360e148fce3434480fbfee01c9e66ca671808a3",
+  "layout": {
+    "identity": "truss-layout",
+    "version": "1.0",
+    "sha256": "cf417e0af5d37dd61fa5f39f818d2e7282a29e6c6c6ab7fc0b26dcdde99e7dec"
+  },
+  "weftRelease": "v0.4.23",
+  "weftBackend": "0.4.28",
+  "pgserver": "pgserver-pg18==18.6.1",
+  "pgserverRelease": "pg18.6-pgv0.8.6-r2",
+  "psycopg": "3.3.6",
+  "bun": "1.4.2",
+  "nativePlatforms": [
+    "linux-x86_64",
+    "macos-arm64"
+  ],
+  "umf08CatalogSupport": {
+    "identity": "truss-fresh-catalog-support",
+    "version": "0.14.0",
+    "sha256": "1d89c2cdaa468a0ca01f837624787ca678aa6b4dafed6417018e63c0ebcfca56"
+  },
+  "umf08CatalogReportInterface": "truss-catalog-registration-report/0.2",
+  "catalogSourceReferenceFormat": "truss-catalog-source-reference/0.1"
+}

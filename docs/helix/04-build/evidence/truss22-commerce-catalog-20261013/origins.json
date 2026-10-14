@@ -1,0 +1,12 @@
+{
+  "ashlar_source_revision": "7731ff68c23c1164fb1327fd359319db6b3147f3",
+  "ashlar_wheel_sha256": "85ac5ae98c98acf11a0986a69ebb97551b291fe2a04c025197712cdb84211814",
+  "truss_wheel_sha256": "1f74f5afd5b5948ac2606638ef534f01a77e6b008855dc05f97baee5873317d1",
+  "public_contract_sha256": "8212f171b0eef72ee5b0ed1e1e997611826e2f7566e8d4b3b9db7f0e3ae62f35",
+  "python": "3.11.17",
+  "pgserver-pg18": "18.6.1",
+  "psycopg": "3.3.6",
+  "bun": "1.4.2",
+  "installation_scope": "fresh disposable local source; existing retained sources untouched",
+  "wheel_installation": "fresh --no-deps target with explicitly selected existing compatible runtime dependencies"
+}
