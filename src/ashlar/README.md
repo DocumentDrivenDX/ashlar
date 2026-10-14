@@ -9,6 +9,17 @@ queries and graph export, or the [portable example](../../examples/end-to-end/RE
 for source inspection and native commands. The
 [immutable PuppyGraph workflow](../../examples/puppy-immutable-export/README.md)
 queries retained release/custody files through bounded local Cypher or Gremlin.
+For the complete original archaeology/ecology query gallery, use the
+[original 17 PuppyGraph workflow](../../examples/puppy-original-scenarios/README.md).
+With Python 3.11 or later and the documented SDK extra, select the pinned UMF
+source, original input files and independently selected release/custody pairs:
+
+```sh
+ashlar query-original-pack-puppygraph --configuration /absolute/private/scenarios.json
+```
+
+Choose Cypher or Gremlin explicitly in the configuration. The command runs all
+17 authored scenarios and exposes its report after source and runtime closing.
 For a small SQL-only local check, the
 [DuckDB export guide](../../examples/duckdb-immutable-export/README.md) covers
 directed paths and counts from the same immutable files without a running source.

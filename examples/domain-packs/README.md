@@ -166,6 +166,25 @@ checks. The report records the selection. Omitting `--case` runs the full author
 corpus, as before. Archaeology includes `missing-media`; ecology includes
 `network`. A selected result establishes only those cases.
 
+### Run the original gallery in PuppyGraph
+
+The [original 17 workflow](../puppy-original-scenarios/README.md) runs all eight
+archaeology and nine ecology authored scenarios through an explicitly selected
+Cypher or Gremlin protocol:
+
+```sh
+ashlar query-original-pack-puppygraph --configuration /absolute/private/scenarios.json
+```
+
+Use Python 3.11 or later with the documented SDK extra, the pinned UMF source
+and unchanged model/graph/pack files. Select each saved release and custody pair
+with independently retained SHA-256 values; no live Spark or Truss source is
+needed. The workflow checks complete opening/closing graph bags and retains
+original query and native result views. Finite native evidence covers all 17
+scenarios in [Cypher](../../docs/helix/04-build/evidence/original17-puppygraph-cypher-20261014-c/README.md)
+and [Gremlin](../../docs/helix/04-build/evidence/original17-puppygraph-gremlin-20261014-e/README.md).
+This does not establish Fabric or Unity Catalog execution.
+
 ### Export a published finite pack
 
 Use an existing archaeology or ecology native query configuration to export its
