@@ -1,0 +1,214 @@
+{
+  "source_commit": "042d3e31cd949ee802aa925abe825dcaff0f07ca",
+  "protocol": "Gremlin",
+  "command_elapsed_seconds": 158.7879674580181,
+  "outer_closing_completed": true,
+  "cases": [
+    {
+      "pack": "archaeology",
+      "case": "cycle",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "dating",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "media",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "missing-media",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "specialists",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "lineage",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "evidence-links",
+      "rows": 2,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "archaeology",
+      "case": "sample",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "effort-event",
+      "rows": 0,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "connected-measurements",
+      "rows": 2,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "censor",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "match",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "effort",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "zero",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "network",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "comparability",
+      "rows": 1,
+      "original_expected_matches": true
+    },
+    {
+      "pack": "ecology",
+      "case": "fishing",
+      "rows": 1,
+      "original_expected_matches": true
+    }
+  ],
+  "carrier_counts": {
+    "archaeology": {
+      "opening": {
+        "node": {
+          "rows_per_chunk": 39,
+          "chunks": 20
+        },
+        "edge": {
+          "rows_per_chunk": 46,
+          "chunks": 2
+        }
+      },
+      "closing": {
+        "node": {
+          "rows_per_chunk": 39,
+          "chunks": 20
+        },
+        "edge": {
+          "rows_per_chunk": 46,
+          "chunks": 2
+        }
+      }
+    },
+    "ecology": {
+      "opening": {
+        "node": {
+          "rows_per_chunk": 40,
+          "chunks": 16
+        },
+        "edge": {
+          "rows_per_chunk": 54,
+          "chunks": 2
+        }
+      },
+      "closing": {
+        "node": {
+          "rows_per_chunk": 40,
+          "chunks": 16
+        },
+        "edge": {
+          "rows_per_chunk": 54,
+          "chunks": 2
+        }
+      }
+    }
+  },
+  "exact_decoded_graphson_int64_tokens": [
+    "2",
+    "-800",
+    "-700",
+    "-750",
+    "-650",
+    "-800",
+    "-700",
+    "-750",
+    "-650",
+    "2",
+    "2",
+    "3",
+    "0",
+    "1",
+    "3",
+    "0",
+    "1"
+  ],
+  "original_requests": {
+    "total": 97,
+    "authored": 17,
+    "carrier": 80
+  },
+  "native_model_capture": {
+    "ordered_references": 277,
+    "unique_original_bodies": 6,
+    "all_refs_length_sha_verified": true
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-original17-gremlin-preparation-20261014-e/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1641264,
+    "sha256": "0e4f44a533d69e31830e6a5866b204d9c785701b712b22aaf51498dbb700879b"
+  },
+  "changed_installed_modules": {
+    "puppy_finite_local.py": {
+      "sha256": "c5dd2629e1abe5504a6d8b2a6e6d018fc5f44b948416d56245019364820fc32a",
+      "installed_path": "/private/tmp/ashlar-original17-gremlin-preparation-20261014-e/environment/lib/python3.12/site-packages/ashlar_host/puppy_finite_local.py"
+    },
+    "puppy_scenario_configuration.py": {
+      "sha256": "5d7694c77f63143559c2f24c305d5209f28741c84b45a7d0065faab351b228e3",
+      "installed_path": "/private/tmp/ashlar-original17-gremlin-preparation-20261014-e/environment/lib/python3.12/site-packages/ashlar_host/puppy_scenario_configuration.py"
+    }
+  },
+  "original_selection_reference": "../original17-puppygraph-cypher-20261014-c/summary.json",
+  "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "native_map_profile": "ashlar-puppygraph-1.13-flat-valuemap/0.1",
+  "original_result": {
+    "bytes": 5845720,
+    "sha256": "b37c0df050311b32a994778b302cff9c4d0aa0b0f4ea7792713a913f3b75e1a8",
+    "gzip_sha256": "06dea04f2b695619bb7ca5d1200da0777be79744829e77b859f9a2b0900ab0e5"
+  },
+  "original_graphson_wire": {
+    "files": 97,
+    "bytes": 3333451,
+    "archive_sha256": "ff308a41b245a408d6fea824139c9a34b0af29328990115ddd63cfb120402971"
+  },
+  "scope": "One finite original17 Gremlin invocation; no production/Unity Catalog/Fabric/ACK claim."
+}

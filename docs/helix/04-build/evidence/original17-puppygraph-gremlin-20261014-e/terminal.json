@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-original17-worker-supervision/0.1",
+  "worker_status": 0,
+  "native_seconds": 180,
+  "whole_seconds": 300,
+  "elapsed_seconds": "158.42156220797915",
+  "cleanup_error_types": [],
+  "container_cleanup": {
+    "absent": true,
+    "cleanup_complete": true
+  },
+  "process_cleanup": {
+    "groups_absent": true,
+    "session_leader_reaped": true
+  }
+}
