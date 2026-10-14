@@ -54,7 +54,7 @@ class PuppyFiniteLoopbackConfig:
         if type(self.docker)is not type(Path('/'))or not self.docker.is_absolute()or type(self.prepared)is not type(Path('/'))or self.prepared.resolve()!=self.prepared or not self.prepared.is_dir():raise ValueError('Explicit existing Docker and prepared paths required')
         if type(self.docker_host)is not str or not self.docker_host.startswith('unix://')or type(self.image)is not str or not re.fullmatch('sha256:[0-9a-f]{64}',self.image)or type(self.name)is not str or not re.fullmatch('ashlar-[a-z0-9-]{1,80}',self.name):raise ValueError('Explicit local Docker socket/cached image/owned name required')
         if any(type(v)is not str or not v or len(v)>256 or '\n'in v or '\r'in v for v in (self.username,self.password)):raise ValueError('Explicit local credentials required')
-        if any(type(p)is not int or not 1024<=p<=65535 for p in (self.http_port,self.bolt_port))or self.http_port==self.bolt_port or type(self.deadline_seconds)is not int or not 1<=self.deadline_seconds<=120:raise ValueError('Explicit finite distinct loopback ports required')
+        if any(type(p)is not int or not 1024<=p<=65535 for p in (self.http_port,self.bolt_port))or self.http_port==self.bolt_port or type(self.deadline_seconds)is not int or not 1<=self.deadline_seconds<=180:raise ValueError('Explicit finite distinct loopback ports required')
 
 @dataclass(frozen=True)
 class PuppyGremlinLoopbackConfig(PuppyFiniteLoopbackConfig):
@@ -228,7 +228,9 @@ def open_puppy_finite_local(config,case,*,source,export,failure_observer=None):
     """Create/start/stop only its returned container ID; cached image, no pull."""
     if type(config)is not PuppyFiniteLoopbackConfig or type(case)is not PuppyFinitePackConfiguration:raise ValueError('Exact local engine/case selections required')
     if failure_observer is not None and not callable(failure_observer):raise ValueError('Trusted private failure observer must be callable')
-    config.__post_init__();projection=project_finite_pack_strings(case)
+    config.__post_init__()
+    if config.deadline_seconds>120:raise ValueError('Finite STRING workflow deadline exceeds 120 seconds')
+    projection=project_finite_pack_strings(case)
     owner=object.__new__(OwnedPuppyFiniteLocal);FiniteExportPreparationPolicy.__init__(owner,source,export)
     if export.release.payload!=case.release or source.model!=case.model or source.graph!=case.graph:raise PermissionError('Original selected source/export bytes differ')
     owner._config=config;owner.docker_diagnostics=[];owner.deadline=time.monotonic()+config.deadline_seconds;owner.database=config.prepared/'carrier.duckdb'
@@ -375,6 +377,7 @@ def open_puppy_export_local(config,*,export,receipt,failure_observer=None):
     """One bounded cached-image runtime for an actual immutable release pair."""
     if type(config)not in (PuppyFiniteLoopbackConfig,PuppyGremlinLoopbackConfig)or type(receipt)is not dict:raise ValueError('Exact local runtime and preparation receipt required')
     config.__post_init__()
+    if config.deadline_seconds>120:raise ValueError('Immutable export workflow deadline exceeds 120 seconds')
     if failure_observer is not None and not callable(failure_observer):raise ValueError('Trusted failure observer required')
     owner=object.__new__(OwnedPuppyExportLocal);ImmutableExportPreparationPolicy.__init__(owner,export)
     if receipt.get('release_sha256')!=export.release.sha256 or receipt.get('profile')!='ashlar-puppy-release-carrier/0.1':raise ValueError('Original prepared release receipt required')

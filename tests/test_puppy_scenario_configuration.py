@@ -36,3 +36,9 @@ class Tests(unittest.TestCase):
   with self.assertRaises(ValueError):self.parse(v)
   raw=json.dumps(self.value()).replace('"native_seconds": 120','"native_seconds": 120,"native_seconds": 120').encode()
   with self.assertRaises(ValueError):parse_puppy_scenario_configuration(raw)
+ def test_complete_original_workflow_deadline_remains_bounded(self):
+  v=self.value();v['bounds']['native_seconds']=180
+  self.assertEqual(self.parse(v).bounds.native_seconds,180)
+  for native,whole in [(181,300),(180,179),(180,301)]:
+   v=self.value();v['bounds'].update(native_seconds=native,whole_seconds=whole)
+   with self.subTest(native=native,whole=whole),self.assertRaises(ValueError):self.parse(v)

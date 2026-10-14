@@ -1,0 +1,7 @@
+# Original 17 PuppyGraph Gremlin deadline observation
+
+The public command exited 2 after 132.526 seconds with the original 120-second native runtime budget and 300-second whole-command ceiling. Its owning runtime raised `TimeoutError` in `_docker` at the explicit elapsed-deadline check. The prior failure also records `TimeoutError`; cleanup reports no errors, the owned container is absent, and the worker process group is absent with its session leader reaped.
+
+The retained trace records 96 attempted requests: archaeology has 44 carrier and eight authored requests; ecology has 35 carrier and nine authored requests. Its last attempted request is the ecology edge carrier in closing. Requests are recorded before submission. These observations do not establish successful completion of all authored results or final closing bags. No completed report was produced, so this run does not qualify the original 17 Gremlin workflow.
+
+[The safe summary](summary.json) retains the original failure digest, source revision, exact stage counts and terminal cleanup facts. Original failure bytes remain private; no configuration, credentials, raw logs or large partial protocol archive is copied here. This observation supports reviewing a separately explicit native budget amendment while retaining the whole-command and stream limits; it does not establish a query or semantic defect, authorize a retry, or change any source, query or model.

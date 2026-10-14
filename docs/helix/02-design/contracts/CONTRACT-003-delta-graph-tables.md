@@ -1314,7 +1314,7 @@ inference is permitted. Original materialization and mapping receipts MUST bind
 all four tables, the exact database bytes, native model and readonly mount.
 
 The owner MUST use one local cached PuppyGraph runtime with at most 2 CPUs/3 GiB
-and a selected deadline no greater than 120 seconds. HTTP schema readiness MUST
+and a selected deadline no greater than 180 seconds. HTTP schema readiness MUST
 be followed by successful native Bolt `RETURN 1 AS ready` before exactly one
 model POST. Only readiness MAY retry within the same deadline; model submission
 and authored queries MUST NOT retry. A model POST timeout is an unknown

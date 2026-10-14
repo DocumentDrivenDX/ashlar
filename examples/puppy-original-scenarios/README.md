@@ -71,7 +71,7 @@ ports and a fresh output directory under an owned parent with mode `0700`.
   },
   "output": "/absolute/private/fresh-original-scenarios",
   "bounds": {
-    "native_seconds": 120,
+    "native_seconds": 180,
     "whole_seconds": 300,
     "stdout_bytes": 1048576,
     "stderr_bytes": 1048576,

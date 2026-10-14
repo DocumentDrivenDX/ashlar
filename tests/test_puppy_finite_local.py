@@ -3,6 +3,20 @@ import unittest
 from pathlib import Path
 from ashlar_host.puppy_finite_local import OwnedPuppyFiniteLocal,PuppyFiniteLoopbackConfig
 class Tests(unittest.TestCase):
+ def test_legacy_workflows_refuse_longer_deadline_before_effects(self):
+  import tempfile
+  from unittest.mock import patch
+  from ashlar_host.puppy_finite_local import open_puppy_finite_local,open_puppy_export_local
+  from ashlar_host.puppy_finite_pack import PuppyFinitePackConfiguration
+  with tempfile.TemporaryDirectory() as tmp:
+   config=PuppyFiniteLoopbackConfig(Path('/usr/bin/false'),'unix:///explicit',
+    'sha256:'+'a'*64,'ashlar-inert',Path(tmp).resolve(),'inert','inert',18081,17687,180)
+   case=object.__new__(PuppyFinitePackConfiguration)
+   with patch('ashlar_host.puppy_finite_local.capture',side_effect=AssertionError('No runtime effects')):
+    for interval in (open_puppy_finite_local(config,case,source=object(),export=object()),
+      open_puppy_export_local(config,export=object(),receipt={})):
+     with self.assertRaisesRegex(ValueError,'deadline exceeds 120 seconds'):
+      with interval:pass
  def owner(self):
   from types import SimpleNamespace
   owner=object.__new__(OwnedPuppyFiniteLocal);owner._container_id='a'*64;owner.database=Path('/private/tmp/carrier.duckdb')

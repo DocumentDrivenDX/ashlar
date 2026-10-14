@@ -1,0 +1,79 @@
+{
+  "source_commit": "d2486eea50e69ea60cd18e0f1080203ef6e766b9",
+  "command_exit_code": 2,
+  "command_elapsed_seconds": 132.52612150006462,
+  "failure_sha256": "2ffdf90b06d26edd4a0bcf8133677998d815bf506c83b1963681473ffcc359d3",
+  "failure_bytes": 13380589,
+  "error_type": "builtins.TimeoutError",
+  "error_origin": {
+    "function": "_docker",
+    "line": 83,
+    "module": "ashlar_host.puppy_finite_local"
+  },
+  "prior_error_types": [
+    "builtins.TimeoutError"
+  ],
+  "cleanup_error_types": [],
+  "stage": "caller",
+  "submission_outcome": "accepted",
+  "attempted_requests": 96,
+  "attempted_by_pack_and_stage": [
+    {
+      "pack": "archaeology",
+      "stage": "authored-case",
+      "count": 8
+    },
+    {
+      "pack": "archaeology",
+      "stage": "carrier",
+      "count": 44
+    },
+    {
+      "pack": "ecology",
+      "stage": "authored-case",
+      "count": 9
+    },
+    {
+      "pack": "ecology",
+      "stage": "carrier",
+      "count": 35
+    }
+  ],
+  "last_attempted_stage": {
+    "columns": [
+      "id",
+      "graph_id",
+      "original_key",
+      "original_type",
+      "src",
+      "dst",
+      "apply_batch_id",
+      "entity_version",
+      "lookup_hash",
+      "order_key",
+      "props_json",
+      "published_at",
+      "rel_type_id",
+      "retained_json",
+      "schema_revision",
+      "source_cursor_json",
+      "source_delivery_id",
+      "source_epoch"
+    ],
+    "kind": "edge",
+    "pack": "ecology",
+    "stage": "carrier"
+  },
+  "last_attempted_query_sha256": "fba86db47102385cd90c7e40c6313d28323f208da500178d5f99f1fa20e5f69b",
+  "completed_report_present": false,
+  "native_seconds": 120,
+  "whole_seconds": 300,
+  "container_cleanup": {
+    "absent": true,
+    "cleanup_complete": true
+  },
+  "process_cleanup": {
+    "groups_absent": true,
+    "session_leader_reaped": true
+  }
+}

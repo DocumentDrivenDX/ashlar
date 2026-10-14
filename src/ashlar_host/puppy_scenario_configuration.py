@@ -102,7 +102,7 @@ class PuppyScenarioInvocationBounds:
     maximum_rows:int
     maximum_bytes:int
     def __post_init__(self):
-        for value,maximum in ((self.native_seconds,120),(self.whole_seconds,300),(self.stdout_bytes,1048576),(self.stderr_bytes,1048576),(self.maximum_rows,1000),(self.maximum_bytes,1048576)):_bound(value,maximum)
+        for value,maximum in ((self.native_seconds,180),(self.whole_seconds,300),(self.stdout_bytes,1048576),(self.stderr_bytes,1048576),(self.maximum_rows,1000),(self.maximum_bytes,1048576)):_bound(value,maximum)
         if self.whole_seconds<self.native_seconds:raise ValueError('Whole invocation must include native interval')
 
 @dataclass(frozen=True)
