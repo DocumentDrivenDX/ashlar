@@ -625,9 +625,9 @@ def admit_truss_grouped_count(admission,artifact,binding,expected,*,revision,doc
     return [{**{name:values[fields.index(field)]for field,name in projected},count_name:count}for values,count in bag.items()]
 
 
-def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000,two_hop_count=False,distinct_targets=False):
+def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000,two_hop_count=False,distinct_targets=False,root_projection=False):
     """Execute original indexed arithmetic SQL within the genuine Truss hold."""
-    if type(two_hop_count)is not bool or type(distinct_targets)is not bool or distinct_targets and not two_hop_count:raise ValueError('Explicit indexed query mode required')
+    if type(two_hop_count)is not bool or type(distinct_targets)is not bool or type(root_projection)is not bool or distinct_targets and not two_hop_count or root_projection and two_hop_count:raise ValueError('Explicit indexed query mode required')
     from ashlar.weft_implicit_arithmetic_distribution import (ImplicitArithmeticDistributionPaths,
         compile_implicit_arithmetic_distribution,installed_implicit_arithmetic_schema_bundle)
     from .truss_implicit_arithmetic_request import truss_implicit_arithmetic_request
@@ -658,9 +658,11 @@ def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum
                 recompiled=compile_implicit_arithmetic_distribution(paths,request_bytes)
                 artifact=decode_compile_artifact(response)
                 admitted=admit_implicit_arithmetic_artifact(request,artifact,decode_compile_artifact(recompiled),config=config)
-                if two_hop_count:
-                    from .truss_two_hop_count import admit_truss_two_hop_count,admit_truss_two_hop_target_count
-                    projection=(admit_truss_two_hop_target_count if distinct_targets else admit_truss_two_hop_count)(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id)
+                if two_hop_count or root_projection:
+                    from .truss_two_hop_count import admit_truss_two_hop_count,admit_truss_two_hop_target_count,admit_truss_two_hop_projection
+                    port=admit_truss_two_hop_projection if root_projection else admit_truss_two_hop_target_count if distinct_targets else admit_truss_two_hop_count
+                    extra={'maximum_rows':maximum_rows}if root_projection else{}
+                    projection=port(driver.source_admission,artifact,request,manifest,driver.policy.active['expected'],revision=revision,document_id=document_id,**extra)
                     for declaration in admitted.edge_schemas:
                         table=dict(declaration['table']);name='`'+'`.`'.join(table['name'])+'`'
                         schema=driver.transport.spark.sql('SELECT `id` FROM '+name+' VERSION AS OF '+str(table['version'])).schema
@@ -669,13 +671,14 @@ def _execute_truss_indexed_query(driver,paths,sql,*,revision,document_id,maximum
                     projection=admit_truss_arithmetic_projection(driver.source_admission,artifact,request,manifest,
                         driver.policy.active['expected'],revision=revision,document_id=document_id)
                 driver.validate_manifest(manifest,driver.context)
-                rows,checks=(_execute_truss_two_hop_count_artifact if two_hop_count else _execute_truss_arithmetic_artifact)(driver.transport.spark,artifact,projection,maximum_rows)
+                executor=_execute_truss_two_hop_projection_artifact if root_projection else _execute_truss_two_hop_count_artifact if two_hop_count else _execute_truss_arithmetic_artifact
+                rows,checks=executor(driver.transport.spark,artifact,projection,maximum_rows)
                 projection.require_complete_bag(rows)
                 driver.validate_manifest(manifest,driver.context)
     return {'request_bytes':request_bytes,'response_bytes':response,'recompiled_bytes':recompiled,
         'request_sha256':hashlib.sha256(request_bytes).hexdigest(),'response_sha256':hashlib.sha256(response).hexdigest(),
         'recompiled_sha256':hashlib.sha256(recompiled).hexdigest(),'publication_id':manifest['publication_id'],
-        'rows':rows,'integrity':checks,'qualification':('Indexed 0.4.2 candidate authored two-hop distinct terminal-key count under original five obligations, complete native pins and independent exact key tuple set. No production qualification.'if distinct_targets else'Indexed 0.4.2 candidate authored two-hop expansion COUNT on one admitted physical revision; original SQL and all five obligations, complete native pins and exact independent edge-pair count. No production qualification.'if two_hop_count else'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.')}
+        'rows':rows,'integrity':checks,'qualification':('Indexed 0.4.2 candidate authored two-hop required STRING root-key projection on one admitted physical revision, four original obligations and full independent edge-pair row bag. No production qualification.'if root_projection else'Indexed 0.4.2 candidate authored two-hop distinct terminal-key count under original five obligations, complete native pins and independent exact key tuple set. No production qualification.'if distinct_targets else'Indexed 0.4.2 candidate authored two-hop expansion COUNT on one admitted physical revision; original SQL and all five obligations, complete native pins and exact independent edge-pair count. No production qualification.'if two_hop_count else'Indexed 0.4.2 candidate direct required scalar arithmetic on one admitted physical revision; original SQL, complete native publication pins, all source/arithmetic guards and exact independent source bag. No production qualification.')}
 
 
 def execute_truss_arithmetic_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
@@ -693,10 +696,19 @@ def execute_truss_two_hop_target_count_query(driver,paths,sql,*,revision,documen
         maximum_rows=maximum_rows,two_hop_count=True,distinct_targets=True)
 
 
-def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows):
+def execute_truss_two_hop_projection_query(driver,paths,sql,*,revision,document_id,maximum_rows=1000):
+    return _execute_truss_indexed_query(driver,paths,sql,revision=revision,document_id=document_id,maximum_rows=maximum_rows,root_projection=True)
+
+
+def _execute_truss_two_hop_projection_artifact(spark,artifact,projection,maximum_rows):
+    return _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows,root_projection=True)
+
+
+def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows,*,root_projection=False):
     from .truss_two_hop_count import TrussTwoHopCount
+    from .truss_two_hop_projection import TrussTwoHopProjection
     from .path_capture import PathCaptureConfig,capture_string_frame
-    if type(projection)is not TrussTwoHopCount or encoded(artifact['columns'])!=projection.columns_json:raise ValueError('Original nominal two-hop count admission required')
+    if type(projection)is not (TrussTwoHopProjection if root_projection else TrussTwoHopCount) or encoded(artifact['columns'])!=projection.columns_json:raise ValueError('Original nominal two-hop admission required')
     slots=artifact['parameters'];params={}
     if type(slots)is not list or len(slots)>256:raise ValueError('Bounded original path count parameter inventory required')
     for position,slot in enumerate(slots,1):
@@ -706,9 +718,10 @@ def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows
         if type(sql)is not str or not sql or len(sql.encode())>1048576 or sql.lstrip().split(None,1)[0].upper()not in ('SELECT','WITH'):raise ValueError('Original bounded path count SELECT/WITH required')
         return capture_string_frame(spark.sql(sql,args=params),config=PathCaptureConfig(budget,65536,1048576))
     obligations={o['id']:o for o in artifact['obligations']};checks=[]
-    required={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity','ashlar.path.occurrenceIntegrity','ashlar.path.countCapacity'}
-    if set(obligations)!=required or len(artifact['obligations'])!=5:raise ValueError('Exact original five path count obligations required')
-    for name in ('ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity','ashlar.path.occurrenceIntegrity','ashlar.path.countCapacity'):
+    families=('ashlar.candidate.scalarIntegrity','ashlar.candidate.relationshipIntegrity','ashlar.path.occurrenceIntegrity')+(()if root_projection else('ashlar.path.countCapacity',))
+    required={'ashlar.candidate.publication',*families}
+    if set(obligations)!=required or len(artifact['obligations'])!=len(required):raise ValueError('Exact original path obligations required')
+    for name in families:
         original=obligations[name]['parameters']['checks']
         if type(original)is not list or not original or len(original)>128:raise ValueError('Bounded complete original path guard inventory required')
         for check in original:
@@ -717,8 +730,8 @@ def _execute_truss_two_hop_count_artifact(spark,artifact,projection,maximum_rows
             if len(observed['schema'])!=1 or observed['rows']!=[['0']]:raise ValueError('Original path count integrity guard refused')
             checks.append({'obligation':name,'check':check,'rows':observed['rows']})
     observed=capture(artifact['sql'],maximum_rows);column=artifact['columns'][0];name=column['outputName']
-    if observed['schema']!=[[name,'STRING']]or len(observed['rows'])!=1:raise ValueError('One original complete path count STRING row required')
-    return [{name:projection.decode(column,observed['rows'][0][0])}],checks
+    if observed['schema']!=[[name,'STRING']]or not root_projection and len(observed['rows'])!=1:raise ValueError('Original complete path STRING rows required')
+    return [{name:projection.decode(column,row[0])}for row in observed['rows']],checks
 
 
 def _execute_truss_arithmetic_artifact(spark,artifact,projection,maximum_rows):

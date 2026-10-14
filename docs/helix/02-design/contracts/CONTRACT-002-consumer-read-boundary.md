@@ -438,6 +438,19 @@ root does not represent an emitted zero count. This case MUST NOT qualify
 one-hop degree counts, isolate coverage or the complete two-hop collection.
 Existing default query selections MUST remain unchanged.
 
+### Authored two-hop root rows
+
+An explicitly selected authored two-hop root projection MUST execute the public
+indexed compiler's original `CROSS JOIN EXPAND_PATHS` artifact. The initial
+profile admits one required facetless STRING root-key field, without filters,
+ordering, limits or aggregation, on one admitted physical revision. Each original
+ordered edge-occurrence pair emits one root row; parallel edges and reuse of a
+self-loop in both positions retain multiplicity, and isolates emit no row.
+Complete independent source/key/home correspondence, original scalar,
+relationship and occurrence guards, recompilation and full publication closing
+MUST precede release of the exact result bag. This profile does not qualify
+destination fields, general joins or aggregate/count artifacts.
+
 ### One-publication query batches
 
 A bounded query batch MUST select one to eight uniquely named original query

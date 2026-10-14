@@ -15,9 +15,11 @@ class Tests(unittest.TestCase):
             queries.append(q)
         return {'profile':'ashlar-truss-typed-query-batch/0.1','compilers':{'compatible':{'executable':str(executable)},'indexed':{'index':str(index),'installation':str(installation)}},'queries':queries}
     def test_one_owner_original_protocol_and_no_partial_report(self):
-        for outcome in ('success','manifest-drift','closing-failure'):
+        for outcome in ('success','projection-success','manifest-drift','closing-failure'):
             with self.subTest(outcome=outcome),tempfile.TemporaryDirectory()as directory:
-                root=Path(directory).resolve();value=self.fixture(root);batch=root/'batch.json';batch.write_text(json.dumps(value));output=root/'output.json'
+                root=Path(directory).resolve();value=self.fixture(root)
+                if outcome=='projection-success':value['queries'][2]['family']='two-hop-projection'
+                batch=root/'batch.json';batch.write_text(json.dumps(value));output=root/'output.json'
                 driver=SimpleNamespace(context=object(),source_sessions=SimpleNamespace(batch=lambda:SimpleNamespace(feed='feed')),policy=SimpleNamespace(active={'manifest':{'publication_id':'pub5','vector':[1,2,3,4]}}))
                 @contextmanager
                 def writer(*args):yield
@@ -31,14 +33,15 @@ class Tests(unittest.TestCase):
                     result=operation(driver,{'request_digest':'digest'});self.assertFalse(output.exists())
                     if outcome=='closing-failure':raise RuntimeError('source close failed')
                     return report_writer(result,destination)
-                with patch.object(command,'run_selected_truss_command',side_effect=owner)as selected,patch.object(command,'restore_applied_truss_publication')as restore,patch.object(command,'execute_truss_scalar_query',side_effect=executor),patch.object(command,'execute_truss_numeric_grouped_count_query',side_effect=executor),patch.object(command,'execute_truss_two_hop_count_query',side_effect=executor),patch.object(command,'execute_truss_scalar_join_query',side_effect=executor)as join:
-                    if outcome=='success':
+                with patch.object(command,'run_selected_truss_command',side_effect=owner)as selected,patch.object(command,'restore_applied_truss_publication')as restore,patch.object(command,'execute_truss_scalar_query',side_effect=executor),patch.object(command,'execute_truss_numeric_grouped_count_query',side_effect=executor),patch.object(command,'execute_truss_two_hop_count_query',side_effect=executor),patch.object(command,'execute_truss_scalar_join_query',side_effect=executor)as join,patch.object(command,'execute_truss_two_hop_projection_query',side_effect=executor)as projection:
+                    if outcome in ('success','projection-success'):
                         result=command.run_query_truss_typed_batch_command('/original',output,batch=batch)
                         self.assertEqual(len(seen),4);self.assertIsInstance(seen[0][0],command.CompatibleCompiler);self.assertIsInstance(seen[2][0],command.ImplicitArithmeticDistributionPaths)
                         join.assert_called_once();self.assertIs(seen[3][0],seen[0][0]);self.assertEqual(seen[3][2]['physical_revisions'],('1',))
                         self.assertEqual(result['queries'][3]['family'],'scalar-join');self.assertEqual(result['queries'][3]['request_original_json'],'{"request":"original"}\n')
                         self.assertEqual(seen[0][2]['physical_revisions'],('1',));self.assertNotIn('physical_revisions',seen[2][2])
                         self.assertEqual(result['queries'][2]['recompiled_original_json'],'{"response":"original"}\n');self.assertNotIn('recompiled_original_json',result['queries'][0])
+                        if outcome=='projection-success':projection.assert_called_once();self.assertEqual(result['queries'][2]['family'],'two-hop-projection')
                         self.assertEqual(result['protocol_bytes'],sum(len(b'{"request":"original"}\n')+len(b'{"response":"original"}\n')for _ in range(4))+len(b'{"response":"original"}\n'))
                         self.assertEqual(output.stat().st_mode&0o777,0o600)
                     else:

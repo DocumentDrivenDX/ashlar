@@ -65,7 +65,7 @@ ashlar query-truss-typed-batch \
 
 Include exactly the compiler entries required by the selected families. Scalar
 projections, scalar equality joins and numeric grouped counts use `compatible` and require `physical_revisions`;
-two-hop counts use `indexed` and reject that member. A compatible-only batch
+two-hop counts and root projections use `indexed` and reject that member. A compatible-only batch
 does not need an indexed installation. Unknown families refuse rather than
 falling back to another compiler or changing SQL.
 
@@ -74,6 +74,14 @@ query with the same revision selections and its own row bound. For the bundled
 model, use `SELECT a."record-id" AS left_id,b."record-id" AS right_id FROM TypedRecord a JOIN TypedRecord b ON a.quantity=b.quantity`.
 This reuses the standalone join route's exact consumed-field admission and
 complete pair multiplicity; it does not add relationship traversal or arithmetic.
+
+For one row per authored two-hop occurrence, select `two-hop-projection` with
+`SELECT r."record-id" AS root FROM TypedRecord r CROSS JOIN EXPAND_PATHS(r.related,related) AS p`
+and a row bound large enough for the complete bag. Use the same `indexed`
+selection, revision and document ID as the count case, without
+`physical_revisions`. The initial profile projects one required STRING root-key
+field, unordered and unfiltered. Two parallel root self-loops emit four root
+rows; an isolate emits none. Output is neither deduplicated nor truncated.
 
 Each executor retains its source/model admission, integrity obligations, native
 pins and closing checks. Every query must match the original complete manifest

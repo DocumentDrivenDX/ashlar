@@ -13,10 +13,11 @@ from .truss_recovery import restore_applied_truss_publication
 from .truss_resume_cli import run_selected_truss_command
 from .truss_weft_query import (execute_truss_scalar_query,
     execute_truss_numeric_grouped_count_query,execute_truss_two_hop_count_query,
-    execute_truss_scalar_join_query)
+    execute_truss_scalar_join_query,execute_truss_two_hop_projection_query)
 
 MAXIMUM_REPORT_BYTES=64*1048576
-FAMILIES={'scalar','scalar-join','numeric-grouped-count','two-hop-count'}
+FAMILIES={'scalar','scalar-join','numeric-grouped-count','two-hop-count','two-hop-projection'}
+INDEXED_FAMILIES={'two-hop-count','two-hop-projection'}
 
 
 @dataclass(frozen=True)
@@ -59,7 +60,7 @@ def parse_truss_typed_query_batch(raw):
             or type(value['compilers'])is not dict
             or type(value['queries'])is not list or not 1<=len(value['queries'])<=8):
         raise ValueError('Closed typed query batch required')
-    required={'indexed'if type(q)is dict and q.get('family')=='two-hop-count'else'compatible'for q in value['queries']}
+    required={'indexed'if type(q)is dict and q.get('family')in INDEXED_FAMILIES else'compatible'for q in value['queries']}
     if set(value['compilers'])!=required:raise ValueError('Exactly selected compiler transports required')
     for family in required:
         keys={'executable'}if family=='compatible'else{'index','installation'}
@@ -71,7 +72,7 @@ def parse_truss_typed_query_batch(raw):
     for query in value['queries']:
         if type(query)is not dict or query.get('family')not in FAMILIES:raise ValueError('Admitted typed batch family required')
         expected={'name','family','sql','revision','document_id','maximum_rows'}
-        if query['family']!='two-hop-count':expected.add('physical_revisions')
+        if query['family']not in INDEXED_FAMILIES:expected.add('physical_revisions')
         if set(query)!=expected:raise ValueError('Exact family query selections required')
         for key,limit in (('name',128),('sql',65536),('revision',4096),('document_id',4096)):
             text=query[key]
@@ -115,16 +116,18 @@ def run_query_truss_typed_batch_command(configuration,output,*,batch):
             if encoded(driver.policy.active['manifest'])!=manifest:raise ValueError('Original batch manifest changed')
             kwargs={key:getattr(query,key)for key in ('revision','document_id','maximum_rows')}
             family=query.family
-            if family=='two-hop-count':answer=execute_truss_two_hop_count_query(driver,indexed,query.sql,**kwargs)
+            if family in INDEXED_FAMILIES:
+                port=execute_truss_two_hop_projection_query if family=='two-hop-projection'else execute_truss_two_hop_count_query
+                answer=port(driver,indexed,query.sql,**kwargs)
             else:
                 kwargs['physical_revisions']=tuple(query.physical_revisions)
                 port={'scalar':execute_truss_scalar_query,'scalar-join':execute_truss_scalar_join_query,
                       'numeric-grouped-count':execute_truss_numeric_grouped_count_query}[family]
                 answer=port(driver,compatible,query.sql,**kwargs)
             if answer['publication_id']!=publication or encoded(driver.policy.active['manifest'])!=manifest:raise ValueError('Mixed full publication manifests refused')
-            fields=('request_bytes','response_bytes','recompiled_bytes')if family=='two-hop-count'else('request_bytes','response_bytes')
+            fields=('request_bytes','response_bytes','recompiled_bytes')if family in INDEXED_FAMILIES else('request_bytes','response_bytes')
             if any(type(answer.get(key))is not bytes for key in fields)or type(answer.get('rows'))is not list or len(answer['rows'])>query.maximum_rows:raise ValueError('Complete bounded original protocol and rows required')
-            if family!='two-hop-count'and 'recompiled_bytes'in answer:raise ValueError('Unexpected compatible recompile claim')
+            if family not in INDEXED_FAMILIES and 'recompiled_bytes'in answer:raise ValueError('Unexpected compatible recompile claim')
             protocol_bytes+=sum(len(answer[key])for key in fields);rows+=len(answer['rows'])
             if protocol_bytes>MAXIMUM_REPORT_BYTES or rows>10000:raise ValueError('Complete typed batch exceeds aggregate bounds')
             report={key:value for key,value in answer.items()if key not in fields}
