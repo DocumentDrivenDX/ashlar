@@ -1,0 +1,54 @@
+{
+  "members": [
+    {
+      "path": "run.py",
+      "bytes": 3892,
+      "sha256": "56073a5de306bbc7f4ba71195c2b775e531e84e93f4be21a35741061da46a4c7"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 628,
+      "sha256": "05c58564d4870b1a11bab65afe453785a4fe4b13e42f0935bffa3fec8441c131"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1368,
+      "sha256": "851ce7688be72987ca1ded90dd876dce40395f3e8aecdda8249fadea312f695c"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 87,
+      "sha256": "1a72f9c409ee9402019356a8f53de6e0b2aaae93d3c6d79a8203caa8eaf46665"
+    },
+    {
+      "path": "query.json",
+      "bytes": 95408,
+      "sha256": "206b1b7978c55ee20a4255b4a58fb355efac6c3569d6ec18e41665d3f4709db4"
+    },
+    {
+      "path": "result.json",
+      "bytes": 648,
+      "sha256": "19f58f094c5b053bc620d8af3c66c50e64f2b314f91cc1d9c6a2ef3427a7b9ec"
+    },
+    {
+      "path": "checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "66e0dbde9448e3a6b3bba3c8a767c4b3a3c9a4d7194a241f7d23788566127618"
+    },
+    {
+      "path": "checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "66e0dbde9448e3a6b3bba3c8a767c4b3a3c9a4d7194a241f7d23788566127618"
+    },
+    {
+      "path": "reader.json",
+      "bytes": 737,
+      "sha256": "4da59551289a5265c2d4a3c02fe43935660888d68d9f51458c9584175b558fb1"
+    },
+    {
+      "path": "publisher-selection.json",
+      "bytes": 674,
+      "sha256": "54b45c475032350a4c9bb511c38a46d19c496d11ea2a2b3bced8aadaaba72242"
+    }
+  ]
+}

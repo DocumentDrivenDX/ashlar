@@ -1,0 +1,12 @@
+{
+  "ashlar_source": "0cf547ff22d83915254a4c6a46927de7447da644",
+  "ashlar_wheel_sha256": "1e8da038e559f3cfc41968d8060f0766e5866ff9583a2ef2dcfeec803c32bd6c",
+  "fresh_wheel_installation": true,
+  "dependencies_reused": true,
+  "compiler_source_owner_reported": "cc17246e8b7e05ff61262baa95d373ea0ca640a1",
+  "compiler_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "truss_version": "0.0.22",
+  "original_commerce_model_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "publication_id": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+  "runtime": "Spark local[1]/512 MiB, Delta4.0.0; existing canonical SDK roots in archived harness"
+}

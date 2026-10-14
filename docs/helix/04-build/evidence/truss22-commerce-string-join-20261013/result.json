@@ -1,0 +1,14 @@
+{
+  "outcome": "passed",
+  "query_seconds": 14.163675166084431,
+  "rows": [
+    {
+      "product_sku": "SKU1",
+      "supplier_name": "Synthetic supply"
+    }
+  ],
+  "publication_id": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+  "source_checkpoint_unchanged": true,
+  "scope": "One exact original-commerce required STRING foreign-key equality INNER JOIN through installed compatible scalar-join adapter on lifecycle final publication, full original source-derived pair oracle. No authored-edge join, mathematical integer, aggregate, optional or cloud support claim.",
+  "duration_seconds": 14.759097874979489
+}

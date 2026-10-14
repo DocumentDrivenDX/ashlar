@@ -1,0 +1,264 @@
+{
+  "source_commit": "a2b76712f74cbd67804e214623191ac6e4531f95",
+  "installed_wheel_sha256": "3bab4a929c723756bf8c372a06c570b1e919d572826ea15488f05365fcf499bf",
+  "original_umf": "0.8.0",
+  "string_and_related_keys": {
+    "outcome": "passed",
+    "phases": {
+      "line_string_query": 13.39559154107701,
+      "supplier_related_query": 7.800034791929647
+    },
+    "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+    "line_rows": [
+      {
+        "line_id": "[42,0,\"L1\"]"
+      }
+    ],
+    "related_rows": [
+      {
+        "product_sku": "SKU1",
+        "suppliers": {
+          "items": [
+            [
+              "[42,0,\"S1\"]"
+            ]
+          ],
+          "truncated": false
+        }
+      }
+    ],
+    "source_checkpoint_unchanged": true,
+    "scope": "Original commerce STRING projection and one-hop authored relationship query with original compiler/source oracle on existing full Truss-fed publication. No mathematical integer or join/lifecycle qualification.",
+    "duration_seconds": 21.569763083010912
+  },
+  "source_mutations": {
+    "outcome": "passed",
+    "phases": {
+      "update-truss-record:price-update-result.json": 0.6922962919343263,
+      "mutate-truss-record-group:edge-replacement-result.json": 0.5436345000052825,
+      "mutate-truss-record-group:fulfillment-delete-result.json": 0.45874300005380064
+    },
+    "duration_seconds": 1.9776537920115516,
+    "replacement_edge_id": "22",
+    "price": "13.75",
+    "source_checkpoint_unchanged": true,
+    "scope": "Actual public Truss22 original-commerce price update, required-edge replacement, and incident-edge/object deletion with exact committed readback/replay. No publication/ACK/Delta/query qualification."
+  },
+  "continuation": {
+    "outer_exit_code": 1,
+    "outer_duration_seconds": 79.28928329201881,
+    "outer_failure": "AttributeError: FeedPage has no changes attribute in post-publication summary loop",
+    "completed_publications": [
+      {
+        "publication_id": "truss-graph-20f4dbb42f7565e50dd3f37fef047a6c057a5cb75fa2b7fefd342a8c907946b8",
+        "request_digest": "20f4dbb42f7565e50dd3f37fef047a6c057a5cb75fa2b7fefd342a8c907946b8",
+        "source_plan_sha256": "0386704d32b3b44a7db54fbea89f8b834ee1984c6c37e2afb81e9edba26d05c0",
+        "complete": true,
+        "effect_parity": {
+          "edge_current": "47e9e8327bb233e309b9ee8b73651460d4ed732aaee55a971d9bb71d08d010cf",
+          "object_current": "bdc32aaf6e96ca81cb601a6dee5bf68e7576796d73a788f63723f8aab4336ecf",
+          "tombstone": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "whole_source_history": "4fe5c01e7251f96175b87c868f4051d68d95090a32411500b8860ffd9adbfbf8"
+        },
+        "generated_steps": 3,
+        "selected_steps": 3,
+        "zero_match_elisions": 0,
+        "table_versions": {
+          "local.trussgraph.edge_current": 2,
+          "local.trussgraph.object_current": 4,
+          "local.trussgraph.tombstone": 1,
+          "local.trussgraph.whole_source_history": 3
+        }
+      },
+      {
+        "publication_id": "truss-graph-3e7b4d31f2258b210c678cce27911d1b5eaee892bf24180368ddaeda21871d97",
+        "request_digest": "3e7b4d31f2258b210c678cce27911d1b5eaee892bf24180368ddaeda21871d97",
+        "source_plan_sha256": "42250bbbb9d84502dc9ac38e72cc9c31ed208e09c9eeca2ac1e44e6fa707f079",
+        "complete": true,
+        "effect_parity": {
+          "edge_current": "f81de1fa08355c149dc853b1e6cd5b2f89d113a805ae31176736973164e4a7c4",
+          "object_current": "bdc32aaf6e96ca81cb601a6dee5bf68e7576796d73a788f63723f8aab4336ecf",
+          "tombstone": "33756274b3748dac21cf93fd002be054b741b54743c3e27955ca0519f6d8f3e1",
+          "whole_source_history": "595f4319fc1b7a79012b4481bc4c912e97752e16fe188d7c541cc3acdeed2ac3"
+        },
+        "generated_steps": 4,
+        "selected_steps": 4,
+        "zero_match_elisions": 0,
+        "table_versions": {
+          "local.trussgraph.edge_current": 4,
+          "local.trussgraph.object_current": 4,
+          "local.trussgraph.tombstone": 2,
+          "local.trussgraph.whole_source_history": 4
+        }
+      },
+      {
+        "publication_id": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+        "request_digest": "ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+        "source_plan_sha256": "4361359508461932723f7687a58cd4db70b494e1c84aa57c5b975303e28ed0d6",
+        "complete": true,
+        "effect_parity": {
+          "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+          "object_current": "cc8236d6894cc9447e3df8aa72d1f25bf2376029b4d380a730caa067c30c4663",
+          "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+          "whole_source_history": "276c2ea14d83359eb71a8326c2473d1214a49561e55597cdb1cd1418c051edb7"
+        },
+        "generated_steps": 4,
+        "selected_steps": 4,
+        "zero_match_elisions": 0,
+        "table_versions": {
+          "local.trussgraph.edge_current": 5,
+          "local.trussgraph.object_current": 5,
+          "local.trussgraph.tombstone": 3,
+          "local.trussgraph.whole_source_history": 5
+        }
+      }
+    ],
+    "scope": "Three completed continuation reports with complete four-table native effect parity; failed outer wrapper retained. Separate successful postverification retained below; original outer failure preserved."
+  },
+  "postverification": {
+    "outcome": "passed",
+    "predecessor": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+    "publications": [
+      {
+        "publication_id": "truss-graph-20f4dbb42f7565e50dd3f37fef047a6c057a5cb75fa2b7fefd342a8c907946b8",
+        "source_page_sha256": "80f0fea2eb8e8ae13f8d5ce8b516a0ab3922ad9038733fa84fde774fecbebfea",
+        "changes": 2,
+        "validation": {
+          "complete": true,
+          "effect_parity": {
+            "edge_current": "47e9e8327bb233e309b9ee8b73651460d4ed732aaee55a971d9bb71d08d010cf",
+            "object_current": "bdc32aaf6e96ca81cb601a6dee5bf68e7576796d73a788f63723f8aab4336ecf",
+            "tombstone": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "whole_source_history": "4fe5c01e7251f96175b87c868f4051d68d95090a32411500b8860ffd9adbfbf8"
+          },
+          "original_source_plan_sha256": "0386704d32b3b44a7db54fbea89f8b834ee1984c6c37e2afb81e9edba26d05c0",
+          "predecessor": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+          "request_digest": "20f4dbb42f7565e50dd3f37fef047a6c057a5cb75fa2b7fefd342a8c907946b8",
+          "scope": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+          "source_admission": {
+            "accepted_reports": {
+              "1": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f"
+            },
+            "catalog_views": {
+              "1": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be"
+            },
+            "declared_umf": {
+              "1": {
+                "urn:umf:domain:commerce": "0.8.0"
+              }
+            },
+            "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+            "feed": "commerce22-full",
+            "profile": "ashlar-truss-typed-graph-semantic-admission/0.1",
+            "qualification": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+            "source_profile": "truss-native-feed/0.1",
+            "source_transaction_sha256": "0e577a7f3cac5668001bb864cc670ff4a01bf6ead2574bfd8080d55656a2b5f0"
+          },
+          "source_oracle_sha256": "878a7ac3382c0e5dd363a86c03becb897e0232441f6867d15dd91e65738e4bc9",
+          "zero_match_elisions": []
+        }
+      },
+      {
+        "publication_id": "truss-graph-3e7b4d31f2258b210c678cce27911d1b5eaee892bf24180368ddaeda21871d97",
+        "source_page_sha256": "065858c2f267cac723f352f7817ecacf7224b8deefc5fc603bf24baad9d39ee6",
+        "changes": 2,
+        "validation": {
+          "complete": true,
+          "effect_parity": {
+            "edge_current": "f81de1fa08355c149dc853b1e6cd5b2f89d113a805ae31176736973164e4a7c4",
+            "object_current": "bdc32aaf6e96ca81cb601a6dee5bf68e7576796d73a788f63723f8aab4336ecf",
+            "tombstone": "33756274b3748dac21cf93fd002be054b741b54743c3e27955ca0519f6d8f3e1",
+            "whole_source_history": "595f4319fc1b7a79012b4481bc4c912e97752e16fe188d7c541cc3acdeed2ac3"
+          },
+          "original_source_plan_sha256": "42250bbbb9d84502dc9ac38e72cc9c31ed208e09c9eeca2ac1e44e6fa707f079",
+          "predecessor": "truss-graph-20f4dbb42f7565e50dd3f37fef047a6c057a5cb75fa2b7fefd342a8c907946b8",
+          "request_digest": "3e7b4d31f2258b210c678cce27911d1b5eaee892bf24180368ddaeda21871d97",
+          "scope": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+          "source_admission": {
+            "accepted_reports": {
+              "1": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f"
+            },
+            "catalog_views": {
+              "1": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be"
+            },
+            "declared_umf": {
+              "1": {
+                "urn:umf:domain:commerce": "0.8.0"
+              }
+            },
+            "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+            "feed": "commerce22-full",
+            "profile": "ashlar-truss-typed-graph-semantic-admission/0.1",
+            "qualification": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+            "source_profile": "truss-native-feed/0.1",
+            "source_transaction_sha256": "99e12a14b834d53cf719f2572e103bfc7c7920043d547db69b11f66766ae7115"
+          },
+          "source_oracle_sha256": "43430a6e213ac3f480f7c49e6b9c3689141ff2dc1f536b0999663262a3d68448",
+          "zero_match_elisions": []
+        }
+      },
+      {
+        "publication_id": "truss-graph-ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+        "source_page_sha256": "5ab60a5a945e9ac5a9a5df320de08b01bff79012999cc6d143e392a4a81728db",
+        "changes": 2,
+        "validation": {
+          "complete": true,
+          "effect_parity": {
+            "edge_current": "213d1151414a869128ece9595491d3d445368bec58d59dff1d65050912f2850c",
+            "object_current": "cc8236d6894cc9447e3df8aa72d1f25bf2376029b4d380a730caa067c30c4663",
+            "tombstone": "22ac6febfe8a0591ff0e2c4aaff568762d96bed1404a46df9fdc0b612e62d13f",
+            "whole_source_history": "276c2ea14d83359eb71a8326c2473d1214a49561e55597cdb1cd1418c051edb7"
+          },
+          "original_source_plan_sha256": "4361359508461932723f7687a58cd4db70b494e1c84aa57c5b975303e28ed0d6",
+          "predecessor": "truss-graph-3e7b4d31f2258b210c678cce27911d1b5eaee892bf24180368ddaeda21871d97",
+          "request_digest": "ea66cccba85852b488a880577c806111fd03385afc52a38234c6b88c1ebf514f",
+          "scope": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+          "source_admission": {
+            "accepted_reports": {
+              "1": "044692207e8ec2733cf78f52ee1313094ec6dd479566f54560016a15cb1c5f4f"
+            },
+            "catalog_views": {
+              "1": "4848221b924a914c8da010af9c1cdf57f11bb669da4799ef42d21cf5e985a2be"
+            },
+            "declared_umf": {
+              "1": {
+                "urn:umf:domain:commerce": "0.8.0"
+              }
+            },
+            "epoch": "ddb4cc79-c6d8-49a8-9af6-c481b554a3fe",
+            "feed": "commerce22-full",
+            "profile": "ashlar-truss-typed-graph-semantic-admission/0.1",
+            "qualification": "Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.",
+            "source_profile": "truss-native-feed/0.1",
+            "source_transaction_sha256": "beaa6183c51450bdd8b0594798df1f89662f21183a1728e3117b013164b8b7b3"
+          },
+          "source_oracle_sha256": "9b217eabb7ba54f65f96534686017b8bd5dfbe3c28cd96674a01627a652f8cbb",
+          "zero_match_elisions": []
+        }
+      }
+    ],
+    "phases": {
+      "updated_price_query": 13.198011040920392,
+      "deleted_singleton": 4.2469494169345126
+    },
+    "source_advanced_to_exact_last_next": true,
+    "final_price": [
+      {
+        "price": {
+          "decimal_token": "13.75"
+        }
+      }
+    ],
+    "deleted_fulfillment_absent": true,
+    "query_checkpoint_unchanged": true,
+    "scope": "Separate postverification of actual3native lifecycle publications/source-retained ACK, updated decimal query and deleted-object singleton. Original continuation outer supervisor exit1 remains failure; no continuation or source effect was retried.",
+    "duration_seconds": 18.300647041993216
+  },
+  "postverification_supervisor": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 19.426360375015065
+  },
+  "setup_limitations": "Parent reported earlier read-only harness setup failures; none used as positive evidence, no source effects retried. Final independent read-only verification is retained distinctly.",
+  "scope": "Original small commerce Truss22 lifecycle and local Delta evidence only. Reused installed SDK/compiler/native resource profiles; no cloud, production authority, additional evolution, recovery or broad query support claim."
+}
