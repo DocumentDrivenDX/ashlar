@@ -1,0 +1,22 @@
+{
+  "source_commit": "68c72121721665b4417c59d23234255815bdb7ca",
+  "source_checks": {
+    "focused_tests": 31,
+    "boundary_check": "passed",
+    "exact_commit_ci": "all six checks passed"
+  },
+  "attempt_a": {
+    "status": "completed",
+    "exit_code": 1,
+    "duration_seconds": 5.647706834017299
+  },
+  "attempt_b": {
+    "status": "deadline",
+    "exit_code": -9,
+    "duration_seconds": 60.15979370800778
+  },
+  "native_query": "not qualified",
+  "source_effects": "No mutation, publication or ACK command invoked. No after-checkpoint or cooperative closing proof from deadline attempt.",
+  "cleanup": "Exact owned PostgreSQL instance stopped with pg_ctl fast wait exit0.",
+  "scope": "Read-only original settlement query attempt on local Truss22 / Spark4.0.1 / Delta4.0.0. No native pass, production authority or managed UC claim."
+}

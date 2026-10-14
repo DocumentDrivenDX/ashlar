@@ -1,0 +1,54 @@
+{
+  "captures": [
+    {
+      "path": "attempt-a/run.py",
+      "bytes": 3606,
+      "sha256": "a0df1c684e5855896cf6dca268b569079f05c4ca9f840883c7768b7584b1cd8a"
+    },
+    {
+      "path": "attempt-a/supervise.py",
+      "bytes": 628,
+      "sha256": "21f83dcdf87b80559b75872a46d711c85fbc9c90c6045d64526a60b197f36ad4"
+    },
+    {
+      "path": "attempt-a/run.log",
+      "bytes": 249,
+      "sha256": "d3898870ec250000931dc7f5fea376ea2994688ddf425e001af6ad5fd372f711"
+    },
+    {
+      "path": "attempt-a/supervisor-result.json",
+      "bytes": 86,
+      "sha256": "fe36ad9966ebba0b185312053001f40c481152f0e3c6257d4d054293c82de74a"
+    },
+    {
+      "path": "attempt-b/run.py",
+      "bytes": 3666,
+      "sha256": "0c6d02cf015e7cef859930cb202d36f153c95438ba10a0f484fd69a6770d56a2"
+    },
+    {
+      "path": "attempt-b/supervise.py",
+      "bytes": 628,
+      "sha256": "21f83dcdf87b80559b75872a46d711c85fbc9c90c6045d64526a60b197f36ad4"
+    },
+    {
+      "path": "attempt-b/run.log",
+      "bytes": 409,
+      "sha256": "711ebaa243da5021a6ff72a09c0350bfa004052bd9af84a15428c685e18e86e9"
+    },
+    {
+      "path": "attempt-b/supervisor-result.json",
+      "bytes": 86,
+      "sha256": "645a2e3bb1eca4426a0cc6067c49c886f6cc3abdf191b86862766c4ce879eff8"
+    },
+    {
+      "path": "attempt-b/installed-custody.json",
+      "bytes": 1060,
+      "sha256": "70c4b6906d4d248f56f73af8d5d46090a8b6e060a6b52d8825f5d4b442ce4e4a"
+    },
+    {
+      "path": "attempt-b/query/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836"
+    }
+  ]
+}
