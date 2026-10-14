@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "exit_code": 0,
+  "source_start_seconds": 0.4913439160445705,
+  "query_child_seconds": 30.09638908400666,
+  "duration_seconds": 30.726788541069254,
+  "owned_source_closed": true
+}

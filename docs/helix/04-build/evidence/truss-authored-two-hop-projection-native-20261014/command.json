@@ -1,0 +1,53 @@
+{
+  "source_revision": "6a081610582aee767ecf68f845af4aed4f3718d0",
+  "python": "/private/tmp/truss-pg18-consumer-env-20261011/bin/python",
+  "native_supervisor_argv": [
+    "/private/tmp/truss-pg18-consumer-env-20261011/bin/python",
+    "-B",
+    "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/supervisor.py"
+  ],
+  "public_cli_argv": [
+    "ashlar",
+    "query-truss-typed-batch",
+    "--configuration",
+    "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/reader.json",
+    "--batch",
+    "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/batch.json",
+    "--output",
+    "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/batch-result.json"
+  ],
+  "bounds": {
+    "seconds": 180,
+    "spark_master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1607490,
+    "sha256": "d8b22567a5229c01ca82b32aec0963189cb55b401bb2d07b06d9a8e468784d2e"
+  },
+  "batch": {
+    "path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/batch-selection.json",
+    "bytes": 586,
+    "sha256": "392c4fa9bb9e882c79d681664bafe3eb5a828ec173536b06a422d717fe7cb134"
+  },
+  "original_reader_configuration": {
+    "path": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/example/reader-configuration.json",
+    "bytes": 621,
+    "sha256": "b5d0c37cb1b45f03d63bfc27892f038ac41f8c7fb420316c977c0a1514e6f1a6"
+  },
+  "original_source_data": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/example/data",
+  "truss_target": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/truss-target",
+  "scope": "Preparation only. Runtime public reader config generated only during authorized attempt. Existing Truss15 source/acceptedmodel/publication5 retained; no source mutation/publication/ACK/reseed or sourceupgrade.",
+  "host_supervision": {
+    "recipe_original": {
+      "path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261014-c/host_postgres.py",
+      "bytes": 1956,
+      "sha256": "0f2de5908fa26da1f1c43b823e4d369c35e3fe12fc15f8e51c69694b95de9f5c"
+    },
+    "adaptation": "Only DATA selects retained Truss15 directory; source PG18.6 actual check, bounded public pg_ctl10s start/stop, nonblocking directory lease, Unixsocket, primary-safe cleanup unchanged",
+    "root_owner": "supervisor",
+    "source_closing": "stop then lease release; failed stop retains lease",
+    "native_child_seconds": 180
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 28.889,
+  "publication_id": "truss-graph-5",
+  "rows": [
+    [
+      {
+        "root": "R1"
+      },
+      {
+        "root": "R1"
+      },
+      {
+        "root": "R1"
+      },
+      {
+        "root": "R1"
+      }
+    ]
+  ],
+  "source_checkpoint_unchanged": true,
+  "qualification": "Fresh installed Ashlar wheel public typed batch CLI; original releasedTruss15 source pub5; one authored two-hop STRING root projection, unchanged original protocols/indexed recompile/fullguards and ownerclosure. No mutations, publication or ACK."
+}

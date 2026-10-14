@@ -82,6 +82,8 @@ selection, revision and document ID as the count case, without
 `physical_revisions`. The initial profile projects one required STRING root-key
 field, unordered and unfiltered. Two parallel root self-loops emit four root
 rows; an isolate emits none. Output is neither deduplicated nor truncated.
+The [installed local traversal check](../../docs/helix/04-build/evidence/truss-authored-two-hop-projection-native-20261014/README.md)
+qualifies that exact four-row bag on retained Truss15 data with indexed Weft0.4.2.
 
 Each executor retains its source/model admission, integrity obligations, native
 pins and closing checks. Every query must match the original complete manifest

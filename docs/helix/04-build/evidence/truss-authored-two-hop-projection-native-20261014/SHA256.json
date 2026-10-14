@@ -1,0 +1,97 @@
+{
+  "files": [
+    {
+      "path": "batch-result.json",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/batch-result.json",
+      "bytes": 152441,
+      "sha256": "df1be0be9b402c7ca4e3d515a113342fab4d3babc4bbd13717da2420f3ba4907"
+    },
+    {
+      "path": "run-result.json",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/run-result.json",
+      "bytes": 580,
+      "sha256": "6742190949f7160cca32b7f4113138ed8cda359f36d5d24571279d7f37b03333"
+    },
+    {
+      "path": "supervisor-result.json",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/supervisor-result.json",
+      "bytes": 209,
+      "sha256": "35060a11bfea9914ebd023c19c7adb140aae62734740a2c1cf504d4404772671"
+    },
+    {
+      "path": "run.py",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/run.py",
+      "bytes": 3682,
+      "sha256": "f7b7b8d2548d98487f01a379771ecbc4204bd820b2ed21fba4c2c8ccd3acc5cd"
+    },
+    {
+      "path": "supervisor.py",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/supervisor.py",
+      "bytes": 1697,
+      "sha256": "a68abdacc44abacd994452aa31c774f10dc63431580cdb0fef6bff04514eb980"
+    },
+    {
+      "path": "host_postgres.py",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/host_postgres.py",
+      "bytes": 1960,
+      "sha256": "8925807769b8ddf1e53520549176edbdb6749cd663a64d1ba890ead1d45e4cd7"
+    },
+    {
+      "path": "command.json",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/command.json",
+      "bytes": 2559,
+      "sha256": "3db8a6a25cb570224bc42fe464f852688996bd0577b8005ae3663daf0a445458"
+    },
+    {
+      "path": "origins.json",
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/origins.json",
+      "bytes": 471,
+      "sha256": "6f0faca7b27ac82d296eb1c81ada7ffc7feef60e25c2fcc3b22020bcf7ec81db"
+    }
+  ],
+  "private_checkpoint_references": [
+    {
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/checkpoint-before.json",
+      "bytes": 390,
+      "sha256": "fbff4de5e6d3f52db767045c5b423c024a69bb57ed83ffc449983e405711a4e7"
+    },
+    {
+      "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/checkpoint-after.json",
+      "bytes": 390,
+      "sha256": "fbff4de5e6d3f52db767045c5b423c024a69bb57ed83ffc449983e405711a4e7"
+    }
+  ],
+  "checkpoint_bytes_equal": true,
+  "wheel": {
+    "original_path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1607490,
+    "sha256": "d8b22567a5229c01ca82b32aec0963189cb55b401bb2d07b06d9a8e468784d2e"
+  },
+  "installed_modules": [
+    {
+      "path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/target/ashlar_host/truss_typed_query_batch.py",
+      "bytes": 9399,
+      "sha256": "b07259146e1aed430e677d06b1ad187974e7b30bb7ff481bbe65947d63d35590"
+    },
+    {
+      "path": "/private/tmp/ashlar-truss15-root-projection-installed-20261014-a/target/ashlar_host/truss_two_hop_projection.py",
+      "bytes": 1074,
+      "sha256": "518ae910f4de6462cf1d3e6c3d234dde1bdf4eb91f6235627b02285260f123f0"
+    }
+  ],
+  "scope": "One actual read-only local installed root-key two-hop projection; no new source/ACK/publication. Rawlogs/connection configs/binaries/custodyinventories not copied.",
+  "original_model_pins": [
+    {
+      "documentId": "typed-related-record",
+      "revision": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+      "sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+      "umfVersion": "0.7.0"
+    }
+  ],
+  "original_backend": {
+    "backendId": "ashlar.databricks.paths-keys",
+    "backendVersion": "0.4.2-implicit-arithmetic-labels-candidate",
+    "interfaceVersion": "weft-backend/0.3.0",
+    "targetProfile": "spark4-delta4-paths-keys-candidate"
+  }
+}
