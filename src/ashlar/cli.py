@@ -225,7 +225,7 @@ def main():
     truss_reader.add_argument('--connection-configuration',required=True)
     truss_reader.add_argument('--output',required=True)
     truss_reader.add_argument('--reader-configuration',help='Explicit saved reader or continuation configuration; defaults to the original STRING demo query configuration')
-    for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','create-truss-record-group','create-truss-edge','update-truss-edge','delete-truss-edge','update-truss-record','delete-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    for name in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','create-truss-record-group','mutate-truss-record-group','create-truss-edge','update-truss-edge','delete-truss-edge','update-truss-record','delete-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         truss_operation=commands.add_parser(name,help='Apply the selected mutation or schema evolution through public Truss APIs')
         truss_operation.add_argument('--configuration',required=True)
         truss_operation.add_argument('--output',required=True)
@@ -435,7 +435,7 @@ def main():
             print('ashlar Truss graph evolution refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
-    if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','create-truss-record-group','create-truss-edge','update-truss-edge','delete-truss-edge','update-truss-record','delete-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
+    if args.command in ('mutate-truss-note','evolve-truss-note','evolve-truss-record','create-truss-record','create-truss-record-group','mutate-truss-record-group','create-truss-edge','update-truss-edge','delete-truss-edge','update-truss-record','delete-truss-record','mutate-truss-graph','change-truss-graph','accept-truss-schema'):
         try:
             from pathlib import Path
             if args.command=='mutate-truss-note':
@@ -446,6 +446,8 @@ def main():
                 from ashlar_host.truss_record_mutation import run_create_truss_record_command as run
             elif args.command=='create-truss-record-group':
                 from ashlar_host.truss_record_group import run_create_truss_record_group_command as run
+            elif args.command=='mutate-truss-record-group':
+                from ashlar_host.truss_mutation_group import run_mutate_truss_record_group_command as run
             elif args.command=='create-truss-edge':
                 from ashlar_host.truss_typed_edge_command import run_create_truss_edge_command as run
             elif args.command=='update-truss-edge':

@@ -399,3 +399,36 @@ after readback, replay, input closing checks and connection cleanup. Unknown com
 outcomes remain unresolved; new request keys or standalone later edges MUST NOT
 substitute for original-group reconciliation. This boundary establishes neither
 Ashlar publication, feed consumption nor source acknowledgement.
+
+## Original atomic stored-record/link mutation intake
+
+`mutate-truss-record-group` MUST use the separate closed
+`ashlar-truss-mutation-group/0.1` configuration: unchanged original UMF 0.7.0 or
+0.8.0 document and revision, explicit ordinary connection and Bun path, original
+origin and request key, and one through thirty-two ordered public operations.
+The selected operations are `CreateEdge`, `Delete(delete_edge)` and
+`Delete(delete_object)` only. Every endpoint is an explicitly selected stored
+object in the original document; created edge aliases cannot supply object
+authority. Delete selections MUST be unique with exact positive native identity
+and expected version. A created edge endpoint MUST NOT also be deleted.
+
+Preflight MUST freeze bounded immutable selections without clients or effects.
+Current definition references, full object selectors and identity/version pins
+MUST be resolved through public APIs in the same transaction before group
+application. Truss owns dependency and final multiplicity enforcement: incident
+edge deletions precede object deletion, and required-link replacement is one
+atomic group rather than standalone commits. Ashlar MUST NOT infer an incident
+edge inventory or silently cascade additional deletion operations.
+
+Commit once without automatic retry; uncertain submission or commit remains
+unresolved. Validate the complete ordered public response, created alias mapping,
+individual deletion identities/versions and created edge definition pins. Public
+committed readback MUST establish each deletion's absence and every created edge's
+original endpoints, order and complete retained values. Replay the unchanged
+original semantic input/request and compare the complete committed receipt.
+Release a bounded private report only after closing input custody and connection
+cleanup, preserving primary cancellation. This boundary supplies no publication,
+feed, ACK or Delta acceptance; native lifecycle and recovery qualification remain
+separate. Fixed refusals and bounded receipts describe operation outcomes without
+serializing connection secrets or treating a successful local report as source
+authority.
