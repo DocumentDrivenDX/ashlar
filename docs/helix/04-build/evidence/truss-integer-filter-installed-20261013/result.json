@@ -1,0 +1,72 @@
+{
+  "outcome": "passed",
+  "overall_supervisor": {
+    "outcome": "completed",
+    "exit_code": 0,
+    "duration_seconds": 15.766
+  },
+  "public_run": {
+    "outcome": "passed",
+    "duration_seconds": 14.704,
+    "publication_id": "truss-graph-5",
+    "rows": [
+      {
+        "quantity": {
+          "integer_token": "9007199254740993"
+        }
+      }
+    ],
+    "source_checkpoint_unchanged": true,
+    "qualification": "Fresh installed public scalar CLI original required signed64 equality with ASC/LIMIT1; full original compiler protocol/guard/source oracle and native closing; no source mutations/publication/ACK."
+  },
+  "original_model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "compiler_binary_sha256": "23cd1b3c713faca6119ad189341f03ca035b482c34e507f19dd60adfdf9b1e82",
+  "native_guard_count": 1,
+  "files": [
+    {
+      "file": "run.py",
+      "sha256": "fb20a3a0cb4b8ee4942107e63043f09aaaeda9c5da94c1e4aca9f6265e41da93",
+      "bytes": 4347
+    },
+    {
+      "file": "supervisor.py",
+      "sha256": "2750a5c9e2fe12ffe56a6a682b75b9a00b450b0f4c844d3f18dda37ecbdf0f5c",
+      "bytes": 707
+    },
+    {
+      "file": "run.log",
+      "sha256": "52e4858f04973f05768cff159466faff8f7656b9dcc97ce6de901198d9d81187",
+      "bytes": 1086
+    },
+    {
+      "file": "run-result.json",
+      "sha256": "20b82e313a52017ec87a96a8d2bfe029648ee0fcd3d3daeac6badb070b86b2a3",
+      "bytes": 451
+    },
+    {
+      "file": "supervisor-result.json",
+      "sha256": "0ef65490f736bb17477d4f07449641cf00454fbfd1ae5c7aeb186618599b11cb",
+      "bytes": 69
+    },
+    {
+      "file": "origins.json",
+      "sha256": "31d526b93c9218215c3c90f9843c32c8da0f399df6f149643cc64602b634e38c",
+      "bytes": 549
+    },
+    {
+      "file": "query-result.json",
+      "sha256": "e882afd19d08f044f22f65fc123704e4123d0f7697b20eea785ad8d7baf45134",
+      "bytes": 31366
+    },
+    {
+      "file": "checkpoint-before.json",
+      "sha256": "fbff4de5e6d3f52db767045c5b423c024a69bb57ed83ffc449983e405711a4e7",
+      "bytes": 390
+    },
+    {
+      "file": "checkpoint-after.json",
+      "sha256": "fbff4de5e6d3f52db767045c5b423c024a69bb57ed83ffc449983e405711a4e7",
+      "bytes": 390
+    }
+  ]
+}

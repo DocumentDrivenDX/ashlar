@@ -1,0 +1,8 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/13 20:29:26 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/13 20:29:29 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+{"output":"/private/tmp/ashlar-integer-filter-installed-20261013-a/query-result.json"}
+{"outcome": "passed", "duration_seconds": 14.704, "publication_id": "truss-graph-5", "rows": [{"quantity": {"integer_token": "9007199254740993"}}], "source_checkpoint_unchanged": true, "qualification": "Fresh installed public scalar CLI original required signed64 equality with ASC/LIMIT1; full original compiler protocol/guard/source oracle and native closing; no source mutations/publication/ACK."}

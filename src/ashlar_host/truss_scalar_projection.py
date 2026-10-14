@@ -35,7 +35,8 @@ class TrussScalarProjection:
             return encoded(out)
         if type(rows)is not list or Counter(map(normalized,rows))!=Counter(map(normalized,json.loads(self.expected_json))):raise ValueError('Independent complete original scalar bag differs')
 
-def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions):
+def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*,revision,document_id,physical_revisions,maximum_rows=10000):
+    if type(maximum_rows)is not int or not 1<=maximum_rows<=10000:raise ValueError('Bounded scalar execution row budget required')
     if type(admission)is not TrussGraphAdmission or revision not in admission.revisions:raise ValueError('Actual original scalar admission required')
     selected=admission.revisions[revision];model,original=selected['models'][document_id]
     if encoded(model)!=encoded(json.loads(original)):raise ValueError('Original scalar model bytes required')
@@ -46,7 +47,7 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
     rebuilt=truss_compatible_compile_request(admission,manifest,{n:t['uuid']for n,t in zip(names,tables)},binding['publication']['manifestUuid'],request['sql'],revision=revision,document_id=document_id,physical_revisions=physical_revisions,aliases={n:'.'.join(t['name'])for n,t in zip(names,tables)})
     if encoded(rebuilt)!=encoded(request)or artifact.get('bindingSha256')!=request['target']['bindingSha256']:raise ValueError('Original scalar request correspondence required')
     plan=artifact.get('logicalPlan');keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
-    if type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not False or any(plan[k]!=[]for k in ('filters','groups','joins','order'))or any(plan[k]is not None for k in ('limit','pageKey','readProfile'))or plan['modulePins']!=[pin]or artifact.get('modelPins')!=[pin]or binding['modelPins']!=[pin]:raise ValueError('Only direct required scalar projection supported')
+    if type(plan)is not dict or set(plan)!=keys or plan['irVersion']!='weft-ir/0.2.0'or plan['aggregate']is not False or any(plan[k]!=[]for k in ('groups','joins'))or any(plan[k]is not None for k in ('pageKey','readProfile'))or plan['modulePins']!=[pin]or artifact.get('modelPins')!=[pin]or binding['modelPins']!=[pin]:raise ValueError('Only direct required scalar projection supported')
     source=plan['source']
     if type(source)is not dict or set(source)!={'occurrence','pin','record'}or source['occurrence']!='s0'or source['pin']!=pin:raise ValueError('Exact scalar scan required')
     records=[r for r in binding['records']if r['logical']==source['record']]
@@ -65,7 +66,44 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
         logical={'family':family,'facets':facets,'nullable':False};representation={'kind':'scalar','logicalType':logical,'carrier':'text','decoder':{'string':'text','boolean':'boolean','integer':'exact-integer','decimal':'exact-decimal'}[family]}
         if type(column)is not dict or set(column)!={'nullable','outputName','position','representation','sourceIdentities'}or type(column['position'])is not int or column['position']!=position or column['nullable']is not False or column['representation']!=representation or column['sourceIdentities']!=[identity]or column['outputName']!=output['name']or type(output['name'])is not str or not output['name']or output['name']in output_names:raise ValueError('Exact authored scalar result descriptor required')
         output_names.add(output['name']);families.add(family);graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':logical};selections.append((column,home[encoded(identity)]))
-    if plan['requiredCapabilities']!=sorted(['project','scan']+['type.'+f for f in families]):raise ValueError('Exact scalar capabilities required')
+    capabilities={'project','scan',*('type.'+f for f in families)}
+    filter_pid=None;filter_value=None;limit=plan['limit']
+    filters=plan['filters'];order=plan['order']
+    if type(filters)is not list or type(order)is not list:raise ValueError('Exact scalar filter/order inventories required')
+    if filters:
+        if len(filters)!=1 or type(filters[0])is not dict or set(filters[0])!={'left','op','right'}or filters[0]['op']!='equal':raise ValueError('One exact integer equality required')
+        left=filters[0]['left'];right=filters[0]['right']
+        logical={'family':'integer','facets':{'integerWidth':{'bits':64,'signed':True}},'nullable':False}
+        def span(value):
+            if type(value)is not dict or set(value)!={'start','end'}or any(type(value[k])is not int for k in value)or not 0<=value['start']<value['end']<=len(request['sql'].encode()):raise ValueError('Original bounded source span required')
+            return request['sql'].encode()[value['start']:value['end']].decode('utf8')
+        if (type(left)is not dict or set(left)!={'identity','scan','span','type'}or left['scan']!='s0'or left['type']!=logical
+                or type(right)is not dict or set(right)!={'kind','span','type','value'}or right['kind']!='literal'or right['type']!=logical):raise ValueError('Exact required signed64 field/literal filter required')
+        identity=left['identity']
+        if (type(identity)is not dict or set(identity)!={'documentId','revision','module','element'}or identity['documentId']!=document_id
+                or identity['revision']!=digest or encoded(identity)not in home):raise ValueError('Original filter field identity required')
+        field=elements[identity['module'],identity['element']]
+        if (field.get('kind')!='field'or field.get('scalarType')!='integer'or field.get('facets')!=logical['facets']
+                or field.get('nullability')!='required'or field.get('cardinality')!='one'):raise ValueError('Required original signed64 filter domain required')
+        span(left['span'])
+        token=right['value']
+        if type(token)is not str or span(right['span'])!=token:raise ValueError('Original integer literal token/span required')
+        filter_value=decode_exact_scalar({'kind':'scalar','logicalType':logical,'carrier':'text','decoder':'exact-integer'},token).value
+        if type(filter_value)is not int or not -(1<<63)<=filter_value<(1<<63):raise ValueError('Exact signed64 filter literal required')
+        parameters=artifact.get('parameters')
+        literals=[p for p in parameters if p.get('origin',{}).get('kind')=='literal']if type(parameters)is list else []
+        if len(literals)!=1 or set(literals[0])!={'position','value','logicalType','origin'}or type(literals[0]['position'])is not int or literals[0]['position']<1 or literals[0].get('logicalType')!=logical or literals[0].get('value')!=token or literals[0].get('origin')!={'kind':'literal','sourceSpan':right['span']}:raise ValueError('Original filter literal parameter correspondence required')
+        filter_pid=home[encoded(identity)];families.add('integer');capabilities.update(('equal','filter','type.integer'))
+        graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':logical}
+        if order or limit is not None:
+            if (len(order)!=1 or type(order[0])is not dict or set(order[0])!=set(left)
+                    or any(order[0][key]!=left[key]for key in ('identity','scan','type'))or len(columns)!=1 or columns[0]['sourceIdentities']!=[identity]
+                    or (limit is not None and (type(limit)is not int or not 1<=limit<=maximum_rows))):raise ValueError('Only equality-field ascending order and bounded same-field limit supported')
+            span(order[0]['span'])
+            capabilities.add('order.asc')
+            if limit is not None:capabilities.add('limit')
+    elif order or limit is not None:raise ValueError('Unfiltered scalar ordering/limits not admitted')
+    if plan['requiredCapabilities']!=sorted(capabilities):raise ValueError('Exact scalar capabilities required')
     if type(plan['typeGraph'])is not list or len(plan['typeGraph'])!=len(graph)or encoded({encoded(g.get('identity')):g for g in plan['typeGraph']})!=encoded(graph):raise ValueError('Complete exact scalar type graph required')
     rows=expected['object_current'];wanted=[]
     if type(rows)is not list or len(rows)>10000:raise ValueError('Bounded independent scalar source bag required')
@@ -83,5 +121,9 @@ def admit_truss_scalar_projection(admission,artifact,request,manifest,expected,*
             # Comparison-only carrier: source bytes stay retained; compiler tokens stay exact.
             token=('0'if value==0 else format(value,'f'))if family=='decimal'else str(value)
             result[column['outputName']]={family+'_token':token}if family in ('integer','decimal')else value
+        if filter_pid is not None:
+            if filter_pid not in prior['fields']or filter_pid not in props or type(props[filter_pid])is not int or not -(1<<63)<=props[filter_pid]<(1<<63):raise ValueError('Required exact filter source field missing or invalid')
+            if props[filter_pid]!=filter_value:continue
         wanted.append(result)
+    if limit is not None:wanted=wanted[:limit]
     return TrussScalarProjection(encoded(columns),encoded(wanted))

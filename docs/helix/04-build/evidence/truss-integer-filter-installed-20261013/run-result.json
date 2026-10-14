@@ -1,0 +1,14 @@
+{
+  "outcome": "passed",
+  "duration_seconds": 14.704,
+  "publication_id": "truss-graph-5",
+  "rows": [
+    {
+      "quantity": {
+        "integer_token": "9007199254740993"
+      }
+    }
+  ],
+  "source_checkpoint_unchanged": true,
+  "qualification": "Fresh installed public scalar CLI original required signed64 equality with ASC/LIMIT1; full original compiler protocol/guard/source oracle and native closing; no source mutations/publication/ACK."
+}

@@ -1,0 +1,8 @@
+{
+  "ashlar_module": "/private/tmp/ashlar-integer-filter-installed-20261013-a/target/ashlar/__init__.py",
+  "projection_module": "/private/tmp/ashlar-integer-filter-installed-20261013-a/target/ashlar_host/truss_scalar_projection.py",
+  "projection_sha256": "a31d076b4873f302536a7b37514b277b48a53950cdc9d4118d6ffbf59e28fed8",
+  "truss_module": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/truss-target/truss/__init__.py",
+  "truss_version": "0.0.15",
+  "wheel_sha256": "6bd60410e7c5a9178a5a02fcd15e11dea0325a49c9df76b36b5d39d6e78188db"
+}

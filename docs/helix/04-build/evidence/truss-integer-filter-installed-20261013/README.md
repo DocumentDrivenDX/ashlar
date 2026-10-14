@@ -1,0 +1,9 @@
+# Installed exact integer filter
+
+One fresh installed Ashlar wheel invoked the public `query-truss-scalars` command against the existing original UMF0.7 `typed-related-record` publication `truss-graph-5`, using released Truss0.0.15 and the authenticated compatible0.2 candidate. Original SQL selected `r.quantity` with equality to `9007199254740993`, ascending order on that field, and `LIMIT 1`; the execution row budget was one.
+
+The actual returned carrier is exactly `integer_token: "9007199254740993"`, beyond JavaScript safe-integer precision. The original scalar-integrity guard returned zero; the executor retained complete source/model admission, original publication/manifest binding, compatible revision obligation, independent full-population filter oracle and native closing validation. The final report retains original compiler request and response without SQL rewriting. Source checkpoint bytes captured before and after the command are identical. All owners closed successfully and the supervised process exited zero; the public harness duration was 14.704 seconds (the supervisor records its separate overall duration).
+
+The native execution qualifies only the named required signed64 filter and same-field ordered limit. It does not add general predicates, nullable numeric fields, decimal filtering, arbitrary sorting, cloud or production compiler qualification. Existing unordered required scalar projections remain separately supported. The native request/response supplies the exact original IR and obligations; preliminary compiler-only probes are not duplicated here.
+
+No source mutation, publication, ACK, schema change or runtime upgrade occurred. `origins.json` pins the actual installed wheel and projection module; `result.json` inventories exact raw evidence. The wheel and runtime dependencies are not duplicated here. No native retry was performed.

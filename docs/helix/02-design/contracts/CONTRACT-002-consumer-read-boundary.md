@@ -482,6 +482,14 @@ use exact mathematical values without float conversion or rounding. Scalar admis
 MUST remain explicit and MUST NOT broaden STRING-only commands, permit aggregates
 without their separate admission, or bypass publication and integrity obligations.
 
+A required signed64 equality filter MUST bind the original source Field, exact
+literal token, type and parameter origin. Its independent oracle MUST validate
+the complete admitted source population before filtering and projection; filtering
+MUST NOT reduce the scalar-integrity guard scope. The ordered, limited equality
+subset MUST project only that same Field and order it ascending, so tied matches
+have identical projected values. SQL limits MUST be positive and fit the selected
+row bound. Other filter/order combinations require separate admission.
+
 ### Required numeric equality joins
 
 A required numeric equality INNER JOIN MUST authenticate both original scan

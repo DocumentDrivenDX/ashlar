@@ -1692,14 +1692,30 @@ SELECT r."record-id" AS id, r.quantity AS quantity,
 Numeric results retain `{ "integer_token": "..." }` or
 `{ "decimal_token": "..." }` carriers. Complete-bag comparison uses exact
 mathematical values, preserving original source and compiler tokens. The command
-requires direct unfiltered, unordered required-field projections and runs all
-original publication and integrity checks. Optional scalar outputs, arithmetic
-and aggregates need their own admission. Truss numeric source support requires
-the main-source iteration after `v0.0.1`; that published release does not include it.
+supports direct required-field projections and one exact signed64 equality
+predicate. An unordered equality query may project the same required scalar
+fields. For ascending ordering or a SQL limit, project only the filtered field:
+
+```sql
+SELECT r.quantity AS quantity FROM TypedRecord r
+WHERE r.quantity=9007199254740993 ORDER BY r.quantity LIMIT 1
+```
+
+The SQL limit must be positive and no larger than `--maximum-rows`. Full original
+source and scalar-integrity checks still run before filtering; unsupported filter
+families, descending order and ambiguous ordered projections refuse. Optional
+scalar outputs, arithmetic and aggregates need their own admission. Select the
+qualified Truss runtime described in the quickstart; `v0.0.1` lacks numeric source
+support.
 
 The [actual one-record native query](../../docs/helix/04-build/evidence/truss-faceted-scalar-native-query-20261013/result.json)
 preserves `9007199254740993`, decimal `1.2300`, Boolean and STRING results with
 an unchanged source checkpoint on local Spark/Delta.
+
+The [installed equality query](../../docs/helix/04-build/evidence/truss-integer-filter-installed-20261013/result.json)
+returns exactly `9007199254740993` with ascending order and `LIMIT 1` on the
+retained Truss 15 publication. Its original full-population guard passes and
+the recorded source checkpoint remains unchanged.
 
 ### Join required numeric fields
 
