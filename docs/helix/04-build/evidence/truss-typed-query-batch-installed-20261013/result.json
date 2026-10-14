@@ -1,0 +1,76 @@
+{
+  "public_cli": "completed_final_report_after_owned_closure",
+  "outer_harness": "failed_after_cli_KeyError_integer",
+  "supervisor_exit_code": 1,
+  "overall_supervised_seconds": 27.459,
+  "wheel_sha256": "3c7952ebb338d9ae48ad076139f4659fb84adabeca74b63550bd2af4e77032a7",
+  "source_model_sha256": "e3f855afaf7db03e885c96e1dbbd072f06d887a98e852c547842a7674409e1a5",
+  "source_declared_umf": "0.7.0",
+  "truss_version": "0.0.15",
+  "publication_id": "truss-graph-5",
+  "families": [
+    "scalar",
+    "numeric-grouped-count",
+    "two-hop-count"
+  ],
+  "native_guard_counts": [
+    1,
+    1,
+    13
+  ],
+  "source_checkpoint_unchanged": "unproven_no_after_capture",
+  "files": [
+    {
+      "file": "run.py",
+      "sha256": "adc29a0d0df5fd61d5e75f2740e84e473eb6edf05ec0aeb5f56440960372924d",
+      "bytes": 4780
+    },
+    {
+      "file": "supervisor.py",
+      "sha256": "3d384a74a19d62d19a7ccd6055ef9e3a5972b818b143bc708f723e6ea0049a2c",
+      "bytes": 708
+    },
+    {
+      "file": "run.log",
+      "sha256": "e698169db5b1bebc751e58bccf4991640fa9ead7c0ebf77a3cbc3a7440aac9c9",
+      "bytes": 1644
+    },
+    {
+      "file": "run-result.json",
+      "sha256": "a1a8f39fbc2ebe840c19aed1de3fd108e2b6ade43b1fb308f4fb4a701c1f0305",
+      "bytes": 110
+    },
+    {
+      "file": "supervisor-result.json",
+      "sha256": "d6c3418a008287588c7b14c70fa58055f98f8d086065f705bc8b6d2c69a8a573",
+      "bytes": 69
+    },
+    {
+      "file": "verification.json",
+      "sha256": "1f0c89c4bb748f66bc4873f261f1deb80de136279dbcc62cd2813dc7e337837d",
+      "bytes": 1118
+    },
+    {
+      "file": "origins.json",
+      "sha256": "992b5dbf76b240026d90687f533950363396b2a6dff04a6c92475b03c11b9ff9",
+      "bytes": 447
+    },
+    {
+      "file": "batch.json",
+      "sha256": "0939bab590d812df0c6e396de1f03b0ecc15b6d4969090bc9932b12d0e52dc8c",
+      "bytes": 1297
+    },
+    {
+      "file": "batch-result.json",
+      "sha256": "30f0032843b372dfa634957c9e8fe0bdcf8a03bbc2ed4a21fe4eea5b30a10003",
+      "bytes": 212144
+    },
+    {
+      "file": "checkpoint-before.json",
+      "sha256": "fbff4de5e6d3f52db767045c5b423c024a69bb57ed83ffc449983e405711a4e7",
+      "bytes": 390
+    }
+  ],
+  "source_model_origin": "existing released15 example original typed-related-record.umf.json",
+  "implementation_correspondence": "Executed wheel precedes immutable DTO refactor; final representation equivalence/immutability covered by focused tests, no native byte identity claim."
+}

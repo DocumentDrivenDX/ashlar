@@ -446,6 +446,15 @@ failed outer closure MUST withhold the combined success report. Final persistenc
 MUST follow source, transport and runtime closure and original input renewal.
 Sharing a runtime MUST NOT permit publication, source ACK or new source authority.
 
+A typed batch MUST explicitly select each query family and its compiler transport.
+Compatible scalar projections and numeric grouped counts MUST retain their
+physical revision selections; indexed two-hop counts MUST retain their independent
+recompiled bytes. Compiler configuration MUST cover exactly the selected families,
+so an unused compiler cannot block another family's execution. Dispatch MUST reuse
+the family's admitted executor without SQL repair or weaker obligations. All
+original protocol bytes, including recompilation where required, count toward
+the aggregate bound and MUST remain buffered until the entire batch closes.
+
 ### Declared-field record reads
 
 A named-field view MUST derive ordered field identities and native property IDs

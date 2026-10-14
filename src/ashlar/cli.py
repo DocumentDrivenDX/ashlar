@@ -133,6 +133,9 @@ def main():
     truss_batch=commands.add_parser('query-truss-graph-batch',help='Run a bounded named Weft query gallery on one original Truss publication with one owned runtime')
     for option in ('configuration','output','weft-index','weft-installation','batch'):
         truss_batch.add_argument('--'+option,required=True)
+    typed_batch=commands.add_parser('query-truss-typed-batch',help='Compose admitted typed query families on one original publication')
+    for option in ('configuration','output','batch'):
+        typed_batch.add_argument('--'+option,required=True)
     truss_query=commands.add_parser('query-truss-graph',help='Run Weft STRING, global/grouped COUNT, HAS_RELATED or authored forward/inverse RELATED_KEYS queries against an original local Truss publication; no publication or ACK')
     for option in ('configuration','output','weft-index','weft-installation','sql','revision','document-id'):
         truss_query.add_argument('--'+option,required=True)
@@ -591,6 +594,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar Truss singleton refused; inspect the selected publication and typed identity',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-truss-typed-batch':
+        try:
+            from ashlar_host.truss_typed_query_batch import run_query_truss_typed_batch_command
+            result=run_query_truss_typed_batch_command(args.configuration,args.output,batch=args.batch)
+            print(json.dumps({'output':args.output,'publication_id':result['publication_id'],'queries':len(result['queries'])},separators=(',',':')))
+        except Exception:
+            print('ashlar typed query batch refused; retain original inputs and selected publication',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'query-truss-graph-batch':

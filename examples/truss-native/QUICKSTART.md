@@ -93,6 +93,10 @@ model/binding bytes, executes its compiler obligations, and checks complete
 results under publication custody. See the [query examples](README.md) for the
 supported SQL subsets and required options.
 
+To run scalar projections, numeric grouped counts and a two-hop count together,
+use the [typed query batch](TYPED-QUERY-BATCH.md). It shares one owned runtime and
+retains one complete publication manifest across all selected queries.
+
 ## Export the same graph to GraphFrames
 
 While the source is running, export the selected publication:

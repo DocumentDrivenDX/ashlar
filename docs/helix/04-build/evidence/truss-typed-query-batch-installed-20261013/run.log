@@ -1,0 +1,16 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/13 20:13:54 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/13 20:13:57 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 0:>                                                          (0 + 1) / 2][Stage 0:=============================>                             (1 + 1) / 2]                                                                                {"output":"/private/tmp/ashlar-typed-batch-installed-20261013-a/batch-result.json","publication_id":"truss-graph-5","queries":3}
+{"outcome": "failed", "duration_seconds": 26.328, "error_type": "KeyError", "message": "'integer'"}
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-typed-batch-installed-20261013-a/run.py", line 39, in <module>
+    assert sorted(int(row['quantity']['integer'])for row in queries[0]['rows'])==[2,9007199254740993]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-typed-batch-installed-20261013-a/run.py", line 39, in <genexpr>
+    assert sorted(int(row['quantity']['integer'])for row in queries[0]['rows'])==[2,9007199254740993]
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'integer'

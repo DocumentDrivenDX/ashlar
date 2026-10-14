@@ -1,0 +1,6 @@
+{
+  "outcome": "failed",
+  "duration_seconds": 26.328,
+  "error_type": "KeyError",
+  "message": "'integer'"
+}

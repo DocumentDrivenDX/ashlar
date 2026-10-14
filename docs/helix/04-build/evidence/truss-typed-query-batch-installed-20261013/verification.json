@@ -1,0 +1,50 @@
+{
+  "outcome": "public_cli_passed_outer_harness_postcheck_failed",
+  "publication_id": "truss-graph-5",
+  "rows": [
+    [
+      {
+        "quantity": {
+          "integer_token": "9007199254740993"
+        }
+      },
+      {
+        "quantity": {
+          "integer_token": "2"
+        }
+      }
+    ],
+    [
+      {
+        "quantity": {
+          "integer_token": "9007199254740993"
+        },
+        "total": 1
+      },
+      {
+        "quantity": {
+          "integer_token": "2"
+        },
+        "total": 1
+      }
+    ],
+    [
+      {
+        "paths": 4
+      }
+    ]
+  ],
+  "guard_counts": [
+    1,
+    1,
+    13
+  ],
+  "batch_result_sha256": "30f0032843b372dfa634957c9e8fe0bdcf8a03bbc2ed4a21fe4eea5b30a10003",
+  "supervisor": {
+    "outcome": "completed",
+    "exit_code": 1,
+    "duration_seconds": 27.459
+  },
+  "source_checkpoint_comparison": "not_performed_due_to_outer_postcheck_failure",
+  "scope": "Actual installed public CLI produced final batch report after owned closure; pure independent original expected rows pass. Outer harness carrier-key typo failed after completed CLI; no native retry."
+}

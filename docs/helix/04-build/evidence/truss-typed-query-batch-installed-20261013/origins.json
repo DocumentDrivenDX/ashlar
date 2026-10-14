@@ -1,0 +1,7 @@
+{
+  "ashlar_module": "/private/tmp/ashlar-typed-batch-installed-20261013-a/target/ashlar/__init__.py",
+  "batch_module": "/private/tmp/ashlar-typed-batch-installed-20261013-a/target/ashlar_host/truss_typed_query_batch.py",
+  "truss_module": "/private/tmp/ashlar-truss15-parallel-example-20261013-a/truss-target/truss/__init__.py",
+  "truss_version": "0.0.15",
+  "wheel_sha256": "3c7952ebb338d9ae48ad076139f4659fb84adabeca74b63550bd2af4e77032a7"
+}

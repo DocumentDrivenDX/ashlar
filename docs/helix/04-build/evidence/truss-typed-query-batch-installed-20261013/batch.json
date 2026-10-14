@@ -1,0 +1,44 @@
+{
+  "profile": "ashlar-truss-typed-query-batch/0.1",
+  "compilers": {
+    "compatible": {
+      "executable": "/private/tmp/ashlar-compatible-weft-compile-20261013-a/weft-runtime"
+    },
+    "indexed": {
+      "index": "/private/tmp/weft-042-integration-b/distributions/index.json",
+      "installation": "/private/tmp/ashlar-042-installed-cli-actual-b/qualification/installation"
+    }
+  },
+  "queries": [
+    {
+      "name": "quantities",
+      "family": "scalar",
+      "sql": "SELECT r.quantity AS quantity FROM TypedRecord r",
+      "revision": "1",
+      "document_id": "typed-related-record",
+      "physical_revisions": [
+        "1"
+      ],
+      "maximum_rows": 2
+    },
+    {
+      "name": "quantity-counts",
+      "family": "numeric-grouped-count",
+      "sql": "SELECT r.quantity AS quantity,COUNT(*) AS total FROM TypedRecord r GROUP BY r.quantity",
+      "revision": "1",
+      "document_id": "typed-related-record",
+      "physical_revisions": [
+        "1"
+      ],
+      "maximum_rows": 2
+    },
+    {
+      "name": "two-hop-paths",
+      "family": "two-hop-count",
+      "sql": "SELECT COUNT(*) AS paths FROM TypedRecord r CROSS JOIN EXPAND_PATHS(r.related,related) AS p",
+      "revision": "1",
+      "document_id": "typed-related-record",
+      "maximum_rows": 1
+    }
+  ]
+}
