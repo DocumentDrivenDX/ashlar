@@ -21,6 +21,7 @@ jobs:
       - run: python3 tools/check_module_boundaries.py
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_scenario_configuration test_puppy_scenario_native
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_scenario_sources test_puppy_scenario_worker test_puppy_scenario_cli
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_count_star_command test_commerce_query_selection test_registered_outbox_uncertain test_original_commerce_reopen
@@ -140,3 +141,4 @@ jobs:
       - run: python3 -m pip install '.[puppy-gremlin]'
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_export_local test_puppy_readiness_driver test_puppy_gremlin_transport
       - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_pack_scenario_queries
+      - run: PYTHONPATH=src:tests:tools python3 -W error::ResourceWarning -m unittest test_puppy_scenario_worker

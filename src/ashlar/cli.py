@@ -253,6 +253,8 @@ def main():
         puppy_setup.add_argument('--'+option,required=True)
     puppy_export=commands.add_parser('query-puppy-immutable-export',help='Run a bounded local PuppyGraph corpus in the explicitly configured language')
     puppy_export.add_argument('--configuration',required=True)
+    puppy_scenarios=commands.add_parser('query-original-pack-puppygraph',help='Run all original archaeology/ecology scenarios through one owned local PuppyGraph runtime')
+    puppy_scenarios.add_argument('--configuration',required=True)
     payments_count=commands.add_parser('query-payments-count',help='Count one original payments record on its selected finite publication')
     payments_count.add_argument('--configuration',required=True)
     payments_count.add_argument('--record',required=True)
@@ -934,6 +936,14 @@ def main():
             print('ashlar immutable PuppyGraph configuration refused',file=sys.stderr)
             raise SystemExit(2) from None
         print(json.dumps(answer,separators=(',',':')))
+        return
+    if args.command == 'query-original-pack-puppygraph':
+        from ashlar_host.puppy_scenario_cli import run_puppy_scenario_command
+        try:answer=run_puppy_scenario_command(args.configuration)
+        except Exception:
+            print('ashlar original pack PuppyGraph invocation refused; retain partial output',file=sys.stderr)
+            raise SystemExit(2) from None
+        print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         return
     if args.command == 'query-puppy-immutable-export':
         from ashlar_host.puppy_export_cli import run_puppy_export_command
