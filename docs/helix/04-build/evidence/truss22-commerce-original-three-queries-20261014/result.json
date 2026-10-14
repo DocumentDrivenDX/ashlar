@@ -1,0 +1,298 @@
+{
+  "source_commit": "68c72121721665b4417c59d23234255815bdb7ca",
+  "outcome": "passed",
+  "cases": [
+    {
+      "case": "partial-return",
+      "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+      "rows": [
+        [
+          "6",
+          "2",
+          "6"
+        ]
+      ],
+      "authored_sql": "SELECT f.quantity,r.quantity,l.quantity-f.quantity+r.quantity FROM order_lines l JOIN fulfillments f ON f.line_id=l.id JOIN returns r ON r.line_id=l.id WHERE f.quantity<l.quantity",
+      "columns": [
+        {
+          "carrierName": "_weft_output_1",
+          "nullable": false,
+          "outputName": "quantity",
+          "position": 1,
+          "representation": {
+            "carrier": "text",
+            "decoder": "exact-integer",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "integer",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "fulfillments.quantity",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            }
+          ]
+        },
+        {
+          "carrierName": "_weft_output_2",
+          "nullable": false,
+          "outputName": "quantity",
+          "position": 2,
+          "representation": {
+            "carrier": "text",
+            "decoder": "exact-integer",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "integer",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "returns.quantity",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            }
+          ]
+        },
+        {
+          "carrierName": "_weft_output_3",
+          "nullable": false,
+          "outputName": "l.quantity-f.quantity+r.quantity",
+          "position": 3,
+          "representation": {
+            "carrier": "text",
+            "decoder": "exact-integer",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "integer",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "fulfillments.quantity",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            },
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "order_lines.quantity",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            },
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "returns.quantity",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            }
+          ]
+        }
+      ],
+      "all_guard_count": 14,
+      "zero_guard_count": 11,
+      "public_source_counts": {
+        "order_lines.quantity": 1,
+        "fulfillments.quantity": 2,
+        "returns.quantity": 1
+      },
+      "physical_revisions": [
+        "1"
+      ],
+      "original_compile_recompile_equal": true,
+      "current_raw_ack_unchanged": true,
+      "supervisor": {
+        "status": "completed",
+        "exit_code": 0,
+        "source_start_seconds": 0.8100637920433655,
+        "query_child_seconds": 34.03311433293857,
+        "duration_seconds": 35.13255566696171,
+        "owned_source_closed": true
+      },
+      "oracle_witnesses": {
+        "current_native_occurrences": [
+          [
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "4",
+              "5"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "2",
+              "6"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "9",
+              "10"
+            ]
+          ]
+        ],
+        "count": 1
+      }
+    },
+    {
+      "case": "fulfillment",
+      "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+      "rows": [
+        [
+          "[42,0,\"F2\"]"
+        ]
+      ],
+      "authored_sql": "SELECT f.id FROM fulfillments f JOIN order_lines l ON f.line_id=l.id WHERE f.quantity>l.quantity ORDER BY f.id",
+      "columns": [
+        {
+          "nullable": false,
+          "outputName": "id",
+          "position": 1,
+          "representation": {
+            "carrier": "text",
+            "decoder": "text",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "string",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "fulfillments.id",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            }
+          ]
+        }
+      ],
+      "all_guard_count": 10,
+      "zero_guard_count": 8,
+      "public_source_counts": {
+        "fulfillments.quantity": 2,
+        "order_lines.quantity": 1
+      },
+      "physical_revisions": [
+        "1"
+      ],
+      "original_compile_recompile_equal": true,
+      "current_raw_ack_unchanged": true,
+      "supervisor": {
+        "status": "completed",
+        "exit_code": 0,
+        "source_start_seconds": 0.36179516604170203,
+        "query_child_seconds": 26.621753709041514,
+        "duration_seconds": 27.223923708079383,
+        "owned_source_closed": true
+      },
+      "oracle_witnesses": {
+        "current_native_occurrences": [
+          [
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "2",
+              "7"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "4",
+              "5"
+            ]
+          ]
+        ],
+        "count": 1
+      }
+    },
+    {
+      "case": "refund",
+      "publication_id": "truss-graph-ce9a7e185f33f545e6cd30bdda650ed240bfb4db4fa86d4165c654e370d4567f",
+      "rows": [
+        [
+          "[42,0,\"RF1\"]"
+        ]
+      ],
+      "authored_sql": "SELECT r.id FROM refunds r JOIN returns x ON x.id=r.return_id JOIN order_lines l ON l.id=x.line_id JOIN products p ON p.id=l.product_id WHERE r.amount=x.quantity*p.unit_price",
+      "columns": [
+        {
+          "nullable": false,
+          "outputName": "id",
+          "position": 1,
+          "representation": {
+            "carrier": "text",
+            "decoder": "text",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "string",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "urn:umf:domain:commerce",
+              "element": "refunds.id",
+              "module": "domain",
+              "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+            }
+          ]
+        }
+      ],
+      "all_guard_count": 13,
+      "zero_guard_count": 12,
+      "public_source_counts": {
+        "returns.quantity": 1
+      },
+      "physical_revisions": [
+        "1"
+      ],
+      "original_compile_recompile_equal": true,
+      "current_raw_ack_unchanged": true,
+      "supervisor": {
+        "status": "completed",
+        "exit_code": 0,
+        "source_start_seconds": 0.14822991704568267,
+        "query_child_seconds": 26.24038950004615,
+        "duration_seconds": 26.517444625031203,
+        "owned_source_closed": true
+      },
+      "oracle_witnesses": {
+        "current_native_occurrences": [
+          [
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "8",
+              "11"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "9",
+              "10"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "4",
+              "5"
+            ],
+            [
+              "ab037915-0e78-47a2-b82f-3931b3bf3122",
+              "7",
+              "3"
+            ]
+          ]
+        ],
+        "count": 1
+      }
+    }
+  ],
+  "scope": "Three unchanged original authored commerce SQL cases on retained original Truss22 publication/logicalrevision1, despite evolved live source. Actual local Spark4.0.1/Delta4.0.0/PG18.6 and public indexedWeft0.4.2; existing installed wheel reused. No mutations, source ACK, managedUC, production or all-domain qualification."
+}

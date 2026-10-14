@@ -77,7 +77,7 @@ implicit-arithmetic realization and the unchanged original commerce pack:
 python -m ashlar query-truss-commerce \
   --configuration /absolute/truss-reader.json --output /absolute/fresh-query.json \
   --weft-index /absolute/weft/index.json --weft-installation /absolute/weft/installation \
-  --pack /absolute/commerce/pack.json --revision 2 --document-id commerce \
+  --pack /absolute/commerce/pack.json --revision 2 --document-id urn:umf:domain:commerce \
   --case settlement --maximum-rows 1000
 ```
 
@@ -90,8 +90,15 @@ original SQL and positional columns, checks complete source populations before
 capacity checks, and compares the result with an independent current-source
 calculation. It reads an existing publication and leaves source ACK unchanged.
 Select the existing local runtime and a fresh output; supervise the invocation
-with a finite bound as described in the typed Truss quickstart. Compiler/native
-support claims require their own runtime evidence.
+with a finite bound as described in the typed Truss quickstart. For a historical
+read, select that publication's original intent and accepted logical revision;
+keep explicit historical acceptance archives available to the reader. The live
+source checkpoint can remain ahead of the selected publication. The
+[original three-case evidence](../../docs/helix/04-build/evidence/truss22-commerce-original-three-queries-20261014/README.md)
+and [evolved settlement evidence](../../docs/helix/04-build/evidence/truss22-commerce-indexed-settlement-20261014-c/README.md)
+qualify the recorded local Truss/Delta and indexed compiler selections. Different
+runtime/compiler bytes, managed Unity Catalog and production authority need
+separate qualification.
 
 ## Supported development evidence
 

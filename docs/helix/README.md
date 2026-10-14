@@ -25,11 +25,12 @@ The small configured JSONL example has actual managed-Delta
 and [committed replay evidence](04-build/evidence/native-configured-replay-20261008.json).
 These qualify the recorded development source, model, native versions and authority
 profile; they do not prove real Truss acceptance/feed/ACK or production authorization.
-Original UMF 0.8 commerce has independently verified local
-[publication evidence](04-build/evidence/original-commerce-publication-query-20261011-ef/README.md)
-and [four installed Weft query passes](04-build/evidence/original-commerce-installed-query-20261011-g/README.md)
-for partial return, fulfillment, settlement and refund. Broader model and engine
-support requires separate evidence. A blocked external engine or Truss source
+Original UMF 0.8 commerce has actual Truss 0.0.22
+[catalog/feed/publication and lifecycle evidence](04-build/evidence/truss22-commerce-lifecycle-20261013/README.md),
+[partial-return, fulfillment and refund passes on a retained publication](04-build/evidence/truss22-commerce-original-three-queries-20261014/README.md)
+and a [settlement pass on the evolved publication](04-build/evidence/truss22-commerce-indexed-settlement-20261014-c/README.md).
+These use local Spark/Delta and indexed Weft 0.4.2; broader models, runtimes,
+managed Unity Catalog and production authority require separate evidence. A blocked external engine or Truss source
 affects its own lane.
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing

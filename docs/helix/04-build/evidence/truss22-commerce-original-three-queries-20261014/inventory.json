@@ -1,0 +1,226 @@
+{
+  "captures": [
+    {
+      "path": "partial-return/host_postgres.py",
+      "bytes": 1956,
+      "sha256": "0f2de5908fa26da1f1c43b823e4d369c35e3fe12fc15f8e51c69694b95de9f5c",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/host_postgres.py"
+    },
+    {
+      "path": "partial-return/run.py",
+      "bytes": 4234,
+      "sha256": "d92c169b91d849a4777b78e6e26d916c1fafc526618a1985479ad2a3156bbdec",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/run.py"
+    },
+    {
+      "path": "partial-return/supervise.py",
+      "bytes": 1583,
+      "sha256": "a64070c338798bdaacad654d7c3d4aecb9c8ef7860939a0c09528b08c31b3378",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/supervise.py"
+    },
+    {
+      "path": "partial-return/run.log",
+      "bytes": 1748,
+      "sha256": "f707fdf058baa8b3e07d638b8b25ba7abb2b5cc21d26d9dd11c604cc574da639",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/run.log"
+    },
+    {
+      "path": "partial-return/runtime-info.json",
+      "bytes": 132,
+      "sha256": "ecc982dcbfa292b804b3a63359bbe2a059efee833018448869dd693f257043e1",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/runtime-info.json"
+    },
+    {
+      "path": "partial-return/supervisor-result.json",
+      "bytes": 208,
+      "sha256": "d2a6ba09ceada852807fe4bed6b604de166f8065f13beae25088e86e83b4a7a0",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/supervisor-result.json"
+    },
+    {
+      "path": "partial-return/query/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/checkpoint-before.bin"
+    },
+    {
+      "path": "partial-return/query/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/checkpoint-after.bin"
+    },
+    {
+      "path": "partial-return/query/publisher-selection.json",
+      "bytes": 917,
+      "sha256": "8db9c697e4c87f9c7db23141e483a45deb6aff9c6d84307d4570b544ba4f83f8",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/publisher-selection.json"
+    },
+    {
+      "path": "partial-return/query/reader.json",
+      "bytes": 937,
+      "sha256": "c13ac357310a83b1303191e39592ab5bfc6c21b8801f1a3c648c151e565141c9",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/reader.json"
+    },
+    {
+      "path": "partial-return/query/partial-return.json",
+      "bytes": 192034,
+      "sha256": "1d88bb42e1eef678bae51d6badae0df240ce96498f6cfdcd768785f3892c35d9",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/partial-return.json"
+    },
+    {
+      "path": "partial-return/query/result.json",
+      "bytes": 582,
+      "sha256": "72949f19731f9de26a1e517f689bd320fd7231a411507f3881c184e2d517170e",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-partial-return-20261014-a/query/result.json"
+    },
+    {
+      "path": "fulfillment/host_postgres.py",
+      "bytes": 1956,
+      "sha256": "0f2de5908fa26da1f1c43b823e4d369c35e3fe12fc15f8e51c69694b95de9f5c",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/host_postgres.py"
+    },
+    {
+      "path": "fulfillment/run.py",
+      "bytes": 4224,
+      "sha256": "347c0fd64756fcc3f12e5e9c013bae4587f3d678fc0389edf782cceef7034867",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/run.py"
+    },
+    {
+      "path": "fulfillment/supervise.py",
+      "bytes": 1583,
+      "sha256": "a64070c338798bdaacad654d7c3d4aecb9c8ef7860939a0c09528b08c31b3378",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/supervise.py"
+    },
+    {
+      "path": "fulfillment/run.log",
+      "bytes": 1661,
+      "sha256": "8f10d8e3c9269bdc39074f71dcc09f0898652110dc5e0556f0b9941afc0256b6",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/run.log"
+    },
+    {
+      "path": "fulfillment/runtime-info.json",
+      "bytes": 132,
+      "sha256": "ecc982dcbfa292b804b3a63359bbe2a059efee833018448869dd693f257043e1",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/runtime-info.json"
+    },
+    {
+      "path": "fulfillment/supervisor-result.json",
+      "bytes": 211,
+      "sha256": "c470c0516636873e6400bda588a2d3e73252e346c61f13ce708a4af2e42bc17e",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/supervisor-result.json"
+    },
+    {
+      "path": "fulfillment/query/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/checkpoint-before.bin"
+    },
+    {
+      "path": "fulfillment/query/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/checkpoint-after.bin"
+    },
+    {
+      "path": "fulfillment/query/publisher-selection.json",
+      "bytes": 917,
+      "sha256": "8db9c697e4c87f9c7db23141e483a45deb6aff9c6d84307d4570b544ba4f83f8",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/publisher-selection.json"
+    },
+    {
+      "path": "fulfillment/query/reader.json",
+      "bytes": 937,
+      "sha256": "c13ac357310a83b1303191e39592ab5bfc6c21b8801f1a3c648c151e565141c9",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/reader.json"
+    },
+    {
+      "path": "fulfillment/query/fulfillment.json",
+      "bytes": 145470,
+      "sha256": "b6a6014aa7b99f36082cec906fbe85b77aa922b2487ba0349f4b32ebfd5cde9b",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/fulfillment.json"
+    },
+    {
+      "path": "fulfillment/query/result.json",
+      "bytes": 566,
+      "sha256": "dff735d9b6aab030d2f116fa1523ef2c17500094f4ef4f7e0993b01732da444d",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-fulfillment-20261014-a/query/result.json"
+    },
+    {
+      "path": "refund/host_postgres.py",
+      "bytes": 1956,
+      "sha256": "0f2de5908fa26da1f1c43b823e4d369c35e3fe12fc15f8e51c69694b95de9f5c",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/host_postgres.py"
+    },
+    {
+      "path": "refund/run.py",
+      "bytes": 4205,
+      "sha256": "529febd25aa232f85227a02c425ebbb941fcf969f531d1cb3a255341378a7131",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/run.py"
+    },
+    {
+      "path": "refund/supervise.py",
+      "bytes": 1583,
+      "sha256": "a64070c338798bdaacad654d7c3d4aecb9c8ef7860939a0c09528b08c31b3378",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/supervise.py"
+    },
+    {
+      "path": "refund/run.log",
+      "bytes": 1656,
+      "sha256": "5ff80dedd11b7ade0a4e40f4d135160b3d784a98e59472bf2f61ffc60e1b8cba",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/run.log"
+    },
+    {
+      "path": "refund/runtime-info.json",
+      "bytes": 132,
+      "sha256": "ecc982dcbfa292b804b3a63359bbe2a059efee833018448869dd693f257043e1",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/runtime-info.json"
+    },
+    {
+      "path": "refund/supervisor-result.json",
+      "bytes": 210,
+      "sha256": "e48fe3bf53bc88b03eaffec8036cb168fd89a43241a2f306d02ef7ddbcc987f5",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/supervisor-result.json"
+    },
+    {
+      "path": "refund/query/checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/checkpoint-before.bin"
+    },
+    {
+      "path": "refund/query/checkpoint-after.bin",
+      "bytes": 274,
+      "sha256": "8961c385c0bb43ff9b2a55f25500c68e14fb6cb12c4f2de370edbbefde18c836",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/checkpoint-after.bin"
+    },
+    {
+      "path": "refund/query/publisher-selection.json",
+      "bytes": 917,
+      "sha256": "8db9c697e4c87f9c7db23141e483a45deb6aff9c6d84307d4570b544ba4f83f8",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/publisher-selection.json"
+    },
+    {
+      "path": "refund/query/reader.json",
+      "bytes": 937,
+      "sha256": "c13ac357310a83b1303191e39592ab5bfc6c21b8801f1a3c648c151e565141c9",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/reader.json"
+    },
+    {
+      "path": "refund/query/refund.json",
+      "bytes": 185564,
+      "sha256": "3d58217a2f63003bd17220aa1647c611c78e9f3d00fdc26633cdeb071908d7ff",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/refund.json"
+    },
+    {
+      "path": "refund/query/result.json",
+      "bytes": 557,
+      "sha256": "37f838bdf2d578e53814bd99b332e86d4f90244f3b631752ab2dbfd232cdf739",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-refund-20261014-a/query/result.json"
+    },
+    {
+      "path": "installed-custody.json",
+      "bytes": 1060,
+      "sha256": "70c4b6906d4d248f56f73af8d5d46090a8b6e060a6b52d8825f5d4b442ce4e4a",
+      "original_path": "/private/tmp/ashlar-truss22-commerce-indexed-settlement-20261013-b/installed-custody.json"
+    }
+  ]
+}
