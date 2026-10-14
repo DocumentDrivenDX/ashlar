@@ -328,15 +328,15 @@ def main():
     for name in ('initialize-original-commerce','publish-original-commerce'):
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
-    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical'):
-        medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication or settled replay')
+    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical'):
+        medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
-    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical'):
+    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical'):
         from pathlib import Path
-        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, medical_failure_metadata
+        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, run_original_medical_recovery_preflight_command, medical_failure_metadata
         try:
-            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command,'read-original-medical':run_original_medical_read_command,'recover-original-medical':run_original_medical_recovery_command}[args.command]
+            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command,'read-original-medical':run_original_medical_read_command,'recover-original-medical':run_original_medical_recovery_command,'preflight-original-medical':run_original_medical_recovery_preflight_command}[args.command]
             answer=entry(Path(args.configuration))
             print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
         except Exception as error:

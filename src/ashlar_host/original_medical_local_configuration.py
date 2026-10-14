@@ -126,8 +126,8 @@ class OriginalMedicalBounds:
                 (4194304, 10000, 1048576, 16777216, 1048576, 1048576, 134217728)):
             if type(value) is not int or not 1 <= value <= ceiling:
                 raise ValueError('Explicit finite medical capture bounds required')
-        if (type(self.native_seconds) is not int or self.native_seconds != 300
-                or type(self.whole_seconds) is not int or not 300 < self.whole_seconds <= 540
+        if (type(self.native_seconds) is not int or not 1 <= self.native_seconds <= 300
+                or type(self.whole_seconds) is not int or not self.native_seconds < self.whole_seconds <= 540
                 or type(self.master) is not str or self.master != 'local[1]'
                 or type(self.driver_memory) is not str or self.driver_memory != '512m'):
             raise ValueError('Exact supervised small local medical limits required')

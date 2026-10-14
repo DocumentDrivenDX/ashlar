@@ -92,7 +92,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_publication_planning
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_plan
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_observation
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_apply_observation test_medical_effect_proof
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_apply_observation test_medical_effect_proof test_medical_preflight_timing
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_runtime test_original_medical_native_session test_medical_native_phase
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_worker_capture
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_local_setup test_original_medical_installation_handoff test_original_medical_local_cli test_original_medical_local_publication

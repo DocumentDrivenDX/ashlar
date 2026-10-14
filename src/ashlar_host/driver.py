@@ -1904,11 +1904,14 @@ class NativeDriver:
                 for i, step in enumerate(steps)] +
             self._medical_publication_closing_callbacks(binding, context, versions))
 
-    def preflight_original_medical_recovery(self, plan, *, context, bounds):
+    def preflight_original_medical_recovery(self, plan, *, context, bounds, stages=None):
         """Validate all original partial custody before any remaining effect action."""
         from .medical_publication_plan import MedicalPublicationPlan
         from .evolution_verification_types import VerificationBounds
         from .lifecycle import finish
+        from .medical_preflight_timing import MedicalPreflightTiming
+        if stages is not None and type(stages)is not MedicalPreflightTiming:raise ValueError('Exact preflight timing owner required')
+        def timed(stage,action,**labels):return action()if stages is None else stages.call(stage,action,**labels)
         self.require(context)
         binding = getattr(self, '_original_medical_publication_binding', None)
         if (type(plan) is not MedicalPublicationPlan or type(bounds) is not VerificationBounds
@@ -1927,7 +1930,7 @@ class NativeDriver:
             plan.require_request(request)
         def source_plan():
             nonlocal source_original
-            guard(); current = self._apply_source_plan(request, context, True)
+            guard(); current = self._apply_source_plan(request, context, True, stages=stages)
             if source_original is None:source_original = current
             elif current != source_original:raise PermissionError('Original recovery source plan changed during preflight')
         def ordinal(index):
@@ -1968,9 +1971,9 @@ class NativeDriver:
             elif encoded(current) != whole_original:raise PermissionError('Original recovery ordinal state changed during preflight')
             return current
         try:
-            guard(); self.source_admit(request); source_plan()
+            guard(); timed('source-admission',lambda:self.source_admit(request)); timed('source-plan',source_plan)
             _, _, identities = effects.original_plan(operation, digest, steps)
-            observed = whole(); states = tuple(observed['states'])
+            observed = timed('ordinal-state',whole); states = tuple(observed['states'])
             if len(states) != len(steps):raise PermissionError('Complete original recovery ordinal inventory required')
             pending_seen = False
             for state in states:
@@ -1979,17 +1982,17 @@ class NativeDriver:
             # Missing states remain native-absence concerns. Existing committed
             # receipts are all independently checked before shared recovery acts.
             total = [0]
-            finish(None, [lambda target=target:native(target,total,False) for target in binding['targets']])
-            finish(None, [lambda index=index:ordinal(index) for index in range(len(steps))])
+            finish(None, [lambda target=target:timed('native-target',lambda:native(target,total,False),role=target.table.split('.')[-1]) for target in binding['targets']])
+            finish(None, [lambda index=index:timed('committed-ordinal',lambda:ordinal(index),ordinal=index) for index in range(len(steps))])
         except BaseException as error:primary = error
         total = [0]
-        finish(primary, [source_plan, whole, *(lambda index=index:ordinal(index) for index in range(len(steps))),
-            *(lambda target=target:native(target,total,True) for target in binding['targets']),
-            lambda:self._medical_publication_source(binding,context),
-            lambda:self._medical_publication_ack_scope(binding,context), guard])
+        finish(primary, [lambda:timed('source-plan',source_plan), lambda:timed('ordinal-state',whole), *(lambda index=index:timed('committed-ordinal',lambda:ordinal(index),ordinal=index) for index in range(len(steps))),
+            *(lambda target=target:timed('native-target',lambda:native(target,total,True),role=target.table.split('.')[-1]) for target in binding['targets']),
+            lambda:timed('source-closing',lambda:self._medical_publication_source(binding,context)),
+            lambda:timed('ack-scope',lambda:self._medical_publication_ack_scope(binding,context)), lambda:timed('binding',guard)])
         return None
 
-    def _apply_source_plan(self, request, context, recovery):
+    def _apply_source_plan(self, request, context, recovery, *, stages=None):
         active = self.policy.active
         medical_binding = getattr(self, '_original_medical_publication_binding', None)
         source_plan = {'request': request, 'generated_steps': active['generated_steps'], 'selected_steps': active['steps'], 'zero_match_elisions': active['elisions'], 'complete_prior_oracle': active['previous_expected']}
@@ -2069,8 +2072,9 @@ class NativeDriver:
                     observed = self.transport._snapshot(target, anchor['version'])
                 else:
                     role = next(role for role in active['previous_expected'] if self.tables[role] == table)
-                    observed, _, size = self._medical_publication_capture(medical_binding, role,
+                    def capture():return self._medical_publication_capture(medical_binding, role,
                         {table: anchor['version']}, medical_binding['bounds'].total_bytes-prior_total, previous=True)
+                    observed, _, size = capture()if stages is None else stages.call('prior-capture',capture,role=role)
                     prior_total += size
                 if anchor['uuid'] != target.uuid or encoded(observed) != encoded(anchor['snapshot']):
                     raise LocalDeltaError('Original no-op prior native evidence differs')

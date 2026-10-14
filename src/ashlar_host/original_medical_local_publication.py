@@ -203,16 +203,22 @@ def _original_transaction(source,batch,*,context,existing):
     return (source.read_original if existing else source.append_original)(batch,context=context)
 
 
-def _operate(config,replay,supervision=None,*,recovery=False):
+def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False):
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
         raise ValueError('Exact original medical native phase required')
     if type(replay)is not bool or type(recovery)is not bool or replay and recovery:
         raise ValueError('Exact distinct medical operation required')
+    if type(preflight_only)is not bool or preflight_only and not recovery:raise ValueError('Distinct medical recovery preflight required')
     wanted=OriginalMedicalRecoveryConfig if recovery else OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
     if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
-    config.__post_init__();context=object();output=_Output(config);primary=None;answer=None;pins=[]
+    config.__post_init__()
+    if preflight_only and config.bounds.native_seconds>60:raise ValueError('Medical preflight native ceiling is60seconds')
+    context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None
     try:
         output.acquire()
+        if preflight_only:
+            from .medical_preflight_timing import MedicalPreflightTiming
+            stages=MedicalPreflightTiming(output.write)
         installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
         selection=validate_original_medical_installation_handoff(raw,config)
         expected_request=expected_publication=None
@@ -222,7 +228,8 @@ def _operate(config,replay,supervision=None,*,recovery=False):
             request,expected_request=_pin(config.request,config.bounds.input_bytes);publication,expected_publication=_pin(config.publication,config.bounds.input_bytes)
             pins.extend(((request,expected_request),(publication,expected_publication)))
         def originals():finish(None,[output.renew]+[lambda pin=pin,raw=raw:output._same(pin,raw) for pin,raw in pins])
-        with owned_context(OriginalMedicalRuntimeCustody.open(config.runtime,config.inputs,config.bounds,config.producer)) as custody:
+        runtime_owner=OriginalMedicalRuntimeCustody.open(config.runtime,config.inputs,config.bounds,config.producer)
+        with (owned_context(runtime_owner)if stages is None else stages.context('runtime-custody','runtime-closing',runtime_owner)) as custody:
             model,graph,baseline=custody.input_bytes
             dataset=HeldMedicalDataset(config.producer,config.inputs.model.path,config.inputs.graph.path,config.inputs.baseline.path,config.output/'public-revalidation.json')
             batch,bindings=build_transaction(model,graph,baseline,source_system=FEED,binding_profile='ashlar-medical-development-bindings/0.2')
@@ -249,27 +256,31 @@ def _operate(config,replay,supervision=None,*,recovery=False):
                             output.write('request.json',request_raw,config.bounds.input_bytes)
                             if recovery:
                                 with owned_context(driver.writer(STREAM,context)):
-                                    driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds)
-                            target=transport.targets[tables['attempts']]
-                            adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
-                            backend_type=_SettledBackend if replay else StoredPublisherBackend
-                            backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request))
-                            histories=None
-                            if replay:
-                                with owned_context(backend.writer(STREAM,context)):
-                                    descriptor=backend.observe_committed_original(STREAM,view['request'],context=context)
-                                    histories={target.table:transport.original_history(target) for target in selection.targets}
-                            descriptor=publish_outbox_transaction(backend,STREAM,transaction,predecessor=view['request']['predecessor'],schema_revisions_json=view['request']['schema_revisions_json'],context=context)
-                            with owned_context(driver.writer(STREAM,context)):
-                                observation=driver.observe_original_medical_publication(plan,descriptor,context=context,bounds=bounds)
-                                if histories is not None:
-                                    def history(target):
-                                        if transport.original_history(target)!=histories[target.table]:raise PermissionError('Settled medical native history changed')
-                                    finish(None,[lambda target=target:history(target) for target in selection.targets])
-                            output.write('publication.json',_bounded(dict(descriptor.raw),bounds.input_bytes-1),bounds.input_bytes)
-                            observed_raw=_bounded(observation,min(config.bounds.total_bytes,4194304)-1)
-                            output.write('observation.json',observed_raw,min(config.bounds.total_bytes,4194304))
-                            answer={'profile':'ashlar-original-medical-local-'+('recovery' if recovery else 'replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
+                                    if stages is None:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds)
+                                    else:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds,stages=stages)
+                            if preflight_only:
+                                answer={'profile':'ashlar-original-medical-local-recovery-preflight/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'preflight_completed':True,'closing':True,'stage_records':stages.records}
+                            else:
+                                target=transport.targets[tables['attempts']]
+                                adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
+                                backend_type=_SettledBackend if replay else StoredPublisherBackend
+                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request))
+                                histories=None
+                                if replay:
+                                    with owned_context(backend.writer(STREAM,context)):
+                                        descriptor=backend.observe_committed_original(STREAM,view['request'],context=context)
+                                        histories={target.table:transport.original_history(target) for target in selection.targets}
+                                descriptor=publish_outbox_transaction(backend,STREAM,transaction,predecessor=view['request']['predecessor'],schema_revisions_json=view['request']['schema_revisions_json'],context=context)
+                                with owned_context(driver.writer(STREAM,context)):
+                                    observation=driver.observe_original_medical_publication(plan,descriptor,context=context,bounds=bounds)
+                                    if histories is not None:
+                                        def history(target):
+                                            if transport.original_history(target)!=histories[target.table]:raise PermissionError('Settled medical native history changed')
+                                        finish(None,[lambda target=target:history(target) for target in selection.targets])
+                                output.write('publication.json',_bounded(dict(descriptor.raw),bounds.input_bytes-1),bounds.input_bytes)
+                                observed_raw=_bounded(observation,min(config.bounds.total_bytes,4194304)-1)
+                                output.write('observation.json',observed_raw,min(config.bounds.total_bytes,4194304))
+                                answer={'profile':'ashlar-original-medical-local-'+('recovery' if recovery else 'replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
                     except BaseException as error:native_primary=error
                     def closing():
                         with owned_context(transport.bounded_observations(bounds)):
@@ -287,8 +298,9 @@ def _operate(config,replay,supervision=None,*,recovery=False):
                                     finish(None,callbacks+[lambda:source.renew_original(batch,context=context)])
                             else:
                                 finish(None,callbacks)
-                    finish(native_primary,[closing,transport.close])
-            finish(None,[originals,custody.renew,dataset.renew])
+                    finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close])
+            finish(None,[originals,custody.renew if stages is None else lambda:stages.call('runtime-custody',custody.renew),dataset.renew])
+        if preflight_only:answer['stage_records']=stages.records
         output.write('receipt.json',_bounded(answer,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
     except BaseException as error:primary=error
     finish(primary,[output.renew,output.close])
@@ -308,3 +320,12 @@ def replay_original_medical_local(config,*,supervision=None):
 def recover_original_medical_local(config,*,supervision=None):
     """Resume retained original intent through shared native/publisher recovery."""
     return _operate(config,False,supervision,recovery=True)
+
+
+def preflight_original_medical_recovery_local(config: OriginalMedicalRecoveryConfig,*,supervision=None) -> dict:
+    """Check the same retained original under existing authority; never publish/ACK.
+
+    The existing isolated supervisor enforces the selected <=60s native ceiling.
+    Direct callers must supply equivalent supervision; timings are evidence only.
+    """
+    return _operate(config,False,supervision,recovery=True,preflight_only=True)

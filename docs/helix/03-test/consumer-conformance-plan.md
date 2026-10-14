@@ -481,6 +481,17 @@ runtime versions/origins, all complete bags and current closing. No fabricated
 medical query/engine case or abstract simulation closes this installed workflow;
 P04 full eight-run, P07 engine corpus and P10 real feed remain independently due.
 
+For the additive preflight-only medical command, use the same recovery selections
+and actual-owner inert controls. Assert zero publisher construction, remaining
+effect recovery, append and ACK submission; complete prior/current target,
+committed ordinal, source/ACK and runtime closing still execute. Reject native
+deadlines above 60 seconds. Capture fixed stage begin/end records within the
+128-record/1024-byte ceilings; cancellation, capacity and capture failure must
+retain the original failure and attempt every required closing. Retained prefixes
+must contain no paths, SQL, source values, credentials or exception text. A passing
+preflight is not publication completion; a bounded native observation separately
+qualifies only the recorded stages and runtime.
+
 ## Truss destination receipt controls
 
 Exercise explicit receipt-mode ACK through the public SDK with an exact original

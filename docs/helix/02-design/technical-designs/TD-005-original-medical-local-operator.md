@@ -232,6 +232,26 @@ source head/batch identity, validate all four bags and six schemas, durably publ
 and ACK, and close independently. Test missing/conflicting custody, interruption,
 cancellation and recovery reentry as well as actual partial-journal continuation.
 
+The preflight-only host entry and installed command in CONTRACT-001 reuse this
+same recovery composition and supervisor with a native ceiling of 60 seconds.
+Branch after complete preflight and before publisher construction. Preserve
+ordinary original readback, writer exclusion, complete prior/current captures,
+committed ordinal inspection and every independent closing. The stage timing
+owner receives only closed stage/role/ordinal selections and an exclusive bounded
+output sink; it obtains no publication or ACK port. Persist begin records before
+checked actions so a killed worker retains a useful incomplete prefix. End records
+measure monotonic duration without exposing exception text. Timing failure cannot
+skip cleanup or replace an existing primary failure.
+
+Focused controls must prove the explicit branch cannot reach publisher or ACK,
+reject excess deadlines, retain safe bounded prefixes on cancellation and drift,
+and preserve all source/native/runtime closings. This changes observation and
+composition, not publication state transitions: MED-F2–F4 and MED-L1 remain the
+safety/liveness obligations. No new state-space exploration is required for
+unchanged publication transitions; actual native recovery still requires separate
+evidence. Disabling this additive command leaves retained source and Delta state
+intact.
+
 Failure diagnostics must expose a bounded, closed classification of the owning
 failure and observed worker status/native phase, without exception text, stack,
 SQL, source values, paths or credentials on public streams. Distinguish native
@@ -242,7 +262,8 @@ The existing bounded private `medical_capture` is the source of observed facts,
 not a basis for reconstructing a capture discarded by an earlier invocation.
 
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and
-origin profile, local[1], 512MiB and a 300-second native child limit. Historical
+origin profile, local[1], 512MiB and an explicit native child limit within the
+300-second ceiling. Historical
 runtime qualification and any newly selected profile require their own evidence;
 a newer qualified Spark profile is not excluded. Portable Ashlar imports retain
 their Python support independently of selected native SDK origins. Configurations own finite
@@ -255,7 +276,7 @@ source, capture, journal or core effect limits.
 carrier's existing 128MiB ceiling. Enforce the selected value before opening and
 on every lease renewal; lower selections remain lower. This is separate from WAL
 and total disk footprint. Keep the source corpus, native cell/total limits and
-300-second native deadline fixed when selecting a sufficient journal budget.
+selected native deadline fixed when selecting a sufficient journal budget.
 
 ### Original medical effect proof
 
@@ -321,7 +342,7 @@ reaping, not just a Python deadline around JVM work. Current sessions cannot be
 silently reused. Renew actual source/native/lease/runtime/config custody on every
 acquired interval, including opening failure, body failure, timeout and cancellation.
 The parent measures the configured whole-invocation deadline from worker launch
-and the separate 300-second native deadline from the worker's entry into native
+and the separately selected native deadline from the worker's entry into native
 session acquisition. The native interval includes session opening, work and
 cleanup; it ends only after successful session/context cleanup. A bounded private
 control channel identifies that interval independently of stdout/stderr. Missing,

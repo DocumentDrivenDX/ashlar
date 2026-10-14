@@ -735,6 +735,36 @@ independent closing precedes the success receipt. Fresh publication remains
 fresh-only and settled replay remains committed-only. A lost diagnostic does
 not prove a cause and cannot substitute for current recovery evidence.
 
+`preflight_original_medical_recovery_local(config, supervision=...)` and the
+installed `preflight-original-medical --configuration PATH` select the same exact
+`OriginalMedicalRecoveryConfig`, original request and existing authority. The
+selected native deadline MUST be at most 60 seconds. They MUST perform complete
+recovery preflight and independent closing, but MUST NOT construct the publisher,
+apply or reconcile remaining effects, append source data or submit an ACK.
+A successful result uses `ashlar-original-medical-local-recovery-preflight/0.1`,
+retains installation/request correspondence and reports `preflight_completed`,
+`closing` and bounded `stage_records`; it MUST NOT contain a publication or ACK
+success claim. Deadline, refusal or incomplete cleanup MUST withhold success.
+
+The private output retains exclusive `preflight-stage-NNN.json` records before
+and after each checked stage, with at most 128 records and 1024 bytes per record.
+`ashlar-medical-preflight-stage/0.1` has `sequence` (integer 0–127), `stage` and `phase`
+(`begin` or `end`); optional `role` selects one of the six existing roles,
+`ordinal` is an integer 0–31, and end records carry nonnegative monotonic
+`duration_ns` below 2^63 and `outcome` (`completed` or `refused`); begin records
+MUST omit duration and outcome. Closed stages are
+`runtime-custody`, `source-admission`, `source-plan`, `prior-capture`,
+`ordinal-state`, `native-target`, `committed-ordinal`, `source-closing`,
+`ack-scope`, `binding`, `composition-closing` and `runtime-closing`.
+The driver preflight MAY accept keyword `stages`, either `None` or the exact
+`MedicalPreflightTiming` owner from `medical_preflight_timing.py`; it MUST NOT
+accept a caller-supplied replacement for a native or authority check.
+Records MUST exclude paths, SQL, source values, credentials and exception text.
+Capacity or capture failure MUST preserve the original failure and all required
+closing. A retained begin without end identifies incomplete observation, not a
+proven timeout cause. This local projection grants no authority and claims no
+OpenTelemetry receiver integration; CONTRACT-006 privacy remains applicable.
+
 The lower `publication_planning.py` module owns the pure
 `request_for(stream, transaction, predecessor, revisions)` and
 `local_effect_plan(generated, prior_rows, tables)` surfaces. The driver MUST retain
@@ -839,7 +869,9 @@ Binding grants read custody only; it does not grant medical Weft or engine-query
 support or enable any mutation path.
 
 Each command MUST own finite separate-process supervision/descendant cleanup,
-within native 300 seconds/local[1]/512MiB for this small functional profile. Bounds
+with an explicit integer native deadline of 1–300 seconds, an integer whole
+deadline greater than the native deadline and at most 540 seconds, and
+local[1]/512MiB for this small functional profile. Bounds
 hold before buffering/serialization; operation-intent capacity is not journal-file
 capacity. Every acquired interval independently attempts required current closing
 on opening/body failure, timeout and cancellation while authority remains held,
@@ -856,7 +888,7 @@ worker-side owner of an explicitly inherited writable pipe descriptor. Its
 single-use. The private channel carries only ASCII `native.begin\n` followed by
 `native.end\n`, at most 32 bytes total. Unknown, duplicate, reversed, truncated or
 missing messages MUST refuse a successful invocation. The parent MUST enforce
-the configured whole deadline from launch and native 300 seconds from begin,
+the configured whole deadline from launch and configured native deadline from begin,
 through session/context cleanup. Closing the pipe or exiting does not replace end.
 
 The four typed medical host entries MAY accept keyword `supervision`, and

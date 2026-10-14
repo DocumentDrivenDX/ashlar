@@ -13,7 +13,7 @@ from .medical_worker_capture import capture_original_medical_worker
 from .original_medical_local_configuration import (
     OriginalMedicalInitializationConfig, OriginalMedicalPublicationConfig, OriginalMedicalReplayConfig, OriginalMedicalReadConfig, OriginalMedicalRecoveryConfig, parse_original_medical_local)
 from .original_medical_local_setup import initialize_original_medical_local
-from .original_medical_local_publication import publish_original_medical_local, replay_original_medical_local, recover_original_medical_local
+from .original_medical_local_publication import publish_original_medical_local, replay_original_medical_local, recover_original_medical_local, preflight_original_medical_recovery_local
 from .original_medical_runtime import OriginalMedicalRuntimeCustody
 from .original_medical_local_read import read_original_medical_local
 
@@ -21,10 +21,11 @@ MAX_CONFIGURATION=262144
 
 
 def _configuration(raw,operation):
-    types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig,'read':OriginalMedicalReadConfig,'recovery':OriginalMedicalRecoveryConfig}
+    types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig,'read':OriginalMedicalReadConfig,'recovery':OriginalMedicalRecoveryConfig,'recovery-preflight':OriginalMedicalRecoveryConfig}
     if type(operation)is not str or operation not in types:raise ValueError('Closed medical operation required')
     config=parse_original_medical_local(raw)
     if type(config)is not types[operation]:raise ValueError('Exact selected medical operation configuration required')
+    if operation=='recovery-preflight'and config.bounds.native_seconds>60:raise ValueError('Medical preflight native ceiling is60seconds')
     return config
 
 
@@ -43,7 +44,7 @@ def _execute(configuration, *, expected_sha256, phase, operation):
     config=_configuration(file.raw,operation);result=None;primary=None
     try:
         file.renew(MAX_CONFIGURATION)
-        entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local,'read':read_original_medical_local,'recovery':recover_original_medical_local}[operation]
+        entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local,'read':read_original_medical_local,'recovery':recover_original_medical_local,'recovery-preflight':preflight_original_medical_recovery_local}[operation]
         result=entry(config,supervision=phase)
     except BaseException as error:primary=error
     finish(primary,[lambda:file.renew(MAX_CONFIGURATION)])
@@ -99,6 +100,8 @@ def execute_original_medical_recovery(configuration,*,expected_sha256,phase):
 
 def run_original_medical_recovery_command(configuration):return _run(configuration,'recovery')
 
+def run_original_medical_recovery_preflight_command(configuration):return _run(configuration,'recovery-preflight')
+
 
 def medical_failure_metadata(error):
     """Closed public cause/status/phase only; private stream prefixes stay private."""
@@ -140,7 +143,7 @@ def _worker_diagnostic_interval():
 def _worker_main():
     import argparse
     parser=argparse.ArgumentParser()
-    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery'],default='initialization')
+    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery','recovery-preflight'],default='initialization')
     parser.add_argument('--configuration',required=True)
     parser.add_argument('--sha256',required=True)
     parser.add_argument('--native-phase-fd',type=int,required=True)

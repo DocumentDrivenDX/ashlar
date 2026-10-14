@@ -100,6 +100,23 @@ qualify the recorded local Truss/Delta and indexed compiler selections. Differen
 runtime/compiler bytes, managed Unity Catalog and production authority need
 separate qualification.
 
+## Diagnose retained medical recovery
+
+For an existing original-medical installation and its pinned request, use the
+same recovery configuration with a fresh private output and `native_seconds`
+at most 60:
+
+```sh
+python -m ashlar preflight-original-medical --configuration /absolute/recovery.json
+```
+
+The command performs complete recovery preflight and closing without publishing
+or advancing ACKs. Bounded `preflight-stage-NNN.json` records retain entered and
+completed stages, including prior/current captures and committed receipt checks.
+An unfinished stage is an observation to investigate; preflight success does not
+prove publication completion. The [medical contract](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md)
+defines the exact configuration, authority and failure requirements.
+
 ## Supported development evidence
 
 The configured JSONL example has actual native
