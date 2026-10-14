@@ -4,6 +4,7 @@ The caller owns the actual source/export intervals and releases a final CLI
 report only after those close. This composition closes its native interval
 before returning; it creates no publication or source authority.
 """
+import hashlib
 import json
 from .lifecycle import finish, owned_context
 from .pack_scenario_queries import MAP_PUPPY, carrier_check, execute
@@ -38,7 +39,8 @@ class ScenarioQueryTrace:
 def execute_owned_puppy_scenarios(config, *, pack_bytes, sources, exports,
                                   preparation, native_map_profile,
                                   maximum_rows=1000, maximum_bytes=1048576,
-                                  failure_observer=None):
+                                  failure_observer=None, creation_observer=None,
+                                  invocation_nonce=None):
     """Run every original query and full opening/closing carrier bags once.
 
     Preparation is a description; the factory independently admits its exact
@@ -61,6 +63,7 @@ def execute_owned_puppy_scenarios(config, *, pack_bytes, sources, exports,
             sources=sources, exports=exports, preparation=preparation,
             native_map_profile=native_map_profile,
             maximum_rows=maximum_rows, maximum_bytes=maximum_bytes,
+            creation_observer=creation_observer, invocation_nonce=invocation_nonce,
             failure_observer=failure if failure_observer is not None else None)) as native:
         query = ScenarioQueryTrace(native)
         reports = []
@@ -101,6 +104,17 @@ def execute_owned_puppy_scenarios(config, *, pack_bytes, sources, exports,
                 'release_sha256s': list(preparation['release_sha256s']),
                 'custody_sha256s': list(preparation['custody_sha256s']),
                 'reports': reports, 'original_requests': query.requests,
-                'native_model_observations': list(native.observations),
                 'scope': 'Original finite analytic queries only; no publication, protected ACK or canonical source grant.'}
+    # Capture after held/runtime closing, including the final schema reads.
+    # Repeated byte-identical bodies share storage; every occurrence is retained.
+    observations = []
+    blobs = {}
+    for name, raw in native.observations:
+        digest = hashlib.sha256(raw).hexdigest()
+        if digest in blobs and blobs[digest] != raw:
+            raise ValueError('Distinct original observation bytes share a digest')
+        blobs[digest] = raw
+        observations.append({'name': name, 'sha256': digest, 'bytes': len(raw)})
+    result['native_model_observations'] = observations
+    result['native_model_blobs'] = blobs
     return result

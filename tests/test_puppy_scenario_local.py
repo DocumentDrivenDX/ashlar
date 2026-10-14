@@ -91,3 +91,45 @@ class Tests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 with open_puppy_scenario_local(config,pack_bytes=packs,sources=sources,exports=exports,preparation=receipt,native_map_profile=None):self.fail('No runtime acquisition')
         docker.assert_not_called()
+
+    def test_creation_handoff_failure_closes_actual_id_before_start(self):
+        from dataclasses import FrozenInstanceError
+        config,packs,sources,exports,receipt=self.fixture();actions=[];received=[];primary=KeyboardInterrupt();nonce='c'*32;identifier='d'*64
+        def docker(owner,args,**kwargs):
+            actions.append(args)
+            if args[:2]==['image','inspect']:return json.dumps([{'Id':config.image}]).encode()
+            if args[0]=='create':return identifier.encode()
+            return b''
+        def created(value):
+            received.append(value)
+            with self.assertRaises(FrozenInstanceError):value.container_id='foreign'
+            raise primary
+        with patch.object(PuppyLocalRuntime,'_docker',docker),patch.object(PuppyLocalRuntime,'_container',lambda owner:None):
+            with self.assertRaises(KeyboardInterrupt)as caught:
+                with open_puppy_scenario_local(config,pack_bytes=packs,sources=sources,exports=exports,preparation=receipt,native_map_profile=None,creation_observer=created,invocation_nonce=nonce):self.fail('No start')
+        self.assertIs(caught.exception,primary);self.assertEqual(received[0].container_id,identifier)
+        self.assertEqual(received[0].invocation_nonce,nonce);self.assertEqual(received[0].readonly_mount_source,config.prepared/'scenarios.duckdb')
+        self.assertEqual((received[0].cpus,received[0].memory_bytes),(2,3*1024**3))
+        create=next(args for args in actions if args[0]=='create');self.assertIn('ashlar.scenario.invocation='+nonce,create)
+        self.assertFalse(any(args[0]=='start'for args in actions));self.assertIn(['stop','--time','5',identifier],actions);self.assertIn(['rm',identifier],actions)
+        for observer,selected in ((created,None),(None,nonce),(created,'invalid')):
+            with patch.object(PuppyLocalRuntime,'_docker')as effect:
+                with self.assertRaises(ValueError):
+                    with open_puppy_scenario_local(config,pack_bytes=packs,sources=sources,exports=exports,preparation=receipt,native_map_profile=None,creation_observer=observer,invocation_nonce=selected):self.fail('Invalid handoff')
+                effect.assert_not_called()
+
+    def test_repeated_original_bodies_keep_order_with_unique_byte_budget(self):
+        from ashlar_host.puppy_finite_local import OwnedPuppyScenarioLocal
+        owner=object.__new__(OwnedPuppyScenarioLocal);owner.observations=[];owner._scenario_bodies={};owner._scenario_observation_bytes=0
+        raw=b'{"unknown":"preserved"}'
+        for i in range(500):owner._record('current-model',bytes(bytearray(raw)))
+        self.assertEqual(owner.observations,[('current-model',raw)]*500)
+        self.assertEqual(owner._scenario_observation_bytes,len(raw));self.assertIs(owner.observations[0][1],owner.observations[-1][1])
+        changed=b'{"unknown":"changed"}';owner._record('current-model',changed)
+        self.assertEqual(owner._scenario_observation_bytes,len(raw)+len(changed))
+        for i in range(11):owner._record('current-model',raw)
+        with self.assertRaises(ValueError):owner._record('current-model',raw)
+        self.assertEqual(len(owner.observations),512)
+        another=object.__new__(OwnedPuppyScenarioLocal);another.observations=[];another._scenario_bodies={};another._scenario_observation_bytes=8388608
+        with self.assertRaises(ValueError):another._record('current-model',b'new')
+        self.assertEqual(another.observations,[])

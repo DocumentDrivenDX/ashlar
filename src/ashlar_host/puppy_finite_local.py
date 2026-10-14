@@ -7,6 +7,7 @@ import base64,hashlib,http.client,json,os,re,time,urllib.request,urllib.error
 from contextlib import contextmanager
 from dataclasses import dataclass,field,fields
 from pathlib import Path
+from typing import Optional
 from .evolution_producer import capture,snapshot
 from .finite_dataset import FinitePackSource
 from .local_graph_export import LocalGraphExportUse
@@ -92,11 +93,16 @@ class PuppyLocalRuntime:
             '--publish','127.0.0.1:'+str(config.http_port)+':8081','--publish','127.0.0.1:'+str(config.bolt_port)+':7687',
             ]
         if type(config)is PuppyGremlinLoopbackConfig:arguments+=['--publish','127.0.0.1:'+str(config.gremlin_port)+':8182']
+        nonce=getattr(self,'_scenario_invocation_nonce',None)
+        if nonce is not None:arguments+=['--label','ashlar.scenario.invocation='+nonce]
         return arguments+['--mount','type=bind,src='+str(self.database)+',dst=/tmp/'+self.database.name+',readonly',config.image]
     def _container(self):
         info=json.loads(self._docker(['inspect',self.container_id]))
         if type(info)is not list or len(info)!=1:raise PermissionError('Actual owned container required')
         row=info[0];host=row['HostConfig'];mounts=row['Mounts']
+        nonce=getattr(self,'_scenario_invocation_nonce',None)
+        if nonce is not None and row.get('Config',{}).get('Labels',{}).get('ashlar.scenario.invocation')!=nonce:
+            raise PermissionError('Original scenario invocation label differs')
         expected={'8081/tcp':self.config.http_port,'7687/tcp':self.config.bolt_port}
         if type(self.config)is PuppyGremlinLoopbackConfig:expected['8182/tcp']=self.config.gremlin_port
         if row['Id']!=self.container_id or row['Image']!=self.config.image or row['Name']!='/'+self.config.name or not row['State']['Running']or host['NanoCpus']!=2000000000 or host['Memory']!=3*1024**3:raise PermissionError('Actual owned image/resources/status differ')
@@ -515,6 +521,20 @@ def _scenario_sdk_size(rows,maximum_bytes=1048576):
 
 class OwnedPuppyScenarioLocal(PuppyLocalRuntime):
     """Minted only by the public fixed original17 factory; no free-script port."""
+    def _record(self,name,raw):
+        if type(name)is not str or not 0<len(name)<=256 or type(raw)is not bytes:
+            raise ValueError('Exact bounded scenario observation required')
+        if len(self.observations)>=512:raise ValueError('Scenario observation count exceeded')
+        digest=hashlib.sha256(raw).hexdigest()
+        existing=self._scenario_bodies.get(digest)
+        if existing is not None:
+            if existing!=raw:raise ValueError('Scenario observation digest collision')
+            retained=existing
+        else:
+            if self._scenario_observation_bytes+len(raw)>8388608:
+                raise ValueError('Unique scenario observation capacity exceeded')
+            retained=raw;self._scenario_bodies[digest]=raw;self._scenario_observation_bytes+=len(raw)
+        self.observations.append((name,retained))
     def renew(self):
         def files():
             if (snapshot(self.database,33554432)!=self.original_database
@@ -601,8 +621,24 @@ def _scenario_source_closing(sources):
     finish(primary,[source.renew for source in sources])
 
 
+@dataclass(frozen=True)
+class PuppyScenarioContainerReceipt:
+    """Actual create ID plus explicit invocation selections, not inspection authority."""
+    container_id:str
+    image:str
+    name:str
+    invocation_nonce:str
+    readonly_mount_source:Path
+    readonly_mount_target:str
+    http_port:int
+    bolt_port:int
+    gremlin_port:Optional[int]
+    cpus:int
+    memory_bytes:int
+
+
 @contextmanager
-def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,native_map_profile,failure_observer=None,maximum_rows=1000,maximum_bytes=1048576):
+def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,native_map_profile,failure_observer=None,maximum_rows=1000,maximum_bytes=1048576,creation_observer=None,invocation_nonce=None):
     """Fresh four-table namespace, bounded readiness and one model POST only."""
     from contextlib import ExitStack
     from .pack_scenario_queries import MAP_PUPPY
@@ -612,6 +648,9 @@ def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,na
             or (type(config)is PuppyFiniteLoopbackConfig and native_map_profile is not None)):
         raise ValueError('Explicit protocol-specific original map profile required')
     if failure_observer is not None and not callable(failure_observer):raise ValueError('Private bounded observer required')
+    if ((creation_observer is None)!=(invocation_nonce is None)
+            or (creation_observer is not None and (not callable(creation_observer)or type(invocation_nonce)is not str or re.fullmatch('[0-9a-f]{32}',invocation_nonce)is None))):
+        raise ValueError('Paired explicit scenario creation observer and nonce required')
     if (type(maximum_rows)is not int or not 1<=maximum_rows<=1000 or type(maximum_bytes)is not int or not 1<=maximum_bytes<=1048576):
         raise ValueError('Explicit finite scenario capture bounds required')
     config.__post_init__();language='Gremlin'if type(config)is PuppyGremlinLoopbackConfig else'Cypher'
@@ -625,7 +664,7 @@ def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,na
         owner=object.__new__(OwnedPuppyScenarioLocal);owner._config=config;owner.context=object();owner.active=False;owner._scenario_config=tuple(getattr(config,f.name)for f in fields(config));owner._scenario_context=owner.context;owner._scenario_owners=tuple((source,export,original,(source.context,source.definition,source.model,source.graph),(export.context,export.release,export.custody_bytes,export.source))for source,export,original in zip(sources,exports,metadata))
         owner.database=config.prepared/'scenarios.duckdb';owner.original_database=database;owner.original_model=model;owner.original_receipt=receipt;owner._scenario_inventory=inventory;owner.language=language;owner.maximum_rows=maximum_rows;owner.maximum_bytes=maximum_bytes;owner._scenario_limits=(maximum_rows,maximum_bytes)
         owner.requested_model=json.loads(model);owner.requested_bytes=model;owner.deadline=time.monotonic()+config.deadline_seconds
-        owner.observations=[];owner.docker_diagnostics=[];owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;owner.stage='image-preflight';owner.submission_outcome='not-submitted'
+        owner.observations=[];owner.docker_diagnostics=[];owner._container_id=None;owner.driver=None;owner.closed=False;owner.loaded=False;owner.stage='image-preflight';owner.submission_outcome='not-submitted';owner._scenario_invocation_nonce=invocation_nonce;owner._scenario_bodies={};owner._scenario_observation_bytes=0
         owner.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),_NoRedirect());primary=None
         try:
             owner.renew()
@@ -633,7 +672,12 @@ def open_puppy_scenario_local(config,*,pack_bytes,sources,exports,preparation,na
             if len(image)!=1 or image[0]['Id']!=config.image:raise PermissionError('Existing exact cached image required')
             identifier=owner._docker(owner._create_arguments()).decode().strip()
             if not re.fullmatch('[0-9a-f]{64}',identifier):raise ValueError('Owned original container ID required')
-            owner._container_id=identifier;owner._docker(['start',identifier]);owner._container();owner.stage='startup'
+            owner._container_id=identifier
+            if creation_observer is not None:
+                creation_observer(PuppyScenarioContainerReceipt(identifier,config.image,config.name,invocation_nonce,
+                    owner.database,'/tmp/'+owner.database.name,config.http_port,config.bolt_port,
+                    config.gremlin_port if type(config)is PuppyGremlinLoopbackConfig else None,2,3*1024**3))
+            owner._docker(['start',identifier]);owner._container();owner.stage='startup'
             owner._wait_ready();owner._wait_backend_ready();owner.stage='model-submission';owner.submission_outcome='unknown'
             reply=owner._http('/schema?postUploadBehavior=none',owner.requested_bytes);owner._record('submission',reply)
             if json.loads(reply).get('ok')is not True:owner.submission_outcome='refused';raise ValueError('Native original model refused')
