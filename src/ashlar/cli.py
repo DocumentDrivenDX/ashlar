@@ -318,6 +318,9 @@ def main():
     duckdb_export.add_argument('--configuration',required=True)
     duckdb_export.add_argument('--output',required=True)
     duckdb_export.add_argument('--maximum-hops',type=int,choices=(1,2),default=1)
+    graph_read=commands.add_parser('read-graph-export',help='Read one exact saved node or edge carrier without an engine or live source authority')
+    for option in ('configuration','graph-id','output'):
+        graph_read.add_argument('--'+option,required=True)
     graph_diff=commands.add_parser('compare-graph-exports',help='Compare two immutable local graph exports without starting an engine')
     for option in ('first-configuration','second-configuration','output'):
         graph_diff.add_argument('--'+option,required=True)
@@ -833,6 +836,15 @@ def main():
             print(json.dumps({'output':args.output},separators=(',',':')))
         except Exception:
             print('ashlar DuckDB export query refused; inspect the selected export and DuckDB dependency',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'read-graph-export':
+        try:
+            from ashlar_host.graph_export_read import run_read_graph_export_command
+            run_read_graph_export_command(args.configuration,args.graph_id,args.output)
+            print(json.dumps({'output':args.output},separators=(',',':')))
+        except Exception:
+            print('ashlar saved graph read refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'compare-graph-exports':

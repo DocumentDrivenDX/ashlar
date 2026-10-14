@@ -614,7 +614,8 @@ source authority, Unity Catalog access or engine activation. Each engine MUST
 separately prove its mapping, exact values, queries and release lifecycle.
 
 The named `ashlar-local-development-private-export-use/0.1` host profile MAY
-admit an operator-selected retained release/receipt pair for rematerialization.
+admit an operator-selected retained release/receipt pair for rematerialization
+or the named saved-artifact singleton read in CONTRACT-002.
 It MUST require independently selected original digests, exact named private
 receipt validation and current ordinary access to the two owned regular files,
 renewing file bytes and access before use and at closing. Its source metadata

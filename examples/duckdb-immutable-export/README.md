@@ -54,3 +54,23 @@ saved snapshot even when the live source changes; this workflow does not assert
 that it is the current head.
 
 The [installed CLI check](../../docs/helix/04-build/evidence/duckdb-parallel-installed-cli-20261013/result.json) retains an actual DuckDB 1.5.0 run against that parallel/self-loop/isolate export, with complete original carrier parity and unchanged input hashes.
+
+## Read a saved carrier without DuckDB
+
+Use the same four-field configuration to read one canonical graph ID copied
+unchanged from the original export. Choose an absent report path under an
+existing canonical directory owned by your user with mode `0700`:
+
+```sh
+.venv/bin/ashlar read-graph-export \
+  --configuration /absolute/private/graph-selection.json \
+  --graph-id 'REPLACE_WITH_ORIGINAL_CANONICAL_GRAPH_KEY' \
+  --output /absolute/private/fresh-singleton.json
+```
+
+This SDK-free command returns the complete original node/edge STRING/null
+carrier, or `found: false` and `carrier: null`. It retains the publication ID and
+selected release/custody digests. It checks the selected saved files before and
+after use; a refusal releases no report. Property JSON remains opaque text.
+This is a private saved-artifact read, not a live publication or authenticated
+Unity Catalog read, current source permission check, protected ACK or DuckDB query.

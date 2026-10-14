@@ -661,3 +661,25 @@ cell and 1 MiB total. Overflow MUST refuse rather than truncate. The original
 `WFT-CAPABILITY` representability check MUST return zero and remain distinct from
 source-domain failure. Unknown guard meanings or missing/mismatched pairs MUST
 refuse. Existing signed64 predicate support is not broadened by this bridge.
+
+### Saved private graph-export singleton
+
+`read-graph-export` MUST select the existing closed four-field local export
+configuration and one canonical reversible node or edge graph key. It MUST admit
+both original artifact digests and complete carrier inventories under the actual
+local file-use owner, with opening and closing checks before report availability.
+The report MUST retain publication identity, selected release/custody digests and
+the exact STRING/null carrier, or an explicit missing result. It MUST NOT promote
+opaque property text into scalar values or collapse independently identified edges.
+
+This operation uses `ashlar-local-development-private-export-use/0.1` from
+CONTRACT-003, retaining its two-file 16 MiB bounds and all profile restrictions.
+It reads a saved artifact and its selected private custody receipt.
+It MUST NOT claim a live publication read, authenticated Unity Catalog access,
+current source permissions, source fencing, protected ACK or engine qualification.
+No SDK or source connection is required. Failed custody, malformed identity,
+cancellation or failed closing MUST withhold report availability; a fresh owned
+report is published only after complete successful file-use closure. The report
+parent MUST be canonical, owned and private (mode `0700`); staged bytes and
+original file identity MUST agree before and after no-clobber publication.
+Cleanup MUST remove only owned report inodes, preserving foreign replacements.
