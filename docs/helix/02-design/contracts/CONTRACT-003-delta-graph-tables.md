@@ -1285,6 +1285,60 @@ rows/schema, engine version and complete opening/closing release custody.
 Each engine and each named original scenario requires its own actual evidence;
 common traversal cases do not qualify these relational scenarios.
 
+### Fresh owned original17 PuppyGraph invocation
+
+The separate `ashlar-original17-puppygraph-invocation/0.1` profile MUST run
+exactly the eight original archaeology and nine original ecology relational
+scenarios against their unchanged admitted source profiles and independently
+selected saved release/private-custody pairs. The source populations are 39/46
+archaeology objects/edges and 40/54 ecology objects/edges. Configuration MUST
+select one protocol (`Cypher` or `Gremlin`) per invocation, not silently switch
+on a native refusal. Original SQL, independent graph expectations and native
+translation MUST remain distinct retained views.
+
+Configuration MUST be closed and immutable. It MUST explicitly select both
+pack/model/graph files and four-field export selections, the public UMF producer
+source/Bun/Git, an existing cached image digest, Docker executable/socket, local
+credentials, distinct selected loopback HTTP/Bolt ports (and Gremlin port only
+for Gremlin), fresh private output and finite capture/runtime limits. No ambient
+credentials, runtime discovery, default endpoint or six-database historical
+installation MAY substitute for these selections. A typed secret representation
+MUST prevent credentials from entering diagnostics or public results.
+
+One fresh owned analytic database MUST contain exactly the two profiles' node
+and edge tables. Complete canonical cells, Field identities, original lexical
+and presence columns, and the seven original signed64 observations MUST match
+independent original input projections before acquisition. STRING/null and LONG
+native mappings MUST remain explicit; no floating conversion or UMF width
+inference is permitted. Original materialization and mapping receipts MUST bind
+all four tables, the exact database bytes, native model and readonly mount.
+
+The owner MUST use one local cached PuppyGraph runtime with at most 2 CPUs/3 GiB
+and a selected deadline no greater than 120 seconds. HTTP schema readiness MUST
+be followed by successful native Bolt `RETURN 1 AS ready` before exactly one
+model POST. Only readiness MAY retry within the same deadline; model submission
+and authored queries MUST NOT retry. A model POST timeout is an unknown
+submission outcome, not proof of refusal. The operation MUST retain bounded
+safe stage/terminal diagnostics and attempted original native requests privately.
+An external owned process supervisor MUST bound the complete invocation and
+reap its process group; its explicitly selected overall ceiling and stream caps
+MUST be recorded separately from the native runtime deadline.
+
+Native schema/model/database mount and concrete runtime identity, complete
+STRING/null/LONG carrier bags, source/file custody and the independent seventeen
+result bags MUST be admitted before result availability. Gremlin MUST explicitly
+select `ashlar-puppygraph-1.13-flat-valuemap/0.1` for the evidenced runtime; no
+accept-either map decoder is allowed. Optional-join presence witnesses and ordered
+cases MUST retain their existing original expectations. All source, file-use,
+query client and runtime cleanup/closing checks MUST finish before a successful
+report is released. Cancellation identity and uncertain submission remain visible.
+
+This fresh namespace claims no preservation of six historical databases, prior
+engine labels, durable latest alias, canonical source permissions, protected ACK,
+Unity Catalog or Fabric authority. Saved private-file admission and fresh public
+UMF source semantics are separate owners; neither constructs a new publication.
+Common graph corpus evidence MUST NOT close an authored scenario requirement.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).

@@ -523,3 +523,31 @@ complete source pages, read the old and evolved snapshots, and retain exact
 accepted documents, catalogs and committed receipts. Cross-version and future
 version selections must refuse before acceptance; public Truss compatibility
 validation remains required for every admitted revision.
+
+## Fresh owned original17 PuppyGraph profile
+
+For CONTRACT-003's `ashlar-original17-puppygraph-invocation/0.1`, reuse the
+existing seventeen original renderer/oracle controls and add only meaningful
+ownership boundaries: reject incomplete two-pack/Field/presence inventories or
+out-of-signed64 analytic capacity before runtime effects; verify original
+STRING/null/LONG table parity; prove HTTP then Bolt readiness precedes exactly
+one POST; and prove model timeout/cancellation closes owned resources without
+retry or successful report. Test the explicit PuppyGraph flat-map profile against
+both native roles and reject incompatible standard list maps. Exact counted
+integers must not become floats or a replacement UMF width.
+
+An inert composition test must retain duplicate relational occurrences, optional
+right-row presence witnesses and ordered-case rules while withholding the report
+on carrier/result drift or failed closing. Original plan-rendering assertions are
+reused, not mirrored across every owner. SDK-free help/config and module boundary
+checks cover installation integration. Small temporary-file controls cover changed
+release/preparation bytes and fresh-output exclusivity; no native proof follows
+from fake ports.
+
+Actual acceptance requires all eight archaeology and nine ecology scenarios in
+one selected protocol on both complete original profiles, actual admitted native
+schema/model/mount/database bytes and original raw query/result views, independent
+expected bags, runtime versions and all source/file/native closing. The shared
+common corpus is already a separate requirement and cannot substitute. Record
+unknown POST outcomes and cleanup independently. Do not repeat broader engine
+matrices or scale tests for this slice.

@@ -530,3 +530,34 @@ Scoped phase identity is selected for the original eight-step run journal only.
 The existing one-transaction plan-journal path retains its original unscoped
 phase SQL and original native operation identities; it does not adopt or
 regenerate interrupted historical operations into the new run profile.
+
+### Fresh original17 analytic composition
+
+CONTRACT-003 owns the original17 invocation and representation meanings. The
+host implementation separates immutable scenario rendering/decoding, admitted
+materialization and owned native orchestration. It reuses the original query
+plans and independent graph oracles; it does not import checkout `tools` modules.
+
+| Owned module | Public boundary and construction | Allowed dependencies / exclusions |
+| --- | --- | --- |
+| `ashlar_host.pack_scenario_queries` | Pure original17 plan renderer, exact flat-map decoder and positional result admission; source-corresponded extraction of existing helpers | Portable core and fixed original plans/oracles; no SDK, process, file or authority acquisition |
+| `ashlar_host.puppy_scenario_preparation` | Typed two-pack input selection and admitted four-table analytic materialization | Public finite source/file owners, original scenario projection and lazy DuckDB; no container or model POST |
+| `ashlar_host.puppy_scenario_native` | Mint fresh scenario runtime owner from typed explicit settings and admitted preparation; bounded query/observe ports | Public bounded runtime mechanics and lazy selected Neo4j/Gremlin clients; no historical six-database checker or ambient credentials |
+| `ashlar_host.puppy_scenario_cli` | Closed invocation parsing, one-protocol composition and report availability after closure | The three owning modules and public lifecycle/config/source ports; no private cross-module access or tools imports |
+
+The CLI integration owner adds one lazy `run-puppy-pack-scenarios` route; import
+and help must remain SDK-free. Configuration owns explicit selected paths,
+secrets, protocol and finite limits; only the factory mints live runtime owners.
+Shared HTTP/Bolt readiness and owned runtime cleanup should be exposed by a
+narrow public port in `puppy_finite_local` rather than copied or accessed privately.
+Its existing export and finite STRING behavior must remain unchanged.
+
+Implementation order: extract source-corresponded pure helpers and reuse existing
+renderer controls; materialize/admit both complete original profiles; expose the
+fresh runtime port and verify readiness/one-POST failure behavior; compose the
+public command and closing-before-report tests. Apply `tools/check_module_boundaries.py`
+to the new modules without exceptions. Native qualification is a subsequent
+small one-runtime execution per selected protocol, not a consequence of source tests.
+Unresolved preparation prerequisite: ecology's exact original saved pair must be
+restored from independently pinned originals before an invocation is admitted;
+no source/publisher reconstruction is implied by this design.
