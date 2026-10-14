@@ -39,7 +39,14 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
     driver = config.driver
     stream = config.request.stream if fresh else 'original-evolution-resume'
     answer = None
-    with owned_context(driver.writer(stream, config.context)):
+    timing = None
+    if through_ordinal is not None and getattr(config, 'stage_observer', None) is not None:
+        from .evolution_continuation_timing import EvolutionContinuationTiming
+        timing = EvolutionContinuationTiming(config.stage_observer)
+    def observed(stage, action):
+        return action() if timing is None else timing.call(stage, action)
+    manager = owned_context(driver.writer(stream, config.context))
+    with (manager if timing is None else timing.context('writer-acquisition', manager)):
         original = driver.capture_evolution_run(config.request, context=config.context) if fresh else None
         definition = None
         def verify_producer():
@@ -49,14 +56,21 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 epoch=source['epoch']) for source in metadata['sources'])
             if driver.verify_evolution_sources(EvolutionSourceSet(admitted), context=config.context) is not None:
                 raise EvolutionPlanError('Fresh public producer verification incomplete')
-        try:
+        ledger = None
+        def open_ledger():
+            nonlocal ledger
             ledger = EvolutionRunLedger.open(config.ledger_path, config.policy, context=config.context,
                 original=original, expected_sha256=None if fresh else config.expected_sha256)
+            return ledger
+        try:
+            observed('ledger-opening', open_ledger)
         except BaseException as error:
             if through_ordinal is not None:
                 # No ledger owner was released by open; its own failure closes its connection.
                 # Renew only actually acquired current source/native owners, never invent original custody.
-                finish(error, [verify_producer, lambda: driver.evolution_run_identity(context=config.context)])
+                finish(error, ([lambda: observed('closing', ledger.close)] if ledger is not None else []) + [
+                    lambda: observed('closing', verify_producer),
+                    lambda: observed('closing', lambda: driver.evolution_run_identity(context=config.context))])
             raise
         primary = None
         def current_view():
@@ -77,13 +91,13 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
         try:
             original = ledger.original
             definition = original.document()
-            driver.validate_evolution_run(original, context=config.context)
+            observed('run-identity', lambda: driver.validate_evolution_run(original, context=config.context))
             request = request_from_document(definition['request'])
-            verify_producer()
+            observed('producer-admission', verify_producer)
             prefix_inventory = None; prefix_descriptors = ()
             if type(ledger.policy) is NativeEvolutionRunPolicy and ledger.policy.driver is driver:
-                prefix_inventory, prefix_descriptors = driver.observe_completed_evolution_prefix(
-                    ledger, context=config.context)
+                prefix_inventory, prefix_descriptors = observed('prefix-native-admission',
+                    lambda: driver.observe_completed_evolution_prefix(ledger, context=config.context))
                 from .evolution_run import EvolutionRunLedgerView
                 from .evolution_admission import original_equal
                 if type(prefix_inventory) is not EvolutionRunLedgerView or len(prefix_inventory.slots)!=8:
@@ -155,6 +169,8 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 lambda: (driver.validate_evolution_run(original, context=config.context) if original is not None
                     else driver.evolution_run_identity(context=config.context)),
                 ledger.admit, ledger.close]
+        if timing is not None:
+            callbacks = [lambda action=action: observed('closing', action) for action in callbacks]
         finish(primary, callbacks)
     return answer
 

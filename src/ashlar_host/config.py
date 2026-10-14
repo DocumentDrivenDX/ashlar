@@ -516,9 +516,12 @@ class ContinueCommerceEvolutionConfig:
     context: object
     expected_sha256: str
     through_ordinal: int
+    stage_observer: Optional[Callable[[Mapping[str, object]], None]] = None
 
     def __post_init__(self):
         _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
+        if self.stage_observer is not None and not callable(self.stage_observer):
+            raise HostError('evolution-run-configuration')
         if (type(self.expected_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256)
                 or type(self.through_ordinal) is not int or not 0 <= self.through_ordinal < 8):
             raise HostError('evolution-run-configuration')

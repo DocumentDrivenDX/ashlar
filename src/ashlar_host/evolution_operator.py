@@ -110,10 +110,14 @@ class ExistingEvolutionOperator:
         object.__setattr__(self, 'capacity', operation_capacity(self.capacity))
 
     @contextmanager
-    def open_evolution(self, invocation):
+    def open_evolution(self, invocation, *, stage_observer: Optional[Callable[[Mapping[str, object]], None]] = None):
         if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation):
             raise PermissionError('Exact evolution invocation required')
-        with owned_context(self._open_existing(invocation)) as config:
+        if stage_observer is not None and (type(invocation) is not ContinueEvolutionInvocation
+                or not callable(stage_observer)):
+            raise PermissionError('Continuation-only explicit stage observer required')
+        with owned_context(self._open_existing(invocation) if stage_observer is None else
+                           self._open_existing(invocation, stage_observer=stage_observer)) as config:
             yield config
 
     @contextmanager
@@ -127,7 +131,7 @@ class ExistingEvolutionOperator:
             yield config
 
     @contextmanager
-    def _open_existing(self, invocation):
+    def _open_existing(self, invocation, *, stage_observer=None):
         if type(invocation) not in (FreshEvolutionInvocation, ResumeEvolutionInvocation, ContinueEvolutionInvocation, VerifyEvolutionInvocation):
             raise PermissionError('Exact existing invocation required')
         if invocation.ledger_path.parent != self.journal_path.parent or invocation.ledger_path in (
@@ -190,7 +194,7 @@ class ExistingEvolutionOperator:
                                 invocation.bounds, invocation.supervision, original)
                         elif type(invocation) is ContinueEvolutionInvocation:
                             config = ContinueCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
-                                invocation.producer, context, invocation.expected_sha256, invocation.through_ordinal)
+                                invocation.producer, context, invocation.expected_sha256, invocation.through_ordinal, stage_observer)
                         else:
                             config = ResumeCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                                 invocation.producer, context, invocation.expected_sha256)

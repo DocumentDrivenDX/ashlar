@@ -334,6 +334,24 @@ logging of logging failures. Never claim a missing notice proves complete captur
 
 ## Precedence and compatibility
 
+An existing evolution operator may accept an explicit `stage_observer` callback
+for continuation only. The `ashlar-evolution-continuation-stage/0.1` profile
+admits six fixed stages: `writer-acquisition`, `ledger-opening`, `run-identity`,
+`producer-admission`, `prefix-native-admission` and `closing`. Each immutable
+record contains only profile, sequence, stage and begin/end phase; end records
+also contain nonnegative duration in nanoseconds and completed/refused outcome.
+At most 128 observer calls are attempted per continuation. Records contain no
+source identity, path, query, credential or exception payload. The caller owns
+the sink and its retention. Missing end records identify unfinished intervals,
+without diagnosing their cause or proving publication or ACK effects.
+
+Ordinary observer failure or exhausted capacity counts diagnostic loss while
+required admission and owned cleanup still run. The first chronological
+non-Exception cancellation propagates after those required actions and cleanup;
+an existing business cancellation retains identity during closing. This hook
+does not surround publication or ACK submissions, replace authority checks, or
+authorize replay. Fresh and resume invocations refuse this optional callback.
+
 The schemas own shape; this contract owns semantic correspondence and byte
 bounds. Both must hold. Local schema versions, OTel versions, integration package
 versions and application versions are independent. New fields, event variants,
