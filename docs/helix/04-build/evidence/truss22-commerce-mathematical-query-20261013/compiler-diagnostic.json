@@ -1,0 +1,18 @@
+{
+  "duration_seconds": 0.21802300005219877,
+  "status": "blocked",
+  "diagnostics": [
+    {
+      "code": "WFT-CAPABILITY",
+      "message": "Selected backend profile does not admit mathematical integer source domains",
+      "phase": "capability",
+      "recoverability": "change-profile",
+      "severity": "error"
+    }
+  ],
+  "backend": null,
+  "modelPins": null,
+  "request_sha256": "209bcb8b136bbc3272223b230d70c773c5a5c82c32b33c417cf62f1ee6155d73",
+  "response_sha256": "7fd0dcd6ffdae4ba61ac112943eb71498a6c2758760154921abd8cd0480e3908",
+  "scope": "Compiler-only diagnostic using original historical binding bytes from the successful price query with only authored SQL changed. Historical ephemeral aliases are not live tables; no source authority, native execution or guard discharge claim."
+}

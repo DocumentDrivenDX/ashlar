@@ -1,0 +1,49 @@
+{
+  "members": [
+    {
+      "path": "run.py",
+      "bytes": 4155,
+      "sha256": "21df908e670f8d7e41e56a42bcb0313619fd12cce9435cd6486a7b22b95f5172"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 628,
+      "sha256": "c7df61f24abaaaf95b3ed3551a95d05d94d556b87cb75d56fa990db3ddfefbcd"
+    },
+    {
+      "path": "run.log",
+      "bytes": 4106,
+      "sha256": "6943ea019616319fa51f25bc32624cd2866517c00d01487700b774c58defd44f"
+    },
+    {
+      "path": "supervisor-result.json",
+      "bytes": 87,
+      "sha256": "01de619c5a74e9433d421b3e1bfac0b9fdb93ba90ed660719009899ae270d0ad"
+    },
+    {
+      "path": "checkpoint-before.bin",
+      "bytes": 274,
+      "sha256": "10390aaf35f26dd54e3c60fffa2872cfd40e0ec4824e46a08ddcd6a2e70c8c15"
+    },
+    {
+      "path": "diagnose-compiler.py",
+      "bytes": 1484,
+      "sha256": "9bc63a960d243ddff2d28cc0e4396d079b2d2d9321823c93c6de72cc20d859db"
+    },
+    {
+      "path": "diagnostic-request.json",
+      "bytes": 54752,
+      "sha256": "209bcb8b136bbc3272223b230d70c773c5a5c82c32b33c417cf62f1ee6155d73"
+    },
+    {
+      "path": "diagnostic-response.json",
+      "bytes": 265,
+      "sha256": "7fd0dcd6ffdae4ba61ac112943eb71498a6c2758760154921abd8cd0480e3908"
+    },
+    {
+      "path": "compiler-diagnostic.json",
+      "bytes": 803,
+      "sha256": "ef0829a050ad46a0e4bd729c558bc585296a2691acbe024958e41dcece9addf8"
+    }
+  ]
+}
