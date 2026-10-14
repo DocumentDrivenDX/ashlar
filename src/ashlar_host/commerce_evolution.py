@@ -120,11 +120,11 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 if through_ordinal is not None and ordinal > through_ordinal:
                     break
                 state, raw, digest, retained_descriptor = (prefix_inventory.slots[ordinal][1:]
-                    if ordinal < len(prefix_descriptors) else ledger.slot(ordinal))
+                    if ordinal < len(prefix_descriptors) else observed('selected-slot-admission', lambda: ledger.slot(ordinal)))
                 if state == 'unprepared':
                     plan = driver.plan_evolution_transaction(original, ordinal, progress, context=config.context)
                     ledger.retain(ordinal, plan)
-                    state, raw, digest, retained_descriptor = ledger.slot(ordinal)
+                    state, raw, digest, retained_descriptor = observed('selected-slot-admission', lambda: ledger.slot(ordinal))
                 plan = EvolutionAttemptPlan(raw); value = plan.document()
                 if (encoded(value['previous_progress']) != encoded(progress) or value['publication_id'] != step['publication_id']
                         or value['request']['stream'] != request.stream

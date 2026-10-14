@@ -335,9 +335,12 @@ logging of logging failures. Never claim a missing notice proves complete captur
 ## Precedence and compatibility
 
 An existing evolution operator may accept an explicit `stage_observer` callback
-for continuation only. The `ashlar-evolution-continuation-stage/0.1` profile
-admits six fixed stages: `writer-acquisition`, `ledger-opening`, `run-identity`,
-`producer-admission`, `prefix-native-admission` and `closing`. Each immutable
+for continuation only. The `ashlar-evolution-continuation-stage/0.2` profile
+admits seven fixed stages: `writer-acquisition`, `ledger-opening`, `run-identity`,
+`producer-admission`, `prefix-native-admission`, `selected-slot-admission` and
+`closing`. The selected-slot interval surrounds the existing readonly ledger
+admission; it does not surround subsequent publication. Retained profile 0.1
+records keep their original six-stage meaning. Each immutable
 record contains only profile, sequence, stage and begin/end phase; end records
 also contain nonnegative duration in nanoseconds and completed/refused outcome.
 At most 128 observer calls are attempted per continuation. Records contain no

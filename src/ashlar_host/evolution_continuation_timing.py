@@ -8,7 +8,7 @@ import time
 T = TypeVar("T")
 
 STAGES = frozenset(('writer-acquisition', 'ledger-opening', 'run-identity',
-    'producer-admission', 'prefix-native-admission', 'closing'))
+    'producer-admission', 'prefix-native-admission', 'selected-slot-admission', 'closing'))
 
 
 class EvolutionContinuationTiming:
@@ -32,7 +32,7 @@ class EvolutionContinuationTiming:
                     or type(outcome) is not str or outcome not in ('completed', 'refused'))
                 or self.records >= 128):
             raise ValueError('Closed bounded continuation stage required')
-        row = {'profile': 'ashlar-evolution-continuation-stage/0.1',
+        row = {'profile': 'ashlar-evolution-continuation-stage/0.2',
                'sequence': self.records, 'stage': stage, 'phase': phase}
         if phase == 'end':
             row.update(duration_ns=duration_ns, outcome=outcome)

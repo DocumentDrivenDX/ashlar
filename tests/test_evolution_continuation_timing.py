@@ -49,6 +49,47 @@ class Tests(unittest.TestCase):
                 self.assertTrue(any(r['stage']=='closing' for r in records))
                 self.assertTrue(all(set(r) <= {'profile','sequence','stage','phase','duration_ns','outcome'} for r in records))
 
+    def test_selected_slot_cancel_attempts_read_but_prevents_publication(self):
+        from ashlar_host.evolution_run import EvolutionRunLedger, EvolutionRunLedgerView
+        from ashlar_host.evolution_composition import NativeEvolutionRunPolicy
+        from contextlib import nullcontext
+        records = []; cancel = KeyboardInterrupt(); closed = []
+        def observer(row):
+            records.append(dict(row))
+            if row['stage']=='selected-slot-admission' and row['phase']=='begin':raise cancel
+        @contextmanager
+        def writer(*args):
+            try:yield
+            finally:closed.append('writer')
+        slots=tuple([(0,'retained',b'original','digest',None)]+[(i,'unprepared',None,None,None) for i in range(1,8)])
+        view=EvolutionRunLedgerView(slots)
+        definition={'installation':{'source_admission':{'sources':[]}},'request':{},'schedule':[{}]}
+        original=SimpleNamespace(raw=b'run',document=lambda:definition)
+        driver=SimpleNamespace(writer=writer,validate_evolution_run=Mock(),
+            verify_evolution_sources=Mock(return_value=None),
+            observe_completed_evolution_prefix=Mock(return_value=(view,())),
+            publish_evolution_attempt_held=Mock())
+        policy=object.__new__(NativeEvolutionRunPolicy)
+        object.__setattr__(policy,'driver',driver)
+        object.__setattr__(policy,'authority',SimpleNamespace(admit_run=Mock(return_value=None)))
+        ledger=SimpleNamespace(original=original,policy=policy,_inventory=Mock(return_value=view),
+            slot=Mock(return_value=slots[0][1:]),admit=Mock(),close=Mock())
+        config=SimpleNamespace(__post_init__=lambda:None,driver=driver,context=object(),
+            ledger_path='/original',policy=policy,expected_sha256='original',producer=object(),stage_observer=observer)
+        with patch.object(EvolutionRunLedger,'open',return_value=ledger), \
+             patch.object(EvolutionRunLedger,'inspect',return_value=view), \
+             patch('ashlar_host.evolution_run.request_from_document',return_value=SimpleNamespace(stream='original')), \
+             patch('ashlar_host.evolution_admission.EvolutionSourceSet',return_value=object()):
+            with self.assertRaises(KeyboardInterrupt) as raised:
+                composition._run_commerce_evolution(config,False,through_ordinal=0)
+        self.assertIs(raised.exception,cancel)
+        ledger.slot.assert_called_once_with(0)
+        driver.publish_evolution_attempt_held.assert_not_called()
+        ledger.admit.assert_called_once();ledger.close.assert_called_once()
+        self.assertEqual(closed,['writer'])
+        self.assertTrue(any(r['stage']=='selected-slot-admission' and r['phase']=='end' for r in records))
+        self.assertTrue(all(r['profile']=='ashlar-evolution-continuation-stage/0.2' for r in records))
+
     def test_public_operator_forwards_explicit_continuation_observer_only(self):
         from ashlar_host.evolution_operator import ExistingEvolutionOperator
         from ashlar_host.evolution_cli import parse_evolution_invocation
