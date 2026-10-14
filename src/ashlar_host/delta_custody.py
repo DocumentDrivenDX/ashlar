@@ -275,12 +275,19 @@ class LocalDeltaTransport:
 
     @contextmanager
     def _lock(self):
-        with open(str(self.journal_path) + '.lock', 'a') as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
+        from .lifecycle import finish
+        lock = open(str(self.journal_path) + '.lock', 'a')
+        primary = None; locked = False
+        try:
             try:
-                yield
-            finally:
-                fcntl.flock(lock, fcntl.LOCK_UN)
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise LocalDeltaError('Original custody journal lock is already held') from error
+            locked = True
+            yield
+        except BaseException as error:
+            primary = error
+        finish(primary, ([lambda: fcntl.flock(lock, fcntl.LOCK_UN)] if locked else []) + [lock.close])
 
     def _render(self, sql):
         text = sql

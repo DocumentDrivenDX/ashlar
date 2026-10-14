@@ -101,6 +101,7 @@ jobs:
       - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_setup_private_outbox_fixture.py'
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_existing_outbox_authority.py'
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_local_delta_custody.py'
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p 'test_delta_journal_lock.py'
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_publication_reader_binding.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_read_only_capacity test_read_only_transport_bounds test_read_only_journal_cleanup test_native_guard_row_limit
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_ordinary_query_connection.py
