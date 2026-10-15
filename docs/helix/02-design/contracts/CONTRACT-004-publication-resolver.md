@@ -702,6 +702,21 @@ produce an exact value or explicit capability refusal, never wrapped, rounded or
 overflow-null output. Backend registration requires genuine native evidence;
 an injected conditional test port cannot qualify managed authority.
 
+A read-only UC metadata inspector MAY obtain the selected SDK workspace host,
+the current native principal ID and the named table's current UC identity and
+ordered column metadata. It MUST explicitly distinguish `uc_table_id` from the
+publication's Delta table UUID. Equality, inequality or an old receipt MUST NOT
+substitute for a fresh independent native Delta identity/version check. Native
+metadata errors, browse-only responses, unexpected relation identities and
+ambiguous or incomplete column metadata MUST refuse the observation.
+
+Current metadata visibility establishes neither SELECT permission nor effective
+ABAC, per-use UMF authority, historical schema correspondence, snapshot
+readability or retention. No inferred policy absence, statistics-derived Delta
+version, caller email or username may supply those facts. Native metadata facts
+remain observations scoped to the selected workspace and principal, never a
+provider registration or a result-release grant.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
