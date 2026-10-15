@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "scope": "Actual standard0.4.34 wheel pure compiler/native Python descriptor bridge only; no database or managed security admission",
+  "source_commit": "cb6b09af7462215ac9fefc9b0fa28615b1c5bf35",
+  "controls": 32,
+  "live_parent_identity": true,
+  "conditional_flags": {
+    "authority": false,
+    "securityReady": false,
+    "nativeAdmission": "required"
+  },
+  "version": "0.4.34",
+  "python": "3.11.17",
+  "exit_code": 0,
+  "pins": [
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/run.py",
+      "bytes": 1471,
+      "sha256": "5ffc95167110c93f69119b340df880370579aab55f580d408f525f948506ba5a"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/tests/current-scalar-databricks/python-bridge.py",
+      "bytes": 3988,
+      "sha256": "d0fbb83dccdd15f9922561cea8771037264623f6a33baffe651fd359ed894276"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/tests/current-query-designation/fixtures/mixed-original-uses.request.json",
+      "bytes": 24067,
+      "sha256": "192614d9e7b0dee56364299a9d7cfee0d72b0a7c8778b91640da818cb8ef8ad4"
+    },
+    {
+      "path": "/private/tmp/weft-current-databricks-standard-wheels-20261015/weft_sql-0.4.34-cp39-abi3-macosx_11_0_arm64.whl",
+      "bytes": 3036391,
+      "sha256": "0b20c8b432d6aaac081880bcf1559cf8fbdadcfab333394f630caee116e5996d"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/wheel/weft/weft.abi3.so",
+      "bytes": 8376256,
+      "sha256": "6865628e315e5cc083d59b8c794be66659745c30d2af714963393226add03798"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/wheel/weft/__init__.py",
+      "bytes": 99,
+      "sha256": "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d"
+    },
+    {
+      "path": "/private/tmp/truss-pg18-consumer-env-20261011/bin/python",
+      "bytes": 17277120,
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    {
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+      "bytes": 17277120,
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/compiled.json",
+      "bytes": 4133,
+      "sha256": "5df54a77d0f36d106ff8b7c63656441b8bda8a7a20576241565e34fc5f59e9c7"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft034-bridge-20261015-5vlyg0gx/bridge.stdout",
+      "bytes": 3947,
+      "sha256": "789756d03b1898a5abcd2ff95018239748496f75fa56b4457a1f722f519409a7"
+    }
+  ],
+  "limitations": [
+    "No database connection, authority/caller/permission admission or guarded native result release executed.",
+    "Selected wheel/module/interpreter/source artifacts only; no full runtime or OS closure claim."
+  ]
+}
