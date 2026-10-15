@@ -664,6 +664,44 @@ fresh compiler, package, schema and native evidence for the selected profile;
 existing profile receipts cannot qualify it. Query-only progress and outer
 cleanup/release rules above apply unchanged.
 
+## Same-original current-value Databricks execution
+
+Current-value execution MUST consume the live native Weft
+`CurrentQueryPreparation` and preserve its exact original
+`ApplicationLineagePreparation` parent throughout the held interval. Imported
+designation, plan or result JSON MUST NOT reconstruct either object. Select the
+Databricks contributors or explicit original-SUM consumer directly; PostgreSQL
+SQL, ordinary recompilation and implicit profile migration MUST NOT substitute.
+Compiler `authority:false`, `securityReady:false` and
+`nativeAdmission:required` are conditional component declarations, never grants.
+
+An explicitly supplied trusted backend owns `open_current_query(child, context)`.
+Its held port supplies the exact binding JSON, admits its correspondence to the
+original child and authenticated context, captures only the exact compiler
+artifact, verifies captured metadata, complete contributor bags and public-cell
+decoding, and renews authority before and after execution. Opening/closing checks
+MUST preserve the original binding bytes and parent identity. No result escapes
+until all closing checks and context cleanup succeed; refusal, cancellation,
+timeout, partial capture or closing drift MUST release no public prefix.
+
+The backend MUST independently establish the complete original publication
+vector, UC relation UUID/version/schema correspondence, native caller and current
+policy, original UMF source/rule/route/action decisions, complete eligible scan
+populations and exact per-use domains, presence and scopes. Required unique
+opaque row keys retain a private mapping to original qualified resources. Stage
+declarations, digests, callbacks and successful compiler execution establish none
+of these facts by themselves. Native metadata and result budgets apply before
+capture; private contributor carriers MUST NOT appear in public output.
+
+Managed policy-preserving time travel requires an admitted compatible compute,
+table and policy configuration, including any required preview. Unsupported
+table-level filters/masks or missing native retention MUST refuse. Policy
+exemptions, caller simulations, unprotected staging and local Spark evidence MUST
+NOT substitute for managed UC enforcement. Exact integer accumulation MUST
+produce an exact value or explicit capability refusal, never wrapped, rounded or
+overflow-null output. Backend registration requires genuine native evidence;
+an injected conditional test port cannot qualify managed authority.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).

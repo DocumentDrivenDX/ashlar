@@ -257,6 +257,18 @@ preserves historical execution/status notes verbatim.
 
 ## Module, configuration and diagnostic verification
 
+For same-original Databricks current-value execution, exercise the actual native
+Weft child/parent chain and refuse imported JSON, foreign receivers, missing
+backend admission and profile migration before capture. Preserve exact binding
+and compiler bytes through the held interval. Inject capture, verification,
+renewal and context-close failures and cancellation; none may release public
+rows. Verify private contributor columns cannot leak through decoding. Inert
+ports qualify host sequencing only. Managed acceptance separately requires the
+original 132-case security catalog, actual original Ashlar publication/source
+binding, full eligible populations, per-use rule/action admission, two genuine
+callers, complete contributor bags and opening/closing UC policy/snapshot checks.
+Keep unsupported native authority refused rather than replacing it with fixtures.
+
 Run `python3 tools/check_module_boundaries.py` with the same policy locally,
 pre-commit and CI. Test the actual checker: one allowed edge succeeds and a new
 forbidden edge/private cross-module import fails. Inventory exact existing debt;
