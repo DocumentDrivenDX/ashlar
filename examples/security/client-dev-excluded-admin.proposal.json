@@ -1,0 +1,35 @@
+{
+  "version": "ashlar-excluded-administrator-proposal/0.1",
+  "state": "pending-human-classification",
+  "workspaceHost": "https://adb-7405607548213398.18.azuredatabricks.net",
+  "catalog": {
+    "name": "client_dev",
+    "metastoreId": "d0c158ef-7505-4643-880e-6652dbfa2329",
+    "observedCreatedAt": "1790271753475",
+    "expectedOwnerName": "db-aidev-admins"
+  },
+  "isolatedSchema": "ashlar_security_current_query_20261015",
+  "excludedAdministrators": [
+    {
+      "proposedPrincipalKind": "group",
+      "name": "db-aidev-admins",
+      "observedWorkspaceScimListId": "152227944110877",
+      "verifiedResourceType": null,
+      "classification": "excluded-catalog-administrator"
+    }
+  ],
+  "ordinaryDataWriters": [],
+  "ordinaryQueryCallers": [],
+  "requiredNativeRenewal": [
+    "exact workspace, metastore, catalog locator and current owner",
+    "resolved original owner/group identity authority and current membership closure",
+    "complete current inherited privilege inventories and delegation origins",
+    "exact admitted original source, binding, schema and publication inventories",
+    "opening and closing observations plus held snapshot retention"
+  ],
+  "unresolved": [
+    "Human classification has not been granted.",
+    "Detailed workspace SCIM group read returned HTTP 403; resource type and membership closure remain unknown.",
+    "A genuine ordinary caller and complete original source/publication bindings remain to be admitted."
+  ]
+}

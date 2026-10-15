@@ -734,6 +734,32 @@ per-use action authority, aggregate arithmetic or public-cell correspondence;
 those remain mandatory held-backend checks. Expected contributors derived only
 from the returned carrier cannot serve as an independent oracle.
 
+## Excluded administrators and isolated test scope
+
+An excluded administrator MUST remain distinct from admitted ordinary data
+writers and query callers. Its classification acknowledges an existing privileged
+capability outside the ordinary-protection claim; it MUST NOT grant privileges,
+exempt a principal from native row/column policy, or promote administrator
+membership into ordinary source/action authority. Schema isolation MUST NOT claim
+to remove the parent catalog owner's ability to administer child privileges.
+
+A separately admitted operator policy MUST bind any human administrator
+classification to the original proposal, selected workspace/metastore/catalog,
+exact owner/group identity and isolated schema. A proposal, digest or JSON
+approval flag MUST NOT issue runtime authority. Missing classification or native
+identity, incomplete grant/membership closure, unknown privilege/delegation
+origin, original source/binding drift and opening/closing inventory drift MUST
+refuse. Account and workspace SCIM identities MUST retain their actual realm;
+unknown or denied membership observations MUST NOT imply nonmembership.
+
+The original privileged negative control requires actual native administrator
+bypass and independent ordinary-caller inability to reach that authority.
+Classification alone cannot satisfy it. A caller within the excluded
+administrator closure cannot serve as its ordinary baseline. The
+[isolated test proposal](../../../../examples/security/README.md) defines a
+reviewable scope without activating this classification or changing the existing
+writer policy.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
