@@ -717,6 +717,23 @@ version, caller email or username may supply those facts. Native metadata facts
 remain observations scoped to the selected workspace and principal, never a
 provider registration or a result-release grant.
 
+The portable current-query contributor decoder MUST retain the complete original
+UTF-8 carrier and decode only the closed
+`weft.stage-contributor-bag/0.1-candidate` shape. Each tuple MUST contain one
+required opaque String key for each original scan, in the declared scan order;
+keys MUST be nonempty and at most 256 UTF-8 bytes. Duplicate JSON members,
+unknown members/versions, null or numeric keys, wrong tuple arity/order and
+capacity overflow MUST refuse. Repeated contributor tuples MUST remain repeated.
+Empty global contributor bags are valid carrier data, not proof of empty source.
+
+Comparison with independently established expected contributors MUST compare
+complete multisets, ignoring only outer bag order. Deletion, duplication or a
+scan/key substitution MUST refuse even when public scalar results match. Carrier
+decoding and multiset equality MUST NOT establish expected-source completeness,
+per-use action authority, aggregate arithmetic or public-cell correspondence;
+those remain mandatory held-backend checks. Expected contributors derived only
+from the returned carrier cannot serve as an independent oracle.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
