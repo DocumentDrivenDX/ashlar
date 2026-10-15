@@ -1,0 +1,5 @@
+# Current UC metadata observation
+
+The committed read-only inspector (Ashlar 841538a4) ran against the existing recorded Ashlar table through the primary aidev-cus SDK connection. Two native identity reads enclosing one table-metadata read completed in 1.353 seconds. The stable workspace/principal and expected current UC identity passed; 17 ordered columns were retained. [Summary](summary.json) records selected private artifact pins; principal identity is hashed in this public summary. SDK version: 0.117.0.
+
+This is actual current UC metadata evidence, not SELECT, source/UMF action, policy, Delta UUID/version, historical snapshot or retention admission. The expected current UC ID came from an earlier read-only metadata observation; it was not derived from or admitted as the old publication Delta UUID. No SQL, shared compute, schema creation, grants, policies or settings changes were performed. The concrete managed authority provider, genuine original per-use source decisions and two-caller acceptance remain open.

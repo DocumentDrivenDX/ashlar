@@ -1,0 +1,51 @@
+{
+  "state": "passed-read-only-current-uc-metadata-observation",
+  "scope": "Actual primary-connection SDK identity/table metadata only; no SQL, policy or snapshot admission",
+  "sdk_version": "0.117.0",
+  "elapsed_seconds": 1.3527112919837236,
+  "workspace_host": "https://adb-7405607548213398.18.azuredatabricks.net",
+  "relation": [
+    "ashlar_e2e_private_20261008",
+    "runtime_configured_jsonl",
+    "object_current"
+  ],
+  "uc_table_id": "2807dfbc-f828-458f-be7b-b50c53a7ee1e",
+  "principal_id_sha256": "6a6bafd7821bd795c035ea28c0c1b340c3ee745d5a97d431565ee8ec91f383c3",
+  "column_count": 17,
+  "column_metadata_sha256": "c17a97a419e641ec1f41cb3b639140d01b6d860737b259d65e3d01dbb42dec3f",
+  "facts_sha256": "f4cf0028ec1db49211fba36142e1860993548dc8e95687ac631c87b90fa53344",
+  "managed_delta_metadata_observed": true,
+  "limitations": [
+    "UC table ID is not a Delta UUID or publication vector admission.",
+    "No SELECT, ABAC, UMF action/source, historical snapshot, retention or second-caller qualification.",
+    "No SQL, shared compute execution, new schema, grant, policy or settings change."
+  ],
+  "source_commit": "841538a4806ab84a08ea12580b0454ec1f547c2a",
+  "private_artifact_pins": [
+    {
+      "path": "/private/tmp/ashlar-current-uc-native-20261015-i53zskuu/current_metadata.py",
+      "bytes": 5925,
+      "sha256": "9be8e691075c865b4063e9ea15c71eb001b1ace018887821dce42babdc78025c"
+    },
+    {
+      "path": "/private/tmp/ashlar-current-uc-native-20261015-i53zskuu/run.py",
+      "bytes": 1599,
+      "sha256": "34bf10221a1a78234a4a751aa8a2304c79430dc3ba7d80c2b6a609291119b7cc"
+    },
+    {
+      "path": "/private/tmp/ashlar-current-uc-native-20261015-i53zskuu/command.json",
+      "bytes": 373,
+      "sha256": "dbc259d222c595ec8b68e12f47c6b782ba3320d59c1d4c0ef4a6c22611537def"
+    },
+    {
+      "path": "/private/tmp/ashlar-current-uc-native-20261015-i53zskuu/facts.json",
+      "bytes": 9594,
+      "sha256": "f4cf0028ec1db49211fba36142e1860993548dc8e95687ac631c87b90fa53344"
+    },
+    {
+      "path": "/private/tmp/ashlar-current-uc-native-20261015-i53zskuu/summary.json",
+      "bytes": 1115,
+      "sha256": "47600fcd68211a2ea4f9ae6ff334513cf38adeabc42ee051e40a78c0f8133ba7"
+    }
+  ]
+}
