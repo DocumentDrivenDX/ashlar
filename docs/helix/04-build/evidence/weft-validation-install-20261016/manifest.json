@@ -1,0 +1,37 @@
+{
+  "immutable-selection.json.gz": {
+    "bytes": 72299,
+    "sha256": "56cb4814ed0c15ef155e8ded89de578f0845d0263e183b2641fec6d85133bb0d",
+    "gzip_sha256": "9b8cf99c565a7de83b0727c45d16dc73ff5fe85c5573575511262985618734a2"
+  },
+  "verification-immutable.json.gz": {
+    "bytes": 2415,
+    "sha256": "d2902a6c2a1c7b46a9c7ce5ffd2bfdb6fcb2b3f24221b219c10b7bb3e64b611a",
+    "gzip_sha256": "56390aea43c7c9a7c0f975184e8e0a61ba1f3b699dae354bc849a6afe7966291"
+  },
+  "verify-immutable.py.gz": {
+    "bytes": 3047,
+    "sha256": "3b7d272a2f78de5a48627dd240d1bf32a7b1bc1ab84037290e03d5f994739831",
+    "gzip_sha256": "2963a79a2d981e722887d6bac99426551c42be041d0a75e09a7c8f012f01f9ab"
+  },
+  "immutable-wheel-METADATA.txt.gz": {
+    "bytes": 11026,
+    "sha256": "ae918d04f86c40c7c34feca6ff35bc1c1ddfe9bcb2e091a318c9280f34b9bfc9",
+    "gzip_sha256": "67fd7f383162caf663b4468836f3b76a3a4413381c9698764841b91b58151cae"
+  },
+  "immutable-build.log.gz": {
+    "bytes": 1036,
+    "sha256": "dc6a33827b9d98b8f125f17c820aca8d5f4ffdffdba2c9a1467209b2cf9962d6",
+    "gzip_sha256": "95f44e7069b6eb193fa8d793d0b6289332921adfcf1ee358a6fb6e755f1c78ed"
+  },
+  "immutable-offline-install.log.gz": {
+    "bytes": 1635,
+    "sha256": "f800e1bc050a57d803cfea7969422a6c5558091d9239e0a4245b1c06ffa4e977",
+    "gzip_sha256": "d4df7d06d0c5f76e1bce527f84415f50fc96fecd73db1254cf2530c48b2ad8d8"
+  },
+  "mixed-snapshot-qualification.json.gz": {
+    "bytes": 340,
+    "sha256": "945e9e6b1eb156514a0315dffcd0fb6eee00dc9e96c4c20c66a5e5c318d4c08c",
+    "gzip_sha256": "0ff66ba7fc446b3bcf04a1284ad6e7dc4485138722ac4a35f9d00e9504059607"
+  }
+}

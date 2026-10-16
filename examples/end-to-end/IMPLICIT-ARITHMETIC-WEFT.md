@@ -4,6 +4,18 @@ Install Ashlar from a revision containing `install-weft-implicit-arithmetic` and
 `compile-weft-implicit-arithmetic`. Retain the selected source and wheel provenance.
 This additive profile preserves the existing 0.4.1 commands and defaults.
 
+For a current Ashlar wheel, install the offline Weft validation dependencies in
+the same environment used to admit compiler artifacts and execute queries:
+
+```sh
+python -m pip install '/absolute/path/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl[weft-validation]'
+```
+
+This extra supplies JSON Schema validation, not Spark, Delta, a compiler product
+or publication authority. Historical wheels below retain their original metadata;
+when using one, install `jsonschema==4.25.1` separately instead of assuming it
+contains this extra.
+
 Supply a local Weft checkout at index revision
 `cdd8fa698683cd87bb126916a75200e80e19d831`. The public distribution owner selects
 index SHA-256 `6aa24c395dc721ef6cfef281f34628051a041530ba426d8dc31e9126e9510399`
