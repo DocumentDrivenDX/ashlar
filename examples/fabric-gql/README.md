@@ -486,8 +486,8 @@ original canonical node/edge field, independent edge identity, original object
 keys, lexical fields and presence markers. Named integer predicates use signed64
 columns mapped as `INT64`; they never cast decimal or text values during queries.
 The canonical STRING-only materializer above does not materialize this extended
-profile: the selected notebook must use the generated node property types and
-preserve every column/null, with complete native readback before graph loading.
+profile. Use the typed materializer below, preserving every column/null with
+complete native readback before graph loading.
 
 GQL plans preserve the original property-equality joins and output bags. Optional
 matches retain null/missing-match witnesses, grouped counts use explicit grouping,
@@ -496,3 +496,34 @@ and HAVING uses `NEXT FILTER`. These follow the current
 The command starts no engines or uploads and establishes no live source, loaded
 graph or publication authority. Keep those actual owner checks in the existing
 query provider; preparation does not qualify any of the seventeen native cases.
+
+### Materialize the typed scenario projection
+
+In a notebook with your explicitly selected Spark/Delta session, call the typed
+materializer with the same original inputs and export selection:
+
+```python
+from pathlib import Path
+from ashlar_host.local_graph_export import LocalGraphExportSelection
+from ashlar_host.fabric_pack_delta import materialize_fabric_pack_delta
+
+receipt = materialize_fabric_pack_delta(
+    spark, pack="ecology",
+    model=Path("/absolute/original/ecology/ontology.json"),
+    graph=Path("/absolute/original/ecology/graph/fixture.json"),
+    pack_file=Path("/absolute/original/ecology/pack.json"),
+    selection=LocalGraphExportSelection(
+        Path("/absolute/private/ecology-export/release.graph.json"),
+        Path("/absolute/private/ecology-export/custody.json"),
+        SELECTED_RELEASE_SHA256, SELECTED_CUSTODY_SHA256),
+    node_path=NODES, edge_path=EDGES)
+```
+
+This private-development branch holds current export-file access and validates
+the complete original canonical bags. It uses explicit STRING/BIGINT schemas,
+`errorifexists`, bounded complete version-0 readback and closing native metadata
+checks. Preserve partial destinations after any failure; do not overwrite them.
+The receipt records actual UUIDs, versions, locations and row/column counts.
+It grants no OneLake storage access, graph load or live publication authority.
+Use the matching generated definition only after materialization succeeds; graph
+loading and all seventeen native query/oracle passes remain separate operations.

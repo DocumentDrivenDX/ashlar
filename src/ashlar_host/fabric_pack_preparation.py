@@ -11,8 +11,8 @@ from .evolution_cli import InvocationFile
 from .lifecycle import owned_context
 
 
-def scenario_definition(profile,nodes,edges):
-    """Map the exact prepared lexical/presence and named INT64 projection."""
+def scenario_properties(profile):
+    """Validate the prepared exact cells and return their ordered native types."""
     if type(profile)is not dict or profile.get('pack')not in INTEGER_FIELDS:
         raise ValueError('Closed original17 scenario projection required')
     properties=[{'name':n,'type':'STRING'}for n in (*release_columns('node'),'original_key','original_type')]
@@ -35,6 +35,13 @@ def scenario_definition(profile,nodes,edges):
             if prop['type']=='STRING':valid=type(value)is str
             else:valid=type(value)is int and -(2**63)<=value<2**63
             if not valid:raise ValueError('Exact scenario String/null/signed64 cells required')
+    return properties
+
+
+def scenario_definition(profile,nodes,edges):
+    """Map the exact prepared lexical/presence and named INT64 projection."""
+    properties=scenario_properties(profile)
+    names=[p['name']for p in properties]
     documents=make_fabric_graph_definition(nodes,edges)
     node=documents['graphType.json']['nodeTypes'][0]
     node['labels']=['Scenario'+profile['pack'].title()+'Node'];node['properties']=properties
