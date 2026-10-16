@@ -1,0 +1,162 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "DESCRIBE DETAIL `client_dev`.`umf_typed_sdk_a3db616ab086`.`object_current`",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a0-c14a-1788-9108-83b144a0008f",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 17,
+        "columns": [
+          {
+            "name": "format",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 0
+          },
+          {
+            "name": "id",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 1
+          },
+          {
+            "name": "name",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 2
+          },
+          {
+            "name": "description",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 3
+          },
+          {
+            "name": "location",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 4
+          },
+          {
+            "name": "createdAt",
+            "type_text": "TIMESTAMP",
+            "type_name": "TIMESTAMP",
+            "position": 5
+          },
+          {
+            "name": "lastModified",
+            "type_text": "TIMESTAMP",
+            "type_name": "TIMESTAMP",
+            "position": 6
+          },
+          {
+            "name": "partitionColumns",
+            "type_text": "ARRAY<STRING>",
+            "type_name": "ARRAY",
+            "position": 7
+          },
+          {
+            "name": "clusteringColumns",
+            "type_text": "ARRAY<STRING>",
+            "type_name": "ARRAY",
+            "position": 8
+          },
+          {
+            "name": "numFiles",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 9
+          },
+          {
+            "name": "sizeInBytes",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 10
+          },
+          {
+            "name": "properties",
+            "type_text": "MAP<STRING, STRING>",
+            "type_name": "MAP",
+            "position": 11
+          },
+          {
+            "name": "minReaderVersion",
+            "type_text": "INT",
+            "type_name": "INT",
+            "position": 12
+          },
+          {
+            "name": "minWriterVersion",
+            "type_text": "INT",
+            "type_name": "INT",
+            "position": 13
+          },
+          {
+            "name": "tableFeatures",
+            "type_text": "ARRAY<STRING>",
+            "type_name": "ARRAY",
+            "position": 14
+          },
+          {
+            "name": "statistics",
+            "type_text": "MAP<STRING, BIGINT>",
+            "type_name": "MAP",
+            "position": 15
+          },
+          {
+            "name": "clusterByAuto",
+            "type_text": "BOOLEAN",
+            "type_name": "BOOLEAN",
+            "position": 16
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1
+        }
+      ],
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "row_offset": 0,
+      "row_count": 1,
+      "data_array": [
+        [
+          "delta",
+          "eb25264d-e9ef-450f-9d47-051aadc66705",
+          "client_dev.umf_typed_sdk_a3db616ab086.object_current",
+          null,
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/5849d2f3-d85d-409f-9adf-f8fa8bb9256f",
+          "2026-10-16T20:32:02.281Z",
+          "2026-10-16T20:32:09.000Z",
+          "[]",
+          "[]",
+          "2",
+          "4522",
+          "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"5849d2f3-d85d-409f-9adf-f8fa8bb9256f\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-3e4dab9e-a461-411a-9a91-be67d89adfcf\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-6222cb88-f0ab-406a-afe2-19e430e7228c\"}",
+          "3",
+          "7",
+          "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\"]",
+          "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+          "false"
+        ]
+      ]
+    }
+  },
+  "readerPrincipal": "64d3b080-2abd-4ddf-b3eb-13f4a0dcab5b"
+}

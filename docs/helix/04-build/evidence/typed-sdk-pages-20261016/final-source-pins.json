@@ -1,0 +1,7 @@
+{
+  "src/ashlar/access.py": "11957a802e7557a261002891b675b77beaf3d5800fe0e86b7231f496a4e57c34",
+  "src/ashlar/pins.py": "0a3cba199bef38472797623f2da4f8e0978751bb27d1220399297a3bd44ea958",
+  "src/ashlar/weft_query.py": "15ccd9a68931587986018cc980bd266229400479c713521ffc8361e930495d84",
+  "tools/check_typed_sdk_native.py": "0ebd45140eb02498e56f42b09a695d1ddb0a8c6230e82f1bf74d7e02484738d7",
+  "tools/check_typed_sdk_managed.py": "16dbc8bf51d2bb07eb26aca3ff3778093745b4e5c5d9eb34648812fd7ed11318"
+}

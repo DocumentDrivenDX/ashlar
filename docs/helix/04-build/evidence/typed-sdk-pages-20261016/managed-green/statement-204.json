@@ -1,0 +1,93 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `client_dev`.`umf_typed_sdk_083b35ac439a`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING) AS `id`, CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `status` FROM `s0` WHERE ((`s0`.`f1` COLLATE UTF8_BINARY) = (CAST(:p6 AS STRING) COLLATE UTF8_BINARY)) LIMIT 10",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "p1",
+        "type": "STRING",
+        "value": "typed-sdk-development"
+      },
+      {
+        "name": "p2",
+        "type": "STRING",
+        "value": "17"
+      },
+      {
+        "name": "p3",
+        "type": "STRING",
+        "value": "eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff"
+      },
+      {
+        "name": "p4",
+        "type": "STRING",
+        "value": "$.1"
+      },
+      {
+        "name": "p5",
+        "type": "STRING",
+        "value": "$.2"
+      },
+      {
+        "name": "p6",
+        "type": "STRING",
+        "value": "draft"
+      }
+    ]
+  },
+  "response": {
+    "statement_id": "01f1c9a1-64c3-19c8-a7c9-965d701a3777",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 2,
+        "columns": [
+          {
+            "name": "id",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 0
+          },
+          {
+            "name": "status",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 1
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 2
+        }
+      ],
+      "total_row_count": 2,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "row_offset": 0,
+      "row_count": 2,
+      "data_array": [
+        [
+          "b",
+          "draft"
+        ],
+        [
+          "a",
+          "draft"
+        ]
+      ]
+    }
+  },
+  "readerPrincipal": "3712916c-f573-403a-bd5d-3367c719ba95"
+}

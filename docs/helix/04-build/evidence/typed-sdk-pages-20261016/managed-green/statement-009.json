@@ -1,0 +1,155 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "DESCRIBE HISTORY client_dev.umf_typed_sdk_083b35ac439a.object_current LIMIT 1",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a0-f1c1-1bc7-92f2-fb976e9a1f60",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 16,
+        "columns": [
+          {
+            "name": "version",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 0
+          },
+          {
+            "name": "timestamp",
+            "type_text": "TIMESTAMP",
+            "type_name": "TIMESTAMP",
+            "position": 1
+          },
+          {
+            "name": "userId",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 2
+          },
+          {
+            "name": "userName",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 3
+          },
+          {
+            "name": "operation",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 4
+          },
+          {
+            "name": "operationParameters",
+            "type_text": "MAP<STRING, STRING>",
+            "type_name": "MAP",
+            "position": 5
+          },
+          {
+            "name": "job",
+            "type_text": "STRUCT<jobId: STRING, jobName: STRING, jobRunId: STRING, runId: STRING, jobOwnerId: STRING, triggerType: STRING, workspaceId: STRING>",
+            "type_name": "STRUCT",
+            "position": 6
+          },
+          {
+            "name": "notebook",
+            "type_text": "STRUCT<notebookId: STRING>",
+            "type_name": "STRUCT",
+            "position": 7
+          },
+          {
+            "name": "queryHistoryStatementId",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 8
+          },
+          {
+            "name": "clusterId",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 9
+          },
+          {
+            "name": "readVersion",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 10
+          },
+          {
+            "name": "isolationLevel",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 11
+          },
+          {
+            "name": "isBlindAppend",
+            "type_text": "BOOLEAN",
+            "type_name": "BOOLEAN",
+            "position": 12
+          },
+          {
+            "name": "operationMetrics",
+            "type_text": "MAP<STRING, STRING>",
+            "type_name": "MAP",
+            "position": 13
+          },
+          {
+            "name": "userMetadata",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 14
+          },
+          {
+            "name": "engineInfo",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 15
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1
+        }
+      ],
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "row_offset": 0,
+      "row_count": 1,
+      "data_array": [
+        [
+          "2",
+          "2026-10-16T20:34:09.000Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "WRITE",
+          "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+          null,
+          null,
+          "01f1c9a0-efca-1209-a491-a5acd52fc092",
+          null,
+          "1",
+          "WriteSerializable",
+          "true",
+          "{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"2269\"}",
+          null,
+          "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    }
+  },
+  "readerPrincipal": null
+}

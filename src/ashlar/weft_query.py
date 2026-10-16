@@ -1,12 +1,29 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
+from dataclasses import dataclass,field
 from types import GeneratorType, CoroutineType, AsyncGeneratorType
 from .execution_scope import preserve_body_failure as _preserve_body_failure
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
 from .publication import resolve_publication,ResolutionError
+from .pins import PinError
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
+PAGE_BACKENDS=(
+ {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate','interfaceVersion':'weft-backend/0.2.2','targetProfile':'spark4.0.1-delta4.0.0-candidate'},
+ {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-pages-candidate','interfaceVersion':'weft-backend/0.2.2','targetProfile':'dbsql2026.39-build-20261016-candidate'},
+)
+class PageContextRefused(ResolutionError):
+    """The original publication/current admission failed before page data SQL."""
+
+@dataclass(frozen=True)
+class PageReadRows:
+    rows: tuple
+    owner_context: bytes=field(repr=False)
+    def __post_init__(self):
+        if type(self.rows)is not tuple or type(self.owner_context)is not bytes or not 1<=len(self.owner_context)<=65536:
+            raise ResolutionError('Complete immutable native page rows/context required')
+
 
 class _SnapshotBudget:
     __slots__ = ('nodes', 'copied_bytes')
@@ -91,7 +108,7 @@ def _completed_decode(value, *, _budget=None):
     return result
 
 
-def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,supported_profiles,supported_revisions):
+def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,supported_profiles,supported_revisions,continuation_context=None):
     """Policy owns exact compiler custody, native profile, source visibility and decoding.
 
     No policy callback has a successful default. Unknown obligations refuse here;
@@ -99,14 +116,19 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     Returned rows remain buffered through final context closure.
     """
     request=copy.deepcopy(request);artifact=copy.deepcopy(artifact)
-    if artifact.get('status')!='compiled' or artifact.get('backend') not in ({'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
+    if artifact.get('status')!='compiled' or artifact.get('backend') not in PAGE_BACKENDS+({'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
         raise ResolutionError('Explicit selected native Weft artifact required')
+    page=artifact.get('logicalPlan',{}).get('pageKey') is not None
+    if page and artifact.get('backend') not in PAGE_BACKENDS:raise ResolutionError('Explicit original page backend required')
+    if continuation_context is not None and (not page or type(continuation_context)is not bytes or not 1<=len(continuation_context)<=65536):raise ResolutionError('Original bounded page context required')
+    page_contexts=[]
+    required=OBLIGATIONS|({'ashlar.candidate.keyIntegrity'}if page else set())
     obligations={}
     for item in artifact.get('obligations',[]):
-        if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in OBLIGATIONS or item['id'] in obligations or item['owner']!='host':
+        if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in required or item['id'] in obligations or item['owner']!='host':
             raise ResolutionError('Unknown or duplicate Weft host obligation')
         obligations[item['id']]=item
-    if set(obligations)!=OBLIGATIONS:raise ResolutionError('Complete supported Weft obligation inventory required')
+    if set(obligations)!=required:raise ResolutionError('Complete supported Weft obligation inventory required')
     guards=obligations['ashlar.candidate.scalarIntegrity']['parameters']
     expected={'noPartialPublication':True,'parameters':'same emitted ordered slots; values never interpolated','phase':'before-user-query','samePublicationRequired':True,'success':'one exact STRING count equal to 0 per check'}
     if set(guards)!=set(expected)|{'checks'} or any(guards[k]!=v for k,v in expected.items()) or not isinstance(guards['checks'],list):
@@ -124,6 +146,22 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
             record_checks.append(check)
         else:raise ResolutionError('Unknown integrity check meaning')
         checks.append(check['sql'])
+    page_checks=[]
+    if page:
+        key_guard=obligations['ashlar.candidate.keyIntegrity']
+        guard=key_guard['parameters']
+        expected_page={'phase':'before-user-query','success':'one exact STRING count equal to 0','continuation':'same immutable publication, original binding and effective policy across pages; ORDER BY alone proves no continuity'}
+        key=artifact['logicalPlan']['pageKey']
+        if (key_guard['failureCode']!='WFT-BINDING' or type(guard)is not dict or set(guard)!=set(expected_page)|{'key','checks'}
+            or any(guard.get(name)!=value for name,value in expected_page.items()) or guard['key']!=key
+            or type(key)is not dict or set(key)!={'id','fields','types'} or type(key['id'])is not str or not key['id']
+            or type(key['fields'])is not list or not 1<=len(key['fields'])<=1024 or type(key['types'])is not list or len(key['types'])!=len(key['fields'])
+            or type(guard['checks'])is not list or len(guard['checks'])!=1):
+            raise ResolutionError('Complete original page Key integrity meaning required')
+        for check in guard['checks']:
+            if type(check)is not dict or set(check)!={'sql','failureCode'} or check['failureCode']!='WFT-BINDING' or type(check['sql'])is not str or not check['sql']:
+                raise ResolutionError('Original complete page Key check required')
+            page_checks.append(check['sql'])
     parameters={}
     for ordinal,slot in enumerate(artifact.get('parameters',[]),1):
         if type(slot.get('position')) is not int or slot['position']!=ordinal or type(slot.get('value')) is not str:
@@ -133,41 +171,69 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     if not isinstance(columns,list) or not columns or any(c.get('position')!=i for i,c in enumerate(columns,1)):
         raise ResolutionError('Complete ordered Weft result descriptors required')
     publication=obligations['ashlar.candidate.publication']['parameters']['publication']
-    with _preserve_body_failure(pins.hold(vector,context=context)):
-        resolved=resolve_publication(backend,publication['id'],{t:p[0] for t,p in vector.targets.items()},context=context,supported_profiles=supported_profiles,supported_revisions=supported_revisions)
-        if any(resolved.snapshots[t].version!=pair[1] for t,pair in vector.targets.items()):
-            raise ResolutionError('Weft read differs from complete held publication')
-        def admit():
-            for call in [lambda:policy.bind_descriptor(resolved.descriptor,vector,context),
-                         lambda:policy.admit_artifact(request,artifact,resolved.descriptor,context),
-                         lambda:policy.verify_native_profile(obligations['ashlar.nativeProfile']['parameters'],context),
-                         lambda:policy.authorize_query(request,resolved.descriptor,context)]:
-                if call() is not None:raise ResolutionError('Incomplete Weft host admission')
-            for check in record_checks:
-                callback=getattr(policy,'admit_record_integrity',None)
-                if not callable(callback) or callback(check,artifact,context) is not None:
-                    raise ResolutionError('Explicit record integrity admission required')
-        admit()
-        for sql in checks:
-            result=executor.query(sql,parameters)
-            if len(result.columns)!=1 or result.columns[0][1]!='STRING' or list(result.rows)!=[{result.columns[0][0]:'0'}]:
-                raise ResolutionError('Weft integrity check failed')
-        result=executor.query(artifact['sql'],parameters)
-        names=[c['outputName'] for c in columns]
-        if list(result.columns)!=[(name,'STRING') for name in names] or len(set(names))!=len(names):
-            raise ResolutionError('Exact complete Weft result carriers required')
-        buffered=[]
-        decode_budget=_SnapshotBudget()
-        for row in result.rows:
-            if set(row)!=set(names) or any(value is not None and type(value) is not str for value in row.values()):
-                raise ResolutionError('Exact Weft row inventory required')
-            if any(row[c['outputName']] is None and c.get('nullable') is not True for c in columns):
-                raise ResolutionError('Unexpected null Weft carrier')
-            buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context),_budget=decode_budget) for column in columns))
-        if backend.validate_descriptor(resolved.descriptor,context) is not None or backend.authorize(context,publication['id'],tuple(vector.targets)) is not None:
-            raise ResolutionError('Weft publication or authority expired')
-        admit()
-        if policy.authorize_result(tuple(buffered),resolved.descriptor,context) is not None:
-            raise ResolutionError('Weft result release refused')
-        result=_completed_decode(tuple(buffered),_budget=decode_budget)
-    return result
+    holder=getattr(pins,'hold_page' if page else 'hold',None)
+    if not callable(holder):raise PageContextRefused('Original native page pin provider required')
+    admitted=False
+    try:
+        with _preserve_body_failure(holder(vector,context=context)):
+            resolved=resolve_publication(backend,publication['id'],{t:p[0] for t,p in vector.targets.items()},context=context,supported_profiles=supported_profiles,supported_revisions=supported_revisions)
+            if any(resolved.snapshots[t].version!=pair[1] for t,pair in vector.targets.items()):
+                raise ResolutionError('Weft read differs from complete held publication')
+            def admit():
+                for call in [lambda:policy.bind_descriptor(resolved.descriptor,vector,context),
+                             lambda:policy.admit_artifact(request,artifact,resolved.descriptor,context),
+                             lambda:policy.verify_native_profile(obligations['ashlar.nativeProfile']['parameters'],context),
+                             lambda:policy.authorize_query(request,resolved.descriptor,context)]:
+                    if call() is not None:raise ResolutionError('Incomplete Weft host admission')
+                for check in record_checks:
+                    callback=getattr(policy,'admit_record_integrity',None)
+                    if not callable(callback) or callback(check,artifact,context) is not None:
+                        raise ResolutionError('Explicit record integrity admission required')
+                if page:
+                    callback=getattr(policy,'admit_page_integrity',None)
+                    if not callable(callback) or callback(guard,artifact,context) is not None:
+                        raise ResolutionError('Explicit original page Key admission required')
+                    callback=getattr(policy,'page_context',None)
+                    if not callable(callback):raise ResolutionError('Original current page context provider required')
+                    token=_completed_decode(callback(resolved.descriptor,vector,context))
+                    if type(token)is not bytes or not 1<=len(token)<=65536:raise ResolutionError('Bounded immutable original page context required')
+                    if not page_contexts:
+                        if continuation_context is not None and continuation_context!=token:raise PageContextRefused('Original page caller or policy context changed')
+                        page_contexts.append(token)
+                    elif token!=page_contexts[0]:raise ResolutionError('Original page context changed before release')
+            admit()
+            admitted=True
+            for sql in checks+page_checks:
+                result=executor.query(sql,parameters)
+                if len(result.columns)!=1 or result.columns[0][1]!='STRING' or list(result.rows)!=[{result.columns[0][0]:'0'}]:
+                    raise ResolutionError('Weft integrity check failed')
+            result=executor.query(artifact['sql'],parameters)
+            names=[c['outputName'] for c in columns]
+            if list(result.columns)!=[(name,'STRING') for name in names] or len(set(names))!=len(names):
+                raise ResolutionError('Exact complete Weft result carriers required')
+            buffered=[]
+            decode_budget=_SnapshotBudget()
+            for row in result.rows:
+                if set(row)!=set(names) or any(value is not None and type(value) is not str for value in row.values()):
+                    raise ResolutionError('Exact Weft row inventory required')
+                if any(row[c['outputName']] is None and c.get('nullable') is not True for c in columns):
+                    raise ResolutionError('Unexpected null Weft carrier')
+                buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context),_budget=decode_budget) for column in columns))
+            if backend.validate_descriptor(resolved.descriptor,context) is not None or backend.authorize(context,publication['id'],tuple(vector.targets)) is not None:
+                raise ResolutionError('Weft publication or authority expired')
+            admit()
+            if policy.authorize_result(tuple(buffered),resolved.descriptor,context) is not None:
+                raise ResolutionError('Weft result release refused')
+            # Re-resolve the original authoritative manifest and every consumed
+            # UUID/version/schema after fetch and result authorization. Comparing
+            # the previously loaded descriptor alone misses alias replacement.
+            closing=resolve_publication(backend,publication['id'],{table:pair[0]for table,pair in vector.targets.items()},context=context,supported_profiles=supported_profiles,supported_revisions=supported_revisions)
+            if closing!=resolved:raise ResolutionError('Original complete publication changed before result release')
+            admit()
+            result=_completed_decode(tuple(buffered),_budget=decode_budget)
+    except Exception as error:
+        if page and not admitted and (isinstance(error,(ResolutionError,PinError,PermissionError)) or getattr(error,'sqlstate',None)=='55000'):
+            raise PageContextRefused('Original publication/current page admission refused')from error
+        raise
+
+    return PageReadRows(result,page_contexts[0])if page else result

@@ -98,3 +98,21 @@ class PostgresPins:
                 raise PinError('Pin read authorization expired')
             self._available(session,vector)
             self._inventory(session,vector)
+
+    @contextmanager
+    def hold_page(self,vector,*,context):
+        """Original held pin custody with typed pre-data unavailability.
+
+        Only native explicit guard/permission refusals from this original pin
+        admission are classified. Timeouts, connection failures and body errors
+        retain their original classification and cause.
+        """
+        entered=False
+        try:
+            with self.hold(vector,context=context):
+                entered=True
+                yield vector
+        except Exception as error:
+            if not entered and getattr(error,'sqlstate',None)in('P0001','42501'):
+                raise PinError('Original native page pin admission unavailable')from error
+            raise
