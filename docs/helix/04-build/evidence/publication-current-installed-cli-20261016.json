@@ -1,0 +1,22 @@
+{
+  "scope": "P09 installed entrypoint for the previously qualified publication-current workflow; no new native runtime qualification",
+  "command": "ashlar query-publication-current",
+  "wheel_sha256": "fbf1217b14d64d613a3f766661909a006ebb3bfe5fcd9d59e1100417e42897f2",
+  "checks": {
+    "focused_tests": 3,
+    "module_import_boundaries": "passed",
+    "fresh_wheel_install": "passed",
+    "outside_checkout_help": "passed",
+    "outside_checkout_invalid_output_refused_before_native_import": "passed",
+    "installed_module_origin": "site-packages/ashlar_host/publication_current_cli.py"
+  },
+  "review": {
+    "independent": "installed_current_review",
+    "result": "approved; static AST comparison confirms unchanged query, custody, Weft import and execution bodies"
+  },
+  "native_evidence": "publication-current-local-20261016/README.md",
+  "limitations": [
+    "No Spark/Delta native rerun for this packaging-only move",
+    "Original runtime/compiler/source selections and authority limits remain required"
+  ]
+}

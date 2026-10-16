@@ -292,6 +292,9 @@ def main():
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
+    from ashlar_host.publication_current_cli import add_arguments as publication_current_arguments
+    publication_current=commands.add_parser('query-publication-current',help='Run COUNT and SKU through an existing original commerce publication and protected source ACK')
+    publication_current_arguments(publication_current)
     finite_export=commands.add_parser('export-original-finite-pack',help='Export an existing original finite-file publication into immutable graph and file-custody bytes')
     finite_export.add_argument('--configuration',required=True)
     finite_export.add_argument('--output',required=True)
@@ -337,6 +340,10 @@ def main():
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'query-publication-current':
+        from ashlar_host.publication_current_cli import run_command
+        run_command(args)
+        return
     if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical'):
         from pathlib import Path
         from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, run_original_medical_recovery_preflight_command, medical_failure_metadata
