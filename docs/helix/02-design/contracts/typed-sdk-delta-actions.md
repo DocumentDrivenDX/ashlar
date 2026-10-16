@@ -69,8 +69,10 @@ Failure before submission is distinct from uncertainty after submission.
 Response loss after an actual commit returns Indeterminate and quarantines the
 original executor/admission; original custody is retained for explicit recovery.
 No empty-result, replacement request, fabricated receipt or automatic resubmit
-resolves that uncertainty. Independent original-commit reconciliation remains a
-separate required integration gate.
+resolves that uncertainty. Explicit retained native custody can inspect the
+original bounded commit history and recover its exact receipt/markers after
+response loss, including after a later native commit. It grants no new caller
+authority and does not clear quarantine or fabricate a typed action replay.
 
 ## Evidence and limits
 

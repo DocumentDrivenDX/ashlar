@@ -20,7 +20,7 @@ from umf_access.native_program import NativeProgram,canonical_json
 from umf_access.adoption import TargetIdentity
 from umf_access.commands import CommandVariant
 from umf_access.targets import binding_digest
-from .weft_query import _preserve_body_failure
+from ashlar.execution_scope import preserve_body_failure
 from ashlar_host.delta_atomic import DeltaAtomicConflict
 
 @dataclass(frozen=True)
@@ -47,7 +47,7 @@ class _Executor:
         def details(state):
             return NativeOutcomeDetails(self.action,program['profile'],canonical_json(markers),not changes if state=='committed'else None,canonical_json(verification),canonical_json(changes),None if scope is None else scope.attribution_json,sdk_receipt,canonical_json({'state':state}),request,scope)
         try:
-            with _preserve_body_failure(self.admission.hold(program,request,deadline=until))as native:
+            with preserve_body_failure(self.admission.hold(program,request,deadline=until))as native:
                 scope=NativeScope(native.atomic.table_uuid,native.atomic.epoch,native.authenticated,native.effective,native,native.attribution_json)
                 if not native.allowed:raise ActionDenied('ROLE_DENIED',details('rolled-back'))
                 native.stage(native.atomic.preimage)

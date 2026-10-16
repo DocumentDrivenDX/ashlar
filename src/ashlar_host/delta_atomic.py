@@ -13,6 +13,7 @@ from py4j.protocol import Py4JJavaError
 
 class DeltaAtomicRefused(ValueError):pass
 class DeltaAlreadySubmitted(DeltaAtomicRefused):pass
+class DeltaReconciliationPending(DeltaAtomicRefused):pass
 class DeltaAtomicConflict(DeltaAtomicRefused):
     def __init__(self,original):
         self.original=original
@@ -35,7 +36,7 @@ class DeltaAtomic:
         if not path.is_absolute() or not path.is_dir() or path.is_symlink():raise DeltaAtomicRefused('Original local table path required')
         self.spark,self.path,self.table_uuid,self.epoch=spark,path,table_uuid,epoch
         self.request_sha256,self.maximum_rows=request_sha256,maximum_rows
-        self.used=False;self.submitted=False;self.jvm=spark._jvm
+        self.used=False;self.submitted=False;self.metadata_json=None;self.jvm=spark._jvm
         loader=self.jvm.java.lang.Thread.currentThread().getContextClassLoader()
         native=loader.loadClass('org.apache.spark.sql.delta.DeltaLog')
         location=urlparse(native.getProtectionDomain().getCodeSource().getLocation().toExternalForm())
@@ -69,6 +70,7 @@ class DeltaAtomic:
         if type(markers)is not dict:raise DeltaAtomicRefused('Original marker object required')
         if candidate.schema.json()!=self.schema_json or candidate.limit(self.maximum_rows+1).count()>self.maximum_rows:raise DeltaAtomicRefused('Complete unchanged physical schema and bounded candidate required')
         metadata=json.dumps({'profile':'umf.actions.native-delta-atomic/0.1','tableUuid':self.table_uuid,'epoch':self.epoch,'requestSha256':self.request_sha256,'readVersion':self.version,'markers':markers},ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)
+        self.metadata_json=metadata
         added=self.transaction.writeFiles(candidate._jdf)
         actions=self.jvm.java.util.ArrayList()
         for i in range(self.files.size()):actions.add(self.files.apply(i).removeWithTimestamp(int(time.time()*1000),True))
@@ -93,3 +95,29 @@ class DeltaAtomic:
         if sum(e.get('txn',{}).get('appId')==self.application and e['txn'].get('version')==0 for e in events)!=1 or sum(e.get('commitInfo',{}).get('userMetadata')==metadata for e in events)!=1:
             raise DeltaAtomicRefused('Original atomic data/transaction/marker commit correspondence unavailable')
         return DeltaAtomicReceipt(self.table_uuid,self.epoch,version,self.request_sha256,metadata)
+    def reconcile(self,*,maximum_commits=100):
+        """Inspect only this retained original submission; absence stays uncertain.
+
+        This engine custody operation grants no caller authority, never retries
+        a mutation, and never clears an owning executor's quarantine.
+        """
+        if not self.submitted or self.metadata_json is None:raise DeltaAtomicRefused('Original submitted transaction custody required')
+        if type(maximum_commits)is not int or not 1<=maximum_commits<=10000:raise DeltaAtomicRefused('Bounded original commit inspection required')
+        none=self.jvm.scala.Option.empty()
+        snapshot=self.log.update(False,none,none);metadata=snapshot.metadata();configuration=metadata.configuration()
+        if metadata.id()!=self.table_uuid or not configuration.get('umf.actions.epoch').isDefined()or configuration.get('umf.actions.epoch').get()!=self.epoch:
+            raise DeltaAtomicRefused('Original native store/epoch changed during reconciliation')
+        tip=int(snapshot.version())
+        if tip-self.version>maximum_commits:raise DeltaReconciliationPending('Original commit inspection exceeds bound; retain uncertainty')
+        found=[]
+        for version in range(self.version+1,tip+1):
+            original=self.path/'_delta_log'/f'{version:020d}.json'
+            if not original.is_file():raise DeltaReconciliationPending('Original commit history unavailable; retain uncertainty')
+            events=[json.loads(line)for line in original.read_text().splitlines()]
+            markers=[e['txn']for e in events if e.get('txn',{}).get('appId')==self.application]
+            if not markers:continue
+            if len(markers)!=1 or markers[0].get('version')!=0 or sum(e.get('commitInfo',{}).get('userMetadata')==self.metadata_json for e in events)!=1:
+                raise DeltaAtomicRefused('Original transaction/verification custody differs')
+            found.append(DeltaAtomicReceipt(self.table_uuid,self.epoch,version,self.request_sha256,self.metadata_json))
+        if len(found)!=1:raise DeltaReconciliationPending('No unique retained original commit; retain uncertainty')
+        return found[0]

@@ -13,7 +13,7 @@ from umf_access.native_actions import _State,NativeScope
 from umf_access.native_program import NativeProgram,canonical_json
 from umf_access.protocols import (ActionRefused,ActionFailed,Committed,Denied,Rejected,Conflict,Indeterminate,Receipt,ValidationResult,ValidationFailure,ActionOutcome,TimedOut)
 from umf_access.types import ActionRef
-from .weft_query import _preserve_body_failure
+from ashlar.execution_scope import preserve_body_failure
 from ashlar_host.delta_atomic import DeltaAlreadySubmitted,DeltaAtomicConflict
 
 class DeltaActionExecutor:
@@ -58,7 +58,7 @@ class DeltaActionExecutor:
         if type(budget)is not timedelta or not 0<budget.total_seconds()<=60:raise ActionRefused('FINITE_DELTA_DEADLINE_REQUIRED')
         until=monotonic()+budget.total_seconds();submitted=False;committed=None
         try:
-            with _preserve_body_failure(self.admission.hold(state.program,state.request,deadline=until))as scope:
+            with preserve_body_failure(self.admission.hold(state.program,state.request,deadline=until))as scope:
                 state.scope=NativeScope(scope.atomic.table_uuid,scope.atomic.epoch,scope.authenticated,scope.effective,scope,scope.attribution_json)
                 if not scope.allowed:
                     return ValidationResult(False,(ValidationFailure('ROLE_DENIED'),),True) if validate else Denied('ROLE_DENIED',state.details('rolled-back'))

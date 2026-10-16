@@ -1,0 +1,15 @@
+{
+  "sha256": {
+    "src/ashlar/access.py": "23371d510474f59cf986980ea62631bdf3b4d360622c13d0d7b36c6d17e82635",
+    "src/ashlar/execution_scope.py": "99881cfe0cbd39e1b4e4854b784cff657ff0652dcbe13e829f1c091f1f71e3c3",
+    "src/ashlar/weft_query.py": "eaca0c93f3aab1749953e18a709960c3dc419eae7da396e65db2d2564d7d8620",
+    "src/ashlar_host/typed_actions.py": "2e59d60a9613a8ad619ecac7ee3fedab9f6d6cfcacd1749f26a1ba5c0b8831e6",
+    "src/ashlar_host/typed_bulk.py": "d6db7a7367e76257819408db12b27a6c470be38917001ec515e2f109a85b061e",
+    "src/ashlar_host/delta_atomic.py": "3cf0a6f43047f61a49148d3d49b499871dea08cc91ba255aef6cabf8dc3929b1",
+    "src/ashlar_host/delta_action_admission.py": "331ae36add263254267bb863a9498e4f45822648298e6b89e446d979347a835e",
+    "tools/check_delta_actions_native.py": "4dcbbbe150b5d7970b67c70924897ce3235e8ddf48c7daa0dd66dc1a43d23573",
+    "tools/check_typed_sdk_managed.py": "908e4977204857da1e7d53798f7e13aec8521e08a34f713400b07e4914977102"
+  },
+  "temporal": "HELD",
+  "qualification": "explicit native cohorts retained in each verification; runtime adapters now live at public core/helper and host composition boundaries; no protected Truss or managed action atomicity claim"
+}

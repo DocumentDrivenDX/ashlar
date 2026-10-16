@@ -19,7 +19,8 @@ from umf_access.reviewed import CatalogRead
 from umf_access.pages import ReadPage,ReadContinuation
 from umf_access.codec_support import revalidate_model
 from umf_access.native_program import canonical_json,program_json
-from .weft_query import read_weft,_preserve_body_failure
+from .weft_query import read_weft
+from .execution_scope import preserve_body_failure
 from .publication import ResolutionError
 P=TypeVar('P',bound=BaseModel);R=TypeVar('R',bound=BaseModel)
 
@@ -102,7 +103,7 @@ class AshlarTarget:
         request['parameters']={n:_parameter(v)for n,v in values.model_dump(mode='python').items()}
         budget=self._budget(timeout);until=monotonic()+budget.total_seconds()
         original=entry.originals()
-        with _preserve_body_failure(self.deadline(budget)):
+        with preserve_body_failure(self.deadline(budget)):
             checked=program_json(self.compiler.check_engine_read_json(original,canonical_json(request)))
             if checked.get('status')!='compiled':raise ResolutionError('Original engine catalog current binding refused')
             artifact=checked['artifact']

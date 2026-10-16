@@ -7,7 +7,7 @@ All native SQL responses are retained. Historical qualification is unchanged.
 from pathlib import Path
 from contextlib import contextmanager
 from datetime import timedelta
-import argparse,hashlib,json,subprocess,sys,time,uuid
+import argparse,hashlib,json,os,subprocess,sys,time,uuid
 import psycopg,weft
 from ashlar.access import AshlarTarget
 from ashlar.native import NativeBackend
@@ -19,7 +19,7 @@ from umf_access.types import StrictModel
 from databricks_transport import sql_result
 from weft_native_profile import ENGINE_SQL,ANSI_SQL
 
-parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--warehouse',required=True);parser.add_argument('--profile',required=True);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--warehouse',required=True);parser.add_argument('--profile',required=True);parser.add_argument('--reader-principal');parser.add_argument('--reader-app-id');args=parser.parse_args()
 out=args.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(args.generated.absolute()));from native_sales.models import Order
 class Parameters(StrictModel):status:str
@@ -29,20 +29,32 @@ def cli(*command):
 warehouse=cli('warehouses','get',args.warehouse,'-o','json')
 assert warehouse['name']=='umf-typed-sdk-qualification-20261016'and warehouse['cluster_size']=='2X-Small'and warehouse['min_num_clusters']==warehouse['max_num_clusters']==1 and warehouse['auto_stop_mins']==5
 (out/'warehouse.json').write_text(json.dumps(warehouse,indent=2))
-sequence=0;operation_deadline={'until':None}
-def sql(statement,parameters=None):
+sequence=0;operation_deadline={'until':None};credential=None;reader_identity=None
+def reader_cli(*command):
+ if credential is None:raise ValueError('Original temporary reader credential required')
+ env={k:v for k,v in os.environ.items()if not k.startswith('DATABRICKS_')}
+ env.update(DATABRICKS_HOST='https://adb-7405607548213398.18.azuredatabricks.net',DATABRICKS_CLIENT_ID=args.reader_app_id,DATABRICKS_CLIENT_SECRET=credential['secret'],DATABRICKS_AUTH_TYPE='oauth-m2m',DATABRICKS_CONFIG_FILE='/dev/null')
+ result=subprocess.run(['databricks',*command],env=env,capture_output=True,text=True)
+ if result.returncode:
+  diagnostic=result.stderr.replace(credential['secret'],'[redacted]')
+  (out/'reader-client-failure.txt').write_text(diagnostic[:2000])
+  raise RuntimeError('Constrained native client command failed with exit code '+str(result.returncode)+'; see redacted reader-client-failure.txt')
+ return json.loads(result.stdout)if result.stdout.strip()else None
+def sql(statement,parameters=None,*,reader=False,allow_failure=False):
  global sequence
  sequence+=1
  remaining=50 if operation_deadline['until']is None else min(50,int(operation_deadline['until']-time.monotonic()))
  if remaining<5:raise TimeoutError('original managed whole-operation deadline')
  request={'warehouse_id':args.warehouse,'statement':statement,'wait_timeout':str(remaining)+'s','on_wait_timeout':'CANCEL','row_limit':20}
  if parameters:request['parameters']=[{'name':k,'type':'STRING','value':v}for k,v in parameters.items()]
- response=cli('api','post','/api/2.0/sql/statements','--json',json.dumps(request));until=time.monotonic()+120
+ execute=reader_cli if reader and credential is not None else cli
+ response=execute('api','post','/api/2.0/sql/statements','--json',json.dumps(request));until=time.monotonic()+120
  while response['status']['state']in('PENDING','RUNNING'):
   if time.monotonic()>=until:
-   cli('api','post','/api/2.0/sql/statements/'+response['statement_id']+'/cancel');raise TimeoutError('native managed statement deadline')
-  time.sleep(1);response=cli('api','get','/api/2.0/sql/statements/'+response['statement_id'])
- (out/f'statement-{sequence:03d}.json').write_text(json.dumps({'request':request,'response':response},indent=2)+'\n')
+   execute('api','post','/api/2.0/sql/statements/'+response['statement_id']+'/cancel');raise TimeoutError('native managed statement deadline')
+  time.sleep(1);response=execute('api','get','/api/2.0/sql/statements/'+response['statement_id'])
+ (out/f'statement-{sequence:03d}.json').write_text(json.dumps({'request':request,'response':response,'readerPrincipal':args.reader_app_id if reader else None},indent=2)+'\n')
+ if allow_failure:return response
  return sql_result(response)
 pgbin=Path('/opt/homebrew/opt/postgresql@18/bin');pg=out/'postgres';sock=out/'socket';sock.mkdir();started=False;checks=[];status='fail'
 schema='client_dev.umf_typed_sdk_'+uuid.uuid4().hex[:12]
@@ -50,6 +62,16 @@ def local(*command):
  p=subprocess.run(list(map(str,command)),capture_output=True,text=True,check=True)
  with(out/'lifecycle.log').open('a')as f:f.write(p.stdout+p.stderr)
 try:
+ if args.reader_principal is not None:
+  principal=cli('service-principals','get',args.reader_principal,'-o','json')
+  assert principal['applicationId']==args.reader_app_id and principal['displayName']=='umf-typed-sdk-qualification-20261016-reader'and not any(g.get('display')=='admins'for g in principal.get('groups',[]))
+  cli('warehouses','update-permissions',args.warehouse,'--json',json.dumps({'access_control_list':[{'service_principal_name':args.reader_app_id,'permission_level':'CAN_USE'}]}))
+  credential=cli('service-principal-secrets-proxy','create',args.reader_principal,'--lifetime','3600s','-o','json')
+  assert type(credential.get('secret'))is str and credential['secret']
+  native_actor=sql('SELECT current_user() AS actor',reader=True).rows[0]['actor']
+  assert native_actor==args.reader_app_id
+  reader_identity={'workspacePrincipal':principal,'originalNativeActor':native_actor}
+  (out/'reader-identity.json').write_text(json.dumps(reader_identity,indent=2)+'\n')
  local(pgbin/'initdb','-D',pg,'-A','trust','-U','sdk_test','--no-sync');local(pgbin/'pg_ctl','-D',pg,'-l',out/'postgres.log','-o',f"-F -k {sock} -c listen_addresses='' -p 55496",'-w','start');started=True
  dsn=f'host={sock} port=55496 dbname=postgres user=sdk_test'
  with psycopg.connect(dsn,autocommit=True)as admin:
@@ -66,6 +88,18 @@ try:
  sql('CREATE TABLE '+manifest_table+' (publication_id STRING,profile_version STRING,table_versions_json STRING,source_progress_json STRING,schema_revisions_json STRING,validation_report_json STRING,recorded_at TIMESTAMP) USING DELTA')
  sql('INSERT INTO '+manifest_table+' VALUES (:publication_id,:profile_version,:table_versions_json,:source_progress_json,:schema_revisions_json,:validation_report_json,current_timestamp())',row)
  manifest_detail=dict(sql('DESCRIBE DETAIL '+manifest_table).rows[0]);raw_descriptor=dict(row,recorded_at=sql('SELECT cast(unix_micros(recorded_at) AS STRING) AS value FROM '+manifest_table).rows[0]['value'])
+ if credential is not None:
+  sql('GRANT USE CATALOG ON CATALOG client_dev TO `'+args.reader_app_id+'`')
+  sql('GRANT USE SCHEMA ON SCHEMA '+schema+' TO `'+args.reader_app_id+'`')
+  refused=sql('SELECT props_json FROM '+table,reader=True,allow_failure=True)
+  assert refused['status']['state']=='FAILED'and 'PERMISSION'in json.dumps(refused['status']).upper()
+  checks.append('independent non-admin native principal cannot read fixture before SELECT grant')
+  for relation in (table,manifest_table):sql('GRANT SELECT ON TABLE '+relation+' TO `'+args.reader_app_id+'`')
+  observed=sql('SELECT current_user() AS actor',reader=True).rows[0]['actor']
+  assert observed==args.reader_app_id
+  denied_write=sql('UPDATE '+table+" SET props_json=props_json WHERE id=1",reader=True,allow_failure=True)
+  assert denied_write['status']['state']=='FAILED'and 'PERMISSION'in json.dumps(denied_write['status']).upper()
+  checks.append('native authenticated reader is independent and SELECT grant does not allow UPDATE')
  custody=hashlib.sha256(json.dumps(raw_descriptor,sort_keys=True,separators=(',',':')).encode()).hexdigest();vector=PinVector('typed-sdk-owned-managed-development','manifest',publication_id,custody,{table:(detail['id'],version)})
  context=object();active={'pins':False,'deny':False}
  class PinExecutor:
@@ -90,7 +124,7 @@ try:
     try:yield original
     finally:active['pins']=False
  class Executor:
-  def query(self,statement,parameters):assert active['pins'];return sql(statement,parameters)
+  def query(self,statement,parameters):assert active['pins'];return sql(statement,parameters,reader=True)
  class NativePolicy:
   def authorize(self,supplied,pid,tables):
    if supplied is not context or not active['pins']or active['deny']or pid!=publication_id or set(tables)!={table}:raise PermissionError('original managed publication refused')
@@ -108,7 +142,7 @@ try:
   def admit_artifact(self,current,artifact,descriptor,supplied):assert active['pins']and current['modules']==request['modules']and artifact['modelPins']==[pin]and artifact['bindingSha256']==binding_sha
   def verify_native_profile(self,profile,supplied):
    assert active['pins']and supplied is context and profile['targetProfile']=='dbsql2026.39-build-20261016-candidate'
-   if json.loads(sql(ENGINE_SQL).rows[0]['__weft_warehouse'])!=engine or list(sql(ANSI_SQL).rows)!=[{'key':'ANSI_MODE','value':'true'}]:raise ResolutionError('original exact managed profile drift')
+   if json.loads(sql(ENGINE_SQL,reader=True).rows[0]['__weft_warehouse'])!=engine or list(sql(ANSI_SQL,reader=True).rows)!=[{'key':'ANSI_MODE','value':'true'}]:raise ResolutionError('original exact managed profile drift')
   def authorize_query(self,current,descriptor,supplied):NativePolicy().authorize(supplied,publication_id,(table,))
   def admit_record_integrity(self,check,artifact,supplied):assert check['record']==logical('order')and supplied is context
   def decode_result(self,column,value,current,supplied):
@@ -137,13 +171,28 @@ try:
  assert target.read(entry,Parameters(status="draft' OR true--"))==[];checks.append('actual native named parameter binding')
  sql('UPDATE '+table+' SET props_json=:props WHERE id=1',{'props':'{"1":"a","2":"changed"}'})
  assert target.read(entry,Parameters(status='draft'))==[Order(id='a',status='draft')];checks.append('actual independent managed mutation preserves original immutable publication read')
+ if credential is not None:
+  sql('REVOKE SELECT ON TABLE '+table+' FROM `'+args.reader_app_id+'`')
+  try:target.read(entry,Parameters(status='draft'))
+  except Exception as error:
+   from durable_sql import SQLCustodyError
+   if not isinstance(error,SQLCustodyError):raise
+   checks.append('actual UC SELECT revocation refuses typed read through independent native principal')
+  else:raise AssertionError('native UC revocation released typed rows')
+  sql('GRANT SELECT ON TABLE '+table+' TO `'+args.reader_app_id+'`')
  active['deny']=True
  try:target.read(entry,Parameters(status='draft'))
  except PermissionError:checks.append('native original publication policy revocation refuses release')
  else:raise AssertionError('revoked managed reader released data')
  status='pass'
 finally:
- if started:local(pgbin/'pg_ctl','-D',pg,'-m','fast','-w','stop')
- cli('warehouses','stop',args.warehouse,'--no-wait')
- (out/'verification.json').write_text(json.dumps({'status':status,'checks':checks,'schema':schema,'warehouse':args.warehouse,'stopRequested':True,'ownedPostgresStopped':not(pg/'postmaster.pid').exists(),'temporal':'HELD','scope':'actual managed scalar STRING publication and typed reads with local native pins/development policy; no accepted Truss identities, independent UC actor enforcement, managed mutation or broader semantic qualification'},indent=2)+'\n')
+ cleanup=[];deleted=False;revoked=credential is None
+ for label,action in [('postgres',lambda:local(pgbin/'pg_ctl','-D',pg,'-m','fast','-w','stop')if started else None),('warehouse',lambda:cli('warehouses','stop',args.warehouse,'--no-wait')),('credential',lambda:cli('service-principal-secrets-proxy','delete',args.reader_principal,credential['id'])if credential is not None else None),('principal',lambda:cli('service-principals','delete',args.reader_principal)if args.reader_principal is not None else None)]:
+  try:
+   action()
+   if label=='credential':revoked=True
+   if label=='principal':deleted=args.reader_principal is not None
+  except BaseException as error:cleanup.append({'phase':label,'errorType':type(error).__name__})
+ credential=None
+ (out/'verification.json').write_text(json.dumps({'status':status,'checks':checks,'schema':schema,'warehouse':args.warehouse,'stopRequested':not any(c['phase']=='warehouse'for c in cleanup),'credentialRevoked':revoked,'temporaryPrincipalDeleted':deleted,'cleanupErrors':cleanup,'ownedPostgresStopped':not(pg/'postmaster.pid').exists(),'temporal':'HELD','scope':'actual managed scalar STRING publication and typed reads with local native pins; independent UC reader only when explicitly enrolled; no accepted Truss identities, managed action atomicity or broader semantic qualification'},indent=2)+'\n')
 print(json.dumps({'status':status,'checks':len(checks),'output':str(out)}))

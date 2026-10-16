@@ -1,0 +1,26 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "GRANT USE CATALOG ON CATALOG client_dev TO `7c54af25-eaa3-4331-a470-57825492e604`",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c985-aade-1ba5-a9d8-877d3076997c",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  },
+  "readerPrincipal": null
+}

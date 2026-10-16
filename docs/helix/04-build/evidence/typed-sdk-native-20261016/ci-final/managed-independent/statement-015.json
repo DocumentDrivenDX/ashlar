@@ -1,0 +1,21 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT props_json FROM client_dev.umf_typed_sdk_c5c0b842e5f3.object_current",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c985-ac35-19c9-ad88-d2d486dd17f0",
+    "status": {
+      "error": {
+        "error_code": "BAD_REQUEST",
+        "message": "[INSUFFICIENT_PERMISSIONS] Insufficient privileges:\nUser does not have SELECT on Table 'client_dev.umf_typed_sdk_c5c0b842e5f3.object_current'. SQLSTATE: 42501"
+      },
+      "sql_state": "42501",
+      "state": "FAILED"
+    }
+  },
+  "readerPrincipal": "7c54af25-eaa3-4331-a470-57825492e604"
+}

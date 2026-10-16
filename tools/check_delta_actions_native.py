@@ -5,8 +5,9 @@ from contextlib import contextmanager
 import argparse,copy,hashlib,json,subprocess,sys,uuid
 import psycopg,weft
 from pyspark.sql import SparkSession
-from ashlar.access_actions import DeltaActionExecutor
+from ashlar_host.typed_actions import DeltaActionExecutor
 from ashlar_host.delta_action_admission import LocalDeltaActionAdmission
+from ashlar_host.delta_atomic import DeltaReconciliationPending
 from umf_access.native_program import NativeProgram
 from umf_access.protocols import Committed,Rejected,Denied,ActionFailed,Conflict,Indeterminate
 parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--jars',type=Path,required=True);args=parser.parse_args();out=args.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
@@ -73,7 +74,7 @@ try:
   try:person.execute('SELECT * FROM ashlar_sdk_actions.program')
   except psycopg.errors.InsufficientPrivilege:checks.append('ordinary actor cannot read or enroll native original program custody')
   else:raise AssertionError('private original program registry exposed')
- from ashlar.access_bulk import DeltaBulkTarget
+ from ashlar_host.typed_bulk import DeltaBulkTarget
  from umf_access.protocols import ActionRefused
  (args.generated/'delta_commands.py').write_text('from umf_access import command,Param\nfrom native_sales.models import Order\nfrom native_sales.actions import Approve\n@command(action=Approve)\ndef approve_drafts(status:Param[str]):return Order.objects.filter(Order.c.status==status).update(status="approved")\n')
  config={'package':'native_sales','modules':['delta_commands'],'targets':[{'id':'owned','kind':'spark-delta','backendId':'weft-databricks','backendVersion':'raw-read/0.1','targetProfile':'weft.raw-read/0.1','binding':request['binding'],'platform':[{'name':'spark','versions':['4.0.1']},{'name':'delta','versions':['4.0.0']}],'security':request['security'],'roleMappings':request['roleMappings'],'sessionPrincipal':'human','maxItems':2}]}
@@ -143,6 +144,16 @@ try:
  else:raise AssertionError('uncertain original submission was automatically reused')
  assert version()==before+1
  checks.append('lost response after actual commit yields Indeterminate and quarantines without resubmission')
+ original_scope=result.original.recovery.custody
+ spark.sql(f"UPDATE delta.`{path}` SET status='after-original' WHERE id='x1'")
+ try:original_scope.atomic.reconcile(maximum_commits=1)
+ except DeltaReconciliationPending:pass
+ else:raise AssertionError('bounded original commit inspection exceeded its bound')
+ recovered=original_scope.atomic.reconcile()
+ assert recovered.version==before+1 and recovered.version<version()and recovered.table_uuid==identity and recovered.epoch==epoch and lost.quarantined and uncertain.quarantined
+ original_events=[json.loads(line)for line in(path/'_delta_log'/f'{recovered.version:020d}.json').read_text().splitlines()]
+ assert sum(e.get('commitInfo',{}).get('userMetadata')==recovered.metadata_json for e in original_events)==1
+ checks.append('explicit retained native custody reconciles original commit and markers without replay or clearing quarantine')
  (out/'original-programs.json').write_text(json.dumps([json.loads(p.original_json)for p in programs]))
 finally:
  if spark is not None:spark.stop()

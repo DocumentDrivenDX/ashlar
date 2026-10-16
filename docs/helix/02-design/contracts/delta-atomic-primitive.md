@@ -55,6 +55,14 @@ verified against that exact original commit JSON, never latest history. An
 identical original request encounters its durable native transaction marker
 and requires original-commit reconciliation rather than another mutation.
 
+`reconcile(maximum_commits=100)` inspects only the retained original submitted
+transaction, under a finite commit inventory bound. It verifies current native
+store/epoch and the exact original SetTransaction/marker correspondence, then
+returns that original commit's UUID/epoch/version even when later commits exist.
+Unavailable history, an exceeded bound or missing unique correspondence retain
+uncertainty. This custody inspection grants no current caller authority and
+never retries or clears an executor's quarantine.
+
 ## Failure and recovery
 
 Concurrent changes must conflict with the registered whole-table read under

@@ -1,7 +1,7 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
 from types import GeneratorType, CoroutineType, AsyncGeneratorType
-from contextlib import contextmanager
+from .execution_scope import preserve_body_failure as _preserve_body_failure
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
 from .publication import resolve_publication,ResolutionError
@@ -90,23 +90,6 @@ def _completed_decode(value, *, _budget=None):
         raise ResolutionError('Completed bounded data-only Weft decoding required') from closing_failure
     return result
 
-@contextmanager
-def _preserve_body_failure(manager):
-    """Original refusal survives suppression or a separate closing failure."""
-    original = None
-    try:
-        with manager as value:
-            try:
-                yield value
-            except BaseException as error:
-                original = error
-                raise
-    except BaseException as closing:
-        if original is not None and closing is not original:
-            raise original from closing
-        raise
-    if original is not None:
-        raise original
 
 def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,supported_profiles,supported_revisions):
     """Policy owns exact compiler custody, native profile, source visibility and decoding.
