@@ -1,0 +1,78 @@
+{
+  "profile": "ashlar-payments-public040-compile-evidence/0.1",
+  "files": [
+    {
+      "path": "result.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/result.json",
+      "bytes": 2287,
+      "sha256": "f1f8fe5e311385f477800a0103f52a4e2d73a8233d886a503e59e277ba8a46e9",
+      "compressed_bytes": 1129,
+      "compressed_sha256": "4a81cd427d0f2f569ef98f7f7e5277406bd9790c332da70cb0e2a4311c3104a8"
+    },
+    {
+      "path": "selection.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/selection.json",
+      "bytes": 318,
+      "sha256": "563252a4ed735e11583ff3e4707365f71256ff23b7b0d6c6d0ab35afdf3196bc",
+      "compressed_bytes": 244,
+      "compressed_sha256": "9fc311b37bce3c3e56593934bd460f5b6053687320d56b3c9b59d196fa81965b"
+    },
+    {
+      "path": "compile.py.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/compile.py",
+      "bytes": 1750,
+      "sha256": "8b4c4a4b02ddade1842362947b1e8dd1e41f47c89b740348dee2903f471c7559",
+      "compressed_bytes": 920,
+      "compressed_sha256": "10cad59ee97797435aa3e594501592048b0e8428771b8cae7ec2d7ada9b54ad7"
+    },
+    {
+      "path": "prior-declared-020-request.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/prior-declared-020-request.json",
+      "bytes": 43930,
+      "sha256": "296d9a905c8b53000aef3e5e3897a0dd09e7dce26e05ca7546698c2821918d66",
+      "compressed_bytes": 2914,
+      "compressed_sha256": "b0908cc4bcf1dcf91e722fe4c937aadb1d0402e40f3daced35621dc107ce15fa"
+    },
+    {
+      "path": "prior-declared-020-response.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/prior-declared-020-response.json",
+      "bytes": 236,
+      "sha256": "f8b993baacbe77c8141be7224f7f13a37e2df12d7ef81e0241823abbe6a76acc",
+      "compressed_bytes": 202,
+      "compressed_sha256": "1ca39eaa5d1447f2b57ff9adfd09b3c6bbf63ac868584c6b4f6e8711f1a5b964"
+    },
+    {
+      "path": "qualified-declared-020-request.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/qualified-declared-020-request.json",
+      "bytes": 43937,
+      "sha256": "c59225fa62dc99134166035fb8fbdf92d00e9464a67b5c835ae9ddd58c43114c",
+      "compressed_bytes": 2929,
+      "compressed_sha256": "081176bd8495d9294a9fbeb59583e21ae02c30f5b32f857bbf0e7876a941a7d9"
+    },
+    {
+      "path": "qualified-declared-020-response.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/qualified-declared-020-response.json",
+      "bytes": 34446,
+      "sha256": "9c6f1be0817c8380b80d76cadd65ca6bc6c1f12cf5ce14acbbf5c164f0028d11",
+      "compressed_bytes": 4176,
+      "compressed_sha256": "e0eb3cb0634ec3502564e74fd1424589ac6dbf8104a20bc2739c43e1a1e33608"
+    },
+    {
+      "path": "qualified_profile.rs.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/qualified_profile.rs",
+      "bytes": 4497,
+      "sha256": "249ea3658939d2dc55c6dbb8a967819463331c7226742da62902dbf65431bb84",
+      "compressed_bytes": 1504,
+      "compressed_sha256": "abc1c1ed1e0ab193e4c717359739557c89615535bd871174dd2f1bf25dffc4b5"
+    },
+    {
+      "path": "compile.rs.gz",
+      "original_path": "/private/tmp/ashlar-payments-public040-20261016-3m51c2yv/compile.rs",
+      "bytes": 27927,
+      "sha256": "c8ae3fc3edc9c3106fbbba10b267d946073dfb3c9c99871c08138b16ba0e5ec5",
+      "compressed_bytes": 5794,
+      "compressed_sha256": "390419a0c0bc12cf3d112d9dae9fc3bbfb794a0c526cb88e15ad9090261595ac"
+    }
+  ],
+  "scope": "Two newlyauthoreddeclared020compilerrequests only, no nativequery or financialqualification"
+}
