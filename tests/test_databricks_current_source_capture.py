@@ -59,3 +59,9 @@ class CaptureTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'structural cell'):
             capture_current_query_sources(self.spark,json.dumps(binding),config=PathCaptureConfig(10_000,256,1024))
         self.assertFalse(any(type(x)is tuple and x[0]=='select'for x in self.log))
+
+    def test_distinct_spark_binding_requires_explicit_engine(self):
+        self.setup();binding=self.binding.replace('weft.databricks.current-values','weft.spark.current-values')
+        with self.assertRaises(ValueError):capture_current_query_sources(self.spark,binding,config=self.config)
+        result=capture_current_query_sources(self.spark,binding,config=self.config,engine='spark')
+        self.assertEqual(json.loads(result.scans_json)[0]['expectedRowCount'],'2')

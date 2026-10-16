@@ -74,7 +74,11 @@ class LocalCurrentDevelopmentOwner:
         self.packet = native.CurrentQueryPreparation.native_request_json(original_child)
         self.request = native.ApplicationLineagePreparation.source_request_json(parent)
         self.designation = native.CurrentQueryPreparation.designation_json(original_child)
-        binding = _json(original_binding); packet = _json(self.packet)
+        binding = _json(original_binding)
+        self.engine = 'spark' if binding.get('version') == 'weft.spark.current-values/0.1-candidate' else 'databricks'
+        if binding.get('version') not in ('weft.spark.current-values/0.1-candidate', 'weft.databricks.current-values/0.1-candidate', 'weft.databricks.current-values/0.2-candidate'):
+            raise ValueError('Exact supported local engine binding required')
+        packet = _json(self.packet)
         if (binding.get('sourceRequestSha256') != _sha(self.request)
                 or binding.get('designationSha256') != _sha(self.designation)
                 or binding.get('sourceBindingSha256') != packet['binding']['sha256']
@@ -109,6 +113,17 @@ class LocalCurrentDevelopmentOwner:
 
     def _observe(self):
         observations = []
+        if self.engine == 'spark':
+            namespace = capture_string_frame(self.spark.sql(
+                'SELECT current_catalog() AS catalog, current_database() AS database'),
+                config=PathCaptureConfig(1, 4096, 8192))['rows']
+            if len(namespace) != 1 or any(type(x) is not str or not x for x in namespace[0]):
+                raise ValueError('Actual local builtin-resolution namespace required')
+            functions = capture_string_frame(self.spark.sql('SHOW USER FUNCTIONS').limit(1),
+                config=PathCaptureConfig(1, 65536, 65536))['rows']
+            if functions:
+                raise PermissionError('Local Spark user-function shadows are unsupported')
+            observations.append(('spark-builtin-resolution', tuple(namespace[0])))
         for scan in _json(self.original_binding)['scans']:
             relation = scan['relation']
             name = '.'.join(_identifier(relation[k]) for k in ('catalog', 'schema', 'table'))
@@ -138,12 +153,14 @@ class LocalCurrentDevelopmentOwner:
             observations.append((scan['scan'], rows[0][0], location, version, schema))
         return tuple(observations)
 
-    def backend(self, *, capture_limits, source_limits, mode='contributors'):
+    def backend(self, *, capture_limits, source_limits, mode='contributors', engine='databricks'):
         """Compose only the exact observed Spark session with its local owner."""
         from .databricks_current_spark import SparkCurrentQueryBackend
+        if type(engine) is not str or engine != self.engine:
+            raise ValueError('Local compiler engine and binding differ')
         self._require_identity(self.child, self.original_binding, self.context)
         return SparkCurrentQueryBackend(self._original_spark, self,
-            capture_limits, source_limits, mode)
+            capture_limits, source_limits, mode, engine)
 
     @contextmanager
     def open_current_query(self, original_child, authenticated_context):

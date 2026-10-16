@@ -22,8 +22,10 @@ def _identifier(value):
     return '`' + value.replace('`', '``') + '`'
 
 
-def capture_current_query_sources(spark, original_binding, *, config: PathCaptureConfig):
+def capture_current_query_sources(spark, original_binding, *, config: PathCaptureConfig, engine='databricks'):
     """Capture every eligible source row, not merely returned contributors."""
+    if type(engine) is not str or engine not in ('databricks', 'spark'):
+        raise ValueError('Explicit source capture engine required')
     if (type(config) is not PathCaptureConfig or config.maximum_rows > 10_000
             or config.maximum_cell_bytes > 65_536 or config.maximum_total_cell_bytes > 16_777_216):
         raise ValueError('Explicit bounded source capture configuration required')
@@ -39,7 +41,8 @@ def capture_current_query_sources(spark, original_binding, *, config: PathCaptur
     binding = json.loads(original_binding, object_pairs_hook=pairs,
         parse_constant=reject, parse_float=reject)
     if (type(binding) is not dict or binding.get('version') not in
-            ('weft.databricks.current-values/0.1-candidate', 'weft.databricks.current-values/0.2-candidate')
+            (('weft.databricks.current-values/0.1-candidate', 'weft.databricks.current-values/0.2-candidate')
+             if engine == 'databricks' else ('weft.spark.current-values/0.1-candidate',))
             or type(binding.get('scans')) is not list or not 1 <= len(binding['scans']) <= 16
             or type(binding.get('values')) is not list or len(binding['values']) > 4096):
         raise ValueError('Original current-value binding required')

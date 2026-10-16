@@ -762,6 +762,13 @@ UUID, location, pinned version and complete native schema. Its schema digest
 convention MUST be named locally; an opaque compiler schema digest MUST NOT imply
 an independently standardized native serialization.
 
+The Spark compiler target MUST be selected explicitly with its own binding and
+artifact versions; it MUST NOT replace a failed Databricks target implicitly.
+Native function references MUST come from that compiler target. Local admission
+MUST observe an empty user-function inventory and preserve the actual current
+catalog/database through closing so emitted unqualified builtins cannot be
+silently resolved through a changed session namespace.
+
 Opening, renewal and closing MUST refuse changed native identity, schema, version,
 original mapping or context. The unchanged compiler SQL, complete eligible source
 capture and native refinement checker MUST run within that same local interval;

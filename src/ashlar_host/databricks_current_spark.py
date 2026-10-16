@@ -47,6 +47,7 @@ class SparkCurrentQueryBackend:
     capture_limits: PathCaptureConfig
     source_limits: PathCaptureConfig
     mode: str = 'contributors'
+    engine: str = 'databricks'
 
     def __post_init__(self):
         if (not callable(getattr(self.spark, 'sql', None))
@@ -55,6 +56,8 @@ class SparkCurrentQueryBackend:
                 or type(self.source_limits) is not PathCaptureConfig
                 or type(self.mode) is not str or self.mode not in ('contributors', 'sum')):
             raise ValueError('Explicit Spark current-query owners and limits required')
+        if type(self.engine) is not str or self.engine not in ('databricks', 'spark') or self.engine == 'spark' and self.mode != 'contributors':
+            raise ValueError('Explicit supported Spark execution compiler engine required')
         if self.source_limits.maximum_cell_bytes > 65536:
             raise ValueError('Source capture cell ceiling is 64 KiB')
         for limits in (self.capture_limits, self.source_limits):
@@ -69,7 +72,7 @@ class SparkCurrentQueryBackend:
         native = importlib.import_module('weft')
         if type(original_child) is not native.CurrentQueryPreparation or authenticated_context is None:
             raise ValueError('Actual original native child and explicit context required')
-        if not callable(getattr(type(original_child), 'check_databricks_current_'+self.mode+'_candidate_json', None)):
+        if not callable(getattr(type(original_child), 'check_'+self.engine+'_current_'+self.mode+'_candidate_json', None)):
             raise ValueError('Actual native refinement checker required before capture')
         parent = original_child.source_preparation()
         if type(parent) is not native.ApplicationLineagePreparation:
@@ -123,7 +126,7 @@ class _HeldSparkCurrent:
         if self.capture_started:
             raise ValueError('One original query capture per held invocation required')
         self.capture_started = True
-        expected = getattr(type(self.child), 'lower_databricks_current_'+self.backend.mode+'_candidate_json')(
+        expected = getattr(type(self.child), 'lower_'+self.backend.engine+'_current_'+self.backend.mode+'_candidate_json')(
             self.child, self.binding())
         if type(original_artifact) is not str or original_artifact != expected:
             raise ValueError('Unchanged actual original compiler artifact required')
@@ -174,7 +177,7 @@ class _HeldSparkCurrent:
         if self.frame is None:
             from .databricks_current_source_capture import capture_current_query_sources, CurrentSourceCapture
             self.renew(child, self.binding(), context)
-            source = capture_current_query_sources(self.backend.spark, self.binding(), config=self.backend.source_limits)
+            source = capture_current_query_sources(self.backend.spark, self.binding(), config=self.backend.source_limits, engine=self.backend.engine)
             if type(source) is not CurrentSourceCapture or source.original_binding != self.binding():
                 raise ValueError('Complete same-binding original source capture required')
             compiled = _text_json(artifact, 16777216)
@@ -191,7 +194,7 @@ class _HeldSparkCurrent:
     def verify(self, child, artifact, captured, context):
         native = self._capture(child, artifact, captured, context)
         frame = self.refinement_input(child, artifact, captured, context)
-        method = getattr(type(child), 'check_databricks_current_'+self.backend.mode+'_candidate_json')
+        method = getattr(type(child), 'check_'+self.backend.engine+'_current_'+self.backend.mode+'_candidate_json')
         report = _text_json(method(child, self.binding(), frame), 16777216)
         compiled = _text_json(artifact, 16777216)
         anchors = {'sourceRequestSha256':compiled['sourceRequestSha256'],

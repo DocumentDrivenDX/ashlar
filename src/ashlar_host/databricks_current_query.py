@@ -57,7 +57,7 @@ def _json(raw, maximum):
 
 def execute_databricks_current_query(original_child, authenticated_context,
                                       backend: CurrentQueryBackend, *, mode='contributors',
-                                      maximum_result_bytes=16_777_216, refinement=False):
+                                      maximum_result_bytes=16_777_216, refinement=False, engine='databricks'):
     """Use a trusted backend owner; absent native authority never has a fallback.
 
     The injected backend must authenticate the actual caller/current cut, admit
@@ -65,6 +65,8 @@ def execute_databricks_current_query(original_child, authenticated_context,
     populations, cells and bags, and revalidate all authority at owner closing.
     JSON/compiler declarations are never substitutes for those backend checks.
     """
+    if type(engine) is not str or engine not in ('databricks', 'spark') or engine == 'spark' and mode != 'contributors':
+        raise ValueError('Explicit supported current-query engine/mode required')
     if type(refinement) is not bool:
         raise ValueError('Exact refinement opt-in required')
     if type(maximum_result_bytes) is not int or not 1 <= maximum_result_bytes <= 16_777_216:
@@ -78,10 +80,10 @@ def execute_databricks_current_query(original_child, authenticated_context,
     source = cls.source_preparation(original_child)
     if type(source) is not native.ApplicationLineagePreparation:
         raise TypeError('Original installed native parent required')
-    lower = getattr(cls, 'lower_databricks_current_'+mode+'_candidate_json')
+    lower = getattr(cls, 'lower_'+engine+'_current_'+mode+'_candidate_json')
     checker = None
-    if refinement:
-        checker = getattr(cls, 'check_databricks_current_'+mode+'_candidate_json', None)
+    if refinement or engine == 'spark':
+        checker = getattr(cls, 'check_'+engine+'_current_'+mode+'_candidate_json', None)
         if not callable(checker):
             raise ValueError('Installed native refinement capability required')
     result = None
@@ -105,7 +107,7 @@ def execute_databricks_current_query(original_child, authenticated_context,
             renew()
             artifact = lower(original_child, binding)
             compiled = _json(artifact, 16_777_216)
-            version = 'weft.databricks.current-scalar/' + ('0.1' if mode == 'contributors' else '0.2') + '-candidate'
+            version = 'weft.'+engine+'.current-scalar/' + ('0.1' if mode == 'contributors' else '0.2') + '-candidate'
             if (type(compiled) is not dict or compiled.get('version') != version
                     or compiled.get('authority') is not False
                     or compiled.get('securityReady') is not False

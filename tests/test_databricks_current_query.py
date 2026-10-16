@@ -69,6 +69,20 @@ class CurrentQueryTests(unittest.TestCase):
             with self.assertRaises(TypeError):execute_databricks_current_query({},object(),b)
         self.assertEqual(b.events,[])
 
+    def test_explicit_spark_requires_checker_before_open(self):
+        b=Backend()
+        with self.assertRaises((ValueError,AttributeError)):self.invoke(b,engine='spark')
+        self.assertEqual(b.events,[])
+        def lower(child,binding):
+            result=json.loads(child.lower_databricks_current_contributors_candidate_json(binding))
+            result['version']='weft.spark.current-scalar/0.1-candidate'
+            return json.dumps(result)
+        with patch.object(Child,'lower_spark_current_contributors_candidate_json',lower,create=True), \
+             patch.object(Child,'check_spark_current_contributors_candidate_json',lambda *a:None,create=True):
+            result=self.invoke(Backend(),engine='spark')
+            self.assertEqual(json.loads(result.original_artifact)['version'],'weft.spark.current-scalar/0.1-candidate')
+        with self.assertRaises(ValueError):self.invoke(Backend(),engine='spark',mode='sum')
+
     def test_failure_and_cancellation_still_close(self):
         for kind,exception in [('capture',LookupError),('cancel',KeyboardInterrupt)]:
             b=Backend(kind)

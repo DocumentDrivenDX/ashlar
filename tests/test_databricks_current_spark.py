@@ -165,4 +165,27 @@ class Tests(unittest.TestCase):
             with self.assertRaises(ValueError):action()
 
 
-if __name__=='__main__':unittest.main()
+
+
+    def test_explicit_spark_compiler_methods_preserve_exact_artifact(self):
+        from dataclasses import replace
+        self.setup_ports();self.backend=replace(self.backend,engine='spark')
+        original_lower=Child.lower_databricks_current_contributors_candidate_json
+        original_check=Child.check_databricks_current_contributors_candidate_json
+        def lower(child,binding):
+            value=json.loads(original_lower(child,binding))
+            value['version']='weft.spark.current-scalar/0.1-candidate'
+            return text(value)
+        def check(child,binding,frame):
+            value=json.loads(original_check(child,binding,frame))
+            value['compiledArtifactSha256']=sha(lower(child,binding))
+            return text(value)
+        with patch.object(Child,'lower_spark_current_contributors_candidate_json',lower,create=True), \
+             patch.object(Child,'check_spark_current_contributors_candidate_json',check,create=True):
+            result=self.invoke(engine='spark')
+        self.assertEqual(json.loads(result.original_artifact)['version'],'weft.spark.current-scalar/0.1-candidate')
+        self.assertEqual(self.child.checks,1)
+        self.assertEqual(self.authority.events[-1],'close')
+
+
+if __name__=="__main__":unittest.main()

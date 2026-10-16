@@ -20,12 +20,15 @@ class Frame:
         self.rows=rows;self.schema=types.SimpleNamespace(fields=[types.SimpleNamespace(name=x,nullable=False,dataType=types.SimpleNamespace(simpleString=lambda:'string'))for x in names])
     def selectExpr(self,*args):return self
     def toLocalIterator(self,prefetchPartitions):return iter(self.rows)
+    def limit(self,n):return self
 class Spark:
     def __init__(self):
         self.sparkContext=types.SimpleNamespace(master='local[1]',applicationId='app-original')
         self.version='0';self.uuid='native-delta';self.location='file:/private/tmp/local-original-delta';self.raw_schema='{"type":"struct","fields":[]}'
-        self.read=self
+        self.read=self;self.namespace=['spark_catalog','private'];self.functions=[]
     def sql(self,statement):
+        if statement.startswith('SELECT current_catalog'):return Frame([self.namespace],['catalog','database'])
+        if statement=='SHOW USER FUNCTIONS':return Frame([[x]for x in self.functions],['function'])
         if statement.startswith('DESCRIBE DETAIL'):return Frame([[self.uuid,'delta',self.location]],['id','format','location'])
         if statement.startswith('DESCRIBE HISTORY'):return Frame([[self.version]],['version'])
         raise AssertionError('Unexpected SQL')
@@ -35,11 +38,12 @@ class Spark:
 
 
 class LocalOwnerTests(unittest.TestCase):
-    def create(self):
+    def create(self,engine='databricks'):
         self.spark=Spark();self.child=Child();self.context=local_current_development_context()
         self.binding=json.dumps({'version':'weft.databricks.current-values/0.1-candidate','sourceRequestSha256':sha('{}'),
             'designationSha256':sha(self.child.designation_json()),'sourceBindingSha256':'b'*64,
             'scans':[{'scan':'s0','target':{'element':'R'},'relation':{'catalog':'spark_catalog','schema':'private','table':'values','uuid':'native-delta','version':'0','schemaSha256':sha(self.spark.raw_schema)}}],'values':[]})
+        self.binding=self.binding.replace('weft.databricks.current-values','weft.'+engine+'.current-values')
         native=types.SimpleNamespace(CurrentQueryPreparation=Child,ApplicationLineagePreparation=Parent)
         with patch('ashlar_host.local_current_development.importlib.import_module',return_value=native):
             return LocalCurrentDevelopmentOwner(self.spark,self.child,self.binding,self.context)
@@ -76,3 +80,17 @@ class LocalOwnerTests(unittest.TestCase):
         self.assertIs(backend.spark,self.spark);self.assertIs(backend.authority_owner,owner)
         owner.spark=Spark()
         with self.assertRaises(PermissionError):owner.backend(capture_limits=limits,source_limits=limits)
+
+    def test_spark_native_builtin_resolution_is_pinned(self):
+        for drift in ('namespace','functions'):
+            owner=self.create(engine='spark')
+            with self.subTest(drift=drift),self.assertRaises(PermissionError):
+                with owner.open_current_query(self.child,self.context):
+                    if drift=='namespace':self.spark.namespace=['spark_catalog','changed']
+                    else:self.spark.functions=['shadow']
+            self.assertFalse(owner.active)
+        owner=self.create(engine='spark')
+        from ashlar_host.path_capture import PathCaptureConfig
+        limits=PathCaptureConfig(10,256,1024)
+        with self.assertRaises(ValueError):owner.backend(capture_limits=limits,source_limits=limits)
+        self.assertEqual(owner.backend(capture_limits=limits,source_limits=limits,engine='spark').engine,'spark')
