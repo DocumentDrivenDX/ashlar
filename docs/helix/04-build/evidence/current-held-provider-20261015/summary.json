@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "controls": 2,
+  "version": "0.4.35",
+  "seconds": 0.005,
+  "mandatory_checker_with_adapter_refinement_false": true,
+  "unchanged_sql_and_slots": true,
+  "positive_public_projection": true,
+  "wrong_public_refused": true,
+  "closing_both_paths": true,
+  "native_module_sha256": "b3467b40a3b80a33b71f7400cdf513cb064c82bf64cd91c239afa41cbb204e4f",
+  "scope": "Actual public035 CQP and native checker through concrete held provider with inert Spark/authority and supplied source scans; no SQL/source capture or UC authority qualification",
+  "events": [
+    {
+      "wrong_public": false,
+      "authority_events": [
+        "open",
+        "admit",
+        "renew",
+        "admit",
+        "renew",
+        "renew",
+        "renew",
+        "renew",
+        "renew",
+        "admit",
+        "renew",
+        "close"
+      ]
+    },
+    {
+      "wrong_public": true,
+      "authority_events": [
+        "open",
+        "admit",
+        "renew",
+        "admit",
+        "renew",
+        "renew",
+        "renew",
+        "renew",
+        "admit",
+        "renew",
+        "close"
+      ]
+    }
+  ]
+}

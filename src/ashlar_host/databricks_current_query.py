@@ -1,4 +1,4 @@
-"""Conditional native-current composition; no actual Unity Catalog provider exists here.
+"""Conditional native-current composition with explicitly injected authority.
 
 A caller must explicitly supply a trusted backend owner. There is no default
 provider, declaration-based authority or SQL repair path.
