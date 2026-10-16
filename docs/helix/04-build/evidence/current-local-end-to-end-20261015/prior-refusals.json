@@ -1,0 +1,18 @@
+{
+  "attempts": [
+    {
+      "engine": "databricks",
+      "selection": "public Weft 0.4.35",
+      "state": "refused-before-first-query-result",
+      "reason": "REQUIRES_SINGLE_PART_NAMESPACE: spark_catalog requires single-part namespace; got system.builtin",
+      "resolution": "Separate compiler-owned Spark target; no SQL rewrite"
+    },
+    {
+      "engine": "spark",
+      "selection": "development compiler c1973ec",
+      "state": "refused-before-first-query-execution",
+      "reason": "Empty user-function guard rejected stable native Delta table_changes/table_changes_by_path helpers",
+      "resolution": "Bounded complete inventory with emitted-builtin shadow and closing-drift checks"
+    }
+  ]
+}

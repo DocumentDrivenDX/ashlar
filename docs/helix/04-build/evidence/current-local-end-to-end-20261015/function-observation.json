@@ -1,0 +1,54 @@
+{
+  "user_functions": [
+    [
+      "table_changes"
+    ],
+    [
+      "table_changes_by_path"
+    ]
+  ],
+  "emitted_builtins": [
+    {
+      "name": "array",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.CreateArray",
+      "temporary": true
+    },
+    {
+      "name": "collect_list",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.aggregate.CollectList",
+      "temporary": true
+    },
+    {
+      "name": "count",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.aggregate.Count",
+      "temporary": true
+    },
+    {
+      "name": "named_struct",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.CreateNamedStruct",
+      "temporary": true
+    },
+    {
+      "name": "raise_error",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.RaiseErrorExpressionBuilder",
+      "temporary": true
+    },
+    {
+      "name": "to_json",
+      "catalog": null,
+      "namespace": null,
+      "class": "org.apache.spark.sql.catalyst.expressions.StructsToJson",
+      "temporary": true
+    }
+  ]
+}

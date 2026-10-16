@@ -87,10 +87,30 @@ class LocalOwnerTests(unittest.TestCase):
             with self.subTest(drift=drift),self.assertRaises(PermissionError):
                 with owner.open_current_query(self.child,self.context):
                     if drift=='namespace':self.spark.namespace=['spark_catalog','changed']
-                    else:self.spark.functions=['shadow']
+                    else:self.spark.functions=['spark_catalog.private.COUNT']
             self.assertFalse(owner.active)
         owner=self.create(engine='spark')
         from ashlar_host.path_capture import PathCaptureConfig
         limits=PathCaptureConfig(10,256,1024)
         with self.assertRaises(ValueError):owner.backend(capture_limits=limits,source_limits=limits)
         self.assertEqual(owner.backend(capture_limits=limits,source_limits=limits,engine='spark').engine,'spark')
+
+    def test_harmless_functions_are_pinned_but_builtin_shadows_refuse(self):
+        owner=self.create(engine='spark')
+        self.spark.functions=['table_changes','table_changes_by_path']
+        # Recreate with this actual opening inventory rather than granting drift.
+        native=types.SimpleNamespace(CurrentQueryPreparation=Child,ApplicationLineagePreparation=Parent)
+        with patch('ashlar_host.local_current_development.importlib.import_module',return_value=native):
+            owner=LocalCurrentDevelopmentOwner(self.spark,self.child,self.binding,self.context)
+        with owner.open_current_query(self.child,self.context):pass
+        with self.assertRaises(PermissionError):
+            with owner.open_current_query(self.child,self.context):self.spark.functions.append('another_delta_helper')
+        self.spark.functions=['harmless'+str(i) for i in range(257)]
+        with self.assertRaises(ValueError):
+            with patch('ashlar_host.local_current_development.importlib.import_module',return_value=native):
+                LocalCurrentDevelopmentOwner(self.spark,self.child,self.binding,self.context)
+        for shadow in ['count','private.COUNT','`spark_catalog`.`private`.`collect_list`']:
+            with self.subTest(shadow=shadow),self.assertRaises(PermissionError):
+                self.spark.functions=[shadow]
+                with patch('ashlar_host.local_current_development.importlib.import_module',return_value=native):
+                    LocalCurrentDevelopmentOwner(self.spark,self.child,self.binding,self.context)

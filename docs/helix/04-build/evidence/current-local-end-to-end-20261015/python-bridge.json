@@ -1,0 +1,39 @@
+{
+  "scope": "Explicit local-development Spark candidate pure native descriptors only; no engine/native permissions",
+  "checks": [
+    {
+      "id": "same-original-spark-contributors",
+      "matched": true
+    },
+    {
+      "id": "wrong-public-result",
+      "refused": true
+    },
+    {
+      "id": "closed-target:weft.databricks.current-values/0.1-candidate",
+      "refused": true
+    },
+    {
+      "id": "closed-target:weft.spark.current-values/0.1-candidate",
+      "refused": true
+    },
+    {
+      "id": "no-spark-sum-api",
+      "refused": true
+    }
+  ],
+  "controls": 5,
+  "artifactSha256": "0a1e87e891289c719b45520f25d0141a76e38af2b49238bdc7d408564ef956b4",
+  "report": {
+    "authority": false,
+    "compiledArtifactSha256": "0a1e87e891289c719b45520f25d0141a76e38af2b49238bdc7d408564ef956b4",
+    "designationSha256": "83de4f324eaa518db52b06e744c6c76ab8f1c85dc7b9b84f6df8a9027db85675",
+    "matched": true,
+    "materializationBindingSha256": "ee970ef8695f3017fcad76df91c5c85b9b61d860222b6f5249c68a1874089dca",
+    "nativeAdmission": "required",
+    "refinementInputSha256": "fee6e236c2a7c123ee8726b070e78f98fb0b9693ce6171fc59cfe41dd8e18fc0",
+    "securityReady": false,
+    "sourceRequestSha256": "755807e165706ca991ea65243d2527d322862c69d84aa82ac95b6422579f85b7",
+    "version": "weft.current-query.refinement-result/0.1-candidate"
+  }
+}

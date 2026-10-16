@@ -1,0 +1,7 @@
+{
+  "root": "/private/tmp/ashlar-spark-compiler-module-20261015-e0bwf6hi",
+  "source_commit": "c1973ececa5b684a8abcfc6606d66bb1c5ade1bb",
+  "module_sha256": "eb7edd241615bac50370b3cb628b66e4c2a30a94f3add228226036576cc9bf1c",
+  "shim_sha256": "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d",
+  "selection": "local-development-build; not a released wheel"
+}

@@ -1,0 +1,34 @@
+{
+  "cwd": "/Users/erik/Projects/ashlar",
+  "environment": {
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tools:/private/tmp/ashlar-spark4-python39-bridge"
+  },
+  "argv": [
+    "/private/tmp/truss-pg18-consumer-env-20261011/bin/python",
+    "-B",
+    "/Users/erik/Projects/ashlar/tools/run_local_current_query_example.py",
+    "--engine",
+    "spark",
+    "--weft-root",
+    "/private/tmp/ashlar-spark-compiler-module-20261015-e0bwf6hi",
+    "--weft-module-sha256",
+    "eb7edd241615bac50370b3cb628b66e4c2a30a94f3add228226036576cc9bf1c",
+    "--weft-shim-sha256",
+    "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d",
+    "--weft-source-commit",
+    "c1973ececa5b684a8abcfc6606d66bb1c5ade1bb",
+    "--request",
+    "/Users/erik/Projects/ashlar/examples/current-query-local/mixed-original-uses.request.json",
+    "--java-home",
+    "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home",
+    "--delta-jar",
+    "/Users/erik/.ivy2.5.2/jars/io.delta_delta-spark_2.13-4.0.0.jar",
+    "--delta-jar",
+    "/Users/erik/.ivy2.5.2/jars/io.delta_delta-storage-4.0.0.jar",
+    "--schema",
+    "ashlar_current_local_20261015_c",
+    "--output",
+    "/private/tmp/ashlar-current-local-e2e-20261015-i8ywjx7w/spark-complete"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source_pins_match_after_execution": true,
+  "native_module_pin_matches_after_execution": true,
+  "process_exit_code": 0,
+  "spark_close_completed_before_result": true,
+  "databricks_compute_used": false,
+  "spark_master": "local[1]",
+  "driver_memory": "512m",
+  "input_rows": 3,
+  "eligible_rows": 2,
+  "queries": 2
+}

@@ -1,0 +1,10 @@
+{
+  "tools/run_local_current_query_example.py": "e72f76785ef26f6fff6509cf4d77f42a24670a8447bb9ab7bdbd70eafed411e7",
+  "src/ashlar_host/local_current_development.py": "d3af6d754e0889f455b929fd621d04b7c83eece46bf4bb4c4885c9a44d087d35",
+  "src/ashlar_host/databricks_current_query.py": "390bc4e589c4b2a988377689632d6fd3edacfced2ebdc26a901b5bcffe3e9627",
+  "src/ashlar_host/databricks_current_spark.py": "664d66805d29c9085fb26630d3fac64a9948069dd09b1c5ec2aea4670a41a303",
+  "src/ashlar_host/databricks_current_source_capture.py": "405afb1b3dcb98c0b54a358c949bfe4ea540da0bf55283cc9906d9564f67e07b",
+  "src/ashlar_host/path_capture.py": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d",
+  "src/ashlar_host/lifecycle.py": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2",
+  "examples/current-query-local/mixed-original-uses.request.json": "192614d9e7b0dee56364299a9d7cfee0d72b0a7c8778b91640da818cb8ef8ad4"
+}

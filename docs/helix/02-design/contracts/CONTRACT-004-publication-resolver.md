@@ -765,9 +765,14 @@ an independently standardized native serialization.
 The Spark compiler target MUST be selected explicitly with its own binding and
 artifact versions; it MUST NOT replace a failed Databricks target implicitly.
 Native function references MUST come from that compiler target. Local admission
-MUST observe an empty user-function inventory and preserve the actual current
-catalog/database through closing so emitted unqualified builtins cannot be
-silently resolved through a changed session namespace.
+MUST observe the complete bounded native user-function inventory and refuse
+functions shadowing the selected compiler's unqualified `count`, `raise_error`,
+`named_struct`, `array`, `collect_list` or `to_json` in its current resolution
+namespace. Harmless registered functions MAY remain. The exact observed inventory
+and actual current catalog/database MUST remain unchanged through closing;
+capacity overflow or ambiguous native function names MUST refuse, never admit a
+prefix. No function registration, SQL rewriting or namespace repair may supply
+this correspondence.
 
 Opening, renewal and closing MUST refuse changed native identity, schema, version,
 original mapping or context. The unchanged compiler SQL, complete eligible source

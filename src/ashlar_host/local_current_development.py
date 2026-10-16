@@ -11,6 +11,7 @@ import hashlib
 import importlib
 import json
 import os
+import re
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from .lifecycle import finish
@@ -52,6 +53,20 @@ def _identifier(value):
     if type(value) is not str or not value or len(value.encode()) > 255 or '\0' in value:
         raise ValueError('Exact bounded local identifier required')
     return '`' + value.replace('`', '``') + '`'
+
+
+_SPARK_BUILTINS = frozenset(('count', 'raise_error', 'named_struct', 'array', 'collect_list', 'to_json'))
+
+
+def _function_parts(name):
+    """Parse only native simple/quoted multipart names, without executing them."""
+    if type(name) is not str or not name or len(name.encode()) > 4096:
+        raise ValueError('Bounded native function name required')
+    token = r'(?:[A-Za-z_][A-Za-z0-9_$]*|`(?:[^`]|``)+`)'
+    if re.fullmatch(token + r'(?:\.' + token + r'){0,2}', name) is None:
+        raise ValueError('Unambiguous native function name required')
+    return tuple((part[1:-1].replace('``', '`') if part.startswith('`') else part).casefold()
+                 for part in re.findall(token, name))
 
 
 class LocalCurrentDevelopmentOwner:
@@ -119,11 +134,19 @@ class LocalCurrentDevelopmentOwner:
                 config=PathCaptureConfig(1, 4096, 8192))['rows']
             if len(namespace) != 1 or any(type(x) is not str or not x for x in namespace[0]):
                 raise ValueError('Actual local builtin-resolution namespace required')
-            functions = capture_string_frame(self.spark.sql('SHOW USER FUNCTIONS').limit(1),
-                config=PathCaptureConfig(1, 65536, 65536))['rows']
-            if functions:
-                raise PermissionError('Local Spark user-function shadows are unsupported')
-            observations.append(('spark-builtin-resolution', tuple(namespace[0])))
+            functions = capture_string_frame(self.spark.sql('SHOW USER FUNCTIONS').limit(257),
+                config=PathCaptureConfig(256, 4096, 1_048_576))['rows']
+            catalog, database = (part.casefold() for part in namespace[0])
+            inventory = []
+            for row in functions:
+                if len(row) != 1: raise ValueError('Exact native function inventory shape required')
+                name = row[0]; parts = _function_parts(name)
+                in_scope = (len(parts) == 1 or len(parts) == 2 and parts[0] == database
+                    or len(parts) == 3 and parts[:2] == (catalog, database))
+                if in_scope and parts[-1] in _SPARK_BUILTINS:
+                    raise PermissionError('Emitted Spark builtin is shadowed by user function')
+                inventory.append(name)
+            observations.append(('spark-builtin-resolution', tuple(namespace[0]), tuple(inventory)))
         for scan in _json(self.original_binding)['scans']:
             relation = scan['relation']
             name = '.'.join(_identifier(relation[k]) for k in ('catalog', 'schema', 'table'))
