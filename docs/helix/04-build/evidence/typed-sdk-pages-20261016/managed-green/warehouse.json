@@ -1,0 +1,24 @@
+{
+  "auto_stop_mins": 5,
+  "cluster_size": "2X-Small",
+  "creator_name": "erik.labianca@synaptiq.ai",
+  "enable_photon": true,
+  "enable_serverless_compute": true,
+  "id": "d4b8eb5b4d6e34b8",
+  "jdbc_url": "jdbc:spark://adb-7405607548213398.18.azuredatabricks.net:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/d4b8eb5b4d6e34b8;",
+  "max_num_clusters": 1,
+  "min_num_clusters": 1,
+  "name": "umf-typed-sdk-qualification-20261016",
+  "num_active_sessions": 0,
+  "num_clusters": 0,
+  "odbc_params": {
+    "hostname": "adb-7405607548213398.18.azuredatabricks.net",
+    "path": "/sql/1.0/warehouses/d4b8eb5b4d6e34b8",
+    "port": 443,
+    "protocol": "https"
+  },
+  "spot_instance_policy": "COST_OPTIMIZED",
+  "state": "STOPPED",
+  "tags": {},
+  "warehouse_type": "PRO"
+}

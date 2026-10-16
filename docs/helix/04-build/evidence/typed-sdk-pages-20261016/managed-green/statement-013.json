@@ -1,0 +1,50 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT cast(unix_micros(recorded_at) AS STRING) AS value FROM client_dev.umf_typed_sdk_083b35ac439a.manifest",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a0-f651-1e1d-a970-589b37557fcf",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 1,
+        "columns": [
+          {
+            "name": "value",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 0
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1
+        }
+      ],
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "row_offset": 0,
+      "row_count": 1,
+      "data_array": [
+        [
+          "1792182856463645"
+        ]
+      ]
+    }
+  },
+  "readerPrincipal": null
+}
