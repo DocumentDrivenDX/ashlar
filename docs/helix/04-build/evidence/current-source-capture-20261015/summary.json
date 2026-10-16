@@ -1,0 +1,19 @@
+{
+  "format": "ashlar-current-source-local-smoke/0.1",
+  "passed": true,
+  "spark": "4.0.1",
+  "delta": "4.0.0",
+  "input_rows": 3,
+  "eligible_rows": 2,
+  "pinned_version": "1",
+  "uuid_stable": true,
+  "original_values_after_update": true,
+  "i64_extrema_exact": true,
+  "unicode_nul_empty_exact": true,
+  "repeated_column_union": true,
+  "population_overflow_refused": true,
+  "scope": "Actual local pinned Delta source capture only; independently authored capture fixture, no CQP/native UC or source/action authority qualification",
+  "seconds_before_close": 14.705,
+  "closed": true,
+  "seconds": 15.219
+}

@@ -1,0 +1,1 @@
+[{"scan":"s0","expectedRowCount":"2","rows":[{"key":"k1","cells":{"text_value":{"family":"string","value":"雪\u0000é"},"integer_value":{"family":"integer","value":"-9223372036854775808"}}},{"key":"k2","cells":{"text_value":{"family":"string","value":""},"integer_value":{"family":"integer","value":"9223372036854775807"}}}]}]
