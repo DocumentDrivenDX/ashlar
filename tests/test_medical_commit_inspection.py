@@ -66,12 +66,15 @@ class ConfigurationTests(unittest.TestCase):
   recovery=helper.configuration('publication');recovery['profile']='ashlar-original-medical-local-recovery/0.1';recovery['request']=helper.pin('request.json')
   value={'profile':configuration.PROFILE,'recovery':recovery,'original_configurations':[helper.pin('old.json')],
    'process_observer':{'ps':{'path':'/bin/ps','bytes':Path('/bin/ps').stat().st_size,'sha256':'a'*64},'java':recovery['runtime']['java'],'maximum_processes':4096,'maximum_output_bytes':1048576,'timeout_seconds':5,'owner_uid':os.getuid(),'visibility_profile':'ashlar-private-local-same-uid-process-visibility/0.1'}}
-  config=configuration.parse_original_medical_commit_inspection(json.dumps(value).encode());self.assertEqual(config.recovery.journal,helper.root/'native/operations.sqlite')
-  for key,changed in [('maximum_processes',4097),('maximum_output_bytes',1048577),('timeout_seconds',True)]:
-   altered=json.loads(json.dumps(value));altered['process_observer'][key]=changed
+  # Model Darwin's canonical /bin/ps without inheriting Linux usr-merge symlinks.
+  resolve=Path.resolve
+  with patch.object(Path,'resolve',lambda path,*a,**kw:path if path==Path('/bin/ps')else resolve(path,*a,**kw)):
+   config=configuration.parse_original_medical_commit_inspection(json.dumps(value).encode());self.assertEqual(config.recovery.journal,helper.root/'native/operations.sqlite')
+   for key,changed in [('maximum_processes',4097),('maximum_output_bytes',1048577),('timeout_seconds',True)]:
+    altered=json.loads(json.dumps(value));altered['process_observer'][key]=changed
+    with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(altered).encode())
+   altered={**value,'grant':True}
    with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(altered).encode())
-  altered={**value,'grant':True}
-  with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(altered).encode())
   from ashlar.cli import main
   with patch('sys.argv',['ashlar','inspect-original-medical-commit','--configuration','/selection.json']),patch('ashlar_host.original_medical_local_cli.run_original_medical_commit_inspection_command',return_value={})as run,patch('builtins.print'):main()
   run.assert_called_once_with(Path('/selection.json'))
