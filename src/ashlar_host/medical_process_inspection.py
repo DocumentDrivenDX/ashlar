@@ -167,9 +167,9 @@ class MedicalProcessInspection:
         def terminal(pid,row):
             confirm_local_process_terminal(pid)
             return {'kind':'terminal','row':row,'fact':{'pid':pid,'owner_uid':owner_uid,'opening_kernel_errno':errno.ESRCH}}
-        def observe_one(pid,row):
+        def observe_one(pid,row,previous=None):
             remaining()
-            if len(records)>=self.config.process_observer.maximum_processes:raise PermissionError('Cumulative same-owner process identity bound exceeded')
+            if pid not in records and len(records)>=self.config.process_observer.maximum_processes:raise PermissionError('Cumulative same-owner process identity bound exceeded')
             parent,group,args=row[:3]
             medical=('ashlar_host.original_medical_local_cli'in args or 'ashlar_host.original_medical_local_publication'in args
                 or any(name in args for name in ('publish-original-medical','recover-original-medical','replay-original-medical','initialize-original-medical')))
@@ -186,6 +186,10 @@ class MedicalProcessInspection:
             except ProcessImageUnavailable as error:
                 if error.errno!=errno.ESRCH:raise
                 records[pid]=terminal(pid,row);return
+            if previous is not None:
+                if (previous['kind']!=('mapped'if path is None else'primary')
+                        or previous['path']!=path or previous['identity']!=identity):
+                    raise PermissionError('Auxiliary argument change crossed original physical process identity')
             own_worker=(pid in (self.pid,self.parent)and group==self.group
                 and 'ashlar_host.original_medical_local_cli'in args
                 and re.search(r'--operation\s+(?:commit-inspection|commit-reconciliation)(?:\s|$)',args)is not None)
@@ -196,7 +200,7 @@ class MedicalProcessInspection:
             elif identity in self.python_identities and not own_worker:
                 raise PermissionError('Original physical Python executor remains observable')
             record={'kind':'mapped'if path is None else'primary','row':row,'path':path,'identity':identity}
-            if path is None:record['fact']={'opening':observed}
+            if path is None:record['fact']={'opening':observed if previous is None else previous['fact']['opening']}
             records[pid]=record
         current_rows=self.inventory(deadline)
         for pid,row in current_rows.items():
@@ -210,7 +214,11 @@ class MedicalProcessInspection:
                     confirm_local_process_terminal(pid);record['fact']['closing_kernel_errno']=errno.ESRCH;continue
                 if row is None:
                     records[pid]=terminal(pid,record['row']);needs_closing=True;continue
-                if row!=record['row']:raise PermissionError('Relevant process identity changed during observation')
+                if any(row[index]!=record['row'][index]for index in (0,1,3,4)):
+                    raise PermissionError('Relevant process identity changed during observation')
+                if row[2]!=record['row'][2]:
+                    current_rows=closing
+                    observe_one(pid,row,previous=record);needs_closing=True;continue
                 if record['kind']=='mapped':
                     observed=self.mapped(pid,row,deadline)
                     if record['identity']!=(observed['owner_uid'],observed['start_seconds'],observed['start_microseconds']):

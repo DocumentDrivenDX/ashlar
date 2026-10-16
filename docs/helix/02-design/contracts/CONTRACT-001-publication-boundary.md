@@ -812,6 +812,15 @@ before observation can succeed; it MUST NOT be silently omitted. Closure may
 repeat only within the original process-count and overall time bounds. This confirms an exited local
 process only. It grants no remote-operation terminality or future-writer fence.
 
+Argument text is an auxiliary classifier, not physical process identity. If only
+arguments change while PID, UID, parent, process group and start time remain
+unchanged, the observer MAY reclassify the new arguments only after independently
+proving the same physical image or exact mapped kernel start identity. It MUST
+apply every original executor/medical-worker/path guard again and obtain an
+independent closing inventory. Changed image or kernel identity MUST refuse.
+Repeated argument changes consume the original overall deadline and process
+bound; they MUST NOT restart either budget.
+
 The separately selected visibility profile
 `ashlar-private-local-same-uid-mapped-vnode-visibility/0.1` adds exactly one
 required process field, `mapped_vnode_helper`, with the existing pinned-file

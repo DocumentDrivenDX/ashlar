@@ -64,11 +64,14 @@ class Tests(unittest.TestCase):
    'maximum_processes':4096,'maximum_output_bytes':1048576,'timeout_seconds':5,'owner_uid':os.getuid(),'visibility_profile':MAPPED_VISIBILITY,
    'mapped_vnode_helper':{'path':str(self.pin.path),'bytes':self.pin.bytes,'sha256':self.pin.sha256}}
   value={'profile':configuration.PROFILE,'recovery':recovery,'original_configurations':[helper.pin('old.json')],'process_observer':process}
-  self.assertEqual(configuration.parse_original_medical_commit_inspection(json.dumps(value).encode()).process_observer.mapped_vnode_helper,self.pin)
-  process['visibility_profile']=STRICT_VISIBILITY
-  with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(value).encode())
-  process['visibility_profile']=MAPPED_VISIBILITY;del process['mapped_vnode_helper']
-  with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(value).encode())
+  # Model Darwin's canonical /bin/ps; preserve every other path's real resolution.
+  resolve=Path.resolve
+  with patch.object(Path,'resolve',lambda path,*a,**kw:path if path==Path('/bin/ps')else resolve(path,*a,**kw)):
+   self.assertEqual(configuration.parse_original_medical_commit_inspection(json.dumps(value).encode()).process_observer.mapped_vnode_helper,self.pin)
+   process['visibility_profile']=STRICT_VISIBILITY
+   with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(value).encode())
+   process['visibility_profile']=MAPPED_VISIBILITY;del process['mapped_vnode_helper']
+   with self.assertRaises(ValueError):configuration.parse_original_medical_commit_inspection(json.dumps(value).encode())
  def test_original_executable_vnode_replacement_is_not_renewed_by_equal_bytes(self):
   identity=mapped.pinned_executable_identity(self.pin);replacement=self.root/'replacement';replacement.write_bytes(self.helper.read_bytes());replacement.replace(self.helper)
   with self.assertRaises(PermissionError):processes.MedicalProcessInspection.same_executable(self.pin,identity)
@@ -125,6 +128,39 @@ class Tests(unittest.TestCase):
   observer=self.observer();observer.config.process_observer.maximum_processes=1
   opening=fixture.ProcessTests().rows({100:(50,10,'inspector')});closing={**opening,**fixture.ProcessTests().rows({400:(1,20,'unrelated new')})}
   with patch.object(observer,'inventory',side_effect=[opening,closing]),patch.object(processes,'physical_executable',return_value=('/unrelated/image',(3,3))),self.assertRaises(PermissionError):observer.observe(before=True)
+ def test_same_primary_image_argument_update_reclassifies_and_closes_without_new_pid_slot(self):
+  observer=self.observer();observer.config.process_observer.maximum_processes=1
+  opening=fixture.ProcessTests().rows({100:(50,10,'benign first title')});closing=fixture.ProcessTests().rows({100:(50,10,'benign updated title')})
+  with patch.object(observer,'inventory',side_effect=[opening,closing,closing])as inventories,patch.object(processes,'physical_executable',return_value=('/unrelated/image',(3,3)))as physical:
+   result=observer.observe(before=True)
+  self.assertEqual(result['observed_external_original_executors'],0);self.assertEqual(inventories.call_count,3);self.assertEqual(physical.call_count,5)
+ def test_argument_update_medical_or_original_root_or_changed_image_refuses(self):
+  for outcome in ('medical','root','image'):
+   observer=self.observer();observer.configuration_roots=('/private/tmp/original-g',)
+   opening=fixture.ProcessTests().rows({100:(50,10,'benign initial title'),400:(1,20,'unrelated')})
+   args='python -m ashlar_host.original_medical_local_cli --operation recovery'if outcome=='medical'else'python /private/tmp/original-g/operator.py'if outcome=='root'else'benign updated title'
+   closing=fixture.ProcessTests().rows({100:(50,10,'benign initial title'),400:(1,20,args)});calls=0
+   def physical(pid):
+    nonlocal calls
+    if pid==400:calls+=1
+    return ('/changed/image',(4,4))if outcome=='image'and pid==400 and calls>=3 else('/unrelated/image',(3,3))
+   with patch.object(observer,'inventory',side_effect=[opening,closing]),patch.object(processes,'physical_executable',side_effect=physical),self.assertRaises(PermissionError):observer.observe(before=True)
+ def test_same_mapped_identity_arguments_update_retains_original_opening(self):
+  observer=self.observer();opening=fixture.ProcessTests().rows({100:(50,10,'inspector'),400:(1,20,'benign title')});closing=fixture.ProcessTests().rows({100:(50,10,'inspector'),400:(1,20,'benign updated title')})
+  value={**self.value,'start_seconds':1792404000}
+  def physical(pid):
+   if pid==400:raise processes.ProcessImageUnavailable(errno.ENOENT,'original missing primary path')
+   return '/unrelated/image',(3,3)
+  with patch.object(observer,'inventory',side_effect=[opening,closing,closing])as inventories,patch.object(processes,'physical_executable',side_effect=physical),patch.object(observer,'mapped',return_value=value)as observations:
+   result=observer.observe(before=True)
+  self.assertEqual(observations.call_count,3);self.assertEqual(inventories.call_count,3);self.assertEqual(result['mapped_vnode_fallbacks'][0],{'opening':value,'closing':value})
+ def test_continuous_argument_changes_remain_under_original_deadline(self):
+  import itertools
+  observer=self.observer();observer.config.process_observer.maximum_processes=1;number=0
+  def inventory(deadline):
+   nonlocal number
+   number+=1;return fixture.ProcessTests().rows({100:(50,10,'benign title '+str(number))})
+  with patch.object(observer,'inventory',side_effect=inventory),patch.object(processes,'physical_executable',return_value=('/unrelated/image',(3,3))),patch.object(processes.time,'monotonic',side_effect=itertools.count()),self.assertRaises(PermissionError):observer.observe(before=True)
  def test_ps_start_mismatch_and_kernel_process_reuse_refuse(self):
   observer=self.observer();row=(1,20,'masked title','Mon Oct 19 10:00:00 2026',501)
   with patch.object(processes,'observe_mapped_vnodes',return_value={**self.value,'start_seconds':0}),self.assertRaises(PermissionError):observer.mapped(400,row,time.monotonic()+5)
