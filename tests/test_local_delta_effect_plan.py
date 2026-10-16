@@ -205,6 +205,47 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.transport.db.execute('SELECT count(*) FROM local_plan').fetchone()[0], 0)
         self.assertEqual(self.engine.writes, 0)
 
+    def test_whole_effect_closing_snapshot_and_post_policy_identity_both_refuse_drift(self):
+        # Actual whole-plan/SQLite owner; inert snapshot models the production
+        # capture's independent opening and closing native identity checks.
+        snapshot = self.transport._snapshot
+        native_sql = self.engine.sql
+        admission = self.transport.policy.admit
+        events = []
+        fail_at = None
+        def sql(statement, args=None):
+            if statement.startswith('DESCRIBE DETAIL'):
+                events.append('detail')
+                if events.count('detail') == fail_at:
+                    return SimpleNamespace(first=lambda: Row(id='replacement-uuid'))
+            return native_sql(statement, args)
+        def held_snapshot(target, version):
+            self.transport._detail(target)
+            try:
+                events.append('snapshot')
+                return snapshot(target, version)
+            finally:
+                self.transport._detail(target)
+        def admit(intent, context):
+            events.append('admit')
+            return admission(intent, context)
+        with patch.object(self.engine, 'sql', side_effect=sql), patch.object(
+                self.transport, '_snapshot', side_effect=held_snapshot), patch.object(
+                self.transport.policy, 'admit', side_effect=admit):
+            self.effects.run('catalog-only', 'b' * 64, [], context='held')
+            self.assertEqual(events, ['admit', 'detail', 'detail', 'snapshot',
+                'detail', 'admit', 'detail'])
+            before = list(self.transport.db.iterdump())
+            for fail_at, expected in ((3, ['admit', 'detail', 'detail', 'snapshot', 'detail']),
+                    (4, ['admit', 'detail', 'detail', 'snapshot', 'detail', 'admit', 'detail'])):
+                with self.subTest(fail_at=fail_at):
+                    events.clear()
+                    with self.assertRaisesRegex(LocalDeltaError, 'UUID changed'):
+                        self.effects.recover('catalog-only', 'b' * 64, [], context='held')
+                    self.assertEqual(events, expected)
+                    self.assertEqual(list(self.transport.db.iterdump()), before)
+        self.assertEqual(self.engine.writes, 0)
+
     def test_zero_effect_plan_retains_intent_checks_snapshots_and_only_recovers_original(self):
         version=self.engine.history[0]['version']
         with patch.object(self.transport,'mutation',wraps=self.transport.mutation)as mutation,patch.object(self.transport,'_snapshot',wraps=self.transport._snapshot)as snapshot:

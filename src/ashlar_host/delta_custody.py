@@ -1049,7 +1049,7 @@ class LocalDeltaEffects:
                 expected_versions[self.transport._target(step['statement']).table] = int(receipt[0]['version'])
                 expected_hashes[self.transport._target(step['statement']).table] = receipt[0]['snapshot_sha256']
             for target in self.transport.targets.values():
-                self.transport._detail(target)
+                # Snapshots perform their own opening native identity check.
                 snapshot = self.transport._snapshot(target, expected_versions[target.table])
                 if target.table in expected_hashes and snapshot['row_sha256'] != expected_hashes[target.table]:
                     raise LocalDeltaError('Closing original snapshot parity differs')
