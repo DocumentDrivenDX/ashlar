@@ -49,7 +49,7 @@ class StageTests(unittest.TestCase):
         from ashlar_host.publication_current_stage import create_publication_stage_schema,PublicationStageSchema
         class Held:
             def __init__(self):self.context=object();self.active=True
-            def require_current(self,context):
+            def renew_current(self,context):
                 if not self.active or context is not self.context:raise PermissionError('closed')
         class Spark:
             def __init__(self):self.statements=[]

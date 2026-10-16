@@ -8,10 +8,10 @@ from ashlar_host.publication_current_authority import open_publication_current_i
 
 class InertReader:
     def __init__(self):
-        self.context=object();self.manifest={'table_versions_json':'{"all-roles":"pinned"}'}
+        self.context=object();self.manifest={'publication_id':'p','profile_version':'ashlar-delta/0.3','table_versions_json':'{"c.s.objects":0}','source_progress_json':'{"source":1}','schema_revisions_json':'{"source":"1"}','validation_report_json':'{"complete":true}','recorded_at':'1'}
         self.request_bytes=b'original';self.model=b'original-model';self.graph=b'original-graph'
         self.admission=object();self.events=[];self.active=False;self.refuse=False
-        self.driver=SimpleNamespace(transport=object(),policy=object())
+        self.driver=SimpleNamespace(transport=SimpleNamespace(targets={'c.s.objects':SimpleNamespace(uuid='native-id')}),policy=object())
         self.provider=SimpleNamespace(interval=self.interval)
     @contextmanager
     def interval(self,context):
@@ -20,6 +20,11 @@ class InertReader:
         finally:self.active=False;self.events.append('release')
     def require_current(self,context):
         assert self.active and context is self.context;self.events.append('require-current')
+        if self.refuse:raise PermissionError('current source refusal')
+
+    def renew_original_graph_read(self,vector,*,context):
+        assert self.active and context is self.context
+        self.events.append('renew-original-graph')
         if self.refuse:raise PermissionError('current source refusal')
 
 
@@ -45,6 +50,26 @@ class PublicationIntervalTests(unittest.TestCase):
                         reader.manifest['table_versions_json']='changed'
             self.assertFalse(held.active);self.assertFalse(reader.active)
 
+    def test_body_renewal_retains_full_boundaries_and_refuses_drift(self):
+        reader=InertReader()
+        with patch('ashlar_host.publication_current_authority.OpenedCommerceReader',InertReader):
+            with open_publication_current_interval(reader)as held:
+                held.renew_current(reader.context)
+                held.renew_current(reader.context)
+                self.assertEqual(reader.events.count('require-current'),1)
+                self.assertEqual(reader.events.count('renew-original-graph'),2)
+                reader.driver.transport.targets['c.s.objects'].uuid='changed'
+                with self.assertRaises(PermissionError):held.renew_current(reader.context)
+                reader.driver.transport.targets['c.s.objects'].uuid='native-id'
+            self.assertEqual(reader.events.count('require-current'),2)
+        reader=InertReader()
+        with patch('ashlar_host.publication_current_authority.OpenedCommerceReader',InertReader):
+            with self.assertRaises(LookupError):
+                with open_publication_current_interval(reader):
+                    reader.refuse=True;raise LookupError('primary')
+        self.assertEqual(reader.events.count('require-current'),2)
+        self.assertFalse(reader.active)
+
 
 class PublicationOwnerCompositionTests(unittest.TestCase):
     def test_nominal_stage_same_interval_and_source_closing(self):
@@ -58,7 +83,7 @@ class PublicationOwnerCompositionTests(unittest.TestCase):
             def require_current(self,held,child,binding,context):
                 assert held is self.held_publication and child is self.original_child
                 assert context is held.context and binding==self.original_binding
-                held.require_current(context);self.events.append('stage-current')
+                held.renew_current(context);self.events.append('stage-current')
         class Local:
             def __init__(self,spark,child,binding,context):self.original=binding;self.context=context;self.active=False
             @contextlib.contextmanager
@@ -83,7 +108,7 @@ class PublicationOwnerCompositionTests(unittest.TestCase):
                 with self.assertRaises(TypeError):PublicationCurrentOwner(publication,object())
             self.assertFalse(publication.active)
         self.assertGreaterEqual(len(stage.events),3)
-        # Every stage boundary still performs a fresh actual source check. The
-        # interval adds its own independent opening and closing checks; the
-        # wrapper must not double each stage's same-boundary source validation.
-        self.assertEqual(reader.events.count('require-current'),len(stage.events)+2)
+        # Every stage boundary still freshly renews source/ACK/native custody.
+        # Full snapshot admission remains at independent interval boundaries.
+        self.assertEqual(reader.events.count('require-current'),2)
+        self.assertEqual(reader.events.count('renew-original-graph'),len(stage.events))

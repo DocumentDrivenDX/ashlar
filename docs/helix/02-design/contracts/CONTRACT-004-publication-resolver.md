@@ -793,6 +793,16 @@ original model/graph/mapping/request, ordinary source registration and current
 protected ACK custody. A staged bag or historical report cannot replace these
 checks. Queries MUST NOT advance source ACKs.
 
+Within this original local immutable-publication profile, repeated renewals MAY
+use the existing original graph-read renewal port after full snapshot admission
+at opening. They MUST bind the same complete publication pin vector, corroborate
+the original native-byte inventory, all six installation target identities,
+registry/reservation and ordinary source/signature/role/head plus fresh protected
+ACK. Full snapshot admission MUST run independently at interval closing, including
+error paths. This permission does not cover a changed source, publication,
+projection or installation and MUST NOT become cached authorization. Complete
+staged-population and native staging checks remain required at each query boundary.
+
 The stage MUST preserve the complete selected source bag, original logical Field
 identities and exact values. Its fresh namespace, native table UUID/version/schema,
 original live CQP, binding and Spark session MUST remain bound through closing.

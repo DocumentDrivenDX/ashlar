@@ -5,6 +5,8 @@ never converts accepted source mappings into UMF Subject/action/disclosure right
 """
 from __future__ import annotations
 from contextlib import contextmanager
+import json
+from ashlar.manifest import manifest_pin_vector
 from .publication_reader import OpenedCommerceReader
 from .lifecycle import finish, owned_context
 from .delta_custody import encoded
@@ -24,9 +26,17 @@ class HeldPublicationCurrent:
         self.original_request = opened.request_bytes
         self.original_model = opened.model
         self.original_graph = opened.graph
+        self.original_vector = self._current_vector()
         self.active = True
 
-    def require_current(self, context):
+    def _current_vector(self):
+        opened = self.opened
+        versions = json.loads(opened.manifest['table_versions_json'])
+        return manifest_pin_vector(opened.manifest,
+            {table: opened.driver.transport.targets[table].uuid for table in versions},
+            authority='private-local-process')
+
+    def _require_correspondence(self, context):
         opened = self.opened
         if (not self.active or context is not self.context or opened.context is not context
                 or type(opened) is not OpenedCommerceReader
@@ -34,11 +44,29 @@ class HeldPublicationCurrent:
                     (opened.provider, opened.driver, opened.admission,
                      opened.driver.transport, opened.driver.policy), self.original_ports))):
             raise PermissionError('Original held publication/current source ports required')
-        opened.require_current(context)
         if (encoded(opened.manifest) != self.original_manifest
                 or opened.request_bytes != self.original_request
-                or opened.model != self.original_model or opened.graph != self.original_graph):
+                or opened.model != self.original_model or opened.graph != self.original_graph
+                or self._current_vector() != self.original_vector):
             raise PermissionError('Original complete publication/source correspondence changed')
+
+
+    def require_current(self, context):
+        """Full snapshot admission, retained at both publication boundaries."""
+        self._require_correspondence(context)
+        self.opened.require_current(context)
+        self._require_correspondence(context)
+
+    def renew_current(self, context):
+        """Fresh original-byte/source/ACK/native identity renewal, never a grant.
+
+        Only valid inside the same fully admitted reader interval. The existing
+        graph renewal port checks complete native bytes, all six installation
+        identities and the exact held data vector without redecoding snapshots.
+        """
+        self._require_correspondence(context)
+        self.opened.renew_original_graph_read(self.original_vector, context=context)
+        self._require_correspondence(context)
 
 
 @contextmanager
@@ -90,7 +118,7 @@ class PublicationCurrentOwner:
                 or stage.original_binding != self.original_binding):
             raise PermissionError('Original publication/stage/query correspondence differs')
         # The nominal stage's public admission performs this exact publication
-        # require_current before its native metadata/full-bag observations. Do
+        # renew_current before its native metadata/full-bag observations. Do
         # not duplicate that same source/ACK/vector check in this wrapper.
         if stage.require_current(self.publication, self.child, self.original_binding, self.context) is not None:
             raise ValueError('Actual staged source admission must complete or raise')

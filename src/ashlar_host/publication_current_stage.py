@@ -96,7 +96,7 @@ class PublicationCurrentStage:
                 or self.held_publication is not held or self.spark is not spark
                 or self.original_child is not original or self.original_binding!=raw):
             raise PermissionError('Original publication stage identity required')
-        held.require_current(context)
+        held.renew_current(context)
         if commerce_current_rows(held.opened)!=rows or _observe(spark,qualified)!=observation:
             raise PermissionError('Original publication/stage correspondence changed')
         captured=capture_string_frame(spark.read.format('delta').option('versionAsOf',observation[1]).table(qualified).select('private_key','sku'),config=PathCaptureConfig(1000,65536,1048576))
@@ -127,18 +127,18 @@ class PublicationStageSchema:
     def require_current(self, held, spark, schema):
         if held is not self.held_publication or spark is not self.spark or schema != self.schema:
             raise PermissionError('Original once-owned publication stage schema required')
-        held.require_current(held.context)
+        held.renew_current(held.context)
 
 
 def create_publication_stage_schema(held, spark, *, schema):
     from .publication_current_authority import HeldPublicationCurrent
     if type(held) is not HeldPublicationCurrent: raise TypeError('Actual held publication required')
-    held.require_current(held.context)
+    held.renew_current(held.context)
     if type(schema)is not str or re.fullmatch(r'[a-z][a-z0-9_]{0,62}',schema)is None:
         raise ValueError('Explicit simple fresh stage schema required')
     # A pre-existing schema refuses; neither IF NOT EXISTS nor namespace reuse.
     spark.sql('CREATE DATABASE `spark_catalog`.`'+schema+'`')
-    held.require_current(held.context)
+    held.renew_current(held.context)
     return PublicationStageSchema(held,spark,schema,_mint=_SCHEMA_MINT)
 
 
@@ -146,7 +146,7 @@ def stage_commerce_current(held_publication,spark,original_child,*,schema:str,ta
     """Materialize only within the actual full publication/source ACK interval."""
     from .publication_current_authority import HeldPublicationCurrent
     if type(held_publication) is not HeldPublicationCurrent: raise TypeError('Actual held publication required')
-    held_publication.require_current(held_publication.context)
+    held_publication.renew_current(held_publication.context)
     for value in (schema,table):
         if type(value) is not str or re.fullmatch(r'[a-z][a-z0-9_]{0,62}',value) is None: raise ValueError('Explicit simple stage identifier required')
     import weft
