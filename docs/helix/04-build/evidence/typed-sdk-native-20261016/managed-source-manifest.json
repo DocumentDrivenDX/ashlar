@@ -1,0 +1,10 @@
+{
+  "sha256": {
+    "src/ashlar/access.py": "fa9c780da1e62cdc7e2e5d46aaa5615d07065ab1c2aed1e011206a3efaadc055",
+    "src/ashlar/weft_query.py": "b05d904f980882f70ffe3be28b224dd23303d0eb0472f7831d2474fb1a715595",
+    "tools/check_typed_sdk_managed.py": "0d7548668ef53dd9e9539db5d8ab25c4714e8de798ac55b7abb8194b4716433c"
+  },
+  "temporal": "HELD",
+  "independentUcActor": "not qualified; scope-test refresh token expired",
+  "scope": "actual UC scalar STRING publication and generated typed read; local native pins and explicitly administrative development policy; no managed action claim"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "fail",
+  "checks": [
+    "actual UC UUID/version publication and native PostgreSQL held pins release generated typed rows"
+  ],
+  "schema": "client_dev.umf_typed_sdk_68fd864d9012",
+  "warehouse": "d4b8eb5b4d6e34b8",
+  "stopRequested": true,
+  "ownedPostgresStopped": true,
+  "temporal": "HELD",
+  "scope": "actual managed scalar STRING publication and typed reads with local native pins/development policy; no accepted Truss identities, independent UC actor enforcement, managed mutation or broader semantic qualification"
+}

@@ -1,0 +1,73 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "INSERT INTO client_dev.umf_typed_sdk_29b8d260b69d.object_current VALUES (:source,17,1,:revision,:props)",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "source",
+        "type": "STRING",
+        "value": "typed-sdk-development"
+      },
+      {
+        "name": "revision",
+        "type": "STRING",
+        "value": "eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff"
+      },
+      {
+        "name": "props",
+        "type": "STRING",
+        "value": "{\"1\":\"a\",\"2\":\"draft\"}"
+      }
+    ]
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 2,
+        "columns": [
+          {
+            "name": "num_affected_rows",
+            "position": 0,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "num_inserted_rows",
+            "position": 1,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "1",
+          "1"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c982-88ca-1338-bd13-1ab72a3b4a67",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

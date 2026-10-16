@@ -1,0 +1,58 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT * FROM `client_dev`.`umf_typed_sdk_c5c0b842e5f3`.`object_current` VERSION AS OF 1 LIMIT 0",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 5,
+        "columns": [
+          {
+            "name": "source_system",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "type_id",
+            "position": 1,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "id",
+            "position": 2,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "schema_revision",
+            "position": 3,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "props_json",
+            "position": 4,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c985-cd63-170a-96f2-6baaf60f710d",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  },
+  "readerPrincipal": "7c54af25-eaa3-4331-a470-57825492e604"
+}

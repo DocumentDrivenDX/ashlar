@@ -11,6 +11,7 @@ requires-python = ">=3.9"
 dependencies = []
 
 [project.optional-dependencies]
+typed-sdk = ["umf_access==0.1.0.dev0", "weft-sql==0.4.39.dev0"]
 duckdb = ["duckdb==1.5.0"]
 puppy = ["duckdb==1.5.0", "neo4j==5.28.2"]
 puppy-gremlin = ["duckdb==1.5.0", "neo4j==5.28.2", "gremlinpython==3.7.3"]

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "DESCRIBE DETAIL `client_dev`.`umf_typed_sdk_c5c0b842e5f3`.`object_current`",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c985-dbdd-1b08-8c39-bd9b8836b729",
+    "status": {
+      "error": {
+        "error_code": "BAD_REQUEST",
+        "message": "PERMISSION_DENIED: User does not have SELECT on Table 'client_dev.umf_typed_sdk_c5c0b842e5f3.object_current'."
+      },
+      "sql_state": "42501",
+      "state": "FAILED"
+    }
+  },
+  "readerPrincipal": "7c54af25-eaa3-4331-a470-57825492e604"
+}

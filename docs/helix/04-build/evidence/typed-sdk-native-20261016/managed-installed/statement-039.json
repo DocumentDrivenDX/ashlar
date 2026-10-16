@@ -1,0 +1,98 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT publication_id, profile_version, table_versions_json, source_progress_json, schema_revisions_json, validation_report_json, cast(unix_micros(recorded_at) AS STRING) AS recorded_at FROM `client_dev`.`umf_typed_sdk_29b8d260b69d`.`manifest` WHERE publication_id = :publication_id",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "publication_id",
+        "type": "STRING",
+        "value": "f3c2e4ec-a674-4af4-a489-54022bcee464"
+      }
+    ]
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 7,
+        "columns": [
+          {
+            "name": "publication_id",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "profile_version",
+            "position": 1,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "table_versions_json",
+            "position": 2,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "source_progress_json",
+            "position": 3,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "schema_revisions_json",
+            "position": 4,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "validation_report_json",
+            "position": 5,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "recorded_at",
+            "position": 6,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "f3c2e4ec-a674-4af4-a489-54022bcee464",
+          "ashlar-delta/0.3",
+          "{\"client_dev.umf_typed_sdk_29b8d260b69d.object_current\": 1}",
+          "{\"typed-sdk-development\":{\"offset\":\"1\"}}",
+          "{\"typed-sdk-development\": \"eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff\"}",
+          "{\"complete\": true, \"sourceSha256\": \"eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff\", \"scope\": \"explicit development carrier mapping; not accepted Truss identities\"}",
+          "1792169808012163"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c982-ab13-1230-af77-2d76234ef884",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f1` FROM `client_dev`.`umf_typed_sdk_c5c0b842e5f3`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING) AS `id`, CAST((`s0`.`f1` COLLATE UTF8_BINARY) AS STRING) AS `status` FROM `s0` WHERE ((`s0`.`f1` COLLATE UTF8_BINARY) = (CAST(:p6 AS STRING) COLLATE UTF8_BINARY)) LIMIT 10",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "p1",
+        "type": "STRING",
+        "value": "typed-sdk-development"
+      },
+      {
+        "name": "p2",
+        "type": "STRING",
+        "value": "17"
+      },
+      {
+        "name": "p3",
+        "type": "STRING",
+        "value": "eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff"
+      },
+      {
+        "name": "p4",
+        "type": "STRING",
+        "value": "$.1"
+      },
+      {
+        "name": "p5",
+        "type": "STRING",
+        "value": "$.2"
+      },
+      {
+        "name": "p6",
+        "type": "STRING",
+        "value": "draft"
+      }
+    ]
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 2,
+        "columns": [
+          {
+            "name": "id",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "status",
+            "position": 1,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "a",
+          "draft"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c985-bf12-1ff9-9c5d-07fc4def776f",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  },
+  "readerPrincipal": "7c54af25-eaa3-4331-a470-57825492e604"
+}

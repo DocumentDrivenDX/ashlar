@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "temporal": "HELD",
+  "scope": "Installed local Spark 4.0.1 / Delta 4.0.0 actions and bulk, 19 native controls; complete original program required on admission and final recheck.",
+  "sources": {
+    "sql/typed-sdk-actions/01-local-admission.sql": "72ea5a46fa9b8047cf996a86acd1b6a96b1ada68e94071fccdede6abd7f4eb1e",
+    "src/ashlar_host/delta_action_admission.py": "c9be9db3767643ce3d0ce8812c91b9a9c46777cafc91624a46da686a65239d65",
+    "tools/check_delta_actions_native.py": "054159c6bf6baabea70d21a894bf25aabc68c6d950e5c9cc0f99d6b08c2a4e8d"
+  },
+  "wheelSha256": "f663b13a749e3af1188e3a1c6756c53eddc11e4da3df37e358537462706f744e"
+}

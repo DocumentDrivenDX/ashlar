@@ -1,7 +1,7 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
 from types import GeneratorType, CoroutineType, AsyncGeneratorType
-from contextlib import contextmanager
+from .execution_scope import preserve_body_failure as _preserve_body_failure
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
 from .publication import resolve_publication,ResolutionError
@@ -90,23 +90,6 @@ def _completed_decode(value, *, _budget=None):
         raise ResolutionError('Completed bounded data-only Weft decoding required') from closing_failure
     return result
 
-@contextmanager
-def _preserve_body_failure(manager):
-    """Original refusal survives suppression or a separate closing failure."""
-    original = None
-    try:
-        with manager:
-            try:
-                yield
-            except BaseException as error:
-                original = error
-                raise
-    except BaseException as closing:
-        if original is not None and closing is not original:
-            raise original from closing
-        raise
-    if original is not None:
-        raise original
 
 def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,supported_profiles,supported_revisions):
     """Policy owns exact compiler custody, native profile, source visibility and decoding.
@@ -116,8 +99,8 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     Returned rows remain buffered through final context closure.
     """
     request=copy.deepcopy(request);artifact=copy.deepcopy(artifact)
-    if artifact.get('status')!='compiled' or artifact.get('backend')!={'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}:
-        raise ResolutionError('Explicit qualified Weft artifact required')
+    if artifact.get('status')!='compiled' or artifact.get('backend') not in ({'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
+        raise ResolutionError('Explicit selected native Weft artifact required')
     obligations={}
     for item in artifact.get('obligations',[]):
         if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in OBLIGATIONS or item['id'] in obligations or item['owner']!='host':

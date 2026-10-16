@@ -1,0 +1,26 @@
+{
+  "checks": [
+    "generated validate runs original preconditions with no native commit",
+    "generated typed committed view, exact changed Key and original same-commit verification/effects/data/receipt",
+    "new unkeyed invocation preserves semantic no-op with an original native marker commit",
+    "first false original precondition rejects without native data or marker commit",
+    "invoke stops at first false; validate reaches later missing-frame evaluation error without commit",
+    "postcondition failure discards complete candidate before native commit",
+    "native CREATE exposes exact generated nominal Key",
+    "independent real native login without source role is denied before Delta transaction",
+    "native service Subject remains denied despite native action role membership",
+    "ordinary actor cannot read or enroll native original program custody",
+    "real catalog CLI/check generates original Delta bulk plan; preview is advisory and commits nothing",
+    "bulk execute reselects later committed row and verifies complete candidate; data/counts/Keys share original native commit",
+    "zero-selection bulk preserves original semantic no-op and native receipt",
+    "maxItems plus sentinel refuses complete over-bound selection before native write",
+    "actual independent Delta commit produces SDK Conflict with no retry or quarantine",
+    "independent native role revocation is fenced through actual Delta commit",
+    "lost response after actual commit yields Indeterminate and quarantines without resubmission",
+    "explicit retained native custody reconciles original commit and markers without replay or clearing quarantine"
+  ],
+  "ownedPostgresStopped": true,
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "local native PostgreSQL-issued actor/program admission and original Weft scalar single-table Delta actions; no Truss protected authority or managed Delta claim"
+}

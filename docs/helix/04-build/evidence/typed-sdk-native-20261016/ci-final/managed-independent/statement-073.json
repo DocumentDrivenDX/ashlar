@@ -1,0 +1,26 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "REVOKE SELECT ON TABLE client_dev.umf_typed_sdk_c5c0b842e5f3.object_current FROM `7c54af25-eaa3-4331-a470-57825492e604`",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c985-d22f-153b-9713-5b773772a79d",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  },
+  "readerPrincipal": null
+}

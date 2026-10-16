@@ -1,0 +1,13 @@
+{
+  "status": "fail",
+  "checks": [],
+  "schema": "client_dev.umf_typed_sdk_b10d2561008c",
+  "warehouse": "d4b8eb5b4d6e34b8",
+  "stopRequested": true,
+  "credentialRevoked": true,
+  "temporaryPrincipalDeleted": true,
+  "cleanupErrors": [],
+  "ownedPostgresStopped": true,
+  "temporal": "HELD",
+  "scope": "actual managed scalar STRING publication and typed reads with local native pins; independent UC reader only when explicitly enrolled; no accepted Truss identities, managed action atomicity or broader semantic qualification"
+}

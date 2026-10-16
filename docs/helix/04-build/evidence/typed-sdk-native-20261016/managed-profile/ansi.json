@@ -1,0 +1,47 @@
+{
+  "manifest": {
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "row_count": 1,
+        "row_offset": 0
+      }
+    ],
+    "format": "JSON_ARRAY",
+    "schema": {
+      "column_count": 2,
+      "columns": [
+        {
+          "name": "key",
+          "position": 0,
+          "type_name": "STRING",
+          "type_text": "STRING"
+        },
+        {
+          "name": "value",
+          "position": 1,
+          "type_name": "STRING",
+          "type_text": "STRING"
+        }
+      ]
+    },
+    "total_chunk_count": 1,
+    "total_row_count": 1,
+    "truncated": false
+  },
+  "result": {
+    "chunk_index": 0,
+    "data_array": [
+      [
+        "ANSI_MODE",
+        "true"
+      ]
+    ],
+    "row_count": 1,
+    "row_offset": 0
+  },
+  "statement_id": "01f1c980-6ada-1b2a-8765-fbc98a52cb76",
+  "status": {
+    "state": "SUCCEEDED"
+  }
+}

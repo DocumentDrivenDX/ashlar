@@ -1,0 +1,25 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "CREATE SCHEMA client_dev.umf_typed_sdk_29b8d260b69d",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c982-85e4-1eea-a811-49a4811deb95",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

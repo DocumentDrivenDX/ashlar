@@ -1,0 +1,1 @@
+Error: This API is disabled for users without the databricks-sql-access or workspace-consume entitlements. Contact your administrator for more information. [ReqId: 7f8ef97f-506d-440d-a89d-84ea2ea38439]

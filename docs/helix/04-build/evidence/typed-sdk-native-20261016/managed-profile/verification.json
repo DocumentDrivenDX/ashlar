@@ -1,0 +1,8 @@
+{
+  "warehouse": "d4b8eb5b4d6e34b8",
+  "temporal": "HELD",
+  "scope": "actual native engine/settings admission; no data or action qualification",
+  "status": "profile-refused",
+  "reason": "Native engine/build drift; no fallback",
+  "stopRequested": true
+}
