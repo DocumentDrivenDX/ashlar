@@ -1,0 +1,27 @@
+{
+  "scope": "P04 fresh medical publication write-ahead source/effect preparation; CONTRACT-001 prepared custody and TD-005 effect-proof semantics",
+  "trigger": "Fresh publication previously entered durable prepared/applying before source/whole-effect plans were retained; interruption could leave required recovery custody absent",
+  "change": "Medical backend now proves no existing attempt, then holds original medical writer/binding/source admission, retains complete source prior and whole effect plan, rechecks latest native prior and no started ordinal, and only then submits prepared phase",
+  "checks": {
+    "five_focused_preparation_tests": "passed",
+    "existing_medical_preflight_tests": 10,
+    "existing_medical_publication_recovery_and_new_existing_attempt_regression_tests": 21,
+    "module_import_boundaries": "passed"
+  },
+  "independent_review": {
+    "agent": "medical_prepare_review",
+    "result": "approved; no blocking findings",
+    "files_sha256": {
+      "src/ashlar_host/driver.py": "713f7844233e380f1a0c29c57e176c13ff11bbdc7387c8f87f694bf7565fce3e",
+      "src/ashlar_host/original_medical_local_publication.py": "25e75a2eeaf2338d5eab54472e0870f820157dcee92f7aaa85ec4c0f341f00ea",
+      "tests/test_medical_prepare_order.py": "876d64b0fc26f494f64a5162a955c912cdde57dd53c15f9bb763c1563a3391d1"
+    }
+  },
+  "native_run": "No new native publication run in this slice; earlier actual interruption evidence remains separate",
+  "limits": [
+    "Previously failed medical installation remains inadmissible for missing original plans; no reconstruction",
+    "Replay uses existing committed-only backend; recovery retains existing strict preflight",
+    "Interruption while retaining plans before any prepared attempt is not yet qualified as resumable",
+    "No successful medical publication/recovery/durable ACK claim from these inert-native journal tests"
+  ]
+}

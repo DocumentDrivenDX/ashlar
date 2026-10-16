@@ -144,6 +144,9 @@ class _MedicalPublisherDriver:
     @contextmanager
     def writer(self,stream,context):
         with owned_context(self.driver.writer(stream,context)):yield
+    def prepare_original_apply(self,request,context):
+        self.plan.require_request(request)
+        return self.driver.prepare_original_medical_apply(self.plan,context=context,bounds=self.bounds)
     def apply(self,request,context):return self.driver.apply(request,context)
     def recover_apply(self,request,context):return self.driver.recover_apply(request,context)
     def validate(self,*args):return self.driver.validate(*args)
@@ -158,6 +161,20 @@ class _MedicalPublisherDriver:
     def acknowledge(self,request,descriptor,context):
         self._observe(request,descriptor,context)
         return self.driver.acknowledge(request,descriptor,context)
+
+
+class _MedicalPreparedBackend(StoredPublisherBackend):
+    """Keep exact source and effect intent durable before prepared is submitted."""
+    def __init__(self,attempts,driver,manifest_factory,*,context):
+        super().__init__(attempts,driver,manifest_factory)
+        self.medical_context=context
+
+    def prepare(self,stream,request):
+        if self.observe(stream,request['batch_id']) is not None:
+            raise PublicationError('Existing medical attempt cannot be prepared again')
+        if self.driver.prepare_original_apply(dict(request),self.medical_context) is not None:
+            raise PublicationError('Complete original medical preparation required')
+        return super().prepare(stream,request)
 
 
 class _SettledBackend(StoredPublisherBackend):
@@ -263,8 +280,8 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                             else:
                                 target=transport.targets[tables['attempts']]
                                 adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
-                                backend_type=_SettledBackend if replay else StoredPublisherBackend
-                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request))
+                                backend_type=_SettledBackend if replay else _MedicalPreparedBackend
+                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request),**({}if replay else {'context':context}))
                                 histories=None
                                 if replay:
                                     with owned_context(backend.writer(STREAM,context)):
