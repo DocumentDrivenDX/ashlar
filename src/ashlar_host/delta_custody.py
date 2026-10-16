@@ -836,7 +836,8 @@ class LocalDeltaTransport:
                 from .local_receipt_codec import local_receipt_equals,encode_local_receipt
                 if receipt is not None and not local_receipt_equals(receipt,text):
                     raise LocalDeltaError('Original native operation receipt differs')
-                self._detail(target)
+                # _snapshot closed with fresh identity; only pure proof and
+                # receipt comparison intervened. Renew again after policy below.
                 self._profile()
                 if self.policy.admit(json.loads(intent), context) is not None:
                     raise LocalDeltaError('Closing current original admission incomplete')

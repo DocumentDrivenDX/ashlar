@@ -263,4 +263,46 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.engine.writes,0);self.assertEqual(self.engine.history[0]['version'],version)
 
 
+    def test_recovered_operation_retains_snapshot_closing_and_post_policy_identity(self):
+        from unittest.mock import patch
+        t=self.transport;spark=self.engine;params=STEPS[0]['parameters'];t.mutation('operation',SQL,params,intent_digest='b'*64,context='held')
+        before=list(t.db.iterdump());snapshot=t._snapshot;native=t._detail;events=[]
+        failure=None
+        def detail(target):
+            events.append('detail')
+            if events.count('detail')==failure:raise LocalDeltaError('UUID replaced')
+            return native(target)
+        def captured(target,version):
+            t._detail(target)
+            try:
+                events.append('snapshot');return snapshot(target,version)
+            finally:t._detail(target)
+        class Admission(Policy):
+            def admit(self,intent,context):events.append('admit')
+        t.policy=Admission()
+        with patch.object(t,'_detail',side_effect=detail),patch.object(t,'_snapshot',side_effect=captured):
+            t.recover('operation',SQL,params,intent_digest='b'*64,context='held')
+            self.assertEqual(events,['admit','detail','detail','snapshot','detail','admit','detail'])
+            for failure in (3,4):
+                events.clear()
+                with self.subTest(failure=failure),self.assertRaisesRegex(LocalDeltaError,'UUID replaced'):
+                    t.recover('operation',SQL,params,intent_digest='b'*64,context='held')
+                self.assertEqual(list(t.db.iterdump()),before)
+        self.assertEqual(spark.writes,1)
+
+    def test_recovery_closing_policy_cancellation_never_rewrites_committed_custody(self):
+        t=self.transport;spark=self.engine;params=STEPS[0]['parameters'];t.mutation('operation',SQL,params,intent_digest='b'*64,context='held');before=list(t.db.iterdump())
+        cancellation=KeyboardInterrupt('closing original admission cancelled')
+        class Cancel(Policy):
+            calls=0
+            def admit(self,intent,context):
+                self.calls+=1
+                if self.calls==2:raise cancellation
+        t.policy=Cancel()
+        with self.assertRaises(KeyboardInterrupt)as caught:
+            t.recover('operation',SQL,params,intent_digest='b'*64,context='held')
+        self.assertIs(caught.exception,cancellation)
+        self.assertEqual(list(t.db.iterdump()),before);self.assertEqual(spark.writes,1)
+
+
 if __name__ == '__main__': unittest.main()
