@@ -3,7 +3,7 @@ import hashlib,json,re
 from ashlar.attempt_store import DeltaAttemptStore
 from ashlar.stored_publisher import validate_applied_artifact
 from .delta_custody import encoded
-from .driver import AttemptExecutor,CarrierPolicy
+from .driver import AttemptExecutor,CarrierPolicy,original_history_equal
 from .lifecycle import finish,owned_context
 from .local_physical_carriers import original_local_physical_carriers
 from .medical_commit_inspection_configuration import OriginalMedicalCommitInspectionConfig,read_selected
@@ -122,14 +122,16 @@ def inspect_medical_commit(driver,plan,source,*,context,bounds,installation):
 
         else:raise PermissionError('Unresolved or foreign native manifest outcome')
         observed={'classification':classification,'uuid':target.uuid,'history':history,'snapshot':snapshot,'schema':schema}
-        if manifest_observation is not None and encoded(observed)!=encoded(manifest_observation):raise PermissionError('Native manifest observation changed during inspection')
+        if manifest_observation is not None and not original_history_equal(observed,manifest_observation):raise PermissionError('Native manifest observation changed during inspection')
         manifest_observation=observed
     try:artifact();phase();ack();operations();manifest()
     except BaseException as error:primary=error
     finish(primary,[artifact,phase,ack,operations,manifest,lambda:driver.source_admit(request)])
+    from .finite_native import native_history_evidence
+    report_manifest={**manifest_observation,'history':native_history_evidence(manifest_observation['history'])}
     return {'profile':'ashlar-original-medical-commit-outcome-observation/0.1',
         'classification':manifest_observation['classification'],'installation_id':installation['installation_id'],
-        'request_digest':request['request_digest'],'manifest':manifest_observation,
+        'request_digest':request['request_digest'],'manifest':report_manifest,
         'protected_ack':{'position':'0','receipt':None},'manifest_operations':manifest_operations,'proposal_sha256':hashlib.sha256(proposal).hexdigest(),
         'scope':'Private cooperative development writer observation only. Exclusive original storage access/future executor fencing remain external assumptions. No recovery, submission, ACK or prospective authorization grant.'},proposal
 

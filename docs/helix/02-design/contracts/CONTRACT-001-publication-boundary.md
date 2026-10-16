@@ -874,6 +874,17 @@ intent remains a reconciliation case, and ordinary recovery MUST retain its
 original refusal. A prospective reconciled submission requires a separately
 specified authorization boundary.
 
+Inspection opening and closing compare complete native history using exact
+native types, timestamp timezone and fold. JSON reports preserve every history
+field and encode a native timestamp as
+`{profile: "ashlar-native-history-timestamp/0.1", native_type: "TIMESTAMP",
+session_timezone: "UTC", python_iso8601, python_tzinfo, fold}`.
+`python_iso8601` retains six fractional digits; `python_tzinfo` is null for a
+naive Python value or `"UTC"` for the explicitly UTC carrier, and `fold` is 0 or
+1. Unsupported carriers MUST refuse. Report encoding MUST NOT replace the
+original values used for native comparisons or infer a timezone for a naive
+value. Prospective correspondence uses the same deterministic report encoding.
+
 The same `inspect-original-medical-commit` command MAY separately select
 `ashlar-original-medical-local-journal-inspection/0.1`. Its exact configuration
 members are `profile`, `recovery` and `lineage`. `recovery` is the existing closed
@@ -1027,6 +1038,18 @@ Capacity or capture failure MUST preserve the original failure and all required
 closing. A retained begin without end identifies incomplete observation, not a
 proven timeout cause. This local projection grants no authority and claims no
 OpenTelemetry receiver integration; CONTRACT-006 privacy remains applicable.
+
+After acquiring its private output, a failed medical operation SHOULD retain
+`failure-location.json` through the same output owner. The closed profile
+`ashlar-original-medical-failure-location/0.1` contains `exception` (the nearest
+built-in exception category) and `frames` (at most 64 owned-code locations).
+Each location contains only `module`, `function` and positive integer `line`;
+the complete UTF-8 record MUST fit 8192 bytes. Frames are diagnostic locations,
+not exception messages or source excerpts. Paths, local variables, source values,
+SQL, credentials and chained exception payloads MUST be excluded. Failure to
+retain this passive record MUST preserve the primary error and run all required
+closing callbacks. An unacquired output MUST NOT create a diagnostic file.
+The record grants no publication, recovery or ACK authority.
 
 The lower `publication_planning.py` module owns the pure
 `request_for(stream, transaction, predecessor, revisions)` and

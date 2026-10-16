@@ -74,6 +74,7 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
 | `medical_process_supervision.py` | Typed worker native phase pipe ownership under CONTRACT-001, without importing command composition or granting data authority |
 | `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
+| `medical_failure_location.py` | Passive bounded failure locations through the already acquired private output; preserves the primary failure and all closing, excludes exception payloads under CONTRACT-001 |
 | `medical_commit_inspection_configuration.py` | Closed inspection wrapper and exact retained configuration/executable file pins; depends on medical configuration and file custody, not native execution |
 | `medical_process_inspection.py` | Bounded Darwin process inventory and physical executable observation; depends on the inspection selection and lifecycle owners, never publisher or ACK mutation ports |
 | `medical_mapped_vnodes.py` and packaged `resources/native/medical_mapped_vnodes.c` | Explicit optional Darwin kernel mapping observation through a pinned operator-built helper; bounded process capture and JSON validation, no compiler discovery or data mutation |

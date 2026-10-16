@@ -25,6 +25,7 @@ from .medical_installation import OriginalMedicalInstallationLease
 from .medical_producer import MedicalFile, HeldMedicalDataset
 from .medical_publication_plan import MedicalPublicationPlan, FEED, STREAM
 from .medical_preflight_timing import MedicalPreflightTiming
+from .medical_failure_location import retain_medical_failure_location
 from .medical_publication_sources import OriginalMedicalSourceOwner
 from .medical_process_supervision import OriginalMedicalNativePhase
 from .original_medical_installation_handoff import validate_original_medical_installation_handoff
@@ -393,7 +394,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
         if recovery:answer['stage_records']=stages.records
         output.write('receipt.json',_bounded(answer,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
     except BaseException as error:primary=error
-    finish(primary,[output.renew,output.close])
+    finish(primary,([] if primary is None else [lambda:retain_medical_failure_location(output,primary)])+[output.renew,output.close])
     return answer
 
 

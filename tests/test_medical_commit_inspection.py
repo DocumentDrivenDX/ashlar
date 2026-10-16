@@ -85,7 +85,8 @@ class OutcomeTests(unittest.TestCase):
  def test_cancellation_still_delegates_source_ack_phase_and_native_closing(self):self.run_case(False,True)
  def test_strong_existing_commit_requires_actual_original_receipt_inspection(self):self.run_case(True,False,settled=True)
  def test_arbitrary_manifest_metadata_cannot_claim_existing_original_commit(self):self.run_case(True,False,foreign_metadata=True)
- def run_case(self,existing,cancel,*,settled=False,foreign_metadata=False):
+ def test_native_history_datetime_remains_exact_and_report_is_json(self):self.run_case(False,False,native_timestamp=True)
+ def run_case(self,existing,cancel,*,settled=False,foreign_metadata=False,native_timestamp=False):
   import test_stored_publisher as fixture
   from ashlar.native import SQLResult
   from ashlar_host.local_physical_carriers import original_local_physical_carriers
@@ -102,6 +103,9 @@ class OutcomeTests(unittest.TestCase):
    database.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',(request['request_digest'],inspection.encoded(request),source_driver.original))
    targets={'c.s.attempt':SimpleNamespace(table='c.s.attempt',uuid='attempt-uuid'),'c.s.manifest':SimpleNamespace(table='c.s.manifest',uuid='manifest-uuid')}
    history=[{'version':1,'userMetadata':'registration','operation':'SET TBLPROPERTIES'},{'version':0,'userMetadata':None}]
+   if native_timestamp:
+    import datetime
+    history[0]['timestamp']=datetime.datetime(2026,10,16,23,20,1,123456,fold=1)
    anchor=list(history)
    if existing:history=[{'version':2,'userMetadata':json.dumps({'profile':'ashlar-local-delta-commit/0.1','installation_id':'original','request_digest':request['request_digest'],'operation':'manifest:'+request['request_digest']+':'+'a'*64,'operation_sha256':'b'*64})}]+history
    if foreign_metadata:
@@ -148,6 +152,10 @@ class OutcomeTests(unittest.TestCase):
      result,proposal=inspection.inspect_medical_commit(driver,plan,source,**kwargs)
      self.assertEqual(result['classification'],'exact-existing-commit'if settled else'observed-exact-manifest-row-no-original-intent'if existing else'observed-absent-at-anchor')
      self.assertEqual(len(receipt_calls),2 if settled else 0)
+     if native_timestamp:
+      captured=json.loads(json.dumps(result))['manifest']['history'][0]['timestamp']
+      self.assertEqual(captured,{'profile':'ashlar-native-history-timestamp/0.1','native_type':'TIMESTAMP','session_timezone':'UTC','python_iso8601':'2026-10-16T23:20:01.123456','python_tzinfo':None,'fold':1})
+      self.assertIs(type(history[0]['timestamp']),datetime.datetime)
      self.assertEqual(json.loads(proposal),row);self.assertEqual(result['proposal_sha256'],hashlib.sha256(proposal).hexdigest())
      self.assertEqual(api.calls,[])
    self.assertIn('source-closing',events);self.assertIn('ack-close',events);self.assertIn('phase-read',events);self.assertIn('manifest-history',events)
