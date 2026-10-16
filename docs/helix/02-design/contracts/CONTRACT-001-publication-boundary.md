@@ -306,6 +306,27 @@ for explicit reconciliation; a phase label never permits a new manifest POST.
 Closing admission failure preserves an already committed row, leaves phase
 committing and emits no ACK. A later admitted recovery reuses original custody.
 
+Local managed-Delta publication MUST durably prepare the exact manifest mutation
+before appending `committing`. Preparation retains the original request digest,
+manifest row, statement, parameters, operation identity, target UUID and native
+predecessor under the existing installation journal and current writer authority;
+it MUST NOT submit a native mutation. The manifest store exposes
+`prepare(row, context=...)`, returning `None` only after complete opening and
+closing admission. Repeated preparation MUST verify exact retained intent rather
+than change it. A preparation failure MUST leave the publication out of
+`committing` and withhold ACK.
+
+Recovery from `committing` MUST require that retained manifest intent. A retained
+`prepared` intent MAY be first-submitted after independently verifying its native
+predecessor and current admission; submitted, uncertain or missing intent MUST NOT
+be replaced. Interruption after preparation but before the phase append resumes
+from `applied` by verifying the same intent. Older `committing` publications that
+lack this intent remain reconciliation cases; a proposed manifest or phase label
+MUST NOT manufacture it. Legacy manifest adapters without the preparation port
+retain their stricter original-submission recovery profile and MUST NOT claim
+this local preparation guarantee. An exposed but invalid preparation port MUST
+refuse rather than silently downgrade.
+
 Host JournaledAttemptExecutor supplies explicit phase SQL identity from an
 admitted namespace plus stream/batch/phase. Changed payload under that identity
 conflicts. Before any native phase read, it resolves outstanding original

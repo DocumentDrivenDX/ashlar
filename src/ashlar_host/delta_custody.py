@@ -698,6 +698,55 @@ class LocalDeltaTransport:
         self._detail(target)
         return {'schema': schema, 'rows': sorted(rows, key=encoded), 'row_sha256': sha(encoded(sorted(rows, key=encoded)))}
 
+    def prepare_mutation(self, operation, sql, parameters, *, intent_digest, context):
+        """Retain one exact unsubmitted intent; never perform a native mutation."""
+        from .lifecycle import owned_context,finish
+        self._parameters(parameters);target=self._target(sql)
+        if (type(operation)is not str or not 0<len(operation)<=1024
+                or type(intent_digest)is not str or re.fullmatch('[0-9a-f]{64}',intent_digest)is None):
+            raise LocalDeltaError('Original operation/request digest required')
+        intent=original_operation_intent(self.installation_id,operation,intent_digest,
+            sql,parameters,target,self.operation_capacity)
+        if len(intent.encode())>(self.operation_capacity['max_intent_bytes']if self.operation_capacity else 4194304):
+            raise LocalDeltaError('Bounded original local operation required')
+        digest=sha(intent)
+        with owned_context(self.policy.writer(operation,context))as permit:
+            with self._lock():
+                primary=None;retained=None
+                try:
+                    if permit is not None or self.policy.admit(json.loads(intent),context)is not None:
+                        raise LocalDeltaError('Current original intent preparation admission incomplete')
+                    self._profile()
+                    retained=self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?',(operation,)).fetchone()
+                    self._detail(target)
+                    history=self.original_history(target)
+                    if retained is None:
+                        for record in history:
+                            try:prior=json.loads(record.get('userMetadata')or '{}')
+                            except (TypeError,ValueError):continue
+                            if (prior.get('profile')=='ashlar-local-delta-commit/0.1'
+                                    and prior.get('installation_id')==self.installation_id
+                                    and prior.get('operation')==operation):
+                                raise LocalDeltaError('Original named native commit lacks journal custody; no replacement')
+                        before=int(history[0]['version'])
+                        with self.db:
+                            self.db.execute('INSERT INTO local_operation VALUES(?,?,?,?,?,NULL)',(operation,intent,digest,before,'prepared'))
+                        retained=(intent,digest,before,'prepared',None)
+                    if (retained[:2]!=(intent,digest)or retained[3:]!=('prepared',None)
+                            or type(retained[2])is not int or int(history[0]['version'])!=retained[2]):
+                        raise LocalDeltaError('Exact unchanged original prepared operation required')
+                except BaseException as error:primary=error
+                def closing_admit():
+                    if self.policy.admit(json.loads(intent),context)is not None:
+                        raise LocalDeltaError('Closing intent preparation admission incomplete')
+                def closing_original():
+                    if retained is not None:
+                        current=self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?',(operation,)).fetchone()
+                        if current!=retained:raise LocalDeltaError('Original prepared operation changed during admission')
+                        if int(self.original_history(target)[0]['version'])!=retained[2]:
+                            raise LocalDeltaError('Original prepared native predecessor changed during admission')
+                finish(primary,[self._profile,closing_admit,closing_original,lambda:self._detail(target),self._profile])
+
     def mutation(self, operation, sql, parameters, *, intent_digest, context):
         return self._execute(operation, sql, parameters, intent_digest, context, recovery=False)
 
@@ -857,6 +906,12 @@ class LocalOperationExecutor:
         self.operation = operation
         self.intent_digest = intent_digest
         self.context = context
+
+    def prepare(self, sql, parameters):
+        if sql.lstrip().split(None,1)[0].upper()in ('SELECT','DESCRIBE','SHOW'):
+            raise LocalDeltaError('Explicit mutation preparation required')
+        return self.transport.prepare_mutation(child_operation(self.operation,sql,parameters),sql,parameters,
+            intent_digest=self.intent_digest,context=self.context)
 
     def query(self, sql, parameters):
         if sql.lstrip().split(None, 1)[0].upper() in ('SELECT', 'DESCRIBE', 'SHOW'):

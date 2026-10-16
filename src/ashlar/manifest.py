@@ -29,6 +29,43 @@ class DeltaManifestStore:
     def _identity(self):
         rows=self.executor.query('DESCRIBE DETAIL '+self.sql_table,{}).rows
         if len(rows)!=1 or rows[0].get('id')!=self.uuid:raise ManifestError('Manifest identity changed')
+    def statement(self,row):
+        """Return the one exact manifest mutation selected by this store."""
+        validate_manifest_row(row)
+        definition='STRUCT<'+','.join(k+':STRING' for k in FIELDS)+'>'
+        fields=','.join(FIELDS)
+        expression=','.join('timestamp_micros(cast(r.recorded_at AS BIGINT)) AS recorded_at' if k=='recorded_at' else 'r.'+k for k in FIELDS)
+        same=' AND '.join('t.'+k+' IS NOT DISTINCT FROM s.'+k for k in FIELDS)
+        sql='MERGE INTO '+self.sql_table+" t USING (SELECT "+expression+" FROM (SELECT from_json(:row,'"+definition+"') r)) s ON t.publication_id=s.publication_id WHEN MATCHED AND NOT ("+same+") THEN UPDATE SET validation_report_json=cast(raise_error('IMMUTABLE_PUBLICATION_CONFLICT') AS STRING) WHEN NOT MATCHED THEN INSERT ("+fields+') VALUES ('+','.join('s.'+k for k in FIELDS)+')'
+        import json
+        return sql,{'row':json.dumps(row,separators=(',',':'))}
+
+    def prepare(self,row,*,context):
+        """Durably retain exact intent through an explicit executor preparation port."""
+        row=dict(row);validate_manifest_row(row)
+        primary=None
+        def admit():
+            if self.policy.admit(row,context)is not None:raise ManifestError('Publication preparation admission incomplete')
+        try:
+            with self.policy.writer(self.table,self.uuid,context)as permit:
+                try:
+                    if permit is not None:raise ManifestError('Writer policy did not complete')
+                    self._identity();admit()
+                    sql,parameters=self.statement(row)
+                    if self.executor.prepare(sql,parameters)is not None:raise ManifestError('Manifest intent preparation incomplete')
+                except BaseException as error:primary=error
+                # Independently attempt both closing gates, including refusal and cancellation.
+                for close in (admit,self._identity):
+                    try:close()
+                    except BaseException as error:
+                        if primary is None or (isinstance(primary,Exception)and not isinstance(error,Exception)):
+                            primary=error
+                if primary is not None:raise primary
+        except BaseException:
+            if primary is not None and not isinstance(primary,Exception):raise primary
+            raise
+        if primary is not None:raise primary
+
     def commit(self,row,*,context):
         row=dict(row);validate_manifest_row(row)
         with self.policy.writer(self.table,self.uuid,context) as permit:
@@ -37,13 +74,8 @@ class DeltaManifestStore:
             # Admission must independently prove original intent/effects, source,
             # schemas, exact retained pins and current authority. Not just flags.
             if self.policy.admit(row,context) is not None:raise ManifestError('Publication admission incomplete')
-            definition='STRUCT<'+','.join(k+':STRING' for k in FIELDS)+'>'
-            fields=','.join(FIELDS)
-            expression=','.join('timestamp_micros(cast(r.recorded_at AS BIGINT)) AS recorded_at' if k=='recorded_at' else 'r.'+k for k in FIELDS)
-            same=' AND '.join('t.'+k+' IS NOT DISTINCT FROM s.'+k for k in FIELDS)
-            sql='MERGE INTO '+self.sql_table+" t USING (SELECT "+expression+" FROM (SELECT from_json(:row,'"+definition+"') r)) s ON t.publication_id=s.publication_id WHEN MATCHED AND NOT ("+same+") THEN UPDATE SET validation_report_json=cast(raise_error('IMMUTABLE_PUBLICATION_CONFLICT') AS STRING) WHEN NOT MATCHED THEN INSERT ("+fields+') VALUES ('+','.join('s.'+k for k in FIELDS)+')'
-            import json
-            self.executor.query(sql,{'row':json.dumps(row,separators=(',',':'))})
+            sql,parameters=self.statement(row)
+            self.executor.query(sql,parameters)
             select=','.join('cast(unix_micros(recorded_at) AS STRING) AS recorded_at' if k=='recorded_at' else k for k in FIELDS)
             actual=self.executor.query('SELECT '+select+' FROM '+self.sql_table+' WHERE publication_id=:id',{'id':row['publication_id']}).rows
             if len(actual)!=1 or dict(actual[0])!=row:raise ManifestError('Ambiguous or mismatched original manifest')

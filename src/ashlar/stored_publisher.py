@@ -173,7 +173,17 @@ class StoredPublisherBackend:
             raise PublicationError('Complete effect/source/pin admission incomplete')
 
     def start_commit(self, stream, batch_id, digest):
-        _, payload = self._original(stream, batch_id, digest)
+        last, payload = self._original(stream, batch_id, digest)
+        if last.phase != 'applied':raise PublicationError('Original applied custody required before commit preparation')
+        _, descriptor = _artifact(payload['result_json'], payload['request'])
+        store = self.manifest_factory(dict(payload['request']), self._context)
+        # Legacy stores keep their separate original-submission recovery contract.
+        # Local stores explicitly implement durable preparation before this phase.
+        absent = object()
+        prepare = getattr(store, 'prepare', absent)
+        if prepare is not absent:
+            if not callable(prepare) or prepare(dict(descriptor.raw), context=self._context) is not None:
+                raise PublicationError('Durable original manifest preparation incomplete')
         self._session.append(payload['request'], 'committing', result_json=payload['result_json'])
 
     def _commit(self, stream, request, result, recovery):

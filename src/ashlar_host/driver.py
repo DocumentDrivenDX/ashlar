@@ -257,6 +257,9 @@ class ManifestPort:
         target = owner.transport.targets[owner.tables['manifest']]
         self.store = DeltaManifestStore(self.executor, CarrierPolicy(owner, 'manifest'), target.table, target.uuid)
 
+    def prepare(self, row, *, context):
+        return self.store.prepare(row, context=context)
+
     def commit(self, row, *, context):
         return self.store.commit(row, context=context)
 
