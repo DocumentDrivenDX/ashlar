@@ -1,0 +1,66 @@
+{
+  "profile": "ashlar-local-publication-current-evidence/0.1",
+  "private_run_root": "/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7",
+  "original_model_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "original_graph_sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+  "source_jsonl_sha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482",
+  "publication_host_commit": "4d959737bd5cbcc5924cf287eb030f2cd87bb90f",
+  "full_snapshot_retry_host_commit": "9f8c58de93acadf7e212648ddf88131505be9adb",
+  "weft_source_commit": "c1973ececa5b684a8abcfc6606d66bb1c5ade1bb",
+  "weft_selection": "Development feature current-spark-scalar-candidate; not public release",
+  "weft_module_sha256": "eb7edd241615bac50370b3cb628b66e4c2a30a94f3add228226036576cc9bf1c",
+  "weft_shim_sha256": "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d",
+  "native_resources": {
+    "workers": 1,
+    "driver_memory_mib": 512,
+    "postgres_memory_mib": 512
+  },
+  "query_runtime": {
+    "python": "3.11.17",
+    "sqlite": "3.53.1",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "psycopg": "3.2.13",
+    "jdk": "21"
+  },
+  "databricks": {
+    "authorized_cap_usd": "25.00",
+    "compute_launched": false,
+    "native_scale_run": false
+  },
+  "renewal_host_commit": "4fd6248bfff9678fe360ae6878eb68f64a8b2ae9",
+  "query_runner_sha256": "e308fa74ad13d73c987fe847693573029c1beeaa5f9e6a14a4dbf3a3bcd820fb",
+  "renewal_installed_host_sha256": {
+    "publication_current_authority.py": "157912f30f6f4cc7cd63738536b7a6b56d49085635fe550e3618f0377e4c92dc",
+    "publication_current_stage.py": "56d7f795c0ca651db77186c55205bdad006c61aca5d42664aedc7005d293e2a1"
+  },
+  "publication_runtime": {
+    "python": "3.11.17",
+    "sqlite": "3.53.1",
+    "spark": "3.5.3",
+    "delta": "3.2.1",
+    "graphframes_py": "0.12.3",
+    "psycopg": "3.2.12",
+    "jdk": "17"
+  },
+  "compressed_reports": {
+    "publication-report.json.gz": {
+      "uncompressed_sha256": "1b4ef3e11a7f880a6cdaa66293610f3e79c5e08cd489ff560cd6896449a6289e",
+      "uncompressed_bytes": 203131,
+      "gzip_sha256": "bc2d47c594a14d7a0233b428e5eea04d709e80281a7202a45eaf295dd11b8a9c",
+      "gzip_bytes": 23880
+    },
+    "full-snapshot-query-report.json.gz": {
+      "uncompressed_sha256": "211b08a66973640d8440848394551f93299718e262b1b75e2504430f8b2f2560",
+      "uncompressed_bytes": 981457,
+      "gzip_sha256": "561dd0b5337c5c3bf6fff575a49955aa11405bc2bc7001cece287e859bf5d9c1",
+      "gzip_bytes": 92560
+    },
+    "renewal-query-report.json.gz": {
+      "uncompressed_sha256": "3938caeb234d19985a5c89a57b8c0b7c64985ec2503d5e26fb873b2fce506b3c",
+      "uncompressed_bytes": 981443,
+      "gzip_sha256": "51404705addb6946ee0eaa90917282da54d6c5d47954fca49d27459bb89cf715",
+      "gzip_bytes": 92546
+    }
+  }
+}

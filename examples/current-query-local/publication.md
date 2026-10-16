@@ -1,5 +1,9 @@
 # Query an original commerce publication locally
 
+The [local execution evidence](../../docs/helix/04-build/evidence/publication-current-local-20261016/README.md)
+retains actual initialization, publication, protected ACK and query results for
+the explicitly qualified source/runtime subset.
+
 Select an existing original-commerce publication and its actual ordinary
 PostgreSQL source/ACK scope using the export-only configuration profile
 `ashlar-original-commerce-export-configuration/0.1`. Its closed members are
