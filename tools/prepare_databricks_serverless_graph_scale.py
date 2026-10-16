@@ -115,12 +115,16 @@ def run_probe(spark,plan,layout,*,deadline_seconds,progress):
 
 def prepare_serverless(raw,layout_bytes):
     value=strict_json(raw)
+    if type(value)is not dict:raise ValueError('Closed explicit configuration required')
+    value=dict(value)
+    performance=value.pop('performance_target','STANDARD')
+    if type(performance)is not str or performance not in ('STANDARD','PERFORMANCE_OPTIMIZED'):raise ValueError('Closed explicit serverless performance target required')
     closed(value,('profile','catalog','schema','stage','seed','deadline_seconds','whole_seconds','notebook_path','job_name','maximum_cost_usd','layout_sha256'))
     if value['profile']!=PROFILE or value['catalog']!='client_dev':raise ValueError('Explicit client_dev serverless profile required')
     if type(value['schema'])is not str or re.fullmatch(r'ashlar_scale_[a-z0-9_]{1,40}',value['schema'])is None:raise ValueError('Fresh probe namespace required')
     if type(value['stage'])is not str or value['stage'] not in ('initial','expanded-explicit'):raise ValueError('Explicit separately authorized scale stage required')
     nodes,edges=(100000,1000000) if value['stage']=='initial' else (1000000,10000000)
-    if type(value['whole_seconds'])is not int or value['whole_seconds']!=480:raise ValueError('Explicit480 second outer run budget required')
+    if type(value['whole_seconds'])is not int or value['whole_seconds'] not in (360,480):raise ValueError('Explicit360 or480 second outer run budget required')
     if type(value['seed'])is not int or not 1<=value['seed']<2**31:raise ValueError('Exact positive seed required')
     deadline=value['deadline_seconds']
     if type(deadline)is not int or not 120<=deadline<=180:raise ValueError('Explicit120–180 second runtime ceiling required')
@@ -131,13 +135,13 @@ def prepare_serverless(raw,layout_bytes):
     plan=prepare_plan(config,layout_bytes)
     plan['measurement'].update(warm_runs=1,override='Explicit serverless pilot1warmup/1measured instead of prepared5')
     source='# Databricks notebook source\nimport json\nimport time\nPLAN=json.loads('+repr(encoded(plan).decode())+')\nLAYOUT=json.loads('+repr(layout_bytes.decode())+')\n'+inspect.getsource(run_probe)+'\nRESULT=run_probe(spark,PLAN,LAYOUT,deadline_seconds='+str(deadline)+',progress=lambda row:print(json.dumps(row)))\nRETAINED=json.dumps(RESULT,ensure_ascii=False,separators=(\",\",\":\"))\nif len(RETAINED.encode())>1048576:raise ValueError(\"Bounded final result required\")\ndbutils.notebook.exit(RETAINED)\n'
-    settings=dict(name=value['job_name'],max_concurrent_runs=1,performance_target='STANDARD',timeout_seconds=value['whole_seconds'],queue=dict(enabled=False),
-        tasks=[dict(task_key='graph-layout',notebook_task=dict(notebook_path=value['notebook_path'],source='WORKSPACE'),timeout_seconds=deadline,max_retries=0,retry_on_timeout=False,disable_auto_optimization=True)])
+    settings=dict(name=value['job_name'],max_concurrent_runs=1,performance_target=performance,timeout_seconds=value['whole_seconds'],queue=dict(enabled=False),
+        tasks=[dict(task_key='graph-layout',notebook_task=dict(notebook_path=value['notebook_path'],source='WORKSPACE'),timeout_seconds=value['whole_seconds'],max_retries=0,retry_on_timeout=False,disable_auto_optimization=True)])
     return dict(profile=PROFILE,plan=plan,job_settings=settings,notebook=source,
         limitations=['No cloud calls, upload, compute acquisition, grants or cleanup performed by generator',
         'External runtime timeout controls blocking Spark calls; cooperative checks occur only between calls',
-        'Job runtime timeout excludes startup/queue and is not a strict25 dollar hard cap',
-        'No existing cluster or SQL warehouse is referenced; serverless STANDARD single task only',
+        'Task/job native timeouts include service-defined setup accounting; notebook clock starts at run_probe; no dollar hard cap',
+        'No existing cluster or SQL warehouse is referenced; explicit serverless performance mode single task only',
         'No predictive optimization/table maintenance settings changed; effective inherited predictive optimization remains unknown',
         'Expanded stage is explicit selection only; no automatic second run or expansion'])
 
