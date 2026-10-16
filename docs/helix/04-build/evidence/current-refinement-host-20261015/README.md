@@ -1,0 +1,5 @@
+# Actual native refinement checker through the host adapter
+
+Ashlar d511ee7e was exercised with the exact final local Weft 0.4.35 wheel recorded for source fa55e7b7. Two no-database controls used the live native CQP and a deliberately inert backend: a matching supplied frame reached owner verification, while a wrong public result refused before verification. Both paths completed renewal/admission and context closing. The source parent identity and complete report anchors were checked. [Summary](summary.json) retains selected wheel, module, host source, frame and output pins. Host source bytes were compared to the committed source after the run; this is not full runtime closure.
+
+This is actual pure native-checker and host-sequencing evidence, not SQL execution or genuine captured-population/source/caller/UC authority. The declared frame and inert owner cannot qualify completeness, policy, retention or protected result release. No managed security case or consumer registration is promoted. The local candidate wheel is selected explicitly; this evidence does not claim a published release.

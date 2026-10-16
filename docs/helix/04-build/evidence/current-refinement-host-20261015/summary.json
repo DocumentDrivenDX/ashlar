@@ -1,0 +1,120 @@
+{
+  "scope": "Actual native pure Weft checker and Ashlar host sequencing using inert backend; no SQL/capture/completeness/authority admission",
+  "result": {
+    "passed": true,
+    "controls": 2,
+    "scope": "Actual final35 native pure checker plus host sequencing with inert declared backend; no SQL, data capture or authority qualification",
+    "positive_events": [
+      "open",
+      "admit",
+      "renew",
+      "capture",
+      "frame",
+      "verify",
+      "renew",
+      "admit",
+      "close"
+    ],
+    "wrong_public_events": [
+      "open",
+      "admit",
+      "renew",
+      "capture",
+      "frame",
+      "renew",
+      "admit",
+      "close"
+    ],
+    "live_parent_identity": true,
+    "version": "0.4.35",
+    "python": "3.11.17"
+  },
+  "exit_code": 0,
+  "ashlar_commit": "d511ee7e05c4a5f539fde089e8a7214c70b407b2",
+  "weft_source_commit": "fa55e7b73117544d6351b0f866abe0d6a28c9f65",
+  "host_source": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/databricks_current_query.py",
+      "sha256": "4a91e2de336a701d737190528f07b39a30d605b38eda66efb35e3e5aaa983113",
+      "bytes": 8199,
+      "matches_committed": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "sha256": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2",
+      "bytes": 1676,
+      "matches_committed": true
+    }
+  ],
+  "pins": [
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/run.py",
+      "bytes": 3297,
+      "sha256": "3061c21749233659f7c3dcb4d2b4f32320b71fb96403edc70845a285313ad3cc"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/tests/current-query-refinement/wheel-smoke.py",
+      "bytes": 5830,
+      "sha256": "53cd01455c764973fe712e3d9fc74f72775c4d413f959d18d198af02f1a68802"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/tests/current-query-designation/fixtures/mixed-original-uses.request.json",
+      "bytes": 24067,
+      "sha256": "192614d9e7b0dee56364299a9d7cfee0d72b0a7c8778b91640da818cb8ef8ad4"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/wheel/weft/weft.abi3.so",
+      "bytes": 8892832,
+      "sha256": "a915e9b005c088af1b38eca9a66fbb99064ff8bb9e06fd7fc17c8e794b257c2f"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/wheel/weft/__init__.py",
+      "bytes": 99,
+      "sha256": "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d"
+    },
+    {
+      "path": "/private/tmp/weft-integrated035-wheel-20261015/weft_sql-0.4.35-cp39-abi3-macosx_11_0_arm64.whl",
+      "bytes": 3214890,
+      "sha256": "e8dfc15316109494846c4d0a5f58038f623028746a749e11e4af240f25ddcbdd"
+    },
+    {
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+      "bytes": 17277120,
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/request.json",
+      "bytes": 24023,
+      "sha256": "755807e165706ca991ea65243d2527d322862c69d84aa82ac95b6422579f85b7"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/binding.json",
+      "bytes": 744,
+      "sha256": "93746c161d1d7bd5fb2b64553c429d76609e36e1f65a245cdc8653de5bdf2eaa"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/frame.json",
+      "bytes": 698,
+      "sha256": "9c6b924b4fa431a267c0a50b6adf4b8bb7d6f026af545f787ec065b6a9cd7083"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/refinement-report.json",
+      "bytes": 605,
+      "sha256": "ea19a0828df848c5f6cb4aed529b21026dcfec391a2590938e5b7fe0d0ba712f"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/verified-result.json",
+      "bytes": 16,
+      "sha256": "5972d7ccfed1ec7c7a94fbbd5d930f0c942f56380a163fc43d7da64b6418be7c"
+    },
+    {
+      "path": "/private/tmp/ashlar-final35-refinement-smoke-20261015-roh7usyp/result.json",
+      "bytes": 545,
+      "sha256": "f79bfe0d6cd56fb8add8cb9b6b3875223138f2e74f77f675d17f6246863d8729"
+    }
+  ],
+  "limitations": [
+    "Declared synthetic frame input and inert backend confer no native population, SQL execution, security or permission authority.",
+    "Host source bytes compared with committed source after run; no broader OS/runtime closure claim."
+  ]
+}
