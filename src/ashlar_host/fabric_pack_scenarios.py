@@ -111,6 +111,16 @@ def validate_gql_case(profile,name,result):
     expected_digest=hashlib.sha256(json.dumps({'query':query},ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
     if type(result)is not FabricGqlResult or result.request_sha256!=expected_digest:
         raise ValueError('Original scenario query result required')
+    # Fabric omits columns for a terminal no-data relation. Do not invent a schema.
+    if result.columns==()and result.rows==():
+        if not result.responses:raise ValueError('Native no-data response required')
+        native=json.loads(result.responses[-1]);status=native.get('status',{});table=native.get('result',{})
+        expected=next(c['original_graph_expected']for c in profile['cases']if c['original_scenario']['id']==name)
+        if (status.get('code')!='02000'or status.get('cause')is not None
+                or native.get('additionalStatuses',[])!=[]or table.get('kind')!='TABLE'
+                or table.get('columns')!=[]or table.get('data')!=[]or table.get('nextPage')is not None
+                or expected!=[]):raise ValueError('Complete independently empty native relation required')
+        return []
     if [n for n,_ in result.columns]!=names:raise ValueError('Exact ordered GQL columns required')
     schema=[]
     for column,kind in result.columns:

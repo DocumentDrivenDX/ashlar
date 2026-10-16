@@ -1,0 +1,250 @@
+{
+  "ashlar-fabric-original17-gql-native-20261016.py.gz": {
+    "sha256": "c3e494e3fe0d284f9ee01805ded003292c718415ea0bbc1b62916c8bea92b2b6",
+    "gzip_sha256": "a2cd8c0e1d69fe00ec134cfec0d396c55ad33d64db6d6056d2075609e451ad8c"
+  },
+  "ashlar-fabric-original17-gql-native-20261016b.py.gz": {
+    "sha256": "ae8778d05baaa4c60481b8fadb64901c057ed02582c9acfcbd3a35349eb1c3c0",
+    "gzip_sha256": "40b73f98e088983995525063eced725f4b34509f9516277a9a2fd3c8a6ba117d"
+  },
+  "ashlar-fabric-typed-parity-20261016.py.gz": {
+    "sha256": "4aeb4888230c8afeba720f30d686d21ab4434cb42c839144d57ceb1f6f5230e9",
+    "gzip_sha256": "498216e7e001464f0691b3021875a74f38acb170a328f175b73664a03de78464"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--actual-load-1792180134771245000.json.gz": {
+    "sha256": "ff61dc5c84d1345f8b4b1b4fca5370fffad8174e94cfffeeccdf0f9d6aa4b5de",
+    "gzip_sha256": "9470d230c467c3946ac3819f085d1e805fed691790e0984c95f73de2bf8b4c53"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--actual-load-1792179992442624000.json.gz": {
+    "sha256": "3c641bd566ce0a97c1631e47d25f947a615bae1182e4a7a27efbfceb3b856663",
+    "gzip_sha256": "a6767c691b27db63cdd779f6d29cff6d668afc2f9d8966d3575cf1e8e190505b"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--missing-media-response-0.json.gz": {
+    "sha256": "35c4fdb00302a8181208830c8f7ecdc4a67f6126438db7712721d04420238a5e",
+    "gzip_sha256": "2a4eb69cad3b67b1697f3e9cf6d88b6a51e305a0bceea997e37b94fe7e7d010c"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--dating-intent.json.gz": {
+    "sha256": "594a65c024f66715e13e7c16b1c8d356cfaaf11b0afa3a2f740bf29aa85a05a2",
+    "gzip_sha256": "baef01416b00cad91bf9e361c12f49b3e758bc0242049a0b1f3924989f4c47a4"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--passed.json.gz": {
+    "sha256": "d79d3d49143f32633f5dfa5f1ef14d5ada70d8f415ce0318b2169735468a0265",
+    "gzip_sha256": "897e64e8bab4b5590f68b7aada0a5e147aa473a61d52a5acbb4377fd6092a5c1"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--media-response-0.json.gz": {
+    "sha256": "dafb03cd9b0d337d7e838943a29c5f918e8841edfa226c23e53087005c2ef681",
+    "gzip_sha256": "04740b997a7f7f27999d1981e261db168c9eb6896f96cde150661e4ffe7afe70"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--cycle-intent.json.gz": {
+    "sha256": "c1cabc684758ba8af89c05746dec5f3cb303282927413d3ebc2daf5c223af521",
+    "gzip_sha256": "e7e9b23e87d229d36fcff9f38fd86768fb6cc55f1df2cdd0892ab47a51d78753"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--result.json.gz": {
+    "sha256": "24053e3e8ad1aeffb0330704e69f286f489cb6d9133af1fdfb3f868df903bede",
+    "gzip_sha256": "fa49f0419bc516884e34f5752680c54ce17a4d6b97620d0883085547a08dc307"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--evidence-links-intent.json.gz": {
+    "sha256": "87fa43e208786f0d681f11ba0f80b82b0a5abf67c59210837f9d3c40bf8a75ba",
+    "gzip_sha256": "8fe79aef3263954498ee40023dca93d69efc41e687361a8c066b63b21492c6dd"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--dating-response-0.json.gz": {
+    "sha256": "4872c2f1045303a84f174176be29d321e01e3c76d491491ec2203dd5238e927d",
+    "gzip_sha256": "de1b1d9f162e04f321aa2627f5c16b58586cc061cdf4dc6dd543ea374f9fd937"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--lineage-response-0.json.gz": {
+    "sha256": "c7a6ec54ccb02fa49252da9932ca4897881bf953d52c176241cd291dd5cb60ec",
+    "gzip_sha256": "e975920f0f19cc2a0eddbd88192f256d1cb26c4ee1c70b302f60c68158e6046e"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--missing-media-intent.json.gz": {
+    "sha256": "91697931223111d767e6f7875c889fc75f31dbd1bb6f036c2335b99d4f7d5855",
+    "gzip_sha256": "ba993b047cd5af3079fcef057e563483a623168ec1901ccfddb71135b05c8149"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--evidence-links-response-0.json.gz": {
+    "sha256": "b3ee3063287efef0d05ebdf4dd1d499bd83adcc272d077fe82c77deef51741fc",
+    "gzip_sha256": "8a9b623b09b0629daf0b7e9128f8a7f38574d6b4b48ca55ee61114da403f0a15"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--specialists-response-0.json.gz": {
+    "sha256": "741266357eae5841044577c044c7ae1463a3db292e84f3eb2ec7f58d27a2670e",
+    "gzip_sha256": "880c66fcf93c9aa079e110e8fd76a678697e156538ecfdb241dbfb284cd9cfc5"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--sample-response-0.json.gz": {
+    "sha256": "34edfeee5edee50b25a02c4e2792f1d741ce0e442445e797011ee01be298efe6",
+    "gzip_sha256": "9e9716b45e3b58fdd9877a7010753d905b6382c734c9a3d266dddace75a7ea4d"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--cycle-response-0.json.gz": {
+    "sha256": "f1eaccd19808e975e55677b751d16f57c79de8480f89f4074a98353979e27736",
+    "gzip_sha256": "8e007287645bf3dc69db85b9fa58d0a29f38c67e00db1bc1ccc4fef9c41b48d4"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--lineage-intent.json.gz": {
+    "sha256": "f81127ffd57cf4bebd3315f6bc3ab8ea715ddf6b377c58708f28d521a1481e17",
+    "gzip_sha256": "d6181b19631f8fc39ae667c11771bea905ce7ea89af452c113b42618920c1810"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--sample-intent.json.gz": {
+    "sha256": "5a97af91d9b67baebaddb6e62cb8a2412fd0c1d68f4fe0c5cd65161a7bfc9561",
+    "gzip_sha256": "06736c584d907ebeae5e1c66af73fb7595ec5a9510e42c0e79ad0b523f6206a5"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--specialists-intent.json.gz": {
+    "sha256": "47d66c69bf606cd68c87e9c5204b4b21ac5bf58c4dbf9e6eae04dc3e1e4e3fa5",
+    "gzip_sha256": "d9efb16efb1984761b69be8b3fa4f39c060698e9a490be0badc2b506463562b6"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--gql--media-intent.json.gz": {
+    "sha256": "6e6fdc256443d165e040316b505da99785dcda657ef65a395e5ada4180ce6b80",
+    "gzip_sha256": "bf934773413d5e1e6aef2a3dc280581eda94edab896f319248dbaa283029f27b"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--parity--edges-intent.json.gz": {
+    "sha256": "3d04cffb6636b06d5e26e616b32d5a99e5798e3581f0ee158a607c8905693904",
+    "gzip_sha256": "dfb1027152f7d247b42d1031ad1cf9a173a383d2de81ad8472ab887a5365c8d7"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--parity--result.json.gz": {
+    "sha256": "cafaaa88548b1310515d557d9049f56daa3f00bfd4d33ba59a306359778a5b31",
+    "gzip_sha256": "3fa960a2ebfb1eb45dac0908b256b071fe2932d439d1ceb13aee7a39d29802b6"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--parity--nodes-response.json.gz": {
+    "sha256": "19b2c867aea17004234a87b61147eb6fd3b366a757f37433421ba5e84e0ced91",
+    "gzip_sha256": "0fe8877d002640db8f6ab00f91f7a65c76bd4aa57362b374fd59119b1aa41b10"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--parity--edges-response.json.gz": {
+    "sha256": "95ac054317428f2bc913a6423b164d64eb0e937a1a0894f5cf7cf7e52f794253",
+    "gzip_sha256": "7396ab353f64e27c3440e08e5f67a325911ff3d8e2f37abf65ef4f2ec83cef49"
+  },
+  "ashlar-fabric-typed-create-20261016b-archaeology--parity--nodes-intent.json.gz": {
+    "sha256": "f558eca572fe6e8012872185362e61254f6a847ec69e0b01f85d0e5e3be91d82",
+    "gzip_sha256": "9aa6e976dd4edce06bc77857aa02467d240c40af00f9ae120786bdcff75d60a9"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--actual-load-1792180225745310000.json.gz": {
+    "sha256": "a49a51d6e697f6d31742b9eb571ba1451db75dbe336e4f346f894f86fb10cd31",
+    "gzip_sha256": "1bb3d29de046c33c7b9095b6c12d02b7157b649d53fffded4b5616b3ee298cc1"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--actual-load-1792179992766222000.json.gz": {
+    "sha256": "ba6ac11de31ee280ff1eb013c2799b23d84cdca7c381abb7020e951f1c13452c",
+    "gzip_sha256": "a54e380c166c997c3eda039bc1e17b851928f0c2aed66efcc6ca0c7e3073a90b"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--actual-load-1792180188887256000.json.gz": {
+    "sha256": "a49a51d6e697f6d31742b9eb571ba1451db75dbe336e4f346f894f86fb10cd31",
+    "gzip_sha256": "1bb3d29de046c33c7b9095b6c12d02b7157b649d53fffded4b5616b3ee298cc1"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--actual-load-1792180270536864000.json.gz": {
+    "sha256": "7a1a845480d58e4cbe7583856ab2bd09faa59527e22df8f9b344fda05bc68756",
+    "gzip_sha256": "4e875cde07f926a33360d7610e18149e598806eb28a375634c4acf2eff499d58"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--actual-load-1792180135046922000.json.gz": {
+    "sha256": "ba6ac11de31ee280ff1eb013c2799b23d84cdca7c381abb7020e951f1c13452c",
+    "gzip_sha256": "a54e380c166c997c3eda039bc1e17b851928f0c2aed66efcc6ca0c7e3073a90b"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql--effort-event-intent.json.gz": {
+    "sha256": "506ebd9eb360a4d4b474b91b64c6c0dc3b85d311833bd788d1a82e5d0de0e81f",
+    "gzip_sha256": "b02274dac1e64c3c954cf58d0409082f96c2d273636655f10dcf62e4fec7a37f"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql--effort-event-response-0.json.gz": {
+    "sha256": "dee8ff3db4ed4fb6591d58631f1b751066e0d7905865abe6b96b93e3e8b0dea5",
+    "gzip_sha256": "2333fb9a76b0952e6dafce3453fbeb6b1dcf53a0f509a9eb617b3ff9d1cc6c01"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql--failure.json.gz": {
+    "sha256": "92bda6d3c1e206366c01aa0ad616bd436bf368de578f82a8379fd6b556d490db",
+    "gzip_sha256": "5dacc70506a77c004e1c6e60a6442f927f1672208233e1dab7abd6d6c8ebd102"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--effort-event-intent.json.gz": {
+    "sha256": "506ebd9eb360a4d4b474b91b64c6c0dc3b85d311833bd788d1a82e5d0de0e81f",
+    "gzip_sha256": "b02274dac1e64c3c954cf58d0409082f96c2d273636655f10dcf62e4fec7a37f"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--match-response-0.json.gz": {
+    "sha256": "5e81afbf3d691f8b3ae2bfc8d46310822824e0dc7a6cd73b4454d3747e613287",
+    "gzip_sha256": "0e825a65d6a8962f8f650f5008edc5f272cccd5f551621744b4e9f50dc5eecc2"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--passed.json.gz": {
+    "sha256": "47f0f42235be10a07d457d2544d6bcb25fd5494f712d4b63aa58a7017b9040f1",
+    "gzip_sha256": "bfce0c92a04f33b55ab9d6d8c9086782404ac705f78c22fe4a3755c95de2ecfc"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--zero-intent.json.gz": {
+    "sha256": "215b04d436da4c3fde0062b1d1b7fcf70d8c1767b797d3a4bed21e7d3cba8a9b",
+    "gzip_sha256": "299ccf517d1b07cd02f0f494fcb031b4d4ecc7f2603ee44f9f8ac95169916413"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--network-response-0.json.gz": {
+    "sha256": "593ded94f156467de77e1d960af6e85e15cd9c672153a907f157c4c674377c2d",
+    "gzip_sha256": "47cc243ddde7e37173fd371bf6906605ef1bfb41562c428a49ffdb6e8068bf0d"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--reused-terminal-response.json.gz": {
+    "sha256": "fa553a7cefdd95794f1109ec8b58b410b286103f03823ea5139fcc7dd281b0f9",
+    "gzip_sha256": "84e50367bd86b6d3a6b2498d88128eca766b72bd797f31fc372adc7ed28ed762"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--result.json.gz": {
+    "sha256": "2187eb3199b3fba5b8228d0ee3e4e700c93eef547a760d10028a54143b3e277b",
+    "gzip_sha256": "d33c38714ac4bf0b3d2d563797ea8ff3671aed458e6950e5ac115e8ee892525e"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--match-intent.json.gz": {
+    "sha256": "a45cd128af364bdc9d3f2144cdeb8a24ff42462950a4b6f4a750f833dca7a90b",
+    "gzip_sha256": "e92b52b86adb691802635af5842932d5934e76f54dccc1fef2d08de46efadb20"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--comparability-intent.json.gz": {
+    "sha256": "cecd593b731774b0472667be11687d18533f6ba08f5421a0daf4c070a31bba3f",
+    "gzip_sha256": "20a11554f57c1d4752d78ea489ce51d2b1df584ca7276cb0f9eb462b8617abd1"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--comparability-response-0.json.gz": {
+    "sha256": "fdd6702d33d832f374e9cb29bd4b5e376b9909fe9effaaf1f5b2d44686b42886",
+    "gzip_sha256": "8a87ac5c45a742935a1cbaae3f722887f05d0fafabf2fbb91da21eac749227d8"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--connected-measurements-intent.json.gz": {
+    "sha256": "0cc49c80e43d4dd1890155fbc26389625770af2a3794c393885d6e3f0a77f419",
+    "gzip_sha256": "f0c84aa43d96d716111f835b9c325fd394de95e775fb6d0df7c0fec9e8335a2c"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--network-intent.json.gz": {
+    "sha256": "2f5a57e9155b4178422a536dee8c2f5e064f1cc22c4573fee6ccd07b01567f85",
+    "gzip_sha256": "2da35c580bf24425047ccd10e6073a7ab05b18328584e3ad05de40eeabf36802"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--censor-intent.json.gz": {
+    "sha256": "afddf4893ac5816a0802d9e27931523b3143744e1b4228850696c5018ebbb856",
+    "gzip_sha256": "1ee694133c33840f01000a8810307a8fd596910a635d207fdf44d37eb57c0982"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--effort-intent.json.gz": {
+    "sha256": "9d06c50b3c36615c58538471eee89357727c9eae1cdb602e80e7791c9fb938f4",
+    "gzip_sha256": "5bac71cad562a11694e989dac96834115ed9aa51a2654e8c799d85c0829257f1"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--effort-response-0.json.gz": {
+    "sha256": "7ab6d2952d90b0ce5618860467485ee7c3c24117a9f6e0b18ff0a176be4d5e06",
+    "gzip_sha256": "df81e10c0841fea9c1a713a49020afe50c9e5d01389f742da6256b8370c7fa87"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--zero-response-0.json.gz": {
+    "sha256": "24d73a7b836b9eab89d875f823eb6d02a6249adc2aad71b6d7117c2bd1b5e33f",
+    "gzip_sha256": "1fac99252f78f67650546500669b560255d6839b09d1f606387f340b6502ece9"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--censor-response-0.json.gz": {
+    "sha256": "81d083bdc0652d98e84126776472f88e340c4ce6f63f9faaf819cc4eca853b84",
+    "gzip_sha256": "d3e3dd4345aaf33e80004e7ad92db596bb26c7a24585da7af349ec99d7cb410c"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--fishing-response-0.json.gz": {
+    "sha256": "1b1b6a6348059a03aa427b1b081997ac52491a2fb645709b2496e44af73b4f80",
+    "gzip_sha256": "6266cb9e1b617a6b4833e2d6b97d721080010ed8afee37e435f634e79e2b56d4"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--effort-event-response-0.json.gz": {
+    "sha256": "dee8ff3db4ed4fb6591d58631f1b751066e0d7905865abe6b96b93e3e8b0dea5",
+    "gzip_sha256": "2333fb9a76b0952e6dafce3453fbeb6b1dcf53a0f509a9eb617b3ff9d1cc6c01"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--connected-measurements-response-0.json.gz": {
+    "sha256": "89ffde0c09ae4707caf769f2364fd8c43b2ac782a201ed52ed5ab9645328f787",
+    "gzip_sha256": "9808492d103de34b6f97804364b1ae320b71c15106dc3c2947b6a23f4f4f81a1"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--gql-b--fishing-intent.json.gz": {
+    "sha256": "c9b57e6694c44c302394e5b91abdc046b7fbc3b1500590a7ac9dce987f0b20bc",
+    "gzip_sha256": "56cd75c641b6942064be410aa8fa77cc27525a6582ea32c25f97cf1370fa1db7"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--parity--edges-intent.json.gz": {
+    "sha256": "3d04cffb6636b06d5e26e616b32d5a99e5798e3581f0ee158a607c8905693904",
+    "gzip_sha256": "dfb1027152f7d247b42d1031ad1cf9a173a383d2de81ad8472ab887a5365c8d7"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--parity--result.json.gz": {
+    "sha256": "ef9fe4313daf8fe8e01c10726667bf1840738e57416e9eb0aec72ef1f23b4024",
+    "gzip_sha256": "d0a623a68632cfdeb01fe5e472fb928ba042758cbe3d455b2db8abaab6a6ed87"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--parity--nodes-response.json.gz": {
+    "sha256": "793baaede7be455a9e24a5863708cb4b4aa72b01b71ea2049937660fd94f26ab",
+    "gzip_sha256": "a2d1eb7aec47fb60fdeaa1e776cc3e38817b7402e660017c29843441273b3d96"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--parity--edges-response.json.gz": {
+    "sha256": "fe83d4649765b3a593d2aab2d60768ed6c1fccba02548b42d756d1951101f369",
+    "gzip_sha256": "17530c9eea100a0bb403f4b480e5461f05da008b018a3e2a7c0b82861e70cb74"
+  },
+  "ashlar-fabric-typed-create-20261016b-ecology--parity--nodes-intent.json.gz": {
+    "sha256": "b2cf161ce675c4a8f6a8529765d5f1932b62775794e9bccf8900eb7daa9aa43c",
+    "gzip_sha256": "e1ef254ed834c21ffe7e32c633df6e25c2c3e73da56dc1554604579b3d0744b2"
+  }
+}

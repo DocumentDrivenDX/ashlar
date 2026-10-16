@@ -93,3 +93,22 @@ class Tests(unittest.TestCase):
                     broken=FabricGqlResult(digest,(),kinds,result.rows+result.rows[:1])
                     with self.assertRaises(ValueError):validate_gql_case(profile,name,broken)
                 with self.assertRaises(ValueError):validate_gql_case(profile,name,FabricGqlResult('0'*64,(),kinds,result.rows))
+
+    def test_native_no_data_omits_schema_only_for_independently_empty_case(self):
+        import hashlib
+        from ashlar_host.fabric_gql import FabricGqlResult
+        from ashlar_host.fabric_pack_scenarios import validate_gql_case
+        profile=fixtures.Tests().profile('ecology');name='effort-event'
+        query,_=gql_plan(profile,name)
+        digest=hashlib.sha256(json.dumps({'query':query},ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+        native={'status':{'code':'02000'},'result':{'kind':'TABLE','columns':[],'data':[]}}
+        def result(value):return FabricGqlResult(digest,(json.dumps(value).encode(),),(),())
+        self.assertEqual(validate_gql_case(profile,name,result(native)),[])
+        for change in ('status','warning','continuation','unexpected'):
+            bad=copy.deepcopy(native);candidate=copy.deepcopy(profile)
+            if change=='status':bad['status']['code']='00000'
+            elif change=='warning':bad['additionalStatuses']=[{'code':'01000'}]
+            elif change=='continuation':bad['result']['nextPage']='pending'
+            else:
+                next(c for c in candidate['cases']if c['original_scenario']['id']==name)['original_graph_expected']=[['missing']]
+            with self.assertRaises(ValueError):validate_gql_case(candidate,name,result(bad))

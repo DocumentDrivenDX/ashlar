@@ -1,0 +1,319 @@
+{
+  "archaeology": {
+    "cases": {
+      "state": "passed",
+      "pack": "archaeology",
+      "cases": [
+        {
+          "case": "cycle",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "dating",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "media",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "UINT64"
+            ]
+          ]
+        },
+        {
+          "case": "missing-media",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "specialists",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ],
+            [
+              "result_2",
+              "STRING"
+            ],
+            [
+              "result_3",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "lineage",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "evidence-links",
+          "rows": 2,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ],
+            [
+              "result_2",
+              "STRING"
+            ],
+            [
+              "interpretation_key",
+              "STRING"
+            ],
+            [
+              "evidence_key",
+              "STRING"
+            ],
+            [
+              "interpretation_order_token",
+              "STRING"
+            ],
+            [
+              "matched_pottery_key",
+              "STRING"
+            ],
+            [
+              "matched_fauna_key",
+              "STRING"
+            ],
+            [
+              "pottery_form_presence",
+              "STRING"
+            ],
+            [
+              "fauna_taxon_presence",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "sample",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ]
+          ]
+        }
+      ],
+      "elapsed_seconds": 45.795998790999995,
+      "scope": "Native private typed graph original17 oracle only; not live publication/source ACK authority"
+    },
+    "parity": {
+      "pack": "archaeology",
+      "passed": true,
+      "bags": [
+        {
+          "role": "nodes",
+          "rows": 39,
+          "columns": 242,
+          "passed": true
+        },
+        {
+          "role": "edges",
+          "rows": 46,
+          "columns": 23,
+          "passed": true
+        }
+      ],
+      "elapsed_seconds": 2.7125112089999996,
+      "scope": "Complete private typed graph bags only; no live publication/source ACK authority"
+    }
+  },
+  "ecology": {
+    "cases": {
+      "state": "passed",
+      "pack": "ecology",
+      "cases": [
+        {
+          "case": "effort-event",
+          "rows": 0,
+          "columns": []
+        },
+        {
+          "case": "connected-measurements",
+          "rows": 2,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "UINT64"
+            ]
+          ]
+        },
+        {
+          "case": "censor",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ],
+            [
+              "result_2",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "match",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "effort",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "zero",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "network",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "comparability",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ],
+            [
+              "result_1",
+              "STRING"
+            ],
+            [
+              "result_2",
+              "STRING"
+            ]
+          ]
+        },
+        {
+          "case": "fishing",
+          "rows": 1,
+          "columns": [
+            [
+              "result_0",
+              "STRING"
+            ]
+          ]
+        }
+      ],
+      "elapsed_seconds": 7.6314428329999995,
+      "scope": "Native private typed graph original17 oracle only; not live publication/source ACK authority"
+    },
+    "parity": {
+      "pack": "ecology",
+      "passed": true,
+      "bags": [
+        {
+          "role": "nodes",
+          "rows": 40,
+          "columns": 183,
+          "passed": true
+        },
+        {
+          "role": "edges",
+          "rows": 54,
+          "columns": 23,
+          "passed": true
+        }
+      ],
+      "elapsed_seconds": 2.170798833,
+      "scope": "Complete private typed graph bags only; no live publication/source ACK authority"
+    }
+  }
+}
