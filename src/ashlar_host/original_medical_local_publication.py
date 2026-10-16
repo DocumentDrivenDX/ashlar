@@ -15,7 +15,8 @@ from ashlar.attempt_store import DeltaAttemptStore
 from ashlar.medical_source import build_transaction
 from ashlar.outbox import publish_outbox_transaction
 from ashlar.publisher import PublicationError
-from ashlar.stored_publisher import StoredPublisherBackend
+from ashlar.stored_publisher import StoredPublisherBackend,validate_applied_artifact
+from ashlar.publication import Descriptor
 from .delta_custody import LocalDeltaTransport, encoded
 from .driver import NativeDriver, PrivatePolicy, AttemptExecutor, CarrierPolicy, ManifestPort
 from .evolution_verification_types import VerificationBounds
@@ -154,7 +155,18 @@ class _MedicalPublisherDriver:
     def recover_apply(self,request,context):
         action=lambda:self.driver.recover_apply(request,context)
         return action()if self.stages is None else self.stages.call('effect-recovery',action)
-    def validate(self,*args):return self.driver.validate(*args)
+    def validate(self,request,artifact,descriptor,context):
+        self.driver.require(context)
+        self.plan.require_request(request)
+        retained,expected=validate_applied_artifact(artifact,request)
+        if (type(descriptor)is not Descriptor
+                or _bounded(_plain(descriptor),self.bounds.input_bytes)!=_bounded(_plain(expected),self.bounds.input_bytes)):
+            raise PermissionError('Exact retained original medical descriptor required')
+        active=self.driver.policy.active
+        if 'manifest'in active and active['manifest']!=retained['manifest']:
+            raise PermissionError('Original active medical manifest conflicts')
+        active['manifest']=dict(retained['manifest'])
+        return self.driver.validate(request,artifact,descriptor,context)
     def _observe(self,request,descriptor,context):
         self.plan.require_request(request)
         if self.expected is not None and _bounded(dict(descriptor.raw),self.bounds.input_bytes)!=self.expected:

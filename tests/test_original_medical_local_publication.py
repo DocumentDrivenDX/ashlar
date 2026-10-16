@@ -54,6 +54,38 @@ class Tests(unittest.TestCase):
         with self.assertRaises(PermissionError):adapter.acknowledge(request,descriptor,object())
         self.assertEqual(events,['request'])
 
+    def test_retained_adapter_activates_only_exact_original_manifest(self):
+        from ashlar.stored_publisher import validate_applied_artifact
+        fixture=shared.StoredPublisherTests()
+        with fixture.fixture()as(phases,source_driver,policy,transport,api):
+            context=object();backend=fixture.backend(phases,source_driver,transport,policy)
+            descriptor=fixture.publish(backend,context)
+            request=json.loads(phases.rows[-1]['payload_json'])['request'];artifact=source_driver.original
+            events=[];source_port=object()
+            def require(supplied):
+                if supplied is not context:raise PermissionError('Original context required')
+            def original(value):
+                if value!=request:raise PermissionError('Original request required')
+            def validate(value,text,current,supplied):
+                require(supplied);self.assertIs(driver.source_port,source_port)
+                self.assertEqual(driver.policy.active['manifest'],dict(descriptor.raw))
+                self.assertEqual((value,text,current),(request,artifact,descriptor));events.append('full-validation')
+            driver=SimpleNamespace(require=require,validate=validate,policy=SimpleNamespace(active={}),source_port=source_port)
+            adapter=owner._MedicalPublisherDriver(driver,SimpleNamespace(require_request=original),self.bounds)
+            adapter.validate(request,artifact,descriptor,context)
+            self.assertEqual(events,['full-validation']);self.assertEqual(driver.policy.active['manifest'],dict(descriptor.raw))
+            for kind in ('request','artifact','descriptor','active','context'):
+                driver.policy.active.clear();supplied_request=dict(request);supplied_artifact=artifact;supplied_descriptor=descriptor;supplied_context=context
+                if kind=='request':supplied_request['request_digest']='f'*64
+                elif kind=='artifact':
+                    foreign=json.loads(artifact);foreign['manifest']['publication_id']='foreign';supplied_artifact=json.dumps(foreign)
+                elif kind=='descriptor':supplied_descriptor=replace(descriptor,versions={'c.s.object_current':True})
+                elif kind=='active':driver.policy.active['manifest']={'publication_id':'foreign'}
+                else:supplied_context=object()
+                with self.assertRaises((PermissionError,ValueError)):adapter.validate(supplied_request,supplied_artifact,supplied_descriptor,supplied_context)
+                self.assertEqual(events,['full-validation'])
+                self.assertEqual(driver.policy.active,{'manifest':{'publication_id':'foreign'}}if kind=='active'else{})
+
     def test_adapter_observer_cancellation_preserved_zero_ack(self):
         primary=KeyboardInterrupt('original');calls=[]
         def observe(*a,**k):calls.append('observe');raise primary
