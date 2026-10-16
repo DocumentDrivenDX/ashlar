@@ -12,6 +12,7 @@ from .medical_prospective_manifest_configuration import OriginalMedicalProspecti
 from .medical_publication_plan import MedicalPublicationPlan,STREAM
 from .medical_publication_sources import OriginalMedicalSourceOwner
 from .medical_process_inspection import MedicalProcessInspection,validate_medical_process_observations
+from .medical_journal_inspection import MedicalJournalInspection,validate_medical_journal_observations
 
 
 def retain_prospective_authorization(path,raw):
@@ -59,6 +60,9 @@ def original_inspection_facts(value):
     """Separate historical process observations from stable original outcome facts."""
     if type(value)is not dict:raise ValueError('Original inspection object required')
     facts=dict(value)
+    if 'process_observations'in facts and 'journal_observations'in facts:raise ValueError('One exact inspection evidence owner required')
+    if 'journal_observations'in facts:
+        if validate_medical_journal_observations(facts.pop('journal_observations'))is not None:raise ValueError('Journal observation validation incomplete')
     if 'process_observations'in facts:
         if validate_medical_process_observations(facts.pop('process_observations'))is not None:
             raise ValueError('Process observation validation incomplete')
@@ -70,7 +74,7 @@ class MedicalProspectiveManifest:
     def __init__(self,driver,plan,source,observer,*,context,bounds,installation,configuration):
         if (type(driver)is not NativeDriver or type(driver.transport)is not LocalDeltaTransport
                 or type(plan)is not MedicalPublicationPlan or type(source)is not OriginalMedicalSourceOwner
-                or type(observer)is not MedicalProcessInspection or type(configuration)is not OriginalMedicalProspectiveManifestConfig):
+                or type(observer)not in (MedicalProcessInspection,MedicalJournalInspection) or type(configuration)is not OriginalMedicalProspectiveManifestConfig):
             raise ValueError('Actual original medical reconciliation owners required')
         if source.driver is not driver or observer.config!=configuration.inspection_selection():raise PermissionError('Same original source and observer selection required')
         self.driver=driver;self.plan=plan;self.source=source;self.observer=observer;self.context=context

@@ -5,7 +5,8 @@ from pathlib import Path
 import re
 from uuid import UUID
 from .medical_producer import decode_medical
-from .medical_commit_inspection_configuration import pinned_selection,read_selected,parse_original_medical_commit_inspection,inspection_selection_bytes
+from .medical_commit_inspection_configuration import pinned_selection,read_selected
+from .medical_inspection_selection import parse_medical_inspection,medical_inspection_selection_bytes
 from .original_medical_local_configuration import MedicalPinnedFile
 
 PROFILE='ashlar-original-medical-prospective-manifest/0.1'
@@ -42,7 +43,7 @@ class OriginalMedicalProspectiveManifestConfig:
         if any(self.output==p.path or self.output in p.path.parents or p.path in self.output.parents for p in pins):
             raise ValueError('Prospective output must be separate from original selections')
     def inspection_selection(self):
-        selected=parse_original_medical_commit_inspection(read_selected(self.inspection_configuration))
+        selected=parse_medical_inspection(read_selected(self.inspection_configuration))
         return replace(selected,recovery=replace(selected.recovery,output=self.output))
     @property
     def recovery(self):return self.inspection_selection().recovery
@@ -66,7 +67,7 @@ def prospective_selection_bytes(config):
     config.__post_init__()
     raw=tuple(read_selected(pin)for pin in (config.inspection_configuration,config.inspection,config.proposal,config.authorization))
     decode_authorization(raw[3])
-    return raw+inspection_selection_bytes(config.inspection_selection())
+    return raw+medical_inspection_selection_bytes(config.inspection_selection())
 
 def renew_prospective_selection(config,original):
     if prospective_selection_bytes(config)!=original:raise PermissionError('Original prospective selections changed')

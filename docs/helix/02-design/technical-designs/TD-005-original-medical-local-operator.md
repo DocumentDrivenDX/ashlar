@@ -59,7 +59,7 @@ UMF intake; CONTRACT-006 owns bounded diagnostics. TD-002 supplies the fresh-onl
 local root/lease/generated-schema composition pattern, not commerce logical
 admission for another pack.
 
-CONTRACT-001's installed historical-medical subsection owns the four commands,
+CONTRACT-001's installed historical-medical subsection owns the installed commands,
 closed profiles and exact entry/configuration types. Initialization, publication,
 settled replay and read-only reopen have distinct authority and mutation surfaces;
 no initializer is available to publication, replay or read operations. The consumer
@@ -469,3 +469,18 @@ cancellation. Phase states and the original ACK protocol remain unchanged;
 this slice adds a separately admitted committing-to-committed owner, with actual
 installed native acceptance required to qualify reconciliation. No abstract
 model or read-only inspection substitutes for that acceptance.
+
+The journal inspection alternative follows CONTRACT-001's independently selected
+version-specific write-ahead premise. `medical_journal_inspection.py` owns exact
+lineage selection, read-only snapshot-prefix comparison and current file/lease
+binding; configuration parsing has its own owner. A closed dispatcher admits
+only process or journal inspection configurations and nominal owners. Composition
+keeps every existing native preflight, manifest observation, source and ACK guard.
+Journal results use their own evidence envelope and never imply process absence.
+The historical exclusive-storage/no-rollback premise remains an explicit private
+development assumption. Snapshot endpoints prove preserved recorded rows, not
+historical physical-file continuity. Unknown code, incomplete known executions,
+missing baseline rows and unexplained new operations refuse before new intent.
+MED-F2/F3 and the existing committing-to-committed/ACK ordering remain unchanged;
+small tests cover exact prefix admission, lost/changed rows and unsupported code,
+with native installed execution required for a publication/ACK support claim.

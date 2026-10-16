@@ -25,8 +25,8 @@ def _configuration(raw,operation):
         from .medical_prospective_manifest_configuration import parse_original_medical_prospective_manifest
         return parse_original_medical_prospective_manifest(raw)
     if operation=='commit-inspection':
-        from .medical_commit_inspection_configuration import parse_original_medical_commit_inspection
-        return parse_original_medical_commit_inspection(raw)
+        from .medical_inspection_selection import parse_medical_inspection
+        return parse_medical_inspection(raw)
     types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig,'read':OriginalMedicalReadConfig,'recovery':OriginalMedicalRecoveryConfig,'recovery-preflight':OriginalMedicalRecoveryConfig}
     if type(operation)is not str or operation not in types:raise ValueError('Closed medical operation required')
     config=parse_original_medical_local(raw)
@@ -51,7 +51,7 @@ def _execute(configuration, *, expected_sha256, phase, operation):
     inspection_original=None
     if operation in ('commit-inspection','commit-reconciliation'):
         if operation=='commit-inspection':
-            from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+            from .medical_inspection_selection import medical_inspection_selection_bytes as inspection_selection_bytes,renew_medical_inspection_selection as renew_inspection_selection
         else:
             from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
         inspection_original=inspection_selection_bytes(config)
@@ -79,7 +79,7 @@ def _run(configuration,operation):
     inspection_original=None
     if operation in ('commit-inspection','commit-reconciliation'):
         if operation=='commit-inspection':
-            from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+            from .medical_inspection_selection import medical_inspection_selection_bytes as inspection_selection_bytes,renew_medical_inspection_selection as renew_inspection_selection
         else:
             from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
         inspection_original=inspection_selection_bytes(config)

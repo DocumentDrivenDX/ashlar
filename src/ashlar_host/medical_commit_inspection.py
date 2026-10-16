@@ -135,7 +135,7 @@ def inspect_medical_commit(driver,plan,source,*,context,bounds,installation):
 
 
 def inspect_original_medical_commit_local(config,*,supervision=None):
-    if type(config)is not OriginalMedicalCommitInspectionConfig:raise ValueError('Exact read-only medical inspection required')
-    config.__post_init__();observer=MedicalProcessInspection(config)
+    from .medical_inspection_selection import create_medical_inspection
+    observer=create_medical_inspection(config)
     from .original_medical_local_publication import operate_original_medical_commit_inspection
     return operate_original_medical_commit_inspection(config.recovery,observer,supervision=supervision)

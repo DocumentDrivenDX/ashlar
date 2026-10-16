@@ -259,7 +259,8 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
     if type(preflight_only)is not bool or preflight_only and not recovery:raise ValueError('Distinct medical recovery preflight required')
     if inspection is not None:
         from .medical_process_inspection import MedicalProcessInspection
-        if type(inspection)is not MedicalProcessInspection or not recovery or preflight_only:
+        from .medical_journal_inspection import MedicalJournalInspection
+        if type(inspection)not in (MedicalProcessInspection,MedicalJournalInspection) or not recovery or preflight_only:
             raise ValueError('Distinct actual read-only commit inspection required')
     if prospective is not None:
         from .medical_prospective_manifest_configuration import OriginalMedicalProspectiveManifestConfig
@@ -383,7 +384,8 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
         if inspection is not None and prospective is None:
             inspection.renew()
             observed,proposal=inspection_files
-            observed['process_observations']=inspection.observations
+            from .medical_journal_inspection import MedicalJournalInspection
+            observed['journal_observations'if type(inspection)is MedicalJournalInspection else'process_observations']=inspection.observations
             output.write('proposal.json',proposal,config.bounds.input_bytes)
             output.write('commit-observation.json',_bounded(observed,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
             answer['proposal']=str(config.output/'proposal.json')
@@ -427,8 +429,8 @@ def operate_original_medical_commit_inspection(config,observer,*,supervision=Non
 def reconcile_original_medical_commit_local(config,*,supervision=None):
     """Explicit new authorization, original attempt ownership and guarded ACK."""
     from .medical_prospective_manifest_configuration import OriginalMedicalProspectiveManifestConfig
-    from .medical_process_inspection import MedicalProcessInspection
+    from .medical_inspection_selection import create_medical_inspection
     if type(config)is not OriginalMedicalProspectiveManifestConfig:raise ValueError('Exact prospective medical configuration required')
     config.__post_init__();selected=config.inspection_selection()
     return _operate(selected.recovery,False,supervision,recovery=True,
-        inspection=MedicalProcessInspection(selected),prospective=config)
+        inspection=create_medical_inspection(selected),prospective=config)

@@ -863,14 +863,89 @@ through the existing committed-operation owner. An exact native row with missing
 original intent MUST instead use
 `observed-exact-manifest-row-no-original-intent`; matching row values or plausible
 commit metadata MUST NOT promote it to original submission custody. An `observed-absent-at-anchor` observation requires the
-unchanged original manifest identity/history/anchor and no matching executor in
-the observed intervals. It describes the bounded private development profile,
-including its cooperative-writer and process-visibility assumptions; it MUST NOT
-claim that arbitrary future writers are fenced. Neither observation, report hash,
+unchanged original manifest identity/history/anchor and the separately selected
+owner's complete current admission. Process profiles require no matching executor
+in the observed intervals. The journal profile requires its conditional
+write-ahead lineage and actual cooperating-writer lease, without asserting
+process absence. Each describes its bounded private development assumptions;
+neither may claim that arbitrary future writers are fenced. Neither observation, report hash,
 proposed manifest nor process absence grants a new submission or ACK. Missing
 intent remains a reconciliation case, and ordinary recovery MUST retain its
 original refusal. A prospective reconciled submission requires a separately
 specified authorization boundary.
+
+The same `inspect-original-medical-commit` command MAY separately select
+`ashlar-original-medical-local-journal-inspection/0.1`. Its exact configuration
+members are `profile`, `recovery` and `lineage`. `recovery` is the existing closed
+recovery configuration with fresh output; `lineage` is a pinned-file selection.
+This profile observes retained write-ahead custody under the actual installation
+lease. It MUST NOT produce a process-absence observation or require laptop-wide
+process quiescence. Existing process profiles retain their behavior.
+
+The lineage document has exactly `profile`, `installation_id`, `request_digest`,
+`installation`, `snapshots`, `executions` and `storage_profile`. The profile is
+`ashlar-original-medical-journal-lineage/0.1`; installation ID is a canonical UUID,
+request digest is lowercase SHA-256, installation is the exact pinned original
+handoff, and storage profile is
+`ashlar-private-exclusive-original-journal-no-out-of-band-rollback/0.1`.
+`snapshots` contains 2–16 ordered pinned complete SQLite backup files, each at
+most 128 MiB, with aggregate snapshot bytes within the selected journal budget.
+`executions` contains 1–16 exact records with `configuration`,
+`terminal`, `code` and `launcher`. The first two fields are pinned original files; `code`
+contains exactly `transport`, `driver`, `capture` and `lease`, each a pinned
+installed module. The configuration selected by the terminal invocation MUST
+correspond to that execution; original source, installation, journal and six
+native target identities MUST agree across the known executions. Initialization
+records do not replace complete publication/recovery execution custody.
+`launcher` is null for direct installed CLI invocations. The separately retained
+original diagnostic route MAY select its pinned 698-byte launcher with SHA-256
+`92a6b22ad2fb95a4d22e602c69969e70d35eed314a298e0dd391908cbde160fb`.
+Its exact terminal argv MUST invoke that script, and its selected configuration
+MUST be the sibling `configuration.json` consumed by that reviewed public
+recovery call. Other script launchers MUST refuse; terminal files remain
+unchanged and MUST NOT be relabeled as direct CLI invocations.
+
+Only the independently reviewed original transport digests
+`0261d6c09783b15850591206ae373b288b879e0a212a9fc9cc12aea7085aabbc`,
+`3f4225eb773cf6baaa6df87f09ab92f190eb6ac03e733e85e6d40cbdecceda5b`
+and `b2944f04bbb4d69f4c25824455b62ffd57e902c8e0a7b34671cc63ffcd63141a`
+qualify this version-specific write-ahead premise. Driver, capture and lease
+must respectively match
+`713f7844233e380f1a0c29c57e176c13ff11bbdc7387c8f87f694bf7565fce3e`,
+`64e23a9c8a1e440a084a38303ae8a80dd387b8c971d3d4b99819c03e306e9d03`
+and `36c2133874ef4952b302dc255053627b7037c9569b7888ccb0035f0b865dcaff`.
+Their durable prepared/submitted transactions precede native SQL, operation
+records are retained, cooperating writers hold the installation lease, and
+supervised terminal cleanup kills and reaps the owned group. Arbitrary pinned
+code, a status flag or current missing intent alone MUST NOT establish this
+premise. Terminal evidence MUST contain a terminal state, actual integer exit
+status and exact original configured invocation; a timeout label alone is
+insufficient.
+
+Under the real lease, the observer MUST bind current journal file identity,
+verify complete SQLite schemas/registry and every retained snapshot's operation,
+plan, source-plan and artifact inventories, then compare their monotonic prefix.
+Prior intent bytes, request/source/effect plans and committed receipts MUST NOT
+change or disappear. Only prepared-to-submitted-to-committed progression with
+its original receipt is permitted. Every operation in the final baseline MUST be committed;
+original manifest intent MUST be absent. The current journal MUST preserve the
+complete last baseline. During reconciliation it MAY extend that baseline only
+with the same request's explicitly authorized prospective manifest intent and
+existing committed-attempt append; unexplained new effects, another request,
+conflicting intent, missing rows, unknown schema or registry drift MUST refuse.
+All checks repeat at closing while current identity and lease remain held.
+
+This profile assumes exclusive original storage and a complete known execution
+inventory, with no out-of-band record deletion, restore or rollback. Endpoint
+snapshots do not independently prove those historical assumptions or recover
+lost journal custody. No historical inode assertion may be synthesized. Current
+native receipt/history, complete medical artifact/phase/vector, source and ACK
+checks remain independently mandatory after Spark acquisition and before any
+new intent. Journal observations are retained under `journal_observations`;
+their profile-specific validator grants no native, publication or ACK authority.
+A durable local SQL intent that never existed cannot have reached an orphan JVM
+through the selected write-ahead routes. This conditional observation does not
+qualify unjournaled writers, remote services or production authority.
 
 `reconcile-original-medical-commit --configuration PATH` selects the separate
 `ashlar-original-medical-prospective-manifest/0.1` configuration. Exact members
