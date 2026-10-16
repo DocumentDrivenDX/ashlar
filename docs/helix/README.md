@@ -35,8 +35,9 @@ affects its own lane.
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
 local and native performance measurements. Metrics guide tuning; they do not
-change the managed-Delta architecture. New checks remain small, with no renewed
-scale benchmarks. Graph-tool exports and shape checks alone do not qualify actual
+change the managed-Delta architecture. Functional checks remain small; explicitly
+requested scale trials use dedicated compute and approved resource/cost limits.
+Graph-tool exports and shape checks alone do not qualify actual
 Fabric, PuppyGraph or GraphFrames execution over Ashlar publications.
 
 ## Requirements navigation

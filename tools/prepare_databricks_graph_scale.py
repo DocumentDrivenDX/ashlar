@@ -92,7 +92,7 @@ def parse_configuration(raw):
     rows=bounded(l['maximum_rows'],1024);size=bounded(l['maximum_bytes'],1_048_576)
     if whole <= statement: raise ValueError('Whole deadline must exceed statement deadline')
     cost=l['maximum_cost_usd']
-    if type(cost) is not str or re.fullmatch('[0-9]{1,5}(?:\.[0-9]{1,2})?',cost) is None:
+    if type(cost) is not str or re.fullmatch(r'[0-9]{1,5}(?:\.[0-9]{1,2})?',cost) is None:
         raise ValueError('Explicit decimal spend ceiling required')
     try: valid=Decimal(cost)>0
     except InvalidOperation: valid=False
