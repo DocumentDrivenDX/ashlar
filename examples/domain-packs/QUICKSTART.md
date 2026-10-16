@@ -79,6 +79,15 @@ compiler, then use the [dedicated payments commands](payments/README.md).
 Generic `query-finite-pack` does not accept payments. Supply-chain keeps its
 [separate configuration workflow](../supply-chain-native/README.md).
 
+To continue from an existing publication to a retained graph release, use
+`ashlar configure-finite-pack-export` with the explicit pack, `small-local` budget,
+publication, fresh export target and original runtime/source paths. Save its JSON
+to a separate file, then pass that file and the same export target to
+`ashlar export-original-finite-pack`. The
+[finite-pack export commands](finite-toolkit.md#export-a-retained-finite-pack-publication)
+show all required flags and link onward to GraphFrames, PuppyGraph and Fabric.
+The export configuration generator starts no runtime and proves no native pass.
+
 The [archaeology](../../docs/helix/04-build/evidence/finite-pack-installed-query-archaeology-20261010-c/README.md)
 and [ecology](../../docs/helix/04-build/evidence/finite-pack-installed-query-ecology-20261010-c/README.md)
 evidence qualify the recorded installed scenarios and local source profiles.

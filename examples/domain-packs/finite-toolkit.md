@@ -121,3 +121,40 @@ its own publication and observation directories. Keep all nine original scenario
 including empty results and explicit present-null values. Capture limits bound
 retained output, not JVM/executor memory; native execution requires the selected
 runtime and complete publication gates to succeed.
+
+## Export a retained finite-pack publication
+
+Generate the export-only configuration from the same original pack, model, graph,
+producer and publication selections. `configure-finite-pack-export` supports
+`archaeology`, `ecology` and `payments`; every flag below is required. It prints
+`ashlar-original-finite-pack-export-configuration/0.1` JSON without reading file contents,
+creating directories or starting engines. The required fresh export `--output`
+is checked for lexical separation and is not included in the emitted JSON.
+Keep the configuration file separate from that export target:
+
+```sh
+ashlar configure-finite-pack-export \
+  --pack ecology --budget-profile small-local \
+  --publication /absolute/private/ecology-publication \
+  --output /absolute/private/ecology-export \
+  --jars /absolute/path/to/delta-jars \
+  --pack-file /absolute/path/to/ashlar/examples/domain-packs/ecology/upstream/pack.json \
+  --model /absolute/path/to/ashlar/examples/domain-packs/ecology/upstream/ontology.json \
+  --graph /absolute/path/to/ashlar/examples/domain-packs/ecology/upstream/graph/fixture.json \
+  --producer-source /absolute/path/to/pinned-umf-producer \
+  --bun /absolute/path/to/bun --git /absolute/path/to/git \
+  > /absolute/private/ecology-export.json
+
+ashlar export-original-finite-pack \
+  --configuration /absolute/private/ecology-export.json \
+  --output /absolute/private/ecology-export
+```
+
+The export command reopens the existing publication and checks its original source
+and native boundaries before writing the retained release and custody artifacts.
+It does not publish a new batch. Use the selected artifacts with the existing
+[GraphFrames retained-export guide](graphframes-toolkit.md),
+[PuppyGraph original-scenario guide](../puppy-original-scenarios/README.md) or
+[Fabric graph materialization and GQL guide](../fabric-gql/README.md), preserving
+each guide's explicit runtime, admission and deployment requirements. Configuration
+generation does not establish a new native export or engine-query pass.

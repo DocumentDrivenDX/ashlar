@@ -1,0 +1,26 @@
+{
+  "scope": "P09 compiler-free configuration generation; existing finite export semantics unchanged",
+  "command": "ashlar configure-finite-pack-export",
+  "packs": [
+    "archaeology",
+    "ecology",
+    "payments"
+  ],
+  "profile": "ashlar-original-finite-pack-export-configuration/0.1",
+  "checks": {
+    "generator_happy_path_and_refusals": 2,
+    "existing_export_parser": 1,
+    "existing_publish_query_generator_regression": 3,
+    "module_boundaries": "pass",
+    "fresh_installed_wheel_outside_checkout": "pass",
+    "installed_compiler_option_refusal": "pass",
+    "configuration_generation_creates_no_output": "pass"
+  },
+  "wheel_sha256": "265544369a3f9b0f51b0520fb95e5adef6345f5ca0ba97051acc550860e9c5f2",
+  "independent_review": "finite_export_review: approved; documentation precision suggestion applied",
+  "limitations": [
+    "No new native export or graph-engine qualification",
+    "Original publication/source/runtime and export authority checks remain mandatory",
+    "Prospective output separation is validated; actual freshness and custody checked by export owner"
+  ]
+}

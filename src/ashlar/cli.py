@@ -265,6 +265,11 @@ def main():
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
         if name=='query-finite-pack':command.add_argument('--case',action='append',help='Run only this original authored case; repeat to select more')
+    finite_export_configuration=commands.add_parser('configure-finite-pack-export',help='Print a compiler-free existing finite export configuration; no engine access')
+    finite_export_configuration.add_argument('--pack',required=True,choices=('archaeology','ecology','payments'))
+    finite_export_configuration.add_argument('--budget-profile',required=True,choices=('small-local',))
+    for option in ('publication','output','jars','pack-file','model','graph','producer-source','bun','git'):
+        finite_export_configuration.add_argument('--'+option,required=True)
     finite_configuration=commands.add_parser('configure-finite-pack',help='Print an existing closed finite-pack configuration; no engine/source access')
     finite_configuration.add_argument('--pack',required=True,choices=('archaeology','ecology','payments','supply-chain'))
     finite_configuration.add_argument('--mode',required=True,choices=('publish','query'))
@@ -890,6 +895,16 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar payments scenario refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command == 'configure-finite-pack-export':
+        try:
+            from ashlar_host.pack_configuration import FinitePackBudget,make_finite_pack_export_configuration
+            answer=make_finite_pack_export_configuration(pack=args.pack,budget=FinitePackBudget(args.budget_profile),
+                **{name:getattr(args,name)for name in ('publication','output','jars','pack_file','model','graph','producer_source','bun','git')})
+            sys.stdout.write(answer.decode('utf-8'))
+        except Exception:
+            print('ashlar finite-pack export configuration refused',file=sys.stderr)
             raise SystemExit(2) from None
         return
     if args.command == 'configure-finite-pack':
