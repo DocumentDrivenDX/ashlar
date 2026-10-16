@@ -306,6 +306,10 @@ def main():
     fabric_notebook=commands.add_parser('prepare-fabric-notebook',help='Generate a private runnable Fabric notebook from an explicitly selected export pair')
     for option in ('release','custody','release-sha256','custody-sha256','nodes','edges','output','display-name'):
         fabric_notebook.add_argument('--'+option,required=True)
+    fabric_pack=commands.add_parser('prepare-fabric-pack-scenarios',help='Prepare original archaeology/ecology typed mappings and GQL from an explicit private export')
+    fabric_pack.add_argument('--pack',required=True,choices=('archaeology','ecology'))
+    for option in ('model','graph','pack-file','release','custody','release-sha256','custody-sha256','nodes','edges','output'):
+        fabric_pack.add_argument('--'+option,required=True)
     fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
     for option in ('nodes','edges','output'):
         fabric_definition.add_argument('--'+option,required=True)
@@ -345,6 +349,18 @@ def main():
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'prepare-fabric-pack-scenarios':
+        from pathlib import Path
+        from ashlar_host.fabric_pack_preparation import prepare_fabric_pack
+        from ashlar_host.local_graph_export import LocalGraphExportSelection
+        try:
+            selection=LocalGraphExportSelection(Path(args.release),Path(args.custody),args.release_sha256,args.custody_sha256)
+            answer=prepare_fabric_pack(pack=args.pack,model=args.model,graph=args.graph,pack_file=args.pack_file,selection=selection,nodes=args.nodes,edges=args.edges,output=args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar original Fabric scenario preparation refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command == 'query-publication-current':
         from ashlar_host.publication_current_cli import run_command
         run_command(args)

@@ -1,0 +1,23 @@
+{
+  "scope": "P07/P09 original17 GQL generation, exact typed scenario mappings and complete result comparison; local preparation only",
+  "cases": 17,
+  "focused_tests": 7,
+  "actual_archived_export_preparations": {
+    "archaeology": 8,
+    "ecology": 9
+  },
+  "independent_review": "fabric_original17_review: approved preparation-only subset",
+  "mapping": "Original canonical STRING carriers/independent edges unchanged; lexical/presence projected and named signed64 predicates INT64",
+  "authority": "Current private export file-use only; actual publication/loaded-graph policy remains required by execute_gql_case",
+  "public_sources": [
+    "https://learn.microsoft.com/en-us/fabric/graph/gql-language-guide",
+    "https://developer.microsoft.com/json-schemas/fabric/item/graphIndex/definition/graphType/1.0.0/schema.json"
+  ],
+  "pending": [
+    "Typed OneLake materialization and complete native readback",
+    "Actual17GQLcase execution with independent oracles",
+    "Actual publication/loaded-graph authority integration"
+  ],
+  "selected_lakehouse_paths": "Explicit placeholder GUID used in installed local preparation; not an existing lakehouse/resource selection",
+  "wheel_sha256": "2121cc09d6c374f30c6a719c2d39bf8cf9ea090bbce412329c361a4f8f43e11f"
+}

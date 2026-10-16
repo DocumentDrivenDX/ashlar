@@ -456,3 +456,43 @@ lakehouse. It installs the pinned Ashlar source, uses the notebook's existing
 Spark session, writes fresh release-specific tables, and prepares model-definition
 files. It does not create or load a model. The generated notebook contains your
 selected data; keep it local until uploading to the intended workspace.
+
+## Prepare original archaeology/ecology scenarios
+
+Use `prepare-fabric-pack-scenarios` with an existing private finite-pack export
+and its separately selected digests. Keep the original pack/model/graph bytes;
+the command recomputes their exact canonical carrier correspondence before
+preparing the typed projection. Replace every path and digest below:
+
+```sh
+ashlar prepare-fabric-pack-scenarios \
+  --pack ecology \
+  --model /absolute/original/ecology/ontology.json \
+  --graph /absolute/original/ecology/graph/fixture.json \
+  --pack-file /absolute/original/ecology/pack.json \
+  --release /absolute/private/ecology-export/release.graph.json \
+  --custody /absolute/private/ecology-export/custody.json \
+  --release-sha256 SELECTED_RELEASE_SHA256 \
+  --custody-sha256 SELECTED_CUSTODY_SHA256 \
+  --nodes 'abfss://WORKSPACE_UUID@onelake.dfs.fabric.microsoft.com/LAKEHOUSE_UUID/Tables/ecology_r1_nodes' \
+  --edges 'abfss://WORKSPACE_UUID@onelake.dfs.fabric.microsoft.com/LAKEHOUSE_UUID/Tables/ecology_r1_edges' \
+  --output /absolute/private/ecology-fabric-preparation
+```
+
+The fresh output includes `scenario-profile.json`, `queries.json` and the four
+readable graph-definition parts plus REST `definition.json`. Select archaeology
+for its eight original cases, or ecology for its nine. The profile retains every
+original canonical node/edge field, independent edge identity, original object
+keys, lexical fields and presence markers. Named integer predicates use signed64
+columns mapped as `INT64`; they never cast decimal or text values during queries.
+The canonical STRING-only materializer above does not materialize this extended
+profile: the selected notebook must use the generated node property types and
+preserve every column/null, with complete native readback before graph loading.
+
+GQL plans preserve the original property-equality joins and output bags. Optional
+matches retain null/missing-match witnesses, grouped counts use explicit grouping,
+and HAVING uses `NEXT FILTER`. These follow the current
+[Fabric GQL language guide](https://learn.microsoft.com/en-us/fabric/graph/gql-language-guide).
+The command starts no engines or uploads and establishes no live source, loaded
+graph or publication authority. Keep those actual owner checks in the existing
+query provider; preparation does not qualify any of the seventeen native cases.

@@ -1,0 +1,16 @@
+[
+  {
+    "pack": "archaeology",
+    "exit_code": 0,
+    "stdout": "{\"pack\":\"archaeology\",\"cases\":8,\"output\":\"/private/tmp/ashlar-fabric-original17-actual-preparation-20261016/archaeology\",\"files\":[\"dataSources.json\",\"graphDefinition.json\",\"graphType.json\",\"stylingConfiguration.json\",\"definition.json\",\"scenario-profile.json\",\"queries.json\"],\"scope\":\"Private file-use original projection and GQL preparation only; no materialization, Fabric execution or publication authority.\"}\n",
+    "stderr": "",
+    "scope": "Actual archived export local preparation; GUID lakehouse path is an explicit non-native placeholder, no upload."
+  },
+  {
+    "pack": "ecology",
+    "exit_code": 0,
+    "stdout": "{\"pack\":\"ecology\",\"cases\":9,\"output\":\"/private/tmp/ashlar-fabric-original17-actual-preparation-20261016/ecology\",\"files\":[\"dataSources.json\",\"graphDefinition.json\",\"graphType.json\",\"stylingConfiguration.json\",\"definition.json\",\"scenario-profile.json\",\"queries.json\"],\"scope\":\"Private file-use original projection and GQL preparation only; no materialization, Fabric execution or publication authority.\"}\n",
+    "stderr": "",
+    "scope": "Actual archived export local preparation; GUID lakehouse path is an explicit non-native placeholder, no upload."
+  }
+]
