@@ -10,6 +10,8 @@ ROOT='abfss://11111111-1111-1111-1111-111111111111@onelake.dfs.fabric.microsoft.
 class Tests(unittest.TestCase):
  def test_full_canonical_properties_keys_and_endpoints(self):
   docs=make_fabric_graph_definition(ROOT+'release_1_nodes',ROOT+'release_1_edges')
+  self.assertTrue(docs['dataSources.json']['$schema'].endswith('/dataSources/1.0.0/schema.json'))
+  self.assertEqual([s['name']for s in docs['dataSources.json']['dataSources']],['ashlar_nodes','ashlar_edges'])
   graph=docs['graphType.json'];node=graph['nodeTypes'][0];edge=graph['edgeTypes'][0]
   self.assertEqual(node['primaryKeyProperties'],['graph_id'])
   for kind,definition in (('node',node),('edge',edge)):

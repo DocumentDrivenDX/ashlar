@@ -11,7 +11,7 @@ class Tests(unittest.TestCase):
             node=d['graphType.json']['nodeTypes'][0];edge=d['graphType.json']['edgeTypes'][0]
             self.assertEqual(node['primaryKeyProperties'],['graph_id'])
             self.assertEqual([x['name']for x in node['properties']],list(p['nodes'][0]))
-            self.assertEqual(sum(x['type']=='INT64'for x in node['properties']),2 if p['pack']=='archaeology'else 1)
+            self.assertEqual(sum(x['type']=='INT'for x in node['properties']),2 if p['pack']=='archaeology'else 1)
             self.assertEqual([x['name']for x in edge['properties']],list(release_columns('edge')))
             self.assertEqual(d['graphDefinition.json']['edgeTables'][0]['sourceNodeKeyColumns'],['src'])
     def test_collision_or_lossy_numeric_carrier_refuses(self):

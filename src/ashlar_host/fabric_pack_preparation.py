@@ -44,7 +44,9 @@ def scenario_definition(profile,nodes,edges):
     names=[p['name']for p in properties]
     documents=make_fabric_graph_definition(nodes,edges)
     node=documents['graphType.json']['nodeTypes'][0]
-    node['labels']=['Scenario'+profile['pack'].title()+'Node'];node['properties']=properties
+    node['labels']=['Scenario'+profile['pack'].title()+'Node']
+    # Graph Model JSON uses INT; the exact Delta/readback projection remains INT64.
+    node['properties']=[{**p,'type':'INT'if p['type']=='INT64'else p['type']}for p in properties]
     documents['graphDefinition.json']['nodeTables'][0]['propertyMappings']=[{'propertyName':n,'sourceColumn':n}for n in names]
     return documents
 

@@ -484,7 +484,7 @@ readable graph-definition parts plus REST `definition.json`. Select archaeology
 for its eight original cases, or ecology for its nine. The profile retains every
 original canonical node/edge field, independent edge identity, original object
 keys, lexical fields and presence markers. Named integer predicates use signed64
-columns mapped as `INT64`; they never cast decimal or text values during queries.
+columns mapped as Graph Model `INT` (signed 64-bit); they never cast decimal or text values during queries.
 The canonical STRING-only materializer above does not materialize this extended
 profile. Use the typed materializer below, preserving every column/null with
 complete native readback before graph loading.
