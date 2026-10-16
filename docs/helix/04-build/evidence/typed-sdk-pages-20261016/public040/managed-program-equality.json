@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "check": "complete original managed engine-page program and generated stage-one context identical under public040",
+  "nativeEvidence": "sdk-ashlar-managed-pages-r3 original11 actualnativecontrols; not a newmanagednativecampaign",
+  "temporalSdk": "HELD"
+}
