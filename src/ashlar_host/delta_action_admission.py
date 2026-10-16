@@ -20,16 +20,17 @@ class _DeniedAtomic:
     epoch:str
 
 class _Scope:
-    def __init__(self,spark,atomic,actor,executor,allowed,connection,sha,until,subject):
+    def __init__(self,spark,atomic,actor,executor,allowed,connection,sha,until,subject,original_program):
         self.spark,self.atomic,self.authenticated,self.effective,self.allowed=spark,atomic,actor,executor,allowed
         self.connection,self.sha,self.until=connection,sha,until
         self.original_path=str(atomic.path) if hasattr(atomic,"path") else None
         self.subject=subject
+        self.original_program=original_program
         self.attribution_json=canonical_json({'nativeActor':{'sessionUser':actor,'roleOid':subject[2],'principalIdentityHex':subject[0],'subjectKind':subject[1]},'nativeExecutor':{'sparkUser':executor}})
         self.frame=None;self.cached=[];self.view_created=False
     def recheck(self):
         if monotonic()>=self.until:raise TimeoutError('original local Delta admission deadline expired')
-        row=self.connection.execute('SELECT allowed,authenticated,table_uuid,epoch,original_path,native_executor,subject_identity,subject_kind,role_oid FROM ashlar_sdk_actions.admit(%s)',(self.sha,)).fetchone()
+        row=self.connection.execute('SELECT allowed,authenticated,table_uuid,epoch,original_path,native_executor,subject_identity,subject_kind,role_oid FROM ashlar_sdk_actions.admit(%s,%s)',(self.sha,self.original_program)).fetchone()
         if row is None or row[:4]!=(self.allowed,self.authenticated,self.atomic.table_uuid,self.atomic.epoch) or row[5]!=self.effective or self.original_path is not None and row[4]!=self.original_path or row[6:]!=self.subject:
             raise DeltaAdmissionRefused('Original native actor/program/fence context changed')
     def stage(self,frame):
@@ -79,8 +80,8 @@ class LocalDeltaActionAdmission:
             if connection.info.transaction_status!=0:raise DeltaAdmissionRefused('Owned idle native admission connection required')
             connection.execute('BEGIN');connection.execute("SELECT pg_catalog.set_config('statement_timeout',%s,true)",(str(max(1,min(60000,int((deadline-monotonic())*1000)))),))
             if connection.execute('SELECT session_user=current_user').fetchone()!=(True,):raise DeltaAdmissionRefused('Original native session actor required')
-            sha=hashlib.sha256(canonical_json(program).encode()).hexdigest()
-            row=connection.execute('SELECT allowed,authenticated,table_uuid,epoch,original_path,native_executor,nonce,subject_identity,subject_kind,role_oid FROM ashlar_sdk_actions.admit(%s)',(sha,)).fetchone()
+            original_program=canonical_json(program).encode();sha=hashlib.sha256(original_program).hexdigest()
+            row=connection.execute('SELECT allowed,authenticated,table_uuid,epoch,original_path,native_executor,nonce,subject_identity,subject_kind,role_oid FROM ashlar_sdk_actions.admit(%s,%s)',(sha,original_program)).fetchone()
             if row is None:raise DeltaAdmissionRefused('Original native program admission unavailable')
             allowed,actor,identity,epoch,path,executor,nonce,*subject=row
             subject=tuple(subject)
@@ -98,7 +99,7 @@ class LocalDeltaActionAdmission:
                 types={'string':'string','boolean':'boolean','integer':'long'}
                 if len(fields)!=len(bound) or any(f['name']!=c['native'] or f['type']!=types.get(c['carrier']) or f['nullable']!=c['nullable'] or f.get('metadata',{}) for f,c in zip(fields,bound,strict=True)):
                     raise DeltaAdmissionRefused('Original complete native Delta schema differs from source binding')
-            scope=_Scope(self.spark,atomic,actor,executor,allowed,connection,sha,deadline,subject)
+            scope=_Scope(self.spark,atomic,actor,executor,allowed,connection,sha,deadline,subject,original_program)
             if allowed:atomic.preimage.createOrReplaceTempView("__umf_delta_before")
             yield scope
             scope.recheck();connection.rollback()

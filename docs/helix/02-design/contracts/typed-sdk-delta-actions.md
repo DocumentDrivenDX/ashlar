@@ -34,7 +34,10 @@ authority and unsupported selections remain held or refused.
 Privileged enrollment independently recompiles the original program and binds
 its complete bytes to an existing native table UUID, epoch, local path, native
 Spark executor and original source role mappings. An ordinary caller supplies
-only the program digest. It cannot enroll programs or read their private store.
+the program digest for routing and its complete original bytes. The issuer
+requires exact byte equality with the privately enrolled program on admission
+and final recheck; a matching digest alone grants nothing. The caller cannot
+enroll programs or read their private store.
 The issuer associates an eligible native login's actual PostgreSQL role OID with
 an explicit original principal identity and human/service Subject kind. Native
 action role membership does not turn a service Subject into a human.

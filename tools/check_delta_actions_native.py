@@ -8,7 +8,7 @@ from pyspark.sql import SparkSession
 from ashlar_host.typed_actions import DeltaActionExecutor
 from ashlar_host.delta_action_admission import LocalDeltaActionAdmission
 from ashlar_host.delta_atomic import DeltaReconciliationPending
-from umf_access.native_program import NativeProgram
+from umf_access.native_program import NativeProgram,canonical_json
 from umf_access.protocols import Committed,Rejected,Denied,ActionFailed,Conflict,Indeterminate
 parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--jars',type=Path,required=True);args=parser.parse_args();out=args.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(args.generated.absolute()))
@@ -71,6 +71,10 @@ try:
  denied=DeltaActionExecutor(tuple(programs),LocalDeltaActionAdmission(spark,factory('sdk_denied'),weft,maximum_rows=10),default_timeout=timedelta(seconds=60));before=version();result=denied.invoke(Approve,{'order':OrderKey(id='o-1')});assert isinstance(result,Denied)and version()==before;checks.append('independent real native login without source role is denied before Delta transaction')
  service=DeltaActionExecutor(tuple(programs),LocalDeltaActionAdmission(spark,factory('sdk_service'),weft,maximum_rows=10),default_timeout=timedelta(seconds=60));before=version();result=service.invoke(Approve,{'order':OrderKey(id='o-1')});assert isinstance(result,Denied)and version()==before;checks.append('native service Subject remains denied despite native action role membership')
  with factory('sdk_person')()as person:
+  original_bytes=canonical_json(programs[0].checked()).encode()
+  try:person.execute('SELECT * FROM ashlar_sdk_actions.admit(%s,%s)',(hashlib.sha256(original_bytes).hexdigest(),b'{}'))
+  except psycopg.errors.InsufficientPrivilege:checks.append('native digest routing requires complete original program bytes before authority admission')
+  else:raise AssertionError('digest alone admitted a different original program')
   try:person.execute('SELECT * FROM ashlar_sdk_actions.program')
   except psycopg.errors.InsufficientPrivilege:checks.append('ordinary actor cannot read or enroll native original program custody')
   else:raise AssertionError('private original program registry exposed')

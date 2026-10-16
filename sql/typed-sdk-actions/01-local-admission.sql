@@ -22,13 +22,13 @@ CREATE TABLE ashlar_sdk_actions.subject (
  principal_identity bytea NOT NULL UNIQUE CHECK(octet_length(principal_identity) BETWEEN 1 AND 4096),
  subject_kind text NOT NULL CHECK(subject_kind IN ('human','service'))
 );
-CREATE FUNCTION ashlar_sdk_actions.admit(p_sha text) RETURNS TABLE(allowed boolean,authenticated text,table_uuid text,epoch text,original_path text,native_executor text,nonce text,subject_identity text,subject_kind text,role_oid text)
+CREATE FUNCTION ashlar_sdk_actions.admit(p_sha text,p_original bytea) RETURNS TABLE(allowed boolean,authenticated text,table_uuid text,epoch text,original_path text,native_executor text,nonce text,subject_identity text,subject_kind text,role_oid text)
 LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,pg_temp AS $$
 DECLARE original ashlar_sdk_actions.program%ROWTYPE; actual ashlar_sdk_actions.subject%ROWTYPE;
 BEGIN
  LOCK TABLE pg_catalog.pg_authid,pg_catalog.pg_auth_members,pg_catalog.pg_proc,pg_catalog.pg_namespace,pg_catalog.pg_class,pg_catalog.pg_attribute IN SHARE MODE;
  LOCK TABLE ashlar_sdk_actions.subject IN SHARE MODE;
- SELECT * INTO original FROM ashlar_sdk_actions.program p WHERE p.program_sha=p_sha FOR SHARE;
+ SELECT * INTO original FROM ashlar_sdk_actions.program p WHERE p.program_sha=p_sha AND p.original_program=p_original FOR SHARE;
  IF NOT FOUND THEN RAISE EXCEPTION 'Original enrolled SDK action program required' USING ERRCODE='42501';END IF;
  -- Human/service identity classification is a trusted installation duty. The
  -- executing principal here is nevertheless the actual native session user;
@@ -45,8 +45,8 @@ REVOKE ALL ON ALL TABLES IN SCHEMA ashlar_sdk_actions FROM PUBLIC;
 REVOKE ALL ON ALL FUNCTIONS IN SCHEMA ashlar_sdk_actions FROM PUBLIC;
 GRANT USAGE ON SCHEMA ashlar_sdk_actions TO ashlar_sdk_action_registrar,ashlar_sdk_action_caller;
 GRANT SELECT,INSERT ON ashlar_sdk_actions.program,ashlar_sdk_actions.subject TO ashlar_sdk_action_registrar;
-GRANT EXECUTE ON FUNCTION ashlar_sdk_actions.admit(text) TO ashlar_sdk_action_caller;
+GRANT EXECUTE ON FUNCTION ashlar_sdk_actions.admit(text,bytea) TO ashlar_sdk_action_caller;
 RESET ROLE;
 -- Local privileged issuer must hold native role/catalog closure locks.
-ALTER FUNCTION ashlar_sdk_actions.admit(text) OWNER TO CURRENT_USER;
+ALTER FUNCTION ashlar_sdk_actions.admit(text,bytea) OWNER TO CURRENT_USER;
 COMMIT;
