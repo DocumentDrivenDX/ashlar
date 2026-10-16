@@ -527,3 +527,40 @@ The receipt records actual UUIDs, versions, locations and row/column counts.
 It grants no OneLake storage access, graph load or live publication authority.
 Use the matching generated definition only after materialization succeeds; graph
 loading and all seventeen native query/oracle passes remain separate operations.
+
+## Query while holding an actual commerce publication
+
+Use `execute_commerce_fabric_gql` inside your existing ordinary HTTP and
+`OpenedCommerceReader` owners. It acquires the neutral commerce graph-release
+hold, checks the selected Fabric binding against that exact release, and renews
+actual source/ACK/native custody alongside the separately owned loaded graph.
+The source, graph-owner and HTTP contexts remain separate.
+
+```python
+from ashlar_host.commerce_fabric_release import execute_commerce_fabric_gql
+
+result = execute_commerce_fabric_gql(
+    opened, binding, "MATCH (n:AshlarNode) RETURN count(n) AS node_count",
+    transport=http, transport_context=http.context,
+    loaded_graph_policy=loaded_graph_owner,
+    loaded_graph_context=loaded_graph_owner.context,
+    maximum_response_bytes=1048576, maximum_total_bytes=8388608,
+    maximum_rows=1000, maximum_requests=32, deadline_seconds=60)
+```
+
+`opened`, `http`, `binding` and `loaded_graph_owner` are your actual acquired
+owners and selection, not objects this example creates. The graph owner must
+implement the existing `hold(binding, context)` and
+`admit(binding, query, context)` ports, independently admitting that loaded
+release and controlling definition/load/refresh/delete for the entire interval.
+Both admissions must complete with `None` or raise. The helper returns only after
+its graph and full source holds close; release a final report only after the
+caller's outer reader and HTTP owners also close successfully.
+
+The [Fabric query API](https://learn.microsoft.com/en-us/fabric/graph/gql-query-api)
+exposes query text and continuation tokens, without a requested snapshot/version
+lease. Opening/closing definition or row equality cannot establish the absence
+of an intervening refresh. Supply real deployment ownership backed by access
+controls or a supported native snapshot primitive. This helper supplies source
+composition; it does not create that graph owner, permissions or a lock. A
+Python mutex, stored release hash or no-op policy is insufficient.
