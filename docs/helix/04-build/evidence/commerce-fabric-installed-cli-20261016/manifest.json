@@ -1,0 +1,192 @@
+{
+  "build.log.gz": {
+    "sha256": "a60f270fb2d1037bb1f5c304bd5308c33f8586502177b8705afd945e22fa78f1",
+    "gzip_sha256": "f6b3ea5e65787716d46599befef51f4aae11d76d5d6816d8a82de0ad5c6cefab",
+    "bytes": 95306
+  },
+  "install.log.gz": {
+    "sha256": "be6063ea2d6a204592bfbcf1ca3626415f885350abadec4d37bd869a36e199e5",
+    "gzip_sha256": "cd1fc9c557ad6e8d5c38c50a3b1cec89e850f0eccf0ab03571e32e3c794b3bd2",
+    "bytes": 504
+  },
+  "installed.json.gz": {
+    "sha256": "06cdf9f4b8390011848b408a5ff1fb801dca010b315629f290d567c4398a6581",
+    "gzip_sha256": "45e5fae0424954d42f5a72f308ddcd13fc8c2a099b5ab277de84159bbfb19209",
+    "bytes": 111994
+  },
+  "selection.json.gz": {
+    "sha256": "0b161cdac48aab1b35d3364962fa539532b66ec9c04a3dca606c9897fe51f0a2",
+    "gzip_sha256": "76e4739526574b6845033beb7fcb79997d5b0a9c287cb40b308ffb0948b41bcb",
+    "bytes": 951
+  },
+  "prepare.py.gz": {
+    "sha256": "4c63a023f46b594a0c46c47ffa627991d2935368738bc88af41fe602feb59f4e",
+    "gzip_sha256": "e783479096c49125d8dd094f28ba5c1ba3fc26c8f396bb1e7521fde44de4fe01",
+    "bytes": 2161
+  },
+  "run.py.gz": {
+    "sha256": "1fbda44ea089e54fd9d9821075df27e830ba13719d060dbd79c89198d0ae5483",
+    "gzip_sha256": "14cf34e8cf4f545cf9080e0aa948b71f532a7e03e33df9869cb269f40b0cb034",
+    "bytes": 2646
+  },
+  "status.json.gz": {
+    "sha256": "7b2364658192e117c6db139631e703da46bd2babe121566565c41b39eb2c8421",
+    "gzip_sha256": "c6bae4659b7bf63c8dfdb6bdf2f0a5d8b7ee6911acff5436f007258019d51da7",
+    "bytes": 745
+  },
+  "stdout.log.gz": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "bytes": 0
+  },
+  "stderr.log.gz": {
+    "sha256": "7df9b02b97d4973e9c75e0e1f9fe5ca33c867008aec5e3835e010f95370e6466",
+    "gzip_sha256": "401288dbe5ee9f344904f441d04afe4f0a4464b2ef9fb1ee1667d33b7819ebf1",
+    "bytes": 700
+  },
+  "native-before.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "native-after.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "diagnose.py.gz": {
+    "sha256": "4a14051d3f0398d04b8faffd292a6df203de1c5d5e104ce2147a56150e19bf14",
+    "gzip_sha256": "b7f3be2454a6d6acc6bcd6842f1feeba9cbc0b8d6622989273a56ad005bd994f",
+    "bytes": 507
+  },
+  "run-diagnostic.py.gz": {
+    "sha256": "27e31ff3de3691f08e116d0fdb2cf52a6fc7e92f7691e002f73dfef7f5703278",
+    "gzip_sha256": "8bbef2f512adc470c05bc21e83a0ad5dc37e737d64347b66841b6fbf879d2add",
+    "bytes": 1696
+  },
+  "diagnostic-status.json.gz": {
+    "sha256": "91ddc11f9e37d5d29d168b68237cc1393db6c88af2f32b6ff91ba0a77cbac0bf",
+    "gzip_sha256": "e814b3eef5ac4ae84eac2499920c3622857ea7b3d8ab50bf84cda5f37cbf9914",
+    "bytes": 296
+  },
+  "diagnostic-exception.txt.gz": {
+    "sha256": "c599973e46c7d406fccf81e8786b00ea105a677df921beddf62dae2da403689f",
+    "gzip_sha256": "8f4ba0fad3294b1386d7dda6c62b0305d937e785ded4746e43083cf77e3ec3d7",
+    "bytes": 7029
+  },
+  "diagnostic-stdout.log.gz": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gzip_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "bytes": 0
+  },
+  "diagnostic-stderr.log.gz": {
+    "sha256": "e4f726f1f96c9741f5a7a93e3a993f5a59598a38294e91b50cbddbb71ad25343",
+    "gzip_sha256": "87f7a2d16378555a6a759daa9e55aed28af8fce419628435d2976b4f9ef10c01",
+    "bytes": 7682
+  },
+  "diagnostic-native-before.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "diagnostic-native-after.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "source-restarted-state.json.gz": {
+    "sha256": "809e2cfc97ec97c2bb2483ea180d5435652c51479fe71454eeeee07459bdfbc3",
+    "gzip_sha256": "060eacf7ca92a866ef44380a7ff6ae6ef73aff603074dcd1892b7877dc304fff",
+    "bytes": 225
+  },
+  "run-2.py.gz": {
+    "sha256": "75b1f4d91fdb074a691b256124aad64830cc173f4020223310393f61d9745995",
+    "gzip_sha256": "6e555a78132c5ee2f736406329c4a712dfbf09d1799c65ea9621d0e55ae67655",
+    "bytes": 2672
+  },
+  "status-2.json.gz": {
+    "sha256": "6fa588307f2ec842da495963c4bb29d848869d7a26b7a77ba0c49f60cca82661",
+    "gzip_sha256": "c12f9d130285eeb60a000bd104a18bf8823dfcd1902fe7fc4956383eb87c0776",
+    "bytes": 752
+  },
+  "stdout-2.log.gz": {
+    "sha256": "40563501916e66f69385c71abe3d45718a2ca58731ed2db398e48102d74a1f86",
+    "gzip_sha256": "1a14fd6897a92f5d57cc898448584de62039fcae3cd2f265a0f3142aadccc732",
+    "bytes": 451
+  },
+  "stderr-2.log.gz": {
+    "sha256": "43e511331bbe1e85ca7b0708bd7ccb658a3298b3b9281762682e5e17cdfa930e",
+    "gzip_sha256": "2cf6ff99d8b8af0be67b1b64dabc953504a1dbae023fb008c46ce446aaab6ab5",
+    "bytes": 5933
+  },
+  "native-before-2.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "native-after-2.json.gz": {
+    "sha256": "65a0c46be06e546fa0cb59f3bdfd06226ed508065b26b5fbdab6b807521b1c61",
+    "gzip_sha256": "27dafd16cd1f4b83674b8d81598bd2acd942241f8d5719326467909df007b9c8",
+    "bytes": 16458
+  },
+  "report-2.json.gz": {
+    "sha256": "077fd440f8dfb705ffbce26279e8118dfefce5685afc64cd0d00db06e0a4427e",
+    "gzip_sha256": "41d463872cf0b74eaf67405e54b7df7da348cb2521bce7917aca44743f5abf73",
+    "bytes": 99531
+  },
+  "comparison-2.json.gz": {
+    "sha256": "e7ef89790670de95501d92b6c89d11f868debe79c2bff5ad26e366183da131a2",
+    "gzip_sha256": "82ce2cdb0adfe6094955313a4fac4774d646a68f5a311156c72720e86de30a32",
+    "bytes": 293
+  },
+  "runtime-info.json.gz": {
+    "sha256": "12e3a120fda6c2fb14253bde3cc364f6113c94034e477487e1fcf6610f9017bd",
+    "gzip_sha256": "125dc69ee6aa30eb90f33907d6379e053920dc3d43fcf5db68bf784df56ee02e",
+    "bytes": 307
+  },
+  "retain.py.gz": {
+    "sha256": "3323b45ea86a5e016a02951fd6a35de0cc06112fa1a50c57c4db7fd7ea5a0b8e",
+    "gzip_sha256": "4c16107d737cb10e19a58b43a0b3cfa8773474312d98d3a4ccaf61ce11acd829",
+    "bytes": 1757
+  },
+  "nodes-2/_delta_log/00000000000000000000.json.gz": {
+    "sha256": "e38eacfe4430cd74bf047d3faed97f410e9c44b655e648c8ab0e6b3e311473b9",
+    "gzip_sha256": "5eb9f2f4c9e11817cc0c709438ea66b5b60e0f9a73eb77c43d8f616ef7cc4af0",
+    "bytes": 4184
+  },
+  "nodes-2/part-00000-7a9c9509-1594-4812-ab53-b2c25eddee29-c000.snappy.parquet.gz": {
+    "sha256": "3bae7adec4bbb326a26072ca03494f5fe799ff133efee40d8c857ab5d7d4384d",
+    "gzip_sha256": "2d1e9614a0233806d269abfd670fa130b757345ffd6cbe0f43b243a6abf112ff",
+    "bytes": 11356
+  },
+  "edges-2/_delta_log/00000000000000000000.json.gz": {
+    "sha256": "430633d1d3df6c136d1f8a2abfb03bb3ceabae913a75c79d5184c25dda1871d3",
+    "gzip_sha256": "c0eec9b70758d05af7c8d5349fcad65bd31c51cca5e7c196861a5d2ecd90edab",
+    "bytes": 4815
+  },
+  "edges-2/part-00000-e08baa2e-ba24-45b1-ae1b-403604459585-c000.snappy.parquet.gz": {
+    "sha256": "9e4592cda63342eead6665fea04a78d631ad611f3494cc413cde4f03c4c35382",
+    "gzip_sha256": "db92dcefa7f3db2447144407dd6097f0c29283d03c9548da263b5635d67ace7b",
+    "bytes": 13831
+  },
+  "preparation-a-build.log.gz": {
+    "sha256": "d98487f649ba3b56b28bcdd4950660f288a9fc8e2f16455fa0e8938be472579c",
+    "gzip_sha256": "e82fbc8233a54319b35430cb17c6fddf06ae8b8c450ec9015c0d042b3611ecd2",
+    "bytes": 1359
+  },
+  "preparation-a-install.log.gz": {
+    "sha256": "12fc3bd10007ac23877b275da37718e8942aadcd6b9ba23b84471673794c5f4e",
+    "gzip_sha256": "500370cfab1b6a40c305555a9981eaf8beaf482163f352180e5c339e32eb2bd9",
+    "bytes": 455
+  },
+  "preparation-a-installed.json.gz": {
+    "sha256": "c930a37db3a45b6e4c9ce168712098e589e93aef162c9fe925feb32ad89fbf2a",
+    "gzip_sha256": "78a2dde94e28d9c44b7c9ad0133cee5c58fec7008a20000d7e1eec5de5e02309",
+    "bytes": 1851
+  },
+  "prepare-a.py.gz": {
+    "sha256": "361909360882ec98b31d8080f83c3eed45b7baadf5ffbee7db68d3161b4347fe",
+    "gzip_sha256": "a55b97ab43dc3e2300ab09f88a0826c2ec4327c533daca78eab2f63bb9ccae5a",
+    "bytes": 1999
+  }
+}

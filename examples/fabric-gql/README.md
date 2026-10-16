@@ -175,6 +175,12 @@ be fresh; the command creates its file with mode 0600 after all owners close.
 Reports preserve complete metadata up to 1 MiB and refuse overflow without
 truncation. Partial Delta tables remain available on failure.
 
+Keep the configured PostgreSQL source and ACK service available throughout the
+command; a saved publication does not replace their live admission. The
+[installed CLI native proof](../../docs/helix/04-build/evidence/commerce-fabric-installed-cli-20261016/README.md)
+covers the local command against an existing publication and source, including
+complete projection readback and unchanged original Delta files.
+
 Use `materialize_commerce_fabric_delta` to project an existing commerce
 publication while its ordinary source, protected ACK and complete canonical
 Delta vector remain held. Supply the existing reader's explicit connection and
