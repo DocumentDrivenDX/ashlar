@@ -43,4 +43,4 @@ where = ["src"]
 include = ["ashlar", "ashlar.*", "ashlar_host", "ashlar_host.*"]
 
 [tool.setuptools.package-data]
-ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/original-commerce-local/*.json", "resources/*.ts", "resources/sql/*/*.sql", "resources/evolution/*.json", "resources/evolution/*.gz", "resources/evolution/*.ts"]
+ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/original-commerce-local/*.json", "resources/*.ts", "resources/sql/*/*.sql", "resources/native/*.c", "resources/evolution/*.json", "resources/evolution/*.gz", "resources/evolution/*.ts"]

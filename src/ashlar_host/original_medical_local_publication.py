@@ -191,6 +191,23 @@ class _MedicalPreparedBackend(StoredPublisherBackend):
         return super().prepare(stream,request)
 
 
+class _MedicalReconciliationBackend(_MedicalPreparedBackend):
+    """Only the original committing/committed attempt can use the new owner."""
+    def __init__(self,*args,request,**kwargs):
+        super().__init__(*args,**kwargs);self.request=dict(request)
+    def observe(self,stream,batch_id):
+        attempt=super().observe(stream,batch_id)
+        if attempt is None or attempt.phase not in ('committing','committed'):
+            raise PublicationError('Original committing or committed medical attempt required')
+        if attempt.phase=='committed':
+            actual=self.manifest_factory(self.request,self.medical_context).reconcile(
+                dict(attempt.descriptor.raw),context=self.medical_context)
+            if actual!=dict(attempt.descriptor.raw):raise PublicationError('Prospective committed manifest differs')
+        return attempt
+    def recover_commit(self,stream,request,result,context):
+        return self.reconcile_commit(stream,request,result,context)
+
+
 class _SettledBackend(StoredPublisherBackend):
     """Refuse incomplete originals before the shared publisher can recover effects."""
     def observe(self,stream,batch_id):
@@ -234,7 +251,7 @@ def _original_transaction(source,batch,*,context,existing):
     return (source.read_original if existing else source.append_original)(batch,context=context)
 
 
-def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False,inspection=None):
+def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False,inspection=None,prospective=None):
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
         raise ValueError('Exact original medical native phase required')
     if type(replay)is not bool or type(recovery)is not bool or replay and recovery:
@@ -244,6 +261,10 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
         from .medical_process_inspection import MedicalProcessInspection
         if type(inspection)is not MedicalProcessInspection or not recovery or preflight_only:
             raise ValueError('Distinct actual read-only commit inspection required')
+    if prospective is not None:
+        from .medical_prospective_manifest_configuration import OriginalMedicalProspectiveManifestConfig
+        if type(prospective)is not OriginalMedicalProspectiveManifestConfig or inspection is None:
+            raise ValueError('Exact prospective medical reconciliation selection required')
     wanted=OriginalMedicalRecoveryConfig if recovery else OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
     if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
     config.__post_init__()
@@ -294,7 +315,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 with owned_context(driver.writer(STREAM,context)):
                                     if stages is None:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds)
                                     else:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds,stages=stages)
-                            if inspection is not None:
+                            if inspection is not None and prospective is None:
                                 from .medical_commit_inspection import inspect_medical_commit
                                 with owned_context(driver.writer(STREAM,context)):
                                     observed,proposal=inspect_medical_commit(driver,plan,source,context=context,
@@ -308,8 +329,16 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                             else:
                                 target=transport.targets[tables['attempts']]
                                 adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication,stages=stages)
-                                backend_type=_SettledBackend if replay else _MedicalPreparedBackend
-                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request),**({}if replay else {'context':context,'stages':stages}))
+                                backend_type=_MedicalReconciliationBackend if prospective is not None else _SettledBackend if replay else _MedicalPreparedBackend
+                                def manifest_factory(request,context):
+                                    if prospective is None:return ManifestPort(driver,request)
+                                    from .medical_prospective_manifest import MedicalProspectiveManifest
+                                    plan.require_request(request)
+                                    return MedicalProspectiveManifest(driver,plan,source,inspection,context=context,
+                                        bounds=bounds,installation=json.loads(raw),configuration=prospective)
+                                options={}if replay else {'context':context,'stages':stages}
+                                if prospective is not None:options['request']=view['request']
+                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,manifest_factory,**options)
                                 histories=None
                                 if replay:
                                     with owned_context(backend.writer(STREAM,context)):
@@ -328,7 +357,10 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 output.write('publication.json',_bounded(dict(descriptor.raw),bounds.input_bytes-1),bounds.input_bytes)
                                 observed_raw=_bounded(observation,min(config.bounds.total_bytes,4194304)-1)
                                 output.write('observation.json',observed_raw,min(config.bounds.total_bytes,4194304))
-                                answer={'profile':'ashlar-original-medical-local-'+('recovery' if recovery else 'replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
+                                answer={'profile':'ashlar-original-medical-local-'+('prospective-manifest' if prospective is not None else 'recovery' if recovery else 'replay' if replay else 'publication')+'/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'publication':dict(descriptor.raw),'observation':{'path':str(config.output/'observation.json'),'bytes':len(observed_raw),'sha256':hashlib.sha256(observed_raw).hexdigest()},'closing':True}
+                                if prospective is not None:
+                                    answer['profile']='ashlar-original-medical-prospective-manifest/0.1'
+                                    answer['authorization_sha256']=prospective.authorization.sha256
                     except BaseException as error:native_primary=error
                     def closing():
                         with owned_context(transport.bounded_observations(bounds)):
@@ -348,7 +380,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 finish(None,callbacks)
                     finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close]+([]if inspection is None else[inspection.closing]))
             finish(None,[originals,custody.renew if stages is None else lambda:stages.call('runtime-custody',custody.renew),dataset.renew])
-        if inspection is not None:
+        if inspection is not None and prospective is None:
             inspection.renew()
             observed,proposal=inspection_files
             observed['process_observations']=inspection.observations
@@ -390,3 +422,13 @@ def preflight_original_medical_recovery_local(config: OriginalMedicalRecoveryCon
 def operate_original_medical_commit_inspection(config,observer,*,supervision=None):
     """Reuse actual medical ownership and closing without constructing a publisher."""
     return _operate(config,False,supervision,recovery=True,inspection=observer)
+
+
+def reconcile_original_medical_commit_local(config,*,supervision=None):
+    """Explicit new authorization, original attempt ownership and guarded ACK."""
+    from .medical_prospective_manifest_configuration import OriginalMedicalProspectiveManifestConfig
+    from .medical_process_inspection import MedicalProcessInspection
+    if type(config)is not OriginalMedicalProspectiveManifestConfig:raise ValueError('Exact prospective medical configuration required')
+    config.__post_init__();selected=config.inspection_selection()
+    return _operate(selected.recovery,False,supervision,recovery=True,
+        inspection=MedicalProcessInspection(selected),prospective=config)

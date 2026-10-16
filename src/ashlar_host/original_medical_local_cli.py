@@ -21,6 +21,9 @@ MAX_CONFIGURATION=262144
 
 
 def _configuration(raw,operation):
+    if operation=='commit-reconciliation':
+        from .medical_prospective_manifest_configuration import parse_original_medical_prospective_manifest
+        return parse_original_medical_prospective_manifest(raw)
     if operation=='commit-inspection':
         from .medical_commit_inspection_configuration import parse_original_medical_commit_inspection
         return parse_original_medical_commit_inspection(raw)
@@ -46,13 +49,19 @@ def _execute(configuration, *, expected_sha256, phase, operation):
         raise PermissionError('Original selected medical worker configuration differs')
     config=_configuration(file.raw,operation);result=None;primary=None
     inspection_original=None
-    if operation=='commit-inspection':
-        from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+    if operation in ('commit-inspection','commit-reconciliation'):
+        if operation=='commit-inspection':
+            from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+        else:
+            from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
         inspection_original=inspection_selection_bytes(config)
 
     try:
         file.renew(MAX_CONFIGURATION)
-        if operation=='commit-inspection':
+        if operation=='commit-reconciliation':
+            from .original_medical_local_publication import reconcile_original_medical_commit_local
+            entry=reconcile_original_medical_commit_local
+        elif operation=='commit-inspection':
             from .medical_commit_inspection import inspect_original_medical_commit_local
             entry=inspect_original_medical_commit_local
         else:
@@ -68,8 +77,11 @@ def _run(configuration,operation):
     file=InvocationFile.read(configuration,MAX_CONFIGURATION)
     config=_configuration(file.raw,operation);raw=None;primary=None
     inspection_original=None
-    if operation=='commit-inspection':
-        from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+    if operation in ('commit-inspection','commit-reconciliation'):
+        if operation=='commit-inspection':
+            from .medical_commit_inspection_configuration import inspection_selection_bytes,renew_inspection_selection
+        else:
+            from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
         inspection_original=inspection_selection_bytes(config)
 
     try:
@@ -119,6 +131,8 @@ def run_original_medical_recovery_command(configuration):return _run(configurati
 
 def run_original_medical_commit_inspection_command(configuration):return _run(configuration,'commit-inspection')
 
+def run_original_medical_commit_reconciliation_command(configuration):return _run(configuration,'commit-reconciliation')
+
 def run_original_medical_recovery_preflight_command(configuration):return _run(configuration,'recovery-preflight')
 
 
@@ -162,7 +176,7 @@ def _worker_diagnostic_interval():
 def _worker_main():
     import argparse
     parser=argparse.ArgumentParser()
-    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery','recovery-preflight','commit-inspection'],default='initialization')
+    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery','recovery-preflight','commit-inspection','commit-reconciliation'],default='initialization')
     parser.add_argument('--configuration',required=True)
     parser.add_argument('--sha256',required=True)
     parser.add_argument('--native-phase-fd',type=int,required=True)

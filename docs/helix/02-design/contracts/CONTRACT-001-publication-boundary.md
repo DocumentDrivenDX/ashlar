@@ -801,6 +801,53 @@ observation profiles MUST refuse. Closing MAY exclude only the inspector's
 independently owned process lineage. Unrelated processes require an independently
 observed different executable identity; they MUST NOT be stopped.
 
+A process that exits during observation MAY be recorded as terminal only when
+the native image lookup returns ESRCH and an independent zero-signal kernel
+existence check also returns ESRCH. A permission error, ENOENT, missing row alone
+or failed query MUST NOT establish terminality. The closing process inventory
+MUST omit that PID and a repeated zero-signal check MUST still return ESRCH;
+PID reuse MUST refuse. A new same-owner process MUST undergo the complete
+image/mapping or terminal observation and an independent closing inventory
+before observation can succeed; it MUST NOT be silently omitted. Closure may
+repeat only within the original process-count and overall time bounds. This confirms an exited local
+process only. It grants no remote-operation terminality or future-writer fence.
+
+The separately selected visibility profile
+`ashlar-private-local-same-uid-mapped-vnode-visibility/0.1` adds exactly one
+required process field, `mapped_vnode_helper`, with the existing pinned-file
+shape. The strict visibility profile MUST reject that field. The mapped profile
+retains primary executable observation and MAY use the helper only when
+`proc_pidpath` returns ENOENT. Other errors and process races MUST refuse.
+This profile assumes cooperative, unmodified original Java/Python runtimes
+retain file-backed executable mappings. Anonymous mappings remain unknown;
+this profile does not establish primary executable identity for a fallback PID.
+
+The selected helper MUST be an explicitly built, pinned Darwin executable;
+command execution MUST NOT discover or invoke a compiler. It consumes canonical
+unsigned decimal arguments in order: PID, owner UID, maximum regions, remaining
+milliseconds, then one or more device/inode pairs. PID is positive, UID is
+32-bit, region count is 1–4096, remaining time is 1–5000 milliseconds, and
+1–33 selected pairs cover the original Java and all available original Python
+executable identities. Device and inode values are unsigned 64-bit integers.
+It emits one JSON object under the existing aggregate stream budget, with exactly
+`profile`, `pid`, `owner_uid`, `start_seconds`, `start_microseconds`, `regions`,
+`file_backed_regions`, `executable_file_regions`, `no_vnode_regions`,
+`selected_vnode_matches`, `terminal_errno`, `stable_bsd_identity`.
+The profile is `ashlar-darwin-mapped-vnode-observation/0.1`; counts and start
+seconds are nonnegative integers, start microseconds are below 1,000,000,
+`regions` is positive and within the selected bound, and the two file-backed
+subcounts cannot exceed their containing counts. File-backed and no-vnode
+counts MUST sum to regions. Success requires exit zero, matching selected PID
+and UID, native terminal EINVAL (22), stable kernel PID/UID/start identity and
+zero selected vnode matches. The helper PID/UID/start time MUST correspond to
+the same process-inventory row, and its microsecond start identity MUST remain
+unchanged at closing. Complete native structure sizes, monotonic region
+addresses and unchanged process identity before/after enumeration are required.
+Permission errors, disappeared processes, partial structures, bounds, deadline
+and malformed or extra output MUST refuse. The caller independently renews
+helper bytes and selected identities, repeats observations at closing, and
+retains fallback identity and counts with the declared assumptions.
+
 An `exact-existing-commit` observation requires complete native manifest
 correspondence and validation of its actual retained original intent and receipt
 through the existing committed-operation owner. An exact native row with missing
@@ -815,6 +862,68 @@ proposed manifest nor process absence grants a new submission or ACK. Missing
 intent remains a reconciliation case, and ordinary recovery MUST retain its
 original refusal. A prospective reconciled submission requires a separately
 specified authorization boundary.
+
+`reconcile-original-medical-commit --configuration PATH` selects the separate
+`ashlar-original-medical-prospective-manifest/0.1` configuration. Exact members
+are `profile`, `inspection_configuration`, `inspection`, `proposal`,
+`authorization` and `output`. The four file selections use the existing pinned
+`path`/`bytes`/`sha256` shape. `output` is a fresh private absolute output path.
+The pinned inspection configuration remains the single owner of all runtime,
+source, request, installation and observer selections; only the explicitly
+selected fresh output replaces its already-used output for the new operation.
+Parent and worker MUST independently renew the complete wrapper and pins.
+
+The authorization document has exactly `profile`, `authorization_id`,
+`installation_id`, `request_digest`, `applied_artifact_sha256`,
+`proposal_sha256`, `inspection_sha256`, `inspection_configuration_sha256`,
+`manifest_uuid` and `anchor_version`. The profile is
+`ashlar-original-medical-prospective-manifest-authorization/0.1`;
+`authorization_id` and `installation_id` are canonical UUID strings, digest
+fields are lowercase SHA-256 strings, `manifest_uuid` is the selected original
+UUID and `anchor_version` is integer 1 for this private profile. The selected
+authorization expresses permission for this one prospective operation under
+the declared local development authority. An inspection report, boolean,
+matching row or timeout alone MUST NOT authorize it.
+
+The original inspected outcome MUST be `observed-absent-at-anchor`. Before any
+new intent, the operation MUST hold the real installation lease, renew the
+selected process observer, and establish current original source/head, protected
+ACK zero, full applied artifact/phase/effect correspondence and unchanged empty
+manifest identity/schema/history anchor. The original inspection configuration,
+report, applied artifact and proposal MUST match every selected authorization
+digest. Original graph effects MUST NOT be reapplied. A conflicting existing
+ordinary manifest intent, foreign native version or incomplete admission MUST
+refuse. The exact authorization bytes MUST be exclusively retained and fsynced,
+including their parent directory, before any new native submission intent.
+One immutable authorization sidecar per installation/request MUST exclude a
+second authorization for the same uncertain submission; the existing journal
+schema MUST remain unchanged.
+
+SHA-256 of exact authorization bytes identifies the new operation prefix
+`reconciled-manifest:<request_digest>:<authorization_sha256>`. The existing
+SQL/parameter child digest completes its identity. The original manifest SQL
+owner MUST generate the statement from the unchanged proposed row; a separately
+retained prospective intent MUST precede its submission. Existing `recover`
+semantics MUST continue to refuse the missing historical manifest intent.
+An explicit stored-publisher `reconcile_commit` port may transition only the
+original `committing` attempt with its exact retained applied artifact to
+`committed`, after current validation and the prospective owner's exact native
+receipt/manifest checks. It MUST NOT implement a second phase append protocol.
+
+Uncertain replies resume only the same sidecar authorization, new operation
+identity and original retained SQL/parameters. Submitted and committed intents
+MUST NOT pass through fresh preparation. A completed native commit may be
+reconciled through its original new receipt before the existing attempt owner
+records `committed`. Subsequent protected ACK uses the existing original request,
+descriptor, scope and source owner. Post-commit or post-ACK continuation validates
+that exact prospective receipt and original phase/source/ACK custody; it MUST NOT
+require the fresh-only ACK-zero/empty-manifest condition or submit another
+manifest. All opening/body/closing failures preserve their primary failure and
+withhold success output. Cancellation does not establish rollback. Disabling
+this additive command leaves original and prospective custody intact. A successful
+receipt uses the prospective configuration profile, the existing complete medical
+publication observation and `authorization_sha256` identifying its exact selected
+authorization bytes.
 
 The private output retains exclusive `preflight-stage-NNN.json` records before
 and after each checked stage, with at most 128 records and 1024 bytes per record.

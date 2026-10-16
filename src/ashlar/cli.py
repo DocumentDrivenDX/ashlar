@@ -348,7 +348,7 @@ def main():
     for name in ('initialize-original-commerce','publish-original-commerce'):
         local=commands.add_parser(name,help='Explicit original-commerce local initialization or existing publication')
         local.add_argument('--configuration',required=True)
-    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical','inspect-original-medical-commit'):
+    for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical','inspect-original-medical-commit','reconcile-original-medical-commit'):
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
@@ -368,11 +368,11 @@ def main():
         from ashlar_host.publication_current_cli import run_command
         run_command(args)
         return
-    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical','inspect-original-medical-commit'):
+    if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical','inspect-original-medical-commit','reconcile-original-medical-commit'):
         from pathlib import Path
-        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, run_original_medical_recovery_preflight_command, run_original_medical_commit_inspection_command, medical_failure_metadata
+        from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, run_original_medical_recovery_preflight_command, run_original_medical_commit_inspection_command, run_original_medical_commit_reconciliation_command, medical_failure_metadata
         try:
-            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command,'read-original-medical':run_original_medical_read_command,'recover-original-medical':run_original_medical_recovery_command,'preflight-original-medical':run_original_medical_recovery_preflight_command,'inspect-original-medical-commit':run_original_medical_commit_inspection_command}[args.command]
+            entry={'initialize-original-medical':run_original_medical_initialization_command,'publish-original-medical':run_original_medical_publication_command,'replay-original-medical':run_original_medical_replay_command,'read-original-medical':run_original_medical_read_command,'recover-original-medical':run_original_medical_recovery_command,'preflight-original-medical':run_original_medical_recovery_preflight_command,'inspect-original-medical-commit':run_original_medical_commit_inspection_command,'reconcile-original-medical-commit':run_original_medical_commit_reconciliation_command}[args.command]
             answer=entry(Path(args.configuration))
             print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
         except Exception as error:

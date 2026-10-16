@@ -76,6 +76,7 @@ conformance plan owns their installed positive and refusal corpus.
 | `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
 | `medical_commit_inspection_configuration.py` | Closed inspection wrapper and exact retained configuration/executable file pins; depends on medical configuration and file custody, not native execution |
 | `medical_process_inspection.py` | Bounded Darwin process inventory and physical executable observation; depends on the inspection selection and lifecycle owners, never publisher or ACK mutation ports |
+| `medical_mapped_vnodes.py` and packaged `resources/native/medical_mapped_vnodes.c` | Explicit optional Darwin kernel mapping observation through a pinned operator-built helper; bounded process capture and JSON validation, no compiler discovery or data mutation |
 | `medical_commit_inspection.py` | Read-only original phase/artifact/native-manifest observation and exact proposed-manifest correspondence through existing driver/source owners |
 
 Reuse `ashlar.medical_source.build_transaction`, public `ProducerConfig` and
@@ -428,3 +429,43 @@ commerce/evolution profiles and all prior evidence remain unchanged. Disabling
 additive commands affects future setup only; it must not delete retained source
 progress or native state. Unsupported public capability or ambiguous custody
 refuses explicitly and retains originals for investigation.
+
+The optional mapped-vnode visibility profile follows CONTRACT-001. Its native
+helper uses the selected SDK's `proc_regionwithpathinfo` and `proc_bsdinfo`
+structures, rather than guessing ctypes layouts. The Python owner bounds both
+streams and owns termination/reaping. The strict primary-image profile retains
+its behavior. The mapped profile's explicit cooperative assumption excludes
+self-unmapping or modified interpreters; anonymous mappings stay unknown.
+Kernel observation follows Apple's public
+[region-path implementation](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/proc_info.c)
+and [mapped-vnode comparison](https://github.com/apple-oss-distributions/xnu/blob/main/libsyscall/wrappers/libproc/proc_listpidspath.c).
+The high-level path-list wrapper's ignored per-process errors cannot establish
+absence. Unit controls cover matching executables, partial/error observations,
+process reuse, bounds and closing drift; an actual same-user probe plus matching
+Java positive control qualifies only the selected development observer.
+
+Prospective manifest reconciliation follows CONTRACT-001's separate command and
+authorization selection. `medical_prospective_manifest_configuration.py` owns the
+closed wrapper and exact pinned authorization, original inspection and proposal.
+`medical_prospective_manifest.py` owns its immutable authorization sidecar and
+new manifest operation namespace, delegating SQL, intent preparation, native
+mutation and uncertain-response receipt recovery to the existing Delta owners.
+The composition retains the real lease, source, process observer and full
+original medical validation. `StoredPublisherBackend.reconcile_commit` owns the
+same existing committing-to-committed transition through an explicit prospective
+store port; ordinary commit recovery keeps its historical-intent requirement.
+The medical composition then uses the existing guarded original ACK and full
+publication observation. A committed or acknowledged continuation validates the
+same new receipt before existing replay/ACK handling, without repeating fresh
+absence conditions or creating another intent.
+
+MED-F2 and MED-F3 apply to this added authorization guard: exact original effects
+and proposal, durable new intent before SQL, same operation on reply loss, and
+protected ACK only after native receipt plus committed attempt. MED-F4 and MED-L1
+continue to require exact replay and all-path cleanup. Scoped assurance uses
+semantic review of these guards and small execution controls for reachable
+success, lost response, wrong authorization, native/source/process drift and
+cancellation. Phase states and the original ACK protocol remain unchanged;
+this slice adds a separately admitted committing-to-committed owner, with actual
+installed native acceptance required to qualify reconciliation. No abstract
+model or read-only inspection substitutes for that acceptance.

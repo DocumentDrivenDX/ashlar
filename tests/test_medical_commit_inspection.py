@@ -13,7 +13,7 @@ class ProcessTests(unittest.TestCase):
  def rows(self,value):return {pid:(*row,'Mon Oct 19 10:00:00 2026',501)if len(row)==3 else row for pid,row in value.items()}
  def observer(self):
   value=processes.MedicalProcessInspection.__new__(processes.MedicalProcessInspection)
-  value.pid=100;value.parent=50;value.group=10;value.config=SimpleNamespace(process_observer=SimpleNamespace(timeout_seconds=5,owner_uid=501,visibility_profile='ashlar-private-local-same-uid-process-visibility/0.1'));value.java_identity=(1,1);value.python_identities={(2,2)}
+  value.pid=100;value.parent=50;value.group=10;value.config=SimpleNamespace(process_observer=SimpleNamespace(timeout_seconds=5,maximum_processes=4096,owner_uid=501,visibility_profile='ashlar-private-local-same-uid-process-visibility/0.1'));value.java_identity=(1,1);value.python_identities={(2,2)}
   value.configuration_roots=();value.allowed_java=();value.started=False;value.observations=[];value.renew=lambda:None
   return value
  def test_observed_absence_and_exact_inspector_lineage_excludes_distinct_datagrip_binary(self):
@@ -57,7 +57,7 @@ class ProcessTests(unittest.TestCase):
    self.assertEqual(observer.observations,[])
  def test_disappearing_candidate_and_new_java_during_observation_refuse(self):
   observer=self.observer();opening={100:(50,10,'inspector'),400:(1,20,'/foreign/bin/java')}
-  with patch.object(observer,'inventory',side_effect=[self.rows(opening),self.rows({100:opening[100]})]),patch.object(processes,'physical_executable',return_value=('/foreign/bin/java',(9,9))),self.assertRaises(PermissionError):observer.observe(before=True)
+  with patch.object(observer,'inventory',side_effect=[self.rows(opening),self.rows({100:opening[100]})]),patch.object(processes,'physical_executable',return_value=('/foreign/bin/java',(9,9))),patch.object(processes.os,'kill',return_value=None),self.assertRaises(PermissionError):observer.observe(before=True)
 
 class ConfigurationTests(unittest.TestCase):
  def test_closed_wrapper_and_lazy_installed_dispatch(self):

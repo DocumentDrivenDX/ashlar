@@ -186,7 +186,7 @@ class StoredPublisherBackend:
                 raise PublicationError('Durable original manifest preparation incomplete')
         self._session.append(payload['request'], 'committing', result_json=payload['result_json'])
 
-    def _commit(self, stream, request, result, recovery):
+    def _commit(self, stream, request, result, recovery, *, reconciliation=False):
         last, original = self._original(stream, request['batch_id'], request['request_digest'])
         if last.phase != 'committing' or dict(request) != original['request'] or result != original['result_json']:
             raise PublicationError('Original committing custody required')
@@ -195,7 +195,7 @@ class StoredPublisherBackend:
         if self.driver.validate(dict(original['request']), result, descriptor, self._context) is not None:
             raise PublicationError('Current commit admission incomplete')
         store = self.manifest_factory(dict(original['request']), self._context)
-        function = store.recover if recovery else store.commit
+        function = store.reconcile if reconciliation else store.recover if recovery else store.commit
         actual = function(dict(descriptor.raw), context=self._context)
         if not isinstance(actual, dict) or actual != dict(descriptor.raw):
             raise PublicationError('Native commit differs from original proposed manifest')
@@ -207,6 +207,15 @@ class StoredPublisherBackend:
     def recover_commit(self, stream, request, result, context):
         if context is not self._context:raise PublicationError('Original commit context required')
         return self._commit(stream, request, result, True)
+
+    def reconcile_commit(self, stream, request, result, context):
+        """Use an explicitly admitted prospective store, preserving phase ownership.
+
+        The host store owns new authorization/intent and exact native outcome.
+        This port grants no substitute historical recovery or source ACK.
+        """
+        if context is not self._context:raise PublicationError('Original reconciliation context required')
+        return self._commit(stream, request, result, False, reconciliation=True)
 
     def acknowledge(self, stream, request, descriptor, context):
         last, original = self._original(stream, request['batch_id'], request['request_digest'])
