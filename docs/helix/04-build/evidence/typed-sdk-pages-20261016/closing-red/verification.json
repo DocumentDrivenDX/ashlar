@@ -1,0 +1,17 @@
+{
+  "status": "fail",
+  "checks": [
+    "original published native typed read under real PostgreSQL pins",
+    "native parameter binding",
+    "eager verification performs original held native read",
+    "original native page Key check and typed snapshot continuation return a/b/c without gaps",
+    "foreign parameters, wrong Key carrier and actual owner policy-context change refuse continuation",
+    "bounded snapshot stream and early close leave no held pin transaction",
+    "real CLI catalog/check and generated page/stream preserve native publication context",
+    "original immutable publication remains at retained Delta version"
+  ],
+  "ownedPostgresStopped": true,
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "local native Spark4/Delta4 with real PostgreSQL18 pin custody; no managed Databricks or accepted Truss ID claim"
+}

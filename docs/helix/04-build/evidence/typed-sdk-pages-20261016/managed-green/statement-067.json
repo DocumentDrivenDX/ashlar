@@ -1,0 +1,58 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT * FROM `client_dev`.`umf_typed_sdk_083b35ac439a`.`object_current` VERSION AS OF 2 LIMIT 0",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a1-16a9-1dab-a0af-1bd72ee1b842",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 5,
+        "columns": [
+          {
+            "name": "source_system",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 0
+          },
+          {
+            "name": "type_id",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 1
+          },
+          {
+            "name": "id",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 2
+          },
+          {
+            "name": "schema_revision",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 3
+          },
+          {
+            "name": "props_json",
+            "type_text": "STRING",
+            "type_name": "STRING",
+            "position": 4
+          }
+        ]
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {}
+  },
+  "readerPrincipal": "3712916c-f573-403a-bd5d-3367c719ba95"
+}

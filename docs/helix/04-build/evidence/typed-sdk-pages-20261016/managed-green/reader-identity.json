@@ -1,0 +1,17 @@
+{
+  "workspacePrincipal": {
+    "active": true,
+    "applicationId": "3712916c-f573-403a-bd5d-3367c719ba95",
+    "displayName": "umf-typed-sdk-qualification-20261016-reader",
+    "entitlements": [
+      {
+        "value": "databricks-sql-access"
+      }
+    ],
+    "id": "144264917564518",
+    "schemas": [
+      "urn:ietf:params:scim:schemas:core:2.0:ServicePrincipal"
+    ]
+  },
+  "originalNativeActor": "3712916c-f573-403a-bd5d-3367c719ba95"
+}

@@ -1,0 +1,57 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "UPDATE client_dev.umf_typed_sdk_083b35ac439a.object_current SET props_json=:props WHERE id=1",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "props",
+        "type": "STRING",
+        "value": "{\"1\":\"a\",\"2\":\"changed\"}"
+      }
+    ]
+  },
+  "response": {
+    "statement_id": "01f1c9a1-5c18-112e-a487-5d3f509b55bd",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 1,
+        "columns": [
+          {
+            "name": "num_affected_rows",
+            "type_text": "BIGINT",
+            "type_name": "LONG",
+            "position": 0
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1
+        }
+      ],
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "row_offset": 0,
+      "row_count": 1,
+      "data_array": [
+        [
+          "1"
+        ]
+      ]
+    }
+  },
+  "readerPrincipal": null
+}

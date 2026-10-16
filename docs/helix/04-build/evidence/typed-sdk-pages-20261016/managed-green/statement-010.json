@@ -1,0 +1,26 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "CREATE TABLE client_dev.umf_typed_sdk_083b35ac439a.manifest (publication_id STRING,profile_version STRING,table_versions_json STRING,source_progress_json STRING,schema_revisions_json STRING,validation_report_json STRING,recorded_at TIMESTAMP) USING DELTA",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a0-f389-15e7-bb06-7ebe7370ad3e",
+    "status": {
+      "state": "SUCCEEDED"
+    },
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {}
+  },
+  "readerPrincipal": null
+}

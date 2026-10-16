@@ -1,0 +1,21 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "UPDATE client_dev.umf_typed_sdk_a3db616ab086.object_current SET props_json=props_json WHERE id=1",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "statement_id": "01f1c9a0-b3da-1185-bdc9-c3849977152e",
+    "status": {
+      "state": "FAILED",
+      "error": {
+        "error_code": "BAD_REQUEST",
+        "message": "PERMISSION_DENIED: User does not have UPDATE on Table 'client_dev.umf_typed_sdk_a3db616ab086.object_current'."
+      },
+      "sql_state": "42501"
+    }
+  },
+  "readerPrincipal": "64d3b080-2abd-4ddf-b3eb-13f4a0dcab5b"
+}

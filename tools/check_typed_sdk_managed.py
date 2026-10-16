@@ -15,6 +15,7 @@ from ashlar.pins import PinVector,PostgresPins
 from ashlar.publication import ResolutionError
 from ashlar_host.postgres import Session
 from umf_access.engine_catalog import EngineRead
+from umf_access.pages import StaleContinuation
 from umf_access.types import StrictModel
 from databricks_transport import sql_result
 from weft_native_profile import ENGINE_SQL,ANSI_SQL
@@ -83,6 +84,7 @@ try:
  sql('CREATE SCHEMA '+schema);table=schema+'.object_current';manifest_table=schema+'.manifest'
  sql('CREATE TABLE '+table+' (source_system STRING,type_id BIGINT,id BIGINT,schema_revision STRING,props_json STRING) USING DELTA')
  sql('INSERT INTO '+table+' VALUES (:source,17,1,:revision,:props)',{'source':'typed-sdk-development','revision':source_sha,'props':'{"1":"a","2":"draft"}'})
+ sql('INSERT INTO '+table+' VALUES (:source,17,2,:revision,:props)',{'source':'typed-sdk-development','revision':source_sha,'props':'{"1":"b","2":"draft"}'})
  detail=dict(sql('DESCRIBE DETAIL '+table).rows[0]);version=int(sql('DESCRIBE HISTORY '+table+' LIMIT 1').rows[0]['version'])
  publication_id=str(uuid.uuid4());row={'publication_id':publication_id,'profile_version':'ashlar-delta/0.3','table_versions_json':json.dumps({table:version}),'source_progress_json':'{"typed-sdk-development":{"offset":"1"}}','schema_revisions_json':json.dumps({'typed-sdk-development':source_sha}),'validation_report_json':json.dumps({'complete':True,'sourceSha256':source_sha,'scope':'explicit development carrier mapping; not accepted Truss identities'})}
  sql('CREATE TABLE '+manifest_table+' (publication_id STRING,profile_version STRING,table_versions_json STRING,source_progress_json STRING,schema_revisions_json STRING,validation_report_json STRING,recorded_at TIMESTAMP) USING DELTA')
@@ -101,7 +103,7 @@ try:
   assert denied_write['status']['state']=='FAILED'and 'PERMISSION'in json.dumps(denied_write['status']).upper()
   checks.append('native authenticated reader is independent and SELECT grant does not allow UPDATE')
  custody=hashlib.sha256(json.dumps(raw_descriptor,sort_keys=True,separators=(',',':')).encode()).hexdigest();vector=PinVector('typed-sdk-owned-managed-development','manifest',publication_id,custody,{table:(detail['id'],version)})
- context=object();active={'pins':False,'deny':False}
+ context=object();active={'pins':False,'deny':False,'policyRevision':1}
  class PinExecutor:
   @contextmanager
   def transaction(self,supplied):
@@ -120,6 +122,12 @@ try:
   @contextmanager
   def hold(self,original,*,context):
    with pins.hold(original,context=context):
+    active['pins']=True
+    try:yield original
+    finally:active['pins']=False
+  @contextmanager
+  def hold_page(self,original,*,context):
+   with pins.hold_page(original,context=context):
     active['pins']=True
     try:yield original
     finally:active['pins']=False
@@ -145,6 +153,18 @@ try:
    if json.loads(sql(ENGINE_SQL,reader=True).rows[0]['__weft_warehouse'])!=engine or list(sql(ANSI_SQL,reader=True).rows)!=[{'key':'ANSI_MODE','value':'true'}]:raise ResolutionError('original exact managed profile drift')
   def authorize_query(self,current,descriptor,supplied):NativePolicy().authorize(supplied,publication_id,(table,))
   def admit_record_integrity(self,check,artifact,supplied):assert check['record']==logical('order')and supplied is context
+  def admit_page_integrity(self,guard,artifact,supplied):
+   assert active['pins'] and supplied is context and guard['key']==artifact['logicalPlan']['pageKey']
+   record=next(e for e in document['modules'][0]['elements']if e['id']=='order')
+   primary=[key for key in record['keys']if key.get('primary')is True]
+   assert len(primary)==1 and guard['key']['id']==primary[0]['id']
+   assert guard['key']['fields']==[logical(ref['element'])for ref in primary[0]['fields']]
+   assert guard['key']['types']==[{'family':'string','facets':{},'nullable':False}for _ in primary[0]['fields']]
+  def page_context(self,descriptor,original,supplied):
+   self.bind_descriptor(descriptor,original,supplied)
+   actor=sql('SELECT current_user() AS actor',reader=True).rows[0]['actor']
+   assert actor==args.reader_app_id
+   return json.dumps({'publication':original.scope_id,'custody':original.custody_digest,'nativeActor':actor,'policyRevision':active['policyRevision']},sort_keys=True,separators=(',',':')).encode()
   def decode_result(self,column,value,current,supplied):
    assert active['pins']and supplied is context
    if column['representation']['kind']=='scalar'and type(value)is str:return value
@@ -159,7 +179,7 @@ try:
   try:yield
   finally:operation_deadline['until']=None
  target=AshlarTarget(compiler=weft,compiler_method='ashlar-dbsql-20261016',executor=executor,backend=backend,pins=HeldPins(),vector=vector,policy=ReadPolicy(),context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={'typed-sdk-development':[source_sha]},binding_sha256=binding_sha,platform=(('dbsql','2026.39'),),default_timeout=timedelta(seconds=120),deadline=deadline,catalog_entries=(entry,))
- assert target.read(entry,Parameters(status='draft'))==[Order(id='a',status='draft')];checks.append('actual UC UUID/version publication and native PostgreSQL held pins release generated typed rows')
+ assert sorted(target.read(entry,Parameters(status='draft')),key=lambda row:row.id)==[Order(id='a',status='draft'),Order(id='b',status='draft')];checks.append('actual UC UUID/version publication and native PostgreSQL held pins release generated typed rows')
  (args.generated/'managed_declarations.py').write_text('from umf_access import query,Param\nfrom native_sales.models import Order\n@query\ndef selected(status:Param[str]):return Order.objects.filter(Order.c.status==status).limit(10).all()\n')
  config={'package':'native_sales','modules':['managed_declarations'],'targets':[{'id':'owned','kind':'ashlar','backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','targetProfile':'dbsql2026.39-build-20261016-candidate','binding':json.loads(args.model_request.read_bytes())['binding'],'engineCompiler':'ashlar-dbsql-20261016','engineRequests':{'selected:0':request},'platform':[{'name':'dbsql','versions':['2026.39']}]}]}
  (args.generated/'managed-config.json').write_text(json.dumps(config))
@@ -167,10 +187,26 @@ try:
   process=subprocess.run([sys.executable,'-B','-m','umf_access.build.catalog','catalog','--root',str(args.generated),'--config',str(args.generated/'managed-config.json'),*extra],capture_output=True,text=True)
   assert process.returncode==0,process.stdout+process.stderr
  from native_sales import queries
- assert queries.selected(target,status='draft')==[Order(id='a',status='draft')];checks.append('real CLI catalog/check emits generated query executing original managed engine program')
+ assert sorted(queries.selected(target,status='draft'),key=lambda row:row.id)==[Order(id='a',status='draft'),Order(id='b',status='draft')];checks.append('real CLI catalog/check emits generated query executing original managed engine program')
  assert target.read(entry,Parameters(status="draft' OR true--"))==[];checks.append('actual native named parameter binding')
+ page_request=json.loads(json.dumps(request));page_request['interfaceVersion']='weft-compile/0.2.2';page_request['target']['backendVersion']='0.1.0-managed-20261016-pages-candidate'
+ page_request['sql']='SELECT "r"."id" AS "id", "r"."status" AS "status" FROM "sales"."order" AS "r" WHERE "r"."status" = :status'
+ page_entry=EngineRead.build(weft,page_request,parameters=Parameters,result=Order,method='ashlar-dbsql-20261016-pages',page_size=1)
+ page_target=AshlarTarget(compiler=weft,compiler_method='ashlar-dbsql-20261016-pages',executor=executor,backend=backend,pins=HeldPins(),vector=vector,policy=ReadPolicy(),context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={'typed-sdk-development':[source_sha]},binding_sha256=binding_sha,platform=target.platform,default_timeout=timedelta(seconds=120),deadline=deadline,catalog_entries=(page_entry,))
+ (out/'original-engine-page-request.json').write_text(json.dumps(page_request));(out/'engine-page-catalog.json').write_text(page_entry.artifact_json)
+ first=page_target.page(page_entry,Parameters(status='draft'));assert [r.id for r in first.items]==['a']and first.next_after is not None
+ second=page_target.page(page_entry,Parameters(status='draft'),after=first.next_after);assert [r.id for r in second.items]==['b']and second.next_after is None
+ checks.append('actual independent UC reader executes original Key-integrity page and native continuation')
+ assert [r.id for r in page_target.stream(page_entry,Parameters(status='draft'),max_rows=2)]==['a','b']and not active['pins']
+ checks.append('actual immutable managed publication stream releases each original native pin interval')
+ active['policyRevision']=2
+ try:page_target.page(page_entry,Parameters(status='draft'),after=first.next_after)
+ except StaleContinuation:checks.append('changed owner policy context refuses managed continuation')
+ else:raise AssertionError('changed original owner context accepted')
+ active['policyRevision']=1
+
  sql('UPDATE '+table+' SET props_json=:props WHERE id=1',{'props':'{"1":"a","2":"changed"}'})
- assert target.read(entry,Parameters(status='draft'))==[Order(id='a',status='draft')];checks.append('actual independent managed mutation preserves original immutable publication read')
+ assert sorted(target.read(entry,Parameters(status='draft')),key=lambda row:row.id)==[Order(id='a',status='draft'),Order(id='b',status='draft')];checks.append('actual independent managed mutation preserves original immutable publication read')
  if credential is not None:
   sql('REVOKE SELECT ON TABLE '+table+' FROM `'+args.reader_app_id+'`')
   try:target.read(entry,Parameters(status='draft'))
