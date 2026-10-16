@@ -233,7 +233,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
     context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None
     try:
         output.acquire()
-        if preflight_only:
+        if recovery:
             from .medical_preflight_timing import MedicalPreflightTiming
             stages=MedicalPreflightTiming(output.write)
         installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
@@ -287,9 +287,12 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                     with owned_context(backend.writer(STREAM,context)):
                                         descriptor=backend.observe_committed_original(STREAM,view['request'],context=context)
                                         histories={target.table:transport.original_history(target) for target in selection.targets}
-                                descriptor=publish_outbox_transaction(backend,STREAM,transaction,predecessor=view['request']['predecessor'],schema_revisions_json=view['request']['schema_revisions_json'],context=context)
+                                def publish():
+                                    return publish_outbox_transaction(backend,STREAM,transaction,predecessor=view['request']['predecessor'],schema_revisions_json=view['request']['schema_revisions_json'],context=context)
+                                descriptor=publish()if stages is None else stages.call('publication-apply',publish)
                                 with owned_context(driver.writer(STREAM,context)):
-                                    observation=driver.observe_original_medical_publication(plan,descriptor,context=context,bounds=bounds)
+                                    def observe():return driver.observe_original_medical_publication(plan,descriptor,context=context,bounds=bounds)
+                                    observation=observe()if stages is None else stages.call('publication-observation',observe)
                                     if histories is not None:
                                         def history(target):
                                             if transport.original_history(target)!=histories[target.table]:raise PermissionError('Settled medical native history changed')
@@ -317,7 +320,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 finish(None,callbacks)
                     finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close])
             finish(None,[originals,custody.renew if stages is None else lambda:stages.call('runtime-custody',custody.renew),dataset.renew])
-        if preflight_only:answer['stage_records']=stages.records
+        if recovery:answer['stage_records']=stages.records
         output.write('receipt.json',_bounded(answer,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
     except BaseException as error:primary=error
     finish(primary,[output.renew,output.close])
