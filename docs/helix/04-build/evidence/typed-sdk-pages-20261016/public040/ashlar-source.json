@@ -1,0 +1,6 @@
+{
+  "repository": "DocumentDrivenDX/ashlar",
+  "commit": "bf29f1918e3258b1ce0628ad9459003797be00f6",
+  "extraction": "exact tracked src+pyproject; no prior build products",
+  "temporalSdk": "HELD"
+}

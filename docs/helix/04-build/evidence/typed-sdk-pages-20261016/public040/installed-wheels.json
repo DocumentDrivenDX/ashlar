@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "wheels": [
+    {
+      "wheel": "/private/tmp/sdk-ashlar-public040-current-wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "db9f30264f28a0e9607abf801bcd0af3f7cdea7b62a9c8a83ac26bb458c11601",
+      "verifiedFiles": 410
+    },
+    {
+      "wheel": "/private/tmp/sdk-weft-published040/weft_sql-0.4.40-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "24d5514c779bd43fceafb6f89268f4fb4dc6a28b1332370fcaefd9f4c20b63cc",
+      "verifiedFiles": 2
+    },
+    {
+      "wheel": "/private/tmp/sdk-ashlar-pages-final-umf-wheels/umf_access-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "4d9fe2646da111e52e0f0e1a2142e1c3d83fdb7471ff62d1fd636ef6c47baced",
+      "verifiedFiles": 33
+    }
+  ],
+  "temporalSdk": "HELD"
+}
