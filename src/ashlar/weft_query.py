@@ -95,9 +95,9 @@ def _preserve_body_failure(manager):
     """Original refusal survives suppression or a separate closing failure."""
     original = None
     try:
-        with manager:
+        with manager as value:
             try:
-                yield
+                yield value
             except BaseException as error:
                 original = error
                 raise
@@ -116,8 +116,8 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     Returned rows remain buffered through final context closure.
     """
     request=copy.deepcopy(request);artifact=copy.deepcopy(artifact)
-    if artifact.get('status')!='compiled' or artifact.get('backend')!={'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}:
-        raise ResolutionError('Explicit qualified Weft artifact required')
+    if artifact.get('status')!='compiled' or artifact.get('backend') not in ({'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}):
+        raise ResolutionError('Explicit selected native Weft artifact required')
     obligations={}
     for item in artifact.get('obligations',[]):
         if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in OBLIGATIONS or item['id'] in obligations or item['owner']!='host':

@@ -1,0 +1,18 @@
+{
+  "sha256": {
+    "src/ashlar/access.py": "f2c5f8d1c17c0f25456d3c86217fe6fd36b3cdb313bc4e011a5d73ac101d8036",
+    "src/ashlar/access_actions.py": "663a2e1804a574992b8c7f536550ce307672f23822af59ba8dd9a6168d2d9d3b",
+    "src/ashlar/access_bulk.py": "80f451426b705a5ec16b235fab8360ed2c338fbbc69f68bf808af0fcaad7c77c",
+    "src/ashlar/weft_query.py": "f7bee91414bed957d0d75f20bec2a8bb31576d95d6df694806847275fecee585",
+    "src/ashlar_host/delta_atomic.py": "cfccf629409f6aac4f47c6937a408e20600995c1769b3712bc0ebc50c9fcfa96",
+    "src/ashlar_host/delta_action_admission.py": "331ae36add263254267bb863a9498e4f45822648298e6b89e446d979347a835e",
+    "sql/typed-sdk-actions/01-local-admission.sql": "8ffcd38999be4c6d202a292ad373237a9d756816a829be4186e57277f400c189",
+    "tools/check_delta_actions_native.py": "b6cb24f5672c3665cd32ab0106be77ff186ac8bda8de49bce30b42dbf0136f94",
+    "tools/check_delta_atomic_native.py": "70188d6c9e51e61bfb4bf7c45013f591397db9ae8436772907d79808f5782b2c",
+    "tools/check_typed_sdk_native.py": "e642054b575d9b65e703a8e67c6d4c820d907f9fd122504d26364fd20bbb064f",
+    "tools/check_typed_sdk_warehouse_profile.py": "7ba79adf21e52d2a27583d61dc14f302dfd0b33471ea351114996951fbec6e98"
+  },
+  "temporal": "HELD",
+  "managedStatus": "exact warehouse build drift refused; dedicated compute stop requested",
+  "scope": "local native candidates; read report predates Subject additions to action admission; no Truss protected or managed action qualification"
+}
