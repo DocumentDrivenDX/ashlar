@@ -1,0 +1,275 @@
+[
+  {
+    "file": "publish.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/publish.json",
+    "bytes": 5967,
+    "sha256": "90c8549ea8b7fe1b3560848606cacc0c833273b614096513fbc156b013256a7c",
+    "compressed_sha256": "0faf0099570c96f9bb334bd11de35e17440d6ea907cbbc1e64de5695626e97b1"
+  },
+  {
+    "file": "publish-attempt.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/publish-attempt.json",
+    "bytes": 363,
+    "sha256": "457bd455f84e9104e4e1e0b659805ac34e9dee246b0bab99cdaade087c9c7d6b",
+    "compressed_sha256": "3b16408df7067471ff9aba028be2001e720711ad4a0a9e129de4460464229781"
+  },
+  {
+    "file": "publish.stderr.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/publish.stderr",
+    "bytes": 107,
+    "sha256": "39fd7d158e07e942f2325d9aac89de1eb1d70587ad67f93077fbf9167c7e07f8",
+    "compressed_sha256": "564c2ed0c49007077b9979bccd318d6c8b0b3286c0450dcc8e4a0ba56873d297"
+  },
+  {
+    "file": "preflight-fresh.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh.json",
+    "bytes": 6194,
+    "sha256": "ba7f8676e735c2cb81e90a6af22312d0025346b17eca25b976a72d954b69a604",
+    "compressed_sha256": "2bb3aa0b417fae08c8d983195cce2907c2b41fbb754129e150ac764062f99ab6"
+  },
+  {
+    "file": "preflight-fresh-attempt.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-attempt.json",
+    "bytes": 374,
+    "sha256": "5d05ceca09d89d324424d39fd3bb9ae45ce13191a858178bf5bbaade6b5a711c",
+    "compressed_sha256": "fc6ef390d493448d3a3b8ee174154f0b816374c19801b80feffe44b82b6fa307"
+  },
+  {
+    "file": "preflight-fresh.stderr.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh.stderr",
+    "bytes": 107,
+    "sha256": "39fd7d158e07e942f2325d9aac89de1eb1d70587ad67f93077fbf9167c7e07f8",
+    "compressed_sha256": "564c2ed0c49007077b9979bccd318d6c8b0b3286c0450dcc8e4a0ba56873d297"
+  },
+  {
+    "file": "run-publish.py.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/run-publish.py",
+    "bytes": 930,
+    "sha256": "6fd8d60f7157dde14e1ca499d3118b612dd9607ef9e5b0a08524b2b963dd2e9b",
+    "compressed_sha256": "259d7b5353a078b39d5df20f9bac89df56c5a12c89daf3cde519ee5c47300388"
+  },
+  {
+    "file": "run-preflight-fresh.py.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/run-preflight-fresh.py",
+    "bytes": 964,
+    "sha256": "0e9de4bfc6d2c77f75c2a6fb069f24a5446fb275cc30ce96c64245d07285dcf5",
+    "compressed_sha256": "62f9c5e9c3093aed0a4a7162fc36275858cca4184afb85bb78ccc6c39161eea0"
+  },
+  {
+    "file": "preflight-stage-000.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-000.json",
+    "bytes": 104,
+    "sha256": "b1cd0ce4e2c25ceef9894db3f9ae9e8c248aaf25b1af808f633b68e386fc8564",
+    "compressed_sha256": "fa56283d22def330a94a30ca6caa3b0ddcad73796d13da59e46ba93032b05112"
+  },
+  {
+    "file": "preflight-stage-001.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-001.json",
+    "bytes": 148,
+    "sha256": "021f5d02df8f3890eed5ebeb8a40c14c8388572d1445583aa9601b4ff810328d",
+    "compressed_sha256": "e7b21cfdff9b9e1c1acb1937c11837952b872db184f35e3227c452b267e225bd"
+  },
+  {
+    "file": "preflight-stage-002.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-002.json",
+    "bytes": 105,
+    "sha256": "896fb11a541c78f683f0bda4c46725a746fb8a20d122422810f3b3f8e6082090",
+    "compressed_sha256": "206ebadd68adae1ed6311491cab88e68e00973544d4d1ea20d37f2fbae6abda4"
+  },
+  {
+    "file": "preflight-stage-003.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-003.json",
+    "bytes": 150,
+    "sha256": "c6ad0899879f10c7ee3ca4890b3dd0db783219cb049c43ef4bcfffb9d1128b3f",
+    "compressed_sha256": "c512bae71952b2f31af16a63341ee4cd1dacfae9864607d0de932a521720641a"
+  },
+  {
+    "file": "preflight-stage-004.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-004.json",
+    "bytes": 100,
+    "sha256": "7d7b56d4e0b7fd8f97f5b7f77d2e93de083dcf3c675c5d1b1482d99d24031c79",
+    "compressed_sha256": "3063fbc390293069e137d359e73b0d63418dd91e475985fea349d21d76aefa1d"
+  },
+  {
+    "file": "preflight-stage-005.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-005.json",
+    "bytes": 143,
+    "sha256": "740c759ff52bcc331bf6b525e9e6c1c4049c3ab0590a681d4ff9cc123a3c5ee0",
+    "compressed_sha256": "dca1f637685bcbf6207cb6899c25e956893a328d383ab2f80da7cf2b94a259a2"
+  },
+  {
+    "file": "preflight-stage-006.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-006.json",
+    "bytes": 100,
+    "sha256": "63c19813761ecb20871d90dbc3024a8af04e54f2fddca1a5ef1a4e0cb543fd51",
+    "compressed_sha256": "2c5f11683d9b17dcc4de1757adce44068881cf401b9965d2c563a2853c0f374b"
+  },
+  {
+    "file": "preflight-stage-007.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-007.json",
+    "bytes": 143,
+    "sha256": "d2ae14a341b2e4e418050187d40c0c228afd084980fe3c6c9a2aa96e855a72cf",
+    "compressed_sha256": "b23ba3b090d04843082cc9f1ba807953b8c93613f7b62a8b066add94f195ba43"
+  },
+  {
+    "file": "preflight-stage-008.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-008.json",
+    "bytes": 102,
+    "sha256": "9ef9e95ec3a5ef19958dd6b1b8494e7efce2b4a73a9a59d90cf553dd23e82039",
+    "compressed_sha256": "5cf31583ae2915ef412af7420e2b04da80d5936fa733b76a4ae0b4d6b5c657af"
+  },
+  {
+    "file": "preflight-stage-009.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-009.json",
+    "bytes": 145,
+    "sha256": "45c4e6f5bf60a399ea572db134ac0405e70e2bb0083e963fc5e308eea1224d19",
+    "compressed_sha256": "117af8b916bcf4900c3d2232695929380686ddd31329f455a7717592f3b5aa02"
+  },
+  {
+    "file": "preflight-stage-010.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-010.json",
+    "bytes": 119,
+    "sha256": "2703e8dcade0aadc77e246cf1be55a58c38111b2032e8f2fd50fa2eea041441e",
+    "compressed_sha256": "8e7712823805a02f5e5362ac3e5247b2c837ac2d8a4aef0f280c733ea1b64f0c"
+  },
+  {
+    "file": "preflight-stage-011.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-011.json",
+    "bytes": 163,
+    "sha256": "900b79d396fe0451178641acca423520422c93b26af3eccc7fe300d6a4a22084",
+    "compressed_sha256": "c5f7fc4e23791db817842b7250a7f3f0ac06f8a097ca8f665adad7dd1ece8981"
+  },
+  {
+    "file": "preflight-stage-012.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-012.json",
+    "bytes": 119,
+    "sha256": "889c012d71d248ea5db708553d4f86f928fca56f54411aebd5e89c34713a5cd6",
+    "compressed_sha256": "5f4203eac0525359ef191eb6cd600f8bf80a891f3ed6a9047953d5077820ccab"
+  },
+  {
+    "file": "preflight-stage-013.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-013.json",
+    "bytes": 163,
+    "sha256": "c99cb20954e188411d88c84fc1faafd73a58488f9480fd5759e024da13ad9a75",
+    "compressed_sha256": "6834f6529c6d9a4979552df50917218e2711a778c520b50a3d0535ec449d936f"
+  },
+  {
+    "file": "preflight-stage-014.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-014.json",
+    "bytes": 119,
+    "sha256": "ffb1ed30d68e88d530c474980293eaea0c39c5d60443b0d4014e174b30bf4fbc",
+    "compressed_sha256": "54ca8a07ced5e9dd9731c8f35f796c2d869b0fddd1710317a6c9e2b71aa68afb"
+  },
+  {
+    "file": "preflight-stage-015.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-015.json",
+    "bytes": 164,
+    "sha256": "c5fb1a0d431d4720f2369154cd85a9b1c8c2a168c4d381041a532b097f3acd49",
+    "compressed_sha256": "b8297243a2e11a7cbe56dff85b25dd23e1b571fd96500b73155eba6643401f26"
+  },
+  {
+    "file": "preflight-stage-016.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-016.json",
+    "bytes": 127,
+    "sha256": "c394709a83112d043bb4298f3a64764ced7cd77e301a37141d1fe1859eb8b90b",
+    "compressed_sha256": "040bb1f7a5b4ee14bda2665666b53634d4373c79da09f9d2534c10887054e2a0"
+  },
+  {
+    "file": "preflight-stage-017.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-017.json",
+    "bytes": 172,
+    "sha256": "d22a3a1a63f0095cad7c30d1b8bec385d4d04e4df75d6d49b0d7057505cd3de8",
+    "compressed_sha256": "bd59408e5a46d6b553f47a13160d497afbf9967fda05555b55c5e827bd08ba9b"
+  },
+  {
+    "file": "preflight-stage-018.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-018.json",
+    "bytes": 125,
+    "sha256": "8414000eee07f33ba635e0b457a791eba3ecd95407e9aaa350b4b56a959d96f6",
+    "compressed_sha256": "2b18e26e9f9d24e9d661c03f878ffa90d0c690094138789387856e1f69291e8b"
+  },
+  {
+    "file": "preflight-stage-019.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-019.json",
+    "bytes": 170,
+    "sha256": "83c97df04c7185221ea5af789dfbc30a6bb764266bf61a6056cf2794c650df37",
+    "compressed_sha256": "4d147bdd39a60c62e6615916f529efd8fb13864bbc4b2549497b34dbb15d7acb"
+  },
+  {
+    "file": "preflight-stage-020.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-020.json",
+    "bytes": 122,
+    "sha256": "bd22c6cd74bd007ca0ad03cafd7db0a0d3708ce940f00798e6f732e8e01eb0b0",
+    "compressed_sha256": "18d73dae31c0c4e7605882f4a861869683b0b8df491e1ebcf7e3783e186b9962"
+  },
+  {
+    "file": "preflight-stage-021.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-021.json",
+    "bytes": 167,
+    "sha256": "49d71f8fca3af55a9ca57df2c852f313430872a02b032355b5b954d35d29f302",
+    "compressed_sha256": "5abcb409a96c051c3fc480a1dd873112cb88364dfeebe8a884217dc4480a79fe"
+  },
+  {
+    "file": "preflight-stage-022.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-022.json",
+    "bytes": 133,
+    "sha256": "7eb26d14c9be6c4db8383bd8607c959e1f359ac07ef3d3d8d855e9906c89927f",
+    "compressed_sha256": "afb28c58d13a5ade6da75062febb170c4f566fcd845f64f6d34507f879eaa64a"
+  },
+  {
+    "file": "preflight-stage-023.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-023.json",
+    "bytes": 178,
+    "sha256": "ef5f630a4f3457594b313ffa5b7b5ef83c894da0ed34b41ce17abf9a46a54731",
+    "compressed_sha256": "bef5bb9354c117d4bf759caa37edbf756aa84245f4fc5ff9717ff0137d9da06c"
+  },
+  {
+    "file": "preflight-stage-024.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-024.json",
+    "bytes": 121,
+    "sha256": "19225149915236abc4c0a7d1fdb89b6f77c9eaa8b8f5b6a961ac374ce2ff9b51",
+    "compressed_sha256": "1e327aaf7d70456dff6c9297a6ca8a6c476ee34c36cf9271b85a31159d4187c6"
+  },
+  {
+    "file": "preflight-stage-025.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-025.json",
+    "bytes": 166,
+    "sha256": "18e7adc5b38cdfd6c7eb6f010e96f14fda130b655e9499162f3980d56fce40be",
+    "compressed_sha256": "a19f8ac643599baca90c8f732c892327eda63be6f25dc10b123dbc71092e5036"
+  },
+  {
+    "file": "preflight-stage-026.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-026.json",
+    "bytes": 121,
+    "sha256": "60aa585d57dbf963336db0f206bdb9cb64f1f65254770a487ae5281310a7aeb6",
+    "compressed_sha256": "a8ae37138655cc7e2a90502a3361defeba89c97d0ac426afe1949fbf94d6040e"
+  },
+  {
+    "file": "preflight-stage-027.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-027.json",
+    "bytes": 166,
+    "sha256": "45359da5cac83860a06f818b3fb8f69fee70170199fbb1f345555be95261dce4",
+    "compressed_sha256": "f296b7e93c42bdf729427d65df9979560ff01a6c52c58ae3f9b020160d23fd4d"
+  },
+  {
+    "file": "preflight-stage-028.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-028.json",
+    "bytes": 104,
+    "sha256": "694089c064a75fde36810a0c00f9844d8b3053e6e51fe8e2c7fb3a386978173b",
+    "compressed_sha256": "df6ade8ae4097a12a0fffb7e8373d605a021926ba67d0fb4647bad446620a575"
+  },
+  {
+    "file": "preflight-stage-029.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-029.json",
+    "bytes": 149,
+    "sha256": "f60cb55586fe0d225366e34d91c5cfa4c14e37b96bcf60b27a31c941be473fad",
+    "compressed_sha256": "024f0cab3dacbe396d8c4ccbd947164d3a8fa6df315f76f902d2689bf811883b"
+  },
+  {
+    "file": "preflight-stage-030.json.gz",
+    "original": "/private/tmp/ashlar-medical-history-preflight-20261016-a/preflight-fresh-output/preflight-stage-030.json",
+    "bytes": 99,
+    "sha256": "5d1c9c951641d796a0804421a6a4802efa6454e7ceb38ce52c7c322b17bb127f",
+    "compressed_sha256": "4681e8a6d23f7f4227ea8834555f9fff89a7a3b855cbf88c870be0ddfbc7e6f5"
+  }
+]

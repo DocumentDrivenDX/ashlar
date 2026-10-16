@@ -1,0 +1,48 @@
+{
+  "scope": "Actual fresh local medical publication timeout and subsequent read-only preflight refusal/cleanup timeout; no successful recovery or durable ACK qualification",
+  "source_commit": "13abb5b404e39d718dcf602fe9d5bb544ce32dfe",
+  "initialization_evidence": "../medical-fresh-initialization-20261016/result.json",
+  "publication": {
+    "exit": 2,
+    "seconds": 66.4674406250706,
+    "cause": "native-deadline",
+    "native_phase": "begun",
+    "final_report_released": false,
+    "retained_request_bytes": 382102,
+    "retained_request_sha256": "9de61334ad159bd4d1cc8373c7cbb2d1a4025e1c654cd76b90b0275859a2e3ea"
+  },
+  "preflight": {
+    "exit": 2,
+    "seconds": 66.61169070901815,
+    "cause": "native-deadline",
+    "native_phase": "begun",
+    "first_refused_stage": "source-plan",
+    "subsequent_refused_stage": "ordinal-state",
+    "six_native_captures": "failure cleanup only; not opening admission",
+    "last_stage": "ack-scope begin; no end",
+    "stage_records": 31
+  },
+  "current_journal_counts": {
+    "operation_states": {
+      "committed": 1,
+      "submitted": 1
+    },
+    "local_source_plan": 0,
+    "local_plan": 0,
+    "local_publication_artifact": 0
+  },
+  "constraints": {
+    "native_seconds": 60,
+    "whole_seconds": 150,
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "decision": "Retain original fresh partial state and request. No restart/republication, missing-plan reconstruction, automatic retry or another unchanged native run. Required successful publication/recovery remains outstanding.",
+  "limits": [
+    "Native timeout and unconfirmed inner worker status are not successful closing",
+    "Current counts are a read-only observation, not source/ACK authority",
+    "Actual source ACK was not separately observed in this slice",
+    "Stage records show refusal/cleanup order; no unobserved primary exception text is inferred"
+  ],
+  "independent_review": "medical_partial_evidence_review: verified39archives, private originals, request hash/length, current SQLite counts and refusal/cleanup stage attribution; approved limited failure evidence"
+}
