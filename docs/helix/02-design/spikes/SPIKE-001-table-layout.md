@@ -70,9 +70,9 @@ immutable boundary, separately from remote source ACK and graph-engine refresh.
 Include ingest and maintenance work in a whole-workload report.
 
 Reuse retained performance evidence. New functional checks use tiny synthetic
-fixtures on local Spark, Sail or DuckDB; this study authorizes no renewed scale
-benchmark. Any future Databricks execution requires an explicitly dedicated Ashlar
-endpoint and agreed resource/cost limits. Shared/default compute is excluded.
+fixtures on local Spark, Sail or DuckDB. Representative-scale execution requires
+a separate owner request, explicitly dedicated Ashlar compute and agreed resource/
+cost limits, following the [performance qualification plan](../../03-test/consumer-conformance-plan.md#databricks-representative-scale-trials). Shared/default compute is excluded.
 A bounded local case does not establish 1B-node capacity or a production latency
 SLO; measurements name their exact workload and environment.
 

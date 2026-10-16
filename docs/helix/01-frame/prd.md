@@ -39,7 +39,9 @@ simulator, export or model validation cannot substitute for those workflows.
 
 Latency, freshness, throughput and the 1B-node/assumed 5B-edge planning scale are
 operational qualification targets, not architecture gates. Reuse existing
-measurements and keep new checks small. Production source authority, fencing,
+measurements and keep functional checks small. Explicitly requested scale trials
+require dedicated compute, bounded stages and an approved resource/cost budget.
+Production source authority, fencing,
 authorization and retention requirements remain mandatory for the corresponding
 support claim. Implementation status and results belong in the
 [execution plan](../04-build/end-to-end-plan.md) and build evidence.

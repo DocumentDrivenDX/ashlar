@@ -37,6 +37,7 @@ full publication vectors and source/ACK custody throughout each workflow.
 Specs describe desired behavior. Keep implementation status short in the README
 and retain execution results under build evidence. Keep native checks small and
 sequential; use local systems or an explicitly dedicated Databricks endpoint,
-never the shared default cluster. Do not renew scale benchmarks or disable
+never the shared default cluster. Scale trials require an explicit owner request
+and approved resource/cost limits. Do not disable
 predictive optimization. Land tested, independently reviewed iterations on main
 and push to origin.

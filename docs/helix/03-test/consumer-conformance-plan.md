@@ -230,11 +230,35 @@ consumer-corpus coverage. Require original operation/handle custody for uncertai
 recovery and original descriptor replay; do not fabricate accepted IDs or ACKs.
 
 Reuse the existing [table-design measurements](../02-design/spikes/SPIKE-001-table-layout.md).
-New checks remain small and do not renew scale benchmarks. Latency/freshness/
+Functional checks remain small. Separately requested representative-scale trials
+require dedicated compute and approved resource/cost limits. Latency/freshness/
 throughput are measured qualification limits; misses do not change the Unity
 Catalog Delta architecture. Do not disable predictive optimization or alter
 retention, grants or paid capacity to make checks pass. Record readability under
 the observed configuration.
+
+### Databricks representative-scale trials
+
+Use the canonical UMF-generated managed Delta layout and preserve clustering,
+file/statistics properties and predictive optimization. Generate graph data inside
+Databricks, including isolates, parallel edges and skew; do not build a large
+fixture on the laptop. Start with a 100k-node/1M-edge rehearsal, then explicitly
+select 1M/10M and larger stages only when correctness, runtime and the approved
+budget permit. A smaller stage cannot establish the 1B-node planning claim.
+
+Report compute startup, ingestion, maintenance, warm-up, native query execution,
+fetch, correctness verification and full guarded-request latency separately.
+Measure exact singleton records, directed one-hop and bounded two-hop queries;
+keep edge-path multiplicity and distinct destinations separate. Disclose result
+caching and all sample counts. Capture file/scan statistics and query profiles
+when available; missing billing or profile visibility remains unknown, never zero.
+
+Dedicated Ashlar compute, fixed size, auto-termination, a whole-run deadline and
+an approved spend bound are prerequisites to execution. Shared/default compute
+is excluded. Direct synthetic table loads qualify layout performance only;
+publication/source/ACK and policy-preserving read guarantees require their own
+actual guarded path and evidence. Keep both measurements visible without claiming
+that either substitutes for the other.
 
 ## Build Handoff
 
