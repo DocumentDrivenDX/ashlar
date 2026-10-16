@@ -131,6 +131,36 @@ class Tests(unittest.TestCase):
         with self.transport.bounded_observations(self.bounds):
             return self.transport.bounded_snapshot(self.target,2,**kwargs)
 
+    def test_bounded_snapshot_has_exact_opening_and_closing_identity(self):
+        captured, _ = self.capture()
+        self.assertEqual(captured['rows'], sorted(self.rows, key=encoded))
+        self.assertEqual(self.events.count('identity'), 2)
+        self.assertEqual(self.events[0], 'identity')
+        self.assertEqual(self.events[-1], 'identity')
+        self.assertEqual(self.events.count('iterate'), 1)
+        self.assertIsNone(self.transport.observation_bounds)
+
+    def test_bounded_snapshot_closing_drift_and_failed_capture_renew_identity(self):
+        def detail(target):
+            self.events.append('identity')
+            if self.events.count('identity') == 2:
+                raise LocalDeltaError('Original native Delta UUID changed')
+        self.transport._detail = detail
+        with self.assertRaisesRegex(LocalDeltaError, 'UUID changed'):
+            self.capture()
+        self.assertEqual(self.events.count('identity'), 2)
+        self.assertEqual(self.events.count('iterate'), 1)
+        self.assertIsNone(self.transport.observation_bounds)
+        self.events.clear()
+        primary = GeneratorExit('capture cancelled')
+        self.cancel = primary
+        with self.assertRaises(GeneratorExit) as caught:
+            self.capture()
+        self.assertIs(caught.exception, primary)
+        self.assertEqual(self.events.count('identity'), 2)
+        self.assertEqual(self.events[-1], 'identity')
+        self.assertIsNone(self.transport.observation_bounds)
+
     def test_common_native_query_preserves_datetime_map_and_bounds_before_transfer(self):
         from datetime import datetime, timezone
         instant = datetime(2026,10,11,1,2,3,456789,tzinfo=timezone.utc,fold=1)

@@ -660,7 +660,8 @@ class LocalDeltaTransport:
             captured_bytes+=len(encoded(row).encode())+1
         if actual_cell!=cell or actual_total!=total or captured_bytes+len(schema_json.encode())+256>maximum or frame.schema.json()!=schema_json:
             raise LocalDeltaError('Native complete bound/schema correspondence differs')
-        self._detail(target)
+        # The public wrapper renews identity after these pure local operations,
+        # on success and failure alike.
         rows.sort(key=encoded)
         return {'schema': schema, 'rows': rows, 'row_sha256': sha(encoded(rows))}, json.loads(schema_json)
 
@@ -748,7 +749,7 @@ class LocalDeltaTransport:
                 from .local_receipt_codec import local_receipt_equals
                 if not local_receipt_equals(row[4],encoded(proof)):
                     raise LocalDeltaError('Original complete native receipt differs')
-                self._detail(target)
+                # _snapshot has just closed with a fresh native identity check.
                 if self.policy.admit(json.loads(intent), context) is not None:
                     raise LocalDeltaError('Closing original committed admission incomplete')
                 self._profile()

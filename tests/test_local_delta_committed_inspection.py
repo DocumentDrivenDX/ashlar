@@ -1,5 +1,6 @@
 """Read-only native receipt controls with actual owned SQLite and inert engine."""
 import unittest
+from unittest.mock import patch
 from contextlib import contextmanager
 import test_local_delta_effect_plan as harness
 from ashlar_host.delta_custody import LocalDeltaError, LocalDeltaUncertain
@@ -27,6 +28,51 @@ class Tests(unittest.TestCase):
         self.assertEqual(before, self.transport.db.execute('SELECT * FROM local_operation').fetchall())
         proof['snapshot']['rows'].append({'borrowed': True})
         self.assertEqual(self.inspect()['snapshot']['rows'], [])
+
+    def test_inspection_independently_reobserves_and_closing_uuid_drift_refuses(self):
+        self.commit()
+        before = self.transport.db.execute('SELECT * FROM local_operation').fetchall()
+        writes = self.host.engine.writes
+        snapshot = self.transport._snapshot
+        events = []
+        original_sql = self.host.engine.sql
+        drift = False
+        def sql(statement, args=None):
+            if statement.startswith('DESCRIBE DETAIL'):
+                events.append('detail')
+                if drift and events.count('detail') == 5:
+                    return harness.SimpleNamespace(first=lambda: harness.Row(id='replacement-uuid'))
+            if statement.startswith('DESCRIBE HISTORY'):
+                events.append('history')
+            return original_sql(statement, args)
+        def held_snapshot(target, version):
+            # Model the production snapshot's own fresh opening/closing checks;
+            # inspect_committed must not replace either independent capture.
+            self.transport._detail(target)
+            try:
+                events.append('snapshot')
+                return snapshot(target, version)
+            finally:
+                self.transport._detail(target)
+        admission = self.transport.policy.admit
+        def admit(intent, context):
+            events.append('admit')
+            return admission(intent, context)
+        with patch.object(self.host.engine, 'sql', side_effect=sql), patch.object(
+                self.transport, '_snapshot', side_effect=held_snapshot), patch.object(
+                self.transport.policy, 'admit', side_effect=admit):
+            self.inspect()
+            self.assertEqual(events, ['admit', 'detail', 'history', 'detail',
+                'snapshot', 'detail', 'admit', 'history', 'detail', 'snapshot', 'detail'])
+            events.clear(); drift = True
+            with self.assertRaisesRegex(LocalDeltaError, 'UUID changed'):
+                self.inspect()
+            self.assertEqual(events.count('history'), 2)
+            self.assertEqual(events.count('snapshot'), 2)
+            self.assertEqual(events.count('admit'), 2)
+            self.assertEqual(events.count('detail'), 5)
+        self.assertEqual(self.host.engine.writes, writes)
+        self.assertEqual(before, self.transport.db.execute('SELECT * FROM local_operation').fetchall())
 
     def test_missing_submitted_ambiguous_and_changed_receipt_refuse_without_write(self):
         with self.assertRaises(LocalDeltaUncertain): self.inspect()
