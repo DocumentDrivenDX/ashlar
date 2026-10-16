@@ -752,6 +752,25 @@ successful match cannot replace native source/action authority, metadata/value
 correspondence, complete capture or closing validation. Any checker failure,
 anchor mismatch, cancellation or closing failure MUST release no public result.
 
+## Local current-query development composition
+
+An explicitly selected local development profile MAY compose the live CQP,
+held Spark provider and complete source capture over authored fixture tables.
+It MUST bind the original child and parent, exact request/designation/binding,
+actual local process identity and Spark session, and every selected Delta table's
+UUID, location, pinned version and complete native schema. Its schema digest
+convention MUST be named locally; an opaque compiler schema digest MUST NOT imply
+an independently standardized native serialization.
+
+Opening, renewal and closing MUST refuse changed native identity, schema, version,
+original mapping or context. The unchanged compiler SQL, complete eligible source
+capture and native refinement checker MUST run within that same local interval;
+private contributors MUST remain private and successful output MUST follow closing.
+The profile MUST identify its authored fixture and local-only scope. Local process
+identity and table custody MUST NOT stand in for UMF Subject/action/disclosure
+admission, protected source/ACK custody, an immutable Ashlar publication, or managed
+UC enforcement. Those require their own admitted authority integration.
+
 ## Excluded administrators and isolated test scope
 
 An excluded administrator MUST remain distinct from admitted ordinary data
