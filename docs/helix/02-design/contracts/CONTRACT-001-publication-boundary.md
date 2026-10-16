@@ -892,6 +892,10 @@ recovery configuration with fresh output; `lineage` is a pinned-file selection.
 This profile observes retained write-ahead custody under the actual installation
 lease. It MUST NOT produce a process-absence observation or require laptop-wide
 process quiescence. Existing process profiles retain their behavior.
+Held journal renewal and closing MUST finish before the actual lease is released,
+including failure and cancellation paths. After release, final report admission
+renews only the exact selected files; it MUST NOT reuse or renew released lease
+authority. Released leases continue to refuse held operations.
 
 The lineage document has exactly `profile`, `installation_id`, `request_digest`,
 `installation`, `snapshots`, `executions` and `storage_profile`. The profile is

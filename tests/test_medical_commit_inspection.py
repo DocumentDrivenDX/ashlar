@@ -173,10 +173,12 @@ class CompositionTests(unittest.TestCase):
    primary=KeyboardInterrupt('inert inspection cancellation')
    class Observer:
     observations=[]
-    def before(self,lease,context):lease.renew(context);events.append('process-before')
+    config=object()
+    def before(self,lease,context):self.lease=lease;self.context=context;lease.renew(context);events.append('process-before')
     def bind(self):events.append('process-bind')
     def closing(self):events.append('process-closing')
-    def renew(self):events.append('process-selection-close')
+    def renew(self):
+     self.lease.renew(self.context);events.append('process-selection-close')
    @contextmanager
    def native(custody):
     events.append('native-open')
@@ -215,10 +217,14 @@ class CompositionTests(unittest.TestCase):
    with ExitStack()as stack:
     for target,name,value in [(owner,'original_medical_native_session',native),(owner,'LocalDeltaTransport',transport),(owner,'MedicalPublicationPlan',Plan),(owner,'OriginalMedicalSourceOwner',Source),(owner,'original_medical_local_source_ports',lambda *args:object()),(owner.NativeDriver,'with_registered_evolution',driver),(processes,'MedicalProcessInspection',Observer),(inspection,'inspect_medical_commit',inspect)]:stack.enter_context(patch.object(target,name,value))
     stack.enter_context(patch('ashlar_host.medical_producer.capture',side_effect=capture))
+    stack.enter_context(patch('ashlar_host.medical_inspection_selection.medical_inspection_selection_bytes',return_value=('original inspection pins',)))
+    selected_pins=stack.enter_context(patch('ashlar_host.medical_inspection_selection.renew_medical_inspection_selection'))
     publisher=stack.enter_context(patch.object(owner,'_MedicalPreparedBackend',side_effect=AssertionError('No publisher construction')))
     submit=stack.enter_context(patch.object(owner,'publish_outbox_transaction',side_effect=AssertionError('No publication/ACK')))
     if outcome=='success':
-     result=owner.operate_original_medical_commit_inspection(config,Observer());self.assertEqual(result['classification'],'observed-absent-at-anchor');self.assertTrue((config.output/'proposal.json').exists())
+     observer=Observer();result=owner.operate_original_medical_commit_inspection(config,observer);self.assertEqual(result['classification'],'observed-absent-at-anchor');self.assertTrue((config.output/'proposal.json').exists())
+     self.assertTrue(observer.lease.closed);selected_pins.assert_called_once_with(observer.config,('original inspection pins',))
+     self.assertLess(events.index('native-close'),events.index('process-selection-close'))
     else:
      with self.assertRaises(KeyboardInterrupt if outcome=='cancel'else PermissionError):owner.operate_original_medical_commit_inspection(config,Observer())
      self.assertFalse((config.output/'receipt.json').exists());self.assertFalse((config.output/'proposal.json').exists())

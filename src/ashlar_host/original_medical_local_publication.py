@@ -252,6 +252,15 @@ def _original_transaction(source,batch,*,context,existing):
     return (source.read_original if existing else source.append_original)(batch,context=context)
 
 
+@contextmanager
+def _inspection_lease_boundary(inspection):
+    """Complete observer renewal after native closing, before lease release."""
+    primary=None
+    try:yield
+    except BaseException as error:primary=error
+    finish(primary,[]if inspection is None else[inspection.renew])
+
+
 def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False,inspection=None,prospective=None):
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
         raise ValueError('Exact original medical native phase required')
@@ -271,9 +280,12 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
     if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
     config.__post_init__()
     if preflight_only and config.bounds.native_seconds>60:raise ValueError('Medical preflight native ceiling is60seconds')
-    context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None;inspection_files=None
+    context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None;inspection_files=None;inspection_original=None
     try:
         output.acquire()
+        if inspection is not None:
+            from .medical_inspection_selection import medical_inspection_selection_bytes,renew_medical_inspection_selection
+            inspection_original=medical_inspection_selection_bytes(inspection.config)
         if recovery:
             stages=MedicalPreflightTiming(output.write)
         installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
@@ -293,7 +305,7 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
             admission=MedicalAdmission(batch,bindings,config.inputs.model.path,config.inputs.graph.path,config.inputs.baseline.path,dataset)
             with owned_context(OriginalMedicalInstallationLease.open(selection,context,journal_bytes=config.bounds.journal_bytes)) as lease:
                 if inspection is not None:inspection.before(lease,context)
-                with owned_context(original_medical_native_session(custody) if supervision is None else original_medical_native_session(custody,phase=supervision)) as spark:
+                with _inspection_lease_boundary(inspection), owned_context(original_medical_native_session(custody) if supervision is None else original_medical_native_session(custody,phase=supervision)) as spark:
                     bounds=VerificationBounds(min(config.bounds.input_bytes,262144),config.bounds.rows,config.bounds.cell_bytes,config.bounds.total_bytes,config.bounds.receipt_bytes,config.bounds.stream_bytes)
                     policy=MedicalPublicationPolicy(context,selection,lease,lambda:finish(None,[originals,custody.renew,dataset.renew]))
                     transport=LocalDeltaTransport(spark,selection.journal,selection.installation_id,selection.targets,policy,capacity=selection.capacity,verification_bounds=bounds)
@@ -382,8 +394,9 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 finish(None,callbacks)
                     finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close]+([]if inspection is None else[inspection.closing]))
             finish(None,[originals,custody.renew if stages is None else lambda:stages.call('runtime-custody',custody.renew),dataset.renew])
+        if inspection is not None:
+            renew_medical_inspection_selection(inspection.config,inspection_original)
         if inspection is not None and prospective is None:
-            inspection.renew()
             observed,proposal=inspection_files
             from .medical_journal_inspection import MedicalJournalInspection
             observed['journal_observations'if type(inspection)is MedicalJournalInspection else'process_observations']=inspection.observations
