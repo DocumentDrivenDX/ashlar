@@ -1,0 +1,10 @@
+{
+  "source": "tools/check_managed_atomic_native.py",
+  "sha256": "db43e1c293a05a1fb26afc416941d1e43cad3f25054f576c6ba852c39e0b4f36",
+  "status": "functional-pass-cleanup-recovered",
+  "temporal": "HELD",
+  "sources": [
+    "https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-syntax-txn-begin-atomic",
+    "https://learn.microsoft.com/en-us/azure/databricks/tables/features/catalog-commits"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "cleanup-failed",
+  "checks": [
+    "fresh UC-managed fixture tables expose native catalogManaged coordination",
+    "one native atomic block commits data and a receipt observing its own writes across two tables",
+    "native signaled failure rolls back both changed data and receipt",
+    "native semantic no-op can retain a distinct durable transactional receipt"
+  ],
+  "schema": "client_dev.umf_sdk_atomic_cf40c0c7aa74",
+  "temporal": "HELD",
+  "qualification": "Native managed transaction prerequisite only. SDK authority, original compiler program, exact commit receipt, conflict, response-loss and backend qualification gates remain required.",
+  "cleanupErrors": [
+    "TimeoutError"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "DESCRIBE HISTORY client_dev.umf_sdk_atomic_cf40c0c7aa74.objects LIMIT 10",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 4,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 16,
+        "columns": [
+          {
+            "name": "version",
+            "position": 0,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "timestamp",
+            "position": 1,
+            "type_name": "TIMESTAMP",
+            "type_text": "TIMESTAMP"
+          },
+          {
+            "name": "userId",
+            "position": 2,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "userName",
+            "position": 3,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "operation",
+            "position": 4,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "operationParameters",
+            "position": 5,
+            "type_name": "MAP",
+            "type_text": "MAP<STRING, STRING>"
+          },
+          {
+            "name": "job",
+            "position": 6,
+            "type_name": "STRUCT",
+            "type_text": "STRUCT<jobId: STRING, jobName: STRING, jobRunId: STRING, runId: STRING, jobOwnerId: STRING, triggerType: STRING, workspaceId: STRING>"
+          },
+          {
+            "name": "notebook",
+            "position": 7,
+            "type_name": "STRUCT",
+            "type_text": "STRUCT<notebookId: STRING>"
+          },
+          {
+            "name": "queryHistoryStatementId",
+            "position": 8,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "clusterId",
+            "position": 9,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "readVersion",
+            "position": 10,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "isolationLevel",
+            "position": 11,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "isBlindAppend",
+            "position": 12,
+            "type_name": "BOOLEAN",
+            "type_text": "BOOLEAN"
+          },
+          {
+            "name": "operationMetrics",
+            "position": 13,
+            "type_name": "MAP",
+            "type_text": "MAP<STRING, STRING>"
+          },
+          {
+            "name": "userMetadata",
+            "position": 14,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "engineInfo",
+            "position": 15,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 4,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "3",
+          "2026-10-16T17:45:59.113Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "TRANSACTION",
+          "{\"intermediateOperationParameters\":\"[{\\\"operationName\\\":\\\"UPDATE\\\",\\\"operationParameters\\\":{\\\"predicate\\\":\\\"[\\\\\\\"(id#15786L = 1)\\\\\\\"]\\\"}}]\"}",
+          null,
+          null,
+          "01f1c989-7047-1e3d-ad0c-8edf39f5646f",
+          null,
+          "2",
+          "Serializable",
+          "false",
+          "{\"intermediateOperationMetrics\":\"[{\\\"operationName\\\":\\\"UPDATE\\\",\\\"operationMetrics\\\":{\\\"numRemovedFiles\\\":\\\"1\\\",\\\"numRemovedBytes\\\":\\\"1898\\\",\\\"numCopiedRows\\\":\\\"0\\\",\\\"numDeletionVectorsAdded\\\":\\\"0\\\",\\\"executionTimeMs\\\":\\\"1782\\\",\\\"numDeletionVectorsUpdated\\\":\\\"0\\\",\\\"scanTimeMs\\\":\\\"903\\\",\\\"numAddedFiles\\\":\\\"1\\\",\\\"numUpdatedRows\\\":\\\"1\\\",\\\"numDeletionVectorsRemoved\\\":\\\"0\\\",\\\"numAddedChangeFiles\\\":\\\"0\\\",\\\"numAddedBytes\\\":\\\"1898\\\",\\\"rewriteTimeMs\\\":\\\"878\\\"}}]\",\"txnId\":\"99a6efb1-9220-4a39-99e4-7a986e6705b8\"}",
+          null,
+          "Databricks-Runtime/19.9.x-photon-scala2.13"
+        ],
+        [
+          "2",
+          "2026-10-16T17:45:44.940Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "TRANSACTION",
+          "{\"intermediateOperationParameters\":\"[{\\\"operationName\\\":\\\"UPDATE\\\",\\\"operationParameters\\\":{\\\"predicate\\\":\\\"[\\\\\\\"(id#14624L = 1)\\\\\\\"]\\\"}}]\"}",
+          null,
+          null,
+          "01f1c989-64c6-1f4d-a6d8-46936c649cbe",
+          null,
+          "1",
+          "Serializable",
+          "false",
+          "{\"intermediateOperationMetrics\":\"[{\\\"operationName\\\":\\\"UPDATE\\\",\\\"operationMetrics\\\":{\\\"numRemovedFiles\\\":\\\"0\\\",\\\"numRemovedBytes\\\":\\\"0\\\",\\\"numCopiedRows\\\":\\\"0\\\",\\\"numDeletionVectorsAdded\\\":\\\"1\\\",\\\"executionTimeMs\\\":\\\"5262\\\",\\\"numDeletionVectorsUpdated\\\":\\\"0\\\",\\\"scanTimeMs\\\":\\\"2853\\\",\\\"numAddedFiles\\\":\\\"1\\\",\\\"numUpdatedRows\\\":\\\"1\\\",\\\"numDeletionVectorsRemoved\\\":\\\"0\\\",\\\"numAddedChangeFiles\\\":\\\"0\\\",\\\"numAddedBytes\\\":\\\"1898\\\",\\\"rewriteTimeMs\\\":\\\"2363\\\"}}]\",\"txnId\":\"12b69a43-7967-4ee5-b30a-98b6bc290a4c\"}",
+          null,
+          "Databricks-Runtime/19.9.x-photon-scala2.13"
+        ],
+        [
+          "1",
+          "2026-10-16T17:45:34.622Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "WRITE",
+          "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+          null,
+          null,
+          "01f1c989-61f8-152e-a7b6-22ccbe98aed4",
+          null,
+          "0",
+          "Serializable",
+          "true",
+          "{\"numFiles\":\"1\",\"numOutputRows\":\"2\",\"numOutputBytes\":\"1162\"}",
+          null,
+          "Databricks-Runtime/19.9.x-photon-scala2.13"
+        ],
+        [
+          "0",
+          "2026-10-16T17:45:24.823Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CREATE TABLE",
+          "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"4fc05d07-fecd-4716-a562-4d63e96ef137\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-1e5242b7-5f95-4e36-a0ac-ac2f3cb1cf87\\\",\\\"delta.isolationLevel\\\":\\\"Serializable\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-44b2c317-a810-45db-9985-ccee622e3e08\\\"}\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c989-5c5e-1a50-9f35-b4b1df8ce90e",
+          null,
+          null,
+          "Serializable",
+          "true",
+          "{}",
+          null,
+          "Databricks-Runtime/19.9.x-photon-scala2.13"
+        ]
+      ],
+      "row_count": 4,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c989-73a5-1f23-b86b-07d6904e0603",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "BEGIN ATOMIC UPDATE client_dev.umf_sdk_atomic_cf40c0c7aa74.objects SET value=value+1 WHERE id=1; INSERT INTO client_dev.umf_sdk_atomic_cf40c0c7aa74.receipts SELECT 'first',count(*),sum(value) FROM client_dev.umf_sdk_atomic_cf40c0c7aa74.objects; END;",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c989-64c6-1f4d-a6d8-46936c649cbe",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}
