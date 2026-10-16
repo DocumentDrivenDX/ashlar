@@ -300,7 +300,7 @@ def main():
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
-    from ashlar_host.publication_current_cli import add_arguments as publication_current_arguments
+    from .publication_current_arguments import add_arguments as publication_current_arguments
     publication_current=commands.add_parser('query-publication-current',help='Run COUNT and SKU through an existing original commerce publication and protected source ACK')
     publication_current_arguments(publication_current)
     finite_export=commands.add_parser('export-original-finite-pack',help='Export an existing original finite-file publication into immutable graph and file-custody bytes')

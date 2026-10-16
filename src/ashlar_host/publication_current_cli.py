@@ -5,6 +5,7 @@ only. Declared local query-profile documents are not application policy grants o
 managed Unity Catalog authority. Caller selects every runtime/input explicitly.
 """
 from collections import Counter
+from ashlar.publication_current_arguments import add_arguments
 import argparse
 import hashlib
 import importlib
@@ -107,10 +108,6 @@ def load_selected_weft(root, module_sha256, shim_sha256):
     return weft
 
 
-def add_arguments(parser):
-    """Use the same explicit selections for the installed and checkout entrypoints."""
-    for name in ('configuration','weft-root','java-home','jars','output'):parser.add_argument('--'+name,type=Path,required=True)
-    parser.add_argument('--weft-module-sha256',required=True);parser.add_argument('--weft-shim-sha256',required=True)
 
 
 def run_command(args):

@@ -54,6 +54,46 @@ class Tests(unittest.TestCase):
             p=self.make('references/'+kind+'.json',json.dumps(value).encode());refs.append({'kind':kind,'profile':profile,'record':self.value(p),'scope':'Inert descriptor owner fixture'})
         return refs
     def opened(self):return OriginalMedicalRuntimeCustody.open(self.runtime,self.inputs,self.bounds,self.producer)
+    def test_selected_executable_above_64_mib_streams_without_payload_collection(self):
+        from ashlar_host import original_medical_runtime as runtime_owner
+        path=self.bun.path
+        with path.open('wb')as stream:stream.truncate(64*1024*1024+1)
+        digest=hashlib.sha256()
+        with path.open('rb')as stream:
+            for block in iter(lambda:stream.read(65536),b''):digest.update(block)
+        large=SimpleNamespace(path=path,sha256=digest.hexdigest(),bytes=path.stat().st_size)
+        self.selected=[large if pin.path==path else pin for pin in self.selected]
+        self.plan['selected_files']=[self.value(pin)for pin in self.selected]
+        self.plan['namespaces']=self.descriptors();self.save()
+        scan=runtime_owner._File._scan;observed=[]
+        def selected_scan(owner,*,collect):
+            if owner.path==path:
+                observed.append(collect)
+                self.assertFalse(collect,'Selected executable payload must not be retained')
+            return scan(owner,collect=collect)
+        with patch.object(runtime_owner._File,'_scan',selected_scan):
+            with self.opened()as owner:
+                self.assertEqual(owner.input_bytes[0],self.inputs.model.path.read_bytes())
+                # Reacquiring an existing pin must still hash and renew custody.
+                self.assertIsNone(owner._acquire(self.value(large),collect=False))
+                original_stat=path.stat()
+                with path.open('r+b')as stream:stream.write(b'x')
+                with self.assertRaises(PermissionError):owner._acquire(self.value(large),collect=False)
+                with path.open('r+b')as stream:stream.write(b'\0')
+                os.utime(path,ns=(original_stat.st_atime_ns,original_stat.st_mtime_ns))
+        self.assertGreaterEqual(len(observed),4)
+
+    def test_selected_aggregate_stays_128_mib_before_executable_acquisition(self):
+        from ashlar_host import original_medical_runtime as runtime_owner
+        self.plan['selected_files'][-1]['bytes']=runtime_owner.SELECTED_BYTES
+        self.save();scan=runtime_owner._File._scan;selected=[]
+        def observe(owner,*,collect):
+            if str(owner.path)in {pin['path']for pin in self.plan['selected_files']}:selected.append(owner.path)
+            return scan(owner,collect=collect)
+        with patch.object(runtime_owner._File,'_scan',observe),self.assertRaisesRegex(ValueError,'Distinct bounded selected'):
+            with self.opened():self.fail('Aggregate overflow admitted')
+        self.assertEqual(selected,[])
+
     def test_actual_files_metadata_and_all_original_inputs_no_imports(self):
         with patch('ashlar_host.original_medical_runtime.importlib.import_module')as imported:
             with self.opened()as owner:

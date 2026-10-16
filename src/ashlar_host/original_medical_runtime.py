@@ -74,13 +74,13 @@ def _decode(raw):
 class _File:
     def __init__(self,pin):
         self.pin=pin;self.path=_path(pin['path']);self.fd=None;self.original=None
-    def acquire(self):
+    def acquire(self,*,collect=True):
         if self.path.resolve()!=self.path:raise PermissionError('Canonical selected medical file required')
         self.fd=os.open(self.path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
         held=os.fstat(self.fd)
         if not stat.S_ISREG(held.st_mode):raise PermissionError('Regular selected medical file required')
         self.original=(held.st_dev,held.st_ino,held.st_uid,held.st_mode,held.st_nlink)
-        return self.read()
+        return self._scan(collect=collect)
     def read(self):
         return self._scan(collect=True)
     def verify(self):
@@ -117,14 +117,14 @@ class OriginalMedicalRuntimeCustody:
     def __init__(self,runtime,inputs,bounds,producer):
         self.runtime=runtime;self.inputs=inputs;self.bounds=bounds;self.producer=producer
         self.files=[];self.by_path={};self.descriptors={};self.import_acquired=False;self.closed=False;self.plan=None
-    def _acquire(self,pin):
+    def _acquire(self,pin,*,collect=True):
         key=pin['path']
         if key in self.by_path:
             owner=self.by_path[key]
             if owner.pin!=pin:raise ValueError('Conflicting medical selected file')
-            return owner.read()
+            return owner.read()if collect else owner.verify()
         owner=_File(pin);self.files.append(owner);self.by_path[key]=owner
-        return owner.acquire()
+        return owner.acquire(collect=collect)
     def _configuration(self):
         return json.dumps([asdict(value)for value in (self.runtime,self.inputs,self.bounds,self.producer)],default=str,sort_keys=True,separators=(',',':'),allow_nan=False)
     def _renew_configuration(self):
@@ -146,14 +146,14 @@ class OriginalMedicalRuntimeCustody:
         if (self.runtime.spark_version,self.runtime.delta_version)not in (('4.0.1','4.0.0'),('3.5.3','3.2.1')):raise ValueError('Explicit qualified medical SDK profile required')
         selected=plan['selected_files']
         if type(selected)is not list or not 1<=len(selected)<=SELECTED_FILES:raise ValueError('Bounded selected medical resources required')
-        pins=[_pin(value,67108864)for value in selected]
+        pins=[_pin(value,SELECTED_BYTES)for value in selected]
         if len({pin['path']for pin in pins})!=len(pins)or sum(pin['bytes']for pin in pins)>SELECTED_BYTES:raise ValueError('Distinct bounded selected resources required')
         self.selected={pin['path']:pin for pin in pins}
         for pin in (self.runtime.python,self.runtime.java,self.runtime.jvm_config,*self.runtime.jars):
             if self.selected.get(str(pin.path))!=_selection(pin):raise PermissionError('Selected executable and JAR pin required')
         for path in (self.producer.bun,self.producer.git):
             if str(path)not in self.selected:raise PermissionError('Explicit producer executable pin required')
-        for pin in pins:self._acquire(pin)
+        for pin in pins:self._acquire(pin,collect=False)
         refs=plan['namespaces'];evidence=plan['evidence']
         if type(refs)is not list or {ref.get('kind')for ref in refs if type(ref)is dict}!={'namespace','metadata','closure'}or len(refs)!=3 or type(evidence)is not list or not 1<=len(evidence)<=5:raise ValueError('Complete known runtime descriptors and evidence required')
         allrefs=refs+evidence
