@@ -24,6 +24,7 @@ from .local_physical_carriers import original_local_materialization_columns, ori
 from .medical_installation import OriginalMedicalInstallationLease
 from .medical_producer import MedicalFile, HeldMedicalDataset
 from .medical_publication_plan import MedicalPublicationPlan, FEED, STREAM
+from .medical_preflight_timing import MedicalPreflightTiming
 from .medical_publication_sources import OriginalMedicalSourceOwner
 from .medical_process_supervision import OriginalMedicalNativePhase
 from .original_medical_installation_handoff import validate_original_medical_installation_handoff
@@ -139,8 +140,9 @@ class MedicalPublicationPolicy(PrivatePolicy):
 
 class _MedicalPublisherDriver:
     """Delegate native effects; require medical observation even for settled ACK."""
-    def __init__(self,driver,plan,bounds,expected=None):
-        self.driver=driver;self.plan=plan;self.bounds=bounds;self.expected=expected
+    def __init__(self,driver,plan,bounds,expected=None,*,stages=None):
+        if stages is not None and type(stages)is not MedicalPreflightTiming:raise ValueError('Exact medical timing owner required')
+        self.driver=driver;self.plan=plan;self.bounds=bounds;self.expected=expected;self.stages=stages
     @contextmanager
     def writer(self,stream,context):
         with owned_context(self.driver.writer(stream,context)):yield
@@ -148,7 +150,9 @@ class _MedicalPublisherDriver:
         self.plan.require_request(request)
         return self.driver.prepare_original_medical_apply(self.plan,context=context,bounds=self.bounds)
     def apply(self,request,context):return self.driver.apply(request,context)
-    def recover_apply(self,request,context):return self.driver.recover_apply(request,context)
+    def recover_apply(self,request,context):
+        action=lambda:self.driver.recover_apply(request,context)
+        return action()if self.stages is None else self.stages.call('effect-recovery',action)
     def validate(self,*args):return self.driver.validate(*args)
     def _observe(self,request,descriptor,context):
         self.plan.require_request(request)
@@ -165,9 +169,19 @@ class _MedicalPublisherDriver:
 
 class _MedicalPreparedBackend(StoredPublisherBackend):
     """Keep exact source and effect intent durable before prepared is submitted."""
-    def __init__(self,attempts,driver,manifest_factory,*,context):
+    def __init__(self,attempts,driver,manifest_factory,*,context,stages=None):
+        if stages is not None and type(stages)is not MedicalPreflightTiming:raise ValueError('Exact medical timing owner required')
         super().__init__(attempts,driver,manifest_factory)
-        self.medical_context=context
+        self.medical_context=context;self.stages=stages
+
+    @contextmanager
+    def writer(self,stream,context):
+        manager=super().writer(stream,context)
+        with (owned_context(manager)if self.stages is None else self.stages.context('publisher-session','publisher-closing',manager)) as permit:yield permit
+
+    def observe(self,stream,batch_id):
+        action=lambda:super(_MedicalPreparedBackend,self).observe(stream,batch_id)
+        return action()if self.stages is None else self.stages.call('attempt-observation',action)
 
     def prepare(self,stream,request):
         if self.observe(stream,request['batch_id']) is not None:
@@ -234,7 +248,6 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
     try:
         output.acquire()
         if recovery:
-            from .medical_preflight_timing import MedicalPreflightTiming
             stages=MedicalPreflightTiming(output.write)
         installation,raw=_pin(config.installation,min(config.bounds.input_bytes,config.bounds.receipt_bytes));pins.append((installation,raw))
         selection=validate_original_medical_installation_handoff(raw,config)
@@ -279,9 +292,9 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 answer={'profile':'ashlar-original-medical-local-recovery-preflight/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'preflight_completed':True,'closing':True,'stage_records':stages.records}
                             else:
                                 target=transport.targets[tables['attempts']]
-                                adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication)
+                                adapter=_MedicalPublisherDriver(driver,plan,bounds,expected_publication,stages=stages)
                                 backend_type=_SettledBackend if replay else _MedicalPreparedBackend
-                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request),**({}if replay else {'context':context}))
+                                backend=backend_type(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),adapter,lambda request,context:ManifestPort(driver,request),**({}if replay else {'context':context,'stages':stages}))
                                 histories=None
                                 if replay:
                                     with owned_context(backend.writer(STREAM,context)):

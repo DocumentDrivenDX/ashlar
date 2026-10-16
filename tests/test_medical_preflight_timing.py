@@ -164,3 +164,75 @@ class Tests(unittest.TestCase):
    _,driver,plan,bounds,_,_,captures=helper.fixture(stack);before=list(driver.transport.db.iterdump());timing=MedicalPreflightTiming(lambda name,raw,limit:rows.append(json.loads(raw)))
    with driver.writer('original',driver.context),driver.transport.bounded_observations(bounds):driver.preflight_original_medical_recovery(plan,context=driver.context,bounds=bounds,stages=timing)
    self.assertEqual(before,list(driver.transport.db.iterdump()));self.assertEqual({r.get('role')for r in rows if r['stage']=='native-target'},set(owner.ROLES));self.assertTrue(any(r['stage']=='prior-capture'for r in rows));self.assertEqual(rows[-1]['stage'],'binding');self.assertEqual(rows[-1]['phase'],'end');self.assertLessEqual(len(rows),128)
+
+class PublisherTimingTests(unittest.TestCase):
+ """Actual private backend and adapter; inert native/store ports, no Spark."""
+ def test_exact_single_calls_and_fixed_records_within_existing_prefix_budget(self):
+  from types import SimpleNamespace
+  events=[];rows=[];context=object();request={'private':'request'}
+  timing=MedicalPreflightTiming(lambda name,raw,limit:rows.append(json.loads(raw)))
+  # Retained three-effect recovery reached publication-apply begin at record71.
+  timing.records=71
+  @contextmanager
+  def writer(stream,supplied):
+   self.assertIs(supplied,context);events.append('driver-open')
+   try:yield
+   finally:events.append('driver-close')
+  @contextmanager
+  def session(supplied):
+   self.assertIs(supplied,context);events.append('attempt-open')
+   try:yield SimpleNamespace(read=lambda stream,batch:(events.append('read')or[]))
+   finally:events.append('attempt-close')
+  def recover(actual,supplied):
+   self.assertIs(actual,request);self.assertIs(supplied,context);events.append('recover');return 'original-result'
+  adapter=owner._MedicalPublisherDriver(SimpleNamespace(writer=writer,recover_apply=recover),object(),object(),stages=timing)
+  backend=owner._MedicalPreparedBackend(SimpleNamespace(session=session),adapter,object(),context=context,stages=timing)
+  with backend.writer('stream',context):
+   self.assertIsNone(backend.observe('stream','batch'))
+   self.assertEqual(adapter.recover_apply(request,context),'original-result')
+  self.assertEqual(events,['driver-open','attempt-open','read','recover','attempt-close','driver-close'])
+  self.assertIsNone(backend._session)
+  self.assertEqual([(r['stage'],r['phase'])for r in rows],[('publisher-session','begin'),('publisher-session','end'),('attempt-observation','begin'),('attempt-observation','end'),('effect-recovery','begin'),('effect-recovery','end'),('publisher-closing','begin'),('publisher-closing','end')])
+  self.assertEqual(timing.records,79);self.assertNotIn('private',json.dumps(rows))
+  self.assertTrue(all(set(r)<={'profile','sequence','stage','phase','duration_ns','outcome'}for r in rows))
+  # Complete the already-begun publication stage and remaining fixed outer pairs.
+  timing.emit('publication-apply','end',duration_ns=0,outcome='completed')
+  for stage in ('publication-observation','composition-closing','runtime-custody','runtime-closing'):timing.call(stage,lambda:None)
+  self.assertEqual(timing.records,88);self.assertLessEqual(timing.records,128)
+ def test_capacity_or_emission_failure_does_not_skip_acquired_session_cleanup(self):
+  from types import SimpleNamespace
+  for fault in ('capacity','write'):
+   events=[];primary=KeyboardInterrupt('original');context=object()
+   def write(*args):
+    if fault=='write'and 'attempt-close' in events:raise OSError('private closing write')
+   timing=MedicalPreflightTiming(write)
+   @contextmanager
+   def writer(*args):
+    events.append('driver-open')
+    try:yield
+    finally:events.append('driver-close')
+   @contextmanager
+   def session(*args):
+    events.append('attempt-open')
+    try:yield object()
+    finally:events.append('attempt-close')
+   adapter=owner._MedicalPublisherDriver(SimpleNamespace(writer=writer),object(),object(),stages=timing)
+   backend=owner._MedicalPreparedBackend(SimpleNamespace(session=session),adapter,object(),context=context,stages=timing)
+   with self.assertRaises(KeyboardInterrupt)as caught:
+    with backend.writer('stream',context):
+     if fault=='capacity':timing.records=128
+     raise primary
+   self.assertIs(caught.exception,primary);self.assertTrue(primary.cleanup_failed)
+   self.assertEqual(events,['driver-open','attempt-open','attempt-close','driver-close']);self.assertIsNone(backend._session)
+ def test_effect_cancellation_is_not_retried_and_disabled_timing_preserves_result(self):
+  from types import SimpleNamespace
+  calls=[];primary=SystemExit('private')
+  def recover(request,context):calls.append((request,context));raise primary
+  adapter=owner._MedicalPublisherDriver(SimpleNamespace(recover_apply=recover),object(),object(),stages=MedicalPreflightTiming(lambda *args:None))
+  request=object();context=object()
+  with self.assertRaises(SystemExit)as caught:adapter.recover_apply(request,context)
+  self.assertIs(caught.exception,primary);self.assertEqual(calls,[(request,context)])
+  result=object();adapter=owner._MedicalPublisherDriver(SimpleNamespace(recover_apply=lambda *args:result),object(),object())
+  self.assertIs(adapter.recover_apply(request,context),result)
+  with self.assertRaises(ValueError):owner._MedicalPublisherDriver(object(),object(),object(),stages=object())
+  with self.assertRaises(ValueError):owner._MedicalPreparedBackend(object(),object(),object(),context=context,stages=object())

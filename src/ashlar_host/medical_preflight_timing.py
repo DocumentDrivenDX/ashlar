@@ -5,7 +5,7 @@ from typing import Callable
 from contextlib import contextmanager
 from .lifecycle import finish
 
-STAGES=frozenset(('runtime-custody','source-admission','source-plan','prior-capture','ordinal-state','native-target','committed-ordinal','source-closing','ack-scope','binding','composition-closing','runtime-closing','publication-apply','publication-observation'))
+STAGES=frozenset(('runtime-custody','source-admission','source-plan','prior-capture','ordinal-state','native-target','committed-ordinal','source-closing','ack-scope','binding','composition-closing','runtime-closing','publication-apply','publication-observation','publisher-session','publisher-closing','attempt-observation','effect-recovery'))
 ROLES=frozenset(('object_current','edge_current','tombstone','whole_source_history','attempts','manifest'))
 
 class MedicalPreflightTiming:
