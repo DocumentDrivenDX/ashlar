@@ -1,0 +1,302 @@
+{
+  "profile": "ashlar-payments-held-decimal-guard-evidence/0.1",
+  "scope": "Actualoriginalfinitepublication guarddiagnostic, not financialquerypass",
+  "files": [
+    {
+      "path": "report.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/report.json",
+      "bytes": 22888,
+      "sha256": "d5bb788b90c0e992a80629fe903f5c1db494ef39f52f9f24c1ac05ade27f63bb",
+      "compressed_bytes": 2799,
+      "compressed_sha256": "e0e59dcdda3213f962deff891a69ac768057a2711b12f795685f9c2bc64240db"
+    },
+    {
+      "path": "proposal.py.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/proposal.py",
+      "bytes": 8614,
+      "sha256": "c8665f2bf0b845a0ab1932d4d041e0d26bd201a6445e75f387e430ca781bc0ba",
+      "compressed_bytes": 3232,
+      "compressed_sha256": "c0d69da7088e745a3ffd5a5ac2023cb2ddfb950cb1841c1b0cc07f0e3df2c831"
+    },
+    {
+      "path": "supervise.py.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/supervise.py",
+      "bytes": 3185,
+      "sha256": "c62ceb553a3c32a2f61f102b553e2057895b066dd05d93ab0f831d261655c979",
+      "compressed_bytes": 1635,
+      "compressed_sha256": "90a1ed6339c97383bc2b5de2659e478b297b2a78a3156ea02b02c68253a8524e"
+    },
+    {
+      "path": "configuration.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/configuration.json",
+      "bytes": 1460,
+      "sha256": "9da6b26ff9698e6478b788e0876531f1ee5ab414ab24b183cda984c65cb47f01",
+      "compressed_bytes": 531,
+      "compressed_sha256": "9816d5c5305ccbf4a55e222c1a1876b451a0943ca549f2d4f70cc17011655f59"
+    },
+    {
+      "path": "attempt-7.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-7.json",
+      "bytes": 734,
+      "sha256": "86e3b774223a80fef23b3eafdc293912b7ddc6b291895d0b9a8a2a4972604053",
+      "compressed_bytes": 394,
+      "compressed_sha256": "063ecdfd18b1894dccefa06025c230e7092d73e91e21064eb0b537eb253acfce"
+    },
+    {
+      "path": "stdout-7.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stdout-7.log",
+      "bytes": 116,
+      "sha256": "d7c9721b6562c302bb4050d34b653a889d074d922e7d87274b8bd4f292f2a88b",
+      "compressed_bytes": 121,
+      "compressed_sha256": "d5c84e31c7e12c8edd3ea012b966f680014503ecb42938c974d116df1dccce93"
+    },
+    {
+      "path": "stderr-7.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-7.log",
+      "bytes": 598,
+      "sha256": "1aa715ce2f7cd02b19f7c30191db70d8ee2836aec3104942ff8fb9b2e01e68b0",
+      "compressed_bytes": 392,
+      "compressed_sha256": "75bedd39bcd4b6bc9e7c33873117f243ffbc3b8f55a61c1c4ef3d6b557ac2266"
+    },
+    {
+      "path": "original-closure-before-7.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/original-closure-before-7.json",
+      "bytes": 19443,
+      "sha256": "382d33737daad6380cb9f659f6eaa64812cc87459bb9c38fa2f5a9ceed8fdca2",
+      "compressed_bytes": 5710,
+      "compressed_sha256": "7cc0b6073fd9717c95111fe0e4214198f2d0450dced89d6bba1552998fd85ca1"
+    },
+    {
+      "path": "original-closure-after-7.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/original-closure-after-7.json",
+      "bytes": 19443,
+      "sha256": "382d33737daad6380cb9f659f6eaa64812cc87459bb9c38fa2f5a9ceed8fdca2",
+      "compressed_bytes": 5710,
+      "compressed_sha256": "7cc0b6073fd9717c95111fe0e4214198f2d0450dced89d6bba1552998fd85ca1"
+    },
+    {
+      "path": "native-observations-7--public-dataset.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/native-observations-7/public-dataset.json",
+      "bytes": 321707,
+      "sha256": "5a5cefb8caebdd5578e216b74eb0141546d00d82b653c07e5d9f83c4212ce4a7",
+      "compressed_bytes": 14977,
+      "compressed_sha256": "f6d38d7ee0c60f767b5b02bb3b82c5a540e34cf798810afa78b1c5f94e68d420"
+    },
+    {
+      "path": "native-observations-6--producer-diagnosed-preflight.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/native-observations-6/producer-diagnosed-preflight.json",
+      "bytes": 321707,
+      "sha256": "5a5cefb8caebdd5578e216b74eb0141546d00d82b653c07e5d9f83c4212ce4a7",
+      "compressed_bytes": 14977,
+      "compressed_sha256": "f6d38d7ee0c60f767b5b02bb3b82c5a540e34cf798810afa78b1c5f94e68d420"
+    },
+    {
+      "path": "runtime-dependency-7.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/runtime-dependency-7.json",
+      "bytes": 307,
+      "sha256": "d4c0f46f48bc5b56e430bef159da71f13dd2541c77be764ff6b5afbb7d1fb35f",
+      "compressed_bytes": 217,
+      "compressed_sha256": "6b2658275afb77c53d1c06952604ecb3f84d00db559dfd9457ae275b3deca466"
+    },
+    {
+      "path": "final-producer-facts.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/final-producer-facts.json",
+      "bytes": 854,
+      "sha256": "be480ddb042d10048bf73ed83ebc06328cb6a1ab7ab17f1d3f2b9a72371b7121",
+      "compressed_bytes": 476,
+      "compressed_sha256": "3f952fbeddd37a105465a445089c92e64e1ca5ba3dd5e26bdd4332680f9614aa"
+    },
+    {
+      "path": "validator-runtime-facts-3.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/validator-runtime-facts-3.json",
+      "bytes": 2572,
+      "sha256": "667d579c313542f30e9420ccff528cb0dedc526e0c4d5473f91d4f9d1593b595",
+      "compressed_bytes": 913,
+      "compressed_sha256": "f89f63262557683ac16afd03121586e79b943892b8ebd33b2b32c71a41c9cd85"
+    },
+    {
+      "path": "validator-install-311.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/validator-install-311.json",
+      "bytes": 38010,
+      "sha256": "cd1e1ca38bc7b1a8120b46851df6c2711f6a0b7f8c382d4bd9a576958d98b640",
+      "compressed_bytes": 9308,
+      "compressed_sha256": "37ba7ffc80889d1bcdc716600f7af7492587d78152012c40ab1b746cf86a3f63"
+    },
+    {
+      "path": "original-index.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/original-index.json",
+      "bytes": 3418,
+      "sha256": "6aa24c395dc721ef6cfef281f34628051a041530ba426d8dc31e9126e9510399",
+      "compressed_bytes": 1039,
+      "compressed_sha256": "629d143a36316c99f2ca027ebd61c15f91e9d9477139bf0ac2634023b7f45d96"
+    },
+    {
+      "path": "request-042.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/request-042.json",
+      "bytes": 44032,
+      "sha256": "04146c1850b035d54e535b46d124dac7a1bbef13109a4396cc374e0cb36ac2c6",
+      "compressed_bytes": 2946,
+      "compressed_sha256": "4626d3b9b84cc07a521d7875cc96c627e767645929a30162c1d53706228027f2"
+    },
+    {
+      "path": "response-042.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/response-042.json",
+      "bytes": 28745,
+      "sha256": "482ab492797c2de443d3c0dbf4dd7771cf84e83f1086705e09236b75738a8656",
+      "compressed_bytes": 4088,
+      "compressed_sha256": "e1f18527931a5ebb09b19f73b3f249cf5d2ed2260d40fbeeac7ad1d0ec771d15"
+    },
+    {
+      "path": "fresh-response-4-0.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/fresh-response-4-0.json",
+      "bytes": 28745,
+      "sha256": "482ab492797c2de443d3c0dbf4dd7771cf84e83f1086705e09236b75738a8656",
+      "compressed_bytes": 4088,
+      "compressed_sha256": "e1f18527931a5ebb09b19f73b3f249cf5d2ed2260d40fbeeac7ad1d0ec771d15"
+    },
+    {
+      "path": "fresh-response-4-1.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/fresh-response-4-1.json",
+      "bytes": 28745,
+      "sha256": "482ab492797c2de443d3c0dbf4dd7771cf84e83f1086705e09236b75738a8656",
+      "compressed_bytes": 4088,
+      "compressed_sha256": "e1f18527931a5ebb09b19f73b3f249cf5d2ed2260d40fbeeac7ad1d0ec771d15"
+    },
+    {
+      "path": "fresh-installation--ready.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/fresh-installation/ready.json",
+      "bytes": 1457,
+      "sha256": "b4842fe871931e6c5e7fb0b6109883b569b3d89ab2effecb084865e3975de2c0",
+      "compressed_bytes": 751,
+      "compressed_sha256": "d30e35f5967b536fb1bd9febc7550400c9504ee984edd6ae2156499a9d956609"
+    },
+    {
+      "path": "fresh-installation--provenance.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/fresh-installation/provenance.json",
+      "bytes": 55261,
+      "sha256": "f5a28dff16b3a48c0d61ba077715381f7b009900af073294fa9d07e866439ff2",
+      "compressed_bytes": 8561,
+      "compressed_sha256": "dc4214fcdc9af3b4ff81c1c211cd9ab9bf51ec450141dc07180b1f1f22972e99"
+    },
+    {
+      "path": "fresh-installation--backend-manifest.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/fresh-installation/backend-manifest.json",
+      "bytes": 53868,
+      "sha256": "33de51e60a1f2eb46813abe8601d90dc7cbe67d6a6b248890dcc70842bfcbe6e",
+      "compressed_bytes": 2082,
+      "compressed_sha256": "5836b212ca10bb47b77714ab1f56403dad27881a7474a15edf20bee6e53122b2"
+    },
+    {
+      "path": "package-restoration.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/package-restoration.json",
+      "bytes": 23008,
+      "sha256": "d2a31d5f5382bd74254d9ef49bccffeaf4cc2d2bfbfd1117a8ebfe3722eebcce",
+      "compressed_bytes": 7676,
+      "compressed_sha256": "fe2f6b26e99ccefc914349ddbdff98c49cfc8cca4f404a27418672760e9eaf96"
+    },
+    {
+      "path": "installation-result.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/installation-result.json",
+      "bytes": 436,
+      "sha256": "c094968e7d3325643d8c9d12f140f65cd62a163a8daccd266fe087a43b4a9739",
+      "compressed_bytes": 320,
+      "compressed_sha256": "99d277eb93ed4923117b9d0588104f9948fffeb901b5da1de6d197858bb8dd98"
+    },
+    {
+      "path": "attempt.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt.json",
+      "bytes": 701,
+      "sha256": "2d12764d200cd14c2bb26601820633aba97cee64054610da292a3a447e66b677",
+      "compressed_bytes": 404,
+      "compressed_sha256": "0e184febe5b159fde2782406ddaefbf3f83b0d6eeb65c6975a6d9fe83c2efd71"
+    },
+    {
+      "path": "stderr.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr.log",
+      "bytes": 1341,
+      "sha256": "2a48ae99fd9b0f888d7ed1c1525f6a9f9083add0b562396e7946e2c04a45cbb3",
+      "compressed_bytes": 494,
+      "compressed_sha256": "8808765709fc1c6c779205a9e34e51d32139af9df2a887b25fb35d734758e5c5"
+    },
+    {
+      "path": "attempt-2.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-2.json",
+      "bytes": 723,
+      "sha256": "ee8bbd55fd744764703c39d7a129890461db0a31dd2518793d6c8d5ac6284e21",
+      "compressed_bytes": 387,
+      "compressed_sha256": "34d155cdf3e48c7999780e68b8251d052aca846ff31a895326344a24156b5e7b"
+    },
+    {
+      "path": "stderr-2.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-2.log",
+      "bytes": 1991,
+      "sha256": "5c12054b28092cde0d347428506584a0e97b6b245c7ad17a8e7ae970b1cde52a",
+      "compressed_bytes": 636,
+      "compressed_sha256": "c9b1375f8c68014922e6f655139156bedf08b93b4b6bb98f9da8166b5d0ab270"
+    },
+    {
+      "path": "attempt-3.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-3.json",
+      "bytes": 735,
+      "sha256": "9cd3f3c60d3ad615b6591fb7cc2d09caed5014dfe04a3ebb074bfb779180aa8c",
+      "compressed_bytes": 393,
+      "compressed_sha256": "18b09b0e35171739bdded670398bf3835b7041c017b2511e15d012ef95fdecf8"
+    },
+    {
+      "path": "stderr-3.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-3.log",
+      "bytes": 2667,
+      "sha256": "0efc378595bcf185e35df198bc3d8ee4490a40a357569b36d6b82a8ba90fd134",
+      "compressed_bytes": 763,
+      "compressed_sha256": "042aece9cdecc089466d880bd579c6210eee584175815ddeb73d62687b6b86bc"
+    },
+    {
+      "path": "attempt-4.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-4.json",
+      "bytes": 735,
+      "sha256": "adb5fdb222c0064d206aba29b6db6992c61361b6e41e1423dca4ce34fb71fc0f",
+      "compressed_bytes": 393,
+      "compressed_sha256": "b16c11f1892f79231f0cbcffd98d49c5656ca8f48be765324576772fe0fb57fa"
+    },
+    {
+      "path": "stderr-4.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-4.log",
+      "bytes": 1741,
+      "sha256": "72ae49bffe304c531f71119e9ed226a79493e11cff46a51fa0fd4d9e4c4f73c0",
+      "compressed_bytes": 603,
+      "compressed_sha256": "741dbc41b5b76fb2fe80d92ea230af1f8088bbb64e799be04a2b004da218b479"
+    },
+    {
+      "path": "attempt-5.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-5.json",
+      "bytes": 726,
+      "sha256": "eaa75e0ec332b58bb207004b03a88a45b9d2c1e2a773225e85babe6a1e9e68ae",
+      "compressed_bytes": 387,
+      "compressed_sha256": "8882f4a610db8a7ee745542bb05190d0a5fe62188c1aabc2bf6b3c5a2a5e8cf4"
+    },
+    {
+      "path": "stderr-5.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-5.log",
+      "bytes": 2720,
+      "sha256": "5a289a961d6ed1b5a4a586ea6ced1540a050942d3bb57ca9b426788da8193734",
+      "compressed_bytes": 784,
+      "compressed_sha256": "1737ffec7ae49127c66dcce5d9e41288a69218c1da9291739c0b3857e93a8c67"
+    },
+    {
+      "path": "attempt-6.json.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/attempt-6.json",
+      "bytes": 734,
+      "sha256": "08b0e0e6c342d76c922d3ea48808d4fd45a2d7dcd75d40fd8991a07319b8eb83",
+      "compressed_bytes": 392,
+      "compressed_sha256": "399015f70ea53ed211fb2240f75a9ddd21317c71ba1be86e1b691137b5f1cc01"
+    },
+    {
+      "path": "stderr-6.log.gz",
+      "original_path": "/private/tmp/ashlar-payments-held-guard-proposal-20261016-upgg9_5l/stderr-6.log",
+      "bytes": 2720,
+      "sha256": "949a199b70a8aa0f1e716f09e670f183edf93707201f30ed3828249b8149a23c",
+      "compressed_bytes": 784,
+      "compressed_sha256": "b87cd1c9741eb92a0cbe6fd12b59ae3fb7e827bae50034b29bc9fea0e78225c9"
+    }
+  ]
+}
