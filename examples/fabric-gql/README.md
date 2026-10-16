@@ -624,3 +624,9 @@ of an intervening refresh. Supply real deployment ownership backed by access
 controls or a supported native snapshot primitive. This helper supplies source
 composition; it does not create that graph owner, permissions or a lock. A
 Python mutex, stored release hash or no-op policy is insufficient.
+
+The [native commerce publication walkthrough evidence](../../docs/helix/04-build/evidence/commerce-fabric-publication-gql-20261016/README.md)
+connects the held materializer's exact Delta output to OneLake, a completed Fabric
+load and seven full-bag native GQL checks. It qualifies copied-publication
+correspondence; supplying the real loaded graph owner above remains necessary
+for a live held query.
