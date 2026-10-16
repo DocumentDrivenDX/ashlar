@@ -83,3 +83,7 @@ class PublicationOwnerCompositionTests(unittest.TestCase):
                 with self.assertRaises(TypeError):PublicationCurrentOwner(publication,object())
             self.assertFalse(publication.active)
         self.assertGreaterEqual(len(stage.events),3)
+        # Every stage boundary still performs a fresh actual source check. The
+        # interval adds its own independent opening and closing checks; the
+        # wrapper must not double each stage's same-boundary source validation.
+        self.assertEqual(reader.events.count('require-current'),len(stage.events)+2)

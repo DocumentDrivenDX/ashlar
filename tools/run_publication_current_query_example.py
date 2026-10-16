@@ -15,10 +15,12 @@ import re
 from pathlib import Path
 import sys
 import tempfile
+import time
 from types import SimpleNamespace
 
 
 def execute_publication_queries(spark,weft,configuration):
+    workflow_started=time.monotonic_ns()
     from ashlar_host.commerce_export_cli import parse_commerce_export_configuration,CommerceExportConfiguration
     from ashlar_host.original_commerce_local_setup import original_commerce_local_source_ports
     from ashlar_host.ordinary_query_connection import OrdinaryQueryConnectionFactory
@@ -44,19 +46,35 @@ def execute_publication_queries(spark,weft,configuration):
             source_rows=commerce_current_rows(opened)
             schema_owner=create_publication_stage_schema(publication,spark,schema='publication_current')
             for case in ('count','sku'):
+                case_started=time.monotonic_ns()
                 raw=json.dumps(commerce_current_request(opened,case=case),ensure_ascii=False,separators=(',',':'))
                 parent=weft.prepare_application_lineage(raw);child=parent.prepare_current_query()
+                stage_started=time.monotonic_ns()
                 stage=stage_commerce_current(publication,spark,child,schema='publication_current',table='products_'+case,schema_owner=schema_owner)
+                stage_ns=time.monotonic_ns()-stage_started
+                owner_started=time.monotonic_ns()
                 owner=PublicationCurrentOwner(publication,stage)
                 backend=owner.backend(capture_limits=PathCaptureConfig(1000,65536,1048576),source_limits=PathCaptureConfig(1000,65536,1048576))
+                owner_ns=time.monotonic_ns()-owner_started
+                execute_started=time.monotonic_ns()
                 result=execute_databricks_current_query(child,publication.context,backend,engine='spark',refinement=True)
+                guarded_execute_ns=time.monotonic_ns()-execute_started
                 public=json.loads(result.verified_result)
                 expected=[[str(len(source_rows))]] if case=='count' else [[value] for _,value in source_rows]
                 if Counter(map(tuple,public['rows']))!=Counter(map(tuple,expected)):raise ValueError('Complete publication-derived independent result differs')
-                results.append(dict(case=case,request=json.loads(raw),binding=json.loads(result.original_binding),artifact=json.loads(result.original_artifact),public=public,refinement=json.loads(result.refinement_report)))
+                results.append(dict(case=case,timing=dict(stage_wall_ns=stage_ns,owner_preparation_wall_ns=owner_ns,
+                    guarded_execute_refinement_wall_ns=guarded_execute_ns,case_wall_ns=time.monotonic_ns()-case_started,
+                    scope='Combined native/guards/refinement wall times; no raw SQL execution/fetch split'),request=json.loads(raw),binding=json.loads(result.original_binding),artifact=json.loads(result.original_artifact),public=public,refinement=json.loads(result.refinement_report)))
+        source_ack_custody=opened.provider.closed_interval_custody(opened.context)
         publication_id=opened.manifest['publication_id']
+        original_manifest=opened.manifest_bytes.decode('utf-8')
+        versions=json.loads(opened.manifest['table_versions_json'])
+        publication_vector=dict(table_versions_json=opened.manifest['table_versions_json'],
+            table_uuids={table:opened.driver.transport.targets[table].uuid for table in versions})
     configuration.renew(262144)
-    return dict(scope='Actual original private commerce publication/source ACK; declared local profile, not UMF/UC authorization',publication_id=publication_id,cases=results)
+    return dict(scope='Actual original private commerce publication/source ACK; declared local profile, not UMF/UC authorization',publication_id=publication_id,cases=results,source_ack_custody=source_ack_custody,
+        original_manifest=original_manifest,publication_vector=publication_vector,
+        timing=dict(reader_workflow_including_closing_wall_ns=time.monotonic_ns()-workflow_started))
 
 
 def require_fresh_output(output):
@@ -90,6 +108,7 @@ def load_selected_weft(root, module_sha256, shim_sha256):
 
 
 def main():
+    invocation_started=time.monotonic_ns()
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('configuration','weft-root','java-home','jars','output'):parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--weft-module-sha256',required=True);parser.add_argument('--weft-shim-sha256',required=True)
@@ -109,10 +128,18 @@ def main():
     jar_paths=runtime_paths(SimpleNamespace(output=args.output,jars=args.jars,model=selected.publication/'original-ontology.json',graph=selected.publication/'original-graph.json'),False)
     args.output.mkdir(mode=0o700)
     with tempfile.TemporaryDirectory(prefix='native-',dir=args.output) as work:
+        spark_open_started=time.monotonic_ns()
         with owned_context(open_commerce_export_spark(jar_paths,Path(work)/'warehouse')) as spark:
+            spark_open_ns=time.monotonic_ns()-spark_open_started
             spark.sparkContext.setLogLevel('ERROR')
             result=execute_publication_queries(spark,weft,captured)
+            spark_close_started=time.monotonic_ns()
+        spark_close_ns=time.monotonic_ns()-spark_close_started
     captured.renew(262144)
+    result['timing'].update(spark_context_opening_wall_ns=spark_open_ns,
+        spark_context_closing_wall_ns=spark_close_ns,
+        invocation_before_report_wall_ns=time.monotonic_ns()-invocation_started,
+        scope='Observed local wall phases; source/guards/native/refinement remain combined within guarded execution')
     payload=json.dumps(result,ensure_ascii=False,separators=(',',':')).encode()
     if len(payload)>4194304:raise ValueError('Bounded final report required')
     from ashlar_host.commerce_query_lifecycle import publish_commerce_query_report

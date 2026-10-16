@@ -18,6 +18,12 @@ absolute directory selected in both configurations. Fill the lowercase SHA-256
 values from the actual interpreter, `JAVA_HOME/bin/java` and
 `JAVA_HOME/lib/jvm.cfg` bytes.
 
+The selected publication interpreter must be a regular executable file, because
+runtime custody refuses a final symlink. Materialize it inside the selected
+environment when needed, complete any required platform signing, and verify its
+environment imports before recording its hash. Launch that exact path; do not
+modify or sign the executable after preparing the configuration.
+
 Select the unchanged original model/graph and the public UMF producer's source,
 Bun and Git paths. Keep those selections and the runtime/JAR selections identical
 between configurations. Choose separate, absent native root and initialization

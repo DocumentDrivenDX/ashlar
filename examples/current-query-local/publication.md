@@ -34,6 +34,10 @@ COUNT and SKU projection through unchanged Weft SQL and complete source
 refinement. The source reader holds the original complete native vector and
 current protected ACK through staging, execution and closing. Querying does not
 advance ACKs. Final output follows both publication-reader and Spark closing.
+The private report retains the original manifest/vector and the provider's actual
+opening/closing ACK observations. It records staging, guarded execution/refinement,
+reader workflow and Spark opening/closing wall times separately; guarded times
+include authority checks and must not be reported as raw SQL engine latency.
 
 The authored local policy documents describe a conditional query profile. They
 do not establish application Subject/action/disclosure permissions or managed

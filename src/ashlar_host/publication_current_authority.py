@@ -89,7 +89,9 @@ class PublicationCurrentOwner:
                 or stage.original_child is not self.child
                 or stage.original_binding != self.original_binding):
             raise PermissionError('Original publication/stage/query correspondence differs')
-        self.publication.require_current(self.context)
+        # The nominal stage's public admission performs this exact publication
+        # require_current before its native metadata/full-bag observations. Do
+        # not duplicate that same source/ACK/vector check in this wrapper.
         if stage.require_current(self.publication, self.child, self.original_binding, self.context) is not None:
             raise ValueError('Actual staged source admission must complete or raise')
 
