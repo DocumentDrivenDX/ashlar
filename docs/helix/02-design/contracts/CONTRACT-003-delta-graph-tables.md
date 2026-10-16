@@ -678,6 +678,70 @@ graph correspondence remain part of the engine release protocol above.
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 
+### Fabric private cooperative release activation
+
+A private deployment MAY qualify publication-bound Fabric reads by controlling
+all definition, storage, load, refresh and deletion operations for its selected
+GraphModel items. Every participating writer and reader MUST use that same
+owner. The operator MUST explicitly admit this cooperative scope and identify
+its actual ordinary deployment access. An unmanaged portal, API or storage writer
+is outside this qualification; unknown mutation ownership MUST refuse. A local
+lock, pointer, release digest or successful readback alone supplies no authority.
+This profile MUST NOT imply production access isolation or a native version lease.
+
+Each release MUST use fresh release-specific OneLake paths and a fresh GraphModel
+item ID. Active items MUST NOT be updated or refreshed in place. The owner MUST
+retain the exact original publication, complete UUID/version vector, release and
+mapping bytes, uploaded file identities/bytes, native item identity and original
+creation/load handles. Before one creation submission it MUST durably retain the
+complete intent. Unknown submission outcomes MUST recover that original handle
+or refuse; they MUST NOT create a replacement item implicitly.
+
+The initial load MUST reach terminal success for that same item before query
+admission. Complete independent node/edge identity, value and multiplicity bags
+MUST match the admitted release before activation. No query may warm an inactive
+item before its initial load succeeds. Different releases MUST never reuse an
+item ID or mutable source alias. Cached results remain confined to that one
+immutable item and release; cache expiry or elapsed waiting MUST NOT substitute
+for release admission or establish freshness.
+
+Where the selected API supports definition readback, the owner MUST read the
+actual item definition and compare every mapping part and source location with
+its retained intent. A definition response is not a loaded-generation token.
+If readback is unsupported, a separately explicit creator-owned assumption MAY
+bind the original creation payload, returned item ID, sole initial load and
+complete loaded bags under uninterrupted cooperative mutation ownership. The
+selection and every receipt MUST expose that assumption; unsupported readback
+MUST NOT silently select it. Neither mode may claim native content addressing.
+
+The owner MUST use actual private deployment leases for candidate mutation,
+activation, query acquisition and retirement. An acquired active-item lease MUST
+exclude every participating mutation of that item and its source locations.
+Candidate work MUST remain separate from the active item. Activation MUST atomically and durably compare and
+replace the expected predecessor pointer only after candidate admission; its
+local revision is not a Fabric generation. The pointer MUST bind the exact item,
+release, mapping and original publication vector. Crash recovery MUST inspect the
+original intent, native operation and active pointer; cloud listings or latest
+source heads MUST NOT reconstruct activation custody.
+
+The existing loaded-policy `hold` and `admit` ports MUST acquire one exact active
+binding and retain its mutation exclusion through complete result release.
+Independent source/ACK, native publication and HTTP owners MUST still admit and
+close under their existing contracts. Reopening a copied release MUST NOT grant
+continued source authority. R1 may remain readable after R2 preparation, or
+explicitly refuse when its actual source, ACK, retention or native owner can no
+longer admit it; it MUST NOT silently switch to R2. Outer failures and cancellation
+MUST attempt substantive closing and withhold success. Retirement or deletion
+MUST wait for all acquired readers to release and require its own authorization.
+
+A small functional witness MUST interrupt inactive R2 after only its node input
+is staged and prove no mixed activation; query R1 with its actual owners or record
+its explicit refusal; recover the same R2 intent through complete admission and
+atomic activation; and verify exact R1/R2 identities and changed values. A reader
+racing activation MUST acquire one whole release or refuse. Missing intent,
+changed definition/location, unexpected load/refresh, failed closure and stale
+activation predecessor MUST refuse without promoting partial output.
+
 ### Fabric ordinary delegated-authentication profile
 
 A separately named ordinary-authentication HTTP profile MAY use the operator's
