@@ -234,17 +234,21 @@ def _original_transaction(source,batch,*,context,existing):
     return (source.read_original if existing else source.append_original)(batch,context=context)
 
 
-def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False):
+def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=False,inspection=None):
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:
         raise ValueError('Exact original medical native phase required')
     if type(replay)is not bool or type(recovery)is not bool or replay and recovery:
         raise ValueError('Exact distinct medical operation required')
     if type(preflight_only)is not bool or preflight_only and not recovery:raise ValueError('Distinct medical recovery preflight required')
+    if inspection is not None:
+        from .medical_process_inspection import MedicalProcessInspection
+        if type(inspection)is not MedicalProcessInspection or not recovery or preflight_only:
+            raise ValueError('Distinct actual read-only commit inspection required')
     wanted=OriginalMedicalRecoveryConfig if recovery else OriginalMedicalReplayConfig if replay else OriginalMedicalPublicationConfig
     if type(config)is not wanted:raise ValueError('Exact original medical operation configuration required')
     config.__post_init__()
     if preflight_only and config.bounds.native_seconds>60:raise ValueError('Medical preflight native ceiling is60seconds')
-    context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None
+    context=object();output=_Output(config);primary=None;answer=None;pins=[];stages=None;inspection_files=None
     try:
         output.acquire()
         if recovery:
@@ -265,12 +269,14 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
             batch,bindings=build_transaction(model,graph,baseline,source_system=FEED,binding_profile='ashlar-medical-development-bindings/0.2')
             admission=MedicalAdmission(batch,bindings,config.inputs.model.path,config.inputs.graph.path,config.inputs.baseline.path,dataset)
             with owned_context(OriginalMedicalInstallationLease.open(selection,context,journal_bytes=config.bounds.journal_bytes)) as lease:
+                if inspection is not None:inspection.before(lease,context)
                 with owned_context(original_medical_native_session(custody) if supervision is None else original_medical_native_session(custody,phase=supervision)) as spark:
                     bounds=VerificationBounds(min(config.bounds.input_bytes,262144),config.bounds.rows,config.bounds.cell_bytes,config.bounds.total_bytes,config.bounds.receipt_bytes,config.bounds.stream_bytes)
                     policy=MedicalPublicationPolicy(context,selection,lease,lambda:finish(None,[originals,custody.renew,dataset.renew]))
                     transport=LocalDeltaTransport(spark,selection.journal,selection.installation_id,selection.targets,policy,capacity=selection.capacity,verification_bounds=bounds)
                     driver=None;source=None;native_primary=None
                     try:
+                        if inspection is not None:inspection.bind()
                         lease.verify(context,transport)
                         with owned_context(transport.bounded_observations(bounds)):
                             source=OriginalMedicalSourceOwner(original_medical_local_source_ports(config.source),lease)
@@ -288,7 +294,16 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                 with owned_context(driver.writer(STREAM,context)):
                                     if stages is None:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds)
                                     else:driver.preflight_original_medical_recovery(plan,context=context,bounds=bounds,stages=stages)
-                            if preflight_only:
+                            if inspection is not None:
+                                from .medical_commit_inspection import inspect_medical_commit
+                                with owned_context(driver.writer(STREAM,context)):
+                                    observed,proposal=inspect_medical_commit(driver,plan,source,context=context,
+                                        bounds=bounds,installation=json.loads(raw))
+                                inspection_files=(observed,proposal)
+                                answer={'profile':'ashlar-original-medical-local-commit-inspection/0.1',
+                                    'classification':observed['classification'],'closing':True,
+                                    'proposal_sha256':observed['proposal_sha256']}
+                            elif preflight_only:
                                 answer={'profile':'ashlar-original-medical-local-recovery-preflight/0.1','installation_id':selection.installation_id,'request_sha256':hashlib.sha256(request_raw).hexdigest(),'preflight_completed':True,'closing':True,'stage_records':stages.records}
                             else:
                                 target=transport.targets[tables['attempts']]
@@ -331,8 +346,16 @@ def _operate(config,replay,supervision=None,*,recovery=False,preflight_only=Fals
                                     finish(None,callbacks+[lambda:source.renew_original(batch,context=context)])
                             else:
                                 finish(None,callbacks)
-                    finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close])
+                    finish(native_primary,[(closing if stages is None else lambda:stages.call('composition-closing',closing)),transport.close]+([]if inspection is None else[inspection.closing]))
             finish(None,[originals,custody.renew if stages is None else lambda:stages.call('runtime-custody',custody.renew),dataset.renew])
+        if inspection is not None:
+            inspection.renew()
+            observed,proposal=inspection_files
+            observed['process_observations']=inspection.observations
+            output.write('proposal.json',proposal,config.bounds.input_bytes)
+            output.write('commit-observation.json',_bounded(observed,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
+            answer['proposal']=str(config.output/'proposal.json')
+            answer['observation']=str(config.output/'commit-observation.json')
         if recovery:answer['stage_records']=stages.records
         output.write('receipt.json',_bounded(answer,config.bounds.receipt_bytes-1),config.bounds.receipt_bytes)
     except BaseException as error:primary=error
@@ -362,3 +385,8 @@ def preflight_original_medical_recovery_local(config: OriginalMedicalRecoveryCon
     Direct callers must supply equivalent supervision; timings are evidence only.
     """
     return _operate(config,False,supervision,recovery=True,preflight_only=True)
+
+
+def operate_original_medical_commit_inspection(config,observer,*,supervision=None):
+    """Reuse actual medical ownership and closing without constructing a publisher."""
+    return _operate(config,False,supervision,recovery=True,inspection=observer)

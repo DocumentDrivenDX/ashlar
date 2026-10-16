@@ -767,6 +767,55 @@ retains installation/request correspondence and reports `preflight_completed`,
 `closing` and bounded `stage_records`; it MUST NOT contain a publication or ACK
 success claim. Deadline, refusal or incomplete cleanup MUST withhold success.
 
+`inspect-original-medical-commit --configuration PATH` selects the additive
+`ashlar-original-medical-local-commit-inspection/0.1` configuration. Its exact
+members are `profile`, `recovery`, `original_configurations` and
+`process_observer`. `recovery` contains the complete existing recovery
+configuration, including its unchanged finite worker bounds and a fresh private
+output. `original_configurations` contains 1–32 pinned original configuration
+files, each with `path`, `bytes` and `sha256`. `process_observer` contains exactly
+`ps`, `java`, `owner_uid`, `visibility_profile`, `maximum_processes`,
+`maximum_output_bytes` and `timeout_seconds`. `owner_uid` MUST equal the actual
+local owner UID; `visibility_profile` MUST be
+`ashlar-private-local-same-uid-process-visibility/0.1`.
+`ps` and `java` are pinned files; the Java identity MUST match the selected and
+retained original configurations. Process bounds MUST be positive integers no
+greater than 4096 processes, 1,048,576 output bytes and five seconds.
+
+The inspector MUST acquire the existing installation lease, perform complete
+original recovery preflight and independently validate the retained proposed
+manifest, actual native phase/artifact correspondence, full publication vector,
+source and protected ACK scope. It MUST NOT initialize, construct a publisher,
+prepare or submit a mutation, repair original custody, append source data or
+submit ACK. Independent closing MUST precede release of the exact proposed
+manifest bytes and bounded observation report.
+
+On its supported Darwin private, same-user profile, the inspector MUST observe
+current processes before native acquisition and at closing. It MUST inspect the
+physical executable identity of every visible process with the original local
+owner UID, rather than discover candidate executors only from process titles or
+arguments. Other-UID processes are outside this declared profile. Caller booleans,
+missing PIDs or timeout receipts MUST NOT substitute for image observation. External matching medical workers or the selected JVM,
+unreadable or raced candidate identities, incomplete inventory and unsupported
+observation profiles MUST refuse. Closing MAY exclude only the inspector's
+independently owned process lineage. Unrelated processes require an independently
+observed different executable identity; they MUST NOT be stopped.
+
+An `exact-existing-commit` observation requires complete native manifest
+correspondence and validation of its actual retained original intent and receipt
+through the existing committed-operation owner. An exact native row with missing
+original intent MUST instead use
+`observed-exact-manifest-row-no-original-intent`; matching row values or plausible
+commit metadata MUST NOT promote it to original submission custody. An `observed-absent-at-anchor` observation requires the
+unchanged original manifest identity/history/anchor and no matching executor in
+the observed intervals. It describes the bounded private development profile,
+including its cooperative-writer and process-visibility assumptions; it MUST NOT
+claim that arbitrary future writers are fenced. Neither observation, report hash,
+proposed manifest nor process absence grants a new submission or ACK. Missing
+intent remains a reconciliation case, and ordinary recovery MUST retain its
+original refusal. A prospective reconciled submission requires a separately
+specified authorization boundary.
+
 The private output retains exclusive `preflight-stage-NNN.json` records before
 and after each checked stage, with at most 128 records and 1024 bytes per record.
 `ashlar-medical-preflight-stage/0.1` has `sequence` (integer 0–127), `stage` and `phase`

@@ -74,6 +74,9 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
 | `medical_process_supervision.py` | Typed worker native phase pipe ownership under CONTRACT-001, without importing command composition or granting data authority |
 | `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
+| `medical_commit_inspection_configuration.py` | Closed inspection wrapper and exact retained configuration/executable file pins; depends on medical configuration and file custody, not native execution |
+| `medical_process_inspection.py` | Bounded Darwin process inventory and physical executable observation; depends on the inspection selection and lifecycle owners, never publisher or ACK mutation ports |
+| `medical_commit_inspection.py` | Read-only original phase/artifact/native-manifest observation and exact proposed-manifest correspondence through existing driver/source owners |
 
 Reuse `ashlar.medical_source.build_transaction`, public `ProducerConfig` and
 invocation custody patterns, `OutboxSourceRegistration`,
@@ -251,6 +254,29 @@ safety/liveness obligations. No new state-space exploration is required for
 unchanged publication transitions; actual native recovery still requires separate
 evidence. Disabling this additive command leaves retained source and Delta state
 intact.
+
+The commit inspector in CONTRACT-001 branches after the same complete recovery
+preflight and before any publisher construction. Its separate configuration owner
+retains the whole nested recovery selection plus original execution and process
+observer pins. The installed parent and worker renew that wrapper independently;
+forwarding only its recovery fields cannot omit inspection custody. The native
+observer reuses the stored publisher's pure applied-artifact validation and actual
+attempt/native/source read owners rather than reconstructing a descriptor grant.
+
+Process observation runs under the original installation lease before Spark
+acquisition and again at closing. Physical OS image observation distinguishes the
+selected JVM from unrelated applications; only the inspector's owned process
+lineage may be excluded. Raw process arguments are not diagnostic output. The
+report carries the bounded development writer/process-visibility assumptions and
+cannot authorize a prospective mutation. Cancellation, candidate identity races,
+changed original pins and incomplete native/source closing withhold the report.
+
+This read-only slice preserves MED-F2–F4 and MED-L1 without adding publication or
+ACK transitions. Scoped assurance consists of semantic ownership review and
+focused controls proving no publisher/effect/ACK reachability, exact proposal
+correspondence, process uncertainty refusal and all-path closing. Native inspection
+qualifies only its actual observed outcome; it does not complete publication or
+reconcile missing intent. Disabling the command leaves original custody intact.
 
 Failure diagnostics must expose a bounded, closed classification of the owning
 failure and observed worker status/native phase, without exception text, stack,
