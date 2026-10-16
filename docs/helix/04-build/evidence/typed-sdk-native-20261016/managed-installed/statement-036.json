@@ -1,0 +1,49 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT to_json(current_version(), map('ignoreNullFields','false')) AS __weft_warehouse",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 1,
+        "columns": [
+          {
+            "name": "__weft_warehouse",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "{\"dbr_version\":null,\"dbsql_version\":\"2026.39\",\"u_build_hash\":\"55233303686df68c7c3acb934c0a573947b3fae8\",\"r_build_hash\":\"ec864f9e1ceaa3eb7afec091ca45053cf08a0afa\"}"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c982-a9a0-1c06-b1ae-d5f9a7d8525a",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

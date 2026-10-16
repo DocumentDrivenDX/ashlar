@@ -1,0 +1,25 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "CREATE TABLE client_dev.umf_sdk_atomic_cf40c0c7aa74.receipts (invocation STRING, changed BIGINT, observed BIGINT) USING DELTA TBLPROPERTIES ('delta.feature.catalogManaged'='supported','delta.isolationLevel'='Serializable')",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 0
+      },
+      "total_chunk_count": 0,
+      "total_row_count": 0,
+      "truncated": false
+    },
+    "result": {},
+    "statement_id": "01f1c989-5ecf-127e-a2f2-661f397be34c",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

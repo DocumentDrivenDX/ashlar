@@ -1,0 +1,49 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT invocation FROM client_dev.umf_sdk_atomic_cf40c0c7aa74.receipts",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 1,
+        "columns": [
+          {
+            "name": "invocation",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "first"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c989-6f91-1a54-99d7-fc0b1c4bea77",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

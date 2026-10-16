@@ -1,0 +1,56 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "INSERT INTO client_dev.umf_sdk_atomic_cf40c0c7aa74.objects VALUES (1,10),(2,20)",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 2,
+        "columns": [
+          {
+            "name": "num_affected_rows",
+            "position": 0,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "num_inserted_rows",
+            "position": 1,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "2",
+          "2"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c989-61f8-152e-a7b6-22ccbe98aed4",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

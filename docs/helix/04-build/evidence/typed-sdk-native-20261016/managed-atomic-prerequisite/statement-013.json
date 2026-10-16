@@ -1,0 +1,60 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT id,value FROM client_dev.umf_sdk_atomic_cf40c0c7aa74.objects ORDER BY id",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 2,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 2,
+        "columns": [
+          {
+            "name": "id",
+            "position": 0,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "value",
+            "position": 1,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 2,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "1",
+          "11"
+        ],
+        [
+          "2",
+          "20"
+        ]
+      ],
+      "row_count": 2,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c989-6f0c-125c-a5aa-2561a70f7b44",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

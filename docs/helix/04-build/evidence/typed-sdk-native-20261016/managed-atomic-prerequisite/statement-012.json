@@ -1,0 +1,20 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "BEGIN ATOMIC UPDATE client_dev.umf_sdk_atomic_cf40c0c7aa74.objects SET value=999 WHERE id=1; INSERT INTO client_dev.umf_sdk_atomic_cf40c0c7aa74.receipts VALUES ('rollback',1,999); SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='owned prerequisite rollback'; END;",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "statement_id": "01f1c989-6c9a-11ed-b9aa-ce36001f9964",
+    "status": {
+      "error": {
+        "error_code": "BAD_REQUEST",
+        "message": "[USER_RAISED_EXCEPTION] owned prerequisite rollback SQLSTATE: 45000"
+      },
+      "sql_state": "45000",
+      "state": "FAILED"
+    }
+  }
+}

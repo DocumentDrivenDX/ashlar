@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "data replacement, original marker JSON and idempotency marker share one actual Delta commit",
+    "same original request observes durable native SetTransaction across new transaction",
+    "independent real Delta update conflicts with registered whole-table read; no retry",
+    "conflict leaves committed data and version unchanged",
+    "duplicate marker JSON refuses before native write"
+  ],
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "native local Delta optimistic commit primitive; original action compilation, authorization, verification semantics and SDK invocation still separate gates"
+}

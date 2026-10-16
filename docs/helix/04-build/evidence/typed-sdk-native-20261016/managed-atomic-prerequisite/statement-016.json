@@ -1,0 +1,63 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT invocation,changed,observed FROM client_dev.umf_sdk_atomic_cf40c0c7aa74.receipts WHERE invocation='noop'",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 100
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 3,
+        "columns": [
+          {
+            "name": "invocation",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "changed",
+            "position": 1,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "observed",
+            "position": 2,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "noop",
+          "0",
+          "31"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c989-72e2-144a-a456-b320c211e1f0",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}

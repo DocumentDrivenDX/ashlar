@@ -1,0 +1,154 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "DESCRIBE HISTORY client_dev.umf_typed_sdk_29b8d260b69d.object_current LIMIT 1",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 16,
+        "columns": [
+          {
+            "name": "version",
+            "position": 0,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "timestamp",
+            "position": 1,
+            "type_name": "TIMESTAMP",
+            "type_text": "TIMESTAMP"
+          },
+          {
+            "name": "userId",
+            "position": 2,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "userName",
+            "position": 3,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "operation",
+            "position": 4,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "operationParameters",
+            "position": 5,
+            "type_name": "MAP",
+            "type_text": "MAP<STRING, STRING>"
+          },
+          {
+            "name": "job",
+            "position": 6,
+            "type_name": "STRUCT",
+            "type_text": "STRUCT<jobId: STRING, jobName: STRING, jobRunId: STRING, runId: STRING, jobOwnerId: STRING, triggerType: STRING, workspaceId: STRING>"
+          },
+          {
+            "name": "notebook",
+            "position": 7,
+            "type_name": "STRUCT",
+            "type_text": "STRUCT<notebookId: STRING>"
+          },
+          {
+            "name": "queryHistoryStatementId",
+            "position": 8,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "clusterId",
+            "position": 9,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "readVersion",
+            "position": 10,
+            "type_name": "LONG",
+            "type_text": "BIGINT"
+          },
+          {
+            "name": "isolationLevel",
+            "position": 11,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "isBlindAppend",
+            "position": 12,
+            "type_name": "BOOLEAN",
+            "type_text": "BOOLEAN"
+          },
+          {
+            "name": "operationMetrics",
+            "position": 13,
+            "type_name": "MAP",
+            "type_text": "MAP<STRING, STRING>"
+          },
+          {
+            "name": "userMetadata",
+            "position": 14,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          },
+          {
+            "name": "engineInfo",
+            "position": 15,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "1",
+          "2026-10-16T16:56:34.000Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "WRITE",
+          "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+          null,
+          null,
+          "01f1c982-88ca-1338-bd13-1ab72a3b4a67",
+          null,
+          "0",
+          "WriteSerializable",
+          "true",
+          "{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"2261\"}",
+          null,
+          "Databricks-Runtime/19.9.x-photon-scala2.13"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c982-8fb1-1c16-b1a8-591fc4b05d2e",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}
