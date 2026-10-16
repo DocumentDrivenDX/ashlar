@@ -734,6 +734,24 @@ per-use action authority, aggregate arithmetic or public-cell correspondence;
 those remain mandatory held-backend checks. Expected contributors derived only
 from the returned carrier cannot serve as an independent oracle.
 
+The host MAY explicitly select current-query result refinement. Omission MUST
+retain the existing execution path; missing checker support MUST refuse without
+falling back to unrefined execution. The selected native Weft checker MUST run on
+the same live CQP with the exact original binding and complete frame supplied by
+the held provider. The frame MUST retain independently captured eligible scan
+populations/counts, exact per-use cells and the actual captured native results
+from that same held invocation and cut. Returned contributors cannot supply the
+expected population.
+
+The adapter MUST verify the closed conditional report, including its original
+source/designation/binding/artifact anchors and digest of the complete original
+frame bytes, before invoking the owner's remaining verification and public
+decoder. Reports and frame/capture correspondence remain private host evidence;
+they MUST NOT be reused across invocations or treated as native receipts. A
+successful match cannot replace native source/action authority, metadata/value
+correspondence, complete capture or closing validation. Any checker failure,
+anchor mismatch, cancellation or closing failure MUST release no public result.
+
 ## Excluded administrators and isolated test scope
 
 An excluded administrator MUST remain distinct from admitted ordinary data

@@ -22,6 +22,11 @@ class HeldCurrentQuery(Protocol):
                authenticated_context) -> str: ...
 
 
+class RefinedHeldCurrentQuery(HeldCurrentQuery, Protocol):
+    def refinement_input(self, original_child, original_artifact: str, captured,
+                         authenticated_context) -> str: ...
+
+
 class CurrentQueryBackend(Protocol):
     def open_current_query(self, original_child, authenticated_context) -> ContextManager[HeldCurrentQuery]: ...
 
@@ -31,6 +36,7 @@ class CurrentQueryResult:
     original_binding: str
     original_artifact: str
     verified_result: str
+    refinement_report: str | None = field(default=None, repr=False)
     # Compiler candidate metadata never becomes an authority grant.
     authority: bool = field(default=False, init=False)
     security_ready: bool = field(default=False, init=False)
@@ -51,7 +57,7 @@ def _json(raw, maximum):
 
 def execute_databricks_current_query(original_child, authenticated_context,
                                       backend: CurrentQueryBackend, *, mode='contributors',
-                                      maximum_result_bytes=16_777_216):
+                                      maximum_result_bytes=16_777_216, refinement=False):
     """Use a trusted backend owner; absent native authority never has a fallback.
 
     The injected backend must authenticate the actual caller/current cut, admit
@@ -59,6 +65,8 @@ def execute_databricks_current_query(original_child, authenticated_context,
     populations, cells and bags, and revalidate all authority at owner closing.
     JSON/compiler declarations are never substitutes for those backend checks.
     """
+    if type(refinement) is not bool:
+        raise ValueError('Exact refinement opt-in required')
     if type(maximum_result_bytes) is not int or not 1 <= maximum_result_bytes <= 16_777_216:
         raise ValueError('Exact positive bounded result-byte limit required')
     if type(mode) is not str or mode not in ('contributors', 'sum') or authenticated_context is None or backend is None:
@@ -71,6 +79,11 @@ def execute_databricks_current_query(original_child, authenticated_context,
     if type(source) is not native.ApplicationLineagePreparation:
         raise TypeError('Original installed native parent required')
     lower = getattr(cls, 'lower_databricks_current_'+mode+'_candidate_json')
+    checker = None
+    if refinement:
+        checker = getattr(cls, 'check_databricks_current_'+mode+'_candidate_json', None)
+        if not callable(checker):
+            raise ValueError('Installed native refinement capability required')
     result = None
     with owned_context(backend.open_current_query(original_child, authenticated_context)) as held:
         binding = None
@@ -102,10 +115,33 @@ def execute_databricks_current_query(original_child, authenticated_context,
                     or type(compiled.get('parameters')) is not list):
                 raise ValueError('Original conditional compiler artifact required')
             check()
+            if refinement and not callable(getattr(held, 'refinement_input', None)):
+                raise ValueError('Backend-owned refinement input port required')
             captured = held.capture(artifact)
+            refinement_report = None
+            if refinement:
+                frame = held.refinement_input(original_child, artifact, captured, authenticated_context)
+                _json(frame, 16_777_216)
+                refinement_report = checker(original_child, binding, frame)
+                report = _json(refinement_report, 16_777_216)
+                anchors = {'sourceRequestSha256': compiled.get('sourceRequestSha256'),
+                    'designationSha256': compiled.get('designationSha256'),
+                    'materializationBindingSha256': hashlib.sha256(binding.encode()).hexdigest(),
+                    'compiledArtifactSha256': hashlib.sha256(artifact.encode()).hexdigest(),
+                    'refinementInputSha256': hashlib.sha256(frame.encode()).hexdigest()}
+                keys = {'version', 'matched', 'authority', 'securityReady', 'nativeAdmission'} | set(anchors)
+                if (type(report) is not dict or set(report) != keys
+                        or report.get('version') != 'weft.current-query.refinement-result/0.1-candidate'
+                        or report.get('matched') is not True or report.get('authority') is not False
+                        or report.get('securityReady') is not False or report.get('nativeAdmission') != 'required'
+                        or any(type(value) is not str or len(value) != 64
+                            or any(c not in '0123456789abcdef' for c in value)
+                            or report[key] != value for key, value in anchors.items())):
+                    raise ValueError('Exact same-original refinement report required')
+                check()
             verified = held.verify(original_child, artifact, captured, authenticated_context)
             _json(verified, maximum_result_bytes)
-            result = CurrentQueryResult(binding, artifact, verified)
+            result = CurrentQueryResult(binding, artifact, verified, refinement_report)
         except BaseException as error:
             primary = error
         # Independently attempt every closing observation, including on refusal

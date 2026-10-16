@@ -269,6 +269,14 @@ binding, full eligible populations, per-use rule/action admission, two genuine
 callers, complete contributor bags and opening/closing UC policy/snapshot checks.
 Keep unsupported native authority refused rather than replacing it with fixtures.
 
+When refinement is explicitly selected, verify an actual native CQP checker
+consumes the exact held binding/frame and that its complete-frame digest matches
+the captured invocation. Missing feature support, wrong mode, imported reports,
+changed anchors, checker mismatch and native/closing cancellation MUST refuse
+without fallback or public decoding. Retain the unrefined path independently.
+Actual checker success over supplied frames qualifies conditional semantics only;
+complete genuine source capture and managed authority remain separate native gates.
+
 Run `python3 tools/check_module_boundaries.py` with the same policy locally,
 pre-commit and CI. Test the actual checker: one allowed edge succeeds and a new
 forbidden edge/private cross-module import fails. Inventory exact existing debt;

@@ -40,7 +40,7 @@ class Backend:
         self.events.append('capture');self.original=original
         if self.fail in ('capture','cancel'):
             raise (KeyboardInterrupt() if self.fail=='cancel' else LookupError('primary'))
-        return object()
+        self.captured=object();return self.captured
     def verify(self,child,original,captured,context):
         assert original is self.original;self.events.append('verify');return '{"rows":[]}'
 
@@ -123,3 +123,63 @@ class CurrentQueryTests(unittest.TestCase):
         b=Suppressing('cancel')
         with self.assertRaises(KeyboardInterrupt):self.invoke(b)
         self.assertEqual(b.events[-4:],['renew','admit','suppressed','close'])
+
+
+class RefinedChild(Child):
+    def lower_databricks_current_contributors_candidate_json(self,binding):
+        value=json.loads(super().lower_databricks_current_contributors_candidate_json(binding))
+        value.update(sourceRequestSha256='a'*64,designationSha256='b'*64)
+        self.artifact=json.dumps(value);self.binding_original=binding
+        return self.artifact
+    def lower_databricks_current_sum_candidate_json(self,binding):
+        value=json.loads(self.lower_databricks_current_contributors_candidate_json(binding))
+        value['version']='weft.databricks.current-scalar/0.2-candidate'
+        self.artifact=json.dumps(value);return self.artifact
+    def check_databricks_current_contributors_candidate_json(self,binding,frame):
+        assert binding is self.binding_original
+        self.checked=('contributors',binding,frame)
+        value=json.loads(self.artifact)
+        return json.dumps({'version':'weft.current-query.refinement-result/0.1-candidate',
+            'matched':True,'authority':False,'securityReady':False,'nativeAdmission':'required',
+            'sourceRequestSha256':value['sourceRequestSha256'],'designationSha256':value['designationSha256'],
+            'materializationBindingSha256':hashlib.sha256(binding.encode()).hexdigest(),
+            'compiledArtifactSha256':hashlib.sha256(self.artifact.encode()).hexdigest(),
+            'refinementInputSha256':hashlib.sha256(frame.encode()).hexdigest(),**self.changes})
+    def check_databricks_current_sum_candidate_json(self,binding,frame):
+        result=self.check_databricks_current_contributors_candidate_json(binding,frame)
+        self.checked=('sum',binding,frame);return result
+
+
+class RefinementTests(unittest.TestCase):
+    def invoke(self,b,*,mode='contributors',changes=None,cls=RefinedChild):
+        child=cls();child.changes=changes or {};context=object();frame=' {"original":"frame"} '
+        def refinement_input(actual,artifact,captured,ctx):
+            self.assertIs(actual,child);self.assertIs(ctx,context);self.assertIs(artifact,b.original);self.assertIs(captured,b.captured)
+            b.events.append('refinement');return frame
+        b.refinement_input=refinement_input
+        native=types.SimpleNamespace(CurrentQueryPreparation=cls,ApplicationLineagePreparation=Parent)
+        with patch('ashlar_host.databricks_current_query.importlib.import_module',return_value=native):
+            result=execute_databricks_current_query(child,context,b,mode=mode,refinement=True)
+        return result,child,frame
+    def test_opt_in_same_original_and_sum_checker(self):
+        for mode in ('contributors','sum'):
+            b=Backend();result,child,frame=self.invoke(b,mode=mode)
+            self.assertEqual(child.checked,(mode,result.original_binding,frame))
+            self.assertLess(b.events.index('refinement'),b.events.index('verify'))
+            self.assertTrue(json.loads(result.refinement_report)['matched'])
+            self.assertFalse(result.authority)
+    def test_missing_checker_and_report_refusals(self):
+        b=Backend()
+        with self.assertRaises(ValueError):self.invoke(b,cls=Child)
+        self.assertEqual(b.events,[])
+        for changes in [{'refinementInputSha256':'c'*64},{'compiledArtifactSha256':'c'*64},
+                        {'sourceRequestSha256':'c'*64},{'authority':True},{'matched':False},{'extra':None}]:
+            b=Backend()
+            with self.subTest(changes=changes),self.assertRaises(ValueError):self.invoke(b,changes=changes)
+            self.assertNotIn('verify',b.events);self.assertEqual(b.events[-3:],['renew','admit','close'])
+    def test_refinement_cancellation_keeps_closing(self):
+        class CancelChild(RefinedChild):
+            def check_databricks_current_contributors_candidate_json(self,*args):raise KeyboardInterrupt()
+        b=Backend()
+        with self.assertRaises(KeyboardInterrupt):self.invoke(b,cls=CancelChild)
+        self.assertNotIn('verify',b.events);self.assertEqual(b.events[-3:],['renew','admit','close'])
