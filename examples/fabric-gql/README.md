@@ -151,6 +151,44 @@ not a Fabric load or a graph-query qualification; no notebook/cloud run is
 claimed by the basic inert Spark tests.
 
 
+### Materialize an actual commerce publication
+
+Use `materialize_commerce_fabric_delta` to project an existing commerce
+publication while its ordinary source, protected ACK and complete canonical
+Delta vector remain held. Supply the existing reader's explicit connection and
+source factories and two fresh destinations:
+
+```python
+from ashlar_host.publication_reader import open_commerce_reader
+from ashlar_host.commerce_fabric_delta import materialize_commerce_fabric_delta
+
+def project_commerce(spark, publication, ordinary_session, source_factory,
+                     node_path, edge_path):
+    with open_commerce_reader(
+            spark, publication, ordinary_session=ordinary_session,
+            source_factory=source_factory) as opened:
+        report = materialize_commerce_fabric_delta(
+            spark, opened, node_path=node_path, edge_path=edge_path)
+    return report
+```
+
+The factories are the actual `OrdinaryQueryConnectionFactory` and
+`CommerceQuerySourceFactory` used by the
+[commerce reader](../domain-packs/original-commerce-publication-toolkit.md).
+The caller owns Spark, ordinary destination access and the enclosing reader.
+The report includes the original manifest/full snapshot vector and the distinct
+observed version-zero destination UUIDs, schemas and row counts. Both complete
+bags and closing native identities are checked before the source/ACK hold closes.
+An authority refusal or partial write leaves outputs for inspection and returns
+no successful report; the helper performs no overwrite or repair.
+
+Every canonical carrier stays STRING, including exact `props_json`,
+`retained_json`, reversible node IDs and independent edge IDs/endpoints. This
+does not promote nested scalar properties to Fabric numeric types. Use the
+definition generator above for the resulting OneLake tables; graph creation,
+load and query require their actual deployment owners. The helper's focused
+tests use inert Spark storage and do not establish native Fabric qualification.
+
 ### Explicit private-local commerce export
 
 For a retained commerce export with named
