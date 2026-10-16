@@ -783,6 +783,24 @@ identity and table custody MUST NOT stand in for UMF Subject/action/disclosure
 admission, protected source/ACK custody, an immutable Ashlar publication, or managed
 UC enforcement. Those require their own admitted authority integration.
 
+## Publication-backed local current queries
+
+A local current-query owner MAY derive a bounded physical stage from an actual
+admitted Ashlar publication. Stage creation, native query execution, complete
+source capture and refinement MUST share the original reader's active publication
+interval. Opening, renewal and closing MUST retain the complete native vector,
+original model/graph/mapping/request, ordinary source registration and current
+protected ACK custody. A staged bag or historical report cannot replace these
+checks. Queries MUST NOT advance source ACKs.
+
+The stage MUST preserve the complete selected source bag, original logical Field
+identities and exact values. Its fresh namespace, native table UUID/version/schema,
+original live CQP, binding and Spark session MUST remain bound through closing.
+Final workflow output MUST follow both query and outer publication closing.
+Explicitly authored local query-policy documents MUST identify their conditional
+scope; accepted source mappings and ordinary PostgreSQL privileges MUST NOT imply
+UMF Subject/action/disclosure permission or managed Unity Catalog enforcement.
+
 ## Excluded administrators and isolated test scope
 
 An excluded administrator MUST remain distinct from admitted ordinary data
