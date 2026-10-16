@@ -1,0 +1,26 @@
+{
+  "scope": "Compile-only compatibility check of unchanged historical0.4.2 requests against independently selected public0.4.36; not a new payments execution profile",
+  "compiler_version": "0.4.36",
+  "wheel_sha256": "ab14b73dcf94ea329514b5e9a54e6d37bbdca08e45319446f0e6d6181117deab",
+  "requests": "../payments-authored-compiler-20261013",
+  "cases": [
+    "currency",
+    "settled",
+    "net-settlement"
+  ],
+  "fresh_repeat_identical": true,
+  "result": "WFT-VERSION for every unchanged historical request; no automatic protocol relabeling",
+  "source_review": {
+    "public_commit": "a14640f2bb288e58de0c9846fb10162e3e4030fc",
+    "join_literal": "application_scope.rs field equality restriction persists",
+    "decimal_exponent": "candidate.rs exact fixed-base-ten contract still excludes exponent/DOUBLE variant carriers"
+  },
+  "limits": [
+    "No Spark or cloud execution",
+    "Existing042pins remain unchanged",
+    "Historical native guard failure did not measure offending field/type; exponent explanation remains an inference",
+    "Required original settlement and net-settlement passes remain outstanding"
+  ],
+  "repeat_evidence": "Runner compared two responses in memory; only one identical response per case retained",
+  "independent_review": "payments_compiler_gap: approved with explicit repeat-custody limit"
+}

@@ -111,3 +111,38 @@ class Tests(unittest.TestCase):
                 with self.assertRaises(PermissionError):d.preflight_original_medical_recovery(plan,context=object(),bounds=b)
                 with self.assertRaises(PermissionError):d.preflight_original_medical_recovery(plan,context=d.context,bounds=replace(b))
             self.assertEqual(len(f.connections),before);self.assertEqual(captures,[])
+
+    def test_native_identity_returns_one_fresh_history_per_observation(self):
+        with ExitStack()as stack:
+            f,d,plan,b,v,ids,captures=self.fixture(stack)
+            transport=d.transport;actual=transport.original_history;helper=d._medical_publication_native
+            calls=[];observations=[]
+            def history(target):
+                calls.append(target.table)
+                return actual(target)
+            def native(binding,target,versions):
+                before=len(calls);result=helper(binding,target,versions)
+                self.assertEqual(len(calls)-before,1)
+                self.assertIsInstance(result,list)
+                observations.append(target.table)
+                return result
+            stack.enter_context(patch.object(transport,'original_history',side_effect=history))
+            stack.enter_context(patch.object(d,'_medical_publication_native',side_effect=native))
+            self.call(d,plan,b)
+            for role in ('object_current','edge_current','tombstone','whole_source_history','attempts','manifest'):
+                self.assertGreaterEqual(sum(table.endswith('.'+role)for table in observations),2)
+
+    def test_fresh_closing_capture_still_refuses_native_state_drift(self):
+        with ExitStack()as stack:
+            f,d,plan,b,v,ids,captures=self.fixture(stack)
+            actual=d.transport.bounded_snapshot;seen={}
+            def snapshot(target,version,**kwargs):
+                value,schema=actual(target,version,**kwargs)
+                seen[target.table]=seen.get(target.table,0)+1
+                if target.table.endswith('.manifest')and seen[target.table]>=2:
+                    value={**value,'rows':[['changed']]}
+                    value['row_sha256']=sha(encoded(value['rows']))
+                return value,schema
+            stack.enter_context(patch.object(d.transport,'bounded_snapshot',side_effect=snapshot))
+            with self.assertRaisesRegex(PermissionError,'native state changed'):self.call(d,plan,b)
+            self.assertTrue(all(c.closes==1 for c in f.connections))

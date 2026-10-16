@@ -1230,6 +1230,7 @@ class NativeDriver:
         if target.table in versions and not any(type(item.get('version')) is int
                 and item['version'] == versions[target.table] for item in history):
             raise PermissionError('Selected original medical version not retained')
+        return history
 
     def _medical_publication_ack_scope(self, binding, context):
         from .lifecycle import finish
@@ -1941,7 +1942,9 @@ class NativeDriver:
                 transport.inspect_committed(identities[index], step['statement'], step['parameters'],
                     intent_digest=digest, context=context)
         def native(target, total, closing):
-            history = transport.original_history(target)
+            # Select from the same fresh post-identity history used for custody.
+            # Opening and closing each observe independently; no interval cache.
+            history = self._medical_publication_native(binding, target, {})
             if not history or type(history[0].get('version')) is not int:
                 raise PermissionError('Complete partial medical native history required')
             absent = {identities[index] for index, state in enumerate(states) if state == 'no-operation-record'}
@@ -1954,7 +1957,7 @@ class NativeDriver:
                 if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
                         and metadata.get('operation') in absent and metadata.get('request_digest') == digest):
                     raise PermissionError('Original native commit missing ordinal custody; no restoration')
-            version = history[0]['version']; self._medical_publication_native(binding, target, {target.table:version})
+            version = history[0]['version']
             snapshot, schema = transport.bounded_snapshot(target, version, remaining_bytes=bounds.total_bytes-total[0])
             role = target.table.split('.')[-1]
             if not original_native_equal(schema, json.loads(schemas[role]['schemaJson'])):
