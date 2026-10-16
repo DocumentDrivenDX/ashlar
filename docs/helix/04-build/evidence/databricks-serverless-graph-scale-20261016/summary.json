@@ -1,0 +1,65 @@
+{
+  "nodes": 1000000,
+  "edges": 10000000,
+  "elapsed_seconds": 76.29835473200023,
+  "runtime": {
+    "spark": "4.2.0"
+  },
+  "predictive_optimization": "effective inherited state unknown; no settings changed",
+  "cost_usd": null,
+  "queries": [
+    {
+      "name": "singleton",
+      "execution_fetch_ns": 877629998,
+      "validation_ns": 50544,
+      "rows": 1,
+      "passed": true
+    },
+    {
+      "name": "connected-one-hop",
+      "execution_fetch_ns": 924675185,
+      "validation_ns": 103855,
+      "rows": 20,
+      "passed": true
+    },
+    {
+      "name": "connected-two-hop",
+      "execution_fetch_ns": 1368497741,
+      "validation_ns": 43539841,
+      "rows": 400,
+      "passed": true
+    },
+    {
+      "name": "connected-distinct-terminal",
+      "execution_fetch_ns": 1379146950,
+      "validation_ns": 32691,
+      "rows": 1,
+      "passed": true
+    },
+    {
+      "name": "isolate-one-hop",
+      "execution_fetch_ns": 780181066,
+      "validation_ns": 21851,
+      "rows": 0,
+      "passed": true
+    },
+    {
+      "name": "isolate-two-hop",
+      "execution_fetch_ns": 928987482,
+      "validation_ns": 21400,
+      "rows": 0,
+      "passed": true
+    },
+    {
+      "name": "isolate-distinct-terminal",
+      "execution_fetch_ns": 967716974,
+      "validation_ns": 31118,
+      "rows": 1,
+      "passed": true
+    }
+  ],
+  "ingest_seconds": {
+    "ingest-0": 9.808376368,
+    "ingest-1": 18.499883604
+  }
+}
