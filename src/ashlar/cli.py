@@ -265,6 +265,11 @@ def main():
         command=commands.add_parser(name,help='Publish or query one original finite pack under its actual local source/publication owner')
         command.add_argument('--configuration',required=True)
         if name=='query-finite-pack':command.add_argument('--case',action='append',help='Run only this original authored case; repeat to select more')
+    finite_export_configuration=commands.add_parser('configure-finite-pack-export',help='Print a compiler-free existing finite export configuration; no engine access')
+    finite_export_configuration.add_argument('--pack',required=True,choices=('archaeology','ecology','payments'))
+    finite_export_configuration.add_argument('--budget-profile',required=True,choices=('small-local',))
+    for option in ('publication','output','jars','pack-file','model','graph','producer-source','bun','git'):
+        finite_export_configuration.add_argument('--'+option,required=True)
     finite_configuration=commands.add_parser('configure-finite-pack',help='Print an existing closed finite-pack configuration; no engine/source access')
     finite_configuration.add_argument('--pack',required=True,choices=('archaeology','ecology','payments','supply-chain'))
     finite_configuration.add_argument('--mode',required=True,choices=('publish','query'))
@@ -292,12 +297,19 @@ def main():
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
+    from ashlar_host.publication_current_cli import add_arguments as publication_current_arguments
+    publication_current=commands.add_parser('query-publication-current',help='Run COUNT and SKU through an existing original commerce publication and protected source ACK')
+    publication_current_arguments(publication_current)
     finite_export=commands.add_parser('export-original-finite-pack',help='Export an existing original finite-file publication into immutable graph and file-custody bytes')
     finite_export.add_argument('--configuration',required=True)
     finite_export.add_argument('--output',required=True)
     fabric_notebook=commands.add_parser('prepare-fabric-notebook',help='Generate a private runnable Fabric notebook from an explicitly selected export pair')
     for option in ('release','custody','release-sha256','custody-sha256','nodes','edges','output','display-name'):
         fabric_notebook.add_argument('--'+option,required=True)
+    fabric_pack=commands.add_parser('prepare-fabric-pack-scenarios',help='Prepare original archaeology/ecology typed mappings and GQL from an explicit private export')
+    fabric_pack.add_argument('--pack',required=True,choices=('archaeology','ecology'))
+    for option in ('model','graph','pack-file','release','custody','release-sha256','custody-sha256','nodes','edges','output'):
+        fabric_pack.add_argument('--'+option,required=True)
     fabric_definition=commands.add_parser('prepare-fabric-graph-definition',help='Generate local Fabric graph mappings for explicit OneLake release tables')
     for option in ('nodes','edges','output'):
         fabric_definition.add_argument('--'+option,required=True)
@@ -337,6 +349,22 @@ def main():
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'prepare-fabric-pack-scenarios':
+        from pathlib import Path
+        from ashlar_host.fabric_pack_preparation import prepare_fabric_pack
+        from ashlar_host.local_graph_export import LocalGraphExportSelection
+        try:
+            selection=LocalGraphExportSelection(Path(args.release),Path(args.custody),args.release_sha256,args.custody_sha256)
+            answer=prepare_fabric_pack(pack=args.pack,model=args.model,graph=args.graph,pack_file=args.pack_file,selection=selection,nodes=args.nodes,edges=args.edges,output=args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar original Fabric scenario preparation refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command == 'query-publication-current':
+        from ashlar_host.publication_current_cli import run_command
+        run_command(args)
+        return
     if args.command in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical'):
         from pathlib import Path
         from ashlar_host.original_medical_local_cli import run_original_medical_initialization_command, run_original_medical_publication_command, run_original_medical_replay_command, run_original_medical_read_command, run_original_medical_recovery_command, run_original_medical_recovery_preflight_command, medical_failure_metadata
@@ -883,6 +911,16 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar payments scenario refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command == 'configure-finite-pack-export':
+        try:
+            from ashlar_host.pack_configuration import FinitePackBudget,make_finite_pack_export_configuration
+            answer=make_finite_pack_export_configuration(pack=args.pack,budget=FinitePackBudget(args.budget_profile),
+                **{name:getattr(args,name)for name in ('publication','output','jars','pack_file','model','graph','producer_source','bun','git')})
+            sys.stdout.write(answer.decode('utf-8'))
+        except Exception:
+            print('ashlar finite-pack export configuration refused',file=sys.stderr)
             raise SystemExit(2) from None
         return
     if args.command == 'configure-finite-pack':

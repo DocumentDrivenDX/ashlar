@@ -6,7 +6,7 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-import run_publication_current_query_example as runner
+from ashlar_host import publication_current_cli as runner
 
 
 class ExampleTests(unittest.TestCase):
@@ -28,3 +28,18 @@ class ExampleTests(unittest.TestCase):
             def imported(name):return SimpleNamespace(__file__=str(shim if name=='weft'else root/'wrong.so'))
             with patch.object(runner.importlib,'import_module',side_effect=imported),patch.object(sys,'path',list(sys.path)):
                 with self.assertRaisesRegex(ValueError,'origins differ'):runner.load_selected_weft(root,*digests)
+
+    def test_installed_cli_dispatches_explicit_paths_without_checkout_runner(self):
+        from ashlar.cli import main
+        args=['ashlar','query-publication-current','--configuration','/private/config.json',
+              '--weft-root','/private/weft','--java-home','/private/java','--jars','/private/jars',
+              '--output','/private/output','--weft-module-sha256','a'*64,'--weft-shim-sha256','b'*64]
+        with patch.object(sys,'argv',args),patch.object(runner,'run_command') as execute:
+            main()
+        selected=execute.call_args.args[0]
+        self.assertEqual(selected.configuration,Path('/private/config.json'))
+        self.assertEqual(selected.weft_module_sha256,'a'*64)
+        with patch.object(sys,'argv',['ashlar','query-publication-current']),patch.object(runner,'run_command') as execute:
+            with self.assertRaises(SystemExit) as refusal:main()
+            self.assertEqual(refusal.exception.code,2)
+            execute.assert_not_called()

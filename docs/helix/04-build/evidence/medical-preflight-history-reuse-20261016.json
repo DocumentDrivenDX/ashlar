@@ -1,0 +1,18 @@
+{
+  "scope": "P04 medical recovery preflight; remove redundant same-observation history reads only",
+  "change": "Each native target observation uses the fresh history returned by its identity/location helper; selected version derives from that history. Every opening and closing observation obtains a new history. No cross-interval caching.",
+  "saved_calls": "12 history captures per complete six-target opening/closing pass",
+  "checks": {
+    "existing_medical_recovery_preflight_tests": 8,
+    "new_history_count_and_closing_drift_tests": 2,
+    "medical_preflight_timing_tests": 8,
+    "module_boundaries": "pass"
+  },
+  "independent_review": "medical_history_review: approved; identity/location, retention, missing ordinal, snapshot checks and all-exit closing preserved",
+  "native_run": "not performed in this slice",
+  "limitations": [
+    "No successful original medical native preflight/recovery/ACK claim",
+    "Previous timeout did not diagnose a particular native call; eliminated work is directly established by call structure and focused tests",
+    "Next native attempt must select a fresh installed artifact and existing original publication without widening semantics or skipping checks"
+  ]
+}

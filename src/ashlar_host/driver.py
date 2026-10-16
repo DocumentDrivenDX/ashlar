@@ -1230,6 +1230,7 @@ class NativeDriver:
         if target.table in versions and not any(type(item.get('version')) is int
                 and item['version'] == versions[target.table] for item in history):
             raise PermissionError('Selected original medical version not retained')
+        return history
 
     def _medical_publication_ack_scope(self, binding, context):
         from .lifecycle import finish
@@ -1941,7 +1942,9 @@ class NativeDriver:
                 transport.inspect_committed(identities[index], step['statement'], step['parameters'],
                     intent_digest=digest, context=context)
         def native(target, total, closing):
-            history = transport.original_history(target)
+            # Select from the same fresh post-identity history used for custody.
+            # Opening and closing each observe independently; no interval cache.
+            history = self._medical_publication_native(binding, target, {})
             if not history or type(history[0].get('version')) is not int:
                 raise PermissionError('Complete partial medical native history required')
             absent = {identities[index] for index, state in enumerate(states) if state == 'no-operation-record'}
@@ -1954,7 +1957,7 @@ class NativeDriver:
                 if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
                         and metadata.get('operation') in absent and metadata.get('request_digest') == digest):
                     raise PermissionError('Original native commit missing ordinal custody; no restoration')
-            version = history[0]['version']; self._medical_publication_native(binding, target, {target.table:version})
+            version = history[0]['version']
             snapshot, schema = transport.bounded_snapshot(target, version, remaining_bytes=bounds.total_bytes-total[0])
             role = target.table.split('.')[-1]
             if not original_native_equal(schema, json.loads(schemas[role]['schemaJson'])):
@@ -2080,6 +2083,38 @@ class NativeDriver:
                 if anchor['uuid'] != target.uuid or encoded(observed) != encoded(anchor['snapshot']):
                     raise LocalDeltaError('Original no-op prior native evidence differs')
         return original_plan
+
+    def prepare_original_medical_apply(self, plan, *, context, bounds):
+        """Retain original source/effect plans before any medical attempt write."""
+        self.require(context)
+        binding = getattr(self, '_original_medical_publication_binding', None)
+        if (binding is None or plan is not binding['plan'] or bounds is not binding['bounds']
+                or self.transport.observation_bounds is not bounds):
+            raise PermissionError('Exact bound original medical preparation required')
+        value = self._require_medical_publication_binding(binding)
+        request = value['request']
+        self.source_admit(request)
+        effects = LocalDeltaEffects(self.transport)
+        operation = 'effects:' + request['request_digest']
+        _, _, identities = effects.original_plan(operation, request['request_digest'], value['selected_steps'])
+        whole_exists = self.transport.db.execute('SELECT 1 FROM local_plan WHERE operation=?', (operation,)).fetchone() is not None
+        source_exists = self.transport.db.execute('SELECT 1 FROM local_source_plan WHERE request_digest=?', (request['request_digest'],)).fetchone() is not None
+        started = any(self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation=?', (identity,)).fetchone() is not None for identity in identities)
+        if started or whole_exists and not source_exists:
+            raise LocalDeltaError('Original medical preparation custody missing or already started')
+        original = json.loads(self._apply_source_plan(request, context, False))
+        for table, anchor in original['observed_native_prior'].items():
+            target = self.transport.targets[table]
+            history = self._medical_publication_native(binding, target, {table: anchor['version']})
+            if (target.uuid != anchor['uuid'] or not history
+                    or type(history[0].get('version')) is not int or history[0]['version'] != anchor['version']):
+                raise LocalDeltaError('Original prepared medical native prior changed')
+        effects.prepare(operation, request['request_digest'], value['selected_steps'], context=context)
+        observed = effects.observe(operation, request['request_digest'], value['selected_steps'], context=context)
+        if any(state != 'no-operation-record' for state in observed['states']):
+            raise LocalDeltaError('Original medical prepared effects already started')
+        self._require_medical_publication_binding(binding)
+        self.source_admit(request)
 
     def prepare_truss_apply(self, request, context):
         """Retain original Truss source and effect intent before prepared phase."""

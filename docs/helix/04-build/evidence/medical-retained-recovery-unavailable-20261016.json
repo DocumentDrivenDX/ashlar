@@ -1,0 +1,131 @@
+{
+  "scope": "Current-state readiness check only; no native worker, publication, recovery or ACK launched",
+  "configuration_sha256": "79f15e5c09f620ee2f0239dcb9d32d03b27f47e0c5d43f33a5b59d313e65ec6a",
+  "configuration_path": "/private/tmp/ashlar-medical-preflight-installed-prep-20261014-d/configuration.json",
+  "selected_state": [
+    {
+      "role": "journal",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/operations.sqlite",
+      "exists": false,
+      "is_symlink": false
+    },
+    {
+      "role": "installation",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/installation.json",
+      "exists": false,
+      "is_symlink": false
+    },
+    {
+      "role": "request",
+      "path": "/private/tmp/ashlar-medical-publication-installed-prep-e/publication-output/request.json",
+      "exists": false,
+      "is_symlink": false
+    },
+    {
+      "role": "model",
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/model.bin",
+      "exists": false,
+      "is_symlink": false
+    },
+    {
+      "role": "graph",
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/graph.bin",
+      "exists": false,
+      "is_symlink": false
+    },
+    {
+      "role": "baseline",
+      "path": "/private/tmp/ashlar-medical-public-revalidation-work-e/baseline.bin",
+      "exists": false,
+      "is_symlink": false
+    }
+  ],
+  "native_target_state": [
+    {
+      "role": "object_current",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/object_current",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    },
+    {
+      "role": "edge_current",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/edge_current",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    },
+    {
+      "role": "tombstone",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/tombstone",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    },
+    {
+      "role": "whole_source_history",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/whole_source_history",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    },
+    {
+      "role": "attempts",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/attempts",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    },
+    {
+      "role": "manifest",
+      "path": "/private/tmp/ashlar-medical-initialization-installed-prep-c/native-root/manifest",
+      "path_exists": true,
+      "delta_commit_json_files": 0,
+      "data_parquet_files": 0
+    }
+  ],
+  "existing_source_container": "ashlar-private-outbox-original-medical-e observed running; not mutated",
+  "runtime_preparation": {
+    "fresh_private_directory": "/private/tmp/ashlar-medical-history-preflight-20261016-a",
+    "wheel_source_commit": "13abb5b404e39d718dcf602fe9d5bb544ce32dfe",
+    "python_version": "3.12.14 still available",
+    "restored_exact_packages": [
+      "delta-spark4.0.0",
+      "psycopg3.2.13",
+      "psycopg-binary3.2.13",
+      "typing-extensions4.16.0"
+    ],
+    "complete": false
+  },
+  "decision": "Do not invoke recovery or reconstruct ordinal custody from reports. A fresh separately identified medical installation/source fixture is required unless complete original state is restored from an authoritative backup.",
+  "limits": [
+    "This does not prove the old run never executed; historical receipts remain unchanged",
+    "An old operations-snapshot from a different attempt cannot replace this missing journal",
+    "Empty native directories do not establish native UUIDs or retained snapshots",
+    "Other plan lanes remain independent"
+  ],
+  "immutable_inputs_restored_for_fresh_fixture": [
+    {
+      "role": "model",
+      "source": "examples/domain-packs/medical/historical/archive/schemas/ontology.json",
+      "destination": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/model.bin",
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "bytes": 33236
+    },
+    {
+      "role": "graph",
+      "source": "examples/domain-packs/medical/upstream/graph/fixture.json",
+      "destination": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/graph.bin",
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+      "bytes": 160290
+    },
+    {
+      "role": "baseline",
+      "source": "docs/helix/04-build/evidence/medical-native-publication-20261009/public-dataset.json",
+      "destination": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/baseline.bin",
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e",
+      "bytes": 2746047
+    }
+  ],
+  "independent_review": "medical_restore_review: verified missing selected state, empty Delta targets, recovery archive absence and exact immutable input sources; no old-state reconstruction authorized"
+}

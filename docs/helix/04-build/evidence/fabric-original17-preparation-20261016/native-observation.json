@@ -1,0 +1,20 @@
+{
+  "scope": "Existing synthetic model metadata and bounded syntax observation only",
+  "query": "MATCH (a:AshlarNode), (b:AshlarNode) RETURN count(a) AS row_count",
+  "query_observation": "socket read timeout15s without native response/continuation handle; outcome unknown; no identical resubmission",
+  "metadata_get": {
+    "scope": "Existing Fabric graph metadata only; no graph/query/resource mutation",
+    "http_status": 200,
+    "response": {
+      "id": "8947b7a0-130b-4a9a-9597-1d8a326a6f23",
+      "type": "GraphModel",
+      "displayName": "Ashlar_R1",
+      "description": "",
+      "workspaceId": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+      "logicalId": null
+    },
+    "elapsed_seconds": 2.527454042
+  },
+  "native_original17_execution": false,
+  "no_capacity_or_resource_changes": true
+}

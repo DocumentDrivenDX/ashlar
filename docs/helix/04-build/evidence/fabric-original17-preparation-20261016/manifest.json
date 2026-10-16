@@ -1,0 +1,62 @@
+[
+  {
+    "file": "archaeology-queries.json.gz",
+    "sha256": "099e08f807ebf5da6fce04864187cee2024647db9acca1cf0b6a683faff5e289",
+    "compressed_sha256": "fe1fd4cef5761c4300b04562a1706b0bcc656de0a1dbe7818d180fe3bfe5eeb2",
+    "bytes": 8034
+  },
+  {
+    "file": "archaeology-graphType.json.gz",
+    "sha256": "9465da5f070c0534f369a4d3476e6b6021122ab83feeaf542e31a94fa8f06b12",
+    "compressed_sha256": "a54243a297f3c1d25884a126828c8c9f5bf0711250620c2647ec4035d8fc6b36",
+    "bytes": 21773
+  },
+  {
+    "file": "archaeology-graphDefinition.json.gz",
+    "sha256": "37e393773b42c849c947941cc17ada19af2397852b628384fceda2b608c0e45e",
+    "compressed_sha256": "7c357fe5eabe63ac59af729a271dc0a00b8f8130f94f01bd088d90a0517e9061",
+    "bytes": 27023
+  },
+  {
+    "file": "archaeology-dataSources.json.gz",
+    "sha256": "90321022367dc61f5c9f950ea4ccebfded38c903d6d98281302c236e0aa15361",
+    "compressed_sha256": "ad8e268495d59c0f0c7579191b609690d6ccf782e687c0a54e72925585a2406e",
+    "bytes": 675
+  },
+  {
+    "file": "archaeology-stylingConfiguration.json.gz",
+    "sha256": "8164a4c2f7f0ca9998990356ca778e3dc982b55e0448c42f7c5dbecac96fc570",
+    "compressed_sha256": "8ceb99f0b7b12cbf700792b8e891ea2ea7b5fbb2129184726e22d7d22269484e",
+    "bytes": 439
+  },
+  {
+    "file": "ecology-queries.json.gz",
+    "sha256": "269ca2ab52231acf6a7b63ece20f77a00011bd9981f6c6c1d46bc73dde41ef79",
+    "compressed_sha256": "38dd58c60716a61d816520231a913fc06c9eba20ec82010a653d93afbdacac8a",
+    "bytes": 7218
+  },
+  {
+    "file": "ecology-graphType.json.gz",
+    "sha256": "436fac0a67d35c0cf2f88ef0755e2d85f029ad12f6471144e7465361dbab1020",
+    "compressed_sha256": "34f4ff0c6716f8596eed7408b044ca01aa20fdd0265468270691f1f58e77c8f6",
+    "bytes": 17057
+  },
+  {
+    "file": "ecology-graphDefinition.json.gz",
+    "sha256": "dcbfe5146a702970431c3b12048c153cee5d6e713793930afd396f0f485b41e9",
+    "compressed_sha256": "c119ea7683532d82f64a181383186fa6c9bad332f0028c0ef0843db84e7b6989",
+    "bytes": 21137
+  },
+  {
+    "file": "ecology-dataSources.json.gz",
+    "sha256": "b646cc17d63b58bf2df5fc786b38a18238985c02c18dae479f2b47aa4b10d538",
+    "compressed_sha256": "0b1df3db4f6398e9eb899b3e8eda896fd0b55d0b85637bc9f671d5413eb20a55",
+    "bytes": 667
+  },
+  {
+    "file": "ecology-stylingConfiguration.json.gz",
+    "sha256": "8164a4c2f7f0ca9998990356ca778e3dc982b55e0448c42f7c5dbecac96fc570",
+    "compressed_sha256": "8ceb99f0b7b12cbf700792b8e891ea2ea7b5fbb2129184726e22d7d22269484e",
+    "bytes": 439
+  }
+]

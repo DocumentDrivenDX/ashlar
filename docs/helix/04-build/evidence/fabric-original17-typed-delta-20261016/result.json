@@ -1,0 +1,73 @@
+{
+  "scope": "Actual local typed Delta projection/readback only, no Fabric load/query or canonical publication authority",
+  "spark": "4.0.1",
+  "python": "3.12.15",
+  "settings": {
+    "spark.master": "local[1]",
+    "spark.app.name": "Ashlar typed original17 local materialization",
+    "spark.driver.memory": "512m",
+    "spark.ui.enabled": "false",
+    "spark.sql.shuffle.partitions": "1",
+    "spark.databricks.delta.snapshotPartitions": "1",
+    "spark.sql.session.timeZone": "UTC",
+    "spark.sql.ansi.enabled": "true",
+    "spark.jars": "/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7/query-jars/delta-spark_2.13-4.0.0.jar,/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7/query-jars/delta-storage-4.0.0.jar",
+    "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension",
+    "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+    "spark.sql.warehouse.dir": "/private/tmp/ashlar-fabric-typed-native-20261016-a/warehouse"
+  },
+  "receipts": [
+    {
+      "profile": "ashlar-original17-delta-materialization/0.1",
+      "pack": "archaeology",
+      "release_sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "custody_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe",
+      "targets": {
+        "nodes": {
+          "uuid": "cbc3739b-d868-4c59-8c88-7282760d71ce",
+          "version": 0,
+          "location": "file:/private/tmp/ashlar-fabric-typed-native-20261016-a/archaeology_nodes",
+          "path": "/private/tmp/ashlar-fabric-typed-native-20261016-a/archaeology_nodes",
+          "rows": 39,
+          "columns": 242
+        },
+        "edges": {
+          "uuid": "2f2f06dc-a505-4134-bbeb-ee06567b62d6",
+          "version": 0,
+          "location": "file:/private/tmp/ashlar-fabric-typed-native-20261016-a/archaeology_edges",
+          "path": "/private/tmp/ashlar-fabric-typed-native-20261016-a/archaeology_edges",
+          "rows": 46,
+          "columns": 23
+        }
+      },
+      "scope": "Fresh typed private-export Delta projection/readback only; no Fabric load, query or live publication authority."
+    },
+    {
+      "profile": "ashlar-original17-delta-materialization/0.1",
+      "pack": "ecology",
+      "release_sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "custody_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add",
+      "targets": {
+        "nodes": {
+          "uuid": "2ef0b66a-032c-4ca8-aa79-e9182711e36e",
+          "version": 0,
+          "location": "file:/private/tmp/ashlar-fabric-typed-native-20261016-a/ecology_nodes",
+          "path": "/private/tmp/ashlar-fabric-typed-native-20261016-a/ecology_nodes",
+          "rows": 40,
+          "columns": 183
+        },
+        "edges": {
+          "uuid": "6cd5329f-82bd-47d7-ba07-3a9d8d14e384",
+          "version": 0,
+          "location": "file:/private/tmp/ashlar-fabric-typed-native-20261016-a/ecology_edges",
+          "path": "/private/tmp/ashlar-fabric-typed-native-20261016-a/ecology_edges",
+          "rows": 54,
+          "columns": 23
+        }
+      },
+      "scope": "Fresh typed private-export Delta projection/readback only; no Fabric load, query or live publication authority."
+    }
+  ],
+  "elapsed_after_spark_start_seconds": 8.259631124907173,
+  "closing": "Spark and source/file owners completed"
+}

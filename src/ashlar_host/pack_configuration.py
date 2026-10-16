@@ -62,3 +62,24 @@ def make_finite_pack_configuration(*, pack: str, mode: str, profile: str,
     raw = json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode('utf-8')
     parse_finite_pack_invocation(raw, mode, query_profile=query_profile)
     return raw + b'\n' if len(raw) < CONFIG_LIMIT else raw
+
+
+def make_finite_pack_export_configuration(*, pack: str, budget: FinitePackBudget,
+        publication: Path, output: Path, jars: Path, pack_file: Path, model: Path,
+        graph: Path, producer_source: Path, bun: Path, git: Path) -> bytes:
+    """Generate the existing compiler-free export profile; no engine startup.
+
+    Output selects the prospective export destination for separation validation;
+    the existing export command receives that destination separately.
+    """
+    from .finite_export_cli import EXPORT_PROFILE, parse_finite_export_configuration
+    raw = make_finite_pack_configuration(pack=pack,mode='publish',profile=PROFILE,
+        budget=budget,publication=publication,output=output,jars=jars,
+        pack_file=pack_file,model=model,graph=graph,producer_source=producer_source,
+        bun=bun,git=git)
+    value=json.loads(raw)
+    value.pop('mode');value.pop('output');value['profile']=EXPORT_PROFILE
+    raw=json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False).encode('utf-8')
+    bounded_local_json_bytes(value,CONFIG_LIMIT)
+    parse_finite_export_configuration(raw,Path(output))
+    return raw+b'\n' if len(raw)<CONFIG_LIMIT else raw

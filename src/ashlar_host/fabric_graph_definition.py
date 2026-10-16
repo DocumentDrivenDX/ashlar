@@ -25,7 +25,7 @@ def make_fabric_graph_definition(nodes,edges):
     def mappings(columns):return [{'propertyName':name,'sourceColumn':name}for name in columns]
     def schema(name,version='1.0.0'):return _SCHEMA+name+'/'+version+'/schema.json'
     return {
-        'dataSources.json':{'$schema':schema('dataSources','1.1.0'),'dataSources':[
+        'dataSources.json':{'$schema':schema('dataSources','1.0.0'),'dataSources':[
             {'name':'ashlar_nodes','type':'DeltaTable','properties':{'path':nodes}},
             {'name':'ashlar_edges','type':'DeltaTable','properties':{'path':edges}}]},
         'graphDefinition.json':{'$schema':schema('graphDefinition'),

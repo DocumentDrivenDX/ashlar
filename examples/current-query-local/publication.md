@@ -18,10 +18,12 @@ SQLite 3.53.1, JDK 21 and the exact query JAR directory required by
 available. Provisioning a fresh source and publishing are separate operations
 described in [the original-commerce guide](../original-commerce-local/README.md).
 
-Run under an operator-owned finite process deadline:
+Install the toolkit with `/absolute/selected/python -m pip install .`. The installed
+command works outside the checkout and requires no `tools` directory. Run under
+an operator-owned finite process deadline:
 
 ```sh
-PYTHONPATH=src:tools /absolute/selected/python -B tools/run_publication_current_query_example.py \
+/absolute/selected/python -m ashlar query-publication-current \
   --configuration /absolute/private/export-only.json \
   --weft-root /absolute/private/reviewed-weft-module \
   --weft-module-sha256 SELECTED_NATIVE_MODULE_SHA256 \

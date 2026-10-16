@@ -86,13 +86,18 @@ class Tests(unittest.TestCase):
   with patch('sys.argv',['ashlar','preflight-original-medical','--configuration','/config']),patch.object(dispatch,'run_original_medical_recovery_preflight_command',return_value={})as command,redirect_stdout(io.StringIO()):main()
   command.assert_called_once_with(Path('/config'))
  def test_actual_outer_preflight_stops_before_publisher_and_closes_on_success_cancel(self):
+  self.outer_cases(False)
+ def test_actual_outer_recovery_times_publish_observation_and_closing(self):
+  self.outer_cases(True)
+ def outer_cases(self,full):
   import hashlib,sqlite3
   from types import SimpleNamespace
   import test_original_medical_local_publication as composition
   from ashlar_host.original_medical_local_configuration import OriginalMedicalRecoveryConfig
-  for cancel in (False,True):
+  for outcome in ('success','cancel','late') if full else ('success','cancel'):
+   cancel=outcome=='cancel';late=outcome=='late'
    helper=composition.Tests();helper.setUp();self.addCleanup(helper.doCleanups);publication,selection,capture=helper.installation();events=[];primary=KeyboardInterrupt()
-   raw=b'{"request_digest":"original"}\n';path=publication.output.parent/'retained-request.json';path.write_bytes(raw)
+   raw=owner._bounded({'request_digest':'original','predecessor':None,'schema_revisions_json':'{}'},262143);path=publication.output.parent/'retained-request.json';path.write_bytes(raw)
    config=OriginalMedicalRecoveryConfig(**{**{f.name:getattr(publication,f.name)for f in owner.fields(publication)},'profile':'ashlar-original-medical-local-recovery/0.1','request':publication.installation.__class__(path,hashlib.sha256(raw).hexdigest(),len(raw)),'bounds':replace(publication.bounds,native_seconds=60)})
    @contextmanager
    def native(custody):
@@ -108,32 +113,49 @@ class Tests(unittest.TestCase):
    class Plan:
     def __init__(self,admission,transaction,tables):admission.metadata()
     def renew(self):pass
-    def snapshot(self):return {'request':{'request_digest':'original'},'selected_steps':[],'expected':{},'publication_id':'not-published','previous_progress':{},'progress':{},'previous_expected':{},'generated_steps':[],'zero_match_elisions':[],'recorded_at':'0'}
+    def snapshot(self):return {'request':{'request_digest':'original','predecessor':None,'schema_revisions_json':'{}'},'selected_steps':[],'expected':{},'publication_id':'not-published','previous_progress':{},'progress':{},'previous_expected':{},'generated_steps':[],'zero_match_elisions':[],'recorded_at':'0'}
    class Source:
     def __init__(self,*args):pass
     def sources(self):return object()
     def bind(self,*args):return object()
     def read_original(self,*args,**kwargs):events.append('read-original');return object()
     def append_original(self,*args,**kwargs):raise AssertionError('No append')
-    def renew_original(self,*args,**kwargs):events.append('source-close')
+    def renew_original(self,*args,**kwargs):
+     events.append('source-close')
+     if late:raise PermissionError('late closing refusal')
    def driver(transport,policy,context,*args,**kwargs):
     @contextmanager
     def writer(*args):yield
     def preflight(plan,**kwargs):
      events.append('preflight');kwargs['stages'].call('binding',lambda:None)
      if cancel:raise primary
-    return SimpleNamespace(writer=writer,bind_original_medical_publication=lambda *a,**k:None,preflight_original_medical_recovery=preflight)
+    def observe(*args,**kwargs):events.append('observe');return {'complete':True}
+    return SimpleNamespace(observe_original_medical_publication=observe,writer=writer,bind_original_medical_publication=lambda *a,**k:None,preflight_original_medical_recovery=preflight)
    with ExitStack()as stack:
     stack.enter_context(patch('ashlar_host.medical_producer.capture',side_effect=capture));stack.enter_context(patch.object(owner,'original_medical_native_session',side_effect=native));stack.enter_context(patch.object(owner,'LocalDeltaTransport',side_effect=transport));stack.enter_context(patch.object(owner,'MedicalPublicationPlan',Plan));stack.enter_context(patch.object(owner,'OriginalMedicalSourceOwner',Source));stack.enter_context(patch.object(owner,'original_medical_local_source_ports',return_value=object()));stack.enter_context(patch.object(owner.NativeDriver,'with_registered_evolution',side_effect=driver))
-    publisher=stack.enter_context(patch.object(owner,'publish_outbox_transaction',side_effect=AssertionError('No publisher/ACK')));attempts=stack.enter_context(patch.object(owner,'DeltaAttemptStore',side_effect=AssertionError('No attempt submission')))
+    def publish(*args,**kwargs):events.append('publish');return SimpleNamespace(raw={'publication_id':'observed'})
+    publisher=stack.enter_context(patch.object(owner,'publish_outbox_transaction',side_effect=publish if full else AssertionError('No publisher/ACK')));attempts=stack.enter_context(patch.object(owner,'DeltaAttemptStore',return_value=object()))
+    if full:stack.enter_context(patch.object(owner,'_MedicalPreparedBackend',return_value=object()))
+    operate=owner.recover_original_medical_local if full else owner.preflight_original_medical_recovery_local
     if cancel:
-     with self.assertRaises(KeyboardInterrupt)as caught:owner.preflight_original_medical_recovery_local(config)
+     with self.assertRaises(KeyboardInterrupt)as caught:operate(config)
      self.assertIs(caught.exception,primary);self.assertFalse((config.output/'receipt.json').exists())
+    elif late:
+     with self.assertRaises(PermissionError):operate(config)
+     self.assertFalse((config.output/'receipt.json').exists())
     else:
-     answer=owner.preflight_original_medical_recovery_local(config);self.assertTrue(answer['preflight_completed']);self.assertNotIn('publication',answer);self.assertTrue(answer['closing']);self.assertGreater(answer['stage_records'],0)
-    publisher.assert_not_called();attempts.assert_not_called()
+     answer=operate(config);self.assertTrue(answer['closing']);self.assertGreater(answer['stage_records'],0)
+     if full:self.assertEqual(answer['publication'],{'publication_id':'observed'})
+     else:self.assertTrue(answer['preflight_completed']);self.assertNotIn('publication',answer)
+    if not full or cancel:publisher.assert_not_called();attempts.assert_not_called()
+    else:publisher.assert_called_once();attempts.assert_called_once()
    self.assertLess(events.index('transport-close'),events.index('native-close'));self.assertIn('source-close',events)
-   self.assertTrue(list(config.output.glob('preflight-stage-*.json')))
+   records=[json.loads(p.read_bytes())for p in sorted(config.output.glob('preflight-stage-*.json'))];self.assertTrue(records)
+   if full and not cancel:
+    for stage in ('binding','publication-apply','publication-observation','composition-closing','runtime-closing'):
+     self.assertEqual([r['phase']for r in records if r['stage']==stage],['begin','end'])
+    self.assertLess(events.index('preflight'),events.index('publish'));self.assertLess(events.index('publish'),events.index('observe'));self.assertLess(events.index('observe'),events.index('source-close'))
+    if not late:self.assertEqual(answer['stage_records'],len(records));self.assertEqual(json.loads((config.output/'receipt.json').read_bytes())['stage_records'],len(records))
    with owner.OriginalMedicalInstallationLease.open(selection,object()):pass
 
  def test_real_nominal_preflight_records_all_six_and_never_mutates_journal(self):

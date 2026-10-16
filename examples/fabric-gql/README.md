@@ -456,3 +456,111 @@ lakehouse. It installs the pinned Ashlar source, uses the notebook's existing
 Spark session, writes fresh release-specific tables, and prepares model-definition
 files. It does not create or load a model. The generated notebook contains your
 selected data; keep it local until uploading to the intended workspace.
+
+## Prepare original archaeology/ecology scenarios
+
+Use `prepare-fabric-pack-scenarios` with an existing private finite-pack export
+and its separately selected digests. Keep the original pack/model/graph bytes;
+the command recomputes their exact canonical carrier correspondence before
+preparing the typed projection. Replace every path and digest below:
+
+```sh
+ashlar prepare-fabric-pack-scenarios \
+  --pack ecology \
+  --model /absolute/original/ecology/ontology.json \
+  --graph /absolute/original/ecology/graph/fixture.json \
+  --pack-file /absolute/original/ecology/pack.json \
+  --release /absolute/private/ecology-export/release.graph.json \
+  --custody /absolute/private/ecology-export/custody.json \
+  --release-sha256 SELECTED_RELEASE_SHA256 \
+  --custody-sha256 SELECTED_CUSTODY_SHA256 \
+  --nodes 'abfss://WORKSPACE_UUID@onelake.dfs.fabric.microsoft.com/LAKEHOUSE_UUID/Tables/ecology_r1_nodes' \
+  --edges 'abfss://WORKSPACE_UUID@onelake.dfs.fabric.microsoft.com/LAKEHOUSE_UUID/Tables/ecology_r1_edges' \
+  --output /absolute/private/ecology-fabric-preparation
+```
+
+The fresh output includes `scenario-profile.json`, `queries.json` and the four
+readable graph-definition parts plus REST `definition.json`. Select archaeology
+for its eight original cases, or ecology for its nine. The profile retains every
+original canonical node/edge field, independent edge identity, original object
+keys, lexical fields and presence markers. Named integer predicates use signed64
+columns mapped as Graph Model `INT` (signed 64-bit); they never cast decimal or text values during queries.
+The canonical STRING-only materializer above does not materialize this extended
+profile. Use the typed materializer below, preserving every column/null with
+complete native readback before graph loading.
+
+GQL plans preserve the original property-equality joins and output bags. Optional
+matches retain null/missing-match witnesses, grouped counts use explicit grouping,
+and HAVING uses `NEXT FILTER`. These follow the current
+[Fabric GQL language guide](https://learn.microsoft.com/en-us/fabric/graph/gql-language-guide).
+The command starts no engines or uploads and establishes no live source, loaded
+graph or publication authority. Keep those actual owner checks in the existing
+query provider; preparation does not qualify any of the seventeen native cases.
+
+### Materialize the typed scenario projection
+
+In a notebook with your explicitly selected Spark/Delta session, call the typed
+materializer with the same original inputs and export selection:
+
+```python
+from pathlib import Path
+from ashlar_host.local_graph_export import LocalGraphExportSelection
+from ashlar_host.fabric_pack_delta import materialize_fabric_pack_delta
+
+receipt = materialize_fabric_pack_delta(
+    spark, pack="ecology",
+    model=Path("/absolute/original/ecology/ontology.json"),
+    graph=Path("/absolute/original/ecology/graph/fixture.json"),
+    pack_file=Path("/absolute/original/ecology/pack.json"),
+    selection=LocalGraphExportSelection(
+        Path("/absolute/private/ecology-export/release.graph.json"),
+        Path("/absolute/private/ecology-export/custody.json"),
+        SELECTED_RELEASE_SHA256, SELECTED_CUSTODY_SHA256),
+    node_path=NODES, edge_path=EDGES)
+```
+
+This private-development branch holds current export-file access and validates
+the complete original canonical bags. It uses explicit STRING/BIGINT schemas,
+`errorifexists`, bounded complete version-0 readback and closing native metadata
+checks. Preserve partial destinations after any failure; do not overwrite them.
+The receipt records actual UUIDs, versions, locations and row/column counts.
+It grants no OneLake storage access, graph load or live publication authority.
+Use the matching generated definition only after materialization succeeds; graph
+loading and all seventeen native query/oracle passes remain separate operations.
+
+## Query while holding an actual commerce publication
+
+Use `execute_commerce_fabric_gql` inside your existing ordinary HTTP and
+`OpenedCommerceReader` owners. It acquires the neutral commerce graph-release
+hold, checks the selected Fabric binding against that exact release, and renews
+actual source/ACK/native custody alongside the separately owned loaded graph.
+The source, graph-owner and HTTP contexts remain separate.
+
+```python
+from ashlar_host.commerce_fabric_release import execute_commerce_fabric_gql
+
+result = execute_commerce_fabric_gql(
+    opened, binding, "MATCH (n:AshlarNode) RETURN count(n) AS node_count",
+    transport=http, transport_context=http.context,
+    loaded_graph_policy=loaded_graph_owner,
+    loaded_graph_context=loaded_graph_owner.context,
+    maximum_response_bytes=1048576, maximum_total_bytes=8388608,
+    maximum_rows=1000, maximum_requests=32, deadline_seconds=60)
+```
+
+`opened`, `http`, `binding` and `loaded_graph_owner` are your actual acquired
+owners and selection, not objects this example creates. The graph owner must
+implement the existing `hold(binding, context)` and
+`admit(binding, query, context)` ports, independently admitting that loaded
+release and controlling definition/load/refresh/delete for the entire interval.
+Both admissions must complete with `None` or raise. The helper returns only after
+its graph and full source holds close; release a final report only after the
+caller's outer reader and HTTP owners also close successfully.
+
+The [Fabric query API](https://learn.microsoft.com/en-us/fabric/graph/gql-query-api)
+exposes query text and continuation tokens, without a requested snapshot/version
+lease. Opening/closing definition or row equality cannot establish the absence
+of an intervening refresh. Supply real deployment ownership backed by access
+controls or a supported native snapshot primitive. This helper supplies source
+composition; it does not create that graph owner, permissions or a lock. A
+Python mutex, stored release hash or no-op policy is insufficient.

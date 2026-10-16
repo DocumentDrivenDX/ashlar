@@ -1,0 +1,15 @@
+{
+  "source_sha256": {
+    "src/ashlar_host/fabric_pack_delta.py": "81c0eaa8cbc89e5cc2d04ca7ca26353d8501ef7fdba135774fa89c52a397b301",
+    "src/ashlar_host/fabric_pack_preparation.py": "f74c4884605008431bbd15c719ee73df399fbd4ad5d47cddd22c8e50b516af3f",
+    "tests/test_fabric_pack_delta.py": "a989e4ffaac52aa286d030272a3ac19d4fe676ecbc881b53ac358c028bee1899"
+  },
+  "wheel_sha256": "7d3d64449742c46a5e45b81fa6a720453b3e2db457be6a8176d801b2c7021884",
+  "archive_sha256": {
+    "native.py": "1ebe90c2ad522551191e2f6972149aa3bd8bc3e9dd3ea8b4e78325fed6b2e98a",
+    "result.json": "851b490f648e4668364b596b747eb4faf1d65b9c1fe2cd82013f88fc377b40bd",
+    "run.py": "7da693516dd58e7cdae77e659c4dc9194b23fe3c72c9f52cb1061271797c709c",
+    "status.json": "3ee7f83ab15ceec7c9ca961b7f7340ab1f0299b38885996c2c2acc7f399a8a93",
+    "stdout.log": "5b8de558271aa58d188b9e3fc8073d3732fcef98ed4310c789be3f7a3c7bf157"
+  }
+}
