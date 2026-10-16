@@ -82,6 +82,27 @@ def open_commerce_export_spark(jars,warehouse):
     finish(primary,([spark.stop]if spark is not None else[])+([context.stop]if context is not None else[]))
 
 
+@contextmanager
+def open_registered_commerce_reader(spark,publication,*,ordinary_session,source_factory,destinations=()):
+    """Own the actual reader and register ephemeral aliases under its pin interval."""
+    with owned_context(open_commerce_reader(spark,publication,ordinary_session=ordinary_session,source_factory=source_factory))as opened:
+        protected=[target.path for target in opened.driver.transport.targets.values()]
+        journal=getattr(opened.driver.transport,'journal_path',None)
+        if journal is not None:protected.append(Path(journal))
+        if hasattr(opened,'admission'):
+            protected.extend(Path(path)for path,_ in opened.admission.originals)
+        for destination in destinations:_separate(destination,protected)
+        with owned_context(opened.provider.interval(opened.context)):
+            for table,alias in opened.aliases.items():
+                if type(alias)is not str or len(alias.split('.'))!=3:
+                    raise ValueError('Three-part commerce query alias required')
+                target=opened.driver.transport.targets[table]
+                if not (target.path/'_delta_log').is_dir():raise ValueError('Existing original Delta target required')
+                spark.sql('CREATE DATABASE IF NOT EXISTS '+quote_table_identifier(alias).split('.')[-2]).collect()
+                spark.sql('CREATE TABLE '+quote_table_identifier(alias)+" USING DELTA LOCATION '"+str(target.path).replace("'","''")+"'").collect()
+        yield opened
+
+
 def run_export_original_commerce_command(configuration,publication,output,jars):
     captured=InvocationFile.read(configuration,262144)
     config=parse_commerce_export_configuration(captured.raw)
@@ -109,21 +130,9 @@ def run_export_original_commerce_command(configuration,publication,output,jars):
         captured.renew(262144)
         with tempfile.TemporaryDirectory(prefix='ashlar-commerce-export-',dir=output.parent)as work:
             with owned_context(open_commerce_export_spark(jar_paths,Path(work)/'warehouse'))as spark:
-                @contextmanager
                 def reader_factory():
-                    with owned_context(open_commerce_reader(spark,publication,ordinary_session=ordinary,source_factory=source_factory))as opened:
-                        _separate(output,[target.path for target in opened.driver.transport.targets.values()])
-                        # Register only ephemeral catalog aliases of existing Delta
-                        # targets under the actual ordinary reader/pin interval.
-                        with owned_context(opened.provider.interval(opened.context)):
-                            for table,alias in opened.aliases.items():
-                                if type(alias)is not str or len(alias.split('.'))!=3:
-                                    raise ValueError('Three-part commerce query alias required')
-                                target=opened.driver.transport.targets[table]
-                                if not (target.path/'_delta_log').is_dir():raise ValueError('Existing original Delta target required')
-                                spark.sql('CREATE DATABASE IF NOT EXISTS '+quote_table_identifier(alias).split('.')[-2]).collect()
-                                spark.sql('CREATE TABLE '+quote_table_identifier(alias)+" USING DELTA LOCATION '"+str(target.path).replace("'","''")+"'").collect()
-                        yield opened
+                    return open_registered_commerce_reader(spark,publication,ordinary_session=ordinary,
+                        source_factory=source_factory,destinations=(output,))
                 export=read_commerce_export(reader_factory)
     except BaseException as error:primary=error
     finish(primary,[lambda:captured.renew(262144)])

@@ -153,6 +153,28 @@ claimed by the basic inert Spark tests.
 
 ### Materialize an actual commerce publication
 
+Run the installed command with the existing export-only source configuration:
+
+```sh
+python -m ashlar materialize-commerce-fabric \
+  --configuration /absolute/private/export-only.json \
+  --jars /absolute/exact-query-jars \
+  --nodes /absolute/private/new-release/nodes \
+  --edges /absolute/private/new-release/edges \
+  --output /absolute/private/new-release-report.json
+```
+
+Use Python 3.11 or 3.12 with Spark 4.0.1, Delta 4.0.0, JDK 21 and the exact
+query JARs selected in the [commerce reader guide](../current-query-local/publication.md).
+Configuration profile `ashlar-original-commerce-export-configuration/0.1`
+selects the existing publication directory and its unchanged ordinary source/ACK
+scope. No new source, role, batch or publication is initialized. Node and edge
+destinations may instead be release-specific OneLake `abfss` paths when the
+selected Spark session has ordinary storage access. The local report path must
+be fresh; the command creates its file with mode 0600 after all owners close.
+Reports preserve complete metadata up to 1 MiB and refuse overflow without
+truncation. Partial Delta tables remain available on failure.
+
 Use `materialize_commerce_fabric_delta` to project an existing commerce
 publication while its ordinary source, protected ACK and complete canonical
 Delta vector remain held. Supply the existing reader's explicit connection and

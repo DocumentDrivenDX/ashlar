@@ -29,3 +29,4 @@ jobs:
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_fabric_pack_scenarios test_fabric_pack_preparation test_fabric_pack_delta
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_commerce_fabric_release
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_commerce_fabric_delta
+      - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_commerce_fabric_delta_cli

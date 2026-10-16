@@ -294,6 +294,9 @@ def main():
     materialize_export=commands.add_parser('materialize-graph-export',help='Materialize an explicitly selected private export into fresh local Delta tables')
     for option in ('release','custody','release-sha256','custody-sha256','node-path','edge-path','jars','output'):
         materialize_export.add_argument('--'+option,required=True)
+    commerce_fabric=commands.add_parser('materialize-commerce-fabric',help='Project an existing original commerce publication into fresh local Delta carriers')
+    for option in ('configuration','jars','nodes','edges','output'):
+        commerce_fabric.add_argument('--'+option,required=True)
     commerce_export=commands.add_parser('export-original-commerce',help='Export an existing original commerce graph and its actual closed private custody receipt')
     for option in ('configuration','publication','output','jars'):
         commerce_export.add_argument('--'+option,required=True)
@@ -435,6 +438,15 @@ def main():
             print(json.dumps(answer,sort_keys=True,separators=(',',':')))
         except Exception:
             print('ashlar original supply-chain native operation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'materialize-commerce-fabric':
+        from ashlar_host.commerce_fabric_delta_cli import run_materialize_commerce_fabric_command
+        try:
+            answer=run_materialize_commerce_fabric_command(args.configuration,args.jars,args.nodes,args.edges,args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar commerce Fabric materialization refused',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'materialize-graph-export':
