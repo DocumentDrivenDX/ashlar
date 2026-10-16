@@ -32,7 +32,7 @@ class MedicalAdmission:
         self.files=tuple(MedicalFile(p,4194304)for p in (model_path,graph_path,receipt_path))
         if sum(f.size for f in self.files)>4194304:raise ValueError('Aggregate medical admission input exceeded')
         self.originals=tuple(f.read()for f in self.files);self.producer=producer
-        producer.renew();self.revalidation=producer(*self.originals)
+        self.revalidation=producer(*self.originals)
         verify_medical_revalidation(*self.originals,self.revalidation)
         rebuilt,expected=build_transaction(*self.originals,source_system=batch.feed,binding_profile='ashlar-medical-development-bindings/0.2')
         if rebuilt!=batch or expected!=bindings:raise PermissionError('Complete original medical batch/bindings differ')
@@ -43,7 +43,7 @@ class MedicalAdmission:
         def input(f,original):
             if f.read()!=original:raise PermissionError('Original medical admission drift')
         def producer():
-            self.producer.renew()
+            if type(self.producer)is not HeldMedicalDataset:raise PermissionError('Exact current medical producer owner required')
             if self.producer(*self.originals)!=self.revalidation:raise PermissionError('Original medical revalidation drift')
         finish(None,[lambda f=f,raw=raw:input(f,raw)for f,raw in zip(self.files,self.originals)]+[producer])
     def evidence(self):

@@ -232,8 +232,12 @@ class HeldMedicalDataset:
             self._require_witness()
         finish(None,[self._require_witness,self._pin,self._inputs,result,self._require_witness])
     def __call__(self,model,graph,baseline):
-        if any(type(raw)is not bytes for raw in (model,graph,baseline))or (model,graph,baseline)!=self.originals:raise PermissionError('Original medical producer call differs')
-        self.renew();return self.raw
+        primary=None
+        try:
+            if any(type(raw)is not bytes for raw in (model,graph,baseline))or (model,graph,baseline)!=self.originals:raise PermissionError('Original medical producer call differs')
+        except BaseException as error:primary=error
+        # This call owns current renewal on success, mismatch and cancellation.
+        finish(primary,[self.renew]);return self.raw
     def metadata(self):
         self.renew()
         return {'umf_revision':UMF_PIN,'baseline_sha256':PUBLIC_SHA,'revalidation_sha256':hashlib.sha256(self.raw).hexdigest(),'actual_revalidation':decode_medical(self.raw),'stdout':self.stdout.decode('utf-8','strict'),'stderr':self.stderr.decode('utf-8','strict'),'qualification':'Public medical supplied-dataset revalidation only; no native or source authority'}

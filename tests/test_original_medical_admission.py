@@ -281,4 +281,30 @@ class MedicalAdmissionTests(unittest.TestCase):
         self.assertIs(caught.exception,primary);self.assertEqual(calls,['HEAD','--porcelain'])
         self.assertEqual(reads,list(self.paths)+[RESOURCE_ROOT/'check_medical_dataset.ts',held.output])
 
+    def test_admission_constructor_and_renew_call_current_producer_once(self):
+        held=self.held()
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture),patch.object(held,'renew',wraps=held.renew)as renew:
+            owner=MedicalAdmission(self.batch,self.bindings,*self.paths,held)
+            self.assertEqual(renew.call_count,1)
+            renew.reset_mock();owner.renew();self.assertEqual(renew.call_count,1)
+
+    def test_producer_call_mismatch_and_cancellation_still_renew_current_owner(self):
+        held=self.held()
+        with patch('ashlar_host.medical_producer.capture',side_effect=self.capture),patch.object(held,'renew',wraps=held.renew)as renew,self.assertRaises(PermissionError):
+            held(b'changed',self.graph,self.baseline)
+        renew.assert_called_once_with()
+        cancellation=KeyboardInterrupt('pure input comparison cancelled')
+        with patch('ashlar_host.medical_producer.any',side_effect=cancellation,create=True),patch.object(held,'renew',side_effect=OSError('secondary current renewal'))as renew,self.assertRaises(KeyboardInterrupt)as caught:
+            held(*held.originals)
+        self.assertIs(caught.exception,cancellation);renew.assert_called_once_with()
+
+    def test_replaced_duck_typed_producer_cannot_self_issue_revalidation(self):
+        owner=self.admission();calls=[]
+        class Foreign:
+            def renew(self):calls.append('renew')
+            def __call__(self,*args):calls.append('call');return owner.revalidation
+        owner.producer=Foreign()
+        with self.assertRaisesRegex(PermissionError,'Exact current medical producer'):owner.renew()
+        self.assertEqual(calls,[])
+
 if __name__=='__main__':unittest.main()
