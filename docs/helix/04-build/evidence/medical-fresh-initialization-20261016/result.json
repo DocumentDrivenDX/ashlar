@@ -1,0 +1,39 @@
+{
+  "state": "initialized",
+  "scope": "Fresh actual original medical local initialization only; no publication/recovery/ACK success",
+  "source_commit": "13abb5b404e39d718dcf602fe9d5bb544ce32dfe",
+  "whole_operation_seconds": 42.34203012497164,
+  "runtime": {
+    "python": "3.12.14",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "master": "local[1]",
+    "driver_memory": "512m",
+    "native_seconds": 60,
+    "whole_seconds": 150
+  },
+  "installation_id": "ee28414e-3ed7-4736-8bdb-c7da6ae70411",
+  "six_distinct_native_targets": 6,
+  "original_inputs_sha256": {
+    "model": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+    "graph": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+    "baseline": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+  },
+  "prior_attempts": [
+    "first refusal before worker: canonical namespace root",
+    "second refusal before native: base interpreter lacked installed ashlar_host"
+  ],
+  "diagnosed_corrections": [
+    "canonical psycopg namespace root",
+    "private canonical venv interpreter copy; isolated worker import verified before successful run"
+  ],
+  "retained_private_installation": "/private/tmp/ashlar-medical-history-preflight-20261016-a/installation.json",
+  "old_retained_attempt": "Unavailable; no fabricated journal or native identity restoration",
+  "limitations": [
+    "No clinical/production authority or accepted Truss identities",
+    "Old immutable inputs only were restored by exact hashes",
+    "Private local PostgreSQL trust identity is a development profile",
+    "Fresh installation and source fixture retained for next publication/recovery step"
+  ],
+  "independent_review": "medical_initialization_evidence_review: actual native logs, identities, input/archive hashes and initialization-only scope verified; prior refusal stderr custody added"
+}
