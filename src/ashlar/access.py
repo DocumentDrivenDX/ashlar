@@ -75,7 +75,7 @@ class AshlarTarget:
                  deadline:Callable[[timedelta],AbstractContextManager[None]],catalog_entries:tuple[EngineRead[Any,Any],...]=()):
         if len(binding_sha256)!=64 or any(c not in '0123456789abcdef' for c in binding_sha256):raise ValueError('Original binding digest required')
         if not callable(getattr(compiler,'check_engine_read_json',None)) or not callable(deadline):raise ValueError('Original engine compiler and native deadline owner required')
-        if compiler_method not in ('registered','ashlar-spark4'):raise ValueError('Explicit original Ashlar compiler required')
+        if compiler_method not in ('registered','ashlar-spark4','ashlar-dbsql-20261016'):raise ValueError('Explicit original Ashlar compiler required')
         self.compiler_method=compiler_method
         self.compiler,self.executor,self.backend,self.pins=compiler,executor,backend,pins
         self.vector,self.policy,self.context=vector,policy,context
@@ -91,6 +91,7 @@ class AshlarTarget:
         v=self.vector
         context=canonical_json({'authority':v.authority,'scopeKind':v.scope_kind,'scopeId':v.scope_id,'custodyDigest':v.custody_digest,'targets':{name:list(pair)for name,pair in v.targets.items()}})
         version,profile=('0.1.0-qualified','dbsql2026.39-qualified') if self.compiler_method=='registered' else ('0.1.0-local-spark4-candidate','spark4.0.1-delta4.0.0-candidate')
+        if self.compiler_method=='ashlar-dbsql-20261016':version,profile='0.1.0-managed-20261016-candidate','dbsql2026.39-build-20261016-candidate'
         return TargetIdentity('ashlar','ashlar.databricks',version,profile,self.binding_sha256,self.platform,context)
     def read(self,entry:CatalogRead[P,R],parameters:P,*,timeout:timedelta|None=None)->list[R]:
         if not isinstance(entry,EngineRead):raise ResolutionError('Original engine catalog required')

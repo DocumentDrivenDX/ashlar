@@ -1,0 +1,81 @@
+{
+  "request": {
+    "warehouse_id": "d4b8eb5b4d6e34b8",
+    "statement": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `client_dev`.`umf_typed_sdk_29b8d260b69d`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END",
+    "wait_timeout": "50s",
+    "on_wait_timeout": "CANCEL",
+    "row_limit": 20,
+    "parameters": [
+      {
+        "name": "p1",
+        "type": "STRING",
+        "value": "typed-sdk-development"
+      },
+      {
+        "name": "p2",
+        "type": "STRING",
+        "value": "17"
+      },
+      {
+        "name": "p3",
+        "type": "STRING",
+        "value": "eee5746541513eaa135ff58d4b2d5da5e0746e3792df5f65e467bf0515990aff"
+      },
+      {
+        "name": "p4",
+        "type": "STRING",
+        "value": "$.1"
+      },
+      {
+        "name": "p5",
+        "type": "STRING",
+        "value": "$.2"
+      },
+      {
+        "name": "p6",
+        "type": "STRING",
+        "value": "draft"
+      }
+    ]
+  },
+  "response": {
+    "manifest": {
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "row_count": 1,
+          "row_offset": 0
+        }
+      ],
+      "format": "JSON_ARRAY",
+      "schema": {
+        "column_count": 1,
+        "columns": [
+          {
+            "name": "violations",
+            "position": 0,
+            "type_name": "STRING",
+            "type_text": "STRING"
+          }
+        ]
+      },
+      "total_chunk_count": 1,
+      "total_row_count": 1,
+      "truncated": false
+    },
+    "result": {
+      "chunk_index": 0,
+      "data_array": [
+        [
+          "0"
+        ]
+      ],
+      "row_count": 1,
+      "row_offset": 0
+    },
+    "statement_id": "01f1c982-9fa9-14c1-8efa-71eeb6bd44ef",
+    "status": {
+      "state": "SUCCEEDED"
+    }
+  }
+}
