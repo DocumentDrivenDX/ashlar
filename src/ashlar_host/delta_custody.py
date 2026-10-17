@@ -325,6 +325,7 @@ class LocalDeltaTransport:
         frame = self.spark.sql('DESCRIBE DETAIL delta.`' + str(target.path) + '`')
         property_keys=('ashlar.local.installation.id','ashlar.local.registry.sha256','ashlar.local.journal.sha256')
         if type(full)is not bool:raise LocalDeltaError('Explicit native detail mode required')
+        proof=None
         projected=getattr(self, 'observation_bounds', None) is not None and not full
         if projected:
             # Measure only the fresh authority values actually consumed below.
@@ -337,7 +338,16 @@ class LocalDeltaTransport:
                     or selected['properties'][0].dataType.simpleString()!='map<string,string>'):
                 raise LocalDeltaError('Exact native UUID and STRING properties required')
             frame=frame.select(F.col('id'),*(F.col('properties').getItem(key).alias('_ashlar_detail_'+str(i))for i,key in enumerate(property_keys)))
-        if getattr(self, 'observation_bounds', None) is not None:
+        bounds=getattr(self,'observation_bounds',None)
+        if projected and self._registered and type(bounds)is VerificationBounds:
+            from .registered_detail_proof import capture_registered_detail_proof,RegisteredDetailProofError
+            expected=(target.uuid,self.installation_id,self.registry_sha,self.journal_sha)
+            try:proof=capture_registered_detail_proof(frame,expected,bounds=bounds)
+            except RegisteredDetailProofError as error:raise LocalDeltaError(str(error))from error
+        if proof is not None:
+            if not proof[0]:raise LocalDeltaError('Original native Delta UUID changed')
+            detail=dict(zip(('id','_ashlar_detail_0','_ashlar_detail_1','_ashlar_detail_2'),expected))
+        elif bounds is not None:
             rows = self._bounded_native_rows(frame, maximum_rows=1)
             if len(rows) != 1: raise LocalDeltaError('Exact single native detail required')
             detail = rows[0]
@@ -355,7 +365,7 @@ class LocalDeltaTransport:
             if reservation.is_symlink() or not reservation.is_file() or reservation.stat().st_uid != os.getuid() or reservation.stat().st_mode & 18 or (self._reservation_text(reservation) != self.reservation):
                 raise LocalDeltaError('Original private installation reservation missing or changed')
             properties = detail.get('properties', {})
-            if properties.get('ashlar.local.installation.id') != self.installation_id or properties.get('ashlar.local.registry.sha256') != self.registry_sha or properties.get('ashlar.local.journal.sha256') != self.journal_sha:
+            if (proof is not None and not all(proof[1:])) or properties.get('ashlar.local.installation.id') != self.installation_id or properties.get('ashlar.local.registry.sha256') != self.registry_sha or properties.get('ashlar.local.journal.sha256') != self.journal_sha:
                 raise LocalDeltaError('Original native installation registration differs')
         return detail
 
