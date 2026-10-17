@@ -4,12 +4,12 @@ from ashlar.manifest import DeltaManifestStore,validate_manifest_row
 from ashlar.stored_publisher import validate_applied_artifact
 from .delta_custody import LocalDeltaTransport,LocalOperationExecutor,child_operation,encoded,original_operation_intent
 from .driver import NativeDriver,CarrierPolicy,RecoveryExecutor
-from .lifecycle import finish,owned_context
+from .lifecycle import finish
 from .medical_commit_inspection import inspect_medical_commit
 from .medical_commit_inspection_configuration import read_selected
 from .medical_producer import decode_medical
 from .medical_prospective_manifest_configuration import OriginalMedicalProspectiveManifestConfig,decode_authorization,prospective_selection_bytes,renew_prospective_selection
-from .medical_publication_plan import MedicalPublicationPlan,STREAM
+from .medical_publication_plan import MedicalPublicationPlan
 from .medical_publication_sources import OriginalMedicalSourceOwner
 from .medical_process_inspection import MedicalProcessInspection,validate_medical_process_observations
 from .medical_journal_inspection import MedicalJournalInspection,validate_medical_journal_observations
@@ -149,20 +149,19 @@ class MedicalProspectiveManifest:
             if type(row)is not dict or row!=self.proposal:raise PermissionError('Exact unchanged proposed row required')
             sql,parameters=self.store.statement(row);statement=(sql,parameters)
             retained=self.retained(sql,parameters)
-            with owned_context(self.driver.writer(STREAM,context)):
-                if retained is None:
-                    if self.driver.transport.db.execute('SELECT 1 FROM local_operation WHERE operation LIKE ? LIMIT 1',('manifest:'+self.request['request_digest']+':%',)).fetchone():raise PermissionError('Conflicting ordinary manifest intent exists')
-                    observed,proposal=inspect_medical_commit(self.driver,self.plan,self.source,context=context,bounds=self.bounds,installation=self.installation)
-                    if encoded(observed)!=encoded(self.inspection_facts)or proposal!=self.original[2]:raise PermissionError('Original inspected absence no longer holds')
-                    retain_prospective_authorization(self.sidecar,self.original[3])
-                    self.require(context)
-                    self.store.prepare(row,context=context)
-                    retained=self.retained(sql,parameters)
-                    if retained is None:raise PermissionError('Durable new manifest intent absent')
-                else:require_prospective_authorization(self.sidecar,self.original[3])
-                # Recovery dispatch never prepares a replacement, including committed replies.
-                recovery=DeltaManifestStore(RecoveryExecutor(self.executor),self.store.policy,self.store.table,self.store.uuid)
-                answer=recovery.commit(row,context=context)
+            if retained is None:
+                if self.driver.transport.db.execute('SELECT 1 FROM local_operation WHERE operation LIKE ? LIMIT 1',('manifest:'+self.request['request_digest']+':%',)).fetchone():raise PermissionError('Conflicting ordinary manifest intent exists')
+                observed,proposal=inspect_medical_commit(self.driver,self.plan,self.source,context=context,bounds=self.bounds,installation=self.installation)
+                if encoded(observed)!=encoded(self.inspection_facts)or proposal!=self.original[2]:raise PermissionError('Original inspected absence no longer holds')
+                retain_prospective_authorization(self.sidecar,self.original[3])
+                self.require(context)
+                self.store.prepare(row,context=context)
+                retained=self.retained(sql,parameters)
+                if retained is None:raise PermissionError('Durable new manifest intent absent')
+            else:require_prospective_authorization(self.sidecar,self.original[3])
+            # Recovery dispatch never prepares a replacement, including committed replies.
+            recovery=DeltaManifestStore(RecoveryExecutor(self.executor),self.store.policy,self.store.table,self.store.uuid)
+            answer=recovery.commit(row,context=context)
         except BaseException as error:primary=error
         finish(primary,[lambda:self.require(context),receipt])
         if answer is None:raise PermissionError('Prospective reconciliation completion absent')

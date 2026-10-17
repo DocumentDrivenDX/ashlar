@@ -111,6 +111,25 @@ class ProspectiveManifestTests(unittest.TestCase):
                 self.assertEqual(events.count('prepare'),1);self.assertEqual(inspect.call_count,1)
             self.assertLess(events.index('prepare'),events.index('recover'))
 
+    def test_real_native_driver_requires_existing_held_context_without_reentry(self):
+        from ashlar_host.driver import NativeDriver
+        with tempfile.TemporaryDirectory()as directory:
+            owner=self.owner(directory,[])
+            driver=object.__new__(NativeDriver);driver.context=owner.context;driver.held=True;driver.transport=owner.driver.transport
+            owner.driver=driver;original_require=owner.require
+            def require(context):driver.require(context);original_require(context)
+            owner.require=require
+            with patch('ashlar_host.medical_prospective_manifest.inspect_medical_commit',return_value=(owner.inspection,b'proposal'))as inspect,patch('ashlar_host.medical_prospective_manifest.RecoveryExecutor',side_effect=lambda x:x),patch('ashlar_host.medical_prospective_manifest.DeltaManifestStore',return_value=SimpleNamespace(commit=lambda row,**kwargs:row)):
+                self.assertEqual(owner.reconcile(owner.proposal,context=owner.context),owner.proposal)
+                self.assertTrue(driver.held);self.assertEqual(inspect.call_count,1)
+                # NativeDriver.writer would reject this already-held interval.
+                with self.assertRaises(PermissionError):
+                    with driver.writer('original',owner.context):pass
+                for held,context in ((False,owner.context),(True,object())):
+                    driver.held=held
+                    with self.assertRaises(PermissionError):owner.reconcile(owner.proposal,context=context)
+                self.assertEqual(inspect.call_count,1)
+
     def test_other_authorization_intent_refuses_even_without_sidecar(self):
         with tempfile.TemporaryDirectory()as directory:
             owner=self.owner(directory,[]);del owner.retained

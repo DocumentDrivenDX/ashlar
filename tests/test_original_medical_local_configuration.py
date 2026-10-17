@@ -96,9 +96,17 @@ class OriginalMedicalConfigurationTests(unittest.TestCase):
         with self.assertRaises(ValueError):parse_original_medical_local(b' '*262145)
         with self.assertRaises(ValueError):parse_original_medical_local(b'['*33+b'0'+b']'*33)
     def test_no_higher_caps_or_nonlocal_native_profile(self):
-        for key,wrong in (('native_seconds',301),('whole_seconds',541),('stream_bytes',1048577),('journal_bytes',134217729),('master','local[2]'),('driver_memory','1g')):
+        for key,wrong in (('native_seconds',901),('whole_seconds',961),('stream_bytes',1048577),('journal_bytes',134217729),('master','local[2]'),('driver_memory','1g')):
             value=self.configuration();value['bounds'][key]=wrong
             with self.assertRaises(ValueError):self.parse(value)
+    def test_extended_functional_deadline_keeps_strict_order_and_small_profile(self):
+        value=self.configuration();value['bounds'].update(native_seconds=900,whole_seconds=960)
+        selected=self.parse(value);self.assertEqual((selected.bounds.native_seconds,selected.bounds.whole_seconds),(900,960))
+        self.assertEqual((selected.bounds.master,selected.bounds.driver_memory),('local[1]','512m'))
+        for native,whole in ((901,960),(900,961),(900,900),(True,960),(900.0,960)):
+            changed=self.configuration();changed['bounds'].update(native_seconds=native,whole_seconds=whole)
+            with self.assertRaises(ValueError):self.parse(changed)
+
     def test_exact_scope_installation_and_original_epoch(self):
         value=self.configuration();value['installation_id']='older-installation'
         with self.assertRaises(ValueError):self.parse(value)

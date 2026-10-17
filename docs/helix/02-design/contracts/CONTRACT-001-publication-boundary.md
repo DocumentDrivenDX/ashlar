@@ -1008,6 +1008,8 @@ An explicit stored-publisher `reconcile_commit` port may transition only the
 original `committing` attempt with its exact retained applied artifact to
 `committed`, after current validation and the prospective owner's exact native
 receipt/manifest checks. It MUST NOT implement a second phase append protocol.
+The prospective helper MUST use the publisher's already held original writer
+interval and refuse calls outside it; it MUST NOT reacquire that exclusive writer.
 
 Uncertain replies resume only the same sidecar authorization, new operation
 identity and original retained SQL/parameters. Submitted and committed intents
@@ -1159,8 +1161,8 @@ Binding grants read custody only; it does not grant medical Weft or engine-query
 support or enable any mutation path.
 
 Each command MUST own finite separate-process supervision/descendant cleanup,
-with an explicit integer native deadline of 1–300 seconds, an integer whole
-deadline greater than the native deadline and at most 540 seconds, and
+with an explicit integer native deadline of 1–900 seconds, an integer whole
+deadline greater than the native deadline and at most 960 seconds, and
 local[1]/512MiB for this small functional profile. Bounds
 hold before buffering/serialization; operation-intent capacity is not journal-file
 capacity. Every acquired interval independently attempts required current closing

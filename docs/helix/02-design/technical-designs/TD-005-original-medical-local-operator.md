@@ -291,7 +291,7 @@ not a basis for reconstructing a capture discarded by an earlier invocation.
 
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and
 origin profile, local[1], 512MiB and an explicit native child limit within the
-300-second ceiling. Historical
+900-second ceiling. Historical
 runtime qualification and any newly selected profile require their own evidence;
 a newer qualified Spark profile is not excluded. Portable Ashlar imports retain
 their Python support independently of selected native SDK origins. Configurations own finite
