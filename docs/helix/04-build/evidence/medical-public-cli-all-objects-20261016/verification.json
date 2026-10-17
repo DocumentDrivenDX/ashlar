@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 626.8312035840936,
+  "projections": 8,
+  "original_object_counter": 51,
+  "counts": {
+    "all-objects-resources": 17,
+    "all-objects-organizations": 3,
+    "all-objects-patients": 2,
+    "all-objects-practitioners": 2,
+    "all-objects-encounters": 1,
+    "all-objects-observations": 8,
+    "all-objects-medications": 1,
+    "all-objects-resource_references": 17
+  },
+  "nullable_null_cells": 8,
+  "nullable_bool_cells": 3,
+  "zero_original_native_violation_guards": 63,
+  "original_integer_source_guards": 1,
+  "integer_source_guard_rows": 17,
+  "public_stdout_equals_receipt": true,
+  "full_native_files_equal": true,
+  "full_ack_closing_pins": true,
+  "source_input_pins": true,
+  "exact_protocol_recompile_pins": true
+}

@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-public-medical-query-preparation/0.1",
+  "revision": "9cf48177c9044be2976c019dba1fc79c9250b928",
+  "cases": [
+    "all-objects"
+  ],
+  "public_argv": [
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-x/environment/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "query-original-medical",
+    "--configuration",
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-x/query-configuration.json"
+  ],
+  "installed_files": 434,
+  "compiler_ready_renewed": true,
+  "runtime_custody_opened_closed": true,
+  "qualification": "Pure parse/indexedcompilerready/runtime/installedfile verification only; no Spark/source/ACK/native queries"
+}

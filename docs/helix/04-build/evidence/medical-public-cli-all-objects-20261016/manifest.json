@@ -1,0 +1,332 @@
+[
+  {
+    "file": "weft-medical-all-objects-encounters-evidence.json.gz",
+    "bytes": 2190,
+    "sha256": "5778651b3d17e0acb16ee9820ba6198c0868dca24286517bb99bf72481fabe5c",
+    "raw_bytes": 15643,
+    "raw_sha256": "cf697b7030aa257a50a6527a85d493f06f1fe4c6e8a9d41be521c7bbb7325d47",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-encounters-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-encounters-request.json.gz",
+    "bytes": 3989,
+    "sha256": "4e600128d3709c0d1315b2cad21c78c38dd075eb8b090b9d33d2f7082e2e51d3",
+    "raw_bytes": 68432,
+    "raw_sha256": "ab295e9ccf995abc6f9e22187f5d06430bad2774b0587875ae142a18b6cdcc98",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-encounters-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-encounters-response.json.gz",
+    "bytes": 3662,
+    "sha256": "3ba8df927236e79c7730cc41b292ff8ee9955e235bc871305122d7777e8e7495",
+    "raw_bytes": 22228,
+    "raw_sha256": "c0b240d9adc24e0cc140facfe35909fde723358343abcc9421b74279c9cb8d29",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-encounters-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-medications-evidence.json.gz",
+    "bytes": 2166,
+    "sha256": "72ca17bc42a4a7507eab4d360464ef1796ecb51c6e31aac07341bba58110eda1",
+    "raw_bytes": 12485,
+    "raw_sha256": "91998cd5d374d35bfdcc478210c74dac79461e43e682cc669680a3306c9a25a3",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-medications-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-medications-request.json.gz",
+    "bytes": 3974,
+    "sha256": "770ed6ac3ff076ffb5258b72f2962c341cf67f7dccb005db83066b06f99e778e",
+    "raw_bytes": 68391,
+    "raw_sha256": "dd21839b8a422472783ef1584065fb7299b77e74ccd914d34f577527b28b8182",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-medications-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-medications-response.json.gz",
+    "bytes": 3681,
+    "sha256": "577da2f057bc3b9e946f2e5eaf98ae3575ab083b8e93827303ebe20069260e46",
+    "raw_bytes": 18820,
+    "raw_sha256": "9de3c12820c640b76087f26f4816e38791452ea799c0ff011aa403b9357297eb",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-medications-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-observations-evidence.json.gz",
+    "bytes": 5531,
+    "sha256": "532c181e84c762b3452572e6a4b96d2cbd81c95ce888cd66605c26e31d7fbb0c",
+    "raw_bytes": 84902,
+    "raw_sha256": "eeafcd7ecb328ec0ad9a3304674a7aa7d0769e1785d7a5e3c6a3b1ada81f6b3e",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-observations-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-observations-request.json.gz",
+    "bytes": 4042,
+    "sha256": "2f0d55c522551b1117dabb6b6a860be2500f6e790658d172aba89f13129602f1",
+    "raw_bytes": 68630,
+    "raw_sha256": "34a2e7201e1818b2f653abf34884ea73f980ebae8e87dc34e9f3ad06bc9bcaf9",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-observations-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-observations-response.json.gz",
+    "bytes": 5319,
+    "sha256": "22d11a01c32d208194ce7640c908414ac7882197f7edc1c3d8ef51b12467f0e7",
+    "raw_bytes": 64528,
+    "raw_sha256": "f00fb47bf39c65af2a254602609491ce9bb0f54aaf6a045743c951d223f0e7dc",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-observations-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-organizations-evidence.json.gz",
+    "bytes": 2278,
+    "sha256": "3309f586ee085d63f4ecbc027046e4fa63ca8f3f0f4a998d38f6836c6c8517b4",
+    "raw_bytes": 14256,
+    "raw_sha256": "20650aa4b04d043a4a49eec48852f85df7acce0387fc4ed63d679f92ee02a7d1",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-organizations-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-organizations-request.json.gz",
+    "bytes": 3974,
+    "sha256": "e4d7b137875c91d551ca9770dbeb1de0d13d132e7dd9a60146a07a1327cfc1c4",
+    "raw_bytes": 68388,
+    "raw_sha256": "faa9e0ea8e947b3bab0e7dce53116651c3d31ee58200e0c51899376ebc782788",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-organizations-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-organizations-response.json.gz",
+    "bytes": 3680,
+    "sha256": "ff50ca2ca59d10c478b53cf105b341ee22b3cabeecf281d53c09d39840ee2a07",
+    "raw_bytes": 18812,
+    "raw_sha256": "d379b93eb21512075c90670f67cc52a92fa34f3b909507bd1ad3a86745259832",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-organizations-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-patients-evidence.json.gz",
+    "bytes": 2735,
+    "sha256": "2533782e62726599a5ef85d664a1d8da80170d83a1e16a437bbdaefe38d6f01b",
+    "raw_bytes": 26399,
+    "raw_sha256": "3fa5781d1bc480c0bcd3aa5a1dea246b98de903d76fa1666714c59403764714e",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-patients-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-patients-request.json.gz",
+    "bytes": 3987,
+    "sha256": "0ccddd4f745fa7e6ecf7601bd58a7333f6c9d80be522a2b9815d3b9da0d236ef",
+    "raw_bytes": 68443,
+    "raw_sha256": "7717a2a243564e28b1279933b35fe715563796830263f0b7dd08c906a0af488c",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-patients-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-patients-response.json.gz",
+    "bytes": 4252,
+    "sha256": "3eca7f85c07a834dbc1474cb4fcf37f56a512436c08fa05bdab0594b097022e2",
+    "raw_bytes": 34490,
+    "raw_sha256": "3d62af7eeabbd6f83f397b5cad7ec09a7af8793a0aa10c1659b562df1437a4c9",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-patients-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-practitioners-evidence.json.gz",
+    "bytes": 2601,
+    "sha256": "b93ab92f39e6f44d58540875a62b6013f2a3d6092b005f5d795c0581ccb5a041",
+    "raw_bytes": 19326,
+    "raw_sha256": "02ed4d799bf9873a6a9914f972dced56dbdcfb1c77fb282073f0170e5c39166a",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-practitioners-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-practitioners-request.json.gz",
+    "bytes": 3978,
+    "sha256": "84b6339383fadaa9be7fad4fc1ac061ac016e105a3d66de3d7b9c8625bdb5e23",
+    "raw_bytes": 68427,
+    "raw_sha256": "69bdb5d5f1a8fe889c84fa1875cbb1239a3ef1e3cec3a7aaf8c9a94d9a993020",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-practitioners-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-practitioners-response.json.gz",
+    "bytes": 3921,
+    "sha256": "7ba6a8808f0508b8c0b049a87b37980d0daee24d83c0fe2d8619c87bad4c142e",
+    "raw_bytes": 24969,
+    "raw_sha256": "13faec6182f0a56ab1a3fdc0e5e6a5c239fa808e51102365c71333ad70e875ba",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-practitioners-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resource_references-evidence.json.gz",
+    "bytes": 50316,
+    "sha256": "210d0b566a59c847c728ee7753c49e6eb6e68429b49853290f211b89f22e8297",
+    "raw_bytes": 891328,
+    "raw_sha256": "503152cb4b225ac349ca142b572360f572eea9c01599f76298f20511fff8ef69",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resource_references-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resource_references-request.json.gz",
+    "bytes": 3993,
+    "sha256": "ee14abb9bb2fb3db43b837975495b372b2015efebd9e76323db6b6579b343dd3",
+    "raw_bytes": 68482,
+    "raw_sha256": "04447d81d42ec39e41ead8cdbd68f11fd54cbc50113b22f52eda1e8639d6ca52",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resource_references-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resource_references-response.json.gz",
+    "bytes": 4295,
+    "sha256": "2d86a9773acecc288044aefae7f0a442a414bc80de0803770e08c4e9620dd61d",
+    "raw_bytes": 33744,
+    "raw_sha256": "9199565a2b5920cdc0292fd83f0e3670379fd9051a75b33e60dd2ddce0083b6d",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resource_references-response.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resources-evidence.json.gz",
+    "bytes": 55951,
+    "sha256": "985526080f159feb3ab8d47a927a605eb8a1fee350ec5a001ceb89990979f06b",
+    "raw_bytes": 310107,
+    "raw_sha256": "f87a14302aa2a1c57f3d0baa1802e64255937b6c47c32e88d588f2f4fa11d166",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resources-evidence.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resources-request.json.gz",
+    "bytes": 3991,
+    "sha256": "30c612380cc2459cb2720b5a76274627e157131919bafec937a2e512520732ae",
+    "raw_bytes": 68455,
+    "raw_sha256": "5ca75e16c99a62b675e9143c08fce7c7fbae71a9f8ee7558599ef04073c9c08a",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resources-request.json"
+  },
+  {
+    "file": "weft-medical-all-objects-resources-response.json.gz",
+    "bytes": 3739,
+    "sha256": "4bdd5482d9b2ec2a84927ddf6e904f95cc77451d08b1a671c73c52b0002b6279",
+    "raw_bytes": 24749,
+    "raw_sha256": "5a5433d17a447ddb50ad063f8393784480a6c36b890320e5bf9df90bc32ddd38",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/weft-medical-all-objects-resources-response.json"
+  },
+  {
+    "file": "receipt.json.gz",
+    "bytes": 87395,
+    "sha256": "21a43449c96697cae3f01d27791a69b1764e4502f57e27bc2418723d995bb9eb",
+    "raw_bytes": 959374,
+    "raw_sha256": "bd44032691d62b5e65b81e119300d445fa9e519f9d5b74717281f074fc113da1",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/receipt.json"
+  },
+  {
+    "file": "public-revalidation.json.gz",
+    "bytes": 36753,
+    "sha256": "e46c5e4b04153c4b19428ab2df05c7c93dba0d97d0ed2c6b9dbcc2b6c876ad3d",
+    "raw_bytes": 480111,
+    "raw_sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/read-query-output/public-revalidation.json"
+  },
+  {
+    "file": "outer-attempt.json",
+    "bytes": 767,
+    "sha256": "fc4e01e91750dd9e50046efa56364fa3b4675e7255a3d415317a653667242ed8",
+    "raw_bytes": 767,
+    "raw_sha256": "fc4e01e91750dd9e50046efa56364fa3b4675e7255a3d415317a653667242ed8",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/outer-attempt.json"
+  },
+  {
+    "file": "frozen-preparation.json",
+    "bytes": 5403,
+    "sha256": "39fc3c3387af7e1ae1e56081db723751fc59d300bae9d15c547b858340622c53",
+    "raw_bytes": 5403,
+    "raw_sha256": "39fc3c3387af7e1ae1e56081db723751fc59d300bae9d15c547b858340622c53",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/frozen-preparation.json"
+  },
+  {
+    "file": "pure-preflight.json",
+    "bytes": 683,
+    "sha256": "c609b1fc9dcc64d9ec732b3c57a8244c2697f3b9394a86ed325c2c87288d84d5",
+    "raw_bytes": 683,
+    "raw_sha256": "c609b1fc9dcc64d9ec732b3c57a8244c2697f3b9394a86ed325c2c87288d84d5",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/pure-preflight.json"
+  },
+  {
+    "file": "query-configuration.json",
+    "bytes": 7016,
+    "sha256": "6afd1e8957bef48331abb13057eb81b9a5ff04d389e2a302800c0263d08b215d",
+    "raw_bytes": 7016,
+    "raw_sha256": "6afd1e8957bef48331abb13057eb81b9a5ff04d389e2a302800c0263d08b215d",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/query-configuration.json"
+  },
+  {
+    "file": "installed.json.gz",
+    "bytes": 23145,
+    "sha256": "f463cff62cb02d95712c98b3257a3ae21cc16c7936f8e003ae5cc313d8f6d473",
+    "raw_bytes": 74503,
+    "raw_sha256": "14525b6b3eac8dc0290bfaa304889e5efb08e35cc4b49f88c282db6056b6e187",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/installed.json"
+  },
+  {
+    "file": "runtime-selection.json",
+    "bytes": 10811,
+    "sha256": "5d7f50d2c282dc7ba68d8dfe966060915e6fed384f913f293e0ea65ed1d56721",
+    "raw_bytes": 10811,
+    "raw_sha256": "5d7f50d2c282dc7ba68d8dfe966060915e6fed384f913f293e0ea65ed1d56721",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/runtime-selection.json"
+  },
+  {
+    "file": "native-files-before.json.gz",
+    "bytes": 6762,
+    "sha256": "861948a9232fc58de95e1097eed9106894c41391fc700ec19d0be83c258a0a1d",
+    "raw_bytes": 24768,
+    "raw_sha256": "7bbbd6c5c9dda689e4232739cc4771b8d72c5d663fae18abd294751bfeeb2b84",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/native-files-before.json"
+  },
+  {
+    "file": "native-files-after.json.gz",
+    "bytes": 6762,
+    "sha256": "861948a9232fc58de95e1097eed9106894c41391fc700ec19d0be83c258a0a1d",
+    "raw_bytes": 24768,
+    "raw_sha256": "7bbbd6c5c9dda689e4232739cc4771b8d72c5d663fae18abd294751bfeeb2b84",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/native-files-after.json"
+  },
+  {
+    "file": "run-public-cli.py",
+    "bytes": 4417,
+    "sha256": "cea541e49b03e87638e3610f7f68a4108e383b0ffc924f461b8fc8c9bab3683a",
+    "raw_bytes": 4417,
+    "raw_sha256": "cea541e49b03e87638e3610f7f68a4108e383b0ffc924f461b8fc8c9bab3683a",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/run-public-cli.py"
+  },
+  {
+    "file": "native_inventory.py",
+    "bytes": 1955,
+    "sha256": "4c5dac7633ae5fbfc7f0303266108e48fe7e470071fa19edf534a893e0c262a8",
+    "raw_bytes": 1955,
+    "raw_sha256": "4c5dac7633ae5fbfc7f0303266108e48fe7e470071fa19edf534a893e0c262a8",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/native_inventory.py"
+  },
+  {
+    "file": "pure-preflight.py",
+    "bytes": 1743,
+    "sha256": "6c063b86a9d6175727e3ec8d2119ef3be82ec0a1df97d1218dbf6af9be29e08d",
+    "raw_bytes": 1743,
+    "raw_sha256": "6c063b86a9d6175727e3ec8d2119ef3be82ec0a1df97d1218dbf6af9be29e08d",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-x/pure-preflight.py"
+  },
+  {
+    "file": "original-graph.json.gz",
+    "bytes": 17522,
+    "sha256": "e35cc78d3fc8791dc466e06d83769d062493d87ed3742cef9cabb0c9cb21595c",
+    "raw_bytes": 160290,
+    "raw_sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+    "source": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/graph.bin"
+  },
+  {
+    "file": "verification.json",
+    "bytes": 768,
+    "sha256": "8d43481212df36f70d8f9c6bc168fe93225813d3cf68673e243570c7b59954b7",
+    "raw_bytes": 768,
+    "raw_sha256": "8d43481212df36f70d8f9c6bc168fe93225813d3cf68673e243570c7b59954b7",
+    "source": "/private/tmp/medical-x-retained-verification.json"
+  },
+  {
+    "file": "verify-retained.py",
+    "bytes": 4340,
+    "sha256": "9d2ddd1b03f7324a059850cbbffd5f457c66d62920dd3b206c71cdf6be02eced",
+    "raw_bytes": 4340,
+    "raw_sha256": "9d2ddd1b03f7324a059850cbbffd5f457c66d62920dd3b206c71cdf6be02eced",
+    "source": "/private/tmp/verify-medical-x-retained.py"
+  },
+  {
+    "file": "README.md",
+    "bytes": 2838,
+    "sha256": "a8aaff1474262326b2ba6dabc4e680d8388b15fb7110d459ac8bed1abb1a0dd5"
+  },
+  {
+    "file": "source-digests.json",
+    "bytes": 1408,
+    "sha256": "112cdbb84368f995fddd755766d0c6e5f8bbae6094e518e92ce2faf7af14f59a"
+  }
+]
