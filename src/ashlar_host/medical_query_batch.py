@@ -28,7 +28,7 @@ class MedicalQueryBatch:
     def __post_init__(self):
         MedicalSingletonQuery(self.paths,self.maximum_artifact_bytes)
         if (type(self.cases)is not tuple or not self.cases or len(set(self.cases))!=len(self.cases)
-                or any(type(c)is not str or c not in ('singleton','two-hop','filtered-limit')for c in self.cases)):
+                or any(type(c)is not str or c not in ('singleton','two-hop','filtered-limit','all-objects')for c in self.cases)):
             raise ValueError('Closed unique full-row singleton/two-hop selection required')
 
 
@@ -37,12 +37,12 @@ class MedicalQueryBatchBuffer:
     cases:tuple
     closing_json:str
     def __post_init__(self):
-        if type(self.cases)is not tuple or not 1<=len(self.cases)<=7:raise ValueError('Complete bounded medical batch required')
+        if type(self.cases)is not tuple or not 1<=len(self.cases)<=15:raise ValueError('Complete bounded medical batch required')
         names=[];total=0
         for row in self.cases:
             if type(row)is not tuple or len(row)!=3:raise ValueError('Immutable medical case required')
             name,buffer,semantic=row
-            if type(name)is not str or name not in ('singleton','filtered-limit',*(f'two-hop-{i}'for i in range(1,6))) or type(buffer)is not MedicalSingletonBuffer:
+            if type(name)is not str or name not in ('singleton','filtered-limit',*(f'two-hop-{i}'for i in range(1,6)),*('all-objects-'+r for r in ('resources','organizations','patients','practitioners','encounters','observations','medications','resource_references'))) or type(buffer)is not MedicalSingletonBuffer:
                 raise ValueError('Exact original medical case buffer required')
             buffer.__post_init__();names.append(name)
             if type(semantic)is not str or len(semantic.encode())>1048576:raise ValueError('Bounded exact medical semantic evidence required')
@@ -51,6 +51,9 @@ class MedicalQueryBatchBuffer:
             raise ValueError('Complete medical batch capacity exceeded')
         paths={name for name in names if name.startswith('two-hop-')}
         if paths and paths!={f'two-hop-{i}'for i in range(1,6)}:raise ValueError('Complete five-pair medical two-hop inventory required')
+        objects={name for name in names if name.startswith('all-objects-')}
+        required={'all-objects-'+r for r in ('resources','organizations','patients','practitioners','encounters','observations','medications','resource_references')}
+        if objects and objects!=required:raise ValueError('Complete eight-record medical object inventory required')
     def protocol_files(self):
         self.__post_init__();files=[]
         for name,buffer,semantic in self.cases:
@@ -159,7 +162,10 @@ def execute_medical_query_batch(selection,driver,context,resolved,model,graph,ba
         driver.policy.renew()
         return {'model':hashlib.sha256(model).hexdigest(),'graph':hashlib.sha256(graph).hexdigest(),'baseline':hashlib.sha256(baseline).hexdigest()}
     opened=SimpleNamespace(provider=provider,context=context,model=model,graph=graph,native_files=native_files,original_native_files=native_files())
-    execution=ImplicitArithmeticExecutionConfig(admission,PathCaptureConfig(bounds.rows,bounds.cell_bytes,bounds.total_bytes),PathDecodeConfig(bounds.cell_bytes),None,None)
+    from .medical_query_source import MedicalQuerySource
+    from ashlar.medical_source import UMF_PIN
+    public_source=MedicalQuerySource(driver,context,provider.expected,bounds.receipt_bytes)if 'all-objects'in selection.cases else None
+    execution=ImplicitArithmeticExecutionConfig(admission,PathCaptureConfig(bounds.rows,bounds.cell_bytes,bounds.total_bytes),PathDecodeConfig(bounds.cell_bytes),public_source,UMF_PIN if public_source else None,maximum_public_source_bytes=bounds.receipt_bytes if public_source else None)
     buffers=[]
     with owned_context(provider.batch_interval(context)):
         for case,raw,responses,artifact in compiled:
