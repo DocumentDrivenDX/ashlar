@@ -9,7 +9,7 @@ from ashlar.native import SQLResult
 from ashlar.publication import descriptor_from_manifest_row
 from ashlar.attempt_store import PHASES
 from ashlar_host.configured_source_local import open_configured_local_source
-from ashlar_host.configured_local_read import read_configured_local_singleton
+from ashlar_host.configured_local_read import read_configured_local_singleton,open_configured_local_read,ConfiguredLocalRead
 from ashlar_host.file_progress import JournaledJsonlProgress
 from ashlar_host.delta_custody import LocalDeltaTransport,encoded,sha
 from ashlar_host.managed_carriers import load_managed_carriers
@@ -58,6 +58,34 @@ class Tests(unittest.TestCase):
                 self.assertEqual(old['id'],'2');self.assertEqual(json.loads(old['props_json']),{'1023':'second'})
                 self.assertIsNone(read_configured_local_singleton(t,source,reader,ordinal=3,**kwargs))
                 self.assertEqual(t.db.total_changes,before);self.assertEqual(reader.retained_entries(),retained)
+                scope_kwargs={k:v for k,v in kwargs.items()if k not in ('type_id','entity_id')}
+                with open_configured_local_read(t,source,reader,ordinal=1,**scope_kwargs)as held:
+                    self.assertIs(type(held),ConfiguredLocalRead);self.assertEqual(held.singleton(kwargs['type_id'],2)['id'],'2')
+                    detached=held.source_rows();detached['object_current'].clear();self.assertTrue(held.source_rows()['object_current'])
+                    with self.assertRaises(AttributeError):held.context=object()
+                count=len(calls)
+                with self.assertRaises(ValueError):held.renew()
+                with self.assertRaises(ValueError):held.executor.query('SELECT forbidden',{})
+                self.assertEqual(len(calls),count)
+                released=[];original_snapshots=snapshots[1]['object_current']
+                try:
+                    with self.assertRaises(ValueError):
+                        with open_configured_local_read(t,source,reader,ordinal=1,**scope_kwargs):snapshots[1]['object_current']=[]
+                        released.append(True)
+                finally:snapshots[1]['object_current']=original_snapshots
+                self.assertEqual(released,[])
+                for cancellation in (False,True):
+                    primary=KeyboardInterrupt();fail=[False]
+                    def admission(s,request,manifest,ctx):
+                        if fail[0]:raise OSError('closing source callback')
+                        return current(s,request,manifest,ctx)
+                    try:
+                        with open_configured_local_read(t,source,reader,ordinal=1,**{**scope_kwargs,'current_admission':admission}):
+                            fail[0]=True
+                            if cancellation:raise primary
+                        self.fail('Closing source failure released scope')
+                    except KeyboardInterrupt as caught:self.assertTrue(cancellation);self.assertIs(caught,primary)
+                    except OSError:self.assertFalse(cancellation)
                 # A complete bag at the chosen snapshot cannot replace original
                 # canonical committed phase custody.
                 original=phases[requests[1]['batch_id']];phases[requests[1]['batch_id']]=original[:-1]
