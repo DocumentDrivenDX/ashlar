@@ -24,5 +24,6 @@
     "deadline_seconds": 300,
     "capture_bytes": 1048576,
     "owner": "operator-owned-process-supervisor/0.1"
-  }
+  },
+  "native_schema_profile": "canonical-managed-carriers/0.1"
 }

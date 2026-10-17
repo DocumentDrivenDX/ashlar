@@ -1,0 +1,57 @@
+{
+  "profile": "ashlar-commerce-evolution-invocation/0.1",
+  "mode": "fresh",
+  "ledger_path": "/absolute/REPLACE_WITH_FRESH_RUN.sqlite",
+  "receipt_path": "/absolute/REPLACE_WITH_FRESH_PREFIX_RECEIPT.json",
+  "producer": {
+    "source": "/absolute/REPLACE_WITH_PINNED_UMF_CHECKOUT",
+    "bun": "/absolute/REPLACE_WITH_BUN",
+    "git": "/absolute/REPLACE_WITH_GIT",
+    "timeout_seconds": 60,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "through_ordinal": 2,
+  "request": {
+    "source_order": [
+      "REPLACE_WITH_SOURCE_A_FEED",
+      "REPLACE_WITH_SOURCE_B_FEED"
+    ],
+    "stream": "REPLACE_WITH_NEW_STREAM",
+    "predecessor": "REPLACE_WITH_EXPLICIT_EMPTY_ORIGIN",
+    "clocks": [
+      [
+        "2026-10-17T12:00:00+00:00",
+        "2026-10-17T12:01:00+00:00",
+        "2026-10-17T12:02:00+00:00",
+        "2026-10-17T12:03:00+00:00"
+      ],
+      [
+        "2026-10-17T13:00:00+00:00",
+        "2026-10-17T13:01:00+00:00",
+        "2026-10-17T13:02:00+00:00",
+        "2026-10-17T13:03:00+00:00"
+      ]
+    ],
+    "publication_ids": [
+      "REPLACE_WITH_NEW_PUBLICATION_0",
+      "REPLACE_WITH_NEW_PUBLICATION_1",
+      "REPLACE_WITH_NEW_PUBLICATION_2",
+      "REPLACE_WITH_NEW_PUBLICATION_3",
+      "REPLACE_WITH_NEW_PUBLICATION_4",
+      "REPLACE_WITH_NEW_PUBLICATION_5",
+      "REPLACE_WITH_NEW_PUBLICATION_6",
+      "REPLACE_WITH_NEW_PUBLICATION_7"
+    ],
+    "recorded_at": [
+      "1792238400000000",
+      "1792238400000001",
+      "1792238400000002",
+      "1792238400000003",
+      "1792238400000004",
+      "1792238400000005",
+      "1792238400000006",
+      "1792238400000007"
+    ]
+  }
+}

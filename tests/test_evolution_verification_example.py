@@ -14,6 +14,21 @@ class Tests(unittest.TestCase):
         source = Path(__file__).resolve().parents[1] / 'examples/existing-evolution-operator.py'
         self.provider = runpy.run_path(str(source))
 
+    def test_shipped_fresh_prefix_and_canonical_templates_parse(self):
+        import json
+        from ashlar_host.evolution_cli import parse_evolution_invocation
+        from ashlar_host.evolution_verification_cli import parse_verification_invocation
+        root=Path(__file__).resolve().parents[1]/'examples/evolution-publication-verification'
+        fresh=parse_evolution_invocation((root/'fresh-invocation.template.json').read_bytes(),'fresh')
+        self.assertEqual(fresh.through_ordinal,2)
+        self.assertEqual(len(fresh.request.schedule()),8)
+        self.assertEqual([s['source']for s in fresh.request.schedule()[:3]],
+            [fresh.request.source_order[0],fresh.request.source_order[1],fresh.request.source_order[0]])
+        document=json.loads((root/'invocation.template.json').read_bytes());document['expected_sha256']='a'*64
+        verification=parse_verification_invocation(json.dumps(document).encode())
+        self.assertEqual(verification.ordinal,0)
+        self.assertEqual(verification.native_schema_profile,'canonical-managed-carriers/0.1')
+
     def test_separate_public_routes_preserve_primary_when_operator_cleanup_fails(self):
         for name in ('open_evolution', 'open_verification'):
             with self.subTest(route=name):

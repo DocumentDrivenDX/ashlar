@@ -10,7 +10,7 @@ immutable pins.
 
 Use the installed Ashlar package and the existing qualified local
 Spark/Delta/psycopg runtime. Select the original tables' schema profile explicitly:
-add `"native_schema_profile": "canonical-managed-carriers/0.1"` to the invocation
+use `"native_schema_profile": "canonical-managed-carriers/0.1"` in the invocation
 for packaged UMF-generated carrier fields, including their declared nullability.
 Omission preserves `legacy-sql-bootstrap/0.1`, whose primitive fields are nullable.
 Both profiles require empty field metadata and apply to all four graph roles;
@@ -20,7 +20,8 @@ Preserve the original six target identities, installation reservation,
 native journal, run reservation, producer and two source registrations.
 
 Copy [invocation.template.json](invocation.template.json) to a private operator
-file. Replace every `REPLACE_WITH` value with canonical absolute original paths
+file. It explicitly selects the canonical profile; select the legacy profile only
+for an installation originally created with that physical schema. Replace every `REPLACE_WITH` value with canonical absolute original paths
 or the original run SHA256. Select the completed ordinal and explicit capture
 limits. The receipt must be fresh and distinct from the configuration, provider,
 ledger and installation files. The numeric limits in the template are explicit
@@ -48,7 +49,7 @@ and `ASHLAR_VERIFICATION_PROVIDER_SHA256` explicitly; the last value is the
 SHA256 of the exact trusted provider bytes.
 
 ```sh
-"$ASHLAR_PYTHON" -m ashlar verify-commerce-evolution-publication \
+"$ASHLAR_PYTHON" -I -B -m ashlar verify-commerce-evolution-publication \
   --configuration "$ASHLAR_VERIFICATION_CONFIGURATION" \
   --provider "$ASHLAR_VERIFICATION_PROVIDER" \
   --provider-sha256 "$ASHLAR_VERIFICATION_PROVIDER_SHA256"
@@ -66,6 +67,67 @@ journals.
 
 The owning desired behavior is [TD-003](../../docs/helix/02-design/technical-designs/TD-003-evolution-publication-verification.md)
 and [CONTRACT-001](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md).
+
+## Start a fresh three-publication prefix
+
+The installed command composes publication; it does not create PostgreSQL roles,
+outbox/ACK services, Delta tables or a runtime. First supply an operator-owned
+fresh six-target installation and two distinct ordinary source/ACK registrations.
+The native graph tables must match the selected canonical field schema; retain
+actual observed UUIDs, paths and original installation reservations. Seed all four
+original source groups per source through their writer roles: admission retains
+the complete original schedule even when only its first prefix will execute.
+This requires a new installation and consumers, rather than adopting or resetting
+an existing consumer. The provider's native/source/ACK owners must admit them.
+
+Keep the complete installation, native journal, run reservation, run ledger,
+original producer inputs and all six Delta directories under a durable,
+operator-owned workspace location. Retention must preserve the data files needed
+by later selected old-publication reads. An empty replacement table or copied
+journal without its original native files cannot reconstruct this authority.
+
+Copy [fresh-invocation.template.json](fresh-invocation.template.json) to a private
+configuration. Replace all named selections and choose explicit UTC transaction
+clocks and recording microseconds for the complete eight-publication request.
+The clocks in the template are examples. `source_order` must match the two
+registered feeds in A/B order; all eight publication IDs must be distinct.
+The fresh ledger must share the original native journal/reservation parent
+selected by the provider. Its receipt path must be fresh and distinct.
+
+Set `ASHLAR_EVOLUTION_CONFIGURATION`, `ASHLAR_EVOLUTION_PROVIDER` and
+`ASHLAR_EVOLUTION_PROVIDER_SHA256` to the selected private configuration and exact
+[existing operator provider](../existing-evolution-operator.py) bytes. Supply all
+of that provider's named `ASHLAR_*` inputs explicitly: six original target
+registrations, native journal/run reservation, operation capacity, cached JARs,
+and separate A/B ordinary source/ACK credentials. Use the installed runtime and
+the bounded supervisor described above; keep credential files private.
+
+```sh
+"$ASHLAR_PYTHON" -I -B -m ashlar publish-commerce-evolution \
+  --configuration "$ASHLAR_EVOLUTION_CONFIGURATION" \
+  --provider "$ASHLAR_EVOLUTION_PROVIDER" \
+  --provider-sha256 "$ASHLAR_EVOLUTION_PROVIDER_SHA256"
+```
+
+`through_ordinal: 2` publishes A1 → B1 → A2, completing three original slots and
+advancing only the corresponding source ACKs to A2/B1. It leaves five slots
+unprepared. Success requires a prefix receipt, zero command status, full closing
+and confirmed supervisor cleanup. The receipt contains `run_sha256`,
+`completed_count: 3`, `total_publications: 8`, `run_complete: false` and exact source
+progress. Omit `through_ordinal` for the existing full-eight run; JSON null and
+Boolean selections refuse. A prefix is not full-run qualification.
+
+After a successful prefix, use its original `run_sha256` and a fresh receipt path
+with the continuation command below, selecting ordinal **3** for B2. Continue one
+next ordinal at a time through 7 without repeating fresh initialization, reseeding
+or resetting consumers. After interruption, preserve all original custody and
+establish the actual retained/completed prefix before selecting its permitted
+continuation; absence of a final receipt does not prove absence of effects.
+
+To verify A1 after B1 or later publications, select ordinal **0** in the canonical
+verification template, using the same original run digest, ledger and provider.
+That read compares the original A1 union and pins, while renewing current whole-run
+and ordinary source/ACK admission. It does not publish or advance source progress.
 
 ## Continue an unfinished run one step at a time
 
