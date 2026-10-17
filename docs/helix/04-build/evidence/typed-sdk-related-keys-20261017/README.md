@@ -9,3 +9,5 @@ This is a direct EngineRead precursor. Stage-two engine WithKeys, page and strea
 Five host source controls and seven actual generated/source transport controls are separate from native qualification. Prior broad host unit tests retain two existing admission-count expectation failures and one optional fixture skip; none was changed to obtain this result.
 
 A subsequent test-only correction aligns the two stale count assertions with the original three admission phases, and checks exact phase/SQL ordering. New controls revoke the profile or authority inside result authorization and require final admission to refuse without releasing buffered results. The broad source suite now passes 15 tests with one existing optional historical Weft fixture skipped; its earlier red log is retained. Production payload bytes remain unchanged.
+
+The target-input withholding and publication revocation controls exercise the explicitly supplied original host policy. They do not claim an independent Unity Catalog ACL revocation test. PostgreSQL pin custody uses the actual fixture reader identity.
