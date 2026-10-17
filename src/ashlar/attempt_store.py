@@ -20,6 +20,12 @@ class PhaseRecord:
 
 
 def verify_request_digest(request: dict[str, str]) -> str:
+    """Validate original request bytes; interval reuse confers no current authority."""
+    from .request_validation_memo import validate_request_semantics
+    return validate_request_semantics(request, _verify_request_digest_uncached)
+
+
+def _verify_request_digest_uncached(request: dict[str, str]) -> str:
     """Verify the complete original attempt-request strings and digest.
 
     A present checkpoint retains its existing source-specific validation. This

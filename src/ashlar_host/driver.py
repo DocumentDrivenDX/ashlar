@@ -453,7 +453,8 @@ class NativeDriver:
     def _validate_evolution_run_ledger(self, original, inventory, *, context,
                                      attempt_admission, selected_completed=None, collect_completed=False):
         from .immutable_snapshot_memo import immutable_snapshot_memo
-        with immutable_snapshot_memo(self.transport):
+        from ashlar.request_validation_memo import request_validation_memo
+        with request_validation_memo(), immutable_snapshot_memo(self.transport):
             return self._validate_evolution_run_ledger_uncached(original,inventory,context=context,
                 attempt_admission=attempt_admission,selected_completed=selected_completed,
                 collect_completed=collect_completed)

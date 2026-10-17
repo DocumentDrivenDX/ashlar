@@ -1,0 +1,49 @@
+{
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_request_validation_memo test_source_checkpoint test_registered_outbox_sources",
+  "diagnostic_reference": {
+    "bytes": 7727,
+    "content_retained": false,
+    "private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/publisher-control/private-stack.txt",
+    "qualification": "Parent-observed120second diagnostic reference: repeated pure request/checkpoint/batch/JSONL parsing during full ledger closing; no quantitative CPU attribution.",
+    "sha256": "4e9b5976f556851bf6401b0916e773e171ccfa50a5bcc239ac287addf950bff6"
+  },
+  "evidence_origin": "Exact command and result transcribed from exec tool return; no native performance measurement",
+  "pure_workload": {
+    "calls": 100,
+    "memo_parses": 1,
+    "memo_seconds": 0.00021945801563560963,
+    "uncached_parses": 100,
+    "uncached_seconds": 0.006505874916911125
+  },
+  "python": "3.11.17",
+  "source_pins": [
+    {
+      "bytes": 2116,
+      "path": "src/ashlar/request_validation_memo.py",
+      "sha256": "ef981fe74b48d8b4c94bf4e78e5ba9c8b9e8cd69862663eadb8414d36e0b4639"
+    },
+    {
+      "bytes": 13358,
+      "path": "src/ashlar/attempt_store.py",
+      "sha256": "7b746f3839f40a575c12bf864d4959d9a29b3847643aaeaeae2f5358f4a375d8"
+    },
+    {
+      "bytes": 177795,
+      "path": "src/ashlar_host/driver.py",
+      "sha256": "5d7a151d11b7b943edf0da1b63eb708a3229f42d4e2a1e334d0d97eebd7cd70c"
+    },
+    {
+      "bytes": 6298,
+      "path": "tests/test_request_validation_memo.py",
+      "sha256": "084754e944367a30869008c28c89a5718b358ee53df23971d2dc2a418789abc7"
+    },
+    {
+      "bytes": 1489,
+      "path": ".github/workflows/evolution-cli.yml",
+      "sha256": "b157ca14a2df0108eca2839aa16d98e8970353052aba2bb19580933f0ad1ca2a"
+    }
+  ],
+  "status": "PASS",
+  "suite_seconds": 0.037,
+  "tests": 21
+}
