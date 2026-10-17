@@ -1233,7 +1233,7 @@ class NativeDriver:
 
     def _medical_publication_native(self, binding, target, versions):
         transport = binding['transport']
-        detail = transport._detail(target)
+        detail = transport._detail(target, full=True)
         from urllib.parse import urlsplit, unquote
         location = detail.get('location')
         if type(location) is not str:

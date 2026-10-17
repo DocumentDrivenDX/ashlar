@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-projected-native-detail-inert-evidence/0.1",
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_projected_native_detail",
+  "observed_result": {
+    "tests": 3,
+    "seconds": 0.024,
+    "status": "OK",
+    "source": "Author-transcribed actual unittest result"
+  },
+  "boundaries": {
+    "command": "python3 tools/check_module_boundaries.py",
+    "status": "pass",
+    "source": "Author-transcribed actual check"
+  },
+  "source_sha256": {
+    "src/ashlar_host/delta_custody.py": "7a48a0eab82c1242807fc391fbb584bf84c6ea582b35bed77dea16e2b321080e",
+    "src/ashlar_host/driver.py": "ee3699fe29063c12970ce7d4f2446e8f2adefe2764fa8f278a298ed2abc7ff98",
+    "tests/test_projected_native_detail.py": "6b011b0c50efc8081e4de63fa27ca8f089b64b147955753d7500bdc4bc89b25d"
+  },
+  "qualification": "Inert frame proof only. Every native command, selected UUID/registration comparison and reservation check remains. Bounded full-detail consumers and unbounded detail rows are retained. No native timing, publication completion or source/ACK proof."
+}

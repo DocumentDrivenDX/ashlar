@@ -154,7 +154,7 @@ class LocalDeltaTransport:
                     for target in self.targets.values():
                         if self._reservation_path(target).exists() or self._reservation_path(target).is_symlink():
                             raise LocalDeltaError('Original installation reservation already exists; no replacement initialization')
-                        detail = self._detail(target)
+                        detail = self._detail(target, full=True)
                         history = self.original_history(target)
                         if any((k.startswith('ashlar.local.') for k in detail.get('properties', {}))) or len(history) != 1 or int(history[0]['version']) != 0 or (history[0].get('userMetadata') is not None) or (self.spark.read.format('delta').option('versionAsOf', 0).load(str(target.path)).count() != 0):
                             raise LocalDeltaError('Original empty fresh native tables required; lost journal cannot restart installation')
@@ -321,14 +321,33 @@ class LocalDeltaTransport:
             raise LocalDeltaError('Admitted single native target required')
         return self.targets[name]
 
-    def _detail(self, target):
+    def _detail(self, target, *, full=False):
         frame = self.spark.sql('DESCRIBE DETAIL delta.`' + str(target.path) + '`')
+        property_keys=('ashlar.local.installation.id','ashlar.local.registry.sha256','ashlar.local.journal.sha256')
+        if type(full)is not bool:raise LocalDeltaError('Explicit native detail mode required')
+        projected=getattr(self, 'observation_bounds', None) is not None and not full
+        if projected:
+            # Measure only the fresh authority values actually consumed below.
+            # Full-detail consumers explicitly retain the original native row.
+            from pyspark.sql import functions as F
+            fields=frame.schema.fields
+            selected={name:[field for field in fields if field.name==name]for name in ('id','properties')}
+            if (any(len(value)!=1 for value in selected.values())
+                    or selected['id'][0].dataType.simpleString()!='string'
+                    or selected['properties'][0].dataType.simpleString()!='map<string,string>'):
+                raise LocalDeltaError('Exact native UUID and STRING properties required')
+            frame=frame.select(F.col('id'),*(F.col('properties').getItem(key).alias('_ashlar_detail_'+str(i))for i,key in enumerate(property_keys)))
         if getattr(self, 'observation_bounds', None) is not None:
             rows = self._bounded_native_rows(frame, maximum_rows=1)
             if len(rows) != 1: raise LocalDeltaError('Exact single native detail required')
             detail = rows[0]
         else:
             detail = frame.first().asDict()
+        if projected:
+            if (set(detail)!={'id',*('_ashlar_detail_'+str(i)for i in range(3))}
+                    or any(value is not None and type(value)is not str for value in detail.values())):
+                raise LocalDeltaError('Exact projected native identity values required')
+            detail={'id':detail['id'],'properties':{key:detail['_ashlar_detail_'+str(i)]for i,key in enumerate(property_keys)}}
         if detail.get('id') != target.uuid:
             raise LocalDeltaError('Original native Delta UUID changed')
         if self._registered:

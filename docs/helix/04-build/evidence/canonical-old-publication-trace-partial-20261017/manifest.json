@@ -1,0 +1,118 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "scope": "Actual traced timeout only; confirmed originalcleanup, no verification pass",
+  "files": [
+    {
+      "file": "configuration.json.gz",
+      "bytes": 524,
+      "sha256": "450d69c9ffe5d5c1f05ba83e171501271247beeeeb98492a950e80a4abf8e96c",
+      "original_bytes": 1105,
+      "original_sha256": "d42cddbb8078f6b8363e2100b119f5fc126be5bdc931693e5c19fe57d657a6f9",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/configuration.json"
+    },
+    {
+      "file": "provider.py.gz",
+      "bytes": 1610,
+      "sha256": "4a7b1fefb3acf1b2359329b0fd6d4f5c5552b32f3e7d4c1d5d9a54cabbee7375",
+      "original_bytes": 4160,
+      "original_sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/provider.py"
+    },
+    {
+      "file": "run-installed.py.gz",
+      "bytes": 1615,
+      "sha256": "d4aef16652430159ce5bf1a8a31a8493bb67b51a49505b09992f7a5c350c718a",
+      "original_bytes": 3452,
+      "original_sha256": "605dc9fe50ce43778d23ae981fb1698b46ab4078f818c463faa619c3bc042921",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/run-installed.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "bytes": 2386,
+      "sha256": "e8691428cbe668b353d7d34e7ae6a3d8b59effe53c281a984558f7cc3ed24be1",
+      "original_bytes": 6579,
+      "original_sha256": "bc68e48d0efaeb40a9a99eebbe4864ded3a7c8ecde75cbbfcfa1863606829ffa",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/supervise.py"
+    },
+    {
+      "file": "preparation.json.gz",
+      "bytes": 2226,
+      "sha256": "d67d9ebe2e02068a717494622a436dc6bd2d49af146a353062e1630bcd3fb2ed",
+      "original_bytes": 7649,
+      "original_sha256": "b6f2b42d0f6f2c84b5a628addf7dc01b11a2f5a80d1d1892415d2f8413af70a5",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/preparation.json"
+    },
+    {
+      "file": "binding-preflight.json.gz",
+      "bytes": 457,
+      "sha256": "7897dcc0c35f3db3bbfd909b26d5d32e5442589821d857e3c47ae8303cab1bb3",
+      "original_bytes": 2672,
+      "original_sha256": "a7f034248299f09ed5c621b33ffdeeb69be4d02d2ef4a5dc7a3cac783b4519d1",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/binding-preflight.json"
+    },
+    {
+      "file": "trace_native_verification.py.gz",
+      "bytes": 2069,
+      "sha256": "abc05b6334e4e98e959c8a2d9234f9956675d657b8047dd65011dd8959bdf8e4",
+      "original_bytes": 5712,
+      "original_sha256": "d1afdadd8f75afab4f26731b7d0c8bfd6114f25aedb668aecd272e4ae93f1a69",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/trace_native_verification.py"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "bytes": 388,
+      "sha256": "a2b1ab18cff44fc0325913f5c381e2f034867f0a40dae0d5c98cba05eaee0b14",
+      "original_bytes": 913,
+      "original_sha256": "c82667c36479a32cad5b910c795d0826604b67172d3c4a74a841acb2d8c8a7b7",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/execution-clearance.json"
+    },
+    {
+      "file": "trace.json.gz",
+      "bytes": 1533,
+      "sha256": "eeb31224deef4f13ecb83c1a5e70ddeb4776a7d585949c40fa9c0225009b2646",
+      "original_bytes": 7251,
+      "original_sha256": "d413be22eabb266dd07378ebbd97dad00936c4754a8e821b76ac5f1f172971ee",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/trace.json"
+    },
+    {
+      "file": "runner-result.json.gz",
+      "bytes": 157,
+      "sha256": "932bd45d1ca6dc99cc08d422b3fc2be259345e09400350eee604fc48a45a2f84",
+      "original_bytes": 189,
+      "original_sha256": "d975c85b1a36057be84378a6c6045e585c92829369f1936cf88dc751a77d445e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/runner-result.json"
+    },
+    {
+      "file": "resume-terminal.json.gz",
+      "bytes": 105,
+      "sha256": "a082eb218abaa55e658c5411f2702402d1182ce38efa0f8a51bb33dc789e71b0",
+      "original_bytes": 119,
+      "original_sha256": "0cf2a94757e2f3d38bf22c3ca2a38b716bbec88a5dc29e1c49e4f50b2c6fd275",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/resume-terminal.json"
+    },
+    {
+      "file": "resume.stdout.gz",
+      "bytes": 20,
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/resume.stdout"
+    },
+    {
+      "file": "resume.stderr.gz",
+      "bytes": 996,
+      "sha256": "965bf67ca1eb53a765983d22ab2a1606b4a824c0381e0d64216cab1cf32d17e3",
+      "original_bytes": 61318,
+      "original_sha256": "4c948fa234a91670babe413e8106ef3ebe99a28ff3d61ffa1ea413b01074b67f",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/resume.stderr"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "bytes": 49,
+      "sha256": "ca5f38d9cc36a2b45b58917d5ed3640b226cda419f6802c3c4e1274ae2759701",
+      "original_bytes": 29,
+      "original_sha256": "38877789d67ca3ca82c07c535b901af889986f0705f1844df65a91442a381947",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/owned-session.json"
+    }
+  ]
+}

@@ -630,6 +630,15 @@ snapshot observations; non-retained observations MUST close independently.
 This permission MUST NOT cache mutation, recovery or current-head history reads,
 source/ACK authority or extend across admissions.
 
+Fresh bounded native identity checks MAY project a newly executed native detail
+row to its original STRING UUID and the three original STRING registration
+properties before payload capture. Projection MUST preserve the existing bounded
+capture, exact UUID/property comparisons and reservation-file checks on every
+call; it MUST NOT cache identity or cast native values. Consumers that inspect
+other native detail fields, including all initialization properties or medical
+location, MUST explicitly retain the complete bounded native row. Unbounded
+native detail behavior remains unchanged.
+
 Within that same held read-only admission, an optional typed phase-read port MAY
 prove provisional absence for the exact original full-ledger inventory's strictly
 unprepared slots. Its carrier MUST bind an actual open core session, context,

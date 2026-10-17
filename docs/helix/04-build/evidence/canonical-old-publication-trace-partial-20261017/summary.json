@@ -1,0 +1,85 @@
+{
+  "profile": "ashlar-canonical-old-publication-trace-partial/0.1",
+  "product_commit": "d6dbf08a4e69745870a28c3fde65f109214c89c3",
+  "operator_tool_commit": "35d1849b02dc7abaa42801b64ba0d318d306ba00",
+  "product_wheel_sha256": "e9b5de8d7c847f1a7110ba0c05c5fb78003805fb8eb8a078498e1393b04b24e9",
+  "selection": {
+    "ordinal": 0,
+    "expected_completed_prefix": 2,
+    "native_schema_profile": "canonical-managed-carriers/0.1",
+    "original_run_sha256": "6e466770c8973b3c3104b48924c2e3e4c954745e63c054e0a14817299bc674ed"
+  },
+  "work_seconds": 180,
+  "terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "runner_result": {
+    "closing_pins_completed": true,
+    "diagnostic_failed": false,
+    "primary_error_class": "KeyboardInterrupt",
+    "profile": "ashlar-operator-trace-runner-result/0.1",
+    "public_cli_returned": false
+  },
+  "trace": {
+    "sha256": "d413be22eabb266dd07378ebbd97dad00936c4754a8e821b76ac5f1f172971ee",
+    "bytes": 7251,
+    "elapsed_seconds": 181.0058442079462,
+    "counts": {
+      "attempt-query": 6,
+      "bounded-capture": 564,
+      "bounded-snapshot": 26,
+      "committed": 18,
+      "detail": 553,
+      "history": 12,
+      "ledger": 1,
+      "ledger-body": 1,
+      "snapshot": 26,
+      "verify": 1
+    },
+    "completed_seconds": {
+      "attempt-query": 2.6422267095185816,
+      "bounded-capture": 132.5707590766251,
+      "bounded-snapshot": 24.50383304199204,
+      "committed": 54.34275370743126,
+      "detail": 130.8827349478379,
+      "history": 5.9236833362374455,
+      "ledger": 148.80254375003278,
+      "ledger-body": 148.35360908298753,
+      "snapshot": 24.508774168789387,
+      "verify": 153.4260963338893
+    },
+    "durations": "inclusive-nested-not-additive",
+    "events_retained": 96,
+    "dropped_events": 2320,
+    "active_final": []
+  },
+  "parent_command_observation": {
+    "root_session_id": 1731,
+    "exit_code": 1,
+    "tool_output_reference": "f19656",
+    "separate_raw_file_retained": false,
+    "qualification": "Parent-reported actual command terminal; no invented outer-attempt file."
+  },
+  "public_receipt_exists": false,
+  "cleanup_failure_file_exists": false,
+  "outer_attempt_file_exists": false,
+  "excluded_private_references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "reason": "Raw credentials/DSNs excluded"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-trace-control/private-stack.txt",
+      "bytes": 5424,
+      "sha256": "7f948a49ccd861aafa3fe044fa2d88a016f20ac4f5b3af4e9a933e83346e274c",
+      "reason": "Optional stack not duplicated; bounded fixed-label trace is retained"
+    }
+  ],
+  "qualification": "Incomplete canonical verification, original owned cleanup confirmed. Trace is fixed-label inclusive nested attribution, not additive rawSQL timing/causal benchmark or successful guard proof. No receipt/prefix/nativepublication success, sourceACKunchanged or phasefastpath-specific inference. No assembler native/source/ACK calls."
+}
