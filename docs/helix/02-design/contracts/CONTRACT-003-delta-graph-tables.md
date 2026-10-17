@@ -749,6 +749,42 @@ racing activation MUST acquire one whole release or refuse. Missing intent,
 changed definition/location, unexpected load/refresh, failed closure and stale
 activation predecessor MUST refuse without promoting partial output.
 
+### OneLake fresh release-byte upload
+
+`OneLakeUploadConfig` MUST select the workspace/account through the ordinary
+finite `FabricDeploymentHttpConfig` value selection, an exact lakehouse UUID and
+bounded file/table bytes. This reuses passive settings, never a Fabric API token.
+The owning acquisition MUST obtain a separately scoped Storage token through the
+selected delegated account, check that account at acquisition and closing, erase
+its token, and use verified HTTPS with no redirects or proxy fallback. Every
+request MUST obey the selected request-byte capacity as well as the file/table
+bounds; their minimum applies. This initial subset supports flat Parquet data and
+one original `_delta_log/00000000000000000000.json`, not arbitrary Delta history.
+
+`open_onelake_release_upload` MUST require a genuine live `FabricMutation` for the
+original candidate. Each table's exact GUID-form OneLake location and inventory
+SHA256 MUST match that candidate's retained source selection. The inventory hash
+is SHA256 of canonical compact JSON, with sorted rows containing relative path,
+byte count and SHA256 for every selected immutable byte payload. These bytes and
+a journal match supply no source, publication or native Delta authority; the
+caller MUST retain and close those actual independent owners.
+
+Upload MUST occur only before creation submission, reserve one attempt before
+its first remote effect, create fresh directories/files using `If-None-Match: *`,
+append once at offset zero, flush at the exact length and compare full readback.
+Every data file MUST complete readback before the original Delta commit is
+uploaded. Failure or cancellation MUST preserve partial output, renew and close
+all owned lifetimes, and MUST NOT overwrite, delete, retry or recreate it.
+Explicit recovery readback MAY observe existing bytes without writing. Complete
+credential-checked native responses, including refused HTTP statuses, MUST remain
+bounded and available as correspondence. ETags, byte receipts and local leases
+MUST NOT assert native immutability or loaded-graph admission. The separately
+named loopback acquisition is a local transport test only.
+
+See [OneLake DFS access](https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api),
+[fresh path creation](https://learn.microsoft.com/en-us/rest/api/storageservices/datalakestoragegen2/path/create)
+and [append/flush](https://learn.microsoft.com/en-us/rest/api/storageservices/datalakestoragegen2/path/update).
+
 ### Fabric ordinary deployment HTTP profile
 
 `FabricDeploymentHttpConfig` MUST select one workspace and the same explicit
