@@ -212,9 +212,22 @@ class RetainedGraphFramesLocalConfig:
             raise ValueError('Exact canonical protected ACK scope required')
 
 
+@dataclass(frozen=True)
+class GraphFramesLocalRuntimeSelection:
+    """Runtime-only selection; never an export or publication admission."""
+    producer_source: Path
+    runtime_plan: Path
+    runtime_plan_sha256: str
+    def __post_init__(self):
+        for path in (self.producer_source,self.runtime_plan):selected_path(path)
+        selected_digest(self.runtime_plan_sha256)
+        if not self.producer_source.is_dir()or not self.runtime_plan.is_file():
+            raise ValueError('Existing explicit source/runtime selection required')
+
+
 class LocalGraphFramesRuntimePolicy:
     def __init__(self, config):
-        if type(config) is not RetainedGraphFramesLocalConfig:
+        if type(config) not in (RetainedGraphFramesLocalConfig,GraphFramesLocalRuntimeSelection):
             raise ValueError('Exact immutable local runtime configuration required')
         config.__post_init__()
         self.config = config
@@ -226,7 +239,8 @@ class LocalGraphFramesRuntimePolicy:
 
     def admit_owned_outputs(self, paths):
         if type(paths) is not tuple: raise ValueError('Immutable explicit owned outputs required')
-        protected = (self.config.producer.source,) + tuple(Path(p) for p in self.plan['roots'])
+        source=self.config.producer_source if type(self.config)is GraphFramesLocalRuntimeSelection else self.config.producer.source
+        protected = (source,) + tuple(Path(p) for p in self.plan['roots'])
         for path in paths:
             selected_path(path)
             if any(path == root or root in path.parents for root in protected):

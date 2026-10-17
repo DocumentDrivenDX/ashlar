@@ -328,6 +328,13 @@ def main():
     export_setup=commands.add_parser('configure-graph-export',help='Create a private saved-export selection from its original result without loading an engine')
     for option in ('export-report','export-report-sha256','output'):
         export_setup.add_argument('--'+option,required=True)
+    gf_inspect=commands.add_parser('inspect-graphframes-runtime',help='Write an actual current isolated GraphFrames runtime candidate; no engine or admission grant')
+    for option in ('worker-revision','sdk-root','output'):gf_inspect.add_argument('--'+option,required=True)
+    gf_inspect.add_argument('--worker-root',action='append',required=True)
+    gf_inspect.add_argument('--transitive-root',action='append',required=True)
+    gf_supply=commands.add_parser('query-supply-chain-graphframes',help='Run seven common GraphFrames operations under an actual existing supply-chain publication hold')
+    for option in ('configuration','java-home','runtime-plan','runtime-plan-sha256','graphframes-java-home','graphframes-jars','output'):
+        gf_supply.add_argument('--'+option,required=True)
     graphframes_setup=commands.add_parser('configure-graphframes-export',help='Create a private GraphFrames configuration from a selected immutable export report; no engine execution')
     for option in ('export-report','export-report-sha256','java-home','output'):
         graphframes_setup.add_argument('--'+option,required=True)
@@ -896,6 +903,24 @@ def main():
             print(json.dumps(answer,separators=(',',':')))
         except Exception:
             print('ashlar graph export setup refused; inspect the selected export result and digests',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'inspect-graphframes-runtime':
+        try:
+            from ashlar_host.supply_chain_graphframes_cli import run_inspect_graphframes_runtime_command
+            answer=run_inspect_graphframes_runtime_command(args.output,args.worker_revision,args.worker_root,args.sdk_root,args.transitive_root)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar GraphFrames runtime inspection refused; inspect explicit roots and selected interpreter',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
+    if args.command == 'query-supply-chain-graphframes':
+        try:
+            from ashlar_host.supply_chain_graphframes_cli import run_supply_chain_graphframes_command
+            answer=run_supply_chain_graphframes_command(args.configuration,args.java_home,args.runtime_plan,args.runtime_plan_sha256,args.graphframes_java_home,args.graphframes_jars,args.output)
+            print(json.dumps(answer,separators=(',',':')))
+        except Exception:
+            print('ashlar supply-chain GraphFrames query refused; inspect the selected existing publication, source and runtime',file=sys.stderr)
             raise SystemExit(2)from None
         return
     if args.command == 'configure-graphframes-export':

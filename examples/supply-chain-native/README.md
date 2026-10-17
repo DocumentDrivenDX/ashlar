@@ -103,3 +103,69 @@ ashlar compile-supply-chain-count-star \
 Metadata retains the existing `bindings`, `manifest`, `registry`, and `aliases`
 shape. This compiles and independently recompiles original SQL; it does not query
 or authorize a native publication.
+
+
+### Query the existing graph with GraphFrames
+
+`query-supply-chain-graphframes` reads the publication selected by the original
+native setup configuration. It opens the original public source and complete
+publication vector, executes seven common operations in a separate GraphFrames
+process, then closes every owner before writing `report.json`. It neither
+publishes nor invokes Weft. The compiler installation fields in the original
+configuration are not opened by this query.
+
+Use the same Ashlar wheel in the canonical Spark 4.0.1/Delta 4.0.0 Python 3.11
+installation and a separate Python 3.11 GraphFrames environment. Create that
+environment with `python3.11 -m venv --copies "$GF_ENV"`; install the wheel,
+PySpark 3.5.3, Delta Spark 3.2.1, GraphFrames Python 0.12.3 and its transitive
+dependencies there. Include NumPy: the GraphFrame constructor imports
+`pyspark.ml`. The recorded macOS ARM64 dependency selection uses NumPy 2.4.6.
+Select JDK 17 and the four exact named JARs/hashes declared by
+`ashlar_host.graphframes_release.JARS`; keep the canonical reader on JDK 21.
+
+Inspect the actual GraphFrames environment without starting an engine. All
+variables below must name your own existing absolute canonical paths. `GF_ENV`
+is the copied virtual environment, `GF_SITE` its site-packages directory,
+`PYTHON_STDLIB` its base Python standard-library directory, `GF_JAVA_HOME` the
+selected JDK 17 home, and `GF_JARS` the directory containing those four JARs.
+`ASHLAR_REVISION` selects the exact installed worker source. Keep the output
+plan outside every inspected root.
+
+```sh
+"$GF_ENV/bin/python" -I -B -m ashlar inspect-graphframes-runtime \
+  --worker-revision "$ASHLAR_REVISION" --worker-root "$GF_ENV" \
+  --sdk-root "$GF_SITE" --transitive-root "$PYTHON_STDLIB" \
+  --transitive-root "$GF_JAVA_HOME" --transitive-root "$GF_JARS" \
+  --output /absolute/runtime-plan.json
+```
+
+Inspect and independently select the returned plan hash. Runtime inspection is
+candidate correspondence, not source or publication admission. From the
+canonical Spark 4 environment, run:
+
+```sh
+python3.11 -I -B -m ashlar query-supply-chain-graphframes \
+  --configuration /absolute/supply-chain.json --java-home /absolute/jdk-21 \
+  --runtime-plan /absolute/runtime-plan.json --runtime-plan-sha256 "$PLAN_SHA256" \
+  --graphframes-java-home "$GF_JAVA_HOME" --graphframes-jars "$GF_JARS" \
+  --output /absolute/fresh-graphframes-query
+```
+
+No provider file or custom runner is required. The output must be fresh and
+separate from the publication, source, configuration and inspected runtime roots.
+The command checks the actual selected worker interpreter, import origins,
+versions and GraphFrame constructor in bounded probes at opening and closing;
+complete selected namespace/file/JAR checks continue through the engine interval.
+It retains bounded private probe transports, worker raw observations and the final
+complete report. Run the overall command under a finite process supervisor as for
+the native publication command; the isolated engine has a 300-second work ceiling,
+30-second probe ceilings, 1 MiB engine streams and a 16 MiB evidence bound.
+
+The operations cover full objects, full independent edges, one-hop, two-hop,
+grouped occurrence/distinct-destination counts, full-row singleton and original
+record-type filtered limit, with complete filtered membership and isolates as
+controls. Canonical properties remain exact opaque STRING carriers. This profile
+does not execute the five authored supply-chain scenarios in GraphFrames or grant
+retained-export, protected ACK, Unity Catalog, cloud or production authority.
+Private provisional SDK/probe files can remain after a refusal; only successful
+command completion and the final closed report establish this command's result.
