@@ -1,0 +1,73 @@
+{
+  "profile": "ashlar-canonical600-archive-summary/0.1",
+  "source_commit": "9a33d23b07f87eaf2d9e5792d8e0bad8786eb06c",
+  "terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "receipt_present": true,
+  "selected_canonical_verification_success": true,
+  "runner": {
+    "closing_pins_completed": true,
+    "diagnostic_failed": false,
+    "primary_error_class": null,
+    "profile": "ashlar-operator-trace-runner-result/0.1",
+    "public_cli_returned": true
+  },
+  "trace": {
+    "elapsed_seconds": 569.237583457958,
+    "counts": {
+      "attempt-query": 76,
+      "bounded-capture": 2724,
+      "bounded-snapshot": 128,
+      "committed": 72,
+      "detail": 2508,
+      "history": 112,
+      "ledger": 4,
+      "ledger-body": 4,
+      "snapshot": 120,
+      "verify": 1
+    },
+    "completed_seconds_inclusive_not_additive": {
+      "attempt-query": 32.69429378933273,
+      "bounded-capture": 406.2328324755654,
+      "bounded-snapshot": 99.94080607709475,
+      "committed": 149.83533120923676,
+      "detail": 364.51697223773226,
+      "history": 54.750063543673605,
+      "ledger": 516.8065936667845,
+      "ledger-body": 498.81928212428465,
+      "snapshot": 93.55518717481755,
+      "verify": 292.52890762500465
+    },
+    "diagnostic_failed": false,
+    "active": []
+  },
+  "qualification": "Terminal observations only. Timings nested/not additive; no lookup SLO, whole-eight-run qualification or unchanged source/ACK claim beyond the exact public receipt. No native/source/process calls during archive assembly.",
+  "parent_reported_terminal": {
+    "attribution": "Parent task message reporting execution tool result; no separate raw tool transcript file was retained by this assembler",
+    "session": 16472,
+    "tool_reference": "6eca00",
+    "exit_code": 0
+  },
+  "parent_reported_current_ledger": {
+    "attribution": "Parent task message reporting independent read-only ledger observation; not reobserved by archive assembler",
+    "completed_ordinals": [
+      0,
+      1
+    ],
+    "retained_ordinals": [
+      2
+    ],
+    "unprepared_ordinals": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  }
+}
