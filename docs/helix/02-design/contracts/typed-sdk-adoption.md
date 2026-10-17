@@ -67,7 +67,17 @@ Every read and page freshly resolves the original authoritative manifest and
 all UUID/version/schema identities after fetch, before buffered results escape.
 Closing authorization and owner context must still agree. Snapshot streams
 advance through the same immutable publication with explicit row bounds; each
-page releases its held resources before yielding. Async adoption remains open.
+page releases its held resources before yielding. Reaching `max_rows` without
+original proof of exhaustion raises the SDK's `StreamLimitReached` after the
+emitted prefix; it never appears as successful exhaustion. A buffered remainder
+sets `truncated=True`; an exact page boundary with a continuation sets
+`truncated=None`. Closing the iterator releases its current page and does not
+fetch another page. Empty pages with continuations refuse as non-progress.
+
+The optional `page_size` may retain the original engine program's fixed size.
+A different override refuses as `STREAM_PAGE_SIZE_UNSUPPORTED`; the adapter does
+not rewrite the compiler's SQL, lookahead bound or correspondence packet. Async
+adoption remains open.
 
 ## Error Semantics
 

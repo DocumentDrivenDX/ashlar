@@ -1,0 +1,83 @@
+WARNING:databricks.sql.client:[WARN] pyarrow is not installed by default since databricks-sql-connector 4.0.0,any arrow specific api (e.g. fetchmany_arrow) and cloud fetch will be disabled.If you need these features, please run pip install pyarrow or pip install databricks-sql-connector[pyarrow] to install
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_commit_metadata.py", line 72, in main
+    query("SELECT current_user(),current_catalog(),current_schema()")
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_commit_metadata.py", line 41, in query
+    execute_original(cursor, statement, None, deadline=monotonic() + 90)
+  File "/private/tmp/ashlar-sdk-adoption/src/ashlar_host/managed_connector.py", line 82, in execute_original
+    raise TimeoutError("original managed statement canceled at deadline")
+TimeoutError: original managed statement canceled at deadline
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_commit_metadata.py", line 149, in <module>
+    main()
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_commit_metadata.py", line 109, in main
+    connection.rollback()
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/client.py", line 981, in rollback
+    cursor.execute("ROLLBACK")
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/telemetry/latency_logger.py", line 182, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/client.py", line 1566, in execute
+    self.active_result_set = self.backend.execute_command(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 1100, in execute_command
+    execute_response, has_more_rows = self._handle_execute_response(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 1307, in _handle_execute_response
+    final_operation_state, final_status_resp = self._wait_until_command_done(
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 981, in _wait_until_command_done
+    poll_resp = self._poll_for_status(op_handle)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 692, in _poll_for_status
+    return self.make_request(self._client.GetOperationStatus, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 528, in make_request
+    response_or_error_info = attempt_request(attempt)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/backend/thrift_backend.py", line 434, in attempt_request
+    response = method(request)
+               ^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/thrift_api/TCLIService/TCLIService.py", line 620, in GetOperationStatus
+    self.send_GetOperationStatus(req)
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/thrift_api/TCLIService/TCLIService.py", line 629, in send_GetOperationStatus
+    self._oprot.trans.flush()
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sql/auth/thrift_http_client.py", line 195, in flush
+    self.__resp = self.__pool.request(
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/urllib3/_request_methods.py", line 143, in request
+    return self.request_encode_body(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/urllib3/_request_methods.py", line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/urllib3/connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/http/client.py", line 1443, in getresponse
+    response.begin()
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/http/client.py", line 337, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/http/client.py", line 298, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/socket.py", line 718, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ssl.py", line 1339, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/ssl.py", line 1191, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

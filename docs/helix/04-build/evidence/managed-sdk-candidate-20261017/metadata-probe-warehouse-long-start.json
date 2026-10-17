@@ -1,0 +1,37 @@
+{
+  "auto_stop_mins": 5,
+  "cluster_size": "2X-Small",
+  "creator_name": "erik.labianca@synaptiq.ai",
+  "enable_photon": true,
+  "enable_serverless_compute": true,
+  "health": {
+    "details": "Request to create a cluster failed with an exception: PERMISSION_DENIED: SimpleUserContext{userId=3755468182769617, name=erik.labianca@synaptiq.ai, orgId=7405607548213398, azurePrincipalTenantId=, azurePrincipalObjectId=, accountId=, metastoreId=, userContextType=workspace-user-context} is not authorized to create clusters for warehouse\nd4b8eb5b4d6e34b8. The user may have left the workspace or lost cluster\ncreation permissions. Please update the warehouse owner.",
+    "failure_reason": {
+      "code": "UNKNOWN",
+      "parameters": {
+        "databricks_error_message": "PERMISSION_DENIED: SimpleUserContext{userId=3755468182769617, name=erik.labianca@synaptiq.ai, orgId=7405607548213398, azurePrincipalTenantId=, azurePrincipalObjectId=, accountId=, metastoreId=, userContextType=workspace-user-context} is not authorized to create clusters for warehouse\nd4b8eb5b4d6e34b8. The user may have left the workspace or lost cluster\ncreation permissions. Please update the warehouse owner."
+      },
+      "type": "CLIENT_ERROR"
+    },
+    "message": "Clusters are failing to launch. Cluster launch will be retried. Request to create a cluster failed with an exception: PERMISSION_DENIED: SimpleUserContext{userId=3755468182769617, name=erik.labianca@synaptiq.ai, orgId=7405607548213398, azurePrincipalTenantId=, azurePrincipalObjectId=, accountId=, metastoreId=, userContextType=workspace-user-context} is not authorized to create clusters for warehouse\nd4b8eb5b4d6e34b8. The user may have left the workspace or lost cluster\ncreation permissions. Please update the warehouse owner.",
+    "status": "FAILED",
+    "summary": "Clusters are failing to launch. Cluster launch will be retried."
+  },
+  "id": "d4b8eb5b4d6e34b8",
+  "jdbc_url": "jdbc:spark://adb-7405607548213398.18.azuredatabricks.net:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/d4b8eb5b4d6e34b8;",
+  "max_num_clusters": 1,
+  "min_num_clusters": 1,
+  "name": "umf-typed-sdk-qualification-20261016",
+  "num_active_sessions": 0,
+  "num_clusters": 0,
+  "odbc_params": {
+    "hostname": "adb-7405607548213398.18.azuredatabricks.net",
+    "path": "/sql/1.0/warehouses/d4b8eb5b4d6e34b8",
+    "port": 443,
+    "protocol": "https"
+  },
+  "spot_instance_policy": "COST_OPTIMIZED",
+  "state": "STARTING",
+  "tags": {},
+  "warehouse_type": "PRO"
+}

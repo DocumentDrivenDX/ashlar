@@ -16,7 +16,7 @@ from pydantic import BaseModel
 from umf_access.adoption import TargetIdentity
 from umf_access.engine_catalog import EngineRead
 from umf_access.reviewed import CatalogRead
-from umf_access.pages import ReadPage,ReadContinuation,StaleContinuation
+from umf_access.pages import ReadPage,ReadContinuation,StaleContinuation,ReadObligationUnmet,StreamLimitReached
 from umf_access.codec_support import revalidate_model
 from umf_access.native_program import canonical_json,program_json
 from .weft_query import read_weft,PageReadRows,PageContextRefused
@@ -197,15 +197,24 @@ class AshlarTarget:
             result=ReadPage(tuple(policy.validated[:size]),next_after)
         if monotonic()>=until:raise TimeoutError('Ashlar deadline expired during final page release')
         return result
-    def stream(self,entry:CatalogRead[P,R],parameters:P,*,max_rows:int,timeout:timedelta|None=None)->Generator[R,None,None]:
+    def stream(self,entry:CatalogRead[P,R],parameters:P,*,max_rows:int,page_size:int|None=None,timeout:timedelta|None=None)->Generator[R,None,None]:
         if type(max_rows)is not int or max_rows<1:raise ValueError('Positive explicit stream row bound required')
+        if page_size is not None:
+            if type(page_size)is not int or not 1<=page_size<=1000:raise ValueError('Positive bounded stream page_size required')
+            if not isinstance(entry,EngineRead):raise ResolutionError('Original engine page catalog required')
+            # The original engine program has a fixed lookahead fetch bound.
+            # Replacing its authored page size would change compiler custody.
+            if page_size!=entry.artifact().get('pageSize'):
+                raise ReadObligationUnmet('STREAM_PAGE_SIZE_UNSUPPORTED: original fixed Ashlar page bound differs')
         checked=revalidate_model(entry.parameters,parameters)
-        after=None;remaining=max_rows
-        while remaining:
+        after=None;emitted=0
+        while emitted<max_rows:
             page=self.page(entry,checked,after=after,timeout=timeout)
+            if not page.items and page.next_after is not None:raise ReadObligationUnmet('Original page made no continuation progress')
             for row in page.items:
+                if emitted==max_rows:raise StreamLimitReached(max_rows,truncated=True)
+                emitted+=1
                 yield row
-                remaining-=1
-                if not remaining:return
             if page.next_after is None:return
+            if emitted==max_rows:raise StreamLimitReached(max_rows,truncated=None)
             after=page.next_after

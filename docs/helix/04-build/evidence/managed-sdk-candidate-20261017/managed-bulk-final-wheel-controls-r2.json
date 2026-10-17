@@ -1,0 +1,58 @@
+{
+  "status": "pass",
+  "wheelSha256": "d29f0bac6d33f6d98692996c57690e5f2ac2f2e64f629c6eaaa2d7ca8208b5c6",
+  "payloads": [
+    {
+      "path": "weft/__init__.py",
+      "sha256": "cd0fa27c9580742333d14e24d5ebfd74babb47d31720bb4c577278d05486f11d"
+    },
+    {
+      "path": "weft/weft.abi3.so",
+      "sha256": "bb48fbbc2841a24bbb74aa6d09e4245fa0925baf36b1d79b04b571c298d78f0d"
+    }
+  ],
+  "checks": [
+    "actual Python managed-bulk source binding/original wrapper/direct DML captured",
+    {
+      "case": "historical selection refused",
+      "original": {
+        "diagnostics": [
+          {
+            "code": "WFT-MANAGED-BULK",
+            "message": "current managed selection cannot carry historical snapshots"
+          }
+        ],
+        "status": "blocked",
+        "version": "weft.native-bulk/0.1"
+      }
+    },
+    {
+      "case": "service-human impersonation refused",
+      "original": {
+        "diagnostics": [
+          {
+            "code": "WFT-MANAGED-BULK",
+            "message": "NATIVE_PROFILE_UNSUPPORTED"
+          }
+        ],
+        "status": "blocked",
+        "version": "weft.native-bulk/0.1"
+      }
+    },
+    {
+      "case": "source mismatch refused",
+      "original": {
+        "diagnostics": [
+          {
+            "code": "WFT-MANAGED-BULK",
+            "message": "exact original action source/invocation pin required"
+          }
+        ],
+        "status": "blocked",
+        "version": "weft.native-bulk/0.1"
+      }
+    }
+  ],
+  "qualification": "actual compiler/Python source controls only; no managed native mutation authority",
+  "temporal": "HELD"
+}

@@ -8,7 +8,7 @@ from contextlib import contextmanager
 from datetime import timedelta
 import argparse,hashlib,json,math,os,subprocess,sys,threading,uuid
 from dataclasses import replace
-from umf_access.pages import StaleContinuation
+from umf_access.pages import StaleContinuation,StreamLimitReached,ReadObligationUnmet
 import psycopg,weft
 from pyspark.sql import SparkSession
 from ashlar.access import AshlarTarget
@@ -189,7 +189,24 @@ try:
  assert page_entry.artifact()['artifact']['sql']not in native_calls[before:]
  active['policyRevision']-=1
  checks.append('foreign parameters, wrong Key carrier and actual owner policy-context change refuse continuation')
- rows=list(page_target.stream(page_entry,Parameters(status='draft'),max_rows=2));assert [r.id for r in rows]==['a','b']and not active['pins']
+ stream=page_target.stream(page_entry,Parameters(status='draft'),max_rows=2,page_size=1)
+ assert [next(stream).id,next(stream).id]==['a','b']and not active['pins']
+ try:next(stream)
+ except StreamLimitReached as limit:assert limit.max_rows==2 and limit.emitted==2 and limit.truncated is None
+ else:raise AssertionError('bounded native stream silently exhausted')
+ assert not active['pins']
+ assert [row.id for row in page_target.stream(page_entry,Parameters(status='draft'),max_rows=3)]==['a','b','c']
+ before=len(native_calls)
+ try:next(page_target.stream(page_entry,Parameters(status='draft'),max_rows=2,page_size=2))
+ except ReadObligationUnmet as refusal:assert 'STREAM_PAGE_SIZE_UNSUPPORTED' in str(refusal)
+ else:raise AssertionError('fixed owner page bound was silently rewritten')
+ assert len(native_calls)==before
+ two=EngineRead.build(weft,page_request,parameters=Parameters,result=Order,method='ashlar-spark4-pages',page_size=2)
+ stream=page_target.stream(two,Parameters(status='draft'),max_rows=1,page_size=2);assert next(stream).id=='a'and not active['pins']
+ try:next(stream)
+ except StreamLimitReached as limit:assert limit.max_rows==1 and limit.truncated is True
+ else:raise AssertionError('buffered native stream remainder silently discarded')
+ assert not active['pins']
  stream=page_target.stream(page_entry,Parameters(status='draft'),max_rows=100);assert next(stream).id=='a'and not active['pins'];stream.close();assert not active['pins']
  checks.append('bounded snapshot stream and early close leave no held pin transaction')
  (args.generated/'ashlar_page_declarations.py').write_text('from umf_access import query,Param\nfrom native_sales.models import Order\nfrom native_sales.keys import OrderKey\n@query\ndef selected_page(status:Param[str],after:Param[OrderKey|None]):return Order.objects.filter(Order.c.status==status).page(size=1,after=after)\n')
@@ -203,7 +220,11 @@ try:
  generated_first=queries.selected_page(page_target,status='draft',after=None)
  generated_next=queries.selected_page(page_target,status='draft',after=generated_first.next_after)
  assert [r.id for r in generated_next.items]==['b']
- assert [r.id for r in queries.selected_page_stream(page_target,status='draft',after=None,max_rows=2)]==['a','b']
+ generated_stream=queries.selected_page_stream(page_target,status='draft',after=None,max_rows=2,page_size=1)
+ assert [next(generated_stream).id,next(generated_stream).id]==['a','b']
+ try:next(generated_stream)
+ except StreamLimitReached as limit:assert limit.max_rows==2 and limit.truncated is None
+ else:raise AssertionError('generated bounded stream silently exhausted')
  checks.append('real CLI catalog/check and generated page/stream preserve native publication context')
  spark.sql(f"UPDATE {table} SET props_json='{{\"1\":\"a\",\"2\":\"changed\"}}' WHERE id=1")
  assert target.read(entry,Parameters(status='draft'))==[Order(id=key,status='draft')for key in ('a','b','c')];checks.append('original immutable publication remains at retained Delta version')

@@ -1,0 +1,86 @@
+{
+  "files": [
+    {
+      "path": "local-bulk-generated-smoke.json",
+      "sha256": "4fe52810bc7e8bdb84c1a06b443206a5c4b21b2f93fe29bce8814cd00d4ddf44"
+    },
+    {
+      "path": "managed-bulk-final-wheel-controls-r2.json",
+      "sha256": "e9e14392c8df0cf9f377a21d5a881a0f6f47349fc1330035f15e0c1d25a44f2c"
+    },
+    {
+      "path": "managed-bulk-host-controls-r4.json",
+      "sha256": "ddfb18f5e29413fa0d919bf2973d27ec8671e92c34f8f4f83fd50a47a2cc195f"
+    },
+    {
+      "path": "managed-candidate-exports-check-r6.log",
+      "sha256": "ee53f5a79b52b66d1fe7d063fd087ff86dd12d4d4400849597dc4a44f251c9f7"
+    },
+    {
+      "path": "managed-default-exports-check-r6.log",
+      "sha256": "5ce51a194eabeef8f99971cfb1b2c453c8071bd82f871a84cd43f8fba7ab2604"
+    },
+    {
+      "path": "managed-final-source-r6.json",
+      "sha256": "16b9bad194b080d08be1d737b94f0b8d61830acd5adcee30e522c468ddc3d647"
+    },
+    {
+      "path": "managed-final-source-tests-r6.log",
+      "sha256": "699ea2f5140149de72c2d2ba5c76d0f2bb3906e0e9c75e99034c40d09fe57d56"
+    },
+    {
+      "path": "managed-final-wheel-r2.log",
+      "sha256": "fbbc63bfd0bc5c1e928f962ddaac86968ab75d37d3a77cf63eb30cd93f9fad26"
+    },
+    {
+      "path": "managed-source-outcome-integrity-controls.json",
+      "sha256": "ed997582683e40ce6616096d146db133e65fcfe431758a2a8479e77bce384a43"
+    },
+    {
+      "path": "metadata-probe-warehouse-long-start.json",
+      "sha256": "437952e650fa817df82075d49780bc4413e448fd7f82b0da2460dbb066c24675"
+    },
+    {
+      "path": "missing-candidate-compiler-controls.json",
+      "sha256": "0f653b32bd210d85b5c0bbcc064decc43418ed7fd4448cf4df0dffc0e83d4374"
+    },
+    {
+      "path": "native-commit-metadata-r1/failure-cleanup.json",
+      "sha256": "2f30509b114444707eac82d550e1dd366dece42cc489df1aa495a309f765a357"
+    },
+    {
+      "path": "native-commit-metadata-r1.log",
+      "sha256": "95e4d93a05bc55a5b8b2a39b9e76593ae0569533f6fe6e9fd9230abb43cbe5ba"
+    },
+    {
+      "path": "native-prerequisites-r1/native.json",
+      "sha256": "997eab12b073a73aeb16b396c7117d9df97044a8d0238f4219ad4c0ff1338209"
+    },
+    {
+      "path": "native-prerequisites-r1.log",
+      "sha256": "375a7fe6b5486d5bddd7b0b8d16908f897c8e6d268a375af3208ed2961ced332"
+    },
+    {
+      "path": "original-managed-bulk-program.json",
+      "sha256": "ef5eeacf379d3685bf974bb459567ec3f7018163b871ef6beda6259d448c67ce"
+    },
+    {
+      "path": "original-managed-bulk-request.json",
+      "sha256": "8b17a40585dfc3870ee2943ae7568abd761fce9014efde3115c6a135b97bff2c"
+    },
+    {
+      "path": "original-managed-program.json",
+      "sha256": "67894f5029f3a159d2b4078978f62c436c2ee9462d61370ca26aaec714194812"
+    },
+    {
+      "path": "original-managed-request.json",
+      "sha256": "b9b232428c300eb099320b188f9e8f14f7b03828dedee23eade88ef1b709a39b"
+    },
+    {
+      "path": "warehouse-stopped-after-metadata-r1.json",
+      "sha256": "58389b4b6371471349960e42e5cfcdfcfc101af266fc387a54f46dc3a44a1beb"
+    }
+  ],
+  "qualification": "unqualified candidate preservation only; no native managed acceptance",
+  "temporal": "HELD"
+}
