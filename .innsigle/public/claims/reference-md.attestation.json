@@ -2,7 +2,7 @@
   "payload": {
     "innsigle": "1",
     "type": "https://innsigle.dev/claim/colophon/v1",
-    "issued_at": "2026-10-08T05:14:19Z",
+    "issued_at": "2026-10-17T18:17:17Z",
     "issuer": {
       "id": "ashlar",
       "name": "Ashlar",
@@ -14,7 +14,7 @@
         "uri": "https://documentdrivendx.github.io/ashlar/reference/",
         "digest": {
           "alg": "sha256",
-          "value": "7f20aaa7cfd248d71f9890bcf9d60d0391302470d82009fd66b9a2201d26d073"
+          "value": "195a6d0a9c24e20054f5a63a390cf35fd8d3ce26b0766a8bca3fb438800e7d5a"
         }
       }
     ],
@@ -24,26 +24,21 @@
       "ingredients": [
         {
           "kind": "model",
-          "name": "Codex",
-          "role": "draft, design and implementation"
+          "name": "Claude",
+          "role": "draft"
+        },
+        {
+          "kind": "tool",
+          "name": "sloptimizer",
+          "role": "rewrite"
         },
         {
           "kind": "human",
-          "name": "project owner",
-          "role": "direction and scope"
-        },
-        {
-          "kind": "tool",
-          "name": "HELIX",
-          "role": "design templates and source grounding"
-        },
-        {
-          "kind": "tool",
-          "name": "innsigle-seal skill",
-          "role": "provenance declaration and sealing workflow"
+          "name": "operator",
+          "role": "structure-edit"
         }
       ],
-      "notes": "Codex drafted the microsite and diagrams from Ashlar's governed repository artifacts under the project owner's direction. The seal covers the page source, including inline diagrams, and does not certify product support or performance. No human-input percentage is asserted."
+      "notes": null
     }
   },
   "payload_encoding": "json",
@@ -51,8 +46,8 @@
     {
       "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
       "alg": "ed25519",
-      "sig": "lK0VmCSJizRDuGn8wxzkE1TvR8-9KEFgHcqKeOjSRMAtWXEY2ApD-66jVneroB6pJgLTbhdmY8hEmjhwk5F8Aw",
-      "signed_at": "2026-10-08T05:14:19Z"
+      "sig": "pUAv3FSD0PONIi7qbYRM7390KuQSpwlnwbmycwsuxwgSycjvCUkPBcghUojdnYlF8pouCPBytD7mKRTErBp7Dg",
+      "signed_at": "2026-10-17T18:17:17Z"
     }
   ]
 }

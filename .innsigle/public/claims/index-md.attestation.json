@@ -2,7 +2,7 @@
   "payload": {
     "innsigle": "1",
     "type": "https://innsigle.dev/claim/colophon/v1",
-    "issued_at": "2026-10-08T05:14:44Z",
+    "issued_at": "2026-10-17T18:17:17Z",
     "issuer": {
       "id": "ashlar",
       "name": "Ashlar",
@@ -11,10 +11,10 @@
     },
     "subjects": [
       {
-        "uri": "https://documentdrivendx.github.io/ashlar/",
+        "uri": "https://documentdrivendx.github.io/ashlar/_index/",
         "digest": {
           "alg": "sha256",
-          "value": "886a0c08ae28554ff798eaaac5659b4ca4add38d11a8dd33779b163a177c52c2"
+          "value": "e740f1bc43cbba9f126fe40c2da56365314f656f8a1923010dbb7539d23b3b57"
         }
       }
     ],
@@ -24,26 +24,21 @@
       "ingredients": [
         {
           "kind": "model",
-          "name": "Codex",
-          "role": "draft, design and implementation"
+          "name": "Claude",
+          "role": "draft"
+        },
+        {
+          "kind": "tool",
+          "name": "sloptimizer",
+          "role": "rewrite"
         },
         {
           "kind": "human",
-          "name": "project owner",
-          "role": "direction and scope"
-        },
-        {
-          "kind": "tool",
-          "name": "HELIX",
-          "role": "design templates and source grounding"
-        },
-        {
-          "kind": "tool",
-          "name": "innsigle-seal skill",
-          "role": "provenance declaration and sealing workflow"
+          "name": "operator",
+          "role": "structure-edit"
         }
       ],
-      "notes": "Codex drafted the microsite and diagrams from Ashlar's governed repository artifacts under the project owner's direction. The seal covers the page source, including inline diagrams, and does not certify product support or performance. No human-input percentage is asserted."
+      "notes": null
     }
   },
   "payload_encoding": "json",
@@ -51,8 +46,8 @@
     {
       "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
       "alg": "ed25519",
-      "sig": "4_AFsMkKEunfKicopcZ8Di7CUmlEJ0Qa9WD4mtWehR-thTfCrJLiIcG4HdnCHY0Nwlusv_IUpSoMLNCt4EY2Ag",
-      "signed_at": "2026-10-08T05:14:44Z"
+      "sig": "rcxd0OudrgWQbq19HDmbZ1E0BcLDdvWFJIeYEzC8rUDXU7Emg7_Bq7N3R0X3krf68oaJhTMTGQR5p4cbVOFIBw",
+      "signed_at": "2026-10-17T18:17:17Z"
     }
   ]
 }
