@@ -1,0 +1,55 @@
+{
+  "profile": "ashlar-managed-singleton/0.1",
+  "selection": {
+    "installation": {"path": "/absolute/original/installation.json", "sha256": "REPLACE_WITH_ORIGINAL_SHA256"},
+    "intake_proof": {"path": "/absolute/original/intake.json", "sha256": "REPLACE_WITH_ORIGINAL_SHA256"},
+    "source_configuration": {"path": "/absolute/original/source-configuration.json", "sha256": "REPLACE_WITH_ORIGINAL_SHA256"},
+    "journal": "/absolute/original/publication.sqlite",
+    "publication_id": "REPLACE_WITH_LAST_COMPLETED_PUBLICATION",
+    "completed_ordinal": 1,
+    "maximum_journal_bytes": 134217728,
+    "maximum_rows": 1000
+  },
+  "sql": {
+    "host": "https://replace-with-workspace.azuredatabricks.net",
+    "profile": "REPLACE_WITH_AUTH_PROFILE",
+    "config_file": "/absolute/operator/.databrickscfg",
+    "cli": "/absolute/resolved/databricks",
+    "warehouse_id": "REPLACE_WITH_DEDICATED_WAREHOUSE_ID",
+    "warehouse_name": "REPLACE_WITH_DEDICATED_WAREHOUSE_NAME",
+    "warehouse_creator": "REPLACE_WITH_WAREHOUSE_CREATOR",
+    "actor_id": "REPLACE_WITH_ORIGINAL_ACTOR_ID",
+    "actor_name": "REPLACE_WITH_ORIGINAL_INSTALLATION_OWNER",
+    "statement_seconds": 30,
+    "http_seconds": 5,
+    "maximum_rows": 1000,
+    "maximum_result_bytes": 1048576,
+    "maximum_statements": 128
+  },
+  "pins": {
+    "profile": "ashlar-managed-pin-reader/0.1",
+    "host": "127.0.0.1",
+    "hostaddr": "127.0.0.1",
+    "port": 25440,
+    "expected_server_address": "REPLACE_WITH_ORIGINAL_PIN_SERVER_IP",
+    "expected_server_port": 5432,
+    "dbname": "REPLACE_WITH_PIN_DATABASE",
+    "user": "REPLACE_WITH_ORDINARY_PIN_LOGIN",
+    "sslmode": "disable",
+    "passfile": "/absolute/operator/private/pins.pgpass",
+    "connect_timeout_seconds": 5,
+    "statement_timeout_ms": 5000,
+    "lock_timeout_ms": 1000
+  },
+  "producer": {
+    "source": "/absolute/clean/umf-c45c72a",
+    "bun": "/absolute/resolved/bun",
+    "git": "/absolute/resolved/git",
+    "timeout_seconds": 30,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 1048576
+  },
+  "selector": {"source_system": "REPLACE_WITH_ADMITTED_SOURCE", "type_id": 17, "entity_id": 1},
+  "output": "/absolute/operator/fresh-read-output",
+  "bounds": {"whole_seconds": 300, "stream_bytes": 1048576, "receipt_bytes": 1048576}
+}

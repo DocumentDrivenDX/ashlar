@@ -128,6 +128,13 @@ An unfinished stage is an observation to investigate; preflight success does not
 prove publication completion. The [medical contract](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md)
 defines the exact configuration, authority and failure requirements.
 
+## Read an existing managed publication
+
+Use `python -m ashlar read-managed-singleton --configuration /absolute/read.json`
+with the [explicit managed-reader configuration](../../examples/managed-singleton/README.md).
+The installed command retains original publication/source custody and uses
+dedicated read compute without replaying the writer's journal requests.
+
 ## Query an existing original medical publication
 
 Use the installed toolkit's supervised command with an existing original medical

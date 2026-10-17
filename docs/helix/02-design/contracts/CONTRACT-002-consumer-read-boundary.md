@@ -826,6 +826,13 @@ NOT ingest, replay, create an installation, register/release pins, advance sourc
 progress/ACKs, or substitute current table heads. CSV, evolution, arbitrary SQL,
 compiler and graph-export operations are outside this profile.
 
+The dedicated read warehouse MAY differ from the original writer warehouse.
+The original warehouse MUST remain unchanged in retained request and clock
+evidence; a read MUST NOT rewrite or replay those submissions. The reader MUST
+independently admit its selected endpoint and actual actor, original table
+identities/versions, source correspondence, retention and complete native pins.
+Changing read compute grants no publication, migration or source authority.
+
 The closed configuration MUST select pinned original installation, intake-proof
 and source-configuration files (each `path` and `sha256`), the existing `journal`
 path, exact `publication_id` and `completed_ordinal` (1–4), explicit

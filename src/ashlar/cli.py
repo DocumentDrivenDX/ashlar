@@ -351,7 +351,19 @@ def main():
     for name in ('initialize-original-medical','publish-original-medical','replay-original-medical','read-original-medical','recover-original-medical','preflight-original-medical','inspect-original-medical-commit','reconcile-original-medical-commit','query-original-medical'):
         medical=commands.add_parser(name,help='Explicit supervised original medical initialization, publication, replay, recovery or preflight')
         medical.add_argument('--configuration',required=True)
+    managed=commands.add_parser('read-managed-singleton',help='Read one object from an existing configured-JSONL managed publication on dedicated compute')
+    managed.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'read-managed-singleton':
+        from pathlib import Path
+        from ashlar_host.managed_singleton_cli import run_managed_singleton_command
+        try:
+            answer=run_managed_singleton_command(Path(args.configuration))
+            print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
+        except Exception:
+            print('ashlar managed singleton read refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'prepare-fabric-pack-scenarios':
         from pathlib import Path
         from ashlar_host.fabric_pack_preparation import prepare_fabric_pack
