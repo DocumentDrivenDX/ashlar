@@ -1,0 +1,86 @@
+{
+  "source_commit": "dfe97dbb0af402d26bb02ae09171686b40d52297",
+  "wheel_sha256": "3c3867f77f9cfbe11bc6627ce73ff23647031a5f2cee783bf7e866a21cbb674e",
+  "runtime": {
+    "python": "3.11.17",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "sqlite": "3.53.1",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "initialization": {
+    "exit": 0,
+    "elapsed_seconds": 28.165414917000003
+  },
+  "publications_and_replay": [
+    {
+      "operation": "publish-1",
+      "exit": 0,
+      "elapsed_seconds": 38.8762715,
+      "native_counts": {
+        "edge_current": 0,
+        "object_current": 2,
+        "tombstone": 0,
+        "whole_source_history": 2
+      },
+      "local_checkpoint": "815",
+      "publication_id": "local-configured-jsonl-76efaeda5c014fb7f697ef9edf3db3e433c7b42abe0c64b3f078a4fc6d2621c6"
+    },
+    {
+      "operation": "publish-2",
+      "exit": 0,
+      "elapsed_seconds": 40.952504375,
+      "native_counts": {
+        "edge_current": 0,
+        "object_current": 2,
+        "tombstone": 0,
+        "whole_source_history": 3
+      },
+      "local_checkpoint": "1331",
+      "publication_id": "local-configured-jsonl-db4551d7789a6dc9dab22fc4c9e84aa166afc8a079d4b9980969c8e6e223760e"
+    },
+    {
+      "operation": "publish-3",
+      "exit": 0,
+      "elapsed_seconds": 31.053208958,
+      "native_counts": {
+        "edge_current": 0,
+        "object_current": 1,
+        "tombstone": 1,
+        "whole_source_history": 4
+      },
+      "local_checkpoint": "1828",
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d"
+    },
+    {
+      "operation": "replay-3",
+      "exit": 0,
+      "elapsed_seconds": 22.544852208113298,
+      "native_counts": {
+        "edge_current": 0,
+        "object_current": 1,
+        "tombstone": 1,
+        "whole_source_history": 4
+      },
+      "local_checkpoint": "1828",
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d",
+      "replay_ledger_and_native_heads_unchanged": true
+    }
+  ],
+  "original_configuration_sha256": "cec472a462dc6306798aade3b29928b55dd8d39731e767fb86dc6fc86c7c5217",
+  "protected_source_ack": false,
+  "databricks_compute_used": false,
+  "file_sha256": {
+    "initialize.json": "15a8001132495eaf5c2c58d1d365c88664234e428f298ef6893839e26c6a7492",
+    "publish-1.json": "03d5b38efaee7ed061c767cd6f306d35f11d4b432af9fd726a8c3c68013f797a",
+    "publish-2.json": "02b4ee61631ff2e9f7e8cd2a11e6ac65d8e99aeb47799974d03738d7e9a809f7",
+    "publish-3.json": "0e51f16ff6aa8f5aaa112d6c5285a0730380dcd4154a35dc30ca9c99018baa43",
+    "replay-3.json": "2f94500db6be421846495591417c70f302f82dd58402baadada048f6b1fe7bcb",
+    "replay-before.json": "e14473270ceedd6c02aa07ec8fb92fd700f4baa81bcfec66040e304d4338433e",
+    "replay-after.json": "e14473270ceedd6c02aa07ec8fb92fd700f4baa81bcfec66040e304d4338433e",
+    "umf-record-receipt.json": "76d49070046819452f07619a0dd8d5e110a790a32c44ebc5eae1907ccc8b55fe"
+  },
+  "harness_correction": "System-Python read-only SQLite inspection refused after the third successful publication and before replay started. The remaining replay and journal comparison used the selected Python 3.11 / SQLite 3.53.1 runtime; completed publications were not rerun.",
+  "qualification": "Actual installed configured STRING source initialization, three original create/update/delete publications and exact final replay on isolated local Delta. Complete source-derived carrier checks and current cooperative lease/native admission run in the installed runtime. No native interrupted-run injection, Unity Catalog, remote fencing, protected source ACK or query-latency qualification. Durations include startup, validation, publication, checks and shutdown."
+}

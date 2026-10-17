@@ -1,0 +1,15 @@
+{
+  "ledger": {
+    "local_operation": 26,
+    "local_plan": 3,
+    "jsonl_consumer_progress": 3
+  },
+  "native_heads": {
+    "object_current": "00000000000000000005",
+    "edge_current": "00000000000000000001",
+    "tombstone": "00000000000000000002",
+    "whole_source_history": "00000000000000000004",
+    "attempts": "00000000000000000016",
+    "manifest": "00000000000000000004"
+  }
+}
