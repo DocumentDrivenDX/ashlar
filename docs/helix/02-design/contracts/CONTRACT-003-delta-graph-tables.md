@@ -1647,3 +1647,16 @@ This framing allowance MUST NOT enlarge the 4 MiB staging artifact, operation
 intent or core publication payload limits, select nondefault operation capacity,
 bypass source/publication guards, or authorize source acknowledgement. Complete
 serialized effects MUST still pass their independent finite preflight bounds.
+
+
+The original supply-chain GraphFrames common profile MUST use the same nominal
+common-read owner and retain its actual publication/source interval through
+worker shutdown and independent full-bag closing. Its seven operations are full
+objects, full independent edges, one-hop, two-hop, grouped occurrence/distinct
+destination counts, full-row singleton and original-type filtered limit, with
+complete filtered membership and isolated-node controls. The profile MUST retain
+all canonical STRING columns and exact opaque property/retained JSON, original
+keys, edge identity and endpoints; it MUST NOT claim scalar promotion or the five
+authored supply-chain scenarios. Its result MUST distinguish seven common passes
+from authored-scenario passes. The outer common owner MUST close before exposing
+a command report. Retained exports MUST NOT substitute for this live profile.

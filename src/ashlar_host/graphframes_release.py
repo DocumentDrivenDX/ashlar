@@ -327,11 +327,27 @@ def execute_commerce_graphframes_release(session,runtime,pack_bytes,observe,*,se
  return result
 
 
+def execute_supply_chain_graphframes_release(opened,runtime,runtime_policy,runtime_context,observe):
+ """Seven common operations within the original supply-chain native/source hold.
+
+ Call inside the existing outer common-read owner and release command results
+ only after that owner's closing. This does not admit retained-export fallback.
+ """
+ from .supply_chain_common_read import OpenedSupplyChainCommonRead
+ from .supply_chain_graph_release import hold_original_supply_chain_graph_release
+ from .supply_chain_graphframes import prepare_supply_chain_graphframes_profile
+ if type(opened)is not OpenedSupplyChainCommonRead or type(runtime)is not GraphFramesRuntimeConfig or not callable(observe):raise ValueError('Actual original owner, selected runtime and owned sink required')
+ with hold_original_supply_chain_graph_release(opened)as(release,renew):
+  profile=prepare_supply_chain_graphframes_profile(opened,release)
+  result=_execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release,profile,renew,observe)
+ return result
+
+
 def _execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release,profile,renew_authority,observe):
  """Internal closed-profile seam; public owning sessions supply current renewal."""
  if type(runtime)is not GraphFramesRuntimeConfig or type(release)is not GraphRelease or not callable(observe):raise ValueError('Exact runtime/release and owned sink required')
  profile=source_snapshot(profile)
- if profile.get('pack')not in ('archaeology','ecology','commerce')or(profile['pack']=='commerce'and profile.get('profile')!='original-commerce/0.1'):raise ValueError('Closed packaged GraphFrames profile required')
+ if profile.get('pack')not in ('archaeology','ecology','commerce','supply-chain')or(profile['pack']=='commerce'and profile.get('profile')!='original-commerce/0.1')or(profile['pack']=='supply-chain'and(profile.get('profile')!='original-supply-chain-common/0.1'or profile.get('cases')!=[]or profile.get('fields')!=[])):raise ValueError('Closed packaged GraphFrames profile required')
  runtime.renew();renew_authority()
  if runtime.work.exists():raise ValueError('Fresh owned GraphFrames output required')
  runtime.work.mkdir(mode=0o700)
@@ -372,7 +388,9 @@ def _execute_prepared_graphframes(runtime,runtime_policy,runtime_context,release
   if bag(result['common'].get(name,[]))!=bag(expected_common[name]):raise ValueError('Parent original common occurrence bag differs')
  if result['common'].get('filtered-total')!=expected_common['filtered-total']:raise ValueError('Parent original filtered membership differs')
  if bag(result['common'].get('all-objects',[]))!=bag(request['release']['nodes'])or bag(result['common'].get('all-edges',[]))!=bag(request['release']['edges']):raise ValueError('Parent complete original canonical carrier bags differ')
- if type(result)is not dict or result.get('format')!=('ashlar-selected-pack-graphframes/0.1'if 'selected_case_ids'in profile else'ashlar-original-pack-graphframes/0.1') or result.get('pack')!=profile['pack']or result.get('selected_cases_passed'if 'selected_case_ids'in profile else'all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
+ if profile['pack']=='supply-chain':
+  if result.get('format')!='ashlar-common-pack-graphframes/0.1'or result.get('pack')!='supply-chain'or type(result.get('common_cases_passed'))is not int or result['common_cases_passed']!=7:raise ValueError('Complete seven-operation supply-chain result required')
+ elif type(result)is not dict or result.get('format')!=('ashlar-selected-pack-graphframes/0.1'if 'selected_case_ids'in profile else'ashlar-original-pack-graphframes/0.1') or result.get('pack')!=profile['pack']or result.get('selected_cases_passed'if 'selected_case_ids'in profile else'all_original_cases_passed')!=len(profile['cases']):raise ValueError('Complete original GraphFrames evidence required')
  inventory.verify(runtime)
  validate_derived_evidence(result,request['release'],observed_records,runtime.work)
  validate_common_evidence(result,request['release'],profile,observed_records)
@@ -432,9 +450,12 @@ def graphframes_worker(input_path,output):
   if profile.get('pack')=='commerce':
    from .commerce_graphframes_scenarios import execute_commerce_graphframes_scenarios
    cases=execute_commerce_graphframes_scenarios(graphframe,profile,observe)
+  elif profile.get('pack')=='supply-chain'and profile.get('profile')=='original-supply-chain-common/0.1'and profile.get('cases')==[]and profile.get('fields')==[]:cases=[]
   else:cases=execute_scenarios(graphframe,profile,observe)
   common=execute_common_graphframes(graphframe,profile,release,observe)
   parity('closing');result={'format':'ashlar-original-pack-graphframes/0.1','pack':profile['pack'],'cases':cases,'common':common,'derived_snapshots':derived,'original_snapshots':release['snapshots'],'all_original_cases_passed':len(cases),'full_carrier_parity':True,'authority_scope':'Parent-selected live hold or separately admitted retained protected-ACK export; this worker establishes no authority.'}
+  if profile['pack']=='supply-chain':
+   result['format']='ashlar-common-pack-graphframes/0.1';result['common_cases_passed']=7;result.pop('all_original_cases_passed')
   if 'selected_case_ids'in profile:
    result['format']='ashlar-selected-pack-graphframes/0.1';result['original_case_ids']=profile['original_case_ids'];result['selected_case_ids']=profile['selected_case_ids'];result['selected_cases_passed']=result.pop('all_original_cases_passed')
  except BaseException as error:primary=error
@@ -566,9 +587,15 @@ def validate_derived_evidence(result,release,observations,work):
  if type(result)is not dict:raise ValueError('Closed GraphFrames result required')
  selected=result.get('format')=='ashlar-selected-pack-graphframes/0.1'
  if selected:keys=(keys-{'all_original_cases_passed'})|{'original_case_ids','selected_case_ids','selected_cases_passed'}
- if type(result)is not dict or set(result)!=keys or result['format']not in ('ashlar-original-pack-graphframes/0.1','ashlar-selected-pack-graphframes/0.1')or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology','commerce')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
+ common_only=result.get('format')=='ashlar-common-pack-graphframes/0.1'
+ if common_only:keys=(keys-{'all_original_cases_passed'})|{'common_cases_passed'}
+ if type(result)is not dict or set(result)!=keys or result['format']not in ('ashlar-original-pack-graphframes/0.1','ashlar-selected-pack-graphframes/0.1','ashlar-common-pack-graphframes/0.1')or type(result['pack'])is not str or result['pack']not in ('archaeology','ecology','commerce','supply-chain')or type(result['cases'])is not list or type(result['common'])is not dict or type(result['authority_scope'])is not str or not 0<len(result['authority_scope'])<=1024:raise ValueError('Closed original GraphFrames result required')
  from .graphframes_case_selection import validate_graphframes_result_selection
- validate_graphframes_result_selection(result)
+ if common_only:
+  if result['pack']!='supply-chain'or result['cases']!=[]or type(result['common_cases_passed'])is not int or result['common_cases_passed']!=7:raise ValueError('Exact supply-chain common-only selection required')
+ else:
+  if result['pack']=='supply-chain':raise ValueError('Supply-chain authored scenarios are not this profile')
+  validate_graphframes_result_selection(result)
  for case in result['cases']:
   if type(case)is not dict or set(case)!={'original_scenario','schema','rows','logical_rows','independent_expected'}or type(case['original_scenario'])is not dict or set(case['original_scenario'])!={'id','sql'}or any(type(v)is not str for v in case['original_scenario'].values()):raise ValueError('Closed unchanged original case evidence required')
  if result.get('original_snapshots')!=release['snapshots']:raise ValueError('Original complete publication vector differs')

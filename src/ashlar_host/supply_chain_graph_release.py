@@ -156,3 +156,39 @@ def read_original_supply_chain_graph_release(opened):
     if opened.require_current(context)is not None:
         raise PermissionError('Closing original common read admission incomplete')
     return release
+
+
+@contextmanager
+def hold_original_supply_chain_graph_release(opened):
+    """Keep the actual original publication interval across a graph consumer.
+
+    The caller retains the outer installation/source/runtime owner. A buffered
+    consumer result must not escape until this context and that owner close.
+    """
+    if type(opened)is not OpenedSupplyChainCommonRead:
+        raise ValueError('Actual original common read owner required')
+    context=opened.context
+    opened.require_current(context)
+    policy=_OriginalGraphPolicy(opened)
+    release=None;primary=None;active=True
+    try:
+        with owned_context(opened.read_interval(context)):
+            def renew():
+                if not active:raise PermissionError('Original graph interval released')
+                opened.require_held_correspondence(context)
+                policy.require(context)
+            try:
+                release=_read(policy)
+                if type(release)is not GraphRelease:raise ValueError('Exact core graph release required')
+                yield release,renew
+            except BaseException as error:primary=error
+            finish(primary,[lambda:policy.require(context),lambda:_closing_release(policy,release)])
+        policy.provider.closed_interval_custody(context)
+        opened.require_current(context)
+    finally:active=False
+
+
+def _closing_release(policy,release):
+    closing=_read(policy)
+    if release is not None and closing!=release:
+        raise PermissionError('Original closing whole graph release changed')

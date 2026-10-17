@@ -1,0 +1,72 @@
+{
+  "controls": [
+    "Original20-node/23-edge full carriers and current held interval; released renewal refuses",
+    "Missing/duplicate edge, changed endpoint and exact property carrier refuse",
+    "Shared worker seam executes inside original interval; cancellation preserves primary and closes",
+    "Changed independent closing graph withholds returned worker result; common-only result cannot claim authored cases"
+  ],
+  "files": [
+    {
+      "bytes": 2495,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_graphframes.py",
+      "sha256": "f0cb5d26cd32b4c758dfe0bb073f0203b6b21b70102004df961e46f46581ff36"
+    },
+    {
+      "bytes": 9926,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/supply_chain_graph_release.py",
+      "sha256": "4bb592c4c7b3f75cf2a3586a33fa5c19f1dd08715384775115c450f7548cd351"
+    },
+    {
+      "bytes": 48057,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/graphframes_release.py",
+      "sha256": "79cb27782de9d9b82cae8ecc99fb8c4a3675a8c492bc168540edc74c87f6ac10"
+    },
+    {
+      "bytes": 6015,
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_graphframes.py",
+      "sha256": "2ed479b533ba5466a3f1b765ec398638af60f50c2f2e02adc5164edbdebb16c5"
+    },
+    {
+      "bytes": 19852,
+      "path": "/Users/erik/Projects/ashlar/tests/test_graphframes_release.py",
+      "sha256": "bfee869e211c2b4c7b76693dbd781301e75b386170edeaaf66e40f5eedf68df3"
+    },
+    {
+      "bytes": 113224,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "30fd68c36449c2973f7adbc89de160511070e53ec8e8b0ecda848db6a1950a73"
+    },
+    {
+      "bytes": 72887,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "bf90fba153d3c3f3fca4631f959983ed68c6f81aa1d40b18b861e4a7d59b68e6"
+    },
+    {
+      "bytes": 19969,
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "sha256": "61e5185a9680f8a2396cffafa20f0d3c401e31898abacee70eaecb11d6063842"
+    }
+  ],
+  "profile": "ashlar-supply-chain-graphframes-common-inert-evidence/0.1",
+  "qualification": "Transcribed actual tool observations, not raw process receipts. Inert original core/held owner composition, source oracle and protocol controls only; no Spark, GraphFrames, source, cloud or actual lease invocation. Native seven-operation qualification remains separate.",
+  "source_freeze": {
+    "path": "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-supply-chain-graphframes-source-20261017-ce6i1ca6/manifest.json",
+    "sha256": "16dd0c241a20f15ee497625ffdbd883389754cacbe71625cb56b00330ccff315"
+  },
+  "stale_existing_fixture": {
+    "baseline": "HEAD source loaded in separate inert Python process before fixture correction",
+    "cause": "Structural archaeology fixture used invented IDs0..7; production selection validator required the actual eight original authored IDs.",
+    "correction": "Use FinitePackDefinition(archaeology).facts()[case_ids]; production validator unchanged.",
+    "observed_failure": "ValueError: Complete original authored GraphFrames evidence required",
+    "test": "test_graphframes_release.Tests.test_derived_protocol_original_vector_and_raw_closing_witnesses",
+    "verification": "Same test now passes; preceding command includes it."
+  },
+  "verification": {
+    "command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_graphframes_release.Tests.test_derived_protocol_original_vector_and_raw_closing_witnesses test_supply_chain_graphframes test_graphframes_case_selection",
+    "diff_check": "PASS",
+    "exit": 0,
+    "module_boundaries": "PASS",
+    "seconds": 0.123,
+    "tests": 6
+  }
+}

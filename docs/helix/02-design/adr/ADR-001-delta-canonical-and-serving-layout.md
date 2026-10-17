@@ -124,6 +124,7 @@ semantic, custody and transport responsibilities.
 
 | Module | Responsibility / Owned Types | Public API | Allowed Dependencies | Forbidden Dependencies |
 | --- | --- | --- | --- | --- |
+| `src/ashlar_host/supply_chain_graphframes.py` | Original supply-chain common GraphFrames correspondence | prepare_supply_chain_graphframes_profile; execution through graphframes_release.execute_supply_chain_graphframes_release | Actual held common owner, independent original carrier oracle, isolated GraphFrames runtime | Caller source policies, export hashes as authority, scalar promotion or authored-scenario claims |
 | `src/ashlar/schema.py`, `catalog.py`, `binding.py`, `semantic_policy.py`, `typed_source_policy.py` | Retained model/catalog bindings and public-UMF receipt custody | SchemaIntake, binding/policy admission | Portable value codecs and original UMF receipts | Runtime SDKs, tools, private UMF semantic implementation |
 | `src/ashlar/source.py`, `apply.py`, `whole_entity.py`, `source_checkpoint.py` | Source batches, prospective graph state and qualified feed checkpoints | SourceBatch, plan_apply, checkpoint binding | Model/binding types, portable structural codecs | Live engine clients, ambient credentials, host orchestration |
 | `src/ashlar/publication.py`, `publisher.py`, `stored_publisher.py`, `recovery.py`, `manifest.py` | Immutable descriptors, attempt state and original-operation recovery | resolve_publication, publisher/backend protocols | Source state and explicit storage/policy ports | Tools, SDK discovery, telemetry as durable authority |
