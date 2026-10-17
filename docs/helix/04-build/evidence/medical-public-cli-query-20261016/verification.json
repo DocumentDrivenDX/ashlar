@@ -1,0 +1,18 @@
+{
+  "method": "Read-only retained artifact checks; no new source/compiler/native calls",
+  "exit_code": 0,
+  "public_stdout_byte_equal_retained_receipt": true,
+  "filtered_limit_only": true,
+  "complete_original_population": 1,
+  "selected_limit": 2,
+  "complete_returned_objects": 1,
+  "fields_per_object": 5,
+  "native_guard_checks_zero": 5,
+  "guard_check_carriers_exact_original_emitted_obligations": true,
+  "protocol_request_response_recompile_pins_exact": true,
+  "public_revalidation_original_input_pins": true,
+  "full_original_native_files_before_after_equal": true,
+  "opening_native_equal_batch_closing": true,
+  "full_original_ack_request_manifest_receipt_closing_pins": true,
+  "ack_position": "1"
+}

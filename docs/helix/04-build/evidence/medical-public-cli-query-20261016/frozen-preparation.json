@@ -1,0 +1,82 @@
+{
+  "revision": "ef92d5e047959be342c5db23b2bc470dbec7d553",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/prepare-install.py",
+      "bytes": 3066,
+      "sha256": "c85712ae56721c7bf0e3c23841e50defb5785c919d73b9bdb5137cb6b2204803"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/prepare-runtime.py",
+      "bytes": 6318,
+      "sha256": "3a88d97fe1cec5f97fddc43ef6034b02fd60a0f361f678c85bd6a46cd46e3704"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/pure-preflight.py",
+      "bytes": 1746,
+      "sha256": "5fa93c47a0d85992a92de53eb413128940b340845da8e7175d0773c29630d195"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/pure-preflight.json",
+      "bytes": 704,
+      "sha256": "7e12c4d7841c838b32c6b13452c73a27b1535813044050ed96b8ea8b8f541b6c"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/run-public-cli.py",
+      "bytes": 4417,
+      "sha256": "cea541e49b03e87638e3610f7f68a4108e383b0ffc924f461b8fc8c9bab3683a"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/native_inventory.py",
+      "bytes": 1955,
+      "sha256": "4c5dac7633ae5fbfc7f0303266108e48fe7e470071fa19edf534a893e0c262a8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/query-configuration.json",
+      "bytes": 7073,
+      "sha256": "62b3dc247dffe1eb815d826200c0051c0568bbcfd1d3038c6f02db86695fba28"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-configuration.json",
+      "bytes": 6416,
+      "sha256": "7855cde773ed174259ea5a5d1e6be11112303cb2805b6bd1ff2cc3d549d60857"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/installed.json",
+      "bytes": 74341,
+      "sha256": "cee63b6ad5e5aff32bfc467f9b09d3edcdde0d91061e9701872df8f16adf8ce2"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/runtime-selection.json",
+      "bytes": 10892,
+      "sha256": "f51f523d95d26c2518810f6813be0639d601833c2823c77a7c996f7f4c6bcfc8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/closure.json",
+      "bytes": 691229,
+      "sha256": "665e636c505b554abcd17a9de926f38067b7dc579ac352f671219706269ff0e4"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/metadata.json",
+      "bytes": 748414,
+      "sha256": "e66496082ca9f886cb6a32264c64c8aac7f6755fb10ae3261d05bfb4e6faab52"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/namespace.json",
+      "bytes": 709721,
+      "sha256": "cdc9223d62c9ac6ca5860acf67b14ae57e862e6b33c8bb8bcaf260b688a5a349"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/selected-retained-manifest.json",
+      "bytes": 27614,
+      "sha256": "589bac1b800fe3c52fa388c5b19e59aa143c5933496887f1cb8d5893ca595ee3"
+    }
+  ],
+  "qualification": "Frozen preparation only; exact installed public CLI filtered-limit only; no native execution",
+  "launch": [
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/environment/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/run-public-cli.py"
+  ]
+}
