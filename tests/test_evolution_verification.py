@@ -196,7 +196,12 @@ class Tests(unittest.TestCase):
                 with self.assertRaises(LocalDeltaError):self.transport.query('SELECT '+('x'*(self.bounds.input_bytes+1)),{})
                 with self.assertRaises(LocalDeltaError):self.transport.query('SELECT id',{'value':'x'*(self.bounds.input_bytes+1)})
                 effect.assert_not_called()
-            with self.assertRaises(LocalDeltaError):LocalDeltaTransport._detail(self.transport,self.target)
+            from ashlar_host.native_singleton_capture import SingletonCaptureError
+            with patch('ashlar_host.native_singleton_capture.capture_native_singleton',
+                    side_effect=SingletonCaptureError('native count exceeds one'))as singleton:
+                with self.assertRaises(LocalDeltaError):LocalDeltaTransport._detail(self.transport,self.target)
+                self.assertIs(singleton.call_args.args[0],self.frame)
+                self.assertEqual(singleton.call_args.kwargs['bounds'],self.bounds)
         primary=KeyboardInterrupt('native query iterator');events=[]
         first=dict(self.rows[0]);self_owner=self
         class Partial:

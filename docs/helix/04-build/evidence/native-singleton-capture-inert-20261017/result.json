@@ -1,0 +1,31 @@
+{
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_native_singleton_capture test_evolution_verification.Tests.test_common_query_history_detail_route_and_iterator_cancellation test_evolution_verification.Tests.test_common_native_query_preserves_datetime_map_and_bounds_before_transfer",
+  "module_boundaries": "PASS",
+  "native_execution": false,
+  "origin": "Transcribed actual exec tool result; inert Spark-expression/frame controls only",
+  "seconds": 0.015,
+  "source_pins": [
+    {
+      "bytes": 5829,
+      "path": "src/ashlar_host/native_singleton_capture.py",
+      "sha256": "5ab8f406234dc050649ba8d271026a2b4792aae4ffbaac20e2644bf4cc6ec97f"
+    },
+    {
+      "bytes": 74871,
+      "path": "src/ashlar_host/delta_custody.py",
+      "sha256": "199a96ef373f0047c1e09cfd241905944c2089cae93554cf66b886fc1826ff41"
+    },
+    {
+      "bytes": 7385,
+      "path": "tests/test_native_singleton_capture.py",
+      "sha256": "73f32b5c60c64d46b3fe9d85af5c42ed6aa3bbca1497557e84f5ed2455265634"
+    },
+    {
+      "bytes": 61474,
+      "path": "tests/test_evolution_verification.py",
+      "sha256": "045c3b3677f83425c4edca5cf0b94f861bdda61063ba0116c46af12c5142daef"
+    }
+  ],
+  "status": "PASS",
+  "tests": 7
+}

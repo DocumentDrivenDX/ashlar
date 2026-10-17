@@ -1,0 +1,133 @@
+{
+  "profile": "ashlar-partial-continuation-evidence/0.1",
+  "streams": [
+    {
+      "file": "configuration.json.gz",
+      "bytes": 737,
+      "sha256": "cf1bd5cb7fcb7c07e76027ad67f5008530dcf9678de9cafb0d48a308571b9d5d",
+      "gzip_bytes": 412,
+      "gzip_sha256": "a30d8f1643e3e9e6209478728ee1448790c7f8c980cf38a0304890578b427e4a",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/configuration.json"
+    },
+    {
+      "file": "preparation.json.gz",
+      "bytes": 3687,
+      "sha256": "dfa0415464055484640eb2bcec68eed12ec32c7e2063de08c471cb018ab7cefc",
+      "gzip_bytes": 1284,
+      "gzip_sha256": "172b371a9aa36d7670a77a766335be4e373d94d682e741976c43edbcee2a0f15",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/preparation.json"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "bytes": 831,
+      "sha256": "f641e2765a4d3eaca9a525301e3f3d315c2671b34428bdc4e9d6cce22870e32c",
+      "gzip_bytes": 416,
+      "gzip_sha256": "c35dba98b0aa9522d3addc33ecf4e00fd3ab2a1be73258d8b235adaa77f7aa65",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/execution-clearance.json"
+    },
+    {
+      "file": "provider.py.gz",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "gzip_bytes": 1610,
+      "gzip_sha256": "4a7b1fefb3acf1b2359329b0fd6d4f5c5552b32f3e7d4c1d5d9a54cabbee7375",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/provider.py"
+    },
+    {
+      "file": "run-installed.py.gz",
+      "bytes": 1344,
+      "sha256": "5057a93970046a7c3f26cd5a552213e43366a6fa2a43a89a094fac1f3de7ff0c",
+      "gzip_bytes": 638,
+      "gzip_sha256": "54f2a1f8cc0bd03562bbbaf2d346dae46628e795b029dc7198ecc9d9752db633",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/run-installed.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "bytes": 6365,
+      "sha256": "fb7d01634583ea15ec94817242bbf7116f1e80625c0139c1dcd8eeed7fd15dcf",
+      "gzip_bytes": 2330,
+      "gzip_sha256": "28f1e11ceed40ae7e685b222059553334d4dc1dba765ce64011d5bc6fa4cfdb6",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/supervise.py"
+    },
+    {
+      "file": "resume.stdout.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzip_bytes": 20,
+      "gzip_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/resume.stdout"
+    },
+    {
+      "file": "resume.stderr.gz",
+      "bytes": 44653,
+      "sha256": "0dcc9c1617fdad53285d4780afc1fb0dad3a25d0bac0057499120f0200fe54bb",
+      "gzip_bytes": 608,
+      "gzip_sha256": "d37746c04cda3a626455497ce94958eb295c927561892aad8265d25fd4027f0e",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/resume.stderr"
+    },
+    {
+      "file": "resume-terminal.json.gz",
+      "bytes": 119,
+      "sha256": "51ec8081fba9a79aee91fd08c45220d64a164065955c06880b5a3cc67cf9e9bb",
+      "gzip_bytes": 106,
+      "gzip_sha256": "116ea75c45b14c31fc570a8ba919cbef6cceb2cd68a06113d24c0399cbbc2cda",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/resume-terminal.json"
+    },
+    {
+      "file": "cleanup-failure.json.gz",
+      "bytes": 193,
+      "sha256": "055fb39f0e18f7ad8964eeb3efed69f5496f265a36bd764b37967613aaae251b",
+      "gzip_bytes": 143,
+      "gzip_sha256": "7c667fd0e218c3fe18a7ad7e4e298378129e19d85e2b8a6aa7d66f65d2e45579",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/cleanup-failure.json"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "bytes": 30,
+      "sha256": "c430f49be8f88a8cdd6834e84b81262c579127d21293b37d2497804fa45ef29a",
+      "gzip_bytes": 50,
+      "gzip_sha256": "75539d6e5e779ad79ce429ff604d664234b27524807dead1578d8904f0e83d46",
+      "origin": "out/combined-source-current-20261017/continue-a2-history-control/owned-session.json"
+    },
+    {
+      "file": "runtime-preparation.json.gz",
+      "bytes": 5369,
+      "sha256": "267116cb93a0e95eed3c3d39574a1e6df021406c4d0ae2a94c4cd5483e76604d",
+      "gzip_bytes": 1610,
+      "gzip_sha256": "e26b3a204f7a8485e2a50a1e3b514f9cf603942e70a81bf97bfd0c6744321719",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/preparation.json"
+    },
+    {
+      "file": "runtime-wheel-preparation.json.gz",
+      "bytes": 612,
+      "sha256": "7edba0acd912ba126afee15d18d971f40cd2874c88e5491bd6210e8b3ebc2eb9",
+      "gzip_bytes": 369,
+      "gzip_sha256": "286d04931a6d9fc494323e4e831f24e2c63c5133d588012a9e4f66e01272ffc7",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/wheel-preparation.json"
+    },
+    {
+      "file": "private-diagnostic-reference.json.gz",
+      "bytes": 281,
+      "sha256": "e2054692dbe32ec52c39c4f013a4c983b91aab1164dc7f74f9b890349064754f",
+      "gzip_bytes": 224,
+      "gzip_sha256": "a682c66405d6f8a089d69ff76de67ace38564ebd7823525aa45382a9c8974293",
+      "origin": "Derived reference only; private payload excluded"
+    },
+    {
+      "file": "post-terminal-process-observation.json.gz",
+      "bytes": 483,
+      "sha256": "26932adec6cf548307efa5546c385e1e7dc41a5567cf30a0589ba3f32b57711c",
+      "gzip_bytes": 315,
+      "gzip_sha256": "6e46779fe4c92242a1c454012f38115fb4e6f0091987202194c5e2444630a9ff",
+      "origin": "Parent actual tool output chunkea0c97; transcription"
+    },
+    {
+      "file": "post-a2-ledger-observation.json.gz",
+      "bytes": 906,
+      "sha256": "2fbca6c230b6f23dfb65eee943af6d569cf8ab868edcd7ac5cf871de1c4e1b8e",
+      "gzip_bytes": 359,
+      "gzip_sha256": "a0ead289655cc2c81572b407ae5ff3ad3ed5dd0c678010a9f8cb512c27b3ff02",
+      "origin": "Parent actual tool output chunkbeaf63; transcription"
+    }
+  ]
+}

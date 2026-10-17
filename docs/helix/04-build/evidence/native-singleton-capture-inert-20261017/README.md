@@ -1,0 +1,5 @@
+# Singleton metadata capture inert controls
+
+Seven focused controls pass for the effective-limit-one aggregate capture and its transport dispatch. They cover one bounded aggregate/iterator without a window or sentinel union; empty, all-null and nested original native carriers; count/cell/total/null metric masking; exact summary, payload, count and measurement correspondence; schema drift; and independent iterator closing after successful bodies, refusals and cancellation. Nonempty null metrics refuse rather than becoming zero. The general multirow guard remains unchanged.
+
+`result.json` retains the exact command, transcribed result and source hashes. These controls use inert Spark expressions/frames: no native engine, production metadata, latency, scale or publication success was measured. A separate reviewed native comparison remains necessary. This optimization applies only when the selected native observation has an effective row limit of one; it is not a demonstrated fix for unbounded publisher execution.

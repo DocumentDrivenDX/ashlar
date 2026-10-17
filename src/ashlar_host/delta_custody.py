@@ -440,6 +440,12 @@ class LocalDeltaTransport:
             raise LocalDeltaError('Reserved native measurement alias collision')
         measurements = [F.coalesce(F.length(F.encode(F.to_json(F.struct(F.col('`'+name.replace('`','``')+'`')), {'ignoreNullFields':'false'}), 'UTF-8')), F.lit(0)).cast('decimal(38,0)').alias(alias) for name, alias in zip(names,aliases)]
         lengths = [item for item in measurements]
+        if limit==1:
+            from .native_singleton_capture import capture_native_singleton,SingletonCaptureError
+            try:
+                rows,_=capture_native_singleton(frame,names,lengths,bounds=bounds,base=256+budget,row_constant=64)
+            except SingletonCaptureError as error:raise LocalDeltaError(str(error))from error
+            return rows
         rows, _ = self._guarded_native_projection(frame, names, lengths,
             limit=limit, maximum=bounds.total_bytes, base=256+budget, row_constant=64)
         return rows

@@ -707,6 +707,18 @@ timeout. No cap increase, stale observation cache or weakened admission is autho
 Safe bounded diagnostics remain governed by CONTRACT-006, without exception
 messages, locals, credentials or source identities.
 
+For an effective native metadata row limit of one, capture MAY use one aggregate
+summary over a native two-row limit instead of a window and sentinel. It MUST
+retain the same schema/type/per-cell measurements and conservative total envelope;
+count MUST use literal rows, including all-null originals. Only an empty input
+may replace null aggregate metrics with zero. Invalid count, cell, total or null
+metrics MUST mask the entire packed native payload before transfer and MUST refuse
+on the host. Exactly one closed summary and zero or one original typed packed row
+MUST correspond to the admitted metrics; no JSON reinterpretation is permitted.
+The single iterator MUST close independently on success, failure or cancellation,
+preserving the primary error. This bounds driver transfer, not JVM heap, and MUST
+NOT cache current identity or alter multirow capture or authority checks.
+
 The [verification design](../technical-designs/TD-003-evolution-publication-verification.md)
 MUST preserve full eight-publication/32-bag, retained old-read, exact replay, durable
 two-source ACK/restart, missing-journal refusal and uncertain-operation obligations.

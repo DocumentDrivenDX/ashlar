@@ -1,0 +1,157 @@
+{
+  "profile": "ashlar-partial-verification-evidence/0.1",
+  "streams": [
+    {
+      "file": "configuration.json.gz",
+      "bytes": 1107,
+      "sha256": "be5a99a9667b84d86a98b484a40146b6dbcb565a4b8d65c2098795980528e3d8",
+      "gzip_bytes": 528,
+      "gzip_sha256": "8df49310e147bdf04577f524b21d42b06c715b23d4878af9fd116f419cc81d99",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/configuration.json"
+    },
+    {
+      "file": "preparation.json.gz",
+      "bytes": 5369,
+      "sha256": "267116cb93a0e95eed3c3d39574a1e6df021406c4d0ae2a94c4cd5483e76604d",
+      "gzip_bytes": 1610,
+      "gzip_sha256": "e26b3a204f7a8485e2a50a1e3b514f9cf603942e70a81bf97bfd0c6744321719",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/preparation.json"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "bytes": 845,
+      "sha256": "d42d293d0d8e0063b2c4a7abcf3413aefe4ce7276ca4d4462b139eaaddad3135",
+      "gzip_bytes": 427,
+      "gzip_sha256": "2f0c13953dd3751c2ba2ba83d4bf4edd85709c71e6f970813eb5a0f7e7e33791",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/execution-clearance.json"
+    },
+    {
+      "file": "wheel-preparation.json.gz",
+      "bytes": 612,
+      "sha256": "7edba0acd912ba126afee15d18d971f40cd2874c88e5491bd6210e8b3ebc2eb9",
+      "gzip_bytes": 369,
+      "gzip_sha256": "286d04931a6d9fc494323e4e831f24e2c63c5133d588012a9e4f66e01272ffc7",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/wheel-preparation.json"
+    },
+    {
+      "file": "selection-preflight.json.gz",
+      "bytes": 433,
+      "sha256": "caddfc2e460a80f5fc669372d941eb9ddc8acfd06593b40b28bc174ec38fb226",
+      "gzip_bytes": 236,
+      "gzip_sha256": "7d8d806d6febaf2b50e8cec93f80f2d44c33303359dbfbbfc8783a81f609d3cd",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/selection-preflight.json"
+    },
+    {
+      "file": "pure-preflight.json.gz",
+      "bytes": 429,
+      "sha256": "2239a16ec9e2e43ffb259b0a06e041b7b9cc340c78d1105d153e67cc4cac116f",
+      "gzip_bytes": 252,
+      "gzip_sha256": "74ea0e49ca5fec6b6f5d05d58266d6a72e469159e3552f9eafbc9cacc75de449",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/pure-preflight.json"
+    },
+    {
+      "file": "provider.py.gz",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "gzip_bytes": 1610,
+      "gzip_sha256": "4a7b1fefb3acf1b2359329b0fd6d4f5c5552b32f3e7d4c1d5d9a54cabbee7375",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/provider.py"
+    },
+    {
+      "file": "run-installed.py.gz",
+      "bytes": 1730,
+      "sha256": "75954c68c8e6982d207ac90c5ef62f311ddcecc392a86fc139eeb74c49b9ccc6",
+      "gzip_bytes": 820,
+      "gzip_sha256": "a5a54e0e56eb6206daebb4bb782381dc81f624279a8e373374b33fd7c40b3cc6",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/run-installed.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "bytes": 6583,
+      "sha256": "8f240918e958ee3854ed38ca4c03d7a9451a48b8d7d41ddcc0aefc63466887db",
+      "gzip_bytes": 2388,
+      "gzip_sha256": "ab5f263fac557b75b427e531d3e0a3e8428926bece82e434c16fab30dbb1ef71",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/supervise.py"
+    },
+    {
+      "file": "build.log.gz",
+      "bytes": 115852,
+      "sha256": "3276dd4ee4bc4d26e9fa0e46c7b91cf91dda60d6ce02f5447151605cb3bdf677",
+      "gzip_bytes": 9927,
+      "gzip_sha256": "b8bc51834eaddf740e9bbbcc772d49a0722f04a23c7b82b8e408add596c7c567",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/build.log"
+    },
+    {
+      "file": "install.log.gz",
+      "bytes": 522,
+      "sha256": "c5469406c1ec0515db74369f544f27cf6fd57a37548188fa11c28f1cd4bf0cc7",
+      "gzip_bytes": 353,
+      "gzip_sha256": "45dc63eda876c98c8a9c66beda20d3096538272b3bf823ae57201920d4588a69",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/install.log"
+    },
+    {
+      "file": "resume.stdout.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzip_bytes": 20,
+      "gzip_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/resume.stdout"
+    },
+    {
+      "file": "resume.stderr.gz",
+      "bytes": 567152,
+      "sha256": "5fcd2aa75d3a7a88dc928bea97ff716a08f26b55e1857e17eca5a0565fc72a4a",
+      "gzip_bytes": 3388,
+      "gzip_sha256": "ddf13b7371eb957156cb80acdccc9ac29f177cc3e46c7a6d1628814b77ea89d6",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/resume.stderr"
+    },
+    {
+      "file": "resume-terminal.json.gz",
+      "bytes": 119,
+      "sha256": "51ec8081fba9a79aee91fd08c45220d64a164065955c06880b5a3cc67cf9e9bb",
+      "gzip_bytes": 106,
+      "gzip_sha256": "116ea75c45b14c31fc570a8ba919cbef6cceb2cd68a06113d24c0399cbbc2cda",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/resume-terminal.json"
+    },
+    {
+      "file": "cleanup-failure.json.gz",
+      "bytes": 179,
+      "sha256": "bf14c7a1256a45feebe2f512e0b18a5df58bc6b603ccc22803f09351061b52fa",
+      "gzip_bytes": 134,
+      "gzip_sha256": "cf1c8d4dbb21cb5c0b38248ecdad4455dcaf852e14ce2b077ca273220ca8dfca",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/cleanup-failure.json"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "bytes": 30,
+      "sha256": "359a3f946bd5518ef0498d7251799d20d2c9553605ebc0c8dd2f8b8f21cc4b73",
+      "gzip_bytes": 50,
+      "gzip_sha256": "e0a6fe3906509a8f17e47d9ab90aaa19af0ff807488325ba99a67f365c53cf7b",
+      "origin": "out/combined-source-current-20261017/canonical-verification-history-control/owned-session.json"
+    },
+    {
+      "file": "private-diagnostic-reference.json.gz",
+      "bytes": 296,
+      "sha256": "a268f846b1cc0fa95cd8aa6eace870c0692dccafadb21c09746fff01fb28f3ab",
+      "gzip_bytes": 239,
+      "gzip_sha256": "d60e6693866bc4ab86d5096d5ea4a348e926344a41608efa902bf6cb0ea8ba5d",
+      "origin": "Derived hash reference only; no private stack payload"
+    },
+    {
+      "file": "post-terminal-process-observation.json.gz",
+      "bytes": 511,
+      "sha256": "79351680efe4a7cb9926c04b0c6fc620c875243fd0cfe5fe63bf4e39edf9e6bb",
+      "gzip_bytes": 328,
+      "gzip_sha256": "6235afe4f3d0e4bd66f171caed857409f33007494253329bf2686ac59518733e",
+      "origin": "Parent actual read-only tool output chunk78ff5c; transcription"
+    },
+    {
+      "file": "post-verifier-ledger-observation.json.gz",
+      "bytes": 757,
+      "sha256": "1f14e7fafa0b88f9c2e7d31b3add909b1c84d020ef1391aa647b3ec3c9224716",
+      "gzip_bytes": 328,
+      "gzip_sha256": "3fb8ba08c6cafbf09607e7a5e0fb7ca6f1dbf9e5df93c6b51b945ed58f8b091d",
+      "origin": "Parent actual read-only tool output chunk783cee; transcription"
+    }
+  ]
+}
