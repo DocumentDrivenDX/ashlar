@@ -1,0 +1,25 @@
+{
+  "scope": "Exact retained stream hashes; raw diagnostic warning output omitted. query.stdout equals archived receipt.json exactly.",
+  "files": {
+    "query.stdout": {
+      "bytes": 888219,
+      "sha256": "bcde13f7e20324057dceada6ec368d0b751b55ecfaa798a9daeef81cd23a57f6",
+      "raw_archived": false
+    },
+    "query.stderr": {
+      "bytes": 833683,
+      "sha256": "e374fc36c353f96246b3162ca1eb2e28ea286dd997374c3e81b6d7950b013e05",
+      "raw_archived": false
+    },
+    "outer.stdout": {
+      "bytes": 767,
+      "sha256": "5eaafcce8ee927d191333c33c052e1b4558bb60a84ae3fb000bee40609f1f72c",
+      "raw_archived": false
+    },
+    "outer.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_archived": false
+    }
+  }
+}
