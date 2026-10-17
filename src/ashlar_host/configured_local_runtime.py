@@ -224,7 +224,7 @@ def _run(config,ordinal,*,selector=None,query=None):
     callbacks.append(lambda:_runtime(config))
     if lease is not None:callbacks.extend([lease.renew,lease.close])
     finish(primary,callbacks)
-    raw=(encoded(result)+'\n').encode();_require(len(raw)<=262144);_write(config.output/'runtime-report.json',raw)
+    raw=(encoded(result)+'\n').encode();_require(len(raw)<=1048576);_write(config.output/'runtime-report.json',raw)
     return result
 
 

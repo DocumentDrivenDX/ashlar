@@ -72,3 +72,8 @@ are not Truss catalog IDs, and local file progress is not a protected source ACK
 The cooperative local profile supplies no Unity Catalog, remote fencing or
 production writer authority. Accept command completion only after its bounded
 final result and all required closing checks succeed.
+
+Full compiler protocols and native guards are included in query receipts. Select
+an explicit top-level `bounds.receipt_bytes` large enough for them (for example
+`524288` for these cross-type grouped queries), within the CLI's 1 MiB ceiling.
+The receipt bound remains separate from query row/cell and artifact limits.
