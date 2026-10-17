@@ -38,13 +38,43 @@ class MedicalAdmissionTests(unittest.TestCase):
         return json.dumps({'profile':'ashlar-original-medical-public-revalidation/0.1','umfRevision':UMF_PIN,'modelSha256':hashlib.sha256(self.model).hexdigest(),'graphSha256':hashlib.sha256(self.graph).hexdigest(),'baselineSha256':hashlib.sha256(self.baseline).hexdigest(),'receipt':self.public['receipt'],'booleanReceipts':self.public['booleanReceipts']},ensure_ascii=False,separators=(',',':')).encode()
     def capture(self,argv,**kwargs):
         self.calls.append((argv,kwargs))
-        if argv[0]==str(self.cfg.git):return ((UMF_PIN+'\n').encode()if argv[-1]=='HEAD'else b''),b''
+        if argv[0]==str(self.cfg.git):return ('# branch.oid '+UMF_PIN+'\n# branch.head (detached)\n').encode(),b''
         Path(argv[3]).write_bytes(self.observed());return b'original public output\n',b''
     def held(self):
         with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):return HeldMedicalDataset(self.cfg,*self.paths,self.root/'actual.json')
     def admission(self):
         held=self.held()
         with patch('ashlar_host.medical_producer.capture',side_effect=self.capture):return MedicalAdmission(self.batch,self.bindings,*self.paths,held)
+    def test_one_fresh_real_git_observation_preserves_clean_revision_guards(self):
+        import subprocess
+        import ashlar_host.medical_producer as producer
+        git=Path('/usr/bin/git')
+        environment={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C','TZ':'UTC','GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_SYSTEM':'/dev/null','GIT_TERMINAL_PROMPT':'0','TMPDIR':str(self.root)}
+        repository=self.root/'real-source';repository.mkdir()
+        def run(*arguments):
+            return subprocess.run([str(git),'-C',str(repository),*arguments],env=environment,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5).stdout
+        run('init','-q');tracked=repository/'tracked';tracked.write_text('original')
+        (repository/'.gitignore').write_text('ignored\n');run('add','tracked','.gitignore')
+        run('-c','user.name=Fixture','-c','user.email=fixture@example.invalid','-c','commit.gpgsign=false','commit','-qm','fixture')
+        revision=run('rev-parse','HEAD').decode().strip()
+        held=object.__new__(HeldMedicalDataset);held.config=ProducerConfig(repository,self.cfg.bun,git,5,1048576,4194304)
+        held.output=self.root/'git-observation';held.environment=environment
+        with patch.object(producer,'UMF_PIN',revision),patch.object(producer,'capture',wraps=producer.capture)as capture:
+            held._pin();self.assertEqual(capture.call_count,1)
+            self.assertEqual(capture.call_args.args[0][-3:],['status','--porcelain=v2','--branch'])
+            run('checkout','--detach','-q',revision);held._pin()
+            (repository/'ignored').write_text('ignored remains ignored');held._pin()
+            tracked.write_text('modified')
+            with self.assertRaises(PermissionError):held._pin()
+            tracked.write_text('original');unknown=repository/'untracked';unknown.write_text('new')
+            with self.assertRaises(PermissionError):held._pin()
+            unknown.unlink();held._pin()
+        with patch.object(producer,'UMF_PIN','0'*40):
+            with self.assertRaises(PermissionError):held._pin()
+        for suffix in ('# unexpected value\n','# branch.oid '+revision+'\n','? untracked\n'):
+            raw=('# branch.oid '+revision+'\n# branch.head (detached)\n'+suffix).encode()
+            with self.assertRaises(PermissionError):producer.require_medical_git_status(raw,revision)
+
     def test_public_producer_preserves_all_raw_and_original_declared_inputs(self):
         held=self.held();argv,kwargs=next((a,k)for a,k in self.calls if a[0]==str(self.cfg.bun))
         self.assertEqual(argv[4:7],list(map(str,self.paths)));self.assertNotIn('PGPASSWORD',kwargs['environment']);self.assertNotIn('HOME',kwargs['environment'])
@@ -198,7 +228,7 @@ class MedicalAdmissionTests(unittest.TestCase):
                 for _ in range(3):held.renew()
                 metadata=held.metadata()
             self.assertEqual(verify.call_count,1)
-            self.assertEqual(len(self.calls)-initial,8)
+            self.assertEqual(len(self.calls)-initial,4)
             self.assertEqual(metadata['actual_revalidation']['receipt'],json.loads(held.raw)['receipt'])
             with self.assertRaises(AttributeError):held._semantic_witness=held._semantic_witness
             with self.assertRaises(AttributeError):del held._semantic_witness
@@ -266,19 +296,18 @@ class MedicalAdmissionTests(unittest.TestCase):
             self.assertEqual(argv[0],str(original_cfg.git));self.assertEqual(argv[2],str(original_cfg.source))
             self.assertEqual(kwargs['cwd'],self.root);self.assertEqual(kwargs['environment']['PATH'],'/usr/bin:/bin')
             self.assertNotIn('HOME',kwargs['environment'])
-            return ((UMF_PIN+'\n').encode()if argv[-1]=='HEAD'else b''),b''
+            return ('# branch.oid '+UMF_PIN+'\n# branch.head (detached)\n').encode(),b''
         with patch('ashlar_host.medical_producer.capture',side_effect=captured),self.assertRaises(PermissionError):held.renew()
-        self.assertEqual([argv[-1]for argv,_ in calls],['HEAD','--porcelain'])
+        self.assertEqual([argv[-3:]for argv,_ in calls],[['status','--porcelain=v2','--branch']])
 
-    def test_original_pin_cancellation_preserves_primary_and_attempts_status_and_closes(self):
-        held=self.held();primary=KeyboardInterrupt('original HEAD cancellation');calls=[];reads=[];read=MedicalFile.read
+    def test_original_status_cancellation_preserves_primary_and_closes(self):
+        held=self.held();primary=KeyboardInterrupt('original status cancellation');calls=[];reads=[];read=MedicalFile.read
         def captured(argv,**kwargs):
             calls.append(argv[-1])
-            if argv[-1]=='HEAD':raise primary
-            return b'',b''
+            raise primary
         def observed(file):reads.append(file.path);return read(file)
         with patch('ashlar_host.medical_producer.capture',side_effect=captured),patch.object(MedicalFile,'read',observed),self.assertRaises(KeyboardInterrupt)as caught:held.renew()
-        self.assertIs(caught.exception,primary);self.assertEqual(calls,['HEAD','--porcelain'])
+        self.assertIs(caught.exception,primary);self.assertEqual(calls,['--branch'])
         self.assertEqual(reads,list(self.paths)+[RESOURCE_ROOT/'check_medical_dataset.ts',held.output])
 
     def test_admission_constructor_and_renew_call_current_producer_once(self):

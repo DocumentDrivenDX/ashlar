@@ -175,7 +175,7 @@ class Tests(unittest.TestCase):
         baseline=json.loads(r.inputs.baseline.path.read_bytes())
         originals=tuple(pin.path.read_bytes()for pin in (r.inputs.model,r.inputs.graph,r.inputs.baseline))
         def capture(argv,**kwargs):
-            if argv[0]==str(config.producer.git):return ((UMF_PIN+'\n').encode()if argv[-1]=='HEAD'else b''),b''
+            if argv[0]==str(config.producer.git):return ('# branch.oid '+UMF_PIN+'\n# branch.head (detached)\n').encode(),b''
             result={'profile':'ashlar-original-medical-public-revalidation/0.1','umfRevision':UMF_PIN,'modelSha256':hashlib.sha256(originals[0]).hexdigest(),'graphSha256':hashlib.sha256(originals[1]).hexdigest(),'baselineSha256':hashlib.sha256(originals[2]).hexdigest(),'receipt':baseline['receipt'],'booleanReceipts':baseline['booleanReceipts']}
             Path(argv[3]).write_bytes(json.dumps(result,separators=(',',':')).encode());return b'',b''
         return config,selection,capture
