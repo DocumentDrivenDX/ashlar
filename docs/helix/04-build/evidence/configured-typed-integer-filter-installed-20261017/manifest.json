@@ -1,0 +1,311 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "source_commit": "a26c5f8c0ec8d47b1249f8f6bc2d29a7d0f5eebb",
+  "scope": "One installed read-only required INTEGER equality literal query; gzip mtime zero; no wheel/SDK binary archive.",
+  "files": [
+    {
+      "file": "actual/configuration.json.gz",
+      "sha256": "f63b7b4c37dcac16db1c17f94e2d75415b102e6e85223b968116a012a3ebca82",
+      "bytes": 810,
+      "original_sha256": "2771756aca4fe1cd7717e70065598ba8564fa1e1d82423d64e2407592a897098",
+      "original_bytes": 1908,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/configuration.json"
+    },
+    {
+      "file": "actual/manifest.json.gz",
+      "sha256": "ced2a78176883531c2cd94b9b61037d36cfd1a41058a7ff472d21ce682981c2b",
+      "bytes": 951,
+      "original_sha256": "c15520dce9d07d544636e50f87552d0cb12cc6d1ce906f8f1f77068da4583c98",
+      "original_bytes": 1885,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/manifest.json"
+    },
+    {
+      "file": "actual/preparation.json.gz",
+      "sha256": "97e8e13ad87f41829bae369c0a614ec981487288732b37ea90d7681bf9b43702",
+      "bytes": 620,
+      "original_sha256": "53e80fcf294b1bd993b2e2b176b76276d4a164abb7d8aa363c9b6958b15870e5",
+      "original_bytes": 1109,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/preparation.json"
+    },
+    {
+      "file": "actual/pure-preflight.json.gz",
+      "sha256": "73d2589b76d965c63f0a1a54815b68fce2a3882e88760102cf6ba34ee2a0d5d0",
+      "bytes": 261,
+      "original_sha256": "1e643d2b31b61268db22fd2f23147855ae1967564f44fb89b5439faa9036f1fb",
+      "original_bytes": 499,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/pure-preflight.json"
+    },
+    {
+      "file": "actual/run-filter-native.py.gz",
+      "sha256": "0f2d03cdf7136fad1253f19eb4e87b7281c51706025bd8b6b99aa6edbf4d02c0",
+      "bytes": 1917,
+      "original_sha256": "be42387655583c9e202f1da1d50e81db303c006dfa531f6ea05f3c2686d20746",
+      "original_bytes": 4314,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/run-filter-native.py"
+    },
+    {
+      "file": "actual/run-filter-outer.py.gz",
+      "sha256": "430fc2d0735d8df6e7e21ed1966e1c943bf0e0f6105edc6c46b44adb5f2076bf",
+      "bytes": 2475,
+      "original_sha256": "7bb59e6e92b3837a7f119edf1bf82adb784349e19ca261dd90138fa6a139b13d",
+      "original_bytes": 6684,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/run-filter-outer.py"
+    },
+    {
+      "file": "actual/summary.json.gz",
+      "sha256": "a7d98d55ea5217488b5ea7f7e9471b8624c31351ffb0c689f65a72dd53f0d0ad",
+      "bytes": 222,
+      "original_sha256": "305073b1c7fcfebbf5046cffd66149c6a686351e881c4ab9d7692d73902052d4",
+      "original_bytes": 258,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/summary.json"
+    },
+    {
+      "file": "actual/outer-attempt.json.gz",
+      "sha256": "1b0236ec2be6f1130d0a5afd6ff40519598550762db85cb4337d3dbd18df95b1",
+      "bytes": 167,
+      "original_sha256": "269b9ddf51ba37c26e2cd96d3bc407dd2992c9c578c0442e64e0f80124730379",
+      "original_bytes": 213,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/outer-attempt.json"
+    },
+    {
+      "file": "actual/owned-session.json.gz",
+      "sha256": "c64fc8d690b379cd4a95a3fd991764225fa9665f719abefd1ca434c072e21f34",
+      "bytes": 50,
+      "original_sha256": "1b6e82e1bdb1e7c8d31955a392e4529efb6eb447d8c36834ba05f772833c52bc",
+      "original_bytes": 30,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/owned-session.json"
+    },
+    {
+      "file": "actual/runner-terminal.json.gz",
+      "sha256": "15557467bb377c9f6ed479f391bb7547974a6e024c006def889f1064a735c78f",
+      "bytes": 99,
+      "original_sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_bytes": 105,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/runner-terminal.json"
+    },
+    {
+      "file": "actual/runner.stdout.gz",
+      "sha256": "7b6f8ddfe5abd91dc2055add72906af9cd0980bd5cb18c5adb92448ef9750104",
+      "bytes": 63,
+      "original_sha256": "0aff06ffa14a76277deed02673397137d713e12c285e9ff5fbbb5a1fbab962c0",
+      "original_bytes": 44,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/runner.stdout"
+    },
+    {
+      "file": "actual/runner.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/runner.stderr"
+    },
+    {
+      "file": "actual/query-terminal.json.gz",
+      "sha256": "7e0aec9882bacc6ff1cb514d5be042add28a13f5f9442efd1254ddc0a686436c",
+      "bytes": 193,
+      "original_sha256": "2d0b36d8df44c00d89e3662d852399f8dbde679f65bad3b20acd6a3c4741d697",
+      "original_bytes": 291,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-terminal.json"
+    },
+    {
+      "file": "actual/query.stdout.gz",
+      "sha256": "16368c76af9050cc04b2a7d133c6cd4f3139ef95e4418482f9d8796b0feec71f",
+      "bytes": 8081,
+      "original_sha256": "410e983168cab883bb6b9b725686daae3d8ae590bc67f83ef7485d84ee307408",
+      "original_bytes": 72100,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query.stdout"
+    },
+    {
+      "file": "actual/query.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "bytes": 20,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query.stderr"
+    },
+    {
+      "file": "actual/query-result.json.gz",
+      "sha256": "16368c76af9050cc04b2a7d133c6cd4f3139ef95e4418482f9d8796b0feec71f",
+      "bytes": 8081,
+      "original_sha256": "410e983168cab883bb6b9b725686daae3d8ae590bc67f83ef7485d84ee307408",
+      "original_bytes": 72100,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-result.json"
+    },
+    {
+      "file": "actual/native-before.json.gz",
+      "sha256": "4fb139472d44bccf6012b303ac32ac2726841dd8461969efb405fbcf9ce5ad59",
+      "bytes": 8259,
+      "original_sha256": "1761fc8c010260b3167f1fa532b21748427ef13f8916dd7cf37bceb99ad38ade",
+      "original_bytes": 25866,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/native-before.json"
+    },
+    {
+      "file": "actual/native-after.json.gz",
+      "sha256": "4fb139472d44bccf6012b303ac32ac2726841dd8461969efb405fbcf9ce5ad59",
+      "bytes": 8259,
+      "original_sha256": "1761fc8c010260b3167f1fa532b21748427ef13f8916dd7cf37bceb99ad38ade",
+      "original_bytes": 25866,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/native-after.json"
+    },
+    {
+      "file": "actual/source-before.json.gz",
+      "sha256": "43ebcdca52fc8d39e0d33d47be5ab5c001b19f11701ee8ecb423f5873eab20b0",
+      "bytes": 302,
+      "original_sha256": "eee91ded1565746d71d1d38929bcca9808bbc0d05cf78f6a4083e37fc9093084",
+      "original_bytes": 582,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/source-before.json"
+    },
+    {
+      "file": "actual/source-after.json.gz",
+      "sha256": "43ebcdca52fc8d39e0d33d47be5ab5c001b19f11701ee8ecb423f5873eab20b0",
+      "bytes": 302,
+      "original_sha256": "eee91ded1565746d71d1d38929bcca9808bbc0d05cf78f6a4083e37fc9093084",
+      "original_bytes": 582,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/source-after.json"
+    },
+    {
+      "file": "actual/query-output/report.json.gz",
+      "sha256": "450e34bb77794006e376b271a4f562451c783c32c13515a10d8ca4445549aa36",
+      "bytes": 8077,
+      "original_sha256": "9e4f234fa7c3aa77256dfc380dbaccca149d9b2442f18fbd4f31fa154a6d3241",
+      "original_bytes": 72099,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-output/report.json"
+    },
+    {
+      "file": "actual/query-output/runtime-report.json.gz",
+      "sha256": "16368c76af9050cc04b2a7d133c6cd4f3139ef95e4418482f9d8796b0feec71f",
+      "bytes": 8081,
+      "original_sha256": "410e983168cab883bb6b9b725686daae3d8ae590bc67f83ef7485d84ee307408",
+      "original_bytes": 72100,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-output/runtime-report.json"
+    },
+    {
+      "file": "actual/query-output/diagnostics.log.gz",
+      "sha256": "f5f2b6e22584d6a80942ca164ba573dce19507d326249f5eac9762a3abf0e077",
+      "bytes": 289,
+      "original_sha256": "c8c4847e846c75f8e37bad2eff0718a517f9fe12d35d7293ddcb74aae00777da",
+      "original_bytes": 409,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-output/diagnostics.log"
+    },
+    {
+      "file": "actual/query-output/admission/report.json.gz",
+      "sha256": "459ccb7cfa3cad415cd083a068692b4d36b7526685373dbbf6c0fc34cce09cca",
+      "bytes": 559,
+      "original_sha256": "af04bd90c01850c2df331c736a085f22088fdc09ea38386e72fbe98e735f2332",
+      "original_bytes": 831,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-output/admission/report.json"
+    },
+    {
+      "file": "actual/query-output/admission/record-1.json.gz",
+      "sha256": "02723b7afef39d249b5e98a6a0fbce96e9c01e7ee5d70a306774b03a069ddaba",
+      "bytes": 3598,
+      "original_sha256": "1136e8a7a00359a42e15c42cb086d60b37da846c9e428458a06b0372c256ad00",
+      "original_bytes": 20004,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-output/admission/record-1.json"
+    },
+    {
+      "file": "actual/build.log.gz",
+      "sha256": "c88d8d80f281fb5e7395d6627932ff181f045b7a874073bab9fea060df416d74",
+      "bytes": 9875,
+      "original_sha256": "2b9ef2c9ac9ad1d27d110e0c0931e502ae9fbdb26d8c7b4f8a80fc5ce98ebee6",
+      "original_bytes": 115600,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/build.log"
+    },
+    {
+      "file": "actual/install.log.gz",
+      "sha256": "6e4308a9c2edc748072abcfda6aa5898f1bae960824fc49ad327136ff93b5c66",
+      "bytes": 338,
+      "original_sha256": "c9019ff374a73d4ee6d1a14ffde7d05122ebc71653d7faa7deb020e15109fe9b",
+      "original_bytes": 505,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/install.log"
+    },
+    {
+      "file": "protocol/recompiled.json.gz",
+      "sha256": "830c0ee886a572d626e25730500d1f490cd0733bcfedfd208da4c473575a15ce",
+      "bytes": 4129,
+      "original_sha256": "77e665a3f4d4b93ac81a594b534f47c8f1eee548df63064d175ada2a7df2c47f",
+      "original_bytes": 22522,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-result.json#/query/protocol/recompiled"
+    },
+    {
+      "file": "protocol/request.json.gz",
+      "sha256": "fc1e4cf344216d5b3c0a4b127bddf6f98a1bd4dd1a8fb8dfbf91873cd3bac336",
+      "bytes": 1372,
+      "original_sha256": "a3961a60cd3fed416ad58b7afbc65f2e738c6835d778f7d1bf1c4ac990d88f2a",
+      "original_bytes": 4038,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-result.json#/query/protocol/request"
+    },
+    {
+      "file": "protocol/response.json.gz",
+      "sha256": "830c0ee886a572d626e25730500d1f490cd0733bcfedfd208da4c473575a15ce",
+      "bytes": 4129,
+      "original_sha256": "77e665a3f4d4b93ac81a594b534f47c8f1eee548df63064d175ada2a7df2c47f",
+      "original_bytes": 22522,
+      "origin": "/private/tmp/ashlar-typed-filter-installed-20261017-lvqbtab1/query-result.json#/query/protocol/response"
+    },
+    {
+      "file": "compile-only/summary.json.gz",
+      "sha256": "bad2ec5a56d7ff89f59e0f1d2ad7bfaac9b5edc59f2d1f1808bcb7ff7d766913",
+      "bytes": 1201,
+      "original_sha256": "f6f504e673f81e47fe90c83557c5b55b506ba34aee5d7faa96897e83d10343ba",
+      "original_bytes": 5185,
+      "origin": "/private/tmp/ashlar-configured-uint64-filter-compile-20261017-z95r8ml8/summary.json"
+    },
+    {
+      "file": "compile-only/request.json.gz",
+      "sha256": "24c2cbc47960dc97df619a165255109980ceaf5f2433ac23a1f433b8a712386e",
+      "bytes": 1315,
+      "original_sha256": "cdcfd0d85f66c6cfae12fde6b72ba88b05102778baf5a5a3b393295d00591786",
+      "original_bytes": 3909,
+      "origin": "/private/tmp/ashlar-configured-uint64-filter-compile-20261017-z95r8ml8/request.json"
+    },
+    {
+      "file": "compile-only/response.json.gz",
+      "sha256": "e5b8dca14ec472d64670ce0675b00a42103b4a5889aa5494ed8159f28bbb0068",
+      "bytes": 4057,
+      "original_sha256": "22fe33cd8a5e3970545d5f39e9111742dd327764a637d41b4dc674e6f70a925c",
+      "original_bytes": 22293,
+      "origin": "/private/tmp/ashlar-configured-uint64-filter-compile-20261017-z95r8ml8/response.json"
+    },
+    {
+      "file": "compile-only/recompiled.json.gz",
+      "sha256": "e5b8dca14ec472d64670ce0675b00a42103b4a5889aa5494ed8159f28bbb0068",
+      "bytes": 4057,
+      "original_sha256": "22fe33cd8a5e3970545d5f39e9111742dd327764a637d41b4dc674e6f70a925c",
+      "original_bytes": 22293,
+      "origin": "/private/tmp/ashlar-configured-uint64-filter-compile-20261017-z95r8ml8/recompiled.json"
+    },
+    {
+      "file": "original/configured-typed-named-source.json.gz",
+      "sha256": "4d05d86683dec53452c45a52323a2511c3ed58c77e125f1db0c92fb044b89ea0",
+      "bytes": 366,
+      "original_sha256": "ab8c1ea044aa78a87aa60204d569137e029ca8c967862eb44c1b9786a1ed610a",
+      "original_bytes": 697,
+      "origin": "/Users/erik/Projects/ashlar/examples/end-to-end/configured-typed-named-source.json"
+    },
+    {
+      "file": "original/typed-named-model.umf.json.gz",
+      "sha256": "46d93422d27f53c9d63159e7d0706505db25add72a52a69e4e9ea2ff33b5acb0",
+      "bytes": 351,
+      "original_sha256": "466af3c03c1e0451268d87aeefd6c549cc7663b5c804091e3cd2b3f053054206",
+      "original_bytes": 949,
+      "origin": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-named-model.umf.json"
+    },
+    {
+      "file": "original/typed-named-binding.json.gz",
+      "sha256": "05f84e47c31e1ff62a486cfbceb5bd69aff033d1c3dde83a13caf022686536c0",
+      "bytes": 324,
+      "original_sha256": "2ec86b86c2ccd873f7e83c9da536bd730ec2cc87c93f612c9b9619635235b112",
+      "original_bytes": 663,
+      "origin": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-named-binding.json"
+    },
+    {
+      "file": "original/typed-named-source.jsonl.gz",
+      "sha256": "7cad888ba4b853703829187574136124ac0a0b5cd692ed119a07749b4a10ec43",
+      "bytes": 529,
+      "original_sha256": "ff8fb6bcbb9daf79b403132f7f3212e4e2e316c7c75c561532d9bef0e1fc2302",
+      "original_bytes": 2051,
+      "origin": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-named-source.jsonl"
+    }
+  ]
+}
