@@ -1,0 +1,137 @@
+{
+  "wheelSha256": "90f9393dc4245b920625dee789fe4acb02c6c517038d38f4f9fe562e9bc8a3c4",
+  "sourceInstalledPayloads": [
+    {
+      "path": "umf_access/__init__.py",
+      "sha256": "91eac77cf0a09336491913ceff6d01d75fc46d4ef26655cf2cb275552796b33c"
+    },
+    {
+      "path": "umf_access/adoption.py",
+      "sha256": "42dedd7ae908c4194a99c586e9056cfeda638209c4f2d56426d2c15383aaafd2"
+    },
+    {
+      "path": "umf_access/bulk.py",
+      "sha256": "cd947c132b909e97b1d77d39b93b3fe59cece99412fae65040beaebccaf5d19d"
+    },
+    {
+      "path": "umf_access/capture.py",
+      "sha256": "5ee4e49778c454b97b9662bbe37f68bf424cb18e5e0087a98b5ca64b33202fa2"
+    },
+    {
+      "path": "umf_access/catalog.py",
+      "sha256": "6b34a6d3fbce3389af06bf378c4068254200060ba450c641a7cbc27c7820db95"
+    },
+    {
+      "path": "umf_access/codec_support.py",
+      "sha256": "c45997b89af692b50b1ad40690b342f2707164c778ace7c8d32846ff27787544"
+    },
+    {
+      "path": "umf_access/commands.py",
+      "sha256": "d53a536325fa64df8a8a13e9c2460fe7ea45b219ef055286caef0ca78059872b"
+    },
+    {
+      "path": "umf_access/delta_read.py",
+      "sha256": "e3c9793d2f2d554a7bb26aa2ab352c790479b0d703edf33ac45d0afa4beab770"
+    },
+    {
+      "path": "umf_access/engine_catalog.py",
+      "sha256": "09b9bc19bc00078c3289f2801aa6a372aa98ad990afbd85e9728044fbf2a2107"
+    },
+    {
+      "path": "umf_access/native_actions.py",
+      "sha256": "1abca7c496470968e5d8872850e62af27652b5bcea2a03f76d195eeb83036d15"
+    },
+    {
+      "path": "umf_access/native_program.py",
+      "sha256": "682065b253076cf0cdb04f2b08c0e29ee0dfeab30f1eee997948cad8561cc4b9"
+    },
+    {
+      "path": "umf_access/pages.py",
+      "sha256": "43eb43c60a6b2c5fb3ae2d04dbd060d4908da3983fc028ba7e13058b95b71be2"
+    },
+    {
+      "path": "umf_access/postgres_bulk.py",
+      "sha256": "482c90cbc9270fa7042e6e500252deecd559ea7659ef3e883a5cec4290151218"
+    },
+    {
+      "path": "umf_access/postgres_read.py",
+      "sha256": "50e7b0f9a8ec26c0554bede488b478dbec8f10cb412c654b90fdb3708e6936be"
+    },
+    {
+      "path": "umf_access/postgres_search.py",
+      "sha256": "390ecf25d26398ea039acb12cf0f7c9fae601a9f1e7cf5b53f493bcfa8ae0b13"
+    },
+    {
+      "path": "umf_access/protocols.py",
+      "sha256": "356a5a26b2c98ff5fbfe468a8ed57f8f82db96348098b174ec6a6d3927d2db65"
+    },
+    {
+      "path": "umf_access/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "umf_access/reviewed.py",
+      "sha256": "287181e1a813d6f3384c739632a25a9b93829e9a6771317b9cc85383fed5e68f"
+    },
+    {
+      "path": "umf_access/search_catalog.py",
+      "sha256": "00b6f6694c5f356003fc767533816d7f2c290ccce180dc14a034addc466f45d2"
+    },
+    {
+      "path": "umf_access/targets.py",
+      "sha256": "d5c6a3ee7e6c9a137a44062388e7f3412cf40fd0801471158a4a1d862e9f5804"
+    },
+    {
+      "path": "umf_access/types.py",
+      "sha256": "f1abd5ad0b05e24ecc2e7465d98895e1b97cb9f76d3bd14b73f7aa51cd18cfff"
+    },
+    {
+      "path": "umf_access/values.py",
+      "sha256": "c8aab7363a09c38d77b8f60c2b97fa361fc4b80f522e9d1d3f7cbaaf32b5d848"
+    },
+    {
+      "path": "umf_access/build/__init__.py",
+      "sha256": "f2a7ac0078bc169c017a8b280d6ad7fc4f45ea043d25c987890ed015fae3db9c"
+    },
+    {
+      "path": "umf_access/build/catalog.py",
+      "sha256": "612e4e84f2bda31191e2bfe870e45c175fba76f248e84289fa57033a4e0c630d"
+    },
+    {
+      "path": "umf_access/build/commands.py",
+      "sha256": "9833242ae3341634264b2beaabc4da5548ddfc4766ba9562ffd86fcadc21b6d0"
+    },
+    {
+      "path": "umf_access/build/search.py",
+      "sha256": "40be7356948a9188889eac3fe8c65f3c349e1495da469559ac9a1efd92b56be7"
+    },
+    {
+      "path": "umf_access/dsl/__init__.py",
+      "sha256": "7f4f9c4cd8944f6ff7d7e40b8a7fd5d614b8463d9a22c653efa3a23c067c209d"
+    },
+    {
+      "path": "umf_access/dsl/_context.py",
+      "sha256": "a73451718cc072692ae821971e17e1ebd23eee98e1bca9401ba7b285b4fdf2d7"
+    },
+    {
+      "path": "umf_access/dsl/_expressions.py",
+      "sha256": "365c2cf83154a3f3280d8e8d800e492db9a63a7f1f9083521e6ffd06ab500071"
+    },
+    {
+      "path": "umf_access/dsl/_nodes.py",
+      "sha256": "302192557e741f616c92f7153f7e2bb799cc09051139bcdbd091f9e335e49be5"
+    },
+    {
+      "path": "umf_access/dsl/_query.py",
+      "sha256": "75f477f4c34ebf3b147529ed9d28fb97132d96b7ddab4811c234b2717c49d90f"
+    },
+    {
+      "path": "umf_access/dsl/render.py",
+      "sha256": "d8f6acad23d74765789c16bf5d976bf0f999874ffcbb8f1dbeb8547089163d12"
+    },
+    {
+      "path": "umf_access/dsl/search.py",
+      "sha256": "cb73c1f00ec684b4f560cb44d792bd19f8994eb7a15635dda93e16aa0d876aea"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "scope": "repository-only shared non-temporal read assertions against actual local native AshlarTarget; no managed/native-authority/staticnoexecutor/temporal closure",
+  "ashlarSourceBase": "3bfc5ba50c6ddf00abd82b332984d07cd0da9d52",
+  "harnessSha256": "5e64bef172d2583b24d87018004903b7d521beac37dd80040eca587201caffd0",
+  "sharedToolingSha256": {
+    "conformance/__init__.py": "32db864bb8e65374a805e59693fd4b128e97d4ac50e098048b32279271334f5b",
+    "conformance/reads.py": "d96e4d36e9855893a4d50d008e848c635c0a14c72c0e604ddd56b504d9d0d09c",
+    "conformance/README.md": "c3e5b34b3f863272f3739ffc255bbf21f438c3421776ca669e7f428fc0223091"
+  },
+  "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home SPARK_LOCAL_IP=127.0.0.1 /private/tmp/sdk-ashlar-shared-conformance-20261016/venv/bin/python tools/check_typed_sdk_native.py --output /private/tmp/sdk-ashlar-shared-conformance-20261016/native-r2 --generated /private/tmp/sdk-ashlar-shared-conformance-20261016/generated --model-request /Users/erik/.codex/worktrees/typed-sdk-recovery/umf/fixtures/access/native-actions/request.json --jars /private/tmp/sdk-delta4-jars --conformance-root /Users/erik/.codex/worktrees/typed-sdk-recovery/umf/python/umf_access",
+  "attempts": [
+    {
+      "id": "native-r1",
+      "exitCode": 1,
+      "status": "fixture classification failure",
+      "cause": "Repoint replacement table initially had only version0; original pinnedversion1 refused with AnalysisException before intended identity check. ExpectedResolutionError was wrong. Both native services stopped."
+    },
+    {
+      "id": "native-r2",
+      "exitCode": 0,
+      "status": "pass",
+      "checks": 18,
+      "sharedCases": 8,
+      "correction": "Replacement receives real metadata commit to make pinnedversion1 available; explicit different native UUID and version availability assertions; original held native policy then refuses UUID mismatch with exact PermissionError. No production changes/assertionbypass/budgetincrease."
+    }
+  ],
+  "temporal": "HELD"
+}
