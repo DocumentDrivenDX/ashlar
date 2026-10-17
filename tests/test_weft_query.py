@@ -38,9 +38,27 @@ class WeftQueryTests(unittest.TestCase):
     def read(self,q,a,p,e,policy):
         return read_weft(e,FakeBackend(),p,PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6)}),policy,request=q,artifact=a,context='authorized',supported_profiles=['ashlar-delta/0.3'],supported_revisions={'source':['r1']})
     def test_integrity_then_buffered_exact_rows_and_context_close(self):
-        q,a,p,e,policy=self.setup();rows=self.read(q,a,p,e,policy)
+        q,a,p,e,policy=self.setup()
+        events=[]
+        original_query=e.query
+        original_admit=policy.authorize_query
+        original_result=policy.authorize_result
+        def query(sql,parameters):
+            events.append(('sql',len(e.calls)))
+            return original_query(sql,parameters)
+        def admit(*args):
+            self.assertTrue(p.active)
+            events.append(('admit',len(e.calls)))
+            return original_admit(*args)
+        def authorize_result(*args):
+            self.assertTrue(p.active)
+            events.append(('result',len(e.calls)))
+            return original_result(*args)
+        e.query=query;policy.authorize_query=admit;policy.authorize_result=authorize_result
+        rows=self.read(q,a,p,e,policy)
         self.assertEqual(rows,(('updated',{'state':'value','value':'雪'}),));self.assertFalse(p.active)
-        self.assertEqual(policy.checks,2);self.assertEqual(len(e.calls),3)
+        self.assertEqual(policy.checks,3);self.assertEqual(len(e.calls),3)
+        self.assertEqual(events,[('admit',0),('sql',0),('sql',1),('sql',2),('admit',3),('result',3),('admit',3)])
         self.assertEqual(e.calls[0][1],e.calls[-1][1]);self.assertEqual(e.calls[-1][1]['p2'],'17')
     def test_unknown_obligation_profile_integrity_transport_and_closure_refuse(self):
         for failure in ['unknown','profile','integrity','transport','authority','closure']:
@@ -224,16 +242,17 @@ class WeftQueryTests(unittest.TestCase):
             q,a,p,e,policy=self.setup()
             guards=next(o for o in a['obligations'] if o['id']=='ashlar.candidate.scalarIntegrity')['parameters']['checks']
             guards[:]=[{'sql':guards[0]['sql'],'failureCode':'WFT-BINDING','record':guards[0]['record']}]
-            calls=[]
+            calls=[];phases=[]
             if outcome!='missing':
                 def admit(check,artifact,context):
-                    self.assertTrue(p.active);calls.append(check)
+                    self.assertTrue(p.active);calls.append(check);phases.append(len(e.calls))
                     if outcome=='deny':raise PermissionError('Record scope refused')
                     return True if outcome=='incomplete' else None
                 policy.admit_record_integrity=admit
             if outcome=='violation':e.violate=True
             if outcome=='admitted':
-                self.read(q,a,p,e,policy);self.assertEqual(len(calls),2);self.assertEqual(len(e.calls),2)
+                self.read(q,a,p,e,policy);self.assertEqual(len(calls),3);self.assertEqual(len(e.calls),2)
+                self.assertEqual(phases,[0,2,2])
             else:
                 with self.assertRaises((ResolutionError,PermissionError)):self.read(q,a,p,e,policy)
                 self.assertEqual(len(e.calls),1 if outcome=='violation' else 0)
@@ -265,3 +284,25 @@ class WeftQueryTests(unittest.TestCase):
             e.query=empty_query
             with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
             self.assertEqual(e.calls,[]);self.assertFalse(p.active)
+
+class FinalReleaseAuthorityControls(unittest.TestCase):
+    setup=WeftQueryTests.setup
+    read=WeftQueryTests.read
+    def test_authorize_result_cannot_revoke_profile_or_authority_then_release_buffer(self):
+        for failure in ('profile','authority'):
+            with self.subTest(failure=failure):
+                q,a,p,e,policy=self.setup()
+                phases=[]
+                def authorize_result(*args):
+                    self.assertTrue(p.active)
+                    self.assertEqual(policy.checks,2)
+                    self.assertEqual(len(e.calls),3)
+                    phases.append('result-authorized-then-revoked')
+                    if failure=='profile':policy.deny_profile=True
+                    else:policy.deny_after=True
+                policy.authorize_result=authorize_result
+                with self.assertRaises(PermissionError):self.read(q,a,p,e,policy)
+                self.assertEqual(phases,['result-authorized-then-revoked'])
+                self.assertEqual(len(e.calls),3)
+                self.assertEqual(policy.checks,2 if failure=='profile' else 3)
+                self.assertFalse(p.active)
