@@ -1,0 +1,22 @@
+{
+  "selected_capacity": {
+    "displayName": "Trial-20261011T210120Z-0HMuvlmMaE2maHCs3JKaNQ",
+    "id": "c69c0329-778f-4446-b529-d43358c73251",
+    "region": "West US 3",
+    "sku": "FTL4",
+    "state": "Active"
+  },
+  "workspace": {
+    "capacityAssignmentProgress": "Completed",
+    "capacityId": "c69c0329-778f-4446-b529-d43358c73251",
+    "capacityRegion": "West US 3",
+    "description": "Small synthetic Ashlar graph-release and GQL integration tests on free trial capacity.",
+    "displayName": "Ashlar Graph Integration",
+    "id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+    "oneLakeEndpoints": {
+      "blobEndpoint": "https://westus3-onelake.blob.fabric.microsoft.com",
+      "dfsEndpoint": "https://westus3-onelake.dfs.fabric.microsoft.com"
+    },
+    "type": "Workspace"
+  }
+}

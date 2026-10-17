@@ -1,0 +1,20 @@
+{
+  "active": [
+    {
+      "candidate": null,
+      "revision": 0,
+      "singleton": 1
+    }
+  ],
+  "admission_count": 0,
+  "candidates": [
+    {
+      "candidate": "f57c9fce-9756-4e20-ad5c-0fda9798172d",
+      "handle": null,
+      "model": null,
+      "state": "recorded"
+    }
+  ],
+  "first_load": [],
+  "qualification": "Read-only local journal observation after failed upload; no source/ACK/native/cloud authority"
+}

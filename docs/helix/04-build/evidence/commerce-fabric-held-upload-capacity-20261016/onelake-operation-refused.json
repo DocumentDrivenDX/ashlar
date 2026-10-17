@@ -1,0 +1,16 @@
+{
+  "body_base64": "eyJlcnJvciI6eyJjb2RlIjoiUmVqZWN0ZWREdWVUb1Jlc291cmNlQ29uc3RyYWludHMiLCJtZXNzYWdlIjoiVW5hYmxlIHRvIGNvbXBsZXRlIHRoZSBhY3Rpb24gYmVjYXVzZSB5b3VyIG9yZ2FuaXphdGlvbuKAmXMgRmFicmljIGNvbXB1dGUgY2FwYWNpdHkgaGFzIGV4Y2VlZGVkIGl0cyBsaW1pdHMuIFRyeSBhZ2FpbiBsYXRlci4ifX0=",
+  "body_bytes": 191,
+  "body_sha256": "fe75c38f148e72222bd67f80214e5b302a2c8b422a27df98ddbe39f839f3f3af",
+  "format": "ashlar-private-onelake-refusal/0.1",
+  "headers": [
+    [
+      "content-length",
+      "191"
+    ]
+  ],
+  "method": "PUT",
+  "path": "Tables/dbo/ashlar_held_f57c9fce97564e20ad5c0fda9798172d_nodes?resource=directory",
+  "qualification": "Original bounded credential-checked response; no retry or creation authority",
+  "status": 503
+}

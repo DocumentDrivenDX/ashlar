@@ -1,0 +1,23 @@
+{
+  "profile": "ashlar-original-commerce-export-configuration/0.1",
+  "publication": "/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7/publication",
+  "source": {
+    "host": "127.0.0.1",
+    "port": 25439,
+    "database": "truss_e2e",
+    "authentication": "isolated-loopback-trust",
+    "scope": {
+      "consumer": "private-commerce-current-1",
+      "epoch": "original-commerce-v1",
+      "feed": "private-original-commerce-fixture",
+      "installation_id": "b18fd2fc-12af-43c3-affa-96e7f56dc32d",
+      "scope_id": "b535046c-7977-4d8b-b1ee-b228a0b69868",
+      "service_schema": "ashlar_ack_service_current15_1"
+    },
+    "source_schema": "ashlar_ack_source_current15_1",
+    "source_signature_sha256": "7ff39b15a87ee5294ee4c659630a6dbe95fddc4c7fbe0bb28d57dacf46afdbef",
+    "writer_role": "ashlar_ack_writer_current15_1",
+    "reader_role": "ashlar_ack_reader_current15_1",
+    "ack_role": "ashlar_ack_role_current15_1"
+  }
+}

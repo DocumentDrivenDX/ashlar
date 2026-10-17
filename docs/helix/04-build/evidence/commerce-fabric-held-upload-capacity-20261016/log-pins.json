@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/private/tmp/ashlar-commerce-fabric-held-proof-b-20261016-g0vccgd7/evidence/stdout.log",
+    "bytes": 246,
+    "sha256": "f88968ac98c6fa4e002fc87c901886f52343d6acdfe7835dedfce9325fad8eab"
+  },
+  {
+    "path": "/private/tmp/ashlar-commerce-fabric-held-proof-b-20261016-g0vccgd7/evidence/stderr.log",
+    "bytes": 8223,
+    "sha256": "7b66141706ddab82af565496ac9c49e1994825208dd2d5252db7b8dbaea759f3"
+  }
+]

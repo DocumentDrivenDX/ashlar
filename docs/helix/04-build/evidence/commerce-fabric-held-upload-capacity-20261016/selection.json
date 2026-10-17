@@ -1,0 +1,31 @@
+{
+  "candidate": "f57c9fce-9756-4e20-ad5c-0fda9798172d",
+  "configuration": {
+    "display_name": "Ashlar_Held_Commerce_f57c9fce97564e20ad5c0fda9798172d",
+    "edge_projection": "/private/tmp/ashlar-commerce-fabric-native-20261016-a/edges",
+    "edge_table": "Tables/dbo/ashlar_held_f57c9fce97564e20ad5c0fda9798172d_edges",
+    "node_projection": "/private/tmp/ashlar-commerce-fabric-native-20261016-a/nodes",
+    "node_table": "Tables/dbo/ashlar_held_f57c9fce97564e20ad5c0fda9798172d_nodes",
+    "ownership_profile": "private-cooperative-sole-creator/0.1",
+    "upload": {
+      "authentication": {
+        "account_id": "ea295b81-083f-44a4-88b2-28ea3297dde9",
+        "account_user": "erik.labianca@synaptiq.ai",
+        "auth_timeout_seconds": 15,
+        "azure_cli": "/opt/homebrew/Cellar/azure-cli/2.90.0/bin/az",
+        "azure_config_dir": "/Users/erik/.azure",
+        "deadline_seconds": 60,
+        "maximum_auth_output_bytes": 65536,
+        "maximum_request_bytes": 65536,
+        "maximum_requests": 32,
+        "maximum_response_bytes": 1048576,
+        "maximum_total_bytes": 8388608,
+        "tenant_id": "e64e5956-f78c-4332-913c-b08dc07f58f8",
+        "workspace_id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793"
+      },
+      "lakehouse_id": "ee66f2e8-9072-4a48-8364-ecd2f2967c3e",
+      "maximum_file_bytes": 1048576,
+      "maximum_table_bytes": 8388608
+    }
+  }
+}
