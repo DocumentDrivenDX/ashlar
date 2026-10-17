@@ -1,0 +1,27 @@
+{
+  "source_commit": "3410b9f8e2fe850a4714d7f9907edd75525e17e0",
+  "wheel_sha256": "ef48fbbd673ecb8282d867d1b1db6258e16200efb207a9f266ec46b0a8f2ed22",
+  "python": "Python 3.11.17",
+  "isolated_outside_checkout": true,
+  "dependencies_installed": false,
+  "help_exit": 0,
+  "invalid_configuration_exit": 2,
+  "invalid_configuration_stdout": "",
+  "invalid_configuration_stderr": "ashlar managed singleton read refused\n",
+  "native_services_started": false,
+  "valid_invocation_missing_originals": {
+    "exit": 2,
+    "stdout_bytes": 0,
+    "stderr": "ashlar managed singleton read refused\n",
+    "output_files": [
+      "evidence",
+      "failure.json"
+    ],
+    "failure_mode": "0o600",
+    "failure_status": "refused",
+    "report_present": false
+  },
+  "qualification": "Fresh offline installed CLI dispatch, supervised child imports and missing-original-input refusal only; not successful managed publication, credential, SQL, PostgreSQL, UMF producer or source/ACK qualification.",
+  "first_missing_authority_boundary": "Original journal .native-csv-stream-lock identity, before installation read or SQL/PG/producer acquisition.",
+  "independent_review": "Installed worker/config/selection/process capture bytes match wheel and immutable source; failure receipt and owner acquisition order independently checked."
+}
