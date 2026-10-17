@@ -1372,7 +1372,7 @@ class NativeDriver:
                 or self.held or self.pin_held or getattr(self,'_original_medical_read_binding',None)is not None
                 or getattr(self,'_original_medical_publication_binding',None)is not None):
             raise PermissionError('Fresh exact medical read binding required')
-        bounds.__post_init__();plan.require_admission(self.source_admission);view=plan.snapshot()
+        bounds.__post_init__();view=plan.validated_snapshot(self.source_admission)
         if (self.tables!=view['tables'] or set(self.transport.targets)!=set(view['tables'].values())
                 or any(not original_native_equal(self.policy.active.get(k),view[v])for k,v in [('request','request'),('expected','expected'),('publication_id','publication_id'),('progress','progress'),('previous_progress','previous_progress'),('previous_expected','previous_expected')])
                 or encoded(self.columns)!=encoded(view['columns'])):
@@ -1384,7 +1384,7 @@ class NativeDriver:
             targets=tuple((t.table,str(t.path),t.uuid)for t in self.transport.targets.values())))
         from .medical_read_observation import MedicalReadObservation
         def renew():
-            self._require_original_medical_read_binding();self.require(self.context)
+            self.require(self.context)
             binding,_=self._require_original_medical_read_binding()
             binding['context_renewal'].renew(None,self.context)
         self._original_medical_read_observation=MedicalReadObservation(plan,self.transport,bounds,self.query_source_factory,
@@ -1393,8 +1393,8 @@ class NativeDriver:
 
     def _require_original_medical_read_binding(self):
         from dataclasses import asdict
-        binding=self._original_medical_read_binding;binding['plan'].require_admission(self.source_admission)
-        view=binding['plan'].snapshot()
+        binding=self._original_medical_read_binding
+        view=binding['plan'].validated_snapshot(self.source_admission)
         if (self.transport is not binding['transport'] or self.policy is not binding['policy']
                 or self.source_admission is not binding['admission'] or self.query_source_factory is not binding['factory']
                 or self.source_sessions is not binding['source'] or self.source_sessions.policy is not binding['source_policy']

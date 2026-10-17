@@ -81,10 +81,34 @@ class Tests(unittest.TestCase):
         d.policy=MedicalReadPolicy(d.context,tuple(self.transport.targets.values()),active,lambda:None)
         r=self.factory.registration;d.scope_ports={r.source.scope.feed:{'scope':r.source.scope,'source':r.source.source_schema,'signature':r.source.source_signature_sha256,'reader':r.source_role,'role':r.ack_role}}
         with self.assertRaises(PermissionError):d.bind_original_medical_read(self.plan,self.bounds)
-        d.bind_query_sources(self.factory);d.bind_original_medical_read(self.plan,self.bounds)
+        d.bind_query_sources(self.factory)
+        from ashlar_host.medical_publication_plan import MedicalPublicationPlan
+        with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+            d.bind_original_medical_read(self.plan,self.bounds)
+            self.assertEqual(build.call_count,1)
         with self.assertRaises(PermissionError):d.bind_original_medical_read(self.plan,self.bounds)
+        with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+            with self.assertRaises(PermissionError):d._original_medical_read_observation.renew()
+            self.assertEqual(build.call_count,0) # Held context refuses before expensive admission.
         with d.query_read_interval(d.context):
             d.pin_held=True
+            with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+                d._require_original_medical_read_binding()
+                self.assertEqual(build.call_count,1)
+            with patch.object(d,'_require_original_medical_read_binding',wraps=d._require_original_medical_read_binding)as require_binding,patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+                d._original_medical_read_observation.renew()
+                self.assertEqual(require_binding.call_count,1)
+                self.assertEqual(build.call_count,1)
+            original_admission=d.source_admission
+            d.source_admission=object()
+            try:
+                with self.assertRaises(PermissionError):d._require_original_medical_read_binding()
+            finally:d.source_admission=original_admission
+            source_file=original_admission.files[0].path;original_bytes=source_file.read_bytes()
+            try:
+                source_file.write_bytes(original_bytes+b' ')
+                with self.assertRaises((ValueError,PermissionError)):d._require_original_medical_read_binding()
+            finally:source_file.write_bytes(original_bytes)
             d.inspect_snapshot(self.view['tables']['object_current'],2)
             with self.assertRaises(PermissionError):d.inspect_snapshot(self.view['tables']['edge_current'],1)
             d.policy.active['request']=dict(self.view['request'],request_digest='b'*64)
