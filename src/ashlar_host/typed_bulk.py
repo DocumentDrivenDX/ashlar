@@ -14,7 +14,7 @@ from typing import Any,Annotated,cast
 import hashlib,json
 from pydantic import TypeAdapter
 from umf_access.bulk import AtomicBulkPlan,BulkPreview,BulkOutcome
-from umf_access.protocols import Receipt,NativeOutcomeDetails,ActionRefused,ActionDenied,ActionFailed
+from umf_access.protocols import Receipt,NativeOutcomeDetails,ActionRefused,ActionDenied,ActionFailed,ActionConflict,ActionIndeterminate,ActionTimedOut
 from umf_access.native_actions import NativeScope,native_input_value,_literal
 from umf_access.native_program import NativeProgram,canonical_json
 from umf_access.adoption import TargetIdentity
