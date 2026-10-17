@@ -1,0 +1,6 @@
+{
+  "check": "pgrep -f org.apache.spark.deploy.SparkSubmit",
+  "exit_code": 1,
+  "stdout_bytes": 0,
+  "qualification": "No matching SparkSubmit process at this observation; actual command owners separately closed and reaped their process groups."
+}

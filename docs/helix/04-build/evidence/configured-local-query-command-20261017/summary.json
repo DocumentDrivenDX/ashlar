@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "completed_batches": 3,
+      "elapsed_seconds": 37.82635045889765,
+      "guard_count": 2,
+      "local_checkpoint": "1828",
+      "name": "current-count",
+      "ordinal": 3,
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d",
+      "rows": [
+        [
+          "1"
+        ]
+      ],
+      "status": "complete"
+    },
+    {
+      "completed_batches": 3,
+      "elapsed_seconds": 29.410640791989863,
+      "guard_count": 1,
+      "local_checkpoint": "1828",
+      "name": "old-projection",
+      "ordinal": 1,
+      "publication_id": "local-configured-jsonl-76efaeda5c014fb7f697ef9edf3db3e433c7b42abe0c64b3f078a4fc6d2621c6",
+      "rows": [
+        [
+          "first",
+          "first"
+        ],
+        [
+          "second",
+          "second"
+        ]
+      ],
+      "status": "complete"
+    }
+  ],
+  "scope": "Two actual installed CLI invocations through parent/worker and complete source/native/Spark closing. No hook, ingestion, checkpoint advancement, protected ACK or Databricks compute.",
+  "status": "complete",
+  "unchanged_log_registry_and_journal": true,
+  "implementation_commit": "ca836c6494730497b3c18d4d3c0b07d5fd026b8f",
+  "journal_counts": {
+    "jsonl_consumer_progress": 3,
+    "local_operation": 26,
+    "local_plan": 3
+  },
+  "query_cli_qualified": true,
+  "protected_ack": false
+}
