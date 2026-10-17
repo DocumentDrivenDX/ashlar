@@ -1,0 +1,181 @@
+{
+  "format": "lossless-gzip-mtime0",
+  "streams": [
+    {
+      "bytes": 2724,
+      "file": "current-local-baseline.json.gz",
+      "gzip_bytes": 775,
+      "gzip_sha256": "01d65bf94280536c657242f1128afad3f576680a20933e1c4d2fc11da4883808",
+      "origin": "/private/tmp/ashlar-evolution-installed-native-20261011-f/installation",
+      "sha256": "ee572c306445212414ec32fee619a736df80c2783ac74dad1ff3602d9a732d16"
+    },
+    {
+      "bytes": 7632,
+      "file": "archive-payload-comparison.json.gz",
+      "gzip_bytes": 1190,
+      "gzip_sha256": "f360f0051ac274a34d1d7a47bac24ed9ced009645c5b8fdbc27099ff8508e450",
+      "origin": "Read-only bounded G/L/N tar member inventory and original payload hashes; no extraction/restoration",
+      "sha256": "d87c0a5fcd69ac4bc989b1a02c165f46c6ee13c81da5cd62d63b1dda84ae23e0"
+    },
+    {
+      "bytes": 1662,
+      "file": "service-down.json.gz",
+      "gzip_bytes": 371,
+      "gzip_sha256": "8036e27f5e24cfc2363b82dead492bf559588cb27ec27e8490fa0d3eb57ce133",
+      "origin": "/private/tmp/ashlar-combined-service-probe-20261017/result.json",
+      "sha256": "977f0a38b57807503527f8f008f1d5cc1e782190f160e9481184001f4ac347f8"
+    },
+    {
+      "bytes": 2892,
+      "file": "service-restored-readonly.json.gz",
+      "gzip_bytes": 579,
+      "gzip_sha256": "c7e8b2c55ab81742ba30dc64a63bc8540c942c6541f7f7dadcf4fe07a169dfe5",
+      "origin": "/private/tmp/ashlar-combined-service-probe-restored-20261017/result.json",
+      "sha256": "0cf02a309a630fb51a8428dbf65b552c2b51ef5c9cf1aa6450a0567e2f359f21"
+    },
+    {
+      "bytes": 4287,
+      "file": "service-protected-observe.json.gz",
+      "gzip_bytes": 1005,
+      "gzip_sha256": "0eda0dcdfa977a5e21c9c845321362f330f0e071f055851fec67588f0ca3b2d8",
+      "origin": "/private/tmp/ashlar-combined-service-locked-observe-20261017/result.json",
+      "sha256": "fa9649b6d4b87edf8b215f6dc5230b7216ff598c011b5a9e669228ed14792faa"
+    },
+    {
+      "bytes": 516,
+      "file": "bun-retrieval.json.gz",
+      "gzip_bytes": 339,
+      "gzip_sha256": "2e5075665ead2579623de4df2e865a32452babc7348d3b3aae5c7b1c3f73246c",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/retrieval.json",
+      "sha256": "273f4c1dbcd908fde58d603d7083fb3fd2d451bcafbef748199c8d8c8f74cd4f"
+    },
+    {
+      "bytes": 696,
+      "file": "bun-homebrew-cache-observation.json.gz",
+      "gzip_bytes": 366,
+      "gzip_sha256": "b19ae51c71494c9fd80836b8d32313d2351264162eefa0e4933df42bad68f04d",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/homebrew-cache-observation.json",
+      "sha256": "67e472c797f66e1bfb01e3a848add83ee53efffe05063cb29f0f45e2a14a5809"
+    },
+    {
+      "bytes": 16766,
+      "file": "bun-ghcr-manifest.json.gz",
+      "gzip_bytes": 2473,
+      "gzip_sha256": "69e8d822ceb4fb31a6e944dc57bce3b741135704e23e4001017c172433dfbeb3",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/ghcr-manifest.json",
+      "sha256": "a2328ef435ee303320659aa5e797cb54817bbcb370ed9b3f189435f0478c7078"
+    },
+    {
+      "bytes": 2616,
+      "file": "bun-ghcr-selected.json.gz",
+      "gzip_bytes": 1134,
+      "gzip_sha256": "2f23569034dde5e74f89e991f2873e634432b59c4a22562452c402a7d99bb7b7",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/ghcr-selected.json",
+      "sha256": "b44318641ea056fd47f9ba6f1d9f462f6167648e16f7b531cd8c93b965bf5630"
+    },
+    {
+      "bytes": 3867,
+      "file": "bun-ghcr-bottle-manifest.json.gz",
+      "gzip_bytes": 1401,
+      "gzip_sha256": "89186bf40d695319a51a54cfd8767bd14f3c0ad669d38928bd790e106ccca6c5",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/ghcr-bottle-manifest.json",
+      "sha256": "973f87ea9ecc6c61c543d126258c6e0039c31bd0520e597f39b5f8d93607b91f"
+    },
+    {
+      "bytes": 402,
+      "file": "bun-bottle-verification.json.gz",
+      "gzip_bytes": 226,
+      "gzip_sha256": "902ccd069f2fd1467955c1e6ea159e6a3348d4ab716f8bf3b18babe178b14af3",
+      "origin": "/private/tmp/ashlar-bun-1.4.2-original-20261017/bottle-verification.json",
+      "sha256": "0e3760c8bec06aa4f1933cc8e2bdd9f4b5a4b262e9c964615d8f9ec9b2cbea4c"
+    },
+    {
+      "bytes": 105,
+      "file": "continuation-resume-terminal.json.gz",
+      "gzip_bytes": 99,
+      "gzip_sha256": "2178eab3e0d1e8d303f5fbecfc2ce59944a6d0c800a30d299dc0a2b9db17ab82",
+      "origin": "/private/tmp/ashlar-combined-current-20261017-e_7rpgcr/resume-terminal.json",
+      "sha256": "7da7126b92e98ac1bd2f3f0f1dd12f744f375fc597541685f81f474767edc298"
+    },
+    {
+      "bytes": 30,
+      "file": "continuation-owned-session.json.gz",
+      "gzip_bytes": 50,
+      "gzip_sha256": "8593ba284f23a11266fcbd2c03efbfe45f1bfc40f2bdfb97e2035a920ad3b62e",
+      "origin": "/private/tmp/ashlar-combined-current-20261017-e_7rpgcr/owned-session.json",
+      "sha256": "e6a42188c157b712c71627ae58efea422f79846a4659f381ead870397062f96d"
+    },
+    {
+      "bytes": 147,
+      "file": "continuation-provider-stages.jsonl.gz",
+      "gzip_bytes": 112,
+      "gzip_sha256": "78d7ce239cfacdf15210c0dece6e5b9fd766fae53733f60c910c2a18a176afae",
+      "origin": "/private/tmp/ashlar-combined-current-20261017-e_7rpgcr/provider-stages.jsonl",
+      "sha256": "9a4b3d77184f2d27b5c61e6f2429da64cde923ef53427022855dffd8429b815e"
+    },
+    {
+      "bytes": 0,
+      "file": "continuation-resume.stdout.gz",
+      "gzip_bytes": 20,
+      "gzip_sha256": "f1b651238a58fe290baec6c5e32f3bdb1943dd2bd582f02569231f7a757c7837",
+      "origin": "/private/tmp/ashlar-combined-current-20261017-e_7rpgcr/resume.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 34,
+      "file": "continuation-resume.stderr.gz",
+      "gzip_bytes": 54,
+      "gzip_sha256": "53717cd13b4470a9100c718bd56527e604146b582818277f92fe87fbbb5876ce",
+      "origin": "/private/tmp/ashlar-combined-current-20261017-e_7rpgcr/resume.stderr",
+      "sha256": "729c7521cb3037eb21b2406404b141d0a576a78ffe7f660bbb47fcc81869113e"
+    },
+    {
+      "bytes": 5559,
+      "file": "reservation-restore.py.gz",
+      "gzip_bytes": 2309,
+      "gzip_sha256": "6d3b00e1e436fdb31e12ffec5d41e38f07ed00138a8fa23e34cf31c952959982",
+      "origin": "/private/tmp/ashlar-combined-reservation-restore-20261017/restore.py",
+      "sha256": "cc728df24fbf79e8003ef7590b2299d81222dd9c7a0fcbea50d6eb6001c5baa6"
+    },
+    {
+      "bytes": 408,
+      "file": "reservation-result.json.gz",
+      "gzip_bytes": 290,
+      "gzip_sha256": "9d86192d87ef2d506d0f00fe27abf643f1b3d7e1ba3265d131670a42b09456c1",
+      "origin": "/private/tmp/ashlar-combined-reservation-restore-20261017/result.json",
+      "sha256": "fe2cc7dfc0e0fa8049aaedd4bdc90f6572df42dfb0e0842aa7fd06025cb9318a"
+    },
+    {
+      "bytes": 2090,
+      "file": "private-operator-references.json.gz",
+      "gzip_bytes": 647,
+      "gzip_sha256": "4cb222781f3dc95b3fd84e4df3ef646efbd170b3bd1ed9cb0ecd0decf7099de4",
+      "origin": "Hash references only; no configuration/environment/DSNs retained",
+      "sha256": "bae3fad25a52fe7356d41942443cb5147705f01334d8c164f9d8499e39a12433"
+    },
+    {
+      "bytes": 414,
+      "file": "parent-terminal-attribution.json.gz",
+      "gzip_bytes": 296,
+      "gzip_sha256": "8e44dad0cd782bda52038a28a447f07f0d84b39faa7596ede4b7540f2d2a1e64",
+      "origin": "Parent /root messages",
+      "sha256": "2662c6b4b0da94d51b38f3dd92ce7067d65544e59a6751f0d1e7227b5156809c"
+    },
+    {
+      "bytes": 1033,
+      "file": "ashlar-combined-recovery-container-20261017.json.gz",
+      "gzip_bytes": 557,
+      "gzip_sha256": "7c42e41cd219102a18a16fb40cef1a64beab5e4eb2edfcc3298cfb8081eaaf79",
+      "origin": "/private/tmp/ashlar-combined-recovery-container-20261017.json",
+      "sha256": "bfbb5dac3be25867a6c8a31f4d34b10464ee9a3cb1e411d84f2aae3553423053"
+    },
+    {
+      "bytes": 998,
+      "file": "ashlar-combined-recovery-operator-observations-20261017.json.gz",
+      "gzip_bytes": 551,
+      "gzip_sha256": "16642769b17eaf2a395d5b1f5079d69426d14b63c7bf8bf4d41d860390371165",
+      "origin": "/private/tmp/ashlar-combined-recovery-operator-observations-20261017.json",
+      "sha256": "11518e2fece283e4d6e950c771aced3d31d502b105abe85a63e24e5d74ddb251"
+    }
+  ]
+}
