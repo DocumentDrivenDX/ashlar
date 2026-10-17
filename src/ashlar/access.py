@@ -166,6 +166,7 @@ class AshlarTarget:
         v=self.vector
         context=canonical_json({'authority':v.authority,'scopeKind':v.scope_kind,'scopeId':v.scope_id,'custodyDigest':v.custody_digest,'targets':{name:list(pair)for name,pair in v.targets.items()}})
         version,profile=('0.1.0-qualified','dbsql2026.39-qualified') if self.compiler_method=='registered' else ('0.1.0-local-spark4-candidate','spark4.0.1-delta4.0.0-candidate')
+        if self.compiler_method=='ashlar-spark4-fields':version,profile='0.1.0-local-spark4-fields-candidate','spark4.0.1-delta4.0.0-fields-candidate'
         if self.compiler_method=='ashlar-dbsql-20261016':version,profile='0.1.0-managed-20261016-candidate','dbsql2026.39-build-20261016-candidate'
         if self.native_target_json is not None:
             original=program_json(self.native_target_json);version,profile=original['backendVersion'],original['targetProfile']

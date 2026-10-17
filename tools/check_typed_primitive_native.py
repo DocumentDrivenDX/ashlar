@@ -330,7 +330,7 @@ if args.prepare_only:
                 "status": "pass",
                 "nativeExecuted": False,
                 "originalFieldPrograms": 5,
-                "scope": "Actual source/intake/Record/instance/owner compiler and exact descriptor controls; compiler-only physical declarations are NOT native identities or authority",
+                "scope": "Actual source/intake/Field/instance/owner compiler controls with unchanged incomplete Record observations; compiler-only physical declarations are NOT native identities or authority",
                 "temporal": "HELD",
             },
             indent=2,
@@ -978,6 +978,7 @@ try:
     selected = config["targets"][0]
     selected["engineCompiler"] = "ashlar-spark4-fields"
     selected["backendVersion"] = "0.1.0-local-spark4-fields-candidate"
+    selected["targetProfile"] = "spark4.0.1-delta4.0.0-fields-candidate"
     selected["binding"]["modelJson"] = model
     selected["binding"]["modelSha256"] = source_sha
     for logical_table in selected["binding"]["tables"]:
