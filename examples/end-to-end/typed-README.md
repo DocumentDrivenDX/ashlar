@@ -34,4 +34,11 @@ Retained output includes the original public UMF receipt, request, SQL, DuckDB
 file, native queries/readbacks and summary. Output must be a fresh directory.
 This is a local DuckDB screening profile, not Unity Catalog Delta deployment,
 Weft numeric field qualification, source ACK, immutable publication or production
-writer authority. Native Delta and Weft integration remain separate required work.
+writer authority.
+
+For publication and raw singleton reads, use the [installed local Delta
+workflow](../configured-local/README.md#use-an-authored-typed-source) with
+`configured-typed-source.json` and a separate fresh installation. It validates
+complete carried Record payloads on deletes before applying core deletion
+semantics. Typed Weft queries require separate admission; the configured
+STRING-only query profile refuses this source.

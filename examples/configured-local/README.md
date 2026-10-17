@@ -50,9 +50,27 @@ consumer progress, **not protected source ACKs**.
 
 This profile relies on an exclusive cooperating local installation lease and
 owned local files. It does not qualify Unity Catalog, production remote writer
-fencing, general typed records, or PostgreSQL/Truss ACK authority. Preserve the
+fencing, arbitrary typed models, or PostgreSQL/Truss ACK authority. Preserve the
 original artifacts when an operation refuses; partial native work may require
 recovery through its retained original operation handles.
+
+## Use an authored typed source
+
+Select [configured-typed-source.json](../end-to-end/configured-typed-source.json)
+in `source_configuration` for a separate fresh installation. Keep its original
+core 0.8 model, complete source events and explicit development bindings unchanged.
+The same initialize/publish/replay/read commands apply; its admitted type ID is
+`17`, with object IDs `1` and `2`. The closed `ashlar-jsonl-typed-source/0.1`
+profile pins all three input files and the public UMF producer revision.
+
+Fresh public Record validation checks each complete carried value, including
+payloads on delete events, before planning or Spark setup. Canonical properties
+retain integer and decimal lexical tokens, booleans and absent/null/value states.
+Host references are limited to 256 KiB each, the model to 64 KiB and complete
+source groups to four. Empty delete payloads, dataset keys and relationships need
+separate admission. Development IDs establish no native catalog or protected
+source authority. This typed profile supports publication and raw singleton
+reads; the STRING-only Weft query profile below refuses typed sources.
 
 ## Read a retained publication
 
