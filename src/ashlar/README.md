@@ -130,6 +130,25 @@ defines the exact configuration, authority and failure requirements.
 
 ## Read an existing managed publication
 
+Before database setup, validate an original configured JSONL source with the
+public UMF Record validator:
+
+```sh
+python -m ashlar validate-configured-source \
+  --configuration /absolute/configured-source.json \
+  --producer-source /absolute/clean-umf-c45 --bun /absolute/bun --git /absolute/git \
+  --output /absolute/fresh-admission \
+  --producer-timeout-seconds 30 --producer-maximum-output-bytes 1048576 \
+  --producer-maximum-receipt-bytes 1048576 --maximum-receipt-bytes 1048576
+```
+
+Select clean UMF revision `c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3`
+and absolute executable paths. The command preserves original model/source
+bytes and retains private validation receipts. Success admits the finite source
+records; it does not create tables, publish a graph or advance source ACKs.
+Use a fresh output inside an existing directory owned by you with no group or
+world write permissions. Keep output outside the selected producer checkout.
+
 Use `python -m ashlar read-managed-singleton --configuration /absolute/read.json`
 with the [explicit managed-reader configuration](../../examples/managed-singleton/README.md).
 The installed command retains original publication/source custody and uses

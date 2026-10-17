@@ -57,6 +57,11 @@ def main():
         csv.add_argument('--'+name,required=True)
     configured=commands.add_parser('inspect-configured-source',help='Inspect pinned model/ID/source configuration and local replay; no database I/O')
     configured.add_argument('configuration')
+    admission=commands.add_parser('validate-configured-source',help='Validate original configured source records with UMF before database setup; no publication or ACK')
+    for option in ('configuration','producer-source','bun','git','output'):
+        admission.add_argument('--'+option,required=True)
+    for option in ('producer-timeout-seconds','producer-maximum-output-bytes','producer-maximum-receipt-bytes','maximum-receipt-bytes'):
+        admission.add_argument('--'+option,required=True,type=int)
     commerce=commands.add_parser('commerce-source',help='Build an exact original commerce candidate with development bindings')
     for name in ('ontology','graph','output'):
         commerce.add_argument('--'+name,required=True)
@@ -354,6 +359,22 @@ def main():
     managed=commands.add_parser('read-managed-singleton',help='Read one object from an existing configured-JSONL managed publication on dedicated compute')
     managed.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'validate-configured-source':
+        from pathlib import Path
+        from ashlar_host.config import ProducerConfig
+        from ashlar_host.configured_source_admission import ConfiguredSourceAdmissionConfig,validate_configured_source
+        try:
+            config=ConfiguredSourceAdmissionConfig(
+                configuration=Path(args.configuration),
+                producer=ProducerConfig(Path(args.producer_source),Path(args.bun),Path(args.git),
+                    args.producer_timeout_seconds,args.producer_maximum_output_bytes,args.producer_maximum_receipt_bytes),
+                output=Path(args.output),maximum_receipt_bytes=args.maximum_receipt_bytes)
+            answer=validate_configured_source(config)
+            print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
+        except Exception:
+            print('ashlar configured source validation refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'read-managed-singleton':
         from pathlib import Path
         from ashlar_host.managed_singleton_cli import run_managed_singleton_command
