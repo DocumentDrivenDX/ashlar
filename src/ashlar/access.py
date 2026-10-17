@@ -10,6 +10,7 @@ import hashlib
 from collections.abc import Callable, Generator
 from contextlib import AbstractContextManager
 from datetime import timedelta
+from dataclasses import replace
 from decimal import Decimal
 from time import monotonic
 from types import MappingProxyType
@@ -247,15 +248,36 @@ class AshlarTarget:
             result=ReadPage(tuple(policy.validated[:size]),next_after)
         if monotonic()>=until:raise TimeoutError('Ashlar deadline expired during final page release')
         return result
+    def _stream_page_entry(self,entry:CatalogRead[P,R],page_size:int)->EngineRead[P,R]:
+        """Ask the original compiler for a smaller page; never edit native SQL."""
+        if type(page_size)is not int or not 1<=page_size<=999:
+            raise ValueError('Positive bounded original stream page_size required')
+        if not isinstance(entry,EngineRead):
+            raise ResolutionError('Original engine page catalog required')
+        program=entry.artifact()
+        if program['version']!='weft.engine-page/0.1' or program['compiler']!=self.compiler_method:
+            raise ResolutionError('Original Ashlar page compiler required')
+        if page_size>program['pageSize']:
+            raise ValueError('Stream page_size exceeds the authored original maximum')
+        if page_size==program['pageSize']:
+            return entry
+        related=program.get('relatedRequest')
+        method='compile_engine_related_page_json' if related is not None else 'compile_engine_page_json'
+        if not callable(getattr(self.compiler,method,None)):
+            raise ReadObligationUnmet('STREAM_PAGE_SIZE_UNSUPPORTED: original page compiler required')
+        navigation={} if related is None else {
+            'related_source':related['source'],
+            'relationship':related['relationship'],
+        }
+        compiled=EngineRead.build(self.compiler,program['request'],parameters=entry.parameters,
+            result=entry.result,method=self.compiler_method,page_size=page_size,**navigation)
+        # Host page admission still sees the untouched original derived artifact.
+        # Keep the caller's original opaque catalog context in cursor custody.
+        return replace(compiled,expected_source=entry.expected_source,context_json=entry.context_json)
     def stream(self,entry:CatalogRead[P,R],parameters:P,*,max_rows:int,page_size:int|None=None,timeout:timedelta|None=None)->Generator[R,None,None]:
         if type(max_rows)is not int or max_rows<1:raise ValueError('Positive explicit stream row bound required')
         if page_size is not None:
-            if type(page_size)is not int or not 1<=page_size<=1000:raise ValueError('Positive bounded stream page_size required')
-            if not isinstance(entry,EngineRead):raise ResolutionError('Original engine page catalog required')
-            # The original engine program has a fixed lookahead fetch bound.
-            # Replacing its authored page size would change compiler custody.
-            if page_size!=entry.artifact().get('pageSize'):
-                raise ReadObligationUnmet('STREAM_PAGE_SIZE_UNSUPPORTED: original fixed Ashlar page bound differs')
+            entry=self._stream_page_entry(entry,page_size)
         checked=revalidate_model(entry.parameters,parameters)
         after=None;emitted=0
         while emitted<max_rows:

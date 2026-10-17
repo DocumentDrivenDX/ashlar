@@ -1,0 +1,16 @@
+{
+  "status": "SOURCE_PRECURSOR_NATIVE_QUALIFICATION_PENDING",
+  "temporal": "HELD",
+  "ashlarBase": "c6e5c5596b9b4bac1bacd0f61aa34f911a964e88",
+  "weftSource": "5605d358650468d651f69ff29c40e986a0359a5b",
+  "weftWheelSha256": "f92e23d68afc6619e41e76f19e8760871eb86fe1ad1bf44de66c47c27ca48dc8",
+  "nativeExtensionSha256": "3ca29741b86eb6ce26187fede41e754dbd15e4db8abc7f556ff0a1d5d60dcc95",
+  "tests": 4,
+  "nativeDataJobs": false,
+  "sourceFiles": {
+    "src/ashlar/access.py": "57bd93d864b62bfe18f0725ce094c9c469bfc9f81079f833e94d8d929bb6ae6a",
+    "scripts/check-typed-sdk-boundaries.py": "beac5c076d78a94ed98417d7d994793e4c2790ec61d8f38104fdc089ef4e64f7",
+    "tests/test_sdk_stream_page_size.py": "a7a1dd0e5aeb35a35f004e289a266c1419dfef84420db765a0554d082d72576a",
+    "docs/helix/02-design/contracts/typed-sdk-adoption.md": "3718a8d65966071e0839c15580c8baaa01318a202e7dbbc4fedc425bdcdd0777"
+  }
+}

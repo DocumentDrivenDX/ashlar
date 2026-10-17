@@ -74,10 +74,14 @@ sets `truncated=True`; an exact page boundary with a continuation sets
 `truncated=None`. Closing the iterator releases its current page and does not
 fetch another page. Empty pages with continuations refuse as non-progress.
 
-The optional `page_size` may retain the original engine program's fixed size.
-A different override refuses as `STREAM_PAGE_SIZE_UNSUPPORTED`; the adapter does
-not rewrite the compiler's SQL, lookahead bound or correspondence packet. Async
-adoption remains open.
+The optional `page_size` is positive and cannot exceed the original authored
+page bound. A smaller size is compiled through the original engine page API from
+the exact original request, source/navigation packet and result model. The
+adapter retains the original opaque catalog context and rechecks every derived
+page through the original checker and held host admission. It never edits SQL,
+lookahead metadata or compiler digests. A missing original page compiler refuses
+as `STREAM_PAGE_SIZE_UNSUPPORTED`. Timeout remains per page. Async adoption
+remains open.
 
 ## Error Semantics
 
