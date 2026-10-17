@@ -47,6 +47,19 @@ def _freeze(value):
         return tuple(_freeze(v) for v in value)
     return value
 
+def descriptor_from_manifest_row(row):
+    """Decode a retained manifest row without granting native read authority.
+
+    Resolution, protocol, retention and current owner admission remain separate.
+    """
+    from .manifest import validate_manifest_row
+    validate_manifest_row(row)
+    return Descriptor(row['publication_id'],row['profile_version'],
+        _freeze(_decode(row['table_versions_json'])),
+        _freeze(_decode(row['schema_revisions_json'])),
+        _freeze(_decode(row['source_progress_json'])),
+        _freeze(_decode(row['validation_report_json'])),_freeze(dict(row)))
+
 @dataclass(frozen=True)
 class Descriptor:
     publication_id: str

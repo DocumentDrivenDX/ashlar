@@ -3,8 +3,7 @@ import hashlib,json,sqlite3,tempfile,unittest
 from pathlib import Path
 from dataclasses import replace
 import test_journaled_csv_progress as csv_fixture
-from journaled_jsonl_progress import JournaledJsonlProgress
-from journaled_file_progress import LocalProgressOutcomeUnknown
+from ashlar_host.file_progress import JournaledJsonlProgress,LocalProgressOutcomeUnknown
 from ashlar.source import jsonl_batches
 from ashlar.source_checkpoint import jsonl_checkpoint,validate_source_checkpoint,CheckpointError
 from ashlar.staging import batch_row,StagingError

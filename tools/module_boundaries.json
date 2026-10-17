@@ -486,38 +486,6 @@
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
     },
     {
-      "source": "tools/journaled_file_progress.py",
-      "target": "ashlar.attempt_store",
-      "symbol": "_request_digest",
-      "reason": "private-cross-module",
-      "owner": "ashlar.attempt_store API owner",
-      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
-    },
-    {
-      "source": "tools/journaled_file_progress.py",
-      "target": "ashlar.publication",
-      "symbol": "_decode",
-      "reason": "private-cross-module",
-      "owner": "ashlar.publication API owner",
-      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
-    },
-    {
-      "source": "tools/journaled_file_progress.py",
-      "target": "ashlar.publication",
-      "symbol": "_freeze",
-      "reason": "private-cross-module",
-      "owner": "ashlar.publication API owner",
-      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
-    },
-    {
-      "source": "tools/journaled_file_progress.py",
-      "target": "ashlar.schema",
-      "symbol": "_json",
-      "reason": "private-cross-module",
-      "owner": "ashlar.schema API owner",
-      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
-    },
-    {
       "source": "tools/journaled_publisher_driver.py",
       "target": "ashlar.attempt_store",
       "symbol": "_request_digest",

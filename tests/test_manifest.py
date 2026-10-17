@@ -21,6 +21,14 @@ class Executor:
             self.row=candidate;return SQLResult([])
         return SQLResult([self.row])
 class ManifestTests(unittest.TestCase):
+    def test_retained_descriptor_is_validated_and_independent_of_row_mutation(self):
+        from ashlar.publication import descriptor_from_manifest_row
+        row=dict(ROW);descriptor=descriptor_from_manifest_row(row)
+        row['publication_id']='changed'
+        self.assertEqual(descriptor.publication_id,'p')
+        self.assertEqual(descriptor.raw['publication_id'],'p')
+        with self.assertRaises(TypeError):descriptor.source_progress['f']['cursor']='changed'
+        with self.assertRaises(ManifestError):descriptor_from_manifest_row(dict(ROW,table_versions_json='{"c.s.t":true}'))
     def test_bound_append_and_exact_readback(self):
         ex=Executor();store=DeltaManifestStore(ex,Policy(),'c.s.manifest','uuid')
         self.assertEqual(store.commit(ROW,context='admitted'),ROW)
