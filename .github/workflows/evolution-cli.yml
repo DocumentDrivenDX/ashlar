@@ -18,3 +18,4 @@ jobs:
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_stored_publisher
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_preflight_timing.PublisherTimingTests
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_local_delta_effect_plan.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_read test_configured_query_aliases test_configured_weft_binding test_configured_weft_compile test_configured_weft_query
