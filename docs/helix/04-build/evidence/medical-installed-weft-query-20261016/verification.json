@@ -1,0 +1,21 @@
+{
+  "method": "Read-only retained evidence verification; no new source/native/compiler calls",
+  "cases": 6,
+  "full_singleton_fields": 5,
+  "pair_occurrences": [
+    2,
+    1,
+    1,
+    8,
+    8
+  ],
+  "complete_original_graph_occurrences": 20,
+  "occurrence_bag_equal": true,
+  "native_rows_equal_original_oracles": true,
+  "zero_guard_observations": 130,
+  "exact_request_response_recompile_pins": true,
+  "native_files_before_equal_after": true,
+  "opening_native_equal_batch_closing": true,
+  "full_ack_request_manifest_receipt_closing_pins": true,
+  "all_130_guard_checks_exact_members_of_original_emitted_obligations": true
+}

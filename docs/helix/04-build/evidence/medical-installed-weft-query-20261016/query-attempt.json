@@ -1,0 +1,22 @@
+{
+  "profile": "ashlar-original-medical-sdk-query-attempt/0.1",
+  "state": "terminal",
+  "exit_code": 0,
+  "elapsed_seconds": 428.2573027079925,
+  "failure": null,
+  "native_byte_closure_equal": true,
+  "sqlite_shm_equal": true,
+  "capture_prefixes": {
+    "stdout": {
+      "bytes": 899255,
+      "sha256": "b79834dcf6ad4e0f1e95447faee64b3ba9e6314bbd365e9285d2e41e789403f7"
+    },
+    "stderr": {
+      "bytes": 837863,
+      "sha256": "224e28706109f98323e749aaff010e4a974b4dd60f696a866137dc66e31ce176"
+    }
+  },
+  "worker_sha256": "b0177a6fc189ab7de17fa2e42caa38a48608ddfccfbb4d36258232200c7b08d7",
+  "configuration_sha256": "407eaabbbd80b7864948217522a2d599752485f5ea0b7e7a157a7bf5af610635",
+  "scope": "Actual fixed installed SDK and owned medical worker supervision only; source/native/query success requires closed final result."
+}

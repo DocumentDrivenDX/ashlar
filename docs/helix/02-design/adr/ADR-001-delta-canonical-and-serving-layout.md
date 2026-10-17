@@ -164,6 +164,7 @@ semantic, custody and transport responsibilities.
 | `src/ashlar_host/fabric_graph_definition.py`, `fabric_ordinary_http.py`, `commerce_fabric_release.py` | Canonical carrier mapping/query shapes, finite ordinary GQL HTTP selection and actual source/graph-policy composition | make_fabric_graph_definition, fabric_carrier_queries; selected_configuration; execute_commerce_fabric_gql and optional nominal source_interval composition | Public canonical release columns, bounded process/HTTP ownership and actual source/native policy ports | Shadow native result parsing, credential disclosure, fabricated source or loaded-graph grants |
 | `ashlar_host.medical_singleton_request`, `medical_singleton_query`, `medical_singleton_local` | Pure original08 request/oracle, held indexed query and reader composition | `MedicalSingletonQuery`, immutable `MedicalSingletonBuffer`, `query_original_medical_singleton` | Original medical admission/read-source/publication owners and public pinned indexed compile/admission/execution | Arbitrary callback authority, compiler SQL rewriting, tool imports or executor-to-reader dependency |
 | `ashlar_host.medical_query_requests`, `medical_query_batch`, `medical_query_local` | Pure original full-row/path witnesses and finite same-reader batch composition | `MedicalQueryBatch`, `MedicalQueryBatchBuffer`, `query_original_medical_cases` | Original medical reader/source owners, public medical query provider, indexed admission/executor/decoder and lifecycle | Arbitrary SQL/callback authority, partial two-hop coverage, per-query Spark acquisition, compiler SQL repair or tool imports |
+| `ashlar_host.medical_query_configuration` | Closed installed read/compiler/case selection and final compiler correspondence | `OriginalMedicalQueryConfig`, parser and selection renewal | Existing typed read config, public medical batch selection and indexed compiler distribution | Compiler installation, trust-pin overrides, source/native grants or private cross-feature helper imports |
 | `tools/` adapters | Checkout-only engine/source experiments and review utilities | Named runner/checker entrypoints | Owned public core/host APIs and explicitly selected SDKs | Installed package dependency on tools; newly introduced private cross-module access |
 
 The installed original-commerce evolution facade adds these owned boundaries:
@@ -569,3 +570,9 @@ small one-runtime execution per selected protocol, not a consequence of source t
 Unresolved preparation prerequisite: ecology's exact original saved pair must be
 restored from independently pinned originals before an invocation is admitted;
 no source/publisher reconstruction is implied by this design.
+
+The installed medical query command uses `medical_query_configuration` for its
+closed read/compiler/case selection and `original_medical_local_cli` for the
+existing supervised worker lifecycle. The public `medical_query_local` batch SDK
+owns execution; these command adapters MUST NOT duplicate native/source authority
+or import private helpers from other features.

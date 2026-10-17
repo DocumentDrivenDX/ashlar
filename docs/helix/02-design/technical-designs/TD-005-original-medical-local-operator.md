@@ -73,6 +73,7 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_configuration.py` | Closed immutable selections, bounded input custody, source registration, runtime, six targets, capacity and secret-free handoff/report encoding |
 | `original_medical_local_setup.py` | Fresh root/installation lease, generated-schema native creation, observed UUID/version-zero emptiness and public journal initialization |
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
+| `medical_query_configuration.py` | Closed read/compiler/case wrapper and exact indexed compiler entry/final selection renewal; no execution authority |
 | `medical_process_supervision.py` | Typed worker native phase pipe ownership under CONTRACT-001, without importing command composition or granting data authority |
 | `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
 | `medical_failure_location.py` | Passive bounded failure locations through the already acquired private output; preserves the primary failure and all closing, excludes exception payloads under CONTRACT-001 |
@@ -510,7 +511,8 @@ refuses; inspection proposals do not substitute for publication receipts.
 ## Finite full-row singleton and complete two-hop batch
 
 `query_original_medical_cases(read_configuration, compiler_paths, cases=...)`
-selects only `singleton` and `two-hop`. It preserves the existing required-key-only
+selects `singleton`, `two-hop` and explicit `filtered-limit`; the default remains
+singleton and two-hop. It preserves the existing required-key-only
 singleton entrypoint. One source/native reader and Spark session own all selected
 statements and final closing. The full-row case projects the five original
 encounters Fields and reconstructs its original typed key and values. The path
@@ -526,5 +528,26 @@ original graph-read renewal. Immutable buffers and exclusive private protocol/
 evidence files keep the complete outer receipt within its unchanged 1MiB bound;
 each retained evidence file is separately bounded by that receipt limit and the
 whole batch by 4MiB. Files are retained and renewed only after all owner closings.
-All-objects, all-edges, one-hop, grouped-count and filtered-limit remain outside
+The order/limit case selects the original encounters type, projects its complete
+row, orders by the original STRING key and applies unchanged `LIMIT 2`. Its
+independent population witness is one row; it does not qualify arbitrary predicate
+filtering, binding-limit behavior or truncation.
+All-objects, all-edges, one-hop and grouped-count remain outside
 this finite query profile; no production, Truss or clinical authority is implied.
+
+### Installed batch query composition
+
+The public `query-original-medical --configuration PATH` command selects a closed
+`OriginalMedicalQueryConfig` through `medical_query_configuration`. The wrapper
+contains an existing `read` configuration, explicit compiler `index` and
+`installation` paths and explicit finite `cases`; it delegates read runtime,
+inputs and bounds without adding ambient defaults. `MedicalQueryBatch` owns case
+validation and the public `query_original_medical_cases` SDK owns execution.
+
+`original_medical_local_cli` owns the shared fixed `query` worker dispatch, parent
+runtime custody, native phase/capture, descriptor-one/Python stdout isolation and
+strict result framing. Both parent and worker compare the complete selection and
+verified compiler ready bytes at entry/final closing. The compiler is verified
+afresh for each compilation as well. Compiler paths cannot authorize installation
+or another trust profile. This composition must preserve one full-vector read
+interval and all batch/outer closing before protocol evidence and receipt release.

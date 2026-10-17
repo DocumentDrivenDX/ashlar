@@ -28,7 +28,7 @@ class MedicalQueryBatch:
     def __post_init__(self):
         MedicalSingletonQuery(self.paths,self.maximum_artifact_bytes)
         if (type(self.cases)is not tuple or not self.cases or len(set(self.cases))!=len(self.cases)
-                or any(type(c)is not str or c not in ('singleton','two-hop')for c in self.cases)):
+                or any(type(c)is not str or c not in ('singleton','two-hop','filtered-limit')for c in self.cases)):
             raise ValueError('Closed unique full-row singleton/two-hop selection required')
 
 
@@ -37,12 +37,12 @@ class MedicalQueryBatchBuffer:
     cases:tuple
     closing_json:str
     def __post_init__(self):
-        if type(self.cases)is not tuple or not 1<=len(self.cases)<=6:raise ValueError('Complete bounded medical batch required')
+        if type(self.cases)is not tuple or not 1<=len(self.cases)<=7:raise ValueError('Complete bounded medical batch required')
         names=[];total=0
         for row in self.cases:
             if type(row)is not tuple or len(row)!=3:raise ValueError('Immutable medical case required')
             name,buffer,semantic=row
-            if type(name)is not str or name not in ('singleton',*(f'two-hop-{i}'for i in range(1,6))) or type(buffer)is not MedicalSingletonBuffer:
+            if type(name)is not str or name not in ('singleton','filtered-limit',*(f'two-hop-{i}'for i in range(1,6))) or type(buffer)is not MedicalSingletonBuffer:
                 raise ValueError('Exact original medical case buffer required')
             buffer.__post_init__();names.append(name)
             if type(semantic)is not str or len(semantic.encode())>1048576:raise ValueError('Bounded exact medical semantic evidence required')
@@ -68,7 +68,7 @@ class MedicalQueryBatchBuffer:
             cases.append({'case':name,'original_protocol':{'request':files[prefix+'-request.json'],'response':files[prefix+'-response.json'],'recompiled_response':files[prefix+'-response.json']},
                 'evidence':files[prefix+'-evidence.json'],'recompile_equal':True,'semantic_rows':json.loads(semantic)})
         return {'profile':'ashlar-original-medical-query-batch/0.1','cases':cases,'batch_closing':json.loads(self.closing_json),
-            'qualification':'Completed finite original medical full-row singleton and/or complete two-hop cases through original source/publication/native and outer closing; other five corpus cases, UC, Truss and clinical authority are not qualified.'}
+            'qualification':'Only the explicitly selected finite original medical cases completed original source/publication/native and outer closing; this report grants no broader corpus, UC, Truss or clinical authority.'}
 
 
 class MedicalBatchQueryProvider(MedicalQueryProvider):

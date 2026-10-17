@@ -752,4 +752,40 @@ Complete original protocols and per-statement evidence MAY be retained once in
 exclusive private files after all closings, each bounded by the selected input or
 receipt capacity as applicable and pinned/renewed before the unchanged 1MiB outer
 receipt. No truncation, guard omission, capacity increase or qualification of the
-other five medical corpus cases follows from this finite batch.
+unselected medical corpus cases follows from this finite batch.
+
+An explicit `filtered-limit` selection MUST project the complete original
+encounters row, order by the original required STRING key and apply unchanged
+compiler-emitted `LIMIT 2`. Its independent witness MUST retain the complete
+original population, key order and selected full rows. The original population
+contains one encounter, so this case MUST NOT claim a binding-limit or truncation
+qualification. Default batch selection remains full-row singleton and two-hop.
+
+### Installed original medical query command
+
+`ashlar query-original-medical --configuration PATH` MUST use the existing
+supervised installed medical runner's closed `query` operation. Its configuration
+profile `ashlar-original-medical-query-batch/0.1` has exactly `profile`, `read`,
+`compiler` and `cases`. `read` is a whole existing original medical read
+configuration. `compiler` has exactly absolute canonical `index` and
+`installation` paths for the existing independently indexed f36 distribution;
+paths MUST NOT choose trust pins, install packages or select fallback compilers.
+`cases` is an explicit nonempty unique array validated by `MedicalQueryBatch`,
+currently selecting `singleton`, `two-hop`, `filtered-limit`, or their unique
+combinations.
+
+Parent and worker MUST retain the complete invocation selection and verify the
+original indexed compiler at entry and final closing, including equal original
+ready bytes. Each compilation MUST retain its independent original distribution
+checks. The parent MUST hold actual runtime custody and enforce the configured
+worker phase, native/whole deadlines, capture capacities and owned group cleanup.
+The worker MUST isolate both Python stdout and native descriptor-one diagnostics
+from the bounded JSON result. The public batch SDK MUST remain the owner of one
+reader/Spark/full-vector interval, fresh statement renewals, complete bags and
+closing. The SDK MAY retain private evidence and its receipt after its own
+source/native/Spark closing. If later worker or parent configuration, compiler or
+capture closing fails, those files MAY remain but MUST NOT establish command
+completion. A CLI pass requires the bounded command result after every worker and
+parent closing and successful supervised termination; drift MUST withhold that
+result.
+The command grants no source writes, ACK advancement or new publication authority.

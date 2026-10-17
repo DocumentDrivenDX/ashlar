@@ -1,0 +1,11 @@
+{
+  "state": "terminal",
+  "exit_code": 0,
+  "elapsed_seconds": 428.4364050410222,
+  "argv": [
+    "/private/tmp/ashlar-medical-query-installed-20261016-v/environment/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-medical-query-installed-20261016-v/run-query.py"
+  ]
+}

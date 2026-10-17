@@ -1,4 +1,4 @@
-"""Two finite original medical cases; pure source witnesses, never authority."""
+"""Finite original medical cases; pure source witnesses, never authority."""
 from collections import Counter
 import hashlib,json
 from ashlar.medical_source import SOURCE_SHA,GRAPH_SHA
@@ -6,6 +6,7 @@ from .delta_custody import encoded
 from .medical_singleton_request import medical_singleton_request
 
 FIELDS=('resource_key','patient_key','status','class_system','class_code')
+FILTERED_LIMIT="SELECT "+', '.join('e.'+f for f in FIELDS)+" FROM encounters e ORDER BY e.resource_key LIMIT 2"
 SINGLETON="SELECT "+', '.join('e.'+f for f in FIELDS)+" FROM encounters e WHERE e.resource_key = 'Encounter/example'"
 
 
@@ -27,7 +28,7 @@ def medical_object_key(document,record,atoms):
 
 
 def prepare_medical_queries(model,graph,baseline,bindings,manifest,registry,aliases,cases):
-    if type(cases)is not tuple or not cases or len(set(cases))!=len(cases) or any(c not in ('singleton','two-hop')for c in cases):
+    if type(cases)is not tuple or not cases or len(set(cases))!=len(cases) or any(c not in ('singleton','two-hop','filtered-limit')for c in cases):
         raise ValueError('Closed unique finite medical cases required')
     document,original=_original(model,graph)
     request=medical_singleton_request(model,graph,baseline,bindings,manifest,registry,aliases)
@@ -49,11 +50,19 @@ def prepare_medical_queries(model,graph,baseline,bindings,manifest,registry,alia
     assigned={(v['kind'],v['originalKey']):v for v in bindings['entities']};prepared=[];expected_paths=[]
     def add(name,sql,rows,witnesses):
         selected=json.loads(encoded(request));selected['sql']=sql
-        prepared.append({'id':name,'request':selected,'oracle':{'rows':rows,'witnesses':witnesses,'scope':'Independent complete original medical graph; finite full-row singleton or two-hop only.'}})
+        prepared.append({'id':name,'request':selected,'oracle':{'rows':rows,'witnesses':witnesses,'scope':'Independent complete original medical graph; selected finite original medical cases only.'}})
     if 'singleton'in cases:
         first=min(original['objects'],key=lambda o:o['key'])
         if first['type']['element']!='encounters':raise ValueError('Original singleton record correspondence differs')
         add('singleton',SINGLETON,[[first['values']['encounters.'+f]for f in FIELDS]],{'original_rows':[first]})
+    if 'filtered-limit'in cases:
+        first=min(original['objects'],key=lambda o:o['key'])
+        population=sorted((o for o in original['objects']if o['type']==first['type']),key=lambda o:o['key'])
+        if first['type']['element']!='encounters' or len(population)!=1:
+            raise ValueError('Pinned original encounter population correspondence differs')
+        selected=population[:2]
+        add('filtered-limit',FILTERED_LIMIT,[[o['values']['encounters.'+f]for f in FIELDS]for o in selected],
+            {'original_rows':selected,'complete_population':len(population),'limit':2,'original_key_order':[o['key']for o in population]})
     if 'two-hop'in cases:
         pairs=[(a,b)for _,a in definitions for _,b in definitions if a['target'][0]['module']==b['source'][0]['module']and a['target'][0]['element']==b['source'][0]['element']]
         if len(pairs)!=5:raise ValueError('Complete five original medical two-hop pairs required')
@@ -85,11 +94,16 @@ def require_medical_case_bag(model,graph,bindings,prepared,artifact,evidence):
     """Check actual decoded native witnesses against the independent original graph."""
     from ashlar.weft_path_decode import decode_related_paths,PathDecodeConfig
     document,original=_original(model,graph);rows=evidence['native_result']['rows'];wanted=prepared['oracle']['witnesses']
-    if prepared['id']=='singleton':
+    if prepared['id']in ('singleton','filtered-limit'):
         actual=[{'key':medical_object_key(document,'encounters',(row[0],)),
             'type':{'document':document['id'],'module':'domain','element':'encounters'},
             'values':{'encounters.'+f:cell for f,cell in zip(FIELDS,row)}}for row in rows if len(row)==len(FIELDS)]
         if len(actual)!=len(rows)or Counter(map(encoded,actual))!=Counter(map(encoded,wanted['original_rows'])):raise ValueError('Full original singleton row bag differs')
+        if prepared['id']=='filtered-limit':
+            population=sorted((o for o in original['objects']if o['type']==actual[0]['type']),key=lambda o:o['key'])
+            if (wanted['complete_population']!=len(population) or wanted['limit']!=2
+                    or wanted['original_key_order']!=[o['key']for o in population] or actual!=population[:2]):
+                raise ValueError('Original encounter key order, population or limit differs')
         return actual
     first,second=wanted['relationships'];source_record,middle_record,target_record=wanted['records']
     definitions={r['id']:r for m in document['modules']for r in m.get('relationships',[])}
