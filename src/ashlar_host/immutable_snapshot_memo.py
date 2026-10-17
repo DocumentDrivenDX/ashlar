@@ -25,8 +25,21 @@ def _size(value):
     return size(value)
 
 class ImmutableSnapshotMemo:
-    def __init__(self,owner):self.owner=owner;self.values={};self.histories={};self.phase_witnesses={};self.bytes=0
+    def __init__(self,owner):self.owner=owner;self.values={};self.value_capacities={};self.histories={};self.phase_witnesses={};self.bytes=0
     def _fits(self,capacity):return capacity<=1048576 and self.bytes+capacity+16384<=8*1048576
+    def _retain_value(self,key,result):
+        capacity=_size(result)+_size(key)
+        if capacity>4*1048576:return
+        protected=self.bytes-sum(self.value_capacities.values())
+        if protected+capacity+16384>8*1048576:return
+        retained=deepcopy(result)
+        # Dict insertion order is the value-only LRU. Protected histories and
+        # phase witnesses retain their original closing debt until interval exit.
+        while self.values and (len(self.values)>=64 or self.bytes+capacity+16384>8*1048576):
+            oldest=next(iter(self.values));del self.values[oldest]
+            self.bytes-=self.value_capacities.pop(oldest)
+        self.values[key]=retained;self.value_capacities[key]=capacity;self.bytes+=capacity
+
     def observe(self,owner,target,version):
         if owner is not self.owner or type(version)is not int or version<0:raise ValueError('Original immutable snapshot owner/version required')
         table_key=(target.table,target.uuid,str(target.path));key=(*table_key,version)
@@ -39,17 +52,16 @@ class ImmutableSnapshotMemo:
                 self.histories[table_key]=(target,deepcopy(history));self.bytes+=capacity
         if not any(type(row)is dict and str(row.get('version'))==str(version)for row in history):raise ValueError('Original immutable snapshot version absent')
         if key in self.values:
-            result=deepcopy(self.values[key]);owner._detail(target);return result
+            retained=self.values.pop(key);self.values[key]=retained
+            result=deepcopy(retained);owner._detail(target);return result
         result=owner._snapshot_uncached(target,version);owner._detail(target)
-        capacity=_size(result)+_size(key)
         # Oversize history disables observation reuse for that table. Its live
         # history still renews around each uncached read, as before.
         if table_key not in self.histories:
             closing=owner.original_history(target);owner._detail(target)
             from .driver import original_history_equal
             if not original_history_equal(closing,history):raise ValueError('Original immutable snapshot history changed')
-        elif len(self.values)<64 and self._fits(capacity):
-            self.values[key]=deepcopy(result);self.bytes+=capacity
+        else:self._retain_value(key,result)
         return result
     def observe_history(self,owner,target):
         """Provisional committed-handle history; current identity stays live."""
@@ -116,4 +128,4 @@ def immutable_snapshot_memo(owner):
         try:
             finish(primary,[lambda target=target,history=history:memo.renew_history(target,history)for target,history in memo.histories.values()])
         finally:
-            memo.values.clear();memo.histories.clear();memo.phase_witnesses.clear();memo.bytes=0
+            memo.values.clear();memo.value_capacities.clear();memo.histories.clear();memo.phase_witnesses.clear();memo.bytes=0

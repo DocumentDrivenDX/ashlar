@@ -1,0 +1,216 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "files": [
+    {
+      "file": "configuration.json",
+      "bytes": 1090,
+      "sha256": "5db49c51e91fd59f812d1aef661a32f9c5dd5e0f872bfba5693aa35480bc7158",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/configuration.json"
+    },
+    {
+      "file": "provider.py",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/provider.py"
+    },
+    {
+      "file": "run-installed.py",
+      "bytes": 6503,
+      "sha256": "818845d2b3d50e058b85e848d0a3467220236f40bd36e673da5a375dc77620ae",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/run-installed.py"
+    },
+    {
+      "file": "supervise.py",
+      "bytes": 6559,
+      "sha256": "121fe246cf6c4be4276b84cd4878044783982de87a3ee94bc89efc85ab795157",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/supervise.py"
+    },
+    {
+      "file": "preparation.json",
+      "bytes": 18486,
+      "sha256": "018233a36d8a0b3a14a2fe6c98daebd70a71b17ffe6590456300afbecabda43c",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/preparation.json"
+    },
+    {
+      "file": "reviewed-pending.json",
+      "bytes": 18523,
+      "sha256": "e4e56e6fdb6e27fe8532b884407f2e4aa9a845c9da266701f563f6ea56a07595",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/reviewed-pending.json"
+    },
+    {
+      "file": "root-launch-clearance.json",
+      "bytes": 865,
+      "sha256": "8ee90db7dd819d7fb5628c62039dc6039133b2bd8829a8a5ceaaa85b61268663",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/root-launch-clearance.json"
+    },
+    {
+      "file": "wheel-preparation.json",
+      "bytes": 588,
+      "sha256": "ff12ac56f340be358455d4704243fa2d31ff2baaac5c8ef058224fbcea23627b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/wheel-preparation.json"
+    },
+    {
+      "file": "pure-preflight.json",
+      "bytes": 405,
+      "sha256": "2cc3e52ada7dc190f6a34899b8b4ccacb53a149a79f118edb024c3522af9a636",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/pure-preflight.json"
+    },
+    {
+      "file": "public-parser-preflight.json",
+      "bytes": 892,
+      "sha256": "607a4954c69f8dcac76d5d66886e4d66907850ac704a9bc25055bde246798ddb",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/public-parser-preflight.json"
+    },
+    {
+      "file": "binding-preflight.json",
+      "bytes": 3878,
+      "sha256": "425597e68b93f852fef6d72989ad584bb8948063577265f6ca6ef5f4227a9876",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/binding-preflight.json"
+    },
+    {
+      "file": "fd-preflight.json",
+      "bytes": 147,
+      "sha256": "16e43cdae8fee73f13b52662e2999349ffbd4d554756d5226e0225597172bf06",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/fd-preflight.json"
+    },
+    {
+      "file": "cli-help.txt",
+      "bytes": 667,
+      "sha256": "41d9a47af3d77a75622a8f40e6f994fd1390a9fa7916a7cb5cb087b514478eaa",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/cli-help.txt"
+    },
+    {
+      "file": "selector-preparation.json",
+      "bytes": 3715,
+      "sha256": "bd574be6837ad7ae1139a1e793137dbb0cab478bc4de8980c8b47c9b33fdc3d8",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/selector-preparation.json"
+    },
+    {
+      "file": "expected-rows.json",
+      "bytes": 2819,
+      "sha256": "35fa8e58a83f1ea3ffe7b3658687ea8b690cac016c35bffeade243e1bc63bdd8",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/expected-rows.json"
+    },
+    {
+      "file": "trace_native_verification.py",
+      "bytes": 5712,
+      "sha256": "d1afdadd8f75afab4f26731b7d0c8bfd6114f25aedb668aecd272e4ae93f1a69",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/trace_native_verification.py"
+    },
+    {
+      "file": "opening_exception_trace.py",
+      "bytes": 5671,
+      "sha256": "6024990a27d147a3c9ed3d43e1985d739009721d757043a2487c6a47c5ccce55",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/opening_exception_trace.py"
+    },
+    {
+      "file": "opening-exceptions.json",
+      "bytes": 421,
+      "sha256": "c93e09e3069dad2e8bdcb01535dfefe915571c6430eb29833cae3823ec2f9fc6",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/opening-exceptions.json"
+    },
+    {
+      "file": "native-before.json",
+      "bytes": 31777,
+      "sha256": "5e6a3f533707bddd1a4e4867d9d6937b1a27d47f74cddb0dd832adca4b6e91f0",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/native-before.json"
+    },
+    {
+      "file": "trace.json",
+      "bytes": 7214,
+      "sha256": "dde4b82cf044e451ff40b449cfc1699f5aef0b1a5c407387de843ba3a5dc2655",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/trace.json"
+    },
+    {
+      "file": "resume-terminal.json",
+      "bytes": 119,
+      "sha256": "51ec8081fba9a79aee91fd08c45220d64a164065955c06880b5a3cc67cf9e9bb",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/resume-terminal.json"
+    },
+    {
+      "file": "cleanup-failure.json",
+      "bytes": 179,
+      "sha256": "ff02de5d1c4710f4ab6a4c813e6364636ba4c0cfa66b988efd8a929905590b83",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/cleanup-failure.json"
+    },
+    {
+      "file": "resume.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/resume.stdout"
+    },
+    {
+      "file": "resume.stderr",
+      "bytes": 326307,
+      "sha256": "9dda376caf873d302b491906b46425761990aabbe4b6495b2568a3bc35192493",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/resume.stderr"
+    },
+    {
+      "file": "owned-session.json",
+      "bytes": 30,
+      "sha256": "ff6c44535f6336d2b0f1474851d136cab97acd5eab03064708b2c818fbb0ea32",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/owned-session.json"
+    },
+    {
+      "file": "private-stack.txt",
+      "bytes": 2083,
+      "sha256": "2907c7b07807199419012e6aab7e88ca696198ac81c1b3ea88988af0839edc89",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/private-stack.txt"
+    },
+    {
+      "file": "receipt-bound-diagnosis.json",
+      "bytes": 28848,
+      "sha256": "c0be2509e8e11286f5bb5633d49e9ae676fcdfd2f10f6d422eb5a27eff40d45e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-32m-control/receipt-bound-diagnosis.json"
+    },
+    {
+      "file": "receipt-bound-diagnosis.py",
+      "bytes": 5119,
+      "sha256": "34592bd54b1dc20923b26dea8ec9754b640b011892218d748fa7c4d7b8109191",
+      "original_private_path": "/private/tmp/diagnose-evolution-receipt-bounds.py"
+    }
+  ],
+  "bundle": {
+    "file": "actual.tar.gz",
+    "bytes": 43424,
+    "sha256": "8857f8692f5cdb7a1e398cb0361dd63692357fccf6b7fa6bb57071435f254d28"
+  },
+  "absent_records": [
+    "singleton-receipt.json",
+    "native-after.json",
+    "runner-result.json",
+    "outer-attempt.json"
+  ],
+  "hash_only_references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "reason": "Credential-bearing environment excluded"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/dist/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1951580,
+      "sha256": "fa81e6469e404ad1582a5acc2c6b1580efaed0ee8927e009fb0c2817ca8ca0c3",
+      "reason": "Wheel binary excluded"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/runtime/lib/python3.11/site-packages/ashlar_host/delta_custody.py",
+      "bytes": 79825,
+      "sha256": "2ad9f4d9dd70517d52a44cc1c639f6abc34cb2ffaf04975ef3d8f92c716999fd",
+      "reason": "Exact guard source hash reference; full SDK/module not duplicated"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/held-singleton-707-control/runtime/lib/python3.11/site-packages/ashlar_host/local_receipt_codec.py",
+      "bytes": 8833,
+      "sha256": "dbeca041f06b13936f684f0f07065db00845a18885e440b891af1bb9acbb854b",
+      "reason": "Actual public lossless receipt codec hash reference"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/native-installation.json",
+      "bytes": 18839,
+      "sha256": "8f75c2e56c02c471c7e90c8cce4201d061108662576c4fb442d8e97945e79e40",
+      "reason": "Original schema basis/hash reference, not fresh native authority"
+    }
+  ]
+}

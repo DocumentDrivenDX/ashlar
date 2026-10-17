@@ -1,0 +1,111 @@
+{
+  "profile": "ashlar-combined-held-singleton-707-partial/0.1",
+  "parent_terminal_observation": {
+    "session": 27580,
+    "tool_reference": "0c562e",
+    "exit_code": 1,
+    "work_bound_seconds": 600,
+    "outer_elapsed_seconds": null,
+    "qualification": "Parent-reported actual timeout terminal; no outer elapsed invented."
+  },
+  "product_commit": "707c97771d6471d76ef65130d781f62d78479c52",
+  "wheel_sha256": "fa81e6469e404ad1582a5acc2c6b1580efaed0ee8927e009fb0c2817ca8ca0c3",
+  "supervisor_terminal": {
+    "cleanup_confirmed": false,
+    "cleanup_failed": true,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "cleanup_failure": {
+    "error_class": "PermissionError",
+    "phase": "confirm-absence",
+    "process_groups": [
+      30232
+    ],
+    "remaining_groups": [
+      30232
+    ],
+    "session_leader_pid": 30232,
+    "session_leader_reaped": true
+  },
+  "opening_exceptions": {
+    "diagnostic_failed": false,
+    "dropped": 0,
+    "profile": "ashlar-operator-opening-exceptions/0.1",
+    "records": [
+      {
+        "exception_type": "LocalDeltaError",
+        "label": "opening-validate",
+        "relative_line": 4
+      },
+      {
+        "exception_type": "LocalDeltaError",
+        "label": "held-scope",
+        "relative_line": 32
+      },
+      {
+        "exception_type": "LocalDeltaError",
+        "label": "opening-validate",
+        "relative_line": 4
+      },
+      {
+        "exception_type": "LocalDeltaError",
+        "label": "held-scope",
+        "relative_line": 50
+      }
+    ]
+  },
+  "trace": {
+    "active": [],
+    "completed_seconds": {
+      "attempt-query": 15.202808830421418,
+      "bounded-capture": 411.69047881569713,
+      "bounded-snapshot": 121.65127900033258,
+      "committed": 210.30600232328288,
+      "detail": 400.4007756502833,
+      "history": 46.59204341447912,
+      "ledger": 562.0626260829158,
+      "ledger-body": 546.5473977911752,
+      "snapshot": 121.68428395758383
+    },
+    "counts": {
+      "attempt-query": 33,
+      "bounded-capture": 2526,
+      "bounded-snapshot": 133,
+      "committed": 94,
+      "detail": 2400,
+      "history": 84,
+      "ledger": 4,
+      "ledger-body": 4,
+      "snapshot": 133
+    },
+    "diagnostic_failed": false,
+    "dropped_events": 10726,
+    "durations": "inclusive-nested-not-additive",
+    "elapsed_seconds": 600.430551749887,
+    "profile": "ashlar-operator-native-verification-trace/0.1"
+  },
+  "events_retained": 96,
+  "receipt_exists": false,
+  "runner_result_exists": false,
+  "native_before_exists": true,
+  "native_after_exists": false,
+  "persistent_native_equality": null,
+  "successful_singleton_read": false,
+  "receipt_budget_diagnosis": {
+    "sha256": "c0be2509e8e11286f5bb5633d49e9ae676fcdfd2f10f6d422eb5a27eff40d45e",
+    "receipts_checked": 27,
+    "expansion_limit_bytes": 20971520,
+    "maximum_original_receipt_bytes": 4914017,
+    "maximum_required_total_bytes": 20519169,
+    "attempt_v15_required_bytes": 18488245,
+    "attempt_v16_required_bytes": 20519169,
+    "max_cell_bytes": 456442,
+    "max_columns": 20,
+    "over_16MiB_count": 2,
+    "all_fit_32MiB": true,
+    "qualification": "Static original receipt data/formula correspondence only; not a new native/source authority grant. Recorded LocalDeltaError has no original guard origin/message; cannot identify the first throw site from this diagnostic alone."
+  },
+  "qualification": "Incomplete finite read; no actual singleton rows or after-native/full-source/ACK equality. Original cleanup failure retained, no later-process observation inferred. Inclusive trace counters/times are not additive or successful guard receipts."
+}

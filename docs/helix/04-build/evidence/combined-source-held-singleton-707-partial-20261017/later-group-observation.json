@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-parent-later-owned-group-observation/0.1",
+  "provenance": "Exact parent-transcribed independent read-only observation; no raw process snapshot retained in this archive.",
+  "root_tool_reference": "a22103",
+  "selected_pgid": 30232,
+  "bounded_ps": {
+    "argv": [
+      "/bin/ps",
+      "-axo",
+      "pid=,ppid=,pgid=,comm="
+    ],
+    "timeout_seconds": 5,
+    "selected_group_members": "NONE"
+  },
+  "zero_signal_existence_probe": {
+    "call": "os.killpg(30232,0)",
+    "result": "ProcessLookupError"
+  },
+  "termination_signal_or_reaped_group_kill": false,
+  "qualification": "Separate LATER absence of the selected numeric group only. Original cleanup_confirmed=false/cleanup_failed=true remains unchanged; no universal process absence, native-after, successful singleton or source/ACK equality claim. No timestamp/elapsed duration inferred. No process call made by archive author."
+}
