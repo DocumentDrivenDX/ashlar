@@ -9,8 +9,9 @@ Replace every example path and installation identity with explicit selections.
 Select the cached `delta-spark_2.13-4.0.0.jar` and `delta-storage-4.0.0.jar` in a
 directory containing exactly those two files. The toolkit verifies their bytes.
 Select a real JDK home, the installed Python executable, and regular Bun/Git
-executables. The UMF checkout must be clean at revision
-`c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3`.
+executables. For the STRING and scalar typed sources, the UMF checkout must be
+clean at revision `c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3`. The typed graph
+source below selects its own explicit producer revision.
 
 Use the original configured-source file and its pinned inputs unchanged. The
 committed example contains three complete transactions covering create, update
@@ -73,6 +74,37 @@ source authority. This typed profile supports publication and raw singleton
 reads. For typed Weft queries, select the separately authored named revision 2
 source described below; the original revision 1 model has no SQL names and remains
 unchanged.
+
+## Publish an authored typed graph source
+
+Select [configured-typed-graph-source.json](../end-to-end/configured-typed-graph-source.json)
+for a separate fresh installation, using a clean public UMF checkout at
+`07357eadbda9cf8299b9d72d004cbb77f8091aee`. Preserve the pinned model, complete
+source events and explicit bindings unchanged. Follow the same installed CLI
+initialization, publication of ordinals 1 through 3, exact replay and singleton
+read instructions. Keep source, stream, clock and installation selections fixed
+and use a fresh output for each invocation.
+
+Object types are `17` (Person) and `18` (Place); object ID `1` may occur in both
+types. Relationships are `31` (knows) and `32` (located), with independent edge
+IDs. Singleton selectors admit object types only, not relationship IDs. The
+13 events in three complete groups cover parallel edges, a self-loop, an isolate,
+cross-type endpoints, endpoint replacement and deletion. See the
+[typed graph example](../end-to-end/typed-graph-README.md) for the source contract
+and read selections.
+
+Fresh carried Record checks and joint compact-dataset key/relationship checks
+precede native planning; original public receipts, context and warnings remain
+retained. Only empty edge property objects are admitted. Host references are at
+most 256 KiB each, model admission at most 64 KiB, at most four complete groups
+and 1000 events, and each public validation request at most 1 MiB. The core source
+configuration's 1 MiB source ceiling does not raise the host's 256 KiB reference
+ceiling.
+
+Development IDs and supplied-dataset closure establish no protected source ACK,
+Unity Catalog or production writer authority. Query operation MUST refuse this
+graph source before Spark acquisition until separate graph-query admission
+exists; publication or singleton reads do not qualify graph Weft queries.
 
 ## Read a retained publication
 
