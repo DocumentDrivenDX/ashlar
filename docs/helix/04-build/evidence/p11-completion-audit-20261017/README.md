@@ -7,19 +7,19 @@ Rows below identify evidence anchors and specific remaining checks; they do not
 mark entire rows complete. Historical planning `unexecuted` fields do not override
 later receipts. No running invocation is counted as a pass.
 
-| Plan row | Existing evidence / entry point | Final review still needed |
+| Plan row | Existing evidence / entry point | Reviewed scope and remaining qualification |
 | --- | --- | --- |
 | P01 | [Plan](../../toolkit-delivery-plan.md), [consumer conformance plan](../../../03-test/consumer-conformance-plan.md) | Reconcile every claimed subset against owning contracts; do not promote local cooperative authority into managed security. |
-| P02 | [Pinned corpus](../../../../../examples/domain-packs/corpus.json), [model admission](../domain-pack-model-validation-20261009.json), [pack guide](../../../../../examples/domain-packs/README.md) | Cross-reference classifications to actual receipts; frozen planning statuses alone establish no execution or missing execution. |
-| P03 | [Typed graph workflow](../../../../../examples/end-to-end/typed-graph-README.md) | Preserve exact typed source, endpoints, independent edges and absence/null/value subset qualifications. |
+| P02 | [Pinned corpus](../../../../../examples/domain-packs/corpus.json), [model admission](../domain-pack-model-validation-20261009.json), [pack guide](../../../../../examples/domain-packs/README.md) | The pinned inventory, model-admission results and [finite dataset classifications](../all-pack-dataset-classification-20261009/summary.json) name the same 24 packs (595 pinned files). Dataset classifications are 14 admitted finite datasets, eight unavailable and two quarantined; these are not 24 native runtime passes. |
+| P03 | [Typed graph workflow](../../../../../examples/end-to-end/typed-graph-README.md), [public scalar admission](../configured-typed-public-admission-20261017/README.md), [public graph admission](../configured-typed-graph-public-admission-20261017/README.md) | Actual public UMF admission covers the selected configured scalar and graph profiles. Preserve exact values, endpoints, independent edges and absence/null/value qualifications; these local bindings establish no protected source authority. |
 | P04 | [Configured managed publication](../native-configured-publication-complete-20261008.json), [committed replay](../native-configured-replay-20261008.json), [current A2 completion](../current-combined-source-a2-completed-20261017/README.md), [typed interrupted recovery](../configured-typed-response-loss-recovery-20261017/README.md), [installed held A/B singleton](../combined-source-held-singleton-native-proof-20261017/README.md) | Current combined run proves 3/8 slots, A2/B1; suffix 3–7 remains outstanding. The installed pair read matches all 17 original fields per source row after required closing, within its private local authority profile. |
 | P05 | [Original17 Weft receipts](../../../../../examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets), [historical guarded managed query](../native-configured-guarded-weft-query-20261008.json), [commerce query guide](../../../../../examples/original-commerce-local/README.md) | Match every claim to compiler/profile and actual results. Do not replace original commerce arithmetic with payments or count compiler admission as execution. |
 | P06 | [Fabric R1/R2 corpus](../fabric-gql-corpus-20261011/manifest.json), [parameterized R1/R2 checks](../fabric-parameterized-query-20261011/manifest.json), [PuppyGraph refresh](../puppygraph-refresh-20261010/README.md), [configured old/successor export](../configured-local-graph-export-installed-20261017/README.md) | Distinguish saved release isolation from live publication/ACK-held activation and interrupted replacement. |
 | P07 | [Original17 Fabric GQL](../fabric-original17-native-gql-20261016/README.md), [Original17 PuppyGraph commands/evidence](../../../../../examples/puppy-original-scenarios/README.md), [supply-chain installed GraphFrames](../supply-chain-graphframes-installed-cli-20261017/README.md) | Original17 Fabric is a native pass, not pending. The held-commerce upload below has a different authority/deployment scope. |
 | P08 | [Required representatives](../../../../../examples/domain-packs/corpus.json), [gallery](../../../../../examples/end-to-end/QUERY-GALLERY.md), [finite-pack guide](../../../../../examples/domain-packs/QUICKSTART.md) | Reuse original commerce/archaeology/ecology/medical and supply-chain receipts; retain explicit unsupported additional-pack classifications. No new representative campaign is implied. |
-| P09 | [Installed managed reader guide](../../../../../examples/managed-singleton/README.md), [wheel-only proof](../managed-command-wheel-20261016.json), [documented local workflow](../../../../../examples/end-to-end/README.md), [schema browser receipt](../evolution-public-admission-20261010/ashlar-schema-browser-deployed-7fc5726-20261010.json) | Historical managed publication/replay/query already ran. Wheel proof does not demonstrate the new installed managed reader on an admitted dedicated endpoint. That new-command qualification is separate from P09’s already evidenced historical managed replay/query path; no additional paid execution is made a P09 prerequisite by this audit. |
+| P09 | [Installed managed reader guide](../../../../../examples/managed-singleton/README.md), [wheel-only proof](../managed-command-wheel-20261016.json), [documented local workflow](../../../../../examples/end-to-end/README.md), [configured schema-browser receipt](../configured-schema-browser-20261017/README.md) | Historical managed publication/replay/query already ran. Wheel proof does not demonstrate the new installed managed reader on an admitted dedicated endpoint. That new-command qualification is separate from P09’s already evidenced historical managed replay/query path; no additional paid execution is made a P09 prerequisite by this audit. |
 | P10 | [Truss22 lifecycle](../truss22-commerce-lifecycle-20261013/README.md), [additive evolution](../truss22-commerce-additive-evolution-20261013/README.md), [original three queries](../truss22-commerce-original-three-queries-20261014/README.md), [settlement](../truss22-commerce-indexed-settlement-20261014-c/README.md) | Retain public SDK/source versions, actual catalog/feed/ACK scope and local authority limitations. |
-| P11 | This skeleton and the plan's final acceptance clause | Final independent requirement review, completed authorized suffix receipts, reviewed commits and main/origin equality remain prerequisites to a completion declaration. |
+| P11 | This partial audit and the plan's final acceptance clause | Final independent requirement review, completed authorized suffix receipts, reviewed commits and main/origin equality remain prerequisites to a completion declaration. |
 
 ## Precise external and deployment distinctions
 
@@ -27,7 +27,8 @@ later receipts. No running invocation is counted as a pass.
 39/46 and 40/54 native carrier bags, passed. Older synthetic R1/R2 query/isolation
 checks also passed. These are not missing cases. The distinct unproved workflow
 is live publication/source-ACK-held commerce upload, graph creation/load,
-admission/activation and user query: [attempt A](../commerce-fabric-held-upload-refusal-20261016-a/README.md)
+admission/activation and user query, including the interrupted replacement witness
+required by [CONTRACT-003](../../../02-design/contracts/CONTRACT-003-delta-graph-tables.md#fabric-private-cooperative-release-activation): [attempt A](../commerce-fabric-held-upload-refusal-20261016-a/README.md)
 lost its first PUT response; [the later attempt](../commerce-fabric-held-upload-capacity-20261016/README.md)
 received native 503 `RejectedDueToResourceConstraints` before graph creation.
 Neither receipt proves absence of partial remote directories. Original17 success
@@ -66,7 +67,13 @@ is authorized here.
    results establish their stated query/release subsets. They do not complete the
    separately implemented live-publication/source-ACK-held deployment path that
    stopped at OneLake upload. Final handoff must include that actual integration
-   result to close the promised workflow. Leaving it unqualified leaves the
+   result to close the promised workflow. The required small witness interrupts
+   inactive R2 after node-only staging, proves no mixed activation, reads R1 under
+   its actual owners or records its explicit refusal, then recovers the same R2
+   intent through full admission and durable atomic predecessor-pointer
+   activation. Exact R1/R2 identities and changed values must match; a reader
+   racing activation must acquire one whole release or refuse. A single happy
+   deployment alone does not close that witness. Leaving it unqualified leaves the
    corresponding P06/P07 requirement outstanding; it must not mark all Fabric
    GQL cases pending or claim the failed deployment passed. Capacity failure is
    not permission to retry.
