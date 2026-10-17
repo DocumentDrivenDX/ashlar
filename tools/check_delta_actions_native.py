@@ -123,6 +123,54 @@ try:
  before=version();result=conflict_executor.invoke(Approve,{'order':OrderKey(id='o-1')})
  assert isinstance(result,Conflict)and version()==before+1 and dict(rows())['o-1']=='independent'and not conflict_admission.quarantined
  checks.append('actual independent Delta commit produces SDK Conflict with no retry or quarantine')
+ # Exercise the generated bulk path's distinct exception branches. These use
+ # the current compiler program and real native commits, not synthetic receipts.
+ from umf_access.protocols import ActionConflict,ActionIndeterminate,ActionTimedOut
+ bulk_conflict=CommitBoundaryAdmission(spark,factory('sdk_person'),weft,maximum_rows=10)
+ bulk_conflict.boundary=concurrent
+ conflict_target=DeltaBulkTarget(bulk_conflict,binding=request['binding'],default_timeout=timedelta(seconds=60))
+ before=version()
+ try:queries.approve_drafts(conflict_target,status='independent').execute()
+ except ActionConflict as error:
+  assert error.retained is False and error.code=='SERIALIZABLE_CONFLICT'
+ else:raise AssertionError('native bulk optimistic conflict did not preserve SDK outcome')
+ assert version()==before+1 and dict(rows())['o-1']=='independent' and not bulk_conflict.quarantined
+ checks.append('generated bulk actual concurrent Delta commit raises ActionConflict without retry or quarantine')
+ class ExpiredAdmission(LocalDeltaActionAdmission):
+  @contextmanager
+  def hold(self,*values,**options):
+   # Exercise the real admission deadline gate before acquiring a connection.
+   from time import monotonic
+   options['deadline']=monotonic()-1
+   with super().hold(*values,**options)as scope:yield scope
+ expired=ExpiredAdmission(spark,factory('sdk_person'),weft,maximum_rows=10)
+ expired_target=DeltaBulkTarget(expired,binding=request['binding'],default_timeout=timedelta(seconds=60))
+ before=version()
+ try:queries.approve_drafts(expired_target,status='independent').execute()
+ except ActionTimedOut as error:assert error.code=='TIMED_OUT'
+ else:raise AssertionError('expired bulk admission did not raise ActionTimedOut')
+ assert version()==before and dict(rows())['o-1']=='independent' and not expired.quarantined
+ checks.append('generated bulk real expired-admission deadline raises ActionTimedOut before native submission')
+ bulk_lost=CommitBoundaryAdmission(spark,factory('sdk_person'),weft,maximum_rows=10)
+ def bulk_lose_ack(original,candidate,markers):
+  original(candidate,markers_json=markers)
+  raise ConnectionError('test bulk response loss after actual native commit')
+ bulk_lost.boundary=bulk_lose_ack
+ lost_target=DeltaBulkTarget(bulk_lost,binding=request['binding'],default_timeout=timedelta(seconds=60))
+ before=version()
+ try:queries.approve_drafts(lost_target,status='independent').execute()
+ except ActionIndeterminate as error:bulk_original=error.original
+ else:raise AssertionError('bulk commit response loss did not preserve ActionIndeterminate')
+ assert version()==before+1 and dict(rows())['o-1']=='approved' and bulk_lost.quarantined
+ recovered_bulk=bulk_original.recovery.custody.atomic.reconcile()
+ assert recovered_bulk.version==before+1 and recovered_bulk.table_uuid==identity and recovered_bulk.epoch==epoch
+ assert json.loads(recovered_bulk.metadata_json)['markers']['counts']==[{'selected':1,'changed':1}]
+ before=version()
+ try:queries.approve_drafts(lost_target,status='independent').execute()
+ except PermissionError:pass
+ else:raise AssertionError('uncertain original bulk admission was reused')
+ assert version()==before
+ checks.append('generated bulk actual commit response loss raises ActionIndeterminate with retained receipt and quarantined no-retry admission')
  fenced=CommitBoundaryAdmission(spark,factory('sdk_person'),weft,maximum_rows=10)
  def held_fence(original,candidate,markers):
   with psycopg.connect(dsn,autocommit=True)as independent:
