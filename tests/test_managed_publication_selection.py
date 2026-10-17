@@ -39,6 +39,10 @@ class Tests(unittest.TestCase):
             db.execute('INSERT INTO jsonl_consumer_progress VALUES (?,?,?,?,?,?)',(stream,c.feed,c.epoch,int(batch.cursor_after),second,digest(second)));db.execute('INSERT INTO jsonl_consumer_progress VALUES (?,?,?,?,?,?)',first)
             db.execute('INSERT INTO publisher_effect_artifact VALUES (?,?,?,?,?)',('publisher-effects:'+namespace+':'+request['request_digest'],rq,'[]',artifact,digest(artifact)))
             db.execute('INSERT INTO snapshot_artifact VALUES (?,?,?,?,?,?,?)',('stream-artifact:'+request['request_digest'],rq,effects,tg,artifact,digest(artifact),digest(text([rq,effects,tg]))));db.commit()
+        from ashlar_host.managed_source_oracle import CLOCK_OPERATION,CLOCK_SQL
+        clock_request=text({'authority':'original-actor-id','body':{'warehouse_id':'0123456789abcdef','statement':CLOCK_SQL,'parameters':[{'name':'workload','type':'STRING','value':digest(text(workload))}],'wait_timeout':'10s','on_wait_timeout':'CONTINUE','disposition':'INLINE','format':'JSON_ARRAY','row_limit':1000}})
+        response={'statement_id':'original-clock-handle','status':{'state':'SUCCEEDED'},'manifest':{'format':'JSON_ARRAY','truncated':False,'total_row_count':1,'total_chunk_count':1,'schema':{'column_count':2,'columns':[{'position':0,'name':'now_us','type_text':'STRING'},{'position':1,'name':'workload','type_text':'STRING'}]},'chunks':[{'chunk_index':0,'row_offset':0,'row_count':1}]},'result':{'chunk_index':0,'row_offset':0,'row_count':1,'data_array':[['1700000000123456',digest(text(workload))]]}}
+        db.execute('INSERT INTO submission VALUES (?,?,?,?,?)',(CLOCK_OPERATION,clock_request,digest(clock_request),'original-clock-handle',text(response)));db.commit()
         (root/'journal.native-csv-stream-lock').touch(mode=0o600)
         pin=lambda p:ManagedSelectionFile(p,digest(p.read_bytes()))
         return ManagedPublicationSelectionSpec(pin(root/'installation'),pin(root/'proof'),pin(c.path),root/'journal',publication,ordinal),db
@@ -47,7 +51,7 @@ class Tests(unittest.TestCase):
             spec,writer=self.fixture(Path(temp));before=writer.total_changes
             try:
                 with open_managed_publication_selection(spec)as selected:
-                    self.assertEqual(selected.descriptor.publication_id,spec.publication_id);self.assertTrue(selected.expected_state.current);self.assertEqual(len(selected.table_uuids),4);selected.renew()
+                    self.assertEqual(selected.descriptor.publication_id,spec.publication_id);self.assertTrue(selected.expected_state.current);self.assertEqual(len(selected.table_uuids),4);self.assertEqual(selected.original_materialization_clock_us,'1700000000123456');self.assertEqual(selected.original_actor_id,'original-actor-id');selected.renew()
                     with self.assertRaises(BlockingIOError):
                         with open_managed_publication_selection(spec):pass
                 self.assertEqual(writer.total_changes,before)

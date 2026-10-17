@@ -21,6 +21,7 @@ from ashlar.apply import empty_state,plan_apply
 from ashlar.whole_entity import changes_from_batch
 from .evolution_cli import InvocationFile
 from .lifecycle import finish
+from .managed_source_oracle import retained_materialization_clock
 
 _MINT=object()
 ROLES=('object_current','edge_current','tombstone','whole_source_history')
@@ -131,6 +132,8 @@ class ManagedPublicationSelection:
         _require(journal['jsonl_consumer_scope']==[(stream,feed,epoch,sha,_encoded({'feed':feed,'epoch':epoch}))])
         workload={'namespace':namespace,'source_sha256':sha,'uuids':uuids,'intake_source_sha256':c.intake.source_sha256,'intake_table_uuid':proof['table_uuid'],'source_configuration_sha256':hashlib.sha256(c.original).hexdigest()}
         _require(journal['stream_scope']==[(1,hashlib.sha256(_encoded(workload).encode()).hexdigest())])
+        clock=retained_materialization_clock(journal['submission'],journal['stream_scope'][0][1])
+        self.original_materialization_clock_us=clock.microseconds;self.original_actor_id=clock.actor_id;self.original_warehouse_id=clock.warehouse_id
         progress=journal['jsonl_consumer_progress'];_require(len(progress)==self.spec.completed_ordinal)
         expected_artifacts=set();expected_snapshots=set()
         state=empty_state();predecessor='empty-native-configured-jsonl-stream';selected=None
@@ -156,7 +159,7 @@ class ManagedPublicationSelection:
         _require(len(journal['publisher_effect_artifact'])==len(expected_artifacts)and {r[0]for r in journal['publisher_effect_artifact']}==expected_artifacts
             and len(journal['snapshot_artifact'])==len(expected_snapshots)and {r[0]for r in journal['snapshot_artifact']}==expected_snapshots)
         # Any interrupted native submission is not a completed read selection.
-        for operation,request,digest,handle,response in journal['submission']:_require(type(handle)is str and bool(handle)and type(response)is str and hashlib.sha256(request.encode()).hexdigest()==digest and _json(response).get('status',{}).get('state')=='SUCCEEDED')
+        for operation,request,digest,handle,response in journal['submission']:_require(_json(request).get('authority')==clock.actor_id and _json(request).get('body',{}).get('warehouse_id')==clock.warehouse_id and type(handle)is str and bool(handle)and type(response)is str and hashlib.sha256(request.encode()).hexdigest()==digest and _json(response).get('statement_id')==handle and _json(response).get('status',{}).get('state')=='SUCCEEDED')
         _require(max(len(state.current),len(state.history),len(state.tombstones))<=self.spec.maximum_rows)
         self.namespace=namespace;self.request_json=_encoded(selected[0]);self.descriptor=selected[1];self.targets_json=_encoded(selected[2]);self.expected_state=state
         self.table_uuids=tuple(sorted((t,uuids[t])for t in selected[1].versions))
