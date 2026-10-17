@@ -1,0 +1,7 @@
+{
+  "exitCode": 1,
+  "status": "expected refusal",
+  "outputCreated": false,
+  "stderr": "Traceback (most recent call last):\n  File \"/private/tmp/ashlar-sdk-adoption/tools/check_typed_sdk_native.py\", line 24, in <module>\n    import conformance\nModuleNotFoundError: No module named 'conformance'\n",
+  "scope": "requested tooling missing refuses before native setup"
+}

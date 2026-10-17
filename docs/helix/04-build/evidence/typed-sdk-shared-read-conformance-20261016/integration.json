@@ -1,0 +1,37 @@
+{
+  "nativeTestedSourceHead": "3bfc5ba50c6ddf00abd82b332984d07cd0da9d52",
+  "integratedMain": "5e4b6059f57d69a939dc95aa292f9f74dae4de13",
+  "normalMergeHead": "b445017908bbba4f3d84afb7a6b8896203d5f5c9",
+  "directlyInvokedNativeSourcesUnchanged": [
+    {
+      "path": "src/ashlar/access.py",
+      "sha256": "11957a802e7557a261002891b675b77beaf3d5800fe0e86b7231f496a4e57c34"
+    },
+    {
+      "path": "src/ashlar/weft_query.py",
+      "sha256": "15ccd9a68931587986018cc980bd266229400479c713521ffc8361e930495d84"
+    },
+    {
+      "path": "src/ashlar/native.py",
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98"
+    },
+    {
+      "path": "src/ashlar/pins.py",
+      "sha256": "0a3cba199bef38472797623f2da4f8e0978751bb27d1220399297a3bd44ea958"
+    },
+    {
+      "path": "src/ashlar/publication.py",
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "path": "src/ashlar/execution_scope.py",
+      "sha256": "99881cfe0cbd39e1b4e4854b784cff657ff0652dcbe13e829f1c091f1f71e3c3"
+    },
+    {
+      "path": "src/ashlar_host/postgres.py",
+      "sha256": "5a1dfee0e29e2712003246e36c19383b3984b744efae6fa65bdd3a53cef134a2"
+    }
+  ],
+  "boundaryCheck": "PASS; existing SyntaxWarnings retained",
+  "temporal": "HELD"
+}

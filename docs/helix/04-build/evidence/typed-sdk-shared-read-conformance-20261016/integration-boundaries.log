@@ -1,0 +1,21 @@
+src/ashlar_host/count_star_execution.py:213: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+src/ashlar_host/pack_count_star_oracle.py:35: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  or len(value)>precision+3 or re.fullmatch('-?(0|[1-9][0-9]*)(?:\.[0-9]+)?',value)is None):
+src/ashlar_host/path_execution.py:199: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+src/ashlar_host/puppy_commerce_projection.py:21: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  if type(facets)is not dict or any(type(k)is not str or type(v)is not int for k,v in facets.items())or facets!={'precision':18,'scale':2}or type(token)is not str or not 0<len(token)<=64 or not re.fullmatch('-?(0|[1-9][0-9]*)(\.[0-9]+)?',token):raise ValueError('Backend capability: declared fixed decimal profile refused')
+src/ashlar_host/supply_chain_oracle.py:51: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  or len(value)>precision+3 or re.fullmatch('-?(0|[1-9][0-9]*)(?:\.[0-9]+)?',value)is None):
+tools/check_commerce_graphframes_scenarios.py:47: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  if field.get('facets')!={'precision':18,'scale':2} or not re.fullmatch('-?(0|[1-9][0-9]*)(\.[0-9]{1,2})?',token):raise ValueError('Exact selected fixed decimal capability refused')
+tools/run_commerce_arithmetic_weft.py:444: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  if len(value)>128 or set(facets) not in ({'scale'},{'precision','scale'}) or type(facets['scale'])is not int or not 0<=facets['scale']<=38 or not re.fullmatch('-?[0-9]+(?:\.[0-9]+)?',value):raise ValueError('Exact decimal text with explicit scale required')
+tools/run_commerce_path_weft.py:198: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+tools/run_pack_null_weft.py:61: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  if (type(text)is not str or len(text)>128 or not re.fullmatch('-?[0-9]+(?:\.[0-9]+)?',text)
+tools/stage_source.py:31: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+  if not re.fullmatch('[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*',namespace):parser.error('Safe installed namespace required')
+Module import boundaries pass; dynamic imports/type ownership/cycles require semantic review.
