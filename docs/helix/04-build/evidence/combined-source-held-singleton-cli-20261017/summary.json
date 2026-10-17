@@ -1,0 +1,35 @@
+{
+  "profile": "ashlar-combined-held-singleton-actual/0.1",
+  "parent_terminal_observation": {
+    "terminal_confirmed": true,
+    "session": 9535,
+    "exit_code": 1,
+    "tool_reference": "9cf500",
+    "supervisor_work_bound_seconds": 600,
+    "separate_raw_parent_terminal_file": false,
+    "qualification": "Exact parent-reported actual terminal: TimeoutError combined-source-deadline. No outer elapsed duration invented; retained trace elapsed is a separate diagnostic.",
+    "preparation_provenance_files": [
+      "reviewed-pending.json",
+      "root-launch-clearance.json"
+    ]
+  },
+  "supervisor_terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "runner_result": {
+    "closing_pins_completed": true,
+    "diagnostic_failed": false,
+    "primary_error_class": "SystemExit",
+    "profile": "ashlar-operator-trace-runner-result/0.1",
+    "public_cli_returned": false
+  },
+  "successful_finite_read": false,
+  "receipt_present": false,
+  "complete_oracle_rows_equal": false,
+  "persistent_native_tables_before_after_equal": true,
+  "qualification": "Finite private-local source-qualified singleton pair only. Full original manifest/ledger/source/protected receipt and closing owner checks remain required. No canonical four-bag audit output, full-eight completion, production security, raw lookup-latency benchmark, ACK submission or new publication claim. Timings are whole guarded invocation observations; nested trace durations not additive."
+}
