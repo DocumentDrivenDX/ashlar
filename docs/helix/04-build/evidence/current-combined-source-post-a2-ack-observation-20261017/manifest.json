@@ -1,0 +1,254 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "scope": "Original newline-preparation refusal and corrected actual A1/B1 ordinary source/ACK readback. No A2completion/ACK2/nativepublication verification proof.",
+  "files": [
+    {
+      "file": "failed-original/observe-source-ack.py.gz",
+      "bytes": 2699,
+      "sha256": "f3d5c97b9849195315f61df5b89b4f6428223df008c8a67b5dfc469fb1adcba6",
+      "original_bytes": 7628,
+      "original_sha256": "4667d4db413a2952367b8f4cf275859c77519c75c74dc9b1d9db78523ad30b1b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/observe-source-ack.py"
+    },
+    {
+      "file": "failed-original/supervise.py.gz",
+      "bytes": 2379,
+      "sha256": "e25f15789470c5ceccfc78e210669e5eea32f4e5578a96b0b4612b120f9c9466",
+      "original_bytes": 6571,
+      "original_sha256": "d0d2313969d5ad289e88bab7374ad77bb518cd9b6ff35c32184f8e843b54eabf",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/supervise.py"
+    },
+    {
+      "file": "failed-original/preparation.json.gz",
+      "bytes": 1598,
+      "sha256": "b7c38b2b640f04e82af6fd836d863b05a3ce2efb8c922a2069c83686159a217a",
+      "original_bytes": 5028,
+      "original_sha256": "8f4fdf43bb0be36d9b960726a27c23956315ef39de34419597e0c9d12c889028",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/preparation.json"
+    },
+    {
+      "file": "failed-original/expected-completed.json.gz",
+      "bytes": 422,
+      "sha256": "50723dbecb861dd89ebc8dc9508dc4bb48e1deead027e1f32f352c7674c16482",
+      "original_bytes": 1249,
+      "original_sha256": "372763362af5a35bd946579e745c90a80bfaed16cad055f28a14ac1e9ccd0769",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/expected-completed.json"
+    },
+    {
+      "file": "failed-original/ledger-snapshot.json.gz",
+      "bytes": 780,
+      "sha256": "3904a9369145ec63f5f3d12ee7d45a90be31985a4a7b49ae9c5720f580128f28",
+      "original_bytes": 2795,
+      "original_sha256": "dc55f1c5137652e246e9bfccb3efb95b1031119fe31b567c236857c1ae37dcc2",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/ledger-snapshot.json"
+    },
+    {
+      "file": "failed-original/expected-A-1-request.json.gz",
+      "bytes": 5853,
+      "sha256": "a786d72f246b093ee4cfb38b86a12fc20c374996f18385c26c8896691e865d40",
+      "original_bytes": 44057,
+      "original_sha256": "3a71b424bbe25b7cdb02d0035aac43adf69b18bd29031ac922e8d5512154c3f9",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/expected-A-1-request.json"
+    },
+    {
+      "file": "failed-original/expected-A-1-manifest.json.gz",
+      "bytes": 2028,
+      "sha256": "d97243c5b457c1f337aa27d6b4a0993512501f8ca9508dc5db0d0f01037f962b",
+      "original_bytes": 9004,
+      "original_sha256": "a36b86fdf0ee760bfa00552c01e62ca82c3947ca35b061993ac0205627faf398",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/expected-A-1-manifest.json"
+    },
+    {
+      "file": "failed-original/expected-B-1-request.json.gz",
+      "bytes": 5851,
+      "sha256": "f66499c3375258cb49e088f69528f8f2dea2548a18ac8113cb0be2086f020497",
+      "original_bytes": 44128,
+      "original_sha256": "5e77a11890d6b827ee8a5989c8208bec558490299a250909b2cc1dd78710286b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/expected-B-1-request.json"
+    },
+    {
+      "file": "failed-original/expected-B-1-manifest.json.gz",
+      "bytes": 2172,
+      "sha256": "0349663ae7c0334071e3ce9ae56349ba6b55aab0c85cf7bb01288e7170f70168",
+      "original_bytes": 9377,
+      "original_sha256": "e91075d1b203731be7ab174a76cbcfd91d4f183943147ad9781a432fcd0a1ccc",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/expected-B-1-manifest.json"
+    },
+    {
+      "file": "failed-original/outer-attempt.json.gz",
+      "bytes": 135,
+      "sha256": "c359ab8f3a41fc424d637718804d984091959d5273dee61e47314682c1ba32df",
+      "original_bytes": 147,
+      "original_sha256": "b992c9802089dbab247b030cf83c2a035b26e88e1ba948d150f87a1afa04824e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/outer-attempt.json"
+    },
+    {
+      "file": "failed-original/resume-terminal.json.gz",
+      "bytes": 99,
+      "sha256": "cb072b97e30c330ef45c9b742e9af0f2d9f5c752cfb14365c98f0cbf4fc1a754",
+      "original_bytes": 105,
+      "original_sha256": "29cbe829ea0f2c760538c17c939a47204f7645b9cd4c1379e6209995150dc4dc",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/resume-terminal.json"
+    },
+    {
+      "file": "failed-original/resume.stdout.gz",
+      "bytes": 20,
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/resume.stdout"
+    },
+    {
+      "file": "failed-original/resume.stderr.gz",
+      "bytes": 478,
+      "sha256": "0f39d6707ec1293c98b6190a9dced28538253b94f5117a92fe1b2b1f30759070",
+      "original_bytes": 1644,
+      "original_sha256": "7ed4afa35d6cd774919236ee331f0566190675af3057da4787bf6f8036a432cf",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/resume.stderr"
+    },
+    {
+      "file": "failed-original/owned-session.json.gz",
+      "bytes": 50,
+      "sha256": "754740ef36709addf4c94d875f640ac10fcdc961ee6aa3d868d7f914070bf4c8",
+      "original_bytes": 30,
+      "original_sha256": "b20e20e9c8b2e5e26ddb37b0aeaffd056b1ee6d0186ee28f7865ccafc9c08fd7",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/owned-session.json"
+    },
+    {
+      "file": "corrected-r2/observe-source-ack.py.gz",
+      "bytes": 3016,
+      "sha256": "a41dba861cb4870449c8419ceb35c60e715d6eb7b27bf9e3eac94e7620a15bf8",
+      "original_bytes": 8969,
+      "original_sha256": "45408288a9a770bf34d314c733b261c0651a941e03cf6193022ec4bdac6fffca",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/observe-source-ack.py"
+    },
+    {
+      "file": "corrected-r2/supervise.py.gz",
+      "bytes": 2379,
+      "sha256": "e25f15789470c5ceccfc78e210669e5eea32f4e5578a96b0b4612b120f9c9466",
+      "original_bytes": 6571,
+      "original_sha256": "d0d2313969d5ad289e88bab7374ad77bb518cd9b6ff35c32184f8e843b54eabf",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/supervise.py"
+    },
+    {
+      "file": "corrected-r2/preparation.json.gz",
+      "bytes": 1528,
+      "sha256": "a21ff226fe2d600ecef7c463f0e1a9bcf8254d590af22769e336834c13026727",
+      "original_bytes": 5061,
+      "original_sha256": "5b3bfdaf4fddd9238b6a7827c09dcda79bfe27b20643b693e2e0c359e805503c",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/preparation.json"
+    },
+    {
+      "file": "corrected-r2/expected-completed.json.gz",
+      "bytes": 426,
+      "sha256": "65e0af5bbf44636c7928912c1bc1ede5000c1779cc2485a1ef9dab36efd9ceae",
+      "original_bytes": 1261,
+      "original_sha256": "e879c7b57e6b1d4516ade121f93d10bc2bdc648fa1117f122f3a073d30e1ccf0",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/expected-completed.json"
+    },
+    {
+      "file": "corrected-r2/ledger-snapshot.json.gz",
+      "bytes": 780,
+      "sha256": "3904a9369145ec63f5f3d12ee7d45a90be31985a4a7b49ae9c5720f580128f28",
+      "original_bytes": 2795,
+      "original_sha256": "dc55f1c5137652e246e9bfccb3efb95b1031119fe31b567c236857c1ae37dcc2",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/ledger-snapshot.json"
+    },
+    {
+      "file": "corrected-r2/expected-A-1-request.json.gz",
+      "bytes": 5849,
+      "sha256": "fa16f68b09d289a478536eb9e677ea1c1ce7471bccb6e409c22633e29454b3e9",
+      "original_bytes": 44056,
+      "original_sha256": "8c127e9cef6971b224255e4ac1d959e6d04c80548e2e367e40ac731d79543cc3",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/expected-A-1-request.json"
+    },
+    {
+      "file": "corrected-r2/expected-A-1-manifest.json.gz",
+      "bytes": 2028,
+      "sha256": "d97243c5b457c1f337aa27d6b4a0993512501f8ca9508dc5db0d0f01037f962b",
+      "original_bytes": 9004,
+      "original_sha256": "a36b86fdf0ee760bfa00552c01e62ca82c3947ca35b061993ac0205627faf398",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/expected-A-1-manifest.json"
+    },
+    {
+      "file": "corrected-r2/expected-B-1-request.json.gz",
+      "bytes": 5848,
+      "sha256": "bda1d7329380cb4f72a16fa83a6e44c5873b4845d20bda7c18cf0fc5972b161a",
+      "original_bytes": 44127,
+      "original_sha256": "7553f9cadcf0089ff5555abccc605e8d25c900cd142c015b600f4f5ca6dd4fdd",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/expected-B-1-request.json"
+    },
+    {
+      "file": "corrected-r2/expected-B-1-manifest.json.gz",
+      "bytes": 2172,
+      "sha256": "0349663ae7c0334071e3ce9ae56349ba6b55aab0c85cf7bb01288e7170f70168",
+      "original_bytes": 9377,
+      "original_sha256": "e91075d1b203731be7ab174a76cbcfd91d4f183943147ad9781a432fcd0a1ccc",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/expected-B-1-manifest.json"
+    },
+    {
+      "file": "corrected-r2/outer-attempt.json.gz",
+      "bytes": 135,
+      "sha256": "d9454eb57fed624ef9fb033d50f3aadb0ccb4f5233203a20f5dcabae30d09841",
+      "original_bytes": 147,
+      "original_sha256": "37ac77a690e45ce9c90762434c236539b565288cf9418bd57166e9945376ec4e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/outer-attempt.json"
+    },
+    {
+      "file": "corrected-r2/resume-terminal.json.gz",
+      "bytes": 99,
+      "sha256": "15557467bb377c9f6ed479f391bb7547974a6e024c006def889f1064a735c78f",
+      "original_bytes": 105,
+      "original_sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/resume-terminal.json"
+    },
+    {
+      "file": "corrected-r2/resume.stdout.gz",
+      "bytes": 91,
+      "sha256": "bf0d9ceb7c12393c6aff9f0709500fef7592b4e8622ba9467ad3ff6c38b191a9",
+      "original_bytes": 79,
+      "original_sha256": "2b60dbb7e449399b312c41aeadb982aa775f3186416d26a9e0cf1fc9c270b69c",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/resume.stdout"
+    },
+    {
+      "file": "corrected-r2/resume.stderr.gz",
+      "bytes": 75,
+      "sha256": "def8b8f514ed66449a60ac7f02a671d07f50b1dbbe7566c7a4ae42c5b6475bf1",
+      "original_bytes": 220,
+      "original_sha256": "aa826ba4321c9cfe309db1d552c47613808a509f1592da6c0bba66a4eea22b2c",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/resume.stderr"
+    },
+    {
+      "file": "corrected-r2/owned-session.json.gz",
+      "bytes": 50,
+      "sha256": "ac609570d36eb6fa5e6a4633aab69504c5c9fb072d6a21afd1e55baeb0bd0512",
+      "original_bytes": 30,
+      "original_sha256": "24b976092f3ea147353f032dfbda658baacc17a1a6002af23f323aeafc3bc1db",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/owned-session.json"
+    },
+    {
+      "file": "corrected-r2/observation.json.gz",
+      "bytes": 21436,
+      "sha256": "431ed6ca25ede4af8a3e3932484054eca333b52f3c54786871ebd86114538abd",
+      "original_bytes": 218907,
+      "original_sha256": "08ac8daa273e6ed298e0673b02e8df98c132f1c6efbb7c996e9890e8d6a83e46",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/observation.json"
+    },
+    {
+      "file": "corrected-r2/ack-A-byte-observation.json.gz",
+      "bytes": 370,
+      "sha256": "306276383cc8b948a2fa96220e21dd70049226d63cf712ec9717c578a998e8dc",
+      "original_bytes": 736,
+      "original_sha256": "a9438e25185128cf06db87b29b96bf850c29d9c70ecff97d7885d7ae3862b177",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/ack-A-byte-observation.json"
+    },
+    {
+      "file": "corrected-r2/ack-B-byte-observation.json.gz",
+      "bytes": 368,
+      "sha256": "c422d10178e21d3373cd789425160d24a8a6e545afeb5ebdf575913950780c54",
+      "original_bytes": 736,
+      "original_sha256": "9953147af20ce684431de1eb28d68be7805bac548811b7cc1c36759435cbdc37",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/ack-B-byte-observation.json"
+    }
+  ]
+}

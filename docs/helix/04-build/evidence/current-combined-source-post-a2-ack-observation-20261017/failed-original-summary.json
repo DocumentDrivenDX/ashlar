@@ -1,0 +1,62 @@
+{
+  "profile": "ashlar-post-a2-ordinary-readback-failure/0.1",
+  "original_attempt": {
+    "terminal": {
+      "cleanup": {
+        "groups_absent": true,
+        "process_groups": [
+          86457
+        ],
+        "session_leader_reaped": true
+      },
+      "elapsed_seconds": 0.8794443749357015,
+      "status": 1
+    },
+    "worker_terminal": {
+      "cleanup_confirmed": true,
+      "cleanup_failed": false,
+      "complete": true,
+      "error_class": null,
+      "status": 1
+    },
+    "exception_class": "PermissionError",
+    "refusal_location": "observe-source-ack.py:70 completed-slot request/descriptor equality",
+    "public_observation_report_exists": false
+  },
+  "preparation_defect": [
+    {
+      "label": "A",
+      "prepared_bytes": 44057,
+      "prepared_sha256": "3a71b424bbe25b7cdb02d0035aac43adf69b18bd29031ac922e8d5512154c3f9",
+      "retained_exact_request_bytes": 44056,
+      "retained_exact_request_sha256": "8c127e9cef6971b224255e4ac1d959e6d04c80548e2e367e40ac731d79543cc3",
+      "exactly_one_extra_trailing_lf": true,
+      "retained_exact_reference": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-a1-b1-observation-control/expected-A-request.json"
+    },
+    {
+      "label": "B",
+      "prepared_bytes": 44128,
+      "prepared_sha256": "5e77a11890d6b827ee8a5989c8208bec558490299a250909b2cc1dd78710286b",
+      "retained_exact_request_bytes": 44127,
+      "retained_exact_request_sha256": "7553f9cadcf0089ff5555abccc605e8d25c900cd142c015b600f4f5ca6dd4fdd",
+      "exactly_one_extra_trailing_lf": true,
+      "retained_exact_reference": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-a1-b1-observation-control/expected-B-request.json"
+    }
+  ],
+  "qualification": "Failed ordinary readback only. Expected request preparation added one LF beyond original ACK-owner bytes. No successful current ACK or A2-completion inference; B receipt observation not established by this failed first-source comparison. Corrected successor not executed by this assembler.",
+  "excluded_private_references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "reason": "Credentials/DSNs: never copied"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-observation-control/provider.py",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "reason": "Actual source-only provider byte-equals previously reviewed ordinary provider; pin only, no need duplicate"
+    }
+  ],
+  "assembler_calls": "Local retained-file reads/compression only; no native/source/ACK calls."
+}

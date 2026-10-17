@@ -119,14 +119,14 @@ class DeltaAttemptStore:
     def session(self,context):
         with self.policy.writer(self.table,self.uuid,context) as permit:
             if permit is not None:raise AttemptStoreError('Writer authority did not complete')
-            self._identity();session=_Session(self)
+            self._identity();session=_Session(self,context)
             try:
                 yield session
                 self._identity()
             finally:session.closed=True
 
 class _Session:
-    def __init__(self,store):self.store=store;self.closed=False
+    def __init__(self,store,context):self.store=store;self.context=context;self.closed=False
     def _open(self):
         if self.closed:raise AttemptStoreError('Attempt session already released')
     def read(self,stream,batch_id):
@@ -135,6 +135,21 @@ class _Session:
         s=self.store
         order='CASE phase '+ ' '.join("WHEN '"+p+"' THEN "+str(i) for i,p in enumerate(PHASES))+' END'
         limit = '6' if s.original_request is None else '161'
+        if s.original_request is not None:
+            original=_json(s.original_request.encode())
+            if (stream,batch_id)!=(original['stream'],original['batch_id']):
+                raise AttemptStoreError('Original scoped stream/batch differs')
+            missing=object();observer=getattr(s.executor,'observe_phase_absence',missing)
+            if observer is not missing:
+                if not callable(observer):raise AttemptStoreError('Invalid optional phase observation port')
+                from .phase_read import PhaseReadRequest,PhaseAbsence
+                read=PhaseReadRequest(self,self.context,s.table,s.uuid,stream,batch_id,s.original_request)
+                observed=observer(read,context=self.context)
+                if observed is not None:
+                    if type(observed)is not PhaseAbsence or observed.request is not read:
+                        raise AttemptStoreError('Exact current phase absence observation required')
+                    read.renew(self.context)
+                    return ()
         rows=s.executor.query('SELECT phase,request_digest,payload_json,payload_digest FROM '+s.sql_table+' WHERE stream=:stream AND batch_id=:batch ORDER BY '+order+' LIMIT '+limit,{'stream':stream,'batch':batch_id}).rows
         if s.original_request is None: return _phase_records(stream,batch_id,rows)
         original = _json(s.original_request.encode())
@@ -199,3 +214,19 @@ class _Session:
         actual=self.read(row['stream'],row['batch_id'])
         if len(actual)!=index+1 or actual[-1]!=PhaseRecord(phase,digest,text,row['payload_digest']):raise AttemptStoreError('Native phase readback mismatch')
         return actual[-1]
+
+
+def validate_phase_read_session(session,context,request):
+    """Admit an exact current core session/request; a carrier is not authority."""
+    from .phase_read import PhaseReadRequest
+    if type(session)is not _Session or context is not session.context or type(request)is not PhaseReadRequest:
+        raise AttemptStoreError('Actual held core phase session required')
+    session._open();store=session.store
+    if (request.session is not session or request.context is not context
+            or request.table!=store.table or request.uuid!=store.uuid
+            or request.original_request_json!=store.original_request or store.original_request is None):
+        raise AttemptStoreError('Original phase session binding differs')
+    original=_json(store.original_request.encode())
+    if (request.stream,request.batch_id)!=(original['stream'],original['batch_id']):
+        raise AttemptStoreError('Original phase request key differs')
+    verify_request_digest(original)

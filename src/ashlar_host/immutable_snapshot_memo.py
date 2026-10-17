@@ -25,7 +25,7 @@ def _size(value):
     return size(value)
 
 class ImmutableSnapshotMemo:
-    def __init__(self,owner):self.owner=owner;self.values={};self.histories={};self.bytes=0
+    def __init__(self,owner):self.owner=owner;self.values={};self.histories={};self.phase_witnesses={};self.bytes=0
     def _fits(self,capacity):return capacity<=1048576 and self.bytes+capacity+16384<=8*1048576
     def observe(self,owner,target,version):
         if owner is not self.owner or type(version)is not int or version<0:raise ValueError('Original immutable snapshot owner/version required')
@@ -70,6 +70,32 @@ class ImmutableSnapshotMemo:
         owner._detail(target)
         return deepcopy(result)
 
+    def phase_witness(self,owner,target,metadata):
+        if owner is not self.owner:raise ValueError('Actual phase history owner required')
+        if (type(metadata)is not tuple or not 1<=len(metadata)<=8
+                or any(type(item)is not tuple or len(item)!=3 or any(type(v)is not str for v in item)for item in metadata)):
+            raise ValueError('Exact immutable phase key metadata required')
+        table_key=(target.table,target.uuid,str(target.path))
+        self.observe_history(owner,target)
+        if table_key not in self.histories:return None
+        history=self.histories[table_key][1]
+        versions=[row.get('version')for row in history]
+        if not versions or any(type(v)is not int or v<0 for v in versions)or len(set(versions))!=len(versions):
+            raise ValueError('Exact complete phase history versions required')
+        version=max(versions);capacity=_size(metadata)+256
+        if self.phase_witnesses or not self._fits(capacity):return None
+        token=object();self.phase_witnesses[token]=(table_key,version,metadata);self.bytes+=capacity
+        return token,version
+
+    def admit_phase_witness(self,owner,target,witness):
+        if owner is not self.owner or type(witness)is not tuple or len(witness)!=2:
+            raise ValueError('Exact active phase history witness required')
+        token,version=witness;retained=self.phase_witnesses.get(token)
+        if retained is None or retained[:2]!=((target.table,target.uuid,str(target.path)),version):
+            raise ValueError('Current retained phase history differs')
+        owner._detail(target)
+        return retained[2]
+
     def renew_history(self,target,history):
         from .driver import original_history_equal
         self.owner._detail(target)
@@ -90,4 +116,4 @@ def immutable_snapshot_memo(owner):
         try:
             finish(primary,[lambda target=target,history=history:memo.renew_history(target,history)for target,history in memo.histories.values()])
         finally:
-            memo.values.clear();memo.histories.clear();memo.bytes=0
+            memo.values.clear();memo.histories.clear();memo.phase_witnesses.clear();memo.bytes=0

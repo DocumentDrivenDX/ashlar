@@ -1,0 +1,61 @@
+{
+  "profile": "ashlar-post-a2-ordinary-readback-success/0.1",
+  "result_sha256": "08ac8daa273e6ed298e0673b02e8df98c132f1c6efbb7c996e9890e8d6a83e46",
+  "result_bytes": 218907,
+  "terminal": {
+    "cleanup": {
+      "groups_absent": true,
+      "process_groups": [
+        88486
+      ],
+      "session_leader_reaped": true
+    },
+    "elapsed_seconds": 0.3229765829164535,
+    "status": 0
+  },
+  "worker_terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "observations": [
+    {
+      "label": "A",
+      "source_head": "4",
+      "complete_source_groups": 4,
+      "ack_position": "1",
+      "selected_completed_slot": 0,
+      "original_request_manifest_bytes_match": true,
+      "source_opening_closing_equal": true,
+      "transaction_closing_completed": true
+    },
+    {
+      "label": "B",
+      "source_head": "4",
+      "complete_source_groups": 4,
+      "ack_position": "1",
+      "selected_completed_slot": 1,
+      "original_request_manifest_bytes_match": true,
+      "source_opening_closing_equal": true,
+      "transaction_closing_completed": true
+    }
+  ],
+  "all_closing_completed": true,
+  "excluded_private_references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "reason": "Credentials/DSNs: excluded"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/source-ack-post-a2-r2-observation-control/provider.py",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "reason": "Reviewed source-only provider: exact pin only"
+    }
+  ],
+  "qualification": "Actual ordinary readback of A1/B1 receipts and complete seeded sources. No A2 ACK2, nativevector/publication validity or prefixcompletion inference. No assembler native/source/ACK calls."
+}

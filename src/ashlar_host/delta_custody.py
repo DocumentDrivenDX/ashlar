@@ -759,6 +759,48 @@ class LocalDeltaTransport:
     def recover(self, operation, sql, parameters, *, intent_digest, context):
         return self._execute(operation, sql, parameters, intent_digest, context, recovery=True)
 
+    def retain_phase_absence_witness(self,table,metadata):
+        """Retain bounded interval history/keys; never create native authority."""
+        from .immutable_snapshot_memo import ImmutableSnapshotMemo
+        memo=getattr(self,'_immutable_snapshot_memo',None)
+        if memo is None:return None
+        if type(memo)is not ImmutableSnapshotMemo:raise LocalDeltaError('Actual phase history interval required')
+        target=self.targets[table]
+        return memo.phase_witness(self,target,metadata)
+
+    def renew_phase_absence_witness(self,table,witness,*,metadata=None):
+        from .immutable_snapshot_memo import ImmutableSnapshotMemo
+        memo=getattr(self,'_immutable_snapshot_memo',None)
+        if type(memo)is not ImmutableSnapshotMemo:raise LocalDeltaError('Active phase history interval required')
+        retained=memo.admit_phase_witness(self,self.targets[table],witness)
+        if metadata is not None and metadata!=retained:raise LocalDeltaError('Original phase key metadata differs')
+        return retained
+
+    def observe_phase_absence_keys(self,table,witness,stream,batches):
+        """One version-pinned bounded two-String observation; any row falls back."""
+        if (type(stream)is not str or not 0<len(stream.encode())<=1024
+                or type(batches)is not tuple or not 1<=len(batches)<=8
+                or any(type(v)is not str or not 0<len(v.encode())<=1024 for v in batches)
+                or len(set(batches))!=len(batches)):
+            raise LocalDeltaError('Exact bounded phase absence keys required')
+        retained=self.renew_phase_absence_witness(table,witness)
+        if tuple((s,b)for s,b,_ in retained)!=tuple((stream,b)for b in batches):
+            raise LocalDeltaError('Original phase query key set differs')
+        version=witness[1]
+        if type(version)is not int or version<0:raise LocalDeltaError('Exact retained phase version required')
+        parameters={'stream':stream,**{'batch'+str(i):value for i,value in enumerate(batches)}}
+        quoted='`'+'`.`'.join(table.split('.'))+'`'
+        statement='SELECT stream,batch_id FROM '+quoted+' VERSION AS OF '+str(version)+' WHERE stream=:stream AND batch_id IN ('+','.join(':batch'+str(i)for i in range(len(batches)))+') LIMIT 1'
+        frame=self.spark.sql(self._render(statement),args=parameters)
+        if [(f.name,f.dataType.simpleString())for f in frame.schema.fields]!=[('stream','string'),('batch_id','string')]:
+            raise LocalDeltaError('Exact phase absence projection required')
+        if getattr(self,'observation_bounds',None)is None:
+            with self.bounded_observations(VerificationBounds(65536,1,4096,65536,65536,65536)):
+                rows=self._bounded_native_rows(frame,maximum_rows=1)
+        else:rows=self._bounded_native_rows(frame,maximum_rows=1)
+        self.renew_phase_absence_witness(table,witness)
+        return rows
+
     def _committed_history(self,target):
         memo=getattr(self,'_immutable_snapshot_memo',None)
         if memo is None:return self.original_history(target)

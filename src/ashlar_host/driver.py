@@ -509,6 +509,8 @@ class NativeDriver:
         if (selected_completed is not None and (type(selected_completed) is not int
                 or not 0 <= selected_completed < 8 or inventory.slots[selected_completed][1] != 'completed')):
             raise PermissionError('Exact original completed ordinal required')
+        from .phase_absence import PhaseAbsenceOwner
+        phase_absence=PhaseAbsenceOwner(self,original,inventory,correspondence,context)
         observed_descriptor = None
         completed_descriptors = []
         previous_active = self.policy.active
@@ -531,7 +533,7 @@ class NativeDriver:
             for ordinal, state, raw, digest, descriptor_bytes in inventory.slots:
                 facts = correspondence.at(ordinal); request = facts['request']
                 target = self.transport.targets[self.tables['attempts']]
-                store = DeltaAttemptStore(AttemptExecutor(self), CarrierPolicy(self, 'attempts'),
+                store = DeltaAttemptStore(AttemptExecutor(self,phase_absence=phase_absence), CarrierPolicy(self, 'attempts'),
                     target.table, target.uuid, original_request=request)
                 records = None
                 with owned_context(store.session(context)) as session:
@@ -677,6 +679,7 @@ class NativeDriver:
         except BaseException as error:
             primary = error
         finally:
+            phase_absence.close()
             self.policy.active = previous_active
         from .lifecycle import finish
         finish(primary, [lambda: self.require(context),
@@ -2523,8 +2526,15 @@ class NativeDriver:
 
 class AttemptExecutor:
 
-    def __init__(self, driver):
+    def __init__(self, driver, *, phase_absence=None):
         self.driver = driver
+        self.phase_absence = phase_absence
+
+    def observe_phase_absence(self,read,*,context):
+        if self.phase_absence is None:return None
+        from .phase_absence import PhaseAbsenceOwner
+        if type(self.phase_absence)is not PhaseAbsenceOwner or self.phase_absence.driver is not self.driver:raise PermissionError('Actual phase absence owner required')
+        return self.phase_absence.observe(read,context=context)
 
     def query(self, sql, parameters):
         if sql.lstrip().split(None, 1)[0].upper() in ('SELECT', 'DESCRIBE', 'SHOW'):

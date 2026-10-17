@@ -630,6 +630,26 @@ snapshot observations; non-retained observations MUST close independently.
 This permission MUST NOT cache mutation, recovery or current-head history reads,
 source/ACK authority or extend across admissions.
 
+Within that same held read-only admission, an optional typed phase-read port MAY
+prove provisional absence for the exact original full-ledger inventory's strictly
+unprepared slots. Its carrier MUST bind an actual open core session, context,
+original request bytes, stream/feed/epoch, table, UUID, path and active interval.
+Before a single version-pinned zero-row probe over at most eight original keys,
+the owner MUST retain complete raw phase history within the existing history and
+aggregate bounds. Each use MUST freshly admit native identity and preserve all
+core writer-policy, request-digest and source checks. Any observed row MUST fall
+back to ordinary scoped phase reads, including their validation of foreign-scope
+groups; a positive row MUST NOT become a blanket refusal. Missing optional ports,
+ineligible keys or insufficient retention capacity MUST use ordinary reads;
+malformed exposed ports or carriers MUST refuse. Retained and completed slots,
+mutation and recovery paths MUST retain ordinary phase reads. The owner MUST
+become inactive before interval release on every outcome; complete fresh closing
+history equality remains required, including failure and cancellation. Safety
+requires zero-row evidence at the retained version plus unchanged closing history,
+not absence asserted by a carrier. Progress requires bounded fallback to the
+original path whenever that evidence cannot be retained; no larger capture limit
+or additional source/native authority is permitted.
+
 A prefix result MUST identify the original run, selected ordinal, completed
 count and total of eight; it MUST NOT claim full-run qualification. A result MAY
 report run completion only for ordinal seven after all eight contiguous original

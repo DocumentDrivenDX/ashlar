@@ -1,0 +1,52 @@
+{
+  "profile": "ashlar-future-phase-absence-inert-evidence/0.1",
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_phase_absence",
+  "result": {
+    "tests": 6,
+    "elapsed_seconds": 10.679,
+    "status": "OK"
+  },
+  "boundaries": {
+    "command": "python3 tools/check_module_boundaries.py",
+    "status": "pass"
+  },
+  "counterproof": {
+    "five_actual_core_sessions": {
+      "ordinary_phase_selects_before": 5,
+      "ordinary_phase_selects_after": 0,
+      "version_pinned_zero_probes_after": 1,
+      "uuid_queries_each": 10,
+      "writer_entries_each": 5,
+      "writer_exits_each": 5
+    },
+    "full_driver_all_eight_unprepared": {
+      "ordinary_phase_selects": 0,
+      "version_pinned_zero_probes": 1,
+      "uuid_queries": 16,
+      "owner_closed_before_interval_release": true
+    },
+    "component_mixed_slot_eligibility": {
+      "completed_slots": 2,
+      "retained_slots": 1,
+      "unprepared_slots": 5,
+      "ordinary_phase_selects": 3,
+      "version_pinned_zero_probes": 1
+    }
+  },
+  "qualifications": [
+    "Actual SQLite row groups and real core sessions with inert native Spark frame/identity owners; no Spark or producer run.",
+    "Full-driver delegation uses all-eight-unprepared inventory. Mixed completed/retained eligibility is a separate component control with inert plan placeholders, not a full published-prefix qualification.",
+    "Foreign valid scope falls back and remains empty for current scope; malformed foreign group still refuses.",
+    "Identity/request/inventory/history drift, cancellation, invalid exposed port/carrier, capacity fallback and expired/wrong-context session controls are included.",
+    "No native publication progress, elapsed native performance improvement or production authority is claimed."
+  ],
+  "sources": {
+    "src/ashlar/phase_read.py": "7afb6ca2ca0c1d016e5a4c2c14171a5fb1131521b0309a26ab3bb09ba2c00c8c",
+    "src/ashlar/attempt_store.py": "bcd3fadf4912785fe9f8981308d90c042f4345c8acfed42d395ef1045f8b8c3e",
+    "src/ashlar_host/phase_absence.py": "6f7db5297b8e357277b55112d00c1d2afc83677eb2648df4dcd41b7c93c3608a",
+    "src/ashlar_host/immutable_snapshot_memo.py": "f508137d0c7db11b2313823f675f67b6f50da45dac92dbf61165e3c010b64e35",
+    "src/ashlar_host/delta_custody.py": "e275a6462275d8cda887fb7fbeab8bba38f376022eed7d9b9b8835f2650bd78b",
+    "src/ashlar_host/driver.py": "c6a5a96246418e4f10eca0ebc8016a58fc50ae0652907386d7f356ea9db95b65",
+    "tests/test_phase_absence.py": "abc1f3df7292ba0f93eb9267afc1f745542ed8ff5b51f210cb13c82645513bfa"
+  }
+}
