@@ -24,6 +24,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_scenario_sources test_puppy_scenario_worker test_puppy_scenario_cli test_puppy_scenario_processes
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_public_ports.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_managed_pin_reader.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_managed_publication_selection.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_runtime test_original_medical_local_cli test_medical_query_cli test_original_medical_admission
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_local_manifest_prepare test_medical_commit_inspection test_prospective_stored_publisher test_medical_prospective_composition test_medical_prospective_manifest test_medical_mapped_vnodes test_medical_journal_inspection test_medical_inspection_selection
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
