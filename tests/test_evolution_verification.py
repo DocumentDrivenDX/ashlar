@@ -199,7 +199,7 @@ class Tests(unittest.TestCase):
             from ashlar_host.native_singleton_capture import SingletonCaptureError
             with patch('ashlar_host.native_singleton_capture.capture_native_singleton',
                     side_effect=SingletonCaptureError('native count exceeds one'))as singleton:
-                with self.assertRaises(LocalDeltaError):LocalDeltaTransport._detail(self.transport,self.target)
+                with self.assertRaises(LocalDeltaError):LocalDeltaTransport._detail(self.transport,self.target,full=True)
                 self.assertIs(singleton.call_args.args[0],self.frame)
                 self.assertEqual(singleton.call_args.kwargs['bounds'],self.bounds)
         primary=KeyboardInterrupt('native query iterator');events=[]
