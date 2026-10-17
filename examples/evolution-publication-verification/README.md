@@ -9,9 +9,14 @@ union and validates complete native schemas under the selected publication's
 immutable pins.
 
 Use the installed Ashlar package and the existing qualified local
-Spark/Delta/psycopg runtime. The selected tables must have the original local
-bootstrap profile: fixed primitive columns, nullable fields and empty field
-metadata. Preserve the original six target identities, installation reservation,
+Spark/Delta/psycopg runtime. Select the original tables' schema profile explicitly:
+add `"native_schema_profile": "canonical-managed-carriers/0.1"` to the invocation
+for packaged UMF-generated carrier fields, including their declared nullability.
+Omission preserves `legacy-sql-bootstrap/0.1`, whose primitive fields are nullable.
+Both profiles require empty field metadata and apply to all four graph roles;
+the verifier does not infer a profile or repair mismatched tables. Canonical
+receipts identify the profile and generated-carrier digest.
+Preserve the original six target identities, installation reservation,
 native journal, run reservation, producer and two source registrations.
 
 Copy [invocation.template.json](invocation.template.json) to a private operator
