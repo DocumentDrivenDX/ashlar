@@ -1,0 +1,14 @@
+[
+  {
+    "file": "record-1.json.gz",
+    "sha256": "70e1e33669a84f4422550ab56ed15c65c94685b4df7289a8391cfee11563f75d",
+    "original_sha256": "9fed2336f69e53a4dc81264639f00897dcf8ad7f6b30e276b0432b6621b6cd9e",
+    "original_bytes": 19588
+  },
+  {
+    "file": "report.json.gz",
+    "sha256": "eb3cf15127f3f50af6e025bfcd4a75f17834778800501f1fbe8e69d1bd1fc8d9",
+    "original_sha256": "fac09ead012e079c7e5f5328587698c34ebf097e9b45c8429892accc3ba12831",
+    "original_bytes": 831
+  }
+]

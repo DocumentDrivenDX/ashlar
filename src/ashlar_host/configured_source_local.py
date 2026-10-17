@@ -44,25 +44,36 @@ class ConfiguredLocalSource:
         admission.__post_init__();self.context=context;self.stream=stream;self._active=True
         self.configuration_file=InvocationFile.read(admission.configuration,262144)
         document=decode_retained_json(self.configuration_file.raw);files=[]
-        for name in ('source','schema','intake','interpretation'):
+        self.typed=document.get('profile')=='ashlar-jsonl-typed-source/0.1'
+        for name in (('source','schema','bindings')if self.typed else('source','schema','intake','interpretation')):
             ref=document[name];_require(type(ref)is dict and set(ref)=={'path','sha256'}and type(ref['path'])is str)
             file=InvocationFile.read((self.configuration_file.path.parent/ref['path']).resolve(),262144)
             _require(hashlib.sha256(file.raw).hexdigest()==ref['sha256']);files.append(file)
         self.files=tuple(files)
-        from ashlar.source_config import load_jsonl_configuration
-        self.configuration=load_jsonl_configuration(self.configuration_file.path)
+        if self.typed:
+            from ashlar.typed_source_config import load_typed_jsonl_configuration
+            self.configuration=load_typed_jsonl_configuration(self.configuration_file.path)
+        else:
+            from ashlar.source_config import load_jsonl_configuration
+            self.configuration=load_jsonl_configuration(self.configuration_file.path)
         self.original_source=self.files[0].raw
         self.batches=tuple(jsonl_batches(self.original_source.splitlines(keepends=True),feed=self.configuration.feed,epoch=self.configuration.epoch))
         _require(1<=len(self.batches)<=4)
-        self._specs=self._prepare();report=validate_configured_source(admission);self.admission_json=_encoded(report)
+        if not self.typed:self._specs=self._prepare()
+        report=validate_configured_source(admission);self.admission_json=_encoded(report)
         self.receipt_files=tuple((admission.output/item['file'],snapshot(admission.output/item['file'],admission.maximum_receipt_bytes))for item in report['receipts'])
         _require(all(hashlib.sha256(file[1]).hexdigest()==item['sha256']and len(file[1])==item['bytes']for file,item in zip(self.receipt_files,report['receipts'])))
         self.maximum_receipt_bytes=admission.maximum_receipt_bytes
+        if self.typed:
+            _require(len(self.receipt_files)==1)
+            self.configuration=load_typed_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+            self._specs=self._prepare()
+        self.type_ids=self.configuration.type_ids
         _require(decode_retained_json(self.admission_json.encode())['source_sha256']==hashlib.sha256(self.original_source).hexdigest())
         self.renew(context);self._sealed=True
     def _prepare(self):
         state=empty_state();specs=[];previous='empty-local-configured-jsonl-stream'
-        revisions=_encoded({self.configuration.schema_alias:self.configuration.intake.document_revision})
+        revisions=_encoded({self.configuration.schema_alias:self.configuration.document_revision})
         for ordinal,batch in enumerate(self.batches,1):
             staged=batch_row(batch);_require(batch_from_row(staged)==batch)
             state=plan_apply(state,changes_from_batch(batch),schema_policy=self.configuration.policy)
@@ -78,17 +89,22 @@ class ConfiguredLocalSource:
     def renew(self,context):
         _require(self._active and context is self.context)
         finish(None,[lambda:self.configuration_file.renew(262144),*(lambda f=f:f.renew(262144)for f in self.files),self.configuration.verify,*(lambda f=f:_require(snapshot(f[0],self.maximum_receipt_bytes)==f[1])for f in self.receipt_files)])
-        from ashlar.source_config import load_jsonl_configuration
-        fresh=load_jsonl_configuration(self.configuration_file.path)
+        if self.typed:
+            from ashlar.typed_source_config import load_typed_jsonl_configuration
+            fresh=load_typed_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+        else:
+            from ashlar.source_config import load_jsonl_configuration
+            fresh=load_jsonl_configuration(self.configuration_file.path)
         _require(vars(fresh.policy)==vars(self.configuration.policy))
+        _require(self.type_ids==fresh.type_ids)
         _require(tuple(jsonl_batches(self.files[0].raw.splitlines(keepends=True),feed=self.configuration.feed,epoch=self.configuration.epoch))==self.batches)
         _require(self._prepare()==self._specs)
     def metadata(self,context):
         self.renew(context)
-        return {'profile':'ashlar-configured-local-source/0.1','configuration_sha256':hashlib.sha256(self.configuration_file.raw).hexdigest(),
-                'source_sha256':hashlib.sha256(self.original_source).hexdigest(),'model_sha256':self.configuration.intake.source_sha256,
+        return {'profile':'ashlar-configured-local-typed-source/0.1'if self.typed else'ashlar-configured-local-source/0.1','configuration_sha256':hashlib.sha256(self.configuration_file.raw).hexdigest(),
+                'source_sha256':hashlib.sha256(self.original_source).hexdigest(),'model_sha256':self.configuration.model_sha256,
                 'admission_report_sha256':hashlib.sha256(self.admission_json.encode()).hexdigest(),'batches':len(self.batches),
-                'checkpoint_profile':'ashlar-immutable-jsonl/0.1','qualification':'Original configured STRING objects and local immutable-file progress only; no protected source ACK or native authority.'}
+                'checkpoint_profile':'ashlar-immutable-jsonl/0.1','qualification':('Original authored core0.8 scalar carried Record values, including deletes, and local immutable-file progress only; no keys/relationships, protected source ACK, native or query authority.'if self.typed else'Original configured STRING objects and local immutable-file progress only; no protected source ACK or native authority.')}
     def spec(self,ordinal,context):
         self.renew(context);_require(type(ordinal)is int and 1<=ordinal<=len(self.batches));return self._specs[ordinal-1]
     def state_at(self,completed_ordinal,context):

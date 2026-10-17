@@ -146,7 +146,7 @@ class ConfiguredLocalPublicationDriver:
             def validate_descriptor(_,value,context):_require(value==descriptor and context is self.context);self.admit_current(dict(value.raw))
             def validate_snapshot(_,table,uuid,version,columns):_require(uuid==self.transport.targets[table].uuid and version==descriptor.versions[table])
         backend=NativeBackend(self.transport,Policy(),table,target.uuid,{self.tables[r]:self.columns[r]for r in ROLES})
-        actual=resolve_publication(backend,descriptor.publication_id,{self.tables[r]:self.transport.targets[self.tables[r]].uuid for r in ROLES},context=self.context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={self.source.configuration.schema_alias:[self.source.configuration.intake.document_revision]})
+        actual=resolve_publication(backend,descriptor.publication_id,{self.tables[r]:self.transport.targets[self.tables[r]].uuid for r in ROLES},context=self.context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={self.source.configuration.schema_alias:[self.source.configuration.document_revision]})
         _require(actual.descriptor==descriptor)
     @contextmanager
     def _resolved(self,descriptor,context):

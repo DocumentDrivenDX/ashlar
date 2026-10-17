@@ -17,6 +17,7 @@ def _require(value):
 def configured_count_star_request(scope,aliases,sql,*,layout_sha256):
     """Construct a detached original-model request from an actual live read scope."""
     _require(type(scope)is ConfiguredLocalRead)
+    _require(not scope.source.typed)
     scope.renew();scope.parity()
     _require(type(sql)is str and 0<len(sql.encode())<=65536 and '\0'not in sql)
     _require(type(aliases)is dict and all(type(k)is str and type(v)is str for k,v in aliases.items())and set(aliases)==set(scope.descriptor.versions)and len(aliases)==4 and len(set(aliases.values()))==4)

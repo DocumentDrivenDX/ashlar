@@ -1274,3 +1274,32 @@ that declares its encoding, complete original byte count and digest. Compression
 MUST retain every original byte, including unknown content and the full vector;
 neither truncation nor a digest-only substitute is permitted. Both original and
 encoded lengths MUST be bounded, and encoded overflow MUST refuse before ACK.
+
+## Configured typed immutable-file publication
+
+The local configured lifecycle MAY consume the separately versioned
+`ashlar-jsonl-typed-source/0.1` profile. Its closed configuration MUST retain
+`feed`, `epoch`, `sourceSystem`, `schemaAlias`, `documentRevision`,
+`producerRevision` and exact `source`, `schema` and `bindings` file references.
+Original authored UMF core 0.8 bytes and explicit development ID bindings MUST
+remain distinct from STRING/core 0.7 intake and accepted Truss catalog authority.
+
+Before native setup, a bounded selected clean public UMF producer MUST validate
+every carried scalar Record payload using `validateCoreRecordValues`. Exact
+integer/decimal tokens, booleans, optional absence/null/value and unknown retained
+content MUST survive transport, history, restart and replay unchanged. All events,
+including deletes, MUST carry complete scalar Record values in this first profile.
+UMF validates that carried payload; core apply separately owns the delete
+transition and tombstone. Empty delete payloads, target-existence proof, dataset
+keys and relationships require separate admission.
+
+The minted local source MUST bind original configuration/model/source/binding
+bytes, complete original requests, receipts and checkpoint/predecessor custody.
+Receipt or file drift MUST refuse. Initialization, publication, replay and raw
+singleton reads MUST use the same native admission, original operation journals,
+complete source-prefix carrier checks and closing rules as the configured local
+lifecycle. Numeric properties MUST remain exact opaque JSON text in canonical
+carriers; this profile MUST NOT imply numeric Weft query qualification. Existing
+STRING request/registry/progress correspondence MUST remain unchanged. Local
+consumer progress MUST NOT be represented as protected producer ACK or remote
+writer fencing.

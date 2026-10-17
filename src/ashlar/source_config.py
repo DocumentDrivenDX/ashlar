@@ -18,6 +18,14 @@ class JsonlConfiguration:
     epoch:str
     schema_alias:str
     references:tuple
+    @property
+    def model_source(self):return self.intake.source
+    @property
+    def model_sha256(self):return self.intake.source_sha256
+    @property
+    def document_revision(self):return self.intake.document_revision
+    @property
+    def type_ids(self):return tuple(sorted(self.policy.types))
     def verify(self):
         if self.path.read_bytes()!=self.original:raise ValueError('Original source configuration changed')
         for path,digest in self.references:

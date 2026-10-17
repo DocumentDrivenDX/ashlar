@@ -82,7 +82,7 @@ def _columns():
 def _scope(config,source):
     return {'installation_id':config.installation_id,'stream':config.stream,'materialization_clock_us':config.materialization_clock_us,
             'configuration_sha256':hashlib.sha256(source.configuration_file.raw).hexdigest(),'source_sha256':hashlib.sha256(source.original_source).hexdigest(),
-            'model_sha256':source.configuration.intake.source_sha256,'operation_capacity':None if config.operation_capacity is None else dict(config.operation_capacity)}
+            'model_sha256':source.configuration.model_sha256,'operation_capacity':None if config.operation_capacity is None else dict(config.operation_capacity)}
 
 
 def _native(spark,target,columns):
@@ -116,7 +116,7 @@ class ConfiguredLocalAdmission:
         _require(encoded([{'table':t.table,'path':str(t.path),'uuid':t.uuid}for t in self.targets])==self.original_registry)
         if request is not None:source.admit_request(request,context)
         versions={}if manifest is None else json.loads(manifest['table_versions_json'])
-        if manifest is not None:_require(set(versions)=={t.table for t in self.targets if t.table.rsplit('.',1)[1]in ROLES}and json.loads(manifest['schema_revisions_json'])=={source.configuration.schema_alias:source.configuration.intake.document_revision})
+        if manifest is not None:_require(set(versions)=={t.table for t in self.targets if t.table.rsplit('.',1)[1]in ROLES}and json.loads(manifest['schema_revisions_json'])=={source.configuration.schema_alias:source.configuration.document_revision})
         now=time.time_ns()//1000;key=encoded(versions)
         # Cooperative local profile: the continuously held private installation
         # lease excludes participating writers. This runtime never changes native
@@ -166,7 +166,8 @@ def _run(config,ordinal,*,selector=None,query=None):
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
-        _require(selector is None or selector[0]in source.configuration.policy.types)
+        _require(query is None or not source.typed)
+        _require(selector is None or selector[0]in source.type_ids)
         scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
         if not initialize:
             registry=json.loads(original_registry.raw);_require(set(registry)=={'profile','scope','targets','columns'}and registry['profile']=='ashlar-configured-local-installation/0.1'and registry['scope']==scope and registry['columns']=={r:[list(c)for c in cols]for r,cols in columns.items()})

@@ -1,5 +1,4 @@
 """Installed original configured-source preflight; no database or source effects."""
-from dataclasses import dataclass
 import hashlib
 import json
 import os
@@ -12,25 +11,11 @@ from .config import ProducerConfig
 from .evolution_cli import InvocationFile
 from .managed_record_admission import admit_managed_records,RECORD_CHECK_PIN
 from .lifecycle import finish
+from .configured_source_admission_config import ConfiguredSourceAdmissionConfig
 
 
 def _require(value):
     if not value:raise ValueError('Configured source admission refused')
-
-@dataclass(frozen=True)
-class ConfiguredSourceAdmissionConfig:
-    configuration:Path
-    producer:ProducerConfig
-    output:Path
-    maximum_receipt_bytes:int
-    def __post_init__(self):
-        for path in (self.configuration,self.output):
-            _require(type(path)is type(Path())and path.is_absolute()and path.parent.resolve()==path.parent)
-        _require(type(self.producer)is ProducerConfig);self.producer.__post_init__()
-        _require(type(self.maximum_receipt_bytes)is int and 1<=self.maximum_receipt_bytes<=4194304)
-        _require(self.configuration!=self.output and self.output not in self.configuration.parents)
-        _require(self.output!=self.producer.source and self.producer.source not in self.output.parents and self.output not in self.producer.source.parents)
-        _require(all(self.output!=p and self.output not in p.parents for p in (self.producer.bun,self.producer.git)))
 
 
 def _write(path,raw):
@@ -52,6 +37,9 @@ def validate_configured_source(config):
     parent_identity=(s.st_dev,s.st_ino)
     original=InvocationFile.read(config.configuration,262144)
     document=decode_retained_json(original.raw);references=[]
+    if document.get('profile')=='ashlar-jsonl-typed-source/0.1':
+        from .configured_typed_source_admission import validate_configured_typed_source
+        return validate_configured_typed_source(config)
     for name in ('source','schema','intake','interpretation'):
         item=document[name];_require(type(item)is dict and set(item)=={'path','sha256'})
         _require(type(item['path'])is str and '\0'not in item['path'])

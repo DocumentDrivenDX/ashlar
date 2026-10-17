@@ -136,7 +136,7 @@ def open_configured_local_read(transport,source,progress,*,ordinal,tables,contex
         policy=Policy();pins=LocalPins()
         backend=NativeBackend(executor,policy,tables['manifest'],targets['manifest'].uuid,{tables[r]:columns[r]for r in ROLES})
         def singleton(type_id,entity_id):
-            require();_require(all(type(n)is int and -(2**63)<=n<2**63 for n in (type_id,entity_id))and type_id in source.configuration.policy.types)
+            require();_require(all(type(n)is int and -(2**63)<=n<2**63 for n in (type_id,entity_id))and type_id in source.type_ids)
             class SingletonPolicy(Policy):
                 def authorize_row(self,value,table,row,supplied):
                     self.bind_descriptor(value,vector,supplied);_require(table==tables['object_current'])
@@ -144,7 +144,7 @@ def open_configured_local_read(transport,source,progress,*,ordinal,tables,contex
                     _require(len(matches)<=1 and ((row is None and not matches)or(row is not None and len(matches)==1 and dict(row)==matches[0])))
             selected_policy=SingletonPolicy()
             selected_backend=NativeBackend(executor,selected_policy,tables['manifest'],targets['manifest'].uuid,{tables[r]:columns[r]for r in ROLES})
-            row=read_singleton(executor,selected_backend,pins,vector,selected_policy,publication_id=descriptor.publication_id,table=tables['object_current'],kind='object',source=source.configuration.policy.source_system,type_id=type_id,entity_id=entity_id,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={source.configuration.schema_alias:[source.configuration.intake.document_revision]})
+            row=read_singleton(executor,selected_backend,pins,vector,selected_policy,publication_id=descriptor.publication_id,table=tables['object_current'],kind='object',source=source.configuration.policy.source_system,type_id=type_id,entity_id=entity_id,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={source.configuration.schema_alias:[source.configuration.document_revision]})
             return dict(row)if row is not None else None
         view=ConfiguredLocalRead(_mint=_MINT,transport=transport,executor=executor,descriptor=descriptor,vector=vector,manifest_uuid=targets['manifest'].uuid,backend=backend,pins=pins,policy=policy,
             source=source,context=context,tables=MappingProxyType(dict(tables)),columns=MappingProxyType(dict(columns)),source_rows_json=encoded(expected),_current=current,_parity=parity,_singleton=singleton)
@@ -174,7 +174,7 @@ def open_configured_local_read(transport,source,progress,*,ordinal,tables,contex
 def read_configured_local_singleton(transport,source,progress,*,ordinal,type_id,entity_id,tables,context,materialization_clock_us,current_admission):
     """Preserved singleton API; return only after the original read scope closes."""
     _require(type(source)is ConfiguredLocalSource and all(type(n)is int and -(2**63)<=n<2**63 for n in (type_id,entity_id)))
-    _require(type_id in source.configuration.policy.types)
+    _require(type_id in source.type_ids)
     result=None
     with owned_context(open_configured_local_read(transport,source,progress,ordinal=ordinal,tables=tables,context=context,
             materialization_clock_us=materialization_clock_us,current_admission=current_admission))as held:
