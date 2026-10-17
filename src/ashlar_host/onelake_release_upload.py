@@ -88,6 +88,38 @@ class OneLakeUploadReceipt:
     responses: tuple
 
 
+class OneLakeOperationRefused(ValueError):
+    """Original bounded credential-checked refusal, retained after owner closure.
+
+    The message deliberately omits native body/header content. Callers may retain
+    response in private diagnostic evidence; it grants no retry or write authority.
+    """
+    def __init__(self, response):
+        if (type(response) is not tuple or len(response) != 5
+                or type(response[0]) is not str or type(response[1]) is not str
+                or type(response[2]) is not int or not 100 <= response[2] <= 599
+                or type(response[3]) is not bytes or type(response[4]) is not tuple
+                or any(type(pair) is not tuple or len(pair) != 2
+                       or any(type(value) is not str for value in pair) for pair in response[4])):
+            raise ValueError('Exact immutable OneLake refusal response required')
+        self._response = response
+        super().__init__('OneLake operation refused (HTTP ' + str(response[2]) + '); no retry or overwrite')
+
+    def __setattr__(self, name, value):
+        if name == '_response' and hasattr(self, name):
+            raise AttributeError('Original OneLake refusal response is immutable')
+        super().__setattr__(name, value)
+
+    def __delattr__(self, name):
+        if name == '_response':
+            raise AttributeError('Original OneLake refusal response is immutable')
+        super().__delattr__(name)
+
+    @property
+    def response(self):
+        return self._response
+
+
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs):
         return None
@@ -172,7 +204,7 @@ class OneLakeReleaseUpload:
             self._current()
             self._observations.append((method, path + query, code, bytes(raw), retained_headers))
             if code != expected:
-                raise ValueError('OneLake operation refused; no retry or overwrite')
+                raise OneLakeOperationRefused(self._observations[-1])
         except BaseException as error:
             primary = error
         finish(primary, ([response.close] if response is not None else []) + [self._mutation.renew])

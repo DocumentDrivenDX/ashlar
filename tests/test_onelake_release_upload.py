@@ -14,7 +14,7 @@ from urllib.parse import urlsplit, parse_qs
 from ashlar_host.fabric_deployment_http import FabricDeploymentHttpConfig
 from ashlar_host.fabric_release_journal import FabricReleaseJournal, JournalRefusal, ReleaseIntent
 from ashlar_host.onelake_release_upload import (OneLakeUploadConfig, OneLakeReleaseFile, OneLakeReleaseTable,
-    open_onelake_upload_loopback_for_test)
+    open_onelake_upload_loopback_for_test, OneLakeOperationRefused)
 
 W = '11111111-1111-1111-1111-111111111111'
 L = '22222222-2222-2222-2222-222222222222'
@@ -26,7 +26,7 @@ TABLE = OneLakeReleaseTable('Tables/dbo/release_unique_nodes', (
 
 class Tests(unittest.TestCase):
     @contextmanager
-    def fixture(self, *, corrupt=False, fail_append=False, existing=False, **limits):
+    def fixture(self, *, corrupt=False, fail_append=False, existing=False, refusal_body=b'', **limits):
         state = {'files': {}, 'directories': set(), 'calls': []}
         class Handler(BaseHTTPRequestHandler):
             def log_message(self, *args):
@@ -69,6 +69,7 @@ class Tests(unittest.TestCase):
                         code = 404
                     else:
                         response = b'changed' if corrupt else state['files'][path]
+                if code >= 400: response = refusal_body
                 self.send_response(code)
                 self.send_header('Content-Length', str(len(response)))
                 self.send_header('ETag', '"retained-etag"')
@@ -128,6 +129,52 @@ class Tests(unittest.TestCase):
                         owner.upload(TABLE)
             self.assertEqual(len(state['calls']), 1)
             self.assertFalse(state['files'])
+
+    def test_refusal_constructor_rejects_mutable_or_nonprimitive_carriers(self):
+        class Status:
+            def __str__(self):
+                raise AssertionError('Invalid status must not be formatted')
+        valid = ('PUT', TABLE.path, 412, b'original', (('etag', 'original'),))
+        invalid = [list(valid), valid[:2] + (Status(),) + valid[3:],
+                   valid[:2] + (True,) + valid[3:], valid[:2] + (600,) + valid[3:],
+                   valid[:3] + (bytearray(b'original'), valid[4]),
+                   valid[:4] + ([('etag', 'original')],),
+                   valid[:4] + ((['etag', 'original'],),)]
+        for response in invalid:
+            with self.subTest(carrier=type(response).__name__):
+                with self.assertRaisesRegex(ValueError, 'Exact immutable'):
+                    OneLakeOperationRefused(response)
+
+    def test_status_refusal_retains_exact_bounded_response_after_owner_closes(self):
+        body = b'{"error":{"code":"NativeRefusal","message":"retained private diagnostic"}}'
+        with self.fixture(existing=True, refusal_body=body) as (cfg, journal, origin, state, account, calls):
+            with journal.mutation() as permit:
+                with open_onelake_upload_loopback_for_test(cfg, permit, C, origin) as owner:
+                    with self.assertRaises(OneLakeOperationRefused) as caught:
+                        owner.upload(TABLE)
+                    with self.assertRaises(PermissionError):
+                        owner.upload(TABLE)
+                self.assertIsNone(owner._token)
+            response = caught.exception.response
+            self.assertEqual(response[:4], ('PUT', TABLE.path + '?resource=directory', 412, body))
+            self.assertIn(('content-length', str(len(body))), response[4])
+            self.assertNotIn('retained private diagnostic', str(caught.exception))
+            self.assertNotIn('retained private diagnostic', repr(caught.exception))
+            with self.assertRaises(AttributeError): caught.exception._response = ()
+            with self.assertRaises(AttributeError): del caught.exception._response
+            self.assertEqual(len(state['calls']), 1)
+            self.assertEqual(journal.candidate(C)[1], 'recorded')
+
+    def test_credential_bearing_refusal_does_not_attach_native_response(self):
+        with self.fixture(existing=True, refusal_body=b'private-storage-secret') as (cfg, journal, origin, state, account, calls):
+            with journal.mutation() as permit:
+                with open_onelake_upload_loopback_for_test(cfg, permit, C, origin) as owner:
+                    with self.assertRaisesRegex(PermissionError, 'Credential-bearing') as caught:
+                        owner.upload(TABLE)
+                    self.assertFalse(hasattr(caught.exception, 'response'))
+                    self.assertEqual(owner.observations(), ())
+                    with self.assertRaises(PermissionError): owner.upload(TABLE)
+            self.assertEqual(len(state['calls']), 1)
 
     def test_failed_append_keeps_partial_output_and_never_uploads_commit(self):
         with self.fixture(fail_append=True) as (cfg, journal, origin, state, account, calls):
