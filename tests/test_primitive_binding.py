@@ -177,6 +177,13 @@ class PrimitiveBindingTests(unittest.TestCase):
             )
             self.assertEqual(cell.value, expected)
             self.assertEqual(cell.original, token)
+            from ashlar.publication import ResolutionError
+
+            with self.assertRaises(ResolutionError):
+                decode_primitive_column(
+                    artifact["columns"][0], None, artifact, self.policy, self.intake
+                )
+
             forged = json.loads(json.dumps(artifact))
             forged["columns"][0]["representation"]["logicalType"]["facets"] = {
                 "invented": True

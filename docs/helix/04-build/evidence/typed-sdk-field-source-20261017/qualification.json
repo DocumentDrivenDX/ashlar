@@ -1,0 +1,17 @@
+{
+  "scope": "Original public required singleton Field checks and direct scalar carrier source controls only; no complete Record, ingestion, dataset Key, relationship, publication/native execution claim",
+  "tests": {
+    "passed": 16,
+    "skipped": 0
+  },
+  "nativeExecuted": false,
+  "temporal": "HELD",
+  "originalCompiler": "blocked by original Decimal38 descriptor boundary; refusal retained unchanged",
+  "producerRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "files": {
+    "original-field-checks-and-record-observations.json": "b277513fada5c2501927b0d5808077418271094615fc3f524fb6b1122513e1e8",
+    "source-tests.log": "bf3205427f42e2bff6e612ff3919e28ab1206ea7641144315136b2c9d5811cd3",
+    "authored-core08.json": "011a754332655cd55db32f2967197ddf64985b92251909b9e2640a8ea085b8c3",
+    "original-compiler-refusal.log": "48b0a0de88eca5d6ea9462d9fec15ceeb93ccd79dc691c4f19efe5a2e2d5189b"
+  }
+}

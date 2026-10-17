@@ -53,7 +53,7 @@ def decode_exact_scalar(representation, value, *, count=False):
 
     Count admission is explicit: only facetless integer COUNT output is accepted
     with count=True, using nonnegative signed BIGINT output bounds. Integer fields
-    require integerWidth (1..64 bits); decimal fields require precision1..28 and
+    require integerWidth (1..64 bits); decimal fields require precision1..38 and
     scale0..precision. Nullable SUM and exponent notation remain unsupported.
     Caller must independently admit the original compiler column and publication.
     This function is intentionally separate from decode_string_column and never
@@ -107,7 +107,7 @@ def decode_exact_scalar(representation, value, *, count=False):
         number=int(value)
         if not minimum<=number<=maximum:raise fail('Integer outside declared domain')
         return ExactScalar(number,value)
-    if set(facets) != {'precision','scale'} or type(facets['precision']) is not int or type(facets['scale']) is not int or not 1<=facets['precision']<=28 or not 0<=facets['scale']<=facets['precision']:
+    if set(facets) != {'precision','scale'} or type(facets['precision']) is not int or type(facets['scale']) is not int or not 1<=facets['precision']<=38 or not 0<=facets['scale']<=facets['precision']:
         raise fail('Unsupported exact decimal facets')
     if not re.fullmatch(r'-?[0-9]+(?:\.[0-9]+)?',value):
         raise fail('Exact base-ten decimal text required; exponent unsupported')

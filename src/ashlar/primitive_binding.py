@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 
+from .primitive_field_binding import PrimitiveFieldBinding
 from .publication import Descriptor
 from .schema import SchemaIntake, _json
 from .typed_source_policy import TypedSourcePolicy
@@ -37,7 +38,7 @@ def primitive_compile_request(
     """
     if (
         type(intake) is not SchemaIntake
-        or type(policy) is not TypedSourcePolicy
+        or type(policy) not in (TypedSourcePolicy, PrimitiveFieldBinding)
         or type(descriptor) is not Descriptor
     ):
         raise WeftBindingError("Original typed source, intake and descriptor required")
@@ -65,6 +66,31 @@ def primitive_compile_request(
         raise WeftBindingError("Explicit original local candidate profile required")
     if type(sql) is not str or not sql or len(sql.encode("utf-8")) > 262144:
         raise WeftBindingError("Bounded original query required")
+    if type(policy) is PrimitiveFieldBinding:
+        # Field checks confer no Key, filtering, aggregation or paging authority.
+        identifier = r'(?:"[A-Za-z_][A-Za-z0-9_]*"|[A-Za-z_][A-Za-z0-9_]*)'
+        direct = identifier + r"\." + identifier
+        selected = direct + r"(?: AS " + identifier + r")?"
+        closed = (
+            r"SELECT "
+            + selected
+            + r"(?:,\s*"
+            + selected
+            + r")* FROM "
+            + direct
+            + r"(?: AS)? "
+            + identifier
+            + r" ORDER BY "
+            + direct
+            + r"(?: ASC)?(?: NULLS LAST)? LIMIT [1-9][0-9]{0,3}"
+        )
+        if (
+            backend_version.endswith("-pages-candidate")
+            or re.fullmatch(closed, sql) is None
+        ):
+            raise WeftBindingError(
+                "Field-only profile refuses non-direct query semantics"
+            )
     uuid = re.compile("[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}").fullmatch
     if (
         type(manifest_uuid) is not str
@@ -198,7 +224,8 @@ def decode_primitive_column(column, value, artifact, policy, intake):
             raise ResolutionError(message)
 
     require(
-        type(policy) is TypedSourcePolicy and type(intake) is SchemaIntake,
+        type(policy) in (TypedSourcePolicy, PrimitiveFieldBinding)
+        and type(intake) is SchemaIntake,
         "Original typed source policy and intake required",
     )
     require(

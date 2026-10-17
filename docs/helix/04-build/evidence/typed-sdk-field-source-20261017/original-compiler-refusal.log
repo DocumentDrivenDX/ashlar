@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_primitive_native.py", line 315, in <module>
+    assert original["status"] == "compiled", original
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'original': {'diagnostics': [{'code': 'WFT-BINDING', 'message': 'Property is not an admitted member of this record', 'phase': 'lower', 'recoverability': 'correct-input', 'severity': 'error'}], 'interfaceVersion': 'weft-compile/0.2.0', 'status': 'blocked'}, 'status': 'blocked', 'version': 'weft.engine-read/0.1'}
