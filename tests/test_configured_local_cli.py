@@ -59,3 +59,41 @@ class Tests(unittest.TestCase):
         out=io.StringIO();err=io.StringIO()
         with patch.object(sys,'argv',['ashlar','run-configured-local','--configuration',str(self.file)]),patch.object(command,'run_configured_local_command',side_effect=ValueError('private')),contextlib.redirect_stdout(out),contextlib.redirect_stderr(err),self.assertRaises(SystemExit)as result:main()
         self.assertEqual(result.exception.code,2);self.assertEqual(out.getvalue(),'');self.assertEqual(err.getvalue(),'ashlar configured local run refused\n')
+
+    def query_value(self):
+        return dict(self.value,operation='query',ordinal=1,installation_sha256='a'*64,query={
+            'profile':'ashlar-configured-local-weft/0.1','sql':'SELECT COUNT(*) AS n FROM item',
+            'compiler':{'index':str(self.root/'index.json'),'installation':str(self.root/'compiler')},
+            'bounds':{'maximum_artifact_bytes':1048576,'maximum_rows':1,'maximum_cell_bytes':65536,'maximum_total_cell_bytes':1048576}})
+    def query_answer(self,sql):
+        return {'profile':'ashlar-configured-local-query-result/0.1','installation_id':'configured-test','operation':'query','manifest':{},'ordinal':1,'local_checkpoint':'1','completed_batches':1,'protected_ack':False,
+            'query':{'sql':sql,'columns':[{'outputName':'n'}],'rows':[['1']],'protocol':{'request':json.dumps({'sql':sql}),'response':'{}','recompiled':'{}'},'evidence':{}}}
+    def test_query_closed_typed_selection_and_result_bounds(self):
+        from ashlar_host.configured_local_query import ConfiguredLocalQueryConfig
+        value=self.query_value();config=command.parse_configured_local(json.dumps(value).encode())
+        self.assertIs(type(config.query),ConfiguredLocalQueryConfig);self.assertIsNone(config.selector)
+        self.assertEqual(config.query.compile.paths.index,self.root/'index.json')
+        for kind in ('missing','selector','extra','limit','profile'):
+            changed=json.loads(json.dumps(value))
+            if kind=='missing':changed.pop('query')
+            elif kind=='selector':changed['selector']={'type_id':1,'entity_id':1}
+            elif kind=='extra':changed['query']['compiler']['package']='unexpected'
+            elif kind=='limit':changed['query']['bounds']['maximum_rows']=1001
+            else:changed['query']['profile']='other'
+            with self.subTest(kind=kind),self.assertRaises((ValueError,KeyError)):command.parse_configured_local(json.dumps(changed).encode())
+        answer=self.query_answer(config.query.sql);self.assertIs(command._result(config,answer),answer)
+        for kind in ('sql','rows','protocol'):
+            changed=json.loads(json.dumps(answer))
+            if kind=='sql':changed['query']['sql']='changed'
+            elif kind=='rows':changed['query']['rows']*=2
+            else:changed['query']['protocol']['recompiled']='different'
+            with self.subTest(kind=kind),self.assertRaises(ValueError):command._result(config,changed)
+    def test_query_worker_dispatches_exact_typed_selection(self):
+        value=self.query_value();raw=json.dumps(value).encode();self.file.write_bytes(raw);digest=hashlib.sha256(raw).hexdigest()
+        answer=self.query_answer(value['query']['sql'])
+        with patch('ashlar_host.configured_local_runtime.query_configured_local',return_value=answer)as query,patch.object(command,'_diagnostics',contextlib.nullcontext),patch.object(command.signal,'getsignal',return_value=command.signal.SIG_DFL),patch.object(command.signal,'signal'),patch.object(command.signal,'setitimer'):
+            envelope=json.loads(command._worker(self.file,digest))
+        self.assertEqual(envelope['result'],answer);self.assertEqual(query.call_count,1)
+        self.assertEqual(query.call_args.kwargs['ordinal'],1)
+        self.assertEqual(query.call_args.kwargs['query'].sql,value['query']['sql'])
+        self.assertIs(type(query.call_args.args[0]),command.ConfiguredLocalRuntimeConfig)

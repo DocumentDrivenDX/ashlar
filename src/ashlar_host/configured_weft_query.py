@@ -110,11 +110,23 @@ def query_configured_count_star(scope,aliases,sql,compile_config,*,capture,decod
     plus the original request. It must derive expected native result cells from
     that source, never from the generated SQL or observed native result.
     """
+    return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=original_oracle,projection=False)
+
+
+def query_configured_projection(scope,aliases,sql,compile_config,*,capture,decoder,observe):
+    """Execute admitted required STRING projections or global count only."""
+    return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
+
+
+def _query(scope,aliases,sql,compile_config,*,capture,decoder,observe,original_oracle,projection):
     _require(type(scope)is ConfiguredLocalRead and type(aliases)is ConfiguredQueryAliases
              and aliases.scope is scope and type(compile_config)is ConfiguredWeftCompileConfig
-             and callable(observe)and callable(original_oracle))
+             and callable(observe)and(callable(original_oracle)if not projection else original_oracle is None))
     scope.renew();aliases.renew()
     compiled=compile_configured_count_star(scope,dict(aliases),sql,compile_config,observe=observe)
+    if projection:
+        from .configured_weft_projection import configured_projection_oracle
+        original_oracle=configured_projection_oracle(scope,compiled['request'],compiled['response'])
     provider=ConfiguredWeftProvider(scope,aliases,compiled['request'])
     source=scope.source;model=source.configuration.intake.source;graph=source.original_source
     def native_files():

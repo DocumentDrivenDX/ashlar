@@ -33,10 +33,15 @@ class ConfiguredLocalInvocation:
     stream_bytes:int
     receipt_bytes:int
     selector:object=None
+    query:object=None
     def __post_init__(self):
-        _require(self.operation in ('initialize','publish','read')and type(self.ordinal)is int and
+        _require(self.operation in ('initialize','publish','read','query')and type(self.ordinal)is int and
                  (self.ordinal==0 if self.operation=='initialize'else 1<=self.ordinal<=4))
         _require(self.selector is None if self.operation!='read'else type(self.selector)is tuple and len(self.selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in self.selector))
+        if self.operation=='query':
+            from .configured_local_query import ConfiguredLocalQueryConfig
+            _require(type(self.query)is ConfiguredLocalQueryConfig);self.query.__post_init__()
+        else:_require(self.query is None)
         _require(type(self.python)is type(Path())and self.python.is_absolute())
         _require(type(self.runtime)is ConfiguredLocalRuntimeConfig);self.runtime.__post_init__()
         _require(self.runtime.installation_sha256 is None if self.operation=='initialize'else self.runtime.installation_sha256 is not None)
@@ -47,7 +52,7 @@ class ConfiguredLocalInvocation:
 def parse_configured_local(raw):
     _require(type(raw)is bytes and len(raw)<=262144)
     value=decode_retained_json(raw);_require(type(value)is dict)
-    _closed(value,({'selector'}if value.get('operation')=='read'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
+    _closed(value,({'selector'}if value.get('operation')=='read'else {'query'}if value.get('operation')=='query'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
     _require(value['profile']=='ashlar-configured-local/0.1')
     p=_closed(value['producer'],{'source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'})
     producer=ProducerConfig(_path(p['source']),_path(p['bun']),_path(p['git']),p['timeout_seconds'],p['maximum_output_bytes'],p['maximum_receipt_bytes'])
@@ -58,7 +63,19 @@ def parse_configured_local(raw):
     selector=None
     if value['operation']=='read':
         selected=_closed(value['selector'],{'type_id','entity_id'});selector=(selected['type_id'],selected['entity_id'])
-    result=ConfiguredLocalInvocation(value['operation'],value['ordinal'],_path(value['python']),runtime,bounds['whole_seconds'],bounds['stream_bytes'],bounds['receipt_bytes'],selector);result.__post_init__();return result
+    query=None
+    if value['operation']=='query':
+        from .configured_local_query import ConfiguredLocalQueryConfig
+        from .configured_weft_compile import ConfiguredWeftCompileConfig
+        from ashlar.weft_count_star_distribution import CountStarDistributionPaths
+        from .path_capture import PathCaptureConfig
+        from ashlar.weft_path_decode import PathDecodeConfig
+        q=_closed(value['query'],{'profile','sql','compiler','bounds'});_require(q['profile']=='ashlar-configured-local-weft/0.1')
+        compiler=_closed(q['compiler'],{'index','installation'})
+        limits=_closed(q['bounds'],{'maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes'})
+        query=ConfiguredLocalQueryConfig(q['sql'],ConfiguredWeftCompileConfig(CountStarDistributionPaths(_path(compiler['index']),_path(compiler['installation'])),limits['maximum_artifact_bytes']),
+            PathCaptureConfig(limits['maximum_rows'],limits['maximum_cell_bytes'],limits['maximum_total_cell_bytes']),PathDecodeConfig(limits['maximum_cell_bytes']))
+    result=ConfiguredLocalInvocation(value['operation'],value['ordinal'],_path(value['python']),runtime,bounds['whole_seconds'],bounds['stream_bytes'],bounds['receipt_bytes'],selector,query);result.__post_init__();return result
 
 def _python_identity(path):
     resolved=path.resolve(strict=True);s=path.stat()
@@ -76,6 +93,16 @@ def _result(config,value):
         _require(value['profile']=='ashlar-configured-local-read-result/0.1'and value['operation']=='read'and type(value['ordinal'])is int and value['ordinal']==config.ordinal)
         _require(type(value['completed_batches'])is int and config.ordinal<=value['completed_batches']<=4)
         _require(type(value['selector'])is dict and value['selector']=={'type_id':config.selector[0],'entity_id':config.selector[1]}and all(type(v)is int for v in value['selector'].values())and(value['row']is None or type(value['row'])is dict))
+    elif config.operation=='query':
+        _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','query','protected_ack'})
+        _require(value['profile']=='ashlar-configured-local-query-result/0.1'and value['operation']=='query'and type(value['ordinal'])is int and value['ordinal']==config.ordinal)
+        _require(type(value['completed_batches'])is int and config.ordinal<=value['completed_batches']<=4)
+        query=_closed(value['query'],{'sql','columns','rows','protocol','evidence'})
+        _require(query['sql']==config.query.sql and type(query['columns'])is list and bool(query['columns'])and type(query['rows'])is list and len(query['rows'])<=config.query.capture.maximum_rows)
+        _require(all(type(row)is list and len(row)==len(query['columns'])for row in query['rows'])and type(query['evidence'])is dict)
+        protocol=_closed(query['protocol'],{'request','response','recompiled'})
+        _require(all(type(raw)is str and 0<len(raw.encode())<=config.query.compile.maximum_artifact_bytes for raw in protocol.values())and protocol['response']==protocol['recompiled'])
+        _require(decode_retained_json(protocol['request'].encode()).get('sql')==config.query.sql)
     else:
         _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','replayed','native_counts','protected_ack'})
         _require(value['profile']=='ashlar-configured-local-publication-result/0.1'and type(value['ordinal'])is int and value['ordinal']==config.ordinal and type(value['completed_batches'])is int and value['completed_batches']==config.ordinal)
@@ -111,6 +138,9 @@ def _worker(path,digest):
         with _diagnostics():
             if config.operation=='initialize':result=initialize_configured_local(config.runtime)
             elif config.operation=='publish':result=publish_configured_local(config.runtime,ordinal=config.ordinal)
+            elif config.operation=='query':
+                from .configured_local_runtime import query_configured_local
+                result=query_configured_local(config.runtime,ordinal=config.ordinal,query=config.query)
             else:result=read_configured_local(config.runtime,ordinal=config.ordinal,type_id=config.selector[0],entity_id=config.selector[1])
         original.renew(262144)
     except BaseException as exc:primary=exc

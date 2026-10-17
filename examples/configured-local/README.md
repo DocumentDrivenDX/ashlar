@@ -76,3 +76,46 @@ It does not publish, replay or advance the checkpoint. Its report includes the
 selected manifest and the unchanged latest local checkpoint, which may be later
 than the selected publication's checkpoint. The local lease supplies cooperative
 snapshot custody; it is not a PostgreSQL pin or protected producer ACK.
+
+## Query a retained publication with Weft
+
+Install both the `local-delta` and `weft-validation` extras. Select an existing
+[indexed COUNT-star compiler installation](../../src/ashlar/README.md); this
+command uses its indexed macOS 27.0.1 arm64 realization and explicit local Spark
+0.4.1 profile.
+
+Copy the read invocation, keep the original installation/source pins and selected
+completed ordinal, choose a fresh output, remove `selector`, set
+`operation: "query"`, and add:
+
+```json
+"query": {
+  "profile": "ashlar-configured-local-weft/0.1",
+  "sql": "SELECT i.label FROM Item i",
+  "compiler": {
+    "index": "/absolute/operator/weft/distributions/index.json",
+    "installation": "/absolute/operator/weft/compiler"
+  },
+  "bounds": {
+    "maximum_artifact_bytes": 1048576,
+    "maximum_rows": 1000,
+    "maximum_cell_bytes": 65536,
+    "maximum_total_cell_bytes": 1048576
+  }
+}
+```
+
+Run the same `ashlar run-configured-local --configuration ...` command. For the
+example, `SELECT COUNT(*) AS n FROM Item i` selects a global count instead.
+Required, facetless STRING fields may repeat using distinct output aliases. This profile
+requires one unfiltered record scan; joins, grouping, ordering, limits, optional
+values and other scalar families need separate admission.
+
+The result contains positional STRING carrier rows, original column descriptors,
+exact compiler protocol texts and bounded execution evidence. Both compilations
+must agree; emitted guards and SQL run unchanged under the selected publication.
+Independent original source-prefix rows supply the expected bag. Temporary
+external aliases preserve the original table UUIDs and versions. Results become
+available only after all source, publication, alias, native and supervisor closing
+checks. Query mode does not publish or advance progress. Compiler/source failures
+or a result exceeding the whole receipt bound refuse without truncating output.

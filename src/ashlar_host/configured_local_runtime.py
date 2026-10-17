@@ -145,9 +145,13 @@ class ConfiguredLocalAdmission:
         finish(None,[self.lease.renew,lambda:source.renew(context),lambda:self.registry_file.renew(65536)])
 
 
-def _run(config,ordinal,*,selector=None):
+def _run(config,ordinal,*,selector=None,query=None):
     _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__();jars=_runtime(config)
     initialize=ordinal is None
+    if query is not None:
+        from .configured_local_query import ConfiguredLocalQueryConfig
+        _require(type(query)is ConfiguredLocalQueryConfig);query.__post_init__()
+    _require(query is None or selector is None and not initialize)
     _require(selector is None or type(selector)is tuple and len(selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in selector))
     _require(not initialize or selector is None)
     _require((initialize and config.installation_sha256 is None)or(not initialize and config.installation_sha256 is not None and type(ordinal)is int and 1<=ordinal<=4))
@@ -187,13 +191,20 @@ def _run(config,ordinal,*,selector=None):
         admission=ConfiguredLocalAdmission(config,lease,spark,source,targets,columns,original_registry);admission(source,None,None,context)
         transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,capacity=config.operation_capacity)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,capacity=config.operation_capacity));policy.initializing=False
         if initialize:result={'profile':'ashlar-configured-local-initialized/0.1','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
-        elif selector is not None:
+        elif selector is not None or query is not None:
             from .file_progress import JournaledJsonlProgress
             from .configured_local_read import read_configured_local_singleton
             progress=JournaledJsonlProgress.open_existing(transport,source.configuration.source,source.metadata(context)['source_sha256'],stream=config.stream,feed=source.configuration.feed,epoch=source.configuration.epoch)
             entries=progress.retained_entries();_require(1<=ordinal<=len(entries));final_manifest=dict(entries[ordinal-1].descriptor.raw)
-            row=read_configured_local_singleton(transport,source,progress,ordinal=ordinal,type_id=selector[0],entity_id=selector[1],tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
-            result={'profile':'ashlar-configured-local-read-result/0.1','installation_id':config.installation_id,'operation':'read','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'selector':{'type_id':selector[0],'entity_id':selector[1]},'row':row,'protected_ack':False}
+            if query is None:
+                row=read_configured_local_singleton(transport,source,progress,ordinal=ordinal,type_id=selector[0],entity_id=selector[1],tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
+                result={'profile':'ashlar-configured-local-read-result/0.1','installation_id':config.installation_id,'operation':'read','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'selector':{'type_id':selector[0],'entity_id':selector[1]},'row':row,'protected_ack':False}
+            else:
+                from .configured_local_read import open_configured_local_read
+                from .configured_local_query import run_configured_local_query
+                with owned_context(open_configured_local_read(transport,source,progress,ordinal=ordinal,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission))as held:
+                    answer=run_configured_local_query(held,transport,query)
+                result={'profile':'ashlar-configured-local-query-result/0.1','installation_id':config.installation_id,'operation':'query','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'query':answer,'protected_ack':False}
         else:
             driver=ConfiguredLocalPublicationDriver(transport,policy,source,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
             driver.select_original(ordinal);descriptor=driver.publish_selected();final_manifest=dict(descriptor.raw);admission(source,driver.request,final_manifest,context)
@@ -222,3 +233,9 @@ def publish_configured_local(config,*,ordinal):return _run(config,ordinal)
 
 def read_configured_local(config,*,ordinal,type_id,entity_id):
     return _run(config,ordinal,selector=(type_id,entity_id))
+
+
+def query_configured_local(config,*,ordinal,query):
+    from .configured_local_query import ConfiguredLocalQueryConfig
+    _require(type(query)is ConfiguredLocalQueryConfig);query.__post_init__()
+    return _run(config,ordinal,query=query)

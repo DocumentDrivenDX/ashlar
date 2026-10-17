@@ -945,3 +945,31 @@ Unknown types MUST refuse; an absent ID within an admitted type MAY return null.
 Later updates or deletes MUST NOT redirect an older selection to current heads.
 Local lease custody MUST NOT be represented as PostgreSQL pins, remote writer
 fencing or protected producer ACK authority.
+
+## Configured local Weft queries
+
+`run-configured-local` MAY select `operation: "query"` on an existing completed
+ordinal using the same original source, installation and full-vector read custody.
+Its required closed `query` object has `profile: "ashlar-configured-local-weft/0.1"`,
+`sql`, `compiler` (`index`, `installation` absolute paths) and `bounds`
+(`maximum_artifact_bytes`, `maximum_rows`, `maximum_cell_bytes`,
+`maximum_total_cell_bytes`). Positive limits MUST NOT exceed 1 MiB for artifacts
+and total cell bytes, 1,000 rows or 65,536 bytes per cell. Settings and compiler
+selection MUST remain explicit; a configured path is not evidence of authority.
+
+This profile admits one original record scan with required, facetless STRING field
+projections, preserving positions and repetitions, or a single global `COUNT(*)`.
+Filters, joins, groups, ordering, limits, optional values and other scalar families
+require separate admission. The exact original compiled plan and property homes
+MUST correspond to the original public UMF source and complete publication.
+Independent source-prefix rows MUST supply the expected result bag; generated
+SQL or observed native results MUST NOT supply it.
+
+Both indexed compilations MUST match exactly and pass the pinned public schemas
+and host artifact admission. Fresh external aliases MUST preserve native Delta
+UUIDs, locations and pinned versions without relabeling the manifest. Every
+emitted guard and the original SQL MUST execute unchanged. Original protocol
+texts and bounded results MUST remain buffered until alias, publication, source,
+native runtime and supervisor closing succeeds. Query mode MUST NOT initialize,
+publish, replay, repair or advance source progress. This local development
+qualification grants no Unity Catalog, protected ACK or remote fencing authority.
