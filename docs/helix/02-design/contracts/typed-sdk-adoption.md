@@ -69,6 +69,33 @@ Closing authorization and owner context must still agree. Snapshot streams
 advance through the same immutable publication with explicit row bounds; each
 page releases its held resources before yielding. Async adoption remains open.
 
+## Configured immutable-file pages
+
+`page_configured_local` MUST compose the existing `AshlarTarget` and public
+`weft.engine-page/0.1` programs over an actual `ConfiguredLocalRead`. Its explicit
+`ConfiguredSdkPagesConfig` supplies the published compiler, strict parameter and
+result model classes/values, authored SQL, page size, total row bound, deadline
+and capture limits. Public Weft 0.4.41 owns compilation and continuation checks;
+no second page compiler or executor is permitted.
+
+The required-STRING page binding MUST retain original model bytes, all Record and
+relationship declarations, key homes and the complete publication vector.
+Unconsumed optional/non-STRING homes remain outside this mapping; their complete
+original source data MUST still pass source admission. This mapping MUST NOT
+relabel native-null encodings from a different query profile or claim optional
+page support. Queries select required facetless, NUL-free STRING fields from one Record,
+with optional conjunctions of named STRING equality filters and its exact authored
+primary Key. Unsupported shapes MUST refuse.
+
+Every page MUST compare visible and hidden lookahead rows with an independently
+filtered, UTF8-ordered original source-prefix oracle. Complete key tuples and
+lexical continuation MUST remain exact. The cooperative local page hold MUST
+renew actual source, alias and full-vector custody before and after fetch; it
+MUST NOT claim PostgreSQL or remote writer fencing. Result buffers remain private
+until all page, alias, source and native runtime closing checks complete. Total
+rows and `has_more` MUST expose truncation without silently claiming completeness.
+Compiler correspondence and standalone strict DTOs do not grant source authority.
+
 ## Error Semantics
 
 Unknown program/profile, mismatched source/binding, absent bound values or expired

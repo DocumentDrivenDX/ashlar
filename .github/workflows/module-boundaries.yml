@@ -19,6 +19,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 tools/check_module_boundaries.py
+      - run: python3 scripts/check-typed-sdk-boundaries.py --negative-controls
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_scenario_configuration test_puppy_scenario_native
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_scenario_sources test_puppy_scenario_worker test_puppy_scenario_cli test_puppy_scenario_processes
@@ -35,7 +36,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_source_admission test_configured_source_admission_cli
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_journaled_jsonl_progress test_journaled_csv_progress
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_source_local test_typed_source_config test_typed_record_admission test_configured_typed_source_local test_configured_typed_named_source test_configured_typed_weft_binding test_configured_typed_projection_oracle
-      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_typed_graph_weft_binding test_configured_typed_graph_projection_oracle test_typed_graph_example test_typed_graph_source test_typed_graph_source_config test_typed_graph_admission test_configured_typed_graph_source_local
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_typed_graph_sdk_binding test_configured_sdk_page_oracle test_configured_sdk_pages test_configured_typed_graph_weft_binding test_configured_typed_graph_projection_oracle test_typed_graph_example test_typed_graph_source test_typed_graph_source_config test_typed_graph_admission test_configured_typed_graph_source_local
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_publication
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_runtime test_configured_local_cli
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_read
@@ -70,6 +71,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 tools/check_module_boundaries.py
+      - run: python3 scripts/check-typed-sdk-boundaries.py --negative-controls
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_exact_report.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_native_cli.py
       - run: PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_module_boundaries.py

@@ -619,3 +619,16 @@ Exercise required STRING-root groups and empty global/grouped expansions; do not
 invent a zero-valued group for an isolate. Retain original edge-pair witnesses,
 exact group/pathTarget descriptors and every native count-capacity guard. A
 changed terminal Record/key or ungrouped root output must refuse.
+
+
+## Configured publication typed SDK pages
+
+Reuse an admitted configured graph publication with a retained old ordinal. Run
+the existing `AshlarTarget` page adapter through the public Weft SDK and compare
+all visible/hidden key/lookahead values with the independent source prefix. Cover
+a real continuation and a named STRING filter under full four-table pins. Check
+an explicit row bound and changed source/key/program refusal with small controls.
+Preserve unconsumed optional/numeric source values without claiming their page
+support. SDK/compiler-only probes do not qualify native execution; local leases
+do not become PostgreSQL pins or protected source ACKs. Reuse the installation
+and keep native checks sequential and small.

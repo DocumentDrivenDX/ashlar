@@ -150,7 +150,8 @@ def _run(config,ordinal,*,selector=None,query=None):
     initialize=ordinal is None
     if query is not None:
         from .configured_local_query import ConfiguredLocalQueryConfig
-        _require(type(query)is ConfiguredLocalQueryConfig);query.__post_init__()
+        from .configured_sdk_pages import ConfiguredSdkPagesConfig
+        _require(type(query)in (ConfiguredLocalQueryConfig,ConfiguredSdkPagesConfig));query.__post_init__()
     _require(query is None or selector is None and not initialize)
     _require(selector is None or type(selector)is tuple and len(selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in selector))
     _require(not initialize or selector is None)
@@ -166,6 +167,7 @@ def _run(config,ordinal,*,selector=None,query=None):
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
+        if query is not None:_require(type(query)is not ConfiguredSdkPagesConfig or source.graph)
         _require(selector is None or selector[0]in source.type_ids)
         scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
         if not initialize:
@@ -203,7 +205,10 @@ def _run(config,ordinal,*,selector=None,query=None):
                 from .configured_local_read import open_configured_local_read
                 from .configured_local_query import run_configured_local_query
                 with owned_context(open_configured_local_read(transport,source,progress,ordinal=ordinal,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission))as held:
-                    answer=run_configured_local_query(held,transport,query)
+                    from .configured_sdk_pages import ConfiguredSdkPagesConfig,run_configured_sdk_pages
+                    if type(query)is ConfiguredSdkPagesConfig:
+                        answer=run_configured_sdk_pages(held,transport,query,runtime_guard=lambda:_runtime(config))
+                    else:answer=run_configured_local_query(held,transport,query)
                 result={'profile':'ashlar-configured-local-query-result/0.1','installation_id':config.installation_id,'operation':'query','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'query':answer,'protected_ack':False}
         else:
             driver=ConfiguredLocalPublicationDriver(transport,policy,source,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
@@ -238,4 +243,11 @@ def read_configured_local(config,*,ordinal,type_id,entity_id):
 def query_configured_local(config,*,ordinal,query):
     from .configured_local_query import ConfiguredLocalQueryConfig
     _require(type(query)is ConfiguredLocalQueryConfig);query.__post_init__()
+    return _run(config,ordinal,query=query)
+
+
+def page_configured_local(config,*,ordinal,query):
+    """Typed Python page workflow; operator owns the selected optional SDK runtime."""
+    from .configured_sdk_pages import ConfiguredSdkPagesConfig
+    _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
     return _run(config,ordinal,query=query)
