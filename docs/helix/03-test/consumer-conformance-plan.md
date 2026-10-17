@@ -644,3 +644,19 @@ Reject changed Field homes, types, literal spans, parameters, optional predicate
 and additional filters. A small actual native equality query must retain every
 original guard and complete publication/source closing; compiler-only checks do
 not establish native support. Reuse the existing installation without reingest.
+
+## Bounded fresh two-source publication
+
+Start a separately authorized empty installation with new source registrations
+and consumers. Select fresh ordinal 2 and execute A1, B1, A2 through the same
+original eight-slot schedule. Verify three immutable publications, complete union
+bags despite overlapping local IDs, independent source progress A=2/B=1 and
+ordinary protected ACK readback. Later slots must remain unprepared. Continue or
+replay only through the retained original digest and journal; preserve earlier
+publication reads and avoid additional business writes on settled replay.
+
+Small configuration/orchestration controls must reject null, Boolean and invalid
+ordinals, mismatched provider bounds and a nonempty initial inventory. Omitted
+fresh bounds must preserve the full-run path. Source/native failure or failed
+closing must release no success receipt. Inert controls establish wiring only;
+actual Delta and ordinary outbox/ACK sessions are required for the prefix proof.

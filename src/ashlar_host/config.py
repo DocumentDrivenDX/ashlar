@@ -483,12 +483,15 @@ class FreshCommerceEvolutionConfig:
     producer: EvolutionAdmissionConfig
     context: object
     request: EvolutionRunRequest
+    through_ordinal: Optional[int] = None
 
     def __post_init__(self):
         _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
         if type(self.request) is not EvolutionRunRequest:
             raise HostError('evolution-run-configuration')
         self.request.__post_init__()
+        if self.through_ordinal is not None and (type(self.through_ordinal) is not int or not 0 <= self.through_ordinal < 8):
+            raise HostError('evolution-run-configuration')
 
 
 @dataclass(frozen=True, repr=False)

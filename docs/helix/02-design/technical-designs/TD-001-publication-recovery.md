@@ -121,6 +121,14 @@ the retained plan. Missing or ambiguous custody withholds progress and ACK.
 Fresh/resume types keep initialization away from recovery. Source append, if
 exposed, requires a separate explicit authorization and is not source provisioning.
 
+An optional fresh `through_ordinal` bounds this same orchestration to a complete
+initial prefix. Capture and retain the full eight-slot original first, admit its
+entirely unprepared inventory, then execute through the selected ordinal with
+unchanged per-attempt owners. Return the existing distinct prefix result only
+after full closing admission. Omission preserves full-run behavior; subsequent
+work selects retained continuation, never another fresh run on the installation.
+This selection changes the work bound, not publication or ACK authority.
+
 This facade maps PUB-F1 to complete per-prefix vectors and historical R1 reads,
 PUB-F2 to ordinary protected request/manifest readback after readable publication,
 PUB-F3 to retained-plan admission and submitted/unsubmitted discrimination, and

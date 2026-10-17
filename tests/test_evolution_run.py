@@ -167,6 +167,27 @@ class Tests(unittest.TestCase):
                 self.assertEqual(connection.execute('SELECT original FROM original_slot WHERE ordinal=0').fetchone()[0], raw)
         self.assertEqual(len(result['publications']), 8)
 
+    def test_fresh_bounded_prefix_keeps_suffix_and_continues_one_next(self):
+        from dataclasses import replace
+        from ashlar_host.config import ContinueCommerceEvolutionConfig
+        from ashlar_host.commerce_evolution import continue_commerce_evolution
+        first, second, third = self.native_ports()
+        with first, second, third:
+            result = publish_commerce_evolution(replace(self.config, through_ordinal=2))
+            self.assertEqual(result['completed_count'], 3)
+            self.assertFalse(result['run_complete'])
+            self.assertEqual([d.publication_id for d in result['publications']], ['publication-0','publication-1','publication-2'])
+            with sqlite3.connect(self.path) as db:
+                self.assertEqual([r[0] for r in db.execute('SELECT state FROM original_slot ORDER BY ordinal')],
+                    ['completed'] * 3 + ['unprepared'] * 5)
+            continuation = ContinueCommerceEvolutionConfig(self.driver, self.path, self.policy,
+                self.producer, self.driver.context, result['run_sha256'], 3)
+            following = continue_commerce_evolution(continuation)
+            self.assertEqual(following['completed_count'], 4)
+            self.assertEqual(following['run_sha256'], result['run_sha256'])
+        for invalid in (True, -1, 8, '2'):
+            with self.assertRaises(HostError): replace(self.config, through_ordinal=invalid)
+
     def test_continuation_absolute_prefix_stops_before_suffix_and_replays(self):
         from ashlar_host.config import ContinueCommerceEvolutionConfig
         from ashlar_host.commerce_evolution import continue_commerce_evolution

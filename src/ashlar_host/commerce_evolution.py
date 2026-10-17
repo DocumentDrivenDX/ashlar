@@ -111,7 +111,9 @@ def _run_commerce_evolution(config, fresh, *, through_ordinal=None):
                 slots = prefix_inventory.slots if prefix_inventory is not None else current_slots()
                 completed = [slot[0] for slot in slots if slot[1] == 'completed']
                 last = completed[-1] if completed else -1
-                if through_ordinal < last or through_ordinal > last + 1:
+                if fresh and any(slot[1] != 'unprepared' for slot in slots):
+                    raise EvolutionPlanError('Fresh bounded run requires all original slots unprepared')
+                if not fresh and (through_ordinal < last or through_ordinal > last + 1):
                     raise EvolutionPlanError('Select current completed prefix or first incomplete original ordinal')
                 if any(slot[1] == 'publication-started' for slot in slots[through_ordinal + 1:]):
                     raise EvolutionPlanError('Later unresolved original publication prevents settled prefix')
@@ -184,7 +186,7 @@ def publish_commerce_evolution(config):
     from .config import FreshCommerceEvolutionConfig
     if type(config) is not FreshCommerceEvolutionConfig:
         raise EvolutionPlanError('Distinct fresh eight-step configuration required')
-    return _run_commerce_evolution(config, True)
+    return _run_commerce_evolution(config, True, through_ordinal=config.through_ordinal)
 
 
 def resume_commerce_evolution(config):

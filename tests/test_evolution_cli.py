@@ -35,6 +35,45 @@ class Controls(unittest.TestCase):
         return {'profile': 'ashlar-commerce-evolution-run-result/0.1', 'run_sha256': 'b' * 64,
             'publications': tuple(SimpleNamespace(publication_id='p-' + str(i)) for i in range(8))}
 
+    def test_fresh_bounded_parser_receipt_and_provider_mismatch(self):
+        from dataclasses import replace
+        import test_evolution_run as run_tests
+        from ashlar_host.evolution_composition import NativeEvolutionRunPolicy
+        with tempfile.TemporaryDirectory() as root:
+            directory = Path(root).resolve(); value = self.document(directory, 'fresh')
+            self.assertIsNone(owner.parse_evolution_invocation(json.dumps(value).encode(), 'fresh').through_ordinal)
+            value['through_ordinal'] = 2
+            invocation = owner.parse_evolution_invocation(json.dumps(value).encode(), 'fresh')
+            for bad in (None, True, -1, 8, '2'):
+                value['through_ordinal'] = bad
+                with self.assertRaises(HostError): owner.parse_evolution_invocation(json.dumps(value).encode(), 'fresh')
+            resume = self.document(directory); resume['through_ordinal'] = 2
+            with self.assertRaises(HostError): owner.parse_evolution_invocation(json.dumps(resume).encode(), 'resume')
+            value['through_ordinal'] = 2
+            config, source, pin = self.files(directory, 'fresh'); config.write_text(json.dumps(value))
+            answer = self.answer(); answer.update(profile='ashlar-commerce-evolution-prefix-result/0.1',
+                publications=answer['publications'][:3], through_ordinal=2, completed_count=3,
+                total_publications=8, run_complete=False, source_progress={})
+            for descriptor in answer['publications']: descriptor.raw = {'source_progress_json': '{}'}
+            with patch.object(owner, 'run_evolution_invocation', return_value=answer):
+                receipt = owner.run_evolution_command(config, source, pin, 'fresh')
+            self.assertEqual(receipt['profile'], 'ashlar-commerce-evolution-prefix-receipt/0.1')
+            self.assertEqual(receipt['completed_count'], 3); self.assertFalse(receipt['run_complete'])
+        run_tests.Tests.setUpClass(); fixture = run_tests.Tests(); fixture.setUp()
+        try:
+            invocation = owner.FreshEvolutionInvocation(fixture.path, fixture.root/'receipt',fixture.producer,fixture.request,2)
+            config = replace(fixture.config, policy=NativeEvolutionRunPolicy(fixture.driver,fixture.policy))
+            closed=[]
+            @contextlib.contextmanager
+            def opened(value):
+                try: yield config
+                finally: closed.append(True)
+            with patch.object(owner,'publish_commerce_evolution') as publish:
+                with self.assertRaises(HostError): owner.run_evolution_invocation(invocation,SimpleNamespace(open_evolution=opened))
+                publish.assert_not_called()
+            self.assertEqual(closed,[True])
+        finally: fixture.doCleanups()
+
     def test_continuation_closed_ordinal_parser_and_partial_receipt(self):
         with tempfile.TemporaryDirectory() as root:
             directory = Path(root).resolve()

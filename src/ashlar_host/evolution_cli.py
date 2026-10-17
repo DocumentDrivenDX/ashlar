@@ -40,12 +40,15 @@ class FreshEvolutionInvocation:
     receipt_path: Path
     producer: EvolutionAdmissionConfig
     request: EvolutionRunRequest
+    through_ordinal: Union[int, None] = None
 
     def __post_init__(self):
         validate_invocation_base(self.ledger_path, self.receipt_path, self.producer)
         if type(self.request) is not EvolutionRunRequest:
             raise HostError("evolution-invocation-configuration")
         self.request.__post_init__()
+        if self.through_ordinal is not None and (type(self.through_ordinal) is not int or not 0 <= self.through_ordinal < 8):
+            raise HostError("evolution-invocation-configuration")
 
 
 @dataclass(frozen=True, repr=False)
@@ -117,7 +120,7 @@ def parse_evolution_invocation(raw, mode):
         value = json.loads(raw, object_pairs_hook=pairs, parse_int=integer, parse_float=refuse, parse_constant=refuse)
         specific = 'request' if mode == 'fresh' else 'expected_sha256'
         if (type(value) is not dict or set(value) != ({'profile', 'mode', 'ledger_path', 'receipt_path', 'producer', specific}
-                    | ({'through_ordinal'} if mode == 'continue' else set()))
+                    | ({'through_ordinal'} if mode == 'continue' or mode == 'fresh' and 'through_ordinal' in value else set()))
                 or value['profile'] != PROFILE or value['mode'] != mode):
             raise HostError('evolution-invocation-configuration')
         producer = value['producer']
@@ -129,7 +132,9 @@ def parse_evolution_invocation(raw, mode):
         ledger = absolute(value['ledger_path']); receipt = absolute(value['receipt_path'])
         if ledger == receipt: raise HostError('evolution-invocation-configuration')
         if mode == 'fresh':
-            return FreshEvolutionInvocation(ledger, receipt, selected, request_from_document(value['request']))
+            if 'through_ordinal' in value and (type(value['through_ordinal']) is not int or not 0 <= value['through_ordinal'] < 8):
+                raise HostError('evolution-invocation-configuration')
+            return FreshEvolutionInvocation(ledger, receipt, selected, request_from_document(value['request']), value.get('through_ordinal'))
         digest = value['expected_sha256']
         if type(digest) is not str or not re.fullmatch('[0-9a-f]{64}', digest):
             raise HostError('evolution-invocation-configuration')
@@ -227,7 +232,8 @@ def run_evolution_invocation(invocation, provider):
         if config.policy.driver is not config.driver or config.ledger_path != invocation.ledger_path or config.producer != invocation.producer:
             raise HostError('evolution-provider-configuration')
         if type(invocation) is FreshEvolutionInvocation:
-            if config.request != invocation.request: raise HostError('evolution-provider-configuration')
+            if config.request != invocation.request or config.through_ordinal != invocation.through_ordinal:
+                raise HostError('evolution-provider-configuration')
             answer = publish_commerce_evolution(config)
         else:
             if config.expected_sha256 != invocation.expected_sha256: raise HostError('evolution-provider-configuration')
@@ -258,14 +264,15 @@ def run_evolution_command(configuration, provider_path, provider_sha256, mode):
     except BaseException as error: primary = error
     finish(primary, [lambda: source.renew(MAX_PROVIDER), lambda: config_file.renew(MAX_CONFIG)])
     continuing = type(invocation) is ContinueEvolutionInvocation
+    bounded = continuing or type(invocation) is FreshEvolutionInvocation and invocation.through_ordinal is not None
     fields = {'profile', 'run_sha256', 'publications'}
-    if continuing:
+    if bounded:
         fields |= {'through_ordinal', 'completed_count', 'total_publications', 'run_complete', 'source_progress'}
-    profile = 'ashlar-commerce-evolution-prefix-result/0.1' if continuing else 'ashlar-commerce-evolution-run-result/0.1'
+    profile = 'ashlar-commerce-evolution-prefix-result/0.1' if bounded else 'ashlar-commerce-evolution-run-result/0.1'
     if type(answer) is not dict or set(answer) != fields or answer['profile'] != profile:
         raise HostError('evolution-result-refused')
-    count = invocation.through_ordinal + 1 if continuing else 8
-    if continuing and (type(answer['through_ordinal']) is not int or answer['through_ordinal'] != invocation.through_ordinal
+    count = invocation.through_ordinal + 1 if bounded else 8
+    if bounded and (type(answer['through_ordinal']) is not int or answer['through_ordinal'] != invocation.through_ordinal
             or type(answer['completed_count']) is not int or answer['completed_count'] != count
             or type(answer['total_publications']) is not int or answer['total_publications'] != 8
             or type(answer['run_complete']) is not bool or answer['run_complete'] != (count == 8)
@@ -276,7 +283,7 @@ def run_evolution_command(configuration, provider_path, provider_sha256, mode):
             or (continuing and digest != invocation.expected_sha256)
             or type(publications) is not tuple or len(publications) != count):
         raise HostError('evolution-result-refused')
-    if continuing:
+    if bounded:
         try:
             if json.loads(publications[-1].raw['source_progress_json']) != answer['source_progress']:
                 raise HostError('evolution-result-refused')
@@ -285,9 +292,9 @@ def run_evolution_command(configuration, provider_path, provider_sha256, mode):
     identifiers = [item.publication_id for item in publications]
     if any(type(value) is not str or not 0 < len(value) <= 1024 for value in identifiers) or len(set(identifiers)) != count:
         raise HostError('evolution-result-refused')
-    receipt = {'profile': 'ashlar-commerce-evolution-prefix-receipt/0.1' if continuing else 'ashlar-commerce-evolution-receipt/0.1',
+    receipt = {'profile': 'ashlar-commerce-evolution-prefix-receipt/0.1' if bounded else 'ashlar-commerce-evolution-receipt/0.1',
         'run_sha256': digest, 'publication_ids': identifiers}
-    if continuing:
+    if bounded:
         receipt.update({key: answer[key] for key in ('through_ordinal', 'completed_count', 'total_publications', 'run_complete', 'source_progress')})
     raw = (json.dumps(receipt, sort_keys=True, separators=(',', ':')) + '\n').encode()
     if len(raw) > 16384: raise HostError('evolution-result-refused')

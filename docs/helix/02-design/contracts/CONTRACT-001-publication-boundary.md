@@ -576,6 +576,28 @@ substantive closing admission and cleanup; bounded diagnostics MUST follow
 CONTRACT-006 and MUST NOT expose credentials or grant commit/completion authority.
 
 
+### Bounded fresh original prefix
+
+Fresh publication MAY select an absolute `through_ordinal` from 0 through 7,
+retaining the complete admitted eight-publication schedule and original journal.
+The installed fresh invocation MAY omit this option to preserve full-run behavior;
+when supplied in JSON it MUST be an integer, never null or Boolean. The immutable
+Python configuration uses `None` for the existing full-run selection. Invocation
+and provider MUST agree on the bound before effects.
+
+Bounded fresh publication MUST begin with all eight original slots unprepared
+under independently admitted new installation and source/ACK authority. It MUST
+complete every transaction from ordinal zero through the selected ordinal, stop
+only between publications, and leave later slots unprepared. All ordinary
+per-attempt publication, protected ACK, full-vector and closing gates remain
+mandatory. The bound MUST NOT truncate or rewrite the original schedule.
+
+The result and receipt MUST use the distinct prefix profiles described below,
+including the original digest, selected ordinal, completed count, total of eight
+and complete source progress. An earlier prefix MUST NOT claim full-run success.
+A later process MUST continue through the retained original reservation and
+journal; it MUST NOT rerun fresh initialization or reset source consumers.
+
 ### Explicit original-ordinal continuation
 
 A separately typed retained-run continuation MAY select one absolute ordinal in

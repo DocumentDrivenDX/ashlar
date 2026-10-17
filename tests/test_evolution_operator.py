@@ -218,6 +218,8 @@ class Tests(unittest.TestCase):
 
     def test_concrete_provider_composes_current_owners_and_closes_once(self):
         operator, invocation = self.installed(LOCAL_OPERATION_CAPACITY_8M)
+        from dataclasses import replace
+        invocation = replace(invocation, through_ordinal=2)
         admissions = self.driver.source_admission.admissions
         def producer(config, *, source_system, epoch):
             return next(item for item in admissions if item.prepared.source_system == source_system)
@@ -225,6 +227,7 @@ class Tests(unittest.TestCase):
                 patch('ashlar_host.evolution_operator.LocalDeltaTransport', return_value=self.driver.transport) as native:
             with operator.open_evolution(invocation) as config:
                 self.assertIs(type(config), FreshCommerceEvolutionConfig)
+                self.assertEqual(config.through_ordinal, 2)
                 self.assertIs(type(config.policy), NativeEvolutionRunPolicy)
                 self.assertIs(type(config.driver.policy), ExistingEvolutionNativePolicy)
                 self.assertEqual(config.driver.source_sessions.metadata()['registrations'],

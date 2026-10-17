@@ -187,7 +187,7 @@ class ExistingEvolutionOperator:
                         run_policy = NativeEvolutionRunPolicy(driver, lease)
                         if type(invocation) is FreshEvolutionInvocation:
                             config = FreshCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
-                                invocation.producer, context, invocation.request)
+                                invocation.producer, context, invocation.request, invocation.through_ordinal)
                         elif type(invocation) is VerifyEvolutionInvocation:
                             config = VerifyCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                                 invocation.producer, context, invocation.expected_sha256, invocation.ordinal,
