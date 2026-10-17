@@ -695,7 +695,14 @@ retain the exact original publication, complete UUID/version vector, release and
 mapping bytes, uploaded file identities/bytes, native item identity and original
 creation/load handles. Before one creation submission it MUST durably retain the
 complete intent. Unknown submission outcomes MUST recover that original handle
-or refuse; they MUST NOT create a replacement item implicitly.
+or refuse; they MUST NOT create a replacement item implicitly. Synchronous `201`
+creation MUST instead retain the bounded original item-response bytes and exact
+workspace/item identity, without inventing an asynchronous handle. Typed retained
+creation correspondence MUST distinguish an unsubmitted intent, an unknown
+submission, an original asynchronous operation and a synchronous item response.
+Missing storage capabilities MUST refuse without implicit journal migration.
+Complete retained mapping JSON MUST fit a separately bounded 65,536 UTF-8 bytes;
+this MUST NOT enlarge unrelated text or publication-vector capacities.
 
 The initial load MUST reach terminal success for that same item before query
 admission. Complete independent node/edge identity, value and multiplicity bags

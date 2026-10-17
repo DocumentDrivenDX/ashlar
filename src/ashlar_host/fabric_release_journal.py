@@ -18,6 +18,7 @@ import stat
 import threading
 from uuid import UUID
 from urllib.parse import quote
+from typing import Optional
 
 from ashlar_host.lifecycle import finish, owned_connection
 
@@ -61,8 +62,11 @@ class ReleaseIntent:
         _uuid(self.candidate_id)
         _uuid(self.workspace_id)
         _sha(self.release_sha256)
+        _text(self.publication_json)
+        if (type(self.mapping_json) is not str or not self.mapping_json
+                or len(self.mapping_json.encode('utf8')) > 65536):
+            raise JournalRefusal('mapping JSON exceeds bounded 65536 UTF-8 bytes')
         for text in (self.publication_json, self.mapping_json):
-            _text(text)
             value = json.loads(text)
             if type(value) is not dict or not value or _canonical(value) != text:
                 raise JournalRefusal('expected nonempty canonical JSON object')
@@ -87,7 +91,16 @@ class LocalActive:
     revision: int
     intent: ReleaseIntent
     graph_model_id: str
-    creation_handle: str
+    creation_handle: Optional[str]
+
+
+@dataclass(frozen=True)
+class CreationCorrespondence:
+    """Retained native response correspondence; never a creation/load grant."""
+    kind: str
+    graph_model_id: Optional[str]
+    operation_handle: Optional[str]
+    synchronous_response: Optional[bytes]
 
 
 def _private(path, kind):
@@ -134,6 +147,7 @@ class FabricReleaseJournal:
             db.executescript('''
                 CREATE TABLE candidates (id TEXT PRIMARY KEY, intent TEXT NOT NULL,
                     state TEXT NOT NULL, model TEXT UNIQUE, handle TEXT UNIQUE);
+                CREATE TABLE synchronous_creation (candidate TEXT PRIMARY KEY, response BLOB NOT NULL);
                 CREATE TABLE first_load (candidate TEXT PRIMARY KEY, handle TEXT UNIQUE NOT NULL);
                 CREATE TABLE active (singleton INTEGER PRIMARY KEY CHECK(singleton=1),
                     revision INTEGER NOT NULL, candidate TEXT);
@@ -247,6 +261,15 @@ class FabricReleaseJournal:
         with self._lease(True):
             return self._first_load(candidate_id)
 
+    def record_created_synchronous(self, candidate_id: str, graph_model_id: str, original_response: bytes):
+        with self.mutation() as permit:
+            return permit.record_created_synchronous(candidate_id, graph_model_id, original_response)
+
+    def creation(self, candidate_id: str):
+        """Read typed original synchronous/asynchronous/unknown correspondence."""
+        with self._lease(True):
+            return self._creation(candidate_id)
+
     def _record_intent(self, intent: ReleaseIntent):
         if type(intent) is not ReleaseIntent:
             raise JournalRefusal('exact ReleaseIntent required')
@@ -289,6 +312,55 @@ class FabricReleaseJournal:
                           ('created', graph_model_id, creation_handle, candidate_id,
                            'unknown', 'creating', creation_handle)).rowcount != 1:
                 raise JournalRefusal('missing original uncertain submission or changed creation handle')
+
+    def _sync_schema(self, db):
+        if db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='synchronous_creation'").fetchone() is None:
+            raise JournalRefusal('journal lacks synchronous creation storage; implicit migration refused')
+
+    def _record_created_synchronous(self, candidate_id: str, graph_model_id: str, original_response: bytes):
+        """Retain actual 201 item bytes, without inventing an asynchronous handle."""
+        _uuid(candidate_id)
+        _uuid(graph_model_id)
+        if type(original_response) is not bytes or not 0 < len(original_response) <= 65536:
+            raise JournalRefusal('bounded original synchronous item response required')
+        def pairs(items):
+            result = {}
+            for key, value in items:
+                if key in result:
+                    raise JournalRefusal('duplicate synchronous response member')
+                result[key] = value
+            return result
+        def nonfinite(value):
+            raise JournalRefusal('nonfinite synchronous response member')
+        value = json.loads(original_response, object_pairs_hook=pairs, parse_constant=nonfinite)
+        if type(value) is not dict or value.get('id') != graph_model_id or value.get('type') != 'GraphModel':
+            raise JournalRefusal('original synchronous item identity differs')
+        with self._db() as db:
+            self._sync_schema(db)
+            row = db.execute('SELECT intent FROM candidates WHERE id=? AND state=? AND handle IS NULL',
+                             (candidate_id, 'unknown')).fetchone()
+            if row is None:
+                raise JournalRefusal('original unknown submission without async handle required')
+            if value.get('workspaceId') != json.loads(row[0])['workspace_id']:
+                raise JournalRefusal('original synchronous workspace differs')
+            db.execute('INSERT INTO synchronous_creation VALUES (?,?)', (candidate_id, original_response))
+            db.execute('UPDATE candidates SET state=?,model=? WHERE id=?', ('created', graph_model_id, candidate_id))
+
+    def _creation(self, candidate_id: str):
+        intent, state, model, handle = self._candidate(candidate_id)
+        if handle is not None:
+            return CreationCorrespondence('asynchronous', model, handle, None)
+        if state != 'created':
+            return CreationCorrespondence('not-submitted' if state == 'recorded' else 'unknown', None, None, None)
+        path = self.root / 'journal.sqlite'
+        identity = _private(path, stat.S_ISREG)
+        with owned_connection(sqlite3.connect(_uri(path, 'ro'), uri=True)) as db:
+            self._sync_schema(db)
+            row = db.execute('SELECT response FROM synchronous_creation WHERE candidate=?', (candidate_id,)).fetchone()
+        _unchanged(path, identity)
+        if row is None:
+            raise JournalRefusal('original synchronous response missing')
+        return CreationCorrespondence('synchronous', model, None, row[0])
 
     def _load_schema(self, db):
         if db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='first_load'").fetchone() is None:
@@ -418,6 +490,14 @@ class FabricMutation:
     def first_load(self, candidate_id: str):
         self.renew()
         return self._owner._first_load(candidate_id)
+
+    def record_created_synchronous(self, candidate_id: str, graph_model_id: str, original_response: bytes):
+        self.renew()
+        return self._owner._record_created_synchronous(candidate_id, graph_model_id, original_response)
+
+    def creation(self, candidate_id: str):
+        self.renew()
+        return self._owner._creation(candidate_id)
 
     def candidate(self, candidate_id: str):
         self.renew()

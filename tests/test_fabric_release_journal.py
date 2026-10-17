@@ -309,6 +309,74 @@ class Tests(unittest.TestCase):
             self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='first_load'").fetchone())
         self.assertEqual(self.owner.candidate(uid(1))[1:], ('created', uid(201), 'original-operation-1'))
 
+    def test_synchronous_201_preserves_actual_item_bytes_without_async_handle(self):
+        import json
+        response = json.dumps({'id': uid(201), 'workspaceId': uid(100), 'type': 'GraphModel',
+                               'extension': {'original': True}}, indent=2).encode()
+        self.owner.record_intent(intent(1))
+        self.owner.begin_creation(uid(1))
+        self.assertEqual(self.owner.creation(uid(1)).kind, 'unknown')
+        with self.assertRaises(JournalRefusal):
+            self.owner.record_created_synchronous(uid(1), uid(201), b'')
+        with self.assertRaisesRegex(JournalRefusal, 'workspace'):
+            self.owner.record_created_synchronous(uid(1), uid(201), response.replace(uid(100).encode(), uid(101).encode()))
+        with self.assertRaises(KeyboardInterrupt):
+            with self.owner.mutation() as permit:
+                permit.record_created_synchronous(uid(1), uid(201), response)
+                observed = permit.creation(uid(1))
+                self.assertEqual((observed.kind, observed.operation_handle, observed.synchronous_response),
+                                 ('synchronous', None, response))
+                raise KeyboardInterrupt()
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.creation(uid(1))
+        reopened = FabricReleaseJournal(self.root)
+        self.assertEqual(reopened.creation(uid(1)).synchronous_response, response)
+        self.assertEqual(reopened.candidate(uid(1)), (intent(1), 'created', uid(201), None))
+        with self.assertRaises(JournalRefusal):
+            reopened.begin_creation(uid(1))
+        with self.assertRaises(JournalRefusal):
+            reopened.record_created(uid(1), uid(201), 'invented-async-operation')
+        reopened.activate_local(uid(1), 0)
+        with reopened.reader() as active:
+            self.assertIsNone(active.creation_handle)
+            self.assertEqual(active.graph_model_id, uid(201))
+
+    def test_async_and_sync_receipts_cannot_replace_each_other_or_migrate(self):
+        import json
+        import sqlite3
+        response = json.dumps({'id': uid(201), 'workspaceId': uid(100), 'type': 'GraphModel'}).encode()
+        self.owner.record_intent(intent(1))
+        self.owner.begin_creation(uid(1))
+        self.owner.record_creation_operation(uid(1), 'actual-original-operation')
+        with self.assertRaisesRegex(JournalRefusal, 'without async handle'):
+            self.owner.record_created_synchronous(uid(1), uid(201), response)
+        self.assertEqual(self.owner.creation(uid(1)).operation_handle, 'actual-original-operation')
+        self.owner.record_intent(intent(2))
+        self.owner.begin_creation(uid(2))
+        with sqlite3.connect(self.root / 'journal.sqlite') as db:
+            db.execute('DROP TABLE synchronous_creation')
+        with self.assertRaisesRegex(JournalRefusal, 'implicit migration refused'):
+            self.owner.record_created_synchronous(uid(2), uid(201), response)
+        self.assertEqual(self.owner.creation(uid(2)).kind, 'unknown')
+        with sqlite3.connect(self.root / 'journal.sqlite') as db:
+            self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='synchronous_creation'").fetchone())
+
+    def test_complete_actual_commerce_mapping_fits_separate_utf8_capacity(self):
+        import gzip
+        import json
+        archive = Path(__file__).resolve().parents[1] / 'docs/helix/04-build/evidence/commerce-fabric-publication-gql-20261016/definition/create-request.json.gz'
+        definition = json.loads(gzip.decompress(archive.read_bytes()))['definition']
+        mapping = json.dumps(definition, sort_keys=True, separators=(',', ':'), allow_nan=False)
+        self.assertEqual(len(mapping.encode('utf8')), 13542)
+        selected = replace(intent(1), mapping_json=mapping)
+        self.owner.record_intent(selected)
+        self.assertEqual(self.owner.candidate(uid(1))[0].mapping_json, mapping)
+        oversized = json.dumps({'mapping': 'x' * 65536}, separators=(',', ':'))
+        with self.assertRaisesRegex(JournalRefusal, '65536 UTF-8 bytes'):
+            replace(intent(2), mapping_json=oversized)
+        with self.assertRaisesRegex(JournalRefusal, 'bounded nonempty text'):
+            replace(intent(2), publication_json='x' * 8193)
+
     def test_closed_typed_correspondence_and_missing_active_refuse(self):
         with self.assertRaises(TypeError):
             ReleaseIntent(**{**intent(1).__dict__, 'authority': True})
