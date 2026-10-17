@@ -35,6 +35,8 @@ from .publication import ResolutionError
 from .weft_decode import ExactScalar, decode_exact_scalar
 from .weft_query import PageContextRefused, PageReadRows, read_weft
 from .weft_related_keys_decode import DecodedRelatedKeys
+from .sdk_presence import DecodedPresence,decode_presence
+from umf_access.types import MISSING
 
 P=TypeVar('P',bound=BaseModel);R=TypeVar('R',bound=BaseModel)
 
@@ -46,6 +48,8 @@ def _parameter(value):
     raise ResolutionError('Closed exact non-temporal scalar parameter required')
 
 def _scalar(value):
+    if type(value)is DecodedPresence:
+        return MISSING if value.state=='missing' else None if value.state=='null' else value.value
     if type(value) is ExactScalar:
         if type(value.value) not in (str,bool,int,Decimal) or type(value.value) is Decimal and not value.value.is_finite():raise ResolutionError('Original non-temporal scalar value required')
         return value.value
@@ -67,6 +71,8 @@ class _Policy:
     def __init__(self,original,compiler,program,model,deadline,*,page_after_json=None,page_metadata=None,total_outputs=None):
         self.original,self.compiler,self.program,self.model,self.deadline=original,compiler,program,model,deadline
         self.validated=None
+        self.current_artifact=None
+        self.ordered_rows=None
         self.page_after_json,self.page_metadata,self.total_outputs=page_after_json,page_metadata,total_outputs
     def _time(self):
         if monotonic()>=self.deadline:raise TimeoutError('Ashlar typed read deadline expired')
@@ -76,6 +82,7 @@ class _Policy:
         checked=program_json(self.compiler.check_engine_read_json(self.program,canonical_json(request)) if self.page_after_json is None else self.compiler.check_engine_page_json(self.program,canonical_json(request),self.page_after_json))
         if checked.get('status')!='compiled' or checked.get('artifact')!=artifact or self.page_metadata is not None and checked.get('page')!=self.page_metadata:
             raise ResolutionError('Original Weft engine compilation correspondence refused')
+        self.current_artifact=copy.deepcopy(artifact)
         return self.original.admit_artifact(request,artifact,*args)
     def verify_native_profile(self,*args):self._time();return self.original.verify_native_profile(*args)
     def authorize_query(self,*args):self._time();return self.original.authorize_query(*args)
@@ -86,10 +93,29 @@ class _Policy:
         if not callable(callback):raise ResolutionError('Original relationship authority owner required')
         return callback(*args)
     def admit_page_integrity(self,*args):self._time();return self.original.admit_page_integrity(*args)
+    def admit_ordered_page(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_ordered_page',None)
+        if not callable(callback):raise ResolutionError('Original hidden sort disclosure and comparator authority required')
+        return callback(*args)
+    def admit_ordered_read(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_ordered_read',None)
+        if not callable(callback):raise ResolutionError('Original ordered read Field/Key authority required')
+        return callback(*args)
+    def admit_source_key_integrity(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_source_key_integrity',None)
+        if not callable(callback):raise ResolutionError('Original complete source Key authority required')
+        return callback(*args)
     def page_context(self,*args):self._time();return self.original.page_context(*args)
     def decode_result(self,*args):
         self._time()
         value=self.original.decode_result(*args)
+        if type(value)is DecodedPresence:
+            if self.current_artifact is None or decode_presence(args[0],value.original,self.current_artifact)!=value:
+                raise ResolutionError('Original scalar presence token/source correspondence differs')
+            return value
         if type(value) is ExactScalar:
             representation=args[0].get('representation')
             logical=representation.get('logicalType',{}) if type(representation) is dict else {}
@@ -118,10 +144,13 @@ class _Policy:
             matching=[entry for entry in outputs if entry.get('name')==output]
             if len(matching)!=1 or matching[0].get('carrier')!='related-keys' or matching[0].get('decoder')!=decoder:
                 raise ResolutionError('Original related-Key compiler output differs')
+        if self.page_metadata is not None and self.page_metadata.get('version')=='weft.engine-cursor/0.2':
+            from .sdk_ordered_page import decoded_cursor
+            self.ordered_rows=[decoded_cursor(row,self.page_metadata,self.current_artifact)for row in rows]
         validated=[]
         for row in rows:
             if len(row)!=(len(names)if self.total_outputs is None else self.total_outputs):raise ResolutionError('Complete generated result signature required')
-            fields={name:_scalar(value) if type(value) is ExactScalar else value for name,value in zip(names,row[:visible],strict=True)}
+            fields={name:_scalar(value) if type(value) in (ExactScalar,DecodedPresence) else value for name,value in zip(names,row[:visible],strict=True)}
             if related is not None:
                 fields[output]=typed_related_keys(fields[output],decoder,key_model)
             validated.append(self.model.model_validate(fields))
@@ -137,7 +166,7 @@ class AshlarTarget:
                  deadline:Callable[[timedelta],AbstractContextManager[None]],catalog_entries:tuple[EngineRead[Any,Any],...]=()):
         if len(binding_sha256)!=64 or any(c not in '0123456789abcdef' for c in binding_sha256):raise ValueError('Original binding digest required')
         if not callable(getattr(compiler,'check_engine_read_json',None)) or not callable(deadline):raise ValueError('Original engine compiler and native deadline owner required')
-        if compiler_method not in ('registered','ashlar-spark4','ashlar-spark4-fields','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages'):raise ValueError('Explicit original Ashlar compiler required')
+        if compiler_method not in ('registered','ashlar-spark4','ashlar-spark4-fields','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages','ashlar-spark4-sdk','ashlar-spark4-sdk-pages'):raise ValueError('Explicit original Ashlar compiler required')
         self.compiler_method=compiler_method
         self.compiler,self.executor,self.backend,self.pins=compiler,executor,backend,pins
         self.vector,self.policy,self.context=vector,policy,context
@@ -167,6 +196,7 @@ class AshlarTarget:
         v=self.vector
         context=canonical_json({'authority':v.authority,'scopeKind':v.scope_kind,'scopeId':v.scope_id,'custodyDigest':v.custody_digest,'targets':{name:list(pair)for name,pair in v.targets.items()}})
         version,profile=('0.1.0-qualified','dbsql2026.39-qualified') if self.compiler_method=='registered' else ('0.1.0-local-spark4-candidate','spark4.0.1-delta4.0.0-candidate')
+        if self.compiler_method=='ashlar-spark4-sdk':version,profile='0.1.0-local-spark4-sdk-candidate','spark4.0.1-delta4.0.0-sdk-candidate'
         if self.compiler_method=='ashlar-spark4-fields':version,profile='0.1.0-local-spark4-fields-candidate','spark4.0.1-delta4.0.0-fields-candidate'
         if self.compiler_method=='ashlar-dbsql-20261016':version,profile='0.1.0-managed-20261016-candidate','dbsql2026.39-build-20261016-candidate'
         if self.native_target_json is not None:
@@ -175,7 +205,7 @@ class AshlarTarget:
     def read(self,entry:CatalogRead[P,R],parameters:P,*,timeout:timedelta|None=None)->list[R]:
         if not isinstance(entry,EngineRead):raise ResolutionError('Original engine catalog required')
         program=entry.artifact();request=copy.deepcopy(program['request'])
-        if program['version']!='weft.engine-read/0.1':raise ResolutionError('Original ordinary read program required')
+        if program['version']!=('weft.engine-read/0.2'if self.compiler_method in ('ashlar-spark4-sdk','ashlar-spark4-sdk-pages')else'weft.engine-read/0.1'):raise ResolutionError('Original ordinary read program required')
         if program['compiler']!=self.compiler_method or request['target']['bindingSha256']!=self.binding_sha256:
             raise ResolutionError('Original Ashlar binding or compiler differs')
         values=revalidate_model(entry.parameters,parameters)
@@ -202,9 +232,12 @@ class AshlarTarget:
             for name,p in entry.artifact()['request']['parameters'].items():
                 family,value=p['family'],p['value']
                 values[name]={'string':lambda:value,'integer':lambda:int(value),'decimal':lambda:Decimal(value),'boolean':lambda:value=='true'}[family]()
-            if entry.artifact()["version"]=="weft.engine-page/0.1":self.page(entry,entry.parameters.model_validate(values))
+            if entry.artifact()["version"]in ("weft.engine-page/0.1","weft.engine-page/0.2"):self.page(entry,entry.parameters.model_validate(values))
             else:self.read(entry,entry.parameters.model_validate(values))
     def page(self,entry:CatalogRead[P,R],parameters:P,*,after:ReadContinuation|None=None,timeout:timedelta|None=None)->ReadPage[R]:
+        if self.compiler_method=='ashlar-spark4-sdk-pages':
+            from .sdk_ordered_page import page
+            return page(self,entry,parameters,after=after,timeout=timeout)
         if not isinstance(entry,EngineRead) or self.native_target_json is None:raise ResolutionError('Original Ashlar page target required')
         program=entry.artifact();request=copy.deepcopy(program['request'])
         if program['version']!='weft.engine-page/0.1' or program['compiler']!=self.compiler_method or request['target']!=program_json(self.native_target_json):
@@ -255,7 +288,7 @@ class AshlarTarget:
         if not isinstance(entry,EngineRead):
             raise ResolutionError('Original engine page catalog required')
         program=entry.artifact()
-        if program['version']!='weft.engine-page/0.1' or program['compiler']!=self.compiler_method:
+        if program['version']!=('weft.engine-page/0.2'if self.compiler_method=='ashlar-spark4-sdk-pages'else'weft.engine-page/0.1') or program['compiler']!=self.compiler_method:
             raise ResolutionError('Original Ashlar page compiler required')
         if page_size>program['pageSize']:
             raise ValueError('Stream page_size exceeds the authored original maximum')
@@ -269,6 +302,9 @@ class AshlarTarget:
             'related_source':related['source'],
             'relationship':related['relationship'],
         }
+        if program['version']=='weft.engine-page/0.2':
+            navigation['selected_key']=program['selectedKey']
+            if related is not None:navigation['source_selected_key']=related['sourceSelectedKey']
         compiled=EngineRead.build(self.compiler,program['request'],parameters=entry.parameters,
             result=entry.result,method=self.compiler_method,page_size=page_size,**navigation)
         # Host page admission still sees the untouched original derived artifact.

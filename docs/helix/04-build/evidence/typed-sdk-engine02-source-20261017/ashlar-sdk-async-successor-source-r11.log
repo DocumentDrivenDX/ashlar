@@ -1,0 +1,24 @@
+test_cancel_before_delivery_never_releases_completed_rows (test_sdk_async_bridge.BridgeTests.test_cancel_before_delivery_never_releases_completed_rows) ... ok
+test_cancel_during_gate_grant_does_not_leak_lock (test_sdk_async_bridge.BridgeTests.test_cancel_during_gate_grant_does_not_leak_lock) ... ok
+test_closed_target_withholds_remaining_buffered_stream_rows (test_sdk_async_bridge.BridgeTests.test_closed_target_withholds_remaining_buffered_stream_rows) ... ok
+test_contextvars_caller_and_worker_scope_do_not_borrow_actor (test_sdk_async_bridge.BridgeTests.test_contextvars_caller_and_worker_scope_do_not_borrow_actor) ... ok
+test_event_loop_ticks_and_worker_deadline_remaining (test_sdk_async_bridge.BridgeTests.test_event_loop_ticks_and_worker_deadline_remaining) ... ok
+test_external_cancel_repeated_waits_for_worker_and_cleanup (test_sdk_async_bridge.BridgeTests.test_external_cancel_repeated_waits_for_worker_and_cleanup) ... ok
+test_invalid_inputs_and_stale_continuation_refuse_before_open (test_sdk_async_bridge.BridgeTests.test_invalid_inputs_and_stale_continuation_refuse_before_open) ... ok
+test_missing_contract_refuses (test_sdk_async_bridge.BridgeTests.test_missing_contract_refuses) ... ok
+test_negative_and_foreign_timeout_refuse_without_host_open (test_sdk_async_bridge.BridgeTests.test_negative_and_foreign_timeout_refuse_without_host_open) ... ok
+test_parameters_are_snapshotted_before_queue (test_sdk_async_bridge.BridgeTests.test_parameters_are_snapshotted_before_queue) ... ok
+test_queue_wait_counts_and_does_not_dispatch_expired_call (test_sdk_async_bridge.BridgeTests.test_queue_wait_counts_and_does_not_dispatch_expired_call) ... ok
+test_real_smaller_original_page_entry_retained_across_continuations (test_sdk_async_bridge.BridgeTests.test_real_smaller_original_page_entry_retained_across_continuations) ... ok
+test_scope_change_refuses_before_native_and_denied_close_withholds (test_sdk_async_bridge.BridgeTests.test_scope_change_refuses_before_native_and_denied_close_withholds) ... ok
+test_scope_checked_before_each_buffered_stream_row (test_sdk_async_bridge.BridgeTests.test_scope_checked_before_each_buffered_stream_row) ... ok
+test_stream_denied_page_closing_withholds_all_rows (test_sdk_async_bridge.BridgeTests.test_stream_denied_page_closing_withholds_all_rows) ... ok
+test_stream_no_prefetch_same_worker_close_and_context_change (test_sdk_async_bridge.BridgeTests.test_stream_no_prefetch_same_worker_close_and_context_change) ... ok
+test_target_entry_time_is_deducted_from_native_method_budget (test_sdk_async_bridge.BridgeTests.test_target_entry_time_is_deducted_from_native_method_budget) ... ok
+test_timeout_requests_external_cancel_then_waits_for_cleanup (test_sdk_async_bridge.BridgeTests.test_timeout_requests_external_cancel_then_waits_for_cleanup) ... ok
+test_zero_timeout_is_expired_without_host_open (test_sdk_async_bridge.BridgeTests.test_zero_timeout_is_expired_without_host_open) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.165s
+
+OK

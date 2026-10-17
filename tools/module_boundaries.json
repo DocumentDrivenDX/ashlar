@@ -22,6 +22,14 @@
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
     },
     {
+      "source": "src/ashlar/async_access.py",
+      "target": "ashlar.access",
+      "symbol": "_parameter",
+      "reason": "private-cross-module",
+      "owner": "Ashlar SDK original-custody transport owner",
+      "removal_trigger": "Replace this exact source-owned helper with a reviewed public bridge API; no SQL or authority inference."
+    },
+    {
       "source": "src/ashlar/attempt_store.py",
       "target": "ashlar.native",
       "symbol": "_quoted",
@@ -166,6 +174,30 @@
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
     },
     {
+      "source": "src/ashlar/primitive_binding.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "Ashlar original primitive Field binding owner",
+      "removal_trigger": "Replace this exact already-existing producer helper access with its reviewed public source-admission API; preserve original source validation."
+    },
+    {
+      "source": "src/ashlar/primitive_field_binding.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "Ashlar original primitive Field binding owner",
+      "removal_trigger": "Replace this exact already-existing producer helper access with its reviewed public source-admission API; preserve original source validation."
+    },
+    {
+      "source": "src/ashlar/primitive_field_binding.py",
+      "target": "ashlar.typed_source_policy",
+      "symbol": "_complete_validation",
+      "reason": "private-cross-module",
+      "owner": "Ashlar original primitive Field binding owner",
+      "removal_trigger": "Replace this exact already-existing producer helper access with its reviewed public source-admission API; preserve original source validation."
+    },
+    {
       "source": "src/ashlar/protocol.py",
       "target": "ashlar.native",
       "symbol": "_quoted",
@@ -252,6 +284,38 @@
       "reason": "private-cross-module",
       "owner": "ashlar.native API owner",
       "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/sdk_ordered_page.py",
+      "target": "ashlar.access",
+      "symbol": "_Policy",
+      "reason": "private-cross-module",
+      "owner": "Ashlar SDK original-custody transport owner",
+      "removal_trigger": "Replace this exact source-owned helper with a reviewed public bridge API; no SQL or authority inference."
+    },
+    {
+      "source": "src/ashlar/sdk_ordered_page.py",
+      "target": "ashlar.access",
+      "symbol": "_parameter",
+      "reason": "private-cross-module",
+      "owner": "Ashlar SDK original-custody transport owner",
+      "removal_trigger": "Replace this exact source-owned helper with a reviewed public bridge API; no SQL or authority inference."
+    },
+    {
+      "source": "src/ashlar/sdk_ordered_page.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "Ashlar SDK original-custody transport owner",
+      "removal_trigger": "Replace this exact source-owned helper with a reviewed public bridge API; no SQL or authority inference."
+    },
+    {
+      "source": "src/ashlar/sdk_presence.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "Ashlar SDK original-custody transport owner",
+      "removal_trigger": "Replace this exact source-owned helper with a reviewed public bridge API; no SQL or authority inference."
     },
     {
       "source": "src/ashlar/semantic_policy.py",

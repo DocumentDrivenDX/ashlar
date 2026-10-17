@@ -1,0 +1,41 @@
+{
+  "status": "SOURCE ONLY; native unqualified",
+  "predecessor": "7e4d5318af3dc99652d6deb9c12388748f7edf6c",
+  "tests": {
+    "actualOriginalMetadataPresenceAndCursor": 3,
+    "existingAsyncBridge": 19,
+    "legacyOriginalSmallerPage": 4,
+    "importBoundaries": "PASS explicit exact private helper accesses"
+  },
+  "meaning": [
+    "physical SQL NULL invalid for presence envelope",
+    "missing/null/value distinct data domains; nullish ordering class equal while states retained",
+    "native original checker remains semantic authority; host metadata checks do not replace it",
+    "orderedRead/sourceKey authority callbacks have no permissive default",
+    "new page smaller recompilation forwards selectedKey and Related sourceSelectedKey unchanged; no orderKey on pages"
+  ],
+  "pending": [
+    "new-profile public CLI native presence/order/Related/WithKeys",
+    "new-profile actual smaller-page sync/async continuation",
+    "actual native in-flight cancel and full context closure",
+    "public-host coupled forgery native zero-SQL witness"
+  ],
+  "evidence": [
+    {
+      "file": "ashlar-engine02-boundaries-r2.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    },
+    {
+      "file": "ashlar-sdk-presence-ordered-source-r1.log",
+      "sha256": "599803ac812eb28946318a63e99d1a65d774f21aad01ac6e4a98881692ee69d2"
+    },
+    {
+      "file": "ashlar-sdk-async-successor-source-r11.log",
+      "sha256": "2af36f9ea9595b96d565b560895d3eeed17d079bd357995ee40866f29b680329"
+    },
+    {
+      "file": "ashlar-sdk-stream-source-successor-r1.log",
+      "sha256": "ba9ea2700d0367ed8227f67dfce8fd228f2b4f21b7eba31726d599251c74103e"
+    }
+  ]
+}

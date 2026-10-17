@@ -148,3 +148,33 @@ after fresh closing resolution. This qualifies the explicit local STRING fixture
 and trusted fixture policy only. The separate managed packet passes 11 independent-reader controls on the exact
 2026.39 DBSQL build. Production policy enrollment, broader carriers and async
 adoption remain open. Temporal qualification is HELD.
+
+
+## Engine 0.2 source candidate
+
+The explicit `ashlar-spark4-sdk` and `ashlar-spark4-sdk-pages` profiles are
+private source candidates. Their source controls do not extend the native
+qualifications above. Ordinary profiles retain their existing bytes and
+refusals. Temporal and LEFT/interface 0.3 semantics are not admitted by this
+candidate.
+
+The original compiler supplies a direct Field descriptor, source identity,
+representation and model pins for each scalar envelope. Physical SQL NULL is
+invalid; encoded missing, null and value remain distinct. Missing and null share
+one ordering class under S5, while the full cursor retains their separate states.
+The original selected authored Key supplies the complete ASC tie-break suffix.
+The host transports the complete original cursor, checks the explicit Key slot
+ordinals, and never substitutes tuple comparison or parses native SQL.
+
+An ordered ordinary read requires `admit_ordered_read`; a Related source with an
+explicit chosen Key requires `admit_source_key_integrity`. Both callbacks have no
+successful default. They authorize all original ordering/Key Fields and complete
+source inputs under the same held publication. Existing original recompilation,
+closing resolution, current result authorization and per-page context remain
+mandatory. A smaller page is recompiled once with its original `selectedKey` and
+Related `sourceSelectedKey`; continuations retain that exact derived artifact.
+
+Actual public-catalog native presence/order/Related/WithKeys execution, smaller
+sync/async multi-page continuations, and real native cancellation remain required
+before this candidate can be qualified. The source-only receipt is retained at
+[engine 0.2 source controls](../../04-build/evidence/typed-sdk-engine02-source-20261017/receipt.json).
