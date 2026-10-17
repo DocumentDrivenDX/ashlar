@@ -1,0 +1,45 @@
+{
+  "implementation_commit": "81db0daa44431835b42f5ccbb4f63c0f06bb3b4a",
+  "status": "complete",
+  "cases": [
+    {
+      "case": "count",
+      "elapsed_seconds": 6.486117375083268,
+      "guard_count": 2,
+      "native_rows": [
+        [
+          "1"
+        ]
+      ],
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d"
+    },
+    {
+      "case": "projection",
+      "elapsed_seconds": 4.163015707861632,
+      "guard_count": 1,
+      "native_rows": [
+        [
+          "updated"
+        ]
+      ],
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d"
+    }
+  ],
+  "runtime_elapsed_seconds": 38.115949917118996,
+  "supervised_terminal": {
+    "status": "terminal-success",
+    "elapsed_seconds": 40.56711116596125,
+    "stdout_bytes": 499,
+    "stderr_bytes": 819,
+    "result_present": true
+  },
+  "native_log_registry_and_journal_unchanged": true,
+  "journal_counts": {
+    "jsonl_consumer_progress": 3,
+    "local_operation": 26,
+    "local_plan": 3
+  },
+  "protected_ack": false,
+  "query_cli_qualified": false,
+  "qualification": "Installed SDK adapters actual compiler/Spark/Delta inside original runtime source/native owner via disclosed test hook. No query CLI qualification or protected ACK; original full native/source/Spark cleanup completed before this result."
+}
