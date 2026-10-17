@@ -94,7 +94,7 @@ def medical_query_closing_report(observation):
         'qualification':observation['qualification']}
 
 
-class _MedicalQueryProvider:
+class MedicalQueryProvider:
     def __init__(self,driver,context,resolved,request,aliases):
         if (type(driver)is not NativeDriver or type(driver.transport)is not ReadOnlyDeltaTransport
                 or type(driver.source_admission)is not MedicalAdmission
@@ -194,7 +194,7 @@ def execute_medical_singleton(selection,driver,context,resolved,model,graph,base
         path=driver.transport.targets[table].path
         if any(c in str(path)for c in ("'",'\\','\0')):raise ValueError('Exact native path required')
         spark.sql('CREATE TABLE '+quote_table_identifier(alias)+" USING DELTA LOCATION '"+str(path)+"'").collect()
-    provider=_MedicalQueryProvider(driver,context,resolved,request,aliases)
+    provider=MedicalQueryProvider(driver,context,resolved,request,aliases)
     def native_files():
         driver.policy.renew()
         return {'model':hashlib.sha256(model).hexdigest(),'graph':hashlib.sha256(graph).hexdigest(),'baseline':hashlib.sha256(baseline).hexdigest()}
@@ -202,3 +202,6 @@ def execute_medical_singleton(selection,driver,context,resolved,model,graph,base
     execution=ImplicitArithmeticExecutionConfig(admission,PathCaptureConfig(bounds.rows,bounds.cell_bytes,bounds.total_bytes),PathDecodeConfig(bounds.cell_bytes),None,None)
     result=execute_commerce_implicit_arithmetic(opened,request,artifact,json.loads(responses[1]),config=execution,original_oracle=medical_singleton_oracle)
     return MedicalSingletonBuffer(raw,responses[0],responses[1],encoded(report_value(result,bounds.receipt_bytes)))
+
+# Retained private test/import compatibility; new composition uses the public owner.
+_MedicalQueryProvider=MedicalQueryProvider

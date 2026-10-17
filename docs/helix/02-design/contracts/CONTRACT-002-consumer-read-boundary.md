@@ -729,3 +729,27 @@ pin each file's exact byte length and SHA256, including the byte-equal independe
 recompilation reference, and renew these original files before receipt publication.
 This representation MUST preserve whole original protocols without duplicating
 large payloads in the bounded aggregate receipt.
+
+### Finite original medical full-row and two-hop queries
+
+A closed medical query batch MAY select full-row singleton and complete two-hop
+cases within one actual medical reader, source interval, Spark session and full
+publication hold. Full-row singleton MUST project every original encounters Field
+and reconstruct its declared typed key and complete original row. The earlier
+required-key-only query MUST retain its narrower qualification.
+
+The two-hop case MUST cover all five compatible original relationship pairs and
+compare the complete 20-occurrence `(source, edge1, middle, edge2, target)` bag.
+Original edge identities, repeated occurrences and declared key tuples MUST remain
+intact; bounded RELATED_PATHS output MUST refuse true truncation. Each statement
+MUST use the original indexed f36/0.4.2 compilation/recompilation, public schema
+admission and unchanged emitted SQL, parameters, descriptors and obligations.
+Full native/source/ACK opening and closing cover the whole batch. Per-statement
+renewal MUST use the same original graph-read port and exact held vector, not a
+cached permission. Every result stays buffered until all batch and outer closings.
+
+Complete original protocols and per-statement evidence MAY be retained once in
+exclusive private files after all closings, each bounded by the selected input or
+receipt capacity as applicable and pinned/renewed before the unchanged 1MiB outer
+receipt. No truncation, guard omission, capacity increase or qualification of the
+other five medical corpus cases follows from this finite batch.

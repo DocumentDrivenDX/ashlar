@@ -506,3 +506,25 @@ aliases preserve compiler SQL while retaining the actual installation UUIDs and
 locations. The buffered query evidence joins the existing receipt only after all
 source, native, reader and Spark closings. Missing canonical publication authority
 refuses; inspection proposals do not substitute for publication receipts.
+
+## Finite full-row singleton and complete two-hop batch
+
+`query_original_medical_cases(read_configuration, compiler_paths, cases=...)`
+selects only `singleton` and `two-hop`. It preserves the existing required-key-only
+singleton entrypoint. One source/native reader and Spark session own all selected
+statements and final closing. The full-row case projects the five original
+encounters Fields and reconstructs its original typed key and values. The path
+case composes all five compatible original relationship pairs through unchanged
+RELATED_PATHS statements, retains actual edge identities and compares the complete
+20-tuple original occurrence bag. True truncation or a partial pair inventory
+refuses.
+
+The batch reuses public indexed f36/0.4.2 admission, executor and path decoder.
+Full native/source/ACK observations bracket the batch; each statement still
+executes every original guard and checks schemas/results under fresh same-vector
+original graph-read renewal. Immutable buffers and exclusive private protocol/
+evidence files keep the complete outer receipt within its unchanged 1MiB bound;
+each retained evidence file is separately bounded by that receipt limit and the
+whole batch by 4MiB. Files are retained and renewed only after all owner closings.
+All-objects, all-edges, one-hop, grouped-count and filtered-limit remain outside
+this finite query profile; no production, Truss or clinical authority is implied.
