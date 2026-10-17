@@ -80,6 +80,38 @@ class PrimitiveFieldBinding:
                 and set(module.get("extensions", {})) <= {"umf.access"},
                 "No relationship or unknown module authority",
             )
+            access = module.get("extensions", {}).get("umf.access")
+            if access is not None:
+                require(
+                    type(access) is dict
+                    and set(access) <= {"views", "columns", "search", "searchBindings"}
+                    and not access.get("columns")
+                    and not access.get("search")
+                    and not access.get("searchBindings")
+                    and type(access.get("views")) is list,
+                    "Only retained known access row declarations are admitted",
+                )
+                for view in access["views"]:
+                    require(
+                        type(view) is dict
+                        and set(view) <= {"record", "fields", "selectedKey"}
+                        and type(view.get("fields")) is list,
+                        "Unknown access view semantics",
+                    )
+                    for item in view["fields"]:
+                        require(
+                            type(item) is dict
+                            and set(item)
+                            == {"field", "row", "create", "mutable", "generated"}
+                            and item["row"] == {"missing": False, "null": False}
+                            and all(type(v) is bool for v in item["row"].values())
+                            and item["generated"] is False
+                            and type(item["mutable"]) is bool
+                            and type(item["create"]) is dict
+                            and set(item["create"]) == {"missing", "null"}
+                            and all(type(v) is bool for v in item["create"].values()),
+                            "Only original required non-generated row Fields are admitted",
+                        )
             for element in module["elements"]:
                 identity = (module["id"], element["id"])
                 require(identity not in elements, "Duplicate original element")

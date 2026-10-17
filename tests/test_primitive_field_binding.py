@@ -173,3 +173,34 @@ class PrimitiveFieldBindingTests(unittest.TestCase):
         ]:
             with self.subTest(sql=sql), self.assertRaises(WeftBindingError):
                 build(sql)
+
+    def test_unknown_known_vocabulary_content_still_refuses(self):
+        directory = Path(self.temp.name)
+        model = json.loads(self.model)
+        model["modules"][0]["extensions"]["umf.access"]["unknownMeaning"] = True
+        source_bytes = json.dumps(model, separators=(",", ":")).encode()
+        document = directory / "unknown-access-model.json"
+        document.write_bytes(source_bytes)
+        produced = subprocess.run(
+            [
+                os.environ.get("ASHLAR_BUN", "bun"),
+                str(ROOT / "tools/check_primitive_fields.ts"),
+                os.environ.get(
+                    "ASHLAR_UMF_SOURCE", "/private/tmp/sdk-a1-umf-c45c72-source"
+                ),
+                str(document),
+                str(directory / "request.json"),
+            ],
+            capture_output=True,
+            check=True,
+        )
+        # Original public Field checks are complete. A known vocabulary name
+        # does not authorize unknown payload semantics at the native binding.
+        self.assertTrue(
+            all(
+                f["validation"]["complete"]
+                for f in json.loads(produced.stdout)["records"][0]["fields"]
+            )
+        )
+        with self.assertRaises(TypedSourceError):
+            self.binding(produced.stdout, source_bytes=source_bytes)

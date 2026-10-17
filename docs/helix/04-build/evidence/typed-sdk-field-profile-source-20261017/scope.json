@@ -1,5 +1,5 @@
 {
-  "testsPassed": 17,
+  "testsPassed": 18,
   "skips": 0,
   "scope": "explicit original local direct required Field projection profile admission and exact decoder source controls only",
   "compilerSource": "3f64056",
@@ -10,5 +10,6 @@
   "recordCompleteClaim": false,
   "datasetKeyClaim": false,
   "temporal": "HELD",
-  "predecessorNativeRelatedWheel": "c1c2ce776a2f9c5e06530a6529841b8122ff60ae2590cbd6ccd71fc63e073275"
+  "predecessorNativeRelatedWheel": "c1c2ce776a2f9c5e06530a6529841b8122ff60ae2590cbd6ccd71fc63e073275",
+  "knownVocabularyUnknownPayload": "actual public Field check completes; native Field binding refuses"
 }
