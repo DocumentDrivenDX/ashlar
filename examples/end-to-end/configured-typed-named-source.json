@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-jsonl-typed-source/0.1",
+  "feed": "typed-named-jsonl",
+  "epoch": "typed-named-2",
+  "sourceSystem": "typed-source",
+  "schemaAlias": "typed-named-items",
+  "documentRevision": "2",
+  "producerRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "source": {
+    "path": "typed-named-source.jsonl",
+    "sha256": "ff8fb6bcbb9daf79b403132f7f3212e4e2e316c7c75c561532d9bef0e1fc2302"
+  },
+  "schema": {
+    "path": "typed-named-model.umf.json",
+    "sha256": "466af3c03c1e0451268d87aeefd6c549cc7663b5c804091e3cd2b3f053054206"
+  },
+  "bindings": {
+    "path": "typed-named-binding.json",
+    "sha256": "2ec86b86c2ccd873f7e83c9da536bd730ec2cc87c93f612c9b9619635235b112"
+  }
+}

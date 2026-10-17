@@ -1,4 +1,4 @@
-"""Original configured STRING queries through held indexed Weft execution.
+"""Original configured scalar queries through held indexed Weft execution.
 
 Results remain provisional until the enclosing alias, publication, source and
 native runtime owners have closed. This module starts no services and writes no
@@ -57,7 +57,7 @@ class ConfiguredWeftProvider:
         resolved=resolve_publication(scope.backend,scope.descriptor.publication_id,
             {t:p[0]for t,p in scope.vector.targets.items()},context=context,
             supported_profiles=['ashlar-delta/0.3'],
-            supported_revisions={scope.source.configuration.schema_alias:[scope.source.configuration.intake.document_revision]})
+            supported_revisions={scope.source.configuration.schema_alias:[scope.source.configuration.document_revision]})
         scope.bind_descriptor(resolved.descriptor,scope.vector,context)
         _require(resolved.descriptor==scope.descriptor and
                  {t:(s.uuid,s.version)for t,s in resolved.snapshots.items()}==dict(scope.vector.targets))
@@ -114,7 +114,7 @@ def query_configured_count_star(scope,aliases,sql,compile_config,*,capture,decod
 
 
 def query_configured_projection(scope,aliases,sql,compile_config,*,capture,decoder,observe):
-    """Execute admitted required STRING projections or global count only."""
+    """Execute admitted direct scalar projections or global count only."""
     return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
 
 
@@ -125,10 +125,14 @@ def _query(scope,aliases,sql,compile_config,*,capture,decoder,observe,original_o
     scope.renew();aliases.renew()
     compiled=compile_configured_count_star(scope,dict(aliases),sql,compile_config,observe=observe)
     if projection:
-        from .configured_weft_projection import configured_projection_oracle
-        original_oracle=configured_projection_oracle(scope,compiled['request'],compiled['response'])
+        if scope.source.typed:
+            from .configured_typed_weft_projection import configured_typed_projection_oracle
+            original_oracle=configured_typed_projection_oracle(scope,compiled['request'],compiled['response'])
+        else:
+            from .configured_weft_projection import configured_projection_oracle
+            original_oracle=configured_projection_oracle(scope,compiled['request'],compiled['response'])
     provider=ConfiguredWeftProvider(scope,aliases,compiled['request'])
-    source=scope.source;model=source.configuration.intake.source;graph=source.original_source
+    source=scope.source;model=source.configuration.model_source;graph=source.original_source
     def native_files():
         scope.renew();aliases.renew()
         return {'model':hashlib.sha256(model).hexdigest(),'source':hashlib.sha256(graph).hexdigest(),

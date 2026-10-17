@@ -1,4 +1,4 @@
-"""Original configured STRING source -> explicit Spark041 compiler binding.
+"""Original configured source -> explicit Spark041 compiler binding.
 
 Aliases describe only physical name projection. Their actual fresh namespace,
 UUID/path identity and cleanup remain the held native alias owner's obligation.
@@ -17,8 +17,14 @@ def _require(value):
 def configured_count_star_request(scope,aliases,sql,*,layout_sha256):
     """Construct a detached original-model request from an actual live read scope."""
     _require(type(scope)is ConfiguredLocalRead)
-    _require(not scope.source.typed)
     scope.renew();scope.parity()
+    if scope.source.typed:
+        from .configured_typed_weft_binding import configured_typed_count_star_request
+        original=dict(scope.descriptor.raw)
+        result=configured_typed_count_star_request(scope.source.configuration,original,scope.vector,
+            scope.manifest_uuid,aliases,sql,layout_sha256=layout_sha256)
+        scope.renew();scope.parity();_require(dict(scope.descriptor.raw)==original)
+        return result
     _require(type(sql)is str and 0<len(sql.encode())<=65536 and '\0'not in sql)
     _require(type(aliases)is dict and all(type(k)is str and type(v)is str for k,v in aliases.items())and set(aliases)==set(scope.descriptor.versions)and len(aliases)==4 and len(set(aliases.values()))==4)
     namespace=None;selected={}

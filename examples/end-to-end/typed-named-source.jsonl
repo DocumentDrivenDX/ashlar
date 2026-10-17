@@ -1,0 +1,10 @@
+{"kind":"begin","batch_id":"typed-1"}
+{"kind":"event","delivery_id":"typed-create-1","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"1","entity_version":"1","schema_revision":"2","operation":"create","props_json":"{\"21\":18446744073709551615,\"22\":12.5000,\"23\":true}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"event","delivery_id":"typed-create-2","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"2","entity_version":"1","schema_revision":"2","operation":"create","props_json":"{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-1","record_count":2,"records_sha256":"18796cb6f3a74a09ad9dcc366bfe1f8a5f5440e45d7a055c6306f8648e87314c"}
+{"kind":"begin","batch_id":"typed-2"}
+{"kind":"event","delivery_id":"typed-update-1","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"1","entity_version":"2","schema_revision":"2","operation":"replace","props_json":"{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-2","record_count":1,"records_sha256":"055612307691c44d91ca1c34ad135749048637ed4e3a9bb0600080b96127ad0c"}
+{"kind":"begin","batch_id":"typed-3"}
+{"kind":"event","delivery_id":"typed-delete-2","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"2","entity_version":"2","schema_revision":"2","operation":"delete","props_json":"{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-3","record_count":1,"records_sha256":"2977f63335dc9536d29b2d235a3bf9f450409e9d34438ff89466939bfc6442c4"}

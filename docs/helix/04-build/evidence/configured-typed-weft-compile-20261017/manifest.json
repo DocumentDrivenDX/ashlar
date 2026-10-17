@@ -1,0 +1,98 @@
+[
+  {
+    "file": "original-name-refusal/count-request.json.gz",
+    "sha256": "5a69e61ba0948b975f4ca03977d2718a680fe21633a18ae4c2597000985f4be6",
+    "original_sha256": "eda9a851cee23c89debf0c25538bf0c7e6572b10167157ae44036f634c37d7a6",
+    "original_bytes": 3785
+  },
+  {
+    "file": "original-name-refusal/scalars-request.json.gz",
+    "sha256": "4040af0a754674219e5c8066333cb871845e0ed884710b5b31481b6e903d12bc",
+    "original_sha256": "934597d1523beec9848022d5f9c62e4d07018e2b6f2c55d8108bd753a6df5797",
+    "original_bytes": 3810
+  },
+  {
+    "file": "original-name-refusal/count-response.json.gz",
+    "sha256": "5a7c51f0cbbd151adf7fdf536d731065c4ffac7c5f6a803b4b0a6910112b7684",
+    "original_sha256": "542426a463c0252d182041f40b565a24670488fb786b75ad70d36be370b83cd5",
+    "original_bytes": 257
+  },
+  {
+    "file": "original-name-refusal/scalars-response.json.gz",
+    "sha256": "71993204f07d1156d2004e6639c885893e87b03c810d58ae057c1aca8d4e8ef1",
+    "original_sha256": "96bae17a5d4978c1b762ce9f5102129b93d74e7e707801717f806a6e26b9a06a",
+    "original_bytes": 257
+  },
+  {
+    "file": "named-wire-refusal/count-request.json.gz",
+    "sha256": "16f76f30a6dacc28b7fb3fd881c99467263476b565ff4ca2a01a6b2e8322206d",
+    "original_sha256": "8ffe760b93173c26dd4303d7ea1fc128c16333351b1e7b58110f57c771a45d15",
+    "original_bytes": 3834
+  },
+  {
+    "file": "named-wire-refusal/scalars-request.json.gz",
+    "sha256": "a134f9a7fe76908d29b2c08b6f29af457b73d28d9c65e87deff5149edacf417f",
+    "original_sha256": "e900151aa409616ff24c8b8e09a789c6f9cfe713a7dd9653271c50e844b8214a",
+    "original_bytes": 3859
+  },
+  {
+    "file": "named-wire-refusal/scope.json.gz",
+    "sha256": "4eb15b070244ab60a4a3d3e8e1ad6038a04f9310af609165983d1f6c7973bf51",
+    "original_sha256": "be98ef2be4bd2d012ee1b79491e39405099d8bbdd0fbbc38eeb14b397a367ad9",
+    "original_bytes": 173
+  },
+  {
+    "file": "named-wire-refusal/count-response.json.gz",
+    "sha256": "49b32d4015ed9e478f8c74376eff98e1afe59587ea2e18b2f06f69005d238537",
+    "original_sha256": "207676eb99a6fb59555885d7117c15bac104bc3fbbc633cc0c308ea487849e42",
+    "original_bytes": 223
+  },
+  {
+    "file": "named-wire-refusal/scalars-response.json.gz",
+    "sha256": "49b32d4015ed9e478f8c74376eff98e1afe59587ea2e18b2f06f69005d238537",
+    "original_sha256": "207676eb99a6fb59555885d7117c15bac104bc3fbbc633cc0c308ea487849e42",
+    "original_bytes": 223
+  },
+  {
+    "file": "named-wire-refusal/admission/report.json.gz",
+    "sha256": "459ccb7cfa3cad415cd083a068692b4d36b7526685373dbbf6c0fc34cce09cca",
+    "original_sha256": "af04bd90c01850c2df331c736a085f22088fdc09ea38386e72fbe98e735f2332",
+    "original_bytes": 831
+  },
+  {
+    "file": "named-wire-refusal/admission/record-1.json.gz",
+    "sha256": "02723b7afef39d249b5e98a6a0fbce96e9c01e7ee5d70a306774b03a069ddaba",
+    "original_sha256": "1136e8a7a00359a42e15c42cb086d60b37da846c9e428458a06b0372c256ad00",
+    "original_bytes": 20004
+  },
+  {
+    "file": "named-compiled/count-request.json.gz",
+    "sha256": "3b7a1bc4f3eae00766536d737cb066fe6dc0c05b755f9b9fce4404417355233f",
+    "original_sha256": "0add7c1c95b5098eedebaf30402b64b32fb4b5d0f66eea1ab4052268de8dd225",
+    "original_bytes": 3854
+  },
+  {
+    "file": "named-compiled/scalars-request.json.gz",
+    "sha256": "c9b138e7977376d01c6acc371853e9352bc686a5ba9f8dad091a806d1bbbe734",
+    "original_sha256": "78111a27827111ebc833cf5309ed08adba4920a5fbe30a7600ee0eaf76cdfc5d",
+    "original_bytes": 3879
+  },
+  {
+    "file": "named-compiled/scope.json.gz",
+    "sha256": "4eb15b070244ab60a4a3d3e8e1ad6038a04f9310af609165983d1f6c7973bf51",
+    "original_sha256": "be98ef2be4bd2d012ee1b79491e39405099d8bbdd0fbbc38eeb14b397a367ad9",
+    "original_bytes": 173
+  },
+  {
+    "file": "named-compiled/count-response.json.gz",
+    "sha256": "b3c1a329fba98c073d715efde47b98bd7136ebffe8db7dfdcfb0f6ebd50c0f1f",
+    "original_sha256": "646ce14e74f03243bacd8280e20c95a74816591a2c0b417d874bd8266c667c78",
+    "original_bytes": 12773
+  },
+  {
+    "file": "named-compiled/scalars-response.json.gz",
+    "sha256": "9d7f54f94bd125bbcf99ef45976470f1b7e41ca663bbc9a9f9091956d9edbf15",
+    "original_sha256": "64b85106e00734c5b3b1a6e0c8b255d4761a35f4e75bb6fc364ef8cb11ddc4d8",
+    "original_bytes": 24639
+  }
+]

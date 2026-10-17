@@ -965,6 +965,29 @@ MUST correspond to the original public UMF source and complete publication.
 Independent source-prefix rows MUST supply the expected result bag; generated
 SQL or observed native results MUST NOT supply it.
 
+An independently admitted authored core 0.8 typed source MAY additionally select
+direct scalar projections from one original Record. Binding MUST use the original
+model bytes, declared query names, explicit development type/property IDs and
+complete publication vector. Required integer, fixed decimal and boolean output
+MUST retain exact values through the selected codecs. The explicit native-null
+STRING encoding admits a present JSON key with null or a string value; missing
+keys MUST refuse through its mandatory representability guard. A separately
+admitted presence encoding is required to return absent, native null and value
+as distinct query states; raw source absence MUST remain preserved in all cases.
+Original numeric lexical tokens MUST remain retained even when a
+native exact decimal carrier uses the declared fixed scale or drops zero sign.
+The independent oracle MUST compute those carriers from original source tokens
+without binary floating point, generated SQL or observed result cells.
+
+Every public-source-only scalar obligation MUST bind its complete native rows,
+original property bytes and extracted token to the independently reconstructed
+source prefix and fresh public UMF carried-Record receipts. A model with no
+queryable declared names MUST refuse without inferring names from IDs or changing
+its source. Separately authored revisions require their own receipts, source and
+publication; they MUST NOT inherit earlier revision authority or claim migration
+from a fresh installation. Arithmetic, typed relationships and joins require
+separate admitted query shapes; scalar support alone MUST NOT imply them.
+
 Both indexed compilations MUST match exactly and pass the pinned public schemas
 and host artifact admission. Fresh external aliases MUST preserve native Delta
 UUIDs, locations and pinned versions without relabeling the manifest. Every

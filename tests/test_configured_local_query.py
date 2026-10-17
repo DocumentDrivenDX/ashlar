@@ -33,7 +33,9 @@ class Tests(unittest.TestCase):
         result=_report(original)
         self.assertEqual(result,{'decoded':[[{'kind':'exact-integer','value':9223372036854775807,'original':'9223372036854775807'}],[{'kind':'exact-string','value':'雪','original':'雪'}]]})
         result['decoded'][1][0]='changed';self.assertEqual(original['decoded'][1][0],ExactScalar('雪','雪'))
-        for unsupported in (ExactScalar(Decimal('1.0'),'1.0'),1.0,object()):
+        self.assertEqual(_report(ExactScalar(Decimal('-0.00'),'-0.00')),{'kind':'exact-decimal','value':'-0.00','original':'-0.00'})
+        self.assertEqual(_report(ExactScalar(False,'false')),{'kind':'exact-boolean','value':False,'original':'false'})
+        for unsupported in (ExactScalar(Decimal('NaN'),'NaN'),1.0,object()):
             with self.assertRaises(ValueError):_report(unsupported)
 
 

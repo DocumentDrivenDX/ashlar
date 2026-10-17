@@ -1,5 +1,6 @@
 """Explicit configured local query selection and bounded report projection."""
 from dataclasses import dataclass
+from decimal import Decimal
 import json
 from ashlar.weft_decode import ExactScalar
 from ashlar.weft_path_decode import PathDecodeConfig
@@ -31,7 +32,14 @@ class ConfiguredLocalQueryConfig:
 
 def _report(value):
     if type(value)is ExactScalar:
-        _require(type(value.value)in (int,str)and type(value.original)is str)
+        if type(value.value)is bool:
+            _require(type(value.original)in (str,bool))
+            return {'kind':'exact-boolean','value':value.value,'original':value.original}
+        _require(type(value.original)is str)
+        if type(value.value)is Decimal:
+            _require(value.value.is_finite())
+            return {'kind':'exact-decimal','value':str(value.value),'original':value.original}
+        _require(type(value.value)in (int,str))
         return {'kind':'exact-integer'if type(value.value)is int else'exact-string','value':value.value,'original':value.original}
     if type(value)is dict:return {k:_report(v)for k,v in value.items()}
     if type(value)in (list,tuple):return [_report(v)for v in value]
