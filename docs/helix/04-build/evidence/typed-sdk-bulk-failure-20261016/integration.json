@@ -1,0 +1,34 @@
+{
+  "qualifiedNativeBase": "aaf032bff0297c804aca7542f5fc8f8d2c45aa3d",
+  "integratedUpstreamMain": "ef92d5e047959be342c5db23b2bc470dbec7d553",
+  "normalMergeHead": "a731fabbc4cb974586ad393630e6b3b6e47e2bf0",
+  "invokedNativeDependenciesUnchanged": [
+    {
+      "path": "src/ashlar_host/typed_actions.py",
+      "sha256": "2e59d60a9613a8ad619ecac7ee3fedab9f6d6cfcacd1749f26a1ba5c0b8831e6"
+    },
+    {
+      "path": "src/ashlar_host/delta_atomic.py",
+      "sha256": "3cf0a6f43047f61a49148d3d49b499871dea08cc91ba255aef6cabf8dc3929b1"
+    },
+    {
+      "path": "src/ashlar_host/delta_action_admission.py",
+      "sha256": "c9be9db3767643ce3d0ce8812c91b9a9c46777cafc91624a46da686a65239d65"
+    },
+    {
+      "path": "src/ashlar/execution_scope.py",
+      "sha256": "99881cfe0cbd39e1b4e4854b784cff657ff0652dcbe13e829f1c091f1f71e3c3"
+    },
+    {
+      "path": "sql/typed-sdk-actions/01-local-admission.sql",
+      "sha256": "72ea5a46fa9b8047cf996a86acd1b6a96b1ada68e94071fccdede6abd7f4eb1e"
+    }
+  ],
+  "integrationChecks": {
+    "moduleBoundaries": "PASS; pre-existing SyntaxWarnings retained in log",
+    "ruffF821": "PASS",
+    "diffCheck": "PASS"
+  },
+  "qualificationLimit": "Existing native wheel remains the exact410-payload qualified source cohort; unrelated medical/Fabric additions on main were merged without relabeling that wheel or rerunning native services. typed-sdk dependency extra unchanged.",
+  "temporal": "HELD"
+}
