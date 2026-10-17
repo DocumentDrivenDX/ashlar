@@ -37,6 +37,9 @@ def validate_configured_source(config):
     parent_identity=(s.st_dev,s.st_ino)
     original=InvocationFile.read(config.configuration,262144)
     document=decode_retained_json(original.raw);references=[]
+    if document.get('profile')=='ashlar-jsonl-typed-graph-source/0.1':
+        from .configured_typed_graph_source_admission import validate_configured_typed_graph_source
+        return validate_configured_typed_graph_source(config)
     if document.get('profile')=='ashlar-jsonl-typed-source/0.1':
         from .configured_typed_source_admission import validate_configured_typed_source
         return validate_configured_typed_source(config)

@@ -35,6 +35,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_source_admission test_configured_source_admission_cli
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_journaled_jsonl_progress test_journaled_csv_progress
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_source_local test_typed_source_config test_typed_record_admission test_configured_typed_source_local test_configured_typed_named_source test_configured_typed_weft_binding test_configured_typed_projection_oracle
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_typed_graph_example test_typed_graph_source test_typed_graph_source_config test_typed_graph_admission test_configured_typed_graph_source_local
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_publication
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_runtime test_configured_local_cli
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_read

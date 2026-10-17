@@ -1,0 +1,176 @@
+{
+  "umf": "0.8.0",
+  "id": "typed-graph-example",
+  "vocabularies": {},
+  "modules": [
+    {
+      "id": "m",
+      "namespace": "urn:typed-graph:",
+      "elements": [
+        {
+          "id": "Person",
+          "name": "Person",
+          "kind": "record",
+          "members": [
+            {
+              "module": "m",
+              "element": "person_key"
+            },
+            {
+              "module": "m",
+              "element": "person_name"
+            },
+            {
+              "module": "m",
+              "element": "quantity"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "m",
+                  "element": "person_key"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "person_key",
+          "name": "person_key",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "person_name",
+          "name": "person_name",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "quantity",
+          "name": "quantity",
+          "kind": "field",
+          "scalarType": "integer",
+          "cardinality": "one",
+          "nullability": "absent-allowed",
+          "extensions": {}
+        },
+        {
+          "id": "Place",
+          "name": "Place",
+          "kind": "record",
+          "members": [
+            {
+              "module": "m",
+              "element": "place_key"
+            },
+            {
+              "module": "m",
+              "element": "place_name"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "m",
+                  "element": "place_key"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "place_key",
+          "name": "place_key",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "place_name",
+          "name": "place_name",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        }
+      ],
+      "relationships": [
+        {
+          "id": "knows",
+          "name": "knows",
+          "source": [
+            {
+              "module": "m",
+              "element": "Person"
+            }
+          ],
+          "target": [
+            {
+              "module": "m",
+              "element": "Person",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetLifecycle": "independent",
+          "directed": true
+        },
+        {
+          "id": "located",
+          "name": "located",
+          "source": [
+            {
+              "module": "m",
+              "element": "Person"
+            }
+          ],
+          "target": [
+            {
+              "module": "m",
+              "element": "Place",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetLifecycle": "independent",
+          "directed": true
+        }
+      ]
+    }
+  ]
+}

@@ -44,13 +44,17 @@ class ConfiguredLocalSource:
         admission.__post_init__();self.context=context;self.stream=stream;self._active=True
         self.configuration_file=InvocationFile.read(admission.configuration,262144)
         document=decode_retained_json(self.configuration_file.raw);files=[]
-        self.typed=document.get('profile')=='ashlar-jsonl-typed-source/0.1'
+        self.graph=document.get('profile')=='ashlar-jsonl-typed-graph-source/0.1'
+        self.typed=self.graph or document.get('profile')=='ashlar-jsonl-typed-source/0.1'
         for name in (('source','schema','bindings')if self.typed else('source','schema','intake','interpretation')):
             ref=document[name];_require(type(ref)is dict and set(ref)=={'path','sha256'}and type(ref['path'])is str)
             file=InvocationFile.read((self.configuration_file.path.parent/ref['path']).resolve(),262144)
             _require(hashlib.sha256(file.raw).hexdigest()==ref['sha256']);files.append(file)
         self.files=tuple(files)
-        if self.typed:
+        if self.graph:
+            from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
+            self.configuration=load_typed_graph_jsonl_configuration(self.configuration_file.path)
+        elif self.typed:
             from ashlar.typed_source_config import load_typed_jsonl_configuration
             self.configuration=load_typed_jsonl_configuration(self.configuration_file.path)
         else:
@@ -66,7 +70,8 @@ class ConfiguredLocalSource:
         self.maximum_receipt_bytes=admission.maximum_receipt_bytes
         if self.typed:
             _require(len(self.receipt_files)==1)
-            self.configuration=load_typed_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+            if self.graph:self.configuration=load_typed_graph_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+            else:self.configuration=load_typed_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
             self._specs=self._prepare()
         self.type_ids=self.configuration.type_ids
         _require(decode_retained_json(self.admission_json.encode())['source_sha256']==hashlib.sha256(self.original_source).hexdigest())
@@ -89,7 +94,10 @@ class ConfiguredLocalSource:
     def renew(self,context):
         _require(self._active and context is self.context)
         finish(None,[lambda:self.configuration_file.renew(262144),*(lambda f=f:f.renew(262144)for f in self.files),self.configuration.verify,*(lambda f=f:_require(snapshot(f[0],self.maximum_receipt_bytes)==f[1])for f in self.receipt_files)])
-        if self.typed:
+        if self.graph:
+            from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration
+            fresh=load_typed_graph_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
+        elif self.typed:
             from ashlar.typed_source_config import load_typed_jsonl_configuration
             fresh=load_typed_jsonl_configuration(self.configuration_file.path,receipt=self.receipt_files[0][1])
         else:
@@ -101,10 +109,10 @@ class ConfiguredLocalSource:
         _require(self._prepare()==self._specs)
     def metadata(self,context):
         self.renew(context)
-        return {'profile':'ashlar-configured-local-typed-source/0.1'if self.typed else'ashlar-configured-local-source/0.1','configuration_sha256':hashlib.sha256(self.configuration_file.raw).hexdigest(),
+        return {'profile':'ashlar-configured-local-typed-graph-source/0.1'if self.graph else'ashlar-configured-local-typed-source/0.1'if self.typed else'ashlar-configured-local-source/0.1','configuration_sha256':hashlib.sha256(self.configuration_file.raw).hexdigest(),
                 'source_sha256':hashlib.sha256(self.original_source).hexdigest(),'model_sha256':self.configuration.model_sha256,
                 'admission_report_sha256':hashlib.sha256(self.admission_json.encode()).hexdigest(),'batches':len(self.batches),
-                'checkpoint_profile':'ashlar-immutable-jsonl/0.1','qualification':('Original authored core0.8 scalar carried Record values, including deletes, and local immutable-file progress only; no keys/relationships, protected source ACK, native or query authority.'if self.typed else'Original configured STRING objects and local immutable-file progress only; no protected source ACK or native authority.')}
+                'checkpoint_profile':'ashlar-immutable-jsonl/0.1','qualification':('Original authored core0.8 joint supplied-dataset and carried Record checks with local immutable-file progress only; no protected source ACK, native/catalog or query authority.'if self.graph else'Original authored core0.8 scalar carried Record values, including deletes, and local immutable-file progress only; no keys/relationships, protected source ACK, native or query authority.'if self.typed else'Original configured STRING objects and local immutable-file progress only; no protected source ACK or native authority.')}
     def spec(self,ordinal,context):
         self.renew(context);_require(type(ordinal)is int and 1<=ordinal<=len(self.batches));return self._specs[ordinal-1]
     def state_at(self,completed_ordinal,context):

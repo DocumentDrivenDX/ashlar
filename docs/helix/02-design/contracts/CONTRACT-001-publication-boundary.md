@@ -1303,3 +1303,49 @@ carriers; this profile MUST NOT imply numeric Weft query qualification. Existing
 STRING request/registry/progress correspondence MUST remain unchanged. Local
 consumer progress MUST NOT be represented as protected producer ACK or remote
 writer fencing.
+
+### Configured typed graph source
+
+The separate `ashlar-jsonl-typed-graph-source/0.1` profile MUST pin original core
+0.8 model, complete JSONL source and explicit development binding bytes, selecting
+public UMF producer `07357eadbda9cf8299b9d72d004cbb77f8091aee` independently of the
+scalar profile. Record and relationship mappings MUST retain qualified logical
+identities and separate object/edge storage namespaces. Singleton type admission
+MUST enumerate object types only. Development mappings grant no accepted catalog,
+protected source ACK or native writer authority.
+
+Each of at most four complete source groups MUST contain each typed entity
+identity at most once. The first relationship subset admits directed monomorphic
+independent-lifecycle declarations with explicitly bound target Keys. Nonempty
+edge properties MUST refuse; opaque retained content MUST remain unchanged.
+Object scalar tokens and absence/null/value states MUST retain their original
+carriers, including complete carried payloads on deletes.
+
+Before publication planning, a fresh public producer MUST validate every carried
+object Record and validate plus independently verify each proposed complete
+post-group dataset using the public compact dataset API. Dataset scope MUST be
+`supplied-dataset-only`. Original per-Record key/relationship-context warnings
+MUST remain retained. Only the exact model-derived context diagnostics owned by
+this public producer MAY be discharged by the joint complete dataset receipt;
+every carried Field check MUST independently be valid and complete. Unknown
+warnings or unresolved joint obligations MUST refuse, without fabricating a
+complete per-Record result. Receipt custody MUST bind the exact ordered original
+control/event bytes, byte cursors, source/configuration/binding/model digests,
+model revision and each independently derived complete proposed dataset. Target
+resolution, declared keys and relationship multiplicities belong to UMF; a
+successful scalar check alone MUST NOT establish them. Independent edge instance
+IDs MUST preserve parallel occurrences and self-loops.
+
+Proposed datasets are transport inputs, not accepted graph states. They MUST NOT
+be constructed through a permissive schema-policy substitute. After authentic
+receipt attachment, the ordinary core apply/replay planner MUST check versions,
+original deliveries, prior-state replacement/deletion correspondence and complete
+transaction endpoint integrity. Deleted edges MUST retain their exact prior
+payload; their prior admitted dataset supplies schema meaning. A failed semantic,
+mechanical or closing check MUST release no publication or progress result.
+
+The shared local publication/read lifecycle MAY consume only this freshly admitted
+source and original receipts. It MUST retain complete native carrier parity,
+publication vectors, source progress and closing custody. Relationship source
+admission alone MUST NOT enable the scalar-only query binding or grant graph-query,
+remote fencing, schema migration or protected ACK authority.

@@ -1,0 +1,20 @@
+[
+  {
+    "file": "graph-1.json.gz",
+    "sha256": "a33ed98fd5efc586bee97594509feed0508baafa840e3cc437f0a5683cdf4f46",
+    "original_sha256": "4144fd637f99c4b55d86683775f00c47ad9ac7d4dd52a1175dabec4d1c27fc5e",
+    "original_bytes": 86454
+  },
+  {
+    "file": "report.json.gz",
+    "sha256": "96027a7a1c94862a52a97f7ba359aac6181dfb2cfe4f26079a84688b650392d1",
+    "original_sha256": "45438c4e47fbad8f36e7d378722ea0532dafe3efaeb6815772666023470c066c",
+    "original_bytes": 854
+  },
+  {
+    "file": "producer-selection.json.gz",
+    "sha256": "6ec67f6a2f8ff71f01e50cafb730d021ce471ee3cf484b833da355244d8ebe34",
+    "original_sha256": "520b6bd222f3b7b24df640ad3c92c748f0b50d40f47e462b46413d159b8ad748",
+    "original_bytes": 345
+  }
+]

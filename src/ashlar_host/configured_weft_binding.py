@@ -17,6 +17,7 @@ def _require(value):
 def configured_count_star_request(scope,aliases,sql,*,layout_sha256):
     """Construct a detached original-model request from an actual live read scope."""
     _require(type(scope)is ConfiguredLocalRead)
+    _require(not scope.source.graph)
     scope.renew();scope.parity()
     if scope.source.typed:
         from .configured_typed_weft_binding import configured_typed_count_star_request

@@ -1,0 +1,11 @@
+# Public configured typed graph admission
+
+The actual clean selected UMF producer `07357eadbda9cf8299b9d72d004cbb77f8091aee` admitted the original authored core0.8 graph model and all13 source events across three complete groups through `validate_configured_source`. Only public `src/index.ts` APIs were used: carried Record checks, compact complete dataset validation and independent compact verification. No Spark or cloud compute ran.
+
+Each original carried Field check is valid and complete. Original per-Record aggregate key/relationship-context warnings remain retained, with `complete:false`; they were not suppressed or relabeled. The joint dataset receipts are valid and complete with satisfied supplied-dataset key/relationship obligations. Exact source/control/event bytes, model/configuration/binding hashes and post-group input inventories remain bound to the receipt.
+
+The initial snapshot contains four objects across Person/Place types, two independent parallel knows edges, a separate self-loop, a cross-type located edge and an isolated Person. The second group reverses one edge's endpoints and deletes the other parallel edge. The final group removes the incident edges before deleting Person2, leaving three objects and the self-loop. Actual public resolved endpoint instance IDs matched original source typed IDs independently of logical Key values. Strict core version/delete-payload/endpoint checks and exact replay passed before the preflight report was written.
+
+These are explicit development mappings with `supplied-dataset-only` closure and empty edge properties. This check does not establish managed Delta publication, accepted catalog allocations, protected source ACK, graph query execution or production writer authority. The producer is a separate clean local clone from existing Git objects; runtime packages are explicitly linked under the cooperative trusted-host profile, without a hermetic dependency claim. Earlier c45 scalar workflows and original source/model files remain unchanged.
+
+`manifest.json` retains the exact86,454-byte graph receipt, final report and producer selection with original/compressed hashes and lengths; gzip timestamps are zero. Inputs are the four committed `typed-graph` example files and their exact configuration references.

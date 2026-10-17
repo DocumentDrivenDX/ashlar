@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from ashlar.source import jsonl_batches
 from ashlar.source_config import JsonlConfiguration
 from ashlar.typed_source_config import TypedJsonlConfiguration
+from ashlar.typed_graph_source_config import TypedGraphJsonlConfiguration
 from ashlar.staging import batch_row
 from .managed_carriers import ManagedCarriers
 from .managed_sql_read import decode_managed_sql_result
@@ -48,7 +49,7 @@ class ConfiguredCarrierRows:
     def rows(self):return json.loads(self.original_json)
 
 def configured_prefix_carrier_rows(configuration,batches,*,materialization_clock_us,carriers,maximum_rows=1000,maximum_bytes=1048576):
-    if (type(configuration)not in (JsonlConfiguration,TypedJsonlConfiguration)or type(carriers)is not ManagedCarriers or type(batches)is not tuple or not 1<=len(batches)<=4
+    if (type(configuration)not in (JsonlConfiguration,TypedJsonlConfiguration,TypedGraphJsonlConfiguration)or type(carriers)is not ManagedCarriers or type(batches)is not tuple or not 1<=len(batches)<=4
             or type(maximum_rows)is not int or not 1<=maximum_rows<=10000 or type(maximum_bytes)is not int or not 1<=maximum_bytes<=16777216):raise ValueError('Explicit original configured prefix and bounds required')
     from .evolution_cli import InvocationFile
     originals_file=InvocationFile.read(configuration.source,262144)
