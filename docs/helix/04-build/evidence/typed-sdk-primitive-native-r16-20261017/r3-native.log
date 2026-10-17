@@ -1,0 +1,34 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/17 04:59:27 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_primitive_native.py", line 1125, in <module>
+    observed = queries.primitive_rows(primitive_target)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/native-primitive-r3/primitive-generated/native_related/queries.py", line 42, in primitive_rows
+    return cast(list[tuple[str, str, int, Decimal, bool, int, Decimal]] | Awaitable[list[tuple[str, str, int, Decimal, bool, int, Decimal]]], run_query(_Q0, target, {}, timeout=timeout))
+                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/umf_access/catalog.py", line 269, in run_query
+    answer = target.read(variant.entry, parameters, timeout=timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/access.py", line 190, in read
+    read_weft(self.executor,self.backend,self.pins,self.vector,policy,request=request,artifact=artifact,
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/weft_query.py", line 287, in read_weft
+    buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context),_budget=decode_budget) for column in columns))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/weft_query.py", line 287, in <genexpr>
+    buffered.append(tuple(_completed_decode(policy.decode_result(column,row[column['outputName']],request,context),_budget=decode_budget) for column in columns))
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/access.py", line 91, in decode_result
+    value=self.original.decode_result(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_primitive_native.py", line 862, in decode_result
+    return decode_primitive_column(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/primitive_binding.py", line 245, in decode_primitive_column
+    require(
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/ashlar/primitive_binding.py", line 228, in require
+    raise ResolutionError(message)
+ashlar.publication.ResolutionError: Complete original ordered columns required

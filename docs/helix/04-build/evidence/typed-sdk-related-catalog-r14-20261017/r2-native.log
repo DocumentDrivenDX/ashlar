@@ -1,0 +1,33 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/17 04:44:39 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_related_catalog_native.py", line 960, in <module>
+    first = queries.related_pages(catalog_target, after=None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/native-related-catalog-r2/generated/native_related/queries.py", line 60, in related_pages
+    return cast(Page[WithKeys[tuple[str], CustomerKey], OrderKey] | Awaitable[Page[WithKeys[tuple[str], CustomerKey], OrderKey]], run_query(_Q1, target, {'after': after}, timeout=timeout))
+                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/venv/lib/python3.11/site-packages/umf_access/catalog.py", line 263, in run_query
+    page = target.page(variant.entry, parameters, after=after, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/venv/lib/python3.11/site-packages/ashlar/access.py", line 232, in page
+    native=read_weft(self.executor,self.backend,self.pins,self.vector,policy,request=request,artifact=artifact,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/venv/lib/python3.11/site-packages/ashlar/weft_query.py", line 270, in read_weft
+    admit()
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/venv/lib/python3.11/site-packages/ashlar/weft_query.py", line 260, in admit
+    if not callable(callback) or callback(guard,artifact,context) is not None:
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-r14-20261017/venv/lib/python3.11/site-packages/ashlar/access.py", line 87, in admit_page_integrity
+    def admit_page_integrity(self,*args):self._time();return self.original.admit_page_integrity(*args)
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_related_catalog_native.py", line 585, in admit_page_integrity
+    assert guard["key"]["fields"] == [
+                                     ^
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_related_catalog_native.py", line 586, in <listcomp>
+    logical(ref["element"]) for ref in primary[0]["fields"]
+    ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'str' object is not callable

@@ -1,0 +1,28 @@
+{
+  "packages": [
+    {
+      "wheel": "/private/tmp/sdk-completion-runtime-r13-wheels/umf_access-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "ce2943e7e8a838103888198b26c5dae07e9afe94b6eb66906642737271086705",
+      "installedPayloads": 48,
+      "allBytesEqual": true
+    },
+    {
+      "wheel": "/private/tmp/weft-combined-sdk-local-r13/wheels/weft_sql-0.4.42.dev0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "d1d1e3831f3490e0cce90bc6404834982df9ab1e4f15a72f6cc81eca6d191f7e",
+      "installedPayloads": 7,
+      "allBytesEqual": true
+    },
+    {
+      "wheel": "/private/tmp/sdk-ashlar-related-r12-20261017/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "85d97b0775afb69ecd147d03070cefeb0e69df525beb3bf2acd38121708c489e",
+      "installedPayloads": 446,
+      "allBytesEqual": true
+    }
+  ],
+  "harnessSha256": "cc90bd55ea1022577bbc875df8af62e41d01d45948cd0f9603fd1d6f0e68a099",
+  "pthFiles": {
+    "qualified-dependencies.pth": "/private/tmp/umf-sdk-merged/python311/lib/python3.11/site-packages\n",
+    "distutils-precedence.pth": "import os; var = 'SETUPTOOLS_USE_DISTUTILS'; enabled = os.environ.get(var, 'local') == 'local'; enabled and __import__('_distutils_hack').add_shim(); \n"
+  },
+  "scope": "Post-r3 failed cohort; exact installed payloads unchanged; original RelatedKeys page compiler prerequisite remains open; temporal held."
+}

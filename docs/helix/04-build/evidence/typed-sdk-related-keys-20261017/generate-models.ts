@@ -1,0 +1,12 @@
+import {generateAccessPackage} from '/Users/erik/.codex/worktrees/typed-sdk-recovery/umf/src/compilation/index';
+import {profile,request} from '/Users/erik/.codex/worktrees/typed-sdk-recovery/umf/tests/compilation/access-fixtures';
+const root='/Users/erik/.codex/worktrees/typed-sdk-recovery/umf';
+const original=await Bun.file('/private/tmp/sdk-engine-related-20261017/native-core08-related-request.json').json();
+const req=request();req.sources=[{id:'logical',format:'json',text:original.modules[0].documentJson}];req.records=[{module:'sales',element:'order'},{module:'sales',element:'customer'}];req.actions=[];req.projections=[];req.package='native_related';req.names=[];
+const pinned=profile();pinned.dependencies=pinned.dependencies.map(d=>d.distribution==='umf_access'?{...d,version:'0.1.0.dev0'}:d);pinned.python.version='3.11.17';pinned.compilerVersion='spark-keyset-candidate-0.1';
+pinned.checkers=[{name:'mypy',version:'2.4.0',configuration:{check_untyped_defs:true,python_version:'3.11'}},{name:'pyright',version:'1.1.414',configuration:{typeCheckingMode:'basic',pythonVersion:'3.11',environment:'explicit-native-fixture'}},{name:'ty',version:'0.0.88',configuration:{pythonVersion:'3.11'}}];
+const inputs:{path:string;sha256:string}[]=[];
+for(const pattern of ['src/**/*.ts','spec/**/*.json'])for(const path of new Bun.Glob(pattern).scanSync({cwd:root,onlyFiles:true}))inputs.push({path,sha256:new Bun.CryptoHasher('sha256').update(await Bun.file(root+'/'+path).arrayBuffer()).digest('hex')});
+inputs.sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);pinned.codeSha256=new Bun.CryptoHasher('sha256').update(JSON.stringify(inputs)).digest('hex');
+const result=generateAccessPackage(req,pinned);if(result.outcome!=='candidate')throw new Error(JSON.stringify(result.diagnostics));
+for(const file of result.files)await Bun.write(process.argv[2]+'/'+file.path,file.text);

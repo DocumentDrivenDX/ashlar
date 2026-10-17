@@ -1,0 +1,10 @@
+{
+  "status": "fail",
+  "checks": [
+    "actual authored Core08 intake and complete original Field checks precede publication; original incomplete Record observations retained unchanged; generated instances preserve exact primitives and reject null/bool/overflow"
+  ],
+  "ownedPostgresStopped": true,
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "local Spark4/Delta4 original primitive Field/public source/SDK transport with PostgreSQL18 pins; no managed search, engine writes, temporal or performance claim"
+}

@@ -1,0 +1,15 @@
+{
+  "status": "source-controls-pass-native-unqualified",
+  "controls": 19,
+  "r22Source": "5605d358650468d651f69ff29c40e986a0359a5b",
+  "files": {
+    "src/ashlar/async_access.py": "e0d5634fab525449c40578ea21705480f27d57eb974018d7a2732b022f9326bc",
+    "tests/test_sdk_async_bridge.py": "0e35283c609200a4eb9001ee96fd41c005f3b29be5b33c0d67aaaa41d920a78a",
+    "scripts/check-typed-sdk-boundaries.py": "583fa3afd4bdb57afa38cda5e668ba8454de0c849a3249fe14328d303755fa21"
+  },
+  "independentReviewCorrections": [
+    "retain original derived smaller page entry across continuations",
+    "zero timeout is expired; negative/type invalid",
+    "remove obsolete cleanup bypass; reject buffered releases after target close"
+  ]
+}

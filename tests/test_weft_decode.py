@@ -76,7 +76,7 @@ class ExactScalarTests(unittest.TestCase):
         r=scalar('string');self.assertEqual(decode_exact_scalar(r,'雪').value,'雪')
         for value in [None,'\ud800','a\x00b']:
             with self.assertRaises(ResolutionError):decode_exact_scalar(r,value)
-        invalid=[scalar('string',{'future':1}),scalar('decimal',{'precision':29,'scale':2}),
+        invalid=[scalar('string',{'future':1}),scalar('decimal',{'precision':39,'scale':2}),
                  scalar('decimal',{'precision':3,'scale':4}),scalar('decimal',{'precision':True,'scale':0}),
                  scalar('decimal',{'precision':3,'scale':1,'future':1}),
                  scalar('integer',{'integerWidth':{'bits':64,'signed':True,'future':1}}),
@@ -187,3 +187,17 @@ class UnsupportedCountCompilerTests(unittest.TestCase):
             count=next(c for c in a['columns'] if c['representation'].get('logicalType',{}).get('family')=='integer')
             # Admission is independent of result iteration, including zero rows.
             with self.assertRaises(ResolutionError):admit_compiled_count(count,a,self.policy,self.intake)
+
+
+class Decimal38SourceTests(unittest.TestCase):
+    def test_exact_declared38_ignores_decimal_context_without_rounding(self):
+        from decimal import localcontext
+        for precision,token,scale in [(29,'123456789012345678901234567.89',2),(38,'99999999999999999999999999999999.123456',6),(38,'-0.000000',6)]:
+            representation=scalar('decimal',{'precision':precision,'scale':scale})
+            with localcontext() as context:
+                context.prec=2
+                observed=decode_exact_scalar(representation,token)
+            self.assertEqual(observed.original,token)
+            self.assertEqual(observed.value.as_tuple(),Decimal(token).as_tuple())
+        for token in ['100000000000000000000000000000000.123456','1.1234567','1e2']:
+            with self.assertRaises(ResolutionError):decode_exact_scalar(scalar('decimal',{'precision':38,'scale':6}),token)

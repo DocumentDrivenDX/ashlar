@@ -1,0 +1,36 @@
+{
+  "proof": [
+    {
+      "wheel": "/private/tmp/sdk-completion-runtime-r12-wheels/umf_access-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "c9ce3e3e201c0312e0e41f3d19eeffc1aafe0fad896e7e1446607335d2c4f3d7",
+      "installedPayloads": 48,
+      "allBytesEqual": true
+    },
+    {
+      "wheel": "/private/tmp/weft-combined-sdk-local-r12/wheels/weft_sql-0.4.42.dev0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "d1da1acb7dcb0838bef9fb1d48f0c7e3db4f166802da2ec8fc2de9ade006fcd1",
+      "installedPayloads": 7,
+      "allBytesEqual": true
+    },
+    {
+      "wheel": "/private/tmp/sdk-ashlar-related-r12-20261017/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "85d97b0775afb69ecd147d03070cefeb0e69df525beb3bf2acd38121708c489e",
+      "installedPayloads": 446,
+      "allBytesEqual": true
+    }
+  ],
+  "versions": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "spark": "4.0.1",
+    "pydantic": "2.14.1"
+  },
+  "modulePaths": {
+    "ashlar": "/private/tmp/sdk-ashlar-related-r12-20261017/venv/lib/python3.11/site-packages/ashlar/access.py",
+    "sdk": "/private/tmp/sdk-ashlar-related-r12-20261017/venv/lib/python3.11/site-packages/umf_access/__init__.py",
+    "weft": "/private/tmp/sdk-ashlar-related-r12-20261017/venv/lib/python3.11/site-packages/weft/__init__.py"
+  },
+  "pthFiles": {
+    "qualified-dependencies.pth": "/private/tmp/umf-sdk-merged/python311/lib/python3.11/site-packages\n",
+    "distutils-precedence.pth": "import os; var = 'SETUPTOOLS_USE_DISTUTILS'; enabled = os.environ.get(var, 'local') == 'local'; enabled and __import__('_distutils_hack').add_shim(); \n"
+  }
+}

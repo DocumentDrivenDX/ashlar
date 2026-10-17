@@ -1,0 +1,32 @@
+{
+  "sql": "SELECT p.`1` AS id,p.`2` AS status,p.`3` AS quantity,CAST(p.`4` AS STRING) AS amount,p.`5` AS active,CAST(p.`6` AS STRING) AS unsigned_quantity,CAST(p.`7` AS STRING) AS wide_amount FROM (SELECT from_json(props_json,'STRUCT<`1`:STRING,`2`:STRING,`3`:BIGINT,`4`:DECIMAL(18,2),`5`:BOOLEAN,`6`:DECIMAL(20,0),`7`:DECIMAL(38,6)>',map('mode','FAILFAST')) AS p FROM spark_catalog.sdk_ashlar.object_current WHERE source_system='typed-sdk-local' AND type_id=17) ORDER BY id",
+  "rows": [
+    [
+      "a",
+      "draft",
+      "9007199254740993",
+      "0.00",
+      true,
+      "18446744073709551615",
+      "99999999999999999999999999999999.123456"
+    ],
+    [
+      "b",
+      "draft",
+      "-9007199254740993",
+      "12.50",
+      false,
+      "0",
+      "-99999999999999999999999999999999.654321"
+    ],
+    [
+      "c",
+      "draft",
+      "9223372036854775807",
+      "9.99",
+      true,
+      "9223372036854775808",
+      "0.000000"
+    ]
+  ]
+}

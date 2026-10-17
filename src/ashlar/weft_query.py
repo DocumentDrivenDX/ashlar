@@ -1,12 +1,16 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
-from dataclasses import dataclass,field
-from types import GeneratorType, CoroutineType, AsyncGeneratorType
-from .execution_scope import preserve_body_failure as _preserve_body_failure
+from dataclasses import dataclass, field
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
-from .publication import resolve_publication,ResolutionError
+from types import AsyncGeneratorType, CoroutineType, GeneratorType
+
+from .execution_scope import preserve_body_failure as _preserve_body_failure
 from .pins import PinError
+from .publication import ResolutionError, resolve_publication
+from .weft_decode import ExactScalar
+from .weft_related_keys_decode import DecodedRelatedKeys
+from .sdk_presence import SDK_BACKENDS,DecodedPresence
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
 PAGE_BACKENDS=(
@@ -57,6 +61,46 @@ def _completed_decode(value, *, _budget=None):
         if kind is AsyncGeneratorType:
             invalid = True
             return None
+        if kind is ExactScalar:
+            # Only the original decoder class; retain its original token while
+            # held. Semantic/source admission remains the owner's obligation.
+            try:
+                token_bytes=len(item.original.encode('utf-8')) if type(item.original) is str else 0
+            except UnicodeError:
+                invalid = True
+                return None
+            if (type(item.value) not in (str, bool, int, Decimal)
+                    or type(item.original) not in (str, bool)
+                    or type(item.value) is Decimal and not item.value.is_finite()
+                    or token_bytes > budget.copied_bytes):
+                invalid = True
+                return None
+            if type(item.original) is str:
+                budget.copied_bytes -= token_bytes
+            return ExactScalar(visit(item.value, depth + 1), visit(item.original, depth + 1))
+        if kind is DecodedPresence:
+            if (item.state not in ('present','null','missing') or type(item.original)is not str
+                    or item.state!='present' and item.value is not None
+                    or item.state=='present' and type(item.value)not in (str,bool,int,Decimal)):
+                invalid=True
+                return None
+            token=visit(item.original,depth+1)
+            value=visit(item.value,depth+1)
+            return DecodedPresence(item.state,value,token)
+        if kind is DecodedRelatedKeys:
+            # Only the original named decoder carrier crosses this boundary.
+            # This snapshot grants no bag/authorization authority of its own.
+            if (type(item.original) is not bytes or type(item.items) is not tuple
+                    or type(item.truncated) is not bool or len(item.items) > 1000
+                    or len(item.original) > budget.copied_bytes
+                    or any(type(row) is not tuple or not 1 <= len(row) <= 1024
+                           or any(type(component) is not str for component in row)
+                           for row in item.items)):
+                invalid = True
+                return None
+            budget.copied_bytes -= len(item.original)
+            copied = visit(item.items, depth + 1)
+            return DecodedRelatedKeys(item.original, copied, item.truncated)
         if kind in (type(None), bool, int, float, str, bytes, Decimal, date, timedelta):
             return item
         if kind in (datetime, time):
@@ -116,13 +160,21 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     Returned rows remain buffered through final context closure.
     """
     request=copy.deepcopy(request);artifact=copy.deepcopy(artifact)
-    if artifact.get('status')!='compiled' or artifact.get('backend') not in PAGE_BACKENDS+({'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
+    if artifact.get('status')!='compiled' or artifact.get('backend') not in SDK_BACKENDS+PAGE_BACKENDS+({'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-fields-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-fields-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
         raise ResolutionError('Explicit selected native Weft artifact required')
-    page=artifact.get('logicalPlan',{}).get('pageKey') is not None
-    if page and artifact.get('backend') not in PAGE_BACKENDS:raise ResolutionError('Explicit original page backend required')
+    plan=artifact.get('logicalPlan',{})
+    ordered=type(plan)is dict and plan.get('version')=='weft-ir/engine-ordered-page/0.1'
+    if ordered:plan=plan.get('base',{})
+    ordered_read=plan.get('readOrder')is not None
+    key_integrity=plan.get('pageKey')is not None
+    page=key_integrity and not ordered_read
+    source_key=type(plan.get('navigation'))is dict and plan['navigation'].get('sourceSelectedKey')is not None
+    if ordered and artifact.get('backend')!=SDK_BACKENDS[1]:raise ResolutionError('Explicit original ordered backend required')
+    if page and artifact.get('backend') not in PAGE_BACKENDS+(SDK_BACKENDS[1],):raise ResolutionError('Explicit original page backend required')
     if continuation_context is not None and (not page or type(continuation_context)is not bytes or not 1<=len(continuation_context)<=65536):raise ResolutionError('Original bounded page context required')
     page_contexts=[]
-    required=OBLIGATIONS|({'ashlar.candidate.keyIntegrity'}if page else set())
+    relationship=any(item.get('id')=='ashlar.candidate.relationshipIntegrity' for item in artifact.get('obligations',[]) if type(item)is dict)
+    required=OBLIGATIONS|({'ashlar.candidate.orderedPage'}if ordered else set())|({'ashlar.candidate.keyIntegrity'}if key_integrity else set())|({'ashlar.candidate.orderedRead'}if ordered_read else set())|({'ashlar.candidate.sourceKeyIntegrity'}if source_key else set())|({'ashlar.candidate.relationshipIntegrity'}if relationship else set())
     obligations={}
     for item in artifact.get('obligations',[]):
         if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in required or item['id'] in obligations or item['owner']!='host':
@@ -146,12 +198,39 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
             record_checks.append(check)
         else:raise ResolutionError('Unknown integrity check meaning')
         checks.append(check['sql'])
+    relationship_checks=[]
+    relationship_guard=None
+    if relationship:
+        obligation=obligations['ashlar.candidate.relationshipIntegrity']
+        relationship_guard=obligation['parameters']
+        expected_relationship={
+            'lifecycle':'host verifies the authored lifecycle and projection coverage against original publication',
+            'multiplicity':'parallel edges retained; min/max checked in authored orientation',
+            'phase':'before-user-query',
+            'policy':'complete authorized source and target inputs; inverse traversal cannot broaden authority',
+            'samePublicationRequired':True,
+            'success':'one exact STRING count equal to 0 per check',
+        }
+        if (obligation['failureCode']!='WFT-BINDING' or type(relationship_guard)is not dict
+                or set(relationship_guard)!=set(expected_relationship)|{'checks'}
+                or any(relationship_guard[k]!=v for k,v in expected_relationship.items())
+                or type(relationship_guard['checks'])is not list
+                or not 1<=len(relationship_guard['checks'])<=4096):
+            raise ResolutionError('Complete original relationship integrity meaning required')
+        for check in relationship_guard['checks']:
+            if (type(check)is not dict or set(check)!={'sql','failureCode','relationship'}
+                    or check['failureCode']!='WFT-BINDING' or type(check['sql'])is not str or not check['sql']
+                    or type(check['relationship'])is not dict
+                    or set(check['relationship'])!={'documentId','revision','module','relationship'}
+                    or any(type(v)is not str or not v for v in check['relationship'].values())):
+                raise ResolutionError('Original complete relationship check required')
+            relationship_checks.append(check['sql'])
     page_checks=[]
-    if page:
+    if key_integrity:
         key_guard=obligations['ashlar.candidate.keyIntegrity']
         guard=key_guard['parameters']
         expected_page={'phase':'before-user-query','success':'one exact STRING count equal to 0','continuation':'same immutable publication, original binding and effective policy across pages; ORDER BY alone proves no continuity'}
-        key=artifact['logicalPlan']['pageKey']
+        key=plan['pageKey']
         if (key_guard['failureCode']!='WFT-BINDING' or type(guard)is not dict or set(guard)!=set(expected_page)|{'key','checks'}
             or any(guard.get(name)!=value for name,value in expected_page.items()) or guard['key']!=key
             or type(key)is not dict or set(key)!={'id','fields','types'} or type(key['id'])is not str or not key['id']
@@ -162,6 +241,34 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
             if type(check)is not dict or set(check)!={'sql','failureCode'} or check['failureCode']!='WFT-BINDING' or type(check['sql'])is not str or not check['sql']:
                 raise ResolutionError('Original complete page Key check required')
             page_checks.append(check['sql'])
+    ordered_read_guard=None;source_key_guard=None
+    if ordered_read:
+        ordered_read_guard=obligations['ashlar.candidate.orderedRead']['parameters']
+        expected_order={'version':'ashlar.ordered-read/0.1','selectedKey':plan['readOrder']['selectedKey'],
+            'sortSlots':plan['readOrder']['sortSlots'],'literalLimit':plan.get('limit'),
+            'authority':'original selected Key integrity and every ordering Field under the same immutable publication'}
+        if ordered_read_guard!=expected_order or plan['readOrder']['selectedKey']!=plan.get('pageKey'):
+            raise ResolutionError('Original ordered read Key/order correspondence required')
+    if source_key:
+        source_key_guard=obligations['ashlar.candidate.sourceKeyIntegrity']['parameters']
+        navigation=plan['navigation'];source=navigation['source']
+        expected_source={'version':'ashlar.navigation-source-key/0.1','phase':'before-user-query',
+          'sourceRecord':source['source']['record'],'selectedKey':navigation['sourceSelectedKey'],
+          'key':source['pageKey'],'success':'one exact STRING count equal to 0',
+          'samePublicationRequired':True,'authority':'complete authorized original source Record and hidden ordering Fields'}
+        if (type(source_key_guard)is not dict or set(source_key_guard)!=set(expected_source)|{'checks'}
+                or any(source_key_guard[k]!=v for k,v in expected_source.items())
+                or type(source_key_guard['checks'])is not list or len(source_key_guard['checks'])!=1):
+            raise ResolutionError('Complete original source Key obligation required')
+        for check in source_key_guard['checks']:
+            if type(check)is not dict or set(check)!={'sql','failureCode'} or check['failureCode']!='WFT-BINDING' or type(check['sql'])is not str or not check['sql']:
+                raise ResolutionError('Original source Key check required')
+            page_checks.append(check['sql'])
+    ordered_guard=None
+    if ordered:
+        from .sdk_ordered_page import admit_metadata
+        ordered_guard=obligations['ashlar.candidate.orderedPage']['parameters']
+        admit_metadata(artifact,ordered_guard)
     parameters={}
     for ordinal,slot in enumerate(artifact.get('parameters',[]),1):
         if type(slot.get('position')) is not int or slot['position']!=ordinal or type(slot.get('value')) is not str:
@@ -189,6 +296,19 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                     callback=getattr(policy,'admit_record_integrity',None)
                     if not callable(callback) or callback(check,artifact,context) is not None:
                         raise ResolutionError('Explicit record integrity admission required')
+                if relationship:
+                    callback=getattr(policy,'admit_relationship_integrity',None)
+                    if not callable(callback) or callback(relationship_guard,artifact,context) is not None:
+                        raise ResolutionError('Explicit original relationship and full-input authority admission required')
+                for guard_value,method in [(ordered_read_guard,'admit_ordered_read'),(source_key_guard,'admit_source_key_integrity')]:
+                    if guard_value is not None:
+                        callback=getattr(policy,method,None)
+                        if not callable(callback)or callback(guard_value,artifact,context)is not None:
+                            raise ResolutionError('Explicit original ordering Key authority required')
+                if ordered:
+                    callback=getattr(policy,'admit_ordered_page',None)
+                    if not callable(callback)or callback(ordered_guard,artifact,context)is not None:
+                        raise ResolutionError('Explicit original ordered hidden-field authority required')
                 if page:
                     callback=getattr(policy,'admit_page_integrity',None)
                     if not callable(callback) or callback(guard,artifact,context) is not None:
@@ -203,7 +323,7 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                     elif token!=page_contexts[0]:raise ResolutionError('Original page context changed before release')
             admit()
             admitted=True
-            for sql in checks+page_checks:
+            for sql in checks+relationship_checks+page_checks:
                 result=executor.query(sql,parameters)
                 if len(result.columns)!=1 or result.columns[0][1]!='STRING' or list(result.rows)!=[{result.columns[0][0]:'0'}]:
                     raise ResolutionError('Weft integrity check failed')

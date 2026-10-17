@@ -1,0 +1,15 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/17 03:53:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_related_catalog_native.py", line 833, in <module>
+    logical = render_logical(variant, binding=selected["binding"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-related-r13-20261017/venv/lib/python3.11/site-packages/umf_access/dsl/render.py", line 474, in render_logical
+    return _render_logical(variant, binding, owner_bound)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-related-r13-20261017/venv/lib/python3.11/site-packages/umf_access/dsl/render.py", line 432, in _render_logical
+    raise CaptureError(
+umf_access.dsl._context.CaptureError: CAPTURE_UNSUPPORTED: list reads require an explicit bound

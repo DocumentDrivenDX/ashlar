@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "schema": "umf_sdk_custody_4b8b70489484",
+  "checks": [],
+  "trace": [],
+  "cleanupErrors": [],
+  "temporal": "HELD",
+  "qualification": "native managed custody prerequisites only; no SDK authority/receipt qualification"
+}

@@ -1,0 +1,21 @@
+test_authorize_result_cannot_revoke_profile_or_authority_then_release_buffer (test_weft_query.FinalReleaseAuthorityControls.test_authorize_result_cannot_revoke_profile_or_authority_then_release_buffer) ... ok
+test_all_recognized_generator_cleanup_attempts_survive_baseexception (test_weft_query.WeftQueryTests.test_all_recognized_generator_cleanup_attempts_survive_baseexception) ... ok
+test_closing_failure_preserves_original_authority_refusal (test_weft_query.WeftQueryTests.test_closing_failure_preserves_original_authority_refusal) ... ok
+test_completed_data_snapshot_detaches_decoder_and_authorizer_aliases (test_weft_query.WeftQueryTests.test_completed_data_snapshot_detaches_decoder_and_authorizer_aliases) ... ok
+test_copy_and_visit_budgets_cover_aliases_and_the_complete_read (test_weft_query.WeftQueryTests.test_copy_and_visit_budgets_cover_aliases_and_the_complete_read) ... ok
+test_deferred_coroutine_decoder_is_closed_without_execution (test_weft_query.WeftQueryTests.test_deferred_coroutine_decoder_is_closed_without_execution) ... ok
+test_deferred_decoder_never_escapes_held_interval (test_weft_query.WeftQueryTests.test_deferred_decoder_never_escapes_held_interval) ... ok
+test_integrity_then_buffered_exact_rows_and_context_close (test_weft_query.WeftQueryTests.test_integrity_then_buffered_exact_rows_and_context_close) ... ok
+test_interval_cannot_suppress_original_query_refusal (test_weft_query.WeftQueryTests.test_interval_cannot_suppress_original_query_refusal) ... ok
+test_nested_deferred_values_close_without_execution_while_held (test_weft_query.WeftQueryTests.test_nested_deferred_values_close_without_execution_while_held) ... ok
+test_opaque_cycles_depth_and_node_overflow_refuse_without_iteration (test_weft_query.WeftQueryTests.test_opaque_cycles_depth_and_node_overflow_refuse_without_iteration) ... ok
+test_record_integrity_requires_explicit_host_admission_before_sql (test_weft_query.WeftQueryTests.test_record_integrity_requires_explicit_host_admission_before_sql) ... ok
+test_result_authorization_cannot_insert_deferred_carrier (test_weft_query.WeftQueryTests.test_result_authorization_cannot_insert_deferred_carrier) ... ok
+test_scalar_metadata_cannot_retain_executable_or_mutable_uuid_alias (test_weft_query.WeftQueryTests.test_scalar_metadata_cannot_retain_executable_or_mutable_uuid_alias) ... ok
+test_unknown_obligation_profile_integrity_transport_and_closure_refuse (test_weft_query.WeftQueryTests.test_unknown_obligation_profile_integrity_transport_and_closure_refuse) ... ok
+test_unsupported_real_count_plan_refuses_before_any_sql_with_empty_result (test_weft_query.WeftQueryTests.test_unsupported_real_count_plan_refuses_before_any_sql_with_empty_result) ... skipped 'Pinned native Weft wheel unavailable; real compiler count check not executed'
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.045s
+
+OK (skipped=1)

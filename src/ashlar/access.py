@@ -4,24 +4,40 @@ Hosts provide native publication, pin, policy and deadline owners. This module
 never opens a connection or treats an SDK digest as publication authority.
 """
 from __future__ import annotations
+
+import copy
+import hashlib
+from collections.abc import Callable, Generator
 from contextlib import AbstractContextManager
-from collections.abc import Callable,Generator
 from datetime import timedelta
+from dataclasses import replace
 from decimal import Decimal
 from time import monotonic
 from types import MappingProxyType
-from typing import Any,TypeVar
-import copy,json,hashlib
+from typing import Any, TypeVar
+
 from pydantic import BaseModel
 from umf_access.adoption import TargetIdentity
-from umf_access.engine_catalog import EngineRead
-from umf_access.reviewed import CatalogRead
-from umf_access.pages import ReadPage,ReadContinuation,StaleContinuation
 from umf_access.codec_support import revalidate_model
-from umf_access.native_program import canonical_json,program_json
-from .weft_query import read_weft,PageReadRows,PageContextRefused
+from umf_access.engine_catalog import EngineRead
+from umf_access.native_program import canonical_json, program_json
+from umf_access.pages import (
+    ReadContinuation,
+    ReadObligationUnmet,
+    ReadPage,
+    StaleContinuation,
+    StreamLimitReached,
+)
+from umf_access.reviewed import CatalogRead
+
 from .execution_scope import preserve_body_failure
 from .publication import ResolutionError
+from .weft_decode import ExactScalar, decode_exact_scalar
+from .weft_query import PageContextRefused, PageReadRows, read_weft
+from .weft_related_keys_decode import DecodedRelatedKeys
+from .sdk_presence import DecodedPresence,decode_presence
+from umf_access.types import MISSING
+
 P=TypeVar('P',bound=BaseModel);R=TypeVar('R',bound=BaseModel)
 
 def _parameter(value):
@@ -32,6 +48,11 @@ def _parameter(value):
     raise ResolutionError('Closed exact non-temporal scalar parameter required')
 
 def _scalar(value):
+    if type(value)is DecodedPresence:
+        return MISSING if value.state=='missing' else None if value.state=='null' else value.value
+    if type(value) is ExactScalar:
+        if type(value.value) not in (str,bool,int,Decimal) or type(value.value) is Decimal and not value.value.is_finite():raise ResolutionError('Original non-temporal scalar value required')
+        return value.value
     if type(value) in (dict,MappingProxyType):
         if dict(value)=={'state':'absent'}:raise ResolutionError('ADOPTION_MISMATCH: selected column absent')
         if dict(value)=={'state':'null'}:return None
@@ -50,6 +71,8 @@ class _Policy:
     def __init__(self,original,compiler,program,model,deadline,*,page_after_json=None,page_metadata=None,total_outputs=None):
         self.original,self.compiler,self.program,self.model,self.deadline=original,compiler,program,model,deadline
         self.validated=None
+        self.current_artifact=None
+        self.ordered_rows=None
         self.page_after_json,self.page_metadata,self.total_outputs=page_after_json,page_metadata,total_outputs
     def _time(self):
         if monotonic()>=self.deadline:raise TimeoutError('Ashlar typed read deadline expired')
@@ -59,22 +82,78 @@ class _Policy:
         checked=program_json(self.compiler.check_engine_read_json(self.program,canonical_json(request)) if self.page_after_json is None else self.compiler.check_engine_page_json(self.program,canonical_json(request),self.page_after_json))
         if checked.get('status')!='compiled' or checked.get('artifact')!=artifact or self.page_metadata is not None and checked.get('page')!=self.page_metadata:
             raise ResolutionError('Original Weft engine compilation correspondence refused')
+        self.current_artifact=copy.deepcopy(artifact)
         return self.original.admit_artifact(request,artifact,*args)
     def verify_native_profile(self,*args):self._time();return self.original.verify_native_profile(*args)
     def authorize_query(self,*args):self._time();return self.original.authorize_query(*args)
     def admit_record_integrity(self,*args):self._time();return self.original.admit_record_integrity(*args)
+    def admit_relationship_integrity(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_relationship_integrity',None)
+        if not callable(callback):raise ResolutionError('Original relationship authority owner required')
+        return callback(*args)
     def admit_page_integrity(self,*args):self._time();return self.original.admit_page_integrity(*args)
+    def admit_ordered_page(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_ordered_page',None)
+        if not callable(callback):raise ResolutionError('Original hidden sort disclosure and comparator authority required')
+        return callback(*args)
+    def admit_ordered_read(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_ordered_read',None)
+        if not callable(callback):raise ResolutionError('Original ordered read Field/Key authority required')
+        return callback(*args)
+    def admit_source_key_integrity(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_source_key_integrity',None)
+        if not callable(callback):raise ResolutionError('Original complete source Key authority required')
+        return callback(*args)
     def page_context(self,*args):self._time();return self.original.page_context(*args)
-    def decode_result(self,*args):self._time();return _scalar(self.original.decode_result(*args))
+    def decode_result(self,*args):
+        self._time()
+        value=self.original.decode_result(*args)
+        if type(value)is DecodedPresence:
+            if self.current_artifact is None or decode_presence(args[0],value.original,self.current_artifact)!=value:
+                raise ResolutionError('Original scalar presence token/source correspondence differs')
+            return value
+        if type(value) is ExactScalar:
+            representation=args[0].get('representation')
+            logical=representation.get('logicalType',{}) if type(representation) is dict else {}
+            counted=logical.get('family')=='integer' and logical.get('facets')=={}
+            decoded=decode_exact_scalar(representation,value.original,count=counted)
+            if type(decoded.value) is not type(value.value) or decoded!=value or type(decoded.value) is Decimal and decoded.value.as_tuple()!=value.value.as_tuple():
+                raise ResolutionError('Original exact scalar token correspondence differs')
+            return value
+        if type(value) is DecodedRelatedKeys:
+            if args[0].get('representation',{}).get('kind')!='relatedKeys':
+                raise ResolutionError('Original related-Key output representation required')
+            return value
+        return _scalar(value)
     def authorize_result(self,rows,descriptor,context):
         self._time()
         names=tuple(self.model.model_fields)
         visible=len(names)if self.page_metadata is None else self.page_metadata['visibleOutputs']
         if visible!=len(names):raise ResolutionError('Complete visible generated page signature required')
+        from umf_access.related_keys import transport_spec
+
+        from .sdk_related_keys import typed_related_keys
+        related=transport_spec(self.model)
+        if related is not None:
+            output,key_model,decoder,_=related
+            outputs=program_json(self.program).get('outputs',[])
+            matching=[entry for entry in outputs if entry.get('name')==output]
+            if len(matching)!=1 or matching[0].get('carrier')!='related-keys' or matching[0].get('decoder')!=decoder:
+                raise ResolutionError('Original related-Key compiler output differs')
+        if self.page_metadata is not None and self.page_metadata.get('version')=='weft.engine-cursor/0.2':
+            from .sdk_ordered_page import decoded_cursor
+            self.ordered_rows=[decoded_cursor(row,self.page_metadata,self.current_artifact)for row in rows]
         validated=[]
         for row in rows:
             if len(row)!=(len(names)if self.total_outputs is None else self.total_outputs):raise ResolutionError('Complete generated result signature required')
-            validated.append(self.model.model_validate(dict(zip(names,row[:visible],strict=True))))
+            fields={name:_scalar(value) if type(value) in (ExactScalar,DecodedPresence) else value for name,value in zip(names,row[:visible],strict=True)}
+            if related is not None:
+                fields[output]=typed_related_keys(fields[output],decoder,key_model)
+            validated.append(self.model.model_validate(fields))
         if self.original.authorize_result(rows,descriptor,context)is not None:
             raise ResolutionError('Original Ashlar policy refused typed release')
         self._time();self.validated=validated
@@ -87,7 +166,7 @@ class AshlarTarget:
                  deadline:Callable[[timedelta],AbstractContextManager[None]],catalog_entries:tuple[EngineRead[Any,Any],...]=()):
         if len(binding_sha256)!=64 or any(c not in '0123456789abcdef' for c in binding_sha256):raise ValueError('Original binding digest required')
         if not callable(getattr(compiler,'check_engine_read_json',None)) or not callable(deadline):raise ValueError('Original engine compiler and native deadline owner required')
-        if compiler_method not in ('registered','ashlar-spark4','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages'):raise ValueError('Explicit original Ashlar compiler required')
+        if compiler_method not in ('registered','ashlar-spark4','ashlar-spark4-fields','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages','ashlar-spark4-sdk','ashlar-spark4-sdk-pages'):raise ValueError('Explicit original Ashlar compiler required')
         self.compiler_method=compiler_method
         self.compiler,self.executor,self.backend,self.pins=compiler,executor,backend,pins
         self.vector,self.policy,self.context=vector,policy,context
@@ -117,6 +196,8 @@ class AshlarTarget:
         v=self.vector
         context=canonical_json({'authority':v.authority,'scopeKind':v.scope_kind,'scopeId':v.scope_id,'custodyDigest':v.custody_digest,'targets':{name:list(pair)for name,pair in v.targets.items()}})
         version,profile=('0.1.0-qualified','dbsql2026.39-qualified') if self.compiler_method=='registered' else ('0.1.0-local-spark4-candidate','spark4.0.1-delta4.0.0-candidate')
+        if self.compiler_method=='ashlar-spark4-sdk':version,profile='0.1.0-local-spark4-sdk-candidate','spark4.0.1-delta4.0.0-sdk-candidate'
+        if self.compiler_method=='ashlar-spark4-fields':version,profile='0.1.0-local-spark4-fields-candidate','spark4.0.1-delta4.0.0-fields-candidate'
         if self.compiler_method=='ashlar-dbsql-20261016':version,profile='0.1.0-managed-20261016-candidate','dbsql2026.39-build-20261016-candidate'
         if self.native_target_json is not None:
             original=program_json(self.native_target_json);version,profile=original['backendVersion'],original['targetProfile']
@@ -124,7 +205,7 @@ class AshlarTarget:
     def read(self,entry:CatalogRead[P,R],parameters:P,*,timeout:timedelta|None=None)->list[R]:
         if not isinstance(entry,EngineRead):raise ResolutionError('Original engine catalog required')
         program=entry.artifact();request=copy.deepcopy(program['request'])
-        if program['version']!='weft.engine-read/0.1':raise ResolutionError('Original ordinary read program required')
+        if program['version']!=('weft.engine-read/0.2'if self.compiler_method in ('ashlar-spark4-sdk','ashlar-spark4-sdk-pages')else'weft.engine-read/0.1'):raise ResolutionError('Original ordinary read program required')
         if program['compiler']!=self.compiler_method or request['target']['bindingSha256']!=self.binding_sha256:
             raise ResolutionError('Original Ashlar binding or compiler differs')
         values=revalidate_model(entry.parameters,parameters)
@@ -151,9 +232,12 @@ class AshlarTarget:
             for name,p in entry.artifact()['request']['parameters'].items():
                 family,value=p['family'],p['value']
                 values[name]={'string':lambda:value,'integer':lambda:int(value),'decimal':lambda:Decimal(value),'boolean':lambda:value=='true'}[family]()
-            if entry.artifact()["version"]=="weft.engine-page/0.1":self.page(entry,entry.parameters.model_validate(values))
+            if entry.artifact()["version"]in ("weft.engine-page/0.1","weft.engine-page/0.2"):self.page(entry,entry.parameters.model_validate(values))
             else:self.read(entry,entry.parameters.model_validate(values))
     def page(self,entry:CatalogRead[P,R],parameters:P,*,after:ReadContinuation|None=None,timeout:timedelta|None=None)->ReadPage[R]:
+        if self.compiler_method=='ashlar-spark4-sdk-pages':
+            from .sdk_ordered_page import page
+            return page(self,entry,parameters,after=after,timeout=timeout)
         if not isinstance(entry,EngineRead) or self.native_target_json is None:raise ResolutionError('Original Ashlar page target required')
         program=entry.artifact();request=copy.deepcopy(program['request'])
         if program['version']!='weft.engine-page/0.1' or program['compiler']!=self.compiler_method or request['target']!=program_json(self.native_target_json):
@@ -197,15 +281,48 @@ class AshlarTarget:
             result=ReadPage(tuple(policy.validated[:size]),next_after)
         if monotonic()>=until:raise TimeoutError('Ashlar deadline expired during final page release')
         return result
-    def stream(self,entry:CatalogRead[P,R],parameters:P,*,max_rows:int,timeout:timedelta|None=None)->Generator[R,None,None]:
+    def _stream_page_entry(self,entry:CatalogRead[P,R],page_size:int)->EngineRead[P,R]:
+        """Ask the original compiler for a smaller page; never edit native SQL."""
+        if type(page_size)is not int or not 1<=page_size<=999:
+            raise ValueError('Positive bounded original stream page_size required')
+        if not isinstance(entry,EngineRead):
+            raise ResolutionError('Original engine page catalog required')
+        program=entry.artifact()
+        if program['version']!=('weft.engine-page/0.2'if self.compiler_method=='ashlar-spark4-sdk-pages'else'weft.engine-page/0.1') or program['compiler']!=self.compiler_method:
+            raise ResolutionError('Original Ashlar page compiler required')
+        if page_size>program['pageSize']:
+            raise ValueError('Stream page_size exceeds the authored original maximum')
+        if page_size==program['pageSize']:
+            return entry
+        related=program.get('relatedRequest')
+        method='compile_engine_related_page_json' if related is not None else 'compile_engine_page_json'
+        if not callable(getattr(self.compiler,method,None)):
+            raise ReadObligationUnmet('STREAM_PAGE_SIZE_UNSUPPORTED: original page compiler required')
+        navigation={} if related is None else {
+            'related_source':related['source'],
+            'relationship':related['relationship'],
+        }
+        if program['version']=='weft.engine-page/0.2':
+            navigation['selected_key']=program['selectedKey']
+            if related is not None:navigation['source_selected_key']=related['sourceSelectedKey']
+        compiled=EngineRead.build(self.compiler,program['request'],parameters=entry.parameters,
+            result=entry.result,method=self.compiler_method,page_size=page_size,**navigation)
+        # Host page admission still sees the untouched original derived artifact.
+        # Keep the caller's original opaque catalog context in cursor custody.
+        return replace(compiled,expected_source=entry.expected_source,context_json=entry.context_json)
+    def stream(self,entry:CatalogRead[P,R],parameters:P,*,max_rows:int,page_size:int|None=None,timeout:timedelta|None=None)->Generator[R,None,None]:
         if type(max_rows)is not int or max_rows<1:raise ValueError('Positive explicit stream row bound required')
+        if page_size is not None:
+            entry=self._stream_page_entry(entry,page_size)
         checked=revalidate_model(entry.parameters,parameters)
-        after=None;remaining=max_rows
-        while remaining:
+        after=None;emitted=0
+        while emitted<max_rows:
             page=self.page(entry,checked,after=after,timeout=timeout)
+            if not page.items and page.next_after is not None:raise ReadObligationUnmet('Original page made no continuation progress')
             for row in page.items:
+                if emitted==max_rows:raise StreamLimitReached(max_rows,truncated=True)
+                emitted+=1
                 yield row
-                remaining-=1
-                if not remaining:return
             if page.next_after is None:return
+            if emitted==max_rows:raise StreamLimitReached(max_rows,truncated=None)
             after=page.next_after

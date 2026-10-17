@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "checks": [
+    "actual authored Core08 intake and complete original Field checks precede publication; original incomplete Record observations retained unchanged; generated instances preserve exact primitives and reject null/bool/overflow",
+    "actual public CLI build/check and generated primitive query match independent native oracle above2^53/full signed64/UInt64max/Decimal38/Boolean with original carrier custody",
+    "original signed-zero source is retained; generated decimal tuple matches actual independent native result sign/exponent",
+    "actual later native NULL mutation cannot alter the original accepted primitive snapshot; no latest-table fallback",
+    "withheld original complete primitive authority refuses before business SQL",
+    "original authority revocation after exact-carrier authorization refuses final release and closes pins",
+    "fresh explicit primitive call after restored original authority succeeds without retrying revoked call"
+  ],
+  "ownedPostgresStopped": true,
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "local Spark4/Delta4 original primitive Field/public source/SDK transport with PostgreSQL18 pins; no managed search, engine writes, temporal or performance claim"
+}

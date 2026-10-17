@@ -1,0 +1,23 @@
+{
+  "scope": "direct original EngineRead precursor only; stage-two engine WithKeys/page/stream pending successor",
+  "temporal": "HELD",
+  "nativeChecks": 6,
+  "sourceHostControls": 5,
+  "actualGeneratedTransportControls": 7,
+  "source": {
+    "src/ashlar/access.py": "7613b705eeb0c2e13fc3d5f9d528d0f470e19070f38a040e13cef780ab9e98bb",
+    "src/ashlar/weft_query.py": "4fb4c868146d8d9f894b74af41bc30551b264858fed67addb203faf15c2b34cd",
+    "src/ashlar/sdk_related_keys.py": "09b17c16a1d5a94221d0a225538adc41002ec3c585f2b37c7f709eb1c5632d0f",
+    "src/ashlar/weft_related_keys_decode.py": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a",
+    "tools/check_typed_related_native.py": "93e125284a1400d7fd4756733d6ea4728fae4717efd0aeb30813cacd2d05902c",
+    "tests/test_sdk_related_snapshot.py": "d7809325494bc0967b4361753795919a259a57a76571eb32b044c4c8a8611bd8",
+    "tests/fixtures/sdk-engine-related-original.json": "3d099a81cb30d85c73e2e4c9c6b4200675917dd2ff9d8226b47a6b03d2b4e684"
+  },
+  "unshippedSourceDocument": "src/ashlar/README.md",
+  "noClaims": [
+    "managed Databricks qualification",
+    "engine writes",
+    "performance",
+    "temporal"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "case": "target",
+      "code": "NATIVE_PROGRAM_PROFILE"
+    },
+    {
+      "case": "statement",
+      "code": "NATIVE_PROGRAM_INTEGRITY"
+    },
+    {
+      "case": "exact candidate outcome profile accepted",
+      "profile": "umf.actions.managed-delta/0.1"
+    },
+    {
+      "case": "exact candidate outcome profile accepted",
+      "profile": "umf.actions.managed-delta-bulk/0.1"
+    },
+    {
+      "case": "unknown candidate outcome profile refused"
+    }
+  ],
+  "qualification": "compiler source/integrity and public DTO controls only; no native backend claim",
+  "temporal": "HELD"
+}

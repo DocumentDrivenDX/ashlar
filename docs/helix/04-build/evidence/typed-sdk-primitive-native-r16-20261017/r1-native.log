@@ -1,0 +1,15 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/17 04:57:07 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_typed_primitive_native.py", line 734, in <module>
+    entry = EngineRead.build(
+            ^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/umf_access/engine_catalog.py", line 58, in build
+    original = cls.compile_original(compiler, request, method=method, page_size=page_size, related_source=related_source, relationship=relationship)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-ashlar-field-profile-r17-20261017/venv/lib/python3.11/site-packages/umf_access/engine_catalog.py", line 96, in compile_original
+    raise ProgramBuildError(original)
+umf_access.native_program.ProgramBuildError: WEFT_BLOCKED: {"original":{"diagnostics":[{"code":"WFT-FIELD-PROFILE","message":"Direct required Field-only profile refuses broader semantics","phase":"input","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.2.0","status":"blocked"},"status":"blocked","version":"weft.engine-read/0.1"}

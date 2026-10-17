@@ -1,0 +1,26 @@
+{
+  "passed": 7,
+  "sdkWheelSha256": "4b507d3c72b9779f888ffbf905fe0feb4a30631a5c66a703754bbcc913d00447",
+  "weftWheelSha256": "e744819a3f0b0fc3d528ffbc36f5421dcfb28b4bbc8eb0256268506afa1a7811",
+  "ashlarWheelSha256": "5da926dbb50fd3750c4100a82db0fdf40304c09de87b1c54b8056a171c2f47f6",
+  "ashlarSource": "cd1a943c",
+  "scope": "local Spark4.0.1/Delta4.0.0 direct required original primitive Fields + genuine public generated schema/instance/CLI/read using original PostgreSQL18.6 pin interval",
+  "nativeSource": "owned explicit development carrier allocation; no production business resources",
+  "recordCompleteClaim": false,
+  "datasetKeyClaim": false,
+  "parametersEqualityKeyPagingQualified": false,
+  "nativeSignedZeroPreservationClaim": false,
+  "sourceSignedZeroRetained": true,
+  "originalRecordIncompleteObservationsRetained": true,
+  "performanceClaim": false,
+  "managedQualification": false,
+  "temporal": "HELD",
+  "failedCohortsRetained": [
+    1,
+    2,
+    3
+  ],
+  "all493InstalledPayloadsUnchanged": true,
+  "ownedPostgresStopped": true,
+  "sparkStopped": true
+}

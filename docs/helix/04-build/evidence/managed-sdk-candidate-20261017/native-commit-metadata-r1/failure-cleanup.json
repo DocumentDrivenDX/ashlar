@@ -1,0 +1,12 @@
+{
+  "status": "failed-native-capacity-permission",
+  "nativeEvidence": "metadata-probe-warehouse-long-start.json",
+  "originalFailure": "first SELECT canceled at90s; synchronous cleanup ROLLBACK interrupted; no CREATE SCHEMA dispatch reached",
+  "sourceAtStartExactHash": "not captured; no final-source equivalence claim",
+  "warehouseStopped": true,
+  "warehouseId": "d4b8eb5b4d6e34b8",
+  "temporaryPrincipalCreated": false,
+  "temporaryCredentialCreated": false,
+  "sdkQualification": false,
+  "temporal": "HELD"
+}
