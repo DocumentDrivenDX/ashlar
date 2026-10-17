@@ -1,0 +1,566 @@
+{
+  "artifact": {
+    "backend": {
+      "backendId": "ashlar.databricks",
+      "backendVersion": "0.1.0-local-spark4-candidate",
+      "interfaceVersion": "weft-backend/0.2.0",
+      "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+    },
+    "bindingSha256": "5fbeaf2e423089881105e2bb1f6005f610d0faca680b3e4c3dc4baf623a4b9de",
+    "columns": [
+      {
+        "nullable": false,
+        "outputName": "amount",
+        "position": 1,
+        "representation": {
+          "carrier": "text",
+          "decoder": "exact-decimal",
+          "kind": "scalar",
+          "logicalType": {
+            "facets": {
+              "precision": 18,
+              "scale": 2
+            },
+            "family": "decimal",
+            "nullable": false
+          }
+        },
+        "sourceIdentities": [
+          {
+            "documentId": "typed-source-example",
+            "element": "amount",
+            "module": "m",
+            "revision": "original-model-1"
+          }
+        ]
+      }
+    ],
+    "compilerVersion": "weft/0.1.0",
+    "diagnostics": [],
+    "dialect": "weft-sql/0.2.0",
+    "interfaceVersion": "weft-compile/0.2.0",
+    "logicalPlan": {
+      "aggregate": false,
+      "filters": [],
+      "groups": [],
+      "irVersion": "weft-ir/0.2.0",
+      "joins": [],
+      "limit": null,
+      "modulePins": [
+        {
+          "documentId": "typed-source-example",
+          "revision": "original-model-1",
+          "sha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "order": [],
+      "outputs": [
+        {
+          "expression": {
+            "identity": {
+              "documentId": "typed-source-example",
+              "element": "amount",
+              "module": "m",
+              "revision": "original-model-1"
+            },
+            "op": "field",
+            "scan": "s0"
+          },
+          "name": "amount"
+        }
+      ],
+      "pageKey": null,
+      "readProfile": null,
+      "requiredCapabilities": [
+        "project",
+        "scan",
+        "type.decimal"
+      ],
+      "source": {
+        "occurrence": "s0",
+        "pin": {
+          "documentId": "typed-source-example",
+          "revision": "original-model-1",
+          "sha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+          "umfVersion": "0.8.0"
+        },
+        "record": {
+          "documentId": "typed-source-example",
+          "element": "Item",
+          "module": "m",
+          "revision": "original-model-1"
+        }
+      },
+      "typeGraph": [
+        {
+          "availability": "required",
+          "identity": {
+            "documentId": "typed-source-example",
+            "element": "amount",
+            "module": "m",
+            "revision": "original-model-1"
+          },
+          "kind": "scalar",
+          "type": {
+            "facets": {
+              "precision": 18,
+              "scale": 2
+            },
+            "family": "decimal",
+            "nullable": false
+          }
+        }
+      ]
+    },
+    "modelPins": [
+      {
+        "documentId": "typed-source-example",
+        "revision": "original-model-1",
+        "sha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+        "umfVersion": "0.8.0"
+      }
+    ],
+    "obligations": [
+      {
+        "failureCode": "WFT-OBLIGATION",
+        "id": "ashlar.candidate.publication",
+        "owner": "host",
+        "parameters": {
+          "layoutRevision": "ashlar-delta/0.3",
+          "layoutSha256": "ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e",
+          "modelPins": [
+            {
+              "documentId": "typed-source-example",
+              "revision": "original-model-1",
+              "sha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+              "umfVersion": "0.8.0"
+            }
+          ],
+          "nativeProfile": {
+            "arithmetic": "ANSI exact-or-error",
+            "comparison": "UTF8_BINARY",
+            "warehouseRelease": "unqualified"
+          },
+          "payloadValidation": [
+            "exact validated JSON text with duplicate-key refusal",
+            "well-formed Unicode scalar strings with no NUL",
+            "registered fixed-base-ten numeric carrier; exponent/DOUBLE representations refuse",
+            "no rounding, coercion, missing/null substitution or hidden corrupt inputs"
+          ],
+          "publication": {
+            "id": "primitive-fixture",
+            "manifestUuid": "22222222-2222-2222-2222-222222222222",
+            "tables": [
+              {
+                "name": [
+                  "dev",
+                  "fixture",
+                  "object_current"
+                ],
+                "uuid": "11111111-1111-1111-1111-111111111111",
+                "version": 0
+              }
+            ]
+          },
+          "publicationPhase": "after-complete-buffer-and-context-recheck",
+          "requirements": [
+            "authenticate effective caller and establish complete authorized input view",
+            "verify one complete immutable manifest with trusted UUID and all schema revisions/projection dependencies",
+            "verify every consumed native schema, table UUID, version and retained data-file custody",
+            "verify source/type/id uniqueness, typed endpoint integrity and complete serving projection coverage at this publication",
+            "check policy and pin custody before execution and again before buffered result publication",
+            "refuse unknown obligations or unavailable evidence; no latest version or broader principal fallback",
+            "validate original mapping correspondence independently; identifiers and physical IDs are not logical identity"
+          ],
+          "visibility": "hidden input is not evidence of absence or integrity"
+        }
+      },
+      {
+        "failureCode": "WFT-NUMERIC-DOMAIN",
+        "id": "ashlar.candidate.scalarIntegrity",
+        "owner": "host",
+        "parameters": {
+          "checks": [
+            {
+              "failureCode": "WFT-NUMERIC-DOMAIN",
+              "field": {
+                "documentId": "typed-source-example",
+                "element": "amount",
+                "module": "m",
+                "revision": "original-model-1"
+              },
+              "record": {
+                "documentId": "typed-source-example",
+                "element": "Item",
+                "module": "m",
+                "revision": "original-model-1"
+              },
+              "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `dev`.`fixture`.`object_current` VERSION AS OF 0 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p4)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+            }
+          ],
+          "noPartialPublication": true,
+          "parameters": "same emitted ordered slots; values never interpolated",
+          "phase": "before-user-query",
+          "samePublicationRequired": true,
+          "success": "one exact STRING count equal to 0 per check"
+        }
+      },
+      {
+        "failureCode": "WFT-OBLIGATION",
+        "id": "ashlar.nativeProfile",
+        "owner": "host",
+        "parameters": {
+          "deltaVersion": "4.0.0",
+          "engineVersion": "4.0.1",
+          "qualification": "local development candidate; native publication, authorization and complete pin custody remain mandatory",
+          "requirements": [
+            "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+            "retain the same admitted catalog/publication context across checks and buffered result publication",
+            "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+          ],
+          "settings": {
+            "comparison": "explicit UTF8_BINARY",
+            "resultTransport": "exact native STRING",
+            "spark.sql.ansi.enabled": "true",
+            "spark.sql.session.timeZone": "UTC"
+          },
+          "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+        }
+      }
+    ],
+    "parameters": [
+      {
+        "logicalType": {
+          "facets": {},
+          "family": "string",
+          "nullable": false
+        },
+        "origin": {
+          "kind": "sourceDiscriminator",
+          "record": {
+            "documentId": "typed-source-example",
+            "element": "Item",
+            "module": "m",
+            "revision": "original-model-1"
+          }
+        },
+        "position": 1,
+        "value": "typed-source"
+      },
+      {
+        "logicalType": {
+          "facets": {
+            "integerWidth": {
+              "bits": 64,
+              "signed": true
+            }
+          },
+          "family": "integer",
+          "nullable": false
+        },
+        "origin": {
+          "kind": "typeDiscriminator",
+          "record": {
+            "documentId": "typed-source-example",
+            "element": "Item",
+            "module": "m",
+            "revision": "original-model-1"
+          }
+        },
+        "position": 2,
+        "value": "17"
+      },
+      {
+        "logicalType": {
+          "facets": {},
+          "family": "string",
+          "nullable": false
+        },
+        "origin": {
+          "kind": "schemaRevision",
+          "record": {
+            "documentId": "typed-source-example",
+            "element": "Item",
+            "module": "m",
+            "revision": "original-model-1"
+          }
+        },
+        "position": 3,
+        "value": "1"
+      },
+      {
+        "logicalType": {
+          "facets": {},
+          "family": "string",
+          "nullable": false
+        },
+        "origin": {
+          "field": {
+            "documentId": "typed-source-example",
+            "element": "amount",
+            "module": "m",
+            "revision": "original-model-1"
+          },
+          "kind": "propertyPath"
+        },
+        "position": 4,
+        "value": "$.22"
+      }
+    ],
+    "qualification": {
+      "assumptions": [],
+      "evidence": [],
+      "operations": [
+        {
+          "assessment": {
+            "evidence": [],
+            "id": "project",
+            "obligations": [],
+            "status": "candidate"
+          },
+          "declaration": {
+            "constraints": [
+              "Candidate requires native/schema/policy/publication host verification",
+              "No broader warehouse or production qualification",
+              "Exact engine/settings review scope; candidate opt-in still required"
+            ],
+            "evidence": [],
+            "id": "project",
+            "languageProfiles": [
+              {
+                "dialectProfile": "weft-sql/0.1.0",
+                "irVersion": "weft-ir/0.1.0"
+              },
+              {
+                "dialectProfile": "weft-sql/0.2.0",
+                "irVersion": "weft-ir/0.2.0"
+              }
+            ],
+            "logicalDomain": {
+              "subset": "required scalar relational/application operations with admitted exact homes"
+            },
+            "obligations": [
+              {
+                "failureCode": "WFT-OBLIGATION",
+                "id": "ashlar.nativeProfile",
+                "owner": "host",
+                "parameters": {
+                  "deltaVersion": "4.0.0",
+                  "engineVersion": "4.0.1",
+                  "qualification": "local development candidate; native publication, authorization and complete pin custody remain mandatory",
+                  "requirements": [
+                    "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                    "retain the same admitted catalog/publication context across checks and buffered result publication",
+                    "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                  ],
+                  "settings": {
+                    "comparison": "explicit UTF8_BINARY",
+                    "resultTransport": "exact native STRING",
+                    "spark.sql.ansi.enabled": "true",
+                    "spark.sql.session.timeZone": "UTC"
+                  },
+                  "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+                }
+              }
+            ],
+            "resultDomain": {
+              "carrier": "exact text",
+              "sumCount": "finite DECIMAL38 or error; empty count zero"
+            },
+            "status": "candidate",
+            "targetProfiles": [
+              "spark4.0.1-delta4.0.0-candidate"
+            ]
+          }
+        },
+        {
+          "assessment": {
+            "evidence": [],
+            "id": "scan",
+            "obligations": [],
+            "status": "candidate"
+          },
+          "declaration": {
+            "constraints": [
+              "Candidate requires native/schema/policy/publication host verification",
+              "No broader warehouse or production qualification",
+              "Exact engine/settings review scope; candidate opt-in still required"
+            ],
+            "evidence": [],
+            "id": "scan",
+            "languageProfiles": [
+              {
+                "dialectProfile": "weft-sql/0.1.0",
+                "irVersion": "weft-ir/0.1.0"
+              },
+              {
+                "dialectProfile": "weft-sql/0.2.0",
+                "irVersion": "weft-ir/0.2.0"
+              }
+            ],
+            "logicalDomain": {
+              "subset": "required scalar relational/application operations with admitted exact homes"
+            },
+            "obligations": [
+              {
+                "failureCode": "WFT-OBLIGATION",
+                "id": "ashlar.nativeProfile",
+                "owner": "host",
+                "parameters": {
+                  "deltaVersion": "4.0.0",
+                  "engineVersion": "4.0.1",
+                  "qualification": "local development candidate; native publication, authorization and complete pin custody remain mandatory",
+                  "requirements": [
+                    "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                    "retain the same admitted catalog/publication context across checks and buffered result publication",
+                    "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                  ],
+                  "settings": {
+                    "comparison": "explicit UTF8_BINARY",
+                    "resultTransport": "exact native STRING",
+                    "spark.sql.ansi.enabled": "true",
+                    "spark.sql.session.timeZone": "UTC"
+                  },
+                  "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+                }
+              }
+            ],
+            "resultDomain": {
+              "carrier": "exact text",
+              "sumCount": "finite DECIMAL38 or error; empty count zero"
+            },
+            "status": "candidate",
+            "targetProfiles": [
+              "spark4.0.1-delta4.0.0-candidate"
+            ]
+          }
+        },
+        {
+          "assessment": {
+            "evidence": [],
+            "id": "type.decimal",
+            "obligations": [],
+            "status": "candidate"
+          },
+          "declaration": {
+            "constraints": [
+              "Candidate requires native/schema/policy/publication host verification",
+              "No broader warehouse or production qualification",
+              "Exact engine/settings review scope; candidate opt-in still required"
+            ],
+            "evidence": [],
+            "id": "type.decimal",
+            "languageProfiles": [
+              {
+                "dialectProfile": "weft-sql/0.1.0",
+                "irVersion": "weft-ir/0.1.0"
+              },
+              {
+                "dialectProfile": "weft-sql/0.2.0",
+                "irVersion": "weft-ir/0.2.0"
+              }
+            ],
+            "logicalDomain": {
+              "subset": "required scalar relational/application operations with admitted exact homes"
+            },
+            "obligations": [
+              {
+                "failureCode": "WFT-OBLIGATION",
+                "id": "ashlar.nativeProfile",
+                "owner": "host",
+                "parameters": {
+                  "deltaVersion": "4.0.0",
+                  "engineVersion": "4.0.1",
+                  "qualification": "local development candidate; native publication, authorization and complete pin custody remain mandatory",
+                  "requirements": [
+                    "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                    "retain the same admitted catalog/publication context across checks and buffered result publication",
+                    "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                  ],
+                  "settings": {
+                    "comparison": "explicit UTF8_BINARY",
+                    "resultTransport": "exact native STRING",
+                    "spark.sql.ansi.enabled": "true",
+                    "spark.sql.session.timeZone": "UTC"
+                  },
+                  "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+                }
+              }
+            ],
+            "resultDomain": {
+              "carrier": "exact text",
+              "sumCount": "finite DECIMAL38 or error; empty count zero"
+            },
+            "status": "candidate",
+            "targetProfiles": [
+              "spark4.0.1-delta4.0.0-candidate"
+            ]
+          }
+        }
+      ],
+      "status": "candidate"
+    },
+    "sql": "WITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(38,2)) AS `f0` FROM `dev`.`fixture`.`object_current` VERSION AS OF 0 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(`s0`.`f0` AS STRING) AS `amount` FROM `s0`",
+    "status": "compiled",
+    "targetContext": {
+      "engine": "databricks-sql",
+      "engineVersion": "4.0.1",
+      "id": "spark4.0.1-delta4.0.0-candidate",
+      "publicationRevision": "host-verified-local-spark4/0.1",
+      "sessionSettings": {
+        "comparison": "explicit UTF8_BINARY",
+        "deltaVersion": "4.0.0",
+        "resultTransport": "exact native STRING",
+        "spark.sql.ansi.enabled": "true",
+        "spark.sql.session.timeZone": "UTC"
+      },
+      "storageLayoutRevision": "ashlar-delta/0.3"
+    }
+  },
+  "compiler": "ashlar-spark4",
+  "outputs": [
+    {
+      "carrier": "decimal",
+      "name": "amount",
+      "nullable": false
+    }
+  ],
+  "request": {
+    "dialect": "weft-sql/0.2.0",
+    "interfaceVersion": "weft-compile/0.2.0",
+    "modules": [
+      {
+        "documentJson": "{\"umf\":\"0.8.0\",\"id\":\"typed-source-example\",\"vocabularies\":{},\"modules\":[{\"id\":\"m\",\"namespace\":\"urn:typed:\",\"elements\":[{\"id\":\"Item\",\"kind\":\"record\",\"members\":[{\"module\":\"m\",\"element\":\"quantity\"},{\"module\":\"m\",\"element\":\"amount\"},{\"module\":\"m\",\"element\":\"active\"},{\"module\":\"m\",\"element\":\"note\"}],\"extensions\":{},\"name\":\"Item\"},{\"id\":\"quantity\",\"kind\":\"field\",\"scalarType\":\"integer\",\"cardinality\":\"one\",\"nullability\":\"required\",\"facets\":{\"integerWidth\":{\"bits\":64,\"signed\":false}},\"extensions\":{},\"name\":\"quantity\"},{\"id\":\"amount\",\"kind\":\"field\",\"scalarType\":\"decimal\",\"cardinality\":\"one\",\"nullability\":\"required\",\"facets\":{\"precision\":18,\"scale\":2},\"extensions\":{},\"name\":\"amount\"},{\"id\":\"active\",\"kind\":\"field\",\"scalarType\":\"boolean\",\"cardinality\":\"one\",\"nullability\":\"required\",\"extensions\":{},\"name\":\"active\"},{\"id\":\"note\",\"kind\":\"field\",\"scalarType\":\"string\",\"cardinality\":\"one\",\"nullability\":\"absent-allowed\",\"extensions\":{},\"name\":\"note\"}]}]}",
+        "pin": {
+          "documentId": "typed-source-example",
+          "revision": "original-model-1",
+          "sha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+          "umfVersion": "0.8.0"
+        },
+        "selectedModuleIds": [
+          "m"
+        ]
+      }
+    ],
+    "options": {
+      "allowCandidate": true
+    },
+    "parameters": {},
+    "sql": "SELECT i.amount FROM \"urn:typed:\".Item i",
+    "target": {
+      "backendId": "ashlar.databricks",
+      "backendVersion": "0.1.0-local-spark4-candidate",
+      "bindingJson": "{\"layoutRevision\":\"ashlar-delta/0.3\",\"layoutSha256\":\"ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e\",\"modelPins\":[{\"documentId\":\"typed-source-example\",\"revision\":\"original-model-1\",\"sha256\":\"58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f\",\"umfVersion\":\"0.8.0\"}],\"profile\":\"ashlar-databricks-candidate/0.1.0\",\"publication\":{\"id\":\"primitive-fixture\",\"manifestUuid\":\"22222222-2222-2222-2222-222222222222\",\"tables\":[{\"name\":[\"dev\",\"fixture\",\"object_current\"],\"uuid\":\"11111111-1111-1111-1111-111111111111\",\"version\":0}]},\"records\":[{\"kind\":\"object\",\"logical\":{\"documentId\":\"typed-source-example\",\"element\":\"Item\",\"module\":\"m\",\"revision\":\"original-model-1\"},\"properties\":[{\"home\":{\"kind\":\"props\",\"propertyId\":\"21\"},\"logical\":{\"documentId\":\"typed-source-example\",\"element\":\"quantity\",\"module\":\"m\",\"revision\":\"original-model-1\"}},{\"home\":{\"kind\":\"props\",\"propertyId\":\"22\"},\"logical\":{\"documentId\":\"typed-source-example\",\"element\":\"amount\",\"module\":\"m\",\"revision\":\"original-model-1\"}},{\"home\":{\"kind\":\"props\",\"propertyId\":\"23\"},\"logical\":{\"documentId\":\"typed-source-example\",\"element\":\"active\",\"module\":\"m\",\"revision\":\"original-model-1\"}},{\"home\":{\"kind\":\"props\",\"propertyId\":\"24\"},\"logical\":{\"documentId\":\"typed-source-example\",\"element\":\"note\",\"module\":\"m\",\"revision\":\"original-model-1\"}}],\"schemaRevision\":\"1\",\"sourceSystem\":\"typed-source\",\"table\":0,\"typeId\":\"17\"}]}",
+      "bindingSha256": "5fbeaf2e423089881105e2bb1f6005f610d0faca680b3e4c3dc4baf623a4b9de",
+      "targetProfile": "spark4.0.1-delta4.0.0-candidate"
+    }
+  },
+  "status": "compiled",
+  "structuralDigest": {
+    "owner": "weft-runtime-engine-read",
+    "sha256": "7e01009512d1ef487c9e3e0701ad082b7752dd03f36b954df430a0e57b8a4069",
+    "version": "0.1"
+  },
+  "version": "weft.engine-read/0.1"
+}

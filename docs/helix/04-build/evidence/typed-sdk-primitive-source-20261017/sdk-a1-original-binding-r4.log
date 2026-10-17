@@ -1,0 +1,16 @@
+F..
+======================================================================
+FAIL: test_actual_original_compiler_owns_direct_primitive_descriptors (test_primitive_binding.PrimitiveBindingTests.test_actual_original_compiler_owns_direct_primitive_descriptors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tests/test_primitive_binding.py", line 154, in test_actual_original_compiler_owns_direct_primitive_descriptors
+    self.assertEqual(original["status"], "compiled", original)
+AssertionError: 'blocked' != 'compiled'
+- blocked
++ compiled
+ : {'original': {'diagnostics': [{'code': 'WFT-BACKEND-VERSION', 'message': 'Registered backend does not accept the selected dialect/IR pair', 'phase': 'capability', 'recoverability': 'change-profile', 'severity': 'error'}], 'interfaceVersion': 'weft-compile/0.2.2', 'status': 'blocked'}, 'status': 'blocked', 'version': 'weft.engine-read/0.1'}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.980s
+
+FAILED (failures=1)

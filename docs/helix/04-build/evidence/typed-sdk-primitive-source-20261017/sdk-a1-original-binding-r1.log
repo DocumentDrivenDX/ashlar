@@ -1,0 +1,16 @@
+E
+======================================================================
+ERROR: setUpClass (test_primitive_binding.PrimitiveBindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tests/test_primitive_binding.py", line 38, in setUpClass
+    receipt = subprocess.run(
+              ^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/private/tmp/sdk-bun142-recovered/bun', '/private/tmp/ashlar-sdk-adoption/tools/check_typed_umf_records.ts', '/private/tmp/ashlar-umf-records-c45c72a2', '/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-primitive-binding-0oco_9mp/model.json', '/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-primitive-binding-0oco_9mp/request.json']' returned non-zero exit status 1.
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.059s
+
+FAILED (errors=1)

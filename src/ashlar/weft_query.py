@@ -8,6 +8,7 @@ from types import AsyncGeneratorType, CoroutineType, GeneratorType
 from .execution_scope import preserve_body_failure as _preserve_body_failure
 from .pins import PinError
 from .publication import ResolutionError, resolve_publication
+from .weft_decode import ExactScalar
 from .weft_related_keys_decode import DecodedRelatedKeys
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
@@ -59,6 +60,23 @@ def _completed_decode(value, *, _budget=None):
         if kind is AsyncGeneratorType:
             invalid = True
             return None
+        if kind is ExactScalar:
+            # Only the original decoder class; retain its original token while
+            # held. Semantic/source admission remains the owner's obligation.
+            try:
+                token_bytes=len(item.original.encode('utf-8')) if type(item.original) is str else 0
+            except UnicodeError:
+                invalid = True
+                return None
+            if (type(item.value) not in (str, bool, int, Decimal)
+                    or type(item.original) not in (str, bool)
+                    or type(item.value) is Decimal and not item.value.is_finite()
+                    or token_bytes > budget.copied_bytes):
+                invalid = True
+                return None
+            if type(item.original) is str:
+                budget.copied_bytes -= token_bytes
+            return ExactScalar(visit(item.value, depth + 1), visit(item.original, depth + 1))
         if kind is DecodedRelatedKeys:
             # Only the original named decoder carrier crosses this boundary.
             # This snapshot grants no bag/authorization authority of its own.

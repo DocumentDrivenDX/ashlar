@@ -31,6 +31,7 @@ from umf_access.reviewed import CatalogRead
 
 from .execution_scope import preserve_body_failure
 from .publication import ResolutionError
+from .weft_decode import ExactScalar, decode_exact_scalar
 from .weft_query import PageContextRefused, PageReadRows, read_weft
 from .weft_related_keys_decode import DecodedRelatedKeys
 
@@ -44,6 +45,9 @@ def _parameter(value):
     raise ResolutionError('Closed exact non-temporal scalar parameter required')
 
 def _scalar(value):
+    if type(value) is ExactScalar:
+        if type(value.value) not in (str,bool,int,Decimal) or type(value.value) is Decimal and not value.value.is_finite():raise ResolutionError('Original non-temporal scalar value required')
+        return value.value
     if type(value) in (dict,MappingProxyType):
         if dict(value)=={'state':'absent'}:raise ResolutionError('ADOPTION_MISMATCH: selected column absent')
         if dict(value)=={'state':'null'}:return None
@@ -85,6 +89,14 @@ class _Policy:
     def decode_result(self,*args):
         self._time()
         value=self.original.decode_result(*args)
+        if type(value) is ExactScalar:
+            representation=args[0].get('representation')
+            logical=representation.get('logicalType',{}) if type(representation) is dict else {}
+            counted=logical.get('family')=='integer' and logical.get('facets')=={}
+            decoded=decode_exact_scalar(representation,value.original,count=counted)
+            if type(decoded.value) is not type(value.value) or decoded!=value or type(decoded.value) is Decimal and decoded.value.as_tuple()!=value.value.as_tuple():
+                raise ResolutionError('Original exact scalar token correspondence differs')
+            return value
         if type(value) is DecodedRelatedKeys:
             if args[0].get('representation',{}).get('kind')!='relatedKeys':
                 raise ResolutionError('Original related-Key output representation required')
@@ -108,7 +120,7 @@ class _Policy:
         validated=[]
         for row in rows:
             if len(row)!=(len(names)if self.total_outputs is None else self.total_outputs):raise ResolutionError('Complete generated result signature required')
-            fields=dict(zip(names,row[:visible],strict=True))
+            fields={name:_scalar(value) if type(value) is ExactScalar else value for name,value in zip(names,row[:visible],strict=True)}
             if related is not None:
                 fields[output]=typed_related_keys(fields[output],decoder,key_model)
             validated.append(self.model.model_validate(fields))

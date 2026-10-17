@@ -1,0 +1,54 @@
+{
+  "format": "ashlar-schema-intake/0.1",
+  "sourceBase64": "eyJ1bWYiOiIwLjguMCIsImlkIjoidHlwZWQtc291cmNlLWV4YW1wbGUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6Im0iLCJuYW1lc3BhY2UiOiJ1cm46dHlwZWQ6IiwiZWxlbWVudHMiOlt7ImlkIjoiSXRlbSIsImtpbmQiOiJyZWNvcmQiLCJtZW1iZXJzIjpbeyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6InF1YW50aXR5In0seyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6ImFtb3VudCJ9LHsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJhY3RpdmUifSx7Im1vZHVsZSI6Im0iLCJlbGVtZW50Ijoibm90ZSJ9XSwiZXh0ZW5zaW9ucyI6e30sIm5hbWUiOiJJdGVtIn0seyJpZCI6InF1YW50aXR5Iiwia2luZCI6ImZpZWxkIiwic2NhbGFyVHlwZSI6ImludGVnZXIiLCJjYXJkaW5hbGl0eSI6Im9uZSIsIm51bGxhYmlsaXR5IjoicmVxdWlyZWQiLCJmYWNldHMiOnsiaW50ZWdlcldpZHRoIjp7ImJpdHMiOjY0LCJzaWduZWQiOmZhbHNlfX0sImV4dGVuc2lvbnMiOnt9LCJuYW1lIjoicXVhbnRpdHkifSx7ImlkIjoiYW1vdW50Iiwia2luZCI6ImZpZWxkIiwic2NhbGFyVHlwZSI6ImRlY2ltYWwiLCJjYXJkaW5hbGl0eSI6Im9uZSIsIm51bGxhYmlsaXR5IjoicmVxdWlyZWQiLCJmYWNldHMiOnsicHJlY2lzaW9uIjoxOCwic2NhbGUiOjJ9LCJleHRlbnNpb25zIjp7fSwibmFtZSI6ImFtb3VudCJ9LHsiaWQiOiJhY3RpdmUiLCJraW5kIjoiZmllbGQiLCJzY2FsYXJUeXBlIjoiYm9vbGVhbiIsImNhcmRpbmFsaXR5Ijoib25lIiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsImV4dGVuc2lvbnMiOnt9LCJuYW1lIjoiYWN0aXZlIn0seyJpZCI6Im5vdGUiLCJraW5kIjoiZmllbGQiLCJzY2FsYXJUeXBlIjoic3RyaW5nIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJudWxsYWJpbGl0eSI6ImFic2VudC1hbGxvd2VkIiwiZXh0ZW5zaW9ucyI6e30sIm5hbWUiOiJub3RlIn1dfV19",
+  "sourceSha256": "58d4f9e954e431dbeac45bce06dd3390b0d62dd874952591bd55f04a5862515f",
+  "sourceBytes": 948,
+  "umfCoreVersion": "0.8.0",
+  "documentId": "typed-source-example",
+  "validatorRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "validatedStructure": true,
+  "completeInterpretation": false,
+  "validation": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+        "path": "/umf",
+        "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "UMF intake validation only; no target catalog acceptance or enforcement claim"
+}
