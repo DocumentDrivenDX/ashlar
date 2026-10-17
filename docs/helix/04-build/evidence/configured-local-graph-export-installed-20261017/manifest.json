@@ -1,0 +1,320 @@
+{
+  "profile": "ashlar-configured-local-graph-export-installed-evidence/0.1",
+  "source_commit": "0bca82232a0bc923ef83eaf879a0e96595b515b5",
+  "archive": {
+    "file": "actual.tar.gz",
+    "bytes": 50630,
+    "sha256": "8d1c25d798915464ed30de6d78db3002a467b7eac328b8a9eec909467783fed0"
+  },
+  "records": [
+    {
+      "member": "ordinal-1/configuration.json",
+      "bytes": 1396,
+      "sha256": "b4fc791c216a2d2e0066c1830239cb0e5b79b85997be4eb1d5b6afc24f9fad95",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/configuration.json"
+    },
+    {
+      "member": "ordinal-1/export-terminal.json",
+      "bytes": 105,
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/export-terminal.json"
+    },
+    {
+      "member": "ordinal-1/export.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/export.stderr"
+    },
+    {
+      "member": "ordinal-1/export.stdout",
+      "bytes": 5093,
+      "sha256": "d555d180a6ebc266637ac4926db67962843781e2d14586d51a1c8096b8a427ac",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/export.stdout"
+    },
+    {
+      "member": "ordinal-1/outer-attempt.json",
+      "bytes": 213,
+      "sha256": "aa6a77b4c48c41256df08847cde6ae0675db0bad2765a1c1fc2963d028506fdf",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/outer-attempt.json"
+    },
+    {
+      "member": "ordinal-1/output/admission/report.json",
+      "bytes": 854,
+      "sha256": "45438c4e47fbad8f36e7d378722ea0532dafe3efaeb6815772666023470c066c",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/admission/report.json"
+    },
+    {
+      "member": "ordinal-1/output/custody.json",
+      "bytes": 12658,
+      "sha256": "361e221db2012a58f4181d67b02dce85a67fdf06f8b4ede6f457f61508dc0ba3",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/custody.json"
+    },
+    {
+      "member": "ordinal-1/output/diagnostics.log",
+      "bytes": 409,
+      "sha256": "8fa3c4e4499e62f1819caa03535a1e1ee2f0330a840469e77f89d1f24082ed29",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/diagnostics.log"
+    },
+    {
+      "member": "ordinal-1/output/release.graph.json",
+      "bytes": 11896,
+      "sha256": "ec27fe14d61fcb09cf419c4e0047c81a10c3cea897fd1e3791a3718e51397ce2",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/release.graph.json"
+    },
+    {
+      "member": "ordinal-1/output/report.json",
+      "bytes": 5092,
+      "sha256": "158a59dd136134b598207e7268686568f8ac66eee78be1c8c60725622718cb2f",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/report.json"
+    },
+    {
+      "member": "ordinal-1/output/runtime-report.json",
+      "bytes": 5093,
+      "sha256": "d555d180a6ebc266637ac4926db67962843781e2d14586d51a1c8096b8a427ac",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/runtime-report.json"
+    },
+    {
+      "member": "ordinal-1/owned-session.json",
+      "bytes": 30,
+      "sha256": "f76445cb3e55c8a4c065896733721a1dd0afd99eac5482f32898610b8ff444d2",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/owned-session.json"
+    },
+    {
+      "member": "ordinal-1/preparation.json",
+      "bytes": 6341,
+      "sha256": "425eeb1fbc9c64f28168a2f7215199354079615b62ccd9bf4f654045f6d7fd2e",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/preparation.json"
+    },
+    {
+      "member": "ordinal-1/reviewed-pending.json",
+      "bytes": 6342,
+      "sha256": "c9f3d18378181c43ca04c40b5da455f0169fb2991058baf6e1bad277a3cfc778",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/reviewed-pending.json"
+    },
+    {
+      "member": "ordinal-1/root-launch-clearance.json",
+      "bytes": 454,
+      "sha256": "3f72c9d03a90aa53537a200432df9253171e8d87a74ae35d7f78cfc1461749f7",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/root-launch-clearance.json"
+    },
+    {
+      "member": "ordinal-1/run-export.py",
+      "bytes": 818,
+      "sha256": "1093d1da1713b46f83ac345dcf4f1357d97da5c83935d648167de876d1635f7b",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/run-export.py"
+    },
+    {
+      "member": "ordinal-1/supervise.py",
+      "bytes": 6959,
+      "sha256": "5775a7d481942fcc66fffaba4545208a6881e6f577feb3c4affbc9fe9b37c951",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/supervise.py"
+    },
+    {
+      "member": "ordinal-3/configuration.json",
+      "bytes": 1396,
+      "sha256": "0850530a34ba5b5cc307a1c1ae5a1e43c69481f6da8716bc89eb0e307e7c44a2",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/configuration.json"
+    },
+    {
+      "member": "ordinal-3/export-terminal.json",
+      "bytes": 105,
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/export-terminal.json"
+    },
+    {
+      "member": "ordinal-3/export.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/export.stderr"
+    },
+    {
+      "member": "ordinal-3/export.stdout",
+      "bytes": 2603,
+      "sha256": "73fde51b1a04bd29092cf6d44b5ea8a71dd5381fa675f0e7090dbf45ef1aacf3",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/export.stdout"
+    },
+    {
+      "member": "ordinal-3/outer-attempt.json",
+      "bytes": 213,
+      "sha256": "7a311fdf93758efe232534981a0f47cc1168544b7a5e0cd30b1ec943217b50f3",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/outer-attempt.json"
+    },
+    {
+      "member": "ordinal-3/output/admission/report.json",
+      "bytes": 854,
+      "sha256": "45438c4e47fbad8f36e7d378722ea0532dafe3efaeb6815772666023470c066c",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/admission/report.json"
+    },
+    {
+      "member": "ordinal-3/output/custody.json",
+      "bytes": 6794,
+      "sha256": "35924d97d8ee7ef857344a649bd8d71689be854a6bebcec765447e0593444076",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/custody.json"
+    },
+    {
+      "member": "ordinal-3/output/diagnostics.log",
+      "bytes": 409,
+      "sha256": "9c9d4e718f88b1bbab08ffb65923bf3d74658dafc94bfbf4278011f2e2bf6e9c",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/diagnostics.log"
+    },
+    {
+      "member": "ordinal-3/output/release.graph.json",
+      "bytes": 6016,
+      "sha256": "310b92fed09f10b6adeded8d1a9725906a91f6004c7236c1260c398464e5ad3c",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/release.graph.json"
+    },
+    {
+      "member": "ordinal-3/output/report.json",
+      "bytes": 2602,
+      "sha256": "06188f1a1f4ed8dcdabeea068d40adc76b3e5f971de76780625f84929a6c2825",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/report.json"
+    },
+    {
+      "member": "ordinal-3/output/runtime-report.json",
+      "bytes": 2603,
+      "sha256": "73fde51b1a04bd29092cf6d44b5ea8a71dd5381fa675f0e7090dbf45ef1aacf3",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/runtime-report.json"
+    },
+    {
+      "member": "ordinal-3/owned-session.json",
+      "bytes": 30,
+      "sha256": "0b46cc6ca603a3dd778bc8490910d90c804e6caa7d2718d8abab706cdcbcba82",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/owned-session.json"
+    },
+    {
+      "member": "ordinal-3/preparation.json",
+      "bytes": 6341,
+      "sha256": "255ca28abcdcb3042168242bb5a032da7fb47d340a0d738529137eed363a64e5",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/preparation.json"
+    },
+    {
+      "member": "ordinal-3/reviewed-pending.json",
+      "bytes": 6342,
+      "sha256": "3925fb8ce10fcff4eac5294b4c679dd2386303a6af15b995667a35df4a12b13a",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/reviewed-pending.json"
+    },
+    {
+      "member": "ordinal-3/root-launch-clearance.json",
+      "bytes": 291,
+      "sha256": "42d322bbfcb37aca4f22edf34e9f812ef29098354ebdd049818c253594ebbb98",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/root-launch-clearance.json"
+    },
+    {
+      "member": "ordinal-3/run-export.py",
+      "bytes": 818,
+      "sha256": "1093d1da1713b46f83ac345dcf4f1357d97da5c83935d648167de876d1635f7b",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/run-export.py"
+    },
+    {
+      "member": "ordinal-3/supervise.py",
+      "bytes": 6959,
+      "sha256": "5775a7d481942fcc66fffaba4545208a6881e6f577feb3c4affbc9fe9b37c951",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/supervise.py"
+    },
+    {
+      "member": "originals/configured-typed-graph-source.json",
+      "bytes": 703,
+      "sha256": "82e5146eff15fb041167d5f90a67f654a3f82246a8abcfff04928fd36b9fa612",
+      "original_path": "/Users/erik/Projects/ashlar/examples/end-to-end/configured-typed-graph-source.json"
+    },
+    {
+      "member": "originals/public-graph-receipt.json",
+      "bytes": 86454,
+      "sha256": "4144fd637f99c4b55d86683775f00c47ad9ac7d4dd52a1175dabec4d1c27fc5e",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-1/output/admission/graph-1.json"
+    },
+    {
+      "member": "originals/typed-graph-binding.json",
+      "bytes": 1430,
+      "sha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+      "original_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-binding.json"
+    },
+    {
+      "member": "originals/typed-graph-model.umf.json",
+      "bytes": 4081,
+      "sha256": "463a252064ae6cd4d084b27bb1a3352c310900aae0264cecd0eacfb2701e4ebf",
+      "original_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-model.umf.json"
+    },
+    {
+      "member": "originals/typed-graph-source.jsonl",
+      "bytes": 5724,
+      "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+      "original_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-source.jsonl"
+    },
+    {
+      "member": "preparation/build.log",
+      "bytes": 117947,
+      "sha256": "db1c4769edf6260fd37d883c9d5da22c8f85a8fce83ff2107287756e4b182164",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/build.log"
+    },
+    {
+      "member": "preparation/independent-pair-review.json",
+      "bytes": 3091,
+      "sha256": "96cfc9daabf27f7bcf4809fb0afeb66870dbf5b248d90d04daf3d4af71b83df2",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/independent-pair-review.json"
+    },
+    {
+      "member": "preparation/install.log",
+      "bytes": 516,
+      "sha256": "d9cd8ed19da2bb83d2020aa9ae0eaa60866762cd2e0500f686ef058a2f119197",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/install.log"
+    },
+    {
+      "member": "preparation/preparation.json",
+      "bytes": 4321,
+      "sha256": "933b77a0c97fcdfbdffa5645e2ea8fa5e6fa41d2b8b7604ebadbbf91eeaa118b",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/preparation.json"
+    },
+    {
+      "member": "preparation/prepare.py",
+      "bytes": 6832,
+      "sha256": "1123598248526a2a417dc0c00c79760f407842b92228f6de7334075a7cae4b3f",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/prepare.py"
+    },
+    {
+      "member": "preparation/pure-preflight.json",
+      "bytes": 802,
+      "sha256": "67cb549a8c47a3f5a321765574630a5264001d23aaea48f09bc0051ba40fa7ba",
+      "original_path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/pure-preflight.json"
+    },
+    {
+      "member": "preparation/selected-installed-source-pins.json",
+      "bytes": 972,
+      "sha256": "dc24e8aca1d8b7ed4cfb0fefeeac7b159f47dfd5af23be41367723a6ffb471e9",
+      "original_path": "Derived selected-file digests; installed bytes remain private."
+    },
+    {
+      "member": "verification/verify-retained-pairs.py",
+      "bytes": 4574,
+      "sha256": "77507954eefb8190b88d2624d76cf4bf6492c3e6f2db6f1beddce5588345f564",
+      "original_path": "/private/tmp/verify-configured-graph-exports-20261017.py"
+    }
+  ],
+  "references": [
+    {
+      "path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/dist/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1947511,
+      "sha256": "61fba4ac5d68f2cfe45b6136cedd555b4a07909fe6b83588e0bdb3cdb56e6c68",
+      "scope": "Exact prior authority/source evidence, binary or duplicate hash reference only; no live access grant."
+    },
+    {
+      "path": "/private/tmp/ashlar-typed-graph-installed-20261017-gfothazt/native/installation.json",
+      "bytes": 3394,
+      "sha256": "ac844b92dbd515af0865624d0bb3e45f32a5b92cd70d5552af6e158f766214c7",
+      "scope": "Exact prior authority/source evidence, binary or duplicate hash reference only; no live access grant."
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/configured-typed-graph-installed-20261017/manifest.json",
+      "bytes": 16986,
+      "sha256": "7439aacf1c80435092624bc8a6ebca806b9bdf563c3782c79ab4227093362cd2",
+      "scope": "Exact prior authority/source evidence, binary or duplicate hash reference only; no live access grant."
+    },
+    {
+      "path": "/private/tmp/ashlar-configured-graph-export-installed-20261017-hxv54ut0/ordinal-3/output/admission/graph-1.json",
+      "bytes": 86454,
+      "sha256": "4144fd637f99c4b55d86683775f00c47ad9ac7d4dd52a1175dabec4d1c27fc5e",
+      "scope": "Exact prior authority/source evidence, binary or duplicate hash reference only; no live access grant."
+    }
+  ],
+  "qualification": "Two actual bounded installed read-only exports of original ordinals1/3, plus pure retained-source/carrier/pair review; no new source/publication/protectedACK/nativeengineconsumer qualification."
+}

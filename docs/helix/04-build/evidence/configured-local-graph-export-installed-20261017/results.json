@@ -1,0 +1,89 @@
+{
+  "profile": "ashlar-configured-local-export-native-results/0.1",
+  "source_commit": "0bca82232a0bc923ef83eaf879a0e96595b515b5",
+  "wheel_sha256": "61fba4ac5d68f2cfe45b6136cedd555b4a07909fe6b83588e0bdb3cdb56e6c68",
+  "original_installation_sha256": "ac844b92dbd515af0865624d0bb3e45f32a5b92cd70d5552af6e158f766214c7",
+  "ordinals": [
+    {
+      "ordinal": 1,
+      "nodes": 4,
+      "edges": 4,
+      "isolates": 1,
+      "self_loops": 1,
+      "parallel_endpoint_occurrences": 2,
+      "full_independent_source_carriers_equal": true,
+      "strict_saved_pair_loader": true,
+      "snapshot_vector": {
+        "local.configured.edge_current": {
+          "uuid": "68321d7c-fe0a-4d92-8250-d4577b012bfa",
+          "version": 2
+        },
+        "local.configured.object_current": {
+          "uuid": "77611247-a3ab-44f1-91d4-cf44f242ec74",
+          "version": 2
+        },
+        "local.configured.tombstone": {
+          "uuid": "d66dcb0e-2bdd-4827-b869-de90b970e2ae",
+          "version": 1
+        },
+        "local.configured.whole_source_history": {
+          "uuid": "161bbe78-b377-4846-a47c-d30062db1b2e",
+          "version": 2
+        }
+      },
+      "release_sha256": "ec27fe14d61fcb09cf419c4e0047c81a10c3cea897fd1e3791a3718e51397ce2",
+      "custody_sha256": "361e221db2012a58f4181d67b02dce85a67fdf06f8b4ede6f457f61508dc0ba3",
+      "report_sha256": "158a59dd136134b598207e7268686568f8ac66eee78be1c8c60725622718cb2f",
+      "elapsed_seconds": 24.431215416174382,
+      "cleanup": {
+        "groups_absent": true,
+        "process_groups": [
+          72501
+        ],
+        "session_leader_reaped": true
+      },
+      "public_source_receipt_sha256": "4144fd637f99c4b55d86683775f00c47ad9ac7d4dd52a1175dabec4d1c27fc5e"
+    },
+    {
+      "ordinal": 3,
+      "nodes": 3,
+      "edges": 1,
+      "isolates": 2,
+      "self_loops": 1,
+      "parallel_endpoint_occurrences": 0,
+      "full_independent_source_carriers_equal": true,
+      "strict_saved_pair_loader": true,
+      "snapshot_vector": {
+        "local.configured.edge_current": {
+          "uuid": "68321d7c-fe0a-4d92-8250-d4577b012bfa",
+          "version": 5
+        },
+        "local.configured.object_current": {
+          "uuid": "77611247-a3ab-44f1-91d4-cf44f242ec74",
+          "version": 3
+        },
+        "local.configured.tombstone": {
+          "uuid": "d66dcb0e-2bdd-4827-b869-de90b970e2ae",
+          "version": 3
+        },
+        "local.configured.whole_source_history": {
+          "uuid": "161bbe78-b377-4846-a47c-d30062db1b2e",
+          "version": 4
+        }
+      },
+      "release_sha256": "310b92fed09f10b6adeded8d1a9725906a91f6004c7236c1260c398464e5ad3c",
+      "custody_sha256": "35924d97d8ee7ef857344a649bd8d71689be854a6bebcec765447e0593444076",
+      "report_sha256": "06188f1a1f4ed8dcdabeea068d40adc76b3e5f971de76780625f84929a6c2825",
+      "elapsed_seconds": 18.279089791933075,
+      "cleanup": {
+        "groups_absent": true,
+        "process_groups": [
+          74250
+        ],
+        "session_leader_reaped": true
+      },
+      "public_source_receipt_sha256": "4144fd637f99c4b55d86683775f00c47ad9ac7d4dd52a1175dabec4d1c27fc5e"
+    }
+  ],
+  "qualification": "Two actual bounded installed read-only exports of original ordinals1/3, plus pure retained-source/carrier/pair review; no new source/publication/protectedACK/nativeengineconsumer qualification."
+}
