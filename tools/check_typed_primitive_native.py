@@ -53,7 +53,7 @@ from native_related.models import Order
 
 
 class Parameters(StrictModel):
-    status: str
+    pass
 
 
 expected = {
@@ -162,14 +162,18 @@ validated = subprocess.run(
 (out / "original-record-producer.stderr").write_bytes(validated.stderr)
 assert validated.returncode == 0, validated.stderr.decode()
 (out / "original-record-receipt.json").write_bytes(validated.stdout)
-for bad_name, bad_value in [
-    ("null", "null"),
-    ("boolean", "true"),
-    ("overflow", "9223372036854775808"),
+for bad_name, old_token, bad_value in [
+    ("null", '"3":9007199254740993', '"3":null'),
+    ("boolean", '"3":9007199254740993', '"3":true'),
+    ("overflow", '"3":9007199254740993', '"3":9223372036854775808'),
+    ("unsigned-overflow", '"6":18446744073709551615', '"6":18446744073709551616'),
+    (
+        "decimal38-overflow",
+        '"7":99999999999999999999999999999999.123456',
+        '"7":999999999999999999999999999999999.123456',
+    ),
 ]:
-    raw = primitive_fixture["orderProps"]["a"].replace(
-        '"3":9007199254740993', '"3":' + bad_value
-    )
+    raw = primitive_fixture["orderProps"]["a"].replace(old_token, bad_value)
     assert raw != primitive_fixture["orderProps"]["a"]
     digest = hashlib.sha256(raw.encode()).hexdigest()
     bad_request = dict(
@@ -713,8 +717,8 @@ try:
     request = {
         "interfaceVersion": "weft-compile/0.2.0",
         "dialect": "weft-sql/0.2.0",
-        "sql": 'SELECT r.id AS "id", r.status AS "status", r.quantity AS "quantity", r.amount AS "amount", r.active AS "active", r.unsignedQuantity AS "unsigned_quantity", r.wideAmount AS "wide_amount" FROM sales."order" r WHERE r.status = :status ORDER BY r.id ASC LIMIT 10',
-        "parameters": {"status": {"family": "string", "value": "draft"}},
+        "sql": 'SELECT r.id AS "id", r.status AS "status", r.quantity AS "quantity", r.amount AS "amount", r.active AS "active", r.unsignedQuantity AS "unsigned_quantity", r.wideAmount AS "wide_amount" FROM sales."order" r ORDER BY r.id ASC LIMIT 10',
+        "parameters": {},
         "modules": [
             {"documentJson": model, "pin": pin, "selectedModuleIds": ["sales"]}
         ],
@@ -764,6 +768,10 @@ try:
             self.native.validate_descriptor(descriptor, supplied)
 
         def admit_artifact(self, current, artifact, descriptor, supplied):
+            import copy
+
+            self.admitted_request = copy.deepcopy(current)
+            self.admitted_artifact = copy.deepcopy(artifact)
             assert (
                 active["pins"]
                 and current["modules"] == request["modules"]
@@ -855,8 +863,13 @@ try:
             ):
                 from ashlar.primitive_binding import decode_primitive_column
 
+                assert current == self.admitted_request
                 return decode_primitive_column(
-                    column, value, current, primitive_policy, primitive_intake
+                    column,
+                    value,
+                    self.admitted_artifact,
+                    primitive_policy,
+                    primitive_intake,
                 )
             if representation["kind"] == "relatedKeys":
                 from ashlar.weft_related_keys_decode import (
@@ -1073,7 +1086,9 @@ try:
         catalog_entries=entries,
     )
     # This independent native projection does not copy the emitted engine SQL.
-    oracle_sql = f"SELECT get_json_object(props_json,'$.1') AS id,get_json_object(props_json,'$.2') AS status,CAST(get_json_object(props_json,'$.3') AS BIGINT) AS quantity,CAST(CAST(get_json_object(props_json,'$.4') AS DECIMAL(18,2)) AS STRING) AS amount,CAST(get_json_object(props_json,'$.5') AS BOOLEAN) AS active,CAST(CAST(get_json_object(props_json,'$.6') AS DECIMAL(20,0)) AS STRING) AS unsigned_quantity,CAST(CAST(get_json_object(props_json,'$.7') AS DECIMAL(38,6)) AS STRING) AS wide_amount FROM {table} WHERE source_system='typed-sdk-local' AND type_id=17 ORDER BY id"
+    oracle_schema = "STRUCT<`1`:STRING,`2`:STRING,`3`:BIGINT,`4`:DECIMAL(18,2),`5`:BOOLEAN,`6`:DECIMAL(20,0),`7`:DECIMAL(38,6)>"
+    oracle_sql = f"SELECT p.`1` AS id,p.`2` AS status,p.`3` AS quantity,CAST(p.`4` AS STRING) AS amount,p.`5` AS active,CAST(p.`6` AS STRING) AS unsigned_quantity,CAST(p.`7` AS STRING) AS wide_amount FROM (SELECT from_json(props_json,'{oracle_schema}',map('mode','FAILFAST')) AS p FROM {table} WHERE source_system='typed-sdk-local' AND type_id=17) ORDER BY id"
+
     assert int(spark.sql("DESCRIBE HISTORY " + table).first()["version"]) == version
     oracle_rows = spark.sql(oracle_sql).collect()
     expected_primitive = tuple(

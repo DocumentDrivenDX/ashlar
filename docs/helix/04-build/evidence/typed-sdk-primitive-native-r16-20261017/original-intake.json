@@ -1,0 +1,60 @@
+{
+  "format": "ashlar-schema-intake/0.1",
+  "sourceBase64": "eyJpZCI6InR5cGVkLXNkay1wcmltaXRpdmUtZmllbGRzIiwibW9kdWxlcyI6W3siZWxlbWVudHMiOlt7ImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e30sImlkIjoiaWQiLCJraW5kIjoiZmllbGQiLCJuYW1lIjoiaWQiLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwic2NhbGFyVHlwZSI6InN0cmluZyJ9LHsiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fSwiaWQiOiJzdGF0dXMiLCJraW5kIjoiZmllbGQiLCJuYW1lIjoic3RhdHVzIiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsInNjYWxhclR5cGUiOiJzdHJpbmcifSx7ImV4dGVuc2lvbnMiOnt9LCJpZCI6Im9yZGVyIiwia2V5cyI6W3siZmllbGRzIjpbeyJlbGVtZW50IjoiaWQiLCJtb2R1bGUiOiJzYWxlcyJ9XSwiaWQiOiJwayIsIm5hbWUiOiJwcmltYXJ5IiwicHJpbWFyeSI6dHJ1ZX1dLCJraW5kIjoicmVjb3JkIiwibWVtYmVycyI6W3siZWxlbWVudCI6ImlkIiwibW9kdWxlIjoic2FsZXMifSx7ImVsZW1lbnQiOiJzdGF0dXMiLCJtb2R1bGUiOiJzYWxlcyJ9LHsiZWxlbWVudCI6InF1YW50aXR5IiwibW9kdWxlIjoic2FsZXMifSx7ImVsZW1lbnQiOiJhbW91bnQiLCJtb2R1bGUiOiJzYWxlcyJ9LHsiZWxlbWVudCI6ImFjdGl2ZSIsIm1vZHVsZSI6InNhbGVzIn0seyJlbGVtZW50IjoidW5zaWduZWRRdWFudGl0eSIsIm1vZHVsZSI6InNhbGVzIn0seyJlbGVtZW50Ijoid2lkZUFtb3VudCIsIm1vZHVsZSI6InNhbGVzIn1dLCJuYW1lIjoib3JkZXIifSx7ImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e30sImlkIjoiY3VzdG9tZXJJZCIsImtpbmQiOiJmaWVsZCIsIm5hbWUiOiJjdXN0b21lcklkIiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsInNjYWxhclR5cGUiOiJzdHJpbmcifSx7ImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e30sImlkIjoiY3VzdG9tZXJOYW1lIiwia2luZCI6ImZpZWxkIiwibmFtZSI6ImN1c3RvbWVyTmFtZSIsIm51bGxhYmlsaXR5IjoicmVxdWlyZWQiLCJzY2FsYXJUeXBlIjoic3RyaW5nIn0seyJleHRlbnNpb25zIjp7fSwiaWQiOiJjdXN0b21lciIsImtleXMiOlt7ImZpZWxkcyI6W3siZWxlbWVudCI6ImN1c3RvbWVySWQiLCJtb2R1bGUiOiJzYWxlcyJ9XSwiaWQiOiJwayIsIm5hbWUiOiJwcmltYXJ5IiwicHJpbWFyeSI6dHJ1ZX1dLCJraW5kIjoicmVjb3JkIiwibWVtYmVycyI6W3siZWxlbWVudCI6ImN1c3RvbWVySWQiLCJtb2R1bGUiOiJzYWxlcyJ9LHsiZWxlbWVudCI6ImN1c3RvbWVyTmFtZSIsIm1vZHVsZSI6InNhbGVzIn1dLCJuYW1lIjoiY3VzdG9tZXIifSx7ImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e30sImZhY2V0cyI6eyJpbnRlZ2VyV2lkdGgiOnsiYml0cyI6NjQsInNpZ25lZCI6dHJ1ZX19LCJpZCI6InF1YW50aXR5Iiwia2luZCI6ImZpZWxkIiwibmFtZSI6InF1YW50aXR5IiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsInNjYWxhclR5cGUiOiJpbnRlZ2VyIn0seyJjYXJkaW5hbGl0eSI6Im9uZSIsImV4dGVuc2lvbnMiOnt9LCJmYWNldHMiOnsicHJlY2lzaW9uIjoxOCwic2NhbGUiOjJ9LCJpZCI6ImFtb3VudCIsImtpbmQiOiJmaWVsZCIsIm5hbWUiOiJhbW91bnQiLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwic2NhbGFyVHlwZSI6ImRlY2ltYWwifSx7ImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e30sImlkIjoiYWN0aXZlIiwia2luZCI6ImZpZWxkIiwibmFtZSI6ImFjdGl2ZSIsIm51bGxhYmlsaXR5IjoicmVxdWlyZWQiLCJzY2FsYXJUeXBlIjoiYm9vbGVhbiJ9LHsiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fSwiZmFjZXRzIjp7ImludGVnZXJXaWR0aCI6eyJiaXRzIjo2NCwic2lnbmVkIjpmYWxzZX19LCJpZCI6InVuc2lnbmVkUXVhbnRpdHkiLCJraW5kIjoiZmllbGQiLCJuYW1lIjoidW5zaWduZWRRdWFudGl0eSIsIm51bGxhYmlsaXR5IjoicmVxdWlyZWQiLCJzY2FsYXJUeXBlIjoiaW50ZWdlciJ9LHsiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fSwiZmFjZXRzIjp7InByZWNpc2lvbiI6MzgsInNjYWxlIjo2fSwiaWQiOiJ3aWRlQW1vdW50Iiwia2luZCI6ImZpZWxkIiwibmFtZSI6IndpZGVBbW91bnQiLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwic2NhbGFyVHlwZSI6ImRlY2ltYWwifV0sImV4dGVuc2lvbnMiOnsidW1mLmFjY2VzcyI6eyJjb2x1bW5zIjpbXSwic2VhcmNoIjpbXSwic2VhcmNoQmluZGluZ3MiOltdLCJ2aWV3cyI6W3siZmllbGRzIjpbeyJjcmVhdGUiOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfSwiZmllbGQiOnsiZWxlbWVudCI6ImlkIiwibW9kdWxlIjoic2FsZXMifSwiZ2VuZXJhdGVkIjpmYWxzZSwibXV0YWJsZSI6ZmFsc2UsInJvdyI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9fSx7ImNyZWF0ZSI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9LCJmaWVsZCI6eyJlbGVtZW50Ijoic3RhdHVzIiwibW9kdWxlIjoic2FsZXMifSwiZ2VuZXJhdGVkIjpmYWxzZSwibXV0YWJsZSI6dHJ1ZSwicm93Ijp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX19LHsiY3JlYXRlIjp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX0sImZpZWxkIjp7ImVsZW1lbnQiOiJxdWFudGl0eSIsIm1vZHVsZSI6InNhbGVzIn0sImdlbmVyYXRlZCI6ZmFsc2UsIm11dGFibGUiOnRydWUsInJvdyI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9fSx7ImNyZWF0ZSI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9LCJmaWVsZCI6eyJlbGVtZW50IjoiYW1vdW50IiwibW9kdWxlIjoic2FsZXMifSwiZ2VuZXJhdGVkIjpmYWxzZSwibXV0YWJsZSI6dHJ1ZSwicm93Ijp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX19LHsiY3JlYXRlIjp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX0sImZpZWxkIjp7ImVsZW1lbnQiOiJhY3RpdmUiLCJtb2R1bGUiOiJzYWxlcyJ9LCJnZW5lcmF0ZWQiOmZhbHNlLCJtdXRhYmxlIjp0cnVlLCJyb3ciOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfX0seyJjcmVhdGUiOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfSwiZmllbGQiOnsiZWxlbWVudCI6InVuc2lnbmVkUXVhbnRpdHkiLCJtb2R1bGUiOiJzYWxlcyJ9LCJnZW5lcmF0ZWQiOmZhbHNlLCJtdXRhYmxlIjp0cnVlLCJyb3ciOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfX0seyJjcmVhdGUiOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfSwiZmllbGQiOnsiZWxlbWVudCI6IndpZGVBbW91bnQiLCJtb2R1bGUiOiJzYWxlcyJ9LCJnZW5lcmF0ZWQiOmZhbHNlLCJtdXRhYmxlIjp0cnVlLCJyb3ciOnsibWlzc2luZyI6ZmFsc2UsIm51bGwiOmZhbHNlfX1dLCJyZWNvcmQiOnsiZWxlbWVudCI6Im9yZGVyIiwibW9kdWxlIjoic2FsZXMifSwic2VsZWN0ZWRLZXkiOnsiZWxlbWVudCI6Im9yZGVyIiwia2V5IjoicGsiLCJtb2R1bGUiOiJzYWxlcyJ9fSx7ImZpZWxkcyI6W3siY3JlYXRlIjp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX0sImZpZWxkIjp7ImVsZW1lbnQiOiJjdXN0b21lcklkIiwibW9kdWxlIjoic2FsZXMifSwiZ2VuZXJhdGVkIjpmYWxzZSwibXV0YWJsZSI6ZmFsc2UsInJvdyI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9fSx7ImNyZWF0ZSI6eyJtaXNzaW5nIjpmYWxzZSwibnVsbCI6ZmFsc2V9LCJmaWVsZCI6eyJlbGVtZW50IjoiY3VzdG9tZXJOYW1lIiwibW9kdWxlIjoic2FsZXMifSwiZ2VuZXJhdGVkIjpmYWxzZSwibXV0YWJsZSI6dHJ1ZSwicm93Ijp7Im1pc3NpbmciOmZhbHNlLCJudWxsIjpmYWxzZX19XSwicmVjb3JkIjp7ImVsZW1lbnQiOiJjdXN0b21lciIsIm1vZHVsZSI6InNhbGVzIn0sInNlbGVjdGVkS2V5Ijp7ImVsZW1lbnQiOiJjdXN0b21lciIsImtleSI6InBrIiwibW9kdWxlIjoic2FsZXMifX1dfX0sImlkIjoic2FsZXMiLCJuYW1lc3BhY2UiOiJzYWxlcyJ9XSwidW1mIjoiMC44LjAiLCJ2b2NhYnVsYXJpZXMiOnsidW1mLmFjY2VzcyI6eyJ2ZXJzaW9uIjoiMC4xLjAifX19",
+  "sourceSha256": "011a754332655cd55db32f2967197ddf64985b92251909b9e2640a8ea085b8c3",
+  "sourceBytes": 4056,
+  "umfCoreVersion": "0.8.0",
+  "documentId": "typed-sdk-primitive-fields",
+  "validatorRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "validatedStructure": true,
+  "completeInterpretation": false,
+  "validation": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "UNKNOWN_EXTENSION",
+        "path": "/vocabularies/umf.access",
+        "message": "Exact extension version unavailable; content retained",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+        "path": "/umf",
+        "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "UMF intake validation only; no target catalog acceptance or enforcement claim"
+}
