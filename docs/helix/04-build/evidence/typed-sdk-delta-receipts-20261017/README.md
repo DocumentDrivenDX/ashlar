@@ -1,0 +1,7 @@
+# Canonical local Delta SDK receipt qualification
+
+CONTRACT-073 public Delta receipts encode `store` as the canonical sorted table UUID vector and `version` as the canonical ordered `{tableUuid,version}` vector, including a single table. The original native `DeltaAtomicReceipt` class stays unchanged. The public action/bulk outcome and original recovery scope share the canonical store. The helper never queries a history head, changes a native receipt, or grants authority.
+
+The installed source-exact successor wheel has 441 matching shipped payloads. Real PostgreSQL-issued actor/role/fence plus Spark4/Delta4 action/bulk E2Es pass 22 checks. Assertions compare public vectors to independently observed native table UUID/version and inspect actual Delta commit metadata. Response-loss recovery returns the exact original commit after a newer independent commit, preserves source metadata and quarantine, and never retries. Native primitive checks pass 5; publication reads/shared conformance and stream controls pass 18. The failed read fixture that also selected actions remains separate; the final read fixture selects only models while retaining the complete original source archive.
+
+These are local functional qualifications. Foreign `ashlar-existing-evolution` Spark processes were observed and left untouched; this cohort makes no performance claim. Every owned PostgreSQL cluster and Spark context stopped. Managed native transactions and protected Truss authority remain separate gates. Temporal qualification remains held.

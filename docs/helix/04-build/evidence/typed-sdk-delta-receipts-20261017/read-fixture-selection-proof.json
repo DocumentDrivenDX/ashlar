@@ -1,0 +1,10 @@
+{
+  "scope": "read-only generated selection on unchanged complete source archive",
+  "selectedActionModuleAbsent": true,
+  "sourceArchiveSha256": "158513c43f98e4171ae52c436f52ac20417ab3d1759aa378238627dd7d2b6ca9",
+  "manifestSha256": "0e26089dd99635562cd4c6dc33d27e9176455e5f3f046922929d068364e95a1d",
+  "generatorSha256": "738f68fea6ee4deda1f5a548b9fbcfc448f4e60c838ec5a8cbfbae50e0c7b51c",
+  "allActionsFixtureRetainedSeparately": "/private/tmp/sdk-ashlar-receipt-r11-20261017/generated",
+  "nativeSource": "fixtures/access/native-actions/request.json",
+  "temporal": "HELD"
+}

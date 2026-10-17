@@ -1,0 +1,54 @@
+{
+  "scope": "Local original native actor/Delta and held publication cohorts only; no managed Delta or protected Truss qualification",
+  "sourceBase": "fe072393",
+  "sourceFiles": {
+    "src/ashlar_host/delta_receipt.py": "ae79fb59d6a9ccd3b358049f1c986812d8c1f6a6a823062b963fc73cd0482fb7",
+    "src/ashlar_host/typed_actions.py": "4ad414240a5150d82a2298329118884e57444919f557ffd26ff733288e76ed8e",
+    "src/ashlar_host/typed_bulk.py": "7b1e08f90f967f502ba46358d0d7498af16fa9f41e35d8500e771c6a6067e054",
+    "tools/check_delta_actions_native.py": "972e505ebb2e94be37d81461902a562deedcf6fd964717e0f4627adcca675196",
+    "tools/check_typed_sdk_native.py": "9688f69a217950b5ca3176b4e2019ce0a7e67fccdb319cb1c5894136a388f7e9",
+    "tools/check_delta_atomic_native.py": "70188d6c9e51e61bfb4bf7c45013f591397db9ae8436772907d79808f5782b2c",
+    "tests/test_delta_receipt.py": "d2ad46d06fc10d1e7a1919a923635faa6bc2d47b2ee18642bfc19165946fb9b2"
+  },
+  "sdkWheelSha256": "b5082cfbad6008567ddd5522de9fd6676bc1ee1e0f813a8bec22d96cbcc3cba5",
+  "compilerWheelSha256": "ccb8d99fd5a138850cdcaa9fb226886bfca6b982af6d7c8eab4686e30ad75095",
+  "ashlarWheelSha256": "4d61fd4422c60cd485469060ce5e6385bdc6cca1534e8716d19fefb5e334c17b",
+  "versions": {
+    "python": "3.11.17",
+    "pyspark": "4.0.1",
+    "delta": "4.0.0",
+    "psycopg": "3.3.6",
+    "pydantic": "2.14.1"
+  },
+  "nativeChecks": {
+    "primitive": 5,
+    "generatedActionsBulk": 22,
+    "publicationReadIncludingShared8": 18
+  },
+  "foreignProcessOccurrences": [
+    {
+      "pid": 58384,
+      "app": "ashlar-existing-evolution",
+      "owner": "foreign, not stopped by this task",
+      "laterObservedGone": true
+    },
+    {
+      "pid": 64724,
+      "app": "ashlar-existing-evolution",
+      "owner": "foreign, not stopped by this task",
+      "laterObservedGoneByCoordinator": true
+    }
+  ],
+  "performanceQualification": false,
+  "temporal": "HELD",
+  "managed": "UNQUALIFIED",
+  "allOwnedPostgresAndSparkStopped": true,
+  "retainedFailedCohort": "native-read-r1 selects actions in read-only engine catalog and correctly refuses; replaced only fixture selection, no SUT/assertion/budget changes",
+  "sharedConformanceSources": {
+    "qualification_packet.py": "b314bf2d1d11406d52c0c1b947c564c44921060e0c5d5d2c01d1ff57b3731c5e",
+    "bulk.py": "94efe5a10a96e5b0ae84c7bf1ad5cc541ef864e71299532303201608f6db7d60",
+    "actions.py": "f826bf589781a4f65bda62b4c07dc8984cbc11560890e191246df956ee146369",
+    "__init__.py": "221c06ecd0f19b6c3a615655807ce52582f960f13d1495d722c63c1d38aa6467",
+    "reads.py": "35498eb8d2e17f368d208f6f99b7b05decad1078fddc9262f87500201dd8304d"
+  }
+}
