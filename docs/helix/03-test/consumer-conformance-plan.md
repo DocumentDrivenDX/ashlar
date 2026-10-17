@@ -660,3 +660,12 @@ ordinals, mismatched provider bounds and a nonempty initial inventory. Omitted
 fresh bounds must preserve the full-run path. Source/native failure or failed
 closing must release no success receipt. Inert controls establish wiring only;
 actual Delta and ordinary outbox/ACK sessions are required for the prefix proof.
+
+Verify canonical publications using the explicit managed-carrier schema profile,
+including an older publication after a newer one. Require original order, native
+types, declared nullability and field metadata for all four roles under the same
+profile at opening and closing. Refuse cross-profile selection, changed
+nullability/metadata, unknown/null/Boolean selectors and provider disagreement.
+Preserve the omitted legacy profile and its existing receipt shape. Canonical
+receipts must bind the packaged generated-carrier digest; schema correspondence
+does not replace complete source bags or current source/ACK/native authority.

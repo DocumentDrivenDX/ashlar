@@ -1,0 +1,73 @@
+{
+  "profile": "ashlar-canonical-evolution-verification-controls/0.1",
+  "base_commit": "cf3e9028a0252b8504475763d1d757238e626a2e",
+  "scope": "Source change and inert guard/lifecycle controls only; no native canonical publication verification execution.",
+  "test_observations": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python3 -m unittest test_evolution_verification.Tests.test_closed_native_schema_profile_selection test_evolution_verification.DriverTests.test_canonical_profile_exact_fields_on_opening_and_closing test_evolution_verification.DriverTests.test_actual_complete_validator_old_publication_after_newer_zero_mutation test_evolution_verification.CommandTests.test_canonical_receipt_and_profile_mismatch_before_verification test_evolution_verification.CommandTests.test_receipt_only_after_provider_cleanup_and_exact_custody",
+      "tests": 5,
+      "elapsed_seconds": 15.833,
+      "exit_code": 0,
+      "result": "OK",
+      "recorded_exec_session_id": "9817",
+      "output_custody": "Actual tool terminal output in this task; no separate raw terminal file was retained."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python3 -m unittest test_evolution_verification.ProviderTests.test_real_provider_holds_bounds_and_readonly_before_constructor_then_full_closing test_evolution_verification.Tests.test_closed_parser_old_ordinal_explicit_bounds_no_defaults test_evolution_verification.DriverTests.test_each_acquired_role_closes_independently_after_cancel test_evolution_verification.DriverTests.test_complete_bag_and_full_schema_drift_refuse test_evolution_verification_example",
+      "tests": 6,
+      "elapsed_seconds": 10.262,
+      "exit_code": 0,
+      "result": "OK",
+      "recorded_exec_session_id": "33504",
+      "output_custody": "Actual tool terminal output in this task; no separate raw terminal file was retained."
+    }
+  ],
+  "other_observations": {
+    "module_import_boundaries": "PASS; actual session56060 terminal",
+    "git_diff_check": "PASS; actual tool command exit0"
+  },
+  "review": {
+    "reference": "Parent /root message authorizing this retention after reporting independent GO on 2026-10-17",
+    "reviewed_native_run_claim": false
+  },
+  "files": [
+    {
+      "file": "src/ashlar_host/evolution_verification_types.py",
+      "bytes": 4545,
+      "sha256": "cddd0eb58eff0ce54911b8ffb144b9575a3e3c2149680b42a3a88a915ef00c7e"
+    },
+    {
+      "file": "src/ashlar_host/evolution_verification_cli.py",
+      "bytes": 10493,
+      "sha256": "d5e11a7cc9172d49a6aa7549e429ffeb13f9d7deade7b18ef3ff8b106f98841e"
+    },
+    {
+      "file": "src/ashlar_host/evolution_verification.py",
+      "bytes": 3197,
+      "sha256": "999ef7403684502c712e3f4ca13ee0f17126380ac597a2780165c041b90ee814"
+    },
+    {
+      "file": "src/ashlar_host/evolution_operator.py",
+      "bytes": 29143,
+      "sha256": "918dbcd02951358d9dcf68748599f255a06754acc835fc840d17e2de362ff251"
+    },
+    {
+      "file": "src/ashlar_host/driver.py",
+      "bytes": 177693,
+      "sha256": "834a0220ba8bed33b56380187306afd02fc5c122e0c68448af82b88323eecbfa"
+    },
+    {
+      "file": "tests/test_evolution_verification.py",
+      "bytes": 61050,
+      "sha256": "90bcbfa9e3591ccc4d67acd77f14251e03eed7d69b36d44ffa7cc01a4a549949"
+    }
+  ],
+  "qualification": {
+    "legacy_default_output_unchanged": true,
+    "canonical_profile": "canonical-managed-carriers/0.1",
+    "canonical_generated_sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45",
+    "actual_native_publication_verification": false,
+    "source_ack_advance": false,
+    "unit_controls_are_native_authority": false
+  }
+}

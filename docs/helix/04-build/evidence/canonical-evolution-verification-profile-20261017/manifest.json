@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-compact-evidence/0.1",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2592,
+      "sha256": "54b590fda2d44811f685050d840af68fe5d620272d1ab9df51c5c06908f71ca4"
+    },
+    {
+      "file": "results.json",
+      "bytes": 3676,
+      "sha256": "c35a41ff20b53ce5d3e039883844f2023c3bcadfda383a75a58bd14d1a3082ef"
+    },
+    {
+      "file": "bootstrap-readiness.json",
+      "bytes": 2846,
+      "sha256": "c09a076965fb2bc9615bd076748578aa393b22a14e2484c1915cd02055e0d770"
+    }
+  ]
+}

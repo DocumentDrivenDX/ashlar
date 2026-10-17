@@ -635,7 +635,7 @@ publication after later appends. It MUST bind the original run digest, installat
 complete ledger, producer and two source/ACK registrations, selected ordinal and
 existing descriptor. Selection MUST NOT truncate complete-run admission or grant
 source authority. Boolean/float ordinals, aliases, duplicate or unknown configuration
-members and implicit environment/default selections MUST refuse.
+members and ambient environment selections MUST refuse.
 
 Verification MUST NOT initialize, repair, reconstruct, prepare, publish, submit
 native effects, transition a ledger, append source transactions or submit an ACK.
@@ -664,6 +664,18 @@ source-prefix union. Exact descriptor data-vector membership remains distinct fr
 the complete six-target installation identity. Current UUID/location, complete native schema/rows/descriptor observations,
 retention and source/ACK correspondence MUST be independently checked; old reads
 MUST NOT refresh to current heads.
+
+Verification MAY select `native_schema_profile` independently of resource bounds.
+Omission preserves `legacy-sql-bootstrap/0.1`: primitive fields with SQL-default
+nullable columns and empty field metadata. `canonical-managed-carriers/0.1` MUST
+instead compare all four roles with the exact packaged UMF-generated carrier
+columns, order, native types, declared nullability and empty field metadata.
+One selected profile MUST apply to every role at opening and closing; native
+schemas MUST NOT select their own profile. Null, Boolean, unknown profile names
+and caller-authored schema declarations MUST refuse. Invocation and provider
+MUST agree before verification. Canonical results and receipts MUST retain the
+profile and generated-carrier SHA256. This correspondence selection grants no
+source, publication or native authority and MUST NOT weaken any other gate.
 
 Every acquired resource interval MUST independently attempt its required producer,
 configuration/runtime, source/ACK, original run/whole ledger and native/vector/bag

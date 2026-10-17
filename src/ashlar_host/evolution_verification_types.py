@@ -5,6 +5,15 @@ import re
 from .config import EvolutionAdmissionConfig
 
 
+LEGACY_NATIVE_SCHEMA_PROFILE = 'legacy-sql-bootstrap/0.1'
+CANONICAL_NATIVE_SCHEMA_PROFILE = 'canonical-managed-carriers/0.1'
+
+def require_native_schema_profile(value):
+    if type(value) is not str or value not in (LEGACY_NATIVE_SCHEMA_PROFILE, CANONICAL_NATIVE_SCHEMA_PROFILE):
+        raise PermissionError('Explicit closed native schema profile required')
+    return value
+
+
 @dataclass(frozen=True)
 class VerificationBounds:
     input_bytes: int
@@ -45,8 +54,10 @@ class VerifyEvolutionInvocation:
     ordinal: int
     bounds: VerificationBounds
     supervision: VerificationSupervision
+    native_schema_profile: str = LEGACY_NATIVE_SCHEMA_PROFILE
 
     def __post_init__(self):
+        require_native_schema_profile(self.native_schema_profile)
         if (type(self.producer) is not EvolutionAdmissionConfig
                 or type(self.bounds) is not VerificationBounds
                 or type(self.supervision) is not VerificationSupervision
@@ -74,8 +85,10 @@ class VerifyCommerceEvolutionConfig:
     bounds: VerificationBounds
     supervision: VerificationSupervision
     original: object
+    native_schema_profile: str = LEGACY_NATIVE_SCHEMA_PROFILE
 
     def __post_init__(self):
+        require_native_schema_profile(self.native_schema_profile)
         if (type(self.ledger_path) is not type(Path()) or not self.ledger_path.is_absolute()
                 or self.ledger_path.parent.resolve() != self.ledger_path.parent
                 or type(self.producer) is not EvolutionAdmissionConfig

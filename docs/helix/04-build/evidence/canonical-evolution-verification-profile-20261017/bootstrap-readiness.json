@@ -1,0 +1,66 @@
+{
+  "profile": "ashlar-fresh-canonical-native-bootstrap-observation/0.1",
+  "scope": "Separate empty six-table native bootstrap only, executed by parent; not publication, source admission, ACK or canonical publication verification.",
+  "base_commit": "cf3e9028a0252b8504475763d1d757238e626a2e",
+  "terminal": {
+    "cleanup": {
+      "groups_absent": true,
+      "process_groups": [
+        37137
+      ],
+      "session_leader_reaped": true
+    },
+    "elapsed_seconds": 14.456251041963696,
+    "status": 0
+  },
+  "worker_terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "installation_id": "combined-source-current-20261017-r2",
+  "targets": 6,
+  "all_closing_completed": true,
+  "physical_schema_profile": "canonical-managed-graph-fields-and-nonnull-metadata/0.1",
+  "source_or_ack_authority": false,
+  "original_private_files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/outer-attempt.json",
+      "bytes": 147,
+      "sha256": "899d64fefbbc6ef0537b7f2ad8e0fbe7031407e6d5eebe8b3f9984e4b4f831d1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/bootstrap-terminal.json",
+      "bytes": 105,
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/native-installation.json",
+      "bytes": 18839,
+      "sha256": "8f75c2e56c02c471c7e90c8cce4201d061108662576c4fb442d8e97945e79e40"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/preparation.json",
+      "bytes": 3182,
+      "sha256": "b75a2cee6c8a55954c2ccef0a532924cccd0d590ec46b5fdaddf8af46206e192"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/bootstrap-native.py",
+      "bytes": 8023,
+      "sha256": "06a66369546d7c06dce56de73a456e0ea44f357d8e346643e51204c2f1ced355"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/canonical-fields-preflight.json",
+      "bytes": 5425,
+      "sha256": "e29874075805849fe534c565f63dc5dad7a528091832edf9aeb4cb2a9c80913c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-bootstrap-control-r2/create-statements.json",
+      "bytes": 3036,
+      "sha256": "00ab33c1662e2aef267cb55a1e68e3f3b36a2bea320215caf734c62ae1aae97e"
+    }
+  ],
+  "qualification": "Native source/data files and original six reservations remain in the stable installation; no missing historical installation was reconstructed."
+}

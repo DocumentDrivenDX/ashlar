@@ -448,6 +448,15 @@ class Tests(unittest.TestCase):
             'expected_sha256':'a'*64,'ordinal':0,'bounds':vars(self.bounds),
             'supervision':{'deadline_seconds':300,'capture_bytes':65536,'owner':'operator-owned-process-supervisor/0.1'}}
 
+    def test_closed_native_schema_profile_selection(self):
+        value=self.configuration()
+        self.assertEqual(parse_verification_invocation(json.dumps(value).encode()).native_schema_profile,'legacy-sql-bootstrap/0.1')
+        value['native_schema_profile']='canonical-managed-carriers/0.1'
+        self.assertEqual(parse_verification_invocation(json.dumps(value).encode()).native_schema_profile,value['native_schema_profile'])
+        for bad in (None,True,{},'unknown','canonical-managed-carriers/0.2'):
+            value['native_schema_profile']=bad
+            with self.assertRaises((ValueError,PermissionError)):parse_verification_invocation(json.dumps(value).encode())
+
     def test_closed_parser_old_ordinal_explicit_bounds_no_defaults(self):
         value=self.configuration(); self.assertEqual(parse_verification_invocation(json.dumps(value).encode()).ordinal,0)
         for mutation in (lambda v:v.update(ordinal=True),lambda v:v.update(ordinal=8),lambda v:v.update(ordinal=0.0),
@@ -553,7 +562,7 @@ class DriverTests(unittest.TestCase):
         db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',(digest,encoded(request),artifact))
         self.slots[ordinal]=(ordinal,'completed',plan.raw,plan.sha256,encoded(row).encode())
 
-    def verify(self,ordinal):
+    def verify(self,ordinal,native_schema_profile='legacy-sql-bootstrap/0.1'):
         from ashlar_host.evolution_run import EvolutionRunLedgerView
         with LocalDeltaTransport.bounded_observations(self.driver.transport,self.bounds):
             from ashlar_host.delta_custody import LocalDeltaEffects
@@ -563,7 +572,32 @@ class DriverTests(unittest.TestCase):
                     patch.object(self.driver,'publish_evolution_attempt',side_effect=AssertionError('no publication')), \
                     patch.object(self.driver,'observe_completed_evolution_attempt',side_effect=AssertionError('no publisher replay')):
                 return self.driver.verify_evolution_publication(self.original,EvolutionRunLedgerView(tuple(self.slots)),ordinal,
-                    context=self.driver.context,policy=self.policy,bounds=self.bounds)
+                    context=self.driver.context,policy=self.policy,bounds=self.bounds,native_schema_profile=native_schema_profile)
+
+    def test_canonical_profile_exact_fields_on_opening_and_closing(self):
+        from ashlar_host.managed_carriers import load_managed_carriers
+        self.complete(0);lower=self.driver.transport.bounded_snapshot;carriers=load_managed_carriers();calls=[]
+        def canonical(target,version,**kwargs):
+            bag,schema=lower(target,version,**kwargs);role=target.table.split('.')[-1]
+            fields=carriers.ordered_fields(role)
+            for actual,(name,family,nullable) in zip(schema['fields'],fields):
+                self.assertEqual(actual['name'],name);actual['nullable']=nullable
+            calls.append(role);return bag,schema
+        self.driver.transport.bounded_snapshot=canonical
+        result=self.verify(0,'canonical-managed-carriers/0.1')
+        self.assertEqual(result['generated_carriers_sha256'],carriers.generated_sha256)
+        self.assertEqual(result['native_schema_profile'],'canonical-managed-carriers/0.1')
+        self.assertEqual(len(calls),8)
+        with self.assertRaises(PermissionError):self.verify(0)
+        calls.clear()
+        def drift(target,version,**kwargs):
+            bag,schema=canonical(target,version,**kwargs)
+            if len(calls)==5:schema['fields'][0]['nullable']=not schema['fields'][0]['nullable']
+            return bag,schema
+        self.driver.transport.bounded_snapshot=drift
+        with self.assertRaises(PermissionError):self.verify(0,'canonical-managed-carriers/0.1')
+        self.assertEqual(len(calls),8)
+        self.assertFalse(self.driver.pin_held)
 
     def test_actual_complete_validator_old_publication_after_newer_zero_mutation(self):
         self.complete(0);self.complete(1)
@@ -642,7 +676,7 @@ class CommandTests(unittest.TestCase):
         def config(invocation):
             outer.opening(invocation)
             return VerifyCommerceEvolutionConfig(object(),invocation.ledger_path,object(),invocation.producer,object(),
-                invocation.expected_sha256,invocation.ordinal,invocation.bounds,invocation.supervision,object())
+                invocation.expected_sha256,invocation.ordinal,invocation.bounds,invocation.supervision,object(),invocation.native_schema_profile)
         self.ports=SimpleNamespace(config=config,events=self.events,closing=lambda:self.closing())
         self.module=patch.dict(sys.modules,{'verification_test_ports':self.ports});self.module.start();self.addCleanup(self.module.stop)
         self.provider.write_text('from contextlib import contextmanager\nfrom verification_test_ports import config,events,closing\n@contextmanager\ndef open_verification(invocation):\n    try:\n        yield config(invocation)\n    finally:\n        events.append("provider-close")\n        closing()\n')
@@ -657,6 +691,20 @@ class CommandTests(unittest.TestCase):
         import hashlib
         from ashlar_host.evolution_verification_cli import run_verification_command
         return run_verification_command(str(self.configuration),str(self.provider),hashlib.sha256(self.provider.read_bytes()).hexdigest())
+
+    def test_canonical_receipt_and_profile_mismatch_before_verification(self):
+        from ashlar_host.managed_carriers import GENERATED_SHA256
+        value=self.fixture.configuration();value['native_schema_profile']='canonical-managed-carriers/0.1'
+        self.configuration.write_text(json.dumps(value));self.answer.update(native_schema_profile=value['native_schema_profile'],generated_carriers_sha256=GENERATED_SHA256)
+        self.assertEqual(self.call()['generated_carriers_sha256'],GENERATED_SHA256)
+        self.fixture.root.joinpath('receipt.json').unlink()
+        original=self.ports.config
+        from dataclasses import replace
+        self.ports.config=lambda invocation:replace(original(invocation),native_schema_profile='legacy-sql-bootstrap/0.1')
+        # Provider code imports config anew when loaded.
+        before=self.invocations
+        with self.assertRaises(ValueError):self.call()
+        self.assertEqual(self.invocations,before)
 
     def test_receipt_only_after_provider_cleanup_and_exact_custody(self):
         from ashlar_host.evolution_verification_cli import HostError
@@ -804,7 +852,10 @@ class ProviderTests(unittest.TestCase):
             item.start();self.addCleanup(item.stop)
 
     def test_real_provider_holds_bounds_and_readonly_before_constructor_then_full_closing(self):
+        from dataclasses import replace
+        self.invocation=replace(self.invocation,native_schema_profile='canonical-managed-carriers/0.1')
         with self.operator.open_verification(self.invocation)as config:
+            self.assertEqual(config.native_schema_profile,self.invocation.native_schema_profile)
             self.acquired['driver']=config.driver
             self.assertIs(config.driver.transport.observation_bounds,self.invocation.bounds)
             self.assertEqual(config.driver.transport.db.execute('PRAGMA query_only').fetchone(),(1,))

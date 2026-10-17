@@ -18,6 +18,8 @@ __pycache__/
 /.tools/
 /build/
 /dist/
+# Local installations, journals and private operator inputs
+/out/
 /src/*.egg-info/
 /.innsigle/provenance/
 /.innsigle/debug/

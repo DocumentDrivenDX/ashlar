@@ -9,7 +9,7 @@ import stat
 from types import ModuleType
 from .config import EvolutionAdmissionConfig, HostError
 from .evolution_cli import InvocationFile, absolute, validate_invocation_base
-from .evolution_verification_types import VerificationBounds, VerificationSupervision, VerifyEvolutionInvocation, VerifyCommerceEvolutionConfig
+from .evolution_verification_types import VerificationBounds, VerificationSupervision, VerifyEvolutionInvocation, VerifyCommerceEvolutionConfig, LEGACY_NATIVE_SCHEMA_PROFILE, CANONICAL_NATIVE_SCHEMA_PROFILE
 from .evolution_verification import verify_commerce_evolution
 from .lifecycle import finish, owned_context
 from .delta_custody import bounded_local_json_bytes
@@ -36,7 +36,7 @@ def parse_verification_invocation(raw):
         return value
     try:
         value = json.loads(raw, object_pairs_hook=pairs, parse_int=integer, parse_float=refuse, parse_constant=refuse)
-        closed(value, ('profile','ledger_path','receipt_path','producer','expected_sha256','ordinal','bounds','supervision'))
+        closed(value, {'profile','ledger_path','receipt_path','producer','expected_sha256','ordinal','bounds','supervision'} | ({'native_schema_profile'} if type(value)is dict and 'native_schema_profile'in value else set()))
         if value['profile'] != PROFILE: raise ValueError('Exact verification profile required')
         producer = closed(value['producer'], ('source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'))
         selected = EvolutionAdmissionConfig(*(absolute(producer[name]) for name in ('source','bun','git')),
@@ -44,7 +44,7 @@ def parse_verification_invocation(raw):
         bounds = VerificationBounds(**closed(value['bounds'], ('input_bytes','rows','cell_bytes','total_bytes','receipt_bytes','capture_bytes')))
         supervision = VerificationSupervision(**closed(value['supervision'], ('deadline_seconds','capture_bytes','owner')))
         result = VerifyEvolutionInvocation(absolute(value['ledger_path']), absolute(value['receipt_path']), selected,
-            value['expected_sha256'], value['ordinal'], bounds, supervision)
+            value['expected_sha256'], value['ordinal'], bounds, supervision, value.get('native_schema_profile', LEGACY_NATIVE_SCHEMA_PROFILE))
         validate_invocation_base(result.ledger_path, result.receipt_path, selected)
         if len(raw) > bounds.input_bytes: raise ValueError('Selected input bound exceeded')
         return result
@@ -59,7 +59,7 @@ def run_verification_invocation(invocation, provider):
     answer = None
     with owned_context(provider.open_verification(invocation)) as config:
         if type(config) is not VerifyCommerceEvolutionConfig or any(getattr(config, name) != getattr(invocation, name)
-                for name in ('ledger_path','producer','expected_sha256','ordinal','bounds','supervision')):
+                for name in ('ledger_path','producer','expected_sha256','ordinal','bounds','supervision','native_schema_profile')):
             raise HostError('evolution-verification-provider')
         config.__post_init__()
         answer = verify_commerce_evolution(config)
@@ -109,7 +109,7 @@ def run_verification_command(configuration, provider_path, provider_sha256):
             def open_verification(self, selected):
                 with owned_context(module.open_verification(selected)) as config:
                     if type(config) is not VerifyCommerceEvolutionConfig or any(getattr(config, name) != getattr(invocation, name)
-                            for name in ('ledger_path','producer','expected_sha256','ordinal','bounds','supervision')):
+                            for name in ('ledger_path','producer','expected_sha256','ordinal','bounds','supervision','native_schema_profile')):
                         raise HostError('evolution-verification-provider')
                     config.__post_init__()
                     renew_inputs()
@@ -123,6 +123,12 @@ def run_verification_command(configuration, provider_path, provider_sha256):
     try:
         finish(primary, callbacks)
         if type(answer) is not dict or answer.get('profile') != 'ashlar-evolution-publication-verification/0.1' or answer.get('original_sha256') != invocation.expected_sha256 or answer.get('ordinal') != invocation.ordinal:
+            raise HostError('evolution-verification-result')
+        if invocation.native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
+            from .managed_carriers import GENERATED_SHA256
+            if answer.get('native_schema_profile') != invocation.native_schema_profile or answer.get('generated_carriers_sha256') != GENERATED_SHA256:
+                raise HostError('evolution-verification-result')
+        elif 'native_schema_profile' in answer or 'generated_carriers_sha256' in answer:
             raise HostError('evolution-verification-result')
         bounded_local_json_bytes(answer, invocation.bounds.receipt_bytes - 1)
         raw = (json.dumps(answer, ensure_ascii=False, sort_keys=True, separators=(',',':'), allow_nan=False)+'\n').encode()

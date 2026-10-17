@@ -53,11 +53,21 @@ The proposed `VerifyEvolutionInvocation` is a distinct exact typed carrier,
 separate from fresh, resume and continuation. It binds canonical absolute original
 ledger and receipt paths, expected original run SHA256, exact producer admission,
 and one integer ordinal. Booleans, floats, unknown members, duplicate JSON
-members, path aliases and implicit environment/default selections refuse. The
+members, path aliases and ambient environment selections refuse. The
 receipt is distinct from every input and original installation file. Configuration
 and provider must agree on ordinal, run digest and installation before effects.
 Configuration/provider files retain the existing bounded custody and trusted-code
 qualification; a provider digest proves correspondence, not source authority.
+
+The independent `native_schema_profile` selection is a closed developer-owned
+comparison profile, separate from `VerificationBounds`. Omission preserves the
+legacy SQL-default-nullable profile and its result shape. Canonical managed mode
+requires exact `load_managed_carriers()` ordered columns and fields, including
+declared nullability and empty field metadata. Apply one profile to all four
+immutable bags at opening and closing; never auto-detect or accept a per-role
+choice between schemas. Canonical receipts identify the selected profile and
+packaged generated-carrier digest. Provider agreement is checked before work;
+the selection neither repairs storage nor grants authority.
 
 `evolution_verification.py` owns verification composition and provisional typed
 results; `evolution_verification_cli.py` owns bounded parsing, trusted provider

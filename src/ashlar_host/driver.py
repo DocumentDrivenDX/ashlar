@@ -741,7 +741,8 @@ class NativeDriver:
         self.admit_evolution_plan(plan, context=context, fresh=True)
         return plan
 
-    def verify_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds):
+    def verify_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds,
+            native_schema_profile='legacy-sql-bootstrap/0.1'):
         """Verify one completed immutable publication without publisher or ACK submission.
 
         Complete ledger validation uses existing protected SELECT reconciliation.
@@ -750,8 +751,13 @@ class NativeDriver:
         from .evolution_composition import NativeEvolutionRunPolicy, OriginalRunCorrespondence
         from .evolution_plan import EvolutionAttemptPlan
         from .evolution_run import EvolutionRunDefinition, EvolutionRunLedgerView
-        from .evolution_verification_types import VerificationBounds
+        from .evolution_verification_types import VerificationBounds, require_native_schema_profile, CANONICAL_NATIVE_SCHEMA_PROFILE
         from .lifecycle import finish, owned_context
+        require_native_schema_profile(native_schema_profile)
+        canonical = None
+        if native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
+            from .managed_carriers import load_managed_carriers
+            canonical = load_managed_carriers()
         self.require(context)
         if (type(original) is not EvolutionRunDefinition or type(inventory) is not EvolutionRunLedgerView
                 or type(policy) is not NativeEvolutionRunPolicy or policy.driver is not self
@@ -788,15 +794,16 @@ class NativeDriver:
                 expected = [(name, family.lower()) for name, family in self.columns[role]]
                 if [(name, family) for name, family in snapshot['schema']] != expected:
                     raise PermissionError('Admitted original complete column profile differs')
-                # The selected verifier profile is the original local SQL
-                # bootstrap: primitive columns, SQL default nullability and
-                # no field metadata. Content revisions do not ALTER columns.
                 families = {'bigint': 'long', 'string': 'string', 'timestamp': 'timestamp'}
                 if any(family not in families for _, family in expected):
                     raise PermissionError('Unsupported original local bootstrap schema profile')
+                fields = (tuple((name, family.upper(), True) for name, family in expected)
+                    if canonical is None else canonical.ordered_fields(role))
+                if tuple((name, family.lower()) for name, family, _ in fields) != tuple(expected):
+                    raise PermissionError('Exact canonical carrier column profile required')
                 expected_schema = {'type': 'struct', 'fields': [{'name': name,
-                    'type': families[family], 'nullable': True, 'metadata': {}}
-                    for name, family in expected]}
+                    'type': families[family.lower()], 'nullable': nullable, 'metadata': {}}
+                    for name, family, nullable in fields]}
                 if not original_native_equal(schema, expected_schema):
                     raise PermissionError('Complete original local bootstrap schema differs')
                 size = len(encoded({'schema': schema, 'rows': snapshot['rows']}).encode())
@@ -822,6 +829,8 @@ class NativeDriver:
                     *(lambda role=role: closing_role(role) for role in acquired_roles)])
             result = {'descriptor': row, 'bags': observations, 'schemas': schemas,
                 'completed_prefix': sum(slot[1] == 'completed' for slot in inventory.slots)}
+            if canonical is not None:
+                result.update(native_schema_profile=native_schema_profile, generated_carriers_sha256=canonical.generated_sha256)
         except BaseException as error:
             primary = error
         finally:

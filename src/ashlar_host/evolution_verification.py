@@ -16,7 +16,8 @@ def verify_commerce_evolution(config):
             or config.policy.authority.context is not config.context
             or config.policy.authority.invocation.ordinal != config.ordinal
             or config.policy.authority.invocation.bounds != config.bounds
-            or config.policy.authority.invocation.supervision != config.supervision):
+            or config.policy.authority.invocation.supervision != config.supervision
+            or config.policy.authority.invocation.native_schema_profile != config.native_schema_profile):
         raise PermissionError('Exact live original verification owners required')
     config.__post_init__()
     driver = config.driver; policy = config.policy; original = config.original
@@ -33,12 +34,14 @@ def verify_commerce_evolution(config):
         try:
             opening = policy.authority.inspect_ledger(original, config.context)
             observed = driver.verify_evolution_publication(original, opening, config.ordinal,
-                context=config.context, policy=policy, bounds=config.bounds)
+                context=config.context, policy=policy, bounds=config.bounds, native_schema_profile=config.native_schema_profile)
             result = {'profile': 'ashlar-evolution-publication-verification/0.1',
                 'original_sha256': original.sha256, 'ordinal': config.ordinal,
                 'descriptor': observed['descriptor'], 'completed_prefix': observed['completed_prefix'],
                 'run_size': 8, 'qualification': 'selected-completed-publication-only',
                 'bags': observed['bags'], 'schemas': observed['schemas']}
+            if config.native_schema_profile != 'legacy-sql-bootstrap/0.1':
+                result.update(native_schema_profile=observed['native_schema_profile'], generated_carriers_sha256=observed['generated_carriers_sha256'])
         except BaseException as error:
             primary = error
         finally:

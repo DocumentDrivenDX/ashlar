@@ -191,7 +191,7 @@ class ExistingEvolutionOperator:
                         elif type(invocation) is VerifyEvolutionInvocation:
                             config = VerifyCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                                 invocation.producer, context, invocation.expected_sha256, invocation.ordinal,
-                                invocation.bounds, invocation.supervision, original)
+                                invocation.bounds, invocation.supervision, original, invocation.native_schema_profile)
                         elif type(invocation) is ContinueEvolutionInvocation:
                             config = ContinueCommerceEvolutionConfig(driver, invocation.ledger_path, run_policy,
                                 invocation.producer, context, invocation.expected_sha256, invocation.through_ordinal, stage_observer)
