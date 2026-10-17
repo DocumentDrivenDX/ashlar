@@ -3,9 +3,9 @@ from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 import hashlib,json,tempfile,unittest,uuid
-from unittest.mock import patch
+from unittest.mock import patch,MagicMock
 import test_configured_source_admission as fixtures
-from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,_fields
+from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,read_configured_local,_fields
 
 class Row(dict):
     def asDict(self,recursive=False):return dict(self)
@@ -54,6 +54,17 @@ class Tests(unittest.TestCase):
             self.assertEqual(json.loads((config.output/'runtime-report.json').read_bytes()),result)
             self.assertFalse((config.output/'report.json').exists())
             self.assertEqual(spark.detail_reads,18) #6create identities+6opening+6mandatoryclosing
+            # Route a retained read through the existing registry, never the publisher.
+            read_config=replace(config,output=root/'read-output',admission=replace(config.admission,output=root/'read-output/admission'),installation_sha256=result['installation_sha256'])
+            from test_manifest import ROW
+            from ashlar.publication import descriptor_from_manifest_row
+            progress=SimpleNamespace(retained_entries=lambda:(SimpleNamespace(descriptor=descriptor_from_manifest_row(ROW)),),position=lambda:'1828',completed_batches=lambda:3)
+            current=MagicMock(return_value=None);current.closing.return_value=None;spark.closed=False
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.ConfiguredLocalAdmission',return_value=current),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport',return_value=transport),patch('ashlar_host.file_progress.JournaledJsonlProgress.open_existing',return_value=progress),patch('ashlar_host.configured_local_read.read_configured_local_singleton',return_value={'id':'1'})as read,patch('ashlar_host.configured_local_runtime.ConfiguredLocalPublicationDriver')as publisher:
+                answer=read_configured_local(read_config,ordinal=1,type_id=1017,entity_id=1)
+            publisher.assert_not_called();self.assertEqual(read.call_args.kwargs['ordinal'],1)
+            self.assertEqual(answer['row'],{'id':'1'});self.assertEqual(answer['local_checkpoint'],'1828');self.assertEqual(answer['completed_batches'],3)
+            self.assertTrue(spark.closed);current.closing.assert_called_once()
     def test_native_schema_drift_refuses_success_and_still_stops_session(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700);config=self.config(root);spark=Spark();spark.fields={**spark.fields,'object_current':(('foreign','STRING',True),)}

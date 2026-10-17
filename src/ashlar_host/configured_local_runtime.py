@@ -145,9 +145,11 @@ class ConfiguredLocalAdmission:
         finish(None,[self.lease.renew,lambda:source.renew(context),lambda:self.registry_file.renew(65536)])
 
 
-def _run(config,ordinal):
+def _run(config,ordinal,*,selector=None):
     _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__();jars=_runtime(config)
     initialize=ordinal is None
+    _require(selector is None or type(selector)is tuple and len(selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in selector))
+    _require(not initialize or selector is None)
     _require((initialize and config.installation_sha256 is None)or(not initialize and config.installation_sha256 is not None and type(ordinal)is int and 1<=ordinal<=4))
     parent=config.output.parent.lstat();_require(stat.S_ISDIR(parent.st_mode)and parent.st_uid==os.getuid()and not parent.st_mode&0o022)
     original_registry=None
@@ -160,6 +162,7 @@ def _run(config,ordinal):
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
+        _require(selector is None or selector[0]in source.configuration.policy.types)
         scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
         if not initialize:
             registry=json.loads(original_registry.raw);_require(set(registry)=={'profile','scope','targets','columns'}and registry['profile']=='ashlar-configured-local-installation/0.1'and registry['scope']==scope and registry['columns']=={r:[list(c)for c in cols]for r,cols in columns.items()})
@@ -184,6 +187,13 @@ def _run(config,ordinal):
         admission=ConfiguredLocalAdmission(config,lease,spark,source,targets,columns,original_registry);admission(source,None,None,context)
         transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,capacity=config.operation_capacity)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,capacity=config.operation_capacity));policy.initializing=False
         if initialize:result={'profile':'ashlar-configured-local-initialized/0.1','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
+        elif selector is not None:
+            from .file_progress import JournaledJsonlProgress
+            from .configured_local_read import read_configured_local_singleton
+            progress=JournaledJsonlProgress.open_existing(transport,source.configuration.source,source.metadata(context)['source_sha256'],stream=config.stream,feed=source.configuration.feed,epoch=source.configuration.epoch)
+            entries=progress.retained_entries();_require(1<=ordinal<=len(entries));final_manifest=dict(entries[ordinal-1].descriptor.raw)
+            row=read_configured_local_singleton(transport,source,progress,ordinal=ordinal,type_id=selector[0],entity_id=selector[1],tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
+            result={'profile':'ashlar-configured-local-read-result/0.1','installation_id':config.installation_id,'operation':'read','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'selector':{'type_id':selector[0],'entity_id':selector[1]},'row':row,'protected_ack':False}
         else:
             driver=ConfiguredLocalPublicationDriver(transport,policy,source,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
             driver.select_original(ordinal);descriptor=driver.publish_selected();final_manifest=dict(descriptor.raw);admission(source,driver.request,final_manifest,context)
@@ -209,3 +219,6 @@ def _run(config,ordinal):
 
 def initialize_configured_local(config):return _run(config,None)
 def publish_configured_local(config,*,ordinal):return _run(config,ordinal)
+
+def read_configured_local(config,*,ordinal,type_id,entity_id):
+    return _run(config,ordinal,selector=(type_id,entity_id))

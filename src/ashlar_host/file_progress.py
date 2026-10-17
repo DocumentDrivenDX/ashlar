@@ -41,6 +41,14 @@ class JournaledFileProgress:
     """
     def __init__(self,journal,source,source_sha256,policy,resolver,*,stream,feed,epoch,
                  config):
+        self._attach(journal,source,source_sha256,policy,resolver,stream=stream,feed=feed,epoch=epoch,config=config)
+        with self.db:
+            self.db.execute(f'CREATE TABLE IF NOT EXISTS {self.scope_table} (stream TEXT,feed TEXT,epoch TEXT,source_sha256 TEXT NOT NULL,config_json TEXT NOT NULL,PRIMARY KEY(stream,feed,epoch))')
+            self.db.execute(f'INSERT OR IGNORE INTO {self.scope_table} VALUES (?,?,?,?,?)',(stream,feed,epoch,source_sha256,encoded(self.config)))
+        self._scope()
+        with self.db:self.db.execute(f'CREATE TABLE IF NOT EXISTS {self.progress_table} (stream TEXT,feed TEXT,epoch TEXT,position INTEGER,original_json TEXT NOT NULL,digest TEXT NOT NULL,PRIMARY KEY(stream,feed,epoch,position))')
+
+    def _attach(self,journal,source,source_sha256,policy,resolver,*,stream,feed,epoch,config):
         supported={('csv_consumer_scope','csv_consumer_progress','ashlar-single-line-csv/0.1'),
                    ('jsonl_consumer_scope','jsonl_consumer_progress','ashlar-immutable-jsonl/0.1')}
         if (self.scope_table,self.progress_table,self.checkpoint_profile) not in supported:
@@ -52,11 +60,7 @@ class JournaledFileProgress:
         self.stream=stream;self.feed=feed;self.epoch=epoch;self.policy=policy;self.resolver=resolver
         self.config=dict(config)
         self._originals()
-        with self.db:
-            self.db.execute(f'CREATE TABLE IF NOT EXISTS {self.scope_table} (stream TEXT,feed TEXT,epoch TEXT,source_sha256 TEXT NOT NULL,config_json TEXT NOT NULL,PRIMARY KEY(stream,feed,epoch))')
-            self.db.execute(f'INSERT OR IGNORE INTO {self.scope_table} VALUES (?,?,?,?,?)',(stream,feed,epoch,source_sha256,encoded(self.config)))
-        self._scope()
-        with self.db:self.db.execute(f'CREATE TABLE IF NOT EXISTS {self.progress_table} (stream TEXT,feed TEXT,epoch TEXT,position INTEGER,original_json TEXT NOT NULL,digest TEXT NOT NULL,PRIMARY KEY(stream,feed,epoch,position))')
+        self.read_only=False
 
     def _scope(self):
         row=self.db.execute(f'SELECT source_sha256,config_json FROM {self.scope_table} WHERE stream=? AND feed=? AND epoch=?',(self.stream,self.feed,self.epoch)).fetchone()
@@ -132,6 +136,7 @@ class JournaledFileProgress:
         return tuple(result)
 
     def acknowledge(self,request,descriptor,context):
+        if self.read_only:raise PublicationError('Existing-only local progress cannot acknowledge')
         request=decode_retained_json(encoded(dict(request)).encode())
         if not isinstance(descriptor,Descriptor):raise PublicationError('Original committed descriptor required')
         from ashlar.attempt_store import verify_request_digest
@@ -195,5 +200,24 @@ class JournaledJsonlProgress(JournaledFileProgress):
     checkpoint=staticmethod(jsonl_checkpoint)
     def __init__(self,journal,source,source_sha256,policy,resolver,*,stream,feed,epoch):
         super().__init__(journal,source,source_sha256,policy,resolver,stream=stream,feed=feed,epoch=epoch,config=dict(feed=feed,epoch=epoch))
+    @classmethod
+    def open_existing(cls,journal,source,source_sha256,*,stream,feed,epoch):
+        """Observe original local proofs without creating scope or progress rows.
+
+        The returned owner refuses acknowledge. It supplies no native authority.
+        """
+        if cls is not JournaledJsonlProgress:raise PublicationError('Exact existing JSONL progress owner required')
+        value=cls.__new__(cls)
+        class Deny:
+            def admit(self,*args):raise PublicationError('Existing-only local progress cannot acknowledge')
+        def refuse(*args):raise PublicationError('Existing-only local progress cannot resolve writes')
+        value._attach(journal,source,source_sha256,Deny(),refuse,stream=stream,feed=feed,epoch=epoch,config=dict(feed=feed,epoch=epoch))
+        expected={value.scope_table:(('stream','TEXT',1),('feed','TEXT',2),('epoch','TEXT',3),('source_sha256','TEXT',0),('config_json','TEXT',0)),
+                  value.progress_table:(('stream','TEXT',1),('feed','TEXT',2),('epoch','TEXT',3),('position','INTEGER',4),('original_json','TEXT',0),('digest','TEXT',0))}
+        for table,columns in expected.items():
+            actual=tuple((row[1],row[2],row[5])for row in value.db.execute('PRAGMA table_info('+table+')'))
+            if actual!=columns:raise PublicationError('Original complete local progress schema required')
+        value.read_only=True;value._records();return value
+
     def decode(self,raw):
         return tuple(jsonl_batches(raw.splitlines(keepends=True),**self.config))

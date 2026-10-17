@@ -36,6 +36,12 @@ class Tests(unittest.TestCase):
         self.assertNotIn('DATABRICKS_HOST',config.kwargs['environment'])
         self.assertEqual(json.loads((self.root/'output/report.json').read_bytes()),answer)
         self.assertEqual((self.root/'output/report.json').stat().st_mode&0o777,0o600)
+    def test_read_requires_explicit_selector_and_original_installation_pin(self):
+        value=dict(self.value,operation='read',ordinal=1,installation_sha256='a'*64,selector={'type_id':1017,'entity_id':1})
+        config=command.parse_configured_local(json.dumps(value).encode())
+        self.assertEqual(config.selector,(1017,1))
+        for changed in (dict(value,installation_sha256=None),dict(value,selector={'type_id':True,'entity_id':1}),{k:v for k,v in value.items()if k!='selector'}):
+            with self.subTest(changed=changed),self.assertRaises(ValueError):command.parse_configured_local(json.dumps(changed).encode())
     def test_worker_refusal_keeps_diagnostics_and_withholds_report(self):
         with patch.object(command,'capture_process',side_effect=lambda *a,**k:self.capture(None,'refused')):
             with self.assertRaises(ValueError):command.run_configured_local_command(self.file)

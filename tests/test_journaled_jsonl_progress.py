@@ -64,3 +64,16 @@ class JsonlProgressTests(unittest.TestCase):
         for changes in [{'position':'1'},{'previous':'1'},{'payload_digest':'0'*64},{'profile':'future'}]:
             with self.assertRaises(CheckpointError):validate_source_checkpoint(json.dumps(dict(value,**changes)),b)
         with self.assertRaises((CheckpointError,StagingError)):jsonl_checkpoint(replace(b,cursor_after='00'))
+    def test_existing_only_observation_never_creates_or_advances_progress(self):
+        with self.fixture()as(j,s,p,r,f):
+            one,d=self.request(0);f().acknowledge(one,d,'held')
+            statements=[];before=j.db.total_changes;j.db.set_trace_callback(statements.append)
+            current=JournaledJsonlProgress.open_existing(j,s,hashlib.sha256(RAW).hexdigest(),**CONFIG)
+            self.assertEqual(current.position(),BATCHES[0].cursor_after)
+            self.assertEqual(current.retained_entries()[0].descriptor,d)
+            with self.assertRaises(PublicationError):current.acknowledge(one,d,'held')
+            self.assertEqual(j.db.total_changes,before)
+            self.assertTrue(all(sql.split()[0].upper()in('SELECT','PRAGMA')for sql in statements))
+            j.db.set_trace_callback(None);j.db.execute('DROP TABLE jsonl_consumer_progress')
+            with self.assertRaises(PublicationError):JournaledJsonlProgress.open_existing(j,s,hashlib.sha256(RAW).hexdigest(),**CONFIG)
+            self.assertFalse(j.db.execute("SELECT 1 FROM sqlite_master WHERE name='jsonl_consumer_progress'").fetchall())

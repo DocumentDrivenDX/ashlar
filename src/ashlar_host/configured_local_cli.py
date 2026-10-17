@@ -7,7 +7,7 @@ from pathlib import Path
 from ashlar.schema import decode_retained_json
 from .config import ProducerConfig
 from .configured_source_admission import ConfiguredSourceAdmissionConfig
-from .configured_local_runtime import ConfiguredLocalRuntimeConfig,initialize_configured_local,publish_configured_local
+from .configured_local_runtime import ConfiguredLocalRuntimeConfig,initialize_configured_local,publish_configured_local,read_configured_local
 from .evolution_cli import InvocationFile
 from .evolution_producer import snapshot
 from .lifecycle import finish
@@ -32,18 +32,22 @@ class ConfiguredLocalInvocation:
     whole_seconds:int
     stream_bytes:int
     receipt_bytes:int
+    selector:object=None
     def __post_init__(self):
-        _require(self.operation in ('initialize','publish')and type(self.ordinal)is int and
+        _require(self.operation in ('initialize','publish','read')and type(self.ordinal)is int and
                  (self.ordinal==0 if self.operation=='initialize'else 1<=self.ordinal<=4))
+        _require(self.selector is None if self.operation!='read'else type(self.selector)is tuple and len(self.selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in self.selector))
         _require(type(self.python)is type(Path())and self.python.is_absolute())
         _require(type(self.runtime)is ConfiguredLocalRuntimeConfig);self.runtime.__post_init__()
+        _require(self.runtime.installation_sha256 is None if self.operation=='initialize'else self.runtime.installation_sha256 is not None)
         _require(type(self.whole_seconds)is int and 90<=self.whole_seconds<=600 and self.whole_seconds>60+self.runtime.admission.producer.timeout_seconds)
         _require(type(self.stream_bytes)is int and 65536<=self.stream_bytes<=1048576)
         _require(type(self.receipt_bytes)is int and 1024<=self.receipt_bytes<=min(self.stream_bytes,1048576))
 
 def parse_configured_local(raw):
     _require(type(raw)is bytes and len(raw)<=262144)
-    value=_closed(decode_retained_json(raw),{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
+    value=decode_retained_json(raw);_require(type(value)is dict)
+    _closed(value,({'selector'}if value.get('operation')=='read'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
     _require(value['profile']=='ashlar-configured-local/0.1')
     p=_closed(value['producer'],{'source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'})
     producer=ProducerConfig(_path(p['source']),_path(p['bun']),_path(p['git']),p['timeout_seconds'],p['maximum_output_bytes'],p['maximum_receipt_bytes'])
@@ -51,7 +55,10 @@ def parse_configured_local(raw):
     output=_path(value['output'])
     admission=ConfiguredSourceAdmissionConfig(_path(value['source_configuration']),producer,output/'admission',bounds['maximum_admission_receipt_bytes'])
     runtime=ConfiguredLocalRuntimeConfig(installation=_path(value['installation']),output=output,jars=_path(value['jars']),java_home=_path(value['java_home']),admission=admission,stream=value['stream'],materialization_clock_us=value['materialization_clock_us'],operation_capacity=value['operation_capacity'],installation_id=value['installation_id'],installation_sha256=value['installation_sha256'])
-    result=ConfiguredLocalInvocation(value['operation'],value['ordinal'],_path(value['python']),runtime,bounds['whole_seconds'],bounds['stream_bytes'],bounds['receipt_bytes']);result.__post_init__();return result
+    selector=None
+    if value['operation']=='read':
+        selected=_closed(value['selector'],{'type_id','entity_id'});selector=(selected['type_id'],selected['entity_id'])
+    result=ConfiguredLocalInvocation(value['operation'],value['ordinal'],_path(value['python']),runtime,bounds['whole_seconds'],bounds['stream_bytes'],bounds['receipt_bytes'],selector);result.__post_init__();return result
 
 def _python_identity(path):
     resolved=path.resolve(strict=True);s=path.stat()
@@ -64,6 +71,11 @@ def _result(config,value):
         _closed(value,{'profile','installation_id','operation','installation_sha256','installation','published','protected_ack'})
         _require(value['profile']=='ashlar-configured-local-initialized/0.1'and value['operation']=='initialize'and value['published']is False)
         _require(type(value['installation_sha256'])is str and len(value['installation_sha256'])==64 and all(c in '0123456789abcdef'for c in value['installation_sha256']))
+    elif config.operation=='read':
+        _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','selector','row','protected_ack'})
+        _require(value['profile']=='ashlar-configured-local-read-result/0.1'and value['operation']=='read'and type(value['ordinal'])is int and value['ordinal']==config.ordinal)
+        _require(type(value['completed_batches'])is int and config.ordinal<=value['completed_batches']<=4)
+        _require(type(value['selector'])is dict and value['selector']=={'type_id':config.selector[0],'entity_id':config.selector[1]}and all(type(v)is int for v in value['selector'].values())and(value['row']is None or type(value['row'])is dict))
     else:
         _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','replayed','native_counts','protected_ack'})
         _require(value['profile']=='ashlar-configured-local-publication-result/0.1'and type(value['ordinal'])is int and value['ordinal']==config.ordinal and type(value['completed_batches'])is int and value['completed_batches']==config.ordinal)
@@ -97,7 +109,9 @@ def _worker(path,digest):
     primary=None;result=None
     try:
         with _diagnostics():
-            result=(initialize_configured_local(config.runtime)if config.operation=='initialize'else publish_configured_local(config.runtime,ordinal=config.ordinal))
+            if config.operation=='initialize':result=initialize_configured_local(config.runtime)
+            elif config.operation=='publish':result=publish_configured_local(config.runtime,ordinal=config.ordinal)
+            else:result=read_configured_local(config.runtime,ordinal=config.ordinal,type_id=config.selector[0],entity_id=config.selector[1])
         original.renew(262144)
     except BaseException as exc:primary=exc
     finish(primary,[restore,lambda:original.renew(262144)])

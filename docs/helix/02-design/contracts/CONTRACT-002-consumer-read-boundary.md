@@ -927,3 +927,21 @@ field: installation correspondence MUST instead retain the original managed
 installation/descriptor and exact complete registered `PinVector` under
 CONTRACT-004. Neither loopback login nor matching pins establish Unity Catalog,
 UMF Subject/action/disclosure, remote writer-fencing or source ACK authority.
+
+## Configured local immutable-file singleton reads
+
+The isolated configured-source development profile MAY read a selected completed
+publication under a continuously held cooperative installation lease. It MUST
+bind the original installation registry, source configuration and complete source
+bytes to the selected ordinal's retained local progress proof and five committed
+attempt phases. Missing proof tables or phases MUST refuse; read mode MUST NOT
+create, publish, replay, repair or advance progress.
+
+The read MUST resolve the exact complete UUID/version vector, admit current native
+schema/protocol and finite retention, and preserve full original row fields.
+Independent complete source-prefix carrier checks and closing source, progress,
+phase and lease checks MUST complete before releasing either a row or absence.
+Unknown types MUST refuse; an absent ID within an admitted type MAY return null.
+Later updates or deletes MUST NOT redirect an older selection to current heads.
+Local lease custody MUST NOT be represented as PostgreSQL pins, remote writer
+fencing or protected producer ACK authority.

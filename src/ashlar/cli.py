@@ -358,7 +358,7 @@ def main():
         medical.add_argument('--configuration',required=True)
     managed=commands.add_parser('read-managed-singleton',help='Read one object from an existing configured-JSONL managed publication on dedicated compute')
     managed.add_argument('--configuration',required=True)
-    local=commands.add_parser('run-configured-local',help='Initialize or publish an original configured JSONL source on isolated local Delta')
+    local=commands.add_parser('run-configured-local',help='Initialize, publish or read an original configured JSONL source on isolated local Delta')
     local.add_argument('--configuration',required=True)
     args = parser.parse_args()
     if args.command == 'run-configured-local':

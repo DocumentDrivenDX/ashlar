@@ -53,3 +53,26 @@ owned local files. It does not qualify Unity Catalog, production remote writer
 fencing, general typed records, or PostgreSQL/Truss ACK authority. Preserve the
 original artifacts when an operation refuses; partial native work may require
 recovery through its retained original operation handles.
+
+## Read a retained publication
+
+Use a fresh invocation with `operation: "read"`, the pinned original installation,
+a fresh `output`, and the exact completed `ordinal` to read. Add the required
+selector, using admitted type IDs from the original configured bindings:
+
+```json
+"selector": { "type_id": 1017, "entity_id": 1 }
+```
+
+Run the same `ashlar run-configured-local --configuration ...` command. The
+result contains the full native row or `row: null` for an absent object within
+an admitted type. Unknown types refuse. The selected ordinal binds the complete
+original publication vector; it does not follow current table heads. An older
+publication can therefore return a value that was later updated or deleted,
+while retention and current local admission still allow that snapshot.
+
+Read mode opens existing local progress only and refuses missing proof tables.
+It does not publish, replay or advance the checkpoint. Its report includes the
+selected manifest and the unchanged latest local checkpoint, which may be later
+than the selected publication's checkpoint. The local lease supplies cooperative
+snapshot custody; it is not a PostgreSQL pin or protected producer ACK.
