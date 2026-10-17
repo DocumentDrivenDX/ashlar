@@ -1,0 +1,142 @@
+{
+  "profile": "ashlar-typed-response-loss-archive-summary/0.1",
+  "source_commit": "ddc78d116bc83db04d04a912e8993b4659c716af",
+  "cases": [
+    {
+      "case": "initialize",
+      "supervised_elapsed_seconds": 18.40757091692649,
+      "outer": {
+        "cleanup": {
+          "groups_absent": true,
+          "process_groups": [
+            82502
+          ],
+          "session_leader_reaped": true
+        },
+        "elapsed_seconds": 18.40757091692649,
+        "grace_seconds": 5,
+        "status": 0,
+        "stream_bytes": 1048576,
+        "work_seconds": 180
+      },
+      "witness_sha256": "486c410ccf7ea2ea7e5c719d632969ef93f05340d59a9117597e5dec3331f2cd"
+    },
+    {
+      "case": "baseline1",
+      "supervised_elapsed_seconds": 36.863404124975204,
+      "outer": {
+        "cleanup": {
+          "groups_absent": true,
+          "process_groups": [
+            83089
+          ],
+          "session_leader_reaped": true
+        },
+        "elapsed_seconds": 36.863404124975204,
+        "grace_seconds": 5,
+        "status": 0,
+        "stream_bytes": 1048576,
+        "work_seconds": 180
+      },
+      "witness_sha256": "bf2205f06525f7d9534711898260e629127b78672575d02f925aff3c82ee1011",
+      "bag_rows": {
+        "edge_current": 0,
+        "object_current": 2,
+        "tombstone": 0,
+        "whole_source_history": 2
+      },
+      "replayed": false,
+      "local_checkpoint": "931"
+    },
+    {
+      "case": "fault2",
+      "supervised_elapsed_seconds": 19.65110333287157,
+      "outer": {
+        "cleanup": {
+          "groups_absent": true,
+          "process_groups": [
+            84033
+          ],
+          "session_leader_reaped": true
+        },
+        "elapsed_seconds": 19.65110333287157,
+        "grace_seconds": 5,
+        "status": 0,
+        "stream_bytes": 1048576,
+        "work_seconds": 180
+      },
+      "witness_sha256": "e2b8080cd28f8c9bcf1e9367687204bf8bf2840ba028f24677620bce90525d00"
+    },
+    {
+      "case": "resume2",
+      "supervised_elapsed_seconds": 41.17112670885399,
+      "outer": {
+        "cleanup": {
+          "groups_absent": true,
+          "process_groups": [
+            84513
+          ],
+          "session_leader_reaped": true
+        },
+        "elapsed_seconds": 41.17112670885399,
+        "grace_seconds": 5,
+        "status": 0,
+        "stream_bytes": 1048576,
+        "work_seconds": 180
+      },
+      "witness_sha256": "8107d2f5442aee7f2e7f99d0697d6585cf05960e0dad1546678350dfd51c537f",
+      "bag_rows": {
+        "edge_current": 0,
+        "object_current": 2,
+        "tombstone": 0,
+        "whole_source_history": 3
+      },
+      "replayed": false,
+      "local_checkpoint": "1493"
+    },
+    {
+      "case": "replay2",
+      "supervised_elapsed_seconds": 28.196090000215918,
+      "outer": {
+        "cleanup": {
+          "groups_absent": true,
+          "process_groups": [
+            85382
+          ],
+          "session_leader_reaped": true
+        },
+        "elapsed_seconds": 28.196090000215918,
+        "grace_seconds": 5,
+        "status": 0,
+        "stream_bytes": 1048576,
+        "work_seconds": 180
+      },
+      "witness_sha256": "89caa91ad37d1b7835ca6fb83d4d136cc3bb405180b7ec9602a0e503a3ee9e26",
+      "bag_rows": {
+        "edge_current": 0,
+        "object_current": 2,
+        "tombstone": 0,
+        "whole_source_history": 3
+      },
+      "replayed": true,
+      "local_checkpoint": "1493"
+    }
+  ],
+  "fault_boundary": {
+    "journal_state": "submitted",
+    "receipt": null,
+    "phase_names": [
+      "prepared",
+      "applying"
+    ],
+    "checkpoint_byte_position": 931,
+    "one_original_native_effect_commit": true
+  },
+  "completed_checkpoint_byte_position": 1493,
+  "parent_reported_terminal": {
+    "attribution": "Parent task message reporting tool result; no separate raw tool transcript file retained by assembler",
+    "session": 73670,
+    "tool_reference": "00a4ce",
+    "exit_code": 0
+  }
+}
