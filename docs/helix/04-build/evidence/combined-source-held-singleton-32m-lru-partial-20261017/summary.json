@@ -1,0 +1,92 @@
+{
+  "profile": "ashlar-combined-held-singleton-lru-partial/0.1",
+  "product_commit": "22ad8ac8b5f81d1754c5accd95f617d1b5f24729",
+  "wheel_sha256": "facdd38001b97f47024b8ec478a40bcc3140971c024c4d65be7b5b78cd24e2db",
+  "selected_total_bytes": 33554432,
+  "parent_observations": {
+    "profile": "ashlar-parent-singleton-lru-outcome/0.1",
+    "terminal": {
+      "session": 63800,
+      "tool_reference": "da642b",
+      "exit_code": 1,
+      "work_bound_seconds": 600,
+      "outer_elapsed_seconds": null,
+      "qualification": "Parent-reported actual terminal; no outer duration invented."
+    },
+    "later_group_observation": {
+      "root_tool_reference": "7c7e85",
+      "selected_pgid": 50008,
+      "ps_selected_members": "NONE",
+      "zero_signal_existence_probe": "os.killpg(50008,0)",
+      "probe_result_errno": "ESRCH",
+      "termination_signal_or_reaped_group_kill": false,
+      "qualification": "Separate LATER parent-transcribed exact selected group absence only; no raw snapshot/timestamp/elapsed retained. Does not repair original failed cleanup or prove universal absence."
+    }
+  },
+  "supervisor_terminal": {
+    "cleanup_confirmed": false,
+    "cleanup_failed": true,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "cleanup_failure": {
+    "error_class": "PermissionError",
+    "phase": "confirm-absence",
+    "process_groups": [
+      50008
+    ],
+    "remaining_groups": [
+      50008
+    ],
+    "session_leader_pid": 50008,
+    "session_leader_reaped": true
+  },
+  "opening_diagnostic": {
+    "diagnostic_failed": false,
+    "dropped": 0,
+    "profile": "ashlar-operator-opening-exceptions/0.1",
+    "records": []
+  },
+  "trace": {
+    "active": [],
+    "completed_seconds": {
+      "attempt-query": 26.852728206431493,
+      "bounded-capture": 420.4638646717649,
+      "bounded-snapshot": 118.31939092325047,
+      "committed": 156.69782475125976,
+      "detail": 387.2117799918633,
+      "history": 48.574911791831255,
+      "ledger": 529.8187785418704,
+      "ledger-body": 513.250871917,
+      "snapshot": 118.3476960817352
+    },
+    "counts": {
+      "attempt-query": 57,
+      "bounded-capture": 2669,
+      "bounded-snapshot": 144,
+      "committed": 81,
+      "detail": 2490,
+      "history": 84,
+      "ledger": 3,
+      "ledger-body": 3,
+      "snapshot": 144
+    },
+    "diagnostic_failed": false,
+    "dropped_events": 11254,
+    "durations": "inclusive-nested-not-additive",
+    "elapsed_seconds": 600.4725609589368,
+    "profile": "ashlar-operator-native-verification-trace/0.1"
+  },
+  "events_retained": 96,
+  "absent_records": [
+    "singleton-receipt.json",
+    "runner-result.json",
+    "native-after.json",
+    "outer-attempt.json"
+  ],
+  "successful_singleton_read": false,
+  "native_file_parity": null,
+  "full_source_ack_equality": null,
+  "qualification": "Incomplete finite two-source read. Empty allowlisted exception capture is not proof of complete admission, provisional rows or successful closing. Nested trace durations not additive or isolated SQL/production latency. Later selected-group absence does not change original failed cleanup."
+}

@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-parent-singleton-lru-outcome/0.1",
+  "terminal": {
+    "session": 63800,
+    "tool_reference": "da642b",
+    "exit_code": 1,
+    "work_bound_seconds": 600,
+    "outer_elapsed_seconds": null,
+    "qualification": "Parent-reported actual terminal; no outer duration invented."
+  },
+  "later_group_observation": {
+    "root_tool_reference": "7c7e85",
+    "selected_pgid": 50008,
+    "ps_selected_members": "NONE",
+    "zero_signal_existence_probe": "os.killpg(50008,0)",
+    "probe_result_errno": "ESRCH",
+    "termination_signal_or_reaped_group_kill": false,
+    "qualification": "Separate LATER parent-transcribed exact selected group absence only; no raw snapshot/timestamp/elapsed retained. Does not repair original failed cleanup or prove universal absence."
+  }
+}
