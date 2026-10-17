@@ -35,7 +35,8 @@ Provide an installed, explicitly configured small local workflow for the origina
 historical medical pack: fresh native initialization, protected PostgreSQL outbox
 publication, settled exact replay, and read-only reopen. This implements the
 bounded medical representative in P08 and runnable installed workflow in P09.
-It establishes neither new medical Weft queries nor new graph-engine support.
+The separately scoped singleton below adds one medical Weft read; it establishes
+no broader medical query or graph-engine support.
 Canonical production storage remains managed Unity Catalog Delta under ADR-001;
 the selected private local profile does not establish production authority,
 real Truss acceptance, patient-data access or clinical suitability.
@@ -59,7 +60,7 @@ UMF intake; CONTRACT-006 owns bounded diagnostics. TD-002 supplies the fresh-onl
 local root/lease/generated-schema composition pattern, not commerce logical
 admission for another pack.
 
-CONTRACT-001's installed historical-medical subsection owns the four commands,
+CONTRACT-001's installed historical-medical subsection owns the installed commands,
 closed profiles and exact entry/configuration types. Initialization, publication,
 settled replay and read-only reopen have distinct authority and mutation surfaces;
 no initializer is available to publication, replay or read operations. The consumer
@@ -72,8 +73,14 @@ conformance plan owns their installed positive and refusal corpus.
 | `original_medical_local_configuration.py` | Closed immutable selections, bounded input custody, source registration, runtime, six targets, capacity and secret-free handoff/report encoding |
 | `original_medical_local_setup.py` | Fresh root/installation lease, generated-schema native creation, observed UUID/version-zero emptiness and public journal initialization |
 | `original_medical_local_cli.py` | Installed lazy dispatch, finite separate-process ownership, exclusive evidence release and primary-safe cleanup |
+| `medical_query_configuration.py` | Closed read/compiler/case wrapper and exact indexed compiler entry/final selection renewal; no execution authority |
 | `medical_process_supervision.py` | Typed worker native phase pipe ownership under CONTRACT-001, without importing command composition or granting data authority |
 | `medical_worker_capture.py` | Parent enforcement of bounded whole/native deadlines, independent capped diagnostic streams, and owned process-group cleanup |
+| `medical_failure_location.py` | Passive bounded failure locations through the already acquired private output; preserves the primary failure and all closing, excludes exception payloads under CONTRACT-001 |
+| `medical_commit_inspection_configuration.py` | Closed inspection wrapper and exact retained configuration/executable file pins; depends on medical configuration and file custody, not native execution |
+| `medical_process_inspection.py` | Bounded Darwin process inventory and physical executable observation; depends on the inspection selection and lifecycle owners, never publisher or ACK mutation ports |
+| `medical_mapped_vnodes.py` and packaged `resources/native/medical_mapped_vnodes.c` | Explicit optional Darwin kernel mapping observation through a pinned operator-built helper; bounded process capture and JSON validation, no compiler discovery or data mutation |
+| `medical_commit_inspection.py` | Read-only original phase/artifact/native-manifest observation and exact proposed-manifest correspondence through existing driver/source owners |
 
 Reuse `ashlar.medical_source.build_transaction`, public `ProducerConfig` and
 invocation custody patterns, `OutboxSourceRegistration`,
@@ -217,6 +224,12 @@ The local source factory constructs only ordinary reader and existing ACK-record
 SELECT ports; it cannot acquire a source writer. Prove complete six-role schema
 and history correspondence and cumulative four-bag limits, including closing
 drift and capacity refusal, before emitting the read receipt.
+Medical PostgreSQL identity gates require the actual complete read binding and
+same acquired manifest vector, gate, registry, source and closing owners; they
+perform no full Spark snapshot loop. Full native qualification remains in the
+hold's independent opening/closing validation and separate all-path medical
+closing. A source-only graph identity port cannot grant this medical read binding
+or release results. The generic commerce source snapshot path is unchanged.
 
 ## Bounds, lifecycle and diagnostics
 
@@ -252,6 +265,29 @@ unchanged publication transitions; actual native recovery still requires separat
 evidence. Disabling this additive command leaves retained source and Delta state
 intact.
 
+The commit inspector in CONTRACT-001 branches after the same complete recovery
+preflight and before any publisher construction. Its separate configuration owner
+retains the whole nested recovery selection plus original execution and process
+observer pins. The installed parent and worker renew that wrapper independently;
+forwarding only its recovery fields cannot omit inspection custody. The native
+observer reuses the stored publisher's pure applied-artifact validation and actual
+attempt/native/source read owners rather than reconstructing a descriptor grant.
+
+Process observation runs under the original installation lease before Spark
+acquisition and again at closing. Physical OS image observation distinguishes the
+selected JVM from unrelated applications; only the inspector's owned process
+lineage may be excluded. Raw process arguments are not diagnostic output. The
+report carries the bounded development writer/process-visibility assumptions and
+cannot authorize a prospective mutation. Cancellation, candidate identity races,
+changed original pins and incomplete native/source closing withhold the report.
+
+This read-only slice preserves MED-F2–F4 and MED-L1 without adding publication or
+ACK transitions. Scoped assurance consists of semantic ownership review and
+focused controls proving no publisher/effect/ACK reachability, exact proposal
+correspondence, process uncertainty refusal and all-path closing. Native inspection
+qualifies only its actual observed outcome; it does not complete publication or
+reconcile missing intent. Disabling the command leaves original custody intact.
+
 Failure diagnostics must expose a bounded, closed classification of the owning
 failure and observed worker status/native phase, without exception text, stack,
 SQL, source values, paths or credentials on public streams. Distinguish native
@@ -263,7 +299,7 @@ not a basis for reconstructing a capture discarded by an earlier invocation.
 
 Select an explicitly compatible qualified Python/Spark/Delta/JDK/JAR version and
 origin profile, local[1], 512MiB and an explicit native child limit within the
-300-second ceiling. Historical
+900-second ceiling. Historical
 runtime qualification and any newly selected profile require their own evidence;
 a newer qualified Spark profile is not excluded. Portable Ashlar imports retain
 their Python support independently of selected native SDK origins. Configurations own finite
@@ -388,7 +424,8 @@ fresh six-table initializer, public publisher, settled replay, stopped/reopened
 read-only process, complete original four bags and protected ACK byte/scope proof.
 Retain original requests/receipts/native observations, opening/closing custody,
 runtime versions and elapsed time as functional evidence, not a benchmark.
-No medical Weft or engine capability is implied. General interrupted eight-run
+Only the separately scoped singleton can establish medical Weft execution. No
+engine capability is implied. General interrupted eight-run
 recovery, the shared P07 engine corpus, P09 managed replay/query and P10 actual
 Truss acceptance/feed remain separate requirements.
 
@@ -402,3 +439,115 @@ commerce/evolution profiles and all prior evidence remain unchanged. Disabling
 additive commands affects future setup only; it must not delete retained source
 progress or native state. Unsupported public capability or ambiguous custody
 refuses explicitly and retains originals for investigation.
+
+The optional mapped-vnode visibility profile follows CONTRACT-001. Its native
+helper uses the selected SDK's `proc_regionwithpathinfo` and `proc_bsdinfo`
+structures, rather than guessing ctypes layouts. The Python owner bounds both
+streams and owns termination/reaping. The strict primary-image profile retains
+its behavior. The mapped profile's explicit cooperative assumption excludes
+self-unmapping or modified interpreters; anonymous mappings stay unknown.
+Kernel observation follows Apple's public
+[region-path implementation](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/proc_info.c)
+and [mapped-vnode comparison](https://github.com/apple-oss-distributions/xnu/blob/main/libsyscall/wrappers/libproc/proc_listpidspath.c).
+The high-level path-list wrapper's ignored per-process errors cannot establish
+absence. Unit controls cover matching executables, partial/error observations,
+process reuse, bounds and closing drift; an actual same-user probe plus matching
+Java positive control qualifies only the selected development observer.
+
+Prospective manifest reconciliation follows CONTRACT-001's separate command and
+authorization selection. `medical_prospective_manifest_configuration.py` owns the
+closed wrapper and exact pinned authorization, original inspection and proposal.
+`medical_prospective_manifest.py` owns its immutable authorization sidecar and
+new manifest operation namespace, delegating SQL, intent preparation, native
+mutation and uncertain-response receipt recovery to the existing Delta owners.
+The composition retains the real lease, source, process observer and full
+original medical validation. `StoredPublisherBackend.reconcile_commit` owns the
+same existing committing-to-committed transition through an explicit prospective
+store port; ordinary commit recovery keeps its historical-intent requirement.
+The medical composition then uses the existing guarded original ACK and full
+publication observation. A committed or acknowledged continuation validates the
+same new receipt before existing replay/ACK handling, without repeating fresh
+absence conditions or creating another intent.
+
+MED-F2 and MED-F3 apply to this added authorization guard: exact original effects
+and proposal, durable new intent before SQL, same operation on reply loss, and
+protected ACK only after native receipt plus committed attempt. MED-F4 and MED-L1
+continue to require exact replay and all-path cleanup. Scoped assurance uses
+semantic review of these guards and small execution controls for reachable
+success, lost response, wrong authorization, native/source/process drift and
+cancellation. Phase states and the original ACK protocol remain unchanged;
+this slice adds a separately admitted committing-to-committed owner, with actual
+installed native acceptance required to qualify reconciliation. No abstract
+model or read-only inspection substitutes for that acceptance.
+
+The journal inspection alternative follows CONTRACT-001's independently selected
+version-specific write-ahead premise. `medical_journal_inspection.py` owns exact
+lineage selection, read-only snapshot-prefix comparison and current file/lease
+binding; configuration parsing has its own owner. A closed dispatcher admits
+only process or journal inspection configurations and nominal owners. Composition
+keeps every existing native preflight, manifest observation, source and ACK guard.
+Journal results use their own evidence envelope and never imply process absence.
+The historical exclusive-storage/no-rollback premise remains an explicit private
+development assumption. Snapshot endpoints prove preserved recorded rows, not
+historical physical-file continuity. Unknown code, incomplete known executions,
+missing baseline rows and unexplained new operations refuse before new intent.
+MED-F2/F3 and the existing committing-to-committed/ACK ordering remain unchanged;
+small tests cover exact prefix admission, lost/changed rows and unsupported code,
+with native installed execution required for a publication/ACK support claim.
+
+## Publication-pinned original singleton
+
+`query_original_medical_singleton(read_configuration, compiler_paths)` composes
+one fixed original required-STRING singleton with the existing read-only operator.
+Its nominal selection is consumed only inside the actual medical source interval
+and complete publication hold. It uses indexed f36/0.4.2 original compile and
+recompile admission, complete original obligations, generated native schema
+correspondence and the original graph oracle. Fresh session-local external Delta
+aliases preserve compiler SQL while retaining the actual installation UUIDs and
+locations. The buffered query evidence joins the existing receipt only after all
+source, native, reader and Spark closings. Missing canonical publication authority
+refuses; inspection proposals do not substitute for publication receipts.
+
+## Finite full-row singleton and complete two-hop batch
+
+`query_original_medical_cases(read_configuration, compiler_paths, cases=...)`
+selects `singleton`, `two-hop` and explicit `filtered-limit`; the default remains
+singleton and two-hop. It preserves the existing required-key-only
+singleton entrypoint. One source/native reader and Spark session own all selected
+statements and final closing. The full-row case projects the five original
+encounters Fields and reconstructs its original typed key and values. The path
+case composes all five compatible original relationship pairs through unchanged
+RELATED_PATHS statements, retains actual edge identities and compares the complete
+20-tuple original occurrence bag. True truncation or a partial pair inventory
+refuses.
+
+The batch reuses public indexed f36/0.4.2 admission, executor and path decoder.
+Full native/source/ACK observations bracket the batch; each statement still
+executes every original guard and checks schemas/results under fresh same-vector
+original graph-read renewal. Immutable buffers and exclusive private protocol/
+evidence files keep the complete outer receipt within its unchanged 1MiB bound;
+each retained evidence file is separately bounded by that receipt limit and the
+whole batch by 4MiB. Files are retained and renewed only after all owner closings.
+The order/limit case selects the original encounters type, projects its complete
+row, orders by the original STRING key and applies unchanged `LIMIT 2`. Its
+independent population witness is one row; it does not qualify arbitrary predicate
+filtering, binding-limit behavior or truncation.
+All-objects, all-edges, one-hop and grouped-count remain outside
+this finite query profile; no production, Truss or clinical authority is implied.
+
+### Installed batch query composition
+
+The public `query-original-medical --configuration PATH` command selects a closed
+`OriginalMedicalQueryConfig` through `medical_query_configuration`. The wrapper
+contains an existing `read` configuration, explicit compiler `index` and
+`installation` paths and explicit finite `cases`; it delegates read runtime,
+inputs and bounds without adding ambient defaults. `MedicalQueryBatch` owns case
+validation and the public `query_original_medical_cases` SDK owns execution.
+
+`original_medical_local_cli` owns the shared fixed `query` worker dispatch, parent
+runtime custody, native phase/capture, descriptor-one/Python stdout isolation and
+strict result framing. Both parent and worker compare the complete selection and
+verified compiler ready bytes at entry/final closing. The compiler is verified
+afresh for each compilation as well. Compiler paths cannot authorize installation
+or another trust profile. This composition must preserve one full-vector read
+interval and all batch/outer closing before protocol evidence and receipt release.

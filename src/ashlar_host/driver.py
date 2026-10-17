@@ -1372,19 +1372,19 @@ class NativeDriver:
                 or self.held or self.pin_held or getattr(self,'_original_medical_read_binding',None)is not None
                 or getattr(self,'_original_medical_publication_binding',None)is not None):
             raise PermissionError('Fresh exact medical read binding required')
-        bounds.__post_init__();plan.require_admission(self.source_admission);view=plan.snapshot()
+        bounds.__post_init__();view=plan.validated_snapshot(self.source_admission)
         if (self.tables!=view['tables'] or set(self.transport.targets)!=set(view['tables'].values())
                 or any(not original_native_equal(self.policy.active.get(k),view[v])for k,v in [('request','request'),('expected','expected'),('publication_id','publication_id'),('progress','progress'),('previous_progress','previous_progress'),('previous_expected','previous_expected')])
                 or encoded(self.columns)!=encoded(view['columns'])):
             raise PermissionError('Complete six-target medical read inventory required')
         self._original_medical_read_binding=MappingProxyType(dict(plan=plan,view=encoded(view),bounds=bounds,
             bounds_view=encoded(asdict(bounds)),transport=self.transport,policy=self.policy,context=self.context,active_view=encoded(self.policy.active),columns_view=encoded(self.columns),
-            admission=self.source_admission,factory=self.query_source_factory,source=self.source_sessions,source_policy=self.source_sessions.policy,context_renewal=self._original_medical_read_context,
+            admission=self.source_admission,factory=self.query_source_factory,source=self.source_sessions,source_policy=self.source_sessions.policy,context_renewal=self._original_medical_read_context,closing=self._original_medical_read_closing,
             manifest=encoded(self.policy.active['manifest']),
             targets=tuple((t.table,str(t.path),t.uuid)for t in self.transport.targets.values())))
         from .medical_read_observation import MedicalReadObservation
         def renew():
-            self._require_original_medical_read_binding();self.require(self.context)
+            self.require(self.context)
             binding,_=self._require_original_medical_read_binding()
             binding['context_renewal'].renew(None,self.context)
         self._original_medical_read_observation=MedicalReadObservation(plan,self.transport,bounds,self.query_source_factory,
@@ -1393,12 +1393,13 @@ class NativeDriver:
 
     def _require_original_medical_read_binding(self):
         from dataclasses import asdict
-        binding=self._original_medical_read_binding;binding['plan'].require_admission(self.source_admission)
-        view=binding['plan'].snapshot()
+        binding=self._original_medical_read_binding
+        view=binding['plan'].validated_snapshot(self.source_admission)
         if (self.transport is not binding['transport'] or self.policy is not binding['policy']
                 or self.source_admission is not binding['admission'] or self.query_source_factory is not binding['factory']
                 or self.source_sessions is not binding['source'] or self.source_sessions.policy is not binding['source_policy']
                 or getattr(self,'_original_medical_read_context',None)is not binding['context_renewal']
+                or getattr(self,'_original_medical_read_closing',None)is not binding['closing']
                 or encoded(view)!=binding['view'] or encoded(asdict(binding['bounds']))!=binding['bounds_view']
                 or self.context is not binding['context']or encoded(self.policy.active)!=binding['active_view']or encoded(self.columns)!=binding['columns_view']
                 or encoded(self.policy.active['manifest'])!=binding['manifest'] or self.tables!=view['tables']
@@ -1594,7 +1595,29 @@ class NativeDriver:
             graph_sources.admit(json.loads(original_request),context=context)
             identity.observe(selected.source,context)
         self._original_graph_source_renew=_OriginalGraphSourceRenewal(self,current_graph_source)
-        authority=ExistingOutboxAuthority((selected,),ReadCustody())
+        class MedicalReadIdentity:
+            def admit_source_writer(self, registration, context):
+                from .medical_read_observation import MedicalReadObservation
+                read_identity.admit_source_writer(registration,context)
+                if type(getattr(owner,'_original_medical_read_binding',None))is not MappingProxyType:
+                    raise PermissionError('Complete actual medical read binding required')
+                binding,_=owner._require_original_medical_read_binding()
+                observation=getattr(owner,'_original_medical_read_observation',None)
+                closing=getattr(owner,'_original_medical_read_closing',None)
+                if (type(observation)is not MedicalReadObservation or observation is not binding.get('observation')
+                        or type(closing)is not _OriginalGraphSourceRenewal or closing.owner is not owner
+                        or closing is not binding['closing']):
+                    raise PermissionError('Actual complete medical read/closing owners required')
+                row=json.loads(original_manifest)
+                vector=manifest_pin_vector(row,{t:u for t,u,p in original_targets if t in dict(original_versions)},
+                    authority='private-local-process')
+                from ashlar.pins import PinVector
+                held_vector=getattr(owner,'_held_original_vector',None)
+                if type(held_vector)is not PinVector or held_vector!=vector:
+                    raise PermissionError('Exact acquired original medical native vector required')
+                # Source-role identity only. _hold validates full native bags before
+                # yielding and independently at closing; no native result grant here.
+        authority=ExistingOutboxAuthority((selected,),MedicalReadIdentity()if medical else ReadCustody())
         sources=RegisteredOutboxSources((selected.source,),authority)
         self.query_source_factory=factory
         self.source_sessions=sources;self.original_source_sessions=encoded(sources.metadata())
@@ -1630,9 +1653,11 @@ class NativeDriver:
         """Renew original ordinary source under the actual complete read reservation.
 
         This closed graph port grants no write authority and never changes the
-        existing source_sessions full-snapshot admission path. Its owning graph
-        interval must corroborate every original native byte and perform actual
-        full snapshot admission at both boundaries.
+        generic source_sessions full-snapshot admission path. Medical source-role
+        identity requires its complete nominal read binding; its owning hold still
+        performs full native snapshot admission before yielding and at closing.
+        The graph interval must corroborate every original native byte and perform
+        actual full snapshot admission at both boundaries.
         """
         from .read_only_transport import ReadOnlyDeltaTransport
         from .commerce_query_sources import CommerceQuerySourceFactory

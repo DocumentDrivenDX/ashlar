@@ -4,6 +4,7 @@ import decimal
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import stat
 from ashlar.medical_source import SOURCE_SHA,GRAPH_SHA,PUBLIC_SHA,UMF_PIN
@@ -135,6 +136,23 @@ def _medical_witness_signature(owner):
             owner.raw, owner.script_bytes, owner.stdout, owner.stderr)
 
 
+def require_medical_git_status(raw,revision):
+    """One fresh Git v2 observation binds HEAD and an entirely clean worktree."""
+    if type(raw)is not bytes or not 0<len(raw)<=1048576 or type(revision)is not str or re.fullmatch('[0-9a-f]{40}',revision)is None:
+        raise PermissionError('Bounded exact public medical Git status required')
+    headers={}
+    for line in raw.decode('utf-8','strict').splitlines():
+        if not line.startswith('# branch.')or ' 'not in line[2:]:
+            raise PermissionError('Clean pinned public medical UMF required')
+        key,value=line[2:].split(' ',1)
+        if key not in ('branch.oid','branch.head','branch.upstream','branch.ab')or key in headers or not value or any(ord(c)<32 or ord(c)==127 for c in value):
+            raise PermissionError('Closed original Git branch observation required')
+        headers[key]=value
+    if (headers.get('branch.oid')!=revision or 'branch.head'not in headers
+            or ('branch.ab'in headers and re.fullmatch(r'\+[0-9]+ -[0-9]+',headers['branch.ab'])is None)):
+        raise PermissionError('Clean pinned public medical UMF required')
+
+
 class HeldMedicalDataset:
     """One actual public call; subsequent renewals retain exact original evidence."""
     def __setattr__(self,name,value):
@@ -198,13 +216,12 @@ class HeldMedicalDataset:
                 raise PermissionError('Original medical producer pin witness differs')
             source,git,cwd,revision = witness.pin_arguments
             environment,limits = witness.pin_environment,witness.pin_limits
-        def check(args,expected):
-            out,err=capture([git,'-C',source,*args],cwd=Path(cwd),environment=dict(environment),
+        def check():
+            out,err=capture([git,'-C',source,'status','--porcelain=v2','--branch'],cwd=Path(cwd),environment=dict(environment),
                 timeout_seconds=limits[0],maximum_output_bytes=limits[1])
-            if type(out) is not bytes or type(err) is not bytes or out.decode('utf-8','strict').strip()!=expected or err:
-                raise PermissionError('Clean pinned public medical UMF required')
-        finish(None,([] if witness is None else [self._require_witness])+[
-            lambda:check(['rev-parse','HEAD'],revision),lambda:check(['status','--porcelain'],'')])
+            if type(out)is not bytes or type(err)is not bytes or err:raise PermissionError('Clean pinned public medical UMF required')
+            require_medical_git_status(out,revision)
+        finish(None,([]if witness is None else[self._require_witness])+[check])
     def _inputs(self):
         witness = getattr(self, '_semantic_witness', None)
         files = self.files if witness is None else witness.files

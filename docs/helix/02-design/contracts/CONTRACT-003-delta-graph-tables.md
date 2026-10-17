@@ -678,6 +678,219 @@ graph correspondence remain part of the engine release protocol above.
 GraphFrames qualification likewise requires the selected Spark Delta reader and
 actual pinned DataFrames, beyond the syntax-checked adapter. Actual engine sessions must qualify the chosen access route and reader profile.
 
+### Fabric private cooperative release activation
+
+A private deployment MAY qualify publication-bound Fabric reads by controlling
+all definition, storage, load, refresh and deletion operations for its selected
+GraphModel items. Every participating writer and reader MUST use that same
+owner. The operator MUST explicitly admit this cooperative scope and identify
+its actual ordinary deployment access. An unmanaged portal, API or storage writer
+is outside this qualification; unknown mutation ownership MUST refuse. A local
+lock, pointer, release digest or successful readback alone supplies no authority.
+This profile MUST NOT imply production access isolation or a native version lease.
+
+Each release MUST use fresh release-specific OneLake paths and a fresh GraphModel
+item ID. Active items MUST NOT be updated or refreshed in place. The owner MUST
+retain the exact original publication, complete UUID/version vector, release and
+mapping bytes, uploaded file identities/bytes, native item identity and original
+creation/load handles. Before one creation submission it MUST durably retain the
+complete intent. Unknown submission outcomes MUST recover that original handle
+or refuse; they MUST NOT create a replacement item implicitly. Synchronous `201`
+creation MUST instead retain the bounded original item-response bytes and exact
+workspace/item identity, without inventing an asynchronous handle. Typed retained
+creation correspondence MUST distinguish an unsubmitted intent, an unknown
+submission, an original asynchronous operation and a synchronous item response.
+Missing storage capabilities MUST refuse without implicit journal migration.
+Complete retained mapping JSON MUST fit a separately bounded 65,536 UTF-8 bytes;
+this MUST NOT enlarge unrelated text or publication-vector capacities.
+
+The initial load MUST reach terminal success for that same item before query
+admission. Complete independent node/edge identity, value and multiplicity bags
+MUST match the admitted release before activation. No query may warm an inactive
+item before its initial load succeeds. Different releases MUST never reuse an
+item ID or mutable source alias. Cached results remain confined to that one
+immutable item and release; cache expiry or elapsed waiting MUST NOT substitute
+for release admission or establish freshness.
+
+Where the selected API supports definition readback, the owner MUST read the
+actual item definition and compare every mapping part and source location with
+its retained intent. A definition response is not a loaded-generation token.
+If readback is unsupported, a separately explicit creator-owned assumption MAY
+bind the original creation payload, returned item ID, sole initial load and
+complete loaded bags under uninterrupted cooperative mutation ownership. The
+selection and every receipt MUST expose that assumption; unsupported readback
+MUST NOT silently select it. Neither mode may claim native content addressing.
+
+The owner MUST use actual private deployment leases for candidate mutation,
+activation, query acquisition and retirement. An acquired active-item lease MUST
+exclude every participating mutation of that item and its source locations.
+Candidate work MUST remain separate from the active item. Activation MUST atomically and durably compare and
+replace the expected predecessor pointer only after candidate admission; its
+local revision is not a Fabric generation. The pointer MUST bind the exact item,
+release, mapping and original publication vector. Crash recovery MUST inspect the
+original intent, native operation and active pointer; cloud listings or latest
+source heads MUST NOT reconstruct activation custody.
+
+The existing loaded-policy `hold` and `admit` ports MUST acquire one exact active
+binding and retain its mutation exclusion through complete result release.
+Independent source/ACK, native publication and HTTP owners MUST still admit and
+close under their existing contracts. Reopening a copied release MUST NOT grant
+continued source authority. R1 may remain readable after R2 preparation, or
+explicitly refuse when its actual source, ACK, retention or native owner can no
+longer admit it; it MUST NOT silently switch to R2. Outer failures and cancellation
+MUST attempt substantive closing and withhold success. Retirement or deletion
+MUST wait for all acquired readers to release and require its own authorization.
+
+A small functional witness MUST interrupt inactive R2 after only its node input
+is staged and prove no mixed activation; query R1 with its actual owners or record
+its explicit refusal; recover the same R2 intent through complete admission and
+atomic activation; and verify exact R1/R2 identities and changed values. A reader
+racing activation MUST acquire one whole release or refuse. Missing intent,
+changed definition/location, unexpected load/refresh, failed closure and stale
+activation predecessor MUST refuse without promoting partial output.
+
+### Held original-commerce deployment preparation
+
+`open_commerce_fabric_deployment` MUST retain the actual original-commerce graph
+source/ACK/native interval and one genuine journal mutation lifetime across every
+projection, upload, creation and initial-load observation. Its exact configuration
+MUST explicitly select the private cooperative sole-creator profile, original
+local node/edge projections, separate fresh remote table paths and display name.
+This selection declares a scoped assumption, not a production access grant.
+
+The owner MUST independently compare both native version-zero projection UUIDs,
+ordered schemas and complete occurrence bags against the actual held release.
+It MUST capture and renew the exact original data/commit files and bind their
+inventories, complete mapping, held release digest, original manifest digest,
+publication ID and complete UUID/version vector to one durable candidate intent.
+Recovery MUST re-admit those same originals; it MUST NOT select latest heads or
+rewrite existing staged paths. Closing MUST independently attempt both native
+projection checks and the source/ACK/native owners before releasing success.
+
+The public interval MAY stage/read back bytes, submit creation once after full
+staging readback, recover only its original operation, and retain the sole
+observed initial-load handle before explicit status observation. Missing portal
+initialization, changed handles, extra/ambiguous jobs or incomplete listings MUST
+refuse without refresh fallback. Each HTTP acquisition MUST close before its
+step result is returned; the complete enclosing workflow report MUST wait for
+source and mutation closing. Portal opening itself MUST remain an actual owned
+external operation; a callback or Boolean MUST NOT supply native success.
+
+Preparation and a terminal load observation MUST NOT activate a release or mint
+`loaded_graph_policy`. Actual supported definition readback, complete independent
+native graph bags and the continued private mutation/source owners remain
+mandatory before activation and throughout publication-bound query admission.
+
+### Original-commerce native admission and query policy
+
+`admit_commerce_fabric_deployment` MUST enter the nominal live
+`HeldCommerceFabricAdmission` interval of the actual deployment. It MUST observe
+the original created item, sole retained initial job in terminal `Completed`
+state without failure, and supported public definition readback before sending
+any GQL proof query. This profile MUST refuse unsupported definition readback;
+it MUST NOT implicitly select the separate creator-owned fallback. Definition
+parts and every mapping/source location MUST match without dropping unknown
+part content. Definition LROs MUST remain bound to their original returned IDs,
+finite polling/delays and actual response bytes.
+
+The owner MUST execute the qualified complete node-carrier, edge-carrier and
+actual relationship-endpoint projections through the existing strict GQL
+protocol. Independent expected identities, exact STRING/null values and full
+occurrence multiplicities MUST come from the actual held original release,
+never compiled/native query output. Native creation/job/definition checks MUST
+close independently after the bags. Only then MAY one durable transaction
+retain bounded raw admission evidence and compare-and-replace the expected local
+predecessor. Receipt, exact candidate/item/publication-vector binding and CAS
+MUST commit together; stale predecessors MUST leave no partial admission. Missing
+storage capability MUST refuse without migration. Evidence MUST retain the
+original release bytes, source vector correspondence, original creation/load,
+definition and complete GQL responses within an eight-MiB total receipt bound.
+
+`CommerceFabricLoadedGraphPolicy` MUST require a nominal fresh original source
+interval supplied by `execute_commerce_fabric_gql`; it MUST NOT reacquire a nested
+source interval or admit use with only retained receipts. Its `hold` MUST retain
+one real journal reader lease throughout native proof, user query decoding and
+closing, excluding all cooperative mutations. It MUST compare the complete fresh
+source release with the original active release, re-observe current native
+creation/job/definition and complete bags at opening and closing, and refuse
+changed values, multiplicity, refresh or predecessor correspondence. Its `admit`
+MUST require that same live source/reader/HTTP interval and original query text.
+The HTTP owner MUST expose only its public selected configuration, never private
+credentials. Outer HTTP, source/ACK/native and reader closing MUST precede final
+workflow-report release.
+
+This bounded original-commerce profile MUST NOT qualify modified Truss R1/R2
+sources, production access isolation, a Fabric generation lease or billion-node
+proof performance. Other actual source profiles require their own genuine held
+source/release owner; archived R1/R2 exports MUST NOT substitute for one.
+
+### OneLake fresh release-byte upload
+
+`OneLakeUploadConfig` MUST select the workspace/account through the ordinary
+finite `FabricDeploymentHttpConfig` value selection, an exact lakehouse UUID and
+bounded file/table bytes. This reuses passive settings, never a Fabric API token.
+The owning acquisition MUST obtain a separately scoped Storage token through the
+selected delegated account, check that account at acquisition and closing, erase
+its token, and use verified HTTPS with no redirects or proxy fallback. Every
+request MUST obey the selected request-byte capacity as well as the file/table
+bounds; their minimum applies. This initial subset supports flat Parquet data and
+one original `_delta_log/00000000000000000000.json`, not arbitrary Delta history.
+
+`open_onelake_release_upload` MUST require a genuine live `FabricMutation` for the
+original candidate. Each table's exact GUID-form OneLake location and inventory
+SHA256 MUST match that candidate's retained source selection. The inventory hash
+is SHA256 of canonical compact JSON, with sorted rows containing relative path,
+byte count and SHA256 for every selected immutable byte payload. These bytes and
+a journal match supply no source, publication or native Delta authority; the
+caller MUST retain and close those actual independent owners.
+
+Upload MUST occur only before creation submission, reserve one attempt before
+its first remote effect, create fresh directories/files using `If-None-Match: *`,
+append once at offset zero, flush at the exact length and compare full readback.
+Every data file MUST complete readback before the original Delta commit is
+uploaded. Failure or cancellation MUST preserve partial output, renew and close
+all owned lifetimes, and MUST NOT overwrite, delete, retry or recreate it.
+Explicit recovery readback MAY observe existing bytes without writing. Complete
+credential-checked native responses, including refused HTTP statuses, MUST remain
+bounded and available as correspondence. ETags, byte receipts and local leases
+MUST NOT assert native immutability or loaded-graph admission. The separately
+named loopback acquisition is a local transport test only.
+
+See [OneLake DFS access](https://learn.microsoft.com/en-us/fabric/onelake/onelake-access-api),
+[fresh path creation](https://learn.microsoft.com/en-us/rest/api/storageservices/datalakestoragegen2/path/create)
+and [append/flush](https://learn.microsoft.com/en-us/rest/api/storageservices/datalakestoragegen2/path/update).
+
+### Fabric ordinary deployment HTTP profile
+
+`FabricDeploymentHttpConfig` MUST select one workspace and the same explicit
+ordinary delegated account, executable/configuration directory and finite
+capacities as the ordinary query profile. `open_fabric_deployment_http` MUST own
+acquisition and closing account checks, private token handling, normal HTTPS
+verification and redirect refusal. It MUST expose only explicit GraphModel
+creation, canonical original-operation state/result reads, exact-item job
+list/read calls, and public definition readback with explicit operation results. Each acquisition MUST allow at most one creation submission,
+including an uncertain outcome; it MUST NOT poll, retry, refresh or replace items
+implicitly. A separately named IPv4-loopback test acquisition establishes no
+cloud or deployment qualification.
+
+Creation MUST preserve distinct native outcomes: a synchronous `201` GraphModel
+response supplies an item identity without an invented operation ID; an empty
+`202` supplies the original operation ID, location and retry delay for durable
+retention before polling. Returned locations MUST NOT redirect credentials;
+operation requests MUST use the canonical Fabric API origin. Responses MUST
+retain bounded original bytes and selected operation headers, refuse duplicate
+JSON/operation headers and credential echoes, and bind returned items/jobs to the
+selected workspace/item. Continuations MUST remain explicit and bounded.
+
+This transport MUST NOT admit journal activation, original source/ACK custody,
+loaded graphs or production mutation exclusion. REST creation alone MUST NOT
+establish initial ingestion: the documented first portal-editor initialization
+and the actual original load require independent ownership and observation.
+Missing or ambiguous original jobs MUST refuse rather than trigger another load.
+See [creation](https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items/create-graph-model),
+[job observation](https://learn.microsoft.com/en-us/rest/api/fabric/core/job-scheduler/get-item-job-instance)
+and [initialization behavior](https://learn.microsoft.com/en-us/fabric/graph/manage-data).
+
 ### Fabric ordinary delegated-authentication profile
 
 A separately named ordinary-authentication HTTP profile MAY use the operator's

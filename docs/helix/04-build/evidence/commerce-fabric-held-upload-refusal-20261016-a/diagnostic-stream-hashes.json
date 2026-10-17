@@ -1,0 +1,13 @@
+{
+  "streams": {
+    "stdout.log": {
+      "bytes": 246,
+      "sha256": "ce15bf1a71c27712a6193c0290dc24876b933fe524b52b6ab035270b935936f2"
+    },
+    "stderr.log": {
+      "bytes": 7883,
+      "sha256": "0a5ae0b697f4cf4489ce9472d0e1a24d0414d3999ab4f593300bc69a61a5baf9"
+    }
+  },
+  "scope": "Exact retained private streams; raw diagnostics are not published."
+}

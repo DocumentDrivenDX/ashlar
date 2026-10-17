@@ -3,7 +3,7 @@
 Fabric HTTP and loaded-graph mutation/refresh exclusion belong to their actual
 owners. This bridge cannot mint a native snapshot lease from metadata or hashes.
 """
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from .commerce_graph_release import hold_original_commerce_graph_release
 from .fabric_gql import FabricGraphBinding, execute_gql
 from .lifecycle import finish, owned_context
@@ -82,8 +82,10 @@ def execute_commerce_fabric_gql(opened, binding, query, *, transport,
     with owned_context(hold_original_commerce_graph_release(opened)) as held:
         if held.release.sha256 != binding.release_sha256:
             raise PermissionError('Fabric graph must match the actual held publication release')
-        policy = _CommerceFabricPolicy(held, binding, query, loaded_graph_policy,
-                                      loaded_graph_context, transport_context)
-        result = execute_gql(binding, query, transport=transport, policy=policy,
-                             context=transport_context, **limits)
+        source_interval = getattr(loaded_graph_policy, 'source_interval', None)
+        with owned_context(source_interval(held) if callable(source_interval) else nullcontext()):
+            policy = _CommerceFabricPolicy(held, binding, query, loaded_graph_policy,
+                                          loaded_graph_context, transport_context)
+            result = execute_gql(binding, query, transport=transport, policy=policy,
+                                 context=transport_context, **limits)
     return result

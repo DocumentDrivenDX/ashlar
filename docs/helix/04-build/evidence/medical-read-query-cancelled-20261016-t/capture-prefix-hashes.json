@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-private-capture-prefix-correspondence/0.1",
+  "files": {
+    "query.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained_in_archive": false
+    },
+    "query.stderr": {
+      "bytes": 676713,
+      "sha256": "5b04c42a43326bf77d2b6fed017a2d63b01f7eb319cbb6459d4d7524d5850025",
+      "retained_in_archive": false
+    },
+    "outer.stdout": {
+      "bytes": 816,
+      "sha256": "4cfa79d61495acdfac27687fb9aa88edbfdc3fdd18cea6ef168310725184e331",
+      "retained_in_archive": false
+    },
+    "outer.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained_in_archive": false
+    }
+  },
+  "scope": "Exact retained prefix bytes only; no assertion that prefixes are complete worker streams. Raw diagnostic streams omitted."
+}

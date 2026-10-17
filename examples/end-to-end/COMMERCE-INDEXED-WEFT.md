@@ -81,7 +81,7 @@ PYWHEEL
 "$ASHLAR_PUBLISH_BASE" -m venv "$ASHLAR_PUBLISH_ENV"
 "$ASHLAR_QUERY_BASE" -m venv "$ASHLAR_QUERY_ENV"
 "$ASHLAR_PUBLISH_ENV/bin/python" -m pip install "$ASHLAR_WHEEL" pyspark==3.5.3 delta-spark==3.2.1 graphframes-py==0.12.3 'psycopg[binary]==3.2.13'
-"$ASHLAR_QUERY_ENV/bin/python" -m pip install "$ASHLAR_WHEEL" pyspark==4.0.1 delta-spark==4.0.0 typing-extensions==4.15.0 'psycopg[binary]==3.2.13'
+"$ASHLAR_QUERY_ENV/bin/python" -m pip install "$ASHLAR_WHEEL" pyspark==4.0.1 delta-spark==4.0.0 typing-extensions==4.15.0 jsonschema==4.25.1 'psycopg[binary]==3.2.13'
 mkdir "$ASHLAR_WORK"
 cd "$ASHLAR_WORK"
 export ASHLAR_PUBLISH_RESOURCES="$("$ASHLAR_PUBLISH_ENV/bin/python" -c 'from ashlar_host.resources import RESOURCE_ROOT; print(RESOURCE_ROOT)')"

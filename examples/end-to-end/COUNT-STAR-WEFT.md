@@ -110,11 +110,14 @@ environment. Keep that prepared query environment, including its native SDKs,
 separate from the compiler-only environment. Select its Python/SQLite profile
 before creating that environment;
 a virtual environment cannot change the base interpreter's SQLite library. The
-native dependencies remain explicit prerequisites. Use the
+native dependencies remain explicit prerequisites. The pinned historical source
+predates the current `weft-validation` extra, so install its JSON Schema validator
+by name. Current Ashlar wheels can select `[weft-validation]` instead. Use the
 installed resource root from that environment, never another checkout's imports:
 
 ```sh
 "$ASHLAR_QUERY_ENV/bin/python" -m pip install --no-deps --force-reinstall "$ASHLAR_COUNT_STAR_SOURCE"
+"$ASHLAR_QUERY_ENV/bin/python" -m pip install jsonschema==4.25.1
 export ASHLAR_QUERY_RESOURCES="$("$ASHLAR_QUERY_ENV/bin/python" -c 'from ashlar_host.resources import RESOURCE_ROOT; print(RESOURCE_ROOT)')"
 JAVA_HOME="$ASHLAR_JAVA21_HOME" SPARK_LOCAL_IP=127.0.0.1 \
 PYSPARK_PYTHON="$ASHLAR_QUERY_ENV/bin/python" \

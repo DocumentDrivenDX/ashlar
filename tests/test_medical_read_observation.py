@@ -36,6 +36,33 @@ class Tests(unittest.TestCase):
         observed=self.owner.capture(self.row,object());self.assertEqual(len(observed),6);self.assertEqual(len(self.calls),12)
         self.assertEqual({r:observed[r]['rows']for r in self.view['expected']},{'object_current':51,'edge_current':62,'tombstone':0,'whole_source_history':113})
         for half in [self.calls[:6],self.calls[6:]]:self.assertTrue(all(a[1]>b[1]for a,b in zip(half,half[1:])))
+    def test_actual_hold_full_capture_precedes_yield_and_closing_drift_prevents_release(self):
+        from ashlar_host.driver import NativeDriver
+        from ashlar.manifest import manifest_pin_vector
+        manifest=dict(self.row,publication_id=self.view['publication_id'],profile_version='ashlar-delta/0.3',
+            source_progress_json=encoded(self.view['progress']),schema_revisions_json=self.view['request']['schema_revisions_json'],
+            validation_report_json=encoded({'complete':True}),recorded_at=self.view['recorded_at'])
+        d=object.__new__(NativeDriver);d.context=object();d.held=True;d.pin_held=False;d.transport=self.transport
+        d.policy=SimpleNamespace(active={'manifest':manifest})
+        # Real full capture owner; ordinary source ports are excluded from this native boundary control.
+        d.validate_manifest=lambda row,context:self.owner.capture(row,context)and None
+        vector=manifest_pin_vector(manifest,{t:self.transport.targets[t].uuid for t in json.loads(manifest['table_versions_json'])},authority='private-local-process')
+        original=self.transport.bounded_snapshot;released=[]
+        def corrupt(target,version,**kw):
+            snapshot,schema=original(target,version,**kw)
+            if target.table.endswith('object_current'):snapshot=dict(snapshot,rows=[])
+            return snapshot,schema
+        with self.assertRaises(PermissionError):
+            with d.hold(vector,context=d.context):
+                self.assertEqual(len(self.calls),12)
+                self.transport.bounded_snapshot=corrupt
+            released.append(True)
+        self.assertEqual(released,[]);self.assertFalse(d.pin_held)
+        self.assertEqual({t for t,_ in self.calls[-6:]},set(self.transport.targets))
+        self.calls.clear()
+        with self.assertRaises(PermissionError):
+            with d.hold(vector,context=d.context):self.fail('Corrupt opening must never yield')
+        self.assertFalse(d.pin_held)
     def test_schema_drift_refuses_and_attempts_every_closing_role(self):
         original=self.transport.bounded_snapshot
         def drift(target,version,**kw):
@@ -76,15 +103,59 @@ class Tests(unittest.TestCase):
         (root/'.pipeline-writer.lock').touch()
         d=object.__new__(NativeDriver);d.transport=self.transport;d.context=object();d.held=False;d.pin_held=False;d.source_sessions=None
         d.source_admission=self.plan.admission;d.original_admission=encoded(d.source_admission.metadata());d.tables=dict(self.view['tables']);d.columns=self.view['columns']
-        manifest=dict(self.row,publication_id=self.view['publication_id'],source_progress_json=encoded(self.view['progress']))
+        manifest=dict(self.row,publication_id=self.view['publication_id'],source_progress_json=encoded(self.view['progress']),
+            profile_version='ashlar-delta/0.3',schema_revisions_json=self.view['request']['schema_revisions_json'],
+            validation_report_json=encoded({'complete':True}),recorded_at=self.view['recorded_at'])
         active={k:self.view[v]for k,v in [('request','request'),('expected','expected'),('publication_id','publication_id'),('progress','progress'),('previous_progress','previous_progress'),('previous_expected','previous_expected')]};active['manifest']=manifest
         d.policy=MedicalReadPolicy(d.context,tuple(self.transport.targets.values()),active,lambda:None)
         r=self.factory.registration;d.scope_ports={r.source.scope.feed:{'scope':r.source.scope,'source':r.source.source_schema,'signature':r.source.source_signature_sha256,'reader':r.source_role,'role':r.ack_role}}
         with self.assertRaises(PermissionError):d.bind_original_medical_read(self.plan,self.bounds)
-        d.bind_query_sources(self.factory);d.bind_original_medical_read(self.plan,self.bounds)
+        d.bind_query_sources(self.factory)
+        from ashlar_host.medical_publication_plan import MedicalPublicationPlan
+        with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+            d.bind_original_medical_read(self.plan,self.bounds)
+            self.assertEqual(build.call_count,1)
         with self.assertRaises(PermissionError):d.bind_original_medical_read(self.plan,self.bounds)
+        with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+            with self.assertRaises(PermissionError):d._original_medical_read_observation.renew()
+            self.assertEqual(build.call_count,0) # Held context refuses before expensive admission.
         with d.query_read_interval(d.context):
             d.pin_held=True
+            from ashlar.manifest import manifest_pin_vector
+            vector=manifest_pin_vector(manifest,{t:self.transport.targets[t].uuid for t in json.loads(manifest['table_versions_json'])},authority='private-local-process')
+            d._held_original_vector=vector
+            source_writer=d.source_sessions.policy.writer
+            before=len(self.calls)
+            source_writer.admit_source_writer(self.factory.registration.source,d.context)
+            self.assertEqual(len(self.calls),before) # PG identity admission performs no full Spark snapshot.
+            class EqualAnything:
+                def __eq__(self,other):return True
+            for change in ('context','vector','equality-object','closing'):
+                original_closing=d._original_medical_read_closing
+                try:
+                    if change=='vector':d._held_original_vector=None
+                    if change=='equality-object':d._held_original_vector=EqualAnything()
+                    if change=='closing':d._original_medical_read_closing=None
+                    with self.subTest(change=change),self.assertRaises(PermissionError):
+                        source_writer.admit_source_writer(self.factory.registration.source,object()if change=='context'else d.context)
+                finally:d._held_original_vector=vector;d._original_medical_read_closing=original_closing
+            with patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+                d._require_original_medical_read_binding()
+                self.assertEqual(build.call_count,1)
+            with patch.object(d,'_require_original_medical_read_binding',wraps=d._require_original_medical_read_binding)as require_binding,patch.object(MedicalPublicationPlan,'_build',autospec=True,side_effect=MedicalPublicationPlan._build)as build:
+                d._original_medical_read_observation.renew()
+                self.assertEqual(require_binding.call_count,1)
+                self.assertEqual(build.call_count,1)
+            original_admission=d.source_admission
+            d.source_admission=object()
+            try:
+                with self.assertRaises(PermissionError):d._require_original_medical_read_binding()
+            finally:d.source_admission=original_admission
+            source_file=original_admission.files[0].path;original_bytes=source_file.read_bytes()
+            try:
+                source_file.write_bytes(original_bytes+b' ')
+                with self.assertRaises((ValueError,PermissionError)):d._require_original_medical_read_binding()
+            finally:source_file.write_bytes(original_bytes)
             d.inspect_snapshot(self.view['tables']['object_current'],2)
             with self.assertRaises(PermissionError):d.inspect_snapshot(self.view['tables']['edge_current'],1)
             d.policy.active['request']=dict(self.view['request'],request_digest='b'*64)

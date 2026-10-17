@@ -1,0 +1,9 @@
+# Original commerce held Fabric upload refusal
+
+One supervised native attempt used committed source export `22979a2721f4b7e1e1bf12fe59c90700d8d2cdb8`, the original commerce publication and native projections, and ordinary source/ACK connections. It terminated with exit status 1 after 76.336 seconds, within its 720-second outer limit. There is no completed deployment, native Fabric admission or final query result from this attempt.
+
+The live workspace read selected its existing active FTL4 trial capacity in West US 3. No capacity, licensing, permission or Databricks changes were requested. The workflow reached the actual held release and failed on the first fresh OneLake node-directory PUT. The upload owner required HTTP 201; the original exception did not preserve the nonmatching status/body after owner closure. The cause and remote partial-directory outcome remain unknown. The original request must not be replayed or overwritten.
+
+Read-only journal inspection found a recorded candidate, no graph-model ID or creation handle, and active revision 0 with no candidate. Graph-model creation and activation were not reached. This is a failed upload observation, not a source/ACK or engine qualification pass; a preserved primary error does not independently prove every closing succeeded.
+
+The archive retains the exact runner/preflight/supervisor, committed source selection, trial-capacity observation, candidate configuration and terminal report. `manifest.json` pins original and gzip bytes with zero gzip timestamps. `diagnostic-stream-hashes.json` records retained private log lengths and hashes without publishing the warning stream. A subsequent diagnostic fix must retain bounded credential-checked failure details; any new native attempt requires a fresh candidate and paths, separately reviewed committed code and the original authority checks.

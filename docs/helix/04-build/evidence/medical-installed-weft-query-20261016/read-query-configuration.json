@@ -1,0 +1,159 @@
+{
+  "profile": "ashlar-original-medical-local-read/0.1",
+  "output": "/private/tmp/ashlar-medical-query-installed-20261016-v/read-query-output",
+  "root": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root",
+  "installation_id": "eddf6ce0-5b5c-4a1a-9c21-d9cc3223ff87",
+  "capacity": {
+    "profile": "ashlar-private-local-operation-capacity/0.1",
+    "max_intent_bytes": 8388608
+  },
+  "runtime": {
+    "python": {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/environment/bin/python3",
+      "bytes": 18058560,
+      "sha256": "7a314947596fc484d4ec36ffc28e843b78d6d749c68736f8b5c24e7333f418eb"
+    },
+    "python_version": "3.12.14",
+    "java_home": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home",
+    "java": {
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/java",
+      "bytes": 51584,
+      "sha256": "2aee02a39a0817c27501e853728c28b79f48d114dbde7c88cbf698ecf1680f63"
+    },
+    "java_version": "21.0.12",
+    "jvm_config": {
+      "path": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/lib/jvm.cfg",
+      "bytes": 29,
+      "sha256": "aa9efb969444c1484e29adecab55a122458090616e766b2f1230ef05bc3867e0"
+    },
+    "pyspark_root": "/private/tmp/ashlar-medical-query-installed-20261016-v/environment/lib/python3.12/site-packages",
+    "spark_version": "4.0.1",
+    "delta_root": "/private/tmp/ashlar-medical-query-installed-20261016-v/environment/lib/python3.12/site-packages",
+    "delta_version": "4.0.0",
+    "jars": [
+      {
+        "path": "/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7/query-jars/delta-spark_2.13-4.0.0.jar",
+        "bytes": 7727374,
+        "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e"
+      },
+      {
+        "path": "/private/tmp/ashlar-current-commerce-preparation-20261015-9pn8k_h7/query-jars/delta-storage-4.0.0.jar",
+        "bytes": 69732,
+        "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+      }
+    ],
+    "qualification": {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/runtime-selection.json",
+      "bytes": 10802,
+      "sha256": "8dcbc4fcca9f54c9426e13c0c297550ee9407358231b52b893c0ecf6d15508cf"
+    }
+  },
+  "producer": {
+    "source": "/private/tmp/ashlar-umf-medical-8e76-clean-20261014-c",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "git": "/usr/bin/git",
+    "timeout_seconds": 60,
+    "maximum_output_bytes": 1048576,
+    "maximum_receipt_bytes": 4194304
+  },
+  "inputs": {
+    "model": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/model.bin",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8"
+    },
+    "graph": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/graph.bin",
+      "bytes": 160290,
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4"
+    },
+    "baseline": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/baseline.bin",
+      "bytes": 2746047,
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+    }
+  },
+  "source": {
+    "host": "127.0.0.1",
+    "port": 25446,
+    "database": "medical16b",
+    "authentication": "isolated-loopback-trust",
+    "scope": {
+      "service_schema": "ashlar_ack_medical16b",
+      "scope_id": "faef2958-f7f0-4807-aae6-abf793856a2f",
+      "installation_id": "eddf6ce0-5b5c-4a1a-9c21-d9cc3223ff87",
+      "consumer": "original-medical16b",
+      "feed": "private-original-medical-fixture",
+      "epoch": "original-medical-v1"
+    },
+    "source_schema": "ashlar_medical16b_source",
+    "source_signature_sha256": "f972a1d104b2a6d99e470265455b31d1348a4972e48abaea9f9cf0d5a80b9d4e",
+    "writer_role": "medical16b_writer",
+    "reader_role": "medical16b_reader",
+    "ack_role": "medical16b_ack",
+    "connect_seconds": 10,
+    "statement_ms": 60000,
+    "lock_ms": 5000
+  },
+  "bounds": {
+    "input_bytes": 4194304,
+    "rows": 10000,
+    "cell_bytes": 1048576,
+    "total_bytes": 16777216,
+    "stream_bytes": 1048576,
+    "receipt_bytes": 1048576,
+    "journal_bytes": 134217728,
+    "native_seconds": 900,
+    "whole_seconds": 960,
+    "master": "local[1]",
+    "driver_memory": "512m"
+  },
+  "installation": {
+    "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/installation.json",
+    "bytes": 18775,
+    "sha256": "5c03d044e33de3901101a4fc420d47e9dde5cc7da9e0f3363019a4e30c47202c"
+  },
+  "journal": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/operations.sqlite",
+  "targets": [
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/object_current",
+      "table": "object_current",
+      "uuid": "d5a9dabd-1f47-403b-a617-92feb88488ab"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/edge_current",
+      "table": "edge_current",
+      "uuid": "8d32cfa8-33dd-454b-9823-a631cdafd439"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/tombstone",
+      "table": "tombstone",
+      "uuid": "eae019f3-93d3-4aec-965b-b41333798230"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/whole_source_history",
+      "table": "whole_source_history",
+      "uuid": "851805b6-c40d-4d97-8ba1-a5ba823c6cf5"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/attempts",
+      "table": "attempts",
+      "uuid": "e72dc05e-90f1-48e1-a268-ea65ee9bdb70"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/native-root/manifest",
+      "table": "manifest",
+      "uuid": "4529f3e4-1000-4c19-8bd2-89744a7a3a8d"
+    }
+  ],
+  "request": {
+    "path": "/private/tmp/ashlar-medical-writeahead-native-20261016-b/publication-output/request.json",
+    "bytes": 382102,
+    "sha256": "9de61334ad159bd4d1cc8373c7cbb2d1a4025e1c654cd76b90b0275859a2e3ea"
+  },
+  "publication": {
+    "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/selected-retained-manifest.json",
+    "bytes": 27614,
+    "sha256": "589bac1b800fe3c52fa388c5b19e59aa143c5933496887f1cb8d5893ca595ee3"
+  }
+}

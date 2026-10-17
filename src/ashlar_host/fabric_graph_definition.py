@@ -55,3 +55,16 @@ def prepare_fabric_graph_definition(nodes,edges,output,*,display_name=None):
         with (output/name).open('xb')as stream:
             if stream.write(raw)!=len(raw):raise OSError('Incomplete local definition write')
     return {'output':str(output),'files':list(payloads),'node_properties':len(release_columns('node')),'edge_properties':len(release_columns('edge')),'scope':'Local mapping only; no upload, release immutability, loaded graph or engine authority established.'}
+
+
+def fabric_carrier_queries():
+    """Complete carrier and actual relationship-endpoint projections; no parser."""
+    cases = []
+    for kind, role, pattern in [('node', 'nodes', '(n:AshlarNode)'),
+                                ('edge', 'edges', '()-[n:AshlarEdge]->()')]:
+        names = release_columns(kind)
+        cases.append((role, 'MATCH ' + pattern + ' RETURN ' + ', '.join(
+            'n.' + name + ' AS ' + name for name in names), names))
+    cases.append(('endpoints', 'MATCH (s:AshlarNode)-[e:AshlarEdge]->(d:AshlarNode) RETURN s.graph_id AS source, e.graph_id AS relationship_id, d.graph_id AS destination',
+                  ('source', 'relationship_id', 'destination')))
+    return tuple(cases)

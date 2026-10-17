@@ -1,0 +1,61 @@
+{
+  "profile": "ashlar-local-run-evidence/0.1",
+  "files": [
+    {
+      "source": "run-proof.py",
+      "archive": "000-run-proof.py.gz",
+      "bytes": 9738,
+      "sha256": "f2e37d6134affe6cc3b4ec9c89eb1ea3678be3744dc50fab463d8b885b8e58a2",
+      "gzip_bytes": 3479,
+      "gzip_sha256": "a4892eed0f5df35dc85f7c45f6734615fc4b892225dc96da44b2dcb18dd4d3c8"
+    },
+    {
+      "source": "preflight.py",
+      "archive": "001-preflight.py.gz",
+      "bytes": 2207,
+      "sha256": "e535df2988e98f7a5cac5a1c248620c0797bed734e1486d015d9915d3159cf9b",
+      "gzip_bytes": 1154,
+      "gzip_sha256": "6adc19b95d85937367864cc29c97de6ee7d4fbdb570ff26bdb4c4f21845eec20"
+    },
+    {
+      "source": "supervise.py",
+      "archive": "002-supervise.py.gz",
+      "bytes": 2061,
+      "sha256": "fb58a1d270099c004b687e27d8e35144efe6fe2876f57f896a610ae008090d63",
+      "gzip_bytes": 1091,
+      "gzip_sha256": "5540d31fefdaf009f02f94dd61bee80cb9e754030340e37b9bb92b948aca7ce0"
+    },
+    {
+      "source": "source/source-selection.json",
+      "archive": "003-source-selection.json.gz",
+      "bytes": 75514,
+      "sha256": "046b64d4036543dec4710b25bdca40c440c4305b2d405eb78aa93b17d7c3f4f6",
+      "gzip_bytes": 22861,
+      "gzip_sha256": "4341537ca8808288e162311b259b8029d5ada1c09a3d598e3ac432d3b2f38512"
+    },
+    {
+      "source": "evidence/trial-capacity.json",
+      "archive": "004-trial-capacity.json.gz",
+      "bytes": 791,
+      "sha256": "b5ceb77b75d670e56f159e05fc6988de6b6ab4e6ad8ae7e28a3936002b380329",
+      "gzip_bytes": 432,
+      "gzip_sha256": "82e7f1ae9170f90c21049c63f0da4796ac55e574b0629d2be70f4dd890a047ea"
+    },
+    {
+      "source": "evidence/selection.json",
+      "archive": "005-selection.json.gz",
+      "bytes": 1382,
+      "sha256": "42530a8c7300702d02190a6b6ce22d00ad17df572b81ff291edb29eb9f8b38cf",
+      "gzip_bytes": 613,
+      "gzip_sha256": "bac56db9587a971a046bbdbff3d266a34c7faeee0fc8d8bed6a966ebd7b747c6"
+    },
+    {
+      "source": "evidence/terminal.json",
+      "archive": "006-terminal.json.gz",
+      "bytes": 120,
+      "sha256": "d456759395bf0be77995e2ad5a2a464244d318d68965f0b05ea8177c541cb003",
+      "gzip_bytes": 117,
+      "gzip_sha256": "cf652fe3d7200f86d6b37eca63e9694c7945dcc73c0e6a2e610f4cd24bb20577"
+    }
+  ]
+}

@@ -26,6 +26,7 @@ def original_medical_native_session(custody, *, phase=None):
         'spark.app.name': 'Ashlar original medical local worker',
         'spark.driver.memory': custody.bounds.driver_memory,
         'spark.ui.enabled': 'false',
+        'spark.ui.showConsoleProgress': 'false',
         'spark.sql.shuffle.partitions': '1',
         'spark.databricks.delta.snapshotPartitions': '1',
         'spark.sql.session.timeZone': 'UTC',

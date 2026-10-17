@@ -40,6 +40,17 @@ def _identity(path):
         raise PermissionError('Original private medical read output parent required')
     return value.st_dev,value.st_ino
 
+
+def _write_private_file(path,raw):
+    """Exclusive complete byte retention; closing never replaces the primary."""
+    fd=None;primary=None
+    try:
+        fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+        if os.write(fd,raw)!=len(raw):raise PermissionError('Complete original medical file write required')
+        os.fsync(fd)
+    except BaseException as error:primary=error
+    finish(primary,[lambda:os.close(fd)]if fd is not None else [])
+
 class MedicalReadPolicy:
     """Passive immutable read selection, explicitly refusing every effect port."""
     def __init__(self,context,targets,active,renew):
@@ -48,9 +59,17 @@ class MedicalReadPolicy:
     def admit(self,*args):raise PermissionError('Medical read policy cannot admit mutation')
 
 
-def read_original_medical_local(config,*,supervision=None):
+def read_original_medical_local(config,*,supervision=None,singleton_query=None,query_batch=None):
     if type(config)is not OriginalMedicalReadConfig:raise ValueError('Exact configured medical read required')
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:raise ValueError('Exact medical native phase required')
+    if singleton_query is not None:
+        from .medical_singleton_query import MedicalSingletonQuery
+        if type(singleton_query)is not MedicalSingletonQuery:raise ValueError('Exact nominal medical singleton selection required')
+        singleton_query.__post_init__()
+    if query_batch is not None:
+        from .medical_query_batch import MedicalQueryBatch
+        if singleton_query is not None or type(query_batch)is not MedicalQueryBatch:raise ValueError('One exact finite medical query selection required')
+        query_batch.__post_init__()
     config.__post_init__();original_config=_configuration(config);parent=_identity(config.output.parent)
     if config.output.exists()or config.output.is_symlink():raise PermissionError('Fresh medical read output required')
     config.output.mkdir(mode=0o700);output_identity=_identity(config.output);pins=[];primary=None;answer=None;closings=[]
@@ -68,8 +87,7 @@ def read_original_medical_local(config,*,supervision=None):
     def write(name,value):
         renew();raw=(encoded(value)+'\n').encode()
         if len(raw)>config.bounds.receipt_bytes:raise PermissionError('Bounded medical read receipt required')
-        fd=os.open(config.output/name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
-        with os.fdopen(fd,'wb')as stream:stream.write(raw);stream.flush();os.fsync(stream.fileno())
+        _write_private_file(config.output/name,raw)
         renew()
     try:
         handoff=selected(config.installation);selection=validate_original_medical_installation_handoff(handoff,config)
@@ -106,10 +124,39 @@ def read_original_medical_local(config,*,supervision=None):
                             with owned_context(driver.hold(vector,context=context)):
                                 resolved=resolve_publication(driver,manifest['publication_id'],required,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={k:[v]for k,v in json.loads(manifest['schema_revisions_json']).items()})
                                 observation=driver.observe_original_medical_read(resolved.descriptor,context=context)
+                                query_result=None
+                                if singleton_query is not None:
+                                    from .medical_singleton_query import execute_medical_singleton
+                                    query_result=execute_medical_singleton(singleton_query,driver,context,resolved,model,graph,baseline,bindings,output=config.output,bounds=bounds)
+                                if query_batch is not None:
+                                    from .medical_query_batch import execute_medical_query_batch
+                                    query_result=execute_medical_query_batch(query_batch,driver,context,resolved,model,graph,baseline,bindings,output=config.output,bounds=bounds)
                                 policy.renew()
                                 answer={'profile':'ashlar-original-medical-local-read/0.1','installation_id':selection.installation_id,'publication':dict(resolved.descriptor.raw),'observation':observation,'qualification':'Actual existing local medical SELECT reopen; no source/native/ACK advancement, UC or Truss claim'}
+                                if query_result is not None:answer['query_batch'if query_batch is not None else'singleton_query']=query_result
                         policy.renew()
             finish(None,[renew,custody.renew,dataset.renew,plan.renew])
-        write('receipt.json',answer)
     except BaseException as error:primary=error
-    finish(primary,[renew]+closings);return answer
+    finish(primary,[renew]+closings)
+    if singleton_query is not None or query_batch is not None:
+        from .medical_singleton_query import MedicalSingletonBuffer
+        from .medical_query_batch import MedicalQueryBatchBuffer
+        result_name='query_batch'if query_batch is not None else'singleton_query'
+        buffered=answer[result_name]
+        expected=MedicalQueryBatchBuffer if query_batch is not None else MedicalSingletonBuffer
+        if type(buffered)is not expected:raise ValueError('Exact buffered medical query result required')
+        buffered.__post_init__()
+        for name,raw in buffered.protocol_files():
+            renew()
+            maximum=config.bounds.receipt_bytes if name.endswith('-evidence.json')else config.bounds.input_bytes
+            if len(raw)>maximum:raise PermissionError('Bounded complete original medical query protocol/evidence required')
+            _write_private_file(config.output/name,raw)
+            file=MedicalFile(config.output/name,maximum);pins.append((file,raw))
+            renew()
+        directory=os.open(config.output,os.O_RDONLY);error=None
+        try:os.fsync(directory)
+        except BaseException as caught:error=caught
+        finish(error,[lambda:os.close(directory)])
+        answer[result_name]=buffered.report()
+    write('receipt.json',answer)
+    return answer

@@ -767,6 +767,265 @@ retains installation/request correspondence and reports `preflight_completed`,
 `closing` and bounded `stage_records`; it MUST NOT contain a publication or ACK
 success claim. Deadline, refusal or incomplete cleanup MUST withhold success.
 
+`inspect-original-medical-commit --configuration PATH` selects the additive
+`ashlar-original-medical-local-commit-inspection/0.1` configuration. Its exact
+members are `profile`, `recovery`, `original_configurations` and
+`process_observer`. `recovery` contains the complete existing recovery
+configuration, including its unchanged finite worker bounds and a fresh private
+output. `original_configurations` contains 1–32 pinned original configuration
+files, each with `path`, `bytes` and `sha256`. `process_observer` contains exactly
+`ps`, `java`, `owner_uid`, `visibility_profile`, `maximum_processes`,
+`maximum_output_bytes` and `timeout_seconds`. `owner_uid` MUST equal the actual
+local owner UID; `visibility_profile` MUST be
+`ashlar-private-local-same-uid-process-visibility/0.1`.
+`ps` and `java` are pinned files; the Java identity MUST match the selected and
+retained original configurations. Process bounds MUST be positive integers no
+greater than 4096 processes, 1,048,576 output bytes and five seconds.
+
+The inspector MUST acquire the existing installation lease, perform complete
+original recovery preflight and independently validate the retained proposed
+manifest, actual native phase/artifact correspondence, full publication vector,
+source and protected ACK scope. It MUST NOT initialize, construct a publisher,
+prepare or submit a mutation, repair original custody, append source data or
+submit ACK. Independent closing MUST precede release of the exact proposed
+manifest bytes and bounded observation report.
+
+On its supported Darwin private, same-user profile, the inspector MUST observe
+current processes before native acquisition and at closing. It MUST inspect the
+physical executable identity of every visible process with the original local
+owner UID, rather than discover candidate executors only from process titles or
+arguments. Other-UID processes are outside this declared profile. Caller booleans,
+missing PIDs or timeout receipts MUST NOT substitute for image observation. External matching medical workers or the selected JVM,
+unreadable or raced candidate identities, incomplete inventory and unsupported
+observation profiles MUST refuse. Closing MAY exclude only the inspector's
+independently owned process lineage. Unrelated processes require an independently
+observed different executable identity; they MUST NOT be stopped.
+
+A process that exits during observation MAY be recorded as terminal only when
+the native image lookup returns ESRCH and an independent zero-signal kernel
+existence check also returns ESRCH. A permission error, ENOENT, missing row alone
+or failed query MUST NOT establish terminality. The closing process inventory
+MUST omit that PID and a repeated zero-signal check MUST still return ESRCH;
+PID reuse MUST refuse. A new same-owner process MUST undergo the complete
+image/mapping or terminal observation and an independent closing inventory
+before observation can succeed; it MUST NOT be silently omitted. Closure may
+repeat only within the original process-count and overall time bounds. This confirms an exited local
+process only. It grants no remote-operation terminality or future-writer fence.
+
+Argument text is an auxiliary classifier, not physical process identity. If only
+arguments change while PID, UID, parent, process group and start time remain
+unchanged, the observer MAY reclassify the new arguments only after independently
+proving the same physical image or exact mapped kernel start identity. It MUST
+apply every original executor/medical-worker/path guard again and obtain an
+independent closing inventory. Changed image or kernel identity MUST refuse.
+Repeated argument changes consume the original overall deadline and process
+bound; they MUST NOT restart either budget.
+
+The separately selected visibility profile
+`ashlar-private-local-same-uid-mapped-vnode-visibility/0.1` adds exactly one
+required process field, `mapped_vnode_helper`, with the existing pinned-file
+shape. The strict visibility profile MUST reject that field. The mapped profile
+retains primary executable observation and MAY use the helper only when
+`proc_pidpath` returns ENOENT. Other errors and process races MUST refuse.
+This profile assumes cooperative, unmodified original Java/Python runtimes
+retain file-backed executable mappings. Anonymous mappings remain unknown;
+this profile does not establish primary executable identity for a fallback PID.
+
+The selected helper MUST be an explicitly built, pinned Darwin executable;
+command execution MUST NOT discover or invoke a compiler. It consumes canonical
+unsigned decimal arguments in order: PID, owner UID, maximum regions, remaining
+milliseconds, then one or more device/inode pairs. PID is positive, UID is
+32-bit, region count is 1–4096, remaining time is 1–5000 milliseconds, and
+1–33 selected pairs cover the original Java and all available original Python
+executable identities. Device and inode values are unsigned 64-bit integers.
+It emits one JSON object under the existing aggregate stream budget, with exactly
+`profile`, `pid`, `owner_uid`, `start_seconds`, `start_microseconds`, `regions`,
+`file_backed_regions`, `executable_file_regions`, `no_vnode_regions`,
+`selected_vnode_matches`, `terminal_errno`, `stable_bsd_identity`.
+The profile is `ashlar-darwin-mapped-vnode-observation/0.1`; counts and start
+seconds are nonnegative integers, start microseconds are below 1,000,000,
+`regions` is positive and within the selected bound, and the two file-backed
+subcounts cannot exceed their containing counts. File-backed and no-vnode
+counts MUST sum to regions. Success requires exit zero, matching selected PID
+and UID, native terminal EINVAL (22), stable kernel PID/UID/start identity and
+zero selected vnode matches. The helper PID/UID/start time MUST correspond to
+the same process-inventory row, and its microsecond start identity MUST remain
+unchanged at closing. Complete native structure sizes, monotonic region
+addresses and unchanged process identity before/after enumeration are required.
+Permission errors, disappeared processes, partial structures, bounds, deadline
+and malformed or extra output MUST refuse. The caller independently renews
+helper bytes and selected identities, repeats observations at closing, and
+retains fallback identity and counts with the declared assumptions.
+
+An `exact-existing-commit` observation requires complete native manifest
+correspondence and validation of its actual retained original intent and receipt
+through the existing committed-operation owner. An exact native row with missing
+original intent MUST instead use
+`observed-exact-manifest-row-no-original-intent`; matching row values or plausible
+commit metadata MUST NOT promote it to original submission custody. An `observed-absent-at-anchor` observation requires the
+unchanged original manifest identity/history/anchor and the separately selected
+owner's complete current admission. Process profiles require no matching executor
+in the observed intervals. The journal profile requires its conditional
+write-ahead lineage and actual cooperating-writer lease, without asserting
+process absence. Each describes its bounded private development assumptions;
+neither may claim that arbitrary future writers are fenced. Neither observation, report hash,
+proposed manifest nor process absence grants a new submission or ACK. Missing
+intent remains a reconciliation case, and ordinary recovery MUST retain its
+original refusal. A prospective reconciled submission requires a separately
+specified authorization boundary.
+
+Inspection opening and closing compare complete native history using exact
+native types, timestamp timezone and fold. JSON reports preserve every history
+field and encode a native timestamp as
+`{profile: "ashlar-native-history-timestamp/0.1", native_type: "TIMESTAMP",
+session_timezone: "UTC", python_iso8601, python_tzinfo, fold}`.
+`python_iso8601` retains six fractional digits; `python_tzinfo` is null for a
+naive Python value or `"UTC"` for the explicitly UTC carrier, and `fold` is 0 or
+1. Unsupported carriers MUST refuse. Report encoding MUST NOT replace the
+original values used for native comparisons or infer a timezone for a naive
+value. Prospective correspondence uses the same deterministic report encoding.
+
+The same `inspect-original-medical-commit` command MAY separately select
+`ashlar-original-medical-local-journal-inspection/0.1`. Its exact configuration
+members are `profile`, `recovery` and `lineage`. `recovery` is the existing closed
+recovery configuration with fresh output; `lineage` is a pinned-file selection.
+This profile observes retained write-ahead custody under the actual installation
+lease. It MUST NOT produce a process-absence observation or require laptop-wide
+process quiescence. Existing process profiles retain their behavior.
+Held journal renewal and closing MUST finish before the actual lease is released,
+including failure and cancellation paths. After release, final report admission
+renews only the exact selected files; it MUST NOT reuse or renew released lease
+authority. Released leases continue to refuse held operations.
+
+The lineage document has exactly `profile`, `installation_id`, `request_digest`,
+`installation`, `snapshots`, `executions` and `storage_profile`. The profile is
+`ashlar-original-medical-journal-lineage/0.1`; installation ID is a canonical UUID,
+request digest is lowercase SHA-256, installation is the exact pinned original
+handoff, and storage profile is
+`ashlar-private-exclusive-original-journal-no-out-of-band-rollback/0.1`.
+`snapshots` contains 2–16 ordered pinned complete SQLite backup files, each at
+most 128 MiB, with aggregate snapshot bytes within the selected journal budget.
+`executions` contains 1–16 exact records with `configuration`,
+`terminal`, `code` and `launcher`. The first two fields are pinned original files; `code`
+contains exactly `transport`, `driver`, `capture` and `lease`, each a pinned
+installed module. The configuration selected by the terminal invocation MUST
+correspond to that execution; original source, installation, journal and six
+native target identities MUST agree across the known executions. Initialization
+records do not replace complete publication/recovery execution custody.
+`launcher` is null for direct installed CLI invocations. The separately retained
+original diagnostic route MAY select its pinned 698-byte launcher with SHA-256
+`92a6b22ad2fb95a4d22e602c69969e70d35eed314a298e0dd391908cbde160fb`.
+Its exact terminal argv MUST invoke that script, and its selected configuration
+MUST be the sibling `configuration.json` consumed by that reviewed public
+recovery call. Other script launchers MUST refuse; terminal files remain
+unchanged and MUST NOT be relabeled as direct CLI invocations.
+
+Only the independently reviewed original transport digests
+`0261d6c09783b15850591206ae373b288b879e0a212a9fc9cc12aea7085aabbc`,
+`3f4225eb773cf6baaa6df87f09ab92f190eb6ac03e733e85e6d40cbdecceda5b`
+and `b2944f04bbb4d69f4c25824455b62ffd57e902c8e0a7b34671cc63ffcd63141a`
+qualify this version-specific write-ahead premise. Driver, capture and lease
+must respectively match
+`713f7844233e380f1a0c29c57e176c13ff11bbdc7387c8f87f694bf7565fce3e`,
+`64e23a9c8a1e440a084a38303ae8a80dd387b8c971d3d4b99819c03e306e9d03`
+and `36c2133874ef4952b302dc255053627b7037c9569b7888ccb0035f0b865dcaff`.
+Their durable prepared/submitted transactions precede native SQL, operation
+records are retained, cooperating writers hold the installation lease, and
+supervised terminal cleanup kills and reaps the owned group. Arbitrary pinned
+code, a status flag or current missing intent alone MUST NOT establish this
+premise. Terminal evidence MUST contain a terminal state, actual integer exit
+status and exact original configured invocation; a timeout label alone is
+insufficient.
+
+Under the real lease, the observer MUST bind current journal file identity,
+verify complete SQLite schemas/registry and every retained snapshot's operation,
+plan, source-plan and artifact inventories, then compare their monotonic prefix.
+Prior intent bytes, request/source/effect plans and committed receipts MUST NOT
+change or disappear. Only prepared-to-submitted-to-committed progression with
+its original receipt is permitted. Every operation in the final baseline MUST be committed;
+original manifest intent MUST be absent. The current journal MUST preserve the
+complete last baseline. During reconciliation it MAY extend that baseline only
+with the same request's explicitly authorized prospective manifest intent and
+existing committed-attempt append; unexplained new effects, another request,
+conflicting intent, missing rows, unknown schema or registry drift MUST refuse.
+All checks repeat at closing while current identity and lease remain held.
+
+This profile assumes exclusive original storage and a complete known execution
+inventory, with no out-of-band record deletion, restore or rollback. Endpoint
+snapshots do not independently prove those historical assumptions or recover
+lost journal custody. No historical inode assertion may be synthesized. Current
+native receipt/history, complete medical artifact/phase/vector, source and ACK
+checks remain independently mandatory after Spark acquisition and before any
+new intent. Journal observations are retained under `journal_observations`;
+their profile-specific validator grants no native, publication or ACK authority.
+A durable local SQL intent that never existed cannot have reached an orphan JVM
+through the selected write-ahead routes. This conditional observation does not
+qualify unjournaled writers, remote services or production authority.
+
+`reconcile-original-medical-commit --configuration PATH` selects the separate
+`ashlar-original-medical-prospective-manifest/0.1` configuration. Exact members
+are `profile`, `inspection_configuration`, `inspection`, `proposal`,
+`authorization` and `output`. The four file selections use the existing pinned
+`path`/`bytes`/`sha256` shape. `output` is a fresh private absolute output path.
+The pinned inspection configuration remains the single owner of all runtime,
+source, request, installation and observer selections; only the explicitly
+selected fresh output replaces its already-used output for the new operation.
+Parent and worker MUST independently renew the complete wrapper and pins.
+
+The authorization document has exactly `profile`, `authorization_id`,
+`installation_id`, `request_digest`, `applied_artifact_sha256`,
+`proposal_sha256`, `inspection_sha256`, `inspection_configuration_sha256`,
+`manifest_uuid` and `anchor_version`. The profile is
+`ashlar-original-medical-prospective-manifest-authorization/0.1`;
+`authorization_id` and `installation_id` are canonical UUID strings, digest
+fields are lowercase SHA-256 strings, `manifest_uuid` is the selected original
+UUID and `anchor_version` is integer 1 for this private profile. The selected
+authorization expresses permission for this one prospective operation under
+the declared local development authority. An inspection report, boolean,
+matching row or timeout alone MUST NOT authorize it.
+
+The original inspected outcome MUST be `observed-absent-at-anchor`. Before any
+new intent, the operation MUST hold the real installation lease, renew the
+selected process observer, and establish current original source/head, protected
+ACK zero, full applied artifact/phase/effect correspondence and unchanged empty
+manifest identity/schema/history anchor. The original inspection configuration,
+report, applied artifact and proposal MUST match every selected authorization
+digest. Original graph effects MUST NOT be reapplied. A conflicting existing
+ordinary manifest intent, foreign native version or incomplete admission MUST
+refuse. The exact authorization bytes MUST be exclusively retained and fsynced,
+including their parent directory, before any new native submission intent.
+One immutable authorization sidecar per installation/request MUST exclude a
+second authorization for the same uncertain submission; the existing journal
+schema MUST remain unchanged.
+
+SHA-256 of exact authorization bytes identifies the new operation prefix
+`reconciled-manifest:<request_digest>:<authorization_sha256>`. The existing
+SQL/parameter child digest completes its identity. The original manifest SQL
+owner MUST generate the statement from the unchanged proposed row; a separately
+retained prospective intent MUST precede its submission. Existing `recover`
+semantics MUST continue to refuse the missing historical manifest intent.
+An explicit stored-publisher `reconcile_commit` port may transition only the
+original `committing` attempt with its exact retained applied artifact to
+`committed`, after current validation and the prospective owner's exact native
+receipt/manifest checks. It MUST NOT implement a second phase append protocol.
+The prospective helper MUST use the publisher's already held original writer
+interval and refuse calls outside it; it MUST NOT reacquire that exclusive writer.
+
+Uncertain replies resume only the same sidecar authorization, new operation
+identity and original retained SQL/parameters. Submitted and committed intents
+MUST NOT pass through fresh preparation. A completed native commit may be
+reconciled through its original new receipt before the existing attempt owner
+records `committed`. Subsequent protected ACK uses the existing original request,
+descriptor, scope and source owner. Post-commit or post-ACK continuation validates
+that exact prospective receipt and original phase/source/ACK custody; it MUST NOT
+require the fresh-only ACK-zero/empty-manifest condition or submit another
+manifest. All opening/body/closing failures preserve their primary failure and
+withhold success output. Cancellation does not establish rollback. Disabling
+this additive command leaves original and prospective custody intact. A successful
+receipt uses the prospective configuration profile, the existing complete medical
+publication observation and `authorization_sha256` identifying its exact selected
+authorization bytes.
+
 The private output retains exclusive `preflight-stage-NNN.json` records before
 and after each checked stage, with at most 128 records and 1024 bytes per record.
 `ashlar-medical-preflight-stage/0.1` has `sequence` (integer 0–127), `stage` and `phase`
@@ -785,6 +1044,18 @@ Capacity or capture failure MUST preserve the original failure and all required
 closing. A retained begin without end identifies incomplete observation, not a
 proven timeout cause. This local projection grants no authority and claims no
 OpenTelemetry receiver integration; CONTRACT-006 privacy remains applicable.
+
+After acquiring its private output, a failed medical operation SHOULD retain
+`failure-location.json` through the same output owner. The closed profile
+`ashlar-original-medical-failure-location/0.1` contains `exception` (the nearest
+built-in exception category) and `frames` (at most 64 owned-code locations).
+Each location contains only `module`, `function` and positive integer `line`;
+the complete UTF-8 record MUST fit 8192 bytes. Frames are diagnostic locations,
+not exception messages or source excerpts. Paths, local variables, source values,
+SQL, credentials and chained exception payloads MUST be excluded. Failure to
+retain this passive record MUST preserve the primary error and run all required
+closing callbacks. An unacquired output MUST NOT create a diagnostic file.
+The record grants no publication, recovery or ACK authority.
 
 The lower `publication_planning.py` module owns the pure
 `request_for(stream, transaction, predecessor, revisions)` and
@@ -890,8 +1161,8 @@ Binding grants read custody only; it does not grant medical Weft or engine-query
 support or enable any mutation path.
 
 Each command MUST own finite separate-process supervision/descendant cleanup,
-with an explicit integer native deadline of 1–300 seconds, an integer whole
-deadline greater than the native deadline and at most 540 seconds, and
+with an explicit integer native deadline of 1–900 seconds, an integer whole
+deadline greater than the native deadline and at most 960 seconds, and
 local[1]/512MiB for this small functional profile. Bounds
 hold before buffering/serialization; operation-intent capacity is not journal-file
 capacity. Every acquired interval independently attempts required current closing

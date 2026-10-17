@@ -47,8 +47,8 @@ class Tests(unittest.TestCase):
    with self.assertRaises(PermissionError):d.acknowledge(d.policy.active['request'],None,d.context)
    d.renew_original_graph_read_source(f.vector,context=d.context)
    self.assertEqual(set(f.details),set(d.transport.targets));self.assertEqual(len(f.details),12)
-   d.source_sessions.policy.writer.admit_source_writer(f.factory.registration.source,d.context)
-   self.assertEqual(len(f.snapshots),4)
+   with self.assertRaises(PermissionError):d.source_sessions.policy.writer.admit_source_writer(f.factory.registration.source,d.context)
+   self.assertEqual(len(f.snapshots),0) # A source-only graph port is not complete medical read admission.
    d.pin_held=False
   self.assertTrue(f.events);self.assertEqual(sum(x.startswith('close:')for x in f.events),sum(x.startswith('rollback:')for x in f.events))
   with self.assertRaises(PermissionError):d.renew_original_graph_read_source(f.vector,context=d.context)

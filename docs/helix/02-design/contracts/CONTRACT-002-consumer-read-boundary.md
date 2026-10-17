@@ -696,3 +696,96 @@ report is published only after complete successful file-use closure. The report
 parent MUST be canonical, owned and private (mode `0700`); staged bytes and
 original file identity MUST agree before and after no-clobber publication.
 Cleanup MUST remove only owned report inodes, preserving foreign replacements.
+
+### Original medical singleton query
+
+The original historical medical singleton workflow MUST read the selected canonical
+publication through the actual medical read-source factory, original UMF 0.8
+admission and complete held four-role vector. The fixed query selects the required
+`encounters.resource_key` equal to `Encounter/example`; its complete positional
+result bag MUST match an independent scan of the original graph. This narrow
+operation MUST NOT grant arbitrary medical query or action authority.
+
+The operator MUST explicitly select the authenticated indexed f36/0.4.2 local
+Spark 4/Delta 4 compiler installation. Both original compilation responses MUST
+match, pass the pinned public schemas and artifact admission, and retain unchanged
+SQL and ordered parameters. Every original integrity guard MUST execute before
+the query. Fresh session-local external aliases MUST bind the same original native
+UUIDs, locations and pinned versions; no source data, journal or ACK mutation is
+permitted. Full native schema/source/ACK opening and closing observations, reader
+and Spark closing MUST complete before any buffered result is published. A
+compiler-only result or Databricks-qualified profile MUST NOT imply this local
+execution passed.
+
+The singleton receipt MAY retain the interval's repeated, fully validated ACK
+bytes by exact byte lengths and SHA256 references to the outer read receipt's
+full original ACK record. This report-only sharing MUST NOT replace or omit any
+opening/closing observation or whole-byte comparison, truncate values, or enlarge
+the selected complete receipt bound.
+
+Exact compiler request and response bytes MAY be retained once in private
+exclusive files under the read output after all owner closings. The receipt MUST
+pin each file's exact byte length and SHA256, including the byte-equal independent
+recompilation reference, and renew these original files before receipt publication.
+This representation MUST preserve whole original protocols without duplicating
+large payloads in the bounded aggregate receipt.
+
+### Finite original medical full-row and two-hop queries
+
+A closed medical query batch MAY select full-row singleton and complete two-hop
+cases within one actual medical reader, source interval, Spark session and full
+publication hold. Full-row singleton MUST project every original encounters Field
+and reconstruct its declared typed key and complete original row. The earlier
+required-key-only query MUST retain its narrower qualification.
+
+The two-hop case MUST cover all five compatible original relationship pairs and
+compare the complete 20-occurrence `(source, edge1, middle, edge2, target)` bag.
+Original edge identities, repeated occurrences and declared key tuples MUST remain
+intact; bounded RELATED_PATHS output MUST refuse true truncation. Each statement
+MUST use the original indexed f36/0.4.2 compilation/recompilation, public schema
+admission and unchanged emitted SQL, parameters, descriptors and obligations.
+Full native/source/ACK opening and closing cover the whole batch. Per-statement
+renewal MUST use the same original graph-read port and exact held vector, not a
+cached permission. Every result stays buffered until all batch and outer closings.
+
+Complete original protocols and per-statement evidence MAY be retained once in
+exclusive private files after all closings, each bounded by the selected input or
+receipt capacity as applicable and pinned/renewed before the unchanged 1MiB outer
+receipt. No truncation, guard omission, capacity increase or qualification of the
+unselected medical corpus cases follows from this finite batch.
+
+An explicit `filtered-limit` selection MUST project the complete original
+encounters row, order by the original required STRING key and apply unchanged
+compiler-emitted `LIMIT 2`. Its independent witness MUST retain the complete
+original population, key order and selected full rows. The original population
+contains one encounter, so this case MUST NOT claim a binding-limit or truncation
+qualification. Default batch selection remains full-row singleton and two-hop.
+
+### Installed original medical query command
+
+`ashlar query-original-medical --configuration PATH` MUST use the existing
+supervised installed medical runner's closed `query` operation. Its configuration
+profile `ashlar-original-medical-query-batch/0.1` has exactly `profile`, `read`,
+`compiler` and `cases`. `read` is a whole existing original medical read
+configuration. `compiler` has exactly absolute canonical `index` and
+`installation` paths for the existing independently indexed f36 distribution;
+paths MUST NOT choose trust pins, install packages or select fallback compilers.
+`cases` is an explicit nonempty unique array validated by `MedicalQueryBatch`,
+currently selecting `singleton`, `two-hop`, `filtered-limit`, or their unique
+combinations.
+
+Parent and worker MUST retain the complete invocation selection and verify the
+original indexed compiler at entry and final closing, including equal original
+ready bytes. Each compilation MUST retain its independent original distribution
+checks. The parent MUST hold actual runtime custody and enforce the configured
+worker phase, native/whole deadlines, capture capacities and owned group cleanup.
+The worker MUST isolate both Python stdout and native descriptor-one diagnostics
+from the bounded JSON result. The public batch SDK MUST remain the owner of one
+reader/Spark/full-vector interval, fresh statement renewals, complete bags and
+closing. The SDK MAY retain private evidence and its receipt after its own
+source/native/Spark closing. If later worker or parent configuration, compiler or
+capture closing fails, those files MAY remain but MUST NOT establish command
+completion. A CLI pass requires the bounded command result after every worker and
+parent closing and successful supervised termination; drift MUST withhold that
+result.
+The command grants no source writes, ACK advancement or new publication authority.

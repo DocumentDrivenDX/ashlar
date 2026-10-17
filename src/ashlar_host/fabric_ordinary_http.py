@@ -68,6 +68,13 @@ class FabricOrdinaryHttp:
         finish(primary,[response.close]if response is not None else [])
         return status,bytes(raw)
 
+    def selected_configuration(self):
+        """Public immutable account/route selection; never expose the bearer token."""
+        if self._closed or self._config != self._original or time.monotonic() >= self._deadline:
+            raise PermissionError('Current ordinary HTTP interval required')
+        self._original.__post_init__()
+        return self._original
+
     def observations(self):
         """Bounded original response bytes, including incomplete failures; no credentials."""
         return tuple(self._observations)

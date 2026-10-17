@@ -1,0 +1,121 @@
+{
+  "profile": "ashlar-medical-query-frozen-preparation/0.1",
+  "revision": "f35c7ce737301cd9663abd010b2a3827e63cabbd",
+  "prepared_only": true,
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/build.log",
+      "bytes": 101115,
+      "sha256": "19f2c655969f28aa7380a3b5193b2e6fa48bb946ecb4ae12967f5da92f0884b8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/closure.json",
+      "bytes": 682154,
+      "sha256": "2d48ee5d77c39160ca35046383521c089a2a0ddbf05a22cfb2df76c624d038b6"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/install.log",
+      "bytes": 499,
+      "sha256": "48d3b0e943570c7479f0d82160b00f949d19b2f3729699b97d8d88238ce1a3f8"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/installed.json",
+      "bytes": 74153,
+      "sha256": "60dd13fe5514e260008078d873e556aa725c1f1d53820fd5c73a4bf499f75a40"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/metadata.json",
+      "bytes": 739295,
+      "sha256": "3c6d7e757af5488da8fa051bcd4882c483b9e2ed36ccba3a200d88a12d5f6427"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/namespace.json",
+      "bytes": 699922,
+      "sha256": "b85f4dba0d045e9f5d227192900184cd4b7bbcad45ee25b0f40595c4d043e059"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/preparation-facts.json",
+      "bytes": 302,
+      "sha256": "3ba188ae50b4def6b154922f7a17b5cb5a73cd5542c3647153f99c91ee11cc4b"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/prepare-install.py",
+      "bytes": 3066,
+      "sha256": "f62cb2dbbaf274a30aa3c2d989381c3bbace1e51080991fdcc5132a1d5f6e6fa"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/prepare-runner.py",
+      "bytes": 9431,
+      "sha256": "bc3fe28f856ccbcf496daf57ccd8daeaf5c17aeac76b4c5bca0b039d4a65663f"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/prepare-runtime.py",
+      "bytes": 6300,
+      "sha256": "b0595e7aecbf800c77c670cbce5048390e7e299705605146139fba0407687b14"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/pure-preflight.json",
+      "bytes": 3526,
+      "sha256": "9d084361e00725f9276f87e4b64ddc70e4f58aa2731b1c66ecf94f0a78522ab7"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/pure-preflight.py",
+      "bytes": 2514,
+      "sha256": "9982840c44106c789e0267763758d0d8ddee6e41ec34ae22e60f610f9b833d76"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/query-worker.py",
+      "bytes": 2539,
+      "sha256": "b0177a6fc189ab7de17fa2e42caa38a48608ddfccfbb4d36258232200c7b08d7"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/read-query-configuration.json",
+      "bytes": 6356,
+      "sha256": "407eaabbbd80b7864948217522a2d599752485f5ea0b7e7a157a7bf5af610635"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/run-outer.py",
+      "bytes": 858,
+      "sha256": "45d31e0dfd95e3ca94d3cd7de03467d2393ddc4496e07e19fe9f3a8aba9bd590"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/run-query.py",
+      "bytes": 5560,
+      "sha256": "bfbf9dbb2371bb0d008ff911c6521942f89eec7cd09ac60d940c492fd58ce3c5"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/runtime-selection.json",
+      "bytes": 10802,
+      "sha256": "8dcbc4fcca9f54c9426e13c0c297550ee9407358231b52b893c0ecf6d15508cf"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/selected-retained-manifest.json",
+      "bytes": 27614,
+      "sha256": "589bac1b800fe3c52fa388c5b19e59aa143c5933496887f1cb8d5893ca595ee3"
+    }
+  ],
+  "wheel": {
+    "path": "/private/tmp/ashlar-medical-query-installed-20261016-v/dist/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1784062,
+    "sha256": "29f50e4658068d9da3e9deaa26b7c754b438174c412ada5e6f3fdd205cde168e"
+  },
+  "invocation": [
+    "/private/tmp/ashlar-medical-query-installed-20261016-v/environment/bin/python3",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-medical-query-installed-20261016-v/run-outer.py"
+  ],
+  "bounds": {
+    "native_seconds": 900,
+    "whole_seconds": 960,
+    "outer_seconds": 990
+  },
+  "selection": "default singleton+two-hop: six statements, one held reader/Spark acquisition",
+  "unchanged_original_authority_selection": true,
+  "pure_receipt_budget": {
+    "path": "/private/tmp/ashlar-medical-query-batch-compile-20261016-a/receipt-budget.json",
+    "bytes": 731,
+    "sha256": "6c70489911dcb12ee552b2f71dd825774b46e633593d085ae60ac79ffe844084"
+  },
+  "scope": "Fresh installed committed wheel, pure runtime custody and parser checks only; no native/source/ACK/query execution."
+}

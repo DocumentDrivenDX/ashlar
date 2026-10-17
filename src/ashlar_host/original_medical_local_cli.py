@@ -21,6 +21,15 @@ MAX_CONFIGURATION=262144
 
 
 def _configuration(raw,operation):
+    if operation=='query':
+        from .medical_query_configuration import parse_original_medical_query
+        return parse_original_medical_query(raw)
+    if operation=='commit-reconciliation':
+        from .medical_prospective_manifest_configuration import parse_original_medical_prospective_manifest
+        return parse_original_medical_prospective_manifest(raw)
+    if operation=='commit-inspection':
+        from .medical_inspection_selection import parse_medical_inspection
+        return parse_medical_inspection(raw)
     types={'initialization':OriginalMedicalInitializationConfig,'publication':OriginalMedicalPublicationConfig,'replay':OriginalMedicalReplayConfig,'read':OriginalMedicalReadConfig,'recovery':OriginalMedicalRecoveryConfig,'recovery-preflight':OriginalMedicalRecoveryConfig}
     if type(operation)is not str or operation not in types:raise ValueError('Closed medical operation required')
     config=parse_original_medical_local(raw)
@@ -42,12 +51,35 @@ def _execute(configuration, *, expected_sha256, phase, operation):
     if hashlib.sha256(file.raw).hexdigest()!=expected_sha256:
         raise PermissionError('Original selected medical worker configuration differs')
     config=_configuration(file.raw,operation);result=None;primary=None
+    query_renew=None
+    if operation=='query':
+        from .medical_query_configuration import retain_medical_query_selection
+        query_renew=retain_medical_query_selection(config)
+    inspection_original=None
+    if operation in ('commit-inspection','commit-reconciliation'):
+        if operation=='commit-inspection':
+            from .medical_inspection_selection import medical_inspection_selection_bytes as inspection_selection_bytes,renew_medical_inspection_selection as renew_inspection_selection
+        else:
+            from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
+        inspection_original=inspection_selection_bytes(config)
+
     try:
         file.renew(MAX_CONFIGURATION)
-        entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local,'read':read_original_medical_local,'recovery':recover_original_medical_local,'recovery-preflight':preflight_original_medical_recovery_local}[operation]
+        if operation=='query':
+            from .medical_query_local import query_original_medical_cases
+            def entry(selected,*,supervision):
+                return query_original_medical_cases(selected.read,selected.compiler,cases=selected.cases,supervision=supervision)
+        elif operation=='commit-reconciliation':
+            from .original_medical_local_publication import reconcile_original_medical_commit_local
+            entry=reconcile_original_medical_commit_local
+        elif operation=='commit-inspection':
+            from .medical_commit_inspection import inspect_original_medical_commit_local
+            entry=inspect_original_medical_commit_local
+        else:
+            entry={'initialization':initialize_original_medical_local,'publication':publish_original_medical_local,'replay':replay_original_medical_local,'read':read_original_medical_local,'recovery':recover_original_medical_local,'recovery-preflight':preflight_original_medical_recovery_local}[operation]
         result=entry(config,supervision=phase)
     except BaseException as error:primary=error
-    finish(primary,[lambda:file.renew(MAX_CONFIGURATION)])
+    finish(primary,[lambda:file.renew(MAX_CONFIGURATION)]+([]if query_renew is None else[query_renew])+([]if inspection_original is None else[lambda:renew_inspection_selection(config,inspection_original)]))
     return result
 
 
@@ -55,18 +87,30 @@ def _run(configuration,operation):
     """Parent retains actual runtime custody and fixed isolated installed dispatch."""
     file=InvocationFile.read(configuration,MAX_CONFIGURATION)
     config=_configuration(file.raw,operation);raw=None;primary=None
+    query_renew=None
+    if operation=='query':
+        from .medical_query_configuration import retain_medical_query_selection
+        query_renew=retain_medical_query_selection(config)
+    inspection_original=None
+    if operation in ('commit-inspection','commit-reconciliation'):
+        if operation=='commit-inspection':
+            from .medical_inspection_selection import medical_inspection_selection_bytes as inspection_selection_bytes,renew_medical_inspection_selection as renew_inspection_selection
+        else:
+            from .medical_prospective_manifest_configuration import prospective_selection_bytes as inspection_selection_bytes,renew_prospective_selection as renew_inspection_selection
+        inspection_original=inspection_selection_bytes(config)
+
     try:
         with owned_context(OriginalMedicalRuntimeCustody.open(
                 config.runtime,config.inputs,config.bounds,config.producer))as custody:
             def renew():
-                finish(None,[lambda:file.renew(MAX_CONFIGURATION),custody.renew])
+                finish(None,[lambda:file.renew(MAX_CONFIGURATION),custody.renew]+([]if inspection_original is None else[lambda:renew_inspection_selection(config,inspection_original)]))
             argv=[str(config.runtime.python.path),'-I','-B','-m',
                   'ashlar_host.original_medical_local_cli',
                   '--operation',operation,'--configuration',str(file.path),'--sha256',hashlib.sha256(file.raw).hexdigest()]
             raw,_=capture_original_medical_worker(argv,cwd=file.path.parent,
                 environment=custody.native_environment(),renew=renew,bounds=config.bounds)
     except BaseException as error:primary=error
-    finish(primary,[lambda:file.renew(MAX_CONFIGURATION)])
+    finish(primary,[lambda:file.renew(MAX_CONFIGURATION)]+([]if query_renew is None else[query_renew])+([]if inspection_original is None else[lambda:renew_inspection_selection(config,inspection_original)]))
     if type(raw)is not bytes or not 0<len(raw)<=config.bounds.receipt_bytes:
         raise ValueError('Bounded medical operation result required')
     # Reuse the configuration parser's strict JSON conventions for the protocol.
@@ -94,11 +138,18 @@ def execute_original_medical_replay(configuration,*,expected_sha256,phase):
 def execute_original_medical_read(configuration,*,expected_sha256,phase):
     return _execute(configuration,expected_sha256=expected_sha256,phase=phase,operation='read')
 
+def execute_original_medical_query(configuration,*,expected_sha256,phase):
+    return _execute(configuration,expected_sha256=expected_sha256,phase=phase,operation='query')
+
 def execute_original_medical_recovery(configuration,*,expected_sha256,phase):
     return _execute(configuration,expected_sha256=expected_sha256,phase=phase,operation='recovery')
 
 
 def run_original_medical_recovery_command(configuration):return _run(configuration,'recovery')
+
+def run_original_medical_commit_inspection_command(configuration):return _run(configuration,'commit-inspection')
+
+def run_original_medical_commit_reconciliation_command(configuration):return _run(configuration,'commit-reconciliation')
 
 def run_original_medical_recovery_preflight_command(configuration):return _run(configuration,'recovery-preflight')
 
@@ -118,6 +169,8 @@ def medical_failure_metadata(error):
         return None
     return {key:failure[key]for key in ('cause','status','native_phase')}
 
+
+def run_original_medical_query_command(configuration):return _run(configuration,'query')
 
 def run_original_medical_read_command(configuration):return _run(configuration,'read')
 
@@ -143,7 +196,7 @@ def _worker_diagnostic_interval():
 def _worker_main():
     import argparse
     parser=argparse.ArgumentParser()
-    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery','recovery-preflight'],default='initialization')
+    parser.add_argument('--operation',choices=['initialization','publication','replay','read','recovery','recovery-preflight','commit-inspection','commit-reconciliation','query'],default='initialization')
     parser.add_argument('--configuration',required=True)
     parser.add_argument('--sha256',required=True)
     parser.add_argument('--native-phase-fd',type=int,required=True)
