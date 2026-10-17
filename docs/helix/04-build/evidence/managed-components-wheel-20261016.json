@@ -1,0 +1,25 @@
+{
+  "generated_sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45",
+  "assets": {
+    "edge_current.umf.json": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+    "source_record.umf.json": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+    "runtime-carriers.generated.json": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45",
+    "publication_attempt_phase.umf.json": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+    "publication_manifest.umf.json": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+    "tombstone.umf.json": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+    "object_current.umf.json": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+    "property_journal.umf.json": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+    "index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679",
+    "whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926"
+  },
+  "managed_roles": 8,
+  "installed_resource_root": "/private/tmp/ashlar-installed-managed-components-20261016-ttj6i3sf/environment/lib/python3.11/site-packages/ashlar_host/resources/managed-delta-v03",
+  "revision": "8ed13b4de1c684b619dadc8555b53641d79b6ce2",
+  "wheel_sha256": "2a817e6791203ee183a9be09e8e8c9fd4b6b804f1b90ab10d51f761569c2b65c",
+  "wheel_bytes": 1819048,
+  "isolated_import_exit": 0,
+  "cli_help_exit": 0,
+  "dependencies_installed": false,
+  "native_or_network_calls": false,
+  "qualification": "Fresh isolated wheel install and ten packaged managed assets only; not managed-command or native execution qualification."
+}
