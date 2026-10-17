@@ -1,0 +1,287 @@
+{
+  "format": "lossless-gzip-mtime0",
+  "references": [
+    {
+      "bytes": 19827,
+      "private_relative_path": "setup_private_outbox_fixture.py",
+      "reason": "Pinned original generic tool/launcher or byte-identical duplicate; no extra payload needed",
+      "sha256": "c7fe63e8a1b4bd122e096af042ad294d55e75d8a8536ae6839fdb8cfcdc682d9"
+    },
+    {
+      "bytes": 690,
+      "private_relative_path": "run-outbox-setup.py",
+      "reason": "Pinned original generic tool/launcher or byte-identical duplicate; no extra payload needed",
+      "sha256": "9afbb2c07392b8b41c7fe92ac865fb9da1af17b3a58f88bab0d38a7b4256b8ce"
+    },
+    {
+      "bytes": 1822190,
+      "private_relative_path": "source-admission-r2/B-receipt.json",
+      "reason": "Pinned original generic tool/launcher or byte-identical duplicate; no extra payload needed",
+      "sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576"
+    },
+    {
+      "bytes": 9814,
+      "private_relative_path": "source-admission-r2/B-registry.json",
+      "reason": "Pinned original generic tool/launcher or byte-identical duplicate; no extra payload needed",
+      "sha256": "517cd85e14b33804d80b03a556a241bcf5821299e21421435850ff414076a253"
+    }
+  ],
+  "streams": [
+    {
+      "bytes": 1534,
+      "file": "outbox-settings.json.gz",
+      "gzip_bytes": 584,
+      "gzip_sha256": "354461160ae1a00773f4ed981d4aaa33f406e6225f6d712041053b50c9ab3a61",
+      "original_relative_path": "outbox-settings.json",
+      "sha256": "3f2866eec0739ff1396de74f5437f7879deb8d0ada0b425696620884c12d97a1"
+    },
+    {
+      "bytes": 1753,
+      "file": "public-tool-preparation.json.gz",
+      "gzip_bytes": 854,
+      "gzip_sha256": "1a9244cb52990df33edeb231d5c611b73b1375b79e652f4bb31e446d7a4bfe42",
+      "original_relative_path": "public-tool-preparation.json",
+      "sha256": "e89ebab0d1b99ee2337f4b9d779861377978acd804b93951dce218dda2b50634"
+    },
+    {
+      "bytes": 3587,
+      "file": "postgres-inventory--inventory.json.gz",
+      "gzip_bytes": 1275,
+      "gzip_sha256": "6eb270ed70139454ad1942cd30148d829e8e07a3f53f3b0efe691c7f3ddad334",
+      "original_relative_path": "postgres-inventory/inventory.json",
+      "sha256": "0cd9e98efcf46d8a987859868514cf2ff2319582773f7d4552b4bb60ad141fe1"
+    },
+    {
+      "bytes": 501,
+      "file": "postgres-inventory--created-container.json.gz",
+      "gzip_bytes": 342,
+      "gzip_sha256": "956f0ebc66ebf2e23aa20cca742ba178bbe21bab2a858281c153be6d9d2d8964",
+      "original_relative_path": "postgres-inventory/created-container.json",
+      "sha256": "b5aad07152b3c4b2764256bb10e6e538c65fbd2ea767cba429ecb98d50ed38c9"
+    },
+    {
+      "bytes": 253,
+      "file": "producer-readiness.json.gz",
+      "gzip_bytes": 195,
+      "gzip_sha256": "22451b5891f8a6cfea303782ca8656486ddeb995ced0abbc8b5167076ab250b3",
+      "original_relative_path": "producer-readiness.json",
+      "sha256": "c8b73b969b6a5bf46c95ef134944c58ad62e4f6153409b657123d1e3291a7bb9"
+    },
+    {
+      "bytes": 659,
+      "file": "producer-marker-restore.json.gz",
+      "gzip_bytes": 411,
+      "gzip_sha256": "e5d3bfe4e35d5ab9b66cdede2e6955571c97c89562049d3d0d8af3275d65b74e",
+      "original_relative_path": "producer-marker-restore.json",
+      "sha256": "1d07c4808fa06a91f56c5e1a8061427b6fe522ec906fe162c0bf8e523d0d586f"
+    },
+    {
+      "bytes": 801,
+      "file": "producer-private-package-readiness.json.gz",
+      "gzip_bytes": 466,
+      "gzip_sha256": "0f41a0b1ec0dabdec4ce1f2fcccb0ffc831b3cdc97eb04ad1694f9019645ea7f",
+      "original_relative_path": "producer-private-package-readiness.json",
+      "sha256": "f85eef576eb63dac3a0cf686e5a08c0cda7a7c4fefe37d5f00374da7a5d0e139"
+    },
+    {
+      "bytes": 567,
+      "file": "producer-resolution-correction.json.gz",
+      "gzip_bytes": 345,
+      "gzip_sha256": "0c06f4ff432f8cf2480a25c6bab8a64c9cf1c90263674b1419326738c91523ae",
+      "original_relative_path": "producer-resolution-correction.json",
+      "sha256": "08e367c5ceec1c90d78bcf090ee47a18842d2371933dd1502a7fd28309e196e1"
+    },
+    {
+      "bytes": 113,
+      "file": "producer-diagnostic--result.json.gz",
+      "gzip_bytes": 104,
+      "gzip_sha256": "b41b1d7aa6c1f6244de3bd16408f000fced710cc648f230dc92b07345532bc92",
+      "original_relative_path": "producer-diagnostic/result.json",
+      "sha256": "b20cf74c6c3285fd4ec772698a9ff36ad048ed11cde4405a62cb4593a1e0f50c"
+    },
+    {
+      "bytes": 0,
+      "file": "producer-diagnostic--stdout.gz",
+      "gzip_bytes": 20,
+      "gzip_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "original_relative_path": "producer-diagnostic/stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 174,
+      "file": "producer-diagnostic--stderr.gz",
+      "gzip_bytes": 164,
+      "gzip_sha256": "df0430f43bafd51a1a78079e8d3a6fd693b952c068168747bef47b095565e9d4",
+      "original_relative_path": "producer-diagnostic/stderr",
+      "sha256": "e92887dc2133c98e8f41d32b1e7708bb7df9f8fd14bf12b155c9547df5ae9121"
+    },
+    {
+      "bytes": 157,
+      "file": "source-admission-r2--result.json.gz",
+      "gzip_bytes": 131,
+      "gzip_sha256": "ce1d72cdcc0c2398887d9678398a39a8d00add75e5d03453169b9658e15a742f",
+      "original_relative_path": "source-admission-r2/result.json",
+      "sha256": "04d05454e16f48c10077df7307aab12970ec525a0874811f205914b7a9d9adb8"
+    },
+    {
+      "bytes": 2225,
+      "file": "source-admission-r2--source-files.json.gz",
+      "gzip_bytes": 594,
+      "gzip_sha256": "c73c05518ed32d2436f8c85e1a659a8e6ed74e3209ecc1daa190b9fee4967bd7",
+      "original_relative_path": "source-admission-r2/source-files.json",
+      "sha256": "71798a912b9be9968dea8639a402f4e3ef2f92dfa530b2c575aec90b8db6e81a"
+    },
+    {
+      "bytes": 3454,
+      "file": "source-admission-r2--source-set.json.gz",
+      "gzip_bytes": 844,
+      "gzip_sha256": "dead857b5ca934d4ae9e225fa4c0e2bdc0afce123c706fbd2dd66e044267939f",
+      "original_relative_path": "source-admission-r2/source-set.json",
+      "sha256": "ee723a928d2a15017663e9c663437af7ab22893db6018de8ca9f60decf04a762"
+    },
+    {
+      "bytes": 2336,
+      "file": "source-admission-r2--capture-inventory.json.gz",
+      "gzip_bytes": 772,
+      "gzip_sha256": "82f1e4e6623c00e2f1cc9c476b7c11a9f434bd95860b138c8e327584840f6254",
+      "original_relative_path": "source-admission-r2/capture-inventory.json",
+      "sha256": "47102e948c144aa03613702fb1a21c91a5d356091d4798adf934bfb41013b2cb"
+    },
+    {
+      "bytes": 338,
+      "file": "source-admission-r2--A-custody.json.gz",
+      "gzip_bytes": 269,
+      "gzip_sha256": "400d170cbcb152a5836b81f232c71a991f168e3b17bc85eeec6e0054b4c808ee",
+      "original_relative_path": "source-admission-r2/A-custody.json",
+      "sha256": "6e93318fcf804cb1fe1791ef1b7a139b9f075f80e3b90f6b6b17a4ad567c3705"
+    },
+    {
+      "bytes": 338,
+      "file": "source-admission-r2--B-custody.json.gz",
+      "gzip_bytes": 269,
+      "gzip_sha256": "400d170cbcb152a5836b81f232c71a991f168e3b17bc85eeec6e0054b4c808ee",
+      "original_relative_path": "source-admission-r2/B-custody.json",
+      "sha256": "6e93318fcf804cb1fe1791ef1b7a139b9f075f80e3b90f6b6b17a4ad567c3705"
+    },
+    {
+      "bytes": 9814,
+      "file": "source-admission-r2--A-registry.json.gz",
+      "gzip_bytes": 1368,
+      "gzip_sha256": "4f8b258b81c9d9468f8b646d494aadfac49c976a82ed44821ba8649eed91f47a",
+      "original_relative_path": "source-admission-r2/A-registry.json",
+      "sha256": "517cd85e14b33804d80b03a556a241bcf5821299e21421435850ff414076a253"
+    },
+    {
+      "bytes": 1822190,
+      "file": "source-admission-r2--A-receipt.json.gz",
+      "gzip_bytes": 84770,
+      "gzip_sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "original_relative_path": "source-admission-r2/A-receipt.json",
+      "sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576"
+    },
+    {
+      "bytes": 1894,
+      "file": "admit-sources-r2.py.gz",
+      "gzip_bytes": 899,
+      "gzip_sha256": "9b332298d6dcf98b14b45ea3ac1b02dd3b00ecb469e027e2182de65d12954d22",
+      "original_relative_path": "admit-sources-r2.py",
+      "sha256": "45137fdbd48568a06dd7db02a88cf4930a056fa83503dad1b4533b6ea5b1c0a7"
+    },
+    {
+      "bytes": 5220,
+      "file": "seed-sources.py.gz",
+      "gzip_bytes": 2028,
+      "gzip_sha256": "3b19d0b4cfbc0167853c6b98768e08550a0a4b3a45c14abc4ae20ab5281b590d",
+      "original_relative_path": "seed-sources.py",
+      "sha256": "100c68b21b9ea79730e6f1b0e30e0b7a73386fdeea5cc7c52481ef72a543dc37"
+    },
+    {
+      "bytes": 1820,
+      "file": "seed-attempt--result.json.gz",
+      "gzip_bytes": 581,
+      "gzip_sha256": "039f0a81b0629f4da61d19b5da1c53a296c3de2f0502aae43606dd81fa110ecb",
+      "original_relative_path": "seed-attempt/result.json",
+      "sha256": "bc4ed12c2dfe39eb7b121ff3959c9f66c369ae341db92c2caea18ec0925a0136"
+    },
+    {
+      "bytes": 812,
+      "file": "seed-attempt--A-committed.json.gz",
+      "gzip_bytes": 340,
+      "gzip_sha256": "76752d6e599358ae0dcc095345abe455a19c979bc8c17b7684760503a8a032a5",
+      "original_relative_path": "seed-attempt/A-committed.json",
+      "sha256": "31830cf0a27d23398d0632e08c04e441f3964df053067083948d06748ab8ffa1"
+    },
+    {
+      "bytes": 1621,
+      "file": "seed-attempt--B-committed.json.gz",
+      "gzip_bytes": 524,
+      "gzip_sha256": "77e4a1dd3a01818434a1d06c900aef7e6994a24f5e8d4dc9ecf5b8172a1ed9e6",
+      "original_relative_path": "seed-attempt/B-committed.json",
+      "sha256": "e3801147a6ef2e4d5abb4ad9e145707aecfa575d91b3307ee9fa835e71e711f0"
+    },
+    {
+      "bytes": 29725,
+      "file": "source-admission-r2--A-1.jsonl.gz",
+      "gzip_bytes": 2023,
+      "gzip_sha256": "0a5d148001ca93b5394bf99056e7afc2ecf3f6b322440f42c1e71bef3a200268",
+      "original_relative_path": "source-admission-r2/A-1.jsonl",
+      "sha256": "f1bfde6700ba91fcbdf4df1b8fa46ec8d9b32817f8b630b20fe0d2ac825aa272"
+    },
+    {
+      "bytes": 1382,
+      "file": "source-admission-r2--A-2.jsonl.gz",
+      "gzip_bytes": 594,
+      "gzip_sha256": "04e731f3bf51ead9fa1273b89acf168b17f054ca1ee1ac3beb16301a4567f7b6",
+      "original_relative_path": "source-admission-r2/A-2.jsonl",
+      "sha256": "775ebc81d5907689e1df91039c5427bc37be1d7b33f45fb6bd7374cf75e935bb"
+    },
+    {
+      "bytes": 3124,
+      "file": "source-admission-r2--A-3.jsonl.gz",
+      "gzip_bytes": 726,
+      "gzip_sha256": "e6bec910d7b58453a48a6da0e96a3a6190ea7bfd434e868e347a53a2749a62b5",
+      "original_relative_path": "source-admission-r2/A-3.jsonl",
+      "sha256": "e1c8e9c1a8de2da6bdda582381b16d59f0f49c38558ab4d13377118001631b71"
+    },
+    {
+      "bytes": 29903,
+      "file": "source-admission-r2--A-4.jsonl.gz",
+      "gzip_bytes": 2182,
+      "gzip_sha256": "66e19cd4a56be331f69d380441a5a6845ff78ce68ffea1153afe09f7e3d4404a",
+      "original_relative_path": "source-admission-r2/A-4.jsonl",
+      "sha256": "28c768bacc5d1fcb83cb79ab6229b1fe2d560e7eb19e81dbd678ebb175e47da9"
+    },
+    {
+      "bytes": 29725,
+      "file": "source-admission-r2--B-1.jsonl.gz",
+      "gzip_bytes": 2025,
+      "gzip_sha256": "144c6186aa030408211f54fd7bc4285ef1ec8b65432fc9fc48918ae5935b3f17",
+      "original_relative_path": "source-admission-r2/B-1.jsonl",
+      "sha256": "042df5c6941f76d7c91bd33c0eaa6356b79ad71a45947bc729b2c9e53fe4c000"
+    },
+    {
+      "bytes": 1382,
+      "file": "source-admission-r2--B-2.jsonl.gz",
+      "gzip_bytes": 595,
+      "gzip_sha256": "a1fa7f8efa3c73b1192c1d1b79f02a83b8d2b97f4f466f212f8930ef4fa74d2c",
+      "original_relative_path": "source-admission-r2/B-2.jsonl",
+      "sha256": "deef080c9bac8ffa17198b7f9536bb563806380b20d5fb58c6f488b7c62d4a46"
+    },
+    {
+      "bytes": 3124,
+      "file": "source-admission-r2--B-3.jsonl.gz",
+      "gzip_bytes": 727,
+      "gzip_sha256": "56b328414ea0baeb2951ea1a8ef79e6f35db69e5319525935f80346a6f9ac590",
+      "original_relative_path": "source-admission-r2/B-3.jsonl",
+      "sha256": "73c52786cbe5b8146d9a30f403f25b094b2ce1c739138de334c546ebedde1ed8"
+    },
+    {
+      "bytes": 29903,
+      "file": "source-admission-r2--B-4.jsonl.gz",
+      "gzip_bytes": 2183,
+      "gzip_sha256": "95bb005aa07b6ea1ef6019351aa05a3239e267971a7cf0555dd9e140a75afe3a",
+      "original_relative_path": "source-admission-r2/B-4.jsonl",
+      "sha256": "dc5b1798483447be7681e23f75a68ffcb071546cec64ae4d7c84647909db99c9"
+    }
+  ]
+}
