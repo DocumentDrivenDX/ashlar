@@ -611,3 +611,11 @@ unsupported or changed IR shape, changed source/request and expired ownership;
 small inert controls do not replace actual native execution. Reports must preserve
 original tagged carriers, edge IDs and multiplicities. Keep the fixture tiny and
 reuse its installation; no scale benchmark is required.
+
+For grouped two-hop counts, compare path multiplicity with distinct complete
+terminal key tuples, including same-type and cross-type terminal Records. Use
+parallel paths that reach one destination and a self-loop that adds another.
+Exercise required STRING-root groups and empty global/grouped expansions; do not
+invent a zero-valued group for an isolate. Retain original edge-pair witnesses,
+exact group/pathTarget descriptors and every native count-capacity guard. A
+changed terminal Record/key or ungrouped root output must refuse.

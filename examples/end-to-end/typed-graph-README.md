@@ -50,18 +50,23 @@ route retains its lower 256 KiB reference ceiling.
 For query mode, select the same completed ordinal and the explicit indexed Weft
 compiler settings described in the configured-local guide. The admitted graph
 subset covers required facetless STRING projections, global count, forward
-bounded key collections and exactly-two-hop root projections/counts, for example:
+bounded key collections, exactly-two-hop root projections/counts and required
+STRING-root grouped path/distinct-terminal counts, for example:
 
 ```sql
 SELECT p.person_key, RELATED_KEYS(p.knows, 2) AS related FROM Person p
 SELECT p.person_key FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, knows) AS paths
 SELECT COUNT(*) AS n FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, knows) AS paths
+SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets
+FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key
 ```
 
 Key collections retain duplicate target keys from parallel edges and report
 truncation. Two-hop root projections repeat a root once per independent path.
 Select ordinal 1 to query the original topology after publishing ordinal 3.
-Inverse traversal, optional/numeric keys, filtered/grouped graph queries and
+Path counts include every independent edge pair; distinct counts use complete
+terminal keys. Global empty expansions return zero; empty groups produce no rows.
+Inverse traversal, optional/numeric keys, filtered graph queries and
 direct edge-row projection require separate admission. Explicit development IDs
 are not Truss catalog IDs, and local file progress is not a protected source ACK.
 The cooperative local profile supplies no Unity Catalog, remote fencing or

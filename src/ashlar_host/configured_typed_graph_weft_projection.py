@@ -1,7 +1,8 @@
 """Independent original typed-graph prefix bags; no SQL or native-result oracle.
 
 This closed subset supports required facetless STRING projections, global count
-forward one-hop related-key collections and exactly-two-hop root bags/count.
+forward one-hop related-key collections and exactly-two-hop root bags/counts
+with required STRING grouping and distinct authored terminal-key tuples.
 Broader IR requires separate
 admission; public artifact/guard admission remains a distinct prerequisite.
 """
@@ -38,7 +39,7 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
     pins=[m['pin']for m in request['modules']]
     _require(artifact.get('status')=='compiled'and artifact.get('backend')==dict(BACKEND)and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
     plan=artifact.get('logicalPlan');_require(type(plan)is dict and set(plan)in (_IR,_IR|{'pathExpansion'}) and plan['irVersion']=='weft-ir/0.4.1'and plan['modulePins']==pins and type(plan['aggregate'])is bool)
-    _require(all(plan[k]==[]for k in ('filters','groups','joins','order'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
+    _require(all(plan[k]==[]for k in ('filters','joins','order'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
     scan=plan['source'];_require(type(scan)is dict and set(scan)=={'occurrence','pin','record'}and type(scan['occurrence'])is str and bool(scan['occurrence'])and scan['pin']in pins)
     records=[r for r in binding['records']if r['logical']==scan['record']];_require(len(records)==1);record=records[0]
     tid=record['typeId'];_require(tid in configuration.bindings and record['kind']=='object'and record['sourceSystem']==configuration.source_system and record['schemaRevision']==configuration.document_revision)
@@ -82,19 +83,35 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
     outputs=plan['outputs'];columns=artifact.get('columns');_require(type(outputs)is list and 1<=len(outputs)<=128 and type(columns)is list and len(outputs)==len(columns))
     count=plan['aggregate'];plans=[];type_graph={};capabilities={'project','scan'};output_names=set()
     if hops:capabilities.update(('relationship.pathExpansion','relationship.twoHopPaths'))
+    groups=plan['groups'];_require(type(groups)is list and len(groups)<=16 and (not groups or count and hops))
+    group_homes=[];group_identities=set()
+    for group in groups:
+        _require(type(group)is dict and set(group)=={'scan','identity','type','span'}and group['scan']==scan['occurrence']and group['type']==STRING)
+        span=group['span'];_require(type(span)is dict and set(span)=={'start','end'}and all(type(span[k])is int for k in span)and 0<=span['start']<=span['end']<=len(request['sql'].encode()))
+        identity=group['identity'];marker=encoded(identity);_require(marker not in group_identities);group_identities.add(marker)
+        group_homes.append(field_home(record,identity));type_graph[marker]={'availability':'required','identity':identity,'kind':'scalar','type':STRING}
+    if groups:capabilities.update(('group','type.string'))
+    if count:capabilities.add('aggregate')
     for position,(output,column)in enumerate(zip(outputs,columns),1):
         _require(type(output)is dict and set(output)=={'expression','name'}and type(output['name'])is str and bool(output['name'])and output['name']not in output_names);output_names.add(output['name'])
         expression=output['expression'];_require(type(expression)is dict)
-        if count:
-            _require(len(outputs)==1 and expression=={'op':'count','type':INTEGER})
-            representation={'kind':'scalar','logicalType':INTEGER,'carrier':'text','decoder':'exact-integer'};identities=[scan['record']];capabilities.update(('aggregate','aggregate.count'))
+        if expression.get('op')=='count':
+            _require(count and expression=={'op':'count','type':INTEGER})
+            plans.append(('count',None));representation={'kind':'scalar','logicalType':INTEGER,'carrier':'text','decoder':'exact-integer'};identities=[scan['record']];capabilities.add('aggregate.count')
+        elif expression.get('op')=='countDistinctPathTargets':
+            _require(count and hops and expression=={'op':'countDistinctPathTargets','pathOccurrence':expansion['occurrence'],'type':INTEGER})
+            terminal=hops[-1];plans.append(('targets',None));capabilities.add('aggregate.pathTargetDistinctCount')
+            representation={'kind':'scalar','logicalType':INTEGER,'carrier':'text','decoder':'exact-integer',
+                'pathTarget':{'pathOccurrence':expansion['occurrence'],'record':terminal[0]['target'],'key':terminal[4]}}
+            identities=[terminal[0]['target'],*terminal[4]['fields']]
         elif expression.get('op')=='field':
             _require(set(expression)=={'op','identity','scan'}and expression['scan']==scan['occurrence']);identity=expression['identity']
+            _require(not count or encoded(identity)in group_identities)
             plans.append(('field',field_home(record,identity)));capabilities.add('type.string')
             type_graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':STRING}
             representation={'kind':'scalar','logicalType':STRING,'carrier':'text','decoder':'text'};identities=[identity]
         elif expression.get('op')=='relatedKeys':
-            _require(not hops and set(expression)=={'op','scan','bound','relationship'}and expression['scan']==scan['occurrence']and type(expression['bound'])is int and 1<=expression['bound']<=1000)
+            _require(not count and not hops and set(expression)=={'op','scan','bound','relationship'}and expression['scan']==scan['occurrence']and type(expression['bound'])is int and 1<=expression['bound']<=1000)
             mapping,source_type,target_type,homes,target_key=relation(expression['relationship'],scan['record'])
             bound=expression['bound'];plans.append(('related',(mapping,source_type,target_type,homes,bound)))
             capabilities.add('relationship.boundedKeys')
@@ -102,6 +119,7 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
             identities=[scan['record'],mapping['target'],*target_key['fields']]
         else:raise ValueError('Unselected original graph expression')
         _require(column=={'nullable':False,'outputName':output['name'],'position':position,'representation':representation,'sourceIdentities':identities})
+    _require(not count or any(kind in ('count','targets')for kind,_ in plans))
     _require(type(plan['typeGraph'])is list and sorted(map(encoded,plan['typeGraph']))==sorted(map(encoded,type_graph.values())))
     _require(type(plan['requiredCapabilities'])is list and sorted(plan['requiredCapabilities'])==sorted(capabilities))
     original_request=encoded(request);original_artifact=encoded(artifact);original_rows=encoded(scope.source_rows())
@@ -125,15 +143,27 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
                 props=decode_retained_json(target['props_json'].encode());_require(all(type(props.get(pid))is str for pid in homes))
                 found.append((target,edge,tuple(props[pid]for pid in homes)))
             return found
-        roots=[];occurrences=[]
+        roots=[];terminal_keys=[];occurrences=[]
         for row in rows:
             if not hops:roots.append(row);continue
             for middle,first,_ in adjacent(row,hops[0]):
-                for terminal,second,_ in adjacent(middle,hops[1]):
+                for terminal,second,keys in adjacent(middle,hops[1]):
+                    terminal_keys.append(keys)
                     roots.append(row);occurrences.append([row['type_id'],row['id'],first['rel_type_id'],first['id'],middle['type_id'],middle['id'],second['rel_type_id'],second['id'],terminal['type_id'],terminal['id']])
                     _require(len(roots)<=1000)
         answer=[];collections=[]
-        if count:answer=[[str(len(roots))]]
+        if count:
+            buckets={}if groups else{():[]}
+            for index,row in enumerate(roots):
+                props=decode_retained_json(row['props_json'].encode());_require(all(type(props.get(pid))is str for pid in group_homes))
+                group=tuple(props[pid]for pid in group_homes);buckets.setdefault(group,[]).append(index)
+            for group,indexes in buckets.items():
+                values=[]
+                for kind,selection in plans:
+                    if kind=='field':values.append(group[group_homes.index(selection)])
+                    elif kind=='count':values.append(str(len(indexes)))
+                    else:values.append(str(len({terminal_keys[i]for i in indexes})))
+                answer.append(values)
         else:
             for row in roots:
                 props=decode_retained_json(row['props_json'].encode());_require(type(props)is dict);values=[]
@@ -148,5 +178,5 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
                         'ordered_edges':[edge['id']for _,edge,_ in found],'keys':[list(keys)for _,_,keys in found]})
                 answer.append(values)
         scope.renew();scope.parity();configuration.verify();_require(rebuilt()==request and encoded(scope.source_rows())==original_rows)
-        return {'rows':answer,'witnesses':{'source_records':len(rows),'result_occurrences':len(answer),'publication_id':scope.descriptor.publication_id,'source_sha256':hashlib.sha256(source).hexdigest(),'collections':collections,'path_occurrences':occurrences},'scope':'Independent complete original typed-graph required STRING projection/count, forward one-hop keys or exactly-two-hop root occurrence bag; no native/source/publication authority.'}
+        return {'rows':answer,'witnesses':{'source_records':len(rows),'result_occurrences':len(answer),'publication_id':scope.descriptor.publication_id,'source_sha256':hashlib.sha256(source).hexdigest(),'collections':collections,'path_occurrences':occurrences},'scope':'Independent complete original typed-graph required STRING projection/count, forward one-hop keys or exactly-two-hop root occurrence/grouped count and distinct terminal-key bag; no native/source/publication authority.'}
     return oracle

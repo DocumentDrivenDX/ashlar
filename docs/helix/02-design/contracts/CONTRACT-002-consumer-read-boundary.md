@@ -996,7 +996,17 @@ edge identities. The independent source-prefix oracle MUST retain parallel-edge
 and self-loop occurrences, full-bag truncation and the selected ordinal's topology,
 including older publications after endpoint replacement or deletion. Equal target
 keys MUST NOT collapse distinct edges or paths. Unsupported inverse, optional or
-numeric key shapes, filters, joins and grouped counts require separate admission.
+numeric key shapes, filters and joins require separate admission.
+Exactly-two-hop expansion MAY additionally produce global or required facetless
+STRING-root grouped `COUNT(*)` and `COUNT_DISTINCT_PATH_TARGETS`. Path counts MUST
+include every independent edge pair. Distinct-target counts MUST compare complete
+authored terminal key tuples in their declared order and terminal Record context;
+they MUST NOT deduplicate paths or count only one key component. The original
+compiler path occurrence, terminal Record, key descriptor and count-capacity
+obligations MUST correspond. Global counts over an empty expansion MUST return
+zero; empty expansions MUST NOT create grouped rows. Grouping preserves exact
+Unicode values without normalization. Unselected outputs or foreign group/path
+descriptors MUST refuse before query results are released.
 Tagged query reports MUST retain original carrier text, decoded key tuples, path
 edge IDs, state and truncation without flattening occurrence bags. This subset
 MUST NOT imply direct edge-row queries or arbitrary graph query support.

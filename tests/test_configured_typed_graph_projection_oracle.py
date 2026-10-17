@@ -126,6 +126,31 @@ def authored(scope,mode='related',bound=2):
     return request,artifact
 
 
+def aggregate_authored(scope,*,cross=False,grouped=True,distinct_only=False):
+    request,artifact=authored(scope,'path-count');plan=artifact['logicalPlan'];binding=json.loads(request['target']['bindingJson'])
+    path=plan['pathExpansion']['path'];root=plan['source']['record'];identity=next(p['logical']for r in binding['records']if r['logical']==root for p in r['properties']if p['logical']['element']=='person_key')
+    if cross:
+        mapping=next(r for r in binding['relationships']if r['typeId']=='32');target=next(r for r in binding['records']if r['logical']==mapping['target'])
+        target_field=next(p['logical']for p in target['properties']if p['logical']['element']=='place_key')
+        target_key={'id':'identity','fields':[target_field],'types':[STRING]};declaration=mapping['acceptedDefinition']
+        path['hops'][1]={'from':root,'to':mapping['target'],'identity':mapping['logical'],'inverse':False,'sourceKey':path['hops'][0]['sourceKey'],'targetKey':target_key,
+            'sourceMultiplicity':declaration['sourceMultiplicity'],'targetMultiplicity':declaration['targetMultiplicity'],'targetLifecycle':declaration['targetLifecycle']}
+    terminal=path['hops'][-1]
+    outputs=[];columns=[];caps={'aggregate','project','scan','relationship.pathExpansion','relationship.twoHopPaths','aggregate.pathTargetDistinctCount'}
+    def add(name,expression,representation,identities):
+        outputs.append({'name':name,'expression':expression});columns.append({'nullable':False,'outputName':name,'position':len(outputs),'representation':representation,'sourceIdentities':identities})
+    scalar=lambda ty,decoder:{'kind':'scalar','logicalType':ty,'carrier':'text','decoder':decoder}
+    if grouped:
+        plan['groups']=[{'scan':'s0','identity':identity,'type':STRING,'span':{'start':0,'end':1}}];caps.update(('group','type.string'))
+        plan['typeGraph']=[{'availability':'required','identity':identity,'kind':'scalar','type':STRING}]
+        add('key',{'op':'field','scan':'s0','identity':identity},scalar(STRING,'text'),[identity])
+    if not distinct_only:
+        caps.add('aggregate.count');add('paths',{'op':'count','type':INTEGER},scalar(INTEGER,'exact-integer'),[root])
+    add('targets',{'op':'countDistinctPathTargets','pathOccurrence':'p0','type':INTEGER},dict(scalar(INTEGER,'exact-integer'),pathTarget={'pathOccurrence':'p0','record':terminal['to'],'key':terminal['targetKey']}),[terminal['to'],*terminal['targetKey']['fields']])
+    plan['outputs']=outputs;artifact['columns']=columns;plan['requiredCapabilities']=sorted(caps)
+    return request,artifact
+
+
 class Tests(unittest.TestCase):
     def result(self,scope,mode='related',bound=2):
         request,artifact=authored(scope,mode,bound);oracle=configured_typed_graph_projection_oracle(scope,request,artifact)
@@ -145,6 +170,29 @@ class Tests(unittest.TestCase):
                     self.assertEqual(len(self.result(scope,'direct')[0]['rows']),3)
                 expired.append((oracle,scope.source.configuration.model_source,scope.source.original_source,request))
             with self.assertRaises(ValueError):expired[-1][0](*expired[-1][1:])
+    def test_grouped_parallel_paths_distinct_keys_cross_type_and_empty(self):
+        for ordinal in (1,3):
+            with graph_scope(ordinal)as scope:
+                def execute(**choices):
+                    request,artifact=aggregate_authored(scope,**choices)
+                    oracle=configured_typed_graph_projection_oracle(scope,request,artifact)
+                    return oracle(scope.source.configuration.model_source,scope.source.original_source,request)
+                same=execute();cross=execute(cross=True)
+                self.assertEqual(sorted(same['rows']),[['person-1','3','2']]if ordinal==1 else[['person-1','1','1']])
+                self.assertEqual(cross['rows'],[['person-1','2','1']]if ordinal==1 else[])
+                self.assertEqual(execute(cross=True,grouped=False)['rows'],[['2','1']]if ordinal==1 else[['0','0']])
+                self.assertEqual(execute(grouped=False,distinct_only=True)['rows'],[['2']]if ordinal==1 else[['1']])
+                self.assertEqual(len(same['witnesses']['path_occurrences']),3 if ordinal==1 else 1)
+                request,artifact=aggregate_authored(scope)
+                for mutation in ('target','group-type','group-field','occurrence'):
+                    bad=copy.deepcopy(artifact)
+                    if mutation=='target':
+                        target=bad['columns'][-1]['representation']['pathTarget'];target['record']={**target['record'],'element':'Place'}
+                    elif mutation=='group-type':bad['logicalPlan']['groups'][0]['type']=INTEGER
+                    elif mutation=='group-field':bad['logicalPlan']['groups'][0]['identity']['element']='quantity'
+                    else:bad['logicalPlan']['outputs'][-1]['expression']['pathOccurrence']='foreign'
+                    with self.subTest(ordinal=ordinal,mutation=mutation),self.assertRaises(ValueError):configured_typed_graph_projection_oracle(scope,request,bad)
+
     def test_foreign_request_ir_descriptor_direction_bound_and_source_drift_refuse(self):
         with graph_scope(1)as scope:
             request,artifact=authored(scope)
