@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_custody_prerequisites.py", line 274, in <module>
+    main()
+  File "/private/tmp/ashlar-sdk-adoption/tools/check_managed_custody_prerequisites.py", line 89, in main
+    with temporary_managed_identity(
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-sdk-adoption/tools/managed_fixture_identity.py", line 34, in temporary_managed_identity
+    principal = admin.service_principals.create(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/service/iam.py", line 5861, in create
+    res = self._api.do("POST", "/api/2.0/preview/scim/v2/ServicePrincipals", body=body, headers=headers)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/core.py", line 95, in do
+    return self._api_client.do(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/_base_client.py", line 220, in do
+    response = call(
+               ^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/retries.py", line 59, in wrapper
+    raise err
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/retries.py", line 38, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sdk-managed-actions-20261016/venv/lib/python3.11/site-packages/databricks/sdk/_base_client.py", line 326, in _perform
+    raise error from None
+databricks.sdk.errors.platform.PermissionDenied: unable to parse response. This is likely a bug in the Databricks SDK for Python or the underlying API. Please report this issue with the following debugging information to the SDK issue tracker at https://github.com/databricks/databricks-sdk-py/issues. Request log:```POST /api/2.0/preview/scim/v2/ServicePrincipals
+> {
+>   "active": true,
+>   "displayName": "umf-typed-sdk-custody-4b8b70489484",
+>   "entitlements": [
+>     {
+>       "value": "**REDACTED**"
+>     }
+>   ]
+> }
+< 403 Forbidden
+< https://adb-7405607548213398.18.azuredatabricks.net/api/2.0/preview/scim/v2/ServicePrincipals is only accessible by admins.```

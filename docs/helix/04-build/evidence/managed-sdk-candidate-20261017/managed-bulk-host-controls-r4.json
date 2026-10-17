@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "controls": [
+    "none",
+    "unframed",
+    "added-row",
+    "overbound",
+    "lost-ack",
+    "lost-ack-quarantine-failure"
+  ],
+  "scope": "actual Rust program and current generated ActionRef; deliberately faulty owner transport controls only, never native acceptance",
+  "temporal": "HELD"
+}

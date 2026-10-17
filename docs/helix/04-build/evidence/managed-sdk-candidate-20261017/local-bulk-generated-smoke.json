@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "checks": [
+    "current actual native compiler program binds current generated ActionRef",
+    "existing local resolver produces exact generated OrderKey through public preview result"
+  ],
+  "scope": "owner transport control only; no Spark/native qualification",
+  "temporal": "HELD"
+}

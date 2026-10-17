@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "checks": [
+    "original-managed-request.json",
+    "original-managed-bulk-request.json"
+  ],
+  "scope": "actual default compiler lacking managed feature refuses explicitly",
+  "temporal": "HELD"
+}
