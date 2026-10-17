@@ -223,6 +223,12 @@ The local source factory constructs only ordinary reader and existing ACK-record
 SELECT ports; it cannot acquire a source writer. Prove complete six-role schema
 and history correspondence and cumulative four-bag limits, including closing
 drift and capacity refusal, before emitting the read receipt.
+Medical PostgreSQL identity gates require the actual complete read binding and
+same acquired manifest vector, gate, registry, source and closing owners; they
+perform no full Spark snapshot loop. Full native qualification remains in the
+hold's independent opening/closing validation and separate all-path medical
+closing. A source-only graph identity port cannot grant this medical read binding
+or release results. The generic commerce source snapshot path is unchanged.
 
 ## Bounds, lifecycle and diagnostics
 

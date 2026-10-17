@@ -850,3 +850,22 @@ the current original registry, reservations, source registration and complete
 publication vector; report fields are correspondence, never authority. It MUST
 refuse missing, aliased or changed original journal custody. Historical reports
 without this explicit profile retain their existing layout and role selection.
+
+### Original medical read source identity
+
+Within the exact original medical read binding, ordinary PostgreSQL reader and
+ACK-record role admission MUST verify the current acquired gate, complete original
+manifest/pin vector, source/factory/admission owners, journal identity and registry,
+and the nominal native observer and independent closing owner. These source-role
+identity gates MUST NOT repeat full Spark snapshot captures or grant native result
+qualification. Missing complete medical binding or a foreign held vector MUST
+refuse. Generic commerce/source-session snapshot admission remains unchanged.
+
+The medical hold MUST independently validate the complete six-role native schemas
+and original bags before yielding to any read, and again at closing. Its separate
+medical closing MUST still attempt the four pinned snapshots, all six target
+identities, native-byte custody, ordinary source and ACK-role scope checks on
+every exit. A successful read additionally requires the full exact protected ACK
+opening/closing observations owned by `MedicalReadObservation.ack`. No source-only
+observation, cached admission or report may replace these native opening/closing
+guards or release a buffered result after a closing failure.
