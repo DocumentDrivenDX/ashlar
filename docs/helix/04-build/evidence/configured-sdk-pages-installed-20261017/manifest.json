@@ -1,0 +1,205 @@
+{
+  "profile": "ashlar-local-run-evidence/0.1",
+  "files": [
+    {
+      "source": "preparation.json",
+      "archive": "000-preparation.json.gz",
+      "bytes": 767,
+      "sha256": "5f67113f40a7ea4b5b04aaef3a774df9e1b87d55f51e7b6490343e9192ca6445",
+      "gzip_bytes": 489,
+      "gzip_sha256": "2cf44dcb4cff730f91c2424d4c770b2eb97abb9d4fcd3807a349977d45a00fdd"
+    },
+    {
+      "source": "dependencies.json",
+      "archive": "001-dependencies.json.gz",
+      "bytes": 38295,
+      "sha256": "d31c869c2155920ea54bece2cc8221c76744305f45cacb2ebd5df5233242bf2f",
+      "gzip_bytes": 8597,
+      "gzip_sha256": "9a3de45cdaa1d63a14b25548fb55699a854b8a94e66bff2f0c79b37e34851022"
+    },
+    {
+      "source": "dependency-install.log",
+      "archive": "002-dependency-install.log.gz",
+      "bytes": 306,
+      "sha256": "a87f2a31da306eb6aa985501489940be871344f54e2de3a8de87a5fc8a1f7d07",
+      "gzip_bytes": 219,
+      "gzip_sha256": "bbcd050a7c79eaba079900d538fa2294893cdadce9f2c4c333623b7a5a6dc149"
+    },
+    {
+      "source": "pip-check.log",
+      "archive": "003-pip-check.log.gz",
+      "bytes": 71,
+      "sha256": "82f6ec9617ef48e1fd038a90ee5f82db9f4ee087344e2bdb63f7d20f78085c16",
+      "gzip_bytes": 86,
+      "gzip_sha256": "ec7363a466039c23081a5c884f391fd8e009fca74936122f996d6ea8aa652fef"
+    },
+    {
+      "source": "pip-check-completed.log",
+      "archive": "004-pip-check-completed.log.gz",
+      "bytes": 302,
+      "sha256": "d0b0f783aafb6b8554cd928f14f27df0d4c6c31ee5fd80fd5ac48b05cba5cf2d",
+      "gzip_bytes": 224,
+      "gzip_sha256": "d78e94434ad6d6c907d9f4e6a14f1a71d2989d0f2a53c1bcc8a9f0dcab76da37"
+    },
+    {
+      "source": "base.json",
+      "archive": "005-base.json.gz",
+      "bytes": 1418,
+      "sha256": "69bd90d660d3c46a6fccd69fed7bab4e0b588b7de97694df722d5fd428c0dbb2",
+      "gzip_bytes": 629,
+      "gzip_sha256": "d2c2077db63cba31cb37a906d34d905b8f73fc75cb37bc96ad5fab43c4a40821"
+    },
+    {
+      "source": "pages-runner-preparation.json",
+      "archive": "006-pages-runner-preparation.json.gz",
+      "bytes": 1229,
+      "sha256": "204602138b41b2c79756bbeb005d98a70655e8c5eacd93d0080a3de31e5e0fa3",
+      "gzip_bytes": 531,
+      "gzip_sha256": "8aa674d714a0a60c7dac5f585ce9fc71396e87c3105dc13f4bd90a09bb87d377"
+    },
+    {
+      "source": "run-pages-native.py",
+      "archive": "007-run-pages-native.py.gz",
+      "bytes": 5624,
+      "sha256": "b1b0c2ff24286414dcf26d239e960e28bb81cd02669e50b797b00d2823bf06bd",
+      "gzip_bytes": 2418,
+      "gzip_sha256": "728edb727fe9b3dd7119b2c48fc8280f42a146a274071a578ac82564d57cc5aa"
+    },
+    {
+      "source": "run-pages-outer.py",
+      "archive": "008-run-pages-outer.py.gz",
+      "bytes": 1384,
+      "sha256": "5826ed2839789636bded9b0375bd17671cf9e4980a9d99fb0e8e2d0fd895bb8a",
+      "gzip_bytes": 744,
+      "gzip_sha256": "b74565df5cbb7e5ce988881f062b474858872608e6214270b03023d8ceb5629e"
+    },
+    {
+      "source": "pages-attempt.json",
+      "archive": "009-pages-attempt.json.gz",
+      "bytes": 317,
+      "sha256": "19f74bc322bcf7e067d3a9104c4e72cfafb4c28918caf377fa605a1121f5fae5",
+      "gzip_bytes": 206,
+      "gzip_sha256": "f502d9382767b64fc7d6a7074b24f073d67322026436c2c2b68f09b6f3b93a28"
+    },
+    {
+      "source": "pages.stdout",
+      "archive": "010-pages.stdout.gz",
+      "bytes": 190,
+      "sha256": "e1c27c07da7b84a140c4aff9ab0b68ed890155cab86bb497e3d9b611ebfedb14",
+      "gzip_bytes": 136,
+      "gzip_sha256": "529e8a9593a9fdca566fc54313319dea54bddf8ff1798c30bf9dda8636b09fe9"
+    },
+    {
+      "source": "pages.stderr",
+      "archive": "011-pages.stderr.gz",
+      "bytes": 409,
+      "sha256": "fab73ddb9a4a3822c3c49f965c77ce8fb18b1dbe8380b56d4e097e61ba3cba66",
+      "gzip_bytes": 290,
+      "gzip_sha256": "9701635f35e4d43e2622677511bcfdec0bff9d59fa6edb25b2f0397406dfe477"
+    },
+    {
+      "source": "pages-before.json",
+      "archive": "012-pages-before.json.gz",
+      "bytes": 37354,
+      "sha256": "48fd1420f37c61928bf4932e6a6110b909f4cbdc264f4d94914020c4d22dc12c",
+      "gzip_bytes": 12005,
+      "gzip_sha256": "5b9adfff68932691b9e8ecdbf6bc02210cfe8586b0b198dacb6b7fe9087fa37a"
+    },
+    {
+      "source": "pages-after.json",
+      "archive": "013-pages-after.json.gz",
+      "bytes": 37354,
+      "sha256": "48fd1420f37c61928bf4932e6a6110b909f4cbdc264f4d94914020c4d22dc12c",
+      "gzip_bytes": 12005,
+      "gzip_sha256": "5b9adfff68932691b9e8ecdbf6bc02210cfe8586b0b198dacb6b7fe9087fa37a"
+    },
+    {
+      "source": "pages-summary.json",
+      "archive": "014-pages-summary.json.gz",
+      "bytes": 364,
+      "sha256": "c692198d8918723f2fe65bb2ee20904c9ba2df000db20792b8086fa60d83b7af",
+      "gzip_bytes": 258,
+      "gzip_sha256": "a757969e5e548b68af47a3951b4355be01dd963b0b7794000c6677221ffc7955"
+    },
+    {
+      "source": "build.log",
+      "archive": "015-build.log.gz",
+      "bytes": 115651,
+      "sha256": "aebd9b8354231309a013fba66bace5d06363638949f878c66d8434903ef91d23",
+      "gzip_bytes": 9881,
+      "gzip_sha256": "d16aedb668eadd4ae6f80a48497b25dd6b7dc0e6e63ffa4dd27175e2338fc8fb"
+    },
+    {
+      "source": "install.log",
+      "archive": "016-install.log.gz",
+      "bytes": 235,
+      "sha256": "833d0f5a79f281461ffd74d01a5db1846a54d9a570a9994b987e166065279b1d",
+      "gzip_bytes": 177,
+      "gzip_sha256": "a9beed3a4bdbb68207ad7ec171a1c33b8ed7bf847a312da5b627b48aef472ae4"
+    },
+    {
+      "source": "ashlar-configured-sdk-complete-20261017.py",
+      "archive": "017-ashlar-configured-sdk-complete-20261017.py.gz",
+      "bytes": 4510,
+      "sha256": "15cc436a03a5819dd370351078e10e8f50a544b09a186205ca1df0a06ced06f6",
+      "gzip_bytes": 1811,
+      "gzip_sha256": "fd81a63499a93cfe368165c804001a9cc49af8bf4bd3d97dd87f5f542e44e88a"
+    },
+    {
+      "source": "ashlar-configured-sdk-prepare-20261017.py",
+      "archive": "018-ashlar-configured-sdk-prepare-20261017.py.gz",
+      "bytes": 4657,
+      "sha256": "ed3d40e30a945f7259cd99cd6dcab5d77493d2747e366991069d965fa4aa7482",
+      "gzip_bytes": 1988,
+      "gzip_sha256": "9ca00992c03f26d7051e570a478b641499bfda7d63a1549c43f66161c3d12f8f"
+    },
+    {
+      "source": "assemble-pages-evidence.py",
+      "archive": "019-assemble-pages-evidence.py.gz",
+      "bytes": 6667,
+      "sha256": "4b690c36a09301764946ae83e5da691b4fde6eea1f957187a6bdd6ca3352862e",
+      "gzip_bytes": 2970,
+      "gzip_sha256": "703d1247672e157118ab2aae2dd04ed3577ba54c5a532429a10e423222f36508"
+    },
+    {
+      "source": "pages-old-unfiltered-result.json",
+      "archive": "020-pages-old-unfiltered-result.json.gz",
+      "bytes": 111967,
+      "sha256": "8ceed9e2c46f8c7b5f552f8dbba21ae7e58b32334addd4bce52779bb90319e53",
+      "gzip_bytes": 13827,
+      "gzip_sha256": "b457643535a73d95c2ef8312352fd9d23fe85f102b9f9a19ea5b93f7c10abefc"
+    },
+    {
+      "source": "pages-old-unfiltered/runtime-report.json",
+      "archive": "021-runtime-report.json.gz",
+      "bytes": 111967,
+      "sha256": "8ceed9e2c46f8c7b5f552f8dbba21ae7e58b32334addd4bce52779bb90319e53",
+      "gzip_bytes": 13827,
+      "gzip_sha256": "b457643535a73d95c2ef8312352fd9d23fe85f102b9f9a19ea5b93f7c10abefc"
+    },
+    {
+      "source": "pages-current-filtered-result.json",
+      "archive": "022-pages-current-filtered-result.json.gz",
+      "bytes": 82400,
+      "sha256": "ad06d4645a078a829c225981f8e301cf00f958a1ed90d24161aba523ebc00672",
+      "gzip_bytes": 10261,
+      "gzip_sha256": "1c8f23980f8bd911c5a2379296087a1664f1d7a181bdc9d910fcdce1f1ccd09d"
+    },
+    {
+      "source": "pages-current-filtered/runtime-report.json",
+      "archive": "023-runtime-report.json.gz",
+      "bytes": 82400,
+      "sha256": "ad06d4645a078a829c225981f8e301cf00f958a1ed90d24161aba523ebc00672",
+      "gzip_bytes": 10261,
+      "gzip_sha256": "1c8f23980f8bd911c5a2379296087a1664f1d7a181bdc9d910fcdce1f1ccd09d"
+    },
+    {
+      "source": "installed-sdk-correspondence.json",
+      "archive": "024-installed-sdk-correspondence.json.gz",
+      "bytes": 112666,
+      "sha256": "6c9db3294a1745762b6b1d71417ac54130524514668c2d5c4c0705e649c6c0e4",
+      "gzip_bytes": 30287,
+      "gzip_sha256": "f386b0f9912753f1fa5c00b8ae0f1a566ef54fb9cb5f3a6eeb0786e3585f11ec"
+    }
+  ]
+}
