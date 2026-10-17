@@ -859,7 +859,13 @@ class LocalDeltaTransport:
                         or type(row[2]) is not int or row[2] < 0 or type(row[4]) is not str
                         or not 0 < len(row[4].encode()) <= 4194304):
                     raise LocalDeltaUncertain('Exact committed original handle unavailable')
-                self._detail(target)
+                from .immutable_snapshot_memo import ImmutableSnapshotMemo
+                memo=getattr(self,'_immutable_snapshot_memo',None)
+                # Exact active owner history observation itself opens with a
+                # fresh identity check, even on hits or capacity fallback.
+                # Keep the standalone check for every other existing path.
+                if type(memo)is not ImmutableSnapshotMemo or memo.owner is not self:
+                    self._detail(target)
                 matches = [record for record in self._committed_history(target)
                            if record.get('userMetadata') == metadata]
                 if len(matches) != 1 or type(matches[0].get('version')) is not int or matches[0]['version'] != row[2] + 1:
