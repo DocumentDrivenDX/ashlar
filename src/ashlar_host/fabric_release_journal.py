@@ -134,6 +134,7 @@ class FabricReleaseJournal:
             db.executescript('''
                 CREATE TABLE candidates (id TEXT PRIMARY KEY, intent TEXT NOT NULL,
                     state TEXT NOT NULL, model TEXT UNIQUE, handle TEXT UNIQUE);
+                CREATE TABLE first_load (candidate TEXT PRIMARY KEY, handle TEXT UNIQUE NOT NULL);
                 CREATE TABLE active (singleton INTEGER PRIMARY KEY CHECK(singleton=1),
                     revision INTEGER NOT NULL, candidate TEXT);
                 INSERT INTO active VALUES (1,0,NULL);
@@ -233,6 +234,19 @@ class FabricReleaseJournal:
         with self.mutation() as permit:
             return permit.activate_local(candidate_id, expected_revision)
 
+    def record_creation_operation(self, candidate_id: str, creation_handle: str):
+        with self.mutation() as permit:
+            return permit.record_creation_operation(candidate_id, creation_handle)
+
+    def record_first_load(self, candidate_id: str, load_handle: str):
+        with self.mutation() as permit:
+            return permit.record_first_load(candidate_id, load_handle)
+
+    def first_load(self, candidate_id: str):
+        """Read original first-load correspondence, never authorize a new load."""
+        with self._lease(True):
+            return self._first_load(candidate_id)
+
     def _record_intent(self, intent: ReleaseIntent):
         if type(intent) is not ReleaseIntent:
             raise JournalRefusal('exact ReleaseIntent required')
@@ -256,14 +270,53 @@ class FabricReleaseJournal:
                           ('unknown', candidate_id, 'recorded')).rowcount != 1:
                 raise JournalRefusal('creation already submitted or missing intent')
 
+    def _record_creation_operation(self, candidate_id: str, creation_handle: str):
+        """Retain original asynchronous response before polling without model ID."""
+        _uuid(candidate_id)
+        _text(creation_handle)
+        with self._db() as db:
+            if db.execute('UPDATE candidates SET state=?,handle=? WHERE id=? AND state=?',
+                          ('creating', creation_handle, candidate_id, 'unknown')).rowcount != 1:
+                raise JournalRefusal('original creation operation missing or already recorded')
+
     def _record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
-        """Record original response/recovery correspondence; no load admission."""
+        """Record same original response/recovery correspondence; no load admission."""
         _uuid(graph_model_id)
         _text(creation_handle)
         with self._db() as db:
-            if db.execute('UPDATE candidates SET state=?,model=?,handle=? WHERE id=? AND state=?',
-                          ('created', graph_model_id, creation_handle, candidate_id, 'unknown')).rowcount != 1:
-                raise JournalRefusal('missing original uncertain submission')
+            if db.execute("""UPDATE candidates SET state=?,model=?,handle=? WHERE id=?
+                          AND (state=? OR (state=? AND handle=?))""",
+                          ('created', graph_model_id, creation_handle, candidate_id,
+                           'unknown', 'creating', creation_handle)).rowcount != 1:
+                raise JournalRefusal('missing original uncertain submission or changed creation handle')
+
+    def _load_schema(self, db):
+        if db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='first_load'").fetchone() is None:
+            raise JournalRefusal('journal lacks first-load storage; implicit migration refused')
+
+    def _record_first_load(self, candidate_id: str, load_handle: str):
+        """Retain the observed sole initial load before polling; never start/retry it."""
+        _uuid(candidate_id)
+        _text(load_handle)
+        with self._db() as db:
+            self._load_schema(db)
+            if db.execute('SELECT state FROM candidates WHERE id=?', (candidate_id,)).fetchone() != ('created',):
+                raise JournalRefusal('original created item required before first-load retention')
+            if db.execute('SELECT handle FROM first_load WHERE candidate=?', (candidate_id,)).fetchone() is not None:
+                raise JournalRefusal('first-load operation already retained; replacement refused')
+            db.execute('INSERT INTO first_load VALUES (?,?)', (candidate_id, load_handle))
+
+    def _first_load(self, candidate_id: str):
+        _uuid(candidate_id)
+        path = self.root / 'journal.sqlite'
+        identity = _private(path, stat.S_ISREG)
+        with owned_connection(sqlite3.connect(_uri(path, 'ro'), uri=True)) as db:
+            self._load_schema(db)
+            if db.execute('SELECT id FROM candidates WHERE id=?', (candidate_id,)).fetchone() is None:
+                raise JournalRefusal('missing original intent')
+            row = db.execute('SELECT handle FROM first_load WHERE candidate=?', (candidate_id,)).fetchone()
+        _unchanged(path, identity)
+        return None if row is None else row[0]
 
     def candidate(self, candidate_id: str):
         """Read retained intent/status/handles; correspondence, never authority."""
@@ -351,6 +404,20 @@ class FabricMutation:
     def record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
         self.renew()
         return self._owner._record_created(candidate_id, graph_model_id, creation_handle)
+
+    def record_creation_operation(self, candidate_id: str, creation_handle: str):
+        """Retain actual creation operation before polling; no second submission."""
+        self.renew()
+        return self._owner._record_creation_operation(candidate_id, creation_handle)
+
+    def record_first_load(self, candidate_id: str, load_handle: str):
+        """Retain observed original load before polling; no new load grant."""
+        self.renew()
+        return self._owner._record_first_load(candidate_id, load_handle)
+
+    def first_load(self, candidate_id: str):
+        self.renew()
+        return self._owner._first_load(candidate_id)
 
     def candidate(self, candidate_id: str):
         self.renew()

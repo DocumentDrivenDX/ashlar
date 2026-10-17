@@ -245,6 +245,70 @@ class Tests(unittest.TestCase):
             self.assertIsNone(permit.renew())
             permit.record_intent(intent(1))
 
+    def test_original_async_creation_handle_survives_cancel_before_model_id(self):
+        with self.assertRaises(KeyboardInterrupt):
+            with self.owner.mutation() as permit:
+                permit.record_intent(intent(1))
+                permit.begin_creation(uid(1))
+                # Actual 202-response correspondence supplied by future native
+                # owner; this test exercises retention, not a native response.
+                permit.record_creation_operation(uid(1), 'original-operation')
+                self.assertEqual(permit.candidate(uid(1)),
+                                 (intent(1), 'creating', None, 'original-operation'))
+                raise KeyboardInterrupt()
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.record_creation_operation(uid(1), 'replacement')
+        reopened = FabricReleaseJournal(self.root)
+        self.assertEqual(reopened.candidate(uid(1)), (intent(1), 'creating', None, 'original-operation'))
+        with reopened.mutation() as recovered:
+            with self.assertRaisesRegex(JournalRefusal, 'already submitted'):
+                recovered.begin_creation(uid(1))
+            with self.assertRaises(JournalRefusal):
+                recovered.record_creation_operation(uid(1), 'replacement')
+            with self.assertRaisesRegex(JournalRefusal, 'changed creation handle'):
+                recovered.record_created(uid(1), uid(201), 'replacement')
+            self.assertEqual(recovered.candidate(uid(1))[1:], ('creating', None, 'original-operation'))
+            recovered.record_created(uid(1), uid(201), 'original-operation')
+
+    def test_original_first_load_handle_is_durable_immutable_and_item_bound(self):
+        self.owner.record_intent(intent(1))
+        self.owner.begin_creation(uid(1))
+        self.assertIsNone(self.owner.first_load(uid(1)))
+        with self.assertRaisesRegex(JournalRefusal, 'created item'):
+            self.owner.record_first_load(uid(1), 'too-early')
+        self.owner.record_created(uid(1), uid(201), 'original-operation')
+        with self.assertRaises(KeyboardInterrupt):
+            with self.owner.mutation() as permit:
+                permit.record_first_load(uid(1), 'sole-original-load')
+                self.assertEqual(permit.first_load(uid(1)), 'sole-original-load')
+                raise KeyboardInterrupt()
+        reopened = FabricReleaseJournal(self.root)
+        self.assertEqual(reopened.first_load(uid(1)), 'sole-original-load')
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.record_first_load(uid(1), 'replacement')
+        for replacement in ('sole-original-load', 'replacement'):
+            with self.assertRaisesRegex(JournalRefusal, 'already retained'):
+                reopened.record_first_load(uid(1), replacement)
+        self.created(2)
+        import sqlite3
+        with self.assertRaises(sqlite3.IntegrityError):
+            reopened.record_first_load(uid(2), 'sole-original-load')
+        self.assertIsNone(reopened.first_load(uid(2)))
+        self.assertEqual(reopened.candidate(uid(1))[2], uid(201))
+
+    def test_older_journal_without_load_storage_refuses_without_migration(self):
+        self.created(1)
+        import sqlite3
+        with sqlite3.connect(self.root / 'journal.sqlite') as db:
+            db.execute('DROP TABLE first_load')
+        for action in (lambda: self.owner.first_load(uid(1)),
+                       lambda: self.owner.record_first_load(uid(1), 'original-load')):
+            with self.assertRaisesRegex(JournalRefusal, 'implicit migration refused'):
+                action()
+        with sqlite3.connect(self.root / 'journal.sqlite') as db:
+            self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='first_load'").fetchone())
+        self.assertEqual(self.owner.candidate(uid(1))[1:], ('created', uid(201), 'original-operation-1'))
+
     def test_closed_typed_correspondence_and_missing_active_refuse(self):
         with self.assertRaises(TypeError):
             ReleaseIntent(**{**intent(1).__dict__, 'authority': True})
