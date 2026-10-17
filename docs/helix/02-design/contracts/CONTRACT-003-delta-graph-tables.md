@@ -742,6 +742,37 @@ racing activation MUST acquire one whole release or refuse. Missing intent,
 changed definition/location, unexpected load/refresh, failed closure and stale
 activation predecessor MUST refuse without promoting partial output.
 
+### Fabric ordinary deployment HTTP profile
+
+`FabricDeploymentHttpConfig` MUST select one workspace and the same explicit
+ordinary delegated account, executable/configuration directory and finite
+capacities as the ordinary query profile. `open_fabric_deployment_http` MUST own
+acquisition and closing account checks, private token handling, normal HTTPS
+verification and redirect refusal. It MUST expose only explicit GraphModel
+creation, canonical original-operation state/result reads, and exact-item job
+list/read calls. Each acquisition MUST allow at most one creation submission,
+including an uncertain outcome; it MUST NOT poll, retry, refresh or replace items
+implicitly. A separately named IPv4-loopback test acquisition establishes no
+cloud or deployment qualification.
+
+Creation MUST preserve distinct native outcomes: a synchronous `201` GraphModel
+response supplies an item identity without an invented operation ID; an empty
+`202` supplies the original operation ID, location and retry delay for durable
+retention before polling. Returned locations MUST NOT redirect credentials;
+operation requests MUST use the canonical Fabric API origin. Responses MUST
+retain bounded original bytes and selected operation headers, refuse duplicate
+JSON/operation headers and credential echoes, and bind returned items/jobs to the
+selected workspace/item. Continuations MUST remain explicit and bounded.
+
+This transport MUST NOT admit journal activation, original source/ACK custody,
+loaded graphs or production mutation exclusion. REST creation alone MUST NOT
+establish initial ingestion: the documented first portal-editor initialization
+and the actual original load require independent ownership and observation.
+Missing or ambiguous original jobs MUST refuse rather than trigger another load.
+See [creation](https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items/create-graph-model),
+[job observation](https://learn.microsoft.com/en-us/rest/api/fabric/core/job-scheduler/get-item-job-instance)
+and [initialization behavior](https://learn.microsoft.com/en-us/fabric/graph/manage-data).
+
 ### Fabric ordinary delegated-authentication profile
 
 A separately named ordinary-authentication HTTP profile MAY use the operator's
