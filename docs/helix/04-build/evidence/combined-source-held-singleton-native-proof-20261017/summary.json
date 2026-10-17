@@ -1,0 +1,77 @@
+{
+  "profile": "ashlar-installed-two-source-singleton-success/0.1",
+  "product_commit": "e02786d5f524df363ac4a26f27d602aab3c6959c",
+  "parent_observations": {
+    "profile": "ashlar-parent-installed-singleton-success/0.1",
+    "session": 27305,
+    "terminal_tool_reference": "a69c84",
+    "exit_code": 0,
+    "outer_elapsed_seconds": 378.183320999844,
+    "ci_observations": {
+      "root_tool_references": [
+        "5f539f",
+        "81149a"
+      ],
+      "product_commit": "e02786d5f524df363ac4a26f27d602aab3c6959c",
+      "main_docs_revision": "cf5091",
+      "all_five_workflows_green_for_both": true
+    },
+    "provenance": "Exact parent-supplied observations; no timestamp or raw CI transcript invented."
+  },
+  "terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "outer_attempt": {
+    "cleanup": {
+      "groups_absent": true,
+      "process_groups": [
+        65708
+      ],
+      "session_leader_reaped": true
+    },
+    "elapsed_seconds": 378.183320999844,
+    "status": 0
+  },
+  "runner": {
+    "closing_pins_completed": true,
+    "diagnostic_failed": false,
+    "opening_diagnostic_failed": false,
+    "primary_error_class": null,
+    "profile": "ashlar-operator-trace-runner-result/0.1",
+    "public_cli_returned": true
+  },
+  "receipt": {
+    "bytes": 8515,
+    "sha256": "64c8b56c0435a013d45a1c74ffd5c2b7eb8419cd8849d08fc61d03b879d22368",
+    "stdout_byte_equal": true,
+    "both_full_rows_equal_independent_oracle": true,
+    "sources": [
+      "A",
+      "B"
+    ],
+    "same_type_id": 16,
+    "same_entity_id": 3,
+    "different_props_and_entity_version": true,
+    "ordinal": 2,
+    "source_progress": {
+      "A": 2,
+      "B": 1
+    }
+  },
+  "native_file_observations": {
+    "before_after_byte_equal": true,
+    "bytes": 31777,
+    "sha256": "5e6a3f533707bddd1a4e4867d9d6937b1a27d47f74cddb0dd832adca4b6e91f0"
+  },
+  "opening_diagnostic": {
+    "diagnostic_failed": false,
+    "dropped": 0,
+    "profile": "ashlar-operator-opening-exceptions/0.1",
+    "records": []
+  },
+  "qualification": "378.183s is the whole guarded pair including four full ledger audits, not isolated lookup latency. Finite private two-source read, not canonical eight-bag verification, completed eight-publication run, or production authority. Source/ACK observations belong to the held scope; no independent post-release current PostgreSQL observation. No ACK submission or new publication."
+}

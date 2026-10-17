@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-parent-installed-singleton-success/0.1",
+  "session": 27305,
+  "terminal_tool_reference": "a69c84",
+  "exit_code": 0,
+  "outer_elapsed_seconds": 378.183320999844,
+  "ci_observations": {
+    "root_tool_references": [
+      "5f539f",
+      "81149a"
+    ],
+    "product_commit": "e02786d5f524df363ac4a26f27d602aab3c6959c",
+    "main_docs_revision": "cf5091",
+    "all_five_workflows_green_for_both": true
+  },
+  "provenance": "Exact parent-supplied observations; no timestamp or raw CI transcript invented."
+}
