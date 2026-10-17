@@ -40,5 +40,26 @@ For publication and raw singleton reads, use the [installed local Delta
 workflow](../configured-local/README.md#use-an-authored-typed-source) with
 `configured-typed-source.json` and a separate fresh installation. It validates
 complete carried Record payloads on deletes before applying core deletion
-semantics. Typed Weft queries require separate admission; the configured
-STRING-only query profile refuses this source.
+semantics. The original revision 1 model remains unchanged and has no SQL names.
+
+## Query the separately authored named revision
+
+Select [configured-typed-named-source.json](configured-typed-named-source.json)
+for a separate fresh configured-local Delta installation. Its explicit revision 2
+adds SQL names and pins its own source/model/bindings; it is not an in-place
+rewrite of revision 1. Follow the [installed typed-query instructions](../configured-local/README.md#query-the-named-typed-source),
+using the same explicit indexed compiler paths, `local-delta`/`weft-validation`
+extras and finite query bounds.
+
+Publish ordinal 1, then select query operation with a fresh output, no singleton
+`selector`, and `SELECT i.quantity, i.amount, i.active FROM Item i`. The admitted
+descriptors retain exact uint64, `DECIMAL(18,2)` and BOOLEAN meanings. Publish
+ordinal 2 and use a fresh query invocation for
+`SELECT i.quantity, i.amount, i.active, i.note FROM Item i`; the optional note is
+then present as Unicode or explicit null.
+
+The explicit optional native-null STRING encoding accepts present null/value. A
+missing property key must fail the emitted guard: querying `note` at ordinal 1
+refuses rather than treating absence as null. Arithmetic, joins, relationships
+and arbitrary typed models remain outside this query subset. Every query requires
+successful compiler, native, source and supervisor closing.

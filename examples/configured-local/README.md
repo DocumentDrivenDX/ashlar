@@ -70,7 +70,9 @@ Host references are limited to 256 KiB each, the model to 64 KiB and complete
 source groups to four. Empty delete payloads, dataset keys and relationships need
 separate admission. Development IDs establish no native catalog or protected
 source authority. This typed profile supports publication and raw singleton
-reads; the STRING-only Weft query profile below refuses typed sources.
+reads. For typed Weft queries, select the separately authored named revision 2
+source described below; the original revision 1 model has no SQL names and remains
+unchanged.
 
 ## Read a retained publication
 
@@ -125,11 +127,12 @@ completed ordinal, choose a fresh output, remove `selector`, set
 
 Run the same `ashlar run-configured-local --configuration ...` command. For the
 example, `SELECT COUNT(*) AS n FROM Item i` selects a global count instead.
-Required, facetless STRING fields may repeat using distinct output aliases. This profile
-requires one unfiltered record scan; joins, grouping, ordering, limits, optional
-values and other scalar families need separate admission.
+For the original STRING source, required facetless STRING fields may repeat using
+distinct output aliases. The configured query route requires one unfiltered
+record scan. Joins, grouping, ordering, limits, arithmetic and relationships need
+separate admission; typed fields use the explicit subset below.
 
-The result contains positional STRING carrier rows, original column descriptors,
+The result contains positional native carrier rows, original column descriptors,
 exact compiler protocol texts and bounded execution evidence. Both compilations
 must agree; emitted guards and SQL run unchanged under the selected publication.
 Independent original source-prefix rows supply the expected bag. Temporary
@@ -137,3 +140,46 @@ external aliases preserve the original table UUIDs and versions. Results become
 available only after all source, publication, alias, native and supervisor closing
 checks. Query mode does not publish or advance progress. Compiler/source failures
 or a result exceeding the whole receipt bound refuse without truncating output.
+
+### Query the named typed source
+
+Use [configured-typed-named-source.json](../end-to-end/configured-typed-named-source.json)
+for a **separate fresh installation**. This explicitly authored revision 2 adds
+SQL names while pinning its own model, source events and development bindings.
+Do not replace or relabel the original revision 1 files or reuse its installation.
+Keep the same indexed compiler paths, extras and query bounds shown above.
+
+After publishing ordinal 1, select `operation: "query"`, remove `selector`, choose
+a fresh output and set:
+
+```json
+"ordinal": 1,
+"query": {
+  "profile": "ashlar-configured-local-weft/0.1",
+  "sql": "SELECT i.quantity, i.amount, i.active FROM Item i",
+  "compiler": {
+    "index": "/absolute/operator/weft/distributions/index.json",
+    "installation": "/absolute/operator/weft/compiler"
+  },
+  "bounds": {
+    "maximum_artifact_bytes": 1048576,
+    "maximum_rows": 1000,
+    "maximum_cell_bytes": 65536,
+    "maximum_total_cell_bytes": 1048576
+  }
+}
+```
+
+The typed descriptor subset preserves exact unsigned 64-bit integers,
+`DECIMAL(18,2)` and BOOLEAN. Original lexical property text remains available;
+query carriers and decoders must retain their exact descriptor meanings. This
+does not admit arithmetic, joins, relationships or arbitrary typed models.
+
+After publishing ordinal 2, use a fresh query invocation with `ordinal: 2` and
+`SELECT i.quantity, i.amount, i.active, i.note FROM Item i`, retaining the same
+compiler and bounds. At this publication both notes are present: one Unicode
+value and one explicit null. The optional STRING home uses the explicit
+`ashlar-weft-json-native-null/0.1-candidate` encoding. A missing property key MUST
+refuse its emitted guard; absence is not a successful null result. In particular,
+selecting `note` at ordinal 1 must refuse because the first object's key is
+missing.
