@@ -10,7 +10,7 @@ const {parse:parseYaml}=await import(pathToFileURL(join(resolve(umfArg),'node_mo
 const {chromium}=await import(pathToFileURL(join(resolve(umfArg),'node_modules/playwright/index.mjs')).href);
 const sha=(data:Uint8Array|string)=>new Bun.CryptoHasher('sha256').update(data).digest('hex');
 const catalog=JSON.parse(await readFile(join(assets,'schema-catalog.json'),'utf8'));
-if(catalog.entries.length!==15)throw Error('Original runtime, cohort, typed record and UMF 0.8 asset catalog required');
+if(catalog.entries.length!==18)throw Error('Original runtime, cohort, typed record and configured model catalog required');
 const selected=schemaId?catalog.entries.filter((entry:any)=>entry.id===schemaId):catalog.entries;
 if(!selected.length)throw Error('Unknown schema selection: '+schemaId);
 const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch(req){const path=resolve(assets,'.'+decodeURIComponent(new URL(req.url).pathname));if(!path.startsWith(assets+sep))return new Response('missing',{status:404});return new Response(Bun.file(path));}});
@@ -35,6 +35,15 @@ try{
     if(!(await ui.locator('div.callout').textContent())?.includes('Some semantics are not interpreted'))throw Error('Unknown Delta semantics claimed complete');
     checks.push({width,id:entry.id,retainedExtensionDisplayExact:true,unknownDeltaSemanticsExplicit:true});
    }
+   if(entry.id==='configured-typed-graph'){
+    const map=ui.locator('.ontology-map');await map.waitFor();
+    const summary=await ui.locator('.map-summary').textContent();
+    if(!summary?.includes('2 of 2 records · 2 of 2 relationships'))throw Error('Authored graph ER topology mismatch: '+summary);
+    for(const name of ['Person','Place'])if(await map.getByRole('link',{name:new RegExp('Inspect record '+name+' ')}).count()!==1)throw Error('Missing authored graph record: '+name);
+    for(const name of ['knows','located'])if(await map.getByRole('link',{name:new RegExp('Inspect relationship '+name+' ')}).count()!==1)throw Error('Missing authored graph relationship: '+name);
+    await map.screenshot({path:join(output,`authored-graph-${width}.png`)});
+    checks.push({width,id:entry.id,authoredGraphER:{records:['Person','Place'],relationships:['knows','located']}});
+   }
    if(entry.id==='truss-core08-asset'){
     if(!(await ui.locator('div.callout').textContent())?.includes('Some semantics are not interpreted'))throw Error('Unknown consumer semantics claimed complete');
     checks.push({width,id:entry.id,unknownConsumerSemanticsExplicit:true});
@@ -56,6 +65,6 @@ try{
   if(errors.length)throw Error(errors.join('\n'));
   await page.screenshot({path:join(output,`browser-${width}.png`)});await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));if(await page.locator('#schema-browser iframe').count()!==1)throw Error('Persisted host lifecycle lost browser');await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide')));if(await page.locator('#schema-browser iframe').count()!==0)throw Error('Public host destroy failed');checks.push({width,hostHashNavigationSelectedSources:true,persistedPageHideRetainsMount:true,finalPageHideDestroysMount:true});await page.close();
  }
- report={profile:'ashlar-public-schema-browser-dom/0.1',browser:browser.version(),selectedSchemas:selected.map((entry:any)=>entry.id),checks,qualification:'Explicitly selected catalog sources, DOM raw source and download bytes, ordered logical member/type/cardinality/availability glyphs and desktop/mobile navigation/overflow. Delta extensions remain retained raw source; no native Delta semantics, loader/research pack execution or broad browser library support claim.'};
+ report={profile:'ashlar-public-schema-browser-dom/0.1',browser:browser.version(),selectedSchemas:selected.map((entry:any)=>entry.id),checks,qualification:'Explicitly selected catalog sources, DOM raw source and download bytes, ordered logical member/type/cardinality/availability glyphs, selected authored graph ER records/relationships and desktop/mobile navigation/overflow. Delta extensions remain retained raw source; no native Delta semantics, loader/research pack execution or broad browser library support claim.'};
 }finally{await browser?.close();server.stop(true);}
 await Bun.write(join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(`Verified${selected.length} exact sources/downloads and8 logical records at2 viewport sizes`);

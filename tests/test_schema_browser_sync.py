@@ -12,10 +12,12 @@ def copied(tmp_path):
     for folder in ('website/static/model/schema-browser', 'website/schema-browser',
                    'docs/helix/02-design/models/ashlar-delta-runtime'):
         shutil.copytree(ROOT / folder, tmp_path / folder)
-    for name in ('cohort.umf.json','cohort-r2.umf.json','cohort-inverse.umf.json'):
-        target=tmp_path/'examples/truss-native'/name
+    proof=json.loads((ROOT/'website/static/model/schema-browser/provenance.json').read_bytes())
+    for name in proof['inputs']:
+        target=tmp_path/name
+        if target.exists():continue
         target.parent.mkdir(parents=True,exist_ok=True)
-        shutil.copyfile(ROOT/'examples/truss-native'/name,target)
+        shutil.copyfile(ROOT/name,target)
     for name in ('tools/build_schema_browser.py', 'website/scripts/check_schema_browser.py'):
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -96,4 +98,18 @@ def test_original_cohort_revisions_are_exact_catalog_inputs(tmp_path):
         assert entry['text'].encode()==(root/'examples/truss-native'/filename).read_bytes()
         assert json.loads(entry['text'])['umf']=='0.7.0'
     path=root/'examples/truss-native/cohort-r2.umf.json';path.write_bytes(path.read_bytes()+b' ')
+    assert check(root)!=0
+
+
+def test_configured_models_are_exact_distinct_catalog_inputs(tmp_path):
+    root=copied(tmp_path)
+    catalog=json.loads((root/'website/static/model/schema-browser/schema-catalog.json').read_bytes())
+    for identity,filename in (('configured-typed-scalar-r1','typed-model.umf.json'),('configured-typed-scalar-named-r2','typed-named-model.umf.json'),('configured-typed-graph','typed-graph-model.umf.json')):
+        entry=next(item for item in catalog['entries']if item['id']==identity)
+        assert entry['text'].encode()==(root/'examples/end-to-end'/filename).read_bytes()
+        assert json.loads(entry['text'])['umf']=='0.8.0'
+        assert entry['schemaFormat']=='umf'
+    graph=next(item for item in catalog['entries']if item['id']=='configured-typed-graph')
+    assert [r['id']for r in json.loads(graph['text'])['modules'][0]['relationships']]==['knows','located']
+    path=root/'examples/end-to-end/typed-graph-model.umf.json';path.write_bytes(path.read_bytes()+b' ')
     assert check(root)!=0
