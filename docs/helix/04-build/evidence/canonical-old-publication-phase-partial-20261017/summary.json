@@ -1,0 +1,63 @@
+{
+  "profile": "ashlar-canonical-old-publication-phase-partial/0.1",
+  "source_commit": "d6dbf08a4e69745870a28c3fde65f109214c89c3",
+  "wheel_sha256": "e9b5de8d7c847f1a7110ba0c05c5fb78003805fb8eb8a078498e1393b04b24e9",
+  "selection": {
+    "ordinal": 0,
+    "expected_completed_prefix": 2,
+    "native_schema_profile": "canonical-managed-carriers/0.1",
+    "original_run_sha256": "6e466770c8973b3c3104b48924c2e3e4c954745e63c054e0a14817299bc674ed"
+  },
+  "terminal": {
+    "cleanup_confirmed": false,
+    "cleanup_failed": true,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "cleanup_failure": {
+    "error_class": "PermissionError",
+    "phase": "confirm-absence",
+    "process_groups": [
+      93703
+    ],
+    "remaining_groups": [
+      93703
+    ],
+    "session_leader_pid": 93703,
+    "session_leader_reaped": true
+  },
+  "work_seconds": 180,
+  "public_receipt_exists": false,
+  "parent_command_observation": {
+    "root_session_id": 23978,
+    "exit_code": 1,
+    "raw_parent_terminal_file_retained": false,
+    "provenance": "Parent reported actual terminal in this task"
+  },
+  "later_process_observation": {
+    "selection": "Exact process group 93703",
+    "result": "EMPTY",
+    "tool_output_reference": "1f7c5d",
+    "raw_separate_file_retained": false,
+    "qualification": "Parent-reported later elevated read-only selection; does not replace original cleanup failure or prove universal descendant absence."
+  },
+  "partial_stack": {
+    "bytes": 1340,
+    "sha256": "c43f16dd1fdccc675632d5a1dc5c51439106688e4670d97954e895e2bf6410e6",
+    "qualification": "Exact partial bytes retained; no completed phase/fast-path-reach or causal latency inference."
+  },
+  "source_ack_basis": {
+    "sha256": "08ac8daa273e6ed298e0673b02e8df98c132f1c6efbb7c996e9890e8d6a83e46",
+    "qualification": "Earlier separate ordinary A1/B1 readback, not a post-verifier closing or native publication pass."
+  },
+  "excluded_private_references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "reason": "Raw credentials/DSNs excluded"
+    }
+  ],
+  "qualification": "Incomplete verification attempt; no canonical old-publication verification pass, no phase-absence fast-path-reach proof, no A2completion/ACK2/unchanged-state claim. Assembler local retained-file reads only; no native/source/ACK calls."
+}

@@ -1,0 +1,14 @@
+{
+  "profile": "ashlar-operator-trace-inert-check/0.1",
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_trace_native_verification",
+  "observed_result": {
+    "tests": 3,
+    "seconds": 0.039,
+    "status": "OK"
+  },
+  "source_sha256": {
+    "tools/trace_native_verification.py": "d1afdadd8f75afab4f26731b7d0c8bfd6114f25aedb668aecd272e4ae93f1a69",
+    "tests/test_trace_native_verification.py": "0cf20e819389d08eac4f787ad6e955fdd747cc536dafa74b1ee1805b3f4e4bbe"
+  },
+  "qualification": "Parent-transcribed actual unittest result. Fixed-label operator diagnostics only; no native execution or workflow completion proof. Durations are inclusive and nested, not additive. Prior 3-test run had one failing test because its closing-write mock was restored before context exit; corrected test retains the injected cancellation through closing."
+}

@@ -1,0 +1,150 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "scope": "Actual incomplete canonical ordinal0 verification; no pass claim",
+  "files": [
+    {
+      "file": "configuration.json.gz",
+      "bytes": 525,
+      "sha256": "5347177a5b8f8593885099bee97225324dc8c045659bcc6dedca00d743444a5a",
+      "original_bytes": 1105,
+      "original_sha256": "a9dadfd09f9bcafe87b26164e3fcad87b757cfae9b63b5bf7aed46d309e50819",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/configuration.json"
+    },
+    {
+      "file": "provider.py.gz",
+      "bytes": 1610,
+      "sha256": "4a7b1fefb3acf1b2359329b0fd6d4f5c5552b32f3e7d4c1d5d9a54cabbee7375",
+      "original_bytes": 4160,
+      "original_sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/provider.py"
+    },
+    {
+      "file": "run-installed.py.gz",
+      "bytes": 820,
+      "sha256": "a5a54e0e56eb6206daebb4bb782381dc81f624279a8e373374b33fd7c40b3cc6",
+      "original_bytes": 1730,
+      "original_sha256": "75954c68c8e6982d207ac90c5ef62f311ddcecc392a86fc139eeb74c49b9ccc6",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/run-installed.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "bytes": 2386,
+      "sha256": "e8691428cbe668b353d7d34e7ae6a3d8b59effe53c281a984558f7cc3ed24be1",
+      "original_bytes": 6579,
+      "original_sha256": "bc68e48d0efaeb40a9a99eebbe4864ded3a7c8ecde75cbbfcfa1863606829ffa",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/supervise.py"
+    },
+    {
+      "file": "preparation.json.gz",
+      "bytes": 1956,
+      "sha256": "7ed60a8b8cbb44d71a54fed9a491747e51f6dee76c17a7e55eaf47d8a3db47f9",
+      "original_bytes": 7087,
+      "original_sha256": "94c68ef7fc250880cb6f4b15b38d640520c2584d1694f225c0a387c99261be8b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/preparation.json"
+    },
+    {
+      "file": "wheel-preparation.json.gz",
+      "bytes": 367,
+      "sha256": "fadb7d691582dd4aedf5c0571b9e5f21ef9edd712ab0ff7f72f16251e4f8f9ff",
+      "original_bytes": 608,
+      "original_sha256": "5aadaeb57aa6adffe67abce29e7812ee6606c7f3b50992792603d85d8641180e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/wheel-preparation.json"
+    },
+    {
+      "file": "pure-preflight.json.gz",
+      "bytes": 252,
+      "sha256": "5560b315dc3cbce31126b888e6fb3a0a8f8cf24d955c713ae1c585ce08d260de",
+      "original_bytes": 425,
+      "original_sha256": "030c03be5c71f00eeaae2ada69595697464dd2827441fd4fd9c3f6339fe9a357",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/pure-preflight.json"
+    },
+    {
+      "file": "selection-preflight.json.gz",
+      "bytes": 233,
+      "sha256": "4cd9d74c20a81e7460583ff4be6a29a40ffa5637d0d85eb0863202e68babb42e",
+      "original_bytes": 429,
+      "original_sha256": "c49db960f6c50490ef9c51c45ad37cd795ab872f1d56d7a164cad08499f8106b",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/selection-preflight.json"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "bytes": 493,
+      "sha256": "d25e4ff18cc2942f6e96899521d7b3075ab8688e6a3f9a557956079a0e1cc8c4",
+      "original_bytes": 776,
+      "original_sha256": "9b99789d46a6b7d67cb89ebc8d0ac92be745332246fa8fd2333a2f44dfe1544e",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/execution-clearance.json"
+    },
+    {
+      "file": "resume-terminal.json.gz",
+      "bytes": 106,
+      "sha256": "116ea75c45b14c31fc570a8ba919cbef6cceb2cd68a06113d24c0399cbbc2cda",
+      "original_bytes": 119,
+      "original_sha256": "51ec8081fba9a79aee91fd08c45220d64a164065955c06880b5a3cc67cf9e9bb",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/resume-terminal.json"
+    },
+    {
+      "file": "resume.stdout.gz",
+      "bytes": 20,
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/resume.stdout"
+    },
+    {
+      "file": "resume.stderr.gz",
+      "bytes": 1226,
+      "sha256": "980771937091d6704649e5c40c0c32d7c83d73d3a00c5ea4b0bb8f33c200d2fa",
+      "original_bytes": 97618,
+      "original_sha256": "f56a1765b7aee89bcb2a1d53edd30d1ea1f55e137dd867fba3a0693ef4668680",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/resume.stderr"
+    },
+    {
+      "file": "cleanup-failure.json.gz",
+      "bytes": 134,
+      "sha256": "c8923ef0863efa84b661839cba92e636ad7a76a92e0e2b17d7bc4dc890f48740",
+      "original_bytes": 179,
+      "original_sha256": "f2500867e4ea899f93fb2eed38779d03f5078648f61fc62206de2913708dc59f",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/cleanup-failure.json"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "bytes": 50,
+      "sha256": "598201848bde26f2e7944b81eef7c6b87d806db845ab064766bbe04c687a02b7",
+      "original_bytes": 30,
+      "original_sha256": "e5051428442dc3fed4640cda6a5829a787b8f9b31d48340d8392a723cb49c5a4",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/owned-session.json"
+    },
+    {
+      "file": "private-stack.txt.gz",
+      "bytes": 336,
+      "sha256": "b6c3a17f5177ea920011f07830203ea7613d6588da7d78506e34feb87333cfb0",
+      "original_bytes": 1340,
+      "original_sha256": "c43f16dd1fdccc675632d5a1dc5c51439106688e4670d97954e895e2bf6410e6",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/private-stack.txt"
+    },
+    {
+      "file": "build.log.gz",
+      "bytes": 9993,
+      "sha256": "4fb82291fa1a7c4b157e96891a0475a83ad9f377de318b9d388a4585133f541d",
+      "original_bytes": 116461,
+      "original_sha256": "bd9ac65ffdd31f1e5e274608b09594b2cfdc774aa17676008f4d3dba281152d9",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/build.log"
+    },
+    {
+      "file": "install.log.gz",
+      "bytes": 349,
+      "sha256": "3100fb64862404017fac77500c3b0b670eb120304feeea094664b81cbce437b1",
+      "original_bytes": 520,
+      "original_sha256": "783f5f945d508431966c546a8391e9fcd201039c9335d15f7756e41c20e755ee",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-phase-control/install.log"
+    },
+    {
+      "file": "original-run.json.gz",
+      "bytes": 1817,
+      "sha256": "6cf4fa3209aa8a7a5b234ba69486c49d94b48d4c68d4290dd4dc89b257a6a304",
+      "original_bytes": 8426,
+      "original_sha256": "6e466770c8973b3c3104b48924c2e3e4c954745e63c054e0a14817299bc674ed",
+      "original_private_path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/native-r2/original-run.json"
+    }
+  ]
+}
