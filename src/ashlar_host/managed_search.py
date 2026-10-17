@@ -1,0 +1,130 @@
+"""Native UC search transport; explicit credentials and lifecycle custody only.
+
+No publication writes or default lifecycle authority are provided. Qualification
+requires the supplied native owner interval and independent principal witnesses.
+"""
+
+from __future__ import annotations
+
+from collections.abc import Callable, Mapping
+from contextlib import AbstractContextManager
+from time import monotonic
+from typing import Any
+from urllib.parse import quote, urlparse
+from urllib.request import HTTPRedirectHandler, Request, build_opener
+
+from umf_access.native_program import program_json
+from umf_access.unity_search import NativeHydration, UnitySearchError
+
+from .managed_connector import (
+    ManagedSQLConnectorFactory,
+    describe_native_table,
+    execute_original,
+    qualified_table_name,
+)
+
+
+class ManagedUnitySearchTransport:
+    def __init__(
+        self,
+        factory: ManagedSQLConnectorFactory,
+        *,
+        source_interval: Callable[[Mapping[str, Any], float], AbstractContextManager[Any]],
+    ):
+        if not callable(source_interval):
+            raise UnitySearchError("qualified native lifecycle owner interval required")
+        host = urlparse(factory.config.host)
+        if host.username or host.password or host.query or host.fragment or host.port not in (None, 443):
+            raise UnitySearchError("original workspace HTTPS origin required")
+        self.factory, self.source_interval = factory, source_interval
+
+    def _request(self, method, path, body, *, deadline):
+        import json
+
+        remaining = deadline - monotonic()
+        if not 0 < remaining <= 120 or not path.startswith("/api/") or "?" in path or "#" in path:
+            raise UnitySearchError("bounded original native API operation required")
+        headers = dict(self.factory.config.authenticate())
+        headers["Content-Type"] = "application/json"
+        data = None if body is None else json.dumps(body, allow_nan=False, separators=(",", ":")).encode()
+        request = Request(self.factory.config.host.rstrip("/") + path, data=data, headers=headers, method=method)
+        class NoRedirect(HTTPRedirectHandler):
+            def redirect_request(self, req, fp, code, msg, headers, newurl):
+                return None
+
+        # Preserve native HTTP errors and never forward authenticated headers
+        # to a redirect destination.
+        with build_opener(NoRedirect()).open(request, timeout=remaining) as response:
+            payload = response.read(4_194_305)
+        if len(payload) > 4_194_304 or monotonic() >= deadline:
+            raise TimeoutError("native search API exceeded whole-call budget")
+        result = program_json(payload.decode("utf-8"))
+        if not isinstance(result, dict):
+            raise UnitySearchError("native search API object required")
+        return result
+
+    def principal(self, *, deadline):
+        original = self._request("GET", "/api/2.0/preview/scim/v2/Me", None, deadline=deadline)
+        subject = original.get("userName")
+        if type(subject) is not str or not subject or original.get("active") is not True:
+            raise UnitySearchError("original active authenticated workspace subject required")
+        return subject
+
+    def index_metadata(self, name, *, deadline):
+        return self._request("GET", "/api/2.0/vector-search/indexes/" + quote(name, safe=""), None, deadline=deadline)
+
+    def query_index(self, method, path, body, *, deadline):
+        if method != "POST" or not path.startswith("/api/2.0/vector-search/indexes/") or not path.endswith("/query"):
+            raise UnitySearchError("original closed vector query resource required")
+        return self._request(method, path, body, deadline=deadline)
+
+    def read_current(self, table, statement, parameters, *, deadline):
+        native_name = (table["catalog"], table["schema"], table["table"])
+        if native_name[:2] != (self.factory.catalog, self.factory.schema):
+            raise UnitySearchError("original native catalog/schema differs from host configuration")
+        with self.source_interval(table, deadline):
+            connection = self.factory(deadline=deadline)
+            try:
+                before = self._admit(connection, table, native_name, deadline)
+                cursor = connection.cursor()
+                try:
+                    execute_original(cursor, statement, parameters, deadline=deadline)
+                    names = tuple(column[0] for column in cursor.description)
+                    rows = tuple(tuple(row) for row in cursor.fetchmany(3))
+                finally:
+                    cursor.close()
+                after = self._admit(connection, table, native_name, deadline)
+                if before != after or monotonic() >= deadline:
+                    raise UnitySearchError("native current-read admission changed before release")
+                return NativeHydration(names, rows, before[0], after[0], before[1], after[1])
+            finally:
+                # This transport never enters a transaction. Do not call a
+                # synchronous ROLLBACK during teardown of a failed warehouse.
+                connection.close()
+
+    def _admit(self, connection, table, native_name, deadline):
+        detail = describe_native_table(connection, native_name, deadline=deadline)
+        if detail.get("id") != table["id"] or str(detail.get("format")).lower() != "delta":
+            raise UnitySearchError("original native Delta table UUID differs")
+        cursor = connection.cursor()
+        try:
+            execute_original(cursor, "SELECT current_user()", None, deadline=deadline)
+            subjects = cursor.fetchmany(2)
+            if len(subjects) != 1 or len(subjects[0]) != 1 or type(subjects[0][0]) is not str:
+                raise UnitySearchError("original native SQL principal required")
+            information_schema = qualified_table_name((table["catalog"], "information_schema", "columns"))
+            execute_original(cursor,
+                "SELECT column_name,data_type,is_nullable FROM " + information_schema + " WHERE table_schema=:schema AND table_name=:table",
+                {"schema": table["schema"], "table": table["table"]}, deadline=deadline)
+            columns = cursor.fetchmany(2001)
+            if len(columns) > 2000 or len({row[0] for row in columns}) != len(columns):
+                raise UnitySearchError("bounded original native column inventory required")
+            facts = {row[0]: row[1:] for row in columns}
+            for column in table["columns"]:
+                expected = {"string": "STRING", "boolean": "BOOLEAN"}.get(column["carrier"])
+                fact = facts.get(column["native"])
+                if expected is None or fact is None or fact[0] != expected or fact[1] not in ("YES", "NO") or not column["nullable"] and fact[1] != "NO":
+                    raise UnitySearchError("native current-read column differs from compiler carrier")
+            return detail["id"], subjects[0][0]
+        finally:
+            cursor.close()
