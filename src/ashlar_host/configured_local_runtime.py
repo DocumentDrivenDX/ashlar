@@ -166,7 +166,6 @@ def _run(config,ordinal,*,selector=None,query=None):
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
-        _require(query is None or not source.graph)
         _require(selector is None or selector[0]in source.type_ids)
         scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
         if not initialize:

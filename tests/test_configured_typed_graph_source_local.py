@@ -51,7 +51,7 @@ class Tests(unittest.TestCase):
                     self.assertEqual(reopened.state_at(3,reopened.context),states[3])
                 self.assertEqual(public.call_count,2)
 
-    def test_graph_query_refuses_before_spark_and_releases_actual_lease(self):
+    def test_graph_query_invalid_registry_refuses_before_spark_and_releases_actual_lease(self):
         import hashlib
         from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,query_configured_local
         from ashlar_host.configured_local_query import ConfiguredLocalQueryConfig

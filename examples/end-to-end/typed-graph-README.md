@@ -47,9 +47,22 @@ four complete groups, 1000 events and 1 MiB per public validation request. The
 core source configuration permits source bytes up to 1 MiB, while this host
 route retains its lower 256 KiB reference ceiling.
 
-Use publication, replay and raw object singleton reads only. Query operation
-MUST refuse graph sources before Spark acquisition until separately admitted;
-these instructions make no graph Weft execution claim. Explicit development IDs
+For query mode, select the same completed ordinal and the explicit indexed Weft
+compiler settings described in the configured-local guide. The admitted graph
+subset covers required facetless STRING projections, global count, forward
+bounded key collections and exactly-two-hop root projections/counts, for example:
+
+```sql
+SELECT p.person_key, RELATED_KEYS(p.knows, 2) AS related FROM Person p
+SELECT p.person_key FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, knows) AS paths
+SELECT COUNT(*) AS n FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, knows) AS paths
+```
+
+Key collections retain duplicate target keys from parallel edges and report
+truncation. Two-hop root projections repeat a root once per independent path.
+Select ordinal 1 to query the original topology after publishing ordinal 3.
+Inverse traversal, optional/numeric keys, filtered/grouped graph queries and
+direct edge-row projection require separate admission. Explicit development IDs
 are not Truss catalog IDs, and local file progress is not a protected source ACK.
 The cooperative local profile supplies no Unity Catalog, remote fencing or
 production writer authority. Accept command completion only after its bounded

@@ -595,3 +595,19 @@ expected bags, runtime versions and all source/file/native closing. The shared
 common corpus is already a separate requirement and cannot substitute. Record
 unknown POST outcomes and cleanup independently. Do not repeat broader engine
 matrices or scale tests for this slice.
+
+
+## Configured typed graph Weft queries
+
+Use one admitted original typed graph source with parallel edges, a self-loop,
+an isolate, cross-type endpoints, endpoint replacement and deletes. Execute
+forward bounded key collections and exactly-two-hop root projections/counts on a
+retained publication. Expected bags must come from the original selected source
+prefix, including duplicate occurrences, empty collections and truncation. Select
+an older ordinal after later mutations and confirm its topology remains selected.
+Both original public compilations and every original guard must agree under the
+complete native vector and existing held source/alias/closing owners. Reject an
+unsupported or changed IR shape, changed source/request and expired ownership;
+small inert controls do not replace actual native execution. Reports must preserve
+original tagged carriers, edge IDs and multiplicities. Keep the fixture tiny and
+reuse its installation; no scale benchmark is required.

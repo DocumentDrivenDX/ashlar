@@ -988,6 +988,19 @@ publication; they MUST NOT inherit earlier revision authority or claim migration
 from a fresh installation. Arithmetic, typed relationships and joins require
 separate admitted query shapes; scalar support alone MUST NOT imply them.
 
+An independently admitted typed graph source MAY select required facetless STRING
+projections, global count, forward bounded `RELATED_KEYS` collections or exactly
+two-hop `EXPAND_PATHS` root projections/counts. Bindings MUST preserve original
+Record homes, relationship declarations, typed endpoints, target keys and separate
+edge identities. The independent source-prefix oracle MUST retain parallel-edge
+and self-loop occurrences, full-bag truncation and the selected ordinal's topology,
+including older publications after endpoint replacement or deletion. Equal target
+keys MUST NOT collapse distinct edges or paths. Unsupported inverse, optional or
+numeric key shapes, filters, joins and grouped counts require separate admission.
+Tagged query reports MUST retain original carrier text, decoded key tuples, path
+edge IDs, state and truncation without flattening occurrence bags. This subset
+MUST NOT imply direct edge-row queries or arbitrary graph query support.
+
 Both indexed compilations MUST match exactly and pass the pinned public schemas
 and host artifact admission. Fresh external aliases MUST preserve native Delta
 UUIDs, locations and pinned versions without relabeling the manifest. Every

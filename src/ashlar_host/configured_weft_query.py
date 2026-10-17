@@ -1,4 +1,4 @@
-"""Original configured scalar queries through held indexed Weft execution.
+"""Original configured scalar and graph queries through held indexed Weft execution.
 
 Results remain provisional until the enclosing alias, publication, source and
 native runtime owners have closed. This module starts no services and writes no
@@ -114,7 +114,7 @@ def query_configured_count_star(scope,aliases,sql,compile_config,*,capture,decod
 
 
 def query_configured_projection(scope,aliases,sql,compile_config,*,capture,decoder,observe):
-    """Execute admitted direct scalar projections or global count only."""
+    """Execute separately admitted original scalar or typed graph query shapes."""
     return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
 
 
@@ -125,7 +125,10 @@ def _query(scope,aliases,sql,compile_config,*,capture,decoder,observe,original_o
     scope.renew();aliases.renew()
     compiled=compile_configured_count_star(scope,dict(aliases),sql,compile_config,observe=observe)
     if projection:
-        if scope.source.typed:
+        if scope.source.graph:
+            from .configured_typed_graph_weft_projection import configured_typed_graph_projection_oracle
+            original_oracle=configured_typed_graph_projection_oracle(scope,compiled['request'],compiled['response'])
+        elif scope.source.typed:
             from .configured_typed_weft_projection import configured_typed_projection_oracle
             original_oracle=configured_typed_projection_oracle(scope,compiled['request'],compiled['response'])
         else:

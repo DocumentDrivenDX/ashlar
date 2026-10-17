@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 import json
 from ashlar.weft_decode import ExactScalar
-from ashlar.weft_path_decode import PathDecodeConfig
+from ashlar.weft_path_decode import PathDecodeConfig,DecodedPaths,PathItem
+from ashlar.weft_related_keys_decode import DecodedRelatedKeys
 from .configured_weft_compile import ConfiguredWeftCompileConfig
 from .path_capture import PathCaptureConfig
 from .configured_query_aliases import open_configured_query_aliases
@@ -41,6 +42,18 @@ def _report(value):
             return {'kind':'exact-decimal','value':str(value.value),'original':value.original}
         _require(type(value.value)in (int,str))
         return {'kind':'exact-integer'if type(value.value)is int else'exact-string','value':value.value,'original':value.original}
+    if type(value)is DecodedRelatedKeys:
+        _require(type(value.original)is bytes and type(value.items)is tuple and type(value.truncated)is bool)
+        return {'kind':'related-keys','original':value.original.decode('utf-8'),
+                'items':_report(value.items),'truncated':value.truncated}
+    if type(value)is DecodedPaths:
+        _require(type(value.original)is bytes and type(value.state)is str and type(value.items)is tuple
+                 and (value.truncated is None or type(value.truncated)is bool))
+        return {'kind':'related-paths','original':value.original.decode('utf-8'),'state':value.state,
+                'items':_report(value.items),'truncated':value.truncated}
+    if type(value)is PathItem:
+        _require(type(value.intermediate)is tuple and type(value.terminal)is tuple and type(value.edges)is tuple)
+        return {'intermediate':_report(value.intermediate),'terminal':_report(value.terminal),'edges':_report(value.edges)}
     if type(value)is dict:return {k:_report(v)for k,v in value.items()}
     if type(value)in (list,tuple):return [_report(v)for v in value]
     _require(value is None or type(value)in (str,int,bool))

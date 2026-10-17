@@ -5,7 +5,8 @@ from decimal import Decimal
 import unittest
 from unittest.mock import patch
 from ashlar.weft_count_star_distribution import CountStarDistributionPaths
-from ashlar.weft_path_decode import PathDecodeConfig
+from ashlar.weft_path_decode import PathDecodeConfig,DecodedPaths,PathItem
+from ashlar.weft_related_keys_decode import DecodedRelatedKeys
 from ashlar.weft_decode import ExactScalar
 from ashlar_host.configured_weft_compile import ConfiguredWeftCompileConfig
 from ashlar_host.path_capture import PathCaptureConfig
@@ -37,6 +38,20 @@ class Tests(unittest.TestCase):
         self.assertEqual(_report(ExactScalar(False,'false')),{'kind':'exact-boolean','value':False,'original':'false'})
         for unsupported in (ExactScalar(Decimal('NaN'),'NaN'),1.0,object()):
             with self.assertRaises(ValueError):_report(unsupported)
+
+    def test_report_preserves_tagged_keys_path_states_multiplicity_and_original_bytes(self):
+        raw=b'{"items":[["same"],["same"]],"truncated":true}'
+        keys=DecodedRelatedKeys(raw,(('same',),('same',)),True)
+        self.assertEqual(_report(keys),{'kind':'related-keys','original':raw.decode(),
+            'items':[['same'],['same']],'truncated':True})
+        item=PathItem(('middle',),('雪',),('1','2'))
+        path=DecodedPaths(b'{"state":"value"}','value',(item,item),False)
+        result=_report(path)
+        self.assertEqual(result,{'kind':'related-paths','original':'{"state":"value"}',
+            'state':'value','items':[{'intermediate':['middle'],'terminal':['雪'],'edges':['1','2']}]*2,'truncated':False})
+        result['items'].clear();self.assertEqual(len(path.items),2)
+        absent=DecodedPaths(b'{"state":"absent"}','absent',(),None)
+        self.assertEqual(_report(absent)['state'],'absent');self.assertIsNone(_report(absent)['truncated'])
 
 
 if __name__=='__main__':unittest.main()
