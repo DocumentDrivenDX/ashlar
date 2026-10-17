@@ -358,7 +358,19 @@ def main():
         medical.add_argument('--configuration',required=True)
     managed=commands.add_parser('read-managed-singleton',help='Read one object from an existing configured-JSONL managed publication on dedicated compute')
     managed.add_argument('--configuration',required=True)
+    local=commands.add_parser('run-configured-local',help='Initialize or publish an original configured JSONL source on isolated local Delta')
+    local.add_argument('--configuration',required=True)
     args = parser.parse_args()
+    if args.command == 'run-configured-local':
+        from pathlib import Path
+        from ashlar_host.configured_local_cli import run_configured_local_command
+        try:
+            answer=run_configured_local_command(Path(args.configuration))
+            print(json.dumps(answer,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False))
+        except Exception:
+            print('ashlar configured local run refused',file=sys.stderr)
+            raise SystemExit(2)from None
+        return
     if args.command == 'validate-configured-source':
         from pathlib import Path
         from ashlar_host.config import ProducerConfig

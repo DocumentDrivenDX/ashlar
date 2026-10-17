@@ -36,6 +36,7 @@ jobs:
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_journaled_jsonl_progress test_journaled_csv_progress
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_source_local
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_publication
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_configured_local_runtime test_configured_local_cli
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_runtime test_original_medical_local_cli test_medical_query_cli test_original_medical_admission
       - run: PYTHONPATH=src:tests:tools python3 -S -W error::ResourceWarning -m unittest test_local_manifest_prepare test_medical_commit_inspection test_prospective_stored_publisher test_medical_prospective_composition test_medical_prospective_manifest test_medical_mapped_vnodes test_medical_journal_inspection test_medical_inspection_selection
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_puppy_finite_pack test_puppy_finite_local
