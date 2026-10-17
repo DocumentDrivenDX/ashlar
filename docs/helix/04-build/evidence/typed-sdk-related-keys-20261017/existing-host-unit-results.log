@@ -1,0 +1,23 @@
+......F...F...s
+======================================================================
+FAIL: test_integrity_then_buffered_exact_rows_and_context_close (test_weft_query.WeftQueryTests.test_integrity_then_buffered_exact_rows_and_context_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tests/test_weft_query.py", line 43, in test_integrity_then_buffered_exact_rows_and_context_close
+    self.assertEqual(policy.checks,2);self.assertEqual(len(e.calls),3)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 2
+
+======================================================================
+FAIL: test_record_integrity_requires_explicit_host_admission_before_sql (test_weft_query.WeftQueryTests.test_record_integrity_requires_explicit_host_admission_before_sql)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-sdk-adoption/tests/test_weft_query.py", line 236, in test_record_integrity_requires_explicit_host_admission_before_sql
+    self.read(q,a,p,e,policy);self.assertEqual(len(calls),2);self.assertEqual(len(e.calls),2)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 2
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.048s
+
+FAILED (failures=2, skipped=1)

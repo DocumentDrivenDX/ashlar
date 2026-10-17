@@ -4,24 +4,36 @@ Hosts provide native publication, pin, policy and deadline owners. This module
 never opens a connection or treats an SDK digest as publication authority.
 """
 from __future__ import annotations
+
+import copy
+import hashlib
+from collections.abc import Callable, Generator
 from contextlib import AbstractContextManager
-from collections.abc import Callable,Generator
 from datetime import timedelta
 from decimal import Decimal
 from time import monotonic
 from types import MappingProxyType
-from typing import Any,TypeVar
-import copy,json,hashlib
+from typing import Any, TypeVar
+
 from pydantic import BaseModel
 from umf_access.adoption import TargetIdentity
-from umf_access.engine_catalog import EngineRead
-from umf_access.reviewed import CatalogRead
-from umf_access.pages import ReadPage,ReadContinuation,StaleContinuation,ReadObligationUnmet,StreamLimitReached
 from umf_access.codec_support import revalidate_model
-from umf_access.native_program import canonical_json,program_json
-from .weft_query import read_weft,PageReadRows,PageContextRefused
+from umf_access.engine_catalog import EngineRead
+from umf_access.native_program import canonical_json, program_json
+from umf_access.pages import (
+    ReadContinuation,
+    ReadObligationUnmet,
+    ReadPage,
+    StaleContinuation,
+    StreamLimitReached,
+)
+from umf_access.reviewed import CatalogRead
+
 from .execution_scope import preserve_body_failure
 from .publication import ResolutionError
+from .weft_query import PageContextRefused, PageReadRows, read_weft
+from .weft_related_keys_decode import DecodedRelatedKeys
+
 P=TypeVar('P',bound=BaseModel);R=TypeVar('R',bound=BaseModel)
 
 def _parameter(value):
@@ -63,18 +75,43 @@ class _Policy:
     def verify_native_profile(self,*args):self._time();return self.original.verify_native_profile(*args)
     def authorize_query(self,*args):self._time();return self.original.authorize_query(*args)
     def admit_record_integrity(self,*args):self._time();return self.original.admit_record_integrity(*args)
+    def admit_relationship_integrity(self,*args):
+        self._time()
+        callback=getattr(self.original,'admit_relationship_integrity',None)
+        if not callable(callback):raise ResolutionError('Original relationship authority owner required')
+        return callback(*args)
     def admit_page_integrity(self,*args):self._time();return self.original.admit_page_integrity(*args)
     def page_context(self,*args):self._time();return self.original.page_context(*args)
-    def decode_result(self,*args):self._time();return _scalar(self.original.decode_result(*args))
+    def decode_result(self,*args):
+        self._time()
+        value=self.original.decode_result(*args)
+        if type(value) is DecodedRelatedKeys:
+            if args[0].get('representation',{}).get('kind')!='relatedKeys':
+                raise ResolutionError('Original related-Key output representation required')
+            return value
+        return _scalar(value)
     def authorize_result(self,rows,descriptor,context):
         self._time()
         names=tuple(self.model.model_fields)
         visible=len(names)if self.page_metadata is None else self.page_metadata['visibleOutputs']
         if visible!=len(names):raise ResolutionError('Complete visible generated page signature required')
+        from umf_access.related_keys import transport_spec
+
+        from .sdk_related_keys import typed_related_keys
+        related=transport_spec(self.model)
+        if related is not None:
+            output,key_model,decoder,_=related
+            outputs=program_json(self.program).get('outputs',[])
+            matching=[entry for entry in outputs if entry.get('name')==output]
+            if len(matching)!=1 or matching[0].get('carrier')!='related-keys' or matching[0].get('decoder')!=decoder:
+                raise ResolutionError('Original related-Key compiler output differs')
         validated=[]
         for row in rows:
             if len(row)!=(len(names)if self.total_outputs is None else self.total_outputs):raise ResolutionError('Complete generated result signature required')
-            validated.append(self.model.model_validate(dict(zip(names,row[:visible],strict=True))))
+            fields=dict(zip(names,row[:visible],strict=True))
+            if related is not None:
+                fields[output]=typed_related_keys(fields[output],decoder,key_model)
+            validated.append(self.model.model_validate(fields))
         if self.original.authorize_result(rows,descriptor,context)is not None:
             raise ResolutionError('Original Ashlar policy refused typed release')
         self._time();self.validated=validated

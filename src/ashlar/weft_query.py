@@ -1,12 +1,14 @@
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
-from dataclasses import dataclass,field
-from types import GeneratorType, CoroutineType, AsyncGeneratorType
-from .execution_scope import preserve_body_failure as _preserve_body_failure
+from dataclasses import dataclass, field
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
-from .publication import resolve_publication,ResolutionError
+from types import AsyncGeneratorType, CoroutineType, GeneratorType
+
+from .execution_scope import preserve_body_failure as _preserve_body_failure
 from .pins import PinError
+from .publication import ResolutionError, resolve_publication
+from .weft_related_keys_decode import DecodedRelatedKeys
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
 PAGE_BACKENDS=(
@@ -57,6 +59,20 @@ def _completed_decode(value, *, _budget=None):
         if kind is AsyncGeneratorType:
             invalid = True
             return None
+        if kind is DecodedRelatedKeys:
+            # Only the original named decoder carrier crosses this boundary.
+            # This snapshot grants no bag/authorization authority of its own.
+            if (type(item.original) is not bytes or type(item.items) is not tuple
+                    or type(item.truncated) is not bool or len(item.items) > 1000
+                    or len(item.original) > budget.copied_bytes
+                    or any(type(row) is not tuple or not 1 <= len(row) <= 1024
+                           or any(type(component) is not str for component in row)
+                           for row in item.items)):
+                invalid = True
+                return None
+            budget.copied_bytes -= len(item.original)
+            copied = visit(item.items, depth + 1)
+            return DecodedRelatedKeys(item.original, copied, item.truncated)
         if kind in (type(None), bool, int, float, str, bytes, Decimal, date, timedelta):
             return item
         if kind in (datetime, time):
@@ -122,7 +138,8 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     if page and artifact.get('backend') not in PAGE_BACKENDS:raise ResolutionError('Explicit original page backend required')
     if continuation_context is not None and (not page or type(continuation_context)is not bytes or not 1<=len(continuation_context)<=65536):raise ResolutionError('Original bounded page context required')
     page_contexts=[]
-    required=OBLIGATIONS|({'ashlar.candidate.keyIntegrity'}if page else set())
+    relationship=any(item.get('id')=='ashlar.candidate.relationshipIntegrity' for item in artifact.get('obligations',[]) if type(item)is dict)
+    required=OBLIGATIONS|({'ashlar.candidate.keyIntegrity'}if page else set())|({'ashlar.candidate.relationshipIntegrity'}if relationship else set())
     obligations={}
     for item in artifact.get('obligations',[]):
         if set(item)!= {'id','owner','parameters','failureCode'} or item['id'] not in required or item['id'] in obligations or item['owner']!='host':
@@ -146,6 +163,33 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
             record_checks.append(check)
         else:raise ResolutionError('Unknown integrity check meaning')
         checks.append(check['sql'])
+    relationship_checks=[]
+    relationship_guard=None
+    if relationship:
+        obligation=obligations['ashlar.candidate.relationshipIntegrity']
+        relationship_guard=obligation['parameters']
+        expected_relationship={
+            'lifecycle':'host verifies the authored lifecycle and projection coverage against original publication',
+            'multiplicity':'parallel edges retained; min/max checked in authored orientation',
+            'phase':'before-user-query',
+            'policy':'complete authorized source and target inputs; inverse traversal cannot broaden authority',
+            'samePublicationRequired':True,
+            'success':'one exact STRING count equal to 0 per check',
+        }
+        if (obligation['failureCode']!='WFT-BINDING' or type(relationship_guard)is not dict
+                or set(relationship_guard)!=set(expected_relationship)|{'checks'}
+                or any(relationship_guard[k]!=v for k,v in expected_relationship.items())
+                or type(relationship_guard['checks'])is not list
+                or not 1<=len(relationship_guard['checks'])<=4096):
+            raise ResolutionError('Complete original relationship integrity meaning required')
+        for check in relationship_guard['checks']:
+            if (type(check)is not dict or set(check)!={'sql','failureCode','relationship'}
+                    or check['failureCode']!='WFT-BINDING' or type(check['sql'])is not str or not check['sql']
+                    or type(check['relationship'])is not dict
+                    or set(check['relationship'])!={'documentId','revision','module','relationship'}
+                    or any(type(v)is not str or not v for v in check['relationship'].values())):
+                raise ResolutionError('Original complete relationship check required')
+            relationship_checks.append(check['sql'])
     page_checks=[]
     if page:
         key_guard=obligations['ashlar.candidate.keyIntegrity']
@@ -189,6 +233,10 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                     callback=getattr(policy,'admit_record_integrity',None)
                     if not callable(callback) or callback(check,artifact,context) is not None:
                         raise ResolutionError('Explicit record integrity admission required')
+                if relationship:
+                    callback=getattr(policy,'admit_relationship_integrity',None)
+                    if not callable(callback) or callback(relationship_guard,artifact,context) is not None:
+                        raise ResolutionError('Explicit original relationship and full-input authority admission required')
                 if page:
                     callback=getattr(policy,'admit_page_integrity',None)
                     if not callable(callback) or callback(guard,artifact,context) is not None:
@@ -203,7 +251,7 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                     elif token!=page_contexts[0]:raise ResolutionError('Original page context changed before release')
             admit()
             admitted=True
-            for sql in checks+page_checks:
+            for sql in checks+relationship_checks+page_checks:
                 result=executor.query(sql,parameters)
                 if len(result.columns)!=1 or result.columns[0][1]!='STRING' or list(result.rows)!=[{result.columns[0][0]:'0'}]:
                     raise ResolutionError('Weft integrity check failed')

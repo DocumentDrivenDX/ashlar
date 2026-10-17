@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "checks": [
+    "original native relationship guards and generated CustomerKey bags match independent physical edge oracle",
+    "parallel native edges, full-prefix truncation, partial and empty bags retain original meanings",
+    "all native related Key occurrences use exact current generated Key class",
+    "withheld complete native target authority refuses before business SQL instead of empty bag",
+    "native publication authority revocation refuses typed related read",
+    "later native edge mutation cannot alter original immutable publication bags"
+  ],
+  "ownedPostgresStopped": true,
+  "sparkStopped": true,
+  "temporal": "HELD",
+  "scope": "local Spark4/Delta4 original related-Key engine read with PostgreSQL18 pins; no managed search, engine writes or performance claim"
+}
