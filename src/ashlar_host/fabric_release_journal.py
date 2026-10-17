@@ -15,6 +15,7 @@ from pathlib import Path
 import re
 import sqlite3
 import stat
+import threading
 from uuid import UUID
 from urllib.parse import quote
 
@@ -165,7 +166,14 @@ class FabricReleaseJournal:
                 fcntl.flock(fd, (fcntl.LOCK_SH if shared else fcntl.LOCK_EX) | fcntl.LOCK_NB)
             except BlockingIOError as exc:
                 raise JournalRefusal('lease busy') from exc
-            yield
+            def renew():
+                self._check()
+                _unchanged(path, expected)
+                info = os.fstat(fd)
+                if (info.st_dev, info.st_ino) != expected or info.st_nlink != 1:
+                    raise JournalRefusal('lease descriptor changed')
+                return self
+            yield renew
         except BaseException as error:
             primary = error
         finish(primary, [self._check, lambda: _unchanged(path, expected), lambda: os.close(fd)])
@@ -189,10 +197,46 @@ class FabricReleaseJournal:
             primary = error
         finish(primary, ([db.rollback] if primary is not None else []) + [db.close])
 
+    @contextmanager
+    def mutation(self):
+        """Exclude cooperative readers/mutators through staging and external calls.
+
+        The live permit covers multiple independent durable journal transactions;
+        closing does not roll back prior completed writes or unknown submissions.
+        This lease grants no cloud, source or publication authority.
+        """
+        with self._lease(False) as renew:
+            permit = object.__new__(FabricMutation)
+            permit._owner = self
+            permit._renew = renew
+            permit._pid = os.getpid()
+            permit._thread = threading.get_ident()
+            permit._live = True
+            try:
+                yield permit
+            finally:
+                permit._live = False
+
     def record_intent(self, intent: ReleaseIntent):
+        with self.mutation() as permit:
+            return permit.record_intent(intent)
+
+    def begin_creation(self, candidate_id: str):
+        with self.mutation() as permit:
+            return permit.begin_creation(candidate_id)
+
+    def record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
+        with self.mutation() as permit:
+            return permit.record_created(candidate_id, graph_model_id, creation_handle)
+
+    def activate_local(self, candidate_id: str, expected_revision: int):
+        with self.mutation() as permit:
+            return permit.activate_local(candidate_id, expected_revision)
+
+    def _record_intent(self, intent: ReleaseIntent):
         if type(intent) is not ReleaseIntent:
             raise JournalRefusal('exact ReleaseIntent required')
-        with self._lease(False), self._db() as db:
+        with self._db() as db:
             # Every retained candidate reserves its paths, even unknown/abandoned.
             for (raw,) in db.execute('SELECT intent FROM candidates'):
                 prior = json.loads(raw)
@@ -201,47 +245,47 @@ class FabricReleaseJournal:
             db.execute('INSERT INTO candidates VALUES (?,?,?,NULL,NULL)',
                        (intent.candidate_id, _canonical(asdict(intent)), 'recorded'))
 
-    def begin_creation(self, candidate_id: str):
+    def _begin_creation(self, candidate_id: str):
         """Durably mark unknown BEFORE the one external creation submission.
 
         A crash or lost response leaves unknown; callers must recover the original
         operation. This API never authorizes a second submission.
         """
-        with self._lease(False), self._db() as db:
+        with self._db() as db:
             if db.execute('UPDATE candidates SET state=? WHERE id=? AND state=?',
                           ('unknown', candidate_id, 'recorded')).rowcount != 1:
                 raise JournalRefusal('creation already submitted or missing intent')
 
-    def record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
+    def _record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
         """Record original response/recovery correspondence; no load admission."""
         _uuid(graph_model_id)
         _text(creation_handle)
-        with self._lease(False), self._db() as db:
+        with self._db() as db:
             if db.execute('UPDATE candidates SET state=?,model=?,handle=? WHERE id=? AND state=?',
                           ('created', graph_model_id, creation_handle, candidate_id, 'unknown')).rowcount != 1:
                 raise JournalRefusal('missing original uncertain submission')
 
     def candidate(self, candidate_id: str):
-        """Recover exact original intent/status/handles; never discover replacements.
-
-        The returned tuple is correspondence, not a native success receipt.
-        """
-        _uuid(candidate_id)
+        """Read retained intent/status/handles; correspondence, never authority."""
         with self._lease(True):
-            path = self.root / 'journal.sqlite'
-            identity = _private(path, stat.S_ISREG)
-            with owned_connection(sqlite3.connect(_uri(path, 'ro'), uri=True)) as db:
-                row = db.execute('SELECT intent,state,model,handle FROM candidates WHERE id=?',
-                                 (candidate_id,)).fetchone()
-            if _private(path, stat.S_ISREG) != identity:
-                raise JournalRefusal('journal identity changed')
-            if row is None:
-                raise JournalRefusal('missing original intent')
-            raw = json.loads(row[0])
-            raw['sources'] = tuple(tuple(x) for x in raw['sources'])
-            return ReleaseIntent(**raw), row[1], row[2], row[3]
+            return self._candidate(candidate_id)
 
-    def activate_local(self, candidate_id: str, expected_revision: int):
+    def _candidate(self, candidate_id: str):
+        _uuid(candidate_id)
+        path = self.root / 'journal.sqlite'
+        identity = _private(path, stat.S_ISREG)
+        with owned_connection(sqlite3.connect(_uri(path, 'ro'), uri=True)) as db:
+            row = db.execute('SELECT intent,state,model,handle FROM candidates WHERE id=?',
+                             (candidate_id,)).fetchone()
+        if _private(path, stat.S_ISREG) != identity:
+            raise JournalRefusal('journal identity changed')
+        if row is None:
+            raise JournalRefusal('missing original intent')
+        raw = json.loads(row[0])
+        raw['sources'] = tuple(tuple(x) for x in raw['sources'])
+        return ReleaseIntent(**raw), row[1], row[2], row[3]
+
+    def _activate_local(self, candidate_id: str, expected_revision: int):
         """Local CAS ONLY. Future native owner must admit BEFORE calling this.
 
         This storage primitive cannot prove native load/readback/bags or any
@@ -249,7 +293,7 @@ class FabricReleaseJournal:
         """
         if type(expected_revision) is not int or expected_revision < 0:
             raise JournalRefusal('invalid predecessor revision')
-        with self._lease(False), self._db() as db:
+        with self._db() as db:
             row = db.execute('SELECT state FROM candidates WHERE id=?', (candidate_id,)).fetchone()
             if row != ('created',):
                 raise JournalRefusal('original created item required')
@@ -277,3 +321,42 @@ class FabricReleaseJournal:
             except BaseException as error:
                 primary = error
             finish(primary, [lambda: _unchanged(path, identity)])
+
+
+class FabricMutation:
+    """Nominal live local lease. Only FabricReleaseJournal.mutation mints it.
+
+    Use renew around external staging/calls and preserve their independent owner
+    lifetimes. This permit is deliberately neither a native nor source grant.
+    """
+    def __new__(cls):
+        raise TypeError('use FabricReleaseJournal.mutation()')
+
+    def renew(self):
+        if (not self._live or self._pid != os.getpid()
+                or self._thread != threading.get_ident()):
+            raise JournalRefusal('mutation permit expired or wrong process/thread')
+        if self._renew() is not self._owner:
+            raise JournalRefusal('mutation permit owner changed')
+
+    def record_intent(self, intent: ReleaseIntent):
+        self.renew()
+        return self._owner._record_intent(intent)
+
+    def begin_creation(self, candidate_id: str):
+        """Commit unknown before the one external creation submission."""
+        self.renew()
+        return self._owner._begin_creation(candidate_id)
+
+    def record_created(self, candidate_id: str, graph_model_id: str, creation_handle: str):
+        self.renew()
+        return self._owner._record_created(candidate_id, graph_model_id, creation_handle)
+
+    def candidate(self, candidate_id: str):
+        self.renew()
+        return self._owner._candidate(candidate_id)
+
+    def activate_local(self, candidate_id: str, expected_revision: int):
+        """Local CAS only; independent native admission is still required."""
+        self.renew()
+        return self._owner._activate_local(candidate_id, expected_revision)

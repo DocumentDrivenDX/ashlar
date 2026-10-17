@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from uuid import UUID
 
-from ashlar_host.fabric_release_journal import FabricReleaseJournal, JournalRefusal, ReleaseIntent
+from ashlar_host.fabric_release_journal import FabricReleaseJournal, JournalRefusal, ReleaseIntent, FabricMutation
 
 
 def uid(number):
@@ -26,6 +26,16 @@ def child_mutate(root, sender):
         sender.send(str(exc))
     else:
         sender.send('unexpected success')
+    finally:
+        sender.close()
+
+
+def child_read(root, sender):
+    try:
+        with FabricReleaseJournal(Path(root)).reader():
+            sender.send('unexpected success')
+    except JournalRefusal as exc:
+        sender.send(str(exc))
     finally:
         sender.close()
 
@@ -165,6 +175,75 @@ class Tests(unittest.TestCase):
         # Closing refusal did not leak the process lease.
         self.created(2)
         self.owner.activate_local(uid(2), 1)
+
+    def test_mutation_lifetime_multiple_durable_writes_excludes_other_processes(self):
+        context = multiprocessing.get_context('spawn')
+        with self.owner.mutation() as permit:
+            self.assertIs(type(permit), FabricMutation)
+            permit.record_intent(intent(1))
+            permit.begin_creation(uid(1))
+            self.assertEqual(permit.candidate(uid(1)), (intent(1), 'unknown', None, None))
+            # The lifetime also covers arbitrary candidate staging/external calls,
+            # with no transaction open and no nested flock acquisition.
+            for action in (child_read, child_mutate):
+                receiver, sender = context.Pipe(duplex=False)
+                process = context.Process(target=action, args=(str(self.root), sender))
+                process.start()
+                sender.close()
+                try:
+                    self.assertTrue(receiver.poll(10), 'child lease check timed out')
+                    self.assertEqual(receiver.recv(), 'lease busy')
+                    process.join(10)
+                    self.assertEqual(process.exitcode, 0)
+                finally:
+                    if process.is_alive():
+                        process.kill()
+                        process.join()
+                    receiver.close()
+            permit.renew()
+            permit.record_created(uid(1), uid(201), 'original-operation-1')
+            self.assertEqual(permit.activate_local(uid(1), 0), 1)
+        with self.owner.reader() as active:
+            self.assertEqual(active.intent, intent(1))
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.begin_creation(uid(1))
+        with self.assertRaises(TypeError):
+            FabricMutation()
+
+    def test_cancelled_mutation_expires_permit_preserves_unknown_and_primary(self):
+        cancellation = KeyboardInterrupt('creation outcome unknown')
+        with self.assertRaises(KeyboardInterrupt) as captured:
+            with self.owner.mutation() as permit:
+                permit.record_intent(intent(1))
+                permit.begin_creation(uid(1))
+                (self.root / 'lease').chmod(0o644)
+                raise cancellation
+        self.assertIs(captured.exception, cancellation)
+        self.assertTrue(cancellation.cleanup_failed)
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.record_created(uid(1), uid(201), 'late-response')
+        (self.root / 'lease').chmod(0o600)
+        reopened = FabricReleaseJournal(self.root)
+        self.assertEqual(reopened.candidate(uid(1)), (intent(1), 'unknown', None, None))
+        with self.assertRaisesRegex(JournalRefusal, 'already submitted'):
+            reopened.begin_creation(uid(1))
+        with reopened.mutation() as recovery:
+            recovery.record_created(uid(1), uid(201), 'original-recovered-handle')
+            recovery.activate_local(uid(1), 0)
+
+    def test_mutation_permit_cannot_dispatch_to_replaced_owner(self):
+        other_root = Path(self.tmp.name).resolve() / 'other-journal'
+        other = FabricReleaseJournal.initialize(other_root)
+        with self.owner.mutation() as permit:
+            permit._owner = other
+            with self.assertRaisesRegex(JournalRefusal, 'owner changed'):
+                permit.record_intent(intent(1))
+        for selected in (self.owner, other):
+            with self.assertRaisesRegex(JournalRefusal, 'missing original intent'):
+                selected.candidate(uid(1))
+        with other.mutation() as permit:
+            self.assertIsNone(permit.renew())
+            permit.record_intent(intent(1))
 
     def test_closed_typed_correspondence_and_missing_active_refuse(self):
         with self.assertRaises(TypeError):
