@@ -18,7 +18,12 @@ from ashlar.publication import ResolutionError
 from ashlar_host.postgres import Session
 from umf_access.engine_catalog import EngineRead
 from umf_access.types import StrictModel
-parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--jars',type=Path,required=True);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--generated',type=Path,required=True);parser.add_argument('--model-request',type=Path,required=True);parser.add_argument('--jars',type=Path,required=True);parser.add_argument('--conformance-root',type=Path);args=parser.parse_args()
+if args.conformance_root is not None:
+ sys.path.insert(0,str(args.conformance_root.absolute()))
+ import conformance
+ if Path(conformance.__file__).resolve().parent!=(args.conformance_root/'conformance').resolve():raise RuntimeError('Requested local shared conformance tooling was not loaded')
+ from conformance import ReadWitness,run_read_suite
 root=Path(__file__).resolve().parents[1];out=args.output.absolute();out.mkdir(parents=True,exist_ok=False)
 sys.path.insert(0,str(args.generated.absolute()));from native_sales.models import Order
 class Parameters(StrictModel):status:str
@@ -239,6 +244,96 @@ try:
   except StaleContinuation:checks.append('actual unavailable original retained file refuses continuation before data SQL')
   else:raise AssertionError('missing retained publication file accepted')
  finally:original_file.write_bytes(saved)
+ # Optional repository-only shared suite. Every requested case is an actual
+ # AshlarTarget/ReadPlan invocation; the oracle reads retained Delta directly.
+ if args.conformance_root is not None:
+  from umf_access.catalog import Argument,ReadPlan,ReadVariant,TargetPin
+  from native_sales.keys import OrderKey
+  from pyspark.errors.exceptions.captured import AnalysisException
+  def native_reference(native_version,limit=None):
+   physical=spark.read.format('delta').option('versionAsOf',native_version).load(str(out/'objects'))
+   observed=[]
+   for native_row in physical.collect():
+    if native_row['source_system']=='typed-sdk-local' and native_row['type_id']==17 and native_row['schema_revision']==source_sha:
+     props=json.loads(native_row['props_json'])
+     if props['2']=='draft':observed.append(Order(id=props['1'],status=props['2']))
+   observed.sort(key=lambda item:item.id)
+   return tuple(observed if limit is None else observed[:limit])
+  def read_plan(adopted,compiled,page=False):
+   identity=adopted.identity()
+   target_pin=TargetPin(identity.kind,identity.backend_id,identity.backend_version,identity.target_profile,identity.binding_sha256,tuple((name,(version,))for name,version in identity.platform))
+   return ReadPlan('shared_native_page'if page else'shared_native_all','page'if page else'all',
+    (Argument('status',str),)+((Argument('after',object),)if page else()),
+    (ReadVariant((),target_pin,compiled,(('status','status',None),)),),
+    cursor_argument='after'if page else None,cursor_key_model=OrderKey if page else None,key_components=(('id',0),)if page else())
+  conformance_facts=[]
+  class SharedNativeFixture:
+   @contextmanager
+   def open(self,case):
+    chosen,compiled=target,entry;page=False;prepare=None;refusal=None
+    reference=lambda:native_reference(version)
+    complete=None;after_reference=None;restore_file=None;restore_alias=False;repointed=False
+    original_calls=len(native_calls)
+    renamed_shared='sdk_ashlar.shared_conformance_original'
+    if case=='reads.empty_complete':
+     chosen,compiled,page=empty_target,empty_entry,True
+     reference=lambda:native_reference(0,1)
+     def complete():
+      native=spark.sql(f'SELECT validation_report_json FROM {manifest_table} WHERE publication_id=:id',args={'id':chosen.vector.scope_id}).collect()
+      return len(native)==1 and json.loads(native[0]['validation_report_json'])['complete']is True
+    elif case=='reads.refusal_not_empty':
+     restore_file=(original_file,original_file.read_bytes())
+     prepare=lambda:original_file.unlink()
+     refusal=PermissionError
+    elif case in('reads.alias_renamed','reads.alias_repointed'):
+     restore_alias=True
+     def prepare():
+      nonlocal repointed
+      spark.sql(f'ALTER TABLE {table} RENAME TO {renamed_shared}')
+      if case=='reads.alias_repointed':
+       spark.sql(f"CREATE TABLE {table} USING DELTA LOCATION '{out/'shared-repointed'}' AS SELECT * FROM {renamed_shared}")
+       # Admit the requested version number on the replacement so refusal
+       # exercises original UUID custody, not an absent-version side effect.
+       spark.sql(f"ALTER TABLE {table} SET TBLPROPERTIES ('shared.conformance.fixture'='repointed')")
+       replacement=spark.sql('DESCRIBE DETAIL '+table).first().asDict()
+       assert replacement['id']!=detail['id'] and int(spark.sql('DESCRIBE HISTORY '+table).first()['version'])>=version
+       repointed=True
+     refusal=AnalysisException if case=='reads.alias_renamed'else PermissionError
+    elif case=='reads.withheld_rows':
+     chosen,compiled,page=page_target,page_entry,True
+     reference=lambda:native_reference(version,1)
+     restore_alias=True
+     def prepare():
+      active['faultSql']=compiled.artifact()['artifact']['sql']
+      active['fault']=lambda:spark.sql(f'ALTER TABLE {table} RENAME TO {renamed_shared}')
+     refusal=AnalysisException
+    elif case=='reads.continuation':
+     # The shared case uses a genuine native owner-policy revision transition.
+     # P1/P2 and retention changes retain their separate existing witnesses.
+     chosen,compiled,page=page_target,page_entry,True
+     reference=lambda:native_reference(version,1)
+     prior_policy=active['policyRevision']
+     prepare=lambda:active.__setitem__('policyRevision',prior_policy+1)
+     after_reference=lambda:native_reference(version,1)
+    plan=read_plan(chosen,compiled,page)
+    args_for_case={'status':'draft',**({'after':None}if page else{})}
+    try:
+     yield ReadWitness(chosen,plan,args_for_case,reference,prepare,refusal,complete,after_reference)
+     if case=='reads.withheld_rows':
+      assert active['fault']is None and spark.catalog.tableExists(renamed_shared)
+      assert any(sql.startswith('DESCRIBE DETAIL')and table in sql.replace('`','')for sql in native_calls[active['faultAt']:])
+     conformance_facts.append({'case':case,'nativeQueries':len(native_calls)-original_calls,'originalPublication':chosen.vector.scope_id,'sourceVersion':chosen.vector.targets[table][1],'faultAfterFetch':case=='reads.withheld_rows'})
+    finally:
+     active['fault']=None
+     if restore_file is not None:restore_file[0].write_bytes(restore_file[1])
+     if restore_alias and spark.catalog.tableExists(renamed_shared):
+      if repointed and spark.catalog.tableExists(table):spark.sql(f'DROP TABLE {table}')
+      spark.sql(f'ALTER TABLE {renamed_shared} RENAME TO {table.split(".",1)[1]}')
+     if case=='reads.continuation':active['policyRevision']=prior_policy
+  completed=run_read_suite(SharedNativeFixture())
+  assert len(completed)==8 and len(conformance_facts)==8
+  (out/'shared-conformance.json').write_text(json.dumps({'status':'pass','cases':list(completed),'facts':conformance_facts,'scope':'actual local Ashlar targets and retained Delta oracle; continuation is actual native policy revision change, publication/retention transitions retain separate existing harness witnesses','temporal':'HELD'},indent=2)+'\n')
+  checks.append('eight shared non-temporal read cases pass against actual local native Ashlar targets and independent retained Delta oracle')
  spark.sql(f'INSERT INTO {table} VALUES (:source,17,4,:revision,:props)',args={'source':'typed-sdk-local','revision':source_sha,'props':'{"1":"b","2":"draft"}'})
  duplicate_version=int(spark.sql('DESCRIBE HISTORY '+table).first()['version'])
  duplicate_files={str(path):hashlib.sha256(path.read_bytes()).hexdigest()for path in(out/'objects').glob('*.parquet')}

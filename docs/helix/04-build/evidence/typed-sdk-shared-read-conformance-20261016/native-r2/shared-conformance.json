@@ -1,0 +1,73 @@
+{
+  "status": "pass",
+  "cases": [
+    "reads.parity",
+    "reads.empty_complete",
+    "reads.refusal_not_empty",
+    "reads.alias_renamed",
+    "reads.alias_repointed",
+    "reads.withheld_rows",
+    "reads.pin_mismatch",
+    "reads.continuation"
+  ],
+  "facts": [
+    {
+      "case": "reads.parity",
+      "nativeQueries": 15,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.empty_complete",
+      "nativeQueries": 16,
+      "originalPublication": "a522747e-533a-4682-962a-0953b5bbc7d4",
+      "sourceVersion": 0,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.refusal_not_empty",
+      "nativeQueries": 5,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.alias_renamed",
+      "nativeQueries": 4,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.alias_repointed",
+      "nativeQueries": 5,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.withheld_rows",
+      "nativeQueries": 14,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": true
+    },
+    {
+      "case": "reads.pin_mismatch",
+      "nativeQueries": 0,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    },
+    {
+      "case": "reads.continuation",
+      "nativeQueries": 38,
+      "originalPublication": "569451a6-97c5-4459-b87c-6cfdf84264e3",
+      "sourceVersion": 1,
+      "faultAfterFetch": false
+    }
+  ],
+  "scope": "actual local Ashlar targets and retained Delta oracle; continuation is actual native policy revision change, publication/retention transitions retain separate existing harness witnesses",
+  "temporal": "HELD"
+}
