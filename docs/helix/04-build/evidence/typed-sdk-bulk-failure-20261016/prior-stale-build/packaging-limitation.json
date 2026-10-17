@@ -1,0 +1,11 @@
+{
+  "wheelSha256": "9edb380ab7a9080a705ec4a5c376b0ce0f53fac844424b63b8c3e07bbf7dce02",
+  "status": "native execution22PASS; rejected as final source-qualified wheel",
+  "reason": "Pre-existing build/lib included package payload ashlar/access_actions.py absent current src. Whole old build tree preserved outside repository. Clean rebuild and complete source-installed payload verification required before fresh replay.",
+  "temporal": "HELD",
+  "stalePayloadsAbsentCurrentSource": [
+    "ashlar/access_actions.py",
+    "ashlar/access_bulk.py"
+  ],
+  "differentCurrentSourcePayloads": []
+}
