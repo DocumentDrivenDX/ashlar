@@ -814,3 +814,109 @@ a signed64 facet or normalize original source values. All original statement,
 batch and outer source/native/Spark closing checks and existing capacities remain
 mandatory. Per-case evidence MUST retain exact original protocols after closing;
 this finite selection grants no broader query or source authority.
+
+### Installed managed-publication singleton
+
+The named development profile `ashlar-managed-singleton/0.1` exposes
+`read-managed-singleton --configuration PATH` for one existing, last-completed
+configured-JSONL publication using `ashlar-delta/0.3`. It MUST preserve the
+original installation, intake, source configuration/model/bytes, completed
+ordinal, request, descriptor and complete registered four-table vector. It MUST
+NOT ingest, replay, create an installation, register/release pins, advance source
+progress/ACKs, or substitute current table heads. CSV, evolution, arbitrary SQL,
+compiler and graph-export operations are outside this profile.
+
+The closed configuration MUST select pinned original installation, intake-proof
+and source-configuration files (each `path` and `sha256`), the existing `journal`
+path, exact `publication_id` and `completed_ordinal` (1–4), explicit
+`source_system`, signed64 integer `type_id` and `entity_id`, authenticated
+Databricks `profile`/`host` and dedicated `warehouse_id`, explicit public UMF
+producer paths/bounds, the pin-reader object below, finite statement/whole/output
+bounds and a fresh private `output`. Unknown fields and inferred selectors MUST
+refuse. Existing journal/WAL state MUST be read consistently without schema
+initialization or mutation. The original cooperating-writer exclusion MUST remain
+held throughout selection, native consumption and closing.
+
+The concrete owner MUST renew the actual SDK actor and current catalog/schema/
+table owner-lane effective permissions, original native intake row, MANAGED table
+identities, protocol, complete ordered schemas, retention and independently
+source-bound full snapshot parity. It MUST use the public resolver and singleton
+under a real `PostgresPins.hold` covering the complete original vector. Expected
+identities in configuration and retained validation flags are comparisons, not
+permission grants. A matching row MUST retain every canonical carrier; an absent
+row MUST return explicit null after the same admission/closing checks. Results
+remain provisional until pin, native, source/input, transaction and supervisor
+closing succeeds. Missing prior artifacts or uncertain journals MUST refuse,
+without reset or repair.
+
+#### Explicit ordinary pin-reader prerequisite
+
+`pins` is a closed `ashlar-managed-pin-reader/0.1` object:
+
+```json
+{
+  "profile": "ashlar-managed-pin-reader/0.1",
+  "host": "127.0.0.1",
+  "hostaddr": "127.0.0.1",
+  "port": 25440,
+  "expected_server_address": "192.0.2.10",
+  "expected_server_port": 5432,
+  "dbname": "operator_pin_database",
+  "user": "operator_pin_login",
+  "sslmode": "disable",
+  "passfile": "/absolute/operator/private/pins.pgpass",
+  "connect_timeout_seconds": 5,
+  "statement_timeout_ms": 5000,
+  "lock_timeout_ms": 1000
+}
+```
+
+This initial connection profile is same-host loopback only: both address fields
+MUST equal `127.0.0.1`; `port` is an exact integer 1024–65535.
+`expected_server_address` MUST be an explicit single numeric IPv4/IPv6 address
+and `expected_server_port` an exact integer 1–65535, independently selected from
+the original pin-service observations; neither is inferred from the client
+endpoint. The example server address is illustrative, not a working selection.
+`dbname` and `user`
+MUST match `[a-z][a-z0-9_]{0,62}`. No multi-host, URI, service, options,
+password, provider import or callable configuration is accepted. Exact positive
+bounds are connect 2–5 seconds, statement 1–15000 ms and lock 1–5000 ms with lock
+not exceeding statement. The concrete psycopg3 owner MUST pass these selections
+explicitly, disable GSS encryption negotiation, and select fixed session options
+for the statement/lock bounds. It MUST refuse any inherited `PG*` setting before
+connection rather than modifying process-global environment or permitting libpq
+service/default selection. The `passfile` MUST be an explicitly selected,
+canonical, current-user-owned regular non-symlink file with mode 0600 and at most
+64 KiB; its identity MUST be checked before and after acquisition. Its content,
+content digest, DSN, connection exceptions and notices MUST NOT be retained or
+rendered. The passfile is a credential reference, not evidence of authority.
+The profile assumes cooperating operator-owned credential files and does not
+claim hostile-filesystem or remote PostgreSQL authentication protection.
+
+The connection MUST authenticate directly as the selected existing ordinary
+LOGIN role: observed `current_user` and `session_user` MUST both equal `user`,
+`current_database()` MUST equal `dbname`, and native `inet_server_addr()` /
+`inet_server_port()` MUST match the distinct expected server address/port.
+Forwarded client ports and loopback addresses MUST NOT be equated with native
+server identity; Docker may expose a loopback port different from its server
+port/address. Address text MUST compare as numeric IP values, not DNS labels. Superuser, role/database creation,
+replication and row-security bypass privileges MUST refuse. Required pin-reader
+function/inventory access MUST exist; pin registration/release, maintenance and
+direct pin-table write privileges MUST be absent. No role switching, Docker
+credential discovery, role creation or grants are permitted. The existing DDL's
+NOLOGIN `ashlar_pin_reader` role is not a usable login merely because its name
+appears in configuration; an already provisioned ordinary LOGIN with the required
+reader privileges is an operator prerequisite.
+
+Each acquisition MUST return a fresh non-autocommit idle connection. The
+transaction adapter MUST keep that exact connection and its native locks across
+context yield, commit normal completion, roll back failure and always close.
+Cleanup MUST preserve original primary exceptions and the first non-Exception
+cancellation when no prior operation cancellation exists. Ordinary driver failures
+MUST become fixed sanitized connection refusals. A finite supervised whole-run
+bound remains mandatory; libpq connect timeout and SQL/lock timeouts are not a
+complete wall-clock guarantee. The pin database has no invented installation-ID
+field: installation correspondence MUST instead retain the original managed
+installation/descriptor and exact complete registered `PinVector` under
+CONTRACT-004. Neither loopback login nor matching pins establish Unity Catalog,
+UMF Subject/action/disclosure, remote writer-fencing or source ACK authority.
