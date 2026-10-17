@@ -1,0 +1,30 @@
+{
+  "profile": "repository-consolidation/1",
+  "date": "2026-10-17",
+  "scope": "Owner-authorized source consolidation and cleanup; no release, native acceptance refresh, or registry publication claim",
+  "testedParent": "2319354279c90c881a151ed1f95a9fb261a40c4c",
+  "checks": [
+    {
+      "log": "ashlar-takeover-tests.log",
+      "sha256": "9d7a7b8821436b958483c65bdfb368894ba4874116739dabe1308c8bb5bda32c",
+      "scope": "Managed search and shared SDK protocol suites",
+      "passed": 28
+    }
+  ],
+  "recovery": {
+    "directory": "/Users/erik/Projects/consolidation-20261017-tgY2Hv",
+    "bundle": "ashlar-takeover-all-refs.bundle",
+    "dirtyArchive": "ashlar-takeover-source-dirty.tar.gz",
+    "dirtyArchiveSha256": "e960d853561ac554ef46709420e0f07b457b5b276fa5d05bd7a3d962efdd0c3b",
+    "sourceFilesVerified": 3
+  },
+  "remainingLocalBranches": [
+    "codex/consolidation-20261017 2319354279c90c881a151ed1f95a9fb261a40c4c",
+    "input/hot-store-publication-requirements ba2b1a4fee87caf4f7bcf00e0798044d4c86d770",
+    "main f9d18ef68aacede91250da4303b0ebed4c0383c7"
+  ],
+  "limitations": [
+    "Historical divergent branches and dirty-source candidates remain preserved for semantic reconciliation; they are not silently replaced by ancestry or patch equivalence.",
+    "Historical UMF semantic-type core0.9 collides with current UUID/128-bit core0.9; owner disposition pending."
+  ]
+}
