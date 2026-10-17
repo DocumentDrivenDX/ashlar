@@ -24,7 +24,7 @@ class VerificationBounds:
     capture_bytes: int
 
     def __post_init__(self):
-        ceilings = (262144, 10000, 1048576, 16777216, 1048576, 1048576)
+        ceilings = (262144, 10000, 1048576, 33554432, 1048576, 1048576)
         for value, maximum in zip((self.input_bytes, self.rows, self.cell_bytes,
                 self.total_bytes, self.receipt_bytes, self.capture_bytes), ceilings):
             if type(value) is not int or not 1 <= value <= maximum:

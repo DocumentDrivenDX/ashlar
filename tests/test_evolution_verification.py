@@ -450,7 +450,7 @@ class Tests(unittest.TestCase):
     def configuration(self):
         return {'profile':'ashlar-evolution-verification-invocation/0.1','ledger_path':str(self.root/'ledger.sqlite'),'receipt_path':str(self.root/'receipt.json'),
             'producer':{'source':str(self.root),'bun':str(self.root/'bun'),'git':str(self.root/'git'),'timeout_seconds':1,'maximum_output_bytes':1024,'maximum_receipt_bytes':4194304},
-            'expected_sha256':'a'*64,'ordinal':0,'bounds':vars(self.bounds),
+            'expected_sha256':'a'*64,'ordinal':0,'bounds':dict(vars(self.bounds)),
             'supervision':{'deadline_seconds':300,'capture_bytes':65536,'owner':'operator-owned-process-supervisor/0.1'}}
 
     def test_closed_native_schema_profile_selection(self):
@@ -469,6 +469,12 @@ class Tests(unittest.TestCase):
         self.assertEqual(selected.supervision.deadline_seconds,600)
         self.assertEqual(selected.bounds.capture_bytes,65536)
         self.assertEqual(selected.supervision.owner,'operator-owned-process-supervisor/0.1')
+        for capacity in (16777216,33554432):
+            value['bounds']['total_bytes']=capacity
+            self.assertEqual(parse_verification_invocation(json.dumps(value).encode()).bounds.total_bytes,capacity)
+        for invalid in (33554433,True,33554432.0,0):
+            value['bounds']['total_bytes']=invalid
+            with self.assertRaises((ValueError,PermissionError)):parse_verification_invocation(json.dumps(value).encode())
         for mutation in (lambda v:v.update(ordinal=True),lambda v:v.update(ordinal=8),lambda v:v.update(ordinal=0.0),
                 lambda v:v['bounds'].update(rows=True),lambda v:v['supervision'].update(deadline_seconds=601),
                 lambda v:v['supervision'].update(deadline_seconds=True),lambda v:v['supervision'].update(deadline_seconds=0),
