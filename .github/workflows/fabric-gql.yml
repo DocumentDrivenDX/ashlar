@@ -26,6 +26,7 @@ jobs:
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_ordinary_http.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_deployment_http.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_onelake_release_upload.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_commerce_fabric_deployment.py
       - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_fabric_runtime_file_scan.py
       - run: PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_check_fabric_releases.py
       - run: PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest test_fabric_pack_scenarios test_fabric_pack_preparation test_fabric_pack_delta

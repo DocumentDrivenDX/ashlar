@@ -749,6 +749,38 @@ racing activation MUST acquire one whole release or refuse. Missing intent,
 changed definition/location, unexpected load/refresh, failed closure and stale
 activation predecessor MUST refuse without promoting partial output.
 
+### Held original-commerce deployment preparation
+
+`open_commerce_fabric_deployment` MUST retain the actual original-commerce graph
+source/ACK/native interval and one genuine journal mutation lifetime across every
+projection, upload, creation and initial-load observation. Its exact configuration
+MUST explicitly select the private cooperative sole-creator profile, original
+local node/edge projections, separate fresh remote table paths and display name.
+This selection declares a scoped assumption, not a production access grant.
+
+The owner MUST independently compare both native version-zero projection UUIDs,
+ordered schemas and complete occurrence bags against the actual held release.
+It MUST capture and renew the exact original data/commit files and bind their
+inventories, complete mapping, held release digest, original manifest digest,
+publication ID and complete UUID/version vector to one durable candidate intent.
+Recovery MUST re-admit those same originals; it MUST NOT select latest heads or
+rewrite existing staged paths. Closing MUST independently attempt both native
+projection checks and the source/ACK/native owners before releasing success.
+
+The public interval MAY stage/read back bytes, submit creation once after full
+staging readback, recover only its original operation, and retain the sole
+observed initial-load handle before explicit status observation. Missing portal
+initialization, changed handles, extra/ambiguous jobs or incomplete listings MUST
+refuse without refresh fallback. Each HTTP acquisition MUST close before its
+step result is returned; the complete enclosing workflow report MUST wait for
+source and mutation closing. Portal opening itself MUST remain an actual owned
+external operation; a callback or Boolean MUST NOT supply native success.
+
+Preparation and a terminal load observation MUST NOT activate a release or mint
+`loaded_graph_policy`. Actual supported definition readback, complete independent
+native graph bags and the continued private mutation/source owners remain
+mandatory before activation and throughout publication-bound query admission.
+
 ### OneLake fresh release-byte upload
 
 `OneLakeUploadConfig` MUST select the workspace/account through the ordinary
@@ -792,8 +824,8 @@ ordinary delegated account, executable/configuration directory and finite
 capacities as the ordinary query profile. `open_fabric_deployment_http` MUST own
 acquisition and closing account checks, private token handling, normal HTTPS
 verification and redirect refusal. It MUST expose only explicit GraphModel
-creation, canonical original-operation state/result reads, and exact-item job
-list/read calls. Each acquisition MUST allow at most one creation submission,
+creation, canonical original-operation state/result reads, exact-item job
+list/read calls, and public definition readback with explicit operation results. Each acquisition MUST allow at most one creation submission,
 including an uncertain outcome; it MUST NOT poll, retry, refresh or replace items
 implicitly. A separately named IPv4-loopback test acquisition establishes no
 cloud or deployment qualification.

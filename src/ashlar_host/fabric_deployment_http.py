@@ -238,13 +238,37 @@ class FabricDeploymentHttp:
             raise ValueError('Unqualified creation status')
         return response
 
-    def creation_result(self, operation_id):
+    def operation_result(self, operation_id):
+        """Explicit original LRO result; caller owns its operation-specific meaning."""
         uuid(operation_id)
         response = self._request('GET', '/v1/operations/' + operation_id + '/result')
         if response.status != 200:
-            raise ValueError('Creation result refused')
+            raise ValueError('Original operation result refused')
         self._operation_headers(dict(response.headers), operation_id)
+        _decode(response.body)
+        return response
+
+    def creation_result(self, operation_id):
+        response = self.operation_result(operation_id)
         self._item(response.body)
+        return response
+
+    def graph_definition(self, graph_model_id):
+        """Return original 200 definition or 202 headers without implicit polling."""
+        uuid(graph_model_id)
+        response = self._request('POST', '/v1/workspaces/' + self._original.workspace_id
+                                 + '/graphModels/' + graph_model_id + '/getDefinition', b'')
+        if response.status == 200:
+            value = _decode(response.body)
+            if type(value.get('definition')) is not dict:
+                raise ValueError('Original public graph definition required')
+        elif response.status == 202 and not response.body:
+            headers = dict(response.headers)
+            operation = headers.get('x-ms-operation-id')
+            uuid(operation)
+            self._operation_headers(headers, operation, required=True)
+        else:
+            raise ValueError('Original graph definition request refused')
         return response
 
     def item_jobs(self, graph_model_id, continuation_token=None):

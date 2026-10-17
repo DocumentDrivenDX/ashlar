@@ -35,7 +35,8 @@ Provide an installed, explicitly configured small local workflow for the origina
 historical medical pack: fresh native initialization, protected PostgreSQL outbox
 publication, settled exact replay, and read-only reopen. This implements the
 bounded medical representative in P08 and runnable installed workflow in P09.
-It establishes neither new medical Weft queries nor new graph-engine support.
+The separately scoped singleton below adds one medical Weft read; it establishes
+no broader medical query or graph-engine support.
 Canonical production storage remains managed Unity Catalog Delta under ADR-001;
 the selected private local profile does not establish production authority,
 real Truss acceptance, patient-data access or clinical suitability.
@@ -416,7 +417,8 @@ fresh six-table initializer, public publisher, settled replay, stopped/reopened
 read-only process, complete original four bags and protected ACK byte/scope proof.
 Retain original requests/receipts/native observations, opening/closing custody,
 runtime versions and elapsed time as functional evidence, not a benchmark.
-No medical Weft or engine capability is implied. General interrupted eight-run
+Only the separately scoped singleton can establish medical Weft execution. No
+engine capability is implied. General interrupted eight-run
 recovery, the shared P07 engine corpus, P09 managed replay/query and P10 actual
 Truss acceptance/feed remain separate requirements.
 
@@ -485,3 +487,16 @@ missing baseline rows and unexplained new operations refuse before new intent.
 MED-F2/F3 and the existing committing-to-committed/ACK ordering remain unchanged;
 small tests cover exact prefix admission, lost/changed rows and unsupported code,
 with native installed execution required for a publication/ACK support claim.
+
+## Publication-pinned original singleton
+
+`query_original_medical_singleton(read_configuration, compiler_paths)` composes
+one fixed original required-STRING singleton with the existing read-only operator.
+Its nominal selection is consumed only inside the actual medical source interval
+and complete publication hold. It uses indexed f36/0.4.2 original compile and
+recompile admission, complete original obligations, generated native schema
+correspondence and the original graph oracle. Fresh session-local external Delta
+aliases preserve compiler SQL while retaining the actual installation UUIDs and
+locations. The buffered query evidence joins the existing receipt only after all
+source, native, reader and Spark closings. Missing canonical publication authority
+refuses; inspection proposals do not substitute for publication receipts.

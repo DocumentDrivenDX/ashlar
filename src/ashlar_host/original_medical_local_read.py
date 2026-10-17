@@ -48,9 +48,13 @@ class MedicalReadPolicy:
     def admit(self,*args):raise PermissionError('Medical read policy cannot admit mutation')
 
 
-def read_original_medical_local(config,*,supervision=None):
+def read_original_medical_local(config,*,supervision=None,singleton_query=None):
     if type(config)is not OriginalMedicalReadConfig:raise ValueError('Exact configured medical read required')
     if supervision is not None and type(supervision)is not OriginalMedicalNativePhase:raise ValueError('Exact medical native phase required')
+    if singleton_query is not None:
+        from .medical_singleton_query import MedicalSingletonQuery
+        if type(singleton_query)is not MedicalSingletonQuery:raise ValueError('Exact nominal medical singleton selection required')
+        singleton_query.__post_init__()
     config.__post_init__();original_config=_configuration(config);parent=_identity(config.output.parent)
     if config.output.exists()or config.output.is_symlink():raise PermissionError('Fresh medical read output required')
     config.output.mkdir(mode=0o700);output_identity=_identity(config.output);pins=[];primary=None;answer=None;closings=[]
@@ -106,10 +110,18 @@ def read_original_medical_local(config,*,supervision=None):
                             with owned_context(driver.hold(vector,context=context)):
                                 resolved=resolve_publication(driver,manifest['publication_id'],required,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions={k:[v]for k,v in json.loads(manifest['schema_revisions_json']).items()})
                                 observation=driver.observe_original_medical_read(resolved.descriptor,context=context)
+                                query_result=None
+                                if singleton_query is not None:
+                                    from .medical_singleton_query import execute_medical_singleton
+                                    query_result=execute_medical_singleton(singleton_query,driver,context,resolved,model,graph,baseline,bindings,output=config.output,bounds=bounds)
                                 policy.renew()
                                 answer={'profile':'ashlar-original-medical-local-read/0.1','installation_id':selection.installation_id,'publication':dict(resolved.descriptor.raw),'observation':observation,'qualification':'Actual existing local medical SELECT reopen; no source/native/ACK advancement, UC or Truss claim'}
+                                if query_result is not None:answer['singleton_query']=query_result
                         policy.renew()
             finish(None,[renew,custody.renew,dataset.renew,plan.renew])
-        write('receipt.json',answer)
     except BaseException as error:primary=error
-    finish(primary,[renew]+closings);return answer
+    finish(primary,[renew]+closings)
+    if singleton_query is not None:
+        answer['singleton_query']['qualification']='Completed original medical required-STRING singleton through held source/publication and outer reader/Spark closing; no broader query, UC, Truss or clinical authority.'
+    write('receipt.json',answer)
+    return answer

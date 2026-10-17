@@ -696,3 +696,23 @@ report is published only after complete successful file-use closure. The report
 parent MUST be canonical, owned and private (mode `0700`); staged bytes and
 original file identity MUST agree before and after no-clobber publication.
 Cleanup MUST remove only owned report inodes, preserving foreign replacements.
+
+### Original medical singleton query
+
+The original historical medical singleton workflow MUST read the selected canonical
+publication through the actual medical read-source factory, original UMF 0.8
+admission and complete held four-role vector. The fixed query selects the required
+`encounters.resource_key` equal to `Encounter/example`; its complete positional
+result bag MUST match an independent scan of the original graph. This narrow
+operation MUST NOT grant arbitrary medical query or action authority.
+
+The operator MUST explicitly select the authenticated indexed f36/0.4.2 local
+Spark 4/Delta 4 compiler installation. Both original compilation responses MUST
+match, pass the pinned public schemas and artifact admission, and retain unchanged
+SQL and ordered parameters. Every original integrity guard MUST execute before
+the query. Fresh session-local external aliases MUST bind the same original native
+UUIDs, locations and pinned versions; no source data, journal or ACK mutation is
+permitted. Full native schema/source/ACK opening and closing observations, reader
+and Spark closing MUST complete before any buffered result is published. A
+compiler-only result or Databricks-qualified profile MUST NOT imply this local
+execution passed.

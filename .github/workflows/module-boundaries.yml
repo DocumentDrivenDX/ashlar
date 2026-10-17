@@ -94,6 +94,7 @@ jobs:
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_sources test_local_physical_carriers
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_original_medical_local_sources
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_read_sources
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_singleton_query
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_publication_planning
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_plan
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_medical_publication_observation

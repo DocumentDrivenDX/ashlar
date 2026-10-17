@@ -193,3 +193,17 @@ class Tests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'Unqualified creation status'):
                     owner.creation_state(O)
             self.assertEqual(len(calls), 2)
+
+    def test_definition_200_or_async_result_preserves_distinct_definition_envelope(self):
+        raw = b'{"definition":{"format":"json","parts":[]},"extension":"retained"}'
+        with self.fixture([(200, [], raw), self.accepted(), (200, [], b'{"status":"Succeeded"}'), (200, [], raw)]) as (cfg, origin, calls, auth, account):
+            with open_fabric_deployment_loopback_for_test(cfg, origin) as owner:
+                self.assertEqual(owner.graph_definition(G).body, raw)
+                accepted = owner.graph_definition(G)
+                self.assertEqual(accepted.status, 202)
+                self.assertEqual(len(calls), 2)  # no implicit definition polling
+                owner.creation_state(O)  # same public LRO state envelope
+                self.assertEqual(owner.operation_result(O).body, raw)
+            self.assertEqual(calls[0][1], '/v1/workspaces/' + W + '/graphModels/' + G + '/getDefinition')
+            self.assertEqual(calls[0][2], b'')
+            self.assertEqual(calls[-1][1], '/v1/operations/' + O + '/result')
