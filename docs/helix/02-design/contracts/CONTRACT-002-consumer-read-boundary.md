@@ -716,3 +716,16 @@ permitted. Full native schema/source/ACK opening and closing observations, reade
 and Spark closing MUST complete before any buffered result is published. A
 compiler-only result or Databricks-qualified profile MUST NOT imply this local
 execution passed.
+
+The singleton receipt MAY retain the interval's repeated, fully validated ACK
+bytes by exact byte lengths and SHA256 references to the outer read receipt's
+full original ACK record. This report-only sharing MUST NOT replace or omit any
+opening/closing observation or whole-byte comparison, truncate values, or enlarge
+the selected complete receipt bound.
+
+Exact compiler request and response bytes MAY be retained once in private
+exclusive files under the read output after all owner closings. The receipt MUST
+pin each file's exact byte length and SHA256, including the byte-equal independent
+recompilation reference, and renew these original files before receipt publication.
+This representation MUST preserve whole original protocols without duplicating
+large payloads in the bounded aggregate receipt.

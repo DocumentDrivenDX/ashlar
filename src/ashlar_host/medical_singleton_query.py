@@ -43,6 +43,57 @@ class MedicalSingletonQuery:
 
 
 
+@dataclass(frozen=True)
+class MedicalSingletonBuffer:
+    """Immutable provisional bytes; the outer owner retains protocols after closing."""
+    request:bytes
+    response:bytes
+    recompiled_response:bytes
+    evidence_json:str
+    def __post_init__(self):
+        if any(type(raw)is not bytes or not 0<len(raw)<=16777216 for raw in (self.request,self.response,self.recompiled_response)):
+            raise ValueError('Bounded original medical compiler bytes required')
+        if self.response!=self.recompiled_response:raise PermissionError('Exact original recompile bytes required')
+        if type(self.evidence_json)is not str or not 0<len(self.evidence_json.encode())<=1048576:
+            raise ValueError('Bounded complete medical query evidence required')
+    def protocol_files(self):
+        return (('weft-singleton-request.json',self.request),('weft-singleton-response.json',self.response))
+    def report(self):
+        self.__post_init__()
+        references={name:{'file':file,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+            for name,(file,raw)in zip(('request','response'),self.protocol_files())}
+        references['recompiled_response']=dict(references['response'])
+        return {'profile':'ashlar-original-medical-singleton/0.1','original_protocol':references,
+            'recompile_equal':True,'evidence':json.loads(self.evidence_json),
+            'qualification':'Completed original medical required-STRING singleton through held source/publication and outer reader/Spark closing; no broader query, UC, Truss or clinical authority.'}
+
+
+def medical_query_closing_report(observation):
+    """Compact report references only; the caller has already validated full ACK bytes.
+
+    The outer medical read receipt retains the original full protected_ack record.
+    This codec neither validates source authority nor replaces any observation.
+    """
+    if type(observation)is not dict or set(observation)!={'native','protected_ack','qualification'}:
+        raise ValueError('Exact original medical closing observation required')
+    ack=observation['protected_ack']
+    if (type(ack)is not dict or set(ack)!={'position','request_hex','manifest_hex','receipt_hex'}
+            or type(ack['position'])is not str or not ack['position'] or not ack['position'].isascii() or not ack['position'].isdecimal()):
+        raise ValueError('Exact original observed ACK record required')
+    references={}
+    for name in ('request_hex','manifest_hex','receipt_hex'):
+        text=ack[name]
+        if type(text)is not str or not 0<len(text)<=8388608 or len(text)%2:
+            raise ValueError('Bounded original ACK hex bytes required')
+        raw=bytes.fromhex(text)
+        if raw.hex()!=text:raise ValueError('Canonical original ACK hex required')
+        references[name]={'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+    return {'native':observation['native'],'protected_ack':{
+        'profile':'ashlar-original-medical-ack-reference/0.1','position':ack['position'],
+        'original_bytes':references,'full_record':'receipt.observation.protected_ack'},
+        'qualification':observation['qualification']}
+
+
 class _MedicalQueryProvider:
     def __init__(self,driver,context,resolved,request,aliases):
         if (type(driver)is not NativeDriver or type(driver.transport)is not ReadOnlyDeltaTransport
@@ -78,7 +129,7 @@ class _MedicalQueryProvider:
             closing=self.resolve(context)
             observation=self.driver.observe_original_medical_read(closing.descriptor,context=context)
             if opening is not None and opening!=closing:raise PermissionError('Original medical query publication changed')
-            self.closed={'profile':'ashlar-original-medical-query-interval/0.1','publication':dict(closing.descriptor.raw),'closing_observation':observation}
+            self.closed={'profile':'ashlar-original-medical-query-interval/0.1','publication':dict(closing.descriptor.raw),'closing_observation':medical_query_closing_report(observation)}
         try:finish(primary,[close])
         finally:self.active=False
     def closed_interval_custody(self,context):
@@ -150,6 +201,4 @@ def execute_medical_singleton(selection,driver,context,resolved,model,graph,base
     opened=SimpleNamespace(provider=provider,context=context,model=model,graph=graph,native_files=native_files,original_native_files=native_files())
     execution=ImplicitArithmeticExecutionConfig(admission,PathCaptureConfig(bounds.rows,bounds.cell_bytes,bounds.total_bytes),PathDecodeConfig(bounds.cell_bytes),None,None)
     result=execute_commerce_implicit_arithmetic(opened,request,artifact,json.loads(responses[1]),config=execution,original_oracle=medical_singleton_oracle)
-    return {'profile':'ashlar-original-medical-singleton/0.1','request':request,'response':artifact,'original_request_utf8':raw.decode(),
-        'original_response_utf8':responses[0].decode(),'original_recompiled_response_utf8':responses[1].decode(),'evidence':report_value(result,bounds.receipt_bytes),
-        'qualification':'Provisional exact original medical singleton; outer medical read/source/Spark closing required.'}
+    return MedicalSingletonBuffer(raw,responses[0],responses[1],encoded(report_value(result,bounds.receipt_bytes)))

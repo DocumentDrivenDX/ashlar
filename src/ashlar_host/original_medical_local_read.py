@@ -40,6 +40,17 @@ def _identity(path):
         raise PermissionError('Original private medical read output parent required')
     return value.st_dev,value.st_ino
 
+
+def _write_private_file(path,raw):
+    """Exclusive complete byte retention; closing never replaces the primary."""
+    fd=None;primary=None
+    try:
+        fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+        if os.write(fd,raw)!=len(raw):raise PermissionError('Complete original medical file write required')
+        os.fsync(fd)
+    except BaseException as error:primary=error
+    finish(primary,[lambda:os.close(fd)]if fd is not None else [])
+
 class MedicalReadPolicy:
     """Passive immutable read selection, explicitly refusing every effect port."""
     def __init__(self,context,targets,active,renew):
@@ -72,8 +83,7 @@ def read_original_medical_local(config,*,supervision=None,singleton_query=None):
     def write(name,value):
         renew();raw=(encoded(value)+'\n').encode()
         if len(raw)>config.bounds.receipt_bytes:raise PermissionError('Bounded medical read receipt required')
-        fd=os.open(config.output/name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
-        with os.fdopen(fd,'wb')as stream:stream.write(raw);stream.flush();os.fsync(stream.fileno())
+        _write_private_file(config.output/name,raw)
         renew()
     try:
         handoff=selected(config.installation);selection=validate_original_medical_installation_handoff(handoff,config)
@@ -122,6 +132,20 @@ def read_original_medical_local(config,*,supervision=None,singleton_query=None):
     except BaseException as error:primary=error
     finish(primary,[renew]+closings)
     if singleton_query is not None:
-        answer['singleton_query']['qualification']='Completed original medical required-STRING singleton through held source/publication and outer reader/Spark closing; no broader query, UC, Truss or clinical authority.'
+        from .medical_singleton_query import MedicalSingletonBuffer
+        buffered=answer['singleton_query']
+        if type(buffered)is not MedicalSingletonBuffer:raise ValueError('Exact buffered medical singleton required')
+        buffered.__post_init__()
+        for name,raw in buffered.protocol_files():
+            renew()
+            if len(raw)>config.bounds.input_bytes:raise PermissionError('Bounded complete original medical query protocol required')
+            _write_private_file(config.output/name,raw)
+            file=MedicalFile(config.output/name,config.bounds.input_bytes);pins.append((file,raw))
+            renew()
+        directory=os.open(config.output,os.O_RDONLY);error=None
+        try:os.fsync(directory)
+        except BaseException as caught:error=caught
+        finish(error,[lambda:os.close(directory)])
+        answer['singleton_query']=buffered.report()
     write('receipt.json',answer)
     return answer
