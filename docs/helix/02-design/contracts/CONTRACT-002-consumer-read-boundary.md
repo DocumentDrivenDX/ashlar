@@ -979,6 +979,16 @@ native exact decimal carrier uses the declared fixed scale or drops zero sign.
 The independent oracle MUST compute those carriers from original source tokens
 without binary floating point, generated SQL or observed result cells.
 
+A nonaggregate typed scalar projection MAY filter one required INTEGER Field by
+equality to one canonical exact INTEGER literal within its original declared
+signed/unsigned width of 1–64 bits. Original IR identities, types, property homes,
+source spans and capabilities MUST correspond. The oracle MUST validate every
+source row, including unmatched rows, and compare normalized exact integer
+tokens without floating-point conversion. All original source-integrity and
+representability obligations remain mandatory. This admission does not extend
+to parameters, optional predicates, conjunctions, ordering, limits or filtered
+aggregates.
+
 Every public-source-only scalar obligation MUST bind its complete native rows,
 original property bytes and extracted token to the independently reconstructed
 source prefix and fresh public UMF carried-Record receipts. A model with no

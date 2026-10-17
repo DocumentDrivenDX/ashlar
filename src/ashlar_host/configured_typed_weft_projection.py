@@ -68,7 +68,7 @@ def configured_typed_projection_oracle(scope,request,artifact):
     """Build an invocation-bound independent original typed source-prefix bag.
 
     Required direct scalars, optional facetless STRING native-null envelopes and
-    global COUNT are supported. Original absence and null remain distinct in
+    global COUNT and one exact required INTEGER equality literal are supported. Original absence and null remain distinct in
     expected envelopes; compiler guard admission is a separate prerequisite.
     No SQL, native result cells or publisher effect plan contributes expectations.
     """
@@ -96,7 +96,7 @@ def configured_typed_projection_oracle(scope,request,artifact):
     _require(artifact.get('status')=='compiled'and artifact.get('backend')==dict(BACKEND)and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
     plan=artifact.get('logicalPlan')
     _require(type(plan)is dict and set(plan)==_IR and plan['irVersion']=='weft-ir/0.4.1'and plan['modulePins']==pins and type(plan['aggregate'])is bool)
-    _require(all(plan[k]==[]for k in ('filters','groups','joins','order'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
+    _require(all(plan[k]==[]for k in ('groups','joins','order'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
     scan=plan['source'];_require(type(scan)is dict and set(scan)=={'occurrence','pin','record'}and type(scan['occurrence'])is str and bool(scan['occurrence'])and scan['pin']in pins)
     records=[r for r in binding['records']if r['logical']==scan['record']];_require(len(records)==1);record=records[0]
     document=decode_retained_json(model);elements={(m['id'],e['id']):e for m in document['modules']for e in m['elements']}
@@ -131,6 +131,41 @@ def configured_typed_projection_oracle(scope,request,artifact):
             expected_graph[encoded(identity)]={'availability':field['nullability'],'identity':identity,'kind':'scalar','type':scalar}
             fields.append((pid,scalar_rep,optional));capabilities.add('type.'+family)
         _require(type(column)is dict and type(column.get('position'))is int and column=={'nullable':False,'outputName':output['name'],'position':position,'representation':representation,'sourceIdentities':[identity]})
+    integer_filter=None
+    _require(type(plan['filters'])is list and len(plan['filters'])<=1)
+    if plan['filters']:
+        _require(not count)
+        wrapper=plan['filters'][0];_require(type(wrapper)is dict and set(wrapper)=={'op','predicate'}and wrapper['op']=='legacy')
+        predicate=wrapper['predicate'];_require(type(predicate)is dict and set(predicate)=={'left','op','right'}and predicate['op']=='equal')
+        left,right=predicate['left'],predicate['right']
+        _require(type(left)is dict and set(left)=={'identity','scan','span','type'}and left['scan']==scan['occurrence'])
+        identity=left['identity'];homes=[p['home']for p in record['properties']if p['logical']==identity];_require(len(homes)==1)
+        home=homes[0];_require(type(home)is dict and set(home)=={'kind','propertyId'}and home['kind']=='props'and home['propertyId']in bound['fields'])
+        pid=home['propertyId'];module,element,family=bound['fields'][pid];definition=elements[module,element]
+        _require(identity==logical(module,element)and family=='integer'and definition.get('scalarType')=='integer'and definition.get('cardinality')=='one'and definition.get('nullability')=='required')
+        facets=definition.get('facets',{});_require(type(facets)is dict and set(facets)=={'integerWidth'})
+        width=facets['integerWidth'];_require(type(width)is dict and set(width)=={'bits','signed'}and type(width['bits'])is int and 1<=width['bits']<=64 and type(width['signed'])is bool)
+        integer={'family':'integer','facets':facets,'nullable':False}
+        _require(left['type']==integer and type(right)is dict and set(right)=={'kind','span','type','value'}and right['kind']=='literal'and right['type']==integer and type(right['value'])is str and 0<len(right['value'])<=20)
+        import re
+        value=right['value'];_require(re.fullmatch('-?(0|[1-9][0-9]*)',value)is not None and value!='-0')
+        representation={'kind':'scalar','logicalType':integer,'carrier':'text','decoder':'exact-integer'}
+        decode_exact_scalar(representation,value)
+        sql=request['sql'].encode()
+        def original_span(span):
+            _require(type(span)is dict and set(span)=={'start','end'}and all(type(span[k])is int for k in span)and 0<=span['start']<span['end']<=len(sql))
+            return sql[span['start']:span['end']].decode('utf-8')
+        _require(original_span(right['span'])==value)
+        selected=original_span(left['span']);name=definition.get('name')
+        _require(type(name)is str and bool(name))
+        quoted='"'+name.replace('"','""')+'"'
+        # Check the original field token without deriving query semantics from
+        # SQL: the independently compiled scan/identity owns its resolution.
+        reference=re.fullmatch(r'(?:[A-Za-z_][A-Za-z0-9_]*|"(?:[^"]|"")+")\.(.+)',selected)
+        field_token=selected if reference is None else reference.group(1)
+        _require(field_token==quoted or field_token.isascii()and name.isascii()and field_token.lower()==name.lower())
+        expected_graph[encoded(identity)]={'availability':'required','identity':identity,'kind':'scalar','type':integer}
+        capabilities.update(('equal','filter','type.integer'));integer_filter=(pid,representation,value)
     _require(type(plan['typeGraph'])is list and sorted(map(encoded,plan['typeGraph']))==sorted(map(encoded,expected_graph.values())))
     _require(type(plan['requiredCapabilities'])is list and sorted(plan['requiredCapabilities'])==sorted(capabilities))
     original_request=encoded(request);original_artifact=encoded(artifact);original_rows=encoded(scope.source_rows())
@@ -141,7 +176,7 @@ def configured_typed_projection_oracle(scope,request,artifact):
         observed=scope.source_rows();_require(encoded(observed)==original_rows)
         rows=[r for r in observed['object_current']if r['source_system']==configuration.source_system and r['type_id']==str(tid)]
         _require(len(rows)<=1000 and len(rows)*len(outputs)<=100000 and all(r['schema_revision']==configuration.document_revision for r in rows))
-        answer=[];witnesses=[]
+        answer=[];witnesses=[];matched=0
         for row in rows:
             props=decode_truss_lexical_properties(row['props_json']);values=[];atoms=[]
             for pid,representation,optional in fields:
@@ -154,10 +189,17 @@ def configured_typed_projection_oracle(scope,request,artifact):
                 atom={'property_id':pid,'state':'value'}
                 if type(value)is NumericToken:atom['numeric_token']=value.text
                 atoms.append(atom)
-            if not count:answer.append(values)
+            match=True
+            if integer_filter is not None:
+                pid,representation,literal=integer_filter
+                _require(pid in props and type(props[pid])is NumericToken)
+                match=typed_projection_carrier(props[pid],representation)==literal
+            if match:
+                matched+=1
+                if not count:answer.append(values)
             witnesses.append({'source_system':row['source_system'],'type_id':row['type_id'],'id':row['id'],'schema_revision':row['schema_revision'],'props_json':row['props_json'],'fields':atoms})
-        if count:answer=[[str(len(rows))]]
+        if count:answer=[[str(matched)]]
         scope.renew();configuration.verify()
-        return {'rows':answer,'witnesses':{'source_records':len(rows),'result_occurrences':len(answer),'publication_id':scope.descriptor.publication_id,'source_sha256':hashlib.sha256(rawsource).hexdigest(),'original_atoms':witnesses},
+        return {'rows':answer,'witnesses':{'source_records':len(rows),'matched_records':matched,'result_occurrences':len(answer),'publication_id':scope.descriptor.publication_id,'source_sha256':hashlib.sha256(rawsource).hexdigest(),'original_atoms':witnesses},
                 'scope':'Complete independent original typed source-prefix projection/count bag. Original absent/null/value states and lexical numeric tokens remain distinct; compiler guard admission is independent. No native/source/publication authority.'}
     return oracle

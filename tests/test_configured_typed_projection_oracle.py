@@ -127,6 +127,22 @@ def authored_artifact(scope,selected=('quantity','amount','active','note'),*,cou
     return request,{'status':'compiled','backend':dict(BACKEND),'interfaceVersion':'weft-compile/0.4.1','dialect':'weft-sql/0.4.1','bindingSha256':request['target']['bindingSha256'],'modelPins':[pin],'logicalPlan':ir,'columns':columns}
 
 
+def filtered_artifact(scope,literal='18446744073709551615',selected=('quantity','amount','active')):
+    request,artifact=authored_artifact(scope,selected)
+    request['sql']+=' WHERE i.quantity = '+literal
+    binding=json.loads(request['target']['bindingJson']);record=binding['records'][0]
+    identity=next(p['logical']for p in record['properties']if p['logical']['element']=='quantity')
+    logical={'family':'integer','facets':{'integerWidth':{'bits':64,'signed':False}},'nullable':False}
+    left=request['sql'].rindex('i.quantity');right=len(request['sql'])-len(literal)
+    artifact['logicalPlan']['filters']=[{'op':'legacy','predicate':{'op':'equal',
+        'left':{'identity':identity,'scan':'s0','span':{'start':left,'end':left+len('i.quantity')},'type':logical},
+        'right':{'kind':'literal','value':literal,'span':{'start':right,'end':len(request['sql'])},'type':logical}}}]
+    graph=artifact['logicalPlan']['typeGraph']
+    if not any(d['identity']==identity for d in graph):graph.append({'availability':'required','identity':identity,'kind':'scalar','type':logical})
+    artifact['logicalPlan']['requiredCapabilities']=sorted(set(artifact['logicalPlan']['requiredCapabilities'])|{'filter','equal','type.integer'})
+    return request,artifact
+
+
 class FactoryTests(unittest.TestCase):
     def test_actual_minted_prefix_distinct_presence_metadata_and_lifetime(self):
         expired=[]
@@ -154,4 +170,33 @@ class FactoryTests(unittest.TestCase):
                 with self.assertRaises(ValueError):configured_typed_projection_oracle(scope,request,changed)
                 with self.assertRaises(ValueError):oracle(model,rawsource+b'changed',request)
                 expired.append((oracle,model,rawsource,request))
+            with self.assertRaises(ValueError):expired[-1][0](*expired[-1][1:])
+
+    def test_exact_required_uint64_equality_complete_population_and_refusals(self):
+        expired=[]
+        for ordinal in (1,2):
+            with typed_scope(ordinal)as scope:
+                model=scope.source.configuration.model_source;source=scope.source.original_source
+                request,artifact=filtered_artifact(scope);oracle=configured_typed_projection_oracle(scope,request,artifact)
+                result=oracle(model,source,request)
+                self.assertEqual(result['rows'],[['18446744073709551615','12.50','true']]if ordinal==1 else[])
+                self.assertEqual(result['witnesses']['source_records'],2);self.assertEqual(len(result['witnesses']['original_atoms']),2)
+                self.assertIn('-0.00',result['witnesses']['original_atoms'][1]['props_json'])
+                for literal,wanted in (('9007199254740993',[['9007199254740993','0.00','false']]),('9007199254740992',[])):
+                    selected,compiled=filtered_artifact(scope,literal)
+                    self.assertEqual(configured_typed_projection_oracle(scope,selected,compiled)(model,source,selected)['rows'],wanted)
+                # Predicate homes and graph remain required even if not projected.
+                selected,compiled=filtered_artifact(scope,selected=('amount','active'))
+                self.assertEqual(configured_typed_projection_oracle(scope,selected,compiled)(model,source,selected)['rows'],[['12.50','true']]if ordinal==1 else[])
+                if ordinal==1:
+                    for mutation in ('literal-span','wrong-type','foreign-field','parameter','optional-field','extra-filter'):
+                        bad=copy.deepcopy(artifact);predicate=bad['logicalPlan']['filters'][0]['predicate']
+                        if mutation=='literal-span':predicate['right']['span']={'start':0,'end':1}
+                        elif mutation=='wrong-type':predicate['right']['type']={'family':'integer','facets':{},'nullable':False}
+                        elif mutation=='foreign-field':predicate['left']['identity']={**predicate['left']['identity'],'element':'foreign'}
+                        elif mutation=='parameter':predicate['right']['kind']='parameter'
+                        elif mutation=='optional-field':predicate['left']['identity']={**predicate['left']['identity'],'element':'note'}
+                        else:bad['logicalPlan']['filters'].append(copy.deepcopy(bad['logicalPlan']['filters'][0]))
+                        with self.subTest(mutation=mutation),self.assertRaises(ValueError):configured_typed_projection_oracle(scope,request,bad)
+                expired.append((oracle,model,source,request))
             with self.assertRaises(ValueError):expired[-1][0](*expired[-1][1:])

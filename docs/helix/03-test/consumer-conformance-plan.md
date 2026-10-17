@@ -632,3 +632,15 @@ Preserve unconsumed optional/numeric source values without claiming their page
 support. SDK/compiler-only probes do not qualify native execution; local leases
 do not become PostgreSQL pins or protected source ACKs. Reuse the installation
 and keep native checks sequential and small.
+
+## Configured exact INTEGER equality
+
+Reuse an admitted typed scalar publication and its original compiler profile.
+Compare a required unsigned-64 maximum and values beyond 2^53 with exact literal
+predicates, including an adjacent nonmatch, a predicate Field omitted from the
+projection and a retained old publication after an update. Reconstruct complete
+source witnesses before filtering; malformed unmatched rows must still refuse.
+Reject changed Field homes, types, literal spans, parameters, optional predicates
+and additional filters. A small actual native equality query must retain every
+original guard and complete publication/source closing; compiler-only checks do
+not establish native support. Reuse the existing installation without reingest.
