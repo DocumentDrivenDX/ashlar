@@ -298,15 +298,15 @@ if args.prepare_only:
             },
             manifest_uuid="22222222-2222-2222-2222-222222222222",
             layout_sha256="ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e",
-            backend_version="0.1.0-local-spark4-candidate",
-            target_profile="spark4.0.1-delta4.0.0-candidate",
+            backend_version="0.1.0-local-spark4-fields-candidate",
+            target_profile="spark4.0.1-delta4.0.0-fields-candidate",
         )
         original = json.loads(
             weft.compile_engine_read_json(
                 json.dumps(
                     {
                         "version": "weft.engine-read/0.1",
-                        "compiler": "ashlar-spark4",
+                        "compiler": "ashlar-spark4-fields",
                         "request": original_request,
                     }
                 )
@@ -720,15 +720,19 @@ try:
         ],
         "target": {
             "backendId": "ashlar.databricks",
-            "backendVersion": "0.1.0-local-spark4-candidate",
-            "targetProfile": "spark4.0.1-delta4.0.0-candidate",
+            "backendVersion": "0.1.0-local-spark4-fields-candidate",
+            "targetProfile": "spark4.0.1-delta4.0.0-fields-candidate",
             "bindingJson": binding_json,
             "bindingSha256": binding_sha,
         },
         "options": {"allowCandidate": True},
     }
     entry = EngineRead.build(
-        weft, request, parameters=Parameters, result=Order, method="ashlar-spark4"
+        weft,
+        request,
+        parameters=Parameters,
+        result=Order,
+        method="ashlar-spark4-fields",
     )
     (out / "original-engine-request.json").write_text(json.dumps(request))
     (out / "engine-catalog.json").write_text(entry.artifact_json)
@@ -774,7 +778,7 @@ try:
         def verify_native_profile(self, profile, supplied):
             assert active["pins"] and supplied is context
             if (
-                profile["targetProfile"] != "spark4.0.1-delta4.0.0-candidate"
+                profile["targetProfile"] != "spark4.0.1-delta4.0.0-fields-candidate"
                 or profile["engineVersion"] != spark.version
                 or profile["deltaVersion"] != "4.0.0"
                 or spark.conf.get("spark.sql.ansi.enabled") != "true"
@@ -960,8 +964,8 @@ try:
         table_uuids={table: detail["id"], edge_table: edge_detail["id"]},
         manifest_uuid=manifest_detail["id"],
         layout_sha256=binding["layoutSha256"],
-        backend_version="0.1.0-local-spark4-candidate",
-        target_profile="spark4.0.1-delta4.0.0-candidate",
+        backend_version="0.1.0-local-spark4-fields-candidate",
+        target_profile="spark4.0.1-delta4.0.0-fields-candidate",
     )
     primitive_binding = json.loads(primitive_request["target"]["bindingJson"])
     primitive_binding_sha = primitive_request["target"]["bindingSha256"]
@@ -972,8 +976,8 @@ try:
     )
     config["modules"] = ["primitive_declarations"]
     selected = config["targets"][0]
-    selected["engineCompiler"] = "ashlar-spark4"
-    selected["backendVersion"] = "0.1.0-local-spark4-candidate"
+    selected["engineCompiler"] = "ashlar-spark4-fields"
+    selected["backendVersion"] = "0.1.0-local-spark4-fields-candidate"
     selected["binding"]["modelJson"] = model
     selected["binding"]["modelSha256"] = source_sha
     for logical_table in selected["binding"]["tables"]:
@@ -1049,7 +1053,7 @@ try:
 
     primitive_target = AshlarTarget(
         compiler=weft,
-        compiler_method="ashlar-spark4",
+        compiler_method="ashlar-spark4-fields",
         executor=executor,
         backend=backend,
         pins=HeldPins(),

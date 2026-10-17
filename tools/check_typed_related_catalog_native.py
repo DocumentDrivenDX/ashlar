@@ -830,22 +830,63 @@ try:
         variant = capture(getattr(authored, name)).variants[0]
         if name == "related_pages":
             variant = replace(variant, node=Node("all", variant.node.args[:2]))
-        logical = render_logical(variant, binding=selected["binding"], owner_bound=name == "related_pages")
-        logical = logical.replace('SELECT "r"."id",', 'SELECT "r"."id" AS "col_0",')
+        rendered_logical = render_logical(
+            variant, binding=selected["binding"], owner_bound=name == "related_pages"
+        )
+        rendered_logical = rendered_logical.replace(
+            'SELECT "r"."id",', 'SELECT "r"."id" AS "col_0",'
+        )
         owned = copy.deepcopy(request)
-        owned["sql"] = logical
+        owned["sql"] = rendered_logical
         owned["interfaceVersion"] = "weft-compile/0.2.2"
         owned["target"]["backendVersion"] = selected["backendVersion"]
         owner_requests[name + ":0"] = owned
-    # Original authored-Key page profile deliberately refuses caller ordering.
-    explicit_order=copy.deepcopy(owner_requests['related_pages:0'])
-    explicit_order['sql']+=' ORDER BY "r"."id" ASC NULLS LAST'
-    before=len(native_calls)
-    refused=json.loads(weft.compile_engine_page_json(json.dumps({'version':'weft.engine-page/0.1','compiler':'ashlar-spark4-pages','request':explicit_order,'pageSize':1})))
-    assert refused['status']=='blocked' and any(d['code']=='WFT-PROFILE' for d in refused['original']['diagnostics']),refused
-    assert len(native_calls)==before
-    (out/'explicit-order-page-refusal.json').write_text(json.dumps(refused))
-    checks.append('original authored-Key page profile explicitly refuses caller ordering without native SQL')
+    # R14 proves exact authored-Key ordering redundant, while a different Field
+    # order must remain outside this original Key-cursor profile.
+    explicit_order = copy.deepcopy(owner_requests["related_pages:0"])
+    explicit_order["sql"] += ' ORDER BY "r"."id" ASC NULLS LAST'
+    before = len(native_calls)
+    accepted_order = json.loads(
+        weft.compile_engine_page_json(
+            json.dumps(
+                {
+                    "version": "weft.engine-page/0.1",
+                    "compiler": "ashlar-spark4-pages",
+                    "request": explicit_order,
+                    "pageSize": 1,
+                }
+            )
+        )
+    )
+    assert (
+        accepted_order["status"] == "compiled"
+        and accepted_order["request"] == explicit_order
+    ), accepted_order
+    wrong_order = copy.deepcopy(explicit_order)
+    wrong_order["sql"] = wrong_order["sql"].replace(
+        'ORDER BY "r"."id"', 'ORDER BY "r"."status"'
+    )
+    refused = json.loads(
+        weft.compile_engine_page_json(
+            json.dumps(
+                {
+                    "version": "weft.engine-page/0.1",
+                    "compiler": "ashlar-spark4-pages",
+                    "request": wrong_order,
+                    "pageSize": 1,
+                }
+            )
+        )
+    )
+    assert refused["status"] == "blocked" and any(
+        d["code"] == "WFT-PROFILE" for d in refused["original"]["diagnostics"]
+    ), refused
+    assert len(native_calls) == before
+    (out / "exact-key-order-program.json").write_text(json.dumps(accepted_order))
+    (out / "non-key-order-page-refusal.json").write_text(json.dumps(refused))
+    checks.append(
+        "original authored-Key page preserves exact Key order and refuses non-Key order without native SQL"
+    )
     selected["engineRequests"] = owner_requests
     config = generated / "related-native-config.json"
     config.write_text(json.dumps(template))

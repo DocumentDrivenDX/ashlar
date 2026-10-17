@@ -109,3 +109,67 @@ class PrimitiveFieldBindingTests(unittest.TestCase):
         bindings[17]["fields"]["021"] = bindings[17]["fields"].pop("21")
         with self.assertRaises(TypedSourceError):
             self.binding(bindings=bindings)
+
+    def test_original_field_request_profile_refuses_broader_semantics(self):
+        from ashlar.primitive_binding import primitive_compile_request
+        from ashlar.publication import Descriptor
+        from ashlar.schema import SchemaIntake
+        from ashlar.weft_binding import LAYOUT_SHA256, WeftBindingError
+
+        directory = Path(self.temp.name)
+        artifact = subprocess.run(
+            [
+                os.environ.get("ASHLAR_BUN", "bun"),
+                str(ROOT / "tools/inspect_umf.ts"),
+                os.environ.get(
+                    "ASHLAR_UMF_SOURCE", "/private/tmp/sdk-a1-umf-c45c72-source"
+                ),
+                RECORD_CHECK_PIN,
+                str(directory / "model.json"),
+            ],
+            capture_output=True,
+            check=True,
+        ).stdout
+        intake = SchemaIntake.read(
+            artifact, "1", trusted_validator_revision=RECORD_CHECK_PIN
+        )
+        descriptor = Descriptor(
+            "compiler-only",
+            "ashlar-delta/0.3",
+            {"spark_catalog.owned.object_current": 0},
+            {"owned": "1"},
+            {},
+            {},
+            {},
+        )
+
+        def build(sql):
+            return primitive_compile_request(
+                sql,
+                intake,
+                self.binding(),
+                descriptor,
+                schema_alias="owned",
+                table_uuids={
+                    "spark_catalog.owned.object_current": "11111111-1111-1111-1111-111111111111"
+                },
+                manifest_uuid="22222222-2222-2222-2222-222222222222",
+                layout_sha256=LAYOUT_SHA256,
+                backend_version="0.1.0-local-spark4-fields-candidate",
+                target_profile="spark4.0.1-delta4.0.0-fields-candidate",
+            )
+
+        result = build(
+            "SELECT r.quantity AS value FROM m.Item r ORDER BY r.note LIMIT 10"
+        )
+        self.assertEqual(result["modules"][0]["documentJson"].encode(), self.model)
+        self.assertEqual(result["parameters"], {})
+        self.assertEqual(result["interfaceVersion"], "weft-compile/0.2.0")
+        for sql in [
+            "SELECT r.quantity FROM m.Item r WHERE r.quantity=1 ORDER BY r.note LIMIT 10",
+            "SELECT COUNT(*) AS value FROM m.Item r ORDER BY r.note LIMIT 10",
+            "SELECT RELATED_KEYS(r.edge,2) AS value FROM m.Item r ORDER BY r.note LIMIT 10",
+            "SELECT r.quantity FROM m.Item r ORDER BY r.note",
+        ]:
+            with self.subTest(sql=sql), self.assertRaises(WeftBindingError):
+                build(sql)

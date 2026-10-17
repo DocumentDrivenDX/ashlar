@@ -1,0 +1,13 @@
+{
+  "sdk": "8197bac52d8b170f43a401e600d27f3fd8451685616bb3d1596c73fed89616d0",
+  "weft": "30df648eb7089b484d95cb0193e59dfb831eeeab7764282ae2ffcd06d4aa601f",
+  "ashlar": "c1c2ce776a2f9c5e06530a6529841b8122ff60ae2590cbd6ccd71fc63e073275",
+  "ashlarSource": "d9b9a966",
+  "passed": 13,
+  "scope": "actual installed generated public catalog WithKeys rows/pages/streams over original Ashlar Spark4/Delta4 publication with PostgreSQL18 pin interval; functional only, no performance/managed/A1 primitive authority transfer",
+  "temporal": "HELD",
+  "priorFailedCohortsRetained": [
+    1,
+    2
+  ]
+}

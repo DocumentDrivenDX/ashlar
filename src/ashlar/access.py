@@ -136,7 +136,7 @@ class AshlarTarget:
                  deadline:Callable[[timedelta],AbstractContextManager[None]],catalog_entries:tuple[EngineRead[Any,Any],...]=()):
         if len(binding_sha256)!=64 or any(c not in '0123456789abcdef' for c in binding_sha256):raise ValueError('Original binding digest required')
         if not callable(getattr(compiler,'check_engine_read_json',None)) or not callable(deadline):raise ValueError('Original engine compiler and native deadline owner required')
-        if compiler_method not in ('registered','ashlar-spark4','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages'):raise ValueError('Explicit original Ashlar compiler required')
+        if compiler_method not in ('registered','ashlar-spark4','ashlar-spark4-fields','ashlar-dbsql-20261016','ashlar-spark4-pages','ashlar-dbsql-20261016-pages'):raise ValueError('Explicit original Ashlar compiler required')
         self.compiler_method=compiler_method
         self.compiler,self.executor,self.backend,self.pins=compiler,executor,backend,pins
         self.vector,self.policy,self.context=vector,policy,context

@@ -61,6 +61,10 @@ def primitive_compile_request(
         raise WeftBindingError("Original layout and model revision required")
     if (backend_version, target_profile) not in (
         ("0.1.0-local-spark4-candidate", "spark4.0.1-delta4.0.0-candidate"),
+        (
+            "0.1.0-local-spark4-fields-candidate",
+            "spark4.0.1-delta4.0.0-fields-candidate",
+        ),
         ("0.1.0-local-spark4-pages-candidate", "spark4.0.1-delta4.0.0-candidate"),
     ):
         raise WeftBindingError("Explicit original local candidate profile required")

@@ -1,0 +1,14 @@
+{
+  "testsPassed": 17,
+  "skips": 0,
+  "scope": "explicit original local direct required Field projection profile admission and exact decoder source controls only",
+  "compilerSource": "3f64056",
+  "backendVersion": "0.1.0-local-spark4-fields-candidate",
+  "targetProfile": "spark4.0.1-delta4.0.0-fields-candidate",
+  "engineCompiler": "ashlar-spark4-fields",
+  "nativeQualification": false,
+  "recordCompleteClaim": false,
+  "datasetKeyClaim": false,
+  "temporal": "HELD",
+  "predecessorNativeRelatedWheel": "c1c2ce776a2f9c5e06530a6529841b8122ff60ae2590cbd6ccd71fc63e073275"
+}
