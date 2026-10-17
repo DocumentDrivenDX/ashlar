@@ -1,0 +1,151 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "source_commit": "84478e9965f673e39e42da18396091b06d2691d8",
+  "qualification": "Actual six-capture local component proof only, not native/source/ACK/publication authority or whole-workflow qualification. Exact original gzip bytes withmtime0; no binaries/SDKinventory/datafile copy.",
+  "files": [
+    {
+      "file": "probe.py.gz",
+      "sha256": "b948171b33c8a6e50f0d6dc6485735524bff86f9123016cabbf6ef5d9b50ec60",
+      "bytes": 3228,
+      "original_sha256": "2c0cbfd105bdf9a4e63f37d9068ecd55398b08941da00ebbdd17f56714a1c80c",
+      "original_bytes": 8098,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/probe.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "sha256": "420adfaa2373921b22c40853809e67d7de843df3883db2e35ff4d1e0cd256432",
+      "bytes": 2475,
+      "original_sha256": "05c57ce3f4b0f1c5c5f86f595fa47984531e34798b47bfbd31afdb17b459f625",
+      "original_bytes": 6708,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/supervise.py"
+    },
+    {
+      "file": "configuration.json.gz",
+      "sha256": "3290dc25ef9fe4e9a1e8be6509811352cbec697784da06bf934acb496b7ded39",
+      "bytes": 273,
+      "original_sha256": "3c0a2cc3fd3a4ebe1ad0957dfe57ca76fd36f811ae729780a4a49a69ee9fc4d0",
+      "original_bytes": 490,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/configuration.json"
+    },
+    {
+      "file": "preparation.json.gz",
+      "sha256": "f6e331da206cbc5b917b74ef9296f39dfdabe051232892ad77d45277d94b6b96",
+      "bytes": 1273,
+      "original_sha256": "78bfc3662f845ef56f15b8f983663f044cf875f3d7175bd1082186777b51682e",
+      "original_bytes": 3190,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/preparation.json"
+    },
+    {
+      "file": "wheel-preparation.json.gz",
+      "sha256": "72e1d28b058acd27d1be7d3f2efcb876447a992de7e79848331c2252fb41f763",
+      "bytes": 334,
+      "original_sha256": "f04a8dc12b43e290782463393c4718cf081604a62b28ad39dfcc193f8f3e2628",
+      "original_bytes": 528,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/wheel-preparation.json"
+    },
+    {
+      "file": "pure-preflight.json.gz",
+      "sha256": "18bc3f488e7a26c6b2beed6ce526c3afb0929af84de3fd661bcecfb06b704e52",
+      "bytes": 222,
+      "original_sha256": "342b521639c3c908907c81b21fb18e70e4c43bb485550f52c037264f9136c055",
+      "original_bytes": 345,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/pure-preflight.json"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "sha256": "4bc6f791bf7124c70f202f0b36cb9b3d431a7df1267213b5042a4ada4b47bd63",
+      "bytes": 268,
+      "original_sha256": "febfdea5dd34e3154bc31735bd9168ed6b34250a12c0f493ce83a4318ebccaa1",
+      "original_bytes": 351,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/execution-clearance.json"
+    },
+    {
+      "file": "result.json.gz",
+      "sha256": "f27526c0e4afff6f788b95be09d5832b2c7afa7192e3571eb85ff2b9398e3bf9",
+      "bytes": 1416,
+      "original_sha256": "f3e6817785840bbbf5adb6f4489a344aa1f90cddc6df9cb3c349cd7066235e4c",
+      "original_bytes": 7460,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/result.json"
+    },
+    {
+      "file": "before.json.gz",
+      "sha256": "d2bffba8849adf9730ad4b60c815dd7716f9b949272f13d14e054295315e9b8f",
+      "bytes": 215,
+      "original_sha256": "f5a393355f3ba76b8c46f28b6db8af17c888190665d136aca4a75c0da5d6f1a5",
+      "original_bytes": 268,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/before.json"
+    },
+    {
+      "file": "after.json.gz",
+      "sha256": "d2bffba8849adf9730ad4b60c815dd7716f9b949272f13d14e054295315e9b8f",
+      "bytes": 215,
+      "original_sha256": "f5a393355f3ba76b8c46f28b6db8af17c888190665d136aca4a75c0da5d6f1a5",
+      "original_bytes": 268,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/after.json"
+    },
+    {
+      "file": "outer-attempt.json.gz",
+      "sha256": "8fc6cedd9e7a93965823e953b849a695233b858bd5641acc91668b341d5eca50",
+      "bytes": 166,
+      "original_sha256": "ab1f93eee72b7fe331eb787fe64b46df6559461418f3ba02cf4a665372f6b56f",
+      "original_bytes": 211,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/outer-attempt.json"
+    },
+    {
+      "file": "probe-terminal.json.gz",
+      "sha256": "15557467bb377c9f6ed479f391bb7547974a6e024c006def889f1064a735c78f",
+      "bytes": 99,
+      "original_sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_bytes": 105,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/probe-terminal.json"
+    },
+    {
+      "file": "probe.stdout.gz",
+      "sha256": "ca82f6067b28684f3847a862d7547ed8692cf0b4b5da170dff83941715b25382",
+      "bytes": 91,
+      "original_sha256": "983ac7424b11f4505408fdf60c41d3277693a0f35b1a1e6eab8dd82d26cca02f",
+      "original_bytes": 76,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/probe.stdout"
+    },
+    {
+      "file": "probe.stderr.gz",
+      "sha256": "9094acc2d9871647a190f56b03e348220d241fb633a51d1350be8e209a11679c",
+      "bytes": 485,
+      "original_sha256": "7d43db417d69d8226cc407afe9c6b7e8512219ec84a7fc9d262c66092ce4b0f5",
+      "original_bytes": 1753,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/probe.stderr"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "sha256": "5b7f827afde172fcb4c390df85aa35c4b6da9bd3294f47faf65f5855f50ebd96",
+      "bytes": 50,
+      "original_sha256": "3a2bad342265d98722da5ed4aad5317a7dc7b6c0ee5c0e6021c1d89a00cb0982",
+      "original_bytes": 30,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/owned-session.json"
+    },
+    {
+      "file": "build.log.gz",
+      "sha256": "7a39eab8d4f82e744cbc60d559f505b1e6163736db71747cd4fedf3f6558fc93",
+      "bytes": 9921,
+      "original_sha256": "8149ce661292ef9b09d2c20149c21664563bbee6ccabe9c65dd9ad206db658fb",
+      "original_bytes": 116047,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/build.log"
+    },
+    {
+      "file": "install.log.gz",
+      "sha256": "aec51fc0c1b87d9f3d865992dbc10eadbd8f021dc0ad38af2b28534e40b346f4",
+      "bytes": 339,
+      "original_sha256": "f63ff6c1581f76cf422e6c7be46531def2183b01271d4a710cce3b9385b21677",
+      "original_bytes": 506,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/install.log"
+    },
+    {
+      "file": "probe-delta/_delta_log/00000000000000000000.json.gz",
+      "sha256": "9522942938970bd6c1611defccc59a3e45939399f33c6de4a74288032d124515",
+      "bytes": 469,
+      "original_sha256": "9e9e641dad2d1af761660e334253e68bef6b940e0261c3515f0b8cb8cd1f488d",
+      "original_bytes": 713,
+      "original_private_path": "/private/tmp/ashlar-native-singleton-capture-probe-20261017-a/probe-delta/_delta_log/00000000000000000000.json"
+    }
+  ]
+}
