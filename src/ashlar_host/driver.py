@@ -22,6 +22,41 @@ CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
 _MEDICAL_REQUEST_OMITTED = object()
 
+_EVOLUTION_READ_MINT = object()
+
+class HeldEvolutionPublication:
+    """Read-only view minted by the active original NativeDriver interval only."""
+    __slots__ = ('driver','context','vector','_row','_facts','_ports','_active')
+    def __init__(self, token, driver, context, row, vector, facts):
+        if token is not _EVOLUTION_READ_MINT:
+            raise PermissionError('Actual original held evolution publication required')
+        for name,value in (('driver',driver),('context',context),('vector',vector),
+                ('_row',encoded(row)),('_facts',encoded(facts)),
+                ('_ports',(driver.transport,driver.policy,driver.source_admission,driver.source_sessions,driver.ack_sessions)),('_active',True)):
+            object.__setattr__(self,name,value)
+        self.require(context,vector)
+    def __setattr__(self,name,value):raise AttributeError('Immutable original held publication')
+    def require(self, context, vector):
+        from ashlar.pins import PinVector
+        owner=self.driver
+        if (not self._active or type(owner)is not NativeDriver or context is not self.context
+                or type(vector)is not PinVector or vector!=self.vector
+                or type(getattr(owner,'_held_original_vector',None))is not PinVector
+                or owner._held_original_vector!=self.vector or not owner.pin_held
+                or any(a is not b for a,b in zip((owner.transport,owner.policy,owner.source_admission,owner.source_sessions,owner.ack_sessions),self._ports))
+                or encoded(owner.policy.active['manifest'])!=self._row):
+            raise PermissionError('Exact active original publication/vector/context required')
+        current=manifest_pin_vector(json.loads(self._row),{table:owner.transport.targets[table].uuid for table in self.vector.targets},authority='private-local-process')
+        if current!=self.vector:raise PermissionError('Original complete native target identities changed')
+        owner.require(context)
+    @property
+    def descriptor(self):
+        self.require(self.context,self.vector);return json.loads(self._row)
+    @property
+    def facts(self):
+        self.require(self.context,self.vector);return json.loads(self._facts)
+    def _close(self):object.__setattr__(self,'_active',False)
+
 class _OriginalGraphSourceRenewal:
     """Private binding created by the exact original reader factory only."""
     __slots__ = ('owner','_renew')
@@ -463,8 +498,9 @@ class NativeDriver:
                                      attempt_admission, selected_completed=None, collect_completed=False):
         """Observe original lineage without new publication/phase/effect submission.
 
-        Current protected ACK reconciliation remains mandatory and may renew
-        idempotent acknowledgement; this is not a zero-PostgreSQL-write claim.
+        Current protected ACK reconciliation observes exact retained receipts using
+        SELECT locks and commits the observation transaction; it never submits
+        or advances an ACK. This is not a PostgreSQL READ ONLY transaction claim.
         The independent reservation owner must admit the exact original ledger
         before and after this gate. Native absence cannot establish a retained
         not-started reservation. Started operations retain their existing recovery
@@ -745,23 +781,19 @@ class NativeDriver:
         self.admit_evolution_plan(plan, context=context, fresh=True)
         return plan
 
-    def verify_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds,
-            native_schema_profile='legacy-sql-bootstrap/0.1'):
-        """Verify one completed immutable publication without publisher or ACK submission.
+    @contextmanager
+    def hold_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds):
+        """Authenticate one completed original publication inside its real full-vector hold.
 
-        Complete ledger validation uses existing protected SELECT reconciliation.
-        The returned rows remain provisional until the caller's acquired owners close.
+        Full ledger/manifest/source/retention and protected receipt observation are
+        mandatory. Reconcile observes receipts using SELECT locks and commits its
+        transaction; this path never submits or advances an ACK.
         """
         from .evolution_composition import NativeEvolutionRunPolicy, OriginalRunCorrespondence
         from .evolution_plan import EvolutionAttemptPlan
         from .evolution_run import EvolutionRunDefinition, EvolutionRunLedgerView
-        from .evolution_verification_types import VerificationBounds, require_native_schema_profile, CANONICAL_NATIVE_SCHEMA_PROFILE
+        from .evolution_verification_types import VerificationBounds
         from .lifecycle import finish, owned_context
-        require_native_schema_profile(native_schema_profile)
-        canonical = None
-        if native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
-            from .managed_carriers import load_managed_carriers
-            canonical = load_managed_carriers()
         self.require(context)
         if (type(original) is not EvolutionRunDefinition or type(inventory) is not EvolutionRunLedgerView
                 or type(policy) is not NativeEvolutionRunPolicy or policy.driver is not self
@@ -789,10 +821,40 @@ class NativeDriver:
             if set(roles) != {'object_current', 'edge_current', 'tombstone', 'whole_source_history'} or set(descriptor.versions) != {self.tables[role] for role in roles}:
                 raise PermissionError('Exact four materialization roles required')
             vector = manifest_pin_vector(row, {table: self.transport.targets[table].uuid for table in descriptor.versions}, authority='private-local-process')
+            held = None
+            with owned_context(self.hold(vector, context=context)):
+                held = HeldEvolutionPublication(_EVOLUTION_READ_MINT, self, context, row, vector, facts)
+                try:
+                    yield held
+                finally:
+                    held._close()
+        except BaseException as error:
+            primary = error
+        finally:
+            finish(primary, [validate, lambda: self.require(context)])
+
+    def verify_evolution_publication(self, original, inventory, ordinal, *, context, policy, bounds,
+            native_schema_profile='legacy-sql-bootstrap/0.1'):
+        """Verify one completed immutable publication without publisher or ACK submission.
+
+        Complete ledger validation uses existing protected SELECT reconciliation.
+        The returned rows remain provisional until the caller's acquired owners close.
+        """
+        from .evolution_verification_types import require_native_schema_profile, CANONICAL_NATIVE_SCHEMA_PROFILE
+        from .lifecycle import finish, owned_context
+        require_native_schema_profile(native_schema_profile)
+        canonical = None
+        if native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
+            from .managed_carriers import load_managed_carriers
+            canonical = load_managed_carriers()
+        with owned_context(self.hold_evolution_publication(original, inventory, ordinal,
+                context=context, policy=policy, bounds=bounds)) as held:
+            row = held.descriptor; vector = held.vector; facts = held.facts
+            roles = tuple(self.columns)
             observations = {}; schemas = {}; acquired_roles = []
             def capture_role(role, remaining):
                 table = self.tables[role]
-                snapshot, schema = self.transport.bounded_snapshot(self.transport.targets[table], descriptor.versions[table], remaining_bytes=remaining)
+                snapshot, schema = self.transport.bounded_snapshot(self.transport.targets[table], vector.targets[table][1], remaining_bytes=remaining)
                 if not original_native_equal(snapshot['rows'], sorted(facts['expected'][role], key=encoded)):
                     raise PermissionError('Complete original publication bag differs')
                 expected = [(name, family.lower()) for name, family in self.columns[role]]
@@ -814,31 +876,26 @@ class NativeDriver:
                 if size > remaining:
                     raise PermissionError('Cumulative four-bag evidence bound exceeded')
                 return snapshot, schema, size
-            with owned_context(self.hold(vector, context=context)):
-                selected_primary = None; total = 0; closing_total = [0]
-                try:
-                    for role in roles:
-                        acquired_roles.append(role)
-                        snapshot, schema, size = capture_role(role, bounds.total_bytes-total)
-                        observations[role] = snapshot; schemas[role] = schema; total += size
-                except BaseException as error:
-                    selected_primary = error
-                def closing_role(role):
-                    snapshot, schema, size = capture_role(role, bounds.total_bytes-closing_total[0])
-                    closing_total[0] += size
-                    if role in observations and (not original_native_equal(snapshot, observations[role]) or not original_native_equal(schema, schemas[role])):
-                        raise PermissionError('Closing complete native bags/schema differ')
-                finish(selected_primary, [lambda: self.validate_manifest(row, context),
-                    lambda: self.source_admit(facts['request']),
-                    *(lambda role=role: closing_role(role) for role in acquired_roles)])
+            selected_primary = None; total = 0; closing_total = [0]
+            try:
+                for role in roles:
+                    acquired_roles.append(role)
+                    snapshot, schema, size = capture_role(role, bounds.total_bytes-total)
+                    observations[role] = snapshot; schemas[role] = schema; total += size
+            except BaseException as error:
+                selected_primary = error
+            def closing_role(role):
+                snapshot, schema, size = capture_role(role, bounds.total_bytes-closing_total[0])
+                closing_total[0] += size
+                if role in observations and (not original_native_equal(snapshot, observations[role]) or not original_native_equal(schema, schemas[role])):
+                    raise PermissionError('Closing complete native bags/schema differ')
+            finish(selected_primary, [lambda: self.validate_manifest(row, context),
+                lambda: self.source_admit(facts['request']),
+                *(lambda role=role: closing_role(role) for role in acquired_roles)])
             result = {'descriptor': row, 'bags': observations, 'schemas': schemas,
                 'completed_prefix': sum(slot[1] == 'completed' for slot in inventory.slots)}
             if canonical is not None:
                 result.update(native_schema_profile=native_schema_profile, generated_carriers_sha256=canonical.generated_sha256)
-        except BaseException as error:
-            primary = error
-        finally:
-            finish(primary, [validate, lambda: self.require(context)])
         return result
 
     def observe_completed_evolution_prefix(self, ledger, *, context):

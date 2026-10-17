@@ -815,6 +815,38 @@ batch and outer source/native/Spark closing checks and existing capacities remai
 mandatory. Per-case evidence MUST retain exact original protocols after closing;
 this finite selection grants no broader query or source authority.
 
+### Original two-source held singleton
+
+The private local profile `ashlar-original-two-source-singleton/0.1` MUST read
+the same explicit signed64 object or edge identity from both actual registered
+feeds of one completed original evolution publication. Selection MUST retain
+the original eight-slot run, selected ordinal, full ledger, accepted source
+meaning, exact descriptor and all four native UUID/version pins. It MUST use
+the actual existing operator lease, writer interval, ordinary source/ACK owners
+and complete manifest admission; a source-qualified identity MUST NOT collapse
+into a local ID shared by another feed.
+
+The shared held-publication preparation MUST retain fresh full-ledger and
+manifest/source/native validation at opening and closing. Existing publication
+verification MUST additionally retain its complete bounded four-bag/schema
+opening and closing captures unchanged. Singleton reads MUST NOT claim that
+manifest admission avoids those original complete native observations. A
+borrowed pin port MUST require the exact active original owner, context and
+complete vector on every acquisition and closing; it grants no detached pin
+or callback authority. Descriptor resolution, retention and target identity
+checks remain mandatory for each point read.
+
+Every complete returned row, or an absent result, MUST match the independent
+original source-derived publication state, including all original fields and
+source-qualified identity. Results for both feeds MUST remain buffered until
+all pin, writer, source, protected-receipt, provider, transport, runtime and lease
+closings complete; failure or cancellation returns no partial response.
+Existing protected receipt reconciliation MUST observe exact retained original
+request/manifest/receipt bytes and refuse unavailable receipts. Its ordinary
+SELECT-lock transaction may commit; it MUST NOT submit or advance an ACK.
+This profile makes no production fencing, remote-authentication, compiler or
+full-eight-publication completion claim.
+
 ### Installed managed-publication singleton
 
 The named development profile `ashlar-managed-singleton/0.1` exposes
