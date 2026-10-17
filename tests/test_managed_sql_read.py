@@ -1,5 +1,5 @@
 """Inert SDK and synthetic private selections; no network/auth/native calls."""
-import copy,json,os,tempfile
+import copy,json,os,sys,tempfile
 from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
@@ -30,9 +30,22 @@ class ReadTests(unittest.TestCase):
         w=SimpleNamespace(config=SimpleNamespace(host=c.host,profile=c.profile,config_file=str(c.config_file),databricks_cli_path=str(c.cli),auth_type='databricks-cli'),current_user=SimpleNamespace(me=user),warehouses=SimpleNamespace(get=lambda _:warehouse),api_client=SimpleNamespace(do=request))
         arguments=[]
         def construct(**kwargs):arguments.append(kwargs);return w
-        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getpid()),patch.object(m.os,'getpgrp',return_value=os.getpid()),patch.object(m.importlib.metadata,'version',return_value='0.117.0'),patch.object(m.importlib,'import_module',return_value=SimpleNamespace(WorkspaceClient=construct)):
+        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getppid()),patch.object(m.os,'getpgrp',return_value=os.getppid()),patch.object(m.importlib.metadata,'version',return_value='0.117.0'),patch.object(m.importlib,'import_module',return_value=SimpleNamespace(WorkspaceClient=construct)):
             context=m.managed_sql_child_context()
             yield c,context,w,warehouse,calls,arguments,metadata
+    def test_actual_retained_supervisor_child_matches_capture_contract(self):
+        from ashlar_host.evolution_producer import capture
+        source=Path(__file__).resolve().parents[1]/'src'
+        code='import sys,json;sys.path.insert(0,'+repr(str(source))+');from ashlar_host.managed_sql_read import managed_sql_child_context;print(json.dumps(vars(managed_sql_child_context())))'
+        out,err=capture([sys.executable,'-I','-B','-c',code],cwd=Path(self.temp.name).resolve(),
+            environment={'PATH':'/usr/bin:/bin','LANG':'C','LC_ALL':'C'},timeout_seconds=5,maximum_output_bytes=4096)
+        facts=json.loads(out);self.assertEqual(err,b'')
+        self.assertEqual(facts['session'],facts['group']);self.assertNotEqual(facts['pid'],facts['session'])
+    def test_wrong_supervisor_parent_refuses_before_sdk_acquisition(self):
+        with self.fixture() as (c,ctx,*_):
+            with patch.object(m.os,'getppid',return_value=ctx.session+1),patch.object(m.importlib,'import_module') as acquire:
+                with self.assertRaises(m.ManagedSQLReadError):m.ManagedSQLReader(c,ctx)
+                acquire.assert_not_called()
     def test_concrete_sdk_identity_complete_null_duplicate_bag_and_lifetime(self):
         with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
             with m.open_managed_sql_read(c,context=ctx) as reader:

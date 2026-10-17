@@ -74,7 +74,8 @@ def managed_sql_child_context()->ManagedSQLChildContext:
 def _require_child(context):
     if (type(context)is not ManagedSQLChildContext or context.pid!=os.getpid()
             or context.session!=os.getsid(0) or context.group!=os.getpgrp()
-            or context.pid!=context.session or context.pid!=context.group):
+            or context.session!=os.getppid() or context.group!=context.session
+            or context.pid==context.session):
         raise ManagedSQLReadError('managed-sql-supervised-child-required')
 
 
