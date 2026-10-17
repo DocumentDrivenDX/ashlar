@@ -1,0 +1,302 @@
+{
+  "archive": {
+    "bytes": 601405,
+    "file": "actual.tar.gz",
+    "sha256": "44179121ee2d9b1719e0b2ca99597f93f77cef4b4c19cc4a9a7fe988bbca82a9"
+  },
+  "profile": "ashlar-supply-chain-graphframes-dependency-evidence/0.1",
+  "records": [
+    {
+      "bytes": 8544,
+      "member": "actual/preparation.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/preparation.json",
+      "sha256": "35834541fa25072ecf31f1adac525402c9e6ee256d8ce48e1e837ac38f0203e2"
+    },
+    {
+      "bytes": 1216,
+      "member": "actual/fresh-publication-configuration.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/fresh-publication-configuration.json",
+      "sha256": "5dd9e302c1cf02164e43842cb1eb816bc99b2ee4bb6939f9809dc45bc8b214e3"
+    },
+    {
+      "bytes": 1214,
+      "member": "actual/run-publication.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/run-publication.py",
+      "sha256": "3fd8e996aa7793187f812457d848fb3e596714de63f7a303299e0a756416ad7f"
+    },
+    {
+      "bytes": 3823,
+      "member": "actual/run-graphframes.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/run-graphframes.py",
+      "sha256": "b434e55fe7fe7081412db02d1fe4493f30f0328bd5ba6d2bbc476726b816688e"
+    },
+    {
+      "bytes": 3882,
+      "member": "actual/runtime_policy.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/runtime_policy.py",
+      "sha256": "0f36f5dda710ee954157562a013a7668f9b29dfbc289e9ee2e87233f58e9f140"
+    },
+    {
+      "bytes": 321308,
+      "member": "actual/installed.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/installed.json",
+      "sha256": "e64c1243f0ffdb50fb9112832b8d335af82f33abad3e2db4f69dfd9bf858d036"
+    },
+    {
+      "bytes": 2662,
+      "member": "actual/resource-plan.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/resource-plan.json",
+      "sha256": "b685a6c1478290bd165a53aaf7ce2e0914e7beb429583dcb5553636e8cfe6af0"
+    },
+    {
+      "bytes": 476,
+      "member": "actual/source-preparation.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/source-preparation.json",
+      "sha256": "138fa44f105d9085fb117e8162d6e2206d4ff1e835c10e560a87ecae1f6db0d2"
+    },
+    {
+      "bytes": 3736,
+      "member": "actual/dependency-selection.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/dependency-selection.json",
+      "sha256": "a378f2aba8134da8bbeb6f7688c0db42e5907311a24031b6891ac2e3dd4cdfaa"
+    },
+    {
+      "bytes": 1587,
+      "member": "actual/worker-sdk-preparation.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/worker-sdk-preparation.json",
+      "sha256": "b350d3cb8ed913fbbd673d820e6db94e7e107ec4f7759a872d2d5263ad5484e0"
+    },
+    {
+      "bytes": 1679,
+      "member": "actual/worker-support-selection.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/worker-support-selection.json",
+      "sha256": "4b6371825a59709228a94cdcf34aadc37b511ce881f9464182ec5e2377e09e21"
+    },
+    {
+      "bytes": 1670,
+      "member": "actual/worker-jars-acquisition.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/worker-jars-acquisition.json",
+      "sha256": "f644abb7a2576d397817c391a30bcb376c7aa0d1ef90566aaf8b23bd658278c8"
+    },
+    {
+      "bytes": 683,
+      "member": "actual/jdk-acquisition.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/jdk-acquisition.json",
+      "sha256": "a13fa043b56b098be51c202c2ed7bc6923e4befbbc3e17cef7c1c80aa706d9c9"
+    },
+    {
+      "bytes": 2036,
+      "member": "actual/jdk-selection.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/jdk-selection.json",
+      "sha256": "a91646a37ccd2491340db630b8dc0d6a6e23552b570954c16742c00323d0d09a"
+    },
+    {
+      "bytes": 743,
+      "member": "actual/imports-preflight.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/imports-preflight.json",
+      "sha256": "a5db58e7aad1fd48d80472b9bea903660734df7d818f11afc2d9fff505e5e7b5"
+    },
+    {
+      "bytes": 525,
+      "member": "actual/runtime-pure-preflight.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/runtime-pure-preflight.json",
+      "sha256": "bd3a6f59439b2b70dc59b2cd0d7e578435ba40b915c936caa730421623e54596"
+    },
+    {
+      "bytes": 101,
+      "member": "actual/canonical-pure-preflight.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/canonical-pure-preflight.json",
+      "sha256": "47a9a1c1b274ec9edb791938ae24b0297cf5b21a19659ad669bb341c7468861d"
+    },
+    {
+      "bytes": 395,
+      "member": "actual/fresh-publication-command-result.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/fresh-publication-command-result.json",
+      "sha256": "3f4c74b72e56ea87f961fdab5f13a6c5ddbb9400e87010d593cfc434afb3582f"
+    },
+    {
+      "bytes": 5368,
+      "member": "actual/capture-stage2-selection.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/capture-stage2-selection.py",
+      "sha256": "126b52e1a53c98c8a4be75a33b6ba92d26e839851dab86eb99a90ab5173c9aaf"
+    },
+    {
+      "bytes": 6546,
+      "member": "actual/stage2-selection.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/stage2-selection.json",
+      "sha256": "f07e561d5b965a88223292059ea7c4724935a287859231cfccb0e346559a463d"
+    },
+    {
+      "bytes": 1730486,
+      "member": "actual/stage1-journal-readonly-snapshot.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/stage1-journal-readonly-snapshot.json",
+      "sha256": "60d40148a8458ba023585467c859109af53545e0796c2fb6e79a699befa46327"
+    },
+    {
+      "bytes": 1767,
+      "member": "actual/publication/registry.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/registry.json",
+      "sha256": "269795a91e62f9e0363df40af7737e4df73b9de07dd3eccf710793cee3641632"
+    },
+    {
+      "bytes": 80592,
+      "member": "actual/publication/request.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/request.json",
+      "sha256": "1586844acccdf9f00f4d3957db8f66996ff0005c85d096b5a7799e3769a0a39e"
+    },
+    {
+      "bytes": 97024,
+      "member": "actual/publication/report.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/report.json",
+      "sha256": "6826aca9e3020bda5fc4844abfd5ee1aa6f56811bbaa5b4fc8d137461ffdecab"
+    },
+    {
+      "bytes": 4795730,
+      "member": "actual/publication/public-dataset.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/public-dataset.json",
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e"
+    },
+    {
+      "bytes": 1691280,
+      "member": "actual/publication/compiler-observations.jsonl",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/compiler-observations.jsonl",
+      "sha256": "84ba3fd1d30272ec2be1d115f0a1b5d45d99a0ad43e8fccd8e92dd5d61c848ad"
+    },
+    {
+      "bytes": 1572,
+      "member": "actual/publication/native-observations.jsonl",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication/native-observations.jsonl",
+      "sha256": "0f4ade3c22fd60d432c912b0ef1cae6c16848d56f5c99214e62bb31a82c4a5e3"
+    },
+    {
+      "bytes": 4795730,
+      "member": "actual/graphframes-query/public-source-receipt.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-query/public-source-receipt.json",
+      "sha256": "df08b050df37e7608970634be667337ae050dbf5fe019e82a563aa7ae2a6851e"
+    },
+    {
+      "bytes": 269679,
+      "member": "actual/graphframes-query/engine/input.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-query/engine/input.json",
+      "sha256": "3beb278083119a3ce7a8cb4396cb69ef10614a89cd3878b9be118f356054f50b"
+    },
+    {
+      "bytes": 71110,
+      "member": "actual/graphframes-query/engine/observations.jsonl",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-query/engine/observations.jsonl",
+      "sha256": "223e0bad67c4c9e06504355718df011f8785f301620ad05ab251b6b42259821b"
+    },
+    {
+      "bytes": 7047,
+      "member": "actual/graphframes-query/engine/transport.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-query/engine/transport.json",
+      "sha256": "f42bf0ab281a71fc46a8a1e017f53d15f800a5da23179180b3275c25aa0265eb"
+    },
+    {
+      "bytes": 6542,
+      "member": "actual/publication-control/supervise.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/supervise.py",
+      "sha256": "3d8b0671f54320996bafd4384515d96146b91aa901260d6f5a7230f4905ec6f7"
+    },
+    {
+      "bytes": 30,
+      "member": "actual/publication-control/owned-session.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/owned-session.json",
+      "sha256": "d7a80195376861698065e5d136dd6df04219a780c70c9adca598bad215692b58"
+    },
+    {
+      "bytes": 74,
+      "member": "actual/publication-control/resume.stdout",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/resume.stdout",
+      "sha256": "0c6dbe74546bab6db406a8f55c46abfeb9996279f0bbfc04c4114bcd3ac9c0c9"
+    },
+    {
+      "bytes": 598,
+      "member": "actual/publication-control/resume.stderr",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/resume.stderr",
+      "sha256": "0ddd35be31fc8b871c57d885f0ea082bcebfc84c974a1e6c16302c5725f573d7"
+    },
+    {
+      "bytes": 105,
+      "member": "actual/publication-control/resume-terminal.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/resume-terminal.json",
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b"
+    },
+    {
+      "bytes": 146,
+      "member": "actual/publication-control/outer-attempt.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/outer-attempt.json",
+      "sha256": "e3193f10ef5a242ed8331f556368220e2eb7320c96cedbef9aa4d407f4ea6abf"
+    },
+    {
+      "bytes": 434,
+      "member": "actual/publication-control/execution-clearance.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/publication-control/execution-clearance.json",
+      "sha256": "3059274f3e2a48cb13be3b114d067f564002add64d4c35abf104c56496402b9c"
+    },
+    {
+      "bytes": 6542,
+      "member": "actual/graphframes-control/supervise.py",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/supervise.py",
+      "sha256": "163e2e2093931d09cd5d1b77a1d09208784bfe5bbb2e8b48c6b8afaea66622fd"
+    },
+    {
+      "bytes": 30,
+      "member": "actual/graphframes-control/owned-session.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/owned-session.json",
+      "sha256": "1fb0746a53176b6d96918cabe81b17bc9f1e0c9f9d1c480b6bcf5f0a740b47d2"
+    },
+    {
+      "bytes": 0,
+      "member": "actual/graphframes-control/resume.stdout",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/resume.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 327179,
+      "member": "actual/graphframes-control/resume.stderr",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/resume.stderr",
+      "sha256": "c081cc18338e5801b0763e4e4c8f97e39669821f1e6497b8a94ac1216f89f292"
+    },
+    {
+      "bytes": 105,
+      "member": "actual/graphframes-control/resume-terminal.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/resume-terminal.json",
+      "sha256": "29cbe829ea0f2c760538c17c939a47204f7645b9cd4c1379e6209995150dc4dc"
+    },
+    {
+      "bytes": 147,
+      "member": "actual/graphframes-control/outer-attempt.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/outer-attempt.json",
+      "sha256": "5f0b7031d8333edd0f45a3c44f706a2a5bd406057577d09a97dd5e926c263556"
+    },
+    {
+      "bytes": 494,
+      "member": "actual/graphframes-control/execution-clearance.json",
+      "original_path": "/Users/erik/Projects/ashlar/out/supply-chain-graphframes-common-20261017/graphframes-control/execution-clearance.json",
+      "sha256": "3f17c2363d1254295facd9c34e60b98c435c5c08983090c34226180f56496292"
+    },
+    {
+      "bytes": 34293,
+      "external_reference_only": true,
+      "original_path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/ontology.json",
+      "role": "model",
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a"
+    },
+    {
+      "bytes": 38541,
+      "external_reference_only": true,
+      "original_path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/graph/fixture.json",
+      "role": "graph",
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13"
+    },
+    {
+      "bytes": 15021,
+      "external_reference_only": true,
+      "original_path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/pack.json",
+      "role": "pack",
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22"
+    }
+  ],
+  "scope": "Single compact archive of actual fresh stage1 pass and failed first GraphFrames stage2. R2 preparation and future attempts excluded; SDK/JDK/wheel/native Parquet binary payloads not copied. Source receipt and exact capture bytes retained, no current authority granted by archive."
+}

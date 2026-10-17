@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-duplicate-future-phase-key-inert-check/0.1",
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_phase_absence",
+  "observed_result": {
+    "tests": 6,
+    "seconds": 11.993,
+    "status": "OK",
+    "source": "Author-transcribed actual result"
+  },
+  "source_sha256": {
+    "src/ashlar_host/phase_absence.py": "af4c3eee71e8801347f898aaa88d1aa1f0a2413c035210df70f81dee03afdff6",
+    "tests/test_phase_absence.py": "447dbcaeb44524d327c3ab766b8b4636cf6007841cdf863e458c68fd358d2e77"
+  },
+  "scope": "Duplicate coarse stream/batch candidates disable only the optional zero observation. Two actual core scoped reads use ordinary SELECTs with no zero probe. Existing request/context/source/feed/epoch parsing and native/history/writer checks remain. Inert SQLite/native owner proof only; no new publication/source/ACK authority.",
+  "independent_review": "commerce_fabric_cli_review GO"
+}

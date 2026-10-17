@@ -1,0 +1,176 @@
+{
+  "profile": "ashlar-exact-evidence-archive/0.1",
+  "source_commit": "33ddfb678fae565c4370591f095ec10fde38578d",
+  "test_only_successor": "ec4e1744baae82aba5c032c6ae37bdbc638f44d7",
+  "qualification": "Six actual fresh local detail observations on one empty synthetic-property Delta table, not installation/source/ACK/publication authority or workflow qualification. Exact gzip streams mtime0; no binaries or environment dump.",
+  "files": [
+    {
+      "file": "probe.py.gz",
+      "sha256": "764f82c6ffe26da8d9ef7f2e6b45d84d41d872abc1427f8f3bed18457dd0f529",
+      "bytes": 3000,
+      "original_sha256": "bbe55715b8395423e03050cb5d88f4eb557c49a15ea68b4d55e988441d9d29e7",
+      "original_bytes": 7274,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/probe.py"
+    },
+    {
+      "file": "supervise.py.gz",
+      "sha256": "ae20b7b42d5e7cb6e937ceb05e657b518b43bb207fcb5d6ecee6f011f89b66e8",
+      "bytes": 2549,
+      "original_sha256": "9b90c9916501b389662fd30c62faca622831f27acf61d14d464f703e019ab17f",
+      "original_bytes": 6904,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/supervise.py"
+    },
+    {
+      "file": "configuration.json.gz",
+      "sha256": "4c843b9f44513a546d5fff8f822763c2b8f383bab57461ec016c9aace9f9b5a2",
+      "bytes": 265,
+      "original_sha256": "a0796f46f15fdb0b6479b3bf16e71f00dac017695d2c0ba1c0dd17c142e2f54c",
+      "original_bytes": 482,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/configuration.json"
+    },
+    {
+      "file": "preparation.pending-original.json.gz",
+      "sha256": "ecd3a805894c7b5b0dd7c04757111524f3e25a07221bbec4443bb071e8e5d5a6",
+      "bytes": 206,
+      "original_sha256": "fe5697f975c3b33f8ec9ec9bf819c877147b6a09fc830b3b94fec539f9e0bf5a",
+      "original_bytes": 265,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/preparation.pending-original.json"
+    },
+    {
+      "file": "reviewed-pending.json.gz",
+      "sha256": "6374762139c757048d3cfe13a0bd50851af4d1a627930f3843b42f6746c7dad1",
+      "bytes": 1393,
+      "original_sha256": "e8b2b431667a8df72cebd1c0b196c41e411ca97617482c0c2403d453ee4d4a53",
+      "original_bytes": 4146,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/reviewed-pending.json"
+    },
+    {
+      "file": "preparation.json.gz",
+      "sha256": "a4df927e93233a60fc89ec91c0fa94b14e1dc67da7a5e624d6835a6761211fee",
+      "bytes": 1394,
+      "original_sha256": "fba2aeef736a2f7dcd70b8f62b8b365623d9a8b754ff3ab121769bc176c3f987",
+      "original_bytes": 4145,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/preparation.json"
+    },
+    {
+      "file": "execution-clearance.json.gz",
+      "sha256": "fe32765083612c5591c5914730a1881a67113ef9b2f8296dadd5a7794249b77c",
+      "bytes": 484,
+      "original_sha256": "6a99cdff25e28b9fdc5eb10a44324c450ae21c31c7433ecf97b832fb4f47f566",
+      "original_bytes": 747,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/execution-clearance.json"
+    },
+    {
+      "file": "wheel-preparation.json.gz",
+      "sha256": "e5b0e4d330ad592b702af6f2b9317743da1ab28d39a5dbc83632ec35a49120c6",
+      "bytes": 327,
+      "original_sha256": "b85697606b0cef98c04e58a396c7925013f2901fc3fe26a22587b63e27b1d7d4",
+      "original_bytes": 512,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/wheel-preparation.json"
+    },
+    {
+      "file": "installed-package-pins.json.gz",
+      "sha256": "a130994a0a6b3b464330ffe406f4b1ce73df344ceca7ff34d30b651c03c1f79d",
+      "bytes": 26175,
+      "original_sha256": "83d5f9687d5f20df3e05f7ab45e7cbf75daba6a860b1ce70d8cffce216792821",
+      "original_bytes": 129220,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/installed-package-pins.json"
+    },
+    {
+      "file": "pure-preflight.json.gz",
+      "sha256": "823ae6b0fb1601d68b8982ddc34a8dc1631ad7589e0ffde3208fa3ef1e3bff6b",
+      "bytes": 218,
+      "original_sha256": "f2495321ede229fdb4c795bb2c94ab7252c91579fbeeed3ae3482dbabc24e180",
+      "original_bytes": 329,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/pure-preflight.json"
+    },
+    {
+      "file": "build.log.gz",
+      "sha256": "52b9a7ea1f25844d99e8f1739f0da882579e9c4afb1d25c95a68e220fbc33a87",
+      "bytes": 9979,
+      "original_sha256": "c67a6d8fdd091c2d040052dece5abb1f77e7d6cb252b938a462b0d7e29fa1be4",
+      "original_bytes": 116650,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/build.log"
+    },
+    {
+      "file": "install.log.gz",
+      "sha256": "9be57b7551fe43476d246f77d8d2106428275c21e5cc3fbcea92532214218481",
+      "bytes": 333,
+      "original_sha256": "9759506f04f40eb317c917c93689d4051b49a6db8532509c1d8450c22387e373",
+      "original_bytes": 498,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/install.log"
+    },
+    {
+      "file": "owned-session.json.gz",
+      "sha256": "ae9429cb6f2e5139e0f5d3b97279941f014af5c5ca769b9f61f0880516294dc0",
+      "bytes": 50,
+      "original_sha256": "8762570f6f4e612bf4b41467e1296152605be68b27aeab292e28dc9a43cd71df",
+      "original_bytes": 30,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/owned-session.json"
+    },
+    {
+      "file": "probe-terminal.json.gz",
+      "sha256": "15557467bb377c9f6ed479f391bb7547974a6e024c006def889f1064a735c78f",
+      "bytes": 99,
+      "original_sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b",
+      "original_bytes": 105,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/probe-terminal.json"
+    },
+    {
+      "file": "outer-attempt.json.gz",
+      "sha256": "7d97532dd9e9bb2d26acf42ad0f51e0078af2c0a4e92ec1df622bf35b911cc34",
+      "bytes": 167,
+      "original_sha256": "d61c14a95bb20ce57f70acfef4ff8e12688efb96bc5f98034bd221215a06d645",
+      "original_bytes": 211,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/outer-attempt.json"
+    },
+    {
+      "file": "probe.stdout.gz",
+      "sha256": "4b488c926f75f075036924297b08067a5e80d44c78ec5111376fa04bae665e22",
+      "bytes": 93,
+      "original_sha256": "3217cdf7462b1af16ea336c1f480cf5d31cf2c6a72e215b154e3ea8018caf3d1",
+      "original_bytes": 79,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/probe.stdout"
+    },
+    {
+      "file": "probe.stderr.gz",
+      "sha256": "f12f0e432e748c5afb9f379c66ef3156a287ceb87a0cf1a60f51086dc9ee575e",
+      "bytes": 393,
+      "original_sha256": "f0b4e9abe7822ebef84716e9464004165d3af89aab4d522a344045fe2af58075",
+      "original_bytes": 598,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/probe.stderr"
+    },
+    {
+      "file": "before.json.gz",
+      "sha256": "f2f80898918e42edbb7c47ffc035a94477b727edf6f7ca14f4b945fe42a1b461",
+      "bytes": 311,
+      "original_sha256": "2c735be452645e2720ec2fbb78134673df4163664bd60a15b62c35e377b4c856",
+      "original_bytes": 494,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/before.json"
+    },
+    {
+      "file": "after.json.gz",
+      "sha256": "f2f80898918e42edbb7c47ffc035a94477b727edf6f7ca14f4b945fe42a1b461",
+      "bytes": 311,
+      "original_sha256": "2c735be452645e2720ec2fbb78134673df4163664bd60a15b62c35e377b4c856",
+      "original_bytes": 494,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/after.json"
+    },
+    {
+      "file": "result.json.gz",
+      "sha256": "8b1d8292638fac2b45d13121bf2097c31616526b22e182e925d42f165e9c0340",
+      "bytes": 530,
+      "original_sha256": "3bc711325c004fd8e30ef9f367752b0e5b679fe1b9c6de9347849904c3d325c0",
+      "original_bytes": 1279,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/result.json"
+    },
+    {
+      "file": "probe-delta/_delta_log/00000000000000000000.json.gz",
+      "sha256": "f105c98cae1ad330a0b28f80781dc2786fa2ad829e2dc33b0755f0b7d7cc04de",
+      "bytes": 597,
+      "original_sha256": "e515e65626ffc76cdfcbcf3206549c85edc5852ae683806a8017556cd3b8755a",
+      "original_bytes": 1159,
+      "original_private_path": "/private/tmp/ashlar-projected-detail-probe-20261017-a/probe-delta/_delta_log/00000000000000000000.json"
+    }
+  ]
+}

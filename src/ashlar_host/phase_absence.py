@@ -34,7 +34,11 @@ class PhaseAbsenceOwner:
             request=correspondence.at(ordinal)['request']
             key=(request['stream'],request['batch_id'])
             text=json.dumps(request,sort_keys=True,separators=(',',':'))
-            if key in self.requests:raise PermissionError('Distinct original phase keys required')
+            if key in self.requests:
+                # A shared stream/batch can contain independent feed/epoch groups.
+                # Ambiguous candidate keys disable this zero-only optimization;
+                # ordinary core scoped reads retain their complete validation.
+                self.disabled=True;self.requests.clear();return
             self.requests[key]=text
         self.metadata=tuple((stream,batch,text)for (stream,batch),text in self.requests.items())
         keys=tuple(self.requests)

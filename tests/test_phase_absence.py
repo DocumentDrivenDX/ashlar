@@ -162,3 +162,18 @@ class Tests(unittest.TestCase):
             with patch.object(memo,'_fits',return_value=False):self.assertEqual(self.read(3,owner),())
             owner.close();self.assertEqual(self.read(4,owner),())
         self.assertEqual(len(self.candidates),0);self.assertEqual(sum(q.startswith('SELECT phase,')for q in self.queries),2)
+        self.queries.clear()
+        original_at=self.correspondence.at
+        def duplicate_at(correspondence,ordinal):
+            facts=original_at(ordinal)
+            if ordinal==4:
+                facts=dict(facts);facts['request']=self.facts[3]['request']
+            return facts
+        with patch.object(OriginalRunCorrespondence,'at',duplicate_at):
+            with immutable_snapshot_memo(self.transport):
+                owner=self.owner()
+                try:
+                    self.assertTrue(owner.disabled);self.assertEqual(owner.requests,{})
+                    self.assertEqual(self.read(3,owner),());self.assertEqual(self.read(4,owner),())
+                finally:owner.close()
+        self.assertEqual(len(self.candidates),0);self.assertEqual(sum(q.startswith('SELECT phase,')for q in self.queries),2)
