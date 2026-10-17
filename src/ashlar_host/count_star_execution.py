@@ -346,8 +346,9 @@ def _execute_selected(opened, request: dict, artifact: dict, trusted_recompiled:
         source_rows = []
         source_ids = {'ashlar.candidate.scalarIntegrity',
                       'ashlar.candidate.relationshipIntegrity', 'outerJoin.matchIntegrity'}
-        # Source integrity precedes dependent arithmetic/capacity phases. Preserve
-        # each owning check array's original order; do not derive or rewrite SQL.
+        # Keep original order within source, representation and dependent phases.
+        # Source admission precedes representation; never derive or rewrite SQL.
+        deferred_representation = []
         for source_phase in (True, False):
             for obligation in obligations:
                 if (obligation['id'] in source_ids) is not source_phase:
@@ -359,6 +360,9 @@ def _execute_selected(opened, request: dict, artifact: dict, trusted_recompiled:
                             declaration['table'], {declaration['identityColumn']: declaration['nativeType']}))
                 checks = params.get('checks', params.get('scans', []))
                 for check in checks:
+                    if source_phase and check.get('representabilityOnly') is True:
+                        deferred_representation.append((obligation['id'],check))
+                        continue
                     captured = adapter.capture(check['sql'], slots)
                     if check.get('publicSourceOnly') is True:
                         names = [s[0] for s in captured['schema']]
@@ -372,6 +376,10 @@ def _execute_selected(opened, request: dict, artifact: dict, trusted_recompiled:
                     config.public_source_revision, request, artifact, source_rows,
                     config.admission.maximum_artifact_bytes if config.maximum_public_source_bytes is None
                     else config.maximum_public_source_bytes)
+            if source_phase:
+                for obligation_id,check in deferred_representation:
+                    captured=adapter.capture(check['sql'],slots);_zero(captured)
+                    evidence['guards'].append({'obligation':obligation_id,'check':check,'native':captured})
         captured = adapter.capture(artifact['sql'], slots)
         if config.native_observer is not None:
             config.native_observer(_oracle_snapshot(captured,

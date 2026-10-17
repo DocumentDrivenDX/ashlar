@@ -771,7 +771,7 @@ configuration. `compiler` has exactly absolute canonical `index` and
 `installation` paths for the existing independently indexed f36 distribution;
 paths MUST NOT choose trust pins, install packages or select fallback compilers.
 `cases` is an explicit nonempty unique array validated by `MedicalQueryBatch`,
-currently selecting `singleton`, `two-hop`, `filtered-limit`, or their unique
+selecting `singleton`, `two-hop`, `filtered-limit`, `all-objects`, or their unique
 combinations.
 
 Parent and worker MUST retain the complete invocation selection and verify the
@@ -789,3 +789,28 @@ completion. A CLI pass requires the bounded command result after every worker an
 parent closing and successful supervised termination; drift MUST withhold that
 result.
 The command grants no source writes, ACK advancement or new publication authority.
+
+### Complete original medical object projection
+
+The finite batch MAY explicitly select `all-objects`. That selection MUST contain
+all eight original record projections and compare the complete 51-object bag,
+including isolated objects, original lexical keys, full declared member values,
+and present-null states. Partial record inventories MUST refuse. Defaults remain
+unchanged. The original model and SQL MUST remain unchanged. Explicit native-null
+property encoding MAY be selected only after proving every original declared
+member key is present; a missing native property MUST refuse, not become null.
+Boolean native values MUST correspond to the original public Boolean receipts;
+the result MUST retain correspondence to original lexical tokens.
+
+Unfaceted mathematical integer outputs MUST use the actual `MedicalAdmission`
+and its exact held public dataset, original source binding and acquired complete
+publication vector. Before any representability, dependent arithmetic or user
+statement, the owning source port MUST compare the complete six-STRING source
+projection against independently reconstructed original properties and tokens.
+The original field/property identities, mathematical domain, source population,
+and paired compiler guard inventory MUST correspond exactly. Native DECIMAL38
+representability remains a separate finite execution condition; it MUST NOT add
+a signed64 facet or normalize original source values. All original statement,
+batch and outer source/native/Spark closing checks and existing capacities remain
+mandatory. Per-case evidence MUST retain exact original protocols after closing;
+this finite selection grants no broader query or source authority.

@@ -28,7 +28,7 @@ def medical_object_key(document,record,atoms):
 
 
 def prepare_medical_queries(model,graph,baseline,bindings,manifest,registry,aliases,cases):
-    if type(cases)is not tuple or not cases or len(set(cases))!=len(cases) or any(c not in ('singleton','two-hop','filtered-limit')for c in cases):
+    if type(cases)is not tuple or not cases or len(set(cases))!=len(cases) or any(c not in ('singleton','two-hop','filtered-limit','all-objects')for c in cases):
         raise ValueError('Closed unique finite medical cases required')
     document,original=_original(model,graph)
     request=medical_singleton_request(model,graph,baseline,bindings,manifest,registry,aliases)
@@ -44,6 +44,16 @@ def prepare_medical_queries(model,graph,baseline,bindings,manifest,registry,alia
             'acceptedDefinition':rel,'table':edges_table,'kind':'edge','sourceSystem':source['sourceSystem'],
             'typeId':types[('edge',module,rel['id'])],'schemaRevision':SOURCE_SHA,'source':source['logical'],'target':target['logical']})
     if len(relations)!=11:raise ValueError('Complete original eleven medical relationships required')
+    if 'all-objects'in cases:
+        fields={(m['id'],e['id']):e for m in document['modules']for e in m['elements']}
+        for obj in original['objects']:
+            record=fields[obj['type']['module'],obj['type']['element']]
+            if any(ref['element']not in obj['values']for ref in record['members']):raise ValueError('Original present-key medical subset required')
+        for record in binding['records']:
+            for prop in record['properties']:
+                field=prop['logical']
+                if fields[field['module'],field['element']].get('nullability')=='absent-allowed':
+                    prop['home']['encoding']='ashlar-weft-json-native-null/0.1-candidate'
     binding['relationships']=relations;binding_raw=encoded(binding)
     request['target'].update(bindingJson=binding_raw,bindingSha256=hashlib.sha256(binding_raw.encode()).hexdigest())
     objects={o['key']:o for o in original['objects']};edges=original['edges']
@@ -51,6 +61,30 @@ def prepare_medical_queries(model,graph,baseline,bindings,manifest,registry,alia
     def add(name,sql,rows,witnesses):
         selected=json.loads(encoded(request));selected['sql']=sql
         prepared.append({'id':name,'request':selected,'oracle':{'rows':rows,'witnesses':witnesses,'scope':'Independent complete original medical graph; selected finite original medical cases only.'}})
+    if 'all-objects'in cases:
+        for module in document['modules']:
+            fields={e['id']:e for e in module['elements']}
+            for record in module['elements']:
+                if record['kind']!='record':continue
+                members=[ref['element']for ref in record['members']];population=[o for o in original['objects']if o['type']=={'document':document['id'],'module':module['id'],'element':record['id']}];rows=[]
+                for obj in population:
+                    row=[]
+                    for member in members:
+                        token=obj['values'][member];field=fields[member]
+                        if field.get('nullability')=='absent-allowed':
+                            if token is None:value={'state':'null'}
+                            else:
+                                atom=token
+                                if field['scalarType']=='boolean':
+                                    proofs=[p for p in json.loads(baseline)['booleanReceipts']if p['request']['sourceContext']['objectKey']==obj['key']and p['request']['field']['element']==member]
+                                    if len(proofs)!=1:raise ValueError('Original Boolean receipt required')
+                                    atom=proofs[0]['value']['boolean']
+                                value={'state':'value','value':atom}
+                            row.append(encoded(value))
+                        else:row.append(token)
+                    rows.append(row)
+                sql='SELECT '+', '.join('r.'+m.split('.',1)[1]for m in members)+' FROM '+record['id']+' r'
+                add('all-objects-'+record['id'],sql,rows,{'original_rows':population,'members':members,'record':record['id']})
     if 'singleton'in cases:
         first=min(original['objects'],key=lambda o:o['key'])
         if first['type']['element']!='encounters':raise ValueError('Original singleton record correspondence differs')
@@ -94,6 +128,30 @@ def require_medical_case_bag(model,graph,bindings,prepared,artifact,evidence):
     """Check actual decoded native witnesses against the independent original graph."""
     from ashlar.weft_path_decode import decode_related_paths,PathDecodeConfig
     document,original=_original(model,graph);rows=evidence['native_result']['rows'];wanted=prepared['oracle']['witnesses']
+    if prepared['id'].startswith('all-objects-'):
+        actual=[];members=wanted['members'];record=wanted['record'];fields={e['id']:e for m in document['modules']for e in m['elements']}
+        for row in rows:
+            if len(row)!=len(members):raise ValueError('Complete original medical row width required')
+            values={}
+            for member,cell in zip(members,row):
+                field=fields[member]
+                if field.get('nullability')=='absent-allowed':
+                    item=json.loads(cell)
+                    if item=={'state':'null'}:value=None
+                    elif type(item)is dict and set(item)=={'state','value'}and item['state']=='value':value=item['value']
+                    else:raise ValueError('Original present medical field state required')
+                    if field['scalarType']=='boolean'and value is not None:
+                        candidates={o['values'][member]for o in wanted['original_rows']if (o['values'][member]in ('true','True'))is value}
+                        if type(value)is not bool or len(candidates)!=1:raise ValueError('Original Boolean lexical correspondence required')
+                        value=candidates.pop()
+                else:value=cell
+                values[member]=value
+            keyfields=[k for k in fields[record]['keys']if k.get('primary')is True]
+            keyvalues=[values[r['element']]for r in keyfields[0]['fields']]
+            key=json.dumps([document['id'],'domain',record,keyvalues],ensure_ascii=False,separators=(',',':'))
+            actual.append({'key':key,'type':{'document':document['id'],'module':'domain','element':record},'values':values})
+        if Counter(map(encoded,actual))!=Counter(map(encoded,wanted['original_rows'])):raise ValueError('Complete original medical object bag differs')
+        return actual
     if prepared['id']in ('singleton','filtered-limit'):
         actual=[{'key':medical_object_key(document,'encounters',(row[0],)),
             'type':{'document':document['id'],'module':'domain','element':'encounters'},

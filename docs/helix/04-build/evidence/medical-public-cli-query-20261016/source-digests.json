@@ -1,0 +1,37 @@
+{
+  "revision": "ef92d5e047959be342c5db23b2bc470dbec7d553",
+  "inputs": {
+    "model": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/model.bin",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8"
+    },
+    "graph": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/graph.bin",
+      "bytes": 160290,
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4"
+    },
+    "baseline": {
+      "path": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/baseline.bin",
+      "bytes": 2746047,
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+    }
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/dist/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 1785955,
+    "sha256": "772d6c4685af23862359fd62bc6ae74dffdbfb83f0469c2c70ce710b886d635a"
+  },
+  "streams": [
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/cli.stdout",
+      "bytes": 880402,
+      "sha256": "66cef4c96ab687232f41c97226e9bad21657ade99566e36629fb09d251090a62"
+    },
+    {
+      "path": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/cli.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

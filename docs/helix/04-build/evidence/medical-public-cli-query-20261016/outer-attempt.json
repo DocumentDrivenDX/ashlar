@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/environment/bin/python3",
+    "-I",
+    "-B",
+    "-m",
+    "ashlar",
+    "query-original-medical",
+    "--configuration",
+    "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/query-configuration.json"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 287.06086258403957,
+  "maximum_seconds": 990,
+  "primary_type": null,
+  "owned_groups": [
+    4267,
+    4298,
+    4334,
+    4863,
+    5600,
+    6146,
+    7280,
+    8413,
+    9983,
+    10813
+  ],
+  "stdout_bytes": 880402,
+  "stderr_bytes": 0
+}

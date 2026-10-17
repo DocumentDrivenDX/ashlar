@@ -511,7 +511,7 @@ refuses; inspection proposals do not substitute for publication receipts.
 ## Finite full-row singleton and complete two-hop batch
 
 `query_original_medical_cases(read_configuration, compiler_paths, cases=...)`
-selects `singleton`, `two-hop` and explicit `filtered-limit`; the default remains
+selects `singleton`, `two-hop`, explicit `filtered-limit` and `all-objects`; the default remains
 singleton and two-hop. It preserves the existing required-key-only
 singleton entrypoint. One source/native reader and Spark session own all selected
 statements and final closing. The full-row case projects the five original
@@ -532,7 +532,13 @@ The order/limit case selects the original encounters type, projects its complete
 row, orders by the original STRING key and applies unchanged `LIMIT 2`. Its
 independent population witness is one row; it does not qualify arbitrary predicate
 filtering, binding-limit behavior or truncation.
-All-objects, all-edges, one-hop and grouped-count remain outside
+The all-object case includes all eight record projections and reconstructs the
+complete 51-object bag, including isolates, original keys, full values and eight
+present-null states. Its medical source owner binds the actual admission, public
+dataset and held vector, validating the complete original mathematical-integer
+source population before representability or user SQL. Original Boolean receipts
+and explicit present-key null encoding preserve their distinct source meanings.
+All-edges, one-hop and grouped-count remain outside
 this finite query profile; no production, Truss or clinical authority is implied.
 
 ### Installed batch query composition

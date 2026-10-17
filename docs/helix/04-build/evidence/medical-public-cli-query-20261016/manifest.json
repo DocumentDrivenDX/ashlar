@@ -1,0 +1,153 @@
+[
+  {
+    "file": "weft-medical-filtered-limit-evidence.json.gz",
+    "bytes": 2195,
+    "sha256": "8d5d9e89a305ba8e868c07a796aae878f45d27f0f0b8257f0d9e2e2a514d65d5",
+    "raw_bytes": 15618,
+    "raw_sha256": "444bdddfc76053e96ddbd93fac6f7e550474d5c87b79738907d447b49ff89d68",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-output/weft-medical-filtered-limit-evidence.json"
+  },
+  {
+    "file": "weft-medical-filtered-limit-request.json.gz",
+    "bytes": 3966,
+    "sha256": "c47bc9dcefb2145f7504ca446c4cc4eea1fe3fc5ee79c8cd013e8cba9f602f8f",
+    "raw_bytes": 67624,
+    "raw_sha256": "984fab592376eb59530e55c25fb650337025837c6a888b11f0f9c70cbbc0706a",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-output/weft-medical-filtered-limit-request.json"
+  },
+  {
+    "file": "weft-medical-filtered-limit-response.json.gz",
+    "bytes": 3754,
+    "sha256": "390ba05253b68f8aea20eba0c7f9f6291ba6aca6ba4c7f4bf3ce0c9c06a9e862",
+    "raw_bytes": 24909,
+    "raw_sha256": "2a202efa75c9b7cf21e41fc52c435137326f29dd067c81216b3d183fa5af00be",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-output/weft-medical-filtered-limit-response.json"
+  },
+  {
+    "file": "receipt.json.gz",
+    "bytes": 72973,
+    "sha256": "3af82fee6684917faaaf132deffae940207bca8a63fbcd6aef35d0ae4b3c0e93",
+    "raw_bytes": 880402,
+    "raw_sha256": "66cef4c96ab687232f41c97226e9bad21657ade99566e36629fb09d251090a62",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-output/receipt.json"
+  },
+  {
+    "file": "public-revalidation.json.gz",
+    "bytes": 36753,
+    "sha256": "e46c5e4b04153c4b19428ab2df05c7c93dba0d97d0ed2c6b9dbcc2b6c876ad3d",
+    "raw_bytes": 480111,
+    "raw_sha256": "825666b8330213d6d34f75e49d029453e2a304d5df93d1a6a39323096a6f6745",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/read-query-output/public-revalidation.json"
+  },
+  {
+    "file": "outer-attempt.json",
+    "bytes": 590,
+    "sha256": "c526ef9ee29dd68bef2a0d4aa11929ecb89b0c6f9d26e3ec93eb49509afb5998",
+    "raw_bytes": 590,
+    "raw_sha256": "c526ef9ee29dd68bef2a0d4aa11929ecb89b0c6f9d26e3ec93eb49509afb5998",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/outer-attempt.json"
+  },
+  {
+    "file": "frozen-preparation.json",
+    "bytes": 3492,
+    "sha256": "9bcf6d87e7470043be0dfc2c31725adcc169a5f97de2da4bdce415094a53a35b",
+    "raw_bytes": 3492,
+    "raw_sha256": "9bcf6d87e7470043be0dfc2c31725adcc169a5f97de2da4bdce415094a53a35b",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/frozen-preparation.json"
+  },
+  {
+    "file": "pure-preflight.json",
+    "bytes": 704,
+    "sha256": "7e12c4d7841c838b32c6b13452c73a27b1535813044050ed96b8ea8b8f541b6c",
+    "raw_bytes": 704,
+    "raw_sha256": "7e12c4d7841c838b32c6b13452c73a27b1535813044050ed96b8ea8b8f541b6c",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/pure-preflight.json"
+  },
+  {
+    "file": "query-configuration.json",
+    "bytes": 7073,
+    "sha256": "62b3dc247dffe1eb815d826200c0051c0568bbcfd1d3038c6f02db86695fba28",
+    "raw_bytes": 7073,
+    "raw_sha256": "62b3dc247dffe1eb815d826200c0051c0568bbcfd1d3038c6f02db86695fba28",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/query-configuration.json"
+  },
+  {
+    "file": "installed.json.gz",
+    "bytes": 23111,
+    "sha256": "d1fbd2c00b7c08c4e02986ed96b0611762e19265034bec6377c5dd24636a652d",
+    "raw_bytes": 74341,
+    "raw_sha256": "cee63b6ad5e5aff32bfc467f9b09d3edcdde0d91061e9701872df8f16adf8ce2",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/installed.json"
+  },
+  {
+    "file": "runtime-selection.json",
+    "bytes": 10892,
+    "sha256": "f51f523d95d26c2518810f6813be0639d601833c2823c77a7c996f7f4c6bcfc8",
+    "raw_bytes": 10892,
+    "raw_sha256": "f51f523d95d26c2518810f6813be0639d601833c2823c77a7c996f7f4c6bcfc8",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/runtime-selection.json"
+  },
+  {
+    "file": "native-files-before.json.gz",
+    "bytes": 6762,
+    "sha256": "861948a9232fc58de95e1097eed9106894c41391fc700ec19d0be83c258a0a1d",
+    "raw_bytes": 24768,
+    "raw_sha256": "7bbbd6c5c9dda689e4232739cc4771b8d72c5d663fae18abd294751bfeeb2b84",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/native-files-before.json"
+  },
+  {
+    "file": "native-files-after.json.gz",
+    "bytes": 6762,
+    "sha256": "861948a9232fc58de95e1097eed9106894c41391fc700ec19d0be83c258a0a1d",
+    "raw_bytes": 24768,
+    "raw_sha256": "7bbbd6c5c9dda689e4232739cc4771b8d72c5d663fae18abd294751bfeeb2b84",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/native-files-after.json"
+  },
+  {
+    "file": "run-public-cli.py",
+    "bytes": 4417,
+    "sha256": "cea541e49b03e87638e3610f7f68a4108e383b0ffc924f461b8fc8c9bab3683a",
+    "raw_bytes": 4417,
+    "raw_sha256": "cea541e49b03e87638e3610f7f68a4108e383b0ffc924f461b8fc8c9bab3683a",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/run-public-cli.py"
+  },
+  {
+    "file": "native_inventory.py",
+    "bytes": 1955,
+    "sha256": "4c5dac7633ae5fbfc7f0303266108e48fe7e470071fa19edf534a893e0c262a8",
+    "raw_bytes": 1955,
+    "raw_sha256": "4c5dac7633ae5fbfc7f0303266108e48fe7e470071fa19edf534a893e0c262a8",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/native_inventory.py"
+  },
+  {
+    "file": "pure-preflight.py",
+    "bytes": 1746,
+    "sha256": "5fa93c47a0d85992a92de53eb413128940b340845da8e7175d0773c29630d195",
+    "raw_bytes": 1746,
+    "raw_sha256": "5fa93c47a0d85992a92de53eb413128940b340845da8e7175d0773c29630d195",
+    "source": "/private/tmp/ashlar-medical-query-public-cli-20261016-w-x_u671yo/pure-preflight.py"
+  },
+  {
+    "file": "original-graph.json.gz",
+    "bytes": 17522,
+    "sha256": "e35cc78d3fc8791dc466e06d83769d062493d87ed3742cef9cabb0c9cb21595c",
+    "raw_bytes": 160290,
+    "raw_sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+    "source": "/private/tmp/ashlar-medical-history-preflight-20261016-a/inputs/graph.bin"
+  },
+  {
+    "file": "README.md",
+    "bytes": 2429,
+    "sha256": "56c4b7bcb66c37ff372d3169f5d8c01114f89e0352d85b871bf9fa8d4b1d54b9"
+  },
+  {
+    "file": "source-digests.json",
+    "bytes": 1435,
+    "sha256": "335b10b802cd113b3f83dc87620fcb189e824c2298659807664447a330f19fb9"
+  },
+  {
+    "file": "verification.json",
+    "bytes": 714,
+    "sha256": "f90d3a4eee9c12949e9f2aaa5e31aaf37d58baf6d5fde65de7338246f021a4e6"
+  }
+]

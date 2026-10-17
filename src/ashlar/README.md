@@ -128,6 +128,49 @@ An unfinished stage is an observation to investigate; preflight success does not
 prove publication completion. The [medical contract](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md)
 defines the exact configuration, authority and failure requirements.
 
+## Query an existing original medical publication
+
+Use the installed toolkit's supervised command with an existing original medical
+read configuration and independently indexed compiler installation:
+
+```sh
+python -m ashlar query-original-medical --configuration /absolute/medical-query.json
+```
+
+The query configuration is a closed JSON object. Set `read` to the **complete
+original medical read configuration object**, including its explicit runtime,
+source/publication authority, bounds and fresh private output directory; a filename
+or partial override is insufficient. Select the existing compiler with canonical
+absolute paths:
+
+```json
+{
+  "profile": "ashlar-original-medical-query-batch/0.1",
+  "read": {},
+  "compiler": {
+    "index": "/absolute/weft/index.json",
+    "installation": "/absolute/weft/installation"
+  },
+  "cases": ["singleton", "two-hop"]
+}
+```
+
+Replace the illustrative empty `read` object before running. The
+[consumer contract](../../docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md#installed-original-medical-query-command)
+defines the required configuration and authority. Cases must be explicit, unique
+and nonempty. `singleton` returns the full original encounter row; `two-hop`
+checks five relationship-pair queries covering 20 original two-hop occurrences.
+Select `filtered-limit` for the
+ordered encounter list with `LIMIT 2`, or `all-objects` for all eight original
+record projections. The original encounter population is one, so its limit does
+not demonstrate truncation. Compiler and runtime support remain specific to the
+recorded local profile; selecting a case alone does not qualify its execution.
+
+The command reads the selected retained publication without advancing source
+ACKs. Treat only successful command termination with its bounded JSON result as
+completion. Private query evidence may remain after a later closing failure;
+those files alone do not prove the command succeeded.
+
 ## Supported development evidence
 
 The configured JSONL example has actual native
