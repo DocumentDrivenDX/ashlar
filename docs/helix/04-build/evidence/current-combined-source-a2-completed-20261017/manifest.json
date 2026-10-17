@@ -1,0 +1,228 @@
+{
+  "profile": "ashlar-current-combined-source-a2-completed-evidence/0.1",
+  "archive": {
+    "file": "actual.tar.gz",
+    "bytes": 45456,
+    "sha256": "7096c5b2b477140aee3e8fb6b10602c18d935700df54b5d45b972201486bfb11"
+  },
+  "records": [
+    {
+      "member": "ack/ack-A-byte-observation.json",
+      "bytes": 734,
+      "sha256": "32f13f16b16811819d9d8a9c6547ce14863b3eccff25ec9bd197d85c4a6d9a0c"
+    },
+    {
+      "member": "ack/ack-B-byte-observation.json",
+      "bytes": 736,
+      "sha256": "9953147af20ce684431de1eb28d68be7805bac548811b7cc1c36759435cbdc37"
+    },
+    {
+      "member": "ack/expected-A-2-manifest.json",
+      "bytes": 5281,
+      "sha256": "812faab5a1e6e298bc204ff92244d9457c56f73f0063c490a4e8d0e18ad60f15"
+    },
+    {
+      "member": "ack/expected-A-2-request.json",
+      "bytes": 3251,
+      "sha256": "2e16d5a5deb50687ea90d97bf5ca722fa0c3bcc4c9e08ed11051f0d337d5a6fa"
+    },
+    {
+      "member": "ack/expected-B-1-manifest.json",
+      "bytes": 9377,
+      "sha256": "e91075d1b203731be7ab174a76cbcfd91d4f183943147ad9781a432fcd0a1ccc"
+    },
+    {
+      "member": "ack/expected-B-1-request.json",
+      "bytes": 44127,
+      "sha256": "7553f9cadcf0089ff5555abccc605e8d25c900cd142c015b600f4f5ca6dd4fdd"
+    },
+    {
+      "member": "ack/expected-completed.json",
+      "bytes": 1924,
+      "sha256": "0d94d8826ec9fa571e2f8950458a765ddebcb2ee8f81a10d430bbfbaf2ad635b"
+    },
+    {
+      "member": "ack/ledger-snapshot.json",
+      "bytes": 2685,
+      "sha256": "943ba9cfbb05934b0ae0177b46844717349978da9e65d2ae468ee1ac2b3314ac"
+    },
+    {
+      "member": "ack/observation.json",
+      "bytes": 129865,
+      "sha256": "01f79a325b9ace9aaa223a0367d430d277b456dd39eb9af7cc3ac709623bdc38"
+    },
+    {
+      "member": "ack/observe-source-ack.py",
+      "bytes": 9184,
+      "sha256": "394895addbb6a99398aa44b126e15add57922273fbe459ad0dc13c4af31f08c3"
+    },
+    {
+      "member": "ack/outer-attempt.json",
+      "bytes": 146,
+      "sha256": "2a9d26a0ea82dcdc141bb2bc2ab93d653a11514d52c0e689bd3a7e1e503a4c8f"
+    },
+    {
+      "member": "ack/owned-session.json",
+      "bytes": 30,
+      "sha256": "55e31960adb8aacc7a82994ff5a792710aeb196d34d7aa858485c92f6b88427a"
+    },
+    {
+      "member": "ack/preparation.json",
+      "bytes": 4926,
+      "sha256": "1d235eabeec65377a543a6d7101b6afdc512dbacc7682b2a2ea9292232bcc73a"
+    },
+    {
+      "member": "ack/preparation.pending-original.json",
+      "bytes": 2181,
+      "sha256": "8e3815050231b84b08cf1b01b290bc04e0033b441b32430a15d018ab988fd69e"
+    },
+    {
+      "member": "ack/resume-terminal.json",
+      "bytes": 105,
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b"
+    },
+    {
+      "member": "ack/resume.stderr",
+      "bytes": 220,
+      "sha256": "aa826ba4321c9cfe309db1d552c47613808a509f1592da6c0bba66a4eea22b2c"
+    },
+    {
+      "member": "ack/resume.stdout",
+      "bytes": 79,
+      "sha256": "58b36b5a7be19ce6d867988061daf461cdef90574a316709f1b5819ab2b291ad"
+    },
+    {
+      "member": "ack/reviewed-pending.json",
+      "bytes": 4925,
+      "sha256": "854b588bbf6153e6bc25b61aba942076c0b90571299fb277caf43f03fea97ffa"
+    },
+    {
+      "member": "ack/root-review.json",
+      "bytes": 515,
+      "sha256": "ce161d2983728807d60f19967af798fa68ba1e2728bfc6d01e1a9fa35c5c7cc2"
+    },
+    {
+      "member": "ack/supervise.py",
+      "bytes": 6599,
+      "sha256": "9656c58fa4d2e3f1f61f70ea71e0693dfe93e5cc9dda2ef8fa391c15a489dd45"
+    },
+    {
+      "member": "continuation/binding-preflight.json",
+      "bytes": 2752,
+      "sha256": "6f17242a6022c50c3c24321c13fa7526bd87e629517a2895cb4fe698d0bae9c7"
+    },
+    {
+      "member": "continuation/configuration.json",
+      "bytes": 739,
+      "sha256": "c82825fd07c0790dba9d3f1d1aaa823cead60062e813d4aa4f1b1b7e6cb6db72"
+    },
+    {
+      "member": "continuation/outer-attempt.json",
+      "bytes": 145,
+      "sha256": "e9983863756f2b630b8c301cf47b53dbe3272834fda3df00a9910309be46e05b"
+    },
+    {
+      "member": "continuation/owned-session.json",
+      "bytes": 30,
+      "sha256": "896be50d8c79aee0ffaeacb334b1675fd56b0d1343e5fa6fa9673ae91acc646b"
+    },
+    {
+      "member": "continuation/prefix-receipt.json",
+      "bytes": 910,
+      "sha256": "2de33480b0ba4d65d1be7997eeeccbc06663846a86a954932e3e14e6d2d33fec"
+    },
+    {
+      "member": "continuation/preparation.json",
+      "bytes": 9191,
+      "sha256": "8dd2a423a5923127e8bd9685819eb443669295af36e1246039ae158dfe5aee46"
+    },
+    {
+      "member": "continuation/provider.py",
+      "bytes": 4160,
+      "sha256": "eb3ebbbd6fb65a5f9e4cf4e005fac927eecd0ddd8f1a7405fa6ac0837e8cab2d"
+    },
+    {
+      "member": "continuation/public-parser-preflight.json",
+      "bytes": 148,
+      "sha256": "071904b8e50a92854eab3469f39bc21c39ebcf94fdc39343380b6645efdba160"
+    },
+    {
+      "member": "continuation/resume-terminal.json",
+      "bytes": 105,
+      "sha256": "d75e258fdeffd350fdd79ed3e0c56f12bcda9cbe81c7a690be971b235438460b"
+    },
+    {
+      "member": "continuation/resume.stderr",
+      "bytes": 110804,
+      "sha256": "7e090b7a67bab5a27e6aea74fecaeb6c5b62b169642fd19c11efc3dd955af711"
+    },
+    {
+      "member": "continuation/resume.stdout",
+      "bytes": 910,
+      "sha256": "2de33480b0ba4d65d1be7997eeeccbc06663846a86a954932e3e14e6d2d33fec"
+    },
+    {
+      "member": "continuation/root-launch-clearance.json",
+      "bytes": 1110,
+      "sha256": "2e6b95aea41b47e3570409f3b9da87b9ca89c3400b53667c164ff83f2ee576c6"
+    },
+    {
+      "member": "continuation/run-installed.py",
+      "bytes": 3263,
+      "sha256": "fe22cbf6c9627d0d2819d70d712d212e072f52e579bc73f682a30d2ac9967cc5"
+    },
+    {
+      "member": "continuation/runner-result.json",
+      "bytes": 173,
+      "sha256": "4fcbcdae2cd8fadfdd7d53a74164becab51f66bfc8be2da8203e6e8c104fc627"
+    },
+    {
+      "member": "continuation/supervise.py",
+      "bytes": 6595,
+      "sha256": "518d6e3810282cb472be891bad262ed4bc4ad57b0c57c6039124bbd45e2e9469"
+    },
+    {
+      "member": "continuation/trace.json",
+      "bytes": 6743,
+      "sha256": "4427803274523a816b4411c3db093219f3875e4ee86adaf679333d5e93cfc3ff"
+    },
+    {
+      "member": "continuation/trace_native_verification.py",
+      "bytes": 5712,
+      "sha256": "d1afdadd8f75afab4f26731b7d0c8bfd6114f25aedb668aecd272e4ae93f1a69"
+    }
+  ],
+  "references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/continue-a2-projected-control/operator-environment.json",
+      "bytes": 4178,
+      "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f",
+      "scope": "Hash reference only; original credentials/stack/binaries or prior evidence are not duplicated and confer no authority."
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/continue-a2-projected-control/private-stack.txt",
+      "bytes": 7624,
+      "sha256": "820164fbb83a204cf1e1688374bf598ed324a0f1d22b61b6d25cc66b6abe5dbe",
+      "scope": "Hash reference only; original credentials/stack/binaries or prior evidence are not duplicated and confer no authority."
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-projected-600-control/dist/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "bytes": 1937419,
+      "sha256": "0d7002810555cd56ea2d02d829e068bc35873bdb8edbcfa5fc5f849ad504879e",
+      "scope": "Hash reference only; original credentials/stack/binaries or prior evidence are not duplicated and confer no authority."
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-combined-source-readiness-20261017/manifest.json",
+      "bytes": 12411,
+      "sha256": "4e02f09a9a61661f5ee1b634b93f8c3e2e51a74355e0fb7d97dd008ebe7f895e",
+      "scope": "Hash reference only; original credentials/stack/binaries or prior evidence are not duplicated and confer no authority."
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-combined-source-a2-retained-20261017/manifest.json",
+      "bytes": 5996,
+      "sha256": "29a165a92155a9831609654b7b3af8317502a646e2c3a8013b6a8c53d1846fda",
+      "scope": "Hash reference only; original credentials/stack/binaries or prior evidence are not duplicated and confer no authority."
+    }
+  ],
+  "qualification": "Actual bounded continuation completed3of8 and separate ordinary protectedA2/B1readback. No fullrun, production or engine/security qualification."
+}

@@ -1,0 +1,81 @@
+{
+  "prefix": {
+    "completed_count": 3,
+    "profile": "ashlar-commerce-evolution-prefix-receipt/0.1",
+    "publication_ids": [
+      "combined-source-current-20261017-r2-1",
+      "combined-source-current-20261017-r2-2",
+      "combined-source-current-20261017-r2-3"
+    ],
+    "run_complete": false,
+    "run_sha256": "6e466770c8973b3c3104b48924c2e3e4c954745e63c054e0a14817299bc674ed",
+    "source_progress": {
+      "A": {
+        "batch_id": "[\"A\",\"original-private-epoch\",\"R2-update\"]",
+        "epoch": "original-private-epoch",
+        "feed": "A",
+        "payload_digest": "775ebc81d5907689e1df91039c5427bc37be1d7b33f45fb6bd7374cf75e935bb",
+        "position": "2",
+        "previous": "1",
+        "profile": "ashlar-postgresql-outbox/0.1"
+      },
+      "B": {
+        "batch_id": "[\"B\",\"original-private-epoch\",\"R1\"]",
+        "epoch": "original-private-epoch",
+        "feed": "B",
+        "payload_digest": "042df5c6941f76d7c91bd33c0eaa6356b79ad71a45947bc729b2c9e53fe4c000",
+        "position": "1",
+        "previous": "0",
+        "profile": "ashlar-postgresql-outbox/0.1"
+      }
+    },
+    "through_ordinal": 2,
+    "total_publications": 8
+  },
+  "prefix_receipt_sha256": "2de33480b0ba4d65d1be7997eeeccbc06663846a86a954932e3e14e6d2d33fec",
+  "terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "outer": {
+    "cleanup": {
+      "groups_absent": true,
+      "process_groups": [
+        60434
+      ],
+      "session_leader_reaped": true
+    },
+    "elapsed_seconds": 507.854436499998,
+    "status": 0
+  },
+  "runner": {
+    "closing_pins_completed": true,
+    "diagnostic_failed": false,
+    "primary_error_class": null,
+    "profile": "ashlar-operator-trace-runner-result/0.1",
+    "public_cli_returned": true
+  },
+  "ack_result_sha256": "01f79a325b9ace9aaa223a0367d430d277b456dd39eb9af7cc3ac709623bdc38",
+  "ack_terminal": {
+    "cleanup_confirmed": true,
+    "cleanup_failed": false,
+    "complete": true,
+    "error_class": null,
+    "status": 0
+  },
+  "ack_outer": {
+    "cleanup": {
+      "groups_absent": true,
+      "process_groups": [
+        71177
+      ],
+      "session_leader_reaped": true
+    },
+    "elapsed_seconds": 0.891132292104885,
+    "status": 0
+  },
+  "qualification": "Separate actual closed prefix and ordinary readback; retained whole8schedule, no completion claim for suffix3..7."
+}
