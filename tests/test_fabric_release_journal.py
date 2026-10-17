@@ -377,6 +377,27 @@ class Tests(unittest.TestCase):
         with self.assertRaisesRegex(JournalRefusal, 'bounded nonempty text'):
             replace(intent(2), publication_json='x' * 8193)
 
+    def test_atomic_admission_evidence_stale_cas_rolls_back_and_intent_is_exact(self):
+        import json
+        from dataclasses import asdict
+        self.created(1)
+        def receipt(revision):
+            return json.dumps({'format': 'ashlar-private-fabric-admission/0.1', 'intent': asdict(intent(1)),
+                'expected_revision': revision, 'binding': {'workspace_id': uid(100), 'graph_model_id': uid(201),
+                'release_sha256': intent(1).release_sha256}, 'native': 'opaque storage control, not native admission'}).encode()
+        with self.owner.mutation() as permit:
+            with self.assertRaisesRegex(JournalRefusal, 'intent/item/predecessor'):
+                permit.record_admission_and_activate(uid(1), 0, receipt(0).replace(uid(201).encode(), uid(202).encode()))
+            with self.assertRaisesRegex(JournalRefusal, 'stale'):
+                permit.record_admission_and_activate(uid(1), 1, receipt(1))
+        with self.assertRaises(JournalRefusal): self.owner.admission(uid(1))
+        with self.owner.mutation() as permit:
+            self.assertEqual(permit.record_admission_and_activate(uid(1), 0, receipt(0)), 1)
+        self.assertEqual(FabricReleaseJournal(self.root).admission(uid(1)), (0, receipt(0)))
+        with self.owner.reader() as active: self.assertEqual(active.revision, 1)
+        with self.assertRaisesRegex(JournalRefusal, 'expired'):
+            permit.record_admission_and_activate(uid(1), 1, receipt(1))
+
     def test_closed_typed_correspondence_and_missing_active_refuse(self):
         with self.assertRaises(TypeError):
             ReleaseIntent(**{**intent(1).__dict__, 'authority': True})

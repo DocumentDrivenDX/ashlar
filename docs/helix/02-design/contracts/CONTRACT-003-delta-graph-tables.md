@@ -781,6 +781,49 @@ Preparation and a terminal load observation MUST NOT activate a release or mint
 native graph bags and the continued private mutation/source owners remain
 mandatory before activation and throughout publication-bound query admission.
 
+### Original-commerce native admission and query policy
+
+`admit_commerce_fabric_deployment` MUST enter the nominal live
+`HeldCommerceFabricAdmission` interval of the actual deployment. It MUST observe
+the original created item, sole retained initial job in terminal `Completed`
+state without failure, and supported public definition readback before sending
+any GQL proof query. This profile MUST refuse unsupported definition readback;
+it MUST NOT implicitly select the separate creator-owned fallback. Definition
+parts and every mapping/source location MUST match without dropping unknown
+part content. Definition LROs MUST remain bound to their original returned IDs,
+finite polling/delays and actual response bytes.
+
+The owner MUST execute the qualified complete node-carrier, edge-carrier and
+actual relationship-endpoint projections through the existing strict GQL
+protocol. Independent expected identities, exact STRING/null values and full
+occurrence multiplicities MUST come from the actual held original release,
+never compiled/native query output. Native creation/job/definition checks MUST
+close independently after the bags. Only then MAY one durable transaction
+retain bounded raw admission evidence and compare-and-replace the expected local
+predecessor. Receipt, exact candidate/item/publication-vector binding and CAS
+MUST commit together; stale predecessors MUST leave no partial admission. Missing
+storage capability MUST refuse without migration. Evidence MUST retain the
+original release bytes, source vector correspondence, original creation/load,
+definition and complete GQL responses within an eight-MiB total receipt bound.
+
+`CommerceFabricLoadedGraphPolicy` MUST require a nominal fresh original source
+interval supplied by `execute_commerce_fabric_gql`; it MUST NOT reacquire a nested
+source interval or admit use with only retained receipts. Its `hold` MUST retain
+one real journal reader lease throughout native proof, user query decoding and
+closing, excluding all cooperative mutations. It MUST compare the complete fresh
+source release with the original active release, re-observe current native
+creation/job/definition and complete bags at opening and closing, and refuse
+changed values, multiplicity, refresh or predecessor correspondence. Its `admit`
+MUST require that same live source/reader/HTTP interval and original query text.
+The HTTP owner MUST expose only its public selected configuration, never private
+credentials. Outer HTTP, source/ACK/native and reader closing MUST precede final
+workflow-report release.
+
+This bounded original-commerce profile MUST NOT qualify modified Truss R1/R2
+sources, production access isolation, a Fabric generation lease or billion-node
+proof performance. Other actual source profiles require their own genuine held
+source/release owner; archived R1/R2 exports MUST NOT substitute for one.
+
 ### OneLake fresh release-byte upload
 
 `OneLakeUploadConfig` MUST select the workspace/account through the ordinary

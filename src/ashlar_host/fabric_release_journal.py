@@ -148,6 +148,7 @@ class FabricReleaseJournal:
                 CREATE TABLE candidates (id TEXT PRIMARY KEY, intent TEXT NOT NULL,
                     state TEXT NOT NULL, model TEXT UNIQUE, handle TEXT UNIQUE);
                 CREATE TABLE synchronous_creation (candidate TEXT PRIMARY KEY, response BLOB NOT NULL);
+                CREATE TABLE graph_admission (candidate TEXT PRIMARY KEY, predecessor INTEGER NOT NULL, receipt BLOB NOT NULL);
                 CREATE TABLE first_load (candidate TEXT PRIMARY KEY, handle TEXT UNIQUE NOT NULL);
                 CREATE TABLE active (singleton INTEGER PRIMARY KEY CHECK(singleton=1),
                     revision INTEGER NOT NULL, candidate TEXT);
@@ -269,6 +270,60 @@ class FabricReleaseJournal:
         """Read typed original synchronous/asynchronous/unknown correspondence."""
         with self._lease(True):
             return self._creation(candidate_id)
+
+    def admission(self, candidate_id: str):
+        """Bounded retained raw evidence and predecessor; no native/source grant."""
+        with self._lease(True):
+            return self._admission(candidate_id)
+
+    def _admission_schema(self, db):
+        if db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='graph_admission'").fetchone() is None:
+            raise JournalRefusal('journal lacks graph admission storage; implicit migration refused')
+
+    def _admission(self, candidate_id):
+        _uuid(candidate_id)
+        path = self.root / 'journal.sqlite'
+        identity = _private(path, stat.S_ISREG)
+        with owned_connection(sqlite3.connect(_uri(path, 'ro'), uri=True)) as db:
+            self._admission_schema(db)
+            row = db.execute('SELECT predecessor,receipt FROM graph_admission WHERE candidate=?', (candidate_id,)).fetchone()
+        _unchanged(path, identity)
+        if row is None or type(row[1]) is not bytes or not 0 < len(row[1]) <= 8388608:
+            raise JournalRefusal('original bounded graph admission evidence missing')
+        return row
+
+    def _record_admission_and_activate(self, candidate_id, expected_revision, original_receipt):
+        """One local evidence/CAS transaction; caller owns actual native admission."""
+        _uuid(candidate_id)
+        if type(expected_revision) is not int or expected_revision < 0:
+            raise JournalRefusal('invalid predecessor revision')
+        if type(original_receipt) is not bytes or not 0 < len(original_receipt) <= 8388608:
+            raise JournalRefusal('bounded original graph admission evidence required')
+        with self._db() as db:
+            self._admission_schema(db)
+            row = db.execute('SELECT state,intent,model FROM candidates WHERE id=?', (candidate_id,)).fetchone()
+            if row is None or row[0] != 'created':
+                raise JournalRefusal('original created item required')
+            def pairs(items):
+                result = {}
+                for key, value in items:
+                    if key in result:
+                        raise JournalRefusal('duplicate admission receipt member')
+                    result[key] = value
+                return result
+            value = json.loads(original_receipt, object_pairs_hook=pairs)
+            selected = json.loads(row[1])
+            if (type(value) is not dict or value.get('format') != 'ashlar-private-fabric-admission/0.1'
+                    or _canonical(value.get('intent')) != row[1]
+                    or type(value.get('expected_revision')) is not int or value['expected_revision'] != expected_revision
+                    or value.get('binding') != {'workspace_id': selected['workspace_id'],
+                        'graph_model_id': row[2], 'release_sha256': selected['release_sha256']}):
+                raise JournalRefusal('original admission intent/item/predecessor differs')
+            db.execute('INSERT INTO graph_admission VALUES (?,?,?)', (candidate_id, expected_revision, original_receipt))
+            if db.execute('UPDATE active SET revision=revision+1,candidate=? WHERE singleton=1 AND revision=?',
+                          (candidate_id, expected_revision)).rowcount != 1:
+                raise JournalRefusal('stale activation predecessor')
+            return expected_revision + 1
 
     def _record_intent(self, intent: ReleaseIntent):
         if type(intent) is not ReleaseIntent:
@@ -502,6 +557,11 @@ class FabricMutation:
     def candidate(self, candidate_id: str):
         self.renew()
         return self._owner._candidate(candidate_id)
+
+    def record_admission_and_activate(self, candidate_id: str, expected_revision: int, original_receipt: bytes):
+        """Store evidence and local CAS atomically; no receipt supplies authority."""
+        self.renew()
+        return self._owner._record_admission_and_activate(candidate_id, expected_revision, original_receipt)
 
     def activate_local(self, candidate_id: str, expected_revision: int):
         """Local CAS only; independent native admission is still required."""

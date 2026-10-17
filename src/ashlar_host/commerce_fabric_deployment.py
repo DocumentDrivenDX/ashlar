@@ -114,6 +114,23 @@ class HeldCommerceFabricDeployment:
         finish(None, [held.renew, mutation.renew, intent]
                + [lambda pin=pin: pin.renew(maximum) for pin in pins])
 
+    @contextmanager
+    def admission_interval(self):
+        """Expose nominal actual source/mutation custody without reacquiring it."""
+        self.renew()
+        interval = object.__new__(HeldCommerceFabricAdmission)
+        object.__setattr__(interval, '_deployment', self)
+        object.__setattr__(interval, '_live', True)
+        primary = None
+        try:
+            yield interval
+        except BaseException as error:
+            primary = error
+        try:
+            finish(primary, [self.renew])
+        finally:
+            object.__setattr__(interval, '_live', False)
+
     def stage(self):
         """Write both fresh tables once; partial output survives a refusal."""
         self.renew()
@@ -279,3 +296,40 @@ def open_commerce_fabric_deployment(spark, opened, journal, config, candidate_id
                 finish(primary, [owner.renew] + [lambda fact=fact: projection(fact) for fact in facts])
             finally:
                 owner._live = False
+
+
+class HeldCommerceFabricAdmission:
+    """Nominal, expiring view of the real enclosing deployment custody."""
+    def __init__(self, *args, **kwargs):
+        raise PermissionError('Use deployment.admission_interval()')
+
+    def __setattr__(self, name, value):
+        raise AttributeError('Original admission interval is immutable')
+
+    def __delattr__(self, name):
+        raise AttributeError('Original admission interval is immutable')
+
+    def renew(self):
+        if not self._live:
+            raise PermissionError('Original admission interval expired')
+        self._deployment.renew()
+
+    @property
+    def release(self):
+        self.renew()
+        return self._deployment._anchor[2].release
+
+    @property
+    def mutation(self):
+        self.renew()
+        return self._deployment._anchor[3]
+
+    @property
+    def configuration(self):
+        self.renew()
+        return self._deployment._anchor[0]
+
+    @property
+    def intent(self):
+        self.renew()
+        return self._deployment._anchor[4]

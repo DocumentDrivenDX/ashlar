@@ -55,7 +55,7 @@ class Tests(unittest.TestCase):
         self.journal = FabricReleaseJournal.initialize(self.root / 'journal')
 
     @contextmanager
-    def transport(self, *, lost=False, jobs=1, synchronous=False):
+    def transport(self, *, lost=False, jobs=1, synchronous=False, admission=False, load_status="Completed", corrupt_bag=False, definition_drift=False):
         state = {'files': {}, 'dirs': set(), 'calls': [], 'holds': []}
         opened = self.opened
         class Handler(BaseHTTPRequestHandler):
@@ -73,7 +73,31 @@ class Tests(unittest.TestCase):
                 state['holds'].append((opened.provider.active, opened.driver.held, opened.driver.pin_held))
                 code, raw, headers = 200, b'', []
                 if path.startswith('/v1/'):
-                    if self.command == 'POST':
+                    if self.command == 'POST' and path.endswith('/getDefinition') and admission:
+                        import base64
+                        definition = json.loads(state['creation_payload'])['definition']
+                        if state.get('definition_drift', definition_drift):
+                            definition['parts'][0]['payload'] = base64.b64encode(b'{"changed":true}').decode()
+                        raw = json.dumps({'definition': definition}).encode()
+                    elif self.command == 'POST' and path.endswith('/executeQuery') and admission:
+                        from ashlar_host.fabric_graph_definition import fabric_carrier_queries
+                        value = json.loads(commerce.RELEASE)
+                        selected = next((case for case in fabric_carrier_queries() if case[1] == json.loads(body)['query']), None)
+                        if selected is None:
+                            if state.get('reader_probe') is not None:
+                                state['reader_probe']()
+                            columns, rows = [('row_count', 'INT64')], [{'row_count': '11'}]
+                        else:
+                            role, _, names = selected
+                            columns = [(name, 'STRING') for name in names]
+                            rows = value[role] if role != 'endpoints' else [
+                                {'source': edge['src'], 'relationship_id': edge['graph_id'], 'destination': edge['dst']} for edge in value['edges']]
+                            if state.get('corrupt_bag', corrupt_bag) and role == 'nodes':
+                                rows = rows + rows[:1]
+                        raw = json.dumps({'status': {'code': '00000'}, 'result': {'kind': 'TABLE',
+                            'columns': [{'name': name, 'gqlType': kind} for name, kind in columns], 'data': rows}}).encode()
+                    elif self.command == 'POST':
+                        state['creation_payload'] = body
                         code = 500 if lost else 201 if synchronous else 202
                         if synchronous and not lost:
                             raw = json.dumps({'id': G, 'workspaceId': W, 'type': 'GraphModel', 'displayName': 'Original candidate'}).encode()
@@ -86,7 +110,7 @@ class Tests(unittest.TestCase):
                     elif path.endswith('/jobs/instances'):
                         raw = json.dumps({'value': [{'id': J, 'itemId': G, 'jobType': 'Refresh', 'invokeType': 'Manual', 'status': 'NotStarted'}] * jobs}).encode()
                     else:
-                        raw = json.dumps({'id': J, 'itemId': G, 'jobType': 'Refresh', 'invokeType': 'Manual', 'status': 'Completed'}).encode()
+                        raw = json.dumps({'id': J, 'itemId': G, 'jobType': 'Refresh', 'invokeType': 'Manual', 'status': load_status}).encode()
                 elif self.command == 'PUT':
                     if path in state['dirs'] or path in state['files']:
                         code = 412
@@ -119,6 +143,8 @@ class Tests(unittest.TestCase):
             with patch('ashlar_host.fabric_deployment_http.capture', capture), patch('ashlar_host.onelake_release_upload.capture', capture), \
                  patch('ashlar_host.commerce_fabric_deployment.open_onelake_release_upload', lambda cfg, permit, candidate: open_onelake_upload_loopback_for_test(cfg, permit, candidate, origin)), \
                  patch('ashlar_host.commerce_fabric_deployment.open_fabric_deployment_http', lambda cfg: open_fabric_deployment_loopback_for_test(cfg, origin)):
+                state['origin'] = origin
+                state['capture'] = capture
                 yield state
         finally:
             server.shutdown(); server.server_close(); thread.join(2)
