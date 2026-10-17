@@ -103,7 +103,9 @@ ashlar inspect-configured-source examples/end-to-end/configured-source.json
 
 This checks pinned inputs, explicit bindings, transaction staging, local
 create/update/delete/history and unchanged exact replay. It performs no database
-I/O; actual upstream UMF logical-value checking remains the separate host preflight.
+I/O. Run `ashlar validate-configured-source` for fresh public UMF logical-value
+checking before database setup; the [command guide](src/ashlar/README.md#read-an-existing-managed-publication)
+lists all explicit producer and receipt limits.
 
 The distribution is `ashlar-graph-toolkit`; the import is `ashlar`. It has no
 runtime dependencies. `commerce-source` emits complete original transaction

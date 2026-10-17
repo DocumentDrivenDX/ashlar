@@ -19,6 +19,9 @@ The installed source inspector preserves complete committed transaction bytes.
 The configured-source example checks explicit model/ID bindings, applies bounded
 create/update/delete changes locally and verifies unchanged replay. Source custody
 and local state inspection do not grant publication or source acknowledgement.
+Use the installed [`validate-configured-source` command](../../src/ashlar/README.md#read-an-existing-managed-publication)
+to run fresh public UMF logical-value validation before database setup, with
+explicit producer paths and bounded private receipts.
 
 Adapt bounded UTF-8 CSV through the same installed custody boundary:
 

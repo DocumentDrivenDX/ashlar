@@ -6,6 +6,7 @@ The caller must hold admitted source/writer custody throughout resolution/commit
 import hashlib
 import json
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from ashlar.publisher import PublicationError
 from ashlar.schema import decode_retained_json
@@ -19,6 +20,15 @@ class LocalProgressOutcomeUnknown(PublicationError):
 
 
 def encoded(value):return json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False)
+
+@dataclass(frozen=True)
+class RetainedFileProgress:
+    position:str
+    request_json:str
+    descriptor:Descriptor
+
+    def request(self):
+        return decode_retained_json(self.request_json.encode())
 
 
 class JournaledFileProgress:
@@ -111,6 +121,15 @@ class JournaledFileProgress:
 
     def completed_batches(self):
         return len(self._records())
+
+    def retained_entries(self):
+        """Detached validated local proofs; current native resolution is separate."""
+        result=[]
+        for position,text,digest in self._records():
+            value=decode_retained_json(text.encode())
+            result.append(RetainedFileProgress(str(position),encoded(value['request']),
+                descriptor_from_manifest_row(value['descriptor'])))
+        return tuple(result)
 
     def acknowledge(self,request,descriptor,context):
         request=decode_retained_json(encoded(dict(request)).encode())

@@ -40,6 +40,12 @@ class JsonlProgressTests(unittest.TestCase):
             self.assertEqual(f().position(),str(len(RAW)));self.assertEqual(f().completed_batches(),3)
             f().acknowledge(one,d,'held');self.assertEqual(f().position(),str(len(RAW)))
             self.assertFalse(r.held);self.assertEqual(j.db.execute('select count(*) from jsonl_consumer_progress').fetchone()[0],3)
+            retained=f().retained_entries()
+            self.assertEqual(tuple(entry.position for entry in retained),tuple(b.cursor_after for b in BATCHES))
+            self.assertEqual(retained[-1].descriptor,g)
+            detached=retained[-1].request();self.assertEqual(detached,three)
+            detached['stream']='foreign'
+            self.assertEqual(f().retained_entries()[-1].request(),three)
     def test_gap_changed_original_and_failed_closing_custody_refuse(self):
         with self.fixture() as (j,s,p,r,f):
             one,d=self.request(0);two,e=self.request(1)
