@@ -35,7 +35,7 @@ class ConfiguredLocalInvocation:
     selector:object=None
     query:object=None
     def __post_init__(self):
-        _require(self.operation in ('initialize','publish','read','query')and type(self.ordinal)is int and
+        _require(self.operation in ('initialize','publish','read','query','export')and type(self.ordinal)is int and
                  (self.ordinal==0 if self.operation=='initialize'else 1<=self.ordinal<=4))
         _require(self.selector is None if self.operation!='read'else type(self.selector)is tuple and len(self.selector)==2 and all(type(v)is int and -(2**63)<=v<2**63 for v in self.selector))
         if self.operation=='query':
@@ -93,6 +93,20 @@ def _result(config,value):
         _require(value['profile']=='ashlar-configured-local-read-result/0.1'and value['operation']=='read'and type(value['ordinal'])is int and value['ordinal']==config.ordinal)
         _require(type(value['completed_batches'])is int and config.ordinal<=value['completed_batches']<=4)
         _require(type(value['selector'])is dict and value['selector']=={'type_id':config.selector[0],'entity_id':config.selector[1]}and all(type(v)is int for v in value['selector'].values())and(value['row']is None or type(value['row'])is dict))
+    elif config.operation=='export':
+        _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','protected_ack',
+            'release','release_sha256','custody','custody_sha256','nodes','edges','scope'})
+        _require(value['profile']=='ashlar-configured-local-export-result/0.1'and value['operation']=='export'
+            and type(value['ordinal'])is int and value['ordinal']==config.ordinal
+            and type(value['completed_batches'])is int and config.ordinal<=value['completed_batches']<=4)
+        _require(type(value['manifest'])is dict and type(value['local_checkpoint'])is str
+            and all(type(value[k])is int and 0<=value[k]<=1000 for k in ('nodes','edges')))
+        from .private_graph_custody import load_private_graph_release
+        paths=[config.runtime.output/name for name in ('release.graph.json','custody.json')]
+        _require(value['release']==str(paths[0])and value['custody']==str(paths[1]))
+        graph=load_private_graph_release(snapshot(paths[0],16777216),value['release_sha256'],snapshot(paths[1],16777216),value['custody_sha256'])
+        _require(graph['publication']==value['manifest']and len(graph['nodes'])==value['nodes']and len(graph['edges'])==value['edges']
+            and value['scope']=='Immutable configured JSONL export only; no protected ACK, current native availability or engine grant.')
     elif config.operation=='query':
         _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','query','protected_ack'})
         _require(value['profile']=='ashlar-configured-local-query-result/0.1'and value['operation']=='query'and type(value['ordinal'])is int and value['ordinal']==config.ordinal)
@@ -138,6 +152,9 @@ def _worker(path,digest):
         with _diagnostics():
             if config.operation=='initialize':result=initialize_configured_local(config.runtime)
             elif config.operation=='publish':result=publish_configured_local(config.runtime,ordinal=config.ordinal)
+            elif config.operation=='export':
+                from .configured_local_runtime import export_configured_local
+                result=export_configured_local(config.runtime,ordinal=config.ordinal)
             elif config.operation=='query':
                 from .configured_local_runtime import query_configured_local
                 result=query_configured_local(config.runtime,ordinal=config.ordinal,query=config.query)

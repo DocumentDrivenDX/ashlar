@@ -42,6 +42,16 @@ class Tests(unittest.TestCase):
         self.assertEqual(config.selector,(1017,1))
         for changed in (dict(value,installation_sha256=None),dict(value,selector={'type_id':True,'entity_id':1}),{k:v for k,v in value.items()if k!='selector'}):
             with self.subTest(changed=changed),self.assertRaises(ValueError):command.parse_configured_local(json.dumps(changed).encode())
+    def test_export_closed_selection_and_worker_dispatch(self):
+        value=dict(self.value,operation='export',ordinal=1,installation_sha256='a'*64)
+        raw=json.dumps(value).encode();self.file.write_bytes(raw)
+        config=command.parse_configured_local(raw);self.assertEqual(config.operation,'export')
+        for changed in (dict(value,installation_sha256=None),dict(value,ordinal=True),dict(value,selector={'type_id':1,'entity_id':1})):
+            with self.assertRaises(ValueError):command.parse_configured_local(json.dumps(changed).encode())
+        answer={'inert':'dispatch only'}
+        with patch('ashlar_host.configured_local_runtime.export_configured_local',return_value=answer)as export,patch.object(command,'_diagnostics',contextlib.nullcontext),patch.object(command.signal,'getsignal',return_value=command.signal.SIG_DFL),patch.object(command.signal,'signal'),patch.object(command.signal,'setitimer'):
+            envelope=json.loads(command._worker(self.file,hashlib.sha256(raw).hexdigest()))
+        self.assertEqual(envelope['result'],answer);self.assertEqual(export.call_args.kwargs,{'ordinal':1})
     def test_worker_refusal_keeps_diagnostics_and_withholds_report(self):
         with patch.object(command,'capture_process',side_effect=lambda *a,**k:self.capture(None,'refused')):
             with self.assertRaises(ValueError):command.run_configured_local_command(self.file)

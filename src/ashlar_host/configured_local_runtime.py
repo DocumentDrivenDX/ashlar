@@ -145,9 +145,10 @@ class ConfiguredLocalAdmission:
         finish(None,[self.lease.renew,lambda:source.renew(context),lambda:self.registry_file.renew(65536)])
 
 
-def _run(config,ordinal,*,selector=None,query=None):
+def _run(config,ordinal,*,selector=None,query=None,export=False):
     _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__();jars=_runtime(config)
     initialize=ordinal is None
+    _require(type(export)is bool and (not export or not initialize and selector is None and query is None))
     if query is not None:
         from .configured_local_query import ConfiguredLocalQueryConfig
         from .configured_sdk_pages import ConfiguredSdkPagesConfig
@@ -162,11 +163,12 @@ def _run(config,ordinal,*,selector=None,query=None):
         original_registry=InvocationFile.read(config.installation/'installation.json',65536)
         _require(hashlib.sha256(original_registry.raw).hexdigest()==config.installation_sha256)
     config.output.mkdir(mode=0o700)
-    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None
+    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None;export_capture=None
     try:
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
         context=object();source_manager=open_configured_local_source(config.admission,stream=config.stream,context=context);source=source_manager.__enter__()
+        _require(not export or source.graph)
         if query is not None:_require(type(query)is not ConfiguredSdkPagesConfig or source.graph)
         _require(selector is None or selector[0]in source.type_ids)
         scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
@@ -193,12 +195,21 @@ def _run(config,ordinal,*,selector=None,query=None):
         admission=ConfiguredLocalAdmission(config,lease,spark,source,targets,columns,original_registry);admission(source,None,None,context)
         transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,capacity=config.operation_capacity)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,capacity=config.operation_capacity));policy.initializing=False
         if initialize:result={'profile':'ashlar-configured-local-initialized/0.1','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
-        elif selector is not None or query is not None:
+        elif selector is not None or query is not None or export:
             from .file_progress import JournaledJsonlProgress
             from .configured_local_read import read_configured_local_singleton
             progress=JournaledJsonlProgress.open_existing(transport,source.configuration.source,source.metadata(context)['source_sha256'],stream=config.stream,feed=source.configuration.feed,epoch=source.configuration.epoch)
             entries=progress.retained_entries();_require(1<=ordinal<=len(entries));final_manifest=dict(entries[ordinal-1].descriptor.raw)
-            if query is None:
+            if export:
+                from .configured_local_read import open_configured_local_read
+                from .configured_local_graph_release import read_configured_local_graph_release
+                with owned_context(open_configured_local_read(transport,source,progress,ordinal=ordinal,tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission))as held:
+                    release=read_configured_local_graph_release(held)
+                    export_capture={'source':source.metadata(context),'binding_sha256':hashlib.sha256(source.configuration.binding_source).hexdigest(),
+                        'ordinal':ordinal,'request':source.spec(ordinal,context).request()}
+                result={'profile':'ashlar-configured-local-export-result/0.1','installation_id':config.installation_id,'operation':'export',
+                    'manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'protected_ack':False}
+            elif query is None:
                 row=read_configured_local_singleton(transport,source,progress,ordinal=ordinal,type_id=selector[0],entity_id=selector[1],tables=tables,context=context,materialization_clock_us=config.materialization_clock_us,current_admission=admission)
                 result={'profile':'ashlar-configured-local-read-result/0.1','installation_id':config.installation_id,'operation':'read','manifest':final_manifest,'ordinal':ordinal,'local_checkpoint':progress.position(),'completed_batches':progress.completed_batches(),'selector':{'type_id':selector[0],'entity_id':selector[1]},'row':row,'protected_ack':False}
             else:
@@ -229,12 +240,25 @@ def _run(config,ordinal,*,selector=None,query=None):
     callbacks.append(lambda:_runtime(config))
     if lease is not None:callbacks.extend([lease.renew,lease.close])
     finish(primary,callbacks)
+    if export:
+        from .configured_graph_custody import build_configured_graph_custody
+        custody=build_configured_graph_custody(release,**export_capture)
+        # Complete read, native/source, Spark and installation owners have closed.
+        for name,payload in (('release.graph.json',release.payload),('custody.json',custody)):
+            _write(config.output/name,payload)
+        graph=json.loads(release.payload)
+        result.update(release=str(config.output/'release.graph.json'),release_sha256=release.sha256,
+            custody=str(config.output/'custody.json'),custody_sha256=hashlib.sha256(custody).hexdigest(),
+            nodes=len(graph['nodes']),edges=len(graph['edges']),
+            scope='Immutable configured JSONL export only; no protected ACK, current native availability or engine grant.')
     raw=(encoded(result)+'\n').encode();_require(len(raw)<=1048576);_write(config.output/'runtime-report.json',raw)
     return result
 
 
 def initialize_configured_local(config):return _run(config,None)
 def publish_configured_local(config,*,ordinal):return _run(config,ordinal)
+
+def export_configured_local(config,*,ordinal):return _run(config,ordinal,export=True)
 
 def read_configured_local(config,*,ordinal,type_id,entity_id):
     return _run(config,ordinal,selector=(type_id,entity_id))

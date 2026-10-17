@@ -626,6 +626,18 @@ Unity Catalog, Fabric deployment or loaded-graph authority; ordinary engine
 storage access remains separately required. It MUST NOT serve as a GQL graph
 policy or bypass the strict public retention-backed release profile.
 
+### Configured local release reads
+
+Configured immutable JSONL publications MAY export a selected committed ordinal
+under the existing configured-local full-vector read owner. The export MUST bind
+the original request, complete five-phase custody, retained consumer progress,
+exact source/configuration/model/binding bytes and independent full source-prefix
+carrier bags. Historical ordinals MUST use their original vector without latest
+fallback. Both release and versioned configured-local custody files MUST remain
+unwritten until read, source, native, runtime and installation closing succeeds.
+Saved-file custody permits explicit private artifact use only; it MUST NOT claim
+protected ACK, current native availability, scalar promotion or engine authority.
+
 ### Original finite supply-chain release reads
 
 `read_original_supply_chain_graph_release(opened)` MUST accept only the nominal

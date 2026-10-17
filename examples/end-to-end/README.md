@@ -119,6 +119,35 @@ for source admission, tables and publication resolution. Engine projections must
 preserve identity, independent edges, exact values and explicit capability losses.
 Each engine needs its own actual query and release-lifecycle qualification.
 
+## Export a selected configured typed graph
+
+For the configured typed-graph profile, copy the existing installed read invocation,
+set `"operation": "export"`, remove its `selector`, and select `"ordinal": 1`.
+Keep the original installation hash, immutable source configuration, stream and
+materialization clock; choose a fresh output/admission directory. Run:
+
+```sh
+ashlar run-configured-local --configuration /absolute/private/export.json
+```
+
+The corresponding installed Python API is
+`ashlar_host.configured_local_runtime.export_configured_local(config, ordinal=1)`,
+using the same explicit `ConfiguredLocalRuntimeConfig` as the read operation.
+The ordinal is one-based and may select an older committed publication after
+later updates or deletes. No source append, publication or progress update runs.
+
+After full read, source, native, Spark and installation closing, the output
+contains `release.graph.json`, `custody.json` and `runtime-report.json`. Preserve
+the returned release and custody hashes separately. The pair can be selected by
+`configure-graph-export` and the existing artifact read/diff/engine commands.
+It preserves all original node/edge carriers, exact opaque property JSON,
+independent edge identities, endpoints and the complete original publication
+vector. The versioned custody profile describes cooperative local immutable-file
+capture; it grants no protected ACK, live native access, scalar promotion or
+engine permission. A failed closing emits neither export file. File-write failure
+may leave partial private output without a success report; retain it as failure.
+No native qualification is inferred from this API or example.
+
 The [original example notes](../../docs/helix/04-build/evidence/documentation-history-20261009/examples/end-to-end/README.original.txt)
 retain previous execution history verbatim. Native receipts and their custody
 hashes belong under build evidence rather than in this usage guide.

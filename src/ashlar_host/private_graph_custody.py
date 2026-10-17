@@ -153,7 +153,10 @@ def load_private_graph_release(payload, trusted_sha256, custody_payload, trusted
     _release_lineage(value)
     custody= _decode(custody_payload)
     from .finite_graph_custody import PROFILE as FINITE_PROFILE,admit_finite_graph_custody
-    if type(custody)is dict and custody.get('format')==FINITE_PROFILE:
+    from .configured_graph_custody import PROFILE as CONFIGURED_PROFILE,admit_configured_graph_custody
+    if type(custody)is dict and custody.get('format')==CONFIGURED_PROFILE:
+        admit_configured_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
+    elif type(custody)is dict and custody.get('format')==FINITE_PROFILE:
         admit_finite_graph_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256)
     else:
         from .truss_graph_custody import PROFILE as TRUSS_PROFILE,admit_truss_graph_custody
