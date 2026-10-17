@@ -1,0 +1,648 @@
+{
+  "profile": "ashlar-generated-delta-carriers/0.1",
+  "generator": {
+    "project": "UMF",
+    "revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+    "extension": "umf.delta.definition/0.1.0"
+  },
+  "inputs": {
+    "docs/helix/02-design/models/ashlar-delta-runtime/object_current.umf.json": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+    "docs/helix/02-design/models/ashlar-delta-runtime/edge_current.umf.json": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+    "docs/helix/02-design/models/ashlar-delta-runtime/source_record.umf.json": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+    "docs/helix/02-design/models/ashlar-delta-runtime/property_journal.umf.json": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+    "docs/helix/02-design/models/ashlar-delta-runtime/tombstone.umf.json": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+    "docs/helix/02-design/models/ashlar-delta-runtime/publication_manifest.umf.json": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+    "docs/helix/02-design/models/ashlar-delta-runtime/publication_attempt_phase.umf.json": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+    "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+    "docs/helix/02-design/models/ashlar-delta-runtime/index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
+  },
+  "carriers": {
+    "object_current": {
+      "sql": "CREATE TABLE `object_current` (\n  `source_system` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `logical_key_json` STRING NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `root_id` BIGINT,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` STRING NOT NULL,\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,type_id,id',\n'delta.targetFileSize'='67108864',\n'delta.parquet.compression.codec'='zstd');\n",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "logical_key_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "props_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "retained_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "root_id",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "lookup_hash",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "object_current"
+        ],
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id",
+          "delta.targetFileSize": "67108864",
+          "delta.parquet.compression.codec": "zstd"
+        }
+      }
+    },
+    "edge_current": {
+      "sql": "CREATE TABLE `edge_current` (\n  `source_system` STRING NOT NULL,\n  `rel_type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `source_type` BIGINT NOT NULL,\n  `source_id` BIGINT NOT NULL,\n  `target_type` BIGINT NOT NULL,\n  `target_id` BIGINT NOT NULL,\n  `schema_revision` STRING NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `props_json` STRING NOT NULL,\n  `retained_json` STRING NOT NULL,\n  `order_key` STRING,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `published_at` TIMESTAMP NOT NULL,\n  `lookup_hash` STRING NOT NULL,\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`lookup_hash`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id',\n'delta.targetFileSize'='67108864',\n'delta.parquet.compression.codec'='zstd');\n",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "rel_type_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "source_type",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "source_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "target_type",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "target_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "props_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "retained_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "order_key",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "lookup_hash",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "edge_current"
+        ],
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id",
+          "delta.targetFileSize": "67108864",
+          "delta.parquet.compression.codec": "zstd"
+        }
+      }
+    },
+    "source_record": {
+      "sql": "CREATE TABLE `source_record` (\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `delivery_id` STRING NOT NULL,\n  `record_kind` STRING NOT NULL,\n  `source_cursor_json` STRING NOT NULL,\n  `payload_json` STRING NOT NULL,\n  `payload_digest` STRING NOT NULL,\n  `schema_revision` STRING,\n  `received_at` TIMESTAMP NOT NULL,\n  `apply_batch_id` STRING\n) USING DELTA CLUSTER BY (`source_feed`, `source_epoch`, `delivery_id`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,delivery_id');\n",
+      "columns": [
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "delivery_id",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "record_kind",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "payload_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "payload_digest",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "received_at",
+          "deltaType": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "source_record"
+        ],
+        "clusterBy": [
+          "source_feed",
+          "source_epoch",
+          "delivery_id"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "source_feed,source_epoch,delivery_id"
+        }
+      }
+    },
+    "property_journal": {
+      "sql": "CREATE TABLE `property_journal` (\n  `source_system` STRING NOT NULL,\n  `entity_kind` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `property_id` BIGINT,\n  `entity_version` BIGINT NOT NULL,\n  `operation` STRING NOT NULL,\n  `old_present` BOOLEAN NOT NULL,\n  `old_json` STRING,\n  `new_present` BOOLEAN NOT NULL,\n  `new_json` STRING,\n  `schema_revision` STRING NOT NULL,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `event_ordinal` BIGINT NOT NULL,\n  `source_time_text` STRING,\n  `published_at` TIMESTAMP NOT NULL,\n  `apply_batch_id` STRING,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`source_feed`, `source_epoch`, `source_position`, `id`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,source_position,id,apply_batch_id');\n",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "entity_kind",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "property_id",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "operation",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "old_present",
+          "deltaType": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "old_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "new_present",
+          "deltaType": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "new_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "event_ordinal",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "source_time_text",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "property_journal"
+        ],
+        "clusterBy": [
+          "source_feed",
+          "source_epoch",
+          "source_position",
+          "id"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "source_feed,source_epoch,source_position,id,apply_batch_id"
+        }
+      }
+    },
+    "tombstone": {
+      "sql": "CREATE TABLE `tombstone` (\n  `source_system` STRING NOT NULL,\n  `entity_kind` STRING NOT NULL,\n  `type_id` BIGINT NOT NULL,\n  `id` BIGINT NOT NULL,\n  `entity_version` BIGINT NOT NULL,\n  `source_feed` STRING NOT NULL,\n  `source_epoch` STRING NOT NULL,\n  `source_position` BIGINT,\n  `source_cursor_json` STRING,\n  `source_delivery_id` STRING\n) USING DELTA CLUSTER BY (`source_system`, `type_id`, `id`);\n",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "entity_kind",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "tombstone"
+        ],
+        "clusterBy": [
+          "source_system",
+          "type_id",
+          "id"
+        ],
+        "partitionBy": [],
+        "properties": {}
+      }
+    },
+    "publication_manifest": {
+      "sql": "CREATE TABLE `publication_manifest` (\n  `publication_id` STRING NOT NULL,\n  `profile_version` STRING NOT NULL,\n  `table_versions_json` STRING NOT NULL,\n  `source_progress_json` STRING NOT NULL,\n  `schema_revisions_json` STRING NOT NULL,\n  `validation_report_json` STRING NOT NULL,\n  `recorded_at` TIMESTAMP NOT NULL\n) USING DELTA;\n",
+      "columns": [
+        {
+          "name": "publication_id",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "profile_version",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "table_versions_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "source_progress_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "schema_revisions_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "validation_report_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "recorded_at",
+          "deltaType": "timestamp",
+          "nullable": false
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "publication_manifest"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      }
+    },
+    "publication_attempt_phase": {
+      "sql": "CREATE TABLE `publication_attempt_phase` (\n  `stream` STRING NOT NULL,\n  `batch_id` STRING NOT NULL,\n  `phase` STRING NOT NULL,\n  `request_digest` STRING NOT NULL,\n  `payload_json` STRING NOT NULL,\n  `payload_digest` STRING NOT NULL\n) USING DELTA;\n",
+      "columns": [
+        {
+          "name": "stream",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "batch_id",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "phase",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "request_digest",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "payload_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "payload_digest",
+          "deltaType": "string",
+          "nullable": false
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "publication_attempt_phase"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      }
+    },
+    "whole_source_history": {
+      "sql": "CREATE TABLE `whole_source_history` (\n  `feed` STRING NOT NULL,\n  `epoch` STRING NOT NULL,\n  `delivery_id` STRING NOT NULL,\n  `digest` STRING NOT NULL,\n  `change_json` STRING NOT NULL,\n  `raw_base64` STRING NOT NULL\n) USING DELTA;\n",
+      "columns": [
+        {
+          "name": "feed",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "epoch",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "delivery_id",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "digest",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "change_json",
+          "deltaType": "string",
+          "nullable": false
+        },
+        {
+          "name": "raw_base64",
+          "deltaType": "string",
+          "nullable": false
+        }
+      ],
+      "layout": {
+        "profile": "databricks-managed-delta/0.1",
+        "name": [
+          "whole_source_history"
+        ],
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      }
+    }
+  },
+  "qualification": "Generated fresh managed CREATE proposals from canonical UMF documents; no application, migration, enforcement or native compatibility admission."
+}

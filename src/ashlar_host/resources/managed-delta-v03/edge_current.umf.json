@@ -1,0 +1,480 @@
+{
+  "umf": "0.1.0",
+  "id": "ashlar-delta-runtime-edge_current",
+  "vocabularies": {
+    "umf.delta": {
+      "version": "0.1.0"
+    },
+    "umf.delta.definition": {
+      "version": "0.1.0"
+    }
+  },
+  "modules": [
+    {
+      "id": "schema",
+      "namespace": "",
+      "elements": [
+        {
+          "id": "schema",
+          "extensions": {
+            "umf.delta": {
+              "profile": "delta-schema-json",
+              "root": {
+                "kind": "object",
+                "members": {
+                  "type": {
+                    "kind": "string",
+                    "value": "struct"
+                  },
+                  "fields": {
+                    "kind": "array",
+                    "items": [
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_system"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "rel_type_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_type"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "target_type"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "target_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "schema_revision"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "entity_version"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "props_json"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "retained_json"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "order_key"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_feed"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_epoch"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_position"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "long"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "published_at"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "timestamp"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "lookup_hash"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "apply_batch_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_cursor_json"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "source_delivery_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "extensions": {
+    "umf.delta.definition": {
+      "profile": "databricks-managed-delta/0.1",
+      "name": [
+        "edge_current"
+      ],
+      "clusterBy": [
+        "lookup_hash"
+      ],
+      "partitionBy": [],
+      "properties": {
+        "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id",
+        "delta.targetFileSize": "67108864",
+        "delta.parquet.compression.codec": "zstd"
+      }
+    }
+  }
+}
+
