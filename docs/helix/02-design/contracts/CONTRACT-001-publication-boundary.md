@@ -732,7 +732,13 @@ Typed input, row, cell, total capture and receipt limits MUST have explicit owne
 and conjunctive enforcement before buffering/release; finite row counts alone do
 not establish byte capacity. Operator-selected finite process supervision MUST
 bound execution, streams and owned cleanup without implying an existing built-in
-timeout. No cap increase, stale observation cache or weakened admission is authorized.
+timeout. The read-only evolution-publication verification supervisor MAY explicitly
+select an integer deadline of 1–600 seconds for a finite local audit, including
+complete opening and closing ledger checks. This ceiling leaves existing explicit deadline selections unchanged and does not
+change any other workflow or native deadline, or lookup latency targets. The explicit operator owner, at-most-1-MiB stream capture and all
+input, row, cell, total, source/ACK, writer and independent closing limits remain
+required. No capture cap increase, stale observation cache or weakened admission
+is authorized.
 Safe bounded diagnostics remain governed by CONTRACT-006, without exception
 messages, locals, credentials or source identities.
 

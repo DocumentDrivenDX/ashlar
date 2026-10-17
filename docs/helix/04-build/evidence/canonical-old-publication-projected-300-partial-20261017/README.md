@@ -1,0 +1,11 @@
+# Projected canonical verification: 300-second incomplete attempt
+
+The installed public verifier timed out at the existing 300-second supervision ceiling while selecting original ordinal 0 with expected completed prefix 2 and `canonical-managed-carriers/0.1`. No ordinal receipt or runner-result file was produced. The parent command exited 1 (session 6458, tool reference `6f67cf`). The supervisor retained unknown child status, `TimeoutError`, incomplete capture and **failed original cleanup**: `PermissionError` during confirm-absence after session leader 33739 had been reaped.
+
+A separate later elevated read-only query for exact numeric process group 33739 returned empty (root transcript reference `5366f9`). No raw snapshot file was retained. This later observation does not repair the original cleanup failure or establish universal descendant absence.
+
+Product code is pinned to `33ddfb678fae565c4370591f095ec10fde38578d`; the diagnostic helper remains pinned to `35d1849b02dc7abaa42801b64ba0d318d306ba00`. Exact native controls, public-parser and installed-binding preflights, preparation, helper, clearance, trace, bounded stack and streams, supervisor terminal and cleanup failure are losslessly retained as deterministic gzip. [The manifest](manifest.json) records exact byte lengths and hashes; [the summary](summary.json) retains selection, outcomes and private provenance. Credential-bearing environment bytes, binaries and duplicate SDK/source-ACK inventories are excluded. The preserved rejected 480-second predecessor is a preparation provenance reference only; it was not executed and supplied no authority.
+
+The bounded trace ended at 301.051327 seconds: 1,257 detail entries (189.631328 inclusive seconds), 40 history entries (20.387320 inclusive seconds), two ledger entries (246.983410 inclusive seconds), and one verification entry (276.619306 inclusive seconds). Diagnostics did not fail. These durations are nested and **not additive**; entry/return counters may include cancellation unwinding. They are diagnostic attribution, not proof of successful guards, isolated SQL costs, a causal benchmark or a cache-controlled comparison.
+
+This evidence establishes no canonical verification or prefix success and no unchanged source/ACK outcome. Archive assembly performed no native, source, ACK or process-control calls.

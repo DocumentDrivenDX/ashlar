@@ -464,8 +464,15 @@ class Tests(unittest.TestCase):
 
     def test_closed_parser_old_ordinal_explicit_bounds_no_defaults(self):
         value=self.configuration(); self.assertEqual(parse_verification_invocation(json.dumps(value).encode()).ordinal,0)
+        value['supervision']['deadline_seconds']=600
+        selected=parse_verification_invocation(json.dumps(value).encode())
+        self.assertEqual(selected.supervision.deadline_seconds,600)
+        self.assertEqual(selected.bounds.capture_bytes,65536)
+        self.assertEqual(selected.supervision.owner,'operator-owned-process-supervisor/0.1')
         for mutation in (lambda v:v.update(ordinal=True),lambda v:v.update(ordinal=8),lambda v:v.update(ordinal=0.0),
-                lambda v:v['bounds'].update(rows=True),lambda v:v['supervision'].update(deadline_seconds=301),
+                lambda v:v['bounds'].update(rows=True),lambda v:v['supervision'].update(deadline_seconds=601),
+                lambda v:v['supervision'].update(deadline_seconds=True),lambda v:v['supervision'].update(deadline_seconds=0),
+                lambda v:v['supervision'].update(deadline_seconds=1.5),lambda v:v['supervision'].update(owner='unknown'),
                 lambda v:v['supervision'].update(capture_bytes=1),lambda v:v.update(extra=1)):
             value=self.configuration();mutation(value)
             with self.assertRaises((ValueError,PermissionError)):parse_verification_invocation(json.dumps(value).encode())

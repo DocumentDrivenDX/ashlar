@@ -1,0 +1,92 @@
+{
+  "profile": "ashlar-canonical-projected-300-partial/0.1",
+  "product_commit": "33ddfb678fae565c4370591f095ec10fde38578d",
+  "operator_tool_commit": "35d1849b02dc7abaa42801b64ba0d318d306ba00",
+  "wheel_sha256": "5d3afcfde4c28c84cd65201298dd7c90c8b8362e81499a25850161c6cee4fd9d",
+  "selection": {
+    "ordinal": 0,
+    "native_schema_profile": "canonical-managed-carriers/0.1",
+    "original_run_sha256": "6e466770c8973b3c3104b48924c2e3e4c954745e63c054e0a14817299bc674ed"
+  },
+  "expected_completed_prefix": 2,
+  "bounds": {
+    "work_seconds": 300,
+    "grace_seconds": 5,
+    "stream_bytes": 1048576,
+    "stack_dump_seconds": 240,
+    "cleanup": "retained leader/status pipe + terminate_scenario_processes"
+  },
+  "terminal": {
+    "cleanup_confirmed": false,
+    "cleanup_failed": true,
+    "complete": false,
+    "error_class": "TimeoutError",
+    "status": null
+  },
+  "cleanup_failure": {
+    "error_class": "PermissionError",
+    "phase": "confirm-absence",
+    "process_groups": [
+      33739
+    ],
+    "remaining_groups": [
+      33739
+    ],
+    "session_leader_pid": 33739,
+    "session_leader_reaped": true
+  },
+  "trace": {
+    "active": [],
+    "completed_seconds": {
+      "attempt-query": 11.783339040586725,
+      "bounded-capture": 196.89874868118204,
+      "bounded-snapshot": 63.851020325673744,
+      "committed": 76.61324437474832,
+      "detail": 189.6313282090705,
+      "history": 20.387319834670052,
+      "ledger": 246.9834100420121,
+      "ledger-body": 242.0051575000398,
+      "snapshot": 56.65244929259643,
+      "verify": 276.6193064588588
+    },
+    "counts": {
+      "attempt-query": 28,
+      "bounded-capture": 1325,
+      "bounded-snapshot": 76,
+      "committed": 36,
+      "detail": 1257,
+      "history": 40,
+      "ledger": 2,
+      "ledger-body": 2,
+      "snapshot": 68,
+      "verify": 1
+    },
+    "diagnostic_failed": false,
+    "dropped_events": 5574,
+    "durations": "inclusive-nested-not-additive",
+    "elapsed_seconds": 301.0513274159748,
+    "profile": "ashlar-operator-native-verification-trace/0.1"
+  },
+  "events_retained": 96,
+  "public_receipt_exists": false,
+  "runner_result_exists": false,
+  "parent_command_observation": {
+    "session": 6458,
+    "exit_code": 1,
+    "tool_reference": "6f67cf",
+    "separate_raw_file_retained": false
+  },
+  "later_process_observation": {
+    "root_tool_reference": "5366f9",
+    "selector": "exact numeric process group 33739",
+    "result": "EMPTY",
+    "separate_raw_snapshot_retained": false,
+    "qualification": "Later elevated read-only transcript observation; does not repair original cleanup failure or prove universal absence."
+  },
+  "excluded_environment": {
+    "path": "/Users/erik/Projects/ashlar/out/combined-source-current-20261017/canonical-verification-projected-300-control/operator-environment.json",
+    "bytes": 4178,
+    "sha256": "9c6ca6cef94bb2eb68d98e7e184b84ef69cf4de81ae1c9bb3e0a024b0f13288f"
+  },
+  "qualification": "No receipt or canonical verification/prefix success. No source/ACK unchanged proof. Inclusive nested timings are not additive or causal/cache-controlled benchmarks. The rejected 480-second candidate is provenance only and never authority."
+}

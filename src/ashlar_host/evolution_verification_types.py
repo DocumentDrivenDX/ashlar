@@ -39,7 +39,7 @@ class VerificationSupervision:
     owner: str
 
     def __post_init__(self):
-        if (type(self.deadline_seconds) is not int or not 1 <= self.deadline_seconds <= 300
+        if (type(self.deadline_seconds) is not int or not 1 <= self.deadline_seconds <= 600
                 or type(self.capture_bytes) is not int or not 1 <= self.capture_bytes <= 1048576
                 or self.owner != 'operator-owned-process-supervisor/0.1'):
             raise PermissionError('Explicit finite owning verification supervision required')
