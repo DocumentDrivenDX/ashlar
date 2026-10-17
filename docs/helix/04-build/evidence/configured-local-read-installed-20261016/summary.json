@@ -1,0 +1,51 @@
+{
+  "source_commit": "da5a574d34b529a4bf8a1775e9e3b7cf8945dec5",
+  "wheel_sha256": "a9117ae08ee76badb08879e8863c025424576766e4a97bb596d0a045c1122a19",
+  "cases": [
+    {
+      "case": "old-before-update",
+      "exit": 0,
+      "elapsed_seconds": 22.72015641699545,
+      "selected_ordinal": 1,
+      "row_present": true,
+      "latest_checkpoint_unchanged": true,
+      "publication_id": "local-configured-jsonl-76efaeda5c014fb7f697ef9edf3db3e433c7b42abe0c64b3f078a4fc6d2621c6"
+    },
+    {
+      "case": "current-updated",
+      "exit": 0,
+      "elapsed_seconds": 15.01844899985008,
+      "selected_ordinal": 3,
+      "row_present": true,
+      "latest_checkpoint_unchanged": true,
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d"
+    },
+    {
+      "case": "current-deleted",
+      "exit": 0,
+      "elapsed_seconds": 15.68991066608578,
+      "selected_ordinal": 3,
+      "row_present": false,
+      "latest_checkpoint_unchanged": true,
+      "publication_id": "local-configured-jsonl-3ba3b3344ef1321290497d975b87d32851d80aab9e1130509f66a4e090d37e9d"
+    }
+  ],
+  "native_and_local_progress_unchanged": true,
+  "file_sha256": {
+    "old-before-update.json": "86efae9d9a173863a6d2c2bdb298245e39146e34846d9dd063ce39571b06b16c",
+    "current-updated.json": "2d4d909b1a604961be851adbf37414d3f9b03d144147ff4f0d93156c95537cdf",
+    "current-deleted.json": "b474ca2fa417a319c5e6802ec435fa300b594969687a0e248c17b4ceda38d022",
+    "before.json": "e14473270ceedd6c02aa07ec8fb92fd700f4baa81bcfec66040e304d4338433e",
+    "after.json": "e14473270ceedd6c02aa07ec8fb92fd700f4baa81bcfec66040e304d4338433e"
+  },
+  "databricks_compute_used": false,
+  "protected_source_ack": false,
+  "qualification": "Actual installed configured STRING singleton reads from original ordinal 1 and final ordinal 3, complete original row parity and current absence under cooperative local lease/native admission. Not query-latency, managed UC, PostgreSQL pins, remote fencing or protected ACK qualification. Durations include startup, fresh source validation, read checks and shutdown.",
+  "runtime": {
+    "python": "3.11.17",
+    "spark": "4.0.1",
+    "delta": "4.0.0",
+    "master": "local[1]",
+    "driver_memory": "512m"
+  }
+}
