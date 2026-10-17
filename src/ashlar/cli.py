@@ -242,6 +242,12 @@ def main():
     verification = commands.add_parser('verify-commerce-evolution-publication', help='Verify one completed original publication under explicit finite operator supervision')
     for option in ('configuration', 'provider', 'provider-sha256'):
         verification.add_argument('--' + option, required=True)
+    singleton = commands.add_parser('read-commerce-evolution-singletons', help='Read the same typed singleton identity from both original source scopes under the held publication')
+    for option in ('configuration','provider','provider-sha256'):
+        singleton.add_argument('--'+option,required=True)
+    singleton.add_argument('--kind',choices=('object','edge'),required=True)
+    for option in ('type-id','entity-id'):
+        singleton.add_argument('--'+option,type=int,required=True)
     for name in ('activate-puppy-release', 'read-puppy-release'):
         command = commands.add_parser(name, help='Activate or read one explicit original PuppyGraph release handle')
         for option in ('configuration', 'provider', 'provider-sha256'):
@@ -1094,6 +1100,17 @@ def main():
         except Exception:
             print('ashlar commerce evolution refused', file=sys.stderr)
             raise SystemExit(2) from None
+        return
+
+    if args.command == 'read-commerce-evolution-singletons':
+        from ashlar_host.evolution_verification_cli import run_singleton_command
+        try:
+            answer=run_singleton_command(args.configuration,args.provider,args.provider_sha256,
+                kind=args.kind,type_id=args.type_id,entity_id=args.entity_id)
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar evolution singleton read refused',file=sys.stderr)
+            raise SystemExit(2)from None
         return
 
     if args.command == 'verify-commerce-evolution-publication':

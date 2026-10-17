@@ -68,6 +68,30 @@ journals.
 The owning desired behavior is [TD-003](../../docs/helix/02-design/technical-designs/TD-003-evolution-publication-verification.md)
 and [CONTRACT-001](../../docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md).
 
+## Read one identity from both source scopes
+
+Use the same existing-publication verification configuration and explicitly
+selected trusted provider, with a fresh receipt path. Inside the same finite
+operator-owned process supervisor, run:
+
+```sh
+"$ASHLAR_PYTHON" -I -B -m ashlar read-commerce-evolution-singletons \
+  --configuration "$VERIFICATION_CONFIGURATION" \
+  --provider "$TRUSTED_PROVIDER" --provider-sha256 "$TRUSTED_PROVIDER_SHA256" \
+  --kind object --type-id 16 --entity-id 3
+```
+
+`--kind` selects `object` or `edge`; both integer identifiers are signed 64-bit
+values. The command reads that same identity independently in both registered
+source scopes, including absence, under the selected completed publication's
+actual provider, native snapshot pins and ordinary source/ACK reconciliation.
+It writes a fresh private receipt only after provider cleanup and input custody
+checks. It never publishes, advances a source or submits an ACK. The singleton
+profile qualifies the selected complete rows and their original-source parity;
+it does not inherit the separate verifier's canonical schema/eight-bag claim.
+Command completion requires terminal 0 and its bounded stdout receipt; private
+intermediate files alone do not establish completion.
+
 ## Start a fresh three-publication prefix
 
 The installed command composes publication; it does not create PostgreSQL roles,

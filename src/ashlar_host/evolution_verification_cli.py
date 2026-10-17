@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 from contextlib import contextmanager
+from dataclasses import dataclass
 import re
 import stat
 from types import ModuleType
@@ -66,13 +67,35 @@ def run_verification_invocation(invocation, provider):
     return answer
 
 
+@dataclass(frozen=True)
+class _SingletonIdentity:
+    kind: str
+    type_id: int
+    entity_id: int
+
+    def __post_init__(self):
+        if (type(self.kind)is not str or self.kind not in ('object','edge') or
+                any(type(v)is not int or not -(2**63)<=v<2**63 for v in (self.type_id,self.entity_id))):
+            raise HostError('evolution-singleton-selection')
+
+
+def run_singleton_command(configuration, provider_path, provider_sha256, *, kind, type_id, entity_id):
+    return _run_command(configuration, provider_path, provider_sha256, _SingletonIdentity(kind,type_id,entity_id))
+
+
 def run_verification_command(configuration, provider_path, provider_sha256):
+    return _run_command(configuration, provider_path, provider_sha256)
+
+
+def _run_command(configuration, provider_path, provider_sha256, singleton=None):
     """Run under the operator's explicitly selected finite process supervisor.
 
     This function has no implicit watchdog. The selection is bound to the actual
     trusted provider before any native owner is acquired; operator cancellation
     remains BaseException-transparent. Success follows all provider cleanup.
     """
+    if singleton is not None and type(singleton)is not _SingletonIdentity:
+        raise HostError('evolution-singleton-selection')
     captured = InvocationFile.read(configuration, MAXIMUM_INPUT_BYTES)
     invocation = parse_verification_invocation(captured.raw)
     if type(provider_sha256) is not str or re.fullmatch('[0-9a-f]{64}', provider_sha256) is None:
@@ -114,7 +137,22 @@ def run_verification_command(configuration, provider_path, provider_sha256):
                     config.__post_init__()
                     renew_inputs()
                     yield config
-        answer = run_verification_invocation(invocation, CapturedProvider())
+        if singleton is None:
+            answer = run_verification_invocation(invocation, CapturedProvider())
+        else:
+            from .evolution_singleton import EvolutionSingletonSelection, read_evolution_singletons
+            selection=EvolutionSingletonSelection(invocation,singleton.kind,singleton.type_id,singleton.entity_id)
+            raw_answer=read_evolution_singletons(selection,CapturedProvider())
+            if type(raw_answer)is not bytes or not 0<len(raw_answer)<=invocation.bounds.receipt_bytes:
+                raise HostError('evolution-singleton-result')
+            def pairs(items):
+                result={}
+                for key,value in items:
+                    if key in result:raise HostError('evolution-singleton-result')
+                    result[key]=value
+                return result
+            def refuse(value):raise HostError('evolution-singleton-result')
+            answer=json.loads(raw_answer,object_pairs_hook=pairs,parse_float=refuse,parse_constant=refuse)
     except BaseException as error:
         primary = error
     callbacks = [lambda: captured.renew(MAXIMUM_INPUT_BYTES)]
@@ -122,14 +160,22 @@ def run_verification_command(configuration, provider_path, provider_sha256):
     if parent_fd is not None: callbacks.append(renew_parent)
     try:
         finish(primary, callbacks)
-        if type(answer) is not dict or answer.get('profile') != 'ashlar-evolution-publication-verification/0.1' or answer.get('original_sha256') != invocation.expected_sha256 or answer.get('ordinal') != invocation.ordinal:
-            raise HostError('evolution-verification-result')
-        if invocation.native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
-            from .managed_carriers import GENERATED_SHA256
-            if answer.get('native_schema_profile') != invocation.native_schema_profile or answer.get('generated_carriers_sha256') != GENERATED_SHA256:
+        if singleton is not None:
+            if (type(answer)is not dict or answer.get('profile')!='ashlar-original-two-source-singleton/0.1'
+                    or answer.get('original_sha256')!=invocation.expected_sha256
+                    or type(answer.get('ordinal'))is not int or answer['ordinal']!=invocation.ordinal
+                    or answer.get('kind')!=singleton.kind
+                    or any(type(answer.get(k))is not int or answer[k]!=getattr(singleton,k) for k in ('type_id','entity_id'))):
+                raise HostError('evolution-singleton-result')
+        else:
+            if type(answer) is not dict or answer.get('profile') != 'ashlar-evolution-publication-verification/0.1' or answer.get('original_sha256') != invocation.expected_sha256 or answer.get('ordinal') != invocation.ordinal:
                 raise HostError('evolution-verification-result')
-        elif 'native_schema_profile' in answer or 'generated_carriers_sha256' in answer:
-            raise HostError('evolution-verification-result')
+            if invocation.native_schema_profile == CANONICAL_NATIVE_SCHEMA_PROFILE:
+                from .managed_carriers import GENERATED_SHA256
+                if answer.get('native_schema_profile') != invocation.native_schema_profile or answer.get('generated_carriers_sha256') != GENERATED_SHA256:
+                    raise HostError('evolution-verification-result')
+            elif 'native_schema_profile' in answer or 'generated_carriers_sha256' in answer:
+                raise HostError('evolution-verification-result')
         bounded_local_json_bytes(answer, invocation.bounds.receipt_bytes - 1)
         raw = (json.dumps(answer, ensure_ascii=False, sort_keys=True, separators=(',',':'), allow_nan=False)+'\n').encode()
         if len(raw) > invocation.bounds.receipt_bytes:
