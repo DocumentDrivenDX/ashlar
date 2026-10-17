@@ -618,6 +618,18 @@ opening/body failures and cancellation while their owned resources remain held;
 cleanup MUST preserve the primary outcome. Invocation and provider configuration
 MUST agree on the exact absolute ordinal before effects.
 
+Within one explicitly held read-only full-ledger admission, committed-handle
+inspection MAY reuse bounded complete history observations keyed by the actual
+transport owner, table, UUID and path. Each use MUST freshly admit native identity
+and preserve every policy, profile, journal-row and exact receipt check. Reused
+histories and intermediate receipts remain provisional until independent complete
+native histories are freshly compared on interval exit, including failure and
+cancellation; changed history or identity MUST withhold admission. Reuse MUST be
+bounded to 64 histories, 1 MiB per history and 8 MiB aggregate with existing
+snapshot observations; non-retained observations MUST close independently.
+This permission MUST NOT cache mutation, recovery or current-head history reads,
+source/ACK authority or extend across admissions.
+
 A prefix result MUST identify the original run, selected ordinal, completed
 count and total of eight; it MUST NOT claim full-run qualification. A result MAY
 report run completion only for ordinal seven after all eight contiguous original

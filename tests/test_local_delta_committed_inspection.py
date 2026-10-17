@@ -113,4 +113,59 @@ class Tests(unittest.TestCase):
             with self.assertRaises(cancellation) as observed: self.inspect()
             self.assertIs(observed.exception, primary)
 
+
+class HistoryMemoTests(unittest.TestCase):
+    def fixture(self):
+        host=harness.Tests();host.setUp();self.addCleanup(host.doCleanups)
+        transport=host.transport
+        transport.mutation('original',harness.SQL,{'id':'1'},intent_digest='b'*64,context='held')
+        return host,transport
+
+    def inspect(self,transport):
+        return transport.inspect_committed('original',harness.SQL,{'id':'1'},intent_digest='b'*64,context='held')
+
+    def test_twenty_real_sqlite_handle_checks_reuse_history_only(self):
+        from ashlar_host.immutable_snapshot_memo import immutable_snapshot_memo
+        host,transport=self.fixture();before=transport.db.execute('SELECT * FROM local_operation').fetchall();writes=host.engine.writes
+        counts={}
+        for mode in ('raw','memo'):
+            from contextlib import nullcontext
+            sql_reads=[];transport.db.set_trace_callback(sql_reads.append)
+            with patch.object(transport,'original_history',wraps=transport.original_history)as history,patch.object(transport.policy,'admit',wraps=transport.policy.admit)as policy,patch.object(transport,'_profile',wraps=transport._profile)as profile,patch.object(transport,'_snapshot',wraps=transport._snapshot)as snapshot,patch.object(transport,'_detail',wraps=transport._detail)as detail:
+                with immutable_snapshot_memo(transport)if mode=='memo'else nullcontext():
+                    for _ in range(20):self.inspect(transport)
+                counts[mode]=(history.call_count,policy.call_count,profile.call_count,snapshot.call_count,detail.call_count)
+            transport.db.set_trace_callback(None)
+            self.assertEqual(sum(statement.startswith('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=')for statement in sql_reads),40)
+        self.assertEqual(counts['raw'][:4],(40,40,40,40))
+        self.assertEqual(counts['memo'][:4],(2,40,40,40))
+        self.assertGreaterEqual(counts['memo'][4],counts['raw'][4])
+        self.assertEqual(before,transport.db.execute('SELECT * FROM local_operation').fetchall());self.assertEqual(writes,host.engine.writes)
+        self.assertIsNone(transport._immutable_snapshot_memo)
+
+    def test_changed_history_uuid_receipt_and_cancel_withhold(self):
+        from ashlar_host.immutable_snapshot_memo import immutable_snapshot_memo
+        for control in ('history','uuid','receipt','cancel'):
+            host,transport=self.fixture();primary=KeyboardInterrupt()
+            with self.assertRaises((ValueError,LocalDeltaError,KeyboardInterrupt))as caught:
+                with immutable_snapshot_memo(transport):
+                    self.inspect(transport)
+                    if control=='history':host.engine.history.append({'version':99,'operation':'foreign'})
+                    elif control=='uuid':
+                        with patch.object(transport,'_detail',side_effect=LocalDeltaError('UUID changed')):self.inspect(transport)
+                    elif control=='receipt':transport.db.execute("UPDATE local_operation SET receipt='{}'");self.inspect(transport)
+                    else:host.engine.history.append({'version':99});raise primary
+            if control=='cancel':self.assertIs(caught.exception,primary)
+            self.assertIsNone(transport._immutable_snapshot_memo)
+
+    def test_history_capacity_fallback_and_copy_isolation(self):
+        from ashlar_host.immutable_snapshot_memo import immutable_snapshot_memo
+        host,transport=self.fixture();target=host.target
+        with immutable_snapshot_memo(transport)as memo:
+            first=memo.observe_history(transport,target);first.clear()
+            self.assertTrue(memo.observe_history(transport,target))
+        with immutable_snapshot_memo(transport)as memo,patch.object(memo,'_fits',return_value=False),patch.object(transport,'original_history',wraps=transport.original_history)as history:
+            memo.observe_history(transport,target);memo.observe_history(transport,target)
+            self.assertEqual(history.call_count,4);self.assertEqual(memo.histories,{})
+
 if __name__ == '__main__': unittest.main()

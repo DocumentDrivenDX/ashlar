@@ -51,6 +51,25 @@ class ImmutableSnapshotMemo:
         elif len(self.values)<64 and self._fits(capacity):
             self.values[key]=deepcopy(result);self.bytes+=capacity
         return result
+    def observe_history(self,owner,target):
+        """Provisional committed-handle history; current identity stays live."""
+        if owner is not self.owner:raise ValueError('Original immutable history owner required')
+        table_key=(target.table,target.uuid,str(target.path))
+        owner._detail(target)
+        if table_key in self.histories:
+            result=deepcopy(self.histories[table_key][1])
+        else:
+            result=owner.original_history(target)
+            capacity=_size(result)+_size(table_key)+sys.getsizeof(target)+sys.getsizeof((target,result))
+            if len(self.histories)<64 and self._fits(capacity):
+                self.histories[table_key]=(target,deepcopy(result));self.bytes+=capacity
+            else:
+                # No retained reuse/debt for oversized histories: close this
+                # individual observation independently before returning it.
+                self.renew_history(target,result)
+        owner._detail(target)
+        return deepcopy(result)
+
     def renew_history(self,target,history):
         from .driver import original_history_equal
         self.owner._detail(target)

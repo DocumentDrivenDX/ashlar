@@ -753,6 +753,13 @@ class LocalDeltaTransport:
     def recover(self, operation, sql, parameters, *, intent_digest, context):
         return self._execute(operation, sql, parameters, intent_digest, context, recovery=True)
 
+    def _committed_history(self,target):
+        memo=getattr(self,'_immutable_snapshot_memo',None)
+        if memo is None:return self.original_history(target)
+        from .immutable_snapshot_memo import ImmutableSnapshotMemo
+        if type(memo)is not ImmutableSnapshotMemo:raise LocalDeltaError('Original immutable history observer required')
+        return memo.observe_history(self,target)
+
     def inspect_committed(self, operation, sql, parameters, *, intent_digest, context):
         """Read exact original committed custody; never submit or update a journal.
 
@@ -786,7 +793,7 @@ class LocalDeltaTransport:
                         or not 0 < len(row[4].encode()) <= 4194304):
                     raise LocalDeltaUncertain('Exact committed original handle unavailable')
                 self._detail(target)
-                matches = [record for record in self.original_history(target)
+                matches = [record for record in self._committed_history(target)
                            if record.get('userMetadata') == metadata]
                 if len(matches) != 1 or type(matches[0].get('version')) is not int or matches[0]['version'] != row[2] + 1:
                     raise LocalDeltaUncertain('Original named commit absent or ambiguous')
@@ -802,7 +809,7 @@ class LocalDeltaTransport:
                 if self.policy.admit(json.loads(intent), context) is not None:
                     raise LocalDeltaError('Closing original committed admission incomplete')
                 self._profile()
-                closing_matches = [record for record in self.original_history(target)
+                closing_matches = [record for record in self._committed_history(target)
                                    if record.get('userMetadata') == metadata]
                 if closing_matches != matches or encoded(self._snapshot(target, version)) != encoded(snapshot):
                     raise LocalDeltaError('Closing original named commit/snapshot differs')

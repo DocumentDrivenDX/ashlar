@@ -1,0 +1,46 @@
+{
+  "boundary_check": "Module import boundaries pass; dynamic imports/type ownership/cycles require semantic review.",
+  "command": "PYTHONPATH=src:tools:tests /private/tmp/ashlar-publication-query-runtime-20261016-b/bin/python -S -W error::ResourceWarning -m unittest test_local_delta_committed_inspection test_immutable_snapshot_memo",
+  "counterproof": {
+    "details": "At least as many current identity observations with interval reuse",
+    "fixture": "Actual owned SQLite journal with inert native engine;20exactcommitted-handleinspections",
+    "history_reads": {
+      "interval": 2,
+      "raw": 40
+    },
+    "journal_rows_unchanged": true,
+    "native_write_count_unchanged": true,
+    "per_mode_unchanged_counts": {
+      "exact_operation_journal_selects": 40,
+      "policy_admissions": 40,
+      "profile_checks": 40,
+      "snapshot_calls": 40
+    }
+  },
+  "elapsed_seconds": 0.17,
+  "origin": "Transcribed exact exec tool result and passing executable assertions; no native engine run",
+  "source_pins": [
+    {
+      "bytes": 5021,
+      "path": "src/ashlar_host/immutable_snapshot_memo.py",
+      "sha256": "cad78da38e597698ba7a11df782db98b38e1a883259ca575052fec7ad2cf2605"
+    },
+    {
+      "bytes": 74503,
+      "path": "src/ashlar_host/delta_custody.py",
+      "sha256": "839dc47ae764bd4a873ff8ec1d50e1e75006a83f823b46a29eb25b64e75c02f7"
+    },
+    {
+      "bytes": 10074,
+      "path": "tests/test_local_delta_committed_inspection.py",
+      "sha256": "901bc7e8613838b6798fe1375368fc18fd3ba8067f8717e3b00b541e97e3b775"
+    },
+    {
+      "bytes": 94139,
+      "path": "docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+      "sha256": "0b33d8791a23e8a2417f53db2ed9916be387bc4c6cbdf79e43c0fa5a107067c0"
+    }
+  ],
+  "status": "PASS",
+  "tests": 10
+}

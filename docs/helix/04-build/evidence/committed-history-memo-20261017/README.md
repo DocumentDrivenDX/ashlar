@@ -1,0 +1,7 @@
+# Read-only committed history reuse
+
+Ten focused controls pass using an actual owned SQLite operation journal and an inert native engine. Twenty exact committed-handle inspections require 40 raw history collections without the interval and two with it (one initial and one independent closing). Both modes retain 40 policy admissions, 40 profile checks, 40 snapshot calls and 40 exact original-operation journal SELECTs; current native identity observations are not reduced. Journal rows and the engine's mutation counter remain unchanged.
+
+The subset covers independent closing history drift, UUID replacement, changed receipt, cancellation with simultaneous closing failure, defensive copies and capacity fallback. Every retained history is freshly revalidated when the interval closes, including failure and cancellation; intermediate results remain provisional. Oversized observations close independently without reuse. The existing 64-history, 1 MiB individual and 8 MiB shared snapshot/history bounds remain in force.
+
+Only read-only `inspect_committed` history collection uses the interval. Raw `original_history` calls in mutation, recovery and current-head paths remain unchanged. No source, ACK, lease or policy authority is memoized. `result.json` retains the exact command, transcribed result, counter assertions and source hashes. This is local inert-SQLite correctness evidence, not native speed, scale, publication success or completion of the outstanding workflow. No native retry ran in this slice.
