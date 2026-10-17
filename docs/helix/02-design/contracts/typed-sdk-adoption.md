@@ -83,6 +83,44 @@ lookahead metadata or compiler digests. A missing original page compiler refuses
 as `STREAM_PAGE_SIZE_UNSUPPORTED`. Timeout remains per page. Async adoption
 remains open.
 
+## Explicit serialized async bridge candidate
+
+`ashlar.async_access.SerializedAsyncTarget` is a host-owned serialized thread
+bridge under `ashlar-serialized-native-cancel/0.1`. It is not a native-awaitable
+Spark driver claim. An immutable `SerializedReadHost` supplies the original target
+identity and scope token, a worker-only target context, a worker native absolute
+deadline context, a nonblocking/no-database-I/O caller scope check, and a separate
+nonblocking native cancellation controller callable outside that worker. The
+adapter creates no database connection. Missing contracts refuse before dispatch.
+
+Queue wait, target entry, compilation and execution consume one absolute read or
+page deadline. The worker recomputes remaining time after target entry. Zero is
+an already expired deadline; negative or foreign timeout values are invalid.
+Parameter models are reconstructed and continuations copied before queueing;
+the original synchronous target rechecks original catalog and native authority.
+Caller context is checked before dispatch and before every public row release,
+with a copied context on the dedicated worker. No previous worker actor supplies
+caller authorization.
+
+Each async stream page opens, executes and completely closes its host scope on
+the worker before yielding any buffered row. The exact original smaller-page
+entry remains in continuation custody across pages. There is no native prefetch
+while the consumer holds a yielded row, and closing the async iterator fetches
+nothing further. Per-page timeout and `max_rows` semantics remain those above.
+A denied closing context withholds the whole page.
+
+Observed task cancellation always propagates after worker settlement and cleanup,
+including cancellation racing a completed native result. Repeated cancellation
+does not detach the worker. Deadline cancellation uses the same controller and
+waits for settlement; ordinary/native cleanup failures remain exception causes.
+An operation may already have completed natively; it is never replayed. A provider
+that cannot actually cancel and settle is not qualified by these source controls.
+
+Source lifecycle controls are retained separately from native qualification:
+[Async bridge source controls](../../04-build/evidence/typed-sdk-async-source-20261017/README.md).
+Actual in-flight native cancellation, event-loop progress, original pin/actor
+custody and denied native closing remain required before async adoption claims.
+
 ## Error Semantics
 
 Unknown program/profile, mismatched source/binding, absent bound values or expired
