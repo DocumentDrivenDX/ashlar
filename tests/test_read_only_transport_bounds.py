@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual read-only opener/constructor dispatch; lower Spark frames are inert."""
 import hashlib,unittest
 from types import SimpleNamespace

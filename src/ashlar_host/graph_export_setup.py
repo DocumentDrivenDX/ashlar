@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configure a selected saved export pair without an engine or live source grant."""
 import hashlib,json,os,stat
 from dataclasses import dataclass

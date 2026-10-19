@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual tiny inert credential processes and loopback socket controls only."""
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path

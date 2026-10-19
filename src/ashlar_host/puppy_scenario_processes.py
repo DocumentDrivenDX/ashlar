@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Terminate actual scenario descendants while their session leader is owned."""
 from __future__ import annotations
 import os

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned one-transaction evolution composition; full eight-step run is separate."""
 import os  # Standard-library alias retained for existing custody patch consumers.
 from .evolution_plan import (EvolutionAttemptPlan, EvolutionPlanJournal, EvolutionPlanError,

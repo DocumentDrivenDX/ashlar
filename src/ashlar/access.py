@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Typed reads through Ashlar's original held publication execution boundary.
 
 Hosts provide native publication, pin, policy and deadline owners. This module

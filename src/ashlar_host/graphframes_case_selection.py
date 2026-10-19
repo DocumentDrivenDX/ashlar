@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Unchanged authored GraphFrames case selection; no engine or source authority."""
 import hashlib
 import json

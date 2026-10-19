@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held original-commerce staging/creation recovery; no loaded-policy or CAS grant.
 
 Actual source/ACK/native release custody spans projection admission, OneLake

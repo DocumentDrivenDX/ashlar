@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Qualified four original commerce queries through supplied current held ports.
 
 No SDK, credential, activation, provisioning or authority is inferred here.

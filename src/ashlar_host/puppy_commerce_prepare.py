@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Private exact-commerce carrier preparation, never activation authority."""
 from dataclasses import dataclass
 from contextlib import contextmanager

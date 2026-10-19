@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original version preflight; public SDK owns actual mutation semantics."""
 import json,tempfile,unittest
 from pathlib import Path

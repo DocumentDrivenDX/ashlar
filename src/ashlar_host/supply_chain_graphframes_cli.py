@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed seven-operation GraphFrames query over an existing supply publication.
 
 This command never publishes or installs dependencies. It independently opens the

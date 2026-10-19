@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite publication readability from verified native data/log retention.
 
 Predictive optimization may remain enabled. Fresh native settings, snapshot

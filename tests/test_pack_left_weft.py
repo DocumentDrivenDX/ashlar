@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent retained graph and exact public request correspondence; no native claims."""
 import copy,json,unittest
 from pathlib import Path

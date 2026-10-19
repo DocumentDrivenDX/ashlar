@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original full graph bags and scalar/presence distinctions, no native claims."""
 import json
 from pathlib import Path

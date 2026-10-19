@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert receipt-shaped graph correspondence; no UMF semantic/producer proof."""
 import base64,hashlib,json,tempfile,unittest
 from pathlib import Path

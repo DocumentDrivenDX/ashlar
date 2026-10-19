@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected indexed query lifecycle; mandatory reader and Spark closure before report."""
 import hashlib,json
 from pathlib import Path

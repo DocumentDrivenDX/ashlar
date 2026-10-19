@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original17 GQL plans; compilation establishes no engine/source authority."""
 import json
 import re

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Graph metadata correspondence does not depend on a query scenario."""
 import unittest
 from unittest.mock import patch

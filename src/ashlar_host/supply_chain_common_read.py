@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing original finite publication composition; same-process source only."""
 from contextlib import contextmanager
 from dataclasses import dataclass

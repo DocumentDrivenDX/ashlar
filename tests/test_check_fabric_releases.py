@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure Fabric query/oracle controls; no live engine qualification."""
 import copy,json,tempfile,unittest
 from pathlib import Path

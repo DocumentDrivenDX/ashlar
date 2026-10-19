@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Named native page capacity; JSONL and retained artifact limits stay fixed."""
 import base64,hashlib,json,unittest
 from dataclasses import replace

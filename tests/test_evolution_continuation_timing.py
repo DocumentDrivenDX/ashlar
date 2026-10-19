@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed preflight-stage controls with inert lower ports; no native authority."""
 from contextlib import contextmanager, nullcontext
 from types import SimpleNamespace

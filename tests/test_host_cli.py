@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed commands keep help and invalid configuration outside native execution."""
 import contextlib
 import io

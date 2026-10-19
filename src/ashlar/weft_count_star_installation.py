@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Separate indexed 5dd/041 count-star installation and bounded string transport.
 
 Availability commits at the final no-clobber ready link. This is cooperating

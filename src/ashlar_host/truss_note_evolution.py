@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compatible Note CLI wrapper over shared actual record evolution."""
 import json
 from .truss_schema_evolution import capture_catalog,read,evolve_truss_record

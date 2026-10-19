@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owner-authored string Record bindings for pinned Weft; no execution authority."""
 import hashlib
 import json

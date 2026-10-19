@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned cleanup preserves primary failures; no availability or durability claim."""
 from contextlib import contextmanager
 

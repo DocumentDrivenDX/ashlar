@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded installed verification dispatch; an explicit external supervisor owns time/streams."""
 import hashlib
 import json

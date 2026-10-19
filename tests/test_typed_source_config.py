@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Byte/binding and inert receipt-shape controls; no UMF producer/constraint proof."""
 import base64,hashlib,json,tempfile,unittest
 from dataclasses import replace

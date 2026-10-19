@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """New public host composition/cleanup controls over inert SDK ports."""
 from contextlib import contextmanager
 from types import ModuleType,SimpleNamespace

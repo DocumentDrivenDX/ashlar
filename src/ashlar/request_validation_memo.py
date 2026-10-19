@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Interval-local reuse of successful pure request semantics, never authority.
 
 Exact original builtin strings form each key. Source, native, lease, policy and

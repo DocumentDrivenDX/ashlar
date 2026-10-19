@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real SQLite/memo with inert native owner; remove only duplicate identity."""
 from contextlib import nullcontext
 import unittest

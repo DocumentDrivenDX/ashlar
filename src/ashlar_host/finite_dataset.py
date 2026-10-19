@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned original finite files and actual public UMF dataset custody.
 
 Dataset validation never grants source, writer, publication or ACK authority.

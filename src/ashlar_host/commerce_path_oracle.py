@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent finite original-commerce path witnesses, not a SQL interpreter.
 
 Only ten named exact query cases are covered. This source oracle establishes expected

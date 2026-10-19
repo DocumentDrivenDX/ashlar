@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed bounded source-custody command; native deployment is a separate host."""
 import argparse
 import base64

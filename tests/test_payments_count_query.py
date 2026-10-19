@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert request correspondence; these tests do not qualify native execution."""
 import copy
 import json

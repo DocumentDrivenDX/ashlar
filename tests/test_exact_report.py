@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact report carrier controls, independent of compiler/native execution."""
 import json,unittest
 from decimal import Decimal

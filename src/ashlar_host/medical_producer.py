@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected public medical revalidation; no source/native authority grant."""
 from dataclasses import dataclass
 import decimal

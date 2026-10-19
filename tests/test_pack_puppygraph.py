@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from check_pack_puppygraph import integer,projection,queries,verify_query
 

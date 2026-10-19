@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare the next bounded Truss continuation selection, without live authority."""
 from dataclasses import dataclass,field
 import hashlib,json,os

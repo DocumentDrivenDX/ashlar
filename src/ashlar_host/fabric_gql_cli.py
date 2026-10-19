@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed GQL command using an explicitly selected trusted operator lifecycle."""
 from dataclasses import dataclass
 import base64,hashlib,json,re

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic existing-publication export orchestration; no native engine claim."""
 import hashlib,json,os,tempfile,unittest
 from pathlib import Path

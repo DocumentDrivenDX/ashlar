@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit whole-entity JSONL adapter. Never reconstructs Truss property feeds."""
 from .apply import ApplyError,Change,EntityKey,EntityState
 from .schema import _json

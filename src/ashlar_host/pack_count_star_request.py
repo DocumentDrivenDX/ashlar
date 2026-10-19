@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original archaeology/ecology17 queries in separately selected041.
 
 Pure original metadata correspondence only; no source/publication authority.

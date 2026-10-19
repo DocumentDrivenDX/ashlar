@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create two cohort objects and their independent edge through public Truss groups."""
 import argparse,sys
 from ashlar_host.truss_graph_mutation import run_mutate_truss_graph_command

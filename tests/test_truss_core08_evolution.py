@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Declared source-version routing, without SDK acceptance authority."""
 import json,tempfile,unittest
 from pathlib import Path

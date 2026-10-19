@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Captured trusted ordinary commerce provider; correspondence is not authority."""
 import hashlib,re
 from types import ModuleType

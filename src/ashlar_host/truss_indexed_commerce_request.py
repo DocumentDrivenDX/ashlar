@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original commerce SQL with truthful homogeneous physical Truss record homes."""
 import hashlib,json,re
 from types import MappingProxyType

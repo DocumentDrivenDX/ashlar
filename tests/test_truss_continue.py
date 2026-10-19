@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small existing-owner continuation controls; no native engine/source launch."""
 import copy
 import hashlib

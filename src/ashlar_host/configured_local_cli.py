@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed installed local lifecycle invocation with one bounded owned worker."""
 import argparse
 from contextlib import contextmanager,redirect_stdout

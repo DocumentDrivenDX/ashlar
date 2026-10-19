@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Foreground ownership of an existing initialized local Truss PostgreSQL server."""
 import json,os,re,signal,threading
 from pathlib import Path

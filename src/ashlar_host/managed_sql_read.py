@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded existing-warehouse read transport inside an owned supervised child.
 
 Routing accepts trusted internal SELECT/DESCRIBE/SHOW only; it is not an SQL

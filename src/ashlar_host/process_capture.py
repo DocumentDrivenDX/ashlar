@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned finite process transport; no semantic, SDK or publication authority.
 
 The retained supervisor owns the session leader until all streams/status close;

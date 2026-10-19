@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original uncertain protected readback; inert PG/native ports, no native claim."""
 import unittest
 from unittest.mock import patch

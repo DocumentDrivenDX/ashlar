@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real configured source composition over an inert public graph producer port."""
 import json,tempfile,unittest
 from dataclasses import replace

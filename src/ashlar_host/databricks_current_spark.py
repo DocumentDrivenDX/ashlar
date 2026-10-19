@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit Spark current-query mechanics; injected owners retain all authority.
 
 No Spark session or Unity Catalog authority is discovered or created. The caller

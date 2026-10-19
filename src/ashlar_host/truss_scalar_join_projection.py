@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact required scalar equality joins; complete independent pair bags."""
 import hashlib,json
 from decimal import Decimal

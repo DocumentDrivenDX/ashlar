@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit tiny finite-file Delta setup and original five-query composition.
 
 Exclusive private local directories and actual POSIX leases govern this profile.

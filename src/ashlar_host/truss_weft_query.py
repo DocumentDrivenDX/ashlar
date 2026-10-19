@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original Truss STRING bindings and publication-pinned public Weft queries.
 
 Compiler receipts supply no native/source authority; the live owner supplies it.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Streaming, exact-byte source admission. A complete batch is not publication."""
 from dataclasses import dataclass
 import hashlib

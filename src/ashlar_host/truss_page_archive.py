@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original bounded public Truss page bytes; never live source authority."""
 import base64
 import hashlib

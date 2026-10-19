@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original commerce finite-dataset receipt, independently checked endpoints."""
 import hashlib,json,unittest
 from pathlib import Path

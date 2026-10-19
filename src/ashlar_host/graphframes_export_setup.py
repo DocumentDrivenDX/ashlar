@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configure existing GraphFrames export inputs without loading an engine."""
 import os
 from pathlib import Path

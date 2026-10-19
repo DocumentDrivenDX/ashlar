@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Scoped immutable comparison reuse; parent native gates stay independently live."""
 import unittest
 from contextlib import contextmanager

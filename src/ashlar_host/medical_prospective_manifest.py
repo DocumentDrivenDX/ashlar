@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """New authorized manifest intent; never replacement historical recovery custody."""
 import hashlib,os,stat
 from ashlar.manifest import DeltaManifestStore,validate_manifest_row

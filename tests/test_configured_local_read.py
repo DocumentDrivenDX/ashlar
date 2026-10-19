@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual core read/phase/progress custody over inert native SQL only."""
 from contextlib import contextmanager
 from pathlib import Path

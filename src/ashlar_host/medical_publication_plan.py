@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Construction-bound original medical intent; no native, phase or ACK authority."""
 from dataclasses import asdict
 import datetime

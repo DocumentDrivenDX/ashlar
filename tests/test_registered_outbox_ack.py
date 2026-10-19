@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public protected ACK invocation with inert source/Delta ports; no native claim."""
 import unittest
 from contextlib import closing

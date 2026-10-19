@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Full original VARCHAR projection through a supplied ordinary Gremlin port.
 
 The existing adapter and release owner retain native schema/engine/carrier

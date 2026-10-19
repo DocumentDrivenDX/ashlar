@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Row limit precedes native measurements; existing sentinel decoder stays strict."""
 import sys,unittest
 from types import SimpleNamespace

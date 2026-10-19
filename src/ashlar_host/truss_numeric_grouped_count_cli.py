@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Query an existing Truss publication without publishing or acknowledging it."""
 from pathlib import Path
 from .weft_compatible_cli import CompatibleCompiler

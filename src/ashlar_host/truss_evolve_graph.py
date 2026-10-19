@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Accepted record evolution followed by two original feed publications."""
 import hashlib,json
 from pathlib import Path

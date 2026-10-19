@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure fixed original request/oracle controls; no compilation or native pass."""
 from collections import Counter
 import copy

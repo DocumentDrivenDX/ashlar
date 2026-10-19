@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure mapping controls only; inert population has no source/ACK authority."""
 import copy
 import hashlib

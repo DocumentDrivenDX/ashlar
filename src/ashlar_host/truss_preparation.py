@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded effect-free installed preparation owner; portable parent never imports Truss."""
 from dataclasses import asdict, fields
 import hashlib

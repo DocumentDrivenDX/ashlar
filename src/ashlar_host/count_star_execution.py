@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Provisional, bounded path execution in one caller-owned publication hold.
 
 This module creates no engine, installs no compiler, persists no report and grants

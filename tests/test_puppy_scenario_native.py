@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small composition controls; inert runtime never qualifies native execution."""
 from contextlib import contextmanager
 from pathlib import Path

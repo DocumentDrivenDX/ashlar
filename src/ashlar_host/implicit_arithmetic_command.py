@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit trusted operator ordinary sessions for the original042 command."""
 from .config import HostError
 from .implicit_arithmetic_configuration import QueryCommerceImplicitArithmeticConfig

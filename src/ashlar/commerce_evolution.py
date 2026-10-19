@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Named commerce development transactions and independent original snapshot oracle.
 
 This prepares data transitions; it does not validate UMF, authorize a source, or

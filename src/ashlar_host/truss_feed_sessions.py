@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary public Truss feed sessions and publication-before-ACK composition.
 
 Plain Truss ACK asserts delivery without destination receipt retention. Explicit

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Eight-step public composition with original semantics/inert native ports only."""
 from contextlib import contextmanager
 import hashlib

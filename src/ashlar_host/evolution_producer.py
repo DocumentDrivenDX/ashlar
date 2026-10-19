@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned bounded producer transport; no semantic, SDK or publication authority."""
 import os
 import selectors

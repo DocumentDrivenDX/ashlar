@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit count/IN host route against actual public compiler artifacts."""
 import copy,json,os,unittest
 from pathlib import Path

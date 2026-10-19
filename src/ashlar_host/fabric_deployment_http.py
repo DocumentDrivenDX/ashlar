@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite ordinary delegated Fabric deployment HTTP, CONTRACT-003.
 
 Only explicit creation and observation calls are exposed. No implicit polling,

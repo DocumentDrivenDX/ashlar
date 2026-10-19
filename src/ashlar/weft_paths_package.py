@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Separate Paths530 package verification against an injected trusted index.
 
 Index trust is injected by application composition. Inert manifests, passing

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest,json
 from supply_chain_graph_oracle import ROOT,original_graph_oracle
 class Tests(unittest.TestCase):

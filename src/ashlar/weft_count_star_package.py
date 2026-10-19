@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed independently indexed 5dd/041 package; no native or publication authority.
 
 Git source snapshots may be writable regular files. Every indexed content byte is

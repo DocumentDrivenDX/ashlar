@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Buffered Weft execution within one resolver/pin interval; no permissive policies."""
 import copy
 from dataclasses import dataclass, field

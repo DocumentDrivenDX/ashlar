@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed operator configuration preserves mode and finite resource selection."""
 import json
 from pathlib import Path

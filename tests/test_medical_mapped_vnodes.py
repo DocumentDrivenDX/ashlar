@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Optional pinned native mapping observer controls; no Spark or source operations."""
 from dataclasses import replace
 from pathlib import Path

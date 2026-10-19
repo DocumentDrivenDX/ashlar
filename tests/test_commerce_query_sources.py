@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual private lock/registry controls on inert snapshots; no PostgreSQL proof."""
 import json
 import sqlite3

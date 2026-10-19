@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One observed local-source candidate CLI; original bytes confer no authority."""
 from dataclasses import dataclass
 from pathlib import Path

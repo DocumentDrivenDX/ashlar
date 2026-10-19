@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent required-STRING source-prefix page expectations, never authority."""
 import hashlib
 from ashlar.schema import decode_retained_json

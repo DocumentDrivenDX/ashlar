@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert full original-carrier/core wiring controls; no native/lease qualification."""
 from collections import Counter
 from contextlib import contextmanager

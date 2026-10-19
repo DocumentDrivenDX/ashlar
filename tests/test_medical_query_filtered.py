@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pinned finite encounter order/limit case; no native execution claim."""
 import json,unittest
 from pathlib import Path

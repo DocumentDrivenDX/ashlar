@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Relationship composition controls; scalar source admission remains its owner."""
 import copy
 import hashlib

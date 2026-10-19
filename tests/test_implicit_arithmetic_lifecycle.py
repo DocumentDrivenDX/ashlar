@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert SDK/session ports; public original leaf wiring, no native qualification."""
 from contextlib import contextmanager
 from pathlib import Path

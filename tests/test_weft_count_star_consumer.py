@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Portable trust-order, Git-input custody and selected transport controls."""
 import json,os,tempfile,unittest
 from pathlib import Path

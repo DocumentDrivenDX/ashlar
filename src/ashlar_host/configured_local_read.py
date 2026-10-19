@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original-ordinal singleton under a held local cooperative installation lease.
 
 No PostgreSQL pin, remote source ACK, mutation, checkpoint write or latest fallback.

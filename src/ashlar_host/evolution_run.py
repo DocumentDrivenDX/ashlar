@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed original eight-step run and positive pre-submission custody.
 
 The owned local SQLite ledger is distinct from native-operation custody. Every

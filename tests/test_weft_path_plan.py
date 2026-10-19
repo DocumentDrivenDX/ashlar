@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-only actual compiler fixtures; mocked trusted ports grant no admission authority.
 
 Retained complete lowering JSONL SHA256 376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9. Synthetic mappings and

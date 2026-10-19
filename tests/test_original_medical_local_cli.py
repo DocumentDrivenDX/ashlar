@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed worker dispatch controls; runtime/native delegates remain inert."""
 from contextlib import contextmanager
 import hashlib,json,os

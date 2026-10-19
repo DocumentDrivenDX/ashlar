@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned lifecycle exception identity and cleanup/cancellation ordering."""
 from contextlib import contextmanager
 import unittest

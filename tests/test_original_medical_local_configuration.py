@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed medical selections do not acquire SDK, source or native authority."""
 import copy
 from dataclasses import replace

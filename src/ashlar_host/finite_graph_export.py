@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real held finite-publication reader for canonical immutable graph export."""
 import hashlib,json
 from collections import Counter

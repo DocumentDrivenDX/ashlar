@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite original object bags and inert owning-port lifecycle controls, not native evidence."""
 import copy,json,hashlib,unittest
 from types import SimpleNamespace

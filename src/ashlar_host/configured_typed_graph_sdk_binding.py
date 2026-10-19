@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit required-STRING graph mapping for the public authored-Key page SDK.
 
 The original complete model/source stay unchanged. Optional or non-STRING homes

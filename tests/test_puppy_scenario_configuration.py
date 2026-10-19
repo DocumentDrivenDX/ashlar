@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed immutable original17 configuration; no file/SDK acquisition."""
 import json,pickle,unittest
 from dataclasses import FrozenInstanceError

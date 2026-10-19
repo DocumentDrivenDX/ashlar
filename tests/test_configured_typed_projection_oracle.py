@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact source-to-carrier controls; no compiler/native or authority substitute."""
 import unittest
 from decimal import localcontext

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh-only OneLake release-byte upload under an actual local mutation lease.
 
 Byte correspondence is not publication/source/native/load authority. The caller

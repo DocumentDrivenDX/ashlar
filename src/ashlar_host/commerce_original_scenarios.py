@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Four unchanged commerce pack queries and independent original occurrence bags.
 
 Request construction and source correspondence grant no publication, ACK,

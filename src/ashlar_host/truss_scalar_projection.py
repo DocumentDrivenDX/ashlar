@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Direct required scalar projections from original accepted faceted models."""
 import hashlib,json,re
 from collections import Counter

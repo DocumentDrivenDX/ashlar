@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Native UC search transport; explicit credentials and lifecycle custody only.
 
 No publication writes or default lifecycle authority are provided. Qualification

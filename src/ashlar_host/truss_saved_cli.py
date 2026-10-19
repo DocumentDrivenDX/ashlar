@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit first publication of an archived selection without a retained attempt."""
 from .lifecycle import owned_context
 from .truss_recovery import restore_applied_truss_publication

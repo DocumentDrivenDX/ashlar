@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed installed041/042 commerce lifecycle; no fallback or source grant.
 
 Results are provisional until held readers close, Spark stops, and closing source,

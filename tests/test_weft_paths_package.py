@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure Paths-profile boundary tests with fixture-only trust identities."""
 import gzip
 import hashlib

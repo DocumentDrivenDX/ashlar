@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing local installation, cooperative POSIX lease and ordinary sessions.
 
 No installation, roles, grants, runtime or credentials are discovered or created.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Portable, finite public Truss → Delta → Weft example; existing runtimes only."""
 import json,os,sys
 from dataclasses import dataclass

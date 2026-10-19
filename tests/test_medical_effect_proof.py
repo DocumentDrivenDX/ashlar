@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual driver/journal/ordinal inspector; native and ordinary SQL ports inert."""
 from contextlib import ExitStack, nullcontext
 import json

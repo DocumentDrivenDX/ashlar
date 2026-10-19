@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded original Unity Catalog effective-permission API observations.
 
 Retains raw pages, including unknown content; unknown meaning refuses admission.

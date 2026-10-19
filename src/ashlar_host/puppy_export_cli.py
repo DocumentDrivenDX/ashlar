@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public bounded PuppyGraph corpus over an admitted immutable release pair."""
 from collections import Counter
 from dataclasses import replace

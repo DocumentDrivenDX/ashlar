@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact authored payments currency query through installed 0.4.2."""
 from dataclasses import dataclass,replace
 import hashlib,json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Named fields from an already authorized complete Truss object singleton."""
 from ashlar.schema import decode_retained_json
 from ashlar.typed_source_policy import NumericToken

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compose finite retention with mandatory independent publication/read policies.
 
 No permissive authorization, original timestamp custody, file availability,

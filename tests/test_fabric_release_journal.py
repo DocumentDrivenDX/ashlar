@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real local lifecycle storage; no Fabric/native/source authority claim."""
 from dataclasses import replace
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Retained caller-asserted Truss ACK intent; never a protected ACK receipt."""
 from ashlar.attempt_store import DeltaAttemptStore
 from .delta_custody import encoded, sha

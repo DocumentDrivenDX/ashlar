@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Serialized immutable manifest append with mandatory independent admission."""
 import re
 from .native import _quoted

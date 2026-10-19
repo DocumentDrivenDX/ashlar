@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Generate the supported local supply-chain invocation without engine I/O."""
 import json
 from pathlib import Path

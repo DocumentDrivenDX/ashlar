@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from contextlib import contextmanager
 import hashlib,json,sqlite3,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Conditional native-current composition with explicitly injected authority.
 
 A caller must explicitly supply a trusted backend owner. There is no default

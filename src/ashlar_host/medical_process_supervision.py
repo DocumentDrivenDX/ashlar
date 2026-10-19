@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Private worker phase signals; no data authority or native acceptance claim."""
 from dataclasses import asdict
 import fcntl

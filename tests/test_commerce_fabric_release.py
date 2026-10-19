@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual commerce owner composition over inert graph and HTTP ports; no native claim."""
 from contextlib import contextmanager
 import json

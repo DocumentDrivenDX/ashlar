@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit installed GraphFrames operator boundary; code hashes grant no authority.
 
 The selected provider supplies actual live custody or retained protected-ACK export

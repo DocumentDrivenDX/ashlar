@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit immutable-file/model/binding configuration; no native catalog authority."""
 from pathlib import Path
 from dataclasses import dataclass

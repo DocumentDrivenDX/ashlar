@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact public compatible-revision request/proof foundation; no query authority.
 
 Admission takes the original request binding, after independent full publication

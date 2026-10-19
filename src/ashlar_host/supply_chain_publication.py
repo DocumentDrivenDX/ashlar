@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Legacy original supply-chain API over the shared finite publication owner."""
 from contextlib import contextmanager
 from .lifecycle import owned_context

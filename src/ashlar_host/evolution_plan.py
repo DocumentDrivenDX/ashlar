@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original evolution plan custody; this owner grants no native or ACK authority.
 
 The publication coordinator and native driver's held admission remain mandatory.

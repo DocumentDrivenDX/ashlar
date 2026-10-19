@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Typed full medical read capture and existing ACK SELECT correspondence owner."""
 import json
 from pathlib import Path

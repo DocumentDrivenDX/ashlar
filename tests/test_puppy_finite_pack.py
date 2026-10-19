@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original two authored STRING selectors; no native engine or source grant."""
 import json,hashlib,unittest
 from pathlib import Path

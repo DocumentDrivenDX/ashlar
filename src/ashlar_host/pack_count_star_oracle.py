@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent complete original17 bags and selected Spark041 output carriers.
 
 Original graph oracles preserve lexical source tokens and opaque identities.

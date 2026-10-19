@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed original-commerce evolution admission; no writer/publication/ACK authority.
 
 Fresh selected public UMF calls verify source/data semantics. The source and

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original configured immutable-file lifecycle specifications, not Delta authority.
 
 The source owns portable prefix states and exact publisher requests. Native

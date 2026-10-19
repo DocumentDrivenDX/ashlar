@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-only composition/lifecycle controls; all native ports are mocked."""
 from contextlib import contextmanager
 from dataclasses import replace

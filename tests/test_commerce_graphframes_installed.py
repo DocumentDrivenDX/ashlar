@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original commerce source/carrier/finite evidence controls, without an engine."""
 import copy,hashlib,json
 from pathlib import Path

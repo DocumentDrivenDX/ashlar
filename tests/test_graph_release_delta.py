@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic finite release writer tests with inert Spark ports, no SDK/native run."""
 from pathlib import Path
 from contextlib import contextmanager

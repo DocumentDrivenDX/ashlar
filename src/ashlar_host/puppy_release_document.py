@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Strict canonical public graph-release carrier admission, without engine authority.
 
 Byte and manifest correspondence cannot establish current source/read authority;

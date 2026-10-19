@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from pathlib import Path
 from prepare_supply_chain_query_cases import prepare_supply_chain_cases, CASE_IDS

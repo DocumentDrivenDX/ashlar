@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small phase-order/refusal controls; no compiler or engine qualification."""
 import json,unittest
 from unittest.mock import patch

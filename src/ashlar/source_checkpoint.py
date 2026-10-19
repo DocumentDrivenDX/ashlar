@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact explicit source checkpoint binding for durable publication intent."""
 import hashlib
 import json

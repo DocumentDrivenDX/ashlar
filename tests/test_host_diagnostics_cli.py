@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source CLI capture/retrieval and wiring controls; no installed/native claim."""
 from contextlib import contextmanager
 from dataclasses import asdict, replace

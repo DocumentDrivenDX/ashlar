@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual core resolver/source/progress owners over inert native SQL only."""
 from collections import Counter
 import hashlib,json,tempfile,unittest

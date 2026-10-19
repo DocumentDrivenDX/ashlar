@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual pinned compiler descriptors; unit callbacks grant no native authority."""
 import copy,json,unittest
 from pathlib import Path

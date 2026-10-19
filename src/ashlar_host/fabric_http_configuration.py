@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact finite Fabric HTTP settings; passive selections confer no authority."""
 from dataclasses import dataclass
 from pathlib import Path

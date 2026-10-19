@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Injected lifecycle controls; no native or installed workflow qualification."""
 import unittest
 from unittest.mock import patch

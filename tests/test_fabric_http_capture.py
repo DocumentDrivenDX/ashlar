@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite real private-pipe and retained-group supervision controls."""
 from pathlib import Path
 import os,sys,tempfile,time,unittest

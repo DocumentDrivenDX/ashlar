@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary delegated Fabric authentication; publication authority stays with policy."""
 from contextlib import contextmanager
 from dataclasses import dataclass

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Typed singleton source adapter using original public UMF Record evidence.
 
 Transport token translation and custody checks only; UMF owns value/presence

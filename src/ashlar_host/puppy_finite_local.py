@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned local PuppyGraph seam for the two original finite STRING cases.
 
 No runtime inventory or canonical-source grant. Export permissions are local

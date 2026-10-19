@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Update then delete the original cohort pair using current authorized Truss reads."""
 import json
 from contextlib import contextmanager

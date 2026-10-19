@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert full-column/GraphSON controls; native Gremlin remains separately qualified."""
 import copy
 import json

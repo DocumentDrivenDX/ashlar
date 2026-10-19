@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original commerce SQL and metadata with the explicit 0.4.2 profile.
 
 Construction grants no publication, source, compiler or execution authority.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Focused original-shaped authored path oracle and unchanged guard ports."""
 import copy,hashlib,json,unittest
 from pathlib import Path

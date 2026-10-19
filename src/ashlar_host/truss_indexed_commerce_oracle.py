@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure four-case oracle over current published rows and accepted original homes.
 
 Metadata correspondence and finite arithmetic are not native/source guard discharge.

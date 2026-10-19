@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixture index authority only; no public realization is registered by tests."""
 from dataclasses import replace
 import hashlib

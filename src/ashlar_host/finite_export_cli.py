@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Export an existing actual finite publication; no compiler or graph-engine execution."""
 import hashlib,json,re,tempfile
 from pathlib import Path

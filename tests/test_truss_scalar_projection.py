@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,hashlib,json,unittest
 from unittest.mock import patch
 import test_truss_value_projection as original

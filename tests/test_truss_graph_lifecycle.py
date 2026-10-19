@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small selected-target operation/preflight controls, no native SDK execution."""
 import json,tempfile,sys,unittest
 from pathlib import Path

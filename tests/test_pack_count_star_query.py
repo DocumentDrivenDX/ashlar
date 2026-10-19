@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from unittest.mock import patch
 from ashlar_host.pack_count_star_query import finite_pack_public_source,query_pack_count_star_cases

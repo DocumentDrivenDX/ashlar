@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic held-query lifecycle controls, no native compiler/engine qualification."""
 import json
 import unittest

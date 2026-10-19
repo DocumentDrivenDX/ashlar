@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Dependency-free setup against an original retained immutable release pair."""
 import hashlib,json,stat,tarfile,tempfile,unittest
 from pathlib import Path

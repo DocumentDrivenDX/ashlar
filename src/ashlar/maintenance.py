@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Conservative whole-table pin exclusion; external cleanup containment required.
 
 This does not submit VACUUM or discover all operators. A host must keep original

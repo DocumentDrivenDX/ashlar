@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Verify exact native profile-byte custody; never interpret it as registration."""
 from dataclasses import dataclass
 import hashlib

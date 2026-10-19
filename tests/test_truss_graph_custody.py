@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Structural immutable Truss capture correspondence; no native execution."""
 import hashlib
 import json

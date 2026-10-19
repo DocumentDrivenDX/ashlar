@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Optional pinned-driver wire admission; no engine or socket required."""
 import json,tempfile,unittest
 from pathlib import Path

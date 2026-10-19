@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Full-vector PostgreSQL pin custody; external retention admission is mandatory.
 
 Executor.transaction(context) must yield one authenticated transactional executor,

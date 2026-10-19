@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original lexical supply-chain graph oracle, not an UMF validator.
 
 Original candidate row identities/values are preserved. Public finite-dataset

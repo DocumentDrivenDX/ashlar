@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable Truss graph capture correspondence, never protected ACK authority."""
 import base64
 import hashlib

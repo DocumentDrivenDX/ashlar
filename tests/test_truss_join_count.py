@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public observed join IR and accepted-home controls; no native execution."""
 import copy,json,unittest
 import test_truss_weft_related as fixtures

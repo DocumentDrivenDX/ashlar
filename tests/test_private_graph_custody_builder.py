@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic public receipt builder correspondence; fixture observations are inert."""
 import hashlib,json,unittest
 import test_private_graph_custody as fixture

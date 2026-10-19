@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original typed-graph prefix bags; no SQL or native-result oracle.
 
 This closed subset supports required facetless STRING projections, global count

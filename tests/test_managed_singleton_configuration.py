@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed configuration controls; no credential reads, producer or services."""
 import copy,json,tempfile,unittest
 from pathlib import Path

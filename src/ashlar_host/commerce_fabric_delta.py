@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact commerce release carriers on fresh Delta targets under source/ACK custody.
 
 All columns remain STRING; scalar properties remain their original JSON carrier.

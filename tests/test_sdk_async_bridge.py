@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bridge lifecycle controls. Fake owners do not qualify native cancellation."""
 import asyncio
 from contextlib import contextmanager

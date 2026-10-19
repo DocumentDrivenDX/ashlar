@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,json,sys,unittest
 from pathlib import Path
 from ashlar.csv_source import csv_batches

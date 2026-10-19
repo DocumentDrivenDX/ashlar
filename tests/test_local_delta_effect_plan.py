@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual owned SQLite/transport ports with an inert engine; no native qualification."""
 from contextlib import contextmanager
 import json

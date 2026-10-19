@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real leases/journal/producer lifecycle and core restore; SDK/producer ports inert."""
 from pathlib import Path
 from contextlib import contextmanager

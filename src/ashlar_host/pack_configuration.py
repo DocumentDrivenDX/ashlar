@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Print existing finite-pack invocation configuration without engine/source I/O.
 
 The closed developer budget selects finite bounds, not authority or resources.

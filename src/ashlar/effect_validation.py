@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded complete-row parity at exact native versions, not retention authority.
 
 Expected schemas/inventories must be independently derived from admitted source

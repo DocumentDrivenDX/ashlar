@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Live original commerce GraphFrames under actual ordinary publication custody.
 
 Named carriers establish correspondence, not authority. The canonical reader and

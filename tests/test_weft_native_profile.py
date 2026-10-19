@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,json,unittest
 from ashlar.native import SQLResult
 from ashlar.publication import ResolutionError

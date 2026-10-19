@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Capture original public historical catalog bytes required by one native page."""
 import base64,hashlib,json,re
 from pathlib import Path

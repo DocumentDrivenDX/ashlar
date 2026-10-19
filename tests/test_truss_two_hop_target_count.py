@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small distinct terminal key set versus independent path multiplicity tests."""
 import unittest
 from types import SimpleNamespace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public required-STRING equality INNER JOIN projections and counts."""
 from collections import Counter,defaultdict
 import hashlib,json

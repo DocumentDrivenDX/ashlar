@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh local Spark context inside an externally supervised isolated worker."""
 from contextlib import contextmanager
 import os

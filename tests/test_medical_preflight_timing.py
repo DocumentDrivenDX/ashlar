@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed diagnostic prefix/cleanup and exact existing recovery route; no native."""
 from contextlib import contextmanager,ExitStack
 from pathlib import Path

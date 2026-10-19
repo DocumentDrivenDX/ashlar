@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic configuration generation and public CLI controls; no SDK execution."""
 import contextlib,io,json,tempfile,unittest
 from pathlib import Path

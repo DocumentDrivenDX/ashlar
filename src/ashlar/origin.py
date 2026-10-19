@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Candidate lossless canonical-tree/ExactValue origin mapping.
 
 Does not authenticate a role or register the selected origin mapping profile.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded original c45 UMF Record admission; no native/source authority."""
 import base64
 import hashlib

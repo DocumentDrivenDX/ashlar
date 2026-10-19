@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original source/retained clock correspondence; inert local records, no native calls."""
 import json,unittest
 from pathlib import Path

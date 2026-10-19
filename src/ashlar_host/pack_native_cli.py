@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original finite-pack publication/query invocation and owned output.
 
 The native owner establishes current local source/publication custody. This

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only outcome/process composition controls; inert native/OS boundaries."""
 from contextlib import contextmanager,ExitStack
 from dataclasses import replace

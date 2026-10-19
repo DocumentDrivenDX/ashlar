@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed existing-publication read composition; no registration or mutation."""
 from dataclasses import dataclass
 from contextlib import contextmanager

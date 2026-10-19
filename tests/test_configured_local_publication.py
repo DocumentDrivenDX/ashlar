@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real portable publisher/progress over inert native ports; no Delta execution."""
 import json,re,sqlite3,tempfile,unittest,os
 from pathlib import Path

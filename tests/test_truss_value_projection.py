@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert accepted-model/binding ports; real shared value decoder and bag checks."""
 import hashlib,json,unittest
 from pathlib import Path

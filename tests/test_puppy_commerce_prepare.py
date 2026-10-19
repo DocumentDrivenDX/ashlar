@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary preparation ports only; no DuckDB/native session qualification."""
 import hashlib,json,tempfile,types,unittest
 from pathlib import Path

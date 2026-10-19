@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public original medical singleton composition; actual reader owns all closing."""
 from .medical_singleton_query import MedicalSingletonQuery
 from .original_medical_local_read import read_original_medical_local

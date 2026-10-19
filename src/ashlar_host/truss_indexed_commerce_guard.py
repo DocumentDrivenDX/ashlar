@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original Truss mathematical source projections; no dataset receipt or authority."""
 from dataclasses import dataclass
 from collections import Counter

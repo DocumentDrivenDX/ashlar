@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed installed original17 worker; parent owns whole deadline and control pipe."""
 from contextlib import ExitStack
 from dataclasses import asdict

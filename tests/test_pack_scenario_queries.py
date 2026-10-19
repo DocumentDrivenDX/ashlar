@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public original17 pure helper parity; no source or engine authority."""
 import base64,json,unittest
 from ashlar_host import pack_scenario_queries as public

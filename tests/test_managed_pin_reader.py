@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual synthetic private files/inert driver only; no PostgreSQL or credentials."""
 import copy,json,os,tempfile
 from pathlib import Path

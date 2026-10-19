@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Dedicated existing medical installation lease; no native or source grants."""
 from contextlib import contextmanager
 from dataclasses import dataclass

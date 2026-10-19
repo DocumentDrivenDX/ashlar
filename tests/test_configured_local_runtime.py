@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert Spark metadata ports and actual private lease/source lifecycle only."""
 from dataclasses import replace
 from pathlib import Path

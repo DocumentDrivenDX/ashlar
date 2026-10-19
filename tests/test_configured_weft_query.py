@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held provider resolution over real core/source owners and inert native ports."""
 import json,unittest,uuid
 from types import SimpleNamespace

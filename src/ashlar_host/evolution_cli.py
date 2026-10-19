@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed explicit eight-step invocation and trusted operator extension boundary.
 
 The provider is Python code selected by the operator, not a sandbox. Its pin

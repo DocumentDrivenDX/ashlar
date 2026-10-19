@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit installed activation/read handles under trusted operator policy.
 
 Operator code is explicitly SHA-selected, not sandboxed. Durable original intent

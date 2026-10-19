@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original17 correspondence and complete LEFT witnesses, no Spark claim."""
 import json
 from pathlib import Path

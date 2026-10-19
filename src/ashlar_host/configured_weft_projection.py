@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent configured-source result bags for an explicit Spark041 subset.
 
 Compiler IR selects admitted logical fields; values come only from the original

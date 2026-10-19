@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit installed entry ownership controls; no native qualification."""
 import contextlib
 import hashlib

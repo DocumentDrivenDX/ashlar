@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Passive exact installation correspondence, independently composed stage fixtures."""
 import copy
 from dataclasses import replace

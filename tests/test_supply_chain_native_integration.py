@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """0.2 owning orchestration controls with inert query/native lower ports only."""
 import contextlib,json,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected runtime correspondence controls with inert imports, no SDK/native run."""
 from dataclasses import asdict,replace
 import hashlib,json,os,sys,tempfile,unittest,tarfile

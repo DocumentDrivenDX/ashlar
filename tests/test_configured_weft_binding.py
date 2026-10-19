@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure builder checks inside the existing real minted read-scope fixture."""
 import json,hashlib,unittest,uuid
 from types import SimpleNamespace

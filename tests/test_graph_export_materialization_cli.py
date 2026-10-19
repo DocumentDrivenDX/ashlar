@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic CLI composition: actual temporary export files, inert Spark, no SDK/PG."""
 from pathlib import Path
 from contextlib import contextmanager

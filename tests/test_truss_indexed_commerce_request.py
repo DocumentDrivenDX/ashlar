@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Effect-free original commerce binding correspondence with inert allocations."""
 import copy,hashlib,json,unittest
 from pathlib import Path

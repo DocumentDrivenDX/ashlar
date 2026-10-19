@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Focused inert transport coverage; no native engine qualification."""
 import copy,json,unittest
 from contextlib import nullcontext

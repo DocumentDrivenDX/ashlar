@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """CONTRACT-006 admission/privacy controls; no SDK or receiver qualification."""
 from dataclasses import FrozenInstanceError, replace, asdict
 from pathlib import Path

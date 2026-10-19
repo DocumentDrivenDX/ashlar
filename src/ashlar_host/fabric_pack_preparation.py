@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original17 local projection preparation; no Fabric/publication authority grant."""
 import base64,json,re
 from pathlib import Path

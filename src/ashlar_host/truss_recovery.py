@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Applied Truss artifact restoration; original plans only, no new source authority."""
 import base64
 import datetime

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Trusted explicit provider example; replace all three constants before use."""
 from pathlib import Path
 

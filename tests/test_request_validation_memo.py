@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure semantic reuse; real request parser and inert original source owners."""
 import hashlib,json,time,unittest
 from unittest.mock import patch

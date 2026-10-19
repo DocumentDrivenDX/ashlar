@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed DISTINCT host admission; actual compiler fixture replay is explicit."""
 import copy,json,os,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert ownership controls; no actual PuppyGraph activation qualification."""
 from contextlib import contextmanager
 from pathlib import Path

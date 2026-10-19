@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compose explicit ordinary medical ports without opening or provisioning sessions."""
 import os
 from dataclasses import replace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compose admitted typed query families over one original publication owner."""
 from __future__ import annotations
 import json,os

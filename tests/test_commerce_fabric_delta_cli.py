@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed command composition: inert native boundaries, actual ordinary factories."""
 from contextlib import contextmanager,ExitStack
 from pathlib import Path

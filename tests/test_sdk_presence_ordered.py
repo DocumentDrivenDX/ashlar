@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-only transports against actual original engine0.2 compiler outputs."""
 import copy,json,unittest
 from pathlib import Path

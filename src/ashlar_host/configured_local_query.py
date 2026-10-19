@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit configured local query selection and bounded report projection."""
 from dataclasses import dataclass
 from decimal import Decimal

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite public Truss typed records/edges → Delta → forward/inverse key traversal."""
 import os,sys
 from dataclasses import dataclass

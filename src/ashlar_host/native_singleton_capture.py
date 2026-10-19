@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded one-row metadata observation; no source or native authority.
 
 The JVM may inspect two large rows. This bounds transferred driver payload,

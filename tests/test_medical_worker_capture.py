@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real tiny child/pipe/group capture controls, without Spark or data writes."""
 from dataclasses import replace
 import os

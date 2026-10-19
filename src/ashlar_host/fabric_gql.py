@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded Fabric beta GQL reads on explicitly supplied publication/native ports.
 
 HTTP authentication and graph/release authority belong to the supplied owners.

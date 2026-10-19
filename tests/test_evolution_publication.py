@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original semantic/transaction port controls; no native or installed-run claim."""
 import hashlib
 import json

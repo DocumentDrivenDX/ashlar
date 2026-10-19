@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure request/transport controls; retained metadata never grants authority."""
 import copy,json
 from pathlib import Path

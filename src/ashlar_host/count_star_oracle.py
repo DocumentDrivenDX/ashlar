@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite independent original-commerce occurrence bags and COUNT(*) HAVING.
 
 Original object values and edge ordinal occurrences determine results. Compiler

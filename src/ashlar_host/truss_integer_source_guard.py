@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Nominal complete Truss mathematical-integer source projections, never authority."""
 import hashlib,json,re
 from collections import Counter

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned medical worker capture with separate whole and native deadlines."""
 from dataclasses import asdict
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual original commerce publication -> CQP -> local Spark source refinement.
 
 Read-only original source/ACK and complete publication holds; new private staging

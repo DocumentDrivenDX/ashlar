@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded ordered whole-entity recovery from complete retained source rows.
 
 Caller admission must establish the original stage UUID/snapshot, complete ordered

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare existing-publication query selections; no producer or engine execution."""
 import json,os
 from pathlib import Path

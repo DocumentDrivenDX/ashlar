@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh initializer composition through actual custody; native/producer ports inert."""
 from contextlib import contextmanager
 from dataclasses import replace

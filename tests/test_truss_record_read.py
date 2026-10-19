@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from ashlar_host.truss_record_read import read_original_truss_record
 import test_truss_singleton

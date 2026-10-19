@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert selected-profile controls; injected test index is fixture authority only."""
 import copy
 from dataclasses import FrozenInstanceError

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit pinned native mapping observer; no compiler, primary-image or writer grant."""
 import errno,hashlib,math,os,selectors,stat,subprocess,time
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original local config and filesystem controls; producer transport is inert."""
 import hashlib,json,tempfile,unittest
 from pathlib import Path

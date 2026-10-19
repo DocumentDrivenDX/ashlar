@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed 0.4.1 count-star admission metadata; no SQL interpretation or native callbacks.
 
 The application owns the trusted schema-validation port and freshly recompiled

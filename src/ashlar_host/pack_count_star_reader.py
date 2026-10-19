@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held original-pack publication reader; no commerce or PostgreSQL factory."""
 from contextlib import contextmanager
 import hashlib,json

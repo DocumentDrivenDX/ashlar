@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact fixed physical provenance, compatibility and bounded resource lifetime."""
 import hashlib
 from importlib.resources import files

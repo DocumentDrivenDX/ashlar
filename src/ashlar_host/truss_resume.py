@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Resume an original Truss publication while its source checkpoint is pending."""
 from ashlar.attempt_store import DeltaAttemptStore
 from ashlar.stored_publisher import StoredPublisherBackend

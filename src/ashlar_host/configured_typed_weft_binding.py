@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original core0.8 binding metadata; no native or query authority.
 
 Explicit aliases describe physical names only. Their lifetime, original native

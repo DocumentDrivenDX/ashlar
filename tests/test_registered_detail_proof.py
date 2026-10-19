@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert exact binary comparison/action controls; no native engine execution."""
 import copy,sys,unittest
 from types import SimpleNamespace

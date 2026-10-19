@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Concrete Spark mechanics with inert native-shaped ports; no authority claim."""
 import contextlib
 import hashlib

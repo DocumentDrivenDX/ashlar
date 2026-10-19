@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh native detail projection controls; inert frames, no Spark execution."""
 import copy,json,sys,tempfile,unittest
 from pathlib import Path

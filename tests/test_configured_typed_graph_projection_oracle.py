@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real source/read lifetime over inert native/producer ports; no engine evidence."""
 from contextlib import contextmanager
 import copy,json,re,sqlite3,tempfile,unittest,uuid

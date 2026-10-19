@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original native gate guard controls with inert query/session ports; no native claim."""
 from contextlib import contextmanager
 from types import SimpleNamespace

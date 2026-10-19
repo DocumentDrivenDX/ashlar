@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Generator/lifecycle controls only; no Spark or Databricks calls."""
 import hashlib,json
 from pathlib import Path

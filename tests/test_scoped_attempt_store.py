@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-qualified original phase controls with inert native SQL transport."""
 from contextlib import contextmanager
 import hashlib

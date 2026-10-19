@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Accept an explicit compatible record revision and update one new exact scalar field."""
 import base64,json,os
 from contextlib import contextmanager

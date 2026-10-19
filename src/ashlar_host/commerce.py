@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed explicit local composition; source and native authority remain separate."""
 import hashlib
 import importlib.metadata

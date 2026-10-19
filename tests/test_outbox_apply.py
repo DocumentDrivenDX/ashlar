@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from dataclasses import replace
 import hashlib
 from pathlib import Path

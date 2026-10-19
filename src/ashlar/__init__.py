@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ashlar candidate runtime components; native integration is separately qualified."""
 from .publication import Descriptor, ResolutionError, ResolvedPublication, Snapshot, resolve_publication
 from .apply import ApplyError, ApplyState, Change, EntityKey, EntityState, empty_state, plan_apply

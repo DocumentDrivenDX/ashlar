@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json
 import unittest
 from weft_path_fixture import fixture_inputs, expected_cases, FIXTURE

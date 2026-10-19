@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh public core0.8 joint graph admission before native effects."""
 import hashlib,json,os,stat
 from ashlar.source import jsonl_batches

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure stable-ID planning. Native acceptance must serialize and revalidate it."""
 from dataclasses import dataclass
 from types import MappingProxyType

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Authored tiny IR fixtures in actual minted source/read/alias owners."""
 import copy,json,unittest,uuid
 from types import SimpleNamespace

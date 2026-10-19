@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original payments source correspondence, without publication authority."""
 import json
 import tempfile

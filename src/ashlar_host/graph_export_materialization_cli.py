@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Concrete local-development rematerialization of an explicitly selected export."""
 from dataclasses import dataclass
 from pathlib import Path

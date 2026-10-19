@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,json,sys,tempfile,types,unittest
 from dataclasses import dataclass
 from pathlib import Path

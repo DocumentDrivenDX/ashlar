@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure selected path carrier decoding; publication/source truth is caller-owned."""
 from dataclasses import dataclass
 from copy import deepcopy

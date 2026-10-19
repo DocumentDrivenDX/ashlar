@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Nonexecuting retained-fixture setup using explicitly selected existing runtimes.
 
 Inspection emits a candidate, not a grant. Setup requires the operator's separate

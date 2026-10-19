@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed path adapters preserve the reviewed public guard behavior.
 
 These tests use retained synthetic ports; they establish no native qualification.

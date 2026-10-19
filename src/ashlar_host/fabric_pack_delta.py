@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh typed original17 Delta projection; caller owns Spark/storage access."""
 from collections import Counter
 import json,re

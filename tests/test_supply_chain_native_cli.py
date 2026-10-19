@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure installed supply-chain config/report/lifecycle controls; no native SDK."""
 import contextlib,io,json,tempfile,unittest
 from decimal import Decimal

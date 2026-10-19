@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed worker composition controls; native/producer ports are injected."""
 import hashlib,json,os,tempfile,unittest
 from contextlib import contextmanager

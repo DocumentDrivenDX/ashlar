@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary connection composition controls, without a PostgreSQL service."""
 from dataclasses import replace
 import os

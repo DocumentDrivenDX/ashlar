@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit local original-commerce selections; no installation or discovery."""
 from dataclasses import dataclass
 from pathlib import Path

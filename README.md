@@ -157,3 +157,8 @@ selected export pair; see the [Fabric notebook guide](examples/fabric-gql/README
 Run a fresh local Truss → Delta → Weft workflow with [the portable Truss example](examples/truss-native/README.md#one-local-end-to-end-command).
 
 Run selected existing-publication graph reads with [the supply-chain common query command](examples/supply-chain-common-query.md).
+
+## License
+
+First-party software is dual-licensed under MIT OR Apache-2.0, at your option.
+See [LICENSE.md](LICENSE.md). Third-party materials retain their original notices.

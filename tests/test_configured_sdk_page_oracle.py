@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original graph/read owners with inert compiler metadata; no engine calls."""
 import copy,json,unittest
 from ashlar.weft_binding import LAYOUT_SHA256

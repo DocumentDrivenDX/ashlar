@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Current ordinary-role admission for an existing registered local outbox.
 
 The SQL service recomputes its retained installation signature. A separately

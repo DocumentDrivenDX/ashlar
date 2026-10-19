@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit host settings for the separately indexed original-commerce profile."""
 from __future__ import annotations
 from dataclasses import dataclass

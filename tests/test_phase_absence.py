@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real core sessions/SQLite, original finite semantics and inert native owners."""
 from contextlib import contextmanager
 from types import SimpleNamespace

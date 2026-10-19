@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded public041 compilation/admission inside an original local read scope.
 
 Compilation and offline artifact admission do not discharge source/native query

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,shutil,tempfile,unittest
 from pathlib import Path
 from run_typed_source_example import run

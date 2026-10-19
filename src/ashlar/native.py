@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only SQL backend; authenticated execution and policy are injected."""
 from dataclasses import dataclass
 from typing import Any, Mapping, Protocol, Sequence, Tuple

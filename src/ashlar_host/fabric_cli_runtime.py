@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Named operator-trusted installed runtime profiles and full original custody.
 
 Content correspondence does not authenticate an arbitrary tool. This supported

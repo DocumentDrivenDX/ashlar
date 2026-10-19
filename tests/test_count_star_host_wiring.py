@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public explicit selection/original source controls; inert ports only."""
 from copy import deepcopy
 import unittest

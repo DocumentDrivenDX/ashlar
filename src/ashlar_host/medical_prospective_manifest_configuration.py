@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed operator selection for a new prospective medical manifest submission."""
 from dataclasses import dataclass,replace
 import hashlib

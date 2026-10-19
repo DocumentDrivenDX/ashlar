@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert finite native-owner controls; no public producer or Spark qualification."""
 from pathlib import Path
 from types import SimpleNamespace

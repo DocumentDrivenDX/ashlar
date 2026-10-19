@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from contextlib import contextmanager
 import unittest
 from ashlar.quarantine import CleanupRequest,CleanupQuarantine

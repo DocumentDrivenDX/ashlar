@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original17 pure preparation and inert ownership controls; no native claims."""
 import unittest
 import json

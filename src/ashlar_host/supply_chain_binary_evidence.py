@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned bounded original protocol retention; never execution authority.
 
 All filenames/record positions come from the original five-plus-twelve inventory.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import pathlib, tempfile, json, unittest
 from unittest.mock import patch
 import evolution_stage_observer as m

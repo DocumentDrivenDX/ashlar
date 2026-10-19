@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded selected-runtime correspondence, never native/source authority."""
 from contextlib import contextmanager
 from dataclasses import asdict

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact tagged output controls plus optional actual public compiler replay inputs."""
 import copy,json,os,sys,unittest
 from pathlib import Path

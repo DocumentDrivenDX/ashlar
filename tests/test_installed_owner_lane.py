@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public installed owner ports with inert SDK observations; no remote authority proof."""
 import unittest
 from types import SimpleNamespace

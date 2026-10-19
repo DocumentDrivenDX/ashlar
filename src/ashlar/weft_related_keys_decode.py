@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure required-root String-key decoding; held bag truth is host-owned.
 
 The caller first admits bounded original metadata, source and publication pins.

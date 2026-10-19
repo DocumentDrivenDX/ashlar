@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare a fresh ordinary reader URI; never connect or grant source authority."""
 from dataclasses import dataclass
 import hashlib,json,os

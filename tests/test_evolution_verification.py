@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public verification guard controls with inert native frames; no native qualification."""
 import json
 import os

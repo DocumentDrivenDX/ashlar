@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Iterator controls only; synthetic pages do not qualify an Ashlar backend."""
 import unittest
 from types import SimpleNamespace

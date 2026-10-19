@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT OR Apache-2.0
 # Complete public CLI template. Replace every REPLACE_WITH value before use.
 # Invoke through your explicit finite process supervisor; this CLI runs Spark directly.
 set -eu

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Truss coordinator retains original plans before a durable prepared phase."""
 from ashlar.stored_publisher import StoredPublisherBackend
 

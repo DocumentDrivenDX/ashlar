@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit source/revision dispatch for already admitted schema policies.
 
 This inventory establishes neither native catalog acceptance nor compatibility.

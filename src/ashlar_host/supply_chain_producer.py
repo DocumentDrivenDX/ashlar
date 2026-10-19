@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual pinned public dataset invocation and held emitted receipt custody."""
 import hashlib
 import os

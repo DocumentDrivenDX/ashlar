@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Private immutable-file consumer progress after native descriptor resolution.
 
 This is durable local consumer progress, never a remote producer/Truss ACK.

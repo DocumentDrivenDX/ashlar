@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configured source custody for the existing public typed page adapter.
 
 No new page compiler/executor or producer authority is introduced. Results remain

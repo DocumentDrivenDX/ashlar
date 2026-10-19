@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Captured ordinary-provider selection controls; no native execution claim."""
 import hashlib,tempfile,unittest
 from pathlib import Path

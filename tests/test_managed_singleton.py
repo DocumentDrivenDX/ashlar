@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert lower-port composition controls; no SDK, producer or native calls."""
 from contextlib import contextmanager
 import json,os,tempfile,unittest,hashlib

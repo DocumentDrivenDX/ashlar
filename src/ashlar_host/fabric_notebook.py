@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare a local Fabric notebook from an explicitly selected export pair.
 
 The generated notebook contains the selected data. Keep it private and upload

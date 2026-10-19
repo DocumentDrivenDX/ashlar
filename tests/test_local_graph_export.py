@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic real local-file export-use tests; Spark ports inert, no live authority."""
 from pathlib import Path
 import hashlib,tempfile,unittest

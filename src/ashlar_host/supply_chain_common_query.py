@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed common graph reads and genuine041 execution; outer custody is required."""
 from dataclasses import dataclass
 import hashlib

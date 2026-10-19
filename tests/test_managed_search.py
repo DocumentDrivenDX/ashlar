@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Native metadata fault controls; these doubles do not qualify managed UC."""
 
 import copy

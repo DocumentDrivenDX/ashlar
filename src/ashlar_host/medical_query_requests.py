@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite original medical cases; pure source witnesses, never authority."""
 from collections import Counter
 import hashlib,json

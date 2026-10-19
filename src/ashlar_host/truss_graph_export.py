@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Canonical graph bytes from the original live Truss publication owner.
 
 No protected ACK custody or fresh post-ACK source reopening is implied.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real pipe and selected runtime custody controls; no native execution."""
 from contextlib import ExitStack
 import os

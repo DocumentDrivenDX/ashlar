@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pack custody across outer cleanup; native execution is mocked."""
 import tempfile,unittest
 from pathlib import Path

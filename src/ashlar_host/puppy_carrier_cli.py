@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit carrier preparation with independently admitted original releases.
 
 The selected operator is trusted code. Prepared bytes and receipts grant no

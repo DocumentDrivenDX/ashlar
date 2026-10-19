@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite pair notebook preparation only; no install, Spark, cloud or execution."""
 import base64,hashlib,json,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One existing publication owner for a finite gallery of unchanged Weft queries."""
 from dataclasses import dataclass
 import json,os

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic concrete CLI composition; public Spark/reader ports inert, no DB/SDK."""
 from pathlib import Path
 from contextlib import contextmanager

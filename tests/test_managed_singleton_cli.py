@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed command wiring and real bounded diagnostics; no native services."""
 from contextlib import contextmanager
 import hashlib,json,os,sys,unittest

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Notebook template: supply real release admission and fresh OneLake paths.
 
 This file does not acquire credentials or create a graph model. The notebook

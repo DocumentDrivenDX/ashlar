@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure installed invocation/custody controls; no producer, compiler or Spark runs."""
 import contextlib,copy,io,json,tempfile,unittest
 from pathlib import Path

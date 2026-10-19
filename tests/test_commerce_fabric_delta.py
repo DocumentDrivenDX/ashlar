@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual nominal publication owner with inert Delta storage; no native qualification."""
 import json
 import tempfile

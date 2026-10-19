@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Archive correspondence only; no native or current-head substitute."""
 import base64,hashlib,json,sys,tempfile,types,unittest
 from dataclasses import dataclass

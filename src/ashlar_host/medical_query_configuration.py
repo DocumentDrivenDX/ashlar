@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed installed medical batch selection; paths never select compiler trust."""
 from dataclasses import dataclass,fields,is_dataclass
 import json

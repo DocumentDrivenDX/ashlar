@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact selected string/presence results; no generic JSON or numeric coercion."""
 from .publication import ResolutionError
 from .schema import _json

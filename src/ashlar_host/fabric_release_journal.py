@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Private cooperative Fabric lifecycle storage (CONTRACT-003).
 
 This module performs no cloud operations and implements no loaded-graph policy.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact finite commerce projection from the qualified PuppyGraph profile.
 
 Original Integer/Decimal domains remain unchanged. Signed64 quantities and

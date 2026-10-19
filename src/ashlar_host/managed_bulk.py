@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Candidate bounded native managed bulk SET; no publication/Truss authority.
 
 All SQL is the original managed compiler program. Preview is advisory. Execution

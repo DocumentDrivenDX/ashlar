@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real tiny local transport children only; no source/engine/remote execution."""
 import os,sys,tempfile,unittest,subprocess
 from pathlib import Path

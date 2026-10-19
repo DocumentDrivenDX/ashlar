@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,copy,hashlib,json,subprocess,tempfile,unittest
 from pathlib import Path
 from ashlar.apply import Change,EntityKey,EntityState

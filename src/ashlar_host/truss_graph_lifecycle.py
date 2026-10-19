@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public cohort target update and edge-first deletion with native identity retained."""
 import json,os
 from contextlib import contextmanager

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual SQLite allocation cleanup; no native transport qualification."""
 import sqlite3
 import tempfile

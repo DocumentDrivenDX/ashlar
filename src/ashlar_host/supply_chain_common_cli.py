@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected original common queries over an existing publication; no reingest."""
 from dataclasses import dataclass
 import json,os,sys

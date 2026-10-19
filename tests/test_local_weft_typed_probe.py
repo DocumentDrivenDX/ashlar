@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual public UMF typed checks; original compiler artifacts from local run."""
 import copy
 import json

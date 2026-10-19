@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert lifecycle provenance controls, never public producer/native qualification."""
 from pathlib import Path
 import copy

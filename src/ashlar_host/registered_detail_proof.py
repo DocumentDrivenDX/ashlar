@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh fixed-Boolean native identity proof; no cached authority or raw values."""
 from .evolution_verification_types import VerificationBounds
 

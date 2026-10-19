@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original seventeen relational plans over independently admitted vertex carriers.
 
 GraphFrame operations preserve property-equality bags; canonical edges remain

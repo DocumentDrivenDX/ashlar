@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit profile wiring with original source and inert composition ports only."""
 from copy import deepcopy
 from dataclasses import replace

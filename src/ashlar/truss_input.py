@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Complete candidate Truss acceptance-input custody, not acceptance authority.
 
 Host-supplied archives, original UMF receipts and dependency order must come from

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Authored selection preflight, no compiler/SDK/native execution."""
 import unittest
 from pathlib import Path

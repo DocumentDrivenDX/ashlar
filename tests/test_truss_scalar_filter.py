@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,unittest
 from unittest.mock import patch
 from ashlar_host.truss_scalar_projection import admit_truss_scalar_projection

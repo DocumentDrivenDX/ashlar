@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit typed JSONL byte/binding configuration, without semantic admission.
 
 The public UMF producer owns all value, presence and constraint validation.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic command lifecycle using inert public HTTP/policy ports, no cloud I/O."""
 from contextlib import contextmanager,redirect_stdout,redirect_stderr
 from pathlib import Path

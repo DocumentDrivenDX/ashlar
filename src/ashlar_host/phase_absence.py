@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Zero-only future phase observation in one actual read-only ledger interval.
 
 A raw row disables reuse and falls back to normal source-scoped validation.

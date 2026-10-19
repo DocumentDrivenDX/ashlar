@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Self-contained public provider dispatch and bounded selection regressions."""
 import importlib.util,unittest,tempfile,json,hashlib
 from pathlib import Path

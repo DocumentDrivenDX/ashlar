@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact declared decimal correspondence; inert reports confer no authority."""
 import unittest
 from ashlar_host.truss_graph_admission import admitted_facets,TrussGraphAdmission

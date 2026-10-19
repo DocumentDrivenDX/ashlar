@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded candidate Truss complete-feed/0.1 fragment custody assembly.
 
 No property-feed reconstruction, live source admission or ACK. Host policy must

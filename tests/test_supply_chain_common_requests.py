@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure full-pair preparation controls; no installed/native query claims."""
 import copy
 import json

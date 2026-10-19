@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Filesystem authority and inert runtime-resolution controls; no SDK execution."""
 import gzip
 import json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual public original admission construction, without a producer/native rerun."""
 import json,tempfile,base64
 from pathlib import Path

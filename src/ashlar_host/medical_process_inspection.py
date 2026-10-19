@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded Darwin process observation; evidence only, never executor fencing."""
 import ctypes,datetime,errno,os,re,selectors,subprocess,sys,time
 from pathlib import Path

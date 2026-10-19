@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
 import {test,expect} from 'bun:test';
 import {gunzipSync} from 'node:zlib';
 import {augment,run} from '../tools/prepare_commerce_present_field';

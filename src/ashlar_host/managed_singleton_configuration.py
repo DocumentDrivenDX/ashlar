@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed installed managed-read selection; configuration grants no authority."""
 from dataclasses import dataclass,fields
 import json

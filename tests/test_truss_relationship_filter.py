@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public Weft0.2 observed filter shape; inert accepted-source controls."""
 import copy,json,unittest
 from types import SimpleNamespace

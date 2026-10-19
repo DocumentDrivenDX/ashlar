@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite original medical cases in one actual source/publication/native hold."""
 from contextlib import contextmanager
 from dataclasses import dataclass

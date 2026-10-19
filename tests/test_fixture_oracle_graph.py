@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent graph oracle must retain source identity and parallel edges."""
 import hashlib,json,unittest
 from pathlib import Path

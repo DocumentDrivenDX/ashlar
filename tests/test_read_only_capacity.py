@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure actual read-only registration and reservation controls; no native engine."""
 import hashlib,json,sqlite3,tempfile,unittest
 from pathlib import Path

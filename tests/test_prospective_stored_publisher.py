@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """The existing phase owner delegates only the explicit prospective store port."""
 import json,unittest
 from types import SimpleNamespace

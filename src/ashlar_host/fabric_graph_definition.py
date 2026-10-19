@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Local minimal Fabric mapping for explicitly selected STRING release tables."""
 import base64,json,re
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Authored fixture continuity; UMF owns schema validation and interpretation."""
 import json,unittest
 from pathlib import Path

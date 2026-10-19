@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual loopback HTTP and finite inert delegated authentication; no cloud claim."""
 from contextlib import contextmanager
 from dataclasses import replace

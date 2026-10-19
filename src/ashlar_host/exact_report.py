@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded exact decoder evidence serialization; no coercion or authority grant."""
 import json
 

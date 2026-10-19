@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual pinned public producer -> owner allocation -> original query request."""
 
 import hashlib

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small public-carrier host controls; no actual Truss/native qualification."""
 from dataclasses import dataclass, replace
 import base64

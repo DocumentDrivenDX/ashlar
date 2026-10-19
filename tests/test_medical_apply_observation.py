@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual apply/journal/source owners; effect execution and native rows inert."""
 from contextlib import ExitStack
 import json

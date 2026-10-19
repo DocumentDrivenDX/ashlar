@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Atomic public typed-record/link groups; source interpretation belongs to Truss."""
 from __future__ import annotations
 from contextlib import contextmanager

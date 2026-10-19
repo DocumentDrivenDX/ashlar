@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Complete selected-ordinal graph capture inside the actual configured read hold.
 
 The returned bytes are provisional until the caller closes that hold and its

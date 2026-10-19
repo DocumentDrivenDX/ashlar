@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-only execution-port tests; fake frames grant no native qualification."""
 import copy
 import base64

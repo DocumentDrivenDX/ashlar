@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pinned public GraphSON transport; original wire precedes exact count decoding."""
 import asyncio,json,threading,time
 import aiohttp

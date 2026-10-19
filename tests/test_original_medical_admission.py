@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original medical public-operation seams and independent full-row oracle controls."""
 import base64
 import decimal

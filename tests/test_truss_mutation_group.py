@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Atomic mutation public-port controls; no native owner qualification."""
 from dataclasses import make_dataclass
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed original-journal lineage selection; no native or publication grant."""
 from dataclasses import dataclass
 import hashlib,json,os,re,stat

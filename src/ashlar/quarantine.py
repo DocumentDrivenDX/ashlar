@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Durable cleanup uncertainty port; actual native outcome verification is external."""
 from dataclasses import dataclass
 from .publication import _name

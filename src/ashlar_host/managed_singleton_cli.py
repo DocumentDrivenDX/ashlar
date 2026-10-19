@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed managed read with an owned finite worker and closed JSON result."""
 from contextlib import contextmanager,redirect_stdout
 import argparse

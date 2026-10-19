@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original metadata correspondence; inert receipt, no compiler/native work."""
 import hashlib,json,unittest,uuid
 from dataclasses import replace

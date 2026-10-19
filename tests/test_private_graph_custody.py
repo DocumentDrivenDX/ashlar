@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Structural trusted-host export receipts; fixture sessions confer no authority."""
 import copy,hashlib,json,unittest
 from ashlar.graph_release import GraphRelease

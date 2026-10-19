@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publication admission stays separate from unadmitted financial queries."""
 import json,tempfile,unittest
 from pathlib import Path

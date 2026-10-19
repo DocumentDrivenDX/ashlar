@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from .publication_planning import local_effect_plan, request_for
 from .lifecycle import owned_connection
 from .resources import RESOURCE_ROOT

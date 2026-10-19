@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,json,unittest
 from pathlib import Path
 from prepare_commerce_evolution import prepare

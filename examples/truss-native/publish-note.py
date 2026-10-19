@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publish a few real Note feed pages into a fresh private local Delta destination."""
 import argparse,sys
 from ashlar_host.truss_note_cli import run_publish_truss_note_command

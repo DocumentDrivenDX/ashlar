@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure correspondence controls; no installed native authority qualification."""
 import unittest
 import test_evolution_run as run_harness

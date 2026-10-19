@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pinned local Delta4 optimistic transaction primitive for engine implementers.
 
 This is an atomic commit prerequisite, not an action compiler or authorization

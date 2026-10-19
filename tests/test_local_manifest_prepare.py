@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact local intent write-ahead boundaries using owned SQLite and inert native engine."""
 import unittest
 from unittest.mock import patch

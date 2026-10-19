@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configured ordinary reader/ACK SELECT connection custody; no native database."""
 import os,sys,unittest
 from types import SimpleNamespace

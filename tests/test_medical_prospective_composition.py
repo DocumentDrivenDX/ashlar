@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing publication/ACK orchestration with explicit prospective manifest owner."""
 import json,unittest
 from types import SimpleNamespace

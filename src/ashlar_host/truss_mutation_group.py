@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded stored-record/link mutations through one original public Truss group."""
 from __future__ import annotations
 from contextlib import contextmanager

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Canonical package/source sync and retained installation correspondence only."""
 from dataclasses import replace
 from importlib.resources import files

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Resolver-bound singleton reads under complete active pin custody."""
 import hashlib,json,re
 from types import MappingProxyType

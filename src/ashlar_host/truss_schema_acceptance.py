@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Register original UMF documents in an EXISTING compatible Truss installation."""
 import base64,json
 from dataclasses import replace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original four queries select 042 without changing binding or module bytes."""
 import copy
 from pathlib import Path

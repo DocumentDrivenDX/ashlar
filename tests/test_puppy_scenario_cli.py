@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small parent controls; fake creation/Docker proves no native graph behavior."""
 from contextlib import redirect_stdout
 from dataclasses import asdict

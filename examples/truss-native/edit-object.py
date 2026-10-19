@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create and edit a Note's authored non-key text through public Truss groups."""
 import argparse,sys
 from ashlar_host.truss_note_mutation import run_mutate_truss_note_command

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small original-shaped arithmetic IR/source oracle ports."""
 import copy,hashlib,json,unittest
 from pathlib import Path

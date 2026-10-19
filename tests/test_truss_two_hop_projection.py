@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original-shaped authored root projection; injected captures, no native claim."""
 import copy,json,unittest
 from types import SimpleNamespace

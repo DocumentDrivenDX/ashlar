@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One original medical singleton in the actual held read-only publication.
 
 This is a development source workflow, not UC, Truss or clinical authority.

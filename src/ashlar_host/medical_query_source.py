@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual medical public admission plus complete original mathematical Field rows.
 
 This port supplies source meaning only inside the existing acquired publication;

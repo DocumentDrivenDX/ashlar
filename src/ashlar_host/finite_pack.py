@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed original UMF0.8 pack selection; correspondence never grants authority."""
 from dataclasses import dataclass
 import hashlib,json

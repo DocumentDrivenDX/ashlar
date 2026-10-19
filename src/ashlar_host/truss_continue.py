@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Append contiguous public Truss feed pages to an existing owned publication."""
 import datetime
 import hashlib

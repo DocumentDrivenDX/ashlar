@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original typed-source allocations for explicit non-temporal Weft candidates.
 
 This builder retains source/IDs; the original compiler and held host still own

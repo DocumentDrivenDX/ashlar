@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit caller-owned managed SQL transaction custody, never publication writes.
 
 Enrollment rows and tables must already exist under native UC administration.

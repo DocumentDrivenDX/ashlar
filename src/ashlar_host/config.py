@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit application configuration; no environment or credential discovery."""
 from dataclasses import dataclass
 from pathlib import Path

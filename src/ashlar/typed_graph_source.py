@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact graph request/policy custody; UMF owns Record/dataset semantics.
 
 Raw post-group materialization proposes input only. Strict core apply and replay

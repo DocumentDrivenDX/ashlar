@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable raw UMF intake registry; executable schema acceptance is separate."""
 import json
 from .native import _quoted

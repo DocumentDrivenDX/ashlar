@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact medical ordinary read registration; no publisher or source write grant."""
 from dataclasses import dataclass
 from .existing_outbox_authority import OutboxAuthorityRegistration

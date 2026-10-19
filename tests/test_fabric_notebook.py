@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small installed-command composition tests; no Spark or cloud execution."""
 import base64,contextlib,hashlib,io,json,stat,tempfile,unittest
 from pathlib import Path

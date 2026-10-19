@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from .resources import RESOURCE_ROOT
 """Selected local host implementation; native qualification remains version-scoped."""
 from dataclasses import dataclass

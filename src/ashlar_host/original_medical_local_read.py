@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configured existing medical publication SELECT reopen; never a writer owner."""
 from dataclasses import fields,is_dataclass
 from types import MappingProxyType

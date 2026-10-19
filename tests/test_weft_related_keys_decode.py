@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent required-root String carrier controls; no native bag claim."""
 import copy
 from dataclasses import FrozenInstanceError

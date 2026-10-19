@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Composition controls; actual shared phases, inert native/ordinary lower ports."""
 from contextlib import contextmanager
 import json

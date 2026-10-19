@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Saved-file singleton controls, not native or source authority evidence."""
 import json
 import unittest

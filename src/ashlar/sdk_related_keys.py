@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Typed transport of original admitted Ashlar related-Key occurrences.
 
 This conversion neither establishes publication authority nor reinterprets full

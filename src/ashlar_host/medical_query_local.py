@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public finite medical query composition; one reader and one native session."""
 from .medical_query_batch import MedicalQueryBatch
 from .original_medical_local_read import read_original_medical_local

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original configured source -> explicit Spark041 compiler binding.
 
 Aliases describe only physical name projection. Their actual fresh namespace,

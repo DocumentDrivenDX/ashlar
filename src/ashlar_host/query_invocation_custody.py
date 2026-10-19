@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Captured command inputs, independent of native execution authority."""
 from dataclasses import dataclass
 from .evolution_cli import InvocationFile, MAX_PROVIDER

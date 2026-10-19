@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held original immutable-file source; no outbox or protected ACK semantics."""
 import hashlib,json
 from pathlib import Path

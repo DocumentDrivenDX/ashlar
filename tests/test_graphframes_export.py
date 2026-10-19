@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Two small generic engine-port controls; no native GraphFrames claim."""
 import json,sys,unittest
 from types import SimpleNamespace,ModuleType

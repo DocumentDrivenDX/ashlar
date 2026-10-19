@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed shared custody owner; inert SDK boundary, no native runtime."""
 import hashlib
 import io

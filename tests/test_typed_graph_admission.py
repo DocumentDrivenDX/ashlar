@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert producer transport; real graph byte/receipt/core-apply correspondence.
 
 No UMF semantic, native, catalog or source authority is established by fixtures.

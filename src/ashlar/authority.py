@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Admission checks for fresh authenticated Unity Catalog permission inventories.
 
 Complete inherited grants and explicit owner are mandatory inputs. Observations

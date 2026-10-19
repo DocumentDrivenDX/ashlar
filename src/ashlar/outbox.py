@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Committed PostgreSQL outbox reader; native cursor stays separate from JSONL offsets."""
 from dataclasses import dataclass
 import hashlib

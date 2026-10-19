@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Local Delta action execution using original Weft programs and native admission.
 
 admission.hold owns the native actor/program/fence interval and supplies a pinned

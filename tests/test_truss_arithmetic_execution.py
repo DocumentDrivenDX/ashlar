@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """A refused emitted guard must stop the unchanged user query."""
 import unittest
 from types import SimpleNamespace

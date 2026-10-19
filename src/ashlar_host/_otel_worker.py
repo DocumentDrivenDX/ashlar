@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """C006 isolated SDK projection and bounded close-only OTLP transport.
 
 The parent owns run identity, local capture and the hard deadline/child group.

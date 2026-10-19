@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Note semantics from original native pages and accepted catalog reports.
 
 This port admits exact semantic correspondence only. NativeDriver's concrete

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh local-only Truss document setup through the installed public SDK."""
 import base64,json
 from contextlib import contextmanager

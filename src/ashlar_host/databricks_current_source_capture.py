@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded local Spark/Delta current-value observations, never native authority.
 
 The caller owns genuine Delta UUID/schema/caller/policy correspondence, held

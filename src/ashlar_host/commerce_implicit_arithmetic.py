@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Four original commerce queries through fixed indexed 042 public ports.
 
 Evidence is provisional: caller owns aliases, reader/Spark lifetime and complete

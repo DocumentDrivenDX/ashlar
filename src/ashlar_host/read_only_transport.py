@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Stable exact native reader type; no journal initialization or mutations."""
 import sqlite3
 import json

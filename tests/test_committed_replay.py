@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from contextlib import nullcontext
 from types import SimpleNamespace

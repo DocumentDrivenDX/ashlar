@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original finite medical graph -> candidate whole-entity source transaction.
 
 Bindings are development IDs, never Truss accepted IDs. The exact reviewed public receipt owns typed Boolean conversion and dataset

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small effect-free client runtime check against the selected public Truss SDK."""
 
 

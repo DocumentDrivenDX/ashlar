@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only original configured-JSONL selection under its cooperating writer lock.
 
 Retained artifacts and independent source state are correspondence, never native

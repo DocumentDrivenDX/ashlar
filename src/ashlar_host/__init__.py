@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Optional local host package; importing it does not load a native runtime."""
 from .config import HostError, PrivatePostgresConfig, ProducerConfig, PublishCommerceConfig, QueryCommerceConfig, QueryCommercePathsConfig
 

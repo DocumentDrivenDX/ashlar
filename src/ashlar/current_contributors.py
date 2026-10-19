@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact portable contributor bags; neither decoding nor comparison grants authority."""
 from __future__ import annotations
 from collections import Counter

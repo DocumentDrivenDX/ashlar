@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """First-plan publication of an original saved, pre-phase Truss selection."""
 import datetime,hashlib,json,os
 from pathlib import Path

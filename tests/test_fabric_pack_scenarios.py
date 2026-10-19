@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite original17 GQL construction, not native Fabric qualification."""
 import copy
 import json

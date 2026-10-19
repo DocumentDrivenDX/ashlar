@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit C006 signal composition and owned isolated-worker supervision.
 
 No SDK provider is constructed in this process. Process termination/reaping

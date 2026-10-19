@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic exact numeric join-count source ports; no native engine."""
 import copy,unittest
 from unittest.mock import patch

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """No authenticated client or output write can precede explicit endpoint choice."""
 import importlib.util
 from pathlib import Path

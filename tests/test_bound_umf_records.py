@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import tempfile,unittest
 from pathlib import Path
 from dataclasses import replace

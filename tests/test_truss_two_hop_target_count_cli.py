@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic owned wrapper/dispatch ports; no native execution."""
 import io,unittest
 from contextlib import nullcontext,redirect_stdout

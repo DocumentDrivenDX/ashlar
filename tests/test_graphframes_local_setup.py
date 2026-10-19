@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed setup/parser and genuine filesystem controls; producer/SDK ports inert."""
 from contextlib import ExitStack
 from pathlib import Path

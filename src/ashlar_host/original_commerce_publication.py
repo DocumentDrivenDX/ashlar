@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original publication on a separately initialized local installation."""
 from contextlib import contextmanager
 from dataclasses import dataclass,field

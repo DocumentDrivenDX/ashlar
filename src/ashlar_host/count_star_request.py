@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure fixed041 commerce request markers; no source/publication authority."""
 from .commerce_path_request import commerce_path_request as original_commerce_path_request
 from .count_star_admission import BACKEND

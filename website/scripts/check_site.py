@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Check the production subpath, internal links, nav state and source seals."""
 import argparse
 from html.parser import HTMLParser

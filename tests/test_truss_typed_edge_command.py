@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Focused public edge mutation ports, without native source execution."""
 import json,tempfile,unittest,sys
 from pathlib import Path

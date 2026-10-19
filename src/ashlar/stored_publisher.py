@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publisher composition over immutable phase custody and original native ports.
 
 No credentials, permissive source policy or replacement-write recovery lives here.

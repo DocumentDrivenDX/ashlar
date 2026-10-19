@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual shared singleton execution with inert native/public-source ports."""
 import base64,hashlib,json,unittest
 from contextlib import contextmanager

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent count bag multiplicity and pre-HAVING failure controls."""
 import unittest
 from ashlar_host.count_star_oracle import evaluate_complete_bags

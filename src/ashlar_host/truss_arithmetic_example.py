@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite public Truss faceted record → Delta → singleton → exact arithmetic example."""
 import os,sys
 from dataclasses import dataclass

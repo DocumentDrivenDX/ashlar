@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure fixed common041 requests; no compiler, read or native authority."""
 import hashlib
 import json

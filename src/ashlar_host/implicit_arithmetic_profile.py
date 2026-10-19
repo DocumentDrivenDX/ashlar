@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed additive 0.4.2 host settings; package and execution authority are separate.
 
 The owning reviewed public Weft schemas define this metadata subset. This module

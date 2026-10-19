@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Session-owned external aliases inside an actual configured publication hold.
 
 Only metadata for successfully created aliases is removed. Original tables, data,

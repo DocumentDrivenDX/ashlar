@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from ashlar.catalog import Identity, MappingEntry, CatalogPlanError, MAX_ID, plan_catalog_ids
 

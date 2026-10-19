@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed dispatch between independently qualified local inspection owners."""
 from .medical_producer import decode_medical
 from .medical_commit_inspection_configuration import OriginalMedicalCommitInspectionConfig,parse_original_medical_commit_inspection,inspection_selection_bytes as process_selection_bytes

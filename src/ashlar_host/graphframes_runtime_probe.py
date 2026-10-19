@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded-host caller's genuine selected-worker admission, without a Spark session."""
 import hashlib,json,sys
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public held-context execution preserving the original refusal and value."""
 from contextlib import contextmanager
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original supply-chain relationship requests; no runtime authority."""
 import hashlib,json,re
 from .delta_custody import encoded

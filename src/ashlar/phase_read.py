@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Nominal observations bound to an actual open core phase-read session.
 
 These carriers confer no writer, native, source or ACK authority.

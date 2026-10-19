@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded public073 typed Record and supplied-dataset admission transport.
 
 Original JSONL/binding/config correspondence remains the core source owner's

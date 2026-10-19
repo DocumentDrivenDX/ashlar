@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh local Note Delta publication from actual ordinary public Truss pages."""
 import base64,datetime,hashlib,json,os,time
 from dataclasses import asdict

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Grouped IR shape observed from public Weft0.2; inert catalog/oracle controls."""
 import copy,json,unittest
 import test_truss_graph_admission as cases

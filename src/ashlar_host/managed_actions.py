@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Managed raw Delta execution of original compiler programs.
 
 This is separate from Ashlar publication targets. The caller supplies a qualified

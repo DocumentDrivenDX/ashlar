@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public receipt ACK controls; no SDK installation or native engine."""
 import json,hashlib,unittest
 from contextlib import contextmanager

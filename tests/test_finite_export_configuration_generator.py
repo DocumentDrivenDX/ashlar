@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Export configuration uses the existing owner; no native services."""
 import contextlib,io,json,sys,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import io,json,sys,tempfile,unittest
 from contextlib import contextmanager,redirect_stderr
 from pathlib import Path

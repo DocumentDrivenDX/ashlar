@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from archaeology_graph_oracle import ROOT,original_oracle
 class Tests(unittest.TestCase):

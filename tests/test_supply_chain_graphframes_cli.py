@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert installed composition/worker-probe controls; no SDK or native admission."""
 from contextlib import contextmanager
 from pathlib import Path

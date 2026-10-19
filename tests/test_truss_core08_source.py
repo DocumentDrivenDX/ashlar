@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Version selection/correspondence only; no native SDK acceptance claim."""
 import base64,hashlib,json,tempfile,unittest
 from pathlib import Path

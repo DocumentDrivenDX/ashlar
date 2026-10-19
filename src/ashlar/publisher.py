@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Durable publication orchestration; native authority/recovery are mandatory ports."""
 from dataclasses import dataclass
 import hashlib

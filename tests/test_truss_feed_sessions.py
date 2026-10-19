@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,hashlib,json,sqlite3,unittest
 from contextlib import contextmanager,closing
 from dataclasses import dataclass,replace

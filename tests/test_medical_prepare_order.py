@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Write-ahead medical plans; actual journal, explicit inert native ports."""
 from contextlib import ExitStack
 import json,unittest

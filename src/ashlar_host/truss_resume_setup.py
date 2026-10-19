@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare a private resume selection without SDK, database or engine effects."""
 import hashlib
 import os

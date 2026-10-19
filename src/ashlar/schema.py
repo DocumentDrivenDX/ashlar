@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact-byte UMF intake custody; target acceptance is a separate operation."""
 import base64
 import hashlib

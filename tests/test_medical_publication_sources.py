@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real medical lease/source owners over inert native and ordinary SQL ports."""
 from contextlib import ExitStack
 from dataclasses import replace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Consumed STRING join scope; inert original publication/source fixtures."""
 import copy,hashlib,json,unittest
 from ashlar_host.delta_custody import encoded

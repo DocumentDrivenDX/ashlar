@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Current complete runtime custody when the canonical reader uses another SDK.
 
 Actual selected-worker interpreter/import/constructor admission occurs at opening

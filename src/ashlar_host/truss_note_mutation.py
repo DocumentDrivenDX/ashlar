@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create and edit a Note's authored non-key text through public Truss groups."""
 import json
 from contextlib import contextmanager

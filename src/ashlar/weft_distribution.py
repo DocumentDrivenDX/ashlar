@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Trusted application composition for one independently admitted realization.
 
 No network discovery or caller-selected trust pins. Compiler output remains an

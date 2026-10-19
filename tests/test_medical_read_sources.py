@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Medical admission with shared actual reader owners; lower SQL/native ports inert."""
 import hashlib
 import unittest

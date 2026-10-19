@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One fresh native prefix audit supplies only the ordinal preflight."""
 import unittest
 from contextlib import nullcontext

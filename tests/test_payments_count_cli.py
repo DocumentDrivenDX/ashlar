@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Dedicated dispatch and final custody refusal; no native systems opened."""
 import json
 import tempfile

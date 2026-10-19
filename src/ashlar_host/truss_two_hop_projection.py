@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original two-hop root-key row bag; no effect or compiler authority."""
 import json
 from collections import Counter

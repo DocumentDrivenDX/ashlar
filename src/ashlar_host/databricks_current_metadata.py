@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only current UC metadata facts, never SELECT/ABAC/Delta-version authority.
 
 UC table_id is distinct from the native Delta table UUID. This component does

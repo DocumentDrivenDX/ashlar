@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh-context and primary-safe cleanup controls using inert SDK doubles."""
 from contextlib import ExitStack
 import os

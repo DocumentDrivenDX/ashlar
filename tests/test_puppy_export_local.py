@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public immutable-pair composition; native engine controls stay separately tested."""
 from contextlib import contextmanager
 from pathlib import Path

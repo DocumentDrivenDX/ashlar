@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite engine-local queries of immutable local export carriers; no live authority."""
 import json,os,hashlib
 from collections import Counter,defaultdict

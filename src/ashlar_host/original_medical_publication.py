@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Historical medical admission and independent native oracle; no publisher entry yet."""
 from dataclasses import dataclass
 import base64

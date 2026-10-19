@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original ecology graph oracle; no UMF/native admission claim."""
 import hashlib,json
 SOURCE_SHA='299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee'

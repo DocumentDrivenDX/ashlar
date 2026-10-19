@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small pure correspondence/nominal seam and mandatory closing controls."""
 import hashlib,json,unittest,uuid
 from pathlib import Path

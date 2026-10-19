@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from ashlar.protocol import ReaderProtocolProfile,ProtocolError,validate_protocol_detail
 

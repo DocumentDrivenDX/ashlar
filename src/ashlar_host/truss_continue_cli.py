@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Continue a selected Truss publication using existing local custody."""
 from .lifecycle import owned_context,finish
 from .truss_recovery import restore_applied_truss_publication

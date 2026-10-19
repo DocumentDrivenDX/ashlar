@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real HTTP/SQLite composition with nominal source owners over explicit SDK doubles.
 
 Parquet/native SDK observations are inert: this is NOT a native Delta/Fabric proof.

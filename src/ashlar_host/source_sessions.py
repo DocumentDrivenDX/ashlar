@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit ordinary outbox sessions; registration metadata grants no authority."""
 from dataclasses import asdict, dataclass, field
 import json

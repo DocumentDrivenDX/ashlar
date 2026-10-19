@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Passive installation correspondence; current lease/native owners grant authority."""
 import hashlib
 import json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Trusted composition for the separately admitted PathsKeys3a realization.
 
 Operator paths never select trust pins, platforms, profiles or fallback compilers.

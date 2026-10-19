@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real file ownership and inert original query orchestration; no SDK execution."""
 import contextlib
 import json

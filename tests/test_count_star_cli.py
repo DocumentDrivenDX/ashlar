@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected public CLI transport ports; inert callbacks do not qualify install."""
 import io,unittest
 from unittest.mock import patch

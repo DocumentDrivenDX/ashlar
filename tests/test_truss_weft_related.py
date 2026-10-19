@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Accepted Truss key/edge oracle controls; no native relationship execution."""
 import copy
 import gzip

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite private-pipe HTTP execution; live credential/runtime support unqualified.
 
 Loopback profiles exercise actual processes/sockets and cannot authorize Fabric.

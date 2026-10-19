@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed explicit setup selections; no SDK or database operation."""
 from pathlib import Path
 from unittest import TestCase

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public batch CLI composition with inert runtime/compiler/native ports."""
 from contextlib import contextmanager
 import hashlib,json,os,sys,subprocess,unittest

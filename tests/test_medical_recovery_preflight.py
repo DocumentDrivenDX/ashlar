@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual journal/driver/source preflight; native snapshots are explicit inert ports."""
 from contextlib import ExitStack
 import json

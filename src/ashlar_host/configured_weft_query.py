@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original configured scalar and graph queries through held indexed Weft execution.
 
 Results remain provisional until the enclosing alias, publication, source and

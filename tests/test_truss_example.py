@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite portable command preflight and public-component lifetime controls."""
 import importlib,json,os,sys,tempfile,unittest
 from pathlib import Path

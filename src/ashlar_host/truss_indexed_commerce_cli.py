@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One exact authored commerce case on an existing Truss publication."""
 from pathlib import Path
 from ashlar.weft_implicit_arithmetic_distribution import ImplicitArithmeticDistributionPaths

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert native-plan/typed-capture controls; no Spark execution or authority."""
 from decimal import Decimal
 from datetime import datetime,timezone

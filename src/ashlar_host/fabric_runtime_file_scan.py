@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded full-byte file observations; these results grant no runtime authority.
 
 The production caller admits the named operator-trusted interpreter/OS startup

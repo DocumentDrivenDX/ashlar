@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Parent cleanup for an actual returned original17 container ID only."""
 from dataclasses import fields
 import hashlib

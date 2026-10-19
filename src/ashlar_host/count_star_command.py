@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit trusted ordinary-provider entry for selected original041 queries."""
 from .config import HostError
 from .count_star_configuration import QueryCommerceCountStarConfig

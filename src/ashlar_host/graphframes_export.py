@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded one-hop GraphFrames use of an immutable local graph export."""
 import importlib.metadata
 import json,os,sys

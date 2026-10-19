@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit pinned SQL Connector factory and metadata-only native helpers.
 
 Caller supplies an authenticated SDK Config; there is no profile discovery,

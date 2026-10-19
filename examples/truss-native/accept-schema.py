@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Register original UMF documents in an EXISTING compatible Truss installation."""
 import argparse,sys
 from ashlar_host.truss_schema_acceptance import run_accept_truss_schema_command

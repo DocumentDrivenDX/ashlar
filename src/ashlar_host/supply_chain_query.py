@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """All five original finite supply-chain queries through shared held041 execution.
 
 The caller owns the actual reader/transport and Spark cleanup. This port releases

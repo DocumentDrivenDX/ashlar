@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Four authored indexed queries in a genuine Truss publication hold."""
 import json,hashlib
 from collections import Counter

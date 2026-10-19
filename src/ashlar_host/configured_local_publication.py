@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Sequential local Delta publication of an admitted configured STRING source.
 
 Independent current source/writer/retention admission is mandatory. Complete bag

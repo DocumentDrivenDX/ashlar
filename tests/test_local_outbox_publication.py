@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from pathlib import Path
 from run_local_outbox_publication import fixture,progress_union,validate_union,request_for,PrivatePolicy,ROOT,CLOCK

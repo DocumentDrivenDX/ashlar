@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh-only medical installation; no publication/source/ACK authority grant."""
 from contextlib import contextmanager
 from dataclasses import asdict,is_dataclass

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Update one authored typed edge using the original public Truss group."""
 from pathlib import Path
 from dataclasses import dataclass,asdict,field

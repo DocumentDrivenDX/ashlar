@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 from dataclasses import replace
 import unittest
 from ashlar.manifest import manifest_pin_vector,bind_manifest_pins,ManifestError

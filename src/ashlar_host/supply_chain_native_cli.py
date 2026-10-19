@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed installed original supply-chain native invocation; no report authority."""
 from dataclasses import dataclass
 import json,re

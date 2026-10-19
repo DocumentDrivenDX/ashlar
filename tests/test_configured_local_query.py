@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite query selection and lossless supported report carriers, no services."""
 from dataclasses import replace
 from pathlib import Path

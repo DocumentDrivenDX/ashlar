@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original compiler custody for reduced stream pages; no native authority claim."""
 
 import copy

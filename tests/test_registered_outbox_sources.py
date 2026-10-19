@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Ordinary-session wiring with actual source reader and inert DB-API; no native claim."""
 import hashlib
 import json

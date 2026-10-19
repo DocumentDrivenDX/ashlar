@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publication-derived local staging; declared query profile is not a UMF grant.
 
 Only the original commerce products/sku subset is selected. Original complete

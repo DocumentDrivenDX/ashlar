@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original closed finite packs to six native Delta tables and committed reopen.
 
 Explicit fresh private installation only; no remote source, UC or protected ACK

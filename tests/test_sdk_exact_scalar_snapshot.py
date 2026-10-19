@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original non-temporal decoder custody, independent of native qualification."""
 
 import unittest

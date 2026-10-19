@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Portable configured source lifecycle only; no Delta or protected ACK claims."""
 import tempfile,unittest
 from pathlib import Path

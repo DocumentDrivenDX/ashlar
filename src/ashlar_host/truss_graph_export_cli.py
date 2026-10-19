@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Export an explicitly selected existing Truss graph after owned resource close."""
 import hashlib
 import json

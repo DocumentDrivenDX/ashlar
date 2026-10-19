@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed passive selection for local medical outcome observation; no recovery grant."""
 from dataclasses import dataclass
 import hashlib,json,os

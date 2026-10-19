@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publisher-capable reopening of a retained original applied commerce fixture."""
 import json
 from contextlib import contextmanager

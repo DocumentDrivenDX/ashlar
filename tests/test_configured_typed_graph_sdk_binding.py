@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Required-STRING metadata projection only; no SDK/native execution."""
 import hashlib,json,unittest,uuid
 from pathlib import Path

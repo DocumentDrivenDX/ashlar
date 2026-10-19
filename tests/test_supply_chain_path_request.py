@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original relationship binding controls; no compiler/native qualification."""
 import copy,hashlib,json,unittest
 from pathlib import Path

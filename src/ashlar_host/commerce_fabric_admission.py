@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Private cooperative native Fabric admission, activation and query leases.
 
 No Fabric generation token/security isolation is claimed. Every participating

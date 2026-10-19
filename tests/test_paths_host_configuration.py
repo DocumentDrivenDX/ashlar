@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite host limits and SDK-free command admission for the separate profile."""
 import contextlib
 import dataclasses

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable Delta phase custody under mandatory injected writer authority."""
 from contextlib import contextmanager
 from dataclasses import dataclass

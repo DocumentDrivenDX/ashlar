@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit ordinary connection acquisition; native checks own authority.
 
 The application supplies an already configured DB-API connection factory.

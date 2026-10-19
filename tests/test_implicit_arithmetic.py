@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed 0.4.2 host controls; no compiler installation or native qualification.
 
 Schema bytes are original owning reviewed artifacts. Inert callback controls

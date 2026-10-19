@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit installed source validation dispatch; no producer or service effects."""
 import contextlib
 import io

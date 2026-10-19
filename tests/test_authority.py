@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from ashlar.authority import AuthorityError,validate_writer_inventory
 class AuthorityTests(unittest.TestCase):

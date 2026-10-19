@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Two actual owned export-pair comparisons; no source or engine qualification."""
 import hashlib,json,tempfile,unittest
 from pathlib import Path

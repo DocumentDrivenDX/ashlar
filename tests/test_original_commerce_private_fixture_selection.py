@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Proposed fixture config uses existing bootstrap owner; no PG/Docker calls."""
 import copy,json,unittest
 from pathlib import Path

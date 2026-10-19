@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed recovery selections/shared phases; inert lower ports, no native claim."""
 import copy
 from contextlib import contextmanager, ExitStack

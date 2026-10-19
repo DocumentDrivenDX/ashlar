@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,json,unittest
 from pathlib import Path
 from run_pack_scenario_graphframes import validate_case,ARITY,expressions

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Preparation custody controls; no native module or Spark execution."""
 import hashlib
 from pathlib import Path

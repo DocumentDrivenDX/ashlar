@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import hashlib,json,unittest
 from ashlar_host.publication_reader import PublicationProvider
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from ashlar.apply import empty_state
 from ashlar.truss_native_feed import NativeFeedError

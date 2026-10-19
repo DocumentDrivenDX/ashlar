@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Concrete isolated configured-source Delta runtime; no remote/protected ACK."""
 from dataclasses import dataclass
 from pathlib import Path

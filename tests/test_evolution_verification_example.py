@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing operator example preserves cancellation through acquired cleanup."""
 from contextlib import contextmanager
 import os

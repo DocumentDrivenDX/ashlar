@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed immutable original17 selections; no file, SDK or authority acquisition."""
 from __future__ import annotations
 from dataclasses import dataclass

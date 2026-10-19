@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed PathsKeys3a package proof; injected trust never comes from package bytes.
 
 Compiler Git3a, qualification producer H and historical530 receipts have separate

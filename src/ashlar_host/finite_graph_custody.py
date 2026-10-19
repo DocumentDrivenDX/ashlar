@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Historical finite-file export correspondence; never protected source ACK authority."""
 import base64,hashlib,json,re
 from .finite_pack import FinitePackDefinition

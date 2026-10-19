@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Retained applied restoration controls; native/source observations are stubbed."""
 import json,sqlite3,unittest
 from types import SimpleNamespace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic local Fabric definition mapping and command tests; no engine I/O."""
 import base64,contextlib,io,json,tempfile,unittest
 from pathlib import Path

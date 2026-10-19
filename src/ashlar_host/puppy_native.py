@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public native PuppyGraph staging/query adapter on supplied ordinary transports.
 
 No credentials, engine creation or capacity management. Callers own authenticated

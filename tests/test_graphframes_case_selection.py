@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure authored-case selection; no GraphFrames/JVM execution."""
 import unittest
 from ashlar_host.graphframes_case_selection import select_graphframes_profile,validate_graphframes_result_selection

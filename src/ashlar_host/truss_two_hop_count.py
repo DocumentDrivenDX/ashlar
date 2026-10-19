@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original authored two-hop expansion COUNT; exact independent edge occurrences."""
 import hashlib,json,re
 from collections import defaultdict

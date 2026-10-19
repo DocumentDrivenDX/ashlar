@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit optional COUNT/HAVING proof against actual compiler output; no native claim."""
 import copy,json,os,unittest
 from pathlib import Path

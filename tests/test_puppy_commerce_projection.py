@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json
 import unittest
 from ashlar_host.puppy_commerce_projection import quantity, coefficient, signed64, commerce_snapshot

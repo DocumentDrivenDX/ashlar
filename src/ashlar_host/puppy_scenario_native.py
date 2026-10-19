@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original seventeen analytic queries through the owned public runtime port.
 
 The caller owns the actual source/export intervals and releases a final CLI

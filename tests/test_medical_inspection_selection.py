@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed inspection dispatch refuses unknown owners before any acquisition."""
 import unittest
 from unittest.mock import patch

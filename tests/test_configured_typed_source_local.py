@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Portable typed source composition; only the public producer port is inert.
 
 These controls establish original receipt/custody/apply wiring, not UMF semantic

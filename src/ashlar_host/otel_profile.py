@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public immutable dependency pins for the selected host signal profile."""
 from types import MappingProxyType
 

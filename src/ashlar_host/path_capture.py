@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded positional String capture for a held path-query host.
 
 The caller owns publication custody, native execution and cleanup. Limits cover

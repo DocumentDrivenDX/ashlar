@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit ordinary protected ACK sessions; metadata establishes no authority."""
 from dataclasses import dataclass, field
 from typing import Callable, Mapping, Protocol

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original local correspondence/locking controls; no native or UMF producer calls."""
 import hashlib,json,os,sqlite3,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Generated schema custody and actual local owner checks; no native operation."""
 import json,os,tempfile,sys
 from pathlib import Path

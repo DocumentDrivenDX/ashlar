@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import hashlib,json,tempfile,unittest
 from pathlib import Path
 from ashlar_host.truss_continuation_setup import run_configure_truss_continuation_command

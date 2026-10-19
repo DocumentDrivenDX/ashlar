@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact source-owned engine0.2 scalar envelopes; no raw/legacy widening."""
 from dataclasses import dataclass
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public adapter wire-shape controls with inert HTTP/Cypher/runtime ports."""
 from contextlib import contextmanager
 from pathlib import Path

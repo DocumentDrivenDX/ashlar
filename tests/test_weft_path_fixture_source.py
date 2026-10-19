@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,dataclasses,json,unittest
 from pathlib import Path
 from weft_path_fixture import fixture_inputs

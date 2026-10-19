@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit trusted-host retained GraphFrames composition; no production grant.
 
 Operator-selected original digests and a separately selected runtime-plan digest

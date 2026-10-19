@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small SQLite-only lineage controls; no native/source authority claim."""
 import copy,json,sqlite3,tempfile,unittest
 from pathlib import Path

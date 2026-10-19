@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure accepted STRING-record compatibility; grants no live source authority."""
 import re
 from .truss_graph_admission import TrussGraphAdmission

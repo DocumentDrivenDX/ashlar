@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original-intent reconciliation with inert ports, no native claim."""
 from contextlib import contextmanager
 import hashlib

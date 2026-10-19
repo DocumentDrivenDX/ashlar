@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publisher coordinator backed by original Delta phase custody.
 
 Effects must supply native apply/commit/recovery and admission; no defaults.

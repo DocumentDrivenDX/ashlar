@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,unittest
 from pathlib import Path
 from check_pack_scenario_puppygraph import query_plan,execute,held,admit

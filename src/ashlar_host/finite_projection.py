@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original finite graph to complete native row bags.
 
 No source transaction projection or generated SQL determines original values.

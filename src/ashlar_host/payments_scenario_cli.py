@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Dedicated unchanged original payments currency case."""
 from dataclasses import replace
 from .pack_native_cli import run_owned_finite_pack_query_command

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact direct required numeric arithmetic source oracle; no SQL interpretation."""
 import hashlib,json,re
 from collections import Counter

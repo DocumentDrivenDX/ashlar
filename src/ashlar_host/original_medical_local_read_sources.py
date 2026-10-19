@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit ordinary medical SELECT registrations; no source writer port."""
 import os
 from dataclasses import replace

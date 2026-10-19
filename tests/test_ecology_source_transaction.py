@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json
 import unittest
 from ecology_source_transaction import ROOT,build_transaction

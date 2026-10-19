@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Static original fixture/materialization checks; no Spark or native module."""
 import copy
 import hashlib

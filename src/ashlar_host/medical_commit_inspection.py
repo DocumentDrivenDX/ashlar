@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only retained medical commit observations; never submission or ACK authority."""
 import hashlib,json,re
 from ashlar.attempt_store import DeltaAttemptStore

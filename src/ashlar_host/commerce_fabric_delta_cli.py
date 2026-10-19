@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed local projection from an existing original publication and source ACK."""
 from pathlib import Path
 import hashlib,importlib.metadata,json,os,sys,tempfile

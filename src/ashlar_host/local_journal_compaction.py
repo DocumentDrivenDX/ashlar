@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Lossless receipt-only maintenance under the existing finite installation lease."""
 import fcntl,hashlib,json,os,re,sqlite3,stat
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected source assertion inventory for report-producer development.
 
 No entry receives database/engine qualification here. The original source,

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual receipt correspondence with inert producer transport; no UMF execution."""
 import base64
 import copy

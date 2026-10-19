@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit installed fresh initialization/existing publication dispatch."""
 from dataclasses import replace
 import hashlib

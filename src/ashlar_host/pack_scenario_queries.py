@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original17 Puppy query/codec helpers; source and engine owners remain external."""
 import base64,json,re
 from collections import Counter

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Two-source original publication singleton reads under actual local custody.
 
 Protected receipt reconciliation uses existing ordinary SELECT-lock transactions;

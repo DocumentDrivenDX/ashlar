@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 import hashlib
 from test_graph_release_graphframes import fixture as release_fixture,encoded

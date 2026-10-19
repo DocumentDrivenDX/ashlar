@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small real SQLite applied-restoration control; native gates are inert stubs."""
 import base64
 import datetime

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit diagnostic ownership; no native, publication or ACK capabilities."""
 from contextlib import contextmanager
 from importlib import metadata

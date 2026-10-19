@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small construction preflight controls; no retry or native qualification."""
 import sqlite3
 import unittest

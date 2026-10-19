@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed historical medical selections; correspondence is not current authority.
 
 Only values and bounded decoding live here. No initializer, publisher, ordinary

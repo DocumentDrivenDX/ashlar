@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual local POSIX lock custody only; no Spark or publication authority."""
 import os
 from pathlib import Path

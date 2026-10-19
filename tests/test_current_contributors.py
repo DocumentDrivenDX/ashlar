@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json
 import unittest
 from ashlar.current_contributors import VERSION,decode_current_contributors,require_matching_contributors

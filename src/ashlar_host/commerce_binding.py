@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original commerce model/publication binding construction; no authority grant."""
 import hashlib,json
 from .source_identity import SOURCE_SHA

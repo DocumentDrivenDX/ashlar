@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json,sys,tempfile,unittest
 import ashlar_host.truss_runtime
 import ashlar_host.commerce_export_cli

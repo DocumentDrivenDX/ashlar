@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Prepare one immutable hash-qualified local PuppyGraph carrier, no activation.
 
 Uses the existing owning graph-release reader. The selected local database and

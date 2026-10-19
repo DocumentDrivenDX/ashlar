@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit source/import map for typed SDK integration owners.
 
 Scope is these modules only; existing Ashlar source architecture is not claimed.

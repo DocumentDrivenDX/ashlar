@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact carrier-cell comparison of two independently selected local exports."""
 import json,os
 from pathlib import Path

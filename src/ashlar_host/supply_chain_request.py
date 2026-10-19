@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original supply-chain five requests for separately selected 041.
 
 Pure request construction, never source/publication authority or native execution.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert owner lifecycle controls; not native security or engine qualification."""
 import contextlib
 import hashlib

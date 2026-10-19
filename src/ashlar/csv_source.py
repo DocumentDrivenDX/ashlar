@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded single-line UTF-8 CSV to original-custody whole-object transactions.
 
 Caller supplies source/epoch custody and admitted IDs/schema mapping. Each CSV

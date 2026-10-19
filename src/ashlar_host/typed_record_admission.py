@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded public core0.8 Record checks; no source, catalog or native authority."""
 import base64
 import copy

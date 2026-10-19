@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Injected HTTP controls; no Fabric access or native execution claim."""
 from contextlib import contextmanager
 import json

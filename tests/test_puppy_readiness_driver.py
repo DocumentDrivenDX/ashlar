@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pinned optional Neo4j readiness controls; all network/runtime ports inert."""
 import unittest
 

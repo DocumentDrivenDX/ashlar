@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed graph configuration controls; no producer or native execution."""
 import json,tempfile,unittest
 from pathlib import Path

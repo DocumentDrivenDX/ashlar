@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original-program enrollment and held native PostgreSQL actor/fence admission.
 
 Local delegated execution only. Ordinary actors cannot enroll programs or supply

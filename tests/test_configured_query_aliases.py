@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual minted read scopes with inert Spark catalog state; no engine execution."""
 import json,re,unittest
 from contextlib import contextmanager

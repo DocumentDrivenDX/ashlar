@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compose actual commerce source/ACK custody with an owned Fabric graph interval.
 
 Fabric HTTP and loaded-graph mutation/refresh exclusion belong to their actual

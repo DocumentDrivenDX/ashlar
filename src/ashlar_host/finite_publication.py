@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite immutable-file publication over shared durable native lifecycle ports.
 
 This source profile has local replay receipts, never a PostgreSQL checkpoint or

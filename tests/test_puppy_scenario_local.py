@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fake runtime boundary controls; real small preparation, no PuppyGraph launch."""
 import unittest,json,tempfile,hashlib
 from pathlib import Path

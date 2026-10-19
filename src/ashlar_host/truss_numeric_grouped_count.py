@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One exact required numeric group plus COUNT over the complete source bag."""
 import hashlib,json
 from dataclasses import dataclass

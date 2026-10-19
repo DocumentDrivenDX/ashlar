@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Composition lifecycle controls with mocked ports; no native qualification."""
 from contextlib import contextmanager
 from dataclasses import replace

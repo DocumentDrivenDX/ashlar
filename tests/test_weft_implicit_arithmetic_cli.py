@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import io
 from pathlib import Path
 from types import SimpleNamespace

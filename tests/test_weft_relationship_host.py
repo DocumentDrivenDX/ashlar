@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,json,os,subprocess,unittest
 from contextlib import contextmanager
 from types import SimpleNamespace

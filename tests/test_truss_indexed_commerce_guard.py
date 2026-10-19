@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Complete source footprint and logical integer comparison controls; no authority."""
 import json,unittest
 from ashlar_host.truss_indexed_commerce_guard import TrussIndexedCommerceGuard,SCHEMA

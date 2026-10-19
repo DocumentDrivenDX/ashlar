@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Shared immutable file/producer selections; source families own admission."""
 from dataclasses import dataclass
 from pathlib import Path

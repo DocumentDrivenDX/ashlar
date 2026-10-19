@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Separately admitted GraphFrames execution over immutable original graph bytes.
 
 Live complete-vector publication custody and retained protected-ACK export custody

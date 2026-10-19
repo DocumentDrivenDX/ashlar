@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit local installation of an independently indexed Weft realization.
 
 Index trust is injected by application composition. Inert manifests, passing

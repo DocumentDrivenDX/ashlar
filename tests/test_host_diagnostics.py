@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite C006 local capture/port controls; no SDK or receiver qualification."""
 import copy
 from dataclasses import replace

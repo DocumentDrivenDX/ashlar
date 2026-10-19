@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure public checkpoint and closed effect selection; no native authority."""
 import ast
 from dataclasses import replace

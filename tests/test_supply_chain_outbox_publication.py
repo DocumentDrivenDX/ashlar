@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,json,tempfile,unittest
 from decimal import Decimal
 from pathlib import Path

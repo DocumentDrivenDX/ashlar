@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Meaningful cancellation and availability controls for the additive layout."""
 import os,unittest
 from pathlib import Path

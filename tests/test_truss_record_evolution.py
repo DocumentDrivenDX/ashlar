@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small shared-record evolution authoring/preflight controls; no SDK execution."""
 import copy,json,tempfile,unittest,sys
 from dataclasses import dataclass

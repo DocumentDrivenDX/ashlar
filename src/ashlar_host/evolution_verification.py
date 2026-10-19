@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing-only selected publication verification, never publisher recovery."""
 from .driver import NativeDriver
 from .evolution_composition import NativeEvolutionRunPolicy

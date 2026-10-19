@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Owned inert publication controls and actual POSIX leases; no native claim."""
 import base64,copy,hashlib,json,unittest
 from types import SimpleNamespace

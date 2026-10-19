@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real configuration parsers only; no SDK, producer or engine execution."""
 import json,sys,tempfile,unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected local host implementation; native qualification remains version-scoped."""
 from dataclasses import asdict
 import base64

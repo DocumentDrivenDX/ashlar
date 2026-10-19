@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable first planning custody only; no native source/effect authority."""
 import json,tempfile,unittest
 import sqlite3

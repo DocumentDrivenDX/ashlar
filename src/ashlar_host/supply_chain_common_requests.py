@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Complete original two-hop request preparation, without execution authority.
 
 The twelve typed compilations jointly cover QUERY/supply-chain/two-hop only.

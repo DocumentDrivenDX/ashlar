@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Assemble source/effect report parts from the selected native candidate probe.
 
 These are unregistered candidate parts, not an accepted report. Original current

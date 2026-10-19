@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Write finite original STRING graph carriers to fresh Spark Delta destinations."""
 from collections import Counter
 from pathlib import Path

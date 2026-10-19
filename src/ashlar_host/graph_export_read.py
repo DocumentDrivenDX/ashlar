@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """SDK-free singleton from selected saved artifacts; no live publication authority."""
 import json
 import os

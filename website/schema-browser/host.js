@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
 import {mountSchemaBrowser} from './upstream/index.js';
 const status = document.getElementById('status');
 const browser = mountSchemaBrowser(document.getElementById('schema-browser'), {

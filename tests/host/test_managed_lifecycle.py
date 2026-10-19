@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Custody control selftests; these deliberately do not qualify native authority."""
 
 from time import monotonic

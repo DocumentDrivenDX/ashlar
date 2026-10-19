@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """CI guard: refuse a site whose generated ER model has stale source fingerprints."""
 import hashlib,json,re
 from pathlib import Path

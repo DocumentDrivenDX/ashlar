@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual filesystem interval/provider owners with inert source and native ports."""
 import tempfile,unittest,json,os
 from pathlib import Path

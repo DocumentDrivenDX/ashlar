@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import unittest
 from ashlar.native import SQLResult
 from ashlar.effect_validation import validate_effect_snapshot,EffectValidationError

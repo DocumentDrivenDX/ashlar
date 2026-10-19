@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded, exact graph releases read under complete publication/pin custody."""
 import base64
 from dataclasses import dataclass

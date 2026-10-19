@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configured JSONL saved-export correspondence, never live or protected authority."""
 import hashlib,json
 from .delta_custody import encoded

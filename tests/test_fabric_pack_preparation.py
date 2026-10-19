@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure typed mapping checks; no OneLake or Fabric authority."""
 import copy,unittest
 from ashlar.graph_release import release_columns

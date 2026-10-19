@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual compiler fixture; schema port mocked only for owning inventory controls."""
 import base64
 import copy

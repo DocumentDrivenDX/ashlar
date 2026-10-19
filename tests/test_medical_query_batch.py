@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite original medical bags; inert decoder/native seams are not engine evidence."""
 from collections import Counter
 import json,unittest

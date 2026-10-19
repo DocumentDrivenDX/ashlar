@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded lossless receipt bytes; no native SDK or database execution."""
 import base64,gzip,hashlib,json,random,unittest
 from types import SimpleNamespace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit CLI composition and buffered reports; no native runtime acquisition."""
 import contextlib,hashlib,io,json,sys,tempfile,unittest
 from pathlib import Path

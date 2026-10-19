@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing-parser configuration routes; no producer, compiler or native execution."""
 import contextlib
 import io

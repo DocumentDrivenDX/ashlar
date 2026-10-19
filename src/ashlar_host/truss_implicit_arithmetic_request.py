@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original Truss binding with explicit installed public 0.4.2 selection."""
 from .implicit_arithmetic_profile import PROFILE
 from .truss_weft_query import truss_scalar_compile_request

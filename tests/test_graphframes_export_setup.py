@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small real file-admission controls; no SDK or Spark runtime loading."""
 import hashlib,json,tempfile,unittest
 from pathlib import Path

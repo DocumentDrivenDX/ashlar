@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """SDK-free composition controls; inert ports confer no native/source grant."""
 from contextlib import ExitStack
 from dataclasses import replace

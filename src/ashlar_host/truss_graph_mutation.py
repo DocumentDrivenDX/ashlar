@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create two cohort objects and their independent edge through public Truss groups."""
 import json
 from contextlib import contextmanager

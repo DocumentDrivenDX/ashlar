@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Concrete existing-commerce export using configured ordinary source owners."""
 from contextlib import contextmanager
 from dataclasses import dataclass

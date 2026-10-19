@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed original medical operations with explicit runtime and worker custody."""
 from contextlib import contextmanager, redirect_stdout
 import hashlib

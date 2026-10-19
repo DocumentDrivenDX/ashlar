@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small original-core/held composition controls; no native engine qualification."""
 import copy,json,unittest
 from unittest import mock

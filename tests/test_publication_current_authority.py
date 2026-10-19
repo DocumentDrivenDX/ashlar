@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert boundary lifecycle controls, not source/publication qualification."""
 from contextlib import contextmanager
 from types import SimpleNamespace

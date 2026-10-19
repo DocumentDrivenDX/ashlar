@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small exact grouping source/IR ports; no engine execution."""
 import copy,hashlib,json,unittest
 from unittest.mock import patch

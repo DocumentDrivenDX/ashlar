@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Seven common GraphFrames operations over the held original supply-chain graph.
 
 All original properties remain opaque exact STRING carriers. No authored supply

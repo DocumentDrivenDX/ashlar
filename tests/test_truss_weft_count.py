@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small accepted-catalog/global-count IR controls; no native execution."""
 import copy
 import gzip

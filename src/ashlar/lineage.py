@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact candidate Truss lineage carriers; no source admission or ID authority."""
 MAX_BYTES = 1048576
 CANONICAL = 'truss-canonical/0.1.0'

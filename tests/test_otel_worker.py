@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite worker public SDK/OTLP correspondence with inert HTTP ports only."""
 from dataclasses import asdict
 from importlib import metadata

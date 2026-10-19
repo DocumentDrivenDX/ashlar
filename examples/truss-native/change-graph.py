@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Update then delete the original cohort pair using current authorized Truss reads."""
 import argparse,sys
 from ashlar_host.truss_graph_change import run_change_truss_graph_command

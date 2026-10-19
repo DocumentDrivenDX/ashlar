@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact packaged canonical managed eight-table assets, not a UMF interpreter.
 
 Original generator/input provenance and ordered declared columns are retained.

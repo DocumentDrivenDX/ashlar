@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small typed Delta writer controls with real file custody; no native qualification."""
 import hashlib
 import json

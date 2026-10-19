@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original commerce graph bytes inside actual ordinary publication custody.
 
 This neutral hold opens no engine and grants no export or deployment authority.

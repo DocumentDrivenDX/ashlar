@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected string-record binding planning from retained UMF interpretation.
 
 This is a target consumer profile, not UMF validation or native acceptance.

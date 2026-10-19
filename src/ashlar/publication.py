@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publication resolver core. Native custody and policy require a trusted backend."""
 from dataclasses import dataclass
 from decimal import Decimal

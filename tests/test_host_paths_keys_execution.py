@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Execution-port controls over actual compiler metadata, without native claims."""
 import copy
 import unittest

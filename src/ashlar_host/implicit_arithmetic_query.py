@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit042 full lifecycle; ordinary sessions and original pack are mandatory."""
 from .config import HostError
 from .implicit_arithmetic_configuration import QueryCommerceImplicitArithmeticConfig

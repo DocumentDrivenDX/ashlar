@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create one rootless typed record using the original public Truss group."""
 import json,re
 from pathlib import Path

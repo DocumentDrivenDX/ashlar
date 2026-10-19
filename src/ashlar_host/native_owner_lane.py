@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh complete native owner-lane observations; no remote fencing promise."""
 from ashlar.authority import AuthorityError,validate_writer_inventory
 from .effective_grants import effective_grants

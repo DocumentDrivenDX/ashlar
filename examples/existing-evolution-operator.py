@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Trusted CLI provider for an explicitly selected existing local installation.
 
 Supply every named ASHLAR_* input yourself. DSNs must authenticate ordinary

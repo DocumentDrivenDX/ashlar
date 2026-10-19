@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only native receipt controls with actual owned SQLite and inert engine."""
 import unittest
 from unittest.mock import patch

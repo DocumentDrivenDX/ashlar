@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original medical publication/replay composition under external supervision.
 
 The shared publisher owns phases and protected ACK recovery. This module owns

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original medical plan; actual admission with inert producer only."""
 import ast
 from dataclasses import replace

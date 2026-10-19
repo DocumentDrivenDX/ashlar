@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import hashlib,json,unittest
 from ashlar.truss_input import artifact,_canonical
 from ashlar.truss_feed import assemble_feed,FeedAssemblyError

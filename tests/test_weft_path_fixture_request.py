@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure publication metadata fixture; no native authority or executor."""
 import base64, zlib, copy, json, unittest
 from weft_path_fixture import fixture_inputs

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Scalar entity afterimages from original Truss native feed bytes.
 
 Pure extraction; source authority, durable publication and ACK stay host-owned.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Field-only source custody; deliberately not a Record/ingestion policy.
 
 The host authenticates the original producer and catalog allocations separately.

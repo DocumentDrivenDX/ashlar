@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Packaged public command controls with inert native ports, no native claim."""
 from contextlib import contextmanager
 import hashlib

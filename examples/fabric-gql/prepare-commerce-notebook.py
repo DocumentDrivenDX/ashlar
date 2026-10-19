@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Compatibility wrapper; use installed ashlar prepare-fabric-notebook."""
 import argparse
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original archaeology graph oracle; no UMF/native admission claim."""
 import hashlib,json
 SOURCE_SHA='dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a'

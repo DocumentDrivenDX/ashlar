@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded passive owned-code failure locations without exception payloads."""
 import builtins
 import json

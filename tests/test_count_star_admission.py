@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable reviewed 5dd metadata and independent owning guard controls.
 
 Claim-only schema callbacks test local metadata selection only. Actual offline

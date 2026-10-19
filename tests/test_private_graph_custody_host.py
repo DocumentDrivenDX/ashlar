@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Retained original export correspondence; no current authority or PG access."""
 import copy
 import gzip

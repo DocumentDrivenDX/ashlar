@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import hashlib,json,unittest
 from ashlar_host.delta_custody import encoded
 from ashlar_host.truss_graph_admission import TrussGraphAdmission

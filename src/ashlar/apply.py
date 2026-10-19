@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure graph apply planning for explicitly versioned whole-entity sources.
 
 Truss property-feed reconstruction is a separate adapter. Nothing here writes,

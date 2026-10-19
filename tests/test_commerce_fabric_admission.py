@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual HTTP/SQLite and real source-owner composition over explicit SDK doubles.
 
 No native Fabric/Delta or production mutation-isolation qualification is claimed.

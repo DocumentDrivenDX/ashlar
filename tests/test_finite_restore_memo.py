@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Read-only restore memo scope with inert native observations; no timeout diagnosis."""
 from contextlib import contextmanager
 from pathlib import Path

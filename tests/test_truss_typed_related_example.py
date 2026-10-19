@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Focused five-page typed relationship composition ports; no native qualification."""
 import importlib,json,os,sys,tempfile,unittest
 from pathlib import Path

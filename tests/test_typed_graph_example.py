@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Authored graph fixture byte/topology checks; no public UMF or native proof."""
 import hashlib
 import json

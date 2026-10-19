@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent byte custody for each actual public pack model operation."""
 import base64,hashlib,json,unittest
 from pathlib import Path

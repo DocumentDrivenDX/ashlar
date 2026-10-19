@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure optional STRING projection admission; live publication guards stay owned."""
 import hashlib,json
 from collections import Counter

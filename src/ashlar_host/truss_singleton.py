@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original selected Truss singleton rows under whole publication custody."""
 import base64,json
 from ashlar.manifest import manifest_pin_vector

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent original payments population; no authored SQL execution claim."""
 import hashlib
 import json

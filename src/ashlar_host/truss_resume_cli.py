@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed local Truss graph restart command using original owned custody."""
 import json
 import os

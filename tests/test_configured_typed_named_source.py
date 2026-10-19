@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit authored revision comparison; no migration or runtime proof."""
 import json,unittest
 from pathlib import Path

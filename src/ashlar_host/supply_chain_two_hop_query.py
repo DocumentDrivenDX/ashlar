@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Provisional original two-hop execution through existing real public owners.
 
 This port opens no session, installs no compiler and publishes no report. Its

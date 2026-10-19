@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Basic export composition controls; public reader/hold ports inert, no native."""
 from contextlib import contextmanager
 from types import SimpleNamespace

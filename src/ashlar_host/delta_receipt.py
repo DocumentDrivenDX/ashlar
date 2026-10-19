@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """CONTRACT-073 public encoding of an original local native Delta receipt."""
 
 from __future__ import annotations

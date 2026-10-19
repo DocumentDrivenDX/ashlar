@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Current PostgreSQL authority gates on inert native observations, no PG proof."""
 from types import SimpleNamespace
 import unittest

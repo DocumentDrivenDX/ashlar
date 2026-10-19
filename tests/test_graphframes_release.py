@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual typed custody orchestration with inert policies; no engine authority."""
 import gzip,hashlib,json
 from contextlib import contextmanager

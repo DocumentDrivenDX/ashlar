@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual public Field checks preserve incomplete Record evidence, no ingestion port."""
 
 import copy

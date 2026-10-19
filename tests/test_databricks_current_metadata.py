@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert SDK metadata controls; no native query or authority evidence."""
 import copy
 import dataclasses

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configure the existing immutable PuppyGraph command without an engine."""
 import json,os,stat
 from pathlib import Path

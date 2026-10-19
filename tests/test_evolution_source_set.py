@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original semantic union/state controls; no public producer or native authority claim."""
 from dataclasses import asdict, replace
 import base64

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Serialized Delta raw-batch custody. Publication and checkpoints are separate."""
 import base64
 from dataclasses import asdict, dataclass

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected original commerce native publication composition; no CLI discovery."""
 from .lifecycle import owned_connection
 import hashlib, importlib.metadata, json

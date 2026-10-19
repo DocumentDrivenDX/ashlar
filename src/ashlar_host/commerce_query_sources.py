@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed ordinary source inputs; binding grants no provisioning or write rights."""
 from dataclasses import dataclass
 from .existing_outbox_authority import OutboxAuthorityRegistration

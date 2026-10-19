@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded observations of immutable Delta versions in one ledger admission.
 
 Results stay provisional until full history is freshly revalidated on exit.

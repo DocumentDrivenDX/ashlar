@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Finite local public Truss typed record → Delta → named singleton example."""
 import os,sys
 from dataclasses import dataclass

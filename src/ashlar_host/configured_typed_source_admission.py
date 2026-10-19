@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fresh public core0.8 scalar admission for a pinned typed JSONL source."""
 import hashlib,json,os,stat
 from ashlar.source import jsonl_batches

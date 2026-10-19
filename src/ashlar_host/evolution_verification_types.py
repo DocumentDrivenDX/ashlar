@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed verification selections; these values confer no publication authority."""
 from dataclasses import dataclass
 from pathlib import Path

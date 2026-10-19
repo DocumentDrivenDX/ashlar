@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed packaged UMF physical carriers; no logical admission or native authority.
 
 Preserves the original generated profiles and provenance. Consumers bind these

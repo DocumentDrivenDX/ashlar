@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fail-closed, native persistent serialization for a source-owned UC deployment.
 
 The private coordinator connection is an owner capability, never an action

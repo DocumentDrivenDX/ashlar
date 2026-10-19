@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Create one authored edge using original public endpoint and relationship references."""
 from pathlib import Path
 from dataclasses import dataclass,asdict,field

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded actual public UMF producer transport; no native authority inference."""
 import hashlib
 import json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure original grouped path-occurrence COUNT; no native engine."""
 import copy,json,unittest
 from collections import Counter

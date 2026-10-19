@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Publish a complete native Truss page through the durable coordinator."""
 from .source_checkpoint import truss_checkpoint
 

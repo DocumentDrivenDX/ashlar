@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Configured read composition with actual original intake, inert native acquisition."""
 from contextlib import contextmanager
 from dataclasses import replace

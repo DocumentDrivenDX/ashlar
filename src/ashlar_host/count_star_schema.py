@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Offline public-schema validation for the explicit path admission boundary.
 
 The caller supplies the exact three schema byte strings. The owning admission

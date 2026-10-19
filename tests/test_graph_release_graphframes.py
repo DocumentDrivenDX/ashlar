@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,hashlib,json,unittest
 from ashlar.graph_release import _carrier
 from test_graph_release import carrier

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy
 import unittest
 import test_truss_graph_admission as graph_fixtures

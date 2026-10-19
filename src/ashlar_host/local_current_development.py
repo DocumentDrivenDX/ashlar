@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Isolated local Spark development custody, not UC/ABAC/Subject authority.
 
 This profile observes actual process/session and local Delta state. It does not

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit authored case selection; grants no query or publication authority."""
 from .commerce_path_oracle import commerce_path_cases
 from .count_star_oracle import commerce_count_star_cases

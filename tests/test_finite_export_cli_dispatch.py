@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import io,json,unittest
 from contextlib import redirect_stdout
 from unittest.mock import patch

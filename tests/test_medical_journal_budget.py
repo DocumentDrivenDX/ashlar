@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Selected main-file bounds use real SQLite and the actual POSIX lease."""
 from pathlib import Path
 import tempfile

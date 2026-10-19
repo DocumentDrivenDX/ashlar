@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed private-local immutable export custody; hashes require trusted host input.
 
 Correspondence checks do not authorize a source, mint a lease, or establish future

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small structural finite-file controls; no native source or engine qualification."""
 import copy,hashlib,json,unittest
 from pathlib import Path

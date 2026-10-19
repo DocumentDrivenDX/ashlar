@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure graph metadata tests with inert receipts; no compiler/native authority."""
 import hashlib,json,tempfile,unittest,uuid
 from dataclasses import replace

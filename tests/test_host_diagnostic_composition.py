@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Synthetic composition ownership controls; no installed SDK/native claim."""
 from dataclasses import replace
 from pathlib import Path

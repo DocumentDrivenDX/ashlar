@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit local-development use of two operator-selected private export files.
 
 This owner grants no live source, canonical writer, storage or Fabric authority.

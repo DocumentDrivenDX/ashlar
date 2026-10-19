@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Register a local consumer and durably spool complete public Truss feed pages."""
 import argparse,base64,json,os,sys
 from contextlib import contextmanager

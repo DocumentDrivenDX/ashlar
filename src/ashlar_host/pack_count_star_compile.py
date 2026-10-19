@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed041 original archaeology/ecology compile/admission; never native authority."""
 from dataclasses import dataclass
 from pathlib import Path

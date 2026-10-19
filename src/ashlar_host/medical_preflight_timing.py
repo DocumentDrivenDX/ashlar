@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Bounded recovery/preflight stage evidence, never a native/authority grant."""
 from __future__ import annotations
 import json,time

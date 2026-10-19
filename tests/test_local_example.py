@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Check the user-facing command and shared fixture loader remain executable."""
 import json
 from pathlib import Path

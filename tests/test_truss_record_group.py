@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Effect-free selections and public-port group controls; no native Truss claim."""
 from dataclasses import dataclass,make_dataclass
 from pathlib import Path

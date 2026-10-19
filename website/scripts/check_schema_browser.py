@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """CI fingerprint guard for the original Ashlar catalog and pinned UMF renderer."""
 import hashlib,json
 from pathlib import Path

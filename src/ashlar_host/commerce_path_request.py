@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original-commerce bindings for the private reviewed path compiler.
 
 This constructs requests only. It grants no publication/source authority and

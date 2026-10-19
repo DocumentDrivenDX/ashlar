@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Accepted scalar graph correspondence; current Truss authority stays session-owned."""
 import base64,hashlib,json
 from ashlar.staging import batch_row

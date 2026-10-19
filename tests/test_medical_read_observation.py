@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual medical plan and typed read owner; native/ordinary lower frames inert."""
 import json,hashlib,unittest
 from dataclasses import replace

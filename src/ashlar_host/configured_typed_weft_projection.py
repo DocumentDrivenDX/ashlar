@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Independent exact carriers for configured typed source projections.
 
 Original numeric tokens are retained separately from compiler/native output

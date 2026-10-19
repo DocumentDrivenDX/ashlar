@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """SDK-free selection controls; no compiler/native authority is simulated."""
 from dataclasses import replace
 from types import SimpleNamespace

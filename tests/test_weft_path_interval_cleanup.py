@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held execution cancellation controls; mocked ports confer no native support."""
 import unittest
 from contextlib import contextmanager

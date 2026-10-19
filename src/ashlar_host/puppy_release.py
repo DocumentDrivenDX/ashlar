@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Immutable release-specific PuppyGraph staging under supplied native authority.
 
 This cooperating process owns handle selection, not a durable remote latest alias.

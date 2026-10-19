@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public commerce receipt correspondence controls; no producer/native grant."""
 from copy import deepcopy
 from types import SimpleNamespace

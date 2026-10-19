@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original payments base-record COUNT, under existing finite custody."""
 import hashlib
 import json

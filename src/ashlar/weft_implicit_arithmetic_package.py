@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed independently indexed f36/042 product; no native/source authority.
 
 Original regular Git bytes are admitted; only owned installation copies are made

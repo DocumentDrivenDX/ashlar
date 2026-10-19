@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Lossless local receipt storage; exact original bytes remain authoritative."""
 import base64,hashlib,json,re,zlib,lzma
 PROFILE='ashlar-local-delta-receipt-zlib/0.1'

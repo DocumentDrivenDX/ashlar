@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Complete original finite graph release inside the existing read owner.
 
 No engine, source, publisher or installation lease is created here. Returned

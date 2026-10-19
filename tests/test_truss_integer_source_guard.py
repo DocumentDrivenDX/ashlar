@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,hashlib,json,unittest
 from unittest.mock import patch
 from ashlar_host.delta_custody import encoded

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public mechanical ports with inert executable/fixture-only proof callbacks."""
 from dataclasses import dataclass,FrozenInstanceError
 import json

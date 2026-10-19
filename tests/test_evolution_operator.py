@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Existing owner construction/custody tests; no native sessions executed."""
 import unittest
 from contextlib import contextmanager

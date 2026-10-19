@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original run correspondence; semantic agreement establishes no native authority."""
 from dataclasses import dataclass
 import hashlib

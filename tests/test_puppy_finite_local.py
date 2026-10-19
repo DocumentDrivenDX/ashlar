@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual owner checks over inert Docker observations; no container/SDK/source run."""
 import unittest
 from pathlib import Path

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original historical medical singleton correspondence, never source authority."""
 import hashlib,json,uuid
 from ashlar.medical_source import build_transaction,SOURCE_SHA

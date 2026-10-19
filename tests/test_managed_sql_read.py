@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert SDK and synthetic private selections; no network/auth/native calls."""
 import copy,json,os,sys,tempfile
 from contextlib import contextmanager

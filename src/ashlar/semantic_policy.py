@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Executable selected string-record constraints, not native catalog acceptance.
 
 Rebuild meaning from the retained UMF interpretation and require complete active

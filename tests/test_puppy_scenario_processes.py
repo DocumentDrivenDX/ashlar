@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert owned-process failure diagnostics; no graph engine or source authority."""
 import subprocess
 import sys

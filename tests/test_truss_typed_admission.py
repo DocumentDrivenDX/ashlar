@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import base64,hashlib,json,unittest,copy
 from dataclasses import replace
 from ashlar.truss_native_feed import native_feed_batch

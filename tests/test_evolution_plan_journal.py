@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Local original-intent custody, not native publication or ACK qualification."""
 from concurrent.futures import ThreadPoolExecutor
 import hashlib

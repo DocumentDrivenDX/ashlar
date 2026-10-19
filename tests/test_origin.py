@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import json
 import unittest
 from ashlar.origin import map_acceptance_origin, restore_asserted_origin, OriginMappingError

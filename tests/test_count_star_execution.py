@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held provider controls; fixture frames never claim native SQL qualification."""
 import copy,unittest
 from types import SimpleNamespace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Neutral owner controls over real owner types and explicit inert native seams."""
 import json
 import unittest

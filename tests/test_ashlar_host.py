@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Source-only installed composition controls; no native workflow qualification."""
 import tempfile
 import unittest

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One authored forward or inverse literal-key HAS_RELATED filter, under accepted Truss semantics."""
 import hashlib,json
 from .truss_graph_admission import TrussGraphAdmission

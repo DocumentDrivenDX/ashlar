@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small typed RELATED_KEYS held transport ports; no engine qualification."""
 import json,unittest
 from contextlib import nullcontext

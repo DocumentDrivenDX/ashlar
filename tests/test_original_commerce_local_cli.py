@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed dispatch/configuration controls, without source/provider/native effects."""
 import json,sys,tempfile,subprocess,hashlib
 from pathlib import Path

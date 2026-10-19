@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Small durable intent/native correspondence control; no source ACK execution."""
 import sqlite3
 import unittest

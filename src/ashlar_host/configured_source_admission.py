@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed original configured-source preflight; no database or source effects."""
 import hashlib
 import json

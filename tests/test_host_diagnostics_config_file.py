@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit synthetic file admission; no SDK, native or credential discovery."""
 from dataclasses import asdict
 from pathlib import Path

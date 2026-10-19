@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """The browser copy boundary refuses changed custody, not changed UMF meaning."""
 import json
 from pathlib import Path

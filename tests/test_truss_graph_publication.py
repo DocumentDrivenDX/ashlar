@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import hashlib,json,unittest
 from ashlar.apply import empty_state
 from ashlar_host.graph_sql import graph_sql_plan,TABLES

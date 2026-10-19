@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Held native metadata remains distinct from row non-nullness."""
 import json
 import unittest

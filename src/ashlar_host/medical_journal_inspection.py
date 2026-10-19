@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Conditional retained-journal observations under an actual cooperating lease.
 
 No process absence, native Delta observation or source/ACK authority is inferred.

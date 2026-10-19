@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Public portable host operations retain existing exact semantics/aliases."""
 import hashlib
 import json

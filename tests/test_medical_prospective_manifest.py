@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure prospective-intent lifecycle controls; no native/source authority claim."""
 import hashlib,json,tempfile,unittest,os,sqlite3
 from pathlib import Path

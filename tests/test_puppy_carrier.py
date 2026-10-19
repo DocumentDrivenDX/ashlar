@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert carrier controls; no DuckDB/Puppy/native execution qualification."""
 import copy,hashlib,json,sys,tempfile,types,unittest
 from pathlib import Path

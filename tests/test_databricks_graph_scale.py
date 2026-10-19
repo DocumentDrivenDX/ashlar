@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Preparation/oracle controls only; no SDK, Spark or paid compute execution."""
 import hashlib
 import json

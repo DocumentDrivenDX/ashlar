@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Installed ordinary configuration entrypoint for the local Note workflow."""
 import json
 from pathlib import Path

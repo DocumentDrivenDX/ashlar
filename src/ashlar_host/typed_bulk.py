@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """One original Delta native transaction for bounded set-based scalar bulk SET.
 
 Preview is advisory. Execution reselects within its own registered whole-table

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original configured-source carrier oracle and retained clock correspondence.
 
 No native reads, publisher SQL plans, snapshot-row oracle or authority grants.

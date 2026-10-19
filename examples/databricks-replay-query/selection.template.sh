@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 # Copy to an operator-owned file and replace EVERY value. No command runs here.
 # Existing dedicated Ashlar SQL endpoint only; no default/shared compute.
 ASHLAR_PYTHON='REPLACE_WITH_ABSOLUTE_QUALIFIED_HOST_PYTHON'

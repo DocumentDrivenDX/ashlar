@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit serialized thread bridge; native cancellation remains host-owned.
 
 This candidate is not a native-awaitable driver qualification. A host must supply

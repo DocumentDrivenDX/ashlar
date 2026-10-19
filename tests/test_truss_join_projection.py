@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 import copy,json,unittest
 import test_truss_join_count as fixtures
 from ashlar_host.truss_join_count import admit_truss_join_projection

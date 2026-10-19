@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit original-commerce ordinary sessions; no provisioning or discovery."""
 from dataclasses import dataclass, field
 import json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """CONTRACT-006 sanitized capture/retrieval, independent of SDK and work authority.
 
 Injected signal ports must honor their total monotonic deadline and return only

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original17 analytic preparation; no engine, publication or source authority."""
 from contextlib import ExitStack
 from dataclasses import dataclass

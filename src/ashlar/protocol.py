@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit native SQL-reader protocol admission; separate from pins/files/schema.
 
 Advertised tableFeatures include writer features; this conservative boundary

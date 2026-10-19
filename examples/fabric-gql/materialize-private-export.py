@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Notebook template for explicit LOCAL DEVELOPMENT use of a CLI export pair.
 
 Use existing Spark with normal Delta support; do not create a second Spark

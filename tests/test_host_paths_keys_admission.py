@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual debug compiler metadata; trusted-port mocks confer no runtime authority.
 
 Exact original request/response bytes retained from the independently reviewed

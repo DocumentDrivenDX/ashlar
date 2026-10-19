@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed continuation preflight observations; never submission or authority ports."""
 from __future__ import annotations
 from typing import Callable, Mapping, TypeVar

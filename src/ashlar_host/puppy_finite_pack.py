@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Two authored STRING cases; original RECORD rows, not replacement graph edges.
 
 Preparation is not activation authority. Actual current release/source owners

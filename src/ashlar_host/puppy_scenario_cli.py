@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed installed original17 worker with owned group and container cleanup."""
 import hashlib
 import json

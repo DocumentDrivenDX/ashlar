@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Pure setup composition and owned cleanup controls; no container or database."""
 from dataclasses import replace
 import hashlib

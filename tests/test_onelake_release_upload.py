@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual loopback DFS byte transport plus real journal permit; no cloud claim."""
 from contextlib import contextmanager
 from dataclasses import replace

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Check actual retained local Spark4 SQL receipts, exact values and controls."""
 import hashlib
 import json

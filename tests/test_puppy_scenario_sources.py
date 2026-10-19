@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Real original-file renewal with injected export port; no UMF/native claim."""
 from pathlib import Path
 from tempfile import TemporaryDirectory

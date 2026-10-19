@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Explicit direct ordinary pin-reader login; no service or credential discovery.
 
 This owner supplies real transaction lifetime only. Managed publication/source

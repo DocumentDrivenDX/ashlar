@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original request and independent oracle, not a native qualification."""
 import json
 import tempfile

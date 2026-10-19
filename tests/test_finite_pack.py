@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Original pack correspondence and inert producer ports; no native qualification."""
 import hashlib,json,tempfile,unittest
 from pathlib import Path

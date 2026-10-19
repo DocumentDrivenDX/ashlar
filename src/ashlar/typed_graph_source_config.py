@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Closed original core0.8 graph source metadata; public UMF owns semantics."""
 import hashlib,os,re,stat
 from dataclasses import dataclass,replace

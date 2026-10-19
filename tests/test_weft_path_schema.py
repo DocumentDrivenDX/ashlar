@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Actual offline validator tests; no native execution or distribution claim."""
 import copy
 import unittest

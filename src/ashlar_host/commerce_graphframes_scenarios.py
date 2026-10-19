@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Exact original commerce GraphFrames projections and independent finite bags.
 
 Logical UMF0.8 Integer remains unbounded. Decimal38 arithmetic here is a closed

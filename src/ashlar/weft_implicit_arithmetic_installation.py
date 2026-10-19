@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
 """Fixed 042 readonly installation and original string transport; no native grant."""
 from __future__ import annotations
 from dataclasses import dataclass
