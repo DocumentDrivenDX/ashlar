@@ -11,7 +11,7 @@ from .delta_custody import encoded
 
 STRING={'family':'string','facets':{},'nullable':False}
 _IR={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
-_BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate','interfaceVersion':'weft-backend/0.2.2','targetProfile':'spark4.0.1-delta4.0.0-candidate'}
+_BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate','interfaceVersion':'weft-backend/0.2.7','targetProfile':'spark4.0.1-delta4.0.0-candidate'}
 
 def _require(value):
     if not value:raise ValueError('Configured SDK original page oracle refused')
@@ -33,8 +33,8 @@ def configured_sdk_page_oracle(scope,request,program):
     _require(rebuilt()==request)
     declared=request['parameters'];_require(type(declared)is dict and all(type(n)is str and bool(n)and type(v)is dict and set(v)=={'family','value'}and v['family']=='string'and type(v['value'])is str for n,v in declared.items()))
     artifact=program['artifact'];pins=[m['pin']for m in request['modules']]
-    _require(type(artifact)is dict and artifact.get('status')=='compiled'and artifact.get('backend')==_BACKEND and artifact.get('interfaceVersion')=='weft-compile/0.2.2'and artifact.get('dialect')=='weft-sql/0.2.0'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
-    ir=artifact.get('logicalPlan');_require(type(ir)is dict and set(ir)==_IR and ir['irVersion']=='weft-ir/0.2.2'and ir['modulePins']==pins and ir['aggregate']is False and ir['joins']==ir['groups']==[]and ir['limit']==size+1 and ir['readProfile']=={'subset':'entity-page','version':'weft-application-read/0.2.0'})
+    _require(type(artifact)is dict and artifact.get('status')=='compiled'and artifact.get('backend')==_BACKEND and artifact.get('interfaceVersion')=='weft-compile/0.2.7'and artifact.get('dialect')=='weft-sql/0.2.0'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
+    ir=artifact.get('logicalPlan');_require(type(ir)is dict and set(ir)==_IR and ir['irVersion']=='weft-ir/0.2.7'and ir['modulePins']==pins and ir['aggregate']is False and ir['joins']==ir['groups']==[]and ir['limit']==size+1 and ir['readProfile']=={'subset':'entity-page','version':'weft-application-read/0.2.0'})
     scan=ir['source'];_require(type(scan)is dict and set(scan)=={'occurrence','pin','record'}and type(scan['occurrence'])is str and bool(scan['occurrence'])and scan['pin']in pins)
     records=[r for r in binding['records']if r['logical']==scan['record']];_require(len(records)==1);record=records[0];tid=record['typeId'];_require(tid in config.bindings)
     document=decode_retained_json(model);elements={(m['id'],e['id']):e for m in document['modules']for e in m['elements']}

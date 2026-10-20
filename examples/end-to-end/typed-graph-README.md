@@ -1,8 +1,8 @@
 # Authored typed graph source on local Delta
 
 Use [configured-typed-graph-source.json](configured-typed-graph-source.json) with
-a separate fresh configured-local installation and a clean public UMF checkout
-at `07357eadbda9cf8299b9d72d004cbb77f8091aee`. Its explicit
+a separate fresh configured-local installation and a clean public UMF core 0.10 checkout
+at `a251ea5f876b7c69ef5e429af43621852242d324`. Its explicit
 `ashlar-jsonl-typed-graph-source/0.1` configuration pins the original model, event
 bytes and development bindings. Preserve all three inputs; do not relabel an
 existing scalar installation or change its producer revision.

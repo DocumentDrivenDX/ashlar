@@ -25,7 +25,8 @@ class Tests(unittest.TestCase):
         args=self.fixture();sql='SELECT p.person_key,p.person_name FROM Person p';parameters={'name':{'family':'string','value':'雪\0'}}
         original=configured_typed_graph_count_star_request(*args,sql,layout_sha256=LAYOUT_SHA256)
         result=configured_typed_graph_sdk_request(*args,sql,parameters,layout_sha256=LAYOUT_SHA256)
-        self.assertEqual((result['interfaceVersion'],result['dialect']),('weft-compile/0.2.2','weft-sql/0.2.0'))
+        self.assertEqual((result['interfaceVersion'],result['dialect']),('weft-compile/0.2.7','weft-sql/0.2.0'))
+        self.assertEqual(result['timestampComparisonProfile'],'umf-rfc3339-exact-instant/1.0.0')
         self.assertEqual(result['modules'],original['modules']);self.assertEqual(result['sql'],sql)
         self.assertEqual(result['target']['backendVersion'],'0.1.0-local-spark4-pages-candidate')
         before=json.loads(original['target']['bindingJson']);after=json.loads(result['target']['bindingJson'])

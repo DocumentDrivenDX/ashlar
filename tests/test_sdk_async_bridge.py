@@ -25,7 +25,7 @@ class BridgeTests(unittest.IsolatedAsyncioTestCase):
         original=json.loads((Path(__file__).parent/'fixtures/sdk-engine-related-original.json').read_text())
         request=original['request']
         request['sql']='SELECT r.id AS id FROM sales."order" r'
-        request['interfaceVersion']='weft-compile/0.2.2'
+        request['interfaceVersion']='weft-compile/0.2.7'
         request['target']['backendVersion']='0.1.0-local-spark4-pages-candidate'
         global ENTRY,PARAMS
         ENTRY=EngineRead.build(weft,request,parameters=Parameters,result=Result,method='ashlar-spark4-pages',page_size=3)

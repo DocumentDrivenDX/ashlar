@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Closed original core0.8 graph source metadata; public UMF owns semantics."""
+"""Closed original core0.10 graph source metadata; public UMF owns semantics."""
 import hashlib,os,re,stat
 from dataclasses import dataclass,replace
 from pathlib import Path
@@ -117,7 +117,7 @@ def load_typed_graph_jsonl_configuration(path,*,receipt=None,_verify=True):
     for key,maximum in (('source',1048576),('schema',65536),('bindings',262144)):
         ref=v[key];require(type(ref)is dict and set(ref)=={'path','sha256'}and text(ref['path'])and type(ref['sha256'])is str and re.fullmatch('[0-9a-f]{64}',ref['sha256'])is not None)
         target=(path.parent/ref['path']).resolve();raw=read_graph_input(target,maximum);require(hashlib.sha256(raw).hexdigest()==ref['sha256']);refs.append((target,ref['sha256']));raws.append(raw)
-    model=decode_retained_json(raws[1]);require(type(model)is dict and model.get('umf')=='0.8.0')
+    model=decode_retained_json(raws[1]);require(type(model)is dict and model.get('umf')=='0.10.0')
     bindings,relations,qualification=graph_bindings(raws[2],model,v['sourceSystem'],v['documentRevision'])
     result=TypedGraphJsonlConfiguration(original,path,refs[0][0],refs[1][0],refs[2][0],tuple(refs),v['feed'],v['epoch'],v['schemaAlias'],v['sourceSystem'],v['documentRevision'],v['producerRevision'],raws[1],hashlib.sha256(raws[1]).hexdigest(),raws[0],raws[2],bindings,relations,qualification)
     if _verify:result.verify()

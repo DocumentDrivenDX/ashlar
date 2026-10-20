@@ -64,7 +64,7 @@ def validate_configured_typed_graph_source(config):
             'producer_revision':GRAPH_CHECK_PIN,'batches':len(batches),'records':sum(len(b.records)for b in batches),
             'receipts':[{'file':'graph-1.json','sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}],
             'published':False,'acknowledged':False,
-            'qualification':'Original authored core0.8 carried Record and complete supplied-dataset key/relationship checks, strict apply/replay and exact local source custody. Explicit development IDs; no native/catalog, publication, protected ACK or query authority.'}
+            'qualification':'Original authored core0.10 carried Record and complete supplied-dataset key/relationship checks, strict apply/replay and exact local source custody. Explicit development IDs; no native/catalog, publication, protected ACK or query authority.'}
     result=json.dumps(report,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode();_require(len(result)<=65536)
     _write(config.output/'report.json',result)
     return report

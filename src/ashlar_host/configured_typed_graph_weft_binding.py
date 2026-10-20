@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Pure original core0.8 graph binding metadata; no query authority.
+"""Pure original core0.10 graph binding metadata; no query authority.
 
 Explicit aliases describe physical names only. Their lifetime, original native
 identity and source/publication custody must be admitted by a separate owner.
@@ -45,7 +45,7 @@ def configured_typed_graph_count_star_request(configuration,manifest,vector,mani
         _require(parts[1]==namespace)
     model=decode_retained_json(configuration.model_source)
     elements={(m['id'],e['id']):e for m in model['modules']for e in m['elements']}
-    pin={'documentId':model['id'],'revision':configuration.document_revision,'umfVersion':'0.8.0','sha256':configuration.model_sha256}
+    pin={'documentId':model['id'],'revision':configuration.document_revision,'umfVersion':'0.10.0','sha256':configuration.model_sha256}
     def logical(module,element):return dict(documentId=model['id'],revision=configuration.document_revision,module=module,element=element)
     records=[];object_index=next(i for i,n in enumerate(names)if n.endswith('.object_current'))
     for tid,bound in sorted(configuration.bindings.items()):

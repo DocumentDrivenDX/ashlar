@@ -9,7 +9,7 @@ from .schema import decode_retained_json
 from .source import jsonl_batches
 from .whole_entity import changes_from_batch
 from .typed_source_policy import typed_values
-GRAPH_CHECK_PIN='07357eadbda9cf8299b9d72d004cbb77f8091aee'
+GRAPH_CHECK_PIN='a251ea5f876b7c69ef5e429af43621852242d324'
 
 def require(value):
     if not value:raise ValueError('Original typed graph correspondence refused')
@@ -81,12 +81,12 @@ def _record_validation(value,record,source):
 def verify_typed_graph_receipt(model,request,receipt):
     """Original envelope/result correspondence, not producer authentication.
 
-    The host owns actual public073 execution and verifyCoreDatasetValuesCompact.
+    The host owns actual public core0.10 execution and verifyCoreDatasetValuesCompact.
     Importing a receipt alone cannot establish that execution or source authority.
     """
     require(type(model)is bytes and 0<len(model)<=65536 and type(request)is bytes and 0<len(request)<=1048576 and type(receipt)is bytes and 0<len(receipt)<=4194304)
     source=decode_retained_json(model);wanted=decode_retained_json(request);report=decode_retained_json(receipt)
-    require(source.get('umf')=='0.8.0')
+    require(source.get('umf')=='0.10.0')
     require(type(report)is dict and set(report)=={'format','producerRevision','sourceBase64','sourceSha256','requestBase64','requestSha256','groups','qualification'}
         and report['format']=='ashlar-typed-graph-check/0.1'and report['producerRevision']==GRAPH_CHECK_PIN and type(report['qualification'])is str)
     require(report['sourceBase64']==b64(model)and report['sourceSha256']==sha(model)and report['requestBase64']==b64(request)and report['requestSha256']==sha(request)
@@ -107,7 +107,7 @@ def verify_typed_graph_receipt(model,request,receipt):
         require(type(observed)is dict and set(observed)=={'records','dataset'}and type(observed['records'])is list and len(observed['records'])==len(group['records']))
         for item,entry in zip(group['records'],observed['records']):
             require(type(entry)is dict and set(entry)=={'request','result'}and entry['request']==item)
-            result=entry['result'];require(type(result)is dict and result.get('operation')=='validate-core-record-values'and result.get('version')=='1.0.0'
+            result=entry['result'];require(type(result)is dict and result.get('operation')=='validate-core-record-values'and result.get('version')=='2.0.0'
                 and result.get('source')==source and result.get('identity')==item['identity']and result.get('values')==item['values']and _record_validation(result.get('validation'),elements[item['identity']['module'],item['identity']['element']],source))
             document=result.get('documentValidation');require(_valid(document))
             members=elements[item['identity']['module'],item['identity']['element']]['members'];fields=result.get('fields')
@@ -125,7 +125,7 @@ def verify_typed_graph_receipt(model,request,receipt):
         for item,entry in zip(expected_records,actual_records):
             require(type(entry)is dict and set(entry)=={'instanceId','result'}and entry['instanceId']==item['instanceId'])
             result=entry['result'];require(type(result)is dict and 'source'not in result and result.get('sourceRef')=='#/source'
-                and result.get('operation')=='validate-core-record-values'and result.get('version')=='1.0.0'
+                and result.get('operation')=='validate-core-record-values'and result.get('version')=='2.0.0'
                 and result.get('documentValidation')==document and result.get('identity')==item['identity']and result.get('values')==item['values']and _record_validation(result.get('validation'),elements[item['identity']['module'],item['identity']['element']],source))
             members=elements[item['identity']['module'],item['identity']['element']]['members'];fields=result.get('fields')
             require(type(fields)is list and len(fields)==len(members))
@@ -139,7 +139,7 @@ def verify_typed_graph_receipt(model,request,receipt):
         actual_keys=dataset.get('keys');require(type(actual_keys)is list and len(actual_keys)==len(expected_keys))
         def key_receipt(result,identity,values):
             require(type(result)is dict and set(result)=={'operation','version','profile','sourceRef','identity','values','keyPath','bytesHex'}
-                and result['operation']=='encode-core-key-tuple'and result['version']=='3.0.0'and result['profile']=='umf-key-tuple-v1'
+                and result['operation']=='encode-core-key-tuple'and result['version']=='4.0.0'and result['profile']=='umf-key-tuple-v1'
                 and result['sourceRef']=='#/source'and result['identity']==identity and result['values']==values
                 and result['keyPath']==key_paths[(identity['module'],identity['element'],identity['key'])]and type(result['bytesHex'])is str and 0<len(result['bytesHex'])and len(result['bytesHex'])%2==0
                 and all(c in '0123456789abcdef'for c in result['bytesHex']))

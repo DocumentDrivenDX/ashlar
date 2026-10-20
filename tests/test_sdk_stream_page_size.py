@@ -40,9 +40,18 @@ class StreamPageSizeTests(unittest.TestCase):
             (Path(__file__).parent / "fixtures/sdk-engine-related-original.json").read_text()
         )
         cls.request = copy.deepcopy(cls.original["request"])
-        cls.request["interfaceVersion"] = "weft-compile/0.2.2"
+        cls.request["interfaceVersion"] = "weft-compile/0.2.7"
         cls.request["target"]["backendVersion"] = "0.1.0-local-spark4-pages-candidate"
         cls.request["sql"] = 'SELECT r.id AS id FROM sales."order" r'
+
+    def test_fixture_is_officially_valid_current_core(self):
+        from umf import Document, validate_document
+
+        source = self.original["request"]["modules"][0]
+        self.assertEqual(source["pin"]["umfVersion"], "0.10.0")
+        document = Document.model_validate(json.loads(source["documentJson"]))
+        report = validate_document(document.to_dict())
+        self.assertTrue(report.valid, report.diagnostics)
 
     def target(self, compiler=None):
         target = object.__new__(AshlarTarget)

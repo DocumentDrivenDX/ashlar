@@ -1,8 +1,8 @@
-/** Public073 Record+compact dataset checks. No private UMF imports or authority. */
+/** Public core0.10 Record+compact dataset checks. No private UMF imports or authority. */
 import {createHash} from 'node:crypto';
 import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-const PIN='07357eadbda9cf8299b9d72d004cbb77f8091aee';
+const PIN='a251ea5f876b7c69ef5e429af43621852242d324';
 const [repoArg,modelPath,requestPath,git]=process.argv.slice(2);
 const refuse=():never=>{throw Error('Original typed graph admission refused');};
 if(!repoArg||!modelPath||!requestPath||!git)refuse();
@@ -19,7 +19,7 @@ const source=await Bun.file(modelPath).bytes(),request=await Bun.file(requestPat
 if(!source.length||source.length>65536||!request.length||request.length>1048576)refuse();
 const {readDocument,readJsonValue,validateCoreRecordValues,validateCoreDatasetValuesCompact,verifyCoreDatasetValuesCompact}=await import(pathToFileURL(join(repo,'src/index.ts')).href);
 const decoder=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true});
-const model=readDocument(decoder.decode(source),'json');if(model.umf!=='0.8.0')refuse();
+const model=readDocument(decoder.decode(source),'json');if(model.umf!=='0.10.0')refuse();
 const input:any=readJsonValue(decoder.decode(request),'json');
 if(!keys(input,['profile','configurationSha256','sourceSha256','bindingSha256','modelSha256','documentRevision','sourceSystem','feed','epoch','groups'])||input.profile!=='ashlar-typed-graph-check-request/0.1'||!['configurationSha256','sourceSha256','bindingSha256','modelSha256'].every(k=>sha(input[k]))||input.modelSha256!==hash(source)||!['documentRevision','sourceSystem','feed','epoch'].every(k=>text(input[k]))||!Array.isArray(input.groups)||input.groups.length<1||input.groups.length>4)refuse();
 const rawSource=createHash('sha256');let offset=0,eventCount=0,objectCount=0;
@@ -48,7 +48,7 @@ for(const group of input.groups){
   const {event,value}=objects[index];
   if(++objectCount>1000||!keys(item,['deliveryId','recordSha256','typeId','propsSha256','identity','values'])||item.deliveryId!==event.deliveryId||item.recordSha256!==event.recordSha256||!Number.isSafeInteger(item.typeId)||item.typeId<1||item.typeId>=2147483648||String(item.typeId)!==value.type_id||item.propsSha256!==hash(new TextEncoder().encode(value.props_json)))refuse();
   const result=validateCoreRecordValues(model,item.identity,item.values);
-  // Public073 Record checks retain these exact dataset-context deferrals.
+  // Public core0.10 Record checks retain these exact dataset-context deferrals.
   // They are not erased/promoted: the joint compact dataset must complete below.
   const owner=model.modules.find((m:any)=>m.id===item.identity.module)?.elements.find((e:any)=>e.id===item.identity.element);
   const warnings=[];
@@ -63,4 +63,4 @@ for(const group of input.groups){
 }
 if(!objectCount||rawSource.digest('hex')!==input.sourceSha256)refuse();
 clean();
-console.log(JSON.stringify({format:'ashlar-typed-graph-check/0.1',producerRevision:PIN,sourceBase64:Buffer.from(source).toString('base64'),sourceSha256:hash(source),requestBase64:Buffer.from(request).toString('base64'),requestSha256:hash(request),groups,qualification:'Original public core0.8 carried Record checks and complete supplied-dataset-only compact checks. Explicit development IDs; no source, catalog, native publication, query or ACK authority.'}));
+console.log(JSON.stringify({format:'ashlar-typed-graph-check/0.1',producerRevision:PIN,sourceBase64:Buffer.from(source).toString('base64'),sourceSha256:hash(source),requestBase64:Buffer.from(request).toString('base64'),requestSha256:hash(request),groups,qualification:'Original public core0.10 carried Record checks and complete supplied-dataset-only compact checks. Explicit development IDs; no source, catalog, native publication, query or ACK authority.'}));

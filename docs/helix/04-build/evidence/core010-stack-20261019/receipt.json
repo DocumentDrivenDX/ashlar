@@ -1,0 +1,35 @@
+{
+  "capturedAt": "2026-10-20T03:16:22.077263+00:00",
+  "scope": "Core 0.10 configured graph and SDK profile compatibility; local macOS only",
+  "version": "0.1.0.dev1",
+  "producerRevision": "a251ea5f876b7c69ef5e429af43621852242d324",
+  "coreVersion": "0.10.0",
+  "recordReceiptVersion": "2.0.0",
+  "keyTupleReceiptVersion": "4.0.0",
+  "compactDatasetReceiptVersion": "1.0.0",
+  "affectedConfiguredChecks": 34,
+  "realConfiguredTransport": {
+    "batches": 3,
+    "events": 13,
+    "applyAndReplay": "passed",
+    "test": "tests/test_typed_graph_admission_real010.py",
+    "receiptRetained": false
+  },
+  "additionalFocusedTests": 7,
+  "independentSourceReview": "clear after repairing old-producer transport",
+  "wheel": {
+    "name": "ashlar_graph_toolkit-0.1.0.dev1-py3-none-any.whl",
+    "sha256": "e7f67a1a99ddb0e57da9bb7102898a136c8885dd81e4a9e03c3f5260d4526811"
+  },
+  "liveSparkQualification": false,
+  "managedDatabricksQualification": false,
+  "sourceFiles": {
+    "src/ashlar/typed_graph_source.py": "884bbcb86be3ca5d17dcbb250fc7df54697b22821eb1d14755ddbe40c424b6ad",
+    "src/ashlar/typed_graph_source_config.py": "c944ad95d6a1f82cfeeedbb96652999ba063f881608edba46e45e591603000ee",
+    "src/ashlar_host/typed_graph_admission.py": "1ec7118542c6fc5a5ccf14227b0996a0e84af3d5f7996094b82ffb051cf20060",
+    "src/ashlar_host/resources/typed_graph_values.ts": "a64a1efd3ff1c54b5073475c1bfee35156ad015b63523a9833410822e92138ea",
+    "src/ashlar_host/configured_sdk_pages.py": "abb6e191408a9d356f84f7513910ab90e3ffa4e2293243eb57bde75a2072e918",
+    "src/ashlar_host/configured_sdk_page_oracle.py": "1ebed87b16dd664c69aacc810e2ffd3cb26a7281ca3198933a0a2f85c0e7c28c",
+    "examples/end-to-end/typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+  }
+}

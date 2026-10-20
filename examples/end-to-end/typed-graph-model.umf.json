@@ -1,5 +1,5 @@
 {
-  "umf": "0.8.0",
+  "umf": "0.10.0",
   "id": "typed-graph-example",
   "vocabularies": {},
   "modules": [
@@ -10,6 +10,7 @@
         {
           "id": "Person",
           "name": "Person",
+          "extensions": {},
           "kind": "record",
           "members": [
             {
@@ -37,39 +38,39 @@
               ],
               "primary": true
             }
-          ],
-          "extensions": {}
+          ]
         },
         {
           "id": "person_key",
           "name": "person_key",
-          "kind": "field",
           "scalarType": "string",
-          "cardinality": "one",
+          "extensions": {},
+          "kind": "field",
           "nullability": "required",
-          "extensions": {}
+          "cardinality": "one"
         },
         {
           "id": "person_name",
           "name": "person_name",
-          "kind": "field",
           "scalarType": "string",
-          "cardinality": "one",
+          "extensions": {},
+          "kind": "field",
           "nullability": "required",
-          "extensions": {}
+          "cardinality": "one"
         },
         {
           "id": "quantity",
           "name": "quantity",
-          "kind": "field",
           "scalarType": "integer",
-          "cardinality": "one",
+          "extensions": {},
+          "kind": "field",
           "nullability": "absent-allowed",
-          "extensions": {}
+          "cardinality": "one"
         },
         {
           "id": "Place",
           "name": "Place",
+          "extensions": {},
           "kind": "record",
           "members": [
             {
@@ -93,26 +94,25 @@
               ],
               "primary": true
             }
-          ],
-          "extensions": {}
+          ]
         },
         {
           "id": "place_key",
           "name": "place_key",
-          "kind": "field",
           "scalarType": "string",
-          "cardinality": "one",
+          "extensions": {},
+          "kind": "field",
           "nullability": "required",
-          "extensions": {}
+          "cardinality": "one"
         },
         {
           "id": "place_name",
           "name": "place_name",
-          "kind": "field",
           "scalarType": "string",
-          "cardinality": "one",
+          "extensions": {},
+          "kind": "field",
           "nullability": "required",
-          "extensions": {}
+          "cardinality": "one"
         }
       ],
       "relationships": [

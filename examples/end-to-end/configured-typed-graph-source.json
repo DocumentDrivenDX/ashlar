@@ -5,14 +5,14 @@
   "sourceSystem": "typed-graph-source",
   "schemaAlias": "typed-graph",
   "documentRevision": "1",
-  "producerRevision": "07357eadbda9cf8299b9d72d004cbb77f8091aee",
+  "producerRevision": "a251ea5f876b7c69ef5e429af43621852242d324",
   "source": {
     "path": "typed-graph-source.jsonl",
     "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"
   },
   "schema": {
     "path": "typed-graph-model.umf.json",
-    "sha256": "463a252064ae6cd4d084b27bb1a3352c310900aae0264cecd0eacfb2701e4ebf"
+    "sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
   },
   "bindings": {
     "path": "typed-graph-binding.json",

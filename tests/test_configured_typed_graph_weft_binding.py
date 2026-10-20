@@ -31,7 +31,7 @@ class Tests(unittest.TestCase):
             result=configured_typed_graph_count_star_request(*args,sql,layout_sha256=LAYOUT_SHA256)
             self.assertEqual(result['sql'],sql);self.assertEqual(result['interfaceVersion'],'weft-compile/0.4.1')
             self.assertEqual(result['modules'][0]['documentJson'].encode(),config.model_source)
-            pin=result['modules'][0]['pin'];self.assertEqual((pin['umfVersion'],pin['revision'],pin['sha256']),('0.8.0','1',config.model_sha256))
+            pin=result['modules'][0]['pin'];self.assertEqual((pin['umfVersion'],pin['revision'],pin['sha256']),('0.10.0','1',config.model_sha256))
             binding=json.loads(result['target']['bindingJson']);self.assertEqual(hashlib.sha256(result['target']['bindingJson'].encode()).hexdigest(),result['target']['bindingSha256'])
             for key in ('backendId','backendVersion','targetProfile'):self.assertEqual(result['target'][key],BACKEND[key])
             self.assertEqual([r['typeId']for r in binding['records']],['17','18'])

@@ -139,7 +139,7 @@ def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     from umf_access.engine_catalog import EngineRead
     import importlib.metadata
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
-    _require(query.compiler is importlib.import_module('weft')and importlib.metadata.version('weft-sql')=='0.4.41')
+    _require(query.compiler is importlib.import_module('weft')and importlib.metadata.version('weft-sql')=='0.4.48')
     values=query.parameters.model_dump(mode='python');parameters={n:{'family':'string','value':v}for n,v in values.items()}
     started=time.monotonic();items=[];pages=[];original=None
     with owned_context(open_configured_query_aliases(scope,transport))as aliases:

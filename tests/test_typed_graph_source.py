@@ -11,13 +11,17 @@ def dump(v):return json.dumps(v,ensure_ascii=False,separators=(',',':')).encode(
 def sha(v):return hashlib.sha256(v).hexdigest()
 def b64(v):return base64.b64encode(v).decode()
 def fixture(root,*,wrong_endpoint=False,edgeprops='{}',duplicate=False):
-    field={'id':'id','kind':'field','scalarType':'integer','cardinality':'one','nullability':'required','extensions':{}}
-    record=lambda name:{'id':name,'kind':'record','members':[{'module':'m','element':'id'}],'keys':[{'id':'pk','fields':[{'module':'m','element':'id'}]}],'extensions':{}}
-    relation={'id':'links','directed':True,'source':[{'module':'m','element':'A'}],'target':[{'module':'m','element':'B','key':'pk'}],
+    fields=[{'id':name,'kind':'field','scalarType':'integer','cardinality':'one','nullability':'required','extensions':{}}for name in ('a_id','b_id')]
+    def record(name,field_id):return {'id':name,'kind':'record','members':[{'module':'m','element':field_id}],
+        'keys':[{'id':'pk','name':'primary','primary':True,'fields':[{'module':'m','element':field_id}]}],'extensions':{}}
+    relation={'id':'links','name':'links','directed':True,'source':[{'module':'m','element':'A'}],'target':[{'module':'m','element':'B','key':'pk'}],
         'sourceMultiplicity':{'min':0,'max':'*'},'targetMultiplicity':{'min':0,'max':'*'},'targetLifecycle':'independent'}
-    model={'umf':'0.8.0','id':'graph','vocabularies':{},'modules':[{'id':'m','namespace':'urn:test:','elements':[field,record('A'),record('B')],'relationships':[relation]}]}
-    fields={'21':['m','id','integer']};bindings={'profile':'ashlar-authored-typed-graph-source/0.1','document_revision':'1','source_system':'s',
-        'records':{'17':{'record':['m','A'],'fields':fields},'18':{'record':['m','B'],'fields':fields}},
+    model={'umf':'0.10.0','id':'graph','vocabularies':{},'modules':[{'id':'m','namespace':'urn:test:','elements':fields+[record('A','a_id'),record('B','b_id')],'relationships':[relation]}]}
+    from umf import Document,validate_document
+    parsed=Document.model_validate(model);report=validate_document(parsed.to_dict());assert report.valid,report.diagnostics
+    model=json.loads(__import__('umf').write_document(parsed))
+    bindings={'profile':'ashlar-authored-typed-graph-source/0.1','document_revision':'1','source_system':'s',
+        'records':{'17':{'record':['m','A'],'fields':{'21':['m','a_id','integer']}},'18':{'record':['m','B'],'fields':{'21':['m','b_id','integer']}}},
         'relationships':{'19':{'identity':['m','links'],'source_type_id':17,'target_type_id':18,'target_key':['m','B','pk']}},'qualification':'Development only'}
     def event(delivery,kind,tid,eid,operation,version,props,endpoints=None):
         v={'kind':'event','delivery_id':delivery,'source_profile':'ashlar-whole-entity/0.1','source_system':'s','entity_kind':kind,'type_id':str(tid),'id':str(eid),
@@ -45,10 +49,10 @@ def inert_receipt(config,request):
         {'code':'RECORD_RELATIONSHIP_CONTEXT_REQUIRED','path':'/identity','message':'Relationship/endpoint constraints need a separately qualified dataset check','severity':'warning'}]
     record_validation={'valid':True,'complete':False,'diagnostics':warnings}
     def record(item,compact=False):
-        result={'operation':'validate-core-record-values','version':'1.0.0','identity':item['identity'],'values':item['values'],
-            'documentValidation':valid,'validation':record_validation,'fields':[{'field':{'module':'m','element':'id'},'state':'present','validation':valid}]}
+        result={'operation':'validate-core-record-values','version':'2.0.0','identity':item['identity'],'values':item['values'],
+            'documentValidation':valid,'validation':record_validation,'fields':[{'field':{'module':'m','element':'a_id' if item['identity']['element']=='A' else 'b_id'},'state':'present','validation':valid}]}
         result.update({'sourceRef':'#/source'}if compact else{'source':source});return result
-    def key(identity,values):return {'operation':'encode-core-key-tuple','version':'3.0.0','profile':'umf-key-tuple-v1','sourceRef':'#/source','identity':identity,'values':values,'keyPath':'/modules/0/elements/'+('1'if identity['element']=='A'else'2')+'/keys/0','bytesHex':'00'}
+    def key(identity,values):return {'operation':'encode-core-key-tuple','version':'4.0.0','profile':'umf-key-tuple-v1','sourceRef':'#/source','identity':identity,'values':values,'keyPath':'/modules/0/elements/'+('2'if identity['element']=='A'else'3')+'/keys/0','bytesHex':'00'}
     for g in json.loads(request)['groups']:
         records=[{'request':wanted,'result':record(wanted)}for wanted in g['records']]
         dataset={'operation':'validate-core-dataset-values-compact','version':'1.0.0','source':source,'input':g['dataset'],'scope':'supplied-dataset-only','provenance':'unverified',

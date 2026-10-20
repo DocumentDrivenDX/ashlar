@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Bounded public073 typed Record and supplied-dataset admission transport.
+"""Bounded public core0.10 typed Record and supplied-dataset admission transport.
 
 Original JSONL/binding/config correspondence remains the core source owner's
 obligation. Public receipts do not grant source, catalog, native or ACK authority.
@@ -17,7 +17,7 @@ from .config import ProducerConfig
 from .evolution_producer import capture,snapshot
 from .lifecycle import finish,owned_context
 
-UMF_REVISION='07357eadbda9cf8299b9d72d004cbb77f8091aee'
+UMF_REVISION='a251ea5f876b7c69ef5e429af43621852242d324'
 _CHECKER=Path(__file__).parent/'resources/typed_graph_values.ts'
 _KEYS={'profile','configurationSha256','sourceSha256','bindingSha256','modelSha256','documentRevision','sourceSystem','feed','epoch','groups'}
 
@@ -76,7 +76,7 @@ def _source_bytes(value):
 def admit_typed_graph(config,model,request):
     """Return one unchanged public receipt after input and producer closings.
 
-    The selected source is clean exact073 and executable/checker identities are
+    The selected source is clean exact core0.10 and executable/checker identities are
     renewed. This is a cooperative trusted-host profile, not dependency/OS
     isolation. Core proof verification does not replace public UMF validation.
     """

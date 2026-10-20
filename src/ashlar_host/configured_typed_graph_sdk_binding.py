@@ -15,7 +15,7 @@ def _require(value):
 
 
 def configured_typed_graph_sdk_request(configuration,manifest,vector,manifest_uuid,aliases,sql,parameters,*,layout_sha256):
-    """Return an original-model 0.2.2 page-backend request, not a compiled page."""
+    """Return an original Core 0.10, compile-request 0.2.7 page request, not a compiled page."""
     request=configured_typed_graph_count_star_request(configuration,manifest,vector,manifest_uuid,aliases,sql,layout_sha256=layout_sha256)
     _require(type(parameters)is dict and len(parameters)<=128)
     for name,value in parameters.items():
@@ -37,7 +37,7 @@ def configured_typed_graph_sdk_request(configuration,manifest,vector,manifest_uu
         owner=elements[record['logical']['module'],record['logical']['element']]
         _require(all((f['module'],f['element'])in homes for key in owner.get('keys',[])for f in key['fields']))
     raw=json.dumps(binding,ensure_ascii=False,separators=(',',':'),sort_keys=True)
-    request.update(interfaceVersion='weft-compile/0.2.2',dialect='weft-sql/0.2.0',parameters=json.loads(parameter_bytes))
+    request.update(interfaceVersion='weft-compile/0.2.7',dialect='weft-sql/0.2.0',timestampComparisonProfile='umf-rfc3339-exact-instant/1.0.0',parameters=json.loads(parameter_bytes))
     request['target']={'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate',
         'targetProfile':'spark4.0.1-delta4.0.0-candidate','bindingJson':raw,'bindingSha256':hashlib.sha256(raw.encode()).hexdigest()}
     configuration.verify()
