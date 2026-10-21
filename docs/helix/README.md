@@ -42,14 +42,17 @@ Catalog, production authority, or Truss acceptance/feed/ACK. See the
 [current-upstream evidence packet](04-build/evidence/current-upstream-release-20261021/local-current/current-native-query-and-sdk-pages-20261021.json)
 for the exact tuple, report hashes and receipt-cap qualification.
 
-The separate `.4` local synthetic carrier samples measured 74.19 MB at
-1M/5M rows and 681.44 MB at 10M/50M rows. Four exact hash-plus-full-key probes
-per sample showed hash/source/type filters pushed into Parquet scans; the SQL
-included exact IDs, but truncated plans did not verify ID pushdown or file
-pruning. Marginal bytes extrapolate to about 67.48 GB at 1B/5B rows for this
-fixture only. A 4-core write-only projection at 80% of the 10M/50M measured
-rate is 56.73 minutes, so the full run is held for owner review. See the
-[`.4` sample evidence](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json).
+The `.4` synthetic carrier samples reached 45M nodes/225M edges on local[18]
+in 73.82 seconds, writing 3.06 GB of active ZSTD Parquet. At 80% of those
+measured per-table rates, a 1B/5B write projects to 18.05 minutes and remains
+held for review; the 68.05 GB size calculation is fixture arithmetic, not a
+production capacity estimate. This larger run improved throughput over local[4]
+but below ideal 4.5x core scaling, especially for edges. Its redundant
+`source_position=id` and decimal `source_delivery_id` are synthetic; actual
+accepted-feed storage costs remain unknown. Four point probes showed hash,
+source and type pushdown; truncated plans did not verify ID pushdown or file
+pruning. See the [18-core calibration](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+and [earlier samples](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json).
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
 local and native performance measurements. Metrics guide tuning; they do not

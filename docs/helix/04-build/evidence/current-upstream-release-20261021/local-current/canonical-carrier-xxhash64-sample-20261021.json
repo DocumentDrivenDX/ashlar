@@ -229,7 +229,7 @@
     "No full-table count/distinct/collision search was run; Parquet footer row counts confirmed the written row counts.",
     "No publication, ACK, Unity Catalog resolver, source custody, or full graph workload was exercised.",
     "No graph-engine export or execution was exercised.",
-    "No full 1B-node/5B-edge run was performed; the 4-core write-only estimate at 80% of observed 10M/50M rates is 56.73 minutes and is held for owner review."
+    "Historical local[4] 1B/5B write estimates were 45.47 minutes (two-point affine) and 56.73 minutes (10M/50M average-rate basis); the later local[18] calibration projects 18.05 minutes at 80% measured throughput. Full run remains held for review; see the 18-core evidence packet."
   ],
   "followup_10m_sample": {
     "private_result_sha256": "d0c8b0197ed0a3fb3fb57412dac8b269cc3af04800197fa37c92a23cbf9dd083",
@@ -326,8 +326,8 @@
     ],
     "plan_observation": "Same bounded FileScan Parquet probes with hash/source/type pushed filters visible; exact id is in each SQL predicate but rendered PushedFilters truncates before id. No file-pruning evidence."
   },
-  "full_scale_write_projection": {
-    "status": "HELD for owner review; not executed",
+  "four_core_historical_projection": {
+    "status": "Historical 4-core model; superseded by the later 18-core calibration for current throughput evidence.",
     "basis": "4-core 10M/50M write rates; require 80% of those measured rates; writes only.",
     "host_observation": {
       "physical_memory_GiB": 128,
@@ -361,5 +361,10 @@
       "sum_minutes": 45.47,
       "assumptions": "For each table, fit elapsed write seconds = intercept + slope × rows through the 1M/5M and 10M/50M write measurements; apply the same 0.8 throughput factor to the fitted duration. The fit yields about 45.47 minutes versus 56.73 minutes from applying 80% to the 10M/50M average write rates. Two points do not establish the scaling law; both estimates exceed the 15-minute review threshold, so the higher value remains the conservative planning basis."
     }
+  },
+  "followup_18core_calibration": {
+    "evidence_file": "canonical-carrier-xxhash64-18core-calibration-20261021.json",
+    "private_result_sha256": "1452b336813b4127e3682f4c58b817234d7472bfcb9dc5f0550dc79452832bb3",
+    "status": "completed once; no repetitions or full-scale run"
   }
 }

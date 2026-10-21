@@ -1,0 +1,172 @@
+{
+  "profile": "ashlar-current-carrier-xxhash64-18core-calibration/0.1",
+  "source": {
+    "commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "wheel_sha256": "18401e7052202515da90c5c7a87d775c8c33b82f82b9526f9802d615356b76af",
+    "generated_carrier_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "private_result_sha256": "1452b336813b4127e3682f4c58b817234d7472bfcb9dc5f0550dc79452832bb3"
+  },
+  "runtime": {
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "python": "3.12.14",
+    "jdk": "21.0.13",
+    "master": "local[18]",
+    "spark_driver_memory": "24g",
+    "jvm_max_heap_bytes": 25769803776,
+    "jvm_available_processors": 18,
+    "host_physical_cores": 18,
+    "host_physical_memory_GiB": 128,
+    "host_available_disk_TiB": 2.2,
+    "process_cpu_time": "Unavailable from this JVM runtime; values recorded as null."
+  },
+  "fixture": {
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+    "rows": {
+      "object_current": 45000000,
+      "edge_current": 225000000
+    },
+    "pattern": "Deterministic synthetic value pattern scaled from earlier 1M/5M fixture. source_position equals id; source_delivery_id is decimal string(id). Not actual Truss/source-feed data.",
+    "footer_rows_confirmed": {
+      "object_current": 45000000,
+      "edge_current": 225000000
+    },
+    "files_per_table": 18,
+    "compression": "ZSTD observed in Parquet; enforced Spark setting zstd"
+  },
+  "timing_seconds": {
+    "elapsed_before_spark_stop": 73.81599870801438,
+    "wheel_admission_plus_spark_startup": 19.68817,
+    "create_both_tables": 8.5261,
+    "write_object_45m": 9.67956,
+    "write_edge_225m": 29.30133,
+    "footer_column_inspection": 5.10601,
+    "four_point_lookups": 1.30835
+  },
+  "tables": {
+    "object_current": {
+      "rows": 45000000,
+      "parquet_files": 18,
+      "active_parquet_bytes": 493221151,
+      "delta_log_bytes": 29502,
+      "bytes_per_row": 10.96047,
+      "lookup_hash_chunk_bytes": 360116852,
+      "lookup_hash_bytes_per_row": 8.002597,
+      "source_position_chunk_bytes": 45907723,
+      "source_position_bytes_per_row": 1.020172,
+      "source_delivery_id_chunk_bytes": 17150296,
+      "source_delivery_id_bytes_per_row": 0.381118,
+      "write_seconds": 9.67956,
+      "write_rows_per_second": 4648972.07,
+      "footer_rows_confirmed": 45000000,
+      "codec_observed": [
+        "ZSTD"
+      ]
+    },
+    "edge_current": {
+      "rows": 225000000,
+      "parquet_files": 18,
+      "active_parquet_bytes": 2569031961,
+      "delta_log_bytes": 30811,
+      "bytes_per_row": 11.41792,
+      "lookup_hash_chunk_bytes": 1800585117,
+      "lookup_hash_bytes_per_row": 8.002601,
+      "source_position_chunk_bytes": 229461027,
+      "source_position_bytes_per_row": 1.019827,
+      "source_delivery_id_chunk_bytes": 84354918,
+      "source_delivery_id_bytes_per_row": 0.374911,
+      "write_seconds": 29.30133,
+      "write_rows_per_second": 7678832.23,
+      "footer_rows_confirmed": 225000000,
+      "codec_observed": [
+        "ZSTD"
+      ]
+    }
+  },
+  "point_lookups": [
+    {
+      "table": "object_current",
+      "id": 0,
+      "rows": 1,
+      "seconds": 0.48835,
+      "hash": 7686581330353470147
+    },
+    {
+      "table": "object_current",
+      "id": 44999999,
+      "rows": 1,
+      "seconds": 0.29432,
+      "hash": 4156874144773143263
+    },
+    {
+      "table": "edge_current",
+      "id": 0,
+      "rows": 1,
+      "seconds": 0.29121,
+      "hash": 7686581330353470147
+    },
+    {
+      "table": "edge_current",
+      "id": 224999999,
+      "rows": 1,
+      "seconds": 0.23446,
+      "hash": -141394084489543850
+    }
+  ],
+  "resource_observations": {
+    "heap_used_checkpoints_bytes": {
+      "after_startup": 143389536,
+      "after_sample": 4131784856
+    },
+    "max_observed_checkpoint_heap_used_bytes": 4131784856,
+    "jvm_max_heap_bytes": 25769803776,
+    "gc_time_ms_across_two_writes": 1056,
+    "process_cpu_time": "Unavailable; JVM process CPU counters returned null.",
+    "disk_free_before_bytes": 2397556076544,
+    "disk_free_after_bytes": 2394158206976,
+    "private_output_file_bytes": 3086246404
+  },
+  "throughput_comparison_to_local4_10m50m": {
+    "comparison_rows_per_core_are_matched": true,
+    "ideal_linear_core_multiple": 4.5,
+    "by_table": {
+      "object_current": {
+        "local4_rows_per_second": 1271453.41,
+        "local18_rows_per_second": 4648972.07,
+        "throughput_multiple": 3.656,
+        "fraction_of_ideal_4_5x": 0.813
+      },
+      "edge_current": {
+        "local4_rows_per_second": 2581635.3,
+        "local18_rows_per_second": 7678832.23,
+        "throughput_multiple": 2.974,
+        "fraction_of_ideal_4_5x": 0.661
+      }
+    },
+    "interpretation": "Observed throughput improved, but less than ideal 4.5x: node writes reached 3.66x (81% of ideal); edge writes reached 2.97x (66% of ideal). One sample does not identify the cause or establish a scaling law; edge writes are the larger measured cost."
+  },
+  "full_scale_write_projection": {
+    "status": "HELD for user/owner review; not executed",
+    "basis": "Measured local[18] per-role 45M/225M write throughput with 80% throughput target. No scale-out factor. Writes only.",
+    "object_1b_seconds": 268.88,
+    "edge_5b_seconds": 813.93,
+    "total_seconds": 1082.8,
+    "total_minutes": 18.05,
+    "sample_active_parquet_bytes": 3062253112,
+    "sample_active_parquet_bytes_per_row": 11.341678,
+    "six_billion_rows_active_parquet_GB_linear_arithmetic": 68.05,
+    "limitations": "18.05 minutes exceeds the 15-minute review threshold. The 68.05GB is row-linear arithmetic on this synthetic fixture, not a capacity estimate for real Ashlar payloads. Projection excludes setup, staging, manifests, history/retention, source custody, graph-engine export/execution, scans/validation, retries, and publication."
+  },
+  "algorithmic_observations_and_followups": [
+    "The BIGINT lookup_hash chunk is about 8.003 compressed bytes per row and comprises 70.6% of this fixture’s active Parquet bytes; it is a material fixed-width per-row cost.",
+    "source_position is populated redundantly from id here (about 1.02 bytes per row compressed). The native-source contract permits null positions; use null when the accepted source profile does not supply a position rather than copying id. Confirm with real accepted feed semantics before estimating savings.",
+    "The fixture stores decimal string(id) as source_delivery_id (about 0.38 bytes per row). Actual source delivery identifiers are opaque and their storage cost remains unknown. Do not convert their declared string type based on this synthetic sample.",
+    "The next writer investigation should focus on the edge-write path because it is slower and scales less efficiently in this sample; inspect the production writer’s repartition/serialization path and accepted edge payload before proposing a tuning change. Avoid extrapolating a core multiplier or running a platform matrix."
+  ],
+  "scope_limits": [
+    "No full-table collision scan, graph scan, publication, ACK, Unity Catalog resolver, or graph-engine export/execution.",
+    "Point probes were direct Spark SQL with exact full-key predicates; rendered plan truncation does not establish id pushdown or file pruning.",
+    "No full 1B/5B sample was run; full-size estimate remains held for explicit review."
+  ]
+}
