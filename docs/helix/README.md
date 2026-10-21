@@ -42,6 +42,15 @@ Catalog, production authority, or Truss acceptance/feed/ACK. See the
 [current-upstream evidence packet](04-build/evidence/current-upstream-release-20261021/local-current/current-native-query-and-sdk-pages-20261021.json)
 for the exact tuple, report hashes and receipt-cap qualification.
 
+A separate pinned local compatibility smoke executed one bounded GraphFrames
+one-hop query over a frozen synthetic Delta fixture (three nodes, two parallel
+edges) and matched both complete result rows, including their distinct edge
+IDs. Its first attempt failed closed at protocol admission and is retained in
+the [smoke evidence](04-build/evidence/current-upstream-release-20261021/local-current/pinned-delta-graphframes-smoke-20261021.json);
+the corrected attempt records Delta 4.4.1's observed legacy protocol features.
+This does not exercise an Ashlar publication or qualify full-table graph export,
+scale, or production use.
+
 The `.4` synthetic carrier samples reached 45M nodes/225M edges on local[18]
 in 73.82 seconds, writing 3.06 GB of active ZSTD Parquet. At 80% of those
 measured per-table rates, a 1B/5B write projects to 18.05 minutes and remains

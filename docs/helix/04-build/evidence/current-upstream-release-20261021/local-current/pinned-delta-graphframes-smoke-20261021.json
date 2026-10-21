@@ -1,0 +1,289 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "finding": "The initial expectation tableFeatures=[] rejected Delta 4.4.1 DESCRIBE DETAIL for protocol (reader 1, writer 2). Its detailed row was not captured; this attempt is retained as a failure and is not part of the passing claim.",
+      "graphFrameConstructed": false,
+      "moduleSha256": "00557d070613420affac85d36ca8b86be5a26cc5b617b40360ab1addb8ef9847",
+      "nativeLogSha256": "cf3f14937ee7066e695487faa6567c381271d486246bdf089fc17774ff55cf51",
+      "nativeReceiptSha256": "3f064632b4fa5e79597347e68b2c65452305d4d2248a79d5210ad856da0dacc7",
+      "queryInvoked": false,
+      "sourceCommit": "dbb48e75ca6a2c67c6982da699754d7a8c3c3891",
+      "stage": "Delta DESCRIBE DETAIL identity/protocol admission, before schema snapshot admission or GraphFrame construction/query",
+      "status": "failed-closed",
+      "wheelSha256": "583d6cf3d853aab8db8c2bd94192488e09ee591ee966c11971c22b2c0e6a0b91"
+    },
+    {
+      "attempt": 2,
+      "graphX": "not-used",
+      "moduleSha256": "f365f1c0423ec75ef89bf146e1500aafab797b30a81aa0f38248f4df94cee185",
+      "nativeLogSha256": "192343e312229fe671a1f7b5cf9f8152ff473be9f2c050cb952dd0e2898a6f4e",
+      "nativeReceipt": {
+        "asset": "native-graphframes-attempt-02.json",
+        "sha256": "fdbf28f95beafea547bb3d3431943db676b93cbb042c95375ffbcc0b724908ec"
+      },
+      "privateConfigSha256": "b679f860ad3dc1be5cf9be86e5910a64e1bd32e4c111a1464f571039cc7ac6e4",
+      "sourceAck": "absent",
+      "sourceCommit": "e51718bd8c472d92b9212168088750533f17faee",
+      "sourceProgress": "absent",
+      "status": "passed",
+      "wheelSha256": "f02e7c436066e91d1ace27cd7cb2553e35d98647616c9c8320a0285362f48df0",
+      "wholeFrameCollect": "not-used"
+    }
+  ],
+  "deltaProtocolFinding": {
+    "attempt1ExpectedFeatures": [],
+    "attempt2ObservedAndAdmitted": {
+      "minReaderVersion": 1,
+      "minWriterVersion": 2,
+      "tableFeatures": [
+        "appendOnly",
+        "invariants"
+      ]
+    },
+    "basis": "Delta 4.4.1 DESCRIBE DETAIL output; tableFeatures includes implicit legacy writer features for this protocol even though they are absent from the protocol action optional feature fields. The failed receipt records the initial mismatch; attempt 2 records the actual accepted DESCRIBE DETAIL metadata."
+  },
+  "dependencyPins": {
+    "graphframesGraphx": {
+      "coordinate": "io.graphframes:graphframes-graphx-spark4_2.13:0.12.3",
+      "executionClaim": "not-attested-by-the-one-hop-smoke",
+      "inputPinOnly": true
+    },
+    "jars": [
+      {
+        "bytes": 9519346,
+        "coordinate": "io.delta:delta-spark_4.2_2.13:4.4.1",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+        "url": "https://repo.maven.apache.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar"
+      },
+      {
+        "bytes": 113863,
+        "coordinate": "io.delta:delta-storage:4.4.1",
+        "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
+        "url": "https://repo.maven.apache.org/maven2/io/delta/delta-storage/4.4.1/delta-storage-4.4.1.jar"
+      },
+      {
+        "bytes": 424585,
+        "coordinate": "io.graphframes:graphframes-graphx-spark4_2.13:0.12.3",
+        "sha256": "385ea9934bdeedff9cd4591df66ada45ce739148f15fe947a032886997626675",
+        "url": "https://repo.maven.apache.org/maven2/io/graphframes/graphframes-graphx-spark4_2.13/0.12.3/graphframes-graphx-spark4_2.13-0.12.3.jar"
+      },
+      {
+        "bytes": 543709,
+        "coordinate": "io.graphframes:graphframes-spark4_2.13:0.12.3",
+        "sha256": "a78958f7ea3ac89ed1ea9dbbd1546f403d94151e969bb0de96e33697a5f49f50",
+        "url": "https://repo.maven.apache.org/maven2/io/graphframes/graphframes-spark4_2.13/0.12.3/graphframes-spark4_2.13-0.12.3.jar"
+      },
+      {
+        "bytes": 1022777,
+        "coordinate": "org.apache.datasketches:datasketches-java:6.2.0",
+        "sha256": "1b55103e1f7564150a0867eca4ce3bca13cd5935a32c199a5e738f8c5c24901a",
+        "url": "https://repo.maven.apache.org/maven2/org/apache/datasketches/datasketches-java/6.2.0/datasketches-java-6.2.0.jar"
+      },
+      {
+        "bytes": 117692,
+        "coordinate": "org.apache.datasketches:datasketches-memory:3.0.2",
+        "sha256": "a3dbdec4de16bf2b0a4c9b1b253bd4064d587675fc76063f8972cdfa104c66cb",
+        "url": "https://repo.maven.apache.org/maven2/org/apache/datasketches/datasketches-memory/3.0.2/datasketches-memory-3.0.2.jar"
+      }
+    ],
+    "javaExecutableSha256": "2c4a3d5771322dcf49369f07d9a8a7014b69093584a39ead2665d9b6bdfae368",
+    "mavenClosureSha256": "9bb84f86f621655d122f55bdd44e4d828b0202174c0d32434748ba6cf6761f78",
+    "pythonExecutableSha256": "037855106cd54d93abad568c82f87e6419d41df05d116b2a183e57be76ee06d9"
+  },
+  "fixture": {
+    "edgeRows": [
+      [
+        "ashlar-graphframes-smoke",
+        7,
+        9001,
+        1,
+        101,
+        1,
+        202
+      ],
+      [
+        "ashlar-graphframes-smoke",
+        7,
+        9002,
+        1,
+        101,
+        1,
+        202
+      ]
+    ],
+    "generatorRevision": "ashlar-graphframes-struct-smoke-fixture/0.1",
+    "id": "graphframes-struct-ids-parallel-edge-smoke/0.1",
+    "inputSha256": "00fea3fb2372d99add7a03fe576d0833eae16afb9e2e8139da06cd289b6a4e68",
+    "nodeRows": [
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        101
+      ],
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        202
+      ],
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        303
+      ]
+    ],
+    "selectedSeed": [
+      "ashlar-graphframes-smoke",
+      1,
+      101
+    ],
+    "sourceAck": "absent",
+    "sourceAuthority": "synthetic-fixture-only",
+    "sourceProgress": "absent",
+    "tables": {
+      "edge_current": {
+        "protocol": {
+          "minReaderVersion": 1,
+          "minWriterVersion": 2,
+          "tableFeatures": [
+            "appendOnly",
+            "invariants"
+          ]
+        },
+        "schemaSha256": "5aa86f071c93297f6ceef5eabb9e575eeb7b294beff91075e15676df4e0aa8c0",
+        "uuid": "b8e93c58-1e97-44e7-b777-acc040816ffe",
+        "version": 0
+      },
+      "object_current": {
+        "protocol": {
+          "minReaderVersion": 1,
+          "minWriterVersion": 2,
+          "tableFeatures": [
+            "appendOnly",
+            "invariants"
+          ]
+        },
+        "schemaSha256": "91752de0b03eb65c6ecf6eb7292bdfcae9873897cdd7aff65cad7d4467be8749",
+        "uuid": "6bf8357f-57f6-485e-b469-e2abacab36e7",
+        "version": 0
+      }
+    }
+  },
+  "oracle": {
+    "actualRowCount": 2,
+    "actualRows": [
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        101,
+        "ashlar-graphframes-smoke",
+        7,
+        9001,
+        "ashlar-graphframes-smoke",
+        1,
+        202
+      ],
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        101,
+        "ashlar-graphframes-smoke",
+        7,
+        9002,
+        "ashlar-graphframes-smoke",
+        1,
+        202
+      ]
+    ],
+    "comparison": "exact ordered nine-field rows, preserving independent parallel edge IDs 9001 and 9002; input includes isolated node 303",
+    "expectedRows": [
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        101,
+        "ashlar-graphframes-smoke",
+        7,
+        9001,
+        "ashlar-graphframes-smoke",
+        1,
+        202
+      ],
+      [
+        "ashlar-graphframes-smoke",
+        1,
+        101,
+        "ashlar-graphframes-smoke",
+        7,
+        9002,
+        "ashlar-graphframes-smoke",
+        1,
+        202
+      ]
+    ],
+    "operation": "bounded one-hop from the selected seed over the frozen two-table fixture"
+  },
+  "qualification": "one selected Spark 4.2.0 / Delta 4.4.1 / GraphFrames 0.12.3 struct-key and bounded one-hop compatibility smoke; no scale or production claim",
+  "runtime": {
+    "delta": "4.4.1",
+    "graphframes": "0.12.3",
+    "java": "21.0.13",
+    "pyspark": "4.2.0",
+    "python": "3.12.14",
+    "scala": "2.13.18",
+    "spark": "4.2.0"
+  },
+  "runtimeClassProvenance": {
+    "graphframesPython": {
+      "classicSha256": "d0103a2c549f8c3f8d3c4e8070eb3ad323b5e6289cb4c1859d658c34a9898ed2",
+      "distribution": {
+        "name": "graphframes-py",
+        "version": "0.12.3"
+      },
+      "facadeSha256": "e4277aab0c4fae0224f83e845051390bfef1f0942fcaea609213a82f20361a3c",
+      "openingEqualsClosing": true,
+      "packageSha256": "92c7f60201df4a0518ecf7a51a5caa1850e38d8530a6feb6c5435d1b76384118"
+    },
+    "installedAshlarWheel": {
+      "distribution": "ashlar-graph-toolkit",
+      "moduleSha256": "f365f1c0423ec75ef89bf146e1500aafab797b30a81aa0f38248f4df94cee185",
+      "openingEqualsClosing": true,
+      "version": "0.1.0.dev1",
+      "wheelSha256": "f02e7c436066e91d1ace27cd7cb2553e35d98647616c9c8320a0285362f48df0"
+    },
+    "loadedJvmClasses": {
+      "io.delta.sql.DeltaSparkSessionExtension": {
+        "bytes": 9519346,
+        "coordinate": "io.delta:delta-spark_4.2_2.13:4.4.1",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      "io.delta.tables.DeltaTable": {
+        "bytes": 9519346,
+        "coordinate": "io.delta:delta-spark_4.2_2.13:4.4.1",
+        "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+      },
+      "org.graphframes.GraphFrame": {
+        "bytes": 543709,
+        "coordinate": "io.graphframes:graphframes-spark4_2.13:0.12.3",
+        "sha256": "a78958f7ea3ac89ed1ea9dbbd1546f403d94151e969bb0de96e33697a5f49f50"
+      }
+    },
+    "openingEqualsClosing": true
+  },
+  "schema": "ashlar-pinned-delta-graphframes-compatibility/0.1",
+  "scopeLimit": "Synthetic three-node/two-edge compatibility smoke only. It does not qualify Ashlar publication consumption, a general fixture adapter, full-table graph export, scalability, or production use.",
+  "source": {
+    "commit": "e51718bd8c472d92b9212168088750533f17faee",
+    "module": "ashlar_host.pinned_delta_graphframes",
+    "moduleSha256": "f365f1c0423ec75ef89bf146e1500aafab797b30a81aa0f38248f4df94cee185",
+    "wheelSha256": "f02e7c436066e91d1ace27cd7cb2553e35d98647616c9c8320a0285362f48df0"
+  },
+  "status": "passed",
+  "supervisor": {
+    "path": "tools/_pinned_delta_graphframes_smoke_supervisor.py",
+    "sha256": "a04950ccc7dafd736b51eb90c6ddb532c503dd755a3aabf0d7cff616af649ccb"
+  },
+  "worker": {
+    "path": "tools/_pinned_delta_graphframes_smoke_worker.py",
+    "sha256": "df797a084f44aaa69b4ef01f2f1477d9439137d20d98509bd80e8589c5de10e3"
+  }
+}
