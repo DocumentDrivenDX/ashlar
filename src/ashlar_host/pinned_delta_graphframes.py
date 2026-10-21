@@ -13,24 +13,31 @@ PROFILE = "ashlar-synthetic-pinned-delta-graphframes/0.1"
 GENERATOR_REVISION = "ashlar-graphframes-struct-smoke-fixture/0.1"
 FIXTURE_ID = "graphframes-struct-ids-parallel-edge-smoke/0.1"
 SOURCE_SYSTEM = "ashlar-graphframes-smoke"
-PROTOCOL = {"minReaderVersion": 1, "minWriterVersion": 2, "tableFeatures": []}
+# Delta 4.4.1 DESCRIBE DETAIL reports the implicitly supported legacy writer
+# features for protocol (1, 2), even though they are absent from the protocol
+# action's optional readerFeatures/writerFeatures fields.
+PROTOCOL = {"minReaderVersion": 1, "minWriterVersion": 2,
+            "tableFeatures": ["appendOnly", "invariants"]}
 MAX_ONE_HOP_ROWS = 16
 MAX_LEASE_SECONDS = 300
 FIXTURE_INPUT_SHA256 = "00fea3fb2372d99add7a03fe576d0833eae16afb9e2e8139da06cd289b6a4e68"
 
 NODE_SCHEMA = (
-    ("source_system", "string", False),
-    ("type_id", "bigint", False),
-    ("id", "bigint", False),
+    # The actual Delta 4.4.1 path writer persists these Spark-created columns
+    # as nullable. The exact fixture row-bag check separately proves every
+    # observed identity component has its declared non-null fixture value.
+    ("source_system", "string", True),
+    ("type_id", "bigint", True),
+    ("id", "bigint", True),
 )
 EDGE_SCHEMA = (
-    ("source_system", "string", False),
-    ("rel_type_id", "bigint", False),
-    ("id", "bigint", False),
-    ("source_type", "bigint", False),
-    ("source_id", "bigint", False),
-    ("target_type", "bigint", False),
-    ("target_id", "bigint", False),
+    ("source_system", "string", True),
+    ("rel_type_id", "bigint", True),
+    ("id", "bigint", True),
+    ("source_type", "bigint", True),
+    ("source_id", "bigint", True),
+    ("target_type", "bigint", True),
+    ("target_id", "bigint", True),
 )
 
 # This closed input is intentionally tiny. The expected one-hop bag is frozen
@@ -180,7 +187,22 @@ class PinnedSyntheticDeltaFixture:
             "tableFeatures": sorted(detail.get("tableFeatures") or []),
         }
         if protocol != PROTOCOL:
-            raise ValueError("Exact minimal Delta fixture protocol required")
+            observed_features = detail.get("tableFeatures")
+            if (type(observed_features) is list and len(observed_features) <= 16
+                    and all(type(item) is str and len(item) <= 96
+                            and re.fullmatch(r"[A-Za-z0-9_-]+", item) is not None
+                            for item in observed_features)):
+                features_summary = sorted(observed_features)
+            else:
+                features_summary = {"kind": type(observed_features).__name__,
+                                    "count": len(observed_features)
+                                    if isinstance(observed_features, (list, tuple)) else None}
+            raise ValueError(
+                "Observed Delta protocol differs from exact writer-2 legacy feature set: "
+                + json.dumps({"minReaderVersion": detail.get("minReaderVersion"),
+                              "minWriterVersion": detail.get("minWriterVersion"),
+                              "tableFeatures": features_summary},
+                             ensure_ascii=True, sort_keys=True, separators=(",", ":")))
         reader = self._spark.read.format("delta")
         schema = reader.load(path).schema
         signature, schema_sha = _actual_schema_signature(schema)

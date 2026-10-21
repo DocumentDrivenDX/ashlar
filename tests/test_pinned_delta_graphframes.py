@@ -147,6 +147,8 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
             self.assertEqual(evidence["sourceProgress"], "absent")
             self.assertEqual(evidence["protectedAck"], "absent")
             self.assertEqual(evidence["tables"]["object_current"]["version"], 0)
+            self.assertEqual(evidence["tables"]["object_current"]["protocol"], PROTOCOL)
+            self.assertTrue(all(nullable for _, _, nullable in NODE_SCHEMA + EDGE_SCHEMA))
             frames = lease.current_frames()
             self.assertEqual(set(frames), {"object_current", "edge_current"})
         versioned_reads = [item for item in self.spark.reads if item[1]]
@@ -191,11 +193,11 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
             "minReaderVersion": 1, "minWriterVersion": 7,
             "tableFeatures": ["futureFeature"],
         }
-        with self.assertRaises(ValueError):
+        with self.assertRaisesRegex(ValueError, "futureFeature"):
             PinnedSyntheticDeltaFixture(self.spark, self.fixture, self.paths).open()
 
     def test_extra_or_changed_tiny_rows_refuse_before_graph_action(self):
-        for mutation in ("extra", "changed"):
+        for mutation in ("extra", "changed", "null"):
             with self.subTest(mutation=mutation):
                 spark = FakeSpark(self.paths)
                 owner = PinnedSyntheticDeltaFixture(spark, self.fixture, self.paths)
@@ -204,7 +206,7 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
                 if mutation == "extra":
                     edge_rows.append(dict(edge_rows[0], id=9003))
                 else:
-                    edge_rows[0]["target_id"] = 303
+                    edge_rows[0]["target_id"] = None if mutation == "null" else 303
                 with self.assertRaises(PermissionError):
                     lease.current_frames()
 
