@@ -61,8 +61,8 @@ class ConfiguredWeftProvider:
         if self.current_profile:
             jars=[Path(p) for p in spark.conf.get('spark.jars').split(',')]
             _require({p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in jars}==JAR_SHA256)
-            from .configured_local_runtime import _verify_loaded_delta_jar
-            _verify_loaded_delta_jar(spark,jars)
+            from .configured_local_runtime_profile import verify_loaded_delta_class
+            verify_loaded_delta_class(spark,jars)
 
     def resolve(self,context):
         self.runtime(context);scope=self.scope

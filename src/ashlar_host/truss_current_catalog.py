@@ -26,7 +26,8 @@ class CurrentCatalogEvidence:
         return CURRENT_EVIDENCE_PROFILE
 
 
-def _json(raw):
+def parse_current_catalog_json(raw):
+    """Parse current Truss catalog/report/source JSON, refusing duplicate members."""
     def pairs(items):
         result = {}
         for key, value in items:
@@ -41,7 +42,12 @@ def _sha(value):
     return type(value) is str and re.fullmatch(r'[0-9a-f]{64}', value) is not None
 
 
-def _accepted_sources(report, revision, sources):
+def resolve_current_accepted_sources(report, revision, sources):
+    """Match report 0.6 accepted references to exact public UMF 0.10 source bytes.
+
+    `sources` is keyed by ``(catalog_revision, document_id)`` and each value
+    carries its public source identity and original content bytes.
+    """
     if report.get('interfaceVersion') != CURRENT_REPORT_VERSION:
         raise ValueError('Current Truss registration report 0.6 required')
     if report.get('revision') != revision:
@@ -88,7 +94,7 @@ def _accepted_sources(report, revision, sources):
             raise ValueError('Public accepted source identity, revision or digest differs from report')
         if getattr(source, 'catalog_revision', int(revision)) != int(revision):
             raise ValueError('Public accepted source catalog revision differs')
-        model = _json(source.content)
+        model = parse_current_catalog_json(source.content)
         if type(model) is not dict or model.get('umf') != '0.10.0' or model.get('id') != document_id:
             raise ValueError('Exact original UMF 0.10 document required')
         models[document_id] = (model, source.content, document_revision, artifact['sha256'])
@@ -102,9 +108,9 @@ def interpret_current_catalog(revision, report_raw, view_raw, sources):
     from .truss_graph_admission import admitted_facets
     if type(revision) is not str or not revision.isascii() or not revision.isdecimal() or str(int(revision)) != revision:
         raise ValueError('Canonical current catalog revision required')
-    report = _json(report_raw)
-    models = _accepted_sources(report, revision, sources)
-    catalog = _json(view_raw)
+    report = parse_current_catalog_json(report_raw)
+    models = resolve_current_accepted_sources(report, revision, sources)
+    catalog = parse_current_catalog_json(view_raw)
     if (catalog.get('interfaceVersion') != CURRENT_VIEW_VERSION
             or catalog.get('scope') != {'kind': 'complete'}
             or catalog.get('catalogRevision') != revision):

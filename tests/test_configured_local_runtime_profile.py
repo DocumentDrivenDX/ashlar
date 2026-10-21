@@ -10,7 +10,7 @@ from types import MappingProxyType, SimpleNamespace
 from unittest.mock import patch
 
 from ashlar_host import configured_local_runtime_profile as profile
-from ashlar_host.configured_local_runtime import _verify_loaded_delta_jar, open_finite_spark
+from ashlar_host.configured_local_runtime import open_finite_spark
 
 
 class Tests(unittest.TestCase):
@@ -95,9 +95,9 @@ class Tests(unittest.TestCase):
                     java=SimpleNamespace(lang=SimpleNamespace(Thread=SimpleNamespace(
                         currentThread=lambda: thread))))))
 
-            _verify_loaded_delta_jar(spark(jar.as_posix()), [jar])
+            profile.verify_loaded_delta_class(spark(jar.as_posix()), [jar])
             with self.assertRaises(ValueError):
-                _verify_loaded_delta_jar(spark(Path(directory, "other.jar").as_posix()), [jar])
+                profile.verify_loaded_delta_class(spark(Path(directory, "other.jar").as_posix()), [jar])
 
     def test_mappingproxy_inventory_and_upstream_inventory_file_are_accepted(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -15,7 +15,7 @@ from .configured_source_local import open_configured_local_source
 from .configured_local_publication import ConfiguredLocalPublicationDriver,ROLES
 from .managed_carriers import load_managed_carriers
 from .supply_chain_native import PrivateFiniteLease
-from .configured_local_runtime_profile import attest as attest_runtime,PARAMETER_SUBSTITUTION_SETTING
+from .configured_local_runtime_profile import attest as attest_runtime,PARAMETER_SUBSTITUTION_SETTING,verify_loaded_delta_class
 from .delta_custody import LocalDeltaTransport,DeltaTarget,operation_capacity,encoded
 from .driver import PrivatePolicy
 from .evolution_cli import InvocationFile
@@ -83,15 +83,6 @@ def _runtime(config):
     _,_,jars=attest_runtime(config)
     return jars
 
-def _verify_loaded_delta_jar(spark,jars):
-    """Require Delta's loaded API class to come from the pinned Delta JAR."""
-    expected=next((path for path in jars if path.name=='delta-spark_4.2_2.13-4.4.1.jar'),None)
-    _require(expected is not None)
-    loader=spark.sparkContext._jvm.java.lang.Thread.currentThread().getContextClassLoader()
-    actual=loader.loadClass('io.delta.tables.DeltaTable')
-    location=Path(actual.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).resolve()
-    _require(location==expected.resolve())
-
 def open_finite_spark(config,jars):
     """Open current configured-local Spark without historical commerce pins."""
     selected=_runtime(config);_require(type(jars)in (list,tuple)and list(jars)==selected)
@@ -156,7 +147,7 @@ class ConfiguredLocalAdmission:
         _,identity,jars=attest_runtime(self.config)
         _require(self.spark.version=='4.2.0' and self.spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(self.spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
-        _verify_loaded_delta_jar(self.spark,jars)
+        verify_loaded_delta_class(self.spark,jars)
         _require(encoded([{'table':t.table,'path':str(t.path),'uuid':t.uuid}for t in self.targets])==self.original_registry)
         if request is not None:source.admit_request(request,context)
         versions={}if manifest is None else json.loads(manifest['table_versions_json'])
@@ -224,7 +215,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False):
             and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true')
         _require(spark.version=='4.2.0' and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
-        _verify_loaded_delta_jar(spark,jars)
+        verify_loaded_delta_class(spark,jars)
         spark.sparkContext.setLogLevel('ERROR');targets=[]
         if initialize:
             for role,schema in columns.items():

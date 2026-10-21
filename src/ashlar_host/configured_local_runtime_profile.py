@@ -59,3 +59,20 @@ def attest(config):
     return PROFILE, {"python": "3.12", "pyspark": SPARK_VERSION, "delta_spark": DELTA_VERSION,
                      "jdk": "21", "jars": digests,
                      "sessionSettings": {PARAMETER_SUBSTITUTION_SETTING: "true"}}, jars
+
+
+def verify_loaded_delta_class(spark, jars):
+    """Require the active Spark context loader's DeltaTable class to come from the attested Delta JAR.
+
+    `jars` is the exact selection returned by :func:`attest`; class resolution is
+    checked through that session's context loader so `spark.jars` loading is
+    included in the runtime identity boundary.
+    """
+    expected = next((path for path in jars if path.name == JAR_NAMES[0]), None)
+    if expected is None:
+        raise ValueError("Configured local runtime refused")
+    loader = spark.sparkContext._jvm.java.lang.Thread.currentThread().getContextClassLoader()
+    actual = loader.loadClass("io.delta.tables.DeltaTable")
+    location = Path(actual.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).resolve()
+    if location != expected.resolve():
+        raise ValueError("Configured local runtime refused")

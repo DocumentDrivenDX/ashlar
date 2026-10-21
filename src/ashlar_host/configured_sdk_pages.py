@@ -73,8 +73,8 @@ class _Owner:
             and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
             and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true'
             and set(spark.conf.get('spark.jars').split(','))==set(self.jars))
-        from .configured_local_runtime import _verify_loaded_delta_jar
-        _verify_loaded_delta_jar(spark,[__import__('pathlib').Path(p) for p in self.jars])
+        from .configured_local_runtime_profile import verify_loaded_delta_class
+        verify_loaded_delta_class(spark,[__import__('pathlib').Path(p) for p in self.jars])
         _require(encoded(self.request)==self.original_request and self.entry.originals()==self.original)
     def bind_descriptor(self,descriptor,vector,context):
         _require(self.active and context is self.context);self.current();self.scope.bind_descriptor(descriptor,vector,context)
