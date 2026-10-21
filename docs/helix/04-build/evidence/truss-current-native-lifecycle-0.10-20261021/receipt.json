@@ -1,0 +1,154 @@
+{
+  "admission": {
+    "page_archive_sha256": "c0c608807e2005ff019a2315195d0396caa39cd983a7d23f97fee406da579625",
+    "page_sha256": "e4c606d3eb7a5c93cdc66416221d6024494ae84a9e5875b9158ff8d0334bec35",
+    "planned_steps": 5,
+    "profile": "ashlar-truss-current-umf010-graph-semantic-admission/0.1",
+    "typed": true
+  },
+  "execution": {
+    "delta_continuation_run": false,
+    "postgres_stopped": true,
+    "postmaster_pid_absent": true,
+    "scope": "Pre-publication admission/planning checkpoint only; final publication/receipt state is recorded in publication.independent_read_only_reconciliation.",
+    "source_acknowledged_at_admission": false,
+    "spark_started_for_admission": false
+  },
+  "lifecycle": {
+    "exact_committed_receipt_replays": 3,
+    "feed_change_count": 7,
+    "feed_page_count": 1,
+    "postgres_transaction_count": 1,
+    "readback": {
+      "edge_deleted": true,
+      "person_version": 2,
+      "place_deleted": true,
+      "quantity": {
+        "kind": "integer",
+        "text": "9007199254740993"
+      }
+    },
+    "request_count": 3,
+    "request_keys": [
+      "ashlar-current-native-lifecycle-create-20261021-r1",
+      "ashlar-current-native-lifecycle-update-20261021-r1",
+      "ashlar-current-native-lifecycle-delete-20261021-r1"
+    ],
+    "writer_xid": "809"
+  },
+  "outcome": "passed",
+  "profile": "ashlar-truss-current-core-010-atomic-lifecycle/0.1",
+  "publication": {
+    "independent_read_only_reconciliation": {
+      "ack_written_by_reconciliation": false,
+      "data_role_versions": {
+        "local.trussgraph.edge_current": 1,
+        "local.trussgraph.object_current": 2,
+        "local.trussgraph.tombstone": 2,
+        "local.trussgraph.whole_source_history": 2
+      },
+      "elapsed_seconds": 33.776,
+      "graph_rows": {
+        "edges": 0,
+        "objects": 1,
+        "tombstones": 2,
+        "whole_source_history": 7
+      },
+      "history_delivery_ids": [
+        "809:1",
+        "809:2",
+        "809:3",
+        "809:5",
+        "809:6",
+        "809:7",
+        "809:8"
+      ],
+      "native_target_inventory": {
+        "attempts": {
+          "uuid": "cc0d9e0c-5b07-413a-b29e-dba12cd278fd",
+          "version": 11
+        },
+        "edge_current": {
+          "uuid": "835eee13-59e1-450e-90c6-d25350c35459",
+          "version": 1
+        },
+        "manifest": {
+          "uuid": "f0afd038-8dab-4c10-b17a-7f34e9706b78",
+          "version": 3
+        },
+        "object_current": {
+          "uuid": "62e7e0af-3ff3-42f9-a1e3-4607eccb4814",
+          "version": 2
+        },
+        "tombstone": {
+          "uuid": "4f0a2691-7e1b-4c3c-99f2-53fbf12f80c6",
+          "version": 2
+        },
+        "whole_source_history": {
+          "uuid": "ec7c2669-1a41-40f8-9e58-03f443b889ca",
+          "version": 2
+        }
+      },
+      "person": {
+        "id": "1",
+        "properties": {
+          "1": "native-lifecycle-person-20261021",
+          "2": "Native Lifecycle Person",
+          "3": 9007199254740993
+        },
+        "source_delivery_id": "809:5",
+        "source_system": "fe4d40e7-a0e2-4127-8401-fa0e962ad024",
+        "type_id": "1",
+        "version": "2"
+      },
+      "public_destination_receipt": "matched",
+      "public_feed_state": "advanced",
+      "runtime_close": "Spark closed through lifecycle finish/stop attestation; PostgreSQL stopped; postmaster.pid absent",
+      "spark_writes_by_reconciliation": false,
+      "tombstones": [
+        {
+          "id": "3",
+          "kind": "edge",
+          "source_delivery_id": "809:7",
+          "type_id": "2",
+          "version": "3"
+        },
+        {
+          "id": "2",
+          "kind": "object",
+          "source_delivery_id": "809:8",
+          "type_id": "2",
+          "version": "2"
+        }
+      ]
+    },
+    "original_wrapper_archive_sha256": "c0c608807e2005ff019a2315195d0396caa39cd983a7d23f97fee406da579625",
+    "outcome": "committed_and_independently_reconciled",
+    "postcondition_history": "The first continuation worker ended on an overstrict wrapper-archive hash assertion after the public continuation returned. The retained and original wrappers differ only in safe_watermark_xid; the subsequent read-only reconciliation independently verified the committed manifest, graph, source history, destination receipt, and advanced feed checkpoint.",
+    "publication_id": "truss-graph-c940af7dcceeb37105f6cd651483090205c7305fc89c50c393f6db22995f3320",
+    "request_digest": "c940af7dcceeb37105f6cd651483090205c7305fc89c50c393f6db22995f3320",
+    "saved_wrapper_archive_sha256": "65a8c59797f68bb30af706e47e34d070def644b2351477d2c48325f0345ff6aa",
+    "source_page_sha256": "e4c606d3eb7a5c93cdc66416221d6024494ae84a9e5875b9158ff8d0334bec35",
+    "wrapper_difference": "safe_watermark_xid only; content and prior/next cursors identical"
+  },
+  "qualification": "Three current UMF 0.10 requests were one PostgreSQL transaction and one seven-change feed page. The current Truss 0.0.44 page was admitted and planned, published to local Delta, and its destination receipt and advanced source checkpoint were later matched through a read-only public reconciliation. Exact native rows, four-role data vector, six-target UUID/version inventory and cleanup are recorded above. This evidence does not qualify Truss 0.0.45, broader source evolution/replay, managed Unity Catalog, or production authority.",
+  "runtime": {
+    "ashlar_candidate_wheel_sha256": "18cb629fb0322358a9c7501f8789223238268307ce817c53857b46af775323ba",
+    "delta_spark": "4.4.1",
+    "jdk": "21",
+    "postgresql": "18.6.1",
+    "python": "3.12",
+    "spark": "4.2.0",
+    "truss_toolkit": "0.0.44",
+    "umf_core": "0.10.0"
+  },
+  "source": {
+    "accepted_source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "catalog_revision": "1",
+    "document_id": "typed-graph-example",
+    "document_revision": "ashlar-current-native-r1",
+    "installation_id": "fe4d40e7-a0e2-4127-8401-fa0e962ad024",
+    "schedule_sha256": "61034a4f37ca4b4851c49d2c6df2d1f6339d2c484af9db7e27dc7a0117324e61",
+    "truss_toolkit": "0.0.44"
+  }
+}

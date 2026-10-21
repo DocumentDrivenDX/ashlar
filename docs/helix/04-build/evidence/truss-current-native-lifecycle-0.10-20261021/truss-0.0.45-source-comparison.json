@@ -1,0 +1,46 @@
+{
+  "comparison": {
+    "from": {
+      "version": "0.0.44",
+      "tag_commit": "fcd531538dde07e2120679756c2ff7afadfd50f4"
+    },
+    "to": {
+      "version": "0.0.45",
+      "source_commit": "d068a2edb10771d32a9373eaac13c6dc7185de66",
+      "source_date": "2026-10-21"
+    },
+    "basis": "Read-only comparison of the Truss source checkout; no 0.0.45 package was installed and no native 0.0.45 run was performed."
+  },
+  "dependency_changes": {
+    "required_python": "unchanged: >=3.11",
+    "required_runtime_dependencies": "unchanged: jsonschema==4.26.0, referencing==0.37.0, mini-racer==0.14.1",
+    "local_and_native_extras": "unchanged: pgserver-pg18==18.6.1 and psycopg[binary]==3.3.6 among their existing pinned dependencies",
+    "query_extra": {
+      "0.0.44": "weft-sql==0.4.48",
+      "0.0.45": "weft-sql==0.4.49"
+    },
+    "ashlar_interaction": "Ashlar's truss-local extra selects Truss [local,native], not [query], while its typed-sdk extra currently pins weft-sql==0.4.48. Therefore the Truss 0.0.45 query extra does not itself replace Ashlar's separately selected Weft SDK. Explicitly installing [query] alongside typed-sdk would request Weft 0.4.49 beside 0.4.48 and needs a deliberate pin choice plus compatibility evidence."
+  },
+  "source_changes_relevant_to_ashlar": {
+    "public_entrypoint_signatures": {
+      "prepare_catalog": "unchanged: prepare_catalog(documents, *, bun_executable='bun', source_version=None)",
+      "accepted_document_in_transaction": "unchanged: accepted_document_in_transaction(transaction, *, document_id, maximum_bytes=1048576)",
+      "reconcile_feed_ack_in_transaction": "unchanged: reconcile_feed_ack_in_transaction(transaction, page, *, destination_id, request_sha256, publication_id, receipt_bytes)",
+      "method": "AST comparison of the published 0.0.44 tag and 0.0.45 source commit"
+    },
+    "catalog_and_feed": "The public feed.sql release digest is unchanged at 8a8dcf34eff071ae27f237b337d7046b51d49e53379aa11580eac0d062cd9abd. The inspected accepted-document and feed receipt reconciliation entrypoints remain present. This source comparison is not proof of runtime compatibility.",
+    "catalog_runtime": "The packaged runtime release changes imports.sql, query.sql and import-batches.sql digests. query.sql adds query_binding_if_changed; the Python runtime adds query_with_catalog_in_transaction and catalog/query cache behavior. Package replacement is process-scoped and the new release cache documents restart after replacement. Existing .44-created installations need an explicit .45 release installation/verification path before using these APIs.",
+    "source_preparation": "UMF preparation now rejects record and field declarations without a nonempty name. Ashlar's retained 0.10 fixture has names, but fresh .45 acceptance must use the real source and verify the resulting accepted report/view/source custody.",
+    "public_catalog_source_and_ack": "No removal was observed in the source diff for the accepted-document retrieval and read-only feed-ACK reconciliation interfaces used by Ashlar. The 0.44 lifecycle receipt cannot be transferred to .45; rerun against the fresh .45 source/runtime boundary."
+  },
+  "ashlar_current_profile": {
+    "current_guard": "Ashlar's current Truss reader/admission profile is pinned to toolkit 0.0.44. Preserve that historical evidence and introduce a separately named/versioned 0.45 profile; do not relabel the existing profile or replace every 0.44 literal globally.",
+    "adoption_sequence": [
+      "Review the exact .45 public signatures and source/report/view schema against the adapter's 0.44 contracts, including accepted document identity, revision, registration, original bytes and digest custody.",
+      "Version the Ashlar source/runtime profile for .45 and retain the .44 path. Pin the installed runtime release identity and require a fresh process after package replacement.",
+      "Use the Truss [local,native] extras without the optional [query] extra unless the Weft version is deliberately aligned and qualified.",
+      "Run focused source/admission controls, then a fresh .45 catalog acceptance and native lifecycle/publication/receipt reconciliation. Keep all .44 receipts unchanged."
+    ],
+    "status": "proposal only; no Ashlar source changes, dependency changes, environment changes, or .45 qualification were made"
+  }
+}
