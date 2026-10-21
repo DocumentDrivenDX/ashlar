@@ -84,6 +84,8 @@ class Tests(unittest.TestCase):
         from contextlib import contextmanager,ExitStack
         from types import SimpleNamespace
         from ashlar_host import configured_local_runtime as runtime
+        from ashlar_host.configured_local_runtime_profile import (PROFILE as RUNTIME_PROFILE,
+            SPARK_VERSION,DELTA_VERSION,JAR_SHA256,PARAMETER_SUBSTITUTION_SETTING)
         from ashlar_host.configured_source_admission_config import ConfiguredSourceAdmissionConfig
         from ashlar_host.config import ProducerConfig
         for refuse in (False,True):
@@ -93,9 +95,14 @@ class Tests(unittest.TestCase):
                 admission=ConfiguredSourceAdmissionConfig(scope.source.configuration_file.path,producer,output/'admission',4194304)
                 args=dict(installation=installation,output=output,jars=root/'jars',java_home=root/'java',admission=admission,
                     stream=scope.source.stream,materialization_clock_us=scope.descriptor.raw['recorded_at'],operation_capacity=None,
-                    installation_id='inert-original',installation_sha256='a'*64)
+                    installation_id='inert-original',installation_sha256='a'*64,jar_inventory=JAR_SHA256)
                 selected=runtime.ConfiguredLocalRuntimeConfig(**args);columns=runtime._columns()
-                registry={'profile':'ashlar-configured-local-installation/0.1','scope':runtime._scope(selected,scope.source),
+                runtime_identity={'python':'3.12','pyspark':SPARK_VERSION,'delta_spark':DELTA_VERSION,
+                    'jdk':'21','jars':dict(JAR_SHA256),
+                    'sessionSettings':{PARAMETER_SUBSTITUTION_SETTING:'true'}}
+                registry={'profile':'ashlar-configured-local-installation/0.2',
+                    'runtime_identity':{'profile':RUNTIME_PROFILE,**runtime_identity},
+                    'scope':runtime._scope(selected,scope.source),
                     'columns':{r:[list(c)for c in cs]for r,cs in columns.items()},
                     'targets':[{'table':'local.configured.'+r,'path':str(installation/r),'uuid':scope.transport.targets[scope.tables[r]].uuid}for r in columns]}
                 raw=(encoded(registry)+'\n').encode();(installation/'installation.json').write_bytes(raw)
@@ -114,11 +121,17 @@ class Tests(unittest.TestCase):
                 class Current:
                     def __call__(self,*a):return None
                     closing=staticmethod(close_admission)
-                spark=SimpleNamespace(sparkContext=SimpleNamespace(master='local[1]',setLogLevel=lambda _:None),
-                    conf=SimpleNamespace(get=lambda key:'512m'if key=='spark.driver.memory'else'UTC'),stop=lambda:closed.append('spark'))
+                spark=SimpleNamespace(version=SPARK_VERSION,
+                    sparkContext=SimpleNamespace(master='local[1]',setLogLevel=lambda _:None,
+                        _jvm=SimpleNamespace(java=SimpleNamespace(lang=SimpleNamespace(System=SimpleNamespace(
+                            getProperty=lambda key:'21'if key=='java.specification.version'else None))))),
+                    conf=SimpleNamespace(get=lambda key: {'spark.driver.memory':'512m',
+                        'spark.sql.session.timeZone':'UTC',PARAMETER_SUBSTITUTION_SETTING:'true',
+                        'spark.jars':''}.get(key,'')),stop=lambda:closed.append('spark'))
                 lease=SimpleNamespace(renew=lambda:None,close=lambda:closed.append('lease'))
                 progress=SimpleNamespace(retained_entries=lambda:(SimpleNamespace(descriptor=scope.descriptor),),position=lambda:'retained',completed_batches=lambda:3)
                 original_write=runtime._write
+                runtime_attestation=lambda *_:(RUNTIME_PROFILE,runtime_identity,[])
                 def write(path,raw):
                     if path.name in ('release.graph.json','custody.json'):
                         self.assertTrue({'admission','transport','spark','source','lease'}<=set(closed))
@@ -126,7 +139,9 @@ class Tests(unittest.TestCase):
                 with ExitStack()as stack:
                     context_factory=type('InertContextFactory',(),{'__new__':lambda cls:scope.context,'__setattr__':object.__setattr__})
                     stack.enter_context(patch.object(runtime,'object',context_factory,create=True))
-                    ports={'_runtime':lambda *_:[],'open_finite_spark':lambda *_:spark,'PrivateFiniteLease':lambda *a,**kw:lease,
+                    ports={'_runtime':lambda *_:[],'attest_runtime':runtime_attestation,
+                        'open_finite_spark':lambda *_:spark,'verify_loaded_delta_class':lambda *_:None,
+                        'PrivateFiniteLease':lambda *a,**kw:lease,
                         'open_configured_local_source':source_owner,'ConfiguredLocalAdmission':lambda *a:Current(),'LocalDeltaTransport':lambda *a,**kw:scope.transport,'_write':write}
                     for name,value in ports.items():stack.enter_context(patch.object(runtime,name,value))
                     stack.enter_context(patch.object(scope.transport,'close',lambda:closed.append('transport')))

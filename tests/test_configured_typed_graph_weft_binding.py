@@ -10,7 +10,7 @@ from ashlar.typed_graph_source import build_typed_graph_request
 from ashlar.typed_graph_source_config import TypedGraphJsonlConfiguration
 from ashlar.weft_binding import LAYOUT_SHA256
 from ashlar_host.configured_typed_graph_weft_binding import configured_typed_graph_count_star_request
-from ashlar_host.count_star_admission import BACKEND
+from ashlar_host.count_star_admission import CURRENT_BACKEND
 from test_typed_graph_source import fixture,inert_receipt
 
 class Tests(unittest.TestCase):
@@ -33,7 +33,7 @@ class Tests(unittest.TestCase):
             self.assertEqual(result['modules'][0]['documentJson'].encode(),config.model_source)
             pin=result['modules'][0]['pin'];self.assertEqual((pin['umfVersion'],pin['revision'],pin['sha256']),('0.10.0','1',config.model_sha256))
             binding=json.loads(result['target']['bindingJson']);self.assertEqual(hashlib.sha256(result['target']['bindingJson'].encode()).hexdigest(),result['target']['bindingSha256'])
-            for key in ('backendId','backendVersion','targetProfile'):self.assertEqual(result['target'][key],BACKEND[key])
+            for key in ('backendId','backendVersion','targetProfile'):self.assertEqual(result['target'][key],CURRENT_BACKEND[key])
             self.assertEqual([r['typeId']for r in binding['records']],['17','18'])
             self.assertEqual([r['properties'][0]['home']for r in binding['records']],[{'kind':'props','propertyId':'21'}]*2)
             by_type={r['typeId']:r['logical']for r in binding['records']};edge=binding['relationships'][0]

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert receipt-shaped graph correspondence; no UMF semantic/producer proof."""
-import base64,hashlib,json,tempfile,unittest
+import base64,hashlib,importlib.util,json,tempfile,unittest
 from pathlib import Path
 from ashlar.source import records_digest
 from ashlar.typed_graph_source_config import load_typed_graph_jsonl_configuration,GRAPH_CHECK_PIN
@@ -17,6 +17,8 @@ def fixture(root,*,wrong_endpoint=False,edgeprops='{}',duplicate=False):
     relation={'id':'links','name':'links','directed':True,'source':[{'module':'m','element':'A'}],'target':[{'module':'m','element':'B','key':'pk'}],
         'sourceMultiplicity':{'min':0,'max':'*'},'targetMultiplicity':{'min':0,'max':'*'},'targetLifecycle':'independent'}
     model={'umf':'0.10.0','id':'graph','vocabularies':{},'modules':[{'id':'m','namespace':'urn:test:','elements':fields+[record('A','a_id'),record('B','b_id')],'relationships':[relation]}]}
+    if importlib.util.find_spec('umf') is None:
+        raise unittest.SkipTest('UMF typed-SDK extra is not installed in this standard-library-only test profile')
     from umf import Document,validate_document
     parsed=Document.model_validate(model);report=validate_document(parsed.to_dict());assert report.valid,report.diagnostics
     model=json.loads(__import__('umf').write_document(parsed))
