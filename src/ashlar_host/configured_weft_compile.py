@@ -4,6 +4,8 @@
 Compilation and offline artifact admission do not discharge source/native query
 obligations. Exact bytes are observed before parsing, including refused output.
 """
+from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
 import json
