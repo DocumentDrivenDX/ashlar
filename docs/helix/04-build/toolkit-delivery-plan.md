@@ -176,17 +176,19 @@ fixture. Its physical encoding, generator and graph-engine adapter must be
 portable enough to run locally. It must write the full 1B-node/5B-edge fixture,
 measure actual bytes and independently account for IDs, endpoints and counts;
 a lazy range, arithmetic-only result or metadata-only export is not a pass.
+The proposed [pinned-Delta GraphFrames action](../02-design/technical-designs/TD-008-pinned-delta-graphframes-scale-action.md)
+uses Spark DataFrames for one actual bounded engine operation, while the existing
+10,000-row JSON release and GraphFrames export retain their historical limits.
 Compact native storage does not stand in for full-width UMF managed Delta
-carriers. Both proofs retain their own authority. The current UMF carriers
-require SHA-256 hex `lookup_hash` in both current tables; replacing it with a
-binary 128-bit hash or native-key clustering needs a separately versioned
-UMF/Delta layout and corresponding publisher, reader and Weft qualification.
-The first layout candidate in [TD-007](../02-design/technical-designs/TD-007-native-xxhash64-lookup-layout.md)
-uses Spark's native 64-bit `xxhash64` as a `BIGINT` pruning field, with exact
-native identity predicates still required. It is a draft versioned replacement,
-not a claim that the old SHA-256 profile has changed or the new one is faster.
-Compare both on the same bounded canonical data before claiming storage or
-pruning benefits.
+carriers. Both proofs retain their own authority. The preserved
+`ashlar-delta/0.3` carriers use SHA-256 hex `lookup_hash`. The separately
+versioned `ashlar-delta/0.4-xxhash64` physical profile in
+[TD-007](../02-design/technical-designs/TD-007-native-xxhash64-lookup-layout.md)
+implements Spark's signed 64-bit `xxhash64` `BIGINT` pruning field while retaining
+exact native identity predicates. Its [same-fixture local sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json)
+reduced active Parquet bytes by 68.85% at 1M nodes/5M edges; observed scan
+plans do not prove file pruning. This does not qualify full-scale or managed
+Unity Catalog behavior, and no old SHA-256 receipt is relabeled.
 
 The [Truss 0.0.44 lifecycle receipt](evidence/truss-current-native-lifecycle-0.10-20261021/receipt.json)
 now records one real seven-change page, local Delta publication, a matched protected
