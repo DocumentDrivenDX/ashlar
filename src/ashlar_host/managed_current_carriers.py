@@ -29,6 +29,8 @@ def _json(raw):
 class CurrentManagedCarriers:
     generated_bytes:bytes
     inputs:tuple
+    physical_profile='ashlar-delta/0.3'
+    lookup_hash_profile='sha256-json-v1'
     def __post_init__(self):
         _require(type(self.generated_bytes)is bytes and hashlib.sha256(self.generated_bytes).hexdigest()==GENERATED_SHA256)
         generated=_json(self.generated_bytes)
@@ -67,7 +69,12 @@ class CurrentManagedCarriers:
         quoted='.'.join('`'+part.replace('`','``')+'`' for part in qualified_name)
         return sql.replace('CREATE TABLE `'+role+'`','CREATE TABLE '+quoted,1)
 
-def load_current_managed_carriers():
+def load_current_managed_carriers(profile='ashlar-delta/0.3'):
+    if profile == 'ashlar-delta/0.4-xxhash64':
+        from .managed_current_xxhash64_carriers import load_current_managed_xxhash64_carriers
+        return load_current_managed_xxhash64_carriers()
+    if profile != 'ashlar-delta/0.3':
+        raise ValueError('Exact managed-current carrier profile required')
     root=files('ashlar_host').joinpath('resources','managed-current-core-010')
     def read(name):
         with root.joinpath(name).open('rb') as stream:

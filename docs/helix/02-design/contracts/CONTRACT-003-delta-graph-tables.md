@@ -349,6 +349,31 @@ numeric IDs as JSON strings changes the bytes and MUST NOT be substituted.
 The encoding must have adapter differential evidence before a non-SQL producer
 uses it. Hash equality does not establish native identity.
 
+### Proposed versioned native 64-bit lookup profile
+
+The current `ashlar-delta/0.3` SHA-256 hex `lookup_hash STRING` layout above
+remains unchanged. [TD-007](../technical-designs/TD-007-native-xxhash64-lookup-layout.md)
+proposes a separate `ashlar-delta/0.4-xxhash64` layout with
+`lookup_hash BIGINT NOT NULL` for `object_current` and `edge_current`. The
+proposed value is Spark SQL `xxhash64` with its documented seed 42 over three
+typed arguments in this exact order: `CAST(source_system AS STRING)`,
+`CAST(type_id AS BIGINT)` or `CAST(rel_type_id AS BIGINT)`, then
+`CAST(id AS BIGINT)`. Source and both numeric identity values are non-NULL;
+negative signed 64-bit hash outputs are valid. The writer derives the value in
+native SQL after type casts, and read predicates derive it with bound values
+using the same function and casts. No JSON/text encoding or Python hash
+implementation is an authority for this profile.
+
+This hash only narrows physical candidates. Every reader, update, delete and
+duplicate check MUST compare the full native source/type/ID tuple. It cannot
+identify a node or edge, collapse parallel edges, establish uniqueness or
+authorize an endpoint. Source, accepted-document, request, publication and
+raw-record cryptographic digests retain their existing SHA-256 meanings.
+The new profile requires separately UMF-authored DDL, table/protocol identity
+and complete publication-vector pinning; old and new snapshots cannot be
+silently mixed or reinterpreted. Native storage and pruning evidence is still
+pending, so this subsection is a design proposal rather than a support claim.
+
 Nullable `apply_batch_id` in current/journal tables permits imported rows while
 keeping coordination distinct from producer history. A selected apply protocol
 must issue and validate unique batch IDs and retain durable receipts. The fence

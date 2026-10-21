@@ -45,6 +45,33 @@ class SingletonTests(unittest.TestCase):
         self.assertIn('cast(unix_micros(published_at) AS STRING) AS published_at',sql)
         self.assertEqual(r['published_at'],'1791486158556147')
         with self.assertRaises(TypeError):r['id']='changed'
+    def test_native_xxhash64_uses_typed_full_key_and_checks_signed_bigint(self):
+        p,e,b,policy=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'
+        e.rows=[dict(ROW,lookup_hash='-9223372036854775808',requested_lookup_hash='-9223372036854775808')]
+        result=read_singleton(e,b,p,PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6)}),policy,
+            publication_id='p1',table=TABLE,kind='object',source=SOURCE,type_id=1,entity_id=9223372036854775807,
+            context='authorized',supported_profiles=['ashlar-delta/0.4-xxhash64'],supported_revisions={'source':['r1']})
+        sql,params=e.calls[1]
+        self.assertIn('xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),CAST(:id AS BIGINT))',sql)
+        self.assertIn('source_system=:source AND type_id=cast(:type AS BIGINT) AND id=cast(:id AS BIGINT)',sql)
+        self.assertEqual(params,{'source':SOURCE,'type':'1','id':'9223372036854775807'})
+        self.assertEqual(result['lookup_hash'],'-9223372036854775808')
+        for bad in ['01','9223372036854775808',-1,'-1']:
+            p,e,b,policy=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'
+            e.rows=[dict(ROW,lookup_hash=bad,requested_lookup_hash='-2')]
+            with self.subTest(bad=bad),self.assertRaises(ResolutionError):
+                read_singleton(e,b,p,PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6)}),policy,
+                    publication_id='p1',table=TABLE,kind='object',source=SOURCE,type_id=1,entity_id=9223372036854775807,
+                    context='authorized',supported_profiles=['ashlar-delta/0.4-xxhash64'],supported_revisions={'source':['r1']})
+            self.assertFalse(p.active)
+    def test_unqualified_profile_refuses_before_native_sql(self):
+        p,e,b,policy=self.setup()
+        with self.assertRaises(ResolutionError):
+            read_singleton(e,b,p,PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6)}),policy,
+                publication_id='p1',table=TABLE,kind='object',source=SOURCE,type_id=1,
+                entity_id=9223372036854775807,context='authorized',supported_profiles=['future/1'],
+                supported_revisions={'source':['r1']})
+        self.assertEqual(e.calls,[]);self.assertFalse(p.active)
     def test_timestamp_null_negative_and_signed64_precision_preserved(self):
         for value in [None,'0','-1','9223372036854775807','-9223372036854775808']:
             p,e,b,policy=self.setup();e.rows=[dict(ROW,published_at=value)]

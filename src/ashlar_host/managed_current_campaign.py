@@ -17,6 +17,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 from .managed_current_trial import ManagedCurrentTrialConfig, run_managed_current_trial_page
+from .managed_current_core import CARRIER_PROFILE_XXHASH64
 
 PROFILE = "ashlar-managed-current-functional-campaign/0.1"
 WEFT_SOURCE_COMMIT = "93a6b5ba8491b8e9211adad506da162250fc23c3"
@@ -114,7 +115,8 @@ def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
 
     _require(type(config) is ManagedCurrentTrialConfig)
     config.validate()
-    _require(config.create_schema is False and config.schedule_step == 2,
+    _require(config.create_schema is False and config.schedule_step == 2
+             and config.carrier_profile == CARRIER_PROFILE_XXHASH64,
              "Functional Weft campaign requires the frozen positive graph page after catalog publication")
     started = time.monotonic()
     _require(type(binding) is dict and type(source_oracle_input) is dict
@@ -164,7 +166,7 @@ def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
 
     target_owner = ManagedCurrentTargetOwner(
         spark, catalog=config.catalog, schema=config.schema,
-        protocol_profile=protocol_profile)
+        protocol_profile=protocol_profile, carrier_profile=config.carrier_profile)
     target_owner.open_existing()
     positive_rows = managed_current_grouped_paths(oracle, threshold=0)
     negative_rows = managed_current_grouped_paths(oracle, threshold=2)
@@ -223,7 +225,9 @@ def run_managed_current_campaign(spark, *, config, binding, protocol_profile,
     target_owner.closing()
     _require(set(cases) == set(_CASES))
 
-    answer = {"profile": PROFILE, "publication": publication_result,
+    answer = {"profile": PROFILE, "carrierProfile": config.carrier_profile,
+              "lookupHashProfile": target_owner.carriers.lookup_hash_profile,
+              "publication": publication_result,
               "weftRuntime": selected_weft, "cases": cases}
     encoded = _canonical(answer).encode("utf-8")
     _require(len(encoded) <= 4 * 1024 * 1024,

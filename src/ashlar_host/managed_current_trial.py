@@ -10,7 +10,9 @@ import json
 import math
 import re
 
-from .managed_current_core import ManagedCurrentCoreConfig
+from .managed_current_core import (
+    CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig,
+)
 
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
 _COST_CEILING_USD = 100.0
@@ -59,8 +61,11 @@ class ManagedCurrentTrialConfig:
     max_concurrent_runs: int = 1
     dedicated_serverless: bool = True
     predictive_optimization_disabled: bool = False
+    carrier_profile: str = CARRIER_PROFILE_XXHASH64
 
     def validate(self):
+        _require(self.carrier_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64),
+                 "Exact managed physical carrier profile required")
         _require(type(self.catalog) is str and _IDENT.fullmatch(self.catalog)
                  and type(self.schema) is str and _IDENT.fullmatch(self.schema),
                  "Exact selected managed catalog and new schema names required")
@@ -143,19 +148,32 @@ class ManagedCurrentTrialConfig:
 
     def core_config(self):
         self.validate()
-        return ManagedCurrentCoreConfig(
-            catalog=self.catalog,
-            schema=self.schema,
+        if self.carrier_profile == CARRIER_PROFILE_XXHASH64:
+            backend03={"surface": "Backend03", "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
+                       "backendVersion": "0.2.0-managed-current-core-xxhash64-candidate",
+                       "targetProfile": "ashlar-managed-current-core/0.2-xxhash64",
+                       "weftInterface": "weft-compile/0.4.1", "weftDialect": "weft-sql/0.4.1"}
+            backend02={"surface": "Backend02", "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
+                       "backendVersion": "0.2.0-managed-current-core-xxhash64-pages-candidate",
+                       "targetProfile": "ashlar-managed-current-core/0.2-xxhash64",
+                       "weftInterface": "weft-compile/0.2.7", "weftDialect": "weft-sql/0.2.0"}
+        else:
             backend03={"surface": "Backend03", "backendId": "ashlar.databricks.managed-uc-spark",
                        "backendVersion": "0.1.0-managed-current-core-candidate",
                        "targetProfile": "ashlar-managed-current-core/0.1",
-                       "weftInterface": "weft-compile/0.4.1", "weftDialect": "weft-sql/0.4.1"},
+                       "weftInterface": "weft-compile/0.4.1", "weftDialect": "weft-sql/0.4.1"}
             backend02={"surface": "Backend02", "backendId": "ashlar.databricks.managed-uc-spark",
                        "backendVersion": "0.1.0-managed-current-core-pages-candidate",
                        "targetProfile": "ashlar-managed-current-core/0.1",
-                       "weftInterface": "weft-compile/0.2.7", "weftDialect": "weft-sql/0.2.0"},
+                       "weftInterface": "weft-compile/0.2.7", "weftDialect": "weft-sql/0.2.0"}
+        return ManagedCurrentCoreConfig(
+            catalog=self.catalog,
+            schema=self.schema,
+            backend03=backend03,
+            backend02=backend02,
             preferred_cost_usd=10,
             hard_cost_usd=100,
+            carrier_profile=self.carrier_profile,
         )
 
 
@@ -182,12 +200,14 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
     The helper never retries a page or source ACK.
     """
     from .managed_current_core import (BINDING_PROFILE, BINDING_PROFILE_045,
+                                       BINDING_PROFILE_XXHASH64,
                                        restore_managed_current_admission)
     from .managed_current_publication import run_managed_current_publication_task
     _require(type(config) is ManagedCurrentTrialConfig,
              "Closed managed current trial configuration required")
     config.validate()
-    _require(type(binding) is dict and binding.get("profile") in (BINDING_PROFILE, BINDING_PROFILE_045)
+    _require(type(binding) is dict and binding.get("profile") in (
+        BINDING_PROFILE, BINDING_PROFILE_045, BINDING_PROFILE_XXHASH64)
              and binding.get("status") == "preinstallation-source-bundle",
              "One digest-bound original current Truss source bundle required")
     # Reconstruct and re-admit the exact versioned Truss evidence before the

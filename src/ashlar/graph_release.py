@@ -17,6 +17,16 @@ EDGE_INTS=('rel_type_id','id','source_type','source_id','target_type','target_id
 NODE_TEXT=('source_system','logical_key_json','schema_revision','props_json','retained_json','source_feed','source_epoch','lookup_hash','apply_batch_id','source_cursor_json','source_delivery_id')
 EDGE_TEXT=('source_system','schema_revision','props_json','retained_json','order_key','source_feed','source_epoch','lookup_hash','apply_batch_id','source_cursor_json','source_delivery_id')
 NULLABLE={'root_id','source_position','order_key','apply_batch_id','source_cursor_json','source_delivery_id'}
+LOOKUP_HASH_PROFILES={
+    'ashlar-delta/0.3':'sha256-json-v1',
+    'ashlar-delta/0.4-xxhash64':'spark-xxhash64-typed-key/0.1',
+}
+
+
+def lookup_hash_profile(profile):
+    """Return only the hash semantics explicitly paired with a carrier layout."""
+    try:return LOOKUP_HASH_PROFILES[profile]
+    except (KeyError,TypeError):raise ResolutionError('Unsupported exact graph carrier profile')
 
 
 def release_columns(kind):
@@ -71,7 +81,7 @@ class GraphRelease:
     sha256: str
 
 
-def _carrier(row,kind):
+def _carrier(row,kind,*,profile='ashlar-delta/0.3',native_lookup_hash=None):
     ints=NODE_INTS if kind=='node' else EDGE_INTS
     texts=NODE_TEXT if kind=='node' else EDGE_TEXT
     if type(row) is not dict or set(row)!=set(ints+texts+('published_at',)):
@@ -84,9 +94,18 @@ def _carrier(row,kind):
     if int(row['entity_version'])<0 or not all(row[k] for k in ('source_system','schema_revision','source_feed','source_epoch')):
         raise ResolutionError('Explicit canonical graph revision/provenance required')
     typed='type_id' if kind=='node' else 'rel_type_id'
-    identity={'source_system':row['source_system'],typed:int(row[typed]),'id':int(row['id'])}
-    expected=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-    if row['lookup_hash']!=expected:raise ResolutionError('Canonical lookup identity hash mismatch')
+    hash_profile=lookup_hash_profile(profile)
+    if hash_profile=='sha256-json-v1':
+        identity={'source_system':row['source_system'],typed:int(row[typed]),'id':int(row['id'])}
+        expected=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+        if row['lookup_hash']!=expected:raise ResolutionError('Canonical lookup identity hash mismatch')
+    else:
+        # Spark's xxhash64 implementation is the authority for this profile.
+        # Never create a Python lookalike; the read query supplies the native
+        # value computed from the complete typed key and the saved carrier.
+        _integer(row['lookup_hash'])
+        if native_lookup_hash is None or _integer(native_lookup_hash)!=row['lookup_hash']:
+            raise ResolutionError('Native signed64 xxhash64 identity mismatch')
     result=dict(row)
     result['graph_id']=graph_key(kind,row['source_system'],row[typed],row['id'])
     if kind=='edge':
@@ -95,14 +114,19 @@ def _carrier(row,kind):
     return result
 
 
-def validate_release_carrier(original, kind):
+def validate_release_carrier(original, kind, *, profile='ashlar-delta/0.3'):
     """Validate one original canonical carrier and derive reversible identities.
 
     This pure correspondence check does not establish publication/read authority.
     """
     if type(kind) is not str or kind not in ('node', 'edge') or type(original) is not dict:
         raise ResolutionError('Exact original graph carrier and role required')
-    return _carrier(original, kind)
+    if lookup_hash_profile(profile)=='spark-xxhash64-typed-key/0.1':
+        # Offline release validation can check the exact signed64 carrier type,
+        # but only the live Spark read can recompute its native hash.
+        _integer(original.get('lookup_hash'))
+        return _carrier(original,kind,profile=profile,native_lookup_hash=original.get('lookup_hash'))
+    return _carrier(original, kind,profile=profile)
 
 
 def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node_table,edge_table,
@@ -117,9 +141,17 @@ def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node
         raise ResolutionError('Distinct graph roles in complete original pin vector required')
     if any(type(n) is not int or not 0<=n<=1000000 for n in (max_nodes,max_edges)):
         raise ResolutionError('Explicit bounded release row budgets required')
+    profiles=tuple(supported_profiles)
+    if (not profiles or len(set(profiles))!=len(profiles)
+            or any(profile not in LOOKUP_HASH_PROFILES for profile in profiles)):
+        raise ResolutionError('Explicit qualified graph carrier profiles required')
+    if 'ashlar-delta/0.4-xxhash64' in profiles and (max_nodes>10000 or max_edges>10000):
+        raise ResolutionError('XXHash64 graph release exceeds the bounded release document profile')
     with pins.hold(vector,context=context):
         resolved=resolve_publication(backend,publication_id,{t:p[0] for t,p in vector.targets.items()},
-            context=context,supported_profiles=supported_profiles,supported_revisions=supported_revisions)
+            context=context,supported_profiles=profiles,supported_revisions=supported_revisions)
+        profile=resolved.descriptor.profile
+        hash_profile=lookup_hash_profile(profile)
         if any(resolved.snapshots[t].version!=p[1] for t,p in vector.targets.items()):
             raise ResolutionError('Publication differs from complete held version vector')
         def bind():
@@ -136,15 +168,25 @@ def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node
             ints=NODE_INTS if kind=='node' else EDGE_INTS
             texts=NODE_TEXT if kind=='node' else EDGE_TEXT
             names=ints+texts+('published_at',)
-            projection=','.join(('cast('+n+' AS STRING) AS '+n) if n in ints else n for n in ints+texts)
+            projection=','.join(('cast('+n+' AS STRING) AS '+n) if n in ints else
+                                ('cast('+n+' AS STRING) AS '+n if n=='lookup_hash' and hash_profile=='spark-xxhash64-typed-key/0.1' else n)
+                                for n in ints+texts)
+            if hash_profile=='spark-xxhash64-typed-key/0.1':
+                typed='type_id' if kind=='node' else 'rel_type_id'
+                projection+=',cast(xxhash64(CAST(source_system AS STRING),CAST('+typed+' AS BIGINT),CAST(id AS BIGINT)) AS STRING) AS native_lookup_hash'
             projection+=',cast(unix_micros(published_at) AS STRING) AS published_at'
             result=executor.query('SELECT '+projection+' FROM '+_quoted(table)+' VERSION AS OF '+str(resolved.snapshots[table].version)+' LIMIT '+str(budget+1),{})
-            if tuple(result.columns)!=tuple((n,'STRING') for n in names) or len(result.rows)>budget:
+            expected_columns=names+('native_lookup_hash',) if hash_profile=='spark-xxhash64-typed-key/0.1' else names
+            if tuple(result.columns)!=tuple((n,'STRING') for n in expected_columns) or len(result.rows)>budget:
                 raise ResolutionError('Exact complete graph carriers exceed profile or row budget')
             rows=[]
             for original in result.rows:
-                row=_carrier(dict(original),kind)
-                if policy.authorize_graph_row(resolved.descriptor,table,MappingProxyType(dict(original)),context) is not None:
+                observed=dict(original)
+                native_hash=observed.pop('native_lookup_hash',None)
+                row=_carrier(observed,kind,profile=profile,native_lookup_hash=native_hash)
+                # The transient native hash is an execution-side verification
+                # column, not part of the physical carrier presented to policy.
+                if policy.authorize_graph_row(resolved.descriptor,table,MappingProxyType(dict(observed)),context) is not None:
                     raise ResolutionError('Graph row semantic/read admission incomplete')
                 rows.append(row)
             if len({r['graph_id'] for r in rows})!=len(rows):raise ResolutionError('Duplicate independent graph identity')
@@ -160,13 +202,16 @@ def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node
         bind()
         if policy.authorize_graph_result(resolved.descriptor,tuple(MappingProxyType(r) for r in nodes),tuple(MappingProxyType(r) for r in edges),context) is not None:
             raise ResolutionError('Graph release closing policy incomplete')
+        mapping={'identity':'ashlar-key/1','properties':'Exact original canonical text only; scalar promotion requires separate admitted mapping.',
+                       'residuals':['Canonical props_json/retained_json preserved verbatim','History/tombstones/raw source remain in original pinned publication'],
+                       'capabilities':{'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False},
+                       'losses':[],'engineSupport':[]}
+        if profile=='ashlar-delta/0.4-xxhash64':
+            mapping['lookupHashProfile']=hash_profile
         value={'format':'ashlar-graph-release/0.1','publication':dict(resolved.descriptor.raw),
             'snapshots':{t:{'uuid':s.uuid,'version':s.version} for t,s in resolved.snapshots.items()},
             'roles':{'nodes':node_table,'edges':edge_table},'nodes':nodes,'edges':edges,
-            'mapping':{'identity':'ashlar-key/1','properties':'Exact original canonical text only; scalar promotion requires separate admitted mapping.',
-                       'residuals':['Canonical props_json/retained_json preserved verbatim','History/tombstones/raw source remain in original pinned publication'],
-                       'capabilities':{'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False},
-                       'losses':[],'engineSupport':[]}}
+            'mapping':mapping}
         try:payload=(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode('utf-8')
         except (TypeError,ValueError,UnicodeError) as error:raise ResolutionError('Exact release serialization unavailable') from error
         release=GraphRelease(payload,hashlib.sha256(payload).hexdigest())

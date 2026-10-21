@@ -1,0 +1,41 @@
+{
+  "profile": "ashlar-managed-current-carrier-layout/0.4-xxhash64",
+  "umfCore": "0.10.0",
+  "generatorRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+  "extensionVersions": {
+    "umf.delta": "0.1.0",
+    "umf.delta.definition": "0.1.0"
+  },
+  "roles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ],
+  "migration": {
+    "sourceProfile": "ashlar-managed-current-carrier-migration/0.1",
+    "operation": "new fresh-table profile: lookup_hash is Spark SQL xxhash64 BIGINT over typed source/type/id; legacy SHA-256 carrier remains unchanged",
+    "legacyResourceRoot": "managed-current-core-010",
+    "hashExpression": "xxhash64(CAST(source_system AS STRING), CAST(type_id_or_rel_type_id AS BIGINT), CAST(id AS BIGINT))",
+    "seed": 42,
+    "sourceSha256": {
+      "object_current": "75166b5a168da6e00e11810f9b29833da3683ee4734a3ded68344e91810d68be",
+      "edge_current": "efb67da7c4fdbdee302aaed58634423019d1bc0d930412505f636b3ccc18a51e",
+      "tombstone": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "whole_source_history": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "publication_manifest": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "publication_attempt_phase": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    },
+    "targetSha256": {
+      "object_current": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771",
+      "edge_current": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb",
+      "tombstone": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "whole_source_history": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "publication_manifest": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "publication_attempt_phase": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    }
+  },
+  "physicalProfile": "ashlar-delta/0.4-xxhash64"
+}

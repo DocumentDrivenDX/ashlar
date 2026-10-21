@@ -31,6 +31,18 @@ MANAGED_CURRENT_BACKEND02={
  'interfaceVersion':'weft-backend/0.2.7',
  'targetProfile':'ashlar-managed-current-core/0.1',
 }
+MANAGED_CURRENT_XXHASH64_BACKEND03={
+ 'backendId':'ashlar.databricks.managed-uc-spark-xxhash64',
+ 'backendVersion':'0.2.0-managed-current-core-xxhash64-candidate',
+ 'interfaceVersion':'weft-backend/0.3.0',
+ 'targetProfile':'ashlar-managed-current-core/0.2-xxhash64',
+}
+MANAGED_CURRENT_XXHASH64_BACKEND02={
+ 'backendId':'ashlar.databricks.managed-uc-spark-xxhash64',
+ 'backendVersion':'0.2.0-managed-current-core-xxhash64-pages-candidate',
+ 'interfaceVersion':'weft-backend/0.2.7',
+ 'targetProfile':'ashlar-managed-current-core/0.2-xxhash64',
+}
 class PageContextRefused(ResolutionError):
     """The original publication/current admission failed before page data SQL."""
 
@@ -178,15 +190,22 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     managed_request_target=request.get('target')if type(request)is dict else None
     managed_request_version=(managed_request_target.get('backendVersion')
         if type(managed_request_target)is dict else None)
-    managed_expected=(MANAGED_CURRENT_BACKEND02 if managed_request_version==MANAGED_CURRENT_BACKEND02['backendVersion']
-        else MANAGED_CURRENT_BACKEND03 if managed_request_version==MANAGED_CURRENT_BACKEND03['backendVersion'] else None)
+    managed_expected=next((candidate for candidate in (
+        MANAGED_CURRENT_BACKEND02,MANAGED_CURRENT_BACKEND03,
+        MANAGED_CURRENT_XXHASH64_BACKEND02,MANAGED_CURRENT_XXHASH64_BACKEND03)
+        if type(managed_request_target)is dict
+        and managed_request_target.get('backendId')==candidate['backendId']
+        and managed_request_target.get('backendVersion')==candidate['backendVersion']
+        and managed_request_target.get('targetProfile')==candidate['targetProfile']),None)
     managed_request=(managed_expected is not None and type(managed_request_target)is dict
         and {key:managed_request_target.get(key) for key in ('backendId','backendVersion','targetProfile')}==
             {key:managed_expected[key] for key in ('backendId','backendVersion','targetProfile')})
     managed_artifact=(managed_expected is not None and artifact.get('backend')==managed_expected)
     if (managed_request or managed_artifact) and (not managed_request or not managed_artifact):
         raise ResolutionError('Exact managed current compiler target and artifact required')
-    if artifact.get('backend') in (MANAGED_CURRENT_BACKEND03,MANAGED_CURRENT_BACKEND02) and not managed_request:
+    managed_backends=(MANAGED_CURRENT_BACKEND03,MANAGED_CURRENT_BACKEND02,
+                      MANAGED_CURRENT_XXHASH64_BACKEND03,MANAGED_CURRENT_XXHASH64_BACKEND02)
+    if artifact.get('backend') in managed_backends and not managed_request:
         raise ResolutionError('Managed current artifact must match its exact request target')
     request_target=request.get('target')if type(request)is dict else None
     current_request=(type(request_target)is dict and
@@ -197,7 +216,7 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     if ((current_request or current_artifact) and
             (not current_request or not current_artifact or artifact.get('interfaceVersion')!='weft-compile/0.2.7')):
         raise ResolutionError('Exact current native Weft page target required')
-    if artifact.get('status')!='compiled' or artifact.get('backend') not in SDK_BACKENDS+PAGE_BACKENDS+(MANAGED_CURRENT_BACKEND03,MANAGED_CURRENT_BACKEND02,{'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-fields-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-fields-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
+    if artifact.get('status')!='compiled' or artifact.get('backend') not in SDK_BACKENDS+PAGE_BACKENDS+(MANAGED_CURRENT_BACKEND03,MANAGED_CURRENT_BACKEND02,MANAGED_CURRENT_XXHASH64_BACKEND03,MANAGED_CURRENT_XXHASH64_BACKEND02,{'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-fields-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-fields-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
         raise ResolutionError('Explicit selected native Weft artifact required')
     plan=artifact.get('logicalPlan',{})
     ordered=type(plan)is dict and plan.get('version')=='weft-ir/engine-ordered-page/0.1'
@@ -207,10 +226,10 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     page=key_integrity and not ordered_read
     source_key=type(plan.get('navigation'))is dict and plan['navigation'].get('sourceSelectedKey')is not None
     if ordered and artifact.get('backend')!=SDK_BACKENDS[1]:raise ResolutionError('Explicit original ordered backend required')
-    if page and artifact.get('backend') not in PAGE_BACKENDS+(SDK_BACKENDS[1],MANAGED_CURRENT_BACKEND02):raise ResolutionError('Explicit original page backend required')
-    if managed_expected is MANAGED_CURRENT_BACKEND03 and page:
+    if page and artifact.get('backend') not in PAGE_BACKENDS+(SDK_BACKENDS[1],MANAGED_CURRENT_BACKEND02,MANAGED_CURRENT_XXHASH64_BACKEND02):raise ResolutionError('Explicit original page backend required')
+    if managed_expected in (MANAGED_CURRENT_BACKEND03,MANAGED_CURRENT_XXHASH64_BACKEND03) and page:
         raise ResolutionError('Managed Backend03 current scalar route cannot be used as an SDK page')
-    if managed_expected is MANAGED_CURRENT_BACKEND02 and not page:
+    if managed_expected in (MANAGED_CURRENT_BACKEND02,MANAGED_CURRENT_XXHASH64_BACKEND02) and not page:
         raise ResolutionError('Managed Backend02 current target requires its typed page artifact')
     if continuation_context is not None and (not page or type(continuation_context)is not bytes or not 1<=len(continuation_context)<=65536):raise ResolutionError('Original bounded page context required')
     page_contexts=[]

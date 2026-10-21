@@ -29,7 +29,8 @@ def _lineage(value,*,private_custody_admitted=False):
         text=publication[name]
         if type(text) is not str or not text or '\x00' in text:raise ValueError('Exact manifest text required')
         text.encode('utf-8')
-    if publication['profile_version']!='ashlar-delta/0.3':raise ValueError('Qualified canonical source profile required')
+    if publication['profile_version'] not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Qualified canonical source profile required')
     decoded={}
     for name in ['table_versions_json','schema_revisions_json','source_progress_json','validation_report_json']:
         decoded[name]=json.loads(publication[name],object_pairs_hook=_object)
@@ -55,7 +56,12 @@ def _lineage(value,*,private_custody_admitted=False):
     if type(roles) is not dict or set(roles)!={'nodes','edges'} or any(type(t) is not str or t not in snapshots for t in roles.values()) or roles['nodes']==roles['edges']:
         raise ValueError('Distinct original snapshot graph roles required')
     expected={'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False}
-    if type(mapping) is not dict or set(mapping)!={'identity','properties','residuals','capabilities','losses','engineSupport'}:
+    mapping_keys={'identity','properties','residuals','capabilities','losses','engineSupport'}
+    if publication['profile_version']=='ashlar-delta/0.4-xxhash64':
+        mapping_keys.add('lookupHashProfile')
+        if type(mapping) is dict and mapping.get('lookupHashProfile')!='spark-xxhash64-typed-key/0.1':
+            raise ValueError('Exact native lookup hash profile required')
+    if type(mapping) is not dict or set(mapping)!=mapping_keys:
         raise ValueError('Complete mapping capability/loss inventory required')
     if mapping['identity']!='ashlar-key/1' or type(mapping['properties']) is not str or not mapping['properties'] or type(mapping['residuals']) is not list or not mapping['residuals'] or any(type(t) is not str or not t for t in mapping['residuals']):
         raise ValueError('Named exact carrier mapping required')
@@ -80,7 +86,7 @@ def load_graph_release(payload, trusted_sha256):
         for row in rows:
             if type(row) is not dict:raise ValueError('Object carrier required')
             original={name:row[name] for name in names if name in row}
-            if validate_release_carrier(original,kind)!=row:raise ValueError('Closed exact graph carrier mismatch')
+            if validate_release_carrier(original,kind,profile=value['publication']['profile_version'])!=row:raise ValueError('Closed exact graph carrier mismatch')
         if len({row['graph_id'] for row in rows})!=len(rows):raise ValueError('Duplicate graph identity')
     nodes={row['graph_id'] for row in value['nodes']}
     if any(row['src'] not in nodes or row['dst'] not in nodes for row in value['edges']):

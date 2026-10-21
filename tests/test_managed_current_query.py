@@ -85,6 +85,48 @@ def _oracle(source_bundle=None):
 
 
 class ManagedCurrentQueryTests(unittest.TestCase):
+  def test_source_oracle_binds_the_new_carrier_profile_without_relabeling_truss_evidence(self):
+    from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, bind_current_core
+    from test_managed_current_core import _current_admission
+    from test_managed_current_weft_binding import _xxhash_config
+    config = _xxhash_config()
+    bundle = bind_current_core(_current_admission(), config)
+    oracle = _oracle(bundle)
+    self.assertEqual(bundle["profile"], "ashlar-managed-current-core-binding/0.3")
+    self.assertEqual(bundle["destination"]["physicalProfile"], CARRIER_PROFILE_XXHASH64)
+    self.assertEqual(bundle["source"]["trussVersion"], "0.0.44")
+    self.assertNotIn("catalogEvidenceProfile", bundle["source"])
+    self.assertEqual(oracle.truss_version, "0.0.44")
+    forged = json.loads(_canonical(bundle))
+    forged["destination"]["physicalProfile"] = "ashlar-delta/0.3"
+    forged.pop("bindingSha256")
+    forged["bindingSha256"] = hashlib.sha256(_canonical(forged).encode()).hexdigest()
+    with self.assertRaises(ValueError):
+      _oracle(forged)
+
+  def test_read_owner_refuses_source_bundle_when_native_carrier_profile_is_legacy(self):
+    from types import SimpleNamespace
+    from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, bind_current_core
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+    from ashlar_host.managed_current_publication import ManagedCurrentTargetOwner
+    from test_managed_current_core import _current_admission
+    from test_managed_current_weft_binding import _xxhash_config
+
+    config = _xxhash_config()
+    bundle = bind_current_core(_current_admission(), config)
+    oracle = _oracle(bundle)
+    target_owner = object.__new__(ManagedCurrentTargetOwner)
+    target_owner.carriers = SimpleNamespace(physical_profile="ashlar-delta/0.3")
+    runtime = {"opening": {"sparkVersion": "4.2.0", "runtimeTag": "serverless-test"},
+               "closing": {"sparkVersion": "4.2.0", "runtimeTag": "serverless-test"},
+               "privateDatabricksBuildIdentity": "unknown"}
+    with self.assertRaisesRegex(ValueError, "carrier profile must match"):
+      ManagedCurrentReadOwner(object(), target_owner=target_owner,
+          receipt={"profile": "ashlar-managed-current-destination-receipt/0.1"},
+          runtime_identity=runtime, expected_environment=runtime["closing"],
+          source_bundle=bundle, oracle=oracle, expected_rows=[],
+          schedule_sha256="a" * 64, schedule_step=7)
+
   def test_source_oracle_preserves_exact_presence_and_independent_grouped_page_results(self):
     oracle = _oracle()
     self.assertEqual(managed_current_grouped_paths(oracle, threshold=0), [["person-1", "2", "1"]])
@@ -207,7 +249,8 @@ class ManagedCurrentQueryTests(unittest.TestCase):
           schedule_sha256="a" * 64, schedule_step=7)
 
   def test_managed_backend_route_refuses_cross_surface_request_artifact_before_execution(self):
-    from ashlar.weft_query import MANAGED_CURRENT_BACKEND02, MANAGED_CURRENT_BACKEND03, read_weft
+    from ashlar.weft_query import (MANAGED_CURRENT_BACKEND02, MANAGED_CURRENT_BACKEND03,
+        MANAGED_CURRENT_XXHASH64_BACKEND02, MANAGED_CURRENT_XXHASH64_BACKEND03, read_weft)
 
     class Executor:
       calls = 0
@@ -220,6 +263,22 @@ class ManagedCurrentQueryTests(unittest.TestCase):
                            "backendVersion": MANAGED_CURRENT_BACKEND03["backendVersion"],
                            "targetProfile": MANAGED_CURRENT_BACKEND03["targetProfile"]}}
     artifact = {"backend": MANAGED_CURRENT_BACKEND02}
+    with self.assertRaisesRegex(ValueError, "Exact managed current compiler target"):
+      read_weft(executor, None, None, None, None, request=request, artifact=artifact,
+          context=None, supported_profiles=[], supported_revisions={})
+    self.assertEqual(executor.calls, 0)
+    request={"target":{"backendId":MANAGED_CURRENT_XXHASH64_BACKEND03["backendId"],
+                       "backendVersion":MANAGED_CURRENT_XXHASH64_BACKEND03["backendVersion"],
+                       "targetProfile":MANAGED_CURRENT_XXHASH64_BACKEND03["targetProfile"]}}
+    artifact={"status":"compiled","backend":MANAGED_CURRENT_XXHASH64_BACKEND03,
+              "logicalPlan":{},"obligations":[]}
+    with self.assertRaisesRegex(ValueError,"Complete supported Weft obligation inventory"):
+      read_weft(executor,None,None,None,None,request=request,artifact=artifact,
+          context=None,supported_profiles=[],supported_revisions={})
+    self.assertEqual(executor.calls,0)
+    request = {"target": {key: value for key, value in MANAGED_CURRENT_XXHASH64_BACKEND03.items()
+                          if key != "interfaceVersion"}}
+    artifact = {"backend": MANAGED_CURRENT_XXHASH64_BACKEND02}
     with self.assertRaisesRegex(ValueError, "Exact managed current compiler target"):
       read_weft(executor, None, None, None, None, request=request, artifact=artifact,
           context=None, supported_profiles=[], supported_revisions={})
@@ -295,6 +354,7 @@ class ManagedCurrentQueryTests(unittest.TestCase):
     request = managed_current_count_star_request(bundle, inputs, sql)
     owner = object.__new__(ManagedCurrentReadOwner)
     owner.source_bundle = bundle
+    owner.carrier_profile = "ashlar-delta/0.3"
     owner.receipt = {"weftBindingInputs": inputs}
     owner.vector = object()
     owner.context = object()
@@ -308,6 +368,26 @@ class ManagedCurrentQueryTests(unittest.TestCase):
     altered["modules"][0]["documentJson"] += " "
     with self.assertRaisesRegex(ValueError, "exact accepted source and receipt"):
       owner.admit_artifact(altered, artifact, None, owner.context)
+
+  def test_read_owner_admits_exact_xxhash64_backend_tuple(self):
+    from types import MethodType
+    from ashlar_host.managed_current_core import bind_current_core
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+    from ashlar_host.managed_current_weft_binding import managed_current_count_star_request
+    from test_managed_current_weft_binding import _inputs, _xxhash_config
+    from test_managed_current_core import _current_admission
+
+    bundle=bind_current_core(_current_admission(),_xxhash_config())
+    inputs=_inputs(bundle);sql="SELECT COUNT(*) FROM Person p"
+    request=managed_current_count_star_request(bundle,inputs,sql)
+    owner=object.__new__(ManagedCurrentReadOwner);owner.carrier_profile="ashlar-delta/0.4-xxhash64"
+    owner.source_bundle=bundle;owner.receipt={"weftBindingInputs":inputs};owner.vector=object();owner.context=object()
+    owner.bind_descriptor=MethodType(lambda self,*args:None,owner)
+    owner._renew=MethodType(lambda self:None,owner)
+    artifact={"status":"compiled","bindingSha256":request["target"]["bindingSha256"]}
+    owner.admit_artifact(request,artifact,None,owner.context)
+    self.assertEqual(owner.current_request,request)
+    self.assertEqual(request["target"]["backendId"],"ashlar.databricks.managed-uc-spark-xxhash64")
 
   def test_read_owner_renews_all_six_role_metadata_and_refuses_version_drift(self):
     from types import SimpleNamespace

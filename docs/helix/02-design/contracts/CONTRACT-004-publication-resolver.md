@@ -123,6 +123,14 @@ authorization run before returning; absence also undergoes row policy. The final
 read result is released only after the pin context’s closing checks. Resolution
 and execution failures return no partial singleton response. Native composed publication and policy support require cited execution evidence.
 
+For the proposed `ashlar-delta/0.4-xxhash64` table profile in
+[TD-007](../technical-designs/TD-007-native-xxhash64-lookup-layout.md), the
+reader computes the bound pruning value with native SQL `xxhash64` over
+explicit STRING/BIGINT/BIGINT casts and compares a signed BIGINT. It still
+filters and checks the complete source/type/ID tuple. The legacy SHA-256 hex
+reader remains selected only for its original table profile. A descriptor or
+pin vector crossing the two layouts refuses before returning a row or absence.
+
 ## Singleton timestamp output carrier
 
 For the selected ashlar-delta/0.3 object/edge layout, read_singleton MUST project

@@ -23,7 +23,7 @@ from ashlar.protocol import ReaderProtocolProfile, validate_protocol_detail
 from ashlar.schema import decode_retained_json
 
 from .managed_current_carriers import load_current_managed_carriers
-from .managed_current_core import ROLES
+from .managed_current_core import CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, ROLES
 
 PROFILE = "ashlar-managed-current-external-receipt-read/0.1"
 DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
@@ -51,6 +51,7 @@ class ManagedCurrentReceiptConfig:
     source_truss_version: str
     protocol_profile: ReaderProtocolProfile = field(repr=False, compare=False)
     maximum_elapsed_seconds: int = 300
+    carrier_profile: str = CARRIER_PROFILE_LEGACY
 
     def __post_init__(self):
         _require(type(self.catalog) is str and _IDENT.fullmatch(self.catalog)
@@ -60,6 +61,7 @@ class ManagedCurrentReceiptConfig:
                          for value in (self.expected_principal, self.expected_table_owner))
                  and self.source_truss_version in ("0.0.44", "0.0.45")
                  and type(self.protocol_profile) is ReaderProtocolProfile
+                 and self.carrier_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64)
                  and type(self.maximum_elapsed_seconds) is int
                  and 1 <= self.maximum_elapsed_seconds <= 600,
                  "Exact catalog/schema, dedicated warehouse, owner, Truss version, and protocol profile required")
@@ -119,7 +121,7 @@ class ManagedCurrentSQLReceiptReader:
         self.started = time.monotonic()
         self.closed = False
         self.executor = _ReceiptSQLExecutor(self)
-        self.carriers = load_current_managed_carriers()
+        self.carriers = load_current_managed_carriers(config.carrier_profile)
         self.context = object()
         self.opening_runtime = self._observe_runtime()
         self.opening = self._observe_inventory()
@@ -392,7 +394,7 @@ class ManagedCurrentSQLReceiptReader:
         policy = _ManagedReceiptPolicy(self, descriptor)
         backend = _ManagedReceiptBackend(self, policy, schemas)
         resolved = resolve_publication(backend, publication_id, uuids, context=self.context,
-            supported_profiles=("ashlar-delta/0.3",),
+            supported_profiles=(self.config.carrier_profile,),
             supported_revisions={key: (value,) for key, value in revisions.items()})
         _require(dict(resolved.descriptor.raw) == expected_manifest
                  and all(snapshot.uuid == uuids[table]
@@ -412,6 +414,7 @@ class ManagedCurrentSQLReceiptReader:
              "manifestUuid": self.opening["publication_manifest"]["uuid"],
              "dataRoles": normalized_binding_roles},
             {"opening": self.opening_runtime, "closing": None},
+            supported_profiles=(self.config.carrier_profile,),
             supported_revisions={key: (value,) for key, value in revisions.items()})
         self._observation = observation
         return observation

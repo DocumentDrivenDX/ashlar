@@ -83,7 +83,9 @@ class ManagedCurrentCampaignTests(unittest.TestCase):
             def model_dump(mode="python"): return {}
 
         class TargetOwner:
-            def __init__(self, *_args, **_kwargs): self.opened = False
+            def __init__(self, *_args, **_kwargs):
+                self.opened = False
+                self.carriers = SimpleNamespace(lookup_hash_profile="spark-xxhash64-typed-key/0.1")
             def open_existing(self): self.opened = True
             def closing(self): return None
 
@@ -126,6 +128,8 @@ class ManagedCurrentCampaignTests(unittest.TestCase):
         self.assertEqual(result["cases"]["backend03-grouped-having"]["rows"],
                          [["person-1", "2", "1"]])
         self.assertEqual(result["cases"]["backend03-negative-having"]["rows"], [])
+        self.assertEqual(result["carrierProfile"], "ashlar-delta/0.4-xxhash64")
+        self.assertEqual(result["lookupHashProfile"], "spark-xxhash64-typed-key/0.1")
         build.assert_called_once()
 
     def test_trial_checks_runtime_before_create_then_selects_new_schema(self):

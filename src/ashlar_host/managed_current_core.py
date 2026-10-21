@@ -14,6 +14,10 @@ import base64
 PROFILE = 'ashlar-managed-current-core/0.1'
 BINDING_PROFILE = 'ashlar-managed-current-core-binding/0.1'
 BINDING_PROFILE_045 = 'ashlar-managed-current-core-binding/0.2'
+BINDING_PROFILE_XXHASH64 = 'ashlar-managed-current-core-binding/0.3'
+CARRIER_PROFILE_LEGACY = 'ashlar-delta/0.3'
+CARRIER_PROFILE_XXHASH64 = 'ashlar-delta/0.4-xxhash64'
+LOOKUP_HASH_PROFILE_XXHASH64 = 'spark-xxhash64-typed-key/0.1'
 ROLES = ('object_current', 'edge_current', 'tombstone', 'whole_source_history',
          'publication_manifest', 'publication_attempt_phase')
 BACKENDS = ('Backend03', 'Backend02')
@@ -45,9 +49,12 @@ class ManagedCurrentCoreConfig:
     preferred_cost_usd: int
     hard_cost_usd: int
     profile: str = PROFILE
+    carrier_profile: str = CARRIER_PROFILE_LEGACY
 
     def __post_init__(self):
-        _require(self.profile == PROFILE and _IDENT.fullmatch(self.catalog) is not None
+        _require(self.profile == PROFILE and self.carrier_profile in (
+                     CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64)
+                 and _IDENT.fullmatch(self.catalog) is not None
                  and _IDENT.fullmatch(self.schema) is not None)
         _require(type(self.preferred_cost_usd) is int and 0 <= self.preferred_cost_usd
                  and type(self.hard_cost_usd) is int and self.preferred_cost_usd <= self.hard_cost_usd,
@@ -55,6 +62,19 @@ class ManagedCurrentCoreConfig:
         for backend, name in ((self.backend03, 'Backend03'), (self.backend02, 'Backend02')):
             if backend is not None:
                 _validate_target(backend, name)
+        if self.carrier_profile == CARRIER_PROFILE_XXHASH64:
+            expected={
+                'Backend03':('ashlar.databricks.managed-uc-spark-xxhash64',
+                    '0.2.0-managed-current-core-xxhash64-candidate',
+                    'ashlar-managed-current-core/0.2-xxhash64','weft-compile/0.4.1','weft-sql/0.4.1'),
+                'Backend02':('ashlar.databricks.managed-uc-spark-xxhash64',
+                    '0.2.0-managed-current-core-xxhash64-pages-candidate',
+                    'ashlar-managed-current-core/0.2-xxhash64','weft-compile/0.2.7','weft-sql/0.2.0'),
+            }
+            for target,name in ((self.backend03,'Backend03'),(self.backend02,'Backend02')):
+                if target is not None:
+                    _require(tuple(target[key] for key in ('backendId','backendVersion','targetProfile','weftInterface','weftDialect'))==expected[name],
+                             'Exact xxhash64 managed Weft target identity required')
         _require(self.backend03 is None or self.backend02 is None or self.backend03 != self.backend02,
                  'distinct Weft target identities required')
 
@@ -133,7 +153,8 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
         _require(admission.current_runtime_wheel_sha256 == CURRENT_TRUSS_045_WHEEL_SHA256
                  and admission.current_runtime_manifest_sha256 == CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
                  'Truss 0.0.45 installed wheel/runtime provenance required')
-    binding_profile = BINDING_PROFILE if version == CURRENT_TRUSS_VERSION else BINDING_PROFILE_045
+    binding_profile = (BINDING_PROFILE_XXHASH64 if config.carrier_profile == CARRIER_PROFILE_XXHASH64
+                       else BINDING_PROFILE if version == CURRENT_TRUSS_VERSION else BINDING_PROFILE_045)
     tables = None if table_inventory is None else _validate_installation_inventory(config, table_inventory)
 
     accepted = {}
@@ -220,6 +241,12 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
     _require(set(view_digests) == set(admission.revisions))
     view_bytes = {revision: base64.b64encode(raw).decode('ascii')
                   for revision, raw in catalog_views.items() if revision in admission.revisions}
+    destination = {'catalog': config.catalog, 'schema': config.schema,
+        'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
+        'tables': tables}
+    if config.carrier_profile == CARRIER_PROFILE_XXHASH64:
+        destination['physicalProfile'] = config.carrier_profile
+        destination['lookupHashProfile'] = LOOKUP_HASH_PROFILE_XXHASH64
     result = {
         'profile': binding_profile,
         'status': 'preinstallation-source-bundle' if tables is None else 'postinstallation-installation-inventory-bound-offline',
@@ -237,9 +264,7 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
             'catalogViewBase64': view_bytes,
             'assignedGraphByRevision': graph_revisions,
         },
-        'destination': {'catalog': config.catalog, 'schema': config.schema,
-             'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
-                        'tables': tables},
+        'destination': destination,
         'weftTargets': {'Backend03': dict(config.backend03) if config.backend03 is not None else None,
                         'Backend02': dict(config.backend02) if config.backend02 is not None else None},
         'bounds': {'preferredCostUsd': config.preferred_cost_usd,
@@ -285,14 +310,22 @@ def bind_observed_managed_installation(prepared_binding, config: ManagedCurrentC
     """Attach independently observed native identities after managed install."""
     source = prepared_binding.get('source') if type(prepared_binding) is dict else None
     version = source.get('trussVersion') if type(source) is dict else None
-    expected_profile = (BINDING_PROFILE if version == '0.0.44'
+    prepared_destination = prepared_binding.get('destination') if type(prepared_binding) is dict else None
+    physical_profile = (prepared_destination.get('physicalProfile', CARRIER_PROFILE_LEGACY)
+                        if type(prepared_destination) is dict else None)
+    expected_profile = (BINDING_PROFILE_XXHASH64 if physical_profile == CARRIER_PROFILE_XXHASH64
+                        else BINDING_PROFILE if version == '0.0.44'
                         else BINDING_PROFILE_045 if version == '0.0.45' else None)
+    expected_destination = {'catalog': config.catalog, 'schema': config.schema,
+        'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
+        'tables': None}
+    if config.carrier_profile == CARRIER_PROFILE_XXHASH64:
+        expected_destination['physicalProfile'] = config.carrier_profile
+        expected_destination['lookupHashProfile'] = LOOKUP_HASH_PROFILE_XXHASH64
     _require(type(prepared_binding) is dict and prepared_binding.get('profile') == expected_profile
              and prepared_binding.get('status') == 'preinstallation-source-bundle'
-             and prepared_binding.get('destination') == {
-                 'catalog': config.catalog, 'schema': config.schema,
-                 'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
-                 'tables': None}, 'original preinstallation binding required')
+             and prepared_binding.get('destination') == expected_destination,
+             'Original preinstallation binding and exact carrier profile required')
     # Do not attach observed destination identities to a forged or stale source
     # bundle; reconstruct the exact versioned admission before accepting them.
     restore_managed_current_admission(prepared_binding, config)
@@ -321,11 +354,22 @@ def restore_managed_current_admission(binding, config):
         CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
     from .truss_graph_admission import current_admission_profile
     version=source.get('trussVersion')
-    expected_binding_profile=(BINDING_PROFILE if version==CURRENT_TRUSS_VERSION
+    destination=binding.get('destination')
+    physical_profile=(destination.get('physicalProfile',CARRIER_PROFILE_LEGACY)
+                      if type(destination)is dict else None)
+    expected_binding_profile=(BINDING_PROFILE_XXHASH64 if physical_profile==CARRIER_PROFILE_XXHASH64
+                              else BINDING_PROFILE if version==CURRENT_TRUSS_VERSION
                               else BINDING_PROFILE_045 if version==CURRENT_TRUSS_045_VERSION else None)
     _require(expected_binding_profile is not None and binding.get('profile')==expected_binding_profile
              and source.get('umfVersion')=='0.10.0',
              'Version-matched current Truss source bundle required')
+    _require(physical_profile in (CARRIER_PROFILE_LEGACY,CARRIER_PROFILE_XXHASH64)
+             and physical_profile==config.carrier_profile,
+             'Source bundle physical carrier profile differs from the selected trial profile')
+    if physical_profile == CARRIER_PROFILE_XXHASH64:
+        _require(destination.get('lookupHashProfile') == LOOKUP_HASH_PROFILE_XXHASH64)
+    else:
+        _require('lookupHashProfile' not in destination)
     if version==CURRENT_TRUSS_045_VERSION:
         _require(source.get('catalogEvidenceProfile')=='ashlar-truss-current-catalog-evidence/0.2'
                  and source.get('runtimeProvenance')=={

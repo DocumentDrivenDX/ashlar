@@ -24,13 +24,14 @@ def carrier(kind,identity,source='snow 雪',target='2'):
 
 
 class Policy:
-    def __init__(self,pins):self.pins=pins;self.calls=[];self.deny=False;self.expire=False
+    def __init__(self,pins):self.pins=pins;self.calls=[];self.rows=[];self.deny=False;self.expire=False
     def bind_descriptor(self,*args):
         assert self.pins.active;self.calls.append('bind')
         if self.expire and self.calls.count('bind')>1:raise PermissionError('Expired source custody')
     def authorize_graph_row(self,d,t,row,c):
         assert self.pins.active
         if self.deny:raise PermissionError('Denied semantic/row profile')
+        self.rows.append(dict(row))
         self.calls.append('row')
         with unittest.TestCase().assertRaises(TypeError):row['id']='changed'
     def authorize_graph_result(self,d,n,e,c):
@@ -41,17 +42,25 @@ class Policy:
 
 class Executor:
     def __init__(self,pins):
-        self.p=pins;self.calls=[];self.replace=False;self.replace_nodes_on_edge=False;self.edge_read=False
+        self.p=pins;self.calls=[];self.replace=False;self.replace_nodes_on_edge=False;self.edge_read=False;self.native_hash=False;self.bad_native_hash=False
+        self.uuid='trusted-uuid'
         self.nodes=[carrier('node','1'),carrier('node','2'),carrier('node','3'),carrier('node','1',source='another')]
         self.edges=[carrier('edge','7'),carrier('edge','8'),carrier('edge','9',target='1')]
     def query(self,sql,params):
         assert self.p.active;self.calls.append(sql)
         if sql.startswith('DESCRIBE'):
-            return SQLResult([{'id':'replaced' if (self.replace and len(self.calls)>2) or (self.replace_nodes_on_edge and self.edge_read and 'object_current' in sql) else 'trusted-uuid'}])
+            return SQLResult([{'id':'replaced' if (self.replace and len(self.calls)>2) or (self.replace_nodes_on_edge and self.edge_read and 'object_current' in sql) else self.uuid}])
         kind='node' if 'object_current' in sql else 'edge'
         if kind=='edge':self.edge_read=True
         names=(NODE_INTS+NODE_TEXT if kind=='node' else EDGE_INTS+EDGE_TEXT)+('published_at',)
-        return SQLResult(self.nodes if kind=='node' else self.edges,tuple((n,'STRING') for n in names))
+        rows=self.nodes if kind=='node' else self.edges
+        columns=names
+        if self.native_hash:
+            typed='type_id' if kind=='node' else 'rel_type_id'
+            self.calls[-1] += ' xxhash64(CAST(source_system AS STRING),CAST('+typed+' AS BIGINT),CAST(id AS BIGINT))'
+            rows=[dict(row,native_lookup_hash=('0' if self.bad_native_hash else row['lookup_hash']))for row in rows]
+            columns=names+('native_lookup_hash',)
+        return SQLResult(rows,tuple((n,'STRING') for n in columns))
 
 
 class GraphReleaseTests(unittest.TestCase):
@@ -60,7 +69,8 @@ class GraphReleaseTests(unittest.TestCase):
         v=PinVector('a','manifest','p1','a'*64,{TABLE:('trusted-uuid',6),OTHER:('trusted-uuid',2)})
         return p,e,b,policy,v
     def read(self,p,e,b,policy,v,**kw):
-        return read_graph_release(e,b,p,v,policy,publication_id='p1',node_table=TABLE,edge_table=OTHER,context='authorized',supported_profiles=['ashlar-delta/0.3'],supported_revisions={'source':['r1']},max_nodes=kw.get('max_nodes',10),max_edges=kw.get('max_edges',10))
+        profile=kw.get('profile','ashlar-delta/0.3')
+        return read_graph_release(e,b,p,v,policy,publication_id='p1',node_table=TABLE,edge_table=OTHER,context='authorized',supported_profiles=[profile],supported_revisions={'source':['r1']},max_nodes=kw.get('max_nodes',10),max_edges=kw.get('max_edges',10))
     def test_complete_reversible_graph_and_exact_carriers(self):
         p,e,b,policy,v=self.setup();result=self.read(p,e,b,policy,v)
         self.assertFalse(p.active);self.assertEqual(hashlib.sha256(result.payload).hexdigest(),result.sha256)
@@ -75,6 +85,40 @@ class GraphReleaseTests(unittest.TestCase):
         self.assertTrue(any('VERSION AS OF 6' in s for s in e.calls));self.assertTrue(any('VERSION AS OF 2' in s for s in e.calls))
         for row in nodes+edges:self.assertEqual(graph_key(*decode_graph_key(row['graph_id'])),row['graph_id'])
         e.nodes.reverse();e.edges.reverse();self.assertEqual(self.read(p,e,b,policy,v).payload,result.payload)
+    def test_xxhash64_release_uses_native_typed_key_and_declares_exact_profile(self):
+        from ashlar_host.puppy_release_document import load_graph_release
+        p,e,b,policy,v=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'
+        b.uuid=e.uuid='00000000-0000-0000-0000-000000000001'
+        v=PinVector('a','manifest','p1','a'*64,{TABLE:(b.uuid,6),OTHER:(b.uuid,2)})
+        b.rows[0].update(recorded_at='1',
+            validation_report_json=json.dumps({'retention':{'targets':{
+                TABLE:{'uuid':b.uuid,'version':6},OTHER:{'uuid':b.uuid,'version':2}}}}))
+        for row in e.nodes+e.edges:row['lookup_hash']='-1'
+        e.native_hash=True
+        release=self.read(p,e,b,policy,v,profile='ashlar-delta/0.4-xxhash64')
+        document=load_graph_release(release.payload,release.sha256)
+        self.assertEqual(document['mapping']['lookupHashProfile'],'spark-xxhash64-typed-key/0.1')
+        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
+        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(rel_type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
+        self.assertTrue(policy.rows)
+        self.assertTrue(all('native_lookup_hash' not in row for row in policy.rows))
+        p,e,b,policy,v=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'
+        b.uuid=e.uuid='00000000-0000-0000-0000-000000000001'
+        v=PinVector('a','manifest','p1','a'*64,{TABLE:(b.uuid,6),OTHER:(b.uuid,2)})
+        b.rows[0].update(recorded_at='1',
+            validation_report_json=json.dumps({'retention':{'targets':{
+                TABLE:{'uuid':b.uuid,'version':6},OTHER:{'uuid':b.uuid,'version':2}}}}))
+        for row in e.nodes+e.edges:row['lookup_hash']='-1'
+        e.native_hash=True;e.bad_native_hash=True
+        with self.assertRaises(ResolutionError):self.read(p,e,b,policy,v,profile='ashlar-delta/0.4-xxhash64')
+        self.assertFalse(p.active)
+    def test_unqualified_profile_refuses_before_graph_sql(self):
+        p,e,b,policy,v=self.setup()
+        with self.assertRaises(ResolutionError):
+            read_graph_release(e,b,p,v,policy,publication_id='p1',node_table=TABLE,edge_table=OTHER,
+                context='authorized',supported_profiles=['future/1'],supported_revisions={'source':['r1']},
+                max_nodes=10,max_edges=10)
+        self.assertEqual(e.calls,[]);self.assertFalse(p.active)
     def test_invalid_identity_profiles_refuse(self):
         for args in [('node','snow 雪','01','1'),('node','x','1',str(2**63)),('node','x',True,'1'),('bad','x','1','1')]:
             with self.assertRaises(ResolutionError):graph_key(*args)

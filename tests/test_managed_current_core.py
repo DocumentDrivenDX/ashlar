@@ -94,6 +94,44 @@ class ManagedCurrentCoreTests(unittest.TestCase):
         self.assertEqual(restored.batch,admission.batch)
         self.assertEqual(restored.metadata(),admission.metadata())
 
+    def test_xxhash64_bundle_is_versioned_and_cannot_alias_legacy_profile(self):
+        from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
+        from ashlar_host.managed_current_carriers import load_current_managed_carriers
+        from ashlar_host.managed_current_weft_binding import (
+            XXHASH64_BACKEND_ID, XXHASH64_BACKEND02_VERSION,
+            XXHASH64_BACKEND03_VERSION, XXHASH64_TARGET_PROFILE,
+        )
+
+        legacy = _config()
+        config = ManagedCurrentCoreConfig(legacy.catalog, legacy.schema,
+            {'surface':'Backend03','backendId':XXHASH64_BACKEND_ID,
+             'backendVersion':XXHASH64_BACKEND03_VERSION,'targetProfile':XXHASH64_TARGET_PROFILE,
+             'weftInterface':'weft-compile/0.4.1','weftDialect':'weft-sql/0.4.1'},
+            {'surface':'Backend02','backendId':XXHASH64_BACKEND_ID,
+             'backendVersion':XXHASH64_BACKEND02_VERSION,'targetProfile':XXHASH64_TARGET_PROFILE,
+             'weftInterface':'weft-compile/0.2.7','weftDialect':'weft-sql/0.2.0'},
+            legacy.preferred_cost_usd,
+            legacy.hard_cost_usd, carrier_profile=CARRIER_PROFILE_XXHASH64)
+        admission = _current_admission()
+        bundle = bind_current_core(admission, config)
+        self.assertEqual(bundle["profile"], "ashlar-managed-current-core-binding/0.3")
+        self.assertEqual(bundle["destination"]["physicalProfile"], CARRIER_PROFILE_XXHASH64)
+        restored = restore_managed_current_admission(bundle, config)
+        self.assertEqual(restored.batch, admission.batch)
+        carriers = load_current_managed_carriers(CARRIER_PROFILE_XXHASH64)
+        self.assertEqual(carriers.physical_profile, CARRIER_PROFILE_XXHASH64)
+        self.assertIn(("lookup_hash", "BIGINT", False), carriers.ordered_fields("object_current"))
+        with self.assertRaisesRegex(ValueError, "physical carrier profile"):
+            restore_managed_current_admission(bundle, legacy)
+
+        forged = json.loads(json.dumps(bundle))
+        forged["destination"]["physicalProfile"] = "ashlar-delta/0.3"
+        forged.pop("bindingSha256")
+        forged["bindingSha256"] = hashlib.sha256(json.dumps(forged,
+            sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        with self.assertRaises(ValueError):
+            restore_managed_current_admission(forged, config)
+
     def test_current_045_bundle_requires_distinct_version_profile_and_runtime_provenance(self):
         config=_config();bundle=bind_current_core(_current_admission(),config)
         self.assertEqual(bundle['profile'],'ashlar-managed-current-core-binding/0.1')

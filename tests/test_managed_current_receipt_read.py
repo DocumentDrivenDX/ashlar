@@ -10,7 +10,7 @@ import unittest
 from ashlar.native import SQLResult
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
-from ashlar_host.managed_current_core import ROLES
+from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_receipt_read import (
     ManagedCurrentReceiptConfig, ManagedCurrentSQLReceiptReader,
 )
@@ -21,7 +21,7 @@ def _canonical(value):
 
 
 class FakeSQLReader:
-    def __init__(self, manifest, uuids=None):
+    def __init__(self, manifest, uuids=None, carrier_profile="ashlar-delta/0.3"):
         self.config = SimpleNamespace(warehouse_id="a" * 16, catalog="client_dev",
                                       schema="trial_schema", statement_seconds=30,
                                       maximum_statements=128, maximum_rows=512)
@@ -33,7 +33,7 @@ class FakeSQLReader:
         self.manifest = manifest
         self.uuids = uuids or {role: f"00000000-0000-0000-0000-{index:012d}"
                                for index, role in enumerate(ROLES, 1)}
-        self.carriers = load_current_managed_carriers()
+        self.carriers = load_current_managed_carriers(carrier_profile)
         self.calls = []
         self.active = True
 
@@ -75,7 +75,7 @@ class FakeSQLReader:
         raise AssertionError("Unexpected SQL: " + sql)
 
 
-def _fixture():
+def _fixture(carrier_profile="ashlar-delta/0.3"):
     from test_managed_current_core import _current_admission
     from ashlar_host.publication_planning import truss_request_for
     from ashlar.source_checkpoint import truss_checkpoint
@@ -88,7 +88,7 @@ def _fixture():
     names = {role: ".".join(("client_dev", "trial_schema", role))
              for role in ("object_current", "edge_current", "tombstone", "whole_source_history")}
     table_versions = {table: 0 for table in names.values()}
-    manifest = {"publication_id": "publication-one", "profile_version": "ashlar-delta/0.3",
+    manifest = {"publication_id": "publication-one", "profile_version": carrier_profile,
         "table_versions_json": _canonical(table_versions),
         "source_progress_json": _canonical({checkpoint["feed"]: checkpoint}),
         "schema_revisions_json": _canonical(revisions),
@@ -98,7 +98,7 @@ def _fixture():
              for index, role in enumerate(ROLES, 1)}
     owner = "owner@example.test"
     installation = {}
-    carriers = load_current_managed_carriers()
+    carriers = load_current_managed_carriers(carrier_profile)
     for role in ROLES:
         installation[role] = {"name": ".".join(("client_dev", "trial_schema", role)),
             "uuid": uuids[role], "version": 0,
@@ -120,11 +120,36 @@ def _fixture():
         "installationInventory": installation,
         "sourceAuthority": "development Truss 0.0.44 page on managed Unity Catalog; external source ACK required"}
     config = ManagedCurrentReceiptConfig("client_dev", "trial_schema", "a" * 16,
-        owner, owner, "0.0.44", ReaderProtocolProfile("trial-reader/0.1", (1,), (2,), ()))
+        owner, owner, "0.0.44", ReaderProtocolProfile("trial-reader/0.1", (1,), (2,), ()),
+        carrier_profile=carrier_profile)
     return request, manifest, receipt, uuids, config
 
 
 class ManagedCurrentReceiptReadTests(unittest.TestCase):
+    def test_xxhash64_receipt_uses_exact_physical_profile_for_reopen_and_ack_ports(self):
+        request, manifest, receipt, uuids, config = _fixture(CARRIER_PROFILE_XXHASH64)
+        sql = FakeSQLReader(manifest, uuids, CARRIER_PROFILE_XXHASH64)
+        reader = ManagedCurrentSQLReceiptReader(sql, config)
+        observation = reader.reopen(request_bytes=_canonical(request).encode(),
+            manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt)
+        self.assertEqual(observation.supported_profiles, (CARRIER_PROFILE_XXHASH64,))
+        self.assertEqual(observation.source_acknowledgement_ports()["supported_profiles"],
+                         (CARRIER_PROFILE_XXHASH64,))
+        self.assertIn(("lookup_hash", "bigint", False),
+                      tuple((name, kind.lower(), nullable)
+                            for name, kind, nullable in sql.carriers.ordered_fields("object_current")))
+        reader.close()
+
+    def test_xxhash64_reader_refuses_legacy_manifest_profile(self):
+        from dataclasses import replace
+        request, manifest, receipt, uuids, config = _fixture()
+        config = replace(config, carrier_profile=CARRIER_PROFILE_XXHASH64)
+        reader = ManagedCurrentSQLReceiptReader(
+            FakeSQLReader(manifest, uuids, CARRIER_PROFILE_XXHASH64), config)
+        with self.assertRaises(ValueError):
+            reader.reopen(request_bytes=_canonical(request).encode(),
+                manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt)
+
     def test_reopens_exact_four_role_vector_and_six_role_native_inventory(self):
         request, manifest, receipt, uuids, config = _fixture()
         sql = FakeSQLReader(manifest, uuids)

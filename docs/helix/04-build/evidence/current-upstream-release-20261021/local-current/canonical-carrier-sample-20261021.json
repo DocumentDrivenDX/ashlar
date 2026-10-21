@@ -1,0 +1,36 @@
+{
+  "profile": "ashlar-current-carrier-write-sample/0.1",
+  "source_receipt_sha256": "eb7da50d968eb2c460a5d05a50022e2699149039516968abd1d16b90ecefb711",
+  "carrier_profile": "ashlar-managed-current-carriers/0.1",
+  "runtime": {
+    "python": "3.12.14",
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "parquet_codec_observed": "ZSTD"
+  },
+  "sample": {
+    "object_current": {
+      "rows": 1000000,
+      "write_seconds": 4.872339208028279,
+      "active_parquet_bytes": 38492230,
+      "files": 4
+    },
+    "edge_current": {
+      "rows": 5000000,
+      "write_seconds": 4.205076624988578,
+      "active_parquet_bytes": 199670410,
+      "files": 4
+    },
+    "total_elapsed_seconds": 17.393890667008236
+  },
+  "planning_arithmetic_only": {
+    "target_object_rows": 1000000000,
+    "target_edge_rows": 5000000000,
+    "same_bytes_per_row_active_parquet_bytes": 238162640000,
+    "write_only_minutes_at_80_percent_sample_throughput": 189.11,
+    "owner_review_trigger_minutes": 15,
+    "full_run_status": "held_pending_owner_review"
+  },
+  "scope": "Local canonical-carrier sample only. Physical extrapolation is not a runtime forecast. No full-size run, Truss publication or ACK, Unity Catalog task, lookup/scan, or graph-engine execution occurred.",
+  "compression_note": "Generated Delta layout retained delta.parquet.compression.codec=zstd as a custom property; actual Parquet ZSTD came from Spark SQL spark.sql.parquet.compression.codec=zstd."
+}

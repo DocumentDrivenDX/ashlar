@@ -11,8 +11,11 @@ import json
 import re
 import uuid
 
-from ashlar_host.managed_current_carriers import GENERATED_SHA256
-from .managed_current_core import BINDING_PROFILE, BINDING_PROFILE_045, PROFILE
+from ashlar_host.managed_current_carriers import load_current_managed_carriers
+from .managed_current_core import (
+    BINDING_PROFILE, BINDING_PROFILE_045, BINDING_PROFILE_XXHASH64,
+    CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, PROFILE,
+)
 
 BACKEND_ID = 'ashlar.databricks.managed-uc-spark'
 BACKEND03_VERSION = '0.1.0-managed-current-core-candidate'
@@ -21,6 +24,10 @@ BACKEND03_INTERFACE = 'weft-compile/0.4.1'
 BACKEND03_DIALECT = 'weft-sql/0.4.1'
 BACKEND02_INTERFACE = 'weft-compile/0.2.7'
 BACKEND02_DIALECT = 'weft-sql/0.2.0'
+XXHASH64_BACKEND_ID = 'ashlar.databricks.managed-uc-spark-xxhash64'
+XXHASH64_TARGET_PROFILE = 'ashlar-managed-current-core/0.2-xxhash64'
+XXHASH64_BACKEND03_VERSION = '0.2.0-managed-current-core-xxhash64-candidate'
+XXHASH64_BACKEND02_VERSION = '0.2.0-managed-current-core-xxhash64-pages-candidate'
 TIMESTAMP_PROFILE = 'umf-rfc3339-exact-instant/1.0.0'
 DATA_ROLES = ('object_current', 'edge_current', 'tombstone', 'whole_source_history')
 _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_]{0,127}\Z')
@@ -45,10 +52,33 @@ def _identity(document, revision, module, element):
     return {'documentId': document, 'revision': revision, 'module': module, 'element': element}
 
 
+def _target_for(bundle, surface, physical_profile):
+    if physical_profile == CARRIER_PROFILE_XXHASH64:
+        backend_id=XXHASH64_BACKEND_ID
+        backend_version=XXHASH64_BACKEND03_VERSION if surface=='Backend03' else XXHASH64_BACKEND02_VERSION
+        target_profile=XXHASH64_TARGET_PROFILE
+    else:
+        backend_id=BACKEND_ID
+        backend_version=BACKEND03_VERSION if surface=='Backend03' else BACKEND02_VERSION
+        target_profile=PROFILE
+    expected={'surface':surface,'backendId':backend_id,'backendVersion':backend_version,
+              'targetProfile':target_profile,
+              'weftInterface':BACKEND03_INTERFACE if surface=='Backend03' else BACKEND02_INTERFACE,
+              'weftDialect':BACKEND03_DIALECT if surface=='Backend03' else BACKEND02_DIALECT}
+    targets=bundle.get('weftTargets') if type(bundle) is dict else None
+    _require(type(targets) is dict and targets.get(surface)==expected,
+             'Source bundle does not pin the exact selected Weft backend profile')
+    return expected
+
+
 def _validated_inputs(source_bundle, weft_inputs):
     source = source_bundle.get('source') if type(source_bundle) is dict else None
     version = source.get('trussVersion') if type(source) is dict else None
-    expected_profile = (BINDING_PROFILE if version == '0.0.44'
+    destination = source_bundle.get('destination') if type(source_bundle) is dict else None
+    physical_profile = (destination.get('physicalProfile', CARRIER_PROFILE_LEGACY)
+                        if type(destination) is dict else None)
+    expected_profile = (BINDING_PROFILE_XXHASH64 if physical_profile == CARRIER_PROFILE_XXHASH64
+                        else BINDING_PROFILE if version == '0.0.44'
                         else BINDING_PROFILE_045 if version == '0.0.45' else None)
     _require(type(source_bundle) is dict and source_bundle.get('profile') == expected_profile
              and source_bundle.get('status') == 'preinstallation-source-bundle',
@@ -61,7 +91,8 @@ def _validated_inputs(source_bundle, weft_inputs):
     _require(type(weft_inputs) is dict and set(weft_inputs) == {'manifest', 'manifestUuid', 'dataRoles'},
              'Reopened manifest, manifest UUID and four-role vector required')
     manifest = weft_inputs['manifest']
-    _require(type(manifest) is dict and manifest.get('profile_version') == 'ashlar-delta/0.3'
+    _require(physical_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64)
+             and type(manifest) is dict and manifest.get('profile_version') == physical_profile
              and type(manifest.get('publication_id')) is str and manifest['publication_id'],
              'Original current Ashlar publication manifest required')
     try:
@@ -101,7 +132,6 @@ def _validated_inputs(source_bundle, weft_inputs):
         versions['.'.join(name)] = item['version']
     namespaces = {(name[0], name[1]) for name in names.values()}
     _require(len(namespaces) == 1, 'Four graph roles must share one Unity Catalog namespace')
-    destination = source_bundle.get('destination')
     _require(type(destination) is dict and namespaces == {
         (destination.get('catalog'), destination.get('schema'))},
         'Observed graph role names differ from the explicitly selected managed namespace')
@@ -133,16 +163,9 @@ def _validated_inputs(source_bundle, weft_inputs):
     targets = source_bundle.get('weftTargets')
     _require(type(targets) is dict and set(targets) == {'Backend03', 'Backend02'},
              'Both explicitly selected current Weft target identities required')
-    for surface, version, interface, dialect in (
-            ('Backend03', BACKEND03_VERSION, BACKEND03_INTERFACE, BACKEND03_DIALECT),
-            ('Backend02', BACKEND02_VERSION, BACKEND02_INTERFACE, BACKEND02_DIALECT)):
+    for surface in ('Backend03','Backend02'):
         target = targets[surface]
-        _require(type(target) is dict and target.get('surface') == surface
-                 and target.get('backendId') == BACKEND_ID
-                 and target.get('backendVersion') == version
-                 and target.get('targetProfile') == PROFILE
-                 and target.get('weftInterface') == interface
-                 and target.get('weftDialect') == dialect,
+        _require(type(target) is dict and target == _target_for(source_bundle,surface,physical_profile),
                  'Historical, local or cross-surface Weft target identity refused')
     graph = source.get('assignedGraphByRevision')
     accepted = source.get('acceptedDocuments')
@@ -157,12 +180,13 @@ def _validated_inputs(source_bundle, weft_inputs):
     installation = cursor.get('installationId')
     _require(type(installation) is str and installation and '\0' not in installation,
              'Original Truss installation identity required')
-    return manifest, manifest_uuid, names, data_roles, graph, accepted, installation
+    return manifest, manifest_uuid, names, data_roles, graph, accepted, installation, physical_profile
 
 
 def _assemble_binding(source_bundle, weft_inputs):
-    manifest, manifest_uuid, names, data_roles, graph, accepted, installation = _validated_inputs(
+    manifest, manifest_uuid, names, data_roles, graph, accepted, installation, physical_profile = _validated_inputs(
         source_bundle, weft_inputs)
+    carriers = load_current_managed_carriers(physical_profile)
     revision_keys = sorted(graph, key=lambda value: (int(value) if value.isdecimal() else value))
     _require(len(revision_keys) == 1,
              'Current managed candidate mapping requires one selected accepted catalog revision')
@@ -231,12 +255,16 @@ def _assemble_binding(source_bundle, weft_inputs):
             'acceptedDefinition': assigned_edge['declaration'], 'table': edge_index, 'kind': 'edge',
             'sourceSystem': installation, 'typeId': str(edge_id), 'schemaRevision': catalog_revision,
             'source': record_logicals[str(endpoints[0])], 'target': record_logicals[str(endpoints[1])]})
-    binding = {'profile': PROFILE, 'layoutRevision': 'ashlar-delta/0.3',
-        'layoutSha256': GENERATED_SHA256, 'modelPins': model_pins,
+    binding = {'profile': PROFILE, 'layoutRevision': physical_profile,
+        'layoutSha256': hashlib.sha256(carriers.generated_bytes).hexdigest(), 'modelPins': model_pins,
         'publication': {'id': manifest['publication_id'], 'manifestUuid': manifest_uuid,
             'tables': [{'name': names[role], 'uuid': data_roles[role]['uuid'],
                         'version': data_roles[role]['version']} for role in DATA_ROLES]},
         'records': records, 'relationships': relationships}
+    # The .4 layout has a distinct lookup-key interpretation. Keep the legacy
+    # .3 binding shape stable for previously prepared source bundles.
+    if physical_profile == CARRIER_PROFILE_XXHASH64:
+        binding['lookupHashProfile'] = carriers.lookup_hash_profile
     modules = []
     for document_id, (model, raw, revision, digest) in sorted(decoded.items()):
         selected = {record['logical']['module'] for record in records
@@ -254,11 +282,14 @@ def managed_current_count_star_request(source_bundle, weft_inputs, sql):
     """Prepare an unchanged grouped/HAVING SQL request for managed Backend03."""
     _require(type(sql) is str and 0 < len(sql.encode('utf-8')) <= 65536 and '\0' not in sql)
     binding, modules = _assemble_binding(source_bundle, weft_inputs)
+    destination=source_bundle.get('destination',{})
+    physical_profile=destination.get('physicalProfile',CARRIER_PROFILE_LEGACY)
+    target=_target_for(source_bundle,'Backend03',physical_profile)
     raw = _canonical(binding)
     request = {'interfaceVersion': BACKEND03_INTERFACE, 'dialect': BACKEND03_DIALECT,
         'sql': sql, 'modules': modules,
-        'target': {'backendId': BACKEND_ID, 'backendVersion': BACKEND03_VERSION,
-                   'targetProfile': PROFILE, 'bindingJson': raw, 'bindingSha256': _digest(raw)},
+        'target': {'backendId': target['backendId'], 'backendVersion': target['backendVersion'],
+                   'targetProfile': target['targetProfile'], 'bindingJson': raw, 'bindingSha256': _digest(raw)},
         'options': {'allowCandidate': True}}
     return request
 
@@ -276,6 +307,9 @@ def managed_current_sdk_pages_request(source_bundle, weft_inputs, sql, parameter
     encoded_parameters = _canonical(parameters).encode('utf-8')
     _require(len(encoded_parameters) <= 1048576)
     binding, modules = _assemble_binding(source_bundle, weft_inputs)
+    destination=source_bundle.get('destination',{})
+    physical_profile=destination.get('physicalProfile',CARRIER_PROFILE_LEGACY)
+    target=_target_for(source_bundle,'Backend02',physical_profile)
     models = {item['pin']['documentId']: json.loads(item['documentJson']) for item in modules}
     elements = {(document_id, m['id'], e['id']): e for document_id, model in models.items()
                 for m in model['modules'] for e in m['elements']}
@@ -299,5 +333,5 @@ def managed_current_sdk_pages_request(source_bundle, weft_inputs, sql, parameter
     return {'interfaceVersion': BACKEND02_INTERFACE, 'dialect': BACKEND02_DIALECT,
         'timestampComparisonProfile': TIMESTAMP_PROFILE, 'sql': sql, 'modules': modules,
         'parameters': json.loads(encoded_parameters), 'options': {'allowCandidate': True},
-        'target': {'backendId': BACKEND_ID, 'backendVersion': BACKEND02_VERSION,
-                   'targetProfile': PROFILE, 'bindingJson': raw, 'bindingSha256': _digest(raw)}}
+        'target': {'backendId': target['backendId'], 'backendVersion': target['backendVersion'],
+                   'targetProfile': target['targetProfile'], 'bindingJson': raw, 'bindingSha256': _digest(raw)}}

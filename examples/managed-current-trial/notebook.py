@@ -33,6 +33,7 @@ required_config = {
     "catalog", "schema", "stream", "predecessor", "schedule_sha256", "schedule_step",
     "stage_id", "schema_revisions_json",
     "materialized_at", "expected_environment", "maximum_task_seconds",
+    "carrier_profile",
     "estimated_total_dbu", "authorized_total_dbu", "estimated_total_cost_usd", "reserve_dbu_for_cleanup",
     "reserve_usd_for_cleanup", "cost_estimate_includes_startup_driver_and_cleanup",
     "create_schema", "preferred_budget_exception", "retries", "max_concurrent_runs",
@@ -55,6 +56,8 @@ protocol_profile = ReaderProtocolProfile(
     tuple(protocol["writer_versions"]), frozenset(protocol["features"]),
 )
 config = ManagedCurrentTrialConfig(**private_config)
+if config.carrier_profile != "ashlar-delta/0.4-xxhash64":
+    raise ValueError("Fresh managed-current functional campaign requires the selected xxhash64 carrier profile")
 if config.expected_environment["protocol"] != protocol_profile.identity:
     raise ValueError("Selected runtime and native protocol profile differ")
 

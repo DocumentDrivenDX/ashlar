@@ -165,16 +165,28 @@ This continuation orders the remaining release work against current public upstr
 | R02 | On R01, qualify the current core 0.10 typed-graph profile through public UMF validation, a small local Delta create/update/delete publication, exact replay and publication-bound native singleton/Weft read. Execute both selected current-value paths: Backend03 grouped graph preparation and Backend02 SDK page/continuation, using their original compiler artifacts and publication pins. Keep UMF interpretation and DDL in UMF and compilation in Weft. | Exact original model/source/binding hashes, identities, values, presence, independent edges, full publication vector, grouping/multiplicity and SDK page continuation against an independent oracle, plus a meaningful refusal; selected local Python/Spark/Delta/JDK/JAR versions and elapsed/resource observations. An SDK preparation or component test alone does not qualify native execution. Historical managed runs remain separate versioned evidence. |
 | R03 | Preserve the completed Truss 0.0.44 current-core catalog, mutation and complete feed/ACK lifecycle as versioned development evidence. Adopt public Truss 0.0.45 through a separately named current source/runtime profile after checking its accepted report, complete view, original source and installed runtime release against CONTRACT-005/P10. Keep the 0.44 profile and receipts intact. | A fresh 0.45 source acceptance and focused catalog/admission/refusal checks precede any 0.45 publication claim; exact accepted IDs/reports/head, source positions and durable ACK after publication remain required for the selected release. Local source authority does not grant production authority. Do not relabel Truss 0.0.22 or 0.0.44 receipts. |
 | R04 | After R03 establishes actual accepted source and complete feed custody for the selected Truss version, freeze a fresh versioned current-core 0.10 eight-slot A/B request schedule and its independent source identities, epochs, installations and ACK scopes before the first native publication. Execute that exact schedule through local publication, retained old reads, replay/restart, source-specific durable ACK and evolution refusal. The completed 0.44 single-source lifecycle is a narrower baseline; the old `native-r2` 3/8 original UMF 0.8 run stays historical and incomplete. In an independent lane, complete P06/P07 held Fabric commerce upload, load, R1/R2 activation and interrupted-replacement witness. | Native evidence for every frozen current request on the selected version, complete publication vectors and source-specific progress/ACK, independent identities despite overlapping local IDs, exact values and no mixed Fabric activation. A lost PUT response and native 503 remain unresolved attempts until reconciled. Fabric execution requires dedicated capacity and approved resource/cost bounds. |
-| R05 | Qualify production functionality and performance on the owner-selected workload and target, including the 1B-node/assumed 5B-edge planning scale. Fix acceptance thresholds for singleton latency, publication/ACK freshness and throughput, retention and cost from owner decisions before a trial. | One explicitly selected Databricks runtime/Delta/Unity Catalog configuration, dedicated compute and approved resource/cost ceiling; actual publication, ACK and native-read correctness plus measured latency, freshness, throughput and cost. Existing 1M/10M direct-insert layout results and provisional 250 ms/60 s goals are inputs, not a production pass. No shared default cluster or predictive-optimization disablement. |
+| R05 | Size the owner-selected 1B-node/assumed 5B-edge workload from one actual canonical-carrier sample before a full run. Show node/edge bytes, 1M-node write time, an 80%-of-measured-throughput planning curve and its limits; if the full-run estimate exceeds 15 minutes, review it with the owner before execution. The desired test is one full materialization, two point lookups, two scans and actual graph-engine export/execution, runnable locally; keep the small real Truss/managed UC publication and ACK campaign separate. | A selected full run occurs only after sample-based admission, with actual physical bytes, row and endpoint accounting, an engine result and workload time; provisioning is reported separately. Compact algorithmic representations and wide canonical carriers are separately named and cannot substitute for each other. No shared default cluster, redundant stress matrix or predictive-optimization disablement. Existing approved $100 total ceiling, preferably $10, governs Databricks activity. |
 | R06 | After R01–R05, reconcile every P01–P10 support claim, build wheel and sdist, install outside the checkout, run only changed-behavior and required final checks, obtain an independent review and prepare the release handoff. Recheck latest upstream versions at the candidate cut. | Evidence matrix qualifies exact versions/subsets/authority; package metadata, dual-license files and required resources are present; reviewed main equals origin and required checks pass on the selected revision. |
 
-R05 has a structural publication prerequisite: the current managed publisher
-collects complete history and all four data roles into the driver. Implement
-the affected-key and native aggregate path in [TD-006](../02-design/technical-designs/TD-006-managed-current-incremental-publication.md)
-before claiming support against a production-sized predecessor. The authorized
-small functional UC trial can check exact behavior and costs within its own
-ceiling; it cannot substitute for the separate owner-bounded 1B-node/assumed
-5B-edge performance qualification.
+R05 has two distinct proofs. The small managed UC campaign qualifies actual
+Truss 0.0.45 acceptance, incremental publication, source ACK and current Weft
+reads using the affected-key design in [TD-006](../02-design/technical-designs/TD-006-managed-current-incremental-publication.md).
+The full-size algorithmic check uses a separately named compact synthetic
+fixture. Its physical encoding, generator and graph-engine adapter must be
+portable enough to run locally. It must write the full 1B-node/5B-edge fixture,
+measure actual bytes and independently account for IDs, endpoints and counts;
+a lazy range, arithmetic-only result or metadata-only export is not a pass.
+Compact native storage does not stand in for full-width UMF managed Delta
+carriers. Both proofs retain their own authority. The current UMF carriers
+require SHA-256 hex `lookup_hash` in both current tables; replacing it with a
+binary 128-bit hash or native-key clustering needs a separately versioned
+UMF/Delta layout and corresponding publisher, reader and Weft qualification.
+The first layout candidate in [TD-007](../02-design/technical-designs/TD-007-native-xxhash64-lookup-layout.md)
+uses Spark's native 64-bit `xxhash64` as a `BIGINT` pruning field, with exact
+native identity predicates still required. It is a draft versioned replacement,
+not a claim that the old SHA-256 profile has changed or the new one is faster.
+Compare both on the same bounded canonical data before claiming storage or
+pruning benefits.
 
 The [Truss 0.0.44 lifecycle receipt](evidence/truss-current-native-lifecycle-0.10-20261021/receipt.json)
 now records one real seven-change page, local Delta publication, a matched protected
@@ -253,17 +265,26 @@ read-only discovery receipt is
 it identifies `client_dev` as a managed catalog and the historical unscheduled
 dedicated layout job (`401862977233947`, concurrency one), which does not execute
 this workflow. No new compute was started by discovery. The small functional trial
-does not qualify 1B nodes/assumed 5B edges or imply that full materialization fits
-its budget. After correctness and owner thresholds are fixed, that scale goal
-requires its own feasible resource/cost estimate and explicit approval.
-The present managed-current publisher reconstructs complete prior history and
-collects complete target rows under a finite in-process bound. That is suitable
-only for the small functional trial; it is not a production-scale ingestion
-design. Before a 1B/5B run, replace that full-state collection with a bounded,
-partitioned source/Delta plan and independently verify memory, shuffle, write,
-retention and ACK behavior against owner-approved latency, freshness,
-throughput and cost thresholds. Keep the 1B/5B requirement open until that
-design and native evidence exist.
+does not qualify 1B nodes/assumed 5B edges. For the separate full-size check,
+freeze one compact deterministic graph shape and independent row/endpoint
+oracle before execution. The [actual local canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
+wrote 1M nodes in 4.872 seconds and 5M edges in 4.205 seconds; its active
+ZSTD Parquet files hold 38.492 MB and 199.670 MB respectively. Same-compression
+arithmetic projects about 238 GB for 1B/5B, while 80% of that local sample's
+write-only throughput projects about 189 minutes. This exceeds the owner's
+15-minute review threshold; it is not a forecast across hardware, parallelism
+or larger table geometry. Do not run the full test yet. Once admitted,
+physically generate all rows once, then perform two real point lookups and two
+real scans on the stored representation and admit it to an actual graph engine
+that executes a bounded result. Record provisioning separately from measured
+materialization, reads and export. Preserve one original attempt and its exact
+terminal result if it misses the desired few-minute workload time. The local implementation and selected
+dedicated Databricks integration use comparable fixture identities and checks,
+but each qualifies only its actual engine, encoding and runtime. The cloud run
+stays within the existing $100 hard ceiling and $10 preference, reserves
+cleanup, uses no automatic retries and reports actual DBUs and bytes. The
+full-size compact result neither proves a complete Truss ingestion cycle nor
+full-width UMF storage; those remain separate support claims.
 The [current public retail price observation](evidence/current-upstream-release-20261021/managed-current-retail-pricing.json)
 records $0.47 per DBU for the selected Central US premium automated serverless
 meter; it is an estimate input, not an account invoice or spending limit.

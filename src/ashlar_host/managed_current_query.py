@@ -86,12 +86,24 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
         CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
         CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
     version = source.get("trussVersion") if type(source) is dict else None
-    profile = ("ashlar-managed-current-core-binding/0.1" if version == CURRENT_TRUSS_VERSION
+    destination = source_bundle.get("destination")
+    physical_profile = (destination.get("physicalProfile", "ashlar-delta/0.3")
+                        if type(destination) is dict else "ashlar-delta/0.3")
+    profile = ("ashlar-managed-current-core-binding/0.3" if physical_profile == "ashlar-delta/0.4-xxhash64"
+               else "ashlar-managed-current-core-binding/0.1" if version == CURRENT_TRUSS_VERSION
                else "ashlar-managed-current-core-binding/0.2" if version == CURRENT_TRUSS_045_VERSION else None)
+    if physical_profile == "ashlar-delta/0.4-xxhash64":
+        _require(type(destination) is dict and destination.get("lookupHashProfile")
+                 == "spark-xxhash64-typed-key/0.1",
+                 "Exact versioned Spark xxhash64 key interpretation required")
+    elif type(destination) is dict:
+        _require("lookupHashProfile" not in destination,
+                 "Legacy carrier bundle cannot inherit the new lookup hash semantics")
     expected_catalog_profile = (CURRENT_EVIDENCE_PROFILE if version == CURRENT_TRUSS_VERSION
                                 else CURRENT_045_EVIDENCE_PROFILE if version == CURRENT_TRUSS_045_VERSION else None)
     _require(source_bundle.get("profile") == profile
              and type(source) is dict and source.get("umfVersion") == "0.10.0"
+             and physical_profile in ("ashlar-delta/0.3", "ashlar-delta/0.4-xxhash64")
              and type(source.get("feed")) is str and source["feed"]
              and type(source.get("epoch")) is str and source["epoch"])
     runtime = source.get("runtimeProvenance")
@@ -500,6 +512,7 @@ class ManagedCurrentReadOwner:
                  "Managed query oracle must bind the retained source page, schedule, model, and catalog")
         from .managed_current_core import ManagedCurrentCoreConfig, restore_managed_current_admission
         target_config = source_bundle.get("destination", {})
+        carrier_profile = target_config.get("physicalProfile", "ashlar-delta/0.3")
         target_declarations = source_bundle.get("weftTargets", {})
         def target(surface):
             item = target_declarations.get(surface)
@@ -511,11 +524,23 @@ class ManagedCurrentReadOwner:
         admission_config = ManagedCurrentCoreConfig(
             catalog=target_config.get("catalog"), schema=target_config.get("schema"),
             backend03=target("Backend03"), backend02=target("Backend02"),
-            preferred_cost_usd=10, hard_cost_usd=100)
+            preferred_cost_usd=10, hard_cost_usd=100,
+            carrier_profile=carrier_profile)
         admission = restore_managed_current_admission(source_bundle, admission_config)
         _require(admission.batch.feed == identity["feed"] and admission.batch.epoch == identity["epoch"],
                  "The retained source bundle must reconstruct the exact admitted Truss page")
         self.spark, self.targets, self.receipt = spark, target_owner, receipt
+        from .managed_current_core import CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64
+        from .managed_current_core import LOOKUP_HASH_PROFILE_XXHASH64
+        _require(carrier_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64)
+                 and getattr(target_owner.carriers, "physical_profile", CARRIER_PROFILE_LEGACY)
+                    == carrier_profile,
+                 "Read owner, retained source bundle, and native carrier profile must match")
+        if carrier_profile == CARRIER_PROFILE_XXHASH64:
+            _require(target_owner.carriers.lookup_hash_profile == LOOKUP_HASH_PROFILE_XXHASH64
+                     and target_config.get("lookupHashProfile") == LOOKUP_HASH_PROFILE_XXHASH64,
+                     "Read owner and source bundle must bind the exact native lookup hash semantics")
+        self.carrier_profile = carrier_profile
         self.runtime_identity = runtime_identity
         self.expected_environment = dict(expected_environment)
         self.source_bundle = json.loads(_canonical(source_bundle))
@@ -562,6 +587,7 @@ class ManagedCurrentReadOwner:
                      "Exact selected principal must own every managed installation role")
         manifest = receipt["manifest"]
         _require(type(manifest) is dict and manifest.get("publication_id") == receipt["publicationId"]
+                 and manifest.get("profile_version") == self.carrier_profile
                  and type(receipt["manifestSha256"]) is str
                  and hashlib.sha256(_canonical(manifest).encode("utf-8")).hexdigest() == receipt["manifestSha256"])
         role_names = {".".join(self.targets.names[role]): role for role in
@@ -690,16 +716,28 @@ class ManagedCurrentReadOwner:
     def admit_artifact(self, request, artifact, descriptor, context):
         from .managed_current_weft_binding import (
             BACKEND_ID, BACKEND02_VERSION, BACKEND03_VERSION, PROFILE,
+            XXHASH64_BACKEND_ID, XXHASH64_BACKEND02_VERSION,
+            XXHASH64_BACKEND03_VERSION, XXHASH64_TARGET_PROFILE,
             managed_current_count_star_request, managed_current_sdk_pages_request,
         )
         self.bind_descriptor(descriptor, self.vector, context)
         target = request.get("target") if type(request) is dict else None
-        _require(type(target) is dict and target.get("backendId") == BACKEND_ID
-                 and target.get("targetProfile") == PROFILE
-                 and target.get("backendVersion") in (BACKEND02_VERSION, BACKEND03_VERSION)
+        if self.carrier_profile == "ashlar-delta/0.4-xxhash64":
+            backend_id=XXHASH64_BACKEND_ID
+            target_profile=XXHASH64_TARGET_PROFILE
+            backend02_version=XXHASH64_BACKEND02_VERSION
+            backend03_version=XXHASH64_BACKEND03_VERSION
+        else:
+            backend_id=BACKEND_ID
+            target_profile=PROFILE
+            backend02_version=BACKEND02_VERSION
+            backend03_version=BACKEND03_VERSION
+        _require(type(target) is dict and target.get("backendId") == backend_id
+                 and target.get("targetProfile") == target_profile
+                 and target.get("backendVersion") in (backend02_version, backend03_version)
                  and artifact.get("bindingSha256") == target.get("bindingSha256")
                  and artifact.get("status") == "compiled")
-        if target["backendVersion"] == BACKEND03_VERSION:
+        if target["backendVersion"] == backend03_version:
             rebuilt = managed_current_count_star_request(
                 self.source_bundle, self.receipt["weftBindingInputs"], request.get("sql"))
         else:
@@ -713,7 +751,9 @@ class ManagedCurrentReadOwner:
     def verify_native_profile(self, profile, context):
         self._renew()
         _require(context is self.context and type(profile) is dict
-                 and profile.get("targetProfile") == "ashlar-managed-current-core/0.1"
+                 and profile.get("targetProfile") == (
+                     "ashlar-managed-current-core/0.2-xxhash64" if self.carrier_profile == "ashlar-delta/0.4-xxhash64"
+                     else "ashlar-managed-current-core/0.1")
                  and type(profile.get("requirements")) is list
                  and "verify the selected Databricks serverless Spark Jobs runtime/build, authenticated principal, Unity Catalog catalog/schema/table UUIDs and Delta protocol before SQL" in profile["requirements"]
                  and any("recheck" in item and "before releasing" in item for item in profile["requirements"]
@@ -820,17 +860,23 @@ class ManagedCurrentReadOwner:
         _require(type(compiled) is dict and compiled.get("status") == "compiled"
                  and type(compiled.get("artifact")) is dict)
         artifact = compiled["artifact"]
-        _require(artifact.get("backend") == {
+        expected_backend = ({
+            "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
+            "backendVersion": "0.2.0-managed-current-core-xxhash64-candidate",
+            "interfaceVersion": "weft-backend/0.3.0",
+            "targetProfile": "ashlar-managed-current-core/0.2-xxhash64",
+        } if self.carrier_profile == "ashlar-delta/0.4-xxhash64" else {
             "backendId": "ashlar.databricks.managed-uc-spark",
             "backendVersion": "0.1.0-managed-current-core-candidate",
             "interfaceVersion": "weft-backend/0.3.0",
             "targetProfile": "ashlar-managed-current-core/0.1",
         })
+        _require(artifact.get("backend") == expected_backend)
         revisions = json.loads(self.receipt["manifest"]["schema_revisions_json"])
         with self.deadline(timedelta(seconds=timeout_seconds)):
             result = read_weft(self, self.backend, self, self.vector, self,
                 request=request, artifact=artifact, context=self.context,
-                supported_profiles=["ashlar-delta/0.3"],
+                supported_profiles=[self.carrier_profile],
                 supported_revisions={name: [revision] for name, revision in revisions.items()})
         return {"request": request, "artifact": artifact,
                 "rows": [list(row) for row in result],
@@ -868,15 +914,21 @@ class ManagedCurrentReadOwner:
                  and type(entry) is not type(None))
         request = entry.artifact()["request"]
         target = request.get("target")
-        _require(type(target) is dict
-                 and target.get("backendId") == "ashlar.databricks.managed-uc-spark"
-                 and target.get("backendVersion") == "0.1.0-managed-current-core-pages-candidate"
-                 and target.get("targetProfile") == "ashlar-managed-current-core/0.1")
+        expected_target = ({
+            "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
+            "backendVersion": "0.2.0-managed-current-core-xxhash64-pages-candidate",
+            "targetProfile": "ashlar-managed-current-core/0.2-xxhash64",
+        } if self.carrier_profile == "ashlar-delta/0.4-xxhash64" else {
+            "backendId": "ashlar.databricks.managed-uc-spark",
+            "backendVersion": "0.1.0-managed-current-core-pages-candidate",
+            "targetProfile": "ashlar-managed-current-core/0.1",
+        })
+        _require(type(target) is dict and all(target.get(name)==value for name,value in expected_target.items()))
         return AshlarTarget(
             compiler=compiler, compiler_method="ashlar-spark4-pages",
             executor=self, backend=self.backend, pins=self, vector=self.vector,
             policy=self, context=self.context,
-            supported_profiles=["ashlar-delta/0.3"],
+            supported_profiles=[self.carrier_profile],
             supported_revisions={name: [revision] for name, revision in
                 json.loads(self.receipt["manifest"]["schema_revisions_json"]).items()},
             binding_sha256=target["bindingSha256"],

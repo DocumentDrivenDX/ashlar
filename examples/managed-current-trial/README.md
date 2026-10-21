@@ -15,6 +15,9 @@ This campaign worker is for the positive graph page after the catalog page has
 been published and ACKed. It publishes that positive page and runs all four
 selected Weft cases in the same task: grouped HAVING `> 0`, negative HAVING
 `> 2`, and the original Backend02 page-size-2 read with its continuation. The
+fresh campaign explicitly selects physical carrier profile
+`ashlar-delta/0.4-xxhash64`, including BIGINT `lookup_hash` columns; Truss
+catalog evidence and UMF source pins remain their separately admitted profiles.
 external source holder supplies the original Truss page plus its digest-bound
 accepted UMF 0.10 catalog bundle through private secret references. A separate
 private secret carries the digest-bound source oracle for that same page.
@@ -39,8 +42,9 @@ configuration leaves those fields unset; the first functional task captures
 nonempty public values and holds that exact runtime tuple through publication
 and all four reads. Any supplied Spark version, build string, or runtime tag is
 checked against the observation. The private configuration must contain the
-selected serverless runtime, principal, catalog/schema, native reader protocol, frozen source
-revision vector, total DBU and dollar estimate, cleanup reserve, and timeout. The
+selected serverless runtime, principal, catalog/schema, native reader protocol,
+the exact carrier profile, frozen source revision vector, total DBU and dollar
+estimate, cleanup reserve, and timeout. The
 estimate includes startup, driver, task work, and cleanup. The preferred total
 is at most $10; a higher estimate needs an explicit owner rationale and must
 remain below the $100 hard ceiling. The worker refuses an estimate that omits

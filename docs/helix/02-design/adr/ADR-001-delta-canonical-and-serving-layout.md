@@ -45,6 +45,16 @@ exact lookup predicate. Hashes provide pruning, never identity, uniqueness or
 endpoint authority. Edge identity includes relationship and edge ID; endpoints
 alone cannot identify parallel edges. Use bound query parameters.
 
+For a separately versioned current-carrier layout, the draft
+[TD-007 native xxhash64 proposal](../technical-designs/TD-007-native-xxhash64-lookup-layout.md)
+replaces the SHA-256 hex pruning column with Spark's signed 64-bit native hash
+over the typed source/type/ID tuple. The original layout and evidence remain
+valid for their exact profile. Hash collisions may increase candidate work but
+cannot change an answer because complete native identity predicates and
+duplicate checks remain mandatory. The candidate needs native storage and
+pruning qualification before adoption; this refinement does not alter
+cryptographic source or publication digests.
+
 Use 64MiB as an initial file-size tuning target, not a correctness constraint.
 Select partitioning, Z-order alternatives, file targets and statistics from
 whole-workload costs, including reads, ingest, maintenance and retained storage.

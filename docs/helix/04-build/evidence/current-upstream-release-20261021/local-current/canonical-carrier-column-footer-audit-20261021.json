@@ -1,0 +1,428 @@
+{
+  "method": "Parsed Parquet FileMetaData row groups and column chunks; summed compressed/uncompressed column chunk sizes, row values, dictionary encoding usage, null counts and available footer distinct_count stats. Parquet does not store exact distinct_count for these columns.",
+  "profile": "ashlar-current-carrier-footer-audit/0.1",
+  "scope": "Footer-only metadata for the eight active ZSTD Parquet files; no data pages or Spark read. All files are synthetic deterministic layout-probe carriers, not a Truss feed sample.",
+  "source_receipt": "/private/tmp/ashlar-current-carrier-sample-20261021-02/result.json",
+  "tables": [
+    {
+      "active_parquet_bytes": 38492230,
+      "columns": {
+        "apply_batch_id": {
+          "compressed_bytes": 2736,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe",
+          "footer_string_min_example": "layout-probe",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2064
+        },
+        "entity_version": {
+          "compressed_bytes": 2704,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2032
+        },
+        "id": {
+          "compressed_bytes": 1038039,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 8001920
+        },
+        "logical_key_json": {
+          "compressed_bytes": 2696,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "[]",
+          "footer_string_min_example": "[]",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2024
+        },
+        "lookup_hash": {
+          "compressed_bytes": 35331207,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "ffffb60e979b685b28af37af3b99409afe9c62dcf765bfad11db83ab34fc5a98",
+          "footer_string_min_example": "000016a238c4af7581fc76dd23c82e185525d1c02b737cda79200118c23f042b",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 68002652
+        },
+        "props_json": {
+          "compressed_bytes": 500445,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{\"label\":\"node-999999\",\"seed\":17}",
+          "footer_string_min_example": "{\"label\":\"node-750000\",\"seed\":17}",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 36890807
+        },
+        "published_at": {
+          "compressed_bytes": 2720,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2048
+        },
+        "retained_json": {
+          "compressed_bytes": 2696,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{}",
+          "footer_string_min_example": "{}",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2024
+        },
+        "root_id": {
+          "compressed_bytes": 2340,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 1000000,
+          "row_values": 1000000,
+          "uncompressed_bytes": 1716
+        },
+        "schema_revision": {
+          "compressed_bytes": 2748,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe-r1",
+          "footer_string_min_example": "layout-probe-r1",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2076
+        },
+        "source_cursor_json": {
+          "compressed_bytes": 2696,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{}",
+          "footer_string_min_example": "{}",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2024
+        },
+        "source_delivery_id": {
+          "compressed_bytes": 495590,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "999999",
+          "footer_string_min_example": "750000",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 9890805
+        },
+        "source_epoch": {
+          "compressed_bytes": 2692,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "1",
+          "footer_string_min_example": "1",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2020
+        },
+        "source_feed": {
+          "compressed_bytes": 2772,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "direct-layout-fixture",
+          "footer_string_min_example": "direct-layout-fixture",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2100
+        },
+        "source_position": {
+          "compressed_bytes": 1038039,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 8001920
+        },
+        "source_system": {
+          "compressed_bytes": 2736,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe",
+          "footer_string_min_example": "layout-probe",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2064
+        },
+        "type_id": {
+          "compressed_bytes": 2704,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+          "footer_string_min_example": "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+          "null_values": 0,
+          "row_values": 1000000,
+          "uncompressed_bytes": 2032
+        }
+      },
+      "files": [
+        {
+          "bytes": 9653271,
+          "name": "part-00000-2aaddd01-254a-48c2-894b-5dd983694c29-c000.zstd.parquet"
+        },
+        {
+          "bytes": 9617148,
+          "name": "part-00001-2180b882-7ffa-4c45-b1f9-04be48e68841-c000.zstd.parquet"
+        },
+        {
+          "bytes": 9603468,
+          "name": "part-00002-113ecb72-8d0f-4a89-a475-361919ac4dcb-c000.zstd.parquet"
+        },
+        {
+          "bytes": 9618343,
+          "name": "part-00003-477c5365-ebc7-4765-9552-d37247dc4a2a-c000.zstd.parquet"
+        }
+      ],
+      "role": "object_current",
+      "rows": 1000000
+    },
+    {
+      "active_parquet_bytes": 199670410,
+      "columns": {
+        "apply_batch_id": {
+          "compressed_bytes": 12536,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe",
+          "footer_string_min_example": "layout-probe",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9464
+        },
+        "entity_version": {
+          "compressed_bytes": 12504,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9432
+        },
+        "id": {
+          "compressed_bytes": 5117407,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 40009306
+        },
+        "lookup_hash": {
+          "compressed_bytes": 176601247,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "ffffd927af8f7dd4fb17ef6ed18c2232a7c7bb7480c1c9f42a494216ba8ebcde",
+          "footer_string_min_example": "00000842da72e19c2b341e99308f4ad717319c73c51ac4f21377ed0e791d0c8e",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 340012993
+        },
+        "order_key": {
+          "compressed_bytes": 11340,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 5000000,
+          "row_values": 5000000,
+          "uncompressed_bytes": 8316
+        },
+        "props_json": {
+          "compressed_bytes": 12496,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{}",
+          "footer_string_min_example": "{}",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9424
+        },
+        "published_at": {
+          "compressed_bytes": 12520,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9448
+        },
+        "rel_type_id": {
+          "compressed_bytes": 12504,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+          "footer_string_min_example": "\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9432
+        },
+        "retained_json": {
+          "compressed_bytes": 12496,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{}",
+          "footer_string_min_example": "{}",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9424
+        },
+        "schema_revision": {
+          "compressed_bytes": 12548,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe-r1",
+          "footer_string_min_example": "layout-probe-r1",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9476
+        },
+        "source_cursor_json": {
+          "compressed_bytes": 12496,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "{}",
+          "footer_string_min_example": "{}",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9424
+        },
+        "source_delivery_id": {
+          "compressed_bytes": 2154960,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "4999999",
+          "footer_string_min_example": "3750000",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 53898014
+        },
+        "source_epoch": {
+          "compressed_bytes": 12492,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "1",
+          "footer_string_min_example": "1",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9420
+        },
+        "source_feed": {
+          "compressed_bytes": 12572,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "direct-layout-fixture",
+          "footer_string_min_example": "direct-layout-fixture",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9500
+        },
+        "source_id": {
+          "compressed_bytes": 4583892,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 28760497
+        },
+        "source_position": {
+          "compressed_bytes": 5117407,
+          "dictionary_encoded_files": 0,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 40009306
+        },
+        "source_system": {
+          "compressed_bytes": 12536,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": "layout-probe",
+          "footer_string_min_example": "layout-probe",
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9464
+        },
+        "source_type": {
+          "compressed_bytes": 12504,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9432
+        },
+        "target_id": {
+          "compressed_bytes": 5694133,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 28760692
+        },
+        "target_type": {
+          "compressed_bytes": 12504,
+          "dictionary_encoded_files": 4,
+          "distinct_count_stats_files": 0,
+          "footer_string_max_example": null,
+          "footer_string_min_example": null,
+          "null_values": 0,
+          "row_values": 5000000,
+          "uncompressed_bytes": 9432
+        }
+      },
+      "files": [
+        {
+          "bytes": 50051027,
+          "name": "part-00000-1990ed50-782c-44ab-892e-9a6d4634f851-c000.zstd.parquet"
+        },
+        {
+          "bytes": 49885543,
+          "name": "part-00001-a816b0b7-a52a-48d1-a5b3-de044e1634d5-c000.zstd.parquet"
+        },
+        {
+          "bytes": 49838818,
+          "name": "part-00002-c4753f58-a00a-4498-bbee-18ccd8037a12-c000.zstd.parquet"
+        },
+        {
+          "bytes": 49895022,
+          "name": "part-00003-6b305bc3-5ee5-4580-9b30-6db01a87142a-c000.zstd.parquet"
+        }
+      ],
+      "role": "edge_current",
+      "rows": 5000000
+    }
+  ]
+}

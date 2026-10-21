@@ -57,11 +57,12 @@ class ManagedCurrentSparkTransport:
 
 class ManagedCurrentTargetOwner:
     """Create or observe exactly six managed Delta tables and renew their pins."""
-    def __init__(self,spark,*,catalog,schema,protocol_profile):
+    def __init__(self,spark,*,catalog,schema,protocol_profile,carrier_profile='ashlar-delta/0.3'):
         _require(type(catalog)is str and _IDENT.fullmatch(catalog) and type(schema)is str and _IDENT.fullmatch(schema))
         _require(type(protocol_profile)is ReaderProtocolProfile)
         self.spark=spark;self.catalog=catalog;self.schema=schema;self.profile=protocol_profile
-        self.carriers=load_current_managed_carriers()
+        self.carrier_profile=carrier_profile
+        self.carriers=load_current_managed_carriers(carrier_profile)
         self.names={role:(catalog,schema,role) for role in ROLES}
         self.tables={role:'.'.join(self.names[role]) for role in ROLES}
         self.transport=ManagedCurrentSparkTransport(spark)
@@ -175,7 +176,8 @@ class ManagedCurrentGraphPublicationDriver:
             and type(stream)is str and stream and type(materialized_at)is str
             and re.fullmatch(r'0|[1-9][0-9]{0,18}',materialized_at)
             and int(materialized_at)<2**63,'Bounded managed current Truss publication inputs required')
-        self.targets=target_owner;self.transport=target_owner.transport;self.admission=admission
+        self.targets=target_owner;self.carriers=target_owner.carriers
+        self.transport=target_owner.transport;self.admission=admission
         self.stream=stream;self.clock=materialized_at;self.context=context;self.request=None
         self.plan=None;self.plan_json=None;self.manifest=None;self.held=False;self.publication_id=None
         self.table_roles=('object_current','edge_current','tombstone','whole_source_history')
@@ -226,9 +228,44 @@ class ManagedCurrentGraphPublicationDriver:
             else:
                 _require(set(step['parameters'])=={'rows'},'Exact generated insert row parameter required')
                 expected[role].extend(json.loads(step['parameters']['rows']))
-        return {role:self._cast_expected(role,rows) for role,rows in expected.items()}
+        expected={role:self._cast_expected(role,rows) for role,rows in expected.items()}
+        if self.carriers.physical_profile=='ashlar-delta/0.4-xxhash64':
+            for role,typed in (('object_current','type_id'),('edge_current','rel_type_id')):
+                missing=[row for row in expected[role] if 'lookup_hash' not in row]
+                if missing:
+                    hashes=self._native_lookup_hashes(typed,missing)
+                    for row in missing:
+                        key=(row['source_system'],int(row[typed]),int(row['id']))
+                        _require(key in hashes,'Native xxhash64 expectation omitted an exact input key')
+                        row['lookup_hash']=hashes[key]
+        return expected
+
+    def _native_lookup_hashes(self,typed,rows):
+        """Evaluate the versioned hash with Spark SQL; Python never defines it."""
+        _require(typed in ('type_id','rel_type_id') and type(rows) is list and bool(rows))
+        keys=[{'source_system':row['source_system'],typed:str(row[typed]),'id':str(row['id'])}
+              for row in rows]
+        struct='ARRAY<STRUCT<source_system:STRING,'+typed+':STRING,id:STRING>>'
+        relation="(SELECT explode(from_json(:keys,'"+struct+"')) AS k)"
+        sql=('SELECT k.source_system AS source_system,CAST(k.'+typed+' AS BIGINT) AS '+typed+
+             ',CAST(k.id AS BIGINT) AS id,xxhash64(CAST(k.source_system AS STRING),CAST(k.'+
+             typed+' AS BIGINT),CAST(k.id AS BIGINT)) AS lookup_hash FROM '+relation)
+        result=self.transport.query(sql,{'keys':json.dumps(keys,separators=(',',':'))}).rows
+        hashes={}
+        for item in result:
+            key=(item['source_system'],int(item[typed]),int(item['id']))
+            _require(key not in hashes and type(item['lookup_hash']) is int
+                     and -(1<<63)<=item['lookup_hash']<(1<<63),
+                     'Native SQL returned duplicate or non-BIGINT lookup fingerprint')
+            hashes[key]=item['lookup_hash']
+        _require(set(hashes)=={(row['source_system'],int(row[typed]),int(row['id'])) for row in rows},
+                 'Native SQL fingerprint key inventory differs from exact planned rows')
+        return hashes
 
     def _prior_state_from_history(self,excluded=(),*,compare_current=True):
+        _require(self.carriers.physical_profile != 'ashlar-delta/0.4-xxhash64',
+            'The 0.4 xxhash64 carrier is supported only by the affected-key incremental publisher; '
+            'the full-history exact-plan path is refused')
         from ashlar.apply import Change,EntityKey,EntityState,empty_state,plan_apply
         excluded=set(excluded);rows=self._rows('whole_source_history')
         _require(len(rows)<=self.transport.maximum_rows,'Complete bounded current history required')
@@ -278,12 +315,16 @@ class ManagedCurrentGraphPublicationDriver:
                     actual_row['source_delivery_id'])==(entity.version,entity.schema_revision,entity.props_json,
                     entity.retained_json,change.feed,change.epoch,change.delivery_id),
                     'Current role row differs from its exact retained entity afterimage')
-                import hashlib
                 identity={'source_system':key.source,
                     ('type_id' if kind=='object' else 'rel_type_id'):key.type_id,'id':key.id}
-                _require(actual_row.get('lookup_hash')==hashlib.sha256(
-                    json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-                    and (kind!='object' or actual_row.get('logical_key_json')=='[]')
+                if self.carriers.physical_profile=='ashlar-delta/0.3':
+                    import hashlib
+                    lookup_valid=actual_row.get('lookup_hash')==hashlib.sha256(
+                        json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+                else:
+                    lookup_valid=(type(actual_row.get('lookup_hash')) is int
+                        and -(1<<63)<=actual_row['lookup_hash']<(1<<63))
+                _require(lookup_valid and (kind!='object' or actual_row.get('logical_key_json')=='[]')
                     and type(actual_row.get('apply_batch_id'))is str and bool(actual_row['apply_batch_id']),
                     'Current role identity metadata differs from retained graph identity')
                 if kind=='edge':
@@ -351,7 +392,9 @@ class ManagedCurrentGraphPublicationDriver:
         prior_state=empty_state() if prior_state is None else prior_state
         after,generated=graph_sql_plan(prior_state,self.admission.batch,self.data_tables,
             materialized_at=instant,schema_policy=self.admission.admit,
-            schema_transition_policy=self.admission.admit_transition,native_scalar_profile='typed')
+            schema_transition_policy=self.admission.admit_transition,native_scalar_profile='typed',
+            lookup_hash_profile=self.carriers.lookup_hash_profile if hasattr(self.carriers,'lookup_hash_profile')
+                else 'sha256-json-v1')
         prior_keys={'object_current':[], 'edge_current':[], 'tombstone':[], 'whole_source_history':[]}
         prior_keys['object_current']=[{'source_system':row['source_system'],'type_id':str(row['type_id']),'id':str(row['id'])}
             for row in baseline_data_rows['object_current']]
@@ -504,7 +547,7 @@ class ManagedCurrentGraphPublicationDriver:
         data_roles=('object_current','edge_current','tombstone','whole_source_history')
         versions={self.names[role]:inventory[role].version for role in data_roles}
         checkpoint=json.loads(request['source_checkpoint_json'])
-        manifest={'publication_id':self.publication_id,'profile_version':'ashlar-delta/0.3',
+        manifest={'publication_id':self.publication_id,'profile_version':self.targets.carriers.physical_profile,
             'table_versions_json':_canonical(versions),'schema_revisions_json':request['schema_revisions_json'],
             'source_progress_json':_canonical(progress_union(self.plan.get('previousProgress',
                 json.loads(self.plan.get('predecessorManifest',{}).get('source_progress_json','{}'))),checkpoint)),
@@ -620,7 +663,10 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         super().__init__(target_owner, admission, stream=stream,
                          materialized_at=materialized_at, context=context)
         from .managed_current_incremental import ManagedCurrentAffectedReader
-        self.incremental_reader = ManagedCurrentAffectedReader(self.transport, self.data_tables)
+        self.incremental_reader = ManagedCurrentAffectedReader(
+            self.transport, self.data_tables,
+            lookup_hash_profile=self.targets.carriers.lookup_hash_profile
+            if hasattr(self.targets.carriers, 'lookup_hash_profile') else 'sha256-json-v1')
         self.predecessor_manifest = None
 
     def _previous_progress(self, request):
@@ -646,6 +692,8 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
         _require(len(rows) >= 1 and (len(rows) == 1 or rows[0]['recorded_at'] != rows[1]['recorded_at']),
                  'Unique latest incremental managed predecessor required')
         latest = dict(rows[0])
+        _require(latest.get('profile_version')==self.targets.carriers.physical_profile,
+                 'Managed current predecessor carrier profile differs from the selected fresh-table layout')
         _require(latest['publication_id'] == request['predecessor'],
                  'Incremental request predecessor must be the latest durable publication')
         report = json.loads(latest['validation_report_json'])
@@ -798,7 +846,9 @@ class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationD
             predecessor_manifest=self.predecessor_manifest, four_role_heads=four_heads,
             six_role_inventory=six_inventory, schema_policy=self.admission.admit,
             schema_transition_policy=self.admission.admit_transition,
-            source_progress=source_progress, materialized_at=instant)
+            source_progress=source_progress, materialized_at=instant,
+            lookup_hash_profile=self.targets.carriers.lookup_hash_profile if hasattr(self.targets.carriers,'lookup_hash_profile')
+                else 'sha256-json-v1')
         self.publication_id = 'ashlar-current-incremental:' + _sha(request['request_digest'])
         body = {'profile': 'ashlar-managed-current-incremental-plan/0.1',
             'requestAnchor': intent['request'], 'sourceAdmission': self.admission.metadata(),

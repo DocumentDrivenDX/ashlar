@@ -71,10 +71,12 @@ class AffectedRead:
 
 class ManagedCurrentAffectedReader:
     """Issue key-filtered native reads and bounded scalar delete witnesses."""
-    def __init__(self, transport, tables):
+    def __init__(self, transport, tables, *, lookup_hash_profile="sha256-json-v1"):
         _require(type(tables) is dict and set(tables) == set(DATA_ROLES))
+        _require(lookup_hash_profile in ("sha256-json-v1", "spark-xxhash64-typed-key/0.1"))
         self.transport = transport
         self.tables = dict(tables)
+        self.lookup_hash_profile = lookup_hash_profile
 
     @staticmethod
     def _in_predicate(alias, fields, keys, prefix, parameters):
@@ -93,11 +95,51 @@ class ManagedCurrentAffectedReader:
     def _rows_for(self, role, identity_column, keys, *, prefix):
         if not keys:
             return ()
+        if self.lookup_hash_profile == "spark-xxhash64-typed-key/0.1":
+            parameters = {}
+            terms = []
+            for index, (source, typed, identity) in enumerate(keys):
+                source_name, typed_name, id_name = (f"{prefix}_{index}_{name}" for name in
+                                                    ("source", "type", "id"))
+                parameters[source_name] = str(source)
+                parameters[typed_name] = str(typed)
+                parameters[id_name] = str(identity)
+                source_bind = f":{source_name}"
+                typed_bind = f"CAST(:{typed_name} AS BIGINT)"
+                id_bind = f"CAST(:{id_name} AS BIGINT)"
+                fingerprint = "xxhash64(CAST(" + source_bind + " AS STRING)," + typed_bind + "," + id_bind + ")"
+                terms.append("(t.lookup_hash=" + fingerprint + " AND t.source_system=" + source_bind
+                    + " AND t." + identity_column + "=" + typed_bind + " AND t.id=" + id_bind + ")")
+            predicate = "(" + " OR ".join(terms) + ")"
+            sql = "SELECT t.* FROM " + quote_table_identifier(self.tables[role]) + " t WHERE " + predicate
+            return self.transport.query(sql, parameters).rows
         parameters = {}
         predicate = self._in_predicate("t", ("source_system", identity_column, "id"), keys,
                                        prefix, parameters)
         sql = "SELECT t.* FROM " + quote_table_identifier(self.tables[role]) + " t WHERE " + predicate
         return self.transport.query(sql, parameters).rows
+
+    def native_hashes(self, identity_column, rows):
+        """Derive expected 0.4 fingerprints through Spark SQL, in bounded batches."""
+        _require(self.lookup_hash_profile == "spark-xxhash64-typed-key/0.1"
+                 and identity_column in ("type_id", "rel_type_id")
+                 and type(rows) is list and bool(rows))
+        keys=[{"source_system":row["source_system"],identity_column:str(row[identity_column]),"id":str(row["id"])}
+              for row in rows]
+        schema="ARRAY<STRUCT<source_system:STRING,"+identity_column+":STRING,id:STRING>>"
+        relation="(SELECT explode(from_json(:keys,'"+schema+"')) AS k)"
+        sql=("SELECT k.source_system AS source_system,CAST(k."+identity_column+" AS BIGINT) AS "+identity_column+
+             ",CAST(k.id AS BIGINT) AS id,xxhash64(CAST(k.source_system AS STRING),CAST(k."+identity_column+
+             " AS BIGINT),CAST(k.id AS BIGINT)) AS lookup_hash FROM "+relation)
+        result=self.transport.query(sql,{"keys":json.dumps(keys,separators=(",",":"))}).rows
+        output={}
+        for item in result:
+            key=(item["source_system"],int(item[identity_column]),int(item["id"]))
+            _require(key not in output and type(item["lookup_hash"]) is int
+                     and -(1<<63)<=item["lookup_hash"]<(1<<63))
+            output[key]=item["lookup_hash"]
+        _require(set(output)=={(row["source_system"],int(row[identity_column]),int(row["id"])) for row in rows})
+        return output
 
     def read(self, changes):
         import hashlib
@@ -251,7 +293,8 @@ def _change_json(change):
 
 def prepare_incremental_page(*, admission, reader, tables, request, predecessor_manifest,
                              four_role_heads, six_role_inventory, schema_policy,
-                             schema_transition_policy, source_progress, materialized_at):
+                             schema_transition_policy, source_progress, materialized_at,
+                             lookup_hash_profile="sha256-json-v1"):
     """Prepare one canonical page intent from bounded reads and public admission.
 
     The function reparses through the existing graph SQL planner, which keeps
@@ -275,7 +318,8 @@ def prepare_incremental_page(*, admission, reader, tables, request, predecessor_
     _require(type(materialized_at) is str and materialized_at, "Exact admitted page materialization time required")
     planned_after, generated = graph_sql_plan(prior, admission.batch, tables,
         materialized_at=materialized_at, schema_policy=schema_policy,
-        schema_transition_policy=schema_transition_policy, native_scalar_profile="typed")
+        schema_transition_policy=schema_transition_policy, native_scalar_profile="typed",
+        lookup_hash_profile=lookup_hash_profile)
     _require(dict(planned_after.current) == dict(after.current)
              and dict(planned_after.tombstones) == dict(after.tombstones),
              "Portable affected reducer differs from original graph planner")
@@ -307,6 +351,12 @@ def prepare_incremental_page(*, admission, reader, tables, request, predecessor_
                                 for key in json.loads(step["parameters"]["keys"]))
         afterimages[role] = [row for row in prior
             if (row["source_system"], int(row[idfield]), int(row["id"])) not in replaced] + afterimages[role]
+        if lookup_hash_profile == "spark-xxhash64-typed-key/0.1":
+            missing=[row for row in afterimages[role] if "lookup_hash" not in row]
+            if missing:
+                hashes=reader.native_hashes(idfield,missing)
+                for row in missing:
+                    row["lookup_hash"]=hashes[(row["source_system"],int(row[idfield]),int(row["id"]))]
     event_identities = {(key.source, key.kind, key.type_id, key.id) for key in event_keys}
     afterimages["tombstone"] = ([dict(row) for row in read.tombstones
         if (row["source_system"], row["entity_kind"], int(row["type_id"]), int(row["id"])) in event_identities]

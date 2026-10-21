@@ -10,8 +10,11 @@ from ashlar.native import quote_table_identifier
 from ashlar.whole_entity import changes_from_batch
 TABLES = {'object_current', 'edge_current', 'tombstone', 'whole_source_history'}
 
-def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, schema_transition_policy=None, native_scalar_profile='string'):
+def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, schema_transition_policy=None,
+                   native_scalar_profile='string', lookup_hash_profile='sha256-json-v1'):
     if type(native_scalar_profile)is not str or native_scalar_profile not in ('string','typed'):raise ValueError('Closed native scalar profile required')
+    if type(lookup_hash_profile)is not str or lookup_hash_profile not in ('sha256-json-v1','spark-xxhash64-typed-key/0.1'):
+        raise ValueError('Closed current lookup-hash profile required')
     if set(tables) != TABLES or len(set(tables.values())) != 4:
         raise ValueError('Four distinct complete graph target names required')
     quoted = {k: quote_table_identifier(v) for (k, v) in tables.items()}
@@ -41,13 +44,18 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     fresh = [x for x in changes if (x.feed, x.epoch, x.delivery_id) not in prior.deliveries]
     steps = []
 
-    def insert(table, rows, types):
+    def insert(table, rows, types, *, hash_typed_field=None):
         if not rows:
             return
         fields = list(rows[0])
         definition = 'ARRAY<STRUCT<' + ','.join((k + ':STRING' for k in fields)) + '>>'
         casts = ','.join(('cast(r.' + k + ' AS ' + types.get(k, 'STRING') + ') AS ' + k for k in fields))
-        steps.append({'statement': 'INSERT INTO ' + quoted[table] + ' (' + ','.join(fields) + ') SELECT ' + casts + " FROM (SELECT explode(from_json(:rows,'" + definition + "')) r)", 'parameters': {'rows': json.dumps(rows, separators=(',', ':'))}})
+        output_fields = list(fields)
+        if hash_typed_field is not None:
+            casts += (',xxhash64(CAST(r.source_system AS STRING),CAST(r.' + hash_typed_field
+                       + ' AS BIGINT),CAST(r.id AS BIGINT)) AS lookup_hash')
+            output_fields.append('lookup_hash')
+        steps.append({'statement': 'INSERT INTO ' + quoted[table] + ' (' + ','.join(output_fields) + ') SELECT ' + casts + " FROM (SELECT explode(from_json(:rows,'" + definition + "')) r)", 'parameters': {'rows': json.dumps(rows, separators=(',', ':'))}})
     numeric = {k: 'BIGINT' for k in ['type_id', 'rel_type_id', 'id', 'entity_version', 'source_type', 'source_id', 'target_type', 'target_id']}
     for (table, kind, typed) in [('object_current', 'object', 'type_id'), ('edge_current', 'edge', 'rel_type_id')]:
         touched = sorted({x.state.key for x in fresh if x.state.key.kind == kind})
@@ -63,7 +71,9 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
             change = next((x for x in reversed(fresh) if x.state.key == key))
             identity = {'source_system': key.source, typed: key.type_id, 'id': key.id}
             row = {k: str(v) for (k, v) in identity.items()}
-            row.update(schema_revision=entity.schema_revision, entity_version=str(entity.version), props_json=entity.props_json, retained_json=entity.retained_json, source_feed=change.feed, source_epoch=change.epoch, source_cursor_json=cursor, source_delivery_id=change.delivery_id, published_at=materialized_at, lookup_hash=hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest(), apply_batch_id=batch.batch_id)
+            row.update(schema_revision=entity.schema_revision, entity_version=str(entity.version), props_json=entity.props_json, retained_json=entity.retained_json, source_feed=change.feed, source_epoch=change.epoch, source_cursor_json=cursor, source_delivery_id=change.delivery_id, published_at=materialized_at, apply_batch_id=batch.batch_id)
+            if lookup_hash_profile == 'sha256-json-v1':
+                row['lookup_hash'] = hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
             if kind == 'object':
                 row['logical_key_json'] = '[]'
             else:
@@ -71,7 +81,8 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
                 row.update(source_type=str(a.type_id), source_id=str(a.id), target_type=str(b.type_id), target_id=str(b.id))
                 if native_original is not None:row['order_key'] = native_edge_orders[(key,entity.version)]
             rows.append(row)
-        insert(table, rows, dict(numeric, published_at='TIMESTAMP'))
+        insert(table, rows, dict(numeric, published_at='TIMESTAMP'),
+               hash_typed_field=typed if lookup_hash_profile == 'spark-xxhash64-typed-key/0.1' else None)
     original = native_original if native_original is not None else {r.delivery_id: r.raw for r in batch.records}
     history = [{'feed': x.feed, 'epoch': x.epoch, 'delivery_id': x.delivery_id, 'digest': x.raw_digest, 'change_json': json.dumps(asdict(x), separators=(',', ':')), 'raw_base64': base64.b64encode(original[x.delivery_id]).decode()} for x in fresh]
     insert('whole_source_history', history, {})
