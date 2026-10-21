@@ -168,6 +168,42 @@ This continuation orders the remaining release work against current public upstr
 | R05 | Size the owner-selected 1B-node/assumed 5B-edge workload from one actual canonical-carrier sample before a full run. Show node/edge bytes, 1M-node write time, an 80%-of-measured-throughput planning curve and its limits; if the full-run estimate exceeds 15 minutes, review it with the owner before execution. The desired test is one full materialization, two point lookups, two scans and actual graph-engine export/execution, runnable locally; keep the small real Truss/managed UC publication and ACK campaign separate. | A selected full run occurs only after sample-based admission, with actual physical bytes, row and endpoint accounting, an engine result and workload time; provisioning is reported separately. Compact algorithmic representations and wide canonical carriers are separately named and cannot substitute for each other. No shared default cluster, redundant stress matrix or predictive-optimization disablement. Existing approved $100 total ceiling, preferably $10, governs Databricks activity. |
 | R06 | After R01–R05, reconcile every P01–P10 support claim, build wheel and sdist, install outside the checkout, run only changed-behavior and required final checks, obtain an independent review and prepare the release handoff. Recheck latest upstream versions at the candidate cut. | Evidence matrix qualifies exact versions/subsets/authority; package metadata, dual-license files and required resources are present; reviewed main equals origin and required checks pass on the selected revision. |
 
+The proposed managed R04 campaign uses eight sequential, one-slot dedicated
+serverless Jobs tasks through the existing managed trial entrypoint. After each
+terminal job, an independent dedicated SQL read must verify that slot's exact
+durable publication/vector and destination receipt; only then may the matching
+source submit and read back its protected ACK before the next slot. This follows
+CONTRACT-001's ACK-gated schedule. Combining A1/B1 in one task while deferring A's
+ACK would require a new source/receipt orchestration boundary and is not this
+campaign. Run the selected Linux Weft grouped, negative-HAVING, first-page and
+continuation cases once on an admitted A2 publication; other slots need their
+own vector, source-specific ACK and retained-read checks, not repeated query
+matrices.
+
+Before creating the fresh `client_dev` schema or starting any compute, freeze
+actual accepted A and independently installed B source identities, all eight
+request bytes and expected states, selected runtime/principal, one owned schema,
+per-task timeout, dedicated SQL endpoint and complete Jobs/SQL/cleanup cost
+estimate. Propose one bounded A1 pilot with a five-minute task maximum,
+concurrency one, no retries and a separate finite caller wall deadline that
+includes startup, cancellation and cleanup; adjust these proposed bounds before
+launch if the selected provider's task timing requires it. Admit the actual
+serverless resource shape, Jobs and SQL meters, applicable rate, caller wall
+deadline and cleanup reserve before launch. At an assumed 120 Jobs DBU/hour,
+eight five-minute maxima imply 80 Jobs DBU or $37.60 at the observed
+$0.47/DBU retail rate; this reference envelope omits SQL, variable driver and
+startup billing and is neither an expected bill nor an invoice cap. Favor the
+$10 total preference where the admitted estimate permits it, under the approved
+$100 hard ceiling. After A1's terminal receipt and ACK, use its actual elapsed
+time and fresh usage when available to project seven remaining slots plus SQL
+and owned cleanup. If billing telemetry is delayed, use the admitted resource
+shape, rate and caller-duration upper bound with the full cleanup reserve.
+Stop for review when neither measurement nor a reliable conservative bound can
+cover the remaining campaign, or when projected total spend exceeds the $100
+ceiling; check the envelope before each later slot. No pilot
+starts until the two sources and complete schedule are frozen. The historical
+unscheduled layout job does not execute this flow.
+
 R05 has two distinct proofs. The small managed UC campaign qualifies actual
 Truss 0.0.45 acceptance, incremental publication, source ACK and current Weft
 reads using the affected-key design in [TD-006](../02-design/technical-designs/TD-006-managed-current-incremental-publication.md).
