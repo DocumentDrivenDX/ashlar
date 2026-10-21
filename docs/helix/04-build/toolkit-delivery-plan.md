@@ -168,6 +168,14 @@ This continuation orders the remaining release work against current public upstr
 | R05 | Qualify production functionality and performance on the owner-selected workload and target, including the 1B-node/assumed 5B-edge planning scale. Fix acceptance thresholds for singleton latency, publication/ACK freshness and throughput, retention and cost from owner decisions before a trial. | One explicitly selected Databricks runtime/Delta/Unity Catalog configuration, dedicated compute and approved resource/cost ceiling; actual publication, ACK and native-read correctness plus measured latency, freshness, throughput and cost. Existing 1M/10M direct-insert layout results and provisional 250 ms/60 s goals are inputs, not a production pass. No shared default cluster or predictive-optimization disablement. |
 | R06 | After R01–R05, reconcile every P01–P10 support claim, build wheel and sdist, install outside the checkout, run only changed-behavior and required final checks, obtain an independent review and prepare the release handoff. Recheck latest upstream versions at the candidate cut. | Evidence matrix qualifies exact versions/subsets/authority; package metadata, dual-license files and required resources are present; reviewed main equals origin and required checks pass on the selected revision. |
 
+R05 has a structural publication prerequisite: the current managed publisher
+collects complete history and all four data roles into the driver. Implement
+the affected-key and native aggregate path in [TD-006](../02-design/technical-designs/TD-006-managed-current-incremental-publication.md)
+before claiming support against a production-sized predecessor. The authorized
+small functional UC trial can check exact behavior and costs within its own
+ceiling; it cannot substitute for the separate owner-bounded 1B-node/assumed
+5B-edge performance qualification.
+
 The [Truss 0.0.44 lifecycle receipt](evidence/truss-current-native-lifecycle-0.10-20261021/receipt.json)
 now records one real seven-change page, local Delta publication, a matched protected
 destination receipt and an advanced public checkpoint established by read-only
