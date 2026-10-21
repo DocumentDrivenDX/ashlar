@@ -42,6 +42,8 @@ class ManagedSQLReadConfig:
     maximum_rows:int
     maximum_result_bytes:int
     maximum_statements:int=64
+    catalog:str|None=None
+    schema:str|None=None
 
     def __post_init__(self):
         def bounded(v,a,b):return type(v)is int and a<=v<=b
@@ -55,7 +57,10 @@ class ManagedSQLReadConfig:
                 and all(type(p)is type(Path()) and p.is_absolute() and p.resolve()==p for p in (self.config_file,self.cli))
                 and bounded(self.statement_seconds,1,60) and bounded(self.http_seconds,1,10)
                 and bounded(self.maximum_rows,1,1024) and bounded(self.maximum_result_bytes,1,1048576)
-                and bounded(self.maximum_statements,1,128))
+                and bounded(self.maximum_statements,1,128)
+                and ((self.catalog is None and self.schema is None)
+                     or (type(self.catalog)is str and re.fullmatch('[A-Za-z_][A-Za-z0-9_]{0,127}',self.catalog)
+                         and type(self.schema)is str and re.fullmatch('[A-Za-z_][A-Za-z0-9_]{0,127}',self.schema))))
         except Exception:good=False
         if not good:raise ManagedSQLReadError('managed-sql-configuration') from None
 
@@ -191,9 +196,12 @@ class ManagedSQLReader:
                 or self.pending or self.count>=c.maximum_statements):raise ManagedSQLReadError('managed-sql-statement-refused')
         self.count+=1;deadline=time.monotonic()+c.statement_seconds
         try:
-            response=self._request('POST','/api/2.0/sql/statements',dict(warehouse_id=c.warehouse_id,statement=sql,
+            body=dict(warehouse_id=c.warehouse_id,statement=sql,
                 parameters=[dict(name=k,type='STRING',value=v) for k,v in parameters.items()],wait_timeout='0s',on_wait_timeout='CONTINUE',
-                disposition='INLINE',format='JSON_ARRAY',row_limit=c.maximum_rows+1,byte_limit=c.maximum_result_bytes))
+                disposition='INLINE',format='JSON_ARRAY',row_limit=c.maximum_rows+1,byte_limit=c.maximum_result_bytes)
+            if c.catalog is not None:
+                body.update(catalog=c.catalog,schema=c.schema)
+            response=self._request('POST','/api/2.0/sql/statements',body)
         except BaseException:
             self.submission_outcome_unknown=True
             raise

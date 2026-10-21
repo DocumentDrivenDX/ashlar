@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Inert SDK and synthetic private selections; no network/auth/native calls."""
 import copy,json,os,sys,tempfile
+from dataclasses import replace
 from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
@@ -57,6 +58,17 @@ class ReadTests(unittest.TestCase):
             self.assertEqual(calls[0][2]['row_limit'],5);self.assertEqual(calls[0][2]['byte_limit'],4096)
             self.assertGreaterEqual(metadata.count('actor'),4)
             with self.assertRaises(m.ManagedSQLReadError):reader.query('SELECT x',{})
+    def test_statement_namespace_is_explicit_when_configured(self):
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+            selected=replace(c,catalog='client_dev',schema='trial_schema')
+            with m.open_managed_sql_read(selected,context=ctx) as reader:
+                reader.query('SELECT current_catalog(),current_schema()',{})
+            body=calls[0][2]
+            self.assertEqual((body['catalog'],body['schema']),('client_dev','trial_schema'))
+        with self.fixture() as (c,ctx,w,warehouse,calls,args,metadata):
+            with m.open_managed_sql_read(c,context=ctx) as reader:
+                reader.query('SELECT 1',{})
+            self.assertNotIn('catalog',calls[0][2]);self.assertNotIn('schema',calls[0][2])
     def test_incomplete_or_untyped_carriers_never_release_prefix(self):
         for mutate in (lambda r:r['manifest'].update(truncated=True),lambda r:r['manifest'].update(total_row_count=1),lambda r:r['result'].update(next_chunk_index=1),lambda r:r['result']['data_array'][0].__setitem__(0,1),lambda r:r['manifest']['schema'].update(column_count=True)):
             r=self.result();mutate(r)
