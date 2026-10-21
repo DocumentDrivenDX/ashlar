@@ -1,0 +1,29 @@
+{
+  "profile": "weft-selected-linux-x86_64-build/0.1",
+  "status": "passed",
+  "sourceCommit": "9137ca2c3d6f8982ed0d4770de050ba4be0277ee",
+  "target": "x86_64-unknown-linux-gnu",
+  "manylinux": "2014",
+  "version": "0.4.50",
+  "workflow": {
+    "name": "Build selected Weft 0.4.50 Linux wheel",
+    "runId": "39683374981",
+    "python": "3.12.15"
+  },
+  "wheel": {
+    "filename": "weft_sql-0.4.50-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "sha256": "de3cd693d1e09f6100b0ae6db445c1c5bfe0f8936f9e487ca67be9ecda176e1f",
+    "nativeModuleSha256": "a89b620618d420dca9b5cf21c8a521259edee2c77cd80aa9ca30646e5a5bcc92",
+    "recordSha256": "416e2f6c161ed51f5dd93af14527d13d429fe77b3177f048696b2f45818ed176"
+  },
+  "buildReport": {
+    "filename": "selected-linux-build-0.4.50.json",
+    "sha256": "8e9e3122ebe7584fc59808c227ca19dfddbb508a031dad5b1dae90c42f817133"
+  },
+  "packagingReport": {
+    "filename": "packaging-linux-x86_64.json",
+    "sha256": "6a9b47c45451fea193dc2fc0ff2f37cae1fcf2dcd9ca779e98486b6e203c23e8"
+  },
+  "scope": "Offline verification found one wheel and matched its archive, native-module, RECORD and metadata against the successful selected workflow reports. Workflow packaging smoke only; native Linux and Unity Catalog semantics are not qualified.",
+  "artifactStorage": "Wheel and detailed reports are retained outside the repository; this packet records their exact digests."
+}

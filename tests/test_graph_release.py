@@ -98,10 +98,13 @@ class GraphReleaseTests(unittest.TestCase):
         release=self.read(p,e,b,policy,v,profile='ashlar-delta/0.4-xxhash64')
         document=load_graph_release(release.payload,release.sha256)
         self.assertEqual(document['mapping']['lookupHashProfile'],'spark-xxhash64-typed-key/0.1')
-        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
-        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(rel_type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
         self.assertTrue(policy.rows)
         self.assertTrue(all('native_lookup_hash' not in row for row in policy.rows))
+        self.assertTrue(all(set(row)==set(NODE_INTS+NODE_TEXT+('published_at',))
+                            or set(row)==set(EDGE_INTS+EDGE_TEXT+('published_at',))
+                            for row in policy.rows))
+        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
+        self.assertTrue(any('xxhash64(CAST(source_system AS STRING),CAST(rel_type_id AS BIGINT),CAST(id AS BIGINT))' in sql for sql in e.calls))
         p,e,b,policy,v=self.setup();b.rows[0]['profile_version']='ashlar-delta/0.4-xxhash64'
         b.uuid=e.uuid='00000000-0000-0000-0000-000000000001'
         v=PinVector('a','manifest','p1','a'*64,{TABLE:(b.uuid,6),OTHER:(b.uuid,2)})

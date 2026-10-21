@@ -1,0 +1,365 @@
+{
+  "profile": "ashlar-current-carrier-xxhash64-sample/0.1",
+  "source": {
+    "commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "wheel_sha256": "18401e7052202515da90c5c7a87d775c8c33b82f82b9526f9802d615356b76af",
+    "generated_carrier_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "private_result_sha256": "b54bf719f223cd20ba463d5b9a52be8bc9c7ebd7e93610599b55956d6b82a63d1",
+    "legacy_comparison": "canonical-carrier-sample-20261021.json"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "jdk": "21.0.13",
+    "master": "local[4]",
+    "parquet_codec_observed": "ZSTD",
+    "spark_sql_parquet_codec_setting": "zstd",
+    "delta_codec_property": "zstd (declared custom property; not enforced by this Delta runtime)"
+  },
+  "fixture": {
+    "profile": "ashlar-delta/0.4-xxhash64",
+    "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+    "rows": {
+      "object_current": 1000000,
+      "edge_current": 5000000
+    },
+    "footer_rows_confirmed": {
+      "object_current": 1000000,
+      "edge_current": 5000000
+    },
+    "files": {
+      "object_current": 4,
+      "edge_current": 4
+    },
+    "values": "Same deterministic canonical-carrier fixture as the retained 0.3 sample; source_position equals id, most edge scalar/JSON values are constant, and node props contain a compact generated label.",
+    "row_bytes_are_not_production_payload_evidence": true
+  },
+  "timing_seconds": {
+    "wheel_admission_plus_spark_startup": 13.2376,
+    "create_object_and_edge_tables": 3.27996,
+    "write_object_1m": 4.39549,
+    "write_edge_5m": 3.24237,
+    "footer_and_column_inspection": 1.46989,
+    "four_point_lookups_total": 1.42403,
+    "elapsed_before_spark_stop": 27.06663,
+    "notes": "Startup and wheel admission were measured together. Total excludes Spark stop; the 0.3 run did not include the four lookups or per-column footer inspection, so total elapsed times are not directly comparable."
+  },
+  "physical_bytes": {
+    "unit": "decimal bytes",
+    "tables": {
+      "object_current": {
+        "active_parquet": 11154917,
+        "delta_log": 14891,
+        "rows": 1000000,
+        "files": 4,
+        "compressed_column_chunks": {
+          "apply_batch_id": 2736,
+          "entity_version": 2704,
+          "id": 1038039,
+          "logical_key_json": 2696,
+          "lookup_hash": 8002690,
+          "props_json": 500445,
+          "published_at": 2720,
+          "retained_json": 2696,
+          "root_id": 2340,
+          "schema_revision": 2748,
+          "source_cursor_json": 2696,
+          "source_delivery_id": 495590,
+          "source_epoch": 2692,
+          "source_feed": 2772,
+          "source_position": 1038039,
+          "source_system": 2736,
+          "type_id": 2704
+        }
+      },
+      "edge_current": {
+        "active_parquet": 63038550,
+        "delta_log": 15756,
+        "rows": 5000000,
+        "files": 4,
+        "compressed_column_chunks": {
+          "apply_batch_id": 12536,
+          "entity_version": 12504,
+          "id": 5117407,
+          "lookup_hash": 40013083,
+          "order_key": 11340,
+          "props_json": 12496,
+          "published_at": 12520,
+          "rel_type_id": 12504,
+          "retained_json": 12496,
+          "schema_revision": 12548,
+          "source_cursor_json": 12496,
+          "source_delivery_id": 2154960,
+          "source_epoch": 12492,
+          "source_feed": 12572,
+          "source_id": 4583892,
+          "source_position": 5117407,
+          "source_system": 12536,
+          "source_type": 12504,
+          "target_id": 5694133,
+          "target_type": 12504
+        }
+      }
+    },
+    "active_parquet_total": 74193467,
+    "lookup_hash_total": 48015773,
+    "per_row": {
+      "object_active_parquet_bytes": 11.1549,
+      "edge_active_parquet_bytes": 12.6077,
+      "object_lookup_hash_bytes": 8.00269,
+      "edge_lookup_hash_bytes": 8.00262
+    },
+    "comparison_to_0_3_same_fixture": {
+      "active_parquet_bytes_0_3": {
+        "object_current": 38492230,
+        "edge_current": 199670410,
+        "total": 238162640
+      },
+      "active_parquet_bytes_0_4": {
+        "object_current": 11154917,
+        "edge_current": 63038550,
+        "total": 74193467
+      },
+      "lookup_hash_bytes_0_3": {
+        "object_current": 35331207,
+        "edge_current": 176601247,
+        "total": 211932454
+      },
+      "lookup_hash_bytes_0_4": {
+        "object_current": 8002690,
+        "edge_current": 40013083,
+        "total": 48015773
+      },
+      "sample_total_active_parquet_reduction_fraction": 0.6885,
+      "sample_lookup_hash_chunk_reduction_fraction": 0.7734,
+      "interpretation": "Observed on this synthetic fixture only; does not predict production property, history, provenance, or other-role payload sizes."
+    }
+  },
+  "point_lookups": [
+    {
+      "role": "object_current",
+      "identity": [
+        "layout-probe",
+        1,
+        0
+      ],
+      "predicate": "lookup_hash=xxhash64(CAST('layout-probe' AS STRING),CAST(1 AS BIGINT),CAST(0 AS BIGINT)) AND source_system='layout-probe' AND type_id=CAST(1 AS BIGINT) AND id=CAST(0 AS BIGINT)",
+      "rows": 1,
+      "hash": 7686581330353470147,
+      "seconds": 0.59277
+    },
+    {
+      "role": "object_current",
+      "identity": [
+        "layout-probe",
+        1,
+        999999
+      ],
+      "predicate": "lookup_hash=xxhash64(CAST('layout-probe' AS STRING),CAST(1 AS BIGINT),CAST(999999 AS BIGINT)) AND source_system='layout-probe' AND type_id=CAST(1 AS BIGINT) AND id=CAST(999999 AS BIGINT)",
+      "rows": 1,
+      "hash": 2893757241269920938,
+      "seconds": 0.24649
+    },
+    {
+      "role": "edge_current",
+      "identity": [
+        "layout-probe",
+        1,
+        0
+      ],
+      "predicate": "lookup_hash=xxhash64(CAST('layout-probe' AS STRING),CAST(1 AS BIGINT),CAST(0 AS BIGINT)) AND source_system='layout-probe' AND rel_type_id=CAST(1 AS BIGINT) AND id=CAST(0 AS BIGINT)",
+      "rows": 1,
+      "hash": 7686581330353470147,
+      "seconds": 0.35605
+    },
+    {
+      "role": "edge_current",
+      "identity": [
+        "layout-probe",
+        1,
+        4999999
+      ],
+      "predicate": "lookup_hash=xxhash64(CAST('layout-probe' AS STRING),CAST(1 AS BIGINT),CAST(4999999 AS BIGINT)) AND source_system='layout-probe' AND rel_type_id=CAST(1 AS BIGINT) AND id=CAST(4999999 AS BIGINT)",
+      "rows": 1,
+      "hash": -91666819310532946,
+      "seconds": 0.22872
+    }
+  ],
+  "physical_plan_observation": {
+    "scan": "Spark 4.2.0 FileScan parquet for all four reads; projection read only source_system, typed ID, id, and lookup_hash.",
+    "pushed_filters_observed_before_plan_truncation": [
+      "lookup_hash",
+      "source_system",
+      "type_id or rel_type_id"
+    ],
+    "id_pushdown": "Not verified: Spark's rendered PushedFilters text is truncated after the type filter. The submitted SQL predicate includes the exact id equality.",
+    "clustering_metadata": [
+      "lookup_hash"
+    ],
+    "limitation": "Plans show observed hash/source/type filters pushed into a Parquet scan; the full exact ID predicate is present in SQL but its pushdown is not visible in the truncated plan. No file-pruning counters or executed clustering proof were captured; this is not evidence of file pruning."
+  },
+  "napkin_arithmetic_only": {
+    "target_rows": {
+      "object_current": 1000000000,
+      "edge_current": 5000000000,
+      "total": 6000000000
+    },
+    "observed_samples": {
+      "1m_5m": {
+        "active_parquet_bytes": 74193467,
+        "bytes_per_row": 12.365578
+      },
+      "10m_50m": {
+        "active_parquet_bytes": 681442083,
+        "bytes_per_row": 11.357368
+      }
+    },
+    "marginal_1m_to_10m_50m": {
+      "additional_rows": 54000000,
+      "additional_active_parquet_bytes": 607248616,
+      "active_parquet_bytes_per_added_row": 11.245345,
+      "six_billion_row_linear_arithmetic_bytes": 67478789843,
+      "six_billion_row_linear_arithmetic_decimal_GB": 67.479,
+      "six_billion_row_linear_arithmetic_GiB": 62.84
+    },
+    "basis_and_limits": "For this fixture, hash chunks are about 8.0 compressed bytes per row at both scales, as expected for high-entropy signed BIGINT hashes; aggregate active bytes settle near 11.3 bytes/row. The same four output files per table at both scales make fixed per-file structures and compression of repetitive fields a larger share of the small sample, so bytes per row fall as those costs are amortized. This supports near-linear bytes for the synthetic fixed-width/highly repetitive fixture, not realistic property or source history. Arithmetic is not a capacity or total-publication forecast."
+  },
+  "scope_limits": [
+    "No full-table count/distinct/collision search was run; Parquet footer row counts confirmed the written row counts.",
+    "No publication, ACK, Unity Catalog resolver, source custody, or full graph workload was exercised.",
+    "No graph-engine export or execution was exercised.",
+    "No full 1B-node/5B-edge run was performed; the 4-core write-only estimate at 80% of observed 10M/50M rates is 56.73 minutes and is held for owner review."
+  ],
+  "followup_10m_sample": {
+    "private_result_sha256": "d0c8b0197ed0a3fb3fb57412dac8b269cc3af04800197fa37c92a23cbf9dd083",
+    "source_commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "wheel_sha256": "18401e7052202515da90c5c7a87d775c8c33b82f82b9526f9802d615356b76af",
+    "fixture": {
+      "rows": {
+        "object_current": 10000000,
+        "edge_current": 50000000
+      },
+      "values": "Same deterministic canonical-carrier value pattern as the 1M/5M sample; source_position equals id.",
+      "footer_rows_confirmed": {
+        "object_current": 10000000,
+        "edge_current": 50000000
+      },
+      "files": {
+        "object_current": 4,
+        "edge_current": 4
+      },
+      "parquet_codecs": [
+        "ZSTD"
+      ]
+    },
+    "timing_seconds": {
+      "whole_before_spark_stop": 40.94007466599578,
+      "wheel_admission_plus_spark_startup": 8.011395082983654,
+      "create_both_tables": 2.9375205429969355,
+      "write_object_10m": 7.865014874958433,
+      "write_edge_50m": 19.36756908299867,
+      "footer_column_inspection": 1.532927999040112,
+      "four_point_lookups": 1.2217427489813417
+    },
+    "tables": {
+      "object_current": {
+        "rows": 10000000,
+        "active_parquet_bytes": 110016509,
+        "lookup_hash_bytes": 80025967,
+        "parquet_files": 4,
+        "footer_rows_confirmed": 10000000,
+        "write_seconds": 7.865014874958433,
+        "write_rows_per_second": 1271453.41,
+        "bytes_per_row": 11.001651,
+        "from_1m_sample_marginal": {
+          "additional_rows": 9000000,
+          "additional_parquet_bytes": 98861592,
+          "marginal_bytes_per_row": 10.984621,
+          "additional_write_seconds": 3.469524,
+          "marginal_rows_per_second": 2594015.5
+        }
+      },
+      "edge_current": {
+        "rows": 50000000,
+        "active_parquet_bytes": 571425574,
+        "lookup_hash_bytes": 400130023,
+        "parquet_files": 4,
+        "footer_rows_confirmed": 50000000,
+        "write_seconds": 19.36756908299867,
+        "write_rows_per_second": 2581635.3,
+        "bytes_per_row": 11.428511,
+        "from_1m_sample_marginal": {
+          "additional_rows": 45000000,
+          "additional_parquet_bytes": 508387024,
+          "marginal_bytes_per_row": 11.297489,
+          "additional_write_seconds": 16.125197,
+          "marginal_rows_per_second": 2790663.54
+        }
+      }
+    },
+    "point_lookups_10m": [
+      {
+        "role": "object_current",
+        "id": 0,
+        "rows": 1,
+        "seconds": 0.51415
+      },
+      {
+        "role": "object_current",
+        "id": 9999999,
+        "rows": 1,
+        "seconds": 0.2079
+      },
+      {
+        "role": "edge_current",
+        "id": 0,
+        "rows": 1,
+        "seconds": 0.28897
+      },
+      {
+        "role": "edge_current",
+        "id": 49999999,
+        "rows": 1,
+        "seconds": 0.21072
+      }
+    ],
+    "plan_observation": "Same bounded FileScan Parquet probes with hash/source/type pushed filters visible; exact id is in each SQL predicate but rendered PushedFilters truncates before id. No file-pruning evidence."
+  },
+  "full_scale_write_projection": {
+    "status": "HELD for owner review; not executed",
+    "basis": "4-core 10M/50M write rates; require 80% of those measured rates; writes only.",
+    "host_observation": {
+      "physical_memory_GiB": 128,
+      "physical_cores": 18,
+      "available_disk_TiB": 2.2,
+      "note": "Host capacity observation only; no throughput scaling to 18 cores is assumed or qualified."
+    },
+    "projected_write_seconds_at_80_percent": {
+      "object_1b": 983.13,
+      "edge_5b": 2420.95,
+      "sum": 3404.07,
+      "sum_minutes": 56.73
+    },
+    "active_parquet_size_linear_arithmetic_GB": [
+      67.48,
+      68.14
+    ],
+    "exclusions": "No setup or table-creation time, metadata growth, graph export/execution, publication, source history/retention, validation/retry, or real production payloads included. 4-core point forecast exceeds 15-minute review threshold; no full run approved.",
+    "two_point_affine_model_at_80_percent": {
+      "per_role": {
+        "object_current": {
+          "seconds_at_full_target_on_two_point_affine_line": 389.51,
+          "seconds_after_80_percent_throughput_adjustment": 486.89
+        },
+        "edge_current": {
+          "seconds_at_full_target_on_two_point_affine_line": 1793.14,
+          "seconds_after_80_percent_throughput_adjustment": 2241.42
+        }
+      },
+      "sum_seconds": 2728.31,
+      "sum_minutes": 45.47,
+      "assumptions": "For each table, fit elapsed write seconds = intercept + slope × rows through the 1M/5M and 10M/50M write measurements; apply the same 0.8 throughput factor to the fitted duration. The fit yields about 45.47 minutes versus 56.73 minutes from applying 80% to the 10M/50M average write rates. Two points do not establish the scaling law; both estimates exceed the 15-minute review threshold, so the higher value remains the conservative planning basis."
+    }
+  }
+}
