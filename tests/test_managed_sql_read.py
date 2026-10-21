@@ -31,7 +31,7 @@ class ReadTests(unittest.TestCase):
         w=SimpleNamespace(config=SimpleNamespace(host=c.host,profile=c.profile,config_file=str(c.config_file),databricks_cli_path=str(c.cli),auth_type='databricks-cli'),current_user=SimpleNamespace(me=user),warehouses=SimpleNamespace(get=lambda _:warehouse),api_client=SimpleNamespace(do=request))
         arguments=[]
         def construct(**kwargs):arguments.append(kwargs);return w
-        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getppid()),patch.object(m.os,'getpgrp',return_value=os.getppid()),patch.object(m.importlib.metadata,'version',return_value='0.117.0'),patch.object(m.importlib,'import_module',return_value=SimpleNamespace(WorkspaceClient=construct)):
+        with patch.dict(os.environ,{},clear=True),patch.object(m.os,'getsid',return_value=os.getppid()),patch.object(m.os,'getpgrp',return_value=os.getppid()),patch.object(m.importlib.metadata,'version',return_value='0.155.0'),patch.object(m.importlib,'import_module',return_value=SimpleNamespace(WorkspaceClient=construct)):
             context=m.managed_sql_child_context()
             yield c,context,w,warehouse,calls,arguments,metadata
     def test_actual_retained_supervisor_child_matches_capture_contract(self):

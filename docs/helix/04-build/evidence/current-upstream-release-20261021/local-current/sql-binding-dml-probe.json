@@ -1,0 +1,1 @@
+{"status":"ok","delta_probe_path":"/private/tmp/ashlar-release-20261021-m3rde5p2/delta-param-dml-probe-20261021","flag":"true","insert_shape":"from_json(:rows) INSERT","merge_shape":"from_json(:keys) MERGE DELETE","result":{"status":"ok","insert_rows":1,"merge_delete_applied":true,"remaining_rows":0,"flag":"true"}}

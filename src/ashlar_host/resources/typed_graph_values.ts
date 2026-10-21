@@ -2,7 +2,7 @@
 import {createHash} from 'node:crypto';
 import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-const PIN='a251ea5f876b7c69ef5e429af43621852242d324';
+const PIN='2ede4c879bea5db13794a6fa30e67c821306c17f';
 const [repoArg,modelPath,requestPath,git]=process.argv.slice(2);
 const refuse=():never=>{throw Error('Original typed graph admission refused');};
 if(!repoArg||!modelPath||!requestPath||!git)refuse();

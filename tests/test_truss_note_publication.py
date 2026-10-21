@@ -8,6 +8,12 @@ from ashlar_host.resources import RESOURCE_ROOT
 from ashlar_host.truss_note_publication import note_expected_rows
 
 class Tests(unittest.TestCase):
+    def test_note_mode_keeps_string_profile_when_admission_has_no_typed_flag(self):
+        from types import SimpleNamespace
+        from ashlar_host.truss_note_publication import _native_scalar_profile
+        self.assertEqual(_native_scalar_profile(SimpleNamespace(),False),'string')
+        self.assertEqual(_native_scalar_profile(SimpleNamespace(typed=True),True),'typed')
+
     def test_independent_note_rows_match_create_plan_and_exact_clock(self):
         encode=lambda value:json.dumps(value).encode()
         prior={'profile':'truss-caller-asserted-feed/0.1','installationId':'installation','sourceEpoch':'epoch','consumerId':'consumer','registrationId':'registration','nextXid':'0'};following={**prior,'nextXid':'43'}

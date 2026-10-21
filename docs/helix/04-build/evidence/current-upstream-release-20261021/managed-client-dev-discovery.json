@@ -1,0 +1,42 @@
+{
+  "observed_at_date": "2026-10-21",
+  "scope": "Read-only planning discovery; no Databricks compute started and no production source authority established",
+  "source_receipt": "/private/tmp/ashlar-release-20261021-m3rde5p2/managed-client-dev-discovery.json",
+  "catalog": {
+    "name": "client_dev",
+    "type": "MANAGED_CATALOG"
+  },
+  "historical_dedicated_job": {
+    "job_id": 401862977233947,
+    "name": "ashlar-scale-20261016-34ca9f2c67",
+    "scheduled": false,
+    "max_concurrent_runs": 1,
+    "timeout_seconds": 360,
+    "task_count": 1,
+    "task_key": "graph-layout",
+    "max_retries": 0,
+    "executes_current_functional_workflow": false
+  },
+  "owner_trial_scope": {
+    "catalog": "client_dev",
+    "schema": "New temporary schema for one trial; remove only owned objects and verify absence after retaining results",
+    "preferred_total_cost_usd_at_most": 10,
+    "hard_total_cost_usd_at_most": 100,
+    "compute_started": false,
+    "scale_1b_nodes_5b_edges_authorized_by_this_scope": false
+  },
+  "prelaunch_open_inputs": [
+    "Actual managed runtime, serverless task and principal",
+    "Actual production Truss source authority and protected ACK custody",
+    "Estimated startup, finite-work and cleanup DBUs/cost against live rate and total ceiling",
+    "Exact per-run schema and object names, finite request/row bounds, timeout and concurrency"
+  ],
+  "resource_guidance_checked_by_parent": {
+    "serverless_compute_url": "https://learn.microsoft.com/en-us/azure/databricks/compute/serverless/manage-serverless-compute",
+    "serverless_jobs_url": "https://learn.microsoft.com/en-us/azure/databricks/jobs/run-serverless-jobs",
+    "small_approx_dbu_per_hour": 60,
+    "medium_approx_dbu_per_hour": 120,
+    "standard_startup_minutes_approx": "4-6",
+    "custom_executor_caps_are_invoice_caps": false
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "scope": "Current dependency migration with installed local native initialization and current Truss acceptance evidence; publication/query/feed/production qualification remains open",
+  "candidate_version": "0.1.0.dev1",
+  "umf": {
+    "release": "umf-v0.5.3",
+    "source_revision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "core": "0.10.0",
+    "access": "0.1.0.dev5",
+    "codegen": "0.1.0a2"
+  },
+  "weft": "0.4.48",
+  "truss_target": "0.0.44",
+  "first_wheel_sha256": "6e6788a725b84413e49e210f9b6c93af5e7cca8ac2f7edd4a676574829ddeb62",
+  "checks": [
+    {
+      "name": "installed current UMF producer transport",
+      "test": "test_typed_graph_admission_real010.RealCore010Admission.test_configured_example_runs_current_umf_over_real_transport",
+      "result": "passed",
+      "seconds": 14.435,
+      "batches": 3,
+      "events": 13,
+      "published": false,
+      "acknowledged": false
+    },
+    {
+      "name": "actual SDK page/continuation",
+      "test": "test_sdk_stream_page_size.StreamPageSizeTests.test_actual_original_plain_and_related_recompile_and_continuation",
+      "result": "passed",
+      "native_engine_executed": false
+    },
+    {
+      "name": "three receipt/config checks after declared dependency installation",
+      "result": "passed",
+      "seconds": 0.631,
+      "tests": [
+        "test_typed_graph_source_config.Tests.test_closed_profile_bindings_and_reference_custody",
+        "test_typed_graph_admission.Tests.test_original_complete_joint_receipt_and_strict_core_policy",
+        "test_typed_graph_admission.Tests.test_original_source_bytes_and_failure_closing"
+      ]
+    },
+    {
+      "name": "latest optional client boundaries",
+      "result": "7 passed; 1 obsolete Neo4j default-code expectation failed",
+      "seconds": 4.634,
+      "native_servers_executed": false,
+      "passed": [
+        "DuckDB parallel/cycle/isolate",
+        "DuckDB four real preparation tables",
+        "Puppy readiness lifetime/auth refusal",
+        "Gremlin unknown GraphSON/numeric refusal",
+        "SDK long sizing exact values",
+        "Databricks SDK complete/null/duplicate bag and lifetime",
+        "shared/ambient managed authority refusal"
+      ],
+      "failed": "test_puppy_readiness_driver.Tests.test_actual_neo4j_transient_readiness_witness_and_fatal_controls",
+      "observed_neo4j_code": "Neo.DatabaseError.General.UnknownError",
+      "followup": "Preserve actual SDK code; correct obsolete test expectation and rerun only that method"
+    },
+    {
+      "name": "Neo4j6.4.1 native SDK error code expectation",
+      "test": "test_puppy_readiness_driver.Tests.test_actual_neo4j_transient_readiness_witness_and_fatal_controls",
+      "result": "passed after correcting obsolete expectation",
+      "tests_run": 1,
+      "native_server_executed": false,
+      "implementation": "Actual SDK error code remains preserved; only test expectation changed"
+    },
+    {
+      "name": "actual Truss0.0.44 current-source catalog acceptance",
+      "result": "passed",
+      "postgresql": "18.6",
+      "source_bytes": 4082,
+      "source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+      "accepted_source_matches_original": true,
+      "registration_id": "cc20e2aa-1f88-48f8-ae8d-055d62767080",
+      "report_revision": "1",
+      "report_profile": "truss-catalog-registration-report/0.6",
+      "catalog_view_interface": "truss-catalog-view/0.2.0",
+      "complete_view_profile": "truss-complete-catalog-view/0.4",
+      "definition_count": 11,
+      "scope": "Local catalog preparation/acceptance and public report/view/original-source reads only; no mutation/feed/ACK/Delta/production proof"
+    }
+  ],
+  "local_runtime_target": {
+    "python": "3.12.14",
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "profile": "ashlar-configured-local/0.2"
+  },
+  "remaining": [
+    "current local Weft grouped native query and SDK page continuation/closing refusal (publication/replay/singleton now passed)",
+    "current-profile Weft native qualification",
+    "Truss0.0.44 accepted lifecycle/feed/ACK",
+    "versioned current-core independent two-source workflow and held Fabric outcomes; old native-r2 3/8 remains historical incomplete",
+    "production qualification within approved resource bounds",
+    "final package/review/release"
+  ],
+  "remote_observation": {
+    "main": "7f98e2a366a994e43319069a72cf4cb6b669c8c7",
+    "open_pull_requests": 0,
+    "source": "GitHub API live read on 2026-10-21",
+    "landing_complete": false
+  },
+  "production_target_observation": {
+    "job_id": 401862977233947,
+    "name": "ashlar-scale-20261016-34ca9f2c67",
+    "timeout_seconds": 360,
+    "max_concurrent_runs": 1,
+    "task_count": 1,
+    "task_key": "graph-layout",
+    "compute_started": false,
+    "qualification": "Dedicated historical layout job, not current functional publication qualification; later owner-approved bounded functional trial is recorded separately"
+  },
+  "owner_bounded_functional_trial": {
+    "scope": "One small dedicated Databricks functional trial in client_dev, using a new temporary schema deleted after retaining results, with an owned-object absence check",
+    "preferred_total_cost_usd_at_most": 10,
+    "hard_total_cost_usd_at_most": 100,
+    "compute_started": false,
+    "planning_discovery": "managed-client-dev-discovery.json",
+    "prelaunch": "Freeze actual runtime, dedicated task, principal, production source authority, exact per-run schema, bounded requests/rows, startup-inclusive timeout, concurrency, and estimated total cost including cleanup before launch",
+    "scale_scope": "Functional trial only; 1B-node/assumed 5B-edge production scale remains an active separate gate requiring feasible estimate and explicit approval"
+  },
+  "publication_candidate": {
+    "wheel_sha256": "110ce0b6e092252ede5537a87268e29d708a9d26b3673e31c5f833ce5d484843",
+    "isolated_installed_command": true,
+    "runtime_review": "Sol static review found no remaining publication-slice blocker; querypaths unresolved",
+    "focused_tests": 14,
+    "focused_tests_result": "passed",
+    "native_initialization": "passed; exact Spark4.2.0/Delta4.4.1/JDK21/JAR loaded-origin attestation; initialize only, no publication yet",
+    "installation_sha256": "f38414a5366341f3627a5e78aa3a9e15c047505f97b13de4806cbbd4e2a6d4ed",
+    "first_publication": {
+      "result": "refused; no complete publication receipt",
+      "exit_code": 2,
+      "native_error": "UNBOUND_SQL_PARAMETER stream",
+      "boundary": "journal phase SELECT with named parameters",
+      "custody": "Read-only six-table Delta log inventory shows only CREATE TABLE v0 and SET TBLPROPERTIES v1, zero add/remove actions. SQLite ledger has zero operations/plans/artifacts/progress positions; original registry/source scope retained. Ordinary continuation may proceed after reviewed binding resolution; no reset.",
+      "next_action": "Install the reviewed constants-only parameter-binding session setting in a fresh runtime identity; root owns the ordinary publication continuation after focused validation",
+      "cause_boundary": "Spark 4.2 preprocessor marker substitution leaves named parameters unbound on the retained Delta relation; the approved Spark legacy analyzer-binding setting passed the exact read and isolated parameterized INSERT/MERGE probes. See parameter-binding-compatibility.json.",
+      "custody_evidence": [
+        "local-current/post-failure-delta-log-inventory.json",
+        "local-current/post-failure-ledger-summary.json"
+      ]
+    }
+  },
+  "current_truss_adapter": {
+    "focused_tests": 3,
+    "result": "passed",
+    "review": "Sol confirmed artifact identity separately bound to report and document identity, accepted source registration bound, tampered identity/digest/revision/registration refusal",
+    "historical_revisions": "explicit failclosed pending retained original source/view custody; evolution not qualified",
+    "native_feed": "not yet exercised"
+  },
+  "weft_current_targets": {
+    "state": "implemented in isolated upstream checkout; 10 focused Rust tests and independent Sol review passed; native engine execution not yet qualified",
+    "backend03": [
+      "ashlar.databricks.paths-keys-having",
+      "0.4.1-count-star-having-spark4.2-candidate",
+      "spark4.2.0-delta4.4.1-paths-keys-having-candidate"
+    ],
+    "backend02": [
+      "ashlar.databricks",
+      "0.2.0-local-spark4.2-pages-candidate",
+      "spark4.2.0-delta4.4.1-candidate"
+    ],
+    "method": "ashlar-spark4-pages",
+    "page_protocol": "weft.engine-page/0.1",
+    "upstream_release_published": false
+  },
+  "binding_compatible_candidate": {
+    "ashlar_wheel_sha256": "8db453272941447804b7269a80c4c4ce0111a71d3725ff410e02e62ee4a3d1fe",
+    "weft_scratch_wheel_sha256": "028a359760486c5044150e602ec5671d59f222db983a91286fba04ba0bf11c95",
+    "weft_scratch_scope": "Modified local current-target candidate; not official Weft0.4.48 released bytes or a published new release",
+    "native_initialization": "passed; fresh installation with exact attested Spark compatibility setting",
+    "installation_sha256": "8ec4f02e67ab26595dd3e499dcedfe105cf1708b7ad923f57a79d96c3d17ed2d",
+    "first_publication": {
+      "result": "passed",
+      "ordinal": 1,
+      "completed_batches": 1,
+      "replayed": false,
+      "native_counts": {
+        "edge_current": 4,
+        "object_current": 4,
+        "tombstone": 0,
+        "whole_source_history": 8
+      },
+      "elapsed_seconds": 44.79,
+      "performance_scope": "one local configured-source observation, not population tail or production scale",
+      "protected_ack": false,
+      "evidence": "local-current/publish-1-bound.json"
+    },
+    "selected_local_resources": {
+      "master": "local[1]",
+      "driver_memory": "512m",
+      "maximum_command_seconds": 600
+    },
+    "source_authority": "configured JSONL fixture; no protected Truss ACK or production authority",
+    "publication_2": {
+      "result": "passed",
+      "ordinal": 2,
+      "completed_batches": 2,
+      "native_counts": {
+        "edge_current": 3,
+        "object_current": 4,
+        "tombstone": 1,
+        "whole_source_history": 10
+      },
+      "elapsed_seconds": 67.65,
+      "protected_ack": false,
+      "evidence": "local-current/publish-2-bound.json"
+    },
+    "publication_3": {
+      "result": "passed",
+      "ordinal": 3,
+      "completed_batches": 3,
+      "native_counts": {
+        "edge_current": 1,
+        "object_current": 3,
+        "tombstone": 4,
+        "whole_source_history": 13
+      },
+      "elapsed_seconds": 48.43,
+      "protected_ack": false,
+      "evidence": "local-current/publish-3-bound.json"
+    },
+    "replay_3": {
+      "result": "passed",
+      "all_six_native_heads_unchanged": true,
+      "seconds": 35.45,
+      "evidence": "local-current/replay-3-bound.json"
+    },
+    "singleton_reads": {
+      "result": "passed retained visibility/current deletion/exact large integer/absence/retained extension",
+      "evidence": "local-current/workflow-summary.json"
+    }
+  },
+  "current_truss_native_mutation": {
+    "result": "create/update/delete and exact replay passed through real public Truss0.0.44 on localPG18.6",
+    "exact_integer": "9007199254740993",
+    "evidence": "../truss-current-native-mutation-0.10-20261021/",
+    "feed_status": "actual first catalog-only page admitted; requires current-profile no-op publication/full-vector/archive intent support before ACK; no ACK advanced"
+  }
+}

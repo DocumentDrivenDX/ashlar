@@ -13,13 +13,14 @@ requires-python = ">=3.9"
 dependencies = []
 
 [project.optional-dependencies]
-local-delta = ["pyspark==4.0.1", "delta-spark==4.0.0"]
-managed-read = ["databricks-sdk==0.117.0", "psycopg[binary]==3.3.6"]
-weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==0.27.1", "attrs==25.3.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
-typed-sdk = ["umf_access==0.1.0.dev4", "weft-sql==0.4.48"]
-duckdb = ["duckdb==1.5.0"]
-puppy = ["duckdb==1.5.0", "neo4j==5.28.2"]
-puppy-gremlin = ["duckdb==1.5.0", "neo4j==5.28.2", "gremlinpython==3.7.3"]
+truss-local = ["truss-toolkit[local,native]==0.0.44"]
+local-delta = ["pyspark==4.2.0", "delta-spark==4.4.1"]
+managed-read = ["databricks-sdk==0.155.0", "psycopg[binary]==3.3.6"]
+weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9.1", "attrs==26.1.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
+typed-sdk = ["umf_access==0.1.0.dev5", "weft-sql==0.4.48"]
+duckdb = ["duckdb==2.0.0"]
+puppy = ["duckdb==2.0.0", "neo4j==6.4.1"]
+puppy-gremlin = ["duckdb==2.0.0", "neo4j==6.4.1", "gremlinpython==3.8.2"]
 diagnostics = [
     "opentelemetry-api==1.45.1; python_version == '3.11'",
     "opentelemetry-sdk==1.45.1; python_version == '3.11'",
@@ -29,13 +30,13 @@ diagnostics = [
     "opentelemetry-semantic-conventions==0.66b1; python_version == '3.11'",
     "opentelemetry-exporter-http-transport==0.66b1; python_version == '3.11'",
     "opentelemetry-exporter-otlp-common==0.66b1; python_version == '3.11'",
-    "protobuf==6.33.6; python_version == '3.11'",
-    "requests==2.33.0; python_version == '3.11'",
+    "protobuf==7.36.2; python_version == '3.11'",
+    "requests==2.34.2; python_version == '3.11'",
     "urllib3==2.8.0; python_version == '3.11'",
-    "idna==3.15; python_version == '3.11'",
-    "certifi==2025.10.5; python_version == '3.11'",
-    "charset-normalizer==3.4.3; python_version == '3.11'",
-    "googleapis-common-protos==1.75.0; python_version == '3.11'",
+    "idna==3.20; python_version == '3.11'",
+    "certifi==2026.10.19; python_version == '3.11'",
+    "charset-normalizer==3.5.2; python_version == '3.11'",
+    "googleapis-common-protos==1.75.5; python_version == '3.11'",
     "typing-extensions==4.16.0; python_version == '3.11'",
 ]
 

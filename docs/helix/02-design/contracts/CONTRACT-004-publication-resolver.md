@@ -811,6 +811,49 @@ Explicitly authored local query-policy documents MUST identify their conditional
 scope; accepted source mappings and ordinary PostgreSQL privileges MUST NOT imply
 UMF Subject/action/disclosure permission or managed Unity Catalog enforcement.
 
+### Current-core configured local runtime
+
+The separately selected `ashlar-configured-local-runtime/0.2` profile MAY run
+current UMF core `0.10.0` publications on local Python 3.12, Spark 4.2.0,
+Delta 4.4.1 and JDK 21. Its operator-supplied native JAR inventory MUST name
+and hash exactly the selected Spark 4.2/Scala 2.13 Delta JARs. Configuration
+MUST freeze that inventory before effects, and opening and closing MUST attest
+the same complete files, bytes, package versions, JDK identity and active Spark
+session/JAR selection. A mutable caller dictionary, mere file names, a cached
+attestation or a changed inventory MUST NOT qualify the interval.
+
+Before `getOrCreate`, this profile MUST set
+`spark.sql.legacy.parameterSubstitution.constantsOnly=true`. Opening and closing
+MUST attest that exact active-session value, and the setting MUST be included in
+the persisted runtime identity. A missing, changed or unattested value MUST
+refuse the interval; it MUST NOT be silently repaired on a foreign session.
+
+For this profile, Backend03 grouped graph and Backend02 SDK page/continuation
+MUST each retain their original Weft preparation, exact target binding and
+compiler artifact through the complete publication-backed read interval. A
+component preparation or an SDK page assembled without native execution does not
+qualify the path. A compiler target that does not declare the selected native
+runtime MUST refuse until a compatible public target is evidenced; Ashlar MUST
+NOT rewrite compiler SQL, infer compatibility from an older runtime, or silently
+fall back to another target. Both paths MUST verify exact values, grouping or
+page boundaries and continuation against independent source-derived oracles,
+renew the complete publication vector and native runtime identity at closing,
+and release no partial result after a closing failure.
+
+### Proposed managed current-core read authority
+
+The separate proposed `ashlar-managed-current-core/0.1` resolver MUST admit an
+actual selected Unity Catalog MANAGED installation, authenticated ordinary
+principal, native Delta UUID/protocol/schema/retention, original source and
+protected ACK state, and the complete publication vector in one held interval.
+Opening, each native singleton or Weft query/page, and closing MUST recheck the
+same selected runtime/build, catalog/schema/table identities and principal.
+Existing bounded SQL transport, pin and metadata mechanics MAY be reused only
+after this current-core authority is established. The local JDK/JAR hashes and
+Spark parameter-substitution setting above, and historical dedicated job
+layout, MUST NOT be inferred as managed runtime facts. Unknown runtime/build,
+principal, UC protocol or source authority MUST refuse before public output.
+
 ## Excluded administrators and isolated test scope
 
 An excluded administrator MUST remain distinct from admitted ordinary data

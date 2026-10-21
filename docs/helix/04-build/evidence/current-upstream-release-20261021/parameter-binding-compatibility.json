@@ -1,0 +1,30 @@
+{
+  "scope": "Selected Spark 4.2.0 and Delta 4.4.1 configured-local session; named parameter compatibility proof",
+  "cause": {
+    "spark_issue": "https://github.com/apache/spark/issues/55392",
+    "spark_change": "https://github.com/apache/spark/pull/52334",
+    "spark_parameter_marker_reference": "https://spark.apache.org/docs/4.2.0-preview4/sql-ref-parameter-markers.html",
+    "finding": "Spark SQL preprocessor marker substitution leaves named markers unbound against this Delta relation; Spark's legacy constants-only analyzer binding setting resolves the marker without changing SQL or arguments."
+  },
+  "setting": {
+    "key": "spark.sql.legacy.parameterSubstitution.constantsOnly",
+    "value": "true",
+    "identity_profile": "ashlar-configured-local-runtime/0.2"
+  },
+  "actual_attempt_journal_select": {
+    "source": "local-current/publish-1-failure-diagnostics.log",
+    "failure_without_setting": "UNBOUND_SQL_PARAMETER stream",
+    "readonly_retry_with_setting": "passed",
+    "result_rows": 0,
+    "result_columns": ["phase", "request_digest", "payload_json", "payload_digest"],
+    "probe_path": "/private/tmp/ashlar-release-20261021-m3rde5p2/sql-binding-legacy-private-probe.json"
+  },
+  "parameterized_publication_shapes": {
+    "fresh_disposable_delta_table_only": true,
+    "insert_from_json_rows": "passed",
+    "merge_from_json_keys_delete": "passed",
+    "remaining_rows": 0,
+    "probe_path": "/private/tmp/ashlar-release-20261021-m3rde5p2/sql-binding-dml-private-probe.json"
+  },
+  "scope_limit": "Focused binding evidence only; no publication retry, Weft compiler SQL rewrite, Delta version downgrade or claim of broader native qualification."
+}

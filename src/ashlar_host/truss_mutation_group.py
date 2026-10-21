@@ -24,6 +24,7 @@ class MutationSelection:
     source:object=None
     target:object=None
     values:tuple=()
+    unset:tuple=()
     order_key:tuple=()
 
 @dataclass(frozen=True)
@@ -45,7 +46,7 @@ def preflight(configuration: str|Path,output: str|Path) -> tuple:
     if not path.is_absolute()or path.resolve()!=path:raise ValueError('Canonical configuration required')
     original=InvocationFile.read(path,65536);raw=decode_custody_bytes(original.raw)
     closed(raw,('profile','connection_uri','bun','document_path','document_revision','document_id','source_version','origin_path','request_key','operations'))
-    if raw['profile']!=PROFILE or raw['source_version']not in ('0.7.0','0.8.0'):raise ValueError('Explicit original source version required')
+    if raw['profile']!=PROFILE or raw['source_version']not in ('0.7.0','0.8.0','0.10.0'):raise ValueError('Explicit original source version required')
     for key in ('connection_uri','document_revision','document_id','request_key'):name(raw[key])
     paths=[]
     for key in ('bun','document_path','origin_path'):
@@ -77,6 +78,25 @@ def preflight(configuration: str|Path,output: str|Path) -> tuple:
             deleted.add(identity)
             if kind=='delete_object':deleted_objects.add((module,element_id,op['entity_id']))
             selections.append(MutationSelection(kind,module,element_id,op['entity_id'],op['expected_version']))
+        elif kind in ('update_edge','update_object'):
+            if raw['source_version'] != '0.10.0':
+                raise ValueError('Selected updates require the separate current UMF 0.10 profile')
+            element='relationship_id'if kind=='update_edge'else'record_id'
+            closed(op,('operation','module_id',element,'entity_id','expected_version','set','unset')
+                   if kind=='update_object'else ('operation','module_id',element,'entity_id','expected_version','set','unset','order_key'))
+            if any(type(op[k])is not int or op[k]<1 or op[k]>=2**63 for k in ('entity_id','expected_version')):
+                raise ValueError('Exact positive identity/version required')
+            values=authored_values(op['set']);unset=op['unset']
+            if type(unset)is not list or len(set(unset))!=len(unset)or any(name(item)in {key for key,_,_ in values} for item in unset):
+                raise ValueError('Distinct nonoverlapping exact update fields required')
+            unset=tuple(name(item)for item in unset)
+            if kind=='update_edge':
+                order=op['order_key']
+                if order=={'state':'null'}:order_key=('null',None)
+                elif type(order)is dict and set(order)=={'state','text'}and order['state']=='text'and type(order['text'])is str and len(order['text'].encode())<=65536:order_key=('text',order['text'])
+                else:raise ValueError('Exact original order key required')
+            else:order_key=()
+            selections.append(MutationSelection(kind,module,name(op[element]),op['entity_id'],op['expected_version'],values=values,unset=unset,order_key=order_key))
         else:raise ValueError('Selected public mutation required')
     if deleted_objects&endpoints:raise ValueError('Created edge endpoint cannot be deleted in group')
     model=snapshot(paths[1],1048576);document=decode_custody_bytes(model)
@@ -93,7 +113,7 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
     import psycopg
     from truss import Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host,ObjectFound,ObjectNotFound,EdgeFound,EdgeNotFound
     from truss.contracts import TextValue,BooleanValue,NullValue,MapValue,MapEntry
-    from truss.groups import CreateEdge,Delete,StoredObjectReference,AuthoredValue,NullOrderKey,TextOrderKey,Created,Deleted,GroupSuccess,CommittedReceiptReplay
+    from truss.groups import CreateEdge,UpdateObject,UpdateEdge,Delete,StoredObjectReference,AuthoredValue,NullOrderKey,TextOrderKey,Created,Changed,Unchanged,Deleted,GroupSuccess,CommittedReceiptReplay
     def value(result):
         if not isinstance(result,Ok):raise RuntimeError('Public Truss mutation refused')
         return result.value
@@ -114,7 +134,7 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
         finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
     def lookup(assembly,tx,selection,entity_id=None):
         entity=selection.entity_id if entity_id is None else entity_id
-        if selection.operation=='delete_object':return value(assembly.get_object_in_transaction(tx,document_id=config.document_id,module_id=selection.module_id,record_id=selection.element_id,object_id=entity))
+        if selection.operation in ('delete_object','update_object'):return value(assembly.get_object_in_transaction(tx,document_id=config.document_id,module_id=selection.module_id,record_id=selection.element_id,object_id=entity))
         return value(assembly.get_edge_in_transaction(tx,document_id=config.document_id,module_id=selection.module_id,relationship_id=selection.element_id,edge_id=entity))
     documents=(CatalogDocument(config.document_id,config.document_revision,model),)
     asserted=MapValue(entries=tuple(MapEntry(key=k,value=TextValue(kind='string',text=v))for k,v in origin_map))
@@ -127,7 +147,7 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
                 if not isinstance(found,ObjectFound)or(found.object.document_id,found.object.module_id,found.object.record_id,found.object.id)!=(endpoint.document_id,endpoint.module_id,endpoint.record_id,endpoint.entity_id):raise RuntimeError('Actual authorized endpoint required')
                 stored[endpoint]=found.object.identity;return StoredObjectReference(identity=found.object.identity)
             for selection in config.operations:
-                object_kind=selection.operation=='delete_object'
+                object_kind=selection.operation in ('delete_object','update_object')
                 ref=value(assembly.get_type_reference_in_transaction(tx,document_id=config.document_id,module_id=selection.module_id,record_id=selection.element_id))if object_kind else value(assembly.get_relationship_reference_in_transaction(tx,document_id=config.document_id,module_id=selection.module_id,relationship_id=selection.element_id))
                 if ref is None:raise RuntimeError('Current authorized definition required')
                 definition_pins.append(ref.definition_pin)
@@ -137,9 +157,18 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
                     found=lookup(assembly,tx,selection);kind=ObjectFound if object_kind else EdgeFound
                     if not isinstance(found,kind):raise RuntimeError('Original selected entity required')
                     entity=found.object if object_kind else found.edge
-                    if int(entity.identity.id)!=selection.entity_id or entity.identity.definition_pin!=ref.definition_pin or entity.version!=selection.expected_version:raise RuntimeError('Current original identity/pin/version required')
+                    if (int(entity.identity.id)!=selection.entity_id or entity.identity.definition_pin!=ref.definition_pin
+                            or (entity.version!=selection.expected_version and config.source_version!='0.10.0')):
+                        raise RuntimeError('Current original identity/pin/version required')
                     if object_kind and(entity.document_id,entity.module_id,entity.record_id,entity.id)!=(config.document_id,selection.module_id,selection.element_id,selection.entity_id):raise RuntimeError('Complete original record identity required')
-                    operations.append(Delete(operation=selection.operation,target=StoredObjectReference(identity=entity.identity),expected_version=str(selection.expected_version)));before.append(entity)
+                    target=StoredObjectReference(identity=entity.identity)
+                    authored=tuple(AuthoredValue(name=k,value=scalar(kind,body))for k,kind,body in selection.values)
+                    if selection.operation=='update_object':
+                        operations.append(UpdateObject(target=target,set=authored,unset=selection.unset,expected_version=str(selection.expected_version)))
+                    elif selection.operation=='update_edge':
+                        operations.append(UpdateEdge(target=target,set=authored,unset=selection.unset,expected_version=str(selection.expected_version),order_key_change=NullOrderKey()if selection.order_key[0]=='null'else TextOrderKey(text=selection.order_key[1])))
+                    else:operations.append(Delete(operation=selection.operation,target=target,expected_version=str(selection.expected_version)))
+                    before.append(entity)
             context=value(assembly.group_context_in_transaction(tx));semantic=context.input(tuple(operations),asserted);request=context.request(config.request_key)
             renew();applied=value(assembly.apply_in_transaction(tx,semantic,request,documents=documents,bun_executable=str(config.bun)))
             if not isinstance(applied,GroupSuccess)or len(applied.response.semantic.results)!=len(config.operations):raise RuntimeError('Complete ordered mutation group required')
@@ -149,16 +178,27 @@ def run_mutate_truss_record_group_command(configuration: str|Path,output: str|Pa
                 if selection.operation=='create_edge':
                     if not isinstance(result,Created)or result.alias!=selection.alias or int(result.version)!=1 or result.identity.definition_pin!=pin:raise RuntimeError('Original created edge response required')
                     aliases.append((selection.alias,result.identity))
+                elif selection.operation in ('update_object','update_edge'):
+                    if not isinstance(result,Changed)or result.identity!=prior.identity or int(result.version)!=selection.expected_version+1:raise RuntimeError('Complete original changed response required')
                 elif not isinstance(result,Deleted)or result.identity!=prior.identity or int(result.deletion_version)!=selection.expected_version+1 or len(result.deleted)!=1 or result.deleted[0].identity!=prior.identity or result.deleted[0].deletion_version!=result.deletion_version:raise RuntimeError('Complete original deleted response required')
             if tuple((alias.alias,alias.identity)for alias in applied.response.semantic.aliases)!=tuple(aliases):raise RuntimeError('Complete created alias inventory required')
             renew()
         connection.commit()  # No retry of unknown commit outcomes.
         with owned_context(interval(connection))as(assembly,tx):
             observations=[]
-            for selection,result in zip(config.operations,results):
+            for selection,result,prior in zip(config.operations,results,before):
                 observed=lookup(assembly,tx,selection,int(result.identity.id))
                 if selection.operation=='create_edge':
                     if not isinstance(observed,EdgeFound)or observed.edge.identity!=result.identity or observed.edge.version!=int(result.version)or(observed.edge.source,observed.edge.target)!=(stored[selection.source],stored[selection.target])or observed.edge.order_key!=selection.order_key[1]or len(observed.edge.retained)!=len(selection.values)or dict(observed.edge.retained)!=expected(selection.values):raise RuntimeError('Complete committed created edge required')
+                elif selection.operation in ('update_object','update_edge'):
+                    entity=observed.object if selection.operation=='update_object' and isinstance(observed,ObjectFound) else observed.edge if selection.operation=='update_edge' and isinstance(observed,EdgeFound) else None
+                    if entity is None or entity.identity!=result.identity or entity.version!=int(result.version):raise RuntimeError('Original changed entity readback required')
+                    values=entity.values if selection.operation=='update_object' else entity.retained
+                    actual=dict(values);before_values=dict(prior.values if selection.operation=='update_object' else prior.retained)
+                    for key in selection.unset:before_values.pop(key,None)
+                    before_values.update(expected(selection.values))
+                    if actual!=before_values:raise RuntimeError('Complete changed scalar presence/value readback required')
+                    if selection.operation=='update_edge' and entity.order_key!=selection.order_key[1]:raise RuntimeError('Exact changed edge order key required')
                 elif not isinstance(observed,ObjectNotFound if selection.operation=='delete_object'else EdgeNotFound):raise RuntimeError('Original deleted entity remains readable')
                 observations.append(asdict(observed))
             replay=value(assembly.apply_in_transaction(tx,semantic,request,documents=documents,bun_executable=str(config.bun)))

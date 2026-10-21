@@ -92,7 +92,7 @@ def preflight(configuration: str | Path, output: str | Path) -> tuple:
     if not path.is_absolute() or path.resolve()!=path:raise ValueError('Canonical configuration required')
     original=InvocationFile.read(path,65536);value=decode_custody_bytes(original.raw)
     closed(value,('profile','connection_uri','bun','document_path','document_revision','document_id','source_version','origin_path','request_key','records','edges'))
-    if value['profile']!=PROFILE or value['source_version']not in ('0.7.0','0.8.0'):raise ValueError('Explicit selected source version required')
+    if value['profile']!=PROFILE or value['source_version']not in ('0.7.0','0.8.0','0.10.0'):raise ValueError('Explicit selected source version required')
     for key in ('connection_uri','document_revision','document_id','request_key'):name(value[key])
     selected=[]
     for key in ('bun','document_path','origin_path'):

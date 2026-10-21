@@ -154,3 +154,56 @@ The plan is complete only when actual promised Truss and engine workflows run;
 access inventory, exported model shapes and local simulators cannot replace that
 proof. If an external prerequisite remains unavailable after independent work is
 exhausted, report that specific pending row and preserve the plan's scope.
+
+## Release continuation — current upstream cohort
+
+This continuation orders the remaining release work against current public upstream releases. P01–P11 and their acceptance obligations remain in force; this section replaces their execution order where a newer dependency or release goal changes it. Historical original UMF 0.7/0.8 models, Truss 0.0.22 receipts and older Weft/engine evidence retain their declared versions and scope.
+
+| ID | Outcome and dependency | Acceptance evidence |
+| --- | --- | --- |
+| R01 | Select one current cohort: UMF `umf-v0.5.3` with core `0.10.0`, access `0.1.0.dev5` and codegen `0.1.0a2`; Weft `0.4.48`; Truss `0.0.44`. Record exact source revision, package identity and public interface used by each active Ashlar profile. Inventory selected optional dependencies and runtimes against current releases; migrate one compatible cohort at a time, with a targeted behavioral check for each changed public boundary. Update current package/configuration pins together; retain original-version fixtures unchanged. | A reproducible dependency inventory and clean installed-package import/command smoke. A version label alone is not behavioral qualification. |
+| R02 | On R01, qualify the current core 0.10 typed-graph profile through public UMF validation, a small local Delta create/update/delete publication, exact replay and publication-bound native singleton/Weft read. Execute both selected current-value paths: Backend03 grouped graph preparation and Backend02 SDK page/continuation, using their original compiler artifacts and publication pins. Keep UMF interpretation and DDL in UMF and compilation in Weft. | Exact original model/source/binding hashes, identities, values, presence, independent edges, full publication vector, grouping/multiplicity and SDK page continuation against an independent oracle, plus a meaningful refusal; selected local Python/Spark/Delta/JDK/JAR versions and elapsed/resource observations. An SDK preparation or component test alone does not qualify native execution. Historical managed runs remain separate versioned evidence. |
+| R03 | On R01, integrate Truss 0.0.44 through its accepted public catalog, mutation and complete feed/ACK interface. Check current core 0.10 correspondence using a small original-request lifecycle; change CONTRACT-005/P10 first if public semantics differ. | Actual accepted IDs/reports/head, source positions and durable ACK after publication; create/update/edge/delete/replay with exact values. Local source authority does not grant production authority. Do not relabel Truss 0.0.22 receipts. |
+| R04 | After R03 establishes actual Truss 0.0.44 accepted source and complete feed custody, freeze a fresh versioned current-core 0.10 eight-slot A/B request schedule and its independent source identities, epochs, installations and ACK scopes before the first native publication. Execute that exact schedule through local publication, retained old reads, replay/restart, source-specific durable ACK and evolution refusal. The old `native-r2` 3/8 original UMF 0.8 run stays historical and incomplete; it is not the current release gate. In an independent lane, complete P06/P07 held Fabric commerce upload, load, R1/R2 activation and interrupted-replacement witness. | Native evidence for every frozen current request, complete publication vectors and source-specific progress/ACK, independent identities despite overlapping local IDs, exact values and no mixed Fabric activation. A lost PUT response and native 503 remain unresolved attempts until reconciled. Fabric execution requires dedicated capacity and approved resource/cost bounds. |
+| R05 | Qualify production functionality and performance on the owner-selected workload and target, including the 1B-node/assumed 5B-edge planning scale. Fix acceptance thresholds for singleton latency, publication/ACK freshness and throughput, retention and cost from owner decisions before a trial. | One explicitly selected Databricks runtime/Delta/Unity Catalog configuration, dedicated compute and approved resource/cost ceiling; actual publication, ACK and native-read correctness plus measured latency, freshness, throughput and cost. Existing 1M/10M direct-insert layout results and provisional 250 ms/60 s goals are inputs, not a production pass. No shared default cluster or predictive-optimization disablement. |
+| R06 | After R01–R05, reconcile every P01–P10 support claim, build wheel and sdist, install outside the checkout, run only changed-behavior and required final checks, obtain an independent review and prepare the release handoff. Recheck latest upstream versions at the candidate cut. | Evidence matrix qualifies exact versions/subsets/authority; package metadata, dual-license files and required resources are present; reviewed main equals origin and required checks pass on the selected revision. |
+
+R05 starts with one separately defined, small functional trial in the owner-selected
+`client_dev` Unity Catalog catalog. Create a new per-run temporary schema, use only
+that trial's owned objects, and delete them after retaining the results; verify their
+absence. Owner authorization prefers at most $10 and sets a hard $100 ceiling for
+the total Databricks trial. Before launch, identify the actual runtime, dedicated
+serverless task, principal, production source authority, catalog/schema permissions,
+fixture/request digest, finite operation and row bounds, concurrency, timeout and
+estimated total DBUs/cost including startup. Reserve enough of the ceiling for
+cleanup and stop before launch if the estimate cannot respect the hard ceiling.
+Record actual usage/cost and check the ceiling during execution; serverless custom
+executor caps, where available, are not an invoice cap. A new dedicated task uses
+no retries and a timeout that includes observed startup and bounded work; the old
+360-second layout-job timeout is not a valid default for the functional trial.
+Keep predictive optimization enabled; a task-level `disable_auto_optimization`
+setting, if selected, has a different meaning and needs its own justification.
+The trial runs current-core schema creation, publication/update/delete, exact
+replay, protected source ACK, retained native singleton and both current Weft
+paths; retain native identity/vector, result, timing and cost evidence. The
+read-only discovery receipt is
+[managed-client-dev-discovery.json](evidence/current-upstream-release-20261021/managed-client-dev-discovery.json):
+it identifies `client_dev` as a managed catalog and the historical unscheduled
+dedicated layout job (`401862977233947`, concurrency one), which does not execute
+this workflow. No new compute was started by discovery. The small functional trial
+does not qualify 1B nodes/assumed 5B edges or imply that full materialization fits
+its budget. After correctness and owner thresholds are fixed, that scale goal
+requires its own feasible resource/cost estimate and explicit approval.
+The [current public retail price observation](evidence/current-upstream-release-20261021/managed-current-retail-pricing.json)
+records $0.47 per DBU for the selected Central US premium automated serverless
+meter; it is an estimate input, not an account invoice or spending limit.
+
+R02 and R03 can proceed independently once R01 pins are fixed; R04 source and engine lanes are independent. Reuse valid receipts and run a focused check when a changed pin or demonstrated gap affects a claim. A missing external prerequisite remains an open row, never a simulated pass. Development measurements describe their local environment and do not replace R05. A scoped prerelease may carry only demonstrated claims; full P11 completion requires every applicable row and any audit findings to close.
+
+The R04 Fabric lane remains pending. A [read-only reconciliation](evidence/current-upstream-release-20261021/fabric-held-readonly-reconciliation.json)
+on 2026-10-21 observed the same workspace capacity assignment and HTTP 404
+`PathNotFound` for the exact first node directory of both the lost-response A
+attempt and the capacity-refused B attempt. This establishes present absence at
+those paths only; it cannot reconstruct the lost PUT response or qualify upload,
+graph creation, activation or interrupted replacement. No write or compute was
+requested in that reconciliation.

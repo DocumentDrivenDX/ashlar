@@ -32,6 +32,11 @@ def bind_ordinary_connection(connection_factory,context):
     return ordinary
 
 
+def _native_scalar_profile(admission,graph):
+    """Only graph admissions select typed scalar planning; Note stays STRING."""
+    return 'typed'if graph and getattr(admission,'typed',False)else'string'
+
+
 def register_note_consumer(connection_factory,consumer_id,reader_role):
     """Administrator registers the selected distinct Delta consumer; caller commits."""
     from truss import Ok,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host
@@ -214,21 +219,30 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 if stream.write(original_page)!=len(original_page):raise OSError('Complete original source page write required')
                 stream.flush();os.fsync(stream.fileno())
             if graph:
-                from .truss_catalog_reader import read_historical_catalog_views
+                from .truss_catalog_reader import read_graph_catalog_evidence
                 from .truss_graph_admission import TrussGraphAdmission
-                admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch,archived_acceptance_files))
+                admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archived_acceptance_files))
             else:admission=TrussNoteAdmission(batch)
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:tables[role]for role in graph_columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
-            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.metadata()['profile']=='ashlar-truss-typed-graph-semantic-admission/0.1'else'string')
+            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile=_native_scalar_profile(admission,graph))
             following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
             steps,elisions=local_effect_plan(generated,expected,graph_tables)
             revisions={json.loads(page.prior.content)['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {json.loads(page.prior.content)['installationId']:'0'}
             request=truss_request_for(feed,batch,predecessor,revisions);checkpoint=request['source_checkpoint_json']
-            publication_id=('truss-graph-'if graph else'truss-note-')+str(ordinal+1)
-            intent_path=output/('publication-intent-'+str(ordinal+1)+'.json')
+            current_graph=graph and admission.current
+            if current_graph:
+                digest=request['request_digest']
+                digest_page_path=output/('source-page-'+digest+'.json')
+                os.rename(page_path,digest_page_path)
+                page_path=digest_page_path
+                publication_id='truss-graph-'+digest
+                intent_path=output/('publication-intent-'+digest+'.json')
+            else:
+                publication_id=('truss-graph-'if graph else'truss-note-')+str(ordinal+1)
+                intent_path=output/('publication-intent-'+str(ordinal+1)+'.json')
             intent=encoded({'request_digest':request['request_digest'],'publication_id':publication_id,'source_page_path':str(page_path),'source_page_sha256':hashlib.sha256(original_page).hexdigest(),'feed':feed})+'\n'
             with intent_path.open('xb')as stream:
                 os.fchmod(stream.fileno(),0o600)
@@ -244,7 +258,9 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             # Concrete backend validates actual native effects/manifest/pins before its
             # TrussFeedSessions performs public ACK and caller commit.
             descriptor=publish_truss_transaction(backend,feed,batch,predecessor=predecessor,schema_revisions_json=request['schema_revisions_json'],context=context)
-            results.append({'source_page':{'path':str(page_path),'sha256':hashlib.sha256(original_page).hexdigest()},'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)})
+            result={'source_page':{'path':str(page_path),'sha256':hashlib.sha256(original_page).hexdigest()},'writer_xid':page.writer_xid,'page_sha256':page.sha256,'manifest':dict(descriptor.raw)}
+            if current_graph:result['publication_intent']={'path':str(intent_path),'sha256':hashlib.sha256(intent.encode()).hexdigest()}
+            results.append(result)
             state=after;expected=following;progress=policy.active['progress'];predecessor=publication_id;lease.renew()
         if export_graph and results:
             from .truss_graph_export import read_original_truss_graph_export

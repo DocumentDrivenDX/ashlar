@@ -10,7 +10,7 @@ from ashlar_host.configured_source_admission_config import ConfiguredSourceAdmis
 from ashlar_host.configured_typed_graph_source_admission import validate_configured_typed_graph_source
 from ashlar_host.typed_graph_admission import UMF_REVISION
 
-PIN='a251ea5f876b7c69ef5e429af43621852242d324'
+PIN='2ede4c879bea5db13794a6fa30e67c821306c17f'
 
 class RealCore010Admission(unittest.TestCase):
     def test_configured_example_runs_current_umf_over_real_transport(self):

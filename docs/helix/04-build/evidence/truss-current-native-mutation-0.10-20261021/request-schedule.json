@@ -1,0 +1,131 @@
+{
+  "profile": "ashlar-current-native-request-schedule/0.1",
+  "transactions": [
+    {
+      "profile": "ashlar-truss-record-group/0.1",
+      "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+      "document_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-model.umf.json",
+      "document_revision": "ashlar-current-native-r1",
+      "document_id": "typed-graph-example",
+      "source_version": "0.10.0",
+      "origin_path": "/private/tmp/ashlar-current-native-20261021/origin.json",
+      "request_key": "ashlar-current-native-create-r1",
+      "records": [
+        {
+          "alias": "person",
+          "module_id": "m",
+          "record_id": "Person",
+          "values": {
+            "person_key": {
+              "kind": "string",
+              "text": "current-person-1"
+            },
+            "person_name": {
+              "kind": "string",
+              "text": "Current Person"
+            }
+          }
+        },
+        {
+          "alias": "place",
+          "module_id": "m",
+          "record_id": "Place",
+          "values": {
+            "place_key": {
+              "kind": "string",
+              "text": "current-place-1"
+            },
+            "place_name": {
+              "kind": "string",
+              "text": "Current Place"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "alias": "located-edge",
+          "module_id": "m",
+          "relationship_id": "located",
+          "source": {
+            "state": "alias",
+            "alias": "person"
+          },
+          "target": {
+            "state": "alias",
+            "alias": "place"
+          },
+          "values": {},
+          "order_key": {
+            "state": "null"
+          }
+        }
+      ]
+    },
+    {
+      "profile": "ashlar-truss-mutation-group/0.1",
+      "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+      "document_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-model.umf.json",
+      "document_revision": "ashlar-current-native-r1",
+      "document_id": "typed-graph-example",
+      "source_version": "0.10.0",
+      "origin_path": "/private/tmp/ashlar-current-native-20261021/origin.json",
+      "request_key": "ashlar-current-native-update-r1",
+      "operations": [
+        {
+          "operation": "update_object",
+          "module_id": "m",
+          "record_id": "Person",
+          "entity_id": 1,
+          "expected_version": 1,
+          "set": {
+            "quantity": {
+              "kind": "integer",
+              "text": "9007199254740993"
+            }
+          },
+          "unset": []
+        },
+        {
+          "operation": "update_edge",
+          "module_id": "m",
+          "relationship_id": "located",
+          "entity_id": 3,
+          "expected_version": 1,
+          "set": {},
+          "unset": [],
+          "order_key": {
+            "state": "text",
+            "text": "current-located-updated"
+          }
+        }
+      ]
+    },
+    {
+      "profile": "ashlar-truss-mutation-group/0.1",
+      "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+      "document_path": "/Users/erik/Projects/ashlar/examples/end-to-end/typed-graph-model.umf.json",
+      "document_revision": "ashlar-current-native-r1",
+      "document_id": "typed-graph-example",
+      "source_version": "0.10.0",
+      "origin_path": "/private/tmp/ashlar-current-native-20261021/origin.json",
+      "request_key": "ashlar-current-native-delete-r1",
+      "operations": [
+        {
+          "operation": "delete_edge",
+          "module_id": "m",
+          "relationship_id": "located",
+          "entity_id": 3,
+          "expected_version": 2
+        },
+        {
+          "operation": "delete_object",
+          "module_id": "m",
+          "record_id": "Place",
+          "entity_id": 2,
+          "expected_version": 1
+        }
+      ]
+    }
+  ]
+}

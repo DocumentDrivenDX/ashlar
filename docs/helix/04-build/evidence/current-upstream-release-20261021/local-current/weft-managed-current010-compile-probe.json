@@ -1,0 +1,56 @@
+{
+  "scope": "Offline Weft compilation only; task-private local Ashlar publication vector, no Spark/Databricks execution or authority",
+  "compiler": {
+    "api": "weft.compile_json",
+    "packageVersion": "0.4.48",
+    "build": "task-private Weft scratch wheel; not a newly published upstream release",
+    "wheelSha256": "028a359760486c5044150e602ec5671d59f222db983a91286fba04ba0bf11c95",
+    "requestArtifact": "/private/tmp/ashlar-release-20261021-m3rde5p2/current-query-prep/current010-managed-qualified-probe.json"
+  },
+  "source": {
+    "configuration": "examples/end-to-end/configured-typed-graph-source.json",
+    "modelDocumentId": "typed-graph-example",
+    "umfVersion": "0.10.0",
+    "revision": "1",
+    "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b"
+  },
+  "offlinePublicationBinding": {
+    "profile": "ashlar-databricks-candidate/0.1.0",
+    "bindingSha256": "3971cef828f13d0066baa0635d2e9517523bb701c8af581c8d4e51ccb8cba8d2",
+    "publicationId": "local-configured-jsonl-96acb6f9926f51f0bb19c951e0eb981b2eb0cc9464f6f88a2b8748f862bbd5c8",
+    "fullTableVector": [
+      "edge_current: dc386893-03f9-520a-a457-1eada27b5ccc@1",
+      "object_current: 8e1da62e-f46a-5dfc-a278-c32aa5f2f949@1",
+      "tombstone: b0ddf677-c35f-5113-a49f-6e34bd624e07@1",
+      "whole_source_history: b525850d-6790-5c57-a594-e068d6d85f3b@1"
+    ]
+  },
+  "probe": {
+    "dialect": "weft-sql/0.2.0",
+    "query": "SELECT p.person_key FROM Person p",
+    "target": {
+      "backendId": "ashlar.databricks",
+      "backendVersion": "0.1.0-qualified",
+      "targetProfile": "dbsql2026.39-qualified"
+    },
+    "allowCandidate": false,
+    "result": "blocked",
+    "diagnostic": {
+      "code": "WFT-BINDING",
+      "phase": "lower",
+      "message": "Property is not an admitted member of this record"
+    },
+    "requestSha256": "8619a57db60dda14f078dcf09c39c63106a294ea67733c2e8318567add2c1339"
+  },
+  "boundary": "This refusal is specific to the actual current typed-graph binding and this managed qualified compiler target; it does not imply that all Databricks targets or all UMF 0.10 models are unsupported.",
+  "candidateApi": {
+    "availableCurrentQueryMethods": [
+      "lower_databricks_current_contributors_candidate_json",
+      "lower_databricks_current_sum_candidate_json",
+      "check_databricks_current_contributors_candidate_json",
+      "check_databricks_current_sum_candidate_json"
+    ],
+    "status": "conditional candidate lowering and comparison API, not an evidence-qualified managed target or native Unity Catalog executor"
+  },
+  "properNextSlice": "Add a separately versioned Ashlar managed-current binder that preserves the original UMF 0.10 model, accepted typed source binding, and complete publication vector; integrate a public Weft-managed target/API that accepts this binding, then add an Ashlar-owned Unity Catalog executor and qualify singleton results against an independent oracle under retained native publication custody. Do not reuse the current UMF 0.7 StringRecordPolicy binder or relabel its model pin."
+}

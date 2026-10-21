@@ -1,0 +1,64 @@
+TASK_PRIVATE_SDK_HARNESS_EXCEPTION
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/current-invocations/run_sdk_person_pages_catch.py", line 5, in <module>
+    runpy.run_path(script,run_name='__main__')
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/current-invocations/run_sdk_closing_refusal.py", line 55, in <module>
+    page_configured_local(fault_runtime,ordinal=1,query=query)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 327, in page_configured_local
+    return _run(config,ordinal,query=query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 292, in _run
+    finish(primary,callbacks)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 271, in _run
+    answer=run_configured_sdk_pages(held,transport,query,runtime_guard=lambda:_runtime(config))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_sdk_pages.py", line 168, in run_configured_sdk_pages
+    page=target.page(entry,query.parameters,after=after,timeout=timedelta(seconds=remaining))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar/access.py", line 268, in page
+    native=read_weft(self.executor,self.backend,self.pins,self.vector,policy,request=request,artifact=artifact,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar/weft_query.py", line 297, in read_weft
+    with _preserve_body_failure(holder(vector,context=context)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar/execution_scope.py", line 10, in preserve_body_failure
+    with manager as value:
+         ^^^^^^^
+  File "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/current-invocations/run_sdk_closing_refusal.py", line 40, in drift_at_second_page_close
+    with original_hold_page(owner,vector,context=context):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_sdk_pages.py", line 124, in hold_page
+    finish(primary,[self.scope.parity,self.current,deactivate])
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 11, in finish
+    callback()
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_sdk_pages.py", line 67, in current
+    self.scope.renew();self.aliases.renew()
+    ^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_read.py", line 42, in renew
+    def renew(self):self._require_active();return self._current()
+                                                  ^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_read.py", line 96, in current
+    require();_require(current_admission(source,request,None if descriptor is None else dict(descriptor.raw),context)is None);require()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 148, in __call__
+    def __call__(self,source,request,manifest,context):return self._admit(source,request,manifest,context,force=False)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 154, in _admit
+    _require(self.spark.sparkContext.master=='local[1]'and self.spark.sparkContext.applicationId==self.session and self.spark.conf.get('spark.sql.session.timeZone')=='UTC'
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 28, in _require
+    if not value:raise ValueError('Configured local runtime refused')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Configured local runtime refused

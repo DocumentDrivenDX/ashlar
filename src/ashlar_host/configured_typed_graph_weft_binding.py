@@ -11,7 +11,7 @@ from ashlar.schema import decode_retained_json
 from ashlar.manifest import manifest_pin_vector
 from ashlar.pins import PinVector
 from ashlar.weft_binding import LAYOUT_SHA256
-from .count_star_admission import BACKEND
+from .count_star_admission import CURRENT_BACKEND
 
 
 def _require(value):
@@ -72,7 +72,7 @@ def configured_typed_graph_count_star_request(configuration,manifest,vector,mani
     raw=json.dumps(binding,ensure_ascii=False,separators=(',',':'),sort_keys=True)
     request={'interfaceVersion':'weft-compile/0.4.1','dialect':'weft-sql/0.4.1','sql':sql,
         'modules':[{'documentJson':configuration.model_source.decode('utf-8'),'pin':pin,'selectedModuleIds':sorted({r['logical']['module']for r in records+relationships})}],
-        'target':{k:BACKEND[k]for k in ('backendId','backendVersion','targetProfile')},'options':{'allowCandidate':True}}
+        'target':{k:CURRENT_BACKEND[k]for k in ('backendId','backendVersion','targetProfile')},'options':{'allowCandidate':True}}
     request['target'].update(bindingJson=raw,bindingSha256=hashlib.sha256(raw.encode()).hexdigest())
     configuration.verify();_require(json.dumps(manifest,ensure_ascii=False,separators=(',',':'),sort_keys=True)==original)
     return request

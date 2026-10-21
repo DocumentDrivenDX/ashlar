@@ -17,7 +17,7 @@ from .config import ProducerConfig
 from .evolution_producer import capture,snapshot
 from .lifecycle import finish,owned_context
 
-UMF_REVISION='a251ea5f876b7c69ef5e429af43621852242d324'
+UMF_REVISION='2ede4c879bea5db13794a6fa30e67c821306c17f'
 _CHECKER=Path(__file__).parent/'resources/typed_graph_values.ts'
 _KEYS={'profile','configurationSha256','sourceSha256','bindingSha256','modelSha256','documentRevision','sourceSystem','feed','epoch','groups'}
 

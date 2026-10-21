@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
         self.assertEqual((result['interfaceVersion'],result['dialect']),('weft-compile/0.2.7','weft-sql/0.2.0'))
         self.assertEqual(result['timestampComparisonProfile'],'umf-rfc3339-exact-instant/1.0.0')
         self.assertEqual(result['modules'],original['modules']);self.assertEqual(result['sql'],sql)
-        self.assertEqual(result['target']['backendVersion'],'0.1.0-local-spark4-pages-candidate')
+        self.assertEqual((result['target']['backendId'],result['target']['backendVersion'],result['target']['targetProfile']),('ashlar.databricks','0.2.0-local-spark4.2-pages-candidate','spark4.2.0-delta4.4.1-candidate'))
         before=json.loads(original['target']['bindingJson']);after=json.loads(result['target']['bindingJson'])
         self.assertEqual(before['publication'],after['publication']);self.assertEqual(before['relationships'],after['relationships'])
         self.assertEqual(len(after['records']),2)

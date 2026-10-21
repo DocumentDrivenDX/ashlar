@@ -75,6 +75,45 @@ def make_offline_count_star_schema_validation(schemas: Mapping[str, bytes]) -> C
     return _make_offline_validation(schemas, CountStarSchemaValidation)
 
 
+def make_offline_current_count_star_schema_validation(schemas: Mapping[str, bytes]) -> CountStarSchemaValidation:
+    """Task-private 0.4.48 source schema port for the exact current target."""
+    validators = {}
+
+    def validate(bundle, root_filename, candidate):
+        try:
+            if (type(root_filename) is not str or root_filename not in validators
+                    or set(bundle) != set(port.schemas)
+                    or any(type(bundle[name]) is not bytes or bundle[name] != raw
+                           for name, raw in port.schemas.items())):
+                raise CountStarPlanError(_REFUSAL)
+            validators[root_filename].validate(candidate)
+        except Exception:
+            raise CountStarPlanError(_REFUSAL) from None
+
+    try:
+        port = CountStarSchemaValidation(schemas, validate, profile='count-star-current')
+        from jsonschema import Draft202012Validator
+        from referencing import Registry
+        from referencing.exceptions import NoSuchResource
+        from referencing.jsonschema import DRAFT202012
+
+        def refuse_retrieval(uri):
+            raise NoSuchResource(ref=uri)
+
+        documents = {name: json.loads(raw) for name, raw in port.schemas.items()}
+        resources = []
+        for name, document in documents.items():
+            if document.get('$id') != _SCHEMA_BASE + name or document.get('$schema') != _DRAFT:
+                raise CountStarPlanError(_REFUSAL)
+            resources.append((document['$id'], DRAFT202012.create_resource(document)))
+        registry = Registry(retrieve=refuse_retrieval).with_resources(resources)
+        validators.update({name: Draft202012Validator(document, registry=registry, format_checker=None)
+                           for name, document in documents.items()})
+    except Exception:
+        raise CountStarPlanError(_REFUSAL) from None
+    return port
+
+
 def make_offline_implicit_arithmetic_schema_validation(schemas: Mapping[str, bytes]) -> ImplicitArithmeticSchemaValidation:
     """Explicit owned 0.4.2 offline schema port; no package qualification."""
     return _make_offline_validation(schemas, ImplicitArithmeticSchemaValidation)

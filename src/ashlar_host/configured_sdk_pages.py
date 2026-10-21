@@ -13,6 +13,8 @@ from ashlar.weft_binding import LAYOUT_SHA256
 from .configured_local_read import ConfiguredLocalRead
 from .configured_query_aliases import ConfiguredQueryAliases,open_configured_query_aliases
 from .configured_typed_graph_sdk_binding import configured_typed_graph_sdk_request
+from .configured_local_runtime_profile import JAR_SHA256,PARAMETER_SUBSTITUTION_SETTING
+from ashlar.weft_current_distribution import CurrentWeftDistribution
 from .configured_sdk_page_oracle import configured_sdk_page_oracle
 from .delta_custody import encoded
 from .path_capture import PathCaptureConfig,capture_string_frame
@@ -63,11 +65,16 @@ class _Owner:
         self.active=False;self.after=None;self.checked=None;self.retained=0;self.observations=[];self.frames=[]
     def current(self):
         self.scope.renew();self.aliases.renew()
+        _require(type(self.query.compiler)is CurrentWeftDistribution and self.query.compiler._verify())
         _require(tuple(map(str,self.runtime_guard()))==self.jars)
         spark=self.scope.transport.spark
-        _require(spark.version=='4.0.1'and spark.sparkContext.master=='local[1]'
+        _require(spark.version=='4.2.0'and spark.sparkContext.master=='local[1]'
+            and spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21'
             and spark.conf.get('spark.sql.ansi.enabled')=='true'and spark.conf.get('spark.sql.session.timeZone')=='UTC'
+            and spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true'
             and set(spark.conf.get('spark.jars').split(','))==set(self.jars))
+        from .configured_local_runtime import _verify_loaded_delta_jar
+        _verify_loaded_delta_jar(spark,[__import__('pathlib').Path(p) for p in self.jars])
         _require(encoded(self.request)==self.original_request and self.entry.originals()==self.original)
     def bind_descriptor(self,descriptor,vector,context):
         _require(self.active and context is self.context);self.current();self.scope.bind_descriptor(descriptor,vector,context)
@@ -80,7 +87,11 @@ class _Owner:
             and artifact['columns']==self.columns and artifact['logicalPlan']['pageKey']==self.key)
         self.checked=checked
     def verify_native_profile(self,profile,context):
-        _require(self.active and context is self.context and profile==self.profile and profile['engineVersion']=='4.0.1'and profile['deltaVersion']=='4.0.0');self.current()
+        _require(self.active and context is self.context and profile==self.profile and profile['targetProfile']=='spark4.2.0-delta4.4.1-candidate'
+            and profile['engineVersion']=='4.2.0'and profile['deltaVersion']=='4.4.1'and profile['jdkVersion']=='21'
+            and profile['deltaJars']==JAR_SHA256
+            and profile['settings']=={'spark.sql.ansi.enabled':'true','spark.sql.session.timeZone':'UTC',
+                'spark.sql.legacy.parameterSubstitution.constantsOnly':'true','comparison':'explicit UTF8_BINARY','resultTransport':'exact native STRING'});self.current()
         spark=self.scope.transport.spark
         _require(spark.sql("SELECT ('a' COLLATE UTF8_BINARY) = ('A' COLLATE UTF8_BINARY) AS equal").first()['equal']is False)
     def authorize_query(self,request,descriptor,context):
@@ -137,9 +148,8 @@ def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
     """Use AshlarTarget pages, then close aliases before returning provisional JSON."""
     from ashlar.access import AshlarTarget
     from umf_access.engine_catalog import EngineRead
-    import importlib.metadata
     _require(type(query)is ConfiguredSdkPagesConfig);query.__post_init__()
-    _require(query.compiler is importlib.import_module('weft')and importlib.metadata.version('weft-sql')=='0.4.48')
+    _require(type(query.compiler)is CurrentWeftDistribution and query.compiler._verify())
     values=query.parameters.model_dump(mode='python');parameters={n:{'family':'string','value':v}for n,v in values.items()}
     started=time.monotonic();items=[];pages=[];original=None
     with owned_context(open_configured_query_aliases(scope,transport))as aliases:
@@ -150,7 +160,7 @@ def run_configured_sdk_pages(scope,transport,query,*,runtime_guard):
             def query(self,sql,parameters):return owner.query_frame(sql,parameters)
         target=AshlarTarget(compiler=query.compiler,compiler_method='ashlar-spark4-pages',executor=Executor(),backend=scope.backend,pins=owner,vector=scope.vector,policy=owner,context=scope.context,
             supported_profiles=['ashlar-delta/0.3'],supported_revisions={scope.source.configuration.schema_alias:[scope.source.configuration.document_revision]},binding_sha256=request['target']['bindingSha256'],
-            platform=(('spark','4.0.1'),('delta','4.0.0')),default_timeout=timedelta(seconds=query.timeout_seconds),deadline=owner.deadline,catalog_entries=(entry,))
+            platform=(('spark','4.2.0'),('delta','4.4.1')),default_timeout=timedelta(seconds=query.timeout_seconds),deadline=owner.deadline,catalog_entries=(entry,))
         after=None
         while len(items)<query.maximum_rows:
             owner.current();remaining=query.timeout_seconds-(time.monotonic()-started);_require(remaining>0)

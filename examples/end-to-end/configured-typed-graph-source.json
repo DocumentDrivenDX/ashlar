@@ -5,7 +5,7 @@
   "sourceSystem": "typed-graph-source",
   "schemaAlias": "typed-graph",
   "documentRevision": "1",
-  "producerRevision": "a251ea5f876b7c69ef5e429af43621852242d324",
+  "producerRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
   "source": {
     "path": "typed-graph-source.jsonl",
     "sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"

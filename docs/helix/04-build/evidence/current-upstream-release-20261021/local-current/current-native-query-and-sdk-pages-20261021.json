@@ -1,0 +1,253 @@
+{
+  "scope": "Current Ashlar configured-local runtime candidate on macOS arm64/Python 3.12; bounded native Spark/Delta evidence only. Not a public Weft release, production authorization, or Truss source acceptance/feed/ACK claim.",
+  "ashlar_candidate_wheel_sha256": "370d310e18489b586d15588a8a1aaab6e5ebf55cf396b38a467d922cb892c132",
+  "current_weft_scratch_wheel_sha256": "028a359760486c5044150e602ec5671d59f222db983a91286fba04ba0bf11c95",
+  "current_weft_tuple": {
+    "backendId": "ashlar.databricks",
+    "backendVersion": "0.2.0-local-spark4.2-pages-candidate",
+    "interfaceVersion": "weft-backend/0.2.7",
+    "targetProfile": "spark4.2.0-delta4.4.1-candidate"
+  },
+  "positive_grouped_graph_query": {
+    "engine_query_completed": true,
+    "native_rows": [
+      [
+        "person-1",
+        "2",
+        "1"
+      ]
+    ],
+    "decoded": [
+      [
+        {
+          "kind": "exact-string",
+          "original": "person-1",
+          "value": "person-1"
+        },
+        {
+          "kind": "exact-integer",
+          "original": "2",
+          "value": 2
+        },
+        {
+          "kind": "exact-integer",
+          "original": "1",
+          "value": 1
+        }
+      ]
+    ],
+    "oracle": {
+      "rows": [
+        [
+          "person-1",
+          "2",
+          "1"
+        ]
+      ],
+      "scope": "Independent complete original typed-graph required STRING projection/count, forward one-hop keys or exactly-two-hop root occurrence/grouped count and distinct terminal-key bag; no native/source/publication authority.",
+      "witnesses": {
+        "collections": [],
+        "path_occurrences": [
+          [
+            "17",
+            "1",
+            "31",
+            "1",
+            "17",
+            "2",
+            "32",
+            "1",
+            "18",
+            "1"
+          ],
+          [
+            "17",
+            "1",
+            "31",
+            "2",
+            "17",
+            "2",
+            "32",
+            "1",
+            "18",
+            "1"
+          ]
+        ],
+        "publication_id": "local-configured-jsonl-20e9406a9dabee560465bb45f75847990ed25e1fc2d7924dc033a1a66044343a",
+        "result_occurrences": 1,
+        "source_records": 3,
+        "source_sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"
+      }
+    },
+    "opening_closing_native_files_match": true,
+    "runtime_report_sha256": "f9a1ecf4b9bef7a79db0661c54fe3a7a49ddaf0896d8777a3c18dfc0f2af2c9b",
+    "outer_invocation_status": "Receipt envelope refused at 262144-byte cap after query/close; retained runtime report is 350682 bytes. Native engine/query completion and close evidence are retained; this is not a query failure."
+  },
+  "negative_having_query": {
+    "completed": true,
+    "native_rows": [],
+    "decoded": [],
+    "oracle": {
+      "rows": [],
+      "scope": "Independent complete original typed-graph required STRING projection/count, forward one-hop keys or exactly-two-hop root occurrence/grouped count and distinct terminal-key bag; no native/source/publication authority.",
+      "witnesses": {
+        "collections": [],
+        "path_occurrences": [
+          [
+            "17",
+            "1",
+            "31",
+            "1",
+            "17",
+            "2",
+            "32",
+            "1",
+            "18",
+            "1"
+          ],
+          [
+            "17",
+            "1",
+            "31",
+            "2",
+            "17",
+            "2",
+            "32",
+            "1",
+            "18",
+            "1"
+          ]
+        ],
+        "publication_id": "local-configured-jsonl-20e9406a9dabee560465bb45f75847990ed25e1fc2d7924dc033a1a66044343a",
+        "result_occurrences": 0,
+        "source_records": 3,
+        "source_sha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b"
+      }
+    },
+    "opening_closing_native_files_match": true,
+    "runtime_report_sha256": "b927a84cb0178869b796fdd113f9da99ebf0006e909e7824c0327817b8abb553"
+  },
+  "sdk_pages": {
+    "completed": true,
+    "page_size": 2,
+    "source_items": [
+      [
+        "person-1",
+        "Ada"
+      ],
+      [
+        "person-2",
+        "Ben"
+      ],
+      [
+        "person-3",
+        "雪"
+      ]
+    ],
+    "native_page_rows": [
+      [
+        {
+          "person_key": "person-1",
+          "person_name": "Ada"
+        },
+        {
+          "person_key": "person-2",
+          "person_name": "Ben"
+        }
+      ],
+      [
+        {
+          "person_key": "person-3",
+          "person_name": "雪"
+        }
+      ]
+    ],
+    "pages_count": 2,
+    "lookahead": true,
+    "terminal_second_page": true,
+    "runtime_report_sha256": "9c0c468918c61f7361fe3530aeac18697d17d6bbc599f4a1d8478054d682e0b8",
+    "returned_items": [
+      {
+        "person_key": "person-1",
+        "person_name": "Ada"
+      },
+      {
+        "person_key": "person-2",
+        "person_name": "Ben"
+      },
+      {
+        "person_key": "person-3",
+        "person_name": "雪"
+      }
+    ],
+    "has_more": false,
+    "pages": [
+      {
+        "items": [
+          {
+            "person_key": "person-1",
+            "person_name": "Ada"
+          },
+          {
+            "person_key": "person-2",
+            "person_name": "Ben"
+          }
+        ],
+        "has_more": true
+      },
+      {
+        "items": [
+          {
+            "person_key": "person-3",
+            "person_name": "雪"
+          }
+        ],
+        "has_more": false
+      }
+    ],
+    "page_sizes": [
+      2,
+      1
+    ],
+    "page_items_include_hidden_key": true,
+    "outer_harness_status": "Private outer harness post-result assertion failed because it expected the inner page object at the envelope top level. The installed native SDK page API completed and closed successfully and wrote this report; only the harness assertion failed after the result was recorded."
+  },
+  "sdk_close_fault": {
+    "outcome": "refused-at-enclosing-runtime-close",
+    "exact_exception": "ValueError: Configured local runtime refused",
+    "scope": "The private harness sets spark.sql.legacy.parameterSubstitution.constantsOnly=false only while exiting the second page close. The retained traceback reaches the enclosing runtime admission guard during scope.renew(). The harness finally block executed its restore setter and readback; the readback boolean was not serialized because the expected-exception assertion itself failed before the harness emitted its status record. No runtime-report.json exists in the fresh fault output directory and the page call raised, so no result was returned. This does not claim an SDK-owner-specific close guard witness.",
+    "runtime_report_written": false,
+    "buffered_rows_released": false,
+    "traceback_sha256": "b73a82b59298a3c9bb3b9f89644fddf08425a2cd5b2cd0e8d37c88128b486b1f",
+    "harness_sha256": "9c66903054e938725e10d1d921ff55097d71a28163caa384aaa5b8fd2b1c56d2",
+    "traceback": "sdk_close_refusal_traceback.json",
+    "restoration_readback": "not retained; restore setter/readback code ran in finally, but the harness terminated before writing its status record"
+  },
+  "files": {
+    "positive_grouped_graph_query": {
+      "file": "positive_grouped_graph_query.json.gz",
+      "sha256": "f9a1ecf4b9bef7a79db0661c54fe3a7a49ddaf0896d8777a3c18dfc0f2af2c9b",
+      "bytes": 350682
+    },
+    "negative_having_query": {
+      "file": "negative_having_query.json.gz",
+      "sha256": "b927a84cb0178869b796fdd113f9da99ebf0006e909e7824c0327817b8abb553",
+      "bytes": 350456
+    },
+    "sdk_pages_2_plus_1": {
+      "file": "sdk_pages_2_plus_1.json.gz",
+      "sha256": "9c0c468918c61f7361fe3530aeac18697d17d6bbc599f4a1d8478054d682e0b8",
+      "bytes": 122573
+    },
+    "sdk_close_refusal_trace": {
+      "file": "sdk_close_refusal_traceback.json",
+      "sha256": "b73a82b59298a3c9bb3b9f89644fddf08425a2cd5b2cd0e8d37c88128b486b1f",
+      "bytes": 5835
+    },
+    "sdk_close_refusal_harness": {
+      "file": "sdk_close_refusal_harness.py",
+      "sha256": "9c66903054e938725e10d1d921ff55097d71a28163caa384aaa5b8fd2b1c56d2",
+      "bytes": 3545
+    }
+  }
+}

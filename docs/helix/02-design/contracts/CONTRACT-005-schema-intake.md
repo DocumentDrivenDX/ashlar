@@ -366,6 +366,32 @@ transport and closing checks; failure artifacts are explicitly incomplete and
 MUST NOT acquire a prepared/accepted status. Partial output never licenses a
 catalog or source effect.
 
+### Current UMF 0.10 accepted catalog source custody
+
+For a separately selected Truss `0.0.44` current-core profile, Ashlar MUST use
+the actual accepted public catalog and accepted-document APIs, preserving the
+original UMF `0.10.0` document bytes and declared version. The accepted report
+carrier `truss-catalog-registration-report/0.6` supplies original request,
+registration, installation, revision, document identity and digest evidence; it
+does not carry the original document bytes. Source-reference receipt fields and
+an accepted catalog head MUST NOT be interpreted as those bytes. The host MUST
+read `accepted_document_in_transaction` under the same authorized transaction
+and compare exact document ID, accepted revision, original content bytes and
+SHA256 with the selected source and report. Missing, stale or differing content
+MUST refuse. The older report-source resolver's retained-byte path is not an
+adapter for a `0.6` report.
+
+For this selected installed interface, the public `CatalogView` carrier declares
+`truss-catalog-view/0.2.0`, while its complete `view_profile` is separately
+`truss-complete-catalog-view/0.4`. Ashlar MUST pin and check both according to
+their own meanings, along with complete catalog revision, definition inventory,
+provenance and required native reference IDs. A view profile is not a report
+version or a grant of mutation/feed authority. Current accepted catalog admission
+alone does not qualify a two-source feed, ACK, Delta publication or production
+authority. The
+original UMF 0.7/0.8 group and mutation profiles below retain their own declared
+source and report rules.
+
 ## Original typed record and required-link group intake
 
 `create-truss-record-group` MUST submit one complete ordered public Truss group:

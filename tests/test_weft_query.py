@@ -286,6 +286,108 @@ class WeftQueryTests(unittest.TestCase):
             with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
             self.assertEqual(e.calls,[]);self.assertFalse(p.active)
 
+class CurrentEnginePageBackendControls(unittest.TestCase):
+    def test_real_current_compiler_artifact_executes_and_historical_mix_refuses(self):
+        import os
+        from pathlib import Path
+        index_path=os.environ.get('ASHLAR_CURRENT_WEFT_QUALIFICATION_INDEX')
+        if not index_path:
+            self.skipTest('candidate-only: set ASHLAR_CURRENT_WEFT_QUALIFICATION_INDEX to the trusted current index')
+        from ashlar.weft_current_distribution import CurrentWeftDistribution,CurrentWeftDistributionPaths
+        current_compiler=CurrentWeftDistribution(CurrentWeftDistributionPaths(Path(index_path)))
+        from contextlib import contextmanager
+        from types import SimpleNamespace
+        from umf_access.engine_catalog import EngineRead
+        from umf_access.types import StrictModel
+        from ashlar.weft_binding import LAYOUT_SHA256
+        from ashlar.sdk_presence import CURRENT_SDK_PAGES_BACKEND
+        from ashlar_host.configured_typed_graph_sdk_binding import configured_typed_graph_sdk_request
+        from test_configured_typed_graph_projection_oracle import graph_scope
+
+        class Parameters(StrictModel):
+            pass
+        class Person(StrictModel):
+            person_key: str
+            person_name: str
+
+        class PagePolicy:
+            def __init__(self, scope, request, artifact):
+                self.scope, self.request, self.artifact = scope, request, artifact
+            def bind_descriptor(self, descriptor, vector, context):
+                return self.scope.bind_descriptor(descriptor, vector, context)
+            def admit_artifact(self, request, artifact, descriptor, context):
+                if request != self.request or artifact != self.artifact:
+                    raise ResolutionError('Current page compiler artifact changed')
+            def verify_native_profile(self, profile, context):
+                if profile.get('targetProfile') != CURRENT_SDK_PAGES_BACKEND['targetProfile']:
+                    raise ResolutionError('Current page native profile changed')
+            def authorize_query(self, *args):
+                return None
+            def admit_page_integrity(self, *args):
+                return None
+            def page_context(self, *args):
+                return b'inert-current-page-context'
+            def decode_result(self, column, value, *args):
+                return value
+            def authorize_result(self, *args):
+                return None
+
+        class PageExecutor:
+            def __init__(self, artifact):
+                self.artifact, self.calls = artifact, []
+            def query(self, sql, parameters):
+                self.calls.append((sql, dict(parameters)))
+                names = [column['outputName'] for column in self.artifact['columns']]
+                if sql == self.artifact['sql']:
+                    values = {'person_key': 'person-1', 'person_name': 'Ada'}
+                    rows = [{name: values.get(name, 'person-1') for name in names}]
+                else:
+                    names, rows = ['violations'], [{'violations': '0'}]
+                return SQLResult(rows, tuple((name, 'STRING') for name in names))
+
+        with graph_scope(1) as scope:
+            aliases = {name: 'spark_catalog.ashlar_configured_query_test.' + name.split('.')[-1]
+                       for name in scope.descriptor.versions}
+            request = configured_typed_graph_sdk_request(scope.source.configuration,
+                dict(scope.descriptor.raw), scope.vector, scope.manifest_uuid, aliases,
+                'SELECT p.person_key,p.person_name FROM Person p', {}, layout_sha256=LAYOUT_SHA256)
+            entry = EngineRead.build(current_compiler, request, parameters=Parameters, result=Person,
+                                     method='ashlar-spark4-pages', page_size=2)
+            program = entry.artifact()
+            artifact = program['artifact']
+            self.assertEqual(artifact['backend'], CURRENT_SDK_PAGES_BACKEND)
+            self.assertEqual(program['version'], 'weft.engine-page/0.1')
+
+            @contextmanager
+            def hold_page(vector, *, context):
+                with scope.pins.hold(vector, context=context):
+                    yield vector
+
+            pins = SimpleNamespace(hold_page=hold_page)
+            executor = PageExecutor(artifact)
+            policy = PagePolicy(scope, request, artifact)
+            result = read_weft(executor, scope.backend, pins, scope.vector, policy,
+                request=request, artifact=artifact, context=scope.context,
+                supported_profiles=['ashlar-delta/0.3'],
+                supported_revisions={scope.source.configuration.schema_alias:
+                                     [scope.source.configuration.document_revision]})
+            self.assertEqual(result.rows, (('person-1', 'Ada', 'person-1'),))
+            self.assertEqual(len(executor.calls), 4)
+
+            historical = copy.deepcopy(artifact)
+            from ashlar.weft_query import PAGE_BACKENDS
+            historical['backend'] = PAGE_BACKENDS[0]
+            refused_executor = PageExecutor(historical)
+            refused_policy = PagePolicy(scope, request, historical)
+            with self.assertRaisesRegex(ResolutionError, 'Exact current native Weft page target required'):
+                read_weft(refused_executor, scope.backend, pins, scope.vector, refused_policy,
+                    request=request, artifact=historical, context=scope.context,
+                    supported_profiles=['ashlar-delta/0.3'],
+                    supported_revisions={scope.source.configuration.schema_alias:
+                                         [scope.source.configuration.document_revision]})
+            self.assertEqual(refused_executor.calls, [])
+
+
 class FinalReleaseAuthorityControls(unittest.TestCase):
     setup=WeftQueryTests.setup
     read=WeftQueryTests.read

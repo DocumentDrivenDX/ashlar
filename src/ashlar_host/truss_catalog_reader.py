@@ -6,6 +6,9 @@ from dataclasses import asdict,replace
 from ashlar.staging import batch_row
 from .lifecycle import finish
 from .evolution_producer import snapshot
+from .truss_current_catalog import (CURRENT_REPORT_VERSION,
+    CURRENT_TRUSS_VERSION, CurrentCatalogEvidence, _accepted_sources, _json,
+    interpret_current_catalog)
 
 
 
@@ -84,3 +87,96 @@ def read_historical_catalog_views(connection_factory,batch,archived_acceptance_f
         finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
         connection.rollback()
     return captured
+
+
+def read_current_catalog_evidence(connection_factory,batch):
+    """Read Truss 0.44 reports, complete views and exact accepted source bytes.
+
+    The 0.6 report carries source references, not source bytes. Every source is
+    fetched through the public accepted-document operation in this same ordinary
+    READ COMMITTED transaction and matched byte-for-byte to its report reference.
+    """
+    batch_row(batch)
+    if batch.profile!='truss-native-feed/0.1'or not callable(connection_factory):
+        raise ValueError('Original native page and ordinary connection factory required')
+    import importlib.metadata
+    try:version=importlib.metadata.version('truss-toolkit')
+    except importlib.metadata.PackageNotFoundError:raise ValueError('Installed Truss toolkit version required')from None
+    if version!=CURRENT_TRUSS_VERSION:raise ValueError('Truss 0.0.44 current catalog profile required')
+    payload=_json(batch.begin)
+    installation=_json(base64.b64decode(batch.cursor_before,validate=True)).get('installationId')
+    prerequisites=[]
+    for item in payload.get('catalogPrerequisites',[]):
+        if item.get('reportBytesBase64')is None:continue
+        revision=item.get('revision');raw=base64.b64decode(item['reportBytesBase64'],validate=True)
+        if (type(revision)is not str or not revision.isascii()or not revision.isdecimal()
+                or str(int(revision))!=revision or hashlib.sha256(raw).hexdigest()!=item.get('reportSha256')):
+            raise ValueError('Exact current accepted report revision and digest required')
+        report=_json(raw)
+        if report.get('interfaceVersion')!=CURRENT_REPORT_VERSION:
+            raise ValueError('Current Truss report 0.6 required for this reader')
+        if report.get('revision')!=revision or report.get('installationId')!=installation:
+            raise ValueError('Current report revision and installation differ from native page')
+        prerequisites.append((revision,raw,report))
+    if not prerequisites or len({revision for revision,_,_ in prerequisites})!=len(prerequisites):
+        raise ValueError('Distinct current accepted catalog reports required')
+    if len(prerequisites) != 1:
+        raise ValueError('Current Truss reader requires one accepted revision; historical source/view custody is unsupported')
+    from truss import (Ok,CatalogRuntimeConfiguration,create_reference_assembly,
+        adopt_psycopg_host,CatalogViewAvailable,CatalogViewUnavailable)
+    def value(result,label):
+        if not isinstance(result,Ok):raise ValueError('Public current Truss '+label+' operation refused')
+        return result.value
+    reports={};views={};sources={}
+    with connection_factory()as connection:
+        if connection.autocommit or connection.info.transaction_status!=0:
+            raise ValueError('Fresh ordinary non-autocommit connection required')
+        connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
+        connection.execute("SET LOCAL statement_timeout = '15000ms'")
+        host=adopt_psycopg_host(connection);assembly=None;primary=None
+        try:
+            tx=value(host.adopt_transaction(),'transaction')
+            assembly=value(create_reference_assembly(CatalogRuntimeConfiguration(),host),'assembly')
+            seed=assembly.catalog_view_request(definition_count='65536',encoded_bytes='16777216')
+            for revision,raw,report in prerequisites:
+                expected=report.get('acceptedInput',{}).get('documents')
+                if type(expected)is not list or not expected:
+                    raise ValueError('Current report accepted document references required')
+                for reference in expected:
+                    document_id=reference.get('documentId')if type(reference)is dict else None
+                    accepted=value(assembly.accepted_document_in_transaction(tx,document_id=document_id,maximum_bytes=1048576),'accepted source')
+                    if not hasattr(accepted,'content'):
+                        raise ValueError('Public accepted source is not authorized or available')
+                    sources[revision,document_id]=accepted
+                _accepted_sources(report,revision,sources)
+                result=value(assembly.catalog_view_in_transaction(tx,seed),'catalog view')
+                if isinstance(result,CatalogViewUnavailable):
+                    reason=result.reason if result.reason in ('profile','closure','context','resource','definition')else'unknown'
+                    raise ValueError('Public current catalog view unavailable: '+reason)
+                if not isinstance(result,CatalogViewAvailable)or type(result.view.original_bytes)is not bytes:
+                    raise ValueError('Public current complete catalog view required')
+                view_raw=result.view.original_bytes
+                interpret_current_catalog(revision,raw,view_raw,sources)
+                reports[revision]=raw;views[revision]=view_raw
+        except BaseException as error:primary=error
+        def detach():
+            if not host.detach():raise ValueError('Current catalog host detach refused')
+        finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
+        connection.rollback()
+    return CurrentCatalogEvidence(version,reports,views,sources)
+
+
+def read_graph_catalog_evidence(connection_factory,batch,archives=()):
+    """Select live public custody for report 0.6, historical archives otherwise."""
+    batch_row(batch)
+    payload=_json(batch.begin)
+    current=False
+    for item in payload.get('catalogPrerequisites',[]):
+        if type(item)is not dict or item.get('reportBytesBase64')is None:continue
+        raw=base64.b64decode(item['reportBytesBase64'],validate=True)
+        if _json(raw).get('interfaceVersion')==CURRENT_REPORT_VERSION:
+            current=True
+    if current:
+        if archives:raise ValueError('Current Truss report source custody comes from the live accepted-document API')
+        return read_current_catalog_evidence(connection_factory,batch)
+    return read_historical_catalog_views(connection_factory,batch,archives)

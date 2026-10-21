@@ -1,0 +1,24 @@
+[
+  {
+    "name": "delta-spark_4.2_2.13-4.4.1.jar",
+    "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar",
+    "sha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "bytes": 9519346,
+    "source": "https://repo.maven.apache.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar",
+    "verification": {
+      "algorithm": "sha256",
+      "published": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be"
+    }
+  },
+  {
+    "name": "delta-storage-4.4.1.jar",
+    "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar",
+    "sha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
+    "bytes": 113863,
+    "source": "https://repo.maven.apache.org/maven2/io/delta/delta-storage/4.4.1/delta-storage-4.4.1.jar",
+    "verification": {
+      "algorithm": "sha256",
+      "published": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    }
+  }
+]

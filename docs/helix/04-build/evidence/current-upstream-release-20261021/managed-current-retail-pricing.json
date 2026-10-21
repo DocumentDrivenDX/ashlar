@@ -1,0 +1,20 @@
+{
+  "observed_utc": "2026-10-21T19:08:56Z",
+  "url": "https://prices.azure.com/api/retail/prices?%24filter=serviceName+eq+%27Azure+Databricks%27+and+armRegionName+eq+%27centralus%27+and+priceType+eq+%27Consumption%27+and+skuName+eq+%27Premium+Automated+Serverless+Compute%27&currencyCode=USD",
+  "items": [
+    {
+      "productName": "Azure Databricks Regional",
+      "skuName": "Premium Automated Serverless Compute",
+      "meterName": "Premium Automated Serverless Compute DBU",
+      "retailPrice": 0.47,
+      "unitPrice": 0.47,
+      "unitOfMeasure": "1 Hour",
+      "effectiveStartDate": "2025-05-01T00:00:00Z",
+      "armRegionName": "centralus",
+      "currencyCode": "USD",
+      "type": "Consumption",
+      "isPrimaryMeterRegion": true
+    }
+  ],
+  "scope": "Current public retail pricing selection; not account invoice, DBU observation, or absolute spend enforcement"
+}

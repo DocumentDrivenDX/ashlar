@@ -1,0 +1,184 @@
+{
+  "state": "completed",
+  "runtime": "truss-toolkit 0.0.44",
+  "postgresql_server_version": "18.6",
+  "source_authority": "Ashlar examples/end-to-end/typed-graph-model.umf.json original bytes",
+  "source_umf": "0.10.0",
+  "source_document_id": "typed-graph-example",
+  "source_bytes": 4082,
+  "source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "accepted_source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "accepted_source_matches_original": true,
+  "accepted_document_revision": "ashlar-probe-r1",
+  "accepted_catalog_revision": 1,
+  "registration_id": "cc20e2aa-1f88-48f8-ae8d-055d62767080",
+  "report_sha256": "d92cf8377a270592c9bde3aa68119079c6b1de20a6126169b6841ed6be4f0813",
+  "report_revision": "1",
+  "report_installation_id": "ba534903-fe38-465b-8ed8-69ac503b218b",
+  "report_registration_id": "cc20e2aa-1f88-48f8-ae8d-055d62767080",
+  "view_sha256": "3e862c3597f0bfd3471fea1fae7eaa87bb29fee4de17cb82bcdaecc7034b794e",
+  "view": {
+    "outcome": "available",
+    "catalog_revision": "1",
+    "definition_count": 11,
+    "inventory_sha256": "28bb64055f0609e8c392cb407f7fc76fa7f313863e0788976a05df5e94270549",
+    "consistency_evidence_sha256": "87a57d2ed965514f5c12da15b5afee903c8943b2d2840f22e2c25e76c27d761a",
+    "layout_profile": {
+      "identity": "truss-layout",
+      "version": "1.0",
+      "sha256": "cf417e0af5d37dd61fa5f39f818d2e7282a29e6c6c6ab7fc0b26dcdde99e7dec"
+    },
+    "view_profile": {
+      "identity": "truss-complete-catalog-view",
+      "version": "0.4",
+      "sha256": "782025c3dfcf49bd676c67df3d62269f78793a31358a18556c2c2689d5fbc436"
+    },
+    "definition_references": [
+      {
+        "kind": "type",
+        "definition_pin": "7c5ab0d657daa18b837a4ba5c81c4ae9861447cd0332ab110b2853af511a4211",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "Person",
+        "type_id": "1",
+        "property_id": null,
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "type",
+        "definition_pin": "d3131dc5470e8355d47cf4070b48c33e988258d740d8e4634618d79b8ebf38c1",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "Place",
+        "type_id": "2",
+        "property_id": null,
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "property",
+        "definition_pin": "99fa2708700b0f8f47ed05505cb3cd214c08b9b2c7f194ce7e4057a945041e04",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "person_key",
+        "type_id": "1",
+        "property_id": "1",
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "property",
+        "definition_pin": "6cc84d85721b9a01c8689fd239e02a038df267f8ddb194d5e99238975a3d76b4",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "person_name",
+        "type_id": "1",
+        "property_id": "2",
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "property",
+        "definition_pin": "e7bbe33f560dc80122dae70cffc4fa09b42b96ccc48c711500a1cb15556ef877",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "quantity",
+        "type_id": "1",
+        "property_id": "3",
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "property",
+        "definition_pin": "2f0bd8d71ad76ce9eea5e63dc7d07cf634e21d0a2017421cd5c4919321807a81",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "place_key",
+        "type_id": "2",
+        "property_id": "4",
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "property",
+        "definition_pin": "1a97d1217ff3164630fcd3a7c34bd2f7af1c31c9dd1f800381b161db1680398c",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "place_name",
+        "type_id": "2",
+        "property_id": "5",
+        "key_number": null,
+        "relationship_id": null
+      },
+      {
+        "kind": "key",
+        "definition_pin": "f3fb417dafc611d3ed1533cbcfece083ffac2a31be5f2f8e3b1ebba4a7d9c7fb",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "identity",
+        "type_id": "1",
+        "property_id": null,
+        "key_number": "1",
+        "relationship_id": null
+      },
+      {
+        "kind": "key",
+        "definition_pin": "4de5a3deb3b6d97f6fe523fb5455455bf6c5ca4538030cf7caffca936a8dada4",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "identity",
+        "type_id": "2",
+        "property_id": null,
+        "key_number": "1",
+        "relationship_id": null
+      },
+      {
+        "kind": "relationship",
+        "definition_pin": "f4025fd4393d1a7747613269b15bdb33580f970eb1444fcac1355b4ac35db5eb",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "knows",
+        "type_id": null,
+        "property_id": null,
+        "key_number": null,
+        "relationship_id": "1"
+      },
+      {
+        "kind": "relationship",
+        "definition_pin": "9fd1b1f8c8dc4f1d479376fa6b2b2d47cbf408ecdf33eb6b75000a1953511a4e",
+        "owner": {
+          "document_id": "typed-graph-example",
+          "module_id": "m"
+        },
+        "authored_identity": "located",
+        "type_id": null,
+        "property_id": null,
+        "key_number": null,
+        "relationship_id": "2"
+      }
+    ]
+  },
+  "status_revision": 1,
+  "scope": "One fresh isolated local catalog acceptance followed by public report, catalog view and original accepted-source reads. No feed, mutation, Delta, or production authority."
+}

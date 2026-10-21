@@ -1614,6 +1614,50 @@ verification. CONTRACT-001 owns fresh/resume, original journal and source ACK
 custody; installed packaging and local engine evidence do not qualify production
 Unity Catalog storage, arbitrary migration or real Truss source acceptance.
 
+### Current-core two-source materialization amendment
+
+The separate proposed `ashlar-current-core-two-source/0.2` materialization
+MUST use public UMF core `0.10.0` interpretation, validation and generated DDL
+for its admitted current model. It MUST retain declared schema versions,
+unknown extensions, original Truss `0.0.44` accepted source bytes and exact
+scalar/presence meaning. Ashlar MAY define graph-specific meaning only in an
+explicit versioned extension. Physical carrier limits MUST be applied after
+public UMF admission, never treated as a second schema interpretation.
+
+The fresh eight-slot A/B request schedule is an exact immutable input to this
+profile and MUST be frozen from accepted Truss catalog/mutation/feed evidence
+before native graph publication effects. No ordinal payload or expected value is specified here
+until that evidence exists. Each source MUST retain its independent installation,
+feed, epoch, namespace and ACK scope, so overlapping local node or edge IDs
+remain distinct. Every prefix MUST materialize complete current nodes and
+independent edges, history, tombstones, schema revision and both source progress
+entries under one immutable complete publication vector. An independent oracle
+MUST compare all original values, presence and multiplicity, not derive expected
+results from SQL or current native rows.
+
+Every older retained publication MUST read its original complete vector or
+refuse under an explicit retention boundary. Replay/restart MUST preserve the
+same logical and native state without another commit; an unadmitted breaking
+evolution candidate MUST refuse before table effects or either source ACK.
+CONTRACT-001 owns the accepted source custody, original journal and ACK gates.
+The historical UMF 0.8 eight-slot schedule and its `native-r2` 3/8 prefix remain
+separately versioned incomplete evidence, not this profile's acceptance.
+
+### Proposed current-core Unity Catalog installation
+
+The proposed `ashlar-managed-current-core/0.1` physical installation MUST be a
+fresh, explicitly selected Unity Catalog MANAGED Delta schema for current UMF
+core `0.10.0`, with its own intake proof and native UUID/protocol/column
+inventory for every graph, attempt and manifest role. Public UMF validation
+and DDL remain the schema authority. Local Delta paths, synthetic source IDs
+and the older managed STRING/core 0.7 installation are not this installation.
+Each committed manifest MUST retain the complete graph table version vector,
+accepted schema revision, exact source progress and effect/attempt custody;
+zero graph effects do not omit a source transaction or its manifest. Native
+singleton and Weft scans MUST pin these same versions and recheck identity,
+retention and source correspondence at closing. Actual target protocol,
+retention and constraints are open until observed on the selected UC tables.
+
 ### Exact Truss scalar afterimages
 
 The typed Truss intake profile MUST preserve public STRING, integer, decimal,

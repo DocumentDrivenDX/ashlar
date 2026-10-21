@@ -4,6 +4,7 @@ from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 import hashlib,json,tempfile,unittest,uuid
+from types import MappingProxyType
 from unittest.mock import patch,MagicMock
 import test_configured_source_admission as fixtures
 from ashlar_host.configured_local_runtime import ConfiguredLocalRuntimeConfig,ConfiguredLocalAdmission,initialize_configured_local,publish_configured_local,read_configured_local,_fields
@@ -16,8 +17,10 @@ class Frame:
     def collect(self):return self.rows
 class Spark:
     def __init__(self):
-        self.closed=False;self.detail_reads=0;self.details={};self.fields=_fields();self.sparkContext=SimpleNamespace(master='local[1]',applicationId='inert-session',setLogLevel=lambda level:None)
-        self.conf=SimpleNamespace(get=lambda key:'512m'if key=='spark.driver.memory'else 'UTC');self.read=self
+        self.closed=False;self.detail_reads=0;self.details={};self.fields=_fields();self.version='4.2.0'
+        system=SimpleNamespace(getProperty=lambda key:'21')
+        self.sparkContext=SimpleNamespace(master='local[1]',applicationId='inert-session',setLogLevel=lambda level:None,_jvm=SimpleNamespace(java=SimpleNamespace(lang=SimpleNamespace(System=system))))
+        self.conf=SimpleNamespace(get=lambda key:'512m'if key=='spark.driver.memory'else ''if key=='spark.jars'else 'true'if key=='spark.sql.legacy.parameterSubstitution.constantsOnly'else 'UTC');self.read=self
     def sql(self,sql):
         path=sql.split('delta.`')[1].split('`')[0];role=Path(path).name
         if sql.startswith('CREATE'):
@@ -35,7 +38,12 @@ class Tests(unittest.TestCase):
     def config(self,root):
         admission=fixtures.Tests().fixture(root)
         output=root/'output';admission=replace(admission,output=output/'admission')
-        return ConfiguredLocalRuntimeConfig(root/'installation',output,root/'jars',root/'java',admission,'configured-original','1791547200000000',None,'original-local-installation',None)
+        inventory={'delta-spark_4.2_2.13-4.4.1.jar':'a'*64,'delta-storage-4.4.1.jar':'b'*64}
+        config=ConfiguredLocalRuntimeConfig(root/'installation',output,root/'jars',root/'java',admission,'configured-original','1791547200000000',None,'original-local-installation',None,inventory)
+        inventory['delta-spark_4.2_2.13-4.4.1.jar']='c'*64
+        self.assertEqual(config.jar_inventory['delta-spark_4.2_2.13-4.4.1.jar'],'a'*64)
+        self.assertIsInstance(config.jar_inventory,MappingProxyType)
+        return config
     def test_initialize_actual_private_lease_registry_and_close_before_report(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700);config=self.config(root);spark=Spark();transport=SimpleNamespace(close=lambda:closed.append('transport'));closed=[]
@@ -47,7 +55,7 @@ class Tests(unittest.TestCase):
                 for _ in range(3):current(current.source,None,None,current.context)
                 self.assertEqual(spark.detail_reads,before)
                 return transport
-            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.ConfiguredLocalAdmission',side_effect=owner),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize',side_effect=initialize):
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('profile',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime._verify_loaded_delta_jar'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.ConfiguredLocalAdmission',side_effect=owner),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize',side_effect=initialize):
                 result=initialize_configured_local(config)
             self.assertEqual(result['operation'],'initialize');self.assertFalse(result['published']);self.assertFalse(result['protected_ack'])
             self.assertEqual(len(result['installation']['targets']),6);self.assertTrue(spark.closed);self.assertEqual(closed,['transport'])
@@ -62,7 +70,7 @@ class Tests(unittest.TestCase):
             progress=SimpleNamespace(retained_entries=lambda:(SimpleNamespace(descriptor=descriptor_from_manifest_row(ROW)),),position=lambda:'1828',completed_batches=lambda:3)
             current=MagicMock(return_value=None);current.closing.return_value=None;spark.closed=False
             retained_row={'id':'1','retained_json':'x'*300000}
-            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.ConfiguredLocalAdmission',return_value=current),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport',return_value=transport),patch('ashlar_host.file_progress.JournaledJsonlProgress.open_existing',return_value=progress),patch('ashlar_host.configured_local_read.read_configured_local_singleton',return_value=retained_row)as read,patch('ashlar_host.configured_local_runtime.ConfiguredLocalPublicationDriver')as publisher:
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('profile',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime._verify_loaded_delta_jar'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.ConfiguredLocalAdmission',return_value=current),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport',return_value=transport),patch('ashlar_host.file_progress.JournaledJsonlProgress.open_existing',return_value=progress),patch('ashlar_host.configured_local_read.read_configured_local_singleton',return_value=retained_row)as read,patch('ashlar_host.configured_local_runtime.ConfiguredLocalPublicationDriver')as publisher:
                 answer=read_configured_local(read_config,ordinal=1,type_id=1017,entity_id=1)
             publisher.assert_not_called();self.assertEqual(read.call_args.kwargs['ordinal'],1)
             self.assertEqual(answer['row'],retained_row);self.assertGreater((read_config.output/'runtime-report.json').stat().st_size,262144);self.assertEqual(answer['local_checkpoint'],'1828');self.assertEqual(answer['completed_batches'],3)
@@ -70,6 +78,23 @@ class Tests(unittest.TestCase):
     def test_native_schema_drift_refuses_success_and_still_stops_session(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory).resolve();root.chmod(0o700);config=self.config(root);spark=Spark();spark.fields={**spark.fields,'object_current':(('foreign','STRING',True),)}
-            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize')as initialize:
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('profile',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime._verify_loaded_delta_jar'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize')as initialize:
                 with self.assertRaises(ValueError):initialize_configured_local(config)
             self.assertTrue(spark.closed);initialize.assert_not_called();self.assertFalse((config.output/'runtime-report.json').exists())
+
+    def test_initialized_runtime_refuses_changed_parameter_binding_setting(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();root.chmod(0o700);config=self.config(root);spark=Spark()
+            spark.conf=SimpleNamespace(get=lambda key:'512m'if key=='spark.driver.memory'else ''if key=='spark.jars'else 'false'if key=='spark.sql.legacy.parameterSubstitution.constantsOnly'else 'UTC')
+            with patch('ashlar_host.configured_source_admission.admit_managed_records',return_value=(b'{}',)),patch('ashlar_host.configured_local_runtime._runtime',return_value=[]),patch('ashlar_host.configured_local_runtime.attest_runtime',return_value=('profile',{'python':'3.12'},[])),patch('ashlar_host.configured_local_runtime._verify_loaded_delta_jar'),patch('ashlar_host.configured_local_runtime.open_finite_spark',return_value=spark),patch('ashlar_host.configured_local_runtime.LocalDeltaTransport.initialize')as initialize:
+                with self.assertRaises(ValueError):initialize_configured_local(config)
+            self.assertTrue(spark.closed);initialize.assert_not_called();self.assertFalse((config.installation/'object_current').exists())
+
+    def test_closing_admission_refuses_changed_parameter_binding_setting(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory).resolve();root.chmod(0o700);config=self.config(root);spark=Spark();context=object()
+            spark.conf=SimpleNamespace(get=lambda key:'false'if key=='spark.sql.legacy.parameterSubstitution.constantsOnly'else 'UTC')
+            source=SimpleNamespace(context=context,renew=lambda _context:None)
+            lease=SimpleNamespace(renew=lambda:None);registry=SimpleNamespace(renew=lambda _limit:None)
+            admission=ConfiguredLocalAdmission(config,lease,spark,source,(),{},registry)
+            with self.assertRaises(ValueError):admission.closing(source,None,context)

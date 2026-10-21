@@ -1061,3 +1061,42 @@ texts and bounded results MUST remain buffered until alias, publication, source,
 native runtime and supervisor closing succeeds. Query mode MUST NOT initialize,
 publish, replay, repair or advance source progress. This local development
 qualification grants no Unity Catalog, protected ACK or remote fencing authority.
+
+### Current-core configured local graph and SDK pages
+
+The separately selected proposed `ashlar-configured-local-weft/0.2` query profile
+MAY read an admitted current UMF core `0.10.0` immutable publication only under
+the held configured-local runtime and complete vector in CONTRACT-004. Backend03
+grouped graph counts and Backend02 SDK page/continuation are distinct required
+paths. Each MUST select a public Weft target that explicitly declares the exact
+Spark 4.2.0/Delta 4.4.1 local binding and artifact protocol, and MUST preserve
+the original preparation, compiler artifact, binding and result descriptors.
+An older Spark target, a successful preparation without native execution or an
+Ashlar rewrite of emitted SQL MUST NOT qualify either path.
+
+Backend03 MUST compare exact grouped keys, count values, edge/path
+multiplicities and empty-group behavior with an independent original-source
+oracle. Backend02 MUST preserve original request and continuation identity,
+exact page boundaries, order, full result bag and `has_more` semantics under the
+same publication pins; a page cannot silently recompile against a newer vector.
+Both paths MUST execute all original compiler guards, enforce finite row/cell
+budgets, renew source, runtime and vector custody at closing and withhold all
+public results on failure. Existing UMF 0.7/0.8 and indexed Weft profiles retain
+their own target/version qualification; their evidence MUST NOT be relabeled as
+this current-core native execution.
+
+### Proposed managed current-core Weft reads
+
+The proposed `ashlar-managed-current-core/0.1` reader MUST use separate public
+Weft Backend03 grouped-graph and Backend02 SDK page target identities for the
+selected Unity Catalog/Databricks runtime. It MAY reuse the pure UMF `0.10.0`
+typed-graph logical mapping, but its physical binding MUST name the actual
+three-part UC relations and complete native publication vector; a local
+`spark_catalog` alias, old UMF 0.7 binding or Spark 4.2 local target MUST
+refuse. Weft owns SQL and page continuation. Ashlar MUST execute the unchanged
+original compiler artifact and bound parameters under one authenticated,
+retained source/publication/UC-principal interval, check grouped multiplicity
+and page boundaries against an independent source oracle, and withhold all
+buffered output if any opening, per-page or closing check fails. Runtime and
+target obligations MUST be filled from the selected observed managed build,
+protocol and principal; an unknown profile remains unavailable.

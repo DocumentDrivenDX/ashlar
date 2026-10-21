@@ -87,7 +87,8 @@ def publish_saved_truss_selection(driver,connection_factory,intent_path,intent_s
             if int(transport.original_history(transport.targets[table])[0]['version'])!=version:
                 raise ValueError('Original saved predecessor current native vector differs')
     sessions=TrussFeedSessions(page,intent['feed'],bind_ordinary_connection(connection_factory,context),context)
-    admission=TrussGraphAdmission(sessions.batch(),read_historical_catalog_views(connection_factory,sessions.batch(),archives))
+    from .truss_catalog_reader import read_graph_catalog_evidence
+    admission=TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection_factory,sessions.batch(),archives))
     installation=json.loads(page.prior.content)['installationId']
     revisions={installation:str(max(int(value)for value in admission.revisions))}if admission.revisions else {installation:'0'}
     request=truss_request_for(intent['feed'],sessions.batch(),predecessor,revisions)

@@ -135,7 +135,7 @@ class NativeScenarioQueryTests(unittest.TestCase):
     def test_actual_graphson_int64_wrapper_and_other_subclasses(self):
         try:
             from gremlin_python.structure.io.graphsonV3d0 import GraphSONReader
-        except ImportError:self.skipTest('Qualified optional Gremlin3.7.3 runtime required')
+        except ImportError:self.skipTest('Qualified optional GremlinPython3.8.2 runtime required')
         from check_pack_scenario_puppygraph import native_map_cells
         expected=[{'graph_id':'g','count':0}];value=GraphSONReader().to_object({'@type':'g:Int64','@value':0})
         raw={'cells':{'carrier_key':'g','count':value},'native_id':'native','native_src':'s','native_dst':'t'}

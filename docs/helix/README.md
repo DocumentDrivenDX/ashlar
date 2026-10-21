@@ -33,6 +33,15 @@ These use local Spark/Delta and indexed Weft 0.4.2; broader models, runtimes,
 managed Unity Catalog and production authority require separate evidence. A blocked external engine or Truss source
 affects its own lane.
 
+The current configured-local profile is a macOS arm64/Python 3.12 candidate on
+Spark 4.2.0, Delta 4.4.1 and JDK 21. Its bounded evidence includes grouped
+two-hop counts, a negative HAVING case, SDK pages with a 2+1 continuation, and
+a close-time runtime-custody refusal. The compiler wheel is a task-local
+candidate, not a public Weft release; this does not qualify managed Unity
+Catalog, production authority, or Truss acceptance/feed/ACK. See the
+[current-upstream evidence packet](04-build/evidence/current-upstream-release-20261021/local-current/current-native-query-and-sdk-pages-20261021.json)
+for the exact tuple, report hashes and receipt-cap qualification.
+
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
 local and native performance measurements. Metrics guide tuning; they do not
 change the managed-Delta architecture. Functional checks remain small; explicitly

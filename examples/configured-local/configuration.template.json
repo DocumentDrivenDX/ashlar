@@ -1,30 +1,34 @@
 {
-  "profile": "ashlar-configured-local/0.1",
+  "profile": "ashlar-configured-local/0.2",
   "operation": "initialize",
   "ordinal": 0,
-  "python": "/absolute/python311/bin/python",
+  "python": "/absolute/python312/bin/python",
   "installation": "/absolute/private/native",
   "installation_id": "configured-example-1",
   "installation_sha256": null,
   "output": "/absolute/private/initialize",
   "jars": "/absolute/delta4-jars",
+  "jar_inventory": {
+    "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+  },
   "java_home": "/absolute/jdk-home",
-  "source_configuration": "/absolute/ashlar/examples/end-to-end/configured-source.json",
+  "source_configuration": "/absolute/ashlar/examples/end-to-end/configured-typed-graph-source.json",
   "stream": "configured-example-1",
   "materialization_clock_us": "1791547200000000",
   "operation_capacity": null,
   "producer": {
-    "source": "/absolute/clean-umf-c45",
+    "source": "/absolute/clean-umf-v053",
     "bun": "/absolute/bun",
     "git": "/absolute/git",
-    "timeout_seconds": 30,
+    "timeout_seconds": 60,
     "maximum_output_bytes": 1048576,
-    "maximum_receipt_bytes": 1048576
+    "maximum_receipt_bytes": 4194304
   },
   "bounds": {
     "whole_seconds": 600,
     "stream_bytes": 1048576,
     "receipt_bytes": 262144,
-    "maximum_admission_receipt_bytes": 1048576
+    "maximum_admission_receipt_bytes": 4194304
   }
 }

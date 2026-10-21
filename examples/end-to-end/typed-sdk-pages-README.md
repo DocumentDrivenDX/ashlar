@@ -2,7 +2,7 @@
 
 Use the [typed graph installation](typed-graph-README.md) and its original source
 configuration. Select a separate Python 3.11 environment with `local-delta`, the
-qualified UMF `umf_access` SDK wheel and published `weft-sql==0.4.41` (`typed-sdk`
+qualified UMF `umf_access` SDK wheel and published `weft-sql==0.4.48` (`typed-sdk`
 extra). Keep the original installation and model pins. Prepare a normal
 configured-local read invocation with a fresh output directory; its runtime
 settings select the Python, JDK, JARs, source and installation explicitly.

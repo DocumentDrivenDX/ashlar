@@ -53,14 +53,14 @@ class ConfiguredLocalInvocation:
 def parse_configured_local(raw):
     _require(type(raw)is bytes and len(raw)<=262144)
     value=decode_retained_json(raw);_require(type(value)is dict)
-    _closed(value,({'selector'}if value.get('operation')=='read'else {'query'}if value.get('operation')=='query'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
-    _require(value['profile']=='ashlar-configured-local/0.1')
+    _closed(value,({'selector'}if value.get('operation')=='read'else {'query'}if value.get('operation')=='query'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','jar_inventory','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
+    _require(value['profile']=='ashlar-configured-local/0.2')
     p=_closed(value['producer'],{'source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'})
     producer=ProducerConfig(_path(p['source']),_path(p['bun']),_path(p['git']),p['timeout_seconds'],p['maximum_output_bytes'],p['maximum_receipt_bytes'])
     bounds=_closed(value['bounds'],{'whole_seconds','stream_bytes','receipt_bytes','maximum_admission_receipt_bytes'})
     output=_path(value['output'])
     admission=ConfiguredSourceAdmissionConfig(_path(value['source_configuration']),producer,output/'admission',bounds['maximum_admission_receipt_bytes'])
-    runtime=ConfiguredLocalRuntimeConfig(installation=_path(value['installation']),output=output,jars=_path(value['jars']),java_home=_path(value['java_home']),admission=admission,stream=value['stream'],materialization_clock_us=value['materialization_clock_us'],operation_capacity=value['operation_capacity'],installation_id=value['installation_id'],installation_sha256=value['installation_sha256'])
+    runtime=ConfiguredLocalRuntimeConfig(installation=_path(value['installation']),output=output,jars=_path(value['jars']),java_home=_path(value['java_home']),admission=admission,stream=value['stream'],materialization_clock_us=value['materialization_clock_us'],operation_capacity=value['operation_capacity'],installation_id=value['installation_id'],installation_sha256=value['installation_sha256'],jar_inventory=value['jar_inventory'])
     selector=None
     if value['operation']=='read':
         selected=_closed(value['selector'],{'type_id','entity_id'});selector=(selected['type_id'],selected['entity_id'])
@@ -69,12 +69,19 @@ def parse_configured_local(raw):
         from .configured_local_query import ConfiguredLocalQueryConfig
         from .configured_weft_compile import ConfiguredWeftCompileConfig
         from ashlar.weft_count_star_distribution import CountStarDistributionPaths
+        from ashlar.weft_current_distribution import CurrentWeftDistributionPaths
         from .path_capture import PathCaptureConfig
         from ashlar.weft_path_decode import PathDecodeConfig
         q=_closed(value['query'],{'profile','sql','compiler','bounds'});_require(q['profile']=='ashlar-configured-local-weft/0.1')
-        compiler=_closed(q['compiler'],{'index','installation'})
+        compiler_raw=q['compiler'];_require(type(compiler_raw)is dict)
+        if compiler_raw.get('profile')=='ashlar-weft-current-candidate/0.1':
+            compiler=_closed(compiler_raw,{'profile','index'})
+            compiler_paths=CurrentWeftDistributionPaths(_path(compiler['index']))
+        else:
+            compiler=_closed(compiler_raw,{'index','installation'})
+            compiler_paths=CountStarDistributionPaths(_path(compiler['index']),_path(compiler['installation']))
         limits=_closed(q['bounds'],{'maximum_artifact_bytes','maximum_rows','maximum_cell_bytes','maximum_total_cell_bytes'})
-        query=ConfiguredLocalQueryConfig(q['sql'],ConfiguredWeftCompileConfig(CountStarDistributionPaths(_path(compiler['index']),_path(compiler['installation'])),limits['maximum_artifact_bytes']),
+        query=ConfiguredLocalQueryConfig(q['sql'],ConfiguredWeftCompileConfig(compiler_paths,limits['maximum_artifact_bytes']),
             PathCaptureConfig(limits['maximum_rows'],limits['maximum_cell_bytes'],limits['maximum_total_cell_bytes']),PathDecodeConfig(limits['maximum_cell_bytes']))
     result=ConfiguredLocalInvocation(value['operation'],value['ordinal'],_path(value['python']),runtime,bounds['whole_seconds'],bounds['stream_bytes'],bounds['receipt_bytes'],selector,query);result.__post_init__();return result
 
@@ -87,7 +94,7 @@ def _result(config,value):
     _require(type(value)is dict and value.get('installation_id')==config.runtime.installation_id and value.get('protected_ack')is False)
     if config.operation=='initialize':
         _closed(value,{'profile','installation_id','operation','installation_sha256','installation','published','protected_ack'})
-        _require(value['profile']=='ashlar-configured-local-initialized/0.1'and value['operation']=='initialize'and value['published']is False)
+        _require(value['profile']=='ashlar-configured-local-initialized/0.2'and value['operation']=='initialize'and value['published']is False)
         _require(type(value['installation_sha256'])is str and len(value['installation_sha256'])==64 and all(c in '0123456789abcdef'for c in value['installation_sha256']))
     elif config.operation=='read':
         _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','selector','row','protected_ack'})

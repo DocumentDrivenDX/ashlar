@@ -9,7 +9,7 @@ from .schema import decode_retained_json
 from .source import jsonl_batches
 from .whole_entity import changes_from_batch
 from .typed_source_policy import typed_values
-GRAPH_CHECK_PIN='a251ea5f876b7c69ef5e429af43621852242d324'
+GRAPH_CHECK_PIN='2ede4c879bea5db13794a6fa30e67c821306c17f'
 
 def require(value):
     if not value:raise ValueError('Original typed graph correspondence refused')

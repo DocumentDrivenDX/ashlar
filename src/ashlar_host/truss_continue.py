@@ -94,7 +94,8 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             raise ValueError('Original Truss installation/source epoch changed')
         if page.outcome=='empty_interval':break
         sessions=TrussFeedSessions(page,feed,ordinary,context,destination_receipts=source.destination_receipts,destination_id=source.destination_id);batch=sessions.batch()
-        admission=TrussGraphAdmission(batch,read_historical_catalog_views(connection_factory,batch,archives))
+        from .truss_catalog_reader import read_graph_catalog_evidence
+        admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
         revisions={current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'}
         request=truss_request_for(feed,batch,predecessor,revisions)
         digest=request['request_digest'];publication_id='truss-graph-'+digest
@@ -116,7 +117,7 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             graph_tables={role:driver.tables[role]for role in driver.columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
-                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.metadata()['profile']=='ashlar-truss-typed-graph-semantic-admission/0.1'else'string')
+                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.typed else'string')
             following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
             steps,elisions=local_effect_plan(generated,expected,graph_tables)
             following_driver.policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,

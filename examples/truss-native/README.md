@@ -403,6 +403,22 @@ The example does not provision roles, create an installation, or migrate an olde
 Truss runtime. The selected documents must be supported by Truss's current catalog
 profile. Preparation does not imply acceptance; unsupported content can refuse.
 
+For the current Truss 0.44 source-custody adapter, install Ashlar's pinned local
+Truss extra from Truss's documented wheel channels (including its PostgreSQL
+18.6 native runtime):
+
+```sh
+python -m pip install --only-binary=:all: \
+  --find-links https://github.com/DocumentDrivenDX/truss/releases/expanded_assets/v0.0.44 \
+  --find-links https://github.com/DocumentDrivenDX/pgserver/releases/expanded_assets/pg18.6-pgv0.8.6-r2 \
+  '.[truss-local]'
+```
+
+This current evidence path reads report 0.6, the complete catalog view wire
+0.2.0/profile 0.4, and exact accepted UMF 0.10 source bytes through Truss's
+public API. The earlier 0.7/0.8 archive-based admission path remains qualified
+separately.
+
 Create an operator-private JSON file (for example mode 0600):
 
 ```json

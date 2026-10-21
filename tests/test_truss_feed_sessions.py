@@ -83,6 +83,28 @@ class Tests(unittest.TestCase):
         checkpoint['previous']=checkpoint['position']
         with self.assertRaises(ValueError):progress_union({},checkpoint)
 
+    def test_current_graph_profile_requires_actual_admission_and_matching_sessions(self):
+        from ashlar_host.driver import NativeDriver
+        from ashlar_host.truss_graph_admission import TrussGraphAdmission,CURRENT_PROFILE
+        owner,_,context,_,_,_,_=self.setup_case()
+        facts={'profile':CURRENT_PROFILE,'qualification':'Unit current accepted catalog admission',
+            'feed':owner.feed,'epoch':owner.batch().epoch,'source_transaction_sha256':owner.page.sha256}
+        with closing(sqlite3.connect(':memory:'))as db:
+            db.execute('CREATE TABLE local_plan (value TEXT)')
+            transport=SimpleNamespace(db=db)
+            fake=SimpleNamespace(metadata=lambda:facts,admit=lambda change:None)
+            with self.assertRaises(PermissionError):
+                NativeDriver(transport,object(),context,{}, {},(),{},source_admission=fake,
+                    source_sessions=owner,ack_sessions=owner)
+            actual=object.__new__(TrussGraphAdmission)
+            actual.metadata=lambda:facts
+            actual.admit=lambda change:None
+            driver=NativeDriver(transport,object(),context,{}, {},(),{},source_admission=actual,
+                source_sessions=owner,ack_sessions=owner)
+            self.assertIs(driver.source_admission,actual)
+            self.assertIs(driver.source_sessions,owner)
+            self.assertIs(driver.ack_sessions,owner)
+
     def test_same_transaction_can_have_a_new_safe_frontier_observation(self):
         owner,request,context,events,_,_,_=self.setup_case()
         with patch.object(TrussFeedSessions,'_read',return_value=replace(owner.page,safe_watermark_xid='90')):

@@ -6,9 +6,11 @@ from .publication import ResolutionError
 from .schema import _json
 from .weft_decode import decode_exact_scalar
 
+CURRENT_SDK_PAGES_BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.2.0-local-spark4.2-pages-candidate','interfaceVersion':'weft-backend/0.2.7','targetProfile':'spark4.2.0-delta4.4.1-candidate'}
 SDK_BACKENDS=(
  {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-sdk-candidate','interfaceVersion':'weft-backend/0.2.8','targetProfile':'spark4.0.1-delta4.0.0-sdk-candidate'},
  {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-sdk-pages-candidate','interfaceVersion':'weft-backend/0.2.8','targetProfile':'spark4.0.1-delta4.0.0-sdk-candidate'},
+ CURRENT_SDK_PAGES_BACKEND,
 )
 
 @dataclass(frozen=True)

@@ -1,0 +1,35 @@
+{
+  "scope": "Installed-wheel bounded current UMF0.10 JSONL workflow; no protected source ACK or production claim",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "mac_version": "27.0.1",
+    "python": "3.12.14"
+  },
+  "publication_ordinals_completed": [
+    1,
+    2,
+    3
+  ],
+  "exact_replay": {
+    "passed": true,
+    "all_six_heads_unchanged": true,
+    "heads": {
+      "object_current": 3,
+      "edge_current": 5,
+      "tombstone": 3,
+      "whole_source_history": 4,
+      "attempts": 16,
+      "manifest": 4
+    },
+    "seconds": 35.45
+  },
+  "singleton_reads": {
+    "retained_ordinal1_person2_exists": true,
+    "retained_person2_quantity_absent": true,
+    "current_ordinal3_person2_absent": true,
+    "current_person1_integer": "9007199254740993",
+    "unknown_retained_extension_preserved": true
+  },
+  "native_query_qualification": "pending updated current compiler path install and runs"
+}

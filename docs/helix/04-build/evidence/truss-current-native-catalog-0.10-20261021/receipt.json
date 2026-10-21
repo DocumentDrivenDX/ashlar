@@ -1,0 +1,71 @@
+{
+  "profile": "ashlar-truss-current-core-010-catalog-page-publication/0.1",
+  "outcome": "completed",
+  "qualification": {
+    "truss_toolkit": "0.0.44",
+    "source_umf": "0.10.0",
+    "source_document_id": "typed-graph-example",
+    "source_revision": "ashlar-current-native-r1",
+    "accepted_original_source_sha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "accepted_report_interface": "truss-catalog-registration-report/0.6",
+    "accepted_report_sha256": "0c24c223606489a2d5df37ed19744ae5f4ed065c39c44c956381abce47b5ec63",
+    "catalog_view_interface": "truss-catalog-view/0.2.0",
+    "complete_catalog_view_profile": "truss-complete-catalog-view/0.4",
+    "catalog_view_sha256": "9857e981688334c76ab72524e25d67e7fec0376e8b97a3451b550aaa04b16796"
+  },
+  "candidate": {
+    "distribution": "ashlar-graph-toolkit",
+    "wheel_sha256": "370d310e18489b586d15588a8a1aaab6e5ebf55cf396b38a467d922cb892c132"
+  },
+  "runtime": {
+    "postgresql_server": "18.6",
+    "pyspark": "4.2.0",
+    "delta_spark": "4.4.1",
+    "jdk": "21",
+    "delta_jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "spark_profile": "ashlar-configured-local-runtime/0.2"
+  },
+  "source_page": {
+    "page_sha256": "5eb9680d6ee18cd9203cbb77153cfe10ff6987711b23c830cad4c8bfae9a9053",
+    "archive_sha256": "ca254584fbbdc9bb41be4dc115f0051ecafa0a1df89e5c0103fa431953287ca1",
+    "writer_xid": "758",
+    "outcome": "transaction",
+    "acknowledged_next_xid": "759",
+    "acknowledged": true,
+    "ack_scope": "Consumer-verified destination receipt followed by exact source-retained receipt ACK; caller commit completed. No history release or production authority qualification."
+  },
+  "publication": {
+    "request_digest": "a894df8afc6f8986b97389b5082e9a492ce31a90fb782c9a8ec235a0cdadf629",
+    "publication_id": "truss-graph-a894df8afc6f8986b97389b5082e9a492ce31a90fb782c9a8ec235a0cdadf629",
+    "intent_sha256": "092b052b9a78e31ea321f186120a40a053eec3fcb9651863add3215aebfe6cdf",
+    "manifest_profile": "ashlar-delta/0.3",
+    "data_role_versions": {
+      "local.trussgraph.edge_current": 1,
+      "local.trussgraph.object_current": 1,
+      "local.trussgraph.tombstone": 1,
+      "local.trussgraph.whole_source_history": 1
+    },
+    "native_target_inventory": {
+      "attempts": {"uuid": "cc0d9e0c-5b07-413a-b29e-dba12cd278fd", "version": 6},
+      "edge_current": {"uuid": "835eee13-59e1-450e-90c6-d25350c35459", "version": 1},
+      "manifest": {"uuid": "f0afd038-8dab-4c10-b17a-7f34e9706b78", "version": 2},
+      "object_current": {"uuid": "62e7e0af-3ff3-42f9-a1e3-4607eccb4814", "version": 1},
+      "tombstone": {"uuid": "4f0a2691-7e1b-4c3c-99f2-53fbf12f80c6", "version": 1},
+      "whole_source_history": {"uuid": "ec7c2669-1a41-40f8-9e58-03f443b889ca", "version": 1}
+    },
+    "native_inventory_observation": "Captured from Delta detail/history before Spark shutdown. The manifest vector contains exactly the four data roles; attempts and manifest are separate coordination targets."
+  },
+  "execution": {
+    "elapsed_seconds": 45.639,
+    "postgresql_stopped": true,
+    "postmaster_pid_absent": true,
+    "live_connection_and_configuration_removed": true,
+    "subsequent_feed_pages_run": 0,
+    "private_evidence_root": "/private/tmp/ashlar-current-native-20261021/delta-current-catalog-genesis-retry-20261021",
+    "private_supervisor_log": "/private/tmp/ashlar-current-native-20261021/catalog-genesis-retry-supervisor.log"
+  },
+  "scope": "One actual current Truss 0.0.44 / UMF 0.10 accepted catalog page, admitted by the current Ashlar graph profile and published to a fresh private local Delta destination before source receipt ACK. No entity page, evolution, Unity Catalog, or production authority qualification."
+}

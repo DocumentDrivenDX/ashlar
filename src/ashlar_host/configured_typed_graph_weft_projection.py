@@ -7,14 +7,14 @@ with required STRING grouping and distinct authored terminal-key tuples.
 Broader IR requires separate
 admission; public artifact/guard admission remains a distinct prerequisite.
 """
-import hashlib,json
+import hashlib,json,re
 from ashlar.schema import decode_retained_json
 from ashlar.typed_graph_source_config import TypedGraphJsonlConfiguration
 from ashlar.typed_graph_source import TypedGraphSourcePolicy
 from ashlar.weft_binding import LAYOUT_SHA256
 from .configured_local_read import ConfiguredLocalRead
 from .configured_typed_graph_weft_binding import configured_typed_graph_count_star_request
-from .count_star_admission import BACKEND
+from .count_star_admission import BACKEND,CURRENT_BACKEND
 from .delta_custody import encoded
 
 STRING={'family':'string','facets':{},'nullable':False}
@@ -38,9 +38,15 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
     def rebuilt():return configured_typed_graph_count_star_request(configuration,dict(scope.descriptor.raw),scope.vector,scope.manifest_uuid,aliases,request['sql'],layout_sha256=LAYOUT_SHA256)
     _require(rebuilt()==request)
     pins=[m['pin']for m in request['modules']]
-    _require(artifact.get('status')=='compiled'and artifact.get('backend')==dict(BACKEND)and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
-    plan=artifact.get('logicalPlan');_require(type(plan)is dict and set(plan)in (_IR,_IR|{'pathExpansion'}) and plan['irVersion']=='weft-ir/0.4.1'and plan['modulePins']==pins and type(plan['aggregate'])is bool)
-    _require(all(plan[k]==[]for k in ('filters','joins','order'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
+    request_target=request.get('target',{})
+    current=all(request_target.get(k)==CURRENT_BACKEND[k]for k in ('backendId','backendVersion','targetProfile'))
+    expected_backend=dict(CURRENT_BACKEND if current else BACKEND)
+    _require(artifact.get('status')=='compiled'and artifact.get('backend')==expected_backend and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
+    plan=artifact.get('logicalPlan')
+    allowed_ir={frozenset(_IR),frozenset(_IR|{'pathExpansion'})}
+    if current:allowed_ir|={frozenset(_IR|{'having'}),frozenset(_IR|{'pathExpansion','having'})}
+    _require(type(plan)is dict and frozenset(plan)in allowed_ir and plan['irVersion']=='weft-ir/0.4.1'and plan['modulePins']==pins and type(plan['aggregate'])is bool)
+    _require(all(plan[k]==[]for k in ('filters','joins'))and all(plan[k]is None for k in ('limit','pageKey','readProfile')))
     scan=plan['source'];_require(type(scan)is dict and set(scan)=={'occurrence','pin','record'}and type(scan['occurrence'])is str and bool(scan['occurrence'])and scan['pin']in pins)
     records=[r for r in binding['records']if r['logical']==scan['record']];_require(len(records)==1);record=records[0]
     tid=record['typeId'];_require(tid in configuration.bindings and record['kind']=='object'and record['sourceSystem']==configuration.source_system and record['schemaRevision']==configuration.document_revision)
@@ -93,6 +99,35 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
         group_homes.append(field_home(record,identity));type_graph[marker]={'availability':'required','identity':identity,'kind':'scalar','type':STRING}
     if groups:capabilities.update(('group','type.string'))
     if count:capabilities.add('aggregate')
+    order=plan['order'];_require(type(order)is list and len(order)<=16)
+    ordered_identities=[]
+    for item in order:
+        _require(type(item)is dict and set(item)=={'identity','scan','span','type'}
+            and item['scan']==scan['occurrence']and item['type']==STRING and encoded(item['identity'])in group_identities)
+        span=item['span'];_require(type(span)is dict and set(span)=={'start','end'}and type(span['start'])is int and type(span['end'])is int
+            and 0<=span['start']<=span['end']<=len(request['sql'].encode()))
+        ordered_identities.append(encoded(item['identity']))
+    _require(len(set(ordered_identities))==len(ordered_identities))
+    having_threshold=None
+    if current:
+        having=plan['having'];_require(type(having)is list and len(having)<=1)
+        if having:
+            _require(count and bool(groups)and len(having)==1 and type(having[0])is dict and set(having[0])=={'count','threshold'}
+                and having[0]['count']=={'op':'count','type':INTEGER})
+            threshold=having[0]['threshold'];_require(type(threshold)is dict and set(threshold)=={'kind','span','type','value'}
+                and threshold['kind']=='literal'and threshold['type']==INTEGER and type(threshold['value'])is str
+                and re.fullmatch('0|[1-9][0-9]{0,18}',threshold['value'])is not None)
+            threshold_span=threshold['span'];sql_bytes=request['sql'].encode('utf-8')
+            _require(type(threshold_span)is dict and set(threshold_span)=={'start','end'}and type(threshold_span['start'])is int
+                and type(threshold_span['end'])is int and 0<=threshold_span['start']<threshold_span['end']<=len(sql_bytes)
+                and sql_bytes[threshold_span['start']:threshold_span['end']].decode('utf-8')==threshold['value'])
+            having_threshold=int(threshold['value']);_require(having_threshold<2**63)
+            capabilities.add('aggregate.havingCountStarGreater')
+        if order:
+            _require(ordered_identities==[encoded(group['identity'])for group in groups])
+            capabilities.add('order.asc')
+    else:
+        _require(not order)
     for position,(output,column)in enumerate(zip(outputs,columns),1):
         _require(type(output)is dict and set(output)=={'expression','name'}and type(output['name'])is str and bool(output['name'])and output['name']not in output_names);output_names.add(output['name'])
         expression=output['expression'];_require(type(expression)is dict)
@@ -158,7 +193,13 @@ def configured_typed_graph_projection_oracle(scope,request,artifact):
             for index,row in enumerate(roots):
                 props=decode_retained_json(row['props_json'].encode());_require(all(type(props.get(pid))is str for pid in group_homes))
                 group=tuple(props[pid]for pid in group_homes);buckets.setdefault(group,[]).append(index)
-            for group,indexes in buckets.items():
+            selected_buckets=list(buckets.items())
+            if ordered_identities:
+                positions={encoded(group['identity']):position for position,group in enumerate(groups)}
+                order_positions=[positions[identity]for identity in ordered_identities]
+                selected_buckets.sort(key=lambda item:tuple(item[0][position].encode('utf-8')for position in order_positions))
+            for group,indexes in selected_buckets:
+                if having_threshold is not None and len(indexes)<=having_threshold:continue
                 values=[]
                 for kind,selection in plans:
                     if kind=='field':values.append(group[group_homes.index(selection)])

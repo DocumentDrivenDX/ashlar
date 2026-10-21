@@ -11,7 +11,7 @@ from .delta_custody import encoded
 
 STRING={'family':'string','facets':{},'nullable':False}
 _IR={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
-_BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate','interfaceVersion':'weft-backend/0.2.7','targetProfile':'spark4.0.1-delta4.0.0-candidate'}
+_BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.2.0-local-spark4.2-pages-candidate','interfaceVersion':'weft-backend/0.2.7','targetProfile':'spark4.2.0-delta4.4.1-candidate'}
 
 def _require(value):
     if not value:raise ValueError('Configured SDK original page oracle refused')

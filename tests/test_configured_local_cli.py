@@ -8,9 +8,10 @@ from ashlar_host import configured_local_cli as command
 class Tests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name).resolve();p=lambda name:str(self.root/name)
-        self.value={'profile':'ashlar-configured-local/0.1','operation':'initialize','ordinal':0,'python':sys.executable,
+        self.value={'profile':'ashlar-configured-local/0.2','operation':'initialize','ordinal':0,'python':sys.executable,
             'installation':p('installation'),'installation_id':'configured-test','installation_sha256':None,'output':p('output'),
-            'jars':p('jars'),'java_home':p('java'),'source_configuration':p('source.json'),'stream':'original-stream',
+            'jars':p('jars'),'jar_inventory':{'delta-spark_4.2_2.13-4.4.1.jar':'a'*64,'delta-storage-4.4.1.jar':'b'*64},
+            'java_home':p('java'),'source_configuration':p('source.json'),'stream':'original-stream',
             'materialization_clock_us':'1791547200000000','operation_capacity':None,
             'producer':{'source':p('umf'),'bun':p('bun'),'git':p('git'),'timeout_seconds':30,'maximum_output_bytes':1048576,'maximum_receipt_bytes':1048576},
             'bounds':{'whole_seconds':300,'stream_bytes':1048576,'receipt_bytes':262144,'maximum_admission_receipt_bytes':1048576}}
@@ -29,7 +30,7 @@ class Tests(unittest.TestCase):
         envelope={'profile':'ashlar-configured-local-worker/0.1','configuration_sha256':hashlib.sha256(self.raw).hexdigest(),'status':status,'result':result}
         return command._encoded(envelope),b'private bounded diagnostic'
     def test_owned_worker_closing_precedes_final_report(self):
-        answer={'profile':'ashlar-configured-local-initialized/0.1','installation_id':'configured-test','operation':'initialize','installation_sha256':'a'*64,'installation':{},'published':False,'protected_ack':False}
+        answer={'profile':'ashlar-configured-local-initialized/0.2','installation_id':'configured-test','operation':'initialize','installation_sha256':'a'*64,'installation':{},'published':False,'protected_ack':False}
         with patch.object(command,'capture_process',side_effect=lambda *a,**k:self.capture(answer))as capture:
             self.assertEqual(command.run_configured_local_command(self.file),answer)
         config=capture.call_args;self.assertIn('ashlar_host.configured_local_cli',config.args[0])
@@ -99,6 +100,15 @@ class Tests(unittest.TestCase):
             elif kind=='rows':changed['query']['rows']*=2
             else:changed['query']['protocol']['recompiled']='different'
             with self.subTest(kind=kind),self.assertRaises(ValueError):command._result(config,changed)
+    def test_query_selects_the_separate_current_weft_candidate_index(self):
+        from ashlar.weft_current_distribution import CurrentWeftDistributionPaths
+        value=self.query_value();value['query']['sql']='SELECT p.person_key FROM Person p'
+        value['query']['compiler']={'profile':'ashlar-weft-current-candidate/0.1','index':str(self.root/'current-index.json')}
+        config=command.parse_configured_local(json.dumps(value).encode())
+        self.assertIs(type(config.query.compile.paths),CurrentWeftDistributionPaths)
+        self.assertEqual(config.query.compile.paths.index,self.root/'current-index.json')
+        value['query']['compiler']['extra']='unselected'
+        with self.assertRaises(ValueError):command.parse_configured_local(json.dumps(value).encode())
     def test_query_worker_dispatches_exact_typed_selection(self):
         value=self.query_value();raw=json.dumps(value).encode();self.file.write_bytes(raw);digest=hashlib.sha256(raw).hexdigest()
         answer=self.query_answer(value['query']['sql'])

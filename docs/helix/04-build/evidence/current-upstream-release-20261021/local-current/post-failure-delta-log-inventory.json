@@ -1,0 +1,125 @@
+{
+  "scope": "Read-only local Delta JSON log inventory after failed first publication; native workers stopped; no publication/recovery success inferred",
+  "tables": {
+    "object_current": [
+      {
+        "version": 0,
+        "sha256": "2e2ab9e90e07735834fc7c32f8950e357c8bf8317a7e9fb094302c4a3cd44ab1",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "32ebe1f653f5ec6065a5331dd37ece880e5bfe8647316f33f2be1150bd31a5c4",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ],
+    "edge_current": [
+      {
+        "version": 0,
+        "sha256": "c9bb70d52da9cbdc3dcbdc4e1fda799a8d53e62cc2d5912d57dc49163e6f1646",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "4e31e13fad7548b0304eeb5a4a2cab0308f7f1edab75d3720862f3f37fe1dc84",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ],
+    "tombstone": [
+      {
+        "version": 0,
+        "sha256": "212342b97bddb000e74cf444af86465734f12b5c929c5b5d09d3dae988b51593",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "9a9135c5caa9803297728ba2d7603fbd250b0a128506e0b7124d08819b291f57",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ],
+    "whole_source_history": [
+      {
+        "version": 0,
+        "sha256": "cf4efcb1b8fff66c03d552d69d40c7f5b4fd5142ae06fcabd0e25da72382c0c6",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "0dd9a015bfea3787cf86a558e27a27647e409b6ab252f391784710e592e59dc7",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ],
+    "attempts": [
+      {
+        "version": 0,
+        "sha256": "cbb0d75dd56944dbcda8e69a3d702b404345b3672774497ae36f971fc4389d5f",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "90019a5d8f611ed0a8f168dc4bf3a220a41b3dbe4499fc238ffa066b0cda4418",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ],
+    "manifest": [
+      {
+        "version": 0,
+        "sha256": "698995b9459d42162f10b74863c634acaf9e8ea2d8491e82ba7493255fe0aa2b",
+        "operations": [
+          "CREATE TABLE"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      },
+      {
+        "version": 1,
+        "sha256": "37e054b95ff897dd8b7befac4e53c8805bc7b010a227455ae270661b81ef8057",
+        "operations": [
+          "SET TBLPROPERTIES"
+        ],
+        "data_adds": 0,
+        "data_removes": 0
+      }
+    ]
+  }
+}

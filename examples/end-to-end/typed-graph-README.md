@@ -2,7 +2,7 @@
 
 Use [configured-typed-graph-source.json](configured-typed-graph-source.json) with
 a separate fresh configured-local installation and a clean public UMF core 0.10 checkout
-at `a251ea5f876b7c69ef5e429af43621852242d324`. Its explicit
+at `2ede4c879bea5db13794a6fa30e67c821306c17f`. Its explicit
 `ashlar-jsonl-typed-graph-source/0.1` configuration pins the original model, event
 bytes and development bindings. Preserve all three inputs; do not relabel an
 existing scalar installation or change its producer revision.

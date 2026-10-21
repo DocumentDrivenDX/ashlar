@@ -10,6 +10,6 @@ SDK_VERSIONS = MappingProxyType({
     'opentelemetry-semantic-conventions': '0.66b1',
     'opentelemetry-exporter-http-transport': '0.66b1',
     'opentelemetry-exporter-otlp-common': '0.66b1',
-    'protobuf': '6.33.6', 'requests': '2.33.0', 'urllib3': '2.8.0',
-    'idna': '3.15', 'certifi': '2025.10.5', 'charset-normalizer': '3.4.3',
-    'googleapis-common-protos': '1.75.0', 'typing-extensions': '4.15.0'})
+    'protobuf': '7.36.2', 'requests': '2.34.2', 'urllib3': '2.8.0',
+    'idna': '3.20', 'certifi': '2026.10.19', 'charset-normalizer': '3.5.2',
+    'googleapis-common-protos': '1.75.5', 'typing-extensions': '4.16.0'})

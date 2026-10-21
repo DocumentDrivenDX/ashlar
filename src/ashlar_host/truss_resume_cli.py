@@ -138,7 +138,8 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
     sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context,**({'destination_receipts':True,'destination_id':config['destination_id']}if 'destination_id'in config else {}))
-    admission = TrussGraphAdmission(sessions.batch(),read_historical_catalog_views(connection,sessions.batch(),archives))
+    from .truss_catalog_reader import read_graph_catalog_evidence
+    admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection,sessions.batch(),archives))
     lease = PrivateFiniteLease(publication,create=False)
     try:
         with owned_context(open_commerce_export_spark(jars,warehouse)) as spark:

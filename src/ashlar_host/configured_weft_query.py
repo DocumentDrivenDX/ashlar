@@ -18,6 +18,9 @@ from .configured_weft_compile import ConfiguredWeftCompileConfig,compile_configu
 from .count_star_execution import CountStarExecutionConfig,execute_commerce_count_star
 from .delta_custody import encoded
 from .lifecycle import finish
+from .count_star_admission import CURRENT_BACKEND
+from .configured_local_runtime_profile import JAR_SHA256,PARAMETER_SUBSTITUTION_SETTING
+from pathlib import Path
 
 
 def _require(value):
@@ -40,6 +43,7 @@ class ConfiguredWeftProvider:
         self.scope,self.aliases,self.context=scope,aliases,scope.context
         self.driver=_ConfiguredQueryDriver(scope.transport)
         self.request_json=encoded(request);self.active=False;self.closed=None
+        self.current_profile=all(request.get('target',{}).get(k)==CURRENT_BACKEND[k]for k in ('backendId','backendVersion','targetProfile'))
         self.session=scope.transport.spark.sparkContext.applicationId
         self._sealed=True
 
@@ -48,10 +52,17 @@ class ConfiguredWeftProvider:
                  and self.aliases.scope is self.scope and self.context is self.scope.context)
         self.scope.renew();self.aliases.renew()
         spark=self.scope.transport.spark
-        _require(spark.version=='4.0.1'and spark.sparkContext.master=='local[1]'and spark.sparkContext.applicationId==self.session
+        expected='4.2.0'if self.current_profile else '4.0.1'
+        _require(spark.version==expected and spark.sparkContext.master=='local[1]'and spark.sparkContext.applicationId==self.session
                  and spark.conf.get('spark.sql.session.timeZone')=='UTC'
                  and spark.conf.get('spark.sql.ansi.enabled')=='true'
-                 and spark.conf.get('spark.sql.decimalOperations.allowPrecisionLoss')=='false')
+                 and spark.conf.get('spark.sql.decimalOperations.allowPrecisionLoss')=='false'
+                 and (not self.current_profile or spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true'))
+        if self.current_profile:
+            jars=[Path(p) for p in spark.conf.get('spark.jars').split(',')]
+            _require({p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in jars}==JAR_SHA256)
+            from .configured_local_runtime import _verify_loaded_delta_jar
+            _verify_loaded_delta_jar(spark,jars)
 
     def resolve(self,context):
         self.runtime(context);scope=self.scope

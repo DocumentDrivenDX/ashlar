@@ -491,6 +491,62 @@ unknown groups/options and invalid finite bounds MUST refuse before effects.
 | Native runtime/JAR locations and writer/exclusivity/retention ports | Operator locations/authority; developer runtime/hash profile | Exact selected Python3.11 native profile, independent authority; portable core remains3.9 |
 | Input/receipt/report/result limits, deadlines and diagnostics | Developer admissible ceilings; operator finite selections | Typed non-bool bounds, no silent truncation, CONTRACT-006 privacy/loss; no unimplemented hard native deadline claim |
 
+### Fresh current-core two-source acceptance amendment
+
+The separate proposed `ashlar-current-core-two-source/0.2` profile is a fresh
+current UMF core `0.10.0` and Truss `0.0.44` workflow. It MUST NOT continue,
+relabel or use completed ordinals from the original UMF 0.8
+`ashlar-commerce-evolution-transactions/0.1` installation. Its two source
+registrations A and B MUST each have an independently accepted Truss source
+installation, feed, epoch, source namespace, original transaction inventory,
+ordinary source session and protected ACK scope. A/B are workflow labels only;
+the native source identities MUST remain distinct even where local entity IDs,
+revision numbers or feed positions overlap.
+
+The exact eight-slot request schedule MUST be frozen and content-pinned from
+actual accepted Truss catalog, mutation and complete feed evidence before any
+native publication attempt. That schedule MUST identify every original request,
+source, source position, event-byte inventory, admitted model/schema revision
+and expected source-specific progress. It MUST be retained with the new
+installation's journal and complete table UUID registry. No draft example,
+synthetic source fixture, partial catalog response or old `native-r2` prefix may
+fill a missing slot. An incomplete or changed schedule MUST refuse before native
+graph publication effects.
+
+Each complete source transaction MUST publish one immutable full table-version
+vector and both source progress entries. Protected durable ACK MAY advance only
+for that source after its transaction is durably published and independently
+verified. A later transaction from the other source MUST NOT collapse, overwrite
+or acknowledge the first source's custody. Exact replay/restart MUST recover
+from the original journal and accepted feed positions, preserve old retained
+publication reads and produce no extra native commit. An uncertain native
+submission or missing original journal MUST withhold publication and ACK until
+reconciled under the ordinary recovery rules. A breaking evolution candidate
+MUST refuse before effects and ACK. Completion requires all eight frozen slots,
+current source/ACK readback, complete native vectors and closing admission; a
+partial prefix remains incomplete evidence.
+
+### Proposed managed current-core source and publication owner
+
+The separate proposed `ashlar-managed-current-core/0.1` profile MUST begin with
+actual current UMF core `0.10.0` accepted source and an explicitly selected
+Truss `0.0.44` installation, registration, feed, epoch, ordinary consumer and
+destination receipt scope. A development JSONL selection, local Spark journal
+or old UMF 0.7 managed publication MUST NOT supply its source authority. The
+owner MUST retain complete original catalog/source/page bytes and accepted
+identities, prepare the exact request and native effect intent durably, and
+publish one immutable complete Unity Catalog Delta table vector with schema
+revision and source progress before requesting the exact protected ACK. A
+catalog-only transaction is a zero-graph-effect publication, not a skipped
+source position. Replay, uncertain submission, restart and ACK reconciliation
+MUST use the original intents and receipts without a replacement commit.
+
+Configuration MUST select the target catalog/schema, source registration and
+ordinary principal explicitly. Until an independently observed UC installation,
+native runtime and source/ACK owner match that selection, the profile MUST
+refuse before publication or ACK. The selected dedicated compute, resource and
+cost ceilings remain open R05 inputs; this clause grants no production support.
+
 ## Explicit original-commerce publication source
 
 The separately selected original-commerce publication host MUST accept explicit

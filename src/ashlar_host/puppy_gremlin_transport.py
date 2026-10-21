@@ -12,7 +12,7 @@ from .lifecycle import finish
 
 
 def require_gremlin_runtime():
-    if version('gremlinpython')!='3.7.3':raise ValueError('Explicit GremlinPython3.7.3 GraphSON runtime required')
+    if version('gremlinpython')!='3.8.2':raise ValueError('Explicit GremlinPython3.8.2 GraphSON runtime required')
 
 
 def passive_rows(value,*,count_fields=(),maximum_bytes=1048576):

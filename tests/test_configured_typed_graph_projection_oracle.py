@@ -16,7 +16,7 @@ from ashlar_host.configured_source_local import open_configured_local_source
 from ashlar_host.configured_local_read import open_configured_local_read
 from ashlar_host.configured_typed_graph_weft_binding import configured_typed_graph_count_star_request
 from ashlar_host.configured_typed_graph_weft_projection import configured_typed_graph_projection_oracle,STRING,INTEGER
-from ashlar_host.count_star_admission import BACKEND
+from ashlar_host.count_star_admission import BACKEND,CURRENT_BACKEND
 from ashlar_host.delta_custody import LocalDeltaTransport,encoded,sha
 from ashlar_host.file_progress import JournaledJsonlProgress
 from ashlar_host.managed_carriers import load_managed_carriers
@@ -31,9 +31,11 @@ def inert_receipt(config,request):
     warnings=[{'code':code,'path':'/identity','message':message,'severity':'warning'}for code,message in [('RECORD_KEY_CONTEXT_REQUIRED','Dataset key equality/uniqueness needs a separately qualified check'),('RECORD_RELATIONSHIP_CONTEXT_REQUIRED','Relationship/endpoint constraints need a separately qualified dataset check')]]
     def record(item,compact=False):
         members=elements[item['identity']['module'],item['identity']['element']]['members'];values={(v['field']['module'],v['field']['element']):v for v in item['values']}
-        return {'operation':'validate-core-record-values','version':'1.0.0','identity':item['identity'],'values':item['values'],'documentValidation':valid,
+        # The current configured source is pinned to UMF 0.10, whose public
+        # core receipt uses the v2 record and v4 key-tuple contracts.
+        return {'operation':'validate-core-record-values','version':'2.0.0','identity':item['identity'],'values':item['values'],'documentValidation':valid,
             'validation':{'valid':True,'complete':False,'diagnostics':warnings},'fields':[{'field':f,'state':values.get((f['module'],f['element']),{}).get('state','absent'),'validation':valid}for f in members],**({'sourceRef':'#/source'}if compact else{'source':model})}
-    def key(identity,values):return {'operation':'encode-core-key-tuple','version':'3.0.0','profile':'umf-key-tuple-v1','sourceRef':'#/source','identity':identity,'values':values,'keyPath':paths[identity['module'],identity['element'],identity['key']],'bytesHex':'00'}
+    def key(identity,values):return {'operation':'encode-core-key-tuple','version':'4.0.0','profile':'umf-key-tuple-v1','sourceRef':'#/source','identity':identity,'values':values,'keyPath':paths[identity['module'],identity['element'],identity['key']],'bytesHex':'00'}
     groups=[]
     for group in json.loads(request)['groups']:
         records=group['dataset']['records'];keys=[]
@@ -104,10 +106,10 @@ def graph_scope(ordinal):
             finally:transport.db.close()
 
 
-def authored(scope,mode='related',bound=2):
+def authored(scope,mode='related',bound=2,sql='Uninterpreted original SQL'):
     config=scope.source.configuration;model=json.loads(config.model_source)
     aliases={n:'spark_catalog.ashlar_configured_query_test.'+n.split('.')[-1]for n in scope.descriptor.versions}
-    request=configured_typed_graph_count_star_request(config,dict(scope.descriptor.raw),scope.vector,scope.manifest_uuid,aliases,'Uninterpreted original SQL',layout_sha256=LAYOUT_SHA256)
+    request=configured_typed_graph_count_star_request(config,dict(scope.descriptor.raw),scope.vector,scope.manifest_uuid,aliases,sql,layout_sha256=LAYOUT_SHA256)
     binding=json.loads(request['target']['bindingJson']);record=next(r for r in binding['records']if r['typeId']=='17');pin=request['modules'][0]['pin']
     identity=next(p['logical']for p in record['properties']if p['logical']['element']=='person_key');field={'op':'field','identity':identity,'scan':'s0'}
     mapping=next(r for r in binding['relationships']if r['typeId']=='31');definition=mapping['acceptedDefinition'];key={'id':'identity','fields':[identity],'types':[STRING]}
@@ -116,19 +118,23 @@ def authored(scope,mode='related',bound=2):
     count=mode in ('count','path-count');outputs=[{'name':'n'if count else'key','expression':{'op':'count','type':INTEGER}if count else field}]
     columns=[{'nullable':False,'outputName':outputs[0]['name'],'position':1,'representation':{'kind':'scalar','logicalType':INTEGER if count else STRING,'carrier':'text','decoder':'exact-integer'if count else'text'},'sourceIdentities':[record['logical']if count else identity]}]
     caps={'project','scan'}|({'aggregate','aggregate.count'}if count else{'type.string'})
-    plan={'aggregate':count,'filters':[],'groups':[],'irVersion':'weft-ir/0.4.1','joins':[],'limit':None,'modulePins':[pin],'order':[],'outputs':outputs,'pageKey':None,'readProfile':None,'requiredCapabilities':None,'source':{'occurrence':'s0','pin':pin,'record':record['logical']},'typeGraph':[]if count else[{'availability':'required','identity':identity,'kind':'scalar','type':STRING}]}
+    plan={'aggregate':count,'filters':[],'groups':[],'having':[],'irVersion':'weft-ir/0.4.1','joins':[],'limit':None,'modulePins':[pin],'order':[],'outputs':outputs,'pageKey':None,'readProfile':None,'requiredCapabilities':None,'source':{'occurrence':'s0','pin':pin,'record':record['logical']},'typeGraph':[]if count else[{'availability':'required','identity':identity,'kind':'scalar','type':STRING}]}
     if mode=='related':
         caps.add('relationship.boundedKeys');outputs.append({'name':'related','expression':{'op':'relatedKeys','scan':'s0','relationship':relation,'bound':bound}})
         columns.append({'nullable':False,'outputName':'related','position':2,'representation':{'kind':'relatedKeys','relationship':mapping['logical'],'key':key,'bound':bound},'sourceIdentities':[record['logical'],record['logical'],identity]})
     if mode in ('paths','path-count'):
         caps.update(('relationship.pathExpansion','relationship.twoHopPaths'));plan['pathExpansion']={'occurrence':'p0','path':{'startScan':'s0','hops':[relation,copy.deepcopy(relation)],'span':{'start':0,'end':1},'hopSpans':[{'start':0,'end':1},{'start':0,'end':1}]}}
     plan['requiredCapabilities']=sorted(caps)
-    artifact={'status':'compiled','backend':dict(BACKEND),'interfaceVersion':'weft-compile/0.4.1','dialect':'weft-sql/0.4.1','bindingSha256':request['target']['bindingSha256'],'modelPins':[pin],'logicalPlan':plan,'columns':columns}
+    artifact={'status':'compiled','backend':dict(CURRENT_BACKEND),'interfaceVersion':'weft-compile/0.4.1','dialect':'weft-sql/0.4.1','bindingSha256':request['target']['bindingSha256'],'modelPins':[pin],'logicalPlan':plan,'columns':columns}
     return request,artifact
 
 
-def aggregate_authored(scope,*,cross=False,grouped=True,distinct_only=False):
-    request,artifact=authored(scope,'path-count');plan=artifact['logicalPlan'];binding=json.loads(request['target']['bindingJson'])
+def aggregate_authored(scope,*,cross=False,grouped=True,distinct_only=False,having_threshold=None):
+    sql='Uninterpreted original SQL'
+    if having_threshold is not None:
+        sql='SELECT p.person_key, COUNT(*) AS paths, COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key HAVING COUNT(*) > '+str(having_threshold)+' ORDER BY p.person_key'
+        cross=True
+    request,artifact=authored(scope,'path-count',sql=sql);plan=artifact['logicalPlan'];binding=json.loads(request['target']['bindingJson'])
     path=plan['pathExpansion']['path'];root=plan['source']['record'];identity=next(p['logical']for r in binding['records']if r['logical']==root for p in r['properties']if p['logical']['element']=='person_key')
     if cross:
         mapping=next(r for r in binding['relationships']if r['typeId']=='32');target=next(r for r in binding['records']if r['logical']==mapping['target'])
@@ -148,6 +154,12 @@ def aggregate_authored(scope,*,cross=False,grouped=True,distinct_only=False):
     if not distinct_only:
         caps.add('aggregate.count');add('paths',{'op':'count','type':INTEGER},scalar(INTEGER,'exact-integer'),[root])
     add('targets',{'op':'countDistinctPathTargets','pathOccurrence':'p0','type':INTEGER},dict(scalar(INTEGER,'exact-integer'),pathTarget={'pathOccurrence':'p0','record':terminal['to'],'key':terminal['targetKey']}),[terminal['to'],*terminal['targetKey']['fields']])
+    if having_threshold is not None:
+        token=str(having_threshold);start=sql.index('HAVING COUNT(*) > ')+len('HAVING COUNT(*) > ')
+        plan['having']=[{'count':{'op':'count','type':INTEGER},'threshold':{'kind':'literal','span':{'start':start,'end':start+len(token)},'type':INTEGER,'value':token}}]
+        order_start=sql.rindex('p.person_key')
+        plan['order']=[{'identity':identity,'scan':'s0','span':{'start':order_start,'end':order_start+len('p.person_key')},'type':STRING}]
+        caps.update(('aggregate.havingCountStarGreater','order.asc'))
     plan['outputs']=outputs;artifact['columns']=columns;plan['requiredCapabilities']=sorted(caps)
     return request,artifact
 
@@ -185,6 +197,9 @@ class Tests(unittest.TestCase):
                 self.assertEqual(execute(grouped=False,distinct_only=True)['rows'],[['2']]if ordinal==1 else[['1']])
                 self.assertEqual(len(same['witnesses']['path_occurrences']),3 if ordinal==1 else 1)
                 request,artifact=aggregate_authored(scope)
+                self.assertEqual(artifact['backend'],dict(CURRENT_BACKEND))
+                historical=copy.deepcopy(artifact);historical['backend']=dict(BACKEND)
+                with self.assertRaises(ValueError):configured_typed_graph_projection_oracle(scope,request,historical)
                 for mutation in ('target','group-type','group-field','occurrence'):
                     bad=copy.deepcopy(artifact)
                     if mutation=='target':
@@ -193,6 +208,17 @@ class Tests(unittest.TestCase):
                     elif mutation=='group-field':bad['logicalPlan']['groups'][0]['identity']['element']='quantity'
                     else:bad['logicalPlan']['outputs'][-1]['expression']['pathOccurrence']='foreign'
                     with self.subTest(ordinal=ordinal,mutation=mutation),self.assertRaises(ValueError):configured_typed_graph_projection_oracle(scope,request,bad)
+
+    def test_current_grouped_path_having_and_order_use_original_source(self):
+        with graph_scope(1)as scope:
+            for threshold,expected in ((0,[['person-1','2','1']]),(2,[])):
+                request,artifact=aggregate_authored(scope,having_threshold=threshold)
+                oracle=configured_typed_graph_projection_oracle(scope,request,artifact)
+                observed=oracle(scope.source.configuration.model_source,scope.source.original_source,request)
+                with self.subTest(threshold=threshold):self.assertEqual(observed['rows'],expected)
+            request,artifact=aggregate_authored(scope,having_threshold=0)
+            bad=copy.deepcopy(artifact);bad['logicalPlan']['having'][0]['threshold']['span']['start']+=1
+            with self.assertRaises(ValueError):configured_typed_graph_projection_oracle(scope,request,bad)
 
     def test_foreign_request_ir_descriptor_direction_bound_and_source_drift_refuse(self):
         with graph_scope(1)as scope:

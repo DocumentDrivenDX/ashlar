@@ -1,0 +1,77 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/21 14:49:51 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/current-invocations/diagnose_count_query.py", line 8, in <module>
+    result=_worker(configuration,digest)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_cli.py", line 172, in _worker
+    finish(primary,[restore,lambda:original.renew(262144)])
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_cli.py", line 168, in _worker
+    result=query_configured_local(config.runtime,ordinal=config.ordinal,query=config.query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 320, in query_configured_local
+    return _run(config,ordinal,query=query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 292, in _run
+    finish(primary,callbacks)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 272, in _run
+    else:answer=run_configured_local_query(held,transport,query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_query.py", line 72, in run_configured_local_query
+    result=query_configured_projection(scope,aliases,query.sql,query.compile,capture=query.capture,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_weft_query.py", line 130, in query_configured_projection
+    return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_weft_query.py", line 142, in _query
+    original_oracle=configured_typed_graph_projection_oracle(scope,compiled['request'],compiled['response'])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_typed_graph_weft_projection.py", line 41, in configured_typed_graph_projection_oracle
+    _require(artifact.get('status')=='compiled'and artifact.get('backend')==dict(BACKEND)and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_typed_graph_weft_projection.py", line 26, in _require
+    if not value:raise ValueError('Configured typed graph projection subset refused')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Configured typed graph projection subset refused
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/current-invocations/diagnose_count_query.py", line 8, in <module>
+    result=_worker(configuration,digest)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_cli.py", line 172, in _worker
+    finish(primary,[restore,lambda:original.renew(262144)])
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_cli.py", line 168, in _worker
+    result=query_configured_local(config.runtime,ordinal=config.ordinal,query=config.query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 320, in query_configured_local
+    return _run(config,ordinal,query=query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 292, in _run
+    finish(primary,callbacks)
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/lifecycle.py", line 23, in finish
+    raise owner
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_runtime.py", line 272, in _run
+    else:answer=run_configured_local_query(held,transport,query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_local_query.py", line 72, in run_configured_local_query
+    result=query_configured_projection(scope,aliases,query.sql,query.compile,capture=query.capture,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_weft_query.py", line 130, in query_configured_projection
+    return _query(scope,aliases,sql,compile_config,capture=capture,decoder=decoder,observe=observe,original_oracle=None,projection=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_weft_query.py", line 142, in _query
+    original_oracle=configured_typed_graph_projection_oracle(scope,compiled['request'],compiled['response'])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_typed_graph_weft_projection.py", line 41, in configured_typed_graph_projection_oracle
+    _require(artifact.get('status')=='compiled'and artifact.get('backend')==dict(BACKEND)and artifact.get('interfaceVersion')=='weft-compile/0.4.1'and artifact.get('dialect')=='weft-sql/0.4.1'and artifact.get('modelPins')==pins and artifact.get('bindingSha256')==request['target']['bindingSha256'])
+  File "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/ashlar_host/configured_typed_graph_weft_projection.py", line 26, in _require
+    if not value:raise ValueError('Configured typed graph projection subset refused')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Configured typed graph projection subset refused

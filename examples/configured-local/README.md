@@ -1,22 +1,39 @@
 # Publish a configured JSONL source on local Delta
 
-Install the toolkit wheel with its `local-delta` extra into a Python 3.11
-environment. This development profile uses Spark 4.0.1, Delta 4.0.0, one local
-worker and a 512 MiB driver. It does not select cloud compute.
+Install the toolkit wheel with its `local-delta` extra into Python 3.12. This
+configured-local profile uses Spark 4.2.0, Delta 4.4.1 and JDK 21, with one
+local worker and a 512 MiB driver. It does not select cloud compute. The two
+selected JARs are pinned by SHA-256 in the invocation template; a directory may
+also contain the upstream `inventory.json` beside those two JARs.
+The profile pins `spark.sql.legacy.parameterSubstitution.constantsOnly=true`
+before session creation and checks it throughout the held runtime. This Spark
+4.2 compatibility setting preserves bound `:name` parameters across Delta
+relations and parameterized publication statements.
 
 Copy [the invocation template](configuration.template.json) to your own file.
 Replace every example path and installation identity with explicit selections.
-Select the cached `delta-spark_2.13-4.0.0.jar` and `delta-storage-4.0.0.jar` in a
-directory containing exactly those two files. The toolkit verifies their bytes.
-Select a real JDK home, the installed Python executable, and regular Bun/Git
+Select the prescribed Delta 4.4.1 JARs in a directory containing exactly those
+two JARs, optionally with `inventory.json`; the toolkit verifies their bytes.
+Select a JDK 21 home, the installed Python executable, and regular Bun/Git
 executables. For the STRING and scalar typed sources, the UMF checkout must be
 clean at revision `c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3`. The typed graph
 source below selects its own explicit producer revision.
 
+The current template selects the authored typed graph source and UMF producer
+revision `2ede4c879bea5db13794a6fa30e67c821306c17f`. That checkout provides the
+R01 cohort: core `0.10.0`, access `0.1.0.dev5` and codegen `0.1.0a2`. Preserve
+the source's pinned model and its declared version. The prescribed JAR digests
+are `2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be`
+(`delta-spark_4.2_2.13-4.4.1.jar`) and
+`f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f`
+(`delta-storage-4.4.1.jar`).
+
 Use the original configured-source file and its pinned inputs unchanged. The
-committed example contains three complete transactions covering create, update
-and delete; it uses explicit development STRING bindings. The source's original
-byte-offset checkpoints remain separate from batch ordinals.
+committed template selects the original UMF 0.10 typed-graph model and its
+explicit development graph bindings. Its three complete transactions cover
+create, update and delete; the source's original byte-offset checkpoints remain
+separate from batch ordinals. The historical STRING-source workflow is described
+separately below and is not selected by this template.
 
 Create an existing private parent directory owned by you, with no group or world
 write permissions. `installation` and `output` must be separate fresh children;
@@ -79,7 +96,7 @@ unchanged.
 
 Select [configured-typed-graph-source.json](../end-to-end/configured-typed-graph-source.json)
 for a separate fresh installation, using a clean public UMF checkout at
-`07357eadbda9cf8299b9d72d004cbb77f8091aee`. Preserve the pinned model, complete
+`2ede4c879bea5db13794a6fa30e67c821306c17f`. Preserve the pinned model, complete
 source events and explicit bindings unchanged. Follow the same installed CLI
 initialization, publication of ordinals 1 through 3, exact replay and singleton
 read instructions. Keep source, stream, clock and installation selections fixed

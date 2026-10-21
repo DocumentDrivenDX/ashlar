@@ -26,8 +26,20 @@ SCHEMA_SHA256 = MappingProxyType({
     'compile-response-v0.4.1.schema.json': '04dd09885d93fa0aa53152a1b686a01c8303549318b12555364f7b6c564ee8cb',
     'logical-plan-v0.4.1.schema.json': '3e371f1ce3814c9328802c3981483c1ed97f97f34fd3b6767c54ebfec8c083e4',
 })
+CURRENT_SCHEMA_SHA256 = MappingProxyType({
+    'compile-request-v0.4.1.schema.json': 'eadea16ecb850add4dd1a276e417e5659a553d37171ff6ba455668acec7ab13b',
+    'compile-response-v0.4.1.schema.json': 'e6ba09a90a08e7065c134f6ca0958c70da02cedbd843eeab5d608b59ba335be3',
+    'logical-plan-v0.4.1.schema.json': '7e48576b69a688c41894ce033af7bcb9a0792e1346010b4f5b19887ad536112f',
+})
 BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths-keys', backendVersion='0.4.1-count-star-having-candidate',
     interfaceVersion='weft-backend/0.3.0', targetProfile='spark4-delta4-paths-keys-candidate'))
+CURRENT_BACKEND = MappingProxyType(dict(backendId='ashlar.databricks.paths-keys-having',
+    backendVersion='0.4.1-count-star-having-spark4.2-candidate', interfaceVersion='weft-backend/0.3.0',
+    targetProfile='spark4.2.0-delta4.4.1-paths-keys-having-candidate'))
+CURRENT_JAR_HASHES = MappingProxyType({
+    'delta-spark_4.2_2.13-4.4.1.jar': '2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be',
+    'delta-storage-4.4.1.jar': 'f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f',
+})
 
 
 SUPPORTED_CAPABILITIES = frozenset(('scan', 'project', 'filter', 'innerJoin', 'equal', 'and', 'parameter.named', 'compare.lexicographicGreater', 'order.asc', 'limit', 'type.string', 'type.boolean', 'type.integer', 'type.decimal', 'value.presence', 'value.nativeNull', 'predicate.nativeNull', 'compare.nullAwareStringEqual', 'project.positionedOutputs', 'project.distinct', 'compare.less', 'compare.lessEqual', 'compare.greaterEqual', 'compare.notEqual', 'compare.scalarJoin', 'arithmetic.exact.integer', 'arithmetic.exact.decimal', 'arithmetic.+', 'arithmetic.-', 'arithmetic.*', 'arithmetic.negate', 'arithmetic.compareExact', 'type.integer.unbounded', 'aggregate', 'group', 'aggregate.count', 'aggregate.countDistinct', 'aggregate.countDistinct.optional', 'aggregate.havingCountDistinctGreater', 'predicate.stringIn', 'join.left', 'value.outerJoinPresence', 'relationship.twoHopPaths', 'relationship.pathExpansion', 'relationship.inverse', 'result.pathOccurrences', 'aggregate.pathTargetDistinctCount', 'relationship.boundedKeys', 'aggregate.havingCountStarGreater'))
@@ -163,13 +175,15 @@ class CountStarSchemaValidation:
     """
     schemas: Mapping[str, bytes]
     validate: Callable[[Mapping[str, bytes], str, dict], None]
+    profile: str = 'count-star'
 
     def __post_init__(self):
-        _require(callable(self.validate) and set(self.schemas) == set(SCHEMA_SHA256), 'Complete trusted schema port required')
+        expected=SCHEMA_SHA256 if self.profile=='count-star' else CURRENT_SCHEMA_SHA256 if self.profile=='count-star-current' else None
+        _require(expected is not None and callable(self.validate) and set(self.schemas) == set(expected), 'Complete trusted schema port required')
         owned = {}
-        for name, expected in SCHEMA_SHA256.items():
+        for name, digest in expected.items():
             raw = self.schemas[name]
-            _require(type(raw) is bytes and hashlib.sha256(raw).hexdigest() == expected, 'Pinned public schema bytes differ')
+            _require(type(raw) is bytes and hashlib.sha256(raw).hexdigest() == digest, 'Pinned public schema bytes differ')
             owned[name] = raw
         object.__setattr__(self, 'schemas', MappingProxyType(owned))
 
@@ -181,7 +195,8 @@ class CountStarAdmissionConfig:
     profile: str = 'count-star'
 
     def __post_init__(self):
-        _require(type(self.profile) is str and self.profile == 'count-star', 'Explicit supported path profile required')
+        _require(type(self.profile) is str and self.profile in ('count-star','count-star-current'), 'Explicit supported path profile required')
+        _require(self.schema_validation.profile==self.profile,'Matching pinned current or historical schema profile required')
         _require(type(self.maximum_artifact_bytes) is int and 1 <= self.maximum_artifact_bytes <= 16 * 1024 * 1024,
                  'Explicit finite artifact limit required')
         _require(type(self.schema_validation) is CountStarSchemaValidation, 'Trusted pinned schema port required')
@@ -319,7 +334,12 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
     implicit = type(config) is ImplicitArithmeticAdmissionConfig
     if implicit:
         config.__post_init__()
-    backend = dict(IMPLICIT_PROFILE.backend) if implicit else BACKEND
+    raw_target=request.get('target') if type(request)is dict else None
+    current_spark42=(not implicit and type(raw_target)is dict and
+        all(raw_target.get(k)==CURRENT_BACKEND[k] for k in ('backendId','backendVersion','targetProfile')))
+    if not implicit:
+        _require(config.profile==('count-star-current' if current_spark42 else 'count-star'),'Exact selected compiler/schema profile required')
+    backend = dict(IMPLICIT_PROFILE.backend) if implicit else dict(CURRENT_BACKEND if current_spark42 else BACKEND)
     roots = tuple(name for name, _ in IMPLICIT_PROFILE.schemas) if implicit else tuple(SCHEMA_SHA256)
     compile_version = IMPLICIT_PROFILE.compile_version if implicit else 'weft-compile/0.4.1'
     dialect = IMPLICIT_PROFILE.dialect if implicit else 'weft-sql/0.4.1'
@@ -338,7 +358,9 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
     _require(request['interfaceVersion'] == artifact['interfaceVersion'] == compile_version
              and request['dialect'] == artifact['dialect'] == dialect
              and artifact['status'] == 'compiled' and artifact['backend'] == dict(backend), 'Explicit compiled paths profile required')
-    _require(artifact['targetContext']['id'] == backend['targetProfile'] and artifact['targetContext']['engine'] == 'spark-sql' and artifact['targetContext']['engineVersion'] == '4.0.1' and artifact['targetContext']['storageLayoutRevision'] == 'ashlar-delta/0.3' and artifact['targetContext']['publicationRevision'] == 'ashlar-resolver/0.1-candidate', 'Exact declared candidate runtime profile required')
+    engine_version='4.2.0' if current_spark42 else '4.0.1'
+    publication_revision='host-verified-local-spark4.2/0.1' if current_spark42 else 'ashlar-resolver/0.1-candidate'
+    _require(artifact['targetContext']['id'] == backend['targetProfile'] and artifact['targetContext']['engine'] == 'spark-sql' and artifact['targetContext']['engineVersion'] == engine_version and artifact['targetContext']['storageLayoutRevision'] == 'ashlar-delta/0.3' and artifact['targetContext']['publicationRevision'] == publication_revision, 'Exact declared candidate runtime profile required')
     target = request['target']
     _require(all(target[k] == backend[k] for k in ('backendId', 'backendVersion', 'targetProfile')), 'Original selected target differs')
     binding = _parse(target['bindingJson'], config.maximum_artifact_bytes)
@@ -353,7 +375,7 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
         _admit_implicit_labels(request, plan)
     _require(len(request['modules']) == len(artifact['modelPins']), 'Complete original module inventory required')
     for pin in artifact['modelPins']:
-        _require(pin['umfVersion'] in ('0.7.0', '0.8.0'), 'Supported original UMF pin required')
+        _require(pin['umfVersion'] in (('0.10.0',) if current_spark42 else ('0.7.0', '0.8.0')), 'Supported original UMF pin required')
         modules = [m for m in request['modules'] if m['pin'] == pin]
         _require(len(modules) == 1, 'Complete original source module inventory required')
         module = modules[0]
@@ -382,6 +404,7 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
     if expansion:
         paths.append(dict(path=expansion['path'], edgeEncoding='signed64-decimal/0.1'))
     required = {'ashlar.candidate.publication', 'ashlar.candidate.scalarIntegrity'}
+    if current_spark42: required.add('ashlar.nativeProfile')
     if paths:
         required |= {'ashlar.candidate.relationshipIntegrity', 'ashlar.path.occurrenceIntegrity'}
     if keys_collections:
@@ -411,6 +434,7 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
                 'ashlar.candidate.relationshipIntegrity': 'WFT-BINDING', 'ashlar.path.occurrenceIntegrity': 'WFT-BINDING',
                 'ashlar.path.countCapacity': 'WFT-CAPABILITY', 'outerJoin.matchIntegrity': 'WFT-OBLIGATION',
                 'weft.output.positioned': 'WFT-OBLIGATION', 'ashlar.arithmetic.exact': 'WFT-CAPABILITY'}
+    if current_spark42: failures['ashlar.nativeProfile']='WFT-OBLIGATION'
     failures.update({'ashlar.relatedKeys.collectionIntegrity': 'WFT-BINDING', 'ashlar.relatedKeys.ordinalCapacity': 'WFT-CAPABILITY'})
     parameter_keys = {
         'ashlar.candidate.publication': ('layoutRevision', 'layoutSha256', 'modelPins', 'nativeProfile', 'payloadValidation', 'publication', 'publicationPhase', 'requirements', 'visibility'),
@@ -421,6 +445,7 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
         'outerJoin.matchIntegrity': ('noPartialPublication', 'phase', 'samePublicationRequired', 'scans'),
         'weft.output.positioned': ('columns', 'profile'),
         'ashlar.arithmetic.exact': ('checks', 'guardOrder', 'maxScale', 'nativeRepresentation', 'noPartialPublication', 'phase', 'result', 'samePublicationRequired', 'success'),
+        'ashlar.nativeProfile': ('targetProfile','engineVersion','deltaVersion','jdkVersion','deltaJars','settings','requirements','qualification'),
     }
     parameter_keys.update({
         'ashlar.relatedKeys.collectionIntegrity': ('checks', 'collections', 'edgeSchemas', 'noPartialPublication', 'phase', 'samePublicationRequired', 'success'),
@@ -429,13 +454,24 @@ def _admit_selected_artifact(request: dict, artifact: dict, trusted_recompiled: 
         _closed(obligation, ('id', 'owner', 'failureCode', 'parameters'))
         _closed(obligation['parameters'], parameter_keys[name])
         _require(obligation['owner'] == 'host' and obligation['failureCode'] == failures[name], 'Exact owning obligation envelope required')
-        if name == 'ashlar.arithmetic.exact':
+        if name == 'ashlar.nativeProfile':
+            p=obligation['parameters']
+            _require(current_spark42 and p=={
+                'targetProfile':CURRENT_BACKEND['targetProfile'],'engineVersion':'4.2.0','deltaVersion':'4.4.1','jdkVersion':'21',
+                'deltaJars':dict(CURRENT_JAR_HASHES),
+                'settings':{'spark.sql.ansi.enabled':'true','spark.sql.session.timeZone':'UTC','spark.sql.legacy.parameterSubstitution.constantsOnly':'true','comparison':'explicit UTF8_BINARY','resultTransport':'exact native STRING'},
+                'requirements':['verify the actual Spark version, JVM version, selected JAR hashes and loaded Delta API class before any integrity or user SQL',
+                    'retain the same admitted publication context across checks and buffered result publication',
+                    'refuse mismatched or unavailable profile evidence; never choose a different engine or target profile'],
+                'qualification':'candidate target; native publication, authorization and complete pin custody remain mandatory'
+            },'Exact current native profile obligation required')
+        elif name == 'ashlar.arithmetic.exact':
             p = obligation['parameters']
             _require(p.get('phase') == 'before-user-query' and p.get('samePublicationRequired') is True and p.get('noPartialPublication') is True and type(p.get('checks')) is list and bool(p['checks']), 'Complete owning arithmetic guards required')
             for check in p['checks']:
                 _closed(check, ('phase', 'sql'))
                 _require(check['phase'] in ('join-candidates', 'where-candidates', 'projection-survivors', 'aggregate-candidates') and type(check['sql']) is str and bool(check['sql']), 'Original arithmetic phase/check required')
-        elif name not in ('ashlar.candidate.publication', 'outerJoin.matchIntegrity', 'weft.output.positioned'):
+        elif name not in ('ashlar.candidate.publication', 'outerJoin.matchIntegrity', 'weft.output.positioned','ashlar.nativeProfile'):
             _checks(obligation['parameters'], failures[name])
     if 'aggregate.havingCountStarGreater' in capabilities:
         having=plan.get('having')

@@ -1,0 +1,34 @@
+{
+  "scope": "Read-only workspace and exact first-directory paths from retained failed attempts; no PUT, replay, graph create, activation, ACK, or compute request",
+  "observed_utc": "2026-10-21T19:08:12Z",
+  "observations": [
+    {
+      "label": "workspace",
+      "method": "GET",
+      "url": "https://api.fabric.microsoft.com/v1/workspaces/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+      "status": 200,
+      "storage_error_code": null,
+      "workspace": {
+        "id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+        "displayName": "Ashlar Graph Integration",
+        "capacityId": "c69c0329-778f-4446-b529-d43358c73251",
+        "capacityRegion": "West US 3",
+        "capacityAssignmentProgress": "Completed"
+      }
+    },
+    {
+      "label": "lost-response-A",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_held_d88bb30310d4467c990ae1310b8eb608_nodes",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    },
+    {
+      "label": "capacity-refusal-B",
+      "method": "HEAD",
+      "url": "https://onelake.dfs.fabric.microsoft.com/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793/ee66f2e8-9072-4a48-8364-ecd2f2967c3e/Tables/dbo/ashlar_held_f57c9fce97564e20ad5c0fda9798172d_nodes",
+      "status": 404,
+      "storage_error_code": "PathNotFound"
+    }
+  ]
+}

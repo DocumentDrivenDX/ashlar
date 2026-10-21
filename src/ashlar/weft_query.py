@@ -11,12 +11,13 @@ from .pins import PinError
 from .publication import ResolutionError, resolve_publication
 from .weft_decode import ExactScalar
 from .weft_related_keys_decode import DecodedRelatedKeys
-from .sdk_presence import SDK_BACKENDS,DecodedPresence
+from .sdk_presence import SDK_BACKENDS,CURRENT_SDK_PAGES_BACKEND,DecodedPresence
 
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.nativeProfile'}
 PAGE_BACKENDS=(
  {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-pages-candidate','interfaceVersion':'weft-backend/0.2.2','targetProfile':'spark4.0.1-delta4.0.0-candidate'},
  {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-pages-candidate','interfaceVersion':'weft-backend/0.2.2','targetProfile':'dbsql2026.39-build-20261016-candidate'},
+ CURRENT_SDK_PAGES_BACKEND,
 )
 class PageContextRefused(ResolutionError):
     """The original publication/current admission failed before page data SQL."""
@@ -161,6 +162,16 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     Returned rows remain buffered through final context closure.
     """
     request=copy.deepcopy(request);artifact=copy.deepcopy(artifact)
+    current_page_backend=CURRENT_SDK_PAGES_BACKEND
+    request_target=request.get('target')if type(request)is dict else None
+    current_request=(type(request_target)is dict and
+        request_target.get('backendId')==current_page_backend['backendId'] and
+        request_target.get('backendVersion')==current_page_backend['backendVersion'] and
+        request_target.get('targetProfile')==current_page_backend['targetProfile'])
+    current_artifact=artifact.get('backend')==current_page_backend
+    if ((current_request or current_artifact) and
+            (not current_request or not current_artifact or artifact.get('interfaceVersion')!='weft-compile/0.2.7')):
+        raise ResolutionError('Exact current native Weft page target required')
     if artifact.get('status')!='compiled' or artifact.get('backend') not in SDK_BACKENDS+PAGE_BACKENDS+({'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-fields-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-fields-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-qualified','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-qualified'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-local-spark4-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'spark4.0.1-delta4.0.0-candidate'}, {'backendId':'ashlar.databricks','backendVersion':'0.1.0-managed-20261016-candidate','interfaceVersion':'weft-backend/0.2.0','targetProfile':'dbsql2026.39-build-20261016-candidate'}):
         raise ResolutionError('Explicit selected native Weft artifact required')
     plan=artifact.get('logicalPlan',{})

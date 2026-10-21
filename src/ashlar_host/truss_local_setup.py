@@ -32,7 +32,7 @@ def selections(configuration,output):
     source=read(paths['document_path'],1048576);origin=read(paths['origin_path'],65536)
     document=json.loads(source)
     if type(document)is not dict or document.get('id')!=config['document_id']:raise ValueError('Original document identity differs')
-    if document.get('umf')not in ('0.7.0','0.8.0'):raise ValueError('Original declared UMF0.7 or0.8 document required')
+    if document.get('umf')not in ('0.7.0','0.8.0','0.10.0'):raise ValueError('Original declared UMF0.7,0.8 or0.10 document required')
     modules=document.get('modules')
     if type(modules)is not list or not 1<=len(modules)<=16:raise ValueError('Select 1..16 original document modules')
     module_ids=[]

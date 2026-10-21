@@ -1,0 +1,15 @@
+{
+  "scope": "Read-only local ledger summary after failed first publication; preserved for ordinary continuation",
+  "counts": {
+    "local_installation": 1,
+    "local_operation": 0,
+    "local_plan": 0,
+    "local_publication_artifact": 0,
+    "local_source_plan": 0,
+    "configured_local_source_scope": 1,
+    "jsonl_consumer_scope": 1,
+    "jsonl_consumer_progress": 0
+  },
+  "operation_states": [],
+  "progress_positions": []
+}

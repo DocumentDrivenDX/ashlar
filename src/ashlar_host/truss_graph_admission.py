@@ -3,9 +3,12 @@
 import base64,hashlib,json
 from ashlar.staging import batch_row
 from ashlar.truss_native_feed import typed_scalar_entity_changes
+from .truss_current_catalog import (CurrentCatalogEvidence,
+    interpret_current_catalog)
 
 PROFILE='ashlar-truss-scalar-graph-semantic-admission/0.1'
 TYPED_PROFILE='ashlar-truss-typed-graph-semantic-admission/0.1'
+CURRENT_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.1'
 
 def admitted_facets(field):
     facets=field.get('facets',{})
@@ -38,11 +41,32 @@ def require_facet_value(family,facets,value):
 class TrussGraphAdmission:
     def __init__(self,batch,catalog_views):
         batch_row(batch)
-        if batch.profile!='truss-native-feed/0.1'or type(catalog_views)is not dict:raise ValueError('Original native page and explicit original catalog views required')
+        if batch.profile!='truss-native-feed/0.1'or not (type(catalog_views)is dict or isinstance(catalog_views,CurrentCatalogEvidence)):raise ValueError('Original native page and explicit original catalog evidence required')
         self.typed=False;self.batch=batch;self.parsed=typed_scalar_entity_changes(batch.begin,sha256=hashlib.sha256(batch.begin).hexdigest(),prior=base64.b64decode(batch.cursor_before,validate=True),next=base64.b64decode(batch.cursor_after,validate=True),feed=batch.feed)
-        payload=json.loads(batch.begin);self.revisions={};self.events={};self.catalog_views=dict(catalog_views)
+        payload=json.loads(batch.begin);self.revisions={};self.events={};self.current=isinstance(catalog_views,CurrentCatalogEvidence)
+        self.catalog_views=dict(catalog_views.views if self.current else catalog_views)
         installation=json.loads(base64.b64decode(batch.cursor_before))['installationId']
-        for prerequisite in payload['catalogPrerequisites']:
+        if self.current:
+            if catalog_views.truss_version!='0.0.44':raise ValueError('Current Truss 0.44 evidence required')
+            for prerequisite in payload['catalogPrerequisites']:
+                if prerequisite.get('reportBytesBase64')is None:continue
+                raw=base64.b64decode(prerequisite['reportBytesBase64'],validate=True)
+                revision=prerequisite.get('revision')
+                if hashlib.sha256(raw).hexdigest()!=prerequisite.get('reportSha256'):
+                    raise ValueError('Original accepted report digest differs')
+                if (catalog_views.reports.get(revision)!=raw
+                        or revision not in self.catalog_views
+                        or json.loads(raw).get('installationId')!=installation):
+                    raise ValueError('Current report source authority differs from public current evidence')
+                selected=interpret_current_catalog(revision,raw,self.catalog_views[revision],catalog_views.sources)
+                if revision in self.revisions:raise ValueError('Duplicate current accepted catalog revision')
+                self.typed = self.typed or any(
+                    family != 'string'
+                    for record in selected['types'].values()
+                    for family, _ in record['domains'].values())
+                self.revisions[revision]=selected
+        else:
+          for prerequisite in payload['catalogPrerequisites']:
             if prerequisite.get('reportBytesBase64')is None:continue
             raw=base64.b64decode(prerequisite['reportBytesBase64'],validate=True)
             if hashlib.sha256(raw).hexdigest()!=prerequisite['reportSha256']:raise ValueError('Original accepted report digest differs')
@@ -118,7 +142,13 @@ class TrussGraphAdmission:
             if event['operation']!='property':self.events[event['xid']+':'+event['seq']]=event
         for change in self.changes:self.admit(change)
     def metadata(self):
-        return {'profile':TYPED_PROFILE if self.typed else PROFILE,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':('Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted declared UMF0.7/0.8 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')}
+        if self.current:
+            profile=CURRENT_PROFILE
+            qualification='Truss toolkit 0.0.44, UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4; original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only, no publication or ACK authority.'
+        else:
+            profile=TYPED_PROFILE if self.typed else PROFILE
+            qualification=('Original accepted declared UMF0.7/0.8 exact typed scalar records with required STRING keys and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.'if self.typed else 'Original accepted declared UMF0.7/0.8 rootless STRING records and native empty-property directed independent edges; semantic correspondence only, current source authority supplied by actual Truss sessions.')
+        return {'profile':profile,'source_profile':self.batch.profile,'feed':self.batch.feed,'epoch':self.batch.epoch,'source_transaction_sha256':hashlib.sha256(self.batch.begin).hexdigest(),'accepted_reports':{revision:hashlib.sha256(value['report']).hexdigest()for revision,value in self.revisions.items()},'catalog_views':{revision:hashlib.sha256(raw).hexdigest()for revision,raw in self.catalog_views.items()},'declared_umf':{revision:{doc:model[0]['umf']for doc,model in value['models'].items()}for revision,value in self.revisions.items()},'qualification':qualification}
     def admit(self,change):
         if change not in self.changes:raise PermissionError('Exact original native change required')
         event=self.events[change.delivery_id];image=event['before']if event['operation']=='delete'else event['after'];selected=self.revisions.get(image['catalogRevision'])
