@@ -389,6 +389,47 @@ class ManagedCurrentQueryTests(unittest.TestCase):
     self.assertEqual(owner.current_request,request)
     self.assertEqual(request["target"]["backendId"],"ashlar.databricks.managed-uc-spark-xxhash64")
 
+  def test_real_weft_xxhash64_artifact_admits_exact_request_and_closed_native_requirement(self):
+    from pathlib import Path
+    from types import MethodType
+    from ashlar_host.managed_current_core import bind_current_core
+    from ashlar_host.managed_current_query import ManagedCurrentReadOwner
+    from ashlar_host.managed_current_weft_binding import managed_current_count_star_request
+    from test_managed_current_weft_binding import _inputs, _xxhash_config
+    from test_managed_current_core import _current_admission
+
+    bundle=bind_current_core(_current_admission(),_xxhash_config())
+    inputs=_inputs(bundle)
+    sql=('SELECT p.person_key, COUNT(*) AS paths, '
+         'COUNT_DISTINCT_PATH_TARGETS(x) AS targets FROM Person p '
+         'CROSS JOIN EXPAND_PATHS(p.knows, located) AS x GROUP BY p.person_key '
+         'HAVING COUNT(*) > 0 ORDER BY p.person_key')
+    request=managed_current_count_star_request(bundle,inputs,sql)
+    fixture=Path(__file__).parent/'fixtures/managed-current-v4/backend03-artifact.json'
+    artifact=json.loads(fixture.read_text())
+    self.assertEqual(artifact['status'],'compiled')
+    self.assertEqual(artifact['backend'],{
+        'backendId':'ashlar.databricks.managed-uc-spark-xxhash64',
+        'backendVersion':'0.2.0-managed-current-core-xxhash64-candidate',
+        'interfaceVersion':'weft-backend/0.3.0',
+        'targetProfile':'ashlar-managed-current-core/0.2-xxhash64'})
+    self.assertEqual(artifact['bindingSha256'],request['target']['bindingSha256'])
+    owner=object.__new__(ManagedCurrentReadOwner)
+    owner.carrier_profile='ashlar-delta/0.4-xxhash64';owner.source_bundle=bundle
+    owner.receipt={'weftBindingInputs':inputs};owner.vector=object();owner.context=object()
+    owner.bind_descriptor=MethodType(lambda self,*args:None,owner)
+    owner._renew=MethodType(lambda self:None,owner)
+    owner.admit_artifact(request,artifact,None,owner.context)
+    native=next(item['parameters'] for item in artifact['obligations']
+                if item['id']=='ashlar.nativeProfile')
+    owner.verify_native_profile(native,owner.context)
+
+    from ashlar.weft_query import read_weft
+    wrong=json.loads(_canonical(artifact));wrong['backend']['backendVersion']='0.2.0-managed-current-core-xxhash64-pages-candidate'
+    with self.assertRaisesRegex(ValueError,'Exact managed current compiler target and artifact'):
+      read_weft(None,None,None,None,None,request=request,artifact=wrong,
+          context=owner.context,supported_profiles=[],supported_revisions={})
+
   def test_read_owner_renews_all_six_role_metadata_and_refuses_version_drift(self):
     from types import SimpleNamespace
     from unittest.mock import patch

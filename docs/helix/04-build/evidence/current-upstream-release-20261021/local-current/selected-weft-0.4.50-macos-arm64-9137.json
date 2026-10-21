@@ -1,0 +1,32 @@
+{
+  "profile": "weft-selected-macos-arm64-build/0.1",
+  "status": "passed",
+  "sourceCommit": "9137ca2c3d6f8982ed0d4770de050ba4be0277ee",
+  "target": "aarch64-apple-darwin",
+  "version": "0.4.50",
+  "wheel": {
+    "filename": "weft_sql-0.4.50-cp39-abi3-macosx_11_0_arm64.whl",
+    "sha256": "0b364222af1a69cd038e511a0ac23a46383322b8c3729b6367c7eeb578256537",
+    "nativeModuleSha256": "aea70a3c8b9bc65ed882816dcf4d1f0aedf95a353df98e6bea026806097b123b",
+    "recordSha256": "74f0ffb870c537983e34e34b6619c8be8c71ab5080857b49261d2b5778e74c52"
+  },
+  "buildReport": {
+    "filename": "selected-macos-build-0.4.50.json",
+    "sha256": "194b6f49be44885ac1eca7b31c2b13ae3d298a52a4175ce055f9953bfd82ad6d",
+    "python": "3.12.14",
+    "functionalQualification": "not-claimed"
+  },
+  "packagingReport": {
+    "filename": "packaging-macos-arm64.json",
+    "sha256": "f1421a122468b2a7e7b11ec4607db8b0df85c16d4ccd74eef3e1e8192061d963"
+  },
+  "compilerSmoke": {
+    "filename": "compiler-smoke-managed-current-v4.json",
+    "sha256": "68126be3d9b87f426ef8095c7692af82132512d444f941974f056b1337bfafbf",
+    "python": "3.12.14",
+    "backend03Interface": "weft-backend/0.3.0",
+    "backend02Interface": "weft-backend/0.2.7",
+    "scope": "Synthetic managed bindings; pure compiler checks only, no native UC execution"
+  },
+  "artifactStorage": "Wheel and detailed reports are retained outside the repository; this packet records their exact digests."
+}
