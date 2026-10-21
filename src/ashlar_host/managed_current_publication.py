@@ -8,6 +8,7 @@ reviewed native protocol profile. Source ACK remains with the external holder.
 from contextlib import contextmanager
 from dataclasses import dataclass
 import json
+import hashlib
 import re
 from ashlar.native import SQLResult,quote_table_identifier
 from ashlar.protocol import ReaderProtocolProfile,validate_protocol_detail
@@ -39,11 +40,11 @@ class ManagedCurrentSparkTransport:
             and all(type(k)is str and type(v)is str for k,v in parameters.items()),
             'Exact parameterized Spark SQL and string bindings required')
         frame=self.spark.sql(sql,args=dict(parameters))
-        rows=frame.collect()
-        _require(len(rows)<=self.maximum_rows,'Managed Spark result exceeds explicit row bound')
-        # Read schema after collect too; this matches the complete adapter path
-        # used by DeltaAttemptStore and preserves declared result columns.
+        # Apply the limit in Spark before collecting. Checking len() after an
+        # unbounded collect protects neither the driver nor the result channel.
         fields=tuple((field.name,field.dataType.simpleString()) for field in frame.schema.fields)
+        rows=frame.limit(self.maximum_rows+1).collect()
+        _require(len(rows)<=self.maximum_rows,'Managed Spark result exceeds explicit row bound')
         result=[]
         for row in rows:
             value=row.asDict(recursive=True)
@@ -68,7 +69,10 @@ class ManagedCurrentTargetOwner:
     def _existing(self):
         namespace='`'+self.catalog+'`.`'+self.schema+'`'
         frame=self.spark.sql('SHOW TABLES IN '+namespace)
-        names={row['tableName'] for row in frame.collect()}
+        rows=frame.limit(len(ROLES)+1).collect()
+        _require(len(rows)<=len(ROLES),'Managed current schema contains more than the six closed roles')
+        names={row['tableName'] for row in rows}
+        _require(len(names)==len(rows),'Duplicate managed current table names')
         return names.intersection(ROLES)
     def initialize(self):
         existing=self._existing()
@@ -432,7 +436,9 @@ class ManagedCurrentGraphPublicationDriver:
                 if value is None:actual[name]=None
                 elif types[name]=='BIGINT':actual[name]=int(value)
                 elif types[name]=='BOOLEAN':actual[name]=value if type(value)is bool else str(value).lower()=='true'
-                elif types[name]=='TIMESTAMP':actual[name]=_normalize_native(__import__('datetime').datetime.fromisoformat(value.replace('Z','+00:00')))
+                elif types[name]=='TIMESTAMP':
+                    actual[name]=_normalize_native(value if hasattr(value,'tzinfo') else
+                        __import__('datetime').datetime.fromisoformat(value.replace('Z','+00:00')))
                 else:actual[name]=value
             result.append(actual)
         return result
@@ -500,9 +506,11 @@ class ManagedCurrentGraphPublicationDriver:
         checkpoint=json.loads(request['source_checkpoint_json'])
         manifest={'publication_id':self.publication_id,'profile_version':'ashlar-delta/0.3',
             'table_versions_json':_canonical(versions),'schema_revisions_json':request['schema_revisions_json'],
-            'source_progress_json':_canonical(progress_union(self.plan.get('previousProgress',{}),checkpoint)),
+            'source_progress_json':_canonical(progress_union(self.plan.get('previousProgress',
+                json.loads(self.plan.get('predecessorManifest',{}).get('source_progress_json','{}'))),checkpoint)),
             'validation_report_json':_canonical({'complete':True,'request_digest':request['request_digest'],
                 'predecessor':request['predecessor'],'source_admission':self.admission.metadata(),
+                'publication_plan_profile':self.plan.get('profile'),
                 'original_plan_sha256':_sha(self.plan_json),'effect_rows_sha256':_sha(_canonical(self.plan['expectedRows']))}),
             'recorded_at':self.plan['recordedAt']}
         from ashlar.manifest import validate_manifest_row
@@ -603,6 +611,321 @@ class ManagedCurrentGraphPublicationDriver:
                  'Exact durable managed UC manifest must be independently reopened')
 
 
+class ManagedCurrentIncrementalPublicationDriver(ManagedCurrentGraphPublicationDriver):
+    """Separately versioned affected-key publisher for fresh/current trials."""
+    from .managed_current_incremental import PROFILE as publication_profile
+    GENESIS = 'managed-current-incremental-genesis/0.1'
+
+    def __init__(self, target_owner, admission, *, stream, materialized_at, context):
+        super().__init__(target_owner, admission, stream=stream,
+                         materialized_at=materialized_at, context=context)
+        from .managed_current_incremental import ManagedCurrentAffectedReader
+        self.incremental_reader = ManagedCurrentAffectedReader(self.transport, self.data_tables)
+        self.predecessor_manifest = None
+
+    def _previous_progress(self, request):
+        from base64 import b64decode
+        from .managed_current_incremental import _require
+        rows = self.transport.query('SELECT publication_id,profile_version,table_versions_json,source_progress_json,'
+            'schema_revisions_json,validation_report_json,cast(unix_micros(recorded_at) AS STRING) AS recorded_at FROM '
+            + quote_table_identifier(self.names['publication_manifest'])
+            + ' ORDER BY recorded_at DESC LIMIT 2', {}).rows
+        checkpoint = json.loads(request['source_checkpoint_json'])
+        current = self.targets.observe()
+        heads = {self.names[role]: current[role].version for role in self.table_roles}
+        if not rows:
+            cursor = json.loads(b64decode(self.admission.batch.cursor_before, validate=True))
+            _require(cursor.get('nextXid') == '0' and request['predecessor'] == self.GENESIS,
+                     'Incremental genesis requires the exact initial Truss cursor and profile predecessor')
+            _require(all(current[role].version == 0 for role in self.table_roles),
+                     'Incremental genesis requires an untouched empty four-role target')
+            self.predecessor_manifest = {'publication_id': self.GENESIS,
+                'profile_version': 'ashlar-managed-current-incremental/0.1',
+                'table_versions_json': _canonical(heads), 'source_progress_json': '{}'}
+            return {}
+        _require(len(rows) >= 1 and (len(rows) == 1 or rows[0]['recorded_at'] != rows[1]['recorded_at']),
+                 'Unique latest incremental managed predecessor required')
+        latest = dict(rows[0])
+        _require(latest['publication_id'] == request['predecessor'],
+                 'Incremental request predecessor must be the latest durable publication')
+        report = json.loads(latest['validation_report_json'])
+        _require(type(report) is dict and report.get('complete') is True,
+                 'Incremental predecessor must carry complete prior publication validation')
+        _require(json.loads(latest['table_versions_json']) == heads,
+                 'Predecessor manifest four-role vector must equal current native heads')
+        _require(report.get('publication_plan_profile') ==
+                 'ashlar-managed-current-incremental-plan/0.1',
+                 'Only the exact incremental predecessor profile can advance this publication stream')
+        digest = report.get('request_digest')
+        _require(type(digest) is str and re.fullmatch(r'[0-9a-f]{64}', digest) is not None,
+                 'Exact predecessor request digest required')
+        attempt_rows = self.transport.query('SELECT stream,batch_id,phase,request_digest,payload_json,payload_digest FROM '
+            + quote_table_identifier(self.names['publication_attempt_phase'])
+            + ' WHERE request_digest=:digest AND phase=:phase LIMIT 2',
+            {'digest': digest, 'phase': 'committed'}).rows
+        _require(len(attempt_rows) == 1,
+                 'Exact committed attempt custody for incremental predecessor is required')
+        self._validate_predecessor_attempt(latest, report, current, dict(attempt_rows[0]))
+        progress = json.loads(latest['source_progress_json'])
+        previous = progress.get(checkpoint['feed'])
+        if previous is None:
+            cursor = json.loads(b64decode(checkpoint['previous'], validate=True))
+            _require(cursor.get('nextXid') == '0', 'Prior durable feed progress is required')
+        else:
+            _require(previous['epoch'] == checkpoint['epoch']
+                     and previous['position'] == checkpoint['previous'],
+                     'Exact contiguous source checkpoint is required')
+        self.predecessor_manifest = latest
+        return progress
+
+    def _validate_predecessor_attempt(self, manifest, report, current, row):
+        from .managed_current_incremental import PROFILE, request_anchor, _require
+        payload_text = row.get('payload_json')
+        _require(row.get('phase') == 'committed'
+                 and row.get('request_digest') == report.get('request_digest')
+                 and type(payload_text) is str
+                 and hashlib.sha256(payload_text.encode()).hexdigest() == row.get('payload_digest'),
+                 'Committed predecessor attempt payload digest must match its native row')
+        payload = json.loads(payload_text)
+        _require(_canonical(payload) == payload_text and type(payload) is dict
+                 and set(payload) == {'request', 'result_json', 'descriptor_json', 'plan_json'},
+                 'Canonical complete committed predecessor attempt required')
+        request = payload['request']
+        plan_text = payload['plan_json']
+        request_body = dict(request) if type(request) is dict else {}
+        request_digest = request_body.pop('request_digest', None)
+        _require(type(request) is dict and type(request_digest) is str
+                 and hashlib.sha256(json.dumps(request_body, sort_keys=True, separators=(',', ':')).encode()).hexdigest() == request_digest
+                 and request.get('stream') == row.get('stream')
+                 and request.get('batch_id') == row.get('batch_id')
+                 and request.get('request_digest') == report.get('request_digest')
+                 and request.get('predecessor') == report.get('predecessor')
+                 and request.get('schema_revisions_json') == manifest.get('schema_revisions_json')
+                 and type(plan_text) is str
+                 and hashlib.sha256(plan_text.encode()).hexdigest() == report.get('original_plan_sha256'),
+                 'Exact committed request and retained plan hash must bind predecessor manifest')
+        plan = json.loads(plan_text)
+        _require(_canonical(plan) == plan_text
+                 and plan.get('profile') == 'ashlar-managed-current-incremental-plan/0.1'
+                 and plan.get('intent', {}).get('profile') == PROFILE
+                 and plan.get('publicationId') == manifest.get('publication_id')
+                 and plan.get('requestAnchor') == request_anchor(request)
+                 and plan.get('intent', {}).get('request') == request_anchor(request)
+                 and plan.get('intent', {}).get('predecessorManifest', {}).get('publication_id')
+                     == request.get('predecessor')
+                 and plan.get('intent', {}).get('touchedKeys') is not None,
+                 'Exact versioned incremental predecessor intent required')
+        intent = plan['intent']
+        six = intent.get('sixRoleInventory')
+        _require(type(six) is dict and set(six) == set(ROLES),
+                 'Retained six-role predecessor installation required')
+        for role in ROLES:
+            item = current[role]
+            saved = six[role]
+            _require(saved == {'name': item.name, 'uuid': item.uuid, 'version': saved.get('version'),
+                               'schema': [list(field) for field in item.schema], 'protocol': item.protocol}
+                     and type(saved.get('version')) is int and saved['version'] >= 0,
+                     'Predecessor six-role UUID, name, schema, or protocol differs from current target')
+            baseline = plan.get('baselineInstallation', {}).get(role)
+            _require(type(baseline) is dict and baseline.get('name') == item.name
+                     and baseline.get('uuid') == item.uuid
+                     and baseline.get('version') == saved['version'],
+                     'Predecessor plan baseline installation identity differs from current target')
+        four = intent.get('fourRoleHeads')
+        _require(type(four) is dict and set(four) == {self.names[role] for role in self.table_roles}
+                 and all(four[self.names[role]] == six[role]['version'] for role in self.table_roles),
+                 'Predecessor four-role heads must bind retained six-role baseline versions')
+        expected_heads = dict(four)
+        for step in plan.get('steps', []):
+            statement = step.get('statement', '')
+            matched = next((role for role in self.table_roles
+                if statement.startswith(('INSERT INTO ' + quote_table_identifier(self.names[role]) + ' ',
+                                         'MERGE INTO ' + quote_table_identifier(self.names[role]) + ' '))), None)
+            _require(matched is not None, 'Predecessor effects must be owned by the exact four data roles')
+            expected_heads[self.names[matched]] += 1
+        _require(json.loads(manifest['table_versions_json']) == expected_heads,
+                 'Predecessor manifest heads must equal retained baseline plus exact native effects')
+        expected_rows = plan.get('expectedRows')
+        _require(type(expected_rows) is dict
+                 and hashlib.sha256(_canonical(expected_rows).encode()).hexdigest()
+                     == report.get('effect_rows_sha256'),
+                 'Predecessor retained affected-row proof must bind its manifest')
+        artifact = json.loads(payload['result_json'])
+        descriptor = json.loads(payload['descriptor_json'])
+        _require(_canonical(artifact) == payload['result_json']
+                 and artifact.get('manifest') == manifest
+                 and _canonical(descriptor) == payload['descriptor_json']
+                 and descriptor == manifest
+                 and artifact.get('effects') == {
+                     'profile': 'ashlar-managed-current-incremental-effect-proof/0.1',
+                     'intentSha256': hashlib.sha256(plan_text.encode()).hexdigest(),
+                     'affectedRowsSha256': report.get('effect_rows_sha256')},
+                 'Exact committed artifact and descriptor must bind predecessor plan and manifest')
+
+    def prepare_truss_observation(self, request, context, attempt):
+        self._require_context(context)
+        self.request = dict(request)
+        # Existing phases always restore their immutable original plan below.
+        # In particular an applying phase is never replanned from changed rows.
+        if attempt is None:
+            self.prepare_truss_apply(request, context)
+        elif attempt.phase == 'committed':
+            _require(attempt.descriptor is not None, 'Exact original committed descriptor required')
+            self.publication_id = attempt.descriptor.publication_id
+            self.manifest = dict(attempt.descriptor.raw)
+
+    def prepare_truss_apply(self, request, context):
+        from datetime import datetime, timezone, timedelta
+        from .managed_current_incremental import prepare_incremental_page
+        self._require_context(context)
+        self.request = dict(request)
+        _require(request['source_checkpoint_json'] == self._source_checkpoint()
+                 and request['schema_revisions_json'] == self.schema_revisions_json,
+                 'Original admitted current Truss page and schema vector required')
+        previous = self._previous_progress(request)
+        inventory = self.targets.observe()
+        baseline_installation = {role: {'name': item.name, 'uuid': item.uuid, 'version': item.version}
+                                 for role, item in inventory.items()}
+        four_heads = {self.names[role]: inventory[role].version for role in self.table_roles}
+        six_inventory = {role: {'name': item.name, 'uuid': item.uuid, 'version': item.version,
+                                'schema': [list(field) for field in item.schema], 'protocol': item.protocol}
+                         for role, item in inventory.items()}
+        instant = (datetime(1970, 1, 1, tzinfo=timezone.utc)
+                   + timedelta(microseconds=int(self.clock))).isoformat()
+        source_progress = {'checkpoint': json.loads(request['source_checkpoint_json'])}
+        intent, _encoded, read, after = prepare_incremental_page(admission=self.admission,
+            reader=self.incremental_reader, tables=self.data_tables, request=dict(request),
+            predecessor_manifest=self.predecessor_manifest, four_role_heads=four_heads,
+            six_role_inventory=six_inventory, schema_policy=self.admission.admit,
+            schema_transition_policy=self.admission.admit_transition,
+            source_progress=source_progress, materialized_at=instant)
+        self.publication_id = 'ashlar-current-incremental:' + _sha(request['request_digest'])
+        body = {'profile': 'ashlar-managed-current-incremental-plan/0.1',
+            'requestAnchor': intent['request'], 'sourceAdmission': self.admission.metadata(),
+            'sourcePageSha256': _sha(self.admission.batch.begin),
+            'publicationId': self.publication_id, 'recordedAt': self.clock,
+            'baselineInstallation': baseline_installation,
+            'predecessorManifest': self.predecessor_manifest,
+            'intent': intent, 'steps': intent['effects'],
+            'zeroMatchElisions': intent.get('zeroMatchElisions', []),
+            'expectedRows': intent['expectedAffectedAfterimages']['rows']}
+        self.plan = body
+        self.plan_json = _canonical(body)
+        _require(len(self.plan_json.encode()) <= 4 * 1024 * 1024,
+                 'Incremental original page intent exceeds durable attempt bound')
+        self.prior_state = None
+
+    def prepared_plan(self, request, context):
+        self._require_context(context)
+        _require(self.plan_json is not None and dict(request) == self.request)
+        return self.plan_json
+
+    def load_prepared_plan(self, request, plan_json, context):
+        self._require_context(context)
+        _require(type(plan_json) is str and len(plan_json.encode()) <= 4 * 1024 * 1024,
+                 'Original durable incremental intent required')
+        body = json.loads(plan_json)
+        from .managed_current_incremental import PROFILE, request_anchor
+        _require(_canonical(body) == plan_json
+                 and body.get('profile') == 'ashlar-managed-current-incremental-plan/0.1'
+                 and body.get('intent', {}).get('profile') == PROFILE
+                 and body.get('requestAnchor') == body.get('intent', {}).get('request')
+                 and body.get('sourceAdmission') == self.admission.metadata()
+                 and body.get('sourcePageSha256') == _sha(self.admission.batch.begin)
+                 and body.get('requestAnchor') == request_anchor(dict(request)),
+                 'Retained incremental intent differs from original admitted source request')
+        self.plan = body; self.plan_json = plan_json; self.request = dict(request)
+        self.publication_id = body['publicationId']
+        self.predecessor_manifest = body['predecessorManifest']
+        return None
+
+    def validate_prepared_plan(self, request, plan_json, context):
+        self._require_context(context)
+        _require(self.plan_json is not None and plan_json == self.plan_json
+                 and dict(request) == self.request,
+                 'Exact retained incremental plan required')
+        inventory = self.targets.observe()
+        for role, item in inventory.items():
+            baseline = self.plan['baselineInstallation'][role]
+            planned = self.plan['intent']['sixRoleInventory'][role]
+            _require(item.uuid == baseline['uuid'] and item.name == baseline['name']
+                     and item.schema == self.targets.opening[role].schema
+                     and item.protocol == self.targets.opening[role].protocol
+                     and planned == {'name': item.name, 'uuid': item.uuid, 'version': baseline['version'],
+                         'schema': [list(field) for field in item.schema], 'protocol': item.protocol},
+                     'Six-role managed installation identity changed')
+        expected_heads = self.plan['intent']['fourRoleHeads']
+        _require(expected_heads == {self.names[role]: self.plan['baselineInstallation'][role]['version']
+                                    for role in self.table_roles}
+                 and {self.names[role]: inventory[role].version for role in self.table_roles} == expected_heads,
+                 'Original applying outcome may be uncertain; four-role heads changed and cannot be resubmitted')
+        return None
+
+    @staticmethod
+    def _normalized_rows(role, rows, cast):
+        return sorted((_canonical(row) for row in cast(role, rows)))
+
+    def _validate_effect_rows(self):
+        from .managed_current_incremental import _require
+        observed = self.incremental_reader.read(self.admission.changes)
+        expected_rows = self.plan['expectedRows']
+        event_keys = {change.state.key for change in self.admission.changes}
+        for role in ('object_current', 'edge_current'):
+            kind = 'object' if role == 'object_current' else 'edge'
+            idfield = 'type_id' if kind == 'object' else 'rel_type_id'
+            touched = {(key.source, key.type_id, key.id) for key in event_keys if key.kind == kind}
+            actual = [row for row in observed.current[role]
+                      if (row['source_system'], int(row[idfield]), int(row['id'])) in touched]
+            expected = expected_rows[role]
+            _require(self._normalized_rows(role, actual, self._cast_expected)
+                     == self._normalized_rows(role, expected, self._cast_expected),
+                     'Affected current native rows differ from exact page afterimages')
+        event_identities = {(key.source, key.kind, key.type_id, key.id) for key in event_keys}
+        tombstones = [row for row in observed.tombstones if
+            (row['source_system'], row['entity_kind'], int(row['type_id']), int(row['id'])) in event_identities]
+        markers = {(change.feed, change.epoch, change.delivery_id) for change in self.admission.changes}
+        history = [row for row in observed.delivery_markers if
+            (row['feed'], row['epoch'], row['delivery_id']) in markers]
+        for role, actual in (('tombstone', tombstones), ('whole_source_history', history)):
+            expected = expected_rows[role]
+            _require(self._normalized_rows(role, actual, self._cast_expected)
+                     == self._normalized_rows(role, expected, self._cast_expected),
+                     'Affected native delivery/tombstone rows differ from exact page afterimages')
+        inventory = self.targets.observe()
+        for role in self.table_roles:
+            effects = sum(step['statement'].startswith(('INSERT INTO ' + quote_table_identifier(self.names[role]) + ' ',
+                'MERGE INTO ' + quote_table_identifier(self.names[role]) + ' ')) for step in self.plan['steps'])
+            expected_head = self.plan['baselineInstallation'][role]['version'] + effects
+            _require(inventory[role].version == expected_head,
+                     'Incremental Delta role head differs from exact effect count')
+
+    def apply(self, request, context):
+        self._require_writer(context)
+        _require(dict(request) == self.request and self.plan is not None)
+        self.validate_prepared_plan(request, self.plan_json, context)
+        for step in self.plan['steps']:
+            self.transport.query(step['statement'], step['parameters'])
+        self._validate_effect_rows()
+        proof = {'profile': 'ashlar-managed-current-incremental-effect-proof/0.1',
+                 'intentSha256': _sha(self.plan_json),
+                 'affectedRowsSha256': _sha(_canonical(self.plan['expectedRows']))}
+        self.manifest = self._manifest(request)
+        return _canonical({'effects': proof, 'manifest': self.manifest})
+
+    def recover_apply(self, request, context):
+        self._require_writer(context)
+        raise ManagedCurrentPublicationError(
+            'Original incremental apply outcome is uncertain; no terminal noncommit proof exists, so no resubmission is allowed')
+
+    def validate_manifest(self, row, context):
+        self._require_writer(context)
+        _require(self.manifest is not None and dict(row) == self.manifest,
+                 'Exact original incremental manifest required')
+        inventory = self.targets.observe()
+        self._require_durable_manifest(dict(row), inventory)
+        return None
+
+
 class _ManagedCurrentPolicy:
     def __init__(self,driver):self.driver=driver
     @property
@@ -650,7 +973,8 @@ class ManagedCurrentManifestPort:
 
 
 def run_managed_current_publication_task(spark,*,binding,core_config,protocol_profile,
-        stream,predecessor,schema_revisions_json,materialized_at,expected_environment):
+        stream,predecessor,schema_revisions_json,materialized_at,expected_environment,
+        publication_profile='ashlar-managed-current-incremental/0.1'):
     """Run one current Truss page on the caller's injected UC Spark task.
 
     The caller must provide a digest-bound accepted development-source bundle
@@ -678,6 +1002,9 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
              and core_config.catalog==expected_environment['catalog']
              and core_config.schema==expected_environment['schema'],
              'Selected Unity Catalog destination differs from task environment')
+    _require(publication_profile in ('ashlar-managed-current-exact-plan/0.1',
+                                     'ashlar-managed-current-incremental/0.1'),
+             'Explicit managed publication profile required')
     revisions=json.loads(schema_revisions_json)
     _require(type(revisions)is dict and bool(revisions) and _canonical(revisions)==schema_revisions_json,
              'Canonical complete current source schema revisions required')
@@ -697,8 +1024,11 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
     elif existing==set(ROLES):target.open_existing()
     else:raise ManagedCurrentPublicationError('Partial six-role managed target refuses publication')
     context=object()
-    driver=ManagedCurrentGraphPublicationDriver(target,admission,stream=stream,
-                                                 materialized_at=materialized_at,context=context)
+    driver_type=(ManagedCurrentIncrementalPublicationDriver
+                 if publication_profile=='ashlar-managed-current-incremental/0.1'
+                 else ManagedCurrentGraphPublicationDriver)
+    driver=driver_type(target,admission,stream=stream,
+                       materialized_at=materialized_at,context=context)
     request=truss_request_for(stream,admission.batch,predecessor,revisions)
     _require(request['source_checkpoint_json']==truss_checkpoint(admission.batch),
              'Exact accepted current Truss checkpoint required')
@@ -715,7 +1045,8 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
     closing_environment=observe_managed_current_environment(spark,protocol_profile)
     _require(closing_environment==opening_environment,
              'Managed task runtime, principal, catalog, schema, or protocol changed before close')
-    return {'profile':'ashlar-managed-current-task-result/0.1',
+    return {'profile':'ashlar-managed-current-task-result/0.2',
+        'publicationProfile':publication_profile,
         'runtimeIdentity':{'opening':opening_environment,'closing':closing_environment,
             'privateDatabricksBuildIdentity':'unknown'},
         'receipt':receipt,

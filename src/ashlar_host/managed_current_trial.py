@@ -5,7 +5,7 @@ The Databricks notebook supplies its injected SparkSession and one privately
 delivered, digest-bound Truss page. This module does not create jobs, obtain
 credentials, fetch a source page, or acknowledge it.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import json
 import math
 import re
@@ -53,6 +53,7 @@ class ManagedCurrentTrialConfig:
     reserve_usd_for_cleanup: float
     cost_estimate_includes_startup_driver_and_cleanup: bool
     create_schema: bool
+    publication_profile: str = "ashlar-managed-current-incremental/0.1"
     preferred_budget_exception: str | None = None
     retries: int = 0
     max_concurrent_runs: int = 1
@@ -92,8 +93,17 @@ class ManagedCurrentTrialConfig:
                  and all(value is None or (type(value) is str and value and "\0" not in value)
                          for value in self.expected_environment.values())
                  and all(type(self.expected_environment[key]) is str and self.expected_environment[key]
-                         for key in ("runtimeName", "sparkVersion", "principal", "catalog", "schema", "protocol")),
-                 "Exact selected serverless runtime, principal, namespace, and native protocol required")
+                         for key in ("runtimeName", "principal", "catalog", "schema", "protocol"))
+                 and (self.expected_environment["sparkVersion"] is None
+                      or type(self.expected_environment["sparkVersion"]) is str
+                      and self.expected_environment["sparkVersion"])
+                 and (self.expected_environment["sparkBuildText"] is None
+                      or type(self.expected_environment["sparkBuildText"]) is str
+                      and self.expected_environment["sparkBuildText"])
+                 and (self.expected_environment["runtimeTag"] is None
+                      or type(self.expected_environment["runtimeTag"]) is str
+                      and self.expected_environment["runtimeTag"]),
+                 "Selected serverless runtime, principal, destination namespace, and protocol pins required")
         _require(type(self.maximum_task_seconds) is int and 1 <= self.maximum_task_seconds <= 7200,
                  "Finite dedicated task timeout required")
         _require(type(self.estimated_total_dbu) in (int, float) and math.isfinite(self.estimated_total_dbu)
@@ -126,6 +136,9 @@ class ManagedCurrentTrialConfig:
         _require(self.predictive_optimization_disabled is False,
                  "Predictive optimization must remain enabled")
         _require(type(self.create_schema) is bool, "Explicit fresh-schema creation decision required")
+        _require(self.publication_profile in ("ashlar-managed-current-incremental/0.1",
+                                              "ashlar-managed-current-exact-plan/0.1"),
+                 "Closed managed current publication profile required")
         return None
 
     def core_config(self):
@@ -156,7 +169,7 @@ def _schema_exists(spark, catalog, schema):
         "SELECT schema_name FROM system.information_schema.schemata "
         "WHERE catalog_name=:catalog AND schema_name=:schema",
         args={"catalog": catalog, "schema": schema},
-    ).collect()
+    ).limit(2).collect()
     _require(len(rows) <= 1, "Ambiguous Unity Catalog schema inventory")
     return bool(rows)
 
@@ -180,6 +193,24 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
     # Reconstruct and re-admit the exact versioned Truss evidence before the
     # optional CREATE SCHEMA side effect. A digest alone is not admission.
     restore_managed_current_admission(binding, config.core_config())
+    from .managed_current_publication import observe_managed_current_environment
+    preflight = observe_managed_current_environment(spark, protocol_profile)
+    _require(type(preflight) is dict and all(preflight.get(key) == config.expected_environment.get(key)
+        for key in ("runtimeName", "principal", "protocol"))
+        and all(config.expected_environment.get(key) is None
+                or preflight.get(key) == config.expected_environment[key]
+                for key in ("sparkVersion", "sparkBuildText", "runtimeTag"))
+        and type(preflight.get("sparkVersion")) is str and preflight["sparkVersion"]
+        and (type(preflight.get("sparkBuildText")) is str and preflight["sparkBuildText"]
+             or type(preflight.get("runtimeTag")) is str and preflight["runtimeTag"]),
+        "Pre-effect public runtime, principal, protocol, Spark version, and build observation required")
+    # Bootstrap the task's actual runtime before any schema or publication
+    # effect. If version/build pins were unavailable before scheduling, retain
+    # the observed values as the effective tuple for all later boundaries.
+    effective_environment = dict(preflight)
+    effective_environment["catalog"] = config.catalog
+    effective_environment["schema"] = config.schema
+    config = replace(config, expected_environment=effective_environment)
     exists = _schema_exists(spark, config.catalog, config.schema)
     if config.create_schema:
         _require(not exists, "Requested new managed trial schema already exists")
@@ -188,6 +219,13 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
                  "Fresh managed trial schema was not observed after creation")
     else:
         _require(exists, "Existing per-run trial schema required for this page")
+    # Serverless jobs can start with a default schema unrelated to the new
+    # per-run destination. Select it only after fresh-schema ownership checks.
+    spark.sql("USE CATALOG `" + config.catalog + "`").collect()
+    spark.sql("USE SCHEMA `" + config.schema + "`").collect()
+    _require(observe_managed_current_environment(spark, protocol_profile)
+             == config.expected_environment,
+             "Selected namespace and public runtime must match before publication")
     result = run_managed_current_publication_task(
         spark,
         binding=binding,
@@ -198,6 +236,7 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
         schema_revisions_json=config.schema_revisions_json,
         materialized_at=config.materialized_at,
         expected_environment=config.expected_environment,
+        publication_profile=config.publication_profile,
     )
     return {
         "profile": "ashlar-managed-current-trial-step/0.1",

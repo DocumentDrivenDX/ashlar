@@ -9,15 +9,20 @@ from types import SimpleNamespace
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_carriers import ROLES,load_current_managed_carriers
 from ashlar_host.managed_current_publication import (ManagedCurrentSparkTransport,
-    ManagedCurrentTargetOwner,ManagedCurrentGraphPublicationDriver)
+    ManagedCurrentTargetOwner,ManagedCurrentGraphPublicationDriver,
+    ManagedCurrentIncrementalPublicationDriver)
 
 class Row(dict):
     def asDict(self,recursive=True):return dict(self)
 class Frame:
     def __init__(self,rows):
         self.rows=[Row(row) for row in rows]
+        self.limit_value=None
         names=list(rows[0]) if rows else []
         self.schema=SimpleNamespace(fields=[SimpleNamespace(name=n,dataType=SimpleNamespace(simpleString=lambda n=n:'string')) for n in names])
+    def limit(self,count):
+        self.limit_value=count
+        return self
     def collect(self):return self.rows
 class Spark:
     def __init__(self):
@@ -178,6 +183,97 @@ class Tests(unittest.TestCase):
         self.assertIsNone(replay.load_prepared_plan(request,retained,context))
         self.assertEqual(replay.plan_json,retained)
         self.assertEqual(replay.plan['request'],request)
+
+    def _predecessor_fixture(self, plan_profile='ashlar-managed-current-incremental-plan/0.1'):
+        roles=ROLES
+        data_roles=('object_current','edge_current','tombstone','whole_source_history')
+        names={role:'client_dev.trial_schema.'+role for role in roles}
+        request={'stream':'dev-feed','batch_id':'batch-2','predecessor':'prior-publication',
+            'source_batch_digest':'a'*64,'source_checkpoint_json':'{}','schema_revisions_json':'{}'}
+        request['request_digest']=hashlib.sha256(json.dumps(request,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        canonical=lambda value:json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False)
+        inventory={role:{'name':names[role],'uuid':role+'-uuid','version':0,'schema':[['id','string',False]],'protocol':{'reader':1}}
+                   for role in roles}
+        request_anchor={key:request[key] for key in ('request_digest','stream','batch_id','predecessor',
+            'source_batch_digest','source_checkpoint_json','schema_revisions_json')}
+        predecessor={'publication_id':'prior-publication','profile_version':'ashlar-managed-current-incremental/0.1',
+            'table_versions_json':canonical({names[role]:0 for role in data_roles}),'source_progress_json':'{}'}
+        intent={'profile':'ashlar-managed-current-incremental/0.1','request':request_anchor,
+            'predecessorManifest':predecessor,'fourRoleHeads':{names[role]:0 for role in data_roles},
+            'sixRoleInventory':inventory,'touchedKeys':[],
+            'expectedAffectedAfterimages':{'rows':{role:[] for role in data_roles}},
+            'rawDeliveryDigests':[],'effects':[],'sourceProgressTransition':{}}
+        plan={'profile':plan_profile,'requestAnchor':request_anchor,'sourceAdmission':{},'sourcePageSha256':'b'*64,
+            'publicationId':'ashlar-current-incremental:'+hashlib.sha256(request['request_digest'].encode()).hexdigest(),'recordedAt':'1',
+            'baselineInstallation':{role:{'name':names[role],'uuid':inventory[role]['uuid'],'version':0} for role in roles},
+            'predecessorManifest':predecessor,'intent':intent,'steps':[],
+            'expectedRows':{role:[] for role in data_roles}}
+        plan_text=canonical(plan)
+        report={'complete':True,'request_digest':request['request_digest'],'predecessor':'prior-publication',
+            'publication_plan_profile':plan_profile,'original_plan_sha256':hashlib.sha256(plan_text.encode()).hexdigest(),
+            'effect_rows_sha256':hashlib.sha256(canonical(plan['expectedRows']).encode()).hexdigest()}
+        manifest={'publication_id':plan['publicationId'],'profile_version':'ashlar-delta/0.3',
+            'table_versions_json':canonical({names[role]:0 for role in data_roles}),
+            'schema_revisions_json':request['schema_revisions_json'],'source_progress_json':'{}',
+            'validation_report_json':canonical(report),'recorded_at':'1'}
+        result={'effects':{'profile':'ashlar-managed-current-incremental-effect-proof/0.1',
+            'intentSha256':hashlib.sha256(plan_text.encode()).hexdigest(),
+            'affectedRowsSha256':report['effect_rows_sha256']},'manifest':manifest}
+        payload={'request':request,'result_json':canonical(result),'descriptor_json':canonical(manifest),'plan_json':plan_text}
+        payload_text=canonical(payload)
+        row={'stream':request['stream'],'batch_id':request['batch_id'],'phase':'committed',
+            'request_digest':request['request_digest'],'payload_json':payload_text,
+            'payload_digest':hashlib.sha256(payload_text.encode()).hexdigest()}
+        current={role:SimpleNamespace(name=names[role],uuid=inventory[role]['uuid'],version=0,
+                    schema=(('id','string',False),),protocol={'reader':1}) for role in roles}
+        driver=object.__new__(ManagedCurrentIncrementalPublicationDriver)
+        driver.names=names;driver.table_roles=data_roles
+        return driver,manifest,report,current,row
+
+    def test_incremental_predecessor_refuses_historical_exact_plan(self):
+        driver,manifest,report,current,row=self._predecessor_fixture(
+            'ashlar-managed-current-exact-plan/0.1')
+        with self.assertRaisesRegex(ValueError,'Exact versioned incremental predecessor intent'):
+            driver._validate_predecessor_attempt(manifest,report,current,row)
+
+    def test_incremental_predecessor_refuses_replaced_uuid_at_same_version(self):
+        driver,manifest,report,current,row=self._predecessor_fixture()
+        driver._validate_predecessor_attempt(manifest,report,current,row)
+        current['object_current'].uuid='replacement-uuid'
+        with self.assertRaisesRegex(ValueError,'six-role UUID'):
+            driver._validate_predecessor_attempt(manifest,report,current,row)
+
+    def test_incremental_empty_page_uses_compact_intent_and_four_role_manifest(self):
+        from tests.test_managed_current_core import _current_admission
+        from ashlar_host.publication_planning import truss_request_for
+        admission=_current_admission();spark=EffectSpark()
+        profile=ReaderProtocolProfile('test-current-managed-reader',(1,),(2,),())
+        target=ManagedCurrentTargetOwner(spark,catalog='client_dev',schema='trial_schema',protocol_profile=profile)
+        target.open_existing();context=object()
+        driver=ManagedCurrentIncrementalPublicationDriver(target,admission,stream='dev-feed',
+            materialized_at='1',context=context)
+        request=truss_request_for('dev-feed',admission.batch,driver.GENESIS,driver.revisions)
+        driver.prepare_truss_apply(request,context)
+        plan=json.loads(driver.prepared_plan(request,context))
+        self.assertEqual(plan['profile'],'ashlar-managed-current-incremental-plan/0.1')
+        self.assertEqual(plan['intent']['profile'],'ashlar-managed-current-incremental/0.1')
+        self.assertNotIn('baselineDataRows',plan)
+        self.assertNotIn('expectedRows',plan['intent'])
+        self.assertEqual(plan['intent']['fourRoleHeads'],
+            {target.tables[role]:0 for role in ('object_current','edge_current','tombstone','whole_source_history')})
+        with driver.writer('dev-feed',context):
+            result=json.loads(driver.apply(request,context))
+        self.assertEqual(result['effects']['profile'],'ashlar-managed-current-incremental-effect-proof/0.1')
+        self.assertEqual(json.loads(driver.manifest['table_versions_json']),
+            {target.tables[role]:0 for role in ('object_current','edge_current','tombstone','whole_source_history')})
+        self.assertEqual(spark.data['whole_source_history'],[])
+        selected_data=[sql for sql,_args in spark.calls if sql.startswith('SELECT')
+                       and any(target.tables[role] in sql for role in driver.table_roles)]
+        self.assertTrue(all(' WHERE ' in sql for sql in selected_data))
+        self.assertFalse(any(sql.startswith('SELECT * FROM') for sql,_args in spark.calls))
+        with driver.writer('dev-feed',context):
+            with self.assertRaisesRegex(ValueError,'no resubmission is allowed'):
+                driver.recover_apply(request,context)
 
     @unittest.skipUnless(os.environ.get('ASHLAR_CURRENT_NATIVE_PRIVATE_EVIDENCE'),
         'retained actual xid809 page requires explicit private-evidence opt-in')
