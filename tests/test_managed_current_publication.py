@@ -123,18 +123,18 @@ def _nonempty_current_admission():
 
 class Tests(unittest.TestCase):
     def test_task_environment_records_separate_public_runtime_observations(self):
-        from ashlar_host.managed_current_publication import _observe_task_environment
+        from ashlar_host.managed_current_publication import observe_managed_current_environment
         spark=RuntimeSpark();profile=ReaderProtocolProfile('test-protocol',(1,),(2,),())
-        opening=_observe_task_environment(spark,profile)
+        opening=observe_managed_current_environment(spark,profile)
         self.assertEqual(opening['sparkVersion'],'4.2.0')
         self.assertEqual(opening['sparkBuildText'],'Spark SQL build text')
         self.assertEqual(opening['runtimeTag'],'16.4.x-scala2.13')
         self.assertNotIn('buildId',opening)
         spark.runtime_tag='changed-runtime'
-        self.assertNotEqual(_observe_task_environment(spark,profile),opening)
+        self.assertNotEqual(observe_managed_current_environment(spark,profile),opening)
         spark.principal=None
         with self.assertRaisesRegex(ValueError,'actor'):
-            _observe_task_environment(spark,profile)
+            observe_managed_current_environment(spark,profile)
 
     def test_parameter_bindings_use_whole_collect_schema_path(self):
         spark=Spark();transport=ManagedCurrentSparkTransport(spark)

@@ -681,7 +681,7 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
     revisions=json.loads(schema_revisions_json)
     _require(type(revisions)is dict and bool(revisions) and _canonical(revisions)==schema_revisions_json,
              'Canonical complete current source schema revisions required')
-    opening_environment=_observe_task_environment(spark,protocol_profile)
+    opening_environment=observe_managed_current_environment(spark,protocol_profile)
     _require(opening_environment==expected_environment,
              'Observed managed task environment differs from the selected public observations')
     _require(expected_environment['runtimeName']=='databricks-serverless'
@@ -712,7 +712,7 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
         schema_revisions_json=schema_revisions_json,context=context,
         source_checkpoint_json=request['source_checkpoint_json'])
     receipt=driver.reopen_receipt(descriptor)
-    closing_environment=_observe_task_environment(spark,protocol_profile)
+    closing_environment=observe_managed_current_environment(spark,protocol_profile)
     _require(closing_environment==opening_environment,
              'Managed task runtime, principal, catalog, schema, or protocol changed before close')
     return {'profile':'ashlar-managed-current-task-result/0.1',
@@ -722,7 +722,13 @@ def run_managed_current_publication_task(spark,*,binding,core_config,protocol_pr
         'sourceAck':'external-holder-independent-reopen-required'}
 
 
-def _observe_task_environment(spark,protocol_profile):
+def observe_managed_current_environment(spark,protocol_profile):
+    """Return the public bounded runtime/principal/catalog/schema/protocol receipt.
+
+    Publication and query owners share this read-only observation so native
+    execution uses the same selected-runtime contract without reaching into a
+    private publication helper.
+    """
     """Capture public Spark/Databricks task identity without inventing a build ID."""
     transport=ManagedCurrentSparkTransport(spark)
     identity=transport.query('SELECT current_user() AS principal,current_catalog() AS catalog,'

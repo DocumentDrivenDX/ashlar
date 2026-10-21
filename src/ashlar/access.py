@@ -183,7 +183,11 @@ class AshlarTarget:
                 if not isinstance(entry,EngineRead) or entry.artifact()['compiler']!=compiler_method:
                     raise ValueError('Original page compiler targets required')
                 target=entry.artifact()['request']['target']
-                if target.get('backendId')!='ashlar.databricks' or target.get('bindingSha256')!=binding_sha256 or hashlib.sha256(target.get('bindingJson','').encode()).hexdigest()!=binding_sha256:
+                backend_id=target.get('backendId')
+                managed=(backend_id=='ashlar.databricks.managed-uc-spark'
+                    and target.get('backendVersion')=='0.1.0-managed-current-core-pages-candidate'
+                    and target.get('targetProfile')=='ashlar-managed-current-core/0.1')
+                if (backend_id!='ashlar.databricks' and not managed) or target.get('bindingSha256')!=binding_sha256 or hashlib.sha256(target.get('bindingJson','').encode()).hexdigest()!=binding_sha256:
                     raise ValueError('Complete original Ashlar page binding required')
                 targets.append(target)
             if any(target!=targets[0]for target in targets[1:]):raise ValueError('Mixed original page targets refuse')
@@ -202,7 +206,11 @@ class AshlarTarget:
         if self.compiler_method=='ashlar-dbsql-20261016':version,profile='0.1.0-managed-20261016-candidate','dbsql2026.39-build-20261016-candidate'
         if self.native_target_json is not None:
             original=program_json(self.native_target_json);version,profile=original['backendVersion'],original['targetProfile']
-        return TargetIdentity('ashlar','ashlar.databricks',version,profile,self.binding_sha256,self.platform,context)
+        backend_id='ashlar.databricks'
+        if self.native_target_json is not None:
+            selected=program_json(self.native_target_json)
+            backend_id=selected['backendId']
+        return TargetIdentity('ashlar',backend_id,version,profile,self.binding_sha256,self.platform,context)
     def read(self,entry:CatalogRead[P,R],parameters:P,*,timeout:timedelta|None=None)->list[R]:
         if not isinstance(entry,EngineRead):raise ResolutionError('Original engine catalog required')
         program=entry.artifact();request=copy.deepcopy(program['request'])
