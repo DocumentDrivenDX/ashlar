@@ -3,12 +3,39 @@ import hashlib
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.truss_resume_cli import parse_resume_truss_configuration,run_resume_truss_graph_command
+from ashlar_host.truss_resume_cli import (_open_current_truss_spark, _require_runtime_matches_admission,
+    parse_resume_truss_configuration,run_resume_truss_graph_command)
 
 
 class Tests(unittest.TestCase):
+    def test_current_runtime_is_required_only_for_current_admission(self):
+        with self.assertRaisesRegex(ValueError,'requires an explicit'):
+            _require_runtime_matches_admission(SimpleNamespace(current=True),{})
+        current={'_current_runtime':object()}
+        _require_runtime_matches_admission(SimpleNamespace(current=True),current)
+        with self.assertRaisesRegex(ValueError,'only valid for current'):
+            _require_runtime_matches_admission(SimpleNamespace(current=False),current)
+        _require_runtime_matches_admission(SimpleNamespace(current=False),{})
+
+    def test_current_runtime_owner_attests_before_and_during_close(self):
+        events=[]
+        spark=SimpleNamespace(sparkContext=SimpleNamespace(setLogLevel=lambda level:events.append(('log',level))),
+                              stop=lambda:events.append(('stop',None)))
+        config={'_current_runtime':object()};jars=(object(),object());warehouse=object()
+        def opened(runtime,selected,selected_warehouse,*,app_name):
+            events.append(('open',(runtime,selected,selected_warehouse,app_name)));return spark
+        def attest(selected_spark,runtime,selected):
+            events.append(('attest',(selected_spark,runtime,selected)))
+        with patch('ashlar_host.configured_local_runtime.open_configured_local_spark',side_effect=opened), \
+                patch('ashlar_host.truss_resume_cli._attest_current_spark',side_effect=attest):
+            with _open_current_truss_spark(config,jars,warehouse) as actual:
+                self.assertIs(actual,spark)
+                self.assertEqual([event[0] for event in events],['open','attest','log'])
+            self.assertEqual([event[0] for event in events],['open','attest','log','attest','stop'])
+
     def test_saved_intent_selection_and_digest_refusal(self):
         with TemporaryDirectory() as directory:
             root=Path(directory).resolve();publication=root/'original';publication.mkdir()

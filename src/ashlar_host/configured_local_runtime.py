@@ -83,21 +83,28 @@ def _runtime(config):
     _,_,jars=attest_runtime(config)
     return jars
 
-def open_finite_spark(config,jars):
-    """Open current configured-local Spark without historical commerce pins."""
+def open_configured_local_spark(config,jars,warehouse,*,app_name='Ashlar configured-local Delta publication'):
+    """Open the attested configured-local Spark session with an explicit warehouse."""
     selected=_runtime(config);_require(type(jars)in (list,tuple)and list(jars)==selected)
+    _require(isinstance(warehouse,Path) and warehouse.is_absolute() and warehouse.resolve()==warehouse)
+    _require(type(app_name)is str and 0<len(app_name)<=128)
     from pyspark import SparkContext
     from pyspark.sql import SparkSession
     _require(SparkSession.getActiveSession()is None and getattr(SparkSession,'_instantiatedSession',None)is None)
     _require(getattr(SparkContext,'_active_spark_context',None)is None)
-    return (SparkSession.builder.master('local[1]').appName('Ashlar configured-local Delta publication')
+    return (SparkSession.builder.master('local[1]').appName(app_name)
         .config('spark.driver.memory','512m').config('spark.ui.enabled','false').config('spark.sql.shuffle.partitions','1')
         .config('spark.databricks.delta.snapshotPartitions','1').config('spark.sql.session.timeZone','UTC')
         .config(PARAMETER_SUBSTITUTION_SETTING,'true')
         .config('spark.sql.ansi.enabled','true').config('spark.sql.decimalOperations.allowPrecisionLoss','false')
         .config('spark.jars',','.join(str(p)for p in selected)).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension')
         .config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog')
-        .config('spark.sql.warehouse.dir',str(config.output/'warehouse')).getOrCreate())
+        .config('spark.sql.warehouse.dir',str(warehouse)).getOrCreate())
+
+
+def open_finite_spark(config,jars):
+    """Open current configured-local Spark without historical commerce pins."""
+    return open_configured_local_spark(config,jars,config.output/'warehouse')
 
 
 def _fields():

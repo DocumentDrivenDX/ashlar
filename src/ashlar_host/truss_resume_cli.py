@@ -3,7 +3,9 @@
 import json
 import os
 import sqlite3
-from contextlib import closing
+from contextlib import closing, contextmanager
+from dataclasses import dataclass
+from collections.abc import Mapping
 from pathlib import Path
 from urllib.parse import quote
 from .delta_custody import DeltaTarget, LocalDeltaTransport, encoded
@@ -13,6 +15,20 @@ from .lifecycle import finish, owned_context
 from .private_graph_custody import decode_custody_bytes, require_custody_digest
 from .truss_catalog_reader import parse_archived_acceptance_files, read_historical_catalog_views
 from .truss_page_archive import decode_truss_page, MAXIMUM_ARCHIVE_BYTES
+from .configured_local_runtime_profile import PROFILE as CURRENT_RUNTIME_PROFILE, JAR_NAMES as CURRENT_RUNTIME_JAR_NAMES, PARAMETER_SUBSTITUTION_SETTING, SPARK_VERSION as CURRENT_SPARK_VERSION, verify_loaded_delta_class
+
+
+@dataclass(frozen=True)
+class _CurrentTrussRuntime:
+    jars: Path
+    java_home: Path
+    jar_inventory: Mapping
+    output: Path
+
+    def __post_init__(self):
+        for selected in (self.jars,self.java_home,self.output):
+            if not isinstance(selected,Path) or not selected.is_absolute() or selected.resolve()!=selected:
+                raise ValueError('Canonical current Truss runtime paths required')
 
 
 def parse_resume_truss_configuration(configuration, output):
@@ -21,7 +37,7 @@ def parse_resume_truss_configuration(configuration, output):
     base = {'connection_uri','publication_directory','jars'}
     selections = {'feed','source_page_path','source_page_sha256','request_digest'}
     required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
-    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id'}:
+    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile'}:
         raise ValueError('Exact original Truss resume configuration required')
     intent_path = None
     if 'publication_intent' in config:
@@ -66,6 +82,20 @@ def parse_resume_truss_configuration(configuration, output):
         raise ValueError('Two existing Delta JARs required')
     jars = tuple(path(value) for value in config['jars'])
     if len(set(jars)) != 2: raise ValueError('Distinct existing Delta JARs required')
+    runtime=config.get('runtime_profile')
+    if runtime is not None:
+        if (type(runtime)is not dict or set(runtime)!={'profile','java_home','jar_inventory'}
+                or runtime.get('profile')!=CURRENT_RUNTIME_PROFILE):
+            raise ValueError('Exact current configured-local runtime profile required')
+        java_home=path(runtime['java_home'],directory=True)
+        inventory=runtime['jar_inventory']
+        if (type(inventory)is not dict or set(inventory)!=set(CURRENT_RUNTIME_JAR_NAMES)
+                or any(type(value)is not str or len(value)!=64 or any(c not in '0123456789abcdef' for c in value)
+                       for value in inventory.values())):
+            raise ValueError('Exact pinned current Delta JAR inventory required')
+        if ({item.name for item in jars}!=set(CURRENT_RUNTIME_JAR_NAMES)
+                or len({item.parent for item in jars})!=1):
+            raise ValueError('Current runtime JAR paths must match the pinned inventory')
     archives = parse_archived_acceptance_files(config.get('archived_acceptance_files',[]))
     destination = Path(output)
     if (not destination.is_absolute() or not destination.parent.is_dir() or destination.parent.resolve() != destination.parent
@@ -78,11 +108,53 @@ def parse_resume_truss_configuration(configuration, output):
         raise ValueError('Resume output must be separate from original custody')
     warehouse = destination.parent/(destination.name+'-warehouse')
     if warehouse.exists() or warehouse.is_symlink(): raise ValueError('Fresh separate Spark warehouse required')
+    if runtime is not None:
+        config['_current_runtime']=_CurrentTrussRuntime(jars[0].parent,java_home,dict(inventory),warehouse)
     page_raw = snapshot(page,MAXIMUM_ARCHIVE_BYTES)
     import hashlib
     if hashlib.sha256(page_raw).hexdigest() != config['source_page_sha256']:
         raise ValueError('Original source page archive digest differs')
     return config,publication,page_raw,jars,archives,destination,warehouse
+
+
+def _attest_current_spark(spark,config,jars):
+    from .configured_local_runtime_profile import attest
+    _,identity,selected=attest(config)
+    if (list(jars)!=selected or spark.version!=CURRENT_SPARK_VERSION
+            or spark.conf.get('spark.sql.session.timeZone')!='UTC'
+            or spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)!='true'
+            or spark.conf.get('spark.jars')!=','.join(str(path)for path in selected)
+            or spark.sparkContext.master!='local[1]'
+            or spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')!='21'):
+        raise ValueError('Current Truss resume Spark identity differs')
+    if identity['sessionSettings'].get(PARAMETER_SUBSTITUTION_SETTING)!='true':
+        raise ValueError('Current Truss resume SQL binding profile differs')
+    verify_loaded_delta_class(spark,selected)
+
+
+@contextmanager
+def _open_current_truss_spark(config,jars,warehouse):
+    from .configured_local_runtime import open_configured_local_spark
+    from .lifecycle import finish
+    runtime=config['_current_runtime']
+    spark=open_configured_local_spark(runtime,jars,warehouse,app_name='Ashlar current Truss graph resume')
+    primary=None
+    try:
+        _attest_current_spark(spark,runtime,jars)
+        spark.sparkContext.setLogLevel('ERROR')
+        yield spark
+    except BaseException as error:
+        primary=error
+    finish(primary,[lambda:_attest_current_spark(spark,runtime,jars),spark.stop])
+
+
+def _require_runtime_matches_admission(admission,config):
+    current=config.get('_current_runtime')
+    if admission.current:
+        if current is None:
+            raise ValueError('Current Truss 0.10 admission requires an explicit configured-local runtime profile')
+    elif current is not None:
+        raise ValueError('Current configured-local runtime profile is only valid for current Truss admission')
 
 
 def run_resume_truss_graph_command(configuration, output):
@@ -140,9 +212,12 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     sessions = TrussFeedSessions(page,config['feed'],bind_ordinary_connection(connection,context),context,**({'destination_receipts':True,'destination_id':config['destination_id']}if 'destination_id'in config else {}))
     from .truss_catalog_reader import read_graph_catalog_evidence
     admission = TrussGraphAdmission(sessions.batch(),read_graph_catalog_evidence(connection,sessions.batch(),archives))
+    _require_runtime_matches_admission(admission,config)
     lease = PrivateFiniteLease(publication,create=False)
     try:
-        with owned_context(open_commerce_export_spark(jars,warehouse)) as spark:
+        spark_context=(_open_current_truss_spark(config,jars,warehouse) if admission.current
+                       else open_commerce_export_spark(jars,warehouse))
+        with owned_context(spark_context) as spark:
             policy = PrivatePolicy(context,tuple(targets));policy.initializing = False
             transport = LocalDeltaTransport(spark,journal,registry['installation'],tuple(targets),policy,capacity=capacity)
             primary = None;descriptor = None
