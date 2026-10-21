@@ -164,6 +164,8 @@ class ManagedCurrentQueryTests(unittest.TestCase):
   def test_source_oracle_refuses_unrelated_feed_cursor_or_schedule_before_read(self):
     source_bundle = _source_bundle()
     _oracle(source_bundle)
+    from ashlar_host.managed_current_query import _managed_source_identity
+    identity = _managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
     unrelated = json.loads(_canonical(source_bundle))
     unrelated["source"]["feed"] = "plausible-but-unrelated-feed"
     unrelated.pop("bindingSha256")
@@ -186,6 +188,23 @@ class ManagedCurrentQueryTests(unittest.TestCase):
       _ = admit_managed_current_source_oracle(
           {**json.loads(_canonical(value)), "oracleSha256": value["oracleSha256"]},
           source_bundle=source_bundle, schedule_sha256="f" * 64, schedule_step=7)
+    wrong_version = {
+        "profile": "ashlar-managed-current-source-oracle/0.1",
+        "authority": "external-real-truss-holder", "trussVersion": "0.0.45",
+        "umfVersion": "0.10.0", "scheduleSha256": "a" * 64, "scheduleStep": 7,
+        "capturedAt": "2026-10-21T14:00:00Z", "authorityReceiptSha256": identity["authorityReceiptSha256"],
+        "catalogHeadSha256": identity["catalogHeadSha256"], "modelSha256": identity["modelSha256"],
+        "feed": identity["feed"], "epoch": identity["epoch"], "cursorSha256": identity["cursorSha256"],
+        "persons": [{"key": "person-1", "name": "Ada", "quantity": {"state": "absent"}}],
+        "places": [], "edges": [],
+        "catalogEvidenceProfile": "ashlar-truss-current-catalog-evidence/0.2",
+        "runtimeProvenance": {"trussWheelSha256": "1" * 64, "runtimeManifestSha256": "2" * 64},
+    }
+    wrong_version["oracleSha256"] = hashlib.sha256(_canonical(wrong_version).encode()).hexdigest()
+    with self.assertRaisesRegex(ValueError, "source bundle, manifest progress"):
+      admit_managed_current_source_oracle(
+          wrong_version, source_bundle=source_bundle,
+          schedule_sha256="a" * 64, schedule_step=7)
 
   def test_managed_backend_route_refuses_cross_surface_request_artifact_before_execution(self):
     from ashlar.weft_query import MANAGED_CURRENT_BACKEND02, MANAGED_CURRENT_BACKEND03, read_weft

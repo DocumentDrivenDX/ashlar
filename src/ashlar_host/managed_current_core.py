@@ -13,6 +13,7 @@ import base64
 
 PROFILE = 'ashlar-managed-current-core/0.1'
 BINDING_PROFILE = 'ashlar-managed-current-core-binding/0.1'
+BINDING_PROFILE_045 = 'ashlar-managed-current-core-binding/0.2'
 ROLES = ('object_current', 'edge_current', 'tombstone', 'whole_source_history',
          'publication_manifest', 'publication_attempt_phase')
 BACKENDS = ('Backend03', 'Backend02')
@@ -113,13 +114,26 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
     their separate four-data-role version vector. Neither result is a
     publication or query request, and neither grants execution authority.
     """
-    from .truss_graph_admission import TrussGraphAdmission, CURRENT_PROFILE
+    from .truss_graph_admission import TrussGraphAdmission, current_admission_profile
+    from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+        CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+        CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
     _require(type(config) is ManagedCurrentCoreConfig)
     config.__post_init__()
     _require(type(admission) is TrussGraphAdmission and admission.current
-             and admission.metadata()['profile'] == CURRENT_PROFILE
+             and admission.current_truss_version in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION)
+             and admission.metadata()['profile'] == current_admission_profile(admission.current_truss_version)
              and admission.batch.profile == 'truss-native-feed/0.1',
-             'actual accepted Truss 0.44 / UMF 0.10 graph admission required')
+             'actual versioned current Truss / UMF 0.10 graph admission required')
+    version = admission.current_truss_version
+    evidence_profile = (CURRENT_EVIDENCE_PROFILE if version == CURRENT_TRUSS_VERSION
+                        else CURRENT_045_EVIDENCE_PROFILE)
+    _require(admission.current_catalog_evidence_profile == evidence_profile)
+    if version == CURRENT_TRUSS_045_VERSION:
+        _require(admission.current_runtime_wheel_sha256 == CURRENT_TRUSS_045_WHEEL_SHA256
+                 and admission.current_runtime_manifest_sha256 == CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
+                 'Truss 0.0.45 installed wheel/runtime provenance required')
+    binding_profile = BINDING_PROFILE if version == CURRENT_TRUSS_VERSION else BINDING_PROFILE_045
     tables = None if table_inventory is None else _validate_installation_inventory(config, table_inventory)
 
     accepted = {}
@@ -207,12 +221,12 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
     view_bytes = {revision: base64.b64encode(raw).decode('ascii')
                   for revision, raw in catalog_views.items() if revision in admission.revisions}
     result = {
-        'profile': BINDING_PROFILE,
+        'profile': binding_profile,
         'status': 'preinstallation-source-bundle' if tables is None else 'postinstallation-installation-inventory-bound-offline',
         'source': {
             'authority': 'development-only-until-production-owner-observed',
             'pageAuthority': 'unverified-caller-supplied-native-page',
-            'trussVersion': '0.0.44', 'umfVersion': '0.10.0',
+            'trussVersion': version, 'umfVersion': '0.10.0',
             'feed': admission.batch.feed, 'epoch': admission.batch.epoch,
             'transactionSha256': hashlib.sha256(admission.batch.begin).hexdigest(),
             'nativePageBase64': base64.b64encode(admission.batch.begin).decode('ascii'),
@@ -231,6 +245,12 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
         'bounds': {'preferredCostUsd': config.preferred_cost_usd,
                    'hardCostUsd': config.hard_cost_usd},
     }
+    if version == CURRENT_TRUSS_045_VERSION:
+        result['source']['catalogEvidenceProfile'] = evidence_profile
+        result['source']['runtimeProvenance'] = {
+            'trussWheelSha256': admission.current_runtime_wheel_sha256,
+            'runtimeManifestSha256': admission.current_runtime_manifest_sha256,
+        }
     result['bindingSha256'] = hashlib.sha256(json.dumps(
         result, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
     return result
@@ -263,12 +283,19 @@ def _validate_installation_inventory(config, table_inventory):
 
 def bind_observed_managed_installation(prepared_binding, config: ManagedCurrentCoreConfig, table_inventory: dict):
     """Attach independently observed native identities after managed install."""
-    _require(type(prepared_binding) is dict and prepared_binding.get('profile') == BINDING_PROFILE
+    source = prepared_binding.get('source') if type(prepared_binding) is dict else None
+    version = source.get('trussVersion') if type(source) is dict else None
+    expected_profile = (BINDING_PROFILE if version == '0.0.44'
+                        else BINDING_PROFILE_045 if version == '0.0.45' else None)
+    _require(type(prepared_binding) is dict and prepared_binding.get('profile') == expected_profile
              and prepared_binding.get('status') == 'preinstallation-source-bundle'
              and prepared_binding.get('destination') == {
                  'catalog': config.catalog, 'schema': config.schema,
                  'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
                  'tables': None}, 'original preinstallation binding required')
+    # Do not attach observed destination identities to a forged or stale source
+    # bundle; reconstruct the exact versioned admission before accepting them.
+    restore_managed_current_admission(prepared_binding, config)
     result = json.loads(json.dumps(prepared_binding))
     result['destination']['tables'] = _validate_installation_inventory(config, table_inventory)
     result['status'] = 'postinstallation-installation-inventory-bound-offline'
@@ -286,14 +313,32 @@ def restore_managed_current_admission(binding, config):
     The outer digest is correspondence only; source authority/ACK stays with the
     external held Truss source session.
     """
-    _require(type(binding)is dict and binding.get('profile')==BINDING_PROFILE
-             and binding.get('status')=='preinstallation-source-bundle',
+    _require(type(binding)is dict and binding.get('status')=='preinstallation-source-bundle',
              'Exact preinstallation current source bundle required')
+    source=binding.get('source');_require(type(source)is dict)
+    from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+        CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+        CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
+    from .truss_graph_admission import current_admission_profile
+    version=source.get('trussVersion')
+    expected_binding_profile=(BINDING_PROFILE if version==CURRENT_TRUSS_VERSION
+                              else BINDING_PROFILE_045 if version==CURRENT_TRUSS_045_VERSION else None)
+    _require(expected_binding_profile is not None and binding.get('profile')==expected_binding_profile
+             and source.get('umfVersion')=='0.10.0',
+             'Version-matched current Truss source bundle required')
+    if version==CURRENT_TRUSS_045_VERSION:
+        _require(source.get('catalogEvidenceProfile')=='ashlar-truss-current-catalog-evidence/0.2'
+                 and source.get('runtimeProvenance')=={
+                     'trussWheelSha256':CURRENT_TRUSS_045_WHEEL_SHA256,
+                     'runtimeManifestSha256':CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256},
+                 'Truss 0.0.45 wheel/runtime provenance required in source bundle')
+    else:
+        _require('catalogEvidenceProfile' not in source and 'runtimeProvenance' not in source,
+                 'Truss 0.0.44 source bundle must retain its original provenance contract')
     retained=dict(binding);digest=retained.pop('bindingSha256',None)
     _require(_sha(digest) and hashlib.sha256(json.dumps(retained,sort_keys=True,
              separators=(',',':'),ensure_ascii=False).encode()).hexdigest()==digest,
              'Original digest-bound source bundle required')
-    source=binding.get('source');_require(type(source)is dict)
     page=base64.b64decode(source.get('nativePageBase64',''),validate=True)
     prior=base64.b64decode(source.get('cursorBeforeBase64',''),validate=True)
     following=base64.b64decode(source.get('cursorAfterBase64',''),validate=True)
@@ -314,9 +359,17 @@ def restore_managed_current_admission(binding, config):
             registration_id=item['registrationId'],sha256=item['modelSha256'],content=raw,
             catalog_revision=int(item['catalogRevision']))
     from .truss_current_catalog import CurrentCatalogEvidence
-    from .truss_graph_admission import TrussGraphAdmission,CURRENT_PROFILE
-    admission=TrussGraphAdmission(batch,CurrentCatalogEvidence('0.0.44',reports,views,source_objects))
-    _require(admission.current and admission.metadata()['profile']==CURRENT_PROFILE
+    from .truss_graph_admission import TrussGraphAdmission
+    runtime = source.get('runtimeProvenance', {})
+    admission=TrussGraphAdmission(batch,CurrentCatalogEvidence(
+        version,reports,views,source_objects,
+        runtime_wheel_sha256=runtime.get('trussWheelSha256'),
+        runtime_manifest_sha256=runtime.get('runtimeManifestSha256')))
+    _require(admission.current and admission.metadata()['profile']==current_admission_profile(version)
+             and admission.current_catalog_evidence_profile==(source.get('catalogEvidenceProfile')
+                 if version==CURRENT_TRUSS_045_VERSION else CURRENT_EVIDENCE_PROFILE)
+             and admission.current_runtime_wheel_sha256==runtime.get('trussWheelSha256')
+             and admission.current_runtime_manifest_sha256==runtime.get('runtimeManifestSha256')
              and admission.metadata()['declared_umf']=={revision:{doc:'0.10.0' for doc in value['models']}
                     for revision,value in admission.revisions.items()},
              'Reconstructed current Truss/UMF admission differs')

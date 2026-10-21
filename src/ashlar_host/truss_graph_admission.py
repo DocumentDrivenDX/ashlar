@@ -56,6 +56,9 @@ class TrussGraphAdmission:
         payload=json.loads(batch.begin);self.revisions={};self.events={};self.current=isinstance(catalog_views,CurrentCatalogEvidence)
         self.catalog_views=dict(catalog_views.views if self.current else catalog_views)
         self.current_truss_version = catalog_views.truss_version if self.current else None
+        self.current_catalog_evidence_profile = catalog_views.profile if self.current else None
+        self.current_runtime_wheel_sha256 = catalog_views.runtime_wheel_sha256 if self.current else None
+        self.current_runtime_manifest_sha256 = catalog_views.runtime_manifest_sha256 if self.current else None
         installation=json.loads(base64.b64decode(batch.cursor_before))['installationId']
         if self.current:
             require_installed_current_catalog_evidence(catalog_views)

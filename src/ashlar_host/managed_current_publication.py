@@ -551,7 +551,7 @@ class ManagedCurrentGraphPublicationDriver:
             'installationInventory':{role:{'name':inventory[role].name,'uuid':inventory[role].uuid,
                 'version':inventory[role].version,'schema':list(inventory[role].schema),
                 'protocol':inventory[role].protocol} for role in ROLES},
-            'sourceAuthority':'development Truss 0.0.44 page on managed Unity Catalog; external source ACK required'}
+            'sourceAuthority':f'development Truss {self.admission.current_truss_version} page on managed Unity Catalog; external source ACK required'}
 
     def reopen_receipt(self,descriptor):
         """Build a destination receipt from a fresh UC read after coordination.
@@ -578,7 +578,7 @@ class ManagedCurrentGraphPublicationDriver:
             'installationInventory':{role:{'name':inventory[role].name,'uuid':inventory[role].uuid,
                 'version':inventory[role].version,'schema':list(inventory[role].schema),
                 'protocol':inventory[role].protocol} for role in ROLES},
-            'sourceAuthority':'development Truss 0.0.44 page on managed Unity Catalog; external source ACK required'}
+            'sourceAuthority':f'development Truss {self.admission.current_truss_version} page on managed Unity Catalog; external source ACK required'}
 
     def _weft_binding_inputs(self,row,inventory):
         """Exact independently observed compiler binding inputs; four data roles only."""

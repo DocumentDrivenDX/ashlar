@@ -168,13 +168,18 @@ def run_managed_current_trial_page(spark, *, config, binding, protocol_profile):
     the exact UC manifest/vector, and only then ACK the original source page.
     The helper never retries a page or source ACK.
     """
+    from .managed_current_core import (BINDING_PROFILE, BINDING_PROFILE_045,
+                                       restore_managed_current_admission)
     from .managed_current_publication import run_managed_current_publication_task
     _require(type(config) is ManagedCurrentTrialConfig,
              "Closed managed current trial configuration required")
     config.validate()
-    _require(type(binding) is dict and binding.get("profile") == "ashlar-managed-current-core-binding/0.1"
+    _require(type(binding) is dict and binding.get("profile") in (BINDING_PROFILE, BINDING_PROFILE_045)
              and binding.get("status") == "preinstallation-source-bundle",
              "One digest-bound original current Truss source bundle required")
+    # Reconstruct and re-admit the exact versioned Truss evidence before the
+    # optional CREATE SCHEMA side effect. A digest alone is not admission.
+    restore_managed_current_admission(binding, config.core_config())
     exists = _schema_exists(spark, config.catalog, config.schema)
     if config.create_schema:
         _require(not exists, "Requested new managed trial schema already exists")

@@ -66,12 +66,15 @@ class ManagedCurrentSourceOracle:
     persons: tuple
     places: tuple
     edges: tuple
+    truss_version: str
+    catalog_evidence_profile: str
+    runtime_wheel_sha256: str | None = None
+    runtime_manifest_sha256: str | None = None
 
 
 def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
     """Derive oracle identity only from the retained, digest-bound Truss bundle."""
     _require(type(source_bundle) is dict
-             and source_bundle.get("profile") == "ashlar-managed-current-core-binding/0.1"
              and source_bundle.get("status") == "preinstallation-source-bundle")
     retained = dict(source_bundle)
     supplied = retained.pop("bindingSha256", None)
@@ -79,10 +82,26 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
              and hashlib.sha256(_canonical(retained).encode("utf-8")).hexdigest() == supplied,
              "Digest-bound retained Truss source bundle required")
     source = source_bundle.get("source")
-    _require(type(source) is dict and source.get("trussVersion") == "0.0.44"
-             and source.get("umfVersion") == "0.10.0"
+    from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+        CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+        CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
+    version = source.get("trussVersion") if type(source) is dict else None
+    profile = ("ashlar-managed-current-core-binding/0.1" if version == CURRENT_TRUSS_VERSION
+               else "ashlar-managed-current-core-binding/0.2" if version == CURRENT_TRUSS_045_VERSION else None)
+    expected_catalog_profile = (CURRENT_EVIDENCE_PROFILE if version == CURRENT_TRUSS_VERSION
+                                else CURRENT_045_EVIDENCE_PROFILE if version == CURRENT_TRUSS_045_VERSION else None)
+    _require(source_bundle.get("profile") == profile
+             and type(source) is dict and source.get("umfVersion") == "0.10.0"
              and type(source.get("feed")) is str and source["feed"]
              and type(source.get("epoch")) is str and source["epoch"])
+    runtime = source.get("runtimeProvenance")
+    if version == CURRENT_TRUSS_045_VERSION:
+        _require(source.get("catalogEvidenceProfile") == expected_catalog_profile
+                 and runtime == {"trussWheelSha256": CURRENT_TRUSS_045_WHEEL_SHA256,
+                             "runtimeManifestSha256": CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256},
+                 "Truss 0.0.45 installed wheel/runtime provenance required")
+    else:
+        _require("runtimeProvenance" not in source and "catalogEvidenceProfile" not in source)
     try:
         page = base64.b64decode(source["nativePageBase64"], validate=True)
         before = base64.b64decode(source["cursorBeforeBase64"], validate=True)
@@ -120,6 +139,8 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
     return {
         "trussVersion": source["trussVersion"],
         "umfVersion": source["umfVersion"],
+        "catalogEvidenceProfile": expected_catalog_profile,
+        "runtimeProvenance": runtime,
         "feed": source["feed"], "epoch": source["epoch"],
         "cursorSha256": cursor_sha,
         "authorityReceiptSha256": authority_receipt_sha,
@@ -143,12 +164,14 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
     Place identities, and edge identities/endpoints. Edge lists preserve
     multiplicity; IDs must be unique while equal endpoint pairs remain allowed.
     """
-    _require(type(value) is dict and set(value) == {
+    _require(type(value) is dict and type(value.get("trussVersion")) is str)
+    optional = {"catalogEvidenceProfile", "runtimeProvenance"} if value["trussVersion"] == "0.0.45" else set()
+    _require(set(value) == {
         "profile", "authority", "trussVersion", "umfVersion", "scheduleSha256",
         "scheduleStep", "capturedAt", "authorityReceiptSha256", "catalogHeadSha256",
         "modelSha256", "feed", "epoch", "cursorSha256", "persons", "places",
         "edges", "oracleSha256",
-    })
+    } | optional)
     supplied = value["oracleSha256"]
     unsigned = dict(value)
     unsigned.pop("oracleSha256")
@@ -158,12 +181,18 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
     identity = _managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
                                         schedule_step=schedule_step)
     _require(value["profile"] == _PROFILE and value["authority"] == "external-real-truss-holder"
-             and value["trussVersion"] == "0.0.44" and value["umfVersion"] == "0.10.0"
+             and value["trussVersion"] in ("0.0.44", "0.0.45")
+             and value["umfVersion"] == "0.10.0"
              and all(value.get(key) == identity[key] for key in (
                  "trussVersion", "umfVersion", "scheduleSha256", "scheduleStep",
                  "authorityReceiptSha256", "catalogHeadSha256", "modelSha256",
                  "feed", "epoch", "cursorSha256")),
              "Source oracle authority, source bundle, manifest progress, or frozen schedule differs")
+    _require(value.get("catalogEvidenceProfile", identity["catalogEvidenceProfile"])
+             == identity["catalogEvidenceProfile"]
+             and value.get("runtimeProvenance", identity["runtimeProvenance"])
+             == identity["runtimeProvenance"],
+             "Source oracle Truss runtime version/provenance differs from its retained bundle")
     _require(_text(value["capturedAt"]) and all(type(value[key]) is str and _SHA.fullmatch(value[key])
              for key in ("authorityReceiptSha256", "catalogHeadSha256", "modelSha256", "cursorSha256"))
              and _text(value["feed"]) and _text(value["epoch"]),
@@ -217,7 +246,10 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
         value["authorityReceiptSha256"], value["catalogHeadSha256"], value["modelSha256"],
         value["feed"], value["epoch"], value["cursorSha256"],
         tuple(dict(item) for item in persons), tuple(dict(item) for item in places),
-        tuple(dict(item) for item in edges),
+        tuple(dict(item) for item in edges), value["trussVersion"],
+        value.get("catalogEvidenceProfile", identity["catalogEvidenceProfile"]),
+        identity["runtimeProvenance"].get("trussWheelSha256") if identity["runtimeProvenance"] else None,
+        identity["runtimeProvenance"].get("runtimeManifestSha256") if identity["runtimeProvenance"] else None,
     )
 
 
@@ -272,6 +304,8 @@ def managed_current_oracle_receipt(oracle, expected_rows):
         "profile": _PROFILE,
         "sourceOracleSha256": oracle.sha256,
         "sourceAuthority": "external-real-truss-holder",
+        "trussVersion": oracle.truss_version,
+        "catalogEvidenceProfile": oracle.catalog_evidence_profile,
         "capturedAt": oracle.captured_at,
         "scheduleSha256": oracle.schedule_sha256,
         "scheduleStep": oracle.schedule_step,
@@ -283,6 +317,11 @@ def managed_current_oracle_receipt(oracle, expected_rows):
         "feed": oracle.feed,
         "epoch": oracle.epoch,
     }
+    if oracle.truss_version == "0.0.45":
+        receipt["runtimeProvenance"] = {
+            "trussWheelSha256": oracle.runtime_wheel_sha256,
+            "runtimeManifestSha256": oracle.runtime_manifest_sha256,
+        }
     receipt["sha256"] = hashlib.sha256(_canonical(receipt).encode("utf-8")).hexdigest()
     return receipt
 
@@ -447,10 +486,15 @@ class ManagedCurrentReadOwner:
                  and type(maximum_rows) is int and 1 <= maximum_rows <= 1000)
         identity = _managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
                                             schedule_step=schedule_step)
-        _require((oracle.schedule_sha256, oracle.schedule_step,
+        _require((oracle.truss_version, oracle.catalog_evidence_profile,
+                  oracle.runtime_wheel_sha256, oracle.runtime_manifest_sha256,
+                  oracle.schedule_sha256, oracle.schedule_step,
                   oracle.authority_receipt_sha256, oracle.catalog_head_sha256,
                   oracle.model_sha256, oracle.feed, oracle.epoch, oracle.cursor_sha256)
-                 == (schedule_sha256, schedule_step, identity["authorityReceiptSha256"],
+                 == (identity["trussVersion"], identity["catalogEvidenceProfile"],
+                     (identity["runtimeProvenance"] or {}).get("trussWheelSha256"),
+                     (identity["runtimeProvenance"] or {}).get("runtimeManifestSha256"),
+                     schedule_sha256, schedule_step, identity["authorityReceiptSha256"],
                      identity["catalogHeadSha256"], identity["modelSha256"],
                      identity["feed"], identity["epoch"], identity["cursorSha256"]),
                  "Managed query oracle must bind the retained source page, schedule, model, and catalog")
@@ -498,7 +542,7 @@ class ManagedCurrentReadOwner:
                     "manifestSha256", "dataRoleVector", "weftBindingInputs",
                     "installationInventory", "sourceAuthority"}
                  and receipt["sourceAuthority"] ==
-                    "development Truss 0.0.44 page on managed Unity Catalog; external source ACK required")
+                    f"development Truss {self.oracle.truss_version} page on managed Unity Catalog; external source ACK required")
         inventory = receipt["installationInventory"]
         _require(type(inventory) is dict and set(inventory) == set(ROLES))
         for role in ROLES:

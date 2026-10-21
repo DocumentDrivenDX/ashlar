@@ -12,7 +12,7 @@ import re
 import uuid
 
 from ashlar_host.managed_current_carriers import GENERATED_SHA256
-from .managed_current_core import BINDING_PROFILE, PROFILE
+from .managed_current_core import BINDING_PROFILE, BINDING_PROFILE_045, PROFILE
 
 BACKEND_ID = 'ashlar.databricks.managed-uc-spark'
 BACKEND03_VERSION = '0.1.0-managed-current-core-candidate'
@@ -46,7 +46,11 @@ def _identity(document, revision, module, element):
 
 
 def _validated_inputs(source_bundle, weft_inputs):
-    _require(type(source_bundle) is dict and source_bundle.get('profile') == BINDING_PROFILE
+    source = source_bundle.get('source') if type(source_bundle) is dict else None
+    version = source.get('trussVersion') if type(source) is dict else None
+    expected_profile = (BINDING_PROFILE if version == '0.0.44'
+                        else BINDING_PROFILE_045 if version == '0.0.45' else None)
+    _require(type(source_bundle) is dict and source_bundle.get('profile') == expected_profile
              and source_bundle.get('status') == 'preinstallation-source-bundle',
              'Original preinstallation Truss source bundle required')
     retained = dict(source_bundle)
@@ -111,11 +115,21 @@ def _validated_inputs(source_bundle, weft_inputs):
     _require(type(schema_revisions) is dict and bool(schema_revisions)
              and _canonical(schema_revisions) == manifest['schema_revisions_json'],
              'Canonical accepted schema revision vector required')
-    source = source_bundle.get('source')
-    _require(type(source) is dict and source.get('trussVersion') == '0.0.44'
+    from .truss_current_catalog import (CURRENT_TRUSS_045_WHEEL_SHA256,
+        CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
+    _require(type(source) is dict and source.get('trussVersion') in ('0.0.44', '0.0.45')
              and source.get('umfVersion') == '0.10.0'
              and source.get('authority') == 'development-only-until-production-owner-observed',
-             'Accepted Truss 0.0.44 / UMF 0.10.0 source mapping required')
+             'Accepted versioned current Truss / UMF 0.10.0 source mapping required')
+    if version == '0.0.45':
+        _require(source.get('catalogEvidenceProfile') == 'ashlar-truss-current-catalog-evidence/0.2'
+                 and source.get('runtimeProvenance') == {
+                     'trussWheelSha256': CURRENT_TRUSS_045_WHEEL_SHA256,
+                     'runtimeManifestSha256': CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256},
+                 'Truss 0.0.45 wheel/runtime provenance required')
+    else:
+        _require('catalogEvidenceProfile' not in source and 'runtimeProvenance' not in source,
+                 'Truss 0.0.44 source bundle contract must remain unchanged')
     targets = source_bundle.get('weftTargets')
     _require(type(targets) is dict and set(targets) == {'Backend03', 'Backend02'},
              'Both explicitly selected current Weft target identities required')

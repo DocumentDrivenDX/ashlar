@@ -71,6 +71,8 @@ class ManagedCurrentCoreTests(unittest.TestCase):
         self.assertEqual(source['authority'], 'development-only-until-production-owner-observed')
         self.assertEqual(source['umfVersion'], '0.10.0')
         self.assertEqual(source['trussVersion'], '0.0.44')
+        self.assertNotIn('catalogEvidenceProfile', source)
+        self.assertNotIn('runtimeProvenance', source)
         self.assertEqual(base64.b64decode(source['nativePageBase64'], validate=True), admission.batch.begin)
         document = source['acceptedDocuments']['1:typed-graph-example']
         original = base64.b64decode(document['sourceBytesBase64'], validate=True)
@@ -92,6 +94,30 @@ class ManagedCurrentCoreTests(unittest.TestCase):
         self.assertEqual(restored.batch,admission.batch)
         self.assertEqual(restored.metadata(),admission.metadata())
 
+    def test_current_045_bundle_requires_distinct_version_profile_and_runtime_provenance(self):
+        config=_config();bundle=bind_current_core(_current_admission(),config)
+        self.assertEqual(bundle['profile'],'ashlar-managed-current-core-binding/0.1')
+        forged=json.loads(json.dumps(bundle))
+        forged['source']['trussVersion']='0.0.45'
+        forged['profile']='ashlar-managed-current-core-binding/0.2'
+        forged.pop('bindingSha256')
+        forged['bindingSha256']=hashlib.sha256(json.dumps(forged,sort_keys=True,
+            separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+        with self.assertRaisesRegex(ValueError,'wheel/runtime provenance'):
+            restore_managed_current_admission(forged,config)
+        forged['source']['catalogEvidenceProfile']='ashlar-truss-current-catalog-evidence/0.2'
+        forged['source']['runtimeProvenance']={
+            'trussWheelSha256':'0'*64,'runtimeManifestSha256':'1'*64}
+        forged.pop('bindingSha256')
+        forged['bindingSha256']=hashlib.sha256(json.dumps(forged,sort_keys=True,
+            separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+        with self.assertRaisesRegex(ValueError,'wheel/runtime provenance'):
+            restore_managed_current_admission(forged,config)
+        from ashlar_host.truss_current_catalog import CurrentCatalogEvidence
+        with self.assertRaisesRegex(ValueError,'runtime-attested catalog evidence'):
+            CurrentCatalogEvidence('0.0.45',{}, {}, {}, runtime_wheel_sha256='0'*64,
+                                   runtime_manifest_sha256='1'*64)
+
     def test_known_old_and_local_weft_targets_cannot_claim_current_managed_identity(self):
         old = {'surface': 'Backend03', 'backendId': 'ashlar.databricks',
                'backendVersion': '0.1.0-qualified', 'targetProfile': 'dbsql2026.39-qualified',
@@ -109,7 +135,7 @@ class ManagedCurrentCoreTests(unittest.TestCase):
         from test_truss_graph_admission import Tests as HistoricalGraphFixture
         batch, catalogs = HistoricalGraphFixture().original()
         historical = TrussGraphAdmission(batch, catalogs)
-        with self.assertRaisesRegex(ValueError, 'Truss 0.44 / UMF 0.10'):
+        with self.assertRaisesRegex(ValueError, 'versioned current Truss / UMF 0.10'):
             bind_current_core(historical, _config())
 
     def test_cost_ceiling_is_closed(self):
