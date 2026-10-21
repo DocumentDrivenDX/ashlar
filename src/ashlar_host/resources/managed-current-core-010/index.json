@@ -1,0 +1,39 @@
+{
+  "profile": "ashlar-managed-current-carrier-migration/0.1",
+  "umfCore": "0.10.0",
+  "generatorRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+  "extensionVersions": {
+    "umf.delta": "0.1.0",
+    "umf.delta.definition": "0.1.0"
+  },
+  "roles": [
+    "object_current",
+    "edge_current",
+    "tombstone",
+    "whole_source_history",
+    "publication_manifest",
+    "publication_attempt_phase"
+  ],
+  "migration": {
+    "sourceProfile": "ashlar-delta-runtime-model/0.1",
+    "sourceUmfCore": "0.1.0",
+    "operation": "UMF language header updated for current public core reader; all authored elements/extensions retained byte-semantically",
+    "sourceSha256": {
+      "object_current": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "edge_current": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "tombstone": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "whole_source_history": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "publication_manifest": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "publication_attempt_phase": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c"
+    },
+    "targetSha256": {
+      "object_current": "75166b5a168da6e00e11810f9b29833da3683ee4734a3ded68344e91810d68be",
+      "edge_current": "efb67da7c4fdbdee302aaed58634423019d1bc0d930412505f636b3ccc18a51e",
+      "tombstone": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "whole_source_history": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "publication_manifest": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "publication_attempt_phase": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    },
+    "equivalence": "Current public generateDeltaDDL output must match every role ordered field name, native type and nullability; native UC UUID/protocol/schema require separate opening/closing observations."
+  }
+}

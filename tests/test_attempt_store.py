@@ -50,4 +50,21 @@ class AttemptStoreTests(unittest.TestCase):
                 if mutation=='duplicate':ex.rows.append(dict(ex.rows[-1]))
                 if mutation=='missing':ex.rows.pop(0)
                 with self.assertRaises(AttemptStoreError):session.read('s','b')
+    def test_prepared_plan_is_canonical_and_preserved_through_every_phase(self):
+        ex=MemoryExecutor();store=DeltaAttemptStore(ex,Policy(),'c.s.t','uuid')
+        plan=json.dumps({'steps':[{'statement':'MERGE','parameters':{'rows':'[]'}}]},sort_keys=True,separators=(',',':'))
+        with store.session('ctx') as session:
+            with self.assertRaises(AttemptStoreError):
+                session.append(REQUEST,'prepared',plan_json=' {"steps":[]}')
+            session.append(REQUEST,'prepared',plan_json=plan)
+            session.append(REQUEST,'applying')
+            session.append(REQUEST,'applied',result_json='{"pin":1}')
+            session.append(REQUEST,'committing',result_json='{"pin":1}')
+            session.append(REQUEST,'committed',result_json='{"pin":1}',descriptor_json='{"id":"original"}')
+            self.assertTrue(all(json.loads(record.payload_json)['plan_json']==plan for record in session.read('s','b')))
+        ex.rows[2]['payload_json']=ex.rows[2]['payload_json'].replace('MERGE','INSERT')
+        ex.rows[2]['payload_digest']=hashlib.sha256(ex.rows[2]['payload_json'].encode()).hexdigest()
+        with store.session('ctx') as session:
+            with self.assertRaisesRegex(AttemptStoreError,'plan changed'):
+                session.read('s','b')
 if __name__=='__main__':unittest.main()

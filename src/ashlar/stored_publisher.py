@@ -139,18 +139,33 @@ class StoredPublisherBackend:
         return descriptor
 
     def prepare(self, stream, request):
-        self._records(stream, request['batch_id'])
-        record = self._session.append(dict(request), 'prepared')
+        records=self._records(stream, request['batch_id'])
+        if records:
+            existing_payload=_json(records[0].payload_json.encode())
+            plan_json=existing_payload.get('plan_json')
+            restore=getattr(self.driver,'load_prepared_plan',None)
+            if callable(restore) and restore(dict(request),plan_json,self._context) is not None:
+                raise PublicationError('Original prepared plan restoration incomplete')
+        else:
+            plan_provider=getattr(self.driver,'prepared_plan',None)
+            plan_json=plan_provider(dict(request),self._context) if callable(plan_provider) else None
+        record = self._session.append(dict(request), 'prepared',plan_json=plan_json)
         return self._attempt(record, _json(record.payload_json.encode()))
 
     def start_apply(self, stream, batch_id, digest):
         _, payload = self._original(stream, batch_id, digest)
+        validate=getattr(self.driver,'validate_prepared_plan',None)
+        if callable(validate) and validate(dict(payload['request']),payload.get('plan_json'),self._context) is not None:
+            raise PublicationError('Exact retained prepared plan admission incomplete')
         self._session.append(payload['request'], 'applying')
 
     def _effects(self, stream, request, recovery):
         last, original = self._original(stream, request['batch_id'], request['request_digest'])
         if last.phase != 'applying' or dict(request) != original['request']:
             raise PublicationError('Original applying request required')
+        validate=getattr(self.driver,'validate_prepared_plan',None)
+        if callable(validate) and validate(dict(original['request']),original.get('plan_json'),self._context) is not None:
+            raise PublicationError('Exact original applying plan admission incomplete')
         function = self.driver.recover_apply if recovery else self.driver.apply
         result = function(dict(original['request']), self._context)
         _artifact(result, original['request'])

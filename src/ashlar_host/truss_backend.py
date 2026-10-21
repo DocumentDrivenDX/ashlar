@@ -9,6 +9,10 @@ class TrussPublisherBackend(StoredPublisherBackend):
         self.truss_context = context
 
     def prepare(self, stream, request):
-        self.observe(stream, request['batch_id'])
-        self.driver.prepare_truss_apply(dict(request), self.truss_context)
+        observed=self.observe(stream, request['batch_id'])
+        prepare_observation=getattr(self.driver,'prepare_truss_observation',None)
+        if callable(prepare_observation):
+            prepare_observation(dict(request),self.truss_context,observed)
+        else:
+            self.driver.prepare_truss_apply(dict(request), self.truss_context)
         return super().prepare(stream, request)

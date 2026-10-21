@@ -73,6 +73,19 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(merges),10)
         self.assertTrue(all("'$.feed'" in sql and "'$.epoch'" in sql for sql in merges))
 
+    def test_current_truss_checkpoint_gets_profile_feed_epoch_phase_scope(self):
+        import test_truss_feed_sessions as truss_harness
+        _,request,_,_,_,_,_=truss_harness.Tests().setup_case()
+        executor=Executor()
+        store=DeltaAttemptStore(executor,Policy(),'c.s.attempt','attempt-uuid',original_request=request)
+        checkpoint=json.loads(request['source_checkpoint_json'])
+        self.assertEqual(store.source_scope,('truss-native-feed/0.1',checkpoint['feed'],checkpoint['epoch']))
+        with store.session(object()) as session:
+            row=session.append(request,'prepared')
+            self.assertEqual(session.read(request['stream'],request['batch_id']),(row,))
+        merge=next(sql for sql,_ in executor.calls if sql.startswith('MERGE'))
+        self.assertTrue(all("'$.%s'"%field in merge for field in ('profile','feed','epoch')))
+
     def test_same_source_changed_original_and_unknown_custody_refuse(self):
         executor=Executor();_,request=self.original('A')
         store=DeltaAttemptStore(executor,Policy(),'c.s.attempt','attempt-uuid',original_request=request)
@@ -108,7 +121,10 @@ class Tests(unittest.TestCase):
                 calls.append(len(raw));return _json(raw)
             with patch('ashlar.attempt_store._json',side_effect=decode):
                 with self.assertRaises(AttemptStoreError):session.read(original['stream'],original['batch_id'])
-            self.assertEqual(len(calls),1)
+            # The original scoped checkpoint is parsed independently; the
+            # oversized untrusted phase payload must never be decoded.
+            self.assertEqual(len(calls),2)
+            self.assertTrue(all(size<16384 for size in calls))
         executor.rows=[]
         _,next_epoch=self.original('A',epoch='next-epoch')
         second=DeltaAttemptStore(executor,Policy(),'c.s.attempt','attempt-uuid',original_request=next_epoch)
