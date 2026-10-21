@@ -1619,17 +1619,23 @@ Unity Catalog storage, arbitrary migration or real Truss source acceptance.
 The separate proposed `ashlar-current-core-two-source/0.2` materialization
 MUST use public UMF core `0.10.0` interpretation, validation and generated DDL
 for its admitted current model. It MUST retain declared schema versions,
-unknown extensions, original Truss `0.0.44` accepted source bytes and exact
+unknown extensions, original Truss `0.0.45` accepted source bytes and exact
 scalar/presence meaning. Ashlar MAY define graph-specific meaning only in an
 explicit versioned extension. Physical carrier limits MUST be applied after
 public UMF admission, never treated as a second schema interpretation.
 
 The fresh eight-slot A/B request schedule is an exact immutable input to this
-profile and MUST be frozen from accepted Truss catalog/mutation/feed evidence
-before native graph publication effects. No ordinal payload or expected value is specified here
-until that evidence exists. Each source MUST retain its independent installation,
-feed, epoch, namespace and ACK scope, so overlapping local node or edge IDs
-remain distinct. Every prefix MUST materialize complete current nodes and
+profile. After actual catalog acceptance, all eight original mutation request
+bytes, source assignments, model pins and independent expected values MUST be
+frozen before the first native graph publication attempt. Each slot's actual
+complete Truss feed page, writer position, event bytes and prior/next cursor
+MUST then be bound to that frozen request before the slot's graph effects or
+source ACK, as governed by CONTRACT-001. No ordinal payload or expected value
+is specified here until actual source acceptance. Each source MUST retain its
+independent installation, feed, epoch, namespace and ACK scope, so overlapping
+local node or edge IDs remain distinct. The owner approved this staged
+feed-binding rule on 2026-10-21; the broader draft contract remains unapproved.
+Every prefix MUST materialize complete current nodes and
 independent edges, history, tombstones, schema revision and both source progress
 entries under one immutable complete publication vector. An independent oracle
 MUST compare all original values, presence and multiplicity, not derive expected

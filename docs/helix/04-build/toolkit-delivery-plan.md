@@ -203,11 +203,13 @@ model/revision pins, expected values and both source/ACK registrations before
 the first native graph publication. At each ACK-gated feed step, bind the actual
 writer position, event-byte inventory and source checkpoint to its already
 frozen request, refusing a changed or missing page before that slot's effects.
-CONTRACT-001/003 currently phrase the freeze as including all eight actual feed
-pages before the first publication; that requires either proof of a public
-non-advancing way to capture later pages or a narrow amendment for this staged
-binding, since a consumer cannot ACK an unpublished page merely to inspect its
-successor. Read back each durable four-data-role manifest vector and both
+The owner approved the narrow CONTRACT-001/003 staged feed-binding amendment
+on 2026-10-21. It distinguishes frozen original
+request bytes from feed pages bound at their ACK-gated slots. Public Truss
+0.0.45 `read_feed_in_transaction(tx, consumer_id, limits)` has no future-page
+cursor argument and the feed query requires the registered checkpoint. This
+decision does not approve the broader contracts or establish R04 execution.
+Read back each durable four-data-role manifest vector and both
 progress entries; ACK only the publishing source after independent receipt
 verification. Retain older
 publication reads, exact no-new-commit replay, fresh-process journal restart,

@@ -1,5 +1,6 @@
 {
   "ashlar_current_profile": {
+    "staged_feed_binding_decision": "Owner approved on 2026-10-21 only the R04 rule freezing all eight original mutation requests and expectations before first publication, then binding each actual ACK-gated feed page before that slot's effects. This does not approve the broader draft contracts or qualify 0.0.45 execution.",
     "adoption_sequence": [
       "Compare the exact public signatures, accepted report/source/view custody and installed runtime identity against CONTRACT-005; require the 0.45 runtime manifest and official wheel provenance.",
       "Use Truss [local,native] extras without optional [query] unless Weft versions are deliberately aligned and qualified.",
@@ -32,6 +33,7 @@
   },
   "source_changes_relevant_to_ashlar": {
     "catalog_and_feed": "The public feed.sql release digest is unchanged at 8a8dcf34eff071ae27f237b337d7046b51d49e53379aa11580eac0d062cd9abd. The inspected accepted-document and feed receipt reconciliation entrypoints remain present. This source comparison is not proof of runtime compatibility.",
+    "feed_cursor_constraint": "Read-only inspection of the public 0.0.45 source commit above: read_feed_in_transaction(tx, consumer_id, limits) has no cursor argument; feed.sql lines 214-232 require the consumer's registered checkpoint. An unchanged consumer cannot preview a later ACK-gated page. This is static public API evidence, not a native 0.0.45 feed or ACK result.",
     "catalog_runtime": "The packaged runtime release changes imports.sql, query.sql and import-batches.sql digests. query.sql adds query_binding_if_changed; the Python runtime adds query_with_catalog_in_transaction and catalog/query cache behavior. Package replacement is process-scoped and the new release cache documents restart after replacement. Existing .44-created installations need an explicit .45 release installation/verification path before using these APIs.",
     "public_catalog_source_and_ack": "No removal was observed in the source diff for the accepted-document retrieval and read-only feed-ACK reconciliation interfaces used by Ashlar. The 0.44 lifecycle receipt cannot be transferred to .45; rerun against the fresh .45 source/runtime boundary.",
     "public_entrypoint_signatures": {

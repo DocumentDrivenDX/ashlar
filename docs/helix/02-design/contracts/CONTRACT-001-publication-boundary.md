@@ -494,7 +494,7 @@ unknown groups/options and invalid finite bounds MUST refuse before effects.
 ### Fresh current-core two-source acceptance amendment
 
 The separate proposed `ashlar-current-core-two-source/0.2` profile is a fresh
-current UMF core `0.10.0` and Truss `0.0.44` workflow. It MUST NOT continue,
+current UMF core `0.10.0` and Truss `0.0.45` workflow. It MUST NOT continue,
 relabel or use completed ordinals from the original UMF 0.8
 `ashlar-commerce-evolution-transactions/0.1` installation. Its two source
 registrations A and B MUST each have an independently accepted Truss source
@@ -503,15 +503,25 @@ ordinary source session and protected ACK scope. A/B are workflow labels only;
 the native source identities MUST remain distinct even where local entity IDs,
 revision numbers or feed positions overlap.
 
-The exact eight-slot request schedule MUST be frozen and content-pinned from
-actual accepted Truss catalog, mutation and complete feed evidence before any
-native publication attempt. That schedule MUST identify every original request,
-source, source position, event-byte inventory, admitted model/schema revision
-and expected source-specific progress. It MUST be retained with the new
-installation's journal and complete table UUID registry. No draft example,
-synthetic source fixture, partial catalog response or old `native-r2` prefix may
-fill a missing slot. An incomplete or changed schedule MUST refuse before native
-graph publication effects.
+After actual Truss catalog acceptance, all eight original mutation request
+bytes and digests, source assignments, accepted model/schema pins, source and
+ACK identities, and independently expected values and progress MUST be frozen
+before the first native publication attempt. The immutable schedule MUST be
+retained with the new installation's journal and complete table UUID registry.
+At each ACK-gated slot, the actual complete feed page, prior and next cursor,
+writer position, event-byte inventory and digest MUST be bound to its frozen
+request before that slot's native graph effects. A missing, changed or
+unadmitted page MUST refuse effects and ACK; no later page may be inferred from
+an earlier request or checkpoint. No draft example, synthetic source fixture,
+partial catalog response or old `native-r2` prefix may fill a missing slot.
+The owner approved this staged feed-binding rule on 2026-10-21 because Truss
+`0.0.45` public
+`read_feed_in_transaction(tx, consumer_id, limits)` reads at the registered
+checkpoint, while the public feed query requires that checkpoint; it provides
+no future-page cursor argument. The observed API constraint and unchanged feed
+SQL digest are recorded in the [Truss source comparison](../../04-build/evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-source-comparison.json).
+This decision approves only the timing of feed-page binding; it does not adopt
+the broader draft contract or establish R04 execution evidence.
 
 Each complete source transaction MUST publish one immutable full table-version
 vector and both source progress entries. Protected durable ACK MAY advance only
