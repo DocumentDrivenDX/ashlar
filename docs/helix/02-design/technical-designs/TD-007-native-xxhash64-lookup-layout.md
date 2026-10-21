@@ -106,6 +106,24 @@ xxhash64 layouts, including a negative signed hash, non-ASCII source, maximum
 signed IDs, parallel edges and an exact absent key. Check generated schema and
 protocol, full-key singleton results, duplicate refusal, exact replay and
 four-role publication vector with separate six-role installation inventory.
+`CLUSTER BY (lookup_hash)` declares layout intent but does not establish that
+fresh files were physically organized. A future local bulk-writer experiment
+could compute native `xxhash64` over the complete typed source key, range
+repartition on the signed hash and sort within each output partition before
+one Delta write. It would add no partition directories or stored identity
+column. This organization path is proposed and unmeasured; range sampling,
+shuffle, sort, possible disk spill and write must all count in its end-to-end
+time. The existing 18.05-minute full-write forecast cannot be reused for that
+path, and the proposal is not an algorithmic proof. The managed Unity Catalog
+writer and liquid-clustering maintenance require their own selected-runtime
+qualification and cost accounting;
+do not infer them from local file geometry. The [45M/225M local calibration](../../04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+has not established file pruning. A single pinned lookup must compare exact
+result identity and observed candidate/scanned files and bytes against the
+original file inventory, while AddFile hash min/max ranges show whether the
+selected write actually organized files. Metadata inspection still scales with
+file count even if one data file is read; do not claim constant-time lookup.
+Preserve the full source/type/id predicate even if a hash range selects one file.
 Force a same-hash/different-full-key candidate in an inert read-port control
 to prove that hash equality cannot authorize identity; do not claim that
 manufacturing an invalid native row is a valid publisher test. Measure active

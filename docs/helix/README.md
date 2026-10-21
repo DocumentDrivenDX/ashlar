@@ -60,7 +60,11 @@ but below ideal 4.5x core scaling, especially for edges. Its redundant
 `source_position=id` and decimal `source_delivery_id` are synthetic; actual
 accepted-feed storage costs remain unknown. Four point probes showed hash,
 source and type pushdown; truncated plans did not verify ID pushdown or file
-pruning. See the [18-core calibration](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+pruning. A static Delta-log stats check found that the current sequential-ID
+files admit one candidate file for the full tuple probes while hash-only admits
+all 18; it does not measure runtime files read or prove clustering. See the
+[file-statistics analysis](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-file-statistics-candidates-20261021.json),
+[18-core calibration](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
 and [earlier samples](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json).
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing

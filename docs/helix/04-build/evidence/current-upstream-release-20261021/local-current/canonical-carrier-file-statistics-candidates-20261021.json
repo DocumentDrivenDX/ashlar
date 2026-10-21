@@ -1,0 +1,250 @@
+{
+  "candidate_method": "For each active AddFile, candidate iff the stored min/max intervals admit all four submitted filters: lookup_hash, source_system, type_id or rel_type_id, and id. Candidate bytes sum active AddFile sizes. This is a stats-derived candidate estimate, not observed runtime file reads.",
+  "findings": [
+    "All 18 active files per table have min/max lookup_hash intervals containing each tested hash; a hash-only predicate therefore has 18/18 candidate files in this fixture.",
+    "Files have non-overlapping sequential id min/max ranges. Adding the full identity predicates reduces each of the four tested exact tuple lookups to 1/18 files because id statistics select one range file; hash min/max provides no further narrowing for these keys.",
+    "The sample writer input was sequential by id and no OPTIMIZE or independent clustering action was executed. The candidate result reflects this fixture file geometry, not proven liquid-clustering behavior or actual scan metrics.",
+    "For non-sequential or broadly distributed real IDs, id min/max may overlap across files. This sample cannot establish point-file bounds for that corpus; the production lookup remains correctly exact because hash is only a pruning hint and full identity predicates remain required."
+  ],
+  "limitations": {
+    "actual_bytes_read": null,
+    "actual_files_read": null,
+    "clustering_execution_proven": false,
+    "production_source_distribution": false,
+    "runtime_pruning_claim": false
+  },
+  "minimal_design_candidate": "If hash-based locality is needed for broadly distributed identities, explicitly arrange published files into non-overlapping lookup_hash ranges (for example, a versioned writer range-sort by the native stored hash) rather than relying on CLUSTER BY metadata alone. Qualify with one pinned full-key lookup and actual files/bytes-read metrics before making a pruning claim. No implementation change or new benchmark is authorized by this analysis.",
+  "profile": "ashlar-current-carrier-file-stats-candidate-analysis/0.1",
+  "roles": {
+    "edge_current": {
+      "active_adds": 18,
+      "active_file_bytes": 2569031961,
+      "hash_minmax_extremes": {
+        "largest_file_max": 9223371955834836802,
+        "largest_file_min": -9223362571716603373,
+        "smallest_file_max": 9223364038211929031,
+        "smallest_file_min": -9223371953488661114
+      },
+      "id_minmax_ranges": [
+        [
+          0,
+          12499999
+        ],
+        [
+          12500000,
+          24999999
+        ],
+        [
+          25000000,
+          37499999
+        ],
+        [
+          37500000,
+          49999999
+        ],
+        [
+          50000000,
+          62499999
+        ],
+        [
+          62500000,
+          74999999
+        ],
+        [
+          75000000,
+          87499999
+        ],
+        [
+          87500000,
+          99999999
+        ],
+        [
+          100000000,
+          112499999
+        ],
+        [
+          112500000,
+          124999999
+        ],
+        [
+          125000000,
+          137499999
+        ],
+        [
+          137500000,
+          149999999
+        ],
+        [
+          150000000,
+          162499999
+        ],
+        [
+          162500000,
+          174999999
+        ],
+        [
+          175000000,
+          187499999
+        ],
+        [
+          187500000,
+          199999999
+        ],
+        [
+          200000000,
+          212499999
+        ],
+        [
+          212500000,
+          224999999
+        ]
+      ],
+      "point_probes": [
+        {
+          "exact_tuple_candidate_bytes": 143081908,
+          "exact_tuple_candidate_files": 1,
+          "hash": 7686581330353470147,
+          "hash_only_candidate_bytes": 2569031961,
+          "hash_only_candidate_files": 18,
+          "id": 0
+        },
+        {
+          "exact_tuple_candidate_bytes": 142647572,
+          "exact_tuple_candidate_files": 1,
+          "hash": -141394084489543850,
+          "hash_only_candidate_bytes": 2569031961,
+          "hash_only_candidate_files": 18,
+          "id": 224999999
+        }
+      ],
+      "removes": 0,
+      "rows_per_file": [
+        12500000
+      ]
+    },
+    "object_current": {
+      "active_adds": 18,
+      "active_file_bytes": 493221151,
+      "hash_minmax_extremes": {
+        "largest_file_max": 9223371103762059023,
+        "largest_file_min": -9223332540399850430,
+        "smallest_file_max": 9223343730941080253,
+        "smallest_file_min": -9223371567524058584
+      },
+      "id_minmax_ranges": [
+        [
+          0,
+          2499999
+        ],
+        [
+          2500000,
+          4999999
+        ],
+        [
+          5000000,
+          7499999
+        ],
+        [
+          7500000,
+          9999999
+        ],
+        [
+          10000000,
+          12499999
+        ],
+        [
+          12500000,
+          14999999
+        ],
+        [
+          15000000,
+          17499999
+        ],
+        [
+          17500000,
+          19999999
+        ],
+        [
+          20000000,
+          22499999
+        ],
+        [
+          22500000,
+          24999999
+        ],
+        [
+          25000000,
+          27499999
+        ],
+        [
+          27500000,
+          29999999
+        ],
+        [
+          30000000,
+          32499999
+        ],
+        [
+          32500000,
+          34999999
+        ],
+        [
+          35000000,
+          37499999
+        ],
+        [
+          37500000,
+          39999999
+        ],
+        [
+          40000000,
+          42499999
+        ],
+        [
+          42500000,
+          44999999
+        ]
+      ],
+      "point_probes": [
+        {
+          "exact_tuple_candidate_bytes": 27592318,
+          "exact_tuple_candidate_files": 1,
+          "hash": 7686581330353470147,
+          "hash_only_candidate_bytes": 493221151,
+          "hash_only_candidate_files": 18,
+          "id": 0
+        },
+        {
+          "exact_tuple_candidate_bytes": 27371645,
+          "exact_tuple_candidate_files": 1,
+          "hash": 4156874144773143263,
+          "hash_only_candidate_bytes": 493221151,
+          "hash_only_candidate_files": 18,
+          "id": 44999999
+        }
+      ],
+      "removes": 0,
+      "rows_per_file": [
+        2500000
+      ]
+    }
+  },
+  "source": {
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "logs": {
+      "edge_current": {
+        "bytes": 10009,
+        "relative_path": "warehouse/edge_current/_delta_log/00000000000000000001.json",
+        "sha256": "fe421689837c3a836785339ac9b77b919488ef5f1cea7da58b59466da8c5d14b"
+      },
+      "object_current": {
+        "bytes": 9728,
+        "relative_path": "warehouse/object_current/_delta_log/00000000000000000001.json",
+        "sha256": "6a410a75a525f04b5db282523f2c7efe47c0c9c418aeb15b926114bc120e6002"
+      }
+    },
+    "method": "Read only Delta version-1 JSON AddFile stats; no Spark, Parquet data scan, or query execution.",
+    "point_probe_values": "Exact identities and computed hashes from the retained 18-core calibration receipt.",
+    "sample": "45M object_current / 225M edge_current local[18] .4 synthetic fixture"
+  }
+}
