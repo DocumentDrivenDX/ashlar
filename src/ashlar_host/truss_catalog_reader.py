@@ -7,7 +7,10 @@ from ashlar.staging import batch_row
 from .lifecycle import finish
 from .evolution_producer import snapshot
 from .truss_current_catalog import (CURRENT_REPORT_VERSION,
-    CURRENT_TRUSS_VERSION, CurrentCatalogEvidence, parse_current_catalog_json, resolve_current_accepted_sources,
+    CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+    CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
+    CurrentCatalogEvidence,
+    installed_current_truss_profile, parse_current_catalog_json, resolve_current_accepted_sources,
     interpret_current_catalog)
 
 
@@ -90,7 +93,7 @@ def read_historical_catalog_views(connection_factory,batch,archived_acceptance_f
 
 
 def read_current_catalog_evidence(connection_factory,batch):
-    """Read Truss 0.44 reports, complete views and exact accepted source bytes.
+    """Read supported current reports, complete views and exact accepted source bytes.
 
     The 0.6 report carries source references, not source bytes. Every source is
     fetched through the public accepted-document operation in this same ordinary
@@ -102,7 +105,9 @@ def read_current_catalog_evidence(connection_factory,batch):
     import importlib.metadata
     try:version=importlib.metadata.version('truss-toolkit')
     except importlib.metadata.PackageNotFoundError:raise ValueError('Installed Truss toolkit version required')from None
-    if version!=CURRENT_TRUSS_VERSION:raise ValueError('Truss 0.0.44 current catalog profile required')
+    if version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION):
+        raise ValueError('Supported current Truss catalog profile required')
+    installed_current_truss_profile()
     payload=parse_current_catalog_json(batch.begin)
     installation=parse_current_catalog_json(base64.b64decode(batch.cursor_before,validate=True)).get('installationId')
     prerequisites=[]
@@ -156,14 +161,16 @@ def read_current_catalog_evidence(connection_factory,batch):
                 if not isinstance(result,CatalogViewAvailable)or type(result.view.original_bytes)is not bytes:
                     raise ValueError('Public current complete catalog view required')
                 view_raw=result.view.original_bytes
-                interpret_current_catalog(revision,raw,view_raw,sources)
+                interpret_current_catalog(revision,raw,view_raw,sources,truss_version=version)
                 reports[revision]=raw;views[revision]=view_raw
         except BaseException as error:primary=error
         def detach():
             if not host.detach():raise ValueError('Current catalog host detach refused')
         finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
         connection.rollback()
-    return CurrentCatalogEvidence(version,reports,views,sources)
+    return CurrentCatalogEvidence(version,reports,views,sources,
+        runtime_wheel_sha256=(CURRENT_TRUSS_045_WHEEL_SHA256 if version==CURRENT_TRUSS_045_VERSION else None),
+        runtime_manifest_sha256=(CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256 if version==CURRENT_TRUSS_045_VERSION else None))
 
 
 def read_graph_catalog_evidence(connection_factory,batch,archives=()):

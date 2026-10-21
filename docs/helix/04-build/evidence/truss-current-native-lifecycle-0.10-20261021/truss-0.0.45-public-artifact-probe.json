@@ -1,0 +1,42 @@
+{
+  "artifact_url": "https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.45/truss_toolkit-0.0.45-py3-none-any.whl",
+  "basis": "Installed the official GitHub release wheel in an isolated temporary virtual environment; no Ashlar shared environment, PostgreSQL, catalog, feed ACK or Spark was changed.",
+  "distribution": "0.0.45",
+  "environment_effects": {
+    "catalog_mutated": false,
+    "feed_acknowledged": false,
+    "postgres_started": false,
+    "spark_started": false
+  },
+  "feed_sql_sha256": "8a8dcf34eff071ae27f237b337d7046b51d49e53379aa11580eac0d062cd9abd",
+  "installed_runtime_manifest_sha256": "71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e",
+  "optional_dependencies": {
+    "Provides-Extra": "local",
+    "Requires-Dist": "psutil==7.2.2; extra == \"local\""
+  },
+  "outcome": "effect_free_public_truss_045_interface_probe_passed",
+  "public_method_signatures": {
+    "accepted_document_in_transaction": "(self, transaction: 'TransactionHandle', *, document_id: 'str', maximum_bytes: 'int' = 1048576) -> 'Outcome[AcceptedDocument | CatalogInvalid | CatalogRefused | CatalogUnavailable]'",
+    "catalog_view_in_transaction": "(self, transaction: 'TransactionHandle', request: 'CatalogViewRequest') -> 'Outcome[CatalogViewAvailable | CatalogViewUnavailable]'",
+    "prepare_catalog": "(self, documents: 'tuple[CatalogDocument, ...]', *, bun_executable: 'str' = 'bun', source_version: 'str | None' = None) -> 'PreparedAcceptance'",
+    "query_with_catalog_in_transaction": "(self, transaction: 'TransactionHandle', *, sql: 'str', document_ids: 'tuple[str, ...]', parameters: 'Mapping[str, str | int | bool | Decimal | TextValue] | None' = None, catalog_validator: 'str | None' = None, maximum_rows: 'int' = 1000, maximum_scan_rows: 'int' = 10000, maximum_bytes: 'int' = 1048576, read_profile: \"Literal['entity-page', 'related-entity-page', 'count-summary', 'complete-entity'] | None\" = None) -> 'Outcome[QueryCatalogRead | QueryRefused | QueryUnavailable]'",
+    "reconcile_feed_ack_in_transaction": "(self, transaction: 'TransactionHandle', page: 'FeedPage', *, destination_id: 'str', request_sha256: 'str', publication_id: 'str', receipt_bytes: 'bytes') -> 'Outcome[FeedAckReconciled | FeedUnavailable]'"
+  },
+  "python": "3.12.14",
+  "release_pins": {
+    "catalogAcceptanceInputInterface": "truss-acceptance-input/0.2.0",
+    "catalogPreparationInterface": "truss-registration-preparation/2.0",
+    "catalogRegistrationReportInterface": "truss-catalog-registration-report/0.6",
+    "catalogSourceReferenceFormat": "truss-catalog-source-reference/0.1",
+    "catalogViewInterface": "truss-catalog-view/0.2.0",
+    "commit": "d068a2edb10771d32a9373eaac13c6dc7185de66",
+    "nativePlatforms": [
+      "linux-x86_64"
+    ],
+    "runtime": "truss-catalog-runtime/0.72-candidate",
+    "runtimeManifestSha256": "71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e"
+  },
+  "release_pins_sha256": "641d9025782439c06aeeeb0511215968cca25648f29c3985b97f640ac03d9245",
+  "release_pins_sha256_expected": "641d9025782439c06aeeeb0511215968cca25648f29c3985b97f640ac03d9245",
+  "wheel_sha256": "1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c"
+}

@@ -17,11 +17,13 @@ all six registered Delta target UUIDs/versions, and the public source receipt.
 Private source bytes, page tokens, ACK bytes and connection strings remain in
 the retained private task evidence and are not copied into this packet.
 
-The exact Truss 0.0.44 to 0.0.45 source comparison and proposed adoption boundary
-are in [truss-0.0.45-source-comparison.json](truss-0.0.45-source-comparison.json).
-The 0.44 result does not transfer to 0.45. The current catalog adapter enforces
-an exact 0.44 profile; 0.45 needs its own versioned source/runtime profile and
-fresh-source qualification before any adoption claim.
+The exact Truss 0.0.44 to 0.0.45 source comparison and the isolated official
+0.45 wheel probe are in [truss-0.0.45-source-comparison.json](truss-0.0.45-source-comparison.json)
+and [truss-0.0.45-public-artifact-probe.json](truss-0.0.45-public-artifact-probe.json).
+Ashlar now selects a distinct 0.45 profile pinned to that wheel and runtime
+manifest. The public interface probe made no catalog or feed changes; the 0.44
+receipt does not transfer, and fresh-source acceptance and native qualification
+remain outstanding. The release lists native support for `linux-x86_64` only.
 
 This evidence follows [CONTRACT-005's current UMF 0.10 source-custody
 boundary](../../../02-design/contracts/CONTRACT-005-schema-intake.md#current-umf-010-accepted-catalog-source-custody)

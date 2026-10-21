@@ -1,17 +1,65 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
-"""Truss 0.44 / UMF 0.10 current-catalog source custody and interpretation."""
+"""Versioned current Truss / UMF 0.10 catalog custody and interpretation."""
 from dataclasses import dataclass
 import hashlib
+import importlib.resources
+import importlib.metadata
 import json
 import re
+from typing import Optional
 
 CURRENT_TRUSS_VERSION = '0.0.44'
+CURRENT_TRUSS_045_VERSION = '0.0.45'
+CURRENT_TRUSS_045_WHEEL_SHA256 = '1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c'
+CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256 = '71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e'
 CURRENT_REPORT_VERSION = 'truss-catalog-registration-report/0.6'
 CURRENT_VIEW_VERSION = 'truss-catalog-view/0.2.0'
 CURRENT_VIEW_PROFILE = ('truss-complete-catalog-view', '0.4')
 CURRENT_VIEW_PROFILE_SHA256 = '782025c3dfcf49bd676c67df3d62269f78793a31358a18556c2c2689d5fbc436'
 CURRENT_LAYOUT_PROFILE_SHA256 = 'cf417e0af5d37dd61fa5f39f818d2e7282a29e6c6c6ab7fc0b26dcdde99e7dec'
 CURRENT_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.1'
+CURRENT_045_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.2'
+
+
+def require_current_truss_runtime(version, *, runtime_manifest=None, direct_url=None):
+    """Bind .45 source admission to the published package and runtime release."""
+    if version == CURRENT_TRUSS_VERSION:
+        return CURRENT_EVIDENCE_PROFILE
+    if version != CURRENT_TRUSS_045_VERSION:
+        raise ValueError('Supported current Truss runtime profile required')
+    if type(runtime_manifest) is not bytes or hashlib.sha256(runtime_manifest).hexdigest() != CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256:
+        raise ValueError('Truss 0.0.45 installed runtime manifest differs from the published release')
+    if type(direct_url) is not str:
+        raise ValueError('Truss 0.0.45 public wheel provenance required')
+    try:
+        origin = json.loads(direct_url)
+        wheel_sha = origin['archive_info']['hashes']['sha256']
+    except (ValueError, TypeError, KeyError):
+        raise ValueError('Truss 0.0.45 public wheel provenance required') from None
+    if wheel_sha != CURRENT_TRUSS_045_WHEEL_SHA256:
+        raise ValueError('Truss 0.0.45 installed wheel differs from the published release')
+    return CURRENT_045_EVIDENCE_PROFILE
+
+
+def installed_current_truss_profile():
+    """Return the versioned profile only for a pinned installed public release."""
+    try:
+        distribution = importlib.metadata.distribution('truss-toolkit')
+        version = distribution.version
+    except importlib.metadata.PackageNotFoundError:
+        raise ValueError('Installed Truss toolkit version required') from None
+    if version == CURRENT_TRUSS_VERSION:
+        return require_current_truss_runtime(version)
+    if version != CURRENT_TRUSS_045_VERSION:
+        raise ValueError('Supported current Truss runtime profile required')
+    try:
+        manifest = importlib.resources.files('truss').joinpath(
+            '_catalog_runtime/manifest.json').read_bytes()
+        direct_url = distribution.read_text('direct_url.json')
+    except (ModuleNotFoundError, FileNotFoundError, TypeError):
+        raise ValueError('Truss 0.0.45 installed runtime provenance required') from None
+    return require_current_truss_runtime(version, runtime_manifest=manifest,
+                                         direct_url=direct_url)
 
 
 @dataclass(frozen=True)
@@ -20,10 +68,31 @@ class CurrentCatalogEvidence:
     reports: dict
     views: dict
     sources: dict
+    runtime_wheel_sha256: Optional[str] = None
+    runtime_manifest_sha256: Optional[str] = None
+
+    def __post_init__(self):
+        if self.truss_version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION):
+            raise ValueError('Supported versioned current Truss catalog evidence required')
+        if self.truss_version == CURRENT_TRUSS_045_VERSION and (
+                self.runtime_wheel_sha256 != CURRENT_TRUSS_045_WHEEL_SHA256
+                or self.runtime_manifest_sha256 != CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256):
+            raise ValueError('Truss 0.0.45 runtime-attested catalog evidence required')
 
     @property
     def profile(self):
-        return CURRENT_EVIDENCE_PROFILE
+        return (CURRENT_EVIDENCE_PROFILE if self.truss_version == CURRENT_TRUSS_VERSION
+                else CURRENT_045_EVIDENCE_PROFILE)
+
+
+def require_installed_current_catalog_evidence(evidence):
+    """Prevent constructed .45 evidence from claiming an uninstalled runtime."""
+    if not isinstance(evidence, CurrentCatalogEvidence):
+        raise ValueError('Versioned current Truss catalog evidence required')
+    if evidence.truss_version == CURRENT_TRUSS_045_VERSION:
+        if installed_current_truss_profile() != CURRENT_045_EVIDENCE_PROFILE:
+            raise ValueError('Installed Truss 0.0.45 runtime profile required for graph admission')
+    return evidence.profile
 
 
 def parse_current_catalog_json(raw):
@@ -103,7 +172,7 @@ def resolve_current_accepted_sources(report, revision, sources):
     return models
 
 
-def interpret_current_catalog(revision, report_raw, view_raw, sources):
+def interpret_current_catalog(revision, report_raw, view_raw, sources, *, truss_version=CURRENT_TRUSS_VERSION):
     """Project only Truss-assigned current IDs onto exact accepted UMF 0.10 bytes."""
     from .truss_graph_admission import admitted_facets
     if type(revision) is not str or not revision.isascii() or not revision.isdecimal() or str(int(revision)) != revision:
@@ -249,4 +318,4 @@ def interpret_current_catalog(revision, report_raw, view_raw, sources):
         raise ValueError('At least one supported current UMF record required')
     return {'types': types, 'edges': edges, 'models': {doc: (item[0], item[1]) for doc, item in models.items()},
             'report': report_raw, 'report_object': report, 'view': view_raw,
-            'truss_version': CURRENT_TRUSS_VERSION}
+            'truss_version': truss_version}

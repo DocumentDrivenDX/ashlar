@@ -173,10 +173,15 @@ now records one real seven-change page, local Delta publication, a matched prote
 destination receipt and an advanced public checkpoint established by read-only
 reconciliation. It does not qualify two-source R04 or Truss 0.0.45. The
 [0.45 source comparison](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-source-comparison.json)
-found unchanged signatures for the used public catalog preparation,
+and isolated [public artifact probe](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-public-artifact-probe.json)
+record the installed official 0.45 wheel, runtime manifest and effect-free public API checks.
+The Ashlar 0.45 current-catalog and graph-admission profiles are separately versioned;
+the 0.44 path remains intact. The release pins native support to `linux-x86_64`,
+so this evidence does not qualify native operation on other platforms. The
+source comparison found unchanged signatures for the used public catalog preparation,
 accepted-document and receipt-reconciliation calls, while packaged runtime SQL
-and catalog behavior changed. First pin a new 0.45-only Ashlar profile and
-installed release identity, keep the 0.44 branch, verify named records/fields
+and catalog behavior changed. Keep the new 0.45-only Ashlar profile bound to its
+installed release identity, retain the 0.44 branch, verify named records/fields
 with the fresh accepted source, then run focused admission/refusal and one bounded
 fresh-source publication/receipt check. A package replacement requires a fresh
 Truss process; an unchanged signature or feed SQL digest is preparation evidence,
@@ -185,12 +190,42 @@ dependency must be reconciled with Ashlar's separately selected Weft candidate
 before enabling that extra. Preserve the frozen R04 schedule until the selected
 source version and actual public acceptance are established.
 
+For the next R04 candidate, A and B each first need a fresh Truss 0.0.45
+accepted UMF 0.10 installation, registration, feed, epoch, namespace, ordinary
+consumer and protected destination ACK scope. The intended interleave is A1,
+B1, A2, B2, A3, B3, A4, B4: one complete source transaction per slot, with
+create, update, delete and additive-candidate stages for each source. Preserve
+an overlapping local entity ID across A/B to prove source-qualified identity.
+This is a sequence shape, not the frozen request schedule or an assertion that
+0.45 has accepted those mutations. After actual public catalog acceptance,
+freeze all eight original mutation request bytes/digests, source assignments,
+model/revision pins, expected values and both source/ACK registrations before
+the first native graph publication. At each ACK-gated feed step, bind the actual
+writer position, event-byte inventory and source checkpoint to its already
+frozen request, refusing a changed or missing page before that slot's effects.
+CONTRACT-001/003 currently phrase the freeze as including all eight actual feed
+pages before the first publication; that requires either proof of a public
+non-advancing way to capture later pages or a narrow amendment for this staged
+binding, since a consumer cannot ACK an unpublished page merely to inspect its
+successor. Read back each durable four-data-role manifest vector and both
+progress entries; ACK only the publishing source after independent receipt
+verification. Retain older
+publication reads, exact no-new-commit replay, fresh-process journal restart,
+uncertain-operation/missing-journal refusal and breaking-evolution refusal.
+The 0.44 single-source installation and old `native-r2` prefix supply no slots.
+Version CONTRACT-001/003/005 for the selected 0.45 source before claiming this
+new profile. The R03 fresh source may supply R04 or the bounded UC trial only
+where the exact source identity and separate consumer/destination ACK custody
+are independently retained; never share a cursor or treat one destination's
+ACK as another's.
+
 R05 starts with one separately defined, small functional trial in the owner-selected
 `client_dev` Unity Catalog catalog. Create a new per-run temporary schema, use only
 that trial's owned objects, and delete them after retaining the results; verify their
 absence. Owner authorization prefers at most $10 and sets a hard $100 ceiling for
 the total Databricks trial. Before launch, identify the actual runtime, dedicated
-serverless task, principal, production source authority, catalog/schema permissions,
+serverless task, principal, selected development source authority and its
+production-authority gap, catalog/schema permissions,
 fixture/request digest, finite operation and row bounds, concurrency, timeout and
 estimated total DBUs/cost including startup. Reserve enough of the ceiling for
 cleanup and stop before launch if the estimate cannot respect the hard ceiling.
@@ -211,6 +246,14 @@ this workflow. No new compute was started by discovery. The small functional tri
 does not qualify 1B nodes/assumed 5B edges or imply that full materialization fits
 its budget. After correctness and owner thresholds are fixed, that scale goal
 requires its own feasible resource/cost estimate and explicit approval.
+The present managed-current publisher reconstructs complete prior history and
+collects complete target rows under a finite in-process bound. That is suitable
+only for the small functional trial; it is not a production-scale ingestion
+design. Before a 1B/5B run, replace that full-state collection with a bounded,
+partitioned source/Delta plan and independently verify memory, shuffle, write,
+retention and ACK behavior against owner-approved latency, freshness,
+throughput and cost thresholds. Keep the 1B/5B requirement open until that
+design and native evidence exist.
 The [current public retail price observation](evidence/current-upstream-release-20261021/managed-current-retail-pricing.json)
 records $0.47 per DBU for the selected Central US premium automated serverless
 meter; it is an estimate input, not an account invoice or spending limit.
