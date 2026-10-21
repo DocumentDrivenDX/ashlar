@@ -1,0 +1,36 @@
+{
+  "format": "ashlar-fabric-held-controlplane-readonly/0.1",
+  "observations": [
+    {
+      "exitCode": 0,
+      "label": "workspace",
+      "metadata": {
+        "capacityAssignmentProgress": "Completed",
+        "capacityId": "c69c0329-778f-4446-b529-d43358c73251",
+        "capacityRegion": "West US 3",
+        "displayName": "Ashlar Graph Integration",
+        "id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+        "type": "Workspace"
+      },
+      "method": "GET",
+      "status": 200,
+      "url": "https://api.fabric.microsoft.com/v1/workspaces/0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793"
+    },
+    {
+      "exitCode": 0,
+      "label": "capacity",
+      "metadata": {
+        "displayName": "Trial-20261011T210120Z-0HMuvlmMaE2maHCs3JKaNQ",
+        "id": "c69c0329-778f-4446-b529-d43358c73251",
+        "region": "West US 3",
+        "sku": "FTL4",
+        "state": "Active"
+      },
+      "method": "GET",
+      "status": 200,
+      "url": "https://api.fabric.microsoft.com/v1/capacities/c69c0329-778f-4446-b529-d43358c73251"
+    }
+  ],
+  "observedUtc": "2026-10-21T22:27:39Z",
+  "scope": "Two metadata-only public Fabric GETs for the known assigned workspace/capacity; no upload, query, mutation, provisioning, activation or token capture."
+}

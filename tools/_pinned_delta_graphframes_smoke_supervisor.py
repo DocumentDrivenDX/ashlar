@@ -83,10 +83,11 @@ def supervise(worker: Path, config: Path, log_path: Path, python: Path,
     environment = {
         "PATH": str(python.parent) + os.pathsep + str(Path("/usr/bin")) + os.pathsep + str(Path("/bin")),
         "JAVA_HOME": str(java_home),
-        "HOME": str(log_path.parent),
         "SPARK_LOCAL_IP": "127.0.0.1",
         "LC_ALL": "C.UTF-8",
     }
+    if "HOME" in os.environ:
+        environment["HOME"] = os.environ["HOME"]
     environment["PATH"] = str(java_home / "bin") + os.pathsep + environment["PATH"]
 
     fd = os.open(log_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
