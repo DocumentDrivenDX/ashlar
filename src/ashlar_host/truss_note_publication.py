@@ -17,7 +17,7 @@ from .graph_sql import graph_sql_plan
 from .lifecycle import finish
 from .publication_planning import local_effect_plan,truss_request_for
 from .resources import RESOURCE_ROOT
-from .schema_rows import fixture_columns
+from .schema_rows import fixture_columns,local_current_columns
 from .supply_chain_native import PrivateFiniteLease
 from .truss_feed_sessions import TrussFeedSessions
 from .truss_note_admission import TrussNoteAdmission
@@ -125,7 +125,7 @@ def validate_graph_edge_orders(previous,changes,event_bytes):
             else:known[identity]=order(event['after'])
 
 
-def graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes,edge_order_keys=()):
+def graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes,edge_order_keys=(),*,lookup_hashes=None):
     """Independent full source-image projection; never copy proposed SQL rows."""
     validate_graph_edge_orders(previous,changes,event_bytes)
     result=json.loads(encoded(previous));fresh=[change for change in changes if not any(row['delivery_id']==change.delivery_id and row['feed']==change.feed and row['epoch']==change.epoch for row in previous['whole_source_history'])]
@@ -147,7 +147,18 @@ def graph_expected_rows(previous,state,changes,batch,columns,materialized_at,eve
             identity={'source_system':key.source,typed:key.type_id,'id':key.id}
             row={name:None for name,_ in columns[role]}
             row.update({name:str(value)for name,value in identity.items()})
-            row.update(schema_revision=entity.schema_revision,entity_version=str(entity.version),props_json=entity.props_json,retained_json=entity.retained_json,source_feed=change.feed,source_epoch=change.epoch,source_cursor_json=cursor,source_delivery_id=change.delivery_id,published_at=stamp,lookup_hash=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
+            row.update(schema_revision=entity.schema_revision,entity_version=str(entity.version),props_json=entity.props_json,retained_json=entity.retained_json,source_feed=change.feed,source_epoch=change.epoch,source_cursor_json=cursor,source_delivery_id=change.delivery_id,published_at=stamp,apply_batch_id=batch.batch_id)
+            if lookup_hashes is None:
+                row['lookup_hash']=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+            else:
+                token=(kind,key.source,key.type_id,key.id)
+                value=lookup_hashes.get(token)
+                if type(value)is not int or not -(1<<63)<=value<(1<<63):
+                    raise ValueError('Exact native signed BIGINT xxhash64 expectation required')
+                # LocalDeltaTransport snapshots native integral cells as canonical
+                # decimal strings; keep the independent oracle in that same closed
+                # snapshot representation while the stored carrier remains BIGINT.
+                row['lookup_hash']=str(value)
             if kind=='object':row['logical_key_json']='[]'
             else:
                 source,target=entity.endpoints
@@ -167,12 +178,42 @@ def note_expected_rows(previous,state,changes,batch,columns,materialized_at,even
     return graph_expected_rows(previous,state,changes,batch,columns,materialized_at,event_bytes)
 
 
-def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576):
+def _native_xxhash64(spark,changes,state):
+    """Compute exact expected `.4` hashes with the same native Spark function."""
+    result={}
+    for kind,typed in (('object','type_id'),('edge','rel_type_id')):
+        keys=sorted({(change.state.key.source,change.state.key.type_id,change.state.key.id)
+            for change in changes if change.state.key.kind==kind and change.state.key in state.current})
+        if not keys:continue
+        rows=[{'source_system':source,typed:type_id,'id':entity_id}
+              for source,type_id,entity_id in keys]
+        schema='ARRAY<STRUCT<source_system:STRING,'+typed+':BIGINT,id:BIGINT>>'
+        sql=('SELECT k.source_system AS source_system,k.'+typed+' AS '+typed+',k.id AS id,'
+             'xxhash64(CAST(k.source_system AS STRING),CAST(k.'+typed+' AS BIGINT),'
+             'CAST(k.id AS BIGINT)) AS lookup_hash FROM '
+             "(SELECT explode(from_json(:keys,'"+schema+"')) AS k)")
+        observed=spark.sql(sql,args={'keys':json.dumps(rows,separators=(',',':'))}).collect()
+        if len(observed)!=len(keys):raise ValueError('Native `.4` lookup hash cardinality differs')
+        for row in observed:
+            item=row.asDict(recursive=True)
+            key=(kind,item.get('source_system'),item.get(typed),item.get('id'))
+            value=item.get('lookup_hash')
+            if (key in result or type(key[1])is not str or type(key[2])is not int or type(key[3])is not int
+                    or type(value)is not int or not -(1<<63)<=value<(1<<63)):
+                raise ValueError('Native `.4` returned duplicate or non-BIGINT identity hash')
+            result[key]=value
+        expected={(kind,source,type_id,entity_id) for source,type_id,entity_id in keys}
+        if {key for key in result if key[0]==kind}!=expected:
+            raise ValueError('Native `.4` exact typed identity set differs')
+    return result
+
+
+def publish_graph_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3'):
     """Publish accepted scalar objects/edges with real historical catalog admission."""
-    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id)
+    return publish_note_pages(spark,output,connection_factory=connection_factory,consumer_id=consumer_id,feed=feed,maximum_pages=maximum_pages,maximum_page_bytes=maximum_page_bytes,graph=True,wait_seconds=wait_seconds,archived_acceptance_files=archived_acceptance_files,export_graph=export_graph,destination_id=destination_id,carrier_profile=carrier_profile)
 
 
-def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576):
+def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximum_pages=8,graph=False,wait_seconds=0,archived_acceptance_files=(),export_graph=False,destination_id=None,maximum_page_bytes=1048576,carrier_profile='ashlar-delta/0.3'):
     """Read, publish and ACK up to eight pages in a fresh owned local destination.
 
     Registration must already exist at genesis. Partial effects remain on failure;
@@ -187,6 +228,8 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     if type(wait_seconds)is not int or not 0<=wait_seconds<=60:raise ValueError('Finite wait_seconds integer 0..60 required')
     if archived_acceptance_files and not graph:raise ValueError('Archived catalogs are selected for graph publication only')
     if type(graph)is not bool:raise ValueError('Explicit scalar graph selection required')
+    if carrier_profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64') or (carrier_profile!='ashlar-delta/0.3' and not graph):
+        raise ValueError('Explicit supported local graph carrier profile required')
     if not output.is_absolute()or output.parent.resolve()!=output.parent or output.exists()or any(character in str(output)for character in ('`',"'",'\\','\0','\n','\r'))or type(maximum_pages)is not int or not 1<=maximum_pages<=8 or not callable(connection_factory):raise ValueError('Fresh canonical local output and finite ordinary source selection required')
     if any(type(value)is not str or not value for value in (consumer_id,feed)):raise ValueError('Explicit original consumer/feed required')
     # Source is observed before creating destination resources.
@@ -195,15 +238,20 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
     context=object();ordinary=bind_ordinary_connection(connection_factory,context);output.mkdir(mode=0o700);lease=PrivateFiniteLease(output,create=True)
     transport=None;primary=None;results=[];state=empty_state();progress={};predecessor='explicit-truss-genesis';expected=None;wait_deadline=None
     try:
-        graph_columns=fixture_columns(RESOURCE_ROOT)
-        columns={**graph_columns,'attempts':tuple((name,'STRING')for name in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((name,'TIMESTAMP'if name=='recorded_at'else'STRING')for name in FIELDS)}
+        columns=local_current_columns(RESOURCE_ROOT,carrier_profile) if graph else {**fixture_columns(RESOURCE_ROOT),'attempts':tuple((name,'STRING')for name in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((name,'TIMESTAMP'if name=='recorded_at'else'STRING')for name in FIELDS)}
+        graph_columns={role:columns[role] for role in ('object_current','edge_current','tombstone','whole_source_history')}
         namespace='trussgraph'if graph else'trussnote'
-        tables={role:'local.'+namespace+'.'+role for role in columns};targets=[]
-        for role,schema in columns.items():
-            path=output/role;spark.sql('CREATE TABLE delta.`'+str(path)+'` ('+','.join(name+' '+kind for name,kind in schema)+') USING DELTA')
-            targets.append(DeltaTarget(tables[role],path,spark.sql('DESCRIBE DETAIL delta.`'+str(path)+'`').first()['id']))
+        tables={role:'local.'+namespace+'.'+role for role in columns};targets=[];installation_profile=None
+        if graph and carrier_profile=='ashlar-delta/0.4-xxhash64':
+            from .local_current_carrier_profile import create_local_current_xxhash64_tables
+            targets,installation_profile,profile_columns=create_local_current_xxhash64_tables(spark,output,tables)
+            if profile_columns!=columns:raise ValueError('UMF-generated local `.4` role fields differ')
+        else:
+            for role,schema in columns.items():
+                path=output/role;spark.sql('CREATE TABLE delta.`'+str(path)+'` ('+','.join(name+' '+kind for name,kind in schema)+') USING DELTA')
+                targets.append(DeltaTarget(tables[role],path,spark.sql('DESCRIBE DETAIL delta.`'+str(path)+'`').first()['id']))
         policy=PrivatePolicy(context,tuple(targets))
-        transport=LocalDeltaTransport.initialize(spark,output/'operations.sqlite','truss-graph-local'if graph else'truss-note-local',tuple(targets),policy,context=context);policy.initializing=False
+        transport=LocalDeltaTransport.initialize(spark,output/'operations.sqlite','truss-graph-local'if graph else'truss-note-local',tuple(targets),policy,context=context,installation_profile=installation_profile);policy.initializing=False
         expected={role:[] for role in graph_columns}
         for ordinal in range(maximum_pages):
             if ordinal==0:page=selected
@@ -223,13 +271,20 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
                 from .truss_graph_admission import TrussGraphAdmission
                 admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archived_acceptance_files))
             else:admission=TrussNoteAdmission(batch)
-            driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
+            lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
+            if carrier_profile=='ashlar-delta/0.4-xxhash64':
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+                if (not admission.current
+                        or admission.current_truss_version!=CURRENT_TRUSS_048_VERSION):
+                    raise PermissionError('Local `.4` requires exact current Truss 0.0.48 catalog admission')
+            driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,lookup_hash_profile=lookup_hash_profile)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:tables[role]for role in graph_columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
-            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile=_native_scalar_profile(admission,graph))
-            following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
-            steps,elisions=local_effect_plan(generated,expected,graph_tables)
+            after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=materialized_at,schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile=_native_scalar_profile(admission,graph),lookup_hash_profile=lookup_hash_profile)
+            hashes=_native_xxhash64(spark,admission.changes,after) if carrier_profile=='ashlar-delta/0.4-xxhash64' else None
+            following=graph_expected_rows(expected,after,admission.changes,batch,graph_columns,materialized_at,admission.parsed.event_bytes,admission.parsed.edge_order_keys,lookup_hashes=hashes)
+            steps,elisions=local_effect_plan(generated,expected,graph_tables,lookup_hash_profile=lookup_hash_profile)
             revisions={json.loads(page.prior.content)['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {json.loads(page.prior.content)['installationId']:'0'}
             request=truss_request_for(feed,batch,predecessor,revisions);checkpoint=request['source_checkpoint_json']
             current_graph=graph and admission.current

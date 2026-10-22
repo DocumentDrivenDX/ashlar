@@ -37,8 +37,12 @@ def parse_resume_truss_configuration(configuration, output):
     base = {'connection_uri','publication_directory','jars'}
     selections = {'feed','source_page_path','source_page_sha256','request_digest'}
     required = base | ({'publication_intent'} if type(config) is dict and 'publication_intent' in config else selections)
-    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile'}:
+    if type(config) is not dict or not required <= set(config) <= required | {'archived_acceptance_files','destination_id','runtime_profile','carrier_profile'}:
         raise ValueError('Exact original Truss resume configuration required')
+    carrier_profile=config.get('carrier_profile','ashlar-delta/0.3')
+    if carrier_profile not in ('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64'):
+        raise ValueError('Exact supported local current carrier profile required')
+    config['carrier_profile']=carrier_profile
     intent_path = None
     if 'publication_intent' in config:
         selection = config['publication_intent']
@@ -178,8 +182,16 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     if len(rows) != 1 or type(rows[0][0]) is not int or not 0 < rows[0][0] <= 65536:
         raise ValueError('Complete bounded original local installation registry required')
     registry = decode_custody_bytes(rows[0][1])
-    if type(registry) is not dict or not {'installation','targets'} <= set(registry) <= {'installation','targets','operation_capacity'}:
+    if (type(registry) is not dict or not {'installation','targets'} <= set(registry)
+            or set(registry) - {'installation','targets','operation_capacity','installation_profile'}):
         raise ValueError('Original local installation registry required')
+    installation_profile=registry.get('installation_profile')
+    carrier_profile=config['carrier_profile']
+    if carrier_profile=='ashlar-delta/0.4-xxhash64':
+        if type(installation_profile)is not dict or installation_profile.get('physical_profile')!=carrier_profile:
+            raise ValueError('Original local `.4` installation profile required; no cross-profile resume')
+    elif installation_profile is not None:
+        raise ValueError('A `.4` installation cannot resume under the legacy `.3` profile')
     targets = []
     if type(registry['targets']) is not list or len(registry['targets']) != 6:
         raise ValueError('Complete original six-role installation required')
@@ -195,7 +207,7 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     if set(tables) != {'object_current','edge_current','tombstone','whole_source_history','attempts','manifest'}:
         raise ValueError('Complete original graph/phase/manifest roles required')
     capacity = registry.get('operation_capacity')
-    LocalDeltaTransport.require_existing_journal(journal,registry['installation'],tuple(targets),capacity=capacity)
+    LocalDeltaTransport.require_existing_journal(journal,registry['installation'],tuple(targets),capacity=capacity,installation_profile=installation_profile)
     from .truss_runtime import require_truss_psycopg_runtime
     require_truss_psycopg_runtime()
     page = decode_truss_page(page_raw,config['source_page_sha256'],config['feed'])
@@ -205,7 +217,7 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
     from .truss_note_publication import bind_ordinary_connection
     from .truss_feed_sessions import TrussFeedSessions
     from .truss_graph_admission import TrussGraphAdmission
-    from .schema_rows import fixture_columns
+    from .schema_rows import fixture_columns,local_current_columns
     from .resources import RESOURCE_ROOT
     context = object()
     def connection(): return psycopg.connect(config['connection_uri'],autocommit=False,connect_timeout=5)
@@ -218,12 +230,27 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
         spark_context=(_open_current_truss_spark(config,jars,warehouse) if admission.current
                        else open_commerce_export_spark(jars,warehouse))
         with owned_context(spark_context) as spark:
+            if carrier_profile=='ashlar-delta/0.4-xxhash64' and not admission.current:
+                raise ValueError('Local `.4` continuation requires actual current Truss admission')
+            if carrier_profile=='ashlar-delta/0.4-xxhash64':
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+                if admission.current_truss_version!=CURRENT_TRUSS_048_VERSION:
+                    raise ValueError('Local `.4` continuation requires exact Truss 0.0.48 source custody')
+            if carrier_profile=='ashlar-delta/0.4-xxhash64':
+                from .local_current_carrier_profile import verify_local_current_profile
+                verify_local_current_profile(spark,installation_profile,tuple(targets),carrier_profile)
             policy = PrivatePolicy(context,tuple(targets));policy.initializing = False
-            transport = LocalDeltaTransport(spark,journal,registry['installation'],tuple(targets),policy,capacity=capacity)
+            transport = LocalDeltaTransport(spark,journal,registry['installation'],tuple(targets),policy,capacity=capacity,installation_profile=installation_profile)
             primary = None;descriptor = None
             try:
+                columns=(local_current_columns(RESOURCE_ROOT,carrier_profile) if carrier_profile=='ashlar-delta/0.4-xxhash64'
+                         else fixture_columns(RESOURCE_ROOT))
+                if carrier_profile=='ashlar-delta/0.4-xxhash64':
+                    columns={role:columns[role] for role in ('object_current','edge_current','tombstone','whole_source_history')}
+                lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
                 driver = NativeDriver.from_existing_truss(transport,policy,context,tables,admission.changes,
-                    fixture_columns(RESOURCE_ROOT),source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
+                    columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,
+                    lookup_hash_profile=lookup_hash_profile)
                 result = operation(driver,config)
             except BaseException as error: primary = error
             finish(primary,[transport.close,lease.renew])

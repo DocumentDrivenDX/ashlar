@@ -19,7 +19,7 @@ from .truss_ack_journal import admit_truss_ack_attempt
 from .truss_catalog_reader import read_historical_catalog_views
 from .truss_feed_sessions import TrussFeedSessions
 from .truss_graph_admission import TrussGraphAdmission
-from .truss_note_publication import bind_ordinary_connection,read_next_page,validate_graph_edge_orders,graph_expected_rows
+from .truss_note_publication import bind_ordinary_connection,read_next_page,validate_graph_edge_orders,graph_expected_rows,_native_xxhash64
 from .truss_page_archive import encode_truss_page
 from .truss_recovery import restore_truss_apply_state
 
@@ -71,6 +71,19 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
             or type(driver.source_sessions)is not TrussFeedSessions or driver.ack_sessions is not driver.source_sessions
             or not callable(connection_factory)or type(driver.policy.active)is not dict):
         raise PermissionError('Actual restored Truss graph continuation owner required')
+    if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+        from .local_current_carrier_profile import XXHASH64_PROFILE,verify_local_current_profile
+        from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+        profile=getattr(driver.transport,'installation_profile',None)
+        if (not driver.source_admission.current
+                or driver.source_admission.current_truss_version!=CURRENT_TRUSS_048_VERSION
+                or type(profile)is not dict or profile.get('physical_profile')!=XXHASH64_PROFILE
+                or profile.get('lookup_hash_profile')!=driver.lookup_hash_profile):
+            raise PermissionError('Exact admitted local `.4` continuation profile required')
+        verify_local_current_profile(driver.transport.spark,profile,
+            tuple(driver.transport.targets.values()),XXHASH64_PROFILE)
+    elif driver.lookup_hash_profile!='sha256-json-v1':
+        raise PermissionError('Exact supported local continuation hash profile required')
     if type(maximum_pages)is not int or not 1<=maximum_pages<=8 or type(wait_seconds)is not int or not 0<=wait_seconds<=60:
         raise ValueError('Bounded continuation pages1..8 and wait0..60 required')
     if type(maximum_page_bytes)is not int or not 1<=maximum_page_bytes<=2097152:
@@ -96,6 +109,10 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         sessions=TrussFeedSessions(page,feed,ordinary,context,destination_receipts=source.destination_receipts,destination_id=source.destination_id);batch=sessions.batch()
         from .truss_catalog_reader import read_graph_catalog_evidence
         admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
+        if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+            if not admission.current or admission.current_truss_version!=CURRENT_TRUSS_048_VERSION:
+                raise PermissionError('Local `.4` continuation page requires exact Truss 0.0.48 catalog evidence')
         revisions={current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'}
         request=truss_request_for(feed,batch,predecessor,revisions)
         digest=request['request_digest'];publication_id='truss-graph-'+digest
@@ -112,14 +129,18 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         selection={'path':str(intent_path),'sha256':hashlib.sha256(intent_raw).hexdigest()}
         try:
             following_driver=NativeDriver.from_existing_truss(transport,driver.policy,context,driver.tables,
-                admission.changes,driver.columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions)
+                admission.changes,driver.columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,
+                lookup_hash_profile=driver.lookup_hash_profile)
             stamp=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:driver.tables[role]for role in driver.columns}
             validate_graph_edge_orders(expected,admission.changes,admission.parsed.event_bytes)
             after,generated=graph_sql_plan(state,batch,graph_tables,materialized_at=stamp,
-                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.typed else'string')
-            following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys)
-            steps,elisions=local_effect_plan(generated,expected,graph_tables)
+                schema_policy=admission.admit,schema_transition_policy=admission.admit_transition,native_scalar_profile='typed'if admission.typed else'string',
+                lookup_hash_profile=driver.lookup_hash_profile)
+            hashes=(_native_xxhash64(transport.spark,admission.changes,after)
+                    if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1' else None)
+            following=graph_expected_rows(expected,after,admission.changes,batch,driver.columns,stamp,admission.parsed.event_bytes,admission.parsed.edge_order_keys,lookup_hashes=hashes)
+            steps,elisions=local_effect_plan(generated,expected,graph_tables,lookup_hash_profile=driver.lookup_hash_profile)
             following_driver.policy.active={'request':request,'steps':steps,'expected':following,'publication_id':publication_id,
                 'previous_progress':progress,'progress':progress_union(progress,json.loads(request['source_checkpoint_json'])),
                 'previous_expected':expected,'generated_steps':generated,'elisions':elisions,

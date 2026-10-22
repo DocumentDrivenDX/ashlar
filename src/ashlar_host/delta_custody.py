@@ -102,25 +102,31 @@ class DeltaTarget:
 
 class LocalDeltaTransport:
 
-    def __init__(self, spark, journal_path, installation_id, targets, policy, *, capacity=None, verification_bounds=None):
+    def __init__(self, spark, journal_path, installation_id, targets, policy, *, capacity=None, verification_bounds=None, installation_profile=None):
         if verification_bounds is not None:
             if type(verification_bounds) is not VerificationBounds:
                 raise LocalDeltaError('Exact constructor verification bounds required')
             verification_bounds.__post_init__()
         self.observation_bounds = verification_bounds
         try:
-            self._open(spark, journal_path, installation_id, targets, policy, create=False, context=None, capacity=capacity)
+            self._open(spark, journal_path, installation_id, targets, policy, create=False, context=None, capacity=capacity, installation_profile=installation_profile)
         finally:
             self.observation_bounds = None
 
     @classmethod
-    def initialize(cls, spark, journal_path, installation_id, targets, policy, *, context, capacity=None):
+    def initialize(cls, spark, journal_path, installation_id, targets, policy, *, context, capacity=None, installation_profile=None):
         result = cls.__new__(cls)
-        result._open(spark, journal_path, installation_id, targets, policy, create=True, context=context, capacity=capacity)
+        result._open(spark, journal_path, installation_id, targets, policy, create=True, context=context, capacity=capacity, installation_profile=installation_profile)
         return result
 
-    def _open(self, spark, journal_path, installation_id, targets, policy, *, create, context, capacity):
+    def _open(self, spark, journal_path, installation_id, targets, policy, *, create, context, capacity, installation_profile):
         self.operation_capacity = operation_capacity(capacity)
+        if installation_profile is not None:
+            if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
+                    or installation_profile.get('profile') != 'ashlar-local-current-installation-profile/0.1'):
+                raise LocalDeltaError('Exact bounded local current installation profile required')
+            installation_profile = json.loads(encoded(installation_profile))
+        self.installation_profile = installation_profile
         if type(installation_id) is not str or not re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,1023}', installation_id) or (not targets):
             raise LocalDeltaError('Explicit original installation/table registry required')
         if not callable(getattr(policy, 'writer', None)) or not callable(getattr(policy, 'admit', None)):
@@ -136,6 +142,8 @@ class LocalDeltaTransport:
         if self.journal_path.is_symlink():
             raise LocalDeltaError('Private non-symlink original journal required')
         registry_body = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
+        if installation_profile is not None:
+            registry_body['installation_profile'] = installation_profile
         if self.operation_capacity is not None:
             registry_body['operation_capacity'] = dict(self.operation_capacity)
         registry = encoded(registry_body)
@@ -239,7 +247,7 @@ class LocalDeltaTransport:
                 raise LocalDeltaError('Original custody journal missing or incomplete') from original
 
     @classmethod
-    def require_existing_journal(cls, path, installation_id, targets, *, capacity=None):
+    def require_existing_journal(cls, path, installation_id, targets, *, capacity=None, installation_profile=None):
         """Read-only complete canonical journal preflight before driver construction."""
         import stat
         from .lifecycle import finish
@@ -249,6 +257,11 @@ class LocalDeltaTransport:
         if not stat.S_ISREG(identity.st_mode) or identity.st_uid != os.getuid() or identity.st_mode & 0o022 or identity.st_size > 128 * 1024 * 1024:
             raise LocalDeltaError('Private bounded original journal required')
         registry = {'installation': installation_id, 'targets': [{'table': t.table, 'path': str(t.path), 'uuid': t.uuid} for t in sorted(targets, key=lambda t: t.table)]}
+        if installation_profile is not None:
+            if (type(installation_profile) is not dict or len(encoded(installation_profile).encode()) > 65536
+                    or installation_profile.get('profile') != 'ashlar-local-current-installation-profile/0.1'):
+                raise LocalDeltaError('Exact bounded local current installation profile required')
+            registry['installation_profile'] = json.loads(encoded(installation_profile))
         selected = operation_capacity(capacity)
         if selected is not None: registry['operation_capacity'] = dict(selected)
         definitions = local_journal_definitions()

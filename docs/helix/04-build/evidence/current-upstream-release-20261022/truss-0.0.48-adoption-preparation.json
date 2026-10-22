@@ -392,5 +392,31 @@
       "saved_log": null
     },
     "next_gate": "Native .48 feed/admission remains unqualified. Any source-feed or Delta effect check requires separate resource-slot review and explicit GO; no ACK or destination authority is implied."
+  },
+  "ashlar_local_xxhash64_offline_implementation": {
+    "status": "offline_implementation_ready_native_gate_pending",
+    "profile": "ashlar-delta/0.4-xxhash64",
+    "scope": [
+      "Keeps the existing ashlar-delta/0.3 publication default and adds an explicit local .4 xxhash64 graph profile.",
+      "When a fresh installation executes, code retains and verifies the six-role UMF carrier schema, protocol, clustering, partitioning, authored properties, Delta UUIDs and installation binding in the local journal.",
+      "Threads Spark-native xxhash64 and typed identity keys through graph planning, continuation and restore; validates the selected profile at manifest, source receipt and pre-ACK gates.",
+      "Requires exact Truss 0.0.48 current catalog evidence for .4; does not claim feed or lifecycle native qualification."
+    ],
+    "focused_verification": {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -B -m unittest tests.test_local_current_xxhash64_profile tests.test_truss_note_publication tests.test_truss_resume tests.test_truss_continue_cli -v",
+      "result": "13 tests passed; git diff --check passed.",
+      "native_ddl_coverage": "The six-role UMF DDL loop was exercised with an inert Spark stand-in. This is control-flow coverage only, not native Delta DDL evidence."
+    },
+    "selected_runtime_preflight": {
+      "profile": "Truss 0.0.48 / UMF core 0.10.0 / access dev6 / local Weft 0.4.52; Python 3.12.14; explicit retained dependency fallback.",
+      "receipt_path": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/runtime-preflight.json",
+      "receipt_sha256": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b"
+    },
+    "native_gate": {
+      "status": "pending",
+      "qualification": "No native publication, source ACK, Delta DDL, feed, destination or lifecycle pass is claimed. The next native campaign requires code review/source freeze and its separately coordinated resource GO.",
+      "spark_started_during_offline_implementation_check": false,
+      "postgres_started_during_offline_implementation_check": false
+    }
   }
 }

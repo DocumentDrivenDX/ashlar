@@ -312,7 +312,7 @@ class ManifestPort:
 
 class NativeDriver:
 
-    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None, ack_sessions=None):
+    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None, ack_sessions=None, lookup_hash_profile='sha256-json-v1'):
         from .truss_feed_sessions import TrussFeedSessions
         self.transport = transport
         self.policy = policy
@@ -321,6 +321,22 @@ class NativeDriver:
         self.scope_ports = scope_ports
         self.allowed_changes = allowed_changes
         self.columns = columns
+        if lookup_hash_profile not in ('sha256-json-v1','spark-xxhash64-typed-key/0.1'):
+            raise PermissionError('Exact current lookup-hash interpretation required')
+        self.lookup_hash_profile = lookup_hash_profile
+        installed_profile=getattr(transport,'installation_profile',None)
+        if lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+            if (type(installed_profile)is not dict
+                    or installed_profile.get('physical_profile')!='ashlar-delta/0.4-xxhash64'
+                    or installed_profile.get('lookup_hash_profile')!=lookup_hash_profile
+                    or getattr(source_admission,'current_truss_version',None)!=CURRENT_TRUSS_048_VERSION
+                    or set(columns)!={'object_current','edge_current','tombstone','whole_source_history'}
+                    or any(dict(columns[role]).get('lookup_hash')!='BIGINT'
+                           for role in ('object_current','edge_current'))):
+                raise PermissionError('Exact original `.4` installation and data-role schema required')
+        elif installed_profile is not None:
+            raise PermissionError('A non-`.4` driver cannot open a `.4` local installation')
         if not callable(getattr(source_admission, 'admit', None)) or not callable(getattr(source_admission, 'metadata', None)):
             raise PermissionError('Explicit admitted source profile required')
         self.source_admission = source_admission
@@ -379,7 +395,8 @@ class NativeDriver:
 
     @classmethod
     def from_existing_truss(cls, transport, policy, context, tables, allowed_changes,
-                            columns, *, source_admission, source_sessions, ack_sessions):
+                            columns, *, source_admission, source_sessions, ack_sessions,
+                            lookup_hash_profile='sha256-json-v1'):
         """Construct from complete existing journal custody, without recreating plans.
 
         This admits construction only. Original request/plan restoration and live
@@ -398,10 +415,11 @@ class NativeDriver:
             raise PermissionError('Exact existing Truss graph construction ports required')
         LocalDeltaTransport.require_existing_journal(transport.journal_path,
             transport.installation_id, tuple(transport.targets.values()),
-            capacity=transport.operation_capacity)
+            capacity=transport.operation_capacity,
+            installation_profile=getattr(transport,'installation_profile',None))
         return cls(transport, policy, context, tables, {}, allowed_changes, columns,
             source_admission=source_admission, source_sessions=source_sessions,
-            ack_sessions=ack_sessions)
+            ack_sessions=ack_sessions,lookup_hash_profile=lookup_hash_profile)
 
     @classmethod
     def with_registered_evolution(cls, transport, policy, context, tables, allowed_changes,
@@ -703,7 +721,8 @@ class NativeDriver:
                 vector = manifest_pin_vector(row, {table: self.transport.targets[table].uuid
                     for table in descriptor.versions}, authority='private-local-process')
                 receipt = self.ack_sessions.reconcile(encoded(request).encode(), encoded(row).encode(), vector,
-                    context=context, pins=self, publication_backend=self, supported_profiles=[PROFILE],
+                    context=context, pins=self, publication_backend=self,
+                    supported_profiles=[self._selected_publication_profile()],
                     supported_revisions={key: [revision] for key, revision in descriptor.revisions.items()})
                 if receipt is None:
                     raise PermissionError('Completed original protected ACK readback absent')
@@ -1824,7 +1843,20 @@ class NativeDriver:
         self.admission_facts()
 
     def plan_graph(self, prior, batch, tables, *, materialized_at):
-        return graph_sql_plan(prior, batch, tables, materialized_at=materialized_at, schema_policy=self.schema_admit, schema_transition_policy=self.schema_transition_admit)
+        return graph_sql_plan(prior, batch, tables, materialized_at=materialized_at, schema_policy=self.schema_admit, schema_transition_policy=self.schema_transition_admit,lookup_hash_profile=self.lookup_hash_profile)
+
+    def _selected_publication_profile(self):
+        """Bind manifest and receipt validation to this immutable carrier choice."""
+        installed=getattr(self.transport,'installation_profile',None)
+        if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+            if (type(installed)is not dict
+                    or installed.get('physical_profile')!='ashlar-delta/0.4-xxhash64'
+                    or installed.get('lookup_hash_profile')!=self.lookup_hash_profile):
+                raise PermissionError('Exact installed local `.4` publication profile required')
+            return installed['physical_profile']
+        if self.lookup_hash_profile!='sha256-json-v1' or installed is not None:
+            raise PermissionError('Legacy local `.3` publication profile required')
+        return PROFILE
 
     def source_admit(self, request):
         self.admission_facts()
@@ -2303,7 +2335,17 @@ class NativeDriver:
             proof = {**proof, 'profile': 'ashlar-original-medical-effect-proof/0.1',
                 'source_plan_reference': self._medical_source_plan_reference(request, original_plan),
                 'zero_match_elisions': active['elisions'], 'original_source_plan_sha256': sha(original_plan)}
-        manifest = {'publication_id': active['publication_id'], 'profile_version': PROFILE, 'table_versions_json': encoded(versions), 'schema_revisions_json': request['schema_revisions_json'], 'source_progress_json': encoded(active['progress']), 'validation_report_json': encoded({'complete': True, 'request_digest': request['request_digest'], 'predecessor': request['predecessor'], 'effect_parity': parity, 'original_source_plan_sha256': sha(original_plan), 'zero_match_elisions': active['elisions'], 'source_oracle_sha256': sha(encoded(active['expected'])), 'source_admission': self.admission_facts(), 'scope': self.admission_facts()['qualification']}), 'recorded_at': active.get('recorded_at', '1791547200000000')}
+        report={'complete': True, 'request_digest': request['request_digest'], 'predecessor': request['predecessor'], 'effect_parity': parity, 'original_source_plan_sha256': sha(original_plan), 'zero_match_elisions': active['elisions'], 'source_oracle_sha256': sha(encoded(active['expected'])), 'source_admission': self.admission_facts(), 'scope': self.admission_facts()['qualification']}
+        if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+            profile=getattr(self.transport,'installation_profile',None)
+            if type(profile)is not dict or profile.get('physical_profile')!='ashlar-delta/0.4-xxhash64':
+                raise PermissionError('Exact installed local `.4` profile required for manifest')
+            report.update(physical_carrier_profile=profile['physical_profile'],
+                lookup_hash_profile=profile['lookup_hash_profile'],
+                generated_carriers_sha256=profile['generated_carriers_sha256'],
+                umf_revision=profile['umf_revision'],
+                installation_profile_sha256=sha(encoded(profile)))
+        manifest = {'publication_id': active['publication_id'], 'profile_version': self._selected_publication_profile(), 'table_versions_json': encoded(versions), 'schema_revisions_json': request['schema_revisions_json'], 'source_progress_json': encoded(active['progress']), 'validation_report_json': encoded(report), 'recorded_at': active.get('recorded_at', '1791547200000000')}
         active['manifest'] = manifest
         artifact_value = {'effects': proof, 'manifest': manifest}
         if medical_binding is not None:
@@ -2345,8 +2387,21 @@ class NativeDriver:
         active = self.policy.active
         if row != active['manifest']:
             raise PermissionError('Immutable original manifest differs')
-        if json.loads(row['validation_report_json']).get('source_admission') != self.admission_facts():
+        if row.get('profile_version')!=self._selected_publication_profile():
+            raise PermissionError('Manifest selected publication profile differs from installation custody')
+        report=json.loads(row['validation_report_json'])
+        if report.get('source_admission') != self.admission_facts():
             raise PermissionError('Manifest original admitted source profile differs')
+        if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+            profile=getattr(self.transport,'installation_profile',None)
+            if (type(profile)is not dict or report.get('physical_carrier_profile')!='ashlar-delta/0.4-xxhash64'
+                    or report.get('lookup_hash_profile')!=self.lookup_hash_profile
+                    or report.get('generated_carriers_sha256')!=profile.get('generated_carriers_sha256')
+                    or report.get('umf_revision')!=profile.get('umf_revision')
+                    or report.get('installation_profile_sha256')!=sha(encoded(profile))):
+                raise PermissionError('Manifest physical carrier profile differs from its installation custody')
+        elif any(key in report for key in ('physical_carrier_profile','lookup_hash_profile','generated_carriers_sha256','umf_revision','installation_profile_sha256')):
+            raise PermissionError('A legacy `.3` publication cannot claim another physical carrier profile')
         validate_union(active['previous_progress'], active['request'], row)
         self.source_admit(active['request'])
         binding = getattr(self, '_medical_publication_binding', None)
@@ -2360,10 +2415,35 @@ class NativeDriver:
                     binding['bounds'].total_bytes-total)
                 total += size
         else:
+            profile=getattr(self.transport,'installation_profile',None)
+            if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+                from .local_current_carrier_profile import (
+                    XXHASH64_PROFILE,verify_local_current_profile,
+                    verify_local_xxhash64_snapshot,
+                )
+                if type(profile)is not dict or profile.get('physical_profile')!=XXHASH64_PROFILE:
+                    raise PermissionError('Exact installed local `.4` carrier profile required')
+                verify_local_current_profile(self.transport.spark,profile,
+                    tuple(self.transport.targets.values()),XXHASH64_PROFILE)
+                versions=json.loads(row['table_versions_json'])
+                expected_tables={self.tables[role] for role in
+                    ('object_current','edge_current','tombstone','whole_source_history')}
+                if set(versions)!=expected_tables:
+                    raise PermissionError('Complete exact local `.4` four-role vector required')
             for (role, expected) in active['expected'].items():
                 target = self.transport.targets[self.tables[role]]
                 version = json.loads(row['table_versions_json'])[target.table]
-                if self.transport._snapshot(target, version)['rows'] != sorted(expected, key=encoded):
+                snapshot=self.transport._snapshot(target,version)
+                if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
+                    binding=profile['roles'][role]
+                    canonical=[(name,{'STRING':'string','BIGINT':'bigint','TIMESTAMP':'timestamp'}[kind])
+                               for name,kind,_nullable in binding['fields']]
+                    if snapshot['schema']!=[list(field) for field in canonical]:
+                        raise ValueError('Pinned local `.4` complete role schema differs: '+role)
+                    if role in ('object_current','edge_current'):
+                        verify_local_xxhash64_snapshot(self.transport.spark,target.path,
+                            version,role)
+                if snapshot['rows'] != sorted(expected, key=encoded):
                     raise ValueError('Original exact publication snapshot differs: ' + role)
         for role in active['expected']:
             self.transport._detail(self.transport.targets[self.tables[role]])
@@ -2549,13 +2629,13 @@ class NativeDriver:
                     raise OSError('Injected response loss after actual PostgreSQL COMMIT')
             return LostCommit()
         if self.ack_sessions is None:
-            ack = ProtectedOutboxAck(factory, self, self, self, port['scope'], supported_profiles=[PROFILE], supported_revisions={k: [v] for (k, v) in json.loads(request['schema_revisions_json']).items()})
+            ack = ProtectedOutboxAck(factory, self, self, self, port['scope'], supported_profiles=[self._selected_publication_profile()], supported_revisions={k: [v] for (k, v) in json.loads(request['schema_revisions_json']).items()})
             ack_ports = {}
         else:
             if encoded(self.ack_sessions.metadata()) != self.original_ack_sessions:
                 raise PermissionError('Original ordinary ACK registrations changed')
             ack = self.ack_sessions
-            ack_ports = {'pins': self, 'publication_backend': self, 'supported_profiles': [PROFILE],
+            ack_ports = {'pins': self, 'publication_backend': self, 'supported_profiles': [self._selected_publication_profile()],
                          'supported_revisions': {k: [v] for k, v in json.loads(request['schema_revisions_json']).items()}}
 
         from .truss_feed_sessions import TrussFeedSessions
