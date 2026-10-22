@@ -1,0 +1,88 @@
+{
+  "schema": "ashlar.weft-managed-page-release-gap/0.1",
+  "date": "2026-10-22",
+  "status": "verified public-release gap; merged-source candidate is unqualified",
+  "publicRelease": {
+    "tag": "v0.4.51",
+    "url": "https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.51",
+    "tagCommit": "d4b0b98507ae15bd98180a2ea2030ea92ce11d96",
+    "sourceFreezeCommit": "557153731e9f5d0583193a1189a07c6ed485d3d3",
+    "releasePinsSha256": "aceaf8be26a0b652b88f048a89ea4ee9475a2e7e0c7c89b2a2a8fae071eff36d",
+    "sha256SumsSha256": "62c9d8082eb2f446446d7b94ff7ef7f48769e3cd836e5641c2951069302a6c75",
+    "macosArm64Wheel": {
+      "url": "https://github.com/DocumentDrivenDX/weft/releases/download/v0.4.51/weft_sql-0.4.51-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "e60e552f02c670b43a43111b08d26d6b415aaa9b9de42f241c37ad1d9fdd2487"
+    },
+    "managedCurrentXxhash64PagesFeature": "excluded"
+  },
+  "ashlarTarget": {
+    "backendId": "ashlar.databricks.managed-uc-spark-xxhash64",
+    "backendVersion": "0.2.0-managed-current-core-xxhash64-pages-candidate",
+    "interfaceVersion": "weft-backend/0.2.7",
+    "targetProfile": "ashlar-managed-current-core/0.2-xxhash64",
+    "carrierProfile": "ashlar-delta/0.4-xxhash64",
+    "lookupHashProfile": "spark-xxhash64-typed-key/0.1"
+  },
+  "negativeCompilerCheck": {
+    "result": "blocked as expected",
+    "compilerDistribution": "weft-sql 0.4.51",
+    "compilerWheelSha256": "e60e552f02c670b43a43111b08d26d6b415aaa9b9de42f241c37ad1d9fdd2487",
+    "ashlarSourceRevision": "79e3906232e1b8efedbcdccce564b30d4227a01e",
+    "relevantTargetSourcesCleanAtCheck": true,
+    "unrelatedTrackedChangesAtCheck": [
+      "src/ashlar_host/graph_sql.py",
+      "tests/test_managed_current_xxhash64.py"
+    ],
+    "request": "Existing Ashlar managed .4 SDK page request, emitted from the checked-in target binding helpers",
+    "response": {
+      "status": "blocked",
+      "version": "weft.engine-page/0.1",
+      "diagnostic": {
+        "code": "WFT-BACKEND-MISSING",
+        "message": "Selected backend is not registered",
+        "phase": "capability",
+        "recoverability": "change-profile",
+        "severity": "error"
+      }
+    },
+    "nativeExecution": false
+  },
+  "mergedSource": {
+    "mainCommit": "3cd05d5389375b7d40622821d4788828135a2d6e",
+    "parents": [
+      "9137ca2c3d6f8982ed0d4770de050ba4be0277ee",
+      "cc694344da31af76ef6b97e572d20a8347989bdd"
+    ],
+    "content": "Main already merges the managed .3/.4 compiler candidates with the later .51 source semantics. Its Python package metadata still says 0.4.51 and its release feature set adds ashlar-databricks-paths-keys; the published 0.4.51 wheel was frozen earlier at 5571537 and does not contain that merged source.",
+    "checks": [
+      {"name": "shared-compiler", "result": "success"},
+      {"name": "compiler-and-evidence", "result": "in progress at inspection"},
+      {"name": "graph-requirements-candidate", "result": "success"},
+      {"name": "native-table-operations", "result": "success"}
+    ],
+    "availableMainArtifacts": [
+      "truss-facts-parity",
+      "graph-requirements-candidate-3cd05d5389375b7d40622821d4788828135a2d6e",
+      "declared-table-operation-candidate"
+    ],
+    "selectedCompilerWheelForMergedMain": "not present in inspected workflow artifacts"
+  },
+  "nextCandidateBoundary": {
+    "recommendation": "Build a new 0.4.52 candidate from merged main after explicit version bumps; keep public v0.4.51 immutable and preserve its feature and Truss semantics.",
+    "sourceIntegration": "Already on main; no cherry-pick is needed.",
+    "candidateFeatureDelta": "Retain the public 0.4.51 feature tuple and enable ashlar-databricks-paths-keys from merged main.",
+    "reusableEvidence": "The 0.4.50 source-9137ca2c Mac ARM64 wheel (SHA-256 0b364222af1a69cd038e511a0ac23a46383322b8c3729b6367c7eeb578256537) previously passed four focused managed-page component tests; it is not an artifact for merged main.",
+    "requiredBeforeCandidateArtifact": [
+      "Coordinate a quiet Mac compiler-build window with the active Weft/Truss release owners.",
+      "Bump the package version from the public 0.4.51 boundary before producing any combined-source wheel.",
+      "On the exact new wheel, rerun the four focused Ashlar managed-page target tests and verify historical-profile and cross-profile refusals.",
+      "Keep native Unity Catalog/Spark execution outside this compiler-candidate evidence."
+    ]
+  },
+  "limits": [
+    "The negative check establishes only that the exact public 0.4.51 Mac ARM64 wheel lacks this backend registration.",
+    "Source inspection and successful current-main checks do not establish a compiled wheel from merge 3cd05d53.",
+    "No current-main compiler wheel was found in the inspected workflow artifacts; compiler-and-evidence was still running.",
+    "The 0.4.50 artifact remains a separate candidate and does not qualify the combined main source or native execution."
+  ]
+}
