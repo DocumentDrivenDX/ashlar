@@ -1,0 +1,50 @@
+{
+  "profile": "ashlar-truss045-seed-group-refusal-diagnostic/0.1",
+  "qualification": "Local Truss 0.0.45 typed-group refusal diagnosis only. The seed group was not accepted or committed; no source ACK or destination publication occurred. This is not evidence for the separate Truss 0.0.47 profile.",
+  "source": {
+    "registration_id": "12cc86e2-0209-48f0-aaee-a71e261d311e",
+    "accepted_revision": 1,
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision": "ashlar-current-045-lifecycle-r1",
+    "truss_version": "0.0.45",
+    "runtime_manifest_sha256": "71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e"
+  },
+  "input_pins": {
+    "source_preparation_config_sha256": "6c29bf9accf6914b4966e71cb345ab83242034b89a873306782d21972a2eea51",
+    "seed_group_config_sha256": "a407b560aff17b27ebc266feb73ebf30fbee69b3d722fd53ab6d83edb25e7116",
+    "rollback_diagnostic_config_sha256": "554d39564da1928cecec28aed38a920772ab07549532568f3dd561ef91b798b6",
+    "rollback_diagnostic_worker_sha256": "b826b491e3eeb614fffd18cec4b66c1323e8f84ddb89586c57d8455477913e9e",
+    "request_key": "ashlar-current-045-lifecycle-seed-r1",
+    "seed_operations": 7
+  },
+  "attempt_02": {
+    "stage": "commit_one_public_seven_operation_seed_group",
+    "observed_wrapper_exception": "RuntimeError: Public Truss group refused",
+    "typed_public_outcome_preserved": false,
+    "commit_called": false,
+    "seed_report_released": false,
+    "existing_consumer_pages_retained": true
+  },
+  "rollback_only_diagnostic": {
+    "public_object_rows_scanned": 0,
+    "candidate_seed_objects_found": 0,
+    "same_request_committed_replay": false,
+    "public_group_outcome": {
+      "envelope": "Error",
+      "error_type": "ExecutionFailure",
+      "code": "cancelled",
+      "sql_state": "57014",
+      "retry_scope": "none",
+      "catalog_code": null
+    },
+    "caller_transaction": "read_committed",
+    "transaction_disposition": "rolled_back",
+    "commit_calls": 0,
+    "postgres_closed": true,
+    "source_acks": 0,
+    "destination_publications": 0,
+    "diagnostic_receipt_sha256": "064783ddb7c759c2e8051251aaf252ace06a99be232b5201c74d5c0efe8e59e3",
+    "supervisor_receipt_sha256": "ea5e3977e8bfd8f7d91ceae88d150af8a4a1afd303447f56e37e2f68b29129a0"
+  },
+  "interpretation": "SQLSTATE 57014 establishes cancellation, but the cause is unproven. A separate same-host release encountered a statement timeout during Defender and Rust load; no causal link is established. The public Error retry scope is none, so this diagnostic does not authorize a retry."
+}

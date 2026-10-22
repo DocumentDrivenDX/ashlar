@@ -15,6 +15,14 @@ from .exact_report import report_body
 PROFILE='ashlar-truss-record-group/0.1'
 
 
+class PublicTrussOutcomeError(RuntimeError):
+    """Retain the immutable public Truss outcome without copying its diagnostics."""
+
+    def __init__(self, outcome: object) -> None:
+        self.outcome = outcome
+        super().__init__('Public Truss returned a typed non-success outcome')
+
+
 def name(value: object) -> str:
     if type(value)is not str or not value or len(value.encode())>4096 or '\x00' in value:
         raise ValueError('Bounded original group name required')
@@ -153,7 +161,7 @@ def run_create_truss_record_group_command(configuration: str | Path, output: str
     from truss.contracts import TextValue,BooleanValue,NullValue,MapValue,MapEntry
     from truss.groups import CreateObject,CreateEdge,RootlessOwnership,AuthoredValue,AliasObjectReference,StoredObjectReference,NullOrderKey,TextOrderKey,GroupSuccess,CommittedReceiptReplay
     def value(result):
-        if not isinstance(result,Ok):raise RuntimeError('Public Truss group refused')
+        if not isinstance(result,Ok):raise PublicTrussOutcomeError(result)
         return result.value
     def scalar(kind,body):return NullValue()if kind=='null'else BooleanValue(value=body)if kind=='boolean'else TextValue(kind=kind,text=body)
     def authored(values):return tuple(AuthoredValue(name=key,value=scalar(kind,body))for key,kind,body in values)
@@ -192,7 +200,7 @@ def run_create_truss_record_group_command(configuration: str | Path, output: str
                 operations.append(CreateEdge(relationship_definition_pin=ref.definition_pin,source=reference(edge.source),target=reference(edge.target),values=authored(edge.values),order_key=NullOrderKey()if edge.order_key[0]=='null'else TextOrderKey(text=edge.order_key[1]),alias=edge.alias))
             context=value(assembly.group_context_in_transaction(tx));semantic=context.input(tuple(operations),asserted);request=context.request(config.request_key)
             renew();applied=value(assembly.apply_in_transaction(tx,semantic,request,documents=documents,bun_executable=str(config.bun)))
-            if not isinstance(applied,GroupSuccess):raise RuntimeError('Complete atomic group required')
+            if not isinstance(applied,GroupSuccess):raise PublicTrussOutcomeError(applied)
             results=applied.response.semantic.results;selections=(*config.records,*config.edges)
             if len(results)!=len(selections)or any(result.operation!=('create_object'if index<len(config.records)else'create_edge')or result.outcome!='created'or result.alias!=selections[index].alias for index,result in enumerate(results)):raise RuntimeError('Complete ordered created responses required')
             identities={selection.alias:result.identity for selection,result in zip(selections,results)}

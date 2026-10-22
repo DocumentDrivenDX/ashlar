@@ -29,6 +29,13 @@ This was a local macOS arm64 source-boundary run; the upstream release lists
 receipt does not transfer, and .45 graph mutation, feed, Delta publication, ACK,
 and production authority remain unqualified.
 
+The seven-operation .45 seed-group attempt stopped before commit, and the Ashlar
+wrapper discarded the public typed failure. A fresh rollback-only call found no
+candidate seed objects and returned `ExecutionFailure(code="cancelled",
+sql_state="57014", retry_scope="none")`; the caller transaction rolled back.
+The cause is unproven, and this result does not authorize retry or establish a
+committed seed. See the [attempt and rollback diagnostic](seed-group-refusal-attempt-02-rollback-diagnostic.json).
+
 This evidence follows [CONTRACT-005's current UMF 0.10 source-custody
 boundary](../../../02-design/contracts/CONTRACT-005-schema-intake.md#current-umf-010-accepted-catalog-source-custody)
 and retains the four data-role and publication-vector meanings in
