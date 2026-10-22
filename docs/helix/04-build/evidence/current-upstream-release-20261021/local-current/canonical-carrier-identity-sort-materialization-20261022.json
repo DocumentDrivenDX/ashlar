@@ -1,0 +1,202 @@
+{
+  "comparison": {
+    "baseline_sequential_identity_order": {
+      "active_parquet_bytes": 3062253112,
+      "evidence": "canonical-carrier-xxhash64-18core-calibration-20261021.json",
+      "write_seconds": 38.98089
+    },
+    "hash_range_then_sort_full_identity": {
+      "active_parquet_bytes": 4250982114,
+      "evidence_result_sha256": "24d5f6bcab185da36898641448de92f6545532d1e1c551410fa093749a98c330",
+      "point_scans_numFiles": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "run_status": "success; clean Spark shutdown and result receipt",
+      "runner_sha256": "97d9c90403675279b51b831947ebe1b007d2939ee17167e2de774e840ed56451",
+      "write_seconds": 58.24283437494887
+    },
+    "hash_range_then_sort_hash": {
+      "active_parquet_bytes": 7677204744,
+      "evidence": "canonical-carrier-hash-range-materialization-20261022.json",
+      "point_scans_numFiles": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "run_status": "partial: final receipt projection failed after workload; component results retained",
+      "write_seconds": 68.55886916699819
+    },
+    "ratios_vs_baseline": {
+      "identity_sort_active_bytes": 1.388187703146336,
+      "identity_sort_write_time": 1.4941381373013511
+    },
+    "ratios_vs_hash_sort": {
+      "identity_sort_active_bytes": 0.5537148292576525,
+      "identity_sort_write_time": 0.8495302662165978
+    }
+  },
+  "fixture": {
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "layout": "repartitionByRange(18, lookup_hash), then sortWithinPartitions(source_system,type_id,id) for object_current or (source_system,rel_type_id,id) for edge_current; one Delta append per role.",
+    "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+    "rows": {
+      "edge_current": 225000000,
+      "object_current": 45000000
+    },
+    "value_scope": "Same deterministic synthetic values as the earlier samples; source_position=id and source_delivery_id=decimal string(id), not accepted Truss/source-feed evidence."
+  },
+  "full_scale_arithmetic_only": {
+    "active_bytes_linear_GB": 94.4662692,
+    "basis": "New measured per-role write throughput at 80%; no scale-out factor. Writes only.",
+    "five_billion_edge_write_seconds": 1307.0480347216492,
+    "one_billion_node_write_seconds": 310.80847569359725,
+    "status": "Full run held; projection exceeds 15-minute review gate and excludes scans, graph engine, publication and accepted-source payloads.",
+    "total_write_only_minutes": 26.964275173587442
+  },
+  "interpretation": "Sorting by full identity inside hash-range partitions recovered a substantial portion of the compression lost by sorting random hash values and retained one scanned file per tested point. It still writes 49.4% slower and stores 38.8% more active Parquet than the sequential-identity baseline. Do not adopt this as the default layout from this fixture.",
+  "next_static_design_direction": {
+    "reasoning": "The two hash-range variants each add an exchange and sort before Delta write, improve one-file point scan evidence versus the hash-only baseline candidate counts but both lose on write cost and compressed size against the sequential identity layout. A staging representation change may remove CPU/temporary allocation without disturbing the already effective identity row order; its impact is unmeasured and requires separate code review, not another scale matrix.",
+    "recommendation": "Keep the baseline identity-preserving row order unless production input locality requires reshaping. Investigate the actual production staging path for avoidable key stringification and BIGINT reparsing while preserving exact keys and payload/custody strings. This is orthogonal to persisted layout and avoids adding another hash-range shuffle."
+  },
+  "point_lookups": [
+    {
+      "computed_native_hash": 7686581330353470147,
+      "identity": 0,
+      "result_rows": 1,
+      "role": "object_current",
+      "scanTime_ms": 61,
+      "scan_filesSize_bytes": 37627612,
+      "scan_numFiles": 1,
+      "seconds": 0.3679304590332322,
+      "stored_hash": 7686581330353470147
+    },
+    {
+      "computed_native_hash": 4156874144773143263,
+      "identity": 44999999,
+      "result_rows": 1,
+      "role": "object_current",
+      "scanTime_ms": 19,
+      "scan_filesSize_bytes": 45389863,
+      "scan_numFiles": 1,
+      "seconds": 0.18404924997594208,
+      "stored_hash": 4156874144773143263
+    },
+    {
+      "computed_native_hash": 7686581330353470147,
+      "identity": 0,
+      "result_rows": 1,
+      "role": "edge_current",
+      "scanTime_ms": 29,
+      "scan_filesSize_bytes": 195803691,
+      "scan_numFiles": 1,
+      "seconds": 0.18046437500743195,
+      "stored_hash": 7686581330353470147
+    },
+    {
+      "computed_native_hash": -141394084489543850,
+      "identity": 224999999,
+      "result_rows": 1,
+      "role": "edge_current",
+      "scanTime_ms": 30,
+      "scan_filesSize_bytes": 181323290,
+      "scan_numFiles": 1,
+      "seconds": 0.1374469580478035,
+      "stored_hash": -141394084489543850
+    }
+  ],
+  "profile": "ashlar-current-carrier-hash-identity-sort-comparison/0.1",
+  "scope_limits": [
+    "Synthetic local materialization only; no Truss feed, publication, ACK, Unity Catalog or graph-engine execution.",
+    "No 1B/5B run or further native benchmark was performed.",
+    "No claim of production storage size or guaranteed Delta file pruning."
+  ],
+  "source": {
+    "carrier_profile_origin_commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "codec": "ZSTD observed",
+    "delta": "4.4.1",
+    "driver_memory_setting": "24g",
+    "generated_carrier_ddl_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "master": "local[18]",
+    "python": "3.12.14",
+    "result_sha256": "24d5f6bcab185da36898641448de92f6545532d1e1c551410fa093749a98c330",
+    "runner_sha256": "97d9c90403675279b51b831947ebe1b007d2939ee17167e2de774e840ed56451",
+    "runner_source_commit": "e51718bd8c472d92b9212168088750533f17faee",
+    "spark": "4.2.0",
+    "wheel_sha256": "f02e7c436066e91d1ace27cd7cb2553e35d98647616c9c8320a0285362f48df0"
+  },
+  "status": "completed_local_synthetic_sample",
+  "tables": [
+    {
+      "active_parquet_bytes": 755756102,
+      "compressed_column_chunk_bytes": {
+        "id": 52642927,
+        "lookup_hash": 360117321,
+        "props_json": 148349910,
+        "source_delivery_id": 139205689,
+        "source_position": 52642927
+      },
+      "parquet_codec": [
+        "ZSTD"
+      ],
+      "parquet_files": 18,
+      "role": "object_current",
+      "rows_from_parquet_footers": 45000000
+    },
+    {
+      "active_parquet_bytes": 3495226012,
+      "compressed_column_chunk_bytes": {
+        "id": 263197965,
+        "lookup_hash": 1800585147,
+        "source_delivery_id": 699453114,
+        "source_id": 225603646,
+        "source_position": 263197965,
+        "target_id": 227744542
+      },
+      "parquet_codec": [
+        "ZSTD"
+      ],
+      "parquet_files": 18,
+      "role": "edge_current",
+      "rows_from_parquet_footers": 225000000
+    }
+  ],
+  "timing_seconds": {
+    "elapsed_before_close": 68.93898625002475,
+    "point_lookup_total": 0.8698910420644097,
+    "stages": [
+      {
+        "seconds": 3.296104250010103,
+        "stage": "reviewed-wheel-admission"
+      },
+      {
+        "seconds": 4.026706832984928,
+        "stage": "create-object_current"
+      },
+      {
+        "seconds": 0.7899836249998771,
+        "stage": "create-edge_current"
+      },
+      {
+        "seconds": 11.189105124969501,
+        "stage": "write-object-current"
+      },
+      {
+        "seconds": 47.05372924997937,
+        "stage": "write-edge-current"
+      },
+      {
+        "seconds": 0.6978062919806689,
+        "stage": "inspect-storage-object_current"
+      },
+      {
+        "seconds": 0.9115833750111051,
+        "stage": "inspect-storage-edge_current"
+      }
+    ],
+    "write_total": 58.24283437494887
+  }
+}

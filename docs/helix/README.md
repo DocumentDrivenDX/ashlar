@@ -67,19 +67,17 @@ all 18; it does not measure runtime files read or prove clustering. See the
 [18-core calibration](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
 and [earlier samples](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json).
 
-A subsequent local hash-range materialization sample completed both Delta
-writes, footer checks and four exact point reads, but its runner exited 1 during
-final receipt projection (the completed measurement is explicitly retained as
-partial evidence). The hash-range write took 68.56 seconds and produced 7.68 GB,
-versus 38.98 seconds and 3.06 GB for the sequential-ID layout. Spark reported
-one file scanned per tested point; this synthetic result does not establish
-production behavior. The storage and write regressions reject random-hash row
-ordering as the initial materialization default. See the [hash-range
-comparison](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-hash-range-materialization-20261022.json).
-A narrow follow-up candidate is to keep hash-range file membership but sort
-rows within each range by the canonical full identity tuple, preserving exact
-keys while testing whether that order restores compression. It has not been
-implemented or run.
+A follow-up local hash-range comparison completed cleanly. Sorting by the full
+identity tuple within each hash range reduced the random-hash layout from 7.68 GB
+to 4.25 GB and from 68.56 to 58.24 write seconds; Spark reported one file read
+for each of four exact point probes. The original hash-only sort sample's writes
+and probes completed, but its process exited 1 during final receipt projection;
+that partial status is retained in the [comparison evidence](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-hash-range-materialization-20261022.json).
+The identity-sort layout still took 49% longer and stored 39% more active bytes
+than the 38.98-second/3.06-GB sequential-identity baseline, so neither hash-range
+layout is the default. Its 80%-throughput write-only arithmetic for 1B/5B is
+26.96 minutes and remains held. The successful comparison and its synthetic
+value limits are in the [identity-sort evidence](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-identity-sort-materialization-20261022.json).
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
 local and native performance measurements. Metrics guide tuning; they do not
