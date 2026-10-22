@@ -26,15 +26,25 @@ source acceptance and complete public report/source/view readback are now record
 in [truss-0.0.45-source-acceptance.json](truss-0.0.45-source-acceptance.json).
 This was a local macOS arm64 source-boundary run; the upstream release lists
 `linux-x86_64` as its qualified native platform. The 0.44 native lifecycle
-receipt does not transfer, and .45 graph mutation, feed, Delta publication, ACK,
-and production authority remain unqualified.
+receipt does not transfer. The acceptance-only receipt predates the seed run;
+the bounded record/link creates are documented separately below, while broader
+.45 graph lifecycle, feed, Delta publication, ACK, and production authority
+remain unqualified.
 
-The seven-operation .45 seed-group attempt stopped before commit, and the Ashlar
-wrapper discarded the public typed failure. A fresh rollback-only call found no
-candidate seed objects and returned `ExecutionFailure(code="cancelled",
-sql_state="57014", retry_scope="none")`; the caller transaction rolled back.
-The cause is unproven, and this result does not authorize retry or establish a
-committed seed. See the [attempt and rollback diagnostic](seed-group-refusal-attempt-02-rollback-diagnostic.json).
+Attempt 02 remains a cancelled seven-operation group with confirmed rollback
+and no seed objects; its [rollback diagnostic](seed-group-refusal-attempt-02-rollback-diagnostic.json)
+is unchanged. A separately approved fresh attempt 03-r2 committed its seven
+public record/link creates, read back four objects and three edges, and
+successfully replayed the exact committed receipt. The worker then exited 1
+while freezing the later request offline: its private helper expected a nested
+identity field, while Truss's public object snapshot exposed flat fields. A
+reviewed offline recovery used that retained committed report to freeze the
+five-operation update/delete request; it did not apply those operations. No
+ACK or destination publication was created. The compact, digest-pinned
+[attempt 03-r2 evidence](truss-0.0.45-seed-and-offline-freeze-attempt-03-r2.json)
+records both outcomes. This remains a local macOS arm64 run outside the
+release's listed `linux-x86_64` native qualification, and does not qualify
+feed, publication, ACK, query, or production authority.
 
 This evidence follows [CONTRACT-005's current UMF 0.10 source-custody
 boundary](../../../02-design/contracts/CONTRACT-005-schema-intake.md#current-umf-010-accepted-catalog-source-custody)

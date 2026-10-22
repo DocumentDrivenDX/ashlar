@@ -245,8 +245,16 @@ fresh-source publication/receipt check. A package replacement requires a fresh
 Truss process; an unchanged signature or feed SQL digest is preparation evidence,
 not a runtime pass. Select Truss `[local,native]`; its optional `[query]` Weft
 dependency must be reconciled with Ashlar's separately selected Weft candidate
-before enabling that extra. Preserve the frozen R04 schedule until the selected
-source version and actual public acceptance are established.
+before enabling that extra. Keep the frozen R04 schedule unchanged; this
+single-source seed does not admit any R04 slot or establish feed/ACK custody.
+
+The retained 0.45 source-preparation run has now committed and publicly read
+back one atomic seven-operation seed group, including exact committed-receipt
+replay. Its worker failed afterward while freezing the next request; offline
+recovery froze the five-operation update/delete request without applying it.
+This local macOS arm64 run does not qualify the release's listed Linux native
+platform, and no feed, publication, destination, ACK, or query was exercised.
+See the [attempt 03-r2 evidence](evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-seed-and-offline-freeze-attempt-03-r2.json).
 
 For the next R04 candidate, A and B each first need a fresh Truss 0.0.45
 accepted UMF 0.10 installation, registration, feed, epoch, namespace, ordinary

@@ -1,0 +1,55 @@
+{
+  "profile": "ashlar-truss-0.0.45-source-preparation/attempt-03-r2",
+  "qualification": "One local development-source atomic seed group committed and read back through the public Truss API, with committed-receipt replay. A later five-operation update/delete request was frozen offline and was not applied.",
+  "runtime_scope": {
+    "truss_version": "0.0.45",
+    "truss_wheel_sha256": "1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c",
+    "truss_runtime_manifest_sha256": "71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e",
+    "ashlar_worker_wheel_sha256": "67fd70776b01a35b62733558a070d88ba1c278cfe052347496f963d0decd75bd",
+    "umf_source_version": "0.10.0",
+    "postgresql_server": "18.6",
+    "pgserver_pg18_package": "18.6.1",
+    "platform": "macOS arm64",
+    "platform_qualification": "The Truss release lists linux-x86_64 as its qualified native platform; this local run does not establish macOS native support."
+  },
+  "accepted_source": {
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "registration_id": "12cc86e2-0209-48f0-aaee-a71e261d311e",
+    "catalog_revision": "1",
+    "model_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "acceptance_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed"
+  },
+  "source_acceptance_evidence": {
+    "path": "truss-0.0.45-source-acceptance.json",
+    "timing": "The acceptance-only receipt predates this seed run; the committed seed and replay are established by this packet's retained seed-group report."
+  },
+  "seed": {
+    "group_operation_count": 7,
+    "created_objects": 4,
+    "created_edges": 3,
+    "object_ids": [7, 8, 9, 10],
+    "edge_ids": [11, 12, 13],
+    "atomic_group_outcome": "committed",
+    "readback_outcome": "all four objects and three edges present through public API",
+    "committed_receipt_replay": "exact committed receipt returned successfully",
+    "retained_seed_report_sha256": "e9594da6f14dbaba53b5da9d985fb9c21ccb7d10c3fd218c82379aa444b0be5d",
+    "scope_limit": "No feed, publication, destination, ACK, query, or required-edge-enforcement qualification."
+  },
+  "worker_status": {
+    "exit_code": 1,
+    "failure_stage": "offline freeze of step 3 after seed commit/readback/replay",
+    "cause": "The private handoff helper expected a nested identity field; the public ObjectSnapshot readback is flat. Offline recovery adapted the helper to the actual public shape.",
+    "native_database": "closed cleanly after the committed seed; no further source execution occurred"
+  },
+  "offline_recovery": {
+    "status": "success",
+    "outcome": "offline_step3_frozen_not_applied",
+    "operation_count": 5,
+    "request_key": "ashlar-current-045-lifecycle-update-delete-r1",
+    "frozen_config_sha256": "540c9388f7c91f73427c7dac5586c447d65c2d870a8e9ec608fb71bf5b203f4d",
+    "recovery_manifest_sha256": "0169bf0792acc94d24e198c8db1abd6eb7e2c89238fd4be02188cd53ba004ac4",
+    "scope_limit": "The five update/delete operations remain frozen and unapplied. No ACK or destination publication was created."
+  },
+  "prior_refusal": "Attempt 02 remains separately recorded as a cancelled group with confirmed rollback and no seed commit.",
+  "private_evidence": "Exact worker, supervisor, runtime, request, source payloads, and detailed receipts remain in the restricted task evidence directory; this public packet contains no credentials or source payload values."
+}
