@@ -1,0 +1,196 @@
+{
+  "schema": "ashlar.umf-maintenance-adoption/0.1",
+  "date": "2026-10-22",
+  "status": "focused package adoption; no native qualification",
+  "upstream": {
+    "release": "umf-v0.5.4",
+    "sourceRevision": "952af32e9917458a13ad361a7df82a6026c0dfa1",
+    "releaseCommit": "53de049136c7e41b482d1a73665d031cd5fbaec6",
+    "distribution": "GitHub release assets; no package-index publication",
+    "coreAssetsReusedImmutableFrom": "umf-v0.5.3",
+    "coreWheelComparison": {
+      "umf-v0.5.3Sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+      "umf-v0.5.4Sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+      "result": "exact wheel SHA match; extracted installed core module files also match 20/20"
+    },
+    "declaredCohort": {
+      "core": "0.10.0",
+      "access": "0.1.0.dev6",
+      "codegen": "0.1.0a3",
+      "weft": "0.4.49"
+    }
+  },
+  "wheelCustody": {
+    "umf_core": {
+      "version": "0.10.0",
+      "url": "https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_core-0.10.0-py3-none-any.whl",
+      "sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+      "umf053BaselineSha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+      "ashlarUse": "direct typed-sdk dependency; public UMF Document and validation API"
+    },
+    "umf_access": {
+      "version": "0.1.0.dev6",
+      "url": "https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_access-0.1.0.dev6-py3-none-any.whl",
+      "sha256": "8f6e86ed94983d0156c2d6e9e1bf83fae186fe1d4a288a3846722e64aa365cf0",
+      "umf053BaselineSha256": "e4c77075281f82c2d1b67eba432a718f847b186d1e0293b034dceb068d1a9a9d",
+      "ashlarUse": "direct typed-sdk dependency; published access and page APIs"
+    },
+    "umf_codegen": {
+      "version": "0.1.0a3",
+      "url": "https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_codegen-0.1.0a3-py3-none-any.whl",
+      "sha256": "d98e7c369a3a3d76504b55da20b4f11e06398dfeafd902965ef1407128e18699",
+      "umf053BaselineSha256": "11da338987de1accd1eff626eed6d8395cb51c9e647e5c833fadae85f66d41c2",
+      "ashlarUse": "inspected only; Ashlar carrier scripts use UMF core's public TypeScript generateDeltaDDL API, not this Python generator package"
+    }
+  },
+  "ashlarSelection": {
+    "typedSdkExtra": {
+      "umf_core": "GitHub wheel URL plus SHA-256 above",
+      "umf_access": "GitHub wheel URL plus SHA-256 above",
+      "weft_sql": "0.4.48",
+      "omittedCohortUpgrade": "Weft 0.4.49 remains unselected"
+    },
+    "trussProfiles": {
+      "qualifiedHistorical": "0.0.44",
+      "retainedPackageAndSourcePreparation": "0.0.45",
+      "0.0.45Status": "qualification in progress",
+      "latestPublic": "0.0.47",
+      "0.0.47Status": "pending separate adoption"
+    },
+    "weftCandidate": {
+      "version": "0.4.50",
+      "wheelSha256": "0b364222af1a69cd038e511a0ac23a46383322b8c3729b6367c7eeb578256537",
+      "platform": "macOS arm64",
+      "role": "candidate compiler used only for four focused managed page target tests; not selected package pin"
+    }
+  },
+  "apiComparison": {
+    "baseline": "UMF access 0.1.0.dev5 and codegen 0.1.0a2 from the retained 0.5.3 installed cohort",
+    "accessDev6": {
+      "changedExistingModules": [
+        "generated_core.py",
+        "lifecycle/__init__.py",
+        "lifecycle/catalog.py",
+        "lifecycle/ledger.py",
+        "lifecycle/witness.py"
+      ],
+      "addedLifecycleModules": [
+        "backfills.py",
+        "cli.py",
+        "concurrent.py",
+        "mixed.py",
+        "phase_fence.py",
+        "progress.py"
+      ],
+      "unchangedUsedPageModules": [
+        "pages.py",
+        "engine_catalog.py"
+      ],
+      "runtimeDependencies": [
+        "pydantic>=2.13,<3",
+        "typing-extensions>=4.16,<5"
+      ]
+    },
+    "codegenA3": {
+      "changedFiles": [
+        "__init__.py",
+        "_embedded.py",
+        "_release.py",
+        "_assets/generator.js.gz",
+        "_assets/manifest.json"
+      ],
+      "bundleSha256": "15b3be5523c9bef238561aebd5c1d0fc37c42f4b9d8d23756e7ecf5e29271aee",
+      "runtimeDependency": "mini-racer==0.14.1"
+    }
+  },
+  "verification": {
+    "runtime": {
+      "python": "3.12.14",
+      "platform": "macOS 27.0.1 arm64",
+      "environment": "fresh isolated temporary venv; exact local UMF wheels installed without dependencies; existing retained dependency/site packages supplied as read-only fallback",
+      "resolved": {
+        "umf-access": "0.1.0.dev6",
+        "umf-core": "0.10.0",
+        "umf-codegen": "0.1.0a3",
+        "weft-sql": "0.4.48 for SDK checks; 0.4.50 candidate for target tests"
+      }
+    },
+    "dependencyCheck": {
+      "command": "python -m pip check",
+      "result": "No broken requirements found",
+      "selectedUmf": [
+        "umf-access 0.1.0.dev6",
+        "umf-core 0.10.0",
+        "umf-codegen 0.1.0a3"
+      ],
+      "weftAtCheck": "0.4.48",
+      "dependencySitePackages": "isolated environment plus retained read-only fallback paths"
+    },
+    "tests": [
+      {
+        "name": "SDK original page and continuation",
+        "command": "python -m unittest test_sdk_stream_page_size -v",
+        "result": "passed",
+        "tests": 5,
+        "weft": "0.4.48",
+        "nativeExecution": false
+      },
+      {
+        "name": "UMF typed graph admission and source custody",
+        "command": "python -m unittest test_typed_graph_admission test_typed_graph_source test_typed_graph_source_config -v",
+        "result": "passed",
+        "tests": 5,
+        "nativeExecution": false
+      },
+      {
+        "name": "UMF 0.10 configured producer transport/admission",
+        "command": "python -m unittest test_typed_graph_admission_real010 -v",
+        "result": "passed",
+        "tests": 1,
+        "sourceRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+        "transport": "local Bun/Git source producer; temporary JSONL output",
+        "nativeExecution": false
+      },
+      {
+        "name": "UMF Python code generator a3 reproducibility check",
+        "assetSha256": "d98e7c369a3a3d76504b55da20b4f11e06398dfeafd902965ef1407128e18699",
+        "input": "UMF 0.10 documentJson from tests/fixtures/sdk-engine-related-original.json",
+        "sourceDigest": "3bad5eadde7fb4936693889800e3ec7d7879b7ce1de2ddb0bcbe2090d36b28d0",
+        "generate": "passed; emitted seven files to temporary output",
+        "check": "passed; exact generated package matched",
+        "nativeExecution": false
+      },
+      {
+        "name": "Managed current xxhash64 page target compatibility",
+        "command": "python -m unittest test_managed_current_page_target -v",
+        "result": "passed",
+        "tests": 4,
+        "weft": "0.4.50 macOS arm64 candidate wheel above",
+        "nativeExecution": false
+      }
+    ],
+    "carrierGeneration": {
+      "generator": "UMF core public TypeScript generateDeltaDDL",
+      "sourceRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+      "sourceStatus": "clean",
+      "checks": [
+        "tools/generate_managed_current_carriers.ts --check",
+        "tools/generate_managed_current_xxhash64_carriers.ts --check"
+      ],
+      "result": "both checks passed; generated resources remained byte-identical",
+      "implementation": "The .3 and .4 current-core carrier profiles use the unchanged core TypeScript generateDeltaDDL API; the Python UMF client generator requires a keyed Record and does not generate these physical carrier resources.",
+      "generatedResourceSha256": {
+        "managed-current-core-010/runtime-carriers.generated.json": "438e63964bd79670481a05670d881b7551737a90f6492713807946748d14cd07",
+        "managed-current-core-010-xxhash64/runtime-carriers.generated.json": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+      }
+    }
+  },
+  "limits": [
+    "No Spark, Delta, PostgreSQL, Unity Catalog, cloud, or managed/private consumer execution was performed.",
+    "The focused tests do not adopt the full UMF 0.5.4 cohort or qualify its PostgreSQL maintenance profile for Ashlar consumers.",
+    "The dependency check passed with the isolated environment's read-only fallback site packages available; this is not a lockfile or fully self-contained dependency closure.",
+    "The Weft 0.4.50 compiler run is a candidate-only component compatibility check and does not qualify native execution or change Ashlar's Weft 0.4.48 selection.",
+    "Truss 0.0.44 is historical; 0.0.45 source/package preparation remains in progress and public 0.0.47 awaits separate adoption.",
+    "Historical UMF 0.7/0.8 model versions and earlier receipts remain unchanged."
+  ]
+}
