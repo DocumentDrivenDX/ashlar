@@ -64,11 +64,11 @@ class ManagedCurrentPageTargetTests(unittest.TestCase):
         if parsed.get("status") != "compiled":
             if any(item.get("code") == "WFT-ENGINE-PAGE"
                    for item in parsed.get("diagnostics", [])):
-                if cls.weft_version != "0.4.50":
+                if cls.weft_version not in {"0.4.50", "0.4.52"}:
                     raise unittest.SkipTest(
                         "installed Weft compiler does not emit the managed .4 page target")
                 raise AssertionError(
-                    "Weft 0.4.50 failed to emit the managed .4 page target: "
+                    f"Weft {cls.weft_version} failed to emit the managed .4 page target: "
                     f"{parsed}")
             raise AssertionError(f"Weft page compilation failed: {parsed}")
         cls.entry = EngineRead.from_original(

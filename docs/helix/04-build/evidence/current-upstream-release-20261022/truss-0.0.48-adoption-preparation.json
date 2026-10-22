@@ -1,0 +1,97 @@
+{
+  "profile": "ashlar-truss-current-catalog-evidence/0.3-candidate",
+  "status": "offline adoption preparation only; no Ashlar support pass claimed",
+  "release": {
+    "tag": "v0.0.48",
+    "source_commit": "8e89a068bcb68f1e631388ddc59bc97da748563d",
+    "wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+    "runtime_manifest_sha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+    "release_pins_sha256": "02efd75bfa3cebe62637d84044c6b199292a3ab54743337a6b5b54262869aa60",
+    "checksum_manifest_sha256": "4275c8e7fd2efd7d5ec2a8d25bad4dc9959aed5c2b94a707db1eb63a209b1427",
+    "declared_runtime": "truss-catalog-runtime/0.74-candidate",
+    "upstream_native_platforms": [
+      "linux-x86_64"
+    ],
+    "upstream_umf_versions": [
+      "0.10.0"
+    ],
+    "runtime_support": "latest-only"
+  },
+  "asset_verification_scope": {
+    "source": "Owner-verified official release assets and source handoff; see the locally retained verification manifest.",
+    "runtime_files": 455,
+    "migration_tests": 80,
+    "hf_conformance_tests": 62,
+    "meaning": "Upstream asset, source, Linux workflow, and corpus verification only. These counts were not rerun for this Ashlar preparation and do not qualify macOS native behavior or Ashlar integration."
+  },
+  "isolated_candidate_environment": {
+    "python": "3.11",
+    "truss_extra_selection": [
+      "local",
+      "native"
+    ],
+    "query_extra_selected": false,
+    "weft_distribution_installed": false,
+    "native_runtime_pins": {
+      "postgresql_server": "18.6",
+      "pgserver_package": "pgserver-pg18==18.6.1",
+      "psycopg": "3.3.6",
+      "mini_racer": "0.14.1"
+    },
+    "dependency_resolution": "The fresh venv contains the exact versions in the release's runtime constraints, sourced from already retained local candidate assets; pip check passed. No Weft distribution was copied or installed.",
+    "effect_free_import": "Installed Truss version, direct wheel origin, embedded manifest digest, and public protocol signatures inspected; no PostgreSQL process or database was started."
+  },
+  "compatibility_observations": {
+    "catalog_interfaces": {
+      "registration_report": "truss-catalog-registration-report/0.6",
+      "preparation": "truss-registration-preparation/2.0",
+      "acceptance_input": "truss-acceptance-input/0.2.0",
+      "catalog_view": "truss-catalog-view/0.2.0",
+      "mandatory_preparation_transcript": false,
+      "supported_umf": "0.10.0"
+    },
+    "public_methods_inspected": [
+      "prepare_catalog",
+      "accept_in_transaction",
+      "report_in_transaction",
+      "accepted_document_in_transaction",
+      "catalog_view_request",
+      "catalog_view_in_transaction"
+    ],
+    "method_surface": "These source-preparation, acceptance, report, and catalog-view method signatures match the retained 0.0.45 public surface. Pin source_version='0.10.0' explicitly when preparing the source.",
+    "other_release_changes": "The catalog runtime manifest advances from 0.73-candidate in 0.0.47 to 0.74-candidate. The query protocol adds optional entity_projection parameters; the query extra remains disabled. The 0.0.48 query extra pins Weft 0.4.51 and must not be installed into Ashlar's separate Weft 0.4.52 candidate environment.",
+    "migration": "The release is latest-only and declares migration runtime 0.1, UMF 0.10-only, and explicit source-manifest pins. This preparation does not run or qualify migration. Use a fresh isolated 0.0.48 host for the first source-acceptance check; preserve the accepted 0.0.45 source and evidence unchanged."
+  },
+  "minimum_next_native_check": {
+    "purpose": "Qualify only a fresh accepted UMF 0.10 source and complete public catalog readback under the exact 0.0.48 wheel and manifest.",
+    "offline_inputs_first": [
+      "Freeze source document bytes, revision, artifact identity, source hash, UMF 0.10.0 declaration, and original accepted-source origin.",
+      "Prepare once through public prepare_catalog(..., source_version='0.10.0') and retain the complete prepared request and digest.",
+      "Freeze a new request key, owner-controlled source ID, expected initial catalog state, and exact public method sequence. Never reuse the 0.0.45 seed or registration request."
+    ],
+    "single_owned_native_attempt": [
+      "After the Truss owner confirms a quiet native window, start one fresh, isolated local PostgreSQL 18.6 host in an owner-named, bounded private temporary directory using the exact 0.0.48 [local,native] profile; do not migrate or reuse the 0.0.45 database. Record PostgreSQL installation/port/data-directory custody and require one server instance.",
+      "Read initial status; perform one public accept_in_transaction call with the frozen preparation, new request key, expected revision, and expected document set.",
+      "After commit, use read-only status_in_transaction, report_in_transaction, accepted_document_in_transaction, and catalog_view_in_transaction to verify the accepted document, report, source bytes, catalog revision, and complete view.",
+      "Retain a bounded private receipt with source/readback digests and typed outcomes. Stop the host and verify process termination; preserve the bounded private data directory and exact receipt through review, then remove only this attempt-owned directory under an explicit owner cleanup step. Stop before object or edge creation, feed, publication, destination, query, ACK, or source migration."
+    ],
+    "resource_and_stop_bounds": {
+      "concurrency": 1,
+      "postgres_instances": 1,
+      "end_to_end_process_deadline_seconds": 600,
+      "automatic_retries": 0,
+      "cloud_or_spark": false,
+      "failure_rule": "On timeout or uncertain acceptance, stop effects and reconcile only through the exact public read-only status/report/source/view methods while retaining the original host if healthy; if a restart is necessary, reopen only the same attempt-owned data directory for readback. Preserve unresolved uncertainty, stop the host, and do not replay acceptance or proceed to graph mutations.",
+      "catalog_statement_timeout_ms": 2000,
+      "catalog_operation_timeout_ms": 5000,
+      "timeout_authority": "Use the installed public PsycopgHost defaults for catalog acceptance and readback. Initial installation uses its exact release installer/migration profile and separately recorded finite bounds; the outer 600-second supervisor deadline is a containment ceiling, not permission to extend catalog SQL or operation timeouts. Do not raise these limits to obtain a pass.",
+      "quiet_window": "Required before any native host start; verify no owner-owned PostgreSQL campaign is active and keep all Ashlar work sequential.",
+      "storage_and_cleanup": "Preflight a fresh owner-named private directory with at least 1 GiB free and a monitored 1 GiB directory ceiling, unique socket/port and exact owner. Record startup and stop markers; stop if the ceiling is approached. Retain the stopped directory and bounded receipt through outcome review, then remove only this attempt-owned temporary storage under an explicit owner cleanup step."
+    },
+    "not_yet_authorized_or_established": [
+      "No source acceptance or catalog write has been performed for 0.0.48.",
+      "No source migration, graph create/seed, feed, publication, destination, query, ACK, or platform support claim is established.",
+      "The 0.0.48 release's native platform declaration is linux-x86_64; a macOS attempt would remain platform-limited evidence and would not establish official macOS support."
+    ]
+  }
+}
