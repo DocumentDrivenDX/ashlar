@@ -43,13 +43,22 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     after = plan_apply(prior, changes, schema_policy=schema_policy, schema_transition_policy=schema_transition_policy)
     fresh = [x for x in changes if (x.feed, x.epoch, x.delivery_id) not in prior.deliveries]
     steps = []
+    typed_json_staging = lookup_hash_profile == 'spark-xxhash64-typed-key/0.1'
 
     def insert(table, rows, types, *, hash_typed_field=None):
         if not rows:
             return
         fields = list(rows[0])
-        definition = 'ARRAY<STRUCT<' + ','.join((k + ':STRING' for k in fields)) + '>>'
-        casts = ','.join(('cast(r.' + k + ' AS ' + types.get(k, 'STRING') + ') AS ' + k for k in fields))
+        def stage_type(field):
+            target_type = types.get(field, 'STRING')
+            return target_type if typed_json_staging and target_type == 'BIGINT' else 'STRING'
+        definition = 'ARRAY<STRUCT<' + ','.join((k + ':' + stage_type(k) for k in fields)) + '>>'
+        def select_field(field):
+            target_type = types.get(field, 'STRING')
+            if typed_json_staging and target_type == 'BIGINT':
+                return 'r.' + field + ' AS ' + field
+            return 'cast(r.' + field + ' AS ' + target_type + ') AS ' + field
+        casts = ','.join((select_field(k) for k in fields))
         output_fields = list(fields)
         if hash_typed_field is not None:
             casts += (',xxhash64(CAST(r.source_system AS STRING),CAST(r.' + hash_typed_field
@@ -57,28 +66,51 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
             output_fields.append('lookup_hash')
         steps.append({'statement': 'INSERT INTO ' + quoted[table] + ' (' + ','.join(output_fields) + ') SELECT ' + casts + " FROM (SELECT explode(from_json(:rows,'" + definition + "')) r)", 'parameters': {'rows': json.dumps(rows, separators=(',', ':'))}})
     numeric = {k: 'BIGINT' for k in ['type_id', 'rel_type_id', 'id', 'entity_version', 'source_type', 'source_id', 'target_type', 'target_id']}
+    latest_change_by_key = {}
+    for change in fresh:
+        latest_change_by_key[change.state.key] = change
     for (table, kind, typed) in [('object_current', 'object', 'type_id'), ('edge_current', 'edge', 'rel_type_id')]:
         touched = sorted({x.state.key for x in fresh if x.state.key.kind == kind})
         if not touched:
             continue
-        keys = [{'source_system': key.source, 'type_id': str(key.type_id), 'id': str(key.id)} for key in touched]
-        steps.append({'statement': 'MERGE INTO ' + quoted[table] + " t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'ARRAY<STRUCT<source_system:STRING,type_id:STRING,id:STRING>>')) k)) s ON t.source_system=s.source_system AND t." + typed + '=cast(s.type_id AS BIGINT) AND t.id=cast(s.id AS BIGINT) WHEN MATCHED THEN DELETE', 'parameters': {'keys': json.dumps(keys, separators=(',', ':'))}})
+        if typed_json_staging:
+            keys = [{'source_system': key.source, 'type_id': key.type_id, 'id': key.id} for key in touched]
+            merge_key_schema = 'ARRAY<STRUCT<source_system:STRING,type_id:BIGINT,id:BIGINT>>'
+            merge_type = 's.type_id'
+            merge_id = 's.id'
+        else:
+            keys = [{'source_system': key.source, 'type_id': str(key.type_id), 'id': str(key.id)} for key in touched]
+            merge_key_schema = 'ARRAY<STRUCT<source_system:STRING,type_id:STRING,id:STRING>>'
+            merge_type = 'cast(s.type_id AS BIGINT)'
+            merge_id = 'cast(s.id AS BIGINT)'
+        merge_sql = ('MERGE INTO ' + quoted[table] + " t USING (SELECT k.* FROM (SELECT explode(from_json(:keys,'"
+                     + merge_key_schema + "')) k)) s ON t.source_system=s.source_system AND t." + typed
+                     + '=' + merge_type + ' AND t.id=' + merge_id + ' WHEN MATCHED THEN DELETE')
+        steps.append({'statement': merge_sql, 'parameters': {'keys': json.dumps(keys, separators=(',', ':'))}})
         rows = []
         for key in touched:
             if key not in after.current:
                 continue
             entity = after.current[key]
-            change = next((x for x in reversed(fresh) if x.state.key == key))
+            change = latest_change_by_key[key]
             identity = {'source_system': key.source, typed: key.type_id, 'id': key.id}
-            row = {k: str(v) for (k, v) in identity.items()}
-            row.update(schema_revision=entity.schema_revision, entity_version=str(entity.version), props_json=entity.props_json, retained_json=entity.retained_json, source_feed=change.feed, source_epoch=change.epoch, source_cursor_json=cursor, source_delivery_id=change.delivery_id, published_at=materialized_at, apply_batch_id=batch.batch_id)
+            row = dict(identity) if typed_json_staging else {k: str(v) for (k, v) in identity.items()}
+            row.update(schema_revision=entity.schema_revision,
+                       entity_version=entity.version if typed_json_staging else str(entity.version),
+                       props_json=entity.props_json, retained_json=entity.retained_json,
+                       source_feed=change.feed, source_epoch=change.epoch,
+                       source_cursor_json=cursor, source_delivery_id=change.delivery_id,
+                       published_at=materialized_at, apply_batch_id=batch.batch_id)
             if lookup_hash_profile == 'sha256-json-v1':
                 row['lookup_hash'] = hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
             if kind == 'object':
                 row['logical_key_json'] = '[]'
             else:
                 (a, b) = entity.endpoints
-                row.update(source_type=str(a.type_id), source_id=str(a.id), target_type=str(b.type_id), target_id=str(b.id))
+                if typed_json_staging:
+                    row.update(source_type=a.type_id, source_id=a.id, target_type=b.type_id, target_id=b.id)
+                else:
+                    row.update(source_type=str(a.type_id), source_id=str(a.id), target_type=str(b.type_id), target_id=str(b.id))
                 if native_original is not None:row['order_key'] = native_edge_orders[(key,entity.version)]
             rows.append(row)
         insert(table, rows, dict(numeric, published_at='TIMESTAMP'),
@@ -86,6 +118,19 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, sche
     original = native_original if native_original is not None else {r.delivery_id: r.raw for r in batch.records}
     history = [{'feed': x.feed, 'epoch': x.epoch, 'delivery_id': x.delivery_id, 'digest': x.raw_digest, 'change_json': json.dumps(asdict(x), separators=(',', ':')), 'raw_base64': base64.b64encode(original[x.delivery_id]).decode()} for x in fresh]
     insert('whole_source_history', history, {})
-    deletes = [{'source_system': x.state.key.source, 'entity_kind': x.state.key.kind, 'type_id': str(x.state.key.type_id), 'id': str(x.state.key.id), 'entity_version': str(x.state.version), 'source_feed': x.feed, 'source_epoch': x.epoch, 'source_cursor_json': cursor, 'source_delivery_id': x.delivery_id} for x in fresh if x.operation == 'delete']
+    if typed_json_staging:
+        deletes = [{'source_system': x.state.key.source, 'entity_kind': x.state.key.kind,
+                    'type_id': x.state.key.type_id, 'id': x.state.key.id,
+                    'entity_version': x.state.version, 'source_feed': x.feed,
+                    'source_epoch': x.epoch, 'source_cursor_json': cursor,
+                    'source_delivery_id': x.delivery_id}
+                   for x in fresh if x.operation == 'delete']
+    else:
+        deletes = [{'source_system': x.state.key.source, 'entity_kind': x.state.key.kind,
+                    'type_id': str(x.state.key.type_id), 'id': str(x.state.key.id),
+                    'entity_version': str(x.state.version), 'source_feed': x.feed,
+                    'source_epoch': x.epoch, 'source_cursor_json': cursor,
+                    'source_delivery_id': x.delivery_id}
+                   for x in fresh if x.operation == 'delete']
     insert('tombstone', deletes, numeric)
     return (after, steps)

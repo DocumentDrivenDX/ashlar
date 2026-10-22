@@ -42,6 +42,13 @@ Catalog, production authority, or Truss acceptance/feed/ACK. See the
 [current-upstream evidence packet](04-build/evidence/current-upstream-release-20261021/local-current/current-native-query-and-sdk-pages-20261021.json)
 for the exact tuple, report hashes and receipt-cap qualification.
 
+The `.4` publisher now stages numeric identity and endpoint fields as JSON
+integers parsed directly into BIGINT, while retaining opaque custody and payload
+strings; last-change selection also avoids rescanning the full fresh page for
+each touched key. Focused tests and a small Spark parser check passed. See the
+[bounded staging evidence](04-build/evidence/current-upstream-release-20261021/local-current/xxhash64-typed-json-staging-20261022.json);
+it does not qualify Delta writes or managed Unity Catalog publication.
+
 A separate pinned local compatibility smoke executed one bounded GraphFrames
 one-hop query over a frozen synthetic Delta fixture (three nodes, two parallel
 edges) and matched both complete result rows, including their distinct edge

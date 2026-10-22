@@ -1,0 +1,76 @@
+{
+  "profile": "ashlar-current-xxhash64-typed-json-staging/0.1",
+  "date": "2026-10-22",
+  "implementation": {
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "lookup_hash_profile": "spark-xxhash64-typed-key/0.1",
+    "code": {
+      "path": "src/ashlar_host/graph_sql.py",
+      "sha256": "3ceda6f1f7cbd8b84fdfed6632b10593cc1647675064371a9b8520672e3f9a44"
+    },
+    "tests": {
+      "path": "tests/test_managed_current_xxhash64.py",
+      "sha256": "ef7f8c07197ac41bc7c70efb20eee6a196420cd9250397c14545e13e1ee16b24"
+    },
+    "behavior": [
+      "The .4 publisher stages numeric identity, entity-version, and endpoint values as JSON integers parsed directly into BIGINT fields; the .3 SHA-256 path keeps its prior string staging.",
+      "Source, delivery, cursor, property, retained, and other opaque custody values remain strings.",
+      "Latest change selection now builds one last-wins dictionary in one pass over the fresh page, then uses expected-O(1) dictionary lookups per touched key instead of repeated reverse scans. This removes that per-entity quadratic scan pattern; it does not establish that the full planner is linear, since other planning and sorting costs remain."
+    ],
+    "legacy_sql_sha256": {
+      "object_current_merge": "4d4fa204cd188c41e82f2229656abe8bf342a9b0261b1ae7a53cb80b4ac635c9",
+      "object_current_insert": "11a94cad1472c864f15cbcff2d90a8b8b6b7a90882cfb840fd82d4caff5f47c9"
+    }
+  },
+  "verification": {
+    "focused_tests": {
+      "commands": [
+        "PYTHONPATH=src:tests python -m unittest tests.test_managed_current_xxhash64 tests.test_truss_graph_sql tests.test_whole_graph_sql tests.test_truss_edge_feed tests.test_truss_typed_sql",
+        "PYTHONPATH=src:tests python -m unittest tests.test_managed_current_incremental tests.test_managed_current_publication"
+      ],
+      "results": [
+        {
+          "run": 1,
+          "passed": 15,
+          "failed": 0,
+          "skipped": 0
+        },
+        {
+          "run": 2,
+          "passed": 16,
+          "failed": 0,
+          "skipped": 1
+        }
+      ],
+      "total": {
+        "passed": 31,
+        "failed": 0,
+        "skipped": 1
+      }
+    },
+    "spark_parser_microcheck": {
+      "script": "/private/tmp/ashlar-typed-json-staging-microcheck.py",
+      "script_sha256": "4f1fa405fbe1d92737735fc34a94d162975fcef610833b19d7ae741e1db4e5a9",
+      "successful_attempt_log": "ashlar-typed-json-staging-microcheck-20261022-attempt02.log",
+      "runtime": "Spark 4.2.0, local[1], Python 3.12",
+      "result": "passed; clean Spark shutdown",
+      "checks": {
+        "generated_insert_rows_parsed": 3,
+        "generated_merge_keys_parsed": 3,
+        "signed_bigint_min": -9223372036854775808,
+        "signed_bigint_max": 9223372036854775807,
+        "exact_integer_above_2pow53": 9007199254740993,
+        "negative_native_xxhash64": -141394084489543850,
+        "delta_tables_created": 0
+      },
+      "limits": "Parses schemas and parameter rows from generated .4 INSERT and MERGE SQL. No Delta writes, graph publication, Unity Catalog, source ACK, resolver, or full-scale qualification.",
+      "successful_attempt_log_sha256": "4937d9e83ea71e3bb5ee62fa98c84504548891d795fba2dbc8972e2a07d2f8a1"
+    },
+    "failed_setup_attempt": "Attempt 1 selected system Python 3.9 for the PySpark worker and exited before the parser assertions. Attempt 2 pinned driver and worker Python 3.12 and passed; the first log is retained separately."
+  },
+  "test_intent": [
+    "Exercise min/max signed identities, 2^53+1, create-update-update last-wins delivery/version, create-delete tombstone/history, edge endpoints, exact replay, and opaque custody strings.",
+    "Count identity equality comparisons across a distinct-key page to guard against restoring per-key full-page scans without relying on a timing threshold."
+  ],
+  "qualification": "Bounded code-path and Spark JSON parser evidence only. It does not qualify Delta table writes, persisted hash recomputation, physical file pruning, managed Unity Catalog publication, Truss source acceptance, graph-engine execution, or 1B-node/5B-edge scaling."
+}

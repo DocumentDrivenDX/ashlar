@@ -11,6 +11,11 @@ projections, and local Truss typed graph/feed/evolution workflows. Fabric integr
 and broader query support remain unfinished. See
 the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
 and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
+The managed-current 0.4 `xxhash64` SQL path now preserves signed 64-bit identity
+values through typed JSON staging and uses one last-wins index per fresh change
+page; focused tests and a small local Spark parser check passed. See the
+[bounded implementation evidence](docs/helix/04-build/evidence/current-upstream-release-20261021/local-current/xxhash64-typed-json-staging-20261022.json)
+for its limits; this does not qualify a managed Unity Catalog publication.
 Use the [fresh original-commerce workflow](examples/original-commerce-local/README.md)
 for explicit fixture setup, six-table initialization, publication and all four
 unchanged Weft 0.4.2 queries. The [earlier indexed commerce guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
