@@ -1,6 +1,6 @@
 {
   "profile": "ashlar-truss-current-catalog-evidence/0.3-candidate",
-  "status": "The r3 native attempt failed before source acceptance because its mini-racer payload was incomplete. The r4 native attempt committed the original source at catalog revision 1. A later reconciliation attempt established status/report, then failed at accepted_document with the public execution-obligation permission check (SQLSTATE 42501): the registrar principal is not a configured module reader. Exact .48 inspection also shows complete catalog_view requires a READ WRITE transaction. No source acceptance/readback completion or Ashlar support pass is claimed; a narrowly scoped public module-access setup and two-method readback plan awaits review and a separate resource GO.",
+  "status": "The r3 attempt failed before source acceptance because its mini-racer payload was incomplete. The r4 attempt committed the original UMF 0.10 source at catalog revision 1. The reviewed r5-06 recovery configured exact public module access and verified public status, report, accepted-source bytes, and the complete current catalog view against that retained source. This is bounded local evidence for the stated runtime only; consumer profile admission, Truss feed/lifecycle, publication, destination, and ACK remain unqualified. No broader Ashlar support pass is claimed.",
   "release": {
     "tag": "v0.0.48",
     "source_commit": "8e89a068bcb68f1e631388ddc59bc97da748563d",
@@ -68,36 +68,13 @@
     }
   },
   "minimum_next_native_check": {
-    "purpose": "Configure exactly one public module-access grant for the already committed source, then reconcile the original accepted document and complete current catalog view through public APIs. Never accept or replay the source again.",
-    "offline_inputs_first": [
-      "Preserve r3, r4, and the failed reconciliation host/config/pins/receipts unchanged; use a fresh bounded worker, supervisor, config, marker, and output paths.",
-      "Verify the installed .48 public contract and all retained r4 source/preparation pins before reopening the existing PostgreSQL 18.6 PGDATA.",
-      "Prepare only the exact reader and writer no-login roles, a dedicated source-reader login, and one ModuleAccessGrant for retained document ashlar-current-045-lifecycle-20261021 module m. No direct EXECUTE grants or catalog-table reads.",
-      "Persist each public success in a private bounded receipt before proceeding to the next read step; preserve successful status/report evidence if a later public call fails."
-    ],
-    "single_owned_native_attempt": [
-      "Require Sol review of the exact worker and a separate root/owner quiet-window resource GO before reopening the existing r4 data directory. Do not create, reset, initialize, migrate, or replace the host.",
-      "Use the original installer authority only for the exact public configure_module_access_in_transaction operation in a READ COMMITTED READ WRITE transaction; keep all setup role creation and membership grants fixed to this proposal.",
-      "Use the existing registrar principal for public status/report and complete catalog_view; use a dedicated principal that is a member only of the configured reader role for public accepted_document.",
-      "Use READ COMMITTED READ ONLY for accepted_document. Use READ COMMITTED READ WRITE for complete catalog_view because the public .48 view basis returns NULL in a read-only transaction. Both are calls to the public API, with no mutation method calls.",
-      "Verify source bytes, identity, revision 1, report, complete current view and provenance against retained source pins; stop the host and verify postmaster termination."
-    ],
-    "resource_and_stop_bounds": {
-      "concurrency": 1,
-      "postgres_instances": 1,
-      "end_to_end_process_deadline_seconds": 600,
-      "automatic_retries": 0,
-      "cloud_or_spark": false,
-      "failure_rule": "If setup or any readback call fails, stop the host, preserve all receipts and retained PGDATA, and report the exact partial outcome. No automatic reopen, acceptance, replay, graph mutation, feed, destination, query, or ACK follows.",
-      "catalog_statement_timeout_ms": 2000,
-      "catalog_operation_timeout_ms": 5000,
-      "storage_and_cleanup": "1 GiB combined live size of the new attempt and full retained r4 attempt tree, including PGDATA/WAL/logs; stop cleanly and preserve old data/evidence."
-    },
-    "not_yet_authorized_or_established": [
-      "A fresh public module-access setup/readback worker is still offline preparation; Sol review and separate root/owner resource GO are required before any PostgreSQL start.",
-      "The source acceptance is committed at revision 1, but accepted_document and the complete catalog view have not both been verified through public APIs.",
-      "No source migration, graph create/seed, feed, publication, destination, query, ACK, or Ashlar support claim is established.",
-      "The .48 release native platform declaration is linux-x86_64; local macOS observations do not establish official macOS support."
+    "purpose": "No further Truss source acceptance or reconciliation is pending. The next separately framed evidence gate is Ashlar consumer-profile admission; Truss feed/lifecycle and downstream publication, destination, and ACK evidence remain pending.",
+    "completed_boundary": "The retained .48 source is accepted at revision 1, and exact public accepted_document and complete current catalog view readback passed in recovery attempt r5-06.",
+    "next_gate": "Review the Ashlar consumer-profile admission implementation and governing contract, then frame only the supported admission check. Do not infer feed, graph lifecycle, publication, destination, or ACK support from source acceptance/readback.",
+    "remaining_limits": [
+      "Local macOS observations do not extend the release native platform declaration (linux-x86_64).",
+      "The 0.0.48 attempt uses the pinned fresh Truss/mini-racer environment plus retained immutable pinned dependencies; it is not claimed as a fully hermetic dependency closure.",
+      "No source migration, graph create/seed, Truss feed/lifecycle, publication, destination, query, or ACK was executed in this attempt."
     ]
   },
   "observed_native_attempt": {
@@ -205,7 +182,7 @@
       "preparation_deadline_seconds": 10
     },
     "native_execution_started": true,
-    "next_gate": "Prepare fresh public module-access setup and two-principal readback worker; require Sol review and a separate root/owner resource GO. Never replay source acceptance.",
+    "next_gate": "Superseded by the successful r5-06 public ACL and source/readback recovery; preserve the failed readback receipt and do not rerun source acceptance.",
     "approval_marker_present_at_preparation": false,
     "pgdata_present_at_preparation": false
   },
@@ -304,8 +281,8 @@
     "native_execution_started_after_preflight": true
   },
   "next_recovery_plan": {
-    "status": "offline proposal only; no setup or native execution performed",
-    "setup_boundary": "Use the original installer authority only for the exact public configure_module_access_in_transaction call for the retained accepted source. Do not grant direct EXECUTE or read catalog tables as an administrator.",
+    "status": "completed: r5-06 public ACL setup and complete source/view readback passed; see observed_r5_recovery",
+    "setup_boundary": "One exact public configure_module_access_in_transaction grant for the retained source was committed. No direct EXECUTE grants or catalog-table reads were used.",
     "fixed_roles": {
       "module_reader": "ashlar048_r5_module_reader",
       "module_writer": "ashlar048_r5_module_writer",
@@ -316,7 +293,85 @@
       "Using the existing registrar consumer, call only public status_in_transaction, report_in_transaction, and catalog_view_in_transaction in one READ COMMITTED READ WRITE unit. Persist the successful status/report observation before calling the view so a later view failure cannot erase it. The complete catalog view needs READ WRITE in .48 because catalog_view_basis returns NULL in READ ONLY mode; call no mutation methods.",
       "Using the dedicated source-reader login, call only public accepted_document_in_transaction in an explicit READ COMMITTED READ ONLY unit; compare the returned document bytes and identity to the retained source pins."
     ],
-    "limits": "No new host, install, acceptance, replay, seed, mutation beyond the exact public module-access setup, feed, publication, destination, query, or ACK. Preserve r3/r4 and failed reconciliation files. Fresh bounded output paths; one sequential host; 600-second outer cap, 1 GiB combined retained/new attempt storage cap, 2000 ms catalog SQL, 5000 ms operation cap, zero retries. Sol review and separate owner resource GO required before any effects.",
-    "support_status": "No complete public source/view readback yet; no Ashlar support pass claimed."
+    "limits": "Actual run used one existing PostgreSQL 18.6 host, 600-second outer cap, 1 GiB combined retained/new attempt storage cap, 2000 ms catalog statement timeout, 5000 ms operation timeout, zero retries. No source acceptance/replay, graph mutation, feed, publication, destination, query, or ACK.",
+    "support_status": "Public source and complete current-view readback pass for this exact .48 local runtime/source. Consumer profile admission and Truss feed/lifecycle remain unqualified; no broader Ashlar support pass claimed.",
+    "native_execution_started": true,
+    "approval_marker_present_at_preflight": false,
+    "independent_owned_process_inventory": "empty after cleanup; postmaster.pid absent",
+    "observed_r5_recovery": {
+      "attempt_id": "truss048-source-acceptance-recovery-attempt-06-r5",
+      "status": "public_module_access_setup_and_source_complete_view_readback_passed",
+      "retained_acceptance_attempt": "truss048-source-acceptance-attempt-01-r4",
+      "environment": {
+        "platform": "macOS 27.0.1 arm64",
+        "python": "3.11.17",
+        "truss": "0.0.48",
+        "postgresql_server": "18.6",
+        "pgserver_package": "18.6.1",
+        "umf": "0.10.0",
+        "runtime_manifest_sha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+        "truss_wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+        "mini_racer_wheel_sha256": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463"
+      },
+      "source": {
+        "document_id": "ashlar-current-045-lifecycle-20261021",
+        "document_revision": "ashlar-current-045-lifecycle-r1",
+        "catalog_revision": 1,
+        "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+        "registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d"
+      },
+      "public_outcomes": {
+        "module_access": "One exact public ModuleAccessGrant committed for module m; dedicated source-reader principal belongs only to configured reader role.",
+        "status_report": {
+          "outcome": "passed",
+          "report_sha256": "c797191c90c516b0997801a63605d297e5e429b50e922cd7da2d39640d570c9a",
+          "transaction_access_mode": "read_write"
+        },
+        "accepted_document": {
+          "outcome": "passed byte-exact readback",
+          "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+          "transaction_access_mode": "read_only"
+        },
+        "complete_current_view": {
+          "outcome": "passed",
+          "catalog_revision": "1",
+          "definition_count": 11,
+          "view_sha256": "cc36fe489326f73c2eaf153ba2e025feeb76eaa88ffa0d6b675a1f4772264dc7",
+          "selection": "current",
+          "scope": "complete",
+          "transaction_access_mode": "read_write"
+        }
+      },
+      "transaction_outcomes": "The one module-access setup transaction committed. The registrar status/report/complete-view READ COMMITTED READ WRITE transaction and source-reader accepted_document READ COMMITTED READ ONLY transaction both rolled back after successful public reads.",
+      "supervisor": {
+        "exit_code": 0,
+        "elapsed_seconds": 1.092,
+        "combined_attempt_tree_bytes": 64047263,
+        "tree_cap_bytes": 1073741824,
+        "outer_deadline_seconds": 600,
+        "catalog_statement_timeout_ms": 2000,
+        "operation_timeout_ms": 5000,
+        "automatic_retries": 0,
+        "postmaster_pid_absent": true,
+        "independent_owned_process_inventory": "empty",
+        "slot": "released to UI/root"
+      },
+      "private_pins_sha256": {
+        "config": "5e8dbc00c50790e48e7c35ce0bedb856aae6ec15c7d5129e49f92ce0ffc20795",
+        "attempt_pins": "e5d33596eb5f69241f2ad8950380d626f9bc89fef16a18854d57d20f0eb3d102",
+        "worker": "0da97f1a797de5fadc25d9c8fef38b591454c0734619b2576a9596175e89a79c",
+        "supervisor": "11d7ddc096552a4c197becff863d71158f8fd17b2c1994a881be3aa16bae299b"
+      },
+      "private_receipt_sha256": {
+        "supervisor": "b19f4c4789ecfd719970ba09c292815c5ecbe9df75137693060d355b026500e4",
+        "setup": "8ec08ffa5ea41afc56adaafd3e9d68be55dcefc388c46cdd4c41053213753db2",
+        "status_report": "92f276c27fb6a77d2deb94828303f8b8bf45ae9d429840ecb21779f651a7cd69",
+        "accepted_document": "13c11b833da79d44e3009645416fb5181c8b54e4aa8fcca3a24db88932214639",
+        "catalog_view": "0c5801e1d47ca6d0dcd07f8358ef60f3cdd50049b69239dbfe3598406046cbff",
+        "readback": "9605c51513a85664d011a610449b9bc421deb6147a8a2d9554c13fe62b338583",
+        "preflight": "ded81bb3690fb3b0e679d32ab0a3cc373591c3a97623c1d2c9d0d6b679f00a9b"
+      },
+      "scope": "Public module-access setup and readback only. No source acceptance/replay, graph create/seed, feed/lifecycle, publication, destination, query, or ACK."
+    }
   }
 }

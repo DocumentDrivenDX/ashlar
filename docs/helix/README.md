@@ -34,13 +34,13 @@ managed Unity Catalog and production authority require separate evidence. A bloc
 affects its own lane.
 The Truss 0.0.48 r3 attempt failed before source acceptance because its candidate
 venv lacked the embedded `py_mini_racer` payload. The r4 attempt committed the
-original source at catalog revision 1. The first reconciliation later read public
-status and report, then Truss refused `accepted_document` with its expected
-`execution_obligation` permission error because the registrar principal is not a
-configured module reader. The complete public catalog view also requires a
-read-write transaction in this release. A narrowly scoped public module-access
-setup and separate source-reader/view readback plan is under review; no complete
-public readback or Ashlar support pass is established. See the
+original UMF 0.10 source at catalog revision 1. Recovery attempt r5-06 then
+configured one public module-access grant and verified the accepted source
+byte-for-byte, its revision-1 report, and the complete current catalog view with
+11 definitions. This bounded result covers the local macOS arm64, Python 3.11.17,
+PostgreSQL 18.6 profile only; consumer-profile admission, Truss feed/lifecycle,
+publication, destination, and ACK remain unqualified. It does not establish the
+release's declared Linux support on macOS or a broader Ashlar support pass. See the
 [0.0.48 evidence](04-build/evidence/current-upstream-release-20261022/truss-0.0.48-adoption-preparation.json).
 
 The current configured-local profile is a macOS arm64/Python 3.12 candidate on
