@@ -154,12 +154,15 @@ def release_report(destination: Path, raw: bytes) -> None:
     finish(primary,[lambda:os.unlink(stage)])
 
 
-def run_create_truss_record_group_command(configuration: str | Path, output: str | Path) -> dict:
+def run_create_truss_record_group_command(configuration: str | Path, output: str | Path, *, require_fresh: bool = False) -> dict:
+    if type(require_fresh) is not bool:raise ValueError('Exact fresh-apply selection required')
     config,destination,original,model,origin,origin_map=preflight(configuration,output)
     import psycopg
     from truss import Ok,CatalogDocument,CatalogRuntimeConfiguration,create_reference_assembly,adopt_psycopg_host,ObjectFound,EdgeFound
     from truss.contracts import TextValue,BooleanValue,NullValue,MapValue,MapEntry
     from truss.groups import CreateObject,CreateEdge,RootlessOwnership,AuthoredValue,AliasObjectReference,StoredObjectReference,NullOrderKey,TextOrderKey,GroupSuccess,CommittedReceiptReplay
+    if require_fresh:
+        from truss.groups import AppliedPending
     def value(result):
         if not isinstance(result,Ok):raise PublicTrussOutcomeError(result)
         return result.value
@@ -201,6 +204,7 @@ def run_create_truss_record_group_command(configuration: str | Path, output: str
             context=value(assembly.group_context_in_transaction(tx));semantic=context.input(tuple(operations),asserted);request=context.request(config.request_key)
             renew();applied=value(assembly.apply_in_transaction(tx,semantic,request,documents=documents,bun_executable=str(config.bun)))
             if not isinstance(applied,GroupSuccess):raise PublicTrussOutcomeError(applied)
+            if require_fresh and not isinstance(applied.response,AppliedPending):raise PublicTrussOutcomeError(applied)
             results=applied.response.semantic.results;selections=(*config.records,*config.edges)
             if len(results)!=len(selections)or any(result.operation!=('create_object'if index<len(config.records)else'create_edge')or result.outcome!='created'or result.alias!=selections[index].alias for index,result in enumerate(results)):raise RuntimeError('Complete ordered created responses required')
             identities={selection.alias:result.identity for selection,result in zip(selections,results)}

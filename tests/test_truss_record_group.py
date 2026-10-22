@@ -34,14 +34,14 @@ class RecordGroupTests(unittest.TestCase):
                 with self.subTest(change=change), self.assertRaises(ValueError):preflight(root/'config.json',root/'result.json')
                 self.assertFalse((root/'result.json').exists())
 
-    def runtime(self,*,wrong_readback=False,missing_ref=False,primary=None,cleanup_error=None,refusal=None):
-        contracts=ModuleType('truss.contracts');groups=ModuleType('truss.groups');truss=ModuleType('truss');psycopg=ModuleType('psycopg');calls={'apply':0,'commit':0,'close':0,'operations':None}
+    def runtime(self,*,wrong_readback=False,missing_ref=False,primary=None,cleanup_error=None,refusal=None,first_committed_replay=False):
+        contracts=ModuleType('truss.contracts');groups=ModuleType('truss.groups');truss=ModuleType('truss');psycopg=ModuleType('psycopg');calls={'apply':0,'commit':0,'close':0,'operations':None,'initial_replay':None}
         def dto(module,name,fields):
             cls=make_dataclass(name,fields,frozen=True);setattr(module,name,cls);return cls
         Text=dto(contracts,'TextValue',['kind','text']);Bool=dto(contracts,'BooleanValue',['value']);Null=dto(contracts,'NullValue',[]);dto(contracts,'MapValue',['entries']);dto(contracts,'MapEntry',['key','value'])
         dto(groups,'RootlessOwnership',[]);dto(groups,'CreateObject',['type_definition_pin','values','ownership','alias']);dto(groups,'CreateEdge',['relationship_definition_pin','source','target','values','order_key','alias']);dto(groups,'AuthoredValue',['name','value']);dto(groups,'AliasObjectReference',['alias']);dto(groups,'StoredObjectReference',['identity']);dto(groups,'NullOrderKey',[]);dto(groups,'TextOrderKey',['text'])
-        Success=dto(groups,'GroupSuccess',['response']);Replay=dto(groups,'CommittedReceiptReplay',['semantic']);Ok=dto(truss,'Ok',['value']);Error=dto(truss,'Error',['error']);ObjectFound=dto(truss,'ObjectFound',['object']);EdgeFound=dto(truss,'EdgeFound',['edge']);dto(truss,'CatalogDocument',['document_id','document_revision','content']);dto(truss,'CatalogRuntimeConfiguration',[])
-        Identity=make_dataclass('Identity',['id','type_id','definition_pin'],frozen=True);Created=make_dataclass('Created',['identity','version','alias','operation','outcome']);Alias=make_dataclass('Alias',['alias','identity']);Semantic=make_dataclass('Semantic',['results','aliases']);Fresh=make_dataclass('Fresh',['semantic']);Object=make_dataclass('Object',['document_id','module_id','record_id','id','identity','version','values','retained']);Edge=make_dataclass('Edge',['identity','version','source','target','order_key','retained']);objects={99:Object('original','m','supplier',99,Identity('99','1','supplier'),1,(('id','existing-supplier'),),())};edges={};semantic=None
+        Success=dto(groups,'GroupSuccess',['response']);Replay=dto(groups,'CommittedReceiptReplay',['semantic']);AppliedPending=dto(groups,'AppliedPending',['semantic']);Ok=dto(truss,'Ok',['value']);Error=dto(truss,'Error',['error']);ObjectFound=dto(truss,'ObjectFound',['object']);EdgeFound=dto(truss,'EdgeFound',['edge']);dto(truss,'CatalogDocument',['document_id','document_revision','content']);dto(truss,'CatalogRuntimeConfiguration',[])
+        Identity=make_dataclass('Identity',['id','type_id','definition_pin'],frozen=True);Created=make_dataclass('Created',['identity','version','alias','operation','outcome']);Alias=make_dataclass('Alias',['alias','identity']);Semantic=make_dataclass('Semantic',['results','aliases']);Object=make_dataclass('Object',['document_id','module_id','record_id','id','identity','version','values','retained']);Edge=make_dataclass('Edge',['identity','version','source','target','order_key','retained']);objects={99:Object('original','m','supplier',99,Identity('99','1','supplier'),1,(('id','existing-supplier'),),())};edges={};semantic=None
         def plain(value):return value.text if isinstance(value,Text)and value.kind=='string'else value.value if isinstance(value,Bool)else None if isinstance(value,Null)else value
         class Assembly:
             def dispose(self):pass
@@ -55,6 +55,9 @@ class RecordGroupTests(unittest.TestCase):
                 if refusal is not None:
                     calls['refusal'] = refusal(Error) if callable(refusal) else refusal
                     return calls['refusal']
+                if first_committed_replay and calls['apply']==1:
+                    calls['initial_replay'] = Success(Replay(None))
+                    return Ok(calls['initial_replay'])
                 if semantic is not None:return Ok(Success(Replay(semantic)))
                 results=[];aliases=[];ids={}
                 for index,op in enumerate(operations,1):
@@ -64,7 +67,7 @@ class RecordGroupTests(unittest.TestCase):
                     else:
                         self_source=op.source.identity if hasattr(op.source,'identity')else ids[op.source.alias];self_target=op.target.identity if hasattr(op.target,'identity')else ids[op.target.alias];edges[index]=Edge(identity,1,self_source,self_target,None,values);kind='create_edge'
                     results.append(Created(identity,'1',op.alias,kind,'created'));aliases.append(Alias(op.alias,identity))
-                semantic=Semantic(tuple(results),tuple(aliases));return Ok(Success(Fresh(semantic)))
+                semantic=Semantic(tuple(results),tuple(aliases));return Ok(Success(AppliedPending(semantic)))
             def get_object_in_transaction(self,tx,**selection):
                 obj=objects[selection['object_id']]
                 if wrong_readback:obj=Object('original','m','wrong',obj.id,obj.identity,obj.version,obj.values,obj.retained)
@@ -88,6 +91,18 @@ class RecordGroupTests(unittest.TestCase):
             self.assertEqual(len(result['objects']),2);self.assertEqual(len(result['edges']),1)
             self.assertEqual(result['objects'][1]['values'][1][1],{'kind':'decimal','text':'12.75'})
             self.assertTrue((root/'result.json').is_file())
+
+
+    def test_require_fresh_rejects_first_committed_replay_before_commit(self):
+        from ashlar_host.truss_record_group import PublicTrussOutcomeError
+        with tempfile.TemporaryDirectory()as temporary:
+            root=Path(temporary).resolve();self.fixture(root)
+            modules,calls=self.runtime(first_committed_replay=True)
+            with patch.dict('sys.modules',modules),self.assertRaises(PublicTrussOutcomeError)as caught:
+                run_create_truss_record_group_command(root/'config.json',root/'result.json',require_fresh=True)
+            self.assertIs(caught.exception.outcome,calls['initial_replay'])
+            self.assertEqual((calls['apply'],calls['commit'],calls['close']),(1,0,1))
+            self.assertFalse((root/'result.json').exists())
 
     def test_missing_reference_and_wrong_actual_record_withhold_success(self):
         for missing in (True,False):
