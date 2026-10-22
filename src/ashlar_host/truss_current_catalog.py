@@ -10,8 +10,11 @@ from typing import Optional
 
 CURRENT_TRUSS_VERSION = '0.0.44'
 CURRENT_TRUSS_045_VERSION = '0.0.45'
+CURRENT_TRUSS_048_VERSION = '0.0.48'
 CURRENT_TRUSS_045_WHEEL_SHA256 = '1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c'
 CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256 = '71c4c3d4c05a2229c4cdec1643cabe0da7055965f0b0d23195e83ad780042a2e'
+CURRENT_TRUSS_048_WHEEL_SHA256 = '1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3'
+CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256 = 'c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0'
 CURRENT_REPORT_VERSION = 'truss-catalog-registration-report/0.6'
 CURRENT_VIEW_VERSION = 'truss-catalog-view/0.2.0'
 CURRENT_VIEW_PROFILE = ('truss-complete-catalog-view', '0.4')
@@ -19,26 +22,36 @@ CURRENT_VIEW_PROFILE_SHA256 = '782025c3dfcf49bd676c67df3d62269f78793a31358a18556
 CURRENT_LAYOUT_PROFILE_SHA256 = 'cf417e0af5d37dd61fa5f39f818d2e7282a29e6c6c6ab7fc0b26dcdde99e7dec'
 CURRENT_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.1'
 CURRENT_045_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.2'
+CURRENT_048_EVIDENCE_PROFILE = 'ashlar-truss-current-catalog-evidence/0.3'
 
 
 def require_current_truss_runtime(version, *, runtime_manifest=None, direct_url=None):
-    """Bind .45 source admission to the published package and runtime release."""
+    """Bind versioned source admission to the selected public package release."""
     if version == CURRENT_TRUSS_VERSION:
         return CURRENT_EVIDENCE_PROFILE
-    if version != CURRENT_TRUSS_045_VERSION:
+    pins = {
+        CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
+                                    CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
+                                    CURRENT_045_EVIDENCE_PROFILE),
+        CURRENT_TRUSS_048_VERSION: (CURRENT_TRUSS_048_WHEEL_SHA256,
+                                    CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
+                                    CURRENT_048_EVIDENCE_PROFILE),
+    }
+    if version not in pins:
         raise ValueError('Supported current Truss runtime profile required')
-    if type(runtime_manifest) is not bytes or hashlib.sha256(runtime_manifest).hexdigest() != CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256:
-        raise ValueError('Truss 0.0.45 installed runtime manifest differs from the published release')
+    wheel_pin, manifest_pin, profile = pins[version]
+    if type(runtime_manifest) is not bytes or hashlib.sha256(runtime_manifest).hexdigest() != manifest_pin:
+        raise ValueError(f'Truss {version} installed runtime manifest differs from the published release')
     if type(direct_url) is not str:
-        raise ValueError('Truss 0.0.45 public wheel provenance required')
+        raise ValueError(f'Truss {version} public wheel provenance required')
     try:
         origin = json.loads(direct_url)
         wheel_sha = origin['archive_info']['hashes']['sha256']
     except (ValueError, TypeError, KeyError):
-        raise ValueError('Truss 0.0.45 public wheel provenance required') from None
-    if wheel_sha != CURRENT_TRUSS_045_WHEEL_SHA256:
-        raise ValueError('Truss 0.0.45 installed wheel differs from the published release')
-    return CURRENT_045_EVIDENCE_PROFILE
+        raise ValueError(f'Truss {version} public wheel provenance required') from None
+    if wheel_sha != wheel_pin:
+        raise ValueError(f'Truss {version} installed wheel differs from the published release')
+    return profile
 
 
 def installed_current_truss_profile():
@@ -50,14 +63,14 @@ def installed_current_truss_profile():
         raise ValueError('Installed Truss toolkit version required') from None
     if version == CURRENT_TRUSS_VERSION:
         return require_current_truss_runtime(version)
-    if version != CURRENT_TRUSS_045_VERSION:
+    if version not in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
         raise ValueError('Supported current Truss runtime profile required')
     try:
         manifest = importlib.resources.files('truss').joinpath(
             '_catalog_runtime/manifest.json').read_bytes()
         direct_url = distribution.read_text('direct_url.json')
     except (ModuleNotFoundError, FileNotFoundError, TypeError):
-        raise ValueError('Truss 0.0.45 installed runtime provenance required') from None
+        raise ValueError(f'Truss {version} installed runtime provenance required') from None
     return require_current_truss_runtime(version, runtime_manifest=manifest,
                                          direct_url=direct_url)
 
@@ -72,26 +85,31 @@ class CurrentCatalogEvidence:
     runtime_manifest_sha256: Optional[str] = None
 
     def __post_init__(self):
-        if self.truss_version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION):
+        if self.truss_version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+                                      CURRENT_TRUSS_048_VERSION):
             raise ValueError('Supported versioned current Truss catalog evidence required')
-        if self.truss_version == CURRENT_TRUSS_045_VERSION and (
-                self.runtime_wheel_sha256 != CURRENT_TRUSS_045_WHEEL_SHA256
-                or self.runtime_manifest_sha256 != CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256):
-            raise ValueError('Truss 0.0.45 runtime-attested catalog evidence required')
+        pins = {CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
+                                            CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
+                CURRENT_TRUSS_048_VERSION: (CURRENT_TRUSS_048_WHEEL_SHA256,
+                                            CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)}
+        if self.truss_version in pins and (self.runtime_wheel_sha256,
+                self.runtime_manifest_sha256) != pins[self.truss_version]:
+            raise ValueError(f'Truss {self.truss_version} runtime-attested catalog evidence required')
 
     @property
     def profile(self):
-        return (CURRENT_EVIDENCE_PROFILE if self.truss_version == CURRENT_TRUSS_VERSION
-                else CURRENT_045_EVIDENCE_PROFILE)
+        return {CURRENT_TRUSS_VERSION: CURRENT_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE}[self.truss_version]
 
 
 def require_installed_current_catalog_evidence(evidence):
     """Prevent constructed .45 evidence from claiming an uninstalled runtime."""
     if not isinstance(evidence, CurrentCatalogEvidence):
         raise ValueError('Versioned current Truss catalog evidence required')
-    if evidence.truss_version == CURRENT_TRUSS_045_VERSION:
-        if installed_current_truss_profile() != CURRENT_045_EVIDENCE_PROFILE:
-            raise ValueError('Installed Truss 0.0.45 runtime profile required for graph admission')
+    if evidence.truss_version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
+        if installed_current_truss_profile() != evidence.profile:
+            raise ValueError(f'Installed Truss {evidence.truss_version} runtime profile required for graph admission')
     return evidence.profile
 
 

@@ -9,6 +9,8 @@ from unittest.mock import patch
 from ashlar_host.truss_current_catalog import (
     CURRENT_045_EVIDENCE_PROFILE, CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
     CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_045_WHEEL_SHA256,
+    CURRENT_048_EVIDENCE_PROFILE, CURRENT_TRUSS_048_VERSION,
+    CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_048_WHEEL_SHA256,
     CurrentCatalogEvidence, interpret_current_catalog, require_current_truss_runtime,
     require_installed_current_catalog_evidence,
 )
@@ -44,6 +46,8 @@ class TrussCurrentCatalogTests(unittest.TestCase):
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.1')
         self.assertEqual(current_admission_profile(CURRENT_TRUSS_045_VERSION),
                          'ashlar-truss-current-umf010-graph-semantic-admission/0.2')
+        self.assertEqual(current_admission_profile(CURRENT_TRUSS_048_VERSION),
+                         'ashlar-truss-current-umf010-graph-semantic-admission/0.3')
         with self.assertRaisesRegex(ValueError, 'versioned current Truss'):
             current_admission_profile('0.0.46')
 
@@ -89,6 +93,25 @@ class TrussCurrentCatalogTests(unittest.TestCase):
             self.assertEqual(require_installed_current_catalog_evidence(historical),
                              'ashlar-truss-current-catalog-evidence/0.1')
 
+    def test_048_public_release_tuple_is_exact_and_separate_from_045(self):
+        manifest = b'public 0.0.48 runtime manifest fixture'
+        direct_url = json.dumps({'archive_info': {'hashes': {
+            'sha256': CURRENT_TRUSS_048_WHEEL_SHA256}}})
+        with patch('ashlar_host.truss_current_catalog.CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256',
+                   hashlib.sha256(manifest).hexdigest()):
+            self.assertEqual(require_current_truss_runtime(CURRENT_TRUSS_048_VERSION,
+                runtime_manifest=manifest, direct_url=direct_url), CURRENT_048_EVIDENCE_PROFILE)
+            with self.assertRaisesRegex(ValueError, '0.0.48 installed wheel'):
+                require_current_truss_runtime(CURRENT_TRUSS_048_VERSION,
+                    runtime_manifest=manifest,
+                    direct_url=json.dumps({'archive_info': {'hashes': {'sha256': '0' * 64}}}))
+        evidence = CurrentCatalogEvidence(CURRENT_TRUSS_048_VERSION, {}, {}, {},
+            CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+        self.assertEqual(evidence.profile, CURRENT_048_EVIDENCE_PROFILE)
+        with self.assertRaisesRegex(ValueError, '0.0.48 runtime-attested'):
+            CurrentCatalogEvidence(CURRENT_TRUSS_048_VERSION, {}, {}, {},
+                                   '0' * 64, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+
     def test_actual_010_acceptance_receipt_interprets_assigned_catalog(self):
         report, view, sources, _ = receipt_inputs()
         admitted = interpret_current_catalog('1', report, view, sources)
@@ -97,6 +120,10 @@ class TrussCurrentCatalogTests(unittest.TestCase):
         self.assertEqual(admitted['models']['typed-graph-example'][1],
                          (EVIDENCE / 'accepted-source.umf.json').read_bytes())
         self.assertEqual(len(json.loads(view)['definitions']), 11)
+        admitted_048 = interpret_current_catalog('1', report, view, sources,
+                                                  truss_version=CURRENT_TRUSS_048_VERSION)
+        self.assertEqual(admitted_048['models']['typed-graph-example'][1],
+                         (EVIDENCE / 'accepted-source.umf.json').read_bytes())
 
     def test_actual_receipt_refuses_tampered_source_digest_and_revision(self):
         report_raw, view, sources, source = receipt_inputs()

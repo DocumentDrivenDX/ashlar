@@ -392,6 +392,23 @@ authority. The
 original UMF 0.7/0.8 group and mutation profiles below retain their own declared
 source and report rules.
 
+The separately selected Truss `0.0.48` current-core profile uses the same public
+report `0.6`, accepted-document operation, catalog-view wire `0.2.0`, complete
+view profile `0.4`, and layout profile `1.0` contracts. Ashlar MUST pin the
+published `truss-toolkit` wheel SHA256
+`1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3` and
+runtime-manifest SHA256
+`c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0`, retaining
+the original UMF `0.10.0` bytes and declared version. The accepted-document read
+and complete catalog view MUST use the same authorized transaction and be matched
+to the selected report revision, installation and source custody. Runtime pins
+identify this selected release; they do not qualify macOS portability, native feed
+consumption, publication, ACK or production authority. This is a new versioned
+catalog-evidence and graph-admission profile; the `.44` and `.45` profiles remain
+unchanged. The `.48` source-custody transaction MUST retain `READ COMMITTED`
+isolation and use a `2000 ms` local statement timeout; a tighter public-operation
+timeout remains effective within that transaction.
+
 ## Original typed record and required-link group intake
 
 `create-truss-record-group` MUST submit one complete ordered public Truss group:

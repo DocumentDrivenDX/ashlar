@@ -4,19 +4,21 @@ import base64,hashlib,json
 from ashlar.staging import batch_row
 from ashlar.truss_native_feed import typed_scalar_entity_changes
 from .truss_current_catalog import (CurrentCatalogEvidence,
-    CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
-    CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+    CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
+    CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE, CURRENT_048_EVIDENCE_PROFILE,
     interpret_current_catalog, require_installed_current_catalog_evidence)
 
 PROFILE='ashlar-truss-scalar-graph-semantic-admission/0.1'
 TYPED_PROFILE='ashlar-truss-typed-graph-semantic-admission/0.1'
 CURRENT_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.1'
 CURRENT_045_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.2'
+CURRENT_048_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.3'
 
 def current_admission_profile(version):
     try:
         return {CURRENT_TRUSS_VERSION: CURRENT_PROFILE,
-                CURRENT_TRUSS_045_VERSION: CURRENT_045_PROFILE}[version]
+                CURRENT_TRUSS_045_VERSION: CURRENT_045_PROFILE,
+                CURRENT_TRUSS_048_VERSION: CURRENT_048_PROFILE}[version]
     except KeyError:
         raise ValueError('Supported versioned current Truss evidence required') from None
 
@@ -63,9 +65,11 @@ class TrussGraphAdmission:
         if self.current:
             require_installed_current_catalog_evidence(catalog_views)
             current_admission_profile(catalog_views.truss_version)
-            expected_catalog_profile = (CURRENT_EVIDENCE_PROFILE
-                if catalog_views.truss_version == CURRENT_TRUSS_VERSION
-                else CURRENT_045_EVIDENCE_PROFILE)
+            expected_catalog_profile = {
+                CURRENT_TRUSS_VERSION: CURRENT_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE,
+            }[catalog_views.truss_version]
             if catalog_views.profile != expected_catalog_profile:
                 raise ValueError('Supported versioned current Truss evidence required')
             for prerequisite in payload['catalogPrerequisites']:
@@ -167,6 +171,8 @@ class TrussGraphAdmission:
             profile=current_admission_profile(self.current_truss_version)
             if self.current_truss_version == CURRENT_TRUSS_VERSION:
                 qualification='Truss toolkit 0.0.44, UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4; original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only, no publication or ACK authority.'
+            elif self.current_truss_version == CURRENT_TRUSS_048_VERSION:
+                qualification='Truss toolkit 0.0.48 public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. Original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. This profile has bounded local public-interface evidence only; no feed, publication, ACK or production authority.'
             else:
                 qualification='Truss toolkit 0.0.45 public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. Original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. The 0.0.45 profile has effect-free public-interface qualification only; no native source acceptance, publication or ACK authority.'
         else:

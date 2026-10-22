@@ -373,5 +373,24 @@
       },
       "scope": "Public module-access setup and readback only. No source acceptance/replay, graph create/seed, feed/lifecycle, publication, destination, query, or ACK."
     }
+  },
+  "offline_consumer_profile_preparation": {
+    "status": "implemented and focused tests passed offline; no native graph feed/admission or Delta effect executed",
+    "selected_profile": {
+      "truss_version": "0.0.48",
+      "wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+      "runtime_manifest_sha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "catalog_evidence_profile": "ashlar-truss-current-catalog-evidence/0.3",
+      "graph_admission_profile": "ashlar-truss-current-umf010-graph-semantic-admission/0.3",
+      "core_binding_profile": "ashlar-managed-current-core-binding/0.2 for legacy carrier; existing /0.3 for xxhash64 carrier"
+    },
+    "custody_route": "Pinned installed runtime and public accepted-source/catalog-view read -> versioned graph admission -> digest-bound source bundle and restore -> source oracle receipt -> Weft binding and managed receipt reopen. Existing physical carrier and Weft profiles are unchanged; .44 and .45 contracts remain available.",
+    "transaction_bound": "The .48 current catalog reader retains READ COMMITTED and sets local statement_timeout to 2000 ms; public-operation timeout remains governed by the selected Truss API.",
+    "focused_check": {
+      "command": "PYTHONPATH=src:tests python3.11 -m unittest test_truss_current_catalog test_truss_catalog_reader test_managed_current_core test_managed_current_query test_managed_current_weft_binding test_managed_current_receipt_read",
+      "result": "47 tests passed in 0.081 seconds; py_compile for all eight changed runtime modules and git diff --check passed.",
+      "saved_log": null
+    },
+    "next_gate": "Native .48 feed/admission remains unqualified. Any source-feed or Delta effect check requires separate resource-slot review and explicit GO; no ACK or destination authority is implied."
   }
 }

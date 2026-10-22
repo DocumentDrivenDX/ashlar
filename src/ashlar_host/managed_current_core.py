@@ -136,23 +136,31 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
     """
     from .truss_graph_admission import TrussGraphAdmission, current_admission_profile
     from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
-        CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
-        CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
+        CURRENT_TRUSS_048_VERSION, CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+        CURRENT_048_EVIDENCE_PROFILE, CURRENT_TRUSS_045_WHEEL_SHA256,
+        CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_048_WHEEL_SHA256,
+        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
     _require(type(config) is ManagedCurrentCoreConfig)
     config.__post_init__()
     _require(type(admission) is TrussGraphAdmission and admission.current
-             and admission.current_truss_version in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION)
+             and admission.current_truss_version in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+                                                       CURRENT_TRUSS_048_VERSION)
              and admission.metadata()['profile'] == current_admission_profile(admission.current_truss_version)
              and admission.batch.profile == 'truss-native-feed/0.1',
              'actual versioned current Truss / UMF 0.10 graph admission required')
     version = admission.current_truss_version
-    evidence_profile = (CURRENT_EVIDENCE_PROFILE if version == CURRENT_TRUSS_VERSION
-                        else CURRENT_045_EVIDENCE_PROFILE)
+    evidence_profile = {CURRENT_TRUSS_VERSION: CURRENT_EVIDENCE_PROFILE,
+                        CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
+                        CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE}[version]
     _require(admission.current_catalog_evidence_profile == evidence_profile)
-    if version == CURRENT_TRUSS_045_VERSION:
-        _require(admission.current_runtime_wheel_sha256 == CURRENT_TRUSS_045_WHEEL_SHA256
-                 and admission.current_runtime_manifest_sha256 == CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
-                 'Truss 0.0.45 installed wheel/runtime provenance required')
+    if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
+        runtime_pins = {CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
+                                                     CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
+                        CURRENT_TRUSS_048_VERSION: (CURRENT_TRUSS_048_WHEEL_SHA256,
+                                                     CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)}
+        _require((admission.current_runtime_wheel_sha256,
+                  admission.current_runtime_manifest_sha256) == runtime_pins[version],
+                 f'Truss {version} installed wheel/runtime provenance required')
     binding_profile = (BINDING_PROFILE_XXHASH64 if config.carrier_profile == CARRIER_PROFILE_XXHASH64
                        else BINDING_PROFILE if version == CURRENT_TRUSS_VERSION else BINDING_PROFILE_045)
     tables = None if table_inventory is None else _validate_installation_inventory(config, table_inventory)
@@ -270,7 +278,7 @@ def bind_current_core(admission, config: ManagedCurrentCoreConfig, table_invento
         'bounds': {'preferredCostUsd': config.preferred_cost_usd,
                    'hardCostUsd': config.hard_cost_usd},
     }
-    if version == CURRENT_TRUSS_045_VERSION:
+    if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
         result['source']['catalogEvidenceProfile'] = evidence_profile
         result['source']['runtimeProvenance'] = {
             'trussWheelSha256': admission.current_runtime_wheel_sha256,
@@ -315,7 +323,7 @@ def bind_observed_managed_installation(prepared_binding, config: ManagedCurrentC
                         if type(prepared_destination) is dict else None)
     expected_profile = (BINDING_PROFILE_XXHASH64 if physical_profile == CARRIER_PROFILE_XXHASH64
                         else BINDING_PROFILE if version == '0.0.44'
-                        else BINDING_PROFILE_045 if version == '0.0.45' else None)
+                        else BINDING_PROFILE_045 if version in ('0.0.45', '0.0.48') else None)
     expected_destination = {'catalog': config.catalog, 'schema': config.schema,
         'intendedRoleNames': {role: [config.catalog, config.schema, role] for role in ROLES},
         'tables': None}
@@ -350,8 +358,10 @@ def restore_managed_current_admission(binding, config):
              'Exact preinstallation current source bundle required')
     source=binding.get('source');_require(type(source)is dict)
     from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
-        CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
-        CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256)
+        CURRENT_TRUSS_048_VERSION, CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
+        CURRENT_048_EVIDENCE_PROFILE, CURRENT_TRUSS_045_WHEEL_SHA256,
+        CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_048_WHEEL_SHA256,
+        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
     from .truss_graph_admission import current_admission_profile
     version=source.get('trussVersion')
     destination=binding.get('destination')
@@ -359,7 +369,8 @@ def restore_managed_current_admission(binding, config):
                       if type(destination)is dict else None)
     expected_binding_profile=(BINDING_PROFILE_XXHASH64 if physical_profile==CARRIER_PROFILE_XXHASH64
                               else BINDING_PROFILE if version==CURRENT_TRUSS_VERSION
-                              else BINDING_PROFILE_045 if version==CURRENT_TRUSS_045_VERSION else None)
+                              else BINDING_PROFILE_045 if version in (CURRENT_TRUSS_045_VERSION,
+                                                                      CURRENT_TRUSS_048_VERSION) else None)
     _require(expected_binding_profile is not None and binding.get('profile')==expected_binding_profile
              and source.get('umfVersion')=='0.10.0',
              'Version-matched current Truss source bundle required')
@@ -370,12 +381,18 @@ def restore_managed_current_admission(binding, config):
         _require(destination.get('lookupHashProfile') == LOOKUP_HASH_PROFILE_XXHASH64)
     else:
         _require('lookupHashProfile' not in destination)
-    if version==CURRENT_TRUSS_045_VERSION:
-        _require(source.get('catalogEvidenceProfile')=='ashlar-truss-current-catalog-evidence/0.2'
+    if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
+        evidence_profiles={CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
+                           CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE}
+        runtime_pins={CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
+                                                   CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
+                      CURRENT_TRUSS_048_VERSION: (CURRENT_TRUSS_048_WHEEL_SHA256,
+                                                   CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)}
+        _require(source.get('catalogEvidenceProfile')==evidence_profiles[version]
                  and source.get('runtimeProvenance')=={
-                     'trussWheelSha256':CURRENT_TRUSS_045_WHEEL_SHA256,
-                     'runtimeManifestSha256':CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256},
-                 'Truss 0.0.45 wheel/runtime provenance required in source bundle')
+                     'trussWheelSha256':runtime_pins[version][0],
+                     'runtimeManifestSha256':runtime_pins[version][1]},
+                 f'Truss {version} wheel/runtime provenance required in source bundle')
     else:
         _require('catalogEvidenceProfile' not in source and 'runtimeProvenance' not in source,
                  'Truss 0.0.44 source bundle must retain its original provenance contract')
@@ -409,9 +426,13 @@ def restore_managed_current_admission(binding, config):
         version,reports,views,source_objects,
         runtime_wheel_sha256=runtime.get('trussWheelSha256'),
         runtime_manifest_sha256=runtime.get('runtimeManifestSha256')))
+    evidence_profiles={CURRENT_TRUSS_VERSION: CURRENT_EVIDENCE_PROFILE,
+                       CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
+                       CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE}
     _require(admission.current and admission.metadata()['profile']==current_admission_profile(version)
              and admission.current_catalog_evidence_profile==(source.get('catalogEvidenceProfile')
-                 if version==CURRENT_TRUSS_045_VERSION else CURRENT_EVIDENCE_PROFILE)
+                 if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION)
+                 else evidence_profiles[CURRENT_TRUSS_VERSION])
              and admission.current_runtime_wheel_sha256==runtime.get('trussWheelSha256')
              and admission.current_runtime_manifest_sha256==runtime.get('runtimeManifestSha256')
              and admission.metadata()['declared_umf']=={revision:{doc:'0.10.0' for doc in value['models']}

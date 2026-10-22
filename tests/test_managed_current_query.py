@@ -47,7 +47,8 @@ def _source_bundle():
 
 
 def _oracle(source_bundle=None):
-    from ashlar_host.managed_current_query import _managed_source_identity
+    from ashlar_host.managed_current_query import (_managed_source_identity,
+        managed_current_oracle_receipt)
     source_bundle = source_bundle or _source_bundle()
     identity = _managed_source_identity(source_bundle, schedule_sha256="a" * 64, schedule_step=7)
     value = {
@@ -79,12 +80,37 @@ def _oracle(source_bundle=None):
              "sourceKey": "person-2", "targetType": "Place", "targetKey": "place-X"},
         ],
     }
+    if identity["runtimeProvenance"]:
+        value["catalogEvidenceProfile"] = identity["catalogEvidenceProfile"]
+        value["runtimeProvenance"] = identity["runtimeProvenance"]
     value["oracleSha256"] = hashlib.sha256(_canonical(value).encode()).hexdigest()
     return admit_managed_current_source_oracle(value,
         source_bundle=source_bundle, schedule_sha256="a" * 64, schedule_step=7)
 
 
 class ManagedCurrentQueryTests(unittest.TestCase):
+  def test_048_runtime_tuple_is_preserved_in_source_oracle_receipt(self):
+    from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,
+        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+    from ashlar_host.managed_current_query import (_managed_source_identity,
+        managed_current_oracle_receipt)
+    bundle = _source_bundle()
+    bundle['profile'] = 'ashlar-managed-current-core-binding/0.2'
+    bundle['source']['trussVersion'] = '0.0.48'
+    bundle['source']['catalogEvidenceProfile'] = 'ashlar-truss-current-catalog-evidence/0.3'
+    bundle['source']['runtimeProvenance'] = {
+        'trussWheelSha256': CURRENT_TRUSS_048_WHEEL_SHA256,
+        'runtimeManifestSha256': CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256}
+    bundle.pop('bindingSha256')
+    bundle['bindingSha256'] = hashlib.sha256(_canonical(bundle).encode()).hexdigest()
+    identity = _managed_source_identity(bundle, schedule_sha256='a' * 64, schedule_step=7)
+    oracle = _oracle(bundle)
+    self.assertEqual(identity['catalogEvidenceProfile'], 'ashlar-truss-current-catalog-evidence/0.3')
+    self.assertEqual(oracle.truss_version, '0.0.48')
+    receipt = managed_current_oracle_receipt(oracle, [])
+    self.assertEqual(receipt['trussVersion'], '0.0.48')
+    self.assertEqual(receipt['runtimeProvenance'], bundle['source']['runtimeProvenance'])
+
   def test_source_oracle_binds_the_new_carrier_profile_without_relabeling_truss_evidence(self):
     from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, bind_current_core
     from test_managed_current_core import _current_admission

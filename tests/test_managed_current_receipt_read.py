@@ -75,7 +75,7 @@ class FakeSQLReader:
         raise AssertionError("Unexpected SQL: " + sql)
 
 
-def _fixture(carrier_profile="ashlar-delta/0.3"):
+def _fixture(carrier_profile="ashlar-delta/0.3", source_truss_version="0.0.44"):
     from test_managed_current_core import _current_admission
     from ashlar_host.publication_planning import truss_request_for
     from ashlar.source_checkpoint import truss_checkpoint
@@ -118,14 +118,25 @@ def _fixture(carrier_profile="ashlar-delta/0.3"):
                           for role in ("object_current", "edge_current", "tombstone",
                                        "whole_source_history")}},
         "installationInventory": installation,
-        "sourceAuthority": "development Truss 0.0.44 page on managed Unity Catalog; external source ACK required"}
+        "sourceAuthority": f"development Truss {source_truss_version} page on managed Unity Catalog; external source ACK required"}
     config = ManagedCurrentReceiptConfig("client_dev", "trial_schema", "a" * 16,
-        owner, owner, "0.0.44", ReaderProtocolProfile("trial-reader/0.1", (1,), (2,), ()),
+        owner, owner, source_truss_version, ReaderProtocolProfile("trial-reader/0.1", (1,), (2,), ()),
         carrier_profile=carrier_profile)
     return request, manifest, receipt, uuids, config
 
 
 class ManagedCurrentReceiptReadTests(unittest.TestCase):
+    def test_048_source_version_is_preserved_through_receipt_reopen(self):
+        request, manifest, receipt, uuids, config = _fixture(source_truss_version="0.0.48")
+        sql = FakeSQLReader(manifest, uuids)
+        reader = ManagedCurrentSQLReceiptReader(sql, config)
+        observed = reader.reopen(request_bytes=_canonical(request).encode(),
+            manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt)
+        self.assertEqual(observed.profile, "ashlar-managed-current-external-receipt-read/0.1")
+        self.assertEqual(config.source_truss_version, "0.0.48")
+        self.assertEqual(receipt["sourceAuthority"],
+            "development Truss 0.0.48 page on managed Unity Catalog; external source ACK required")
+
     def test_xxhash64_receipt_uses_exact_physical_profile_for_reopen_and_ack_ports(self):
         request, manifest, receipt, uuids, config = _fixture(CARRIER_PROFILE_XXHASH64)
         sql = FakeSQLReader(manifest, uuids, CARRIER_PROFILE_XXHASH64)

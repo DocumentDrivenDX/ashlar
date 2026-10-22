@@ -5,6 +5,61 @@ from unittest.mock import patch
 from ashlar_host.truss_catalog_reader import read_historical_catalog_views
 
 class Tests(unittest.TestCase):
+    def test_048_current_read_uses_pinned_runtime_and_two_second_transaction(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from test_managed_current_core import _current_admission
+        from test_truss_current_catalog import receipt_inputs
+        from ashlar_host.truss_catalog_reader import read_current_catalog_evidence
+        from ashlar_host.truss_current_catalog import (CURRENT_048_EVIDENCE_PROFILE,
+            CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+
+        report_raw, view_raw, sources, source = receipt_inputs()
+        calls = []
+        @dataclass
+        class Ok:
+            value: object
+        @dataclass
+        class Available:
+            view: object
+        class Assembly:
+            def catalog_view_request(self, **kwargs):
+                calls.append(('request', kwargs)); return object()
+            def accepted_document_in_transaction(self, tx, *, document_id, maximum_bytes):
+                calls.append(('source', document_id, maximum_bytes))
+                return Ok(source)
+            def catalog_view_in_transaction(self, tx, request):
+                calls.append(('view', request)); return Ok(Available(SimpleNamespace(original_bytes=view_raw)))
+            def dispose(self): calls.append('dispose')
+        class Host:
+            def adopt_transaction(self, **kwargs): calls.append(('transaction', kwargs)); return Ok('tx')
+            def detach(self): calls.append('detach'); return True
+        class Connection:
+            autocommit = False
+            info = SimpleNamespace(transaction_status=0)
+            def __enter__(self): return self
+            def __exit__(self, *args): calls.append('connection-close')
+            def execute(self, sql): calls.append(sql)
+            def rollback(self): calls.append('rollback')
+
+        batch = _current_admission().batch
+        sdk = types.ModuleType('truss')
+        sdk.Ok = Ok; sdk.CatalogViewAvailable = Available
+        sdk.CatalogViewUnavailable = type('Unavailable', (), {})
+        sdk.CatalogRuntimeConfiguration = lambda: None
+        sdk.adopt_psycopg_host = lambda connection: Host()
+        sdk.create_reference_assembly = lambda config, host: Ok(Assembly())
+        with patch.dict(sys.modules, {'truss': sdk}), \
+             patch('importlib.metadata.version', return_value='0.0.48'), \
+             patch('ashlar_host.truss_catalog_reader.installed_current_truss_profile',
+                   return_value=CURRENT_048_EVIDENCE_PROFILE):
+            evidence = read_current_catalog_evidence(Connection, batch)
+        self.assertEqual(evidence.truss_version, '0.0.48')
+        self.assertEqual(evidence.runtime_wheel_sha256, CURRENT_TRUSS_048_WHEEL_SHA256)
+        self.assertEqual(evidence.runtime_manifest_sha256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+        self.assertIn("SET LOCAL statement_timeout = '2000ms'", calls)
+        self.assertEqual(calls[-4:], ['dispose', 'detach', 'rollback', 'connection-close'])
+
     def test_selected_historical_revisions_preserve_bytes_and_rollback_catalog_lock_transaction(self):
         calls=[]
         @dataclass

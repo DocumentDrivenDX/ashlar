@@ -66,6 +66,29 @@ def _config_for_targets(backend03,backend02,carrier_profile=None):
 
 
 class ManagedCurrentWeftBindingTests(unittest.TestCase):
+    def test_048_source_version_and_runtime_pin_survive_weft_binding(self):
+        from unittest.mock import patch
+        from ashlar_host.truss_current_catalog import CURRENT_048_EVIDENCE_PROFILE
+        config = _managed_config()
+        with patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                   return_value=CURRENT_048_EVIDENCE_PROFILE):
+            from test_managed_current_core import _current_admission
+            bundle = bind_current_core(_current_admission('0.0.48'), config)
+            request = managed_current_count_star_request(bundle, _inputs(bundle),
+                                                         'SELECT COUNT(*) FROM Person p')
+            self.assertEqual(bundle['profile'], 'ashlar-managed-current-core-binding/0.2')
+            self.assertEqual(bundle['source']['trussVersion'], '0.0.48')
+            self.assertEqual(bundle['source']['catalogEvidenceProfile'], CURRENT_048_EVIDENCE_PROFILE)
+            self.assertEqual(request['interfaceVersion'], 'weft-compile/0.4.1')
+            forged = json.loads(json.dumps(bundle))
+            forged['source']['runtimeProvenance']['runtimeManifestSha256'] = '0' * 64
+            forged.pop('bindingSha256')
+            forged['bindingSha256'] = hashlib.sha256(json.dumps(forged, sort_keys=True,
+                separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+            with self.assertRaises(ValueError):
+                managed_current_count_star_request(forged, _inputs(forged),
+                                                   'SELECT COUNT(*) FROM Person p')
+
     def test_xxhash64_request_binds_new_physical_profile_and_refuses_legacy_manifest(self):
         from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
         from ashlar_host.managed_current_carriers import load_current_managed_carriers

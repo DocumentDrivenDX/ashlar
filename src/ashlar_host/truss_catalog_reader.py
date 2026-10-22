@@ -7,8 +7,9 @@ from ashlar.staging import batch_row
 from .lifecycle import finish
 from .evolution_producer import snapshot
 from .truss_current_catalog import (CURRENT_REPORT_VERSION,
-    CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
+    CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
     CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
+    CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
     CurrentCatalogEvidence,
     installed_current_truss_profile, parse_current_catalog_json, resolve_current_accepted_sources,
     interpret_current_catalog)
@@ -105,7 +106,7 @@ def read_current_catalog_evidence(connection_factory,batch):
     import importlib.metadata
     try:version=importlib.metadata.version('truss-toolkit')
     except importlib.metadata.PackageNotFoundError:raise ValueError('Installed Truss toolkit version required')from None
-    if version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION):
+    if version not in (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
         raise ValueError('Supported current Truss catalog profile required')
     installed_current_truss_profile()
     payload=parse_current_catalog_json(batch.begin)
@@ -137,7 +138,8 @@ def read_current_catalog_evidence(connection_factory,batch):
         if connection.autocommit or connection.info.transaction_status!=0:
             raise ValueError('Fresh ordinary non-autocommit connection required')
         connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED')
-        connection.execute("SET LOCAL statement_timeout = '15000ms'")
+        connection.execute("SET LOCAL statement_timeout = '2000ms'" if version == CURRENT_TRUSS_048_VERSION
+                           else "SET LOCAL statement_timeout = '15000ms'")
         host=adopt_psycopg_host(connection);assembly=None;primary=None
         try:
             tx=value(host.adopt_transaction(),'transaction')
@@ -169,8 +171,10 @@ def read_current_catalog_evidence(connection_factory,batch):
         finish(primary,([assembly.dispose]if assembly is not None else [])+[detach])
         connection.rollback()
     return CurrentCatalogEvidence(version,reports,views,sources,
-        runtime_wheel_sha256=(CURRENT_TRUSS_045_WHEEL_SHA256 if version==CURRENT_TRUSS_045_VERSION else None),
-        runtime_manifest_sha256=(CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256 if version==CURRENT_TRUSS_045_VERSION else None))
+        runtime_wheel_sha256=({CURRENT_TRUSS_045_VERSION:CURRENT_TRUSS_045_WHEEL_SHA256,
+                               CURRENT_TRUSS_048_VERSION:CURRENT_TRUSS_048_WHEEL_SHA256}.get(version)),
+        runtime_manifest_sha256=({CURRENT_TRUSS_045_VERSION:CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256,
+                                  CURRENT_TRUSS_048_VERSION:CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256}.get(version)))
 
 
 def read_graph_catalog_evidence(connection_factory,batch,archives=()):
