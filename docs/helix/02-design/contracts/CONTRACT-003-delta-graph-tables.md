@@ -374,6 +374,22 @@ and complete publication-vector pinning; old and new snapshots cannot be
 silently mixed or reinterpreted. Native storage and pruning evidence is still
 pending, so this subsection is a design proposal rather than a support claim.
 
+For a fresh local-development publication, `0.3` remains the default and
+`0.4-xxhash64` requires explicit selection. Use the pinned UMF six-role fields
+and layout, mapping its publication and attempt roles to the matching local
+coordination handles without replacing authored constraints. A local runtime
+that cannot execute the authored DDL or verify its native schema/protocol MUST
+refuse this profile. Retain the selected profile, UMF resource digest and
+six-role UUID/schema/protocol identities with the installation; continuation
+and resume MUST reopen them and refuse a missing or crossed profile before
+effects. Before protected source ACK, the destination backend MUST re-resolve
+the exact four-role publication vector, reopen its pinned Delta snapshots,
+compare complete row bags and expected schema/protocol, and recompute stored
+64-bit hashes from full typed source/type/ID keys in native Spark SQL. A
+durable publication and its source-retained receipt remain separate from
+source commit. This local gate does not confer Unity Catalog production
+authority, measured file pruning or scale support.
+
 Nullable `apply_batch_id` in current/journal tables permits imported rows while
 keeping coordination distinct from producer history. A selected apply protocol
 must issue and validate unique batch IDs and retain durable receipts. The fence

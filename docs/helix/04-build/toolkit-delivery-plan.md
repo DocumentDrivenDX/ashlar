@@ -225,6 +225,12 @@ exact native identity predicates. Its [same-fixture local sample](evidence/curre
 reduced active Parquet bytes by 68.85% at 1M nodes/5M edges; observed scan
 plans do not prove file pruning. This does not qualify full-scale or managed
 Unity Catalog behavior, and no old SHA-256 receipt is relabeled.
+The next local functional gate is an explicit fresh `0.4-xxhash64` Truss
+publication: ACK the catalog-only genesis page after durable vector and schema
+validation, then publish and ACK its graph-change page after native hash and
+row-bag validation under the same profile and retained source receipt. Keep
+`0.3` as the local default and refuse mixed-profile continuation. This is local
+development evidence only.
 
 The [Truss 0.0.44 lifecycle receipt](evidence/truss-current-native-lifecycle-0.10-20261021/receipt.json)
 now records one real seven-change page, local Delta publication, a matched protected

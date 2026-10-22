@@ -99,6 +99,37 @@ lookup accelerator first; it does not establish production cardinalities for
 the other fields. In the new layout, keep data-skipping statistics to the
 hash and exact identity fields unless a separate query need is measured.
 
+### Selected local development publication path
+
+The first end-to-end qualification will use a fresh, explicitly selected local
+Delta installation. The existing `ashlar-delta/0.3` publisher remains the
+default. Load the pinned UMF 0.10 six-role `ashlar-delta/0.4-xxhash64`
+resource for physical fields, nullability and layout. Its publication and
+attempt control columns match the local coordination fields by name and native
+type; map those UMF roles to the local handles while retaining their authored
+constraints and exact six-role identity. A local path-qualified table must
+retain the authored DDL semantics; an unsupported clustering feature or
+schema/protocol mismatch is a refusal.
+
+Genesis and continuation use the same explicit typed-key hash selection. The
+writer computes stored hashes in Spark SQL; the protected receipt path
+independently recomputes signed values from persisted typed keys for exact row
+comparison.
+Retain the selected profile, UMF resource digest and six table UUID/schema/
+protocol identities with the installation. Resume reopens them and refuses a
+missing or mixed profile before further effects. The protected destination
+receipt path must validate the exact four-role publication vector, reopen its
+pinned Delta versions, compare complete row bags and UMF schema/protocol, and
+recompute stored hashes from full typed keys before source ACK. The current
+local row-bag observer is bounded to small publications; it does not qualify
+the full-size workload.
+
+The small functional sequence publishes and acknowledges the catalog-only
+genesis feed page before applying and publishing the graph-change page. Check
+its retained source receipt and exact no-new-commit replay. This is local
+development source authority only, not managed Unity Catalog, production
+scale or measured physical-pruning evidence.
+
 ## Bounded acceptance before adoption
 
 Use one identical, finite canonical node/edge corpus for the SHA-256 and
@@ -134,8 +165,9 @@ from a small comparison. The full run remains held under the owner's
 
 ## Open points
 
-The exact UMF extension/profile name and generated resource revision are
-assigned when UMF authors the carrier. The selected Databricks runtime must
-confirm the built-in SQL behavior, schema type, signed output, clustering and
+The selected UMF 0.10 six-role resource is pinned for the new profile. Native
+local DDL execution and protocol admission remain qualification gates. The
+selected Databricks runtime must confirm the built-in SQL behavior, schema
+type, signed output, clustering and
 data-skipping support. This draft does not approve a migration or assert a
 storage, latency or collision-free guarantee.
