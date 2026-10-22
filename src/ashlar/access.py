@@ -41,6 +41,17 @@ from umf_access.types import MISSING
 
 P=TypeVar('P',bound=BaseModel);R=TypeVar('R',bound=BaseModel)
 
+_MANAGED_PAGE_TARGETS={
+    ('ashlar.databricks.managed-uc-spark',
+     '0.1.0-managed-current-core-pages-candidate',
+     'ashlar-managed-current-core/0.1'):
+        ('ashlar-delta/0.3',None),
+    ('ashlar.databricks.managed-uc-spark-xxhash64',
+     '0.2.0-managed-current-core-xxhash64-pages-candidate',
+     'ashlar-managed-current-core/0.2-xxhash64'):
+        ('ashlar-delta/0.4-xxhash64','spark-xxhash64-typed-key/0.1'),
+}
+
 def _parameter(value):
     if type(value)is str:return {'family':'string','value':value}
     if type(value)is bool:return {'family':'boolean','value':'true' if value else 'false'}
@@ -184,11 +195,19 @@ class AshlarTarget:
                     raise ValueError('Original page compiler targets required')
                 target=entry.artifact()['request']['target']
                 backend_id=target.get('backendId')
-                managed=(backend_id=='ashlar.databricks.managed-uc-spark'
-                    and target.get('backendVersion')=='0.1.0-managed-current-core-pages-candidate'
-                    and target.get('targetProfile')=='ashlar-managed-current-core/0.1')
+                target_identity=(backend_id,target.get('backendVersion'),target.get('targetProfile'))
+                managed_profile=_MANAGED_PAGE_TARGETS.get(target_identity)
+                managed=managed_profile is not None
                 if (backend_id!='ashlar.databricks' and not managed) or target.get('bindingSha256')!=binding_sha256 or hashlib.sha256(target.get('bindingJson','').encode()).hexdigest()!=binding_sha256:
                     raise ValueError('Complete original Ashlar page binding required')
+                if managed:
+                    carrier_profile,lookup_hash_profile=managed_profile
+                    binding=program_json(target['bindingJson'])
+                    if (carrier_profile not in self.supported_profiles
+                            or type(binding)is not dict
+                            or binding.get('layoutRevision')!=carrier_profile
+                            or binding.get('lookupHashProfile')!=lookup_hash_profile):
+                        raise ValueError('Managed page target and physical carrier profile differ')
                 targets.append(target)
             if any(target!=targets[0]for target in targets[1:]):raise ValueError('Mixed original page targets refuse')
             self.native_target_json=canonical_json(targets[0])
