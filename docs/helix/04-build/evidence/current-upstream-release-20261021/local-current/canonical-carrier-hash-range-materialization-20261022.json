@@ -1,0 +1,153 @@
+{
+  "completed_stage_seconds": {
+    "create_edge_current": 0.7738296249881387,
+    "create_object_current": 3.6116698749829084,
+    "elapsed_to_postprocess_failure": 83.0022382090101,
+    "failure_message": "",
+    "failure_stage": "point-lookup-edge_current-224999999",
+    "failure_type": "StopIteration",
+    "four_point_lookups": 1.1393122909939848,
+    "inspect_edge_current": 1.1945607499801554,
+    "inspect_object_current": 0.7663266670424491,
+    "wheel_admission_and_runtime_startup": 6.80288841703441,
+    "write_edge_current": 53.70846654201159,
+    "write_object_current": 14.8504026249866
+  },
+  "fixture": {
+    "hash": "spark-xxhash64-typed-key/0.1",
+    "materialization": "One write per role: repartitionByRange(18, lookup_hash), then sortWithinPartitions(lookup_hash), then Delta append. No second copy or OPTIMIZE.",
+    "profile": "ashlar-delta/0.4-xxhash64",
+    "rows": {
+      "edge_current": 225000000,
+      "object_current": 45000000
+    },
+    "values": "Same deterministic synthetic values as the sequential-ID calibration; source_position=id and source_delivery_id=decimal string(id). These fields do not represent accepted Truss/source-feed values."
+  },
+  "layout_comparison": {
+    "active_bytes_ratio_hash_range_over_sequential": 2.5070444745130525,
+    "hash_range_active_parquet_bytes": 7677204744,
+    "hash_range_materialization_seconds_writes": 68.55886916699819,
+    "hash_range_stats_and_runtime": "Hash-range AddFile stats admitted one candidate per tested exact point; actual Spark FileScan metrics reported numFiles=1 for all four point reads. This is local synthetic evidence only.",
+    "interpretation": "Reject repartitionByRange(hash) plus sortWithinPartitions(hash) as the initial-materialization default for this carrier/value fixture: it narrowed point scans but increased writes and active bytes materially. Sorting rows by random hash destroyed locality/compression in other columns. This does not establish costs for actual source data.",
+    "prior_active_parquet_bytes": 3062253112,
+    "prior_sequential_id_materialization_seconds_writes": 38.98089,
+    "prior_stats_candidate_files": "Hash-only admitted 18/18 files; full tuple admitted 1/18 due sequential ID min/max. Stats candidate evidence only.",
+    "write_time_ratio_hash_range_over_sequential": 1.75878152517806
+  },
+  "next_design_candidate": {
+    "limits": "Hash-range partition membership does not guarantee query pruning or production liquid-clustering behavior. Production source-feed cardinality and opaque delivery identifiers remain unrepresented.",
+    "proposal": "Keep the single hash-range repartition so each file has a narrow lookup_hash range, but sortWithinPartitions by the canonical full identity tuple (source_system,type_id,id for nodes; source_system,rel_type_id,id for edges). This preserves exact identity and hash-based file membership while testing whether tuple row order recovers compression in identity-derived and payload columns.",
+    "status": "Static proposal only; not implemented or executed. Must compare the same row counts with actual per-file min/max, per-column bytes, write times, and the same bounded point reads before considering it further."
+  },
+  "outcome": "Both Delta writes, footer checks, and four bounded exact point reads completed. Process exited 1 during only the final receipt projection: it searched for a stage named runtime-startup although startup was recorded with reviewed-wheel-admission. Original failure receipt is retained and intentionally not converted into a success receipt.",
+  "point_reads": [
+    {
+      "expected_hash": 7686581330353470147,
+      "identity": 0,
+      "observed_filesSize_bytes": 57574787,
+      "observed_numFiles": 1,
+      "observed_scanTime_ms": 104,
+      "result_rows": 1,
+      "role": "object_current",
+      "seconds": 0.605620332993567,
+      "stored_hash": 7686581330353470147
+    },
+    {
+      "expected_hash": 4156874144773143263,
+      "identity": 44999999,
+      "observed_filesSize_bytes": 70153571,
+      "observed_numFiles": 1,
+      "observed_scanTime_ms": 39,
+      "result_rows": 1,
+      "role": "object_current",
+      "seconds": 0.18253358401125297,
+      "stored_hash": 4156874144773143263
+    },
+    {
+      "expected_hash": 7686581330353470147,
+      "identity": 0,
+      "observed_filesSize_bytes": 365013830,
+      "observed_numFiles": 1,
+      "observed_scanTime_ms": 39,
+      "result_rows": 1,
+      "role": "edge_current",
+      "seconds": 0.20244866597931832,
+      "stored_hash": 7686581330353470147
+    },
+    {
+      "expected_hash": -141394084489543850,
+      "identity": 224999999,
+      "observed_filesSize_bytes": 336706994,
+      "observed_numFiles": 1,
+      "observed_scanTime_ms": 36,
+      "result_rows": 1,
+      "role": "edge_current",
+      "seconds": 0.1487097080098465,
+      "stored_hash": -141394084489543850
+    }
+  ],
+  "private_receipt_sha256": "a1d40c2f9a393814582cbc22f73d22d73a6d339bf729424f327f3140e899e6ee",
+  "profile": "ashlar-current-carrier-hash-range-materialization/0.1",
+  "projection_arithmetic_only": {
+    "basis": "The new measured hash-range write rates, target of 80% measured throughput, and six billion rows; excludes fixed startup and all reads/engine/publication work.",
+    "five_billion_edges_write_seconds_at_80_percent": 1491.9018483892107,
+    "one_billion_nodes_write_seconds_at_80_percent": 412.51118402740553,
+    "six_billion_rows_active_parquet_GB_linear_arithmetic": 170.60454986666664,
+    "status": "Not a full-scale forecast or capacity bound; full run remains held."
+  },
+  "scope_limits": [
+    "No publication, ACK, resolver, graph engine, accepted Truss feed, or full-scale execution.",
+    "Process failure is preserved; this packet records completed components, not a successful runner exit.",
+    "No further native run was started."
+  ],
+  "source": {
+    "carrier_profile_origin_commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "codec_observed": "ZSTD",
+    "delta": "4.4.1",
+    "driver_heap_bytes": 25769803776,
+    "executed_runner_sha256": "0051d65c9ed2ef0e8bb4253823e8147cdffe86f15bfe099a020c0fbe37c23ec7",
+    "generated_carrier_ddl_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "jdk": "21.0.13",
+    "master": "local[18]",
+    "python": "3.12.14",
+    "runner_source_commit": "e51718bd8c472d92b9212168088750533f17faee",
+    "selected_wheel_sha256": "f02e7c436066e91d1ace27cd7cb2553e35d98647616c9c8320a0285362f48df0",
+    "spark": "4.2.0"
+  },
+  "status": "partial_native_workload_postprocessing_failed",
+  "tables": [
+    {
+      "active_parquet_bytes": 1163642652,
+      "compressed_column_chunk_bytes": {
+        "id": 178356672,
+        "lookup_hash": 335661328,
+        "props_json": 260517793,
+        "source_delivery_id": 207955651,
+        "source_position": 178356672
+      },
+      "parquet_codec": [
+        "ZSTD"
+      ],
+      "parquet_files": 18,
+      "role": "object_current",
+      "rows_from_parquet_footers": 45000000
+    },
+    {
+      "active_parquet_bytes": 6513562092,
+      "compressed_column_chunk_bytes": {
+        "id": 973741423,
+        "lookup_hash": 1641068702,
+        "source_delivery_id": 1125791348,
+        "source_id": 891823341,
+        "source_position": 973741423,
+        "target_id": 891820187
+      },
+      "parquet_codec": [
+        "ZSTD"
+      ],
+      "parquet_files": 18,
+      "role": "edge_current",
+      "rows_from_parquet_footers": 225000000
+    }
+  ]
+}
