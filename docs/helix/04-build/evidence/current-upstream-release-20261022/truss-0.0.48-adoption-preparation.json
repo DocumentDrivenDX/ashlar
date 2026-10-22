@@ -1,6 +1,6 @@
 {
   "profile": "ashlar-truss-current-catalog-evidence/0.3-candidate",
-  "status": "offline adoption preparation only; no Ashlar support pass claimed",
+  "status": "One bounded native source-acceptance attempt failed before registration; offline public preparation passes with the corrected embedded runtime payload. Sol accepted the separately pinned r4 worker; native follow-up awaits a separate slot decision. No Ashlar support pass claimed.",
   "release": {
     "tag": "v0.0.48",
     "source_commit": "8e89a068bcb68f1e631388ddc59bc97da748563d",
@@ -38,8 +38,8 @@
       "psycopg": "3.3.6",
       "mini_racer": "0.14.1"
     },
-    "dependency_resolution": "The fresh venv contains the exact versions in the release's runtime constraints, sourced from already retained local candidate assets; pip check passed. No Weft distribution was copied or installed.",
-    "effect_free_import": "Installed Truss version, direct wheel origin, embedded manifest digest, and public protocol signatures inspected; no PostgreSQL process or database was started."
+    "dependency_resolution": "The original venv metadata and pip check reported the exact pinned versions, but the first native attempt showed that mini-racer 0.14.1 package payload files were missing despite its dist-info metadata. A new isolated profile installed the exact pinned wheel and verified all hashed py_mini_racer payload files against RECORD; pip check passed.",
+    "effect_free_import": "The initial effect-free import checked Truss version, wheel origin, embedded manifest and public signatures but did not import py_mini_racer or verify package RECORD payloads. The subsequent offline preparation probe verified the module import and full hashed package payload."
   },
   "compatibility_observations": {
     "catalog_interfaces": {
@@ -63,15 +63,17 @@
     "migration": "The release is latest-only and declares migration runtime 0.1, UMF 0.10-only, and explicit source-manifest pins. This preparation does not run or qualify migration. Use a fresh isolated 0.0.48 host for the first source-acceptance check; preserve the accepted 0.0.45 source and evidence unchanged."
   },
   "minimum_next_native_check": {
-    "purpose": "Qualify only a fresh accepted UMF 0.10 source and complete public catalog readback under the exact 0.0.48 wheel and manifest.",
+    "purpose": "After Sol review of a fresh worker that prepares the original UMF 0.10 source before starting PostgreSQL, qualify only a fresh accepted source and complete public catalog readback under the exact 0.0.48 wheel and manifest. The retained prior native attempt failed before source acceptance.",
     "offline_inputs_first": [
-      "Freeze source document bytes, revision, artifact identity, source hash, UMF 0.10.0 declaration, and original accepted-source origin.",
-      "Prepare once through public prepare_catalog(..., source_version='0.10.0') and retain the complete prepared request and digest.",
-      "Freeze a new request key, owner-controlled source ID, expected initial catalog state, and exact public method sequence. Never reuse the 0.0.45 seed or registration request."
+      "Preserve the failed 0.0.48 native attempt and the incomplete runtime profile unchanged.",
+      "Use the exact retained mini-racer 0.14.1 macOS arm64 wheel in a fresh isolated profile; verify the py_mini_racer import and every hashed package payload against wheel RECORD.",
+      "Run public prepare_catalog(..., source_version=\"0.10.0\") offline under the unchanged packaged 10-second preparation deadline and freeze the prepared AcceptanceInput, report evidence, provenance and digests.",
+      "The eventual acceptance worker must freshly prepare in the same process before LocalPostgres starts, compare the frozen prepared digests, and pass that same live PreparedAcceptance object to accept_in_transaction. Do not deserialize or reconstruct it from private bytes.",
+      "Keep the source document bytes, revision, artifact identity, origin, new request key and expected initial catalog state pinned."
     ],
     "single_owned_native_attempt": [
-      "After the Truss owner confirms a quiet native window, start one fresh, isolated local PostgreSQL 18.6 host in an owner-named, bounded private temporary directory using the exact 0.0.48 [local,native] profile; do not migrate or reuse the 0.0.45 database. Record PostgreSQL installation/port/data-directory custody and require one server instance.",
-      "Read initial status; perform one public accept_in_transaction call with the frozen preparation, new request key, expected revision, and expected document set.",
+      "Only after Sol reviews the fresh worker and the Truss owner confirms a quiet native window, start one fresh isolated local PostgreSQL 18.6 host in a new private attempt directory using the exact 0.0.48 [local,native] profile. Do not reuse the failed host or the 0.0.45 database.",
+      "The worker must complete and verify source preparation before PG startup, then make one public accept_in_transaction call with the same live prepared object, a fresh request key, expected revision, and expected document set.",
       "After commit, use read-only status_in_transaction, report_in_transaction, accepted_document_in_transaction, and catalog_view_in_transaction to verify the accepted document, report, source bytes, catalog revision, and complete view.",
       "Retain a bounded private receipt with source/readback digests and typed outcomes. Stop the host and verify process termination; preserve the bounded private data directory and exact receipt through review, then remove only this attempt-owned directory under an explicit owner cleanup step. Stop before object or edge creation, feed, publication, destination, query, ACK, or source migration."
     ],
@@ -89,9 +91,118 @@
       "storage_and_cleanup": "Preflight a fresh owner-named private directory with at least 1 GiB free and a monitored 1 GiB directory ceiling, unique socket/port and exact owner. Record startup and stop markers; stop if the ceiling is approached. Retain the stopped directory and bounded receipt through outcome review, then remove only this attempt-owned temporary storage under an explicit owner cleanup step."
     },
     "not_yet_authorized_or_established": [
-      "No source acceptance or catalog write has been performed for 0.0.48.",
+      "The failed native attempt installed the fresh Truss runtime, but did not call accept_in_transaction and produced no source registration or accepted source.",
       "No source migration, graph create/seed, feed, publication, destination, query, ACK, or platform support claim is established.",
-      "The 0.0.48 release's native platform declaration is linux-x86_64; a macOS attempt would remain platform-limited evidence and would not establish official macOS support."
+      "The 0.0.48 release native platform declaration is linux-x86_64; a macOS attempt remains limited local evidence and does not establish official macOS support."
     ]
+  },
+  "observed_native_attempt": {
+    "attempt_id": "truss048-source-acceptance-attempt-01-r3",
+    "status": "failed_before_source_acceptance",
+    "environment": {
+      "platform": "macOS 27.0.1 arm64",
+      "python": "3.11.17",
+      "truss_version": "0.0.48",
+      "truss_wheel_sha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+      "runtime_manifest_sha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "postgres_profile": "local PostgreSQL 18.6; fresh attempt-owned installation"
+    },
+    "source_request": {
+      "document_id": "ashlar-current-045-lifecycle-20261021",
+      "document_revision": "ashlar-current-045-lifecycle-r1",
+      "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+      "origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+      "request_key": "ashlar-current-048-source-acceptance-attempt-01-r3",
+      "request_sha256": "b431ae097b3aa06f1908233d1c27114411a9ba7606a7b35e2aaf460712f41a32"
+    },
+    "sequence": [
+      "Fresh Truss runtime installation committed in the isolated PostgreSQL database.",
+      "Public prepare_catalog(..., source_version=\"0.10.0\") raised PreparationRejected(reason=\"runtime_unavailable\") before accept_in_transaction.",
+      "PostgreSQL stopped cleanly; postmaster marker absent and owner process inventory empty."
+    ],
+    "failure": {
+      "public_exception": "PreparationRejected",
+      "public_reason": "runtime_unavailable",
+      "underlying_cause": "OSError: Qualified embedded engine unavailable, caused by ModuleNotFoundError: No module named py_mini_racer.",
+      "runtime_payload_observation": "The mini-racer 0.14.1 dist-info metadata existed, but the py_mini_racer package directory and required import payload were absent from the installed venv. Version metadata and pip check had not detected the missing payload.",
+      "configured_bun": "The frozen Bun executable existed and was executable, but Truss 0.0.48 preparation used the embedded-v8 path and failed on the missing Python module.",
+      "preparation_deadline_seconds": 10,
+      "classification": "Local environment payload failure before source acceptance; not a catalog semantic rejection, timeout, or established upstream defect.",
+      "retry": "No automatic retry or repeated native attempt.",
+      "offline_reproduction_elapsed_seconds": 0.002
+    },
+    "supervisor": {
+      "exit_code": 1,
+      "elapsed_seconds": 8.519,
+      "attempt_tree_bytes": 46608851,
+      "attempt_tree_limit_bytes": 1073741824,
+      "catalog_statement_timeout_ms": 2000,
+      "host_statement_timeout_ms": 2000,
+      "host_operation_timeout_ms": 5000,
+      "automatic_retries": 0,
+      "cleanup_status": "postmaster_pid_absent"
+    },
+    "private_evidence_sha256": {
+      "config": "aefc2733d4eca596a8d2274db0b564328fe46cd78701fc498dc8abc99c84e805",
+      "attempt_pins": "c729135944a0872756207ce62d7c1b863c625651a342c636f28b4544c48f0d2a",
+      "failure_receipt": "22f5ee3a10f6b4a56a35697cec26d4198c901fc4ab9a4d139d3766477c4ba530",
+      "worker_stderr": "f8c70487e2e30cc822705f1b48623c0fac1957c52ce98a9895307a588b43ca34",
+      "supervisor_receipt": "8cfe1b5d0bce31477e03461a69fd33b6c466fa5aa8524910f9b5426c22043993"
+    }
+  },
+  "offline_preparation_recovery": {
+    "attempt_id": "truss048-preparation-probe-02",
+    "status": "public_preparation_passed_offline",
+    "scope": "One public prepare_catalog call only. No PostgreSQL start, catalog install/acceptance, writes, migration, graph mutation, feed, ACK, or destination.",
+    "runtime_profile": "Fresh isolated profile containing exact Truss 0.0.48 and mini-racer 0.14.1 macOS arm64 wheels; other pinned dependency packages are read through the retained immutable venv.",
+    "mini_racer_wheel_sha256": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+    "payload_verification": "All 13 hashed non-pycache py_mini_racer files present and matching the installed wheel RECORD; py_mini_racer imported under python -I -B; pip check passed; Weft query extra remains absent.",
+    "preparation_deadline_seconds": 10,
+    "elapsed_seconds": 0.689255,
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "prepared_acceptance_input_sha256": "516ac248ca2ea05765b935cea998a98e747971a788c8d07af324e2af88e682e2",
+    "prepared_report_evidence_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "prepared_source_observation_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "preparation_provenance": {
+      "runtime_version": "mini-racer==0.14.1/V8 14.4.258.23",
+      "owner_revision": "b24e07abae445414c41d2f122deae596915c6bd5",
+      "owner_bundle_sha256": "0335643fd700df1eafedb88e6104d532096aa74c6081f8d96372d2779a4d34fd",
+      "acceptance_schema_sha256": "0278cbbbde843091c005b688fd9c081a2fdff843b9adda006ba80fb87828d7cd",
+      "release_manifest_sha256": "dec0c0af9fc135226538db4db99a52a7d31ddf993203b2525123e46822f09b34",
+      "scope": "original_umf_preparation_only",
+      "installation_profiles_verified": false
+    },
+    "private_probe_receipt_sha256": "42886c89fa3c7aaab83f77ac422f625ddba0b0b2a2e4f1d4525a912ed00c1e77",
+    "next_gate": "A reviewed fresh source-acceptance worker must repeat preparation before starting PostgreSQL, compare these frozen digests, and retain/pass the same live PreparedAcceptance object into acceptance."
+  },
+  "r4_worker_preparation": {
+    "attempt_id": "truss048-source-acceptance-attempt-01-r4",
+    "status": "effect-free preflight passed; Sol review accepted the exact worker and pins; native execution held for a separate slot decision",
+    "request_key": "ashlar-current-048-source-acceptance-attempt-01-r4",
+    "runtime_profile": "Fresh Truss 0.0.48 and mini-racer 0.14.1 venv; other pinned runtime dependencies are read through the retained immutable venv, so this is not a fully hermetic dependency closure.",
+    "execution_order": "The worker calls public prepare_catalog with source_version=0.10.0 before it constructs or starts LocalPostgres; it verifies the frozen prepared input, report, observation and provenance digests, then passes that same live PreparedAcceptance object to accept_in_transaction.",
+    "prepared_acceptance_input_sha256": "516ac248ca2ea05765b935cea998a98e747971a788c8d07af324e2af88e682e2",
+    "prepared_report_evidence_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "prepared_source_observation_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "worker_sha256": "c2fe0a3e1cac9099c2407eb2cfbd26df89f2588e100157597699053a9798cc86",
+    "supervisor_sha256": "24330930218017182c5302d1172336e77ddc365479022c9c9eb19f8943d2958a",
+    "config_sha256": "5db745506fff5b60971638ed7aad779fae8d97bae31e82b8f5e316726a85b88b",
+    "request_sha256": "6b301f439ddfa061616af7e3fe5889b56e0d53d2e9763dd9bbd9b1538a8b7b1d",
+    "attempt_pins_sha256": "2ddf998e13c868058b9daa1b1a62d8990e1bc1642f9cfe221328f252039b3e03",
+    "preflight_receipt_sha256": "f326a50bd84d8c2eac86f7bd955cd1877c63ea684f57c20dedb4633ba72f4c38",
+    "resource_bounds": {
+      "catalog_statement_timeout_ms": 2000,
+      "host_statement_timeout_ms": 2000,
+      "host_operation_timeout_ms": 5000,
+      "outer_deadline_seconds": 600,
+      "attempt_storage_bytes": 1073741824,
+      "automatic_retries": 0,
+      "preparation_deadline_seconds": 10
+    },
+    "approval_marker_present": false,
+    "pgdata_present": false,
+    "native_execution_started": false,
+    "next_gate": "Sol review is complete. A separate root/owner quiet-window and native slot GO is required before any native start."
   }
 }

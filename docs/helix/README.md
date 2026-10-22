@@ -32,6 +32,11 @@ and a [settlement pass on the evolved publication](04-build/evidence/truss22-com
 These use local Spark/Delta and indexed Weft 0.4.2; broader models, runtimes,
 managed Unity Catalog and production authority require separate evidence. A blocked external engine or Truss source
 affects its own lane.
+The current Truss 0.0.48 source-acceptance attempt failed before registration because its
+initial candidate venv lacked the embedded `py_mini_racer` payload. A fresh offline
+preparation profile now passes; Sol accepted the r4 worker, while native
+follow-up awaits a separate slot decision. See the
+[0.0.48 evidence](04-build/evidence/current-upstream-release-20261022/truss-0.0.48-adoption-preparation.json).
 
 The current configured-local profile is a macOS arm64/Python 3.12 candidate on
 Spark 4.2.0, Delta 4.4.1 and JDK 21. Its bounded evidence includes grouped
