@@ -503,10 +503,13 @@ ordinary source session and protected ACK scope. A/B are workflow labels only;
 the native source identities MUST remain distinct even where local entity IDs,
 revision numbers or feed positions overlap.
 
-After actual Truss catalog acceptance, all eight original mutation request
-bytes and digests, source assignments, accepted model/schema pins, source and
-ACK identities, and independently expected values and progress MUST be frozen
-before the first native publication attempt. The immutable schedule MUST be
+After actual Truss catalog acceptance, the exact canonical bytes and digest of
+the complete eight-slot semantic schedule, source assignments, accepted
+model/schema pins, source and ACK identities, and independently expected values
+and progress MUST be frozen before the first native publication attempt. Each
+slot's exact original mutation-request bytes and digest MUST be resolved from
+verified predecessor results and durably bound to that schedule digest before
+that slot's source mutation. The immutable schedule and slot records MUST be
 retained with the new installation's journal and complete table UUID registry.
 At each ACK-gated slot, the actual complete feed page, prior and next cursor,
 writer position, event-byte inventory and digest MUST be bound to its frozen
@@ -520,18 +523,18 @@ The owner approved this staged feed-binding rule on 2026-10-21 because Truss
 checkpoint, while the public feed query requires that checkpoint; it provides
 no future-page cursor argument. The observed API constraint and unchanged feed
 SQL digest are recorded in the [Truss source comparison](../../04-build/evidence/truss-current-native-lifecycle-0.10-20261021/truss-0.0.45-source-comparison.json).
-This decision approves only the timing of feed-page binding; it does not adopt
-the broader draft contract or establish R04 execution evidence.
+That 2026-10-21 decision approves only staged feed-page binding and does not
+establish R04 execution evidence.
 
-#### Proposed R04 slot-by-slot request freeze (owner decision pending)
+#### Approved R04 slot-by-slot request freeze
 
-**PROPOSED; not approved and not normative.** If adopted, this amendment would
-replace only the requirement above that all eight exact mutation-request byte
-strings exist before the first R04 publication attempt. It preserves the
-eight-slot schedule and its same-entity lifecycle: within each source, R1
-creates the selected entity, R2 updates that entity, and R3 deletes that same
-entity. The schedule MUST NOT substitute an unrelated pre-R04 seed entity for
-that R1-created target.
+**Owner decision, 2026-10-23:** approved this request-freeze timing amendment
+for R04. It changes only when exact request bytes are frozen; the separate
+2026-10-21 decision approving staged feed-page binding remains in force. This
+decision does not authorize R04 execution or establish execution evidence.
+Within each source, R1 creates the selected entity, R2 updates that entity, and
+R3 deletes that same entity. The schedule MUST NOT substitute an unrelated
+pre-R04 seed entity for that R1-created target.
 
 Before the first R04 publication attempt, the caller MUST freeze one immutable
 closed semantic schedule for all eight slots: ordered operations, A/B source
@@ -540,9 +543,8 @@ symbolic references from each R1-created entity to its R2/R3 operations,
 expected state transitions, independent source and ACK identities, and the
 complete prefix-oracle rules. A symbolic reference records the intended
 lineage; it is not a guessed provider ID and cannot authorize source or graph
-effects.
-The exact canonical schedule bytes and their digest MUST be retained before
-the first R04 publication attempt; this digest is the immutable schedule
+effects. The exact canonical schedule bytes and their digest MUST be retained
+before the first R04 publication attempt; this digest is the immutable schedule
 identity used by every later slot record.
 
 For each slot, the exact original Truss mutation-request bytes and digest MUST
@@ -550,9 +552,9 @@ be frozen and durably joined to that slot and the frozen semantic-schedule
 digest before invoking the public source mutation API for that slot. The
 immutable slot record MUST bind the schedule digest, slot and source identities,
 resolved predecessor identities, exact request bytes, and request digest. R1
-request bytes are frozen before R1. After a
-committed R1 returns its provider-assigned identities, the caller MUST verify
-its original public result and readback; only then may it resolve the frozen
+request bytes are frozen before R1. After a committed R1 returns its
+provider-assigned identities, the caller MUST verify its original public
+result and readback; only then may it resolve the frozen
 symbolic references and freeze R2's exact request bytes, before R2's source
 effect. R3 follows the same rule using the verified R2 result and readback.
 Apply the rule independently to B. A missing or mismatched result, identity,

@@ -451,6 +451,33 @@ sequential local[1]/512MiB. Retain exact source/package/runtime/input/command pi
 and phase outcomes; source-only or prior same-process tool evidence does not
 qualify installed fresh-process recovery.
 
+## Fresh current-core R04 staged request conformance
+
+For the separately versioned current-core 0.10 A/B profile in CONTRACT-001/003,
+freeze the exact canonical eight-slot semantic-schedule bytes and digest, source
+assignments, accepted model/schema pins, expected transitions and independent
+prefix oracle before the first native publication. Preserve same-entity R1 create,
+R2 update and R3 delete lineage within each source. Do not substitute unrelated
+pre-R04 identities.
+
+Resolve provider-assigned identities only from the predecessor slot's committed
+public result and readback. Before each source mutation, durably bind that slot's
+exact original request bytes and digest, slot/source identities and resolved
+predecessor identities to the frozen schedule digest. Exercise the order
+A1, B1, A2, B2, A3, B3, A4, B4; a slot cannot mutate its source until the prior
+slot's graph publication, independent complete-vector/source-progress
+verification and protected ACK have durably completed. A failed or uncertain
+predecessor must stop every later source mutation.
+
+For each admitted slot, bind the actual complete feed page and cursor/writer
+positions to its frozen request before graph effects; publish and independently
+verify the complete vector before ACKing only that source. Refuse changed schedule
+or request bytes, mismatched provider identity/readback, changed semantic state,
+an unrelated page, or a failed predecessor before the next source effect. Retain
+the immutable schedule and per-slot request/result/page records for restart and
+independent review. Contract and compiler checks alone do not qualify native
+publication, source ACK or R04 completion.
+
 ## Installed Truss preparation-only controls
 
 Exercise TD-004 and CONTRACT-005 through the installed public preparation

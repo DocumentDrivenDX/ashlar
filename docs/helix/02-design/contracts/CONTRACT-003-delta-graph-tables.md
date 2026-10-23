@@ -1683,27 +1683,31 @@ scalar/presence meaning. Ashlar MAY define graph-specific meaning only in an
 explicit versioned extension. Physical carrier limits MUST be applied after
 public UMF admission, never treated as a second schema interpretation.
 
-The fresh eight-slot A/B request schedule is an exact immutable input to this
-profile. After actual catalog acceptance, all eight original mutation request
-bytes, source assignments, model pins and independent expected values MUST be
-frozen before the first native graph publication attempt. Each slot's actual
-complete Truss feed page, writer position, event bytes and prior/next cursor
-MUST then be bound to that frozen request before the slot's graph effects or
-source ACK, as governed by CONTRACT-001. No ordinal payload or expected value
-is specified here until actual source acceptance. Each source MUST retain its
-independent installation, feed, epoch, namespace and ACK scope, so overlapping
-local node or edge IDs remain distinct. The owner approved this staged
-feed-binding rule on 2026-10-21; the broader draft contract remains unapproved.
+The fresh eight-slot A/B semantic schedule is an exact immutable input to this
+profile. After actual catalog acceptance, its exact canonical bytes and digest,
+source assignments, model pins and independent expected values MUST be frozen
+before the first native graph publication attempt. Each slot's exact original
+mutation-request bytes and digest MUST be resolved from verified predecessor
+results and durably bound to that schedule digest before that slot's source
+mutation. Each slot's actual complete Truss feed page, writer position, event
+bytes and prior/next cursor MUST then be bound to its frozen request before the
+slot's graph effects or source ACK, as governed by CONTRACT-001. No ordinal
+payload or expected value is specified here until actual source acceptance.
+Each source MUST retain its independent installation, feed, epoch, namespace
+and ACK scope, so overlapping local node or edge IDs remain distinct. The owner
+approved staged feed-page binding on 2026-10-21; its approval is preserved
+separately from the R04 request-freeze timing decision below.
 Every prefix MUST materialize complete current nodes and
 independent edges, history, tombstones, schema revision and both source progress
 entries under one immutable complete publication vector. An independent oracle
 MUST compare all original values, presence and multiplicity, not derive expected
 results from SQL or current native rows.
 
-**PROPOSED R04 timing amendment; owner decision pending, not normative.** If
-adopted, replace only the clause requiring all eight exact mutation-request
-bytes before the first publication attempt with the slot-by-slot freeze in
-[CONTRACT-001](CONTRACT-001-publication-boundary.md#proposed-r04-slot-by-slot-request-freeze-owner-decision-pending).
+**Owner decision, 2026-10-23:** the R04 request-freeze timing amendment in
+[CONTRACT-001](CONTRACT-001-publication-boundary.md#approved-r04-slot-by-slot-request-freeze)
+is approved and normative for this profile's request-freeze timing only. Other
+requirements for the proposed profile retain their existing status. The decision
+does not authorize R04 execution or establish execution evidence.
 Before the first publication, freeze the complete eight-slot semantic schedule
 and independent prefix oracle, including the same-entity lineage in which each
 source's R1 creates the entity targeted by its R2 update and R3 delete. Do not
@@ -1721,10 +1725,10 @@ and source-progress verification, and protected ACK have durably completed. A
 failed or uncertain predecessor stops all later source mutations. Keep each
 actual feed page bound to its frozen request before its graph effects, and
 retain independent publication verification before source-specific ACK. This
-changes request-byte freeze timing only; it does not authorize committing later
-source slots early, reading future pages, inferring IDs, or changing the already
-approved staged feed-binding rule. It does not authorize source mutations,
-publication, or ACK.
+timing rule does not authorize committing later source slots early,
+reading future pages, inferring IDs, or changing the already approved staged
+feed-binding rule. It does not authorize R04 execution or establish execution
+evidence.
 
 Every older retained publication MUST read its original complete vector or
 refuse under an explicit retention boundary. Replay/restart MUST preserve the
