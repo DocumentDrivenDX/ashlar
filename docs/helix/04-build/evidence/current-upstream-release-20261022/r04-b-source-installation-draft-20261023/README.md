@@ -55,6 +55,17 @@ registration call are the available evidence. Any commit uncertainty ends the
 attempt and retains PGDATA. Neither file enables feed reads, destination
 actions, or ACK.
 
+The [original-source acceptance proposal](b-original-source-acceptance-proposal-20261023.json)
+binds the retained 4,100-byte original UMF source, exact 141-byte unapproved
+origin candidate, attempt-02 runtime/lock receipts, prepared evidence, and
+candidate B config/roles/paths into one inert review packet. It explicitly
+excludes the separate R4 model draft from source acceptance. The proposal
+does not authorize execution: source/origin authority, shared-slot release,
+approved bounds, retention custody, and independent review remain open. The
+candidate acceptance sequence requires full source/report/view readback,
+one genesis consumer registration, and PGDATA retention on uncertainty; it
+records that Truss has no independent consumer-registration readback.
+
 ## Purpose and boundary
 
 Prepare a distinct local Truss 0.0.49 / UMF core 0.10.0 B installation for the R04 eight-slot schedule. B must have independently accepted source bytes, catalog revision/report/view, provider-assigned installation and source identities, source epoch/namespace, consumer registration, feed, and protected destination receipt scope. B must not reuse, relabel, re-register, or advance A's consumer or ACK. A's current retained Truss 0.0.48 migration/resume and pending R03 genesis/ACK/seed readback are separate dependencies and remain untouched.

@@ -30,23 +30,38 @@ ZSTD writer and its profile remain unchanged. It does not qualify Unity Catalog,
 production authority, source/publication/ACK behavior, or the few-minute
 end-to-end target.
 
-Official Delta Kernel documentation describes appending existing-table data by
-obtaining a snapshot and transaction, writing Parquet through an engine, registering
-file metadata with `add_files`, and committing. The API collects statistics and
-performs the Delta transaction; the connector does not handcraft log actions.
-Its Arrow default engine and current table-creation documentation describe
-`appendOnly`, `invariants`, `domainMetadata`, and a `clusteredTable` feature.
-The retained Ashlar edge-table receipt instead names the writer feature
-`clustering`. These names must not be treated as equivalent. This is a plausible
-investigation path, not proof that a particular Kernel release admits Ashlar's
-exact generated table and feature combination. Exact protocol and feature
-compatibility is a hard pre-write gate.
+### Bounded protocol/API finding (2026-10-23)
+
+The exact-name concern is resolved for the published Rust Delta Kernel 0.29.0.
+The Delta protocol's literal writer feature is `clustering`. Kernel 0.29.0
+represents its implementation with the internal `TableFeature::ClusteredTable`
+variant; its versioned Snapshot API checks that feature and then reads the
+`delta.clustering` system domain. These are distinct protocol and API identifiers
+connected by Kernel's feature mapping, not interchangeable strings. The same
+version's published `TableFeature` enum includes `AppendOnly`, `Invariants`, and
+`DomainMetadata`. Its existing-table `Snapshot.transaction()` append path reads
+clustering metadata, includes clustering columns in requested statistics, and
+validates required per-file clustering stats; transaction validation also
+enforces append-only semantics. Rust Kernel writes are documented as experimental
+and currently limited to blind appends, which is the operation proposed here.
+
+This establishes a published API feature path for the four receipt feature names
+without handcrafting Delta log actions. It does not establish Ashlar table
+admission: this checkout has no Kernel package installed, and the exact generated
+schema, metadata configuration, protocol and feature list have not been opened by
+Kernel 0.29.0. The proposal remains **no-run** until those inputs are read back
+and match exactly, including literal `clustering` and the `delta.clustering`
+domain payload; never rewrite either to `clusteredTable`. This local finding says
+nothing about Unity Catalog managed committers, UC privileges, or Databricks
+runtime support.
 
 References: [Delta Kernel append API](https://docs.delta.io/kernel/rust/writing/append.html),
-[Kernel Arrow/default-engine installation](https://docs.delta.io/kernel/rust/getting_started/installation.html),
-[feature-derived table requirements](https://docs.delta.io/kernel/rust/writing/create_table.html),
-[domain metadata requirements](https://docs.delta.io/kernel/rust/writing/domain_metadata.html),
-[Delta protocol compatibility](https://docs.delta.io/versioning/), and
+[published Kernel 0.29.0 release changelog](https://github.com/delta-io/delta-kernel-rs/blob/main/CHANGELOG.md),
+[0.29.0 `TableFeature` API](https://docs.rs/delta_kernel/0.29.0/delta_kernel/table_features/enum.TableFeature.html),
+[0.29.0 transaction API and clustering-stat validation](https://docs.rs/delta_kernel/0.29.0/delta_kernel/transaction/struct.Transaction.html),
+[0.29.0 snapshot clustering-domain behavior](https://docs.rs/delta_kernel/0.29.0/delta_kernel/snapshot/struct.Snapshot.html),
+[Delta protocol feature strings and clustered-table rules](https://github.com/delta-io/delta/blob/master/PROTOCOL.md),
+[Kernel Arrow/default-engine installation](https://docs.delta.io/kernel/rust/getting_started/installation.html), and
 [Spark `xxhash64` semantics](https://spark.apache.org/docs/latest/sql-ref-functions-builtin.html)
 and [Spark's typed hash expression implementation](https://github.com/apache/spark/blob/master/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/expressions/hash.scala).
 
@@ -94,15 +109,12 @@ larger local trial for owner review.
 Before the pair, pin the exact Delta Kernel/Arrow dependency versions and hashes,
 table-model/DDL hashes, generator and SQL hashes, runtime identity, codec, scratch
 paths, resource limits and cleanup ownership. Inspect the selected profile's
-retained Delta protocol and metadata as the reference. Confirm that the candidate
-Kernel officially supports every observed reader/writer feature by its exact
-protocol name and semantics, including the retained `clustering` writer feature.
-Documentation for `clusteredTable` alone does not satisfy this gate.
-If the local API/package is unavailable, the feature list is incomplete, a feature
-is experimental or requires manually appending protocol actions, or the exact
-feature combination has no supported existing-table append path, stop before
-writing and record the blocker. Do not infer support from the general Delta
-protocol version number or from OSS Spark/Delta version parity.
+retained Delta protocol and metadata as the reference. Reconfirm that the pinned
+Kernel supports every observed feature and its semantics. If the local API/package
+is unavailable, the observed feature list differs, a feature needs manual protocol
+actions, or the exact table metadata is rejected, stop before writing and retain
+the no-run disposition. Do not infer support from the general Delta protocol
+version number or from OSS Spark/Delta version parity.
 
 Kill the candidate immediately on any mismatch in generated schema, values,
 nullability/invariants, `lookup_hash`, row multiplicity, protocol/features,
@@ -114,12 +126,13 @@ variant. Retain both case receipts and exact scratch cleanup evidence.
 
 ## Interpretation
 
-Delta Kernel provides a supported transaction abstraction worth a narrow local
-integration test; the repository's `.venv` currently has no installed
-`deltalake`, `pyarrow`, Spark, or Delta packages, so local dependency/API execution
-has not been verified here. Official docs do not establish a speedup for Ashlar's
-wide edge shape. Exact Spark hash parity is a central compatibility risk, and
-one million rows cannot establish large-scale throughput or output geometry.
+Published Rust Delta Kernel 0.29.0 has an existing-table blind-append path for
+the `clustering`, `appendOnly`, `invariants`, and `domainMetadata` feature set as
+represented by its API. The repository's `.venv` currently has no installed
+`deltalake`, `pyarrow`, Spark, or Delta packages, so local API execution and exact
+Ashlar-table admission remain unverified. Official docs do not establish a speedup
+for Ashlar's wide edge shape. Exact Spark hash parity is a central compatibility
+risk, and one million rows cannot establish large-scale throughput or output geometry.
 The retained ZSTD write-only projection is about 16.50 minutes for 1B nodes and
 5B edges at the recorded 80% rate, before point reads, scans, graph action,
 validation, and cleanup. The owner’s desired few-minute end-to-end target remains

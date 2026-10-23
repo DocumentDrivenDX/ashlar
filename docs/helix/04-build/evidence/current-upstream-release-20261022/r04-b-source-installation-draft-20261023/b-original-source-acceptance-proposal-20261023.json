@@ -1,0 +1,116 @@
+{
+  "profile": "ashlar-r04-b-original-source-acceptance-proposal/0.1",
+  "status": "inert-owner-review-proposal",
+  "execution_authorized": false,
+  "approval": null,
+  "source_candidate": {
+    "path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json",
+    "bytes": 4100,
+    "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision_candidate": "ashlar-current-045-lifecycle-r1",
+    "revision_is_external_metadata": true,
+    "umf_version": "0.10.0",
+    "source_is_original_retained_bytes": true,
+    "r04_draft_substituted": false
+  },
+  "origin_candidate": {
+    "path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json",
+    "bytes": 141,
+    "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
+    "approved": false,
+    "approval_record": null
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "truss": "0.0.49",
+    "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "runtime_receipt": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json",
+    "runtime_receipt_sha256": "e96705451e82392657aafc956e3e85e2975e5e8b56a2658b3a93d9fd3d2f18ce",
+    "catalog_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "umf_core": "0.10.0",
+    "umf_access": "0.1.0.dev7",
+    "wheel_lock": "/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/wheelhouse-lock-pyspark-4.2.0-attempt-02.json",
+    "wheel_lock_sha256": "d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20",
+    "wheel_count": 27,
+    "focused_sdk_api_test_receipt": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/sdk-api-attempt-02-receipt.json",
+    "focused_sdk_api_test_receipt_sha256": "6ff09683c4f7fd7a2c28c7db3234d732eaffafac9a2dd2065a5b836e95787c8f",
+    "scope": "offline preparation and compatibility evidence only; no source acceptance or native service"
+  },
+  "preparation": {
+    "assessment": "b-offline-preparation-assessment-20261023.json",
+    "assessment_sha256": "6a1f443046a287f43d1bfc8b56bd613631b7b70b51babdd3b64b0a6969a401ac",
+    "prepared_input": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-acceptance-input.json",
+    "prepared_input_sha256": "516ac248ca2ea05765b935cea998a98e747971a788c8d07af324e2af88e682e2",
+    "prepared_report": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-report-evidence.json",
+    "prepared_report_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "assessment_outcome": "pure preparation passed; complete=false; warning=EXPERIMENTAL_CORE_SEMANTIC_TYPES",
+    "prepared_evidence_is_not_acceptance": true
+  },
+  "candidate_execution_pins_not_approved": {
+    "config": "b-install-config.json",
+    "config_sha256": "ab394200fb79e781ff5f96faabee4d15a77949ab9a334af68b12b49137418ab3",
+    "supervisor": "b_install_supervisor.py",
+    "supervisor_sha256": "b22633eae224f547dd024f09b3618e4d980556fbe405a9f3c7ba2d3056706f88",
+    "worker": "b_install_worker.py",
+    "worker_sha256": "4d48f6f89988472ab3fb47edf6dd7874811d3ae2115da115994280fd9822e893",
+    "candidate_root": "/private/tmp/ashlar-r04-b-install-20261023-01/root",
+    "candidate_pgdata": "/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data",
+    "candidate_attempt": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01",
+    "roles": {
+      "owner": "ashlar_r04_b_owner_20261023",
+      "registrar": "ashlar_r04_b_reg_20261023",
+      "registrar_login": "ashlar_r04_b_reg_login_20261023",
+      "reader_login": "ashlar_r04_b_reader_20261023"
+    },
+    "consumer_id_candidate": "ashlar-current-core-r04-b-20261023",
+    "request_key_candidate": "ashlar-r04-b-source-accept-20261023-r1",
+    "expected_catalog_revision": 0,
+    "expected_document_source_revision": 0,
+    "admission": "exclusive LocalPostgres lifecycle at nominal port 5432 with private Unix socket; no OS lock; fresh process/socket observation required after explicit slot release",
+    "retention_owner": null,
+    "provider_assigned_ids": null,
+    "execution_approval": null
+  },
+  "candidate_ceilings_not_owner_approved": {
+    "worker_deadline_seconds": 600,
+    "preparation_deadline_seconds": 120,
+    "combined_tree_bytes": 1073741824,
+    "per_log_bytes": 16777216,
+    "statement_timeout_ms": 5000,
+    "operation_timeout_ms": 30000
+  },
+  "acceptance_sequence_for_later_approval": [
+    "Rehash exact source, origin, runtime receipt, wheel lock, worker, supervisor, config, prepared input/report and require parity with the separately reviewed approval sidecar.",
+    "Require a fresh, canonical B-owned root and absent PGDATA; refuse symlinks, preexisting PGDATA, reused attempt markers, path overlap, or any active competing LocalPostgres process/socket. Require explicit exclusive shared-slot admission; this inventory is not an OS lock.",
+    "Create one fresh Truss LocalPostgres context over B PGDATA. Install B roles in the approved transaction; commit once; read back installation_id, release_sha256 and layout_profile against the exact runtime manifest. Preserve PGDATA on any uncertainty.",
+    "Grant the approved registrar/session, then submit the exact original 4100-byte source and 141-byte origin using request key ashlar-r04-b-source-accept-20261023-r1 and catalog/source CAS zero. Commit once; on uncertain outcome retain PGDATA and reconcile this same request, never retry with a new request or directory.",
+    "Read back and retain exact accepted source bytes, document ID/revision, source catalog revision, registration ID, report bytes and complete view scope/provenance; compare all observations to the frozen bytes and expected CAS. Refuse a hash-only or incomplete readback.",
+    "Register one ordinary B consumer from genesis after acceptance and retain provider registration ID and exact returned genesis cursor. Truss exposes no independent consumer-registration readback; report this evidence limitation. Do not read a feed page or ACK.",
+    "Close/detach the Truss host, stop the owned process, verify process exit, and retain PGDATA and evidence. Any unexpected exception after start must still execute bounded cleanup/reap; uncertainty preserves PGDATA and one-use markers."
+  ],
+  "remaining_owner_decisions": [
+    "Approve or replace exact B origin bytes and identify the authorized origin actor/authority.",
+    "Confirm the original source candidate is suitable for the complete B schedule, or direct a separately versioned source change; R3 incident-edge closure and R4 additive semantics remain unresolved and the separate R4 draft is not accepted source.",
+    "Authorize the exact source acceptance operation, B registrar/session authority, request key, catalog/source CAS pins and one genesis consumer registration.",
+    "Explicitly release/authorize the exclusive shared LocalPostgres slot after Arras/A shutdown; approve candidate B paths, role names, consumer/request identifiers, and collision checks.",
+    "Approve resource/deadline/log ceilings and name the B PGDATA/evidence retention custodian and retention policy.",
+    "Accept that public Truss API has no independent consumer-registration readback, or require another independently reviewable control before proceeding."
+  ],
+  "independent_review_blockers": [
+    "Sol review of this exact packet, worker, supervisor, config, source/origin and runtime pins.",
+    "Execution approval remains null; origin authority, slot release, limits, and retention owner remain unset.",
+    "No accepted B installation/source/report/view/provider IDs or consumer registration evidence exists; preparation is not acceptance.",
+    "No execution attempt has occurred. This proposal creates no PGDATA and authorizes no Truss, PostgreSQL, Spark, feed, destination, or ACK effect."
+  ],
+  "scope": {
+    "source_acceptance": false,
+    "postgresql": false,
+    "truss_host": false,
+    "spark": false,
+    "feed_read": false,
+    "destination": false,
+    "ack": false,
+    "mutate_retained_source": false
+  }
+}
