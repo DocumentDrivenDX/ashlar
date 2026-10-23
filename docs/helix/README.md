@@ -23,9 +23,11 @@ but its public tag/release and Ashlar pin are pending; the selected macOS and Li
 wheels are bound to source `32ec02f`, with Linux evidence limited to packaging and
 two offline compiler cases ([wheel and functional receipts](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux/README.md),
 [Linux cases](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux-functional/README.md)).
-UMF 0.5.5 remains an SDK-only candidate without a public release; Ashlar retains
-its UMF 0.5.4 / core 0.10.0 pin ([0.5.5 qualification limit](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md),
-[0.5.4 adoption record](04-build/evidence/current-upstream-release-20261022/umf-0.5.4-adoption.json)).
+Ashlar now pins the public UMF 0.5.5 Python access wheel (`umf_access` 0.1.0.dev7);
+the core 0.10.0 wheel remains byte-identical. Focused local compatibility tests
+passed, but this does not qualify managed runtime or Delta behavior ([adoption
+receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
+[managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 Truss 0.0.49 r3 is inert readiness work; r2 failed during PostgreSQL startup before
 Truss migration or source effects, and neither attempt produced a publication or ACK
 ([r3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),

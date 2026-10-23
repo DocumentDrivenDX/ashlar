@@ -28,7 +28,7 @@ Use one new per-run temporary schema under `client_dev`, only owned objects, con
 ## Launch prerequisites
 
 - Complete actual R03 Truss 0.0.49 migration/resume, genesis publication/verification/ACK and seed readback. Independently accept B with separate installation/feed/epoch/namespace/consumer/destination ACK custody. Freeze baseline bags, accepted UMF 0.10 models, eight-slot semantic schedule and oracle. Freeze each exact request before its source mutation and bind its actual committed page before graph effects.
-- Admit exact Ashlar, Weft and UMF artifacts on the chosen managed runtime. Local Spark/Delta qualification and the SDK-only 0.5.5 release do not qualify a new native Python wheel or managed runtime.
+- Admit exact Ashlar, Weft and UMF artifacts on the chosen managed runtime. The public UMF 0.5.5 release and local Spark/Delta qualification do not qualify the selected native Weft wheel or managed runtime.
 - Review/adopt and implement [TD-009](../../../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md) before selecting its Spark verifier. The existing SQL verifier still requires a dedicated serverless current-channel warehouse; no accessible dedicated endpoint was established by retained discovery.
 - Establish the reviewed external live source/read/pin renewal interval through ACK commit, reconciliation and closing. A verifier report or terminated task is not a live custody holder. Jobs tasks receive no source ACK credential.
 - Verify live authentication, run-as/grants, Jobs creation/cancel/termination authority, quota, UC access-mode and policy compatibility, exact runtime/protocol/features, effective inherited predictive optimization, billing meters and owned cleanup permissions before schema creation or compute.
