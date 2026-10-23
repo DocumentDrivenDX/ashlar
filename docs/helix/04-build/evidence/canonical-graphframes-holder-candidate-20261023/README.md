@@ -30,3 +30,7 @@ verify generator/source/oracle correspondence, attest the actual runtime/JARs,
 hold retained-file and exclusive-use custody through closing checks, and run the
 bounded functional action. A full 1B/5B run remains separately gated by the
 approved scale budget and R05 evidence.
+
+The [action-readiness packet](action-readiness-packet.md) defines the minimum
+freeze, custody, runtime admission and exact next implementation slice. It is a
+design packet only; no action has been run or admitted by it.
