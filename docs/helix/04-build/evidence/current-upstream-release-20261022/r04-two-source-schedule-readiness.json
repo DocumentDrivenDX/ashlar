@@ -1,0 +1,91 @@
+{
+  "profile": "ashlar-r04-current-core-two-source-schedule-readiness/0.1",
+  "status": "not_frozen_missing_authoritative_inputs",
+  "observed_on": "2026-10-22",
+  "scope": "Preparation only. No source mutation, consumer registration, feed read, native publication, ACK, or execution was performed for R04.",
+  "governing_artifacts": [
+    "../../toolkit-delivery-plan.md#R04",
+    "../../../02-design/contracts/CONTRACT-001-publication-boundary.md#fresh-current-core-two-source-acceptance-amendment",
+    "../../../02-design/contracts/CONTRACT-003-delta-graph-tables.md#current-core-two-source-materialization-amendment",
+    "../../../02-design/contracts/CONTRACT-005-schema-intake.md"
+  ],
+  "retained_a_source": {
+    "evidence": "truss-0.0.48-adoption-preparation.json",
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "existing_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "existing_consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "r03_state": "retained .48 acceptance and consumer; .49 migration/resume and R03 genesis/seed publication/ACK are not executed",
+    "existing_seed_request": {
+      "evidence": "truss-049-lifecycle-ready/seed-request.json",
+      "request_key": "ashlar-current-048-lifecycle-seed-r1",
+      "operation_count": 7,
+      "bytes": 1657,
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false,
+      "use": "Preserve for its existing R03 first submission after the required genesis ACK; it is not an R04 slot or proof of committed A graph values."
+    }
+  },
+  "truss_049_preparation": {
+    "evidence": "truss-049-lifecycle-ready/preparation.json",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "outcome": "ready_pending_hash_bound_operator_approval",
+    "execution": {
+      "native_started": false,
+      "source_mutation_started": false,
+      "destination_publication_started": false,
+      "acknowledgment_started": false
+    }
+  },
+  "known_sequence_shape_only": [
+    {"slot": "A1", "operation_class": "create"},
+    {"slot": "B1", "operation_class": "create"},
+    {"slot": "A2", "operation_class": "update"},
+    {"slot": "B2", "operation_class": "update"},
+    {"slot": "A3", "operation_class": "delete"},
+    {"slot": "B3", "operation_class": "delete"},
+    {"slot": "A4", "operation_class": "additive-candidate"},
+    {"slot": "B4", "operation_class": "additive-candidate"}
+  ],
+  "frozen_schedule": {
+    "request_bytes_and_sha256": null,
+    "source_assignments": null,
+    "accepted_model_and_revision_pins": null,
+    "independent_expected_prefixes": null,
+    "source_and_ack_registrations": null,
+    "reason": "The contracts require these values to be frozen from actual accepted sources before the first native publication. The available A seed request is pending in R03; no independently accepted B source, catalog, source transaction inventory, feed, epoch, consumer, or ACK scope is evidenced."
+  },
+  "freeze_boundary_and_identity_dependency": {
+    "before_first_r04_publication": "Freeze the original source mutation request bytes and digests, source assignments, accepted model/revision pins, and independent expected state transitions. This does not authorize committing all eight source transactions in advance.",
+    "at_each_ack_gated_slot": "Only then bind that slot's actual complete feed page, writer position, event bytes, and prior/next cursor to its already frozen request; mismatch or absence must refuse graph effects and ACK.",
+    "identity_dependency": "The observed public group API does not let CreateObject callers choose the stored TypedIdentity, while later UpdateObject/Delete requests target StoredObjectReference(TypedIdentity). If a later frozen request depends on an identity produced by an earlier R04 create, that identity must already be authoritatively known before the first R04 publication, or the current freeze gate is not satisfiable. No request may be rewritten after earlier slot effects to accommodate a newly learned identity.",
+    "status": "Unresolved for the proposed sequence: R03 could establish A's initial source identities only after its own actual source readback; no such readback is retained yet. No B pre-existing identity source or stable-ID facility is evidenced."
+  },
+  "public_truss_049_api_observations": {
+    "provider": "Truss 0.0.49 public package source, catalog_runtime.py and groups.py",
+    "consumer_registration": "register_feed_consumer_in_transaction(transaction, *, consumer_id, reader_role) accepts a caller-chosen consumer_id and returns a provider registration_id plus genesis checkpoint; registration is an effect.",
+    "feed_read": "read_feed_in_transaction(transaction, *, consumer_id, maximum_facts=4096, maximum_bytes=8388608) reads the next whole committed transaction at the registered checkpoint and does not acknowledge it; it has no future-cursor argument.",
+    "created_identity": "CreateObject carries a type pin, values, ownership and optional alias; the public request does not supply the provider-assigned stored identity.",
+    "subsequent_mutation": "UpdateObject and Delete target StoredObjectReference(TypedIdentity), so source-assigned identities and actual accepted transaction results are required to freeze exact dependent requests and expected outcomes.",
+    "limitation": "The API shape does not establish an accepted B source or authorize registering one. No guessed B document, source, consumer, registration, identity, epoch, or ACK ID is included here."
+  },
+  "oracle_obligations_to_freeze_after_inputs_exist": [
+    "For every prefix: independently expected complete current objects and independent edges, history, tombstones, schema revision, both source progress entries, and the complete publication vector.",
+    "Preserve source-qualified identity where A and B local IDs overlap; prove the overlap from actual source pages and provider results.",
+    "Bind each actual complete feed page, writer position, event-byte inventory, and prior/next cursor to its already frozen request before that slot's effects; ACK only that source after independent durable publication verification.",
+    "Retained old publication reads, exact replay/restart with no additional commit, and pre-effect refusal of an unadmitted breaking evolution candidate."
+  ],
+  "inputs_required_before_freeze": [
+    "Complete R03 A migration/resume and source readback, then its required genesis publication and source-specific ACK; submit the preserved A seed exactly once only after that ACK and retain its actual source receipt/feed page and identities.",
+    "A separately accepted UMF 0.10 B source with complete public catalog/source-view evidence, independent installation, feed, epoch, namespace, ordinary consumer, and protected destination ACK scope.",
+    "Exact source mutation request bytes/digests, expected value transitions, and accepted model/revision pins for the eight source-owned operations; keep later actual feed pages staged for their ACK-gated slots rather than committing all eight transactions in advance.",
+    "Authoritative IDs for any later update/delete request before freezing the schedule, including proof of the intended A/B local-ID overlap. If those identities can only be learned by executing an earlier R04 create, record the contract/API dependency as unresolved and do not claim a freeze.",
+    "Exact selected-version source API and accepted pins, followed by independent review of the complete immutable request schedule and prefix oracle before the first native publication."
+  ],
+  "decision": "Do not treat this packet as an R04 schedule freeze or as permission to mutate either source. Resume only after the listed authority and source evidence exists; keep the existing A source/consumer and pending seed unchanged."
+}
