@@ -12,8 +12,9 @@ UMF revision and runtime *selection*. It reads the exact generated object/edge
 schemas, observes two distinct native Delta UUIDs, versions, schemas and protocol
 twice at open, and provides `VERSION AS OF` frame handles under a finite renewable
 metadata lease. Focused action tests cover bad descriptors, schema refusal,
-duplicate UUIDs, changed versions, expiry, version selection and no carrier-row
-collection; 30/30 passed. The separately reviewed inert supervisor suite passed
+duplicate UUIDs, changed versions, expiry, version selection, no carrier-row
+collection, and the separate R05 identity discriminator; 31/31 passed. The
+separately reviewed inert supervisor suite passed
 11/11 focused tests, including admission and failure-cleanup controls.
 
 These checks are metadata correspondence only. The generator/source/oracle
@@ -34,7 +35,12 @@ approved scale budget and R05 evidence.
 
 The [action-readiness packet](action-readiness-packet.md) defines the minimum
 freeze, custody, runtime admission and exact next implementation slice. It is a
-design packet only; no action has been run or admitted by it.
+design packet only; no action has been run or admitted by it. A separate
+[R05 identity-discriminator candidate](action-discriminator-r1/review-packet.md)
+adds the required cross-source overlapping-ID, self-loop, isolated-node and
+parallel-edge cases without changing the existing fixture or profile. Its
+manifest/anchor remain pending independent review; the 31-test result is mocked
+and inert, and does not establish a native GraphFrames pass.
 
 The offline follow-up now supplies a deterministic three-object/two-parallel-
 edge source, a separately authored two-occurrence oracle, same-lock writer and

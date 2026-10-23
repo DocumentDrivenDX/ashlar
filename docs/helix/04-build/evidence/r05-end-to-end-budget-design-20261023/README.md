@@ -46,6 +46,15 @@ This is a no-duplicate-export design, not a fix for the current Delta write rate
 
 Before attempting a canonical action, first check the mapping and independent oracle inertly. Then use a tiny correctness discriminator whose independently frozen expected bag covers overlapping local IDs from two sources, an isolated node, a self-loop, parallel edges with different edge IDs, and exact endpoint formulas. Check the transient vertex/edge schemas, preserve all selected payload values, verify changed-version and expired-custody refusals, cap output at `cap+1` and refuse overflow, and compare the complete small edge-occurrence bag. Reuse actual `.4` carrier rows and the selected pinned Spark/Delta/GraphFrames/JDK artifacts. This is a small implementation discriminator only; it does not qualify the generator at scale, retained files, production data, publication, ACK, or managed Unity Catalog.
 
+The separate [R05 GraphFrames identity-discriminator candidate](../canonical-graphframes-holder-candidate-20261023/action-discriminator-r1/review-packet.md) freezes five `.4`-shaped source rows and four edge rows: two sources share local `(type_id,id)=(1,101)`, one node is isolated, the selected source-A seed has a self-loop and two parallel edges with distinct IDs, and a source-B edge must stay out of source A's result. Its independently authored three-row oracle and candidate manifest/anchor are hash-pinned, but remain pending independent review. One focused mocked/inert test validates that the source-qualified bag matches the oracle and that dropping the source component admits the foreign edge. No Spark or GraphFrames action ran; this candidate does not authorize native execution.
+
+Native fixture materialization is not admitted: the candidate helper now refuses
+before Spark or filesystem access because bare Delta writes would not prove the
+selected UMF-generated `.4` DDL, writer-7 protocol and clustering contract.
+The existing GraphFrames holder still pins writer 2, so that admission mismatch
+must be resolved and reviewed before these frozen rows can be presented as a
+canonical native carrier or passed to GraphFrames.
+
 ## Measurement plan and acceptance gates
 
 When the held trial is eventually admitted, use one deterministic generator and exactly one full materialization per role. Keep a single run ledger with monotonic timestamps and disjoint intervals for startup, table DDL, node write, edge write, two point reads, row/count scan, endpoint-formula scan, GraphFrames frame construction/action, footer/Delta validation and cleanup. Record the exact physical plans, runtime/JAR identities, generated source digest, selected versions, rows, actual bytes, file/row-group geometry, task/stage CPU and wall times, spill/GC, input-file metrics, shuffle, bounded result bag, output caps and cleanup outcome. Attribute overlapping GraphFrames scans by stage/SQL execution identity; do not add nested clocks twice. Include all workspace/log/Delta-log/output bytes in resource accounting.

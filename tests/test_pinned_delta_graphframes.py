@@ -1,6 +1,7 @@
 import unittest
 from contextlib import nullcontext
 import hashlib
+import importlib.util
 import json
 import os
 import tempfile
@@ -213,6 +214,39 @@ def reviewed_action_descriptor(anchor_path=None):
         review_anchor_path=anchor_path,
         selected_review_anchor_sha256=hashlib.sha256(anchor_bytes).hexdigest())
     return descriptor, row
+
+
+def r05_discriminator_action_descriptor(anchor_path):
+    """Build test-only reviewed bytes from the independently pinned R05 case."""
+    root = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+            / "canonical-graphframes-holder-candidate-20261023/action-discriminator-r1")
+    generator = (root / "generator.py").read_bytes()
+    source = (root / "source-rows.json").read_bytes().rstrip(b"\n")
+    oracle = (root / "independent-oracle.json").read_bytes()
+    manifest = json.loads((root / "manifest.json").read_bytes())
+    # Exercise the reviewed-byte consumer with a test-only synthetic review
+    # anchor; the checked-in candidate itself deliberately remains unreviewed.
+    manifest["reviewStatus"] = "independently-reviewed"
+    manifest["reviewId"] = "test-only-r05-discriminator-anchor"
+    manifest_bytes = json.dumps(manifest, ensure_ascii=False, sort_keys=True,
+                                separators=(",", ":"), allow_nan=False).encode()
+    anchor = {
+        "profile": "ashlar-canonical-action-review-anchor/0.1",
+        "reviewStatus": "independently-reviewed",
+        "reviewId": manifest["reviewId"],
+        "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
+        "generatorSha256": manifest["generatorSha256"],
+        "sourceSha256": manifest["sourceSha256"],
+        "oracleSha256": manifest["oracleSha256"],
+        "carrierDefinitionSha256": manifest["carrierDefinitionSha256"],
+    }
+    anchor_bytes = json.dumps(anchor, sort_keys=True, separators=(",", ":")).encode()
+    Path(anchor_path).write_bytes(anchor_bytes)
+    descriptor = graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+        manifest_bytes, generator, source, oracle,
+        review_anchor_path=anchor_path,
+        selected_review_anchor_sha256=hashlib.sha256(anchor_bytes).hexdigest())
+    return descriptor
 
 
 class FakeActionQuery:
@@ -486,7 +520,7 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
 
 
 class CanonicalActionReadinessTests(unittest.TestCase):
-    def _fixture(self):
+    def _fixture(self, action_descriptor=None):
         temporary = tempfile.TemporaryDirectory(prefix="ashlar-gf-action-")
         root = Path(temporary.name)
         os.chmod(root, 0o700)
@@ -503,7 +537,11 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         paths = {role: str(Path(path).resolve()) for role, path in paths.items()}
         spark = CanonicalFakeSpark(paths)
         spark.input_files_by_path = files
-        descriptor, row = reviewed_action_descriptor(root / "review-anchor.json")
+        if action_descriptor is None:
+            descriptor, row = reviewed_action_descriptor(root / "review-anchor.json")
+        else:
+            descriptor = action_descriptor
+            row = descriptor.fixture.oracle_rows[0]
         owner = graphframes_module.PinnedCanonicalGraphFramesActionFixture(
             spark, descriptor, root, paths)
         return temporary, root, spark, owner, descriptor, row
@@ -813,8 +851,9 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def _run_action_with_rows(self, rows, runtime_values=None, verifier="default"):
-        temporary, _root, spark, owner, descriptor, expected = self._fixture()
+    def _run_action_with_rows(self, rows, runtime_values=None, verifier="default",
+                              action_descriptor=None):
+        temporary, _root, spark, owner, descriptor, expected = self._fixture(action_descriptor)
         FakeActionGraphFrame.rows = rows
         fake_functions = types.ModuleType("pyspark.sql.functions")
         fake_functions.col = ActionFunctions.col
@@ -867,6 +906,83 @@ class CanonicalActionReadinessTests(unittest.TestCase):
             self.assertIsInstance(result["lockWindow"]["closedMonotonicNs"], int)
         finally:
             temporary.cleanup()
+
+    def test_r05_discriminator_proves_source_qualified_seed_bag_and_reuses_action_gate(self):
+        root = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+                / "canonical-graphframes-holder-candidate-20261023/action-discriminator-r1")
+        source_raw = (root / "source-rows.json").read_bytes().rstrip(b"\n")
+        generator_raw = (root / "generator.py").read_bytes()
+        oracle_raw = (root / "independent-oracle.json").read_bytes()
+        manifest_raw = (root / "manifest.json").read_bytes()
+        manifest = json.loads(manifest_raw)
+        anchor_raw = (root / "manifest.anchor.json").read_bytes()
+        anchor = json.loads(anchor_raw)
+        self.assertEqual(manifest["reviewStatus"], "candidate-pending-independent-review")
+        self.assertEqual(anchor["reviewStatus"], "candidate-pending-independent-review")
+        self.assertEqual(hashlib.sha256(generator_raw).hexdigest(), manifest["generatorSha256"])
+        self.assertEqual(hashlib.sha256(source_raw).hexdigest(), manifest["sourceSha256"])
+        self.assertEqual(hashlib.sha256(oracle_raw).hexdigest(), manifest["oracleSha256"])
+        self.assertEqual(hashlib.sha256(manifest_raw.rstrip(b"\n")).hexdigest(),
+                         anchor["manifestSha256"])
+        self.assertEqual(hashlib.sha256(anchor_raw).hexdigest(),
+                         Path(root / "manifest.anchor.sha256").read_text().strip())
+        spec = importlib.util.spec_from_file_location("r05_graphframes_generator", root / "generator.py")
+        generator_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(generator_module)
+        self.assertEqual(generator_module.source_bytes(), source_raw)
+        with tempfile.TemporaryDirectory(prefix="ashlar-r05-writer-runtime-guard-") as directory:
+            os.chmod(directory, 0o700)
+            with self.assertRaisesRegex(PermissionError, "admitted UMF-generated `.4` DDL"):
+                generator_module.write_fixture_tables(
+                    types.SimpleNamespace(version="4.2.0"), Path(directory))
+            self.assertEqual(list(Path(directory).iterdir()), [])
+        with tempfile.TemporaryDirectory(prefix="ashlar-r05-unreviewed-anchor-") as directory:
+            with self.assertRaisesRegex(ValueError, "reviewer record"):
+                graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+                    manifest_raw, generator_raw, source_raw, oracle_raw,
+                    review_anchor_path=Path(directory) / "candidate-anchor.json",
+                    selected_review_anchor_sha256=hashlib.sha256(anchor_raw).hexdigest())
+        source = json.loads(source_raw)
+        oracle = json.loads(oracle_raw)
+        nodes = {(row["source_system"], row["type_id"], row["id"])
+                 for row in source["tables"]["object_current"]}
+        seed = tuple(source["selectedSeed"])
+        expected_from_source = []
+        for edge in source["tables"]["edge_current"]:
+            edge_source = (edge["source_system"], edge["source_type"], edge["source_id"])
+            target = (edge["source_system"], edge["target_type"], edge["target_id"])
+            if edge_source == seed and edge_source in nodes and target in nodes:
+                expected_from_source.append([
+                    *edge_source, edge["source_system"], edge["rel_type_id"], edge["id"], *target])
+        self.assertEqual(expected_from_source, oracle["rows"])
+        self.assertEqual([row[5] for row in oracle["rows"]], [9001, 9002, 9003])
+        self.assertIn(["ashlar-r05-source-a", 1, 101],
+                      [[row["source_system"], row["type_id"], row["id"]]
+                       for row in source["tables"]["object_current"]])
+        self.assertIn(["ashlar-r05-source-b", 1, 101],
+                      [[row["source_system"], row["type_id"], row["id"]]
+                       for row in source["tables"]["object_current"]])
+        self.assertEqual([row["id"] for row in source["tables"]["object_current"]
+                          if row["id"] == 404], [404])
+        unqualified_ids = [edge["id"] for edge in source["tables"]["edge_current"]
+                           if (edge["source_type"], edge["source_id"]) == (1, 101)]
+        self.assertEqual(unqualified_ids, [9001, 9002, 9003, 9004])
+        self.assertNotEqual(unqualified_ids, [row[5] for row in oracle["rows"]])
+
+        with tempfile.TemporaryDirectory(prefix="ashlar-r05-discriminator-anchor-") as directory:
+            descriptor = r05_discriminator_action_descriptor(Path(directory) / "anchor.json")
+            action_rows = [dict(zip(descriptor.output_schema, row))
+                           for row in descriptor.fixture.oracle_rows]
+            result, query, temporary, _ = self._run_action_with_rows(
+                action_rows, action_descriptor=descriptor)
+            try:
+                self.assertEqual(result["result"], oracle["rows"])
+                self.assertEqual(result["resultRows"], 3)
+                self.assertEqual(query.limit_value, descriptor.cap + 1)
+                self.assertEqual(result["sourceProgress"], "absent")
+                self.assertEqual(result["protectedAck"], "absent")
+            finally:
+                temporary.cleanup()
 
     def test_action_refuses_without_native_fixture_verifier_before_graphframe(self):
         descriptor, row = reviewed_action_descriptor()
