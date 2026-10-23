@@ -1,15 +1,16 @@
-# B runtime compatibility check plan (not run)
+# B runtime compatibility check plan and result
 
-Status: prepared plan only. No B source bytes were read, copied, prepared or
-accepted for this plan. No package was installed, no environment was created,
-and no B preflight, Truss process, PostgreSQL, Spark, Rust, UI, cloud, feed,
-destination or ACK action was performed. This plan is not execution approval or
-a runtime receipt.
+Status: the three selected offline SDK/API targets passed 24/24 tests in the
+preserved attempt-02 venv. Install and focused test receipts are linked in the
+[attempt-02 result note](b-runtime-partial-attempt-02-note-20261023.md). The
+compiler test called Weft's in-process mini-racer code; no PostgreSQL, Spark,
+Truss host, feed, source acceptance, destination, or ACK action was performed.
+This result is not execution approval or source qualification.
 
 ## Purpose
 
-Prepare the smallest offline compatibility check for the selected B package
-cohort before any separately approved B installation attempt. The check covers
+This check covered the smallest offline compatibility slice for the selected B
+package cohort. It covered
 Ashlar's current managed-page SDK boundary with the exact public UMF Python
 access wheel, UMF core 0.10.0, Truss 0.0.49, and selected Weft 0.4.52. It checks
 package/version/API compatibility only; it does not check or assert B source
@@ -32,8 +33,9 @@ Weft 0.4.52 artifact is the macOS arm64 wheel built from source
 selected profile only. This is a selected B cohort override: Ashlar's declared
 `typed-sdk` extra still pins Weft 0.4.48, so this check must not be presented as
 qualification of that package default. The Truss 0.0.49 wheel is the exact
-package selected by the inert B proposal. These identities are inputs, not
-evidence that this cohort has been installed together in a fresh B runtime.
+package selected by the inert B proposal. These upstream artifact records
+identify the inputs; the separate attempt-02 B runtime receipt records that
+the locked cohort was installed and verified together in the B venv.
 
 Static wheel inspection confirmed the access wheel metadata says
 `umf_access` 0.1.0.dev7 and requires Python 3.11–3.14, Pydantic 2.x >=2.13,
@@ -52,45 +54,39 @@ historical evidence only. Reuse the exact R4 27-wheel lock at
 (SHA-256 `d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20`);
 the B lock plan records its read-only full-file and direct-cohort comparison.
 Do not re-resolve, substitute a different wheelhouse, or use the R3 virtual
-environment as the B runtime.
+environment as the B runtime. Attempt-02 has a post-install receipt, and the
+named SDK/API checks below passed. Do not rerun its installer; preserve the
+install logs and receipts as evidence.
 
-Use only local files with package-index/network access disabled. Verify every
-artifact digest before creating the isolated check environment; install the
-four direct artifacts above and the separately hash-pinned dependency closure.
-Capture the interpreter and platform, wheel names and hashes, installed
-distribution versions, `pip check` output, test command/exit code, and exact
-result hashes in a new private B runtime receipt. Keep the receipt outside the
-repository and bind its absolute path and digest into later B pins only after
-review.
+Use the existing attempt-02 environment at
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02` with
+package-index/network access disabled. Its install came from the verified exact
+lock; do not reinstall. The post-install receipt captures interpreter/platform,
+wheel names and hashes, installed distribution versions, `pip check` output,
+and installed RECORD payload hashes. It accurately marked the SDK/API checks
+unrun when issued. They were run later and are bound by a separate test receipt;
+neither receipt approves source authority or B execution.
 
-## Focused offline checks to run after the dependency lock is frozen
+## Focused offline checks: completed
 
-Run from the repository with the fresh B check environment's Python 3.12.14.
-The command below uses only existing offline Python tests. Do not set
-`ASHLAR_UMF_CORE010_SOURCE`; that opts into a separate producer/checkout path
-which is outside this check.
-
-```sh
-PYTHONPATH=src:tests /<approved-private-B-runtime>/venv/bin/python -m unittest -v \
-  tests.test_managed_current_page_target \
-  tests.test_sdk_async_bridge \
-  tests.test_truss_b_install_worker.TrussBInstallWorkerTests.test_adapter_smoke_with_actual_truss_feedconsumer_and_cursor_types
-```
-
-The managed-page target test exercises the selected Weft compiler artifact
-through Ashlar's UMF access API. The async bridge tests cover the existing
-`umf_access` SDK boundary. The selected B test constructs the actual public
-Truss `FeedConsumer` and `FeedCursor` types through a mocked assembly; it does
-not open a Truss host or register a consumer. Do not broaden this command to
-run the B source preflight or the source-preparation assessment. Any failure is
-a compatibility failure: retain the receipt and stop; do not substitute a
-fixture, alternate wheel, or package version.
+The exact selection was the top-level modules `test_managed_current_page_target`
+and `test_sdk_async_bridge`, plus
+`test_truss_b_install_worker.TrussBInstallWorkerTests.test_adapter_smoke_with_actual_truss_feedconsumer_and_cursor_types`.
+It ran in attempt-02 with `PYTHONPATH=src:tests`, `PYTHONDONTWRITEBYTECODE=1`,
+and `-B`. The B adapter test preloaded `FeedConsumer` and `FeedCursor` from the
+B venv before its compatibility path handling; the mocked assembly did not
+open a Truss host or register a consumer. The repository's `tests` directory
+was not importable as a `tests.*` package, so an initial selector failed before
+test discovery. The corrected top-level selection passed 24/24 with no skips.
+The Weft target test used its in-process mini-racer compiler runtime; no
+external service was started. No preflight or source-preparation assessment
+was run. The test receipt binds source file hashes and log/result hashes.
 
 ## Evidence boundary and remaining owner decisions
 
-The result, when later produced, can establish only offline package
-installability/dependency consistency and the named Python API/compiler test
-cases on the recorded host/runtime. It cannot establish accepted B source,
+The result establishes offline package installability/dependency consistency
+and the named Python API/compiler test cases on the recorded host/runtime. It
+cannot establish accepted B source,
 catalog/report/view readback, source epoch/namespace, consumer registration,
 feed custody, ACK custody, PostgreSQL/Truss lifecycle, Spark/Delta, or hosted
 runtime support.
@@ -121,5 +117,7 @@ hash conveys owner approval.
   wheel and prior Python compatibility profile.
 - `../../current-upstream-release-20261023/weft052-selected-linux/README.md` and
   `../../current-upstream-release-20261023/truss049-selected32ec-preflight/runtime-preflight.json` for the selected
-  Weft 0.4.52 and Truss 0.0.49 artifact identities. Those receipts do not
-  replace the future B-specific runtime receipt.
+  Weft 0.4.52 and Truss 0.0.49 artifact identities. These upstream artifact
+  records are provenance for selected wheels; the B-specific attempt-02
+  install and SDK/API receipts separately record installation integrity and
+  focused compatibility results.

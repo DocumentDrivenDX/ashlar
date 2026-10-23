@@ -46,7 +46,7 @@
     "umf_access": {
       "version": "0.1.0.dev7",
       "wheel_sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
-      "qualification": "selected current public UMF 0.5.5 access wheel; B-specific offline compatibility and runtime receipt are pending"
+      "qualification": "selected current public UMF 0.5.5 access wheel; post-install receipt and separate 24/24 focused offline SDK/API test receipt are recorded, with no source/native qualification"
     },
     "weft_sql": {
       "version": "0.4.52",

@@ -6,9 +6,8 @@ The B-owned [readiness record](b-installation-readiness.json) keeps execution
 approval, shared-slot admission, origin approval, approved resource limits,
 retention owner, and provider-assigned identities unresolved. The companion
 config now records selected candidate B paths and routine role/consumer/request
-defaults; these values are not approval and the paths remain absent. The
-matching
-effect-free byte preflight is
+defaults; these values are not approval. Source and origin custody copies exist,
+and the post-install-verified attempt-02 runtime is retained outside the B output root. The matching effect-free byte preflight is
 [`truss_b_source_preflight.py`](../../../../../../src/ashlar_host/truss_b_source_preflight.py);
 it verifies the exact retained source and origin bytes without importing
 Truss/PostgreSQL or creating files. The source document revision in the packet is external metadata;
@@ -17,20 +16,27 @@ that revision. The separate [attempt proposal](b-install-attempt-proposal.json)
 now records candidate B-owned paths, role/consumer/request names, selected
 runtime and wheel hashes, one-attempt bounds, and the exclusive port/socket
 preflight. It selects current UMF access `0.1.0.dev7`; the R3 `0.1.0.dev6`
-receipt is historical only and does not qualify B. B-specific offline
-compatibility and runtime receipt remain pending. The pinned source and origin
+receipt is historical only and does not qualify B. The named offline SDK/API
+compatibility checks passed; their separate test receipt is linked below.
+The pinned source and origin
 bytes have been copied to their recorded custody paths; the origin remains
-unapproved. Runtime attempt-01 was interrupted without a receipt and is
-quarantined. Replacement attempt-02, the B output root, and PGDATA remain
-uncreated; identities remain unapproved and no B source acceptance has run.
+unapproved. Runtime attempt-01 was interrupted and is quarantined. Attempt-02
+installed the locked wheels. Later read-only verification issued a post-install
+receipt recording the successful pip-check exit and nonfatal cache warning; no
+pip rerun occurred. The named offline SDK/API checks then passed 24/24 with
+bytecode writes disabled, and their separate receipt records the test source
+hashes and output. The Weft compiler case exercised the in-process mini-racer
+runtime; no PostgreSQL, Spark, Truss host, feed, source acceptance, destination,
+or ACK was used. The B output root and PGDATA remain uncreated; identities
+remain unapproved. See the [attempt-02 result note](b-runtime-partial-attempt-02-note-20261023.md).
 The [source custody and retention decision record](b-source-custody-retention-decision-20261023.md)
 selects the exact retained source bytes as a candidate because their
 Person/Place structure supports R04's illustrative R1/R2 intent. R3 incident
 edge behavior and R4 additive semantics remain unresolved, so semantic
 suitability for the complete B inventory is not yet established. The
 [dependency lock plan](b-runtime-dependency-lock-plan-20261023.md) selects the
-verified R4 27-wheel lock and pins the direct cohort; the B-specific runtime
-receipt remains unresolved.
+verified R4 27-wheel lock and pins the direct cohort; its post-install receipt
+and 24/24 focused SDK/API test receipt are both recorded for review.
 
 `b_install_worker.py` implements the public Truss 0.0.49
 one-attempt stage sequence, and `b_install_supervisor.py` provides a bounded

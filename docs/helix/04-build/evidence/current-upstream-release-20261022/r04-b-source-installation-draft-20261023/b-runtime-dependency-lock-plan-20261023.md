@@ -1,15 +1,19 @@
-# B runtime dependency-lock plan (candidate; not resolved)
+# B runtime dependency-lock and focused compatibility status
 
-Status: read-only lock match verified. Runtime attempt 01 was interrupted
-during offline installation and is quarantined without a receipt. No runtime
-receipt, B execution, or native effect was produced. Attempt 02 is selected
-but absent.
+Status: read-only lock match and attempt-02 post-install receipt verified.
+Attempt-01 was interrupted during offline installation and remains quarantined.
+Attempt-02 installed the 27 locked wheels; read-only verification checked
+installed RECORD payloads, versions, imports, and the successful pip-check
+result with its nonfatal warning. The receipt is bound in B config. The 24
+focused SDK/API tests subsequently passed in the preserved venv; no
+Truss source installation, acceptance, or native service effect was performed. See the
+[attempt-02 result note](b-runtime-partial-attempt-02-note-20261023.md).
 
 ## Selected runtime boundary
 
-Use a fresh Python 3.12.14 environment at
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02`. Resolve packages
-only from a local wheelhouse with index/network access disabled. The current
+Attempt-02 uses the Python 3.12.14 environment at
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02`. It was
+created only from the local wheelhouse with index/network access disabled. The current
 candidate cohort is `umf_access==0.1.0.dev7`, `umf-core==0.10.0`,
 `truss-toolkit==0.0.49`, and `weft-sql==0.4.52`; Weft is present for the
 selected managed-page SDK boundary and is not used by B source installation.
@@ -36,19 +40,30 @@ Preserve and bind the exact lock bytes; do not re-resolve or substitute a
 different wheelhouse. The lock's downloaded artifacts are inputs, not a B
 runtime receipt.
 
-The B-specific receipt must bind this lock digest, Python/platform identity,
-these four direct wheel digests, every resolved transitive wheel digest,
-installed versions, `pip check`, the already planned focused offline SDK/API
-tests, and `no_native_execution=true`, `pg_started=false`, and
-`spark_started=false`. Its candidate path is
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json`.
-The lock and wheel hashes are selected, but the B-specific install receipt and
-catalog-manifest digest remain unresolved; therefore the B config intentionally
-keeps those runtime values null. Worker preflight verifies the selected lock
-file digest, target/count, direct cohort identities, and that the future
-B-specific runtime receipt names this lock digest. Do not create a B venv or
-approval sidecar until the remaining B authority decisions and execution
-review are complete.
+The B-specific post-install receipt at
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json`
+binds this lock digest, Python/platform identity,
+all 27 locked wheel digests, installed versions and RECORD payload hashes,
+`pip check`, seven import results, and `no_native_execution=true`,
+`pg_started=false`, and
+`spark_started=false`.
+The receipt SHA-256 is
+`e96705451e82392657aafc956e3e85e2975e5e8b56a2658b3a93d9fd3d2f18ce`; its Truss
+catalog-manifest digest is
+`288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4`. It records
+pip-check exit 0 with a nonfatal cache warning. That install receipt accurately
+records that tests had not yet run when it was issued. The separate focused
+test receipt at
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/sdk-api-attempt-02-receipt.json`
+has SHA-256
+`6ff09683c4f7fd7a2c28c7db3234d732eaffafc9a2dd2065a5b836e95787c8f` and binds
+24 passed tests, source hashes, and log/result hashes. Worker preflight verifies
+the selected lock file digest, target/count, direct cohort identities, and that the runtime
+receipt names this lock digest. Attempt-02 is not source or native
+qualification; do not create an approval sidecar
+until the remaining B authority decisions and execution review are complete.
+Do not rerun installation into attempt-02; any future runtime rebuild needs a
+fresh attempt path.
 
 The focused check command and the direct artifact provenance are retained in
 [the compatibility check plan](b-runtime-compatibility-check-plan-20261023.md).

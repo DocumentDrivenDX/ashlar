@@ -51,8 +51,12 @@ root `/private/tmp/ashlar-r04-b-install-20261023-01/root`, PGDATA
 `ashlar_r04_b_reader_20261023`, consumer
 `ashlar-current-core-r04-b-20261023`, and acceptance request key
 `ashlar-r04-b-source-accept-20261023-r1`. The config records these as
-candidates only. The output root, PGDATA, attempt directory, and attempt-02
-runtime remain absent; attempt-01 runtime is incomplete and quarantined.
+candidates only. The output root, PGDATA, and attempt directory remain absent.
+Attempt-01 is incomplete and quarantined; attempt-02 installed the locked wheels
+and received a post-install verification receipt. The receipt records all
+installed RECORD checks and the pip-check warning. A separate receipt records
+24/24 focused SDK/API checks; source and native effects remain unperformed. See
+the [attempt-02 result](b-runtime-partial-attempt-02-note-20261023.md).
 Preflight must verify canonical ownership, modes, non-aliasing, empty/fresh
 state, input separation, and identity collision absence at execution time.
 

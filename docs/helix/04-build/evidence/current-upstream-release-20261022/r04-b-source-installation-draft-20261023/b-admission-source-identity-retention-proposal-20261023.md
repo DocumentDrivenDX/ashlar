@@ -56,7 +56,7 @@ authoritative, so the proposal does not declare semantic suitability.
 | B output root | `/private/tmp/ashlar-r04-b-install-20261023-01/root` | Candidate, absent at audit; mode 0700, current-user-owned, and otherwise empty before attempt creation. |
 | B PGDATA | `/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data` | Candidate fresh path; initialize once and retain after any initialization/transaction uncertainty. |
 | B attempt | `/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01` | Candidate one-use attempt; no reuse or automatic retry. |
-| B runtime | `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02` | Replacement Python 3.12.14 runtime target outside the output root. Attempt-01 at `.../runtime/venv` was interrupted without a receipt and is quarantined; attempt-02 remains uncreated. It requires a B-specific dev7 runtime receipt and hash-complete offline dependency lock. |
+| B runtime | `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02` | Attempt-02 installed all 27 locked wheels. Post-install receipt `e96705451e82392657aafc956e3e85e2975e5e8b56a2658b3a93d9fd3d2f18ce` records full installed RECORD verification and pip-check exit 0 with a nonfatal cache warning. Separate receipt `6ff09683c4f7fd7a2c28c7db3234d732eaffafc9a2dd2065a5b836e95787c8f` records 24/24 focused offline SDK/API checks. Attempt-01 is quarantined. |
 | Catalog CAS | Expected catalog revision `0`; one `CatalogDocumentExpectation` for the proposed document ID at source-catalog revision `0` | Conditional default for a newly initialized, empty B catalog; must be confirmed by owner and checked by the worker before the commit. |
 | Install owner role | `ashlar_r04_b_owner_20261023` | Candidate caller-selected role; owner must authorize it and confirm no collision with A/other roles. |
 | Install registrar role | `ashlar_r04_b_reg_20261023` | Candidate caller-selected role; owner must authorize it and confirm no collision. |
@@ -66,13 +66,15 @@ authoritative, so the proposal does not declare semantic suitability.
 | Acceptance request key | `ashlar-r04-b-source-accept-20261023-r1` | Candidate unique idempotency key; owner must freeze before the single acceptance request. |
 | LocalPostgres admission | Nominal port 5432, private Unix socket derived from the canonical B PGDATA path; one exclusive slot after the existing A/Arras server is stopped | Fixed by the Truss 0.0.49 public API. No concurrent service or unique TCP-port claim. Gate inventory is not an OS lock and must be repeated immediately before launch. |
 
-The candidate runtime receipt location is
+The runtime receipt location is
 `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json`.
-It is intentionally absent. The historical R3 receipt records `umf_access`
+Its SHA-256 is `e96705451e82392657aafc956e3e85e2975e5e8b56a2658b3a93d9fd3d2f18ce`.
+The historical R3 receipt records `umf_access`
 0.1.0.dev6 and is not a B runtime receipt. The B plan selects the exact public
 access dev7, core 0.10, Truss 0.0.49, and Weft 0.4.52 wheels and selects the
 R4 27-wheel CPython 3.12.14 lock at its verified path and digest. The B-specific
-installed-runtime receipt remains unbound.
+installed-runtime receipt is bound in B config. The separate test receipt
+records 24/24 focused checks; neither receipt approves source or execution.
 
 ## Executor alignment required before any use
 

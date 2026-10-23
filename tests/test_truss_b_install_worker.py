@@ -81,7 +81,10 @@ class TrussBInstallWorkerTests(unittest.TestCase):
         config = json.loads((PACKET / "b-install-config.json").read_bytes())
         self.assertIsNone(config["execution"]["approval"])
         self.assertFalse(config["scope"]["arras_window_released"])
-        self.assertIsNone(config["runtime"]["runtime_manifest_sha256"])
+        self.assertEqual(config["runtime"]["runtime_manifest_sha256"],
+                         "e96705451e82392657aafc956e3e85e2975e5e8b56a2658b3a93d9fd3d2f18ce")
+        self.assertEqual(config["runtime"]["catalog_manifest_sha256"],
+                         "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4")
         self.assertIsNone(config["installation"]["retention_owner"])
         with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
             origin_path = Path(temporary) / "b-origin.json"
