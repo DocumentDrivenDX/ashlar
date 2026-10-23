@@ -16,6 +16,14 @@ JAR_SHA256={
     'delta-storage-4.4.1.jar':'f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f',
 }
 
+def ddl_for_codec(ddl: str, codec: str) -> str:
+    if codec not in ('zstd','snappy'):
+        raise ValueError('unsupported codec for isolated edge experiment')
+    property_="'delta.parquet.compression.codec'='zstd'"
+    if ddl.count(property_)!=1:
+        raise ValueError('generated Delta DDL does not contain exactly one pinned codec property')
+    return ddl.replace(property_,f"'delta.parquet.compression.codec'='{codec}'",1)
+
 def summarize_events(events):
     attribution={'sql':[],'jobs':{},'stages':{},'task_totals':{'count':0,'executor_run_ms':0,'executor_cpu_ns':0,'jvm_gc_ms':0,'memory_spill_bytes':0,'disk_spill_bytes':0,'output_bytes':0,'output_records':0}}
     def val(obj,key,default=0):
@@ -81,7 +89,7 @@ def read_event_logs(event_root):
 
 def main():
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--repo',type=Path,required=True);p.add_argument('--wheel',type=Path,required=True);p.add_argument('--commit',required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--repo',type=Path,required=True);p.add_argument('--wheel',type=Path,required=True);p.add_argument('--commit',required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--codec',choices=('zstd','snappy'),default='zstd');p.add_argument('--minimum-free-bytes',type=int,default=5_000_000_000);a=p.parse_args()
     repo=a.repo.resolve();wheel=a.wheel.resolve();out=a.out.resolve()
     if out.exists() or not wheel.is_file() or hashlib.sha256(wheel.read_bytes()).hexdigest()!=WHEEL_SHA: raise SystemExit('fresh output and reviewed wheel required')
     if any(not (JARS/name).is_file() or hashlib.sha256((JARS/name).read_bytes()).hexdigest()!=digest for name,digest in JAR_SHA256.items()): raise SystemExit('Delta runtime JAR missing or hash differs')
@@ -98,7 +106,7 @@ def main():
     try:
         import pyspark,delta,shutil,subprocess
         free=shutil.disk_usage(out).free
-        if free<5_000_000_000:raise SystemExit('at least 5GB free disk required before Spark startup')
+        if free<a.minimum_free_bytes:raise SystemExit(f'at least {a.minimum_free_bytes} free disk bytes required before Spark startup')
         if (sys.version_info[:2]!=(3,12) or pyspark.__version__!='4.2.0' or delta.__version__!='4.4.1'):
             raise SystemExit('reviewed Python/PySpark/Delta runtime mismatch')
         java=subprocess.run([os.environ.get('JAVA_HOME','')+'/bin/java','-version'],check=True,capture_output=True,text=True)
@@ -108,13 +116,14 @@ def main():
         sys.path.insert(0,str(wheel));from ashlar_host.managed_current_carriers import load_current_managed_carriers
         c=load_current_managed_carriers(PROFILE)
         if c.physical_profile!=PROFILE or c.lookup_hash_profile!=HASH_PROFILE or hashlib.sha256(c.generated_bytes).hexdigest()!=GENERATED_SHA or c.generated_bytes!=generated: raise ValueError('carrier profile/hash mismatch')
-        record({'stage':'admitted','wheel_sha256':WHEEL_SHA,'generated_sha256':GENERATED_SHA,'expected_rows':N})
+        experiment_profile='ashlar-local-current/.4-xxhash64' if a.codec=='zstd' else 'ashlar-local-current/.4-xxhash64-snappy-candidate-20261023'
+        record({'stage':'admitted','wheel_sha256':WHEEL_SHA,'generated_sha256':GENERATED_SHA,'expected_rows':N,'codec':a.codec.upper(),'experiment_profile':experiment_profile})
         from pyspark.sql import SparkSession
         uri=event_dir.as_uri()
         spark=(SparkSession.builder.master('local[18]').appName('ashlar-edge-write-attribution-225m')
           .config('spark.driver.memory','24g').config('spark.ui.enabled','false').config('spark.ui.showConsoleProgress','false')
           .config('spark.jars',CLASSPATH).config('spark.databricks.delta.allowArbitraryProperties.enabled','true')
-          .config('spark.sql.parquet.compression.codec','zstd').config('spark.sql.shuffle.partitions','18')
+          .config('spark.sql.parquet.compression.codec',a.codec).config('spark.sql.shuffle.partitions','18')
           .config('spark.default.parallelism','18').config('spark.sql.session.timeZone','UTC')
           .config('spark.sql.warehouse.dir',str(out/'warehouse')).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension')
           .config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog')
@@ -127,11 +136,16 @@ def main():
             raise ValueError('actual Spark master/version/JVM heap/processors differ from selected profile')
         role='edge_current'; table='`spark_catalog`.`default`.`edge_current`'
         ddl_started=time.monotonic()
-        spark.sql(c.create_sql(role,('spark_catalog','default',role)))
+        ddl=c.create_sql(role,('spark_catalog','default',role))
+        ddl=ddl_for_codec(ddl,a.codec)
+        spark.sql(ddl)
         detail=spark.sql(f'DESCRIBE DETAIL {table}').first().asDict()
+        table_configuration=detail.get('properties') or {}
+        if table_configuration.get('delta.parquet.compression.codec')!=a.codec:raise ValueError('effective Delta table codec property did not read back')
+        schema_json=spark.table(table).schema.json()
         location=urlparse(detail.get('location','')); tablepath=Path(unquote(location.path)).resolve()
         if location.scheme!='file' or not tablepath.is_relative_to(out):raise ValueError('table location outside bounded output')
-        record({'stage':'carrier_table_ready','seconds':time.monotonic()-ddl_started,'elapsed_seconds':time.monotonic()-start,'table_path':str(tablepath)})
+        record({'stage':'carrier_table_ready','seconds':time.monotonic()-ddl_started,'elapsed_seconds':time.monotonic()-start,'table_path':str(tablepath),'codec':a.codec.upper(),'table_configuration':table_configuration,'schema_json':schema_json,'schema_sha256':hashlib.sha256(schema_json.encode()).hexdigest()})
         sql=f"""INSERT INTO {table} SELECT source_system, rel_type_id, id, source_type,
           source_id, target_type, target_id, schema_revision, entity_version, props_json,
           retained_json, order_key, source_feed, source_epoch, source_position, published_at,
@@ -166,8 +180,31 @@ def main():
                 rows+=int(b.getRowCount())
                 for col in b.getColumns():
                     codecs.add(str(col.getCodec().name())); k=str(col.getPath().toDotString());chunks[k]=chunks.get(k,0)+int(col.getTotalSize())
-        if rows!=N or codecs!={'ZSTD'}:raise ValueError(f'footer mismatch rows={rows} codecs={sorted(codecs)}')
-        record({'stage':'footer_verified','rows':rows,'files':len(files),'parquet_bytes':bytes_,'matches_prior_baseline_active_bytes':bytes_==2_569_031_961,'prior_baseline_active_bytes':2_569_031_961,'codecs':sorted(codecs),'compressed_column_chunk_bytes':chunks,'elapsed_seconds':time.monotonic()-start})
+        expected_codec=a.codec.upper()
+        if rows!=N or codecs!={expected_codec}:raise ValueError(f'footer mismatch rows={rows} codecs={sorted(codecs)} expected={expected_codec}')
+        # Read the actual Delta log actions, not a hand-built receipt, to bind
+        # the table protocol and complete persisted metadata/configuration.
+        log_actions=[]
+        for log_file in sorted((tablepath/'_delta_log').glob('*.json')):
+            for line in log_file.read_text().splitlines():
+                action=json.loads(line)
+                if 'protocol' in action:log_actions.append({'version':log_file.stem,'protocol':action['protocol']})
+                if 'metaData' in action:log_actions.append({'version':log_file.stem,'metadata':action['metaData']})
+        protocols=[row['protocol'] for row in log_actions if 'protocol' in row]
+        metadata=[row['metadata'] for row in log_actions if 'metadata' in row]
+        if not protocols or not metadata:raise ValueError('Delta log protocol and metadata actions were not read back')
+        latest_metadata=metadata[-1]
+        if latest_metadata.get('configuration',{}).get('delta.parquet.compression.codec')!=a.codec:raise ValueError('Delta log codec property differs from requested codec')
+        protocol=protocols[-1]
+        selected_ids=[0,1,4,5,N-1]
+        witness_sql=f"SELECT id, source_id, target_id, source_position, source_delivery_id, lookup_hash FROM {table} WHERE id IN ({','.join(map(str,selected_ids))}) ORDER BY id"
+        witness=[row.asDict() for row in spark.sql(witness_sql).collect()]
+        if [int(row['id']) for row in witness]!=selected_ids:raise ValueError('persisted exact-key witness set differs')
+        for row in witness:
+            i=int(row['id']);source_id=i//5;target_id=(source_id+((i%5)//2))%45_000_000
+            if (int(row['source_id']),int(row['target_id']),int(row['source_position']),row['source_delivery_id'])!=(source_id,target_id,i,str(i)):
+                raise ValueError(f'persisted carrier witness differs at id={i}')
+        record({'stage':'footer_verified','rows':rows,'files':len(files),'parquet_bytes':bytes_,'prior_baseline_active_bytes':2_569_031_961,'codecs':sorted(codecs),'compressed_column_chunk_bytes':chunks,'elapsed_seconds':time.monotonic()-start,'protocol':protocol,'protocol_sha256':hashlib.sha256(json.dumps(protocol,sort_keys=True,separators=(',',':')).encode()).hexdigest(),'metadata_schema_sha256':hashlib.sha256(latest_metadata['schemaString'].encode()).hexdigest(),'metadata_configuration':latest_metadata.get('configuration',{}),'metadata_configuration_sha256':hashlib.sha256(json.dumps(latest_metadata.get('configuration',{}),sort_keys=True,separators=(',',':')).encode()).hexdigest(),'persisted_witnesses':witness,'delta_log_files':[f.name for f in sorted((tablepath/'_delta_log').glob('*.json'))]})
     except BaseException as e:
         record({'stage':'failed','elapsed_seconds':time.monotonic()-start,'error_type':type(e).__name__,'error':str(e)[:1000]});raise
     finally:

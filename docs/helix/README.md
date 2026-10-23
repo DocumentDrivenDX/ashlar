@@ -106,8 +106,12 @@ See the [candidate and action-readiness evidence](04-build/evidence/canonical-gr
 
 The `.4` synthetic carrier samples reached 45M nodes/225M edges on local[18]
 in 73.82 seconds, writing 3.06 GB of active ZSTD Parquet. At 80% of those
-measured per-table rates, a 1B/5B write projects to 18.05 minutes and remains
-held for review; the 68.05 GB size calculation is fixture arithmetic, not a
+measured per-table rates, the historical 1B/5B write projection was 18.05 minutes;
+the later completed 225M ZSTD edge insert in attempt-02 revises the write-only
+projection to 16.50 minutes at 80%, still above the 15-minute owner-review gate.
+The SNAPPY candidate was stopped at its polled output threshold before INSERT
+completion, with no valid timing comparison. The held trial remains held. The
+68.05 GB size calculation is fixture arithmetic, not a
 production capacity estimate. This larger run improved throughput over local[4]
 but below ideal 4.5x core scaling, especially for edges. Its redundant
 `source_position=id` and decimal `source_delivery_id` are synthetic; actual
@@ -141,9 +145,13 @@ than the 38.98-second/3.06-GB sequential-identity baseline, so neither hash-rang
 layout is the default. Its 80%-throughput write-only arithmetic for 1B/5B is
 26.96 minutes and remains held. The successful comparison and its synthetic
 value limits are in the [identity-sort evidence](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-identity-sort-materialization-20261022.json).
-The completed R05 reassessment records the selected 1B/5B write-only estimate at
-18.05 minutes and a nonselected sensitivity at 16.425 minutes; both exceed the
-15-minute owner-review gate, which does not authorize the held scale trial
+The R05 reassessment records the latest ZSTD 1B/5B write-only estimate at
+16.50 minutes, based on attempt-02's completed 25.962255-second 225M-edge
+insert; its supervisor receipt retains process-group uncertainty. Earlier
+estimates were 18.05 minutes and a nonselected statistics sensitivity at 16.425
+minutes. The SNAPPY candidate exceeded its polled output threshold without
+completing INSERT, so it supplies no timing result. These estimates exceed the
+15-minute owner-review gate and do not authorize the held scale trial
 ([R05 budget and gates](04-build/evidence/r05-end-to-end-budget-design-20261023/README.md)).
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
