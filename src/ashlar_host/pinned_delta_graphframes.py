@@ -1571,6 +1571,112 @@ def _admit_canonical_graphframes_runtime(spark):
     return observed
 
 
+def _verify_canonical_persisted_fixture(spark, lease, descriptor):
+    """Prove both tiny persisted carrier bags before GraphFrame construction.
+
+    Only scalar aggregates are returned to Python. Carrier rows stay in Spark;
+    the separate GraphFrames action remains the only collected result bag.
+    """
+    from datetime import datetime
+    from pyspark.sql import functions as F
+    from pyspark.sql.types import (LongType, StringType, StructField,
+                                   StructType, TimestampType)
+
+    if type(descriptor) is not ReviewedCanonicalActionDescriptor:
+        raise PermissionError("Reviewed canonical action descriptor required for persisted gates")
+    source = _json_without_duplicate_members(descriptor.source_bytes)
+    if type(source) is not dict or set(source.get("tables", {})) != {
+            "object_current", "edge_current"}:
+        raise PermissionError("Exact reviewed canonical source tables required")
+    if spark.conf.get("spark.sql.session.timeZone") != "UTC":
+        raise PermissionError("UTC Spark session timezone required for timestamp gate")
+
+    frames = lease.current_frames()
+    pins = lease._delta_lease._pins
+    expected_counts = dict(zip(("object_current", "edge_current"),
+                               descriptor.fixture.row_counts))
+    type_map = {"string": StringType, "bigint": LongType,
+                "timestamp": TimestampType}
+    checks = {}
+
+    def scalar(frame):
+        row = frame.limit(1).first()
+        if row is None:
+            raise PermissionError("One bounded native fixture aggregate required")
+        return row[0]
+
+    for role in ("object_current", "edge_current"):
+        frame = frames[role]
+        expected_schema = _canonical_carrier_signature(role)
+        observed_schema, _ = _actual_schema_signature(frame.schema)
+        if observed_schema != expected_schema:
+            raise PermissionError(
+                f"Persisted {role} schema, field order, type, or nullability differs")
+
+        pin = pins[role]
+        expected_protocol = (PROTOCOL["minReaderVersion"],
+                             PROTOCOL["minWriterVersion"],
+                             tuple(PROTOCOL["tableFeatures"]))
+        if pin.protocol != expected_protocol:
+            raise PermissionError(f"Persisted {role} Delta protocol differs")
+
+        row_count = scalar(frame.agg(F.count(F.lit(1)).alias("row_count")))
+        if row_count != expected_counts[role]:
+            raise PermissionError(f"Persisted {role} row count differs from reviewed source")
+
+        rows = source["tables"][role]
+        schema = StructType([StructField(name, type_map[kind](), nullable)
+                             for name, kind, nullable in expected_schema])
+        identity_type = "type_id" if role == "object_current" else "rel_type_id"
+        values = []
+        for source_row in rows:
+            record = dict(source_row)
+            record["lookup_hash"] = 0
+            record["published_at"] = datetime.fromisoformat(
+                record["published_at"].replace("Z", "+00:00"))
+            values.append(tuple(record[field.name] for field in schema.fields))
+        expected = spark.createDataFrame(values, schema=schema).withColumn(
+            "lookup_hash", F.xxhash64(F.col("source_system").cast("string"),
+                                      F.col(identity_type).cast("long"),
+                                      F.col("id").cast("long")))
+
+        native_hash = F.xxhash64(F.col("source_system").cast("string"),
+                                 F.col(identity_type).cast("long"),
+                                 F.col("id").cast("long"))
+        bad_hash_count = scalar(frame.where(
+            F.col("lookup_hash").isNull()
+            | (F.col("lookup_hash") != native_hash)
+        ).agg(F.count(F.lit(1)).alias("bad_hashes")))
+        if bad_hash_count != 0:
+            raise PermissionError(f"Persisted {role} Spark xxhash64 values differ")
+
+        # Bidirectional exceptAll preserves multiplicity and compares all
+        # authored values, including explicit nulls and timestamp microseconds.
+        columns = [field[0] for field in expected_schema]
+        extra_count = scalar(frame.select(*columns).exceptAll(
+            expected.select(*columns)).agg(F.count(F.lit(1)).alias("extra_rows")))
+        missing_count = scalar(expected.select(*columns).exceptAll(
+            frame.select(*columns)).agg(F.count(F.lit(1)).alias("missing_rows")))
+        if extra_count != 0 or missing_count != 0:
+            raise PermissionError(
+                f"Persisted {role} source values or timestamp microseconds differ")
+
+        checks[role] = {
+            "rowCount": row_count,
+            "schemaSha256": _actual_schema_signature(frame.schema)[1],
+            "schemaNullability": "matched",
+            "protocol": {"minReaderVersion": pin.protocol[0],
+                         "minWriterVersion": pin.protocol[1],
+                         "tableFeatures": list(pin.protocol[2])},
+            "sourceMultiset": "matched",
+            "publishedAt": "UTC exact microsecond equality",
+            "lookupHash": "Spark xxhash64 recomputation matched",
+        }
+
+    return {"status": "verified", "tables": checks,
+            "carrierRowsCollected": 0}
+
+
 def _run_bounded_graphframes_one_hop(spark, lease, profile, fixture_sha256,
                                     selected_seed, expected_rows):
     """Run the shared bounded action over already-held version-pinned frames."""
@@ -1623,7 +1729,8 @@ def _run_bounded_graphframes_one_hop(spark, lease, profile, fixture_sha256,
     }
 
 
-def run_canonical_graphframes_one_hop(spark, fixture_owner):
+def run_canonical_graphframes_one_hop(spark, fixture_owner, *,
+                                      native_fixture_verifier=None):
     """Run the separately gated canonical `.4` seed action under retained custody.
 
     This entrypoint is intentionally unavailable to the older metadata-only
@@ -1639,6 +1746,16 @@ def run_canonical_graphframes_one_hop(spark, fixture_owner):
         runtime_open = _admit_canonical_graphframes_runtime(spark)
         lease.record_runtime_identity(runtime_open)
         evidence_open = lease.evidence()
+        if native_fixture_verifier is not _verify_canonical_persisted_fixture:
+            raise PermissionError(
+                "Native persisted-fixture verification hook required before GraphFrame")
+        persisted_fixture = native_fixture_verifier(
+            spark, lease, fixture_owner.descriptor)
+        if (type(persisted_fixture) is not dict
+                or persisted_fixture.get("status") != "verified"
+                or persisted_fixture.get("carrierRowsCollected") != 0):
+            raise PermissionError("Complete bounded persisted-fixture verification required")
+        lease.renew()
         frames = lease.current_frames()
         vertices, graph_edges = _graphframes_views(
             frames["object_current"], frames["edge_current"],
@@ -1684,9 +1801,9 @@ def run_canonical_graphframes_one_hop(spark, fixture_owner):
         receipt = {
             "profile": CANONICAL_SYNTHETIC_PROFILE,
             "status": "bounded-one-hop-passed",
-            "canonicalFixtureQualification": "unqualified-persisted-row-count-evidence-absent",
+            "canonicalFixtureQualification": "persisted-carrier-and-one-hop-verified",
             "expectedRowCounts": list(fixture_owner.descriptor.fixture.row_counts),
-            "persistedRowCountEvidence": "absent",
+            "persistedFixtureEvidence": persisted_fixture,
             "descriptorSha256": fixture_owner.descriptor.sha256,
             "inputDigests": {
                 "manifest": fixture_owner.descriptor.manifest_sha256,

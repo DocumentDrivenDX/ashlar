@@ -11,9 +11,10 @@ oracle rows; the digest also freezes the generated `.4` carrier resource bytes,
 UMF revision and runtime *selection*. It reads the exact generated object/edge
 schemas, observes two distinct native Delta UUIDs, versions, schemas and protocol
 twice at open, and provides `VERSION AS OF` frame handles under a finite renewable
-metadata lease. Focused tests cover bad descriptors, schema refusal, duplicate
-UUIDs, changed versions, expiry, version selection and no carrier-row collection.
-The focused suite passed 15/15 and `git diff --check` passed.
+metadata lease. Focused action tests cover bad descriptors, schema refusal,
+duplicate UUIDs, changed versions, expiry, version selection and no carrier-row
+collection; 30/30 passed. The separately reviewed inert supervisor suite passed
+11/11 focused tests, including admission and failure-cleanup controls.
 
 These checks are metadata correspondence only. The generator/source/oracle
 declarations have not been independently audited or executed by this candidate;
@@ -40,5 +41,12 @@ edge source, a separately authored two-occurrence oracle, same-lock writer and
 cleanup helpers, and the existing review-gated capped one-hop entrypoint. The
 exact source and independent oracle are in the [action fixture](action-fixture/README.md).
 No tables have been materialized and no Spark or GraphFrames runtime has been
-started. A separately reviewed manifest/anchor and the Truss execution slot are
-still required before the action can run.
+started. The final action descriptor is separately bound to its reviewed
+manifest anchor. The distinct hash-pinned native supervisor and worker have
+passed independent review as inert preparation, documented in
+[native-supervisor](native-supervisor/review-packet.md). Execution remains
+disabled because exact runtime paths are unset; a fresh exclusive-slot check
+and separate user authorization are also required. The invocation packet keeps
+its pending status and cannot admit a run until it is immutably re-frozen with
+review status and the exact runtime/accounting inputs. No wrapper authorization
+is implied by the action anchor, and no native attempt has run.

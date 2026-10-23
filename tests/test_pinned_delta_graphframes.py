@@ -1,4 +1,5 @@
 import unittest
+from contextlib import nullcontext
 import hashlib
 import json
 import os
@@ -812,7 +813,7 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def _run_action_with_rows(self, rows, runtime_values=None):
+    def _run_action_with_rows(self, rows, runtime_values=None, verifier="default"):
         temporary, _root, spark, owner, descriptor, expected = self._fixture()
         FakeActionGraphFrame.rows = rows
         fake_functions = types.ModuleType("pyspark.sql.functions")
@@ -827,12 +828,22 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         graphframes.GraphFrame = FakeActionGraphFrame
         modules = {"pyspark": pyspark, "pyspark.sql": sql,
                    "pyspark.sql.functions": fake_functions, "graphframes": graphframes}
+        if verifier == "default":
+            verifier = lambda *_args: {
+                "status": "verified", "tables": {}, "carrierRowsCollected": 0}
+        verification_patch = (patch.object(
+            graphframes_module, "_verify_canonical_persisted_fixture",
+            side_effect=verifier) if callable(verifier) else nullcontext(None))
         try:
             with patch.dict(sys.modules, modules), patch.object(
                     graphframes_module, "_admit_canonical_graphframes_runtime",
                     side_effect=runtime_values or [{"spark": "4.2.0", "delta": "4.4.1",
-                                  "graphframes": "0.12.3", "jdk": "21.0.13", "jars": {}}] * 3):
-                result = graphframes_module.run_canonical_graphframes_one_hop(spark, owner)
+                                  "graphframes": "0.12.3", "jdk": "21.0.13", "jars": {}}] * 3), \
+                    verification_patch as native_verifier:
+                result = graphframes_module.run_canonical_graphframes_one_hop(
+                    spark, owner,
+                    native_fixture_verifier=(native_verifier if callable(native_verifier)
+                                             else None))
             self.assertTrue(all(getattr(frame, "collect_calls", 0) == 0
                                 for frame in spark.loaded_frames))
             return result, FakeActionGraphFrame.last, temporary, expected
@@ -847,14 +858,21 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         try:
             self.assertEqual(result["status"], "bounded-one-hop-passed")
             self.assertEqual(result["canonicalFixtureQualification"],
-                             "unqualified-persisted-row-count-evidence-absent")
-            self.assertEqual(result["persistedRowCountEvidence"], "absent")
+                             "persisted-carrier-and-one-hop-verified")
+            self.assertEqual(result["persistedFixtureEvidence"]["status"], "verified")
             self.assertEqual(result["result"], [row])
             self.assertEqual(result["sourceProgress"], "absent")
             self.assertEqual(result["protectedAck"], "absent")
             self.assertEqual(query.limit_value, descriptor.cap + 1)
             self.assertIsInstance(result["lockWindow"]["closedMonotonicNs"], int)
         finally:
+            temporary.cleanup()
+
+    def test_action_refuses_without_native_fixture_verifier_before_graphframe(self):
+        descriptor, row = reviewed_action_descriptor()
+        with self.assertRaisesRegex(PermissionError, "verification hook required"):
+            _result, _query, temporary, _ = self._run_action_with_rows(
+                [dict(zip(descriptor.output_schema, row))], verifier=None)
             temporary.cleanup()
 
     def test_cap_overflow_and_oracle_mismatch_release_no_receipt(self):

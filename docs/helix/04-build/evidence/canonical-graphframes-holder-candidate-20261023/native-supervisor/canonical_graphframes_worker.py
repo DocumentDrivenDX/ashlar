@@ -1,0 +1,124 @@
+"""Local-only native fixture worker; invoked only by the reviewed supervisor."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+from pathlib import Path
+import sys
+
+
+def _read_json(path: Path) -> dict:
+    if path.is_symlink() or not path.is_file():
+        raise PermissionError("Canonical local evidence file required")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _verify_file(path: Path, digest: str) -> bytes:
+    if path.is_symlink() or not path.is_file():
+        raise PermissionError("Canonical local evidence file required")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != digest:
+        raise PermissionError("Canonical local evidence bytes differ from invocation packet")
+    return raw
+
+
+def main(attempt_root: Path, invocation_packet: Path) -> int:
+    packet = _read_json(invocation_packet)
+    action = packet["action"]
+    module_path = Path(action["modulePath"])
+    manifest_path = Path(action["manifestPath"])
+    anchor_path = Path(action["anchorPath"])
+    source_path = Path(action["sourcePath"])
+    oracle_path = Path(action["oraclePath"])
+    module_bytes = _verify_file(module_path, action["moduleSha256"])
+    manifest_bytes = _verify_file(manifest_path, action["manifestSha256"])
+    anchor_bytes = _verify_file(anchor_path, action["anchorSha256"])
+    source_bytes = _verify_file(source_path, action["sourceSha256"])
+    oracle_bytes = _verify_file(oracle_path, action["oracleSha256"])
+    digest_path = Path(action["anchorDigestPath"])
+    if digest_path.is_symlink() or not digest_path.is_file():
+        raise PermissionError("Separately selected action anchor digest file required")
+    anchor_digest_text = digest_path.read_text(encoding="ascii").strip()
+    if (anchor_digest_text != action["anchorSha256"]
+            or hashlib.sha256(anchor_bytes).hexdigest() != anchor_digest_text):
+        raise PermissionError("Separately selected action anchor digest mismatch")
+
+    # Import the exact module whose bytes were checked above through the child
+    # PYTHONPATH selected by the invocation packet.
+    import ashlar_host.pinned_delta_graphframes as action_module
+    if Path(action_module.__file__).resolve(strict=True) != module_path:
+        raise PermissionError("Imported action module path differs from selected bytes")
+    descriptor = action_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+        manifest_bytes, module_bytes, source_bytes, oracle_bytes,
+        review_anchor_path=anchor_path,
+        selected_review_anchor_sha256=anchor_digest_text)
+
+    expected_jar_digests = action_module.CANONICAL_RUNTIME_ARTIFACTS
+    runtime = packet.get("runtime")
+    if (type(runtime) is not dict or runtime.get("master") != "local[2]"
+            or {key: runtime.get(key) for key in ("spark", "delta", "graphframes", "jdk")}
+               != {"spark": "4.2.0", "delta": "4.4.1",
+                   "graphframes": "0.12.3", "jdk": "21.0.13"}):
+        raise PermissionError("Exact reviewed local runtime selection required")
+    jar_paths = runtime.get("runtimeJars")
+    if type(jar_paths) is not dict or set(jar_paths) != set(expected_jar_digests):
+        raise PermissionError("Exact locally selected runtime JAR paths required")
+    classpath = []
+    for name, expected_digest in expected_jar_digests.items():
+        jar_path = Path(jar_paths[name])
+        if jar_path.is_symlink() or not jar_path.is_file():
+            raise PermissionError("Locally installed pinned runtime JAR required")
+        if hashlib.sha256(jar_path.read_bytes()).hexdigest() != expected_digest:
+            raise PermissionError("Locally installed runtime JAR bytes differ from pins")
+        classpath.append(str(jar_path.resolve(strict=True)))
+
+    scratch = attempt_root / "spark-local"
+    fixture_root = attempt_root / "fixture"
+    warehouse = attempt_root / "warehouse"
+    for path in (scratch, fixture_root, warehouse):
+        if path.is_symlink() or not path.is_dir() or path.stat().st_mode & 0o077:
+            raise PermissionError("Private attempt directories required")
+    if os.environ.get("SPARK_LOCAL_DIRS") != str(scratch):
+        raise PermissionError("Spark local scratch must be inside accounted attempt root")
+
+    from pyspark.sql import SparkSession
+    spark = (SparkSession.builder.master("local[2]")
+        .appName("ashlar-canonical-graphframes-one-hop")
+        .config("spark.jars", ",".join(classpath))
+        .config("spark.local.dir", str(scratch))
+        .config("spark.sql.warehouse.dir", str(warehouse))
+        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+        .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+        .config("spark.sql.session.timeZone", "UTC")
+        .config("spark.sql.shuffle.partitions", "2")
+        .config("spark.driver.host", "127.0.0.1")
+        .getOrCreate())
+    try:
+        paths = action_module.create_canonical_graphframes_fixture(spark, fixture_root)
+        owner = action_module.PinnedCanonicalGraphFramesActionFixture(
+            spark, descriptor, fixture_root, paths)
+        receipt = action_module.run_canonical_graphframes_one_hop(
+            spark, owner,
+            native_fixture_verifier=action_module._verify_canonical_persisted_fixture)
+        result_path = attempt_root / "worker-result.json"
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0)
+        fd = os.open(result_path, flags, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(json.dumps(receipt, sort_keys=True, separators=(",", ":")) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        return 0
+    finally:
+        spark.stop()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        raise SystemExit("worker accepts only attempt-root, pinned packet and result path")
+    root = Path(sys.argv[1]).resolve(strict=True)
+    result_path = Path(sys.argv[3])
+    if result_path != root / "worker-result.json":
+        raise SystemExit("worker result path must be inside its accounted attempt root")
+    raise SystemExit(main(root, Path(sys.argv[2]).resolve(strict=True)))

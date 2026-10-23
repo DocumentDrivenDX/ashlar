@@ -1,0 +1,94 @@
+{
+  "profile": "ashlar-canonical-graphframes-native-supervisor/0.1",
+  "status": "preparation-only-no-native-attestation",
+  "reviewStatus": "pending-independent-wrapper-review",
+  "executionStatus": "pending-separate-wrapper-review-slot-check-and-user-authorization",
+  "reviewId": null,
+  "wrapper": {
+    "path": "bounded_native_supervisor.py",
+    "sha256": "410f3bc3cfe1db3d7dbcdc9ac7fbacc40a1aca0bf62e07295cea893bb712a6fd"
+  },
+  "worker": {
+    "path": "canonical_graphframes_worker.py",
+    "sha256": "485203df63efa49f1ced3fff3f4578ef60b74529e0dc1439a47bcbdca4fc62fd"
+  },
+  "action": {
+    "profile": "ashlar-canonical-synthetic-pinned-delta-graphframes/0.1",
+    "descriptorSha256": "740500425a4024e6a79d7a8fcf0b124b1093a36813df2613f467fefce3289a00",
+    "modulePath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/pinned_delta_graphframes.py",
+    "moduleSha256": "be40300c0cd48d0075d14cf98555b154f1d0b4940991bc6fdf587536646757aa",
+    "manifestPath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.json",
+    "manifestSha256": "0c989aed8c54baa09618ae1d9b8a3639fffae962cd049872dc9070e7cfb69f6d",
+    "anchorPath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.json",
+    "anchorSha256": "42312c205478d51bf31d8e106b6a8544b8b0c1fb8f615c3bee46ee6d103e326c",
+    "anchorDigestPath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.sha256",
+    "sourcePath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/source-rows.json",
+    "sourceSha256": "5e3c1110a982f04fefe03453d29306654ad4f1a631a170daa0125fd4e50a87ab",
+    "oraclePath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/independent-oracle.json",
+    "oracleSha256": "7b167c9e871196ced1f352eb8c3440474fac66e18b09da895f70ed4c52c8b832",
+    "carrierPath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json",
+    "carrierSha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa"
+  },
+  "runtime": {
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "graphframes": "0.12.3",
+    "jdk": "21.0.13",
+    "master": "local[2]",
+    "pythonExecutable": null,
+    "pythonExecutableSha256": null,
+    "pythonPath": "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src",
+    "runtimeJarSha256": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
+      "graphframes-spark4_2.13-0.12.3.jar": "a78958f7ea3ac89ed1ea9dbbd1546f403d94151e969bb0de96e33697a5f49f50"
+    },
+    "runtimeJars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": null,
+      "delta-storage-4.4.1.jar": null,
+      "graphframes-spark4_2.13-0.12.3.jar": null
+    }
+  },
+  "hardBounds": {
+    "attempts": 1,
+    "totalSeconds": 300,
+    "retainedPlusAttemptBytes": 1073741824,
+    "diagnosticsBytes": 134217728,
+    "freshRootMode": "0700",
+    "processGroup": "one child session; terminate/kill group and reap leader",
+    "sparkScratch": "entirely under the fresh accounted attempt root"
+  },
+  "retainedInputs": [
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/bounded_native_supervisor.py",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/canonical_graphframes_worker.py",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/pinned_delta_graphframes.py",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/source-rows.json",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/independent-oracle.json",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.json",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.json",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.sha256"
+  ],
+  "retainedInputSha256": {
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/bounded_native_supervisor.py": "410f3bc3cfe1db3d7dbcdc9ac7fbacc40a1aca0bf62e07295cea893bb712a6fd",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/canonical_graphframes_worker.py": "485203df63efa49f1ced3fff3f4578ef60b74529e0dc1439a47bcbdca4fc62fd",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/pinned_delta_graphframes.py": "be40300c0cd48d0075d14cf98555b154f1d0b4940991bc6fdf587536646757aa",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/src/ashlar_host/resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/source-rows.json": "5e3c1110a982f04fefe03453d29306654ad4f1a631a170daa0125fd4e50a87ab",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/action-fixture/independent-oracle.json": "7b167c9e871196ced1f352eb8c3440474fac66e18b09da895f70ed4c52c8b832",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.json": "0c989aed8c54baa09618ae1d9b8a3639fffae962cd049872dc9070e7cfb69f6d",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.json": "42312c205478d51bf31d8e106b6a8544b8b0c1fb8f615c3bee46ee6d103e326c",
+    "/Users/erik/.codex/worktrees/graphframes-action-readiness/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.sha256": "11a91e2a2a5f57e346672ada2c00b111023baf3ad1d97ba2c698f3b1fdd2b719"
+  },
+  "slotStatus": "Arras owns the active native slot; terminal cleanup and a fresh slot check are required",
+  "accountedBytesScope": "all fixture, attempt, local Spark scratch, diagnostics, result files, pinned action inputs, and exact runtime JAR files; preinstalled Python/Spark runtime distribution bytes are outside the file-tree budget and must be reported separately before authorization",
+  "executionAuthorization": "not-issued",
+  "authorityClaims": {
+    "sourceProgress": "absent",
+    "protectedAck": "absent",
+    "publication": "absent",
+    "unityCatalog": "absent",
+    "productionAuthority": "absent",
+    "scaleQualification": "absent"
+  }
+}
