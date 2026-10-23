@@ -11,6 +11,8 @@ from ashlar_host.r04_schedule import (PROFILE, R04CustodyError, R04Journal,
     R04Schedule, R04SchedulePolicy, SLOT_ORDER, STAGES, canonical)
 from ashlar_host.r04_slot_plan import (DATA_ROLES, NATIVE_ROLES,
     R04SlotCoordinator, R04SlotPlan)
+from ashlar_host.r04_truss049_feed import (MAXIMUM_BYTES, MAXIMUM_FACTS,
+    read_next_transaction)
 from ashlar.truss_native_feed import native_feed_batch
 from ashlar_host.publication_planning import truss_request_for
 from ashlar_host.delta_custody import LocalDeltaEffects
@@ -182,6 +184,38 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         self.owner.begin_ack_effect(ordinal)
         self.owner.retain_ack(ordinal, {'source': selected['source'], 'durable': True})
         return {entity: f'provider-id-{selected["source"]}'}
+
+    def test_truss049_feed_owner_reads_only_the_admitted_registered_consumer(self):
+        class Ok:
+            def __init__(self, value):
+                self.value = value
+
+        page_value = page(source='A')
+
+        class Assembly:
+            def __init__(self):
+                self.calls = []
+
+            def read_feed_in_transaction(self, transaction, **kwargs):
+                self.calls.append((transaction, kwargs))
+                return Ok(page_value)
+
+        assembly = Assembly()
+        binding = self.owner.schedule.document()['source_bindings']['A']
+        result = read_next_transaction(assembly, object(), binding,
+                                       ok_type=Ok, page_type=type(page_value))
+        self.assertIs(result, page_value)
+        self.assertEqual(assembly.calls[0][1], {
+            'consumer_id': binding['consumer_id'],
+            'maximum_facts': MAXIMUM_FACTS,
+            'maximum_bytes': MAXIMUM_BYTES})
+        self.assertNotIn('cursor', assembly.calls[0][1])
+        self.assertNotIn('ack', assembly.calls[0][1])
+
+        wrong_registration = dict(binding, registration_id='other-registration')
+        with self.assertRaises(R04CustodyError):
+            read_next_transaction(assembly, object(), wrong_registration,
+                                  ok_type=Ok, page_type=type(page_value))
 
     def test_semantic_schedule_is_canonical_closed_and_eight_prefixes_exist(self):
         chosen = schedule()

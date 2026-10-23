@@ -1,0 +1,56 @@
+{
+  "profile": "ashlar-r04-current-core-two-source-offline-preparation/0.1",
+  "status": "offline_preparation_committed_source_acceptance_pending",
+  "observed_on": "2026-10-23",
+  "scope": "Offline implementation and evidence status only. No Truss source mutation, source acceptance, consumer registration, feed read, native graph publication, protected ACK, or R04 execution was performed.",
+  "governing_artifacts": [
+    "../../toolkit-delivery-plan.md#R04",
+    "../../../02-design/contracts/CONTRACT-001-publication-boundary.md#fresh-current-core-two-source-acceptance-amendment",
+    "../../../02-design/contracts/CONTRACT-001-publication-boundary.md#approved-r04-slot-by-slot-request-freeze",
+    "../../../02-design/contracts/CONTRACT-003-delta-graph-tables.md#current-core-two-source-materialization-amendment",
+    "../../../02-design/contracts/CONTRACT-005-schema-intake.md"
+  ],
+  "decision_and_freeze_boundaries": {
+    "semantic_schedule": "Before the first R04 publication attempt, freeze the complete canonical eight-slot A1, B1, A2, B2, A3, B3, A4, B4 semantic schedule, accepted model/schema pins, independent expectations and prefix oracle, source/ACK identities, and same-entity R1-create to R2-update to R3-delete lineage. Retain its exact bytes and digest.",
+    "slot_request": "Freeze each slot's exact original Truss mutation-request bytes and digest, durably bound to its slot and the semantic-schedule digest, before that slot's source mutation. For dependent R2/R3 requests, resolve identities only from the verified predecessor's committed public result and readback, then freeze before the dependent mutation.",
+    "feed_page": "After each source transaction commits, bind its actual complete feed page, cursor, writer position, event-byte inventory and digest to the already frozen slot request before graph effects. Independently verify the complete publication vector and source progress before protected ACK.",
+    "ordering_gate": "A slot cannot mutate its source until the immediately preceding slot's publication, independent complete-vector/source-progress verification, and protected ACK have durably completed. A failed or uncertain predecessor stops later source mutations.",
+    "authorization": "The 2026-10-23 owner decision approves request-freeze timing only. The separately approved 2026-10-21 staged feed-page binding remains in force. Neither decision authorizes R04 execution or establishes execution evidence."
+  },
+  "committed_offline_implementation": {
+    "repository_head": {
+      "branch": "main",
+      "commit": "83cbd50f6996404e70a21571445207d3d329bd5b",
+      "subject": "Verify prior R04 slot before next source admission"
+    },
+    "commits": [
+      {
+        "commit": "3238ea2711983845b56309dbb905948e7764cbfe",
+        "subject": "Add fail-closed R04 staged schedule custody journal",
+        "scope": "Introduces offline schedule and slot custody journal controls."
+      },
+      {
+        "commit": "ad06a25426f8291604cd266ff7ce2a26dd7c03f0",
+        "subject": "Bind R04 slot publication plans before graph effects",
+        "scope": "Adds offline per-slot publication plan binding and fail-closed predecessor handling."
+      },
+      {
+        "commit": "83cbd50f6996404e70a21571445207d3d329bd5b",
+        "subject": "Verify prior R04 slot before next source admission",
+        "scope": "Requires prior slot completion verification before admitting the next slot."
+      }
+    ],
+    "qualification": "These commits establish offline preparation controls only. They do not establish accepted A/B source inputs, a frozen semantic schedule, frozen slot requests, Truss feed custody, native publication behavior, or ACK evidence."
+  },
+  "source_acceptance_and_execution_status": {
+    "A": "The retained Truss 0.0.48 source and consumer remain the migration predecessor. The recorded 0.0.49 migration/resume, R03 genesis publication and ACK, seed submission/readback, and authoritative source identities remain pending; the preserved seed request is not an R04 slot.",
+    "B": "No separately accepted Truss 0.0.49 UMF 0.10 source with complete catalog/source-view evidence, independent installation, feed, epoch, namespace, consumer, and protected destination ACK scope is recorded.",
+    "schedule": "No complete R04 semantic schedule or independent prefix oracle is frozen. No R04 slot request or feed page is frozen or consumed.",
+    "native": "No R04 native graph effects, publication vectors, source-progress verification, old-publication read, replay/restart, evolution refusal, or source ACK has been executed."
+  },
+  "historical_context": {
+    "prior_packet": "r04-two-source-schedule-readiness.json",
+    "note": "The 2026-10-22 packet remains unchanged historical evidence. Its then-current freeze-boundary description predates the approved 2026-10-23 request-freeze timing amendment. This packet records the current governing distinction; it does not revise the historical observation."
+  },
+  "next_evidence_gate": "After R03 source migration/resume, publication/ACK, seed readback and identity custody are complete, and after independent B source acceptance and ACK-scope evidence exists, prepare and review the immutable semantic schedule and prefix oracle. Execute only under the R04 plan's separately authorized bounded execution conditions."
+}
