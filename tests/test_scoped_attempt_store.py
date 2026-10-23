@@ -6,7 +6,8 @@ import json
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-from ashlar.attempt_store import DeltaAttemptStore, AttemptStoreError
+from ashlar.attempt_store import (DeltaAttemptStore, AttemptStoreError,
+    validate_source_qualified_phase_inventory)
 from ashlar.native import SQLResult
 from ashlar.outbox import PostgresOutbox
 from ashlar.publisher import publish_batch
@@ -121,9 +122,9 @@ class Tests(unittest.TestCase):
                 calls.append(len(raw));return _json(raw)
             with patch('ashlar.attempt_store._json',side_effect=decode):
                 with self.assertRaises(AttemptStoreError):session.read(original['stream'],original['batch_id'])
-            # The original scoped checkpoint is parsed independently; the
+            # The original scoped checkpoint is validated independently; the
             # oversized untrusted phase payload must never be decoded.
-            self.assertEqual(len(calls),2)
+            self.assertEqual(len(calls),3)
             self.assertTrue(all(size<16384 for size in calls))
         executor.rows=[]
         _,next_epoch=self.original('A',epoch='next-epoch')
@@ -131,5 +132,45 @@ class Tests(unittest.TestCase):
         with store.session(object()) as session:session.append(original,'prepared')
         with second.session(object()) as session:session.append(next_epoch,'prepared')
         self.assertEqual(len(executor.rows),2)
+
+    def test_pure_complete_phase_inventory_preserves_scope_and_prefix_rules(self):
+        executor=Executor();_,request=self.original('A')
+        store=DeltaAttemptStore(executor,Policy(),'c.s.attempt','attempt-uuid',original_request=request)
+        with store.session(object()) as session:
+            prepared=session.append(request,'prepared',plan_json='{}')
+            applying=session.append(request,'applying')
+            applied=session.append(request,'applied',result_json='{}')
+        rows=[{k:row[k] for k in ('phase','request_digest','payload_json','payload_digest')}
+              for row in executor.rows]
+        self.assertEqual(validate_source_qualified_phase_inventory(
+            request['stream'],request['batch_id'],rows,request),(prepared,applying,applied))
+        with self.assertRaises(AttemptStoreError):
+            validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],[rows[0],rows[2]],request)
+        with self.assertRaises(AttemptStoreError):
+            validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],rows+[rows[-1]],request)
+        _,foreign_request=self.original('B')
+        other=Executor();foreign_store=DeltaAttemptStore(other,Policy(),'c.s.attempt','attempt-uuid',
+            original_request=foreign_request)
+        with foreign_store.session(object()) as session: session.append(foreign_request,'prepared')
+        foreign_rows=[{k:row[k] for k in ('phase','request_digest','payload_json','payload_digest')}
+                      for row in other.rows]
+        self.assertEqual(validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],
+            rows+foreign_rows,request),(prepared,applying,applied))
+        malformed=[dict(row) for row in rows+foreign_rows]
+        foreign_payload=json.loads(malformed[-1]['payload_json'])
+        foreign_payload['request']['source_checkpoint_json']='{}'
+        malformed[-1]['payload_json']=json.dumps(foreign_payload,sort_keys=True,separators=(',',':'))
+        malformed[-1]['payload_digest']=hashlib.sha256(malformed[-1]['payload_json'].encode()).hexdigest()
+        with self.assertRaises(AttemptStoreError):
+            validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],malformed,request)
+        changed=[dict(row) for row in rows]
+        row=changed[-1]
+        payload=json.loads(row['payload_json']);payload['plan_json']='{"changed":true}'
+        row['payload_json']=json.dumps(payload,sort_keys=True,separators=(',',':'))
+        row['payload_digest']=hashlib.sha256(row['payload_json'].encode()).hexdigest()
+        with self.assertRaises(AttemptStoreError):
+            validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],changed,request)
+        with self.assertRaises(AttemptStoreError):
+            validate_source_qualified_phase_inventory(request['stream'],request['batch_id'],rows,request,maximum_rows=1)
 
 if __name__=='__main__': unittest.main()

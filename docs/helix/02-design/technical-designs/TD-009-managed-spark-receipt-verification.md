@@ -193,3 +193,69 @@ committed attempt/effect checks, job/run/task and Delta-build identity, retained
 and source-authority proof, and external live renewal remain unimplemented gates.
 Tests for this preparation slice MUST NOT be reported as those gates passing or
 make the path reachable from campaign ACK orchestration.
+
+### Next offline slice: complete bags and committed custody
+
+Keep the internal reopen identity and no-ACK observation. Add complete four-role
+bag verification and committed phase/result/plan correspondence for one bounded
+frozen source prefix; this does not add live retention or ACK authority. Inputs
+must retain the full independently source-derived prefix, its source-bundle and
+schedule/request anchors, and original per-publication clocks. Native destination
+rows and publisher `expectedRows` cannot supply expected bags.
+
+Existing reusable seams are `truss_note_publication.graph_expected_rows`
+(independent source-image projection), `TrussGraphAdmission.changes` and original
+event bytes, and `managed_current_query._managed_source_identity` (digest-bound
+current bundle/schedule/version identity). The latter's Person/Place query oracle
+is not a complete four-role oracle. Likewise `managed_source_oracle`'s configured
+JSONL oracle is not a Truss current-core substitute. Reuse the source-image
+projection through an explicitly retained source-prefix owner, starting at empty
+state or independently retained prior source oracle, never native prior rows.
+Freeze expected bags before verifier native reads; retain exact strings and
+multiplicity, with explicit integer/timestamp normalization on actual captures.
+The `.4` hash field needs its own admitted native typed-key expectation; do not
+invent a Python hash equivalent or derive expected values from destination rows.
+
+For attempt custody reuse `attempt_store.verify_request_digest` and the existing
+phase validation semantics: complete prepared/applying/applied/committing/committed
+prefix, exact payload digest and unchanged request/plan/result strings. The
+writer-held `DeltaAttemptStore.session` MUST NOT be opened with a fake writer
+policy just to read. Extract a pure source-qualified phase-inventory validator
+from its existing read semantics if needed, preserving all callers. Read complete
+bounded stream/batch rows before selecting feed/epoch; malformed foreign scope
+must refuse. Reopen at the captured attempt-table head with UUID/protocol bookends.
+Use the retained incremental plan/effect correspondence in
+`ManagedCurrentIncrementalPublicationDriver._validate_predecessor_attempt` as the
+existing semantic checklist, not as a verifier import of the publisher. Pure
+shared custody validation may be extracted; neither affected `expectedRows` nor
+baseline-plus-statement arithmetic alone proves native effects. Bind the exact
+committed manifest/result/plan to the source request, four-vector, six inventory,
+source admission, original plan digest and effect-row digest, then independently
+compare the complete native bags. This slice proves retained artifact and final
+state correspondence only; native operation-handle terminal recovery remains a
+separate gate.
+
+Implementation/test order:
+
+1. Add a pure bounded prefix-oracle carrier/admission helper and fixture anchored
+   to original Truss bytes, bundle digest, schedule step and request digest. Test
+   two-source overlapping IDs, exact numeric/presence values, parallel edges,
+   updates/deletes and original clocks. Do not add source mutation or provisioning.
+2. Add a reusable pure source-qualified phase validator plus read-only committed
+   artifact admission. Test missing/duplicate phases, changed request/plan/result,
+   digest mismatch, foreign malformed scope, uncommitted state and vector mismatch.
+3. Extend the Spark owner's exact statement allowlist with only explicit-role,
+   literal-version full reads and the bounded phase lookup. Compare complete bags
+   as multisets with whole-capture bounds, renew native bookends and substantive
+   closing, and keep the observation non-authoritative with no backend/ACK API.
+   Test missing/extra/duplicate rows and raw-history changes that preserve counts,
+   overflow, native value normalization and closing refusal. Focus verification on
+   these tests plus unchanged receipt/attempt-store callers.
+4. Retain a small build-evidence packet with exact fixture/code/profile/digest
+   anchors and focused commands/results, labeled offline. No live UC pass follows.
+
+Retention/read pin seams remain `PinVector`, `PostgresPins.hold` (native assert-active guard),
+`ManagedPinReader.transaction`, `validate_publication_retention` and the existing native
+snapshot policy; metadata LIMIT 0 and a PinVector value alone prove no retained
+files or held authority. Their real integration and independently observed runtime
+job/task/build identity remain required before full-profile or campaign use.

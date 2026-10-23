@@ -88,6 +88,64 @@ def _validate_phase_records(stream,batch_id,rows):
         result.append(PhaseRecord(row['phase'],digest,text,row['payload_digest']))
     return tuple(result)
 
+def validate_source_qualified_phase_inventory(stream,batch_id,rows,original_request,*,maximum_rows=160):
+    """Purely validate a complete bounded source-qualified attempt read.
+
+    No writer/policy/session is acquired. Every returned row is validated,
+    including rows for foreign epochs sharing the stream/batch key.
+    """
+    if (type(stream)is not str or not stream or type(batch_id)is not str or not batch_id
+            or type(original_request)is not dict or type(rows) not in (list,tuple)
+            or type(maximum_rows)is not int or not 1<=maximum_rows<=160
+            or len(rows)>maximum_rows):
+        raise AttemptStoreError('Bounded complete source-qualified phase inventory required')
+    verify_request_digest(original_request)
+    if (stream,batch_id)!=(original_request['stream'],original_request['batch_id']):
+        raise AttemptStoreError('Original scoped stream/batch differs')
+    try:
+        checkpoint=_json(original_request['source_checkpoint_json'].encode())
+    except (KeyError,TypeError,AttributeError,ValueError) as exc:
+        raise AttemptStoreError('Malformed original phase source scope') from exc
+    if (type(checkpoint)is not dict
+            or checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1')
+            or any(type(checkpoint.get(k))is not str or not checkpoint[k] for k in ('feed','epoch'))):
+        raise AttemptStoreError('Unknown original phase source scope')
+    original_scope=(checkpoint['profile'],checkpoint['feed'],checkpoint['epoch'])
+    groups={}
+    for row in rows:
+        try:
+            if (type(row)is not dict or set(row)!={'phase','request_digest','payload_json','payload_digest'}
+                    or any(type(value)is not str for value in row.values())
+                    or row['phase'] not in PHASES or len(row['payload_json'])>4*1024*1024):
+                raise AttemptStoreError('Exact bounded original phase carriers required')
+            raw=row['payload_json'].encode()
+            if len(raw)>4*1024*1024 or hashlib.sha256(raw).hexdigest()!=row['payload_digest']:
+                raise AttemptStoreError('Original phase byte custody differs')
+            payload=_json(raw);request=payload['request']
+            if type(request)is not dict or any(type(k)is not str or type(v)is not str for k,v in request.items()):
+                raise AttemptStoreError('Exact existing original request strings required')
+            _request_digest(request)
+            source_checkpoint=_json(request['source_checkpoint_json'].encode())
+            if (type(source_checkpoint)is not dict
+                    or source_checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1')
+                    or any(type(source_checkpoint.get(k))is not str or not source_checkpoint[k]
+                           for k in ('feed','epoch'))):
+                raise AttemptStoreError('Unknown original phase source scope')
+            scope=(source_checkpoint['profile'],source_checkpoint['feed'],source_checkpoint['epoch'])
+        except AttemptStoreError:
+            raise
+        except (KeyError,TypeError,AttributeError,ValueError) as exc:
+            raise AttemptStoreError('Malformed or unknown original scoped custody') from exc
+        groups.setdefault(scope,[]).append(row)
+    result=()
+    for scope,group in groups.items():
+        records=_phase_records(stream,batch_id,group)
+        if scope==original_scope:
+            if any(record.request_digest!=original_request['request_digest'] for record in records):
+                raise AttemptStoreError('Changed original within source-qualified attempt')
+            result=records
+    return result
+
 class DeltaAttemptStore:
     def __init__(self,executor,policy,table,uuid,*,original_request=None):
         self.executor=executor;self.policy=policy;self.table=table;self.sql_table=_quoted(table);self.uuid=uuid
@@ -167,37 +225,7 @@ class _Session:
         original = _json(s.original_request.encode())
         if (stream,batch_id) != (original['stream'],original['batch_id']):
             raise AttemptStoreError('Original scoped stream/batch differs')
-        if len(rows)>160: raise AttemptStoreError('Bounded complete source-qualified phase inventory required')
-        groups={}
-        for row in rows:
-            try:
-                if (type(row) is not dict or set(row)!={'phase','request_digest','payload_json','payload_digest'}
-                        or any(type(value) is not str for value in row.values())
-                        or row['phase'] not in PHASES or len(row['payload_json'])>4*1024*1024):
-                    raise AttemptStoreError('Exact bounded original phase carriers required')
-                raw=row['payload_json'].encode()
-                if len(raw)>4*1024*1024 or hashlib.sha256(raw).hexdigest()!=row['payload_digest']:
-                    raise AttemptStoreError('Original phase byte custody differs')
-                payload=_json(raw);request=payload['request']
-                if type(request) is not dict or any(type(k) is not str or type(v) is not str for k,v in request.items()):
-                    raise AttemptStoreError('Exact existing original request strings required')
-                _request_digest(request)
-                checkpoint=_json(request['source_checkpoint_json'].encode())
-                if (checkpoint.get('profile') not in ('ashlar-postgresql-outbox/0.1','truss-native-feed/0.1')
-                        or any(type(checkpoint.get(k)) is not str or not checkpoint[k] for k in ('feed','epoch'))):
-                    raise AttemptStoreError('Unknown original phase source scope')
-                scope=(checkpoint['profile'],checkpoint['feed'],checkpoint['epoch'])
-            except (KeyError,TypeError,AttributeError,ValueError) as exc:
-                raise AttemptStoreError('Malformed or unknown original scoped custody') from exc
-            groups.setdefault(scope,[]).append(row)
-        result=()
-        for scope,group in groups.items():
-            records=_phase_records(stream,batch_id,group)
-            if scope==s.source_scope:
-                if any(record.request_digest!=original['request_digest'] for record in records):
-                    raise AttemptStoreError('Changed original within source-qualified attempt')
-                result=records
-        return result
+        return validate_source_qualified_phase_inventory(stream,batch_id,rows,original,maximum_rows=160)
     def append(self,request,phase,*,result_json=None,descriptor_json=None,plan_json=None):
         self._open();request=dict(request);digest=_request_digest(request)
         if self.store.original_request is not None and json.dumps(request,sort_keys=True,separators=(',',':')) != self.store.original_request:
