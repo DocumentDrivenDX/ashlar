@@ -1,0 +1,10 @@
+{
+  "deadlineSeconds": 180,
+  "elapsedSeconds": 8.82,
+  "exitCode": 0,
+  "mavenPackagesRequested": false,
+  "maxObservedOwnedTempBytes": 9649983,
+  "outcome": "exit",
+  "root": "/private/tmp/ashlar-umf056-delta4-one-table-20261023-attempt-04",
+  "tempBytesCap": 268435456
+}

@@ -1,0 +1,50 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/23 18:34:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Exception in thread "main" py4j.Py4JNetworkException: Failed to bind to /127.0.0.1:0
+	at py4j.GatewayServer.startSocket(GatewayServer.java:804)
+	at py4j.GatewayServer.start(GatewayServer.java:779)
+	at py4j.GatewayServer.start(GatewayServer.java:762)
+	at py4j.ClientServer.<init>(ClientServer.java:150)
+	at py4j.ClientServer.<init>(ClientServer.java:45)
+	at py4j.ClientServer$ClientServerBuilder.build(ClientServer.java:263)
+	at org.apache.spark.api.python.Py4JServer.<init>(Py4JServer.scala:42)
+	at org.apache.spark.api.python.PythonGatewayServer$.main(PythonGatewayServer.scala:39)
+	at org.apache.spark.api.python.PythonGatewayServer.main(PythonGatewayServer.scala)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.spark.deploy.JavaMainApplication.start(SparkApplication.scala:52)
+	at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:1033)
+	at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:203)
+	at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:226)
+	at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:95)
+	at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1171)
+	at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1180)
+	at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.net.SocketException: Operation not permitted
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:577)
+	at java.base/sun.nio.ch.Net.bind(Net.java:566)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+	at py4j.GatewayServer.startSocket(GatewayServer.java:802)
+	... 18 more
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-umf056-delta4-one-table-20261023-attempt-02/run.py", line 24, in <module>
+    spark = b.getOrCreate()
+            ^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/sql/session.py", line 559, in getOrCreate
+    sc = SparkContext.getOrCreate(sparkConf)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 542, in getOrCreate
+    SparkContext(conf=conf or SparkConf())
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 205, in __init__
+    SparkContext._ensure_initialized(self, gateway=gateway, conf=conf)
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 463, in _ensure_initialized
+    SparkContext._gateway = gateway or launch_gateway(conf)
+                                       ^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/java_gateway.py", line 111, in launch_gateway
+    raise PySparkRuntimeError(
+pyspark.errors.exceptions.base.PySparkRuntimeError: [JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.

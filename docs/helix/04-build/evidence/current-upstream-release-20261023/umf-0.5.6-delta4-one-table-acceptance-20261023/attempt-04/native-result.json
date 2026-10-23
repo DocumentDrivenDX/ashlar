@@ -1,0 +1,40 @@
+{
+  "ddl": "CREATE TABLE delta.`/private/tmp/ashlar-umf056-delta4-one-table-20261023-attempt-04/edge_current` (\n  `id` BIGINT NOT NULL,\n  `caption` STRING\n) USING DELTA CLUSTER BY (`id`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='id,caption',\n'delta.deletedFileRetentionDuration'='interval 14 days')",
+  "deltaPythonPackage": "4.4.1",
+  "mismatches": [],
+  "observedDetail": {
+    "clusteringColumns": [
+      "id"
+    ],
+    "format": "delta",
+    "location": "file:/private/tmp/ashlar-umf056-delta4-one-table-20261023-attempt-04/edge_current",
+    "numFiles": 1,
+    "properties": {
+      "delta.dataSkippingStatsColumns": "id,caption",
+      "delta.deletedFileRetentionDuration": "interval 14 days"
+    },
+    "sizeInBytes": 848
+  },
+  "observedTableProperties": {
+    "delta.dataSkippingStatsColumns": "id,caption",
+    "delta.deletedFileRetentionDuration": "interval 14 days"
+  },
+  "rows": [
+    {
+      "caption": "one-row-acceptance",
+      "id": 1
+    }
+  ],
+  "sparkJars": [
+    "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar",
+    "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar"
+  ],
+  "sparkJarsPackages": "",
+  "sparkVersion": "4.2.0",
+  "status": "passed",
+  "tablePath": "/private/tmp/ashlar-umf056-delta4-one-table-20261023-attempt-04/edge_current",
+  "writerSetting": {
+    "key": "spark.sql.parquet.compression.codec",
+    "value": "zstd"
+  }
+}
