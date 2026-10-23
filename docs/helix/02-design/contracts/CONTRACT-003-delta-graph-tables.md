@@ -1866,3 +1866,63 @@ requires a future reviewed initialProgress/registry-bound profile or amendment
 retaining both independently established genesis/checkpoint entries, including
 unchanged B before B1. No missing feed may be fabricated or treated as a complete
 campaign vector by this carrier.
+
+### Proposed complete-prefix custody carrier (TD-009)
+
+Draft only; this is a new `ashlar-managed-current-source-prefix/0.2` profile and
+does not change `/0.1`. Its closed package contains exactly `profile`,
+`carrierProfile`, `destination`, `scheduleJson`, `initialSources`,
+`initialProgressJson`, `initialPublicationJson`, `scheduleStep`, `entries` and
+`progress`. `scheduleJson`
+is the exact canonical original R04 schedule. `initialSources` contains exactly A
+and B; each retains its original public registration bytes and exact original
+genesis cursor bytes. `initialProgressJson` retains the complete original A/B
+Ashlar progress map selected from independent custody; a cursor alone MUST NOT be
+coerced into an invented Ashlar checkpoint. `initialPublicationJson` retains the
+exact original genesis publication manifest. Each ordered entry retains the
+`/0.1` bundle/request/clock fields and adds the exact publication manifest bytes
+produced for that page.
+
+The package hash binds packaging bytes only. Admission MUST receive separately
+selected external custody inputs: the expected original schedule digest; selected
+A/B registration and genesis-cursor digests and typed source/consumer/ACK
+identities; the separately selected complete initial-progress digest; and the
+selected initial publication digest and ID; and the selected carrier profile and
+destination. Those expected values MUST NOT be derived from the package being
+checked. The owner MUST compare
+the exact package members to those independently selected values before using
+them. The registration and cursor parsers/authorities remain external owner
+obligations; a pure correspondence helper cannot authenticate a caller-supplied
+selection or prove Truss acceptance.
+
+The selected A/B identities MUST retain nonempty feed, epoch, consumer,
+registration, installation, ACK scope and ACK registration fields; corresponding
+identities MUST be distinct across A and B. Preserve unknown identity extensions.
+The pure helper may compare these fields with the selected schedule and check
+that the initial progress map has both selected feed keys and matching feed/epoch
+labels and nonempty positions. It MUST NOT claim that hash agreement proves a
+cursor belongs to a registration or that the progress positions are accepted by
+Truss; that semantic admission remains with the external source owner.
+
+For `scheduleStep` n, require exactly the original global schedule prefix 1..n,
+including the A1, B1, A2, B2, A3, B3, A4, B4 assignment. Bind every entry ordinal,
+source and accepted-model pin to that separately selected schedule. Initialize
+progress from the separately selected complete initial-progress map, preserving
+both A and B and validating each cursor against its registration. Then require
+each request and original manifest to continue exactly one selected feed and
+preserve the other feed. Entry 1's request predecessor MUST equal the separately
+selected initial publication ID; each later request predecessor MUST equal the
+preceding exact manifest's publication ID. Every manifest's complete progress and
+four-role vector MUST match its original request and predecessor chain; publication
+IDs MUST be unique across the initial manifest and every entry. The final map MUST
+equal the retained package progress and reopened manifest. Clock tokens remain
+canonical signed64 epoch microseconds. The pure helper's initial offline slice
+checks global IDs and two-feed progress transition structure only; full vector and
+request/manifest semantic correspondence remain explicit gates.
+
+These checks establish correspondence only. Schedule slot/source assignment does
+not prove that a source-mutation request implements the slot's semantic mutation,
+that Truss accepted the page, or that a source ACK is valid. A plan's package hash
+alone is not semantic admission. Original R04 journal-slot evidence and its
+independent owner admission remain required to make those claims. The profile
+adds no native effect, live source, retention, ACK, or campaign authority.

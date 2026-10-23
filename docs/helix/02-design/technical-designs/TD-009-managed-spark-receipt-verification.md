@@ -536,3 +536,54 @@ source projection. It does not qualify native Spark/Delta execution, source
 schedule or prior-publication custody, complete initial A/B progress, a real
 nonempty current Truss prefix, runtime/retention custody, external live source
 pin renewal, or source ACK. Campaign integration remains unavailable.
+
+### Proposed complete-prefix custody increment
+
+Preserve `ashlar-managed-current-source-prefix/0.1` exactly. A separate proposed
+`ashlar-managed-current-source-prefix/0.2` package adds the exact canonical
+`R04Schedule` bytes, original A/B registration and genesis-cursor bytes, the
+complete original two-feed `initialProgressJson`, the exact initial publication
+manifest, and an exact original publication manifest beside each page's existing
+bundle/request/clock. Its closed shape and chain rules are specified in
+CONTRACT-003. The package digest binds only that package; it is not authority for
+any included schedule, registration, cursor or manifest.
+
+The pure owner API MUST receive separate immutable expected custody selections:
+the selected schedule digest; independently admitted A/B source registration and
+genesis-cursor digests plus typed source/consumer/ACK identities; the selected
+complete initial-progress digest; and the selected initial publication digest and
+ID; and the carrier profile and destination. It MUST compare package bytes and
+identities with those inputs and MUST NOT
+derive its expected anchors from the package itself. Actual Truss registration
+parsing and acceptance remain the independent source owner's responsibility; if
+the complete original initial progress cannot be selected and checked against
+both registrations/cursors, `.2` is unavailable for that source.
+
+Require nonempty selected feed, epoch, consumer, registration, installation, ACK
+scope and ACK registration identities for both sources, with their corresponding
+values distinct across A and B; preserve unknown identity extensions. Hash and
+label checks do not establish that cursor bytes belong to a registration or that
+a progress position is accepted. Those semantic checks remain with the external
+source owner; the pure helper checks only selected correspondence and structure.
+
+The first bounded pure increment validates closed package shape, exact separately
+selected schedule/registration/cursor/initial-progress/publication anchors, global
+ordinal/source correspondence, and the original publication ID/predecessor chain
+with unique IDs and complete two-feed progress transition structure. It validates
+canonical signed64 clock tokens. It does not prove registration/cursor semantics,
+Truss acceptance, complete four-role vector transitions or all original
+request/manifest semantics. It
+reports correspondence only. Matching a frozen slot's source and
+ordinal does not prove that the original source-mutation request implements the
+slot's semantic mutation. That requires independently owner-admitted original
+R04 journal slot evidence; a self-hashed plan or package is insufficient. Do not
+add fabricated accepted-feed fixtures or relabel authored fixture rows as current
+Truss evidence. Tests may exercise pure shape/anchor/chain mechanics with clearly
+authored inputs, but actual acceptance remains unavailable until real selected
+external custody is supplied.
+
+This increment does not integrate `.2` into Spark reads, campaign orchestration,
+native probes, source ACK or live pin renewal. The existing `.1` and offline
+Spark comparison behavior remain unchanged. Schedule semantic mutation admission,
+original page/result acceptance, native effect proof, retention, runtime identity
+and external protected ACK remain separate gates.
