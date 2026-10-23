@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "version": "0.4.52",
+  "wheel": "weft_sql-0.4.52-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+  "wheelSha256": "9145b7f683dc84325cfe3ab7c4b885685db05be814a4d554a4b739ae43d5cbdc",
+  "nativeModuleSha256": "a326a607898e4cbcf9f4801785059d096e8bdb0557f46818951c70db0d7a7956",
+  "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+  "scope": "exact installed archive, RECORD, metadata, ABI tag and notices; native semantics separately gated",
+  "recordSha256": "cb79ac7803b4b3b1fd61814f24c0e175d95515df383a7a05c893615ed33f6401",
+  "sourceCommit": "32ec02f0c3fd24a97b7726500dc5992c6475908d",
+  "target": "x86_64-unknown-linux-gnu",
+  "functionalQualification": "not-claimed",
+  "manylinux": "2014",
+  "buildRunId": "39981671006",
+  "buildWorkflowName": "Build selected Weft 0.4.52 Linux wheel"
+}
