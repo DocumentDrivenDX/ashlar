@@ -34,3 +34,11 @@ approved scale budget and R05 evidence.
 The [action-readiness packet](action-readiness-packet.md) defines the minimum
 freeze, custody, runtime admission and exact next implementation slice. It is a
 design packet only; no action has been run or admitted by it.
+
+The offline follow-up now supplies a deterministic three-object/two-parallel-
+edge source, a separately authored two-occurrence oracle, same-lock writer and
+cleanup helpers, and the existing review-gated capped one-hop entrypoint. The
+exact source and independent oracle are in the [action fixture](action-fixture/README.md).
+No tables have been materialized and no Spark or GraphFrames runtime has been
+started. A separately reviewed manifest/anchor and the Truss execution slot are
+still required before the action can run.

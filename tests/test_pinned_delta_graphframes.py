@@ -520,6 +520,133 @@ class CanonicalActionReadinessTests(unittest.TestCase):
                 review_anchor_path=descriptor.review_anchor_path,
                 selected_review_anchor_sha256=descriptor.review_anchor_sha256)
 
+    def test_small_canonical_source_and_independent_oracle_are_exact(self):
+        fixture_dir = (Path(__file__).parent.parent / "docs/helix/04-build/evidence"
+                       / "canonical-graphframes-holder-candidate-20261023/action-fixture")
+        source = (fixture_dir / "source-rows.json").read_bytes().rstrip(b"\n")
+        self.assertEqual(source, graphframes_module.canonical_fixture_source_bytes())
+        source_doc = json.loads(source)
+        self.assertEqual(source_doc["generatorRevision"],
+                         "canonical-graphframes-action-fixture/0.1")
+        self.assertEqual(source_doc["rowCounts"], {"object_current": 3, "edge_current": 2})
+        self.assertEqual(source_doc["formulas"]["payload"],
+                         "fixed UTF-8 JSON strings; source positions 1..count; published_at 2026-10-23T00:00:00.123456Z")
+        self.assertEqual(source_doc["formulas"]["lookup_hash"],
+                         "Spark SQL xxhash64(CAST(source_system AS STRING), CAST(type_id_or_rel_type_id AS BIGINT), CAST(id AS BIGINT)); seed 42")
+        self.assertEqual(len(source_doc["tables"]["object_current"]), 3)
+        self.assertEqual(len(source_doc["tables"]["edge_current"]), 2)
+        self.assertEqual([row["id"] for row in source_doc["tables"]["edge_current"]],
+                         [9001, 9002])
+        self.assertEqual({(row["source_id"], row["target_id"])
+                          for row in source_doc["tables"]["edge_current"]}, {(101, 202)})
+        oracle = json.loads((fixture_dir / "independent-oracle.json").read_bytes())
+        self.assertEqual(oracle["seed"], ["ashlar-canonical-graphframes", 1, 101])
+        self.assertEqual([row[5] for row in oracle["rows"]], [9001, 9002])
+        self.assertEqual(len(oracle["rows"]), 2)
+
+    def test_fixture_mutation_and_cleanup_share_stable_action_lock(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-gf-mutation-lock-") as directory:
+            root = Path(directory)
+            os.chmod(root, 0o700)
+            (root / "object_current").mkdir()
+            with self.assertRaisesRegex(FileExistsError, "wholly fresh"):
+                graphframes_module.write_canonical_graphframes_fixture(object(), root)
+            with self.assertRaisesRegex(PermissionError, "owned canonical fixture receipt"):
+                graphframes_module.cleanup_canonical_graphframes_fixture(root)
+            self.assertTrue((root / "object_current").is_dir())
+            self.assertFalse((root / ".ashlar-graphframes-action-owner.json").exists())
+
+    def test_writer_uses_utc_timestamp_and_cleanup_requires_owned_receipt(self):
+        class FakeType: pass
+        class FakeField:
+            def __init__(self, name, data_type, nullable):
+                self.name, self.dataType, self.nullable = name, data_type, nullable
+        class FakeStructType:
+            def __init__(self, fields): self.fields = fields
+        class FakeExpression:
+            def __init__(self, value): self.value = value
+            def cast(self, name): return FakeExpression(("cast", self.value, name))
+        class FakeFunctions(types.ModuleType):
+            def __init__(self): super().__init__("pyspark.sql.functions"); self.hash_calls = []
+            def col(self, name): return FakeExpression(("col", name))
+            def xxhash64(self, *values):
+                self.hash_calls.append(values)
+                return FakeExpression(("xxhash64", values))
+        class FakeWriterFrame:
+            def __init__(self, values, schema, captured):
+                self.values, self.schema, self.captured = values, schema, captured
+            def withColumn(self, name, expression):
+                self.captured.append((name, expression))
+                return self
+            @property
+            def write(self): return self
+            def format(self, value):
+                if value != "delta": raise AssertionError("delta format expected")
+                return self
+            def mode(self, value):
+                if value != "errorifexists": raise AssertionError("errorifexists required")
+                return self
+            def save(self, path):
+                table = Path(path); (table / "_delta_log").mkdir(parents=True)
+                identity = ("00000000-0000-0000-0000-000000000001" if
+                            table.name == "object_current" else
+                            "00000000-0000-0000-0000-000000000002")
+                (table / "_delta_log/00000000000000000000.json").write_text(
+                    json.dumps({"metaData": {"id": identity}}) + "\n")
+        class FakeSpark:
+            def __init__(self, captured): self.captured = captured; self.rows = []
+            def createDataFrame(self, values, schema):
+                self.rows.append((values, schema))
+                self.captured.append(FakeWriterFrame(values, schema, []))
+                return self.captured[-1]
+
+        functions = FakeFunctions()
+        pyspark = types.ModuleType("pyspark"); pyspark.__path__ = []
+        sql = types.ModuleType("pyspark.sql"); sql.__path__ = []
+        types_module = types.ModuleType("pyspark.sql.types")
+        types_module.LongType = type("LongType", (FakeType,), {})
+        types_module.StringType = type("StringType", (FakeType,), {})
+        types_module.TimestampType = type("TimestampType", (FakeType,), {})
+        types_module.StructField = FakeField
+        types_module.StructType = FakeStructType
+        sql.types = types_module; sql.functions = functions; pyspark.sql = sql
+        modules = {"pyspark": pyspark, "pyspark.sql": sql,
+                   "pyspark.sql.types": types_module,
+                   "pyspark.sql.functions": functions}
+        with tempfile.TemporaryDirectory(prefix="ashlar-gf-owned-fixture-") as directory:
+            root = Path(directory); os.chmod(root, 0o700)
+            captured = []
+            with patch.dict(sys.modules, modules):
+                graphframes_module.write_canonical_graphframes_fixture(
+                    FakeSpark(captured), root)
+            timestamp_values = []
+            for frame in captured:
+                columns = [field.name for field in frame.schema.fields]
+                timestamp_index = columns.index("published_at")
+                timestamp_values.extend(row[timestamp_index] for row in frame.values)
+            self.assertEqual(len(timestamp_values), 5)
+            for value in timestamp_values:
+                self.assertEqual(value.isoformat(), "2026-10-23T00:00:00.123456+00:00")
+                self.assertIs(value.tzinfo, __import__("datetime").timezone.utc)
+            self.assertEqual(len(functions.hash_calls), 2)
+            marker = json.loads((root / ".ashlar-graphframes-action-owner.json").read_bytes())
+            self.assertEqual(marker["state"], "complete")
+            self.assertEqual(set(marker["tables"]), {"object_current", "edge_current"})
+            lock_path = root / ".ashlar-graphframes-action.lock"
+            lock_identity = (lock_path.stat().st_dev, lock_path.stat().st_ino)
+            log_path = root / "object_current/_delta_log/00000000000000000000.json"
+            original_log = log_path.read_bytes()
+            log_path.write_text(json.dumps({"metaData": {
+                "id": "00000000-0000-0000-0000-000000000099"}}) + "\n")
+            with self.assertRaisesRegex(PermissionError, "path, inode, or UUID changed"):
+                graphframes_module.cleanup_canonical_graphframes_fixture(root)
+            log_path.write_bytes(original_log)
+            graphframes_module.cleanup_canonical_graphframes_fixture(root)
+            self.assertFalse((root / "object_current").exists())
+            self.assertFalse((root / "edge_current").exists())
+            self.assertFalse((root / ".ashlar-graphframes-action-owner.json").exists())
+            self.assertEqual((lock_path.stat().st_dev, lock_path.stat().st_ino), lock_identity)
+
     def test_coherent_replacement_review_anchor_refuses_during_lease(self):
         temporary, _root, _spark, owner, descriptor, _row = self._fixture()
         lease = owner.open()

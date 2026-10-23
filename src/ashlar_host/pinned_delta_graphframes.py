@@ -417,6 +417,324 @@ CANONICAL_RUNTIME_ARTIFACTS = {
 MAX_SNAPSHOT_FILES = 100_000
 MAX_SNAPSHOT_METADATA_BYTES = 16 * 1024 * 1024
 
+# Small canonical `.4` action fixture. The value rows are deliberately source
+# records, before the generated Spark-native pruning hash is added. The
+# independent one-hop occurrence bag lives in action-oracle.json and is never
+# derived by this module.
+CANONICAL_FIXTURE_GENERATOR_REVISION = "canonical-graphframes-action-fixture/0.1"
+CANONICAL_FIXTURE_SOURCE_SYSTEM = "ashlar-canonical-graphframes"
+CANONICAL_FIXTURE_SCHEMA_REVISION = "canonical-action-r1"
+CANONICAL_FIXTURE_SOURCE_FEED = "synthetic-canonical-action"
+CANONICAL_FIXTURE_EPOCH = "1"
+CANONICAL_FIXTURE_PUBLISHED_AT = "2026-10-23T00:00:00.123456Z"
+CANONICAL_FIXTURE_SEED = (CANONICAL_FIXTURE_SOURCE_SYSTEM, 1, 101)
+CANONICAL_FIXTURE_NODE_ROWS = (
+    {"source_system": CANONICAL_FIXTURE_SOURCE_SYSTEM, "type_id": 1, "id": 101,
+     "logical_key_json": "[]", "schema_revision": CANONICAL_FIXTURE_SCHEMA_REVISION,
+     "entity_version": 1, "props_json": '{"name":"seed"}', "retained_json": "{}",
+     "root_id": None, "source_feed": CANONICAL_FIXTURE_SOURCE_FEED,
+     "source_epoch": CANONICAL_FIXTURE_EPOCH, "source_position": 1,
+     "published_at": CANONICAL_FIXTURE_PUBLISHED_AT, "apply_batch_id": "fixture-nodes-r1",
+     "source_cursor_json": "{}", "source_delivery_id": "node-delivery-101"},
+    {"source_system": CANONICAL_FIXTURE_SOURCE_SYSTEM, "type_id": 1, "id": 202,
+     "logical_key_json": "[]", "schema_revision": CANONICAL_FIXTURE_SCHEMA_REVISION,
+     "entity_version": 1, "props_json": '{"name":"target"}', "retained_json": "{}",
+     "root_id": None, "source_feed": CANONICAL_FIXTURE_SOURCE_FEED,
+     "source_epoch": CANONICAL_FIXTURE_EPOCH, "source_position": 2,
+     "published_at": CANONICAL_FIXTURE_PUBLISHED_AT, "apply_batch_id": "fixture-nodes-r1",
+     "source_cursor_json": "{}", "source_delivery_id": "node-delivery-202"},
+    {"source_system": CANONICAL_FIXTURE_SOURCE_SYSTEM, "type_id": 1, "id": 303,
+     "logical_key_json": "[]", "schema_revision": CANONICAL_FIXTURE_SCHEMA_REVISION,
+     "entity_version": 1, "props_json": '{"name":"isolated"}', "retained_json": "{}",
+     "root_id": None, "source_feed": CANONICAL_FIXTURE_SOURCE_FEED,
+     "source_epoch": CANONICAL_FIXTURE_EPOCH, "source_position": 3,
+     "published_at": CANONICAL_FIXTURE_PUBLISHED_AT, "apply_batch_id": "fixture-nodes-r1",
+     "source_cursor_json": "{}", "source_delivery_id": "node-delivery-303"},
+)
+CANONICAL_FIXTURE_EDGE_ROWS = (
+    {"source_system": CANONICAL_FIXTURE_SOURCE_SYSTEM, "rel_type_id": 7, "id": 9001,
+     "source_type": 1, "source_id": 101, "target_type": 1, "target_id": 202,
+     "schema_revision": CANONICAL_FIXTURE_SCHEMA_REVISION, "entity_version": 1,
+     "props_json": '{"ordinal":1}', "retained_json": "{}", "order_key": None,
+     "source_feed": CANONICAL_FIXTURE_SOURCE_FEED, "source_epoch": CANONICAL_FIXTURE_EPOCH,
+     "source_position": 1, "published_at": CANONICAL_FIXTURE_PUBLISHED_AT,
+     "apply_batch_id": "fixture-edges-r1", "source_cursor_json": "{}",
+     "source_delivery_id": "edge-delivery-9001"},
+    {"source_system": CANONICAL_FIXTURE_SOURCE_SYSTEM, "rel_type_id": 7, "id": 9002,
+     "source_type": 1, "source_id": 101, "target_type": 1, "target_id": 202,
+     "schema_revision": CANONICAL_FIXTURE_SCHEMA_REVISION, "entity_version": 1,
+     "props_json": '{"ordinal":2}', "retained_json": "{}", "order_key": None,
+     "source_feed": CANONICAL_FIXTURE_SOURCE_FEED, "source_epoch": CANONICAL_FIXTURE_EPOCH,
+     "source_position": 2, "published_at": CANONICAL_FIXTURE_PUBLISHED_AT,
+     "apply_batch_id": "fixture-edges-r1", "source_cursor_json": "{}",
+     "source_delivery_id": "edge-delivery-9002"},
+)
+
+
+def canonical_fixture_source_bytes():
+    """Return exact source rows and formulas frozen by the external manifest."""
+    return _canonical({
+        "profile": CANONICAL_SYNTHETIC_PROFILE,
+        "generatorRevision": CANONICAL_FIXTURE_GENERATOR_REVISION,
+        "carrierProfile": CANONICAL_CARRIER_PROFILE,
+        "carrierDefinitionSha256": _canonical_carrier_definition_sha256(),
+        "umfRevision": CANONICAL_UMF_REVISION,
+        "runtime": dict(CANONICAL_RUNTIME_SELECTION),
+        "runtimeArtifacts": dict(CANONICAL_RUNTIME_ARTIFACTS),
+        "rowCounts": {"object_current": 3, "edge_current": 2},
+        "formulas": {
+            "nodeIdentity": "(source_system,type_id,id) unique; ids 101,202,303",
+            "edgeIdentity": "(source_system,rel_type_id,id) unique; ids 9001,9002",
+            "endpoints": "both edges: (1,101)->(1,202); node 303 is isolated",
+            "multiplicity": "two independently identified parallel edge occurrences",
+            "lookup_hash": "Spark SQL xxhash64(CAST(source_system AS STRING), CAST(type_id_or_rel_type_id AS BIGINT), CAST(id AS BIGINT)); seed 42",
+            "nulls": {"object_current.root_id": None, "edge_current.order_key": None},
+            "payload": "fixed UTF-8 JSON strings; source positions 1..count; published_at " + CANONICAL_FIXTURE_PUBLISHED_AT,
+            "signed64": "all integer identity and position values are within signed BIGINT",
+            "proofs": {
+                "signed64": "each integer literal is explicitly represented as a generated BIGINT carrier value",
+                "nodeIdentityUnique": "three distinct node ids 101,202,303 under fixed source/type",
+                "edgeIdentityUnique": "two distinct edge ids 9001,9002 under fixed source/relation type",
+                "endpointsInNodeDomain": "both endpoint tuples are explicitly present in the three-row node source",
+                "parallelEdgeMultiplicity": "both source rows share endpoints but have independent edge ids and delivery ids",
+                "nullAndPayloadRules": "only root_id and order_key are intentionally null; every other generated field is present per row",
+            },
+        },
+        "selectedSeed": list(CANONICAL_FIXTURE_SEED),
+        "action": {
+            "cap": 2,
+            "outputSchema": ["src_source", "src_type", "src_id", "edge_source",
+                             "edge_type", "edge_id", "dst_source", "dst_type", "dst_id"],
+            "selectedSeedDegree": 2,
+        },
+        "tables": {
+            "object_current": [dict(row) for row in CANONICAL_FIXTURE_NODE_ROWS],
+            "edge_current": [dict(row) for row in CANONICAL_FIXTURE_EDGE_ROWS],
+        },
+    })
+
+
+def _acquire_canonical_fixture_lock(root):
+    """Acquire the same stable cooperative lock used by action custody."""
+    canonical_root = Path(root).resolve(strict=True)
+    info = canonical_root.stat()
+    if (not canonical_root.is_dir() or info.st_mode & 0o077
+            or (hasattr(os, "getuid") and info.st_uid != os.getuid())):
+        raise PermissionError("Private canonical fixture root with mode 0700 or tighter required")
+    lock_path = canonical_root / ".ashlar-graphframes-action.lock"
+    flags = os.O_CREAT | os.O_RDWR | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(lock_path, flags, 0o600)
+    try:
+        held = os.fstat(fd)
+        current = os.stat(lock_path, follow_symlinks=False)
+        if (not stat.S_ISREG(held.st_mode) or held.st_nlink != 1
+                or held.st_mode & 0o077 or (held.st_dev, held.st_ino) !=
+                (current.st_dev, current.st_ino)):
+            raise PermissionError("Stable private canonical fixture lock inode required")
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise PermissionError("Canonical synthetic fixture is already in use") from error
+        return fd
+    except BaseException:
+        os.close(fd)
+        raise
+
+
+def _canonical_fixture_generator_sha256():
+    return hashlib.sha256(Path(__file__).resolve(strict=True).read_bytes()).hexdigest()
+
+
+def _canonical_fixture_source_sha256():
+    return hashlib.sha256(canonical_fixture_source_bytes() + b"\n").hexdigest()
+
+
+def _fsync_directory(path):
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
+def _canonical_delta_uuid(table_path):
+    log_path = Path(table_path) / "_delta_log" / "00000000000000000000.json"
+    if log_path.is_symlink() or not log_path.is_file():
+        raise PermissionError("Owned canonical Delta version-zero log required")
+    metadata = []
+    with log_path.open("r", encoding="utf-8") as stream:
+        for line in stream:
+            if len(line.encode("utf-8")) > 1_048_576:
+                raise PermissionError("Canonical Delta metadata line exceeds bound")
+            value = _json_without_duplicate_members(line.encode("utf-8"))
+            if type(value) is dict and type(value.get("metaData")) is dict:
+                metadata.append(value["metaData"])
+    if len(metadata) != 1:
+        raise PermissionError("One canonical Delta table UUID action required")
+    identity = metadata[0].get("id")
+    if (type(identity) is not str or re.fullmatch(
+            r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            identity) is None):
+        raise PermissionError("Canonical Delta table UUID required")
+    return identity
+
+
+def _owned_fixture_marker_bytes(root, state, tables=None):
+    root_stat = root.stat()
+    return _canonical({
+        "profile": "ashlar-canonical-graphframes-owned-fixture/0.1",
+        "state": state,
+        "root": {"path": str(root), "device": root_stat.st_dev,
+                 "inode": root_stat.st_ino},
+        "generator": {"revision": CANONICAL_FIXTURE_GENERATOR_REVISION,
+                      "sha256": _canonical_fixture_generator_sha256()},
+        "sourceSha256": _canonical_fixture_source_sha256(),
+        "carrierDefinitionSha256": _canonical_carrier_definition_sha256(),
+        "tables": tables or {},
+    })
+
+
+def write_canonical_graphframes_fixture(spark, fixture_root):
+    """Write the three-node/two-edge fixture under action's cooperative lock.
+
+    This is an explicit mutating preparation helper. It refuses an occupied
+    root and never starts Spark itself. Hash columns are evaluated by Spark's
+    native xxhash64 expression after the exact generated carrier schema is
+    materialized.
+    """
+    root = _canonical_local_path(fixture_root)
+    lock_fd = _acquire_canonical_fixture_lock(root)
+    marker_path = root / ".ashlar-graphframes-action-owner.json"
+    marker_fd = None
+    try:
+        paths = {role: root / role for role in ("object_current", "edge_current")}
+        allowed = {".ashlar-graphframes-action.lock"}
+        if ({entry.name for entry in root.iterdir()} != allowed
+                or marker_path.exists() or marker_path.is_symlink()
+                or any(path.exists() or path.is_symlink() for path in paths.values())):
+            raise FileExistsError("A wholly fresh private canonical fixture root is required")
+        marker_fd = os.open(marker_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL
+                            | getattr(os, "O_NOFOLLOW", 0), 0o600)
+        os.write(marker_fd, _owned_fixture_marker_bytes(root, "writing"))
+        os.fsync(marker_fd)
+        _fsync_directory(root)
+        from datetime import datetime
+        from pyspark.sql import functions as F
+        from pyspark.sql.types import (LongType, StringType, StructField,
+                                       StructType, TimestampType)
+        kinds = {"bigint": LongType, "string": StringType, "timestamp": TimestampType}
+        table_rows = {"object_current": CANONICAL_FIXTURE_NODE_ROWS,
+                      "edge_current": CANONICAL_FIXTURE_EDGE_ROWS}
+        for role, rows in table_rows.items():
+            signature = _canonical_carrier_signature(role)
+            schema = StructType([StructField(name, kinds[kind](), nullable)
+                                 for name, kind, nullable in signature])
+            values = []
+            for item in rows:
+                record = dict(item)
+                record["lookup_hash"] = 0
+                record["published_at"] = datetime.fromisoformat(
+                    record["published_at"].replace("Z", "+00:00"))
+                values.append(tuple(record[field.name] for field in schema.fields))
+            identity_type = "type_id" if role == "object_current" else "rel_type_id"
+            frame = spark.createDataFrame(values, schema=schema).withColumn(
+                "lookup_hash", F.xxhash64(
+                    F.col("source_system").cast("string"),
+                    F.col(identity_type).cast("long"), F.col("id").cast("long")))
+            frame.write.format("delta").mode("errorifexists").save(str(paths[role]))
+        table_ownership = {}
+        for role, path in paths.items():
+            if path.is_symlink() or not path.is_dir():
+                raise PermissionError("Created canonical Delta path must be a real directory")
+            info = path.stat()
+            table_ownership[role] = {
+                "path": str(path), "device": info.st_dev, "inode": info.st_ino,
+                "deltaUuid": _canonical_delta_uuid(path),
+            }
+        complete = _owned_fixture_marker_bytes(root, "complete", table_ownership)
+        os.lseek(marker_fd, 0, os.SEEK_SET)
+        os.ftruncate(marker_fd, 0)
+        os.write(marker_fd, complete)
+        os.fsync(marker_fd)
+        _fsync_directory(root)
+        return {role: str(path) for role, path in paths.items()}
+    finally:
+        if marker_fd is not None:
+            os.close(marker_fd)
+        os.close(lock_fd)
+
+
+def cleanup_canonical_graphframes_fixture(fixture_root):
+    """Remove only the two owned tables while holding action's stable lock."""
+    import shutil
+    root = _canonical_local_path(fixture_root)
+    lock_fd = _acquire_canonical_fixture_lock(root)
+    try:
+        marker_path = root / ".ashlar-graphframes-action-owner.json"
+        if marker_path.is_symlink() or not marker_path.is_file():
+            raise PermissionError("Complete owned canonical fixture receipt required")
+        flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+        marker_fd = os.open(marker_path, flags)
+        try:
+            before = os.fstat(marker_fd)
+            if (not stat.S_ISREG(before.st_mode) or before.st_mode & 0o077
+                    or (hasattr(os, "getuid") and before.st_uid != os.getuid())
+                    or before.st_size > 64 * 1024):
+                raise PermissionError("Private bounded owned fixture receipt required")
+            with os.fdopen(marker_fd, "rb", closefd=False) as stream:
+                marker_raw = stream.read(64 * 1024 + 1)
+            after = os.fstat(marker_fd)
+            current = os.stat(marker_path, follow_symlinks=False)
+            identity_before = (before.st_dev, before.st_ino, before.st_size,
+                               before.st_mtime_ns)
+            identity_after = (after.st_dev, after.st_ino, after.st_size,
+                              after.st_mtime_ns)
+            identity_path = (current.st_dev, current.st_ino, current.st_size,
+                             current.st_mtime_ns)
+            if (len(marker_raw) != before.st_size or identity_before != identity_after
+                    or identity_after != identity_path):
+                raise PermissionError("Owned fixture receipt changed while reading")
+        finally:
+            os.close(marker_fd)
+        marker = _json_without_duplicate_members(marker_raw)
+        root_info = root.stat()
+        expected_header = {
+            "profile": "ashlar-canonical-graphframes-owned-fixture/0.1",
+            "state": "complete",
+            "root": {"path": str(root), "device": root_info.st_dev,
+                     "inode": root_info.st_ino},
+            "generator": {"revision": CANONICAL_FIXTURE_GENERATOR_REVISION,
+                          "sha256": _canonical_fixture_generator_sha256()},
+            "sourceSha256": _canonical_fixture_source_sha256(),
+            "carrierDefinitionSha256": _canonical_carrier_definition_sha256(),
+        }
+        if (type(marker) is not dict or any(marker.get(key) != value
+                                             for key, value in expected_header.items())):
+            raise PermissionError("Owned fixture receipt does not match current root and bytes")
+        tables = marker.get("tables")
+        if type(tables) is not dict or set(tables) != {"object_current", "edge_current"}:
+            raise PermissionError("Complete owned fixture table inventory required")
+        verified_paths = []
+        for role in ("object_current", "edge_current"):
+            path = root / role
+            record = tables[role]
+            if (type(record) is not dict or set(record) !=
+                    {"path", "device", "inode", "deltaUuid"}
+                    or path.is_symlink() or not path.is_dir()
+                    or path.resolve(strict=True) != path):
+                raise PermissionError("Exact owned canonical table path required")
+            info = path.stat()
+            if ((record["path"] != str(path)
+                    or (record["device"], record["inode"]) != (info.st_dev, info.st_ino)
+                    or record["deltaUuid"] != _canonical_delta_uuid(path))):
+                raise PermissionError("Owned canonical table path, inode, or UUID changed")
+            verified_paths.append(path)
+        for path in verified_paths:
+            shutil.rmtree(path)
+        marker_path.unlink()
+    finally:
+        os.close(lock_fd)
+
 
 @dataclass(frozen=True)
 class CanonicalSyntheticFixtureDescriptor:
