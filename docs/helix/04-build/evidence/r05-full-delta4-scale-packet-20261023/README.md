@@ -3,8 +3,11 @@
 **Status: proposal only; held; not execution-ready.** This is an inert, local-only plan for one
 1,000,000,000-node / 5,000,000,000-edge `.4-xxhash64` trial. It has not started
 Spark, created a fixture, consumed cloud compute, or deleted data. The 16.50-minute
-write estimate is above the 15-minute owner-review trigger and is not permission to run. The included
-Python script prints planning arithmetic and creates no files or processes.
+write estimate is above the 15-minute owner-review trigger and is not permission
+to run. The offline generator creates only an in-memory SQL plan. A proposed
+worker and isolated local process supervisor now exist, but neither has been
+independently reviewed or used for native execution; the full attempt remains
+held.
 
 ## Decision and scope
 
@@ -64,8 +67,8 @@ These are proposed admission limits, not measured demand guarantees:
 | --- | --- |
 | Host/runtime | Dedicated local host only; at most 18 Spark local workers, 24 GiB JVM max heap, 128 GiB physical RAM. No shared/default Databricks cluster. |
 | Disk | Require at least 512 GiB free on the exact filesystem before launch. Total private attempt root cap 256 GiB, including both tables, Delta logs, Spark scratch, event logs, GraphFrames output, and receipts. |
-| Active Parquet | 128 GiB cap across the two tables; stop before writing would exceed it. 68.05 GB is only the current estimate. |
-| Runtime | One attempt, 1,800 seconds end-to-end maximum from supervised child start through owned-table cleanup and receipt close. No retry. |
+| Active Parquet | 128 GiB cap across the two tables; request cancellation when observed usage exceeds it. 68.05 GB is only the current estimate. |
+| Runtime | One attempt, 1,800 seconds end-to-end maximum from child start through owned-table cleanup and receipt close. The proposed supervisor hard-terminates and reaps the child process group at limits; no retry. |
 | Admission, startup and both table DDLs | 60 seconds cumulative; abort before writes if exceeded. |
 | Node write | 360 seconds maximum; abort on timeout. |
 | Edge write | 840 seconds maximum; abort on timeout. Both writes together are capped at 1,200 seconds. |
@@ -121,15 +124,25 @@ GraphFrames action to execute on actual pinned Delta frames, and every cap and
 cleanup check to pass. A timeout, overflow, failed admission, or uncertain
 cleanup is a failed/held attempt; no retry is implied.
 
+For this deterministic synthetic trial, TD-008 permits deriving identity
+uniqueness from the frozen `range` generator and reconciling persisted counts,
+ID ranges, row values, and endpoint/formula witnesses; it expressly excludes a
+second full-graph uniqueness join. The worker retains a linear persisted
+count/range/sum witness and states that it is not itself a mathematical distinct
+proof. This benchmark derivation does not qualify production publisher
+enforcement or a production multiplicity claim.
+
 ## Exact unresolved preconditions
 
 - The checked-in `canonical_graphframes_materializer.py` intentionally refuses
   before Spark or filesystem access. It only covers the tiny five-node/four-edge
   discriminator and explicitly requires admitted UMF `.4` DDL plus writer-7
-  verification. The full-size generator/materializer integrated with the UMF
-  bridge is not yet available as an admitted, independently reviewed runner.
+  verification. The separate candidate generator and full trial driver are
+  present, but have not received independent review or any native execution.
 - The UMF 0.5.6 candidate bridge currently has one-table local DDL/write
-  acceptance only; it does not qualify the complete two-role bridge at scale.
+  acceptance only. A two-role offline bridge admission is recorded in
+  `offline-generation-check.json`; it does not qualify two-role native DDL,
+  writes, or scale.
 - The R05 GraphFrames R4 packet is for the tiny discriminator, uses a 300-second
   / 512 MiB action bound, and is blocked pending fresh slot evidence and a
   separate owner authorization. It is not the full-scale runner or approval.
@@ -139,6 +152,24 @@ cleanup is a failed/held attempt; no retry is implied.
   estimated operation durations or evidence that the few-minute goal is met.
 - Fresh host capacity, inodes, slot ownership, actual runtime/JAR identity,
   dedicated output location and exact UMF-generated DDL must be revalidated.
+- `r05_full_delta4_supervisor.py` is the proposed one-attempt local entrypoint.
+  It prepares a mode-0700 attempt root and Spark scratch before child start,
+  checks the reviewed Python/JDK/JAR and source pins, requires an owner approval
+  bound to the final packet/runtime/source digests, and launches one isolated
+  child process group. It watches aggregate time, phase state and byte caps,
+  hard-kills/reaps on breach, and delegates success cleanup to a second bounded
+  process only after the Spark child group exits. On uncertainty it preserves
+  the attempt. Live capacity walks tolerate a vanished file only under the
+  private Spark scratch trees, where Spark may atomically rename shuffle files;
+  table and receipt walks remain strict. It also requires a pre-existing
+  private shared-slot lock file and a fresh local Spark process scan; no
+  repository-wide slot-lock protocol is
+  established, so this remains a deployment precondition. No owner authorization
+  artifact exists.
+- The candidate event-log parser has not yet been exercised against a real
+  Spark event log. It records task sums by stage ID, but does not map SQL
+  execution IDs to stages or attribute those sums to individual scan phases;
+  review the metrics contract before treating the receipt as complete.
 
 Related governing evidence: [R05 budget and gates](../r05-end-to-end-budget-design-20261023/README.md),
 [storage throughput reassessment](../r05-storage-throughput-reassessment-20261023/README.md),
@@ -146,16 +177,6 @@ Related governing evidence: [R05 budget and gates](../r05-end-to-end-budget-desi
 [writer-7 one-table acceptance](../current-upstream-release-20261023/umf-0.5.6-delta4-one-table-acceptance-20261023/README.md),
 [GraphFrames R4 candidate](../canonical-graphframes-holder-candidate-20261023/r05-native-action-r4/README.md),
 and [TD-008](../../../02-design/technical-designs/TD-008-pinned-delta-graphframes-scale-action.md).
-
-There is no runnable full-scale script because the retained R05 generator is
-only a five-node/four-edge discriminator and the measured carrier SQL is a
-225M-edge sample, not a parameterized, reviewed 1B/5B writer tied to the
-admitted UMF DDL path. The smallest missing implementation is one retained
-full-size deterministic generator/materializer that uses the pinned UMF bridge
-to create and verify both exact `.4` writer-7 tables, followed by an integrated
-supervisor/worker that performs the two lookups, two logical scans, and one
-pinned GraphFrames action with bounded custody and cleanup. That implementation
-and its independent review must precede any execution packet or authorization.
 
 The [offline proposal calculator](proposal_check.py) is deliberately inert: it
 prints the sample-derived write arithmetic and independently checks endpoint
@@ -167,5 +188,21 @@ runtime and executes neither DDL nor INSERT. Sol ran its exact two-role plan
 through the pinned UMF bridge in the retained Python 3.12.14 / mini-racer
 0.14.1 runtime; both proposals passed offline admission
 ([receipt](offline-generation-check.json)). This is a materialization
-prerequisite, not an admitted full runner; native SQL parsing, persisted scans,
-holder/action integration, supervision and owned cleanup remain separate work.
+prerequisite. The [candidate worker](full_delta4_trial.py) and [proposed
+supervisor](r05_full_delta4_supervisor.py) compose the admitted plan with one
+write per role, two point reads, two persisted logical scans, and one actual
+GraphFrames edge-bag action. The supervisor has hard process-group timeout and
+resource surveillance, phase evidence, exact ownership checks, and post-exit
+success cleanup. It is still a proposal: no Spark or scale run has started, no
+owner authorization exists, and a shared-slot coordination protocol is not
+established. The supervisor now captures capped private child diagnostics
+(32 MiB each) and enables an uncompressed, rolling Spark event log (512 MiB
+aggregate cap); after child exit it records a compact per-stage sum of task
+wall/CPU time, GC, input bytes, shuffle bytes, and spills, plus event-log size
+and digest. These are proposed capture paths only: no event log has been
+produced or validated on this runtime, and SQL-to-stage linkage, row-level
+attribution, and per-stage scan attribution remain open. The synthetic
+identity derivation follows TD-008 and does not establish production publisher
+enforcement. The selected write-only estimate remains 990.050 seconds / 16.50
+minutes, above the 15-minute review trigger; full execution remains held for
+owner review.

@@ -30,6 +30,7 @@ class RolePlan:
     insert_sql: str
     schema_sha256: str
     layout: dict
+    writer_settings: tuple
 
 
 @dataclass(frozen=True)
@@ -186,6 +187,7 @@ def build_generation_plan(
                 insert_sql=_insert_sql(role, paths[role], fields, node_rows, edge_rows),
                 schema_sha256=proposal["schemaSha256"],
                 layout=admitted["layout"],
+                writer_settings=tuple(proposal["writerSettings"]),
             ))
 
     boundaries = {
