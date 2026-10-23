@@ -1,0 +1,71 @@
+{
+  "attempt": "r5",
+  "authorized": false,
+  "bridge_candidate_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08",
+  "campaign_started": false,
+  "execution_approval_created": false,
+  "migration_attempt_id": "d5f4b0d8-42a2-4802-a492-b72f29235d0a",
+  "pending_before_any_execution": [
+    "fresh effect-free supervisor/worker preflight after shared slot is clear",
+    "independent Sol review of exact hashes",
+    "fresh owner approval",
+    "all live gates and exact approval parity"
+  ],
+  "preflight": {
+    "reason": "shared local supervisor slot may be occupied; do not run until cleared",
+    "status": "not_run"
+  },
+  "profile": "ashlar-truss049-lifecycle-approval-proposal/0.1",
+  "scope": {
+    "approval_proposal_is_not_execution_authorization": true,
+    "fresh_owner_approval_required": true,
+    "resource_limits": {
+      "automatic_retries": 0,
+      "campaign_data_cap_bytes": 1073741824,
+      "campaign_data_cap_includes": "retained PGDATA, cold backup, attempt receipts/data, and worker logs; this is the supervisor combined_bytes() bound, not a cap on all retained files",
+      "child_deadline_seconds": 600,
+      "per_worker_log_bytes": 16777216
+    },
+    "retained_footprint": {
+      "conservative_total_worst_case_gib_using_larger_prior_observations": 1.823,
+      "conservative_total_worst_case_kib_using_larger_prior_observations": 1911408,
+      "estimate_note": "Campaign-data cap plus reused runtime and sparse snapshot; prior review du observations exceed current du observations, so the larger readings are retained for conservative planning. Approx. 1.9 GB decimal (1.82 GiB), not a 1 GiB all-retained-bytes cap.",
+      "reused_runtime_du_kib_current_observation": 709452,
+      "reused_runtime_du_kib_prior_review_observation": 850796,
+      "reused_runtime_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv",
+      "source_snapshot_du_kib_current_observation": 11904,
+      "source_snapshot_du_kib_prior_review_observation": 12036,
+      "source_snapshot_logical_bytes": 10808338,
+      "source_snapshot_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source-snapshot"
+    }
+  },
+  "selected_cohort": {
+    "truss-toolkit": "0.0.49",
+    "umf-access": "0.1.0.dev7",
+    "umf-core": "0.10.0",
+    "weft-sql": "0.4.52"
+  },
+  "source_or_feed_effects_started": false,
+  "start_marker_created": false,
+  "static_bindings": {
+    "bridge_pin_sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9",
+    "bridge_rebuild_receipt_sha256": "32440159c892ab95d7642f9779b1d6adfca1bac3013aea29b4f6ab3a22b4a1de",
+    "helper_sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1",
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "readiness_manifest_sha256": "afba5326a0450b4eeea2d4779b89804e508fcbbf169080a12f1a073429f2d486",
+    "runtime_install_receipt_sha256": "c8e3056973fbea931dda98c47f1b67fc4ba651583e148183f281a2e0058cae55",
+    "runtime_receipt_sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+    "seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "source_commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "source_runtime_objects": {
+      "pyproject.toml": "75978c7b4bebbda102de4516d31ecbeff2a9e358",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "source_snapshot_sha256": "e41993fcd50ada64fed90f0ddb8179d20e786a1b4b612ab05c68da679d64db2a",
+    "source_tree": "28b946fbc84534998b91d31d3f6b6aef528fb937",
+    "supervisor_sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b",
+    "worker_sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  },
+  "status": "draft_unapproved_pending_preflight_and_independent_review"
+}

@@ -1,0 +1,287 @@
+{
+  "admission_gates": {
+    "process_inventory": {
+      "observation": "not observed in R5 preparation",
+      "status": "pending_r5_fresh_preflight"
+    },
+    "sysv_shared_memory": {
+      "observation": "not observed in R5 preparation",
+      "status": "pending_r5_fresh_preflight"
+    }
+  },
+  "approval_contract_parity": {
+    "control": "supervisor/worker exact proposal parity is pending fresh R5 preflight",
+    "status": "pending_r5_fresh_preflight",
+    "worker_or_supervisor_preflight_run_after_change": false
+  },
+  "attempt": "r5",
+  "bridge_readiness": {
+    "ashlar_commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "bridge_sha256": "b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5",
+    "build_inputs_sha256": "9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "execution_blocked": true,
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/bridge-readiness.json",
+    "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+    "required": "Exact current Ashlar main runtime objects and deterministic UMF 0.5.6 candidate bridge; static rebind only, pending independent review.",
+    "resource_sha256": "6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3",
+    "role_semantics_sha256": "1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4",
+    "runtime_input_objects": {
+      "pyproject.toml": "75978c7b4bebbda102de4516d31ecbeff2a9e358",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9",
+    "status": "ready",
+    "umf_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08"
+  },
+  "candidate_artifacts": {
+    "bridge_readiness": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/bridge-readiness.json",
+      "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+      "sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9"
+    },
+    "dev7_compatibility_receipt": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/umf-0.5.5-access-adoption.md",
+      "scope": "27 focused UMF dev7/core0.10+Weft0.4.52 offline compatibility/admission tests; no native Delta or UC qualification",
+      "sha256": "4babe367bd6437be313cf7147105e3780dfcc78e1c134289f5a8645a5e9e5aff"
+    },
+    "offline_preflight": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/offline-preflight-r5.json",
+      "status": "not_run_shared_slot_may_be_occupied"
+    },
+    "postgres_cleanup_binary": {
+      "bytes": 113520,
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+      "sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+      "version": "18.6.1 wheel metadata; binary not executed"
+    },
+    "quarantined_contaminated_runtime": {
+      "configuration_receipt": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/runtime-install-attempt-20261023.json",
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv.quarantined-contaminated-20261023",
+      "scope": "historical contaminated venv; excluded from R4 runtime and package imports"
+    },
+    "readonly_048_helper": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source_048_readonly_helper.py",
+      "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+    },
+    "runtime_install_receipt": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/runtime-install-attempt-20261023.json",
+      "sha256": "c8e3056973fbea931dda98c47f1b67fc4ba651583e148183f281a2e0058cae55",
+      "status": "verified_fresh_offline_runtime_install"
+    },
+    "runtime_preflight": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/runtime-preflight.json",
+      "sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+      "status": "verified_package_provenance_only_no_campaign_preflight"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "supervisor": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/run_supervisor.py",
+      "sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b"
+    },
+    "wheelhouse_lock": {
+      "path": "/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/wheelhouse-lock-pyspark-4.2.0-attempt-02.json",
+      "sha256": "d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20",
+      "wheel_count": 27
+    },
+    "worker": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/campaign_worker.py",
+      "sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+    }
+  },
+  "execution": {
+    "acknowledgment_started": false,
+    "approval_marker_present": false,
+    "destination_publication_started": false,
+    "migration_apply_invoked": false,
+    "native_started": false,
+    "pg_started": false,
+    "source_mutation_started": false,
+    "spark_started": false
+  },
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "required": "fresh explicit owner approval after independent Sol review of exact R5 hashes and later fresh live preflight",
+    "started_marker_created": false
+  },
+  "failure_response": "Any preflight mismatch or runtime failure stops this single-use attempt; no retry.",
+  "future_execution_paths": {
+    "attempt_directory": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/attempt-r5",
+    "attempt_receipts": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/attempt-r5",
+    "cold_backup_root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/attempt-r5/cold-backup",
+    "existing_048_runtime_for_pre_migration_read": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv",
+    "fresh_local_delta_destination_id": "ashlar-current-049-lifecycle-destination-r5-20261023",
+    "migration_attempt_id": "d5f4b0d8-42a2-4802-a492-b72f29235d0a",
+    "migration_recovery_registry": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/attempt-r5/truss-migration-recovery.sqlite3",
+    "migration_reference": "must be taken from and frozen from public prepare result before apply; never guessed or replaced",
+    "retained_pgdata": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data"
+  },
+  "historical_bootstrap_note": "A support-package copy briefly overlaid the selected Weft extension; the selected direct wheel was reinstalled afterward, and the installed RECORD plus native extension hash were reverified. This describes the copied runtime incident only; the contaminated venv was quarantined and the fresh R4 runtime was installed from the verified wheelhouse.",
+  "historical_copied_admission_observations": {
+    "process_inventory": {
+      "observed_member_count": 2,
+      "process_group_id": 94797,
+      "status": "ready",
+      "supervisor_pid": 94797,
+      "supervisor_pid_present": true
+    },
+    "sysv_shared_memory": {
+      "attached": true,
+      "detached": true,
+      "ipc_rmid_confirmed": true,
+      "segment_created": true,
+      "status": "ready"
+    }
+  },
+  "historical_runtime_preflight": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/r3-historical-runtime-preflight-dev6.json",
+    "scope": "copied R3 dev6 receipt retained as historical context; not an R5 runtime pin",
+    "sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8"
+  },
+  "immutable_inputs": {
+    "catalog_revision": 1,
+    "consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "existing_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "existing_feed_registration_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/feed-registration-committed.json",
+      "sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f"
+    },
+    "genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "prior_campaign_registration_and_roles": "reuse only; do not repeat role setup or register consumer",
+    "prior_public_source_reobservation_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/retained-source-reobserved.json",
+      "sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87"
+    },
+    "retained_pgdata": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "seed_request": {
+      "bytes": 1657,
+      "operation_count": 7,
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/seed-request.json",
+      "request_key": "ashlar-current-048-lifecycle-seed-r1",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "migration_recovery": {
+    "apply_once": true,
+    "attempt_id": "d5f4b0d8-42a2-4802-a492-b72f29235d0a",
+    "immutable_prepare_receipt_before_apply": true,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "prepare_once": true,
+    "reconcile_only_same_reference": true,
+    "registry_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/attempt-r5/truss-migration-recovery.sqlite3"
+  },
+  "next_gate": "Independent review of the exact R5 bridge/source/runtime/worker/preparation pins; fresh effect-free R5 supervisor preflight only after the shared slot is clear. No approval file or worker execution.",
+  "ordered_future_phases": [
+    "Before creating the started marker or any native child, repeat the process-group inventory capability gate and verify the supervisor PID is present; run a one-byte SysV shmget/shmat/shmdt probe and confirm IPC_RMID cleanup. Any failure blocks execution before source backup or PostgreSQL start.",
+    "Before the campaign first starts PostgreSQL, verify the retained host is stopped; copy/hash the existing PGDATA to the fresh cold-backup path and record source/backup byte counts and digests under the combined 1 GiB cap.",
+    "Start only the retained owned PostgreSQL. Before migration, sequentially reobserve accepted source/report/complete view and existing feed consumer/checkpoint using a separately frozen read-only helper with the preserved .48 runtime; .49 ordinary latest-only providers may not read the old install. No acceptance, role setup, consumer registration, source mutation, or ACK.",
+    "Use Truss .49 RuntimeMigrations status() and backup_metadata(); preserve companion row-type ACL metadata, exact context/source manifest, and restart-durable SQLite registry. Call prepare once, persist/freeze its exact returned reference/request, and apply that same reference once.",
+    "Verify the migration and immutable receipt through .49. If outcome is uncertain, reconcile only that same frozen reference; no automatic retry or new prepare/apply.",
+    "After migration, validate the retained accepted source/report/view and existing feed/consumer checkpoint via .49 public APIs; do not repeat role setup or consumer registration.",
+    "Use page-owner-generated .4 bridge and immutable installation-profile pins only after supplied/reviewed; publish actual catalog-only genesis page to a fresh destination, validate durable target/vector/receipt, then protected source ACK.",
+    "Only after genesis ACK submit the original approved seven-operation seed request once, then read its actual source page, publish through the same .4 installation, independently validate durable receipt/vector, and protected ACK.",
+    "Close PostgreSQL and Spark; retain bounded per-phase receipts, source pages, installation profile, cold backup and registry; no later mutation or replay."
+  ],
+  "preparation_revision": "r5-current-main-20261023",
+  "prior_failed_campaign": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1; preserved untouched",
+  "profile": "ashlar-truss-0.0.49-lifecycle-campaign-preparation/0.1",
+  "r5_delta": [
+    "private current-main sparse source snapshot pinned to HEAD 0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "deterministic Bun rebuild of UMF 0.5.6 bridge matched retained IIFE SHA256",
+    "R4 runtime referenced by exact path; not copied",
+    "fresh R5 supervisor preflight remains pending"
+  ],
+  "readonly_helper": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source_048_readonly_helper.py",
+    "purpose": "preserved .48 public-API read-only pre-migration source/report/view and existing consumer checkpoint helper; no registration or ACK",
+    "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+  },
+  "release": {
+    "expected_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss": "0.0.49",
+    "umf_access": "0.1.0.dev7",
+    "umf_access_wheel_sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+    "umf_core": "0.10.0",
+    "weft": "0.4.52",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+  },
+  "resource_limits": {
+    "automatic_retries": 0,
+    "child_execution_deadline_seconds": 600,
+    "cleanup_timeout_seconds": {
+      "group_reap_sigkill": 2,
+      "group_reap_sigterm": 2,
+      "postgres_fast_stop": 25,
+      "process_inventory_call": 5,
+      "worker_sigkill_wait": 10,
+      "worker_sigterm_wait": 10
+    },
+    "cloud": false,
+    "feed_operation_timeout_ms": 5000,
+    "feed_statement_timeout_ms": 2000,
+    "max_log_bytes": 16777216,
+    "maximum_combined_retained_and_new_bytes": 1073741824,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "sequential": true,
+    "spark_master": "local[1]"
+  },
+  "runtime_receipt": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/runtime-preflight.json",
+    "scope": "reused R4 package provenance only; no R5 preflight/native execution",
+    "sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df"
+  },
+  "selected_weft_candidate": {
+    "build_receipt_sha256": "1396c4fc2b50ac34eb413fd40e59d54b3bea3e678c563d8edc0b743a15ffcf05",
+    "dev7_compatibility_receipt_sha256": "4babe367bd6437be313cf7147105e3780dfcc78e1c134289f5a8645a5e9e5aff",
+    "native_extension_sha256": "f4be63caaacedeaa3d8af1b1f0587c561a2ff1ae0a279f4f8f7dcf836f6bb24f",
+    "packaging_receipt_sha256": "3bf22976c0921461ad56f5aa9cffda9b3f73521558d29c6df36a2979246a3447",
+    "scope": "Selected macOS ARM64 Weft 0.4.52; UMF access dev7/core0.10 focused compatibility evidence is separately pinned; no native SQL backend or Unity Catalog qualification.",
+    "source_commit": "32ec02f0c3fd24a97b7726500dc5992c6475908d",
+    "wheel_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl",
+    "wheel_sha256": "598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46"
+  },
+  "source_checkout": {
+    "commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "included_paths": [
+      "pyproject.toml",
+      "src/",
+      "sql/"
+    ],
+    "ownership": "private mode-0700 sparse detached snapshot; shared read-only Git object alternate to Ashlar checkout",
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source-snapshot",
+    "runtime_input_objects": {
+      "pyproject.toml": "75978c7b4bebbda102de4516d31ecbeff2a9e358",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "tree": "28b946fbc84534998b91d31d3f6b6aef528fb937"
+  },
+  "state": "prepared_static_pending_fresh_preflight",
+  "supervisor": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/run_supervisor.py",
+    "sha256": "0e4264650bb8728663ac19a160b82d01c1655b328810ff3ca5be28fac88403d0"
+  },
+  "worker": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/campaign_worker.py",
+    "sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  }
+}

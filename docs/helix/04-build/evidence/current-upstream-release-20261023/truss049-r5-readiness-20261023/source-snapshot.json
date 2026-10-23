@@ -1,0 +1,19 @@
+{
+  "commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+  "git_object_alternate": "shared object store at current Ashlar repository; snapshot source files are materialized in private root",
+  "objects": {
+    "pyproject.toml": "75978c7b4bebbda102de4516d31ecbeff2a9e358",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+  },
+  "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source-snapshot",
+  "profile": "ashlar-truss049-r5-source-snapshot/0.1",
+  "snapshot_bytes": 10808338,
+  "sparse_paths": [
+    "pyproject.toml",
+    "src/",
+    "sql/"
+  ],
+  "status": "",
+  "tree": "28b946fbc84534998b91d31d3f6b6aef528fb937"
+}

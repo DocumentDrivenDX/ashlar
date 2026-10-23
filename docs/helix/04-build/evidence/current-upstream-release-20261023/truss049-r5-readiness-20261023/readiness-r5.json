@@ -1,0 +1,70 @@
+{
+  "attempt": "r5",
+  "authorization": {
+    "attempt_directory_empty": true,
+    "authorized": false,
+    "execution_approval_created": false,
+    "logs_empty": true,
+    "preflight_run": false,
+    "start_marker_created": false
+  },
+  "bridge": {
+    "iife_sha256": "b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5",
+    "inventory_sha256": "9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff",
+    "pin_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/bridge-readiness.json",
+    "pin_sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9",
+    "rebuild_receipt_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/bridge-rebuild-r5.json",
+    "rebuild_receipt_sha256": "32440159c892ab95d7642f9779b1d6adfca1bac3013aea29b4f6ab3a22b4a1de",
+    "rebuilt_exactly": true,
+    "rebuilt_iife_bytes": 508540,
+    "rebuilt_input_count": 195,
+    "resource_sha256": "6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3",
+    "role_semantics_sha256": "1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4",
+    "umf_candidate_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08"
+  },
+  "dependency_cohort": {
+    "delta": "4.4.1",
+    "spark": "4.2.0",
+    "truss-toolkit": "0.0.49",
+    "umf-access": "0.1.0.dev7",
+    "umf-core": "0.10.0",
+    "weft-sql": "0.4.52"
+  },
+  "migration_attempt_id": "d5f4b0d8-42a2-4802-a492-b72f29235d0a",
+  "prepared_execution_source": {
+    "preparation": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/preparation.json",
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "proposal": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/approval-proposal-r5.json",
+    "supervisor": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/run_supervisor.py",
+    "supervisor_sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b",
+    "worker": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/campaign_worker.py",
+    "worker_sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  },
+  "profile": "ashlar-truss049-r5-static-readiness/0.2",
+  "qualification_limit": "interim current-core 0.10.0/access dev7 readiness only; no Truss lifecycle, source acceptance/feed/ACK, PostgreSQL, Spark, Delta or Unity Catalog qualification; no final upstream release claim",
+  "reused_runtime": {
+    "closure_match": true,
+    "install_receipt_sha256": "c8e3056973fbea931dda98c47f1b67fc4ba651583e148183f281a2e0058cae55",
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv",
+    "runtime_preflight_reused": true,
+    "runtime_preflight_sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+    "wheelhouse_lock_sha256": "d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20"
+  },
+  "source": {
+    "commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "runtime_input_objects": {
+      "pyproject.toml": "75978c7b4bebbda102de4516d31ecbeff2a9e358",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "snapshot_bytes": 10808338,
+    "snapshot_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source-snapshot",
+    "sparse_paths": [
+      "pyproject.toml",
+      "src/",
+      "sql/"
+    ],
+    "tree": "28b946fbc84534998b91d31d3f6b6aef528fb937"
+  },
+  "status": "draft_static_ready_pending_independent_review_and_fresh_preflight"
+}
