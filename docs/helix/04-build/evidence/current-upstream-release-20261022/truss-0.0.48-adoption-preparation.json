@@ -394,7 +394,7 @@
     "next_gate": "Native .48 feed/admission remains unqualified. Any source-feed or Delta effect check requires separate resource-slot review and explicit GO; no ACK or destination authority is implied."
   },
   "ashlar_local_xxhash64_offline_implementation": {
-    "status": "offline_implementation_ready_native_gate_pending",
+    "status": "offline_implementation_ready_first_native_ddl_failed",
     "profile": "ashlar-delta/0.4-xxhash64",
     "scope": [
       "Keeps the existing ashlar-delta/0.3 publication default and adds an explicit local .4 xxhash64 graph profile.",
@@ -413,10 +413,39 @@
       "receipt_sha256": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b"
     },
     "native_gate": {
-      "status": "pending",
-      "qualification": "No native publication, source ACK, Delta DDL, feed, destination or lifecycle pass is claimed. The next native campaign requires code review/source freeze and its separately coordinated resource GO.",
+      "status": "first_local_campaign_failed_at_initial_umf_table_ddl",
+      "qualification": "The selected local Spark 4.2.0 / Delta 4.4.1 campaign did not create its first table because Delta rejected the UMF-authored delta.parquet.compression.codec property. One feed consumer registration committed; no genesis publication or ACK, seed, or continuation occurred. No support pass is claimed. Any next attempt requires a separately reviewed versioned UMF-owned local table realization or a proven compatible runtime, plus a new resource GO. The committed consumer registration must be resumed; do not register a new consumer or reseed.",
       "spark_started_during_offline_implementation_check": false,
-      "postgres_started_during_offline_implementation_check": false
+      "postgres_started_during_offline_implementation_check": false,
+      "observed_native_campaign": {
+        "attempt": "ashlar-truss048-lifecycle-campaign-20261022 attempt-r1",
+        "result": "failed at first local UMF DDL; no table was created",
+        "elapsed_seconds": 12.211,
+        "exit_code": 1,
+        "runtime": {
+          "spark": "4.2.0",
+          "delta": "4.4.1",
+          "jdk": "21",
+          "truss": "0.0.48",
+          "weft": "0.4.52"
+        },
+        "failure_type": "pyspark AnalysisException [DELTA_UNKNOWN_CONFIGURATION]",
+        "message": "Unknown configuration was specified: delta.parquet.compression.codec",
+        "effects": "The feed consumer registration committed before publication setup. No genesis page publication, publication ACK, seed, or continuation occurred. Owned PostgreSQL stopped; postmaster marker absent; independent owned-process inventory empty.",
+        "retained_log": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/supervisor-attempt-r1.log",
+        "resume_constraint": "Resume the already committed feed consumer registration 9f03eb5d-ce72-437f-8b32-0112c130e724 at the genesis checkpoint; do not create a new registration or reseed."
+      },
+      "compatibility_diagnosis": {
+        "umf_authored_target": "databricks-managed-delta/0.1, with delta.parquet.compression.codec=zstd on the object_current and edge_current carrier definitions.",
+        "local_runtime_target": "OSS Delta Lake 4.4.1 on Spark 4.2.0 rejects that property as an unknown configuration.",
+        "interpretation": "The selected OSS Spark Delta implementation rejects the authored compression property; the UMF DDL adapter also exposes only the databricks-managed-delta/0.1 table-definition target. UMF native_program support for spark-delta4 applies to actions/reads and does not generate table definitions. This is a demonstrated UMF target-coverage gap for Ashlar local Delta, not evidence of malformed carrier schemas or catalog acceptance failure.",
+        "sources": [
+          "https://github.com/delta-io/delta/blob/master/PROTOCOL.md",
+          "https://github.com/delta-io/delta/issues/6803",
+          "https://spark.apache.org/docs/latest/configuration.html"
+        ],
+        "next_change_boundary": "Keep the existing UMF-authored managed carrier source and its bytes unchanged. Add a versioned UMF-owned local Spark Delta definition/realization target that preserves the common six-role schema, identity/hash types, and authored logical layout while explicitly representing supported and unsupported target-specific physical options. The UMF generator must own target-specific DDL/config output and fail closed for unrealizable options; Ashlar must consume/pin that generated target artifact, not rewrite or strip generated SQL/properties. No arbitrary Delta properties."
+      }
     }
   }
 }

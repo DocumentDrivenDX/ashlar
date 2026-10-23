@@ -43,6 +43,17 @@ publication, destination, and ACK remain unqualified. It does not establish the
 release's declared Linux support on macOS or a broader Ashlar support pass. See the
 [0.0.48 evidence](04-build/evidence/current-upstream-release-20261022/truss-0.0.48-adoption-preparation.json).
 
+The first local `.4` lifecycle campaign then stopped at its first UMF table DDL:
+OSS Delta 4.4.1 rejected the authored `delta.parquet.compression.codec` property
+as an unknown configuration. The already registered feed consumer remains at
+the genesis checkpoint; no genesis publication or ACK, seed, or continuation
+occurred. This is a local target-coverage gap, not a failure of the accepted Truss source.
+UMF currently generates table definitions only for its Databricks-managed Delta
+target; its `spark-delta4` action/read support does not provide a local table DDL
+generator. Keep the authored managed carrier unchanged and add a versioned
+UMF-owned local target realization before resuming that consumer. Ashlar must not
+rewrite the generated DDL or silently drop properties.
+
 The current configured-local profile is a macOS arm64/Python 3.12 candidate on
 Spark 4.2.0, Delta 4.4.1 and JDK 21. Its bounded evidence includes grouped
 two-hop counts, a negative HAVING case, SDK pages with a 2+1 continuation, and
