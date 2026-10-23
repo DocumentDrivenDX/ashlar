@@ -2,6 +2,19 @@
 
 Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. Every B identity and source pin remains unset; the R04 schedule is still unfrozen.
 
+The B-owned [readiness record](b-installation-readiness.json) keeps execution
+approval and all actual B paths, roles, resource limits, and retention owner
+null. The matching effect-free byte preflight is
+[`truss_b_source_preflight.py`](../../../../../../src/ashlar_host/truss_b_source_preflight.py);
+it verifies the exact retained source and origin bytes without importing
+Truss/PostgreSQL or creating files. It does not implement installation or
+acceptance. The source document revision in the packet is external metadata;
+the source bytes contain no revision field, so this preflight does not verify
+that revision. The bounded future sequence remains a proposal in the JSON
+packet; uncertainty retains PGDATA and refuses retry, and the sequence ends
+after one genesis consumer registration and server stop. It specifies no feed
+read, destination action, or ACK.
+
 ## Purpose and boundary
 
 Prepare a distinct local Truss 0.0.49 / UMF core 0.10.0 B installation for the R04 eight-slot schedule. B must have independently accepted source bytes, catalog revision/report/view, provider-assigned installation and source identities, source epoch/namespace, consumer registration, feed, and protected destination receipt scope. B must not reuse, relabel, re-register, or advance A's consumer or ACK. A's current retained Truss 0.0.48 migration/resume and pending R03 genesis/ACK/seed readback are separate dependencies and remain untouched.
@@ -22,7 +35,7 @@ Read-only source inspection found these public entry points:
 
 Read-only source-file SHA-256 pins for this API inspection: `truss/__init__.py` `2b709459fa5e76c8ffa19d64609b5e2abc57cf5df275cd430fbbd2034025db44`; `truss/local_runtime.py` `7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728`; `truss/catalog_runtime.py` `31c374621f6944f2b6bd03fb01e6a4331d0bb7bd20a5395eda718b4e677159d1`; `truss/feed.py` `0f5e5146368c254ea83b2d34229920a1b8bfa70fb3df000edaa7b7f5a820714c`; `truss/catalog_view.py` `167fc8fd2e304a9aaf9d485d957b0d124542617caa2f16c82f3d7aee42ec890c`; `truss/catalog_results.py` `a20fa3aba53fc6d4b867a818717b9ad0073430322cd7801854e6e89db9525465`; `truss/catalog_preparation.py` `fcbde90f084bd94ee05bf7e94d85c897258b2feff7ff0f2a16ee66253afaa5ea`. These are pins of the isolated reviewed installed source files, not additional package acceptance evidence.
 
-The local runtime's PostgreSQL process is a real native effect and one-use context cleanup is not a rollback guarantee. A failure before any database transaction can be safely abandoned by closing the owned process and removing only a verified empty B-owned directory. Once initialization or any transaction may have occurred, preserve the complete data directory and logs; on uncertain commit, stop and reconcile the original request/readback. Never delete or recreate an uncertain/accepted installation as a retry. After B acceptance, retain the installation for the R04 feed and closing evidence; do not treat cleanup as permission to erase it.
+The local runtime's PostgreSQL process is a real native effect and one-use context cleanup is not a rollback guarantee. Truss 0.0.49 fixes TCP port 5432 and does not accept a port override. Therefore B requires exclusive admission of that shared port after the Arras/A server is stopped; it cannot overlap another Truss LocalPostgres process. Each open uses a fresh context over the B-owned PGDATA, and each close must verify the process stopped before any later A/B context opens. A failure before any database transaction can be safely abandoned by closing the owned process and removing only a verified empty B-owned directory. Once initialization or any transaction may have occurred, preserve the complete data directory and logs; on uncertain commit, stop and reconcile the original request/readback. Never delete or recreate an uncertain/accepted installation as a retry. After B acceptance, retain the installation for the R04 feed and closing evidence; do not treat cleanup as permission to erase it.
 
 ## B-only bounded sequence proposed for future approval
 

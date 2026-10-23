@@ -1,0 +1,55 @@
+{
+  "profile": "ashlar-r04-b-source-installation-readiness/0.1",
+  "status": "inert-draft",
+  "source": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision_pin": "ashlar-current-045-lifecycle-r1",
+    "document_revision_evidence": "external packet metadata; the source JSON has no revision field and byte preflight does not verify this pin",
+    "umf": "0.10.0",
+    "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "origin": {
+    "path": "b-origin-candidate.json",
+    "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
+    "approval": null
+  },
+  "runtime": {
+    "truss_version": "0.0.49",
+    "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "umf_core_version": "0.10.0",
+    "python_version": null,
+    "postgresql_runtime_pin": null
+  },
+  "isolation": {
+    "root_path": null,
+    "pgdata_path": null,
+    "socket_directory": null,
+    "port": 5432,
+    "port_policy": "exclusive fixed-port admission after Arras/A stops; never concurrent",
+    "owner_role": null,
+    "registrar_role": null,
+    "reader_role": null,
+    "consumer_id": null,
+    "resource_bounds": null,
+    "retention_owner": null
+  },
+  "attempt": {
+    "execution_approval": null,
+    "attempt_count": 0,
+    "maximum_attempts": 1,
+    "auto_retry": false,
+    "uncertain_outcome": "retain PGDATA and all evidence; stop and reconcile the same original request; refuse retry",
+    "native_effects_performed": false
+  },
+  "bounded_sequence": [
+    "verify exact retained source and B-origin bytes and hashes",
+    "admit exclusive port 5432 only after Arras/A process is stopped; prove B-owned fresh PGDATA/root and distinct role names",
+    "open one fresh Truss LocalPostgres context; install once with frozen B owner and registrar roles; commit once and read back installation identity",
+    "prepare exact CatalogDocument through Truss 0.0.49 public API; accept once using exact origin bytes, request key, expected revision and expected document set; commit once",
+    "read back and retain the complete original acceptance report and current complete catalog view with exact hashes",
+    "register exactly one B consumer from genesis with the B ordinary reader role; retain provider registration ID and exact genesis cursor; do not read or ACK",
+    "close the context once and verify the owned process stopped; retain accepted PGDATA"
+  ],
+  "execution_disabled_reason": "Human execution approval is pending; all B installation paths, roles and resource bounds are null. This packet is not an executor."
+}
