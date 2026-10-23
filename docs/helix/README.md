@@ -28,12 +28,14 @@ the core 0.10.0 wheel remains byte-identical. Focused local compatibility tests
 passed, but this does not qualify managed runtime or Delta behavior ([adoption
 receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-Truss 0.0.49 R4 supersedes R3 for the current UMF profile and now has a fresh,
-isolated offline Python runtime with verified wheel provenance and package records.
-One effect-free R4 supervisor/worker preflight passed with the exact hash-bound
-outcome; no PostgreSQL or Spark process, migration, source/feed/publication/ACK
-effect, or native qualification is claimed. R3 and the failed R2 attempt remain
-as historical evidence ([R4 readiness](04-build/evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/README.md),
+Truss 0.0.49 R5 is bound to Ashlar current `main` and passed its permitted
+effect-free supervisor/worker preflight with process inventory, SysV cleanup and
+exact approval-payload parity ready. This is interim current-core readiness for
+UMF core 0.10.0/access 0.1.0.dev7; no PostgreSQL or Spark process, migration,
+seed, source/feed/publication/ACK effect, execution approval or native qualification
+is claimed. The exact-payload approval proposal remains unapproved ([R5 readiness
+and receipts](04-build/evidence/current-upstream-release-20261023/truss049-r5-readiness-20261023/README.md)). R4 supplies the reused runtime provenance; R3 and the failed R2
+attempt remain historical evidence ([R4 readiness](04-build/evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/README.md),
 [R3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
 [R2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
 
@@ -65,11 +67,11 @@ release's declared Linux support on macOS or a broader Ashlar support pass. See 
 The first local `.4` lifecycle campaign stopped at its first UMF table DDL:
 OSS Delta 4.4.1 rejected the authored `delta.parquet.compression.codec` property
 as an unknown configuration. The registered feed consumer remains at the genesis
-checkpoint; no genesis publication or ACK, seed, or continuation occurred. A
-public-main-derived UMF 0.5.6 candidate at commit `9a11ae5` now supplies a
-versioned direct Delta-path realization. Ashlar's pinned bridge has been rebuilt
-from that exact candidate, and all six source roles pass focused offline checks;
-no Spark or Delta execution is claimed. See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md),
+checkpoint; no genesis publication or ACK, seed, or continuation occurred. UMF 0.5.6 source is now on upstream `main`, but the 0.5.6 package remains
+unpublished; the 0.10.1 SDK release is still pending. The candidate at commit
+`9a11ae5` supplies a versioned direct Delta-path realization. Ashlar's pinned
+bridge has been rebuilt from that exact candidate, and all six source roles pass
+focused offline checks; no Spark or Delta execution is claimed. See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md),
 [SDK package-install receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-sdk-package-install/README.md)
 and the [historical 0.5.4 candidate receipt](04-build/evidence/current-upstream-release-20261022/local-delta4-umf-realization-candidate.json).
 

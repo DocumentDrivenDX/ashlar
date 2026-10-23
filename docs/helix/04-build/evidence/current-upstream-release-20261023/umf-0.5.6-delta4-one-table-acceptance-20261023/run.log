@@ -1,0 +1,105 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /private/tmp/ashlar-umf056-delta4-one-table-20261023/ivy/cache
+The jars for the packages stored in: /private/tmp/ashlar-umf056-delta4-one-table-20261023/ivy/jars
+io.delta#delta-spark_4.2_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-d85accec-8b25-4504-83e1-6c868d4ef8e9;1.0
+	confs: [default]
+You probably access the destination server through a proxy server that is not well configured.
+You probably access the destination server through a proxy server that is not well configured.
+You probably access the destination server through a proxy server that is not well configured.
+You probably access the destination server through a proxy server that is not well configured.
+:: resolution report :: resolve 132ms :: artifacts dl 0ms
+	:: modules in use:
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   1   |   0   |   0   |   0   ||   0   |   0   |
+	---------------------------------------------------------------------
+
+:: problems summary ::
+:::: WARNINGS
+	Host repo1.maven.org not found. url=https://repo1.maven.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.pom
+
+	Host repo1.maven.org not found. url=https://repo1.maven.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar
+
+	Host repos.spark-packages.org not found. url=https://repos.spark-packages.org/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.pom
+
+	Host repos.spark-packages.org not found. url=https://repos.spark-packages.org/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar
+
+		module not found: io.delta#delta-spark_4.2_2.13;4.4.1
+
+	==== local-m2-cache: tried
+
+	  file:/Users/erik/.m2/repository/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.pom
+
+	  -- artifact io.delta#delta-spark_4.2_2.13;4.4.1!delta-spark_4.2_2.13.jar:
+
+	  file:/Users/erik/.m2/repository/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar
+
+	==== local-ivy-cache: tried
+
+	  /private/tmp/ashlar-umf056-delta4-one-table-20261023/ivy/local/io.delta/delta-spark_4.2_2.13/4.4.1/ivys/ivy.xml
+
+	  -- artifact io.delta#delta-spark_4.2_2.13;4.4.1!delta-spark_4.2_2.13.jar:
+
+	  /private/tmp/ashlar-umf056-delta4-one-table-20261023/ivy/local/io.delta/delta-spark_4.2_2.13/4.4.1/jars/delta-spark_4.2_2.13.jar
+
+	==== central: tried
+
+	  https://repo1.maven.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.pom
+
+	  -- artifact io.delta#delta-spark_4.2_2.13;4.4.1!delta-spark_4.2_2.13.jar:
+
+	  https://repo1.maven.org/maven2/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar
+
+	==== spark-packages: tried
+
+	  https://repos.spark-packages.org/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.pom
+
+	  -- artifact io.delta#delta-spark_4.2_2.13;4.4.1!delta-spark_4.2_2.13.jar:
+
+	  https://repos.spark-packages.org/io/delta/delta-spark_4.2_2.13/4.4.1/delta-spark_4.2_2.13-4.4.1.jar
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		::          UNRESOLVED DEPENDENCIES         ::
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+		:: io.delta#delta-spark_4.2_2.13;4.4.1: not found
+
+		::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
+Exception in thread "main" java.lang.RuntimeException: [unresolved dependency: io.delta#delta-spark_4.2_2.13;4.4.1: not found]
+	at org.apache.spark.util.MavenUtils$.resolveMavenCoordinates(MavenUtils.scala:539)
+	at org.apache.spark.util.DependencyUtils$.resolveMavenDependencies(DependencyUtils.scala:122)
+	at org.apache.spark.deploy.SparkSubmit.prepareSubmitEnvironment(SparkSubmit.scala:343)
+	at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:965)
+	at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:203)
+	at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:226)
+	at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:95)
+	at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1171)
+	at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1180)
+	at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-umf056-delta4-one-table-20261023/run.py", line 19, in <module>
+    spark = builder.getOrCreate()
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/sql/session.py", line 559, in getOrCreate
+    sc = SparkContext.getOrCreate(sparkConf)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 542, in getOrCreate
+    SparkContext(conf=conf or SparkConf())
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 205, in __init__
+    SparkContext._ensure_initialized(self, gateway=gateway, conf=conf)
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/core/context.py", line 463, in _ensure_initialized
+    SparkContext._gateway = gateway or launch_gateway(conf)
+                                       ^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/lib/python3.12/site-packages/pyspark/java_gateway.py", line 111, in launch_gateway
+    raise PySparkRuntimeError(
+pyspark.errors.exceptions.base.PySparkRuntimeError: [JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.

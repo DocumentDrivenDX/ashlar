@@ -1,0 +1,117 @@
+{
+  "approval_semantics": {
+    "execution_approval_file_must_not_be_created_before_that_approval": true,
+    "fresh_explicit_owner_approval_required": true,
+    "if_owner_approves_the_approval_file_must_equal_exact_approval_payload": true,
+    "no_execute_invocation_is_authorized_while_this_proposal_is_unapproved": true,
+    "one_exact_owner_approval_authorizes_creation_of_exact_execution_approval_and_one_supervised_execute": true,
+    "proposal_is_not_execution_authorization": true,
+    "separate_execution_approval_prompt_required": false
+  },
+  "attempt": "r5",
+  "attempt_id": "d5f4b0d8-42a2-4802-a492-b72f29235d0a",
+  "authorized": false,
+  "campaign_started": false,
+  "exact_approval_payload": {
+    "admission_gates_sha256": "665001fee6f02a8253542c8f3b2dc6ecd4fc9029cca6bfed2a2a2f1f4dc1fae9",
+    "bridge_pin_sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9",
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "profile": "ashlar-truss049-lifecycle-execution-approval/0.1",
+    "runtime_receipt_sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+    "scope": "one cold-backup + one latest-only .49 migration + reuse existing source/consumer + genesis protected ACK + one approved seed + one actual continuation protected ACK",
+    "seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "supervisor_sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b",
+    "worker_sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  },
+  "exact_approval_payload_sha256": "4b865db0cfbfb084fe5fe7611008b1eec29224c5e87d4a3603b138edfa5ef6c4",
+  "execution_approval_file_created": false,
+  "frozen_packet": {
+    "bridge_pin_sha256": "7481b856d3557821231b3dc7ce5f030b3ef28aee4b493ecd6eb0365994d3e9b9",
+    "earlier_static_draft_sha256": "fa2e45f439481428e31782a40a45a3762e327d9f20b684a433d4e76bafa9eda2",
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "private_root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c",
+    "private_root_mode": "0700",
+    "readiness_sha256": "afba5326a0450b4eeea2d4779b89804e508fcbbf169080a12f1a073429f2d486",
+    "runtime_receipt_sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+    "seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "source_commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "source_snapshot_manifest_sha256": "e41993fcd50ada64fed90f0ddb8179d20e786a1b4b612ab05c68da679d64db2a",
+    "source_tree": "28b946fbc84534998b91d31d3f6b6aef528fb937",
+    "supervisor_sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b",
+    "worker_sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  },
+  "native_lifecycle_started": false,
+  "pending_before_any_execution": [
+    "independent review of this exact proposal and approval payload hash",
+    "one fresh explicit owner approval of this exact proposal and payload; that single approval authorizes writing the exact execution-approval.json payload and invoking the one supervised --execute run"
+  ],
+  "preflight": {
+    "admission_gates": {
+      "process_inventory": {
+        "observed_member_count": 3,
+        "process_group_id": 64746,
+        "status": "ready",
+        "supervisor_pid": 64748,
+        "supervisor_pid_present": true
+      },
+      "sysv_shared_memory": {
+        "attached": true,
+        "detached": true,
+        "ipc_rmid_confirmed": true,
+        "segment_created": true,
+        "status": "ready"
+      }
+    },
+    "approval_contract_parity": {
+      "admission_gates_sha256": "665001fee6f02a8253542c8f3b2dc6ecd4fc9029cca6bfed2a2a2f1f4dc1fae9",
+      "approval_payload_sha256": "4b865db0cfbfb084fe5fe7611008b1eec29224c5e87d4a3603b138edfa5ef6c4",
+      "exact_dict_match": true,
+      "status": "ready"
+    },
+    "migration_apply_invoked": false,
+    "outcome": "ready_pending_hash_bound_operator_approval",
+    "pg_started": false,
+    "receipt_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r5-readiness-20261023/supervisor-preflight-r5-permitted.jsonl",
+    "receipt_sha256": "52961c7585e63060bf0840767a2fc64b48533c871f58aa43201d4c122b015339",
+    "retained_pg_stopped": true,
+    "source_commit": "0fce3b6cd9998f9348a8c6a1b5e5a6a9813a2201",
+    "spark_started": false,
+    "supervisor_profile": "ashlar-truss049-offline-supervisor/0.5",
+    "supervisor_sha256": "435f2903c0d834e963e865d37fc459e11710305917185cdff3d105deba6eac8b",
+    "worker_sha256": "cc4ea0b4ee93f4aa66063d4e9e688ed0bdefd151659bf2f2f34ff3d662a7ac50"
+  },
+  "profile": "ashlar-truss049-r5-execution-approval-proposal/0.1",
+  "readiness_note": "readiness-r5.json is the frozen pre-preflight staging manifest; its preflight_run=false records the state at staging. The later permitted preflight receipt above records the subsequent successful effect-free admission and parity result; no frozen worker, supervisor, preparation, or readiness bytes were changed.",
+  "resource_limits": {
+    "automatic_retries": 0,
+    "campaign_data_cap_bytes": 1073741824,
+    "campaign_data_cap_includes": "retained PGDATA, cold backup, attempt data/receipts, and worker logs; excludes reused runtime and sparse source snapshot",
+    "child_deadline_seconds": 600,
+    "per_worker_log_bytes": 16777216,
+    "retained_footprint": {
+      "conservative_total_worst_case_gib_using_larger_prior_observations": 1.823,
+      "conservative_total_worst_case_kib_using_larger_prior_observations": 1911408,
+      "estimate_note": "Campaign-data cap plus reused runtime and sparse snapshot; prior review du observations exceed current du observations, so the larger readings are retained for conservative planning. Approx. 1.9 GB decimal (1.82 GiB), not a 1 GiB all-retained-bytes cap.",
+      "reused_runtime_du_kib_current_observation": 709452,
+      "reused_runtime_du_kib_prior_review_observation": 850796,
+      "reused_runtime_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv",
+      "source_snapshot_du_kib_current_observation": 11904,
+      "source_snapshot_du_kib_prior_review_observation": 12036,
+      "source_snapshot_logical_bytes": 10808338,
+      "source_snapshot_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r5-current-0fce3b6c/source-snapshot"
+    }
+  },
+  "selected_cohort": {
+    "delta": "4.4.1",
+    "spark": "4.2.0",
+    "truss-toolkit": "0.0.49",
+    "umf-access": "0.1.0.dev7",
+    "umf-core": "0.10.0",
+    "weft-sql": "0.4.52"
+  },
+  "source_or_feed_effects_started": false,
+  "started_marker_created": false,
+  "status": "draft_exact_payload_unapproved"
+}

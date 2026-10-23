@@ -2,8 +2,39 @@
 
 This receipt reviews the proposed UMF 0.5.6 candidate at
 `9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08` for Sol's release review. It is a
-source and evidence review only; no upstream files were changed and no upstream
-builds, tests, or native execution were run.
+source and evidence review only; no source code was edited as part of this
+review, and no upstream builds, tests, or native execution were run here.
+
+## Sol review disposition and upstream state
+
+No blocking defect was found in the five-commit forward change from the public
+0.5.5 base. The new API first validates the complete managed document, then
+projects only the selected local target; it keeps the authored definition and
+managed DDL path intact, rejects unknown target fields and unqualified codecs,
+and reports the file-size hint as unrealized. The changed Rust harness line is
+only a TypeScript non-null assertion after an `index > 0` guard. The remaining
+changes update package and generated digest metadata. The focused target tests
+cover the source-preservation, disposition, target-binding, and refusal cases.
+This is a review of source behavior and existing evidence, not a native Delta
+pass or certification of every historical Rust code path.
+
+The historical `5ba77cff…` to candidate range was also inventoried as requested:
+135 commits, nine merges and 1,192 changed files. The R2/R3 Rust and embedder
+merges are already in the public `009c04254…` base, rather than being newly
+introduced by this push. That history is dominated by retained HELIX evidence;
+the production Rust migration remains an additive, separately qualified scope
+under UMF's [migration plan](https://github.com/DocumentDrivenDX/umf/blob/009c042545a17b49ea857eff22d0fcf3fd71ef44/docs/helix/04-build/rust-migration-plan.md).
+I found no new Rust default-engine switch or compiled native binary in the
+five-commit forward diff. Historical CI additions and the wider native binding
+surface were not rerun for this Ashlar release decision.
+
+The reviewed commit was fast-forward pushed to `DocumentDrivenDX/umf` `main`
+from exactly `009c042545a17b49ea857eff22d0fcf3fd71ef44` on 2026-10-23.
+It is still source, not a published UMF 0.5.6 package or the requested 0.10.1
+SDK release. Draft upstream PR #47 for the 0.10.1 SDK is based on the former
+main and overlaps this push in the generated metamodel manifest; its owner
+must reconcile that generated digest before merge. This is a release sequencing
+item, not a defect in the reviewed five-commit Delta realization.
 
 ## Lineage and change scope
 
