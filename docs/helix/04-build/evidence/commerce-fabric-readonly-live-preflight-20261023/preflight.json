@@ -1,0 +1,38 @@
+{
+  "observed_utc": "2026-10-23T23:56:06Z",
+  "scope": "Read-only authenticated Fabric portal navigation and workspace-settings inspection. HTTP method-level telemetry was not captured. No compute, upload, source action, capacity change, workspace change, path reservation, or mutation was performed.",
+  "principal": {
+    "display_name": "Erik LaBianca",
+    "account": "interactive signed-in account; email omitted from sanitized receipt",
+    "authentication_evidence": "Fabric Account manager profile showed the signed-in principal"
+  },
+  "workspace": {
+    "id": "0a4dbd9c-e1a7-4ec8-8ce9-aa51991ff793",
+    "display_name": "Ashlar Graph Integration",
+    "observation": "Live workspace page opened successfully; workspace type settings showed Fabric Trial"
+  },
+  "lakehouse": {
+    "id": "ee66f2e8-9072-4a48-8364-ecd2f2967c3e",
+    "display_name": "Ashlar_Graph_Releases",
+    "observation": "Listed as a Lakehouse item in the live workspace"
+  },
+  "capacity": {
+    "id": "c69c0329-778f-4446-b529-d43358c73251",
+    "sku": "FTL4",
+    "region": "West US 3",
+    "workspace_type": "Fabric Trial",
+    "trial_name": "Trial-20261011T210120Z-0HMuvlmMaE2maHCs3JKaNQ",
+    "portal_state": "Fabric UI showed 'Trials activated: 47 days left'; workspace type details showed SKU FTL4 and the capacity ID"
+  },
+  "cost_boundary": {
+    "observed": "Active Fabric Trial / FTL4 assignment, with 47 trial days remaining",
+    "not_established": "The portal observations do not independently prove the exact attempt's all-in $0 cost including any storage/service charges, or that no billing fallback can occur. No billing/usage page or capacity-admin status was available in this observation."
+  },
+  "paths": "No candidate OneLake path HEAD checks performed in this preflight.",
+  "limitations": [
+    "This establishes the current interactive principal and visible workspace/lakehouse/trial assignment only.",
+    "It does not re-admit R1 source/ACK authority or establish an accepted R2 source transaction.",
+    "It does not check candidate path absence or numeric request/response/runtime limits.",
+    "Capacity admin details remained in a loading state."
+  ]
+}

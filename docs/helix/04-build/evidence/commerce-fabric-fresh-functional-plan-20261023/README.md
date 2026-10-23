@@ -1,8 +1,11 @@
 # Fresh original-commerce Fabric functional attempt plan
 
-**State:** offline candidate plan only. No Fabric API, OneLake request, graph
-creation, load, activation, compute, or cleanup action has been performed for
-this plan. It is not a native qualification receipt or authorization to launch.
+**State:** offline candidate plan only. A read-only authenticated portal
+preflight observed the current principal and visible workspace/lakehouse/FTL4
+trial assignment ([receipt](../commerce-fabric-readonly-live-preflight-20261023/README.md));
+this was not execution of the planned attempt. No candidate OneLake request,
+graph creation, load, activation, compute, upload, or cleanup action was
+performed. This is not a native qualification receipt or authorization to launch.
 
 This packet scopes one new bounded P06/P07 functional attempt against the
 retained original-commerce source and the already observed Fabric Graph GQL
@@ -212,11 +215,14 @@ were not actually made.
 
 ## Current launch blockers
 
-This plan is not launch-ready. R2 has no accepted live source transaction or
-fresh source/ACK authority in the retained preparation receipt. The exact current
-workspace/capacity/lakehouse, numeric Fabric byte/time bounds, and all-in cost
-estimate have not been observed for this candidate. The old Fabric success
-receipt covers only R1 and the old A/B path reconciliation does not establish
-capacity authorization or permit retries. Resolve these prerequisites and
-obtain an independent review of the committed runner/packet before any native
-call.
+This plan is not launch-ready. The 2026-10-23 read-only portal preflight observed
+the current principal, workspace, lakehouse and visible Fabric Trial FTL4
+assignment; it did not establish the exact attempt's all-in $0 cost or billing
+fallback status, and capacity-admin details remained unavailable. The four new
+candidate OneLake paths have not been checked for absence. Numeric Fabric
+byte/time bounds and endpoint fit remain unverified. R1 source/ACK authority has
+not been re-admitted, and R2 has no accepted live source transaction or fresh
+source/ACK authority. The old Fabric success receipt covers only R1, and the old
+A/B path reconciliation neither authorizes retries nor proves the new paths
+available. Resolve these prerequisites and obtain independent review of the
+committed runner/packet before any native call.
