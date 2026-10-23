@@ -27,10 +27,15 @@ The fresh campaign runtime was installed offline at
 distributions match the locked versions and wheel hashes; `pip check` passes,
 and every installed RECORD payload was rehashed. Focused imports and public Truss API signatures were captured in
 `runtime/runtime-preflight.json` (SHA-256
-`6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df`). Its
-scope is package provenance and import compatibility only. No campaign worker
-or supervisor preflight has run, and no PostgreSQL, Spark, source, feed, ACK,
-managed Delta or Unity Catalog qualification is claimed.
+`6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df`). One
+supervisor/worker effect-free preflight then passed with outcome
+`ready_pending_hash_bound_operator_approval`; current process inventory, SysV
+cleanup, and approval-payload parity were observed. The [captured preflight
+receipt](r4-supervisor-preflight-20261023.json) records the exact output hash and
+scope. No PostgreSQL or Spark process, migration, source/feed/publication/ACK
+effect, or managed Delta/Unity Catalog qualification is claimed. A hash-bound
+proposal is staged at the private campaign root as draft and unapproved; no
+execution approval or start marker exists, and `attempt-r4` remains empty.
 
 The original R4 venv was contaminated: its `.pth` file added R3 and older
 site-packages. It is preserved as `runtime/venv.quarantined-contaminated-20261023`;
@@ -45,18 +50,23 @@ SHA-256 `59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999`;
 the binary was not executed.
 
 Copied R3 process-inventory and SysV observations are retained as historical
-context only. Current R4 admission gates remain pending until an effect-free
-supervisor preflight is explicitly run after the local resource slot clears.
-No approval file, start marker, or campaign execution is staged. Execution still
-requires a fresh owner approval after independent review of the exact packet
-hashes.
+context only. R4 process-inventory, SysV cleanup, and worker/supervisor approval
+parity passed in the captured effect-free preflight. This observation is not
+execution authorization. The separate private approval proposal remains draft
+and unapproved; no execution approval, start marker, or campaign execution is
+staged. The preparation snapshot consumed by preflight still records its then-
+pending preflight field; the separate receipt records the later result without
+changing the digest used for approval parity. Execution requires fresh owner
+approval; supervisor `--execute` re-runs worker preflight, live gates, and exact
+approval equality before any effects.
 
 The fresh private root is
 `/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926`; its
 detached source clone is
-`/private/tmp/ashlar-truss049-r4-source-f5e89926`. `attempt-r4` is empty.
-No approval proposal, execution approval, or start marker is staged. Planned
+`/private/tmp/ashlar-truss049-r4-source-f5e89926`. `attempt-r4` is empty. The
+private draft proposal is `/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/approval-proposal-r4.json`;
+it is unapproved. No execution approval or start marker exists. Proposed
 limits remain one attempt, a 600-second child deadline, 1 GiB combined
-retained/attempt/log bytes, 16 MiB per worker log, and zero retries. The
-preflight must remain effect-free; campaign execution requires a later fresh
-owner approval after independent review.
+retained/attempt/log bytes, with a 16 MiB per-worker log cap, and zero retries. The preflight
+was effect-free; campaign execution requires later fresh owner approval after
+independent review.

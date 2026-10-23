@@ -1,0 +1,84 @@
+{
+  "admission": {
+    "all_checks_belong_to_captured_effect_free_preflight": true,
+    "approval_contract_parity": {
+      "admission_gates_sha256": "665001fee6f02a8253542c8f3b2dc6ecd4fc9029cca6bfed2a2a2f1f4dc1fae9",
+      "approval_payload_sha256": "2aa83f6556296b001123c4c86733f637bb589a88fd4188ae8897971a2f309ea1",
+      "exact_dict_match": true,
+      "status": "ready"
+    },
+    "process_inventory": {
+      "observed_member_count": 2,
+      "process_group_id": 49421,
+      "status": "ready",
+      "supervisor_pid": 49421,
+      "supervisor_pid_present": true
+    },
+    "sysv_shared_memory": {
+      "attached": true,
+      "detached": true,
+      "ipc_rmid_confirmed": true,
+      "segment_created": true,
+      "status": "ready"
+    }
+  },
+  "captured_stdout": {
+    "one_json_line": true,
+    "outcome": "ready_pending_hash_bound_operator_approval",
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/offline-preflight-r4-stdout.json",
+    "sha256": "199bce6b36f0f08f123eb8986410e2494aefea641438f5032a4658398d87e3fd",
+    "stderr_bytes": 0
+  },
+  "execution_authorization": {
+    "approval_proposal_is_draft_only": true,
+    "campaign_started": false,
+    "execution_approval_present": false,
+    "future_execution_guard": "Fresh owner approval is required; supervisor --execute re-runs worker preflight and live gates and exact approval equality before effects.",
+    "start_marker_present": false
+  },
+  "observed_effects": {
+    "acknowledgment_started": false,
+    "attempt_directory_empty": true,
+    "destination_publication_started": false,
+    "execution_approval_file_present": false,
+    "migration_apply_invoked": false,
+    "postgres_started": false,
+    "source_mutation_started": false,
+    "spark_started": false,
+    "started_marker_present": false
+  },
+  "pinned_code": {
+    "bridge_sha256": "b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5",
+    "preparation_sha256": "9ab4c4508049198d87419e500592106fe6e48bcb7339d98a696422f4b2647c9c",
+    "runtime_receipt_sha256": "6a9e35679a73350646e5e8af32be67b0c9b2eb30e2a5d124f3dcbe758a6250df",
+    "supervisor_sha256": "7aac5a1cd0fea0df38f7549e98547a75973b5e8394fd00b0ecb73ab51a7069ca",
+    "umf_candidate_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08",
+    "worker_sha256": "b8c9da0f17f226773e6184b47ac3c45873990ff446bd45a9cab79314669aee75"
+  },
+  "preparation_snapshot": {
+    "interpretation": "This is the immutable preparation snapshot consumed by the captured preflight. The later supervisor result is recorded separately here; preparation.json was not changed after capture so the approval-parity digest remains exact. The pending field records preparation-time status, not a requirement to rerun preflight.",
+    "recorded_offline_preflight_status": "pending_not_yet_run",
+    "sha256": "9ab4c4508049198d87419e500592106fe6e48bcb7339d98a696422f4b2647c9c"
+  },
+  "profile": "ashlar-truss049-offline-supervisor-preflight-receipt/0.1",
+  "proposed_execution_bounds": {
+    "automatic_retries": 0,
+    "child_deadline_seconds": 600,
+    "combined_retained_attempt_and_worker_log_bytes": 1073741824,
+    "per_worker_log_bytes": 16777216
+  },
+  "scope_limits": [
+    "Effect-free supervisor/worker preflight only; no PostgreSQL or Spark process started.",
+    "No migration, seed, source mutation, feed publication, destination publication, or ACK occurred.",
+    "Preflight readiness is not owner authorization or a native workflow qualification.",
+    "Any later execution requires a fresh owner approval bound to the reviewed exact hashes."
+  ],
+  "status": "effect_free_preflight_passed_pending_owner_approval",
+  "unapproved_proposal": {
+    "expected_approval_payload_sha256": "2aa83f6556296b001123c4c86733f637bb589a88fd4188ae8897971a2f309ea1",
+    "owner_approval_required": true,
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/approval-proposal-r4.json",
+    "sha256": "c523e499b8fa3b50e2144ce91d27a028721d325c5a57aa9a7df12e85d58f043a",
+    "status": "draft_unapproved"
+  }
+}

@@ -30,8 +30,9 @@ receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-ac
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 Truss 0.0.49 R4 supersedes R3 for the current UMF profile and now has a fresh,
 isolated offline Python runtime with verified wheel provenance and package records.
-No R4 supervisor or native preflight has run; PostgreSQL, Spark, source, feed,
-publication, and ACK remain unqualified. R3 and the failed R2 attempt are retained
+One effect-free R4 supervisor/worker preflight passed with the exact hash-bound
+outcome; no PostgreSQL or Spark process, migration, source/feed/publication/ACK
+effect, or native qualification is claimed. R3 and the failed R2 attempt remain
 as historical evidence ([R4 readiness](04-build/evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/README.md),
 [R3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
 [R2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
