@@ -273,10 +273,11 @@ def publish_note_pages(spark,output,*,connection_factory,consumer_id,feed,maximu
             else:admission=TrussNoteAdmission(batch)
             lookup_hash_profile='spark-xxhash64-typed-key/0.1' if carrier_profile=='ashlar-delta/0.4-xxhash64' else 'sha256-json-v1'
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION
                 if (not admission.current
-                        or admission.current_truss_version!=CURRENT_TRUSS_048_VERSION):
-                    raise PermissionError('Local `.4` requires exact current Truss 0.0.48 catalog admission')
+                        or admission.current_truss_version not in (CURRENT_TRUSS_048_VERSION,
+                                                                   CURRENT_TRUSS_049_VERSION)):
+                    raise PermissionError('Local `.4` requires exact current Truss 0.0.48 or 0.0.49 catalog admission')
             driver=NativeDriver(transport,policy,context,tables,{},admission.changes,graph_columns,source_admission=admission,source_sessions=sessions,ack_sessions=sessions,lookup_hash_profile=lookup_hash_profile)
             materialized_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
             graph_tables={role:tables[role]for role in graph_columns}

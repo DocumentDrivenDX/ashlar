@@ -49,11 +49,14 @@ def _current_admission(truss_version='0.0.44'):
         prior=json.dumps(prior, separators=(',', ':')).encode(),
         next=json.dumps(following, separators=(',', ':')).encode(), feed='offline-development-feed')
     runtime = {}
-    if truss_version == '0.0.48':
+    if truss_version in ('0.0.48', '0.0.49'):
         from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,
-            CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
-        runtime = {'runtime_wheel_sha256': CURRENT_TRUSS_048_WHEEL_SHA256,
-                   'runtime_manifest_sha256': CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256}
+            CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_049_WHEEL_SHA256,
+            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
+        wheel, manifest = ((CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+                           if truss_version == '0.0.48' else
+                           (CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256))
+        runtime = {'runtime_wheel_sha256': wheel, 'runtime_manifest_sha256': manifest}
     evidence = CurrentCatalogEvidence(truss_version, {'1': report_raw}, {'1': view_raw}, sources,
                                       **runtime)
     return TrussGraphAdmission(batch, evidence)
@@ -185,6 +188,30 @@ class ManagedCurrentCoreTests(unittest.TestCase):
             forged['bindingSha256'] = hashlib.sha256(json.dumps(forged, sort_keys=True,
                 separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
             with self.assertRaisesRegex(ValueError, '0.0.48 wheel/runtime provenance'):
+                restore_managed_current_admission(forged, _config())
+
+    def test_049_bundle_round_trips_exact_release_provenance_without_changing_physical_binding(self):
+        from unittest.mock import patch
+        from ashlar_host.truss_current_catalog import (CURRENT_049_EVIDENCE_PROFILE,
+            CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
+        from ashlar_host.managed_current_core import BINDING_PROFILE_045
+        with patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                   return_value=CURRENT_049_EVIDENCE_PROFILE):
+            admission = _current_admission('0.0.49')
+            bundle = bind_current_core(admission, _config())
+            self.assertEqual(bundle['profile'], BINDING_PROFILE_045)
+            self.assertEqual(bundle['source']['catalogEvidenceProfile'], CURRENT_049_EVIDENCE_PROFILE)
+            self.assertEqual(bundle['source']['runtimeProvenance'], {
+                'trussWheelSha256': CURRENT_TRUSS_049_WHEEL_SHA256,
+                'runtimeManifestSha256': CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256})
+            restored = restore_managed_current_admission(bundle, _config())
+            self.assertEqual(restored.metadata(), admission.metadata())
+            forged = json.loads(json.dumps(bundle))
+            forged['source']['runtimeProvenance']['runtimeManifestSha256'] = '0' * 64
+            forged.pop('bindingSha256')
+            forged['bindingSha256'] = hashlib.sha256(json.dumps(forged, sort_keys=True,
+                separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+            with self.assertRaisesRegex(ValueError, '0.0.49 wheel/runtime provenance'):
                 restore_managed_current_admission(forged, _config())
 
     def test_known_old_and_local_weft_targets_cannot_claim_current_managed_identity(self):

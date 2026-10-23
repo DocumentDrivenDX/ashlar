@@ -79,7 +79,7 @@ def _validated_inputs(source_bundle, weft_inputs):
                         if type(destination) is dict else None)
     expected_profile = (BINDING_PROFILE_XXHASH64 if physical_profile == CARRIER_PROFILE_XXHASH64
                         else BINDING_PROFILE if version == '0.0.44'
-                        else BINDING_PROFILE_045 if version in ('0.0.45', '0.0.48') else None)
+                        else BINDING_PROFILE_045 if version in ('0.0.45', '0.0.48', '0.0.49') else None)
     _require(type(source_bundle) is dict and source_bundle.get('profile') == expected_profile
              and source_bundle.get('status') == 'preinstallation-source-bundle',
              'Original preinstallation Truss source bundle required')
@@ -147,16 +147,19 @@ def _validated_inputs(source_bundle, weft_inputs):
              'Canonical accepted schema revision vector required')
     from .truss_current_catalog import (CURRENT_TRUSS_045_WHEEL_SHA256,
         CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_048_WHEEL_SHA256,
-        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
-    _require(type(source) is dict and source.get('trussVersion') in ('0.0.44', '0.0.45', '0.0.48')
+        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_049_WHEEL_SHA256,
+        CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
+    _require(type(source) is dict and source.get('trussVersion') in ('0.0.44', '0.0.45', '0.0.48', '0.0.49')
              and source.get('umfVersion') == '0.10.0'
              and source.get('authority') == 'development-only-until-production-owner-observed',
              'Accepted versioned current Truss / UMF 0.10.0 source mapping required')
-    if version in ('0.0.45', '0.0.48'):
+    if version in ('0.0.45', '0.0.48', '0.0.49'):
         pins = {'0.0.45': ('ashlar-truss-current-catalog-evidence/0.2',
                            CURRENT_TRUSS_045_WHEEL_SHA256, CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
                 '0.0.48': ('ashlar-truss-current-catalog-evidence/0.3',
-                           CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)}
+                           CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256),
+                '0.0.49': ('ashlar-truss-current-catalog-evidence/0.4',
+                           CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)}
         evidence_profile, wheel_sha, manifest_sha = pins[version]
         _require(source.get('catalogEvidenceProfile') == evidence_profile
                  and source.get('runtimeProvenance') == {

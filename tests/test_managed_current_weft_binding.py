@@ -89,6 +89,22 @@ class ManagedCurrentWeftBindingTests(unittest.TestCase):
                 managed_current_count_star_request(forged, _inputs(forged),
                                                    'SELECT COUNT(*) FROM Person p')
 
+    def test_049_source_tuple_survives_weft_binding_with_existing_physical_profile(self):
+        from unittest.mock import patch
+        from ashlar_host.truss_current_catalog import (CURRENT_049_EVIDENCE_PROFILE,
+            CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
+        with patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                   return_value=CURRENT_049_EVIDENCE_PROFILE):
+            bundle = bind_current_core(_current_admission('0.0.49'), _managed_config())
+            request = managed_current_count_star_request(bundle, _inputs(bundle),
+                                                         'SELECT COUNT(*) FROM Person p')
+        self.assertEqual(bundle['profile'], 'ashlar-managed-current-core-binding/0.2')
+        self.assertEqual(bundle['source']['trussVersion'], '0.0.49')
+        self.assertEqual(bundle['source']['runtimeProvenance'], {
+            'trussWheelSha256': CURRENT_TRUSS_049_WHEEL_SHA256,
+            'runtimeManifestSha256': CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256})
+        self.assertEqual(request['interfaceVersion'], 'weft-compile/0.4.1')
+
     def test_xxhash64_request_binds_new_physical_profile_and_refuses_legacy_manifest(self):
         from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
         from ashlar_host.managed_current_carriers import load_current_managed_carriers

@@ -84,9 +84,11 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
     source = source_bundle.get("source")
     from .truss_current_catalog import (CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION,
         CURRENT_TRUSS_048_VERSION, CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE,
-        CURRENT_048_EVIDENCE_PROFILE, CURRENT_TRUSS_045_WHEEL_SHA256,
+        CURRENT_048_EVIDENCE_PROFILE, CURRENT_TRUSS_049_VERSION, CURRENT_049_EVIDENCE_PROFILE,
+        CURRENT_TRUSS_045_WHEEL_SHA256,
         CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_048_WHEEL_SHA256,
-        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+        CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_049_WHEEL_SHA256,
+        CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
     version = source.get("trussVersion") if type(source) is dict else None
     destination = source_bundle.get("destination")
     physical_profile = (destination.get("physicalProfile", "ashlar-delta/0.3")
@@ -94,7 +96,8 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
     profile = ("ashlar-managed-current-core-binding/0.3" if physical_profile == "ashlar-delta/0.4-xxhash64"
                else "ashlar-managed-current-core-binding/0.1" if version == CURRENT_TRUSS_VERSION
                else "ashlar-managed-current-core-binding/0.2" if version in (CURRENT_TRUSS_045_VERSION,
-                                                                                CURRENT_TRUSS_048_VERSION) else None)
+                                                                                CURRENT_TRUSS_048_VERSION,
+                                                                                CURRENT_TRUSS_049_VERSION) else None)
     if physical_profile == "ashlar-delta/0.4-xxhash64":
         _require(type(destination) is dict and destination.get("lookupHashProfile")
                  == "spark-xxhash64-typed-key/0.1",
@@ -104,18 +107,21 @@ def _managed_source_identity(source_bundle, *, schedule_sha256, schedule_step):
                  "Legacy carrier bundle cannot inherit the new lookup hash semantics")
     expected_catalog_profile = {CURRENT_TRUSS_VERSION: CURRENT_EVIDENCE_PROFILE,
         CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
-        CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE}.get(version)
+        CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE,
+        CURRENT_TRUSS_049_VERSION: CURRENT_049_EVIDENCE_PROFILE}.get(version)
     _require(source_bundle.get("profile") == profile
              and type(source) is dict and source.get("umfVersion") == "0.10.0"
              and physical_profile in ("ashlar-delta/0.3", "ashlar-delta/0.4-xxhash64")
              and type(source.get("feed")) is str and source["feed"]
              and type(source.get("epoch")) is str and source["epoch"])
     runtime = source.get("runtimeProvenance")
-    if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION):
+    if version in (CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION):
         runtime_pins = {CURRENT_TRUSS_045_VERSION: (CURRENT_TRUSS_045_WHEEL_SHA256,
                                                      CURRENT_TRUSS_045_RUNTIME_MANIFEST_SHA256),
                         CURRENT_TRUSS_048_VERSION: (CURRENT_TRUSS_048_WHEEL_SHA256,
-                                                     CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)}
+                                                     CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256),
+                        CURRENT_TRUSS_049_VERSION: (CURRENT_TRUSS_049_WHEEL_SHA256,
+                                                     CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)}
         _require(source.get("catalogEvidenceProfile") == expected_catalog_profile
                  and runtime == {"trussWheelSha256": runtime_pins[version][0],
                              "runtimeManifestSha256": runtime_pins[version][1]},
@@ -185,7 +191,8 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
     multiplicity; IDs must be unique while equal endpoint pairs remain allowed.
     """
     _require(type(value) is dict and type(value.get("trussVersion")) is str)
-    optional = {"catalogEvidenceProfile", "runtimeProvenance"} if value["trussVersion"] in ("0.0.45", "0.0.48") else set()
+    optional = {"catalogEvidenceProfile", "runtimeProvenance"} if value["trussVersion"] in (
+        "0.0.45", "0.0.48", "0.0.49") else set()
     _require(set(value) == {
         "profile", "authority", "trussVersion", "umfVersion", "scheduleSha256",
         "scheduleStep", "capturedAt", "authorityReceiptSha256", "catalogHeadSha256",
@@ -201,7 +208,7 @@ def admit_managed_current_source_oracle(value, *, source_bundle, schedule_sha256
     identity = _managed_source_identity(source_bundle, schedule_sha256=schedule_sha256,
                                         schedule_step=schedule_step)
     _require(value["profile"] == _PROFILE and value["authority"] == "external-real-truss-holder"
-             and value["trussVersion"] in ("0.0.44", "0.0.45", "0.0.48")
+             and value["trussVersion"] in ("0.0.44", "0.0.45", "0.0.48", "0.0.49")
              and value["umfVersion"] == "0.10.0"
              and all(value.get(key) == identity[key] for key in (
                  "trussVersion", "umfVersion", "scheduleSha256", "scheduleStep",
@@ -337,7 +344,7 @@ def managed_current_oracle_receipt(oracle, expected_rows):
         "feed": oracle.feed,
         "epoch": oracle.epoch,
     }
-    if oracle.truss_version in ("0.0.45", "0.0.48"):
+    if oracle.truss_version in ("0.0.45", "0.0.48", "0.0.49"):
         receipt["runtimeProvenance"] = {
             "trussWheelSha256": oracle.runtime_wheel_sha256,
             "runtimeManifestSha256": oracle.runtime_manifest_sha256,

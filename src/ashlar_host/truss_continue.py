@@ -73,10 +73,11 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         raise PermissionError('Actual restored Truss graph continuation owner required')
     if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
         from .local_current_carrier_profile import XXHASH64_PROFILE,verify_local_current_profile
-        from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
+        from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION
         profile=getattr(driver.transport,'installation_profile',None)
         if (not driver.source_admission.current
-                or driver.source_admission.current_truss_version!=CURRENT_TRUSS_048_VERSION
+                or driver.source_admission.current_truss_version not in (
+                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION)
                 or type(profile)is not dict or profile.get('physical_profile')!=XXHASH64_PROFILE
                 or profile.get('lookup_hash_profile')!=driver.lookup_hash_profile):
             raise PermissionError('Exact admitted local `.4` continuation profile required')
@@ -110,9 +111,10 @@ def continue_truss_graph(driver,connection_factory,*,maximum_pages=1,wait_second
         from .truss_catalog_reader import read_graph_catalog_evidence
         admission=TrussGraphAdmission(batch,read_graph_catalog_evidence(connection_factory,batch,archives))
         if driver.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
-            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION
-            if not admission.current or admission.current_truss_version!=CURRENT_TRUSS_048_VERSION:
-                raise PermissionError('Local `.4` continuation page requires exact Truss 0.0.48 catalog evidence')
+            from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION
+            if not admission.current or admission.current_truss_version not in (
+                    CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION):
+                raise PermissionError('Local `.4` continuation page requires exact Truss 0.0.48 or 0.0.49 catalog evidence')
         revisions={current['installationId']:str(max(int(value)for value in admission.revisions))}if admission.revisions else {current['installationId']:'0'}
         request=truss_request_for(feed,batch,predecessor,revisions)
         digest=request['request_digest'];publication_id='truss-graph-'+digest

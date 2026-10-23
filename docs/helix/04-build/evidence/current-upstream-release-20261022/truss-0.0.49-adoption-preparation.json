@@ -1,0 +1,109 @@
+{
+  "profile": "ashlar-truss-public-runtime-adoption-preparation/0.1",
+  "status": "offline-provider-and-migration-evidence-prepared-native-migration-pending",
+  "publicRelease": {
+    "tag": "v0.0.49",
+    "tagCommit": "dd13e95804abc30202d449a756240c6a684ab942",
+    "immutableReleaseReceipt": "https://github.com/DocumentDrivenDX/truss/blob/4b605ed37c8b5da542672af43f55d777d988b4b8/docs/helix/04-build/evidence/design-audit/managed-grants-release-049-20261022/published-0.0.49/receipt.json",
+    "localReceiptSha256": "105a822e88eb22ed6795f52de5e86010b04d32ff4e25b98da36d654c408e1762",
+    "wheel": {
+      "assetId": 667379139,
+      "filename": "truss_toolkit-0.0.49-py3-none-any.whl",
+      "sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+      "bytes": 6232642,
+      "url": "https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.49/truss_toolkit-0.0.49-py3-none-any.whl"
+    },
+    "runtimeManifestSha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "migrationManifestSha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "supportedUmfVersions": ["0.10.0"],
+    "interfaces": {
+      "registrationReport": "truss-catalog-registration-report/0.6",
+      "preparation": "truss-registration-preparation/2.0",
+      "acceptanceInput": "truss-acceptance-input/0.2.0",
+      "catalogView": "truss-catalog-view/0.2.0",
+      "completeCatalogView": "truss-complete-catalog-view/0.4"
+    }
+  },
+  "migrationRoute": {
+    "sourceWheelSha256": "1aedf614ff3d3ff7a61bd4d91887ede650a7135d1239e8564c1c297c0ddc37c3",
+    "sourceManifestSha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+    "sourceAccepted": true,
+    "edges": [
+      {
+        "source": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+        "target": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f"
+      },
+      {
+        "source": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+        "target": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+      }
+    ],
+    "execution": "one latest-only administrative transaction; startup and install do not migrate",
+    "publicQualification": {
+      "platform": "linux",
+      "python": "3.11.17",
+      "postgresql": "18.6",
+      "receiptSha256": "1fa17cb02f51e2a44f30015342d59c2a51da83bb47ab62634fdb00e56bec5878",
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "limitations": ["No pre-0.10 or protected-profile migration"]
+    },
+    "macosPayloadQualification": {
+      "platform": "darwin / macos-arm64",
+      "python": "3.11.17",
+      "postgresql": "18.6",
+      "sourceCommit": "19d7bbe5793e61e4034769a18b1d9a03b5c7e959",
+      "qualificationSha256": "ae3add5a925e7ffa4f7eeb1629b189b5753ed8ca57ee11b6b7ba1342c6b85c95",
+      "outerCampaignWheelSha256": "57fd9520a453dcafa52dabe6aa75a143c162593237e80177acaebdbd51202790",
+      "outerCampaignWheelNote": "Historical wheel container hash differs from the published asset; every one of its 475 archive entries matches the public 7ea14 wheel byte-for-byte.",
+      "installedTrussFiles": 467,
+      "installedTrussPayloadSha256": "f5c13e634aeac8ee14f409a59be52023f288f30205a578ad3936e4c9a0a802e3",
+      "installedPayloadMatchesPublishedWheel": true,
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sourceManifestSha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "targetManifestSha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+      "migrationManifestSha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+      "evidencePath": "/private/tmp/truss-managed-grants-049/final-local-audit2888-1/migrations/qualification.json",
+      "scopeNote": "Local Mac migration evidence ran the byte-identical installed Truss payload; it is distinct from the hosted Linux public qualification and from the Mac public-wheel runtime-install verification."
+    }
+  },
+  "ashlarProvider": {
+    "catalogEvidenceProfile": "ashlar-truss-current-catalog-evidence/0.4",
+    "graphAdmissionProfile": "ashlar-truss-current-umf010-graph-semantic-admission/0.4",
+    "physicalBindingProfile": "Existing .3/.4 profile selected independently; no Truss version-specific physical profile added",
+    "sourceBytesAndIds": "Preserve the already accepted UMF 0.10 source bytes, document IDs, registration identity and report/view revision; no new source acceptance",
+    "consumerResume": "Preserve the existing registered consumer and committed genesis checkpoint; do not re-register, reseed, or replay ACK",
+    "offlineImplementationChecks": {
+      "python": "3.12.14",
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -m unittest test_truss_current_catalog test_truss_catalog_reader test_truss_graph_admission test_managed_current_core test_managed_current_query test_managed_current_weft_binding test_managed_current_receipt_read test_truss_continue test_truss_note_publication test_truss_resume_cli",
+      "result": "64 tests passed",
+      "scope": "Exact .49 wheel/manifest refusal and profile controls; accepted source interpretation; restore, oracle, receipt and existing binding profile round-trip; .4 publication, continuation and resume version gates.",
+      "limits": ["No .49 runtime install or native migration/feed/publication/ACK was run.", "These controls do not qualify source-read behavior or lifecycle support."]
+    }
+  },
+  "migrationProcedure": {
+    "state": "not executed for Ashlar",
+    "requiredOrder": [
+      "Quiesce writers and retain a database backup, backup metadata and restart-durable recovery-registry backup.",
+      "Run public status and prepare; retain and review the exact returned reference and request.",
+      "Apply once through RuntimeMigrations and the same reference; on uncertain settlement reconcile that reference only.",
+      "Verify target manifest and immutable receipt before resuming application access.",
+      "Read back original accepted-source bytes and complete catalog view, then resume the original consumer at its committed genesis checkpoint."
+    ],
+    "resourceDefaults": {
+      "maximumPreservationBytes": 268435456,
+      "statementTimeoutMs": 10000,
+      "operationTimeoutMs": 30000
+    },
+    "scopeLimitations": [
+      "No Ashlar 0.49 native migration, feed, publication, destination, ACK or support pass is claimed.",
+      "Keep the retained 0.48 failed DDL attempt and original source/consumer evidence unchanged.",
+      "No pre-0.10 or protected-profile migration support follows."
+    ]
+  }
+}

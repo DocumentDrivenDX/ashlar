@@ -27,6 +27,7 @@ class Tests(unittest.TestCase):
                 db.execute('CREATE TABLE local_source_plan(request_digest TEXT,original TEXT)')
                 db.execute('CREATE TABLE local_publication_artifact(request_digest TEXT,request TEXT,artifact TEXT)')
                 context=object();driver=object.__new__(NativeDriver)
+                driver.lookup_hash_profile='sha256-json-v1'
                 source=object.__new__(TrussFeedSessions)
                 cursor=json.loads(batch.begin)['next'];cursor_raw=json.dumps(cursor).encode()
                 object.__setattr__(source,'page',SimpleNamespace(next=SimpleNamespace(content=cursor_raw),consumer_id='consumer',registration_id='registration'))
@@ -89,7 +90,7 @@ class Tests(unittest.TestCase):
                 from ashlar_host.schema_rows import fixture_columns
                 from ashlar_host.resources import RESOURCE_ROOT
                 columns=fixture_columns(RESOURCE_ROOT);expected={role:[]for role in columns}
-                driver=object.__new__(NativeDriver);driver.context=context;driver.source_admission=admission
+                driver=object.__new__(NativeDriver);driver.context=context;driver.source_admission=admission;driver.lookup_hash_profile='sha256-json-v1'
                 driver.source_sessions=source;driver.ack_sessions=source;driver.columns=columns
                 driver.policy=SimpleNamespace(active={'request':{'stream':'feed'},'publication_id':'old','expected':expected,'progress':{}})
                 driver.tables={role:'local.truss.'+role for role in (*columns,'attempts','manifest')}
@@ -119,7 +120,7 @@ class Tests(unittest.TestCase):
                 with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
                      patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
                      patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
-                     patch('ashlar_host.truss_continue.read_historical_catalog_views',return_value=catalogs), \
+                     patch('ashlar_host.truss_catalog_reader.read_graph_catalog_evidence',return_value=catalogs), \
                      patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=publish):
                     report=continue_truss_graph(driver,lambda:None)
                 self.assertEqual(len(report['publications']),1)
@@ -134,7 +135,7 @@ class Tests(unittest.TestCase):
                 with patch('ashlar_host.truss_continue._ready',return_value=empty_state()),patch('ashlar_host.truss_continue.read_next_page',return_value=page), \
                      patch('ashlar_host.truss_feed_sessions._sdk',return_value=(None,None,None,None,Page,None)), \
                      patch('ashlar_host.truss_page_archive._types',return_value=(Page,Cursor)), \
-                     patch('ashlar_host.truss_continue.read_historical_catalog_views',return_value=catalogs), \
+                     patch('ashlar_host.truss_catalog_reader.read_graph_catalog_evidence',return_value=catalogs), \
                      patch.object(NativeDriver,'from_existing_truss',side_effect=existing),patch('ashlar_host.truss_continue.publish_truss_transaction',side_effect=failure):
                     with self.assertRaises(OSError)as raised:continue_truss_graph(driver,lambda:None)
                 self.assertIs(raised.exception,failure)

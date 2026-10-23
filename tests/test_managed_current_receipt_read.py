@@ -137,6 +137,16 @@ class ManagedCurrentReceiptReadTests(unittest.TestCase):
         self.assertEqual(receipt["sourceAuthority"],
             "development Truss 0.0.48 page on managed Unity Catalog; external source ACK required")
 
+    def test_049_source_version_is_preserved_through_receipt_reopen(self):
+        request, manifest, receipt, uuids, config = _fixture(source_truss_version="0.0.49")
+        sql = FakeSQLReader(manifest, uuids)
+        reader = ManagedCurrentSQLReceiptReader(sql, config)
+        observed = reader.reopen(request_bytes=_canonical(request).encode(),
+            manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt)
+        self.assertEqual(config.source_truss_version, "0.0.49")
+        self.assertEqual(receipt["sourceAuthority"],
+            "development Truss 0.0.49 page on managed Unity Catalog; external source ACK required")
+
     def test_xxhash64_receipt_uses_exact_physical_profile_for_reopen_and_ack_ports(self):
         request, manifest, receipt, uuids, config = _fixture(CARRIER_PROFILE_XXHASH64)
         sql = FakeSQLReader(manifest, uuids, CARRIER_PROFILE_XXHASH64)

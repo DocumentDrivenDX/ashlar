@@ -5,14 +5,16 @@ from unittest.mock import patch
 from ashlar_host.truss_catalog_reader import read_historical_catalog_views
 
 class Tests(unittest.TestCase):
-    def test_048_current_read_uses_pinned_runtime_and_two_second_transaction(self):
+    def test_048_and_049_current_reads_use_pinned_runtime_and_two_second_transaction(self):
         from types import SimpleNamespace
         from unittest.mock import patch
         from test_managed_current_core import _current_admission
         from test_truss_current_catalog import receipt_inputs
         from ashlar_host.truss_catalog_reader import read_current_catalog_evidence
         from ashlar_host.truss_current_catalog import (CURRENT_048_EVIDENCE_PROFILE,
-            CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
+            CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
+            CURRENT_049_EVIDENCE_PROFILE, CURRENT_TRUSS_049_WHEEL_SHA256,
+            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
 
         report_raw, view_raw, sources, source = receipt_inputs()
         calls = []
@@ -49,16 +51,22 @@ class Tests(unittest.TestCase):
         sdk.CatalogRuntimeConfiguration = lambda: None
         sdk.adopt_psycopg_host = lambda connection: Host()
         sdk.create_reference_assembly = lambda config, host: Ok(Assembly())
-        with patch.dict(sys.modules, {'truss': sdk}), \
-             patch('importlib.metadata.version', return_value='0.0.48'), \
-             patch('ashlar_host.truss_catalog_reader.installed_current_truss_profile',
-                   return_value=CURRENT_048_EVIDENCE_PROFILE):
-            evidence = read_current_catalog_evidence(Connection, batch)
-        self.assertEqual(evidence.truss_version, '0.0.48')
-        self.assertEqual(evidence.runtime_wheel_sha256, CURRENT_TRUSS_048_WHEEL_SHA256)
-        self.assertEqual(evidence.runtime_manifest_sha256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
-        self.assertIn("SET LOCAL statement_timeout = '2000ms'", calls)
-        self.assertEqual(calls[-4:], ['dispose', 'detach', 'rollback', 'connection-close'])
+        for version, profile, wheel, manifest in (
+                ('0.0.48', CURRENT_048_EVIDENCE_PROFILE,
+                 CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256),
+                ('0.0.49', CURRENT_049_EVIDENCE_PROFILE,
+                 CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)):
+            calls.clear()
+            with patch.dict(sys.modules, {'truss': sdk}), \
+                 patch('importlib.metadata.version', return_value=version), \
+                 patch('ashlar_host.truss_catalog_reader.installed_current_truss_profile',
+                       return_value=profile):
+                evidence = read_current_catalog_evidence(Connection, batch)
+            self.assertEqual(evidence.truss_version, version)
+            self.assertEqual(evidence.runtime_wheel_sha256, wheel)
+            self.assertEqual(evidence.runtime_manifest_sha256, manifest)
+            self.assertIn("SET LOCAL statement_timeout = '2000ms'", calls)
+            self.assertEqual(calls[-4:], ['dispose', 'detach', 'rollback', 'connection-close'])
 
     def test_selected_historical_revisions_preserve_bytes_and_rollback_catalog_lock_transaction(self):
         calls=[]

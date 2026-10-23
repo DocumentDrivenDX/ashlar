@@ -409,6 +409,30 @@ unchanged. The `.48` source-custody transaction MUST retain `READ COMMITTED`
 isolation and use a `2000 ms` local statement timeout; a tighter public-operation
 timeout remains effective within that transaction.
 
+The separately selected public Truss `0.0.49` current-core profile retains the
+same report `0.6`, accepted-document, catalog-view `0.2.0`/complete-view `0.4`,
+layout `1.0`, preparation `2.0` and acceptance-input `0.2.0` interfaces. Ashlar
+MUST pin the exact published wheel SHA256
+`7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182` and runtime
+manifest SHA256
+`288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4` in a new
+versioned catalog-evidence and graph-admission profile; `.44`, `.45` and `.48`
+profiles remain unchanged. The release's UMF `0.10.0` migration recipe
+`96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535` explicitly
+admits the published `.48` manifest
+`c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0` and moves it
+forward to the `.49` target through the complete declared route in one
+administrative transaction. Before application access resumes, operators MUST
+use the public migration status/prepare/apply/reconcile/verify/receipt boundary,
+retain a database backup and restart-durable recovery registry, and verify the
+original source and consumer state. This route does not authorize repeating
+catalog acceptance, source/consumer registration, feed seeding, publication or
+ACK. The exact Mac package-payload migration qualification and the separate
+hosted Linux migration qualification retain their own scopes; neither alone
+qualifies Ashlar publication, ACK or production authority. Truss `0.0.49`
+catalog source-custody transactions retain the selected `2000 ms` statement
+timeout and tighter public-operation timeout.
+
 ## Original typed record and required-link group intake
 
 `create-truss-record-group` MUST submit one complete ordered public Truss group:
