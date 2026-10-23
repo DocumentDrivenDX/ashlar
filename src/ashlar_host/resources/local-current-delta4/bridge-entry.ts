@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
-// Narrow bridge to public UMF APIs. Both operations are exported from src/index.ts.
-import {readDocument} from './src/model/document.ts';
-import {realizeSparkDelta4DDL} from './src/adapters/delta/ddl.ts';
+// Narrow browser bridge built from the frozen 0.5.6 candidate source modules.
+import {readDocument} from '../../../src/model/document.ts';
+import {realizeSparkDelta4DDL} from '../../../src/adapters/delta/ddl.ts';
 if(!(globalThis as any).TextEncoder){
   (globalThis as any).TextEncoder=class {encode(value:string){
     const raw=unescape(encodeURIComponent(value));

@@ -1,0 +1,76 @@
+{
+  "browser": "Chromium",
+  "sdkVersion": "0.5.6",
+  "coreVersion": "0.10.0",
+  "result": {
+    "exports": {
+      "defineDeltaTable": "function",
+      "realizeSparkDelta4DDL": "function",
+      "readDocument": "function",
+      "writeDocument": "function"
+    },
+    "proposalTarget": {
+      "profile": "spark-delta4/0.1",
+      "kind": "delta-path",
+      "path": "/tmp/ashlar/edge_current",
+      "identitySha256": "567e508f71c9f70b60234f2903386d180ded0ba2b2af2667c4ccf292fba84424"
+    },
+    "sql": "CREATE TABLE delta.`/tmp/ashlar/edge_current` (\n  `id` BIGINT NOT NULL,\n  `caption` STRING\n) USING DELTA CLUSTER BY (`id`)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='id,caption',\n'delta.deletedFileRetentionDuration'='interval 14 days');\n",
+    "writerSettings": [
+      {
+        "key": "spark.sql.parquet.compression.codec",
+        "value": "zstd"
+      }
+    ],
+    "dispositions": [
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/clusterBy",
+        "authoredValue": [
+          "id"
+        ],
+        "outcome": "sql",
+        "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL."
+      },
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/partitionBy",
+        "authoredValue": [],
+        "outcome": "none-authored",
+        "explanation": "No columns were authored for this layout choice."
+      },
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns",
+        "authoredValue": "id,caption",
+        "outcome": "sql",
+        "explanation": "Authored property is preserved in local Delta table property SQL."
+      },
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/properties/delta.deletedFileRetentionDuration",
+        "authoredValue": "interval 14 days",
+        "outcome": "sql",
+        "explanation": "Authored property is preserved in local Delta table property SQL."
+      },
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec",
+        "authoredValue": "zstd",
+        "outcome": "writer-setting",
+        "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting."
+      },
+      {
+        "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize",
+        "authoredValue": "67108864",
+        "outcome": "unrealized-performance-hint",
+        "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size."
+      }
+    ],
+    "relationTarget": {
+      "profile": "spark-delta4/0.1",
+      "kind": "relation",
+      "relation": [
+        "local",
+        "edge_current"
+      ],
+      "location": "/tmp/ashlar/edge_current",
+      "identitySha256": "2ffc2b4e732e1a26c7ecd0b536c52601b5f19dde0101b462fba9fd62558fb01b"
+    }
+  }
+}

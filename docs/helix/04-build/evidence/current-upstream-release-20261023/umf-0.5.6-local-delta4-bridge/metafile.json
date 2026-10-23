@@ -1,0 +1,4430 @@
+{
+  "inputs": {
+    ".cache/sdk-distribution/ashlar-bridge-0.5.6/bridge-entry.ts": {
+      "bytes": 676,
+      "imports": [
+        {
+          "path": "src/model/document.ts",
+          "kind": "import-statement",
+          "original": "../../../src/model/document.ts"
+        },
+        {
+          "path": "src/adapters/delta/ddl.ts",
+          "kind": "import-statement",
+          "original": "../../../src/adapters/delta/ddl.ts"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/adapters/delta/ddl.ts": {
+      "bytes": 17255,
+      "imports": [
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../../generated/core-model"
+        },
+        {
+          "path": "spec/extensions/delta-definition/package.json",
+          "kind": "import-statement",
+          "original": "../../../spec/extensions/delta-definition/package.json"
+        },
+        {
+          "path": "src/adapters/delta/index.ts",
+          "kind": "import-statement",
+          "original": "./index"
+        },
+        {
+          "path": "src/validation/document.ts",
+          "kind": "import-statement",
+          "original": "../../validation/document"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../../model/json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../../model/types"
+        },
+        {
+          "path": "src/compilation/bundle/hash.ts",
+          "kind": "import-statement",
+          "original": "../../compilation/bundle/hash"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/document.ts": {
+      "bytes": 1935,
+      "imports": [
+        {
+          "path": "src/model/serialization.ts",
+          "kind": "import-statement",
+          "original": "./serialization"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "./json"
+        },
+        {
+          "path": "src/validation/document.ts",
+          "kind": "import-statement",
+          "original": "../validation/document"
+        },
+        {
+          "path": "../registry/registry",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/types.ts": {
+      "bytes": 1352,
+      "imports": [
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-model"
+        },
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-model"
+        },
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/validation/document.ts": {
+      "bytes": 1407,
+      "imports": [
+        {
+          "path": "src/generated/core-validators.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-validators"
+        },
+        {
+          "path": "src/validation/current-policy.ts",
+          "kind": "import-statement",
+          "original": "./current-policy"
+        },
+        {
+          "path": "src/validation/constraint-kernel.ts",
+          "kind": "import-statement",
+          "original": "./constraint-kernel"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        },
+        {
+          "path": "src/registry/registry.ts",
+          "kind": "import-statement",
+          "original": "../registry/registry"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../model/types"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/serialization.ts": {
+      "bytes": 3898,
+      "imports": [
+        {
+          "path": "src/model/internal/scan-json-frame.ts",
+          "kind": "import-statement",
+          "original": "./internal/scan-json-frame"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/index.js",
+          "kind": "import-statement",
+          "original": "yaml"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "./json"
+        },
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        },
+        {
+          "path": "src/model/internal/json-number.ts",
+          "kind": "import-statement",
+          "original": "./internal/json-number"
+        },
+        {
+          "path": "src/model/internal/json-number.ts",
+          "kind": "import-statement",
+          "original": "./internal/json-number"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/json.ts": {
+      "bytes": 3409,
+      "imports": [
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "./errors"
+        }
+      ],
+      "format": "esm"
+    },
+    "spec/extensions/delta-definition/package.json": {
+      "bytes": 2099,
+      "imports": []
+    },
+    "src/generated/core-model.ts": {
+      "bytes": 5012,
+      "imports": [
+        {
+          "path": "spec/core/schema.json",
+          "kind": "import-statement",
+          "original": "../../spec/core/schema.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "spec/core/semantic-type-reference.schema.json",
+          "kind": "import-statement",
+          "original": "../../spec/core/semantic-type-reference.schema.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "spec/core/extension-package.schema.json",
+          "kind": "import-statement",
+          "original": "../../spec/core/extension-package.schema.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "spec/metamodel/generated/core-constraints.json",
+          "kind": "import-statement",
+          "original": "../../spec/metamodel/generated/core-constraints.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "spec/metamodel/generated/domain-policy.json",
+          "kind": "import-statement",
+          "original": "../../spec/metamodel/generated/domain-policy.json",
+          "with": {
+            "type": "json"
+          }
+        }
+      ],
+      "format": "esm"
+    },
+    "src/compilation/bundle/hash.ts": {
+      "bytes": 4727,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/adapters/delta/index.ts": {
+      "bytes": 6841,
+      "imports": [
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../../generated/core-model"
+        },
+        {
+          "path": "spec/extensions/delta/package.json",
+          "kind": "import-statement",
+          "original": "../../../spec/extensions/delta/package.json"
+        },
+        {
+          "path": "spec/extensions/delta/datatype-schema.json",
+          "kind": "import-statement",
+          "original": "../../../spec/extensions/delta/datatype-schema.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "src/registry/registry.ts",
+          "kind": "import-statement",
+          "original": "../../registry/registry"
+        },
+        {
+          "path": "src/validation/document.ts",
+          "kind": "import-statement",
+          "original": "../../validation/document"
+        },
+        {
+          "path": "src/validation/schema.ts",
+          "kind": "import-statement",
+          "original": "../../validation/schema"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../../model/json"
+        },
+        {
+          "path": "src/model/native-json.ts",
+          "kind": "import-statement",
+          "original": "../../model/native-json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../../model/types"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/validation/current-policy.ts": {
+      "bytes": 555,
+      "imports": [
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-model"
+        },
+        {
+          "path": "src/validation/internal-schema.ts",
+          "kind": "import-statement",
+          "original": "./internal-schema"
+        },
+        {
+          "path": "src/validation/literal-kernel.ts",
+          "kind": "import-statement",
+          "original": "./literal-kernel"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/generated/core-validators.ts": {
+      "bytes": 284515,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/validation/constraint-kernel.ts": {
+      "bytes": 8263,
+      "imports": [
+        {
+          "path": "src/validation/current-policy.ts",
+          "kind": "import-statement",
+          "original": "./current-policy"
+        },
+        {
+          "path": "src/validation/json-equality.ts",
+          "kind": "import-statement",
+          "original": "./json-equality"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../model/types"
+        },
+        {
+          "path": "src/registry/registry.ts",
+          "kind": "import-statement",
+          "original": "../registry/registry"
+        },
+        {
+          "path": "src/validation/literal-kernel.ts",
+          "kind": "import-statement",
+          "original": "./literal-kernel"
+        },
+        {
+          "path": "src/validation/literal-policy.ts",
+          "kind": "import-statement",
+          "original": "./literal-policy"
+        },
+        {
+          "path": "src/validation/constraint-language.ts",
+          "kind": "import-statement",
+          "original": "./constraint-language"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/registry/registry.ts": {
+      "bytes": 1807,
+      "imports": [
+        {
+          "path": "src/validation/schema.ts",
+          "kind": "import-statement",
+          "original": "../validation/schema"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../model/types"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/errors.ts": {
+      "bytes": 334,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/model/internal/scan-json-frame.ts": {
+      "bytes": 1852,
+      "imports": [
+        {
+          "path": "src/model/internal/json-number.ts",
+          "kind": "import-statement",
+          "original": "./json-number"
+        },
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "../errors"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/internal/json-number.ts": {
+      "bytes": 1342,
+      "imports": [
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "../errors"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/index.js": {
+      "bytes": 191,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/index.js",
+          "kind": "import-statement",
+          "original": "./dist/index.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/index.js",
+          "kind": "import-statement",
+          "original": "./dist/index.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "spec/metamodel/generated/core-constraints.json": {
+      "bytes": 190252,
+      "imports": [],
+      "format": "json"
+    },
+    "spec/metamodel/generated/domain-policy.json": {
+      "bytes": 14016,
+      "imports": [],
+      "format": "json"
+    },
+    "spec/core/semantic-type-reference.schema.json": {
+      "bytes": 34772,
+      "imports": [],
+      "format": "json"
+    },
+    "spec/core/extension-package.schema.json": {
+      "bytes": 34314,
+      "imports": [],
+      "format": "json"
+    },
+    "spec/core/schema.json": {
+      "bytes": 34651,
+      "imports": [],
+      "format": "json"
+    },
+    "spec/extensions/delta/package.json": {
+      "bytes": 3765,
+      "imports": []
+    },
+    "src/model/native-json.ts": {
+      "bytes": 6227,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/index.js",
+          "kind": "import-statement",
+          "original": "yaml"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "./json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "spec/extensions/delta/datatype-schema.json": {
+      "bytes": 2826,
+      "imports": [],
+      "format": "json"
+    },
+    "src/validation/schema.ts": {
+      "bytes": 3141,
+      "imports": [
+        {
+          "path": "src/generated/core-model.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-model"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/2020.js",
+          "kind": "import-statement",
+          "original": "ajv/dist/2020"
+        },
+        {
+          "path": "src/validation/json-equality.ts",
+          "kind": "import-statement",
+          "original": "./json-equality"
+        },
+        {
+          "path": "src/validation/internal-schema.ts",
+          "kind": "import-statement",
+          "original": "./internal-schema"
+        },
+        {
+          "path": "src/generated/core-validators.ts",
+          "kind": "import-statement",
+          "original": "../generated/core-validators"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/validation/literal-kernel.ts": {
+      "bytes": 12197,
+      "imports": [
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        },
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "../model/types"
+        },
+        {
+          "path": "src/model/bit128.ts",
+          "kind": "import-statement",
+          "original": "../model/bit128"
+        },
+        {
+          "path": "src/model/uuid.ts",
+          "kind": "import-statement",
+          "original": "../model/uuid"
+        },
+        {
+          "path": "src/validation/literal-policy.ts",
+          "kind": "import-statement",
+          "original": "./literal-policy"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/validation/internal-schema.ts": {
+      "bytes": 457,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/validation/json-equality.ts": {
+      "bytes": 556,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/validation/constraint-language.ts": {
+      "bytes": 5339,
+      "imports": [
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "../model/errors"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/validation/literal-policy.ts": {
+      "bytes": 5734,
+      "imports": [
+        {
+          "path": "src/model/errors.ts",
+          "kind": "import-statement",
+          "original": "../model/errors"
+        },
+        {
+          "path": "src/model/json.ts",
+          "kind": "import-statement",
+          "original": "../model/json"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/index.js": {
+      "bytes": 879,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/composer.js",
+          "kind": "import-statement",
+          "original": "./compose/composer.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js",
+          "kind": "import-statement",
+          "original": "./doc/Document.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/Schema.js",
+          "kind": "import-statement",
+          "original": "./schema/Schema.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js",
+          "kind": "import-statement",
+          "original": "./errors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js",
+          "kind": "import-statement",
+          "original": "./nodes/Alias.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "./nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "./nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "./nodes/YAMLMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "./nodes/YAMLSeq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst.js",
+          "kind": "import-statement",
+          "original": "./parse/cst.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/lexer.js",
+          "kind": "import-statement",
+          "original": "./parse/lexer.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/line-counter.js",
+          "kind": "import-statement",
+          "original": "./parse/line-counter.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/parser.js",
+          "kind": "import-statement",
+          "original": "./parse/parser.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/public-api.js",
+          "kind": "import-statement",
+          "original": "./public-api.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js",
+          "kind": "import-statement",
+          "original": "./visit.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/2020.js": {
+      "bytes": 2894,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/core.js",
+          "kind": "require-call",
+          "original": "./core"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/draft2020.js",
+          "kind": "require-call",
+          "original": "./vocabularies/draft2020"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/index.js",
+          "kind": "require-call",
+          "original": "./vocabularies/discriminator"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/index.js",
+          "kind": "require-call",
+          "original": "./refs/json-schema-2020-12"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js",
+          "kind": "require-call",
+          "original": "./compile/validate"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/validation_error.js",
+          "kind": "require-call",
+          "original": "./runtime/validation_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js",
+          "kind": "require-call",
+          "original": "./compile/ref_error"
+        }
+      ],
+      "format": "cjs"
+    },
+    "src/model/uuid.ts": {
+      "bytes": 2130,
+      "imports": [
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "src/model/bit128.ts",
+          "kind": "import-statement",
+          "original": "./bit128"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/model/bit128.ts": {
+      "bytes": 6072,
+      "imports": [
+        {
+          "path": "src/model/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/Schema.js": {
+      "bytes": 1495,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js",
+          "kind": "import-statement",
+          "original": "./common/map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js",
+          "kind": "import-statement",
+          "original": "./common/seq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js",
+          "kind": "import-statement",
+          "original": "./common/string.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/tags.js",
+          "kind": "import-statement",
+          "original": "./tags.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js": {
+      "bytes": 12903,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js",
+          "kind": "import-statement",
+          "original": "../nodes/Alias.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Collection.js",
+          "kind": "import-statement",
+          "original": "../nodes/Collection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "../nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "../nodes/toJS.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/Schema.js",
+          "kind": "import-statement",
+          "original": "../schema/Schema.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyDocument.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringifyDocument.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/anchors.js",
+          "kind": "import-statement",
+          "original": "./anchors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/applyReviver.js",
+          "kind": "import-statement",
+          "original": "./applyReviver.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js",
+          "kind": "import-statement",
+          "original": "./createNode.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/directives.js",
+          "kind": "import-statement",
+          "original": "./directives.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst.js": {
+      "bytes": 2886,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-scalar.js",
+          "kind": "import-statement",
+          "original": "./cst-scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-stringify.js",
+          "kind": "import-statement",
+          "original": "./cst-stringify.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-visit.js",
+          "kind": "import-statement",
+          "original": "./cst-visit.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js": {
+      "bytes": 1513,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/lexer.js": {
+      "bytes": 24138,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst.js",
+          "kind": "import-statement",
+          "original": "./cst.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/parser.js": {
+      "bytes": 35393,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst.js",
+          "kind": "import-statement",
+          "original": "./cst.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/lexer.js",
+          "kind": "import-statement",
+          "original": "./lexer.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/composer.js": {
+      "bytes": 8484,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/directives.js",
+          "kind": "import-statement",
+          "original": "../doc/directives.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js",
+          "kind": "import-statement",
+          "original": "../doc/Document.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js",
+          "kind": "import-statement",
+          "original": "../errors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-doc.js",
+          "kind": "import-statement",
+          "original": "./compose-doc.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js",
+          "kind": "import-statement",
+          "original": "./resolve-end.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js": {
+      "bytes": 1124,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js",
+          "kind": "import-statement",
+          "original": "../doc/createNode.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyPair.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringifyPair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/addPairToJSMap.js",
+          "kind": "import-statement",
+          "original": "./addPairToJSMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js": {
+      "bytes": 700,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Node.js",
+          "kind": "import-statement",
+          "original": "./Node.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "./toJS.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js": {
+      "bytes": 2023,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js": {
+      "bytes": 4957,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyCollection.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringifyCollection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/addPairToJSMap.js",
+          "kind": "import-statement",
+          "original": "./addPairToJSMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Collection.js",
+          "kind": "import-statement",
+          "original": "./Collection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "./Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "./Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/line-counter.js": {
+      "bytes": 1419,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js": {
+      "bytes": 3573,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js",
+          "kind": "import-statement",
+          "original": "../doc/createNode.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyCollection.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringifyCollection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Collection.js",
+          "kind": "import-statement",
+          "original": "./Collection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "./Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "./toJS.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/public-api.js": {
+      "bytes": 3992,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/composer.js",
+          "kind": "import-statement",
+          "original": "./compose/composer.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js",
+          "kind": "import-statement",
+          "original": "./doc/Document.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js",
+          "kind": "import-statement",
+          "original": "./errors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/log.js",
+          "kind": "import-statement",
+          "original": "./log.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/line-counter.js",
+          "kind": "import-statement",
+          "original": "./parse/line-counter.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/parser.js",
+          "kind": "import-statement",
+          "original": "./parse/parser.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js": {
+      "bytes": 9107,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./nodes/identity.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js": {
+      "bytes": 3998,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/anchors.js",
+          "kind": "import-statement",
+          "original": "../doc/anchors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js",
+          "kind": "import-statement",
+          "original": "../visit.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Node.js",
+          "kind": "import-statement",
+          "original": "./Node.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "./toJS.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/draft2020.js": {
+      "bytes": 762,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/index.js",
+          "kind": "require-call",
+          "original": "./core"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/index.js",
+          "kind": "require-call",
+          "original": "./validation"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/index.js",
+          "kind": "require-call",
+          "original": "./applicator"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/index.js",
+          "kind": "require-call",
+          "original": "./dynamic"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/next.js",
+          "kind": "require-call",
+          "original": "./next"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/index.js",
+          "kind": "require-call",
+          "original": "./unevaluated"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/index.js",
+          "kind": "require-call",
+          "original": "./format"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/metadata.js",
+          "kind": "require-call",
+          "original": "./metadata"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js": {
+      "bytes": 20552,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/boolSchema.js",
+          "kind": "require-call",
+          "original": "./boolSchema"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js",
+          "kind": "require-call",
+          "original": "./dataType"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/applicability.js",
+          "kind": "require-call",
+          "original": "./applicability"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js",
+          "kind": "require-call",
+          "original": "./dataType"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/defaults.js",
+          "kind": "require-call",
+          "original": "./defaults"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/keyword.js",
+          "kind": "require-call",
+          "original": "./keyword"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/subschema.js",
+          "kind": "require-call",
+          "original": "./subschema"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js",
+          "kind": "require-call",
+          "original": "../resolve"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js",
+          "kind": "require-call",
+          "original": "../errors"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/validation_error.js": {
+      "bytes": 337,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js": {
+      "bytes": 23127,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js",
+          "kind": "require-call",
+          "original": "./code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/scope.js",
+          "kind": "require-call",
+          "original": "./scope"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js",
+          "kind": "require-call",
+          "original": "./code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/scope.js",
+          "kind": "require-call",
+          "original": "./scope"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/core.js": {
+      "bytes": 25202,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js",
+          "kind": "require-call",
+          "original": "./compile/validate"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/validation_error.js",
+          "kind": "require-call",
+          "original": "./runtime/validation_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js",
+          "kind": "require-call",
+          "original": "./compile/ref_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/rules.js",
+          "kind": "require-call",
+          "original": "./compile/rules"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js",
+          "kind": "require-call",
+          "original": "./compile"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js",
+          "kind": "require-call",
+          "original": "./compile/resolve"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js",
+          "kind": "require-call",
+          "original": "./compile/validate/dataType"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "./compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/data.json",
+          "kind": "require-call",
+          "original": "./refs/data.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/uri.js",
+          "kind": "require-call",
+          "original": "./runtime/uri"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/index.js": {
+      "bytes": 4845,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/types.js",
+          "kind": "require-call",
+          "original": "../discriminator/types"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js",
+          "kind": "require-call",
+          "original": "../../compile"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js",
+          "kind": "require-call",
+          "original": "../../compile/ref_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js": {
+      "bytes": 543,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js",
+          "kind": "require-call",
+          "original": "./resolve"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/index.js": {
+      "bytes": 1026,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/schema.json",
+          "kind": "require-call",
+          "original": "./schema.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/applicator.json",
+          "kind": "require-call",
+          "original": "./meta/applicator.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/unevaluated.json",
+          "kind": "require-call",
+          "original": "./meta/unevaluated.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/content.json",
+          "kind": "require-call",
+          "original": "./meta/content.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/core.json",
+          "kind": "require-call",
+          "original": "./meta/core.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/format-annotation.json",
+          "kind": "require-call",
+          "original": "./meta/format-annotation.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/meta-data.json",
+          "kind": "require-call",
+          "original": "./meta/meta-data.json",
+          "with": {
+            "type": "json"
+          }
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/validation.json",
+          "kind": "require-call",
+          "original": "./meta/validation.json",
+          "with": {
+            "type": "json"
+          }
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Collection.js": {
+      "bytes": 5076,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js",
+          "kind": "import-statement",
+          "original": "../doc/createNode.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Node.js",
+          "kind": "import-statement",
+          "original": "./Node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/applyReviver.js": {
+      "bytes": 1923,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js": {
+      "bytes": 1266,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/anchors.js": {
+      "bytes": 2276,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js",
+          "kind": "import-statement",
+          "original": "../visit.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/directives.js": {
+      "bytes": 6188,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js",
+          "kind": "import-statement",
+          "original": "../visit.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js": {
+      "bytes": 3061,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js",
+          "kind": "import-statement",
+          "original": "../nodes/Alias.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyDocument.js": {
+      "bytes": 2983,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js",
+          "kind": "import-statement",
+          "original": "./stringify.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js",
+          "kind": "import-statement",
+          "original": "./stringifyComment.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/tags.js": {
+      "bytes": 2962,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js",
+          "kind": "import-statement",
+          "original": "./common/map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/null.js",
+          "kind": "import-statement",
+          "original": "./common/null.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js",
+          "kind": "import-statement",
+          "original": "./common/seq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js",
+          "kind": "import-statement",
+          "original": "./common/string.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/bool.js",
+          "kind": "import-statement",
+          "original": "./core/bool.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/float.js",
+          "kind": "import-statement",
+          "original": "./core/float.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/int.js",
+          "kind": "import-statement",
+          "original": "./core/int.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/schema.js",
+          "kind": "import-statement",
+          "original": "./core/schema.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/json/schema.js",
+          "kind": "import-statement",
+          "original": "./json/schema.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/binary.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/binary.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/merge.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/merge.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/omap.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/omap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/pairs.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/pairs.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/schema.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/schema.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/set.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/set.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/timestamp.js",
+          "kind": "import-statement",
+          "original": "./yaml-1.1/timestamp.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js": {
+      "bytes": 440,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLSeq.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js": {
+      "bytes": 439,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLMap.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js": {
+      "bytes": 421,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyString.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-visit.js": {
+      "bytes": 3966,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-stringify.js": {
+      "bytes": 1775,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-scalar.js": {
+      "bytes": 9235,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-scalar.js",
+          "kind": "import-statement",
+          "original": "../compose/resolve-block-scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-scalar.js",
+          "kind": "import-statement",
+          "original": "../compose/resolve-flow-scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js",
+          "kind": "import-statement",
+          "original": "../errors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringifyString.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyCollection.js": {
+      "bytes": 5552,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js",
+          "kind": "import-statement",
+          "original": "./stringify.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js",
+          "kind": "import-statement",
+          "original": "./stringifyComment.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Node.js": {
+      "bytes": 1339,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/applyReviver.js",
+          "kind": "import-statement",
+          "original": "../doc/applyReviver.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "./toJS.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/log.js": {
+      "bytes": 260,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/addPairToJSMap.js": {
+      "bytes": 2289,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/log.js",
+          "kind": "import-statement",
+          "original": "../log.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/merge.js",
+          "kind": "import-statement",
+          "original": "../schema/yaml-1.1/merge.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js",
+          "kind": "import-statement",
+          "original": "../stringify/stringify.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "./identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "./toJS.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyPair.js": {
+      "bytes": 5285,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js",
+          "kind": "import-statement",
+          "original": "./stringify.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js",
+          "kind": "import-statement",
+          "original": "./stringifyComment.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-doc.js": {
+      "bytes": 1555,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js",
+          "kind": "import-statement",
+          "original": "../doc/Document.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-node.js",
+          "kind": "import-statement",
+          "original": "./compose-node.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js",
+          "kind": "import-statement",
+          "original": "./resolve-end.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js",
+          "kind": "import-statement",
+          "original": "./resolve-props.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js": {
+      "bytes": 1239,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/unevaluated.json": {
+      "bytes": 472,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/format-annotation.json": {
+      "bytes": 420,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/validation.json": {
+      "bytes": 2264,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/meta-data.json": {
+      "bytes": 758,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/schema.json": {
+      "bytes": 2166,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/core.json": {
+      "bytes": 1344,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/applicator.json": {
+      "bytes": 1441,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/content.json": {
+      "bytes": 479,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js": {
+      "bytes": 5006,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "./util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-deep-equal/index.js",
+          "kind": "require-call",
+          "original": "fast-deep-equal"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/json-schema-traverse/index.js",
+          "kind": "require-call",
+          "original": "json-schema-traverse"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/metadata.js": {
+      "bytes": 427,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/next.js": {
+      "bytes": 433,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/dependentRequired.js",
+          "kind": "require-call",
+          "original": "./validation/dependentRequired"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependentSchemas.js",
+          "kind": "require-call",
+          "original": "./applicator/dependentSchemas"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitContains.js",
+          "kind": "require-call",
+          "original": "./validation/limitContains"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/index.js": {
+      "bytes": 1036,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitNumber.js",
+          "kind": "require-call",
+          "original": "./limitNumber"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/multipleOf.js",
+          "kind": "require-call",
+          "original": "./multipleOf"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitLength.js",
+          "kind": "require-call",
+          "original": "./limitLength"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/pattern.js",
+          "kind": "require-call",
+          "original": "./pattern"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitProperties.js",
+          "kind": "require-call",
+          "original": "./limitProperties"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/required.js",
+          "kind": "require-call",
+          "original": "./required"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitItems.js",
+          "kind": "require-call",
+          "original": "./limitItems"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js",
+          "kind": "require-call",
+          "original": "./uniqueItems"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/const.js",
+          "kind": "require-call",
+          "original": "./const"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/enum.js",
+          "kind": "require-call",
+          "original": "./enum"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/index.js": {
+      "bytes": 357,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/id.js",
+          "kind": "require-call",
+          "original": "./id"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/ref.js",
+          "kind": "require-call",
+          "original": "./ref"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/index.js": {
+      "bytes": 457,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicAnchor.js",
+          "kind": "require-call",
+          "original": "./dynamicAnchor"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicRef.js",
+          "kind": "require-call",
+          "original": "./dynamicRef"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveAnchor.js",
+          "kind": "require-call",
+          "original": "./recursiveAnchor"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveRef.js",
+          "kind": "require-call",
+          "original": "./recursiveRef"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/index.js": {
+      "bytes": 350,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedProperties.js",
+          "kind": "require-call",
+          "original": "./unevaluatedProperties"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedItems.js",
+          "kind": "require-call",
+          "original": "./unevaluatedItems"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/index.js": {
+      "bytes": 209,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/format.js",
+          "kind": "require-call",
+          "original": "./format"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/index.js": {
+      "bytes": 1529,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js",
+          "kind": "require-call",
+          "original": "./additionalItems"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js",
+          "kind": "require-call",
+          "original": "./prefixItems"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items.js",
+          "kind": "require-call",
+          "original": "./items"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items2020.js",
+          "kind": "require-call",
+          "original": "./items2020"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/contains.js",
+          "kind": "require-call",
+          "original": "./contains"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependencies.js",
+          "kind": "require-call",
+          "original": "./dependencies"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js",
+          "kind": "require-call",
+          "original": "./propertyNames"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js",
+          "kind": "require-call",
+          "original": "./additionalProperties"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/properties.js",
+          "kind": "require-call",
+          "original": "./properties"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js",
+          "kind": "require-call",
+          "original": "./patternProperties"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/not.js",
+          "kind": "require-call",
+          "original": "./not"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/anyOf.js",
+          "kind": "require-call",
+          "original": "./anyOf"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/oneOf.js",
+          "kind": "require-call",
+          "original": "./oneOf"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/allOf.js",
+          "kind": "require-call",
+          "original": "./allOf"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/if.js",
+          "kind": "require-call",
+          "original": "./if"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/thenElse.js",
+          "kind": "require-call",
+          "original": "./thenElse"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/data.json": {
+      "bytes": 409,
+      "imports": [],
+      "format": "json"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/uri.js": {
+      "bytes": 218,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-uri/index.js",
+          "kind": "require-call",
+          "original": "fast-uri"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js": {
+      "bytes": 7103,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js",
+          "kind": "require-call",
+          "original": "./codegen/code"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/rules.js": {
+      "bytes": 918,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js": {
+      "bytes": 8409,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/rules.js",
+          "kind": "require-call",
+          "original": "../rules"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/applicability.js",
+          "kind": "require-call",
+          "original": "./applicability"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js",
+          "kind": "require-call",
+          "original": "../errors"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js": {
+      "bytes": 10046,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/validation_error.js",
+          "kind": "require-call",
+          "original": "../runtime/validation_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "./names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js",
+          "kind": "require-call",
+          "original": "./resolve"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "./util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js",
+          "kind": "require-call",
+          "original": "./validate"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/types.js": {
+      "bytes": 308,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/omap.js": {
+      "bytes": 2473,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js",
+          "kind": "import-statement",
+          "original": "../../nodes/toJS.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLSeq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/pairs.js",
+          "kind": "import-statement",
+          "original": "./pairs.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/timestamp.js": {
+      "bytes": 3698,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyNumber.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/set.js": {
+      "bytes": 3030,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLMap.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/schema.js": {
+      "bytes": 860,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js",
+          "kind": "import-statement",
+          "original": "../common/map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/null.js",
+          "kind": "import-statement",
+          "original": "../common/null.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js",
+          "kind": "import-statement",
+          "original": "../common/seq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js",
+          "kind": "import-statement",
+          "original": "../common/string.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/binary.js",
+          "kind": "import-statement",
+          "original": "./binary.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/bool.js",
+          "kind": "import-statement",
+          "original": "./bool.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/float.js",
+          "kind": "import-statement",
+          "original": "./float.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/int.js",
+          "kind": "import-statement",
+          "original": "./int.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/merge.js",
+          "kind": "import-statement",
+          "original": "./merge.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/omap.js",
+          "kind": "import-statement",
+          "original": "./omap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/pairs.js",
+          "kind": "import-statement",
+          "original": "./pairs.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/set.js",
+          "kind": "import-statement",
+          "original": "./set.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/timestamp.js",
+          "kind": "import-statement",
+          "original": "./timestamp.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/merge.js": {
+      "bytes": 2524,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/bool.js": {
+      "bytes": 607,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/pairs.js": {
+      "bytes": 2751,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../../nodes/YAMLSeq.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/float.js": {
+      "bytes": 1399,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyNumber.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/null.js": {
+      "bytes": 434,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/schema.js": {
+      "bytes": 480,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js",
+          "kind": "import-statement",
+          "original": "../common/map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/null.js",
+          "kind": "import-statement",
+          "original": "../common/null.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js",
+          "kind": "import-statement",
+          "original": "../common/seq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js",
+          "kind": "import-statement",
+          "original": "../common/string.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/bool.js",
+          "kind": "import-statement",
+          "original": "./bool.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/float.js",
+          "kind": "import-statement",
+          "original": "./float.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/int.js",
+          "kind": "import-statement",
+          "original": "./int.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/binary.js": {
+      "bytes": 2315,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyString.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/int.js": {
+      "bytes": 1324,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyNumber.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/json/schema.js": {
+      "bytes": 1867,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js",
+          "kind": "import-statement",
+          "original": "../common/map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js",
+          "kind": "import-statement",
+          "original": "../common/seq.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js": {
+      "bytes": 724,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js": {
+      "bytes": 4400,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/anchors.js",
+          "kind": "import-statement",
+          "original": "../doc/anchors.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js",
+          "kind": "import-statement",
+          "original": "./stringifyComment.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js",
+          "kind": "import-statement",
+          "original": "./stringifyString.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/applicability.js": {
+      "bytes": 853,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/keyword.js": {
+      "bytes": 5695,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../../vocabularies/code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js",
+          "kind": "require-call",
+          "original": "../errors"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js": {
+      "bytes": 1440,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js": {
+      "bytes": 5771,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "./codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "./util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "./names"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/boolSchema.js": {
+      "bytes": 1531,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js",
+          "kind": "require-call",
+          "original": "../errors"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../names"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/subschema.js": {
+      "bytes": 3858,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/defaults.js": {
+      "bytes": 1448,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/scope.js": {
+      "bytes": 5198,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js",
+          "kind": "require-call",
+          "original": "./code"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js": {
+      "bytes": 4676,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-scalar.js": {
+      "bytes": 7447,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js": {
+      "bytes": 13164,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/foldFlowLines.js",
+          "kind": "import-statement",
+          "original": "./foldFlowLines.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-scalar.js": {
+      "bytes": 7355,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js",
+          "kind": "import-statement",
+          "original": "./resolve-end.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/fast-deep-equal/index.js": {
+      "bytes": 1177,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/json-schema-traverse/index.js": {
+      "bytes": 2428,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-node.js": {
+      "bytes": 4122,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js",
+          "kind": "import-statement",
+          "original": "../nodes/Alias.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-collection.js",
+          "kind": "import-statement",
+          "original": "./compose-collection.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-scalar.js",
+          "kind": "import-statement",
+          "original": "./compose-scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js",
+          "kind": "import-statement",
+          "original": "./resolve-end.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-empty-scalar-position.js",
+          "kind": "import-statement",
+          "original": "./util-empty-scalar-position.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js": {
+      "bytes": 5552,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicAnchor.js": {
+      "bytes": 1261,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../../compile/names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js",
+          "kind": "require-call",
+          "original": "../../compile"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/ref.js",
+          "kind": "require-call",
+          "original": "../core/ref"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveRef.js": {
+      "bytes": 325,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicRef.js",
+          "kind": "require-call",
+          "original": "./dynamicRef"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveAnchor.js": {
+      "bytes": 522,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicAnchor.js",
+          "kind": "require-call",
+          "original": "./dynamicAnchor"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicRef.js": {
+      "bytes": 1985,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../../compile/names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/ref.js",
+          "kind": "require-call",
+          "original": "../core/ref"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/properties.js": {
+      "bytes": 2153,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js",
+          "kind": "require-call",
+          "original": "../../compile/validate"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js",
+          "kind": "require-call",
+          "original": "./additionalProperties"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items2020.js": {
+      "bytes": 1037,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js",
+          "kind": "require-call",
+          "original": "./additionalItems"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items.js": {
+      "bytes": 1993,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/oneOf.js": {
+      "bytes": 2257,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/contains.js": {
+      "bytes": 3680,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/allOf.js": {
+      "bytes": 756,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/thenElse.js": {
+      "bytes": 446,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/if.js": {
+      "bytes": 2438,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/not.js": {
+      "bytes": 773,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js": {
+      "bytes": 1221,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependencies.js": {
+      "bytes": 3198,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/anyOf.js": {
+      "bytes": 343,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js": {
+      "bytes": 4309,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../../compile/names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js": {
+      "bytes": 3236,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js": {
+      "bytes": 354,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items.js",
+          "kind": "require-call",
+          "original": "./items"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js": {
+      "bytes": 1931,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/format.js": {
+      "bytes": 4317,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/ref.js": {
+      "bytes": 5234,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js",
+          "kind": "require-call",
+          "original": "../../compile/ref_error"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../../compile/names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js",
+          "kind": "require-call",
+          "original": "../../compile"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/id.js": {
+      "bytes": 267,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedItems.js": {
+      "bytes": 1588,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedProperties.js": {
+      "bytes": 2608,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../../compile/names"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitItems.js": {
+      "bytes": 852,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/enum.js": {
+      "bytes": 1901,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/equal.js",
+          "kind": "require-call",
+          "original": "../../runtime/equal"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/required.js": {
+      "bytes": 3188,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/multipleOf.js": {
+      "bytes": 1023,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitLength.js": {
+      "bytes": 1130,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/ucs2length.js",
+          "kind": "require-call",
+          "original": "../../runtime/ucs2length"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitNumber.js": {
+      "bytes": 1036,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitProperties.js": {
+      "bytes": 896,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js": {
+      "bytes": 3037,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js",
+          "kind": "require-call",
+          "original": "../../compile/validate/dataType"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/equal.js",
+          "kind": "require-call",
+          "original": "../../runtime/equal"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/const.js": {
+      "bytes": 852,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/equal.js",
+          "kind": "require-call",
+          "original": "../../runtime/equal"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/pattern.js": {
+      "bytes": 1323,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js",
+          "kind": "require-call",
+          "original": "../code"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../../compile/codegen"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/fast-uri/index.js": {
+      "bytes": 22264,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/utils.js",
+          "kind": "require-call",
+          "original": "./lib/utils"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/schemes.js",
+          "kind": "require-call",
+          "original": "./lib/schemes"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependentSchemas.js": {
+      "bytes": 354,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependencies.js",
+          "kind": "require-call",
+          "original": "./dependencies"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitContains.js": {
+      "bytes": 495,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/dependentRequired.js": {
+      "bytes": 403,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependencies.js",
+          "kind": "require-call",
+          "original": "../applicator/dependencies"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js": {
+      "bytes": 778,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js": {
+      "bytes": 6216,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js",
+          "kind": "require-call",
+          "original": "../compile/codegen"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../compile/util"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js",
+          "kind": "require-call",
+          "original": "../compile/names"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js",
+          "kind": "require-call",
+          "original": "../compile/util"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/foldFlowLines.js": {
+      "bytes": 4794,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/equal.js": {
+      "bytes": 286,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-deep-equal/index.js",
+          "kind": "require-call",
+          "original": "fast-deep-equal"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/float.js": {
+      "bytes": 1515,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyNumber.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/bool.js": {
+      "bytes": 787,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../../nodes/Scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/int.js": {
+      "bytes": 2132,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js",
+          "kind": "import-statement",
+          "original": "../../stringify/stringifyNumber.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/ucs2length.js": {
+      "bytes": 808,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/utils.js": {
+      "bytes": 20835,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/schemes.js": {
+      "bytes": 7367,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/utils.js",
+          "kind": "require-call",
+          "original": "./utils"
+        }
+      ],
+      "format": "cjs"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-scalar.js": {
+      "bytes": 3316,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-scalar.js",
+          "kind": "import-statement",
+          "original": "./resolve-block-scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-scalar.js",
+          "kind": "import-statement",
+          "original": "./resolve-flow-scalar.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-collection.js": {
+      "bytes": 3500,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js",
+          "kind": "import-statement",
+          "original": "../nodes/Scalar.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLSeq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-map.js",
+          "kind": "import-statement",
+          "original": "./resolve-block-map.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-seq.js",
+          "kind": "import-statement",
+          "original": "./resolve-block-seq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-collection.js",
+          "kind": "import-statement",
+          "original": "./resolve-flow-collection.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-empty-scalar-position.js": {
+      "bytes": 816,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-collection.js": {
+      "bytes": 8778,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "../nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLSeq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js",
+          "kind": "import-statement",
+          "original": "./resolve-end.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js",
+          "kind": "import-statement",
+          "original": "./resolve-props.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-contains-newline.js",
+          "kind": "import-statement",
+          "original": "./util-contains-newline.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-map-includes.js",
+          "kind": "import-statement",
+          "original": "./util-map-includes.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-seq.js": {
+      "bytes": 1740,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLSeq.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js",
+          "kind": "import-statement",
+          "original": "./resolve-props.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-flow-indent-check.js",
+          "kind": "import-statement",
+          "original": "./util-flow-indent-check.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-map.js": {
+      "bytes": 4915,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js",
+          "kind": "import-statement",
+          "original": "../nodes/Pair.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js",
+          "kind": "import-statement",
+          "original": "../nodes/YAMLMap.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js",
+          "kind": "import-statement",
+          "original": "./resolve-props.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-contains-newline.js",
+          "kind": "import-statement",
+          "original": "./util-contains-newline.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-flow-indent-check.js",
+          "kind": "import-statement",
+          "original": "./util-flow-indent-check.js"
+        },
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-map-includes.js",
+          "kind": "import-statement",
+          "original": "./util-map-includes.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-map-includes.js": {
+      "bytes": 428,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js",
+          "kind": "import-statement",
+          "original": "../nodes/identity.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-contains-newline.js": {
+      "bytes": 1051,
+      "imports": [],
+      "format": "esm"
+    },
+    "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-flow-indent-check.js": {
+      "bytes": 494,
+      "imports": [
+        {
+          "path": "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-contains-newline.js",
+          "kind": "import-statement",
+          "original": "./util-contains-newline.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "./bridge-entry.js": {
+      "bytes": 508540,
+      "inputs": {
+        "src/model/errors.ts": {
+          "bytesInOutput": 162
+        },
+        "src/model/internal/json-number.ts": {
+          "bytesInOutput": 701
+        },
+        "src/model/internal/scan-json-frame.ts": {
+          "bytesInOutput": 1137
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/identity.js": {
+          "bytesInOutput": 704
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/visit.js": {
+          "bytesInOutput": 2204
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/directives.js": {
+          "bytesInOutput": 2379
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/anchors.js": {
+          "bytesInOutput": 688
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/applyReviver.js": {
+          "bytesInOutput": 576
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/toJS.js": {
+          "bytesInOutput": 368
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Node.js": {
+          "bytesInOutput": 585
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Alias.js": {
+          "bytesInOutput": 1558
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Scalar.js": {
+          "bytesInOutput": 349
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/createNode.js": {
+          "bytesInOutput": 1168
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Collection.js": {
+          "bytesInOutput": 1814
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyComment.js": {
+          "bytesInOutput": 235
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/foldFlowLines.js": {
+          "bytesInOutput": 1295
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyString.js": {
+          "bytesInOutput": 4266
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringify.js": {
+          "bytesInOutput": 2054
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyPair.js": {
+          "bytesInOutput": 1866
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/log.js": {
+          "bytesInOutput": 60
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/merge.js": {
+          "bytesInOutput": 908
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/addPairToJSMap.js": {
+          "bytesInOutput": 873
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/Pair.js": {
+          "bytesInOutput": 397
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyCollection.js": {
+          "bytesInOutput": 2031
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLMap.js": {
+          "bytesInOutput": 1834
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/map.js": {
+          "bytesInOutput": 183
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/nodes/YAMLSeq.js": {
+          "bytesInOutput": 1215
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/seq.js": {
+          "bytesInOutput": 184
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/string.js": {
+          "bytesInOutput": 173
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/common/null.js": {
+          "bytesInOutput": 234
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/bool.js": {
+          "bytesInOutput": 317
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyNumber.js": {
+          "bytesInOutput": 419
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/float.js": {
+          "bytesInOutput": 788
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/int.js": {
+          "bytesInOutput": 653
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/core/schema.js": {
+          "bytesInOutput": 42
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/json/schema.js": {
+          "bytesInOutput": 989
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/binary.js": {
+          "bytesInOutput": 932
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/pairs.js": {
+          "bytesInOutput": 1115
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/omap.js": {
+          "bytesInOutput": 972
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/bool.js": {
+          "bytesInOutput": 426
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/float.js": {
+          "bytesInOutput": 859
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/int.js": {
+          "bytesInOutput": 1031
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/set.js": {
+          "bytesInOutput": 1333
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/timestamp.js": {
+          "bytesInOutput": 1562
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/yaml-1.1/schema.js": {
+          "bytesInOutput": 72
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/tags.js": {
+          "bytesInOutput": 1121
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/schema/Schema.js": {
+          "bytesInOutput": 647
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/stringify/stringifyDocument.js": {
+          "bytesInOutput": 1039
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/doc/Document.js": {
+          "bytesInOutput": 4362
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/errors.js": {
+          "bytesInOutput": 911
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-props.js": {
+          "bytesInOutput": 2131
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-contains-newline.js": {
+          "bytesInOutput": 449
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-flow-indent-check.js": {
+          "bytesInOutput": 202
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-map-includes.js": {
+          "bytesInOutput": 171
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-map.js": {
+          "bytesInOutput": 1999
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-seq.js": {
+          "bytesInOutput": 692
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-end.js": {
+          "bytesInOutput": 435
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-collection.js": {
+          "bytesInOutput": 3350
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-collection.js": {
+          "bytesInOutput": 1223
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-block-scalar.js": {
+          "bytesInOutput": 2894
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/resolve-flow-scalar.js": {
+          "bytesInOutput": 2759
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-scalar.js": {
+          "bytesInOutput": 1380
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/util-empty-scalar-position.js": {
+          "bytesInOutput": 236
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-node.js": {
+          "bytesInOutput": 1791
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/compose-doc.js": {
+          "bytesInOutput": 643
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/compose/composer.js": {
+          "bytesInOutput": 3126
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-scalar.js": {
+          "bytesInOutput": 0
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-stringify.js": {
+          "bytesInOutput": 0
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst-visit.js": {
+          "bytesInOutput": 896
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/cst.js": {
+          "bytesInOutput": 805
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/lexer.js": {
+          "bytesInOutput": 9566
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/line-counter.js": {
+          "bytesInOutput": 335
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/parse/parser.js": {
+          "bytesInOutput": 14051
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/public-api.js": {
+          "bytesInOutput": 515
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/dist/index.js": {
+          "bytesInOutput": 0
+        },
+        "../../../Users/erik/Projects/umf/node_modules/yaml/browser/index.js": {
+          "bytesInOutput": 0
+        },
+        "src/model/json.ts": {
+          "bytesInOutput": 1645
+        },
+        "src/model/serialization.ts": {
+          "bytesInOutput": 1815
+        },
+        "src/generated/core-validators.ts": {
+          "bytesInOutput": 164766
+        },
+        "spec/core/schema.json": {
+          "bytesInOutput": 0
+        },
+        "spec/core/semantic-type-reference.schema.json": {
+          "bytesInOutput": 15025
+        },
+        "spec/core/extension-package.schema.json": {
+          "bytesInOutput": 0
+        },
+        "spec/metamodel/generated/core-constraints.json": {
+          "bytesInOutput": 37617
+        },
+        "spec/metamodel/generated/domain-policy.json": {
+          "bytesInOutput": 8570
+        },
+        "src/generated/core-model.ts": {
+          "bytesInOutput": 344
+        },
+        "src/validation/internal-schema.ts": {
+          "bytesInOutput": 161
+        },
+        "src/model/types.ts": {
+          "bytesInOutput": 87
+        },
+        "src/model/bit128.ts": {
+          "bytesInOutput": 329
+        },
+        "src/model/uuid.ts": {
+          "bytesInOutput": 388
+        },
+        "src/validation/literal-policy.ts": {
+          "bytesInOutput": 4216
+        },
+        "src/validation/literal-kernel.ts": {
+          "bytesInOutput": 6892
+        },
+        "src/validation/current-policy.ts": {
+          "bytesInOutput": 73
+        },
+        "src/validation/json-equality.ts": {
+          "bytesInOutput": 216
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/code.js": {
+          "bytesInOutput": 2603
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/scope.js": {
+          "bytesInOutput": 2582
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/codegen/index.js": {
+          "bytesInOutput": 11777
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/util.js": {
+          "bytesInOutput": 3535
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/names.js": {
+          "bytesInOutput": 624
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/errors.js": {
+          "bytesInOutput": 3034
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/boolSchema.js": {
+          "bytesInOutput": 675
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/rules.js": {
+          "bytesInOutput": 565
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/applicability.js": {
+          "bytesInOutput": 479
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/dataType.js": {
+          "bytesInOutput": 3954
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/defaults.js": {
+          "bytesInOutput": 650
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/code.js": {
+          "bytesInOutput": 3036
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/keyword.js": {
+          "bytesInOutput": 2926
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/subschema.js": {
+          "bytesInOutput": 1914
+        },
+        "../../../Users/erik/Projects/umf/node_modules/fast-deep-equal/index.js": {
+          "bytesInOutput": 729
+        },
+        "../../../Users/erik/Projects/umf/node_modules/json-schema-traverse/index.js": {
+          "bytesInOutput": 1240
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/resolve.js": {
+          "bytesInOutput": 2136
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/validate/index.js": {
+          "bytesInOutput": 10036
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/validation_error.js": {
+          "bytesInOutput": 196
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/ref_error.js": {
+          "bytesInOutput": 305
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/compile/index.js": {
+          "bytesInOutput": 4758
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/data.json": {
+          "bytesInOutput": 364
+        },
+        "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/utils.js": {
+          "bytesInOutput": 7365
+        },
+        "../../../Users/erik/Projects/umf/node_modules/fast-uri/lib/schemes.js": {
+          "bytesInOutput": 2557
+        },
+        "../../../Users/erik/Projects/umf/node_modules/fast-uri/index.js": {
+          "bytesInOutput": 7263
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/uri.js": {
+          "bytesInOutput": 150
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/core.js": {
+          "bytesInOutput": 12312
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/id.js": {
+          "bytesInOutput": 186
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/ref.js": {
+          "bytesInOutput": 2368
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/core/index.js": {
+          "bytesInOutput": 208
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitNumber.js": {
+          "bytesInOutput": 649
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/multipleOf.js": {
+          "bytesInOutput": 526
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/ucs2length.js": {
+          "bytesInOutput": 299
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitLength.js": {
+          "bytesInOutput": 594
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/pattern.js": {
+          "bytesInOutput": 670
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitProperties.js": {
+          "bytesInOutput": 525
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/required.js": {
+          "bytesInOutput": 1398
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitItems.js": {
+          "bytesInOutput": 486
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/runtime/equal.js": {
+          "bytesInOutput": 152
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js": {
+          "bytesInOutput": 1419
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/const.js": {
+          "bytesInOutput": 427
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/enum.js": {
+          "bytesInOutput": 906
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/index.js": {
+          "bytesInOutput": 376
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js": {
+          "bytesInOutput": 1055
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items.js": {
+          "bytesInOutput": 1062
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js": {
+          "bytesInOutput": 220
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/items2020.js": {
+          "bytesInOutput": 520
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/contains.js": {
+          "bytesInOutput": 1707
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependencies.js": {
+          "bytesInOutput": 1526
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js": {
+          "bytesInOutput": 619
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js": {
+          "bytesInOutput": 1699
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/properties.js": {
+          "bytesInOutput": 986
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js": {
+          "bytesInOutput": 1162
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/not.js": {
+          "bytesInOutput": 427
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/anyOf.js": {
+          "bytesInOutput": 224
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/oneOf.js": {
+          "bytesInOutput": 900
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/allOf.js": {
+          "bytesInOutput": 395
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/if.js": {
+          "bytesInOutput": 1095
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/thenElse.js": {
+          "bytesInOutput": 272
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/index.js": {
+          "bytesInOutput": 465
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicAnchor.js": {
+          "bytesInOutput": 705
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/dynamicRef.js": {
+          "bytesInOutput": 703
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveAnchor.js": {
+          "bytesInOutput": 272
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/recursiveRef.js": {
+          "bytesInOutput": 185
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/dynamic/index.js": {
+          "bytesInOutput": 173
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/dependentRequired.js": {
+          "bytesInOutput": 219
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/applicator/dependentSchemas.js": {
+          "bytesInOutput": 201
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/validation/limitContains.js": {
+          "bytesInOutput": 299
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/next.js": {
+          "bytesInOutput": 154
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedProperties.js": {
+          "bytesInOutput": 1125
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/unevaluatedItems.js": {
+          "bytesInOutput": 797
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/unevaluated/index.js": {
+          "bytesInOutput": 135
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/format.js": {
+          "bytesInOutput": 1864
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/format/index.js": {
+          "bytesInOutput": 116
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/metadata.js": {
+          "bytesInOutput": 303
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/draft2020.js": {
+          "bytesInOutput": 289
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/types.js": {
+          "bytesInOutput": 176
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/vocabularies/discriminator/index.js": {
+          "bytesInOutput": 2284
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/schema.json": {
+          "bytesInOutput": 1759
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/applicator.json": {
+          "bytesInOutput": 1082
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/unevaluated.json": {
+          "bytesInOutput": 429
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/content.json": {
+          "bytesInOutput": 424
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/core.json": {
+          "bytesInOutput": 993
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/format-annotation.json": {
+          "bytesInOutput": 388
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/meta-data.json": {
+          "bytesInOutput": 537
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/meta/validation.json": {
+          "bytesInOutput": 1548
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/refs/json-schema-2020-12/index.js": {
+          "bytesInOutput": 341
+        },
+        "../../../Users/erik/Projects/umf/node_modules/ajv/dist/2020.js": {
+          "bytesInOutput": 1720
+        },
+        "src/validation/schema.ts": {
+          "bytesInOutput": 1416
+        },
+        "src/registry/registry.ts": {
+          "bytesInOutput": 609
+        },
+        "src/validation/constraint-language.ts": {
+          "bytesInOutput": 3622
+        },
+        "src/validation/constraint-kernel.ts": {
+          "bytesInOutput": 4657
+        },
+        "src/validation/document.ts": {
+          "bytesInOutput": 508
+        },
+        "src/model/document.ts": {
+          "bytesInOutput": 129
+        },
+        "spec/extensions/delta-definition/package.json": {
+          "bytesInOutput": 1520
+        },
+        "spec/extensions/delta/package.json": {
+          "bytesInOutput": 1924
+        },
+        "spec/extensions/delta/datatype-schema.json": {
+          "bytesInOutput": 1196
+        },
+        "src/model/native-json.ts": {
+          "bytesInOutput": 298
+        },
+        "src/adapters/delta/index.ts": {
+          "bytesInOutput": 3675
+        },
+        "src/compilation/bundle/hash.ts": {
+          "bytesInOutput": 2958
+        },
+        "src/adapters/delta/ddl.ts": {
+          "bytesInOutput": 9078
+        },
+        ".cache/sdk-distribution/ashlar-bridge-0.5.6/bridge-entry.ts": {
+          "bytesInOutput": 223
+        }
+      },
+      "imports": [],
+      "exports": [],
+      "entryPoint": ".cache/sdk-distribution/ashlar-bridge-0.5.6/bridge-entry.ts"
+    }
+  }
+}

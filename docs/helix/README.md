@@ -62,10 +62,11 @@ The first local `.4` lifecycle campaign stopped at its first UMF table DDL:
 OSS Delta 4.4.1 rejected the authored `delta.parquet.compression.codec` property
 as an unknown configuration. The registered feed consumer remains at the genesis
 checkpoint; no genesis publication or ACK, seed, or continuation occurred. A
-private UMF source candidate now adds a versioned direct Delta-path DDL
-realization, with focused compiler and adapter checks. It has not been landed
-upstream or executed in Spark. The exact candidate, bundle custody, wheel check,
-and qualification limits are in the [local Delta 4 realization evidence](04-build/evidence/current-upstream-release-20261022/local-delta4-umf-realization-candidate.json).
+public-main-derived UMF 0.5.6 candidate at commit `9a11ae5` now supplies a
+versioned direct Delta-path realization. Ashlar's pinned bridge has been rebuilt
+from that exact candidate, and all six source roles pass focused offline checks;
+no Spark or Delta execution is claimed. See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md)
+and the [historical 0.5.4 candidate receipt](04-build/evidence/current-upstream-release-20261022/local-delta4-umf-realization-candidate.json).
 
 The current configured-local profile is a macOS arm64/Python 3.12 candidate on
 Spark 4.2.0, Delta 4.4.1 and JDK 21. Its bounded evidence includes grouped

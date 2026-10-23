@@ -1,0 +1,16 @@
+import {createHash} from 'node:crypto';
+import {mkdir,readFile} from 'node:fs/promises';
+const out='.cache/sdk-distribution/ashlar-bridge-0.5.6';
+await mkdir(out,{recursive:true});
+const result=await Bun.build({entrypoints:[out+'/bridge-entry.ts'],target:'browser',format:'iife',minify:true,write:false,metafile:true});
+if(!result.success)throw new Error(result.logs.map(x=>x.message).join('\n'));
+const js=result.outputs[0]!;
+const jsBytes=new Uint8Array(await js.arrayBuffer());
+const h=(b:Uint8Array)=>createHash('sha256').update(b).digest('hex');
+await Bun.write(out+'/umf-spark-delta4.iife.js',jsBytes);
+await Bun.write(out+'/metafile.json',JSON.stringify(result.metafile,null,2)+'\n');
+const inputs=[] as {path:string;bytes:number;sha256:string}[];
+for(const [path,meta] of Object.entries(result.metafile!.inputs))inputs.push({path,bytes:meta.bytes,sha256:h(await readFile(path))});
+inputs.sort((a,b)=>a.path.localeCompare(b.path));
+await Bun.write(out+'/build-inputs.json',JSON.stringify({sdkVersion:'0.5.6',sdkCommit:'9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08',command:'bun .cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts',builder:'Bun.build({entrypoints:[out+\'/bridge-entry.ts\'],target:\'browser\',format:\'iife\',minify:true,write:false,metafile:true})',inputs},null,2)+'\n');
+console.log(JSON.stringify({bundleBytes:js.size,bundleSha256:h(jsBytes),metafileSha256:h(await readFile(out+'/metafile.json')),entrySha256:h(await readFile(out+'/bridge-entry.ts')),buildScriptSha256:h(await readFile(out+'/build-bridge.ts')),inputCount:inputs.length},null,2));

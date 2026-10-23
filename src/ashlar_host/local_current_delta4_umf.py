@@ -11,11 +11,11 @@ from .managed_current_carriers import load_current_managed_carriers
 UMF_BRIDGE_RESOURCE = 'local-current-delta4'
 UMF_REALIZATION_PROFILE = 'ashlar-local-current-delta4-umf-realization/0.1'
 LOCAL_TARGET_PROFILE = 'spark-delta4/0.1'
-UMF_CANDIDATE_COMMIT = '05fa35b8413bb4501c4d13761b1dbfc82b114e0b'
-REALIZATION_MANIFEST_SHA256 = '7565f653219ba1e1e452c6d3b586350f1e2ced7950ffc1f0becfa598b79df480'
-BUILD_INPUTS_SHA256 = 'f7ab6c005491e55bc6e755897ffbfed09ff34208a3e083fcc247a7f0ec6da532'
-BRIDGE_SHA256 = '4b7ded0dbd987db07023dff3b71eeb7321b25056c049d7a36ba26c03e09b68fa'
-ROLE_SEMANTICS_SHA256 = 'd8c558802d5efd8fbf5966704a8180ee9e8c26265801a24eed724d36bffdd9a4'
+UMF_CANDIDATE_COMMIT = '9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08'
+REALIZATION_MANIFEST_SHA256 = '6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3'
+BUILD_INPUTS_SHA256 = '9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff'
+BRIDGE_SHA256 = 'b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5'
+ROLE_SEMANTICS_SHA256 = '1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4'
 ROLE_SOURCE_SHA256 = {
     'object_current': '6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771',
     'edge_current': '18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb',
@@ -62,17 +62,17 @@ def _pinned_resources():
     role_semantics = json.loads(semantic_bytes)
     _require(manifest == {
         'bridge': {
-            'arguments': ['bun', '/private/tmp/ashlar-umf-delta4-build/build-ashlar-bridge.ts'],
+            'arguments': ['bun', '.cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts'],
             'asset': 'umf-spark-delta4.iife.js',
             'assetSha256': BRIDGE_SHA256,
             'buildInputsSha256': BUILD_INPUTS_SHA256,
             'builder': 'Bun 1.4.3',
-            'builderScriptSha256': 'cfa745f76716fa7a0c995fde1e1240cc65f77cf33c78b30ff637b42c9d533f66',
+            'builderScriptSha256': 'c0c20bc25b853974843302b9028875a6cb13a13f1223ce6205800a1e97dd50ec',
             'entry': 'bridge-entry.ts',
-            'entrySha256': 'ae1d1f15d82489323e233f1525eaff4bd00aaa8a5ac2d8722c52f897157581e4',
-            'metafileSha256': '291243b574aed1d59231a68ed682d75723df98171468c7289889ba06b0ca849b',
+            'entrySha256': 'd05088842f4c00d21151b1707e74e8477bda54f860940f7996540705140b11c8',
+            'metafileSha256': 'fb2a4ccdb1ecbef7cca7e9fafe4fed68ff4c03b79c4c7791cf4583cf03adaa38',
             'thirdPartyNoticesSha256': _sha(notices),
-            'workingDirectory': '/private/tmp/umf-spark-delta4-ddl-candidate',
+            'workingDirectory': '/private/tmp/umf-public-main-0.5.5',
         },
         'carrierProfile': 'ashlar-delta/0.4-xxhash64',
         'inputs': {
@@ -103,21 +103,38 @@ def _pinned_resources():
             'bunLockSha256': '5fb58795dfe9ef5df89597c44372cf2a0739e1855f322f7622ae0c9d0ac71ce4',
             'candidateCommit': UMF_CANDIDATE_COMMIT,
             'coreVersion': '0.10.0',
-            'release': 'umf-v0.5.4',
+            'release': 'umf-v0.5.6 candidate (unreleased)',
             'sourceModules': {
                 'src/adapters/delta/ddl.ts': '8e4f694b7e3ecbdc0548f06b4db0a67339ea9319d3b70939003d4a0d18856051',
                 'src/model/document.ts': '6ea8f43e4bcd3b5d7259329e6768dd563e066d7169a23bee75e88f054f348ddb',
             },
-            'managedOutputPreserved': 'generateDeltaDDLForProfile(input) exact output remains unchanged',
+            'managedOutputPreserved': 'Not requalified by this Ashlar local-target bridge receipt.',
         },
     }, 'UMF realization manifest does not match this Ashlar implementation')
     _require(_sha(entry_bytes) == manifest['bridge']['entrySha256'],
              'Exact retained UMF bridge build entry required')
-    _require(build_inputs.get('profile') == 'ashlar-umf-delta4-browser-build-inputs/0.1'
-             and build_inputs.get('candidateCommit') == UMF_CANDIDATE_COMMIT
-             and type(build_inputs.get('inputs')) is list and len(build_inputs['inputs']) == 195
-             and re.fullmatch('[0-9a-f]{64}', build_inputs.get('bunLockSha256', '')),
+    inventory = build_inputs.get('inputs')
+    _require(set(build_inputs) == {'sdkVersion', 'sdkCommit', 'command', 'builder', 'inputs'}
+             and build_inputs.get('sdkVersion') == '0.5.6'
+             and build_inputs.get('sdkCommit') == UMF_CANDIDATE_COMMIT
+             and build_inputs.get('command') == 'bun .cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts'
+             and build_inputs.get('builder') == "Bun.build({entrypoints:[out+'/bridge-entry.ts'],target:'browser',format:'iife',minify:true,write:false,metafile:true})"
+             and type(inventory) is list and len(inventory) == 195
+             and all(type(item) is dict and set(item) == {'path', 'bytes', 'sha256'}
+                     and type(item['path']) is str and type(item['bytes']) is int and item['bytes'] > 0
+                     and re.fullmatch('[0-9a-f]{64}', item['sha256']) is not None
+                     for item in inventory),
              'Pinned UMF bridge build-input inventory required')
+    indexed_inputs = {item['path']: item for item in inventory}
+    source_modules = manifest['umf']['sourceModules']
+    _require(len(indexed_inputs) == len(inventory)
+             and all(path in indexed_inputs
+                     and indexed_inputs[path]['sha256'] == digest
+                     for path, digest in source_modules.items())
+             and '.cache/sdk-distribution/ashlar-bridge-0.5.6/bridge-entry.ts' in indexed_inputs
+             and indexed_inputs['.cache/sdk-distribution/ashlar-bridge-0.5.6/bridge-entry.ts']['sha256']
+             == manifest['bridge']['entrySha256'],
+             'UMF source modules and exact bridge entry must be present in the build inventory')
     _require(type(role_semantics) is dict and set(role_semantics) == {
         'candidateCommit', 'profile', 'realizationProfile', 'roles'
     } and role_semantics.get('candidateCommit') == UMF_CANDIDATE_COMMIT
