@@ -55,11 +55,24 @@ CLEANUP_DIAGNOSTICS = "r05-full-cleanup-diagnostics.log"
 SPARK_EVENT_DIR = "spark-events"
 DIAGNOSTICS_BYTES = 32 * 1024 * 1024
 EVENT_LOG_BYTES = 512 * 1024 * 1024
+MAX_EVENT_LINE_BYTES = 256 * 1024
+MAX_EVENT_RECORDS = 1_000_000
+MAX_SQL_EXECUTIONS = 2048
+MAX_SQL_DESCRIPTIONS = 2
+MAX_SQL_DESCRIPTION_BYTES = 512
+MAX_JOBS = 8192
+MAX_STAGES = 2048
+MAX_STAGE_LINKS = 10_000
+MAX_JOB_GROUP_CHARS = 128
 LOCK_FILE = ".ashlar-r05-supervisor.lock"
 _MAX_AUTH_BYTES = 65536
 
 
 class SupervisorRefused(PermissionError):
+    pass
+
+
+class EventLogIncomplete(ValueError):
     pass
 
 
@@ -557,12 +570,17 @@ def _private_file_evidence(path: Path, maximum: int) -> dict:
 
 
 def _spark_event_summary(root: Path) -> dict:
-    """Stream Spark event JSONL into bounded stage aggregates; never retain task rows."""
+    """Stream SQL/job/stage/task lineage into bounded aggregates; never retain task rows."""
     directory = root / SPARK_EVENT_DIR
     totals: dict[str, dict[str, int]] = {}
+    executions: dict[str, dict[str, Any]] = {}
+    jobs: dict[str, dict[str, Any]] = {}
+    stage_links: dict[str, dict[str, set[str]]] = {}
     files = []
     event_hash = hashlib.sha256()
     event_bytes = 0
+    event_records = 0
+    stage_links_count = 0
     try:
         for item in sorted(directory.iterdir()):
             item_stat = item.lstat()
@@ -578,38 +596,182 @@ def _spark_event_summary(root: Path) -> dict:
             event_hash.update(item.name.encode("utf-8") + b"\0")
             with item.open("rb") as stream:
                 for raw_line in stream:
+                    event_records += 1
+                    if len(raw_line) > MAX_EVENT_LINE_BYTES:
+                        raise EventLogIncomplete("event-line-byte-cap-exceeded")
+                    if event_records > MAX_EVENT_RECORDS:
+                        raise EventLogIncomplete("event-record-count-cap-exceeded")
                     event_hash.update(raw_line)
                     event = json.loads(raw_line)
-                    if event.get("Event") != "SparkListenerTaskEnd":
+                    if (type(event) is not dict or type(event.get("Event")) is not str
+                            or not event.get("Event")):
+                        raise ValueError("malformed-event-record")
+                    kind = event["Event"]
+                    if kind.endswith("SparkListenerSQLExecutionStart"):
+                        execution_id = event.get("executionId")
+                        if (type(execution_id) is not int or execution_id < 0
+                                or execution_id > 2**63 - 1):
+                            raise ValueError("malformed-sql-execution-id")
+                        root_execution_id = event.get("rootExecutionId")
+                        if (root_execution_id is not None and (type(root_execution_id) is not int
+                                or root_execution_id < 0 or root_execution_id > 2**63 - 1)):
+                            raise ValueError("malformed-root-sql-execution-id")
+                        description = event.get("description", "")
+                        if (type(description) is not str
+                                or len(description.encode("utf-8")) > MAX_SQL_DESCRIPTION_BYTES):
+                            raise EventLogIncomplete("sql-description-byte-cap-exceeded")
+                        if str(execution_id) not in executions and len(executions) >= MAX_SQL_EXECUTIONS:
+                            raise EventLogIncomplete("sql-execution-count-cap-exceeded")
+                        execution = executions.setdefault(str(execution_id), {
+                                "executionId": int(execution_id),
+                                "rootExecutionId": root_execution_id,
+                                "descriptions": set(), "jobIds": set(),
+                                "stageIds": set(), "phaseNames": set(),
+                            })
+                        if description not in execution["descriptions"]:
+                            if len(execution["descriptions"]) >= MAX_SQL_DESCRIPTIONS:
+                                raise EventLogIncomplete("sql-description-count-cap-exceeded")
+                            execution["descriptions"].add(description)
+                    elif kind.endswith("SparkListenerJobStart"):
+                        job_id = event.get("Job ID")
+                        if type(job_id) is not int or job_id < 0 or job_id > 2**31 - 1:
+                            raise ValueError("malformed-job-id")
+                        if str(job_id) not in jobs and len(jobs) >= MAX_JOBS:
+                            raise EventLogIncomplete("job-count-cap-exceeded")
+                        props = event.get("Properties")
+                        if type(props) is not dict:
+                            raise ValueError("malformed-job-properties")
+                        execution_id = props.get("spark.sql.execution.id")
+                        group_id = props.get("spark.jobGroup.id")
+                        if execution_id is not None and (type(execution_id) not in (str, int)
+                                or not str(execution_id).isdigit()):
+                            raise ValueError("malformed-job-sql-execution-id")
+                        if group_id is not None and (type(group_id) is not str
+                                or len(group_id.encode("utf-8")) > MAX_JOB_GROUP_CHARS):
+                            raise EventLogIncomplete("job-group-id-byte-cap-exceeded")
+                        phase = _phase_from_job_group(group_id)
+                        infos = event.get("Stage Infos")
+                        if type(infos) is not list:
+                            raise ValueError("malformed-job-stage-list")
+                        stage_ids = []
+                        for info in infos:
+                            if type(info) is not dict or type(info.get("Stage ID")) is not int:
+                                raise ValueError("malformed-job-stage-info")
+                            stage_id = info["Stage ID"]
+                            if stage_id < 0 or stage_id > 2**31 - 1:
+                                raise ValueError("malformed-job-stage-id")
+                            stage_ids.append(stage_id)
+                        stage_links_count += len(stage_ids)
+                        if stage_links_count > MAX_STAGE_LINKS:
+                            raise EventLogIncomplete("stage-link-count-cap-exceeded")
+                        if any(str(stage) not in stage_links for stage in stage_ids):
+                            new_stages = sum(1 for stage in stage_ids if str(stage) not in stage_links)
+                            if len(stage_links) + new_stages > MAX_STAGES:
+                                raise EventLogIncomplete("stage-count-cap-exceeded")
+                        job = {"jobId": str(job_id),
+                               "executionId": str(execution_id) if execution_id is not None else None,
+                               "phase": phase, "stageIds": stage_ids}
+                        jobs[str(job_id)] = job
+                        for stage_id in stage_ids:
+                            link = stage_links.setdefault(str(stage_id), {
+                                "jobIds": set(), "executionIds": set(), "phaseNames": set()})
+                            link["jobIds"].add(str(job_id))
+                            if execution_id is not None:
+                                link["executionIds"].add(str(execution_id))
+                            if phase is not None:
+                                link["phaseNames"].add(phase)
+                        if execution_id is not None and str(execution_id) in executions:
+                            execution = executions[str(execution_id)]
+                            execution["jobIds"].add(str(job_id))
+                            execution["stageIds"].update(str(stage) for stage in stage_ids)
+                            if phase:
+                                execution["phaseNames"].add(phase)
+                    elif kind.endswith("SparkListenerTaskEnd"):
+                        stage = event.get("Stage ID")
+                        if type(stage) is not int:
+                            raise ValueError("malformed-task-stage-id")
+                        if stage < 0 or stage > 2**31 - 1:
+                            raise ValueError("malformed-task-stage-id")
+                        metrics = event.get("Task Metrics") or {}
+                        if type(metrics) is not dict:
+                            raise ValueError("malformed-task-metrics")
+                        for metrics_key in ("Input Metrics", "Shuffle Read Metrics", "Shuffle Write Metrics"):
+                            if metrics.get(metrics_key) is not None and type(metrics[metrics_key]) is not dict:
+                                raise ValueError("malformed-task-metric-subobject")
+                        if str(stage) not in totals and len(totals) >= MAX_STAGES:
+                            raise EventLogIncomplete("task-stage-count-cap-exceeded")
+                        row = totals.setdefault(str(stage), {
+                            "tasks": 0, "executorRunTimeMs": 0, "executorCpuTimeNs": 0,
+                            "jvmGcTimeMs": 0, "inputBytes": 0, "shuffleReadBytes": 0,
+                            "shuffleWriteBytes": 0, "memorySpillBytes": 0, "diskSpillBytes": 0,
+                        })
+                        row["tasks"] += 1
+                        row["executorRunTimeMs"] += int(metrics.get("Executor Run Time", 0) or 0)
+                        row["executorCpuTimeNs"] += int(metrics.get("Executor CPU Time", 0) or 0)
+                        row["jvmGcTimeMs"] += int(metrics.get("JVM GC Time", 0) or 0)
+                        row["inputBytes"] += int((metrics.get("Input Metrics") or {}).get("Bytes Read", 0) or 0)
+                        read = metrics.get("Shuffle Read Metrics") or {}
+                        row["shuffleReadBytes"] += int(read.get("Remote Bytes Read", 0) or 0) + int(read.get("Local Bytes Read", 0) or 0)
+                        write = metrics.get("Shuffle Write Metrics") or {}
+                        row["shuffleWriteBytes"] += int(write.get("Shuffle Bytes Written", 0) or 0)
+                        row["memorySpillBytes"] += int(metrics.get("Memory Bytes Spilled", 0) or 0)
+                        row["diskSpillBytes"] += int(metrics.get("Disk Bytes Spilled", 0) or 0)
+                    else:
                         continue
-                    stage = event.get("Stage ID")
-                    metrics = event.get("Task Metrics") or {}
-                    if type(stage) is not int:
-                        continue
-                    row = totals.setdefault(str(stage), {
-                        "tasks": 0, "executorRunTimeMs": 0, "executorCpuTimeNs": 0,
-                        "jvmGcTimeMs": 0, "inputBytes": 0, "shuffleReadBytes": 0,
-                        "shuffleWriteBytes": 0, "memorySpillBytes": 0, "diskSpillBytes": 0,
-                    })
-                    row["tasks"] += 1
-                    row["executorRunTimeMs"] += int(metrics.get("Executor Run Time", 0) or 0)
-                    row["executorCpuTimeNs"] += int(metrics.get("Executor CPU Time", 0) or 0)
-                    row["jvmGcTimeMs"] += int(metrics.get("JVM GC Time", 0) or 0)
-                    row["inputBytes"] += int((metrics.get("Input Metrics") or {}).get("Bytes Read", 0) or 0)
-                    read = metrics.get("Shuffle Read Metrics") or {}
-                    row["shuffleReadBytes"] += int(read.get("Remote Bytes Read", 0) or 0) + int(read.get("Local Bytes Read", 0) or 0)
-                    write = metrics.get("Shuffle Write Metrics") or {}
-                    row["shuffleWriteBytes"] += int(write.get("Shuffle Bytes Written", 0) or 0)
-                    row["memorySpillBytes"] += int(metrics.get("Memory Bytes Spilled", 0) or 0)
-                    row["diskSpillBytes"] += int(metrics.get("Disk Bytes Spilled", 0) or 0)
-        return {"status": "parsed", "files": len(files), "eventLogBytes": event_bytes,
-                "eventLogSha256": event_hash.hexdigest(), "stages": [
-            {"stageId": int(stage), **totals[stage]} for stage in sorted(totals, key=int)]}
+        for job in jobs.values():
+            execution_id = job["executionId"]
+            if execution_id is not None and execution_id in executions:
+                execution = executions[execution_id]
+                execution["jobIds"].add(job["jobId"])
+                execution["stageIds"].update(str(stage) for stage in job["stageIds"])
+                if job["phase"]:
+                    execution["phaseNames"].add(job["phase"])
+        stage_rows = []
+        for stage in sorted(totals, key=int):
+            links = stage_links.get(stage, {"jobIds": set(), "executionIds": set(), "phaseNames": set()})
+            stage_rows.append({"stageId": int(stage), **totals[stage],
+                               "jobIds": sorted(links["jobIds"], key=int),
+                               "sqlExecutionIds": sorted(links["executionIds"], key=int),
+                               "phaseNames": sorted(links["phaseNames"])})
+        sql_rows = []
+        for execution in sorted(executions.values(), key=lambda item: item["executionId"]):
+            sql_rows.append({**execution,
+                             "descriptions": sorted(execution["descriptions"]),
+                             "jobIds": sorted(execution["jobIds"], key=int),
+                             "stageIds": sorted(execution["stageIds"], key=int),
+                             "phaseNames": sorted(execution["phaseNames"])})
+        untagged_jobs = sum(1 for job in jobs.values() if job["phase"] is None)
+        unmapped_task_stages = sum(
+            1 for stage in totals
+            if len(stage_links.get(stage, {}).get("phaseNames", set())) != 1)
+        return {"status": "parsed", "files": len(files), "eventRecords": event_records,
+                "eventLogBytes": event_bytes,
+                "eventLogSha256": event_hash.hexdigest(), "sqlExecutions": sql_rows,
+                "jobs": len(jobs), "untaggedJobs": untagged_jobs,
+                "unmappedTaskStages": unmapped_task_stages,
+                "stagePhaseAttribution": "complete" if totals and jobs
+                and untagged_jobs == 0 and unmapped_task_stages == 0 else "incomplete",
+                "stages": stage_rows}
     except FileNotFoundError as error:
         return {"status": "incomplete", "reason": "event-log-file-disappeared",
                 "eventLogBytes": event_bytes, "stages": []}
+    except EventLogIncomplete as error:
+        return {"status": "incomplete", "reason": str(error),
+                "eventLogBytes": event_bytes, "eventRecords": event_records,
+                "stages": []}
     except (OSError, UnicodeError, json.JSONDecodeError, TypeError, ValueError):
         return {"status": "parse-failed", "eventLogBytes": event_bytes, "stages": []}
+
+
+def _phase_from_job_group(group_id: Any) -> str | None:
+    if type(group_id) is not str:
+        return None
+    for phase in PHASE_SECONDS:
+        prefix = f"r05-full-{phase}-"
+        suffix = group_id.removeprefix(prefix) if group_id.startswith(prefix) else ""
+        if suffix.isdigit():
+            return phase
+    return None
 
 
 def _read_json(path: Path, maximum: int = 8 * 1024 * 1024) -> Any:

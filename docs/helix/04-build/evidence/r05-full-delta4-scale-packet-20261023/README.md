@@ -167,10 +167,20 @@ enforcement or a production multiplicity claim.
   repository-wide slot-lock protocol is
   established, so this remains a deployment precondition. No owner authorization
   artifact exists.
-- The candidate event-log parser has not yet been exercised against a real
-  Spark event log. It records task sums by stage ID, but does not map SQL
-  execution IDs to stages or attribute those sums to individual scan phases;
-  review the metrics contract before treating the receipt as complete.
+- The candidate event-log parser has not yet been exercised against a full R05
+  event log. The retained edge-write log confirms SQL execution IDs map to jobs
+  through `spark.sql.execution.id`, then to stage IDs through each job's stage
+  list. The candidate parser maps stages to the phase-named
+  `spark.jobGroup.id` set by the worker; it marks attribution incomplete if a
+  job group is absent or a task stage is ambiguous. In the retained attempt-03
+  event stream all 7 job records lack `spark.jobGroup.id`, so the parser reports
+  phase attribution incomplete there. The sample predates worker phase groups;
+  propagation from this worker is not yet confirmed on the selected runtime.
+  The parser also bounds each JSONL record to 256 KiB, the stream to 1M events,
+  SQL descriptions to 512 bytes, and SQL/job/stage/link counts; limit overflow
+  is explicitly incomplete, and zero task-stage records cannot pass. SQL
+  execution IDs/descriptions and task sums are recorded, but no per-scan
+  physical operator attribution is claimed.
 
 Related governing evidence: [R05 budget and gates](../r05-end-to-end-budget-design-20261023/README.md),
 [storage throughput reassessment](../r05-storage-throughput-reassessment-20261023/README.md),
@@ -201,8 +211,9 @@ established. The supervisor now captures capped private child diagnostics
 aggregate cap); after child exit it records a compact per-stage sum of task
 wall/CPU time, GC, input bytes, shuffle bytes, and spills, plus event-log size
 and digest. These are proposed capture paths only: no event log has been
-produced or validated on this runtime, and SQL-to-stage linkage, row-level
-attribution, and per-stage scan attribution remain open. The synthetic
+produced for the full attempt. SQL-to-stage lineage exists in the retained
+edge-write log, but phase-group propagation is not yet confirmed on this
+runtime. Row-level and per-operator scan attribution remain open. The synthetic
 identity derivation follows TD-008 and does not establish production publisher
 enforcement. The selected write-only estimate remains 990.050 seconds / 16.50
 minutes, above the 15-minute review trigger; full execution remains held for
