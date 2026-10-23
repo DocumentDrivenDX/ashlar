@@ -16,6 +16,10 @@ from ashlar_host.managed_current_core import ROLES
 from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
 )
+from ashlar_host.managed_current_spark_source_oracle import (
+    build_managed_current_prefix_oracle, compare_complete_managed_current_bags,
+)
+from ashlar_host.truss_note_publication import graph_expected_rows
 from test_managed_current_receipt_read import _fixture, _canonical
 
 
@@ -119,6 +123,29 @@ def _spark_config(config):
 def _fixture_request_for_attempt(manifest, receipt):
     request, _, _, _, _ = _fixture()
     return request
+
+
+def _empty_current_source_prefix():
+    from test_managed_current_core import _config, _current_admission
+    from ashlar_host.managed_current_core import bind_current_core
+    from ashlar_host.publication_planning import truss_request_for
+
+    config, admission = _config(), _current_admission()
+    revisions = {revision: hashlib.sha256(selected["report"]).hexdigest()
+                 for revision, selected in admission.revisions.items()}
+    request = truss_request_for(admission.batch.feed, admission.batch,
+        "managed-current-genesis/0.1", revisions)
+    bundle = bind_current_core(admission, config)
+    checkpoint = json.loads(request["source_checkpoint_json"])
+    prefix = {"profile": "ashlar-managed-current-source-prefix/0.1",
+        "carrierProfile": config.carrier_profile,
+        "destination": {"catalog": config.catalog, "schema": config.schema},
+        "scheduleSha256": "a" * 64, "scheduleStep": 1,
+        "entries": [{"bundleJson": _canonical(bundle), "requestJson": _canonical(request),
+                     "materializationClockUs": "1792756800123456"}],
+        "progress": {checkpoint["feed"]: checkpoint}}
+    data = _canonical(prefix).encode()
+    return config, prefix, data
 
 
 def _attempt_rows(request, manifest):
@@ -247,6 +274,97 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
                             (prefix, {"stream": "s"})):
             with self.subTest(sql=sql, params=params), self.assertRaises(ValueError):
                 self.reader.executor.query(sql, params)
+
+    def test_current_empty_source_prefix_restores_and_freezes_all_four_bags(self):
+        config, prefix, data = _empty_current_source_prefix()
+        oracle = build_managed_current_prefix_oracle(data,
+            prefix_sha256=hashlib.sha256(data).hexdigest(), config=config)
+        self.assertEqual(oracle.prefix_sha256, hashlib.sha256(data).hexdigest())
+        self.assertEqual(oracle.final_request, json.loads(prefix["entries"][0]["requestJson"]))
+        self.assertEqual(oracle.progress, prefix["progress"])
+        self.assertEqual({role: rows for role, rows in oracle.expected_rows.items()},
+                         {role: [] for role in ("object_current", "edge_current", "tombstone",
+                                                "whole_source_history")})
+        changed = copy.deepcopy(prefix)
+        changed["progress"] = {}
+        forged = _canonical(changed).encode()
+        with self.assertRaisesRegex(ValueError, "encountered-feed progress"):
+            build_managed_current_prefix_oracle(forged,
+                prefix_sha256=hashlib.sha256(forged).hexdigest(), config=config)
+        with self.assertRaisesRegex(ValueError, "pinned bounded source-prefix bytes"):
+            build_managed_current_prefix_oracle(data,
+                prefix_sha256="0" * 64, config=config)
+        changed_schedule = copy.deepcopy(prefix)
+        changed_schedule["scheduleStep"] = 2
+        raw = _canonical(changed_schedule).encode()
+        with self.assertRaises(ValueError):
+            build_managed_current_prefix_oracle(raw,
+                prefix_sha256=hashlib.sha256(raw).hexdigest(), config=config)
+        from ashlar.attempt_store import verify_request_digest
+        forged = copy.deepcopy(prefix)
+        request = json.loads(forged["entries"][0]["requestJson"])
+        request["schema_revisions_json"] = _canonical({"forged": "0" * 64})
+        unsigned = dict(request); unsigned.pop("request_digest")
+        request["request_digest"] = hashlib.sha256(_canonical(unsigned).encode()).hexdigest()
+        verify_request_digest(request)
+        forged["entries"][0]["requestJson"] = _canonical(request)
+        raw = _canonical(forged).encode()
+        with self.assertRaisesRegex(ValueError, "schema revisions must bind"):
+            build_managed_current_prefix_oracle(raw,
+                prefix_sha256=hashlib.sha256(raw).hexdigest(), config=config)
+
+    def test_source_prefix_rejects_duplicate_keys_bad_clock_unknown_entry_and_forged_bundle(self):
+        config, prefix, data = _empty_current_source_prefix()
+        for label, change in (
+            ("clock", lambda item: item["entries"][0].__setitem__("materializationClockUs", "01")),
+            ("entry key", lambda item: item["entries"][0].__setitem__("unknown", "value")),
+            ("bundle", lambda item: item["entries"][0].__setitem__("bundleJson", "{}")),
+        ):
+            with self.subTest(label=label):
+                altered = copy.deepcopy(prefix); change(altered)
+                raw = _canonical(altered).encode()
+                with self.assertRaises(ValueError):
+                    build_managed_current_prefix_oracle(raw,
+                        prefix_sha256=hashlib.sha256(raw).hexdigest(), config=config)
+        duplicate = data.replace(b'"profile":"ashlar-managed-current-source-prefix/0.1"',
+                                 b'"profile":"ashlar-managed-current-source-prefix/0.1",'
+                                 b'"profile":"ashlar-managed-current-source-prefix/0.1"')
+        with self.assertRaisesRegex(ValueError, "Invalid retained JSON"):
+            build_managed_current_prefix_oracle(duplicate,
+                prefix_sha256=hashlib.sha256(duplicate).hexdigest(), config=config)
+
+    def test_authored_historical_page_projects_nonempty_bags_offline_only(self):
+        from ashlar.apply import empty_state, plan_apply
+        from ashlar_host.resources import RESOURCE_ROOT
+        from ashlar_host.schema_rows import fixture_columns
+        from ashlar_host.truss_graph_admission import TrussGraphAdmission
+        from test_truss_graph_admission import Tests as AuthoredFixture
+
+        batch, catalog_views = AuthoredFixture().original()
+        admission = TrussGraphAdmission(batch, catalog_views)
+        state = plan_apply(empty_state(), admission.changes, schema_policy=admission.admit,
+                           schema_transition_policy=admission.admit_transition)
+        columns = fixture_columns(RESOURCE_ROOT)
+        bags = graph_expected_rows({role: [] for role in columns}, state, admission.changes,
+            batch, columns, "2026-10-23T12:00:00.000000+00:00", admission.parsed.event_bytes,
+            admission.parsed.edge_order_keys)
+        # This deliberately historical authored fixture tests the shared source
+        # projection only; it is not admitted as a current Truss source bundle.
+        self.assertEqual((len(bags["object_current"]), len(bags["edge_current"]),
+                          len(bags["whole_source_history"])), (2, 1, 3))
+        from ashlar_host.managed_current_core import CARRIER_PROFILE_LEGACY
+        self.assertRegex(compare_complete_managed_current_bags(
+            bags, bags, carrier_profile=CARRIER_PROFILE_LEGACY), r"^[0-9a-f]{64}$")
+        changed = copy.deepcopy(bags)
+        changed["object_current"].append(copy.deepcopy(changed["object_current"][0]))
+        with self.assertRaisesRegex(ValueError, "bag differs"):
+            compare_complete_managed_current_bags(
+                bags, changed, carrier_profile=CARRIER_PROFILE_LEGACY)
+        oversized = {role: [] for role in bags}
+        oversized["object_current"] = bags["object_current"] * 1025
+        with self.assertRaisesRegex(ValueError, "exceeds bounded inputs"):
+            compare_complete_managed_current_bags(
+                oversized, bags, carrier_profile=CARRIER_PROFILE_LEGACY)
 
     def test_rejects_bool_or_float_as_native_version(self):
         for value in (True, 1.0, -1, 2**63):

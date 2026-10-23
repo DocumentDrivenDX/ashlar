@@ -162,8 +162,19 @@ zero automatic retries, cluster termination and owned-schema cleanup reserve.
 Estimate the entire pilot and already incurred campaign spend conservatively,
 including a live ACK read interval; if a dependable bound is unavailable or
 cannot cover the ceiling, do not launch. The old serverless $0.47/DBU observation
-and assumed 120 DBU/hour cannot price this proposed cluster. No new numeric
-estimate is asserted here.
+and assumed 120 DBU/hour cannot price this proposed cluster.
+
+The [2026-10-23 retail observation](../../04-build/evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
+verifies this exact workspace as Central US/Premium and records public USD rates
+of $0.255 per Linux on-demand D4ds_v5 VM-hour and $0.30 per Premium Jobs DBU-hour.
+Actual node DBU consumption remains unobserved. Conditional on at most 2 DBU/hour,
+one node costs $0.855/hour before ancillary charges. An assumed 35-minute whole
+slot gives $0.50 A1 compute or $3.99 for eight slots; adding an assumed $5 or $20
+campaign ancillary/cleanup reserve gives $8.99 or $23.99 for eight slots. These
+thresholds, durations and reserves are assumptions, not measured consumption,
+provider termination guarantees, account invoice rates, cost admission or launch
+approval. Include the live ACK interval and preserve predictive optimization;
+its background meter and all residual charges must fit the selected reserve.
 
 After A1, retain terminal receipts, actual elapsed times and fresh usage where
 available; conservatively cover delayed billing and seven remaining slots before
@@ -308,3 +319,122 @@ malformed foreign scope; 161-row refusal and byte overflow; UUID/protocol drift
 around the attempt read; and timeout/closing failure. Run changed Spark and scoped
 phase tests plus unchanged SQL receipt tests. Complete oracle bags, semantic
 plan/effect proof, native terminal handles and live source/read pins remain gates.
+
+### Complete source-derived four-role oracle increment
+
+For bounded A1, accept an externally frozen prefix document and separately selected
+SHA-256 before destination reads. It retains ordered original source bundles/pages,
+each exact original request and original materialization microsecond clock, physical
+profile and destination, global schedule digest/slot, and complete expected progress
+map. Start at empty graph/progress; a nonempty predecessor requires its complete
+source prefix in this document, not destination rows or publisher expectedRows.
+Bound the document to 4 MiB, eight pages, 1,000 admitted events and 1,024 total
+expected rows across four roles. Reject duplicate JSON members, unknown keys,
+nonfinite/overflow values, wrong schedule/request/source/destination digests,
+missing predecessor pages and noncontiguous source checkpoints. Preserve original
+bundle and request bytes; canonical document hashing must not rewrite them.
+
+Reconstruct each actual Truss page with
+`restore_managed_current_admission(bundle, managed_core_config)` and compare its
+request/checkpoint/schema/source identity to the frozen entry. This function
+rechecks original public catalog/report/model/page bytes without acquiring live
+source authority. Fold admitted changes from empty source-derived state using
+portable apply semantics; pass that state, original changes/event bytes,
+`edge_order_keys` and exact original UTC clock to `graph_expected_rows`. Reuse
+that independent source-image projection, never `graph_sql_plan`, publisher
+expectedRows or a prior destination snapshot. Compare the full progress vector
+to the target manifest, including unchanged sources; the final frozen request
+must equal the independently reopened committed request. Source/image projection
+and native target observation remain separate responsibilities.
+
+For `.4`, derive each source-qualified surviving object's/edge's lookup expectation
+from those admitted identities with an explicit bounded parameter-only native
+query: `SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),CAST(:id AS
+BIGINT)) AS lookup_hash`. Validate input signed64 identity tokens before query,
+require exactly one non-Boolean signed64 result, and bind all three parameters.
+The query reads no destination table and imports no publisher. Freeze the complete
+source-derived identity set before these native hash observations; reject missing,
+extra or duplicate hash mappings. The existing `_native_xxhash64` shows the exact
+Spark typed-key semantics, but its direct session/collection path must not bypass
+this owner's fixed SQL/row/byte/deadline budget. Do not implement an assumed Python
+hash equivalence. Bound distinct native hash probes explicitly to 32 for this
+small pilot, or refuse before any probe; reserve remaining statement/closing budget
+before execution. This subset does not qualify a larger-prefix hash workload.
+
+Read each exact four-role manifest UUID/version with native identity/protocol
+bookends, complete explicit carrier column projections and `VERSION AS OF` literal
+from the admitted vector. Project TIMESTAMP through `unix_micros` to canonical
+microsecond text and preserve all other declared types; normalize BIGINT exactly
+into the oracle's decimal-text comparison carrier, retaining opaque JSON/raw
+strings byte-for-byte. Capture at most 1,025 rows per role and reject the sentinel;
+also enforce 1,024 total rows and 4 MiB total normalized capture across four roles.
+Compare complete multisets, so row reorder is immaterial while duplicates,
+parallel edges, extra/missing history and exact token changes refuse. No count or
+digest-only comparison supplies completeness. Renew complete installation/runtime
+and run substantive closing before any successful observation can be released.
+The observation remains offline and carries no ACK/backend capability.
+
+Authored offline fixtures may exercise nonempty Truss-shaped pages through the
+same public admission seam, but must be labeled authored fixtures, never retained
+real Truss acceptance evidence. Focus tests on `.4` typed source-qualified hash
+queries, overlapping local IDs, exact large integers/decimal tokens, absent/null,
+parallel edges, create/update/delete/history/tombstone bags, zero-effect page,
+wrong prefix/schedule/request/progress anchors, malformed source bytes, changed
+hash mapping, row reordering versus multiplicity changes, overflow/byte limits and
+closing refusal. Existing real empty prerequisite-page evidence stays empty; no
+new acceptance, native UC support or live source/ACK authority is claimed.
+
+Timestamp admission for this increment MUST require an explicit UTC
+`spark.sql.session.timeZone` observation at opening/renewal/closing. Actual table
+TIMESTAMP values MUST be projected as `CAST(unix_micros(published_at) AS STRING)`;
+never interpret a naive Python datetime in the machine timezone. Construct oracle
+materialization timestamps from the frozen signed64 microsecond token using exact
+UTC integer arithmetic, retaining all six fractional digits. Unsupported ranges or
+changed session timezone refuse. The authored fixture in
+`test_truss_graph_admission.Tests.original()` can supply a clearly named offline
+adapter test (two objects/one edge); it is not evidence of current accepted Truss.
+Full current-bundle reconstruction remains separately tested against the retained
+empty prerequisite fixture, without inventing nonempty accepted-source evidence.
+
+The closed candidate prefix carrier is proposed in CONTRACT-003. Implement a pure
+host helper `build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256,
+config, lookup_hashes=None)` that restores each current source bundle and returns
+bounded immutable comparison bags plus original source/request/progress anchors.
+For `.4`, expose the complete source-derived key set first, then require an exact
+mapping from the owner's bounded native probes before final bag construction;
+no fallback to SHA-256. Keep an explicitly separate authored-fixture fold helper
+for nonempty historical admissions. That helper shares only the source-image fold
+and is never accepted by current prefix admission or campaign configuration.
+Current empty-bundle tests exercise actual carrier restoration; nonempty authored
+fixture tests exercise projector/value/multiplicity semantics without asserting
+current-bundle acceptance. Add native versioned capture/comparison on the existing
+internal no-ACK Spark owner only after those two source boundaries remain distinct.
+
+The current-prefix helper derives each entry's global step as its one-based
+ordinal and requires `len(entries)==scheduleStep` in 1..8. Validate each original
+bundle/request against that ordinal and the common frozen schedule digest; never
+pass the final scheduleStep to earlier entries. Only complete global prefixes
+from genesis are selected. Tests must cover A1/B1/A2 ordinals and reject gaps,
+reorder, repetition and a final-step/length mismatch without weakening per-feed
+checkpoint continuity or unchanged progress-vector preservation.
+
+The reduced offline prefix helper establishes correspondence to the externally
+selected exact prefix bytes. `_managed_source_identity` receives schedule anchors;
+it does not inspect original semantic schedule bytes. Likewise reconstructing a
+request with its own predecessor value does not prove the global predecessor
+publication chain. Do not claim either proof from ordinal labels or per-feed
+continuity. Until original schedule/slot assignment and each prior publication ID
+are independently bound and compared to the next request predecessor, full
+campaign prefix admission remains unavailable. The helper may still compute exact
+source-derived bags for its frozen inputs and report these unproved anchors
+explicitly, with no ACK or campaign authority.
+
+The current reduced helper starts an empty progress map and reconstructs only
+feeds actually encountered in its supplied pages. This is not the complete R04
+A/B campaign vector at A1: B's independently established genesis/checkpoint must
+remain represented even before B1. Full campaign parity therefore additionally
+requires an independently frozen initial A/B progress map bound to both actual
+source registrations and genesis cursors, preserving unchanged entries while
+folding pages. The present carrier/helper must not fabricate B or claim this
+full-vector gate complete. A future reviewed carrier amendment must supply that
+initial custody explicitly before campaign integration.

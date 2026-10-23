@@ -1832,3 +1832,37 @@ carriers, without floating or timezone-dependent narrowing. Opaque request,
 manifest, source and payload text MUST retain exact bytes. Unknown representations,
 precision loss or capacity overflow MUST refuse. This proposal creates no new
 carrier schema, changes no UMF interpretation and qualifies no native runtime.
+
+### Draft frozen source-prefix oracle carrier (TD-009)
+
+Proposed `ashlar-managed-current-source-prefix/0.1` is a closed offline carrier
+with exactly `profile`, `carrierProfile`, `destination`, `scheduleSha256`,
+`scheduleStep`, `entries` and `progress`. `destination` has exactly `catalog` and
+`schema`; `progress` is source-fold progress for encountered feeds only. Each ordered
+entry has exactly `bundleJson`, `requestJson` and `materializationClockUs`, all
+original nonempty text. Bundles MUST use current-core restore admission; historical
+nonempty authored fixtures MUST NOT be admitted under this carrier. The separately
+supplied SHA-256 binds exact UTF-8 carrier bytes. Duplicate/unknown members,
+noncanonical integer clock tokens, unsupported profile, changed bytes/digest,
+request/checkpoint/progress mismatch and bounded-capacity overflow MUST refuse.
+`entries` contains one through eight pages, at most 1,000 events cumulatively,
+and at most 4 MiB original carrier bytes. Source-derived expected bags are bounded
+to 1,024 total rows; actual capture and typed-hash limits follow TD-009. Frozen
+clock text is canonical signed64 epoch microseconds; timestamp admission also
+requires supported exact UTC range. This proposed carrier conveys correspondence,
+not live source acceptance, source/ACK permission, native effects or retention.
+
+This carrier is a complete global prefix from genesis: `scheduleStep` MUST be a
+non-Boolean integer from 1 through 8 and MUST equal `len(entries)`. Entry ordinal
+one through n is its global schedule step; each entry's source bundle/request
+MUST bind that ordinal under the same schedule digest. No omitted, repeated or
+reordered global slot is permitted. The final entry MUST bind `scheduleStep` and
+the publication's original request. A partial prefix or an extra prerequisite
+page outside the frozen schedule needs a different reviewed carrier; this profile
+MUST NOT guess missing step identities or reuse the final step for earlier pages.
+
+This reduced carrier cannot establish the complete R04 A/B vector at A1. That
+requires a future reviewed initialProgress/registry-bound profile or amendment
+retaining both independently established genesis/checkpoint entries, including
+unchanged B before B1. No missing feed may be fabricated or treated as a complete
+campaign vector by this carrier.

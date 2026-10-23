@@ -380,3 +380,12 @@ UC-capable runtime/access-mode admission and actual Jobs/VM/startup/idle/cleanup
 rates remain prerequisites. Prefer total cost below $10 under the hard $100 trial
 ceiling; no estimate or single-node selection guarantees that bound. No compute,
 source mutation, ACK or new qualification follows from this proposal.
+
+The [fixed-Jobs retail observation](evidence/current-upstream-release-20261023/managed-fixed-jobs-retail-observation.json)
+verifies Central US/Premium, $0.255 per Linux D4ds_v5 VM-hour and $0.30 per
+Premium Jobs DBU-hour. The actual node DBU/hour meter remains open. At an assumed
+maximum 2 DBU/hour and 35 minutes per complete slot, eight slots cost $3.99 in
+compute; assumed campaign ancillary/cleanup reserves of $5 or $20 give $8.99 or
+$23.99. These are conditional planning estimates, not actual usage, admitted
+budget or launch approval. Resolve effective predictive optimization, residual
+meters, live ACK time and terminal cleanup before admitting either envelope.

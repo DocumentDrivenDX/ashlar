@@ -1,0 +1,126 @@
+{
+  "profile": "ashlar-managed-fixed-jobs-retail-observation/0.1",
+  "observation_started_at_utc": "2026-10-23T13:55:31.684924+00:00",
+  "observation_completed_at_utc": "2026-10-23T13:55:36.504986+00:00",
+  "workspace_metadata": {
+    "method": "Azure CLI az databricks workspace list across enabled accessible subscriptions, filtered to exact workspaceUrl; identifiers and credentials omitted",
+    "enabled_subscription_count": 6,
+    "exact_match_count": 1,
+    "selected": {
+      "location": "centralus",
+      "sku": "premium",
+      "workspaceUrl": "adb-7405607548213398.18.azuredatabricks.net"
+    }
+  },
+  "retail_queries": [
+    {
+      "query_url": "https://prices.azure.com/api/retail/prices?%24filter=armRegionName+eq+%27centralus%27+and+armSkuName+eq+%27Standard_D4ds_v5%27+and+priceType+eq+%27Consumption%27",
+      "query_started_at_utc": "2026-10-23T13:55:33.163748+00:00",
+      "query_completed_at_utc": "2026-10-23T13:55:33.325421+00:00",
+      "returned_item_count": 7,
+      "next_page_link": null,
+      "selected_item": {
+        "currencyCode": "USD",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.255,
+        "unitPrice": 0.255,
+        "armRegionName": "centralus",
+        "location": "US Central",
+        "effectiveStartDate": "2021-11-01T00:00:00Z",
+        "meterId": "d7fc46a0-4348-5011-a97f-24664199c002",
+        "meterName": "D4ds v5",
+        "productId": "DZH318Z08MC6",
+        "skuId": "DZH318Z08MC6/000D",
+        "productName": "Virtual Machines Ddsv5 Series",
+        "skuName": "Standard_D4ds_v5",
+        "serviceName": "Virtual Machines",
+        "serviceId": "DZH313Z7MMC8",
+        "serviceFamily": "Compute",
+        "unitOfMeasure": "1 Hour",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": true,
+        "armSkuName": "Standard_D4ds_v5"
+      }
+    },
+    {
+      "query_url": "https://prices.azure.com/api/retail/prices?%24filter=armRegionName+eq+%27centralus%27+and+serviceName+eq+%27Azure+Databricks%27+and+priceType+eq+%27Consumption%27",
+      "query_started_at_utc": "2026-10-23T13:55:33.325450+00:00",
+      "query_completed_at_utc": "2026-10-23T13:55:36.504978+00:00",
+      "returned_item_count": 43,
+      "next_page_link": null,
+      "selected_item": {
+        "currencyCode": "USD",
+        "tierMinimumUnits": 0.0,
+        "retailPrice": 0.3,
+        "unitPrice": 0.3,
+        "armRegionName": "centralus",
+        "location": "US Central",
+        "effectiveStartDate": "2019-03-01T00:00:00Z",
+        "meterId": "8ee07b23-82ae-430e-a417-a050463ff4ee",
+        "meterName": "Premium Jobs Compute DBU",
+        "productId": "DZH318Z0BWQJ",
+        "skuId": "DZH318Z0BWQJ/002D",
+        "productName": "Azure Databricks",
+        "skuName": "Premium Jobs Compute",
+        "serviceName": "Azure Databricks",
+        "serviceId": "DZH319HK4RD6",
+        "serviceFamily": "Analytics",
+        "unitOfMeasure": "1 Hour",
+        "type": "Consumption",
+        "isPrimaryMeterRegion": false,
+        "armSkuName": ""
+      }
+    }
+  ],
+  "exclusions": [
+    "Windows VM",
+    "Spot",
+    "Low Priority",
+    "PostgreSQL Flexible Server vCore",
+    "Jobs Light",
+    "Photon",
+    "Standard tier",
+    "free trial",
+    "SQL warehouse rates"
+  ],
+  "assumptions_not_observations": {
+    "jobs_dbu_per_node_hour_admission_threshold": 2,
+    "single_node_count": 1,
+    "slot_minutes": 35,
+    "slot_breakdown_minutes": {
+      "provisioning": 15,
+      "publication_task": 5,
+      "verification_task": 5,
+      "cancellation_and_termination": 10
+    },
+    "slots": 8,
+    "preferred_ancillary_cleanup_reserve_usd": 5,
+    "conservative_ancillary_cleanup_reserve_usd": 20
+  },
+  "conditional_estimate_usd": {
+    "rate_formula": "0.255 + 0.30 * actual non-Photon Jobs DBU per node-hour; excludes ancillary charges",
+    "assumed_compute_hourly_rate": 0.855,
+    "a1_compute": 0.49875,
+    "eight_slot_compute": 3.99,
+    "a1_with_5_reserve": 5.49875,
+    "eight_slots_with_5_reserve": 8.99,
+    "a1_with_20_reserve": 20.49875,
+    "eight_slots_with_20_reserve": 23.99
+  },
+  "unresolved": [
+    "Actual non-Photon D4ds_v5 Jobs DBU/hour consumption and selected single-node policy/runtime/access-mode compatibility",
+    "Current principal Jobs/compute creation, run-as, cancellation and termination authority and Azure quota",
+    "Disk geometry, storage/network/IP rates, billing increments and startup/idle meters",
+    "Effective inherited predictive optimization and attributable serverless background usage; preserve its configuration",
+    "Reliable whole-run deadline including live ACK interval and observed terminal cleanup; 35 minutes is not provider shutdown guarantee",
+    "Actual accepted source, protected ACK owner and full independent verification authority"
+  ],
+  "qualification": "Public USD retail observations, not negotiated account invoice rates, DBU consumption measurement, budget admission, launch approval or production qualification. No SQL warehouse estimate is used. The 2 DBU/hour threshold, 35-minute slot and both reserves are assumptions. A fixed shape, cancellation or estimate does not enforce an invoice cap.",
+  "non_actions": {
+    "cloud_resources_created_or_modified": false,
+    "compute_started": false,
+    "schema_or_table_changed": false,
+    "source_or_ack_changed": false,
+    "predictive_optimization_changed": false
+  }
+}
