@@ -1,0 +1,27 @@
+{
+  "bridge_readiness_sha256": "04fed0bedcc042603a56713cea3cf2d087de840327db783193d643ff1834458c",
+  "created_on": "2026-10-23",
+  "head": "0506fb7cea6e2f795c5bfbfe70aa8c30d9333642",
+  "native_effects": {
+    "acknowledgment_started": false,
+    "destination_publication_started": false,
+    "migration_apply_invoked": false,
+    "pg_started": false,
+    "source_mutation_started": false,
+    "spark_started": false
+  },
+  "offline_preflight_sha256": "28b9dcd0f4d1c123367159d17556b2dbb852a442c3d7e7c2d32f64d36ac765e4",
+  "outcome": "ready_pending_hash_bound_operator_approval",
+  "preparation_sha256": "bfe3fc57c644ef45a57f2d6c77f47167913860226aad33a37c0864ac1b0d9a2e",
+  "profile": "ashlar-truss049-selected32ec-offline-candidate-summary/0.2",
+  "root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-selected32ec-head0506fb7",
+  "runtime_input_objects": {
+    "pyproject.toml": "170164da487d567bfa058288d32604f401125ab0",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "53eaf827025f02cf62274ccf9aae2856564f7d55"
+  },
+  "runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+  "scope": "Offline preparation and no-native preflight only; independent Sol review accepted this evidence packet. Execution remains unapproved.",
+  "supervisor_sha256": "35909bd638f84343a9db805e22a31b15e53c8a6c2fbe65bb924b0c0256ad99ba",
+  "worker_sha256": "6e220c60102560a72b28d19acd8b359c5ef3b3702a976e3f9c7bcd0a888a22f9"
+}

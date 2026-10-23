@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "matches_reviewed_candidate": true,
+      "sha256": "3e72853f8de40bdce658ae86dceb113dce6d5c665d4cb44dc4802e1ac478357e"
+    },
+    {
+      "file": "bridge-readiness.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "04fed0bedcc042603a56713cea3cf2d087de840327db783193d643ff1834458c"
+    },
+    {
+      "file": "campaign_worker.py",
+      "matches_reviewed_candidate": true,
+      "sha256": "6e220c60102560a72b28d19acd8b359c5ef3b3702a976e3f9c7bcd0a888a22f9"
+    },
+    {
+      "file": "offline-preflight.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "28b9dcd0f4d1c123367159d17556b2dbb852a442c3d7e7c2d32f64d36ac765e4"
+    },
+    {
+      "file": "preparation.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "bfe3fc57c644ef45a57f2d6c77f47167913860226aad33a37c0864ac1b0d9a2e"
+    },
+    {
+      "file": "run_supervisor.py",
+      "matches_reviewed_candidate": true,
+      "sha256": "35909bd638f84343a9db805e22a31b15e53c8a6c2fbe65bb924b0c0256ad99ba"
+    },
+    {
+      "file": "runtime-preflight.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8"
+    },
+    {
+      "file": "summary.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "af344b0e8494a8a4fcf03ae0961f4c508a055bf6c6e070cb064a16bc5a7d965e"
+    },
+    {
+      "file": "weft-build-receipt.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "1396c4fc2b50ac34eb413fd40e59d54b3bea3e678c563d8edc0b743a15ffcf05"
+    },
+    {
+      "file": "weft-functional-receipt.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "16b987ebb2e0ad5e419676e5a63cd827ca3eb94716fd75d3afff31374c10e441"
+    },
+    {
+      "file": "weft-packaging-receipt.json",
+      "matches_reviewed_candidate": true,
+      "sha256": "3bf22976c0921461ad56f5aa9cffda9b3f73521558d29c6df36a2979246a3447"
+    }
+  ],
+  "profile": "ashlar-truss049-selected32ec-evidence-index/0.2",
+  "readme_sha256": "3e72853f8de40bdce658ae86dceb113dce6d5c665d4cb44dc4802e1ac478357e",
+  "source_candidate": "Sol-reviewed offline candidate; current Ashlar HEAD 0506fb7cea6e2f795c5bfbfe70aa8c30d9333642; execution remains unapproved"
+}

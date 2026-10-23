@@ -1,0 +1,9 @@
+# Truss 0.0.49 selected-Weft offline preflight, current Ashlar HEAD
+
+This is a new offline candidate bound to Ashlar HEAD `0506fb7cea6e2f795c5bfbfe70aa8c30d9333642` and source tree `53eaf827025f02cf62274ccf9aae2856564f7d55`. The earlier Sol-reviewed candidate remains preserved in `../truss049-selected32ec-preflight/`.
+
+The earlier worker explicitly allows HEAD movement only while `src`, `sql`, and `pyproject.toml` remain equal to its reviewed Git objects. `sql` and `pyproject.toml` are unchanged; `src` changed, so the old exact pin is stale for this checkout. The source delta includes `ashlar/attempt_store.py`, which is used by Truss publication and now extracts complete source-qualified phase inventory validation into a pure helper. The publisher behavior is unchanged for valid inventories; malformed scopes receive stricter validation. Focused `test_scoped_attempt_store` passed (5 tests). Other source changes add managed-current receipt/cursor/readiness paths and extend the separate synthetic GraphFrames holder; those paths are not imported by this campaign worker.
+
+The fresh effect-free worker preflight passed at the new source pin. It verified runtime payloads, imports, `pip check`, V8 and six UMF role proposals. It reports `pg_started=false`, `spark_started=false`, and `migration_apply_invoked=false`; no migration, source mutation, publication, ACK, Spark, or cloud operation occurred. The proposal hashes are recalculated for the new candidate path and recorded in `offline-preflight.json`.
+
+Independent Sol review accepted this current-HEAD offline candidate after verifying the 11 indexed artifact hashes and six private artifacts. The review approves offline preparation and evidence only; execution remains unapproved and requires a separate fresh hash-bound operator authorization.

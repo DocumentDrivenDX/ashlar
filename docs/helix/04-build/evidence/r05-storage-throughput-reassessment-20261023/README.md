@@ -80,6 +80,8 @@ was completed on the unchanged 225M-edge write. Its footer again verifies
 outer INSERT window and reports JVM-wide execution and allocation samples;
 Parquet binary comparison/encoding and UTF8-to-byte conversion lead the sampled
 hotspot views. These are diagnostic leads, not task-level or causal attribution,
-and do not establish compression-versus-IO cost. Profiling overhead also means
-its elapsed time is not an unprofiled speed result. This diagnostic does not
-change the 18.05-minute planning estimate or authorize the held 1B/5B run.
+and do not establish compression-versus-IO cost. A separate [offline Parquet write-path review](../parquet-field-statistics-offline-review-20261023/README.md)
+identifies a narrowly scoped per-column statistics candidate and a single
+paired check; it proposes no current-profile change. Profiling overhead also
+means the diagnostic elapsed time is not an unprofiled speed result. This does
+not change the 18.05-minute planning estimate or authorize the held 1B/5B run.
