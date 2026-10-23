@@ -185,15 +185,20 @@ now contains that API, and Ashlar has rebound its embedded proposal bridge to th
 exact candidate commit for offline six-role checks. The candidate is not a public
 release, and its Ashlar rebind does not qualify native table creation or Delta
 behavior. Keep the source commit and generated-resource custody explicit; do not
-push the older divergent private 0.5.5 candidate over public main. Recheck the public upstream heads at the release cut. Reconcile
-Ashlar's `typed-sdk` and `truss-local` extras, which still select Weft 0.4.48 and
-Truss 0.0.45, against the new versioned support profile before a release wheel
-is built; retain older extras only with an explicit historical label.
+push the older divergent private 0.5.5 candidate over public main. Recheck the public upstream heads at the release cut. Reconcile Ashlar's `typed-sdk` extra, which still selects Weft 0.4.48, against
+the new versioned support profile before a release wheel is built. The
+`truss-local` extra now pins public Truss 0.0.49, as recorded in the [adoption
+receipt](evidence/current-upstream-release-20261022/truss-0.0.49-adoption-preparation.json);
+its lifecycle qualification remains pending. Retain older extras only with an
+explicit historical label.
 
-Next, obtain a fresh effect-free r3 supervisor preflight, Sol review of its exact
-hashes, and explicit one-run owner approval before creating an execution
-authorization or cold backup. Run the hash-bound local Truss 0.0.49 A
-migration/resume attempt only after an exclusive local slot is free. Require exact existing-source and consumer
+The captured [R4 effect-free supervisor preflight](evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/r4-supervisor-preflight-20261023.json)
+returned `ready_pending_hash_bound_operator_approval`; it records readiness, not
+execution approval. After independent review, obtain explicit one-run owner
+approval and an exclusive local slot before creating an execution authorization
+or cold backup. The R4 supervisor rechecks live gates and exact approval parity
+before effects. Run the hash-bound local Truss 0.0.49 A migration/resume
+attempt only after those gates are met. Require exact existing-source and consumer
 readbacks, independent Delta genesis verification before protected ACK, then
 the approved seed continuation and ACK. Independently author and qualify B's
 exact source/model and namespace before installing and accepting it on fresh
