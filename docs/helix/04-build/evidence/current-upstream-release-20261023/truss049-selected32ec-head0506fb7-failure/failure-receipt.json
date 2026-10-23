@@ -1,0 +1,119 @@
+{
+  "profile": "ashlar-truss049-lifecycle-failure/0.1",
+  "attempt": "r2",
+  "outcome": "postgres_start_failed_before_migration",
+  "repository_head": "0506fb7cea6e2f795c5bfbfe70aa8c30d9333642",
+  "campaign_root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-selected32ec-head0506fb7",
+  "execution_authorization": {
+    "approval_sha256": "b7efe2851ec178e7b5427c3645564d72283a76e74d568644faf2adcd0019963a",
+    "started_marker_sha256": "0b9306765a4edb539f6318030f35dcb2367f041cd20a0db23f7e5da13496f8a2",
+    "approval_scope": "one cold-backup + one latest-only .49 migration + reuse existing source/consumer + genesis protected ACK + one approved seed + one actual continuation protected ACK",
+    "automatic_retries": 0
+  },
+  "runtime": {
+    "truss_toolkit": "0.0.49",
+    "umf_core": "0.10.0",
+    "umf_access": "0.1.0.dev6",
+    "weft_sql": "0.4.52",
+    "postgresql": "18.6.1",
+    "platform": "macOS arm64"
+  },
+  "failure": {
+    "elapsed_seconds": 182.055,
+    "worker_exit_code": 1,
+    "worker_error": "truss.local_runtime.LocalRuntimeError: pg_ctl failed: pg_ctl: could not start server",
+    "postgres_log_excerpt": "2026-10-23 12:36:34.804 EDT [71944] FATAL: shmat(id=4194374, addr=0x0, flags=0x0) failed: Operation not permitted; shmctl(4194374, 0, 0) failed: Operation not permitted; database system is shut down",
+    "inference": "The execution sandbox denied the System V shared-memory operation required by PostgreSQL startup; this is not evidence of a Truss migration failure."
+  },
+  "effects": {
+    "postgres_start_attempted": true,
+    "postgres_started": false,
+    "source_pgdata_log_changed": true,
+    "source_pgdata_log_before_bytes": 9654,
+    "source_pgdata_log_after_bytes": 9936,
+    "source_pgdata_log_before_sha256": "e310866330cc92b042ede1a2efbe8f8621c48a73789eb0a89b2f6524485ac88e",
+    "source_pgdata_log_after_sha256": "e11d51d0367cdca908fc4e136a793f384f25a0d14b99310881dc9948b4f65864",
+    "truss_source_mutation_started": false,
+    "migration_apply_invoked": false,
+    "feed_action_started": false,
+    "publication_started": false,
+    "destination_write_started": false,
+    "acknowledgment_started": false,
+    "seed_started": false,
+    "spark_started": false,
+    "cloud_operation_started": false,
+    "other_pgdata_differences_audited": false
+  },
+  "backup": {
+    "performed_before_postgres_start": true,
+    "cold_copy_verified": true,
+    "file_count": 1248,
+    "bytes": 63996770,
+    "tree_sha256": "bc5e99d69f50fe5bf16f4a3e2182128d44cb5f7df02d746bed1638109b752e69",
+    "source_and_copy_matched_immediately_after_copy": true
+  },
+  "cleanup_and_custody": {
+    "supervisor_elapsed_seconds": 182.055,
+    "cleanup_status": "postmaster_pid_absent",
+    "postmaster_pid_absent": true,
+    "process_group_remaining": [
+      "inventory_failed:PermissionError"
+    ],
+    "descendant_reaping_verified": false,
+    "attempt_reusable": false,
+    "artifact_cleanup_performed": false,
+    "custody": "unresolved; retain attempt artifacts pending owner process-custody verification"
+  },
+  "evidence_files": [
+    {
+      "path": "logs/supervisor-attempt-r2.json",
+      "sha256": "ab88a480ce45dcf89884d0643d4ea9df75d317f9cc0519609b0530ccccab93f6"
+    },
+    {
+      "path": "logs/worker-attempt-r2.stderr.log",
+      "sha256": "9c4e70586d2312cd2a368c70e9493c6e5ff6819e0062ba6b6fa5157439829eb7"
+    },
+    {
+      "path": "logs/worker-attempt-r2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempt-r2/backup-started.json",
+      "sha256": "ee1067e6834d9800fb95f7cb94500ffb70e0297f5aabe7fdf6f5f1046c948741"
+    },
+    {
+      "path": "attempt-r2/backup-committed.json",
+      "sha256": "d2fbcdff91ddab18bbf461dbedceaa6d30905862e44944ad91954d36a210349b"
+    },
+    {
+      "path": "attempt-r2/postgres-start-intent.json",
+      "sha256": "5919625ebbce268cfe0722c232b699fca765823b7a977c3f007d96feccd8db09"
+    },
+    {
+      "path": "attempt-r2/cold-backup/pgdata/log",
+      "sha256": "e310866330cc92b042ede1a2efbe8f8621c48a73789eb0a89b2f6524485ac88e"
+    },
+    {
+      "path": "postgres/data/log",
+      "sha256": "e11d51d0367cdca908fc4e136a793f384f25a0d14b99310881dc9948b4f65864"
+    },
+    {
+      "path": "campaign_worker.py",
+      "sha256": "6e220c60102560a72b28d19acd8b359c5ef3b3702a976e3f9c7bcd0a888a22f9"
+    },
+    {
+      "path": "run_supervisor.py",
+      "sha256": "35909bd638f84343a9db805e22a31b15e53c8a6c2fbe65bb924b0c0256ad99ba"
+    }
+  ],
+  "next_attempt_requirements": {
+    "new_private_root_and_single_use_attempt": true,
+    "new_cold_backup_of_current_retained_pgdata": true,
+    "fresh_complete_preflight_and_runtime_receipts": true,
+    "execution_environment_allows_sysv_shared_memory": true,
+    "bounded_process_group_inventory_and_reaping_available": true,
+    "fresh_hash_bound_operator_approval_required": true,
+    "explicit_escalated_execution_authorization_required": true,
+    "r2_retry_or_replay_permitted": false
+  }
+}
