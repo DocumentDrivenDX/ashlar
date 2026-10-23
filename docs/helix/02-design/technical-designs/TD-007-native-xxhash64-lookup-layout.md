@@ -138,7 +138,10 @@ receipt path must validate the exact four-role publication vector, reopen its
 pinned Delta versions, compare complete row bags and UMF schema/protocol, and
 recompute stored hashes from full typed keys before source ACK. The current
 local row-bag observer is bounded to small publications; it does not qualify
-the full-size workload.
+the full-size workload. This local footer/ACK verifier refuses a selected
+snapshot advertising `deletionVectors` before source ACK, because physical
+footer rows must agree with independently verified complete Delta logical
+rows. This limit does not qualify or constrain the managed Unity Catalog path.
 
 The small functional sequence publishes and acknowledges the catalog-only
 genesis feed page before applying and publishing the graph-change page. Check

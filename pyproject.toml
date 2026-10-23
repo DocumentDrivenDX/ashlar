@@ -14,13 +14,14 @@ dependencies = []
 
 [project.optional-dependencies]
 truss-local = ["truss-toolkit[local,native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.45/truss_toolkit-0.0.45-py3-none-any.whl#sha256=1a1328a50415ae5e37d0d9b398d85b9c0700c0c8869208399773996feefb966c"]
-local-delta = ["pyspark==4.2.0", "delta-spark==4.4.1"]
+local-delta = ["pyspark==4.2.0", "delta-spark==4.4.1", "py-mini-racer==0.14.1"]
 managed-read = ["databricks-sdk==0.155.0", "psycopg[binary]==3.3.6"]
 weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9.1", "attrs==26.1.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
 typed-sdk = [
     "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_core-0.10.0-py3-none-any.whl#sha256=49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
     "umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_access-0.1.0.dev6-py3-none-any.whl#sha256=8f6e86ed94983d0156c2d6e9e1bf83fae186fe1d4a288a3846722e64aa365cf0",
     "weft-sql==0.4.48",
+    "py-mini-racer==0.14.1",
 ]
 duckdb = ["duckdb==2.0.0"]
 puppy = ["duckdb==2.0.0", "neo4j==6.4.1"]
@@ -52,4 +53,4 @@ where = ["src"]
 include = ["ashlar", "ashlar.*", "ashlar_host", "ashlar_host.*"]
 
 [tool.setuptools.package-data]
-ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/original-commerce-local/*.json", "resources/managed-delta-v03/*.json", "resources/managed-current-core-010/*.json", "resources/managed-current-core-010-xxhash64/*.json", "resources/*.ts", "resources/sql/*/*.sql", "resources/native/*.c", "resources/evolution/*.json", "resources/evolution/*.gz", "resources/evolution/*.ts"]
+ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/original-commerce-local/*.json", "resources/managed-delta-v03/*.json", "resources/managed-current-core-010/*.json", "resources/managed-current-core-010-xxhash64/*.json", "resources/local-current-delta4/*.json", "resources/local-current-delta4/*.js", "resources/local-current-delta4/*.ts", "resources/local-current-delta4/*.txt", "resources/*.ts", "resources/sql/*/*.sql", "resources/native/*.c", "resources/evolution/*.json", "resources/evolution/*.gz", "resources/evolution/*.ts"]

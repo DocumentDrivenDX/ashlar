@@ -1,0 +1,83 @@
+{
+  "profile": "ashlar-local-delta4-umf-realization-candidate/0.1",
+  "recordedAt": "2026-10-22",
+  "status": "private source candidate; no upstream landing or native execution",
+  "scope": {
+    "carrierProfile": "ashlar-delta/0.4-xxhash64",
+    "roles": [
+      "object_current",
+      "edge_current",
+      "tombstone",
+      "whole_source_history",
+      "publication_attempt_phase",
+      "publication_manifest"
+    ],
+    "sourceProfile": "ashlar-managed-current-carrier-layout/0.4-xxhash64",
+    "originalManagedGeneratedSha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "originalManagedDefinitionAndSchemaBytesChanged": false,
+    "targetProfile": "spark-delta4/0.1",
+    "targetBinding": "UMF-generated direct delta-path relation, bound to exact canonical local path; no metastore relation or LOCATION clause",
+    "runtimeWriterSetting": {
+      "key": "spark.sql.parquet.compression.codec",
+      "value": "zstd",
+      "application": "before fresh DDL and before resume DML",
+      "reopenAndPreAck": "verify only; never repair drift"
+    }
+  },
+  "umfCandidate": {
+    "baseRelease": "umf-v0.5.4",
+    "localCommit": "05fa35b8413bb4501c4d13761b1dbfc82b114e0b",
+    "apiCommit": "9c1de1b1475117c1953dacd466eafbd7ed406ef7",
+    "contract": "CONTRACT-082-spark-delta4-ddl-realization.md",
+    "api": "realizeSparkDelta4DDL(document, {kind:'delta-path', path})",
+    "apiBehavior": "Closed relation/location or delta-path binding; target identity hashes kind and exact path; direct path DDL is generated in UMF; managed generateDeltaDDL remains byte-identical.",
+    "candidateIsPublicRelease": false,
+    "focusedChecks": {
+      "command": "bun test tests/delta/ddl.test.ts",
+      "result": "17 passed; 0 failed"
+    },
+    "typecheck": "bun node_modules/typescript/bin/tsc --noEmit passed"
+  },
+  "pinnedAshlarBridge": {
+    "profile": "ashlar-local-current-delta4-umf-realization/0.1",
+    "candidateCommit": "05fa35b8413bb4501c4d13761b1dbfc82b114e0b",
+    "bundleSha256": "4b7ded0dbd987db07023dff3b71eeb7321b25056c049d7a36ba26c03e09b68fa",
+    "bundleBytes": 508540,
+    "bundleInputCount": 195,
+    "buildInputsSha256": "f7ab6c005491e55bc6e755897ffbfed09ff34208a3e083fcc247a7f0ec6da532",
+    "realizationManifestSha256": "7565f653219ba1e1e452c6d3b586350f1e2ced7950ffc1f0becfa598b79df480",
+    "roleSemanticDescriptorsSha256": "d8c558802d5efd8fbf5966704a8180ee9e8c26265801a24eed724d36bffdd9a4",
+    "bridgeEntrySha256": "ae1d1f15d82489323e233f1525eaff4bd00aaa8a5ac2d8722c52f897157581e4",
+    "thirdPartyNoticesSha256": "8177eaded1ef5e38152c2ab4d88df6029b90d032ca8a7cddedee61def508bca9",
+    "roleSemanticDescriptor": "Generated from all six original role inputs through the pinned UMF API; runtime compares exact canonical source hash, definition, schema hash, dispositions, writer settings, and physical layout.",
+    "ashlarFocusedChecks": {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -m unittest tests.test_local_current_delta4_umf tests.test_local_current_xxhash64_profile",
+      "result": "10 passed"
+    },
+    "pythonCompile": "Changed Python modules compile successfully; git diff --check passes."
+  },
+  "footerGate": {
+    "behavior": "Before source ACK, enumerate the complete active local Parquet file set for the pinned Delta version, inspect every row-group and column-chunk codec, and require summed footer rows to equal the complete verified Delta snapshot row count.",
+    "deletionVectors": "Fail closed when the pinned target advertises deletionVectors; footer-to-logical-row parity is not qualified for DV tables."
+  },
+  "wheelCheck": {
+    "command": "PYTHONPATH=src /private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/bin/python -m pip wheel --no-deps --no-build-isolation --wheel-dir /private/tmp/ashlar-local-delta4-wheel-check .",
+    "wheelSha256": "cff5078de317ebdc6a2b8afd311e54acd06f973de8c6ea594ed56e0c7b47ef77",
+    "localDeltaExtraContains": "py-mini-racer==0.14.1",
+    "resourcesPresent": [
+      "realization.json",
+      "build-inputs.json",
+      "role-semantics.json",
+      "umf-spark-delta4.iife.js",
+      "bridge-entry.ts",
+      "THIRD_PARTY_NOTICES.txt"
+    ],
+    "result": "Wheel metadata and all pinned bridge resources verified."
+  },
+  "qualificationLimits": [
+    "No Spark or PostgreSQL execution was performed for this candidate.",
+    "No local DDL, DML, table protocol, writer setting, footer, resume, or ACK behavior is natively qualified.",
+    "No deletion-vector table is supported by this footer row-parity gate.",
+    "This does not qualify public UMF release adoption, Truss 0.0.49 migration, managed Unity Catalog, or production publication."
+  ]
+}

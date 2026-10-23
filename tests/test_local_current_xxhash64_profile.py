@@ -15,7 +15,10 @@ from ashlar_host.schema_rows import local_current_columns
 from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.driver import NativeDriver
 from ashlar_host.delta_custody import DeltaTarget
-from ashlar_host.local_current_carrier_profile import create_local_current_xxhash64_tables
+from ashlar_host.local_current_carrier_profile import (
+    apply_local_writer_settings, create_local_current_xxhash64_tables,
+    verify_local_writer_settings,
+)
 from ashlar_host.truss_note_publication import _native_xxhash64,graph_expected_rows
 
 import test_truss_typed_admission
@@ -128,12 +131,15 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
 
     def test_umf_six_role_ddl_loop_is_closed_with_inert_spark(self):
         class Spark:
-            def __init__(self):self.statements=[]
+            def __init__(self):
+                self.statements=[]
+                self.conf=self.Conf()
+            class Conf:
+                value=None
+                def set(self,key,value):self.value=(key,value)
+                def get(self,key):return self.value[1] if self.value and self.value[0]==key else None
             def sql(self,statement):
                 self.statements.append(statement)
-                match=re.search(r'^CREATE TABLE delta\.`([^`]+)`',statement)
-                if match is None:raise AssertionError('Unexpected DDL target')
-                Path(match.group(1)).mkdir()
 
         with tempfile.TemporaryDirectory() as temporary:
             output=Path(temporary).resolve()/'publication'
@@ -141,13 +147,16 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
             roles=('object_current','edge_current','tombstone','whole_source_history','attempts','manifest')
             tables={role:'local.trussgraph.'+role for role in roles}
             observed=[]
-            def inert_observation(spark,carrier_role,table,path,fields,layout):
+            def inert_observation(spark,carrier_role,table,path,fields,layout,field_metadata=None):
                 self.assertEqual(path.parent,output)
                 self.assertTrue(fields)
+                self.assertEqual(len(field_metadata),len(fields))
+                path.mkdir()
                 observed.append((carrier_role,table,layout))
                 return DeltaTarget(table,path,'uuid-'+carrier_role),{
                     'carrier_role':carrier_role,'table':table,'path':str(path),
                     'uuid':'uuid-'+carrier_role,'fields':[list(field) for field in fields],
+                    'field_metadata':[dict(item) for item in field_metadata],
                     'protocol':{},'clustering_columns':layout.get('clusterBy',[]),
                     'partition_columns':layout.get('partitionBy',[]),
                     'layout_properties':layout.get('properties',{})}
@@ -160,8 +169,23 @@ class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
             self.assertEqual(len(spark.statements),6)
             self.assertEqual(set(profile['roles']),set(roles))
             self.assertEqual(set(columns),set(roles))
+            self.assertLessEqual(len(json.dumps(profile,sort_keys=True,separators=(',',':')).encode()),65536)
+            self.assertEqual(spark.conf.get('spark.sql.parquet.compression.codec'),'zstd')
             self.assertTrue(all(statement.startswith('CREATE TABLE delta.`')
-                                and 'USING DELTA' in statement for statement in spark.statements))
+                                and 'USING DELTA' in statement and ' LOCATION ' not in statement
+                                for statement in spark.statements))
+
+    def test_writer_settings_apply_before_work_and_reopen_verification_never_repairs(self):
+        class Conf:
+            def __init__(self, value): self.value=value
+            def set(self, key, value): self.value=value
+            def get(self, key): return self.value
+        spark=SimpleNamespace(conf=Conf('zstd'))
+        verify_local_writer_settings(spark)
+        apply_local_writer_settings(spark)
+        spark.conf.value='snappy'
+        with self.assertRaises(ValueError): verify_local_writer_settings(spark)
+        self.assertEqual(spark.conf.value,'snappy')
 
     def test_publication_version_follows_selected_installation_profile(self):
         driver=object.__new__(NativeDriver)

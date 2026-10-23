@@ -2422,7 +2422,7 @@ class NativeDriver:
             if self.lookup_hash_profile=='spark-xxhash64-typed-key/0.1':
                 from .local_current_carrier_profile import (
                     XXHASH64_PROFILE,verify_local_current_profile,
-                    verify_local_xxhash64_snapshot,
+                    verify_local_xxhash64_snapshot,verify_local_xxhash64_zstd_snapshot,
                 )
                 if type(profile)is not dict or profile.get('physical_profile')!=XXHASH64_PROFILE:
                     raise PermissionError('Exact installed local `.4` carrier profile required')
@@ -2446,6 +2446,13 @@ class NativeDriver:
                     if role in ('object_current','edge_current'):
                         verify_local_xxhash64_snapshot(self.transport.spark,target.path,
                             version,role)
+                    if 'deletionVectors' in profile['roles'][role]['protocol']['features']:
+                        raise PermissionError('`.4` footer row parity is not qualified for deletion-vector tables')
+                    footer = verify_local_xxhash64_zstd_snapshot(
+                        self.transport.spark,target,version,
+                        expected_rows=len(snapshot['rows']))
+                    if footer['row_groups_rows'] != len(snapshot['rows']):
+                        raise ValueError('Pinned `.4` Parquet footer rows differ from the complete Delta snapshot: ' + role)
                 if snapshot['rows'] != sorted(expected, key=encoded):
                     raise ValueError('Original exact publication snapshot differs: ' + role)
         for role in active['expected']:

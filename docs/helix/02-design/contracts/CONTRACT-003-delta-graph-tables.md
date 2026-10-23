@@ -402,7 +402,10 @@ the exact four-role publication vector, reopen its pinned Delta snapshots,
 compare complete row bags and expected schema/protocol, and recompute stored
 64-bit hashes from full typed source/type/ID keys in native Spark SQL. A
 durable publication and its source-retained receipt remain separate from
-source commit. This local gate does not confer Unity Catalog production
+source commit. The local footer/ACK profile MUST refuse a selected snapshot
+advertising `deletionVectors` before source ACK: physical footer rows must
+equal the independently verified complete Delta logical rows. This local gate
+does not limit the managed Unity Catalog profile or confer its production
 authority, measured file pruning or scale support.
 
 Nullable `apply_batch_id` in current/journal tables permits imported rows while

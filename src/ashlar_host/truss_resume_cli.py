@@ -238,7 +238,8 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
                                                             CURRENT_TRUSS_049_VERSION):
                     raise ValueError('Local `.4` continuation requires exact Truss 0.0.48 or 0.0.49 source custody')
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .local_current_carrier_profile import verify_local_current_profile
+                from .local_current_carrier_profile import apply_local_writer_settings, verify_local_current_profile
+                apply_local_writer_settings(spark)
                 verify_local_current_profile(spark,installation_profile,tuple(targets),carrier_profile)
             policy = PrivatePolicy(context,tuple(targets));policy.initializing = False
             transport = LocalDeltaTransport(spark,journal,registry['installation'],tuple(targets),policy,capacity=capacity,installation_profile=installation_profile)
