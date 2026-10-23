@@ -51,12 +51,12 @@ authoritative, so the proposal does not declare semantic suitability.
 | --- | --- | --- |
 | B document ID | `ashlar-current-045-lifecycle-20261021` | Same ID is allowed in a separate fresh installation; owner must confirm source reuse. |
 | B document revision | `ashlar-current-045-lifecycle-r1` | Reuse A's external revision metadata only as the candidate pin; require B's accepted-document readback to match it. |
-| B source custody copy | `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json` | Candidate only; copy exact 4,100 bytes and verify hash at the authorized attempt. It is outside the executor's output root. |
-| B origin custody copy | `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json` | Candidate only; copy exact 141 bytes after owner approval and hash it. |
+| B source custody copy | `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json` | Prepared as the exact 4,100-byte copy, SHA-256 `498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b`, mode `0600`; outside executor output root. |
+| B origin custody copy | `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json` | Prepared as the exact 141-byte copy, SHA-256 `2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247`, mode `0600`; origin remains unapproved. |
 | B output root | `/private/tmp/ashlar-r04-b-install-20261023-01/root` | Candidate, absent at audit; mode 0700, current-user-owned, and otherwise empty before attempt creation. |
 | B PGDATA | `/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data` | Candidate fresh path; initialize once and retain after any initialization/transaction uncertainty. |
 | B attempt | `/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01` | Candidate one-use attempt; no reuse or automatic retry. |
-| B runtime | `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv` | Candidate fresh Python 3.12.14 runtime, outside the output root. It must have a B-specific dev7 runtime receipt and a hash-complete offline dependency lock. |
+| B runtime | `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02` | Replacement Python 3.12.14 runtime target outside the output root. Attempt-01 at `.../runtime/venv` was interrupted without a receipt and is quarantined; attempt-02 remains uncreated. It requires a B-specific dev7 runtime receipt and hash-complete offline dependency lock. |
 | Catalog CAS | Expected catalog revision `0`; one `CatalogDocumentExpectation` for the proposed document ID at source-catalog revision `0` | Conditional default for a newly initialized, empty B catalog; must be confirmed by owner and checked by the worker before the commit. |
 | Install owner role | `ashlar_r04_b_owner_20261023` | Candidate caller-selected role; owner must authorize it and confirm no collision with A/other roles. |
 | Install registrar role | `ashlar_r04_b_reg_20261023` | Candidate caller-selected role; owner must authorize it and confirm no collision. |
@@ -67,7 +67,7 @@ authoritative, so the proposal does not declare semantic suitability.
 | LocalPostgres admission | Nominal port 5432, private Unix socket derived from the canonical B PGDATA path; one exclusive slot after the existing A/Arras server is stopped | Fixed by the Truss 0.0.49 public API. No concurrent service or unique TCP-port claim. Gate inventory is not an OS lock and must be repeated immediately before launch. |
 
 The candidate runtime receipt location is
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt.json`.
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json`.
 It is intentionally absent. The historical R3 receipt records `umf_access`
 0.1.0.dev6 and is not a B runtime receipt. The B plan selects the exact public
 access dev7, core 0.10, Truss 0.0.49, and Weft 0.4.52 wheels and selects the

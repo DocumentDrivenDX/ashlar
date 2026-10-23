@@ -18,9 +18,11 @@ now records candidate B-owned paths, role/consumer/request names, selected
 runtime and wheel hashes, one-attempt bounds, and the exclusive port/socket
 preflight. It selects current UMF access `0.1.0.dev7`; the R3 `0.1.0.dev6`
 receipt is historical only and does not qualify B. B-specific offline
-compatibility and runtime receipt remain pending. These are proposals only: the
-paths remain uncreated, identities remain unapproved, and the proposed B runtime
-must be separately materialized and re-receipted before execution.
+compatibility and runtime receipt remain pending. The pinned source and origin
+bytes have been copied to their recorded custody paths; the origin remains
+unapproved. Runtime attempt-01 was interrupted without a receipt and is
+quarantined. Replacement attempt-02, the B output root, and PGDATA remain
+uncreated; identities remain unapproved and no B source acceptance has run.
 The [source custody and retention decision record](b-source-custody-retention-decision-20261023.md)
 selects the exact retained source bytes as a candidate because their
 Person/Place structure supports R04's illustrative R1/R2 intent. R3 incident
