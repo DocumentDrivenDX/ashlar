@@ -94,7 +94,7 @@
       "sha256": "e310866330cc92b042ede1a2efbe8f8621c48a73789eb0a89b2f6524485ac88e"
     },
     {
-      "path": "postgres/data/log",
+      "path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data/log",
       "sha256": "e11d51d0367cdca908fc4e136a793f384f25a0d14b99310881dc9948b4f65864"
     },
     {
