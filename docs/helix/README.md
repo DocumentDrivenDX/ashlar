@@ -99,6 +99,16 @@ all 18; it does not measure runtime files read or prove clustering. See the
 [18-core calibration](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
 and [earlier samples](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-sample-20261021.json).
 
+A bounded local comparison of the pinned 225M-edge insert removed regular
+Parquet statistics for `source_delivery_id` while preserving the selected
+lookup-key statistics and the exact point result. It saved 238,615 Parquet
+bytes in this pair. The observed 32.11s baseline and 25.80s candidate insert
+times are one unprofiled sequential pair, not a general speed claim; the 80%
+row-linear 1B/5B gate estimate remains above 15 minutes with node time unchanged.
+The candidate is not promoted to source configuration. See the
+[completed Parquet-statistics pair](04-build/evidence/parquet-field-statistics-paired-20261023/README.md)
+for execution scope, limitations, and receipt hashes.
+
 A follow-up local hash-range comparison completed cleanly. Sorting by the full
 identity tuple within each hash range reduced the random-hash layout from 7.68 GB
 to 4.25 GB and from 68.56 to 58.24 write seconds; Spark reported one file read
