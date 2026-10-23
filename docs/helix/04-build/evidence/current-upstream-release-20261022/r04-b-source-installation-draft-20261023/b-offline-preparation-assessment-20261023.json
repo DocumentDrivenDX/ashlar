@@ -1,0 +1,90 @@
+{
+  "profile": "ashlar-r04-b-offline-source-preparation-assessment/0.2",
+  "status": "top_level_pure_preparation_passed_offline_assembly_route_unavailable",
+  "scope": "One call to the public top-level Truss preparation function using the authentic retained source bytes. Preparation only; no PostgreSQL, transaction, source acceptance/effect, Spark, or Arras slot.",
+  "attempts": {
+    "public_top_level_prepare_catalog_calls": 1,
+    "public_assembly_prepare_catalog_calls": 0,
+    "local_postgres_starts": 0,
+    "transactions": 0,
+    "source_effects": 0,
+    "source_acceptances": 0,
+    "spark_starts": 0
+  },
+  "input": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision": "ashlar-current-045-lifecycle-r1",
+    "source_version": "0.10.0",
+    "bytes_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "hash_reverified": true,
+    "origin_bytes_used": false
+  },
+  "b_origin_candidate": {
+    "path": "b-origin-candidate.json",
+    "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
+    "used_for_preparation": false,
+    "approval_status": "unapproved"
+  },
+  "runtime": {
+    "profile": "truss-0.0.49-lifecycle-runtime-preparation/0.1",
+    "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv",
+    "python": "3.12.14",
+    "truss_version": "0.0.49",
+    "umf_core_version": "0.10.0",
+    "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "runtime_manifest_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+    "top_level_export_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/lib/python3.12/site-packages/truss/__init__.py",
+    "top_level_export_sha256": "2b709459fa5e76c8ffa19d64609b5e2abc57cf5df275cd430fbbd2034025db44",
+    "runtime_preflight_scope": "Retained effect-free imports, wheel/package checks, and V8 probe; no PostgreSQL or Spark. This preparation did not rerun that preflight."
+  },
+  "api_inspection": {
+    "assembly_method": "truss.CatalogReferenceAssembly.prepare_catalog(documents, source_version=\"0.10.0\")",
+    "assembly_route_outcome": "not_called",
+    "assembly_route_blocker": "CatalogReferenceAssembly.__init__ requires exact CatalogRuntimeConfiguration and PsycopgHost instances and accesses host.connection. This route was not used because it requires a connection-backed host.",
+    "used_public_pure_entrypoint": "truss.prepare_catalog((CatalogDocument(...),), source_version=\"0.10.0\")",
+    "catalog_preparation_module_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/lib/python3.12/site-packages/truss/catalog_preparation.py",
+    "catalog_preparation_module_sha256": "fcbde90f084bd94ee05bf7e94d85c897258b2feff7ff0f2a16ee66253afaa5ea",
+    "preparation_module_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/lib/python3.12/site-packages/truss/preparation.py",
+    "preparation_module_sha256": "87bf3a94f7e74770b5884956ea803dd06ea82509eac3d8e20daca4e65172c7d1",
+    "catalog_runtime_module_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/lib/python3.12/site-packages/truss/catalog_runtime.py",
+    "catalog_runtime_module_sha256": "31c374621f6944f2b6bd03fb01e6a4331d0bb7bd20a5395eda718b4e677159d1"
+  },
+  "preparation": {
+    "outcome": "public_top_level_preparation_passed_offline",
+    "elapsed_seconds": 1.742076,
+    "deadline_seconds": 120,
+    "bun_executable": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "prepared_acceptance_input": {
+      "private_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-acceptance-input.json",
+      "bytes": 1429,
+      "sha256": "516ac248ca2ea05765b935cea998a98e747971a788c8d07af324e2af88e682e2"
+    },
+    "prepared_report_evidence": {
+      "private_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-report-evidence.json",
+      "bytes": 460,
+      "sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1"
+    },
+    "prepared_source_observation": {
+      "private_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-source-observation.json",
+      "bytes": 460,
+      "sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1"
+    },
+    "provenance": {
+      "owner_revision": "b24e07abae445414c41d2f122deae596915c6bd5",
+      "owner_bundle_sha256": "0335643fd700df1eafedb88e6104d532096aa74c6081f8d96372d2779a4d34fd",
+      "acceptance_schema_sha256": "0278cbbbde843091c005b688fd9c081a2fdff843b9adda006ba80fb87828d7cd",
+      "release_manifest_sha256": "dec0c0af9fc135226538db4db99a52a7d31ddf993203b2525123e46822f09b34",
+      "runtime_version": "mini-racer==0.14.1/V8 14.4.258.23",
+      "scope": "original_umf_preparation_only",
+      "installation_profiles_verified": false
+    },
+    "preparation_result_private_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/preparation-result.json",
+    "preparation_result_sha256": "91dc756a83bf117f74d93896dd5632ae6dd58837c6ed4abe6277ab9ec29e1db7"
+  },
+  "b_authority": {
+    "acceptance": "not performed",
+    "source_authority": "not established",
+    "execution_authorization": "not implied"
+  }
+}

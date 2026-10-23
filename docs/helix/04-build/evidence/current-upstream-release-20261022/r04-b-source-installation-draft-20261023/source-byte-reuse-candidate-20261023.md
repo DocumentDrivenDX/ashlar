@@ -24,6 +24,26 @@ must differ. No distinct model is required by the reviewed contract text. Any
 R04 schedule or source-content suitability decision remains open until the
 complete B source and source transaction inventory are reviewed.
 
+## Proposed B-specific origin bytes (unapproved)
+
+`b-origin-candidate.json` contains one exact candidate origin payload. Its
+canonical encoding for this packet is UTF-8 compact JSON with the keys in the
+shown order and one trailing LF (141 bytes). SHA-256:
+`2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247`.
+
+```json
+{"actor":"ashlar-r04-b-source-acceptance","reason":"independent R04 B source acceptance using the retained original UMF 0.10.0 model bytes"}
+```
+
+This candidate names a separate B/R04 purpose and does not reuse A's
+`ashlar-truss045-r03` origin. It is **not approved, accepted, or authorization**
+for B. An owner must approve or replace this exact payload before any B
+acceptance or source effect; offline byte-preserving preparation may proceed
+without that approval. The B execution approval may include this exact origin
+payload; no separate approval is implied. A changed payload requires a new
+exact-byte digest. No approval is recorded by placing this candidate in the
+packet.
+
 ## Retained original bytes
 
 The exact source used by A's 0.0.48 r4 acceptance is retained at:
@@ -82,8 +102,20 @@ and B reader role remain subject to the existing inert installation packet.
 - Re-verify both retained byte hashes from the original locations immediately
   before any B preparation. If either retained file is unavailable or changed,
   stop; do not substitute the repository example or regenerate the source.
-- Author and approve a B-specific origin payload; no approved B origin is
-  evidenced here.
+- Review and explicitly approve or replace the proposed B-specific origin
+  bytes; no approved B origin is evidenced here.
+- At an authorized future B attempt, use a B-owned private attempt/evidence
+  directory outside the public repository. Read the retained source file as
+  bytes, verify its recorded SHA-256, copy those exact bytes into the B-owned
+  custody directory without parsing or reserialization, set restrictive owner
+  access, and verify the copy hash before passing those bytes to preparation
+  and acceptance. Record both absolute paths, byte counts, hashes, owner and
+  retention policy in the private attempt pins. Preserve the original retained
+  A source unchanged; do not commit either copy to the public repo. If the
+  original is unavailable or a hash differs, stop and request a newly
+  authorized authentic source handoff rather than reconstructing it from a
+  parsed model or example. Keep B origin bytes in the same private B custody
+  directory with their separate digest and approval record.
 - Confirm the same model is suitable for the intended B transaction inventory
   and preserve full B catalog semantics in the accepted report/view.
 - Complete an independently isolated B Truss installation and acceptance with
@@ -91,6 +123,13 @@ and B reader role remain subject to the existing inert installation packet.
   view evidence. This note supplies none of those results.
 - Keep R04 schedule freeze and execution blocked on all other source, feed,
   consumer, ACK, request, and destination evidence required by the contracts.
+- One offline preparation pass succeeded through the public top-level
+  `truss.prepare_catalog` export; its prepared artifacts remain in private
+  `/private/tmp` custody. The `CatalogReferenceAssembly` instance route was not
+  used because its constructor requires a connection-backed `PsycopgHost`.
+  See [the preparation assessment](b-offline-preparation-assessment-20261023.json).
+  This is UMF preparation evidence only, not B acceptance, installation
+  authority, source authority, or execution authorization.
 
 ## Governing evidence
 
