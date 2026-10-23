@@ -13,6 +13,12 @@ above the 15-minute review threshold, so the full run stays held. Retain the
 historical 1M/5M measurement and its evidence as history; this later measurement
 supersedes its throughput projection for current planning.
 
+The owner's 2026-10-23 release decision is to retain full Delta semantics and
+use the measured approximately 68.05 GB active-Parquet envelope for this
+synthetic target. No compact representation investigation is required for this
+release. This is not a production capacity claim and does not authorize the
+held full-size run.
+
 The measured fixture stores approximately 8.003 compressed bytes per row for
 `lookup_hash`, which row-linear arithmetic scales to about 48.02 GB at six
 billion rows. The fixture also set `source_position = id`, measuring about 1.02

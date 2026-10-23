@@ -36,6 +36,14 @@
     "review_threshold_minutes": 15,
     "not_a_full_run": true
   },
+  "owner_release_decision_2026_10_23": {
+    "retain_full_delta_semantics": true,
+    "planning_envelope": "approximately 68.05 decimal GB active Parquet for this synthetic target",
+    "compact_representation_investigation_required_for_release": false,
+    "production_capacity_claim": false,
+    "full_run_authorized": false,
+    "full_run_hold_reason": "80%-throughput write-only projection is approximately 18.05 minutes, above the 15-minute review threshold"
+  },
   "excluded_or_unqualified": [
     "realistic opaque delivery identifiers and source payloads",
     "history and tombstones",

@@ -340,7 +340,12 @@ write-only projection is about 18.05 minutes, still over the 15-minute review
 threshold and explicitly held. This single synthetic sample is not a production
 capacity forecast across payloads, hardware, parallelism or table geometry; the
 full test remains held. See the dated [R05 storage and throughput reassessment](evidence/r05-storage-throughput-reassessment-20261023/README.md)
-for measured contributors and exclusions. Once admitted,
+for measured contributors and exclusions. The owner's 2026-10-23 release
+decision is to retain full Delta semantics and use this measured approximately
+68.05 GB active-Parquet envelope for the synthetic target; no compact
+representation investigation is required for this release. This records the
+release tradeoff only: it does not qualify production capacity or authorize the
+held full run. Once admitted,
 physically generate all rows once, then perform two real point lookups and two
 real scans on the stored representation and admit it to an actual graph engine
 that executes a bounded result. Record provisioning separately from measured
