@@ -355,15 +355,9 @@ class R04SlotCoordinator:
         document = schedule.document()
         selected = document['slots'][ordinal]['source']
         identity = bindings.get('source_identity')
-        if identity != document['source_bindings'][selected] or self.admissions.admit_source_identity(
-                selected, identity) is not None:
-            raise R04CustodyError('Selected source and ACK session identity is not independently admitted')
+        if identity != document['source_bindings'][selected]:
+            raise R04CustodyError('Selected source and ACK identity differs from the frozen schedule')
         self.journal._revalidate_retained(state)
-        current_revisions = self.admissions.admit_current_slot(schedule, ordinal,
-            selected, identity, state[ordinal])
-        if (type(current_revisions) is not dict
-                or current_revisions != bindings.get('admitted_schema_revisions')):
-            raise R04CustodyError('Current source result/page was not re-admitted before slot planning')
         if ordinal:
             prior_ordinal = ordinal - 1
             prior_source = document['slots'][prior_ordinal]['source']
@@ -387,6 +381,13 @@ class R04SlotCoordinator:
                                for key in ('table', 'uuid', 'schema_sha256', 'protocol', 'installation_id'))
                            for role in NATIVE_ROLES)):
                 raise R04CustodyError('Current slots must retain the same six-role native installation identity')
+        if self.admissions.admit_source_identity(selected, identity) is not None:
+            raise R04CustodyError('Selected source and ACK session identity is not independently admitted')
+        current_revisions = self.admissions.admit_current_slot(schedule, ordinal,
+            selected, identity, state[ordinal])
+        if (type(current_revisions) is not dict
+                or current_revisions != bindings.get('admitted_schema_revisions')):
+            raise R04CustodyError('Current source result/page was not re-admitted before slot planning')
         if state[ordinal]['slot_plan'] is not None:
             raw = base64.b64decode(state[ordinal]['slot_plan']['plan_base64'], validate=True)
             retained = R04SlotPlan(raw)
