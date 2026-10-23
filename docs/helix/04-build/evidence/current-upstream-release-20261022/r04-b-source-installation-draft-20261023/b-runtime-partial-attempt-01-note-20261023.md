@@ -35,8 +35,13 @@ and must not be reused as a runtime.
 An attempt to inventory processes with `ps` returned `operation not permitted`
 from the sandbox. The child pip return code and process disappearance were not
 independently observed, so this note does not claim a confirmed child kill or
-reap. No further process or package inspection was performed during Arras's
-new slot.
+reap. No further process or package inspection was performed in that
+interrupted attempt.
+
+A later targeted escalated `ps` read found no B `runtime/venv` or `pip install`
+process; only the inventory command and its `rg` filter matched. This confirms
+absence at that observation, not the interrupted child's exit code or prior
+termination mechanism.
 
 The fresh candidate path is
 `/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02`, with
