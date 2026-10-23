@@ -1,0 +1,36 @@
+{
+  "admission_evidence_status": "reused_previous successful process/SysV gate receipt; current code hashes are not preflighted",
+  "admission_gates": {
+    "process_inventory": {
+      "observed_member_count": 2,
+      "process_group_id": 94797,
+      "status": "ready",
+      "supervisor_pid": 94797,
+      "supervisor_pid_present": true
+    },
+    "sysv_shared_memory": {
+      "attached": true,
+      "detached": true,
+      "ipc_rmid_confirmed": true,
+      "segment_created": true,
+      "status": "ready"
+    }
+  },
+  "execution_approval_file_created": false,
+  "expected_approval_fields": {
+    "admission_gates_sha256": "665001fee6f02a8253542c8f3b2dc6ecd4fc9029cca6bfed2a2a2f1f4dc1fae9",
+    "bridge_pin_sha256": "04fed0bedcc042603a56713cea3cf2d087de840327db783193d643ff1834458c",
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "preparation_sha256": "0e9f27707e31b8a5f51e54cab7d14106bdc80b981de512390b391688ccbb0e2b",
+    "profile": "ashlar-truss049-lifecycle-execution-approval/0.1",
+    "runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+    "scope": "one cold-backup + one latest-only .49 migration + reuse existing source/consumer + genesis protected ACK + one approved seed + one actual continuation protected ACK",
+    "seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "supervisor_sha256": "3c6fd6d18d5b8750ed8a8fe625abb3025e5ddef4cacbc3aec1c7c2a41b460908",
+    "worker_sha256": "2f640454312e807d34ef8115bbc1b081ddea2e61ec53a68ce8acc93234f97c70"
+  },
+  "parity_control_status": "implemented_pending_fresh_slot_and_effect_free_preflight",
+  "profile": "ashlar-truss049-lifecycle-execution-approval-proposal/0.1",
+  "status": "proposal_pending_final_effect_free_preflight_and_Sol_review"
+}

@@ -1,0 +1,43 @@
+{
+  "files": {
+    "approval-proposal.json": {
+      "bytes": 1947,
+      "sha256": "6f8aedcb16fe6d2dbda0c777c242e530506063f856e3ade2328d03c33bba48d0"
+    },
+    "bridge-readiness.json": {
+      "bytes": 835,
+      "sha256": "04fed0bedcc042603a56713cea3cf2d087de840327db783193d643ff1834458c"
+    },
+    "campaign_worker.py": {
+      "bytes": 55145,
+      "sha256": "2f640454312e807d34ef8115bbc1b081ddea2e61ec53a68ce8acc93234f97c70"
+    },
+    "offline-preflight-r3.json": {
+      "bytes": 5055,
+      "sha256": "b6dd83e4bd1d220cd6948008d6d2e92eb66b26bb69fb8d1c409135362946f7a2"
+    },
+    "preparation.json": {
+      "bytes": 14779,
+      "sha256": "0e9f27707e31b8a5f51e54cab7d14106bdc80b981de512390b391688ccbb0e2b"
+    },
+    "run_supervisor.py": {
+      "bytes": 18854,
+      "sha256": "3c6fd6d18d5b8750ed8a8fe625abb3025e5ddef4cacbc3aec1c7c2a41b460908"
+    },
+    "runtime/runtime-preflight.json": {
+      "bytes": 3402,
+      "sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8"
+    },
+    "seed-request.json": {
+      "bytes": 1657,
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "source_048_readonly_helper.py": {
+      "bytes": 8497,
+      "sha256": "ea596c81fbded3879dc1b4ed2ccd2ccab03189f2525e74bbc7401b5adea38d81"
+    }
+  },
+  "preflight_state": "prior successful receipt is stale for current worker/supervisor hashes; final parity preflight pending Arras cleanup and fresh slot check",
+  "profile": "ashlar-truss049-r3-packet-hashes/0.3",
+  "root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2"
+}
