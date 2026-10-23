@@ -1,0 +1,125 @@
+{
+  "attempt": "04",
+  "bounds": {
+    "bounds_are_polled_thresholds_not_filesystem_quotas": true,
+    "diagnostic_bytes": 10055932,
+    "diagnostic_cap_bytes": 128000000,
+    "elapsed_seconds": 54.4,
+    "limit_triggered": null,
+    "monitor_interval_seconds": 0.5,
+    "output_cap_bytes": 4000000000,
+    "output_tree_bytes": 2599188649,
+    "returncode": 0,
+    "timed_out": false,
+    "wall_cap_seconds": 300,
+    "wall_termination_trigger_seconds": 290
+  },
+  "date": "2026-10-23",
+  "files": {
+    "event_excluded_files": [
+      {
+        "bytes": 8,
+        "name": ".appstatus_local-1792769420677.crc",
+        "reason": "hidden-or-checksum"
+      },
+      {
+        "bytes": 0,
+        "name": "appstatus_local-1792769420677",
+        "reason": "non-event-sidecar"
+      }
+    ],
+    "event_stream_bytes": 2300534,
+    "parquet_file_count_recount": 18
+  },
+  "footer": {
+    "active_parquet_bytes_receipt": 2569031961,
+    "active_parquet_bytes_recount": 2569031961,
+    "codecs": [
+      "ZSTD"
+    ],
+    "files": 18,
+    "matches_prior_baseline": true,
+    "rows": 225000000
+  },
+  "hotspot_summary": {
+    "allocation_pressure_top_class": "byte[]",
+    "allocation_pressure_top_site": "org.apache.spark.unsafe.types.UTF8String.getBytes()",
+    "execution_sample_top_method": "org.apache.parquet.io.api.Binary.lexicographicCompare",
+    "observation": "The leading Binary.lexicographicCompare samples pass through BinaryStatistics.updateStats; they are not attributed to a specific column or dictionary encoding. UTF8 byte-conversion samples are a profiling lead only, not a demonstrated bottleneck.",
+    "top_class_share_percent": 45.89,
+    "top_method_samples": 629,
+    "top_method_share_percent": 9.35,
+    "top_site_share_percent": 19.62
+  },
+  "jfr": {
+    "allocation_sample_throttle": "300/s",
+    "bytes": 7505400,
+    "execution_sample_period": "10 ms",
+    "file": "edge-write-window.jfr",
+    "insert_end_ns": 1792769465082000000,
+    "insert_start_ns": 1792769429513000000,
+    "interpretation": "JVM-wide sampled profile over a window spanning the INSERT, not task-scoped attribution. Allocation-by-class/site values are sampled allocation pressure, not object counts. Sampling does not prove causality or compression-vs-IO cost.",
+    "profile": "JDK profile.jfc",
+    "recording_max_bytes": 33554432,
+    "recording_ready_wall_ns": 1792769429383367000,
+    "recording_started_before_insert_ms": 129.633,
+    "recording_started_before_insert_ns": 129633000,
+    "sha256": "805d7632fa361e24b1ed5d9e2271904c982b2521b571cfd9c6532a888e13273e",
+    "start_command_begin_wall_ns": 1792769429076803000,
+    "stop_began_after_insert_end_ms": 0.76,
+    "stop_began_after_insert_end_ns": 760000,
+    "stop_command_begin_wall_ns": 1792769465082760000,
+    "summary_event_counts": {
+      "jdk.ExecutionSample": 6729,
+      "jdk.NativeMethodSample": 1387,
+      "jdk.ObjectAllocationSample": 9877
+    }
+  },
+  "runtime": {
+    "delta": "4.4.1",
+    "driver_memory": "24g",
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "java_version": "openjdk version \"21.0.13.0.2\" 2026-10-22\nOpenJDK Runtime Environment Homebrew (build 21.0.13.0.2)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.13.0.2, mixed mode, sharing)",
+    "master": "local[18]",
+    "pyspark": "4.2.0",
+    "python": "3.12.14"
+  },
+  "scope": "one local synthetic 225M-edge Delta INSERT with JFR; no rerun",
+  "sql": {
+    "end_ms": 1792769465082,
+    "exact_executed_sql_sha256": "088d365593b311cd9c75f14b9129cf4beaab24657e126a0d538de3fa99f2ff5e",
+    "kind": "edge-insert",
+    "outer_execution_id": 8,
+    "physical_plan_sha256": "f22588107f4c3f721f4fc11d8783ab49b5fa13519f66cf5783117315b8c54b5d",
+    "root_execution_id": 8,
+    "start_ms": 1792769429513,
+    "wall_seconds": 35.569
+  },
+  "write_stage": {
+    "child_execution_id": 9,
+    "executor_cpu_ns": 341482834000,
+    "executor_cpu_seconds": 341.482834,
+    "executor_run_task_seconds": 572.239,
+    "job_ids": [
+      4
+    ],
+    "jvm_gc_task_seconds": 11.755,
+    "output_bytes": 2569031961,
+    "output_records": 225000000,
+    "root_execution_id": 8,
+    "spill_bytes": 0,
+    "stage_ids": [
+      "6"
+    ],
+    "stage_span_fraction_of_insert_wall": 0.9436588040147318,
+    "stage_span_seconds": 33.565,
+    "task_duration_max_seconds": 33.526,
+    "task_duration_median_seconds": 31.915,
+    "task_duration_min_seconds": 30.597,
+    "tasks_expected": 18,
+    "tasks_observed": 18
+  }
+}

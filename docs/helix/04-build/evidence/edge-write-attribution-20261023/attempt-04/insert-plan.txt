@@ -1,0 +1,17 @@
+== Physical Plan ==
+AppendDataExecV1 (1)
+
+
+(1) AppendDataExecV1
+Arguments: DeltaTableV2(org.apache.spark.sql.classic.SparkSession@ba2225,file:/private/tmp/ashlar-edge-write-attribution-20261023-attempt-04/out/warehouse/edge_current,Some(CatalogTable(
+Catalog: spark_catalog
+Database: default
+Table: edge_current
+Created Time: Fri Oct 23 11:30:23 EDT 2026
+Last Access: UNKNOWN
+Created By: Spark 4.2.0
+Type: MANAGED
+Provider: delta
+Location: file:/private/tmp/ashlar-edge-write-attribution-20261023-attempt-04/out/warehouse/edge_current
+Partition Provider: Catalog)),Some(default.edge_current),None,Map()), Project [source_system#1174 AS source_system#1218, rel_type_id#1175L AS rel_type_id#1219L, id#1216L AS id#1220L, source_type#1176L AS source_type#1221L, source_id#1177L AS source_id#1222L, target_type#1178L AS target_type#1223L, target_id#1179L AS target_id#1224L, schema_revision#1180 AS schema_revision#1225, entity_version#1181L AS entity_version#1226L, props_json#1182 AS props_json#1227, retained_json#1183 AS retained_json#1228, order_key#1184 AS order_key#1229, source_feed#1185 AS source_feed#1230, source_epoch#1186 AS source_epoch#1231, source_position#1187L AS source_position#1232L, published_at#1188 AS published_at#1233, xxhash64(CAST(source_system AS STRING), CAST(rel_type_id AS BIGINT), CAST(id AS BIGINT))#1217L AS lookup_hash#1234L, apply_batch_id#1189 AS apply_batch_id#1235, source_cursor_json#1190 AS source_cursor_json#1236, source_delivery_id#1191 AS source_delivery_id#1237], org.apache.spark.sql.execution.datasources.v2.DataSourceV2Strategy$$Lambda/0x000000c8025739d0@455080f9, org.apache.spark.sql.delta.catalog.WriteIntoDeltaBuilder$$anon$2@798e279a
+

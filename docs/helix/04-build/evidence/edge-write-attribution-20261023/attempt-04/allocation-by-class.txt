@@ -1,0 +1,30 @@
+
+                                                                                Allocation by Class
+
+Object Type                                                                                                                                                     Allocation Pressure
+--------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------
+byte[]                                                                                                                                                                       45.89%
+org.apache.parquet.io.api.Binary$ByteArrayBackedBinary                                                                                                                       20.44%
+int[]                                                                                                                                                                        13.39%
+org.apache.spark.unsafe.types.UTF8String                                                                                                                                     11.38%
+java.lang.String                                                                                                                                                              2.20%
+java.util.LinkedList$Node                                                                                                                                                     2.05%
+org.apache.spark.sql.execution.datasources.FileFormatDataWriter$$Lambda.0x000000c8026dfb48                                                                                    1.42%
+long[]                                                                                                                                                                        0.63%
+scala.collection.mutable.HashMap$Node                                                                                                                                         0.32%
+scala.collection.mutable.LinkedHashSet$Entry[]                                                                                                                                0.30%
+java.lang.Object[]                                                                                                                                                            0.26%
+short[]                                                                                                                                                                       0.14%
+java.util.concurrent.ConcurrentHashMap$Node[]                                                                                                                                 0.13%
+java.util.zip.GZIPInputStream                                                                                                                                                 0.13%
+java.util.Arrays$ArrayItr                                                                                                                                                     0.11%
+java.util.concurrent.ConcurrentHashMap$Node                                                                                                                                   0.11%
+java.io.InputStream[]                                                                                                                                                         0.11%
+shaded.parquet.it.unimi.dsi.fastutil.longs.Long2IntLinkedOpenHashMap$MapEntry                                                                                                 0.11%
+org.apache.logging.log4j.internal.map.UnmodifiableArrayBackedMap                                                                                                              0.09%
+java.io.EOFException                                                                                                                                                          0.08%
+scala.collection.mutable.HashMap$Node[]                                                                                                                                       0.07%
+org.apache.parquet.bytes.BytesInput$SequenceBytesIn                                                                                                                           0.07%
+java.lang.Long                                                                                                                                                                0.06%
+java.lang.ProcessHandleImpl                                                                                                                                                   0.05%
+java.lang.Integer                                                                                                                                                             0.05%

@@ -1,0 +1,30 @@
+
+                                                                        Java Methods that Executes the Most
+
+Method                                                                                                                                                              Samples Percent
+------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------- -------
+org.apache.parquet.io.api.Binary.lexicographicCompare(byte[], int, int, byte[], int, int)                                                                               629   9.35%
+org.apache.spark.sql.execution.datasources.parquet.ParquetWriteSupport.$anonfun$writeFields$1(Function2[], IntRef, InternalRow)                                         558   8.29%
+org.apache.spark.unsafe.Platform.copyMemory(Object, long, Object, long, long)                                                                                           478   7.10%
+org.apache.parquet.column.values.rle.RunLengthBitPackingHybridEncoder.writeInt(int)                                                                                     465   6.91%
+org.apache.parquet.column.impl.ColumnWriterBase.write(Binary, int, int)                                                                                                 463   6.88%
+java.util.BitSet.set(int)                                                                                                                                               329   4.89%
+org.apache.parquet.io.api.Binary.equals(byte[], int, int, byte[], int, int)                                                                                             254   3.77%
+org.apache.parquet.schema.PrimitiveComparator$9.compare(int, ByteBuffer, int, ByteBuffer, int)                                                                          226   3.36%
+org.apache.spark.sql.catalyst.expressions.codegen.UnsafeWriter.writeUnalignedBytes(int, Object, long, int)                                                              221   3.28%
+shaded.parquet.it.unimi.dsi.fastutil.longs.Long2IntLinkedOpenHashMap.get(long)                                                                                          212   3.15%
+org.apache.parquet.column.values.dictionary.DictionaryValuesWriter.shouldFallBack()                                                                                     202   3.00%
+org.apache.parquet.io.api.Binary.hashCode(byte[], int, int)                                                                                                             198   2.94%
+java.lang.String.hashCode()                                                                                                                                             172   2.56%
+sun.misc.Unsafe.getLong(Object, long)                                                                                                                                   155   2.30%
+org.apache.spark.unsafe.types.UTF8String.getBytes()                                                                                                                     148   2.20%
+org.apache.spark.sql.catalyst.expressions.GeneratedClass$SpecificMutableProjection.apply(Object)                                                                        136   2.02%
+org.apache.spark.unsafe.types.ByteArray.compareBinary(Object, long, int, Object, long, int)                                                                             130   1.93%
+org.apache.spark.sql.execution.datasources.parquet.ParquetWriteSupport.writeFields(InternalRow, StructType, Function2[])                                                101   1.50%
+org.apache.parquet.io.MessageColumnIO$MessageColumnIORecordConsumer.getColumnWriter()                                                                                    98   1.46%
+java.util.BitSet.get(int)                                                                                                                                                93   1.38%
+org.apache.parquet.bytes.CapacityByteArrayOutputStream.write(int)                                                                                                        92   1.37%
+org.apache.parquet.column.impl.ColumnWriterBase.write(long, int, int)                                                                                                    88   1.31%
+org.apache.parquet.column.values.dictionary.DictionaryValuesWriter$PlainBinaryDictionaryValuesWriter.writeBytes(Binary)                                                  81   1.20%
+java.lang.Long.getChars(long, int, byte[])                                                                                                                               80   1.19%
+org.apache.spark.sql.execution.datasources.parquet.ParquetWriteSupport.$anonfun$makeWriter$7(ParquetWriteSupport, SpecializedGetters, int)                               80   1.19%

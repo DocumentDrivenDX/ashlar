@@ -74,9 +74,12 @@ or hardware change and not a measured full-size result. The production target
 and full-run acceptance requirement are unchanged; no 1B/5B trial passed or
 was authorized by this diagnostic.
 
-The next diagnostic is the [prepared attempt-04 JFR window](../edge-write-attribution-20261023/jfr-attempt-04-plan.md).
-It is unexecuted and requires independent review plus a free local resource
-slot; it profiles the same INSERT interval with sampled CPU/allocation events.
-Its output can narrow hotspot hypotheses but cannot establish performance
-without a full qualified workload, and profiling overhead precludes treating
-its elapsed time as an unprofiled speed result.
+A bounded local [attempt-04 JFR diagnostic](../edge-write-attribution-20261023/attempt-04/README.md)
+was completed on the unchanged 225M-edge write. Its footer again verifies
+225M rows, 18 ZSTD files and 2,569,031,961 active bytes. The profile spans the
+outer INSERT window and reports JVM-wide execution and allocation samples;
+Parquet binary comparison/encoding and UTF8-to-byte conversion lead the sampled
+hotspot views. These are diagnostic leads, not task-level or causal attribution,
+and do not establish compression-versus-IO cost. Profiling overhead also means
+its elapsed time is not an unprofiled speed result. This diagnostic does not
+change the 18.05-minute planning estimate or authorize the held 1B/5B run.

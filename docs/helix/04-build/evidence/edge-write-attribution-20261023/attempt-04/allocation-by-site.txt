@@ -1,0 +1,30 @@
+
+                                                                                 Allocation by Site
+
+Method                                                                                                                                                          Allocation Pressure
+--------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------
+org.apache.spark.unsafe.types.UTF8String.getBytes()                                                                                                                          19.62%
+org.apache.parquet.io.api.Binary.fromReusedByteArray(byte[])                                                                                                                 18.55%
+org.apache.parquet.column.values.dictionary.IntList.allocateSlab()                                                                                                           12.88%
+java.nio.HeapByteBuffer.<init>(int, int, MemorySegment)                                                                                                                       9.04%
+org.apache.spark.unsafe.types.UTF8String.fromBytes(byte[])                                                                                                                    7.20%
+org.apache.spark.unsafe.types.UTF8String.copy()                                                                                                                               5.22%
+java.lang.Long.toString(long)                                                                                                                                                 4.54%
+org.apache.spark.unsafe.types.UTF8String.fromAddress(Object, long, int)                                                                                                       4.18%
+java.lang.String.encodeUTF8(byte, byte[], boolean)                                                                                                                            2.66%
+java.util.Arrays.copyOfRange(byte[], int, int)                                                                                                                                2.19%
+java.util.Arrays.copyOf(byte[], int)                                                                                                                                          2.09%
+java.util.LinkedList.linkLast(Object)                                                                                                                                         2.05%
+org.apache.parquet.io.api.Binary.fromConstantByteArray(byte[])                                                                                                                1.89%
+java.lang.invoke.DirectMethodHandle.allocateInstance(Object)                                                                                                                  1.45%
+java.io.ByteArrayOutputStream.<init>(int)                                                                                                                                     1.24%
+java.lang.Throwable.fillInStackTrace(int)                                                                                                                                     0.90%
+java.util.Arrays.copyOfRangeByte(byte[], int, int)                                                                                                                            0.50%
+scala.collection.mutable.HashMap.put0(Object, Object, boolean, int, int)                                                                                                      0.32%
+org.apache.hadoop.io.WritableUtils.readCompressedByteArray(DataInput)                                                                                                         0.32%
+scala.collection.mutable.LinkedHashSet.<init>()                                                                                                                               0.30%
+shaded.parquet.it.unimi.dsi.fastutil.longs.Long2IntLinkedOpenHashMap.rehash(int)                                                                                              0.22%
+java.lang.StringLatin1.newString(byte[], int, int)                                                                                                                            0.21%
+java.lang.AbstractStringBuilder.<init>(int)                                                                                                                                   0.20%
+java.util.zip.GZIPInputStream.<init>(InputStream, int)                                                                                                                        0.12%
+java.util.concurrent.ConcurrentHashMap.transfer(ConcurrentHashMap$Node[], ConcurrentHashMap$Node[])                                                                           0.12%

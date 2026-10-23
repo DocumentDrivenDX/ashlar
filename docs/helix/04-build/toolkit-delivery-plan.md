@@ -207,16 +207,18 @@ unscheduled layout job does not execute this flow.
 R05 has two distinct proofs. The small managed UC campaign qualifies actual
 selected-version Truss 0.0.49 acceptance, incremental publication, source ACK and current Weft
 reads using the affected-key design in [TD-006](../02-design/technical-designs/TD-006-managed-current-incremental-publication.md).
-The full-size algorithmic check uses a separately named compact synthetic
-fixture. Its physical encoding, generator and graph-engine adapter must be
-portable enough to run locally. It must write the full 1B-node/5B-edge fixture,
+The full-size algorithmic check uses a canonical `.4` synthetic Delta fixture
+with full Delta semantics and an independently checked deterministic graph
+shape. Its generator and graph-engine adapter must be portable enough to run
+locally. It must write the full 1B-node/5B-edge fixture,
 measure actual bytes and independently account for IDs, endpoints and counts;
 a lazy range, arithmetic-only result or metadata-only export is not a pass.
 The proposed [pinned-Delta GraphFrames action](../02-design/technical-designs/TD-008-pinned-delta-graphframes-scale-action.md)
 uses Spark DataFrames for one actual bounded engine operation, while the existing
 10,000-row JSON release and GraphFrames export retain their historical limits.
-Compact native storage does not stand in for full-width UMF managed Delta
-carriers. Both proofs retain their own authority. The preserved
+The local synthetic fixture retains full `.4` Delta semantics, but does not
+establish managed Unity Catalog custody or production authority. Both proofs
+retain their own authority. The preserved
 `ashlar-delta/0.3` carriers use SHA-256 hex `lookup_hash`. The separately
 versioned `ashlar-delta/0.4-xxhash64` physical profile in
 [TD-007](../02-design/technical-designs/TD-007-native-xxhash64-lookup-layout.md)
@@ -330,8 +332,8 @@ it identifies `client_dev` as a managed catalog and the historical unscheduled
 dedicated layout job (`401862977233947`, concurrency one), which does not execute
 this workflow. No new compute was started by discovery. The small functional trial
 does not qualify 1B nodes/assumed 5B edges. For the separate full-size check,
-freeze one compact deterministic graph shape and independent row/endpoint
-oracle before execution. The historical [1M/5M canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
+freeze one deterministic canonical `.4` graph shape and independent
+row/endpoint oracle before execution. The historical [1M/5M canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
 wrote 1M nodes in 4.872 seconds and 5M edges in 4.205 seconds. The later
 [18-core `.4` calibration](evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
 measured 3,062,253,112 active Parquet bytes at 45M nodes/225M edges and projects
@@ -355,8 +357,9 @@ dedicated Databricks integration use comparable fixture identities and checks,
 but each qualifies only its actual engine, encoding and runtime. The cloud run
 stays within the existing $100 hard ceiling and $10 preference, reserves
 cleanup, uses no automatic retries and reports actual DBUs and bytes. The
-full-size compact result neither proves a complete Truss ingestion cycle nor
-full-width UMF storage; those remain separate support claims.
+synthetic full-size check does not prove a complete Truss ingestion cycle,
+managed Unity Catalog custody or production capacity; those remain separate
+support claims.
 The [current public retail price observation](evidence/current-upstream-release-20261021/managed-current-retail-pricing.json)
 records $0.47 per DBU for the selected Central US premium automated serverless
 meter; it is an estimate input, not an account invoice or spending limit.
