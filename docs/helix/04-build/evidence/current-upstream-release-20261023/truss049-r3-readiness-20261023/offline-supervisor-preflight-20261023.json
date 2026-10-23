@@ -1,0 +1,35 @@
+{
+  "profile": "ashlar-truss049-offline-supervisor-preflight-capture/0.1",
+  "captured_at": "2026-10-23",
+  "command": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2/runtime/venv/bin/python -I -B /private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2/run_supervisor.py --preflight",
+  "supervisor_exit_code": 0,
+  "outcome": "pending_execution_admission",
+  "worker_sha256": "2f640454312e807d34ef8115bbc1b081ddea2e61ec53a68ce8acc93234f97c70",
+  "supervisor_sha256": "3c6fd6d18d5b8750ed8a8fe625abb3025e5ddef4cacbc3aec1c7c2a41b460908",
+  "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+  "bridge": {
+    "status": "ready",
+    "umf_commit": "05fa35b8413bb4501c4d13761b1dbfc82b114e0b",
+    "bridge_sha256": "4b7ded0dbd987db07023dff3b71eeb7321b25056c049d7a36ba26c03e09b68fa",
+    "resource_sha256": "7565f653219ba1e1e452c6d3b586350f1e2ced7950ffc1f0becfa598b79df480",
+    "build_inputs_sha256": "f7ab6c005491e55bc6e755897ffbfed09ff34208a3e083fcc247a7f0ec6da532",
+    "role_semantics_sha256": "d8c558802d5efd8fbf5966704a8180ee9e8c26265801a24eed724d36bffdd9a4"
+  },
+  "checks": {
+    "worker_preflight": "completed",
+    "six_role_umf_realization_probe": "completed",
+    "runtime_and_installed_package_hashes": "verified",
+    "pg_started": false,
+    "spark_started": false,
+    "migration_apply_invoked": false,
+    "admission_gates": "pending",
+    "approval_dictionary_parity": "pending"
+  },
+  "blocker": "Process inventory command /bin/ps was denied: PermissionError: [Errno 1] Operation not permitted. Approval parity did not run because supervisor gates and parity are in one guarded block.",
+  "approval_or_execution": {
+    "execution_approval_file_created": false,
+    "started_marker_created": false,
+    "campaign_worker_execute_started": false
+  },
+  "capture_note": "Structured receipt transcribed from the single supervisor stdout JSON line; no retry was performed."
+}

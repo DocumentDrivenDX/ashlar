@@ -28,10 +28,13 @@ the core 0.10.0 wheel remains byte-identical. Focused local compatibility tests
 passed, but this does not qualify managed runtime or Delta behavior ([adoption
 receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-Truss 0.0.49 r3 is inert readiness work; r2 failed during PostgreSQL startup before
-Truss migration or source effects, and neither attempt produced a publication or ACK
-([r3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
-[r2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
+Truss 0.0.49 R4 supersedes R3 for the current UMF profile and now has a fresh,
+isolated offline Python runtime with verified wheel provenance and package records.
+No R4 supervisor or native preflight has run; PostgreSQL, Spark, source, feed,
+publication, and ACK remain unqualified. R3 and the failed R2 attempt are retained
+as historical evidence ([R4 readiness](04-build/evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/README.md),
+[R3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
+[R2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
 
 The small configured JSONL example has actual managed-Delta
 [publication, update/delete and history evidence](04-build/evidence/native-configured-publication-complete-20261008.json),

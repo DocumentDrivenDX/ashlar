@@ -37,7 +37,11 @@
       "sha256": "ea596c81fbded3879dc1b4ed2ccd2ccab03189f2525e74bbc7401b5adea38d81"
     }
   },
-  "preflight_state": "prior successful receipt is stale for current worker/supervisor hashes; final parity preflight pending Arras cleanup and fresh slot check",
-  "profile": "ashlar-truss049-r3-packet-hashes/0.3",
+  "latest_preflight_receipt": {
+    "path": "offline-supervisor-preflight-20261023.json",
+    "sha256": "962367745b9256a5d03a4d9a29d3795aad6ada0354bccfa35aa10734ff7f9bfb"
+  },
+  "preflight_state": "one fresh supervisor preflight completed; worker/runtime checks passed, but process inventory was denied by sandbox and approval parity remains pending",
+  "profile": "ashlar-truss049-r3-packet-hashes/0.4",
   "root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2"
 }
