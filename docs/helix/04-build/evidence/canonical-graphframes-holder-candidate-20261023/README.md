@@ -65,3 +65,11 @@ and separate user authorization are also required. The invocation packet keeps
 its pending status and cannot admit a run until it is immutably re-frozen with
 review status and the exact runtime/accounting inputs. No wrapper authorization
 is implied by the action anchor, and no native attempt has run.
+
+A distinct R05 five-node/four-edge local execution packet is prepared under
+[`r05-native-action-r1`](r05-native-action-r1/README.md). Its worker uses the
+UMF-backed R05 materializer and the reviewed R05 manifest anchor, while its
+supervisor validates the 5/4 persisted witnesses and three-row seed bag. The
+packet is fail-closed: R05-specific owned-table cleanup is not implemented or
+qualified, runtime executable/JAR paths are unset, and no wrapper review or
+one-attempt authorization exists. No Spark or GraphFrames process was started.
