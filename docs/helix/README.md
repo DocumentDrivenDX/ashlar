@@ -37,6 +37,10 @@ and receipts](04-build/evidence/current-upstream-release-20261023/truss049-r5-re
 attempt remain historical evidence ([R4 readiness](04-build/evidence/current-upstream-release-20261023/truss049-r4-readiness-20261023/README.md),
 [R3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
 [R2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
+An effect-free cohort-refresh proposal binds the selected Ashlar source revision and the public
+Weft 0.4.53 wheel; R5's 0.4.52 runtime and preflight remain historical until a
+fresh exact runtime and source/consumer custody recheck are completed ([refresh
+proposal](04-build/evidence/current-upstream-release-20261023/truss049-r5-current-cohort-refresh-20261023/README.md)).
 
 The small configured JSONL example has actual managed-Delta
 [publication, update/delete and history evidence](04-build/evidence/native-configured-publication-complete-20261008.json),
