@@ -18,17 +18,16 @@ Native singleton reads work through the publication resolver independently of Fa
 
 ## Implementation status
 
-Current upstream work remains release-gated: Weft 0.4.52 source `b599` is pushed,
-but its public tag/release and Ashlar pin are pending; the selected macOS and Linux
-wheels are bound to source `32ec02f`, with Linux evidence limited to packaging and
-two offline compiler cases ([wheel and functional receipts](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux/README.md),
-[Linux cases](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux-functional/README.md)).
+Ashlar now pins public Weft 0.4.53. Its released macOS wheel compiled one
+tagged Ashlar page fixture with a byte-identical response to 0.4.52; emitted
+SQL and native execution remain separate gates ([focused adoption
+receipt](04-build/evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)).
 Ashlar now pins the public UMF 0.5.5 Python access wheel (`umf_access` 0.1.0.dev7);
 the core 0.10.0 wheel remains byte-identical. Focused local compatibility tests
 passed, but this does not qualify managed runtime or Delta behavior ([adoption
 receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-Truss 0.0.49 R5 is bound to Ashlar current `main` and passed its permitted
+Truss 0.0.49 R5 is frozen to Ashlar source `0fce3b6c` and passed its permitted
 effect-free supervisor/worker preflight with process inventory, SysV cleanup and
 exact approval-payload parity ready. This is interim current-core readiness for
 UMF core 0.10.0/access 0.1.0.dev7; no PostgreSQL or Spark process, migration,
@@ -71,7 +70,9 @@ checkpoint; no genesis publication or ACK, seed, or continuation occurred. UMF 0
 unpublished; the 0.10.1 SDK release is still pending. The candidate at commit
 `9a11ae5` supplies a versioned direct Delta-path realization. Ashlar's pinned
 bridge has been rebuilt from that exact candidate, and all six source roles pass
-focused offline checks; no Spark or Delta execution is claimed. See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md),
+focused offline checks. One native local Delta 4 create/write/read accepted the
+candidate DDL shape with an owned path; it did not run the full bridge or Truss
+lifecycle ([one-table receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-delta4-one-table-acceptance-20261023/README.md)). See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md),
 [SDK package-install receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-sdk-package-install/README.md)
 and the [historical 0.5.4 candidate receipt](04-build/evidence/current-upstream-release-20261022/local-delta4-umf-realization-candidate.json).
 

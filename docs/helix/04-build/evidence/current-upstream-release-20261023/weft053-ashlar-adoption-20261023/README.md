@@ -1,0 +1,9 @@
+# Weft 0.4.53 Ashlar adoption check
+
+Status: **focused compiler compatibility passed; typed-sdk pin updated to 0.4.53**. In an isolated Python 3.12.14 environment, the exact `native-ashlar-related-page-request.json` fixture from Weft tag commit `726a840e956e25217d6aeea2674fdfcf3f342a24` compiled through Ashlar's matching `weft.compile_engine_page_json` page API on both 0.4.52 and 0.4.53. The canonical response bytes matched exactly (SHA-256 `9bc5823bc87905db1022a2561a6b3902ac68b31dbfe4009ef0fbd56ee8eb23c4`); both statuses were `compiled`, with matching emitted SQL, typed output columns, page key/size, and Ashlar host obligations.
+
+The fixture SHA-256 is `c3d8b8de420debf8bab359a61719df36d7c3af9b3b0a7f1e92eee0f2fd5fe507`; the wrapped page request SHA-256 is `5c8c3c08fead7c6a8cfc0d42e8e724e76f1d348a7ebd0e920df2a80b738e21c3`. The official release is [Weft v0.4.53](https://github.com/DocumentDrivenDX/weft/releases/tag/v0.4.53), target commit `726a840e956e25217d6aeea2674fdfcf3f342a24`. Its macOS arm64 wheel SHA-256 is `4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c`; the 0.4.52 comparison wheel SHA-256 is `598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46`.
+
+This is one compiler-only Ashlar related-key page compatibility check. It does not execute emitted SQL or qualify a native runtime. Earlier `WFT-INPUT` results came from routing this page fixture to generic `weft.compile_json`; a direct `compile_engine_related_page_json` call also used the wrong request frame. Those were harness/API mismatches, not release regressions. The successful path uses the matching `compile_engine_page_json` wrapper and preserves the fixture's page API contract.
+
+The isolated environment, runner, and full 0.4.52/0.4.53 responses are retained under `/private/tmp/ashlar-weft053-adoption-20261023/`.
