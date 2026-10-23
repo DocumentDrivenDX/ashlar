@@ -1,0 +1,1346 @@
+{
+  "baseline_pins": {
+    "A": {
+      "authority": "R03 resulting accepted A source after .49 resume, genesis ACK, seed submit/readback",
+      "complete_edge_bag": null,
+      "complete_object_bag": null,
+      "consumer_registration_id": null,
+      "epoch": null,
+      "feed_id": null,
+      "history_and_tombstones": null,
+      "installation_id": null,
+      "namespace": null,
+      "protected_ack_checkpoint": null,
+      "publication_progress": null,
+      "schema_revision": null,
+      "source_id": null
+    },
+    "B": {
+      "authority": "independently accepted .49 UMF 0.10 source and installation",
+      "complete_edge_bag": null,
+      "complete_object_bag": null,
+      "consumer_registration_id": null,
+      "epoch": null,
+      "feed_id": null,
+      "history_and_tombstones": null,
+      "installation_id": null,
+      "namespace": null,
+      "protected_ack_checkpoint": null,
+      "publication_progress": null,
+      "schema_revision": null,
+      "source_id": null
+    },
+    "rule": "Prefix zero is the exact union of independently pinned A and B baseline bags/progress. R04 deltas are compared against that baseline; no prefix asserts a source-global object or edge is absent merely because no R04 slot has created it.",
+    "status": "required_before_schedule_freeze; exact complete bags and progress are not yet bound"
+  },
+  "baseline_preservation_rule": "At every prefix preserve all baseline objects, edges, history, tombstones, values, presence states, source progress and retained publication data except exact changes explicitly admitted by completed R04 source transactions. The complete baseline bags must be independently read and pinned before freeze.",
+  "incident_edge_policy_gate": "No R3 expected state may assert an incident edge was deleted, retained or tombstoned until accepted Truss semantics and the full schedule preselect one valid endpoint-closure policy before any R04 source mutation. R2 preserves the exact R1 edge identity/endpoints; R2 request freeze cannot choose this semantic.",
+  "independence": "Expected state comes from accepted original source request bytes, public source commit result/readback, and source-owned committed feed/page custody. Do not derive expected values from SQL, native current rows, publisher receipts, or the system under test.",
+  "presence_and_value_rules": [
+    "For every property compare `absent`, explicit `null`, and `present(value)` separately.",
+    "Preserve original JSON scalar forms and exact integers/decimals/strings as delivered by the accepted sources; do not normalize or infer them.",
+    "For R1 Person/Place required fields are present and non-null; optional quantity is absent in the draft lifecycle.",
+    "For R2 retain exact unchanged person_key, change person_name, and transition quantity from absent to a present accepted integer.",
+    "For R3 preserve prior values in history and a Person tombstone; incident-edge outcome is unresolved until one valid endpoint-closure policy is fixed in the frozen schedule before any R04 mutation.",
+    "A4/B4 values and schema revision remain unresolved until the accepted additive candidate is known."
+  ],
+  "profile": "ashlar-current-core-two-source-independent-prefix-oracle-draft/0.1",
+  "publication_vs_ack_state_machine": [
+    {
+      "graph_manifest_progress": "prior settled publication progress",
+      "phase": "before_slot_source_mutation",
+      "protected_source_ack_checkpoint": "prior ACKed checkpoint"
+    },
+    {
+      "graph_manifest_progress": "still prior; no new manifest",
+      "phase": "after_source_transaction_and_page_binding_before_graph_commit",
+      "protected_source_ack_checkpoint": "still prior"
+    },
+    {
+      "graph_manifest_progress": "advances to this page next cursor in new manifest",
+      "phase": "after_graph_commit_before_protected_ACK",
+      "protected_source_ack_checkpoint": "still prior; must not be inferred from manifest"
+    },
+    {
+      "graph_manifest_progress": "unchanged from new manifest",
+      "phase": "after_independent_complete_vector_and_progress_verification_then_ACK",
+      "protected_source_ack_checkpoint": "advances only for this source to verified page next cursor"
+    },
+    {
+      "graph_manifest_progress": "both source entries reflect latest committed pages",
+      "phase": "settled_prefix",
+      "protected_source_ack_checkpoint": "separately verified ACK positions; equal to consumed progress only when each corresponding ACK completed"
+    }
+  ],
+  "retained_reads": "Positive retained-publication read evidence must prove an exact earlier complete vector and values remain readable within the declared retention interval. Separately test expired-version behavior as a negative refusal; the negative case cannot substitute for the positive retained read.",
+  "slot_prefixes": [
+    {
+      "expected_acknowledgments": [],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 0,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 0,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "none",
+            "baseline": "preserve exact complete pinned baseline bags/progress; do not assert global absence"
+          },
+          "B": {
+            "R04_delta": "none",
+            "baseline": "preserve exact complete pinned baseline bags/progress; do not assert global absence"
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": null,
+      "next_slot_eligible": "A1",
+      "next_source_mutation_gate": null,
+      "prefix": 0,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": []
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": []
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": []
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": []
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 0
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 0
+        }
+      },
+      "required_prior_completed_slots": [],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 1,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 0,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "R1 creates one source-qualified Person target and Place endpoint, plus one independent directed relationship edge with typed same-source endpoints",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "properties": {
+              "person_key": "present exact accepted string",
+              "person_name": "present exact accepted string",
+              "place_key": "present exact accepted string",
+              "place_name": "present exact accepted string",
+              "quantity": "absent (not explicit null)"
+            }
+          },
+          "B": {
+            "R04_delta": "none",
+            "baseline": "preserve exact complete pinned baseline bags/progress; do not assert global absence"
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "A1",
+      "next_slot_eligible": "B1",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "A1",
+        "slot": "B1"
+      },
+      "prefix": 1,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": []
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": []
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": []
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 1
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 0
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 1,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 1,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "R1 creates one source-qualified Person target and Place endpoint, plus one independent directed relationship edge with typed same-source endpoints",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "properties": {
+              "person_key": "present exact accepted string",
+              "person_name": "present exact accepted string",
+              "place_key": "present exact accepted string",
+              "place_name": "present exact accepted string",
+              "quantity": "absent (not explicit null)"
+            }
+          },
+          "B": {
+            "R04_delta": "R1 creates one source-qualified Person target and Place endpoint, plus one independent directed relationship edge with typed same-source endpoints",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "properties": {
+              "person_key": "present exact accepted string",
+              "person_name": "present exact accepted string",
+              "place_key": "present exact accepted string",
+              "place_name": "present exact accepted string",
+              "quantity": "absent (not explicit null)"
+            }
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "B1",
+      "next_slot_eligible": "A2",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "B1",
+        "slot": "A2"
+      },
+      "prefix": 2,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": []
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 1
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 1
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 2,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 1,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "same R1-created Person updated; baseline unchanged outside explicit R04 keys",
+            "edge": "same R1 independent edge identity and typed same-source endpoints; fixed schedule semantics",
+            "properties": {
+              "person_key": "exact R1 value retained",
+              "person_name": "present exact changed value",
+              "quantity": "absent at R1 then present exact accepted integer"
+            }
+          },
+          "B": {
+            "R04_delta": "R1 creates one source-qualified Person target and Place endpoint, plus one independent directed relationship edge with typed same-source endpoints",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "properties": {
+              "person_key": "present exact accepted string",
+              "person_name": "present exact accepted string",
+              "place_key": "present exact accepted string",
+              "place_name": "present exact accepted string",
+              "quantity": "absent (not explicit null)"
+            }
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "A2",
+      "next_slot_eligible": "B2",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "A2",
+        "slot": "B2"
+      },
+      "prefix": 3,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 2
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 1
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B2",
+          "source": "B"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 2,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 2,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "same R1-created Person updated; baseline unchanged outside explicit R04 keys",
+            "edge": "same R1 independent edge identity and typed same-source endpoints; fixed schedule semantics",
+            "properties": {
+              "person_key": "exact R1 value retained",
+              "person_name": "present exact changed value",
+              "quantity": "absent at R1 then present exact accepted integer"
+            }
+          },
+          "B": {
+            "R04_delta": "same R1-created Person updated; baseline unchanged outside explicit R04 keys",
+            "edge": "same R1 independent edge identity and typed same-source endpoints; fixed schedule semantics",
+            "properties": {
+              "person_key": "exact R1 value retained",
+              "person_name": "present exact changed value",
+              "quantity": "absent at R1 then present exact accepted integer"
+            }
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "B2",
+      "next_slot_eligible": "A3",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "B2",
+        "slot": "A3"
+      },
+      "prefix": 4,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 2
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 2
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2",
+        "B2"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B2",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A3",
+          "source": "A"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 3,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 2,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "same R1-created Person deleted; preserve create/update/delete history and Person tombstone",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "endpoint_closure": "schedule freeze blocked until accepted semantics select and freeze a valid exact edge closure policy; no expectation of edge absent/retained/tombstone is asserted here",
+            "incident_edge_policy": null
+          },
+          "B": {
+            "R04_delta": "same R1-created Person updated; baseline unchanged outside explicit R04 keys",
+            "edge": "same R1 independent edge identity and typed same-source endpoints; fixed schedule semantics",
+            "properties": {
+              "person_key": "exact R1 value retained",
+              "person_name": "present exact changed value",
+              "quantity": "absent at R1 then present exact accepted integer"
+            }
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "A3",
+      "next_slot_eligible": "B3",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "A3",
+        "slot": "B3"
+      },
+      "prefix": 5,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 3
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 2
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2",
+        "B2",
+        "A3"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B2",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A3",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B3",
+          "source": "B"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 3,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 3,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "same R1-created Person deleted; preserve create/update/delete history and Person tombstone",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "endpoint_closure": "schedule freeze blocked until accepted semantics select and freeze a valid exact edge closure policy; no expectation of edge absent/retained/tombstone is asserted here",
+            "incident_edge_policy": null
+          },
+          "B": {
+            "R04_delta": "same R1-created Person deleted; preserve create/update/delete history and Person tombstone",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "endpoint_closure": "schedule freeze blocked until accepted semantics select and freeze a valid exact edge closure policy; no expectation of edge absent/retained/tombstone is asserted here",
+            "incident_edge_policy": null
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "B3",
+      "next_slot_eligible": "A4",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "B3",
+        "slot": "A4"
+      },
+      "prefix": 6,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 3
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 3
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2",
+        "B2",
+        "A3",
+        "B3"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B2",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A3",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B3",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A4",
+          "source": "A"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 4,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 3,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "accepted additive candidate only after its exact schema and payload are frozen",
+            "baseline": "preserve all pre-R04 state and all R1-R3 source-qualified identity/value/presence/history/tombstone results",
+            "exact_object_or_edge_delta": null,
+            "exact_schema_delta": null
+          },
+          "B": {
+            "R04_delta": "same R1-created Person deleted; preserve create/update/delete history and Person tombstone",
+            "baseline": "preserve unchanged outside explicit R04 keys",
+            "endpoint_closure": "schedule freeze blocked until accepted semantics select and freeze a valid exact edge closure policy; no expectation of edge absent/retained/tombstone is asserted here",
+            "incident_edge_policy": null
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "A4",
+      "next_slot_eligible": "B4",
+      "next_source_mutation_gate": {
+        "prior_publication_verification_and_source_specific_ACK": "durably complete",
+        "requires_prior_slot": "A4",
+        "slot": "B4"
+      },
+      "prefix": 7,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3",
+              "A4"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 4
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 3
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2",
+        "B2",
+        "A3",
+        "B3",
+        "A4"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    },
+    {
+      "expected_acknowledgments": [
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A1",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B1",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A2",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B2",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A3",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B3",
+          "source": "B"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "A4",
+          "source": "A"
+        },
+        {
+          "expected_order": "after corresponding publication vector and both publication-progress entries are independently verified",
+          "slot": "B4",
+          "source": "B"
+        }
+      ],
+      "expected_schema_revisions": {
+        "A": null,
+        "B": null,
+        "baseline_A": null,
+        "baseline_B": null,
+        "combined_manifest": null
+      },
+      "expected_source_progress": {
+        "A": {
+          "advance_only_after_A_publication_vector_and_source_progress_verified": "A ACK durable",
+          "completed_R04_transactions": 4,
+          "cursor": "exact accepted A cursor after its last completed slot; unfrozen"
+        },
+        "B": {
+          "advance_only_after_B_publication_vector_and_source_progress_verified": "B ACK durable",
+          "completed_R04_transactions": 4,
+          "cursor": "exact accepted B cursor after its last completed slot; unfrozen"
+        }
+      },
+      "expected_source_state": {
+        "baseline": "exact independently pinned full source bags remain the starting state and are preserved outside admitted R04 deltas",
+        "r04_delta": {
+          "A": {
+            "R04_delta": "accepted additive candidate only after its exact schema and payload are frozen",
+            "baseline": "preserve all pre-R04 state and all R1-R3 source-qualified identity/value/presence/history/tombstone results",
+            "exact_object_or_edge_delta": null,
+            "exact_schema_delta": null
+          },
+          "B": {
+            "R04_delta": "accepted additive candidate only after its exact schema and payload are frozen",
+            "baseline": "preserve all pre-R04 state and all R1-R3 source-qualified identity/value/presence/history/tombstone results",
+            "exact_object_or_edge_delta": null,
+            "exact_schema_delta": null
+          }
+        }
+      },
+      "independent_checks": [
+        "compare source-side committed inputs/results/readbacks, never derive expected rows from emitted SQL or current native rows",
+        "compare complete current object and edge bags including source-qualified IDs, typed endpoints, edge multiplicity, exact scalar values and present/absent/explicit-null state",
+        "compare complete history and tombstone bags, exact source/model schema revision and both source progress entries",
+        "verify one complete immutable publication vector and durable receipt for this prefix",
+        "verify retained prior publication vector/values remain readable or fail under an explicit retention boundary",
+        "compare complete baseline source bags/progress independently at prefix 0, then compare each later prefix as baseline plus only the admitted R04 delta",
+        "read graph publication progress from the immutable manifest separately from source-specific protected ACK checkpoint; test the state immediately after publication/before ACK and after ACK",
+        "for R3, compare edge outcome only to the single closure policy fixed in the frozen semantic schedule; never choose it while freezing the R3 request",
+        "advance only the just-published source ACK after full vector and publication progress verification; do not infer ACK advancement from publication progress"
+      ],
+      "last_slot": "B4",
+      "next_slot_eligible": null,
+      "next_source_mutation_gate": null,
+      "prefix": 8,
+      "protected_ack_progress": {
+        "before_last_slot_ack": {
+          "A": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3",
+              "A4"
+            ]
+          },
+          "B": {
+            "checkpoint": "prior source-specific checkpoint; exact value unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          }
+        },
+        "rule": "Publication manifest progress and protected consumer ACK checkpoints are separate evidence and must be read and compared independently.",
+        "settled_prefix_after_last_ack": {
+          "A": {
+            "checkpoint": "exact A consumer checkpoint for last ACKed A slot; unfrozen",
+            "r04_slots_acked": [
+              "A1",
+              "A2",
+              "A3",
+              "A4"
+            ]
+          },
+          "B": {
+            "checkpoint": "exact B consumer checkpoint for last ACKed B slot; unfrozen",
+            "r04_slots_acked": [
+              "B1",
+              "B2",
+              "B3",
+              "B4"
+            ]
+          }
+        }
+      },
+      "publication_progress": {
+        "A": {
+          "page_cursor": "actual A next cursor of last published A page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 4
+        },
+        "B": {
+          "page_cursor": "actual B next cursor of last published B page, baseline cursor if none; exact value unfrozen",
+          "r04_slots_committed_to_graph": 4
+        }
+      },
+      "required_prior_completed_slots": [
+        "A1",
+        "B1",
+        "A2",
+        "B2",
+        "A3",
+        "B3",
+        "A4",
+        "B4"
+      ],
+      "required_publication_vector": {
+        "complete_manifest_id": null,
+        "exact_native_versions": null,
+        "exact_roles": [
+          "object_current",
+          "edge_current",
+          "tombstone",
+          "whole_source_history"
+        ]
+      }
+    }
+  ],
+  "source_qualified_identity": "Compare `(source identity, type, local id)` for objects and `(source identity, relationship type, local edge id)` for edges. Compare each endpoint as `(source identity, endpoint type, local id)`. Equal A/B local IDs remain distinct. Require authoritative overlap evidence; if unavailable, freeze remains blocked.",
+  "status": "draft_not_frozen_authoritative_inputs_missing",
+  "stop_conditions": [
+    "any missing/unverified predecessor result, resolved identity, request digest, feed page, cursor, writer position, event-byte inventory, schema pin, publication version or source-specific ACK",
+    "any source/ACK identity collision or unproven independent authority",
+    "any mismatch in exact value, presence, multiplicity, edge identity/typed endpoint, history/tombstone, schema revision, source progress or full vector",
+    "any failed or uncertain predecessor: stop all later source mutations and preserve original request/page/publication custody; no retry or inferred page"
+  ]
+}

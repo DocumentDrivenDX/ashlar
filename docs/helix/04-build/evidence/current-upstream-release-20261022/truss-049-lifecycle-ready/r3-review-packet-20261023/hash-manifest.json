@@ -1,0 +1,8 @@
+{
+  "files": {
+    "campaign_worker.py": "2f640454312e807d34ef8115bbc1b081ddea2e61ec53a68ce8acc93234f97c70",
+    "run_supervisor.py": "3c6fd6d18d5b8750ed8a8fe625abb3025e5ddef4cacbc3aec1c7c2a41b460908"
+  },
+  "profile": "truss049-r3-archival-script-copy-checksums/0.1",
+  "scope": "exact SHA-256 of machine-bound archival review snapshots; not a runnable package or execution authorization"
+}

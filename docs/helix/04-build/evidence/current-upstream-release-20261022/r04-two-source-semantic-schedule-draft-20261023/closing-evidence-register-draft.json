@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "case": "exact_replay_no_extra_commit",
+      "id": "CE-01",
+      "required_evidence": "Replay exact committed schedule/page against its original durable journal and receipt; independently show logical/native state unchanged and no additional table or manifest commit/version.",
+      "status": "pending"
+    },
+    {
+      "case": "fresh_process_journal_restart",
+      "id": "CE-02",
+      "required_evidence": "Close original owned process; reopen in a fresh process using the retained journal and source positions; prove exact state/vector/recovery with no extra commit or source ACK.",
+      "status": "pending"
+    },
+    {
+      "case": "uncertain_operation_refusal_or_same_reference_reconciliation",
+      "id": "CE-03",
+      "required_evidence": "Inject or observe bounded uncertain outcome, retain the exact original operation reference and request custody, and show no new prepare/apply/request retry; reconcile only that reference or fail closed before later mutation/ACK.",
+      "status": "pending"
+    },
+    {
+      "case": "missing_journal_refusal",
+      "id": "CE-04",
+      "required_evidence": "On a separate isolated test copy, with required journal absent, prove restart refuses before graph table effects, later source mutation, or either source ACK; retain refusal and unchanged baseline evidence.",
+      "status": "pending"
+    },
+    {
+      "case": "breaking_evolution_refusal",
+      "id": "CE-05",
+      "required_evidence": "Submit a separately pinned unadmitted breaking candidate and prove refusal before data/manifest effects and before either source ACK; confirm prior publication remains unchanged.",
+      "status": "pending"
+    },
+    {
+      "case": "positive_retained_publication_read_within_interval",
+      "id": "CE-06",
+      "required_evidence": "Within the explicitly declared original read/retention interval, read the exact historical complete vector UUID/version and compare independent source-derived object/edge/history/tombstone/progress values; preserve the old publication while later prefixes exist.",
+      "status": "pending"
+    },
+    {
+      "case": "expired_version_negative_refusal",
+      "id": "CE-07",
+      "required_evidence": "Separately, after the declared retention/version interval expires or from an intentionally absent exact version, verify explicit refusal and no fallback to latest. This negative case does not replace CE-06.",
+      "status": "pending"
+    }
+  ],
+  "controls": [
+    "Use isolated test copies or inert fault ports for refusal tests; do not corrupt the sole retained source or journal.",
+    "All evidence must bind the frozen schedule digest, accepted A/B source/model pins, installation registry, exact source progress and complete publication vectors.",
+    "Run sequentially under separately bounded, explicitly authorized conditions; this draft authorizes no native tests."
+  ],
+  "profile": "ashlar-current-core-two-source-closing-evidence-register-draft/0.1",
+  "scope": "Required closure controls for the selected R04 run; this register defines evidence and ordering, not permission to execute.",
+  "status": "draft_unexecuted_all_entries_pending_R04_inputs_and_separate_execution_authorization"
+}

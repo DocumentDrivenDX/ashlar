@@ -1,0 +1,42 @@
+{
+  "A_R03_required": [
+    "completed Truss 0.0.49 migration/resume from exact retained .48 state",
+    "actual catalog-only genesis page publication and independent full-vector verification followed by existing A consumer protected ACK",
+    "one-time approved seed submission only after genesis ACK, actual public committed result/readback and source custody",
+    "authoritative A model/schema/source revision and provider-assigned IDs/results for intended lifecycle target and overlapping local IDs"
+  ],
+  "B_independent_required": [
+    "separately accepted Truss 0.0.49 UMF core 0.10 source bytes, document/revision/registration IDs and exact digest",
+    "complete public acceptance report and catalog/source view with exact schema pins",
+    "independent installation ID and profile, source/feed ID, epoch, source namespace and original transaction inventory",
+    "ordinary consumer ID and provider registration/checkpoint, plus separate protected destination and ACK scope/registration",
+    "authoritative B target identity/readback and evidence of intended local-ID overlap with A"
+  ],
+  "closing_evidence_required": [
+    "exact replay with no extra commit",
+    "fresh-process journal restart",
+    "uncertain operation and missing-journal refusal",
+    "breaking-evolution refusal before data effects or either ACK",
+    "positive historical read within retained interval",
+    "separate expired-version negative refusal"
+  ],
+  "not_reused": [
+    "pending R03 seed request is not an R04 slot",
+    "old UMF 0.8 native-r2 3/8 prefix is historical only",
+    "existing R04 readiness report contains sequence shape, not accepted R04 source identities or a schedule freeze"
+  ],
+  "profile": "ashlar-r04-missing-authoritative-pins/0.1",
+  "schedule_level_required": [
+    "eight-slot model/schema revision pins for both sources, including exact admitted A4/B4 additive candidate",
+    "original exact request bytes and SHA-256 for R1 before each R1; exact R2/R3 requests only after verified predecessor public result/readback but before their source mutation; exact A4/B4 requests before each respective source effect",
+    "independent expected source state for every prefix with exact values/presence/multiplicity, edge identities/endpoints, history, tombstones, schema revisions and source progress",
+    "exact role UUID registry and vector version binding for the selected R04 destination profile; source-specific ACK identity and durable verification evidence",
+    "canonical schedule bytes/digest and independent review; actual pages/cursors/writer positions/events remain per-slot binds after each transaction commits and before graph effects",
+    "independently pinned complete A and B baseline object/edge/history/tombstone bags and source progress/ACK checkpoints before R04; prefix zero is this baseline, not an empty graph",
+    "one accepted Truss incident-edge closure policy fixed in the semantic schedule before any R04 source mutation; R3 request cannot make that semantic choice",
+    "separate graph publication progress in the manifest from each source protected ACK checkpoint, including observable before-ACK and after-ACK states",
+    "exact R1 and R2 authored target values and property-presence expectations, selected before schedule freeze; the later per-slot request may resolve only the verified provider identity and serialize the already frozen semantics",
+    "complete independently read and pinned A/B pre-R04 baseline bags, model revisions, graph publication progress and separate protected ACK checkpoints; prefix zero is baseline, never an empty graph"
+  ],
+  "status": "freeze_blocked"
+}

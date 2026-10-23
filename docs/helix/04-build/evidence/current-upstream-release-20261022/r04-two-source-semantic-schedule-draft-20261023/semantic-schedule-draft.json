@@ -1,0 +1,438 @@
+{
+  "ack_order": "For each slot: commit graph publication and manifest publication progress; independently verify the full vector and both source publication-progress entries; then advance only that source\u2019s protected ACK checkpoint. These are distinct records. Only after protected ACK is durable may the next source mutation begin.",
+  "authorization": "The owner-approved 2026-10-21 staged feed-page binding and 2026-10-23 slot-by-slot request-freeze timing govern preparation only. Neither authorizes source mutation, publication or ACK.",
+  "canonical_freeze_preconditions": [
+    "R03 A .49 migration/resume, genesis publication and protected ACK, seed first submission/readback, and authoritative resulting IDs/custody are complete",
+    "Independent B Truss .49 UMF 0.10 acceptance, full catalog/report/view and separately owned installation/feed/epoch/namespace/consumer/ACK scope are complete",
+    "Authoritative evidence proves intended A/B local ID overlap before schedule freeze; no guessed or inferred identities",
+    "Exact accepted source model/schema pins and explicit additive-candidate semantics are selected for both sources",
+    "Independent review accepts the complete prefix oracle and exact canonical schedule bytes before first R04 publication",
+    "Accepted source semantics determine a single valid R3 incident-edge closure policy, and the complete schedule freezes it before any R04 source mutation; R2 retains its already fixed R1 edge identity/endpoints.",
+    "Each R1 creates a new accepted logical identity distinct from that source\u2019s complete pinned pre-R04 baseline; the R03 seed entity is not reused. Cross-source local-ID overlap is independently evidenced and source-qualified."
+  ],
+  "explicitly_unfrozen": [
+    "actual accepted source IDs/revisions/registrations",
+    "A/B installation, feed, epoch, namespace, ordinary consumer and ACK registrations",
+    "literal request bytes and request digests",
+    "actual provider-assigned local object and edge IDs",
+    "actual event bytes/feed pages/cursors/writer positions",
+    "exact accepted schema/additive candidate revision",
+    "exact table UUID/version vector for each prefix",
+    "schedule digest"
+  ],
+  "governing_artifacts": {
+    "CONTRACT-001": "../../../../02-design/contracts/CONTRACT-001-publication-boundary.md#approved-r04-slot-by-slot-request-freeze",
+    "CONTRACT-003": "../../../../02-design/contracts/CONTRACT-003-delta-graph-tables.md#current-core-two-source-materialization-amendment",
+    "current_core_model_witness": "../../truss-current-catalog-0.10-20261021/accepted-source.umf.json",
+    "delivery_plan": "../../../toolkit-delivery-plan.md#r04",
+    "offline_preparation_status": "../r04-offline-preparation-status-20261023.json",
+    "prior_readiness": "../r04-two-source-schedule-readiness.json"
+  },
+  "model_witness": {
+    "candidate_only": true,
+    "candidate_types": {
+      "Person": {
+        "identity_key": "person_key:string required",
+        "properties": {
+          "person_name": "string required",
+          "quantity": "integer absent-allowed"
+        }
+      },
+      "Place": {
+        "identity_key": "place_key:string required",
+        "properties": {
+          "place_name": "string required"
+        }
+      },
+      "relationships": {
+        "knows": {
+          "directed": true,
+          "source": "Person",
+          "target": "Person",
+          "target_lifecycle": "independent"
+        },
+        "located": {
+          "directed": true,
+          "source": "Person",
+          "target": "Place",
+          "target_lifecycle": "independent"
+        }
+      }
+    },
+    "model_witness_status": "Existing public UMF core 0.10 catalog example only; not an accepted R04 A or B source pin.",
+    "selection_gate": "Replace this witness with the exact independently accepted A/B UMF 0.10 source, revision, catalog report/view and installation pins before schedule freeze. Preserve unknown extensions and original scalar/presence semantics."
+  },
+  "profile": "ashlar-current-core-two-source-semantic-schedule-draft/0.1",
+  "publication_contract": {
+    "all_native_table_uuids_versions_and_manifest_ids": null,
+    "also_verify": [
+      "exact accepted schema revision(s)",
+      "both source progress entries",
+      "source-record/history completeness",
+      "durable manifest/receipt identity"
+    ],
+    "profile": "ashlar-current-core-two-source/0.2 candidate",
+    "progress_distinction": {
+      "protected_ack_progress": "The registered source consumer checkpoint advances only after independent full-vector and publication-progress verification; it is a distinct source-specific record.",
+      "publication_progress": "The immutable graph publication manifest records source progress through the page consumed by that publication; it advances when that publication commits.",
+      "rule": "Never use graph publication progress as proof that the source protected ACK advanced, or vice versa."
+    },
+    "role_versions": null,
+    "vector": "one immutable complete vector per slot containing exact versions for the four admitted data roles: object_current, edge_current, tombstone, whole_source_history; confirm the selected accepted R04 installation registry before freeze"
+  },
+  "schedule_digest_sha256": null,
+  "schedule_digest_state": "unfrozen; this draft file checksum is not the canonical R04 schedule identity",
+  "selected_global_order": [
+    "A1",
+    "B1",
+    "A2",
+    "B2",
+    "A3",
+    "B3",
+    "A4",
+    "B4"
+  ],
+  "slots": [
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 1,
+      "phase": "R1",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before A1 source mutation",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_edge": "one independent directed located edge Person -> Place",
+        "draft_entities": [
+          "one Person",
+          "one Place"
+        ],
+        "lineage_target": "A.R1.created_person",
+        "operation_class": "create",
+        "presence_contract": {
+          "person_key": "present non-null string",
+          "person_name": "present non-null string",
+          "place_key": "present non-null string",
+          "place_name": "present non-null string",
+          "quantity": "absent (not explicit null)"
+        },
+        "values": "exact literals unresolved; do not infer from examples or R03 seed"
+      },
+      "slot": "A1",
+      "source_authority_ids": null,
+      "source_label": "A",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 2,
+      "phase": "R1",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before B1 source mutation",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_edge": "one independent directed located edge Person -> Place",
+        "draft_entities": [
+          "one Person",
+          "one Place"
+        ],
+        "lineage_target": "B.R1.created_person",
+        "operation_class": "create",
+        "presence_contract": {
+          "person_key": "present non-null string",
+          "person_name": "present non-null string",
+          "place_key": "present non-null string",
+          "place_name": "present non-null string",
+          "quantity": "absent (not explicit null)"
+        },
+        "values": "exact literals unresolved; do not infer from examples or R03 seed"
+      },
+      "slot": "B1",
+      "source_authority_ids": null,
+      "source_label": "B",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 3,
+      "phase": "R2",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before A2 source mutation; resolve dependent identities only from verified predecessor result/readback",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_transition": {
+          "person_key": "unchanged exact original string",
+          "person_name": "present exact value changes from R1 value",
+          "quantity": "absent at R1 -> present integer at R2; exact integer unfrozen"
+        },
+        "edge_contract": "R2 preserves the exact R1 independent edge identity and typed same-source endpoints; this is fixed schedule semantics, not a choice at request-freeze time.",
+        "lineage_target": "A.R1.created_person",
+        "operation_class": "update",
+        "same_entity_as": "A.R1.created_person"
+      },
+      "slot": "A2",
+      "source_authority_ids": null,
+      "source_label": "A",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 4,
+      "phase": "R2",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before B2 source mutation; resolve dependent identities only from verified predecessor result/readback",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_transition": {
+          "person_key": "unchanged exact original string",
+          "person_name": "present exact value changes from R1 value",
+          "quantity": "absent at R1 -> present integer at R2; exact integer unfrozen"
+        },
+        "edge_contract": "R2 preserves the exact R1 independent edge identity and typed same-source endpoints; this is fixed schedule semantics, not a choice at request-freeze time.",
+        "lineage_target": "B.R1.created_person",
+        "operation_class": "update",
+        "same_entity_as": "B.R1.created_person"
+      },
+      "slot": "B2",
+      "source_authority_ids": null,
+      "source_label": "B",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 5,
+      "phase": "R3",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before A3 source mutation; resolve dependent identities only from verified predecessor result/readback",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_transition": "current Person absent after delete; retain deletion history and tombstone; preserve Place if still present",
+        "endpoint_contract": "Schedule freeze is blocked until accepted Truss semantics and the frozen schedule select an exact incident-edge closure policy that leaves no invalid endpoint state. The R3 request must implement that preselected policy; no policy choice is deferred to request-freeze time.",
+        "incident_edge_outcome": null,
+        "lineage_target": "A.R1.created_person",
+        "operation_class": "delete",
+        "same_entity_as": "A.R1.created_person"
+      },
+      "slot": "A3",
+      "source_authority_ids": null,
+      "source_label": "A",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 6,
+      "phase": "R3",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before B3 source mutation; resolve dependent identities only from verified predecessor result/readback",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "draft_transition": "current Person absent after delete; retain deletion history and tombstone; preserve Place if still present",
+        "endpoint_contract": "Schedule freeze is blocked until accepted Truss semantics and the frozen schedule select an exact incident-edge closure policy that leaves no invalid endpoint state. The R3 request must implement that preselected policy; no policy choice is deferred to request-freeze time.",
+        "incident_edge_outcome": null,
+        "lineage_target": "B.R1.created_person",
+        "operation_class": "delete",
+        "same_entity_as": "B.R1.created_person"
+      },
+      "slot": "B3",
+      "source_authority_ids": null,
+      "source_label": "B",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 7,
+      "phase": "R4",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before A4 source mutation",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "acceptance_gate": "must be admitted by the independently accepted UMF 0.10 source/model and explicit versioned extension semantics; field, values, presence and payload are unresolved",
+        "exact_entity_or_edge_mutation": null,
+        "exact_schema_delta": null,
+        "operation_class": "additive-candidate",
+        "preservation_contract": "all previously accepted values, absent/present distinctions, unknown extensions, independent identities and edge endpoints remain unchanged unless the accepted candidate explicitly versions them"
+      },
+      "slot": "A4",
+      "source_authority_ids": null,
+      "source_label": "A",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    },
+    {
+      "ack": {
+        "order": "only after complete vector and source progress are independently verified",
+        "registration_id": null,
+        "source_specific_ack_scope": null
+      },
+      "ordinal": 8,
+      "phase": "R4",
+      "protected_ack_progress": {
+        "expected_after_independent_verification": "advance only this source registration to this slot next cursor",
+        "expected_before_ack": "remain at source prior acknowledged cursor"
+      },
+      "publication_progress": {
+        "expected_at_graph_commit": "advance for this slot source to actual page next cursor; exact cursor unfrozen"
+      },
+      "request": {
+        "event_byte_inventory": null,
+        "exact_original_request_bytes": null,
+        "feed_page": null,
+        "freeze_timing": "before B4 source mutation",
+        "next_cursor": null,
+        "page_sha256": null,
+        "prior_cursor": null,
+        "sha256": null,
+        "writer_position": null
+      },
+      "semantic_intent": {
+        "acceptance_gate": "must be admitted by the independently accepted UMF 0.10 source/model and explicit versioned extension semantics; field, values, presence and payload are unresolved",
+        "exact_entity_or_edge_mutation": null,
+        "exact_schema_delta": null,
+        "operation_class": "additive-candidate",
+        "preservation_contract": "all previously accepted values, absent/present distinctions, unknown extensions, independent identities and edge endpoints remain unchanged unless the accepted candidate explicitly versions them"
+      },
+      "slot": "B4",
+      "source_authority_ids": null,
+      "source_label": "B",
+      "symbolic_identity_references": "Use only source-qualified symbolic references until predecessor public commit result and readback resolve exact provider IDs. Never substitute an unrelated R03 seed entity."
+    }
+  ],
+  "source_separation": {
+    "A": "workflow label only; actual source, feed, epoch, installation, namespace, consumer and ACK identities all unfrozen",
+    "B": "independent workflow label only; must not share A cursor, installation or ACK authority; all actual identities unfrozen",
+    "baseline_rule": "R04 operates as deltas over independently pinned complete A/B baselines. New R1 logical keys must not overwrite or alias a pre-R04 entity in the same source; source-local IDs may overlap across A/B only with source-qualified identity.",
+    "identity_rule": "physical identity is source-qualified; equal local type/id values across A/B must remain distinct; edge identity and both typed endpoints are source-qualified"
+  },
+  "status": "draft_not_frozen_authoritative_R03_A_and_independent_B_inputs_missing"
+}
