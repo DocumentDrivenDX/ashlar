@@ -1,0 +1,164 @@
+{
+  "bridge_readiness": {
+    "ashlar_commit": "e2bbaedf9c6b40339bce9586b912615bb345b15f",
+    "bridge_sha256": "4b7ded0dbd987db07023dff3b71eeb7321b25056c049d7a36ba26c03e09b68fa",
+    "build_inputs_sha256": "f7ab6c005491e55bc6e755897ffbfed09ff34208a3e083fcc247a7f0ec6da532",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "execution_blocked": true,
+    "observed_head_at_preparation": "e2bbaedf9c6b40339bce9586b912615bb345b15f",
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/bridge-readiness.json",
+    "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+    "required": "Reviewed source revision plus exact runtime Git objects; documentation-only HEAD changes permitted; execution still requires separate fresh hash-bound approval",
+    "resource_sha256": "7565f653219ba1e1e452c6d3b586350f1e2ced7950ffc1f0becfa598b79df480",
+    "role_semantics_sha256": "d8c558802d5efd8fbf5966704a8180ee9e8c26265801a24eed724d36bffdd9a4",
+    "runtime_input_objects": {
+      "pyproject.toml": "170164da487d567bfa058288d32604f401125ab0",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "d24e586f5086917d6346867a54a272da7c597180"
+    },
+    "sha256": "44bf38fecfec375fd83e132a6eaba590362b6c6ae2410e671f9115f27c896ac6",
+    "source_revision": "e2bbaedf9c6b40339bce9586b912615bb345b15f",
+    "status": "ready",
+    "umf_commit": "05fa35b8413bb4501c4d13761b1dbfc82b114e0b"
+  },
+  "candidate_artifacts": {
+    "bridge_readiness": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/bridge-readiness.json",
+      "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+      "sha256": "44bf38fecfec375fd83e132a6eaba590362b6c6ae2410e671f9115f27c896ac6"
+    },
+    "postgres_cleanup_binary": {
+      "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+      "sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+      "version": "18.6"
+    },
+    "readonly_048_helper": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/source_048_readonly_helper.py",
+      "sha256": "7d6f5df50bd0751d572917edd81aa566f2e825c9945a4391d2df17f543f4ef4d"
+    },
+    "runtime_preflight": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/runtime-preflight.json",
+      "sha256": "aa9db9af34682850271f9e9296556d584126fd4e82133d4f2ba9b56e06e302a5"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "supervisor": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/run_supervisor.py",
+      "sha256": "2f1e4686eb037ccf631045654f90341a6d22ab71f96dc360f9c8c5a70a966a6e"
+    },
+    "worker": {
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/campaign_worker.py",
+      "sha256": "2595ecadad68dcba33a073fc5b1b1abe2a1efd0767c06fed9f532978e5981e3e"
+    }
+  },
+  "execution": {
+    "acknowledgment_started": false,
+    "approval_marker_present": false,
+    "destination_publication_started": false,
+    "native_started": false,
+    "source_mutation_started": false
+  },
+  "future_execution_paths": {
+    "attempt_directory": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/attempt-r2",
+    "attempt_receipts": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/attempt-r2",
+    "cold_backup_root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/attempt-r2/cold-backup",
+    "existing_048_runtime_for_pre_migration_read": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv",
+    "fresh_local_delta_destination_id": "ashlar-current-049-lifecycle-destination-20261022",
+    "migration_attempt_id": "5d23293a-6356-4989-807e-603fb2a6d2a5",
+    "migration_recovery_registry": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/attempt-r2/truss-migration-recovery.sqlite3",
+    "migration_reference": "must be taken from and frozen from public prepare result before apply; never guessed or replaced",
+    "retained_pgdata": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data"
+  },
+  "immutable_inputs": {
+    "catalog_revision": 1,
+    "consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "existing_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "existing_feed_registration_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/feed-registration-committed.json",
+      "sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f"
+    },
+    "genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "prior_campaign_registration_and_roles": "reuse only; do not repeat role setup or register consumer",
+    "prior_public_source_reobservation_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/retained-source-reobserved.json",
+      "sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87"
+    },
+    "retained_pgdata": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "seed_request": {
+      "bytes": 1657,
+      "operation_count": 7,
+      "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/seed-request.json",
+      "request_key": "ashlar-current-048-lifecycle-seed-r1",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "migration_recovery": {
+    "apply_once": true,
+    "attempt_id": "5d23293a-6356-4989-807e-603fb2a6d2a5",
+    "immutable_prepare_receipt_before_apply": true,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "prepare_once": true,
+    "reconcile_only_same_reference": true,
+    "registry_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/attempt-r2/truss-migration-recovery.sqlite3"
+  },
+  "next_gate": "Sol review of exact pinned private worker/supervisor/preflight; separately hash-bound GO required for all native, migration, Spark, publication, seed and ACK effects",
+  "ordered_future_phases": [
+    "Before the campaign first starts PostgreSQL, verify the retained host is stopped; copy/hash the existing PGDATA to the fresh cold-backup path and record source/backup byte counts and digests under the combined 1 GiB cap.",
+    "Start only the retained owned PostgreSQL. Before migration, sequentially reobserve accepted source/report/complete view and existing feed consumer/checkpoint using a separately frozen read-only helper with the preserved .48 runtime; .49 ordinary latest-only providers may not read the old install. No acceptance, role setup, consumer registration, source mutation, or ACK.",
+    "Use Truss .49 RuntimeMigrations status() and backup_metadata(); preserve companion row-type ACL metadata, exact context/source manifest, and restart-durable SQLite registry. Call prepare once, persist/freeze its exact returned reference/request, and apply that same reference once.",
+    "Verify the migration and immutable receipt through .49. If outcome is uncertain, reconcile only that same frozen reference; no automatic retry or new prepare/apply.",
+    "After migration, validate the retained accepted source/report/view and existing feed/consumer checkpoint via .49 public APIs; do not repeat role setup or consumer registration.",
+    "Use page-owner-generated .4 bridge and immutable installation-profile pins only after supplied/reviewed; publish actual catalog-only genesis page to a fresh destination, validate durable target/vector/receipt, then protected source ACK.",
+    "Only after genesis ACK submit the original approved seven-operation seed request once, then read its actual source page, publish through the same .4 installation, independently validate durable receipt/vector, and protected ACK.",
+    "Close PostgreSQL and Spark; retain bounded per-phase receipts, source pages, installation profile, cold backup and registry; no later mutation or replay."
+  ],
+  "preparation_revision": "r2_full_review_candidate_final_ack_scope_fix",
+  "prior_failed_campaign": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1; preserved untouched",
+  "profile": "ashlar-truss-0.0.49-lifecycle-campaign-preparation/0.1",
+  "readonly_helper": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/source_048_readonly_helper.py",
+    "purpose": "pre-migration source/report/view and existing registered consumer checkpoint read via preserved .48 public APIs; no registration or ACK",
+    "sha256": "7d6f5df50bd0751d572917edd81aa566f2e825c9945a4391d2df17f543f4ef4d"
+  },
+  "release": {
+    "expected_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "truss": "0.0.49",
+    "umf_access": "0.1.0.dev6",
+    "umf_core": "0.10.0",
+    "weft": "0.4.52",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+  },
+  "resource_limits": {
+    "automatic_retries": 0,
+    "cloud": false,
+    "feed_operation_timeout_ms": 5000,
+    "feed_statement_timeout_ms": 2000,
+    "max_log_bytes": 16777216,
+    "maximum_combined_retained_and_new_bytes": 1073741824,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "outer_deadline_seconds": 600,
+    "sequential": true,
+    "spark_master": "local[1]"
+  },
+  "runtime_receipt": {
+    "path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/runtime-preflight.json",
+    "sha256": "aa9db9af34682850271f9e9296556d584126fd4e82133d4f2ba9b56e06e302a5"
+  },
+  "state": "prepared_offline_execution_not_authorized_bridge_ready"
+}

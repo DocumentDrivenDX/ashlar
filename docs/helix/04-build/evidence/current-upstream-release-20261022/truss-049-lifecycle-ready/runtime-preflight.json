@@ -1,0 +1,76 @@
+{
+  "delta": "4.4.1",
+  "direct_wheels": {
+    "truss_wheel": {
+      "bytes": 6232642,
+      "path": "/private/tmp/truss-managed-grants-049/tag-049-package/truss_toolkit-0.0.49-py3-none-any.whl",
+      "sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+    },
+    "umf_access_wheel": {
+      "bytes": 312774,
+      "path": "/private/tmp/ashlar-release-20261022-current-assets/umf-0.5.4/umf_access-0.1.0.dev6-py3-none-any.whl",
+      "sha256": "8f6e86ed94983d0156c2d6e9e1bf83fae186fe1d4a288a3846722e64aa365cf0"
+    },
+    "umf_core_wheel": {
+      "bytes": 71258,
+      "path": "/private/tmp/ashlar-release-20261022-current-assets/umf-0.5.4/umf_core-0.10.0-py3-none-any.whl",
+      "sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9"
+    },
+    "weft_wheel": {
+      "bytes": 10828504,
+      "path": "/private/tmp/weft-052-managed-pages-build-20261022/dist/weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "1f6c0ce742ab6e4e7d882e26f63bf62a274b6de989d8edb0b8e4ffdd63bc7705"
+    }
+  },
+  "isolated_import_mode": "python -I",
+  "jdk": "21.0.13.0.2",
+  "legacy_runtime_receipt": {
+    "path": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/runtime-preflight.json",
+    "sha256": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b"
+  },
+  "local_master": "local[1]",
+  "mini_racer_probe": {
+    "RECORD_payloads_verified": 13,
+    "command": "runtime/venv/bin/python -I -B with importlib.metadata RECORD hashes; no PG/Spark",
+    "v8_eval_6_times_7": 42,
+    "version": "0.14.1"
+  },
+  "no_native_execution": true,
+  "outcome": "direct_wheels_verified_imports_pip_check_and_v8_probe_passed_no_pg_or_spark_started",
+  "profile": "ashlar-truss-0.0.49-lifecycle-runtime-preparation/0.1",
+  "pyspark_driver_python": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/bin/python",
+  "pyspark_worker_python": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv/bin/python",
+  "python": "3.12.14",
+  "readonly_fallbacks": [
+    {
+      "path": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv/lib/python3.12/site-packages",
+      "purpose": "previously qualified read-only Spark, Delta, psycopg, pgserver, JDK/JAR integration dependencies"
+    },
+    {
+      "path": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages",
+      "purpose": "previously qualified native runtime dependencies"
+    },
+    {
+      "path": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages",
+      "purpose": "previously qualified dependency payloads including mini-racer 0.14.1"
+    }
+  ],
+  "runtime_status": "imports_checked: truss 0.0.49, UMF core 0.10.0, access dev6, Weft 0.4.52, psycopg 3.3.6, PySpark 4.2.0, Delta 4.4.1, mini-racer; pip check no broken requirements",
+  "source_model": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "source_origin": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/acceptance-origin.json",
+    "sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed"
+  },
+  "spark": "4.2.0",
+  "truss_migration_api": {
+    "HostRecoveryRegistry": "(path)",
+    "RuntimeMigrations": "(connect, recovery_registry, *, maximum_preservation_bytes=268435456, operation_timeout_ms=30000, statement_timeout_ms=10000)",
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "route": "status/backup_metadata/prepare -> freeze exact reference -> apply once -> verify/receipt; on uncertainty reconcile same reference only"
+  },
+  "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv"
+}
