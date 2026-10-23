@@ -157,6 +157,9 @@ def expected_approval(config: dict, config_raw: bytes, gate_hash: str,
     runtime = config["runtime"]
     source = config["source"]
     origin = config["origin"]
+    lock_sha256 = file_sha(Path(config["dependency_lock"]["path"]))
+    if lock_sha256 != config["dependency_lock"]["sha256"]:
+        raise RuntimeError("selected R4 dependency lock digest mismatch")
     if (large_file_sha(Path(runtime["pg_ctl_path"])) != runtime["pg_ctl_sha256"]
             or large_file_sha(Path(prep["bun_path"])) != prep["bun_sha256"]):
         raise RuntimeError("pinned cleanup/preparation executable digest mismatch")
@@ -165,6 +168,7 @@ def expected_approval(config: dict, config_raw: bytes, gate_hash: str,
             "worker_sha256": file_sha(WORKER),
             "supervisor_sha256": file_sha(Path(__file__)),
             "config_sha256": sha(config_raw),
+            "dependency_lock_sha256": lock_sha256,
             "preparation_sha256": file_sha(HERE / prep["assessment_path"]),
             "prepared_input_sha256": file_sha(Path(prep["prepared_input_path"])),
             "prepared_report_sha256": file_sha(Path(prep["prepared_report_path"])),
@@ -175,7 +179,7 @@ def expected_approval(config: dict, config_raw: bytes, gate_hash: str,
             "bun_path": prep["bun_path"],
             "bun_sha256": prep["bun_sha256"],
             "source_sha256": file_sha(Path(source["path"])),
-            "origin_sha256": file_sha(HERE / origin["path"]),
+            "origin_sha256": file_sha(Path(origin["path"])),
             "admission_gates_sha256": gate_hash}
 
 
@@ -371,7 +375,10 @@ def validate_paths(config: dict) -> tuple[Path, Path, Path]:
         raise PermissionError("fresh B root may contain only its empty attempt directory")
     if pgdata.exists() or pgdata.is_symlink():
         raise PermissionError("fresh B PGDATA required; retained/existing data refuses retry")
-    for input_path in (Path(config["source"]["path"]), (HERE / config["origin"]["path"]).resolve()):
+    origin_path = Path(config["origin"]["path"])
+    if not origin_path.is_absolute() or origin_path.resolve() != origin_path or origin_path.is_symlink():
+        raise PermissionError("external canonical B origin custody path required")
+    for input_path in (Path(config["source"]["path"]), origin_path):
         if input_path.is_relative_to(root):
             raise PermissionError("B-owned output root must not contain source/origin custody inputs")
     if tree_bytes(root) > MAX_BYTES:

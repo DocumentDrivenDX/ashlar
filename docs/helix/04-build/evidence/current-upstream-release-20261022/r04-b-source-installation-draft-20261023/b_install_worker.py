@@ -131,10 +131,10 @@ def load_config(path: Path = CONFIG) -> tuple[dict, bytes, bytes]:
         raise ValueError("unknown B attempt profile")
     source_cfg, origin_cfg = config["source"], config["origin"]
     source = _read(Path(source_cfg["path"]), MAX_SOURCE)
-    origin_path = HERE / origin_cfg["path"]
-    origin = _read(origin_path.resolve(), MAX_ORIGIN)
-    if origin_path.resolve() != origin_path.absolute() or origin_path.is_symlink():
-        raise ValueError("origin must be packet-local canonical file")
+    origin_path = Path(origin_cfg["path"])
+    if not origin_path.is_absolute() or origin_path.resolve() != origin_path or origin_path.is_symlink():
+        raise ValueError("origin must be an external canonical absolute file")
+    origin = _read(origin_path, MAX_ORIGIN)
     if sha(source) != source_cfg["sha256"] or sha(origin) != origin_cfg["sha256"]:
         raise ValueError("pinned source/origin digest mismatch")
     source_doc, origin_doc = json.loads(source), json.loads(origin)
@@ -168,8 +168,40 @@ def _large_file_sha(path: Path, maximum=134_217_728) -> str:
     return digest.hexdigest()
 
 
+def validate_dependency_lock(config: dict) -> str:
+    lock_cfg = config["dependency_lock"]
+    lock_raw = _read(Path(lock_cfg["path"]), MAX_METADATA)
+    if sha(lock_raw) != lock_cfg["sha256"]:
+        raise ValueError("selected R4 dependency lock digest mismatch")
+    lock = strict_json_object(lock_raw)
+    if (lock.get("artifact_count") != lock_cfg["artifact_count"]
+            or lock.get("python_target") != lock_cfg["python_target"]
+            or lock.get("platform_target") != lock_cfg["platform_target"]
+            or type(lock.get("wheels")) is not list
+            or len(lock["wheels"]) != lock_cfg["artifact_count"]):
+        raise ValueError("selected R4 dependency lock target/count mismatch")
+    locked = {wheel.get("distribution"): (wheel.get("version"), wheel.get("sha256"))
+              for wheel in lock["wheels"] if type(wheel) is dict}
+    expected_direct = {
+        "truss-toolkit": ("0.0.49", config["runtime"]["truss_wheel_sha256"]),
+        "umf_access": ("0.1.0.dev7", "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597"),
+        "umf-core": ("0.10.0", "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9"),
+        "weft-sql": ("0.4.52", "598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46"),
+    }
+    if any(locked.get(name) != pin for name, pin in expected_direct.items()):
+        raise ValueError("selected R4 lock does not contain the exact B direct wheel cohort")
+    return lock_cfg["sha256"]
+
+
+def validate_runtime_receipt_lock(receipt: dict, expected_lock_sha256: str) -> None:
+    if receipt.get("dependency_lock_sha256") != expected_lock_sha256:
+        raise RuntimeError("B runtime receipt does not bind the selected dependency lock")
+
+
 def verify_preparation_and_runtime(config: dict) -> dict:
     prep_cfg = config["preparation"]
+    lock_cfg = config["dependency_lock"]
+    lock_sha256 = validate_dependency_lock(config)
     prep_path = (HERE / prep_cfg["assessment_path"]).resolve()
     if prep_path != PREPARATION or _file_sha(prep_path) != prep_cfg["assessment_sha256"]:
         raise ValueError("offline preparation assessment pin mismatch")
@@ -193,6 +225,7 @@ def verify_preparation_and_runtime(config: dict) -> dict:
     if _file_sha(receipt_path) != config["runtime"]["runtime_manifest_sha256"]:
         raise ValueError("selected .49 runtime receipt pin mismatch")
     receipt = strict_json_object(receipt_path.read_bytes())
+    validate_runtime_receipt_lock(receipt, lock_sha256)
     if (receipt.get("no_native_execution") is not True
             or receipt.get("pg_started") is not False or receipt.get("spark_started") is not False
             or receipt.get("versions", {}).get("truss-toolkit") != config["runtime"]["truss_version"]
@@ -221,7 +254,8 @@ def verify_preparation_and_runtime(config: dict) -> dict:
     pg_ctl_sha = _large_file_sha(pg_ctl)
     if pg_ctl_sha != config["runtime"]["pg_ctl_sha256"]:
         raise ValueError("selected PostgreSQL cleanup binary hash differs")
-    return {"preparation_sha256": prep_cfg["assessment_sha256"],
+    return {"dependency_lock_sha256": lock_sha256,
+            "preparation_sha256": prep_cfg["assessment_sha256"],
             "prepared_input_sha256": prep_cfg["prepared_input_sha256"],
             "prepared_report_sha256": prep_cfg["prepared_report_sha256"],
             "runtime_receipt_sha256": config["runtime"]["runtime_manifest_sha256"],
@@ -237,6 +271,7 @@ def worker_approval_payload(config: dict, config_raw: bytes, source: bytes,
             "worker_sha256": _file_sha(Path(__file__)),
             "supervisor_sha256": _file_sha(SUPERVISOR),
             "config_sha256": sha(config_raw),
+            "dependency_lock_sha256": pins["dependency_lock_sha256"],
             "preparation_sha256": pins["preparation_sha256"],
             "prepared_input_sha256": pins["prepared_input_sha256"],
             "prepared_report_sha256": pins["prepared_report_sha256"],

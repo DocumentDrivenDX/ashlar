@@ -26,7 +26,7 @@
     "approval_record": null
   },
   "runtime_and_wheels": {
-    "proposed_b_venv": "/private/tmp/ashlar-r04-b-install-20261023-01/root/runtime/venv",
+    "proposed_b_venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv",
     "python": "3.12.14",
     "historical_r3_runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
     "truss_toolkit": {
@@ -58,7 +58,7 @@
     "pgdata_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data",
     "attempt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01",
     "evidence_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01/evidence",
-    "source_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/source/source.umf.json",
+    "source_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json",
     "role_names": {
       "owner": "ashlar_r04_b_owner_20261023",
       "registrar": "ashlar_r04_b_reg_20261023",
@@ -75,7 +75,8 @@
     "consumer_registration_id": null,
     "genesis_checkpoint": null,
     "protected_destination_and_ack_scope": null,
-    "retention_owner": null
+    "retention_owner": null,
+    "origin_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json"
   },
   "truss_socket_and_port": {
     "port": 5432,

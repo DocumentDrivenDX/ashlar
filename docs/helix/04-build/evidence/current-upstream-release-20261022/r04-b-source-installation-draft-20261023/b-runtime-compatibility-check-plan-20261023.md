@@ -20,10 +20,10 @@ behavior.
 
 | Distribution | Exact local artifact | Expected SHA-256 |
 | --- | --- | --- |
-| `umf_access` 0.1.0.dev7 | `/private/tmp/umf-0.5.6-release-handoff/assets/umf_access-0.1.0.dev7-py3-none-any.whl` | `a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597` |
-| `umf-core` 0.10.0 | `/private/tmp/ashlar-release-20261022-current-assets/umf-0.5.4/umf_core-0.10.0-py3-none-any.whl` | `49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9` |
-| `truss-toolkit` 0.0.49 | `/private/tmp/truss-managed-grants-049/tag-049-package/truss_toolkit-0.0.49-py3-none-any.whl` | `7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182` |
-| `weft-sql` 0.4.52 | `/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-selected32ec/runtime/weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl` | `598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46` |
+| `umf_access` 0.1.0.dev7 | `/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/umf_access-0.1.0.dev7-py3-none-any.whl` | `a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597` |
+| `umf-core` 0.10.0 | `/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/umf_core-0.10.0-py3-none-any.whl` | `49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9` |
+| `truss-toolkit` 0.0.49 | `/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/truss_toolkit-0.0.49-py3-none-any.whl` | `7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182` |
+| `weft-sql` 0.4.52 | `/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl` | `598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46` |
 
 The UMF access wheel is the public `umf-v0.5.5` 0.1.0.dev7 asset. The selected
 UMF core wheel is 0.10.0 and has the existing public-wheel digest. The selected
@@ -47,11 +47,12 @@ qualified by `pip check` alone.
 
 The B proposal requires a new isolated Python 3.12.14 runtime and a
 B-specific receipt; the existing R3 runtime receipt records access dev6 and is
-historical evidence only. Before running this check, freeze an offline
-wheelhouse/lock for the complete mandatory dependency closure, including each
-artifact path, distribution/version, and SHA-256. The B packet currently has
-no such complete lock, so there is no executable install command or receipt
-path approved here. Do not use the R3 virtual environment as the B runtime.
+historical evidence only. Reuse the exact R4 27-wheel lock at
+`/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/wheelhouse-lock-pyspark-4.2.0-attempt-02.json`
+(SHA-256 `d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20`);
+the B lock plan records its read-only full-file and direct-cohort comparison.
+Do not re-resolve, substitute a different wheelhouse, or use the R3 virtual
+environment as the B runtime.
 
 Use only local files with package-index/network access disabled. Verify every
 artifact digest before creating the isolated check environment; install the

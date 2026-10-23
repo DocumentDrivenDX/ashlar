@@ -78,53 +78,132 @@ def executable_config():
 
 class TrussBInstallWorkerTests(unittest.TestCase):
     def test_packet_preflight_is_pure_and_keeps_approval_null(self):
-        config, source, origin = worker.load_config()
-        self.assertEqual(worker.sha(source), config["source"]["sha256"])
-        self.assertEqual(worker.sha(origin), config["origin"]["sha256"])
+        config = json.loads((PACKET / "b-install-config.json").read_bytes())
         self.assertIsNone(config["execution"]["approval"])
         self.assertFalse(config["scope"]["arras_window_released"])
+        self.assertIsNone(config["runtime"]["runtime_manifest_sha256"])
+        self.assertIsNone(config["installation"]["retention_owner"])
+        with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
+            origin_path = Path(temporary) / "b-origin.json"
+            origin_path.write_bytes((PACKET / "b-origin-candidate.json").read_bytes())
+            config["source"]["path"] = "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json"
+            config["origin"]["path"] = str(origin_path)
+            config_path = Path(temporary) / "candidate-config.json"
+            config_path.write_text(json.dumps(config))
+            loaded, source, origin = worker.load_config(config_path)
+            self.assertEqual(worker.sha(source), loaded["source"]["sha256"])
+            self.assertEqual(worker.sha(origin), loaded["origin"]["sha256"])
+
+    def test_worker_rejects_packet_relative_origin_path(self):
+        config = json.loads((PACKET / "b-install-config.json").read_bytes())
+        config["source"]["path"] = "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json"
+        config["origin"]["path"] = "b-origin-candidate.json"
+        with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
+            config_path = Path(temporary) / "candidate-config.json"
+            config["source"]["path"] = "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json"
+            config_path.write_text(json.dumps(config))
+            with self.assertRaisesRegex(ValueError, "external canonical absolute"):
+                worker.load_config(config_path)
+
+    def test_selected_r4_lock_matches_exact_b_direct_cohort(self):
+        config = json.loads((PACKET / "b-install-config.json").read_bytes())
+        self.assertEqual(worker.validate_dependency_lock(config),
+                         config["dependency_lock"]["sha256"])
+
+    def test_tampered_b_lock_and_unbound_runtime_receipt_refuse(self):
+        config = json.loads((PACKET / "b-install-config.json").read_bytes())
+        lock_path = Path(config["dependency_lock"]["path"])
+        lock = json.loads(lock_path.read_bytes())
+        next(w for w in lock["wheels"] if w["distribution"] == "truss-toolkit")["sha256"] = "0" * 64
+        with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
+            changed = Path(temporary) / "changed-lock.json"
+            raw = json.dumps(lock, sort_keys=True).encode()
+            changed.write_bytes(raw)
+            config["dependency_lock"]["path"] = str(changed)
+            config["dependency_lock"]["sha256"] = worker.sha(raw)
+            with self.assertRaisesRegex(ValueError, "exact B direct wheel cohort"):
+                worker.validate_dependency_lock(config)
+        lock_sha = json.loads((PACKET / "b-install-config.json").read_bytes())["dependency_lock"]["sha256"]
+        worker.validate_runtime_receipt_lock({"dependency_lock_sha256": lock_sha}, lock_sha)
+        with self.assertRaisesRegex(RuntimeError, "does not bind the selected dependency lock"):
+            worker.validate_runtime_receipt_lock({"dependency_lock_sha256": "0" * 64}, lock_sha)
 
     def test_supervisor_preflight_checks_a_bounded_effect_free_worker_result(self):
-        config_raw = (PACKET / "b-install-config.json").read_bytes()
-        config = json.loads(config_raw)
-        gate = {"status": "ready", "active_postgres_pids": [],
-                "nominal_5432_socket_files": []}
-        gate_hash = supervisor.admission_digest(gate)
-        prep = {"pg_ctl_path": config["runtime"]["pg_ctl_path"],
+        with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
+            root = Path(temporary)
+            config = json.loads((PACKET / "b-install-config.json").read_bytes())
+            source = root / "source.umf.json"
+            source.write_bytes(Path("/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json").read_bytes())
+            origin = root / "b-origin.json"
+            origin.write_bytes((PACKET / "b-origin-candidate.json").read_bytes())
+            config["source"]["path"], config["origin"]["path"] = str(source), str(origin)
+            runtime = config["runtime"]
+            runtime["venv"] = str(root / "venv")
+            python = root / "venv" / "bin" / "python"
+            python.parent.mkdir(parents=True)
+            python.write_bytes(b"fake-python")
+            pg_ctl = root / "venv" / "pg_ctl"
+            pg_ctl.write_bytes(b"fake-pg-ctl")
+            receipt = root / "runtime-receipt.json"
+            receipt.write_bytes(b"fake-receipt")
+            runtime["pg_ctl_path"] = str(pg_ctl)
+            runtime["pg_ctl_sha256"] = supervisor.large_file_sha(pg_ctl)
+            runtime["receipt_path"] = str(receipt)
+            config_raw = json.dumps(config, sort_keys=True, indent=2).encode() + b"\n"
+            config_path = root / "b-install-config.json"
+            config_path.write_bytes(config_raw)
+            gate = {"status": "ready", "active_postgres_pids": [],
+                    "nominal_5432_socket_files": []}
+            gate_hash = supervisor.admission_digest(gate)
+            prep = {"pg_ctl_path": runtime["pg_ctl_path"],
+                    "pg_ctl_sha256": runtime["pg_ctl_sha256"],
+                    "bun_path": config["preparation"]["bun_path"],
+                    "bun_sha256": config["preparation"]["bun_sha256"]}
+            expected = supervisor.expected_approval(config, config_raw, gate_hash, prep)
+            worker_result = {"pg_started": False, "spark_started": False,
+                "acceptance_invoked": False, "consumer_registered": False,
+                "expected_approval": expected, "preparation": prep}
+            class Completed:
+                returncode = 0
+                stdout = json.dumps(worker_result) + "\n"
+            def run(*args, **kwargs): return Completed()
+            with patch.object(supervisor, "CONFIG", config_path), patch.object(
+                    supervisor, "APPROVAL", root / "execution-approval.json"):
+                result = supervisor.preflight(run, gate_reader=lambda **kwargs: gate)
+            self.assertEqual(result["status"], "effect_free_preflight_passed")
+            self.assertIsNone(result["execution_approval"])
+            self.assertEqual(result["native_effects"], 0)
+
+    def test_worker_and_supervisor_approval_payloads_match_independently(self):
+        config = json.loads((PACKET / "b-install-config.json").read_bytes())
+        source = Path("/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json").read_bytes()
+        origin = (PACKET / "b-origin-candidate.json").read_bytes()
+        config["source"]["path"] = "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json"
+        config["origin"]["path"] = str((PACKET / "b-origin-candidate.json").resolve())
+        with tempfile.TemporaryDirectory(dir="/private/tmp") as temporary:
+            root = Path(temporary)
+            pg_ctl = root / "pg_ctl"
+            pg_ctl.write_bytes(b"fake pg_ctl")
+            receipt = root / "receipt.json"
+            receipt.write_bytes(b"fake receipt")
+            config["runtime"]["pg_ctl_path"] = str(pg_ctl)
+            config["runtime"]["pg_ctl_sha256"] = supervisor.large_file_sha(pg_ctl)
+            config["runtime"]["receipt_path"] = str(receipt)
+            raw = json.dumps(config, sort_keys=True, indent=2).encode() + b"\n"
+            pins = {"preparation_sha256": config["preparation"]["assessment_sha256"],
+                "dependency_lock_sha256": config["dependency_lock"]["sha256"],
+                "prepared_input_sha256": config["preparation"]["prepared_input_sha256"],
+                "prepared_report_sha256": config["preparation"]["prepared_report_sha256"],
+                "runtime_receipt_sha256": worker.sha(receipt.read_bytes()),
+                "catalog_manifest_sha256": config["runtime"]["catalog_manifest_sha256"],
+                "pg_ctl_path": config["runtime"]["pg_ctl_path"],
                 "pg_ctl_sha256": config["runtime"]["pg_ctl_sha256"],
                 "bun_path": config["preparation"]["bun_path"],
                 "bun_sha256": config["preparation"]["bun_sha256"]}
-        expected = supervisor.expected_approval(config, config_raw, gate_hash, prep)
-        worker_result = {"pg_started": False, "spark_started": False,
-            "acceptance_invoked": False, "consumer_registered": False,
-            "expected_approval": expected, "preparation": prep}
-        class Completed:
-            returncode = 0
-            stdout = json.dumps(worker_result) + "\n"
-        def run(*args, **kwargs): return Completed()
-        result = supervisor.preflight(run, gate_reader=lambda **kwargs: gate)
-        self.assertEqual(result["status"], "effect_free_preflight_passed")
-        self.assertIsNone(result["execution_approval"])
-        self.assertEqual(result["native_effects"], 0)
-
-    def test_worker_and_supervisor_approval_payloads_match_independently(self):
-        raw = (PACKET / "b-install-config.json").read_bytes()
-        config = json.loads(raw)
-        source = Path(config["source"]["path"]).read_bytes()
-        origin = (PACKET / config["origin"]["path"]).read_bytes()
-        pins = {"preparation_sha256": config["preparation"]["assessment_sha256"],
-            "prepared_input_sha256": config["preparation"]["prepared_input_sha256"],
-            "prepared_report_sha256": config["preparation"]["prepared_report_sha256"],
-            "runtime_receipt_sha256": config["runtime"]["runtime_manifest_sha256"],
-            "catalog_manifest_sha256": config["runtime"]["catalog_manifest_sha256"],
-            "pg_ctl_path": config["runtime"]["pg_ctl_path"],
-            "pg_ctl_sha256": config["runtime"]["pg_ctl_sha256"],
-            "bun_path": config["preparation"]["bun_path"],
-            "bun_sha256": config["preparation"]["bun_sha256"]}
-        gate_hash = "2" * 64
-        from_worker = worker.worker_approval_payload(config, raw, source, origin, pins, gate_hash)
-        from_supervisor = supervisor.expected_approval(config, raw, gate_hash, pins)
-        self.assertEqual(from_worker, from_supervisor)
+            gate_hash = "2" * 64
+            from_worker = worker.worker_approval_payload(config, raw, source, origin, pins, gate_hash)
+            from_supervisor = supervisor.expected_approval(config, raw, gate_hash, pins)
+            self.assertEqual(from_worker, from_supervisor)
 
     def test_supervisor_child_starts_new_group_and_records_success(self):
         class Child:
@@ -287,9 +366,9 @@ class TrussBInstallWorkerTests(unittest.TestCase):
         self.assertEqual(result["registration_id"], "r-1")
         self.assertEqual(result["installation_id"], "i-1")
 
-    @unittest.skipUnless(sys.version_info >= (3, 10), "isolated Truss runtime requires Python 3.12")
+    @unittest.skipUnless(sys.version_info >= (3, 12), "isolated Truss runtime requires Python 3.12")
     def test_adapter_smoke_with_actual_truss_feedconsumer_and_cursor_types(self):
-        runtime = json.loads((PACKET / "b-install-config.json").read_text())["runtime"]["venv"]
+        runtime = "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv"
         site = Path(runtime) / "lib/python3.12/site-packages"
         sys.path.insert(0, str(site))
         try:
@@ -365,7 +444,7 @@ class TrussBInstallWorkerTests(unittest.TestCase):
     def test_execute_refuses_null_approval_before_creating_paths_or_processes(self):
         with patch.object(supervisor, "preflight", return_value={"gate": {"status": "ready"},
                 "admission_gates_sha256": "0" * 64, "expected_approval": {}}):
-            with self.assertRaisesRegex(PermissionError, "paths are unresolved"):
+            with self.assertRaisesRegex(PermissionError, "private mode-0700 B root"):
                 supervisor.execute(popen=lambda *a, **k: self.fail("child must not start"))
 
 

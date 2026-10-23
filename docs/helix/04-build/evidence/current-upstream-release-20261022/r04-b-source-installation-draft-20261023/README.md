@@ -3,8 +3,11 @@
 Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. The exact source candidate bytes, document ID and hash, plus the origin candidate bytes and hash are pinned; accepted-source authority, provider-assigned identities, B execution pins and human approval remain unresolved. The R04 schedule is still unfrozen.
 
 The B-owned [readiness record](b-installation-readiness.json) keeps execution
-approval and all actual B paths, roles, approved resource limits, and retention
-owner null; the companion config records only proposed bounds. The matching
+approval, shared-slot admission, origin approval, approved resource limits,
+retention owner, and provider-assigned identities unresolved. The companion
+config now records selected candidate B paths and routine role/consumer/request
+defaults; these values are not approval and the paths remain absent. The
+matching
 effect-free byte preflight is
 [`truss_b_source_preflight.py`](../../../../../../src/ashlar_host/truss_b_source_preflight.py);
 it verifies the exact retained source and origin bytes without importing
@@ -18,6 +21,15 @@ receipt is historical only and does not qualify B. B-specific offline
 compatibility and runtime receipt remain pending. These are proposals only: the
 paths remain uncreated, identities remain unapproved, and the proposed B runtime
 must be separately materialized and re-receipted before execution.
+The [source custody and retention decision record](b-source-custody-retention-decision-20261023.md)
+selects the exact retained source bytes as a candidate because their
+Person/Place structure supports R04's illustrative R1/R2 intent. R3 incident
+edge behavior and R4 additive semantics remain unresolved, so semantic
+suitability for the complete B inventory is not yet established. The
+[dependency lock plan](b-runtime-dependency-lock-plan-20261023.md) selects the
+verified R4 27-wheel lock and pins the direct cohort; the B-specific runtime
+receipt remains unresolved.
+
 `b_install_worker.py` implements the public Truss 0.0.49
 one-attempt stage sequence, and `b_install_supervisor.py` provides a bounded
 one-use executor with an effect-free preflight. The execution path requires an

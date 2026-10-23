@@ -1,7 +1,7 @@
 {
   "profile": "ashlar-r04-b-install-attempt/0.1",
   "source": {
-    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json",
     "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
     "document_id": "ashlar-current-045-lifecycle-20261021",
     "document_revision": "ashlar-current-045-lifecycle-r1",
@@ -9,20 +9,20 @@
     "umf_version": "0.10.0"
   },
   "origin": {
-    "path": "b-origin-candidate.json",
+    "path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json",
     "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
     "approved": false,
     "approval_record": null
   },
   "runtime": {
-    "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv",
-    "receipt_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2/runtime/runtime-preflight.json",
+    "venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv",
+    "receipt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt.json",
     "python_version": "3.12.14",
     "truss_version": "0.0.49",
     "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
-    "runtime_manifest_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
-    "catalog_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
-    "pg_ctl_path": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+    "runtime_manifest_sha256": null,
+    "catalog_manifest_sha256": null,
+    "pg_ctl_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
     "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
     "umf_core_version": "0.10.0"
   },
@@ -38,15 +38,15 @@
   },
   "installation": {
     "port": 5432,
-    "root_path": null,
-    "pgdata_path": null,
-    "attempt_path": null,
-    "owner_role": null,
-    "registrar_role": null,
-    "registrar_login": null,
-    "reader_login": null,
-    "consumer_id": null,
-    "request_key": null,
+    "root_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root",
+    "pgdata_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data",
+    "attempt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01",
+    "owner_role": "ashlar_r04_b_owner_20261023",
+    "registrar_role": "ashlar_r04_b_reg_20261023",
+    "registrar_login": "ashlar_r04_b_reg_login_20261023",
+    "reader_login": "ashlar_r04_b_reader_20261023",
+    "consumer_id": "ashlar-current-core-r04-b-20261023",
+    "request_key": "ashlar-r04-b-source-accept-20261023-r1",
     "expected_catalog_revision": 0,
     "expected_document_source_revision": 0,
     "exclusive_port_admission": null,
@@ -72,5 +72,12 @@
     "feed_reads": false,
     "source_ack": false,
     "spark": false
+  },
+  "dependency_lock": {
+    "path": "/private/tmp/ashlar-r4-cp312-wheelhouse-20261023/wheelhouse-lock-pyspark-4.2.0-attempt-02.json",
+    "sha256": "d2686e1dbbdd5a136990b146b25375cba5a7c73e21ef30290cdfa12b3c70aa20",
+    "artifact_count": 27,
+    "python_target": "CPython 3.12.14",
+    "platform_target": "macOS arm64"
   }
 }
