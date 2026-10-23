@@ -10,15 +10,21 @@ effect-free byte preflight is
 it verifies the exact retained source and origin bytes without importing
 Truss/PostgreSQL or creating files. The source document revision in the packet is external metadata;
 the source bytes contain no revision field, so this preflight does not verify
-that revision. `b_install_worker.py` records the public Truss 0.0.49 one-attempt
-stage sequence, and `b_install_supervisor.py` provides a bounded, effect-free
-preflight. Both remain execution-disabled: approval and every B path/role/
-admission pin are null, and the supervisor refuses `--execute`. The worker's
+that revision. `b_install_worker.py` implements the public Truss 0.0.49
+one-attempt stage sequence, and `b_install_supervisor.py` provides a bounded
+one-use executor with an effect-free preflight. The execution path requires an
+exact external approval sidecar, complete B path/role/admission pins, and a
+released Arras window; those inputs remain null or false in this packet, so its
+current configuration cannot execute. The supervisor checks process/socket
+admission immediately before launch and again after cleanup for Truss's shared
+nominal 5432 Unix-socket lifecycle; this inventory check is not an OS lock. It
+enforces one attempt and resource/deadline bounds, and retains PGDATA after any
+outcome. The worker's
 host adapter follows the public install, acceptance/readback, and genesis
 consumer APIs. Truss exposes no independent consumer-registration readback;
 the provider registration ID and exact genesis cursor returned by the one
-registration call are the available evidence. Any commit uncertainty must
-retain PGDATA and end the attempt. Neither file enables feed reads, destination
+registration call are the available evidence. Any commit uncertainty ends the
+attempt and retains PGDATA. Neither file enables feed reads, destination
 actions, or ACK.
 
 ## Purpose and boundary

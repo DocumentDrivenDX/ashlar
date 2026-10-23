@@ -7,13 +7,19 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import signal
+import stat
 import sys
 import time
 
 HERE = Path(__file__).resolve().parent
 CONFIG = HERE / "b-install-config.json"
+APPROVAL = HERE / "execution-approval.json"
+SUPERVISOR = HERE / "b_install_supervisor.py"
+PREPARATION = HERE / "b-offline-preparation-assessment-20261023.json"
 MAX_SOURCE = 1_048_576
 MAX_ORIGIN = 65_536
+MAX_METADATA = 1_048_576
 
 
 def sha(raw: bytes) -> str:
@@ -143,7 +149,224 @@ def load_config(path: Path = CONFIG) -> tuple[dict, bytes, bytes]:
     return config, source, origin
 
 
-def prepare(config: dict, source: bytes):
+def _file_sha(path: Path, maximum=MAX_METADATA) -> str:
+    if path.is_symlink() or not path.is_file():
+        raise ValueError("pinned regular file required: " + str(path))
+    raw = path.read_bytes()
+    if len(raw) > maximum:
+        raise ValueError("pinned metadata exceeds byte bound")
+    return sha(raw)
+
+
+def _large_file_sha(path: Path, maximum=134_217_728) -> str:
+    if path.is_symlink() or not path.is_file() or path.stat().st_size > maximum:
+        raise ValueError("bounded pinned executable required")
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def verify_preparation_and_runtime(config: dict) -> dict:
+    prep_cfg = config["preparation"]
+    prep_path = (HERE / prep_cfg["assessment_path"]).resolve()
+    if prep_path != PREPARATION or _file_sha(prep_path) != prep_cfg["assessment_sha256"]:
+        raise ValueError("offline preparation assessment pin mismatch")
+    prep = strict_json_object(prep_path.read_bytes())
+    if prep.get("status") != "top_level_pure_preparation_passed_offline_assembly_route_unavailable":
+        raise ValueError("pinned public pure preparation result is not ready")
+    if prep["input"]["bytes_sha256"] != config["source"]["sha256"]:
+        raise ValueError("preparation assessment source hash differs")
+    if prep["b_origin_candidate"]["sha256"] != config["origin"]["sha256"]:
+        raise ValueError("preparation assessment origin hash differs")
+    for pathkey, hashkey in (("prepared_input_path", "prepared_input_sha256"),
+                             ("prepared_report_path", "prepared_report_sha256")):
+        if _file_sha(Path(prep_cfg[pathkey])) != prep_cfg[hashkey]:
+            raise ValueError("prepared Truss artifact pin mismatch: " + pathkey)
+    bun_path = Path(prep["preparation"]["bun_executable"])
+    bun_sha = _large_file_sha(bun_path)
+    if (bun_path.resolve() != Path(prep_cfg["bun_path"]).resolve()
+            or bun_sha != prep_cfg["bun_sha256"]):
+        raise ValueError("prepared Bun executable path/hash differs from frozen pin")
+    receipt_path = Path(config["runtime"]["receipt_path"])
+    if _file_sha(receipt_path) != config["runtime"]["runtime_manifest_sha256"]:
+        raise ValueError("selected .49 runtime receipt pin mismatch")
+    receipt = strict_json_object(receipt_path.read_bytes())
+    if (receipt.get("no_native_execution") is not True
+            or receipt.get("pg_started") is not False or receipt.get("spark_started") is not False
+            or receipt.get("versions", {}).get("truss-toolkit") != config["runtime"]["truss_version"]
+            or receipt.get("versions", {}).get("umf-core") != config["runtime"]["umf_core_version"]
+            or receipt.get("direct_wheels", {}).get("truss-toolkit", {}).get("wheel_sha256")
+               != config["runtime"]["truss_wheel_sha256"]):
+        raise ValueError("Truss runtime version pin mismatch")
+    import importlib.resources as resources
+    import importlib.metadata as metadata
+    runtime_venv = Path(config["runtime"]["venv"]).resolve()
+    if Path(sys.executable).resolve() != (runtime_venv / "bin" / "python").resolve():
+        raise ValueError("pinned isolated interpreter required")
+    if metadata.version("truss-toolkit") != config["runtime"]["truss_version"]:
+        raise ValueError("installed Truss distribution version differs")
+    catalog_manifest = resources.files("truss").joinpath("_catalog_runtime", "manifest.json").read_bytes()
+    if sha(catalog_manifest) != config["runtime"]["catalog_manifest_sha256"]:
+        raise ValueError("installed Truss catalog release manifest hash differs")
+    pg_ctl = Path(str(resources.files("pgserver").joinpath("pginstall", "bin", "pg_ctl")))
+    if (not pg_ctl.is_file() or pg_ctl.is_symlink()
+            or pg_ctl.resolve() != Path(config["runtime"]["pg_ctl_path"]).resolve()):
+        raise ValueError("selected runtime pg_ctl binary unavailable")
+    ctl_version = __import__("subprocess").run([str(pg_ctl), "--version"],
+        stdin=__import__("subprocess").DEVNULL, capture_output=True, text=True, timeout=5)
+    if ctl_version.returncode or ctl_version.stdout.strip() != "pg_ctl (PostgreSQL) 18.6":
+        raise ValueError("selected PostgreSQL cleanup binary must be 18.6")
+    pg_ctl_sha = _large_file_sha(pg_ctl)
+    if pg_ctl_sha != config["runtime"]["pg_ctl_sha256"]:
+        raise ValueError("selected PostgreSQL cleanup binary hash differs")
+    return {"preparation_sha256": prep_cfg["assessment_sha256"],
+            "prepared_input_sha256": prep_cfg["prepared_input_sha256"],
+            "prepared_report_sha256": prep_cfg["prepared_report_sha256"],
+            "runtime_receipt_sha256": config["runtime"]["runtime_manifest_sha256"],
+            "catalog_manifest_sha256": config["runtime"]["catalog_manifest_sha256"],
+            "pg_ctl_path": str(pg_ctl.resolve()), "pg_ctl_sha256": pg_ctl_sha,
+            "bun_path": str(bun_path.resolve()), "bun_sha256": bun_sha}
+
+
+def worker_approval_payload(config: dict, config_raw: bytes, source: bytes,
+                            origin: bytes, pins: dict, admission_sha256: str) -> dict:
+    return {"profile": "ashlar-r04-b-install-source-execution-approval/0.1",
+            "scope": "one B-local Truss install, one exact source acceptance, one genesis consumer; no feed read, destination, Spark or ACK",
+            "worker_sha256": _file_sha(Path(__file__)),
+            "supervisor_sha256": _file_sha(SUPERVISOR),
+            "config_sha256": sha(config_raw),
+            "preparation_sha256": pins["preparation_sha256"],
+            "prepared_input_sha256": pins["prepared_input_sha256"],
+            "prepared_report_sha256": pins["prepared_report_sha256"],
+            "runtime_receipt_sha256": pins["runtime_receipt_sha256"],
+            "catalog_manifest_sha256": pins["catalog_manifest_sha256"],
+            "pg_ctl_path": pins["pg_ctl_path"], "pg_ctl_sha256": pins["pg_ctl_sha256"],
+            "bun_path": pins["bun_path"], "bun_sha256": pins["bun_sha256"],
+            "source_sha256": sha(source), "origin_sha256": sha(origin),
+            "admission_gates_sha256": admission_sha256}
+
+
+def worker_preflight(config_path: Path = CONFIG, admission_sha256: str | None = None) -> dict:
+    config, source, origin = load_config(config_path)
+    pins = verify_preparation_and_runtime(config)
+    payload = worker_approval_payload(config, _read(config_path, MAX_METADATA), source,
+                                      origin, pins, admission_sha256 or "")
+    return {"profile": "ashlar-r04-b-worker-preflight/0.2",
+            "source_sha256": sha(source), "origin_sha256": sha(origin),
+            "preparation": pins, "expected_approval": payload,
+            "pg_started": False, "spark_started": False,
+            "acceptance_invoked": False, "consumer_registered": False,
+            "execution_approval": None}
+
+
+def _write_marker(directory: Path, name: str, value: dict) -> None:
+    raw = (json.dumps(value, sort_keys=True, indent=2) + "\n").encode()
+    fd = os.open(directory / name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, "wb") as stream:
+        if stream.write(raw) != len(raw):
+            raise OSError("incomplete marker write")
+        stream.flush()
+        os.fsync(stream.fileno())
+    dfd = os.open(directory, os.O_RDONLY)
+    try: os.fsync(dfd)
+    finally: os.close(dfd)
+
+
+def _execute(config_path: Path = CONFIG) -> dict:
+    config, source, origin = load_config(config_path)
+    pins = verify_preparation_and_runtime(config)
+    admission_sha = os.environ.get("ASHLAR_B_ADMISSION_GATES_SHA256")
+    if not admission_sha or len(admission_sha) != 64:
+        raise PermissionError("supervisor admission-gate binding missing")
+    payload = worker_approval_payload(config, _read(config_path, MAX_METADATA),
+                                      source, origin, pins, admission_sha)
+    if config["execution"]["approval"] is not None:
+        raise PermissionError("execution approval must remain in exact separate approval sidecar")
+    if (config["origin"]["approved"] is not True
+            or config["origin"]["approval_record"] is None
+            or config["scope"]["arras_window_released"] is not True
+            or config["scope"]["source_acceptance"] is not True
+            or config["scope"]["feed_reads"] is not False
+            or config["scope"]["source_ack"] is not False
+            or config["scope"]["spark"] is not False):
+        raise PermissionError("B source/Arras/scope approval pins are incomplete")
+    install = config["installation"]
+    required = ("root_path", "pgdata_path", "attempt_path", "owner_role", "registrar_role",
+                "registrar_login", "reader_login", "consumer_id", "request_key",
+                "exclusive_port_admission", "retention_owner")
+    if any(install.get(k) is None for k in required):
+        raise PermissionError("B path/role/request/retention pins are incomplete")
+    if install["exclusive_port_admission"] != admission_sha:
+        raise PermissionError("exclusive shared LocalPostgres admission digest differs")
+    if install["expected_catalog_revision"] != 0 or install["expected_document_source_revision"] != 0:
+        raise PermissionError("only fresh catalog and source CAS revision zero are admitted")
+    role_names = [install[k] for k in ("owner_role", "registrar_role", "registrar_login", "reader_login")]
+    if len(set(role_names)) != len(role_names) or any(
+            __import__("re").fullmatch(r"[a-z][a-z0-9_]{2,62}", role) is None for role in role_names):
+        raise PermissionError("distinct bounded B role names required")
+    approval_raw = _read(APPROVAL, 65_536)
+    approval = strict_json_object(approval_raw)
+    if approval != payload:
+        raise PermissionError("exact hash-bound execution approval does not match worker contract")
+    attempt = Path(install["attempt_path"])
+    root = Path(install["root_path"])
+    pgdata = Path(install["pgdata_path"])
+    if any(not p.is_absolute() or p.resolve() != p or p.is_symlink()
+           for p in (root, attempt, pgdata)):
+        raise PermissionError("canonical absolute non-symlink B paths required")
+    if not root.is_dir() or root.stat().st_uid != os.getuid() or stat.S_IMODE(root.stat().st_mode) != 0o700:
+        raise PermissionError("current-user-owned mode-0700 B root required")
+    if (not attempt.is_dir() or attempt.stat().st_uid != os.getuid()
+            or stat.S_IMODE(attempt.stat().st_mode) != 0o700):
+        raise PermissionError("current-user-owned mode-0700 B attempt directory required")
+    if (not attempt.is_relative_to(root) or not pgdata.is_relative_to(root)
+            or attempt == pgdata or attempt.is_relative_to(pgdata) or pgdata.is_relative_to(attempt)):
+        raise PermissionError("attempt and PGDATA must be disjoint descendants of B root")
+    if {entry.name for entry in root.iterdir()} != {attempt.name, "execution-started-b.json"}:
+        raise PermissionError("B root contains unexpected entries")
+    started = _read(root / "execution-started-b.json", 65_536)
+    started_doc = strict_json_object(started)
+    if (started_doc.get("profile") != "ashlar-r04-b-execution-started/0.1"
+            or started_doc.get("approval_sha256") != sha(approval_raw)
+            or started_doc.get("worker_sha256") != _file_sha(Path(__file__))
+            or started_doc.get("supervisor_sha256") != _file_sha(SUPERVISOR)
+            or started_doc.get("admission_gates_sha256") != admission_sha):
+        raise PermissionError("fsynced supervisor start marker does not match exact worker approval")
+    expected_logs = {"worker.stdout.log", "worker.stderr.log"}
+    if {entry.name for entry in attempt.iterdir()} != expected_logs:
+        raise PermissionError("only the supervisor-created bounded worker logs may preexist")
+    for log in attempt.iterdir():
+        if log.is_symlink() or not log.is_file() or log.stat().st_uid != os.getuid() or log.stat().st_size != 0:
+            raise PermissionError("fresh current-user-owned worker logs required")
+    if pgdata.exists() or pgdata.is_symlink():
+        raise PermissionError("fresh distinct B PGDATA required; never reopen or replay")
+    if _large_file_sha(Path(pins["bun_path"])) != pins["bun_sha256"]:
+        raise PermissionError("pinned preparation executable changed before execution")
+    prepared = prepare(config, source, pins["bun_path"])
+    sequence = 0
+    def mark(stage, value):
+        nonlocal sequence
+        sequence += 1
+        _write_marker(attempt, f"{sequence:02d}-{stage}.json", value)
+    try:
+        config["execution"]["approval"] = payload
+        result = ordered_attempt(Truss049Adapter(config), config, prepared, source, origin, mark)
+        return result
+    except BaseException as error:
+        try:
+            _write_marker(attempt, f"{sequence + 1:02d}-failure.json", {
+                "profile": "ashlar-r04-b-attempt-failure/0.1",
+                "exception_type": type(error).__name__,
+                "automatic_retry": False,
+                "retain_pgdata": True})
+        except BaseException:
+            pass
+        raise
+
+
+def prepare(config: dict, source: bytes, bun_executable: str | None = None):
     """Pure public preparation; does not create a database or attempt files."""
     runtime = Path(config["runtime"]["venv"]).resolve()
     if Path(sys.executable).resolve() != (runtime / "bin" / "python").resolve():
@@ -155,7 +378,8 @@ def prepare(config: dict, source: bytes):
     doc = CatalogDocument(document_id=config["source"]["document_id"],
                           document_revision=config["source"]["document_revision"],
                           content=source)
-    return prepare_catalog((doc,), source_version=config["runtime"]["umf_core_version"])
+    return prepare_catalog((doc,), source_version=config["runtime"]["umf_core_version"],
+                           bun_executable=bun_executable or "bun")
 
 
 class Truss049Adapter:
@@ -482,15 +706,13 @@ def main() -> int:
     args = parser.parse_args()
     if args.preflight == args.execute:
         parser.error("select exactly one mode")
-    config, source, origin = load_config()
     if args.preflight:
-        print(json.dumps({"profile": "ashlar-r04-b-worker-preflight/0.1",
-                          "source_sha256": sha(source), "origin_sha256": sha(origin),
-                          "pg_started": False, "spark_started": False,
-                          "acceptance_invoked": False, "consumer_registered": False,
-                          "execution_approval": config["execution"]["approval"]}, sort_keys=True))
+        gate = os.environ.get("ASHLAR_B_ADMISSION_GATES_SHA256")
+        print(json.dumps(worker_preflight(admission_sha256=gate), sort_keys=True))
         return 0
-    raise PermissionError("No executable attempt adapter is enabled by this draft packet")
+    result = _execute()
+    print(json.dumps(result, sort_keys=True))
+    return 0
 
 
 if __name__ == "__main__":

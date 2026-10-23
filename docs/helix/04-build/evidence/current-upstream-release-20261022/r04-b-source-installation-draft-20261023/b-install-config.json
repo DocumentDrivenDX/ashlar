@@ -16,12 +16,25 @@
   },
   "runtime": {
     "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv",
+    "receipt_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r3-0506fb7-v2/runtime/runtime-preflight.json",
     "python_version": "3.12.14",
     "truss_version": "0.0.49",
     "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
     "runtime_manifest_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
     "catalog_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "pg_ctl_path": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+    "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
     "umf_core_version": "0.10.0"
+  },
+  "preparation": {
+    "assessment_path": "b-offline-preparation-assessment-20261023.json",
+    "assessment_sha256": "6a1f443046a287f43d1bfc8b56bd613631b7b70b51babdd3b64b0a6969a401ac",
+    "prepared_input_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-acceptance-input.json",
+    "prepared_input_sha256": "516ac248ca2ea05765b935cea998a98e747971a788c8d07af324e2af88e682e2",
+    "prepared_report_path": "/private/tmp/ashlar-r04-b-offline-preparation-20261023/prepared-report-evidence.json",
+    "prepared_report_sha256": "0892c91c89f172d723800b3f63626b67de6a28515f59a499c76ae67d7a9bf7b1",
+    "bun_path": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bun_sha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2"
   },
   "installation": {
     "port": 5432,

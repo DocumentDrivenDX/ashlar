@@ -2,6 +2,8 @@
 import importlib.util
 import json
 from pathlib import Path
+import signal
+import tempfile
 import sys
 from types import SimpleNamespace
 import unittest
@@ -83,14 +85,129 @@ class TrussBInstallWorkerTests(unittest.TestCase):
         self.assertFalse(config["scope"]["arras_window_released"])
 
     def test_supervisor_preflight_checks_a_bounded_effect_free_worker_result(self):
+        config_raw = (PACKET / "b-install-config.json").read_bytes()
+        config = json.loads(config_raw)
+        gate = {"status": "ready", "active_postgres_pids": [],
+                "nominal_5432_socket_files": []}
+        gate_hash = supervisor.admission_digest(gate)
+        prep = {"pg_ctl_path": config["runtime"]["pg_ctl_path"],
+                "pg_ctl_sha256": config["runtime"]["pg_ctl_sha256"],
+                "bun_path": config["preparation"]["bun_path"],
+                "bun_sha256": config["preparation"]["bun_sha256"]}
+        expected = supervisor.expected_approval(config, config_raw, gate_hash, prep)
+        worker_result = {"pg_started": False, "spark_started": False,
+            "acceptance_invoked": False, "consumer_registered": False,
+            "expected_approval": expected, "preparation": prep}
         class Completed:
             returncode = 0
-            stdout = json.dumps({"pg_started": False, "spark_started": False,
-                "acceptance_invoked": False, "consumer_registered": False}) + "\n"
-        result = supervisor.preflight(lambda *args, **kwargs: Completed())
+            stdout = json.dumps(worker_result) + "\n"
+        def run(*args, **kwargs): return Completed()
+        result = supervisor.preflight(run, gate_reader=lambda **kwargs: gate)
         self.assertEqual(result["status"], "effect_free_preflight_passed")
         self.assertIsNone(result["execution_approval"])
         self.assertEqual(result["native_effects"], 0)
+
+    def test_worker_and_supervisor_approval_payloads_match_independently(self):
+        raw = (PACKET / "b-install-config.json").read_bytes()
+        config = json.loads(raw)
+        source = Path(config["source"]["path"]).read_bytes()
+        origin = (PACKET / config["origin"]["path"]).read_bytes()
+        pins = {"preparation_sha256": config["preparation"]["assessment_sha256"],
+            "prepared_input_sha256": config["preparation"]["prepared_input_sha256"],
+            "prepared_report_sha256": config["preparation"]["prepared_report_sha256"],
+            "runtime_receipt_sha256": config["runtime"]["runtime_manifest_sha256"],
+            "catalog_manifest_sha256": config["runtime"]["catalog_manifest_sha256"],
+            "pg_ctl_path": config["runtime"]["pg_ctl_path"],
+            "pg_ctl_sha256": config["runtime"]["pg_ctl_sha256"],
+            "bun_path": config["preparation"]["bun_path"],
+            "bun_sha256": config["preparation"]["bun_sha256"]}
+        gate_hash = "2" * 64
+        from_worker = worker.worker_approval_payload(config, raw, source, origin, pins, gate_hash)
+        from_supervisor = supervisor.expected_approval(config, raw, gate_hash, pins)
+        self.assertEqual(from_worker, from_supervisor)
+
+    def test_supervisor_child_starts_new_group_and_records_success(self):
+        class Child:
+            pid = 4123
+            def __init__(self): self.polls = 0
+            def poll(self):
+                self.polls += 1
+                return None if self.polls == 1 else 0
+            def wait(self, timeout=None): return 0
+        child = Child()
+        captured = {}
+        def popen(*args, **kwargs): captured.update(kwargs); return child
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            attempt = root / "attempt"
+            attempt.mkdir(mode=0o700)
+            result = supervisor.supervise_child(["fake"], root=root,
+                logs=(attempt / "stdout", attempt / "stderr"), popen=popen,
+                sleep=lambda _: None, reap=lambda *a, **k: [])
+            self.assertEqual(result["exit_code"], 0)
+            self.assertIsNone(result["stop_cause"])
+            self.assertTrue(captured["start_new_session"])
+            self.assertTrue(captured["close_fds"])
+
+    def test_supervisor_deadline_sends_sigterm_and_reaps_fake_worker(self):
+        class Child:
+            pid = 4124
+            stopped = False
+            def poll(self): return 0 if self.stopped else None
+            def wait(self, timeout=None):
+                self.stopped = True
+                return 0
+        child = Child()
+        now = [0.0]
+        signals = []
+        def sleep(seconds): now[0] += seconds
+        def killpg(pid, sig): signals.append((pid, sig)); child.stopped = True
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            attempt = root / "attempt"
+            attempt.mkdir(mode=0o700)
+            result = supervisor.supervise_child(["fake"], root=root,
+                logs=(attempt / "stdout", attempt / "stderr"),
+                popen=lambda *a, **k: child, clock=lambda: now[0], sleep=sleep,
+                killpg=killpg, reap=lambda *a, **k: [], deadline=0.3)
+            self.assertEqual(result["stop_cause"], "worker_deadline_exceeded")
+            self.assertIn((child.pid, signal.SIGTERM), signals)
+            self.assertEqual(result["remaining_process_group"], [])
+
+    def test_supervisor_poll_failure_kills_and_reaps_started_fake_worker(self):
+        class Child:
+            pid = 4125
+            def poll(self): raise OSError("injected poll fault")
+            def wait(self, timeout=None): return -signal.SIGKILL
+        child = Child()
+        signals, reaped = [], []
+        def killpg(pid, sig): signals.append((pid, sig))
+        def reap(group, **kwargs): reaped.append(group); return []
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            attempt = root / "attempt"
+            attempt.mkdir(mode=0o700)
+            result = supervisor.supervise_child(["fake"], root=root,
+                logs=(attempt / "stdout", attempt / "stderr"),
+                popen=lambda *a, **k: child, killpg=killpg, reap=reap)
+        self.assertEqual(result["stop_cause"], "supervisor_exception:OSError")
+        self.assertEqual(result["supervisor_error"], "OSError")
+        self.assertIn((child.pid, signal.SIGKILL), signals)
+        self.assertEqual(reaped, [child.pid])
+
+    def test_process_port_gate_blocks_postgres_and_nominal_socket_occupancy(self):
+        class Completed:
+            returncode = 0
+            stdout = "777 postgres -D /owned/data\n"
+        with tempfile.TemporaryDirectory() as temporary:
+            socket_root = Path(temporary)
+            socket_file = socket_root / ".s.PGSQL.5432"
+            socket_file.touch()
+            gate = supervisor.process_port_gate(run=lambda *a, **k: Completed(),
+                                                socket_root=socket_root)
+        self.assertEqual(gate["status"], "occupied")
+        self.assertEqual(gate["active_postgres_pids"], [777])
+        self.assertEqual(len(gate["nominal_5432_socket_files"]), 1)
 
     def test_one_shot_sequence_orders_commits_readbacks_and_stops_without_feed_or_ack(self):
         fake = FakeAdapter()
@@ -246,8 +363,10 @@ class TrussBInstallWorkerTests(unittest.TestCase):
         self.assertFalse(any("BEGIN" in statement for kind, statement in calls if kind == "sql"))
 
     def test_execute_refuses_null_approval_before_creating_paths_or_processes(self):
-        with self.assertRaisesRegex(PermissionError, "approval is null"):
-            supervisor.execute()
+        with patch.object(supervisor, "preflight", return_value={"gate": {"status": "ready"},
+                "admission_gates_sha256": "0" * 64, "expected_approval": {}}):
+            with self.assertRaisesRegex(PermissionError, "paths are unresolved"):
+                supervisor.execute(popen=lambda *a, **k: self.fail("child must not start"))
 
 
 if __name__ == "__main__":
