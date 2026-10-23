@@ -22,6 +22,9 @@ from ashlar.protocol import ReaderProtocolProfile, validate_protocol_detail
 from ashlar.schema import decode_retained_json
 from .managed_current_carriers import load_current_managed_carriers
 from .managed_current_core import CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, ROLES
+from .managed_current_spark_source_oracle import (
+    ManagedCurrentSourcePrefixOracle, compare_complete_managed_current_bags,
+)
 
 PROFILE = "ashlar-managed-current-spark-receipt-reopen/0.1"
 DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
@@ -113,6 +116,8 @@ class ManagedCurrentSparkReceiptReopenObservation:
     closing_installation_inventory: dict = field(default_factory=dict, repr=False)
     runtime_identity: dict = field(default_factory=dict, repr=False)
     attempt_custody: object = field(default=None, repr=False, compare=False)
+    source_prefix_sha256: str | None = None
+    bag_comparison_sha256: str | None = None
 
 
 @dataclass(frozen=True)
@@ -138,6 +143,7 @@ class _SparkReceiptExecutor:
         exact_selects = {
             "SELECT current_user() AS principal,current_catalog() AS catalog,current_schema() AS schema",
             "SELECT version() AS sparkBuildText",
+            "SELECT current_timezone() AS session_timezone",
             "SELECT table_name,table_type,table_owner FROM system.information_schema.tables "
             "WHERE table_catalog=:catalog AND table_schema=:schema",
             "SELECT table_name,column_name,data_type,is_nullable,ordinal_position "
@@ -149,6 +155,7 @@ class _SparkReceiptExecutor:
             + "`publication_manifest` WHERE publication_id=:publication_id",
         }
         attempt_query = None
+        data_queries = owner._approved_data_queries
         if owner.opening is not None:
             version = owner.opening["publication_attempt_phase"]["version"]
             attempt_query = ("SELECT phase,request_digest,payload_json,payload_digest FROM "
@@ -167,13 +174,16 @@ class _SparkReceiptExecutor:
         exact_describes = {"DESCRIBE DETAIL " + base + "`" + role + "`" for role in ROLES}
         exact_describes.update("DESCRIBE HISTORY " + base + "`" + role + "` LIMIT 1" for role in ROLES)
         is_attempt_query = sql == attempt_query
-        _require((sql in exact_selects or sql in exact_describes or is_attempt_query)
+        is_data_query = sql in data_queries
+        _require((sql in exact_selects or sql in exact_describes or is_attempt_query or is_data_query)
                  and type(parameters) is dict
                  and all(type(k) is str and type(v) is str for k, v in parameters.items()),
                  "Bound Spark SQL with string parameters required")
         if is_attempt_query:
             _require(set(parameters) == {"stream", "batch"},
                      "Exact source-qualified committed-attempt keys required")
+        if is_data_query:
+            _require(parameters == {}, "Pinned versioned role reads take no parameters")
         owner.statements += 1
         statement_limit = (owner.config.maximum_statements if owner.closing
                            else owner.config.maximum_statements - 24)
@@ -185,10 +195,11 @@ class _SparkReceiptExecutor:
             _require(fields == (("phase", "string"), ("request_digest", "string"),
                                 ("payload_json", "string"), ("payload_digest", "string")),
                      "Exact native committed-attempt carrier required")
-        capture_cap = 161 if is_attempt_query else owner.config.maximum_rows + 1
+        capture_cap = (161 if is_attempt_query else 1025 if is_data_query
+                       else owner.config.maximum_rows + 1)
         rows = frame.limit(capture_cap).collect()
         owner._check_deadline()
-        accepted_cap = 161 if is_attempt_query else owner.config.maximum_rows
+        accepted_cap = 161 if is_attempt_query else 1024 if is_data_query else owner.config.maximum_rows
         _require(len(rows) <= accepted_cap, "Complete bounded Spark result required")
         mapped = [r.asDict(recursive=True) for r in rows]
         _require(all(type(r) is dict and set(r) == {n for n, _ in fields} for r in mapped))
@@ -208,6 +219,7 @@ class ManagedCurrentSparkReceiptReader:
         self.closing = False
         self.context = object()
         self.opening = None
+        self._approved_data_queries = set()
         self.executor = _SparkReceiptExecutor(self)
         sc = getattr(self.spark, "sparkContext", None)
         _require(sc is not None and all(hasattr(sc, name) for name in
@@ -226,6 +238,11 @@ class ManagedCurrentSparkReceiptReader:
         rows = self.executor.query("SELECT current_user() AS principal,"
             "current_catalog() AS catalog,current_schema() AS schema", {}).rows
         _require(len(rows) == 1)
+        timezone_rows = self.executor.query(
+            "SELECT current_timezone() AS session_timezone", {}).rows
+        _require(len(timezone_rows) == 1
+                 and timezone_rows[0].get("session_timezone") in ("UTC", "Etc/UTC"),
+                 "Exact UTC Spark session timezone required")
         try:
             build_rows = self.executor.query("SELECT version() AS sparkBuildText", {}).rows
             build_text = build_rows[0].get("sparkBuildText") if len(build_rows) == 1 else None
@@ -244,7 +261,8 @@ class ManagedCurrentSparkReceiptReader:
             "sparkBuildText": build_text, "runtimeTag": runtime_tag,
             "sparkApplicationId": app_id, "clusterId": cluster_id,
             "principal": rows[0].get("principal"), "catalog": rows[0].get("catalog"),
-            "schema": rows[0].get("schema"), "protocol": c.protocol_profile.identity}
+            "schema": rows[0].get("schema"), "protocol": c.protocol_profile.identity,
+            "sessionTimeZone": timezone_rows[0]["session_timezone"]}
         _require(all(type(observed[k]) is str and observed[k] for k in (
             "runtimeName", "sparkVersion", "sparkApplicationId", "clusterId", "principal",
             "catalog", "schema", "protocol")),
@@ -406,6 +424,127 @@ class ManagedCurrentSparkReceiptReader:
             hashlib.sha256(result_text.encode("utf-8")).hexdigest(),
             hashlib.sha256(descriptor_text.encode("utf-8")).hexdigest())
 
+    def _role_read_sql(self, role, version):
+        _require(role in DATA_ROLES and type(version) is int and 0 <= version < 2**63,
+                 "Exact admitted role and literal version required")
+        table = quote_table_identifier(".".join((self.config.catalog, self.config.schema, role)))
+        projection = []
+        for name, kind, _nullable in self.carriers.ordered_fields(role):
+            column = "`" + name + "`"
+            if kind == "BIGINT":
+                projection.append("CAST(" + column + " AS STRING) AS " + column)
+            elif kind == "TIMESTAMP":
+                projection.append("CAST(unix_micros(" + column + ") AS STRING) AS " + column)
+            else:
+                projection.append(column)
+        return ("SELECT " + ",".join(projection) + " FROM " + table
+                + " VERSION AS OF " + str(version) + " LIMIT 1025")
+
+    def _read_and_compare_source_bags(self, oracle, request, manifest, versions, role_tables):
+        _require(type(oracle) is ManagedCurrentSourcePrefixOracle
+                 and oracle.profile == "ashlar-managed-current-source-prefix/0.1"
+                 and oracle.carrier_profile == self.config.carrier_profile
+                 and oracle.destination == {"catalog": self.config.catalog, "schema": self.config.schema}
+                 and oracle.final_request == request
+                 and oracle.progress == json.loads(manifest["source_progress_json"],
+                                                    object_pairs_hook=self._unique_pairs)
+                 and type(oracle.prefix_sha256) is str
+                 and re.fullmatch(r"[0-9a-f]{64}", oracle.prefix_sha256),
+                 "Frozen prefix comparison anchors differ from reopened request/manifest")
+        expected = oracle.expected_rows
+        _require(type(expected) is dict and set(expected) == set(DATA_ROLES)
+                 and all(type(expected[role]) is list for role in DATA_ROLES),
+                 "Exact source-derived four-role comparison bags required")
+        expected_rows = sum(len(expected[role]) for role in DATA_ROLES)
+        expected_bytes = sum(len(_canonical(expected[role]).encode("utf-8")) for role in DATA_ROLES)
+        _require(expected_rows <= 1024 and expected_bytes <= 4 * 1024 * 1024,
+                 "Frozen source comparison bags exceed row or byte bounds")
+        signed64 = re.compile(r"0|-?[1-9][0-9]{0,18}\Z")
+        for role in DATA_ROLES:
+            fields = self.carriers.ordered_fields(role)
+            names = {name for name, _kind, _nullable in fields}
+            for row in expected[role]:
+                _require(type(row) is dict and set(row) == names,
+                         "Frozen source role row has an unexpected carrier shape")
+                for name, kind, nullable in fields:
+                    value = row[name]
+                    _require(value is not None or nullable,
+                             "Frozen source non-null carrier became null")
+                    if value is None:
+                        continue
+                    if kind == "STRING":
+                        _require(type(value) is str, "Frozen source STRING must remain exact text")
+                    elif kind in ("BIGINT", "TIMESTAMP"):
+                        _require(type(value) is str and signed64.fullmatch(value)
+                                 and -(1 << 63) <= int(value) < (1 << 63),
+                                 "Frozen source signed64 token must be canonical text")
+                    elif kind == "BOOLEAN":
+                        _require(type(value) is bool, "Frozen source BOOLEAN must remain Boolean")
+        queries = {}
+        for table, role in role_tables.items():
+            version = versions[table]
+            _require(type(version) is int and 0 <= version <= self.opening[role]["version"])
+            queries[role] = self._role_read_sql(role, version)
+        self._approved_data_queries = set(queries.values())
+        try:
+            return self._capture_source_role_bags(expected, queries)
+        finally:
+            self._approved_data_queries.clear()
+
+    def _capture_source_role_bags(self, expected, queries):
+        actual = {}
+        total_rows = total_bytes = 0
+        projected_types = {"STRING": "string", "BIGINT": "string",
+                           "BOOLEAN": "boolean", "TIMESTAMP": "string"}
+        signed64 = re.compile(r"0|-?[1-9][0-9]{0,18}\Z")
+        for role in DATA_ROLES:
+            identity = (self.opening[role]["uuid"], self.opening[role]["protocol"])
+            _require(self._native_identity(role) == identity,
+                     "Pinned native role identity changed before complete bag capture")
+            result = self.executor.query(queries[role], {})
+            fields = self.carriers.ordered_fields(role)
+            _require(tuple(result.columns) == tuple((name, projected_types[kind])
+                                                     for name, kind, _ in fields),
+                     "Exact ordered native role projection types required")
+            _require(len(result.rows) <= 1024, "Per-role complete capture sentinel exceeded")
+            _require(self._native_identity(role) == identity,
+                     "Pinned native role identity changed during complete bag capture")
+            normalized = []
+            for row in result.rows:
+                _require(type(row) is dict and set(row) == {name for name, _, _ in fields},
+                         "Exact projected native row fields required")
+                item = {}
+                for name, kind, nullable in fields:
+                    value = row[name]
+                    _require(value is not None or nullable, "Native non-null carrier became null")
+                    if value is None:
+                        item[name] = None
+                    elif kind == "STRING":
+                        _require(type(value) is str, "Native STRING must remain exact text")
+                        item[name] = value
+                    elif kind in ("BIGINT", "TIMESTAMP"):
+                        _require(type(value) is str and signed64.fullmatch(value)
+                                 and -(1 << 63) <= int(value) < (1 << 63),
+                                 "Projected signed64 token must be canonical text")
+                        item[name] = value
+                    elif kind == "BOOLEAN":
+                        _require(type(value) is bool, "Native BOOLEAN token must remain Boolean")
+                        item[name] = value
+                    else:
+                        raise ValueError("Unsupported managed-current projection type")
+                normalized.append(item)
+            actual[role] = normalized
+            total_rows += len(normalized)
+            total_bytes += len(_canonical(normalized).encode("utf-8"))
+            _require(total_rows <= 1024 and total_bytes <= 4 * 1024 * 1024,
+                     "Native four-role capture exceeds cumulative row or byte bound")
+        _require(sum(len(actual[r]) for r in DATA_ROLES) <= 1024
+                 and sum(len(_canonical(actual[r]).encode("utf-8")) for r in DATA_ROLES)
+                 <= 4 * 1024 * 1024,
+                 "Native four-role capture exceeds complete bounds")
+        return compare_complete_managed_current_bags(
+            expected, actual, carrier_profile=self.config.carrier_profile)
+
     def _renew(self):
         self._check_deadline()
         runtime = self._observe_environment()
@@ -416,7 +555,7 @@ class ManagedCurrentSparkReceiptReader:
                  "Spark runtime or six-role UC identity changed")
         return runtime, inventory
 
-    def reopen(self, *, request_bytes, manifest_bytes, expected_receipt):
+    def reopen(self, *, request_bytes, manifest_bytes, expected_receipt, source_oracle=None):
         _require(type(request_bytes) is bytes and 0 < len(request_bytes) <= 4194304
                  and type(manifest_bytes) is bytes and 0 < len(manifest_bytes) <= 4194304,
                  "Bounded original request and manifest bytes required")
@@ -497,6 +636,10 @@ class ManagedCurrentSparkReceiptReader:
                  and all(s.uuid == uuids[t] and s.version == versions[t]
                          for t, s in resolved.snapshots.items()),
                  "Independent native resolver differs from exact four-role publication")
+        bag_comparison_sha256 = None
+        if source_oracle is not None:
+            bag_comparison_sha256 = self._read_and_compare_source_bags(
+                source_oracle, request, manifest, versions, role_tables)
         from .truss_feed_sessions import encode_truss_destination_receipt
         source_receipt = encode_truss_destination_receipt(request_bytes, manifest_bytes, vector)
         installation = {role: {k: v for k, v in item.items() if k != "detailSha256"}
@@ -504,7 +647,9 @@ class ManagedCurrentSparkReceiptReader:
         observation = ManagedCurrentSparkReceiptReopenObservation(PROFILE, self._publication_id,
             manifest, expected_receipt["manifestSha256"], source_receipt,
             hashlib.sha256(source_receipt).hexdigest(), vector, installation, {},
-            {"opening": self.opening_runtime, "closing": None}, attempt_custody)
+            {"opening": self.opening_runtime, "closing": None}, attempt_custody,
+            source_oracle.prefix_sha256 if source_oracle is not None else None,
+            bag_comparison_sha256)
         self._observation = observation
         return observation
 

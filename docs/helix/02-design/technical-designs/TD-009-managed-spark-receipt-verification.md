@@ -438,3 +438,71 @@ source registrations and genesis cursors, preserving unchanged entries while
 folding pages. The present carrier/helper must not fabricate B or claim this
 full-vector gate complete. A future reviewed carrier amendment must supply that
 initial custody explicitly before campaign integration.
+
+### Offline exact-version row-capture increment
+
+Extend the internal Spark reopen owner with an explicitly optional injected
+`ManagedCurrentSourcePrefixOracle` and comparison operation; omission preserves
+existing metadata-only behavior. Treat even that frozen object as untrusted
+comparison input, never acceptance, schedule or retention authority. Require its
+profile/carrier/destination/final request and encountered-feed progress to match
+the independently reopened manifest/request under the reduced scope above.
+A constructor-created object or matching SHA alone cannot prove the original
+source prefix. No campaign entrypoint or ACK capability is added.
+
+Generate one fixed projection per role from admitted UMF carrier ordered fields:
+STRING and BOOLEAN columns are quoted unchanged; BIGINT columns use
+`CAST(column AS STRING) AS column`; TIMESTAMP columns use
+`CAST(unix_micros(column) AS STRING) AS column`. Quote every column and explicit
+three-part table. The exact statement is `SELECT <ordered projection> FROM
+<admitted role> VERSION AS OF <manifest literal> LIMIT 1025`. No wildcard,
+caller SQL, latest-version fallback, temporary view or filter is accepted. The
+executor's exact allowlist must recognize only these generated role/version
+statements and preserve its other query bounds. Observe actual native Delta
+UUID/protocol before and after each role read; opening/closing inventory still
+checks all six roles and native schemas/nullability.
+
+Observe `SELECT current_timezone() AS session_timezone` at opening, renewal and
+closing; require exactly `UTC` or `Etc/UTC` and retain the unchanged value in runtime
+identity. Refuse other spellings for this narrow profile. Avoid datetime object
+conversion entirely for table values. Validate projected BIGINT tokens as exact
+canonical signed64 strings excluding Boolean/float/leading-zero substitutions;
+null is permitted only under the admitted physical field's nullability. TIMESTAMP
+comparison values are exact canonical signed64 microseconds, without float or
+local-zone conversion. STRING remains original UTF-8 text; BOOLEAN stays Boolean.
+Check complete ordered projected column metadata and each row's exact fields.
+
+Capture a dedicated 1,025-row sentinel per role regardless of a smaller generic
+executor row setting. Reject 1,025 before comparison; do not return that prefix.
+Apply 1,024 cumulative actual rows and 4 MiB cumulative normalized actual bytes
+across all four roles, and the same independent limits to expected bags. Compute
+these bounds before sorting/comparison. Each query still obeys whole-result bytes,
+post-collect elapsed deadline, statement reserve and closing deadline; a bounded
+row count is not a pre-collection byte-memory guarantee. Compare complete canonical
+row multisets with `compare_complete_managed_current_bags`; retain duplicates and
+opaque JSON/raw strings exactly. An observation may retain the bounded comparison
+digest and oracle prefix hash as correspondence evidence only. Closing failure
+withholds successful close, and no result becomes a source ACK port.
+
+Focused fake-Spark tests author native row results independently from expected
+fixture bags: exact explicit projections/versions, timestamp microseconds and
+large signed64 tokens, zero rows, reordered rows passing, duplicate/missing/extra
+rows or exact payload-token changes refusing, wrong namespace/vector/oracle
+anchors, unsupported timezone, malformed/overflow BIGINT, unexpected field/type,
+per-role sentinel with low generic row budget, cumulative rows/bytes, UUID/protocol
+replacement at bookends, post-collect timeout and closing refusal. Use the reviewed
+actual-current empty oracle for real restore correspondence and clearly authored
+nonempty fixtures only for adapter mechanics; they establish no accepted current
+nonempty source or live UC execution. `.4` hash values remain externally supplied
+comparison data until separate source-key native probe admission exists. Full
+schedule/initial-A/B/prior-chain/source/retention and ACK gates remain open.
+
+For this reduced comparison increment, require exact equality between the oracle's
+encountered-feed progress and the manifest's entire progress map. Consequently a
+manifest with any additional unchanged feed, including B's genesis entry at A1,
+MUST refuse this optional comparison. This is deliberate narrow fixture scope,
+not a claim that omitted B is valid for R04. Do not weaken the check to subset
+matching or present this increment as the managed A1 campaign verifier. Supporting
+that campaign still requires the independently frozen initial A/B progress and
+registration custody amendment above. Test an otherwise matching oracle against
+a manifest with an additional B checkpoint and require refusal before data reads.

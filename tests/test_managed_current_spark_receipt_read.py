@@ -17,7 +17,8 @@ from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
 )
 from ashlar_host.managed_current_spark_source_oracle import (
-    build_managed_current_prefix_oracle, compare_complete_managed_current_bags,
+    ManagedCurrentSourcePrefixOracle, build_managed_current_prefix_oracle,
+    compare_complete_managed_current_bags,
 )
 from ashlar_host.truss_note_publication import graph_expected_rows
 from test_managed_current_receipt_read import _fixture, _canonical
@@ -53,6 +54,10 @@ class _Spark:
         self.attempt_rows = _attempt_rows(_fixture_request_for_attempt(manifest, receipt), manifest)
         self.calls = []
         self.limits = []
+        self.role_rows = {role: [] for role in ("object_current", "edge_current", "tombstone",
+                                                "whole_source_history")}
+        self.timezone = "UTC"
+        self.role_identity_drift = None
 
     def sql(self, sql, args=None):
         args = args or {}; self.calls.append(sql)
@@ -61,6 +66,8 @@ class _Spark:
                 (("principal", "string"), ("catalog", "string"), ("schema", "string"))
         elif "version() AS sparkBuildText" in sql:
             rows, cols = [{"sparkBuildText": "Spark build"}], (("sparkBuildText", "string"),)
+        elif "current_timezone() AS session_timezone" in sql:
+            rows, cols = [{"session_timezone": self.timezone}], (("session_timezone", "string"),)
         elif "FROM system.information_schema.tables" in sql:
             rows = [{"table_name": r, "table_type": "MANAGED", "table_owner": self.owner} for r in ROLES]
             cols = (("table_name", "string"), ("table_type", "string"), ("table_owner", "string"))
@@ -89,6 +96,15 @@ class _Spark:
             rows = list(self.attempt_rows)
             cols = (("phase", "string"), ("request_digest", "string"),
                     ("payload_json", "string"), ("payload_digest", "string"))
+        elif " VERSION AS OF " in sql and " LIMIT 1025" in sql:
+            role = sql.split(" VERSION AS OF ", 1)[0].rsplit(".", 1)[-1].strip("` ")
+            fields = self.carriers.ordered_fields(role)
+            cols = tuple((name, {"STRING": "string", "BIGINT": "string",
+                                 "BOOLEAN": "boolean", "TIMESTAMP": "string"}[kind])
+                         for name, kind, _ in fields)
+            rows = list(self.role_rows[role])
+            if self.role_identity_drift == role:
+                self.uuids[role] = "00000000-0000-4000-8000-000000000001"
         elif sql.startswith("SELECT * FROM") and "VERSION AS OF" in sql:
             role = sql.split("VERSION AS OF", 1)[0].rsplit(".", 1)[-1].strip("` ")
             cols = tuple((name, kind.lower().replace("bigint", "long"))
@@ -114,7 +130,8 @@ def _spark_config(config):
         "sparkBuildText": "Spark build", "runtimeTag": "15.4.x-scala2.12",
         "sparkApplicationId": "app-1", "clusterId": "cluster-1",
         "principal": config.expected_principal, "catalog": config.catalog,
-        "schema": config.schema, "protocol": config.protocol_profile.identity}
+        "schema": config.schema, "protocol": config.protocol_profile.identity,
+        "sessionTimeZone": "UTC"}
     return ManagedCurrentSparkReceiptConfig(config.catalog, config.schema,
         config.expected_principal, config.expected_table_owner, config.source_truss_version,
         config.protocol_profile, runtime)
@@ -146,6 +163,34 @@ def _empty_current_source_prefix():
         "progress": {checkpoint["feed"]: checkpoint}}
     data = _canonical(prefix).encode()
     return config, prefix, data
+
+
+def _authored_adapter_oracle(case, expected_rows):
+    # This constructor-created oracle is deliberately untrusted adapter input;
+    # it tests capture mechanics only, not source-prefix custody or acceptance.
+    roles = ("object_current", "edge_current", "tombstone", "whole_source_history")
+    return ManagedCurrentSourcePrefixOracle(
+        "ashlar-managed-current-source-prefix/0.1", case.config.carrier_profile,
+        hashlib.sha256(b"authored fake-Spark prefix").hexdigest(), "a" * 64, 1,
+        _canonical({"catalog": case.config.catalog, "schema": case.config.schema}),
+        _canonical(json.loads(case.manifest["source_progress_json"])),
+        _canonical(case.request), "[]", _canonical({role: expected_rows.get(role, []) for role in roles}))
+
+
+def _native_test_row(carriers, role, marker):
+    row = {}
+    for name, kind, nullable in carriers.ordered_fields(role):
+        if nullable:
+            row[name] = None
+        elif kind == "STRING":
+            row[name] = marker
+        elif kind == "BIGINT":
+            row[name] = "9223372036854775000"
+        elif kind == "BOOLEAN":
+            row[name] = marker == "true"
+        elif kind == "TIMESTAMP":
+            row[name] = "1792756800123456"
+    return row
 
 
 def _attempt_rows(request, manifest):
@@ -365,6 +410,149 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exceeds bounded inputs"):
             compare_complete_managed_current_bags(
                 oversized, bags, carrier_profile=CARRIER_PROFILE_LEGACY)
+
+    def test_optional_source_oracle_captures_exact_versioned_rows_and_utc(self):
+        oracle = _authored_adapter_oracle(self, {})
+        observation = self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+            source_oracle=oracle)
+        self.assertRegex(observation.bag_comparison_sha256, r"^[0-9a-f]{64}$")
+        self.assertEqual(observation.source_prefix_sha256, oracle.prefix_sha256)
+        self.assertEqual(self.reader.opening_runtime["sessionTimeZone"], "UTC")
+        data_sql = [sql for sql in self.spark.calls if "LIMIT 1025" in sql]
+        self.assertEqual(len(data_sql), 4)
+        self.assertTrue(all("VERSION AS OF" in sql for sql in data_sql))
+        self.assertTrue(any("unix_micros" in sql for sql in data_sql))
+        self.assertIn(1025, self.spark.limits)
+        self.reader.close()
+        self.assertEqual(observation.runtime_identity["closing"]["sessionTimeZone"], "UTC")
+        self.assertEqual(self.reader._approved_data_queries, set())
+
+    def test_source_oracle_anchor_mismatch_refuses_before_versioned_reads(self):
+        oracle = _authored_adapter_oracle(self, {})
+        oracle = __import__("dataclasses").replace(oracle, final_request_json="{}")
+        with self.assertRaisesRegex(ValueError, "Frozen prefix comparison anchors"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=oracle)
+        self.assertFalse(any("LIMIT 1025" in sql for sql in self.spark.calls))
+
+    def test_source_expected_bag_bounds_refuse_before_reads(self):
+        oracle = _authored_adapter_oracle(self, {})
+        oversized = {name: [] for name in ("object_current", "edge_current", "tombstone",
+                                           "whole_source_history")}
+        oversized["object_current"] = [{} for _ in range(1025)]
+        oracle = __import__("dataclasses").replace(oracle,
+            expected_rows_json=_canonical(oversized))
+        with self.assertRaisesRegex(ValueError, "Frozen source comparison bags exceed"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=oracle)
+        self.assertFalse(any("LIMIT 1025" in sql for sql in self.spark.calls))
+
+    def test_manifest_extra_unchanged_feed_refuses_reduced_oracle(self):
+        oracle = _authored_adapter_oracle(self, {})
+        manifest = copy.deepcopy(self.manifest)
+        progress = json.loads(manifest["source_progress_json"])
+        progress["second-feed"] = {"feed": "second-feed", "epoch": "epoch-b",
+                                    "position": "checkpoint-b"}
+        manifest["source_progress_json"] = _canonical(progress)
+        versions = json.loads(manifest["table_versions_json"])
+        role_tables = {".".join((self.config.catalog, self.config.schema, role)): role
+                       for role in ("object_current", "edge_current", "tombstone",
+                                    "whole_source_history")}
+        with self.assertRaisesRegex(ValueError, "Frozen prefix comparison anchors"):
+            self.reader._read_and_compare_source_bags(oracle, self.request, manifest,
+                                                       versions, role_tables)
+        self.assertFalse(any("LIMIT 1025" in sql for sql in self.spark.calls))
+
+    def test_versioned_capture_refuses_uuid_drift_at_bookend_and_clears_allowlist(self):
+        self.spark.role_identity_drift = "object_current"
+        with self.assertRaisesRegex(ValueError, "identity changed during complete bag capture"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=_authored_adapter_oracle(self, {}))
+        self.assertEqual(self.reader._approved_data_queries, set())
+
+    def test_native_capture_is_order_insensitive_and_keeps_large_integer_tokens(self):
+        role = "object_current"
+        first = _native_test_row(self.reader.carriers, role, "first")
+        second = _native_test_row(self.reader.carriers, role, "second")
+        expected = {name: [] for name in ("object_current", "edge_current", "tombstone",
+                                          "whole_source_history")}
+        expected[role] = [first, second]
+        self.spark.role_rows[role] = [second, first]
+        oracle = _authored_adapter_oracle(self, expected)
+        observation = self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+            manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+            source_oracle=oracle)
+        self.assertRegex(observation.bag_comparison_sha256, r"^[0-9a-f]{64}$")
+
+    def test_native_capture_rejects_changed_opaque_payload_token(self):
+        role = "object_current"
+        expected_row = _native_test_row(self.reader.carriers, role, "original")
+        self.spark.role_rows[role] = [dict(expected_row)]
+        expected = {name: [] for name in ("object_current", "edge_current", "tombstone",
+                                          "whole_source_history")}
+        expected[role] = [expected_row]
+        oracle = _authored_adapter_oracle(self, expected)
+        payload_column = next(name for name, kind, _ in self.reader.carriers.ordered_fields(role)
+                              if kind == "STRING" and name == "props_json")
+        self.spark.role_rows[role][0][payload_column] = '{"changed":true}'
+        with self.assertRaisesRegex(ValueError, "bag differs"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=oracle)
+
+    def test_capture_enforces_cumulative_actual_row_limit(self):
+        roles = ("object_current", "edge_current", "tombstone", "whole_source_history")
+        for role in roles:
+            row = _native_test_row(self.reader.carriers, role, "fixture")
+            self.spark.role_rows[role] = [dict(row) for _ in range(257)]
+        with self.assertRaisesRegex(ValueError, "cumulative row or byte bound"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=_authored_adapter_oracle(self, {}))
+
+    def test_capture_rejects_bad_bigint_timezone_and_role_sentinel(self):
+        role = "object_current"
+        row = _native_test_row(self.reader.carriers, role, "fixture")
+        bigint = next(name for name, kind, nullable in self.reader.carriers.ordered_fields(role)
+                      if kind == "BIGINT" and not nullable)
+        oracle = _authored_adapter_oracle(self, {})
+        self.spark.role_rows[role] = [dict(row, **{bigint: "01"})]
+        with self.assertRaisesRegex(ValueError, "canonical text"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=oracle)
+        self.reader, self.spark = ManagedCurrentSparkReceiptReader(
+            _Spark(self.manifest, self.receipt, self.uuids), self.config), None
+        self.spark = self.reader.spark
+        self.spark.role_rows[role] = [dict(row) for _ in range(1025)]
+        self.reader.config = __import__("dataclasses").replace(self.config, maximum_rows=16)
+        with self.assertRaisesRegex(ValueError, "Complete bounded Spark result"):
+            self.reader.reopen(request_bytes=_canonical(self.request).encode(),
+                manifest_bytes=_canonical(self.manifest).encode(), expected_receipt=self.receipt,
+                source_oracle=_authored_adapter_oracle(self, {}))
+        self.assertIn(1025, self.spark.limits)
+
+    def test_non_utc_session_timezone_refuses_opening(self):
+        original_sql = self.spark.sql
+        def altered_sql(sql, args=None):
+            if "current_timezone()" in sql:
+                return _Frame([{"session_timezone": "America/New_York"}],
+                              (("session_timezone", "string"),))
+            return original_sql(sql, args)
+        self.spark.sql = altered_sql
+        with self.assertRaisesRegex(ValueError, "UTC Spark session timezone"):
+            ManagedCurrentSparkReceiptReader(self.spark, self.config)
+
+    def test_timezone_change_at_closing_withholds_closing_inventory(self):
+        observation = self.reopen()
+        self.spark.timezone = "America/New_York"
+        with self.assertRaisesRegex(ValueError, "UTC Spark session timezone"):
+            self.reader.close()
+        self.assertEqual(observation.runtime_identity["closing"], None)
 
     def test_rejects_bool_or_float_as_native_version(self):
         for value in (True, 1.0, -1, 2**63):
