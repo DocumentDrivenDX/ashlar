@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 """Offline receipt-verifier tests; the fake Spark session performs no I/O."""
 import copy
+import hashlib
 import json
 import unittest
 from datetime import datetime, timezone
@@ -24,12 +25,14 @@ class _Row:
 
 
 class _Frame:
-    def __init__(self, rows, columns):
-        self.rows, self.schema = rows, SimpleNamespace(fields=[
+    def __init__(self, rows, columns, on_limit=None):
+        self.rows, self.on_limit, self.schema = rows, on_limit, SimpleNamespace(fields=[
             SimpleNamespace(name=n, dataType=SimpleNamespace(
                 simpleString=lambda t=("bigint" if t == "long" else t): t))
             for n, t in columns])
-    def limit(self, count): return self
+    def limit(self, count):
+        if self.on_limit is not None: self.on_limit(count)
+        self.rows = self.rows[:count]; return self
     def collect(self): return [_Row(r) for r in self.rows]
 
 
@@ -43,7 +46,9 @@ class _Spark:
             "spark.databricks.clusterUsageTags.sparkVersion": "15.4.x-scala2.12"}[key])
         self.carriers = load_current_managed_carriers("ashlar-delta/0.3")
         self.inventory = receipt["installationInventory"]
+        self.attempt_rows = _attempt_rows(_fixture_request_for_attempt(manifest, receipt), manifest)
         self.calls = []
+        self.limits = []
 
     def sql(self, sql, args=None):
         args = args or {}; self.calls.append(sql)
@@ -76,6 +81,10 @@ class _Spark:
             rows, cols = [{"version": 0}], (("version", "long"),)
         elif "publication_manifest` WHERE publication_id" in sql:
             rows, cols = [self.manifest], tuple((k, "string") for k in self.manifest)
+        elif "publication_attempt_phase` VERSION AS OF " in sql:
+            rows = list(self.attempt_rows)
+            cols = (("phase", "string"), ("request_digest", "string"),
+                    ("payload_json", "string"), ("payload_digest", "string"))
         elif sql.startswith("SELECT * FROM") and "VERSION AS OF" in sql:
             role = sql.split("VERSION AS OF", 1)[0].rsplit(".", 1)[-1].strip("` ")
             cols = tuple((name, kind.lower().replace("bigint", "long"))
@@ -83,7 +92,7 @@ class _Spark:
             rows = []
         else:
             raise AssertionError("Unexpected Spark SQL: " + sql)
-        return _Frame(rows, cols)
+        return _Frame(rows, cols, self.limits.append)
 
 
 class _SparkContext:
@@ -105,6 +114,54 @@ def _spark_config(config):
     return ManagedCurrentSparkReceiptConfig(config.catalog, config.schema,
         config.expected_principal, config.expected_table_owner, config.source_truss_version,
         config.protocol_profile, runtime)
+
+
+def _fixture_request_for_attempt(manifest, receipt):
+    request, _, _, _, _ = _fixture()
+    return request
+
+
+def _attempt_rows(request, manifest):
+    phases = ("prepared", "applying", "applied", "committing", "committed")
+    result = _canonical({"effects": {"profile": "opaque-retained-effects/0.1"},
+                         "manifest": manifest})
+    descriptor = _canonical(manifest)
+    rows = []
+    for phase in phases:
+        payload = {"request": request, "result_json": result if phase in phases[2:] else None,
+                   "descriptor_json": descriptor if phase == "committed" else None,
+                   "plan_json": '{"profile":"opaque-retained-plan/0.1"}'}
+        text = _canonical(payload)
+        rows.append({"phase": phase, "request_digest": request["request_digest"],
+            "payload_json": text, "payload_digest": hashlib.sha256(text.encode()).hexdigest()})
+    return rows
+
+
+def _replace_phase_payload(rows, phase, update):
+    row = next(item for item in rows if item["phase"] == phase)
+    payload = json.loads(row["payload_json"])
+    update(payload)
+    row["payload_json"] = _canonical(payload)
+    row["payload_digest"] = hashlib.sha256(row["payload_json"].encode()).hexdigest()
+    row["request_digest"] = payload["request"]["request_digest"]
+
+
+def _change_attempt_value(rows, key, value, *, phase):
+    _replace_phase_payload(rows, phase, lambda payload: payload.__setitem__(key, value))
+
+
+def _change_attempt_request(rows, *, phase):
+    def update(payload):
+        request = payload["request"]
+        request["predecessor"] = "changed-predecessor"
+        body = {key: value for key, value in request.items() if key != "request_digest"}
+        request["request_digest"] = hashlib.sha256(_canonical(body).encode()).hexdigest()
+    _replace_phase_payload(rows, phase, update)
+
+
+def _change_attempt_descriptor(rows):
+    _replace_phase_payload(rows, "committed", lambda payload: payload.__setitem__(
+        "descriptor_json", _canonical({"publication_id": "different"})))
 
 
 class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
@@ -129,7 +186,67 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         self.assertFalse(hasattr(observation, "source_acknowledgement_ports"))
         self.assertFalse(hasattr(observation, "native_backend"))
         self.assertFalse(hasattr(observation, "resolver_backend"))
+        self.assertEqual(observation.attempt_custody.table_version, 0)
+        self.assertRegex(observation.attempt_custody.committed_payload_sha256, r"^[0-9a-f]{64}$")
+        self.assertRegex(observation.attempt_custody.plan_sha256, r"^[0-9a-f]{64}$")
         self.assertFalse(any("warehouse" in sql.lower() for sql in self.spark.calls))
+
+    def test_attempt_read_captures_161_sentinel_independent_of_general_row_budget(self):
+        self.reader.config = __import__("dataclasses").replace(self.config, maximum_rows=100,
+                                                                maximum_result_bytes=4194304)
+        self.spark.attempt_rows = self.spark.attempt_rows * 32 + self.spark.attempt_rows[:1]
+        with self.assertRaisesRegex(ValueError, "source-qualified phase inventory"):
+            self.reopen()
+        self.assertTrue(any("LIMIT 161" in sql for sql in self.spark.calls))
+        self.assertIn(161, self.spark.limits)
+
+    def test_attempt_read_refuses_gaps_duplicates_changed_plan_and_manifest_mismatch(self):
+        for label, mutate in (
+            ("gap", lambda rows: rows.__delitem__(2)),
+            ("duplicate", lambda rows: rows.append(dict(rows[-1]))),
+            ("plan", lambda rows: _change_attempt_value(rows, "plan_json", '{"changed":true}', phase="committed")),
+            ("result", lambda rows: _change_attempt_value(rows, "result_json", '{"effects":{},"manifest":{}}', phase="committed")),
+            ("request", lambda rows: _change_attempt_request(rows, phase="committed")),
+            ("manifest", lambda rows: _change_attempt_descriptor(rows)),
+        ):
+            with self.subTest(label=label):
+                request, manifest, receipt, uuids, sql_config = _fixture()
+                spark = _Spark(manifest, receipt, uuids)
+                mutate(spark.attempt_rows)
+                reader = ManagedCurrentSparkReceiptReader(spark, _spark_config(sql_config))
+                with self.assertRaises(ValueError):
+                    reader.reopen(request_bytes=_canonical(request).encode(),
+                        manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt)
+
+    def test_attempt_read_refuses_attempt_uuid_drift_between_bookends(self):
+        original = self.spark.sql
+        def drift(sql, args=None):
+            frame = original(sql, args)
+            if "publication_attempt_phase` VERSION AS OF " in sql:
+                self.spark.uuids["publication_attempt_phase"] = "ffffffff-ffff-ffff-ffff-ffffffffffff"
+            return frame
+        self.spark.sql = drift
+        with self.assertRaisesRegex(ValueError, "identity changed during committed read"):
+            self.reopen()
+
+    def test_attempt_read_applies_whole_result_byte_budget(self):
+        self.reader.config = __import__("dataclasses").replace(self.config,
+                                                                maximum_result_bytes=4096)
+        with self.assertRaisesRegex(ValueError, "native result exceeds byte budget"):
+            self.reopen()
+
+    def test_attempt_query_requires_exact_template_and_bound_scope(self):
+        base = "`client_dev`.`trial_schema`.`publication_attempt_phase` VERSION AS OF 0"
+        prefix = ("SELECT phase,request_digest,payload_json,payload_digest FROM " + base
+                  + " WHERE stream=:stream AND batch_id=:batch ORDER BY CASE phase "
+                  + "WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1 WHEN 'applied' THEN 2 "
+                  + "WHEN 'committing' THEN 3 WHEN 'committed' THEN 4 END LIMIT 161")
+        for sql, params in ((prefix + " /* comment */", {"stream": "s", "batch": "b"}),
+                            (prefix.replace("VERSION AS OF 0", "VERSION AS OF 1"),
+                             {"stream": "s", "batch": "b"}),
+                            (prefix, {"stream": "s"})):
+            with self.subTest(sql=sql, params=params), self.assertRaises(ValueError):
+                self.reader.executor.query(sql, params)
 
     def test_rejects_bool_or_float_as_native_version(self):
         for value in (True, 1.0, -1, 2**63):
@@ -159,6 +276,13 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
             return frame
         self.spark.sql = delayed
         with self.assertRaisesRegex(ValueError, "cumulative deadline"):
+            self.reader.executor.query("SELECT version() AS sparkBuildText", {})
+
+    def test_general_query_refuses_its_over_limit_sentinel(self):
+        self.reader.config = __import__("dataclasses").replace(self.config, maximum_rows=16)
+        self.spark.sql = lambda sql, args=None: _Frame(
+            [{"sparkBuildText": "build"} for _ in range(17)], (("sparkBuildText", "string"),))
+        with self.assertRaisesRegex(ValueError, "Complete bounded Spark result"):
             self.reader.executor.query("SELECT version() AS sparkBuildText", {})
 
     def test_close_timeout_withholds_observation(self):

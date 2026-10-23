@@ -259,3 +259,52 @@ Retention/read pin seams remain `PinVector`, `PostgresPins.hold` (native assert-
 snapshot policy; metadata LIMIT 0 and a PinVector value alone prove no retained
 files or held authority. Their real integration and independently observed runtime
 job/task/build identity remain required before full-profile or campaign use.
+
+### Bounded committed-attempt reopen increment
+
+The next smaller increment implements only native retained phase/result/manifest
+correspondence, before full source-oracle or effect validation. Keep the internal
+reopen profile, no ACK ports and no publisher imports. After request digest and
+native installation admission, query the captured attempt-role UUID/head using
+this exact parameter-bound statement shape (identifier and nonnegative signed64
+version come only from the admitted inventory):
+
+```sql
+SELECT phase,request_digest,payload_json,payload_digest
+FROM `catalog`.`schema`.`publication_attempt_phase` VERSION AS OF VERSION
+WHERE stream=:stream AND batch_id=:batch
+ORDER BY CASE phase WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1
+WHEN 'applied' THEN 2 WHEN 'committing' THEN 3 WHEN 'committed' THEN 4 END
+LIMIT 161
+```
+
+Observe UUID/protocol before and after the read, compare both to the admitted
+attempt identity, and refuse an over-limit result before scope selection. The
+executor must actually capture the 161st sentinel even when its normal row budget
+is lower: either require at least 161 rows for this owner or reserve a dedicated
+161-row capture cap. Enforce whole-result byte and cumulative statement/deadline
+bounds; no truncation. Validate all rows, including foreign scopes sharing local
+stream/batch IDs, through `validate_source_qualified_phase_inventory`. Require
+exactly five selected phases ending committed. The original request strings must
+equal the caller's verified request, including exact checkpoint, source batch and
+schema inventory; do not compare only its digest. Existing phase validation owns
+payload digests, phase order and unchanged plan/result custody.
+
+Decode retained result/descriptor with duplicate-member/nonfinite refusal. Require
+the result's closed `{effects,manifest}` carrier, object-valued effects and exact
+manifest equality to both the independently reopened native manifest and retained
+committed descriptor. Retain hashes of original committed payload, plan if present,
+result and descriptor text as bounded correspondence evidence. A plan may be absent
+under the existing phase format; do not require or infer an incremental plan
+profile here. Its contents and `effects` are opaque retained artifacts in this
+increment, not proof of native effects, statement execution, source correctness or
+retention. Do not widen observation capabilities or release an ACK backend.
+
+Focused tests use explicitly authored offline phase fixtures, never relabeled as
+accepted-source evidence: valid selected and overlapping foreign scopes; absent
+or noncommitted prefix; duplicate/missing/unknown phase; digest mismatch; changed
+request/checkpoint, plan or result; descriptor/result/native-manifest mismatch;
+malformed foreign scope; 161-row refusal and byte overflow; UUID/protocol drift
+around the attempt read; and timeout/closing failure. Run changed Spark and scoped
+phase tests plus unchanged SQL receipt tests. Complete oracle bags, semantic
+plan/effect proof, native terminal handles and live source/read pins remain gates.

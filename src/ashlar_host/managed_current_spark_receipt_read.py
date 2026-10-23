@@ -112,6 +112,17 @@ class ManagedCurrentSparkReceiptReopenObservation:
     installation_inventory: dict = field(repr=False)
     closing_installation_inventory: dict = field(default_factory=dict, repr=False)
     runtime_identity: dict = field(default_factory=dict, repr=False)
+    attempt_custody: object = field(default=None, repr=False, compare=False)
+
+
+@dataclass(frozen=True)
+class ManagedCurrentSparkAttemptCustody:
+    """Opaque retained text digests; this is not a native effect proof."""
+    table_version: int
+    committed_payload_sha256: str
+    plan_sha256: str | None
+    result_sha256: str
+    descriptor_sha256: str
 
 
 class _SparkReceiptExecutor:
@@ -137,6 +148,14 @@ class _SparkReceiptExecutor:
             "CAST(unix_micros(recorded_at) AS STRING) AS recorded_at FROM " + base
             + "`publication_manifest` WHERE publication_id=:publication_id",
         }
+        attempt_query = None
+        if owner.opening is not None:
+            version = owner.opening["publication_attempt_phase"]["version"]
+            attempt_query = ("SELECT phase,request_digest,payload_json,payload_digest FROM "
+                + base + "`publication_attempt_phase` VERSION AS OF " + str(version)
+                + " WHERE stream=:stream AND batch_id=:batch ORDER BY CASE phase "
+                + "WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1 WHEN 'applied' THEN 2 "
+                + "WHEN 'committing' THEN 3 WHEN 'committed' THEN 4 END LIMIT 161")
         if sql.startswith("SELECT * FROM ") and " VERSION AS OF " in sql:
             match = re.fullmatch(r"SELECT \* FROM (.+) VERSION AS OF ([0-9]{1,19}) LIMIT 0", sql)
             if match:
@@ -147,10 +166,14 @@ class _SparkReceiptExecutor:
                     exact_selects.add(sql) if version <= owner.opening[role]["version"] else None
         exact_describes = {"DESCRIBE DETAIL " + base + "`" + role + "`" for role in ROLES}
         exact_describes.update("DESCRIBE HISTORY " + base + "`" + role + "` LIMIT 1" for role in ROLES)
-        _require((sql in exact_selects or sql in exact_describes)
+        is_attempt_query = sql == attempt_query
+        _require((sql in exact_selects or sql in exact_describes or is_attempt_query)
                  and type(parameters) is dict
                  and all(type(k) is str and type(v) is str for k, v in parameters.items()),
                  "Bound Spark SQL with string parameters required")
+        if is_attempt_query:
+            _require(set(parameters) == {"stream", "batch"},
+                     "Exact source-qualified committed-attempt keys required")
         owner.statements += 1
         statement_limit = (owner.config.maximum_statements if owner.closing
                            else owner.config.maximum_statements - 24)
@@ -158,9 +181,15 @@ class _SparkReceiptExecutor:
                  "Spark receipt statement budget exhausted")
         frame = owner.spark.sql(sql, args=dict(parameters))
         fields = tuple((f.name, _spark_type(f.dataType.simpleString())) for f in frame.schema.fields)
-        rows = frame.limit(owner.config.maximum_rows + 1).collect()
+        if is_attempt_query:
+            _require(fields == (("phase", "string"), ("request_digest", "string"),
+                                ("payload_json", "string"), ("payload_digest", "string")),
+                     "Exact native committed-attempt carrier required")
+        capture_cap = 161 if is_attempt_query else owner.config.maximum_rows + 1
+        rows = frame.limit(capture_cap).collect()
         owner._check_deadline()
-        _require(len(rows) <= owner.config.maximum_rows, "Complete bounded Spark result required")
+        accepted_cap = 161 if is_attempt_query else owner.config.maximum_rows
+        _require(len(rows) <= accepted_cap, "Complete bounded Spark result required")
         mapped = [r.asDict(recursive=True) for r in rows]
         _require(all(type(r) is dict and set(r) == {n for n, _ in fields} for r in mapped))
         _require(len(_native_json(mapped).encode("utf-8")) <= owner.config.maximum_result_bytes,
@@ -178,6 +207,7 @@ class ManagedCurrentSparkReceiptReader:
         self.started, self.statements, self.closed = time.monotonic(), 0, False
         self.closing = False
         self.context = object()
+        self.opening = None
         self.executor = _SparkReceiptExecutor(self)
         sc = getattr(self.spark, "sparkContext", None)
         _require(sc is not None and all(hasattr(sc, name) for name in
@@ -325,6 +355,57 @@ class ManagedCurrentSparkReceiptReader:
                                             profile=c.protocol_profile)
         return table_uuid, protocol
 
+    def _admit_committed_attempt(self, request, manifest):
+        """Reopen bounded source-qualified phase custody at the admitted table head."""
+        from ashlar.attempt_store import validate_source_qualified_phase_inventory
+
+        role = "publication_attempt_phase"
+        admitted = self.opening[role]
+        identity = (admitted["uuid"], admitted["protocol"])
+        _require(self._native_identity(role) == identity,
+                 "Native attempt table identity changed before committed read")
+        table = quote_table_identifier(".".join((self.config.catalog, self.config.schema, role)))
+        sql = ("SELECT phase,request_digest,payload_json,payload_digest FROM " + table
+               + " VERSION AS OF " + str(admitted["version"])
+               + " WHERE stream=:stream AND batch_id=:batch ORDER BY CASE phase "
+               + "WHEN 'prepared' THEN 0 WHEN 'applying' THEN 1 WHEN 'applied' THEN 2 "
+               + "WHEN 'committing' THEN 3 WHEN 'committed' THEN 4 END LIMIT 161")
+        rows = self.executor.query(sql, {"stream": request["stream"],
+                                         "batch": request["batch_id"]}).rows
+        _require(self._native_identity(role) == identity,
+                 "Native attempt table identity changed during committed read")
+        records = validate_source_qualified_phase_inventory(
+            request["stream"], request["batch_id"], rows, request, maximum_rows=160)
+        _require(len(records) == 5 and
+                 tuple(record.phase for record in records) ==
+                 ("prepared", "applying", "applied", "committing", "committed"),
+                 "Exact complete committed source-qualified attempt required")
+        payload_text = records[-1].payload_json
+        payload = decode_retained_json(payload_text.encode("utf-8"))
+        _require(type(payload) is dict and set(payload) in (
+                 {"request", "result_json", "descriptor_json"},
+                 {"request", "result_json", "descriptor_json", "plan_json"})
+                 and payload.get("request") == request,
+                 "Exact retained committed request strings required")
+        result_text, descriptor_text = payload.get("result_json"), payload.get("descriptor_json")
+        _require(type(result_text) is str and type(descriptor_text) is str,
+                 "Exact committed result and descriptor strings required")
+        result = decode_retained_json(result_text.encode("utf-8"))
+        descriptor = decode_retained_json(descriptor_text.encode("utf-8"))
+        _require(type(result) is dict and set(result) == {"effects", "manifest"}
+                 and type(result.get("effects")) is dict
+                 and result.get("manifest") == manifest
+                 and descriptor == manifest,
+                 "Committed result/descriptor must equal the reopened manifest")
+        plan_text = payload.get("plan_json")
+        _require(plan_text is None or type(plan_text) is str,
+                 "Retained committed plan must remain exact text")
+        return ManagedCurrentSparkAttemptCustody(
+            admitted["version"], hashlib.sha256(payload_text.encode("utf-8")).hexdigest(),
+            hashlib.sha256(plan_text.encode("utf-8")).hexdigest() if plan_text is not None else None,
+            hashlib.sha256(result_text.encode("utf-8")).hexdigest(),
+            hashlib.sha256(descriptor_text.encode("utf-8")).hexdigest())
+
     def _renew(self):
         self._check_deadline()
         runtime = self._observe_environment()
@@ -383,6 +464,7 @@ class ManagedCurrentSparkReceiptReader:
                                      "version": actual["version"], "schema": actual["schema"],
                                      "protocol": actual["protocol"]},
                      "Task receipt six-role inventory differs from live UC")
+        attempt_custody = self._admit_committed_attempt(request, manifest)
         binding = expected_receipt.get("weftBindingInputs")
         _require(type(binding) is dict and set(binding) == {"manifest", "manifestUuid", "dataRoles"}
                  and binding["manifest"] == manifest
@@ -422,7 +504,7 @@ class ManagedCurrentSparkReceiptReader:
         observation = ManagedCurrentSparkReceiptReopenObservation(PROFILE, self._publication_id,
             manifest, expected_receipt["manifestSha256"], source_receipt,
             hashlib.sha256(source_receipt).hexdigest(), vector, installation, {},
-            {"opening": self.opening_runtime, "closing": None})
+            {"opening": self.opening_runtime, "closing": None}, attempt_custody)
         self._observation = observation
         return observation
 
