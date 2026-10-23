@@ -117,13 +117,20 @@ behavior), then update the toolkit campaign plan. Exact public signatures and
 profile fields belong in those contracts, not this draft. No physical carrier
 migration or replacement schema interpreter is proposed; public UMF owns DDL.
 
-The smallest implementation slice is an offline, read-only Spark receipt owner
-in a new `src/ashlar_host/managed_current_spark_receipt_read.py` with focused
-`tests/test_managed_current_spark_receipt_read.py`. Reuse portable request,
-manifest, resolver, source-receipt codec and carrier validation. Keep Spark/SDK
-integration in `ashlar_host`; do not introduce those imports into `ashlar` or
-import the publisher as a verifier. Keep SQL runtime admission separate; extract
-shared pure validation only where its existing semantics remain explicit.
+The offline Spark receipt owner is implemented in
+`src/ashlar_host/managed_current_spark_receipt_read.py`; its observed scope is
+recorded in [build evidence](../../04-build/evidence/managed-current-spark-receipt-owner-20261023.md).
+This does not adopt the proposed managed Spark profile or qualify a live runtime.
+
+### Proposed source-holder live interval
+
+Draft only: the original external source holder keeps the managed publication
+read, native pin and Truss source-custody handles live through protected ACK
+commit, exact reconciliation and independent closing. CONTRACT-001 defines the
+proposed ports and fail-closed outcomes; CONTRACT-003/004 retain the complete A/B
+prefix and resolver boundaries. The offline Spark observation supplies receipt
+evidence only and remains unavailable to campaign ACK orchestration until these
+contracts are reviewed and the live authority path is implemented.
 
 Spark-native values require explicit lossless normalization at the read boundary:
 versions/ordinals remain non-Boolean signed64 integers, native arrays/maps retain
@@ -131,16 +138,6 @@ complete structure, timestamps use the original exact microsecond representation
 and column type names map to the admitted UMF physical types. Do not reuse SQL
 string-only parsers or stringify arbitrary Spark values. Focused tests cover SQL
 and Spark representation differences, including overflow and timestamp precision.
-
-That slice accepts explicit injected session/configuration and retained original
-inputs, independently reopens one receipt with bounded read-only statements,
-constructs the full vector and exact source receipt, and performs substantive
-closing. It does not provision a cluster, submit Jobs, mutate data, ACK or claim
-that an external source holder has a usable live pin. Tests demonstrate exact
-parity with a trusted frozen fixture and refusal for each changed UUID/head,
-protocol/schema/owner/principal, manifest/request/vector/progress mismatch,
-missing journal, truncation and opening/body/closing failure. Keep the path
-unavailable to the campaign until the live ACK renewal boundary is implemented.
 
 A following separately reviewed slice wires publisher then verifier tasks and the
 external holder through existing campaign/trial orchestration, with no automatic

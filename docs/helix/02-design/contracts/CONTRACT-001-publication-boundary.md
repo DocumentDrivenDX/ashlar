@@ -1595,3 +1595,50 @@ rule remain unchanged. Drift, overflow/truncation, unknown protocol, cancellatio
 uncertain native outcome or incomplete closing MUST withhold success and ACK;
 original operation/recovery custody MUST survive. Fresh-session separation MUST
 NOT imply independent-principal security or source authority.
+
+#### Proposed source-holder custody ports
+
+The following interface is a draft amendment for review; it does not change this
+contract's approval state or enable campaign use. The external holder MUST keep
+three independently admitted live custody handles plus its protected ACK
+transaction port under one source-owned interval:
+
+- `ManagedPublicationReadPort.open(receipt_bytes, vector, context)` returns a live
+  handle whose `renew()` reopens the exact managed publication/runtime identity,
+  complete six-role installation and four-role pinned snapshots, and verifies
+  that each pinned version remains readable. Its `close()` performs the same
+  substantive checks independently. `receipt_bytes` are the exact retained
+  destination-receipt bytes; `vector` is the complete `PinVector`.
+- `NativePinPort.open(vector, source_selection, context)` returns a live pin
+  handle for the complete four-role UUID/version vector. Its `renew()` asserts
+  that the original pin remains active and its retention admission still covers
+  the source and publication; its `close()` rechecks both. A `PinVector` value
+  or registration row alone MUST NOT count as a held pin or retained-file proof.
+- `TrussSourceCustodyPort.open(source_selection, request_bytes, context)`
+  returns a live handle whose `renew()` admits the original registered feed,
+  epoch, consumer, checkpoint, destination registration and ACK scope from
+  separately retained registration and cursor evidence. Its `close()` rereads
+  that exact source custody.
+- `TrussProtectedReceiptAckPort` is the source holder's existing protected ACK
+  transaction owner. Its
+  `commit(request_bytes, manifest_bytes, receipt_bytes, context)` accepts only
+  exact original bytes and commits once. Its
+  `reconcile(request_bytes, manifest_bytes, receipt_bytes, context)` reads back
+  exact ACK correspondence. It MUST NOT accept a verifier Boolean or report in
+  place of those bytes.
+
+The source holder MUST open all three read/pin/source handles before ACK
+admission. It MUST establish that their live renewal interval covers the bounded
+ACK and reconciliation window, or keep an independent renewal owner active
+throughout; an expiring or unrenewable handle refuses admission. It MUST renew
+all three immediately before commit, then commit and reconcile
+the protected ACK while all handles remain live. It MUST attempt all three
+closes on every exit, including cancellation, deadline and body failure, while
+preserving the primary failure. A close or reconciliation failure after commit
+leaves the slot incomplete; if exact reconciliation failed, ACK settlement is
+also uncertain. Retain the original operation and receipt custody, report no
+slot success, authorize no next-slot source mutation, and do not blindly
+resubmit.
+Only successful exact ACK readback and all three independent closes complete the
+slot. Jobs publisher/verifier tasks receive neither the source ACK credential
+nor an authority to renew or synthesize these handles.

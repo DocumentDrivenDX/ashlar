@@ -1927,6 +1927,16 @@ alone is not semantic admission. Original R04 journal-slot evidence and its
 independent owner admission remain required to make those claims. The profile
 adds no native effect, live source, retention, ACK, or campaign authority.
 
+For the proposed A1 verifier, an oracle carrier is admissible only when its
+initial state preserves both independently admitted A and B progress entries,
+even though A1 advances only A. The source holder MUST separately admit each
+original registration and genesis cursor before using the carrier; a digest,
+cursor syntax check, or `/0.1` prefix fold MUST NOT supply that authority. The
+reopened request, manifest, source-derived bags and complete progress vector
+MUST agree with the selected schedule and original publication chain before the
+receipt can enter the CONTRACT-001 source-holder ACK interval. This paragraph is
+a proposal for review and does not approve or implement the `/0.2` carrier.
+
 ### Blocking open question: original A/B genesis progress custody
 
 The real initial A/B Ashlar progress representation is unknown. A genesis cursor

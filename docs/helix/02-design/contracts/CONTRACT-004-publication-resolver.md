@@ -940,3 +940,18 @@ unbounded or truncated captures. This offline owner MUST NOT provision compute,
 mutate data/source cursors, ACK or confer a remote pin lease. A separately reviewed
 live external-holder read/pin renewal boundary remains mandatory through protected
 ACK; no task output alone qualifies that boundary or production authority.
+
+As a draft addition to this proposal, the verifier observation MUST remain a
+receipt carrier only: it MUST NOT expose ACK submission, a source lease, or a
+renewable pin handle. The external source holder composes the exact receipt with
+the source-owned `ManagedPublicationReadPort`, `NativePinPort`, and
+`TrussSourceCustodyPort` defined in the proposed CONTRACT-001 amendment. Each
+port MUST be freshly opened from independently retained original custody, bound
+to the same request and complete publication vector, and renewed immediately
+before the protected ACK transaction. The source holder alone commits and
+reconciles the exact receipt ACK while those ports remain live, then attempts
+each independent closing check. A renewal, reconciliation, or closing failure
+releases no slot success or next-slot authorization; after a possibly committed
+ACK it preserves the original submission and requires reconciliation rather
+than retry. The Spark reader's offline `close()` is not a substitute for these
+source-holder-owned closing checks.
