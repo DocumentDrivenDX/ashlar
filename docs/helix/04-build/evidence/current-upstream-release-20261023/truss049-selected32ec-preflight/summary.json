@@ -1,0 +1,38 @@
+{
+  "approval_marker_present": false,
+  "bridge_readiness_sha256": "a82a47a5d370c81c7850fd9c2e9bf690b893d95cad29c3b362708fb173c326c8",
+  "created_on": "2026-10-23",
+  "head": "11a5607e01c0a4d295db557e42c404a3b14ee085",
+  "native_effects": {
+    "acknowledgment_started": false,
+    "destination_publication_started": false,
+    "migration_apply_invoked": false,
+    "pg_started": false,
+    "source_mutation_started": false,
+    "spark_started": false
+  },
+  "offline_preflight_sha256": "1b88be8f4ca028bc5f6d6d951a921d134fc2958093bdbcbb179cd9cfec1c289a",
+  "outcome": "ready_pending_hash_bound_operator_approval",
+  "preparation_sha256": "97829b23582bc4ea4e98aba720eb0b96a5bad787dae37f9936f9ace7eaa6e66a",
+  "profile": "ashlar-truss049-selected32ec-offline-candidate-summary/0.1",
+  "root": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-selected32ec",
+  "runtime_input_objects": {
+    "pyproject.toml": "170164da487d567bfa058288d32604f401125ab0",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "a3a1c541ac89c5cc01697f503e83758d92d5d2b5"
+  },
+  "runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+  "scope": "Offline preparation and no-native preflight only; no approval or execution authorization.",
+  "selected_weft": {
+    "build_receipt_sha256": "1396c4fc2b50ac34eb413fd40e59d54b3bea3e678c563d8edc0b743a15ffcf05",
+    "functional_receipt_sha256": "16b987ebb2e0ad5e419676e5a63cd827ca3eb94716fd75d3afff31374c10e441",
+    "native_extension_sha256": "f4be63caaacedeaa3d8af1b1f0587c561a2ff1ae0a279f4f8f7dcf836f6bb24f",
+    "packaging_receipt_sha256": "3bf22976c0921461ad56f5aa9cffda9b3f73521558d29c6df36a2979246a3447",
+    "scope": "Selected macOS ARM64 compiler candidate; no native SQL backend or Unity Catalog qualification.",
+    "source_commit": "32ec02f0c3fd24a97b7726500dc5992c6475908d",
+    "wheel_path": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-selected32ec/runtime/weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl",
+    "wheel_sha256": "598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46"
+  },
+  "supervisor_sha256": "64b7742728f75626888eecf1d955f439d3a00fffb74c1eaa2b03c0308811fa0b",
+  "worker_sha256": "8f0746bf78e88759da2abecb103727de56ad893316de74f35569c43668a788aa"
+}
