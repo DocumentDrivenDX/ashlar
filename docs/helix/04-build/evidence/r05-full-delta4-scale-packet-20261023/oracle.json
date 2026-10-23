@@ -1,0 +1,87 @@
+{
+  "profile": "ashlar-r05-full-delta4-independent-oracle/0.1",
+  "status": "proposal-only-no-run",
+  "counts": {
+    "object_current": 1000000000,
+    "edge_current": 5000000000
+  },
+  "edgeOrdinalDomain": "0 <= e < 5000000000",
+  "rowValueFormula": {
+    "profile": "Full deterministic `.4` carrier projection; constants and nulls are compared field-by-field in the two point probes, while the persisted scan independently checks row totals, identity uniqueness, endpoint arithmetic, and prescribed scalar/string values.",
+    "shared": {
+      "source_system": "r05-full-scale-source",
+      "schema_revision": "r05-full-delta4-v1",
+      "entity_version": 1,
+      "retained_json": "{}",
+      "source_feed": "r05-local-synthetic",
+      "source_epoch": "1",
+      "source_position": "id",
+      "published_at": "2026-10-23T00:00:00.000Z",
+      "apply_batch_id": "r05-full-delta4-v1",
+      "source_cursor_json": "{}",
+      "source_delivery_id": "CAST(id AS STRING)"
+    },
+    "object_current": {
+      "identity": ["source_system", "type_id=1", "id=node ordinal"],
+      "logical_key_json": "[]",
+      "props_json": "{}",
+      "root_id": null,
+      "lookup_hash": "Spark SQL xxhash64 seed 42 over (CAST(source_system AS STRING), CAST(type_id AS BIGINT), CAST(id AS BIGINT))"
+    },
+    "edge_current": {
+      "identity": ["source_system", "rel_type_id=7", "id=edge ordinal"],
+      "source_type": 1,
+      "target_type": 1,
+      "props_json": "{}",
+      "order_key": null,
+      "lookup_hash": "Spark SQL xxhash64 seed 42 over (CAST(source_system AS STRING), CAST(rel_type_id AS BIGINT), CAST(id AS BIGINT))"
+    }
+  },
+  "independentEndpointFormula": {
+    "sourceType": 1,
+    "targetType": 1,
+    "sourceId": "floor(e / 5)",
+    "targetId": "(floor(e / 5) + floor((e mod 5) / 2)) mod 1000000000",
+    "nodeIdDomain": "0 <= id < 1000000000"
+  },
+  "pointLookups": [
+    {"table": "object_current", "identity": ["r05-full-scale-source", 1, 0]},
+    {"table": "edge_current", "identity": ["r05-full-scale-source", 7, 0]}
+  ],
+  "persistedScans": [
+    "exact row counts and full .4 field/value and multiplicity witness",
+    "independent endpoint formula validity counts"
+  ],
+  "graphEngine": {
+    "engine": "GraphFrames",
+    "actions": 1,
+    "selectedSeed": ["r05-full-scale-source", 1, 0],
+    "expectedOutgoingEdgeOccurrenceBag": [
+      ["r05-full-scale-source", 7, 0, 1, 0, 1, 0],
+      ["r05-full-scale-source", 7, 1, 1, 0, 1, 0],
+      ["r05-full-scale-source", 7, 2, 1, 0, 1, 1],
+      ["r05-full-scale-source", 7, 3, 1, 0, 1, 1],
+      ["r05-full-scale-source", 7, 4, 1, 0, 1, 2]
+    ],
+    "edgeOccurrenceTuple": ["source_system", "rel_type_id", "id", "source_type", "source_id", "target_type", "target_id"],
+    "parallelEdgeOccurrences": [[0, 1], [2, 3]],
+    "maximumOutputOccurrences": 10000,
+    "preserveEdgeIdentity": ["source_system", "rel_type_id", "id"]
+  },
+  "expectedCounts": {
+    "source_endpoint_rows": 5000000000,
+    "target_endpoint_rows": 5000000000,
+    "invalid_source_endpoints": 0,
+    "invalid_target_endpoints": 0
+  },
+  "writeProjectionSeconds": {
+    "nodes": 268.877,
+    "edges": 721.174,
+    "total": 990.050
+  },
+  "limitations": [
+    "Synthetic arithmetic only; no generated records or persisted rows",
+    "Does not replace a full row-value oracle, actual persisted scan, or actual graph-engine action",
+    "No target-size scan, graph action, or cleanup timings exist"
+  ]
+}
