@@ -30,6 +30,11 @@ candidate, not yet proven suitable for the complete B transaction inventory.
 An owner must confirm that suitability after the complete operation inventory
 and accepted source report/view are available.
 
+A concrete, unvalidated proposal for same-transaction R3 edge closure and an
+Ashlar-versioned R4 `Place` annotation field is recorded in the [B/R04 source
+semantics proposal](b-r04-source-semantics-proposal-20261023.md). It does not
+change or replace the retained source bytes and remains subject to owner review.
+
 ## Origin, identities, and paths selected for preparation
 
 Use the separate B origin payload already pinned in `b-origin-candidate.json`
@@ -88,7 +93,9 @@ blocked.
 - Name the retention custodian and approve the finite resource/deadline limits.
 - Release the exclusive LocalPostgres slot after A/Arras shutdown.
 - Use the already verified R4 exact 27-wheel lock selected by the B lock plan;
-  produce and review a B-specific runtime receipt that binds that lock digest.
+  independently review the existing attempt-02 B install receipt and its lock
+  binding before any execution approval. The receipt records installation
+  integrity only; it does not approve B source acceptance or execution.
 - Approve the final exact execution approval only after independent review of
   the complete source/origin/runtime/config/supervisor hash set.
 

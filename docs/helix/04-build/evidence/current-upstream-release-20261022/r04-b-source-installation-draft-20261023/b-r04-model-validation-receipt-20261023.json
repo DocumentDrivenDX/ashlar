@@ -1,0 +1,79 @@
+{
+  "profile": "ashlar-r04-b-umf010-draft-validation/0.1",
+  "status": "valid_but_incomplete_unknown_extension_warning",
+  "scope": "Effect-free local public Truss prepare_catalog call over the separate B draft; no database, Truss host, acceptance, source registration, feed, ACK, or native action.",
+  "input": {
+    "original_path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "original_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "draft_path": "b-r04-model-draft-20261023.json",
+    "draft_bytes": 4898,
+    "draft_sha256": "8e8cab81f584495f25f8a5f4741dc5efd43f65ff1809a0622c88d6d9a62a9623",
+    "structural_delta_only": true,
+    "delta": [
+      "vocabularies.ashlar.r04 = version 0.1.0",
+      "append module m / element place_annotation to Place.members",
+      "append the place_annotation string Field with absent-allowed, one cardinality, and the proposed versioned extension"
+    ],
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "candidate_document_revision": "ashlar-current-045-lifecycle-r04-additive-proposal-r1",
+    "candidate_revision_note": "A proposal-only CatalogDocument revision string; no revision is present in the UMF bytes and no B acceptance establishes this value."
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "truss_toolkit": "0.0.49",
+    "umf_access": "0.1.0.dev7",
+    "umf_core": "0.10.0",
+    "truss_core10_manifest_sha256": "4b557b9452c2591fa43b982253c20448fab94a43898a26d97f0e8e54fc1c967a",
+    "truss_core10_owner_revision": "b24e07abae445414c41d2f122deae596915c6bd5",
+    "truss_core10_owner_bundle_sha256": "0335643fd700df1eafedb88e6104d532096aa74c6081f8d96372d2779a4d34fd",
+    "validator": "truss.prepare_catalog / packaged UMF core 0.10.0 producer",
+    "umf_access_scope_note": "umf_access dev7 is installed in the selected runtime but does not expose a standalone raw UMF document validator; this receipt does not claim dev7 independently interpreted the source document."
+  },
+  "preparation": {
+    "complete_captured_calls": 1,
+    "additional_pure_call_with_summary_wrapper_error": 1,
+    "additional_call_note": "The first pure preparation completed, but its summary wrapper raised KeyError while reading the producer-manifest shape; no source/native effect occurred. The next pure call captured the result. No accepted source or database state was created by either call.",
+    "elapsed_seconds_captured_call": 0.765,
+    "prepared_input_bytes": 1451,
+    "prepared_input_sha256": "966adb765b337c81f20ea214f2071eef354ff2c2d24afaa1b2b0435023dcc320",
+    "report_evidence_sha256": "ba9dd4b0cc0f8d214ec056475f3c46f9c4475646c68292677c146686383dd705",
+    "source_observation_sha256": "ba9dd4b0cc0f8d214ec056475f3c46f9c4475646c68292677c146686383dd705",
+    "validation": {
+      "valid": true,
+      "complete": false,
+      "diagnostics": [
+        {
+          "code": "UNKNOWN_EXTENSION",
+          "message": "Exact extension version unavailable; content retained",
+          "path": "/vocabularies/ashlar.r04",
+          "severity": "warning"
+        },
+        {
+          "code": "EXPERIMENTAL_CORE_SEMANTIC_TYPES",
+          "message": "Experimental semantic references; publisher-owned meanings and native enforcement are not inferred",
+          "path": "/umf",
+          "severity": "warning"
+        }
+      ]
+    },
+    "interpretation_gap": "The structural UMF core validator retained the unknown ashlar.r04 extension but did not bind its meaning. The versioned Ashlar vocabulary/profile needs an independently available definition and review before R04 semantic use."
+  },
+  "effects": {
+    "postgres_started": false,
+    "truss_host_opened": false,
+    "transaction_opened": false,
+    "source_accepted": false,
+    "source_registered": false,
+    "feed_read": false,
+    "acknowledgement": false,
+    "spark_started": false,
+    "network_access": false,
+    "retained_original_changed": false
+  },
+  "authority": {
+    "origin_approved": false,
+    "execution_approved": false,
+    "b_source_authority_established": false,
+    "r04_schedule_frozen": false
+  }
+}
