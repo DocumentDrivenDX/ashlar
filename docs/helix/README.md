@@ -18,6 +18,19 @@ Native singleton reads work through the publication resolver independently of Fa
 
 ## Implementation status
 
+Current upstream work remains release-gated: Weft 0.4.52 source `b599` is pushed,
+but its public tag/release and Ashlar pin are pending; the selected macOS and Linux
+wheels are bound to source `32ec02f`, with Linux evidence limited to packaging and
+two offline compiler cases ([wheel and functional receipts](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux/README.md),
+[Linux cases](04-build/evidence/current-upstream-release-20261023/weft052-selected-linux-functional/README.md)).
+UMF 0.5.5 remains an SDK-only candidate without a public release; Ashlar retains
+its UMF 0.5.4 / core 0.10.0 pin ([0.5.5 qualification limit](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md),
+[0.5.4 adoption record](04-build/evidence/current-upstream-release-20261022/umf-0.5.4-adoption.json)).
+Truss 0.0.49 r3 is inert readiness work; r2 failed during PostgreSQL startup before
+Truss migration or source effects, and neither attempt produced a publication or ACK
+([r3 status](04-build/evidence/current-upstream-release-20261023/truss049-r3-readiness-20261023/README.md),
+[r2 failure](04-build/evidence/current-upstream-release-20261023/truss049-selected32ec-head0506fb7-failure/README.md)).
+
 The small configured JSONL example has actual managed-Delta
 [publication, update/delete and history evidence](04-build/evidence/native-configured-publication-complete-20261008.json),
 [resolver singleton evidence](04-build/evidence/native-configured-singleton-20261008.json),
@@ -77,11 +90,11 @@ the corrected attempt records Delta 4.4.1's observed legacy protocol features.
 This does not exercise an Ashlar publication or qualify full-table graph export,
 scale, or production use.
 
-An offline canonical `.4` GraphFrames holder candidate now checks generated
-carrier metadata and exposes exact-version lazy frame handles. It has no
-retained-file/exclusive-use custody or action authority; generator, source and
-oracle declarations remain unaudited. See the
-[candidate evidence](04-build/evidence/canonical-graphframes-holder-candidate-20261023/README.md).
+The canonical `.4` GraphFrames holder and action-verifier code has been reviewed
+and landed, but the persisted-carrier native action remains pending. The offline
+candidate checks carrier metadata and exposes exact-version lazy frame handles;
+it does not establish retained-file/exclusive-use custody or authorize an action.
+See the [candidate and action-readiness evidence](04-build/evidence/canonical-graphframes-holder-candidate-20261023/README.md).
 
 The `.4` synthetic carrier samples reached 45M nodes/225M edges on local[18]
 in 73.82 seconds, writing 3.06 GB of active ZSTD Parquet. At 80% of those
@@ -120,6 +133,10 @@ than the 38.98-second/3.06-GB sequential-identity baseline, so neither hash-rang
 layout is the default. Its 80%-throughput write-only arithmetic for 1B/5B is
 26.96 minutes and remains held. The successful comparison and its synthetic
 value limits are in the [identity-sort evidence](04-build/evidence/current-upstream-release-20261021/local-current/canonical-carrier-identity-sort-materialization-20261022.json).
+The completed R05 reassessment records the selected 1B/5B write-only estimate at
+18.05 minutes and a nonselected sensitivity at 16.425 minutes; both exceed the
+15-minute owner-review gate, which does not authorize the held scale trial
+([R05 budget and gates](04-build/evidence/r05-end-to-end-budget-design-20261023/README.md)).
 
 [Layout experiments](02-design/spikes/SPIKE-001-table-layout.md) retain existing
 local and native performance measurements. Metrics guide tuning; they do not
