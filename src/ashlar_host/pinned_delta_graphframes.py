@@ -422,6 +422,9 @@ CANONICAL_CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
 CANONICAL_UMF_REVISION = "2ede4c879bea5db13794a6fa30e67c821306c17f"
 CANONICAL_RUNTIME_SELECTION = (("spark", "4.2.0"), ("delta", "4.4.1"),
                                ("graphframes", "0.12.3"), ("jdk", "21.0.13"))
+# The reviewed Homebrew JDK distribution reports this full build string through
+# java.version. Keep the profile's logical JDK selection above unchanged.
+CANONICAL_JDK_BUILD = "21.0.13.0.2"
 
 # Hashes are carried by the passing 2026-10-21 compatibility receipt.  The
 # class-location check below proves which JVM artifacts are actually loaded;
@@ -1699,11 +1702,13 @@ def _admit_canonical_graphframes_runtime(spark):
             spark, "org.graphframes.GraphFrame")
     except Exception as error:
         raise PermissionError("Actual loaded Delta, GraphFrames and JDK runtime admission failed") from error
-    if java_version != "21.0.13":
-        raise PermissionError("Actual JDK 21.0.13 runtime required")
+    if java_version != CANONICAL_JDK_BUILD:
+        raise PermissionError(
+            f"Actual reviewed JDK build {CANONICAL_JDK_BUILD} required")
     observed = {
         "spark": spark.version, "delta": "4.4.1",
-        "graphframes": "0.12.3", "jdk": java_version,
+        "graphframes": "0.12.3", "jdk": "21.0.13",
+        "jdkBuild": java_version,
         "jars": {
             delta_main.name: {"path": str(delta_main), "sha256": delta_hash},
             delta_storage.name: {"path": str(delta_storage), "sha256": storage_hash},

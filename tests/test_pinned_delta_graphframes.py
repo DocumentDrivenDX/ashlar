@@ -878,7 +878,7 @@ class CanonicalActionReadinessTests(unittest.TestCase):
                 paths[name] = path
             fake_jvm = types.SimpleNamespace(java=types.SimpleNamespace(
                 lang=types.SimpleNamespace(System=types.SimpleNamespace(
-                    getProperty=lambda _name: "21.0.13"))))
+                    getProperty=lambda _name: "21.0.13.0.2"))))
             spark = types.SimpleNamespace(version="4.2.0", _jvm=fake_jvm)
             expected = list(paths.values())
             with patch.object(graphframes_module, "_jvm_class_jar",
@@ -886,6 +886,29 @@ class CanonicalActionReadinessTests(unittest.TestCase):
                                            for path in expected]):
                 with self.assertRaisesRegex(PermissionError, "JAR bytes"):
                     graphframes_module._admit_canonical_graphframes_runtime(spark)
+
+    def test_loaded_runtime_admits_only_reviewed_full_jdk_build_and_reports_logical_pin(self):
+        with tempfile.TemporaryDirectory() as directory:
+            paths = {name: Path(directory) / name
+                     for name in graphframes_module.CANONICAL_RUNTIME_ARTIFACTS}
+            for path in paths.values():
+                path.write_bytes(b"inert reviewed jar placeholder")
+            spark = types.SimpleNamespace(version="4.2.0", _jvm=types.SimpleNamespace(
+                java=types.SimpleNamespace(lang=types.SimpleNamespace(System=
+                    types.SimpleNamespace(getProperty=lambda _name: "21.0.13.0.2")))))
+            loaded = [(paths[name], digest) for name, digest in
+                      graphframes_module.CANONICAL_RUNTIME_ARTIFACTS.items()]
+            with patch.object(graphframes_module, "_jvm_class_jar", side_effect=loaded):
+                identity = graphframes_module._admit_canonical_graphframes_runtime(spark)
+            self.assertEqual(identity["jdk"], "21.0.13")
+            self.assertEqual(identity["jdkBuild"], "21.0.13.0.2")
+
+            for unsupported in ("21.0.13", "21.0.13.0.1", "21.0.13.0.3"):
+                spark._jvm.java.lang.System.getProperty = lambda _name, value=unsupported: value
+                with patch.object(graphframes_module, "_jvm_class_jar", side_effect=loaded):
+                    with self.subTest(jdk_build=unsupported), self.assertRaisesRegex(
+                            PermissionError, "reviewed JDK build"):
+                        graphframes_module._admit_canonical_graphframes_runtime(spark)
 
     def test_jvm_class_resolution_uses_spark_context_classloader(self):
         with tempfile.TemporaryDirectory() as directory:
