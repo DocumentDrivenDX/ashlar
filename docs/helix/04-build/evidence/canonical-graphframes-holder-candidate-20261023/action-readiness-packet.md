@@ -25,6 +25,19 @@ authority. The 1B/5B run remains held by the R05 review gate.
   two-parallel-edge fixture under its recorded Spark/Delta/GraphFrames runtime.
   It does not admit the canonical carrier holder or prove retained-file custody.
 
+The canonical action implementation now has a separately versioned writer-7
+protocol profile for the selected `.4` carrier. It requires exact reader 1 /
+writer 7 `DESCRIBE DETAIL` features (`appendOnly`, `clustering`,
+`domainMetadata`, `invariants`) and independently replays a bounded complete
+local Delta commit-JSON history through the selected head. The latest protocol
+action must have exactly the R05 writer feature set, no duplicate features, and
+no unexpected reader features; the readback digest and protocol-action version
+are retained in action evidence. This traces CONTRACT-003's generated carrier
+semantics and TD-008's pinned-protocol gate to the retained [R05 protocol
+receipt](../r05-end-to-end-budget-design-20261023/codec-pair-attempt-02-zstd-baseline-20261023.md).
+The writer-2 compatibility smoke remains unchanged. These are mocked/inert
+checks only; no canonical `.4` Delta table or GraphFrames action ran.
+
 ## Minimum frozen descriptor before execution
 
 Create a fixture-specific descriptor from the exact retained generator/source
@@ -106,25 +119,29 @@ snapshot inventory digests, actual runtime/JAR identities, selected seed, cap,
 bounded result bag, checksums of evidence inputs, renewal outcomes, and refusal
 or pass status. No truncated answer may be labeled exact.
 
-## Exact next Luna implementation slice
+## Current offline implementation slice
 
-In `src/ashlar_host/pinned_delta_graphframes.py`, add a separate canonical
-one-hop entrypoint and its private action gate. Keep the tiny smoke entrypoint
-unchanged. The new path should consume an audited canonical descriptor, acquire
-the exclusive retained-file lease, perform actual runtime/JAR admission, map
-the version-pinned frames to transient views, execute the capped seed action,
-compare the complete edge-occurrence bag to the frozen oracle, renew all gates,
-and emit a bounded evidence object. It must not alter `src/` outside this
-module, `pyproject.toml`, table schemas, the generator, publisher behavior, or
-public commands/receipts. Do not wire this path into a general publication API.
+`PinnedCanonicalGraphFramesActionFixture` in
+`src/ashlar_host/pinned_delta_graphframes.py` implements the distinct canonical
+one-hop gate with the reviewed descriptor, exclusive retained-file lease,
+actual runtime/JAR admission, version-pinned transient views, capped result
+collection, exact occurrence-bag comparison, and closing renewal. The legacy
+writer-2 smoke path remains unchanged. For canonical `.4`, this revision
+selects `ashlar-delta/0.4-xxhash64-writer-7/0.1`: reader 1/writer 7 and the exact
+`DESCRIBE DETAIL` feature summary are checked against the latest protocol action
+in a bounded complete local commit-JSON replay through the selected head.
+Missing commit history, a missing protocol action, duplicate/unknown feature
+fields, or protocol drift refuses. The retained protocol-action version and
+digest are included in the table pin evidence.
 
-The next offline implementation review should include focused refusal coverage
-for descriptor drift, lock contention, missing/replaced retained files, changed
-Delta head/schema/protocol, runtime and JAR mismatch, expired lease, cap
-overflow, oracle mismatch, and a successful bounded action with no input-frame
-collect. Actual Spark execution remains a separately authorized step after
-review; the implementation slice itself should not start Spark, PostgreSQL, or
-cloud services.
+Focused mocked tests cover descriptor drift, lock contention, missing/replaced
+retained files, changed Delta head/schema/protocol, runtime and JAR mismatch,
+expired lease, cap overflow, oracle mismatch, and successful bounded action
+without input-frame collection. They also verify the writer-7 `DESCRIBE DETAIL`
+and log-action positive path, reject the writer-2 protocol on the canonical
+action path, and keep legacy writer-2 compatibility tests passing. This remains
+inert verification only. Actual Spark execution requires separate approval and
+must not overlap an occupied native slot.
 
 ## Stop conditions and qualification
 

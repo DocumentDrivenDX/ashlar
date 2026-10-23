@@ -13,7 +13,8 @@ schemas, observes two distinct native Delta UUIDs, versions, schemas and protoco
 twice at open, and provides `VERSION AS OF` frame handles under a finite renewable
 metadata lease. Focused action tests cover bad descriptors, schema refusal,
 duplicate UUIDs, changed versions, expiry, version selection, no carrier-row
-collection, and the separate R05 identity discriminator; 31/31 passed. The
+collection, the separate R05 identity discriminator, and writer-7 protocol
+admission; 32/32 passed. The
 separately reviewed inert supervisor suite passed
 11/11 focused tests, including admission and failure-cleanup controls.
 
@@ -27,6 +28,13 @@ ACK, publication, Unity Catalog or production authority. The existing tiny
 compatibility smoke remains the actual execution evidence for this current-runtime
 synthetic lane.
 
+The canonical action path selects a separately versioned `.4` writer-7
+protocol. It matches native `DESCRIBE DETAIL` reader/writer/features with the
+latest protocol action replayed from the complete bounded local Delta commit
+history. The writer-2 contract remains unchanged for the legacy compatibility
+smoke. This gate has mocked coverage only and does not qualify a materialized
+`.4` table.
+
 Before enabling the canonical action, a separately reviewed fixture runner must
 verify generator/source/oracle correspondence, attest the actual runtime/JARs,
 hold retained-file and exclusive-use custody through closing checks, and run the
@@ -39,7 +47,7 @@ design packet only; no action has been run or admitted by it. A separate
 [R05 identity-discriminator candidate](action-discriminator-r1/review-packet.md)
 adds the required cross-source overlapping-ID, self-loop, isolated-node and
 parallel-edge cases without changing the existing fixture or profile. Its
-manifest/anchor remain pending independent review; the 31-test result is mocked
+manifest/anchor remain pending independent review; the 32-test result is mocked
 and inert, and does not establish a native GraphFrames pass.
 
 The offline follow-up now supplies a deterministic three-object/two-parallel-

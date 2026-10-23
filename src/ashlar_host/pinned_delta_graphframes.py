@@ -25,6 +25,23 @@ SOURCE_SYSTEM = "ashlar-graphframes-smoke"
 # action's optional readerFeatures/writerFeatures fields.
 PROTOCOL = {"minReaderVersion": 1, "minWriterVersion": 2,
             "tableFeatures": ["appendOnly", "invariants"]}
+# CONTRACT-003 requires the selected UMF `.4` carrier semantics; TD-008 requires
+# the canonical synthetic action to pin its exact protocol. The retained R05
+# attempt-02 receipt records reader 1/writer 7 with domainMetadata, clustering,
+# invariants and appendOnly. Keep this separately versioned from the writer-2
+# compatibility smoke above; this check is not native execution evidence.
+LEGACY_SMOKE_PROTOCOL_PROFILE = "delta-writer-2-legacy-smoke/0.1"
+CANONICAL_ACTION_PROTOCOL_PROFILE = "ashlar-delta/0.4-xxhash64-writer-7/0.1"
+CANONICAL_ACTION_PROTOCOL = {
+    "minReaderVersion": 1, "minWriterVersion": 7,
+    "tableFeatures": ["appendOnly", "clustering", "domainMetadata", "invariants"],
+}
+CANONICAL_ACTION_LOG_PROTOCOL = {
+    "minReaderVersion": 1, "minWriterVersion": 7,
+    "writerFeatures": ["domainMetadata", "clustering", "invariants", "appendOnly"],
+}
+MAX_CANONICAL_PROTOCOL_LOG_VERSIONS = 128
+MAX_CANONICAL_PROTOCOL_LOG_BYTES = 16 * 1024 * 1024
 MAX_ONE_HOP_ROWS = 16
 MAX_LEASE_SECONDS = 300
 FIXTURE_INPUT_SHA256 = "00fea3fb2372d99add7a03fe576d0833eae16afb9e2e8139da06cd289b6a4e68"
@@ -987,8 +1004,28 @@ class CanonicalSyntheticTablePin:
     schema_sha256: str
     protocol: tuple
     active_file_count: int
+    protocol_profile: str = LEGACY_SMOKE_PROTOCOL_PROFILE
+    protocol_log_version: int | None = None
+    protocol_log_sha256: str | None = None
 
     def __post_init__(self):
+        expected_protocol = (
+            PROTOCOL if self.protocol_profile == LEGACY_SMOKE_PROTOCOL_PROFILE
+            else CANONICAL_ACTION_PROTOCOL
+            if self.protocol_profile == CANONICAL_ACTION_PROTOCOL_PROFILE
+            else None)
+        expected_signature = ((expected_protocol["minReaderVersion"],
+                               expected_protocol["minWriterVersion"],
+                               tuple(expected_protocol["tableFeatures"]))
+                              if expected_protocol is not None else None)
+        canonical_log_valid = (
+            type(self.protocol_log_version) is int
+            and 0 <= self.protocol_log_version < MAX_CANONICAL_PROTOCOL_LOG_VERSIONS
+            and type(self.protocol_log_sha256) is str
+            and re.fullmatch(r"[0-9a-f]{64}", self.protocol_log_sha256) is not None)
+        log_fields_valid = (
+            canonical_log_valid if self.protocol_profile == CANONICAL_ACTION_PROTOCOL_PROFILE
+            else self.protocol_log_version is None and self.protocol_log_sha256 is None)
         if (self.role not in ("object_current", "edge_current")
                 or type(self.table_uuid) is not str
                 or re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", self.table_uuid) is None
@@ -997,9 +1034,7 @@ class CanonicalSyntheticTablePin:
                 or not 0 <= self.active_file_count <= MAX_SNAPSHOT_FILES
                 or type(self.schema_sha256) is not str
                 or re.fullmatch(r"[0-9a-f]{64}", self.schema_sha256) is None
-                or self.protocol != (PROTOCOL["minReaderVersion"],
-                                     PROTOCOL["minWriterVersion"],
-                                     tuple(PROTOCOL["tableFeatures"]))):
+                or self.protocol != expected_signature or not log_fields_valid):
             raise ValueError("Exact canonical synthetic current-table identity required")
 
 
@@ -1025,10 +1060,98 @@ def _canonical_carrier_definition_sha256():
     return hashlib.sha256(resource.read_bytes()).hexdigest()
 
 
+def _read_canonical_delta_log_protocol(table_path, head_version):
+    """Replay bounded local commit JSONs to pin the latest exact writer-7 action.
+
+    Missing commits/checkpoint-only history, oversized history, malformed JSON,
+    or unstable files refuse. The action holder also inventories the complete
+    Delta log while its cooperative lease is held.
+    """
+    if (type(head_version) is not int or not 0 <= head_version
+            < MAX_CANONICAL_PROTOCOL_LOG_VERSIONS):
+        raise PermissionError("Canonical `.4` protocol history exceeds bounded replay")
+    root = Path(table_path) / "_delta_log"
+    if root.is_symlink() or not root.is_dir() or root.resolve(strict=True) != root:
+        raise PermissionError("Canonical `.4` Delta log directory required")
+    total_bytes = 0
+    latest = None
+    latest_version = None
+    for version in range(head_version + 1):
+        path = root / f"{version:020d}.json"
+        if path.is_symlink() or not path.is_file():
+            raise PermissionError("Complete bounded Delta commit JSON history required")
+        flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+        fd = os.open(path, flags)
+        try:
+            before = os.fstat(fd)
+            if not stat.S_ISREG(before.st_mode):
+                raise PermissionError("Delta commit log must be a regular file")
+            total_bytes += before.st_size
+            if total_bytes > MAX_CANONICAL_PROTOCOL_LOG_BYTES:
+                raise PermissionError("Canonical Delta protocol history exceeds byte bound")
+            chunks = []
+            remaining = before.st_size
+            while remaining:
+                block = os.read(fd, min(1024 * 1024, remaining))
+                if not block:
+                    raise PermissionError("Delta commit log was truncated while reading")
+                chunks.append(block)
+                remaining -= len(block)
+            raw = b"".join(chunks)
+            after = os.fstat(fd)
+            try:
+                path_after = os.stat(path, follow_symlinks=False)
+            except OSError as error:
+                raise PermissionError("Delta commit log path changed while reading") from error
+            if ((before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+                    != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                    or (after.st_dev, after.st_ino) != (path_after.st_dev, path_after.st_ino)):
+                raise PermissionError("Delta commit log changed while reading")
+        finally:
+            os.close(fd)
+        for line in raw.splitlines():
+            if not line:
+                continue
+            event = _json_without_duplicate_members(line)
+            if type(event) is not dict:
+                raise PermissionError("Delta commit action object required")
+            if "protocol" in event:
+                if latest_version == version:
+                    raise PermissionError("One Delta protocol action per commit required")
+                protocol = event["protocol"]
+                if type(protocol) is not dict:
+                    raise PermissionError("Delta protocol action object required")
+                latest = protocol
+                latest_version = version
+    if latest is None or latest_version is None:
+        raise PermissionError("Pinned Delta history lacks a protocol action")
+    return latest, latest_version, hashlib.sha256(_canonical({
+        "version": latest_version, "protocol": latest,
+    })).hexdigest()
+
+
+def _canonical_action_log_protocol_matches(protocol):
+    """Match the R05 writer-7 action, rejecting duplicates and extra fields."""
+    if type(protocol) is not dict or set(protocol) != {
+            "minReaderVersion", "minWriterVersion", "writerFeatures"}:
+        return False
+    features = protocol.get("writerFeatures")
+    expected = CANONICAL_ACTION_LOG_PROTOCOL["writerFeatures"]
+    return (type(protocol.get("minReaderVersion")) is int
+            and protocol["minReaderVersion"] == 1
+            and type(protocol.get("minWriterVersion")) is int
+            and protocol["minWriterVersion"] == 7
+            and type(features) is list
+            and all(type(item) is str for item in features)
+            and len(features) == len(set(features)) == len(expected)
+            and set(features) == set(expected))
+
+
 class PinnedCanonicalSyntheticDeltaFixture:
     """Read-only two-table `.4` synthetic holder; no publication/ACK authority."""
 
-    def __init__(self, spark, fixture, table_paths, *, maximum_lease_seconds=120):
+    def __init__(self, spark, fixture, table_paths, *, maximum_lease_seconds=120,
+                 protocol_profile=LEGACY_SMOKE_PROTOCOL_PROFILE):
         if type(fixture) is not CanonicalSyntheticFixtureDescriptor:
             raise ValueError("Frozen canonical synthetic fixture descriptor required")
         if (type(table_paths) is not dict
@@ -1038,10 +1161,18 @@ class PinnedCanonicalSyntheticDeltaFixture:
         if (type(maximum_lease_seconds) is not int
                 or not 0 < maximum_lease_seconds <= MAX_LEASE_SECONDS):
             raise ValueError("Finite canonical fixture lease required")
+        if protocol_profile == LEGACY_SMOKE_PROTOCOL_PROFILE:
+            expected_protocol = PROTOCOL
+        elif protocol_profile == CANONICAL_ACTION_PROTOCOL_PROFILE:
+            expected_protocol = CANONICAL_ACTION_PROTOCOL
+        else:
+            raise ValueError("Versioned canonical Delta protocol profile required")
         if getattr(spark, "version", None) != dict(CANONICAL_RUNTIME_SELECTION)["spark"]:
             raise PermissionError("Selected Spark 4.2.0 runtime required")
         self._spark = spark
         self.fixture = fixture
+        self._protocol_profile = protocol_profile
+        self._expected_protocol = expected_protocol
         if _canonical_carrier_definition_sha256() != fixture.carrier_definition_sha256:
             raise ValueError("Canonical generated carrier definition changed after freeze")
         paths = {}
@@ -1074,19 +1205,28 @@ class PinnedCanonicalSyntheticDeltaFixture:
         if (type(active_file_count) is not int
                 or not 0 <= active_file_count <= MAX_SNAPSHOT_FILES):
             raise ValueError("Finite native Delta numFiles witness within inventory bound required")
-        if protocol_signature != (PROTOCOL["minReaderVersion"],
-                                  PROTOCOL["minWriterVersion"],
-                                  tuple(PROTOCOL["tableFeatures"])):
-            raise ValueError("Canonical synthetic Delta protocol differs from selected runtime")
+        if protocol_signature != (self._expected_protocol["minReaderVersion"],
+                                  self._expected_protocol["minWriterVersion"],
+                                  tuple(self._expected_protocol["tableFeatures"])):
+            raise ValueError(
+                f"Canonical synthetic Delta protocol differs from {self._protocol_profile}")
+        protocol_log_version = None
+        protocol_log_sha256 = None
+        if self._protocol_profile == CANONICAL_ACTION_PROTOCOL_PROFILE:
+            log_protocol, protocol_log_version, protocol_log_sha256 = (
+                _read_canonical_delta_log_protocol(path, version))
+            if not _canonical_action_log_protocol_matches(log_protocol):
+                raise ValueError("Canonical `.4` Delta log protocol differs from writer-7 profile")
         if _canonical_carrier_definition_sha256() != self.fixture.carrier_definition_sha256:
             raise ValueError("Frozen generated carrier definition changed")
         schema = self._spark.read.format("delta").load(path).schema
         signature, schema_sha = _actual_schema_signature(schema)
         if signature != _canonical_carrier_signature(role):
             raise ValueError("Exact generated `.4` carrier schema required")
-        return CanonicalSyntheticTablePin(role, detail.get("id"), version,
-                                          schema_sha, protocol_signature,
-                                          active_file_count)
+        return CanonicalSyntheticTablePin(
+            role, detail.get("id"), version, schema_sha, protocol_signature,
+            active_file_count, self._protocol_profile, protocol_log_version,
+            protocol_log_sha256)
 
     def open(self):
         observed = {role: self._observe_table(role)
@@ -1140,6 +1280,7 @@ class CanonicalSyntheticDeltaLease:
     def evidence(self):
         self.renew()
         return {"profile": CANONICAL_SYNTHETIC_PROFILE,
+                "protocolProfile": self._owner._protocol_profile,
                 "fixtureSha256": self._owner.fixture.sha256,
                 "carrierProfile": CANONICAL_CARRIER_PROFILE,
                 "runtimeSelection": dict(CANONICAL_RUNTIME_SELECTION),
@@ -1152,7 +1293,10 @@ class CanonicalSyntheticDeltaLease:
                     "schemaSha256": pin.schema_sha256,
                     "protocol": {"minReaderVersion": pin.protocol[0],
                                  "minWriterVersion": pin.protocol[1],
-                                 "tableFeatures": list(pin.protocol[2])},
+                                 "tableFeatures": list(pin.protocol[2]),
+                                 "profile": pin.protocol_profile,
+                                 "deltaLogProtocolVersion": pin.protocol_log_version,
+                                 "deltaLogProtocolSha256": pin.protocol_log_sha256},
                     "activeFileCount": pin.active_file_count}
                     for role, pin in self._pins.items()}}
 
@@ -1398,7 +1542,8 @@ class PinnedCanonicalGraphFramesActionFixture:
             self._verify_selected_state()
             base = PinnedCanonicalSyntheticDeltaFixture(
                 self._spark, self.descriptor.fixture, dict(self.table_paths),
-                maximum_lease_seconds=self.maximum_lease_seconds)
+                maximum_lease_seconds=self.maximum_lease_seconds,
+                protocol_profile=CANONICAL_ACTION_PROTOCOL_PROFILE)
             lease = base.open()
             frames = lease.current_frames()
             inventories = {role: _snapshot_file_inventory(
@@ -1614,9 +1759,9 @@ def _verify_canonical_persisted_fixture(spark, lease, descriptor):
                 f"Persisted {role} schema, field order, type, or nullability differs")
 
         pin = pins[role]
-        expected_protocol = (PROTOCOL["minReaderVersion"],
-                             PROTOCOL["minWriterVersion"],
-                             tuple(PROTOCOL["tableFeatures"]))
+        expected_protocol = (CANONICAL_ACTION_PROTOCOL["minReaderVersion"],
+                             CANONICAL_ACTION_PROTOCOL["minWriterVersion"],
+                             tuple(CANONICAL_ACTION_PROTOCOL["tableFeatures"]))
         if pin.protocol != expected_protocol:
             raise PermissionError(f"Persisted {role} Delta protocol differs")
 

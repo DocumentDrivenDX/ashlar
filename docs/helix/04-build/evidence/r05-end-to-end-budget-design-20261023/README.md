@@ -51,9 +51,12 @@ The separate [R05 GraphFrames identity-discriminator candidate](../canonical-gra
 Native fixture materialization is not admitted: the candidate helper now refuses
 before Spark or filesystem access because bare Delta writes would not prove the
 selected UMF-generated `.4` DDL, writer-7 protocol and clustering contract.
-The existing GraphFrames holder still pins writer 2, so that admission mismatch
-must be resolved and reviewed before these frozen rows can be presented as a
-canonical native carrier or passed to GraphFrames.
+The canonical action gate now selects a separately versioned writer-7 protocol
+profile and matches both `DESCRIBE DETAIL` and the latest bounded Delta log
+protocol action; the legacy writer-2 smoke remains unchanged. This is mocked
+admission coverage only. These frozen rows still cannot be presented as a
+canonical native carrier or passed to GraphFrames until UMF-generated table
+creation and the native action are separately reviewed and authorized.
 
 ## Measurement plan and acceptance gates
 

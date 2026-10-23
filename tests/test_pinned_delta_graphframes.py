@@ -15,7 +15,9 @@ import ashlar_host.pinned_delta_graphframes as graphframes_module
 _REVIEW_ANCHOR_TEMP_DIRS = []
 
 from ashlar_host.pinned_delta_graphframes import (
-    EDGE_SCHEMA, FIXTURE_INPUT_SHA256, NODE_SCHEMA, PROTOCOL,
+    CANONICAL_ACTION_LOG_PROTOCOL, CANONICAL_ACTION_PROTOCOL,
+    CANONICAL_ACTION_PROTOCOL_PROFILE, EDGE_SCHEMA, FIXTURE_INPUT_SHA256,
+    NODE_SCHEMA, PROTOCOL,
     CANONICAL_RUNTIME_SELECTION, CanonicalSyntheticFixtureDescriptor,
     PinnedCanonicalSyntheticDeltaFixture, _canonical_carrier_signature,
     PinnedSyntheticDeltaFixture, SyntheticGraphFixture,
@@ -532,10 +534,14 @@ class CanonicalActionReadinessTests(unittest.TestCase):
             data.write_bytes(b"frozen active file")
             log = Path(table) / "_delta_log"
             log.mkdir()
-            (log / "00000000000000000000.json").write_text("{}\n")
+            protocol_line = json.dumps({"protocol": CANONICAL_ACTION_LOG_PROTOCOL},
+                                       sort_keys=True, separators=(",", ":"))
+            (log / "00000000000000000000.json").write_text(protocol_line + "\n")
             files[str(Path(table).resolve())] = [data.resolve().as_uri()]
         paths = {role: str(Path(path).resolve()) for role, path in paths.items()}
         spark = CanonicalFakeSpark(paths)
+        spark.protocol_by_path = {
+            path: dict(CANONICAL_ACTION_PROTOCOL) for path in paths.values()}
         spark.input_files_by_path = files
         if action_descriptor is None:
             descriptor, row = reviewed_action_descriptor(root / "review-anchor.json")
@@ -545,6 +551,82 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         owner = graphframes_module.PinnedCanonicalGraphFramesActionFixture(
             spark, descriptor, root, paths)
         return temporary, root, spark, owner, descriptor, row
+
+    def test_canonical_action_requires_exact_writer7_detail_and_delta_log_protocol(self):
+        temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            lease = owner.open()
+            try:
+                evidence = lease.evidence()
+                self.assertEqual(evidence["fixture"]["protocolProfile"],
+                                 CANONICAL_ACTION_PROTOCOL_PROFILE)
+                for table in evidence["fixture"]["tables"].values():
+                    protocol = table["protocol"]
+                    self.assertEqual(protocol["minReaderVersion"], 1)
+                    self.assertEqual(protocol["minWriterVersion"], 7)
+                    self.assertEqual(protocol["tableFeatures"],
+                                     CANONICAL_ACTION_PROTOCOL["tableFeatures"])
+                    self.assertEqual(protocol["deltaLogProtocolVersion"], 0)
+                    self.assertRegex(protocol["deltaLogProtocolSha256"], r"^[0-9a-f]{64}$")
+            finally:
+                lease.close()
+        finally:
+            temporary.cleanup()
+
+        temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            reversed_features = ["appendOnly", "invariants", "clustering", "domainMetadata"]
+            for path in spark.paths:
+                log_path = Path(path) / "_delta_log" / "00000000000000000000.json"
+                log_path.write_text(json.dumps({"protocol": {
+                    "minReaderVersion": 1, "minWriterVersion": 7,
+                    "writerFeatures": reversed_features,
+                }}, sort_keys=True, separators=(",", ":")) + "\n")
+            lease = owner.open()
+            lease.close()
+        finally:
+            temporary.cleanup()
+
+        temporary, root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            for path in spark.paths:
+                spark.protocol_by_path[path] = dict(PROTOCOL)
+            with self.assertRaisesRegex(ValueError, "writer-7/0.1"):
+                owner.open()
+        finally:
+            temporary.cleanup()
+
+        for malformed in (
+            {"minReaderVersion": 1, "minWriterVersion": 7,
+             "writerFeatures": ["domainMetadata", "clustering", "invariants", "appendOnly", "appendOnly"]},
+            {"minReaderVersion": 1, "minWriterVersion": 7,
+             "writerFeatures": CANONICAL_ACTION_LOG_PROTOCOL["writerFeatures"],
+             "readerFeatures": []},
+        ):
+            temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+            try:
+                for path in spark.paths:
+                    (Path(path) / "_delta_log" / "00000000000000000000.json").write_text(
+                        json.dumps({"protocol": malformed}, sort_keys=True,
+                                   separators=(",", ":")) + "\n")
+                with self.assertRaisesRegex(ValueError, "Delta log protocol differs"):
+                    owner.open()
+            finally:
+                temporary.cleanup()
+
+        temporary, root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            writer2_log = json.dumps({"protocol": {
+                "minReaderVersion": 1, "minWriterVersion": 2,
+                "writerFeatures": ["appendOnly", "invariants"],
+            }}, sort_keys=True, separators=(",", ":")) + "\n"
+            for path in spark.paths:
+                (Path(path) / "_delta_log" / "00000000000000000000.json").write_text(
+                    writer2_log)
+            with self.assertRaisesRegex(ValueError, "Delta log protocol differs"):
+                owner.open()
+        finally:
+            temporary.cleanup()
 
     def test_descriptor_requires_exact_reviewed_bytes_and_rejects_drift(self):
         descriptor, _ = reviewed_action_descriptor()
