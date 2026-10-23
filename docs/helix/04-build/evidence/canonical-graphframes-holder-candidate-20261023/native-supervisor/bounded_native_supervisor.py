@@ -21,7 +21,8 @@ from collections import Counter
 from typing import Any
 
 MAX_ATTEMPT_SECONDS = 300
-MAX_AGGREGATE_BYTES = 1 << 30
+MAX_AGGREGATE_BYTES = 2 << 30
+MAX_ATTEMPT_ROOT_BYTES = 512 << 20
 MAX_DIAGNOSTIC_BYTES = 128 << 20
 MAX_RESULT_BYTES = 1 << 20
 POLL_SECONDS = 0.025
@@ -74,6 +75,69 @@ def _tree_bytes(root: Path) -> int:
 def _check_deadline(started: float) -> None:
     if time.monotonic() - started >= MAX_ATTEMPT_SECONDS:
         raise NativeAttemptRefused("300-second total attempt deadline exceeded")
+
+
+def _check_byte_accounting(root: Path, retained_bytes: int) -> int:
+    attempt_bytes = _tree_bytes(root)
+    if attempt_bytes > MAX_ATTEMPT_ROOT_BYTES:
+        raise NativeAttemptRefused("Attempt root exceeded its 512 MiB limit")
+    if retained_bytes < 0 or retained_bytes + attempt_bytes > MAX_AGGREGATE_BYTES:
+        raise NativeAttemptRefused("Retained plus attempt bytes exceed the 2 GiB limit")
+    return attempt_bytes
+
+
+def _validated_java_pin(runtime: dict[str, Any]) -> tuple[Path, Path]:
+    home_text = runtime.get("javaHome")
+    executable_text = runtime.get("javaExecutable")
+    digest = runtime.get("javaExecutableSha256")
+    if (type(home_text) is not str or type(executable_text) is not str
+            or type(digest) is not str or not Path(home_text).is_absolute()
+            or not Path(executable_text).is_absolute()):
+        raise NativeAttemptRefused("Exact JAVA_HOME and Java executable pin required")
+    home = Path(home_text)
+    if home.is_symlink() or home.resolve(strict=True) != home or not home.is_dir():
+        raise NativeAttemptRefused("JAVA_HOME must be a canonical directory")
+    executable = _canonical_regular_file(Path(executable_text))
+    if (executable != home / "bin/java"
+            or not executable.stat().st_mode & stat.S_IXUSR
+            or sha256_file(executable) != digest):
+        raise NativeAttemptRefused("Java executable path or SHA-256 differs from the selected JAVA_HOME pin")
+    return home, executable
+
+
+def _validated_spark_home(runtime: dict[str, Any]) -> tuple[Path, Path]:
+    home_text = runtime.get("sparkHome")
+    submit_text = runtime.get("sparkSubmitExecutable")
+    submit_digest = runtime.get("sparkSubmitSha256")
+    if (type(home_text) is not str or type(submit_text) is not str
+            or type(submit_digest) is not str or not Path(home_text).is_absolute()
+            or not Path(submit_text).is_absolute()):
+        raise NativeAttemptRefused("Exact Spark home and spark-submit SHA-256 pin required")
+    home = Path(home_text)
+    if home.is_symlink() or home.resolve(strict=True) != home or not home.is_dir():
+        raise NativeAttemptRefused("SPARK_HOME must be a canonical directory")
+    submit = _canonical_regular_file(Path(submit_text))
+    if (submit != home / "bin/spark-submit" or not submit.stat().st_mode & stat.S_IXUSR
+            or sha256_file(submit) != submit_digest or not (home / "jars").is_dir()):
+        raise NativeAttemptRefused("spark-submit path, digest, or Spark jars directory differs from the selected Spark home pin")
+    return home, submit
+
+
+def _child_environment(runtime: dict[str, Any], attempt_root: Path) -> dict[str, str]:
+    java_home, _java_executable = _validated_java_pin(runtime)
+    spark_home, _spark_submit = _validated_spark_home(runtime)
+    scratch = attempt_root / "spark-local"
+    return {
+        "PATH": os.pathsep.join((str(java_home / "bin"), "/usr/bin", "/bin")),
+        "JAVA_HOME": str(java_home),
+        "SPARK_HOME": str(spark_home),
+        "HOME": str(attempt_root / "home"),
+        "TMPDIR": str(attempt_root / "tmp"), "TMP": str(attempt_root / "tmp"),
+        "TEMP": str(attempt_root / "tmp"),
+        "SPARK_LOCAL_DIRS": str(scratch),
+        "JAVA_TOOL_OPTIONS": "-Djava.io.tmpdir=" + str(attempt_root / "tmp"),
+        "PYTHONPATH": runtime["pythonPath"], "PYTHONDONTWRITEBYTECODE": "1",
+    }
 
 
 def _require_bound_attempt_parent(parent: Path, authorized_parent: str) -> None:
@@ -131,8 +195,7 @@ def _collect_child(argv: list[str], *, cwd: Path, env: dict[str, str],
     total_started = started if total_started is None else total_started
     if not 0 < timeout_seconds <= MAX_ATTEMPT_SECONDS:
         raise NativeAttemptRefused("The canonical verifier has one fixed 300-second deadline")
-    if retained_bytes < 0 or _tree_bytes(root) + retained_bytes > MAX_AGGREGATE_BYTES:
-        raise NativeAttemptRefused("Retained plus attempt bytes exceed the 1 GiB limit")
+    _check_byte_accounting(root, retained_bytes)
 
     process = subprocess.Popen(
         argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
@@ -173,9 +236,7 @@ def _collect_child(argv: list[str], *, cwd: Path, env: dict[str, str],
                 if now - total_started >= timeout_seconds:
                     refusal = "300-second total attempt deadline exceeded"
                 try:
-                    accounted = _tree_bytes(root) + retained_bytes
-                    if accounted > MAX_AGGREGATE_BYTES:
-                        refusal = "retained plus attempt bytes exceeded 1 GiB"
+                    _check_byte_accounting(root, retained_bytes)
                 except (NativeAttemptRefused, OSError) as error:
                     refusal = str(error)
                 if refusal is not None:
@@ -229,6 +290,11 @@ def _collect_child(argv: list[str], *, cwd: Path, env: dict[str, str],
             pass
         refusal = "Verifier process group outlived its worker leader"
     duration = time.monotonic() - total_started
+    if refusal is None:
+        try:
+            _check_byte_accounting(root, retained_bytes)
+        except (NativeAttemptRefused, OSError) as error:
+            refusal = str(error)
     if refusal is None and return_code != 0:
         refusal = f"Verifier exited with status {return_code}"
     if refusal is None:
@@ -264,7 +330,8 @@ def _collect_child(argv: list[str], *, cwd: Path, env: dict[str, str],
             "diagnosticsBytes": diagnostic_bytes,
             "diagnosticsSha256": sha256_file(diagnostics_path),
             "attemptBytesHighWaterMethod": "periodic-full-tree-stat",
-            "attemptByteLimit": MAX_AGGREGATE_BYTES,
+            "retainedPlusAttemptByteLimit": MAX_AGGREGATE_BYTES,
+            "attemptRootByteLimit": MAX_ATTEMPT_ROOT_BYTES,
             "diagnosticsLimit": MAX_DIAGNOSTIC_BYTES,
         },
     }
@@ -286,6 +353,7 @@ def _verify_packet_and_authorization(packet_path: Path, selected_packet_sha256: 
             or packet.get("hardBounds") != {
                 "attempts": 1, "totalSeconds": MAX_ATTEMPT_SECONDS,
                 "retainedPlusAttemptBytes": MAX_AGGREGATE_BYTES,
+                "attemptRootBytes": MAX_ATTEMPT_ROOT_BYTES,
                 "diagnosticsBytes": MAX_DIAGNOSTIC_BYTES,
                 "freshRootMode": "0700",
                 "processGroup": "one child session; terminate/kill group and reap leader",
@@ -302,6 +370,7 @@ def _verify_packet_and_authorization(packet_path: Path, selected_packet_sha256: 
         "attempts": 1,
         "maximumSeconds": MAX_ATTEMPT_SECONDS,
         "maximumAggregateBytes": MAX_AGGREGATE_BYTES,
+        "maximumAttemptRootBytes": MAX_ATTEMPT_ROOT_BYTES,
         "maximumDiagnosticsBytes": MAX_DIAGNOSTIC_BYTES,
         "master": "local[2]",
     }
@@ -325,6 +394,19 @@ def _verify_packet_and_authorization(packet_path: Path, selected_packet_sha256: 
     worker_path = _canonical_regular_file(wrapper_path.parent / worker.get("path", ""))
     if worker_path.parent != wrapper_path.parent or sha256_file(worker_path) != worker.get("sha256"):
         raise NativeAttemptRefused("Native verifier worker bytes differ from reviewed packet")
+    _java_home, java_executable = _validated_java_pin(packet.get("runtime", {}))
+    _spark_home, spark_submit = _validated_spark_home(packet.get("runtime", {}))
+    retained_inputs = packet.get("retainedInputs")
+    retained_hashes = packet.get("retainedInputSha256")
+    java_path_text = str(java_executable)
+    if (type(retained_inputs) is not list or type(retained_hashes) is not dict
+            or java_path_text not in retained_inputs
+            or retained_hashes.get(java_path_text)
+               != packet["runtime"]["javaExecutableSha256"]
+            or str(spark_submit) not in retained_inputs
+            or retained_hashes.get(str(spark_submit))
+               != packet["runtime"]["sparkSubmitSha256"]):
+        raise NativeAttemptRefused("Pinned Java and spark-submit executables and digests must be mandatory retained inputs")
     return packet, worker_path, packet_file, authorization_file, authorization
 
 
@@ -388,6 +470,8 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
     if (not parent.is_dir() or stat.S_IMODE(parent.stat().st_mode) != 0o700
             or (hasattr(os, "getuid") and parent.stat().st_uid != os.getuid())):
         raise NativeAttemptRefused("Private mode-0700 attempt parent required")
+    if any(parent.iterdir()):
+        raise NativeAttemptRefused("A fresh empty attempt parent is required")
     _require_bound_attempt_parent(parent, authorization["attemptParent"])
 
     marker = parent / ".ashlar-canonical-graphframes-attempt-consumed"
@@ -411,15 +495,7 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
         (attempt_root / name).mkdir(mode=0o700)
     scratch = attempt_root / "spark-local"
     runtime = packet["runtime"]
-    env = {
-        "PATH": os.environ.get("PATH", "/usr/bin:/bin"),
-        "HOME": str(attempt_root / "home"),
-        "TMPDIR": str(attempt_root / "tmp"), "TMP": str(attempt_root / "tmp"),
-        "TEMP": str(attempt_root / "tmp"),
-        "SPARK_LOCAL_DIRS": str(scratch),
-        "JAVA_TOOL_OPTIONS": "-Djava.io.tmpdir=" + str(attempt_root / "tmp"),
-        "PYTHONPATH": runtime["pythonPath"], "PYTHONDONTWRITEBYTECODE": "1",
-    }
+    env = _child_environment(runtime, attempt_root)
     argv = [os.fspath(runtime["pythonExecutable"]), os.fspath(worker_path),
             os.fspath(attempt_root), os.fspath(packet_path.resolve(strict=True)),
             os.fspath(attempt_root / "worker-result.json")]
@@ -432,6 +508,7 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
     selected_hashes = dict(retained_hashes)
     selected_hashes[str(packet_file)] = selected_packet_sha256
     selected_hashes[str(authorization_file)] = selected_authorization_sha256
+    selected_hashes[str(marker)] = sha256_file(marker)
     action = packet["action"]
     anchor_digest_file = _canonical_regular_file(Path(action["anchorDigestPath"]))
     mandatory = {
@@ -447,6 +524,10 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
     }
     python_path = _canonical_regular_file(Path(runtime["pythonExecutable"]))
     mandatory[str(python_path)] = runtime["pythonExecutableSha256"]
+    _java_home, java_executable = _validated_java_pin(runtime)
+    mandatory[str(java_executable)] = runtime["javaExecutableSha256"]
+    _spark_home, spark_submit = _validated_spark_home(runtime)
+    mandatory[str(spark_submit)] = runtime["sparkSubmitSha256"]
     for jar_name, jar_path in runtime.get("runtimeJars", {}).items():
         if jar_path is None:
             raise NativeAttemptRefused("Exact local runtime JAR paths are not selected")
@@ -499,8 +580,10 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
         if len(receipt_bytes) > MAX_RESULT_BYTES:
             raise NativeAttemptRefused("Supervisor receipt exceeded its 1 MiB bound")
         _check_deadline(started)
-        if _tree_bytes(attempt_root) + retained_bytes + len(receipt_bytes) > MAX_AGGREGATE_BYTES:
-            raise NativeAttemptRefused("Retained plus attempt bytes would exceed the 1 GiB limit at close")
+        attempt_bytes = _tree_bytes(attempt_root)
+        if (attempt_bytes + len(receipt_bytes) > MAX_ATTEMPT_ROOT_BYTES
+                or attempt_bytes + retained_bytes + len(receipt_bytes) > MAX_AGGREGATE_BYTES):
+            raise NativeAttemptRefused("Attempt root or retained-plus-attempt bytes exceed close-time limits")
         fd = os.open(staged_receipt_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL
                      | getattr(os, "O_NOFOLLOW", 0), 0o600)
         with os.fdopen(fd, "wb") as stream:
@@ -508,12 +591,14 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
             stream.flush()
             os.fsync(stream.fileno())
         _check_deadline(started)
-        if (_tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
+        if (_tree_bytes(attempt_root) > MAX_ATTEMPT_ROOT_BYTES
+                or _tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
                 or staged_receipt_path.stat().st_size != len(receipt_bytes)):
-            raise NativeAttemptRefused("Retained plus attempt bytes exceed close-time accounting")
+            raise NativeAttemptRefused("Attempt root or retained-plus-attempt bytes exceed close-time accounting")
         _check_deadline(started)
         staged_receipt_path.replace(receipt_path)
-        if (_tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
+        if (_tree_bytes(attempt_root) > MAX_ATTEMPT_ROOT_BYTES
+                or _tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
                 or receipt_path.stat().st_size != len(receipt_bytes)):
             raise NativeAttemptRefused("Renamed receipt failed final byte accounting")
         _check_deadline(started)
@@ -534,15 +619,20 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
             raise NativeAttemptRefused("Refusal receipt exceeded its 1 MiB bound") from error
         try:
             _check_deadline(started)
+            attempt_bytes = _tree_bytes(attempt_root)
+            if (attempt_bytes + len(refusal_bytes) > MAX_ATTEMPT_ROOT_BYTES
+                    or attempt_bytes + retained_bytes + len(refusal_bytes) > MAX_AGGREGATE_BYTES):
+                raise NativeAttemptRefused("Refusal receipt would exceed byte accounting") from error
             fd = os.open(refusal_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL
                          | getattr(os, "O_NOFOLLOW", 0), 0o600)
             with os.fdopen(fd, "wb") as stream:
                 stream.write(refusal_bytes)
                 stream.flush()
                 os.fsync(stream.fileno())
-            if (_tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
+            if (_tree_bytes(attempt_root) > MAX_ATTEMPT_ROOT_BYTES
+                    or _tree_bytes(attempt_root) + retained_bytes > MAX_AGGREGATE_BYTES
                     or refusal_path.stat().st_size != len(refusal_bytes)):
-                raise NativeAttemptRefused("Refusal receipt exceeded aggregate byte accounting") from error
+                raise NativeAttemptRefused("Refusal receipt exceeded byte accounting") from error
         except OSError as write_error:
             raise NativeAttemptRefused("Could not write a bounded refusal receipt") from write_error
         raise

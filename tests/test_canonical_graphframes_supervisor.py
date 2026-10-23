@@ -50,7 +50,16 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
         self.assertEqual(packet["reviewStatus"], "pending-independent-wrapper-review")
         self.assertEqual(packet["executionAuthorization"], "not-issued")
         self.assertIsNone(packet["runtime"]["pythonExecutable"])
+        self.assertIsNone(packet["runtime"]["javaHome"])
+        self.assertIsNone(packet["runtime"]["javaExecutable"])
+        self.assertIsNone(packet["runtime"]["javaExecutableSha256"])
+        self.assertIsNone(packet["runtime"]["sparkHome"])
+        self.assertIsNone(packet["runtime"]["sparkSubmitExecutable"])
+        self.assertIsNone(packet["runtime"]["sparkSubmitSha256"])
         self.assertTrue(all(path is None for path in packet["runtime"]["runtimeJars"].values()))
+        self.assertEqual(packet["hardBounds"]["retainedPlusAttemptBytes"], 2 << 30)
+        self.assertEqual(packet["hardBounds"]["attemptRootBytes"], 512 << 20)
+        self.assertEqual(packet["hardBounds"]["diagnosticsBytes"], 128 << 20)
 
     def test_pending_wrapper_packet_cannot_consume_native_attempt(self):
         evidence = (ROOT / "docs/helix/04-build/evidence/"
@@ -85,6 +94,7 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
             admitted = supervisor._verify_packet_and_authorization(
                 packet_path, selected_packet, authorization_path, selected_authorization)
             self.assertEqual(admitted[4]["attemptParent"], str(expected.resolve()))
+            self.assertTrue(Path(admitted[0]["runtime"]["javaHome"]).is_dir())
             with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "immutable parent"):
                 supervisor.run_reviewed_native_attempt(
                     packet_path=packet_path, selected_packet_sha256=selected_packet,
@@ -93,10 +103,45 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                     attempt_parent=alternate)
             self.assertEqual(list(alternate.iterdir()), [])
 
-    def _authorized_admission_bundle(self, root, attempt_parent):
+    def test_nonempty_authorized_parent_refuses_before_consuming_marker(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-parent-not-empty-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            (attempt_parent / "unrelated").write_text("keep")
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve())
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "fresh empty"):
+                supervisor.run_reviewed_native_attempt(
+                    packet_path=packet_path,
+                    selected_packet_sha256=supervisor.sha256_file(packet_path),
+                    authorization_path=authorization_path,
+                    selected_authorization_sha256=supervisor.sha256_file(authorization_path),
+                    attempt_parent=attempt_parent)
+            self.assertEqual([p.name for p in attempt_parent.iterdir()], ["unrelated"])
+
+    def _authorized_admission_bundle(self, root, attempt_parent, *, java_digest=None,
+                                     include_java=True):
         root = root.resolve()
         wrapper_path = SUPERVISOR_PATH.resolve()
         worker_path = wrapper_path.parent / "canonical_graphframes_worker.py"
+        java_home = root / "test-jdk"
+        java_bin = java_home / "bin"
+        java_bin.mkdir(parents=True)
+        java_executable = java_bin / "java"
+        java_executable.write_bytes(b"#!/bin/sh\nexit 0\n")
+        java_executable.chmod(0o700)
+        selected_java_digest = supervisor.sha256_file(java_executable)
+        if java_digest is not None:
+            selected_java_digest = java_digest
+        spark_home = root / "test-spark"
+        spark_bin = spark_home / "bin"
+        (spark_home / "jars").mkdir(parents=True)
+        spark_bin.mkdir()
+        spark_submit = spark_bin / "spark-submit"
+        spark_submit.write_bytes(b"#!/bin/sh\nexit 0\n")
+        spark_submit.chmod(0o700)
+        spark_submit_digest = supervisor.sha256_file(spark_submit)
         packet = {
             "reviewStatus": "independently-reviewed",
             "executionStatus": "authorized-for-one-attempt",
@@ -104,15 +149,28 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                         "sha256": supervisor.sha256_file(wrapper_path)},
             "worker": {"path": worker_path.name,
                        "sha256": supervisor.sha256_file(worker_path)},
-            "runtime": {"master": "local[2]"},
+            "runtime": {
+                "master": "local[2]",
+                "javaHome": str(java_home.resolve()),
+                "javaExecutable": str(java_executable.resolve()),
+                "javaExecutableSha256": selected_java_digest,
+                "sparkHome": str(spark_home.resolve()),
+                "sparkSubmitExecutable": str(spark_submit.resolve()),
+                "sparkSubmitSha256": spark_submit_digest,
+            },
             "hardBounds": {
                 "attempts": 1, "totalSeconds": supervisor.MAX_ATTEMPT_SECONDS,
                 "retainedPlusAttemptBytes": supervisor.MAX_AGGREGATE_BYTES,
+                "attemptRootBytes": supervisor.MAX_ATTEMPT_ROOT_BYTES,
                 "diagnosticsBytes": supervisor.MAX_DIAGNOSTIC_BYTES,
                 "freshRootMode": "0700",
                 "processGroup": "one child session; terminate/kill group and reap leader",
                 "sparkScratch": "entirely under the fresh accounted attempt root",
             },
+            "retainedInputs": ([str(java_executable), str(spark_submit)] if include_java else []),
+            "retainedInputSha256": ({str(java_executable): selected_java_digest,
+                                     str(spark_submit): spark_submit_digest}
+                                    if include_java else {}),
         }
         packet_path = root / "admission-packet.json"
         packet_path.write_text(json.dumps(packet, sort_keys=True))
@@ -124,6 +182,7 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
             "attempts": 1,
             "maximumSeconds": supervisor.MAX_ATTEMPT_SECONDS,
             "maximumAggregateBytes": supervisor.MAX_AGGREGATE_BYTES,
+            "maximumAttemptRootBytes": supervisor.MAX_ATTEMPT_ROOT_BYTES,
             "maximumDiagnosticsBytes": supervisor.MAX_DIAGNOSTIC_BYTES,
             "master": "local[2]",
             "attemptParent": str(attempt_parent),
@@ -131,6 +190,100 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
         authorization_path = root / "authorization.json"
         authorization_path.write_text(json.dumps(authorization, sort_keys=True))
         return packet_path, authorization_path
+
+    def test_authorized_admission_requires_the_exact_java_executable_hash(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-java-pin-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve(), java_digest="0" * 64)
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "Java executable path or SHA-256"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_authorized_admission_requires_java_in_the_retained_inventory(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-java-inventory-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve(), include_java=False)
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "mandatory retained inputs"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_authorized_admission_requires_pinned_spark_submit_inventory(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-spark-inventory-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve())
+            packet = json.loads(packet_path.read_text())
+            packet["retainedInputs"] = [p for p in packet["retainedInputs"]
+                                        if not p.endswith("spark-submit")]
+            packet["retainedInputSha256"] = {
+                p: h for p, h in packet["retainedInputSha256"].items()
+                if not p.endswith("spark-submit")}
+            packet_path.write_text(json.dumps(packet, sort_keys=True))
+            authorization = json.loads(authorization_path.read_text())
+            authorization["invocationPacketSha256"] = supervisor.sha256_file(packet_path)
+            authorization_path.write_text(json.dumps(authorization, sort_keys=True))
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "spark-submit executables"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_authorized_admission_rejects_spark_submit_path_hash_mismatch(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-spark-pin-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve())
+            packet = json.loads(packet_path.read_text())
+            packet["runtime"]["sparkSubmitSha256"] = "0" * 64
+            packet_path.write_text(json.dumps(packet, sort_keys=True))
+            authorization = json.loads(authorization_path.read_text())
+            authorization["invocationPacketSha256"] = supervisor.sha256_file(packet_path)
+            authorization_path.write_text(json.dumps(authorization, sort_keys=True))
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "spark-submit path, digest"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_child_environment_uses_only_the_pinned_java_home_and_path(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-java-env-") as directory:
+            root = Path(directory)
+            java_home = root / "jdk"
+            java_bin = java_home / "bin"
+            java_bin.mkdir(parents=True)
+            java = java_bin / "java"
+            java.write_bytes(b"fake java pin")
+            java.chmod(0o700)
+            spark_home = root / "spark"
+            (spark_home / "bin").mkdir(parents=True)
+            (spark_home / "jars").mkdir()
+            spark_submit = spark_home / "bin/spark-submit"
+            spark_submit.write_bytes(b"fake spark submit pin")
+            spark_submit.chmod(0o700)
+            runtime = {
+                "javaHome": str(java_home.resolve()), "javaExecutable": str(java.resolve()),
+                "javaExecutableSha256": supervisor.sha256_file(java),
+                "sparkHome": str(spark_home.resolve()),
+                "sparkSubmitExecutable": str(spark_submit.resolve()),
+                "sparkSubmitSha256": supervisor.sha256_file(spark_submit),
+                "pythonPath": "/reviewed/ashlar/src",
+            }
+            with patch.dict(os.environ, {"PATH": "/ambient/java/bin", "JAVA_HOME": "/ambient/java"}):
+                env = supervisor._child_environment(runtime, root)
+            self.assertEqual(env["JAVA_HOME"], str(java_home.resolve()))
+            self.assertEqual(env["SPARK_HOME"], str(spark_home.resolve()))
+            self.assertEqual(env["PATH"], os.pathsep.join((str(java_bin.resolve()), "/usr/bin", "/bin")))
+            self.assertNotIn("/ambient", env["PATH"])
 
     def test_failed_close_invalidates_staged_and_final_success_receipts(self):
         with tempfile.TemporaryDirectory(prefix="ashlar-receipt-invalidation-") as directory:
@@ -169,6 +322,8 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
             self.assertEqual(result["receipt"], PASS_RECEIPT)
             self.assertEqual(result["executionAttestation"]["returnCode"], 0)
             self.assertEqual(result["executionAttestation"]["diagnosticsBytes"], 15)
+            self.assertEqual(result["executionAttestation"]["retainedPlusAttemptByteLimit"], 2 << 30)
+            self.assertEqual(result["executionAttestation"]["attemptRootByteLimit"], 512 << 20)
         finally:
             temporary.cleanup()
 
@@ -208,7 +363,7 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory(prefix="ashlar-supervisor-bytes-")
         root = Path(temporary.name)
         os.chmod(root, 0o700)
-        with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "1 GiB"):
+        with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "2 GiB"):
             supervisor._collect_child(
                 [sys.executable, "-c", "raise SystemExit(99)"],
                 cwd=root, env=dict(os.environ), root=root,
@@ -217,6 +372,49 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                 diagnostics_path=root / "diagnostics.log",
                 result_path=root / "worker-result.json")
         self.assertFalse((root / "diagnostics.log").exists())
+        temporary.cleanup()
+
+    def test_attempt_root_limit_refuses_before_spawn(self):
+        temporary = tempfile.TemporaryDirectory(prefix="ashlar-supervisor-root-limit-")
+        root = Path(temporary.name)
+        os.chmod(root, 0o700)
+        (root / "already-large").write_bytes(b"x" * 1024)
+        with patch.object(supervisor, "MAX_ATTEMPT_ROOT_BYTES", 512), \
+             patch.object(supervisor.subprocess, "Popen") as popen:
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "(?i)attempt root"):
+                supervisor._collect_child(
+                    [sys.executable, "-c", "raise SystemExit(99)"], cwd=root,
+                    env=dict(os.environ), root=root, retained_bytes=0,
+                    timeout_seconds=2, diagnostics_path=root / "diagnostics.log",
+                    result_path=root / "worker-result.json")
+        popen.assert_not_called()
+        temporary.cleanup()
+
+    def test_attempt_root_growth_kills_and_reaps_child(self):
+        temporary = tempfile.TemporaryDirectory(prefix="ashlar-supervisor-root-growth-")
+        root = Path(temporary.name)
+        os.chmod(root, 0o700)
+        real_popen = supervisor.subprocess.Popen
+        spawned = []
+
+        def tracked_popen(*args, **kwargs):
+            process = real_popen(*args, **kwargs)
+            spawned.append(process)
+            return process
+
+        with patch.object(supervisor, "MAX_ATTEMPT_ROOT_BYTES", 1024), \
+             patch.object(supervisor.subprocess, "Popen", tracked_popen):
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "(?i)attempt root"):
+                supervisor._collect_child(
+                    [sys.executable, "-c",
+                     "from pathlib import Path; import sys,time; "
+                     "Path('growth.bin').write_bytes(b'x'*2048); time.sleep(5)"],
+                    cwd=root, env=dict(os.environ), root=root, retained_bytes=0,
+                    timeout_seconds=2, diagnostics_path=root / "diagnostics.log",
+                    result_path=root / "worker-result.json")
+        self.assertEqual(len(spawned), 1)
+        self.assertIsNotNone(spawned[0].poll())
+        spawned[0].wait()
         temporary.cleanup()
 
     def test_missing_or_wrong_authority_fields_suppress_pass(self):

@@ -1,10 +1,11 @@
 # Bounded native supervisor review packet
 
-Sol independently reviewed the exact supervisor wrapper and worker as inert
-preparation. This packet records that review scope; it does not authorize
-execution. The wrapper, worker, invocation packet, action anchor, and action
-module are independently hash-pinned; the reviewed action anchor does not
-transitively bind the wrapper.
+Sol independently reviewed the prior supervisor wrapper and worker as inert
+preparation. This packet records a new 2 GiB/attempt-root/Java-environment
+hardening delta; the exact updated wrapper and packet remain pending independent
+review. Nothing here authorizes execution. The wrapper, worker, invocation
+packet, action anchor, and action module are independently hash-pinned; the
+reviewed action anchor does not transitively bind the wrapper.
 
 The checked-in invocation packet still literally records
 `pending-independent-wrapper-review` and
@@ -25,18 +26,33 @@ mode-0700 attempt-parent path. The one-use marker inside that parent binds the
 invocation packet digest, authorization digest, and parent path; selecting a
 different fresh parent is refused.
 
-The intended limit is one local `[2]` Spark child, one process group, a total
+The wrapper limit is one local `[2]` Spark child, one process group, a total
 300-second monotonic deadline including admission, process execution, receipt
-validation, retained-input close rehash, and final receipt write; at most 1 GiB
-of retained input plus attempt-root files; and at most 128 MiB diagnostics.
-Attempt, fixture, Spark scratch, temporary directories, result and receipt files
-are under a fresh mode-0700 root. The wrapper periodically stats the complete
-attempt tree and kills/reaps the process group at a detected breach. It does
-not install a filesystem quota, so the 1 GiB control is periodic monitored
-accounting, not an instantaneous kernel-enforced ceiling. Python/Spark runtime
-distribution bytes must be included in a reviewed accounting plan before any
-authorization; this packet currently leaves interpreter/JAR paths empty and
-execution inert.
+validation, retained-input close rehash, and final receipt write; at most 2 GiB
+of selected retained-input files plus attempt-root files; an independent
+512 MiB attempt-root ceiling; and at most 128 MiB diagnostics (a sub-limit within
+the attempt-root ceiling). Attempt, fixture, Spark scratch, temporary
+directories, result, diagnostics and receipt files stay under a fresh
+mode-0700 root. The wrapper periodically stats the complete attempt tree and
+kills/reaps the process group at a detected breach. It does not install a
+filesystem quota, so these are periodic monitored limits, not instantaneous
+kernel-enforced ceilings. The 2 GiB monitored sum applies to enumerated
+retained-input files plus the attempt-root tree. It does not itself enforce full
+Python, JDK, or PySpark distribution-directory accounting. Those distribution
+trees must be separately measured and included in an all-in <=2 GiB proposal
+before authorization; the future packet must state how their size is monitored
+and the limits of that monitoring. The current inert packet does not claim that
+complete envelope.
+
+The child environment must bind an exact canonical `JAVA_HOME`, its
+`bin/java` executable path and SHA-256 as retained inputs, and an exact canonical
+`SPARK_HOME`, its exact `bin/spark-submit` executable path and SHA-256 as a
+retained input, and a `jars` directory.
+The wrapper sets both environment variables and a controlled `PATH` beginning
+with the pinned Java `bin` directory; ambient Java selection is not used. The
+checked-in packet leaves these fields, the interpreter and the runtime JAR paths
+null and remains execution-disabled.
+Any populated runtime requires a new immutable packet and independent review.
 
 The worker is expected to verify the reviewed action anchor and exact runtime
 pins, persist the finite synthetic fixture, execute the single canonical
