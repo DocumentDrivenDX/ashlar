@@ -173,9 +173,16 @@ This continuation orders the remaining release work against current public upstr
 The current dependency path is ordered by authority rather than by running a
 platform matrix. The selected Weft 0.4.52 wheels are intentionally built from
 compiler source `32ec02f`; newer main `b59938f` changes release tooling and
-evidence. Before pinning Ashlar, publish and verify those exact selected assets,
-and publish the reviewed UMF 0.5.5 SDK-only cohort while retaining the exact
-core 0.10 wheel. Recheck the public upstream heads at the release cut. Reconcile
+evidence. Before pinning Ashlar, publish and verify those exact selected Weft assets.
+Public UMF `umf-v0.5.5` now selects SDK 0.5.5, access `0.1.0.dev7`, codegen
+`0.1.0a4`, and the unchanged core `0.10.0` wheel. Qualify Ashlar against its
+exact public access asset; the release's G01 PostgreSQL and hosted checks do not
+qualify Ashlar's Delta or Truss paths. The tagged SDK has the managed Databricks
+Delta generator but lacks the reviewed `spark-delta4/0.1` direct-path
+realization and writer-setting mapping. Integrate that exact capability on top of current public
+UMF main as a separately versioned upstream release before adopting that DDL
+profile. Do not push the older divergent private 0.5.5 candidate over public
+main. Recheck the public upstream heads at the release cut. Reconcile
 Ashlar's `typed-sdk` and `truss-local` extras, which still select Weft 0.4.48 and
 Truss 0.0.45, against the new versioned support profile before a release wheel
 is built; retain older extras only with an explicit historical label.
