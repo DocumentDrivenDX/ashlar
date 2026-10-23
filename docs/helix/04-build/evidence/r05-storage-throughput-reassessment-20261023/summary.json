@@ -1,0 +1,55 @@
+{
+  "profile": "ashlar-r05-storage-throughput-reassessment/0.1",
+  "date": "2026-10-23",
+  "source_evidence": {
+    "sample": "../current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json",
+    "paired_integer_div_review": "../edge-integer-div-paired-20261023/README.md",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "fixture": "45M object_current rows and 225M edge_current rows; synthetic values; source_position equals id"
+  },
+  "measured": {
+    "rows": 270000000,
+    "active_parquet_bytes": 3062253112,
+    "measured_sample_decimal_gb": 3.062253112,
+    "runtime": "local[18], Spark 4.2.0, Delta 4.4.1, ZSTD",
+    "full_size_run": "not run"
+  },
+  "linear_arithmetic_only": {
+    "target": {
+      "object_current_rows": 1000000000,
+      "edge_current_rows": 5000000000,
+      "total_rows": 6000000000
+    },
+    "active_parquet_bytes_at_sample_bytes_per_row": 68050069156,
+    "active_parquet_decimal_gb_approx": 68.05,
+    "lookup_hash_bytes_per_row_measured": 8.002600,
+    "lookup_hash_decimal_gb_approx": 48.02,
+    "source_position_bytes_per_row_measured": 1.019884,
+    "synthetic_source_position_decimal_gb_approx": 6.12,
+    "source_position_scope": "Fixture set source_position=id. Actual Truss mapping leaves this nullable column null when source has no position; no production defect or saving is inferred."
+  },
+  "write_projection": {
+    "status": "HELD",
+    "basis": "Measured 18-core per-role throughput at 80%; writes only; no scale-out factor",
+    "seconds": 1082.8,
+    "minutes": 18.05,
+    "review_threshold_minutes": 15,
+    "not_a_full_run": true
+  },
+  "excluded_or_unqualified": [
+    "realistic opaque delivery identifiers and source payloads",
+    "history and tombstones",
+    "Delta logs and metadata growth",
+    "staging, retained versions and temporary disk space",
+    "validation, publication, retries and cleanup",
+    "graph-engine export and execution",
+    "full 1B-node/5B-edge materialization",
+    "managed Unity Catalog behavior, source ACK and production capacity"
+  ],
+  "integer_div_candidate": {
+    "promotion": false,
+    "reason": "Paired 45M/225M candidate edge write was 3.12% slower; INSERT physical plan was not captured.",
+    "evidence": "../edge-integer-div-paired-20261023/README.md"
+  },
+  "carrier_contracts_changed": false
+}

@@ -331,13 +331,16 @@ dedicated layout job (`401862977233947`, concurrency one), which does not execut
 this workflow. No new compute was started by discovery. The small functional trial
 does not qualify 1B nodes/assumed 5B edges. For the separate full-size check,
 freeze one compact deterministic graph shape and independent row/endpoint
-oracle before execution. The [actual local canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
-wrote 1M nodes in 4.872 seconds and 5M edges in 4.205 seconds; its active
-ZSTD Parquet files hold 38.492 MB and 199.670 MB respectively. Same-compression
-arithmetic projects about 238 GB for 1B/5B, while 80% of that local sample's
-write-only throughput projects about 189 minutes. This exceeds the owner's
-15-minute review threshold; it is not a forecast across hardware, parallelism
-or larger table geometry. Do not run the full test yet. Once admitted,
+oracle before execution. The historical [1M/5M canonical-carrier sample](evidence/current-upstream-release-20261021/local-current/canonical-carrier-sample-20261021.json)
+wrote 1M nodes in 4.872 seconds and 5M edges in 4.205 seconds. The later
+[18-core `.4` calibration](evidence/current-upstream-release-20261021/local-current/canonical-carrier-xxhash64-18core-calibration-20261021.json)
+measured 3,062,253,112 active Parquet bytes at 45M nodes/225M edges and projects
+about 68.05 decimal GB for 1B/5B by row-linear arithmetic. Its 80%-throughput
+write-only projection is about 18.05 minutes, still over the 15-minute review
+threshold and explicitly held. This single synthetic sample is not a production
+capacity forecast across payloads, hardware, parallelism or table geometry; the
+full test remains held. See the dated [R05 storage and throughput reassessment](evidence/r05-storage-throughput-reassessment-20261023/README.md)
+for measured contributors and exclusions. Once admitted,
 physically generate all rows once, then perform two real point lookups and two
 real scans on the stored representation and admit it to an actual graph engine
 that executes a bounded result. Record provisioning separately from measured
