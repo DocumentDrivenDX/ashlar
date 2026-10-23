@@ -144,6 +144,9 @@ change the managed-Delta architecture. Functional checks remain small; explicitl
 requested scale trials use dedicated compute and approved resource/cost limits.
 Graph-tool exports and shape checks alone do not qualify actual
 Fabric, PuppyGraph or GraphFrames execution over Ashlar publications.
+Fabric R1/R2 activation and interrupted-replacement evidence is still held:
+the [fresh functional plan](04-build/evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)
+requires current source/ACK, capacity, path and cleanup admission before launch.
 
 ## Requirements navigation
 
