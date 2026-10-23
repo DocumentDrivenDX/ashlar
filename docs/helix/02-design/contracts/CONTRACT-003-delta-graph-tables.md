@@ -375,14 +375,29 @@ silently mixed or reinterpreted. Native storage and pruning evidence is still
 pending, so this subsection is a design proposal rather than a support claim.
 
 For a fresh local-development publication, `0.3` remains the default and
-`0.4-xxhash64` requires explicit selection. Use the pinned UMF six-role fields
-and layout, mapping its publication and attempt roles to the matching local
-coordination handles without replacing authored constraints. A local runtime
-that cannot execute the authored DDL or verify its native schema/protocol MUST
-refuse this profile. Retain the selected profile, UMF resource digest and
-six-role UUID/schema/protocol identities with the installation; continuation
-and resume MUST reopen them and refuse a missing or crossed profile before
-effects. Before protected source ACK, the destination backend MUST re-resolve
+`0.4-xxhash64` requires explicit selection. Its original six-role UMF source
+and managed DDL MUST remain unchanged. Because that DDL declares a
+`databricks-managed-delta/0.1` target, local Spark Delta 4 publication MUST
+select a separately versioned UMF-owned realization of the complete authored
+layout. The realization MUST bind the source/resource digest and explicitly
+account for every clustering, partitioning and table-property choice; unknown
+or unrepresented meaning MUST refuse. Ashlar MUST consume checked UMF output,
+not reinterpret or edit managed SQL. Keep the exact ordered physical fields,
+nullability and typed hash, mapping publication and attempt roles to matching
+local coordination handles under a distinct local installation identity.
+The managed 64 MiB `targetFileSize` is a performance hint (as above); an
+unrealized local hint MUST be recorded and MUST NOT be claimed as equivalent
+managed geometry. A selected local ZSTD setting MUST be bound across genesis,
+continuation and reopen; nonempty published Parquet files MUST establish their
+actual codec before source ACK. An empty genesis does not prove codec. A local
+runtime that cannot execute or observe its selected realization and native
+schema/protocol/layout MUST refuse before ACK.
+
+Retain the carrier profile, managed source/resource digests, UMF local-realization
+profile/digest, writer settings and six-role UUID/schema/protocol/layout
+identities with the installation; continuation and resume MUST reopen them
+and refuse a missing or crossed identity before effects. Before protected
+source ACK, the destination backend MUST re-resolve
 the exact four-role publication vector, reopen its pinned Delta snapshots,
 compare complete row bags and expected schema/protocol, and recompute stored
 64-bit hashes from full typed source/type/ID keys in native Spark SQL. A

@@ -103,21 +103,37 @@ hash and exact identity fields unless a separate query need is measured.
 
 The first end-to-end qualification will use a fresh, explicitly selected local
 Delta installation. The existing `ashlar-delta/0.3` publisher remains the
-default. Load the pinned UMF 0.10 six-role `ashlar-delta/0.4-xxhash64`
-resource for physical fields, nullability and layout. Its publication and
-attempt control columns match the local coordination fields by name and native
-type; map those UMF roles to the local handles while retaining their authored
-constraints and exact six-role identity. A local path-qualified table must
-retain the authored DDL semantics; an unsupported clustering feature or
-schema/protocol mismatch is a refusal.
+default. Keep the pinned UMF 0.10 six-role managed
+`ashlar-delta/0.4-xxhash64` source and generated resource byte-identical.
+Its `databricks-managed-delta/0.1` DDL is not a local Spark Delta DDL claim:
+the first local Spark 4.2/Delta 4.4.1 attempt refused
+`delta.parquet.compression.codec` before creating a table. A local installation
+requires a separately versioned, UMF-owned `spark-delta4` DDL realization of
+the complete six-role source, with an explicit disposition for every authored
+clustering, partitioning and property choice. Ashlar consumes the checked
+UMF output; it does not parse or silently edit managed SQL. Preserve the same
+ordered physical fields, nullability and typed hash meaning. Map the publication
+and attempt roles to the matching local coordination handles under a distinct
+local installation identity. Unsupported source meaning, native clustering,
+schema, protocol or realized layout is a refusal.
+
+The managed 64 MiB `targetFileSize` is an initial performance hint, not an
+identity, correctness or maximum-size invariant. If the local target cannot
+realize it, record that precise difference in the UMF realization and local
+installation; do not claim managed file geometry. Select ZSTD for the local
+target and bind the required Spark Parquet writer setting at genesis and
+every continuation/reopen, and verify the codec from nonempty published
+Parquet files before acknowledging their source page. An empty genesis has no
+data-file codec proof. Keep the original managed property and resource intact.
 
 Genesis and continuation use the same explicit typed-key hash selection. The
 writer computes stored hashes in Spark SQL; the protected receipt path
 independently recomputes signed values from persisted typed keys for exact row
 comparison.
-Retain the selected profile, UMF resource digest and six table UUID/schema/
-protocol identities with the installation. Resume reopens them and refuses a
-missing or mixed profile before further effects. The protected destination
+Retain the selected carrier profile, managed source/resource digests, UMF local-realization
+profile/digest, required writer settings and six table UUID/schema/protocol/
+layout identities with the installation. Resume reopens them and refuses a
+missing or mixed identity before further effects. The protected destination
 receipt path must validate the exact four-role publication vector, reopen its
 pinned Delta versions, compare complete row bags and UMF schema/protocol, and
 recompute stored hashes from full typed keys before source ACK. The current
@@ -165,8 +181,9 @@ from a small comparison. The full run remains held under the owner's
 
 ## Open points
 
-The selected UMF 0.10 six-role resource is pinned for the new profile. Native
-local DDL execution and protocol admission remain qualification gates. The
+The selected UMF 0.10 managed six-role resource is pinned for the new profile;
+an independently identified OSS-local realization and its actual DDL/layout
+admission remain open after the first local DDL refusal. The
 selected Databricks runtime must confirm the built-in SQL behavior, schema
 type, signed output, clustering and
 data-skipping support. This draft does not approve a migration or assert a
