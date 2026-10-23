@@ -44,10 +44,11 @@ approved scale budget and R05 evidence.
 The [action-readiness packet](action-readiness-packet.md) defines the minimum
 freeze, custody, runtime admission and exact next implementation slice. It is a
 design packet only; no action has been run or admitted by it. A separate
-[R05 identity-discriminator candidate](action-discriminator-r1/review-packet.md)
+[R05 identity discriminator](action-discriminator-r1/review-packet.md)
 adds the required cross-source overlapping-ID, self-loop, isolated-node and
 parallel-edge cases without changing the existing fixture or profile. Its
-manifest/anchor remain pending independent review; the 32-test result is mocked
+source/oracle and manifest/anchor passed Sol's independent static review; the
+32-test result is mocked
 and inert, and does not establish a native GraphFrames pass.
 
 The offline follow-up now supplies a deterministic three-object/two-parallel-

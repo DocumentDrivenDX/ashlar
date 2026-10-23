@@ -1,9 +1,12 @@
 1e0dfe345b14d7e4219afb71d46e010b61761a22f9fb03a5e9516f4030ddef4d  generator.py
 84f14e96cec387c6d36e24770df369638d5c53ad46fa82c58abb9ff7c3cd5057  source-rows.json
 fa25bb46188d594fe1ce8697e9bee4ebdf7a3fc2742200d5c6c971d5bd72f223  independent-oracle.json
-d3c0fcc2fd8fafdf35634d7538893428f3e493c0e4c37f7c1be2ac88800f8e72  manifest.json
-878f4d4aa30feef36f1835dbf26125fd5bc704cd76a1ee3cccaf8f55d1594583  manifest.anchor.json
-53d5333df0b1abea0a48bad33c8afc4639cc086e77626a89f50a70538d6279f5  manifest.anchor.sha256
-5b5d8fb91a1886f169ef880aa74b053ebf0dce4881773ed20a4e52357e87808a  review-packet.md
+6f682aacd80bde20181eff5d798deaaa9f8b6b2d34431bfac39816a8299497fa  manifest.json
+431085372f3cb3dec5175492d648510ec73399f56c702b5ec8ba0af297226c6a  manifest.anchor.json
+e4f43f87a558b88e508e26e12049254cdf7c159c37e81ff68d6ae4ec28235616  manifest.anchor.sha256
+cb0d13c80fed85a9a17673fa1c78567ba0ab3d8ab6c5358e8fa4100d843c7120  review-packet.md
 06895774eb5768fd5dcbf11f01026e3364df380b0c241f6d1809adf3b95e446d  ../../../../../../src/ashlar_host/pinned_delta_graphframes.py
-2b28667ea6ce98bf80e69dd96f59c9fb8903062793aea15fbb97d4ed62900f1c  ../../../../../../tests/test_pinned_delta_graphframes.py
+50f9cdc4767b3ea341c1f58eef8d57409f22f414f3853f0cd845b3ad4819cf8f  ../../../../../../tests/test_pinned_delta_graphframes.py
+fa8300a32f9bffb1cce5a2533652e0bd6421abde1c1b7fb99cad1d35bd9b4daa  ../../../../../../src/ashlar_host/canonical_graphframes_materializer.py
+27aae06b2c94bc94d0cd0b8c773885fdf1a8ea80cfa88dbe6edd02e453471691  ../../../../../../tests/test_canonical_graphframes_materializer.py
+79ed1eada96739fe28dc529347ecf4265e09236bb607ef6f0d6378846332773d  ../materializer-r05-notes.md

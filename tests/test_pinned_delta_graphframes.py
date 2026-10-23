@@ -999,8 +999,8 @@ class CanonicalActionReadinessTests(unittest.TestCase):
         manifest = json.loads(manifest_raw)
         anchor_raw = (root / "manifest.anchor.json").read_bytes()
         anchor = json.loads(anchor_raw)
-        self.assertEqual(manifest["reviewStatus"], "candidate-pending-independent-review")
-        self.assertEqual(anchor["reviewStatus"], "candidate-pending-independent-review")
+        self.assertEqual(manifest["reviewStatus"], "independently-reviewed")
+        self.assertEqual(anchor["reviewStatus"], "independently-reviewed")
         self.assertEqual(hashlib.sha256(generator_raw).hexdigest(), manifest["generatorSha256"])
         self.assertEqual(hashlib.sha256(source_raw).hexdigest(), manifest["sourceSha256"])
         self.assertEqual(hashlib.sha256(oracle_raw).hexdigest(), manifest["oracleSha256"])
@@ -1018,12 +1018,12 @@ class CanonicalActionReadinessTests(unittest.TestCase):
                 generator_module.write_fixture_tables(
                     types.SimpleNamespace(version="4.2.0"), Path(directory))
             self.assertEqual(list(Path(directory).iterdir()), [])
-        with tempfile.TemporaryDirectory(prefix="ashlar-r05-unreviewed-anchor-") as directory:
-            with self.assertRaisesRegex(ValueError, "reviewer record"):
-                graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
-                    manifest_raw, generator_raw, source_raw, oracle_raw,
-                    review_anchor_path=Path(directory) / "candidate-anchor.json",
-                    selected_review_anchor_sha256=hashlib.sha256(anchor_raw).hexdigest())
+        reviewed = graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+            manifest_raw.rstrip(b"\n"), generator_raw, source_raw, oracle_raw,
+            review_anchor_path=root / "manifest.anchor.json",
+            selected_review_anchor_sha256=hashlib.sha256(anchor_raw).hexdigest())
+        self.assertEqual(reviewed.fixture.row_counts, (5, 4))
+        self.assertEqual(reviewed.cap, 3)
         source = json.loads(source_raw)
         oracle = json.loads(oracle_raw)
         nodes = {(row["source_system"], row["type_id"], row["id"])
