@@ -1,0 +1,160 @@
+{
+  "compute_metadata": {
+    "candidate_target": {
+      "execution_model": "classic single-node Jobs cluster (metadata candidate only)",
+      "linux_image": "expected default for classic Databricks clusters; not execution-verified",
+      "node_type": "Standard_D4ds_v5",
+      "node_type_available_in_supported_types": true,
+      "node_type_metadata": {
+        "category": "General Purpose",
+        "is_deprecated": false,
+        "is_graviton": false,
+        "is_hidden": false,
+        "memory_mb": 16384,
+        "num_cores": 4
+      },
+      "single_node": "proposed as one driver and zero workers; not submitted or combination-validated",
+      "spark_version": "17.3.x-scala2.13",
+      "spark_version_label": "17.3 LTS (includes Apache Spark 4.0.0, Scala 2.13)",
+      "target_authorized": false
+    },
+    "cluster_policies": {
+      "accessible_count": 0,
+      "limit": 100,
+      "list_succeeded": true
+    },
+    "cost_assessment": {
+      "100_usd_hard_ceiling_admitted": false,
+      "fixed_shape_vs_serverless": "A fixed single-node classic job could make capacity and run duration easier to bound than variable serverless, but the current metadata does not establish a reliable cost bound.",
+      "missing": "Applicable classic Jobs DBU and Azure VM rates, minimum billing increments, startup/termination bounds, an accessible dedicated SQL verification endpoint and its rate/size, and cleanup reserve.",
+      "under_10_usd_estimate_admitted": false
+    },
+    "current_user_entitlements": {
+      "jobs_or_compute_creation_authority_verified": false,
+      "self_endpoint_returned_entitlements_attribute": false,
+      "self_lookup_active": true,
+      "users_get_entitlements_result": "admin_only"
+    },
+    "qualification": "One workspace metadata candidate only. Node type/runtime availability is not proof of policy allowance, current-user cluster/job creation rights, runtime compatibility, or a runnable target.",
+    "supported_spark_runtime_count": 47,
+    "supported_spark_runtime_identifiers": [
+      "13.3.x-cpu-ml-scala2.12",
+      "13.3.x-gpu-ml-scala2.12",
+      "13.3.x-photon-scala2.12",
+      "13.3.x-scala2.12",
+      "14.3.x-cpu-ml-scala2.12",
+      "14.3.x-gpu-ml-scala2.12",
+      "14.3.x-photon-scala2.12",
+      "14.3.x-scala2.12",
+      "15.4.x-cpu-ml-photon-scala2.12",
+      "15.4.x-cpu-ml-scala2.12",
+      "15.4.x-gpu-ml-scala2.12",
+      "15.4.x-photon-scala2.12",
+      "15.4.x-scala2.12",
+      "16.4.x-cpu-ml-photon-scala2.12",
+      "16.4.x-cpu-ml-photon-scala2.13",
+      "16.4.x-cpu-ml-scala2.12",
+      "16.4.x-cpu-ml-scala2.13",
+      "16.4.x-gpu-ml-scala2.12",
+      "16.4.x-gpu-ml-scala2.13",
+      "16.4.x-photon-scala2.12",
+      "16.4.x-photon-scala2.13",
+      "16.4.x-scala2.12",
+      "16.4.x-scala2.13",
+      "17.3.x-cpu-ml-photon-scala2.13",
+      "17.3.x-cpu-ml-scala2.13",
+      "17.3.x-gpu-ml-scala2.13",
+      "17.3.x-photon-scala2.13",
+      "17.3.x-scala2.13",
+      "18.2.x-cpu-ml-photon-scala2.13",
+      "18.2.x-cpu-ml-scala2.13",
+      "18.2.x-gpu-ml-scala2.13",
+      "18.2.x-photon-scala2.13",
+      "18.2.x-scala2.13",
+      "18.x-aarch64-cpu-ml-photon-scala2.13",
+      "18.x-aarch64-cpu-ml-scala2.13",
+      "18.x-aarch64-photon-scala2.13",
+      "18.x-aarch64-scala2.13",
+      "18.x-cpu-ml-photon-scala2.13",
+      "18.x-cpu-ml-scala2.13",
+      "18.x-gpu-ml-scala2.13",
+      "18.x-photon-scala2.13",
+      "18.x-scala2.13",
+      "19.x-cpu-ml-photon-scala2.13",
+      "19.x-cpu-ml-scala2.13",
+      "19.x-gpu-ml-scala2.13",
+      "19.x-photon-scala2.13",
+      "19.x-scala2.13"
+    ]
+  },
+  "non_actions": {
+    "cloud_compute_cost_incurred": false,
+    "cluster_policy_created_or_modified": false,
+    "clusters_started_or_modified": false,
+    "credentials_or_user_email_recorded": false,
+    "entitlements_changed": false,
+    "grants_modified": false,
+    "jobs_started_or_modified": false,
+    "predictive_optimization_changed": false,
+    "runtime_or_node_combination_tested": false,
+    "schemas_created_or_modified": false,
+    "sql_statements_executed": false,
+    "warehouses_started_or_modified": false
+  },
+  "observed_at_utc": "2026-10-23T00:58:49Z",
+  "profile": "ashlar-databricks-a1-readonly-metadata/0.1",
+  "qualification": "Read-only workspace and Unity Catalog metadata inspection only. Authentication succeeded with explicit Azure CLI mode; this does not qualify the default profile, a production source authority, any runtime or compute target, or an A1 pilot.",
+  "query_notes": {
+    "catalog_grants_first_page_request_max_results_100": "Rejected by API; max_results must be 0 or at least 150.",
+    "compute_metadata": {
+      "cluster_policies": "Read-only accessible policy list returned zero entries.",
+      "entitlements": "Self current-user response had no entitlements attribute; users get by ID returned an admin-only error.",
+      "node_types": "Read-only list-node-types checked only for Standard_D4ds_v5; no cluster configuration was submitted.",
+      "supported_runtime_versions": "Read-only clusters/spark-versions returned 47 identifiers; one candidate (17.3 LTS) selected for bounded target assessment."
+    },
+    "follow_up": "Retried a principal-filtered direct-grant read with max_results 150; username and principal identifier were not retained.",
+    "warehouse_and_job_lists": "Bounded to 100 metadata entries; no task details requested. Both returned zero accessible entries."
+  },
+  "read_only_results": {
+    "client_dev_catalog": {
+      "catalog_type": "MANAGED_CATALOG",
+      "direct_current_principal_privileges": [
+        "CREATE_SCHEMA",
+        "USE_CATALOG"
+      ],
+      "get_succeeded": true,
+      "isolation_mode": "ISOLATED",
+      "predictive_optimization_setting": "INHERIT",
+      "privilege_query_included_inherited_grants": false,
+      "visible_ashlar_schema_names": [],
+      "visible_schema_count": 27
+    },
+    "jobs": {
+      "accessible_count": 0,
+      "candidate_ashlar_job_found": false,
+      "list_succeeded": true
+    },
+    "sql_warehouses": {
+      "accessible_count": 0,
+      "candidate_dedicated_endpoint_found": false,
+      "list_succeeded": true
+    }
+  },
+  "scope": {
+    "auth_mode": "azure-cli",
+    "cli_version": "Databricks CLI v1.21.0",
+    "current_user_lookup_succeeded": true,
+    "principal_identifier_recorded": false,
+    "profile": "aidev-cus",
+    "workspace_host": "https://adb-7405607548213398.18.azuredatabricks.net"
+  },
+  "unresolved_before_any_pilot": [
+    "No serverless resource shape, task runtime/version, SQL endpoint size, startup/cleanup duration, or applicable Jobs/SQL DBU rates were available to bound A1 cost.",
+    "The catalog reports predictive optimization as INHERIT; the effective setting was not resolved. Preserve it and verify the effective value before any managed object creation.",
+    "Current principal has direct CREATE_SCHEMA and USE_CATALOG privileges, but no schema was created and schema-creation behavior was not exercised.",
+    "The exact accepted source, fixture/request bytes, native publication/ACK path, operation and row bounds, caller deadline, and cleanup cost still require the governed A1 freeze.",
+    "No accessible dedicated SQL endpoint or Jobs entrypoint was found; choose and authorize a dedicated verification endpoint/task and its run-as principal before launch.",
+    "The workspace advertises Standard_D4ds_v5 and 17.3 LTS, but there are no accessible cluster policies, self-visible entitlements are absent, and the admin-only user-entitlement lookup failed; compute/job creation authority and policy allowance remain unverified.",
+    "A fixed-shape single-node classic Jobs cluster may make capacity easier to bound than serverless, but current metadata cannot establish a <$10 estimate or admit the $100 hard ceiling without Jobs DBU, Azure VM, SQL endpoint, startup and cleanup rates."
+  ]
+}
