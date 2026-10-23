@@ -1,9 +1,11 @@
 # Bounded native supervisor review packet
 
 Sol independently reviewed the prior supervisor wrapper and worker as inert
-preparation. This packet records a new 2 GiB/attempt-root/Java-environment
-hardening delta; the exact updated wrapper and packet remain pending independent
-review. Nothing here authorizes execution. The wrapper, worker, invocation
+preparation. Sol also reviewed the 2 GiB/attempt-root/Java- and Spark-environment
+hardening delta in Ashlar commit `8705cd00`; the focused supervisor suite passed
+19/19. The checked-in invocation packet remains pending review as a future
+executable selection because its runtime and authorization fields are empty.
+Nothing here authorizes execution. The wrapper, worker, invocation
 packet, action anchor, and action module are independently hash-pinned; the
 reviewed action anchor does not transitively bind the wrapper.
 
