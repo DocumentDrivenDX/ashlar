@@ -1,4 +1,16 @@
 import unittest
+import hashlib
+import json
+import os
+import tempfile
+import sys
+import types
+from pathlib import Path
+from unittest.mock import patch
+
+import ashlar_host.pinned_delta_graphframes as graphframes_module
+
+_REVIEW_ANCHOR_TEMP_DIRS = []
 
 from ashlar_host.pinned_delta_graphframes import (
     EDGE_SCHEMA, FIXTURE_INPUT_SHA256, NODE_SCHEMA, PROTOCOL,
@@ -57,6 +69,8 @@ class FakeReader:
         self.spark.reads.append((path, dict(self.options)))
         frame = FakeFrame(FakeSchema(self.spark.schema_by_path[path]),
                            self.spark.content_by_path[path])
+        frame._input_files = list(getattr(self.spark, "input_files_by_path", {}).get(path, []))
+        frame._spark = self.spark
         self.spark.loaded_frames.append(frame)
         return frame
 
@@ -80,6 +94,11 @@ class FakeFrame:
     def collect(self):
         self.collect_calls = getattr(self, "collect_calls", 0) + 1
         return self.rows if self.maximum is None else self.rows[:self.maximum]
+
+    def inputFiles(self):
+        if hasattr(self, "_spark"):
+            self._spark.input_file_calls += 1
+        return list(getattr(self, "_input_files", []))
 
 
 class FakeSpark:
@@ -107,6 +126,8 @@ class FakeSpark:
         }
         self.reads = []
         self.loaded_frames = []
+        self.input_files_by_path = {}
+        self.input_file_calls = 0
 
     @property
     def read(self):
@@ -115,7 +136,7 @@ class FakeSpark:
     def sql(self, query):
         path = next((path for path in self.paths if "`" + path + "`" in query), None)
         if path is None:
-            raise AssertionError("unexpected native query")
+            raise AssertionError("unexpected native query: %r paths=%r" % (query, self.paths))
         if query.startswith("DESCRIBE DETAIL"):
             protocol = self.protocol_by_path[path]
             return FakeResult([{
@@ -123,6 +144,8 @@ class FakeSpark:
                 "minReaderVersion": protocol["minReaderVersion"],
                 "minWriterVersion": protocol["minWriterVersion"],
                 "tableFeatures": protocol["tableFeatures"],
+                "numFiles": getattr(self, "native_num_files_by_path", {}).get(
+                    path, len(getattr(self, "input_files_by_path", {}).get(path, []))),
             }])
         if query.startswith("DESCRIBE HISTORY"):
             return FakeResult([{"version": self.version_by_path[path]}])
@@ -137,6 +160,91 @@ class CanonicalFakeSpark(FakeSpark):
         self.schema_by_path = {paths[role]: _canonical_carrier_signature(role)
                                for role in ("object_current", "edge_current")}
         self.content_by_path = {path: [] for path in self.paths}
+
+
+def reviewed_action_descriptor(anchor_path=None):
+    generator = b"independently reviewed deterministic generator bytes v1"
+    source = b"immutable synthetic source artifact bytes v1"
+    seed = ["ashlar-scale-fixture", 1, 0]
+    row = ["ashlar-scale-fixture", 1, 0, "ashlar-scale-fixture", 7, 0,
+           "ashlar-scale-fixture", 1, 1]
+    oracle = json.dumps({"profile": "ashlar-canonical-one-hop-independent-oracle/0.1",
+                         "seed": seed, "rows": [row]}, separators=(",", ":")).encode()
+    if anchor_path is None:
+        anchor_temp = tempfile.TemporaryDirectory(prefix="ashlar-gf-anchor-")
+        _REVIEW_ANCHOR_TEMP_DIRS.append(anchor_temp)
+        anchor_path = Path(anchor_temp.name) / "review-anchor.json"
+    else:
+        anchor_path = Path(anchor_path)
+    manifest = {
+        "profile": graphframes_module.CANONICAL_SYNTHETIC_PROFILE,
+        "reviewStatus": "independently-reviewed", "reviewId": "review-2026-10-23-01",
+        "generatorRevision": "synthetic-generator-test/1",
+        "generatorSha256": hashlib.sha256(generator).hexdigest(),
+        "sourceSha256": hashlib.sha256(source).hexdigest(),
+        "carrierDefinitionSha256": graphframes_module._canonical_carrier_definition_sha256(),
+        "umfRevision": graphframes_module.CANONICAL_UMF_REVISION,
+        "runtime": dict(graphframes_module.CANONICAL_RUNTIME_SELECTION),
+        "rowCounts": [1_000_000, 5_000_000],
+        "formula": {"nodes": "sequential signed64 identity", "edges": "bounded endpoint formula"},
+        "formulaProofs": {key: "reviewed finite arithmetic proof" for key in (
+            "signed64", "nodeIdentityUnique", "edgeIdentityUnique",
+            "endpointsInNodeDomain", "parallelEdgeMultiplicity", "nullAndPayloadRules")},
+        "selectedSeed": seed, "cap": 1,
+        "outputSchema": ["src_source", "src_type", "src_id", "edge_source",
+                         "edge_type", "edge_id", "dst_source", "dst_type", "dst_id"],
+        "oracleSha256": hashlib.sha256(oracle).hexdigest(),
+    }
+    manifest_bytes = json.dumps(manifest, separators=(",", ":")).encode()
+    anchor = {
+        "profile": "ashlar-canonical-action-review-anchor/0.1",
+        "reviewStatus": "independently-reviewed", "reviewId": manifest["reviewId"],
+        "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
+        "generatorSha256": manifest["generatorSha256"],
+        "sourceSha256": manifest["sourceSha256"],
+        "oracleSha256": manifest["oracleSha256"],
+        "carrierDefinitionSha256": manifest["carrierDefinitionSha256"],
+    }
+    anchor_bytes = json.dumps(anchor, separators=(",", ":")).encode()
+    anchor_path.write_bytes(anchor_bytes)
+    descriptor = graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+        manifest_bytes, generator, source, oracle,
+        review_anchor_path=anchor_path,
+        selected_review_anchor_sha256=hashlib.sha256(anchor_bytes).hexdigest())
+    return descriptor, row
+
+
+class FakeActionQuery:
+    def __init__(self, rows): self.rows = rows; self.limit_value = None
+    def where(self, _predicate): return self
+    def select(self, *_columns): return self
+    def limit(self, value): self.limit_value = value; return self
+    def collect(self): return self.rows[:self.limit_value]
+
+
+class FakeActionGraphFrame:
+    rows = []
+    last = None
+    def __init__(self, _vertices, _edges): pass
+    def find(self, _pattern):
+        type(self).last = FakeActionQuery(type(self).rows)
+        return type(self).last
+
+
+class ActionExpr:
+    def __init__(self, value): self.value = value
+    def cast(self, kind): return ActionExpr(("cast", self.value, kind))
+    def alias(self, name): return ActionExpr(("alias", self.value, name))
+    def __eq__(self, other): return ActionExpr(("eq", self.value, getattr(other, "value", other)))
+
+
+class ActionFunctions:
+    @staticmethod
+    def col(name): return ActionExpr(("column", name))
+    @staticmethod
+    def lit(value): return ActionExpr(("literal", value))
+    @staticmethod
+    def struct(*items): return ActionExpr(("struct", tuple(item.value for item in items)))
 
 
 def canonical_fixture_descriptor(**changes):
@@ -374,6 +482,276 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             PinnedSyntheticDeltaFixture(self.spark, self.fixture, {
                 "object_current": "/tmp/same", "edge_current": "/tmp/same"})
+
+
+class CanonicalActionReadinessTests(unittest.TestCase):
+    def _fixture(self):
+        temporary = tempfile.TemporaryDirectory(prefix="ashlar-gf-action-")
+        root = Path(temporary.name)
+        os.chmod(root, 0o700)
+        paths = {role: str(root / role) for role in ("object_current", "edge_current")}
+        files = {}
+        for role, table in paths.items():
+            Path(table).mkdir()
+            data = Path(table) / (role + ".parquet")
+            data.write_bytes(b"frozen active file")
+            log = Path(table) / "_delta_log"
+            log.mkdir()
+            (log / "00000000000000000000.json").write_text("{}\n")
+            files[str(Path(table).resolve())] = [data.resolve().as_uri()]
+        paths = {role: str(Path(path).resolve()) for role, path in paths.items()}
+        spark = CanonicalFakeSpark(paths)
+        spark.input_files_by_path = files
+        descriptor, row = reviewed_action_descriptor(root / "review-anchor.json")
+        owner = graphframes_module.PinnedCanonicalGraphFramesActionFixture(
+            spark, descriptor, root, paths)
+        return temporary, root, spark, owner, descriptor, row
+
+    def test_descriptor_requires_exact_reviewed_bytes_and_rejects_drift(self):
+        descriptor, _ = reviewed_action_descriptor()
+        with self.assertRaises(ValueError):
+            graphframes_module.PinnedCanonicalGraphFramesActionFixture(
+                CanonicalFakeSpark({"object_current": "/tmp/a", "edge_current": "/tmp/b"}),
+                canonical_fixture_descriptor(), "/tmp", {})
+        with self.assertRaisesRegex(ValueError, "input bytes"):
+            graphframes_module.ReviewedCanonicalActionDescriptor.from_reviewed_bytes(
+                descriptor.manifest_bytes, b"changed generator", descriptor.source_bytes,
+                descriptor.oracle_bytes,
+                review_anchor_path=descriptor.review_anchor_path,
+                selected_review_anchor_sha256=descriptor.review_anchor_sha256)
+
+    def test_coherent_replacement_review_anchor_refuses_during_lease(self):
+        temporary, _root, _spark, owner, descriptor, _row = self._fixture()
+        lease = owner.open()
+        try:
+            replacement_manifest = json.loads(descriptor.manifest_bytes.decode())
+            replacement_manifest["reviewId"] = "coherent-replacement-review"
+            manifest_bytes = json.dumps(replacement_manifest, separators=(",", ":")).encode()
+            replacement_anchor = {
+                "profile": "ashlar-canonical-action-review-anchor/0.1",
+                "reviewStatus": "independently-reviewed",
+                "reviewId": replacement_manifest["reviewId"],
+                "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
+                "generatorSha256": descriptor.generator_sha256,
+                "sourceSha256": descriptor.source_sha256,
+                "oracleSha256": descriptor.oracle_sha256,
+                "carrierDefinitionSha256": descriptor.fixture.carrier_definition_sha256,
+            }
+            Path(descriptor.review_anchor_path).write_text(
+                json.dumps(replacement_anchor, separators=(",", ":")))
+            with self.assertRaisesRegex(PermissionError, "review anchor changed"):
+                lease.renew()
+        finally:
+            lease._closed = True
+            os.close(lease._lock_fd)
+            temporary.cleanup()
+
+    def test_selection_mutation_causes_closing_failure(self):
+        for field in ("descriptor", "table_paths", "root", "lock_path"):
+            with self.subTest(field=field):
+                temporary, _root, _spark, owner, _descriptor, _row = self._fixture()
+                lease = owner.open()
+                if field == "descriptor":
+                    owner.descriptor, _ = reviewed_action_descriptor(
+                        owner.root / "replacement-anchor.json")
+                elif field == "table_paths":
+                    paths = dict(owner.table_paths)
+                    paths["edge_current"] = str(owner.root / "changed-edge-table")
+                    owner.table_paths = paths
+                elif field == "root":
+                    replacement_root = owner.root / "replacement-root"
+                    replacement_root.mkdir(mode=0o700)
+                    owner.root = replacement_root
+                else:
+                    owner.lock_path = owner.root / "replacement.lock"
+                with self.assertRaisesRegex(PermissionError, "Selected canonical"):
+                    lease.close()
+                temporary.cleanup()
+
+    def test_action_lock_contention_and_retained_file_or_log_drift_refuse(self):
+        for mutation in ("missing", "replaced", "added-log"):
+            with self.subTest(mutation=mutation):
+                temporary, _root, _spark, owner, _descriptor, _row = self._fixture()
+                try:
+                    lease = owner.open()
+                    with self.assertRaisesRegex(PermissionError, "already in use"):
+                        owner.open()
+                    file_path = Path(owner.table_paths["edge_current"]) / "edge_current.parquet"
+                    if mutation == "missing":
+                        file_path.unlink()
+                    elif mutation == "replaced":
+                        replacement = file_path.with_suffix(".replacement")
+                        replacement.write_bytes(b"replacement bytes differ")
+                        os.replace(replacement, file_path)
+                    else:
+                        (Path(owner.table_paths["edge_current"]) / "_delta_log" /
+                         "00000000000000000001.json").write_text("{}\n")
+                    with self.assertRaises(PermissionError):
+                        lease.renew()
+                    lease._closed = True
+                    os.close(lease._lock_fd)
+                finally:
+                    temporary.cleanup()
+
+    def test_action_lease_refuses_expiry_and_delta_head_schema_or_protocol_drift(self):
+        for mutation in ("expired", "version", "schema", "protocol"):
+            with self.subTest(mutation=mutation):
+                temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+                try:
+                    lease = owner.open()
+                    if mutation == "expired":
+                        lease._deadline = 0
+                    elif mutation == "version":
+                        spark.version_by_path[owner.table_paths["edge_current"]] = 1
+                    elif mutation == "schema":
+                        spark.schema_by_path[owner.table_paths["edge_current"]] = EDGE_SCHEMA
+                    else:
+                        spark.protocol_by_path[owner.table_paths["edge_current"]] = {
+                            "minReaderVersion": 1, "minWriterVersion": 7,
+                            "tableFeatures": ["futureFeature"]}
+                    with self.assertRaises((PermissionError, ValueError)):
+                        lease.renew()
+                    lease._closed = True
+                    os.close(lease._lock_fd)
+                finally:
+                    temporary.cleanup()
+
+    def test_loaded_runtime_spark_and_jar_mismatches_fail_closed(self):
+        with self.assertRaisesRegex(PermissionError, "Spark 4.2.0"):
+            graphframes_module._admit_canonical_graphframes_runtime(
+                type("Spark", (), {"version": "3.5.0"})())
+        with tempfile.TemporaryDirectory() as directory:
+            paths = {}
+            for name in ("delta-spark_4.2_2.13-4.4.1.jar",
+                         "delta-storage-4.4.1.jar",
+                         "graphframes-spark4_2.13-0.12.3.jar"):
+                path = Path(directory) / name
+                path.write_bytes(b"wrong jar bytes")
+                paths[name] = path
+            fake_jvm = types.SimpleNamespace(java=types.SimpleNamespace(
+                lang=types.SimpleNamespace(System=types.SimpleNamespace(
+                    getProperty=lambda _name: "21.0.13"))))
+            spark = types.SimpleNamespace(version="4.2.0", _jvm=fake_jvm)
+            expected = list(paths.values())
+            with patch.object(graphframes_module, "_jvm_class_jar",
+                              side_effect=[(path, hashlib.sha256(path.read_bytes()).hexdigest())
+                                           for path in expected]):
+                with self.assertRaisesRegex(PermissionError, "JAR bytes"):
+                    graphframes_module._admit_canonical_graphframes_runtime(spark)
+
+    def test_jvm_class_resolution_uses_spark_context_classloader(self):
+        with tempfile.TemporaryDirectory() as directory:
+            jar = Path(directory) / "spark-added.jar"
+            jar.write_bytes(b"loaded by Spark context loader")
+            calls = []
+            location = types.SimpleNamespace(toURI=lambda: types.SimpleNamespace(
+                getPath=lambda: str(jar)))
+            java_class = types.SimpleNamespace(getProtectionDomain=lambda:
+                types.SimpleNamespace(getCodeSource=lambda:
+                    types.SimpleNamespace(getLocation=lambda: location)))
+
+            class Loader:
+                def loadClass(self, name):
+                    calls.append(name)
+                    return java_class
+
+            loader = Loader()
+            thread = types.SimpleNamespace(currentThread=lambda: types.SimpleNamespace(
+                getContextClassLoader=lambda: loader))
+            spark = types.SimpleNamespace(_jvm=types.SimpleNamespace(
+                java=types.SimpleNamespace(lang=types.SimpleNamespace(Thread=thread))))
+            found, digest = graphframes_module._jvm_class_jar(spark, "org.graphframes.GraphFrame")
+            self.assertEqual(found, jar.resolve())
+            self.assertEqual(digest, hashlib.sha256(jar.read_bytes()).hexdigest())
+            self.assertEqual(calls, ["org.graphframes.GraphFrame"])
+
+    def test_native_numfiles_bounds_inputfiles_and_requires_exact_match(self):
+        temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            edge = owner.table_paths["edge_current"]
+            spark.native_num_files_by_path = {edge: graphframes_module.MAX_SNAPSHOT_FILES + 1}
+            with self.assertRaisesRegex(ValueError, "numFiles"):
+                owner.open()
+            self.assertEqual(spark.input_file_calls, 0)
+        finally:
+            temporary.cleanup()
+
+        temporary, _root, spark, owner, _descriptor, _row = self._fixture()
+        try:
+            edge = owner.table_paths["edge_current"]
+            spark.native_num_files_by_path = {edge: 2}
+            with self.assertRaisesRegex(PermissionError, "differs from pin-bound"):
+                owner.open()
+        finally:
+            temporary.cleanup()
+
+    def _run_action_with_rows(self, rows, runtime_values=None):
+        temporary, _root, spark, owner, descriptor, expected = self._fixture()
+        FakeActionGraphFrame.rows = rows
+        fake_functions = types.ModuleType("pyspark.sql.functions")
+        fake_functions.col = ActionFunctions.col
+        fake_functions.lit = ActionFunctions.lit
+        fake_functions.struct = ActionFunctions.struct
+        pyspark = types.ModuleType("pyspark")
+        pyspark.__path__ = []
+        sql = types.ModuleType("pyspark.sql")
+        sql.__path__ = []
+        graphframes = types.ModuleType("graphframes")
+        graphframes.GraphFrame = FakeActionGraphFrame
+        modules = {"pyspark": pyspark, "pyspark.sql": sql,
+                   "pyspark.sql.functions": fake_functions, "graphframes": graphframes}
+        try:
+            with patch.dict(sys.modules, modules), patch.object(
+                    graphframes_module, "_admit_canonical_graphframes_runtime",
+                    side_effect=runtime_values or [{"spark": "4.2.0", "delta": "4.4.1",
+                                  "graphframes": "0.12.3", "jdk": "21.0.13", "jars": {}}] * 3):
+                result = graphframes_module.run_canonical_graphframes_one_hop(spark, owner)
+            self.assertTrue(all(getattr(frame, "collect_calls", 0) == 0
+                                for frame in spark.loaded_frames))
+            return result, FakeActionGraphFrame.last, temporary, expected
+        except BaseException:
+            temporary.cleanup()
+            raise
+
+    def test_bounded_action_passes_exact_occurrence_bag_without_input_collect(self):
+        descriptor, row = reviewed_action_descriptor()
+        result, query, temporary, _ = self._run_action_with_rows([dict(zip(
+            descriptor.output_schema, row))])
+        try:
+            self.assertEqual(result["status"], "bounded-one-hop-passed")
+            self.assertEqual(result["canonicalFixtureQualification"],
+                             "unqualified-persisted-row-count-evidence-absent")
+            self.assertEqual(result["persistedRowCountEvidence"], "absent")
+            self.assertEqual(result["result"], [row])
+            self.assertEqual(result["sourceProgress"], "absent")
+            self.assertEqual(result["protectedAck"], "absent")
+            self.assertEqual(query.limit_value, descriptor.cap + 1)
+            self.assertIsInstance(result["lockWindow"]["closedMonotonicNs"], int)
+        finally:
+            temporary.cleanup()
+
+    def test_cap_overflow_and_oracle_mismatch_release_no_receipt(self):
+        descriptor, row = reviewed_action_descriptor()
+        with self.assertRaisesRegex(ValueError, "exceeded cap"):
+            _result, _query, temporary, _ = self._run_action_with_rows([
+                dict(zip(descriptor.output_schema, row)),
+                dict(zip(descriptor.output_schema, row))])
+            temporary.cleanup()
+        wrong = list(row)
+        wrong[5] = 99
+        with self.assertRaisesRegex(ValueError, "differs from independent oracle"):
+            _result, _query, temporary, _ = self._run_action_with_rows([
+                dict(zip(descriptor.output_schema, wrong))])
+            temporary.cleanup()
+
+    def test_runtime_drift_before_release_suppresses_success_receipt(self):
+        descriptor, row = reviewed_action_descriptor()
+        admitted = {"spark": "4.2.0", "delta": "4.4.1",
+                    "graphframes": "0.12.3", "jdk": "21.0.13", "jars": {}}
+        changed = dict(admitted, jars={"changed.jar": {"sha256": "0" * 64}})
+        with self.assertRaisesRegex(PermissionError, "changed during action"):
+            _result, _query, _temporary, _ = self._run_action_with_rows(
+                [dict(zip(descriptor.output_schema, row))], [admitted, changed, changed])
 
 
 if __name__ == "__main__":

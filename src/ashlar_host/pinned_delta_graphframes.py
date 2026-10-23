@@ -6,9 +6,14 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 import hashlib
 import importlib.resources
+import fcntl
 import json
+import os
+from pathlib import Path
 import re
+import stat
 import time
+from itertools import islice
 from types import MappingProxyType
 
 PROFILE = "ashlar-synthetic-pinned-delta-graphframes/0.1"
@@ -401,6 +406,17 @@ CANONICAL_UMF_REVISION = "2ede4c879bea5db13794a6fa30e67c821306c17f"
 CANONICAL_RUNTIME_SELECTION = (("spark", "4.2.0"), ("delta", "4.4.1"),
                                ("graphframes", "0.12.3"), ("jdk", "21.0.13"))
 
+# Hashes are carried by the passing 2026-10-21 compatibility receipt.  The
+# class-location check below proves which JVM artifacts are actually loaded;
+# Python distribution metadata and spark.jars configuration are not used.
+CANONICAL_RUNTIME_ARTIFACTS = {
+    "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
+    "graphframes-spark4_2.13-0.12.3.jar": "a78958f7ea3ac89ed1ea9dbbd1546f403d94151e969bb0de96e33697a5f49f50",
+}
+MAX_SNAPSHOT_FILES = 100_000
+MAX_SNAPSHOT_METADATA_BYTES = 16 * 1024 * 1024
+
 
 @dataclass(frozen=True)
 class CanonicalSyntheticFixtureDescriptor:
@@ -459,6 +475,192 @@ class CanonicalSyntheticFixtureDescriptor:
         return self._sha256
 
 
+def _json_without_duplicate_members(raw):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError("Duplicate JSON member in reviewed action descriptor")
+            result[key] = value
+        return result
+
+    try:
+        return json.loads(raw.decode("utf-8"), object_pairs_hook=pairs)
+    except (UnicodeError, json.JSONDecodeError) as error:
+        raise ValueError("UTF-8 JSON action descriptor required") from error
+
+
+@dataclass(frozen=True)
+class ReviewedCanonicalActionDescriptor:
+    """Byte-verified inputs for one reviewed canonical synthetic action.
+
+    The old declaration-only descriptor intentionally cannot enter the action
+    gate. This factory requires the reviewed manifest and every referenced byte
+    artifact, and computes their digests itself. Review status remains a human
+    evidence assertion; the factory does not manufacture review authority.
+    """
+    manifest_bytes: bytes
+    generator_bytes: bytes
+    source_bytes: bytes
+    oracle_bytes: bytes
+    manifest_sha256: str
+    review_anchor_path: str
+    review_anchor_sha256: str
+    generator_sha256: str
+    source_sha256: str
+    oracle_sha256: str
+    fixture: CanonicalSyntheticFixtureDescriptor
+    cap: int
+    output_schema: tuple
+    _sha256: str
+
+    @classmethod
+    def from_reviewed_bytes(cls, manifest_bytes, generator_bytes, source_bytes,
+                            oracle_bytes, *, review_anchor_path,
+                            selected_review_anchor_sha256):
+        artifacts = (manifest_bytes, generator_bytes, source_bytes, oracle_bytes)
+        if any(type(item) is not bytes or not item or len(item) > MAX_SNAPSHOT_METADATA_BYTES
+               for item in artifacts):
+            raise ValueError("Bounded nonempty reviewed action evidence bytes required")
+        manifest = _json_without_duplicate_members(manifest_bytes)
+        required = {"profile", "reviewStatus", "reviewId", "generatorRevision",
+                    "generatorSha256", "sourceSha256", "carrierDefinitionSha256",
+                    "umfRevision", "runtime", "rowCounts", "formula",
+                    "formulaProofs", "selectedSeed", "cap", "outputSchema",
+                    "oracleSha256"}
+        if type(manifest) is not dict or set(manifest) != required:
+            raise ValueError("Closed reviewed canonical action manifest required")
+        if (manifest["profile"] != CANONICAL_SYNTHETIC_PROFILE
+                or manifest["reviewStatus"] != "independently-reviewed"
+                or type(manifest["reviewId"]) is not str or not manifest["reviewId"]
+                or manifest["umfRevision"] != CANONICAL_UMF_REVISION
+                or manifest["runtime"] != dict(CANONICAL_RUNTIME_SELECTION)):
+            raise ValueError("Reviewed canonical profile, reviewer record, UMF and runtime required")
+        generator_sha = hashlib.sha256(generator_bytes).hexdigest()
+        source_sha = hashlib.sha256(source_bytes).hexdigest()
+        oracle_sha = hashlib.sha256(oracle_bytes).hexdigest()
+        carrier_sha = _canonical_carrier_definition_sha256()
+        if (manifest["generatorSha256"] != generator_sha
+                or manifest["sourceSha256"] != source_sha
+                or manifest["oracleSha256"] != oracle_sha
+                or manifest["carrierDefinitionSha256"] != carrier_sha):
+            raise ValueError("Reviewed canonical action input bytes or carrier definition changed")
+        counts = manifest["rowCounts"]
+        seed = manifest["selectedSeed"]
+        cap = manifest["cap"]
+        formula = manifest["formula"]
+        schema = manifest["outputSchema"]
+        proofs = manifest["formulaProofs"]
+        proof_keys = {"signed64", "nodeIdentityUnique", "edgeIdentityUnique",
+                      "endpointsInNodeDomain", "parallelEdgeMultiplicity", "nullAndPayloadRules"}
+        if (type(counts) is not list or len(counts) != 2
+                or any(type(value) is not int or value <= 0 for value in counts)
+                or type(seed) is not list or len(seed) != 3
+                or type(seed[0]) is not str or not seed[0]
+                or any(type(value) is not int or not -(1 << 63) <= value < (1 << 63)
+                       for value in seed[1:])
+                or type(cap) is not int or not 0 < cap <= MAX_ONE_HOP_ROWS
+                or type(formula) is not dict or not formula
+                or type(proofs) is not dict or set(proofs) != proof_keys
+                or any(type(value) is not str or not value for value in proofs.values())):
+            raise ValueError("Complete frozen formula, proof declarations, seed and cap required")
+        expected_schema = ["src_source", "src_type", "src_id", "edge_source",
+                           "edge_type", "edge_id", "dst_source", "dst_type", "dst_id"]
+        if schema != expected_schema:
+            raise ValueError("Exact edge-distinct nine-field output schema required")
+        oracle = _json_without_duplicate_members(oracle_bytes)
+        if (type(oracle) is not dict or set(oracle) != {"profile", "seed", "rows"}
+                or oracle["profile"] != "ashlar-canonical-one-hop-independent-oracle/0.1"
+                or oracle["seed"] != seed or type(oracle["rows"]) is not list
+                or len(oracle["rows"]) > cap):
+            raise ValueError("Independent frozen seed occurrence bag within cap required")
+        rows = tuple(tuple(row) if type(row) is list else row for row in oracle["rows"])
+        if any(type(row) is not tuple or len(row) != 9 or tuple(row[:3]) != tuple(seed)
+               for row in rows):
+            raise ValueError("Oracle must contain only complete selected-seed edge occurrences")
+        fixture = CanonicalSyntheticFixtureDescriptor(
+            manifest["generatorRevision"], generator_sha, source_sha,
+            tuple(counts), json.dumps(formula, ensure_ascii=False, sort_keys=True,
+                                      separators=(",", ":")),
+            tuple(seed), rows)
+        if fixture.carrier_definition_sha256 != manifest["carrierDefinitionSha256"]:
+            raise ValueError("Generated `.4` carrier bytes changed after descriptor freeze")
+        manifest_sha = hashlib.sha256(manifest_bytes).hexdigest()
+        if (type(selected_review_anchor_sha256) is not str
+                or re.fullmatch(r"[0-9a-f]{64}", selected_review_anchor_sha256) is None):
+            raise ValueError("Separately selected external review-anchor SHA-256 required")
+        raw_anchor_path = Path(review_anchor_path)
+        if raw_anchor_path.is_symlink():
+            raise PermissionError("Review anchor must not be selected through a symlink")
+        anchor_path = raw_anchor_path.resolve(strict=True)
+        anchor_digest = _verify_canonical_review_anchor(
+            anchor_path, selected_review_anchor_sha256, manifest_sha,
+            generator_sha, source_sha, oracle_sha, carrier_sha,
+            manifest["reviewId"])
+        digest = hashlib.sha256(_canonical({
+            "manifestSha256": manifest_sha, "generatorSha256": generator_sha,
+            "sourceSha256": source_sha, "oracleSha256": oracle_sha,
+            "carrierDefinitionSha256": carrier_sha,
+            "reviewAnchorSha256": anchor_digest,
+        })).hexdigest()
+        return cls(manifest_bytes, generator_bytes, source_bytes, oracle_bytes,
+                   manifest_sha, str(anchor_path), anchor_digest, generator_sha,
+                   source_sha, oracle_sha, fixture, cap, tuple(schema), digest)
+
+    def verify_review_anchor(self):
+        return _verify_canonical_review_anchor(
+            Path(self.review_anchor_path), self.review_anchor_sha256,
+            self.manifest_sha256, self.generator_sha256, self.source_sha256,
+            self.oracle_sha256, self.fixture.carrier_definition_sha256,
+            json.loads(self.manifest_bytes.decode("utf-8"))["reviewId"])
+
+    @property
+    def sha256(self):
+        return self._sha256
+
+
+def _verify_canonical_review_anchor(path, selected_sha256, manifest_sha256,
+                                    generator_sha256, source_sha256, oracle_sha256,
+                                    carrier_sha256, review_id):
+    path = Path(path)
+    if path.is_symlink():
+        raise PermissionError("Review anchor must be a canonical regular file")
+    resolved = path.resolve(strict=True)
+    if resolved != path or not resolved.is_file():
+        raise PermissionError("Bounded canonical external review-anchor file required")
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(resolved, flags)
+    try:
+        before = os.fstat(fd)
+        if not stat.S_ISREG(before.st_mode) or before.st_size > 64 * 1024:
+            raise PermissionError("Bounded canonical external review-anchor file required")
+        with os.fdopen(fd, "rb", closefd=False) as stream:
+            raw = stream.read(64 * 1024 + 1)
+        after = os.fstat(fd)
+        path_stat = os.stat(resolved, follow_symlinks=False)
+        if (len(raw) != before.st_size
+                or (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+                != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                or (after.st_dev, after.st_ino) != (path_stat.st_dev, path_stat.st_ino)):
+            raise PermissionError("External review-anchor file changed while read")
+    finally:
+        os.close(fd)
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != selected_sha256:
+        raise PermissionError("External review-anchor digest changed")
+    anchor = _json_without_duplicate_members(raw)
+    expected = {
+        "profile": "ashlar-canonical-action-review-anchor/0.1",
+        "reviewStatus": "independently-reviewed", "reviewId": review_id,
+        "manifestSha256": manifest_sha256, "generatorSha256": generator_sha256,
+        "sourceSha256": source_sha256, "oracleSha256": oracle_sha256,
+        "carrierDefinitionSha256": carrier_sha256,
+    }
+    if type(anchor) is not dict or anchor != expected:
+        raise PermissionError("External review anchor does not bind the selected action artifacts")
+    return digest
+
+
 @dataclass(frozen=True)
 class CanonicalSyntheticTablePin:
     role: str
@@ -466,12 +668,15 @@ class CanonicalSyntheticTablePin:
     version: int
     schema_sha256: str
     protocol: tuple
+    active_file_count: int
 
     def __post_init__(self):
         if (self.role not in ("object_current", "edge_current")
                 or type(self.table_uuid) is not str
                 or re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", self.table_uuid) is None
                 or type(self.version) is not int or self.version < 0
+                or type(self.active_file_count) is not int
+                or not 0 <= self.active_file_count <= MAX_SNAPSHOT_FILES
                 or type(self.schema_sha256) is not str
                 or re.fullmatch(r"[0-9a-f]{64}", self.schema_sha256) is None
                 or self.protocol != (PROTOCOL["minReaderVersion"],
@@ -547,6 +752,10 @@ class PinnedCanonicalSyntheticDeltaFixture:
                     "tableFeatures": sorted(detail.get("tableFeatures") or [])}
         protocol_signature = (protocol["minReaderVersion"], protocol["minWriterVersion"],
                               tuple(protocol["tableFeatures"]))
+        active_file_count = detail.get("numFiles")
+        if (type(active_file_count) is not int
+                or not 0 <= active_file_count <= MAX_SNAPSHOT_FILES):
+            raise ValueError("Finite native Delta numFiles witness within inventory bound required")
         if protocol_signature != (PROTOCOL["minReaderVersion"],
                                   PROTOCOL["minWriterVersion"],
                                   tuple(PROTOCOL["tableFeatures"])):
@@ -558,7 +767,8 @@ class PinnedCanonicalSyntheticDeltaFixture:
         if signature != _canonical_carrier_signature(role):
             raise ValueError("Exact generated `.4` carrier schema required")
         return CanonicalSyntheticTablePin(role, detail.get("id"), version,
-                                          schema_sha, protocol_signature)
+                                          schema_sha, protocol_signature,
+                                          active_file_count)
 
     def open(self):
         observed = {role: self._observe_table(role)
@@ -624,7 +834,8 @@ class CanonicalSyntheticDeltaLease:
                     "schemaSha256": pin.schema_sha256,
                     "protocol": {"minReaderVersion": pin.protocol[0],
                                  "minWriterVersion": pin.protocol[1],
-                                 "tableFeatures": list(pin.protocol[2])}}
+                                 "tableFeatures": list(pin.protocol[2])},
+                    "activeFileCount": pin.active_file_count}
                     for role, pin in self._pins.items()}}
 
     def close(self):
@@ -653,6 +864,393 @@ def hold_canonical_synthetic_delta_fixture(owner):
         except BaseException:
             if primary is None:
                 raise
+
+
+def _canonical_local_path(path):
+    text = os.fspath(path)
+    if type(text) is not str or not text or "\x00" in text:
+        raise ValueError("Canonical local fixture path required")
+    resolved = Path(text).resolve(strict=True)
+    if not resolved.is_absolute():
+        raise ValueError("Absolute canonical fixture path required")
+    return resolved
+
+
+def _snapshot_file_inventory(frame, fixture_root, table_path, expected_file_count):
+    if (type(expected_file_count) is not int
+            or not 0 <= expected_file_count <= MAX_SNAPSHOT_FILES):
+        raise PermissionError("Pin-bound native Delta file-count witness required")
+    # Delta DESCRIBE DETAIL supplies this exact pin-bound numFiles scalar before
+    # Spark's inputFiles API can materialize its array. The admitted count bounds
+    # the subsequent array to MAX_SNAPSHOT_FILES; disagreement refuses.
+    files = frame.inputFiles()
+    if not hasattr(files, "__iter__"):
+        raise PermissionError("Native bounded Delta active-file inventory required")
+    try:
+        file_count = len(files)
+    except TypeError:
+        file_count = None
+    if file_count is not None and file_count > MAX_SNAPSHOT_FILES:
+        raise PermissionError("Delta active-file inventory exceeds configured bound")
+    if file_count is not None and file_count != expected_file_count:
+        raise PermissionError("Active-file inventory differs from pin-bound Delta numFiles")
+    if file_count is None:
+        raise PermissionError("Exact bounded active-file array length required")
+    records = []
+    metadata_bytes = 0
+    root = Path(fixture_root)
+    for index, raw_path in enumerate(islice(iter(files), MAX_SNAPSHOT_FILES + 1)):
+        if index >= MAX_SNAPSHOT_FILES:
+            raise PermissionError("Delta active-file inventory exceeds configured bound")
+        if type(raw_path) is not str or not raw_path.startswith("file:"):
+            raise PermissionError("Canonical local retained Delta files are required")
+        from urllib.parse import unquote, urlparse
+        uri = urlparse(raw_path)
+        if uri.scheme != "file" or uri.netloc not in ("", "localhost"):
+            raise PermissionError("Unsupported retained-file URI")
+        raw_candidate = Path(unquote(uri.path))
+        if raw_candidate.is_symlink():
+            raise PermissionError("Symlinked active Delta data files are unsupported")
+        try:
+            candidate = raw_candidate.resolve(strict=True)
+        except OSError as error:
+            raise PermissionError("Pinned active Delta data file is unavailable") from error
+        if len(str(candidate).encode("utf-8")) > 4096:
+            raise PermissionError("Retained Delta path exceeds configured bound")
+        try:
+            candidate.relative_to(root)
+        except ValueError as error:
+            raise PermissionError("Active Delta file is outside private fixture root") from error
+        info = candidate.stat()
+        if not stat.S_ISREG(info.st_mode):
+            raise PermissionError("Active Delta data file must be a regular file")
+        # On local filesystems the device/inode pair is the stronger immutable
+        # object identity requested by the packet; size and nanosecond mtime
+        # additionally detect ordinary in-place replacement and mutation.
+        record = {"kind": "activeData", "path": str(candidate), "size": info.st_size,
+                  "mtimeNs": info.st_mtime_ns, "device": info.st_dev,
+                  "inode": info.st_ino}
+        metadata_bytes += len(_canonical(record)) + 1
+        if metadata_bytes > MAX_SNAPSHOT_METADATA_BYTES:
+            raise PermissionError("Serialized active-file inventory exceeds configured bound")
+        records.append(record)
+
+    # The active data-file inventory alone does not retain the version metadata
+    # needed to resolve the pin. Conservatively inventory the full bounded
+    # Delta log directory as well, catching vacuum/log cleanup and new commits.
+    log_root = Path(table_path) / "_delta_log"
+    if log_root.is_symlink() or not log_root.is_dir():
+        raise PermissionError("Pinned Delta log directory is unavailable")
+    try:
+        log_root.resolve(strict=True).relative_to(root)
+    except ValueError as error:
+        raise PermissionError("Delta log directory is outside private fixture root") from error
+    enumerated = 0
+    for directory, subdirs, names in os.walk(log_root, followlinks=False):
+        if any(Path(directory, name).is_symlink() for name in subdirs):
+            raise PermissionError("Symlinked Delta log directories are unsupported")
+        for name in names:
+            enumerated += 1
+            if enumerated > MAX_SNAPSHOT_FILES:
+                raise PermissionError("Delta log inventory exceeds configured bound")
+            raw_candidate = Path(directory, name)
+            if raw_candidate.is_symlink():
+                raise PermissionError("Symlinked Delta log files are unsupported")
+            try:
+                candidate = raw_candidate.resolve(strict=True)
+            except OSError as error:
+                raise PermissionError("Pinned Delta log file is unavailable") from error
+            try:
+                candidate.relative_to(root)
+            except ValueError as error:
+                raise PermissionError("Delta log file is outside private fixture root") from error
+            info = candidate.stat()
+            if not stat.S_ISREG(info.st_mode):
+                raise PermissionError("Delta log inventory entries must be regular files")
+            record = {"kind": "deltaLog", "path": str(candidate), "size": info.st_size,
+                      "mtimeNs": info.st_mtime_ns, "device": info.st_dev,
+                      "inode": info.st_ino}
+            metadata_bytes += len(_canonical(record)) + 1
+            if metadata_bytes > MAX_SNAPSHOT_METADATA_BYTES:
+                raise PermissionError("Serialized retained-file inventory exceeds configured bound")
+            records.append(record)
+    records.sort(key=lambda item: (item["kind"], item["path"]))
+    encoded = _canonical(records)
+    if len(encoded) > MAX_SNAPSHOT_METADATA_BYTES:
+        raise PermissionError("Serialized active-file inventory exceeds configured bound")
+    return tuple(tuple(sorted(item.items())) for item in records), hashlib.sha256(encoded).hexdigest()
+
+
+class PinnedCanonicalGraphFramesActionFixture:
+    """Exclusive retained-file and native-runtime owner for one synthetic action."""
+    def __init__(self, spark, descriptor, fixture_root, table_paths, *,
+                 maximum_lease_seconds=120):
+        if type(descriptor) is not ReviewedCanonicalActionDescriptor:
+            raise ValueError("Independently reviewed canonical action descriptor required")
+        root = _canonical_local_path(fixture_root)
+        root_info = root.stat()
+        if (not root.is_dir() or root_info.st_mode & 0o077
+                or (hasattr(os, "getuid") and root_info.st_uid != os.getuid())):
+            raise PermissionError("Private canonical fixture root with mode 0700 or tighter required")
+        if type(table_paths) is not dict or set(table_paths) != {"object_current", "edge_current"}:
+            raise ValueError("Exactly two canonical current-table paths required")
+        canonical_paths = {}
+        for role, path in table_paths.items():
+            resolved = _canonical_local_path(path)
+            try:
+                resolved.relative_to(root)
+            except ValueError as error:
+                raise PermissionError("Canonical Delta tables must remain under private fixture root") from error
+            canonical_paths[role] = str(resolved)
+        if len(set(canonical_paths.values())) != 2:
+            raise ValueError("Distinct canonical current-table paths required")
+        if type(maximum_lease_seconds) is not int or not 0 < maximum_lease_seconds <= MAX_LEASE_SECONDS:
+            raise ValueError("Finite canonical action lease required")
+        self._spark = spark
+        self.descriptor = descriptor
+        self.root = root
+        self._root_identity = (root_info.st_dev, root_info.st_ino)
+        self.table_paths = MappingProxyType(dict(canonical_paths))
+        self.lock_path = root / ".ashlar-graphframes-action.lock"
+        self.maximum_lease_seconds = maximum_lease_seconds
+        self._selected_state_sha256 = self._selected_state_digest()
+
+    def _selected_state_digest(self):
+        try:
+            payload = {
+                "descriptorSha256": self.descriptor.sha256,
+                "reviewAnchorPath": str(self.descriptor.review_anchor_path),
+                "reviewAnchorSha256": self.descriptor.review_anchor_sha256,
+                "root": str(self.root),
+                "rootIdentity": list(self._root_identity),
+                "tablePaths": dict(self.table_paths),
+                "lockPath": str(self.lock_path),
+            }
+            return hashlib.sha256(_canonical(payload)).hexdigest()
+        except (AttributeError, TypeError, ValueError) as error:
+            raise PermissionError("Selected canonical action inputs changed") from error
+
+    def _verify_selected_state(self):
+        if self._selected_state_digest() != self._selected_state_sha256:
+            raise PermissionError("Selected canonical descriptor/root/table/lock identity changed")
+        try:
+            self.descriptor.verify_review_anchor()
+        except (OSError, ValueError, PermissionError) as error:
+            raise PermissionError("External canonical review anchor changed") from error
+
+    def _acquire_lock(self):
+        self._verify_selected_state()
+        if (self.root.resolve(strict=True) != self.root
+                or (self.root.stat().st_dev, self.root.stat().st_ino) != self._root_identity):
+            raise PermissionError("Canonical private fixture root identity changed")
+        flags = os.O_CREAT | os.O_RDWR
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        fd = os.open(self.lock_path, flags, 0o600)
+        try:
+            before = os.fstat(fd)
+            if (not stat.S_ISREG(before.st_mode) or before.st_nlink != 1
+                    or before.st_mode & 0o077
+                    or (hasattr(os, "getuid") and before.st_uid != os.getuid())):
+                raise PermissionError("Stable private regular lock inode required")
+            if Path(self.lock_path).resolve(strict=True) != self.lock_path:
+                raise PermissionError("Canonical stable lock path required")
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise PermissionError("Canonical synthetic fixture is already in use") from error
+            after = os.fstat(fd)
+            path_after = os.stat(self.lock_path, follow_symlinks=False)
+            if ((before.st_dev, before.st_ino) != (after.st_dev, after.st_ino)
+                    or (after.st_dev, after.st_ino) != (path_after.st_dev, path_after.st_ino)
+                    or (self.root.stat().st_dev, self.root.stat().st_ino) != self._root_identity):
+                raise PermissionError("Canonical fixture lock identity changed")
+            return fd, {"path": str(self.lock_path), "device": after.st_dev,
+                        "inode": after.st_ino,
+                        "rootDevice": self._root_identity[0],
+                        "rootInode": self._root_identity[1]}
+        except BaseException:
+            os.close(fd)
+            raise
+
+    def open(self):
+        lock_fd, lock_identity = self._acquire_lock()
+        lease = None
+        try:
+            self._verify_selected_state()
+            base = PinnedCanonicalSyntheticDeltaFixture(
+                self._spark, self.descriptor.fixture, dict(self.table_paths),
+                maximum_lease_seconds=self.maximum_lease_seconds)
+            lease = base.open()
+            frames = lease.current_frames()
+            inventories = {role: _snapshot_file_inventory(
+                frame, self.root, self.table_paths[role],
+                lease._pins[role].active_file_count)
+                          for role, frame in frames.items()}
+            self._verify_selected_state()
+            return CanonicalGraphFramesActionLease(
+                self, lease, lock_fd, lock_identity, inventories,
+                time.monotonic() + self.maximum_lease_seconds)
+        except BaseException:
+            if lease is not None:
+                try:
+                    lease.close()
+                except BaseException:
+                    pass
+            os.close(lock_fd)
+            raise
+
+
+class CanonicalGraphFramesActionLease:
+    def __init__(self, owner, delta_lease, lock_fd, lock_identity, inventories, deadline):
+        self._owner = owner
+        self._delta_lease = delta_lease
+        self._lock_fd = lock_fd
+        self._lock_identity = lock_identity
+        self._inventories = MappingProxyType(dict(inventories))
+        self._deadline = deadline
+        self._closed = False
+        self._opened_monotonic_ns = time.monotonic_ns()
+        self._closed_monotonic_ns = None
+        self._runtime_identity = None
+
+    def record_runtime_identity(self, identity):
+        if self._runtime_identity is not None:
+            raise PermissionError("Canonical runtime identity already recorded")
+        self._runtime_identity = identity
+
+    def _check_lock_identity(self):
+        try:
+            root_stat = self._owner.root.stat()
+            held = os.fstat(self._lock_fd)
+            current = os.stat(self._owner.lock_path, follow_symlinks=False)
+            canonical_root = self._owner.root.resolve(strict=True)
+        except OSError as error:
+            raise PermissionError("Canonical fixture root or lock path disappeared") from error
+        if (canonical_root != self._owner.root
+                or (root_stat.st_dev, root_stat.st_ino) != self._owner._root_identity
+                or (held.st_dev, held.st_ino) != (self._lock_identity["device"], self._lock_identity["inode"])
+                or (current.st_dev, current.st_ino) != (held.st_dev, held.st_ino)):
+            raise PermissionError("Canonical fixture lock inode changed")
+
+    def renew(self):
+        if self._closed or time.monotonic() >= self._deadline:
+            raise PermissionError("Canonical GraphFrames action lease expired")
+        self._owner._verify_selected_state()
+        self._check_lock_identity()
+        self._delta_lease.renew()
+        frames = self._delta_lease.current_frames()
+        current = {role: _snapshot_file_inventory(
+            frame, self._owner.root, self._owner.table_paths[role],
+            self._delta_lease._pins[role].active_file_count)
+                   for role, frame in frames.items()}
+        if current != dict(self._inventories):
+            raise PermissionError("Retained Delta active-file inventory changed")
+        self._owner._verify_selected_state()
+
+    def current_frames(self):
+        self.renew()
+        return self._delta_lease.current_frames()
+
+    def evidence(self):
+        self.renew()
+        base = self._delta_lease.evidence()
+        return {
+            "profile": CANONICAL_SYNTHETIC_PROFILE,
+            "descriptorSha256": self._owner.descriptor.sha256,
+            "lock": dict(self._lock_identity),
+            "lockWindow": {"openedMonotonicNs": self._opened_monotonic_ns,
+                           "leaseDeadlineMonotonicNs": int(self._deadline * 1_000_000_000)},
+            "retainedFileCustody": "cooperative-exclusive-private-root",
+            "snapshotInventorySha256": {
+                role: value[1] for role, value in self._inventories.items()},
+            "fixture": base,
+            "sourceProgress": "absent", "protectedAck": "absent",
+            "publication": "absent", "unityCatalog": "absent",
+            "productionAuthority": "absent",
+        }
+
+    def close(self):
+        if self._closed:
+            return None
+        try:
+            self.renew()
+            if self._runtime_identity is not None:
+                if _admit_canonical_graphframes_runtime(self._owner._spark) != self._runtime_identity:
+                    raise PermissionError("Loaded runtime or JAR identity changed before release")
+            self._delta_lease.close()
+            self._check_lock_identity()
+            self._owner._verify_selected_state()
+        finally:
+            self._closed = True
+            self._closed_monotonic_ns = time.monotonic_ns()
+            os.close(self._lock_fd)
+
+
+@contextmanager
+def hold_canonical_graphframes_action_fixture(owner):
+    if type(owner) is not PinnedCanonicalGraphFramesActionFixture:
+        raise ValueError("Reviewed canonical GraphFrames action owner required")
+    lease = owner.open()
+    primary = None
+    try:
+        lease.renew()
+        yield lease
+    except BaseException as error:
+        primary = error
+        raise
+    finally:
+        try:
+            lease.close()
+        except BaseException:
+            if primary is None:
+                raise
+
+
+def _jvm_class_jar(spark, class_name):
+    jvm = spark._jvm
+    loader = jvm.java.lang.Thread.currentThread().getContextClassLoader()
+    if loader is None:
+        loader = jvm.org.apache.spark.util.Utils.getContextOrSparkClassLoader()
+    if loader is None:
+        raise PermissionError("Spark context classloader is unavailable")
+    cls = loader.loadClass(class_name)
+    location = (cls.getProtectionDomain().getCodeSource().getLocation()
+                .toURI().getPath())
+    path = Path(location).resolve(strict=True)
+    if not path.is_file() or path.suffix != ".jar":
+        raise PermissionError("Loaded runtime class must resolve to an actual JAR")
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    return path, digest
+
+
+def _admit_canonical_graphframes_runtime(spark):
+    if getattr(spark, "version", None) != "4.2.0":
+        raise PermissionError("Actual Spark 4.2.0 runtime required")
+    try:
+        java_version = spark._jvm.java.lang.System.getProperty("java.version")
+        delta_main, delta_hash = _jvm_class_jar(
+            spark, "org.apache.spark.sql.delta.DeltaLog")
+        delta_storage, storage_hash = _jvm_class_jar(spark, "io.delta.storage.LogStore")
+        graphframes_jar, graphframes_hash = _jvm_class_jar(
+            spark, "org.graphframes.GraphFrame")
+    except Exception as error:
+        raise PermissionError("Actual loaded Delta, GraphFrames and JDK runtime admission failed") from error
+    if java_version != "21.0.13":
+        raise PermissionError("Actual JDK 21.0.13 runtime required")
+    observed = {
+        "spark": spark.version, "delta": "4.4.1",
+        "graphframes": "0.12.3", "jdk": java_version,
+        "jars": {
+            delta_main.name: {"path": str(delta_main), "sha256": delta_hash},
+            delta_storage.name: {"path": str(delta_storage), "sha256": storage_hash},
+            graphframes_jar.name: {"path": str(graphframes_jar), "sha256": graphframes_hash},
+        },
+    }
+    if ({delta_main.name: delta_hash, delta_storage.name: storage_hash,
+         graphframes_jar.name: graphframes_hash} != CANONICAL_RUNTIME_ARTIFACTS):
+        raise PermissionError("Loaded Delta or GraphFrames JAR bytes differ from reviewed runtime")
+    return observed
 
 
 def _run_bounded_graphframes_one_hop(spark, lease, profile, fixture_sha256,
@@ -705,6 +1303,104 @@ def _run_bounded_graphframes_one_hop(spark, lease, profile, fixture_sha256,
         "graphX": "not-used",
         "wholeFrameCollect": "not-used",
     }
+
+
+def run_canonical_graphframes_one_hop(spark, fixture_owner):
+    """Run the separately gated canonical `.4` seed action under retained custody.
+
+    This entrypoint is intentionally unavailable to the older metadata-only
+    descriptor and holder. It performs one capped edge-occurrence collection;
+    neither input frame is collected or persisted.
+    """
+    if type(fixture_owner) is not PinnedCanonicalGraphFramesActionFixture:
+        raise ValueError("Reviewed canonical GraphFrames action owner required")
+    if fixture_owner._spark is not spark:
+        raise PermissionError("Action Spark session must be the admitted holder session")
+    receipt = None
+    with hold_canonical_graphframes_action_fixture(fixture_owner) as lease:
+        runtime_open = _admit_canonical_graphframes_runtime(spark)
+        lease.record_runtime_identity(runtime_open)
+        evidence_open = lease.evidence()
+        frames = lease.current_frames()
+        vertices, graph_edges = _graphframes_views(
+            frames["object_current"], frames["edge_current"],
+            __import__("pyspark.sql.functions", fromlist=["functions"]))
+        from graphframes import GraphFrame
+        graph = GraphFrame(vertices, graph_edges)
+        seed_values = fixture_owner.descriptor.fixture.selected_seed
+        from pyspark.sql import functions as F
+        seed = F.struct(
+            F.lit(seed_values[0]).cast("string").alias("source_system"),
+            F.lit(seed_values[1]).cast("long").alias("type_id"),
+            F.lit(seed_values[2]).cast("long").alias("id"),
+        )
+        started = time.monotonic()
+        rows = (graph.find("(a)-[e]->(b)")
+            .where(F.col("a.id") == seed)
+            .select(
+                F.col("a.id.source_system").alias("src_source"),
+                F.col("a.id.type_id").alias("src_type"),
+                F.col("a.id.id").alias("src_id"),
+                F.col("e.edge_id.source_system").alias("edge_source"),
+                F.col("e.edge_id.rel_type_id").alias("edge_type"),
+                F.col("e.edge_id.id").alias("edge_id"),
+                F.col("b.id.source_system").alias("dst_source"),
+                F.col("b.id.type_id").alias("dst_type"),
+                F.col("b.id.id").alias("dst_id"),
+            ).limit(fixture_owner.descriptor.cap + 1).collect())
+        elapsed = time.monotonic() - started
+        if len(rows) > fixture_owner.descriptor.cap:
+            raise ValueError("Canonical one-hop action exceeded cap and is incomplete")
+        names = fixture_owner.descriptor.output_schema
+        actual = tuple(sorted(tuple(row[name] for name in names) for row in rows))
+        expected = tuple(sorted(fixture_owner.descriptor.fixture.oracle_rows))
+        if actual != expected:
+            raise ValueError("Canonical one-hop edge occurrence bag differs from independent oracle")
+        lease.renew()
+        runtime_close = _admit_canonical_graphframes_runtime(spark)
+        if runtime_close != runtime_open:
+            raise PermissionError("Loaded runtime or JAR identity changed during action")
+        evidence_close = lease.evidence()
+        if evidence_close != evidence_open:
+            raise PermissionError("Canonical action custody evidence changed during action")
+        receipt = {
+            "profile": CANONICAL_SYNTHETIC_PROFILE,
+            "status": "bounded-one-hop-passed",
+            "canonicalFixtureQualification": "unqualified-persisted-row-count-evidence-absent",
+            "expectedRowCounts": list(fixture_owner.descriptor.fixture.row_counts),
+            "persistedRowCountEvidence": "absent",
+            "descriptorSha256": fixture_owner.descriptor.sha256,
+            "inputDigests": {
+                "manifest": fixture_owner.descriptor.manifest_sha256,
+                "reviewAnchor": fixture_owner.descriptor.review_anchor_sha256,
+                "generator": fixture_owner.descriptor.generator_sha256,
+                "source": fixture_owner.descriptor.source_sha256,
+                "oracle": fixture_owner.descriptor.oracle_sha256,
+            },
+            "lock": evidence_open["lock"],
+            "lockWindow": evidence_open["lockWindow"],
+            "tables": evidence_open["fixture"]["tables"],
+            "nativeInventoryBound": {
+                role: {"numFiles": evidence_open["fixture"]["tables"][role]["activeFileCount"],
+                      "maximum": MAX_SNAPSHOT_FILES}
+                for role in ("object_current", "edge_current")},
+            "snapshotInventorySha256": evidence_open["snapshotInventorySha256"],
+            "runtime": runtime_close,
+            "selectedSeed": list(seed_values),
+            "cap": fixture_owner.descriptor.cap,
+            "outputSchema": list(fixture_owner.descriptor.output_schema),
+            "actionElapsedSeconds": elapsed,
+            "result": [list(row) for row in actual],
+            "resultRows": len(actual),
+            "renewals": ["opening", "post-action", "closing"],
+            "wholeFrameCollect": "not-used",
+            "graphX": "not-used",
+            "sourceProgress": "absent", "protectedAck": "absent",
+            "publication": "absent", "unityCatalog": "absent",
+            "productionAuthority": "absent",
+        }
+    receipt["lockWindow"]["closedMonotonicNs"] = lease._closed_monotonic_ns
+    return receipt
 
 
 def run_synthetic_graphframes_one_hop(spark, fixture_owner):
