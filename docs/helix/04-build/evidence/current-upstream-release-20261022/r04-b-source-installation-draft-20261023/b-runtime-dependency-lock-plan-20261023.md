@@ -1,14 +1,14 @@
 # B runtime dependency-lock plan (candidate; not resolved)
 
-Status: read-only lock match verified; no wheel installation, virtual
-environment creation, package-index access, runtime receipt, or B execution
-was performed. The B runtime path is a selected sibling of the B output root;
-its approval and receipt remain absent.
+Status: read-only lock match verified. Runtime attempt 01 was interrupted
+during offline installation and is quarantined without a receipt. No runtime
+receipt, B execution, or native effect was produced. Attempt 02 is selected
+but absent.
 
 ## Selected runtime boundary
 
 Use a fresh Python 3.12.14 environment at
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv`. Resolve packages
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02`. Resolve packages
 only from a local wheelhouse with index/network access disabled. The current
 candidate cohort is `umf_access==0.1.0.dev7`, `umf-core==0.10.0`,
 `truss-toolkit==0.0.49`, and `weft-sql==0.4.52`; Weft is present for the
@@ -41,7 +41,7 @@ these four direct wheel digests, every resolved transitive wheel digest,
 installed versions, `pip check`, the already planned focused offline SDK/API
 tests, and `no_native_execution=true`, `pg_started=false`, and
 `spark_started=false`. Its candidate path is
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt.json`.
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json`.
 The lock and wheel hashes are selected, but the B-specific install receipt and
 catalog-manifest digest remain unresolved; therefore the B config intentionally
 keeps those runtime values null. Worker preflight verifies the selected lock
@@ -52,3 +52,5 @@ review are complete.
 
 The focused check command and the direct artifact provenance are retained in
 [the compatibility check plan](b-runtime-compatibility-check-plan-20261023.md).
+For the interrupted attempt-01 state and exact source/origin custody copies,
+see [the partial-attempt record](b-runtime-partial-attempt-01-note-20261023.md).

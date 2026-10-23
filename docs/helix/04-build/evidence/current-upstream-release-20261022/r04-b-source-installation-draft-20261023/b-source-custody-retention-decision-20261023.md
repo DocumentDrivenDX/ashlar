@@ -1,8 +1,10 @@
 # B source custody and retention decision record
 
 Status: selected preparation defaults with unresolved authority decisions. This
-record does not approve source acceptance, create custody copies, name a
-custodian, or authorize execution. No private path was created or modified.
+record does not approve source acceptance, name a custodian, or authorize
+execution. The exact source and B-origin bytes have since been copied into the
+private custody directory; see the [attempt-01 interruption record](b-runtime-partial-attempt-01-note-20261023.md)
+for sizes, hashes, modes, and the incomplete runtime status.
 
 ## Source candidate
 
@@ -14,9 +16,10 @@ relationship. The source is 4,100 bytes with SHA-256
 `498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b`, document
 ID `ashlar-current-045-lifecycle-20261021`, and external revision metadata
 `ashlar-current-045-lifecycle-r1`. The revision is not present in the source
-JSON bytes. The proposed B path is
+JSON bytes. The B custody path is
 `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json`;
-it remains absent until separately authorized exact-byte custody preparation.
+the byte-identical mode-0600 copy is prepared and hash-verified. This custody
+copy does not establish B acceptance authority.
 
 This shape supports the draft R1 create and R2 update intents. It does not
 resolve whether Person deletion at R3 closes, preserves, or otherwise handles
@@ -34,22 +37,24 @@ Use the separate B origin payload already pinned in `b-origin-candidate.json`
 `2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247`) at the
 external candidate path
 `/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json`.
-Its purpose and actor are B-specific. It remains unapproved; neither its
-presence nor its hash establishes authority. A's origin is not reused.
+Its byte-identical mode-0600 copy is prepared and hash-verified. Its purpose
+and actor are B-specific. It remains unapproved; neither its presence nor its
+hash establishes authority. A's origin is not reused.
 
 For the bounded candidate config, select these routine unique defaults: output
 root `/private/tmp/ashlar-r04-b-install-20261023-01/root`, PGDATA
 `.../root/postgres-data`, attempt `.../root/attempt-01`, runtime
-`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv`, owner role
+`/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02`, owner role
 `ashlar_r04_b_owner_20261023`, registrar role
 `ashlar_r04_b_reg_20261023`, registrar login
 `ashlar_r04_b_reg_login_20261023`, reader login
 `ashlar_r04_b_reader_20261023`, consumer
 `ashlar-current-core-r04-b-20261023`, and acceptance request key
 `ashlar-r04-b-source-accept-20261023-r1`. The config records these as
-candidates only. The output root and paths remain absent; preflight must verify
-canonical ownership, modes, non-aliasing, empty/fresh state, input separation,
-and identity collision absence at execution time.
+candidates only. The output root, PGDATA, attempt directory, and attempt-02
+runtime remain absent; attempt-01 runtime is incomplete and quarantined.
+Preflight must verify canonical ownership, modes, non-aliasing, empty/fresh
+state, input separation, and identity collision absence at execution time.
 
 The candidate catalog CAS is expected catalog revision `0`, with exactly one
 `CatalogDocumentExpectation` for the candidate document at source-catalog

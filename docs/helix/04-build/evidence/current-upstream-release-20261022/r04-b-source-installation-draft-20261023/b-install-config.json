@@ -15,14 +15,14 @@
     "approval_record": null
   },
   "runtime": {
-    "venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv",
-    "receipt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt.json",
+    "venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02",
+    "receipt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json",
     "python_version": "3.12.14",
     "truss_version": "0.0.49",
     "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
     "runtime_manifest_sha256": null,
     "catalog_manifest_sha256": null,
-    "pg_ctl_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+    "pg_ctl_path": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
     "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
     "umf_core_version": "0.10.0"
   },

@@ -15,18 +15,24 @@
     "umf_version": "0.10.0",
     "bytes": 4100,
     "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
-    "b_copy_required_before_use": true,
-    "copy_rule": "Copy exact bytes into the approved private B root and verify the same byte count and digest; never parse/reserialize or substitute an example."
+    "b_copy_required_before_use": false,
+    "copy_rule": "The exact byte-identical B custody copy is recorded in b-runtime-partial-attempt-01-note-20261023.md; do not overwrite it.",
+    "b_copy_prepared": true,
+    "b_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/source.umf.json",
+    "b_copy_mode": "0600"
   },
   "origin": {
     "path": "b-origin-candidate.json",
     "bytes": 141,
     "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
     "approved": false,
-    "approval_record": null
+    "approval_record": null,
+    "custody_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/source-custody/b-origin.json",
+    "custody_copy_prepared": true,
+    "custody_copy_mode": "0600"
   },
   "runtime_and_wheels": {
-    "proposed_b_venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv",
+    "proposed_b_venv": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/venv-attempt-02",
     "python": "3.12.14",
     "historical_r3_runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
     "truss_toolkit": {
@@ -51,7 +57,8 @@
       "server_version": "18.6",
       "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999"
     },
-    "runtime_rebind_required": "The R3 receipt is historical and records access 0.1.0.dev6, not the selected B dev7 cohort. Before execution, perform B-specific offline compatibility checks for dev7, resolve exact wheels into the proposed B venv, and generate a B-specific runtime receipt. The R3 receipt and venv are not B installation evidence."
+    "runtime_rebind_required": "Create a fresh attempt-02 venv only after Arras terminal cleanup. Attempt-01 was interrupted before pip receipt/pip check/RECORD verification; preserve it as quarantined evidence and never use it. Install only from the exact pinned R4 lock, generate a B-specific receipt, and keep execution disabled pending review.",
+    "proposed_b_receipt": "/private/tmp/ashlar-r04-b-install-20261023-01/runtime/runtime-receipt-attempt-02.json"
   },
   "b_owned_identity_proposal": {
     "root_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root",
