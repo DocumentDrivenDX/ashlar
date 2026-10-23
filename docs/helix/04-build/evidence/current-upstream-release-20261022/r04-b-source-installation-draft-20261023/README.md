@@ -10,7 +10,15 @@ effect-free byte preflight is
 it verifies the exact retained source and origin bytes without importing
 Truss/PostgreSQL or creating files. The source document revision in the packet is external metadata;
 the source bytes contain no revision field, so this preflight does not verify
-that revision. `b_install_worker.py` implements the public Truss 0.0.49
+that revision. The separate [attempt proposal](b-install-attempt-proposal.json)
+now records candidate B-owned paths, role/consumer/request names, selected
+runtime and wheel hashes, one-attempt bounds, and the exclusive port/socket
+preflight. It selects current UMF access `0.1.0.dev7`; the R3 `0.1.0.dev6`
+receipt is historical only and does not qualify B. B-specific offline
+compatibility and runtime receipt remain pending. These are proposals only: the
+paths remain uncreated, identities remain unapproved, and the proposed B runtime
+must be separately materialized and re-receipted before execution.
+`b_install_worker.py` implements the public Truss 0.0.49
 one-attempt stage sequence, and `b_install_supervisor.py` provides a bounded
 one-use executor with an effect-free preflight. The execution path requires an
 exact external approval sidecar, complete B path/role/admission pins, and a
@@ -65,6 +73,18 @@ This is a sequence proposal, not an executable runbook. B local source installat
 No native graph work or ACK belongs in this installation packet. A R03 status remains a schedule-freeze/execution prerequisite only; B install admission independently requires B source pins and isolated resources. Source ACK can advance only later, after the matching R04 slot's graph vector and independent oracle are durable and verified under CONTRACT-001/003.
 
 ## Unresolved pins and code/evidence gaps
+
+The attempt proposal makes the follow-up review concrete without filling the
+executor config. Before any B-only installation attempt, an owner must approve
+or replace the origin payload and proposed B names/paths, confirm source reuse
+suitability and catalog CAS expectations, provide the dedicated B runtime
+receipt and retention custodian, and approve the one-attempt resource limits.
+The 5432 slot must be explicitly released after A/Arras shutdown; recheck the
+process and socket inventory immediately before launch. Truss derives a unique
+socket child from canonical PGDATA, but this does not make the fixed port
+concurrent-safe or provide an OS lock. R04 schedule freeze/execution still waits
+for completed A R03 identity custody and independently accepted B source,
+consumer, feed, and protected ACK-scope evidence.
 
 All following values are currently unknown and intentionally `null` in the companion register: actual B source bytes and digest; accepted UMF 0.10 source version/document ID/revision/extension vocabulary; expected catalog predecessor; Truss provider acceptance revision/report/view bytes/digests; B registration and installation IDs; B source epoch/namespace; B feed, transaction inventory and consumer/registration/genesis cursor; B owner and registrar/client role names and session binding; ordinary B reader role/grant names; protected B destination ID and authority; destination receipt format and durable verification; B PGDATA/root paths, retention owner, resource bounds, and exact package/environment lock; B overlap witness against A local IDs; accepted incident-edge delete semantics required before R04 schedule freeze.
 

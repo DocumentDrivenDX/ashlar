@@ -1,0 +1,129 @@
+{
+  "profile": "ashlar-r04-b-install-attempt-proposal/0.1",
+  "status": "inert-proposal-not-approved",
+  "sequence": {
+    "proposed_after": "A R03 migration/resume, genesis publication and ACK, seed publication/readback, and A PostgreSQL shutdown",
+    "b_installation_dependency_on_a_r03": false,
+    "r04_schedule_and_execution_dependency_on_a_r03": true,
+    "execution_approval": null
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision": "ashlar-current-045-lifecycle-r1",
+    "revision_is_external_metadata": true,
+    "umf_version": "0.10.0",
+    "bytes": 4100,
+    "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "b_copy_required_before_use": true,
+    "copy_rule": "Copy exact bytes into the approved private B root and verify the same byte count and digest; never parse/reserialize or substitute an example."
+  },
+  "origin": {
+    "path": "b-origin-candidate.json",
+    "bytes": 141,
+    "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
+    "approved": false,
+    "approval_record": null
+  },
+  "runtime_and_wheels": {
+    "proposed_b_venv": "/private/tmp/ashlar-r04-b-install-20261023-01/root/runtime/venv",
+    "python": "3.12.14",
+    "historical_r3_runtime_receipt_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+    "truss_toolkit": {
+      "version": "0.0.49",
+      "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+    },
+    "umf_core": {
+      "version": "0.10.0",
+      "wheel_sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9"
+    },
+    "umf_access": {
+      "version": "0.1.0.dev7",
+      "wheel_sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+      "qualification": "selected current public UMF 0.5.5 access wheel; B-specific offline compatibility and runtime receipt are pending"
+    },
+    "weft_sql": {
+      "version": "0.4.52",
+      "wheel_sha256": "598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46",
+      "scope": "pinned runtime cohort; not used for B source installation"
+    },
+    "postgresql": {
+      "server_version": "18.6",
+      "pg_ctl_sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999"
+    },
+    "runtime_rebind_required": "The R3 receipt is historical and records access 0.1.0.dev6, not the selected B dev7 cohort. Before execution, perform B-specific offline compatibility checks for dev7, resolve exact wheels into the proposed B venv, and generate a B-specific runtime receipt. The R3 receipt and venv are not B installation evidence."
+  },
+  "b_owned_identity_proposal": {
+    "root_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root",
+    "pgdata_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data",
+    "attempt_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01",
+    "evidence_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01/evidence",
+    "source_copy_path": "/private/tmp/ashlar-r04-b-install-20261023-01/root/source/source.umf.json",
+    "role_names": {
+      "owner": "ashlar_r04_b_owner_20261023",
+      "registrar": "ashlar_r04_b_reg_20261023",
+      "registrar_login": "ashlar_r04_b_reg_login_20261023",
+      "reader_login": "ashlar_r04_b_reader_20261023"
+    },
+    "consumer_id": "ashlar-current-core-r04-b-20261023",
+    "source_acceptance_request_key": "ashlar-r04-b-source-accept-20261023-r1",
+    "provider_assigned_installation_id": null,
+    "provider_assigned_source_registration_id": null,
+    "source_epoch": null,
+    "source_namespace": null,
+    "feed_id_and_inventory": null,
+    "consumer_registration_id": null,
+    "genesis_checkpoint": null,
+    "protected_destination_and_ack_scope": null,
+    "retention_owner": null
+  },
+  "truss_socket_and_port": {
+    "port": 5432,
+    "port_policy": "Exclusive shared-port slot only after Arras/A PostgreSQL is stopped; no concurrent LocalPostgres process. The current packet inventory is not an OS lock.",
+    "truss_socket_directory_algorithm": "Truss 0.0.49 derives the per-data-directory socket child as /private/tmp/truss-pg18-<uid>/<first-24-hex-of-SHA256(os.fsencode(canonical_pgdata_path))>.",
+    "proposed_socket_directory": "/private/tmp/truss-pg18-501/339502994566249b89b777a1",
+    "socket_path_is_derived_from_proposed_pgdata": true,
+    "preflight_must_recompute_for_actual_uid_and_canonical_path": true
+  },
+  "preflight_predicates": [
+    "Exact source and origin bytes still match the pinned lengths and SHA-256; B source copy is byte-identical.",
+    "B origin has a separate explicit owner approval record; this proposal itself is not approval.",
+    "B runtime is a newly verified isolated environment with the exact selected wheel/runtime hashes and a B-specific receipt.",
+    "The root, PGDATA, attempt, evidence, source-copy and derived socket paths are canonical, user-owned, private, non-symlink paths; the proposed root and all children do not exist before one-use creation.",
+    "PGDATA is fresh and empty; no path aliases A, prior B, any retained source installation, or an unrelated PostgreSQL data directory.",
+    "Truss-computed socket child is absent; its parent is the expected private user-owned runtime root.",
+    "The exclusive window is explicitly released after A/Arras shutdown; bounded read-only process/socket inventory finds no PostgreSQL process or nominal 5432 socket, and the gate is rechecked immediately before launch and after shutdown.",
+    "Owner approves the exact B role names, consumer ID, request key, expected empty-catalog revision/document set, resource bounds and retention custodian.",
+    "One attempt only; any uncertain settlement preserves B PGDATA/logs and the original request for reconciliation. No retry, path replacement or cleanup after initialization/transaction uncertainty."
+  ],
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "worker_deadline_seconds": 600,
+    "preparation_deadline_seconds": 120,
+    "combined_b_root_bytes": 1073741824,
+    "per_log_bytes": 16777216,
+    "statement_timeout_ms": 5000,
+    "operation_timeout_ms": 30000,
+    "feed_reads": 0,
+    "destination_publications": 0,
+    "acks": 0,
+    "spark": 0,
+    "cloud": 0
+  },
+  "unresolved_owner_decisions": [
+    "Approve or replace the exact B-specific origin payload and confirm same source-document bytes are suitable for B acceptance.",
+    "Approve unique B identities and the proposed private paths, or supply replacements; verify no collision immediately before use.",
+    "Name the B retention custodian and approve the one-attempt resource/deadline limits.",
+    "Approve a dedicated exclusive 5432 window after A/Arras has stopped and authorize one local PostgreSQL initialization plus one installation, source-acceptance and genesis-consumer-registration sequence.",
+    "Approve the exact isolated B runtime receipt and expected catalog predecessor/document-set CAS values.",
+    "Separately establish B protected destination/receipt/ACK custody before R04 schedule freeze; this packet does not request or authorize those effects."
+  ],
+  "execution": {
+    "approved": false,
+    "attempt_count": 0,
+    "native_or_source_effects_performed": false,
+    "approval_sidecar_created": false,
+    "executor_config_changed": false
+  }
+}
