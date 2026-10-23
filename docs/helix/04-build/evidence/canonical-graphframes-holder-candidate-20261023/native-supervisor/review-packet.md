@@ -6,6 +6,9 @@ hardening delta in Ashlar commit `8705cd00`; the focused supervisor suite passed
 19/19. Sol reviewed the subsequent exact PySpark interpreter binding and its
 21/21 focused checks. The checked-in invocation packet remains pending review as a future
 executable selection because its runtime and authorization fields are empty.
+The wrapper review identity is
+`sol-independent-review-2026-10-23-graphframes-supervisor-abb6c5a1`;
+the action anchor has a separate review identity.
 Nothing here authorizes execution. The wrapper, worker, invocation
 packet, action anchor, and action module are independently hash-pinned; the
 reviewed action anchor does not transitively bind the wrapper.
