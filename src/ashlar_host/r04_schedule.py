@@ -141,13 +141,21 @@ class R04SchedulePolicy:
         """Re-admit original retained page facts without reading a future cursor."""
         raise NotImplementedError
 
-    def admit_publication(self, schedule, slot, page, publication, context):
+    def admit_publication(self, schedule, slot, page, publication, slot_plan, context):
         """Independently verify oracle, complete vector and both progress entries."""
         raise NotImplementedError
 
     def admit_before_graph_effect(self, schedule, ordinal, request_record,
-                                  source_result, page_record, context):
-        """Renew the actual staged page/request binding immediately before effects."""
+                                  source_result, page_record, slot_plan, context):
+        """Renew the staged page and complete retained publication plan before effects."""
+        raise NotImplementedError
+
+    def admit_slot_plan(self, schedule, ordinal, slot_plan, context):
+        """Independently admit the complete current-core publication plan before effects."""
+        raise NotImplementedError
+
+    def admit_retained_slot_plan(self, schedule, ordinal, slot_plan, context):
+        """Re-admit retained plan bindings against current source/native owners on resume."""
         raise NotImplementedError
 
     def admit_before_ack_effect(self, schedule, ordinal, publication, context):
@@ -294,7 +302,7 @@ class R04Journal:
 
     def _state(self):
         state = [{'request': None, 'source_started': False, 'source_result': None,
-                  'page': None, 'graph_started': False, 'publication': None,
+                  'page': None, 'slot_plan': None, 'graph_started': False, 'publication': None,
                   'ack_started': False, 'ack': None}
                  for _ in SLOT_ORDER]
         for kind, ordinal, body in self._events():
@@ -344,13 +352,33 @@ class R04Journal:
                 self._check_binding(row, ordinal, body)
                 self._validate_page_body(ordinal, body)
                 row['page'] = body
+            elif kind == 'slot_plan':
+                if row['page'] is None or row['slot_plan'] is not None or row['graph_started']:
+                    raise R04CustodyError('Invalid R04 complete slot-plan transition')
+                self._check_binding(row, ordinal, body)
+                try:
+                    from .r04_slot_plan import R04SlotPlan
+                    raw_plan = base64.b64decode(body['plan_base64'], validate=True)
+                    plan = R04SlotPlan(raw_plan).document()
+                    if (body['plan_sha256'] != hashlib.sha256(raw_plan).hexdigest()
+                            or plan['schedule_sha256'] != self.schedule.sha256
+                            or plan['ordinal'] != ordinal
+                            or plan['mutation_request_sha256'] != row['request']['request_sha256']
+                            or plan['page']['sha256'] != row['page']['page']['sha256']
+                            or plan['page']['event_inventory_sha256'] != row['page']['page']['event_inventory_sha256']):
+                        raise ValueError('plan lineage')
+                except (KeyError, TypeError, ValueError) as error:
+                    raise R04CustodyError('Retained complete R04 publication plan changed') from error
+                row['slot_plan'] = body
             elif kind == 'graph_started':
-                if row['page'] is None or row['graph_started'] or row['publication'] is not None:
+                if row['page'] is None or row['slot_plan'] is None or row['graph_started'] or row['publication'] is not None:
                     raise R04CustodyError('Invalid R04 graph-effect transition')
                 self._check_binding(row, ordinal, body)
                 row['graph_started'] = True
             elif kind == 'publication':
-                if not row['graph_started'] or row['publication'] is not None or not _mapping(body.get('publication')):
+                if (not row['graph_started'] or row['slot_plan'] is None or row['publication'] is not None
+                        or not _mapping(body.get('publication'))
+                        or body.get('slot_plan_sha256') != row['slot_plan'].get('plan_sha256')):
                     raise R04CustodyError('Invalid R04 publication transition')
                 self._check_binding(row, ordinal, body)
                 row['publication'] = body
@@ -429,9 +457,23 @@ class R04Journal:
                 if self.policy.admit_retained_page(self.schedule, ordinal, request,
                         result, page_record['page'], self.context) is not None:
                     raise R04CustodyError('Retained Truss page admission changed')
+            if row['slot_plan'] is not None:
+                try:
+                    from .r04_slot_plan import R04SlotPlan
+                    plan_raw = base64.b64decode(row['slot_plan']['plan_base64'], validate=True)
+                    plan = R04SlotPlan(plan_raw)
+                    if (row['slot_plan']['plan_sha256'] != hashlib.sha256(plan_raw).hexdigest()
+                            or self.policy.admit_retained_slot_plan(self.schedule, ordinal,
+                                plan, self.context) is not None):
+                        raise ValueError('plan admission')
+                except (KeyError, TypeError, ValueError) as error:
+                    raise R04CustodyError('Retained R04 publication plan admission changed') from error
             if row['publication'] is not None:
+                from .r04_slot_plan import R04SlotPlan
+                plan_raw = base64.b64decode(row['slot_plan']['plan_base64'], validate=True)
+                plan = R04SlotPlan(plan_raw)
                 if self.policy.admit_publication(self.schedule, ordinal, page_record,
-                        row['publication']['publication'], self.context) is not None:
+                        row['publication']['publication'], plan, self.context) is not None:
                     raise R04CustodyError('Retained complete native publication changed')
             if row['ack'] is not None:
                 if self.policy.admit_ack(self.schedule, ordinal, row['publication'],
@@ -555,13 +597,39 @@ class R04Journal:
             'ordinal': ordinal, 'request_sha256': state[ordinal]['request']['request_sha256'],
             'page': stored})
 
+    def retain_slot_plan(self, ordinal, plan_bytes):
+        state = self._state()
+        if (type(ordinal) is not int or not 0 <= ordinal < 8 or state[ordinal]['page'] is None
+                or state[ordinal]['slot_plan'] is not None or state[ordinal]['graph_started']):
+            raise R04CustodyError('Original retained page awaiting one complete publication plan')
+        try:
+            from .r04_slot_plan import R04SlotPlan
+            plan = R04SlotPlan(plan_bytes)
+            value = plan.document()
+        except (TypeError, ValueError) as error:
+            raise R04CustodyError('Canonical versioned R04 publication plan required') from error
+        if (value['schedule_sha256'] != self.schedule.sha256 or value['ordinal'] != ordinal
+                or value['mutation_request_sha256'] != state[ordinal]['request']['request_sha256']
+                or value['page']['sha256'] != state[ordinal]['page']['page']['sha256']
+                or value['page']['event_inventory_sha256'] != state[ordinal]['page']['page']['event_inventory_sha256']
+                or self.policy.admit_slot_plan(self.schedule, ordinal, plan, self.context) is not None):
+            raise R04CustodyError('Complete plan must bind this exact retained slot/page before effects')
+        body = {'schedule_sha256': self.schedule.sha256, 'ordinal': ordinal,
+            'request_sha256': state[ordinal]['request']['request_sha256'],
+            'plan_base64': base64.b64encode(plan_bytes).decode('ascii'),
+            'plan_sha256': hashlib.sha256(plan_bytes).hexdigest()}
+        self._append('slot_plan', ordinal, body)
+
     def begin_graph_effect(self, ordinal):
         state = self._state()
-        if state[ordinal]['page'] is None or state[ordinal]['graph_started']:
-            raise R04CustodyError('Durably bound actual feed page required before graph effects')
+        if state[ordinal]['page'] is None or state[ordinal]['slot_plan'] is None or state[ordinal]['graph_started']:
+            raise R04CustodyError('Durably bound actual feed page and complete publication plan required before graph effects')
+        from .r04_slot_plan import R04SlotPlan
+        plan = R04SlotPlan(base64.b64decode(state[ordinal]['slot_plan']['plan_base64'], validate=True))
         if self.policy.admit_before_graph_effect(self.schedule, ordinal, state[ordinal]['request'],
-                state[ordinal]['source_result'], state[ordinal]['page'], self.context) is not None:
-            raise R04CustodyError('Current actual page/request admission incomplete before graph effects')
+                state[ordinal]['source_result'], state[ordinal]['page'],
+                plan, self.context) is not None:
+            raise R04CustodyError('Current actual page/request/plan admission incomplete before graph effects')
         self._append('graph_started', ordinal, {'schedule_sha256': self.schedule.sha256,
             'ordinal': ordinal, 'request_sha256': state[ordinal]['request']['request_sha256']})
 
@@ -569,11 +637,14 @@ class R04Journal:
         state = self._state()
         if not state[ordinal]['graph_started'] or state[ordinal]['publication'] is not None:
             raise R04CustodyError('Original graph effect awaiting independent publication verification')
+        from .r04_slot_plan import R04SlotPlan
+        plan = R04SlotPlan(base64.b64decode(state[ordinal]['slot_plan']['plan_base64'], validate=True))
         if self.policy.admit_publication(self.schedule, ordinal, state[ordinal]['page'],
-                                         publication, self.context) is not None:
+                                         publication, plan, self.context) is not None:
             raise R04CustodyError('Independent prefix oracle/vector/progress verification incomplete')
         self._append('publication', ordinal, {'schedule_sha256': self.schedule.sha256,
             'ordinal': ordinal, 'request_sha256': state[ordinal]['request']['request_sha256'],
+            'slot_plan_sha256': state[ordinal]['slot_plan']['plan_sha256'],
             'publication': publication})
 
     def retain_ack(self, ordinal, ack):
