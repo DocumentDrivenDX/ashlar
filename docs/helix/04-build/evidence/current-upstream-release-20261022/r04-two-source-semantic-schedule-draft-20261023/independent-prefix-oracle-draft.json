@@ -1336,11 +1336,16 @@
     }
   ],
   "source_qualified_identity": "Compare `(source identity, type, local id)` for objects and `(source identity, relationship type, local edge id)` for edges. Compare each endpoint as `(source identity, endpoint type, local id)`. Equal A/B local IDs remain distinct. Require authoritative overlap evidence; if unavailable, freeze remains blocked.",
-  "status": "draft_not_frozen_authoritative_inputs_missing",
+  "status": "exploratory_oracle_not_authoritative_or_freezable_until_A_B_acceptance_and_semantic_reconciliation",
   "stop_conditions": [
     "any missing/unverified predecessor result, resolved identity, request digest, feed page, cursor, writer position, event-byte inventory, schema pin, publication version or source-specific ACK",
     "any source/ACK identity collision or unproven independent authority",
     "any mismatch in exact value, presence, multiplicity, edge identity/typed endpoint, history/tombstone, schema revision, source progress or full vector",
     "any failed or uncertain predecessor: stop all later source mutations and preserve original request/page/publication custody; no retry or inferred page"
-  ]
+  ],
+  "semantic_authority_note": {
+    "status": "exploratory_non_authoritative_not_freezable",
+    "rule": "Person/Place and property expectations in the prefix rows are candidate examples only. They are not independent expected R04 values until both accepted A/B source models and original input semantics are pinned and reviewed; replace or explicitly reconcile before schedule freeze.",
+    "profile_boundary": "Legacy UMF 0.8 product/fulfillment/Field35 payloads are not current-core UMF 0.10 expected values. Current-core CONTRACT-003 specifies no ordinal payload until actual source acceptance."
+  }
 }

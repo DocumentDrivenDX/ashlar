@@ -1,5 +1,5 @@
 {
-  "ack_order": "For each slot: commit graph publication and manifest publication progress; independently verify the full vector and both source publication-progress entries; then advance only that source\u2019s protected ACK checkpoint. These are distinct records. Only after protected ACK is durable may the next source mutation begin.",
+  "ack_order": "For each slot: commit graph publication and manifest publication progress; independently verify the full vector and both source publication-progress entries; then advance only that source’s protected ACK checkpoint. These are distinct records. Only after protected ACK is durable may the next source mutation begin.",
   "authorization": "The owner-approved 2026-10-21 staged feed-page binding and 2026-10-23 slot-by-slot request-freeze timing govern preparation only. Neither authorizes source mutation, publication or ACK.",
   "canonical_freeze_preconditions": [
     "R03 A .49 migration/resume, genesis publication and protected ACK, seed first submission/readback, and authoritative resulting IDs/custody are complete",
@@ -8,7 +8,7 @@
     "Exact accepted source model/schema pins and explicit additive-candidate semantics are selected for both sources",
     "Independent review accepts the complete prefix oracle and exact canonical schedule bytes before first R04 publication",
     "Accepted source semantics determine a single valid R3 incident-edge closure policy, and the complete schedule freezes it before any R04 source mutation; R2 retains its already fixed R1 edge identity/endpoints.",
-    "Each R1 creates a new accepted logical identity distinct from that source\u2019s complete pinned pre-R04 baseline; the R03 seed entity is not reused. Cross-source local-ID overlap is independently evidenced and source-qualified."
+    "Each R1 creates a new accepted logical identity distinct from that source’s complete pinned pre-R04 baseline; the R03 seed entity is not reused. Cross-source local-ID overlap is independently evidenced and source-qualified."
   ],
   "explicitly_unfrozen": [
     "actual accepted source IDs/revisions/registrations",
@@ -434,5 +434,12 @@
     "baseline_rule": "R04 operates as deltas over independently pinned complete A/B baselines. New R1 logical keys must not overwrite or alias a pre-R04 entity in the same source; source-local IDs may overlap across A/B only with source-qualified identity.",
     "identity_rule": "physical identity is source-qualified; equal local type/id values across A/B must remain distinct; edge identity and both typed endpoints are source-qualified"
   },
-  "status": "draft_not_frozen_authoritative_R03_A_and_independent_B_inputs_missing"
+  "status": "exploratory_non_authoritative_draft_not_freezable_until_A_B_acceptance_and_semantic_reconciliation",
+  "semantic_authority_note": {
+    "status": "exploratory_non_authoritative_not_freezable",
+    "current_candidate": "Person/Place types, fields, property-presence expectations and R1/R2/R3 lifecycle transitions in this file are illustrative only.",
+    "freeze_condition": "After both A and B actual UMF 0.10 sources are accepted and complete model/catalog report/view pins are read and reviewed, replace or explicitly reconcile every domain-specific candidate against both accepted sources before freezing the canonical schedule.",
+    "authority_boundary": "CONTRACT-003 original-commerce evolution profile (UMF 0.8) retains the product price 12.75, fulfillment deletion, and Field35/product/supplier additive payload. Those values do not govern current-core UMF 0.10 R04. The current-core amendment specifies no ordinal payload or expected value until actual source acceptance.",
+    "source_and_effect_gate": "No draft candidate authorizes a source mutation, feed read, native graph publication, ACK, or schedule freeze."
+  }
 }

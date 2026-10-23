@@ -1,0 +1,69 @@
+{
+  "profile": "ashlar-current-core-two-source/0.2",
+  "status": "inert-draft-unfrozen",
+  "source_authority": {
+    "source_format": null,
+    "umf_core_version": "0.10.0",
+    "document_id": null,
+    "source_revision": null,
+    "source_bytes_sha256": null,
+    "origin_bytes_sha256": null,
+    "extension_vocabulary_id_and_version": null,
+    "expected_catalog_revision": null,
+    "expected_documents": null,
+    "accepted_catalog_revision": null,
+    "accepted_source_registration_id": null,
+    "accepted_report_bytes_sha256": null,
+    "accepted_catalog_view_bytes_sha256": null
+  },
+  "runtime_and_installation": {
+    "truss_version": "0.0.49",
+    "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "umf_tooling_wheel_hashes": null,
+    "python_and_local_postgres_runtime_hashes": null,
+    "installation_id": null,
+    "source_epoch": null,
+    "source_namespace": null,
+    "pgdata_path": null,
+    "root_path": null,
+    "retention_owner": null,
+    "resource_bounds": null
+  },
+  "feed_consumer": {
+    "feed_id": null,
+    "transaction_inventory": null,
+    "ordinary_reader_role": null,
+    "consumer_id": null,
+    "registration_id": null,
+    "genesis_checkpoint_bytes_sha256": null,
+    "consumer_id_assignment": "caller-chosen B ID; unfrozen"
+  },
+  "protected_destination_ack_scope": {
+    "destination_id": null,
+    "destination_authority_reference": null,
+    "receipt_format_and_version": null,
+    "receipt_durable_verification": null,
+    "source_specific_ack_registration_id": null
+  },
+  "schedule_dependencies": {
+    "r03_a_seed_readback_complete": false,
+    "r04_semantic_schedule_digest": null,
+    "r04_a_and_b_schedule_source_pins": null,
+    "local_id_overlap_witness": null,
+    "incident_edge_delete_semantics_frozen": false,
+    "arras_window_released": false
+  },
+  "execution": {
+    "approved": false,
+    "native_or_source_effects_performed": false,
+    "attempt_count": 0
+  },
+  "b_installation_admission": {
+    "arras_window_released": false,
+    "independent_b_source_and_model_pins_available": false,
+    "isolated_b_paths_ports_and_resource_bounds_approved": false,
+    "sol_packet_review_complete": false,
+    "requires_a_r03_completion": false,
+    "a_r03_is_required_for_r04_schedule_freeze_and_execution": true
+  }
+}
