@@ -587,3 +587,25 @@ native probes, source ACK or live pin renewal. The existing `.1` and offline
 Spark comparison behavior remain unchanged. Schedule semantic mutation admission,
 original page/result acceptance, native effect proof, retention, runtime identity
 and external protected ACK remain separate gates.
+
+### Blocking initial-custody gap and cursor correspondence helper
+
+The real initial A/B Ashlar progress representation remains unknown. Do not
+derive `truss_checkpoint` from a genesis cursor: the public cursor has no feed
+member and does not provide the page payload digest or batch identity required
+for complete Ashlar progress. Retained Truss 0.0.48 evidence is a digest-only
+feed-registration receipt, not original registration or cursor bytes; its
+feed-consumer registration ID is distinct from the catalog source-registration
+ID. Consequently `/0.2` is unavailable for real inputs until an external source
+owner independently admits original A/B registrations, exact genesis cursors,
+complete initial progress and their selected identities/digests.
+
+The bounded pure cursor correspondence validator accepts exact cursor bytes,
+their independently selected SHA-256 and a separately selected typed identity.
+It validates the public `truss-caller-asserted-feed/0.1` fields and matches
+installation, epoch, consumer and feed-registration IDs. It preserves unknown
+cursor extensions and returns the original bytes unchanged. It does not infer a
+feed, establish a genesis position, construct progress, validate registration
+semantics, prove Truss acceptance, or confer source/ACK authority. The cursor's
+absence of feed and ACK fields is deliberate; those selections remain external.
+Authored tests cover parser/correspondence mechanics only, not Truss acceptance.

@@ -1926,3 +1926,23 @@ that Truss accepted the page, or that a source ACK is valid. A plan's package ha
 alone is not semantic admission. Original R04 journal-slot evidence and its
 independent owner admission remain required to make those claims. The profile
 adds no native effect, live source, retention, ACK, or campaign authority.
+
+### Blocking open question: original A/B genesis progress custody
+
+The real initial A/B Ashlar progress representation is unknown. A genesis cursor
+MUST NOT be converted into `truss_checkpoint`: the cursor has no feed member and
+does not carry the page payload digest or batch identity needed for complete
+Ashlar progress. The retained Truss 0.0.48 evidence is a digest-only feed
+registration receipt, not the original registration object or cursor bytes. Its
+feed-consumer registration ID is distinct from the catalog source-registration
+ID. Therefore `/0.2` is unavailable for real inputs until the source owner
+independently admits the original A/B registration objects, exact genesis cursor
+bytes, complete initial Ashlar progress, and their separately selected identities
+and digests.
+
+A bounded cursor helper may verify exact cursor bytes, their selected digest,
+public cursor-profile syntax and correspondence to selected typed identity fields.
+It preserves unknown cursor extensions and the original bytes. It does not
+construct progress, establish genesis position, authenticate a registration,
+prove Truss acceptance, or confer source/ACK authority. Registration semantics
+and the complete initial progress remain open external-owner obligations.
