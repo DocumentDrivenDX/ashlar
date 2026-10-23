@@ -70,6 +70,20 @@ def _progress_union(progress, checkpoint):
     return result
 
 
+def _source_prefix_lookup_tokens(page_states):
+    """Return every typed key needed by any intermediate page projection."""
+    tokens = set()
+    for _prior, following, admission, _clock in page_states:
+        for key in following.current:
+            if key.kind in ("object", "edge"):
+                tokens.add((key.kind, key.source, key.type_id, key.id))
+        for change in admission.changes:
+            key = change.state.key
+            if key.kind in ("object", "edge") and change.operation != "delete":
+                tokens.add((key.kind, key.source, key.type_id, key.id))
+    return tokens
+
+
 def compare_complete_managed_current_bags(expected, actual, *, carrier_profile):
     """Compare bounded, closed four-role bags as multisets, retaining duplicates."""
     _require(type(expected) is dict and set(expected) == set(_ROLES)
@@ -139,8 +153,9 @@ class ManagedCurrentSourcePrefixOracle:
         return decode_retained_json(self.expected_rows_json.encode("utf-8"))
 
 
-def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
-                                        lookup_hashes=None):
+def _build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
+                                         lookup_hashes=None, lookup_keys_only=False,
+                                         expected_source_truss_version=None):
     """Restore and fold supplied prefix bytes without proving schedule custody.
 
     Per-entry ordinals and predecessor request anchors are checked locally;
@@ -196,6 +211,11 @@ def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
         bundle = decode_retained_json(bundle_bytes)
         request = decode_retained_json(request_bytes)
         _require(type(bundle) is dict and type(request) is dict)
+        if expected_source_truss_version is not None:
+            _require(type(expected_source_truss_version) is str
+                     and type(bundle.get("source")) is dict
+                     and bundle["source"].get("trussVersion") == expected_source_truss_version,
+                     "Every frozen prefix page must use the selected Truss source version")
         admission = restore_managed_current_admission(bundle, config)
         identity = _managed_source_identity(bundle, schedule_sha256=prefix["scheduleSha256"],
                                             schedule_step=ordinal)
@@ -215,13 +235,6 @@ def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
                                 schema_transition_policy=admission.admit_transition)
         event_total += len(admission.changes)
         _require(event_total <= 1000, "Source-prefix admitted-event limit exceeded")
-        for key in next_state.current:
-            if key.kind in ("object", "edge"):
-                lookup_tokens.add((key.kind, key.source, key.type_id, key.id))
-        for change in admission.changes:
-            if change.state.key.kind in ("object", "edge") and change.operation != "delete":
-                lookup_tokens.add((change.state.key.kind, change.state.key.source,
-                                   change.state.key.type_id, change.state.key.id))
         page_states.append((state, next_state, admission, _clock_iso(entry["materializationClockUs"])))
         bundle_identities.append(identity)
         final_request = request
@@ -229,6 +242,16 @@ def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
         state = next_state
     _require(progress == prefix["progress"],
              "Frozen encountered-feed progress differs from source fold")
+    lookup_tokens = _source_prefix_lookup_tokens(page_states)
+    if lookup_keys_only:
+        _require(config.carrier_profile == CARRIER_PROFILE_XXHASH64,
+                 "Native lookup-key probes are reserved for the .4 carrier")
+        _require(len(lookup_tokens) <= 32,
+                 "Source-derived native lookup-key probe limit exceeded")
+        # Project every page with the widest signed64 placeholder so the
+        # bounded native owner can reject row/byte overflow before probing.
+        # These placeholders are capacity-only and are never returned as bags.
+        lookup_hashes = {key: -(1 << 63) for key in lookup_tokens}
     if config.carrier_profile == CARRIER_PROFILE_XXHASH64:
         _require(type(lookup_hashes) is dict and set(lookup_hashes) == lookup_tokens
                  and len(lookup_tokens) <= 32,
@@ -247,7 +270,30 @@ def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
         _require(total_rows <= 1024, "Source-prefix expected-row limit exceeded")
         _require(len(_canonical(expected).encode("utf-8")) <= 4 * 1024 * 1024,
                  "Source-prefix expected-row byte limit exceeded")
+    if lookup_keys_only:
+        return tuple(sorted(lookup_tokens))
     return ManagedCurrentSourcePrefixOracle(PROFILE, config.carrier_profile, prefix_sha256,
         prefix["scheduleSha256"], prefix["scheduleStep"], _canonical(destination),
         _canonical(progress), final_request_raw, _canonical(bundle_identities),
         _canonical(expected))
+
+
+def derive_managed_current_prefix_lookup_keys(prefix_bytes, *, prefix_sha256, config,
+                                               expected_source_truss_version):
+    """Validate/fold the prefix and expose every intermediate-page .4 probe key."""
+    return _build_managed_current_prefix_oracle(prefix_bytes,
+        prefix_sha256=prefix_sha256, config=config, lookup_keys_only=True,
+        expected_source_truss_version=expected_source_truss_version)
+
+
+def build_managed_current_prefix_oracle(prefix_bytes, *, prefix_sha256, config,
+                                        lookup_hashes=None,
+                                        expected_source_truss_version=None):
+    """Restore and fold supplied prefix bytes without proving schedule custody.
+
+    For .4, ``lookup_hashes`` must come from the injected Spark owner's bounded
+    native probes; this pure helper does not perform or authenticate those probes.
+    """
+    return _build_managed_current_prefix_oracle(prefix_bytes,
+        prefix_sha256=prefix_sha256, config=config, lookup_hashes=lookup_hashes,
+        expected_source_truss_version=expected_source_truss_version)

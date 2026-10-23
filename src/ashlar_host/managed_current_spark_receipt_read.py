@@ -21,14 +21,23 @@ from ashlar.publication import Snapshot, resolve_publication
 from ashlar.protocol import ReaderProtocolProfile, validate_protocol_detail
 from ashlar.schema import decode_retained_json
 from .managed_current_carriers import load_current_managed_carriers
-from .managed_current_core import CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, ROLES
+from .managed_current_core import (
+    CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig, ROLES,
+)
 from .managed_current_spark_source_oracle import (
-    ManagedCurrentSourcePrefixOracle, compare_complete_managed_current_bags,
+    ManagedCurrentSourcePrefixOracle, build_managed_current_prefix_oracle,
+    compare_complete_managed_current_bags, derive_managed_current_prefix_lookup_keys,
 )
 
 PROFILE = "ashlar-managed-current-spark-receipt-reopen/0.1"
 DATA_ROLES = ("object_current", "edge_current", "tombstone", "whole_source_history")
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,127}\Z")
+_XXHASH_SQL = ("SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
+               "CAST(:id AS BIGINT)) AS lookup_hash")
+# Probe-only source token cap. Source identifiers have no smaller limit in the
+# managed-current contract; 64 KiB is conservative and keeps each bound native
+# parameter well below the 4 MiB frozen-prefix envelope.
+_MAX_PROBE_SOURCE_BYTES = 65536
 
 
 def _require(value, reason="Managed Spark receipt reopen refused"):
@@ -156,6 +165,7 @@ class _SparkReceiptExecutor:
         }
         attempt_query = None
         data_queries = owner._approved_data_queries
+        hash_parameters = owner._approved_hash_parameters
         if owner.opening is not None:
             version = owner.opening["publication_attempt_phase"]["version"]
             attempt_query = ("SELECT phase,request_digest,payload_json,payload_digest FROM "
@@ -175,7 +185,9 @@ class _SparkReceiptExecutor:
         exact_describes.update("DESCRIBE HISTORY " + base + "`" + role + "` LIMIT 1" for role in ROLES)
         is_attempt_query = sql == attempt_query
         is_data_query = sql in data_queries
-        _require((sql in exact_selects or sql in exact_describes or is_attempt_query or is_data_query)
+        is_hash_query = sql == _XXHASH_SQL
+        _require((sql in exact_selects or sql in exact_describes or is_attempt_query
+                  or is_data_query or is_hash_query)
                  and type(parameters) is dict
                  and all(type(k) is str and type(v) is str for k, v in parameters.items()),
                  "Bound Spark SQL with string parameters required")
@@ -184,6 +196,12 @@ class _SparkReceiptExecutor:
                      "Exact source-qualified committed-attempt keys required")
         if is_data_query:
             _require(parameters == {}, "Pinned versioned role reads take no parameters")
+        if is_hash_query:
+            _require(set(parameters) == {"source", "type", "id"}
+                     and tuple(parameters[key] for key in ("source", "type", "id"))
+                     in hash_parameters,
+                     "Only preapproved typed source-key hash probes are admitted")
+            hash_parameters.remove(tuple(parameters[key] for key in ("source", "type", "id")))
         owner.statements += 1
         statement_limit = (owner.config.maximum_statements if owner.closing
                            else owner.config.maximum_statements - 24)
@@ -195,6 +213,9 @@ class _SparkReceiptExecutor:
             _require(fields == (("phase", "string"), ("request_digest", "string"),
                                 ("payload_json", "string"), ("payload_digest", "string")),
                      "Exact native committed-attempt carrier required")
+        if is_hash_query:
+            _require(fields == (("lookup_hash", "long"),),
+                     "Exact native signed BIGINT hash projection required")
         capture_cap = (161 if is_attempt_query else 1025 if is_data_query
                        else owner.config.maximum_rows + 1)
         rows = frame.limit(capture_cap).collect()
@@ -220,6 +241,7 @@ class ManagedCurrentSparkReceiptReader:
         self.context = object()
         self.opening = None
         self._approved_data_queries = set()
+        self._approved_hash_parameters = set()
         self.executor = _SparkReceiptExecutor(self)
         sc = getattr(self.spark, "sparkContext", None)
         _require(sc is not None and all(hasattr(sc, name) for name in
@@ -491,6 +513,83 @@ class ManagedCurrentSparkReceiptReader:
         finally:
             self._approved_data_queries.clear()
 
+    def _probe_source_lookup_hashes(self, source_keys):
+        """Probe bounded .4 source keys using only native typed Spark SQL."""
+        _require(self.config.carrier_profile == CARRIER_PROFILE_XXHASH64
+                 and type(source_keys) is tuple and len(source_keys) <= 32
+                 and len(set(source_keys)) == len(source_keys),
+                 "Bounded .4 source-key probe set of at most 32 unique keys required")
+        by_arguments = {}
+        for item in source_keys:
+            _require(type(item) is tuple and len(item) == 4,
+                     "Exact kind/source/type/id source key required")
+            kind, source, type_id, entity_id = item
+            _require(kind in ("object", "edge") and type(source) is str and source
+                     and type(type_id) is int and type(entity_id) is int
+                     and -(1 << 63) <= type_id < (1 << 63)
+                     and -(1 << 63) <= entity_id < (1 << 63),
+                     "Non-Boolean signed64 source identity tokens required")
+            _require(len(source.encode("utf-8")) <= _MAX_PROBE_SOURCE_BYTES,
+                     "Native source-key probe source token exceeds 65536 UTF-8 bytes")
+            args = (source, str(type_id), str(entity_id))
+            by_arguments.setdefault(args, set()).add(item)
+        _require(len(by_arguments) <= 32,
+                 "Distinct native source-key probe limit exceeded")
+        _require(not self._approved_hash_parameters
+                 and self.statements + len(by_arguments) + 12
+                 <= self.config.maximum_statements - 24,
+                 "Insufficient statement budget for probes, row captures, bookends and closing")
+        self._approved_hash_parameters = set(by_arguments)
+        by_native_key = {}
+        try:
+            for args, identities in sorted(by_arguments.items()):
+                result = self.executor.query(_XXHASH_SQL,
+                    {"source": args[0], "type": args[1], "id": args[2]})
+                _require(len(result.rows) == 1 and result.columns == (("lookup_hash", "long"),),
+                         "One exact native signed BIGINT hash per source key required")
+                value = result.rows[0].get("lookup_hash")
+                _require(type(value) is int and -(1 << 63) <= value < (1 << 63),
+                         "Native xxhash64 result must be signed64 and non-Boolean")
+                by_native_key[args] = value
+            _require(not self._approved_hash_parameters,
+                     "Every preapproved source-key hash probe must be consumed exactly once")
+        finally:
+            self._approved_hash_parameters.clear()
+        result = {}
+        for args, identities in by_arguments.items():
+            for kind, source, type_id, entity_id in identities:
+                result[(kind, source, type_id, entity_id)] = by_native_key[args]
+        _require(set(result) == set(source_keys), "Native source-key hash map differs from exact oracle keys")
+        return result
+
+    def _frozen_prefix_anchors(self, prefix_bytes, prefix_sha256, source_core_config,
+                               request, manifest):
+        _require(type(prefix_bytes) is bytes and 0 < len(prefix_bytes) <= 4 * 1024 * 1024
+                 and type(prefix_sha256) is str
+                 and re.fullmatch(r"[0-9a-f]{64}", prefix_sha256)
+                 and hashlib.sha256(prefix_bytes).hexdigest() == prefix_sha256
+                 and type(source_core_config) is ManagedCurrentCoreConfig
+                 and source_core_config.carrier_profile == CARRIER_PROFILE_XXHASH64
+                 and source_core_config.catalog == self.config.catalog
+                 and source_core_config.schema == self.config.schema
+                 and self.config.carrier_profile == CARRIER_PROFILE_XXHASH64,
+                 "Separately frozen .4 prefix bytes/hash and matching source config required")
+        prefix = decode_retained_json(prefix_bytes)
+        _require(type(prefix) is dict and prefix.get("profile") ==
+                 "ashlar-managed-current-source-prefix/0.1"
+                 and prefix.get("carrierProfile") == CARRIER_PROFILE_XXHASH64
+                 and prefix.get("destination") == {"catalog": self.config.catalog,
+                                                    "schema": self.config.schema}
+                 and type(prefix.get("entries")) is list and prefix["entries"]
+                 and type(prefix["progress"]) is dict
+                 and prefix["progress"] == json.loads(manifest["source_progress_json"],
+                                                       object_pairs_hook=self._unique_pairs),
+                 "Frozen .4 prefix config/progress differs from reopened manifest")
+        last_request = decode_retained_json(prefix["entries"][-1]["requestJson"].encode("utf-8"))
+        _require(last_request == request,
+                 "Frozen .4 final request differs from independently reopened request")
+        return prefix
+
     def _capture_source_role_bags(self, expected, queries):
         actual = {}
         total_rows = total_bytes = 0
@@ -555,7 +654,19 @@ class ManagedCurrentSparkReceiptReader:
                  "Spark runtime or six-role UC identity changed")
         return runtime, inventory
 
-    def reopen(self, *, request_bytes, manifest_bytes, expected_receipt, source_oracle=None):
+    def reopen(self, *, request_bytes, manifest_bytes, expected_receipt, source_oracle=None,
+               source_prefix_bytes=None, source_prefix_sha256=None, source_core_config=None):
+        prefix_supplied = any(value is not None for value in (
+            source_prefix_bytes, source_prefix_sha256, source_core_config))
+        if self.config.carrier_profile == CARRIER_PROFILE_XXHASH64:
+            _require(source_oracle is None,
+                     "Prebuilt .4 source oracles cannot stand in for native-probed hashes")
+            _require(not prefix_supplied or all(value is not None for value in (
+                source_prefix_bytes, source_prefix_sha256, source_core_config)),
+                "Complete frozen .4 prefix bytes/hash/config input required")
+        else:
+            _require(not prefix_supplied,
+                     "Frozen source-prefix probing is reserved for the .4 carrier")
         _require(type(request_bytes) is bytes and 0 < len(request_bytes) <= 4194304
                  and type(manifest_bytes) is bytes and 0 < len(manifest_bytes) <= 4194304,
                  "Bounded original request and manifest bytes required")
@@ -578,6 +689,13 @@ class ManagedCurrentSparkReceiptReader:
             + " WHERE publication_id=:publication_id", {"publication_id": self._publication_id}).rows
         _require(len(observed) == 1 and dict(observed[0]) == manifest,
                  "Exact task manifest was not independently reopened")
+        frozen_prefix = source_keys = None
+        if prefix_supplied:
+            frozen_prefix = self._frozen_prefix_anchors(source_prefix_bytes,
+                source_prefix_sha256, source_core_config, request, manifest)
+            source_keys = derive_managed_current_prefix_lookup_keys(source_prefix_bytes,
+                prefix_sha256=source_prefix_sha256, config=source_core_config,
+                expected_source_truss_version=self.config.source_truss_version)
         from ashlar.publication import descriptor_from_manifest_row
         from ashlar.attempt_store import verify_request_digest
         descriptor = descriptor_from_manifest_row(dict(observed[0]))
@@ -637,6 +755,18 @@ class ManagedCurrentSparkReceiptReader:
                          for t, s in resolved.snapshots.items()),
                  "Independent native resolver differs from exact four-role publication")
         bag_comparison_sha256 = None
+        if frozen_prefix is not None:
+            lookup_hashes = self._probe_source_lookup_hashes(source_keys)
+            source_oracle = build_managed_current_prefix_oracle(source_prefix_bytes,
+                prefix_sha256=source_prefix_sha256, config=source_core_config,
+                lookup_hashes=lookup_hashes,
+                expected_source_truss_version=self.config.source_truss_version)
+            _require(source_oracle.final_request == request
+                     and source_oracle.progress == json.loads(manifest["source_progress_json"],
+                                                                object_pairs_hook=self._unique_pairs)
+                     and source_oracle.destination == {"catalog": self.config.catalog,
+                                                        "schema": self.config.schema},
+                     "Rebuilt native-hash oracle differs from reopened source/manifest anchors")
         if source_oracle is not None:
             bag_comparison_sha256 = self._read_and_compare_source_bags(
                 source_oracle, request, manifest, versions, role_tables)

@@ -506,3 +506,33 @@ matching or present this increment as the managed A1 campaign verifier. Supporti
 that campaign still requires the independently frozen initial A/B progress and
 registration custody amendment above. Test an otherwise matching oracle against
 a manifest with an additional B checkpoint and require refusal before data reads.
+
+### Offline `.4` source-key probe increment
+
+The optional frozen-prefix path may now accept the exact prefix bytes, their
+separately selected SHA-256, and the matching `ManagedCurrentCoreConfig` instead
+of a prebuilt `.4` oracle. Before any native probe, it restores and folds the
+prefix, requires every retained page's Truss version to match the reader's
+selected source version, derives every typed object/edge key used by any page
+projection (including keys later deleted), and preflights all projected pages
+against the existing 1,024-row and 4 MiB expected-bag limits. Capacity preflight
+uses the minimum signed64 token solely as a 20-character placeholder; it is
+discarded and is never comparison evidence.
+
+For each distinct `(source, type_id, id)` argument tuple, the owner executes only
+the exact parameterized statement
+`SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),CAST(:id AS BIGINT)) AS lookup_hash`.
+It bounds the complete key set and each UTF-8 source token (32 keys and 65,536
+bytes per source token), validates one non-Boolean signed64 result per statement,
+and reserves probe, four role-capture, identity-bookend and close statement
+budget before the first probe. The final oracle is rebuilt from the same frozen
+bytes and only the observed mapping. Full typed identity remains in comparison;
+equal hashes do not merge identities. The earlier explicitly injected oracle
+path remains available for legacy adapter tests, but a prebuilt `.4` oracle is
+refused as native-probed evidence.
+
+This increment qualifies only offline fake-Spark adapter mechanics and bounded
+source projection. It does not qualify native Spark/Delta execution, source
+schedule or prior-publication custody, complete initial A/B progress, a real
+nonempty current Truss prefix, runtime/retention custody, external live source
+pin renewal, or source ACK. Campaign integration remains unavailable.

@@ -10,15 +10,17 @@ from unittest.mock import patch
 from types import SimpleNamespace
 
 from ashlar.native import SQLResult
+from ashlar.apply import EntityKey
 from ashlar.protocol import ReaderProtocolProfile
 from ashlar_host.managed_current_carriers import load_current_managed_carriers
-from ashlar_host.managed_current_core import ROLES
+from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64, ROLES
 from ashlar_host.managed_current_spark_receipt_read import (
     ManagedCurrentSparkReceiptConfig, ManagedCurrentSparkReceiptReader, _native_json,
 )
 from ashlar_host.managed_current_spark_source_oracle import (
     ManagedCurrentSourcePrefixOracle, build_managed_current_prefix_oracle,
-    compare_complete_managed_current_bags,
+    compare_complete_managed_current_bags, derive_managed_current_prefix_lookup_keys,
+    _source_prefix_lookup_tokens,
 )
 from ashlar_host.truss_note_publication import graph_expected_rows
 from test_managed_current_receipt_read import _fixture, _canonical
@@ -42,25 +44,29 @@ class _Frame:
 
 
 class _Spark:
-    def __init__(self, manifest, receipt, uuids, *, owner="owner@example.test"):
+    def __init__(self, manifest, receipt, uuids, *, owner="owner@example.test", request=None):
         self.manifest, self.receipt, self.uuids, self.owner = manifest, receipt, uuids, owner
         self.version = "15.4.x-scala2.12"
         self.sparkContext = _SparkContext()
         self.conf = SimpleNamespace(get=lambda key: {
             "spark.databricks.clusterUsageTags.clusterId": "cluster-1",
             "spark.databricks.clusterUsageTags.sparkVersion": "15.4.x-scala2.12"}[key])
-        self.carriers = load_current_managed_carriers("ashlar-delta/0.3")
+        self.carriers = load_current_managed_carriers(manifest["profile_version"])
         self.inventory = receipt["installationInventory"]
-        self.attempt_rows = _attempt_rows(_fixture_request_for_attempt(manifest, receipt), manifest)
+        self.request = request or _fixture_request_for_attempt(manifest, receipt)
+        self.attempt_rows = _attempt_rows(self.request, manifest)
         self.calls = []
+        self.parameters = []
         self.limits = []
         self.role_rows = {role: [] for role in ("object_current", "edge_current", "tombstone",
                                                 "whole_source_history")}
         self.timezone = "UTC"
         self.role_identity_drift = None
+        self.hash_values = {}
+        self.hash_rows_override = None
 
     def sql(self, sql, args=None):
-        args = args or {}; self.calls.append(sql)
+        args = args or {}; self.calls.append(sql); self.parameters.append(dict(args))
         if "current_user() AS principal" in sql:
             rows, cols = [{"principal": self.owner, "catalog": "client_dev", "schema": "trial_schema"}], \
                 (("principal", "string"), ("catalog", "string"), ("schema", "string"))
@@ -105,6 +111,12 @@ class _Spark:
             rows = list(self.role_rows[role])
             if self.role_identity_drift == role:
                 self.uuids[role] = "00000000-0000-4000-8000-000000000001"
+        elif sql == ("SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
+                     "CAST(:id AS BIGINT)) AS lookup_hash"):
+            args_key = (args["source"], args["type"], args["id"])
+            rows = (list(self.hash_rows_override) if self.hash_rows_override is not None else
+                    [{"lookup_hash": self.hash_values.get(args_key, -1)}])
+            cols = (("lookup_hash", "long"),)
         elif sql.startswith("SELECT * FROM") and "VERSION AS OF" in sql:
             role = sql.split("VERSION AS OF", 1)[0].rsplit(".", 1)[-1].strip("` ")
             cols = tuple((name, kind.lower().replace("bigint", "long"))
@@ -134,7 +146,7 @@ def _spark_config(config):
         "sessionTimeZone": "UTC"}
     return ManagedCurrentSparkReceiptConfig(config.catalog, config.schema,
         config.expected_principal, config.expected_table_owner, config.source_truss_version,
-        config.protocol_profile, runtime)
+        config.protocol_profile, runtime, carrier_profile=config.carrier_profile)
 
 
 def _fixture_request_for_attempt(manifest, receipt):
@@ -163,6 +175,54 @@ def _empty_current_source_prefix():
         "progress": {checkpoint["feed"]: checkpoint}}
     data = _canonical(prefix).encode()
     return config, prefix, data
+
+
+def _xxhash_current_source_prefix():
+    from test_managed_current_core import _current_admission
+    from ashlar_host.managed_current_core import (
+        CARRIER_PROFILE_XXHASH64, ManagedCurrentCoreConfig, bind_current_core,
+    )
+    from ashlar_host.publication_planning import truss_request_for
+    from ashlar.source_checkpoint import truss_checkpoint
+
+    config = ManagedCurrentCoreConfig("client_dev", "trial_schema", None, None, 0, 100,
+                                      carrier_profile=CARRIER_PROFILE_XXHASH64)
+    admission = _current_admission()
+    revisions = {revision: hashlib.sha256(selected["report"]).hexdigest()
+                 for revision, selected in admission.revisions.items()}
+    request = truss_request_for(admission.batch.feed, admission.batch,
+        "managed-current-genesis/0.1", revisions)
+    bundle = bind_current_core(admission, config)
+    checkpoint = json.loads(truss_checkpoint(admission.batch))
+    prefix = {"profile": "ashlar-managed-current-source-prefix/0.1",
+        "carrierProfile": CARRIER_PROFILE_XXHASH64,
+        "destination": {"catalog": config.catalog, "schema": config.schema},
+        "scheduleSha256": "b" * 64, "scheduleStep": 1,
+        "entries": [{"bundleJson": _canonical(bundle), "requestJson": _canonical(request),
+                     "materializationClockUs": "1792756800123456"}],
+        "progress": {checkpoint["feed"]: checkpoint}}
+    raw = _canonical(prefix).encode()
+    return config, prefix, raw, request
+
+
+def _xxhash_spark_case():
+    from ashlar_host.managed_current_core import CARRIER_PROFILE_XXHASH64
+
+    prefix_config, prefix, prefix_bytes, request = _xxhash_current_source_prefix()
+    _old_request, manifest, receipt, uuids, sql_config = _fixture(CARRIER_PROFILE_XXHASH64)
+    manifest = copy.deepcopy(manifest)
+    manifest["source_progress_json"] = _canonical(prefix["progress"])
+    manifest["schema_revisions_json"] = request["schema_revisions_json"]
+    validation = json.loads(manifest["validation_report_json"])
+    validation["request_digest"] = request["request_digest"]
+    manifest["validation_report_json"] = _canonical(validation)
+    receipt = copy.deepcopy(receipt)
+    receipt["requestDigest"] = request["request_digest"]
+    receipt["manifest"] = manifest
+    receipt["manifestSha256"] = hashlib.sha256(_canonical(manifest).encode()).hexdigest()
+    receipt["weftBindingInputs"]["manifest"] = manifest
+    spark = _Spark(manifest, receipt, uuids, request=request)
+    return prefix_config, prefix, prefix_bytes, request, manifest, receipt, uuids, _spark_config(sql_config), spark
 
 
 def _authored_adapter_oracle(case, expected_rows):
@@ -546,6 +606,130 @@ class ManagedCurrentSparkReceiptReadTests(unittest.TestCase):
         self.spark.sql = altered_sql
         with self.assertRaisesRegex(ValueError, "UTC Spark session timezone"):
             ManagedCurrentSparkReceiptReader(self.spark, self.config)
+
+    def test_xxhash_empty_prefix_is_rebuilt_after_zero_native_probes(self):
+        (core_config, _prefix, prefix_bytes, request, manifest, receipt,
+         uuids, spark_config, spark) = _xxhash_spark_case()
+        keys = derive_managed_current_prefix_lookup_keys(prefix_bytes,
+            prefix_sha256=hashlib.sha256(prefix_bytes).hexdigest(), config=core_config,
+            expected_source_truss_version=spark_config.source_truss_version)
+        self.assertEqual(keys, ())
+        reader = ManagedCurrentSparkReceiptReader(spark, spark_config)
+        observation = reader.reopen(request_bytes=_canonical(request).encode(),
+            manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt,
+            source_prefix_bytes=prefix_bytes,
+            source_prefix_sha256=hashlib.sha256(prefix_bytes).hexdigest(),
+            source_core_config=core_config)
+        self.assertRegex(observation.bag_comparison_sha256, r"^[0-9a-f]{64}$")
+        self.assertEqual(observation.source_prefix_sha256,
+                         hashlib.sha256(prefix_bytes).hexdigest())
+        self.assertFalse(any("xxhash64" in sql for sql in spark.calls))
+        self.assertEqual(len([sql for sql in spark.calls if "LIMIT 1025" in sql]), 4)
+
+    def test_xxhash_source_prefix_requires_the_reader_truss_version(self):
+        (core_config, _prefix, prefix_bytes, _request, _manifest, _receipt,
+         _uuids, spark_config, spark) = _xxhash_spark_case()
+        with self.assertRaisesRegex(ValueError, "selected Truss source version"):
+            derive_managed_current_prefix_lookup_keys(prefix_bytes,
+                prefix_sha256=hashlib.sha256(prefix_bytes).hexdigest(), config=core_config,
+                expected_source_truss_version=("0.0.44" if spark_config.source_truss_version != "0.0.44"
+                                               else "0.0.49"))
+        self.assertFalse(any("xxhash64" in sql for sql in spark.calls))
+
+    def test_xxhash_probe_uses_exact_typed_parameters_and_preserves_full_keys(self):
+        (_core, _prefix, _bytes, _request, manifest, receipt,
+         uuids, spark_config, spark) = _xxhash_spark_case()
+        reader = ManagedCurrentSparkReceiptReader(spark, spark_config)
+        args = ("sourcé", str(-(1 << 63)), str((1 << 63) - 1))
+        spark.hash_values[args] = -(1 << 63)
+        keys = (("object", "sourcé", -(1 << 63), (1 << 63) - 1),
+                ("edge", "sourcé", -(1 << 63), (1 << 63) - 1),
+                ("object", "other-source", 1, 2))
+        spark.hash_values[("other-source", "1", "2")] = -(1 << 63)
+        observed = reader._probe_source_lookup_hashes(keys)
+        self.assertEqual(observed, {key: -(1 << 63) for key in keys})
+        probe_indexes = [i for i, sql in enumerate(spark.calls) if "xxhash64" in sql]
+        self.assertEqual(len(probe_indexes), 2)
+        self.assertEqual(spark.calls[-1],
+            "SELECT xxhash64(CAST(:source AS STRING),CAST(:type AS BIGINT),"
+            "CAST(:id AS BIGINT)) AS lookup_hash")
+        selected = next(spark.parameters[index] for index in probe_indexes
+                        if spark.parameters[index]["source"] == "sourcé")
+        self.assertEqual(selected,
+                         {"source": "sourcé", "type": str(-(1 << 63)),
+                          "id": str((1 << 63) - 1)})
+        self.assertEqual(reader._approved_hash_parameters, set())
+
+    def test_xxhash_probe_refuses_bool_hash_invalid_identity_and_budget_exhaustion(self):
+        (_core, _prefix, _bytes, _request, manifest, receipt,
+         uuids, spark_config, spark) = _xxhash_spark_case()
+        reader = ManagedCurrentSparkReceiptReader(spark, spark_config)
+        key = (("object", "feed", 1, 2),)
+        spark.hash_values[("feed", "1", "2")] = True
+        with self.assertRaisesRegex(ValueError, "signed64 and non-Boolean"):
+            reader._probe_source_lookup_hashes(key)
+        self.assertEqual(reader._approved_hash_parameters, set())
+        calls_before = len(spark.calls)
+        with self.assertRaisesRegex(ValueError, "signed64 source identity"):
+            reader._probe_source_lookup_hashes((("object", "feed", True, 2),))
+        self.assertEqual(len(spark.calls), calls_before)
+        too_many = tuple(("object", "feed", index, index + 1) for index in range(33))
+        with self.assertRaisesRegex(ValueError, "at most 32 unique keys"):
+            reader._probe_source_lookup_hashes(too_many)
+        self.assertEqual(len(spark.calls), calls_before)
+        spark.hash_rows_override = []
+        with self.assertRaisesRegex(ValueError, "One exact native signed BIGINT hash"):
+            reader._probe_source_lookup_hashes(key)
+        self.assertEqual(reader._approved_hash_parameters, set())
+        calls_before_budget = len(spark.calls)
+        reader.statements = reader.config.maximum_statements - 24 - 12
+        with self.assertRaisesRegex(ValueError, "Insufficient statement budget"):
+            reader._probe_source_lookup_hashes(key)
+        self.assertEqual(len(spark.calls), calls_before_budget)
+
+    def test_xxhash_probe_inventory_keeps_intermediate_create_deleted_by_later_page(self):
+        object_key = EntityKey("feed", "object", 7, 11)
+        edge_key = EntityKey("feed", "edge", 9, 13)
+        created = SimpleNamespace(current={object_key: object(), edge_key: object()})
+        deleted = SimpleNamespace(current={})
+        create_changes = SimpleNamespace(changes=[])
+        delete_changes = SimpleNamespace(changes=[
+            SimpleNamespace(state=SimpleNamespace(key=object_key), operation="delete"),
+            SimpleNamespace(state=SimpleNamespace(key=edge_key), operation="delete"),
+        ])
+        tokens = _source_prefix_lookup_tokens((
+            (SimpleNamespace(), created, create_changes, "clock-1"),
+            (created, deleted, delete_changes, "clock-2"),
+        ))
+        self.assertEqual(tokens, {
+            ("object", "feed", 7, 11), ("edge", "feed", 9, 13),
+        })
+
+    def test_xxhash_probe_refuses_oversized_source_utf8_token_before_query(self):
+        (_core, _prefix, _bytes, _request, _manifest, _receipt,
+         _uuids, _spark_config, spark) = _xxhash_spark_case()
+        reader = ManagedCurrentSparkReceiptReader(spark, _spark_config)
+        before = len(spark.calls)
+        key = (("object", "é" * 32769, 1, 2),)
+        with self.assertRaisesRegex(ValueError, "65536 UTF-8 bytes"):
+            reader._probe_source_lookup_hashes(key)
+        self.assertEqual(len(spark.calls), before)
+
+    def test_xxhash_prebuilt_oracle_cannot_claim_native_probe(self):
+        (_core, _prefix, _bytes, request, manifest, receipt,
+         uuids, spark_config, spark) = _xxhash_spark_case()
+        reader = ManagedCurrentSparkReceiptReader(spark, spark_config)
+        oracle = ManagedCurrentSourcePrefixOracle("ashlar-managed-current-source-prefix/0.1",
+            CARRIER_PROFILE_XXHASH64, "a" * 64, "b" * 64, 1,
+            _canonical({"catalog": spark_config.catalog, "schema": spark_config.schema}),
+            manifest["source_progress_json"], _canonical(request), "[]",
+            _canonical({role: [] for role in ("object_current", "edge_current", "tombstone",
+                                               "whole_source_history")}))
+        with self.assertRaisesRegex(ValueError, "Prebuilt .4 source oracles"):
+            reader.reopen(request_bytes=_canonical(request).encode(),
+                manifest_bytes=_canonical(manifest).encode(), expected_receipt=receipt,
+                source_oracle=oracle)
+        self.assertFalse(any("xxhash64" in sql for sql in spark.calls))
 
     def test_timezone_change_at_closing_withholds_closing_inventory(self):
         observation = self.reopen()
