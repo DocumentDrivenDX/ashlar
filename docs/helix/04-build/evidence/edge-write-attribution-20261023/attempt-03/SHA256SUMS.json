@@ -1,0 +1,62 @@
+[
+  {
+    "bytes": 7249,
+    "path": "experiment.json",
+    "sha256": "eb4dca09df79af0612e02c8e21fbafff14fb09e1ba9275eca2b774d8ed549390"
+  },
+  {
+    "bytes": 1686,
+    "path": "insert-plan.txt",
+    "sha256": "93d7f57ca3df4d33e3975d73ad6149692f3f8eb0088813e9b252880c145d0d9f"
+  },
+  {
+    "bytes": 1267,
+    "path": "insert-sql-display.txt",
+    "sha256": "13f1666bc5c6bae4da4d799ed23219592b4481d45ac6923f08d254d8f75a63b9"
+  },
+  {
+    "bytes": 1266,
+    "path": "insert.sql",
+    "sha256": "088d365593b311cd9c75f14b9129cf4beaab24657e126a0d538de3fa99f2ff5e"
+  },
+  {
+    "bytes": 2491,
+    "path": "progress.jsonl",
+    "sha256": "3030811f5d18b09351313a8523e12c6d6afd34b1268f7ea71954f08c32c21b5a"
+  },
+  {
+    "bytes": 803,
+    "path": "run.log",
+    "sha256": "ea323fa2e44d4c5b560af74ec78389b0f09838ecc3c333b90da11876933e67cf"
+  },
+  {
+    "bytes": 207566,
+    "path": "spark-attribution-reparsed.json",
+    "sha256": "d25ec8df0e135be1dfe6f141abd55d8d67065285fc5b1de7d972282cc459f174"
+  },
+  {
+    "bytes": 161266,
+    "path": "spark-attribution.json",
+    "sha256": "6f971902742e7b10db7c2f8b9c425d17e61e2d2be5a18a26c5b435c2d88fd556"
+  },
+  {
+    "bytes": 8,
+    "path": "spark-events/.appstatus_local-1792767585498.crc",
+    "sha256": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d"
+  },
+  {
+    "bytes": 0,
+    "path": "spark-events/appstatus_local-1792767585498",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "bytes": 2300832,
+    "path": "spark-events/events_1_local-1792767585498",
+    "sha256": "a10fd232c70bfae7d4b6bbcc34b0ab5bc74a8ae861d3efe12aa51b76a9a6ba0f"
+  },
+  {
+    "bytes": 859,
+    "path": "supervisor-result.json",
+    "sha256": "2ff8356977336999e189d5f7dc1f4f84835af11582943d2b771e8ddd89ba7ae9"
+  }
+]

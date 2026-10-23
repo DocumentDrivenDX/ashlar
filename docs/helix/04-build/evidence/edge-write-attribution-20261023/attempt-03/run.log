@@ -1,0 +1,8 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/23 10:59:39 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+You are setting a property: delta.parquet.compression.codec that is not recognized by this version of Delta
+You are setting a property: delta.targetFileSize that is not recognized by this version of Delta
+26/10/23 10:59:49 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.

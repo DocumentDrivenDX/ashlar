@@ -1,0 +1,182 @@
+{
+  "attempt": "03",
+  "attribution": {
+    "disk_spill_bytes": 0,
+    "limitations": "Executor totals are summed across 18 tasks. CPU utilization ratio does not attribute compression or IO. Stage 6 is nested beneath outer AppendData execution 8; its job/stage are attached to child execution 9. The 0.869s difference between INSERT wall and stage span is residual overhead, not pure commit time. No JFR/profiler was collected.",
+    "memory_spill_bytes": 0,
+    "nested_plan_first_operator": "Project / Range",
+    "nested_root_execution_id": 8,
+    "nested_sql_execution_id": 9,
+    "outer_plan_first_operator": "AppendDataExecV1",
+    "outer_root_execution_id": 8,
+    "outer_sql_execution_id": 8,
+    "outer_stage_ids": [],
+    "stage_executor_cpu_ns": 310683858000,
+    "stage_executor_cpu_seconds": 310.683858,
+    "stage_executor_run_ms": 424703,
+    "stage_jvm_gc_ms": 11277,
+    "stage_output_bytes": 2569031961,
+    "stage_output_records": 225000000,
+    "stage_span_fraction_of_insert_wall": 0.9670210180748261,
+    "stage_span_ms": 25485,
+    "stage_task_expected": 18,
+    "stage_task_observed": 18,
+    "task_duration_ms": {
+      "max": 25466,
+      "median": 23884,
+      "min": 21763,
+      "sum": 426466
+    },
+    "write_job_ids": [
+      4
+    ],
+    "write_stage_ids": [
+      6
+    ]
+  },
+  "cleanup": {
+    "path": "/private/tmp/ashlar-edge-write-attribution-20261023-attempt-03/out/warehouse",
+    "verified_absent": true,
+    "warehouse_removed": true
+  },
+  "commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+  "identity": {
+    "delta_jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "generated_sha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "insert_sql_sha256": "088d365593b311cd9c75f14b9129cf4beaab24657e126a0d538de3fa99f2ff5e",
+    "wheel_sha256": "18401e7052202515da90c5c7a87d775c8c33b82f82b9526f9802d615356b76af"
+  },
+  "result": {
+    "active_parquet_bytes": 2569031961,
+    "codec": [
+      "ZSTD"
+    ],
+    "commit_observed_elapsed_from_start_seconds": 46.45016287500039,
+    "files": 18,
+    "footer_verified_elapsed_from_start_seconds": 47.36749970802339,
+    "insert_sql_display_file_sha256": "13f1666bc5c6bae4da4d799ed23219592b4481d45ac6923f08d254d8f75a63b9",
+    "insert_sql_file_sha256": "088d365593b311cd9c75f14b9129cf4beaab24657e126a0d538de3fa99f2ff5e",
+    "matches_prior_baseline_active_bytes": true,
+    "parquet_files": [
+      {
+        "bytes": 143081908,
+        "name": "part-00000-65d6be57-36c9-4203-a55a-6cd0eb627158-c000.zstd.parquet",
+        "sha256": "dcf5784f73affbfaf8a6a6a388f76b172ae62ceb64392b9da38565eb4cd393cf"
+      },
+      {
+        "bytes": 142781590,
+        "name": "part-00001-c19db4b5-12cd-44bc-8b44-ce861660d883-c000.zstd.parquet",
+        "sha256": "42b3c9416bdb21404b1630fcae4a5bfd5cbcebe747a114e4e71014d683f4ca85"
+      },
+      {
+        "bytes": 142781027,
+        "name": "part-00002-d8263e23-9b0c-46c1-91c8-2698a88fe32b-c000.zstd.parquet",
+        "sha256": "b36d67011ef4e03ec00ffd0b92ab29f403175e5465295ba9dd01550c1408c6a8"
+      },
+      {
+        "bytes": 142781028,
+        "name": "part-00003-98e802f2-6164-4aee-9ad7-2dae06bbbeae-c000.zstd.parquet",
+        "sha256": "3adbe357e271e22114cf06b8f42917c11daa8e41326577f14d5719776b5144b0"
+      },
+      {
+        "bytes": 142781555,
+        "name": "part-00004-c77186e7-7e43-486c-868b-60f58e563901-c000.zstd.parquet",
+        "sha256": "5939d37aaa8f0807a0642dd7994d153ebce31b4c4e7d3170ab7d95f30b2f276b"
+      },
+      {
+        "bytes": 142782337,
+        "name": "part-00005-51cc811b-5b70-437c-81d2-9f5a8dda80a8-c000.zstd.parquet",
+        "sha256": "332e7070652cb1448e9802f4db1a3afd23fc165b887e71dcd84ebcc86f2c2b0d"
+      },
+      {
+        "bytes": 142780929,
+        "name": "part-00006-8d06cf91-cf4d-490f-82a3-5b2a7d0db746-c000.zstd.parquet",
+        "sha256": "777e40c0c2990f006ac6db60fdbc179b901233dea1119d76beadd39a6bdc8c14"
+      },
+      {
+        "bytes": 142780995,
+        "name": "part-00007-1a5310de-b27f-433c-b352-e63e78a4b7dc-c000.zstd.parquet",
+        "sha256": "d84c6703fdc6d2a56137f58f6327c8e1fdf5e23abdb4390aab01bba666a740b9"
+      },
+      {
+        "bytes": 142647993,
+        "name": "part-00008-cd987a2a-0b68-4afb-a1e4-86b4b041cdeb-c000.zstd.parquet",
+        "sha256": "9236eb31f24134ca318953ae504965999226b3b5112af731278f2665c197b7f5"
+      },
+      {
+        "bytes": 142647508,
+        "name": "part-00009-0a0c0906-505f-4118-a14d-88a09cd1cb4d-c000.zstd.parquet",
+        "sha256": "f22b39c3165ce31069f8fc2b5b0fd3b76495dbcf5a3026dcddb4b45c1acdbc60"
+      },
+      {
+        "bytes": 142648039,
+        "name": "part-00010-ccd5f6c4-12e9-41e8-ba11-8114a3aa9e25-c000.zstd.parquet",
+        "sha256": "3c90fe8cbc898a2a7d7eb1536b15c906e11fdad51ab397bd4d38abe43fabf226"
+      },
+      {
+        "bytes": 142647843,
+        "name": "part-00011-15ce728b-7f3b-41a4-8adb-fd8ecca2f04c-c000.zstd.parquet",
+        "sha256": "511259e15bb8afe8f20d5718b65ad67923bb180341fda45c7634d3e7884de3ab"
+      },
+      {
+        "bytes": 142648801,
+        "name": "part-00012-d19df684-53a9-4112-847a-58d6669eb310-c000.zstd.parquet",
+        "sha256": "22a1c5892b8ed4f2d4c775f222dc54abe1297733a2978f2a4c4021ac5512ee51"
+      },
+      {
+        "bytes": 142648189,
+        "name": "part-00013-d3928a79-d263-491b-ba29-64aabc21a73a-c000.zstd.parquet",
+        "sha256": "fdfb0f0696993145e577ff338391fc81ce515ce6462e1cb6279180e452fa1fc8"
+      },
+      {
+        "bytes": 142648029,
+        "name": "part-00014-007516a5-dde6-41bb-a46e-31abe54e0e6f-c000.zstd.parquet",
+        "sha256": "c7af1f68ca287d849586a72a39339c2fa735153a5e0b31668f4e226f16417c3e"
+      },
+      {
+        "bytes": 142648644,
+        "name": "part-00015-45d615ef-1365-4595-81af-bf8b752e9c3c-c000.zstd.parquet",
+        "sha256": "4e4e3e349ca5b5047bf2c90994d37f530a8b6864f3212b8966a540d8bbecd08e"
+      },
+      {
+        "bytes": 142647974,
+        "name": "part-00016-1fd6974b-cc9e-4c18-a2b2-28f2a19c1fbe-c000.zstd.parquet",
+        "sha256": "15eb5303bb70e5a19081941c73c8f2cab0523edfd0075ad03ffb08471d4ba830"
+      },
+      {
+        "bytes": 142647572,
+        "name": "part-00017-c92ebecf-dbac-42ae-8782-c5b7c2c75054-c000.zstd.parquet",
+        "sha256": "ebd023df68eaa4dc9e695b974b46dc27cd02a916a5ff397f2100dad8b3e5b763"
+      }
+    ],
+    "prior_active_bytes": 2569031961,
+    "rows": 225000000,
+    "spark_stopped_elapsed_from_start_seconds": 47.70103541703429,
+    "write_sql_seconds": 26.354132457985543
+  },
+  "run": {
+    "diagnostic_bytes": 2468353,
+    "diagnostic_threshold_bytes": 128000000,
+    "limit_triggered": null,
+    "observed_output_tree_bytes": 2591601070,
+    "output_threshold_bytes": 4000000000,
+    "supervisor_returncode": 0,
+    "thresholds_are_polled_not_hard_quotas": true,
+    "timed_out": false,
+    "wall_seconds": 48.339
+  },
+  "runtime": {
+    "codec": "ZSTD",
+    "delta": "4.4.1",
+    "driver_memory": "24g",
+    "expected_generated_rows": 225000000,
+    "jvm": "OpenJDK 21.0.13.0.2",
+    "master": "local[18]",
+    "partitions": 18,
+    "pyspark": "4.2.0",
+    "python": "3.12.14"
+  }
+}
