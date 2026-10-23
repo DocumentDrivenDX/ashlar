@@ -236,10 +236,12 @@ two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
 few-minute goal. The [inert full-size trial packet](evidence/r05-full-delta4-scale-packet-20261023/README.md)
 sets a proposed 30-minute fail-fast ceiling and independent endpoint oracle;
-its offline two-role UMF DDL/INSERT plan now passes admission, but it is not
-execution-ready while the native full-size materializer and reviewed runner
-are missing. Fabric R1/R2 remains a separate held lane until current
-source/ACK, exact workspace paths, capacity and zero-cost cleanup are admitted
+its offline two-role UMF DDL/INSERT plan passes admission, and the full trial
+driver and local supervisor have an independent source review and seven focused
+inert checks. It is not execution-ready: the tiny persisted-carrier native
+action, exact runtime/slot admission, and owner review of the 16.50-minute
+write estimate remain outstanding. Fabric R1/R2 remains a separate held lane
+until current source/ACK, exact workspace paths, capacity and zero-cost cleanup are admitted
 ([fresh Fabric plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)).
 
 Finally, reconcile R01–R05 evidence to exact support claims, build wheel and
@@ -262,8 +264,13 @@ own vector, source-specific ACK and retained-read checks, not repeated query
 matrices.
 
 Before creating the fresh `client_dev` schema or starting any compute, freeze
-actual accepted A and independently installed B source identities, all eight
-request bytes and expected states, selected runtime/principal, one owned schema,
+actual accepted A and independently installed B source identities, the exact
+eight-slot semantic schedule and expected states, and the A1 request bytes.
+For each later slot, freeze its exact request bytes after the preceding verified
+publication and protected ACK, before that slot's source mutation, as approved
+in [CONTRACT-001](../02-design/contracts/CONTRACT-001-publication-boundary.md#approved-r04-slot-by-slot-request-freeze)
+and [CONTRACT-003](../02-design/contracts/CONTRACT-003-delta-graph-tables.md).
+Also fix the selected runtime/principal, one owned schema,
 per-task timeout, dedicated SQL endpoint and complete Jobs/SQL/cleanup cost
 estimate. Propose one bounded A1 pilot with a five-minute task maximum,
 concurrency one, no retries and a separate finite caller wall deadline that
@@ -281,9 +288,9 @@ and owned cleanup. If billing telemetry is delayed, use the admitted resource
 shape, rate and caller-duration upper bound with the full cleanup reserve.
 Stop for review when neither measurement nor a reliable conservative bound can
 cover the remaining campaign, or when projected total spend exceeds the $100
-ceiling; check the envelope before each later slot. No pilot
-starts until the two sources and complete schedule are frozen. The historical
-unscheduled layout job does not execute this flow.
+ceiling; check the envelope before each later slot. No pilot starts until the
+two sources, complete semantic schedule and A1 request are frozen. The
+historical unscheduled layout job does not execute this flow.
 
 R05 has two distinct proofs. The small managed UC campaign qualifies actual
 selected-version Truss 0.0.49 acceptance, incremental publication, source ACK and current Weft

@@ -5,9 +5,9 @@
 Spark, created a fixture, consumed cloud compute, or deleted data. The 16.50-minute
 write estimate is above the 15-minute owner-review trigger and is not permission
 to run. The offline generator creates only an in-memory SQL plan. A proposed
-worker and isolated local process supervisor now exist, but neither has been
-independently reviewed or used for native execution; the full attempt remains
-held.
+worker and isolated local process supervisor now exist and passed an independent
+source review plus seven focused inert checks. Neither has been used for native
+execution; the full attempt remains held.
 
 ## Decision and scope
 
@@ -138,7 +138,8 @@ enforcement or a production multiplicity claim.
   before Spark or filesystem access. It only covers the tiny five-node/four-edge
   discriminator and explicitly requires admitted UMF `.4` DDL plus writer-7
   verification. The separate candidate generator and full trial driver are
-  present, but have not received independent review or any native execution.
+  present and independently reviewed as inert source, but have no native
+  execution evidence.
 - The UMF 0.5.6 candidate bridge currently has one-table local DDL/write
   acceptance only. A two-role offline bridge admission is recorded in
   `offline-generation-check.json`; it does not qualify two-role native DDL,
