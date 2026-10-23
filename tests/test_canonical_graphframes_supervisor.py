@@ -142,6 +142,10 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
         spark_submit.write_bytes(b"#!/bin/sh\nexit 0\n")
         spark_submit.chmod(0o700)
         spark_submit_digest = supervisor.sha256_file(spark_submit)
+        python_executable = root / "test-python"
+        python_executable.write_bytes(b"#!/bin/sh\nexit 0\n")
+        python_executable.chmod(0o700)
+        python_digest = supervisor.sha256_file(python_executable)
         packet = {
             "reviewStatus": "independently-reviewed",
             "executionStatus": "authorized-for-one-attempt",
@@ -151,6 +155,9 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                        "sha256": supervisor.sha256_file(worker_path)},
             "runtime": {
                 "master": "local[2]",
+                "pythonExecutable": str(python_executable.resolve()),
+                "pythonExecutableSha256": python_digest,
+                "pythonPath": "/reviewed/ashlar/src",
                 "javaHome": str(java_home.resolve()),
                 "javaExecutable": str(java_executable.resolve()),
                 "javaExecutableSha256": selected_java_digest,
@@ -167,9 +174,11 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                 "processGroup": "one child session; terminate/kill group and reap leader",
                 "sparkScratch": "entirely under the fresh accounted attempt root",
             },
-            "retainedInputs": ([str(java_executable), str(spark_submit)] if include_java else []),
+            "retainedInputs": ([str(java_executable), str(spark_submit),
+                                str(python_executable)] if include_java else []),
             "retainedInputSha256": ({str(java_executable): selected_java_digest,
-                                     str(spark_submit): spark_submit_digest}
+                                     str(spark_submit): spark_submit_digest,
+                                     str(python_executable): python_digest}
                                     if include_java else {}),
         }
         packet_path = root / "admission-packet.json"
@@ -199,6 +208,46 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
             packet_path, authorization_path = self._authorized_admission_bundle(
                 root, attempt_parent.resolve(), java_digest="0" * 64)
             with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "Java executable path or SHA-256"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_authorized_admission_requires_the_exact_python_executable_hash(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-python-pin-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve())
+            packet = json.loads(packet_path.read_text())
+            packet["runtime"]["pythonExecutableSha256"] = "0" * 64
+            packet_path.write_text(json.dumps(packet, sort_keys=True))
+            authorization = json.loads(authorization_path.read_text())
+            authorization["invocationPacketSha256"] = supervisor.sha256_file(packet_path)
+            authorization_path.write_text(json.dumps(authorization, sort_keys=True))
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "Python executable path or SHA-256"):
+                supervisor._verify_packet_and_authorization(
+                    packet_path, supervisor.sha256_file(packet_path),
+                    authorization_path, supervisor.sha256_file(authorization_path))
+
+    def test_authorized_admission_requires_python_in_the_retained_inventory(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-python-inventory-") as directory:
+            root = Path(directory)
+            attempt_parent = root / "attempts"
+            attempt_parent.mkdir(mode=0o700)
+            packet_path, authorization_path = self._authorized_admission_bundle(
+                root, attempt_parent.resolve())
+            packet = json.loads(packet_path.read_text())
+            packet["retainedInputs"] = [p for p in packet["retainedInputs"]
+                                        if not p.endswith("test-python")]
+            packet["retainedInputSha256"] = {
+                p: h for p, h in packet["retainedInputSha256"].items()
+                if not p.endswith("test-python")}
+            packet_path.write_text(json.dumps(packet, sort_keys=True))
+            authorization = json.loads(authorization_path.read_text())
+            authorization["invocationPacketSha256"] = supervisor.sha256_file(packet_path)
+            authorization_path.write_text(json.dumps(authorization, sort_keys=True))
+            with self.assertRaisesRegex(supervisor.NativeAttemptRefused, "Pinned Python, Java"):
                 supervisor._verify_packet_and_authorization(
                     packet_path, supervisor.sha256_file(packet_path),
                     authorization_path, supervisor.sha256_file(authorization_path))
@@ -270,7 +319,12 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
             spark_submit = spark_home / "bin/spark-submit"
             spark_submit.write_bytes(b"fake spark submit pin")
             spark_submit.chmod(0o700)
+            python = root / "python"
+            python.write_bytes(b"fake selected Python interpreter")
+            python.chmod(0o700)
             runtime = {
+                "pythonExecutable": str(python.resolve()),
+                "pythonExecutableSha256": supervisor.sha256_file(python),
                 "javaHome": str(java_home.resolve()), "javaExecutable": str(java.resolve()),
                 "javaExecutableSha256": supervisor.sha256_file(java),
                 "sparkHome": str(spark_home.resolve()),
@@ -278,12 +332,18 @@ class BoundedNativeSupervisorTests(unittest.TestCase):
                 "sparkSubmitSha256": supervisor.sha256_file(spark_submit),
                 "pythonPath": "/reviewed/ashlar/src",
             }
-            with patch.dict(os.environ, {"PATH": "/ambient/java/bin", "JAVA_HOME": "/ambient/java"}):
+            with patch.dict(os.environ, {
+                    "PATH": "/ambient/java/bin", "JAVA_HOME": "/ambient/java",
+                    "PYSPARK_PYTHON": "/ambient/python",
+                    "PYSPARK_DRIVER_PYTHON": "/ambient/python-driver"}):
                 env = supervisor._child_environment(runtime, root)
             self.assertEqual(env["JAVA_HOME"], str(java_home.resolve()))
             self.assertEqual(env["SPARK_HOME"], str(spark_home.resolve()))
             self.assertEqual(env["PATH"], os.pathsep.join((str(java_bin.resolve()), "/usr/bin", "/bin")))
             self.assertNotIn("/ambient", env["PATH"])
+            self.assertEqual(env["PYSPARK_PYTHON"], str(python.resolve()))
+            self.assertEqual(env["PYSPARK_DRIVER_PYTHON"], str(python.resolve()))
+            self.assertEqual(env["PYTHONPATH"], "/reviewed/ashlar/src")
 
     def test_failed_close_invalidates_staged_and_final_success_receipts(self):
         with tempfile.TemporaryDirectory(prefix="ashlar-receipt-invalidation-") as directory:

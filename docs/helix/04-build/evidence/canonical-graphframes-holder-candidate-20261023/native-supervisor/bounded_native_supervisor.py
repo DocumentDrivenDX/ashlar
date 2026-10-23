@@ -105,6 +105,19 @@ def _validated_java_pin(runtime: dict[str, Any]) -> tuple[Path, Path]:
     return home, executable
 
 
+def _validated_python_pin(runtime: dict[str, Any]) -> Path:
+    executable_text = runtime.get("pythonExecutable")
+    digest = runtime.get("pythonExecutableSha256")
+    if (type(executable_text) is not str or type(digest) is not str
+            or not Path(executable_text).is_absolute()):
+        raise NativeAttemptRefused("Exact Python executable path and SHA-256 pin required")
+    executable = _canonical_regular_file(Path(executable_text))
+    if (not executable.stat().st_mode & stat.S_IXUSR
+            or sha256_file(executable) != digest):
+        raise NativeAttemptRefused("Python executable path or SHA-256 differs from the selected interpreter pin")
+    return executable
+
+
 def _validated_spark_home(runtime: dict[str, Any]) -> tuple[Path, Path]:
     home_text = runtime.get("sparkHome")
     submit_text = runtime.get("sparkSubmitExecutable")
@@ -125,6 +138,7 @@ def _validated_spark_home(runtime: dict[str, Any]) -> tuple[Path, Path]:
 
 def _child_environment(runtime: dict[str, Any], attempt_root: Path) -> dict[str, str]:
     java_home, _java_executable = _validated_java_pin(runtime)
+    python_executable = _validated_python_pin(runtime)
     spark_home, _spark_submit = _validated_spark_home(runtime)
     scratch = attempt_root / "spark-local"
     return {
@@ -137,6 +151,8 @@ def _child_environment(runtime: dict[str, Any], attempt_root: Path) -> dict[str,
         "SPARK_LOCAL_DIRS": str(scratch),
         "JAVA_TOOL_OPTIONS": "-Djava.io.tmpdir=" + str(attempt_root / "tmp"),
         "PYTHONPATH": runtime["pythonPath"], "PYTHONDONTWRITEBYTECODE": "1",
+        "PYSPARK_PYTHON": str(python_executable),
+        "PYSPARK_DRIVER_PYTHON": str(python_executable),
     }
 
 
@@ -395,6 +411,7 @@ def _verify_packet_and_authorization(packet_path: Path, selected_packet_sha256: 
     if worker_path.parent != wrapper_path.parent or sha256_file(worker_path) != worker.get("sha256"):
         raise NativeAttemptRefused("Native verifier worker bytes differ from reviewed packet")
     _java_home, java_executable = _validated_java_pin(packet.get("runtime", {}))
+    python_executable = _validated_python_pin(packet.get("runtime", {}))
     _spark_home, spark_submit = _validated_spark_home(packet.get("runtime", {}))
     retained_inputs = packet.get("retainedInputs")
     retained_hashes = packet.get("retainedInputSha256")
@@ -405,8 +422,11 @@ def _verify_packet_and_authorization(packet_path: Path, selected_packet_sha256: 
                != packet["runtime"]["javaExecutableSha256"]
             or str(spark_submit) not in retained_inputs
             or retained_hashes.get(str(spark_submit))
-               != packet["runtime"]["sparkSubmitSha256"]):
-        raise NativeAttemptRefused("Pinned Java and spark-submit executables and digests must be mandatory retained inputs")
+               != packet["runtime"]["sparkSubmitSha256"]
+            or str(python_executable) not in retained_inputs
+            or retained_hashes.get(str(python_executable))
+               != packet["runtime"]["pythonExecutableSha256"]):
+        raise NativeAttemptRefused("Pinned Python, Java, and spark-submit executables and digests must be mandatory retained inputs")
     return packet, worker_path, packet_file, authorization_file, authorization
 
 
@@ -522,7 +542,7 @@ def run_reviewed_native_attempt(*, packet_path: Path, selected_packet_sha256: st
         str(_canonical_regular_file(Path(action["carrierPath"]))): action["carrierSha256"],
         str(anchor_digest_file): sha256_file(anchor_digest_file),
     }
-    python_path = _canonical_regular_file(Path(runtime["pythonExecutable"]))
+    python_path = _validated_python_pin(runtime)
     mandatory[str(python_path)] = runtime["pythonExecutableSha256"]
     _java_home, java_executable = _validated_java_pin(runtime)
     mandatory[str(java_executable)] = runtime["javaExecutableSha256"]

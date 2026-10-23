@@ -3,7 +3,8 @@
 Sol independently reviewed the prior supervisor wrapper and worker as inert
 preparation. Sol also reviewed the 2 GiB/attempt-root/Java- and Spark-environment
 hardening delta in Ashlar commit `8705cd00`; the focused supervisor suite passed
-19/19. The checked-in invocation packet remains pending review as a future
+19/19. Sol reviewed the subsequent exact PySpark interpreter binding and its
+21/21 focused checks. The checked-in invocation packet remains pending review as a future
 executable selection because its runtime and authorization fields are empty.
 Nothing here authorizes execution. The wrapper, worker, invocation
 packet, action anchor, and action module are independently hash-pinned; the
@@ -51,8 +52,10 @@ The child environment must bind an exact canonical `JAVA_HOME`, its
 `SPARK_HOME`, its exact `bin/spark-submit` executable path and SHA-256 as a
 retained input, and a `jars` directory.
 The wrapper sets both environment variables and a controlled `PATH` beginning
-with the pinned Java `bin` directory; ambient Java selection is not used. The
-checked-in packet leaves these fields, the interpreter and the runtime JAR paths
+with the pinned Java `bin` directory; ambient Java selection is not used. Both
+`PYSPARK_PYTHON` and `PYSPARK_DRIVER_PYTHON` point to the same exact retained
+Python executable whose path, executable bit, and SHA-256 are checked before
+launch. The checked-in packet leaves all runtime path/hash fields and JAR paths
 null and remains execution-disabled.
 Any populated runtime requires a new immutable packet and independent review.
 

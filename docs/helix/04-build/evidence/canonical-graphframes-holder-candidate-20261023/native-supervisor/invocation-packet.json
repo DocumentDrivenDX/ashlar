@@ -6,7 +6,7 @@
   "reviewId": null,
   "wrapper": {
     "path": "bounded_native_supervisor.py",
-    "sha256": "a809d58d247732ff809bf0e57f6c32924eff9fd881410f619f866c9757005db0"
+    "sha256": "2d062ab721335124a28d5744f417ec66810f2eb0fb8e6bdc0cf562c2ea9b64ac"
   },
   "worker": {
     "path": "canonical_graphframes_worker.py",
@@ -77,7 +77,7 @@
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/external-manifest/candidate-r3/manifest.anchor.sha256"
   ],
   "retainedInputSha256": {
-    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/bounded_native_supervisor.py": "a809d58d247732ff809bf0e57f6c32924eff9fd881410f619f866c9757005db0",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/bounded_native_supervisor.py": "2d062ab721335124a28d5744f417ec66810f2eb0fb8e6bdc0cf562c2ea9b64ac",
     "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/native-supervisor/canonical_graphframes_worker.py": "485203df63efa49f1ced3fff3f4578ef60b74529e0dc1439a47bcbdca4fc62fd",
     "/Users/erik/Projects/ashlar/src/ashlar_host/pinned_delta_graphframes.py": "be40300c0cd48d0075d14cf98555b154f1d0b4940991bc6fdf587536646757aa",
     "/Users/erik/Projects/ashlar/src/ashlar_host/resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
