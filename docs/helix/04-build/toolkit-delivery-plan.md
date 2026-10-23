@@ -236,8 +236,9 @@ two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
 few-minute goal. The [inert full-size trial packet](evidence/r05-full-delta4-scale-packet-20261023/README.md)
 sets a proposed 30-minute fail-fast ceiling and independent endpoint oracle;
-it is not execution-ready while the admitted full-size UMF materializer and
-reviewed runner are missing. Fabric R1/R2 remains a separate held lane until current
+its offline two-role UMF DDL/INSERT plan now passes admission, but it is not
+execution-ready while the native full-size materializer and reviewed runner
+are missing. Fabric R1/R2 remains a separate held lane until current
 source/ACK, exact workspace paths, capacity and zero-cost cleanup are admitted
 ([fresh Fabric plan](evidence/commerce-fabric-fresh-functional-plan-20261023/README.md)).
 

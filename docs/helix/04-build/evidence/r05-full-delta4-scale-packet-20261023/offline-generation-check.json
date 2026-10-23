@@ -1,0 +1,61 @@
+{
+  "candidateCommit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08",
+  "endpointOracle": {
+    "edgeRows": 5000000000,
+    "first": [
+      0,
+      0
+    ],
+    "invalidEndpointsByFormula": 0,
+    "last": [
+      999999999,
+      1
+    ],
+    "parallelEdgePair": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "sourceType": 1,
+    "targetType": 1
+  },
+  "generatorSha256": "a4f2c1d6d8f435c10e0026761fb8087203294da75e3998af757471989738830a",
+  "limitations": [
+    "Offline proposal generation only",
+    "No Spark SQL parse or execution",
+    "No full-size materialization or read/GraphFrames/cleanup"
+  ],
+  "miniRacer": "0.14.1",
+  "profile": "ashlar-r05-full-delta4-generation-offline-check/0.1",
+  "python": "3.12.14",
+  "roles": [
+    {
+      "ddlSha256": "3c7c8447bfbd2f5c53232c5bf5d9c6bb73a3f188c1717226f436617647d8e5cc",
+      "generatedDdl": true,
+      "insertSha256": "64f3d88cd9dfaba7e5b65a25286cc4b8aab3d51e7b7cb4d37412ba4750e9334a",
+      "path": "/offline/r05/object_current",
+      "rangeRows": 1000000000,
+      "role": "object_current",
+      "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc"
+    },
+    {
+      "ddlSha256": "921273b422c0f0c5c559412edc497f6168088cf8baa9d8f4e4be7c39bd433846",
+      "generatedDdl": true,
+      "insertSha256": "5d816b082b2e8cc4b6494e30436999c79ce9115d06ab706a02f4cc9bbb02dfc4",
+      "path": "/offline/r05/edge_current",
+      "rangeRows": 5000000000,
+      "role": "edge_current",
+      "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00"
+    }
+  ],
+  "rows": {
+    "edge_current": 5000000000,
+    "object_current": 1000000000
+  },
+  "status": "passed-no-spark-no-ddl-execution"
+}

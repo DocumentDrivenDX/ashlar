@@ -159,4 +159,13 @@ and its independent review must precede any execution packet or authorization.
 
 The [offline proposal calculator](proposal_check.py) is deliberately inert: it
 prints the sample-derived write arithmetic and independently checks endpoint
-formula boundary cases. It has no Spark, filesystem, cloud, or cleanup code.
+formula boundary cases. The [parameterized `.4` generator](full_delta4_generator.py)
+builds both role INSERT plans and obtains each CREATE TABLE statement from the
+pinned `LocalUmfDelta4Bridge`; it checks the generated UMF schemas against the
+selected `.4` carrier and checks endpoint boundary cases. It imports no Spark
+runtime and executes neither DDL nor INSERT. Sol ran its exact two-role plan
+through the pinned UMF bridge in the retained Python 3.12.14 / mini-racer
+0.14.1 runtime; both proposals passed offline admission
+([receipt](offline-generation-check.json)). This is a materialization
+prerequisite, not an admitted full runner; native SQL parsing, persisted scans,
+holder/action integration, supervision and owned cleanup remain separate work.
