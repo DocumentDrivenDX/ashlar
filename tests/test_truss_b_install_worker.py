@@ -1,0 +1,254 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+import importlib.util
+import json
+from pathlib import Path
+import sys
+from types import SimpleNamespace
+import unittest
+from unittest.mock import patch
+
+PACKET = Path(__file__).resolve().parents[1] / "docs/helix/04-build/evidence/current-upstream-release-20261022/r04-b-source-installation-draft-20261023"
+
+
+def load_module(name, filename):
+    spec = importlib.util.spec_from_file_location(name, PACKET / filename)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+worker = load_module("b_install_worker_test", "b_install_worker.py")
+supervisor = load_module("b_install_supervisor_test", "b_install_supervisor.py")
+
+
+class FakeAdapter:
+    def __init__(self, fail_commit=None):
+        self.fail_commit = fail_commit
+        self.phase = 0
+        self.calls = []
+
+    def open(self, path, *, port): self.calls.append(("open", port))
+    def bootstrap_roles(self, *args): self.calls.append(("bootstrap",))
+    def install(self, *args):
+        self.calls.append(("install",))
+        self.phase = 2
+        return {"installation_id": "provider-install", "release_id": "release",
+                "release_sha256": "manifest-sha", "layout_profile": {"identity": "truss-layout",
+                "version": "1.0", "sha256": "layout-sha"}}
+    def read_installation(self):
+        return {"installation_id": "provider-install", "release_id": "release",
+                "release_sha256": "manifest-sha", "layout_profile": {"identity": "truss-layout",
+                "version": "1.0", "sha256": "layout-sha"}}
+    def grant_registrar(self, *args): self.calls.append(("grant",))
+    def accept(self, prepared, source, origin, key, document):
+        self.calls.append(("accept",))
+        return {"registration_id": "provider-registration", "revision": 1,
+                "source_sha256": worker.sha(source), "report_sha256": worker.sha(b"report")}
+    def read_acceptance(self, source, document, document_revision, expected_source_catalog_revision):
+        return {"source_sha256": worker.sha(source), "revision": 1,
+                "document_revision": document_revision,
+                "source_catalog_revision": expected_source_catalog_revision,
+                "registration_id": "provider-registration", "report_sha256": worker.sha(b"report")}
+    def register_consumer(self, consumer, reader):
+        self.calls.append(("consumer",))
+        return {"consumer_id": consumer, "registration_id": "provider-consumer-registration",
+                "installation_id": "provider-install", "cursor_sha256": "cursor"}
+    def commit(self):
+        self.calls.append(("commit",))
+        self.phase += 1
+        if self.fail_commit == self.phase:
+            raise OSError("commit transport lost")
+    def close(self): self.calls.append(("close",))
+
+
+def executable_config():
+    return {"execution": {"approval": {"test-only": True}},
+            "scope": {"arras_window_released": True},
+            "bounds": {"worker_deadline_seconds": 600},
+            "installation": {"root_path": "/b", "pgdata_path": "/b/pgdata",
+                "attempt_path": "/b/attempt", "owner_role": "b_owner",
+                "registrar_role": "b_registrar", "registrar_login": "b_reg_login",
+                "reader_login": "b_reader_login", "consumer_id": "b_consumer",
+                "request_key": "b_req", "exclusive_port_admission": "held",
+                "retention_owner": "test", "expected_document_source_revision": 0},
+            "source": {"document_id": "source", "document_revision": "source-r1"}}
+
+
+class TrussBInstallWorkerTests(unittest.TestCase):
+    def test_packet_preflight_is_pure_and_keeps_approval_null(self):
+        config, source, origin = worker.load_config()
+        self.assertEqual(worker.sha(source), config["source"]["sha256"])
+        self.assertEqual(worker.sha(origin), config["origin"]["sha256"])
+        self.assertIsNone(config["execution"]["approval"])
+        self.assertFalse(config["scope"]["arras_window_released"])
+
+    def test_supervisor_preflight_checks_a_bounded_effect_free_worker_result(self):
+        class Completed:
+            returncode = 0
+            stdout = json.dumps({"pg_started": False, "spark_started": False,
+                "acceptance_invoked": False, "consumer_registered": False}) + "\n"
+        result = supervisor.preflight(lambda *args, **kwargs: Completed())
+        self.assertEqual(result["status"], "effect_free_preflight_passed")
+        self.assertIsNone(result["execution_approval"])
+        self.assertEqual(result["native_effects"], 0)
+
+    def test_one_shot_sequence_orders_commits_readbacks_and_stops_without_feed_or_ack(self):
+        fake = FakeAdapter()
+        marks = []
+        result = worker.ordered_attempt(fake, executable_config(), object(), b"source", b"origin",
+                                        lambda stage, data: marks.append(stage))
+        self.assertEqual(result["status"], "installed_accepted_genesis_registered_stopped")
+        self.assertEqual(marks[-1], "terminal_stopped")
+        self.assertLess(marks.index("install_committed"), marks.index("install_readback"))
+        self.assertLess(marks.index("accept_committed"), marks.index("accept_readback"))
+        self.assertNotIn("feed_read", [call[0] for call in fake.calls])
+        self.assertNotIn("ack", [call[0] for call in fake.calls])
+
+    def test_uncertain_commit_stops_sequence_and_never_attempts_later_stage(self):
+        fake = FakeAdapter(fail_commit=1)
+        marks = []
+        with self.assertRaises(worker.UncertainAttempt):
+            worker.ordered_attempt(fake, executable_config(), object(), b"source", b"origin",
+                                   lambda stage, data: marks.append(stage))
+        self.assertEqual(marks[-1], "bootstrap_commit_started")
+        self.assertNotIn(("install",), fake.calls)
+
+    def test_genesis_cursor_uses_checkpoint_content_and_rejects_duplicate_keys(self):
+        raw = json.dumps({"profile": "truss-caller-asserted-feed/0.1",
+            "installationId": "i-1", "sourceEpoch": "e-1", "consumerId": "b-consumer",
+            "registrationId": "r-1", "nextXid": "0"}, separators=(",", ":")).encode()
+        consumer = SimpleNamespace(consumer_id="b-consumer", registration_id="r-1",
+            checkpoint=SimpleNamespace(content=raw), durability="pending")
+        evidence = worker.genesis_cursor_evidence(consumer, "b-consumer")
+        self.assertEqual(evidence["installation_id"], "i-1")
+        self.assertEqual(evidence["source_epoch"], "e-1")
+        self.assertEqual(evidence["cursor_sha256"], worker.sha(raw))
+        consumer.checkpoint.content = raw[:-1] + b',"consumerId":"spoof"}'
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            worker.genesis_cursor_evidence(consumer, "b-consumer")
+
+    def test_genesis_cursor_must_match_committed_installation_identity(self):
+        raw = json.dumps({"profile": "truss-caller-asserted-feed/0.1",
+            "installationId": "wrong-install", "sourceEpoch": "e-1", "consumerId": "b-consumer",
+            "registrationId": "r-1", "nextXid": "0"}).encode()
+        consumer = SimpleNamespace(consumer_id="b-consumer", registration_id="r-1",
+            checkpoint=SimpleNamespace(content=raw), durability="pending")
+        with self.assertRaisesRegex(ValueError, "different installation"):
+            worker.genesis_cursor_evidence(consumer, "b-consumer", "expected-install")
+
+    def test_installation_readback_binds_provider_id_release_hash_and_layout(self):
+        manifest = {"releaseId": "truss-release", "layoutProfile": {
+            "identity": "truss-layout", "version": "1.0", "sha256": "layout-sha"}}
+        status = SimpleNamespace(installed=True, installation_id="install-b",
+            release_id="truss-release", release_sha256="manifest-sha",
+            layout_profile=SimpleNamespace(**manifest["layoutProfile"]))
+        result = worker.validate_installation_readback(status, manifest,
+            "manifest-sha", "install-b")
+        self.assertEqual(result["installation_id"], "install-b")
+        status.release_sha256 = "wrong"
+        with self.assertRaisesRegex(RuntimeError, "pinned runtime manifest"):
+            worker.validate_installation_readback(status, manifest,
+                "manifest-sha", "install-b")
+
+    def test_consumer_adapter_call_matches_public_feedconsumer_shape_without_database(self):
+        adapter = worker.Truss049Adapter()
+        raw = json.dumps({"profile": "truss-caller-asserted-feed/0.1",
+            "installationId": "i-1", "sourceEpoch": "e-1", "consumerId": "b-consumer",
+            "registrationId": "r-1", "nextXid": "0"}).encode()
+        public_shape = SimpleNamespace(consumer_id="b-consumer", registration_id="r-1",
+            checkpoint=SimpleNamespace(content=raw), durability="pending")
+        calls = []
+        class Assembly:
+            def register_feed_consumer_in_transaction(self, tx, *, consumer_id, reader_role):
+                calls.append((consumer_id, reader_role))
+                return "public outcome"
+        adapter.assembly, adapter.tx = Assembly(), object()
+        adapter._pending_installation_id = "i-1"
+        with patch.object(adapter, "_begin"), patch.object(adapter, "_value", return_value=public_shape):
+            result = adapter.register_consumer("b-consumer", "b-reader")
+        self.assertEqual(calls, [("b-consumer", "b-reader")])
+        self.assertEqual(result["registration_id"], "r-1")
+        self.assertEqual(result["installation_id"], "i-1")
+
+    @unittest.skipUnless(sys.version_info >= (3, 10), "isolated Truss runtime requires Python 3.12")
+    def test_adapter_smoke_with_actual_truss_feedconsumer_and_cursor_types(self):
+        runtime = json.loads((PACKET / "b-install-config.json").read_text())["runtime"]["venv"]
+        site = Path(runtime) / "lib/python3.12/site-packages"
+        sys.path.insert(0, str(site))
+        try:
+            import truss
+            from truss import FeedConsumer, FeedCursor
+            raw = json.dumps({"profile": "truss-caller-asserted-feed/0.1",
+                "installationId": "sdk-install", "sourceEpoch": "sdk-epoch",
+                "consumerId": "b-consumer", "registrationId": "sdk-registration",
+                "nextXid": "0"}).encode()
+            public_result = FeedConsumer(consumer_id="b-consumer",
+                registration_id="sdk-registration", checkpoint=FeedCursor(content=raw))
+            adapter = worker.Truss049Adapter()
+            class Assembly:
+                def register_feed_consumer_in_transaction(self, tx, *, consumer_id, reader_role):
+                    return "ignored mocked Outcome"
+            adapter.assembly, adapter.tx = Assembly(), object()
+            adapter._pending_installation_id = "sdk-install"
+            with patch.object(adapter, "_begin"), patch.object(adapter, "_value", return_value=public_result):
+                result = adapter.register_consumer("b-consumer", "b-reader")
+            self.assertEqual(result["registration_id"], "sdk-registration")
+            self.assertEqual(result["installation_id"], "sdk-install")
+            self.assertFalse(hasattr(public_result, "cursor"))
+            self.assertTrue(hasattr(public_result, "checkpoint"))
+        finally:
+            sys.path.remove(str(site))
+
+    def test_acceptance_readback_binds_exact_source_report_cas_and_view_provenance(self):
+        source = b'{"id":"source","umf":"0.10.0"}'
+        report = b'{"revision":1}'
+        provenance = SimpleNamespace(accepted_catalog_revision="1",
+            document_revision="source-r1", accepted_document_sha256=worker.sha(source))
+        view = SimpleNamespace(catalog_revision="1", definitions=(
+            SimpleNamespace(provenance=provenance),), original_bytes=b'{"view":1}')
+        accepted = SimpleNamespace(document_id="source", content=source, document_revision="source-r1",
+            catalog_revision=1, source_catalog_revision=0, registration_id="reg-1",
+            sha256=worker.sha(source))
+        registration = SimpleNamespace(registration_id="reg-1", report_bytes=report)
+        result = worker.validate_accepted_observations(status_revision=1,
+            accepted=accepted, report_bytes=report, registration=registration,
+            view=view, source=source, document_id="source", document_revision="source-r1",
+            expected_source_catalog_revision=0, complete_scope=True)
+        self.assertEqual(result["complete_view_sha256"], worker.sha(b'{"view":1}'))
+        accepted.content = b'{"different":true}'
+        with self.assertRaisesRegex(RuntimeError, "differs from frozen pins"):
+            worker.validate_accepted_observations(status_revision=1,
+                accepted=accepted, report_bytes=report, registration=registration,
+                view=view, source=source, document_id="source", document_revision="source-r1",
+                expected_source_catalog_revision=0, complete_scope=True)
+
+    def test_begin_uses_matching_readonly_transaction_and_public_host_admission(self):
+        calls = []
+        class Ok:
+            def __init__(self, value): self.value = value
+        class Connection:
+            def execute(self, statement): calls.append(("sql", statement))
+        class Host:
+            def adopt_transaction(self, *, access_mode):
+                calls.append(("access", access_mode))
+                return Ok("tx")
+            def detach(self): return True
+        fake_truss = SimpleNamespace(Ok=Ok, CatalogRuntimeConfiguration=lambda: "cfg",
+            adopt_psycopg_host=lambda conn, **kwargs: Host(),
+            create_reference_assembly=lambda cfg, host: Ok(SimpleNamespace(dispose=lambda: None)))
+        fake_psycopg = SimpleNamespace(connect=lambda **kwargs: Connection())
+        adapter = worker.Truss049Adapter()
+        adapter._params = {}
+        with patch.dict("sys.modules", {"truss": fake_truss, "psycopg": fake_psycopg}):
+            adapter._begin(readonly=True)
+        self.assertEqual(calls[0], ("sql", "SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY"))
+        self.assertEqual(calls[2], ("access", "read_only"))
+        self.assertFalse(any("BEGIN" in statement for kind, statement in calls if kind == "sql"))
+
+    def test_execute_refuses_null_approval_before_creating_paths_or_processes(self):
+        with self.assertRaisesRegex(PermissionError, "approval is null"):
+            supervisor.execute()
+
+
+if __name__ == "__main__":
+    unittest.main()

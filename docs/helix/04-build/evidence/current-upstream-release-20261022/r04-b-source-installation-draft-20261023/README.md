@@ -1,19 +1,25 @@
 # R04 B-source installation packet (inert draft)
 
-Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. Every B identity and source pin remains unset; the R04 schedule is still unfrozen.
+Status: review draft only. No PostgreSQL, Spark, source registration, catalog acceptance, feed read, destination receipt, ACK, or cleanup was performed. This packet does not authorize execution. The exact source candidate bytes, document ID and hash, plus the origin candidate bytes and hash are pinned; accepted-source authority, provider-assigned identities, B execution pins and human approval remain unresolved. The R04 schedule is still unfrozen.
 
 The B-owned [readiness record](b-installation-readiness.json) keeps execution
-approval and all actual B paths, roles, resource limits, and retention owner
-null. The matching effect-free byte preflight is
+approval and all actual B paths, roles, approved resource limits, and retention
+owner null; the companion config records only proposed bounds. The matching
+effect-free byte preflight is
 [`truss_b_source_preflight.py`](../../../../../../src/ashlar_host/truss_b_source_preflight.py);
 it verifies the exact retained source and origin bytes without importing
-Truss/PostgreSQL or creating files. It does not implement installation or
-acceptance. The source document revision in the packet is external metadata;
+Truss/PostgreSQL or creating files. The source document revision in the packet is external metadata;
 the source bytes contain no revision field, so this preflight does not verify
-that revision. The bounded future sequence remains a proposal in the JSON
-packet; uncertainty retains PGDATA and refuses retry, and the sequence ends
-after one genesis consumer registration and server stop. It specifies no feed
-read, destination action, or ACK.
+that revision. `b_install_worker.py` records the public Truss 0.0.49 one-attempt
+stage sequence, and `b_install_supervisor.py` provides a bounded, effect-free
+preflight. Both remain execution-disabled: approval and every B path/role/
+admission pin are null, and the supervisor refuses `--execute`. The worker's
+host adapter follows the public install, acceptance/readback, and genesis
+consumer APIs. Truss exposes no independent consumer-registration readback;
+the provider registration ID and exact genesis cursor returned by the one
+registration call are the available evidence. Any commit uncertainty must
+retain PGDATA and end the attempt. Neither file enables feed reads, destination
+actions, or ACK.
 
 ## Purpose and boundary
 
@@ -26,7 +32,7 @@ The public installation boundary in the current Truss package is experimental an
 Read-only source inspection found these public entry points:
 
 - `truss.LocalPostgres(data_directory)` is a one-use context manager. `__enter__` rejects a reused context, symlink data directory, a nonempty non-PG directory, wrong PostgreSQL major, existing `postmaster.pid`, or an active/leased directory; it creates an empty data directory with mode 0700 and initializes PostgreSQL when needed. `__exit__` calls `close()`. Re-entry/restart requires a new context. The API does not make an arbitrary path safe: the caller must first select a fresh, uniquely B-owned path and prove it is empty and disjoint from every A path.
-- `CatalogReferenceAssembly.prepare_catalog(documents, source_version=...)` produces `PreparedAcceptance` before a source transaction. `accept_in_transaction(tx, prepared, request_key=..., origin_bytes=..., expected_revision=..., expected_documents=...)` uses that prepared object and caller transaction. A single complete accepted `CatalogRegistration` is not equivalent to a draft or preparation result.
+- `truss.prepare_catalog(documents, source_version=...)` produces `PreparedAcceptance` before a source transaction. `CatalogReferenceAssembly.accept_in_transaction(tx, prepared, request_key=..., origin_bytes=..., expected_revision=..., expected_documents=...)` uses that prepared object and caller transaction. A single complete accepted `CatalogRegistration` is not equivalent to a draft or preparation result.
 - `install_in_transaction(tx, owner_role=..., registrar_role=...)` is an explicit install step. The selected owner and registrar/client names must be bound before the call; the installer creates those roles in the installation transaction and returns a pending installation result. Caller transaction commit is the settlement boundary. No role names are fixed here, and names from A must not be reused.
 - `report_in_transaction(tx, revision=...)` and `catalog_view_in_transaction(tx, request)` expose accepted report and view observations; both exact results and canonical bytes/digests must be retained after acceptance.
 - `register_feed_consumer_in_transaction(tx, consumer_id=..., reader_role=...)` registers a new ordinary consumer from genesis. It returns provider registration ID and genesis checkpoint. Consumer id, registration id, feed, epoch, and checkpoint are not predictable and must be captured from the accepted B instance.
@@ -35,7 +41,7 @@ Read-only source inspection found these public entry points:
 
 Read-only source-file SHA-256 pins for this API inspection: `truss/__init__.py` `2b709459fa5e76c8ffa19d64609b5e2abc57cf5df275cd430fbbd2034025db44`; `truss/local_runtime.py` `7a0fce2fd418a3c239e7f6e847ac952d152d1967638251a4ebba2f5f29b90728`; `truss/catalog_runtime.py` `31c374621f6944f2b6bd03fb01e6a4331d0bb7bd20a5395eda718b4e677159d1`; `truss/feed.py` `0f5e5146368c254ea83b2d34229920a1b8bfa70fb3df000edaa7b7f5a820714c`; `truss/catalog_view.py` `167fc8fd2e304a9aaf9d485d957b0d124542617caa2f16c82f3d7aee42ec890c`; `truss/catalog_results.py` `a20fa3aba53fc6d4b867a818717b9ad0073430322cd7801854e6e89db9525465`; `truss/catalog_preparation.py` `fcbde90f084bd94ee05bf7e94d85c897258b2feff7ff0f2a16ee66253afaa5ea`. These are pins of the isolated reviewed installed source files, not additional package acceptance evidence.
 
-The local runtime's PostgreSQL process is a real native effect and one-use context cleanup is not a rollback guarantee. Truss 0.0.49 fixes TCP port 5432 and does not accept a port override. Therefore B requires exclusive admission of that shared port after the Arras/A server is stopped; it cannot overlap another Truss LocalPostgres process. Each open uses a fresh context over the B-owned PGDATA, and each close must verify the process stopped before any later A/B context opens. A failure before any database transaction can be safely abandoned by closing the owned process and removing only a verified empty B-owned directory. Once initialization or any transaction may have occurred, preserve the complete data directory and logs; on uncertain commit, stop and reconcile the original request/readback. Never delete or recreate an uncertain/accepted installation as a retry. After B acceptance, retain the installation for the R04 feed and closing evidence; do not treat cleanup as permission to erase it.
+The local runtime's PostgreSQL process is a real native effect and one-use context cleanup is not a rollback guarantee. Truss 0.0.49 fixes the nominal port field at 5432 and uses a private Unix-domain socket with `listen_addresses=''`; it does not expose a TCP listener or accept a port override. Therefore B requires exclusive admission of the shared LocalPostgres lifecycle after the Arras/A server is stopped; it cannot overlap another Truss LocalPostgres process. Each open uses a fresh context over the B-owned PGDATA, and each close must verify the process stopped before any later A/B context opens. A failure before any database transaction can be safely abandoned by closing the owned process and removing only a verified empty B-owned directory. Once initialization or any transaction may have occurred, preserve the complete data directory and logs; on uncertain commit, stop and reconcile the original request/readback. Never delete or recreate an uncertain/accepted installation as a retry. After B acceptance, retain the installation for the R04 feed and closing evidence; do not treat cleanup as permission to erase it.
 
 ## B-only bounded sequence proposed for future approval
 
@@ -58,7 +64,7 @@ All following values are currently unknown and intentionally `null` in the compa
 
 There is no independently accepted B model/report/view or B feed/epoch in the available R04 evidence. The current UMF 0.10 catalog example is a type/property vocabulary witness only. The selected R3 Truss runtime package evidence is not itself source acceptance. Existing A 0.48 source and consumer identities cannot satisfy B independence.
 
-The present repository has no single governed tool/runbook that atomically enforces the proposed B lifecycle bounds, records the full provider responses, and distinguishes safe pre-acceptance cleanup from uncertain/accepted retention. The public APIs are composable transaction operations; caller-side custody, prebound B owner/registrar and reader role selection, directory ownership proof, commit certainty, and protected destination verification remain required controls. This is an evidence/control gap, not a request to extend Truss or mutate Ashlar source.
+The new B worker/supervisor are an implementation draft, not an executable governed runbook. Attempt pins and human approval are intentionally absent, and independent provider readback of consumer registration is unavailable. The public APIs are composable transaction operations; caller-side custody, prebound B owner/registrar and reader role selection, directory ownership proof, commit certainty, and protected destination verification remain required controls. This is an evidence/control gap, not a request to extend Truss or mutate Ashlar source.
 
 ## Governing evidence
 

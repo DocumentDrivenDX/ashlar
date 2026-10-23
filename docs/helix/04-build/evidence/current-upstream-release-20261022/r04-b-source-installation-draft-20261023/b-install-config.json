@@ -1,0 +1,63 @@
+{
+  "profile": "ashlar-r04-b-install-attempt/0.1",
+  "source": {
+    "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+    "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "document_id": "ashlar-current-045-lifecycle-20261021",
+    "document_revision": "ashlar-current-045-lifecycle-r1",
+    "revision_evidence": "external source/catalog metadata; not present in source JSON bytes",
+    "umf_version": "0.10.0"
+  },
+  "origin": {
+    "path": "b-origin-candidate.json",
+    "sha256": "2e722d0a3c3124d2df2ff4434968de412ef6ad767d4edfd889e160f85a369247",
+    "approved": false,
+    "approval_record": null
+  },
+  "runtime": {
+    "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261022/runtime/venv",
+    "python_version": "3.12.14",
+    "truss_version": "0.0.49",
+    "truss_wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182",
+    "runtime_manifest_sha256": "7ee860832a3b7947e9f744b5af2383b4a68229a7bf5d5a6bf5a7350c0dad1ed8",
+    "catalog_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "umf_core_version": "0.10.0"
+  },
+  "installation": {
+    "port": 5432,
+    "root_path": null,
+    "pgdata_path": null,
+    "attempt_path": null,
+    "owner_role": null,
+    "registrar_role": null,
+    "registrar_login": null,
+    "reader_login": null,
+    "consumer_id": null,
+    "request_key": null,
+    "expected_catalog_revision": 0,
+    "expected_document_source_revision": 0,
+    "exclusive_port_admission": null,
+    "retention_owner": null
+  },
+  "bounds": {
+    "worker_deadline_seconds": 600,
+    "preparation_deadline_seconds": 120,
+    "combined_tree_bytes": 1073741824,
+    "per_log_bytes": 16777216,
+    "statement_timeout_ms": 5000,
+    "operation_timeout_ms": 30000
+  },
+  "execution": {
+    "attempt_count": 0,
+    "maximum_attempts": 1,
+    "automatic_retries": 0,
+    "approval": null
+  },
+  "scope": {
+    "arras_window_released": false,
+    "source_acceptance": false,
+    "feed_reads": false,
+    "source_ack": false,
+    "spark": false
+  }
+}
