@@ -3,7 +3,7 @@ import unittest
 from ashlar_host.pinned_delta_graphframes import (
     EDGE_SCHEMA, FIXTURE_INPUT_SHA256, NODE_SCHEMA, PROTOCOL,
     PinnedSyntheticDeltaFixture, SyntheticGraphFixture,
-    create_synthetic_delta_fixture, fixture_input_digest,
+    create_synthetic_delta_fixture, fixture_input_digest, _graphframes_views,
     hold_synthetic_delta_fixture,
 )
 
@@ -123,6 +123,27 @@ class FakeSpark:
         raise AssertionError("unexpected native query")
 
 
+class Expr:
+    def __init__(self, value): self.value = value
+    def cast(self, kind): return Expr(("cast", self.value, kind))
+    def alias(self, name): return Expr(("alias", self.value, name))
+
+
+class Functions:
+    @staticmethod
+    def col(name): return Expr(("column", name))
+    @staticmethod
+    def struct(*items): return Expr(("struct", tuple(item.value for item in items)))
+
+
+class PlanFrame:
+    def __init__(self, columns): self.columns = tuple(columns); self.selection = None
+    def select(self, *items):
+        result = PlanFrame(self.columns)
+        result.selection = tuple(item.value for item in items)
+        return result
+
+
 class PinnedDeltaGraphFramesTests(unittest.TestCase):
     def setUp(self):
         self.paths = {"object_current": "/tmp/fixture-nodes",
@@ -209,6 +230,30 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
                     edge_rows[0]["target_id"] = None if mutation == "null" else 303
                 with self.assertRaises(PermissionError):
                     lease.current_frames()
+
+    def test_transient_views_preserve_payload_and_add_typed_identity_keys(self):
+        nodes = PlanFrame(("source_system", "type_id", "id", "props_json"))
+        edges = PlanFrame(("source_system", "rel_type_id", "id", "source_type",
+                           "source_id", "target_type", "target_id", "props_json"))
+        vertices, graph_edges = _graphframes_views(nodes, edges, Functions)
+        self.assertEqual(vertices.columns, nodes.columns)
+        vertex_names = [item[-1] if item[0] == "alias" else item[1]
+                        for item in vertices.selection]
+        self.assertEqual(vertex_names,
+                         ["source_system", "type_id", "props_json", "ashlar_entity_id", "id"])
+        edge_names = [item[-1] if item[0] == "alias" else item[1]
+                      for item in graph_edges.selection]
+        self.assertEqual(edge_names[-3:], ["src", "dst", "edge_id"])
+        self.assertEqual(edge_names[:len(edges.columns)], list(edges.columns))
+        identity = graph_edges.selection[-1][1]
+        self.assertEqual(identity[0], "struct")
+        self.assertEqual([item[2] for item in identity[1]],
+                         ["source_system", "rel_type_id", "id"])
+
+    def test_transient_mapping_rejects_incomplete_carrier_schema(self):
+        with self.assertRaisesRegex(ValueError, "Canonical .4"):
+            _graphframes_views(PlanFrame(("source_system", "id")),
+                               PlanFrame(EDGE_SCHEMA), Functions)
 
     def test_paths_must_be_distinct(self):
         with self.assertRaises(ValueError):

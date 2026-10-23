@@ -338,6 +338,61 @@ def create_synthetic_delta_fixture(spark, table_paths, fixture=None):
     return PinnedSyntheticDeltaFixture(spark, selected, table_paths)
 
 
+def _graphframes_views(nodes, edges, functions):
+    """Map canonical .4 carrier frames to transient GraphFrames views.
+
+    All carrier payload columns survive. The scalar node ``id`` is retained as
+    ``ashlar_entity_id`` while GraphFrames receives a source-qualified struct
+    in its required ``id`` column. Edge identity remains an independent struct;
+    no row collection, hashing, deduplication, or persisted copy occurs here.
+    """
+    required_nodes = {"source_system", "type_id", "id"}
+    required_edges = {"source_system", "rel_type_id", "id", "source_type",
+                      "source_id", "target_type", "target_id"}
+    if not required_nodes.issubset(set(nodes.columns)):
+        raise ValueError("Canonical .4 object_current columns required")
+    if not required_edges.issubset(set(edges.columns)):
+        raise ValueError("Canonical .4 edge_current columns required")
+    if "ashlar_entity_id" in nodes.columns:
+        raise ValueError("Reserved transient node value column already exists")
+    if {"src", "dst", "edge_id"}.intersection(edges.columns):
+        raise ValueError("Reserved transient edge columns already exist")
+
+    def typed_struct(fields):
+        return functions.struct(*(functions.col(column).cast(kind).alias(alias)
+                                  for column, kind, alias in fields))
+
+    node_identity = typed_struct((
+        ("source_system", "string", "source_system"),
+        ("type_id", "long", "type_id"),
+        ("id", "long", "id"),
+    ))
+    vertex_columns = [functions.col(name) for name in nodes.columns if name != "id"]
+    vertex_columns.extend((functions.col("id").alias("ashlar_entity_id"),
+                           node_identity.alias("id")))
+    vertices = nodes.select(*vertex_columns)
+
+    src = typed_struct((
+        ("source_system", "string", "source_system"),
+        ("source_type", "long", "type_id"),
+        ("source_id", "long", "id"),
+    ))
+    dst = typed_struct((
+        ("source_system", "string", "source_system"),
+        ("target_type", "long", "type_id"),
+        ("target_id", "long", "id"),
+    ))
+    edge_identity = typed_struct((
+        ("source_system", "string", "source_system"),
+        ("rel_type_id", "long", "rel_type_id"),
+        ("id", "long", "id"),
+    ))
+    graph_edges = edges.select(*(tuple(functions.col(name) for name in edges.columns)
+                                 + (src.alias("src"), dst.alias("dst"),
+                                    edge_identity.alias("edge_id"))))
+    return vertices, graph_edges
+
+
 def run_synthetic_graphframes_one_hop(spark, fixture_owner):
     """Run one actual bounded GraphFrames motif; no full-frame collection/copy."""
     from graphframes import GraphFrame
@@ -350,30 +405,8 @@ def run_synthetic_graphframes_one_hop(spark, fixture_owner):
     with hold_synthetic_delta_fixture(fixture_owner) as lease:
         pins = lease.evidence()
         frames = lease.current_frames()
-        nodes = frames["object_current"]
-        edges = frames["edge_current"]
-        node_id = F.struct(
-            F.col("source_system").cast("string").alias("source_system"),
-            F.col("type_id").cast("long").alias("type_id"),
-            F.col("id").cast("long").alias("id"),
-        )
-        vertices = nodes.select(node_id.alias("id"))
-        src = F.struct(
-            F.col("source_system").cast("string").alias("source_system"),
-            F.col("source_type").cast("long").alias("type_id"),
-            F.col("source_id").cast("long").alias("id"),
-        )
-        dst = F.struct(
-            F.col("source_system").cast("string").alias("source_system"),
-            F.col("target_type").cast("long").alias("type_id"),
-            F.col("target_id").cast("long").alias("id"),
-        )
-        edge_id = F.struct(
-            F.col("source_system").cast("string").alias("source_system"),
-            F.col("rel_type_id").cast("long").alias("rel_type_id"),
-            F.col("id").cast("long").alias("id"),
-        )
-        graph_edges = edges.select(src.alias("src"), dst.alias("dst"), edge_id.alias("edge_id"))
+        vertices, graph_edges = _graphframes_views(
+            frames["object_current"], frames["edge_current"], F)
         graph = GraphFrame(vertices, graph_edges)
         seed = F.struct(
             F.lit(SEED[0]).cast("string").alias("source_system"),
