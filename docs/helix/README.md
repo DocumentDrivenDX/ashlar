@@ -77,6 +77,12 @@ the corrected attempt records Delta 4.4.1's observed legacy protocol features.
 This does not exercise an Ashlar publication or qualify full-table graph export,
 scale, or production use.
 
+An offline canonical `.4` GraphFrames holder candidate now checks generated
+carrier metadata and exposes exact-version lazy frame handles. It has no
+retained-file/exclusive-use custody or action authority; generator, source and
+oracle declarations remain unaudited. See the
+[candidate evidence](04-build/evidence/canonical-graphframes-holder-candidate-20261023/README.md).
+
 The `.4` synthetic carrier samples reached 45M nodes/225M edges on local[18]
 in 73.82 seconds, writing 3.06 GB of active ZSTD Parquet. At 80% of those
 measured per-table rates, a 1B/5B write projects to 18.05 minutes and remains

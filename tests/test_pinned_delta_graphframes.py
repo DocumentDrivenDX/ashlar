@@ -2,9 +2,11 @@ import unittest
 
 from ashlar_host.pinned_delta_graphframes import (
     EDGE_SCHEMA, FIXTURE_INPUT_SHA256, NODE_SCHEMA, PROTOCOL,
+    CANONICAL_RUNTIME_SELECTION, CanonicalSyntheticFixtureDescriptor,
+    PinnedCanonicalSyntheticDeltaFixture, _canonical_carrier_signature,
     PinnedSyntheticDeltaFixture, SyntheticGraphFixture,
     create_synthetic_delta_fixture, fixture_input_digest, _graphframes_views,
-    hold_synthetic_delta_fixture,
+    hold_synthetic_delta_fixture, hold_canonical_synthetic_delta_fixture,
 )
 
 
@@ -53,8 +55,10 @@ class FakeReader:
 
     def load(self, path):
         self.spark.reads.append((path, dict(self.options)))
-        return FakeFrame(FakeSchema(self.spark.schema_by_path[path]),
-                         self.spark.content_by_path[path])
+        frame = FakeFrame(FakeSchema(self.spark.schema_by_path[path]),
+                           self.spark.content_by_path[path])
+        self.spark.loaded_frames.append(frame)
+        return frame
 
 
 class FakeFrame:
@@ -74,6 +78,7 @@ class FakeFrame:
         return selected
 
     def collect(self):
+        self.collect_calls = getattr(self, "collect_calls", 0) + 1
         return self.rows if self.maximum is None else self.rows[:self.maximum]
 
 
@@ -101,6 +106,7 @@ class FakeSpark:
                             ("ashlar-graphframes-smoke", 7, 9002, 1, 101, 1, 202))],
         }
         self.reads = []
+        self.loaded_frames = []
 
     @property
     def read(self):
@@ -121,6 +127,32 @@ class FakeSpark:
         if query.startswith("DESCRIBE HISTORY"):
             return FakeResult([{"version": self.version_by_path[path]}])
         raise AssertionError("unexpected native query")
+
+
+class CanonicalFakeSpark(FakeSpark):
+    version = dict(CANONICAL_RUNTIME_SELECTION)["spark"]
+
+    def __init__(self, paths):
+        super().__init__(paths)
+        self.schema_by_path = {paths[role]: _canonical_carrier_signature(role)
+                               for role in ("object_current", "edge_current")}
+        self.content_by_path = {path: [] for path in self.paths}
+
+
+def canonical_fixture_descriptor(**changes):
+    values = dict(
+        generator_revision="canonical-carrier-benchmark/0.1",
+        generator_sha256="a" * 64,
+        source_sha256="b" * 64,
+        row_counts=(1_000_000_000, 5_000_000_000),
+        formula="frozen deterministic typed carrier formula; oracle independently specified",
+        selected_seed=("ashlar-scale-fixture", 1, 0),
+        oracle_rows=(("ashlar-scale-fixture", 1, 0,
+                      "ashlar-scale-fixture", 7, 0,
+                      "ashlar-scale-fixture", 1, 1),),
+    )
+    values.update(changes)
+    return CanonicalSyntheticFixtureDescriptor(**values)
 
 
 class Expr:
@@ -254,6 +286,89 @@ class PinnedDeltaGraphFramesTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Canonical .4"):
             _graphframes_views(PlanFrame(("source_system", "id")),
                                PlanFrame(EDGE_SCHEMA), Functions)
+
+    def test_canonical_holder_pins_exact_versions_without_collecting_rows(self):
+        paths = {"object_current": "/tmp/canonical-nodes",
+                 "edge_current": "/tmp/canonical-edges"}
+        spark = CanonicalFakeSpark(paths)
+        spark.version_by_path[paths["object_current"]] = 4
+        spark.version_by_path[paths["edge_current"]] = 9
+        owner = PinnedCanonicalSyntheticDeltaFixture(
+            spark, canonical_fixture_descriptor(), paths)
+        with hold_canonical_synthetic_delta_fixture(owner) as lease:
+            evidence = lease.evidence()
+            self.assertEqual(evidence["publication"], "absent")
+            self.assertEqual(evidence["sourceProgress"], "absent")
+            self.assertEqual(evidence["protectedAck"], "absent")
+            self.assertEqual(evidence["unityCatalog"], "absent")
+            self.assertEqual(evidence["retainedFileCustody"], "not-established")
+            self.assertEqual(evidence["descriptorAuthority"],
+                             "declared-and-digested-only; generator/source/oracle not independently audited")
+            self.assertEqual(evidence["observedRuntime"], {"spark": "4.2.0"})
+            self.assertEqual(evidence["tables"]["object_current"]["version"], 4)
+            self.assertEqual(evidence["tables"]["edge_current"]["version"], 9)
+            with self.assertRaises(TypeError):
+                lease._pins["edge_current"] = lease._pins["object_current"]
+            frames = lease.current_frames()
+            self.assertEqual(set(frames), {"object_current", "edge_current"})
+            self.assertEqual(
+                [(path, options) for path, options in spark.reads if options],
+                [(paths["object_current"], {"versionAsOf": 4}),
+                 (paths["edge_current"], {"versionAsOf": 9})])
+        self.assertTrue(all(getattr(frame, "collect_calls", 0) == 0
+                            for frame in spark.loaded_frames))
+
+    def test_canonical_fixture_descriptor_digest_binds_generator_formula_counts_and_oracle(self):
+        descriptor = canonical_fixture_descriptor()
+        self.assertNotEqual(descriptor.sha256,
+                            canonical_fixture_descriptor(formula="changed formula").sha256)
+        self.assertNotEqual(descriptor.sha256,
+                            canonical_fixture_descriptor(row_counts=(3, 2)).sha256)
+        self.assertNotEqual(descriptor.sha256,
+                            canonical_fixture_descriptor(oracle_rows=()).sha256)
+
+    def test_canonical_holder_refuses_bad_descriptor_schema_and_duplicate_uuid(self):
+        paths = {"object_current": "/tmp/canonical-nodes",
+                 "edge_current": "/tmp/canonical-edges"}
+        spark = CanonicalFakeSpark(paths)
+        with self.assertRaises(ValueError):
+            PinnedCanonicalSyntheticDeltaFixture(spark, {}, paths)
+        spark.schema_by_path[paths["edge_current"]] = EDGE_SCHEMA
+        with self.assertRaisesRegex(ValueError, "generated `\.4`"):
+            PinnedCanonicalSyntheticDeltaFixture(
+                spark, canonical_fixture_descriptor(), paths)._observe_table(
+                    "edge_current")
+        spark = CanonicalFakeSpark(paths)
+        spark.uuid_by_path[paths["edge_current"]] = spark.uuid_by_path[paths["object_current"]]
+        with self.assertRaisesRegex(ValueError, "Distinct native Delta UUIDs"):
+            PinnedCanonicalSyntheticDeltaFixture(
+                spark, canonical_fixture_descriptor(), paths).open()
+
+    def test_generated_long_types_are_normalized_to_spark_bigint(self):
+        signature = _canonical_carrier_signature("object_current")
+        self.assertEqual(signature[:3], (("source_system", "string", False),
+                                         ("type_id", "bigint", False),
+                                         ("id", "bigint", False)))
+
+    def test_canonical_holder_refuses_version_drift_and_expired_lease(self):
+        paths = {"object_current": "/tmp/canonical-nodes",
+                 "edge_current": "/tmp/canonical-edges"}
+        spark = CanonicalFakeSpark(paths)
+        owner = PinnedCanonicalSyntheticDeltaFixture(
+            spark, canonical_fixture_descriptor(), paths)
+        lease = owner.open()
+        spark.version_by_path[paths["edge_current"]] = 1
+        with self.assertRaisesRegex(PermissionError, "changed"):
+            lease.renew()
+        lease = owner.open()
+        lease._deadline = 0
+        with self.assertRaisesRegex(PermissionError, "expired"):
+            lease.renew()
+        owner = PinnedCanonicalSyntheticDeltaFixture(
+            spark, canonical_fixture_descriptor(), paths)
+        with self.assertRaises(PermissionError):
+            with hold_canonical_synthetic_delta_fixture(owner):
+                spark.version_by_path[paths["object_current"]] = 3
 
     def test_paths_must_be_distinct(self):
         with self.assertRaises(ValueError):

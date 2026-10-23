@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import hashlib
+import importlib.resources
 import json
 import re
 import time
+from types import MappingProxyType
 
 PROFILE = "ashlar-synthetic-pinned-delta-graphframes/0.1"
 GENERATOR_REVISION = "ashlar-graphframes-struct-smoke-fixture/0.1"
@@ -393,55 +395,326 @@ def _graphframes_views(nodes, edges, functions):
     return vertices, graph_edges
 
 
-def run_synthetic_graphframes_one_hop(spark, fixture_owner):
-    """Run one actual bounded GraphFrames motif; no full-frame collection/copy."""
+CANONICAL_SYNTHETIC_PROFILE = "ashlar-canonical-synthetic-pinned-delta/0.1"
+CANONICAL_CARRIER_PROFILE = "ashlar-delta/0.4-xxhash64"
+CANONICAL_UMF_REVISION = "2ede4c879bea5db13794a6fa30e67c821306c17f"
+CANONICAL_RUNTIME_SELECTION = (("spark", "4.2.0"), ("delta", "4.4.1"),
+                               ("graphframes", "0.12.3"), ("jdk", "21.0.13"))
+
+
+@dataclass(frozen=True)
+class CanonicalSyntheticFixtureDescriptor:
+    """Frozen synthetic generator/oracle declarations; not an audited oracle."""
+    generator_revision: str
+    generator_sha256: str
+    source_sha256: str
+    row_counts: tuple
+    formula: str
+    selected_seed: tuple
+    oracle_rows: tuple
+    carrier_definition_sha256: str = field(init=False)
+    _sha256: str = field(init=False, repr=False)
+
+    def __post_init__(self):
+        if (type(self.generator_revision) is not str or not self.generator_revision
+                or len(self.generator_revision) > 128
+                or any(type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None
+                       for value in (self.generator_sha256, self.source_sha256))
+                or type(self.row_counts) is not tuple or len(self.row_counts) != 2
+                or any(type(value) is not int or value <= 0 for value in self.row_counts)
+                or type(self.formula) is not str or not self.formula or len(self.formula) > 4096
+                or type(self.selected_seed) is not tuple or len(self.selected_seed) != 3
+                or type(self.selected_seed[0]) is not str
+                or any(type(value) is not int or not -(1 << 63) <= value < (1 << 63)
+                       for value in self.selected_seed[1:])
+                or type(self.oracle_rows) is not tuple or len(self.oracle_rows) > MAX_ONE_HOP_ROWS
+                or any(type(row) is not tuple or len(row) != 9
+                       or any(type(row[index]) is not str or not row[index]
+                              for index in (0, 3, 6))
+                       or any(type(row[index]) is not int
+                              or not -(1 << 63) <= row[index] < (1 << 63)
+                              for index in (1, 2, 4, 5, 7, 8))
+                       or tuple(row[:3]) != self.selected_seed
+                       for row in self.oracle_rows)):
+            raise ValueError("Complete frozen canonical synthetic fixture descriptor required")
+        carrier_sha = _canonical_carrier_definition_sha256()
+        object.__setattr__(self, "carrier_definition_sha256", carrier_sha)
+        object.__setattr__(self, "_sha256", hashlib.sha256(_canonical({
+            "profile": CANONICAL_SYNTHETIC_PROFILE,
+            "carrierProfile": CANONICAL_CARRIER_PROFILE,
+            "carrierDefinitionSha256": carrier_sha,
+            "umfRevision": CANONICAL_UMF_REVISION,
+            "runtimeSelection": dict(CANONICAL_RUNTIME_SELECTION),
+            "generatorRevision": self.generator_revision,
+            "generatorSha256": self.generator_sha256,
+            "sourceSha256": self.source_sha256,
+            "rowCounts": list(self.row_counts),
+            "formula": self.formula,
+            "selectedSeed": list(self.selected_seed),
+            "oracleRows": [list(row) for row in self.oracle_rows],
+        })).hexdigest())
+
+    @property
+    def sha256(self):
+        return self._sha256
+
+
+@dataclass(frozen=True)
+class CanonicalSyntheticTablePin:
+    role: str
+    table_uuid: str
+    version: int
+    schema_sha256: str
+    protocol: tuple
+
+    def __post_init__(self):
+        if (self.role not in ("object_current", "edge_current")
+                or type(self.table_uuid) is not str
+                or re.fullmatch(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", self.table_uuid) is None
+                or type(self.version) is not int or self.version < 0
+                or type(self.schema_sha256) is not str
+                or re.fullmatch(r"[0-9a-f]{64}", self.schema_sha256) is None
+                or self.protocol != (PROTOCOL["minReaderVersion"],
+                                     PROTOCOL["minWriterVersion"],
+                                     tuple(PROTOCOL["tableFeatures"]))):
+            raise ValueError("Exact canonical synthetic current-table identity required")
+
+
+def _canonical_carrier_signature(role):
+    if role not in ("object_current", "edge_current"):
+        raise ValueError("Canonical current carrier role required")
+    resource = (importlib.resources.files("ashlar_host")
+                .joinpath("resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json"))
+    artifact = json.loads(resource.read_text(encoding="utf-8"))
+    if (artifact.get("physicalProfile") != CANONICAL_CARRIER_PROFILE
+            or artifact.get("generator", {}).get("revision") != CANONICAL_UMF_REVISION):
+        raise ValueError("Generated .4 carrier profile differs")
+    spark_types = {"long": "bigint", "integer": "int", "boolean": "boolean",
+                   "string": "string", "timestamp": "timestamp"}
+    return tuple((item["name"], spark_types.get(item["deltaType"], item["deltaType"]),
+                  item["nullable"])
+                 for item in artifact["carriers"][role]["columns"])
+
+
+def _canonical_carrier_definition_sha256():
+    resource = (importlib.resources.files("ashlar_host")
+                .joinpath("resources/managed-current-core-010-xxhash64/runtime-carriers.generated.json"))
+    return hashlib.sha256(resource.read_bytes()).hexdigest()
+
+
+class PinnedCanonicalSyntheticDeltaFixture:
+    """Read-only two-table `.4` synthetic holder; no publication/ACK authority."""
+
+    def __init__(self, spark, fixture, table_paths, *, maximum_lease_seconds=120):
+        if type(fixture) is not CanonicalSyntheticFixtureDescriptor:
+            raise ValueError("Frozen canonical synthetic fixture descriptor required")
+        if (type(table_paths) is not dict
+                or set(table_paths) != {"object_current", "edge_current"}
+                or len(set(map(str, table_paths.values()))) != 2):
+            raise ValueError("Exactly two distinct canonical current-table paths required")
+        if (type(maximum_lease_seconds) is not int
+                or not 0 < maximum_lease_seconds <= MAX_LEASE_SECONDS):
+            raise ValueError("Finite canonical fixture lease required")
+        if getattr(spark, "version", None) != dict(CANONICAL_RUNTIME_SELECTION)["spark"]:
+            raise PermissionError("Selected Spark 4.2.0 runtime required")
+        self._spark = spark
+        self.fixture = fixture
+        if _canonical_carrier_definition_sha256() != fixture.carrier_definition_sha256:
+            raise ValueError("Canonical generated carrier definition changed after freeze")
+        paths = {}
+        for role in ("object_current", "edge_current"):
+            text = str(table_paths[role])
+            _quote_path(text)
+            paths[role] = text
+        self._paths = paths
+        self._maximum_lease_seconds = maximum_lease_seconds
+
+    def _observe_table(self, role):
+        path = self._paths[role]
+        name = _quote_path(path)
+        details = self._spark.sql("DESCRIBE DETAIL " + name).limit(2).collect()
+        if len(details) != 1:
+            raise ValueError("One actual canonical Delta table detail row required")
+        detail = _row_dict(details[0])
+        if detail.get("format") != "delta":
+            raise ValueError("Actual canonical Delta current table required")
+        history = self._spark.sql("DESCRIBE HISTORY " + name + " LIMIT 1").limit(2).collect()
+        if len(history) != 1 or type(_row_dict(history[0]).get("version")) is not int:
+            raise ValueError("One actual canonical Delta table head required")
+        version = _row_dict(history[0])["version"]
+        protocol = {"minReaderVersion": detail.get("minReaderVersion"),
+                    "minWriterVersion": detail.get("minWriterVersion"),
+                    "tableFeatures": sorted(detail.get("tableFeatures") or [])}
+        protocol_signature = (protocol["minReaderVersion"], protocol["minWriterVersion"],
+                              tuple(protocol["tableFeatures"]))
+        if protocol_signature != (PROTOCOL["minReaderVersion"],
+                                  PROTOCOL["minWriterVersion"],
+                                  tuple(PROTOCOL["tableFeatures"])):
+            raise ValueError("Canonical synthetic Delta protocol differs from selected runtime")
+        if _canonical_carrier_definition_sha256() != self.fixture.carrier_definition_sha256:
+            raise ValueError("Frozen generated carrier definition changed")
+        schema = self._spark.read.format("delta").load(path).schema
+        signature, schema_sha = _actual_schema_signature(schema)
+        if signature != _canonical_carrier_signature(role):
+            raise ValueError("Exact generated `.4` carrier schema required")
+        return CanonicalSyntheticTablePin(role, detail.get("id"), version,
+                                          schema_sha, protocol_signature)
+
+    def open(self):
+        observed = {role: self._observe_table(role)
+                    for role in ("object_current", "edge_current")}
+        if len({pin.table_uuid for pin in observed.values()}) != 2:
+            raise ValueError("Distinct native Delta UUIDs required for current roles")
+        repeated = {role: self._observe_table(role)
+                    for role in ("object_current", "edge_current")}
+        if repeated != observed:
+            raise PermissionError("Canonical synthetic Delta tables changed while pinning")
+        return CanonicalSyntheticDeltaLease(
+            self, observed, time.monotonic() + self._maximum_lease_seconds)
+
+
+class CanonicalSyntheticDeltaLease:
+    def __init__(self, owner, pins, deadline):
+        self._owner = owner
+        self._pins = MappingProxyType(dict(pins))
+        self._deadline = deadline
+        self._closed = False
+
+    def renew(self):
+        if self._closed or time.monotonic() >= self._deadline:
+            raise PermissionError("Canonical synthetic fixture lease expired")
+        current = {role: self._owner._observe_table(role)
+                   for role in ("object_current", "edge_current")}
+        if current != self._pins:
+            raise PermissionError("Canonical synthetic table UUID/head/schema/protocol changed")
+
+    def current_frames(self):
+        """Return versionAsOf handles, not qualified snapshot execution authority.
+
+        This candidate does not prove retained data-file availability or hold
+        exclusive use. Callers must not treat lazy frames as qualified snapshots.
+        """
+        self.renew()
+        result = {}
+        for role in ("object_current", "edge_current"):
+            pin = self._pins[role]
+            frame = (self._owner._spark.read.format("delta")
+                     .option("versionAsOf", pin.version).load(self._owner._paths[role]))
+            signature, digest = _actual_schema_signature(frame.schema)
+            if (_canonical_carrier_definition_sha256()
+                    != self._owner.fixture.carrier_definition_sha256
+                    or signature != _canonical_carrier_signature(role)
+                    or digest != pin.schema_sha256):
+                raise PermissionError("Pinned canonical `.4` Delta schema changed")
+            result[role] = frame
+        return result
+
+    def evidence(self):
+        self.renew()
+        return {"profile": CANONICAL_SYNTHETIC_PROFILE,
+                "fixtureSha256": self._owner.fixture.sha256,
+                "carrierProfile": CANONICAL_CARRIER_PROFILE,
+                "runtimeSelection": dict(CANONICAL_RUNTIME_SELECTION),
+                "observedRuntime": {"spark": self._owner._spark.version},
+                "descriptorAuthority": "declared-and-digested-only; generator/source/oracle not independently audited",
+                "retainedFileCustody": "not-established",
+                "publication": "absent", "sourceProgress": "absent",
+                "protectedAck": "absent", "unityCatalog": "absent",
+                "tables": {role: {"uuid": pin.table_uuid, "version": pin.version,
+                    "schemaSha256": pin.schema_sha256,
+                    "protocol": {"minReaderVersion": pin.protocol[0],
+                                 "minWriterVersion": pin.protocol[1],
+                                 "tableFeatures": list(pin.protocol[2])}}
+                    for role, pin in self._pins.items()}}
+
+    def close(self):
+        if self._closed:
+            return None
+        self.renew()
+        self._closed = True
+        return None
+
+
+@contextmanager
+def hold_canonical_synthetic_delta_fixture(owner):
+    if type(owner) is not PinnedCanonicalSyntheticDeltaFixture:
+        raise ValueError("Canonical synthetic Delta fixture owner required")
+    lease = owner.open()
+    primary = None
+    try:
+        lease.renew()
+        yield lease
+    except BaseException as error:
+        primary = error
+        raise
+    finally:
+        try:
+            lease.close()
+        except BaseException:
+            if primary is None:
+                raise
+
+
+def _run_bounded_graphframes_one_hop(spark, lease, profile, fixture_sha256,
+                                    selected_seed, expected_rows):
+    """Run the shared bounded action over already-held version-pinned frames."""
+    if type(lease) is not SyntheticDeltaFixtureLease or profile != PROFILE:
+        raise PermissionError("Only the reviewed tiny synthetic smoke action is enabled")
     from graphframes import GraphFrame
     from pyspark.sql import functions as F
 
+    pins = lease.evidence()
+    frames = lease.current_frames()
+    vertices, graph_edges = _graphframes_views(
+        frames["object_current"], frames["edge_current"], F)
+    graph = GraphFrame(vertices, graph_edges)
+    seed = F.struct(
+        F.lit(selected_seed[0]).cast("string").alias("source_system"),
+        F.lit(selected_seed[1]).cast("long").alias("type_id"),
+        F.lit(selected_seed[2]).cast("long").alias("id"),
+    )
+    rows = (graph.find("(a)-[e]->(b)")
+        .where(F.col("a.id") == seed)
+        .select(
+            F.col("a.id.source_system").alias("src_source"),
+            F.col("a.id.type_id").alias("src_type"),
+            F.col("a.id.id").alias("src_id"),
+            F.col("e.edge_id.source_system").alias("edge_source"),
+            F.col("e.edge_id.rel_type_id").alias("edge_type"),
+            F.col("e.edge_id.id").alias("edge_id"),
+            F.col("b.id.source_system").alias("dst_source"),
+            F.col("b.id.type_id").alias("dst_type"),
+            F.col("b.id.id").alias("dst_id"),
+        ).limit(MAX_ONE_HOP_ROWS + 1).collect())
+    if len(rows) > MAX_ONE_HOP_ROWS:
+        raise ValueError("Bounded one-hop GraphFrames result exceeded")
+    actual = tuple(sorted(tuple(row[name] for name in (
+        "src_source", "src_type", "src_id", "edge_source", "edge_type", "edge_id",
+        "dst_source", "dst_type", "dst_id")) for row in rows))
+    if actual != tuple(sorted(expected_rows)):
+        raise ValueError("GraphFrames one-hop edge occurrence bag differs from frozen oracle")
+    lease.renew()
+    return {
+        "profile": profile,
+        "status": "passed",
+        "runtime": {"spark": spark.version, "delta": "4.4.1", "graphframes": "0.12.3"},
+        "fixtureSha256": fixture_sha256,
+        "fixture": pins,
+        "result": [list(row) for row in actual],
+        "resultRows": len(actual),
+        "graphX": "not-used",
+        "wholeFrameCollect": "not-used",
+    }
+
+
+def run_synthetic_graphframes_one_hop(spark, fixture_owner):
+    """Run the existing tiny actual GraphFrames smoke; no full-frame collect."""
     if type(fixture_owner) is not PinnedSyntheticDeltaFixture:
         raise ValueError("Actual pinned synthetic Delta fixture owner required")
     if spark.version != "4.2.0":
         raise PermissionError("Selected Spark 4.2.0 smoke runtime required")
     with hold_synthetic_delta_fixture(fixture_owner) as lease:
-        pins = lease.evidence()
-        frames = lease.current_frames()
-        vertices, graph_edges = _graphframes_views(
-            frames["object_current"], frames["edge_current"], F)
-        graph = GraphFrame(vertices, graph_edges)
-        seed = F.struct(
-            F.lit(SEED[0]).cast("string").alias("source_system"),
-            F.lit(SEED[1]).cast("long").alias("type_id"),
-            F.lit(SEED[2]).cast("long").alias("id"),
-        )
-        rows = (graph.find("(a)-[e]->(b)")
-            .where(F.col("a.id") == seed)
-            .select(
-                F.col("a.id.source_system").alias("src_source"),
-                F.col("a.id.type_id").alias("src_type"),
-                F.col("a.id.id").alias("src_id"),
-                F.col("e.edge_id.source_system").alias("edge_source"),
-                F.col("e.edge_id.rel_type_id").alias("edge_type"),
-                F.col("e.edge_id.id").alias("edge_id"),
-                F.col("b.id.source_system").alias("dst_source"),
-                F.col("b.id.type_id").alias("dst_type"),
-                F.col("b.id.id").alias("dst_id"),
-            ).limit(MAX_ONE_HOP_ROWS + 1).collect())
-        if len(rows) > MAX_ONE_HOP_ROWS:
-            raise ValueError("Bounded one-hop GraphFrames result exceeded")
-        actual = tuple(sorted(tuple(row[name] for name in (
-            "src_source", "src_type", "src_id", "edge_source", "edge_type", "edge_id",
-            "dst_source", "dst_type", "dst_id")) for row in rows))
-        expected = tuple(sorted(fixture_owner.fixture.expected_one_hop))
-        if actual != expected:
-            raise ValueError("GraphFrames one-hop edge occurrence bag differs from frozen oracle")
-        lease.renew()
-        return {
-            "profile": PROFILE,
-            "status": "passed",
-            "runtime": {"spark": spark.version, "delta": "4.4.1", "graphframes": "0.12.3"},
-            "fixture": pins,
-            "result": [list(row) for row in actual],
-            "resultRows": len(actual),
-            "graphX": "not-used",
-            "wholeFrameCollect": "not-used",
-        }
+        return _run_bounded_graphframes_one_hop(
+            spark, lease, PROFILE, fixture_owner.fixture.input_sha256,
+            fixture_owner.fixture.selected_seed,
+            fixture_owner.fixture.expected_one_hop)
