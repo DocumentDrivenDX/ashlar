@@ -33,9 +33,12 @@ executed scan. The result is a point-result equality check, not full-table value
 equivalence or proof that a production lookup can omit delivery-id metadata.
 
 This experiment does not change source configuration or promote the candidate
-to a default. The existing row-linear 80%-throughput estimate for the 1B-node/
-5B-edge gate remains above 15 minutes with node time unchanged; the gate remains
-held. The pair does not establish scale capacity, production latency, or a
+to a default. At 80% of the measured per-role throughput, the unchanged node
+sample projects to 9.67956 s × (1B / 45M) / 0.8 = 268.877 s. The candidate edge
+sample projects to 25.79739175 s × (5B / 225M) / 0.8 = 716.594 s. The combined
+write-only estimate is 985.471 s (16.425 minutes), 85.471 s above the 15-minute
+review threshold. The full-size run remains held. The pair does not establish
+scale capacity, production latency, or a
 generally faster profile. No JFR profile was taken.
 
 ## Execution profile and custody
@@ -52,9 +55,10 @@ recorded 5,185,073,179 output bytes and 47,247,872 diagnostic bytes. These were
 polled limits, not filesystem quotas.
 
 The first sandboxed attempt (r1) stopped before writing data because Py4J loopback
-was denied with `EPERM`. The successful r2 run used the approved elevated local
-execution. No multi-gigabyte run output is copied into the repository; the
-private r2 root is `/private/tmp/ashlar-parquet-statistics-pair-20261023-r2`.
+was denied with `EPERM`. The successful r2 run used elevated local execution
+accepted by automatic sandbox review. No multi-gigabyte run output is copied
+into the repository; the private r2 root is
+`/private/tmp/ashlar-parquet-statistics-pair-20261023-r2`.
 
 SHA-256 hashes below identify the compact result, receipts, and event-attribution
 artifacts retained in that private root. The per-case event logs, Delta tables,
