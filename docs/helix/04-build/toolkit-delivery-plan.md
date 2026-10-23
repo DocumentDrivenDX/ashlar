@@ -365,3 +365,18 @@ functional attempt plan](evidence/commerce-fabric-fresh-functional-plan-20261023
 names new candidate identities and read-after-ambiguous-write stop rules, but
 retains explicit R2 source/ACK, runtime-bound, and cost-admission blockers. No
 write or compute was requested by either the reconciliation or this plan.
+
+### Draft alternative for managed A1/R04 compute (TD-009)
+
+The [TD-009 proposal](../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md)
+replaces neither the recorded serverless Jobs/SQL campaign nor its launch gates
+until reviewed and adopted. It proposes a publisher followed by a fresh independent
+Spark verifier task/session on one dedicated single-node Jobs cluster, then protected
+ACK by the original external source holder before the next global slot. The narrow
+proposed CONTRACT-001/003/004 amendments govern this candidate; the existing SQL
+reader remains serverless current-channel only. An offline read-only implementation
+is the first bounded slice. Live external read/pin renewal through ACK, exact
+UC-capable runtime/access-mode admission and actual Jobs/VM/startup/idle/cleanup
+rates remain prerequisites. Prefer total cost below $10 under the hard $100 trial
+ceiling; no estimate or single-node selection guarantees that bound. No compute,
+source mutation, ACK or new qualification follows from this proposal.

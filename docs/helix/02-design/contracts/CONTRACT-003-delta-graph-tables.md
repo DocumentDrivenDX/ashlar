@@ -1811,3 +1811,24 @@ keys, edge identity and endpoints; it MUST NOT claim scalar promotion or the fiv
 authored supply-chain scenarios. Its result MUST distinguish seven common passes
 from authored-scenario passes. The outer common owner MUST close before exposing
 a command report. Retained exports MUST NOT substitute for this live profile.
+
+### Proposed Spark verification inventory amendment (TD-009)
+
+Draft proposal only: the separately selected
+`ashlar-managed-current-spark-receipt-read/0.1` MUST observe exactly six UC MANAGED
+roles: object_current, edge_current, tombstone, whole_source_history,
+publication_attempt_phase and publication_manifest. Opening, renewal and independent
+closing MUST bind each explicit three-part name, distinct native Delta UUID,
+actual head, owner, complete ordered schema/types/nullability and admitted protocol
+features to the retained installation inventory. The immutable manifest separately
+pins exactly the four data roles; attempt/manifest heads MUST NOT enter or replace
+that vector. All complete data comparisons MUST read explicit native literal
+versions in the selected namespace, including retained older publications.
+
+Spark-native versions/ordinals MUST normalize losslessly to non-Boolean signed64
+integers; complete arrays/maps and column types MUST normalize under the selected
+physical profile. Timestamp observations MUST use exact canonical microsecond
+carriers, without floating or timezone-dependent narrowing. Opaque request,
+manifest, source and payload text MUST retain exact bytes. Unknown representations,
+precision loss or capacity overflow MUST refuse. This proposal creates no new
+carrier schema, changes no UMF interpretation and qualifies no native runtime.

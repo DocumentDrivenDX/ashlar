@@ -1567,3 +1567,31 @@ source and original receipts. It MUST retain complete native carrier parity,
 publication vectors, source progress and closing custody. Relationship source
 admission alone MUST NOT enable the scalar-only query binding or grant graph-query,
 remote fencing, schema migration or protected ACK authority.
+
+### Proposed Spark-task receipt verification amendment (TD-009)
+
+Draft proposal only: `ashlar-managed-current-spark-receipt-read/0.1` MAY verify
+one bounded managed-current publication in a fresh verifier task/session after
+its publisher task terminates successfully on the same explicitly dedicated
+Jobs cluster. This proposal grants no launch, runtime or production qualification.
+The SQL receipt-reader profile remains current-channel serverless-warehouse-only.
+
+The verifier MUST independently reopen durable UC state, exact original request
+and manifest, committed attempt/effect custody, complete source/epoch/checkpoint
+and both progress entries, schema revisions, full four-role UUID/version vector,
+destination receipt and compiler-binding inputs. It MUST compare complete bounded
+versioned logical bags against an independently authored source-derived prefix
+oracle, preserving exact values, presence/null, numeric tokens, source identity,
+parallel-edge multiplicity, history and tombstones. Publisher objects, caches,
+temporary views, DataFrames, task flags and result files MUST NOT supply proof.
+
+Only the original external source holder MAY ACK, after observing terminal durable
+verifier success and independently admitting the exact receipt under a live,
+protected source/read/pin interval through ACK commit, reconciliation and closing.
+A completed verifier report MUST NOT substitute for this live owner. Until a
+reviewed renewal handoff exists, this path MUST remain unavailable for campaign
+ACK. The global A1,B1,A2,B2,A3,B3,A4,B4 sequence and ACK-before-next-slot mutation
+rule remain unchanged. Drift, overflow/truncation, unknown protocol, cancellation,
+uncertain native outcome or incomplete closing MUST withhold success and ACK;
+original operation/recovery custody MUST survive. Fresh-session separation MUST
+NOT imply independent-principal security or source authority.

@@ -920,3 +920,23 @@ every exit. A successful read additionally requires the full exact protected ACK
 opening/closing observations owned by `MedicalReadObservation.ack`. No source-only
 observation, cached admission or report may replace these native opening/closing
 guards or release a buffered result after a closing failure.
+
+### Proposed Spark receipt read interval amendment (TD-009)
+
+Draft proposal only: `ashlar-managed-current-spark-receipt-read/0.1` MUST own a
+fresh read-only Spark session in a subsequent verifier task on the selected
+dedicated Jobs cluster. It MUST independently observe authenticated principal,
+namespace, job/run/task and cluster identity, runtime/Spark/Delta build and complete
+six-role inventory at opening and closing, and resolve the separate complete
+four-role immutable vector under current source, authorization and retention
+custody. Publisher session state and saved reports MUST NOT establish admission.
+
+Every acquired interval MUST attempt substantive independent closing after body
+failure, deadline or cancellation, preserving the primary failure. Changed runtime,
+principal, table identity/schema/protocol/head, unavailable retained files or lost
+authority MUST release no successful observation. Read-only statement allowlisting,
+finite cumulative deadlines and complete row/cell/byte bounds MUST reject writes,
+unbounded or truncated captures. This offline owner MUST NOT provision compute,
+mutate data/source cursors, ACK or confer a remote pin lease. A separately reviewed
+live external-holder read/pin renewal boundary remains mandatory through protected
+ACK; no task output alone qualifies that boundary or production authority.
