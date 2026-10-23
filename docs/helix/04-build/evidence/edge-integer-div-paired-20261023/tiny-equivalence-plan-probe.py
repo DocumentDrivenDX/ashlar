@@ -1,0 +1,20 @@
+from pyspark.sql import SparkSession
+s=(SparkSession.builder.master('local[2]').appName('ashlar-edge-expression-equivalence').config('spark.ui.enabled','false').config('spark.jars',','.join('/private/tmp/ashlar-release-20261021-m3rde5p2/jars/'+n for n in ('delta-spark_4.2_2.13-4.4.1.jar','delta-storage-4.4.1.jar'))).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').getOrCreate())
+s.sparkContext.setLogLevel('ERROR')
+old='pmod(CAST(floor(id/5) AS BIGINT)+CAST(floor(pmod(id,5)/2) AS BIGINT),45000000)'
+new='pmod(CAST(floor(id/5) AS BIGINT)+CAST(pmod(id,5) DIV 2 AS BIGINT),45000000)'
+left=s.range(0,100001).selectExpr('id',f'{old} AS target')
+right=s.range(0,100001).selectExpr('id',f'{new} AS target')
+print('range_mismatches',left.alias('a').join(right.alias('b'),'id').where('a.target <> b.target').count())
+vals=(2**53-1,2**53,2**53+1,2**63-6,2**63-1)
+d=s.createDataFrame([(x,) for x in vals],['id']).selectExpr('id',f'{old} AS old_target',f'{new} AS new_target')
+print('boundary_rows',d.collect())
+qold=s.range(0,225000000).selectExpr('id',f'{old} AS target_id')
+qnew=s.range(0,225000000).selectExpr('id',f'{new} AS target_id')
+po=qold._jdf.queryExecution().optimizedPlan().canonicalized().toString();pn=qnew._jdf.queryExecution().optimizedPlan().canonicalized().toString()
+print('optimized_plan_identical',po==pn)
+print('baseline_optimized',qold._jdf.queryExecution().optimizedPlan().toString())
+print('candidate_optimized',qnew._jdf.queryExecution().optimizedPlan().toString())
+print('baseline_physical',qold._jdf.queryExecution().executedPlan().toString())
+print('candidate_physical',qnew._jdf.queryExecution().executedPlan().toString())
+s.stop()

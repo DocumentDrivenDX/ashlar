@@ -1,0 +1,114 @@
+{
+  "change": {
+    "all_other_fields_hashes_ordering_profile_settings_and_sample_sizes": "unchanged",
+    "baseline_expression": "pmod(CAST(floor(id/5) AS BIGINT) + CAST(floor(pmod(id,5)/2) AS BIGINT), 45000000)",
+    "candidate_expression": "pmod(CAST(floor(id/5) AS BIGINT) + CAST(pmod(id,5) DIV 2 AS BIGINT), 45000000)",
+    "reason": "Use integer division for pmod(id,5) in [0,4]; avoid converting that bounded remainder to double then flooring."
+  },
+  "cleanup": {
+    "preserved_harness_and_receipts_under_private_tmp": true,
+    "removed_directories": [
+      "/private/tmp/ashlar-edge-paired-20261023/out-baseline",
+      "/private/tmp/ashlar-edge-paired-20261023/out-candidate"
+    ],
+    "temporary_output_directories_removed_after_copying_receipts_and_logs": true
+  },
+  "comparison": {
+    "edge_active_bytes_equal": true,
+    "edge_rows_equal": true,
+    "edge_write_delta_fraction": 0.031189,
+    "edge_write_delta_seconds": 0.787645
+  },
+  "date": "2026-10-23",
+  "profile": "ashlar-edge-integer-div-paired-materialization/0.1",
+  "results": {
+    "baseline": {
+      "active_bytes": 2569031961,
+      "files": 18,
+      "log_bytes": 14078,
+      "log_sha256": "49a3f0f0466f22275012da3ac039fabae4c506437451aa1c8fe2e56cc68409a6",
+      "output_tree_bytes": 3086259518,
+      "result_sha256": "ffe338573e49396045d9a26026ea5f872e1b74b7e742880cdfac9b016ac16910",
+      "rows": 225000000,
+      "script_sha256": "4b62f0ce3a042643157100e6d32d4d12bbee03965577c8052cbb8b991eb3dd18",
+      "write_seconds": 25.254206792043988
+    },
+    "candidate": {
+      "active_bytes": 2569031961,
+      "files": 18,
+      "log_bytes": 14085,
+      "log_sha256": "6b5252636b683069b5c393b86cf1a8aee7e67836d908d3566b834ebfb30c7339",
+      "output_tree_bytes": 3086259529,
+      "result_sha256": "a2be83b71b38006b7825880ab06323aa5007d54e764298adac82b21716d6d198",
+      "rows": 225000000,
+      "script_sha256": "ba6cac11f01c1c5f582e39e05b7240cb8e9cdee2f32bff3759170bdad4bd8419",
+      "write_seconds": 26.04185141599737
+    }
+  },
+  "run_bounds": {
+    "baseline_returncode": 0,
+    "candidate_returncode": 0,
+    "cloud": false,
+    "combined_output_bytes_measured_after_runs": 6172519047,
+    "combined_process_deadline_seconds": 300,
+    "combined_process_elapsed_seconds": 87.718,
+    "invocation": {
+      "environment_overrides": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+        "PATH_prefix": "/opt/homebrew/opt/openjdk@21/bin",
+        "PYSPARK_PYTHON": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python",
+        "PYSPARK_SUBMIT_ARGS": "--driver-memory 24g pyspark-shell"
+      },
+      "executable": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python -B -",
+      "python": "3.12.14",
+      "stdin_body": "pair-supervisor.py",
+      "supervisor_actions": "For baseline then candidate sequentially, launch each sample as a new process group, wait against one monotonic 300-second deadline, SIGTERM on timeout, wait 10 seconds, then SIGKILL if needed. Capture stdout/stderr to the retained per-variant logs. The supervisor did not count or guard output bytes."
+    },
+    "one_spark_job_at_a_time": true,
+    "outer_deadline_enforced": true,
+    "outer_supervisor": "pair-supervisor.py",
+    "outer_supervisor_sha256": "cb3fc022c95d57220f34fd0913cbbb70d102295002fad37c77aca680b2a89b2b",
+    "output_limit_bytes": 10000000000,
+    "output_limit_enforced": false,
+    "output_limit_status": "The two measured output trees totaled 6,172,519,047 bytes, below the requested 10,000,000,000-byte bound. The supervisor did not monitor or enforce this output limit during execution.",
+    "per_harness_max_seconds": 570
+  },
+  "scope": "One sequential 45M-node/225M-edge synthetic carrier run per variant; only endpoint remainder half-division changed. No Ashlar source changes, publication/ACK, graph engine, full scan, or full-scale run.",
+  "source": {
+    "baseline_script_sha256": "4b62f0ce3a042643157100e6d32d4d12bbee03965577c8052cbb8b991eb3dd18",
+    "baseline_wheel_sha256": "18401e7052202515da90c5c7a87d775c8c33b82f82b9526f9802d615356b76af",
+    "candidate_script_sha256": "ba6cac11f01c1c5f582e39e05b7240cb8e9cdee2f32bff3759170bdad4bd8419",
+    "codec": "ZSTD",
+    "delta": "4.4.1",
+    "jdk": "21.0.13",
+    "master": "local[18]",
+    "partitions": 18,
+    "python": "3.12.14",
+    "source_commit": "bc2accd883a49d34c282dc002af98b4b05ea9440",
+    "spark": "4.2.0"
+  },
+  "tiny_equivalence_and_plan_probe": {
+    "baseline_plan_fragment": "FLOOR((cast(pmod(id, 5) as double) / 2.0))",
+    "candidate_plan_fragment": "(pmod(id, 5) div 2)",
+    "explicit_boundary_ids": [
+      9007199254740991,
+      9007199254740992,
+      9007199254740993,
+      9223372036854775802,
+      9223372036854775807
+    ],
+    "explicit_boundary_mismatches": 0,
+    "observed_summary": "tiny-equivalence-plan-observed.json",
+    "observed_summary_sha256": "bbc49ee44bfd0be24b53990dcf0bd62ca84797a0bf07a10fc60e3f0399d88c03",
+    "optimized_and_physical_plans_differ": true,
+    "plan_probe_scope": "Isolated Spark projection over range(225000000), constructed from the edge endpoint formulas; not the INSERT command physical plan. The retained full sample harness did not record the write plan.",
+    "range_ids_inclusive": [
+      0,
+      100000
+    ],
+    "range_mismatches": 0,
+    "rejected_broader_change": "Replacing floor(id/5) with id DIV 5 is not equivalent near signed-BIGINT upper bound because Spark baseline casts id to double before division; retained remainder-only candidate instead.",
+    "script": "tiny-equivalence-plan-probe.py",
+    "script_sha256": "099efa065bbaf0451b7e0e775c91e0fb5ac659c0300c43793a0ca81519f46a23"
+  }
+}

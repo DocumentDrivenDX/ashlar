@@ -1,0 +1,41 @@
+{
+  "baseline_plan_fragment": "FLOOR((cast(pmod(id, 5) as double) / 2.0))",
+  "boundary_rows": [
+    {
+      "id": 9007199254740991,
+      "new_target": 30948198,
+      "old_target": 30948198
+    },
+    {
+      "id": 9007199254740992,
+      "new_target": 30948199,
+      "old_target": 30948199
+    },
+    {
+      "id": 9007199254740993,
+      "new_target": 30948199,
+      "old_target": 30948199
+    },
+    {
+      "id": 9223372036854775802,
+      "new_target": 10955265,
+      "old_target": 10955265
+    },
+    {
+      "id": 9223372036854775807,
+      "new_target": 10955265,
+      "old_target": 10955265
+    }
+  ],
+  "candidate_plan_fragment": "(pmod(id, 5) div 2)",
+  "execution": "Already completed; no rerun for this packet amendment. Stdout summarized from captured tool result.",
+  "optimized_plan_identical": false,
+  "physical_plan_operator": "Both examined projections are Project over Range; the target expression differs. This is an isolated projection plan, not the full INSERT plan.",
+  "range_ids": [
+    0,
+    100000
+  ],
+  "range_mismatches": 0,
+  "source_script": "tiny-equivalence-plan-probe.py",
+  "source_script_sha256": "099efa065bbaf0451b7e0e775c91e0fb5ac659c0300c43793a0ca81519f46a23"
+}
