@@ -77,6 +77,46 @@ def executable_config():
 
 
 class TrussBInstallWorkerTests(unittest.TestCase):
+    def test_accepted_view_matches_exact_source_definition_inventory(self):
+        source = json.dumps({"id": "doc", "modules": [{"id": "m", "elements": [
+            {"id": "Person", "kind": "record", "keys": [{"id": "identity"}]},
+            {"id": "person_key", "kind": "field"}], "relationships": [
+            {"id": "knows"}]}]}, separators=(",", ":")).encode()
+        expected = worker.expected_catalog_definition_inventory(source, "doc")
+        self.assertEqual(len(expected), 4)
+
+        def entry(item):
+            kind, document, module, authored, pointer = item
+            return SimpleNamespace(
+                reference=SimpleNamespace(kind=kind, owner=SimpleNamespace(
+                    document_id=document, module_id=module), authored_identity=authored),
+                provenance=SimpleNamespace(accepted_catalog_revision="1",
+                    document_revision="r1", accepted_document_sha256=worker.sha(source),
+                    authored_pointer=pointer))
+
+        accepted = SimpleNamespace(document_id="doc", content=source,
+            document_revision="r1", catalog_revision=1, source_catalog_revision=0,
+            registration_id="registration", sha256=worker.sha(source))
+        report = b"exact report"
+        registration = SimpleNamespace(registration_id="registration", report_bytes=report)
+
+        def view_for(items):
+            return SimpleNamespace(catalog_revision="1",
+                definitions=tuple(entry(item) for item in items), original_bytes=b"complete view")
+
+        result = worker.validate_accepted_observations(status_revision=1,
+            accepted=accepted, report_bytes=report, registration=registration,
+            view=view_for(expected), source=source, document_id="doc",
+            document_revision="r1", expected_source_catalog_revision=0,
+            complete_scope=True)
+        self.assertEqual(result["source_sha256"], worker.sha(source))
+        with self.assertRaisesRegex(RuntimeError, "accepted source/report/complete view"):
+            worker.validate_accepted_observations(status_revision=1,
+                accepted=accepted, report_bytes=report, registration=registration,
+                view=view_for(set(list(expected)[:-1])), source=source, document_id="doc",
+                document_revision="r1", expected_source_catalog_revision=0,
+                complete_scope=True)
+
     def test_packet_preflight_is_pure_and_keeps_approval_null(self):
         config = json.loads((PACKET / "b-install-config.json").read_bytes())
         self.assertIsNone(config["execution"]["approval"])

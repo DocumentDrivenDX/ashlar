@@ -73,6 +73,14 @@ def validate_accepted_observations(*, status_revision, accepted, report_bytes,
                                    registration, view, source, document_id, document_revision,
                                    expected_source_catalog_revision, complete_scope):
     expected_sha = sha(source)
+    expected_inventory = expected_catalog_definition_inventory(source, document_id)
+    actual_inventory = []
+    for definition in view.definitions:
+        reference = definition.reference
+        provenance = definition.provenance
+        actual_inventory.append((reference.kind, reference.owner.document_id,
+                                 reference.owner.module_id, reference.authored_identity,
+                                 provenance.authored_pointer))
     if (status_revision != 1 or accepted.document_id != document_id
             or accepted.content != source
             or accepted.document_revision != document_revision
@@ -82,7 +90,9 @@ def validate_accepted_observations(*, status_revision, accepted, report_bytes,
             or accepted.sha256 != expected_sha
             or registration.report_bytes != report_bytes
             or not complete_scope or str(view.catalog_revision) != "1"
-            or not view.definitions):
+            or len(actual_inventory) != len(expected_inventory)
+            or len(set(actual_inventory)) != len(actual_inventory)
+            or set(actual_inventory) != expected_inventory):
         raise RuntimeError("accepted source/report/complete view differs from frozen pins")
     for definition in view.definitions:
         provenance = definition.provenance
@@ -96,6 +106,59 @@ def validate_accepted_observations(*, status_revision, accepted, report_bytes,
             "registration_id": accepted.registration_id,
             "report_sha256": sha(report_bytes),
             "complete_view_sha256": sha(view.original_bytes)}
+
+
+def expected_catalog_definition_inventory(source: bytes, document_id: str) -> set[tuple[str, str, str, str, str]]:
+    """Derive exact Truss view identities/pointers from the frozen UMF bytes.
+
+    Truss exposes one view entry for each record (type), field (property),
+    authored key, and relationship. Provider-native numeric IDs are deliberately
+    excluded; accepted identity is bound by kind, document/module, authored ID,
+    and the exact source pointer instead.
+    """
+    document = strict_json_object(source)
+    if type(document_id) is not str or not document_id:
+        raise ValueError("frozen document ID required")
+    modules = document.get("modules")
+    if type(modules) is not list or not modules:
+        raise ValueError("UMF module inventory required")
+    expected = set()
+    for module_index, module in enumerate(modules):
+        if type(module) is not dict or type(module.get("id")) is not str or not module["id"]:
+            raise ValueError("bounded UMF module identity required")
+        module_id = module["id"]
+        elements = module.get("elements", [])
+        relationships = module.get("relationships", [])
+        if type(elements) is not list or type(relationships) is not list:
+            raise ValueError("UMF element/relationship arrays required")
+        for element_index, element in enumerate(elements):
+            if type(element) is not dict or type(element.get("id")) is not str or not element["id"]:
+                raise ValueError("UMF authored element identity required")
+            pointer = f"/modules/{module_index}/elements/{element_index}"
+            kind = element.get("kind")
+            if kind == "record":
+                expected.add(("type", document_id, module_id, element["id"], pointer))
+                keys = element.get("keys", [])
+                if type(keys) is not list:
+                    raise ValueError("UMF record keys must be an array")
+                for key_index, key in enumerate(keys):
+                    if type(key) is not dict or type(key.get("id")) is not str or not key["id"]:
+                        raise ValueError("UMF authored key identity required")
+                    expected.add(("key", document_id, module_id, key["id"],
+                                  f"{pointer}/keys/{key_index}"))
+            elif kind == "field":
+                expected.add(("property", document_id, module_id, element["id"], pointer))
+            else:
+                raise ValueError("unsupported UMF source definition kind in accepted inventory")
+        for relationship_index, relationship in enumerate(relationships):
+            if (type(relationship) is not dict or type(relationship.get("id")) is not str
+                    or not relationship["id"]):
+                raise ValueError("UMF authored relationship identity required")
+            expected.add(("relationship", document_id, module_id, relationship["id"],
+                          f"/modules/{module_index}/relationships/{relationship_index}"))
+    if not expected:
+        raise ValueError("nonempty UMF definition inventory required")
+    return expected
 
 
 def validate_installation_readback(status, manifest: dict, manifest_sha256: str,

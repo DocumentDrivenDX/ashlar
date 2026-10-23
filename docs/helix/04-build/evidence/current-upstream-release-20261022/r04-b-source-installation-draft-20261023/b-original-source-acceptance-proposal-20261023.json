@@ -53,7 +53,7 @@
     "supervisor": "b_install_supervisor.py",
     "supervisor_sha256": "b22633eae224f547dd024f09b3618e4d980556fbe405a9f3c7ba2d3056706f88",
     "worker": "b_install_worker.py",
-    "worker_sha256": "4d48f6f89988472ab3fb47edf6dd7874811d3ae2115da115994280fd9822e893",
+    "worker_sha256": "06f9fb83c2c1cbc714bdcba9d10877c793e3accea735fde009a672dc0a00a294",
     "candidate_root": "/private/tmp/ashlar-r04-b-install-20261023-01/root",
     "candidate_pgdata": "/private/tmp/ashlar-r04-b-install-20261023-01/root/postgres-data",
     "candidate_attempt": "/private/tmp/ashlar-r04-b-install-20261023-01/root/attempt-01",
