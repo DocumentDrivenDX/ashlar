@@ -523,6 +523,63 @@ SQL digest are recorded in the [Truss source comparison](../../04-build/evidence
 This decision approves only the timing of feed-page binding; it does not adopt
 the broader draft contract or establish R04 execution evidence.
 
+#### Proposed R04 slot-by-slot request freeze (owner decision pending)
+
+**PROPOSED; not approved and not normative.** If adopted, this amendment would
+replace only the requirement above that all eight exact mutation-request byte
+strings exist before the first R04 publication attempt. It preserves the
+eight-slot schedule and its same-entity lifecycle: within each source, R1
+creates the selected entity, R2 updates that entity, and R3 deletes that same
+entity. The schedule MUST NOT substitute an unrelated pre-R04 seed entity for
+that R1-created target.
+
+Before the first R04 publication attempt, the caller MUST freeze one immutable
+closed semantic schedule for all eight slots: ordered operations, A/B source
+assignment, accepted model and schema pins, authored values and presence,
+symbolic references from each R1-created entity to its R2/R3 operations,
+expected state transitions, independent source and ACK identities, and the
+complete prefix-oracle rules. A symbolic reference records the intended
+lineage; it is not a guessed provider ID and cannot authorize source or graph
+effects.
+The exact canonical schedule bytes and their digest MUST be retained before
+the first R04 publication attempt; this digest is the immutable schedule
+identity used by every later slot record.
+
+For each slot, the exact original Truss mutation-request bytes and digest MUST
+be frozen and durably joined to that slot and the frozen semantic-schedule
+digest before invoking the public source mutation API for that slot. The
+immutable slot record MUST bind the schedule digest, slot and source identities,
+resolved predecessor identities, exact request bytes, and request digest. R1
+request bytes are frozen before R1. After a
+committed R1 returns its provider-assigned identities, the caller MUST verify
+its original public result and readback; only then may it resolve the frozen
+symbolic references and freeze R2's exact request bytes, before R2's source
+effect. R3 follows the same rule using the verified R2 result and readback.
+Apply the rule independently to B. A missing or mismatched result, identity,
+version, request digest, or semantic transition MUST stop the schedule before
+the next source effect; an exact request MUST never be rewritten after its
+source effect or after any slot's graph effect.
+
+Source mutations MUST follow the frozen global slot order
+`A1, B1, A2, B2, A3, B3, A4, B4`. A slot's source mutation MUST NOT begin until
+the immediately preceding slot's graph publication has completed, its complete
+vector and source progress have been independently verified, and its protected
+source ACK has durably completed. In particular, R2 and R3 source mutations
+MUST wait for the preceding slot's publication, independent verification, and
+protected ACK; a failed or uncertain predecessor stops every later source
+mutation.
+
+After a slot's source transaction commits, its actual complete feed page,
+prior and next cursor, writer position, event-byte inventory and digest MUST
+still be bound to that slot's already frozen exact mutation request before
+that slot's graph effects, as in the existing staged feed-binding rule. The
+publisher MUST refuse a missing, changed or unadmitted page. It MUST publish
+and independently verify the complete vector before acknowledging only that
+slot's source. The schedule freeze does not permit source write-ahead for
+later slots, page inference, early ACK, or reuse of R03 seed bytes as an R04
+slot. [CONTRACT-003](CONTRACT-003-delta-graph-tables.md) carries the
+corresponding materialization requirement.
+
 Each complete source transaction MUST publish one immutable full table-version
 vector and both source progress entries. Protected durable ACK MAY advance only
 for that source after its transaction is durably published and independently

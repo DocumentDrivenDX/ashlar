@@ -1700,6 +1700,32 @@ entries under one immutable complete publication vector. An independent oracle
 MUST compare all original values, presence and multiplicity, not derive expected
 results from SQL or current native rows.
 
+**PROPOSED R04 timing amendment; owner decision pending, not normative.** If
+adopted, replace only the clause requiring all eight exact mutation-request
+bytes before the first publication attempt with the slot-by-slot freeze in
+[CONTRACT-001](CONTRACT-001-publication-boundary.md#proposed-r04-slot-by-slot-request-freeze-owner-decision-pending).
+Before the first publication, freeze the complete eight-slot semantic schedule
+and independent prefix oracle, including the same-entity lineage in which each
+source's R1 creates the entity targeted by its R2 update and R3 delete. Do not
+substitute unrelated pre-R04 seed identities for those targets. Retain the exact
+canonical schedule bytes and digest before the first publication. Resolve
+provider-assigned identities only from the predecessor slot's committed public
+result and readback, then freeze the dependent slot's exact original
+mutation-request bytes and digest before that slot's source effect. Durably bind
+each slot's exact request bytes and digest, source and slot identities, and
+resolved predecessor identities to the frozen schedule digest before the
+corresponding source mutation. Source mutations MUST follow
+`A1, B1, A2, B2, A3, B3, A4, B4`; no slot may mutate its source until the
+immediately preceding slot's graph publication, independent complete-vector
+and source-progress verification, and protected ACK have durably completed. A
+failed or uncertain predecessor stops all later source mutations. Keep each
+actual feed page bound to its frozen request before its graph effects, and
+retain independent publication verification before source-specific ACK. This
+changes request-byte freeze timing only; it does not authorize committing later
+source slots early, reading future pages, inferring IDs, or changing the already
+approved staged feed-binding rule. It does not authorize source mutations,
+publication, or ACK.
+
 Every older retained publication MUST read its original complete vector or
 refuse under an explicit retention boundary. Replay/restart MUST preserve the
 same logical and native state without another commit; an unadmitted breaking
