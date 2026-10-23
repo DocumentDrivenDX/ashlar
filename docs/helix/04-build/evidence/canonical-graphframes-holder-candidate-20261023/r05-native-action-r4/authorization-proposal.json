@@ -1,0 +1,12 @@
+{
+  "attemptParent": "/private/tmp/ashlar-r05-graphframes-r4-c8151311",
+  "attempts": 1,
+  "invocationPacketSha256": "379c451ca3def324dfabb6e06ed9ad02f13b3df8615253911db2f8189e9811d2",
+  "master": "local[2]",
+  "maximumAggregateBytes": 2147483648,
+  "maximumAttemptRootBytes": 536870912,
+  "maximumDiagnosticsBytes": 134217728,
+  "maximumSeconds": 300,
+  "profile": "ashlar-canonical-graphframes-execution-authorization/0.1",
+  "status": "proposed"
+}

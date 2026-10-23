@@ -1,0 +1,15 @@
+{
+  "evidenceForm": "retain exact read-only command outputs and SHA-256 digests; no cleanup, process signaling, Spark launch, or directory creation during this check",
+  "freshness": "capture after independent R4 packet review and immediately before any separate authorization decision",
+  "requiredObservations": [
+    "UTC observation time and host identity",
+    "current owner/lease for the exclusive native slot; explicit release or clearance from the recorded owner",
+    "process inventory for Spark, Java/JVM, Python worker, Delta, and GraphFrames processes, including PID, command, start time, and process group where available",
+    "no active or orphaned process/session from earlier R05 attempts; reconcile any match before proceeding",
+    "attempt-parent path does not exist; no existing attempt marker, attempt directory, receipt, or authorization sidecar",
+    "available filesystem bytes and inode capacity sufficient for retained baseline plus the 512 MiB attempt cap",
+    "predictive optimization remains enabled; no managed/shared Databricks cluster is selected"
+  ],
+  "scope": "read-only preflight immediately before a possible one-attempt authorization",
+  "status": "required-before-any-authorization"
+}
