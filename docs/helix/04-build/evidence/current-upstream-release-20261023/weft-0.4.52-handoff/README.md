@@ -44,9 +44,11 @@ Ashlar receipts are retained in this directory tree:
    and exact bytes while the release remains a draft; a separate promotion is
    required. Neither workflow has been run for publication.
 2. The Weft candidate's release pins use UMF core `0.10.0` and access
-   `0.1.0.dev6`. Ashlar now selects access `0.1.0.dev7` with the same core
-   bytes. Existing Weft 0.4.52 macOS compatibility tests were run with the
-   earlier dev6 profile; do not describe them as dev7 qualification.
+   `0.1.0.dev6`. The broader selected macOS compatibility receipt uses dev6;
+   Ashlar separately passed two focused managed-page/compiler and typed-SDK
+   controls with access `0.1.0.dev7` ([receipt](../weft052-umf-dev7-compat-20261023.json)).
+   That offline result does not qualify native runtime behavior, which remains
+   open alongside public release publication.
 3. Ashlar `pyproject.toml` still pins `weft-sql==0.4.48`. After the public
    assets exist, review the exact 0.4.52 distribution source/install path and
    update the Ashlar pin only with an approved focused compatibility receipt.

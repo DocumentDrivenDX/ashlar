@@ -1,0 +1,53 @@
+{
+  "schema": "ashlar-weft052-umf-dev7-compiler-compatibility/0.1",
+  "status": "passed",
+  "observedAt": "2026-10-23",
+  "ashlar": {
+    "commit": "78fdb932aaa9e12eecefa7108b15cd9ce2cf7545",
+    "testedPaths": {
+      "tests/test_managed_current_page_target.py": "10e37612bfe952188940ecd0ca38b07978cab7bb501bb4ec9010527db5801771",
+      "src/ashlar/access.py": "d1a0599d9d4b81f0715c5006af655cdf50426996d64a83e10a95c9b0040751f2",
+      "src/ashlar_host/managed_current_weft_binding.py": "dbf13dbcc469b8ce3ea7d345686bc20f4fd38f2cbb1a3a5f8f1a4aaf90f9d23b",
+      "src/ashlar_host/managed_current_core.py": "d496cf914beb2d207e91c6de7872e6a8b11a5af4e1a43d277c1645aa20b469bb"
+    }
+  },
+  "runtime": {
+    "profile": "Truss R4 isolated CPython runtime",
+    "python": "3.12.14",
+    "venv": "/private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv",
+    "installReceiptSha256": "c8e3056973fbea931dda98c47f1b67fc4ba651583e148183f281a2e0058cae55",
+    "packages": {
+      "weft-sql": {
+        "version": "0.4.52",
+        "wheel": "weft_sql-0.4.52-cp39-abi3-macosx_11_0_arm64.whl",
+        "sha256": "598509e981e3238961d33d430c711b481e430adc945e692a1784ab758f7b6d46"
+      },
+      "umf-access": {
+        "version": "0.1.0.dev7",
+        "wheel": "umf_access-0.1.0.dev7-py3-none-any.whl",
+        "sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597"
+      },
+      "umf-core": {
+        "version": "0.10.0",
+        "wheel": "umf_core-0.10.0-py3-none-any.whl",
+        "sha256": "49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9"
+      }
+    }
+  },
+  "command": "PYTHONPATH=src:tests /private/tmp/ashlar-truss049-lifecycle-campaign-20261023-r4-f5e89926/runtime/venv/bin/python -B -m unittest -v test_managed_current_page_target.ManagedCurrentPageTargetTests.test_actual_compiler_page_artifact_accepts_exact_xxhash64_target test_managed_current_page_target.ManagedCurrentPageTargetTests.test_actual_compiler_page_artifact_keeps_legacy_managed_target",
+  "result": {
+    "exitCode": 0,
+    "passed": 2,
+    "elapsedSeconds": 0.736,
+    "tests": [
+      "test_actual_compiler_page_artifact_accepts_exact_xxhash64_target",
+      "test_actual_compiler_page_artifact_keeps_legacy_managed_target"
+    ]
+  },
+  "claim": "The selected Weft 0.4.52 compiler in the isolated R4 environment emitted managed .4 page artifacts under UMF access 0.1.0.dev7; UMF EngineRead.from_original admitted typed parameter/result models and Ashlar target binding for the xxhash64 and legacy managed profiles.",
+  "limits": [
+    "Offline compiler and typed SDK artifact compatibility only.",
+    "No Spark, PostgreSQL, native SQL, Unity Catalog, managed Delta read or publication was started or qualified.",
+    "This focused result does not change the Ashlar typed-sdk Weft pin."
+  ]
+}
