@@ -235,3 +235,29 @@ The old Fabric success receipt covers only R1, and the old
 A/B path reconciliation neither authorizes retries nor proves the new paths
 available. Resolve these prerequisites and obtain independent review of the
 committed runner/packet before any native call.
+
+The held runner has a separate unresolved portal/editor initialization owner
+gate. `HeldCommerceFabricDeployment.observe_initial_load` in
+`src/ashlar_host/commerce_fabric_deployment.py` only lists and reads the item's
+Refresh job; its contract explicitly says it never opens the portal. No
+production implementation or nominal external owner for the first editor
+opening, retained through its closing evidence, exists in the current runner.
+The loopback deployment tests exercise REST job observation and therefore do
+not establish this portal operation. Historical R1/R2 evidence in the
+[release manifest](../fabric-delta-releases-20261011/manifest.json) says R2 editor Save reported
+invalid elements and later showed data loading; the receipt leaves initial
+ingestion completion pending and does not provide the actual portal owner's
+opening/closing record. This does not satisfy CONTRACT-003's explicit portal
+ownership requirement. No effect-free implementation can truthfully close it
+without a supported/approved way to own and evidence that UI operation. Keep
+P06/P07 held until the owner interface and exact opening/closing receipt are
+available, then bind that actual owner across observation and load admission;
+a callback, Boolean, job listing, or historical editor note is insufficient.
+Microsoft's [Graph data management documentation](https://learn.microsoft.com/en-us/fabric/graph/manage-data)
+states that REST-created models are not queryable until first opened in the
+portal editor, which provisions internal loading infrastructure; refresh fails
+before that one-time initialization. The [GraphModel REST operation index](https://learn.microsoft.com/en-us/rest/api/fabric/graphmodel/items)
+lists create, delete, query, get, list and update operations, but no first-open
+initialization operation. These public surfaces support keeping the owner gate
+external to this runner until Microsoft exposes a supported initialization
+operation or an authorized UI owner can retain actual opening/closing evidence.
