@@ -233,10 +233,26 @@ protected ACK. Advance later managed slots only if the first result and
 conservative remaining budget fit the approved $100 ceiling, preferring $10.
 Delete the owned schema after its retained evidence is complete.
 
+Authenticated admission has found only a Personal Compute policy for a
+single-node all-purpose cluster; it does not admit the serverless or Jobs-cluster
+path assumed below. [TD-009](../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md)
+now records an unadopted A1-only all-purpose option. Separately, the
+[source-holder gap](evidence/source-holder-interval-proposal-20261023.md)
+shows that public Truss 0.0.49 has operation-level page and receipt-ACK calls but
+no selected renewable source-custody owner across managed verification, ACK,
+reconciliation and close. The release sequence is to obtain and admit that
+source authority, review the matching Ashlar holder and independent verifier,
+then select and cost an actual dedicated compute path before A1. Neither the
+documented all-purpose option nor the existing serverless entrypoint is an
+authorized fallback for the other.
+
 Run the small canonical persisted-carrier GraphFrames action once after the
 generator/source/oracle correspondence, selected runtime and JARs, bounded
 result/cap, and retained-file/exclusive-use custody through close are admitted
-in an isolated local slot. Keep the 1B-node/5B-edge full Delta trial held
+in an isolated local slot. The [R12 packet](evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/README.md)
+binds the current Ashlar source/resource bytes and has independent review, but
+its static runtime admission, local slot and fresh execution authorization are
+still required. Keep the 1B-node/5B-edge full Delta trial held
 until its latest 16.50-minute write-only projection has owner review; the two lookups,
 two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
@@ -256,6 +272,11 @@ functional and required final checks, obtain independent review, and publish
 Ashlar from reviewed main/origin. Any unsupported engine or production authority
 remains an explicit open release gate rather than being inferred from an export
 shape or development fixture.
+
+An early [R06 sdist check](evidence/current-upstream-release-20261023/ashlar-r06-sdist-local-check-20261023/README.md)
+passed an isolated local install and resource smoke at source `a37a9ddb`; it
+does not replace the final candidate build after upstream pins and runtime
+qualification settle.
 
 The proposed managed R04 campaign uses eight sequential, one-slot dedicated
 serverless Jobs tasks through the existing managed trial entrypoint. After each
