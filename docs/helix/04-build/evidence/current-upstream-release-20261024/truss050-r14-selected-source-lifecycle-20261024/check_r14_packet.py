@@ -33,6 +33,9 @@ assert result['worker_preflight']['outcome']=='ready_pending_hash_bound_operator
 assert result['supervisor_preflight']['outcome']=='pending_execution_admission'
 assert result['supervisor_preflight']['approval_contract_parity'].startswith('pending')
 assert result['supervisor_preflight']['sysv_shared_memory_gate']['cleanup_confirmed'] is True
+supervisor_source=(ROOT/'run_supervisor_r14.py').read_text()
+assert supervisor_source.count("gates=admission_gates()") == 1
+assert 'gate_digest=parity[\'admission_gates_sha256\']' in supervisor_source
 assert result['effect_boundary']=={'postgres_started':False,'spark_started':False,'truss_migration_applied':False,'source_or_consumer_mutated':False,'feed_publication_or_ack_mutated':False,'seed_submitted':False,'execution_approval_created':False,'execution_started_marker_created':False}
 for name in ('execution-approval.json','execution-started-r14-ec5760a4-7462-4047-9e6c-e228791c1348.json'):
     assert not (ROOT/name).exists(),f'unexpected authorization/start artifact: {name}'

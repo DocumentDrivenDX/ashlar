@@ -256,7 +256,8 @@ def main():
           'worker_sha256':digest(WORKER),'supervisor_sha256':digest(Path(__file__)),'preflight':result},sort_keys=True))
         return 0
     result=preflight()
-    result['admission_gates']=admission_gates()
+    gates=admission_gates()  # one bounded admission probe per execution attempt
+    result['admission_gates']=gates
     parity=approval_contract_parity(result)
     result['approval_contract_parity']=parity
     expected=expected_approval(result)
@@ -264,8 +265,9 @@ def main():
     if approval!=expected:raise RuntimeError('Fresh exact root/Sol hash-bound execution approval required')
     if owns_postgres():raise RuntimeError('Retained PostgreSQL already running; no attach or retry')
     if ATTEMPT.exists() and any(ATTEMPT.iterdir()):raise RuntimeError('Single-use attempt contains output; no retry/replay')
-    gates=admission_gates()  # prove process inventory and SysV support before any marker or native child
-    gate_digest=admission_gates_digest(gates)
+    # Reuse the exact gates bound by approval parity; do not create a second
+    # temporary SysV segment for the same one-shot attempt.
+    gate_digest=parity['admission_gates_sha256']
     if gate_digest!=expected['admission_gates_sha256']:raise RuntimeError('Live admission gates differ from the approved digest')
     stdout=LOGDIR/'worker-attempt-r14-ec5760a4-7462-4047-9e6c-e228791c1348.stdout.log';stderr=LOGDIR/'worker-attempt-r14-ec5760a4-7462-4047-9e6c-e228791c1348.stderr.log';receipt=LOGDIR/'supervisor-attempt-r14-ec5760a4-7462-4047-9e6c-e228791c1348.json';started_marker=ROOT/'execution-started-r14-ec5760a4-7462-4047-9e6c-e228791c1348.json'
     for p in (stdout,stderr,receipt,started_marker):
