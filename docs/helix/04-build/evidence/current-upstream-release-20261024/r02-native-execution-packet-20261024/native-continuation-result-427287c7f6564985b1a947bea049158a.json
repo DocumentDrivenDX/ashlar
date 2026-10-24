@@ -1,0 +1,81 @@
+{
+  "profile": "ashlar-r02-native-continuation-result-receipt/0.1",
+  "attemptId": "427287c7f6564985b1a947bea049158a",
+  "attemptRoot": "/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a",
+  "status": "complete",
+  "sourceRevision": "fc3456deab17195f650c220b4e7eb12ef9f82a09",
+  "scope": {
+    "kind": "ashlar-delta/0.3",
+    "ordinal": 1,
+    "scopeCount": 1,
+    "liveAliasScopeCount": 1,
+    "reviewStages": ["pre-sql", "post-page1"],
+    "protectedAck": false,
+    "cloudOrUnityCatalog": false
+  },
+  "runtime": {
+    "platform": "macOS arm64",
+    "python": "3.12.14",
+    "jdk": "21",
+    "spark": "4.2.0",
+    "delta": "4.4.1",
+    "weft": "0.4.53",
+    "weftSourceCommit": "726a840e956e25217d6aeea2674fdfcf3f342a24",
+    "weftWheelSha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+    "weftIndexSha256": "b9c8e0b9b82940dc1502352746ab902542549e75ad9e8fceb34204edf9e815f1",
+    "cohortReceiptSha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5",
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
+      "spark-core_2.13-4.2.0.jar": "8e0a03b66338a4a38c9089d9f798ab6a6c6583aefe93f910311704a5ec90ffc4",
+      "spark-sql-api_2.13-4.2.0.jar": "d789409a56db600c5160300fcd2c9651bf6f32dd8db1035a9bda17b67543b372",
+      "spark-sql_2.13-4.2.0.jar": "ec0a0d699c6c57300ee47ba5d54b4d1f71d3e5401fb90a2bcdcd83b942084dbf"
+    },
+    "sparkMaster": "local[1]",
+    "driverMemorySelection": "R02-only 2g; guarded by source revision fc3456deab17195f650c220b4e7eb12ef9f82a09. Other configured-local calls remain at 512m.",
+    "liveJvmHeapGuard": "Passed before each SQL gate operation; required JVM maxMemory in 1792–2304 MiB. Exact observed byte count was not retained."
+  },
+  "priorPublication": {
+    "attemptId": "0b4774f5fb2c43bbb026da651aecd155",
+    "sourceRevision": "5298af9dd82c84e4929c0d7a3e286206f5037612",
+    "ordinal1VectorSha256": "e962032e30d24e6308c9322c265bc82f30f27feb5580e3a64cd4e885b0baaede",
+    "finalVectorSha256": "78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb",
+    "ordinal1Tables": {
+      "edge_current": {"uuid": "89024b00-1fb8-4620-9788-c321e0da468f", "version": 2},
+      "object_current": {"uuid": "f9693b71-b1f3-407e-8f3c-e22f19ab8675", "version": 2},
+      "tombstone": {"uuid": "24498b38-cac0-49a7-a66e-fc6903ab321c", "version": 1},
+      "whole_source_history": {"uuid": "0cbcd687-12ca-4129-a9ef-bd35f35c71e1", "version": 2}
+    }
+  },
+  "result": {
+    "oracleSha256": "f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0",
+    "singleton": "The returned ordinal-1 object row matched the independent source oracle, including the exact integer 9007199254740993 and retained unknown JSON.",
+    "backend03Original": [["person-1", 2, 1]],
+    "backend03PositiveMultiplicity": [["person-1", 2, 1]],
+    "backend02Page1": [["person-1", "Ada"], ["person-2", "Ben"]],
+    "continuationToken": "[\"person-2\"]",
+    "backend02Page2": [["person-3", "雪"]],
+    "oracleComparison": "Independently rechecked against source-oracle.json: singleton identity/properties, grouped bags, visible page rows, token, and continuation rows matched.",
+    "publicationMutation": "No publication operation was invoked; this attempt did not take a separate post-query table-version census.",
+    "protectedAck": false
+  },
+  "supervisor": {
+    "elapsedSeconds": 159.632,
+    "workerExit": 0,
+    "processGroupClosed": true,
+    "processInventorySha256": "060aa6bb517889bbeeaaa5981aae0bc0fd7c01c166a796bbdf86080998080099",
+    "privateBytes": 671036,
+    "retainedReceiptBytes": 577411,
+    "limits": {"wholeProcessSeconds": 450, "privateBytes": 536870912, "retainedReceiptBytes": 16777216, "commandOutputBytes": 1048576}
+  },
+  "retainedArtifacts": {
+    "continuationManifest": {"path": "continuation-manifest.json", "sha256": "ef29b0c3a746280b38d3929235777af9c21f207b80c09a86c30d9a67ff2b47fb"},
+    "supervisorState": {"path": "supervisor-state.json", "sha256": "d400c858c8d57dbdf79c55d2494f4c6c00621ae58b141262b4c720608f9c44d2"},
+    "result": {"path": "continuation-result.json", "sha256": "9fa398faf524ddfbf9c36fa39752fe0e0e5f0c720955e2afa2239a0fbc339f32"},
+    "preSqlManifest": {"path": "pre-sql-manifest.json", "sha256": "77cfbf4341c531f3c4d2c96093675ad284c86a4b0ab4b91938e5fd0842490521"},
+    "preSqlReview": {"path": "pre-sql-review.json", "sha256": "1fb417a4abbc765eb1d2cae5bea23780b8c266e5c15a9c7f3c7b5e413393ce94"},
+    "postPage1Manifest": {"path": "post-page1-manifest.json", "sha256": "e719f08487863e76481589ed9b6fff52cec36d4322e4a8dcd389cb354981f249"},
+    "postPage1Review": {"path": "post-page1-review.json", "sha256": "bf0b99ae39a9025a3bbec2fe67e097bff55362fd2bdfaa1becefb57a84a4f7ff"},
+    "workerLog": {"path": "worker.log", "sha256": "22903423559b06b278807834a17fa200ded1047433619ee375b009e7255391ce"}
+  }
+}

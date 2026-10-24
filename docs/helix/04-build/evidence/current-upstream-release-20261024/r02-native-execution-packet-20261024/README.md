@@ -1,9 +1,12 @@
 # R02 current-core local native execution packet
 
-Status: **the reviewed one-shot `.3` prepublication phase completed**. The
-result and exact attempt bindings are recorded in the [R02 execution result](../r02-native-prepublication-20261024/README.md).
-This is bounded local publication evidence only: it does not qualify `.4`,
-native reads, Weft queries, cloud execution, or source/ACK custody.
+Status: **the reviewed `.3` prepublication phase and one `.3` live-alias
+Weft 0.4.53 continuation completed**. The continuation receipt and exact
+retained artifacts are recorded in
+[`native-continuation-result-427287c7f6564985b1a947bea049158a.json`](native-continuation-result-427287c7f6564985b1a947bea049158a.json).
+This qualifies only the recorded local `ashlar-delta/0.3` ordinal-1 singleton,
+grouped query and SDK page/continuation behavior. It does not qualify `.4`,
+cloud execution, protected ACK, or production source custody.
 
 ## Scope and limits
 
@@ -359,11 +362,24 @@ historical R02 runtime receipt
 `37dd8c330a5e65ad5395827e1bc839976e0a76f1e77a1726eae552edaa54cf1d`) records
 private Weft and `.3` bindings and is not current native evidence.
 
-The approved one-shot attempt completed the `.3` prepublication phase; see the
+The one-shot prepublication result is recorded in the
 [durable result record](../r02-native-prepublication-20261024/README.md).
-Fresh `.3` Weft responses and native reads/queries remain unrun. A
+The separate reviewed live-alias continuation completed the singleton,
+Backend03 original and positive grouped checks, and Backend02 page 1 plus
+continuation against the retained ordinal-1 vector. Its independent result
+receipt records exact hashes, rows, runtime and closure evidence; the retained
+result and both reviewed stage manifests are linked from that receipt. A
 `.4-xxhash64` native test is outside this packet because the current
 configured-local adapter is pinned to `.3`.
+
+The read-only verification used the preserved files under
+`/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a`:
+[supervisor state](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/supervisor-state.json),
+[continuation result](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/continuation-result.json),
+[pre-SQL manifest](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/pre-sql-manifest.json),
+[pre-SQL review](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/pre-sql-review.json),
+[post-page-1 manifest](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/post-page1-manifest.json), and
+[post-page-1 review](/private/tmp/ashlar-r02-attempts/ashlar-r02-continuation-427287c7f6564985b1a947bea049158a/post-page1-review.json).
 
 ## Governing artifacts
 
