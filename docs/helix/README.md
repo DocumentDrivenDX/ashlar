@@ -62,11 +62,13 @@ are unproven, source-holder custody is open, and no conservative total-cost
 bound has been established. No A1 schema or paid compute was created or started
 ([A1 permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
 [A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
-The synthetic 1B-node/assumed-5B-edge trial remains held because its latest
-write-only projection exceeds the 15-minute owner-review gate. An opt-in
-concurrent table-write candidate is implemented but has no native performance
-result ([physical limits](04-build/evidence/r05-materialization-physical-limits-20261024.md),
-[candidate packet](04-build/evidence/r05-full-delta4-scale-packet-20261023/README.md)).
+The synthetic 1B-node/assumed-5B-edge trial remains held. A bounded local
+45M-node/225M-edge comparison passed for sequential and opt-in concurrent
+Delta writing. At 80% of measured throughput, concurrent writes alone project
+to 14.18 minutes; full-size validation, reads, and graph export remain outside
+that bound and require owner review before a full run
+([paired result](04-build/evidence/r05-paired-writer-second-20261024/README.md),
+[physical limits](04-build/evidence/r05-materialization-physical-limits-20261024.md)).
 Fabric activation is pending current source/ACK, capacity, path and cleanup
 admission. See the
 [toolkit delivery plan](04-build/toolkit-delivery-plan.md) for ordered work and
