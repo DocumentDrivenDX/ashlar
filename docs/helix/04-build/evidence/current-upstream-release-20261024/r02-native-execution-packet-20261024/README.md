@@ -155,21 +155,27 @@ Databricks cluster.
 
 [`r02_supervisor.py`](r02_supervisor.py) is the packet launcher. It accepts an
 explicit JSON manifest and a separate Sol review receipt whose SHA-256 names
-those exact manifest bytes. It checks the pinned source inputs and all five
-R05 JAR hashes, requires a fresh UUID-like attempt ID, creates a mode-0700
-user-owned private directory under `/private/tmp`, and runs manifest argv
-steps serially. It kills the process group on the 300-second total deadline or
+those exact manifest bytes. It checks the exact current Git revision, four
+fixture/source hashes, seven Ashlar runtime-source hashes, and all five R05 JAR
+hashes. It requires a fresh UUID-like attempt ID, creates a mode-0700
+user-owned private directory in the user cache, and runs manifest argv steps
+serially. It kills the process group on the 300-second total deadline or
 a byte-cap breach, and leaves durable attempt state so a failed attempt cannot
 be silently repeated. Command output is capped at 1 MiB each, private attempt
 data at 512 MiB, and retained receipts at 16 MiB.
 
-After publication and singleton work, the prepublication phase records
-`complete-held-after-publication` and exits. It cannot run queries. A separate
+The prepublication phase allows exactly initialization, batches 1–3, and the
+byte-identical batch-3 replay. It must retain the first-publication vector and
+records its complete value and digest in an fsynced state file before exiting
+as `complete-held-after-publication`. It cannot run native reads or queries. A separate
 `continuation` manifest must include the actual complete publication vector,
-the exact frozen Weft request/response hashes and files, and Sol's explicit
-review of those vector-bound artifacts. Its review receipt must bind the exact
-continuation manifest hash. Only that separate invocation can run query steps.
-The current-source pins must be rebound after the Truss 0.50 source changes
+the hash of that state file, and the exact frozen Weft request/response files
+for the original and positive Backend03 requests and Backend02 page and
+continuation. Each binding must equal the complete vector and each compiler
+response must preserve its binding hash. Sol's review receipt must bind the
+exact continuation manifest hash and approve those vector-bound artifacts.
+Only then can the separate invocation run the singleton and four query steps.
+The seven host-source pins must be rebound after the Truss 0.50 source changes
 land. This supervisor has not been used to invoke Spark or native operations.
 After Sol supplies the reviewed manifest and review receipt, invoke exactly
 one phase with:
