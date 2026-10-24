@@ -1,0 +1,30 @@
+{
+  "profile": "ashlar-r05-paired-attempt-refusal/0.1",
+  "attemptRoot": "/private/tmp/ashlar-r05-paired-writer-20261024-attempt-parent/ashlar-r05-paired-5032285d1c936ede07022526",
+  "authorizationSha256": "7a4096a0aac243d147f4572c7207ddb7ec8c48f297cba62ba7adb7768eeaa048",
+  "admissionSha256": "8d5bdd99d263f2e2ad98418c90a74a228ee89a97b9dbdeaebf0ebd846d3d548f",
+  "supervisorResultSha256": "f809d21ea13ef258e754b70a14621f9af289925ebfc54242b201a265804fc7f5",
+  "workerDiagnosticsSha256": "87f392c9705e7b9a97fb2153897cc67dcfdcf979122d85da14d06315aee736e8",
+  "packetSha256": "1a7b6505728d50a0d1e43cd3f7940ab67aabf37c0a90e17117113259d407ed3d",
+  "sourcePinsSha256": "d7f68e893718e56c8b977b9ee90993144beac417d17db91e6d7b8d0f02630efe",
+  "runtimePinsSha256": "504ad0a1958e343ae0b4b5c7787b40f1e86063519b86006aa6435ec3b4117316",
+  "supervisor": {
+    "status": "failed-or-held",
+    "childExitStatus": 1,
+    "childGroupQuiescentAtClose": false,
+    "elapsedSeconds": 84.729774,
+    "cleanup": "preserved-after-failure-or-uncertainty"
+  },
+  "observations": {
+    "sequentialModeValidatedOwnershipSha256": "3bb7510ea23d6c68adfc2a2a30ee74b8a70a6f84f09976ad79a5970c02513c30",
+    "parallelModeCreatedOwnershipSha256": "0b0e4f14d210ff0ecfaaa8a332201503717280af25dc841c897d9697cb4158ce",
+    "retainedAttemptRootDu": "5.4 GiB",
+    "laterProcessInventory": "No matching R05 supervisor, worker, SparkSubmit or R05 Java process was present after supervisor exit; this does not change the supervisor's close-time quiescence result."
+  },
+  "failure": {
+    "primary": "SparkContext.clearJobGroup was called from the parallel-mode worker finally block, but selected Spark 4.2.0 has no such method; AttributeError ended the worker.",
+    "secondary": "Cancellation of the still-active parallel edge job produced Spark TASK_WRITE_FAILED and ClosedByInterruptException diagnostics.",
+    "comparisonQualified": false,
+    "nativeRetryAuthorized": false
+  }
+}
