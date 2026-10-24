@@ -1,0 +1,17 @@
+{
+  "profile": "ashlar-truss050-local-delta-bridge-readiness/0.1",
+  "status": "ready",
+  "ashlar_commit": "9c74527875535417676213f0e31a12605da8fc43",
+  "runtime_input_objects": {
+    "pyproject.toml": "7af01eeb58eaf0dbd7ae7d0246618e97a96ca724",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+  },
+  "umf_commit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+  "bridge_sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+  "resource_sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+  "build_inputs_sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+  "role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+  "carrier_profile": "ashlar-delta/0.4-xxhash64",
+  "reuse_basis": "Immutable current-source UMF bridge/resources in selected Ashlar src tree; each source module, resource, and build-input digest verified by the effect-free worker. The source commit/object tuple is rebound here."
+}
