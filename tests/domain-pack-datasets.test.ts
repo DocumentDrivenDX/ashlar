@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
 import {test, expect} from 'bun:test';
-import {datasetInput, CarrierRefusal, writeFreshReceipt, BOOLEAN_LEXICAL_PROFILE, publicBooleanLiteral} from '../tools/check_domain_pack_datasets';
+import {datasetInput, CarrierRefusal, writeFreshReceipt, BOOLEAN_LEXICAL_PROFILE, publicBooleanLiteral, parseDatasetCliOptions} from '../tools/check_domain_pack_datasets';
 import {mkdtemp, readFile, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -17,6 +17,15 @@ function fixture() {
     edges: ['first', 'parallel'].map(key => ({key, relationship: {document: 'domain', module: 'm', id: 'link'}, source: 'a', target: 'b'}))};
   return {source, graph};
 }
+
+test('focused dataset selection remains explicit and rejects malformed or duplicate scope', () => {
+  expect(parseDatasetCliOptions(['producer', 'packs', 'out', '--pack', 'supply-chain',
+    '--boolean-lexical-profile', BOOLEAN_LEXICAL_PROFILE])).toEqual({producer: 'producer', packs: 'packs', output: 'out',
+    booleanSelected: true, selectedPack: 'supply-chain'});
+  expect(() => parseDatasetCliOptions(['producer', 'packs', 'out', '--pack', 'supply-chain', '--pack', 'commerce'])).toThrow();
+  expect(() => parseDatasetCliOptions(['producer', 'packs', 'out', '--pack', '../commerce'])).toThrow();
+  expect(() => parseDatasetCliOptions(['producer', 'packs', 'out', '--boolean-lexical-profile', 'latest'])).toThrow();
+});
 
 test('preserves omitted/null/empty, opaque keys and independent parallel occurrences without mutation', () => {
   const {source, graph} = fixture(); const before = JSON.stringify({source, graph});

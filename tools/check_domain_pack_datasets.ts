@@ -17,6 +17,33 @@ export async function writeFreshReceipt(output: string, bytes: string) {
 }
 
 export const BOOLEAN_LEXICAL_PROFILE = 'umf.csv-boolean-lexical/1.0.0';
+export interface DatasetCliOptions {
+  producer: string;
+  packs: string;
+  output: string;
+  booleanSelected: boolean;
+  selectedPack?: string;
+}
+export function parseDatasetCliOptions(args: string[]): DatasetCliOptions {
+  if (args.length < 3) throw Error('Producer, pinned packs and output paths are required');
+  const [producer, packs, output, ...options] = args;
+  let booleanSelected = false;
+  let selectedPack: string | undefined;
+  for (let i = 0; i < options.length; i++) {
+    const option = options[i];
+    if (option === '--boolean-lexical-profile') {
+      if (booleanSelected || options[++i] !== BOOLEAN_LEXICAL_PROFILE)
+        throw Error('One exact Boolean lexical profile may be selected');
+      booleanSelected = true;
+    } else if (option === '--pack') {
+      const value = options[++i];
+      if (selectedPack || !value || !/^[a-z0-9-]+$/.test(value))
+        throw Error('One normalized pack ID may be selected');
+      selectedPack = value;
+    } else throw Error('Unsupported dataset selection option');
+  }
+  return {producer, packs, output, booleanSelected, selectedPack};
+}
 export interface BooleanLexicalAdmission {
   profile: typeof BOOLEAN_LEXICAL_PROFILE;
   sourceContext: any;
@@ -114,11 +141,9 @@ export function datasetInput(source: any, graph: any, scopeId: string, booleanAd
 }
 
 if (import.meta.main) {
-  const args = process.argv.slice(2);
-  if (args.length !== 3 && !(args.length === 5 && args[3] === '--boolean-lexical-profile' && args[4] === BOOLEAN_LEXICAL_PROFILE))
-    throw Error('Usage: bun tools/check_domain_pack_datasets.ts CLEAN_UMF_PRODUCER PINNED_PACK_REPO FRESH_OUTPUT [--boolean-lexical-profile umf.csv-boolean-lexical/1.0.0]');
-  const booleanSelected = args.length === 5;
-  const [producer, packs, output] = args.slice(0, 3).map(p => resolve(p));
+  const parsed = parseDatasetCliOptions(process.argv.slice(2));
+  const {booleanSelected, selectedPack} = parsed;
+  const producer = resolve(parsed.producer), packs = resolve(parsed.packs), output = resolve(parsed.output);
   const git = (repo: string, args: string[]) => {
     const result = Bun.spawnSync(['git', '-C', repo, ...args]);
     if (result.exitCode) throw Error('Pinned Git source unavailable');
@@ -138,7 +163,9 @@ if (import.meta.main) {
   const booleanApi = booleanSelected ? await load('src/index.ts') : undefined;
   const inventory = readJsonValue(new TextDecoder().decode(inventoryBytes), 'json');
   const results: any[] = [];
-  for (const pack of inventory.packs) {
+  const selectedPacks = selectedPack ? inventory.packs.filter((pack: any) => pack.id === selectedPack) : inventory.packs;
+  if (selectedPack && selectedPacks.length !== 1) throw Error('Selected pack is absent from the pinned inventory');
+  for (const pack of selectedPacks) {
     if (!pack.ontology || !pack.graph) {
       results.push({pack: pack.id, status: 'unavailable', reason: 'No original finite ontology/graph pair', datasetAdmission: false});
       continue;
@@ -202,8 +229,9 @@ if (import.meta.main) {
   }
   clean();
   if (await Bun.file(output).exists()) throw Error('Fresh output required');
-  await writeFreshReceipt(output, JSON.stringify({profile: 'ashlar-original-pack-dataset-classification/0.1', producerRevision: PRODUCER,
-    packRevision: PACKS, inventorySha256: INVENTORY, results, ...(booleanSelected ? {booleanLexicalProfile: BOOLEAN_LEXICAL_PROFILE} : {}),
+  await writeFreshReceipt(output, JSON.stringify({profile: selectedPack ? 'ashlar-original-pack-dataset-selection/0.1' : 'ashlar-original-pack-dataset-classification/0.1',
+    ...(selectedPack ? {selectedPack} : {}), producerRevision: PRODUCER, packRevision: PACKS, inventorySha256: INVENTORY, results,
+    ...(booleanSelected ? {booleanLexicalProfile: BOOLEAN_LEXICAL_PROFILE} : {}),
     qualification: 'Public compact supplied-dataset ABI: fragments retain sourceRef to the full original source, not standalone documents. Finite supplied original dataset admission only. No source authority, canonical binding, storage publication, Weft, native engine or external dataset support.'}) + '\n');
   console.log(JSON.stringify({packs: results.length, statuses: results.reduce((counts, r) => ({...counts, [r.status]: (counts[r.status] ?? 0) + 1}), {} as Record<string, number>)}));
 }
