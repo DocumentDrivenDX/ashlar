@@ -26,34 +26,48 @@ ddx:
 This note reconciles existing local measurements for the requested 1B-node,
 assumed-5B-edge synthetic Delta materialization with its two point reads, two
 persisted-data scans and one bounded graph-engine action. The full run remains
-held. The “few minutes” aspiration is not a numeric SLO; five minutes below is
-only a concrete comparison.
+held. The owner's stated target is “a few minutes or the design failed”; no
+numeric pass/fail minute threshold was supplied. The target remains in force;
+the projections below assess available evidence and do not waive or redefine it.
 
-## Why writes project to 16.50 minutes
+## Projections from the completed paired writer comparison
 
-At the retained 80% planning rate, the 1B nodes take 268.877 seconds, using the
-18-core sample's 45M-node write in 9.67956 seconds. The latest completed 225M
-edge insert took 25.962255 seconds; at the same margin, 5B edges take 721.174
-seconds. Their sum is 990.050 seconds, or 16.50 minutes. The edge write is
-about 12.02 minutes and dominates. Attempt 02's task and footer reads completed,
-but its supervisor rejected process-group cleanup certainty, so this is a
-retained write observation used for arithmetic, not a qualified full case.
+The completed 45M-node/225M-edge paired comparison is the current basis for
+planning. Scaling rows linearly to 1B/5B multiplies the sample by 22.2222; the
+80%-throughput planning rate then multiplies elapsed time by 1.25. On that
+basis, the sequential write-only projection is 16.31 minutes and the
+concurrent node/edge write-only projection is 14.18 minutes. These are
+extrapolations from one same-JVM comparison, with sequential always run first
+and concurrent second; they are not target-scale measurements or a qualified
+end-to-end bound.
 
-At a five-minute total, nodes alone consume 268.877 seconds and leave 31.123
-seconds for 5B edge writes. That requires about 160.7M edges/second, roughly
-23.2 times the current 80%-rate projection, before startup, table creation,
-lookups, scans, graph action, validation or cleanup. Current evidence does not
-support this improvement on the measured 18-core path. Even the earlier
-18.05-minute write projection excludes all of those end-to-end phases; the
-target-size scan and graph-action costs have not been measured.
+The paired receipt also reports mode totals, which include table setup, writes
+and compact validation in the timed interval. Linear 80%-rate extrapolation
+gives 30.68 minutes for sequential mode and 28.21 minutes for concurrent
+mode. This scaled sample total is still not the requested target workload: it
+does not measure two point lookups, the two target-scale persisted-data scans,
+the GraphFrames export/action, or Spark startup and cleanup. Those phases and
+their target-scale costs remain unknown. The concurrent write-only estimate
+being below 15 minutes therefore does not establish a sub-15-minute complete
+run, and current evidence does not support a few-minutes total.
+
+For historical context, an earlier incomplete attempt's 45M-node and 225M-edge
+write observations produced a 16.50-minute write-only projection at the same
+80% planning rate. Its task and footer reads completed, but the supervisor
+rejected process-group cleanup certainty. Retain that observation as history;
+the completed paired comparison above supersedes it as the latest writer
+comparison and does not qualify a full-scale run.
 
 ## Storage and memory limits
 
-The 270M-row calibration wrote 3.062GB active ZSTD Parquet, about 11.34 bytes
-per row; row-linear arithmetic gives 68.05GB for six billion synthetic rows.
-This is an active-data estimate only. It excludes Delta logs, temporary
-staging, retained versions, local shuffle/spill files and graph-engine output;
-the fixture also uses repetitive payloads, `source_position=id`, and
+The completed paired sample reports 3,041,334,560 bytes of active Delta data
+for 270M rows. Straight-line arithmetic gives 67,585,212,444 bytes (about
+67.6 decimal GB) for six billion synthetic rows. An earlier 270M-row
+calibration reported 3.062GB, about 11.34 bytes per row, implying 68.05GB at
+six billion rows; that remains a historical estimate from a different sample.
+Both are active-data estimates only. They exclude Delta logs, temporary
+staging, retained versions, local shuffle/spill files and graph-engine output.
+The fixtures use repetitive payloads, `source_position=id`, and
 decimal-string delivery IDs rather than accepted-feed values.
 
 Delta bytes are disk usage, not a requirement to hold all rows in RAM. The
@@ -90,9 +104,8 @@ the measured Delta writes, and its canonical-scale cost is unknown.
   billion gives 6.1GB (about 9%) as conditional upper arithmetic from this
   column's measured chunk bytes only, not an expected or measured net saving;
   nulls may change encoding and compression, so realized savings are unknown.
-  Even that illustration is far below the 3.3x write improvement needed for a
-  five-minute total. Preserve actual accepted positions and opaque delivery-ID
-  strings.
+  This is not a measured saving or evidence for a few-minutes run. Preserve
+  actual accepted positions and opaque delivery-ID strings.
 
 The only supported end-to-end improvement is avoiding a second persisted graph
 copy through TD-008's direct pinned-frame path. No layout, codec or carrier
@@ -100,6 +113,6 @@ change is shown to bring this full workload to a few minutes while preserving
 the selected Delta profile. A next performance change needs a specific
 writer-side hypothesis and a single focused comparison before it can change
 this assessment; do not start a larger run or tuning matrix. Keep the 1B/5B
-trial held for explicit review of the 16.50-minute projection, complete
-resource/storage bounds, source-derived payload limits, target-scale scans,
-GraphFrames action and cleanup.
+trial held for explicit review of the 28.21-minute concurrent mode-total
+projection, complete resource/storage bounds, source-derived payload limits,
+target-scale scans, GraphFrames action and cleanup.
