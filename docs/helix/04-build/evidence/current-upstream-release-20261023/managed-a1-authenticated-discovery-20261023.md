@@ -33,11 +33,18 @@ The approved `client_dev` catalog has effective predictive optimization
 `ENABLE` inherited from the metastore. The workspace advertised
 `19.x-scala2.13`; `Standard_D4ds_v5` was available with four cores and 16 GiB.
 The only accessible compute policy was Personal Compute
-`001654FA4AA08D1A`. It permits that node, leaves the runtime unrestricted,
-requires the STANDARD engine, fixes worker count at zero, sets all-purpose
-single-node compute and permits the advertised Unity Catalog access modes.
-This establishes policy metadata, not an admitted or running cluster or an
-exact maintenance build.
+`001654FA4AA08D1A`. Its verified policy fields fix `cluster_type` to
+`all-purpose` and `num_workers` to `0`, require the Standard engine, include
+`Standard_D4ds_v5` among allowlisted node types, and leave `spark_version`
+unrestricted. These are policy metadata only: the proposed dedicated one-node
+Jobs cluster under TD-009 is not proven available and cannot use this policy
+as-is. A separately reviewed policy variant or other admitted Jobs-compute
+path, its exact node/runtime/access-mode compatibility, and the applicable
+principal entitlements and create/cancel/termination permissions remain
+unconfirmed. The read-only `users get` result did not expose entitlement detail
+because that detail is admin-only. No schema or compute was created; no trial
+was launched. Using an all-purpose cluster would be a separately reviewed
+design and cost variant, distinct from TD-009's Jobs proposal.
 
 An effective catalog-grant response for the authenticated principal included
 `CREATE_SCHEMA` and `USE_CATALOG` through `db-aidev-users`, plus other catalog
