@@ -253,9 +253,10 @@ Run the small canonical persisted-carrier GraphFrames action once after the
 generator/source/oracle correspondence, selected runtime and JARs, bounded
 result/cap, and retained-file/exclusive-use custody through close are admitted
 in an isolated local slot. The [R12 packet](evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r12/README.md)
-binds the current Ashlar source/resource bytes and has independent review, but
-its static runtime admission, local slot and fresh execution authorization are
-still required. Keep the 1B-node/5B-edge full Delta trial held
+binds the selected Ashlar source/resource bytes, has independent review, and
+passed one effect-free runtime-tree static admission. The local slot, fresh
+execution authorization and native action remain required. Keep the
+1B-node/5B-edge full Delta trial held
 until its latest 16.50-minute write-only projection has owner review; the two lookups,
 two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
