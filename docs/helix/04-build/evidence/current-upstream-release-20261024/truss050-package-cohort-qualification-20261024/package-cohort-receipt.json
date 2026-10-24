@@ -1,0 +1,132 @@
+{
+  "schema": "ashlar-truss050-package-cohort-receipt/0.1",
+  "status": "effect_free_package_and_import_coexistence_passed",
+  "observed_at_utc": "2026-10-24",
+  "source": {
+    "release_api": "https://api.github.com/repos/DocumentDrivenDX/truss/releases/tags/v0.0.50",
+    "release_url": "https://github.com/DocumentDrivenDX/truss/releases/tag/v0.0.50",
+    "tag": "v0.0.50",
+    "commit": "a687d0a226dad5745cbd909377bf99c7c1cddc66",
+    "published_at": "2026-10-24T06:32:49Z",
+    "assets": [
+      {
+        "name": "truss_toolkit-0.0.50-py3-none-any.whl",
+        "bytes": 6237543,
+        "published_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+        "downloaded_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+        "matches_release_api": true
+      },
+      {
+        "name": "release-pins.json",
+        "bytes": 5077,
+        "published_sha256": "ed35eb49b453f1ad9178e3875d9d7c3b762b24dc0697e98038f8fcabbaad5b88",
+        "downloaded_sha256": "ed35eb49b453f1ad9178e3875d9d7c3b762b24dc0697e98038f8fcabbaad5b88",
+        "matches_release_api": true
+      }
+    ],
+    "sdist": "not downloaded; verified wheel was sufficient for package, metadata, RECORD, and API-surface inspection"
+  },
+  "wheel_integrity": {
+    "archive_entries": 477,
+    "record_rows": 477,
+    "hashed_payload_rows_checked": 476,
+    "record_size_or_hash_errors": 0,
+    "result": "passed"
+  },
+  "runtime_import_check": {
+    "mode": "read-only import from wheel path; no installation",
+    "python": "3.12.14",
+    "platform": "macOS arm64",
+    "runtime_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv",
+    "runtime_is_frozen_r12_cohort": true,
+    "runtime_modified": false,
+    "python_runtime": "macOS-27.0.1-arm64-arm-64bit",
+    "versions": {
+      "truss-toolkit": "0.0.50",
+      "umf-core": "0.10.1",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53",
+      "psycopg": "3.3.6"
+    },
+    "import_origins": {
+      "umf": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/lib/python3.12/site-packages/umf/__init__.py",
+      "umf_access": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/lib/python3.12/site-packages/umf_access/__init__.py",
+      "weft": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/lib/python3.12/site-packages/weft/__init__.py",
+      "psycopg": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/lib/python3.12/site-packages/psycopg/__init__.py",
+      "truss": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl/truss/__init__.py",
+      "truss.catalog_runtime": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl/truss/catalog_runtime.py",
+      "truss.feed": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl/truss/feed.py",
+      "truss.migrations": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl/truss/migrations.py"
+    },
+    "selected_public_api": {
+      "CatalogReferenceAssembly.read_feed_in_transaction": "(self, transaction, *, consumer_id, maximum_facts=4096, maximum_bytes=8388608)",
+      "CatalogReferenceAssembly.reread_feed_in_transaction": "(self, transaction, page, *, maximum_facts=4096, maximum_bytes=8388608)",
+      "CatalogReferenceAssembly.acknowledge_feed_with_receipt_in_transaction": "(self, transaction, page, *, destination_id, request_sha256, publication_id, receipt_bytes)",
+      "CatalogReferenceAssembly.reconcile_feed_ack_in_transaction": "(self, transaction, page, *, destination_id, request_sha256, publication_id, receipt_bytes)",
+      "RuntimeMigrations": "(connect, recovery_registry, *, maximum_preservation_bytes=268435456, operation_timeout_ms=30000, statement_timeout_ms=10000)"
+    },
+    "result": "all selected modules imported from the verified .50 wheel; selected public API surfaces were present",
+    "limitations": [
+      "This checks imports and API signatures only; no Truss method was invoked.",
+      "No SparkSession or PostgreSQL process was started.",
+      "No migration, source/feed/publication/ACK operation was performed.",
+      "The frozen runtime and its package files were not changed."
+    ]
+  },
+  "package_constraints": {
+    "release_pins": {
+      "supportedUmfVersions": ["0.10.0"],
+      "interpretation": "UMF model/schema semantics; the selected 0.10.1 Python core package preserves UMF 0.10.0 semantics",
+      "weftRelease": "v0.4.51",
+      "psycopg": "3.3.6"
+    },
+    "wheel_metadata": {
+      "base_requirements": [
+        "jsonschema==4.26.0",
+        "referencing==0.37.0",
+        "mini-racer==0.14.1"
+      ],
+      "optional_requirements": {
+        "native": ["psycopg[binary]==3.3.6"],
+        "local": ["pgserver-pg18==18.6.1", "fasteners==0.20", "platformdirs==4.12.4", "psutil==7.2.2"],
+        "query": ["weft-sql==0.4.51"],
+        "typed-sdk": ["umf_access==0.1.0.dev5"]
+      }
+    },
+    "selected_truss_extras": ["local", "native"],
+    "current_tuple_conflicts_if_extras_selected": {
+      "query": "Requires weft-sql==0.4.51, conflicts with Ashlar 0.4.53",
+      "typed-sdk": "Requires umf_access==0.1.0.dev5, conflicts with Ashlar 0.1.0.dev7"
+    },
+    "selected_base_and_native_surface_coexistence": "passed import-surface check with UMF core/access, Weft, and psycopg versions above"
+  },
+  "package_resolution": {
+    "tool": "uv 0.13.3",
+    "operation": "read-only uv pip compile; no install",
+    "ashlar_pin": {
+      "file": "pyproject.toml",
+      "file_sha256": "0eba8eefb24618ac1d3bddb083a8a689c89c295d5f85d5cf7eff39ec2544ea73",
+      "extra": "truss-local",
+      "requirement": "truss-toolkit[local,native] @ https://github.com/DocumentDrivenDX/truss/releases/download/v0.0.50/truss_toolkit-0.0.50-py3-none-any.whl#sha256=7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00"
+    },
+    "selected_extra": "Ashlar [truss-local], which selects Truss [local,native]",
+    "additional_exact_cohort_inputs": [
+      "umf-core==0.10.1",
+      "umf_access==0.1.0.dev7",
+      "weft-sql==0.4.53",
+      "psycopg[binary]==3.3.6"
+    ],
+    "resolver_sources": "--no-index and --find-links to the existing read-only R12 wheelhouse; Truss remains pinned by the official release URL and SHA-256 in pyproject.toml",
+    "result": "resolved 22 packages",
+    "no_install_or_runtime_mutation": true,
+    "input_file": "package-resolution-inputs.txt",
+    "input_sha256": "ca9cc628b658e84d31d8cfdf3853a2de47fca66d3d7a882ae48926906ed1b59f",
+    "resolved_set_file": "package-resolution.txt",
+    "resolved_set_sha256": "1d28297f01e0542beaae7164ad9fce47ba3746db2250c5501647b9223cd70428"
+  },
+  "qualification_decision": {
+    "new_v0_0_50_selected_source_packet_viable": true,
+    "scope": "candidate preparation only, with Truss query and typed-sdk extras unselected",
+    "effects_authorized": false
+  }
+}

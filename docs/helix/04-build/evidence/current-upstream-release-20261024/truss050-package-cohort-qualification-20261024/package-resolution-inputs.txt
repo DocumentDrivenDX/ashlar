@@ -1,0 +1,5 @@
+.[truss-local]
+umf-core==0.10.1
+umf_access==0.1.0.dev7
+weft-sql==0.4.53
+psycopg[binary]==3.3.6

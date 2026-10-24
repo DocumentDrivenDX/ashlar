@@ -200,15 +200,17 @@ installed or executed. The selected OS markers do not qualify Databricks
 runtime compatibility and do not imply Windows or Intel macOS support. Keep
 source commit and generated-resource custody explicit. Recheck public upstream
 releases at the candidate cut. The
-`truss-local` extra now pins public Truss 0.0.49, as recorded in the [adoption
-receipt](evidence/current-upstream-release-20261022/truss-0.0.49-adoption-preparation.json);
-its lifecycle qualification remains pending. Retain older extras only with an
+The previous `truss-local` 0.0.49 pin and its [adoption
+receipt](evidence/current-upstream-release-20261022/truss-0.0.49-adoption-preparation.json)
+remain historical; its lifecycle was not run. Retain older extras only with an
 explicit historical label.
 Public Truss 0.0.50 has since been published. Its
 [effect-free adoption analysis](evidence/current-upstream-release-20261024/truss050-adoption-analysis-20261024/README.md)
 finds the existing explicit 0.48-to-current migration route and feed interface
-declarations intact, but the 0.50 wheel and Ashlar's newer Weft/UMF cohort still
-need focused qualification. Prepare a fresh 0.50 lifecycle packet before any
+declarations intact. The official wheel and Ashlar's selected `[local,native]`
+dependency cohort now pass focused package and import checks
+([receipt](evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md));
+the `truss-local` extra pins 0.0.50. Prepare a fresh 0.50 lifecycle packet before any
 effectful selected-version run; R12's 0.49 authorization, if later supplied,
 cannot transfer to that new packet.
 

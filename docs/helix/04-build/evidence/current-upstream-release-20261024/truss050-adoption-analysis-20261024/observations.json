@@ -1,6 +1,6 @@
 {
   "profile": "ashlar-truss-0.0.50-adoption-analysis/0.1",
-  "status": "effect_free_analysis_candidate_runtime_check_required",
+  "status": "effect_free_package_qualification_passed_selected_source_packet_candidate",
   "observed_at_utc": "2026-10-24",
   "source": {
     "release_api": "https://api.github.com/repos/DocumentDrivenDX/truss/releases/tags/v0.0.50",
@@ -14,19 +14,19 @@
         "name": "truss_toolkit-0.0.50-py3-none-any.whl",
         "bytes": 6237543,
         "sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
-        "digest_source": "GitHub release API asset metadata; not independently downloaded or hashed"
+        "digest_source": "GitHub release API metadata; downloaded wheel SHA-256 independently matched"
       },
       {
         "name": "truss_toolkit-0.0.50.tar.gz",
         "bytes": 6709423,
         "sha256": "60204fbb2b420e4600ebafa397e2742b46f06d6085936411dfa81f19aa7c5aaa",
-        "digest_source": "GitHub release API asset metadata; not independently downloaded or hashed"
+        "digest_source": "GitHub release API metadata only; sdist not downloaded because verified wheel was sufficient"
       },
       {
         "name": "release-pins.json",
         "bytes": 5077,
         "sha256": "ed35eb49b453f1ad9178e3875d9d7c3b762b24dc0697e98038f8fcabbaad5b88",
-        "digest_source": "GitHub release API asset metadata; asset payload was not retrieved"
+        "digest_source": "GitHub release API metadata; downloaded release-pins SHA-256 independently matched and JSON inspected"
       }
     ],
     "release_notes": {
@@ -65,7 +65,7 @@
         "reconcile_feed_ack_in_transaction"
       ]
     },
-    "scope": "Git blob metadata and source method names only; .50 wheel installation and runtime behavior untested"
+    "scope": "Git blob metadata, source method names, and a separate read-only .50 wheel import/API-surface check; no Truss methods or lifecycle behavior exercised"
   },
   "migration_comparison": {
     "manifest_path": "packages/python/src/truss/_migrations/manifest.json",
@@ -85,7 +85,8 @@
     "route_interpretation": "One latest-only .50 runtime administrative migration may execute the existing two-edge route to the unchanged .49 native target. There is no .49-to-new-.50 native migration edge or schema target."
   },
   "ashlar_fit": {
-    "current_truss": "0.0.49",
+    "current_truss_pin": "0.0.50",
+    "historical_r12_truss": "0.0.49",
     "current_umf_core": "0.10.1",
     "current_umf_access": "0.1.0.dev7",
     "current_weft": "0.4.53",
@@ -93,8 +94,11 @@
     "current_delta": "4.4.1",
     "current_postgresql": "18.6",
     "current_psycopg": "3.3.6",
-    "release_cohort_differs_on": ["weft"],
-    "exact_v0_0_50_current_ashlar_cohort_qualified": false,
+    "release_cohort_differs_on": ["weft 0.4.51 is declared for the optional query extra; Ashlar's selected Weft is 0.4.53"],
+    "package_import_cohort_qualified": true,
+    "local_native_package_resolution_passed": true,
+    "selected_source_packet_candidate_viable": true,
+    "full_v0_0_50_behavioral_or_lifecycle_qualification": false,
     "effectful_lifecycle_allowed_by_this_analysis": false,
     "existing_r12_modified": false
   }
