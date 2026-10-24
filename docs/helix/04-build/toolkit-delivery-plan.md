@@ -281,7 +281,9 @@ fixtures and owned cleanup passed; it is local action evidence only. Keep the
 until its latest 16.50-minute write-only projection has owner review; the two lookups,
 two scans, actual graph action and cleanup still need an end-to-end bound. Do
 not substitute an extra partition stress matrix for a plausible path to the
-few-minute goal. The [inert full-size trial packet](evidence/r05-full-delta4-scale-packet-20261023/README.md)
+few-minute goal. The [physical-limit assessment](evidence/r05-materialization-physical-limits-20261024.md)
+explains the write arithmetic and why current layout alternatives do not close
+that gap. The [inert full-size trial packet](evidence/r05-full-delta4-scale-packet-20261023/README.md)
 sets a proposed 30-minute fail-fast ceiling and independent endpoint oracle;
 its offline two-role UMF DDL/INSERT plan passes admission, and the full trial
 driver and local supervisor have an independent source review and seven focused
