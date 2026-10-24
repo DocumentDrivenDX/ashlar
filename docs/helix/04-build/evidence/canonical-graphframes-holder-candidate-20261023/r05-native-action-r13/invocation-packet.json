@@ -54,7 +54,7 @@
   "cleanupBlocker": "R9 one-attempt refusal, Delta fixtures, and ownership receipt remain preserved under the R9 evidence directory and private attempt parent. R10 had a separate one-attempt authorization and consumed it; GraphFrame construction failed before the one-hop action with missing VertexRDD. Its owned cleanup was incomplete, so the R10 ownership receipt, stable lock, and Delta fixtures remain preserved under the R10 attempt root. R11 uses a separate fresh attempt parent and does not alter or clean R10 evidence.",
   "cleanupStatus": "reviewed-owned-cleanup-qualified",
   "executionAuthorization": "not-issued",
-  "executionStatus": "review-required-no-execution-authorization",
+  "executionStatus": "reviewed-no-execution-authorization",
   "hardBounds": {
     "attemptRootBytes": 536870912,
     "attempts": 1,
@@ -1199,6 +1199,7 @@
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pyspark/bin/spark-submit"
   ],
+  "reviewStatus": "independently-reviewed",
   "runtime": {
     "delta": "4.4.1",
     "graphframes": "0.12.3",

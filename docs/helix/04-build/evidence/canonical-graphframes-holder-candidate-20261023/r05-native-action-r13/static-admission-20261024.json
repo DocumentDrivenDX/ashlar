@@ -3,7 +3,7 @@
   "authorization": "not supplied; static helper does not require or issue execution authorization",
   "fixtureOrTableEffects": false,
   "invocationPacketPath": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/invocation-packet.json",
-  "invocationPacketSha256": "42e9a3edaff96fc24e7aad13defc1db8aaa6d6227782cf1b20216d5b77d99fcd",
+  "invocationPacketSha256": "a435d105e3eaf0c263abaffbdc6db3f6974c67cb61e1d8f9da0380cf1dc172cd",
   "mismatches": [],
   "nativeActionExecuted": false,
   "packetAuthorizationSchemaGate": "not run",
@@ -20,6 +20,6 @@
   "sourceRevision": "21d4941c84c2a2c3528eb1b01dc34078f71b41b2",
   "sparkStarted": false,
   "status": "passed",
-  "validatedRetainedBytes": 1582280439,
+  "validatedRetainedBytes": 1582280476,
   "validatedRetainedPathCount": 569
 }
