@@ -131,6 +131,9 @@ proposed ports and fail-closed outcomes; CONTRACT-003/004 retain the complete A/
 prefix and resolver boundaries. The offline Spark observation supplies receipt
 evidence only and remains unavailable to campaign ACK orchestration until these
 contracts are reviewed and the live authority path is implemented.
+The [proposal-only interval helper evidence](../../04-build/evidence/source-holder-interval-proposal-20261023.md)
+records fake-port open/renew/close choreography; it grants no ACK authority and
+does not adopt this draft boundary.
 
 Spark-native values require explicit lossless normalization at the read boundary:
 versions/ordinals remain non-Boolean signed64 integers, native arrays/maps retain
