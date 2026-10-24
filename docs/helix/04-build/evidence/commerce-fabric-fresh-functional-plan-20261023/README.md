@@ -30,7 +30,7 @@ historical R1 publication oracle is:
 | --- | --- |
 | Original local publication | `original-commerce-publication-1`, release SHA-256 `878291819c574f7a7d32d09c92d4a4687b65d3ab8ebaeb639263cb58d31ad29a` |
 | Four-role vector | nodes/current UUID `737e1efc-a0b7-46ce-a82c-00ab4d8a7d6e` v2; edges/current UUID `cfce0e22-faaf-4791-93d2-329e5d9d35fe` v2; tombstone UUID `a80f4f91-732b-4bc4-89c5-94a268c25230` v1; history UUID `d76f3bac-b71e-4f16-81be-3afc0c83cc99` v2 |
-| Retained source/ACK record | Source signature SHA-256 `1b6ce3c1ac4096ae2f5d9faafd74e801e09a47115a7133f6640d08e9fecc7544`; original source request SHA-256 `8fde1b80674747810602d44893e176eabbfaef23673c58bd215b91dfcd8f6c93`; original manifest SHA-256 `e5684ca2d4f9f6471c09eca2b1b2d8be6422a294f4c00755865f0589c8a87ab3`; retained source checkpoint is feed `private-original-commerce-fixture`, epoch/batch `original-commerce-v1`, position `1` after `0`. These pin the historical observation and must be freshly re-admitted under live owners. |
+| Retained source/ACK record | Source signature SHA-256 `7ff39b15a87ee5294ee4c659630a6dbe95fddc4c7fbe0bb28d57dacf46afdbef`; original source request SHA-256 `8fde1b80674747810602d44893e176eabbfaef23673c58bd215b91dfcd8f6c93`; original manifest SHA-256 `e5684ca2d4f9f6471c09eca2b1b2d8be6422a294f4c00755865f0589c8a87ab3`; source transaction SHA-256 `e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482`; retained source checkpoint is feed `private-original-commerce-fixture`, epoch/batch `original-commerce-v1`, position `1` after `0`. The request and manifest hashes identify the original ACK request/manifest bytes; the source transaction digest is a separate payload digest. These pin the historical observation and must be freshly re-admitted under live owners. |
 | Held publication source record | `docs/helix/04-build/evidence/commerce-fabric-delta-native-20261016/report.json.gz`, SHA-256 `3d86d7a4e3a92b20dacaf0bcf0cb1dc80d92421da1b083ff5b1805eba9f50a90`; uncompressed report SHA-256 `81d7ccbe99cb531b9895711783eb8f2f6d520912f75d9287918bd153463228a7` |
 | R1 canonical row oracle | `commerce-fabric-publication-gql-20261016/expected-rows.json.gz`, uncompressed SHA-256 `b5dd747b41062d3185d4f212b0bd24b468d48b5d744af9ba460e9fadd0231361`, 39,149 bytes |
 | R1 GQL request corpus | Node `a3efe7864707d05428325ae83d78155ca81db18cfebf7c26cd0c7d86dd22cecc`; edge `0a553f05f171ccfb303e904cc4226d4f8782ec841153682a86dd290bce1a593f`; endpoints `780d73dc17ded266610d8665450ee235fb8736ba3786b21c2b267bdef03155ef`; node count `93a141cee2e18d2048955fdb2e2e6f7e00de4c47ca9f8d552165ee74df2d9078`; edge count `b6208d67a92cc1b19af2478df19179f162910ed63ff9469636c1113aa426b900`; distinct-edge two-hop `245313eff1b16d4b91da4196db0f95383a2cbe1529bbddb004f703d95683b75c`; explicit WALK `6c6734975cde6bb04acadd8781720044f48b61c5b5ee52e06e6af2d6706464d2` |
@@ -245,6 +245,16 @@ The old Fabric success receipt covers only R1, and the old
 A/B path reconciliation neither authorizes retries nor proves the new paths
 available. Resolve these prerequisites and obtain independent review of the
 committed runner/packet before any native call.
+
+A bounded local source preflight on 2026-10-24 found the recorded original-
+commerce native root absent and no listener on its historical PostgreSQL
+endpoint; Docker inspection was denied or could not connect, so container state
+remains unknown and no SQL re-admission was possible. The retained source
+configuration describes an Ashlar private outbox fixture and grants no Truss or
+production authority ([preflight receipt](../commerce-original-source-local-preflight-20261024/README.md)).
+Keep the October 16 publication claim historical; it does not establish current
+source access. Do not use this unavailable local fixture as current Truss source
+or production authority.
 
 The held runner has a separate unresolved portal/editor initialization owner
 gate. `HeldCommerceFabricDeployment.observe_initial_load` in
