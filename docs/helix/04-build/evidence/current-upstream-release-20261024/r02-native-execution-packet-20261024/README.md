@@ -167,12 +167,16 @@ mode-0700 attempt directory under `/private/tmp/ashlar-r02-attempts`, stages
 the exact pinned source/configuration/binding bytes and the two Delta JARs,
 and builds a clean sparse UMF producer worktree at commit
 `2ede4c879bea5db13794a6fa30e67c821306c17f`. The worktree contains the
-committed `src/` and `spec/` closure used by UMF's public `src/index.ts`, plus
-the Bun dependencies needed to resolve those imports. The generator checks
-staged files against the Git tree and refuses staging above 384 MiB, leaving
-at least 128 MiB under the 512 MiB limit for native output and logs. This is
-an effect-free local preparation step; it does not invoke Bun, Spark, Java or
-the configured-local CLI.
+committed `src/`, `spec/`, and `native/` resources needed by UMF's public
+`src/index.ts`, plus the Bun dependencies needed to resolve those imports. The
+generator checks staged files against the Git tree and refuses staging above
+384 MiB, leaving at least 128 MiB under the 512 MiB limit for native output and
+logs. Before writing the manifest, it runs the installed CLI's
+`validate-configured-source` against the exact staged input and producer path,
+using canonical regular Bun and Homebrew Git executables. The successful
+effect-free check admitted 13 records across three batches; its report records
+`published:false` and `acknowledged:false`. This preflight invokes Bun but does
+not invoke Spark, Java, or configured-local publication.
 
 The attempt contains five invocation JSON templates in fixed order:
 initialize, publish batch 1, publish batch 2, publish batch 3, and replay batch
@@ -218,6 +222,13 @@ The packet had pre-created the `installation` directory, while the selected
 runtime requires that path to be absent and creates it itself. The attempt is
 preserved and not retried; the generator now leaves that directory absent and
 the focused regression asserts this initialization precondition.
+
+The third consumed initialize refusal is preserved in
+[`attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json`](attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json).
+It occurred before source admission because producer custody requires the
+selected Bun path itself to be a regular executable; `/opt/homebrew/bin/bun`
+was a symlink. The packet now selects the canonical Homebrew Cellar Bun binary.
+The attempt remains preserved and is not retried.
 
 ## One-shot supervisor gate
 
@@ -274,6 +285,10 @@ The focused effect-free `preflight.py` completed successfully with status
 parity requests, all three Weft 0.4.53 target/response pairs, public UMF
 validation, source oracle, and R05 runtime/JAR hashes matched. It does not
 inspect current process state or establish R02 Spark/Delta execution. The
+generated packet also passed the selected installed CLI's staged source
+admission: 13 records / three batches, with its report SHA-256 recorded in the
+supervisor manifest and [`source-admission-preflight.json`](source-admission-preflight.json).
+Staging measured 298,342,701 bytes (below the 384 MiB staging ceiling). The
 historical R02 runtime receipt
 `current-native-query-and-sdk-pages-20261021.json` (SHA-256
 `37dd8c330a5e65ad5395827e1bc839976e0a76f1e77a1726eae552edaa54cf1d`) records

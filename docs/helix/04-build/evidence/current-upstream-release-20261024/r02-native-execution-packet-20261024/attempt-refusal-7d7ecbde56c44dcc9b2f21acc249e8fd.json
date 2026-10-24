@@ -1,0 +1,12 @@
+{
+  "profile": "ashlar-r02-consumed-attempt-refusal/0.1",
+  "attemptId": "7d7ecbde56c44dcc9b2f21acc249e8fd",
+  "manifestSha256": "5d7aa73ed3fc6c86c756f290fb0da17a4fe2abcc83aae423a9e85b9f518c5ca2",
+  "sourceRevision": "36245f28cabc4455886a7fcf6dfe1a1c376692f5",
+  "result": "initialize refused before source admission, Spark, Delta, registry, or publication",
+  "observedCause": "typed graph producer custody requires bun.lstat() to identify a regular executable. The packet selected /opt/homebrew/bin/bun, a symlink to the Homebrew Cellar executable, so custody refused before producer execution.",
+  "diagnosticsSha256": "81e3f9aba27b5e3ada5b1f50ffc46a50fd3a6183dff14dccb16f670c7ce0c34e",
+  "failureReceiptSha256": "ce5acd91a56971baa1b1010dc3d2a66acb7901e1bbf3be67acddcddd0b66acfb",
+  "retry": "none; consumed attempt is preserved and will not be reused",
+  "qualification": "Prepublication local invocation refusal only; no native qualification."
+}

@@ -21,6 +21,13 @@ WORKER_SPEC.loader.exec_module(worker)
 
 
 class PacketGeneratorTests(unittest.TestCase):
+    def test_producer_executables_are_the_canonical_regular_binaries(self):
+        for path in (generator.BUN, generator.GIT):
+            self.assertTrue(path.is_absolute())
+            self.assertTrue(path.is_file())
+            self.assertFalse(path.is_symlink())
+            self.assertTrue(path.stat().st_mode & 0o111)
+
     def test_five_invocations_are_ordered_and_paths_are_attempt_local(self):
         with tempfile.TemporaryDirectory(prefix="r02-generator-test-", dir="/private/tmp") as tmp:
             attempt = Path(tmp) / ("ashlar-r02-" + "a" * 32)

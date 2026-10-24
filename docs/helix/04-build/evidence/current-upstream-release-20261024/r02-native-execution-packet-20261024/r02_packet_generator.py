@@ -25,8 +25,8 @@ UMF_ROOT = Path("/Users/erik/Projects/umf")
 UMF_REVISION = "2ede4c879bea5db13794a6fa30e67c821306c17f"
 PYTHON = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12")
 JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)
-BUN = Path("/opt/homebrew/bin/bun")
-GIT = Path("/usr/bin/git")
+BUN = Path("/opt/homebrew/Cellar/bun/1.4.3/bin/bun")
+GIT = Path("/opt/homebrew/Cellar/git/2.56.0_1/bin/git")
 JAR_ROOT = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/jars")
 SPARK_JARS = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages/pyspark/jars")
 UMF_VALIDATION_PYTHON = Path("/private/tmp/umf056-public-wheel-verify/venv/bin/python3.12")
@@ -50,9 +50,11 @@ SOURCE_HASHES = {
 PACKET_HASHED = ("r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
                  "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
                  "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
+                 "source-admission-preflight.json",
                  "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
                  "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
-                 "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json")
+                 "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json",
+                 "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json")
 
 
 def sha256(path: Path) -> str:
@@ -86,7 +88,7 @@ def export_umf(attempt: Path) -> tuple[Path, str, str]:
         raise ValueError("pinned UMF commit is unavailable")
     tree = git("rev-parse", f"{revision}^{{tree}}")
     git("sparse-checkout", "init", "--cone")
-    git("sparse-checkout", "set", "src", "spec")
+    git("sparse-checkout", "set", "src", "spec", "native")
     git("checkout", "--quiet", "--detach", revision)
     if git("rev-parse", "HEAD") != UMF_REVISION or git("status", "--porcelain", "--untracked-files=normal"):
         raise ValueError("sparse UMF checkout is not clean at the pinned commit")
@@ -99,7 +101,7 @@ def export_umf(attempt: Path) -> tuple[Path, str, str]:
             raise ValueError("UMF dependency symlink escapes the private attempt root")
     if git("status", "--porcelain", "--untracked-files=normal"):
         raise ValueError("private UMF producer checkout is not clean after dependency staging")
-    inventory = git("ls-tree", "-r", "-l", revision, "--", "src", "spec")
+    inventory = git("ls-tree", "-r", "-l", revision, "--", "src", "spec", "native")
     files = {}
     for row in inventory.splitlines():
         metadata, name = row.split("\t", 1)
@@ -108,7 +110,7 @@ def export_umf(attempt: Path) -> tuple[Path, str, str]:
             continue
         files[name] = sha256(destination / name)
     actual = {str(path.relative_to(destination)): sha256(path)
-              for base in (destination / "src", destination / "spec")
+              for base in (destination / "src", destination / "spec", destination / "native")
               for path in base.rglob("*") if path.is_file() and not path.is_symlink()}
     if actual != files:
         raise ValueError("exported UMF source tree does not match the pinned Git object inventory")
@@ -172,6 +174,7 @@ def create_packet(output_root: Path | None = None) -> Path:
     try:
         make_private_layout(attempt)
         umf_source, umf_commit, umf_tree = export_umf(attempt)
+        source_admission = validate_staged_source(attempt, umf_source)
         invocation_templates = make_invocations(attempt, attempt_id, umf_source)
         parser_validation = validate_cli_invocations(invocation_templates)
         packet_files = {}
@@ -202,6 +205,7 @@ def create_packet(output_root: Path | None = None) -> Path:
             "invocationTemplates": [{"case": case, "kind": kind, "path": str(path), "sha256": sha256(path)}
                                     for case, kind, path in invocation_templates],
             "selectedCliParserValidation": parser_validation,
+            "selectedCliSourceAdmission": source_admission,
             "attemptFiles": {
                 "input/configured-typed-graph-source.json": sha256(attempt / "input/configured-typed-graph-source.json"),
                 "input/typed-graph-model.umf.json": sha256(attempt / "input/typed-graph-model.umf.json"),
@@ -296,6 +300,32 @@ print(json.dumps(out,sort_keys=True))
     if [(item.get("name"), item.get("operation")) for item in parsed] != expected:
         raise ValueError("selected installed configured-local parser did not admit all five operations")
     return parsed
+
+
+def validate_staged_source(attempt: Path, umf_source: Path) -> dict[str, object]:
+    """Run only configured-source admission against these staged, pinned inputs."""
+    output = attempt / "outputs" / "source-admission"
+    environment = {"HOME": "/nonexistent", "TMPDIR": str(attempt / "tmp"),
+                   "GIT_CONFIG_NOSYSTEM": "1", "GIT_CONFIG_GLOBAL": "/dev/null",
+                   "GIT_CONFIG_SYSTEM": "/dev/null", "GIT_TERMINAL_PROMPT": "0",
+                   "GIT_OPTIONAL_LOCKS": "0", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8",
+                   "PATH": "/usr/bin:/bin"}
+    command = [str(PYTHON), "-I", "-m", "ashlar", "validate-configured-source",
+               "--configuration", str(attempt / "input" / "configured-typed-graph-source.json"),
+               "--producer-source", str(umf_source), "--bun", str(BUN), "--git", str(GIT),
+               "--output", str(output), "--producer-timeout-seconds", "30",
+               "--producer-maximum-output-bytes", "1048576",
+               "--producer-maximum-receipt-bytes", "4194304", "--maximum-receipt-bytes", "4194304"]
+    result = subprocess.run(command, cwd=attempt, env=environment, capture_output=True, timeout=90)
+    if result.returncode != 0 or result.stderr or len(result.stdout) > LIMITS["operationOutputBytes"]:
+        raise ValueError("selected CLI staged configured-source admission failed")
+    report = json.loads(result.stdout)
+    if report.get("admitted") is not True or report.get("published") is not False or report.get("acknowledged") is not False:
+        raise ValueError("selected CLI source-admission report has unexpected authority")
+    return {"reportSha256": hashlib.sha256(result.stdout).hexdigest(),
+            "reportBytes": len(result.stdout), "profile": report.get("profile"),
+            "producerRevision": report.get("producer_revision"), "batches": report.get("batches"),
+            "records": report.get("records"), "published": False, "acknowledged": False}
 
 
 def main() -> int:

@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-r02-effect-free-source-admission-preflight/0.1",
+  "gitHeadBeforePacketCommit": "36245f28cabc4455886a7fcf6dfe1a1c376692f5",
+  "packetGeneratorSha256": "5d37ff79675a79c749a5cec90eff7adf64bfcf48e1dc4c45ab846548b856096a",
+  "stagedAttemptId": "8a89b98a4e3e4b6b944f6cd0b6352a80",
+  "stagedAttemptRoot": "/private/tmp/ashlar-r02-attempts/ashlar-r02-8a89b98a4e3e4b6b944f6cd0b6352a80",
+  "sourceConfigurationSha256": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+  "sourceSha256": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+  "modelSha256": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+  "bindingSha256": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863",
+  "producer": {
+    "revision": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "tree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bunSha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "git": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
+    "gitSha256": "40163333061f7223ecb604ed0f12988cfc8096d57ca8b1db006d410d4aeb700e"
+  },
+  "result": {
+    "profile": "ashlar-configured-typed-graph-source-admission-result/0.1",
+    "admitted": true,
+    "batches": 3,
+    "records": 13,
+    "receiptCount": 1,
+    "receiptSha256": "cee1a4df50dd6103cea7ac59884a498019387f3607eed300ca79140c9fc502e9",
+    "receiptBytes": 86463,
+    "cliStdoutSha256": "f951910f8749f3d44e4aaaa2af0dc5c9b4b95f7603123cc93ef71cf42e05019e",
+    "published": false,
+    "acknowledged": false
+  },
+  "stagingBytes": 298342701,
+  "limits": {"stagingBytesMaximum": 402653184, "attemptBytesMaximum": 536870912},
+  "nativeExecution": "none; Spark, Java, publication, native reads, cloud, source and ACK actions were not started"
+}
