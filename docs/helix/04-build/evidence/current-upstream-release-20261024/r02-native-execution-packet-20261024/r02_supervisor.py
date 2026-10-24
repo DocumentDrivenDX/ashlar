@@ -29,6 +29,14 @@ LIMIT_RECEIPTS = 16 * 1024 * 1024
 LIMIT_COMMAND_OUTPUT = 1024 * 1024
 DEFAULT_ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
 REQUIRED_ROLES = {"object_current", "edge_current", "tombstone", "whole_source_history"}
+REQUIRED_PACKET = {"r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
+                   "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
+                   "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
+                   "source-admission-preflight.json", "compile-positive-backend03.py",
+                   "examples/configured-local/configuration.template.json",
+                   "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
+                   "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json",
+                   "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json"}
 RUNTIME = {
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
@@ -121,13 +129,7 @@ def verify_pins(manifest: dict) -> None:
         path = ROOT / name if name.startswith("examples/") else PACKET / name
         if not path.is_file() or digest(path) != expected:
             raise ValueError(f"R02 packet implementation hash is stale or absent: {name}")
-    required_packet = {"r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
-                       "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
-                       "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
-                       "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
-                       "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
-                       "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json"}
-    if set(manifest.get("packetFiles", {})) != required_packet:
+    if set(manifest.get("packetFiles", {})) != REQUIRED_PACKET:
         raise ValueError("packet file inventory is incomplete or contains unexpected files")
     for raw_path, expected in RUNTIME.items():
         path = Path(raw_path)

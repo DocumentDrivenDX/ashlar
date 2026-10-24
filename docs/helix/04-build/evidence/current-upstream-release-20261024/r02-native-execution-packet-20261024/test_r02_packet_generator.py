@@ -18,9 +18,16 @@ WORKER_SPEC = importlib.util.spec_from_file_location("r02_invocation_worker", PA
 worker = importlib.util.module_from_spec(WORKER_SPEC)
 assert WORKER_SPEC.loader is not None
 WORKER_SPEC.loader.exec_module(worker)
+SUPERVISOR_SPEC = importlib.util.spec_from_file_location("r02_supervisor", PACKET / "r02_supervisor.py")
+supervisor = importlib.util.module_from_spec(SUPERVISOR_SPEC)
+assert SUPERVISOR_SPEC.loader is not None
+SUPERVISOR_SPEC.loader.exec_module(supervisor)
 
 
 class PacketGeneratorTests(unittest.TestCase):
+    def test_generator_and_supervisor_require_the_same_packet_inventory(self):
+        self.assertEqual(set(generator.PACKET_HASHED), supervisor.REQUIRED_PACKET)
+
     def test_producer_executables_are_the_canonical_regular_binaries(self):
         for path in (generator.BUN, generator.GIT):
             self.assertTrue(path.is_absolute())
