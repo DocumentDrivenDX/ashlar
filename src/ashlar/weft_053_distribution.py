@@ -88,7 +88,7 @@ class Weft053Distribution:
         wheel=self.index['wheel']; _require(set(wheel)=={'path','readPath','sha256'} and wheel['sha256']==WHEEL_SHA256)
         _require(hashlib.sha256(_read(Path(wheel['readPath']),MAX_FILE)).hexdigest()==WHEEL_SHA256)
         dist=importlib.metadata.distribution('weft-sql')
-        _require(dist.version==VERSION and self.module.__version__==VERSION)
+        _require(dist.version==VERSION)
         direct=dist.read_text('direct_url.json'); _require(type(direct)is str)
         direct_value=_json(direct.encode())
         _require(direct_value.get('url')=='file://'+wheel['path'] and direct_value.get('archive_info',{}).get('hashes',{}).get('sha256')==WHEEL_SHA256)
@@ -111,7 +111,8 @@ class Weft053Distribution:
         module_path=Path(self.index['module']); _require(module_path.is_absolute() and module_path.resolve()==module_path
             and str(module_path).startswith(str(root)+os.sep))
         if self.module is not None:
-            _require(str(Path(self.module.__file__).resolve())==self.index['module'])
+            _require(str(Path(self.module.__file__).resolve())==self.index['module']
+                and self.module.__version__==VERSION)
             _require(callable(getattr(self.module,'compile_paths_keys_json',None))
                 and callable(getattr(self.module,'compile_engine_page_json',None))
                 and callable(getattr(self.module,'check_engine_page_json',None))

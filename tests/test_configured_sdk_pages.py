@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_supported_page_compiler,run_configured_sdk_pages
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -40,3 +40,7 @@ class Tests(unittest.TestCase):
         session=object.__new__(ConfiguredSdk053LiveSession)
         session.review_gate=SimpleNamespace(stage='pre-sql',consumed=False,approved=False,executing_name=None)
         with self.assertRaises(ValueError):session.page()
+    def test_page1_checked_response_must_match_frozen_bytes(self):
+        _require_frozen_page_response(b'{"status":"compiled"}',b'{"status":"compiled"}')
+        with self.assertRaises(ValueError):
+            _require_frozen_page_response(b'{"status":"compiled"}',b'{"status":"compiled","extra":true}')

@@ -29,6 +29,10 @@ def _supported_page_compiler(value):
     return type(value)is CurrentWeftDistribution and value._verify()
 
 
+def _require_frozen_page_response(frozen,observed):
+    _require(type(frozen)is bytes and type(observed)is bytes and frozen==observed)
+
+
 @dataclass(frozen=True)
 class ConfiguredSdkPagesConfig:
     compiler:object
@@ -101,6 +105,7 @@ class _Owner:
             and artifact['columns']==self.columns and artifact['logicalPlan']['pageKey']==self.key)
         if self.after is None and self.expected_page1_artifact is not None:
             _require(artifact==self.expected_page1_artifact)
+            _require_frozen_page_response(self.expected_page1_checked_response,checked_raw.encode())
         if self.after is not None and self.page_gate is not None and self.page_gate.stage=='post-page1':
             _require(self.continuation_checked==checked_raw.encode())
         self.checked=checked
@@ -243,6 +248,7 @@ class ConfiguredSdk053LiveSession:
         self.owner=_Owner(scope,aliases,query,self.entry,request,runtime_guard,page_gate=review_gate,
             expected_page1_artifact=self.page1_artifact,allow_053=True)
         _require(self.owner.jars==selected_jars)
+        self.page1_checked_response=None
         class Executor:
             def query(_self,sql,parameters):return self.owner.query_frame(sql,parameters)
         from ashlar.access import AshlarTarget
@@ -256,7 +262,14 @@ class ConfiguredSdk053LiveSession:
         self.started=time.monotonic()
     def frozen_page1_artifact(self,continuation_after):
         _require(continuation_after==self.expected_continuation_after)
-        return {'request':self.page1_request,'response':self.page1_response,
+        _require(self.page1_checked_response is None)
+        checked=self.query.compiler.check_engine_page_json(self.entry.originals(),
+            encoded(self.entry.artifact()['request']),encoded(None))
+        parsed=json.loads(checked)
+        _require(parsed.get('status')=='compiled' and parsed.get('artifact')==self.page1_artifact)
+        self.page1_checked_response=checked.encode()
+        self.owner.expected_page1_checked_response=self.page1_checked_response
+        return {'request':self.page1_request,'response':self.page1_checked_response,
             'expected':{'rows':self.expected_page1_rows,'continuationAfter':continuation_after}}
     def page(self,after=None):
         # The page-1 read is one ordered operation in the pre-SQL review
@@ -293,8 +306,7 @@ class ConfiguredSdk053LiveSession:
 
 
 def run_configured_r02_weft053(scope,transport,query,aliases,*,review_gate,runtime_guard,
-        singleton_request,progress,ordinal,type_id,entity_id,tables,materialization_clock_us,
-        current_admission,source_oracle_sha256,singleton_expected,backend03_original,
+        singleton_request,type_id,entity_id,source_oracle_sha256,singleton_expected,backend03_original,
         backend03_positive,capture,decoder,expected_grouped_rows,expected_page1_after,
         expected_page2_rows):
     """Run the packet's exact ordered checks under one live alias owner.
@@ -308,14 +320,14 @@ def run_configured_r02_weft053(scope,transport,query,aliases,*,review_gate,runti
     from .delta_custody import encoded
     _require(source_oracle_sha256=='f04f74668ac9adc46ac9928b01a4155ccad3aab6421cd297d018b7e45348aab0')
     _require(type(singleton_request)is bytes and 0<len(singleton_request)<=1048576
-        and type(ordinal)is int and type(type_id)is int and type(entity_id)is int
-        and type(singleton_expected)is dict and type(tables)is dict
+        and type(type_id)is int and type(entity_id)is int
+        and type(singleton_expected)is dict
         and type(expected_grouped_rows)is list and type(expected_page1_after)is str
         and type(expected_page2_rows)is list)
     _require(expected_grouped_rows==[['person-1',2,1]]
         and expected_page1_after=='["person-2"]'
         and expected_page2_rows==[['person-3','雪']])
-    _require(scope.context is not None and progress is not None and ordinal>=1 and type_id in scope.source.type_ids)
+    _require(scope.context is not None and type_id in scope.source.type_ids)
     # Use the existing native singleton port from the already-held read scope;
     # reopening the wrapper would acquire a second scope and split custody.
     singleton_operation=lambda:scope.singleton(type_id,entity_id)
