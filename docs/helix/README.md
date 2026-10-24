@@ -51,6 +51,11 @@ shape. One bounded local GraphFrames 0.12.3 action over persisted 5-node/4-edge
 Delta fixtures passed with independent result and owned cleanup checks
 ([R14 result](04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
+Managed A1 also remains unadmitted: policy use and cluster-creation entitlement
+are unproven, source-holder custody is open, and no conservative total-cost
+bound has been established. No A1 schema or paid compute was created or started
+([A1 permission admission](04-build/evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md),
+[A1 trial constraints](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 The synthetic 1B-node/assumed-5B-edge trial remains held because its latest
 write-only projection exceeds the 15-minute owner-review gate. Fabric activation
 is pending current source/ACK, capacity, path and cleanup admission. See the

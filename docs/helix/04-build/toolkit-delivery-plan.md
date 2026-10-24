@@ -243,7 +243,14 @@ Delete the owned schema after its retained evidence is complete.
 
 Authenticated admission has found only a Personal Compute policy for a
 single-node all-purpose cluster; it does not admit the serverless or Jobs-cluster
-path assumed below. [TD-009](../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md)
+path assumed below. The 2026-10-24 escalated read-only check could not read the
+policy ACL because the caller lacks Manage permission, so policy `CAN_USE` is
+unproven. `current-user me` returned identity but no entitlements, leaving
+`allow-cluster-create` unproven. Prior catalog reads show `CREATE_SCHEMA` and
+`USE_CATALOG` in `client_dev`, with predictive optimization `ENABLE`; schema
+ownership and object cleanup remain unresolved. No schema or paid compute was
+created or started. See the [permission admission receipt](evidence/current-upstream-release-20261023/managed-a1-permission-admission-20261024.md).
+[TD-009](../02-design/technical-designs/TD-009-managed-spark-receipt-verification.md)
 now records an unadopted A1-only all-purpose option. Separately, the
 [source-holder gap](evidence/source-holder-interval-proposal-20261023.md)
 shows that the previously reviewed public Truss 0.0.49 has operation-level page
@@ -252,7 +259,11 @@ managed verification, ACK, reconciliation and close. The 0.0.50 package review
 found unchanged feed declarations and no admitted replacement holder. The
 release sequence is to obtain and admit that
 source authority, review the matching Ashlar holder and independent verifier,
-then select and cost an actual dedicated compute path before A1. Neither the
+then establish policy use, cluster creation and lifecycle authority, runtime
+compatibility, cleanup rights and a conservative whole-trial cost bound before
+selecting a dedicated compute path for A1. The $100 hard ceiling and $10
+preferred total remain in force; neither is admitted by the current estimate.
+Neither the
 documented all-purpose option nor the existing serverless entrypoint is an
 authorized fallback for the other.
 The [A1 live-port review](evidence/source-holder-a1-live-port-gap-20261024.md)
