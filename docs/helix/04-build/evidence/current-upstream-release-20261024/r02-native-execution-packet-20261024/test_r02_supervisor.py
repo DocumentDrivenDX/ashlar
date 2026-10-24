@@ -155,16 +155,14 @@ class SupervisorPhaseTests(unittest.TestCase):
         manifest["operations"] = [self.noop(case) | {"kind": kind} for kind, case in operations]
         return manifest
 
-    def test_legal_prepublication_and_continuation_reach_held_then_complete(self):
+    def test_prepublication_reaches_held_state_and_continuation_is_blocked(self):
         prepublication, prior_state = self.make_prepublication()
         held = json.loads(prior_state.read_text(encoding="utf-8"))
         self.assertEqual(held["status"], "complete-held-after-publication")
         continuation = self.continuation_manifest(prepublication, prior_state)
         path, review = self.write_manifest("continuation.json", continuation)
-        supervisor.execute(path, review, "continuation")
-        attempt = self.private / f"ashlar-r02-{continuation['attemptId']}"
-        completed = json.loads((attempt / "one-shot-state.json").read_text(encoding="utf-8"))
-        self.assertEqual(completed["status"], "complete")
+        with self.assertRaisesRegex(PermissionError, "live aliases.*Weft 0.4.53"):
+            supervisor.execute(path, review, "continuation")
 
     def test_prepublication_rejects_missing_or_extra_steps(self):
         for operations in ([("initialize", "initialize")],
@@ -185,10 +183,10 @@ class SupervisorPhaseTests(unittest.TestCase):
             manifest["attemptId"] = uuid.uuid4().hex
             manifest["operations"] = operations
             path, review = self.write_manifest(f"invalid-cont-{uuid.uuid4().hex}.json", manifest)
-            with self.assertRaises(ValueError):
+            with self.assertRaises(PermissionError):
                 supervisor.execute(path, review, "continuation")
 
-    def test_continuation_rejects_incomplete_publication_roles(self):
+    def test_continuation_is_refused_even_with_incomplete_publication_vector(self):
         prior_manifest, prior_state = self.make_prepublication()
         manifest = self.continuation_manifest(prior_manifest, prior_state)
         manifest["publicationVector"]["tables"].pop()
@@ -197,7 +195,7 @@ class SupervisorPhaseTests(unittest.TestCase):
         manifest["publicationVectorSha256"] = sha(vector_raw)
         manifest["attemptId"] = uuid.uuid4().hex
         path, review = self.write_manifest("invalid-roles.json", manifest)
-        with self.assertRaisesRegex(ValueError, "four required Ashlar table roles"):
+        with self.assertRaisesRegex(PermissionError, "live aliases.*Weft 0.4.53"):
             supervisor.execute(path, review, "continuation")
 
     def test_attempt_parent_is_a_private_subdirectory_of_private_tmp(self):

@@ -219,6 +219,10 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("profile") != "ashlar-r02-one-shot/0.1" or manifest.get("phase") != phase:
         raise ValueError("manifest profile or phase mismatch")
+    if phase == "continuation":
+        raise PermissionError("continuation is held until a reviewed runner compiles with live aliases in the selected Weft 0.4.53 cohort")
+    if phase != "prepublication":
+        raise ValueError("only the reviewed prepublication phase is supported")
     if manifest.get("limits") != {"wallSeconds": 300, "privateBytes": LIMIT_PRIVATE,
                                   "receiptBytes": LIMIT_RECEIPTS, "operationOutputBytes": LIMIT_COMMAND_OUTPUT}:
         raise ValueError("manifest limits must equal the fixed R02 ceilings")

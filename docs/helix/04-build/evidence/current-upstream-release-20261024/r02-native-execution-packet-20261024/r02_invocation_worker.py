@@ -81,6 +81,8 @@ def extract_vector(attempt: Path, result: dict, installation_sha: str) -> dict:
         role = table.rsplit(".", 1)[-1] if isinstance(table, str) else ""
         if role in by_role or role not in {*ROLES, "manifest", "attempts"}:
             raise ValueError("initialized registry target roles are duplicate or unexpected")
+        if table != f"local.configured.{role}" or target.get("path") != str(attempt / "installation" / role):
+            raise ValueError("registry target is not the stable configured-local physical target")
         if not isinstance(target.get("uuid"), str) or len(target["uuid"]) != 36:
             raise ValueError("initialized registry has an invalid target UUID")
         try:
@@ -103,12 +105,11 @@ def extract_vector(attempt: Path, result: dict, installation_sha: str) -> dict:
     expected_keys = {f"local.configured.{role}" for role in ROLES}
     if set(versions) != expected_keys or any(type(v) is not int or v < 0 for v in versions.values()):
         raise ValueError("published manifest does not have the complete four-role version vector")
-    namespace = "ashlar_configured_query_" + attempt.name.removeprefix("ashlar-r02-").replace("-", "")
     vector = {
         "id": manifest.get("publication_id"),
         "manifestUuid": by_role["manifest"]["uuid"],
         "tables": [
-            {"name": ["spark_catalog", namespace, role], "uuid": by_role[role]["uuid"],
+            {"name": by_role[role]["table"].split("."), "uuid": by_role[role]["uuid"],
              "version": versions[f"local.configured.{role}"]}
             for role in sorted(ROLES)
         ],

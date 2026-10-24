@@ -184,9 +184,14 @@ manifest routes each step through
 retains each final invocation's exact bytes before calling `run-configured-local`.
 After batch-3 replay, the worker checks the result manifest against all six
 initialized target identities, requires exactly the four graph table roles
-and their versions, then writes the vector candidate to
-`publication-vector.json`. Continuation SQL and native reads remain unavailable
-from this phase.
+and their versions, then writes the stable publication vector (configured
+physical target names, UUIDs, versions, publication ID, and manifest UUID) to
+`publication-vector.json`. It never invents a query-alias namespace. The
+supervisor refuses continuation: query compilation must bind to aliases created
+inside the live `open_configured_query_aliases` context, and the selected Weft
+0.4.53 compiler is not installed in the R05 Spark cohort. A future continuation
+runner must freeze and review the live alias-bound artifacts before executing
+their SQL.
 
 All absolute source/config/output paths are inside the attempt root. The
 selected Python, JDK, Bun and Git executables are external runtime inputs and

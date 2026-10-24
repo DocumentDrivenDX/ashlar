@@ -54,7 +54,8 @@ class PacketGeneratorTests(unittest.TestCase):
             (attempt / "installation").mkdir(mode=0o700)
             ids = {role: str(uuid.uuid4()) for role in worker.ROLES | {"manifest", "attempts"}}
             registry = {"profile": "ashlar-configured-local-installation/0.2",
-                        "targets": [{"table": "local.configured." + role, "uuid": value}
+                        "targets": [{"table": "local.configured." + role,
+                                     "path": str(attempt / "installation" / role), "uuid": value}
                                     for role, value in ids.items()]}
             installation = attempt / "installation/installation.json"
             installation.write_text(json.dumps(registry), encoding="utf-8")
@@ -63,7 +64,8 @@ class PacketGeneratorTests(unittest.TestCase):
                       "manifest": {"profile_version": "ashlar-delta/0.3", "publication_id": "pub-1",
                                    "table_versions_json": json.dumps(versions)}}
             vector = worker.extract_vector(attempt, result, worker.sha256(installation))
-            self.assertEqual({item["name"][-1] for item in vector["tables"]}, worker.ROLES)
+            self.assertEqual({tuple(item["name"]) for item in vector["tables"]},
+                             {("local", "configured", role) for role in worker.ROLES})
             self.assertEqual(vector["manifestUuid"], ids["manifest"])
             self.assertEqual({item["version"] for item in vector["tables"]}, set(versions.values()))
             result["manifest"]["table_versions_json"] = json.dumps({"local.configured.object_current": 1})
