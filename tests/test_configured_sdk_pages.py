@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_require_r02_ordinal1_vector,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_require_grouped_exact_rows,_require_r02_ordinal1_vector,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local,run_configured_local_r02_weft053
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -74,6 +74,18 @@ class Tests(unittest.TestCase):
             _require_frozen_grouped_artifact({**compiled,'requestBytes':b'{"request":2}\n'},record)
         with self.assertRaises(ValueError):
             _require_frozen_grouped_artifact({**compiled,'recompiledBytes':b'{}'},record)
+
+    def test_grouped_exact_values_match_oracle_while_lexical_carriers_remain_bound(self):
+        from ashlar.weft_decode import ExactScalar
+        evidence={'native_result':{'rows':[['person-1','2','1']]},
+            'decoded':[[ExactScalar('person-1','person-1'),ExactScalar(2,'2'),ExactScalar(1,'1')]]}
+        _require_grouped_exact_rows(evidence,[['person-1',2,1]])
+        with self.assertRaises(ValueError):
+            _require_grouped_exact_rows(evidence,[['person-1','2','1']])
+        changed={'native_result':{'rows':[['person-1','02','1']]},
+            'decoded':[[ExactScalar('person-1','person-1'),ExactScalar(2,'2'),ExactScalar(1,'1')]]}
+        with self.assertRaises(ValueError):
+            _require_grouped_exact_rows(changed,[['person-1',2,1]])
 
     def test_r02_selection_is_idempotent_and_wrapper_checks_ordinal_before_runtime(self):
         from pathlib import Path
