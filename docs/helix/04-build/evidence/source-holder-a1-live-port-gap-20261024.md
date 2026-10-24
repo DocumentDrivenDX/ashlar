@@ -132,10 +132,18 @@ declared after `runtime_feed_custody_observe_scope`. After reordering those
 private routines, attempt 2 installed the candidate SQL successfully, then
 stopped during model preparation because `py_mini_racer` was unavailable. It
 never produced a feed page or exercised custody locks, ACK, or reconciliation.
-These diagnostics do not qualify the selected pgserver/PostgreSQL 17.11 runtime;
-that native qualification remains open, and no source or ACK authority is
-established. Attempt records remain with the isolated Truss candidate and are
-not Ashlar release evidence.
+The later attempt 4 used candidate source commit
+`036cd88e5711c8ecbaca4be26925b2f22dc1aa5e` and evidence commit
+`cc805f6e`. Its pgserver-pg18 18.6.1 / PostgreSQL 18.6 run took 14.64 seconds.
+Catalog installation and custody open succeeded, the holder lock was observed,
+and a competing ACK returned the asserted `FeedUnavailable(context)`. The test
+then stopped at `InsufficientPrivilege` when the consumer role queried the
+protected checkpoint; checkpoint state was not established. Registration
+refusal, holder ACK/commit, and fresh reconciliation were not reached. Cleanup
+completed; the candidate remains disabled and unpushed. Selected Truss local
+native qualification remains open. These attempts make no Lakebase claim and
+establish no source or ACK authority. The private attempt records are retained
+with Truss evidence commit `cc805f6e`.
 
 ## Minimal implementation sequence
 
