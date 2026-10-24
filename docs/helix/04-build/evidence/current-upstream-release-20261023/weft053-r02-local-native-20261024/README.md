@@ -8,14 +8,16 @@ receipt. It closes compiler compatibility only.
 Run `python3 preflight.py` from this directory for the effect-free static
 readiness check. It verifies the pinned UMF model, configured source, 13-event /
 three-batch fixture and public Weft receipt targets. It does not inspect process
-state or start Spark/Java. The result is `prepared_native_held` until R12 releases
-the slot, the approved process inventory is obtained, and fresh request/artifact
-bytes are bound to the new `.4-xxhash64` publication. The retained Weft replay
+state or start Spark/Java. The local Spark slot was reported free after the
+bounded R05 GraphFrames action. The result is `prepared_native_held` until the
+approved process inventory is captured, Sol independently reviews the packet
+and explicitly directs execution, and fresh request/artifact bytes are bound to
+the new `.4-xxhash64` publication. The retained Weft replay
 uses `.3` binding examples, so its response bytes cannot be reused as R02 native
 evidence. This packet does not yet contain a native executor: the existing
 configured-local command requires an operator-owned per-invocation configuration
 and the fresh publication vector, both of which must be created after the slot
-release gate without changing the frozen source tuple.
+review and execution gates without changing the frozen source tuple.
 
 The prior `current-native-query-and-sdk-pages-20261021.json` receipt remains
 historical evidence: it used a private Weft build and an `ashlar-delta/0.3`
@@ -28,10 +30,9 @@ UMF's model semantics remain pinned to core 0.10.0; 0.10.1 is the selected
 public Python distribution, as recorded in the
 [UMF adoption receipt](../umf-0.10.1-ashlar-adoption-20261024/README.md).
 
-## Bounded execution sequence after R12 slot release
+## Bounded execution sequence after packet review
 
-1. Establish that R12 has released the local slot. Then obtain an observable
-   process inventory using the approved escalated process-inspection route and
+1. Obtain an observable process inventory using the approved process-inspection route and
    record that no competing Spark/Java workload owns the slot. The earlier
    sandbox observations (`ps` EPERM and `pgrep` sysmon unavailable) are a
    tooling limitation, not proof of an occupied slot or a permanent blocker.

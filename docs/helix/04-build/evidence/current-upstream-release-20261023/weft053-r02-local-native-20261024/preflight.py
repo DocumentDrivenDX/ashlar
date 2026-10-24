@@ -122,7 +122,7 @@ def check() -> dict:
         "selected_runtime": {"weft_sql": "0.4.53", "umf_distribution": "0.10.1", "umf_semantics": "0.10.0", "spark": "4.2.0", "delta": "4.4.1", "jdk": "21", "carrier": "ashlar-delta/0.4-xxhash64"},
         "fixture": {"events": len(event_rows), "batches": batch_ids, "inputs": inputs},
         "compiler_only_receipts": target_receipts,
-        "execution_gate": "Await R12 source-freeze slot release, then obtain the approved process inventory and freeze a fresh .4 publication-bound request/artifact set before native execution.",
+        "execution_gate": "The local Spark slot was reported free after the bounded R05 action; await approved process inventory, Sol's independent packet review and explicit execution direction, then freeze fresh .4 publication-bound request/artifact bytes before native execution.",
         "limitations": ["Compiler receipt bindings use ashlar-delta/0.3 and are not native or publication-bound R02 evidence.", "This preflight does not admit the UMF distribution at runtime or establish Spark/Delta execution.", "No Truss, source tuple, or ACK authority is established."],
     }
 
