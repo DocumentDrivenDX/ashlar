@@ -46,7 +46,26 @@ require(git("rev-parse", f"{selected}^{{tree}}") == source["tree"], "selected co
 require(OLD["source_checkout"]["commit"] == PROPOSAL["refresh"]["prior_packet_commit"], "prior source commit binding")
 for path, expected in source["runtime_input_objects"].items():
     require(git("rev-parse", f"{selected}:{path}") == expected, f"selected source object mismatch: {path}")
-    require(git("rev-parse", f"HEAD:{path}") == expected, f"live checkout runtime object mismatch: {path}")
+
+# This proposal pins an immutable selected source snapshot. The live main branch
+# may advance for a release-pin refresh; permit only the already reviewed core
+# artifact URL change, while requiring code and SQL to remain byte-identical.
+head_source_objects = {path: git("rev-parse", f"HEAD:{path}") for path in ("src", "sql", "pyproject.toml")}
+require(head_source_objects["src"] == source["runtime_input_objects"]["src"], "live main src differs from frozen selection")
+require(head_source_objects["sql"] == source["runtime_input_objects"]["sql"], "live main sql differs from frozen selection")
+head_runtime_paths = git(
+    "diff", "--name-only", selected, "HEAD", "--", "pyproject.toml", "src", "sql"
+).splitlines()
+require(head_runtime_paths == ["pyproject.toml"], f"unreviewed live-main runtime input changes: {head_runtime_paths}")
+live_diff = git("diff", "--no-ext-diff", "--unified=0", selected, "HEAD", "--", "pyproject.toml")
+live_changed_lines = [line for line in live_diff.splitlines() if (line.startswith("+") and not line.startswith("+++")) or (line.startswith("-") and not line.startswith("---"))]
+frozen_pyproject_object = source["runtime_input_objects"]["pyproject.toml"]
+expected_live_lines = [
+    '-    "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.4/umf_core-0.10.0-py3-none-any.whl#sha256=49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",',
+    '+    "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.5/umf_core-0.10.0-py3-none-any.whl#sha256=49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",',
+]
+require(frozen_pyproject_object == "4399d792263a4b30e374b8ef5c25b681b9ee86aa", "unexpected frozen pyproject object")
+require(live_changed_lines == expected_live_lines, f"unexpected live-main pin refresh: {live_changed_lines}")
 require(source["runtime_input_objects"]["src"] == source["r5_source_objects"]["src"], "source tree unexpectedly differs from R5")
 require(source["runtime_input_objects"]["sql"] == source["r5_source_objects"]["sql"], "SQL tree unexpectedly differs from R5")
 require(source["r5_source_objects"] == OLD["source_checkout"]["runtime_input_objects"], "R5 source object baseline mismatch")
@@ -114,4 +133,4 @@ receipt_text = receipt.read_text()
 for needle in (compat["fixture_sha256"], compat["response_sha256"], pins["weft_sql"]["source_commit"], pins["weft_sql"]["wheel_sha256"]):
     require(needle in receipt_text, f"Weft adoption receipt missing {needle}")
 
-print("R5 current-cohort refresh proposal: inert consistency checks passed")
+print("R5 refresh proposal: frozen 6986 source/lineage checks pass; live HEAD differs only by the exact core 0.5.4→0.5.5 URL refresh; no lifecycle authority claimed")

@@ -1,6 +1,6 @@
 # Truss 0.0.49 current-cohort readiness packet
 
-Status: **static packet assembled; no preflight or native action run**. This
+Status: **frozen static packet; no preflight or native action run; not current for lifecycle execution**. This
 packet rebinds the selected Ashlar source objects at `6986e832` to the fresh,
 isolated CPython 3.12.14/macOS arm64 runtime with Truss 0.0.49, UMF core 0.10.0,
 UMF access dev7, Weft 0.4.53, Spark 4.2.0 and Delta 4.4.1. The current Weft
@@ -20,9 +20,12 @@ the R5 preparation's JSON pointer; its bytes have not been copied, reset, or
 re-observed. R5's Weft 0.4.52 preflight and approval payload are historical and
 must not be reused.
 
-The exact future command is recorded in `preparation.json`: invoke the private
+This packet remains immutably bound to source snapshot `6986e832`. Ashlar main subsequently advanced to `78625f35` with only the public UMF core URL changing from release `umf-v0.5.4` to `umf-v0.5.5`; the core wheel bytes and digest are unchanged. That pin refresh does not rebind this packet. Any future lifecycle requires a complete worker/supervisor/preparation/bridge rebind to final release pins and renewed review/owner approval.
+
+The historical R6 preflight command is recorded in `preparation.json`: invoke the private
 R6 virtualenv's Python with `-I -B`, the R6 `run_supervisor.py`, and only
-`--preflight`, from the private R6 root. This packet has **not** run that
+`--preflight`, from the private R6 root. Do not invoke it before the required
+rebind and approval. This packet has **not** run that
 command. The current preflight code checks pinned artifacts/runtime/bridge,
 PGDATA directory/version and absence of `postmaster.pid`, compatibility imports,
 process/SysV admission and exact worker/supervisor approval-payload parity. It

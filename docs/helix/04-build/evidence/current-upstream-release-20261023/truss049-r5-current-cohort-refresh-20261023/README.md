@@ -1,6 +1,6 @@
 # Truss 0.0.49 current-cohort refresh proposal
 
-Status: **effect-free proposal; not an execution packet**. This refresh proposes
+Status: **historical selected-source proposal; not a current execution packet**. This refresh proposes
 replacing the held R5 cohort's Weft 0.4.52 pin with the public Weft 0.4.53
 release, and rebinding its source snapshot to the selected Ashlar source revision
 `6986e8327c366b76ba09ffed6b2fe17a3f484cc7`. It preserves the public Truss
@@ -10,6 +10,8 @@ objects; the source `pyproject.toml` pin changes from 0.4.48 to 0.4.53. R5's
 isolated runtime was separately installed with Weft 0.4.52. The bridge-readiness
 pin still must be regenerated for the selected Ashlar commit and
 `pyproject.toml` object.
+
+The selected source remains the immutable `6986e832` snapshot. Public Ashlar main later advanced to `78625f35`; the only runtime-input difference is the public core URL moving from UMF `umf-v0.5.4` to `umf-v0.5.5`, with identical core wheel bytes and SHA. The offline checker asserts this exact difference and refuses any other code, SQL, or runtime-input change. This R5-derived proposal and the R6 packet remain bound to the older source object; any future lifecycle must first be rebound and reviewed against the final Ashlar release pins, then receive a fresh approval decision.
 
 The selected Weft wheel is the published macOS arm64 artifact from commit
 `726a840e956e25217d6aeea2674fdfcf3f342a24`, SHA-256
