@@ -1,0 +1,26 @@
+{
+  "profile": "ashlar-truss050-r15-preflight-receipt/0.1",
+  "preparation_sha256": "20a8e7f78ff8bc0b7a080fe8a41931f7feb4551b5d16f3515f9a6b1652c25387",
+  "source_commit": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+  "source_tree": "a97e9e1e275294e840690bbe792e795afbeffff7",
+  "source_archive_sha256": "f60d7c8388e4095bcfe8995dd9ea9578d6655a290578d3a4ea48d0835c512aa7",
+  "source_manifest_sha256": "eb1ae0da17735561b51f77c393e78d1cf60910cf7124c9bc791a111d67b99376",
+  "worker_sha256": "1b53b7e3cce395d45e6d29c9b07763400dc32be7b820457cbc08e816e70eb2b9",
+  "supervisor_sha256": "088843dc10131151dc0935a210529df170e8f182c18d4da43b1cc2c1d120bcba",
+  "failed_sandbox_preflight_sha256": "83414abe1d898435c4f54a3b3ef90e1c80d498af3b6ac5c59ba0d8395944657c",
+  "sysv_cleanup_receipt_sha256": "b5113503ff72cff2daafa03c05dbe5e7e2717c72c394b0000d873890e8e570d2",
+  "final_supervisor_preflight_sha256": "85c47811b28dd38f8e9f3ce45bac4cc38c1fcab46fb354c86510357b536e61a5",
+  "outcome": "ready_pending_hash_bound_operator_approval",
+  "approval_payload_sha256": "239bc4e2a500aeb5804ba071da0daf3cada9b84a1a5a1151e7cb6684f730304a",
+  "admission_gates_sha256": "665001fee6f02a8253542c8f3b2dc6ecd4fc9029cca6bfed2a2a2f1f4dc1fae9",
+  "effect_boundary": {
+    "postgres_started": false,
+    "spark_started": false,
+    "migration_applied": false,
+    "source_or_consumer_mutated": false,
+    "publication_or_ack_mutated": false,
+    "seed_submitted": false,
+    "execution_approval_created": false,
+    "execution_started_marker_created": false
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "attempt": "attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f",
+  "bridge": "bridge-readiness.json",
+  "bridge_path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/bridge-readiness.json",
+  "bridge_sha256": "abfa5105f33fbd4d2e7101d95efbf938549f185e7310b1c4f9b7cde1fddbfc1c",
+  "cold_backup_registry": {
+    "cold_backup_created": false,
+    "migration_registry_created": false
+  },
+  "consumer": {
+    "consumer": "ashlar-current-048-lifecycle-20261022",
+    "feed": "ashlar-current-045-lifecycle",
+    "readback_status": "retained receipt hash checked; current custody and checkpoint are reobserved by the .48 read-only execution gate before migration",
+    "registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724"
+  },
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "required": "Independent Sol review and a distinct explicit owner execution approval bound to R15 after the effect-free preflight and exact payload are reviewed.",
+    "started_marker_created": false
+  },
+  "historical_r13": {
+    "preflight_path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/r13-historical-preflight-result.json",
+    "preflight_sha256": "f5d26dbb8167eaf2053488c092760fccd01e6827e20417cba297d327e3eec96c",
+    "preparation_path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/r13-historical-preparation.json",
+    "preparation_sha256": "bdc366830ac3bc9902de1396ea76142cfd216271f20e438b739c9cd03ef2123f",
+    "role": "historical blocked packet only; not reused as source authority"
+  },
+  "immutable_inputs": {
+    "existing_feed_registration_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/feed-registration-committed.json",
+      "sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f"
+    },
+    "origin": {
+      "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/acceptance-origin.json",
+      "sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed"
+    },
+    "prior_public_source_reobservation_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/retained-source-reobserved.json",
+      "sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "source": {
+      "path": "/private/tmp/ashlar-truss045-real-source-20261021/model/source.umf.json",
+      "sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+    }
+  },
+  "lifecycle_scope": "Preserve stopped Truss 0.0.48 PGDATA; run the exact A accepted-source, registration and pending-checkpoint read-only gate before migration; if every identity/hash/cursor matches, invoke one latest-only Truss 0.0.50 administrative migration from .48 manifest c433 through intermediate 35fd to native target 2888; verify the accepted source and complete view after migration; publish the pending genesis page to the local .4 destination, independently verify and ACK it; only after that ACK submit the already-approved seven-operation seed once, then publish its exact actual continuation page, independently verify and ACK it.",
+  "limits": {
+    "attempts": 1,
+    "automatic_retries": 0,
+    "child_deadline_seconds": 600,
+    "combined_retained_and_attempt_byte_cap": 1073741824,
+    "log_byte_cap": 16777216,
+    "native_parallelism": "sequential local only"
+  },
+  "migration_recovery": {
+    "attempt_id": "778470e6-1cf0-4e4e-8532-f9212bc2bdb3"
+  },
+  "migration_route": {
+    "current_fixture_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "edge_count": 2,
+    "index_sha256": "4c6baf0282e3d0b5492f070c9c07d89ff0c9a819e748f3820f60b11c1f51c7aa",
+    "intermediate_manifest_sha256": "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+    "source_manifest_sha256": "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+    "target_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+  },
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "preflight": {
+    "attempted": true,
+    "result": "r15-supervisor-final-preflight.json (captured after this preparation digest was frozen)",
+    "status": "effect_free_preflight_captured_in_companion_receipt",
+    "worker_mode": "preflight only; no PostgreSQL, Spark, migration, feed, publication, ACK, seed, or execution start marker"
+  },
+  "previous_packet": {
+    "path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r14-selected-source-lifecycle-20261024/README.md",
+    "preserved_unchanged": true,
+    "status": "superseded for execution by R15 because its archived source predates the two native `.4` initialization fixes"
+  },
+  "profile": "ashlar-truss050-r15-lifecycle-preparation/0.1",
+  "readonly_048_helper": {
+    "path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/source_048_readonly_helper.py",
+    "runtime_path": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv",
+    "runtime_receipt_path": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/runtime-preflight.json",
+    "runtime_receipt_sha256": "bbc590badfa88ea7c950a40f867ddd62f409df078aa461575a3b7db6c7288b7b",
+    "sha256": "cd9a39b76490db46e93d68edb44f5bc2b9cb978f4a152ded359a04ec66d3efcf"
+  },
+  "repository_state_at_packet_preparation": {
+    "binding": "R15 binds the exact current main source archive and src/sql/pyproject Git objects.",
+    "intervening_changes": "None; exact local HEAD and origin/main were both 2eeecf409033c6c7c92ded72ec7e43c569dffaf9 at R15 preparation.",
+    "observed_main_head": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+    "source_snapshot_commit": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+    "source_snapshot_is_current_main_head": true
+  },
+  "retained_pgdata": {
+    "backup_created": false,
+    "cold_backup_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/attempt-r15-91d4ef97-5998-4ddb-83c3-869233ac4c8f/cold-backup/pgdata",
+    "data_modified": false,
+    "logical_bytes_observed": 63997052,
+    "path": "/private/tmp/ashlar-truss048-source-acceptance-attempt-01-r4/postgres/data",
+    "stopped_observation": "postmaster.pid absent at packet preparation; execution gate must recheck before cold backup/start",
+    "version": "18"
+  },
+  "runtime": {
+    "base_runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+    "path": "/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv",
+    "receipt_external_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/runtime-receipt.json",
+    "receipt_path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/runtime-receipt.json",
+    "receipt_sha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5",
+    "reuse": "Reuses exact verified .50 APFS copy-on-write runtime from historical R13; no new install, mutation or copy of the runtime."
+  },
+  "selected_release": {
+    "release_commit": "a687d0a226dad5745cbd909377bf99c7c1cddc66",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "version": "0.0.50",
+    "wheel_path": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl",
+    "wheel_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00"
+  },
+  "selected_source": {
+    "archive_bytes": 8714240,
+    "archive_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/source-inputs-2eeecf40.tar",
+    "archive_sha256": "f60d7c8388e4095bcfe8995dd9ea9578d6655a290578d3a4ea48d0835c512aa7",
+    "commit": "2eeecf409033c6c7c92ded72ec7e43c569dffaf9",
+    "extracted_path": "/private/tmp/ashlar-truss050-current-source-2eeecf40-r15/source-inputs-2eeecf40",
+    "file_count": 590,
+    "manifest_path": "docs/helix/04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/source-inputs-manifest.json",
+    "manifest_sha256": "eb1ae0da17735561b51f77c393e78d1cf60910cf7124c9bc791a111d67b99376",
+    "objects": {
+      "pyproject.toml": "7af01eeb58eaf0dbd7ae7d0246618e97a96ca724",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "02e10442a973712e49a357a6c2847236c9f4792b"
+    },
+    "tree": "a97e9e1e275294e840690bbe792e795afbeffff7"
+  },
+  "source_scope": "one retained A feed/consumer; B is outside this single-source lifecycle",
+  "status": "prepared_effect_free_for_independent_review_no_execution_approval"
+}

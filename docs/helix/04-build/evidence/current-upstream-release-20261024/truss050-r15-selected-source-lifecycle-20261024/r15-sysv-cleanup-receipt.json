@@ -1,0 +1,20 @@
+{
+  "cleanup": {
+    "command": "ipcrm -m 18415692",
+    "exit_code": 0,
+    "post_cleanup_one_byte_segment_inventory": "empty",
+    "verification": "escalated inventory filter returned no size-1 segment"
+  },
+  "profile": "ashlar-truss050-r15-supervisor-preflight-cleanup/0.1",
+  "scope": "Cleanup of the exact temporary IPC_PRIVATE segment created by the R15 sandbox supervisor preflight; no application data or service state.",
+  "segment": {
+    "attachments": 0,
+    "creator_pid": 10705,
+    "id": 18415692,
+    "inventory_source": "escalated ipcs -ma output",
+    "key": "0x00000000",
+    "observed_at_local": "2026-10-24 08:23:13 EDT",
+    "size_bytes": 1
+  },
+  "source_preflight_sha256": "83414abe1d898435c4f54a3b3ef90e1c80d498af3b6ac5c59ba0d8395944657c"
+}
