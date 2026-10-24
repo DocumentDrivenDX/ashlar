@@ -1,0 +1,20 @@
+{
+  "archive_sha256": "4c4ee38b6ed83444390dde5ec8a4360db6ff92234d24dd3d44fdf18511e18b41",
+  "archive_bytes": 3215041,
+  "archive_files": 1195,
+  "resource_files_in_source": 67,
+  "resource_files_missing_from_sdist": [],
+  "source_correspondence_included": true,
+  "metadata_fields": {
+    "Name": "ashlar-graph-toolkit",
+    "Version": "0.1.0.dev1",
+    "License-Expression": "MIT OR Apache-2.0",
+    "Requires-Python": ">=3.9",
+    "License-File": "LICENSE-APACHE"
+  },
+  "resource_dirs": {
+    "src/ashlar_host/resources/local-current-delta4": 6,
+    "src/ashlar_host/resources/managed-current-core-010": 8,
+    "src/ashlar_host/resources/managed-current-core-010-xxhash64": 8
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "sdist": "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/dist/ashlar_graph_toolkit-0.1.0.dev1.tar.gz",
+  "install_command": [
+    "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "-m",
+    "pip",
+    "install",
+    "--no-deps",
+    "--no-build-isolation",
+    "--disable-pip-version-check",
+    "--no-index",
+    "--target",
+    "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/installed-target",
+    "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/dist/ashlar_graph_toolkit-0.1.0.dev1.tar.gz"
+  ],
+  "install": {
+    "state": "completed",
+    "returncode": 0,
+    "output": "WARNING: The directory '/Users/erik/Library/Caches/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nProcessing /private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/dist/ashlar_graph_toolkit-0.1.0.dev1.tar.gz\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: ashlar-graph-toolkit\n  Building wheel for ashlar-graph-toolkit (pyproject.toml): started\n  Building wheel for ashlar-graph-toolkit (pyproject.toml): finished with status 'done'\n  Created wheel for ashlar-graph-toolkit: filename=ashlar_graph_toolkit-0.1.0.dev1-py3-none-any.whl size=2362066 sha256=e6d7102aa36e6d6d8422ef764b5db5d38a235e4d743070a0e3cde4eb1f6cb7f9\n  Stored in directory: /private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/pip-ephem-wheel-cache-8i3oekv_/wheels/35/b1/5a/44f9bef7758d67448d727fc15439b44e6719e32fc9b3c06141\nSuccessfully built ashlar-graph-toolkit\nInstalling collected packages: ashlar-graph-toolkit\nSuccessfully installed ashlar-graph-toolkit-0.1.0.dev1\n"
+  },
+  "smoke": {
+    "state": "completed",
+    "returncode": 0,
+    "command": [
+      "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "-c",
+      "import pathlib, ashlar, ashlar_host\nfrom ashlar_host.local_current_delta4_umf import _pinned_resources\nfrom ashlar_host.managed_current_carriers import load_current_managed_carriers\ntarget=pathlib.Path(__import__('sys').argv[1]).resolve()\nfor module in (ashlar,ashlar_host):\n p=pathlib.Path(module.__file__).resolve()\n assert target in p.parents, (module.__name__,p,target)\nresources=_pinned_resources()\nassert resources\nmanaged03=load_current_managed_carriers('ashlar-delta/0.3')\nmanaged04=load_current_managed_carriers('ashlar-delta/0.4-xxhash64')\nprint({'ashlar':str(pathlib.Path(ashlar.__file__).resolve()),'ashlar_host':str(pathlib.Path(ashlar_host.__file__).resolve()),'local_delta4_resource_count':len(resources),'managed_03_loaded':managed03 is not None,'managed_04_loaded':managed04 is not None})\n",
+      "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/installed-target"
+    ],
+    "output": "{'ashlar': '/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/installed-target/ashlar/__init__.py', 'ashlar_host': '/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/installed-target/ashlar_host/__init__.py', 'local_delta4_resource_count': 4, 'managed_03_loaded': True, 'managed_04_loaded': True}\n"
+  },
+  "elapsed_seconds": 82.515
+}

@@ -1,0 +1,27 @@
+{
+  "head": "a37a9ddb17af2a5a607011feb9a1d9f0bbc288eb",
+  "paths": [
+    "pyproject.toml",
+    "README.md",
+    "LICENSE.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE",
+    "src",
+    "tests"
+  ],
+  "archive_sha256": "a8c70bb2cd718a94ccec7a62d46eb0b0c24f0b5d18d451b2c4fae51d5ebf4caa",
+  "archive_bytes": 16936960,
+  "files_verified": 1245,
+  "tree_and_blob_ids": {
+    "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+    "README.md": "35bc8cd2ab88a2fc9b4ba7abf8d71f9e5e413de2",
+    "LICENSE.md": "2381950f5f3a55e3206373053d988a883c902f71",
+    "LICENSE-MIT": "d95948b51f1429298fcf3ab05c20a1c75526c0f0",
+    "LICENSE-APACHE": "0398f585411311b48be3a29b7c557a7945dbd724",
+    "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236",
+    "tests": "b4db04bfdcd3a03308917dd97b9a75849db221c0"
+  },
+  "root": "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf",
+  "source": "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/source",
+  "dist": "/private/tmp/ashlar-r06-compact-a37a9ddb-z9sh1kpf/dist"
+}
