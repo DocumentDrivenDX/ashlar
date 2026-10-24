@@ -87,7 +87,15 @@ sequential sample for context, and do not infer qualified full-scale throughput.
 The [paired worker](r05_paired_writer_packet.py) is inert on import. The
 [dedicated supervisor](r05_paired_writer_supervisor.py) requires a separate
 closed authorization bound to the packet, source and runtime digests, plus a
-reviewed local runtime and exclusive pre-existing slot lock. The lock only
+reviewed local runtime and exclusive pre-existing slot lock. Its paired-only
+[current-runtime receipt](paired-current-runtime-receipt.json) binds the R14
+Spark 4.2.0 / Delta 4.4.1 / GraphFrames 0.12.3 cohort, the exact three-hop
+Python venv symlink chain and terminal binary, Java 21.0.13.0.2 path/hash/version,
+and six reviewed JAR paths, sizes and hashes. Admission rechecks every path and
+digest and runs bounded Python package-closure, Python-version and Java-version
+probes before any worker launch. The paired selector is separate from the
+historical full-scale selector; the 1B/5B packet and its 2026-10-21 smoke
+receipt remain unchanged. The lock only
 coordinates with other callers that acquire that exact file; R02's retained
 runner has no shared lock protocol, so the owner must schedule those local runs
 sequentially and capture a fresh process inventory before each. It enforces one
@@ -106,9 +114,13 @@ release, within the 900-second aggregate cap. Sol must review the exact packet
 before execution; the authorization records the owner's already-directed
 sample-based local performance work, not a new permission prompt. R02 and this
 trial must be scheduled sequentially with a fresh Spark process inventory before
-each run because R02 does not use the paired supervisor's lock. To prepare an
-inert approval, run `r05_paired_writer_supervisor.py --print-review-pins
---runtime-pins <runtime-pins.json>` and copy its `packetSha256`,
+each run because R02 does not use the paired supervisor's lock. To prepare
+inert review pins, provide a mode-0600 runtime document with the closed
+`profile`, `python`, `java`, `jars`, and `pythonPackagesSha256` fields matching
+the paired receipt, then run
+`r05_paired_writer_supervisor.py --print-review-pins --runtime-pins
+<runtime-pins.json>`. This validates the current local runtime without starting
+Spark. Copy its `packetSha256`,
 `sourcePinsSha256` and `runtimePinsSha256` into the closed authorization with
 `status: approved`, `attempts: 1`, `nodeRows: 45000000`, `edgeRows: 225000000`,
 `totalSeconds: 900`, `workerSeconds: 780`, `rootBytes: 34359738368`,

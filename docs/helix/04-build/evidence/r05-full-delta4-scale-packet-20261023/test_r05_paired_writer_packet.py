@@ -1,5 +1,8 @@
 """Effect-free checks for the held R05 paired writer packet."""
 import unittest
+import hashlib
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 
 from r05_paired_writer_packet import (
@@ -69,6 +72,137 @@ class PairedWriterPacketChecks(unittest.TestCase):
         del approval["runtimePinsSha256"]
         with self.assertRaises(PacketRefused):
             _closed_approval(approval, "a" * 64)
+
+    def _fake_runtime(self, root):
+        def digest(path):
+            return hashlib.sha256(path.read_bytes()).hexdigest()
+
+        bin_dir = root / "venv" / "bin"
+        bin_dir.mkdir(parents=True)
+        terminal = root / "python-real"
+        terminal.write_bytes(b"python executable")
+        terminal.chmod(0o700)
+        python3 = bin_dir / "python3"
+        python3.symlink_to(terminal)
+        entry = bin_dir / "python"
+        entry.symlink_to("python3")
+        java = root / "java"
+        java.write_bytes(b"java executable")
+        java.chmod(0o700)
+        java_path = java.resolve()
+        jars_dir = root / "jars"
+        jars_dir.mkdir()
+        jar_names = (
+            "delta-spark_4.2_2.13-4.4.1.jar", "delta-storage-4.4.1.jar",
+            "graphframes-graphx-spark4_2.13-0.12.3.jar",
+            "graphframes-spark4_2.13-0.12.3.jar",
+            "datasketches-java-6.2.0.jar", "datasketches-memory-3.0.2.jar",
+        )
+        jars = {}
+        for name in jar_names:
+            path = jars_dir / name
+            path.write_bytes(name.encode())
+            jars[name] = str(path.resolve())
+        closure = "d" * 64
+        receipt = {
+            "profile": "ashlar-r05-paired-current-runtime/0.1",
+            "status": "candidate-from-reviewed-r14",
+            "spark": "4.2.0", "delta": "4.4.1", "graphframes": "0.12.3",
+            "scala": "2.13.18", "jdkBuild": "21.0.13.0.2",
+            "python": {
+                "entryPath": str(entry),
+                "linkChain": [
+                    {"path": str(entry), "target": "python3"},
+                    {"path": str(python3), "target": str(terminal)},
+                ],
+                "terminalPath": str(terminal.resolve()), "terminalBytes": terminal.stat().st_size,
+                "terminalSha256": digest(terminal), "version": "3.12.14",
+                "packagesSha256": closure,
+            },
+            "java": {
+                "path": str(java_path), "bytes": java.stat().st_size,
+                "sha256": digest(java), "version": "21.0.13.0.2",
+                "versionLine": 'openjdk version "21.0.13.0.2" test',
+            },
+            "jars": {
+                name: {"path": path, "bytes": Path(path).stat().st_size,
+                       "sha256": digest(Path(path))}
+                for name, path in jars.items()
+            },
+        }
+        document = {
+            "profile": "ashlar-r05-reviewed-local-runtime/0.1",
+            "python": str(entry), "java": str(java_path), "jars": jars,
+            "pythonPackagesSha256": closure,
+        }
+        probes = {
+            "package_probe": lambda _runtime: closure,
+            "python_version_probe": lambda: "3.12.14",
+            "java_version_probe": lambda: 'openjdk version "21.0.13.0.2" test',
+        }
+        return document, receipt, probes, entry, terminal, java, jars
+
+    def test_paired_runtime_admits_exact_recorded_venv_chain_and_refuses_drift(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            document, receipt, probes, entry, terminal, java, jars = self._fake_runtime(root)
+            identity = supervisor._paired_runtime_identity(
+                document, receipt=receipt, **probes)
+            self.assertEqual(str(entry), identity["pythonEntryPath"])
+            self.assertEqual(str(terminal.resolve()), identity["pythonTerminalPath"])
+            self.assertEqual(str(java.resolve()), identity["java"])
+
+            with self.subTest("Python terminal binary drift"):
+                terminal.write_bytes(b"changed Python")
+                with self.assertRaises(supervisor.PairedSupervisorRefused):
+                    supervisor._paired_runtime_identity(
+                        document, receipt=receipt, **probes)
+                terminal.write_bytes(b"python executable")
+                terminal.chmod(0o700)
+
+            with self.subTest("symlink drift"):
+                entry.unlink()
+                entry.symlink_to("unexpected-python")
+                with self.assertRaises(supervisor.PairedSupervisorRefused):
+                    supervisor._paired_runtime_identity(
+                        document, receipt=receipt, **probes)
+                entry.unlink()
+                entry.symlink_to("python3")
+
+            with self.subTest("Java binary drift"):
+                java.write_bytes(b"changed Java")
+                with self.assertRaises(supervisor.PairedSupervisorRefused):
+                    supervisor._paired_runtime_identity(
+                        document, receipt=receipt, **probes)
+                java.write_bytes(b"java executable")
+                java.chmod(0o700)
+
+            with self.subTest("JAR drift"):
+                Path(jars["delta-storage-4.4.1.jar"]).write_bytes(b"changed jar")
+                with self.assertRaises(supervisor.PairedSupervisorRefused):
+                    supervisor._paired_runtime_identity(
+                        document, receipt=receipt, **probes)
+
+    def test_paired_runtime_refuses_package_and_version_drift(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            document, receipt, probes, *_ = self._fake_runtime(root)
+            wrong_package = dict(probes, package_probe=lambda _runtime: "e" * 64)
+            with self.assertRaises(supervisor.PairedSupervisorRefused):
+                supervisor._paired_runtime_identity(
+                    document, receipt=receipt, **wrong_package)
+            wrong_java = dict(probes, java_version_probe=lambda: "OpenJDK changed")
+            with self.assertRaises(supervisor.PairedSupervisorRefused):
+                supervisor._paired_runtime_identity(
+                    document, receipt=receipt, **wrong_java)
+            wrong_python = dict(probes, python_version_probe=lambda: "3.13.0")
+            with self.assertRaises(supervisor.PairedSupervisorRefused):
+                supervisor._paired_runtime_identity(
+                    document, receipt=receipt, **wrong_python)
+            wrong_profile = dict(document, profile="ashlar-r05-full-delta4-runtime/0.1")
+            with self.assertRaises(supervisor.PairedSupervisorRefused):
+                supervisor._paired_runtime_identity(
+                    wrong_profile, receipt=receipt, **probes)
 
 
 if __name__ == "__main__":

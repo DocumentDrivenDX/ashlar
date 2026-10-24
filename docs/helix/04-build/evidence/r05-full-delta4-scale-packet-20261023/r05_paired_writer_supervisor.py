@@ -37,6 +37,12 @@ if str(SRC) not in sys.path:
 PROFILE = "ashlar-r05-paired-writer-supervisor/0.1"
 AUTH_PROFILE = "ashlar-r05-paired-writer-authorization/0.1"
 MODE_DIRS = ("sequential", "parallel-node-edge")
+PAIRED_JAR_NAMES = {
+    "delta-spark_4.2_2.13-4.4.1.jar", "delta-storage-4.4.1.jar",
+    "graphframes-graphx-spark4_2.13-0.12.3.jar",
+    "graphframes-spark4_2.13-0.12.3.jar", "datasketches-java-6.2.0.jar",
+    "datasketches-memory-3.0.2.jar",
+}
 SCRATCH_DIRS = ("tmp", "spark-local", "spark-warehouse", "spark-events")
 AUTH_FILE = "owner-authorization.json"
 RUNTIME_FILE = "runtime-pins.json"
@@ -48,6 +54,7 @@ DIAGNOSTICS_FILE = "r05-paired-worker-diagnostics.log"
 CLEANUP_DIAGNOSTICS_FILE = "r05-paired-cleanup-diagnostics.log"
 MAX_AUTH_BYTES = 65536
 MAX_DIAGNOSTICS_BYTES = 16 * 1024**2
+CURRENT_RUNTIME_RECEIPT = "paired-current-runtime-receipt.json"
 
 
 class PairedSupervisorRefused(PermissionError):
@@ -100,10 +107,125 @@ def source_pins_sha256() -> str:
     h.update(full.source_pins_sha256().encode("ascii"))
     for name in ("r05_paired_writer_packet.py", "r05_paired_writer_supervisor.py",
                  "r05_full_delta4_supervisor.py",
-                 "full_delta4_generator.py", "full_delta4_trial.py"):
+                 "full_delta4_generator.py", "full_delta4_trial.py",
+                 CURRENT_RUNTIME_RECEIPT):
         raw = (HERE / name).read_bytes()
         h.update(name.encode() + b"\0" + len(raw).to_bytes(8, "big") + raw)
     return h.hexdigest()
+
+
+def _paired_runtime_identity(document: Any, *, receipt: dict | None = None,
+                             package_probe=None, python_version_probe=None,
+                             java_version_probe=None) -> dict:
+    """Admit the paired packet's current R14 runtime without altering full-run pins.
+
+    The current selected Python entry is a reviewed venv symlink chain. This
+    selector admits only that exact chain and binds its terminal executable.
+    The historical full-scale selector remains unchanged.
+    """
+    if receipt is None:
+        receipt = json.loads((HERE / CURRENT_RUNTIME_RECEIPT).read_text(encoding="utf-8"))
+    if type(document) is not dict or set(document) != {
+            "profile", "python", "java", "jars", "pythonPackagesSha256"}:
+        raise PairedSupervisorRefused("closed paired runtime pin document required")
+    if (receipt.get("profile") != "ashlar-r05-paired-current-runtime/0.1"
+            or receipt.get("status") != "candidate-from-reviewed-r14"):
+        raise PairedSupervisorRefused("reviewed paired current-runtime receipt required")
+    if (receipt.get("spark") != "4.2.0" or receipt.get("delta") != "4.4.1"
+            or receipt.get("graphframes") != "0.12.3"
+            or receipt.get("scala") != "2.13.18"
+            or receipt.get("jdkBuild") != "21.0.13.0.2"):
+        raise PairedSupervisorRefused("paired runtime versions differ from reviewed cohort")
+    if document.get("profile") != "ashlar-r05-reviewed-local-runtime/0.1":
+        raise PairedSupervisorRefused("paired reviewed-local-runtime profile required")
+    python_record = receipt.get("python", {})
+    java_record = receipt.get("java", {})
+    jar_records = receipt.get("jars", {})
+    python = Path(document["python"])
+    java = Path(document["java"])
+    if str(python) != python_record.get("entryPath"):
+        raise PairedSupervisorRefused("Python venv entry path differs from paired receipt")
+    if str(java) != java_record.get("path"):
+        raise PairedSupervisorRefused("Java executable path differs from paired receipt")
+    if (type(document.get("pythonPackagesSha256")) is not str
+            or document["pythonPackagesSha256"] != python_record.get("packagesSha256")):
+        raise PairedSupervisorRefused("Python package closure differs from paired receipt")
+    if not python.is_absolute() or not python.is_symlink():
+        raise PairedSupervisorRefused("exact reviewed venv Python link entry required")
+    for hop in python_record.get("linkChain", []):
+        link = Path(hop["path"])
+        if not link.is_symlink() or os.readlink(link) != hop["target"]:
+            raise PairedSupervisorRefused("Python venv symlink chain differs from paired receipt")
+    try:
+        resolved_python = python.resolve(strict=True)
+    except OSError as error:
+        raise PairedSupervisorRefused("Python venv link chain is broken") from error
+    if resolved_python != Path(python_record.get("terminalPath", "")):
+        raise PairedSupervisorRefused("Python link chain resolves to another executable")
+    terminal = Path(python_record["terminalPath"])
+    if (terminal.is_symlink() or not terminal.is_file()
+            or not os.access(terminal, os.X_OK)
+            or terminal.stat().st_size != python_record.get("terminalBytes")
+            or _sha(terminal.read_bytes()) != python_record.get("terminalSha256")):
+        raise PairedSupervisorRefused("Python terminal executable differs from paired receipt")
+    if (not java.is_absolute() or java.is_symlink() or not java.is_file()
+            or not os.access(java, os.X_OK)
+            or java.resolve(strict=True) != java
+            or java.stat().st_size != java_record.get("bytes")
+            or _sha(java.read_bytes()) != java_record.get("sha256")):
+        raise PairedSupervisorRefused("Java executable differs from paired receipt")
+    if (type(jar_records) is not dict or set(jar_records) != PAIRED_JAR_NAMES
+            or type(document.get("jars")) is not dict
+            or set(document["jars"]) != PAIRED_JAR_NAMES):
+        raise PairedSupervisorRefused("exact six-JAR paired runtime closure required")
+    jars = {}
+    for name, record in jar_records.items():
+        path = Path(document["jars"][name])
+        if (str(path) != record.get("path") or not path.is_absolute()
+                or path.is_symlink() or not path.is_file()
+                or path.resolve(strict=True) != path
+                or path.stat().st_size != record.get("bytes")
+                or _sha(path.read_bytes()) != record.get("sha256")):
+            raise PairedSupervisorRefused(f"JAR differs from paired runtime receipt: {name}")
+        jars[name] = str(path)
+    package_probe = package_probe or full._probe_python_package_closure
+    observed_packages = package_probe({"python": str(python), "java": str(java)})
+    if observed_packages != python_record["packagesSha256"]:
+        raise PairedSupervisorRefused("selected Python package closure changed")
+    if python_version_probe is None:
+        python_version_probe = lambda: subprocess.run(
+            (str(python), "-I", "-B", "-c", "import platform; print(platform.python_version())"),
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            timeout=15, check=True).stdout.decode("ascii").strip()
+    if python_version_probe() != python_record.get("version"):
+        raise PairedSupervisorRefused("selected Python version differs from paired receipt")
+    if java_version_probe is None:
+        def java_version_probe():
+            result = subprocess.run((str(java), "-version"), stdin=subprocess.DEVNULL,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                    timeout=15, check=False)
+            if result.returncode != 0 or len(result.stderr) > 4096:
+                raise PairedSupervisorRefused("bounded Java version probe failed")
+            return result.stderr.decode("utf-8", "replace").splitlines()[0]
+    if java_version_probe() != java_record.get("versionLine"):
+        raise PairedSupervisorRefused("selected Java version differs from paired receipt")
+    java_version = re.search(r'^openjdk version "([^"]+)"', java_record["versionLine"])
+    if (java_record.get("version") != receipt["jdkBuild"]
+            or java_version is None or java_version.group(1) != receipt["jdkBuild"]):
+        raise PairedSupervisorRefused("Java version line and reviewed JDK build disagree")
+    receipt_sha = _sha(_canonical(receipt))
+    return {
+        "profile": document["profile"], "python": str(python),
+        "pythonEntryPath": str(python), "pythonLinkChain": python_record["linkChain"],
+        "pythonTerminalPath": str(terminal),
+        "pythonTerminalSha256": python_record["terminalSha256"],
+        "pythonVersion": python_record["version"],
+        "java": str(java), "javaSha256": java_record["sha256"],
+        "javaVersionLine": java_record["versionLine"], "jars": jars,
+        "jarsSha256": {name: record["sha256"] for name, record in jar_records.items()},
+        "pythonPackagesSha256": observed_packages,
+        "pairedRuntimeReceiptSha256": receipt_sha,
+    }
 
 
 def _mkdir_owned(root: Path, relative: str, created: dict[str, list[int]]) -> Path:
@@ -387,9 +509,7 @@ def run_supervised_attempt(*, authorization_path: Path, runtime_pins_path: Path,
     auth_doc = json.loads(auth_raw)
     _closed_approval(auth_doc, digest)
     runtime_doc = json.loads(_read_regular(runtime_pins_path, 65536))
-    runtime = full._runtime_identity(runtime_doc)
-    if full._probe_python_package_closure(runtime) != runtime["pythonPackagesSha256"]:
-        raise PairedSupervisorRefused("selected Python package closure mismatch")
+    runtime = _paired_runtime_identity(runtime_doc)
     if auth_doc.get("sourcePinsSha256") != source_digest:
         raise PairedSupervisorRefused("authorization source pins differ")
     runtime_digest = full.runtime_pins_sha256(runtime)
@@ -463,10 +583,8 @@ def _worker_child(root: Path, digest: str, child_started: float) -> int:
     runtime = json.loads(_read_regular(root / RUNTIME_FILE, 65536))
     if source_pins_sha256() != runtime.get("sourcePinsSha256"):
         raise PairedSupervisorRefused("paired worker source digest mismatch")
-    identity = full._runtime_identity({key: runtime[key] for key in (
+    identity = _paired_runtime_identity({key: runtime[key] for key in (
         "profile", "python", "java", "jars", "pythonPackagesSha256")})
-    if full._probe_python_package_closure(identity) != identity["pythonPackagesSha256"]:
-        raise PairedSupervisorRefused("paired worker Python package closure mismatch")
     from pyspark.sql import SparkSession
     jars = [runtime["jars"][name] for name in sorted(runtime["jars"])]
     spark = (SparkSession.builder.master("local[18]")
@@ -525,7 +643,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.print_review_pins:
         if not args.runtime_pins:
             raise PairedSupervisorRefused("reviewed runtime pins file required")
-        runtime = full._runtime_identity(json.loads(
+        runtime = _paired_runtime_identity(json.loads(
             _read_regular(Path(args.runtime_pins), 65536)))
         print(json.dumps({
             "profile": AUTH_PROFILE, "packetSha256": packet_sha256(),
