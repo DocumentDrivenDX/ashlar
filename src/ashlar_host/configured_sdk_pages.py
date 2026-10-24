@@ -33,6 +33,14 @@ def _require_frozen_page_response(frozen,observed):
     _require(type(frozen)is bytes and type(observed)is bytes and frozen==observed)
 
 
+def _require_frozen_grouped_artifact(compiled,record):
+    import hashlib
+    _require(type(compiled)is dict and type(record)is dict
+        and hashlib.sha256(compiled.get('requestBytes',b'')).hexdigest()==record.get('requestSha256')
+        and hashlib.sha256(compiled.get('responseBytes',b'')).hexdigest()==record.get('responseSha256')
+        and compiled.get('responseBytes')==compiled.get('recompiledBytes'))
+
+
 @dataclass(frozen=True)
 class ConfiguredR02Weft053Selection:
     """Private invocation data for the R02 packet runner; not CLI selectable."""
@@ -439,7 +447,8 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
             'response':backend03_positive['responseBytes'],'expected':{'rows':expected_grouped_rows}},
         'backend02-page1':session.frozen_page1_artifact(expected_page1_after),
     }
-    review_gate.freeze(artifacts)
+    manifest_path,_=review_gate.freeze(artifacts)
+    frozen_records={record['name']:record for record in json.loads(manifest_path.read_bytes())['artifacts']}
     page1_holder={}
     def stage_one(run):
         singleton=run('singleton',singleton_operation)
@@ -447,6 +456,7 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         for name,sql,compiled in (
             ('backend03-original',original_sql,backend03_original),
             ('backend03-positive',positive_sql,backend03_positive)):
+            _require_frozen_grouped_artifact(compiled,frozen_records[name])
             value=run(name,lambda sql=sql,compiled=compiled:query_configured_projection_precompiled(
                 scope,aliases,sql,compiled,capture=capture,decoder=decoder))
             rows=value['evidence']['native_result']['rows']

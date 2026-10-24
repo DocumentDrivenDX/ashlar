@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_supported_page_compiler,run_configured_sdk_pages
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local,run_configured_local_r02_weft053
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -44,6 +44,18 @@ class Tests(unittest.TestCase):
         _require_frozen_page_response(b'{"status":"compiled"}',b'{"status":"compiled"}')
         with self.assertRaises(ValueError):
             _require_frozen_page_response(b'{"status":"compiled"}',b'{"status":"compiled","extra":true}')
+
+    def test_grouped_execution_bytes_must_match_review_record(self):
+        import hashlib
+        request=b'{"request":1}\n';response=b'{"status":"compiled"}\n'
+        compiled={'requestBytes':request,'responseBytes':response,'recompiledBytes':response}
+        record={'requestSha256':hashlib.sha256(request).hexdigest(),
+            'responseSha256':hashlib.sha256(response).hexdigest()}
+        _require_frozen_grouped_artifact(compiled,record)
+        with self.assertRaises(ValueError):
+            _require_frozen_grouped_artifact({**compiled,'requestBytes':b'{"request":2}\n'},record)
+        with self.assertRaises(ValueError):
+            _require_frozen_grouped_artifact({**compiled,'recompiledBytes':b'{}'},record)
 
     def test_r02_selection_is_idempotent_and_wrapper_checks_ordinal_before_runtime(self):
         from pathlib import Path
