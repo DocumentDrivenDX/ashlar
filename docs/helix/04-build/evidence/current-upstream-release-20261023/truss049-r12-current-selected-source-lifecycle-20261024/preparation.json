@@ -1,0 +1,329 @@
+{
+  "admission_gates": {
+    "process_inventory": {
+      "observation": "R11 passed read-only process inventory; R12 execution packet still requires live R12 preflight/revalidation",
+      "status": "not_inherited"
+    },
+    "sysv_shared_memory": {
+      "observation": "R11 passed attach/detach/IPC_RMID; R12 execution packet still requires live R12 preflight/revalidation",
+      "status": "not_inherited"
+    }
+  },
+  "approval_contract_parity": {
+    "control": "not computed; future supervisor preflight must bind exact worker/supervisor proposal",
+    "status": "not_observed",
+    "worker_or_supervisor_preflight_run_after_change": false
+  },
+  "approval_payload_proposal_status": "proposal_only_not_owner_authorization",
+  "attempt": "r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce",
+  "bridge_readiness": {
+    "ashlar_commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+    "bridge_sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "build_inputs_sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "execution_blocked": true,
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/bridge-readiness.json",
+    "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+    "required": "Exact source-bound UMF 0.5.6 bridge pin; current native/source lifecycle preflight remains unrun and owner approval is absent.",
+    "resource_sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+    "role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+    "runtime_input_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+    },
+    "sha256": "5f746047122cb9d222a4f4501ef1b7ce2970ecc5d4de3ca9c03aa40b5d1315e8",
+    "status": "ready",
+    "umf_commit": "259bf1ed91466ff7e9782d7517c14f2112282026"
+  },
+  "candidate_artifacts": {
+    "bridge_readiness": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/bridge-readiness.json",
+      "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+      "sha256": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f"
+    },
+    "offline_preflight": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/r12-preflight-result.json",
+      "status": "not_run"
+    },
+    "postgres_cleanup_binary": {
+      "bytes": 113520,
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+      "sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+      "version": "PostgreSQL 18.6.1 wheel binary; not executed"
+    },
+    "r11_passed_preflight": {
+      "attempt": "r11-a98e3ac2-25c1-47e0-9744-0c3b21df4b3a",
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/r11-preflight-result.json",
+      "sha256": "0dc7db291b35cdf76bba95cdf1a8b65d06a90fcc76a50c833ea879e1b0fd4d36",
+      "status": "passed_effect_free"
+    },
+    "readonly_048_helper": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source_048_readonly_helper.py",
+      "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+    },
+    "runtime_install_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/runtime-receipt.json",
+      "sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+      "status": "reused exact R11 runtime provenance; no copy or reinstall"
+    },
+    "runtime_receipt_copy": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/runtime-receipt.json",
+      "sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+      "status": "reused exact R11 runtime provenance; no copy or reinstall"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "source_snapshot": {
+      "archive_path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source-inputs-e1001bd.tar",
+      "archive_sha256": "f88d0f5366c779b5a0cfd3b111c8dc54229a41279bef7094e729d24db49c60f3",
+      "commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+      "content_bytes": 8187244,
+      "file_count": 588,
+      "manifest_path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source-inputs-manifest.json",
+      "manifest_sha256": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436",
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source-inputs-e1001bd",
+      "runtime_input_objects": {
+        "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+        "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+        "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+      },
+      "tree": "9a28baa1c0f3723118d87bcd0fd66af69e9656ea"
+    },
+    "supervisor": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/run_supervisor_r12.py",
+      "sha256": "c6336247beabab49f4cc125e19da51d02dee1e60cb620273bf78bc11e833bc81"
+    },
+    "weft053_compatibility_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/weft053-compatibility-receipt.md",
+      "scope": "one focused page compiler fixture; not native SQL/runtime lifecycle qualification",
+      "sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8"
+    },
+    "worker": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/campaign_worker_r12.py",
+      "sha256": "2534f52c56c18f6c399dc9b01292f5f6ccf996d7aa7a680d759e8c6e1deeddf9"
+    }
+  },
+  "current_cohort_rebind": [
+    "The R12 worker retains the reviewed R7 one-shot lifecycle, cold-backup, migration, source/feed/checkpoint stop gates, protected publication ACKs, bounded execution and no-retry sequence.",
+    "Selected source is rebound to commit e1001bd9e95c0fa555536b2c94c892b2b5b94cdb, tree 9a28baa1c0f3723118d87bcd0fd66af69e9656ea, current src/sql/pyproject Git object tuple, complete 588-file archive, and current source-bound UMF bridge.",
+    "Runtime is reused by exact CPython 3.12.14/macOS arm64 provenance receipt hash; Truss 0.0.49, UMF core 0.10.1/access 0.1.0.dev7, Weft 0.4.53, Spark 4.2.0 and Delta 4.4.1. The current pip-check cache fix is scoped to the dependency-check subprocess.",
+    "R11 passed selected-source effect-free preflight receipt is immutable input; R12 must repeat its own live runtime/source/bridge checks before any action.",
+    "R7/R6-era source/feed/consumer IDs are expected values only. After starting the owned retained PostgreSQL and before migration or mutation, reobserve accepted source/report/complete view and existing feed consumer/checkpoint. Stop before migration on any mismatch; do not reaccept, register, mutate source, publish, or ACK in this phase.",
+    "No R7/R8/R9/R10/R11 execution approval transfers. R12 has no execution-approval file or start marker.",
+    "R12 carries the R10/R11 PIP_NO_CACHE_DIR=1 live pip-check correction only in the pip-check subprocess environment; other subprocesses are unchanged."
+  ],
+  "execution": {
+    "acknowledgment_started": false,
+    "approval_marker_present": false,
+    "destination_publication_started": false,
+    "migration_apply_invoked": false,
+    "native_started": false,
+    "pg_started": false,
+    "source_mutation_started": false,
+    "spark_started": false
+  },
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "required": "Fresh exact owner approval only after Sol review of R12 and successful R12 live preflight; no R7/R8/R9/R10/R11 authorization transfers.",
+    "started_marker_created": false
+  },
+  "execution_context_limit": "If host sandbox blocks the R12 process-inventory gate, any future escalation decision must be reviewed separately; an escalated --execute would run the native lifecycle under that elevated command context. No R12 command has been run.",
+  "failure_response": "Any preflight mismatch or runtime failure stops this single-use attempt; no retry.",
+  "future_execution_paths": {
+    "attempt_directory": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/attempt-r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce",
+    "attempt_receipts": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/attempt-r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce",
+    "cold_backup_root": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/attempt-r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce/cold-backup",
+    "existing_048_runtime_for_pre_migration_read": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv",
+    "fresh_local_delta_destination_id": "ashlar-current-049-lifecycle-destination-r12-20261024",
+    "migration_attempt_id": "d7c7b8de-825d-45ae-9453-7d0bbd6171c9",
+    "migration_recovery_registry": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/attempt-r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce/truss-migration-recovery.sqlite3",
+    "migration_reference": "must be taken from and frozen from public prepare result before apply; never guessed or replaced"
+  },
+  "future_preflight": {
+    "command_argv": [
+      "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+      "-I",
+      "-B",
+      "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/run_supervisor_r12.py",
+      "--preflight"
+    ],
+    "execution_mode": "supervisor --preflight only; no --execute",
+    "lineage_reobservation": "No current catalog/feed/checkpoint read in effect-free preflight. After any later separately approved owned PostgreSQL start, worker must reobserve source/report/complete view and existing feed/checkpoint before migration and fail closed on mismatch.",
+    "preflight_scope": "Revalidates immutable source/runtime/bridge/R11 passed-result pins, retained PGDATA directory/version/stopped state, helper import, process/SysV admission and exact worker/supervisor approval parity. Does not query current PostgreSQL custody.",
+    "status": "not_run",
+    "working_directory": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12"
+  },
+  "immutable_inputs": {
+    "catalog_revision": 1,
+    "consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "existing_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "existing_feed_registration_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/feed-registration-committed.json",
+      "sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f"
+    },
+    "genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "prior_campaign_registration_and_roles": "reuse only; do not repeat role setup or register consumer",
+    "prior_public_source_reobservation_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/retained-source-reobserved.json",
+      "sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87"
+    },
+    "r11_passed_preflight": {
+      "attempt": "r11-a98e3ac2-25c1-47e0-9744-0c3b21df4b3a",
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/r11-preflight-result.json",
+      "sha256": "0dc7db291b35cdf76bba95cdf1a8b65d06a90fcc76a50c833ea879e1b0fd4d36"
+    },
+    "r11_preparation_sha256": "79a54d90efbe3efcd6c2022694e7626e72f3697cf3e3d04ae9254691295fd5ce",
+    "retained_pgdata_reference": {
+      "json_pointer": "/immutable_inputs/retained_pgdata",
+      "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+      "reuse_policy": "Reference only; no copy/reset/move. Current stopped state and lineage are not established by the historical packet.",
+      "source": "../truss049-r5-readiness-20261023/preparation.json"
+    },
+    "seed_request": {
+      "bytes": 1657,
+      "operation_count": 7,
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/seed-request.json",
+      "request_key": "ashlar-current-048-lifecycle-seed-r1",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "selected_source_commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+    "selected_source_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+    },
+    "selected_source_tree": "9a28baa1c0f3723118d87bcd0fd66af69e9656ea",
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "migration_recovery": {
+    "apply_once": true,
+    "attempt_id": "d7c7b8de-825d-45ae-9453-7d0bbd6171c9",
+    "immutable_prepare_receipt_before_apply": true,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "prepare_once": true,
+    "reconcile_only_same_reference": true,
+    "registry_path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/attempt-r12-c55dfeff-ff05-4ba2-b0f5-57170b8273ce/truss-migration-recovery.sqlite3"
+  },
+  "next_gate": "Sol review of exact R12 source/runtime/worker/supervisor/preparation/approval-payload-proposal hashes. After review and successful R12 live preflight, owner must separately create fresh exact execution approval; no approval file exists. Before migration worker reobserves source/report/view/consumer/checkpoint after owned PG start and fails closed on drift.",
+  "ordered_future_phases": [
+    "Before started marker or native child, revalidate process inventory and SysV attachment/detachment/IPC_RMID; any failure blocks before backup or PostgreSQL start.",
+    "Before starting PostgreSQL, verify retained host stopped; copy and hash exact PGDATA into the fresh R12 cold-backup path and enforce combined retained/attempt/log 1-GiB limit.",
+    "Start only owned retained PostgreSQL. Before migration, use frozen .48 read-only helper to reobserve exact accepted source/report/complete catalog view and existing feed consumer/checkpoint. Fail closed on any mismatch; no acceptance, role setup, consumer registration, source mutation, publication or ACK.",
+    "Use Truss .49 RuntimeMigrations status()/backup_metadata(); preserve companion row-type ACL metadata, exact context/source manifest, and restart-durable SQLite registry. Call prepare once, freeze exact returned reference/request, apply same reference once.",
+    "Verify migration and immutable receipt through .49; uncertain outcome may reconcile only same frozen reference, with no retry or new prepare/apply.",
+    "After migration, validate retained source/report/view and existing feed/consumer checkpoint via .49 public APIs; do not repeat role setup or consumer registration.",
+    "Publish actual catalog-only genesis page to fresh R12 destination through pinned .4 bridge, validate receipt/vector, then protected source ACK.",
+    "Only after genesis ACK submit original approved seven-operation seed once; read actual source page, publish through same .4 installation, validate receipt/vector, then protected ACK.",
+    "Close PostgreSQL and Spark, retain bounded receipts, source pages, installation profile, cold backup and registry; no replay or later mutation."
+  ],
+  "preparation_revision": "r12-current-selected-e1001bd-umf0101-weft053-20261024",
+  "prior_failed_campaign": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1; preserved untouched",
+  "profile": "ashlar-truss-0.0.49-r12-lifecycle-preparation/0.1",
+  "r5_historical_packet": {
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "status": "stale for Weft 0.4.53 and selected source 6986e832; do not reuse R5 approval/preflight"
+  },
+  "r6_historical_packet": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/preparation.json",
+    "preparation_sha256": "df2eaede19ccaeb3d7178260403b5f5a7d7c5c02a4a278476cf02d53885c293e",
+    "status": "historical; retained lineage only; its worker/runtime/preflight/approval are not R12 qualification"
+  },
+  "readonly_helper": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source_048_readonly_helper.py",
+    "purpose": "Historical .48 read-only source/report/view and consumer-checkpoint helper; no registration or ACK.",
+    "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+  },
+  "refresh_proposal": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r5-current-cohort-refresh-20261023/refresh-proposal.json",
+    "sha256": "e3eaf244874db49342d8e4743b6b5ee5b746074f0c6f77e3e4ec2dc987f42bf5"
+  },
+  "release": {
+    "expected_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+    "truss": "0.0.49",
+    "umf_access": "0.1.0.dev7",
+    "umf_access_wheel_sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+    "umf_core": "0.10.1",
+    "weft": "0.4.53",
+    "weft_source_commit": "726a840e956e25217d6aeea2674fdfcf3f342a24",
+    "weft_wheel_sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+  },
+  "resource_limits": {
+    "automatic_retries": 0,
+    "child_execution_deadline_seconds": 600,
+    "cleanup_timeout_seconds": {
+      "group_reap_sigkill": 2,
+      "group_reap_sigterm": 2,
+      "postgres_fast_stop": 25,
+      "process_inventory_call": 5,
+      "worker_sigkill_wait": 10,
+      "worker_sigterm_wait": 10
+    },
+    "cloud": false,
+    "feed_operation_timeout_ms": 5000,
+    "feed_statement_timeout_ms": 2000,
+    "max_log_bytes": 16777216,
+    "maximum_combined_retained_and_new_bytes": 1073741824,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "sequential": true,
+    "spark_master": "local[1]"
+  },
+  "runtime_receipt": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/runtime-receipt.json",
+    "scope": "fresh isolated package/runtime provenance only; no PG/Spark session or lifecycle action",
+    "sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+  },
+  "selected_weft_candidate": {
+    "compatibility_receipt_sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8",
+    "scope": "One focused page compiler comparison with 0.4.52; no native SQL, Truss lifecycle or Unity Catalog qualification.",
+    "source_commit": "726a840e956e25217d6aeea2674fdfcf3f342a24",
+    "version": "0.4.53",
+    "wheel_sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c"
+  },
+  "source_checkout": {
+    "commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+    "included_paths": [
+      "src/",
+      "sql/",
+      "pyproject.toml"
+    ],
+    "ownership": "immutable git-archive input snapshot; extracted bytes verified against exact Git blob IDs",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/source-inputs-e1001bd",
+    "runtime_input_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+    },
+    "tree": "9a28baa1c0f3723118d87bcd0fd66af69e9656ea"
+  },
+  "state": "prepared_exact_selected_source_pending_sol_review_and_new_owner_authorization",
+  "supervisor": {
+    "evidence_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r12-current-selected-source-lifecycle-20261024/run_supervisor_r12.py",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/run_supervisor_r12.py",
+    "sha256": "c6336247beabab49f4cc125e19da51d02dee1e60cb620273bf78bc11e833bc81"
+  },
+  "worker": {
+    "evidence_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r12-current-selected-source-lifecycle-20261024/campaign_worker_r12.py",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r12/campaign_worker_r12.py",
+    "sha256": "2534f52c56c18f6c399dc9b01292f5f6ccf996d7aa7a680d759e8c6e1deeddf9"
+  }
+}

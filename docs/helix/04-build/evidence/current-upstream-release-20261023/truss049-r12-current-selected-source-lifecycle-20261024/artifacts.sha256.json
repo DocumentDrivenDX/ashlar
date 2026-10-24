@@ -1,0 +1,12 @@
+{
+  "README.md": "d44dc00298abf991d367d4488097fda5e3593c1483d0d590acf87aa20ed70b8b",
+  "approval-payload-proposal.json": "9171eb57776e01212e8f76826eefaec8950aec18591c29a61e99f41b639d8f76",
+  "bridge-readiness.json": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f",
+  "campaign_worker_r12.py": "2534f52c56c18f6c399dc9b01292f5f6ccf996d7aa7a680d759e8c6e1deeddf9",
+  "check_r12_packet.py": "26d7ca99da1a374d0e34f58fba6e7302119f3211834043290a71611f457a16d2",
+  "preparation.json": "253a175e943ec050d9b626b835d51901f451a7d9d3c52d414a434c456086f690",
+  "r11-preflight-result.json": "0dc7db291b35cdf76bba95cdf1a8b65d06a90fcc76a50c833ea879e1b0fd4d36",
+  "r12-preflight-result.json": "50e85c7534f24a23b32501735f5491269ab0459f5cb377e9d5ae7126b30f26d9",
+  "run_supervisor_r12.py": "c6336247beabab49f4cc125e19da51d02dee1e60cb620273bf78bc11e833bc81",
+  "source-inputs-manifest.json": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436"
+}
