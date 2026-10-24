@@ -475,10 +475,11 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         from .configured_local_runtime_profile import verify_loaded_delta_class
         verify_loaded_delta_class(spark,[Path(p)for p in jars])
         _require(time.monotonic()<deadline)
-    deadline,gate_budget=_r02_review_deadline(runtime)
+    deadline,_=_r02_review_deadline(runtime)
     review_gate=gate_module.R02LiveAliasReviewGate(selection.attempt_root,attempt_id=selection.attempt_id,
         stage='pre-sql',source_revision=selection.source_revision,spark_application_id=aliases.application_id,
-        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,deadline_seconds=gate_budget)
+        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,
+        deadline_monotonic=deadline)
     expected_grouped_rows=group_rows;expected_page1_after=page1_after;expected_page2_rows=page2_rows
     capture=query.capture;decoder=PathDecodeConfig(query.capture.maximum_cell_bytes)
     singleton_operation=lambda:scope.singleton(type_id,entity_id)
@@ -513,8 +514,8 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         page1_holder['page']=page
         return {'continuationAfter':expected_page1_after}
     review_gate.execute_after_review(review_gate.root/'pre-sql-review.json',stage_one)
-    _,stage2_gate_budget=_r02_review_deadline(runtime,stage='post-page1')
-    review_gate.next_stage_after_page1(deadline_seconds=stage2_gate_budget)
+    stage2_deadline,_=_r02_review_deadline(runtime,stage='post-page1')
+    review_gate.next_stage_after_page1(deadline_monotonic=stage2_deadline)
     page1=page1_holder['page']
     page2=session.page(after=page1.next_after)
     observed=[[item.person_key,item.person_name]for item in page2.items]
