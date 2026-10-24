@@ -1,0 +1,13 @@
+{
+  "files": {
+    "README.md": "29230b64bbaf208317391f79721dc858c9896d63634bae12036153042b41c0e4",
+    "bridge-readiness.json": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f",
+    "campaign_worker_r9.py": "6d4ff08fb400ae72e2a30848eafd35ec01eb94d19808e00805901e487d1177d4",
+    "check_r9_packet.py": "c1083f033213fb18575cb9124d4593c059eee7a97aa7edf69bf9b4b3f5d5d609",
+    "r9-preflight-result-20261024.json": "dfa70a1fbe80f526d570e984547b6c80ff4dcab0d255902a30c8ab64e87be354",
+    "r9-preparation.json": "5ee8ae7e73cbac2e968c3fe94b2f18f16866d1c91b30524006ad697370eb1f74",
+    "run_supervisor_r9.py": "57f74511cde5679c07217de5ff68396bfe66004817a934f2229ec7fcbd2b039c",
+    "source-inputs-manifest.json": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436"
+  },
+  "profile": "ashlar-truss049-r9-current-head-preflight-manifest/0.1"
+}

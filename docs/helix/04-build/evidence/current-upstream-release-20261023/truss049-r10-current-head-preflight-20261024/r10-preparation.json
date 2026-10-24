@@ -1,0 +1,176 @@
+{
+  "attempt": "r10-b9daef95-36e9-4ae3-8448-e2312420f6a5",
+  "attempt_directory": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/attempt-r10-b9daef95-36e9-4ae3-8448-e2312420f6a5",
+  "attempt_directory_empty": true,
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "scope": "This packet exposes only --preflight. It has no execution approval or lifecycle dispatch.",
+    "started_marker_created": false
+  },
+  "expected_preflight_command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/run_supervisor_r10.py",
+    "--preflight"
+  ],
+  "immutable_inputs": {
+    "current_bridge_readiness": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/bridge-readiness.json",
+      "sha256": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f"
+    },
+    "current_source_archive": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/source-inputs-e1001bd.tar",
+      "sha256": "f88d0f5366c779b5a0cfd3b111c8dc54229a41279bef7094e729d24db49c60f3"
+    },
+    "current_source_manifest": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/source-inputs-manifest.json",
+      "sha256": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436"
+    },
+    "r7_original_preparation": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/preparation.json",
+      "sha256": "f47ed93bba13fdb741ff63be83431fe7eb26463e6608ac7fcec84ab49a8bdad7"
+    },
+    "r9_failed_preflight_result": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r9/r9-10067715-302e-402f-a2c6-c20ffd7917e1-preflight-result.json",
+      "sha256": "dfa70a1fbe80f526d570e984547b6c80ff4dcab0d255902a30c8ab64e87be354"
+    },
+    "r9_preparation": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r9/r9-preparation.json",
+      "sha256": "5ee8ae7e73cbac2e968c3fe94b2f18f16866d1c91b30524006ad697370eb1f74"
+    },
+    "r9_supervisor": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r9/run_supervisor_r9.py",
+      "sha256": "57f74511cde5679c07217de5ff68396bfe66004817a934f2229ec7fcbd2b039c"
+    },
+    "r9_worker": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r9/campaign_worker_r9.py",
+      "sha256": "6d4ff08fb400ae72e2a30848eafd35ec01eb94d19808e00805901e487d1177d4"
+    },
+    "readonly_048_helper": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/source_048_readonly_helper.py",
+      "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+    },
+    "runtime_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/runtime-receipt.json",
+      "sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+    },
+    "runtime_wheel_lock": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/runtime-wheel-lock.json",
+      "sha256": "fce1c31381495aea07ae356dd1f54d35210b48e37c69ff8a7ae43dfa48687703"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "weft053_compatibility_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/weft053-compatibility-receipt.md",
+      "sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8"
+    }
+  },
+  "lineage_limits": {
+    "execution_approval": "not present; any later execution requires a new exact packet and fresh owner authorization.",
+    "native_qualification": "none",
+    "source_feed_consumer_state": "historical R7 lineage references only; R9 preflight does not query current catalog, source, feed, publication, ACK or consumer checkpoint. Reobserve after any separately authorized lifecycle start and before migration."
+  },
+  "next_gate": "Sol review of R10 packet hashes. No preflight is run by this preparation. Before any R03 native migration, consumer resume, publication or ACK effects, the owner must separately authorize the exact reviewed execution packet; R04 remains downstream of actual R03 accepted-source and feed custody.",
+  "pip_check_fix": {
+    "basis": "Parent-reported direct read-only diagnosis: R9 stderr was a pip cache warning for /Users/erik/Library/Caches/pip; the same isolated environment with PIP_NO_CACHE_DIR=1 returned exit 0, stdout No broken requirements found., empty stderr.",
+    "change": "Add PIP_NO_CACHE_DIR=1 only to the environment passed to the selected venv pip-check subprocess. The supervisor environment, worker process environment, package/runtime bytes, source, bridge and all other subprocess environments are unchanged.",
+    "new_attempt_only": true,
+    "r9_result_sha256": "dfa70a1fbe80f526d570e984547b6c80ff4dcab0d255902a30c8ab64e87be354"
+  },
+  "preflight": {
+    "native_actions": {
+      "migration_invoked": false,
+      "postgres_started": false,
+      "source_feed_publication_or_ack_mutated": false,
+      "spark_started": false
+    },
+    "process_inventory": "not observed in this preparation",
+    "reason": "Held for independent Sol review.",
+    "result_receipt_created": false,
+    "status": "not_run",
+    "sysv_shared_memory": "not observed in this preparation"
+  },
+  "prior_packet_policy": {
+    "note": "R10 is a distinct single-use preflight-only packet with a new attempt, result, worker, supervisor and preparation. No lifecycle authorization is present.",
+    "r8_and_r9_approval_applies_to_r10": false,
+    "r9_failed_attempt": "Preserved byte-for-byte; failed during worker live pip check before process/SysV admission gates. Never retry R9 bytes."
+  },
+  "private_root": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10",
+  "profile": "ashlar-truss-0.0.49-r10-preflight-addendum/0.1",
+  "release_selection": {
+    "authoritative_api_url": "https://api.github.com/repos/DocumentDrivenDX/truss/releases/421297021",
+    "distribution": "truss-toolkit",
+    "github_release_id": 421297021,
+    "latest_release_list_url": "https://api.github.com/repos/DocumentDrivenDX/truss/releases?per_page=2",
+    "observation": "Connected GitHub API observation supplied by parent: latest published v0.0.49 at 2026-10-22T23:24:20Z, next v0.0.48; no v0.0.50 among latest two.",
+    "observed_at_utc": "2026-10-24T05:34:00Z",
+    "runtime_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "version": "0.0.49",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+  },
+  "resource_limits": {
+    "automatic_retries": 0,
+    "child_execution_deadline_seconds": 600,
+    "cloud": false,
+    "maximum_combined_retained_and_new_bytes": 1073741824,
+    "maximum_log_bytes": 16777216,
+    "sequential": true,
+    "spark_master": "local[1]"
+  },
+  "result_receipt_path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/r10-b9daef95-36e9-4ae3-8448-e2312420f6a5-preflight-result.json",
+  "runtime_provenance": {
+    "no_runtime_copy_or_reinstall": true,
+    "prior_receipt_claim": "Fresh isolated package install, exact selected wheel hashes/origins, RECORD payload verification, import origins and pip check. R8 revision 3 rechecked live isolation, pip check, installed versions/prefixes and local wheel hashes; 4,001 installed RECORD payloads were not rehashed in R8.",
+    "receipt_path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/runtime-receipt.json",
+    "receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+    "runtime_directory_reused": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv",
+    "runtime_tuple": {
+      "delta-spark": "4.4.1",
+      "platform": "macOS arm64",
+      "pyspark": "4.2.0",
+      "python": "3.12.14",
+      "truss-toolkit": "0.0.49",
+      "umf-core": "0.10.1",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53"
+    }
+  },
+  "source_binding": {
+    "ashlar_commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+    "bridge_build_inputs_sha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+    "bridge_payload_sha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "bridge_readiness_sha256": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f",
+    "bridge_rebind_basis": "The current full src tree changed only by the proposal-only _source_holder_interval_proposal.py and its tests; the existing src/ashlar package tree, SQL, pyproject and bridge role source modules are unchanged. R9 binds the full current source object tuple. The bridge payload remains byte-identical; the offline worker will verify the current snapshot, bridge module digests and six-role realization before recording readiness.",
+    "bridge_resource_sha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+    "bridge_role_semantics_sha256": "148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d",
+    "live_head_policy": "Selected source commit must remain an ancestor of current HEAD; current HEAD src/sql/pyproject Git objects must equal the pinned manifest objects; no tracked or untracked drift is allowed under pyproject.toml, sql or src. Documentation-only commits do not invalidate the packet.",
+    "proposal_only_addition": "src/ashlar_host/_source_holder_interval_proposal.py is included in the complete current source archive. It is imported by its unit test; neither R9 controller imports it. src/ashlar is unchanged since R8 source base. R9 worker will import the complete current src tree during offline checks.",
+    "runtime_input_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "0b1a7f94bede1dc2993f31d74cfff41ec8fbd236"
+    },
+    "selected_source_commit": "e1001bd9e95c0fa555536b2c94c892b2b5b94cdb",
+    "source_archive_bytes": 8652800,
+    "source_archive_sha256": "f88d0f5366c779b5a0cfd3b111c8dc54229a41279bef7094e729d24db49c60f3",
+    "source_content_bytes": 8187244,
+    "source_file_count": 588,
+    "source_manifest_sha256": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436",
+    "tree": "9a28baa1c0f3723118d87bcd0fd66af69e9656ea"
+  },
+  "status": "packet_prepared_preflight_not_run_pending_sol_review",
+  "supervisor": {
+    "evidence_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r10-current-head-preflight-20261024/run_supervisor_r10.py",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/run_supervisor_r10.py",
+    "sha256": "80f5af13e6cabe1ea33d0eb66c8a56dc7c43d8f0647e985912cd255c0a77d7f8"
+  },
+  "worker": {
+    "evidence_path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r10-current-head-preflight-20261024/campaign_worker_r10.py",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-e1001bd-r10/campaign_worker_r10.py",
+    "sha256": "9fc91fad5676317b93489e6a498a35925b004655eac78ef72353cd315378a2e9"
+  }
+}

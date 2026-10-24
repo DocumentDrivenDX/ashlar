@@ -1,0 +1,10 @@
+{
+  "README.md": "0fc5e7fa8e1d863176a42afb772decc8d5f49bd8ee4bdd4960df3d8b2d09d802",
+  "bridge-readiness.json": "038303a1764a51096a77433d72431efebaf1011762dc51fba7d7dde69992378f",
+  "campaign_worker_r11.py": "1ba4a06699f257cdf012a0ca5e9a5b3763ce22e70438521798607e621673b781",
+  "check_r11_packet.py": "3ced7517a4a4fa1b920f625f0fac6a3dbcc47ba574c8849d15e0854bc2c5230f",
+  "r11-preflight-result.json": "0dc7db291b35cdf76bba95cdf1a8b65d06a90fcc76a50c833ea879e1b0fd4d36",
+  "r11-preparation.json": "79a54d90efbe3efcd6c2022694e7626e72f3697cf3e3d04ae9254691295fd5ce",
+  "run_supervisor_r11.py": "7a14f2977b67c26f5a2bd6b2bfd49f161e76edbf2885cbf99b33838f7db318fd",
+  "source-inputs-manifest.json": "17d53dd3b7f5bf81814272f10e1ca5e82be4b9af736a525496f9e92fdaab0436"
+}
