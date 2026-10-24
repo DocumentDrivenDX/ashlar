@@ -212,6 +212,13 @@ batch replay, the invocation uses the accepted CLI operation `publish` at
 ordinal 3 a second time; `replay` is the expected result state, not a CLI
 operation.
 
+The second consumed initialize refusal is recorded in
+[`attempt-refusal-03969306f68446f0802e9a6e039bcb32.json`](attempt-refusal-03969306f68446f0802e9a6e039bcb32.json).
+The packet had pre-created the `installation` directory, while the selected
+runtime requires that path to be absent and creates it itself. The attempt is
+preserved and not retried; the generator now leaves that directory absent and
+the focused regression asserts this initialization precondition.
+
 ## One-shot supervisor gate
 
 [`r02_supervisor.py`](r02_supervisor.py) accepts the generated JSON manifest

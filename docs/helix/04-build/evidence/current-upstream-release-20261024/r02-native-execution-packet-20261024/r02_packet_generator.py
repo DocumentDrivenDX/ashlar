@@ -51,7 +51,8 @@ PACKET_HASHED = ("r02_packet_generator.py", "r02_supervisor.py", "r02_invocation
                  "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
                  "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
                  "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
-                 "attempt-refusal-23732236f7e94550b2fa24995c603b75.json")
+                 "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
+                 "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json")
 
 
 def sha256(path: Path) -> str:
@@ -228,7 +229,7 @@ def create_packet(output_root: Path | None = None) -> Path:
 
 
 def make_private_layout(attempt: Path) -> None:
-    for name in ("input", "jars", "installation", "outputs", "invocations", "receipts", "tmp"):
+    for name in ("input", "jars", "outputs", "invocations", "receipts", "tmp"):
         (attempt / name).mkdir(mode=0o700)
     for rel in SOURCE_HASHES:
         source = ROOT / rel

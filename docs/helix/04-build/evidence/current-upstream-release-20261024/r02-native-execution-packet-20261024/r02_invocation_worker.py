@@ -133,6 +133,9 @@ def run(args: argparse.Namespace) -> None:
     if template.get("operation") == "initialize":
         if template.get("installation_sha256") is not None:
             raise ValueError("initialize must have a null installation digest")
+        installation_root = Path(template["installation"])
+        if installation_root.exists() or installation_root.is_symlink():
+            raise ValueError("initialize requires an absent installation root")
     else:
         installation = under(attempt, attempt / "installation" / "installation.json")
         template["installation_sha256"] = sha256(installation)

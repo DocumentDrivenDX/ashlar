@@ -1,0 +1,25 @@
+{
+  "profile": "ashlar-r02-attempt-refusal/0.1",
+  "attemptId": "03969306f68446f0802e9a6e039bcb32",
+  "manifestSha256": "25125edadeae90b2e0a633af71967f06a1a7998d135173275216e8f7ae68813a",
+  "sourceRevision": "25f4d9dab95ce5113e1447b6606900a18158c481",
+  "firstOperation": "initialize",
+  "outcome": "worker-refused-before-Spark-or-publication",
+  "observed": {
+    "diagnostic": "ashlar configured local worker refused",
+    "diagnosticsSha256": "81e3f9aba27b5e3ada5b1f50ffc46a50fd3a6183dff14dccb16f670c7ce0c34e",
+    "failureReceiptSha256": "fc821ab6e00343980d918ca7aedffba882f89087a57d4070ccf4ab1073b68e53",
+    "attemptState": "failed-or-held",
+    "installationDirectoryWasPrecreatedByPacket": true,
+    "installationRegistryCreated": false,
+    "sparkOrJavaStarted": false,
+    "deltaTableCreated": false,
+    "publicationCreated": false,
+    "readExecuted": false,
+    "sourceOrAckEffect": false,
+    "attemptStateConsumed": true
+  },
+  "cause": "The packet pre-created attempt/installation. configured_local_runtime._run(initialize) calls config.installation.mkdir(mode=0o700) without exist_ok, so it refuses the existing directory before Spark or Delta startup.",
+  "retry": "prohibited; preserve this consumed attempt",
+  "scope": "Failure evidence only; no private output payload is copied here and this is not native qualification."
+}

@@ -25,14 +25,11 @@ class PacketGeneratorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="r02-generator-test-", dir="/private/tmp") as tmp:
             attempt = Path(tmp) / ("ashlar-r02-" + "a" * 32)
             attempt.mkdir(mode=0o700)
-            for name in ("invocations", "input", "jars", "installation", "outputs"):
-                (attempt / name).mkdir(mode=0o700)
+            generator.make_private_layout(attempt)
+            self.assertFalse((attempt / "installation").exists(),
+                             "runtime initialize must create its own fresh installation directory")
             umf = attempt / "umf-producer"
             umf.mkdir(mode=0o700)
-            (attempt / "input/configured-typed-graph-source.json").write_bytes(
-                (generator.ROOT / "examples/end-to-end/configured-typed-graph-source.json").read_bytes())
-            for name in ("typed-graph-model.umf.json", "typed-graph-source.jsonl", "typed-graph-binding.json"):
-                (attempt / "input" / name).write_bytes((generator.ROOT / "examples/end-to-end" / name).read_bytes())
             attempt_id = attempt.name.removeprefix("ashlar-r02-")
             values = generator.make_invocations(attempt, attempt_id, umf)
             self.assertEqual([(case, kind) for case, kind, _path in values], [

@@ -125,7 +125,8 @@ def verify_pins(manifest: dict) -> None:
                        "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
                        "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
                        "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
-                       "attempt-refusal-23732236f7e94550b2fa24995c603b75.json"}
+                       "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
+                       "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json"}
     if set(manifest.get("packetFiles", {})) != required_packet:
         raise ValueError("packet file inventory is incomplete or contains unexpected files")
     for raw_path, expected in RUNTIME.items():
