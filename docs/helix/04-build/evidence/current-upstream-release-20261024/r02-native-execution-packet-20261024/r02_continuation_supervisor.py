@@ -26,11 +26,11 @@ PACKET_RELATIVE = "docs/helix/04-build/evidence/current-upstream-release-2026102
 PREPUBLICATION_RESULT = ROOT / "docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/result.json"
 PREPUBLICATION_ROOT = Path("/private/tmp/ashlar-r02-attempts/ashlar-r02-0b4774f5fb2c43bbb026da651aecd155")
 ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
-RUNTIME_SOURCE_REVISION = "26e66bc5524d6455940ea5c88d49a3e5d7bbce9f"
+RUNTIME_SOURCE_REVISION = "9610fe98497959e944374a54fd3275dbbc6d4597"
 INDEX = Path("/private/tmp/ashlar-r02-weft053-index/index2.json")
 PYTHON = Path("/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv/bin/python3.12")
 JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)
-LIMIT_SECONDS = 300
+LIMIT_SECONDS = 450
 LIMIT_PRIVATE = 512 * 1024 * 1024
 LIMIT_RECEIPTS = 16 * 1024 * 1024
 LIMIT_OUTPUT = 1024 * 1024
@@ -399,6 +399,30 @@ def _process_group_members(pgid: int) -> list[dict]:
     return members
 
 
+def _write_failed_closed_state(attempt: Path, state_path: Path, manifest: dict,
+        worker_exit: int, started: float, *, process_group_closed: bool) -> None:
+    """Persist a terminal worker failure only after stop_group proved closure."""
+    if process_group_closed is not True or type(worker_exit) is not int:
+        raise RuntimeError("R02 cannot record a closed failure without process-group proof")
+    log = attempt / "worker.log"
+    if log.is_symlink() or not log.is_file():
+        raise RuntimeError("R02 worker failure log is missing or unsafe")
+    artifacts = {}
+    for name in ("pre-sql-manifest.json", "pre-sql-review.json",
+            "post-page1-manifest.json", "post-page1-review.json"):
+        path = attempt / name
+        if path.exists() or path.is_symlink():
+            if path.is_symlink() or not path.is_file():
+                raise RuntimeError("R02 worker failure artifact is unsafe")
+            artifacts[name] = digest(path)
+    replace_state(state_path, {"profile":"ashlar-r02-continuation-supervisor-state/0.1",
+        "attemptId":manifest["attemptId"],"manifestSha256":digest(attempt/"continuation-manifest.json"),
+        "status":"failed-closed","workerExit":worker_exit,
+        "elapsedSeconds":round(time.monotonic()-started,3),"workerLogSha256":digest(log),
+        "processGroupClosed":True,"processGroupCloseEvidence":"independent-empty-inventory",
+        "completedArtifactSha256":artifacts})
+
+
 def _group_empty_or_refuse(pgid: int) -> bool:
     """Return true only when an independent inventory proves no group members."""
     members = _process_group_members(pgid)
@@ -522,6 +546,8 @@ def execute(path: Path, review: Path) -> None:
             time.sleep(1.0)
         process.wait(); stop_group(process)
     if process.returncode != 0 or log.stat().st_size > LIMIT_OUTPUT:
+        _write_failed_closed_state(attempt,state_path,manifest,process.returncode,started,
+            process_group_closed=True)
         raise RuntimeError("R02 live-alias worker failed or exceeded output cap")
     result_path = attempt / "continuation-result.json"
     result = json.loads(result_path.read_bytes())

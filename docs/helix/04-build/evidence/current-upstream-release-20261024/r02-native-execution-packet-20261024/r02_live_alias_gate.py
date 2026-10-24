@@ -90,7 +90,7 @@ def _artifact_record(name,item):
     return result
 
 class R02LiveAliasReviewGate:
-    def __init__(self,root,*,attempt_id,stage,source_revision,spark_application_id,vector,aliases,runtime,live_check,deadline_seconds=300):
+    def __init__(self,root,*,attempt_id,stage,source_revision,spark_application_id,vector,aliases,runtime,live_check,deadline_seconds=300,deadline_monotonic=None):
         _require(type(root)is type(Path()) and root.is_absolute() and root.is_dir() and not root.is_symlink())
         st=root.lstat(); _require(stat.S_ISDIR(st.st_mode) and st.st_uid==os.getuid() and stat.S_IMODE(st.st_mode)==0o700)
         _require(type(attempt_id)is str and len(attempt_id)==32 and all(c in '0123456789abcdef' for c in attempt_id))
@@ -106,9 +106,13 @@ class R02LiveAliasReviewGate:
             and runtime.get('sparkVersion')=='4.2.0' and runtime.get('deltaVersion')=='4.4.1'
             and runtime.get('jarSha256')==EXPECTED_JARS
             and type(deadline_seconds)is int and 1<=deadline_seconds<=300)
+        now=time.monotonic()
+        _require(deadline_monotonic is None or (type(deadline_monotonic)is float
+            and now<deadline_monotonic<=now+deadline_seconds))
         self.root=root;self.attempt_id=attempt_id;self.stage=stage;self.source_revision=source_revision
         self.pid=os.getpid();self.app=spark_application_id;self.vector=vector;self.aliases=aliases
-        self.runtime=runtime;self.live_check=live_check;self.deadline=time.monotonic()+deadline_seconds
+        self.runtime=runtime;self.live_check=live_check
+        self.deadline=deadline_monotonic if deadline_monotonic is not None else now+deadline_seconds
         self.vector_sha=_sha(_canonical(vector));self.alias_sha=_sha(_canonical(aliases));self.runtime_sha=_sha(_canonical(runtime))
         self.approved=False;self.consumed=False;self.stage_succeeded=False
         self.executing_name=None
@@ -136,11 +140,13 @@ class R02LiveAliasReviewGate:
                 if raw is not None:_write(self.root/(self.stage+'-'+n+'-'+suffix+'.json'),raw)
             program_response=artifacts[n].get('programResponse')
             if program_response is not None:_write(self.root/(self.stage+'-'+n+'-program-response.json'),program_response)
+        whole_process_seconds=self.runtime.get('wholeProcessSeconds',300)
+        _require(type(whole_process_seconds)is int and whole_process_seconds in (300,450))
         manifest={'profile':PROFILE,'attemptId':self.attempt_id,'stage':self.stage,'pid':self.pid,
             'sparkApplicationId':self.app,'sourceRevision':self.source_revision,'publicationVector':self.vector,
             'publicationVectorSha256':self.vector_sha,'aliases':self.aliases,'aliasMapSha256':self.alias_sha,
             'runtime':self.runtime,'runtimeSha256':self.runtime_sha,'artifacts':records,
-            'limits':{'wholeProcessSeconds':300,'stageArtifactBytes':LIMIT_BYTES,'singleArtifactBytes':LIMIT_ARTIFACT},
+            'limits':{'wholeProcessSeconds':whole_process_seconds,'stageArtifactBytes':LIMIT_BYTES,'singleArtifactBytes':LIMIT_ARTIFACT},
             'state':'held-for-review'}
         if self.stage=='post-page1':manifest.update(priorStageManifestSha256=self.prior_stage_sha,
             priorStageReviewSha256=self.prior_review_sha,page1AfterSha256=_sha(self.page1_after.encode()))
@@ -188,9 +194,16 @@ class R02LiveAliasReviewGate:
             self.stage_succeeded=False
             raise
 
-    def next_stage_after_page1(self):
+    def next_stage_after_page1(self,*,deadline_monotonic=None,deadline_seconds=None):
+        now=time.monotonic()
+        if deadline_monotonic is not None:
+            _require(deadline_seconds is None and type(deadline_monotonic)is float and now<deadline_monotonic<=now+90)
+        else:
+            _require(type(deadline_seconds)is int and 1<=deadline_seconds<=90)
+            deadline_monotonic=now+deadline_seconds
         _require(self.stage=='pre-sql' and self.approved and self.consumed and self.stage_succeeded
-            and type(self.page1_after)is str and 0<len(self.page1_after.encode())<=LIMIT_ARTIFACT)
+            and type(self.page1_after)is str and 0<len(self.page1_after.encode())<=LIMIT_ARTIFACT
+            )
         self.prior_stage_sha=self.manifest_sha;self.prior_review_sha=self.review_sha
         self.stage='post-page1';self.approved=False;self.consumed=False;self.stage_succeeded=False
-        self.executing_name=None
+        self.executing_name=None;self.deadline=deadline_monotonic

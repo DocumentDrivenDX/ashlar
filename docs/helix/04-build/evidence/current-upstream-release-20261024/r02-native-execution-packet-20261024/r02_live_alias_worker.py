@@ -123,8 +123,10 @@ def run(manifest_path: Path, repository: Path) -> None:
     runtime_metadata["ordinal1PublicationVector"] = prior["ordinal1Vector"]
     runtime_metadata["ordinal1PublicationVectorSha256"] = prior["ordinal1VectorSha256"]
     runtime_metadata["finalPublicationVectorSha256"] = prior["finalVectorSha256"]
-    runtime_metadata["reviewDeadlineMonotonic"] = worker_started + 230.0
-    runtime_metadata["wholeProcessDeadlineMonotonic"] = worker_started + 270.0
+    runtime_metadata["preSqlReviewDeadlineMonotonic"] = worker_started + 155.0
+    runtime_metadata["postPage1ReviewDeadlineMonotonic"] = worker_started + 330.0
+    runtime_metadata["wholeProcessDeadlineMonotonic"] = worker_started + 410.0
+    runtime_metadata["wholeProcessSeconds"] = 450
     selection = ConfiguredR02Weft053Selection(attempt, manifest["attemptId"],
         manifest["sourceRevision"], prior["sourceRevision"],
         manifest["runtimeSourceFiles"]["src/ashlar_host/configured_sdk_pages.py"],

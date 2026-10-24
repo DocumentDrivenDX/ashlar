@@ -73,7 +73,7 @@ class LiveAliasGateTests(unittest.TestCase):
         g=self.gate();g.freeze(self.stage_one());self.approve(g)
         self.run_all(g,('singleton','backend03-original','backend03-positive','backend02-page1'),
             outcome={'continuationAfter':'["person-2"]'})
-        g.next_stage_after_page1()
+        g.next_stage_after_page1(deadline_seconds=60)
         item=self.compiled('backend02-continuation',wrapped=True);item['after']='["person-2"]'
         path,_=g.freeze({'backend02-continuation':item})
         manifest=json.loads(path.read_text());self.assertEqual(manifest['page1AfterSha256'],__import__('hashlib').sha256(b'["person-2"]').hexdigest())
@@ -99,7 +99,35 @@ class LiveAliasGateTests(unittest.TestCase):
         self.assertFalse(g.stage_succeeded)
     def test_page2_transition_requires_successful_page1_result(self):
         g=self.gate();g.freeze(self.stage_one())
-        with self.assertRaises(PermissionError):g.next_stage_after_page1()
+        with self.assertRaises(PermissionError):g.next_stage_after_page1(deadline_seconds=60)
+
+    def test_page2_transition_resets_gate_to_fresh_bounded_review_window(self):
+        from unittest.mock import patch
+        g=self.gate();g.freeze(self.stage_one());self.approve(g)
+        self.run_all(g,('singleton','backend03-original','backend03-positive','backend02-page1'),
+            outcome={'continuationAfter':'["person-2"]'})
+        with patch('r02_live_alias_gate.time.monotonic',return_value=200.0):
+            g.next_stage_after_page1(deadline_seconds=90)
+        self.assertEqual(g.stage,'post-page1')
+        self.assertEqual(g.deadline,290.0)
+        with self.assertRaises(PermissionError):g.next_stage_after_page1(deadline_seconds=91)
+    def test_absolute_stage_deadlines_do_not_drift_after_review_manifest(self):
+        from unittest.mock import patch
+        import time
+        start=time.monotonic()
+        with patch('r02_live_alias_gate.time.monotonic',return_value=start):
+            g=R02LiveAliasReviewGate(self.root,attempt_id=self.attempt,stage='pre-sql',
+                source_revision=self.source,spark_application_id=self.app,vector=self.vector,
+                aliases=self.aliases,runtime=self.runtime,live_check=lambda:None,
+                deadline_monotonic=start+155.0)
+        self.assertEqual(g.deadline,start+155.0)
+        g.freeze(self.stage_one());self.approve(g)
+        self.run_all(g,('singleton','backend03-original','backend03-positive','backend02-page1'),
+            outcome={'continuationAfter':'["person-2"]'})
+        stage2_start=time.monotonic();stage2_deadline=stage2_start+90.0
+        with patch('r02_live_alias_gate.time.monotonic',return_value=stage2_start):
+            g.next_stage_after_page1(deadline_monotonic=stage2_deadline)
+        self.assertEqual(g.deadline,stage2_deadline)
     def test_wrong_runtime_or_alias_namespace_refuses(self):
         with self.assertRaises(PermissionError):R02LiveAliasReviewGate(self.root,attempt_id=self.attempt,stage='pre-sql',source_revision=self.source,spark_application_id=self.app,vector=self.vector,aliases=self.aliases,runtime={**self.runtime,'weftVersion':'0.4.48'},live_check=lambda:None)
         wrong=dict(self.aliases);wrong['edge_current']='spark_catalog.other.edge_current'
