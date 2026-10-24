@@ -1,0 +1,48 @@
+{
+  "attempt": "r8-initial",
+  "command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "--preflight"
+  ],
+  "date": "2026-10-24",
+  "diagnosis": "The assessment-time worker literal recorded for this attempt omitted `290a` relative to the immutable R7 runtime receipt and R7 preparation runtime hash. This is consistent with the observed `Frozen campaign config/runtime receipt differs` error, but the exact worker/preparation bytes used by the process are not retained, so the typo is not proven as the executed-byte cause.",
+  "elapsed_seconds": 13.7,
+  "exact_error": "Frozen campaign config/runtime receipt differs",
+  "exit_code": 1,
+  "gates": {
+    "process_inventory": "not_reached",
+    "sysv_shared_memory": "not_reached",
+    "umf_bridge_probe": "not_reached",
+    "worker_source_snapshot_validation": "not_reached"
+  },
+  "hash_provenance": "worker_sha256, preparation_sha256, and supervisor_sha256 are assessment-time values only. The initial packet announcement listed different worker/preparation prefixes (718da2\u2026/a635b\u2026); no retained contemporaneous process output or byte snapshot establishes which values ran or whether a pre-run edit intervened. Treat all controller hashes in this record as unverified executed-byte identity.",
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "outcome": "failed_before_worker_source_runtime_gate_completion",
+  "outputs": {
+    "execution_approval_created": false,
+    "preflight_receipt_produced": false,
+    "r8_initial_attempt_directory_empty_after_exit": true,
+    "r8_logs_directory_empty_after_exit": true,
+    "start_marker_created": false
+  },
+  "post_attempt_readback": {
+    "r7_preparation_runtime_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+    "r7_preparation_sha256": "f47ed93bba13fdb741ff63be83431fe7eb26463e6608ac7fcec84ab49a8bdad7",
+    "r7_profile": "ashlar-truss-0.0.49-current-cohort-preparation/0.1",
+    "r7_runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+  },
+  "preparation_sha256": "b600edda8bd5a2686bb7a141d88ae9b367cd1f5e5652b38f2b6aec6f817cd96e",
+  "profile": "ashlar-truss049-r8-preflight-attempt/0.1",
+  "retry_policy": "Preserved as the failed initial R8 packet attempt. No retry is performed with the same worker hash. Any future preflight requires the corrected, independently reviewed R8 revision and a new empty attempt-r8-corrected directory.",
+  "supervisor_sha256": "98ea9450fecad8f9a7773af66a0a931e2ec36923fd01bd5bd9256e38001a20b4",
+  "worker_error_stage": "preflight preparation/runtime receipt binding after selected interpreter, helper receipt, R7 preparation digest, bridge pin digest, and runtime receipt digest checks.",
+  "worker_sha256": "f488ccdb1ba12fdec7c862ae51981c6299382d0919437f788a81afd9896ce6f3"
+}

@@ -1,0 +1,99 @@
+{
+  "attempt": "r8-revision3",
+  "attempt_directory": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/attempt-r8-revision3",
+  "attempt_directory_empty": true,
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "started_marker_created": false
+  },
+  "expected_preflight_command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py"
+  ],
+  "immutable_inputs": {
+    "r7_bridge": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/bridge-readiness.json",
+      "sha256": "5f746047122cb9d222a4f4501ef1b7ce2970ecc5d4de3ca9c03aa40b5d1315e8"
+    },
+    "r7_preparation": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/preparation.json",
+      "sha256": "f47ed93bba13fdb741ff63be83431fe7eb26463e6608ac7fcec84ab49a8bdad7"
+    },
+    "r7_readonly_helper": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/source_048_readonly_helper.py",
+      "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+    },
+    "r7_runtime_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime-receipt.json",
+      "sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+    },
+    "r7_runtime_wheel_lock": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime-wheel-lock.json",
+      "sha256": "fce1c31381495aea07ae356dd1f54d35210b48e37c69ff8a7ae43dfa48687703"
+    },
+    "r7_seed_request": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771"
+    },
+    "r7_source_archive": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/source-inputs-7c4006e.tar",
+      "sha256": "49f1eea46cbfcf8ddc33ce841669fd9de4e41ad427863e4598f30bf92b6dfaba"
+    },
+    "r7_source_manifest": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/source-inputs-manifest.json",
+      "sha256": "00d1902bda5821e478c76d8b1a264b11e59e88d3d978d7b5d34ea7a6691cb9d5"
+    },
+    "r7_supervisor_history": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/run_supervisor.py",
+      "sha256": "c85a6f76820594ab81d9f2ebd7246c5e72f034f8af474bc14510d00a411b63df"
+    },
+    "r7_weft_compatibility_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/weft053-compatibility-receipt.md",
+      "sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8"
+    },
+    "r7_worker_history": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/campaign_worker.py",
+      "sha256": "c9ed1a676cb02f9407a622475b295cdee99ad7bda696aeeb5367a652ffebdbf9"
+    }
+  },
+  "initial_failed_attempt_receipt": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r8-preflight-addendum-20261024/r8-preflight-attempt-20261024.json",
+  "prior_attempts": [
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r8-preflight-addendum-20261024/r8-preflight-attempt-20261024.json",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r8-preflight-addendum-20261024/r8-corrected-preflight-attempt-20261024.json",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r8-preflight-addendum-20261024/r8-revision2-preflight-attempt-20261024.json"
+  ],
+  "private_root": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8",
+  "profile": "ashlar-truss-0.0.49-r8-preflight-addendum/0.3",
+  "result_receipt_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/r8-revision3-preflight-result.json",
+  "reuse_policy": "R7 source snapshot, runtime, preparation, bridge, seed request, helper and compatibility receipt are immutable read-only inputs; no 737 MB source/runtime copy.",
+  "runtime_correction": {
+    "live_isolation": "sys.version_info 3.12.14; resolved sys.executable equals R7 venv/bin/python; resolved sys.prefix equals venv and differs from sys.base_prefix.",
+    "pip_check": "Require exact recorded output `No broken requirements found.`; do not synthesize a pip_check exit-code field.",
+    "prior_RECORD_verification": "Trust only the exact prior R7 receipt claim of 4,001 verified payloads; do not rehash payloads during R8 preflight. Current R8 checks live interpreter isolation, live pip-check exit/output, installed versions/prefixes, selected local wheel metadata and wheel hashes.",
+    "readonly_048_helper": "Copied the exact read-only subprocess wrapper from pinned R7 campaign_worker.py; runs the hash-bound OLD48_VENV/HELPER with the R8 ROOT as cwd and captured bounded JSON output.",
+    "receipt_digest": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+  },
+  "scope": "Effect-free preflight only. No --execute argument exists in either R8 script; worker source contains no execute or approval handler. R8 uses distinct fresh attempt/log roots and cannot read or honor an R7 approval file.",
+  "source_binding": {
+    "ashlar_commit": "7c4006e880b037e2de318d04b45a8aeae9dfea12",
+    "runtime_input_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "6678e0d1cff4f8c43b0a28af618253559d4de1ce"
+    },
+    "tree": "65377e9c97bab62b50a1eef7d0314cb390f8f2e4"
+  },
+  "status": "revision3_prepared_after_revision2_nameerror_failure_pending_sol_review",
+  "supervisor": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "sha256": "96ca2d7987d18ce6bd7f9224203615d2e040f1f8008690718da234def4766776"
+  },
+  "worker": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/campaign_worker_r8.py",
+    "sha256": "a62a83ca76640797112f6269df92b9dfa8da87c501f1c045f078ebacdfe901cb"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "admission_gates": {
+    "process_inventory": {
+      "observed_member_count": 2,
+      "process_group_id": 70540,
+      "status": "ready",
+      "supervisor_pid": 70540,
+      "supervisor_pid_present": true
+    },
+    "sysv_shared_memory": {
+      "attached": true,
+      "detached": true,
+      "ipc_rmid_confirmed": true,
+      "segment_created": true,
+      "status": "ready"
+    }
+  },
+  "attempt": "r8-revision3",
+  "attempt_directory_empty_after_exit": true,
+  "bridge_status": "ready",
+  "command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "--preflight"
+  ],
+  "date": "2026-10-24",
+  "durable_result_evidence_file": "r8-revision3-preflight-result-20261024.json",
+  "durable_result_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/r8-revision3-preflight-result.json",
+  "durable_result_sha256": "7bb977bb062fba5b596e3b5f967893768def88fd233f88b3ab35251b5fc87ffb",
+  "duration_seconds": 69.856776,
+  "exit_code": 0,
+  "fallback_receipt_created": false,
+  "finished_at_utc": "2026-10-24T05:05:49.735128+00:00",
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "outcome": "passed",
+  "preparation_sha256": "16307b4147b41d33b0aea0c48d660b06f4f1289cae879c1117754ddab3911189",
+  "runtime": {
+    "live_pip_check": {
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "No broken requirements found.\n"
+    },
+    "prior_installed_record_verification": {
+      "receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+      "rechecked_during_this_preflight": false,
+      "statement": "All hashed RECORD payload hashes and sizes verified against installed files.",
+      "verified_record_payload_count": 4001
+    },
+    "runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+    "versions": {
+      "delta-spark": "4.4.1",
+      "pgserver-pg18": "18.6.1",
+      "psycopg": "3.3.6",
+      "pyspark": "4.2.0",
+      "truss-toolkit": "0.0.49",
+      "umf-core": "0.10.1",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53"
+    },
+    "wheel_count": 27
+  },
+  "runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+  "scope": "Effect-free local preflight and admission gates only; this does not establish native PostgreSQL/Spark lifecycle execution or publication/ACK acceptance.",
+  "source_snapshot": {
+    "archive_sha256": "49f1eea46cbfcf8ddc33ce841669fd9de4e41ad427863e4598f30bf92b6dfaba",
+    "commit": "7c4006e880b037e2de318d04b45a8aeae9dfea12",
+    "content_bytes": 8180309,
+    "file_count": 587,
+    "manifest_sha256": "00d1902bda5821e478c76d8b1a264b11e59e88d3d978d7b5d34ea7a6691cb9d5",
+    "runtime_input_objects": {
+      "pyproject.toml": "ba55a552124b69cfc927cefc5d309af9c76e6ded",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "6678e0d1cff4f8c43b0a28af618253559d4de1ce"
+    },
+    "tree": "65377e9c97bab62b50a1eef7d0314cb390f8f2e4"
+  },
+  "started_at_utc": "2026-10-24T05:04:39.878352+00:00",
+  "supervisor_sha256": "96ca2d7987d18ce6bd7f9224203615d2e040f1f8008690718da234def4766776",
+  "umf_probe": {
+    "native_started": false,
+    "profile": "ashlar-local-delta4-six-role-umf-probe/0.1",
+    "role_count": 6,
+    "roles_sha256": "450a8813ebb46486439240dbd7cfbef396c394e07ea175882bc3f59b33a6faf7"
+  },
+  "worker_outcome": "ready_preflight_only_no_execution_authority",
+  "worker_result_sha256": "e12d75be65e51d6c74becf755a5fcd4b185512f3ee93a8a2e0cce7d4e882f347",
+  "worker_sha256": "a62a83ca76640797112f6269df92b9dfa8da87c501f1c045f078ebacdfe901cb"
+}

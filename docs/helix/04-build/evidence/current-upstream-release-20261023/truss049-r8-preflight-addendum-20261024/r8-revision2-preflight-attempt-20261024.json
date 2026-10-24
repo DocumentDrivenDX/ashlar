@@ -1,0 +1,38 @@
+{
+  "admission_gates": null,
+  "attempt": "r8-revision2",
+  "attempt_directory_empty_after_exit": true,
+  "command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "--preflight"
+  ],
+  "date": "2026-10-24",
+  "durable_result_receipt_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/r8-revision2-preflight-result.json",
+  "durable_result_receipt_sha256": "eb5cef1f9f7174c46a997dfc9f901f14e6b4d1583e7aca819f2b55534e9e43ee",
+  "duration_seconds": 16.901,
+  "error_type": "RuntimeError",
+  "exact_error": "Effect-free worker preflight failed: Traceback (most recent call last):\n  File \"<R8_ROOT>/campaign_worker_r8.py\", line 296, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"<R8_ROOT>/campaign_worker_r8.py\", line 293, in main\n    result=preflight()\n           ^^^^^^^^^^^\n  File \"<R8_ROOT>/campaign_worker_r8.py\", line 264, in preflight\n    old48_preflight=run_048_helper('host=127.0.0.1 port=1 dbname=postgres user=postgres','--preflight')\n                    ^^^^^^^^^^^^^^\nNameError: name 'run_048_helper' is not defined\n",
+  "exit_code": 1,
+  "finished_at_utc": "2026-10-24T05:02:30.478888+00:00",
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "outcome": "failed",
+  "phase": "worker_preflight",
+  "preparation_sha256": "0ff70183f364b6847fc329b5f57b349c6074af79988595234c53b601137ad6ca",
+  "retry_policy": "This exact packet has run once and failed deterministically before admission gates. Preserve evidence; do not retry same bytes. A future revision requires fixing the missing run_048_helper binding, a new attempt directory and independent review.",
+  "runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a",
+  "started_at_utc": "2026-10-24T05:02:13.577827+00:00",
+  "supervisor_sha256": "b7750b0e2cc87893b1d6b1dc9730a0b070b63a1c7dc8601ed9a8bdf41d4b3ea7",
+  "worker_sha256": "fb55317032d7bd8bcd8315535e39cc2f99a40fc2cdae1306af5841eb68f9cc87",
+  "worker_summary": {
+    "status": "unavailable",
+    "worker_result_sha256": null
+  }
+}

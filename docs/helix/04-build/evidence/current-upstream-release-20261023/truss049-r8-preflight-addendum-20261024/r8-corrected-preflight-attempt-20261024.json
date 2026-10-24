@@ -1,0 +1,37 @@
+{
+  "attempt": "r8-corrected",
+  "command": [
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/runtime/venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r8/run_supervisor_r8.py",
+    "--preflight"
+  ],
+  "date": "2026-10-24",
+  "elapsed_seconds_to_outer_yield": 31.0,
+  "exit_code": null,
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "outcome": "output_unavailable",
+  "post_run_state": {
+    "approval_file_absent": true,
+    "attempt_r8_corrected_empty": true,
+    "initial_attempt_r8_empty": true,
+    "logs_empty": true,
+    "preflight_result_file_absent": true,
+    "private_root_bytes": 35257,
+    "start_marker_absent": true
+  },
+  "preparation_sha256": "d5e34b5683e96ecabd6cd3446225c8c02f71a3b1767849b9b90eff425249d39b",
+  "profile": "ashlar-truss049-r8-preflight-attempt/0.1",
+  "provenance_note": "Controller hashes are from the contemporaneous Sol-reviewed corrected R8 packet binding; the outer tool yielded without a nested process session/result, so outcome remains unknown.",
+  "retry_policy": "Outcome unknown; do not infer pass or failure. A later observation must use a new revision and fresh attempt directory with a durable local result receipt.",
+  "subsequent_host_observation": "Sol observed supervisor/worker PIDs 66035 and 66058 still alive more than 84 seconds after the tool yielded; both were gone by about 100 seconds. No durable command result was captured; the 90-second worker timeout is one possible explanation, not a confirmed outcome.",
+  "supervisor_sha256": "e6d56f0906b36be7d3101590c486d80938d774e223a5b35ba3c51f5d46f84a93",
+  "tool_observation": "The outer functions.exec returned Script running with cell ID 39. functions.wait later returned Script completed with empty output; no nested exec session ID or command result object was surfaced. A repeated wait reported cell ID not found.",
+  "worker_sha256": "8d0b787e062bb90693bec4f05ea7265a65695298dc60d6c45949f3450aca19c0"
+}

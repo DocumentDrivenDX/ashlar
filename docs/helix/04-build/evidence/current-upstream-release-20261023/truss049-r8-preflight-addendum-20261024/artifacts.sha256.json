@@ -1,0 +1,15 @@
+{
+  "files": {
+    "README.md": "8c3670e01a11c7d0c1b561f25541c547d95c07a2a0716d63b3c1f45ec34d366e",
+    "campaign_worker_r8.py": "a62a83ca76640797112f6269df92b9dfa8da87c501f1c045f078ebacdfe901cb",
+    "check_r8_packet.py": "bfd8eb0a3d750ddda1e97aebfc4a7d2bd40b4fd4541a068bc955b514cdefb6d2",
+    "r8-corrected-preflight-attempt-20261024.json": "0785eb0a4b57f9e1ff83e002a3017ac6ffb8b9780bb14e896519e8903b81a31e",
+    "r8-preflight-attempt-20261024.json": "58010ac981b5ce8452b186007cf41cc82d632aa8a9df9ca054a6c28836025eb5",
+    "r8-preparation.json": "16307b4147b41d33b0aea0c48d660b06f4f1289cae879c1117754ddab3911189",
+    "r8-revision2-preflight-attempt-20261024.json": "cbe2bb056818daf1059317d7694ab1aa01242723527fa06f22740bfcaae7c5b6",
+    "r8-revision3-preflight-attempt-20261024.json": "ca8ef1ccf25fd59aedc02d85f95486c5274018d31e00dc4422ac9839d60a8032",
+    "r8-revision3-preflight-result-20261024.json": "7bb977bb062fba5b596e3b5f967893768def88fd233f88b3ab35251b5fc87ffb",
+    "run_supervisor_r8.py": "96ca2d7987d18ce6bd7f9224203615d2e040f1f8008690718da234def4766776"
+  },
+  "profile": "ashlar-truss049-r8-preflight-addendum-manifest/0.1"
+}
