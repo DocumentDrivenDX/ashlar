@@ -147,6 +147,13 @@ class ManagedCurrentReceiptReadTests(unittest.TestCase):
         self.assertEqual(receipt["sourceAuthority"],
             "development Truss 0.0.49 page on managed Unity Catalog; external source ACK required")
 
+    def test_050_source_version_is_admitted_by_receipt_and_spark_reopen_configs(self):
+        from test_managed_current_spark_receipt_read import _spark_config
+        _, _, _, _, config = _fixture(source_truss_version="0.0.50")
+        self.assertEqual(config.source_truss_version, "0.0.50")
+        spark_config = _spark_config(config)
+        self.assertEqual(spark_config.source_truss_version, "0.0.50")
+
     def test_xxhash64_receipt_uses_exact_physical_profile_for_reopen_and_ack_ports(self):
         request, manifest, receipt, uuids, config = _fixture(CARRIER_PROFILE_XXHASH64)
         sql = FakeSQLReader(manifest, uuids, CARRIER_PROFILE_XXHASH64)

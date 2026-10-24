@@ -14,7 +14,8 @@ class Tests(unittest.TestCase):
         from ashlar_host.truss_current_catalog import (CURRENT_048_EVIDENCE_PROFILE,
             CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256,
             CURRENT_049_EVIDENCE_PROFILE, CURRENT_TRUSS_049_WHEEL_SHA256,
-            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
+            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256, CURRENT_050_EVIDENCE_PROFILE,
+            CURRENT_TRUSS_050_WHEEL_SHA256, CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)
 
         report_raw, view_raw, sources, source = receipt_inputs()
         calls = []
@@ -55,7 +56,9 @@ class Tests(unittest.TestCase):
                 ('0.0.48', CURRENT_048_EVIDENCE_PROFILE,
                  CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256),
                 ('0.0.49', CURRENT_049_EVIDENCE_PROFILE,
-                 CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)):
+                 CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256),
+                ('0.0.50', CURRENT_050_EVIDENCE_PROFILE,
+                 CURRENT_TRUSS_050_WHEEL_SHA256, CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)):
             calls.clear()
             with patch.dict(sys.modules, {'truss': sdk}), \
                  patch('importlib.metadata.version', return_value=version), \

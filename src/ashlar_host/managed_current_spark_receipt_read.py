@@ -94,7 +94,7 @@ class ManagedCurrentSparkReceiptConfig:
                  and type(self.schema) is str and _IDENT.fullmatch(self.schema)
                  and all(type(v) is str and v and "\0" not in v and len(v.encode()) <= 1024
                          for v in (self.expected_principal, self.expected_table_owner))
-                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49")
+                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50")
                  and type(self.protocol_profile) is ReaderProtocolProfile
                  and type(self.expected_runtime) is dict
                  and self.expected_runtime.get("principal") == self.expected_principal

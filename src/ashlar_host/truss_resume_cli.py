@@ -233,10 +233,11 @@ def run_selected_truss_command(configuration, output, operation, *, report_write
             if carrier_profile=='ashlar-delta/0.4-xxhash64' and not admission.current:
                 raise ValueError('Local `.4` continuation requires actual current Truss admission')
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
-                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION
+                from .truss_current_catalog import CURRENT_TRUSS_048_VERSION, CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION
                 if admission.current_truss_version not in (CURRENT_TRUSS_048_VERSION,
-                                                            CURRENT_TRUSS_049_VERSION):
-                    raise ValueError('Local `.4` continuation requires exact Truss 0.0.48 or 0.0.49 source custody')
+                                                            CURRENT_TRUSS_049_VERSION,
+                                                            CURRENT_TRUSS_050_VERSION):
+                    raise ValueError('Local `.4` continuation requires exact Truss 0.0.48, 0.0.49 or 0.0.50 source custody')
             if carrier_profile=='ashlar-delta/0.4-xxhash64':
                 from .local_current_carrier_profile import apply_local_writer_settings, verify_local_current_profile
                 apply_local_writer_settings(spark)

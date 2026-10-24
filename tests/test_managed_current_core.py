@@ -49,13 +49,15 @@ def _current_admission(truss_version='0.0.44'):
         prior=json.dumps(prior, separators=(',', ':')).encode(),
         next=json.dumps(following, separators=(',', ':')).encode(), feed='offline-development-feed')
     runtime = {}
-    if truss_version in ('0.0.48', '0.0.49'):
+    if truss_version in ('0.0.48', '0.0.49', '0.0.50'):
         from ashlar_host.truss_current_catalog import (CURRENT_TRUSS_048_WHEEL_SHA256,
             CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_049_WHEEL_SHA256,
-            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256)
-        wheel, manifest = ((CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256)
-                           if truss_version == '0.0.48' else
-                           (CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256))
+            CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256, CURRENT_TRUSS_050_WHEEL_SHA256,
+            CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)
+        pins = {'0.0.48': (CURRENT_TRUSS_048_WHEEL_SHA256, CURRENT_TRUSS_048_RUNTIME_MANIFEST_SHA256),
+                '0.0.49': (CURRENT_TRUSS_049_WHEEL_SHA256, CURRENT_TRUSS_049_RUNTIME_MANIFEST_SHA256),
+                '0.0.50': (CURRENT_TRUSS_050_WHEEL_SHA256, CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)}
+        wheel, manifest = pins[truss_version]
         runtime = {'runtime_wheel_sha256': wheel, 'runtime_manifest_sha256': manifest}
     evidence = CurrentCatalogEvidence(truss_version, {'1': report_raw}, {'1': view_raw}, sources,
                                       **runtime)
@@ -69,6 +71,25 @@ def _inventory(schema='offline_test_schema'):
 
 
 class ManagedCurrentCoreTests(unittest.TestCase):
+    def test_050_profile_binds_exact_public_wheel_through_core_and_weft_restore(self):
+        from unittest.mock import patch
+        from ashlar_host.truss_current_catalog import (CURRENT_050_EVIDENCE_PROFILE,
+            CURRENT_TRUSS_050_WHEEL_SHA256, CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256)
+        from ashlar_host.managed_current_core import BINDING_PROFILE_050
+        with patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',
+                   return_value=CURRENT_050_EVIDENCE_PROFILE):
+            admission = _current_admission('0.0.50')
+            config = _config()
+            bundle = bind_current_core(admission, config)
+            self.assertEqual(bundle['profile'], BINDING_PROFILE_050)
+            self.assertEqual(bundle['source']['trussVersion'], '0.0.50')
+            self.assertEqual(bundle['source']['catalogEvidenceProfile'], CURRENT_050_EVIDENCE_PROFILE)
+            self.assertEqual(bundle['source']['runtimeProvenance'], {
+                'trussWheelSha256': CURRENT_TRUSS_050_WHEEL_SHA256,
+                'runtimeManifestSha256': CURRENT_TRUSS_050_RUNTIME_MANIFEST_SHA256})
+            restored = restore_managed_current_admission(bundle, config)
+            self.assertEqual(restored.metadata()['profile'], 'ashlar-truss-current-umf010-graph-semantic-admission/0.5')
+
     def test_current_umf010_binding_retains_originals_and_complete_installation_inventory(self):
         admission = _current_admission()
         config = _config()

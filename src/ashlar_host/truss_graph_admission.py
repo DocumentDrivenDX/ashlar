@@ -5,9 +5,9 @@ from ashlar.staging import batch_row
 from ashlar.truss_native_feed import typed_scalar_entity_changes
 from .truss_current_catalog import (CurrentCatalogEvidence,
     CURRENT_TRUSS_VERSION, CURRENT_TRUSS_045_VERSION, CURRENT_TRUSS_048_VERSION,
-    CURRENT_TRUSS_049_VERSION,
+    CURRENT_TRUSS_049_VERSION, CURRENT_TRUSS_050_VERSION,
     CURRENT_EVIDENCE_PROFILE, CURRENT_045_EVIDENCE_PROFILE, CURRENT_048_EVIDENCE_PROFILE,
-    CURRENT_049_EVIDENCE_PROFILE,
+    CURRENT_049_EVIDENCE_PROFILE, CURRENT_050_EVIDENCE_PROFILE,
     interpret_current_catalog, require_installed_current_catalog_evidence)
 
 PROFILE='ashlar-truss-scalar-graph-semantic-admission/0.1'
@@ -16,13 +16,15 @@ CURRENT_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.1'
 CURRENT_045_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.2'
 CURRENT_048_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.3'
 CURRENT_049_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.4'
+CURRENT_050_PROFILE='ashlar-truss-current-umf010-graph-semantic-admission/0.5'
 
 def current_admission_profile(version):
     try:
         return {CURRENT_TRUSS_VERSION: CURRENT_PROFILE,
                 CURRENT_TRUSS_045_VERSION: CURRENT_045_PROFILE,
                 CURRENT_TRUSS_048_VERSION: CURRENT_048_PROFILE,
-                CURRENT_TRUSS_049_VERSION: CURRENT_049_PROFILE}[version]
+                CURRENT_TRUSS_049_VERSION: CURRENT_049_PROFILE,
+                CURRENT_TRUSS_050_VERSION: CURRENT_050_PROFILE}[version]
     except KeyError:
         raise ValueError('Supported versioned current Truss evidence required') from None
 
@@ -74,6 +76,7 @@ class TrussGraphAdmission:
                 CURRENT_TRUSS_045_VERSION: CURRENT_045_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_048_VERSION: CURRENT_048_EVIDENCE_PROFILE,
                 CURRENT_TRUSS_049_VERSION: CURRENT_049_EVIDENCE_PROFILE,
+                CURRENT_TRUSS_050_VERSION: CURRENT_050_EVIDENCE_PROFILE,
             }[catalog_views.truss_version]
             if catalog_views.profile != expected_catalog_profile:
                 raise ValueError('Supported versioned current Truss evidence required')
@@ -180,6 +183,8 @@ class TrussGraphAdmission:
                 qualification='Truss toolkit 0.0.48 public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. Original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. This profile has bounded local public-interface evidence only; no feed, publication, ACK or production authority.'
             elif self.current_truss_version == CURRENT_TRUSS_049_VERSION:
                 qualification='Truss toolkit 0.0.49 exact public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. The adapter preserves original source-byte and assigned-catalog correspondence checks. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. Direct 0.0.49 source-read and graph-feed evidence remains pending; no publication, ACK or production authority.'
+            elif self.current_truss_version == CURRENT_TRUSS_050_VERSION:
+                qualification='Truss toolkit 0.0.50 public wheel and catalog runtime manifest are pinned by the package/import cohort receipt; UMF 0.10.0 accepted-source report 0.6 and complete catalog-view wire 0.2.0/profile 0.4 are interpreted by the versioned Ashlar adapter. This is profile/admission code only: direct .50 catalog method behavior, source/feed lifecycle, publication, ACK and production authority remain unqualified.'
             else:
                 qualification='Truss toolkit 0.0.45 public wheel and catalog runtime manifest are pinned; UMF 0.10.0 accepted source, report 0.6, complete catalog view wire 0.2.0/profile 0.4. Original source bytes are fetched and matched through the public accepted-document API. Supports this adapter’s scalar record, STRING key and directed independent binary relationship subset; semantic correspondence only. The 0.0.45 profile has effect-free public-interface qualification only; no native source acceptance, publication or ACK authority.'
         else:

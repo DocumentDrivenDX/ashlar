@@ -59,7 +59,7 @@ class ManagedCurrentReceiptConfig:
                  and type(self.warehouse_id) is str and re.fullmatch(r"[0-9a-f]{16}", self.warehouse_id)
                  and all(type(value) is str and value and "\0" not in value and len(value.encode()) <= 1024
                          for value in (self.expected_principal, self.expected_table_owner))
-                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49")
+                 and self.source_truss_version in ("0.0.44", "0.0.45", "0.0.48", "0.0.49", "0.0.50")
                  and type(self.protocol_profile) is ReaderProtocolProfile
                  and self.carrier_profile in (CARRIER_PROFILE_LEGACY, CARRIER_PROFILE_XXHASH64)
                  and type(self.maximum_elapsed_seconds) is int
