@@ -23,29 +23,58 @@ cluster or warehouse was created or started; no paid compute ran.
 
 ## Results
 
-- The caller read Personal Compute policy `001654FA4AA08D1A`, whose fixed
-  all-purpose, zero-worker, Standard-engine shape and D4ds_v5 allowance are
-  retained in the [authenticated discovery refresh](managed-a1-authenticated-discovery-20261024-b.md).
-- `cluster-policies get-permissions` was denied because the caller lacks
-  Manage permission on that policy. The policy's `CAN_USE` access for this
-  caller or its groups is therefore unproven; denial is not evidence that
-  `CAN_USE` is absent.
-- `current-user me` returned the caller identity but no entitlements.
-  `allow-cluster-create` is unproven. No user or group permission change was
-  requested or made.
-- Prior read-only catalog metadata shows `CREATE_SCHEMA` and `USE_CATALOG` on
-  `client_dev` through `db-aidev-users`, with predictive optimization inherited
-  as `ENABLE`. This does not prove resulting schema ownership, object-drop
-  authority, or cleanup rights. Predictive optimization remains enabled.
+- Authenticated `current-user me` returned the active caller and direct
+  memberships in `db-aidev-users`, `db-aidev-fdle`, and `users`; its response
+  contained no entitlements. The admin-only `users get` request was denied, so
+  `allow-cluster-create` remains unproven.
+- `catalogs get client_dev` returned a managed, isolated catalog with
+  predictive optimization inherited as `ENABLE`. `grants get CATALOG
+  client_dev` showed `db-aidev-users` with `CREATE_SCHEMA` and `USE_CATALOG`
+  (and other catalog privileges). Group membership plus these grants confirms
+  catalog-level schema-creation authority. No schema DDL was attempted; schema
+  ownership, object-drop authority, and cleanup rights remain unproven.
+- `cluster-policies get 001654FA4AA08D1A` returned the Personal Compute policy:
+  fixed `cluster_type=all-purpose`, single-node profile, zero workers and
+  Standard engine; `Standard_D4ds_v5` is allowed; Spark version is unrestricted;
+  UC access modes are allowlisted with AUTO as the default. This is policy
+  definition metadata, not proof that this caller can use the policy or that a
+  particular runtime/access-mode combination is allowed.
+- `cluster-policies get-permissions 001654FA4AA08D1A` returned an explicit
+  denial because the caller lacks Manage permission on the policy. The
+  caller's or its groups' `CAN_USE` access is consequently unproven; the
+  denial does not establish that `CAN_USE` is absent. The workspace runtime
+  list includes selectable metadata such as `19.x-scala2.13`, but does not
+  prove policy permission, an exact maintenance build, or compatibility.
+- `clusters list` returned no clusters. `warehouses list` showed only the
+  stopped shared `data-gateway` warehouse and the stopped prior qualification
+  warehouse; neither is a dedicated active endpoint. These checks did not
+  establish cluster/job create, run, cancel, or termination permissions.
+  No user or group permission change was requested or made.
+
+## Conditional public-price illustration
+
+Microsoft's [Azure Databricks pricing page](https://azure.microsoft.com/en-us/pricing/details/databricks/)
+lists Premium All-Purpose Compute at `$0.55` per DBU-hour and lists D4ds v5
+at 2 DBUs. The retained [Central US VM retail observation](managed-fixed-jobs-retail-observation.json)
+is `$0.255` per D4ds_v5 VM-hour. At those public rates, one node-hour is
+`$0.255 + (2 × $0.55) = $1.355`; linear 40-minute arithmetic is about `$0.90`
+per slot and `$7.23` for eight slots, before ancillary usage. Adding the
+assumed campaign-wide `$5` ancillary reserve yields `$12.23`, above the `$10`
+preference. These are conditional list-price calculations, not measured
+workspace DBU consumption, an account rate, invoice treatment, or a bound. The
+reserve is an assumption, not a maximum. The prior workspace-scoped account
+budget and billable-usage reads returned `Not Found`; no account budget or
+actual-usage evidence was obtained ([authenticated discovery refresh](managed-a1-authenticated-discovery-20261024-b.md)).
 
 ## Admission result
 
-The dedicated A1 path remains unadmitted. The policy permission and cluster
-creation entitlement are unresolved, as are exact runtime/build and Unity
-Catalog access-mode compatibility, task and cluster lifecycle permissions,
-quota, and schema/object cleanup authority. The all-purpose price observation
-is not a whole-trial bound. Live source/pin custody through independent
-verification, protected ACK, reconciliation and closing also remains a gate.
+The dedicated A1 path remains unadmitted. Catalog-level `CREATE_SCHEMA` and
+`USE_CATALOG` are confirmed, but policy `CAN_USE`, cluster-create entitlement,
+exact runtime/build and Unity Catalog access-mode compatibility, task and
+cluster lifecycle permissions, quota, and schema/object cleanup authority are
+unresolved. The all-purpose price illustration is not a whole-trial bound.
+Live source/pin custody through independent verification, protected ACK,
+reconciliation and closing also remains a gate.
 
 The owner limits remain **$100 hard total** and **$10 preferred total**. No
 reliable conservative total including startup, idle time, ancillary usage and

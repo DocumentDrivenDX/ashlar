@@ -41,6 +41,23 @@ Proposed per-slot caller wall budget: 15 minutes provisioning/admission, five pu
 
 [Dated October23 retail observation](managed-fixed-jobs-retail-observation.json) records Central US Linux VM $0.255/hour and Premium Jobs $0.30/DBU-hour. At an **unverified maximum 2 DBU/hour**, compute is $0.855/hour: $0.57 per 40-minute slot or $4.56 for eight. An assumed campaign-wide $5 ancillary reserve gives $9.56; $20 gives $24.56. Eight one-hour minimum charges would instead cost $6.84 compute. These figures, including $0.57 and $4.56, are illustrative assumptions, not reliable admission bounds. Actual DBU consumption, billing increments, startup/idle, disk/network/IP, background optimization and cleanup charges remain unresolved.
 
+The existing Personal Compute policy is a separate all-purpose possibility, not
+the TD-009 Jobs proposal: it is fixed to one Standard-engine node with zero
+workers, permits D4ds_v5, and leaves the runtime unrestricted. Post-SSO
+read-only discovery confirmed catalog `CREATE_SCHEMA`/`USE_CATALOG`, but
+policy `CAN_USE` and the caller's cluster-create entitlement remain unproven.
+Microsoft's [Azure Databricks pricing page](https://azure.microsoft.com/en-us/pricing/details/databricks/)
+lists Premium All-Purpose at $0.55/DBU-hour and D4ds v5 at 2 DBUs; with the
+retained Central US VM rate of $0.255/hour, conditional linear arithmetic is
+$1.355/node-hour, about $0.90 for 40 minutes and $7.23 for eight slots before
+ancillary usage. Adding the assumed $5 campaign reserve gives $12.23, above
+the $10 preference. This is public-price arithmetic, not actual workspace
+usage or a conservative bound under the $100 hard ceiling. Startup/idle and
+termination tails, ancillary and predictive-optimization usage, account rates,
+and cleanup costs remain unbounded; workspace-scoped account budget and usage
+reads returned `Not Found`. The all-purpose option requires a separate
+reviewed design and explicit termination controls; TD-009 remains unchanged.
+
 The owner preference is **$10 total**, with a **$100 hard total ceiling**. Neither estimate nor cancellation enforces an invoice cap. Admit a reliable conservative bound including incurred spend, remaining work and cleanup before launch and each continuation; stop for review if unavailable or above the hard ceiling. Track projected and actual total against the $10 preference; exceeding that preference alone does not require approval. Ask the owner only if the proposed trial would exceed $100 or requires separate owner scale authorization; do not proceed above $100 under the current ceiling. Do not substitute an unpriced SQL endpoint or shared cluster.
 
 ## Focused sequence and closure
@@ -51,4 +68,4 @@ Retain exact requests/pages, source/ACK readbacks, UUID/version vectors, plans, 
 
 ## Read-only verification limitation
 
-Authenticated read-only discovery was refreshed on 2026-10-24; see the [2026-10-23 discovery](managed-a1-authenticated-discovery-20261023.md), [2026-10-24 addendum](managed-a1-authenticated-discovery-20261024.md), and [authenticated compute and permission refresh](managed-a1-authenticated-discovery-20261024-b.md). The refresh found no clusters, advertised `19.x-scala2.13` and `17.3.x-scala2.13` runtime identifiers plus D4ds_v5/D4s_v5 node metadata, and exactly one Personal Compute policy fixed to all-purpose, zero workers and Standard engine. It confirmed catalog-level `CREATE_SCHEMA`/`USE_CATALOG` via `db-aidev-users` and inherited predictive optimization `ENABLE`; policy permission inspection was denied, and schema/object cleanup authority remains unverified. The policy cannot supply TD-009's Jobs-cluster path as-is. No schema, job, cluster or warehouse was created or started. Exact runtime/build/access-mode compatibility, compute/job entitlements and cancellation authority, cleanup, native managed qualification, external source/ACK custody, and current billing/DBU usage and conservative total cost remain unresolved. A [focused public-pricing follow-up](managed-a1-cost-readonly-followup-20261024.md) puts the conditional one-node 40-minute compute figure near $0.90 but does not establish an account rate or whole-trial bound under the $100 ceiling.
+Authenticated read-only discovery was refreshed on 2026-10-24; see the [2026-10-23 discovery](managed-a1-authenticated-discovery-20261023.md), [2026-10-24 addendum](managed-a1-authenticated-discovery-20261024.md), [authenticated compute and permission refresh](managed-a1-authenticated-discovery-20261024-b.md), and [permission admission receipt](managed-a1-permission-admission-20261024.md). The post-SSO checks confirmed the caller's `db-aidev-users` membership and catalog-level `CREATE_SCHEMA`/`USE_CATALOG`; policy `CAN_USE` inspection was denied for lack of Manage, and the admin-only user detail endpoint left cluster-create entitlement unproven. No schema, job, cluster or warehouse was created or started. Runtime/build/access-mode compatibility, compute/job lifecycle permissions, schema/object cleanup, native managed qualification, external source/ACK custody, and a conservative total-cost bound remain unresolved. Predictive optimization remains inherited as `ENABLE`. The all-purpose illustration near $0.90 for one 40-minute slot is conditional public-price arithmetic; eight slots plus the assumed $5 reserve would be about $12.23, not a whole-trial bound under the $100 ceiling. TD-009's Jobs proposal remains unchanged.
