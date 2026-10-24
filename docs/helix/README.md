@@ -74,7 +74,8 @@ The first local `.4` lifecycle campaign stopped at its first UMF table DDL:
 OSS Delta 4.4.1 rejected the authored `delta.parquet.compression.codec` property
 as an unknown configuration. The registered feed consumer remains at the genesis
 checkpoint; no genesis publication or ACK, seed, or continuation occurred. UMF 0.5.6 source is now on upstream `main`, but the 0.5.6 package remains
-unpublished; the 0.10.1 SDK release is still pending. The candidate at commit
+unpublished; the 0.10.1 SDK release is still pending ([current PR and release
+state](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-pr47-current-state-20261023/README.md)). The candidate at commit
 `9a11ae5` supplies a versioned direct Delta-path realization. Ashlar's pinned
 bridge has been rebuilt from that exact candidate, and all six source roles pass
 focused offline checks. One native local Delta 4 create/write/read accepted the

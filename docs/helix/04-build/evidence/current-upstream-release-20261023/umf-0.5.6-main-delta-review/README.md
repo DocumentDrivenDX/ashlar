@@ -31,10 +31,12 @@ surface were not rerun for this Ashlar release decision.
 The reviewed commit was fast-forward pushed to `DocumentDrivenDX/umf` `main`
 from exactly `009c042545a17b49ea857eff22d0fcf3fd71ef44` on 2026-10-23.
 It is still source, not a published UMF 0.5.6 package or the requested 0.10.1
-SDK release. Draft upstream PR #47 for the 0.10.1 SDK is based on the former
-main and overlaps this push in the generated metamodel manifest; its owner
-must reconcile that generated digest before merge. This is a release sequencing
-item, not a defect in the reviewed five-commit Delta realization.
+SDK release. At the time of this review, draft upstream PR #47 appeared based
+on the former main and to overlap this push in the generated metamodel
+manifest. A later public-state check found the PR base had advanced to the
+reviewed main and its head already contained the generated digest refresh; see
+the [current-state receipt](../umf-0.5.6-pr47-current-state-20261023/README.md).
+That earlier apparent conflict is no longer an open sequencing item.
 
 ## Lineage and change scope
 
