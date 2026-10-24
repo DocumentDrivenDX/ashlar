@@ -6,7 +6,7 @@ The replay retained checkpoint 5724, publication ID `local-configured-jsonl-b08f
 
 The supervisor ceilings were 300 seconds, 512 MiB private logical bytes, 16 MiB receipts, and 1 MiB per command output. The configured Spark runtime enforced `local[1]` and a `512m` driver (the packet template had stated `local[2]`/`2g`; that template/runtime mismatch is recorded here and was not the actual setting). Recorded logical attempt size was 300,017,708 bytes and receipts totaled 32,747 bytes. The filesystem timestamp envelope implies about 149.72 seconds; the runner did not retain a monotonic elapsed-time value or peak RSS, so neither is reported as a direct resource measurement.
 
-This result is `.3` prepublication evidence only. No native reads, Weft compilation, SQL queries, protected ACK, cloud, or Unity Catalog operations occurred. The R05 Spark cohort carried Weft 0.4.48, while the selected Weft 0.4.53 continuation remains held pending a runner that captures fresh artifacts against live query aliases and an independent review gate before SQL.
+This result is `.3` prepublication evidence only. No native reads, Weft compilation, SQL queries, protected ACK, cloud, or Unity Catalog operations occurred. The R05 Spark cohort carried Weft 0.4.48, while the separately verified public UMF 0.10.1 validation/producer environment is not asserted to be part of that Spark cohort. The selected Weft 0.4.53 continuation remains held pending a runner that captures fresh artifacts against live query aliases and an independent review gate before SQL.
 
 ## Traceability
 

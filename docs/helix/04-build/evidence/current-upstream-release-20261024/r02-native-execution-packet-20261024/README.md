@@ -16,7 +16,7 @@ evidence only. A `.4` native run requires a reviewed configured-local path
 that actually creates and reads `.4` tables; do not execute this packet as a
 `.4` test or treat a `.3` result as `.4` evidence.
 
-One attempt, one serial local Spark session (actual configured runtime: `local[1]`, 512m driver), macOS arm64 / CPython 3.12,
+One attempt, five serial configured-local CLI invocations, each opening and closing its own Spark session (actual runtime per invocation: `local[1]`, 512m driver), macOS arm64 / CPython 3.12,
 Spark 4.2.0, Delta 4.4.1, JDK 21, and the public UMF core 0.10.1 distribution
 with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
 JAR bytes listed below and record their byte hashes in the runtime admission
@@ -132,7 +132,7 @@ manifest commit.
    Spark/Delta JARs listed above. Before native execution, capture the approved
    process inventory and recheck the full runtime and JAR identities. A missing
    identity or competing process stops the run.
-2. The public UMF 0.10.1 validation is already frozen in this packet. In a fresh
+2. The separately verified public UMF core 0.10.1 validation is already frozen in this packet; it does not assert that UMF 0.10.1 was installed in the R05 Spark Python cohort. In a fresh
    private directory, initialize the current configured-local `.3` profile.
    This operation provides no `.4-xxhash64` evidence.
 3. Using one unchanged source/configuration/binding, publish batches 1, 2 and 3

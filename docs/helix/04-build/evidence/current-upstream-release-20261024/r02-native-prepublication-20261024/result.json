@@ -144,10 +144,10 @@
     "python": "3.12.14",
     "weftInR05SparkCohort": "0.4.48",
     "selectedWeft053Used": false,
-    "umfCore": "0.10.1",
     "tableProfile": "ashlar-delta/0.3",
     "actualSparkMaster": "local[1]",
-    "actualSparkDriverMemory": "512m"
+    "actualSparkDriverMemory": "512m",
+    "umfPublicValidationAndProducer": "0.10.1 (separately verified; not asserted as installed in Spark cohort)"
   },
   "closing": {
     "supervisorStateComplete": true,
