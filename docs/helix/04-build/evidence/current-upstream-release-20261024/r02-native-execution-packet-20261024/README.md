@@ -151,6 +151,39 @@ Spark 4.2.0 / Delta 4.4.1 runtime, `local[2]`, 2 GiB driver memory, bounded
 stream/receipt sizes, and `ashlar-delta/0.4-xxhash64`; never use a shared
 Databricks cluster.
 
+## One-shot supervisor gate
+
+[`r02_supervisor.py`](r02_supervisor.py) is the packet launcher. It accepts an
+explicit JSON manifest and a separate Sol review receipt whose SHA-256 names
+those exact manifest bytes. It checks the pinned source inputs and all five
+R05 JAR hashes, requires a fresh UUID-like attempt ID, creates a mode-0700
+user-owned private directory under `/private/tmp`, and runs manifest argv
+steps serially. It kills the process group on the 300-second total deadline or
+a byte-cap breach, and leaves durable attempt state so a failed attempt cannot
+be silently repeated. Command output is capped at 1 MiB each, private attempt
+data at 512 MiB, and retained receipts at 16 MiB.
+
+After publication and singleton work, the prepublication phase records
+`complete-held-after-publication` and exits. It cannot run queries. A separate
+`continuation` manifest must include the actual complete publication vector,
+the exact frozen Weft request/response hashes and files, and Sol's explicit
+review of those vector-bound artifacts. Its review receipt must bind the exact
+continuation manifest hash. Only that separate invocation can run query steps.
+The current-source pins must be rebound after the Truss 0.50 source changes
+land. This supervisor has not been used to invoke Spark or native operations.
+After Sol supplies the reviewed manifest and review receipt, invoke exactly
+one phase with:
+
+```sh
+python3 r02_supervisor.py --phase prepublication --manifest /absolute/private/prepublication.json --review /absolute/private/prepublication-review.json
+python3 r02_supervisor.py --phase continuation --manifest /absolute/private/continuation.json --review /absolute/private/continuation-review.json
+```
+
+The continuation command is unavailable until the first phase has completed,
+the actual vector and freshly compiled artifacts exist, and their exact
+manifest bytes have separate review. The supervisor refuses the current
+historical source revision until its explicit pin is rebound.
+
 ## Focused preflight outcome and open evidence
 
 The focused effect-free `preflight.py` completed successfully with status
