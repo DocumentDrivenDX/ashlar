@@ -1,0 +1,31 @@
+{
+  "release": {
+    "tag": "umf-v0.5.6",
+    "commit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+    "publishedAt": "2026-10-24T00:45:23Z",
+    "url": "https://github.com/DocumentDrivenDX/umf/releases/tag/umf-v0.5.6"
+  },
+  "assets": [
+    {
+      "name": "umf_core-0.10.1-cp311-abi3-macosx_11_0_arm64.whl",
+      "size": 3250983,
+      "sha256": "49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823",
+      "platform": "macOS 11+ arm64",
+      "verification": "public asset bytes downloaded and hashed; installed in isolated CPython 3.12.14 environment"
+    },
+    {
+      "name": "umf_core-0.10.1-cp311-abi3-linux_x86_64.whl",
+      "size": 3527255,
+      "sha256": "3512e56730d1dab59d803b20301aea3ac8f6896b0dab452f767f4c3575b9ff4c",
+      "platform": "Linux x86_64",
+      "upstream_test_environment": "Ubuntu 24.04, glibc 2.39, Python 3.11",
+      "verification": "public asset bytes downloaded and hashed; not installed or executed"
+    },
+    {
+      "name": "umf_core-0.10.1.tar.gz",
+      "size": 2634235,
+      "sha256": "f0bc596a38de03d861212dd30d9d1d2844af215c4572dea7d7186e1f8cda0bb5",
+      "verification": "release metadata only; not downloaded"
+    }
+  ]
+}

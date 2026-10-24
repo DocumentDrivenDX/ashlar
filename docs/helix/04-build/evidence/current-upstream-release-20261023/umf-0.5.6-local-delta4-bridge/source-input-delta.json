@@ -1,0 +1,57 @@
+{
+  "profile": "ashlar-umf-bridge-source-input-delta/0.1",
+  "baseCommit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08",
+  "selectedTag": "umf-v0.5.6",
+  "selectedCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+  "selectedTree": "204cfba81eadbe9a6a0458bc9a7de2dc1e50e58b",
+  "upstreamCompareChangedFiles": 56,
+  "bridgeInventoryInputs": 195,
+  "umfSourceInputs": 33,
+  "changedUmfSourceInputs": 7,
+  "changedInputs": [
+    {
+      "path": "spec/core/extension-package.schema.json",
+      "bytes": 34314,
+      "baseSha256": "eeda9a096c2a277b13335f2f86c14e3400f83f4f9ad1e6fdc4ed73544fd6db32",
+      "tagSha256": "85a5c4a704bd6222ada4908cb7cfaada6b7869cf21b1b0095cdff8846754494d"
+    },
+    {
+      "path": "spec/core/schema.json",
+      "bytes": 34651,
+      "baseSha256": "57bdb4a349ccc1d5ab56e5b0700bcf8a11caa91e13b2efc33b29ff27839e76cb",
+      "tagSha256": "89306e2fd6127114b275a367ed1e1908d15aa71fc15d17d8866c53443ce0d78f"
+    },
+    {
+      "path": "spec/core/semantic-type-reference.schema.json",
+      "bytes": 34772,
+      "baseSha256": "ae1585250d493cb119db4d457b13ae3bec1c1ee55f5ca0f3bcb047aeedc5c411",
+      "tagSha256": "32ce36e9181dfaad50277f78907ca5374c5cf5e03e77f0b7924a425a19cae3e0"
+    },
+    {
+      "path": "spec/metamodel/generated/core-constraints.json",
+      "bytes": 190252,
+      "baseSha256": "1db20e22f4f48df20cc288871f92d27314d578ffcd41ab6e9df01f218a7760fb",
+      "tagSha256": "444f3dbb8dca0b3f5777d2c26887fc371efb62e6f37e5ae5600b63067785b412"
+    },
+    {
+      "path": "spec/metamodel/generated/domain-policy.json",
+      "bytes": 14016,
+      "baseSha256": "038a4f9b1f8a7cee78c2628a7d595ce7b5549afc41396bffffb8508e380843cb",
+      "tagSha256": "14c141d6b7adc55f7dbddfaa3ea016eafb158e4e12ccf56155bc75f510c6e641"
+    },
+    {
+      "path": "src/generated/core-model.ts",
+      "bytes": 5012,
+      "baseSha256": "afd43ffe02ffb64973cf95521991c142c54bb07151d68f018066a9b46108b911",
+      "tagSha256": "ce2f1ea302e5f9f37973cf4db48871dbd0136224c2d19316cf91b416093220ed"
+    },
+    {
+      "path": "src/generated/core-validators.ts",
+      "bytes": 284515,
+      "baseSha256": "88e4252883b595782c01d6b63fd86e7a5ba8492aa4fec953a628e32a051bbbc4",
+      "tagSha256": "d1d6614073e82f4981da0fbf6caca44ad6a8bf91a491adef1fe53ad822d36dee"
+    }
+  ],
+  "unchangedInputCount": 188,
+  "method": "Compare retained 9a11ae5 inventory with the regenerated inventory from the public tag source; GitHub compare lists 56 changed files, of which exactly these seven intersect the 33 UMF source inputs in the bridge module graph. Other inventory inputs, including the bridge entry and external bundled dependencies, retain the same path, size and SHA-256."
+}

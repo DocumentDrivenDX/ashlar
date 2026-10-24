@@ -22,6 +22,12 @@ must not be reused.
 
 This packet remains immutably bound to source snapshot `6986e832`. Ashlar main subsequently advanced to `78625f35` with only the public UMF core URL changing from release `umf-v0.5.4` to `umf-v0.5.5`; the core wheel bytes and digest are unchanged. That pin refresh does not rebind this packet. Any future lifecycle requires a complete worker/supervisor/preparation/bridge rebind to final release pins and renewed review/owner approval.
 
+The later public UMF 0.5.6 adoption also changes Ashlar's core distribution
+pin to 0.10.1 and rebuilds the embedded bridge from the released source. Those
+changes are outside this frozen R6 source snapshot. Its live-HEAD guard is
+expected to reject a current checkout after that adoption; a passing historical
+snapshot check cannot authorize execution from current main.
+
 The historical R6 preflight command is recorded in `preparation.json`: invoke the private
 R6 virtualenv's Python with `-I -B`, the R6 `run_supervisor.py`, and only
 `--preflight`, from the private R6 root. Do not invoke it before the required

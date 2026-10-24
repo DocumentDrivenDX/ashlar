@@ -1,4 +1,12 @@
-# UMF 0.5.6 / SDK 0.10.1 public-state follow-up (2026-10-23)
+# UMF 0.5.6 / SDK 0.10.1 public-state update (2026-10-24)
+
+This update supersedes the pre-merge observation below. GitHub reports [PR #47](https://github.com/DocumentDrivenDX/umf/pull/47) closed and merged as `259bf1ed91466ff7e9782d7517c14f2112282026`. The merge tree is `204cfba81eadbe9a6a0458bc9a7de2dc1e50e58b`; the public `umf-v0.5.6` release was published 2026-10-24 and its tag resolves to that commit.
+
+The public release assets are independently byte-verified: macOS 11+ ARM64 wheel `49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823` (3,250,983 bytes), Linux x86_64 wheel `3512e56730d1dab59d803b20301aea3ac8f6896b0dab452f767f4c3575b9ff4c` (3,527,255 bytes), and source archive digest `f0bc596a38de03d861212dd30d9d1d2844af215c4572dea7d7186e1f8cda0bb5` as release metadata. Ashlar installed the macOS wheel in a fresh CPython 3.12.14 environment and passed focused core compatibility checks. Linux bytes were verified but not installed or executed. See the [asset adoption receipt](../umf-0.10.1-ashlar-adoption-20261024/README.md). Databricks compatibility and native Spark/Delta behavior remain unqualified.
+
+The merged SDK distribution and UMF core package are 0.10.1; UMF document/core semantics remain 0.10.0. Ashlar's source-model contracts continue to name their semantic model version independently. The platform asset verification and macOS-only isolated adoption are recorded above. None of this establishes Spark/Delta execution, Truss lifecycle, Unity Catalog, or publication/ACK qualification.
+
+## Historical pre-merge observation (2026-10-23)
 
 This later read-only GitHub observation supersedes the PR-base and generated
 digest sequencing concern recorded in the earlier [source review](../umf-0.5.6-main-delta-review/README.md).

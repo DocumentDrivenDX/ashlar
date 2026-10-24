@@ -1,1 +1,317 @@
-{"candidateCommit":"9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08","profile":"ashlar-umf-local-delta4-role-semantics/0.1","realizationProfile":"umf.delta.spark-realization/0.1.0","roles":{"edge_current":{"definition":{"clusterBy":["lookup_hash"],"name":["edge_current"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{"delta.dataSkippingStatsColumns":"lookup_hash,source_system,rel_type_id,id","delta.parquet.compression.codec":"zstd","delta.targetFileSize":"67108864"}},"dispositions":[{"authoredValue":["lookup_hash"],"explanation":"Authored order is emitted as local Delta CLUSTER BY SQL.","outcome":"sql","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":"lookup_hash,source_system,rel_type_id,id","explanation":"Authored property is preserved in local Delta table property SQL.","outcome":"sql","sourcePointer":"/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns"},{"authoredValue":"zstd","explanation":"Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting.","outcome":"writer-setting","sourcePointer":"/extensions/umf.delta.definition/properties/delta.parquet.compression.codec"},{"authoredValue":"67108864","explanation":"Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size.","outcome":"unrealized-performance-hint","sourcePointer":"/extensions/umf.delta.definition/properties/delta.targetFileSize"}],"layout":{"clusterBy":["lookup_hash"],"partitionBy":[],"properties":{"delta.dataSkippingStatsColumns":"lookup_hash,source_system,rel_type_id,id"}},"schemaSha256":"eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00","sourceBytesSha256":"18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb","sourceSha256":"b8744a5c5378f0ab96bd30ef43e0875507c5f495787f55661c59ad4862f4bb25","writerSettings":[{"key":"spark.sql.parquet.compression.codec","value":"zstd"}]},"object_current":{"definition":{"clusterBy":["lookup_hash"],"name":["object_current"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{"delta.dataSkippingStatsColumns":"lookup_hash,source_system,type_id,id","delta.parquet.compression.codec":"zstd","delta.targetFileSize":"67108864"}},"dispositions":[{"authoredValue":["lookup_hash"],"explanation":"Authored order is emitted as local Delta CLUSTER BY SQL.","outcome":"sql","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":"lookup_hash,source_system,type_id,id","explanation":"Authored property is preserved in local Delta table property SQL.","outcome":"sql","sourcePointer":"/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns"},{"authoredValue":"zstd","explanation":"Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting.","outcome":"writer-setting","sourcePointer":"/extensions/umf.delta.definition/properties/delta.parquet.compression.codec"},{"authoredValue":"67108864","explanation":"Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size.","outcome":"unrealized-performance-hint","sourcePointer":"/extensions/umf.delta.definition/properties/delta.targetFileSize"}],"layout":{"clusterBy":["lookup_hash"],"partitionBy":[],"properties":{"delta.dataSkippingStatsColumns":"lookup_hash,source_system,type_id,id"}},"schemaSha256":"ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc","sourceBytesSha256":"6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771","sourceSha256":"e85a5bc62c1214121ba37719bbdd2ff0a09d938aaf624a317b949508f401f25c","writerSettings":[{"key":"spark.sql.parquet.compression.codec","value":"zstd"}]},"publication_attempt_phase":{"definition":{"clusterBy":[],"name":["publication_attempt_phase"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{}},"dispositions":[{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":{},"explanation":"No table properties were authored.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/properties"}],"layout":{"clusterBy":[],"partitionBy":[],"properties":{}},"schemaSha256":"25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20","sourceBytesSha256":"d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc","sourceSha256":"aff6fcc7351974b4cdfde5dd45a23ff886c24de9d705c61d8cd4e5bd10c5c4f3","writerSettings":[]},"publication_manifest":{"definition":{"clusterBy":[],"name":["publication_manifest"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{}},"dispositions":[{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":{},"explanation":"No table properties were authored.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/properties"}],"layout":{"clusterBy":[],"partitionBy":[],"properties":{}},"schemaSha256":"aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8","sourceBytesSha256":"fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8","sourceSha256":"13326879fb82cd277d3de295bc4c824a7c32928c73b5b4f72e9145972edda865","writerSettings":[]},"tombstone":{"definition":{"clusterBy":["source_system","type_id","id"],"name":["tombstone"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{}},"dispositions":[{"authoredValue":["source_system","type_id","id"],"explanation":"Authored order is emitted as local Delta CLUSTER BY SQL.","outcome":"sql","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":{},"explanation":"No table properties were authored.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/properties"}],"layout":{"clusterBy":["source_system","type_id","id"],"partitionBy":[],"properties":{}},"schemaSha256":"2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3","sourceBytesSha256":"dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0","sourceSha256":"fb646c9cdca3572c4b6834dacc3f6a81cf7f3f3e83057b5c5833b20e92d4c87d","writerSettings":[]},"whole_source_history":{"definition":{"clusterBy":[],"name":["whole_source_history"],"partitionBy":[],"profile":"databricks-managed-delta/0.1","properties":{}},"dispositions":[{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/clusterBy"},{"authoredValue":[],"explanation":"No columns were authored for this layout choice.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/partitionBy"},{"authoredValue":{},"explanation":"No table properties were authored.","outcome":"none-authored","sourcePointer":"/extensions/umf.delta.definition/properties"}],"layout":{"clusterBy":[],"partitionBy":[],"properties":{}},"schemaSha256":"c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12","sourceBytesSha256":"381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934","sourceSha256":"ce295b6b8735871ed9a86457ae9df67cee6a54f25c342286f124e1226b71dd55","writerSettings":[]}}}
+{
+  "candidateCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+  "profile": "ashlar-umf-local-delta4-role-semantics/0.1",
+  "realizationProfile": "umf.delta.spark-realization/0.1.0",
+  "roles": {
+    "edge_current": {
+      "definition": {
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "name": [
+          "edge_current"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id",
+          "delta.parquet.compression.codec": "zstd",
+          "delta.targetFileSize": "67108864"
+        }
+      },
+      "dispositions": [
+        {
+          "authoredValue": [
+            "lookup_hash"
+          ],
+          "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL.",
+          "outcome": "sql",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": "lookup_hash,source_system,rel_type_id,id",
+          "explanation": "Authored property is preserved in local Delta table property SQL.",
+          "outcome": "sql",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns"
+        },
+        {
+          "authoredValue": "zstd",
+          "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting.",
+          "outcome": "writer-setting",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec"
+        },
+        {
+          "authoredValue": "67108864",
+          "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size.",
+          "outcome": "unrealized-performance-hint",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize"
+        }
+      ],
+      "layout": {
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id"
+        }
+      },
+      "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+      "sourceBytesSha256": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb",
+      "sourceSha256": "b8744a5c5378f0ab96bd30ef43e0875507c5f495787f55661c59ad4862f4bb25",
+      "writerSettings": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ]
+    },
+    "object_current": {
+      "definition": {
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "name": [
+          "object_current"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id",
+          "delta.parquet.compression.codec": "zstd",
+          "delta.targetFileSize": "67108864"
+        }
+      },
+      "dispositions": [
+        {
+          "authoredValue": [
+            "lookup_hash"
+          ],
+          "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL.",
+          "outcome": "sql",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": "lookup_hash,source_system,type_id,id",
+          "explanation": "Authored property is preserved in local Delta table property SQL.",
+          "outcome": "sql",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.dataSkippingStatsColumns"
+        },
+        {
+          "authoredValue": "zstd",
+          "explanation": "Translated to required Spark writer setting spark.sql.parquet.compression.codec=zstd; this proposal does not execute the setting.",
+          "outcome": "writer-setting",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.parquet.compression.codec"
+        },
+        {
+          "authoredValue": "67108864",
+          "explanation": "Retained the exact authored byte-size target; local Delta 4 realization does not apply or guarantee this file size.",
+          "outcome": "unrealized-performance-hint",
+          "sourcePointer": "/extensions/umf.delta.definition/properties/delta.targetFileSize"
+        }
+      ],
+      "layout": {
+        "clusterBy": [
+          "lookup_hash"
+        ],
+        "partitionBy": [],
+        "properties": {
+          "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id"
+        }
+      },
+      "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+      "sourceBytesSha256": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771",
+      "sourceSha256": "e85a5bc62c1214121ba37719bbdd2ff0a09d938aaf624a317b949508f401f25c",
+      "writerSettings": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ]
+    },
+    "publication_attempt_phase": {
+      "definition": {
+        "clusterBy": [],
+        "name": [
+          "publication_attempt_phase"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {}
+      },
+      "dispositions": [
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": {},
+          "explanation": "No table properties were authored.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/properties"
+        }
+      ],
+      "layout": {
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "schemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+      "sourceBytesSha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc",
+      "sourceSha256": "aff6fcc7351974b4cdfde5dd45a23ff886c24de9d705c61d8cd4e5bd10c5c4f3",
+      "writerSettings": []
+    },
+    "publication_manifest": {
+      "definition": {
+        "clusterBy": [],
+        "name": [
+          "publication_manifest"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {}
+      },
+      "dispositions": [
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": {},
+          "explanation": "No table properties were authored.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/properties"
+        }
+      ],
+      "layout": {
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "schemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+      "sourceBytesSha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "sourceSha256": "13326879fb82cd277d3de295bc4c824a7c32928c73b5b4f72e9145972edda865",
+      "writerSettings": []
+    },
+    "tombstone": {
+      "definition": {
+        "clusterBy": [
+          "source_system",
+          "type_id",
+          "id"
+        ],
+        "name": [
+          "tombstone"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {}
+      },
+      "dispositions": [
+        {
+          "authoredValue": [
+            "source_system",
+            "type_id",
+            "id"
+          ],
+          "explanation": "Authored order is emitted as local Delta CLUSTER BY SQL.",
+          "outcome": "sql",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": {},
+          "explanation": "No table properties were authored.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/properties"
+        }
+      ],
+      "layout": {
+        "clusterBy": [
+          "source_system",
+          "type_id",
+          "id"
+        ],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "schemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+      "sourceBytesSha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "sourceSha256": "fb646c9cdca3572c4b6834dacc3f6a81cf7f3f3e83057b5c5833b20e92d4c87d",
+      "writerSettings": []
+    },
+    "whole_source_history": {
+      "definition": {
+        "clusterBy": [],
+        "name": [
+          "whole_source_history"
+        ],
+        "partitionBy": [],
+        "profile": "databricks-managed-delta/0.1",
+        "properties": {}
+      },
+      "dispositions": [
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/clusterBy"
+        },
+        {
+          "authoredValue": [],
+          "explanation": "No columns were authored for this layout choice.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/partitionBy"
+        },
+        {
+          "authoredValue": {},
+          "explanation": "No table properties were authored.",
+          "outcome": "none-authored",
+          "sourcePointer": "/extensions/umf.delta.definition/properties"
+        }
+      ],
+      "layout": {
+        "clusterBy": [],
+        "partitionBy": [],
+        "properties": {}
+      },
+      "schemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+      "sourceBytesSha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "sourceSha256": "ce295b6b8735871ed9a86457ae9df67cee6a54f25c342286f124e1226b71dd55",
+      "writerSettings": []
+    }
+  }
+}

@@ -18,7 +18,8 @@ local-delta = ["pyspark==4.2.0", "delta-spark==4.4.1", "py-mini-racer==0.14.1"]
 managed-read = ["databricks-sdk==0.155.0", "psycopg[binary]==3.3.6"]
 weft-validation = ["jsonschema==4.26.0", "referencing==0.37.0", "rpds-py==2026.9.1", "attrs==26.1.0", "jsonschema-specifications==2025.9.1", "typing-extensions==4.16.0"]
 typed-sdk = [
-    "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.5/umf_core-0.10.0-py3-none-any.whl#sha256=49633924b45a3c8499d4fcc1a24c30d5a8fcb34d974ab019bbda987cb47da0f9",
+    "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.6/umf_core-0.10.1-cp311-abi3-macosx_11_0_arm64.whl#sha256=49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823 ; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "umf-core @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.6/umf_core-0.10.1-cp311-abi3-linux_x86_64.whl#sha256=3512e56730d1dab59d803b20301aea3ac8f6896b0dab452f767f4c3575b9ff4c ; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "umf_access @ https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.5/umf_access-0.1.0.dev7-py3-none-any.whl#sha256=a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
     "weft-sql==0.4.53",
     "py-mini-racer==0.14.1",

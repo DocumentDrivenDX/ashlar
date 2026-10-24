@@ -1,0 +1,112 @@
+{
+  "profile": "ashlar-umf-v056-six-role-offline-realization/0.1",
+  "sourceTag": "umf-v0.5.6",
+  "sourceCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+  "bridgeSha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+  "sixRoleSemanticComparisons": "passed",
+  "nativeSparkOrDeltaStarted": false,
+  "roles": [
+    {
+      "role": "object_current",
+      "sourceBytesSha256": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771",
+      "sourceSha256": "e85a5bc62c1214121ba37719bbdd2ff0a09d938aaf624a317b949508f401f25c",
+      "schemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+      "proposalSha256": "3625161bb683d9bddd5cffea127a7544936127415d8d07ff6b81437327abdb78",
+      "sqlSha256": "fecf56f9df6e25fa82d28108f252096ab852d877c4ed4fc16a59c24405cefce2",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    },
+    {
+      "role": "edge_current",
+      "sourceBytesSha256": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb",
+      "sourceSha256": "b8744a5c5378f0ab96bd30ef43e0875507c5f495787f55661c59ad4862f4bb25",
+      "schemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+      "proposalSha256": "a303f12afce53f8da5c4b6e0950996295fcf943f02fcee65602644886db5f9fe",
+      "sqlSha256": "179e188f3b58372cf145146f7846463cf2f5ecd8257bc5ad803e82ca6b4fefd3",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    },
+    {
+      "role": "tombstone",
+      "sourceBytesSha256": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "sourceSha256": "fb646c9cdca3572c4b6834dacc3f6a81cf7f3f3e83057b5c5833b20e92d4c87d",
+      "schemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+      "proposalSha256": "00e31ed1cf874b2fb204abe4fe5b13dfc7a02760871d679abdd2bce518865180",
+      "sqlSha256": "eed7a4b86b5fc7610d4ab5c5775407472cdcecf9290b7398854b4c1d3223b329",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    },
+    {
+      "role": "whole_source_history",
+      "sourceBytesSha256": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "sourceSha256": "ce295b6b8735871ed9a86457ae9df67cee6a54f25c342286f124e1226b71dd55",
+      "schemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+      "proposalSha256": "6d7287fff7ec45e18e883f54dbc3d58768b341a683897d407ca95e03f73ef620",
+      "sqlSha256": "1754f370c1e408cbd185be1ebf0487c343cb93f54112a43c0e975cb8ea9a3fe2",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    },
+    {
+      "role": "publication_manifest",
+      "sourceBytesSha256": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "sourceSha256": "13326879fb82cd277d3de295bc4c824a7c32928c73b5b4f72e9145972edda865",
+      "schemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+      "proposalSha256": "e669848917c33239b76066fefc9b528bdc4b3453f16a9d0fcb70a43bead5a00c",
+      "sqlSha256": "bdbcec5765cc2cfe17525592d53dbe68829e67af599fdfee7a37dda729864654",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    },
+    {
+      "role": "publication_attempt_phase",
+      "sourceBytesSha256": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc",
+      "sourceSha256": "aff6fcc7351974b4cdfde5dd45a23ff886c24de9d705c61d8cd4e5bd10c5c4f3",
+      "schemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+      "proposalSha256": "cbe4fa22201179668bbfd1cae5389d670e943d2417a61f892f6f570c487c3f05",
+      "sqlSha256": "f5552862f3234db4942426e04e0eb1d29986811f31f0a3970af08ec3dfa69c02",
+      "checks": {
+        "sourceBytes": true,
+        "definition": true,
+        "dispositions": true,
+        "schema": true,
+        "source": true,
+        "writerSettings": true,
+        "layout": true
+      }
+    }
+  ]
+}

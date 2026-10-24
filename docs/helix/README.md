@@ -22,10 +22,12 @@ Ashlar now pins public Weft 0.4.53. Its released macOS wheel compiled one
 tagged Ashlar page fixture with a byte-identical response to 0.4.52; emitted
 SQL and native execution remain separate gates ([focused adoption
 receipt](04-build/evidence/current-upstream-release-20261023/weft053-ashlar-adoption-20261023/README.md)).
-Ashlar now pins the public UMF 0.5.5 Python access wheel (`umf_access` 0.1.0.dev7);
-the core 0.10.0 wheel remains byte-identical. Focused local compatibility tests
-passed, but this does not qualify managed runtime or Delta behavior ([adoption
-receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
+Ashlar pins UMF access 0.1.0.dev7 and the published UMF core 0.10.1
+macOS arm64/Linux x86_64 assets. Both asset bytes were verified; the fresh
+isolated install and focused core checks ran on macOS only. This does not
+qualify Linux runtime or Databricks compatibility, nor native Delta behavior
+([0.10.1 adoption receipt](04-build/evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md),
+[access receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
 Truss 0.0.49 R5 is frozen to Ashlar source `0fce3b6c` and passed its permitted
 effect-free supervisor/worker preflight with process inventory, SysV cleanup and
@@ -78,13 +80,7 @@ release's declared Linux support on macOS or a broader Ashlar support pass. See 
 The first local `.4` lifecycle campaign stopped at its first UMF table DDL:
 OSS Delta 4.4.1 rejected the authored `delta.parquet.compression.codec` property
 as an unknown configuration. The registered feed consumer remains at the genesis
-checkpoint; no genesis publication or ACK, seed, or continuation occurred. UMF 0.5.6 source is now on upstream `main`, but the 0.5.6 package remains
-unpublished; the 0.10.1 SDK release is still pending ([current PR and release
-state](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-pr47-current-state-20261023/README.md)). The candidate at commit
-`9a11ae5` supplies a versioned direct Delta-path realization. Ashlar's pinned
-bridge has been rebuilt from that exact candidate, and all six source roles pass
-focused offline checks. One native local Delta 4 create/write/read accepted the
-candidate DDL shape with an owned path; it did not run the full bridge or Truss
+checkpoint; no genesis publication or ACK, seed, or continuation occurred. UMF PR #47 is merged at `259bf1e` (tree `204cfba`), and public `umf-v0.5.6` is published. The 0.10.1 macOS and Linux wheel bytes match public release metadata; Ashlar's fresh install and focused compatibility check are macOS-only ([UMF asset adoption](04-build/evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md)). The merged source includes the versioned direct Delta-path realization. Ashlar's embedded bridge has now been rebuilt from the public tag. Seven of 33 UMF source inputs changed from the pre-merge candidate; all six Ashlar role semantics pass focused offline checks ([source bridge rebind](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md)). One native local Delta 4 create/write/read accepted the earlier candidate DDL shape with an owned path; it did not run the full bridge or Truss
 lifecycle ([one-table receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-delta4-one-table-acceptance-20261023/README.md)). See the [bridge rebind evidence](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-local-delta4-bridge/README.md),
 [SDK package-install receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.6-sdk-package-install/README.md)
 and the [historical 0.5.4 candidate receipt](04-build/evidence/current-upstream-release-20261022/local-delta4-umf-realization-candidate.json).

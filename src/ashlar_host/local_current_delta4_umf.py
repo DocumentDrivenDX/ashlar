@@ -11,11 +11,11 @@ from .managed_current_carriers import load_current_managed_carriers
 UMF_BRIDGE_RESOURCE = 'local-current-delta4'
 UMF_REALIZATION_PROFILE = 'ashlar-local-current-delta4-umf-realization/0.1'
 LOCAL_TARGET_PROFILE = 'spark-delta4/0.1'
-UMF_CANDIDATE_COMMIT = '9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08'
-REALIZATION_MANIFEST_SHA256 = '6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3'
-BUILD_INPUTS_SHA256 = '9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff'
-BRIDGE_SHA256 = 'b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5'
-ROLE_SEMANTICS_SHA256 = '1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4'
+UMF_CANDIDATE_COMMIT = '259bf1ed91466ff7e9782d7517c14f2112282026'
+REALIZATION_MANIFEST_SHA256 = 'da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089'
+BUILD_INPUTS_SHA256 = 'b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a'
+BRIDGE_SHA256 = '34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5'
+ROLE_SEMANTICS_SHA256 = '148a8f471b572e5dcb2cd19c8f170404c26c37f6ebb2c670ddbe3c74a224f33d'
 ROLE_SOURCE_SHA256 = {
     'object_current': '6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771',
     'edge_current': '18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb',
@@ -67,12 +67,12 @@ def _pinned_resources():
             'assetSha256': BRIDGE_SHA256,
             'buildInputsSha256': BUILD_INPUTS_SHA256,
             'builder': 'Bun 1.4.3',
-            'builderScriptSha256': 'c0c20bc25b853974843302b9028875a6cb13a13f1223ce6205800a1e97dd50ec',
+            'builderScriptSha256': '2c03ed1d4ef593bdad98e235bd18f5c5d8be078deded42fde2ef0ff2cce71124',
             'entry': 'bridge-entry.ts',
             'entrySha256': 'd05088842f4c00d21151b1707e74e8477bda54f860940f7996540705140b11c8',
-            'metafileSha256': 'fb2a4ccdb1ecbef7cca7e9fafe4fed68ff4c03b79c4c7791cf4583cf03adaa38',
+            'metafileSha256': '19d4a797180a4ac55d0afa46cb2174884193cab1494f0add09e7666e437c4b08',
             'thirdPartyNoticesSha256': _sha(notices),
-            'workingDirectory': '/private/tmp/umf-public-main-0.5.5',
+            'workingDirectory': '/private/tmp/umf-merge-259-source-rebuild-20261024',
         },
         'carrierProfile': 'ashlar-delta/0.4-xxhash64',
         'inputs': {
@@ -103,7 +103,7 @@ def _pinned_resources():
             'bunLockSha256': '5fb58795dfe9ef5df89597c44372cf2a0739e1855f322f7622ae0c9d0ac71ce4',
             'candidateCommit': UMF_CANDIDATE_COMMIT,
             'coreVersion': '0.10.0',
-            'release': 'umf-v0.5.6 candidate (unreleased)',
+            'release': 'umf-v0.5.6 (published)',
             'sourceModules': {
                 'src/adapters/delta/ddl.ts': '8e4f694b7e3ecbdc0548f06b4db0a67339ea9319d3b70939003d4a0d18856051',
                 'src/model/document.ts': '6ea8f43e4bcd3b5d7259329e6768dd563e066d7169a23bee75e88f054f348ddb',

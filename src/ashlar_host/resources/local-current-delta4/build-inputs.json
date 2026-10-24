@@ -1,6 +1,6 @@
 {
   "sdkVersion": "0.5.6",
-  "sdkCommit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08",
+  "sdkCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
   "command": "bun .cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts",
   "builder": "Bun.build({entrypoints:[out+'/bridge-entry.ts'],target:'browser',format:'iife',minify:true,write:false,metafile:true})",
   "inputs": [
@@ -817,17 +817,17 @@
     {
       "path": "spec/core/extension-package.schema.json",
       "bytes": 34314,
-      "sha256": "eeda9a096c2a277b13335f2f86c14e3400f83f4f9ad1e6fdc4ed73544fd6db32"
+      "sha256": "85a5c4a704bd6222ada4908cb7cfaada6b7869cf21b1b0095cdff8846754494d"
     },
     {
       "path": "spec/core/schema.json",
       "bytes": 34651,
-      "sha256": "57bdb4a349ccc1d5ab56e5b0700bcf8a11caa91e13b2efc33b29ff27839e76cb"
+      "sha256": "89306e2fd6127114b275a367ed1e1908d15aa71fc15d17d8866c53443ce0d78f"
     },
     {
       "path": "spec/core/semantic-type-reference.schema.json",
       "bytes": 34772,
-      "sha256": "ae1585250d493cb119db4d457b13ae3bec1c1ee55f5ca0f3bcb047aeedc5c411"
+      "sha256": "32ce36e9181dfaad50277f78907ca5374c5cf5e03e77f0b7924a425a19cae3e0"
     },
     {
       "path": "spec/extensions/delta-definition/package.json",
@@ -847,12 +847,12 @@
     {
       "path": "spec/metamodel/generated/core-constraints.json",
       "bytes": 190252,
-      "sha256": "1db20e22f4f48df20cc288871f92d27314d578ffcd41ab6e9df01f218a7760fb"
+      "sha256": "444f3dbb8dca0b3f5777d2c26887fc371efb62e6f37e5ae5600b63067785b412"
     },
     {
       "path": "spec/metamodel/generated/domain-policy.json",
       "bytes": 14016,
-      "sha256": "038a4f9b1f8a7cee78c2628a7d595ce7b5549afc41396bffffb8508e380843cb"
+      "sha256": "14c141d6b7adc55f7dbddfaa3ea016eafb158e4e12ccf56155bc75f510c6e641"
     },
     {
       "path": "src/adapters/delta/ddl.ts",
@@ -872,12 +872,12 @@
     {
       "path": "src/generated/core-model.ts",
       "bytes": 5012,
-      "sha256": "afd43ffe02ffb64973cf95521991c142c54bb07151d68f018066a9b46108b911"
+      "sha256": "ce2f1ea302e5f9f37973cf4db48871dbd0136224c2d19316cf91b416093220ed"
     },
     {
       "path": "src/generated/core-validators.ts",
       "bytes": 284515,
-      "sha256": "88e4252883b595782c01d6b63fd86e7a5ba8492aa4fec953a628e32a051bbbc4"
+      "sha256": "d1d6614073e82f4981da0fbf6caca44ad6a8bf91a491adef1fe53ad822d36dee"
     },
     {
       "path": "src/model/bit128.ts",

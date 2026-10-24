@@ -12,5 +12,5 @@ await Bun.write(out+'/metafile.json',JSON.stringify(result.metafile,null,2)+'\n'
 const inputs=[] as {path:string;bytes:number;sha256:string}[];
 for(const [path,meta] of Object.entries(result.metafile!.inputs))inputs.push({path,bytes:meta.bytes,sha256:h(await readFile(path))});
 inputs.sort((a,b)=>a.path.localeCompare(b.path));
-await Bun.write(out+'/build-inputs.json',JSON.stringify({sdkVersion:'0.5.6',sdkCommit:'9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08',command:'bun .cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts',builder:'Bun.build({entrypoints:[out+\'/bridge-entry.ts\'],target:\'browser\',format:\'iife\',minify:true,write:false,metafile:true})',inputs},null,2)+'\n');
+await Bun.write(out+'/build-inputs.json',JSON.stringify({sdkVersion:'0.5.6',sdkCommit:'259bf1ed91466ff7e9782d7517c14f2112282026',command:'bun .cache/sdk-distribution/ashlar-bridge-0.5.6/build-bridge.ts',builder:'Bun.build({entrypoints:[out+\'/bridge-entry.ts\'],target:\'browser\',format:\'iife\',minify:true,write:false,metafile:true})',inputs},null,2)+'\n');
 console.log(JSON.stringify({bundleBytes:js.size,bundleSha256:h(jsBytes),metafileSha256:h(await readFile(out+'/metafile.json')),entrySha256:h(await readFile(out+'/bridge-entry.ts')),buildScriptSha256:h(await readFile(out+'/build-bridge.ts')),inputCount:inputs.length},null,2));
