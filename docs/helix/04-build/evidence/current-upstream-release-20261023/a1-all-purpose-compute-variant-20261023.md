@@ -6,13 +6,21 @@ ddx:
   status: draft
   authoring:
     home: repo
+  links:
+    - id: ashlar.evidence.managed-a1-authenticated-discovery-20261023
+      kind: informed_by
+    - id: ashlar.evidence.managed-a1-correctness-trial-constraints-20261023
+      kind: informed_by
+    - id: TD-009
+      kind: informed_by
 ---
 
 # A1 all-purpose compute variant evidence
 
 ## Observation
 
-Sol verified authenticated Personal Compute policy `001654FA4AA08D1A`: fixed
+The [authenticated discovery](managed-a1-authenticated-discovery-20261023.md)
+verified Personal Compute policy `001654FA4AA08D1A`: fixed
 all-purpose compute, Standard engine, zero workers, D4ds_v5 allowed, and runtime
 unrestricted. This establishes policy admission only; it does not establish that
 the A1 workload can be created or run under it.
@@ -43,4 +51,5 @@ on the same cluster still require a stale-state test and a retained source holde
 This note does not establish execution or authorize launch.
 
 An all-purpose option needs separate reviewed design and cost admission, including
-explicit termination controls. TD-009's Jobs proposal remains unchanged.
+explicit termination controls. The [A1 constraints](managed-a1-correctness-trial-constraints.md)
+and TD-009's Jobs proposal remain unchanged.
