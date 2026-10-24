@@ -41,8 +41,9 @@ exact maintenance build.
 
 An effective catalog-grant response for the authenticated principal included
 `CREATE_SCHEMA` and `USE_CATALOG` through `db-aidev-users`, plus other catalog
-privileges. Principal group resolution, schema ownership and authority to drop
-the trial schema or its objects remain unconfirmed. No clusters were listed.
+privileges; membership in `db-aidev-users` was confirmed. Schema ownership and
+authority to drop the trial schema or its objects remain unconfirmed. No
+clusters were listed.
 The only running SQL endpoint was the shared data-gateway; the older UMF
 qualification warehouse was stopped. No dedicated Ashlar SQL endpoint was
 available in this discovery.
@@ -51,9 +52,11 @@ available in this discovery.
 
 This discovery does not admit execution. Actual R03 Truss migration/resume,
 genesis publication, verification, ACK and seed readback remain prerequisites.
-TD-009 remains a proposed, unimplemented managed Spark verifier. The external
-source/read/pin holder and ACK custody interval is not established. The
-advertised runtime has no native Ashlar/Weft/UMF or managed Delta qualification;
+TD-009's offline, non-authoritative Spark reopen and bounded source-prefix
+comparison slices are implemented and covered by fake-session tests. No native
+managed Spark/Delta execution has run. Managed A1 campaign integration and the
+external live source/read/pin holder and ACK custody interval remain missing.
+The advertised runtime has no native Ashlar/Weft/UMF or managed Delta qualification;
 the exact runtime build, access mode at execution, realized table protocol and
 features still require bounded native admission. Current account billing,
 DBU consumption, billing increments and a conservative total cost bound remain
