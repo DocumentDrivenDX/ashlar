@@ -245,6 +245,9 @@ source authority, review the matching Ashlar holder and independent verifier,
 then select and cost an actual dedicated compute path before A1. Neither the
 documented all-purpose option nor the existing serverless entrypoint is an
 authorized fallback for the other.
+The [A1 live-port review](evidence/source-holder-a1-live-port-gap-20261024.md)
+also identifies the managed-read and native-pin renewal and retained-file
+authority still needed before an ACK-capable holder can be wired.
 
 Run the small canonical persisted-carrier GraphFrames action once after the
 generator/source/oracle correspondence, selected runtime and JARs, bounded
