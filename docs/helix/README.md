@@ -38,12 +38,12 @@ The current Truss pin is 0.0.50. Its official wheel, `RECORD`, `[local,native]`
 dependency resolution, and feed/receipt/migration import surfaces pass focused
 checks with current UMF core 0.10.1/access 0.1.0.dev7, Weft 0.4.53, and psycopg
 3.3.6. Versioned .50 source admission and feed-binding checks pass. The
-selected-source R14 packet is now preflight-ready, while native execution
-remains held pending exact owner approval. No .50 migration,
+reviewed current-source R15 packet supersedes R14 and is preflight-ready;
+native execution remains held pending exact owner approval. No .50 migration,
 source/feed/publication/ACK, or native action is qualified
 ([.50 package qualification](04-build/evidence/current-upstream-release-20261024/truss050-package-cohort-qualification-20261024/README.md),
 [source admission](04-build/evidence/current-upstream-release-20261024/truss050-source-admission-20261024/README.md),
-[R14 selected-source preflight](04-build/evidence/current-upstream-release-20261024/truss050-r14-selected-source-lifecycle-20261024/README.md)).
+[R15 selected-source preflight](04-build/evidence/current-upstream-release-20261024/truss050-r15-selected-source-lifecycle-20261024/README.md)).
 
 Local Spark 4.2.0/Delta 4.4.1 candidate checks include bounded Weft query and
 SDK paging; a separate native one-table Delta check accepted a candidate DDL
@@ -59,6 +59,8 @@ local `.3` evidence only: it does not qualify `.4-xxhash64`, protected ACK,
 cloud execution, or production source custody
 ([prepublication result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md),
 [continuation result](04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/native-continuation-result-427287c7f6564985b1a947bea049158a.json)).
+A separate local `.4-xxhash64` run completed six-role initialization only; no
+publication, query, or ACK was exercised ([initialization evidence](04-build/evidence/current-upstream-release-20261024/configured-local-delta4-init-20261024/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 A bounded probe confirmed create/read/delete authority for one empty owned
 schema under `client_dev`; that schema was deleted and verified absent. Managed
