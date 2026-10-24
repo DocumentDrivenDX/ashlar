@@ -8,7 +8,16 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[5]
-PROPOSAL = json.loads((HERE / "refresh-proposal.json").read_text())
+def reject_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+PROPOSAL = json.loads((HERE / "refresh-proposal.json").read_text(), object_pairs_hook=reject_duplicate_keys)
 OLD_PREPARATION = HERE.parent / "truss049-r5-readiness-20261023" / "preparation.json"
 OLD = json.loads(OLD_PREPARATION.read_text())
 
