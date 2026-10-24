@@ -1,0 +1,58 @@
+{
+  "profile": "ashlar-r02-continuation-attempt-refusal/0.1",
+  "attemptId": "b17a7a9c1e2741e79312177092f6df8e",
+  "manifestSha256": "70e4b0bfe0ba310feb2f45c032506edd1d84c896448e506208806425cdba4bc9",
+  "sourceRevision": "26e66bc5524d6455940ea5c88d49a3e5d7bbce9f",
+  "workerLogSha256": "56aa80c97ff2f397f7f6d0013a20046297ad63028db89cd67d5edb26430749e3",
+  "supervisorStateSha256": "16e03caf81cff800c813f6f9a2de61ea7522abb008e9abff2f5e4e4494da86e9",
+  "preSqlManifestSha256": "5cf2b97af6ef96f4269be2c3124e995011e9a9a26d81b04329ebd97f1bb4d605",
+  "preSqlReviewSha256": "6a1ded5118f78542c3cca5e34692f57f1873c96a236df150d1d89b9ba84221d7",
+  "postPage1ManifestSha256": "dfa4f271f4e0b4236b664f71b9335979c6d995c1c13bdc18db7231c054d9b80d",
+  "consumed": true,
+  "timing": {
+    "supervisorRunningStateWritten": "2026-10-24T06:11:04-0400",
+    "preSqlManifestWritten": "2026-10-24T06:12:25-0400",
+    "preSqlReviewWritten": "2026-10-24T06:13:06-0400",
+    "postPage1ManifestWritten": "2026-10-24T06:14:29-0400",
+    "workerFailureLogged": "2026-10-24T06:15:21-0400",
+    "priorReviewDeadlineMonotonic": 582169.8966,
+    "priorWorkerReviewLimitSeconds": 230,
+    "priorWorkerProcessLimitSeconds": 270,
+    "priorSupervisorProcessLimitSeconds": 300
+  },
+  "stageOne": {
+    "completedInProcess": true,
+    "checkedOperations": [
+      "singleton against the source-derived record",
+      "Backend03 original grouped query against the source oracle",
+      "Backend03 positive grouped query against the source oracle",
+      "Backend02 page 1 against the source oracle and continuation token"
+    ],
+    "durableNativeResultValues": false,
+    "basis": "The post-page1 manifest is written only after the pre-SQL gate callback completes all four ordered operations and validates their values. This attempt did not persist a successful continuation result, so these observations do not establish a durable native result or qualification."
+  },
+  "failure": {
+    "reportedType": "builtins.PermissionError",
+    "callPath": [
+      "r02_live_alias_gate.py:156 review receipt/deadline refusal",
+      "configured_sdk_pages.py:390 stage-2 continuation gate wait",
+      "configured_sdk_pages.py:518 Backend02 page-2 orchestration"
+    ],
+    "cause": "No Sol review receipt arrived before the post-page1 gate deadline. The post-page1 manifest was durably written and the worker later reported the gate timeout. Sol withheld the receipt after the stage-2 review window had elapsed."
+  },
+  "supervisorClose": {
+    "workerExitedNonzero": true,
+    "processGroupClosureProven": true,
+    "permissionError": false,
+    "laterProcessInspection": "No live R02 or Spark processes remained",
+    "supervisorState": "Remained at running; this supervisor revision did not write a terminal failed-closed state for a nonzero worker exit."
+  },
+  "notReached": [
+    "post-page1 review receipt",
+    "Backend02 page 2 SQL",
+    "complete continuation result"
+  ],
+  "publicationChanged": false,
+  "protectedAck": false,
+  "nativeRetryAuthorized": false
+}

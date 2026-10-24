@@ -475,10 +475,11 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         from .configured_local_runtime_profile import verify_loaded_delta_class
         verify_loaded_delta_class(spark,[Path(p)for p in jars])
         _require(time.monotonic()<deadline)
-    deadline,gate_budget=_r02_review_deadline(runtime)
+    deadline,_=_r02_review_deadline(runtime)
     review_gate=gate_module.R02LiveAliasReviewGate(selection.attempt_root,attempt_id=selection.attempt_id,
         stage='pre-sql',source_revision=selection.source_revision,spark_application_id=aliases.application_id,
-        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,deadline_seconds=gate_budget)
+        vector=vector,aliases=aliases_by_role,runtime=runtime,live_check=live_check,
+        deadline_monotonic=deadline)
     expected_grouped_rows=group_rows;expected_page1_after=page1_after;expected_page2_rows=page2_rows
     capture=query.capture;decoder=PathDecodeConfig(query.capture.maximum_cell_bytes)
     singleton_operation=lambda:scope.singleton(type_id,entity_id)
@@ -513,7 +514,8 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         page1_holder['page']=page
         return {'continuationAfter':expected_page1_after}
     review_gate.execute_after_review(review_gate.root/'pre-sql-review.json',stage_one)
-    review_gate.next_stage_after_page1()
+    stage2_deadline,_=_r02_review_deadline(runtime,stage='post-page1')
+    review_gate.next_stage_after_page1(deadline_monotonic=stage2_deadline)
     page1=page1_holder['page']
     page2=session.page(after=page1.next_after)
     observed=[[item.person_key,item.person_name]for item in page2.items]
@@ -524,11 +526,21 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
         'vector':dict(scope.vector.targets),'aliases':dict(aliases),'scopeKind':'ashlar-delta/0.3'}
 
 
-def _r02_review_deadline(runtime,*,now=None):
-    """Use the worker's absolute deadline and reserve at least 40s for close."""
+def _r02_review_deadline(runtime,*,stage='pre-sql',now=None):
+    """Return the stage-specific review deadline under the worker close budget."""
     now=time.monotonic() if now is None else now
-    review_deadline=runtime.get('reviewDeadlineMonotonic');process_deadline=runtime.get('wholeProcessDeadlineMonotonic')
-    _require(type(review_deadline)is float and type(process_deadline)is float
-        and type(now)is float and now<review_deadline<=process_deadline
-        and process_deadline-review_deadline>=40 and review_deadline-now<=230)
-    return review_deadline,max(1,int(review_deadline-now))
+    deadline_key={'pre-sql':'preSqlReviewDeadlineMonotonic','post-page1':'postPage1ReviewDeadlineMonotonic'}.get(stage)
+    _require(deadline_key is not None)
+    review_deadline=runtime.get(deadline_key);process_deadline=runtime.get('wholeProcessDeadlineMonotonic')
+    post_deadline=runtime.get('postPage1ReviewDeadlineMonotonic')
+    _require(type(review_deadline)is float and type(process_deadline)is float and type(post_deadline)is float
+        and type(now)is float and now<review_deadline<=process_deadline-40)
+    if stage=='pre-sql':
+        _require(review_deadline-now<=155 and post_deadline-review_deadline>=100
+            and post_deadline<=process_deadline-80)
+        stage_deadline=review_deadline
+    else:
+        _require(review_deadline<=process_deadline-80)
+        stage_deadline=min(review_deadline,now+90)
+    _require(now<stage_deadline)
+    return stage_deadline,max(1,int(stage_deadline-now))

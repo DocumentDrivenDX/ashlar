@@ -108,13 +108,21 @@ class Tests(unittest.TestCase):
             run.assert_not_called()
 
     def test_r02_gate_deadline_is_bounded_by_worker_deadline_with_close_slack(self):
-        deadline,budget=_r02_review_deadline({'reviewDeadlineMonotonic':230.0,
-            'wholeProcessDeadlineMonotonic':270.0},now=0.0)
-        self.assertEqual((deadline,budget),(230.0,230))
+        runtime={'preSqlReviewDeadlineMonotonic':155.0,'postPage1ReviewDeadlineMonotonic':330.0,
+            'wholeProcessDeadlineMonotonic':410.0}
+        deadline,budget=_r02_review_deadline(runtime,now=0.0)
+        self.assertEqual((deadline,budget),(155.0,155))
+        deadline,budget=_r02_review_deadline(runtime,stage='post-page1',now=205.0)
+        self.assertEqual((deadline,budget),(295.0,90))
+        deadline,budget=_r02_review_deadline(runtime,stage='post-page1',now=250.0)
+        self.assertEqual((deadline,budget),(330.0,80))
         for invalid in (
-            {'reviewDeadlineMonotonic':240.0,'wholeProcessDeadlineMonotonic':270.0},
-            {'reviewDeadlineMonotonic':230.0,'wholeProcessDeadlineMonotonic':269.0},
-            {'reviewDeadlineMonotonic':230,'wholeProcessDeadlineMonotonic':270.0},
+            ({**runtime,'preSqlReviewDeadlineMonotonic':160.0},'pre-sql',0.0),
+            ({**runtime,'preSqlReviewDeadlineMonotonic':240.0},'pre-sql',0.0),
+            ({**runtime,'postPage1ReviewDeadlineMonotonic':370.0},'post-page1',205.0),
+            ({**runtime,'postPage1ReviewDeadlineMonotonic':330},'post-page1',205.0),
+            ({**runtime,'postPage1ReviewDeadlineMonotonic':330.0},'post-page1',330.0),
         ):
+            invalid_runtime,stage,now=invalid
             with self.subTest(invalid=invalid),self.assertRaises(ValueError):
-                _r02_review_deadline(invalid,now=0.0)
+                _r02_review_deadline(invalid_runtime,stage=stage,now=now)

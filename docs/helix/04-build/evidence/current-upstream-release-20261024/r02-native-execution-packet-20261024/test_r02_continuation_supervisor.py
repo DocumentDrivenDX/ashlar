@@ -22,6 +22,26 @@ WORKER_SPEC.loader.exec_module(worker)
 
 
 class ContinuationPacketTests(unittest.TestCase):
+    def test_nonzero_worker_writes_terminal_state_only_after_group_close_proof(self):
+        with tempfile.TemporaryDirectory(prefix="ashlar-r02-failed-close-", dir="/private/tmp") as tmp:
+            attempt=Path(tmp);manifest_path=attempt/"continuation-manifest.json"
+            manifest_path.write_bytes(b'{"attemptId":"' + b'a'*32 + b'"}\n')
+            log=attempt/"worker.log";log.write_bytes(b"safe bounded diagnostic\n")
+            stage=attempt/"post-page1-manifest.json";stage.write_bytes(b"held manifest")
+            state=attempt/"supervisor-state.json";state.write_bytes(b'{"status":"running"}\n')
+            manifest={"attemptId":"a"*32}
+            with self.assertRaisesRegex(RuntimeError,"without process-group proof"):
+                supervisor._write_failed_closed_state(attempt,state,manifest,2,100.0,
+                    process_group_closed=False)
+            supervisor._write_failed_closed_state(attempt,state,manifest,2,100.0,
+                process_group_closed=True)
+            result=json.loads(state.read_bytes())
+            self.assertEqual(result["status"],"failed-closed")
+            self.assertEqual(result["workerExit"],2)
+            self.assertTrue(result["processGroupClosed"])
+            self.assertEqual(result["completedArtifactSha256"],
+                {"post-page1-manifest.json":supervisor.digest(stage)})
+
     def test_stop_group_skips_signals_only_after_empty_independent_inventory(self):
         process = type("Process", (), {"pid": 4242})()
         with patch.object(supervisor, "_process_group_members", return_value=[]), \

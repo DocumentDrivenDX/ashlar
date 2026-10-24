@@ -19,8 +19,11 @@ that actually creates and reads `.4` tables; do not execute this packet as a
 One attempt, five serial configured-local CLI invocations, each opening and closing its own Spark session (actual runtime per invocation: `local[1]`, 512m driver), macOS arm64 / CPython 3.12,
 Spark 4.2.0, Delta 4.4.1, and JDK 21. Public UMF core 0.10.1 source validation/producer selection was verified separately, with model semantics fixed at 0.10.0. Reuse the exact R05 Spark/Delta runtime
 JAR bytes listed below and record their byte hashes in the runtime admission
-receipt before initialization. The supervisor packet planned a 2 GiB driver ceiling, while the configured runtime actually enforced 512 MiB; total wall time
-is 300 seconds from the first runtime invocation; the private attempt root is
+receipt before initialization. The earlier prepublication supervisor planned a
+2 GiB driver ceiling, while the configured runtime actually enforced 512 MiB.
+For this separate continuation, the supervisor wall-time cap is 450 seconds
+from process spawn and the worker hard deadline is 410 seconds from worker
+start; the private attempt root is
 capped at 512 MiB and retained receipts at 16 MiB total, with each individual
 request/response or command receipt capped at 1 MiB. Stop on the
 first refusal, timeout, mismatch, hash drift, or failed closing check. Do not
@@ -276,11 +279,14 @@ source schemas, selected Weft cohort, and exact supervisor argv. The generated
 attempt-local manifest and rebuilt index are effect-free. The run command is
 single-use and requires a separate Sol receipt over the exact manifest, prior
 state/vector, runtime, and packet file hashes. It refuses competing Java/Spark
-processes, enforces a 300-second whole-process deadline, 512 MiB private tree,
+processes, enforces a 450-second whole-process deadline, 512 MiB private tree,
 16 MiB retained receipts and 1 MiB output cap, and records consumed state so a
-failed attempt cannot be silently repeated. The worker's live review deadline
-is 230 seconds from worker start, leaving at least 40 seconds for orderly
-operation/close and additional supervisor slack.
+failed attempt cannot be silently repeated. The continuation budget was revised
+from the observed b17 timeline: the worker's absolute deadline is 410 seconds,
+the pre-SQL review deadline is 155 seconds, and the post-page-1 review may use
+up to 90 seconds but must end by worker-start plus 330 seconds. This leaves at
+least 80 seconds between the post-page-1 deadline and worker deadline, plus 40
+seconds for supervisor cleanup. The storage and output caps are unchanged.
 
 The approved one-shot attempt `0b4774f5fb2c43bbb026da651aecd155` completed all
 five `.3` prepublication steps and closed as `complete-held-after-publication`;
@@ -332,6 +338,8 @@ also reported `Operation not permitted` while stopping/checking the process
 group after worker exit; later process inspection found no live R02 or Spark
 processes, although the supervisor did not persist a terminal closed state.
 This attempt is consumed and is not retried.
+
+The subsequent attempt, [`attempt-refusal-b17a7a9c1e2741e79312177092f6df8e.json`](attempt-refusal-b17a7a9c1e2741e79312177092f6df8e.json), reached and completed the pre-SQL stage, then wrote a post-page-1 manifest. By the stage-gate control flow, the singleton, both Backend03 grouped checks (including the positive multiplicity case), and Backend02 page 1 returned values accepted by their in-process source-oracle checks. Those values were not persisted as a completed result, so the receipt records them only as bounded attempt observations. The stage-2 review deadline expired without a Sol receipt; the worker refused before Backend02 page-2 SQL. The prior worker review deadline was monotonic `582169.8966` (`worker_started + 230s`), while post-page-1 artifacts were written near the end of that interval and the worker logged refusal afterward. The attempt closed its process group without an EPERM and later process inspection found no R02/Spark processes, but the old supervisor left its state at `running`. The current packet gives stage 2 its own bounded review window and writes a durable `failed-closed` state after a nonzero worker exit only when process-group closure is proven. The one-shot limit is 450 seconds; the 512 MiB private tree, 16 MiB retained receipt, and 1 MiB command-output caps remain unchanged. No page-2 result, completed continuation, publication mutation, or protected ACK is claimed.
 
 ## Focused preflight outcome and open evidence
 
