@@ -20,6 +20,33 @@ WORKER_SPEC.loader.exec_module(worker)
 
 
 class ContinuationPacketTests(unittest.TestCase):
+    def test_live_page_models_meet_reviewed_read_requirements(self):
+        from pydantic import BaseModel, create_model
+        from umf_access.engine_catalog import EngineRead
+        from umf_access.reviewed import ReadBuildError, _fields
+
+        unreviewed = create_model("UnreviewedPageParameters", __base__=BaseModel)
+        with self.assertRaisesRegex(ReadBuildError, "strict and forbid extra fields"):
+            EngineRead.from_original('{"version":"weft.engine-page/0.1","status":"compiled"}',
+                parameters=unreviewed, result=unreviewed)
+        parameters, result = worker.make_query_models()
+        self.assertEqual((parameters.model_config.get("extra"), parameters.model_config.get("strict")),
+                         ("forbid", True))
+        self.assertEqual((result.model_config.get("extra"), result.model_config.get("strict")),
+                         ("forbid", True))
+        self.assertEqual(_fields(parameters), [])
+        self.assertEqual([item["name"] for item in _fields(result, parameter=False, allow_related=True)],
+                         ["person_key", "person_name"])
+
+    def test_refusal_location_omits_exception_message(self):
+        try:
+            raise ValueError("private payload must not be logged")
+        except ValueError as exc:
+            summary = worker.refusal_location(exc)
+        self.assertIn("ValueError", summary)
+        self.assertRegex(summary, r"test_r02_continuation_supervisor\.py:\d+$")
+        self.assertNotIn("private payload", summary)
+
     def test_prior_invocation_bytes_are_checked_before_json_use(self):
         with tempfile.TemporaryDirectory(prefix="ashlar-r02-invocation-", dir="/private/tmp") as tmp:
             path = Path(tmp) / "invocation.json"

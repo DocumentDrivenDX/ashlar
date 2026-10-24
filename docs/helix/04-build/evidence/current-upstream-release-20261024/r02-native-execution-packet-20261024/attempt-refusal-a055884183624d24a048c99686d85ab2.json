@@ -1,0 +1,44 @@
+{
+  "profile": "ashlar-r02-continuation-attempt-refusal/0.1",
+  "attemptId": "a055884183624d24a048c99686d85ab2",
+  "manifestSha256": "88cfce21beefc60d19f945ca9da45ac69a5e3cb9cf144f31ff7995a71ec19762",
+  "supervisorExitCode": 2,
+  "consumed": true,
+  "supervisorState": "running",
+  "workerLogSha256": "f8a48d9da7fa1099d0292133de886aa30d89af30b116c8033bfb5a3171675a86",
+  "sourceAdmission": {
+    "reportSha256": "e63a909db99e080fc83d03629a891e6ed602c955ecb69abb0a9b7a43ee8de1c3",
+    "admitted": true,
+    "published": false,
+    "acknowledged": false
+  },
+  "failure": {
+    "reportedType": "ReadBuildError",
+    "cause": "ConfiguredSdk053LiveSession.__init__ passed worker-created default Pydantic models to EngineRead.from_original. The pinned umf_access reviewed-read builder requires model_config.extra='forbid' and model_config.strict is True; the default empty parameter model had extra='ignore' and strict=False.",
+    "callPath": [
+      "src/ashlar_host/configured_sdk_pages.py:281 ConfiguredSdk053LiveSession.__init__ calls EngineRead.from_original",
+      "umf_access/engine_catalog.py:460 from_original calls _fields(parameters)",
+      "umf_access/reviewed.py:280-286 _fields rejects non-strict or extra-allowing models"
+    ],
+    "offlineReproduction": {
+      "distribution": "umf_access 0.1.0.dev7",
+      "engineCatalogSha256": "b79e8b42fddb9380643adcb2b05a09d6e16032b92b7f9c4835d7af48c537bb61",
+      "reviewedSha256": "175526a3af2a9634e218355a6035181a3b21518f56f98118ee96a991a9133a84",
+      "observedMessage": "reviewed read models must be strict and forbid extra fields"
+    }
+  },
+  "stoppedBefore": [
+    "pre-sql-manifest",
+    "pre-sql-review receipt",
+    "any scope.singleton or native query callback",
+    "continuation-result"
+  ],
+  "noQuerySql": {
+    "basis": "The exception occurs while constructing EngineRead, before the worker can freeze the pre-sql manifest. The only singleton and SQL execution paths are callbacks inside R02LiveAliasReviewGate.execute_after_review, which was not reached.",
+    "gateFilesPresent": false,
+    "protectedAck": false,
+    "publicationChanged": false
+  },
+  "nextChange": "Build the R02 page parameter and result models with strict=True and extra='forbid'; retain exception module/type and innermost file:line in bounded worker diagnostics without logging exception messages or values.",
+  "nativeRetryAuthorized": false
+}

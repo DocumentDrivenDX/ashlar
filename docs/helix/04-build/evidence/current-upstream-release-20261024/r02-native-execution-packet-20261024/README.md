@@ -280,7 +280,8 @@ five `.3` prepublication steps and closed as `complete-held-after-publication`;
 its durable result is linked above. The selected .53 continuation packet is a
 separate local `.3` read/query slice against that preserved vector. It makes
 no `.4-xxhash64`, Truss, production source, protected ACK, Unity Catalog, or
-cloud execution claim. No continuation native/SQL attempt has been made.
+cloud execution claim. The continuation attempt below reached Spark startup but
+executed no query SQL.
 
 The inert phase/refusal tests and focused invocation/vector checks run with:
 
@@ -289,11 +290,22 @@ python3 -m unittest discover -s docs/helix/04-build/evidence/current-upstream-re
 ```
 
 The prepublication has completed, so the continuation packet can bind its
-actual vector effect-free. Compiler artifacts are generated only inside the
-held live scope and reviewed before each dependent SQL stage. A worker run is
-still held for Sol's review of the exact generated manifest and the separate
-two stage receipts; packet preparation itself invoked no Spark, Java, SQL,
-cloud, source, or ACK effects.
+actual vector effect-free. The first Sol-reviewed continuation attempt,
+[`attempt-refusal-a055884183624d24a048c99686d85ab2.json`](attempt-refusal-a055884183624d24a048c99686d85ab2.json),
+started Spark and passed local source admission, then stopped while constructing
+the typed page catalog: the worker's default Pydantic models did not satisfy
+the pinned UMF reviewed-read requirement (`strict=True`, `extra='forbid'`).
+It failed before writing the pre-SQL artifact manifest or receiving a gate
+receipt. The exception was raised before the gate-owned singleton and SQL
+callbacks; no query SQL, continuation result, publication mutation, or protected
+ACK occurred. The attempt is consumed and will not be retried. The worker now
+constructs strict/forbid models and emits bounded exception type/location
+diagnostics without exception messages or values. Any next attempt requires
+fresh source/runtime binding and independent review of its exact manifest.
+
+The compiler artifacts for a future attempt must be generated only inside the
+held live scope and reviewed before each dependent SQL stage. Packet preparation
+is effect-free; the failed native worker attempt is recorded separately above.
 
 ## Focused preflight outcome and open evidence
 

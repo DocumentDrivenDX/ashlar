@@ -38,6 +38,24 @@ def read_pinned_json(path: Path, expected_sha256: str) -> dict:
     return value
 
 
+def make_query_models():
+    from pydantic import BaseModel, ConfigDict, create_model
+    config = ConfigDict(extra="forbid", strict=True)
+    parameters = create_model("R02PageParameters", __base__=BaseModel, __config__=config)
+    result = create_model("R02PageResult", __base__=BaseModel, __config__=config,
+        person_key=(str, ...), person_name=(str, ...))
+    return parameters, result
+
+
+def refusal_location(exc: BaseException) -> str:
+    """Report only exception type and innermost source location, never payloads."""
+    frame = exc.__traceback__
+    while frame is not None and frame.tb_next is not None:
+        frame = frame.tb_next
+    source = f"{Path(frame.tb_frame.f_code.co_filename).name}:{frame.tb_lineno}" if frame else "unknown:0"
+    return f"{type(exc).__module__}.{type(exc).__name__} at {source}"
+
+
 def run(manifest_path: Path, repository: Path) -> None:
     manifest = json.loads(manifest_path.read_bytes())
     attempt = manifest_path.parent.resolve(strict=True)
@@ -54,7 +72,6 @@ def run(manifest_path: Path, repository: Path) -> None:
         raise ValueError("R02 worker bytes differ from packet")
     sys.path.insert(0, str(repository / "src"))
     from dataclasses import replace
-    from pydantic import BaseModel, create_model
     from ashlar.weft_053_distribution import Weft053Distribution, Weft053Paths
     from ashlar_host.configured_local_cli import parse_configured_local
     from ashlar_host.configured_local_runtime import run_configured_local_r02_weft053
@@ -81,8 +98,7 @@ def run(manifest_path: Path, repository: Path) -> None:
     invocation = parse_configured_local(canonical(template))
     compiler = Weft053Distribution(Weft053Paths(Path(manifest["runtime"]["weftIndex"]),
         manifest["runtime"]["weftIndexSha256"]))
-    parameters_type = create_model("R02PageParameters", __base__=BaseModel)
-    result_type = create_model("R02PageResult", person_key=(str, ...), person_name=(str, ...))
+    parameters_type, result_type = make_query_models()
     query = ConfiguredSdkPagesConfig(compiler,
         "SELECT p.person_key,p.person_name FROM Person p", parameters_type, result_type,
         parameters_type(), 2, 1000, 120, PathCaptureConfig(1000, 65536, 1048576))
@@ -130,7 +146,7 @@ def main() -> int:
     try:
         run(args.manifest, args.repo)
     except Exception as exc:
-        print(f"R02 live-alias worker refused: {type(exc).__name__}", file=sys.stderr)
+        print(f"R02 live-alias worker refused: {refusal_location(exc)}", file=sys.stderr)
         return 2
     return 0
 
