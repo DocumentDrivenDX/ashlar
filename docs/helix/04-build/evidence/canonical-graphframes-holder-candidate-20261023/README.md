@@ -64,12 +64,12 @@ That offline follow-up did not materialize tables or start Spark or GraphFrames.
 The final action descriptor is separately bound to its reviewed
 manifest anchor. The distinct hash-pinned native supervisor and worker have
 passed independent review as inert preparation, documented in
-[native-supervisor](native-supervisor/review-packet.md). Execution remains
-disabled because exact runtime paths are unset; a fresh exclusive-slot check
-and separate user authorization are also required. The invocation packet keeps
-its pending status and cannot admit a run until it is immutably re-frozen with
-review status and the exact runtime/accounting inputs. No wrapper authorization
-is implied by the action anchor; no native attempt was run under this packet.
+[native-supervisor](native-supervisor/review-packet.md). R11 now has current
+offline focused-test and static admission evidence in the
+[curated admission receipt](r11-current-offline-admission-20261023.md); a fresh
+read-only slot check and separate user authorization are still required before
+its one bounded native attempt. No wrapper authorization is implied by the
+action anchor.
 
 A distinct R05 five-node/four-edge local execution packet is prepared under
 [`r05-native-action-r1`](r05-native-action-r1/README.md). Its worker uses the
@@ -78,10 +78,10 @@ supervisor validates the 5/4 persisted witnesses and three-row seed bag. The
 packet is fail-closed: R05-specific owned-table cleanup is not implemented or
 qualified, runtime executable/JAR paths are unset, and no wrapper review or
 one-attempt authorization exists. No Spark or GraphFrames process was started
-for that R1 packet. Later R05 attempts are retained locally in the untracked
-R10/R11 attempt folders pending curated admission: R10 consumed one authorized
-attempt, materialized both private Delta tables, and stopped at GraphFrame
-construction with missing `VertexRDD`; R11 passed 10/10 focused offline tests
-and exact packet/authorization static admission after inventory recovery, but
-has no native attempt. R11's offline admission does not resolve R10's classpath
-failure or establish action success.
+for that R1 packet. Later R05 attempts are retained locally in untracked
+folders: R10 consumed one authorized attempt, materialized both private Delta
+tables, and stopped at GraphFrame construction with missing `VertexRDD`; R11
+passed current offline admission after inventory recovery, but has no native
+attempt. The curated [R11 receipt](r11-current-offline-admission-20261023.md)
+records its current limits and hashes. Offline admission does not establish
+action success.
