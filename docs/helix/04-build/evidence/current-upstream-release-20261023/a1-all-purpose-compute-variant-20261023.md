@@ -31,6 +31,9 @@ all-purpose compute, while warning that this is not recommended for production
 task support and production guidance). Classic all-purpose compute is billed
 differently, with auto-termination tied to inactivity
 ([classic jobs](https://learn.microsoft.com/en-us/azure/databricks/jobs/run-classic-jobs)).
+The [billing usage table](https://learn.microsoft.com/en-us/azure/databricks/administration-guide/system-tables/billing)
+does not populate `job_id` for jobs on all-purpose compute, so a bounded pilot
+would need cost attribution to its dedicated owned cluster and runtime interval.
 
 The existing [Central US retail observation](managed-fixed-jobs-retail-observation.json)
 records $0.255 per D4ds_v5 VM-hour. The Azure Retail Prices API observation for
