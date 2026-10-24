@@ -116,8 +116,23 @@ class ContinuationPacketTests(unittest.TestCase):
             self.assertEqual(manifest["sourceRevision"], supervisor.RUNTIME_SOURCE_REVISION)
             self.assertEqual(manifest["priorPublication"]["sourceRevision"],
                              "5298af9dd82c84e4929c0d7a3e286206f5037612")
-            self.assertEqual(manifest["priorPublication"]["vectorSha256"],
+            prior = manifest["priorPublication"]
+            self.assertEqual(prior["finalVectorSha256"],
                              "78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb")
+            final_tables = {item["name"][-1]:item for item in prior["finalVector"]["tables"]}
+            self.assertEqual(final_tables["whole_source_history"]["version"], 4)
+            self.assertEqual(prior["ordinal1Vector"]["publicationId"],
+                "local-configured-jsonl-a5585b164b64b6747dd9d39895337c28642fcbef3f29693cf3326d531b581dc4")
+            self.assertEqual(prior["ordinal1Vector"]["tables"], {
+                "edge_current": {"uuid":"89024b00-1fb8-4620-9788-c321e0da468f","version":2},
+                "object_current": {"uuid":"f9693b71-b1f3-407e-8f3c-e22f19ab8675","version":2},
+                "tombstone": {"uuid":"24498b38-cac0-49a7-a66e-fc6903ab321c","version":1},
+                "whole_source_history": {"uuid":"0cbcd687-12ca-4129-a9ef-bd35f35c71e1","version":2}})
+            self.assertNotEqual(prior["ordinal1VectorSha256"], prior["finalVectorSha256"])
+            self.assertEqual(prior["ordinal1Evidence"]["receipts/batch-1-result.json"],
+                             "a0628785d2ffe53eda9f372e937d39c62d2047e2b71685cf180a4edf4ea160d4")
+            self.assertIn("installation/object_current/_delta_log/00000000000000000000.json",
+                          prior["ordinal1Evidence"])
             self.assertEqual(manifest["runtime"]["weftIndexSourceSha256"], supervisor.INDEX_SHA256)
             self.assertEqual(supervisor.digest(Path(manifest["runtime"]["weftIndex"])),
                              manifest["runtime"]["weftIndexSha256"])
@@ -148,7 +163,8 @@ class ContinuationPacketTests(unittest.TestCase):
                 "reviewer": "Sol", "attemptId": manifest["attemptId"],
                 "manifestSha256": supervisor.digest(path), "sourceRevision": manifest["sourceRevision"],
                 "priorStateSha256": manifest["priorPublication"]["stateSha256"],
-                "publicationVectorSha256": manifest["priorPublication"]["vectorSha256"],
+                "publicationVectorSha256": manifest["priorPublication"]["ordinal1VectorSha256"],
+                "finalPublicationVectorSha256": manifest["priorPublication"]["finalVectorSha256"],
                 "runtimeSha256": supervisor.sha(supervisor.canonical(manifest["runtime"])),
                 "packetFilesSha256": supervisor.sha(supervisor.canonical(manifest["packetFiles"]))}
             review = path.parent / "supervisor-review.json"

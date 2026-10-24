@@ -3,27 +3,34 @@
   "attemptId": "ebf8bd8f1dfc446fb827779c81beb20c",
   "manifestSha256": "586f0945e2b7df976d9ee81cb81bb6a85555df31a672877c45cb6008aa8c65ad",
   "sourceRevision": "842551f96491d361040d6312da20750b65b3571b",
-  "supervisorExitCode": 2,
   "consumed": true,
-  "preSqlManifestSha256": "f61e49081f51943e0c6353f4be8d20095585308b1c259e81366adc8164c3c0a8",
+  "supervisorState": {
+    "statusAtTermination": "running",
+    "sha256": "69130fa7115228753ad229ef047c5bc328cdb1cd084eda6c14ec08e2379c2cc4"
+  },
+  "consumedLedgerSha256": "fafcec3f5ed9d88f68a17ca02c88a5e6d5ba7ee45061506e4685c98ccc6ba0e2",
   "workerLogSha256": "b31bbb3b7f9a845a01777a50afab82171b3b0a0b8254e1778ad83202c89f7b0d",
+  "preSqlManifestSha256": "f61e49081f51943e0c6353f4be8d20095585308b1c259e81366adc8164c3c0a8",
+  "supervisorReviewSha256": "b03e014daa7e3d5a53dc4aa4e079272b8437fb898c5ca9227f0fe82e5d885893",
   "failure": {
-    "cause": "The retained source state pins the final ordinal-3 publication, while the live alias scope and page oracle select ordinal 1. The publication IDs and Delta table versions differ, so the supervisor's final vector check could not close this attempt.",
-    "priorFinalPublicationId": "local-configured-jsonl-b08fb1265de623cf0afed1e3052f9234cdecf06c2a50b5f3702a9e7c8c5975c3",
-    "priorFinalVectorSha256": "78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb",
-    "liveOrdinal": 1,
-    "livePublicationId": "local-configured-jsonl-a5585b164b64b6747dd9d39895337c28642fcbef3f29693cf3326d531b581dc4",
-    "liveGateVectorSha256": "e962032e30d24e6308c9322c265bc82f30f27feb5580e3a64cd4e885b0baaede"
+    "cause": "The continuation supervisor review bound publicationVectorSha256 to the completed ordinal-3 final vector (78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb), while the held ordinal-1 live scope produced an ordinal-1 pre-SQL gate manifest (e962032e30d24e6308c9322c265bc82f30f27feb5580e3a64cd4e885b0baaede). The mismatched vector custody prevented a valid gate close.",
+    "outerPublicationVectorSha256": "78e0ca4100faf6340b2beb05a659ba7b0c06504926734bdef089e8e9f34043eb",
+    "liveOrdinal1PublicationVectorSha256": "e962032e30d24e6308c9322c265bc82f30f27feb5580e3a64cd4e885b0baaede"
   },
   "stoppedBefore": [
-    "pre-SQL review receipt",
-    "gate-owned singleton and grouped/page query callbacks",
-    "continuation result"
+    "pre-sql review receipt",
+    "gate-owned singleton or query SQL",
+    "page-2 gate and continuation result"
   ],
-  "termination": {
-    "action": "Sol withheld the pre-SQL review receipt and sent SIGTERM to exact worker process group 87847",
-    "workerProcessAbsentAfterSupervisorExit": true,
-    "supervisorMessage": "R02 live-alias worker failed or exceeded output cap"
+  "noQuerySql": {
+    "basis": "The pre-SQL manifest was held for review, but no matching pre-sql-review.json exists. The gate invokes singleton and SQL callbacks only after the exact stage review receipt is accepted.",
+    "preSqlManifestPresent": true,
+    "preSqlReviewPresent": false,
+    "postPage1ManifestPresent": false,
+    "continuationResultPresent": false,
+    "publicationChanged": false,
+    "protectedAck": false
   },
+  "termination": "Safely stopped before any query SQL; attempt consumed and not retried.",
   "nativeRetryAuthorized": false
 }

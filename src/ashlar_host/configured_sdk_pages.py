@@ -41,6 +41,16 @@ def _require_frozen_grouped_artifact(compiled,record):
         and compiled.get('responseBytes')==compiled.get('recompiledBytes'))
 
 
+def _require_r02_ordinal1_vector(live_vector,pinned_vector,pinned_sha256):
+    """Refuse before SQL unless live scope pins the retained first publication."""
+    import hashlib
+    from .delta_custody import encoded
+    _require(type(live_vector)is dict and type(pinned_vector)is dict
+        and type(pinned_sha256)is str and len(pinned_sha256)==64
+        and hashlib.sha256((encoded(pinned_vector)+'\n').encode()).hexdigest()==pinned_sha256
+        and live_vector==pinned_vector)
+
+
 def _visible_page_rows(program,carrier_rows):
     """Retain compiler carriers but compare SDK rows using visible outputs only."""
     page=program.get('page')if type(program)is dict else None
@@ -377,6 +387,13 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
     import hashlib,json
     _require(type(selection)is ConfiguredR02Weft053Selection);selection.__post_init__()
     _require(scope.context is not None and type(query.compiler).__name__=='Weft053Distribution')
+    roles=('edge_current','object_current','tombstone','whole_source_history')
+    by_role={table.rsplit('.',1)[1]:(table,pair)for table,pair in scope.vector.targets.items()}
+    _require(set(by_role)==set(roles))
+    vector={'publicationId':scope.descriptor.publication_id,'manifestUuid':scope.manifest_uuid,
+        'tables':{role:{'uuid':by_role[role][1][0],'version':by_role[role][1][1]}for role in roles}}
+    _require_r02_ordinal1_vector(vector,selection.runtime.get('ordinal1PublicationVector'),
+        selection.runtime.get('ordinal1PublicationVectorSha256'))
     oracle_path=Path(__file__).resolve().parents[2]/'docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-execution-packet-20261024/source-oracle.json'
     oracle_raw=oracle_path.read_bytes();_require(hashlib.sha256(oracle_raw).hexdigest()==selection.oracle_sha256)
     oracle=json.loads(oracle_raw);inputs=oracle['inputs'];source_metadata=scope.source.metadata(scope.context)
@@ -420,11 +437,6 @@ def run_configured_r02_weft053(scope,transport,query,aliases,selection,*,runtime
     gate_spec=importlib.util.spec_from_file_location('_ashlar_r02_live_alias_gate',gate_path)
     _require(gate_spec is not None and gate_spec.loader is not None)
     gate_module=importlib.util.module_from_spec(gate_spec);gate_spec.loader.exec_module(gate_module)
-    roles=('edge_current','object_current','tombstone','whole_source_history')
-    by_role={table.rsplit('.',1)[1]:(table,pair)for table,pair in scope.vector.targets.items()}
-    _require(set(by_role)==set(roles))
-    vector={'publicationId':scope.descriptor.publication_id,'manifestUuid':scope.manifest_uuid,
-        'tables':{role:{'uuid':by_role[role][1][0],'version':by_role[role][1][1]}for role in roles}}
     aliases_by_role={table.rsplit('.',1)[1]:aliases[table]for table in aliases}
     runtime=dict(selection.runtime)
     runtime.update({'continuationRunnerSha256':selection.runner_sha256,'liveAliasGateSha256':selection.gate_sha256,

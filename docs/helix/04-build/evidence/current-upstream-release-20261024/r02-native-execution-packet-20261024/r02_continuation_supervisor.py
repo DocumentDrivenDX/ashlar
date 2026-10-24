@@ -25,7 +25,7 @@ PACKET_RELATIVE = "docs/helix/04-build/evidence/current-upstream-release-2026102
 PREPUBLICATION_RESULT = ROOT / "docs/helix/04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/result.json"
 PREPUBLICATION_ROOT = Path("/private/tmp/ashlar-r02-attempts/ashlar-r02-0b4774f5fb2c43bbb026da651aecd155")
 ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
-RUNTIME_SOURCE_REVISION = "842551f96491d361040d6312da20750b65b3571b"
+RUNTIME_SOURCE_REVISION = "8ab8bb4d7a2a27db7f66a3c5f7304e72a99c3223"
 INDEX = Path("/private/tmp/ashlar-r02-weft053-index/index2.json")
 PYTHON = Path("/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv/bin/python3.12")
 JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)
@@ -114,6 +114,63 @@ def _source_pins() -> dict:
     return result
 
 
+def _ordinal1_publication_vector(root: Path, final_vector: dict, result: dict) -> tuple[dict, dict]:
+    """Bind the first published snapshot from its durable result and Delta identities."""
+    steps = [item for item in result.get("steps", []) if item.get("step") == "batch-1"]
+    if len(steps) != 1:
+        raise ValueError("retained first-publication step is missing or ambiguous")
+    receipt_path = root / "receipts" / "batch-1-result.json"
+    report_path = root / "outputs" / "batch-1" / "report.json"
+    if any(path.is_symlink() or not path.is_file() for path in (receipt_path, report_path)):
+        raise ValueError("retained first-publication result is missing")
+    receipt_raw, report_raw = receipt_path.read_bytes(), report_path.read_bytes()
+    if (sha(receipt_raw) != steps[0].get("receiptSha256")
+            or sha(report_raw) != steps[0].get("reportSha256")):
+        raise ValueError("retained first-publication result digest differs")
+    report = json.loads(receipt_raw)
+    if json.loads(report_raw) != report:
+        raise ValueError("first-publication result and output report differ")
+    manifest = report.get("manifest", {})
+    versions = json.loads(manifest.get("table_versions_json", "{}"))
+    roles = {"edge_current", "object_current", "tombstone", "whole_source_history"}
+    expected_tables = {"local.configured." + role for role in roles}
+    if (report.get("operation") != "publish" or report.get("ordinal") != 1
+            or report.get("completed_batches") != 1 or report.get("protected_ack") is not False
+            or manifest.get("profile_version") != "ashlar-delta/0.3"
+            or type(manifest.get("publication_id")) is not str
+            or set(versions) != expected_tables or any(type(v) is not int for v in versions.values())):
+        raise ValueError("retained first-publication result has the wrong ordinal or role vector")
+    final_by_role = {item["name"][-1]: item for item in final_vector.get("tables", [])}
+    evidence = {"receipts/batch-1-result.json": sha(receipt_raw),
+                "outputs/batch-1/report.json": sha(report_raw)}
+    tables = {}
+    for role in sorted(roles):
+        relative = f"installation/{role}/_delta_log/00000000000000000000.json"
+        log_path = root / relative
+        if log_path.is_symlink() or not log_path.is_file():
+            raise ValueError("retained Delta table identity evidence is missing")
+        log_raw = log_path.read_bytes()
+        metadata = [json.loads(line).get("metaData") for line in log_raw.splitlines() if line]
+        identities = [item.get("id") for item in metadata if type(item) is dict]
+        final = final_by_role.get(role)
+        if len(identities) != 1 or final is None or identities[0] != final.get("uuid"):
+            raise ValueError("retained Delta table identity differs from final custody")
+        evidence[relative] = sha(log_raw)
+        tables[role] = {"uuid": identities[0], "version": versions["local.configured." + role]}
+    manifest_path = root / "installation" / "manifest" / "_delta_log" / "00000000000000000000.json"
+    if manifest_path.is_symlink() or not manifest_path.is_file():
+        raise ValueError("retained manifest identity evidence is missing")
+    manifest_raw = manifest_path.read_bytes()
+    manifest_ids = [json.loads(line).get("metaData", {}).get("id") for line in manifest_raw.splitlines()
+                    if line and type(json.loads(line).get("metaData")) is dict]
+    manifest_uuid = manifest_ids[0] if len(manifest_ids) == 1 else None
+    if manifest_uuid is None or manifest_uuid != final_vector.get("manifestUuid"):
+        raise ValueError("retained manifest table identity differs from final custody")
+    evidence["installation/manifest/_delta_log/00000000000000000000.json"] = sha(manifest_raw)
+    vector = {"publicationId": manifest["publication_id"], "manifestUuid": manifest_uuid, "tables": tables}
+    return vector, evidence
+
+
 def _prior_publication() -> dict:
     result_raw = PREPUBLICATION_RESULT.read_bytes()
     result = json.loads(result_raw)
@@ -149,12 +206,15 @@ def _prior_publication() -> dict:
     roles = {tuple(table["name"])[-1] for table in vector.get("tables", []) if isinstance(table, dict)}
     if roles != {"edge_current", "object_current", "tombstone", "whole_source_history"} or len(vector["tables"]) != 4:
         raise ValueError("prepublication vector must have exactly the four graph roles")
+    ordinal1_vector, ordinal1_evidence = _ordinal1_publication_vector(PREPUBLICATION_ROOT, vector, result)
     return {"resultSha256": sha(result_raw), "attemptId": state["attemptId"],
         "attemptRoot": str(PREPUBLICATION_ROOT), "sourceRevision": state["sourceRevision"],
         "statePath": str(state_path), "stateSha256": sha(state_raw),
         "vectorPath": str(vector_path), "vectorFileSha256": sha(vector_raw),
         "baseInvocationPath": str(base_invocation), "baseInvocationSha256": sha(base_invocation.read_bytes()),
-        "vector": vector, "vectorSha256": sha(normalized_vector),
+        "finalVector": vector, "finalVectorSha256": sha(normalized_vector),
+        "ordinal1Vector": ordinal1_vector, "ordinal1Evidence": ordinal1_evidence,
+        "ordinal1VectorSha256": sha(canonical(ordinal1_vector)),
         "manifestSha256": state["manifestSha256"], "reviewSha256": sha(review_path.read_bytes())}
 
 
@@ -284,7 +344,8 @@ def review_receipt(path: Path, manifest_path: Path, manifest: dict) -> None:
         "reviewer": "Sol", "attemptId": manifest["attemptId"],
         "manifestSha256": digest(manifest_path), "sourceRevision": manifest["sourceRevision"],
         "priorStateSha256": manifest["priorPublication"]["stateSha256"],
-        "publicationVectorSha256": manifest["priorPublication"]["vectorSha256"],
+        "publicationVectorSha256": manifest["priorPublication"]["ordinal1VectorSha256"],
+        "finalPublicationVectorSha256": manifest["priorPublication"]["finalVectorSha256"],
         "runtimeSha256": sha(canonical(manifest["runtime"])),
         "packetFilesSha256": sha(canonical(manifest["packetFiles"]))}
     if receipt != expected:
@@ -382,10 +443,7 @@ def execute(path: Path, review: Path) -> None:
     if not all(p.is_file() and not p.is_symlink() for p in (result_path, stage1, review1, stage2, review2)):
         raise ValueError("both reviewed gate stages and closing result are required")
     first, second = json.loads(stage1.read_bytes()), json.loads(stage2.read_bytes())
-    prior_vector = manifest["priorPublication"]["vector"]
-    expected_gate_vector = {"publicationId":prior_vector["id"],"manifestUuid":prior_vector["manifestUuid"],
-        "tables":{item["name"][-1]:{"uuid":item["uuid"],"version":item["version"]}
-            for item in prior_vector["tables"]}}
+    expected_gate_vector = manifest["priorPublication"]["ordinal1Vector"]
     def check_gate_review(stage_manifest, receipt_path, expected_stage):
         receipt = json.loads(receipt_path.read_bytes())
         return (stage_manifest.get("stage") == expected_stage
@@ -417,7 +475,8 @@ def execute(path: Path, review: Path) -> None:
             or result.get("scopeOrdinal") != 1 or result.get("scopeCount") != 1
             or result.get("aliasScopeCount") != 1 or result.get("reviewStages") != ["pre-sql","post-page1"]
             or result.get("protectedAck") is not False
-            or result.get("publicationVectorSha256") != manifest["priorPublication"]["vectorSha256"]):
+            or result.get("publicationVectorSha256") != manifest["priorPublication"]["ordinal1VectorSha256"]
+            or result.get("finalPublicationVectorSha256") != manifest["priorPublication"]["finalVectorSha256"]):
         raise ValueError("continuation result does not close both reviewed stages against the exact prior vector")
     receipt_bytes = sum(p.stat().st_size for p in attempt.iterdir() if p.is_file())
     if tree_bytes(attempt) > LIMIT_PRIVATE or receipt_bytes > LIMIT_RECEIPTS:

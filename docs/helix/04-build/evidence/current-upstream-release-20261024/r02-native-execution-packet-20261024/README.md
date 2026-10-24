@@ -189,8 +189,11 @@ After batch-3 replay, the worker checks the result manifest against all six
 initialized target identities, requires exactly the four graph table roles
 and their versions, then writes the stable publication vector (configured
 physical target names, UUIDs, versions, publication ID, and manifest UUID) to
-`publication-vector.json`. It never invents a query-alias namespace. The earlier
-prepublication supervisor refuses continuation. The new
+`publication-vector.json`. It never invents a query-alias namespace. The
+continuation manifest retains this final ordinal-3 vector separately and binds
+its ordinal-1 query scope to the exact batch-1 result plus the four Delta table
+identities at their first-published versions. The live scope vector must equal
+that ordinal-1 vector before the review gate or any query SQL. The new
 [`r02_continuation_supervisor.py`](r02_continuation_supervisor.py) prepares a
 separate effect-free packet for one ordinal-1 continuation using selected Weft
 0.4.53 with the verified Spark 4.2.0/Delta 4.4.1 cohort. Its worker compiles
@@ -303,7 +306,7 @@ constructs strict/forbid models and emits bounded exception type/location
 diagnostics without exception messages or values. Any next attempt requires
 fresh source/runtime binding and independent review of its exact manifest.
 
-The next Sol-reviewed continuation attempt, [`attempt-refusal-f846373f4286410d97757033dfa8156a.json`](attempt-refusal-f846373f4286410d97757033dfa8156a.json), reached Spark startup and completed local source admission, but stopped before writing the pre-SQL gate manifest. Its exact .53 compiler response declares two visible outputs plus one hidden page key; the carrier oracle therefore returns three-column rows, while the independent source oracle records two visible columns. The worker compared those different shapes and refused before any gate-owned singleton or query SQL. The one-shot attempt is consumed and is not retried. An effect-free exact compiler/fixture regression now checks both carrier and visible row shapes against the independent source oracle. Any further attempt requires a fresh source/runtime bind and independent review of its exact manifest.
+The next Sol-reviewed continuation attempt, [`attempt-refusal-f846373f4286410d97757033dfa8156a.json`](attempt-refusal-f846373f4286410d97757033dfa8156a.json), reached Spark startup and completed local source admission, but stopped before writing the pre-SQL gate manifest. Its exact .53 compiler response declares two visible outputs plus one hidden page key; the carrier oracle therefore returns three-column rows, while the independent source oracle records two visible columns. The worker compared those different shapes and refused before any gate-owned singleton or query SQL. The one-shot attempt is consumed and is not retried. An effect-free exact compiler/fixture regression now checks both carrier and visible row shapes against the independent source oracle. Any further attempt requires a fresh source/runtime bind and independent review of its exact manifest. The following Sol-reviewed live attempt, [`attempt-refusal-ebf8bd8f1dfc446fb827779c81beb20c.json`](attempt-refusal-ebf8bd8f1dfc446fb827779c81beb20c.json), reached the pre-SQL review hold and was safely stopped before any query SQL. Its outer review bound the final ordinal-3 vector while the live ordinal-1 scope emitted the first-publication vector, so the gate could not close. The receipt records both vector hashes and confirms there was no pre-SQL review receipt, page-2 stage, result, publication mutation, or protected ACK. The current packet now retains both vectors separately and requires the live scope to match the ordinal-1 vector before gate creation.
 
 The compiler artifacts for a future attempt must be generated only inside the
 held live scope and reviewed before each dependent SQL stage. Packet preparation

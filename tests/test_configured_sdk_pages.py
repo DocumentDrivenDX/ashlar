@@ -4,7 +4,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
-from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
+from ashlar_host.configured_sdk_pages import ConfiguredSdkPagesConfig,ConfiguredSdk053LiveSession,_require_frozen_page_response,_require_frozen_grouped_artifact,_require_r02_ordinal1_vector,_r02_review_deadline,_supported_page_compiler,run_configured_sdk_pages
 from ashlar_host.configured_local_runtime import page_configured_local,run_configured_local_r02_weft053
 from ashlar_host.path_capture import PathCaptureConfig
 
@@ -40,6 +40,24 @@ class Tests(unittest.TestCase):
         session=object.__new__(ConfiguredSdk053LiveSession)
         session.review_gate=SimpleNamespace(stage='pre-sql',consumed=False,approved=False,executing_name=None)
         with self.assertRaises(ValueError):session.page()
+    def test_r02_vector_guard_refuses_final_publication_in_ordinal1_scope(self):
+        import hashlib,json
+        from ashlar_host.configured_sdk_pages import _require_r02_ordinal1_vector
+        first={"publicationId":"batch-1","manifestUuid":"manifest-uuid","tables":{
+            "edge_current":{"uuid":"edge-uuid","version":2},
+            "object_current":{"uuid":"object-uuid","version":2},
+            "tombstone":{"uuid":"tombstone-uuid","version":1},
+            "whole_source_history":{"uuid":"history-uuid","version":2}}}
+        final={"publicationId":"batch-3","manifestUuid":"manifest-uuid","tables":{
+            "edge_current":{"uuid":"edge-uuid","version":5},
+            "object_current":{"uuid":"object-uuid","version":3},
+            "tombstone":{"uuid":"tombstone-uuid","version":3},
+            "whole_source_history":{"uuid":"history-uuid","version":4}}}
+        first_sha=hashlib.sha256((json.dumps(first,sort_keys=True,separators=(",",":"),ensure_ascii=False)+'\n').encode()).hexdigest()
+        _require_r02_ordinal1_vector(first,first,first_sha)
+        with self.assertRaises(ValueError):_require_r02_ordinal1_vector(final,first,first_sha)
+        with self.assertRaises(ValueError):_require_r02_ordinal1_vector(first,final,first_sha)
+
     def test_page1_checked_response_must_match_frozen_bytes(self):
         _require_frozen_page_response(b'{"status":"compiled"}',b'{"status":"compiled"}')
         with self.assertRaises(ValueError):

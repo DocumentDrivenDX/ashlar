@@ -36,7 +36,8 @@ REQUIRED_PACKET = {"r02_packet_generator.py", "r02_supervisor.py", "r02_invocati
                    "examples/configured-local/configuration.template.json",
                    "attempt-refusal-23732236f7e94550b2fa24995c603b75.json",
                    "attempt-refusal-03969306f68446f0802e9a6e039bcb32.json",
-                   "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json"}
+                   "attempt-refusal-7d7ecbde56c44dcc9b2f21acc249e8fd.json",
+                 "attempt-refusal-ebf8bd8f1dfc446fb827779c81beb20c.json"}
 RUNTIME = {
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
     "/private/tmp/ashlar-release-20261021-m3rde5p2/jars/delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f",
