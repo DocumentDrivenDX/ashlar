@@ -86,11 +86,6 @@
       "Focused offline compatibility check; no native execution claim transferred from the one Weft fixture receipt.",
       "Independent review of all frozen hashes and a clear dedicated local resource slot."
     ],
-    "future_preflight_must_reobserve": [
-      "retained PostgreSQL data is the same lineage and is stopped",
-      "accepted source, report, full catalog view, source registration, feed registration and consumer checkpoint match the retained identities",
-      "process-group and SysV gates pass with exact worker/supervisor approval-payload parity"
-    ],
     "execution_requires": "A later fresh explicit owner decision over the exact complete packet and live preflight; this proposal is not approval.",
     "resource_limits_inherited_from_r5": {
       "child_deadline_seconds": 600,
@@ -100,7 +95,16 @@
       "automatic_retries": 0,
       "spark_master": "local[1]",
       "cloud": false
-    }
+    },
+    "future_lifecycle_post_start_pre_migration_must_reobserve": [
+      "after a separately authorized lifecycle start and before migration, re-read the accepted source, report, full catalog view, source registration, feed registration and consumer checkpoint and compare them with the retained identities",
+      "if any identity or state is changed, incomplete or unknown, stop before migration and reconcile the original lineage"
+    ],
+    "preflight_scope": "The effect-free supervisor --preflight validates stopped-PGDATA and process/SysV gates plus exact approval-payload parity; it does not read the current PostgreSQL catalog, source, feed or consumer checkpoint.",
+    "future_preflight_must_check": [
+      "retained PostgreSQL data is the same lineage and is stopped",
+      "process-group and SysV gates pass with exact worker/supervisor approval-payload parity"
+    ]
   },
   "prohibited_in_refresh": [
     "PostgreSQL or Spark start",

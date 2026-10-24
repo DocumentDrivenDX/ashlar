@@ -44,6 +44,8 @@ only. No current-cohort supervisor preflight or source/consumer custody recheck
 has run, so R5's Weft 0.4.52 runtime and preflight remain historical ([refresh
 proposal](04-build/evidence/current-upstream-release-20261023/truss049-r5-current-cohort-refresh-20261023/README.md),
 [current-cohort runtime receipt](04-build/evidence/current-upstream-release-20261023/truss049-current-cohort-runtime-20261023/README.md)).
+The R6 worker and supervisor are now statically rebound to that cohort; their
+live preflight and lifecycle remain pending ([R6 readiness](04-build/evidence/current-upstream-release-20261023/truss049-current-cohort-readiness-20261023/README.md)).
 
 The small configured JSONL example has actual managed-Delta
 [publication, update/delete and history evidence](04-build/evidence/native-configured-publication-complete-20261008.json),

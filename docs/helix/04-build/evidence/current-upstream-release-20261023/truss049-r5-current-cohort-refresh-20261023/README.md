@@ -28,10 +28,10 @@ in [R5 preparation](../truss049-r5-readiness-20261023/preparation.json).
 It points to that packet's retained PGDATA reference without copying or moving
 the directory. These are lineage references, not current authority: a future
 operator must reobserve the accepted source/report/catalog view, feed and
-consumer checkpoint, and verify that the same PGDATA is stopped and unchanged
-before any migration or write. If the observation is incomplete or differs,
-stop and reconcile the original lineage; do not register replacement roles or
-create a new consumer.
+consumer checkpoint after a separately authorized lifecycle start and before
+migration. The preflight checks stopped PGDATA separately. If any observation
+is incomplete or differs, stop before migration and reconcile the original
+lineage; do not register replacement roles or create a new consumer.
 
 ## Required before any future preflight
 
@@ -50,11 +50,13 @@ create a new consumer.
    runtime. The 0.4.53 page fixture receipt is relevant compatibility evidence,
    not a substitute for installed-runtime provenance.
 4. After packet review and a clear local resource slot, a separately bounded
-   effect-free supervisor preflight may recheck current source custody, stopped
-   PGDATA, process/SysV gates and exact approval-payload parity. Any changed or
-   unknown lineage refuses. A fresh explicit owner decision is required before
-   a supervised lifecycle execution; this proposal itself authorizes no such
-   action.
+   effect-free supervisor preflight may check stopped-PGDATA, process/SysV gates
+   and exact approval-payload parity. It does not query the current catalog,
+   source, feed or consumer checkpoint. Following a separately authorized
+   lifecycle start, reobserve those source/feed/consumer identities while
+   PostgreSQL is running and before migration; any changed, incomplete or
+   unknown lineage stops the lifecycle before migration. A fresh explicit owner
+   decision is required before execution; this proposal authorizes no such action.
 
 If later prepared and separately approved, the campaign remains single-use: one bounded 0.49 migration, then reuse of
 the existing accepted source and consumer for the planned genesis ACK, approved

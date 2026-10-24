@@ -1,0 +1,292 @@
+{
+  "admission_gates": {
+    "process_inventory": {
+      "observation": "not run in this static packet",
+      "status": "not_observed"
+    },
+    "sysv_shared_memory": {
+      "observation": "not run in this static packet",
+      "status": "not_observed"
+    }
+  },
+  "approval_contract_parity": {
+    "control": "not computed; future supervisor preflight must bind exact worker/supervisor proposal",
+    "status": "not_observed",
+    "worker_or_supervisor_preflight_run_after_change": false
+  },
+  "attempt": "r6",
+  "bridge_readiness": {
+    "ashlar_commit": "6986e8327c366b76ba09ffed6b2fe17a3f484cc7",
+    "bridge_sha256": "b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5",
+    "build_inputs_sha256": "9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff",
+    "carrier_profile": "ashlar-delta/0.4-xxhash64",
+    "execution_blocked": true,
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/bridge-readiness.json",
+    "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+    "required": "Exact source-bound bridge pin is staged; current native/source lifecycle preflight remains unrun and owner approval is absent.",
+    "resource_sha256": "6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3",
+    "role_semantics_sha256": "1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4",
+    "runtime_input_objects": {
+      "pyproject.toml": "4399d792263a4b30e374b8ef5c25b681b9ee86aa",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "sha256": "f1a1bff9b69fe3b78364697efeb4f0e653902b1520031c68aa608e67d7fd84f5",
+    "status": "ready",
+    "umf_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08"
+  },
+  "candidate_artifacts": {
+    "bridge_readiness": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/bridge-readiness.json",
+      "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+      "sha256": "f1a1bff9b69fe3b78364697efeb4f0e653902b1520031c68aa608e67d7fd84f5"
+    },
+    "offline_preflight": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/offline-preflight-r6.json",
+      "status": "not_run"
+    },
+    "postgres_cleanup_binary": {
+      "bytes": 113520,
+      "path": "/private/tmp/ashlar-truss049-current-cohort-20261023/venv/lib/python3.12/site-packages/pgserver/pginstall/bin/pg_ctl",
+      "sha256": "59b641aabae44b43acfc34fd0bdeb9af9480338d39b25f3088d7c486fdd8b999",
+      "version": "18.6.1 wheel binary; not executed"
+    },
+    "readonly_048_helper": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/source_048_readonly_helper.py",
+      "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+    },
+    "runtime_install_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/runtime-receipt.json",
+      "sha256": "d308f663dc424fc9ed898258244076dc061163a96c30028ef4ab8c086e1da1de",
+      "status": "fresh_isolated_package_provenance_only"
+    },
+    "runtime_receipt_copy": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/runtime-receipt.json",
+      "sha256": "d308f663dc424fc9ed898258244076dc061163a96c30028ef4ab8c086e1da1de"
+    },
+    "seed_request": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/seed-request.json",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "source_snapshot": {
+      "commit": "6986e8327c366b76ba09ffed6b2fe17a3f484cc7",
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/source-snapshot",
+      "runtime_input_objects": {
+        "pyproject.toml": "4399d792263a4b30e374b8ef5c25b681b9ee86aa",
+        "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+        "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+      },
+      "tree": "e5136196fc7e358c06a18acffc86c979e83e751e"
+    },
+    "supervisor": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/run_supervisor.py",
+      "sha256": "8d539eb22c8a5b2221d6c9212ae2996eea233faab14a1412c55ea97ce29c4a02"
+    },
+    "weft053_compatibility_receipt": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/weft053-compatibility-receipt.md",
+      "scope": "one focused page compiler fixture; not native SQL/runtime lifecycle qualification",
+      "sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8"
+    },
+    "worker": {
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/campaign_worker.py",
+      "sha256": "07b908075697bae74e1578b34e903062895e2c444b12cc00cdef982ba8ebf9d6"
+    }
+  },
+  "current_cohort_rebind": [
+    "Detached source snapshot pinned to Ashlar 6986e832 and exact src/sql/pyproject Git objects.",
+    "Fresh isolated runtime receipt pins Weft 0.4.53 and the selected Truss/UMF/Spark/Delta versions; prior R5 0.4.52 runtime and approval are historical only.",
+    "UMF 0.5.6 bridge readiness pin rebound to selected Ashlar source objects; bridge bytes are retained and exact hashes checked.",
+    "Private worker/supervisor copies use a new R6 root/attempt and fresh migration UUID; this preparation contains no approval or start marker.",
+    "No R6 preflight or native action has been run."
+  ],
+  "execution": {
+    "acknowledgment_started": false,
+    "approval_marker_present": false,
+    "destination_publication_started": false,
+    "migration_apply_invoked": false,
+    "native_started": false,
+    "pg_started": false,
+    "source_mutation_started": false,
+    "spark_started": false
+  },
+  "execution_authorization": {
+    "approval_file_created": false,
+    "authorized": false,
+    "required": "Fresh explicit owner approval only after independent review of exact R6 packet and later successful live effect-free preflight.",
+    "started_marker_created": false
+  },
+  "failure_response": "Any preflight mismatch or runtime failure stops this single-use attempt; no retry.",
+  "future_execution_paths": {
+    "attempt_directory": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/attempt-r6",
+    "attempt_receipts": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/attempt-r6",
+    "cold_backup_root": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/attempt-r6/cold-backup",
+    "existing_048_runtime_for_pre_migration_read": "/private/tmp/ashlar-truss048-weft052-umf054-runtime-20261022/venv",
+    "fresh_local_delta_destination_id": "ashlar-current-049-lifecycle-destination-r6-20261023",
+    "migration_attempt_id": "19528de7-c80d-4f1a-a3f8-4b83a1b258af",
+    "migration_recovery_registry": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/attempt-r6/truss-migration-recovery.sqlite3",
+    "migration_reference": "must be taken from and frozen from public prepare result before apply; never guessed or replaced"
+  },
+  "future_preflight": {
+    "command_argv": [
+      "/private/tmp/ashlar-truss049-current-cohort-20261023/venv/bin/python",
+      "-I",
+      "-B",
+      "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/run_supervisor.py",
+      "--preflight"
+    ],
+    "execution_mode": "supervisor --preflight only; do not pass --execute",
+    "lineage_reobservation": "The worker must perform its planned read-only source/report/catalog/feed/consumer checks only after a later separately authorized lifecycle start and before migration or mutation. No such reobservation is recorded here.",
+    "preflight_scope": "Revalidates immutable source/runtime/bridge/artifact pins, PGDATA directory/version and absence of postmaster.pid, helper compatibility imports, process-group/SysV admission probes and exact worker/supervisor approval-payload parity. It does not query the current PostgreSQL catalog/feed/checkpoint or establish current source/consumer custody.",
+    "status": "not_run",
+    "working_directory": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6"
+  },
+  "immutable_inputs": {
+    "catalog_revision": 1,
+    "consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "existing_consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "existing_feed_registration_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/feed-registration-committed.json",
+      "sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f"
+    },
+    "genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "prior_campaign_registration_and_roles": "reuse only; do not repeat role setup or register consumer",
+    "prior_public_source_reobservation_receipt": {
+      "path": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1/retained-source-reobserved.json",
+      "sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87"
+    },
+    "retained_pgdata_reference": {
+      "json_pointer": "/immutable_inputs/retained_pgdata",
+      "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+      "reuse_policy": "Reference only; no copy/reset/move. Current stopped state and lineage are not established by the historical packet.",
+      "source": "../truss049-r5-readiness-20261023/preparation.json"
+    },
+    "seed_request": {
+      "bytes": 1657,
+      "operation_count": 7,
+      "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/seed-request.json",
+      "request_key": "ashlar-current-048-lifecycle-seed-r1",
+      "sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+      "submitted_on_048": false
+    },
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b"
+  },
+  "migration_recovery": {
+    "apply_once": true,
+    "attempt_id": "19528de7-c80d-4f1a-a3f8-4b83a1b258af",
+    "immutable_prepare_receipt_before_apply": true,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "prepare_once": true,
+    "reconcile_only_same_reference": true,
+    "registry_path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/attempt-r6/truss-migration-recovery.sqlite3"
+  },
+  "next_gate": "Independent review of exact R6 source/runtime/bridge/worker/supervisor/preparation hashes. Then, only after the shared local slot is free, run one effect-free R6 supervisor --preflight; no --execute without a separate fresh explicit owner decision.",
+  "ordered_future_phases": [
+    "Before creating the started marker or any native child, repeat the process-group inventory capability gate and verify the supervisor PID is present; run a one-byte SysV shmget/shmat/shmdt probe and confirm IPC_RMID cleanup. Any failure blocks execution before source backup or PostgreSQL start.",
+    "Before the campaign first starts PostgreSQL, verify the retained host is stopped; copy/hash the existing PGDATA to the fresh cold-backup path and record source/backup byte counts and digests under the combined 1 GiB cap.",
+    "Start only the retained owned PostgreSQL. Before migration, sequentially reobserve accepted source/report/complete view and existing feed consumer/checkpoint using a separately frozen read-only helper with the preserved .48 runtime; .49 ordinary latest-only providers may not read the old install. No acceptance, role setup, consumer registration, source mutation, or ACK.",
+    "Use Truss .49 RuntimeMigrations status() and backup_metadata(); preserve companion row-type ACL metadata, exact context/source manifest, and restart-durable SQLite registry. Call prepare once, persist/freeze its exact returned reference/request, and apply that same reference once.",
+    "Verify the migration and immutable receipt through .49. If outcome is uncertain, reconcile only that same frozen reference; no automatic retry or new prepare/apply.",
+    "After migration, validate the retained accepted source/report/view and existing feed/consumer checkpoint via .49 public APIs; do not repeat role setup or consumer registration.",
+    "Use page-owner-generated .4 bridge and immutable installation-profile pins only after supplied/reviewed; publish actual catalog-only genesis page to a fresh destination, validate durable target/vector/receipt, then protected source ACK.",
+    "Only after genesis ACK submit the original approved seven-operation seed request once, then read its actual source page, publish through the same .4 installation, independently validate durable receipt/vector, and protected ACK.",
+    "Close PostgreSQL and Spark; retain bounded per-phase receipts, source pages, installation profile, cold backup and registry; no later mutation or replay."
+  ],
+  "preparation_revision": "r6-current-selected-6986-weft053-20261023",
+  "prior_failed_campaign": "/private/tmp/ashlar-truss048-lifecycle-campaign-20261022/attempt-r1; preserved untouched",
+  "profile": "ashlar-truss-0.0.49-current-cohort-preparation/0.1",
+  "r5_historical_packet": {
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "status": "stale for Weft 0.4.53 and selected source 6986e832; do not reuse R5 approval/preflight"
+  },
+  "readonly_helper": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/source_048_readonly_helper.py",
+    "purpose": "Historical .48 read-only source/report/view and consumer-checkpoint helper; no registration or ACK.",
+    "sha256": "994bff49f6797477a728429d08561c3162a0eeaa5a6fb5f560766b4bde2b30e1"
+  },
+  "refresh_proposal": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/current-upstream-release-20261023/truss049-r5-current-cohort-refresh-20261023/refresh-proposal.json",
+    "sha256": "e3eaf244874db49342d8e4743b6b5ee5b746074f0c6f77e3e4ec2dc987f42bf5"
+  },
+  "release": {
+    "expected_route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "migration_manifest_sha256": "96addcdb95523f478d8f50b0b47198e47a860680c7400dd359711930e837e535",
+    "native_manifest_sha256": "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4",
+    "runtime_receipt_sha256": "d308f663dc424fc9ed898258244076dc061163a96c30028ef4ab8c086e1da1de",
+    "truss": "0.0.49",
+    "umf_access": "0.1.0.dev7",
+    "umf_access_wheel_sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+    "umf_core": "0.10.0",
+    "weft": "0.4.53",
+    "weft_source_commit": "726a840e956e25217d6aeea2674fdfcf3f342a24",
+    "weft_wheel_sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+    "wheel_sha256": "7ea14b2787f02cbeec9ad99d835adbcc30c684fd5be8e0765a1d8198b50e7182"
+  },
+  "resource_limits": {
+    "automatic_retries": 0,
+    "child_execution_deadline_seconds": 600,
+    "cleanup_timeout_seconds": {
+      "group_reap_sigkill": 2,
+      "group_reap_sigterm": 2,
+      "postgres_fast_stop": 25,
+      "process_inventory_call": 5,
+      "worker_sigkill_wait": 10,
+      "worker_sigterm_wait": 10
+    },
+    "cloud": false,
+    "feed_operation_timeout_ms": 5000,
+    "feed_statement_timeout_ms": 2000,
+    "max_log_bytes": 16777216,
+    "maximum_combined_retained_and_new_bytes": 1073741824,
+    "migration_operation_timeout_ms": 30000,
+    "migration_statement_timeout_ms": 10000,
+    "sequential": true,
+    "spark_master": "local[1]"
+  },
+  "runtime_receipt": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/runtime-receipt.json",
+    "scope": "Fresh isolated current-cohort package provenance only; no supervisor preflight or native qualification.",
+    "sha256": "d308f663dc424fc9ed898258244076dc061163a96c30028ef4ab8c086e1da1de"
+  },
+  "selected_weft_candidate": {
+    "compatibility_receipt_sha256": "880558526e9703c1585e8e04ede80c0bde7220b9ade5cd270fc43f8c04fc65b8",
+    "scope": "One focused page compiler comparison with 0.4.52; no native SQL, Truss lifecycle or Unity Catalog qualification.",
+    "source_commit": "726a840e956e25217d6aeea2674fdfcf3f342a24",
+    "version": "0.4.53",
+    "wheel_sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c"
+  },
+  "source_checkout": {
+    "commit": "6986e8327c366b76ba09ffed6b2fe17a3f484cc7",
+    "included_paths": [
+      "pyproject.toml",
+      "src/",
+      "sql/"
+    ],
+    "ownership": "private detached checkout from the selected immutable Ashlar commit; no source edits",
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/source-snapshot",
+    "runtime_input_objects": {
+      "pyproject.toml": "4399d792263a4b30e374b8ef5c25b681b9ee86aa",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+    },
+    "tree": "e5136196fc7e358c06a18acffc86c979e83e751e"
+  },
+  "state": "prepared_static_pending_fresh_preflight",
+  "supervisor": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/run_supervisor.py",
+    "sha256": "8d539eb22c8a5b2221d6c9212ae2996eea233faab14a1412c55ea97ce29c4a02"
+  },
+  "worker": {
+    "path": "/private/tmp/ashlar-truss049-current-cohort-6986e832-weft053-r6/campaign_worker.py",
+    "sha256": "07b908075697bae74e1578b34e903062895e2c444b12cc00cdef982ba8ebf9d6"
+  }
+}

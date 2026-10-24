@@ -1,0 +1,89 @@
+{
+  "schema": "ashlar-truss049-current-cohort-custody-proposal/v1",
+  "status": "draft_static_binding_only",
+  "execution_authorized": false,
+  "approval_file_created": false,
+  "started_marker_created": false,
+  "native_or_source_effects_started": false,
+  "selected_source": {
+    "commit": "6986e8327c366b76ba09ffed6b2fe17a3f484cc7",
+    "tree": "e5136196fc7e358c06a18acffc86c979e83e751e",
+    "runtime_input_objects": {
+      "src": "14640445527f7e1834a29a4640d1ae102580a8cb",
+      "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+      "pyproject.toml": "4399d792263a4b30e374b8ef5c25b681b9ee86aa"
+    },
+    "selection_source": "../truss049-r5-current-cohort-refresh-20261023/refresh-proposal.json",
+    "selection_sha256": "e3eaf244874db49342d8e4743b6b5ee5b746074f0c6f77e3e4ec2dc987f42bf5"
+  },
+  "runtime": {
+    "profile": "macOS arm64 / CPython 3.12.14; isolated local wheel installation",
+    "receipt": "../truss049-current-cohort-runtime-20261023/runtime-receipt.json",
+    "receipt_sha256": "d308f663dc424fc9ed898258244076dc061163a96c30028ef4ab8c086e1da1de",
+    "versions": {
+      "truss-toolkit": "0.0.49",
+      "umf-core": "0.10.0",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53",
+      "pyspark": "4.2.0",
+      "delta-spark": "4.4.1"
+    },
+    "runtime_install_integrity": "27 selected local wheels; direct_url hashes and all hashed installed RECORD payloads verified; pip check passed",
+    "qualification_limit": "Package provenance only. No Truss lifecycle, PostgreSQL, Spark session, Delta publication, Unity Catalog, source/feed/ACK or native qualification is claimed."
+  },
+  "prior_packet": {
+    "path": "../truss049-r5-readiness-20261023",
+    "preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+    "state": "historical R5 Weft 0.4.52 packet; its preflight, approval proposal, bridge pin and runtime do not transfer to this selected cohort"
+  },
+  "preserved_lineage": {
+    "source_document_id": "ashlar-current-045-lifecycle-20261021",
+    "source_revision": "ashlar-current-045-lifecycle-r1",
+    "source_sha256": "498a82f313fd3ceaeb6195e133b403aa829acfcda7cec676a33a5790a57d456b",
+    "source_origin_sha256": "a16b9405b213649ebfbda85ce0bf47877646eccb93b09176190be32bcb674fed",
+    "source_registration_id": "ccfcd423-5893-4df9-8f88-6504e086bd4d",
+    "feed_registration_receipt_sha256": "589e6d16fdf9c0d6b6e65bde3563edc6ba322ade4cce82dadbffe7742b6e827f",
+    "consumer_id": "ashlar-current-048-lifecycle-20261022",
+    "consumer_registration_id": "9f03eb5d-ce72-437f-8b32-0112c130e724",
+    "genesis_checkpoint_sha256": "c74e4c2dd697421f26a378454ec489bcb83501a4997235b670bdb011e4e7be8e",
+    "prior_public_source_reobservation_receipt_sha256": "9ac9886596e7bb020a79fd2e5cd8b6c4dca1006d663ee2d3c1d2fa022f89bd87",
+    "seed_request_sha256": "56aed4d7a4789f45cdaa7af55a834ff38ca2b4bcb75f44658b3031ba5f8aa771",
+    "retained_pgdata_reference": {
+      "source": "../truss049-r5-readiness-20261023/preparation.json",
+      "json_pointer": "/immutable_inputs/retained_pgdata",
+      "source_preparation_sha256": "e8f41371601246b8be6e3b07b341c3bb9b7ebde19ab650713048124f890af385",
+      "policy": "Reference only. Do not copy, reset, move, or infer current stopped state or custody from historical receipts."
+    },
+    "reuse_rule": "Preserve the accepted source, existing feed registration, consumer, roles and genesis checkpoint. Do not repeat registration, replay seed, or transfer old preflight/approval evidence."
+  },
+  "preflight": {
+    "status": "not_run",
+    "supervisor_rebound_to_selected_source_and_runtime": false,
+    "worker_rebound_to_selected_source_and_runtime": false,
+    "bridge_readiness_rebound": false,
+    "live_lineage_reobservation": "pending after a separately authorized lifecycle start and before migration; not performed by --preflight",
+    "execution_approval": "not created; requires a later separate explicit owner decision after exact-packet review and a fresh live preflight",
+    "attempt_identity": "not allocated; must be newly generated in a complete rebased packet and must not reuse R5 migration attempt or approval payload"
+  },
+  "required_before_any_future_preflight": [
+    "Rebuild the private source snapshot from the exact selected commit/tree and verify src, sql and pyproject.toml object IDs; do not depend on future HEAD equality.",
+    "Rebind the worker, supervisor, preparation and bridge-readiness artifact to the selected source objects and the verified fresh Weft 0.4.53 runtime receipt. Remove stale R5 Weft 0.4.52/native-extension/approval pins; keep the identical UMF bridge only with fresh exact hash checks.",
+    "Generate a new unique attempt identity, then derive the worker and supervisor expected-approval payloads from the same frozen packet. Do not create an execution-approval file or started marker during preparation.",
+    "After independent review and a free dedicated local slot, run only the effect-free supervisor --preflight command against the newly bound packet. It checks stopped PGDATA, current process/SysV state and exact approval-payload parity; it does not read the current PostgreSQL catalog, source, feed or consumer checkpoint.",
+    "A successful preflight remains non-authorization. A separate fresh owner decision is required before any --execute operation. No PG/Spark start, migration, cold backup, seed, source/feed mutation, publication or ACK is authorized by this proposal."
+  ],
+  "bounded_future_execution_scope_if_separately_authorized": {
+    "child_deadline_seconds": 600,
+    "campaign_data_cap_bytes": 1073741824,
+    "campaign_data_cap_includes": "retained PGDATA, cold backup, attempt data/receipts and worker logs",
+    "worker_log_cap_bytes": 16777216,
+    "automatic_retries": 0,
+    "spark_master": "local[1]",
+    "cloud": false
+  },
+  "required_post_start_pre_migration_reobservation": [
+    "Only after a separately authorized lifecycle start, re-read the accepted source, report, full catalog view, source registration, feed registration and consumer checkpoint and compare them with the retained identities before migration.",
+    "Stop before migration and reconcile the original lineage if any identity or state is changed, incomplete or unknown."
+  ],
+  "preflight_scope": "The effect-free supervisor --preflight validates stopped-PGDATA and process/SysV gates plus exact approval-payload parity; it does not inspect the current PostgreSQL catalog, source, feed or consumer checkpoint."
+}

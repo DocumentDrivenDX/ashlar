@@ -1,0 +1,16 @@
+{
+  "ashlar_commit": "6986e8327c366b76ba09ffed6b2fe17a3f484cc7",
+  "bridge_sha256": "b686d8aa7ce55047f2c5bd9269a39cbd3ca43228ce70ae738a207108da200ce5",
+  "build_inputs_sha256": "9ac1f3c0412a7f4b617e15ff0581b1e424fac9d6da0d8aeb4535371ee550feff",
+  "carrier_profile": "ashlar-delta/0.4-xxhash64",
+  "profile": "ashlar-truss049-local-delta-bridge-readiness/0.2",
+  "resource_sha256": "6fe91c59732342314263728c13114660e43f9150be8797639b5897fb9fe4c6b3",
+  "role_semantics_sha256": "1844cd4f2e3501e546aeb54327948b87d0860dd1e330d4acc1c9ed56a075b5f4",
+  "runtime_input_objects": {
+    "pyproject.toml": "4399d792263a4b30e374b8ef5c25b681b9ee86aa",
+    "sql": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "src": "14640445527f7e1834a29a4640d1ae102580a8cb"
+  },
+  "status": "ready",
+  "umf_commit": "9a11ae5c04c23f0cc0ae1d61a27c4d7a64819b08"
+}
