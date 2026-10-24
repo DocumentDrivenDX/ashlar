@@ -29,6 +29,9 @@ qualify Linux runtime or Databricks compatibility, nor native Delta behavior
 ([0.10.1 adoption receipt](04-build/evidence/current-upstream-release-20261023/umf-0.10.1-ashlar-adoption-20261024/README.md),
 [access receipt](04-build/evidence/current-upstream-release-20261023/umf-0.5.5-ashlar-access-adoption/README.md),
 [managed qualification limits](04-build/evidence/current-upstream-release-20261023/managed-a1-correctness-trial-constraints.md)).
+UMF's proposed G08 migration design has a source-only Ashlar review; a positive
+schema-migration adapter and its native qualification remain open
+([G08 review](04-build/evidence/current-upstream-release-20261023/ashlar-umf-g08-source-review-20261024.md)).
 Truss 0.0.49 R5 is frozen to Ashlar source `0fce3b6c` and passed its permitted
 effect-free supervisor/worker preflight with process inventory, SysV cleanup and
 exact approval-payload parity ready. This is interim current-core readiness for
