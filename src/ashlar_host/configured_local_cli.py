@@ -53,14 +53,19 @@ class ConfiguredLocalInvocation:
 def parse_configured_local(raw):
     _require(type(raw)is bytes and len(raw)<=262144)
     value=decode_retained_json(raw);_require(type(value)is dict)
-    _closed(value,({'selector'}if value.get('operation')=='read'else {'query'}if value.get('operation')=='query'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','jar_inventory','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'})
-    _require(value['profile']=='ashlar-configured-local/0.2')
+    _closed(value,({'selector'}if value.get('operation')=='read'else {'query'}if value.get('operation')=='query'else set())|{'profile','operation','ordinal','python','installation','installation_id','installation_sha256','output','jars','jar_inventory','java_home','source_configuration','producer','stream','materialization_clock_us','operation_capacity','bounds'}|({'carrier_profile'}if 'carrier_profile'in value else set()))
+    _require(value['profile'] in ('ashlar-configured-local/0.2','ashlar-configured-local/0.3'))
+    if value['profile']=='ashlar-configured-local/0.2':
+        _require('carrier_profile' not in value)
+    else:
+        _require(value.get('carrier_profile')=='ashlar-delta/0.4-xxhash64'
+                 and value.get('operation')=='initialize')
     p=_closed(value['producer'],{'source','bun','git','timeout_seconds','maximum_output_bytes','maximum_receipt_bytes'})
     producer=ProducerConfig(_path(p['source']),_path(p['bun']),_path(p['git']),p['timeout_seconds'],p['maximum_output_bytes'],p['maximum_receipt_bytes'])
     bounds=_closed(value['bounds'],{'whole_seconds','stream_bytes','receipt_bytes','maximum_admission_receipt_bytes'})
     output=_path(value['output'])
     admission=ConfiguredSourceAdmissionConfig(_path(value['source_configuration']),producer,output/'admission',bounds['maximum_admission_receipt_bytes'])
-    runtime=ConfiguredLocalRuntimeConfig(installation=_path(value['installation']),output=output,jars=_path(value['jars']),java_home=_path(value['java_home']),admission=admission,stream=value['stream'],materialization_clock_us=value['materialization_clock_us'],operation_capacity=value['operation_capacity'],installation_id=value['installation_id'],installation_sha256=value['installation_sha256'],jar_inventory=value['jar_inventory'])
+    runtime=ConfiguredLocalRuntimeConfig(installation=_path(value['installation']),output=output,jars=_path(value['jars']),java_home=_path(value['java_home']),admission=admission,stream=value['stream'],materialization_clock_us=value['materialization_clock_us'],operation_capacity=value['operation_capacity'],installation_id=value['installation_id'],installation_sha256=value['installation_sha256'],jar_inventory=value['jar_inventory'],carrier_profile=value.get('carrier_profile','ashlar-delta/0.3'))
     selector=None
     if value['operation']=='read':
         selected=_closed(value['selector'],{'type_id','entity_id'});selector=(selected['type_id'],selected['entity_id'])
@@ -94,7 +99,8 @@ def _result(config,value):
     _require(type(value)is dict and value.get('installation_id')==config.runtime.installation_id and value.get('protected_ack')is False)
     if config.operation=='initialize':
         _closed(value,{'profile','installation_id','operation','installation_sha256','installation','published','protected_ack'})
-        _require(value['profile']=='ashlar-configured-local-initialized/0.2'and value['operation']=='initialize'and value['published']is False)
+        expected='ashlar-configured-local-initialized/0.3' if config.runtime.carrier_profile=='ashlar-delta/0.4-xxhash64' else 'ashlar-configured-local-initialized/0.2'
+        _require(value['profile']==expected and value['operation']=='initialize'and value['published']is False)
         _require(type(value['installation_sha256'])is str and len(value['installation_sha256'])==64 and all(c in '0123456789abcdef'for c in value['installation_sha256']))
     elif config.operation=='read':
         _closed(value,{'profile','installation_id','operation','manifest','ordinal','local_checkpoint','completed_batches','selector','row','protected_ack'})

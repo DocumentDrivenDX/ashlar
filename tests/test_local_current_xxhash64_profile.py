@@ -3,6 +3,7 @@ import json
 import re
 import tempfile
 import unittest
+import uuid
 from types import SimpleNamespace
 from pathlib import Path
 from unittest.mock import patch
@@ -16,7 +17,7 @@ from ashlar_host.truss_graph_admission import TrussGraphAdmission
 from ashlar_host.driver import NativeDriver
 from ashlar_host.delta_custody import DeltaTarget
 from ashlar_host.local_current_carrier_profile import (
-    apply_local_writer_settings, create_local_current_xxhash64_tables,
+    _observed_role, _protocol, apply_local_writer_settings, create_local_current_xxhash64_tables,
     verify_local_writer_settings,
 )
 from ashlar_host.truss_note_publication import _native_xxhash64,graph_expected_rows
@@ -25,6 +26,45 @@ import test_truss_typed_admission
 
 
 class LocalCurrentXxhash64ProfileTests(unittest.TestCase):
+    def test_protocol_uses_shared_configured_local_reader_profile(self):
+        detail={'id':'6212b33d-e246-40d0-8c01-46e45dd2fd6b','format':'delta',
+                'minReaderVersion':1,'minWriterVersion':7,
+                'tableFeatures':['domainMetadata','clustering','invariants','appendOnly']}
+        observed=_protocol(detail,detail['id'])
+        self.assertEqual(observed,{
+            'uuid':detail['id'],'profile':'ashlar-configured-local-delta/0.1',
+            'reader_version':1,'writer_version':7,
+            'features':['appendOnly','clustering','domainMetadata','invariants']})
+
+    def test_native_long_type_uses_umf_delta_type_name(self):
+        try:
+            from pyspark.sql.types import LongType, StringType, TimestampType
+        except ImportError:
+            self.skipTest('pinned PySpark optional extra is not installed')
+        data_types=(('source_system',StringType(),False),('type_id',LongType(),False),
+                    ('published_at',TimestampType(),False))
+        fields=[SimpleNamespace(name=name,dataType=data_type,nullable=nullable,metadata={})
+                for name,data_type,nullable in data_types]
+        spark = SimpleNamespace(read=SimpleNamespace(format=lambda _: SimpleNamespace(
+            load=lambda _: SimpleNamespace(schema=SimpleNamespace(fields=fields)))))
+        target_uuid=str(uuid.uuid4())
+        detail = {'id':target_uuid,'clusteringColumns':[],'partitionColumns':[],
+                  'properties':{},'minReaderVersion':'1','minWriterVersion':'7',
+                  'tableFeatures':[]}
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'object_current';path.mkdir()
+            with patch('ashlar_host.local_current_carrier_profile._detail',return_value=detail), \
+                 patch('ashlar_host.local_current_carrier_profile._protocol',return_value={}):
+                target, observed = _observed_role(spark,'object_current','local.graph.object_current',
+                    path,(('source_system','STRING',False),('type_id','BIGINT',False),
+                    ('published_at','TIMESTAMP',False)),
+                    {'clusterBy':[],'partitionBy':[],'properties':{}})
+        self.assertEqual(target.uuid,target_uuid)
+        self.assertEqual(observed['fields'],[['source_system','STRING',False],
+            ['type_id','BIGINT',False],['published_at','TIMESTAMP',False]])
+        self.assertEqual(LongType().simpleString(),'bigint')
+        self.assertEqual(LongType().typeName(),'long')
+
     def test_explicit_profile_changes_only_selected_physical_hash_types(self):
         legacy = local_current_columns(RESOURCE_ROOT)
         selected = local_current_columns(RESOURCE_ROOT,

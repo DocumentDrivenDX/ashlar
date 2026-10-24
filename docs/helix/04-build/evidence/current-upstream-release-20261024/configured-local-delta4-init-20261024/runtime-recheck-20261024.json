@@ -1,0 +1,39 @@
+{
+  "profile": "ashlar-configured-local-delta4-runtime-metadata-recheck/0.1",
+  "checkedAt": "2026-10-24T11:53:08Z",
+  "mode": "read-only isolated subprocess; no Spark import/session/startup",
+  "commandShape": [
+    "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python",
+    "-I",
+    "-B",
+    "-c",
+    "importlib.metadata version checks plus configured_local_runtime_profile.attest"
+  ],
+  "environment": {
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "TMPDIR": "/private/tmp/ashlar-delta4-init-attempts/metadata-only",
+    "SPARK_LOCAL_DIRS": "/private/tmp/ashlar-delta4-init-attempts/metadata-only/spark-local",
+    "PYTHONPATH": "removed; repository source inserted explicitly after interpreter start",
+    "PYTHONHOME": "removed"
+  },
+  "result": {
+    "exitCode": 0,
+    "python": "3.12",
+    "pyspark": "4.2.0",
+    "delta-spark": "4.4.1",
+    "mini-racer": "0.14.1",
+    "metadataLocations": "all three distributions resolved from /private/tmp/ashlar-release-20261021-m3rde5p2/venv/lib/python3.12/site-packages",
+    "ashlarRuntimeProfile": "ashlar-configured-local-runtime/0.2",
+    "jdk": "21",
+    "deltaSparkJarSha256": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "deltaStorageJarSha256": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+  },
+  "pythonExecutableSha256": "811e2679c20fd2c7413f7c5ca28ce903065eea8dadb8660f1b9379a28959a480",
+  "pyvenvCfgSha256": "cbe77094566289a80328ec2c75b32dd87d7457328316bddddff85572dd4c32e2",
+  "distributionMetadataDirectoryTimes": {
+    "pyspark-4.2.0.dist-info": "2026-10-21T12:55:45Z",
+    "delta_spark-4.4.1.dist-info": "2026-10-21T12:55:46Z",
+    "mini_racer-0.14.1.dist-info": "2026-10-21T13:17:57Z"
+  },
+  "causeAssessment": "The original attempt's PackageNotFoundError cannot be causally attributed from retained evidence: the exact attempt-local worker/supervisor source and child argv/environment were removed after compact evidence capture. This current recheck demonstrates that the venv and the -I/-B launch shape can pass, not that the original subprocess was identical. Preserve exact packet files on any future attempt and compare argv, sys.path, environment, and dist-info state before Spark startup."
+}

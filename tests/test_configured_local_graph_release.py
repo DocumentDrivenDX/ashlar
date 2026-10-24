@@ -140,7 +140,7 @@ class Tests(unittest.TestCase):
                     context_factory=type('InertContextFactory',(),{'__new__':lambda cls:scope.context,'__setattr__':object.__setattr__})
                     stack.enter_context(patch.object(runtime,'object',context_factory,create=True))
                     ports={'_runtime':lambda *_:[],'attest_runtime':runtime_attestation,
-                        'open_finite_spark':lambda *_:spark,'verify_loaded_delta_class':lambda *_:None,
+                        'open_finite_spark':lambda *_,**__:spark,'verify_loaded_delta_class':lambda *_:None,
                         'PrivateFiniteLease':lambda *a,**kw:lease,
                         'open_configured_local_source':source_owner,'ConfiguredLocalAdmission':lambda *a:Current(),'LocalDeltaTransport':lambda *a,**kw:scope.transport,'_write':write}
                     for name,value in ports.items():stack.enter_context(patch.object(runtime,name,value))

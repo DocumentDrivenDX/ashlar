@@ -1,0 +1,45 @@
+{
+  "attemptId": "2c07637d5d514e7b97d42f80d0e83bf1",
+  "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-2c07637d5d514e7b97d42f80d0e83bf1",
+  "correction": "Import validate_protocol_detail from ashlar.protocol and pass configured_local_runtime.PROFILE directly.",
+  "firstRole": {
+    "deltaLogSha256": "3cc761cd3217bc5dee1ec03aea68586896504411d96ec827a73878c4b0c82ddf",
+    "deltaTableUuid": "3dc52a14-ced6-4922-be8d-9aac1182ea8f",
+    "diagnosis": "Ashlar protocol validator is ashlar.protocol.validate_protocol_detail; ashlar_host.protocol does not exist. The validator requires the existing ReaderProtocolProfile object configured_local_runtime.PROFILE. The prior code imported a nonexistent module and attempted to construct a profile with that object as its identity.",
+    "protocolAction": {
+      "minReaderVersion": 1,
+      "minWriterVersion": 7,
+      "writerFeatures": [
+        "domainMetadata",
+        "clustering",
+        "invariants",
+        "appendOnly"
+      ]
+    },
+    "role": "object_current",
+    "schemaStringSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc"
+  },
+  "preservedAttempt": "Read-only inspection; original temp attempt retained unchanged. No retry, cleanup, publication, or ACK.",
+  "profile": "ashlar-configured-local-delta4-init-failure/0.1",
+  "stderr": {
+    "bytes": 3111,
+    "relevantError": "ModuleNotFoundError: No module named ashlar_host.protocol",
+    "sha256": "111654b1b6aaada9a915fe73577e33d91736770b7e89b4da0385b9c03b0bbe42"
+  },
+  "supervisorResult": {
+    "attemptId": "2c07637d5d514e7b97d42f80d0e83bf1",
+    "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-2c07637d5d514e7b97d42f80d0e83bf1",
+    "elapsedSeconds": 18.292,
+    "failure": "child exit status 1",
+    "ownedBytes": 120621,
+    "permitSha256": "043b6d8864a5afd3a091cd752b044434676807f9a567d8d5dedb5386cfe33317",
+    "profile": "ashlar-delta4-init-supervisor-result/0.1",
+    "retryAllowed": false,
+    "returnCode": 1,
+    "status": "refused-or-failed",
+    "stderrBytes": 3111,
+    "stderrSha256": "111654b1b6aaada9a915fe73577e33d91736770b7e89b4da0385b9c03b0bbe42",
+    "stdoutBytes": 0,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -32,20 +32,15 @@ def _detail(spark, path):
 
 
 def _protocol(detail, uuid):
+    from ashlar.protocol import validate_protocol_detail
     from .configured_local_runtime import PROFILE as RUNTIME_PROTOCOL
-    from .protocol import ReaderProtocolProfile, validate_protocol_detail
-    profile = ReaderProtocolProfile(RUNTIME_PROTOCOL, (1, 2, 3), (2, 5, 7), {
-        'appendOnly', 'invariants', 'checkConstraints', 'changeDataFeed',
-        'generatedColumns', 'columnMapping', 'deletionVectors', 'timestampNtz',
-        'domainMetadata', 'rowTracking', 'clustering',
-    })
     normalized = dict(detail)
     normalized['minReaderVersion'] = str(normalized.get('minReaderVersion'))
     normalized['minWriterVersion'] = str(normalized.get('minWriterVersion'))
     features = normalized.get('tableFeatures')
     _require(type(features) in (list, tuple), 'Complete native Delta feature inventory required')
     normalized['tableFeatures'] = json.dumps(list(features), separators=(',', ':'))
-    return validate_protocol_detail(normalized, uuid=uuid, profile=profile)
+    return validate_protocol_detail(normalized, uuid=uuid, profile=RUNTIME_PROTOCOL)
 
 
 def _observed_role(spark, carrier_role, table, path, fields, layout, field_metadata=None):
@@ -53,7 +48,9 @@ def _observed_role(spark, carrier_role, table, path, fields, layout, field_metad
     uuid = detail.get('id')
     _require(type(uuid) is str and uuid, 'Native local Delta UUID required')
     native = spark.read.format('delta').load(str(path)).schema
-    actual_fields = tuple((field.name, field.dataType.simpleString(), field.nullable)
+    # Spark's simpleString renders LongType as ``bigint`` while typeName
+    # renders it as ``long``; UMF and Delta schema JSON use the latter name.
+    actual_fields = tuple((field.name, field.dataType.typeName(), field.nullable)
                           for field in native.fields)
     expected_fields = tuple((name, _TYPE_NAMES[kind], nullable)
                             for name, kind, nullable in fields)
@@ -91,13 +88,15 @@ def _observed_role(spark, carrier_role, table, path, fields, layout, field_metad
     }
 
 
-def create_local_current_xxhash64_tables(spark, output, tables):
+def create_local_current_xxhash64_tables(spark, output, tables, *, table_prefix='local.trussgraph'):
     """Create one fresh six-role `.4` carrier set and freeze its native binding."""
     output = Path(output)
     _require(output.is_absolute() and output.resolve() == output,
              'Canonical fresh local current output required')
     _require(type(tables) is dict and set(tables) == set(LOCAL_CURRENT_ROLE_TO_UMF),
              'Exact six-role local table map required')
+    _require(type(table_prefix) is str and table_prefix in ('local.trussgraph', 'local.configured'),
+             'Explicit supported local Delta namespace required')
     _require(all(character not in str(output) for character in ('`', '\0', '\n', '\r')),
              'Safe local Delta target path required')
     carriers = load_current_managed_carriers(XXHASH64_PROFILE)
@@ -113,7 +112,7 @@ def create_local_current_xxhash64_tables(spark, output, tables):
             path = output / local_role
             _require(not path.exists() and not path.is_symlink(),
                      'Fresh local Delta role path required')
-            _require(type(table) is str and table == 'local.trussgraph.' + local_role,
+            _require(type(table) is str and table == table_prefix + '.' + local_role,
                      'Exact local current table binding required')
             source = source_bytes.get(carrier_role + '.umf.json')
             _require(type(source) is bytes and hashlib.sha256(source).hexdigest() ==

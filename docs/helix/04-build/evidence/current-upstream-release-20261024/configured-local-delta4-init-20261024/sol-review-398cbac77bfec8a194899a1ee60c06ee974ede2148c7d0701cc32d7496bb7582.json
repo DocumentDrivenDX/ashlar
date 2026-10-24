@@ -1,0 +1,14 @@
+{
+  "profile": "ashlar-delta4-init-sol-review/0.1",
+  "reviewer": "Sol",
+  "decision": "execute",
+  "packetTreeSha256": "398cbac77bfec8a194899a1ee60c06ee974ede2148c7d0701cc32d7496bb7582",
+  "scope": "one fresh local six-role ashlar-delta/0.4-xxhash64 initialization only",
+  "limits": {
+    "wallSeconds": 300,
+    "ownedBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "retryAllowed": false
+  },
+  "basis": "Existing focused local release authorization. The second attempt passed schema observation then exposed an invalid protocol import and profile construction; implementation now reuses ashlar.protocol and the configured reader profile. Both no-JVM regressions and six packet checks passed. No publication, query, source mutation, protected ACK, or cloud action."
+}

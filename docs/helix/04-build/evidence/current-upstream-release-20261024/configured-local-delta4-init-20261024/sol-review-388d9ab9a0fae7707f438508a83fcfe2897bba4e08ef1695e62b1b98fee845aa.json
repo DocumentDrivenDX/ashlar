@@ -1,0 +1,14 @@
+{
+  "profile": "ashlar-delta4-init-sol-review/0.1",
+  "reviewer": "Sol",
+  "decision": "execute",
+  "packetTreeSha256": "388d9ab9a0fae7707f438508a83fcfe2897bba4e08ef1695e62b1b98fee845aa",
+  "scope": "one fresh local six-role ashlar-delta/0.4-xxhash64 initialization only",
+  "limits": {
+    "wallSeconds": 300,
+    "ownedBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "retryAllowed": false
+  },
+  "basis": "Existing focused local release authorization. First native attempt's object_current Delta schema was correct but the Spark verifier compared simpleString(bigint) to typeName(long); code and no-JVM regression now use typeName. Six packet checks passed. No publication, query, source mutation, protected ACK, or cloud action."
+}

@@ -24,6 +24,17 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValueError):command.parse_configured_local(b'{"profile":"other",'+self.raw[1:])
         too_large=json.loads(self.raw);too_large['bounds']['stream_bytes']=2097152
         with self.assertRaises(ValueError):command.parse_configured_local(json.dumps(too_large).encode())
+        selected=dict(self.value,profile='ashlar-configured-local/0.3',carrier_profile='ashlar-delta/0.4-xxhash64')
+        self.assertEqual(command.parse_configured_local(json.dumps(selected).encode()).runtime.carrier_profile,
+                         'ashlar-delta/0.4-xxhash64')
+        for invalid in (None,True,'ashlar-delta/0.5'):
+            with self.subTest(invalid=invalid),self.assertRaises(ValueError):
+                command.parse_configured_local(json.dumps(dict(selected,carrier_profile=invalid)).encode())
+        for mixed in (dict(self.value,carrier_profile='ashlar-delta/0.4-xxhash64'),
+                      dict(selected,carrier_profile='ashlar-delta/0.3'),
+                      dict(selected,operation='publish',ordinal=1,installation_sha256='a'*64)):
+            with self.subTest(mixed=mixed),self.assertRaises(ValueError):
+                command.parse_configured_local(json.dumps(mixed).encode())
     def capture(self,result,status='complete'):
         output=self.root/'output';output.mkdir(mode=0o700)
         if result is not None:(output/'runtime-report.json').write_bytes(command._encoded(result))

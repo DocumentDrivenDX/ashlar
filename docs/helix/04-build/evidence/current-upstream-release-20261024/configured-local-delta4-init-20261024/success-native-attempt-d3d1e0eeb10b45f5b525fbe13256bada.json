@@ -1,0 +1,132 @@
+{
+  "attemptId": "d3d1e0eeb10b45f5b525fbe13256bada",
+  "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada",
+  "carrierProfile": {
+    "lookupHashProfile": "spark-xxhash64-typed-key/0.1",
+    "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/carrier-profile.json",
+    "physicalProfile": "ashlar-delta/0.4-xxhash64",
+    "profile": "ashlar-local-current-installation-profile/0.1",
+    "roleUuids": {
+      "attempts": "67fd2575-f946-4980-987c-403b285ce157",
+      "edge_current": "d5072074-cfc3-418b-a661-a72c651a7d3a",
+      "manifest": "f26ccd5b-612b-4d8d-aca4-da5dab2cd7e9",
+      "object_current": "e6cc9adc-8095-4774-a8e9-8f72a7924ce3",
+      "tombstone": "6c3f22dd-82cf-4730-8dc5-d4a908a21d6e",
+      "whole_source_history": "712257f6-7dc7-4980-a3a0-c6ab7a718643"
+    },
+    "sha256": "3d6cfe64688db7dbdd976a7804be34de43f61ed89ad437a9723fd7fe62f7f42b",
+    "umfCandidateCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+    "umfRevision": "2ede4c879bea5db13794a6fa30e67c821306c17f"
+  },
+  "installationRegistry": {
+    "carrierProfileSha256": "3d6cfe64688db7dbdd976a7804be34de43f61ed89ad437a9723fd7fe62f7f42b",
+    "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/installation.json",
+    "physicalProfile": "ashlar-delta/0.4-xxhash64",
+    "profile": "ashlar-configured-local-installation/0.3",
+    "roles": {
+      "attempts": {
+        "deltaLogSha256": "d5ed7ff2d845c6aec82e78a552274d837e5a63b8eb787a658ae1ac589dc0966d",
+        "deltaSchemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+        "fieldCount": 6,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/attempts",
+        "table": "local.configured.attempts",
+        "umfSchemaSha256": "25182ffd06f9e748919d7a4bd6576efa97d8e1f809fb35003a0c317cc91fff20",
+        "uuid": "67fd2575-f946-4980-987c-403b285ce157"
+      },
+      "edge_current": {
+        "deltaLogSha256": "5a1c116f8aaa2f4304961e4b0c404063aadd995c01eafc4a901778815e051459",
+        "deltaSchemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+        "fieldCount": 20,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/edge_current",
+        "table": "local.configured.edge_current",
+        "umfSchemaSha256": "eb17bbf49525de56c8faac2f9005541f711119949db30441ccb087c715eede00",
+        "uuid": "d5072074-cfc3-418b-a661-a72c651a7d3a"
+      },
+      "manifest": {
+        "deltaLogSha256": "2362a32e1c7a3a1b2af9f4b8925f7f6e994d5488f9463a25041dd769228465ed",
+        "deltaSchemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+        "fieldCount": 7,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/manifest",
+        "table": "local.configured.manifest",
+        "umfSchemaSha256": "aecced8d524add1cc4b7324358bce16325b53d00fb41c35b51f18dc951f57ee8",
+        "uuid": "f26ccd5b-612b-4d8d-aca4-da5dab2cd7e9"
+      },
+      "object_current": {
+        "deltaLogSha256": "4029393e0b273b4d1cfadddb714e844cea255dcded05b2dc50d8bfa6761911a9",
+        "deltaSchemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+        "fieldCount": 17,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/object_current",
+        "table": "local.configured.object_current",
+        "umfSchemaSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+        "uuid": "e6cc9adc-8095-4774-a8e9-8f72a7924ce3"
+      },
+      "tombstone": {
+        "deltaLogSha256": "534b379517ae2e29ad9d59eee492d7ae4a91c36dce2b1f071a96d653c8ee123e",
+        "deltaSchemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+        "fieldCount": 10,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/tombstone",
+        "table": "local.configured.tombstone",
+        "umfSchemaSha256": "2d7f473cfc1a389d3fd1d72d0f2fad4cf3a7d95efe4942888a5aa1f3d4fe46d3",
+        "uuid": "6c3f22dd-82cf-4730-8dc5-d4a908a21d6e"
+      },
+      "whole_source_history": {
+        "deltaLogSha256": "536600605a35ba902b9498e77950eb2c5d48f96aca0eb3980ca8d67daed802fe",
+        "deltaSchemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+        "fieldCount": 6,
+        "path": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada/installation/whole_source_history",
+        "table": "local.configured.whole_source_history",
+        "umfSchemaSha256": "c28182433e92d4017f10b51b312de9bf1e67aa1aa684183cc4e2d96a094f4f12",
+        "uuid": "712257f6-7dc7-4980-a3a0-c6ab7a718643"
+      }
+    },
+    "sha256": "b595a60952023e170a5b46b7d04a154b4f6a235239acdde190e8a81c319dac38"
+  },
+  "profile": "ashlar-configured-local-delta4-init-success/0.1",
+  "result": {
+    "attemptId": "d3d1e0eeb10b45f5b525fbe13256bada",
+    "carrierProfileSha256": "3d6cfe64688db7dbdd976a7804be34de43f61ed89ad437a9723fd7fe62f7f42b",
+    "installationSha256": "b595a60952023e170a5b46b7d04a154b4f6a235239acdde190e8a81c319dac38",
+    "preflightSha256": "824806be02c038dd2607ad45ab5781fcf91ff65b7359f5c96c7a83b42473c2ad",
+    "profile": "ashlar-local-delta4-init-result/0.1",
+    "protectedAck": false,
+    "publication": false,
+    "query": false,
+    "roleTableUuids": {
+      "attempts": "67fd2575-f946-4980-987c-403b285ce157",
+      "edge_current": "d5072074-cfc3-418b-a661-a72c651a7d3a",
+      "manifest": "f26ccd5b-612b-4d8d-aca4-da5dab2cd7e9",
+      "object_current": "e6cc9adc-8095-4774-a8e9-8f72a7924ce3",
+      "tombstone": "6c3f22dd-82cf-4730-8dc5-d4a908a21d6e",
+      "whole_source_history": "712257f6-7dc7-4980-a3a0-c6ab7a718643"
+    },
+    "sourceInvocationSha256": "d784b59d1fcce5e00d39fff3d86e19fb20b3ea2f8f22be477b283eaa37897757",
+    "status": "complete-local-initialization-only"
+  },
+  "runtimeReportSha256": "c9bcb671266ca154a19c35c30a4df0c0f05ad8e4819cf35308010857a0f1f6ed",
+  "supervisor": {
+    "attemptId": "d3d1e0eeb10b45f5b525fbe13256bada",
+    "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-d3d1e0eeb10b45f5b525fbe13256bada",
+    "elapsedSeconds": 20.526,
+    "failure": null,
+    "ownedBytes": 271182,
+    "permitSha256": "42d074b023201968b96d461ba5c05ff48ff5524d63cdbfd93e78754d6c4bbb51",
+    "profile": "ashlar-delta4-init-supervisor-result/0.1",
+    "retryAllowed": false,
+    "returnCode": 0,
+    "status": "complete",
+    "stderrBytes": 409,
+    "stderrSha256": "5e888186854ba9c18ea07d2243eafb3869cea91b3266a9c2f28aa3069412a7fd",
+    "stdoutBytes": 895,
+    "stdoutSha256": "84e2375f8eb67b62c862194ec11eba3819827a881cfaffff81b822e48a2f4c1d"
+  },
+  "validation": {
+    "allSixDeltaLogMetadataUUIDsAndSchemaHashesAgree": true,
+    "allSixUUIDsUnique": true,
+    "deltaSparkVersion": "4.4.1",
+    "noPublicationQueryOrProtectedAck": true,
+    "resultRegistryCarrierUUIDsAgree": true,
+    "runtimeSparkVersion": "4.2.0",
+    "scope": "one fresh local initialization only; no publication, query, source mutation, ACK, cloud, scale, or post-init read workload",
+    "sixRoleSetExact": true
+  }
+}

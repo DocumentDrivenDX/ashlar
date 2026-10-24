@@ -1,0 +1,14 @@
+{
+  "profile": "ashlar-delta4-init-sol-review/0.1",
+  "reviewer": "Sol",
+  "decision": "execute",
+  "packetTreeSha256": "8316288d2e0b1fa05657ddc47f690cb0be005b444e44d77465b20b83b333fada",
+  "scope": "one fresh local six-role ashlar-delta/0.4-xxhash64 initialization only",
+  "limits": {
+    "wallSeconds": 300,
+    "ownedBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "retryAllowed": false
+  },
+  "basis": "Existing release authorization for focused local functional verification; source and packet reviewed; five isolated packet checks passed. No publication, query, source mutation, protected ACK, or cloud action."
+}

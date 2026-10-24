@@ -23,6 +23,7 @@ from .evolution_producer import snapshot
 from .lifecycle import finish,owned_context
 
 PROFILE=ReaderProtocolProfile('ashlar-configured-local-delta/0.1',(1,2,3),(2,5,7),{'appendOnly','invariants','checkConstraints','changeDataFeed','generatedColumns','columnMapping','deletionVectors','timestampNtz','domainMetadata','rowTracking','clustering'})
+CONFIGURED_LOCAL_CARRIERS=('ashlar-delta/0.3','ashlar-delta/0.4-xxhash64')
 
 def _require(value):
     if not value:raise ValueError('Configured local runtime refused')
@@ -43,6 +44,7 @@ class ConfiguredLocalRuntimeConfig:
     installation_id:str
     installation_sha256:Optional[str]
     jar_inventory:Optional[Mapping]=None
+    carrier_profile:str='ashlar-delta/0.3'
     def __post_init__(self):
         for path in (self.installation,self.output,self.jars,self.java_home):_path(path)
         _require(type(self.admission)is ConfiguredSourceAdmissionConfig);self.admission.__post_init__()
@@ -58,6 +60,7 @@ class ConfiguredLocalRuntimeConfig:
         _require(self.output!=self.installation and self.output not in self.installation.parents and self.installation not in self.output.parents)
         _require(type(self.stream)is str and 0<len(self.stream.encode())<=1024 and '\0'not in self.stream)
         _require(type(self.installation_id)is str and re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,127}',self.installation_id)is not None)
+        _require(type(self.carrier_profile)is str and self.carrier_profile in CONFIGURED_LOCAL_CARRIERS)
         token=self.materialization_clock_us
         _require(type(token)is str and re.fullmatch('0|[1-9][0-9]{0,18}',token)is not None and int(token)<2**63)
         try:datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)+datetime.timedelta(microseconds=int(token))
@@ -119,22 +122,63 @@ def _verify_driver_memory(spark,*,r02):
         _require(1792*1024*1024<=actual<=2304*1024*1024)
 
 
-def _fields():
+def _fields(carrier_profile='ashlar-delta/0.3'):
+    if carrier_profile=='ashlar-delta/0.4-xxhash64':
+        from .managed_current_carriers import load_current_managed_carriers
+        from .schema_rows import LOCAL_CURRENT_ROLE_TO_UMF
+        carriers=load_current_managed_carriers(carrier_profile)
+        return {r:carriers.ordered_fields(umf) for r,umf in LOCAL_CURRENT_ROLE_TO_UMF.items()}
     carriers=load_managed_carriers()
     return {**{r:carriers.ordered_fields(r)for r in ROLES},'attempts':tuple((n,'STRING',False)for n in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((n,'TIMESTAMP'if n=='recorded_at'else 'STRING',False)for n in FIELDS)}
 
-def _columns():
+def _columns(carrier_profile='ashlar-delta/0.3'):
+    if carrier_profile=='ashlar-delta/0.4-xxhash64':
+        from .managed_current_carriers import load_current_managed_carriers
+        from .schema_rows import LOCAL_CURRENT_ROLE_TO_UMF
+        carriers=load_current_managed_carriers(carrier_profile)
+        return {r:tuple((name,kind) for name,kind,_nullable in carriers.ordered_fields(umf))
+                for r,umf in LOCAL_CURRENT_ROLE_TO_UMF.items()}
     carriers=load_managed_carriers()
     return {**{r:carriers.ordered_columns(r)for r in ROLES},'attempts':tuple((n,'STRING')for n in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((n,'TIMESTAMP'if n=='recorded_at'else 'STRING')for n in FIELDS)}
 
 
+def _create_configured_xxhash64_tables(spark,installation,tables,creator):
+    """Call the pinned UMF six-role realization with this installation's aliases."""
+    _require(isinstance(installation,Path) and installation.is_absolute() and installation.resolve()==installation)
+    created,profile,_schemas=creator(spark,installation,tables,table_prefix='local.configured')
+    profile_keys={'profile','physical_profile','lookup_hash_profile','generated_carriers_sha256','umf_revision',
+        'local_realization','umf_realization_profile','umf_candidate_commit','umf_realization_manifest_sha256',
+        'umf_bridge_sha256','umf_build_inputs_sha256','writer_settings','roles'}
+    _require(type(profile)is dict and set(profile)==profile_keys
+        and profile.get('profile')=='ashlar-local-current-installation-profile/0.1'
+        and profile.get('physical_profile')=='ashlar-delta/0.4-xxhash64'
+        and profile.get('lookup_hash_profile')=='spark-xxhash64-typed-key/0.1'
+        and type(profile.get('roles'))is dict and set(profile['roles'])==set(tables))
+    _require(type(created)is list and len(created)==6
+        and {target.table for target in created}==set(tables.values())
+        and len({target.uuid for target in created})==6)
+    by_table={target.table:target for target in created}
+    role_keys={'carrier_role','table','path','uuid','fields','field_metadata','protocol','clustering_columns',
+        'partition_columns','layout_properties','umf_source_bytes_sha256','umf_source_sha256','umf_schema_sha256',
+        'umf_target_sha256','umf_proposal_sha256','umf_ddl_sha256','umf_dispositions','umf_writer_settings','umf_proposal'}
+    _require(all(type(profile['roles'][role])is dict
+        and set(profile['roles'][role])==role_keys
+        and profile['roles'][role].get('table')==table
+        and profile['roles'][role].get('uuid')==by_table[table].uuid
+        and profile['roles'][role].get('path')==str(by_table[table].path)
+        for role,table in tables.items()))
+    return tuple(created),profile,None
+
+
 def _scope(config,source):
-    return {'installation_id':config.installation_id,'stream':config.stream,'materialization_clock_us':config.materialization_clock_us,
+    scope={'installation_id':config.installation_id,'stream':config.stream,'materialization_clock_us':config.materialization_clock_us,
             'configuration_sha256':hashlib.sha256(source.configuration_file.raw).hexdigest(),'source_sha256':hashlib.sha256(source.original_source).hexdigest(),
             'model_sha256':source.configuration.model_sha256,'operation_capacity':None if config.operation_capacity is None else dict(config.operation_capacity)}
+    if config.carrier_profile!='ashlar-delta/0.3':scope['physical_profile']=config.carrier_profile
+    return scope
 
 
-def _native(spark,target,columns):
+def _native(spark,target,columns,carrier_profile='ashlar-delta/0.3'):
     rows=spark.sql('DESCRIBE DETAIL delta.`'+str(target.path)+'`').limit(2).collect();_require(len(rows)==1)
     detail=rows[0].asDict(recursive=True)
     _require(detail['id']==target.uuid and detail['location'].removeprefix('file:').rstrip('/')==str(target.path)and detail['format']=='delta')
@@ -143,7 +187,7 @@ def _native(spark,target,columns):
     schema=spark.read.format('delta').load(str(target.path)).schema
     types={'string':'STRING','long':'BIGINT','timestamp':'TIMESTAMP'}
     _require(tuple((f.name,types.get(f.dataType.typeName()))for f in schema.fields)==columns)
-    role=target.table.rsplit('.',1)[1];_require(tuple((f.name,types.get(f.dataType.typeName()),f.nullable)for f in schema.fields)==_fields()[role])
+    role=target.table.rsplit('.',1)[1];_require(tuple((f.name,types.get(f.dataType.typeName()),f.nullable)for f in schema.fields)==_fields(carrier_profile)[role])
     props=detail.get('properties');_require(type(props)is dict)
     retention=min(interval_microseconds(props.get('delta.deletedFileRetentionDuration','interval 7 days')),interval_microseconds(props.get('delta.logRetentionDuration','interval 30 days')))
     return retention
@@ -163,6 +207,9 @@ class ConfiguredLocalAdmission:
         finish(None,[self.lease.renew,lambda:source.renew(context),lambda:self.registry_file.renew(65536)])
         _require(self.spark.sparkContext.master=='local[1]'and self.spark.sparkContext.applicationId==self.session and self.spark.conf.get('spark.sql.session.timeZone')=='UTC'
             and self.spark.conf.get(PARAMETER_SUBSTITUTION_SETTING)=='true')
+        if self.config.carrier_profile=='ashlar-delta/0.4-xxhash64':
+            from .local_current_carrier_profile import verify_local_writer_settings
+            verify_local_writer_settings(self.spark)
         _,identity,jars=attest_runtime(self.config)
         _require(self.spark.version=='4.2.0' and self.spark.sparkContext._jvm.java.lang.System.getProperty('java.specification.version')=='21')
         _require(self.spark.conf.get('spark.jars')==','.join(str(p)for p in jars))
@@ -179,7 +226,7 @@ class ConfiguredLocalAdmission:
         if force or key not in self._memo:
             deadlines=[]
             def native(target):
-                role=target.table.rsplit('.',1)[1];retention=_native(self.spark,target,self.columns[role])
+                role=target.table.rsplit('.',1)[1];retention=_native(self.spark,target,self.columns[role],self.config.carrier_profile)
                 if target.table in versions:
                     rows=self.spark.sql('DESCRIBE HISTORY delta.`'+str(target.path)+'`').limit(1001).collect();_require(0<len(rows)<=1000)
                     matching=[r for r in rows if r['version']==versions[target.table]];_require(len(matching)==1)
@@ -202,6 +249,10 @@ class ConfiguredLocalAdmission:
 def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
     _require(type(config)is ConfiguredLocalRuntimeConfig);config.__post_init__();jars=_runtime(config)
     initialize=ordinal is None
+    # The .4 installer is separately versioned and intentionally has no
+    # continuation, publication, read, or query route until those consumers
+    # bind its six-role carrier profile and complete vector.
+    _require(config.carrier_profile=='ashlar-delta/0.3' or initialize)
     _require(type(export)is bool and (not export or not initialize and selector is None and query is None))
     if query is not None:
         from .configured_local_query import ConfiguredLocalQueryConfig
@@ -224,7 +275,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         original_registry=InvocationFile.read(config.installation/'installation.json',65536)
         _require(hashlib.sha256(original_registry.raw).hexdigest()==config.installation_sha256)
     config.output.mkdir(mode=0o700)
-    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None;export_capture=None
+    lease=None;spark=None;transport=None;source=None;primary=None;result=None;source_manager=None;admission=None;final_manifest=None;export_capture=None;carrier_profile_file=None
     try:
         if initialize:config.installation.mkdir(mode=0o700)
         lease=PrivateFiniteLease(config.installation,create=initialize)
@@ -232,7 +283,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         _require(not export or source.graph)
         if query is not None:_require(type(query)is not ConfiguredSdkPagesConfig or source.graph)
         _require(selector is None or selector[0]in source.type_ids)
-        scope=_scope(config,source);columns=_columns();tables={r:'local.configured.'+r for r in columns}
+        scope=_scope(config,source);columns=_columns(config.carrier_profile);tables={r:'local.configured.'+r for r in columns}
         if not initialize:
             registry=json.loads(original_registry.raw);runtime_profile,runtime_identity,_=attest_runtime(config)
             _require(set(registry)=={'profile','scope','targets','columns','runtime_identity'}and registry['profile']=='ashlar-configured-local-installation/0.2'and registry['scope']==scope and registry['columns']=={r:[list(c)for c in cols]for r,cols in columns.items()}and registry['runtime_identity']=={'profile':runtime_profile,**runtime_identity})
@@ -245,13 +296,28 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         verify_loaded_delta_class(spark,jars)
         spark.sparkContext.setLogLevel('ERROR');targets=[]
         if initialize:
-            for role,schema in columns.items():
-                path=config.installation/role
-                spark.sql('CREATE TABLE delta.`'+str(path)+'` ('+','.join(n+' '+f+(''if nullable else ' NOT NULL')for n,f,nullable in _fields()[role])+") USING DELTA TBLPROPERTIES ('delta.deletedFileRetentionDuration'='interval 7 days','delta.logRetentionDuration'='interval 30 days')")
-                rows=spark.sql('DESCRIBE DETAIL delta.`'+str(path)+'`').limit(2).collect();_require(len(rows)==1)
-                targets.append(DeltaTarget(tables[role],path,rows[0]['id']))
+            carrier_profile_record=None
+            if config.carrier_profile=='ashlar-delta/0.4-xxhash64':
+                from .local_current_carrier_profile import create_local_current_xxhash64_tables
+                targets,carrier_profile_record,_=_create_configured_xxhash64_tables(
+                    spark,config.installation,tables,create_local_current_xxhash64_tables)
+                carrier_profile_bytes=(encoded(carrier_profile_record)+'\n').encode()
+                _write(config.installation/'carrier-profile.json',carrier_profile_bytes)
+                carrier_profile_file=InvocationFile.read(config.installation/'carrier-profile.json',65536)
+                _require(carrier_profile_file.raw==carrier_profile_bytes)
+            else:
+                for role,schema in columns.items():
+                    path=config.installation/role
+                    spark.sql('CREATE TABLE delta.`'+str(path)+'` ('+','.join(n+' '+f+(''if nullable else ' NOT NULL')for n,f,nullable in _fields(config.carrier_profile)[role])+") USING DELTA TBLPROPERTIES ('delta.deletedFileRetentionDuration'='interval 7 days','delta.logRetentionDuration'='interval 30 days')")
+                    rows=spark.sql('DESCRIBE DETAIL delta.`'+str(path)+'`').limit(2).collect();_require(len(rows)==1)
+                    targets.append(DeltaTarget(tables[role],path,rows[0]['id']))
             runtime_profile,runtime_identity,_=attest_runtime(config)
-            registry={'profile':'ashlar-configured-local-installation/0.2','runtime_identity':{'profile':runtime_profile,**runtime_identity},'scope':scope,'targets':[{'table':t.table,'path':str(t.path),'uuid':t.uuid}for t in targets],'columns':{r:[list(c)for c in cols]for r,cols in columns.items()}}
+            registry={'profile':'ashlar-configured-local-installation/0.2',
+                'runtime_identity':{'profile':runtime_profile,**runtime_identity},'scope':scope,'targets':[{'table':t.table,'path':str(t.path),'uuid':t.uuid}for t in targets],
+                'columns':{r:[list(c)for c in cols]for r,cols in columns.items()}}
+            if carrier_profile_record is not None:
+                registry.update(profile='ashlar-configured-local-installation/0.3',physical_profile=config.carrier_profile,
+                    carrier_profile_sha256=hashlib.sha256(carrier_profile_bytes).hexdigest())
             _write(config.installation/'installation.json',(encoded(registry)+'\n').encode());original_registry=InvocationFile.read(config.installation/'installation.json',65536)
         else:
             _require(type(registry['targets'])is list and len(registry['targets'])==6)
@@ -262,7 +328,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
         targets=tuple(targets);policy=PrivatePolicy(context,targets)
         admission=ConfiguredLocalAdmission(config,lease,spark,source,targets,columns,original_registry);admission(source,None,None,context)
         transport=(LocalDeltaTransport.initialize(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,context=context,capacity=config.operation_capacity)if initialize else LocalDeltaTransport(spark,config.installation/'operations.sqlite',config.installation_id,targets,policy,capacity=config.operation_capacity));policy.initializing=False
-        if initialize:result={'profile':'ashlar-configured-local-initialized/0.2','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
+        if initialize:result={'profile':'ashlar-configured-local-initialized/0.3' if config.carrier_profile=='ashlar-delta/0.4-xxhash64' else 'ashlar-configured-local-initialized/0.2','installation_id':config.installation_id,'operation':'initialize','installation_sha256':hashlib.sha256(original_registry.raw).hexdigest(),'installation':registry,'published':False,'protected_ack':False}
         elif selector is not None or query is not None or export or r02 is not None:
             from .file_progress import JournaledJsonlProgress
             from .configured_local_read import read_configured_local_singleton
@@ -308,6 +374,7 @@ def _run(config,ordinal,*,selector=None,query=None,export=False,r02=None):
     callbacks=[]
     if source is not None:callbacks.append(lambda:source.renew(source.context))
     if original_registry is not None:callbacks.append(lambda:original_registry.renew(65536))
+    if carrier_profile_file is not None:callbacks.append(lambda:carrier_profile_file.renew(65536))
     if admission is not None:callbacks.append(lambda:admission.closing(source,final_manifest,source.context))
     if transport is not None:callbacks.append(transport.close)
     if spark is not None:callbacks.append(spark.stop)

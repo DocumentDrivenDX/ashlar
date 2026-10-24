@@ -1,0 +1,302 @@
+{
+  "attemptId": "52c8424075d3435b9d3245bc0e30b943",
+  "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-52c8424075d3435b9d3245bc0e30b943",
+  "firstRole": {
+    "carrierFieldKinds": [
+      [
+        "source_system",
+        "STRING",
+        false
+      ],
+      [
+        "type_id",
+        "BIGINT",
+        false
+      ],
+      [
+        "id",
+        "BIGINT",
+        false
+      ],
+      [
+        "logical_key_json",
+        "STRING",
+        false
+      ],
+      [
+        "schema_revision",
+        "STRING",
+        false
+      ],
+      [
+        "entity_version",
+        "BIGINT",
+        false
+      ],
+      [
+        "props_json",
+        "STRING",
+        false
+      ],
+      [
+        "retained_json",
+        "STRING",
+        false
+      ],
+      [
+        "root_id",
+        "BIGINT",
+        true
+      ],
+      [
+        "source_feed",
+        "STRING",
+        false
+      ],
+      [
+        "source_epoch",
+        "STRING",
+        false
+      ],
+      [
+        "source_position",
+        "BIGINT",
+        true
+      ],
+      [
+        "published_at",
+        "TIMESTAMP",
+        false
+      ],
+      [
+        "lookup_hash",
+        "BIGINT",
+        false
+      ],
+      [
+        "apply_batch_id",
+        "STRING",
+        true
+      ],
+      [
+        "source_cursor_json",
+        "STRING",
+        true
+      ],
+      [
+        "source_delivery_id",
+        "STRING",
+        true
+      ]
+    ],
+    "comparisonCause": {
+      "failure": "The Delta log schema and UMF expected schema match after native Delta type normalization. Spark LongType.simpleString() yields `bigint`, but the configured expected token is `long`; comparing those strings caused a false mismatch. The implementation now compares dataType.typeName(), preserving ordered fields, types, and nullability.",
+      "pysparkLongSimpleString": "bigint",
+      "pysparkLongTypeName": "long",
+      "runtimeObservedExpression": "field.dataType.simpleString()"
+    },
+    "deltaLogPath": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-52c8424075d3435b9d3245bc0e30b943/installation/object_current/_delta_log/00000000000000000000.json",
+    "deltaLogSha256": "f4445d67775fdab1f0a4442eed2345a853f1a134ae0f5a4c034a1cb50a70c108",
+    "deltaSchemaMatchesUmfAfterNativeTypeNormalization": true,
+    "deltaTableUuid": "62026796-3c31-4807-b7bb-3d1529a5acbe",
+    "nativeSchemaFields": [
+      [
+        "source_system",
+        "string",
+        false
+      ],
+      [
+        "type_id",
+        "long",
+        false
+      ],
+      [
+        "id",
+        "long",
+        false
+      ],
+      [
+        "logical_key_json",
+        "string",
+        false
+      ],
+      [
+        "schema_revision",
+        "string",
+        false
+      ],
+      [
+        "entity_version",
+        "long",
+        false
+      ],
+      [
+        "props_json",
+        "string",
+        false
+      ],
+      [
+        "retained_json",
+        "string",
+        false
+      ],
+      [
+        "root_id",
+        "long",
+        true
+      ],
+      [
+        "source_feed",
+        "string",
+        false
+      ],
+      [
+        "source_epoch",
+        "string",
+        false
+      ],
+      [
+        "source_position",
+        "long",
+        true
+      ],
+      [
+        "published_at",
+        "timestamp",
+        false
+      ],
+      [
+        "lookup_hash",
+        "long",
+        false
+      ],
+      [
+        "apply_batch_id",
+        "string",
+        true
+      ],
+      [
+        "source_cursor_json",
+        "string",
+        true
+      ],
+      [
+        "source_delivery_id",
+        "string",
+        true
+      ]
+    ],
+    "role": "object_current",
+    "schemaStringSha256": "ae42872387493d3dd1d6393950ef177fbb513418b5935c1eba1f348f4bef25dc",
+    "umfExpectedFields": [
+      [
+        "source_system",
+        "string",
+        false
+      ],
+      [
+        "type_id",
+        "long",
+        false
+      ],
+      [
+        "id",
+        "long",
+        false
+      ],
+      [
+        "logical_key_json",
+        "string",
+        false
+      ],
+      [
+        "schema_revision",
+        "string",
+        false
+      ],
+      [
+        "entity_version",
+        "long",
+        false
+      ],
+      [
+        "props_json",
+        "string",
+        false
+      ],
+      [
+        "retained_json",
+        "string",
+        false
+      ],
+      [
+        "root_id",
+        "long",
+        true
+      ],
+      [
+        "source_feed",
+        "string",
+        false
+      ],
+      [
+        "source_epoch",
+        "string",
+        false
+      ],
+      [
+        "source_position",
+        "long",
+        true
+      ],
+      [
+        "published_at",
+        "timestamp",
+        false
+      ],
+      [
+        "lookup_hash",
+        "long",
+        false
+      ],
+      [
+        "apply_batch_id",
+        "string",
+        true
+      ],
+      [
+        "source_cursor_json",
+        "string",
+        true
+      ],
+      [
+        "source_delivery_id",
+        "string",
+        true
+      ]
+    ]
+  },
+  "preservedAttempt": "Original attempt retained in private temp; read-only inspection only. No retry, cleanup, publication, or ACK.",
+  "profile": "ashlar-configured-local-delta4-init-failure/0.1",
+  "stderr": {
+    "bytes": 3073,
+    "relevantError": "ValueError: Exact UMF-generated local schema required",
+    "sha256": "6b00366aceb0dfc1825bd0df14df5a48c527bce4e16481ca99e3955875c835ad"
+  },
+  "supervisorResult": {
+    "attemptId": "52c8424075d3435b9d3245bc0e30b943",
+    "attemptRoot": "/private/tmp/ashlar-delta4-init-attempts/ashlar-delta4-init-52c8424075d3435b9d3245bc0e30b943",
+    "elapsedSeconds": 21.706,
+    "failure": "child exit status 1",
+    "ownedBytes": 120518,
+    "permitSha256": "8be9c763dbf52c3fdda3f0dd1b3b35ca5938acccd8f5db3db7105f148bf7f534",
+    "profile": "ashlar-delta4-init-supervisor-result/0.1",
+    "retryAllowed": false,
+    "returnCode": 1,
+    "status": "refused-or-failed",
+    "stderrBytes": 3073,
+    "stderrSha256": "6b00366aceb0dfc1825bd0df14df5a48c527bce4e16481ca99e3955875c835ad",
+    "stdoutBytes": 0,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

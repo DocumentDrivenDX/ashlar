@@ -1,0 +1,133 @@
+{
+  "profile": "ashlar-local-configured-delta4-init-packet/0.1",
+  "status": "prepared-for-independent-review; not executed",
+  "scope": {
+    "sourceInvocation": "ashlar-configured-local/0.3",
+    "carrierProfile": "ashlar-delta/0.4-xxhash64",
+    "operation": "initialize",
+    "ordinal": 0,
+    "roles": [
+      "object_current",
+      "edge_current",
+      "tombstone",
+      "whole_source_history",
+      "attempts",
+      "manifest"
+    ],
+    "publication": false,
+    "query": false,
+    "sourceMutation": false,
+    "ack": false,
+    "cloud": false
+  },
+  "limits": {
+    "wallSeconds": 300,
+    "ownedBytes": 536870912,
+    "combinedStdoutStderrBytes": 1048576,
+    "invocationBytes": 262144,
+    "admissionReceiptBytes": 1048576,
+    "noRetry": true
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python",
+    "pythonVersion": "3.12.14",
+    "pyspark": "4.2.0",
+    "deltaSpark": "4.4.1",
+    "miniRacer": "0.14.1",
+    "py4j": "0.10.9.9",
+    "javaHome": "/opt/homebrew/Cellar/openjdk@21/21.0.13.0.2/libexec/openjdk.jdk/Contents/Home",
+    "javaExecutableSha256": "382e51393d712cf7e228a606142d3c079f5fe12e4b599c62fdd1470e40fe7916",
+    "pythonRealExecutableSha256": "811e2679c20fd2c7413f7c5ca28ce903065eea8dadb8660f1b9379a28959a480",
+    "pyvenvCfgSha256": "cbe77094566289a80328ec2c75b32dd87d7457328316bddddff85572dd4c32e2",
+    "distributionRecordSha256": {
+      "pyspark": "60d06669e88234d9d8853a4023d4fd99278f2ac4a85cafa88f4fdb2aeb23be58",
+      "delta-spark": "c7b4af46a003aaa0158d0626a1b2de88c21aee45e3b513916d0010f5225e0509",
+      "mini-racer": "9d4697a67222b1dcb62388aa22324d0b196cf70ca3c1efc12ac15640a0881caa",
+      "py4j": "1031a588ee9620c1c560b695d82fd9bac27760b70d7f6f3c2a5048922e315b2d"
+    },
+    "jars": {
+      "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+      "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+    },
+    "localWheels": {
+      "pyspark-4.2.0-py2.py3-none-any.whl": "5cc610e9ed56a022b63724e0ad62e9f7f9e47a2520802ae9d8c75826d1faf8cc",
+      "delta_spark-4.4.1-py3-none-any.whl": "224814c76071236dd98c23e8d01da9f43bec21af4129cae92822ca25e5becec7",
+      "mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+      "py4j-0.10.9.9-py2.py3-none-any.whl": "c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533"
+    },
+    "pysparkWheelBuildReceiptSha256": "82c23707852838da33e9b522545a9853348161fe0cf7b74457422a9b03a7e9db"
+  },
+  "runtimePaths": {
+    "jars": "/private/tmp/ashlar-r02-attempts/ashlar-r02-8a89b98a4e3e4b6b944f6cd0b6352a80/jars",
+    "wheelhouse": "/private/tmp/ashlar-r4-cp312-wheelhouse-20261023"
+  },
+  "umfProducer": {
+    "source": "/private/tmp/ashlar-r02-attempts/ashlar-r02-8a89b98a4e3e4b6b944f6cd0b6352a80/umf-producer",
+    "head": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "tree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
+    "bun": "/opt/homebrew/Cellar/bun/1.4.3/bin/bun",
+    "bunSha256": "2d1f1e69a98217d7d573d8297aaac9b196a81c0ccb082724902d5be1f1cf27a2",
+    "git": "/opt/homebrew/Cellar/git/2.56.0_1/bin/git",
+    "gitSha256": "40163333061f7223ecb604ed0f12988cfc8096d57ca8b1db006d410d4aeb700e",
+    "timeoutSeconds": 30,
+    "maximumOutputBytes": 1048576,
+    "maximumReceiptBytes": 1048576
+  },
+  "ashlarSource": {
+    "root": "/Users/erik/Projects/ashlar",
+    "directories": {
+      "src/ashlar": {
+        "fileCount": 90,
+        "sha256": "18567d463ea102dc60d7475a4081acd87e7294befd9381dbbead8cfbec9cd71d"
+      },
+      "src/ashlar_host": {
+        "fileCount": 475,
+        "sha256": "58155f74dea75262cee848315a2bb9dc69afd22171323d32111f25ceb235bec1"
+      }
+    }
+  },
+  "umfDelta4Bridge": {
+    "profile": "ashlar-local-current-delta4-umf-realization/0.1",
+    "candidateCommit": "259bf1ed91466ff7e9782d7517c14f2112282026",
+    "realizationManifestSha256": "da7d4b2a50ca949632520e64a616674646ecc3f829c3b9574dadced42ee84089",
+    "bridgeSha256": "34deb5c79b5dcb1ace8093e66a4b1213a98cbcc1fb50bfd24fdc4a21721c76b5",
+    "buildInputsSha256": "b314d067d88ede4117f37c0b25604f53fac5753b5c5c2d05500762530950a26a",
+    "generatedCarriersSha256": "cb6c75c3cb3805011245ca460a763f15509a7d9627009301cc815e6983413faa",
+    "writerSetting": {
+      "key": "spark.sql.parquet.compression.codec",
+      "value": "zstd"
+    },
+    "proposalWriterSettings": {
+      "object_current": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ],
+      "edge_current": [
+        {
+          "key": "spark.sql.parquet.compression.codec",
+          "value": "zstd"
+        }
+      ],
+      "tombstone": [],
+      "whole_source_history": [],
+      "attempts": [],
+      "manifest": []
+    },
+    "sourceRoleSha256": {
+      "object_current": "6457b4b1a56fa5530732ef098b21b4a6ed5179db6d99a000545bf5c300caf771",
+      "edge_current": "18732a5991f77d4b74a3ef2a77d4512b2b550e9de43a4085f342dfc326d237bb",
+      "tombstone": "dabf700f674c95d84b8bf2ee5f40e7fb6d989ec8052c3790744cd24352afebf0",
+      "whole_source_history": "381b5f2bd566d39ea5583d3f4764c6b8f64c049c15544b4e1c5cb3cb6fd3f934",
+      "publication_manifest": "fa4a5bdf9493eca17f563030f20cfc5a3d36938fb7998c9839b85923ae9cc0d8",
+      "publication_attempt_phase": "d6ca4b087f36e2a14d03d363a67a49059016ef1cd96b8792771dddec0dee99dc"
+    }
+  },
+  "inputSha256": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+  }
+}

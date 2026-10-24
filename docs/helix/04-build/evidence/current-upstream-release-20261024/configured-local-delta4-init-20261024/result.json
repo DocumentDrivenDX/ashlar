@@ -1,0 +1,61 @@
+{
+  "profile": "ashlar-configured-local-delta4-init-attempt/0.1",
+  "status": "stopped-before-spark-runtime-attestation-failed",
+  "attemptId": "init-905a70f60d124463ab2c177bb18bae67",
+  "startedAt": "2026-10-24T11:50:21Z",
+  "sourceProfile": "ashlar-configured-local/0.3",
+  "carrierProfile": "ashlar-delta/0.4-xxhash64",
+  "operation": "initialize",
+  "processInventory": {
+    "capturedAt": "2026-10-24T11:49:10Z",
+    "result": "No Java/Spark process; unrelated Python/PostgreSQL and system processes only",
+    "providedBy": "parent task via escalated read-only host inventory"
+  },
+  "runtime": {
+    "requestedPython": "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python",
+    "venvPythonSymlink": "python3",
+    "venvBaseInterpreter": "/Users/erik/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+    "failure": "Under isolated execution, runtime attestation raised PackageNotFoundError: no pyspark distribution metadata found",
+    "stderrSha256": "001e45e983de5f0aa9ddd834ff4711bdbd32cd6ddb12632166832a31956642c2"
+  },
+  "bounds": {
+    "wallSecondsMaximum": 300,
+    "streamBytesMaximum": 1048576,
+    "attemptBytesMaximum": 536870912,
+    "elapsedSeconds": 0.218,
+    "peakOwnedBytes": 19286,
+    "exitCode": 1
+  },
+  "noEffects": [
+    "Spark did not start",
+    "No tables were initialized",
+    "No publication or query ran",
+    "No source mutation or ACK occurred"
+  ],
+  "invocationSha256": "65f0f09bf990c3e7f37251d2e0b6edea9dfd3c396edb4703b0ca6f6b91bfa682",
+  "workerSha256": "98782054f62e8f7157ed8272f73ce3cb3931dd7cbf0de118db00e6256aafb3c6",
+  "supervisorSha256": "6ce21c98d36c69f1ac2dda4d032705b65bd4f9098b47781adeb1a1be446d1aaf",
+  "implementationSha256": {
+    "src/ashlar_host/configured_local_cli.py": "686d47f4925457174c44ae1f198c1e7e61c441a9814552a553c0b68a50a7493b",
+    "src/ashlar_host/configured_local_runtime.py": "87d6e798e497d80e75d1c3716b74c62c2e077de3cd93e3e75a45aa966d1bdb8e",
+    "src/ashlar_host/local_current_carrier_profile.py": "002f673be0fa0ad771ba4579ad97ccefc5e9ce11e0834ceed14ec68f01dd06a8",
+    "tests/test_configured_local_cli.py": "bdf72e29c3802eab649204dae7091bbb41c7c8cbf6e6f75697aff6fecdfd0b71",
+    "tests/test_configured_local_runtime.py": "f4c8681da95f9d7182901a9c6e8d940a44903b8dd76e539f402e518232abe244"
+  },
+  "deltaJars": {
+    "delta-spark_4.2_2.13-4.4.1.jar": "2b1d2cd411bf0bbced64b96fe621f8ffce7bb6e394c8064ab783fc6edce449be",
+    "delta-storage-4.4.1.jar": "f585818d646cb3625b305270ec24f3e6f0b6ea63ed9bac1ae8f340f8faaeae8f"
+  },
+  "sourceInputs": {
+    "configured-typed-graph-source.json": "040545b8cc96701a158b8936750c89f97ce991df9652ceeacf6c66fb9d9fc168",
+    "typed-graph-model.umf.json": "19ab3cc44efd769346b88fb7c5dc6792b59fd0057ed8846e4a0eec744f8e716b",
+    "typed-graph-source.jsonl": "9edb7566f82324fadb1e7cf1ba0eaf22691096a26209e938c83730d096d4882b",
+    "typed-graph-binding.json": "1ab1416d5a36a082c4d5be38dc061377bdae22bb5395fb8cfbec8cee80910863"
+  },
+  "umfBridge": {
+    "producerHead": "2ede4c879bea5db13794a6fa30e67c821306c17f",
+    "producerTree": "61eebfbe6dcd63c0768b20e514c250a526113d17",
+    "status": "effect-free preflight passed for all six configured roles; no producer effect was executed in this attempt"
+  },
+  "attemptDirectory": "/private/tmp/ashlar-delta4-init-attempts/init-905a70f60d124463ab2c177bb18bae67"
+}
