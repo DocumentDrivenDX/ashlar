@@ -13,7 +13,7 @@ MAXIMUM_BYTES = 8 * 1024 * 1024
 
 
 def read_next_transaction(assembly, transaction, source_identity, *,
-                          ok_type=None, page_type=None):
+                          ok_type=None, page_type=None, release_version='0.0.49'):
     """Return the next whole public FeedPage for a frozen source binding.
 
     Truss 0.0.49 exposes ``assembly.read_feed_in_transaction(transaction,
@@ -27,7 +27,8 @@ def read_next_transaction(assembly, transaction, source_identity, *,
             from truss import Ok
             from truss.feed import FeedPage
         except ImportError as error:
-            raise R04CustodyError('Selected Truss 0.0.49 public feed types are unavailable') from error
+            raise R04CustodyError(
+                f'Selected Truss {release_version} public feed types are unavailable') from error
         ok_type = Ok if ok_type is None else ok_type
         page_type = FeedPage if page_type is None else page_type
     required = ('consumer_id', 'registration_id')
@@ -43,7 +44,7 @@ def read_next_transaction(assembly, transaction, source_identity, *,
         maximum_bytes=MAXIMUM_BYTES,
     )
     if not isinstance(result, ok_type) or not isinstance(result.value, page_type):
-        raise R04CustodyError('Truss 0.0.49 did not return a public FeedPage')
+        raise R04CustodyError(f'Truss {release_version} did not return a public FeedPage')
     page = result.value
     if (page.outcome != 'transaction'
             or page.consumer_id != source_identity['consumer_id']

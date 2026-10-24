@@ -238,6 +238,13 @@ class R04ScheduleCustodyTests(unittest.TestCase):
         with patch('ashlar_host.r04_truss050_feed.importlib.metadata.version',return_value='0.0.49'):
             with self.assertRaisesRegex(R04CustodyError,'0.0.50'):
                 read_next_transaction_050(assembly,object(),binding,ok_type=Ok,page_type=type(page_value))
+        class WrongPageAssembly:
+            def read_feed_in_transaction(self, transaction, **kwargs): return Ok(object())
+        with patch('ashlar_host.r04_truss050_feed.importlib.metadata.version',return_value='0.0.50'), \
+             patch('ashlar_host.truss_current_catalog.installed_current_truss_profile',return_value=CURRENT_050_EVIDENCE_PROFILE):
+            with self.assertRaisesRegex(R04CustodyError,'Truss 0.0.50 did not return a public FeedPage'):
+                read_next_transaction_050(WrongPageAssembly(),object(),binding,
+                                          ok_type=Ok,page_type=type(page_value))
 
     def test_semantic_schedule_is_canonical_closed_and_eight_prefixes_exist(self):
         chosen = schedule()

@@ -26,4 +26,5 @@ def read_next_transaction(assembly, transaction, source_identity, *,
         raise R04CustodyError('Exact Truss 0.0.50 wheel/runtime profile required')
     from .r04_truss049_feed import read_next_transaction as read_pinned_api_page
     return read_pinned_api_page(assembly, transaction, source_identity,
-                                ok_type=ok_type, page_type=page_type)
+                                ok_type=ok_type, page_type=page_type,
+                                release_version=CURRENT_TRUSS_050_VERSION)
