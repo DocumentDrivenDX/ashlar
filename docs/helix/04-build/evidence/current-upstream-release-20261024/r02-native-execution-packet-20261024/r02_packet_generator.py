@@ -24,7 +24,7 @@ ATTEMPT_PARENT = Path("/private/tmp/ashlar-r02-attempts")
 UMF_ROOT = Path("/Users/erik/Projects/umf")
 UMF_REVISION = "2ede4c879bea5db13794a6fa30e67c821306c17f"
 PYTHON = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12")
-JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home")
+JAVA_HOME = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)
 BUN = Path("/opt/homebrew/bin/bun")
 GIT = Path("/usr/bin/git")
 JAR_ROOT = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/jars")
@@ -50,7 +50,8 @@ SOURCE_HASHES = {
 PACKET_HASHED = ("r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
                  "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
                  "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
-                 "compile-positive-backend03.py", "examples/configured-local/configuration.template.json")
+                 "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
+                 "attempt-refusal-23732236f7e94550b2fa24995c603b75.json")
 
 
 def sha256(path: Path) -> str:
@@ -171,6 +172,7 @@ def create_packet(output_root: Path | None = None) -> Path:
         make_private_layout(attempt)
         umf_source, umf_commit, umf_tree = export_umf(attempt)
         invocation_templates = make_invocations(attempt, attempt_id, umf_source)
+        parser_validation = validate_cli_invocations(invocation_templates)
         packet_files = {}
         for filename in PACKET_HASHED:
             source = ROOT / filename if filename.startswith("examples/") else PACKET / filename
@@ -198,6 +200,7 @@ def create_packet(output_root: Path | None = None) -> Path:
             "invocations": [str(path) for _case, _kind, path in invocation_templates],
             "invocationTemplates": [{"case": case, "kind": kind, "path": str(path), "sha256": sha256(path)}
                                     for case, kind, path in invocation_templates],
+            "selectedCliParserValidation": parser_validation,
             "attemptFiles": {
                 "input/configured-typed-graph-source.json": sha256(attempt / "input/configured-typed-graph-source.json"),
                 "input/typed-graph-model.umf.json": sha256(attempt / "input/typed-graph-model.umf.json"),
@@ -250,11 +253,11 @@ def make_private_layout(attempt: Path) -> None:
 
 def make_invocations(attempt: Path, attempt_id: str, umf_source: Path) -> list[tuple[str, str, Path]]:
     template = json.loads((ROOT / "examples/configured-local/configuration.template.json").read_text(encoding="utf-8"))
-    cases = [("initialize", "initialize", 0), ("batch-1", "publish", 1),
-             ("batch-2", "publish", 2), ("batch-3", "publish", 3),
-             ("batch-3-replay", "replay", 3)]
+    cases = [("initialize", "initialize", "initialize", 0), ("batch-1", "publish", "publish", 1),
+             ("batch-2", "publish", "publish", 2), ("batch-3", "publish", "publish", 3),
+             ("batch-3-replay", "replay", "publish", 3)]
     result = []
-    for case, operation, ordinal in cases:
+    for case, kind, operation, ordinal in cases:
         config = dict(template)
         config.update({"operation": operation, "ordinal": ordinal,
                        "python": str(PYTHON), "installation": str(attempt / "installation"),
@@ -267,8 +270,31 @@ def make_invocations(attempt: Path, attempt_id: str, umf_source: Path) -> list[t
                                   "receipt_bytes": 262144, "maximum_admission_receipt_bytes": 4194304}})
         path = attempt / "invocations" / f"{case}.template.json"
         path.write_bytes(canonical(config))
-        result.append((case, operation, path))
+        result.append((case, kind, path))
     return result
+
+
+def validate_cli_invocations(values: list[tuple[str, str, Path]]) -> list[dict[str, str]]:
+    """Parse generated templates in the selected installed CLI without running them."""
+    parser = '''import json,sys
+from pathlib import Path
+from ashlar_host.configured_local_cli import parse_configured_local
+out=[]
+for raw in sys.argv[1:]:
+ p=Path(raw); v=json.loads(p.read_bytes())
+ if v["operation"] != "initialize": v["installation_sha256"]="0"*64
+ parsed=parse_configured_local(json.dumps(v,sort_keys=True,separators=(",",":")).encode())
+ out.append({"name":p.name,"operation":parsed.operation})
+print(json.dumps(out,sort_keys=True))
+'''
+    output = subprocess.check_output([str(PYTHON), "-I", "-c", parser,
+                                      *[str(path) for _case, _kind, path in values]], text=True)
+    parsed = json.loads(output)
+    expected = [(path.name, "initialize" if case == "initialize" else "publish")
+                for case, _kind, path in values]
+    if [(item.get("name"), item.get("operation")) for item in parsed] != expected:
+        raise ValueError("selected installed configured-local parser did not admit all five operations")
+    return parsed
 
 
 def main() -> int:

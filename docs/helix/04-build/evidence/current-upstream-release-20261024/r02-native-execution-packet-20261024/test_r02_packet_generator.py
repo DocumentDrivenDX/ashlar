@@ -38,11 +38,17 @@ class PacketGeneratorTests(unittest.TestCase):
             self.assertEqual([(case, kind) for case, kind, _path in values], [
                 ("initialize", "initialize"), ("batch-1", "publish"), ("batch-2", "publish"),
                 ("batch-3", "publish"), ("batch-3-replay", "replay")])
+            parsed = generator.validate_cli_invocations(values)
+            self.assertEqual([item["operation"] for item in parsed],
+                             ["initialize", "publish", "publish", "publish", "publish"])
             for index, (_case, _kind, path) in enumerate(values):
                 config = json.loads(path.read_bytes())
                 self.assertTrue(path.resolve().is_relative_to(attempt.resolve()))
                 self.assertEqual(config["ordinal"], 0 if index == 0 else 1 if index == 1 else 2 if index == 2 else 3)
                 self.assertEqual(config["installation_sha256"], None if index == 0 else "@from-initialization@")
+                self.assertEqual(config["operation"], "initialize" if index == 0 else "publish")
+                java_home = Path(config["java_home"])
+                self.assertEqual(java_home.parent.resolve(), java_home.parent)
                 for key in ("installation", "output", "jars", "source_configuration"):
                     self.assertTrue(config[key].startswith(str(attempt.resolve())))
                 self.assertTrue(config["producer"]["source"].startswith(str(attempt.resolve())))

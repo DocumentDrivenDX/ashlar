@@ -201,6 +201,17 @@ prepublication does not invoke Weft. Public UMF core 0.10.1 validation and
 Weft 0.4.53 compilation use their separately verified environments. The
 packet does not claim a unified Python package cohort.
 
+The first supervised attempt is preserved as a consumed parse refusal in
+[`attempt-refusal-23732236f7e94550b2fa24995c603b75.json`](attempt-refusal-23732236f7e94550b2fa24995c603b75.json).
+It stopped during `initialize` because the symlinked Homebrew JDK path failed
+the CLI's canonical-parent check; no installation or publication was created.
+The consumed attempt is not retried. The generator now resolves Java home to
+its canonical Cellar path and validates all five templates with the selected
+installed CLI parser before it writes a supervisor manifest. For the final
+batch replay, the invocation uses the accepted CLI operation `publish` at
+ordinal 3 a second time; `replay` is the expected result state, not a CLI
+operation.
+
 ## One-shot supervisor gate
 
 [`r02_supervisor.py`](r02_supervisor.py) accepts the generated JSON manifest

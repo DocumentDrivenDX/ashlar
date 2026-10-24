@@ -1,0 +1,19 @@
+{
+  "profile": "ashlar-r02-attempt-refusal/0.1",
+  "attemptId": "23732236f7e94550b2fa24995c603b75",
+  "manifestSha256": "9a93cca5eea11c6edbf3d5db0a662b840d4e7c29f33e8aae12a569b0505d75f8",
+  "sourceRevision": "a09b6dbf33a4a6485092f9e136f876e3fb93b391",
+  "firstOperation": "initialize",
+  "outcome": "refused-before-installation-or-publication",
+  "cause": "ConfiguredLocalInvocation._path requires path.parent.resolve() == path.parent; the selected java_home used /opt/homebrew/opt/openjdk@21/... whose parent traverses the Homebrew opt symlink.",
+  "observed": {
+    "installationRegistryCreated": false,
+    "publicationCreated": false,
+    "readExecuted": false,
+    "sparkOrJavaStarted": false,
+    "sourceOrAckEffect": false,
+    "attemptStateConsumed": true
+  },
+  "retry": "prohibited; preserve this consumed attempt",
+  "scope": "This is a CLI parse refusal only. It is not native publication, read, or qualification evidence."
+}

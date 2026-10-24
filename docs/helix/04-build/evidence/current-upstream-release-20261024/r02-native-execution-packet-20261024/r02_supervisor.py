@@ -124,7 +124,8 @@ def verify_pins(manifest: dict) -> None:
     required_packet = {"r02_packet_generator.py", "r02_supervisor.py", "r02_invocation_worker.py",
                        "source-oracle.json", "umf-validation.json", "positive-backend03-request.json",
                        "positive-backend03-response.json", "positive-backend03-compiler-receipt.json",
-                       "compile-positive-backend03.py", "examples/configured-local/configuration.template.json"}
+                       "compile-positive-backend03.py", "examples/configured-local/configuration.template.json",
+                       "attempt-refusal-23732236f7e94550b2fa24995c603b75.json"}
     if set(manifest.get("packetFiles", {})) != required_packet:
         raise ValueError("packet file inventory is incomplete or contains unexpected files")
     for raw_path, expected in RUNTIME.items():
@@ -133,7 +134,7 @@ def verify_pins(manifest: dict) -> None:
             raise ValueError(f"runtime hash is stale or absent: {path.name}")
     identity = manifest.get("runtimeIdentity", {})
     python = Path("/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12")
-    java_home = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home")
+    java_home = Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)
     public_umf = Path("/private/tmp/umf056-public-wheel-verify/venv/bin/python3.12")
     public_weft = Path("/private/tmp/ashlar-weft053-adoption-20261023/venv/bin/python3.12")
     if (identity.get("nativePython") != str(python) or identity.get("javaHome") != str(java_home)
@@ -343,6 +344,12 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
             path = Path(template.get("path", ""))
             if path.is_symlink() or digest(path) != template.get("sha256"):
                 raise ValueError("invocation template bytes differ from their reviewed hash")
+        parser_results = manifest.get("selectedCliParserValidation")
+        expected_parser_results = [{"name": Path(item["path"]).name,
+                                    "operation": "initialize" if item["case"] == "initialize" else "publish"}
+                                   for item in templates]
+        if parser_results != expected_parser_results:
+            raise ValueError("all five exact templates require selected installed CLI parser validation")
         for relative, expected in manifest.get("attemptFiles", {}).items():
             path = attempt / relative
             if path.is_symlink() or attempt not in path.resolve(strict=True).parents or digest(path) != expected:
@@ -363,7 +370,7 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
                              str(attempt / "r02_invocation_worker.py"), "--attempt", str(attempt),
                              "--case", template["case"], "--template", template["path"],
                              "--python", "/private/tmp/ashlar-release-20261021-m3rde5p2/venv/bin/python3.12",
-                             "--java-home", "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+                             "--java-home", str(Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve(strict=True)),
                              "--template-sha256", template["sha256"]]
             if operation.get("argv") != expected_argv:
                 raise ValueError("operation argv differs from the fixed local runner worker command")
@@ -373,7 +380,8 @@ def execute(manifest_path: Path, review_path: Path, phase: str) -> None:
         raise ValueError("attempt receipts directory must be a fresh, empty private directory")
     if (attempt / "one-shot-state.json").exists() or (attempt / "one-shot-state.json").is_symlink():
         raise ValueError("attempt root already contains one-shot state")
-    run_identity = {"phase": phase, "sourceFiles": manifest.get("sourceFiles"),
+    run_identity = {"phase": phase, "sourceRevision": manifest.get("sourceRevision"),
+                    "manifestSha256": manifest_hash, "sourceFiles": manifest.get("sourceFiles"),
                     "publicationVectorSha256": manifest.get("publicationVectorSha256")}
     run_key = hashlib.sha256(json.dumps(run_identity, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
     ledger = base / f"ashlar-r02-consumed-{run_key}.json"

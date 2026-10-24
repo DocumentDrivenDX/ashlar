@@ -91,6 +91,11 @@ class SupervisorPhaseTests(unittest.TestCase):
                               "sha256": sha(path.read_bytes())})
         manifest["invocationTemplates"] = templates
         manifest["invocations"] = [item["path"] for item in templates]
+        manifest["selectedCliParserValidation"] = [
+            {"name": Path(item["path"]).name,
+             "operation": "initialize" if item["case"] == "initialize" else "publish"}
+            for item in templates
+        ]
         files = {}
         for relative in ("input/configured-typed-graph-source.json", "input/typed-graph-model.umf.json",
                          "input/typed-graph-source.jsonl", "input/typed-graph-binding.json",
@@ -107,7 +112,7 @@ class SupervisorPhaseTests(unittest.TestCase):
         for template in templates:
             argv = [python, "-I", "-B", worker, "--attempt", manifest["attemptRoot"],
                     "--case", template["case"], "--template", template["path"],
-                    "--python", python, "--java-home", "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+                    "--python", python, "--java-home", str(Path("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home").resolve()),
                     "--template-sha256", template["sha256"]]
             manifest["operations"].append({"case": template["case"], "kind": template["kind"],
                                             "templateSha256": template["sha256"], "argv": argv})
