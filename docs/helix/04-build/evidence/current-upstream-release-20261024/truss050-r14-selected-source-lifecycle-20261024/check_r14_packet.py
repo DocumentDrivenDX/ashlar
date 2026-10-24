@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""Focused, effect-free integrity check for the R14 evidence packet."""
+from __future__ import annotations
+import hashlib
+import json
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parent
+def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
+def load(name:str):return json.loads((ROOT/name).read_text())
+
+prep=load('preparation.json')
+result=load('r14-preflight-result.json')
+manifest=load('source-inputs-manifest.json')
+receipt=load('runtime-receipt.json')
+bridge=load('bridge-readiness.json')
+assert prep['selected_source']['commit']=='c33bef013d737b8a56f43faafe5f5c1966065d1f'
+assert sha(ROOT/'preparation.json')==result['source_preparation_sha256']
+assert prep['repository_state_at_packet_preparation']['observed_main_head']=='b926ae84dc67c1835ab91a8b043b1606d55fc6fb'
+assert prep['selected_source']['objects']=={'src':'7c6b4f14f4d55e539371aa9e61fa5c4752bc2c93','sql':'3cfe250fadd42ef4b25597f0eec7d10a426ce8ff','pyproject.toml':'7af01eeb58eaf0dbd7ae7d0246618e97a96ca724'}
+assert manifest['commit']==prep['selected_source']['commit']
+assert manifest['tree']==prep['selected_source']['tree']
+assert manifest['objects']==prep['selected_source']['objects']
+assert sha(ROOT/'source-inputs-manifest.json')==prep['selected_source']['manifest_sha256']
+assert sha(ROOT/'runtime-receipt.json')==prep['runtime']['receipt_sha256']
+assert receipt['budgets']['allocated_bytes']<=1073741824
+truss_wheel=next(w for w in receipt['install']['selected_wheels'] if w['distribution']=='truss-toolkit')
+assert truss_wheel['version']=='0.0.50'
+assert truss_wheel['sha256']=='7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00'
+assert bridge['status']=='ready' and bridge['ashlar_commit']==prep['selected_source']['commit']
+assert sha(ROOT/'bridge-readiness.json')==prep['bridge_sha256']
+assert result['worker_preflight']['outcome']=='ready_pending_hash_bound_operator_approval'
+assert result['supervisor_preflight']['outcome']=='pending_execution_admission'
+assert result['supervisor_preflight']['approval_contract_parity'].startswith('pending')
+assert result['supervisor_preflight']['sysv_shared_memory_gate']['cleanup_confirmed'] is True
+assert result['effect_boundary']=={'postgres_started':False,'spark_started':False,'truss_migration_applied':False,'source_or_consumer_mutated':False,'feed_publication_or_ack_mutated':False,'seed_submitted':False,'execution_approval_created':False,'execution_started_marker_created':False}
+for name in ('execution-approval.json','execution-started-r14-ec5760a4-7462-4047-9e6c-e228791c1348.json'):
+    assert not (ROOT/name).exists(),f'unexpected authorization/start artifact: {name}'
+private_root=Path('/private/tmp/ashlar-truss050-current-source-c33bef01-r14')
+attempt=private_root/prep['attempt']
+assert attempt.is_dir() and not any(attempt.iterdir()),'single-use attempt directory is not empty'
+assert not (private_root/'execution-approval.json').exists()
+assert not (private_root/'execution-started-r14-ec5760a4-7462-4047-9e6c-e228791c1348.json').exists()
+print('R14 packet integrity: passed; worker ready, supervisor admission pending; no authorization or native execution artifacts.')

@@ -1,0 +1,83 @@
+{
+  "profile": "ashlar-truss050-r14-preflight-result/0.1",
+  "source_preparation_sha256": "a5177696f7cfd0a8e660d367da14cbd9705c5e2f64e536ba1e56b8ed8bed552b",
+  "source_snapshot": {
+    "commit": "c33bef013d737b8a56f43faafe5f5c1966065d1f",
+    "tree": "8bfa46c16683bebff79124f1a35d668ab7a3c18a",
+    "src_git_object": "7c6b4f14f4d55e539371aa9e61fa5c4752bc2c93",
+    "sql_git_object": "3cfe250fadd42ef4b25597f0eec7d10a426ce8ff",
+    "pyproject_git_object": "7af01eeb58eaf0dbd7ae7d0246618e97a96ca724",
+    "observed_main_head": "b926ae84dc67c1835ab91a8b043b1606d55fc6fb",
+    "intervening_main_changes": "Documentation and evidence only; verified by git diff name-only between c33bef0 and b926ae8."
+  },
+  "worker_preflight": {
+    "command": "isolated .50 venv python -I -B campaign_worker_r14.py --preflight",
+    "profile": "ashlar-truss050-lifecycle-preflight/0.5",
+    "outcome": "ready_pending_hash_bound_operator_approval",
+    "stdout_sha256": "a4512c3c9ec93e5495f0df1d704bafdcd7bc3dfeb82c892f3377c425fa25ba94",
+    "worker_sha256_at_run": "e29ec48e32e51871fcad3628258227bec7fb240ed8423ea4a03253e4d1138754",
+    "truss_version": "0.0.50",
+    "truss_wheel_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+    "runtime_receipt_sha256": "fe48796cead974bc06821bd296428f47b389e1016a7b43ff186ec15cb03f72e5",
+    "pip_check": "passed",
+    "record_payloads_verified": 4445,
+    "record_errors": 0,
+    "allocated_runtime_bytes": 753451008,
+    "runtime_byte_cap": 1073741824,
+    "route": [
+      "c4339ac7f09ab5a004c272ab00962107a970938004c1765ec4163e4d5ca9b6f0",
+      "35fd797b5cf48dd888c68e53b9e599df20cffe00f8f3d33e1563820ea808d59f",
+      "288801f7177338328441b5d3ce9328af31740ebf513f04ea45e30ae316a9f3a4"
+    ],
+    "pg_started": false,
+    "spark_started": false,
+    "migration_apply_invoked": false,
+    "source_feed_or_ack_effect": false
+  },
+  "supervisor_preflight": {
+    "command": "isolated .50 venv python -I -B run_supervisor_r14.py --preflight",
+    "profile": "ashlar-truss050-offline-supervisor/0.5",
+    "outcome": "pending_execution_admission",
+    "stdout_sha256": "580743be8e9149a32c8b6606cf5828ed65044095df225a5692e3f632bc52869c",
+    "worker_sha256": "e29ec48e32e51871fcad3628258227bec7fb240ed8423ea4a03253e4d1138754",
+    "supervisor_sha256": "144dde1ee20f0d648b4385a874af2591f03a4c013213a8ffcafa01992ca6aa66",
+    "process_inventory": {
+      "status": "ready_readonly_libproc",
+      "observed_member_count": 1,
+      "supervisor_pid_present": true,
+      "separate_readonly_gate_observation": true
+    },
+    "sysv_shared_memory_gate": {
+      "status": "pending_sandbox_refusal",
+      "error": "shmctl(IPC_RMID) returned EPERM",
+      "supervisor_probe_shmid": 1638476,
+      "second_diagnostic_shmid": 1704014,
+      "cleanup_confirmed": true,
+      "approximate_event_time_utc": "2026-10-24 07:32 UTC",
+      "cleanup_evidence": {
+        "inventory_tool": "escalated ipcs -ma",
+        "observed_segments": [
+          {"shmid": 1638476, "size_bytes": 1, "attachments": 0, "observed_at_local": "2026-10-24 03:32:31 EDT"},
+          {"shmid": 1704014, "size_bytes": 1, "attachments": 0, "observed_at_local": "2026-10-24 03:32:37 EDT"}
+        ],
+        "removal": "Both exact IDs removed with ipcrm -m; escalated inventory confirmed both absent."
+      },
+      "action": "No further sandbox probe. The original supervisor preflight remains pending; its approval-parity result was not rerun after cleanup."
+    },
+    "approval_contract_parity": "pending because the SysV admission gate did not pass",
+    "execution_approval_created": false,
+    "execution_started_marker_created": false
+  },
+  "effect_boundary": {
+    "postgres_started": false,
+    "spark_started": false,
+    "truss_migration_applied": false,
+    "source_or_consumer_mutated": false,
+    "feed_publication_or_ack_mutated": false,
+    "seed_submitted": false,
+    "execution_approval_created": false,
+    "execution_started_marker_created": false
+  },
+  "final_status": "worker_ready_supervisor_pending_sandbox_sysv_cleanup_gate",
+  "historical_r13_sha256": "f5d26dbb8167eaf2053488c092760fccd01e6827e20417cba297d327e3eec96c"
+}

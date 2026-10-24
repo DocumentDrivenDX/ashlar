@@ -1,0 +1,339 @@
+{
+  "budgets": {
+    "allocated_bytes": 753451008,
+    "cap_bytes": 1073741824,
+    "logical_bytes": 737605284
+  },
+  "install": {
+    "installed_distribution_count": 28,
+    "mode": "--no-index --no-deps --force-reinstall from official local .50 wheel; no dependencies installed",
+    "pip_check": "No broken requirements found.",
+    "record_errors": 0,
+    "record_payload_counts": {
+      "annotated-types": 9,
+      "attrs": 37,
+      "delta_spark": 29,
+      "fasteners": 17,
+      "importlib_metadata": 21,
+      "jsonschema": 46,
+      "jsonschema-specifications": 30,
+      "mini-racer": 21,
+      "pgserver-pg18": 1723,
+      "pip": 442,
+      "platformdirs": 20,
+      "psutil": 18,
+      "psycopg": 92,
+      "psycopg-binary": 27,
+      "py4j": 41,
+      "pydantic": 113,
+      "pydantic_core": 13,
+      "pyspark": 1007,
+      "referencing": 21,
+      "rpds-py": 11,
+      "ruamel.yaml": 41,
+      "truss-toolkit": 481,
+      "typing-inspection": 11,
+      "typing_extensions": 7,
+      "umf-core": 42,
+      "umf_access": 100,
+      "weft-sql": 11,
+      "zipp": 14
+    },
+    "record_payloads_verified": 4445,
+    "selected_wheel_count": 27,
+    "selected_wheels": [
+      {
+        "direct_url_sha256": "f35cd18527bf200fdd6fc3e203b1ff106098cc683e70a89b74317c701cb172d9",
+        "distribution": "annotated-types",
+        "filename": "annotated_types-0.8.0-py3-none-any.whl",
+        "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+        "size_bytes": 13427,
+        "version": "0.8.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/annotated_types-0.8.0-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "2536b8d2855412d345425936b6eab48eaa6b05622dfa4ad58fb929250d1217cf",
+        "distribution": "attrs",
+        "filename": "attrs-26.1.0-py3-none-any.whl",
+        "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+        "size_bytes": 67548,
+        "version": "26.1.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/attrs-26.1.0-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "2e0daeb833311b9c55eee0971c63b2df60aca1ef90ed3bd816f89590393c354b",
+        "distribution": "delta_spark",
+        "filename": "delta_spark-4.4.1-py3-none-any.whl",
+        "sha256": "224814c76071236dd98c23e8d01da9f43bec21af4129cae92822ca25e5becec7",
+        "size_bytes": 54967,
+        "version": "4.4.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/delta_spark-4.4.1-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "a06ca8e21e2e13b54209b9b955a6dad72fad6719fd803b6a88d075d8e07938e9",
+        "distribution": "fasteners",
+        "filename": "fasteners-0.20-py3-none-any.whl",
+        "sha256": "9422c40d1e350e4259f509fb2e608d6bc43c0136f79a00db1b49046029d0b3b7",
+        "size_bytes": 18702,
+        "version": "0.20",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/fasteners-0.20-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "9550fc7baa728ebb39a5fc1797bb8725ec81061a64fb0fab6b18640d87ff4a89",
+        "distribution": "importlib_metadata",
+        "filename": "importlib_metadata-8.7.1-py3-none-any.whl",
+        "sha256": "5a1f80bf1daa489495071efbb095d75a634cf28a8bc299581244063b53176151",
+        "size_bytes": 27865,
+        "version": "8.7.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/importlib_metadata-8.7.1-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "a82c3b14afeed92751f396f517e09169f06c5283fc1670f971bb0d7a5e7c4886",
+        "distribution": "jsonschema",
+        "filename": "jsonschema-4.26.0-py3-none-any.whl",
+        "sha256": "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+        "size_bytes": 90630,
+        "version": "4.26.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/jsonschema-4.26.0-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "47ee178ebd6cea8ef703fb53478181012ac87b2aaefee97bcc1abe0137adbdb5",
+        "distribution": "jsonschema-specifications",
+        "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+        "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+        "size_bytes": 18437,
+        "version": "2025.9.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/jsonschema_specifications-2025.9.1-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "b15e5d2013f97902f9f791eb585338c8f89bbfade336c90340ba09ba14beefc3",
+        "distribution": "mini-racer",
+        "filename": "mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl",
+        "sha256": "56cc6965a1665a50d8d613bc43aa83b4cec6b1f09acc69dc4c2845dacb201463",
+        "size_bytes": 18511166,
+        "version": "0.14.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/mini_racer-0.14.1-py3-none-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "70989d5846b4266865c637c0d7551dd575226a00dda159f08443781031932060",
+        "distribution": "pgserver-pg18",
+        "filename": "pgserver_pg18-18.6.1-cp312-cp312-macosx_14_0_arm64.whl",
+        "sha256": "424165d468f69ab6b73ac40de3258d8e9cb85b4ffb6496767671edc836cdb862",
+        "size_bytes": 10820357,
+        "version": "18.6.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/pgserver_pg18-18.6.1-cp312-cp312-macosx_14_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "9b884230092fd77900991782a87e5a219f35ae821d910fa7743502e67183d424",
+        "distribution": "platformdirs",
+        "filename": "platformdirs-4.12.4-py3-none-any.whl",
+        "sha256": "78bfb9db2a8471ed7eebe3c3c932da413911042994e699b384fbb4493fa872d7",
+        "size_bytes": 32596,
+        "version": "4.12.4",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/platformdirs-4.12.4-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "2772b82fe42e00a68c9f8233bb7e16b14f097f8ac87deb3b1dbfb0cefea5fde4",
+        "distribution": "psutil",
+        "filename": "psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl",
+        "sha256": "1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+        "size_bytes": 129859,
+        "version": "7.2.2",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "06a5c5ac049cdc88367a7534d9e9053256077b813215da8e75a32b76cfaa495b",
+        "distribution": "psycopg",
+        "filename": "psycopg-3.3.6-py3-none-any.whl",
+        "sha256": "a1db9f7148b06a28606767efaca51fa6f9398c5c0a3810519be69d7000bdb631",
+        "size_bytes": 215490,
+        "version": "3.3.6",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/psycopg-3.3.6-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "6208934766e8a2751dbaecdd9fb17257dceebb4216431200172d096980e72e52",
+        "distribution": "psycopg-binary",
+        "filename": "psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl",
+        "sha256": "612382ac3ed13651c7fa44b5fee9fbf7baaa2ddbc6f500391672682c5f1df9e0",
+        "size_bytes": 4769607,
+        "version": "3.3.6",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "bac92edf98379c5c16b6a0b996f1f69865b51032ad5172c76ba86e46bff6c4fd",
+        "distribution": "py4j",
+        "filename": "py4j-0.10.9.9-py2.py3-none-any.whl",
+        "sha256": "c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533",
+        "size_bytes": 203008,
+        "version": "0.10.9.9",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/py4j-0.10.9.9-py2.py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "97d68e16190e94bccffd0d12919fb449c30227a0b5a40c24275d7a21f30a3f3e",
+        "distribution": "pydantic",
+        "filename": "pydantic-2.14.1-py3-none-any.whl",
+        "sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454",
+        "size_bytes": 488106,
+        "version": "2.14.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/pydantic-2.14.1-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "6c0c73635f4cbfb690a2cb3109bcaa9e1b1cb7985aeade900472a27438c6bb1b",
+        "distribution": "pydantic_core",
+        "filename": "pydantic_core-2.50.1-cp312-cp312-macosx_11_0_arm64.whl",
+        "sha256": "e8e1d6ce820aa23317e8209a86bd65a540973c12dc7552b48a4f6c8e9926815e",
+        "size_bytes": 2025779,
+        "version": "2.50.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/pydantic_core-2.50.1-cp312-cp312-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "d31bba8909edb246c1f384d254ea2cb540b6bb621c5d3f0afe6ab37c70d7f064",
+        "distribution": "pyspark",
+        "filename": "pyspark-4.2.0-py2.py3-none-any.whl",
+        "sha256": "5cc610e9ed56a022b63724e0ad62e9f7f9e47a2520802ae9d8c75826d1faf8cc",
+        "size_bytes": 450798674,
+        "version": "4.2.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/pyspark-4.2.0-py2.py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "3b59ef616314f37d86f6339ee5ae1afbdea8713fb9e440f103ebeb4b4b4237d2",
+        "distribution": "referencing",
+        "filename": "referencing-0.37.0-py3-none-any.whl",
+        "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+        "size_bytes": 26766,
+        "version": "0.37.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/referencing-0.37.0-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "d9573b94fb886fefab24a7965c625d3a2cf5c2cc6b357b5272f4660a731595df",
+        "distribution": "rpds-py",
+        "filename": "rpds_py-2026.9.1-cp312-cp312-macosx_11_0_arm64.whl",
+        "sha256": "e21c1429e205828ea886a2293a4a2c8e01f4c25d9893ca330e97a6cf73f52e7b",
+        "size_bytes": 341380,
+        "version": "2026.9.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/rpds_py-2026.9.1-cp312-cp312-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "455c3b183d849a333051d1f5ea1342f8fc0379e7fe62395e54c00918ec335fc8",
+        "distribution": "ruamel.yaml",
+        "filename": "ruamel_yaml-0.19.1-py3-none-any.whl",
+        "sha256": "27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93",
+        "size_bytes": 118102,
+        "version": "0.19.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/ruamel_yaml-0.19.1-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "c9eb32e881b9b22950f87c02ec7e5bfda09729413a24e30ba7cb5f8acb32a085",
+        "distribution": "truss-toolkit",
+        "filename": "truss_toolkit-0.0.50-py3-none-any.whl",
+        "sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+        "size_bytes": 6237543,
+        "version": "0.0.50",
+        "wheel_path": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "4e9a3df6b8550678501348d9d214edd3e527b4224acf22f8d07a27bc379567f7",
+        "distribution": "typing-inspection",
+        "filename": "typing_inspection-0.4.4-py3-none-any.whl",
+        "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+        "size_bytes": 14750,
+        "version": "0.4.4",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/typing_inspection-0.4.4-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "950c247cb26ad0c5fed14ab8903b01602e2767b0ce2391a43eada8c246c75450",
+        "distribution": "typing_extensions",
+        "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+        "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+        "size_bytes": 45571,
+        "version": "4.16.0",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "6d8c25c015b0ee03eb33aa221a0a48e09cd4d3d732c22a9483673e70f59616da",
+        "distribution": "umf-core",
+        "filename": "umf_core-0.10.1-cp311-abi3-macosx_11_0_arm64.whl",
+        "sha256": "49459bb2dbc37ac9b62b269e9664bac1483439c7d4c79f0b07855e9c8546c823",
+        "size_bytes": 3250983,
+        "version": "0.10.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/umf_core-0.10.1-cp311-abi3-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "4d59ac904027960afc18cf056d5823527bc291b0a953d11803f9f6a5097f664b",
+        "distribution": "umf_access",
+        "filename": "umf_access-0.1.0.dev7-py3-none-any.whl",
+        "sha256": "a78053ab8f35f55f23661de780f351f90e71299773774b62938ffb09270f3597",
+        "size_bytes": 336885,
+        "version": "0.1.0.dev7",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/umf_access-0.1.0.dev7-py3-none-any.whl"
+      },
+      {
+        "direct_url_sha256": "db76917dd4880615fcb7e7dce520c73959b465c0bd6be2385e76fefb2289ba0e",
+        "distribution": "weft-sql",
+        "filename": "weft_sql-0.4.53-cp39-abi3-macosx_11_0_arm64.whl",
+        "sha256": "4c8281945b852af02cae8602747fb7b1b652ab3a1369d7650efce62ae6d35c6c",
+        "size_bytes": 10842336,
+        "version": "0.4.53",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/weft_sql-0.4.53-cp39-abi3-macosx_11_0_arm64.whl"
+      },
+      {
+        "direct_url_sha256": "a4a7868dd57898aedacab93ec8685adeaa760a864667b006cda104c34b32d7fd",
+        "distribution": "zipp",
+        "filename": "zipp-4.1.1-py3-none-any.whl",
+        "sha256": "8979f52d874162f485ff2981e3891f3a3317b7a3dd43ff1e1775b9304f307a9c",
+        "size_bytes": 10582,
+        "version": "4.1.1",
+        "wheel_path": "/private/tmp/ashlar-truss049-current-cohort-1f8c3fc2-r7/wheelhouse/zipp-4.1.1-py3-none-any.whl"
+      }
+    ],
+    "truss_wheel_path": "/private/tmp/truss050-qualify/truss_toolkit-0.0.50-py3-none-any.whl",
+    "truss_wheel_sha256": "7b0483bb0c624c98515cf38ec30bbbf1ca43c1250e8880e5d00d520b4b7eec00",
+    "versions": {
+      "annotated-types": "0.8.0",
+      "attrs": "26.1.0",
+      "delta_spark": "4.4.1",
+      "fasteners": "0.20",
+      "importlib_metadata": "8.7.1",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "mini-racer": "0.14.1",
+      "pgserver-pg18": "18.6.1",
+      "pip": "25.0.1",
+      "platformdirs": "4.12.4",
+      "psutil": "7.2.2",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "py4j": "0.10.9.9",
+      "pydantic": "2.14.1",
+      "pydantic_core": "2.50.1",
+      "pyspark": "4.2.0",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1",
+      "ruamel.yaml": "0.19.1",
+      "truss-toolkit": "0.0.50",
+      "typing-inspection": "0.4.4",
+      "typing_extensions": "4.16.0",
+      "umf-core": "0.10.1",
+      "umf_access": "0.1.0.dev7",
+      "weft-sql": "0.4.53",
+      "zipp": "4.1.1"
+    }
+  },
+  "native_actions": {
+    "migration_invoked": false,
+    "postgres_started": false,
+    "source_feed_publication_or_ack_mutated": false,
+    "spark_started": false
+  },
+  "runtime": {
+    "clone_method": "APFS copy-on-write clone of exact R12 venv; only Truss distribution force-reinstalled",
+    "include_system_site_packages": false,
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "prefix": "/private/tmp/ashlar-truss050-current-cohort-9c745278-r13/runtime/venv",
+    "python": "3.12.14",
+    "site_packages_count_on_sys_path": 1,
+    "source_runtime_receipt_sha256": "517ac6892280e911060688afc75528907e62aa5d6d290abf6d9b166f5da5617a"
+  },
+  "schema": "ashlar-r13-current-cohort-runtime-receipt/0.1",
+  "status": "passed_effect_free_runtime_install_and_record_checks"
+}
