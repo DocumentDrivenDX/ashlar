@@ -313,9 +313,8 @@ class ConfiguredSdk053LiveSession:
         self.owner.after=None if after is None else tuple(after.values)
         self.owner.retained=0;self.owner.checked=None;self.owner.frames=[]
         if after is None:
-            # Reviewer wait time belongs to the process deadline, not the SDK
-            # operation timeout. Start the bounded query clock after approval.
-            self.started=time.monotonic()
+            # Give each native page operation a fresh timeout after review;
+            # reviewer wait is bounded by the separate process deadline.
             return self.target.page(self.entry,self.query.parameters,after=None,
                 timeout=timedelta(seconds=self.query.timeout_seconds))
         # Freeze the exact continuation check before page execution.  The gate
@@ -333,9 +332,7 @@ class ConfiguredSdk053LiveSession:
         self.owner.continuation_checked=checked_raw.encode()
         self.review_gate.freeze({'backend02-continuation':{'request':request_raw,
             'response':checked_raw.encode(),'expected':expected,'after':after_raw}})
-        self.started=None
         def execute_page2():
-            self.started=time.monotonic()
             return self.target.page(self.entry,self.query.parameters,after=after,
                 timeout=timedelta(seconds=self.query.timeout_seconds))
         return self.review_gate.execute_after_review(self.review_gate.root/'post-page1-review.json',
