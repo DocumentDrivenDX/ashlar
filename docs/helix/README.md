@@ -50,6 +50,10 @@ SDK paging; a separate native one-table Delta check accepted a candidate DDL
 shape. One bounded local GraphFrames 0.12.3 action over persisted 5-node/4-edge
 Delta fixtures passed with independent result and owned cleanup checks
 ([R14 result](04-build/evidence/canonical-graphframes-holder-candidate-20261023/r05-native-action-r13/README.md)).
+The current-core configured-local `.3` path also completed a reviewed native
+initialize, three publication batches and exact replay. Its selected Weft
+0.4.53 native singleton/query continuation and the separate `.4-xxhash64`
+profile remain open ([R02 result](04-build/evidence/current-upstream-release-20261024/r02-native-prepublication-20261024/README.md)).
 Managed Unity Catalog and the full Truss lifecycle remain unqualified.
 Managed A1 also remains unadmitted: policy use and cluster-creation entitlement
 are unproven, source-holder custody is open, and no conservative total-cost
