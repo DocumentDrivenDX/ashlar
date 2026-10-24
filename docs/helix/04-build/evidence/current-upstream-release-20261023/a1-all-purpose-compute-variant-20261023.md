@@ -35,24 +35,36 @@ The [billing usage table](https://learn.microsoft.com/en-us/azure/databricks/adm
 does not populate `job_id` for jobs on all-purpose compute, so a bounded pilot
 would need cost attribution to its dedicated owned cluster and runtime interval.
 
-The existing [Central US retail observation](managed-fixed-jobs-retail-observation.json)
-records $0.255 per D4ds_v5 VM-hour. The Azure Retail Prices API observation for
-the Premium All-purpose Compute DBU meter
-`aad24629-5578-4bfb-b890-62e2779afe8a` is $0.55 per DBU-hour. Conditional
-one-node estimate: `$0.255 + $0.55 * x` per hour, where `x` is actual DBU/hour.
-At an unverified assumption of `x = 2`, a 40-minute A1 slot is about $0.90;
-eight slots are about $7.23 before ancillary or idle charges. Adding the existing
-$5 preferred reserve gives about $12.23 for eight slots, above the preferred
-$10 envelope. The $100 hard ceiling is not admitted by this estimate.
+The [Central US retail observation](managed-fixed-jobs-retail-observation.json)
+records $0.255 per D4ds_v5 VM-hour. Microsoft's current
+[Azure Databricks pricing table](https://azure.microsoft.com/en-us/pricing/details/databricks/)
+lists D4ds v5 (4 vCPU, 16 GiB) at 2.00 DBU under Premium All-Purpose Compute's
+Ddsv5 series. The policy fixes the Standard engine; the public table row supplies
+the per-node retail DBU count for this candidate shape, not a measurement from
+this workspace. The Premium All-purpose Compute DBU rate is $0.55 per DBU-hour
+(Azure Retail Prices API meter `aad24629-5578-4bfb-b890-62e2779afe8a`). On that
+public PAYG basis, one node costs `$0.255 + (2.00 * $0.55) = $1.355/hour`:
+about $0.90 for one 40-minute slot and $7.23 for eight 40-minute slots, before
+ancillary or idle charges. Adding an illustrative, assumed campaign-wide $20
+ancillary and cleanup reserve gives about $27.23 for eight slots. This is a
+scoped retail estimate, not a total bound: actual billing
+granularity, negotiated
+account rates, startup/idle time, disks, networking, predictive-optimization
+background usage and cleanup charges remain unmeasured. The $100 hard ceiling
+is not admitted by this estimate.
 
 ## Limits and next gate
 
-`x = 2` is an unverified assumption; public pricing may list a 2-DBU shape, but
-the workspace's actual consumption is unknown. No build, runtime, grant,
-provisioning, task-isolation, or cleanup evidence exists. Separate task processes
-on the same cluster still require a stale-state test and a retained source holder.
-This note does not establish execution or authorize launch.
+The 2.00 DBU count is the public rate-table basis for the named SKU and tier;
+workspace billing and ancillary usage remain unobserved. No build, runtime,
+grant, provisioning, task-isolation, or cleanup evidence exists. Separate task
+processes on the same cluster still require a stale-state test and a retained
+source holder. This note does not establish execution or authorize launch.
 
-An all-purpose option needs separate reviewed design and cost admission, including
-explicit termination controls. The [A1 constraints](managed-a1-correctness-trial-constraints.md)
-and TD-009's Jobs proposal remain unchanged.
+An all-purpose option needs separate reviewed design and cost admission. The
+policy's auto-termination default is 4,320 minutes and permits the setting to be
+unlimited; any future dedicated cluster must explicitly set a short
+auto-termination interval (for example, 10 minutes) and have an external
+termination control. These are launch guards, not provider shutdown guarantees.
+The [A1 constraints](managed-a1-correctness-trial-constraints.md) and TD-009's
+Jobs proposal remain unchanged.
